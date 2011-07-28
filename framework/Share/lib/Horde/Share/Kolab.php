@@ -666,6 +666,10 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $data['name'],
             $data['default'],
             $data['parent'],
+            $data['type'],
+            $data['delimiter'],
+            $data['prefix'],
+            $data['subpath'],
             $data['folder']
         );
         $query->setParameters($this->_idDecode($id), $data);

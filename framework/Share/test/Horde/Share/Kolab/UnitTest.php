@@ -301,6 +301,23 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testShareData()
+    {
+        $share = $this->_getPrefilledDriver()
+            ->getShareById($this->_getId('john', 'Calendar'));
+        $share->set('other', 'OTHER');
+        $share->save();
+        $this->assertEquals(
+            array(
+                'other' => 'OTHER',
+                'share_name' => 'internal_id'
+            ),
+            $this->list
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getParameters('INBOX/Calendar')
+        );
+    }
+
     public function testNewShare()
     {
         $this->assertEquals(
@@ -308,6 +325,34 @@ extends PHPUnit_Framework_TestCase
             $this->_getPrefilledDriver()
             ->newShare('john', 'IGNORE', 'test')
             ->get('owner')
+        );
+    }
+
+    public function testNewShareSupportsName()
+    {
+        $this->assertEquals(
+            'SHARE',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'SHARE', 'test')
+            ->getName()
+        );
+    }
+
+    public function testNewShareData()
+    {
+        $share = $this->_getPrefilledDriver()
+            ->newShare('john', 'SHARE', 'test');
+        $share->set('other', 'OTHER');
+        $share->save();
+        $result = $this->list
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getParameters('INBOX/test');
+        $this->assertEquals(
+            array(
+                'other' => 'OTHER',
+                'share_name' => 'SHARE'
+            ),
+            $result
         );
     }
 
