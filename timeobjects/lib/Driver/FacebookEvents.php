@@ -59,7 +59,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
 
             $objects[] = array(
                 'id' => $event['eid'],
-                'title' => $event['name'] . ' - ' . $event['tagline'],
+                'title' => $event['name'] . (strlen($event['tagline']) ? ' - ' . $event['tagline'] : ''),
                 'start' => sprintf('%d-%02d-%02dT%02d:%02d:00',
                                    $start->year,
                                    $start->month,
@@ -73,6 +73,8 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
                                    $end->hour,
                                    $end->min),
                 'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
+                'location' => $event['location'],
+                'description' => $event['description'],
                 'params' => array(),
                 'icon' => $event['pic_square']
             );

@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Export location and description of Facebook events.
 * [jan] Fix timezone conversion of Facebook events (Bug #10341).
  </notes>
  <contents>
@@ -239,6 +240,7 @@
    <date>2011-05-09</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [jan] Export location and description of Facebook events.
 * [jan] Fix timezone conversion of Facebook events (Bug #10341).
    </notes>
   </release>
