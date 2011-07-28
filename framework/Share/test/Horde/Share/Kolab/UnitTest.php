@@ -181,12 +181,11 @@ extends PHPUnit_Framework_TestCase
 
     public function testGetShare()
     {
-        $this->assertEquals(
-            array('john', 'Calendar'),
-            $this->_decodeId(
-                $this->_getPrefilledDriver()->getShare('internal_id')->getId()
-            )
+        $result = $this->_decodeId(
+            $this->_getPrefilledDriver()->getShare('internal_id')->getId()
         );
+        $this->assertContains('john', $result);
+        $this->assertContains('Calendar', $result);
     }
 
     public function testGetShareName()
