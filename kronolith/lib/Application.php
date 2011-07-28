@@ -187,7 +187,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 break;
             case 'sync_calendars':
                 $out = array();
-                foreach (Kronolith::listInternalCalendars(true) as $key => $cal) {
+                foreach (Kronolith::listInternalCalendars(true, Horde_Perms::EDIT) as $key => $cal) {
                     $out[$key] = $cal->get('name');
                     $sync = @unserialize($prefs->getValue('sync_calendars'));
                     if (empty($sync)) {

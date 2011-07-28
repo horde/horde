@@ -1653,6 +1653,34 @@ class Kronolith
     }
 
     /**
+     * Returns whether the current user has certain permissions on a calendar.
+     *
+     * @since Kronolith 3.0.6
+     *
+     * @param string $calendar  A calendar id.
+     * @param integer $perm     A Horde_Perms permission mask.
+     *
+     * @return boolean  True if the current user has the requested permissions.
+     */
+    static public function hasPermission($calendar, $perm)
+    {
+        try {
+            $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+            if ($calendar == 'dirk') {
+                Horde::debug($perm);
+                Horde::debug($share->getPermission());
+                Horde::debug($share->getShareOb()->getPermsObject()->getPermissions($share->getPermission(), $GLOBALS['registry']->getAuth(), null));
+            }
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
+                throw new Horde_Exception_NotFound();
+            }
+        } catch (Horde_Exception_NotFound $e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Creates a new share.
      *
      * @param array $info  Hash with calendar information.
