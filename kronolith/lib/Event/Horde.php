@@ -108,6 +108,9 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $this->icon = !empty($event['icon']) ? $event['icon'] : null;
         $this->title = $event['title'];
         $this->description = isset($event['description']) ? $event['description'] : '';
+        if (isset($event['location'])) {
+            $this->location = $event['location'];
+        }
         $this->start = $eventStart;
         $this->end = $eventEnd;
         $this->status = Kronolith::STATUS_FREE;
@@ -167,6 +170,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
             'icon' => $this->icon,
             'title' => $this->title,
             'description' => $this->description,
+            'location' => $this->location,
             'start' => $this->start->format('Y-m-d\TH:i:s'),
             'end' => $this->end->format('Y-m-d\TH:i:s'),
             'params' => $this->_params,
