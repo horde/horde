@@ -1964,6 +1964,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (empty($options['ids'])) {
             $options['ids'] = new Horde_Imap_Client_Ids(empty($options['fetch_res']) ? Horde_Imap_Client_Ids::ALL : array_keys($options['fetch_res']));
+            if ($options['ids']->isEmpty()) {
+                return array();
+            }
         } elseif ($options['ids']->isEmpty()) {
             return array();
         } elseif ($options['ids']->search_res &&
