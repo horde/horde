@@ -121,6 +121,7 @@ implements Horde_Kolab_Storage_List_Query_List
                     'default' => $folder_type->isDefault(),
                     'owner' => $namespace->getOwner($folder),
                     'name' => $namespace->getTitle($folder),
+                    'subpath' => $namespace->getSubpath($folder),
                     'prefix' => $namespace->matchNamespace($folder)->getName(),
                     'parent' => $namespace->getParent($folder),
                     'delimiter' => $namespace->matchNamespace($folder)->getDelimiter(),

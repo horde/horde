@@ -353,6 +353,7 @@ implements Horde_Kolab_Storage_List_Query_List
                 'prefix' => $folders[$folder]['prefix'],
                 'parent' => $folders[$folder]['parent'],
                 'delimiter' => $folders[$folder]['delimiter'],
+                'subpath' => $folders[$folder]['subpath'],
                 'folder' => $folder,
             );
 
