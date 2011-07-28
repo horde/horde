@@ -68,7 +68,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('INBOX/test/sub', $namespace);
-            $this->assertEquals('test:sub', $folder->getTitle());
+            $this->assertEquals('sub', $folder->getTitle());
         }
     }
 
