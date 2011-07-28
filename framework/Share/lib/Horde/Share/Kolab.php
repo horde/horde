@@ -286,7 +286,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
                 return $this->getShareById(
                     $this->constructId(
                         $folder_data['owner'],
-                        $folder_data['name'],
+                        $folder_data['subpath'],
                         isset($folder_data['prefix']) ? $folder_data['prefix'] : null
                     )
                 );
