@@ -256,8 +256,9 @@ implements Iterator, Serializable
         } else {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
-                    'No namespace of the type %s!',
-                    $type
+                    'No namespace of the type %s%s!',
+                    $type,
+                    ($prefix !== null) ? ' with prefix \"' . $prefix . '\"' : ''
                 )
             );
         }
