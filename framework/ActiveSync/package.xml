@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-07-27</date>
- <time>21:24:30</time>
+ <time>21:25:32</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* [mjr] Add missing migration file to package.xml
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -336,6 +336,19 @@
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
 * [mjr] Add missing migration file to package.xml
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
