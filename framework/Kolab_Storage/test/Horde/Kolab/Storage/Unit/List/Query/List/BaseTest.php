@@ -372,4 +372,10 @@ extends Horde_Kolab_Storage_TestCase
         $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
         $this->assertEquals('Calendar', $data['subpath']);
     }
+
+    public function testFolderDataHasDelimiter()
+    {
+        $data = $this->getAnnotatedQuery()->folderData('INBOX/Calendar');
+        $this->assertEquals('/', $data['delimiter']);
+    }
 }
