@@ -1666,11 +1666,6 @@ class Kronolith
     {
         try {
             $share = $GLOBALS['kronolith_shares']->getShare($calendar);
-            if ($calendar == 'dirk') {
-                Horde::debug($perm);
-                Horde::debug($share->getPermission());
-                Horde::debug($share->getShareOb()->getPermsObject()->getPermissions($share->getPermission(), $GLOBALS['registry']->getAuth(), null));
-            }
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
                 throw new Horde_Exception_NotFound();
             }
