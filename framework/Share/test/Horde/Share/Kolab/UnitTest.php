@@ -163,7 +163,7 @@ extends PHPUnit_Framework_TestCase
         $share = $this->_getCompleteDriver();
         $object = $share->newShare('john', 'IGNORED', 'test');
         $this->assertEquals(
-            array('john', 'test'), $this->_decodeId($object->getId())
+            array('john', 'test', 'INBOX'), $this->_decodeId($object->getId())
         );
     }
 
@@ -353,6 +353,46 @@ extends PHPUnit_Framework_TestCase
                 'share_name' => 'SHARE'
             ),
             $result
+        );
+    }
+
+    public function testNewShareDelimiter()
+    {
+        $this->assertEquals(
+            '/',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'IGNORE', 'test')
+            ->get('delimiter')
+        );
+    }
+
+    public function testNewShareSubpath()
+    {
+        $this->assertEquals(
+            'test',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'IGNORE', 'test')
+            ->get('subpath')
+        );
+    }
+
+    public function testNewShareFolder()
+    {
+        $this->assertEquals(
+            'INBOX/test',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'IGNORE', 'test')
+            ->get('folder')
+        );
+    }
+
+    public function testNewShareType()
+    {
+        $this->assertEquals(
+            'event',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'IGNORE', 'test')
+            ->get('type')
         );
     }
 
