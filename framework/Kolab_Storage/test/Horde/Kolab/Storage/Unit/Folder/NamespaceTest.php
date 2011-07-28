@@ -224,35 +224,35 @@ extends Horde_Kolab_Storage_TestCase
     public function testConstructFolderPathPersonal()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $this->assertEquals('INBOX/b', $namespace->constructFolderPath('test', 'INBOX', 'b'));
+            $this->assertEquals('INBOX/b', $namespace->constructFolderName('test', 'b', 'INBOX'));
         }
     }
 
     public function testConstructFolderPathOther()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $this->assertEquals('user/other/c', $namespace->constructFolderPath('other', 'user', 'c'));
+            $this->assertEquals('user/other/c', $namespace->constructFolderName('other', 'c', 'user'));
         }
     }
 
     public function testConstructFolderPathOtherWithDomain()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $this->assertEquals('user/other/c@domain.de', $namespace->constructFolderPath('other@domain.de', 'user', 'c'));
+            $this->assertEquals('user/other/c@domain.de', $namespace->constructFolderName('other@domain.de', 'c', 'user'));
         }
     }
 
     public function testConstructFolderPathOtherWithoutDomain()
     {
         foreach ($this->_getNamespaces('test@domain.de') as $namespace) {
-            $this->assertEquals('user/other/c', $namespace->constructFolderPath('other@domain.de', 'user', 'c'));
+            $this->assertEquals('user/other/c', $namespace->constructFolderName('other@domain.de', 'c', 'user'));
         }
     }
 
     public function testConstructFolderPathShared()
     {
         foreach ($this->_getNamespaces() as $namespace) {
-            $this->assertEquals('shared.c', $namespace->constructFolderPath(false, '', 'c'));
+            $this->assertEquals('shared.c', $namespace->constructFolderName(false, 'c', ''));
         }
     }
 

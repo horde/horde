@@ -169,35 +169,13 @@ implements Iterator, Serializable
      * Construct the Kolab storage folder name based on the folder
      * title and the owner.
      *
-     * @param string $owner The owner of the folder.
-     * @param string $name  The folder title.
+     * @param string $owner   The owner of the folder.
+     * @param string $subpath The folder subpath.
+     * @param string $prefix  The namespace prefix.
      *
      * @return string The folder name for the backend.
      */
-    public function constructFolderName($owner, $name)
-    {
-        if (empty($owner)) {
-            return $this->setTitleInShared($name);
-        } else if ($owner == $this->user) {
-            return $this->setTitle($name);
-        } else {
-            return $this->setTitleInOther($name, $owner);
-        }
-    }
-
-    /**
-     * Construct the Kolab storage folder path based on the folder
-     * subpath, the namespace and the owner.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
-     * @param string $owner    The owner of the folder.
-     * @param string $prefix   The namespace prefix.
-     * @param string $subpath  The folder subpath.
-     *
-     * @return string The folder name for the backend.
-     */
-    public function constructFolderPath($owner, $prefix, $subpath)
+    public function constructFolderName($owner, $subpath, $prefix = null)
     {
         if (empty($owner)) {
             return $this->_getNamespace(self::SHARED, $prefix)
