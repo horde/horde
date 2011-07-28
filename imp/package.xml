@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>13:08:24</time>
+ <date>2011-07-28</date>
+ <time>16:32:31</time>
  <version>
   <release>5.0.9</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
 * [mms] Select all checkbox in dynamic view can now be toggled.
 * [mms] Remember vertical splitbar size in dynamic view.
 * [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
@@ -2350,9 +2351,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-07-28</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
 * [mms] Select all checkbox in dynamic view can now be toggled.
 * [mms] Remember vertical splitbar size in dynamic view.
 * [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).

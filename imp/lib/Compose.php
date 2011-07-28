@@ -1630,6 +1630,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $msg_text['mode'] = 'text';
         }
 
+        // Bug #10148: Message text might be us-ascii, but reply headers may
+        // contain 8-bit characters.
+        if (($msg_text['charset'] == 'us-ascii') &&
+            (Horde_Mime::is8bit($msg_pre, 'UTF-8') ||
+             Horde_Mime::is8bit($msg_post, 'UTF-8'))) {
+            $msg_text['charset'] = 'UTF-8';
+        }
+
         return array(
             'body' => $msg . "\n",
             'charset' => $msg_text['charset'],
@@ -1768,7 +1776,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @return array  An array with the following keys:
      * <pre>
      * 'body'    - The text of the body part
-     * 'charset' - The guessed charset to use for the reply
+     * 'charset' - The guessed charset to use for the forward
      * 'format'  - The format of the body message
      * </pre>
      */
@@ -1800,6 +1808,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         } else {
             $msg = $msg_pre . $msg_text['text'] . $msg_post;
             $format = 'text';
+        }
+
+        // Bug #10148: Message text might be us-ascii, but forward headers may
+        // contain 8-bit characters.
+        if (($msg_text['charset'] == 'us-ascii') &&
+            (Horde_Mime::is8bit($msg_pre, 'UTF-8') ||
+             Horde_Mime::is8bit($msg_post, 'UTF-8'))) {
+            $msg_text['charset'] = 'UTF-8';
         }
 
         return array(
