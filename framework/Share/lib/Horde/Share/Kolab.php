@@ -167,14 +167,15 @@ class Horde_Share_Kolab extends Horde_Share_Base
      *
      * @param string $name  The share name.
      * @param string $owner The owner of the share.
+     * @param string $prefix  The namespace prefix.
      *
      * @return string The folder name for the Kolab backend.
      */
-    public function constructFolderName($owner, $name)
+    public function constructFolderName($owner, $name, $prefix = null)
     {
         return $this->getList()
             ->getNamespace()
-            ->constructFolderName($owner, $name);
+            ->constructFolderName($owner, $name, $prefix);
     }
 
     /**

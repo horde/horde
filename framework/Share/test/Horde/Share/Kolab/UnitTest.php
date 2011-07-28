@@ -433,6 +433,33 @@ extends PHPUnit_Framework_TestCase
         $this->assertEquals('NAME', $object->get('share_name'));
     }
 
+    public function testConstructFolderName()
+    {
+        $share = $this->_getCompleteDriver();
+        $this->assertEquals('INBOX/test', $share->constructFolderName('john', 'test'));
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testConstructFolderNameInComplexNamespace()
+    {
+        $share = $this->_getComplexNamespaceDriver();
+        $this->assertEquals('INBOX/test', $share->constructFolderName('john', 'test'));
+    }
+
+    public function testConstructFolderNameInInbox()
+    {
+        $share = $this->_getComplexNamespaceDriver();
+        $this->assertEquals('INBOX/test', $share->constructFolderName('john', 'test', 'INBOX'));
+    }
+
+    public function testConstructFolderNameInSecond()
+    {
+        $share = $this->_getComplexNamespaceDriver();
+        $this->assertEquals('SECOND/test', $share->constructFolderName('john', 'test', 'SECOND'));
+    }
+
     public function testSetDescription()
     {
         $share = $this->_getPrefilledDriver()
@@ -523,6 +550,11 @@ extends PHPUnit_Framework_TestCase
         return $this->_getDriverWithData($this->_getHierarchyData());
     }
 
+    private function _getComplexNamespaceDriver()
+    {
+        return $this->_getDriverWithData($this->_getComplexNamespaceData());
+    }
+
     private function _getDriverWithData($data)
     {
         $factory = new Horde_Kolab_Storage_Factory(
@@ -571,6 +603,32 @@ extends PHPUnit_Framework_TestCase
                     'user/john' => null,
                 )
             ),
+        );
+    }
+
+    private function _getComplexNamespaceData()
+    {
+        return array(
+            'username' => 'john',
+            'data'   => $this->_getMockData(
+                array(
+                    'user/john' => null,
+                )
+            ),
+            'namespaces' => array(
+                array(
+                    'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
+                    'name' => 'INBOX/',
+                    'delimiter' => '/',
+                    'add' => true,
+                ),
+                array(
+                    'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
+                    'name' => 'SECOND/',
+                    'delimiter' => '/',
+                    'add' => true,
+                ),
+            )
         );
     }
 
