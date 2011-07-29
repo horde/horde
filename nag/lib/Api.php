@@ -286,7 +286,7 @@ class Nag_Api extends Horde_Registry_Api
             // This request is for all tasklists owned by the requested user
             //
             $tasklists = $GLOBALS['nag_shares']->listShares(
-                $parts[0],
+                $GLOBALS['registry']->getAuth(),
                 array('perm' => Horde_Perms::SHOW,
                       'attributes' => $parts[0]));
 
