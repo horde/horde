@@ -337,7 +337,7 @@ class Nag_Api extends Horde_Registry_Api
             // This is a request for the entire tasklist in iCalendar format.
             //
             $tasklist = substr($parts[1], 0, -4);
-            if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::READ))) {
+            if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
                 return PEAR::raiseError(_("Invalid tasklist file requested."), 404);
             }
             $ical_data = $this->exportTasklist($tasklist, 'text/calendar');
@@ -353,7 +353,7 @@ class Nag_Api extends Horde_Registry_Api
             // This request is browsing into a specific tasklist.  Generate the list
             // of items and represent them as files within the directory.
             //
-            if (!array_key_exists($parts[1], Nag::listTasklists(false, Horde_Perms::READ))) {
+            if (!Nag::hasPermission($parts[1], Horde_Perms::READ)) {
                 return PEAR::raiseError(_("Invalid tasklist requested."), 404);
             }
             $storage = Nag_Driver::singleton($parts[1]);
@@ -401,8 +401,7 @@ class Nag_Api extends Horde_Registry_Api
             // The only valid request left is for either a specific task item.
             //
             if (count($parts) == 3 &&
-                array_key_exists($parts[1], Nag::listTasklists(false, Horde_Perms::READ))) {
-
+                Nag::hasPermission($parts[1], Horde_Perms::READ)) {
                 //
                 // This request is for a specific item within a given task list.
                 //
@@ -424,7 +423,7 @@ class Nag_Api extends Horde_Registry_Api
                 return $result;
             } elseif (count($parts) == 2 &&
                 substr($parts[1], -4) == '.ics' &&
-                array_key_exists(substr($parts[1], 0, -4), Nag::listTasklists(false, Horde_Perms::READ))) {
+                Nag::hasPermission(substr($parts[1], 0, -4), Horde_Perms::READ)) {
 
                 // ??
 
@@ -476,7 +475,7 @@ class Nag_Api extends Horde_Registry_Api
                 throw new Nag_Exception(_("Invalid tasklist name supplied."), 403);
             }
 
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::EDIT))) {
+        if (!Nag::hasPermission($tasklist, Horde_Perms::EDIT)) {
             // FIXME: Should we attempt to create a tasklist based on the filename
             // in the case that the requested tasklist does not exist?
             throw new Nag_Exception(_("Tasklist does not exist or no permission to edit"), 403);
@@ -608,7 +607,7 @@ class Nag_Api extends Horde_Registry_Api
             throw new Nag_Exception(sprintf(_("Unsupported Content-Type: %s"), $content_type), 400);
         }
 
-        if (array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::DELETE))) {
+        if (Nag::hasPermission($tasklist, Horde_Perms::DELETE)) {
             foreach (array_keys($uids_remove) as $uid) {
                 $this->delete($uid);
             }
@@ -649,7 +648,7 @@ class Nag_Api extends Horde_Registry_Api
         }
 
         if (!(count($parts) == 2 || count($parts) == 3) ||
-            !array_key_exists($tasklistID, Nag::listTasklists(false, Horde_Perms::DELETE))) {
+            !Nag::hasPermission($tasklistID, Horde_Perms::DELETE)) {
 
             throw new Nag_Exception(_("Tasklist does not exist or no permission to delete"), 403);
         }
@@ -701,8 +700,7 @@ class Nag_Api extends Horde_Registry_Api
         }
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
-        }
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::READ))) {
+        } elseif (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
         $tasks = Nag::listTasks(null, null, null, array($tasklist), 1);
@@ -734,9 +732,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
-        }
-
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::READ))) {
+        } elseif (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
@@ -787,9 +783,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
-        }
-
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::READ))) {
+        } elseif (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
@@ -818,9 +812,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::EDIT);
-        }
-
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::EDIT))) {
+        } elseif (!Nag::hasPermission($tasklist, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
@@ -938,8 +930,7 @@ class Nag_Api extends Horde_Registry_Api
     public function addTask(array $task)
     {
         if (!$GLOBALS['registry']->isAdmin() &&
-            !array_key_exists($task['tasklist'],
-                              Nag::listTasklists(false, Horde_Perms::EDIT))) {
+            !Nag::hasPermission($task['tasklist'], Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
@@ -978,8 +969,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         if ($tasklist === null) {
             $tasklist = Nag::getDefaultTasklist(Horde_Perms::EDIT);
-        }
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::EDIT))) {
+        } elseif (!Nag::hasPermission($tasklist, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
@@ -994,7 +984,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function toggleCompletion($task_id, $tasklist_id)
     {
-        if (!array_key_exists($tasklist_id, Nag::listTasklists(false, Horde_Perms::EDIT))) {
+        if (!Nag::hasPermission($tasklist_id, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
         }
 
@@ -1033,7 +1023,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         $storage = Nag_Driver::singleton();
         $task = $storage->getByUID($uid);
-        if (!array_key_exists($task->tasklist, Nag::listTasklists(false, Horde_Perms::READ))) {
+        if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
         }
 
@@ -1071,7 +1061,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function getTask($tasklist, $id)
     {
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::READ))) {
+        if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
         }
 
@@ -1096,7 +1086,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function exportTasklist($tasklist, $contentType)
     {
-        if (!array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::READ))) {
+        if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
         }
 
@@ -1147,7 +1137,7 @@ class Nag_Api extends Horde_Registry_Api
         $task = $storage->getByUID($uid);
 
         if (!$GLOBALS['registry']->isAdmin() &&
-            !array_key_exists($task->tasklist, Nag::listTasklists(false, Horde_Perms::DELETE))) {
+            !Nag::hasPermission($task->tasklist, Horde_Perms::DELETE)) {
 
              throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
         }
@@ -1164,7 +1154,7 @@ class Nag_Api extends Horde_Registry_Api
     public function deleteTask($tasklist, $id)
     {
         if (!$GLOBALS['registry']->isAdmin() &&
-            !array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::DELETE))) {
+            !Nag::hasPermission($tasklist, Horde_Perms::DELETE)) {
 
             throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
         }
@@ -1195,7 +1185,7 @@ class Nag_Api extends Horde_Registry_Api
         $storage = Nag_Driver::singleton();
         $existing = $storage->getByUID($uid);
         $taskId = $existing->id;
-        if (!array_key_exists($existing->tasklist, Nag::listTasklists(false, Horde_Perms::EDIT))) {
+        if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
         }
 
@@ -1281,8 +1271,7 @@ class Nag_Api extends Horde_Registry_Api
     public function updateTask($tasklist, $id, $task)
     {
         if (!$GLOBALS['registry']->isAdmin() &&
-            !array_key_exists($tasklist, Nag::listTasklists(false, Horde_Perms::EDIT))) {
-
+            !Nag::hasPermission($tasklist, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
         }
 
@@ -1359,9 +1348,8 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($categories, $start, $end)
     {
-        $allowed_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
         foreach ($categories as $tasklist) {
-            if (!array_key_exists($tasklist, $allowed_tasklists)) {
+            if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
                 return PEAR::raiseError(_("Permission Denied"));
             }
         }
@@ -1415,7 +1403,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         $storage = Nag_Driver::singleton();
         $existing = $storage->get($timeobject['id']);
-        if (!array_key_exists($existing->tasklist, Nag::listTasklists(false, Horde_Perms::EDIT))) {
+        if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
         }
         $storage = Nag_Driver::singleton($existing->tasklist);

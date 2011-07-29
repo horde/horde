@@ -280,8 +280,7 @@ class Nag
     {
         if ($tasklist === null) {
             $tasklist = self::getDefaultTasklist(Horde_Perms::EDIT);
-        }
-        if (!array_key_exists($tasklist, self::listTasklists(false, Horde_Perms::EDIT))) {
+        } elseif (!self::hasPermission($tasklist, Horde_Perms::EDIT)) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -412,6 +411,29 @@ class Nag
     }
 
     /**
+     * Returns whether the current user has certain permissions on a tasklist.
+     *
+     * @since Nag 3.0.3
+     *
+     * @param string $tasklist  A tasklist id.
+     * @param integer $perm     A Horde_Perms permission mask.
+     *
+     * @return boolean  True if the current user has the requested permissions.
+     */
+    static public function hasPermission($tasklist, $perm)
+    {
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($tasklist);
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
+                throw new Horde_Exception_NotFound();
+            }
+        } catch (Horde_Exception_NotFound $e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Returns the default tasklist for the current user at the specified
      * permissions level.
      *
@@ -441,7 +463,7 @@ class Nag
     /**
      * Creates a new share.
      *
-     * @param array $info  Hash with calendar information.
+     * @param array $info  Hash with tasklist information.
      *
      * @return Horde_Share  The new share.
      */
