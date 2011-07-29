@@ -39,10 +39,10 @@
             $uid = 'me()';//$this->_facebook->auth->getLoggedInUser();
         }
 
-        $fql = 'SELECT eid, name, tagline, nid, pic_small, pic_big, pic, host, '
-            . 'description, event_type, event_subtype, start_time, end_time, '
-            . 'creator, update_time, location, venue, privacy, hide_guest_list '
-            . 'FROM event WHERE eid IN';
+        $fql = 'SELECT eid, name, tagline, nid, pic_square, pic_small, '
+            . 'pic_big, pic, host, description, event_type, event_subtype, '
+            . 'start_time, end_time, creator, update_time, location, venue, '
+            . 'privacy, hide_guest_list FROM event WHERE eid IN';
 
         if (!empty($rsvp_status)) {
             $fql .= '(SELECT eid FROM event_member WHERE uid=' . $uid . ' AND rsvp_status=\'' . $rsvp_status . '\')';
