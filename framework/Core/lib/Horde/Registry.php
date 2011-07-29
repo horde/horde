@@ -1336,13 +1336,15 @@ class Horde_Registry
         }
 
         /* Call pre-push hook. */
-        try {
-            Horde::callHook('pushapp', array(), $app);
-        } catch (Horde_Exception $e) {
-            $e->setCode(self::HOOK_FATAL);
-            $this->popApp();
-            throw $e;
-        } catch (Horde_Exception_HookNotSet $e) {}
+        if (Horde::hookExists('pushapp', $app)) {
+            try {
+                Horde::callHook('pushapp', array(), $app);
+            } catch (Horde_Exception $e) {
+                $e->setCode(self::HOOK_FATAL);
+                $this->popApp();
+                throw $e;
+            }
+        }
 
         /* Initialize application. */
         if ($checkPerms || empty($options['noinit'])) {
@@ -1357,9 +1359,11 @@ class Horde_Registry
         }
 
         /* Call post-push hook. */
-        try {
-            Horde::callHook('pushapp_post', array(), $app);
-        } catch (Exception $e) {}
+        if (Horde::hookExists('pushapp_post', $app)) {
+            try {
+                Horde::callHook('pushapp_post', array(), $app);
+            } catch (Exception $e) {}
+        }
 
         /* Do login tasks. */
         if ($checkPerms &&
