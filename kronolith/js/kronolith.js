@@ -2194,7 +2194,7 @@ KronolithCore = {
             span = new Element('span');
         div.update();
         if (event.ic) {
-            div.insert(new Element('img', { src: event.ic }));
+            div.insert(new Element('img', { src: event.ic, className: 'kronolithEventIcon' }));
         }
         div.insert((length ? event.t.truncate(length) : event.t).escapeHTML());
         div.insert(span);
