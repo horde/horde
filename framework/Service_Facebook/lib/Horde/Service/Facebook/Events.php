@@ -13,22 +13,21 @@
     /**
      * Returns events according to the filters specified.
      *
-     * @param integer $uid        (Optional) User associated with events. A null
-     *                            parameter will default to the session user.
-     * @param string $eids        (Optional) Filter by these comma-separated event
-     *                            ids. A null parameter will get all events for
-     *                            the user.
-     * @param integer $start_time (Optional) Filter with this unix time as lower
-     *                            bound.  A null or zero parameter indicates no
-     *                            lower bound.
-     * @param integer $end_time   (Optional) Filter with this UTC as upper bound.
-     *                            A null or zero parameter indicates no upper
+     * @param integer $uid        User associated with events. A null parameter
+     *                            will default to the session user.
+     * @param string $eids        Filter by these comma-separated event ids. A
+     *                            null parameter will get all events for the
+     *                            user.
+     * @param integer $start_time Filter with this unix time as lower bound.
+     *                            A null or zero parameter indicates no lower
      *                            bound.
-     * @param string $rsvp_status (Optional) Only show events where the given uid
-     *                            has this rsvp status.  This only works if you
-     *                            have specified a value for $uid.  Values are as
-     *                            in events.getMembers.  Null indicates to ignore
-     *                            rsvp status when filtering.
+     * @param integer $end_time   Filter with this UTC as upper bound. A null
+     *                            or zero parameter indicates no upper bound.
+     * @param string $rsvp_status Only show events where the given uid has this
+     *                            rsvp status.  This only works if you have
+     *                            specified a value for $uid.  Values are as
+     *                            in events.getMembers.  Null indicates to
+     *                            ignore rsvp status when filtering.
      *
      * @return array  The events matching the query.
      */
