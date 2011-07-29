@@ -76,7 +76,8 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
                 'location' => $event['location'],
                 'description' => $event['description'],
                 'params' => array(),
-                'icon' => $event['pic_square']
+                'icon' => $event['pic_square'],
+                'status' => (empty($event['rsvp_status']) ? 'free' : $event['rsvp_status'])
             );
         }
 
