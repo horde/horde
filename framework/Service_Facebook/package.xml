@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:43:59</time>
+ <date>2011-07-28</date>
+ <time>22:33:34</time>
  <version>
   <release>1.1.1</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [mjr] Use FQL to obtain event list and add rsvp_status
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -605,10 +605,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-07-28</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [mjr] Use FQL to obtain event list and add rsvp_status
    </notes>
   </release>
  </changelog>

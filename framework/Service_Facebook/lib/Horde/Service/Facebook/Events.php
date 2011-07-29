@@ -35,15 +35,73 @@
     public function &get($uid = null, $eids = null, $start_time = null,
                          $end_time = null, $rsvp_status = null)
     {
-        // Note we return a reference to support batched calls
-        //  (see Horde_Service_Facebook::callMethod)
-        return $this->_facebook->callMethod(
-            'facebook.events.get',
-            array('uid' => $uid,
-                  'eids' => $eids,
-                  'start_time' => $start_time,
-                  'end_time' => $end_time,
-                  'rsvp_status' => $rsvp_status));
+        if (empty($uid)) {
+            $uid = 'me()';//$this->_facebook->auth->getLoggedInUser();
+        }
+
+        $fql = 'SELECT eid, name, tagline, nid, pic_small, pic_big, pic, host, '
+            . 'description, event_type, event_subtype, start_time, end_time, '
+            . 'creator, update_time, location, venue, privacy, hide_guest_list '
+            . 'FROM event WHERE eid IN';
+
+        if (!empty($rsvp_status)) {
+            $fql .= '(SELECT eid FROM event_member WHERE uid=' . $uid . ' AND rsvp_status=\'' . $rsvp_status . '\')';
+        } else {
+            $fql .= '(SELECT eid FROM event_member WHERE uid=' . $uid . ')';
+        }
+
+        if (!empty($eids)) {
+            $fql .= ' AND eid IN (' . implode(',', $eids) . ')';
+        }
+
+        if (!empty($start_time)) {
+            $fql .= ' AND start_time>=' . $start_time;
+        }
+        if (!empty($end_time)) {
+            $fql .= ' AND start_time<=' . $end_time;
+        }
+
+        // Get the events
+        $events = $this->_facebook->fql->run($fql);
+
+        // If no requested status, query to get the current statuses.
+        if (empty($rsvp_status)) {
+           $eids = array();
+            foreach ($events as $e) {
+                $eids[] = $e['eid'];
+            }
+            $fql = 'SELECT eid, rsvp_status FROM event_member WHERE uid=' . $uid
+                . 'AND eid IN (' . implode(',', $eids) . ')';
+
+            $status = $this->_facebook->fql->run($fql);
+            foreach ($events as &$e) {
+                foreach ($status as $s) {
+                    if ($s['eid'] == $e['eid']) {
+                        $e['rsvp_status'] = $this->_fromDriverStatus($s['rsvp_status']);
+                    }
+                }
+            }
+        } else {
+            // Otherwise, we already know the status.
+            foreach ($events as &$e) {
+                $e['rsvp_status'] = $this->_fromDriverStatus($rsvp_status);
+            }
+        }
+
+        return $events;
+    }
+
+    protected function _fromDriverStatus($driver_status)
+    {
+        switch ($driver_status) {
+        case 'attending':
+            return 'confirmed';
+        case 'unsure':
+            return 'tentative';
+        case 'declined':
+        case 'not_replied':
+            return 'free';
+        }
     }
 
     /**
