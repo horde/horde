@@ -127,6 +127,9 @@ class Kronolith_Event_Horde extends Kronolith_Event
         } else {
             $this->status = Kronolith::STATUS_FREE;
         }
+        if (isset($event['private'])) {
+            $this->private = $event['private'];
+        }
         $this->_params = $event['params'];
         $this->_link = !empty($event['link']) ? $event['link'] : null;
         $this->_editLink = !empty($event['edit_link']) ? $event['edit_link'] : null;
