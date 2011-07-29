@@ -245,11 +245,6 @@ class Nag_Api extends Horde_Registry_Api
             $tasklists = Nag::listTasklists(false, Horde_Perms::READ);
             $owners = array();
             foreach ($tasklists as $tasklist) {
-                if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-                    !empty($GLOBALS['conf']['share']['hidden']) &&
-                    !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-                    continue;
-                }
                 $owners[$tasklist->get('owner') ? $tasklist->get('owner') : '-system-'] = true;
             }
 

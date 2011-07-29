@@ -22,14 +22,8 @@ class Nag_Form_Task extends Horde_Form
     {
         parent::__construct($vars, $title);
         $this->delete = $delete;
-        $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
         $tasklist_enums = array();
-        foreach ($tasklists as $tl_id => $tl) {
-            if ($tl->get('owner') != $GLOBALS['registry']->getAuth() &&
-                !empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($tl->getName(), $GLOBALS['display_tasklists'])) {
-                continue;
-            }
+        foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $tl_id => $tl) {
             $tasklist_enums[$tl_id] = $tl->get('name');
         }
         $tasklist = $vars->get('tasklist_id');

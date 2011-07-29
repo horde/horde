@@ -356,6 +356,12 @@ class Nag
     /**
      * Lists all task lists a user has access to.
      *
+     * This method takes the $conf['share']['hidden'] setting into account. If
+     * this setting is enabled, even if requesting permissions different than
+     * SHOW, it will only return calendars that the user owns or has SHOW
+     * permissions for. For checking individual calendar's permissions, use
+     * hasPermission() instead.
+     *
      * @param boolean $owneronly  Only return tasklists that this user owns?
      *                            Defaults to false.
      * @param integer $permission The permission to filter tasklists by.
@@ -368,15 +374,44 @@ class Nag
         if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
-        try {
-            $tasklists = $GLOBALS['nag_shares']->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => $permission,
-                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
-                      'sort_by' => 'name'));
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
-            return array();
+
+        if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
+            try {
+                $tasklists = $GLOBALS['nag_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                return array();
+            }
+        } else {
+            try {
+                $tasklists = $GLOBALS['nag_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $GLOBALS['registry']->getAuth(),
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e);
+                return array();
+            }
+            $display_tasklists = @unserialize($GLOBALS['prefs']->getValue('display_tasklists'));
+            if (is_array($display_tasklists)) {
+                foreach ($display_tasklists as $id) {
+                    try {
+                        $tasklist = $GLOBALS['nag_shares']->getShare($id);
+                        if ($tasklist->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
+                            $tasklists[$id] = $tasklist;
+                        }
+                    } catch (Horde_Exception_NotFound $e) {
+                    } catch (Horde_Share_Exception $e) {
+                        Horde::logMessage($e);
+                        return array();
+                    }
+                }
+            }
         }
 
         return $tasklists;

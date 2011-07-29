@@ -58,11 +58,6 @@ if ($has_tasks) {
 // Calendars
 foreach (array(true, false) as $my) {
     foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-        if ($calendar->owner() != $GLOBALS['registry']->getAuth() &&
-            !empty($GLOBALS['conf']['share']['hidden']) &&
-            !in_array($id, $GLOBALS['display_calendars'])) {
-            continue;
-        }
         $owner = $GLOBALS['registry']->getAuth() &&
             $calendar->owner() == $GLOBALS['registry']->getAuth();
         if (($my && $owner) || (!$my && !$owner)) {
@@ -88,11 +83,6 @@ foreach (array(true, false) as $my) {
         continue;
     }
     foreach ($registry->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
-        if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-            !empty($GLOBALS['conf']['share']['hidden']) &&
-            !in_array('tasks/' . $id, $GLOBALS['display_external_calendars'])) {
-            continue;
-        }
         $owner = $GLOBALS['registry']->getAuth() &&
             $tasklist->get('owner') == $GLOBALS['registry']->getAuth();
         if (($my && $owner) || (!$my && !$owner)) {

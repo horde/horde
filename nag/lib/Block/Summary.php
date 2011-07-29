@@ -39,11 +39,6 @@ class Nag_Block_Summary extends Horde_Core_Block
 
         $tasklists = array();
         foreach (Nag::listTasklists() as $id => $tasklist) {
-            if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-                !empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-                continue;
-            }
             $tasklists[$id] = $tasklist->get('name');
         }
 

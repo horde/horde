@@ -115,7 +115,7 @@ class Mnemo
             return $count;
         }
 
-        $notepads = Mnemo::listNotepads(true, Horde_Perms::ALL);
+        $notepads = self::listNotepads(true, Horde_Perms::ALL);
         $count = 0;
         foreach (array_keys($notepads) as $notepad) {
             $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad);
@@ -162,26 +162,61 @@ class Mnemo
     /**
      * Lists all notepads a user has access to.
      *
+     * This method takes the $conf['share']['hidden'] setting into account. If
+     * this setting is enabled, even if requesting permissions different than
+     * SHOW, it will only return calendars that the user owns or has SHOW
+     * permissions for. For checking individual calendar's permissions, use
+     * hasPermission() instead.
+     *
      * @param boolean $owneronly   Only return memo lists that this user owns?
      *                             Defaults to false.
      * @param integer $permission  The permission to filter notepads by.
      *
      * @return array  The memo lists.
      */
-    public static function listNotepads($owneronly = false, $permission = Horde_Perms::SHOW)
+    public static function listNotepads($owneronly = false,
+                                        $permission = Horde_Perms::SHOW)
     {
         if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
-        try {
-            $notepads = $GLOBALS['mnemo_shares']->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => $permission,
-                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
-                      'sort_by' => 'name'));
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
-            return array();
+        if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
+            try {
+                $notepads = $GLOBALS['mnemo_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                return array();
+            }
+        } else {
+            try {
+                $notepads = $GLOBALS['mnemo_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $GLOBALS['registry']->getAuth(),
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e);
+                return array();
+            }
+            $display_notepads = @unserialize($GLOBALS['prefs']->getValue('display_notepads'));
+            if (is_array($display_notepads)) {
+                foreach ($display_notepads as $id) {
+                    try {
+                        $notepad = $GLOBALS['mnemo_shares']->getShare($id);
+                        if ($notepad->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
+                            $notepads[$id] = $notepad;
+                        }
+                    } catch (Horde_Exception_NotFound $e) {
+                    } catch (Horde_Share_Exception $e) {
+                        Horde::logMessage($e);
+                        return array();
+                    }
+                }
+            }
         }
 
         return $notepads;
@@ -198,7 +233,7 @@ class Mnemo
         global $prefs;
 
         $default_notepad = $prefs->getValue('default_notepad');
-        $notepads = Mnemo::listNotepads(false, $permission);
+        $notepads = self::listNotepads(false, $permission);
 
         if (isset($notepads[$default_notepad])) {
             return $default_notepad;
@@ -508,7 +543,7 @@ class Mnemo
         // Make sure all notepads exist now, to save on checking later.
         $_temp = ($GLOBALS['display_notepads']) ? $GLOBALS['display_notepads'] : array();
 
-        $_all = Mnemo::listNotepads();
+        $_all = self::listNotepads();
         $GLOBALS['display_notepads'] = array();
         foreach ($_temp as $id) {
             if (isset($_all[$id])) {
@@ -516,16 +551,16 @@ class Mnemo
             }
         }
 
-        // All tasklists for guests.
+        // All notepads for guests.
         if (!count($GLOBALS['display_notepads']) &&
             !$GLOBALS['registry']->getAuth()) {
-            $GLOBALS['display_tasklists'] = array_keys($_all);
+            $GLOBALS['display_notepads'] = array_keys($_all);
         }
 
         /* If the user doesn't own a notepad, create one. */
         if (!empty($GLOBALS['conf']['share']['auto_create']) &&
             $GLOBALS['registry']->getAuth() &&
-            !count(Mnemo::listNotepads(true))) {
+            !count(self::listNotepads(true))) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
             $share = $GLOBALS['mnemo_shares']->newShare(
                 $GLOBALS['registry']->getAuth(),
