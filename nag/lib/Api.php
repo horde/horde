@@ -107,6 +107,29 @@ class Nag_Api extends Horde_Registry_Api
     }
 
     /**
+     * Returns a task list.
+     *
+     * @since Nag 3.0.3
+     *
+     * @param string $name   A task list name.
+     *
+     * @return Horde_Share_Object  The task list.
+     */
+    public function getTasklist($name)
+    {
+        try {
+            $tasklist = $GLOBALS['nag_shares']->getShare($id);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Nag_Exception($e);
+        }
+        if (!$tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+            throw new Horde_Exception_PermissionDenied(_("You are not allowed to retrieve this task list."));
+        }
+        return $tasklist;
+    }
+
+    /**
      * Adds a new task list.
      *
      * @param string $name        Task list name.
@@ -124,13 +147,13 @@ class Nag_Api extends Horde_Registry_Api
     /**
      * Updates an existing task list.
      *
-     * @param string $id   A task list id.
+     * @param string $name   A task list name.
      * @param array $info  Hash with task list information.
      */
-    public static function updateTasklist($id, $info)
+    public static function updateTasklist($name, $info)
     {
         try {
-            $tasklist = $GLOBALS['nag_shares']->getShare($id);
+            $tasklist = $GLOBALS['nag_shares']->getShare($name);
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Nag_Exception($e);
