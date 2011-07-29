@@ -113,7 +113,20 @@ class Kronolith_Event_Horde extends Kronolith_Event
         }
         $this->start = $eventStart;
         $this->end = $eventEnd;
-        $this->status = Kronolith::STATUS_FREE;
+        if (isset($event['status'])) {
+            switch ($event['status']) {
+            case 'confirmed':
+                $this->status = Kronolith::STATUS_CONFIRMED;
+                break;
+            case 'tentative':
+                $this->status = Kronolith::STATUS_TENTATIVE;
+                break;
+            default:
+                $this->status = Kronolith::STATUS_FREE;
+            }
+        } else {
+            $this->status = Kronolith::STATUS_FREE;
+        }
         $this->_params = $event['params'];
         $this->_link = !empty($event['link']) ? $event['link'] : null;
         $this->_editLink = !empty($event['edit_link']) ? $event['edit_link'] : null;
