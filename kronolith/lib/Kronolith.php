@@ -190,11 +190,6 @@ class Kronolith
         // calendars.
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-                if (!empty($GLOBALS['conf']['share']['hidden']) &&
-                    $calendar->owner() != $GLOBALS['registry']->getAuth() &&
-                    !in_array($id, $GLOBALS['display_calendars'])) {
-                    continue;
-                }
                 $owner = $GLOBALS['registry']->getAuth() &&
                     $calendar->owner() == $GLOBALS['registry']->getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
@@ -207,10 +202,7 @@ class Kronolith
                 continue;
             }
             foreach ($registry->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
-                if (!isset($GLOBALS['all_external_calendars']['tasks/' . $id]) ||
-                    (!empty($GLOBALS['conf']['share']['hidden']) &&
-                     $tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-                     !in_array('tasks/' . $id, $GLOBALS['display_external_calendars']))) {
+                if (!isset($GLOBALS['all_external_calendars']['tasks/' . $id])) {
                     continue;
                 }
                 $owner = $GLOBALS['registry']->getAuth() &&
@@ -1496,6 +1488,12 @@ class Kronolith
      * Returns all internal calendars a user has access to, according
      * to several parameters/permission levels.
      *
+     * This method takes the $conf['share']['hidden'] setting into account. If
+     * this setting is enabled, even if requesting permissions different than
+     * SHOW, it will only return calendars that the user owns or has SHOW
+     * permissions for. For checking individual calendar's permissions, use
+     * hasPermission() instead.
+     *
      * @param boolean $owneronly   Only return calenders that this user owns?
      *                             Defaults to false.
      * @param integer $permission  The permission to filter calendars by.
@@ -1508,15 +1506,43 @@ class Kronolith
             return array();
         }
 
-        try {
-            $calendars = $GLOBALS['kronolith_shares']->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => $permission,
-                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
-                      'sort_by' => 'name'));
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return array();
+        if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
+            try {
+                $calendars = $GLOBALS['kronolith_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e);
+                return array();
+            }
+        } else {
+            try {
+                $calendars = $GLOBALS['kronolith_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $GLOBALS['registry']->getAuth(),
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e);
+                return array();
+            }
+            $display_calendars = @unserialize($GLOBALS['prefs']->getValue('display_cals'));
+            if (is_array($display_calendars)) {
+                foreach ($display_calendars as $id) {
+                    try {
+                        $calendar = $GLOBALS['kronolith_shares']->getShare($id);
+                        if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
+                            $calendars[$id] = $calendar;
+                        }
+                    } catch (Horde_Exception_NotFound $e) {
+                    } catch (Horde_Share_Exception $e) {
+                        Horde::logMessage($e);
+                        return array();
+                    }
+                }
+            }
         }
 
         $default_share = $GLOBALS['prefs']->getValue('default_share');
@@ -1646,10 +1672,33 @@ class Kronolith
         }
 
         if ($cs = self::getDefaultCalendar(Horde_Perms::EDIT, true)) {
-            return $cs;
+            return array($cs);
         }
 
         return array();
+    }
+
+    /**
+     * Returns whether the current user has certain permissions on a calendar.
+     *
+     * @since Kronolith 3.0.6
+     *
+     * @param string $calendar  A calendar id.
+     * @param integer $perm     A Horde_Perms permission mask.
+     *
+     * @return boolean  True if the current user has the requested permissions.
+     */
+    static public function hasPermission($calendar, $perm)
+    {
+        try {
+            $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
+                throw new Horde_Exception_NotFound();
+            }
+        } catch (Horde_Exception_NotFound $e) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -2358,10 +2407,10 @@ class Kronolith
             $ics = new Horde_Mime_Part();
             $ics->setType('text/calendar');
             $ics->setContents($iCal->exportvCalendar());
-            $ics->setEOL(Horde_Mime_Part::RFC_EOL);
             $ics->setName($filename);
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset('UTF-8');
+            $ics->setEOL("\r\n");
 
             $multipart = self::buildMimeMessage($view, 'notification', $image);
             $multipart->addPart($ics);
@@ -3012,7 +3061,12 @@ class Kronolith
      */
     static public function backgroundColor($calendar)
     {
-        $color = is_array($calendar) ? @$calendar['color'] : $calendar->get('color');
+        $color = '';
+        if (!is_array($calendar)) {
+            $color = $calendar->get('color');
+        } elseif (isset($calendar['color'])) {
+            $color = $calendar['color'];
+        }
         return empty($color) ? '#dddddd' : $color;
     }
 

@@ -9,6 +9,7 @@ v4.0.8-git
 
 Framework
 ---------
+[mjr] Service_Facebook: Use FQL to obtain event list and add rsvp_status.
 [jan] Icalendar: Fix exporting multiline attributes to vCard 2.1 and vCalendar
       1.0.
 [cjh] Log: New log filter for exact level matching (Bryan Alves

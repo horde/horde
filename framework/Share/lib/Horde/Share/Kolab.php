@@ -145,36 +145,61 @@ class Horde_Share_Kolab extends Horde_Share_Base
     private function _idEncode($id)
     {
         $folder = $this->getList()->getFolder($id);
-        return $this->constructId($folder->getOwner(), $folder->getSubpath());
+        if (!method_exists($folder, 'getPrefix')) {
+            //@todo BC (remove this option later)
+            return $this->constructId($folder->getOwner(), $folder->getSubpath());
+        } else {
+            return $this->constructId($folder->getOwner(), $folder->getSubpath(), $folder->getPrefix());
+        }
     }
 
     /**
      * Construct the ID from the owner name and the folder subpath.
      *
-     * @param string $owner The share owner.
-     * @param string $name  The name of the folder without the namespace part.
+     * @param string $owner  The share owner.
+     * @param string $name   The name of the folder without the namespace prefix.
+     * @param string $prefix The namespace prefix.
      *
      * @return string The encoded ID.
      */
-    public function constructId($owner, $name)
+    public function constructId($owner, $name, $prefix = null)
     {
-        return Horde_Url::uriB64Encode(serialize(array($owner, $name)));
+        return Horde_Url::uriB64Encode(serialize(array($owner, $name, $prefix)));
     }
 
     /**
      * Construct the Kolab storage folder name based on the share name and owner
      * attributes.
      *
-     * @param string $name  The share name.
-     * @param string $owner The owner of the share.
+     * @param string $owner   The owner of the share.
+     * @param string $subpath The folder subpath.
+     * @param string $prefix  The namespace prefix.
      *
      * @return string The folder name for the Kolab backend.
      */
-    public function constructFolderName($owner, $name)
+    public function constructFolderName($owner, $subpath, $prefix = null)
     {
         return $this->getList()
             ->getNamespace()
-            ->constructFolderName($owner, $name);
+            ->constructFolderName($owner, $subpath, $prefix);
+    }
+
+    /**
+     * Retrieve namespace information for a folder name.
+     *
+     * @param string $folder The folder name.
+     *
+     * @since Horde_Share 1.2.0
+     *
+     * @return array A list of namespace prefix, the delimiter and the folder
+     *               subpath.
+     */
+    public function getFolderNameElements($folder)
+    {
+        $ns = $this->getList()->getNamespace()->matchNamespace($folder);
+        return array(
+            $ns->getName(), $ns->getDelimiter(), $ns->getSubpath($folder)
+        );
     }
 
     /**
@@ -187,8 +212,12 @@ class Horde_Share_Kolab extends Horde_Share_Base
     private function _idDecode($id)
     {
         if (!isset($this->_id_map[$id])) {
-            list($owner, $name) = $this->_idDeconstruct($id);
-            $this->_id_map[$id] = $this->constructFolderName($owner, $name);
+            $result = $this->_idDeconstruct($id);
+            $this->_id_map[$id] = $this->constructFolderName(
+                $result[0],
+                $result[1],
+                isset($result[2]) ? $result[2] : null
+            );
         }
         return $this->_id_map[$id];
     }
@@ -256,7 +285,9 @@ class Horde_Share_Kolab extends Horde_Share_Base
             if (isset($data['share_name']) && $data['share_name'] == $name) {
                 return $this->getShareById(
                     $this->constructId(
-                        $folder_data['owner'], $folder_data['name']
+                        $folder_data['owner'],
+                        $folder_data['subpath'],
+                        isset($folder_data['prefix']) ? $folder_data['prefix'] : null
                     )
                 );
             }
@@ -666,6 +697,10 @@ class Horde_Share_Kolab extends Horde_Share_Base
             $data['name'],
             $data['default'],
             $data['parent'],
+            $data['type'],
+            $data['delimiter'],
+            $data['prefix'],
+            $data['subpath'],
             $data['folder']
         );
         $query->setParameters($this->_idDecode($id), $data);

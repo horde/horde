@@ -13,37 +13,94 @@
     /**
      * Returns events according to the filters specified.
      *
-     * @param integer $uid        (Optional) User associated with events. A null
-     *                            parameter will default to the session user.
-     * @param string $eids        (Optional) Filter by these comma-separated event
-     *                            ids. A null parameter will get all events for
-     *                            the user.
-     * @param integer $start_time (Optional) Filter with this unix time as lower
-     *                            bound.  A null or zero parameter indicates no
-     *                            lower bound.
-     * @param integer $end_time   (Optional) Filter with this UTC as upper bound.
-     *                            A null or zero parameter indicates no upper
+     * @param integer $uid        User associated with events. A null parameter
+     *                            will default to the session user.
+     * @param string $eids        Filter by these comma-separated event ids. A
+     *                            null parameter will get all events for the
+     *                            user.
+     * @param integer $start_time Filter with this unix time as lower bound.
+     *                            A null or zero parameter indicates no lower
      *                            bound.
-     * @param string $rsvp_status (Optional) Only show events where the given uid
-     *                            has this rsvp status.  This only works if you
-     *                            have specified a value for $uid.  Values are as
-     *                            in events.getMembers.  Null indicates to ignore
-     *                            rsvp status when filtering.
+     * @param integer $end_time   Filter with this UTC as upper bound. A null
+     *                            or zero parameter indicates no upper bound.
+     * @param string $rsvp_status Only show events where the given uid has this
+     *                            rsvp status.  This only works if you have
+     *                            specified a value for $uid.  Values are as
+     *                            in events.getMembers.  Null indicates to
+     *                            ignore rsvp status when filtering.
      *
      * @return array  The events matching the query.
      */
     public function &get($uid = null, $eids = null, $start_time = null,
                          $end_time = null, $rsvp_status = null)
     {
-        // Note we return a reference to support batched calls
-        //  (see Horde_Service_Facebook::callMethod)
-        return $this->_facebook->callMethod(
-            'facebook.events.get',
-            array('uid' => $uid,
-                  'eids' => $eids,
-                  'start_time' => $start_time,
-                  'end_time' => $end_time,
-                  'rsvp_status' => $rsvp_status));
+        if (empty($uid)) {
+            $uid = 'me()';//$this->_facebook->auth->getLoggedInUser();
+        }
+
+        $fql = 'SELECT eid, name, tagline, nid, pic_square, pic_small, '
+            . 'pic_big, pic, host, description, event_type, event_subtype, '
+            . 'start_time, end_time, creator, update_time, location, venue, '
+            . 'privacy, hide_guest_list FROM event WHERE eid IN';
+
+        if (!empty($rsvp_status)) {
+            $fql .= '(SELECT eid FROM event_member WHERE uid=' . $uid . ' AND rsvp_status=\'' . $rsvp_status . '\')';
+        } else {
+            $fql .= '(SELECT eid FROM event_member WHERE uid=' . $uid . ')';
+        }
+
+        if (!empty($eids)) {
+            $fql .= ' AND eid IN (' . implode(',', $eids) . ')';
+        }
+
+        if (!empty($start_time)) {
+            $fql .= ' AND start_time>=' . $start_time;
+        }
+        if (!empty($end_time)) {
+            $fql .= ' AND start_time<=' . $end_time;
+        }
+
+        // Get the events
+        $events = $this->_facebook->fql->run($fql);
+
+        // If no requested status, query to get the current statuses.
+        if (empty($rsvp_status)) {
+           $eids = array();
+            foreach ($events as $e) {
+                $eids[] = $e['eid'];
+            }
+            $fql = 'SELECT eid, rsvp_status FROM event_member WHERE uid=' . $uid
+                . 'AND eid IN (' . implode(',', $eids) . ')';
+
+            $status = $this->_facebook->fql->run($fql);
+            foreach ($events as &$e) {
+                foreach ($status as $s) {
+                    if ($s['eid'] == $e['eid']) {
+                        $e['rsvp_status'] = $this->_fromDriverStatus($s['rsvp_status']);
+                    }
+                }
+            }
+        } else {
+            // Otherwise, we already know the status.
+            foreach ($events as &$e) {
+                $e['rsvp_status'] = $this->_fromDriverStatus($rsvp_status);
+            }
+        }
+
+        return $events;
+    }
+
+    protected function _fromDriverStatus($driver_status)
+    {
+        switch ($driver_status) {
+        case 'attending':
+            return 'confirmed';
+        case 'unsure':
+            return 'tentative';
+        case 'declined':
+        case 'not_replied':
+            return 'free';
+        }
     }
 
     /**

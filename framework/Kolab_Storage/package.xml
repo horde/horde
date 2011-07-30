@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Fixed support for multiple namespaces of the same type.
 * [jan] Update Latvian translation.
 * [gwr] Added support for retrieving objects by backend id.
 * [gwr] Added a handler for active sync settings.
@@ -1038,6 +1039,7 @@
    <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [gwr] Fixed support for multiple namespaces of the same type.
 * [jan] Update Latvian translation.
 * [gwr] Added support for retrieving objects by backend id.
 * [gwr] Added a handler for active sync settings.

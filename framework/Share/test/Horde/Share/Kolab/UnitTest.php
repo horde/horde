@@ -163,7 +163,7 @@ extends PHPUnit_Framework_TestCase
         $share = $this->_getCompleteDriver();
         $object = $share->newShare('john', 'IGNORED', 'test');
         $this->assertEquals(
-            array('john', 'test'), $this->_decodeId($object->getId())
+            array('john', 'test', 'INBOX'), $this->_decodeId($object->getId())
         );
     }
 
@@ -181,12 +181,11 @@ extends PHPUnit_Framework_TestCase
 
     public function testGetShare()
     {
-        $this->assertEquals(
-            array('john', 'Calendar'),
-            $this->_decodeId(
-                $this->_getPrefilledDriver()->getShare('internal_id')->getId()
-            )
+        $result = $this->_decodeId(
+            $this->_getPrefilledDriver()->getShare('internal_id')->getId()
         );
+        $this->assertContains('john', $result);
+        $this->assertContains('Calendar', $result);
     }
 
     public function testGetShareName()
@@ -302,6 +301,23 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testShareData()
+    {
+        $share = $this->_getPrefilledDriver()
+            ->getShareById($this->_getId('john', 'Calendar'));
+        $share->set('other', 'OTHER');
+        $share->save();
+        $this->assertEquals(
+            array(
+                'other' => 'OTHER',
+                'share_name' => 'internal_id'
+            ),
+            $this->list
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getParameters('INBOX/Calendar')
+        );
+    }
+
     public function testNewShare()
     {
         $this->assertEquals(
@@ -309,6 +325,74 @@ extends PHPUnit_Framework_TestCase
             $this->_getPrefilledDriver()
             ->newShare('john', 'IGNORE', 'test')
             ->get('owner')
+        );
+    }
+
+    public function testNewShareSupportsName()
+    {
+        $this->assertEquals(
+            'SHARE',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'SHARE', 'test')
+            ->getName()
+        );
+    }
+
+    public function testNewShareData()
+    {
+        $share = $this->_getPrefilledDriver()
+            ->newShare('john', 'SHARE', 'test');
+        $share->set('other', 'OTHER');
+        $share->save();
+        $result = $this->list
+            ->getQuery(Horde_Kolab_Storage_List::QUERY_SHARE)
+            ->getParameters('INBOX/test');
+        $this->assertEquals(
+            array(
+                'other' => 'OTHER',
+                'share_name' => 'SHARE'
+            ),
+            $result
+        );
+    }
+
+    public function testNewShareDelimiter()
+    {
+        $this->assertEquals(
+            '/',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'IGNORE', 'test')
+            ->get('delimiter')
+        );
+    }
+
+    public function testNewShareSubpath()
+    {
+        $this->assertEquals(
+            'test',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'IGNORE', 'test')
+            ->get('subpath')
+        );
+    }
+
+    public function testNewShareFolder()
+    {
+        $this->assertEquals(
+            'INBOX/test',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'IGNORE', 'test')
+            ->get('folder')
+        );
+    }
+
+    public function testNewShareType()
+    {
+        $this->assertEquals(
+            'event',
+            $this->_getPrefilledDriver()
+            ->newShare('john', 'IGNORE', 'test')
+            ->get('type')
         );
     }
 
@@ -387,6 +471,33 @@ extends PHPUnit_Framework_TestCase
         $share = $this->_getCompleteDriver();
         $object = $share->newShare('john', 'NAME', 'test');
         $this->assertEquals('NAME', $object->get('share_name'));
+    }
+
+    public function testConstructFolderName()
+    {
+        $share = $this->_getCompleteDriver();
+        $this->assertEquals('INBOX/test', $share->constructFolderName('john', 'test'));
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testConstructFolderNameInComplexNamespace()
+    {
+        $share = $this->_getComplexNamespaceDriver();
+        $this->assertEquals('INBOX/test', $share->constructFolderName('john', 'test'));
+    }
+
+    public function testConstructFolderNameInInbox()
+    {
+        $share = $this->_getComplexNamespaceDriver();
+        $this->assertEquals('INBOX/test', $share->constructFolderName('john', 'test', 'INBOX'));
+    }
+
+    public function testConstructFolderNameInSecond()
+    {
+        $share = $this->_getComplexNamespaceDriver();
+        $this->assertEquals('SECOND/test', $share->constructFolderName('john', 'test', 'SECOND'));
     }
 
     public function testSetDescription()
@@ -479,6 +590,11 @@ extends PHPUnit_Framework_TestCase
         return $this->_getDriverWithData($this->_getHierarchyData());
     }
 
+    private function _getComplexNamespaceDriver()
+    {
+        return $this->_getDriverWithData($this->_getComplexNamespaceData());
+    }
+
     private function _getDriverWithData($data)
     {
         $factory = new Horde_Kolab_Storage_Factory(
@@ -527,6 +643,32 @@ extends PHPUnit_Framework_TestCase
                     'user/john' => null,
                 )
             ),
+        );
+    }
+
+    private function _getComplexNamespaceData()
+    {
+        return array(
+            'username' => 'john',
+            'data'   => $this->_getMockData(
+                array(
+                    'user/john' => null,
+                )
+            ),
+            'namespaces' => array(
+                array(
+                    'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
+                    'name' => 'INBOX/',
+                    'delimiter' => '/',
+                    'add' => true,
+                ),
+                array(
+                    'type' => Horde_Kolab_Storage_Folder_Namespace::PERSONAL,
+                    'name' => 'SECOND/',
+                    'delimiter' => '/',
+                    'add' => true,
+                ),
+            )
         );
     }
 

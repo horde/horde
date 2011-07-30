@@ -796,6 +796,10 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     // TODO: Check if there are too many events to show.
                     foreach ($events as $calendar) {
                         foreach ($calendar as $event) {
+                            if ($event->status == Kronolith::STATUS_CANCELLED ||
+                                $event->status == Kronolith::STATUS_FREE) {
+                                continue;
+                            }
                             if ($vevent_allDay || $event->isAllDay()) {
                                 $html .= '<tr class="itipcollision">';
                             } else {

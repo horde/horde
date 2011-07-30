@@ -206,20 +206,35 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function set($attribute, $value, $update = false)
     {
-        if ($attribute == 'owner') {
-            $this->_id = $this->getShareOb()->constructId(
-                $value, $this->get('name')
-            );
+        if (in_array($attribute, array('owner', 'name', 'prefix'))) {
+            $owner  = $this->get('owner');
+            $name   = $this->get('name');
+            $prefix = $this->get('prefix');
+            switch ($attribute) {
+            case 'name':
+                $name = $value;
+                break;
+            case 'owner':
+                $owner = $value;
+                break;
+            case 'prefix':
+                $prefix = $value;
+                break;
+            }
+            $subpath = $name;
+            $parent = $this->getParent();
+            if ($parent !== null) {
+                $subpath = $parent->get('subpath') . $parent->get('delimiter') .
+                    $subpath;
+            }
             $this->_data['folder'] = $this->getShareOb()->constructFolderName(
-                $value, $this->get('name')
+                $owner, $subpath, $prefix
             );
-        }
-        if ($attribute == 'name') {
+            list($this->_data['prefix'], $this->_data['delimiter'], $this->_data['subpath']) = $this->getShareOb()->getFolderNameElements(
+                $this->_data['folder']
+            );
             $this->_id = $this->getShareOb()->constructId(
-                $this->get('owner'), $value
-            );
-            $this->_data['folder'] = $this->getShareOb()->constructFolderName(
-                $this->get('owner'), $value
+                $owner, $subpath, $this->_data['prefix']
             );
         }
         $this->_data[$attribute] = $value;
@@ -311,7 +326,9 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
         if (!$parent instanceof Horde_Share_Object) {
             $parent = $this->getShareOb()->getShareById($parent);
         }
-        $this->set('name', $parent->get('name') . ':' . $this->get('name'));
+        $this->_data['parent'] = $parent->getId();
+        $this->_data['prefix'] = $parent->get('prefix');
+        $this->set('owner', $parent->get('owner'));
     }
 
     /**

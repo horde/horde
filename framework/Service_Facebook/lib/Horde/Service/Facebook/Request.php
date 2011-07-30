@@ -65,8 +65,8 @@ class Horde_Service_Facebook_Request
         case Horde_Service_Facebook::DATA_FORMAT_JSON:
             return $data;
         case Horde_Service_Facebook::DATA_FORMAT_ARRAY:
-            if (@constant('JSON_BIGINT_AS_STRING')) {
-                $result = json_decode($data, true, JSON_BIGINT_AS_STRING);
+            if (defined('JSON_BIGINT_AS_STRING')) {
+                $result = json_decode($data, true, constant('JSON_BIGINT_AS_STRING'));
             } else {
                 if (is_numeric($data)) {
                     $result = $data;

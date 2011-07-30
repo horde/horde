@@ -109,7 +109,7 @@ function send_agendas()
         case 'read':
             $calendars = $GLOBALS['kronolith_shares']->listShares(
                 $user,
-                array('perm' => Horde_Perms::SHOW));
+                array('perm' => Horde_Perms::READ));
             $calendars = array_keys($calendars);
             break;
 

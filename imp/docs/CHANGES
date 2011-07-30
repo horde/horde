@@ -2,6 +2,8 @@
 v5.0.9-git
 ----------
 
+[mms] Ensure correct message charset is use if forward/reply headers contain
+      non US-ASCII characters (Bug #10148).
 [mms] Select all checkbox in dynamic view can now be toggled.
 [mms] Remember vertical splitbar size in dynamic view.
 [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).

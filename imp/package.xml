@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-26</date>
- <time>23:16:07</time>
+ <date>2011-07-28</date>
+ <time>16:32:31</time>
  <version>
   <release>5.0.9</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
 * [mms] Select all checkbox in dynamic view can now be toggled.
 * [mms] Remember vertical splitbar size in dynamic view.
 * [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
@@ -63,6 +64,7 @@
     <file name="CHANGES" role="doc" />
     <file name="CREDITS" role="doc" />
     <file name="INSTALL" role="doc" />
+    <file name="PERFORMANCE" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
     <file name="RFCS" role="doc" />
     <file name="UPGRADING" role="doc" />
@@ -1394,6 +1396,7 @@
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
+   <install as="PERFORMANCE" name="docs/PERFORMANCE" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="RFCS" name="docs/RFCS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
@@ -2348,9 +2351,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-26</date>
+   <date>2011-07-28</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
 * [mms] Select all checkbox in dynamic view can now be toggled.
 * [mms] Remember vertical splitbar size in dynamic view.
 * [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).

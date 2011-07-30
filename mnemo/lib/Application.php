@@ -140,13 +140,6 @@ class Mnemo_Application extends Horde_Registry_Application
         );
 
         foreach (Mnemo::listNotepads() as $name => $notepad) {
-            if ($notepad->get('owner') != $GLOBALS['registry']->getAuth() &&
-                !empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($notepad->getName(), $GLOBALS['display_notepads'])) {
-
-                continue;
-            }
-
             $tree->addNode(
                 $parent . $name . '__new',
                 $parent . '__new',
