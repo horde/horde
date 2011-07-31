@@ -1343,6 +1343,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($categories, $start, $end)
     {
+        $allowed_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
         foreach ($categories as $tasklist) {
             if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
                 return PEAR::raiseError(_("Permission Denied"));
@@ -1375,12 +1376,15 @@ class Nag_Api extends Horde_Registry_Api
                 'owner' => $allowed_tasklists[$task->tasklist]->get('owner'),
                 'permissions' => $GLOBALS['nag_shares']->getPermissions($task->tasklist, $GLOBALS['registry']->getAuth()),
                 'variable_length' => false,
-                'params' => array('task' => $task->id,
-                                  'tasklist' => $task->tasklist),
+                'params' => array(
+                    'task' => $task->id,
+                    'tasklist' => $task->tasklist,
+                ),
                 'link' => Horde::url('view.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id)),
                 'edit_link' => Horde::url('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'modify_task')),
                 'delete_link' => Horde::url('task.php', true)->add(array('tasklist' => $task->tasklist, 'task' => $task->id, 'actionID' => 'delete_task')),
-                'ajax_link' => 'task:' . $task->tasklist . ':' . $task->id);
+                'ajax_link' => 'task:' . $task->tasklist . ':' . $task->id,
+            );
         }
 
         return $timeobjects;
