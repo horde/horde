@@ -1,0 +1,40 @@
+----------
+v1.0.1-cvs
+----------
+
+
+
+
+----
+v1.0
+----
+
+[mjr] Add ability to save a comic to a gallery using the images api.
+[jan] Add Danish translation (Brian Truelsen <horde+i18n@briantruelsen.dk>).
+[mir] Remove "Dork Tower at Game Table Online" -- last new April, 2005.
+[mir] Add Order of the Stick by Rich Burlew.
+[jan] Make "Today" the default view (Request #845).
+[cjh] Initial SQL driver (fsteinel@klutz.horde.flonet.net, Request #1872).
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[jan] Add Finnish translation (Petteri Karttunen <pkarttun@siba.fi>).
+[mir] Update King Features comics; they now offer Sundays too.
+[mir] Update Bizarro to reflect move to King Features, fix Bruce Beattie
+[mir] Changed from Snoopy to PEAR's HTTP_Request
+[jan] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>).
+[mir] Add Jake the Rake, Something Positive
+[mir] When viewing a comic, the title is now a link to the comic's homepage.
+[mir] Updated day/comic navigation to allow moving to oldest and newest as
+      well as previous and next dates and to allow moving between comics
+      when viewing a comic at a time.
+[mir] Add Geech, The Born Loser, Andy Capp, and Gasoline Alley
+      ("Michael W. Jones" <mjones@otsc.com>)
+[mir] Added some headers to image display to encourage caching comics
+      (adapted from patch by Jon Knepher <jbk@wild-e.com>).
+[mir] Added Oh My Gods! (Jon Knepher <jbk@wild-e.com>).
+[mir] Added Sherman's Lagoon (Zachariah Mully <zmully@smartbrief.com>).
+[jan] Add Czech translation (Pavel Chytil <pavel@chytil.tk>).
+[jan] Add German translation.
+[cjh] Lots of HTML cleanup and better admin menus.
+[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+[cjh] Use Horde::compressOutput() for output compression.
+[mir] Initial Release
