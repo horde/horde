@@ -132,9 +132,12 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_resetDeviceState($id);
             return;
         }
+        $this->_logger->debug(
+            sprintf('[%s] Loading state for synckey %s',
+                $this->_devId,
+                $syncKey));
 
-        $this->_logger->debug(sprintf('[%s] Loading state for synckey %s', $this->_devId, $syncKey));
-        /* Check if synckey is allowed */
+        // Check if synckey is allowed
         if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             throw new Horde_ActiveSync_Exception('Invalid sync key');
         }
@@ -400,11 +403,11 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
     {
         // This would normally already be loaded by loadDeviceInfo() but we
         // should verify we have the correct device loaded etc...
-         if (!isset($this->_pingState) || $this->_devId !== $device->id) {
-             throw new Horde_ActiveSync_Exception('Device not loaded');
-         }
+        if (!isset($this->_pingState) || $this->_devId !== $device->id) {
+            throw new Horde_ActiveSync_Exception('Device not loaded');
+        }
 
-         return $this->_pingState['collections'];
+        return $this->_pingState['collections'];
     }
 
     /**
@@ -1002,14 +1005,15 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         $guid = $matches[1];
         $n = $matches[2];
 
-        /* Clean up all but the last 2 syncs for any given sync series, this
-         * ensures that we can still respond to SYNC requests for the previous
-         * key if the PIM never received the new key in a SYNC response. */
+        // Clean up all but the last 2 syncs for any given sync series, this
+        // ensures that we can still respond to SYNC requests for the previous
+        // key if the PIM never received the new key in a SYNC response.
         $sql = 'SELECT sync_key FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
         $values = array($this->_devId,
-                        !empty($this->_collection['id']) ? $this->_collection['id'] : 'foldersync');
+                        !empty($this->_collection['id']) ?
+                            $this->_collection['id'] :
+                            'foldersync');
 
-        $this->_logger->debug('[' . $this->_devId . '] SQL query by Horde_ActiveSync_State:_gc(): ' . $sql . ' VALUES: ' . print_r($values, true));
         $results = $this->_db->selectAll($sql, $values);
         $remove = array();
         $guids = array($guid);
