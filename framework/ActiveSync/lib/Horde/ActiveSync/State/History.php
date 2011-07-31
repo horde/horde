@@ -259,7 +259,9 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      *
      * @return void
      */
-    public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA, $user = null)
+    public function updateState($type, array $change,
+                                $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
+                                $user = null)
     {
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
             $sql = 'INSERT INTO ' . $this->_syncMapTable . ' (message_uid, sync_modtime, sync_key, sync_devid, sync_folderid, sync_user) VALUES (?, ?, ?, ?, ?, ?)';

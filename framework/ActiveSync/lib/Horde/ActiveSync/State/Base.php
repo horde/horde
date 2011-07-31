@@ -479,7 +479,9 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @return void
      */
-    abstract public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA, $user = null);
+    abstract public function updateState($type, array $change,
+                                         $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
+                                         $user = null);
 
     /**
      * Save folder data for a specific device. This is needed for BC with older
