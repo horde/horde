@@ -143,10 +143,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         }
         $this->_syncKey = $syncKey;
 
-        /* Cleanup all older syncstates */
+        // Cleanup all older syncstates
         $this->_gc($syncKey);
 
-        /* Load the previous syncState from storage */
+        // Load the previous syncState from storage
         try {
             $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_time FROM '
                 . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
@@ -157,18 +157,20 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception('Sync State Not Found.');
         }
 
-        /* Load the last known sync time for this collection */
+        // Load the last known sync time for this collection
         $this->_lastSyncTS = !empty($results['sync_time']) ? $results['sync_time'] : 0;
 
-        /* Restore any state or pending changes */
+        // Restore any state or pending changes
+        $data = unserialize($results['sync_data']);
         if ($type == 'foldersync') {
-            $state = unserialize($results['sync_data']);
-            $this->_state = ($state !== false) ? $state : array();
+            $this->_state = ($data !== false) ? $data : array();
         } elseif ($type == 'sync') {
-            $changes = unserialize($results['sync_data']);
-            $this->_changes = ($changes !== false) ? $changes : null;
+            $this->_changes = ($data !== false) ? $data : null;
             if ($this->_changes) {
-                $this->_logger->debug(sprintf('[%s] Found %d changes remaining from previous SYNC.', $this->_devId, count($this->_changes)));
+                $this->_logger->debug(
+                    sprintf('[%s] Found %d changes remaining from previous SYNC.',
+                    $this->_devId,
+                    count($this->_changes)));
             }
         }
     }
