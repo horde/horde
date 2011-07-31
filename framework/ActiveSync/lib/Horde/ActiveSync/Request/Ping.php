@@ -118,8 +118,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
 
                     $this->_decoder->getElementEndTag();
-                    array_push($collections, $collection);
+                    // Ensure we only PING each collection once
+                    $collections = array_merge($collections, array($collection['id'] => $collection));
                 }
+                $collections = array_values($collections);
 
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
