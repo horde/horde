@@ -107,7 +107,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
         try {
             $changes = $registry->{$database}->getChanges($from_ts, $to_ts);
         } catch (Horde_Exception $e) {
-            $this->_logger->logMessage(
+            $this->logMessage(
                 sprintf(
                     ' %s getChanges() failed during _fastSync: %s', $database, $e->getMessage()),
                 'ERR');
