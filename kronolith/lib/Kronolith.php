@@ -2291,17 +2291,21 @@ class Kronolith
 
     /**
      * Sends out iTip event notifications to all attendees of a specific
-     * event. Can be used to send event invitations, event updates as well as
-     * event cancellations.
+     * event.
      *
-     * @param Kronolith_Event $event      The event in question.
-     * @param Notification $notification  A notification object used to show
-     *                                    result status.
-     * @param integer $action             The type of notification to send.
-     *                                    One of the Kronolith::ITIP_* values.
-     * @param Horde_Date $instance        If cancelling a single instance of a
-     *                                    recurring event, the date of this
-     *                                    intance.
+     * Can be used to send event invitations, event updates as well as event
+     * cancellations.
+     *
+     * @param Kronolith_Event $event
+     *        The event in question.
+     * @param Horde_Notification_Handler $notification
+     *        A notification object used to show result status.
+     * @param integer $action
+     *        The type of notification to send. One of the Kronolith::ITIP_*
+     *        values.
+     * @param Horde_Date $instance
+     *        If cancelling a single instance of a recurring event, the date of
+     *        this intance.
      */
     static public function sendITipNotifications($event, $notification,
                                                  $action, $instance = null)
