@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-02</date>
- <time>16:06:34</time>
+ <time>11:42:09</time>
  <version>
   <release>5.0.10</release>
   <api>5.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mms] Add ability to search all mailboxes (Request #10204).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -670,6 +670,7 @@
       <file name="navbar_top.html" role="horde" />
      </dir> <!-- /templates/imp/message -->
      <dir name="search">
+      <file name="search-all.html" role="horde" />
       <file name="search-basic.html" role="horde" />
       <file name="search.html" role="horde" />
      </dir> <!-- /templates/imp/search -->
@@ -1729,6 +1730,7 @@
    <install as="imp/templates/imp/message/navbar_actions.html" name="templates/imp/message/navbar_actions.html" />
    <install as="imp/templates/imp/message/navbar_navigate.html" name="templates/imp/message/navbar_navigate.html" />
    <install as="imp/templates/imp/message/navbar_top.html" name="templates/imp/message/navbar_top.html" />
+   <install as="imp/templates/imp/search/search-all.html" name="templates/imp/search/search-all.html" />
    <install as="imp/templates/imp/search/search-basic.html" name="templates/imp/search/search-basic.html" />
    <install as="imp/templates/imp/search/search.html" name="templates/imp/search/search.html" />
    <install as="imp/templates/imp/thread/thread.html" name="templates/imp/thread/thread.html" />
@@ -2369,7 +2371,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] Add ability to search all mailboxes (Request #10204).
    </notes>
   </release>
  </changelog>

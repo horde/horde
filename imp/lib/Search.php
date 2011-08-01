@@ -129,13 +129,14 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      *
      * @param array $criteria  The search criteria array.
      * @param array $opts      Additional options:
-     * <pre>
-     * id - (string) Use as the mailbox ID.
-     * label - (string) The label to use for the search results.
-     * mboxes - (array) The list of mailboxes to directly search.
-     * subfolders - (array) The list of mailboxes to do subfolder searches on.
-     * type - (integer) Query type.
-     * </pre>
+     *   - id: (string) Use as the mailbox ID.
+     *   - label: (string) The label to use for the search results.
+     *   - mboxes: (array) The list of mailboxes to directly search. If this
+     *             contains the IMP_Search_Query::ALLSEARCH constant, all
+     *             mailboxes will be searched.
+     *   - subfolders: (array) The list of mailboxes to do subfolder searches
+     *                 on.
+     *   - type: (integer) Query type.
      *
      * @return IMP_Search_Query  Returns the query object.
      * @throws InvalidArgumentException
@@ -149,6 +150,10 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             'subfolders' => array(),
             'type' => self::CREATE_QUERY
         ), $opts);
+
+        /* Make sure mailbox names are not IMP_Mailbox objects. */
+        $opts['mboxes'] = array_map('strval', $opts['mboxes']);
+        $opts['subfolders'] = array_map('strval', $opts['subfolders']);
 
         switch ($opts['type']) {
         case self::CREATE_FILTER:
@@ -172,6 +177,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         $ob = new $cname(array_filter(array(
             'add' => $criteria,
+            'all' => in_array(IMP_Search_Query::ALLSEARCH, $opts['mboxes']),
             'id' => $this->_strip($opts['id']),
             'label' => $opts['label'],
             'mboxes' => $opts['mboxes'],

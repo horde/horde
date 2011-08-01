@@ -389,7 +389,7 @@ if ($vars->edit_query && IMP::$mailbox->search) {
 
     $js_vars['ImpSearch.i_criteria'] = $q_ob->criteria;
     $js_vars['ImpSearch.i_folders'] = array(
-        'm' => IMP_Mailbox::formTo($q_ob->mbox_list),
+        'm' => IMP_Mailbox::formTo($q_ob->all ? array(IMP_Search_Query::ALLSEARCH) : $q_ob->mbox_list),
         's' => IMP_Mailbox::formTo($q_ob->subfolder_list)
     );
 } else {
@@ -400,8 +400,8 @@ if ($vars->edit_query && IMP::$mailbox->search) {
         $rs[$val->id] = array(
             'c' => $val->criteria,
             'f' => array(
-                'm' => array_map('strval', $val->mbox_list),
-                's' => array_map('strval', $val->subfolder_list)
+                'm' => IMP_Mailbox::formTo($val->all ? array(IMP_Search_Query::ALLSEARCH) : array_map('strval', $val->mbox_list)),
+                's' => IMP_Mailbox::formTo(array_map('strval', $val->subfolder_list))
             ),
             'l' => Horde_String::truncate($val->querytext)
         );
@@ -457,10 +457,17 @@ if (!$t->get('edit_query_filter')) {
     $imap_tree = $injector->getInstance('IMP_Imap_Tree');
     $imap_tree->setIteratorFilter();
 
+    $t2 = $injector->createInstance('Horde_Template');
+    $t2->setOption('gettext', true);
+    $t2->set('allsearch', IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH));
+
+    $js_vars['ImpSearch.allsearch'] = $t2->get('allsearch');
+
     $tree = $imap_tree->createTree('imp_search', array(
         'render_params' => array(
             'abbrev' => 0,
             'container_select' => true,
+            'customhtml' => $t2->fetch(IMP_TEMPLATES . '/imp/search/search-all.html'),
             'heading' => _("Add search folder:")
         ),
         'render_type' => 'IMP_Tree_Flist'
@@ -498,6 +505,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
         'need_label' => _("Saved searches require a label."),
         'not_match' => _("Do NOT Match"),
         'or' => _("OR"),
+        'search_all' => _("Search All Mailboxes"),
         'search_term' => _("Search Term:"),
         'subfolder_search' => _("Search all subfolders?")
     )
