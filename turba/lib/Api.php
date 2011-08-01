@@ -1701,7 +1701,11 @@ class Turba_Api extends Horde_Registry_Api
                 }
             }
 
-            $list = $driver->search($criterium, null, 'AND', array(), $strict ? array('email') : array());
+            try {
+                $list = $driver->search($criterium, null, 'AND', array(), $strict ? array('email') : array());
+            } catch (Turba_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
             if (!($list instanceof Turba_List)) {
                 continue;
             }
