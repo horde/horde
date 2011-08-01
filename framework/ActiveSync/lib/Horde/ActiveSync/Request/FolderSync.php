@@ -66,13 +66,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] syncKey: ' . $synckey);
 
-        // Initialize state engine
-        $this->_state->init(array('synckey' => $synckey));
         try {
-            // Get folders that we know about already
             $this->_state->loadState($synckey, 'foldersync');
-
-            // Get new synckey to send back
             $newsynckey = $this->_state->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
