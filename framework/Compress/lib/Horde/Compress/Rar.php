@@ -102,10 +102,16 @@ class Horde_Compress_Rar extends Horde_Compress_Base
                 break;
 
             default:
-                $position += $head_size;
                 if (isset($add_size)) {
-                    $position += $add_size;
+                    $head_size += $add_size;
                 }
+
+                if ($head_size == -7) {
+                    /* We've already added 7 bytes above. If we remove those
+                     * same 7 bytes, we will enter an infinite loop. */
+                    throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
+                }
+                $position += $head_size;
                 break;
             }
         }
