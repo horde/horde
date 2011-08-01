@@ -196,7 +196,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Stat folder
+     * Stat folder. Note that since the only thing that can ever change for a
+     * folder is the name, we use that as the 'mod' value.
      *
      * @param $id
      *
