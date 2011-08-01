@@ -268,21 +268,29 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                                 $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
                                 $user = null)
     {
+        $this->_logger->debug('Updating state during ' . $type);
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
-            $sql = 'INSERT INTO ' . $this->_syncMapTable . ' (message_uid, sync_modtime, sync_key, sync_devid, sync_folderid, sync_user) VALUES (?, ?, ?, ?, ?, ?)';
+            $sql = 'INSERT INTO ' . $this->_syncMapTable
+                . ' (message_uid, sync_modtime, sync_key, sync_devid, sync_folderid, sync_user) '
+                . 'VALUES (?, ?, ?, ?, ?, ?)';
             try {
-               $this->_db->insert($sql, array($change['id'], $change['mod'], $this->_syncKey, $this->_devId, $change['parent'], $user));
+               $this->_db->insert(
+                   $sql,
+                   array(
+                       $change['id'],
+                       $change['mod'],
+                       $this->_syncKey,
+                       $this->_devId,
+                       $change['parent'], $user));
             } catch (Horde_Db_Exception $e) {
                 $this->_logger->err($e->getMessage());
-               throw new Horde_ActiveSync_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
-            /* @TODO: Deal with PIM generated folder changes (mail only) */
+            // @TODO: Deal with PIM generated folder changes (mail only)
         } else {
-           /* When sending server changes, $this->_changes will contain all
-            * changes. Need to track which ones are sent since we might not
-            * send all of them.
-            */
-            $this->_logger->debug('Updating state during ' . $type);
+           // When sending server changes, $this->_changes will contain all
+           // changes. Need to track which ones are sent since we might not
+           // send all of them.
             foreach ($this->_changes as $key => $value) {
                if ($value['id'] == $change['id']) {
                    if ($type == 'foldersync') {
