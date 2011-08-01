@@ -9,6 +9,7 @@ v4.0.8-git
 
 Framework
 ---------
+[mjr] ActiveSync: Fix sending unnecessary FOLDERSYNC changes.
 [mjr] ActiveSync: Fix issue with FOLDERSYNC requests that was causing Android
       clients to PING and SYNC the same collection an unlimited number of times.
 [mjr] Service_Facebook: Use FQL to obtain event list and add rsvp_status.
