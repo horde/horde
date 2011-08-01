@@ -2096,6 +2096,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 'vanished' => !empty($options['vanished'])
             )));
 
+            if (empty($ret)) {
+                return $ret;
+            }
+
             $options['ids'] = new Horde_Imap_Client_Ids(array_keys($ret), $options['ids']->sequence);
         }
 

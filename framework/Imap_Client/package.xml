@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>14:41:36</time>
+ <date>2011-08-01</date>
+ <time>14:43:44</time>
  <version>
   <release>1.0.10</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Fix invalid IMAP command being sent if a changedsince search was empty.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -455,10 +455,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-08-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Fix invalid IMAP command being sent if a changedsince search was empty.
    </notes>
   </release>
  </changelog>
