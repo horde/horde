@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mjr] Fix mouse click handling on mobile view (Bug #10355).
 * [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
 * [mms] Select all checkbox in dynamic view can now be toggled.
 * [mms] Remember vertical splitbar size in dynamic view.
@@ -2354,6 +2355,7 @@
    <date>2011-07-28</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mjr] Fix mouse click handling on mobile view (Bug #10355).
 * [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
 * [mms] Select all checkbox in dynamic view can now be toggled.
 * [mms] Remember vertical splitbar size in dynamic view.

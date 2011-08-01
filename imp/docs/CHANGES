@@ -2,6 +2,7 @@
 v5.0.9-git
 ----------
 
+[mjr] Fix mouse click handling on mobile view (Bug #10355).
 [mms] Ensure correct message charset is use if forward/reply headers contain
       non US-ASCII characters (Bug #10148).
 [mms] Select all checkbox in dynamic view can now be toggled.
