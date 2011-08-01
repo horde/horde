@@ -299,10 +299,12 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                                unset($this->_state[$fi]);
                            }
                        }
-                       // Only save what we need, and ensure we have a mod time
+                       // Only save what we need. Note that 'mod' is eq to the
+                       // folder id, since that is the only thing that can
+                       // change in a folder.
                        $stat = array(
                            'id' => $value['id'],
-                           'mod' => (empty($value['mod']) ? time() : $value['mod']),
+                           'mod' => (empty($value['mod']) ? $value['id'] : $value['mod']),
                            'parent' => (empty($value['parent']) ? 0 : $value['parent'])
                        );
                        $this->_state[] = $stat;
