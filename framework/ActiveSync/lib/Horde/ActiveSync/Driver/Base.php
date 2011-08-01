@@ -370,8 +370,8 @@ abstract class Horde_ActiveSync_Driver_Base
      * Return helper for performing the actual sync operation.
      *
      * @param string $folderId
-     * @return unknown_type
      *
+     * @return Horde_ActiveSync_Sync
      */
     public function getSyncObject()
     {

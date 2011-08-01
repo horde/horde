@@ -132,6 +132,8 @@ class Horde_ActiveSync_Sync
      * Sends the next change in the set and updates the stateMachine if
      * successful
      *
+     * @param integer $flags  A Horde_ActiveSync:: flag constant
+     *
      * @return mixed  A progress array or false if no more changes
      */
     public function syncronize($flags = 0)

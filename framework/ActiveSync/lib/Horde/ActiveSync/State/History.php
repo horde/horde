@@ -249,9 +249,13 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      * so we don't mirror back the changes on next sync. If we are exporting
      * server changes, we need to track which changes have been sent (by
      * removing them from $this->_changes) so we know which items to send on the
-     * next sync if a MOREAVAILBLE response was needed.
+     * next sync if a MOREAVAILBLE response was needed.  If this is being called
+     * from a FOLDERSYNC command, update state accordingly. Yet another reason
+     * to break out state handling into different classes based on the command
+     * being run (Horde_ActiveSync_State_Sync, *_FolderSync, *_Ping etc...);
      *
-     * @param string $type     The type of change (change, delete, flags)
+     * @param string $type     The type of change (change, delete, flags or
+     *                         foldersync)
      * @param array $change    A stat/change hash describing the change
      * @param integer $origin  Flag to indicate the origin of the change.
      * @param string $user     The current sync user, only needed if change
@@ -286,7 +290,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                                unset($this->_state[$fi]);
                            }
                        }
-                       /* Only save what we need, and ensure we have a mod time */
+                       // Only save what we need, and ensure we have a mod time
                        $stat = array(
                            'id' => $value['id'],
                            'mod' => (empty($value['mod']) ? time() : $value['mod']),
