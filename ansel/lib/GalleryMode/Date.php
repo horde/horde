@@ -166,7 +166,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         }
 
         /* Get a list of all the subgalleries */
-        $this->_getSubGalleries();
+        $this->_loadSubGalleries();
         if (count($this->_subGalleries)) {
             $gallery_where = 'gallery_id IN ('
                 . implode(', ', $this->_subGalleries)
@@ -494,7 +494,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
 
         /* Make sure the image is in this gallery. */
         if ($image->gallery != $this->_gallery->id) {
-            $this->_getSubGalleries();
+            $this->_loadSubGalleries();
             if (!in_array($image->gallery, $this->_subGalleries)) {
                 throw new Horde_Exception_NotFound(_("Image not found in gallery."));
             }
@@ -627,7 +627,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      *
      * @return void
      */
-    protected function _getSubGalleries()
+    protected function _loadSubGalleries()
     {
         if (!is_array($this->_subGalleries)) {
             /* Get a list of all the subgalleries */
