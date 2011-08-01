@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-28</date>
- <time>16:32:31</time>
+ <date>2011-08-01</date>
+ <time>16:30:41</time>
  <version>
   <release>5.0.9</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix to allow search filters to be saved.
 * [mjr] Fix mouse click handling on mobile view (Bug #10355).
 * [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
 * [mms] Select all checkbox in dynamic view can now be toggled.
@@ -2352,9 +2353,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-28</date>
+   <date>2011-08-01</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix to allow search filters to be saved.
 * [mjr] Fix mouse click handling on mobile view (Bug #10355).
 * [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
 * [mms] Select all checkbox in dynamic view can now be toggled.
