@@ -40,7 +40,8 @@ class Turba
      *
      * @return array  The filtered, ordered $cfgSources entries.
      */
-    static public function getAddressBooks($permission = Horde_Perms::READ, array $options = array())
+    static public function getAddressBooks($permission = Horde_Perms::READ,
+                                           array $options = array())
     {
         $addressbooks = array();
         foreach (array_keys(self::getAddressBookOrder()) as $addressbook) {
@@ -57,13 +58,13 @@ class Turba
     /**
      * Get the order the user selected for displaying address books.
      *
-     * @return array  An array describing the order to display the address books.
+     * @return array  An array describing the order to display the address
+     *                books.
      */
     static public function getAddressBookOrder()
     {
         $lines = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
         $addressbooks = array();
-
         if (!empty($lines)) {
             $i = 0;
             foreach ($lines as $line) {
