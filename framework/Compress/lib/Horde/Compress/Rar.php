@@ -15,6 +15,8 @@
  */
 class Horde_Compress_Rar extends Horde_Compress_Base
 {
+    const BLOCK_START = "\x52\x61\x72\x21\x1a\x07\x00";
+
     /**
      */
     public $canDecompress = true;
@@ -50,7 +52,7 @@ class Horde_Compress_Rar extends Horde_Compress_Base
      */
     public function decompress($data, array $params = array())
     {
-        $blockStart = strpos($data, "\x52\x61\x72\x21\x1a\x07\x00");
+        $blockStart = strpos($data, self::BLOCK_START);
         if ($blockStart === false) {
             throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
         }
@@ -60,6 +62,9 @@ class Horde_Compress_Rar extends Horde_Compress_Base
         $return_array = array();
 
         while ($position < $data_len) {
+            if ($position + 7 > $data_len) {
+                throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
+            }
             $head_crc = substr($data, $position + 0, 2);
             $head_type = ord(substr($data, $position + 2, 1));
             $head_flags = unpack('vFlags', substr($data, $position + 3, 2));
@@ -102,10 +107,6 @@ class Horde_Compress_Rar extends Horde_Compress_Base
                 break;
 
             default:
-                if (isset($add_size)) {
-                    $head_size += $add_size;
-                }
-
                 if ($head_size == -7) {
                     /* We've already added 7 bytes above. If we remove those
                      * same 7 bytes, we will enter an infinite loop. */
