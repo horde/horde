@@ -1,0 +1,323 @@
+# Danish translations for Klutz package
+# Danske oversættelser for pakke Klutz.
+# Copyright (C) 2006 Horde Project
+# This file is distributed under the same license as the Klutz package.
+# Brian Truelsen <horde+i18n@briantruelsen.dk>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Klutz 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2006-03-11 12:34+0100\n"
+"PO-Revision-Date: 2006-03-11 16:17+0100\n"
+"Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: comics.php:258 templates/comics/comic.inc:5 templates/comics/comic.inc:8
+#: templates/comics/main.inc:45 templates/comics/missing.inc:5
+#: templates/comics/missing.inc:8
+#, php-format
+msgid "%s by %s"
+msgstr "%s af %s"
+
+#: backend.php:109
+msgid "All Comics"
+msgstr "Alle egneserier"
+
+#: backend.php:84
+msgid "All Dates"
+msgstr "Alle datoer"
+
+#: backend.php:240
+#, php-format
+msgid "An error occurred removing %s for %s<br />\n"
+msgstr "En fejl opstod ved fjernelse af %s for %s<br />\n"
+
+#: templates/javascript/goto.inc:52
+msgid "April"
+msgstr "April"
+
+#: templates/javascript/goto.inc:56
+msgid "August"
+msgstr "August"
+
+#: config/prefs.php.dist:11
+msgid ""
+"Change display options such as what comics you see, and how comics are "
+"sorted."
+msgstr ""
+"Her kan du ændre visningsindstillinger, så som hvilke tegneserie, der bliver "
+"vist på og hvordan tegneserier sorteres."
+
+#: templates/prefs/comic_select.inc:51
+msgid "Choose the comics you wish to view."
+msgstr "Vælg de tegneserier, som du ønsker at se."
+
+#: lib/Block/summary.php:3
+msgid "Comics"
+msgstr "Tegneserier"
+
+#: backend.php:121
+msgid "Comics Update"
+msgstr "Tegneserieopdatering"
+
+#: backend.php:239
+#, php-format
+msgid "Could not find %s for %s<br />\n"
+msgstr "Kunne ikke finde %s for %s<br />\n"
+
+#: lib/Block/summary.php:75
+msgid "Could not find any comics to display."
+msgstr "Kunne ikke finde nogen tegneserier, som kunne vises."
+
+#: templates/javascript/goto.inc:60
+msgid "December"
+msgstr "December"
+
+#: templates/backend/backend.inc:27
+msgid "Delete"
+msgstr "Slet"
+
+#: templates/backend/backend.inc:35
+msgid "Delete Comics"
+msgstr "Slet tegneserier"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Indstillinger for visning"
+
+#: templates/backend/backend.inc:20
+msgid "Don't check for uniqueness"
+msgstr "Kontrollér ikke for eneståenhed"
+
+#: backend.php:208
+msgid "Done"
+msgstr "Færdig"
+
+#: backend.php:210
+msgid "Error storing the image"
+msgstr "Fejl under lagring af billedet"
+
+#: templates/javascript/goto.inc:50
+msgid "February"
+msgstr "Februar"
+
+#: templates/backend/backend.inc:13
+msgid "Fetch"
+msgstr "Hent"
+
+#: templates/backend/backend.inc:21
+msgid "Fetch Comics"
+msgstr "Hent tegneserier"
+
+#: backend.php:196
+#, php-format
+msgid "Fetching %s for date %s..."
+msgstr "Henter %s for dato %s..."
+
+#: templates/javascript/goto.inc:44
+msgid "Fr"
+msgstr "Fre"
+
+#: templates/javascript/goto.inc:49
+msgid "January"
+msgstr "Januar"
+
+#: templates/javascript/goto.inc:55
+msgid "July"
+msgstr "Juli"
+
+#: templates/javascript/goto.inc:54
+msgid "June"
+msgstr "Juni"
+
+#: templates/backend/backend.inc:4
+msgid "Klutz Backend"
+msgstr "Klutz-backend"
+
+#: comics.php:108
+msgid "Main Listing"
+msgstr "Hovedoversigt"
+
+#: templates/backend/backend.inc:38
+msgid "Maintenance Functions"
+msgstr "Vedligeholdelsesfunktioner"
+
+#: templates/javascript/goto.inc:51
+msgid "March"
+msgstr "Marts"
+
+#: templates/javascript/goto.inc:53
+msgid "May"
+msgstr "Maj"
+
+#: templates/javascript/goto.inc:40
+msgid "Mo"
+msgstr "Man"
+
+#: templates/javascript/goto.inc:59
+msgid "November"
+msgstr "November"
+
+#: templates/javascript/goto.inc:58
+msgid "October"
+msgstr "Oktober"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Andre indstillinger"
+
+#: templates/backend/backend.inc:18
+msgid "Overwrite comics if they exist?"
+msgstr "Overskriv tegneserier, hvis de eksisterer?"
+
+#: templates/backend/backend.inc:42
+msgid "Rebuild Unique Identifiers file."
+msgstr "Genopbyg fil til unikke identifikatorer."
+
+#: templates/javascript/goto.inc:45
+msgid "Sa"
+msgstr "Lør"
+
+#: templates/prefs/comic_select.inc:65
+msgid "Select All"
+msgstr "Vælg alle"
+
+#: templates/prefs/comic_select.inc:64
+msgid "Select None"
+msgstr "Vælg ingen"
+
+#: templates/javascript/goto.inc:57
+msgid "September"
+msgstr "September"
+
+#: config/prefs.php.dist:46
+msgid "Show all of your selected comics on the summary page?"
+msgstr "Vis alle dine valgte tegneserier på opsummeringssiden?"
+
+#: config/prefs.php.dist:38
+msgid "Show comics you haven't selected on the browse page?"
+msgstr "Vis tegneserier, som du ikke har valgt, på skimmesiden?"
+
+#: backend.php:213
+#, php-format
+msgid "Skipping %s for %s"
+msgstr "Springer %s for %s over"
+
+#: backend.php:193
+#, php-format
+msgid "Skipping %s for %s - no historical fetching"
+msgstr "Springer %s for %s over - ingen historisk hentning"
+
+#: templates/javascript/goto.inc:46
+msgid "Su"
+msgstr "Søn"
+
+#: backend.php:238
+#, php-format
+msgid "Successfully removed %s for %s<br />\n"
+msgstr "Har fjernet %s for %s<br />\n"
+
+#: templates/javascript/goto.inc:43
+msgid "Th"
+msgstr "Tor"
+
+#: backend.php:203
+msgid "The image doesn't exist or can't be retrieved"
+msgstr "Billedet eksisterer ikke eller kan ikke hentes"
+
+#: backend.php:78
+msgid "The unique identifiers table has been rebuilt."
+msgstr "Tabellen over unikke identifikatorer er blevet genopbygget."
+
+#: comics.php:223
+msgid "This comic doesn't exist or is disabled."
+msgstr "Tegneserien eksisterer ikke eller er slået fra."
+
+#: backend.php:206
+#, php-format
+msgid "This image appears to be a repeat (%s)"
+msgstr "Dette billede synes at være en gentagelse (%s)"
+
+#: templates/comics/missing.inc:13
+msgid "This image is not currently available."
+msgstr "Dette billede er p.t. ikke tilgængelig."
+
+#: templates/prefs/comic_select.inc:52
+msgid ""
+"To select multiple comics, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"For at markere flere tegneserier skal du holde Ctrl (PC) eller Command (Mac) "
+"nede, medens du klikker."
+
+#: comics.php:24
+msgid "Today's Comics"
+msgstr "Dagens tegneserier"
+
+#: lib/Block/summary.php:31
+msgid "Today's comics"
+msgstr "Dagens tegneserie"
+
+#: templates/comics/missing.inc:20
+msgid "Try to fetch this comic"
+msgstr "Prøv at hente denne tegneserie"
+
+#: templates/javascript/goto.inc:41
+msgid "Tu"
+msgstr "Tir"
+
+#: templates/comics/main.inc:32
+msgid "View by comic"
+msgstr "Vis efter tegneserie"
+
+#: templates/comics/main.inc:9
+#, php-format
+msgid "View comics for %s"
+msgstr "Vis tegneserier for %s"
+
+#: templates/javascript/goto.inc:42
+msgid "We"
+msgstr "Ons"
+
+#: backend.php:43 backend.php:46
+msgid "You must define a storage backend to use the administrative interface."
+msgstr ""
+"Du skal konfigurere en lagringsbackend for at kunne anvende den "
+"administrative snitflade."
+
+#: lib/Klutz.php:340
+msgid "_Browse"
+msgstr "Skim"
+
+#: lib/Klutz.php:346
+msgid "_Goto"
+msgstr "Gå til"
+
+#: lib/Klutz.php:348
+msgid "_Today"
+msgstr "I Dag"
+
+#: lib/Klutz.php:352
+msgid "_Update"
+msgstr "Opdatér"
+
+#: backend.php:259 backend.php:261
+msgid "all comics"
+msgstr "alle tegneserier"
+
+#: backend.php:255
+msgid "any comics"
+msgstr "vilkårlige tegneserier"
+
+#: backend.php:255
+msgid "any dates"
+msgstr "vilkårlige datoer"
+
+#: templates/backend/backend.inc:15
+msgid "for"
+msgstr "for"

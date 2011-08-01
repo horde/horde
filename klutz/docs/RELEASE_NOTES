@@ -1,0 +1,32 @@
+<?php
+/**
+ * Release focus. Possible values (multiple possible with arrays):
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
+ */
+$this->notes['fm']['focus'] = Horde_Release::FOCUS_INITIAL;
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the final release of the Klutz Comic
+viewing application version H3 (1.0).
+
+Klutz is a Horde application for viewing comics. Users can pick which comics
+they want to read and browse them by comic or by day.
+ML;
+
+/* Freshmeat release notes, not more than 600 characters. */
+$this->notes['fm']['changes'] = <<<FM
+This is the first stable release.
+FM;
+
+$this->notes['name'] = 'Klutz';
+$this->notes['list'] = 'horde';
+$this->notes['fm']['project'] = 'klutz';
+$this->notes['fm']['branch'] = 'Default';

@@ -113,8 +113,8 @@ class Horde_ActiveSync_Sync
      * @return void
      */
     public function init(Horde_ActiveSync_State_Base &$stateMachine,
-                         $exporter,
-                         $collection = array())
+                         Horde_ActiveSync_Connector_Exporter $exporter,
+                         array $collection = array())
     {
         $this->_stateMachine = &$stateMachine;
         $this->_exporter = $exporter;
@@ -132,6 +132,8 @@ class Horde_ActiveSync_Sync
      * Sends the next change in the set and updates the stateMachine if
      * successful
      *
+     * @param integer $flags  A Horde_ActiveSync:: flag constant
+     *
      * @return mixed  A progress array or false if no more changes
      */
     public function syncronize($flags = 0)
@@ -141,7 +143,6 @@ class Horde_ActiveSync_Sync
         if ($this->_folderId == false) {
             if ($this->_step < count($this->_changes)) {
                 $change = $this->_changes[$this->_step];
-
                 switch($change['type']) {
                 case 'change':
                     $folder = $this->_backend->getFolder($change['id']);
@@ -149,24 +150,24 @@ class Horde_ActiveSync_Sync
                     if (!$folder) {
                         return;
                     }
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
+                        $this->_exporter->folderChange($folder)) {
 
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->folderChange($folder)) {
-                        $this->_stateMachine->updateState('change', $stat);
+                        $this->_stateMachine->updateState('foldersync', $stat);
                     }
                     break;
                 case 'delete':
-                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA || $this->_exporter->folderDeletion($change['id'])) {
-                        $this->_stateMachine->updateState('delete', $change);
+                    if ($flags & Horde_ActiveSync::BACKEND_DISCARD_DATA ||
+                        $this->_exporter->folderDeletion($change['id'])) {
+
+                        $this->_stateMachine->updateState('foldersync', $change);
                     }
                     break;
                 }
-
                 $this->_step++;
-
                 $progress = array();
                 $progress['steps'] = count($this->_changes);
                 $progress['progress'] = $this->_step;
-
                 return $progress;
             } else {
                 return false;

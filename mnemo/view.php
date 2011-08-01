@@ -113,23 +113,11 @@ if ($memo['body'] instanceof Mnemo_Exception) {
 
 /* Set the page title to the current note's name, if it exists. */
 $title = $memo ? $memo['desc'] : _("Note Details");
-$print_view = (bool)Horde_Util::getFormData('print');
-if (!$print_view) {
-    Horde::addScriptFile('popup.js', 'horde', true);
-}
 require $registry->get('templates', 'horde') . '/common-header.inc';
 
-if ($print_view) {
-    require $registry->get('templates', 'horde') . '/javascript/print.js';
-} else {
-    $print_link = Horde_Util::addParameter('view.php', array('memo' => $memo_id,
-                                                       'memolist' => $memolist_id,
-                                                       'print' => 'true'));
-    $print_link = Horde::url($print_link);
-    Horde::addScriptFile('stripe.js', 'horde', true);
-    echo Horde::menu();
-    $notification->notify();
-}
+Horde::addScriptFile('stripe.js', 'horde', true);
+echo Horde::menu();
+$notification->notify();
 
 require MNEMO_TEMPLATES . '/view/memo.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

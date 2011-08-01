@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+ <configsection name="storage">
+  <configheader>Storage Settings</configheader>
+  <configswitch name="driver" desc="Klutz can either serve comics directly
+  from the web or from some form of local storage device.  A driver of 'None'
+  means that the web server will do the minimum necessary to send the client
+  an image.  For direct URLs, this is simply a Location header.  Otherwise,
+  the server will have to do at least one fetch, and for some comics more than
+  one. This is EXTREMELY inefficient.">
+   <case name="none" desc="None"/>
+   <case name="file" desc="Store comics locally">
+    <configsection name="params">
+     <configstring name="basedir" desc="The root directory in which it stores
+     comics.  Comics are then stored in subdirs with the format YYYYMMDD. The
+     example value stores all July 4, 2002 comics in
+     /usr/local/data/Comics/07042002.">/usr/local/data/Comics</configstring>
+    </configsection>
+   </case>
+  <case name="sql" desc="Local storage with SQL SUMS">
+   <configsection name="params">
+    <configstring name="basedir" desc="The root directory in which it stores
+     comics.  Comics are then stored in subdirs with the format YYYYMMDD. The
+     example value stores all July 4, 2002 comics in
+     /usr/local/data/Comics/07042002.">/usr/local/data/Comics</configstring>
+   </configsection>
+  </case>
+  </configswitch>
+ </configsection>
+
+ <configsection name="backend">
+  <configinteger name="daystokeep" desc="How many days worth of comics should we store?">90</configinteger>
+ </configsection>
+</configuration>

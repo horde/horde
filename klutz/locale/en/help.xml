@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<help>
+
+<entry id="Overview">
+    <title>Overview</title>
+    <heading>Introduction</heading>
+    <para>
+    This is an application for viewing comic strips.  It lets you view comics by date or by comic strip.
+    </para>
+</entry>
+
+</help>

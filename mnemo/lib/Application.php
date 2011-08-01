@@ -63,7 +63,7 @@ class Mnemo_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $conf, $injector, $print_link;
+        global $conf, $injector;
 
         $menu->add(Horde::url('list.php'), _("_List Notes"), 'mnemo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
@@ -79,11 +79,6 @@ class Mnemo_Application extends Horde_Registry_Application
         /* Import/Export */
         if ($conf['menu']['import_export']) {
             $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
-        }
-
-        /* Print */
-        if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add(Horde::url($print_link), _("_Print"), 'print.png', null, '_blank', 'popup(this.href); return false;');
         }
     }
 

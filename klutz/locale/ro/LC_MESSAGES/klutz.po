@@ -1,0 +1,357 @@
+# Romanian translations for Klutz package.
+# Copyright (C) 2003 Horde Project
+# This file is distributed under the same license as the klutz package.
+# Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: klutz 0.0.1\n"
+"POT-Creation-Date: 2003-03-04 13:46+0100\n"
+"PO-Revision-Date: 2003-03-25 12:32+0200\n"
+"Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
+"Language-Team: Romanian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/comics/comic.inc:6 templates/comics/comic.inc:9
+#: templates/comics/main.inc:47 templates/comics/missing.inc:6
+#: templates/comics/missing.inc:9 templates/addlink/comic.inc:6
+#: templates/addlink/comic.inc:9 templates/addlink/main.inc:56
+msgid "%s by %s"
+msgstr "%s din %s"
+
+#: addlink.php:38
+msgid "Added a %s link to %s."
+msgstr "Adaugare link %s in %s."
+
+#: backend.php:106
+msgid "All Comics"
+msgstr "Toate revistele"
+
+#: backend.php:78
+msgid "All Dates"
+msgstr "Toate datele"
+
+#: backend.php:224
+msgid "An error occurred removing %s for %s<br />\n"
+msgstr "S-a produs o eroare in stergerea %s pentru %s<br />\n"
+
+#: templates/javascript/goto.inc:50
+msgid "April"
+msgstr "Aprilie"
+
+#: templates/javascript/goto.inc:54
+msgid "August"
+msgstr "August"
+
+#: templates/menu/menu.inc:14 templates/addlink/menu.inc:18
+msgid "Browse"
+msgstr "Rasfoire"
+
+#: config/prefs.php.dist:13
+msgid ""
+"Change display options such as color scheme, what comics you see, and how "
+"comics are sorted."
+msgstr ""
+"Schimbare optiuni afisaj: schema culori, ce reviste doriti sa vedeti, "
+"si modul de sortare al revistelor."
+
+#: templates/prefs/comic_select.inc:51
+msgid "Choose the comics you wish to view."
+msgstr "Alegeti revista pe care doriti sa o vedeti."
+
+#: lib/api.php:59
+msgid "Comics"
+msgstr "Reviste"
+
+#: backend.php:118
+msgid "Comics Update"
+msgstr "Improspatare reviste"
+
+#: templates/javascript/goto.inc:58
+msgid "December"
+msgstr "Decembrie"
+
+#: templates/backend/backend.inc:27
+msgid "Delete"
+msgstr "Stergere"
+
+#: templates/backend/backend.inc:35
+msgid "Delete Comics"
+msgstr "Stergere reviste"
+
+#: config/prefs.php.dist:12
+msgid "Display Options"
+msgstr "Optiuni Afisaj"
+
+#: templates/backend/backend.inc:20
+msgid "Don't check for uniqueness"
+msgstr "Nu verifica unicitatea"
+
+#: backend.php:200
+msgid "Done"
+msgstr "Efectuat"
+
+#: backend.php:202
+msgid "Error storing the image"
+msgstr "Eroare in stocarea imaginii"
+
+#: templates/javascript/goto.inc:48
+msgid "February"
+msgstr "Februarie"
+
+#: templates/backend/backend.inc:13
+msgid "Fetch"
+msgstr "Aducere"
+
+#: templates/backend/backend.inc:21
+msgid "Fetch Comics"
+msgstr "Aducere reviste"
+
+#: backend.php:188
+msgid "Fetching %s for date %s..."
+msgstr "Aducere %s din data %s..."
+
+#: templates/javascript/goto.inc:42
+msgid "Fr"
+msgstr "Vi"
+
+#: templates/menu/menu.inc:19
+msgid "Goto"
+msgstr "Spre"
+
+#: templates/menu/menu.inc:32
+msgid "Help"
+msgstr "Ajutor"
+
+#: templates/javascript/goto.inc:47
+msgid "January"
+msgstr "Ianuarie"
+
+#: templates/javascript/goto.inc:53
+msgid "July"
+msgstr "Iulie"
+
+#: templates/javascript/goto.inc:52
+msgid "June"
+msgstr "Iunie"
+
+#: templates/backend/backend.inc:4
+msgid "Klutz Backend"
+msgstr "Suport Klutz"
+
+#: templates/index/notconfigured.inc:4
+msgid "Klutz is not properly configured"
+msgstr "Klutz nu este configurat corect"
+
+#: config/prefs.php.dist:6
+msgid "Language"
+msgstr "Limba"
+
+#: addlink.php:41
+msgid "Link added."
+msgstr "Link adaugat."
+
+#: templates/backend/backend.inc:38
+msgid "Maintenance Functions"
+msgstr "Functii administrative"
+
+#: templates/javascript/goto.inc:49
+msgid "March"
+msgstr "Martie"
+
+#: templates/javascript/goto.inc:51
+msgid "May"
+msgstr ""
+
+#: templates/javascript/goto.inc:38
+msgid "Mo"
+msgstr "Lu"
+
+#: templates/javascript/goto.inc:57
+msgid "November"
+msgstr "Noiembrie"
+
+#: templates/javascript/goto.inc:56
+msgid "October"
+msgstr "Octombrie"
+
+#: templates/menu/menu.inc:23
+msgid "Options"
+msgstr "Optiuni"
+
+#: config/prefs.php.dist:11
+msgid "Other Options"
+msgstr "Alte optiuni"
+
+#: templates/backend/backend.inc:18
+msgid "Overwrite comics if they exist?"
+msgstr "Suprascrie reviste daca exista?"
+
+#: templates/backend/backend.inc:42
+msgid "Rebuild Unique Identifiers file."
+msgstr "Refacere fisier identificatori unici."
+
+#: templates/javascript/goto.inc:43
+msgid "Sa"
+msgstr "Sa"
+
+#: templates/prefs/comic_select.inc:72
+msgid "Select All"
+msgstr "Selecteaza tot"
+
+#: templates/prefs/comic_select.inc:71
+msgid "Select None"
+msgstr "Deselecteaza tot"
+
+#: config/prefs.php.dist:22
+msgid "Select your preferred language:"
+msgstr "Selectare limba favorita:"
+
+#: templates/javascript/goto.inc:55
+msgid "September"
+msgstr "Septembrie"
+
+#: config/prefs.php.dist:7
+msgid "Set the your preferred display language."
+msgstr "Setare limba favorita"
+
+#: config/prefs.php.dist:51
+msgid "Show all of your selected comics on the summary page?"
+msgstr "Afisare toate revistele selectate in pagina de cuprins?"
+
+#: config/prefs.php.dist:44
+msgid "Show comics you haven't selected on the browse page?"
+msgstr "Afiseaza revistele neselectate in pagina de rasfoire?"
+
+#: backend.php:205
+msgid "Skipping %s for %s"
+msgstr "Evitare %s din %s"
+
+#: backend.php:185
+msgid "Skipping %s for %s- no historical fetching"
+msgstr "Evitare %s din %s- nici o aducere istorica"
+
+#: templates/index/notconfigured.inc:39
+msgid "Some of Klutz's configuration files are missing:"
+msgstr "Anumite fisiere de configurare Klutz lipsesc:"
+
+#: templates/javascript/goto.inc:44
+msgid "Su"
+msgstr "Du"
+
+#: backend.php:223
+msgid "Successfully removed %s for %s<br />\n"
+msgstr "Stergere reusita a %s din %s<br />\n"
+
+#: templates/javascript/goto.inc:41
+msgid "Th"
+msgstr "Jo"
+
+#: backend.php:194
+msgid "The image doesn't exist or can't be retrieved"
+msgstr "Imaginea nu exista sau nu a putut fi preluata"
+
+#: backend.php:62 backend.php:64
+msgid "The unique identifiers table has been rebuilt."
+msgstr "Tabela de identificatori unici a fost reconstruita."
+
+#: comics.php:220 addlink.php:260
+msgid "This comic doesn't exist or is disabled."
+msgstr "Aceasta revista nu exista sau este indisponibila."
+
+#: templates/index/notconfigured.inc:51
+msgid "This file contains preferences for Klutz."
+msgstr "Acest fisier contine preferintele Klutz."
+
+#: templates/index/notconfigured.inc:58
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Acest fisier contrioleaza schemele de culori si fonturi diferite de cele "
+"implicite Horde."
+
+#: backend.php:197
+msgid "This image appears to be a repeat"
+msgstr "Aceasta imagine se repeta"
+
+#: templates/comics/missing.inc:16
+msgid "This image is not currently available."
+msgstr "Aceasta imagine este momentan indisponibila."
+
+#: templates/index/notconfigured.inc:44
+msgid ""
+"This is the main Klutz configuration file. It contains options for all Klutz "
+"scripts."
+msgstr ""
+"Acesta este principalul fisier de configurare Klutz. Contine optiuni pentru "
+"toate scripturile Klutz."
+
+#: lib/Block/summary.php:44 templates/menu/menu.inc:21
+#: templates/addlink/menu.inc:21
+msgid "Today"
+msgstr "Astazi"
+
+#: lib/Block/summary.php:42 comics.php:19 addlink.php:51
+msgid "Today's Comics"
+msgstr "Revistele de astazi"
+
+#: templates/comics/missing.inc:24
+msgid "Try to fetch this comic"
+msgstr "Incercare de aducere a revistei"
+
+#: templates/javascript/goto.inc:39
+msgid "Tu"
+msgstr "Ma"
+
+#: lib/api.php:47 templates/menu/menu.inc:27
+msgid "Update"
+msgstr "Improspatare"
+
+#: templates/prefs/comic_select.inc:52
+msgid "Use Ctrl/Option+Click to select multiple comics."
+msgstr "Folositi Ctrl/Optiune+click pentru a selecta mai multe reviste."
+
+#: prefs.php:46
+msgid "User Options"
+msgstr "Optiuni utilizator"
+
+#: templates/comics/main.inc:14 templates/addlink/main.inc:14
+msgid "View by comic"
+msgstr "Afisare dupa revista"
+
+#: templates/comics/main.inc:8 templates/addlink/main.inc:8
+msgid "View comics for %s"
+msgstr "Afisare reviste dupa %s"
+
+#: templates/javascript/goto.inc:40
+msgid "We"
+msgstr "Mi"
+
+#: backend.php:38 backend.php:41
+msgid ""
+"You must define a storage backend to use the administrative interface.\n"
+msgstr ""
+"Trebuie definit un suport de stocare pentru interfata administrativa.\n"
+
+#: config/prefs.php.dist:5
+msgid "Your Information"
+msgstr "Detalii personale"
+
+#: backend.php:240 backend.php:242
+msgid "all comics"
+msgstr "toate revistele"
+
+#: templates/backend/backend.inc:15
+msgid "for"
+msgstr "pentru"
+
+#: templates/prefs/comic_select.inc:65
+msgid "move down"
+msgstr "mutare jos"
+
+#: templates/prefs/comic_select.inc:63
+msgid "move up"
+msgstr "mutare sus"

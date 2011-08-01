@@ -1,0 +1,380 @@
+# German translations for Klutz package
+# German messages for Klutz.
+# Copyright (C) 2002-2009 Horde Project
+# This file is distributed under the same license as the Klutz package.
+# Jan Schneider <jan@horde.org>, 2002-2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Klutz 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2009-09-12 10:09+0200\n"
+"PO-Revision-Date: 2009-09-12 10:32+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: comics.php:303 templates/comics/comic.inc:5 templates/comics/comic.inc:8
+#: templates/comics/main.inc:45 templates/comics/missing.inc:5
+#: templates/comics/missing.inc:8
+#, php-format
+msgid "%s by %s"
+msgstr "%s von %s"
+
+#: lib/api.php:35
+msgid "Admin"
+msgstr "Administration"
+
+#: backend.php:119
+msgid "All Comics"
+msgstr "Alle Comics"
+
+#: backend.php:94
+msgid "All Dates"
+msgstr "Alle Daten"
+
+#: backend.php:260
+#, php-format
+msgid "An error occurred removing %s for %s<br />\n"
+msgstr "Beim Entfernen von %s für %s ist ein Fehler aufgetreten<br />\n"
+
+#: templates/javascript/goto.inc:52
+msgid "April"
+msgstr "April"
+
+#: templates/javascript/goto.inc:56
+msgid "August"
+msgstr "August"
+
+#: templates/savecomic/savecomic.inc:29
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: config/prefs.php.dist:11
+msgid ""
+"Change display options such as what comics you see, and how comics are "
+"sorted."
+msgstr ""
+"Ändern Sie Anzeige-Einstellungen wie die Comics, die angezeigt werden "
+"sollen, und wie sie sortiert werden sollen."
+
+#: templates/prefs/comic_select.inc:51
+msgid "Choose the comics you wish to view."
+msgstr "Wählen Sie die Comics, die angezeigt werden sollen."
+
+#: lib/Block/summary.php:3
+msgid "Comics"
+msgstr "Comics"
+
+#: backend.php:130 backend.php:140
+msgid "Comics Update"
+msgstr "Comics-Aktualisierung"
+
+#: backend.php:259
+#, php-format
+msgid "Could not find %s for %s<br />\n"
+msgstr "Konnte %s von %s nicht finden<br />\n"
+
+#: lib/Block/summary.php:71
+msgid "Could not find any comics to display."
+msgstr "Keine Comics."
+
+#: templates/javascript/goto.inc:60
+msgid "December"
+msgstr "Dezember"
+
+#: config/prefs.php.dist:53
+msgid "Default gallery to use when saving comics:"
+msgstr "Standardgalerie in der Comics gespeichert werden sollen:"
+
+#: templates/backend/backend.inc:27
+msgid "Delete"
+msgstr "Löschen"
+
+#: templates/backend/backend.inc:35
+msgid "Delete Comics"
+msgstr "Comics löschen"
+
+#: templates/savecomic/savecomic.inc:19
+msgid "Description"
+msgstr "Beschreibung"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Anzeige-Einstellungen"
+
+#: templates/backend/backend.inc:20
+msgid "Don't check for uniqueness"
+msgstr "Nicht auf Duplikate überprüfen"
+
+#: backend.php:229
+msgid "Done"
+msgstr "Fertig"
+
+#: templates/savecomic/savecomic.inc:18
+msgid "Enter a description for this comic"
+msgstr "Geben Sie eine Beschreibung für diesen Comic ein"
+
+#: templates/savecomic/savecomic.inc:23
+msgid "Enter any tags for this image"
+msgstr "Geben Sie Tags für dieses Bild ein"
+
+#: backend.php:235
+msgid "Error storing the image"
+msgstr "Fehler beim Speichern des Bildes"
+
+#: templates/javascript/goto.inc:50
+msgid "February"
+msgstr "Februar"
+
+#: templates/backend/backend.inc:13
+msgid "Fetch"
+msgstr "Herunterladen"
+
+#: templates/backend/backend.inc:21
+msgid "Fetch Comics"
+msgstr "Comics herunterladen"
+
+#: backend.php:212
+#, php-format
+msgid "Fetching %s for date %s..."
+msgstr "Lade %s vom %s herunter..."
+
+#: backend.php:231
+#, php-format
+msgid "Fetching %s for date %s...Done"
+msgstr "Lade %s vom %s herunter... Fertig"
+
+#: templates/javascript/goto.inc:44
+msgid "Fr"
+msgstr "Fr"
+
+#: templates/savecomic/savecomic.inc:12
+msgid "Gallery"
+msgstr "Galerie"
+
+#: templates/savecomic/savecomic.inc:7
+msgid "Image"
+msgstr "Bild"
+
+#: templates/javascript/goto.inc:49
+msgid "January"
+msgstr "Januar"
+
+#: templates/javascript/goto.inc:55
+msgid "July"
+msgstr "Juli"
+
+#: templates/javascript/goto.inc:54
+msgid "June"
+msgstr "Juni"
+
+#: templates/backend/backend.inc:4
+msgid "Klutz Backend"
+msgstr "Klutz Speicher"
+
+#: comics.php:112
+msgid "Main Listing"
+msgstr "Hauptliste"
+
+#: templates/backend/backend.inc:38
+msgid "Maintenance Functions"
+msgstr "Wartungsfunktionen"
+
+#: templates/javascript/goto.inc:51
+msgid "March"
+msgstr "März"
+
+#: templates/javascript/goto.inc:53
+msgid "May"
+msgstr "Mai"
+
+#: templates/javascript/goto.inc:40
+msgid "Mo"
+msgstr "Mo"
+
+#: templates/javascript/goto.inc:59
+msgid "November"
+msgstr "November"
+
+#: templates/javascript/goto.inc:58
+msgid "October"
+msgstr "Oktober"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Andere Einstellungen"
+
+#: templates/backend/backend.inc:18
+msgid "Overwrite comics if they exist?"
+msgstr "Comics überschreiben, wenn sie existieren?"
+
+#: templates/backend/backend.inc:42
+msgid "Rebuild Unique Identifiers file."
+msgstr "Datei mit den IDs neu aufbauen."
+
+#: templates/javascript/goto.inc:45
+msgid "Sa"
+msgstr "Sa"
+
+#: comics.php:218 comics.php:220 comics.php:315 comics.php:317
+msgid "Save Comic to Gallery"
+msgstr "Comic in Galerie speichern"
+
+#: savecomic.php:65
+msgid "Save Image"
+msgstr "Bild speichern"
+
+#: templates/prefs/comic_select.inc:65
+msgid "Select All"
+msgstr "Alle auswählen"
+
+#: templates/prefs/comic_select.inc:64
+msgid "Select None"
+msgstr "Keine auswählen"
+
+#: templates/savecomic/savecomic.inc:8
+msgid "Select the gallery to save the comic to."
+msgstr "Wählen Sie die Galerie, in die der Comic gespeichert werden soll."
+
+#: templates/javascript/goto.inc:57
+msgid "September"
+msgstr "September"
+
+#: config/prefs.php.dist:46
+msgid "Show all of your selected comics on the summary page?"
+msgstr "Alle ausgewählten Comics auf der Startseite anzeigen?"
+
+#: config/prefs.php.dist:38
+msgid "Show comics you haven't selected on the browse page?"
+msgstr "Comics, die Sie nicht ausgewählt haben, in der Liste anzeigen?"
+
+#: backend.php:238
+#, php-format
+msgid "Skipping %s for %s"
+msgstr "Überspringe %s vom %s"
+
+#: backend.php:209
+#, php-format
+msgid "Skipping %s for %s - no historical fetching"
+msgstr "Überspringe %s vom %s - kein Herunterladen alter Comics"
+
+#: templates/javascript/goto.inc:46
+msgid "Su"
+msgstr "So"
+
+#: templates/savecomic/savecomic.inc:28
+msgid "Submit"
+msgstr "Abschicken"
+
+#: backend.php:258
+#, php-format
+msgid "Successfully removed %s for %s<br />\n"
+msgstr "%s vom %s wurde erfolgreich entfernt<br />\n"
+
+#: templates/savecomic/savecomic.inc:24
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/javascript/goto.inc:43
+msgid "Th"
+msgstr "Do"
+
+#: backend.php:220 backend.php:222
+msgid "The image doesn't exist or can't be retrieved"
+msgstr "Das Bild existiert nicht oder konnte nicht heruntergeladen werden"
+
+#: backend.php:88
+msgid "The unique identifiers table has been rebuilt."
+msgstr "Die Tabelle mit den IDs wurde neu aufgebaut."
+
+#: savecomic.php:37
+msgid "There was an error retrieving the comic."
+msgstr "Beim Herunterladen des Comics ist ein Fehler aufgetreten."
+
+#: comics.php:244
+msgid "This comic doesn't exist or is disabled."
+msgstr "Dieser Comic existiert nicht oder ist deaktiviert."
+
+#: backend.php:226
+#, php-format
+msgid "This image appears to be a repeat (%s)"
+msgstr "Dieses Bild scheint eine Wiederholung zu sein (%s)"
+
+#: templates/comics/missing.inc:13
+msgid "This image is not currently available."
+msgstr "Dieses Bild ist zur Zeit nicht verfügbar."
+
+#: templates/prefs/comic_select.inc:52
+msgid ""
+"To select multiple comics, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"Halten Sie beim Klicken Strg (PC) bzw. Command (Mac) gedrückt, um mehrere "
+"Comics auszuwählen."
+
+#: comics.php:24
+msgid "Today's Comics"
+msgstr "Comics von Heute"
+
+#: templates/comics/missing.inc:22
+msgid "Try to fetch this comic"
+msgstr "Dieses Comic versuchen herunterzuladen"
+
+#: templates/javascript/goto.inc:41
+msgid "Tu"
+msgstr "Di"
+
+#: templates/comics/main.inc:32
+msgid "View by comic"
+msgstr "Ansicht nach Comics"
+
+#: templates/comics/main.inc:9
+#, php-format
+msgid "View comics for %s"
+msgstr "Comics vom %s"
+
+#: templates/javascript/goto.inc:42
+msgid "We"
+msgstr "Mi"
+
+#: backend.php:46 backend.php:49
+msgid "You must define a storage backend to use the administrative interface."
+msgstr ""
+"Sie müssen ein Speicherbackend konfigurieren, um die "
+"Administrationsobefläche nutzen zu können."
+
+#: lib/Klutz.php:346
+msgid "_Browse"
+msgstr "_Liste"
+
+#: lib/Klutz.php:352
+msgid "_Goto"
+msgstr "_Gehe zu"
+
+#: lib/Klutz.php:354
+msgid "_Today"
+msgstr "He_ute"
+
+#: lib/Klutz.php:358
+msgid "_Update"
+msgstr "_Aktualisierung"
+
+#: backend.php:279 backend.php:281
+msgid "all comics"
+msgstr "alle Comics"
+
+#: backend.php:275
+msgid "any comics"
+msgstr "alle Comics"
+
+#: backend.php:275
+msgid "any dates"
+msgstr "allen Tagen"
+
+#: templates/backend/backend.inc:15
+msgid "for"
+msgstr "vom"
