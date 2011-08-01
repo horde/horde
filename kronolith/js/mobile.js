@@ -773,7 +773,7 @@
         });
 
         // Bind click and swipe events
-        $(document).click(KronolithMobile.clickHandler);
+        $(document).bind('vmouseclick', KronolithMobile.clickHandler);
         $('body').bind('swipeleft', KronolithMobile.handleSwipe);
         $('body').bind('swiperight', KronolithMobile.handleSwipe);
     }
