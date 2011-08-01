@@ -148,7 +148,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         // The $exporter just caches all folder changes in-memory, so we can
         // count before sending the actual data.
         $exporter = new Horde_ActiveSync_Connector_Exporter();
-        $sync = $this->_driver->GetSyncObject();
+        $sync = $this->_driver->getSyncObject();
         $sync->init($this->_state, $exporter, array('synckey' => $synckey));
 
         // Perform the actual sync operation
