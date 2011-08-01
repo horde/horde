@@ -166,6 +166,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             $this->_state = ($data !== false) ? $data : array();
             $this->_logger->debug(
                 sprintf('[%s] Loading FOLDERSYNC state: %s',
+                $this->_devId,
                 print_r($this->_state, true)));
         } elseif ($type == 'sync') {
             $this->_changes = ($data !== false) ? $data : null;
