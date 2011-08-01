@@ -2101,12 +2101,6 @@ KronolithCore = {
             var div = _createElement(event)
                 .setStyle({ backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                             color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
-            if (!event.value.al) {
-                div.update(new Element('span', { className: 'kronolithDate' }).update(event.value.start.toString('t')))
-                    .insert(' ')
-                    .insert(new Element('span', { className: 'kronolithSeparator' }).update('&middot;'))
-                    .insert(' ');
-            }
             this.createAgendaDay(date);
             $('kronolithAgendaDay' + date).insert(div);
             break;
