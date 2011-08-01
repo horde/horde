@@ -78,15 +78,10 @@ case 'hermes_form_export':
 }
 
 $title = _("Search for Time");
-$print_view = (bool)$vars->get('print');
-if (!$print_view) {
-    Horde::addScriptFile('popup.js', 'horde', true);
-}
 if (!($searchVars = $session->get('hermes', 'search_criteria'))) {
     $searchVars = $vars;
 }
 $form = new Hermes_Form_Search($searchVars);
-$print_link = Horde::url('search.php')->add('print', 'true');
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
@@ -115,10 +110,8 @@ if ($session->exists('hermes', 'search_criteria')) {
     echo $template->fetch(HERMES_TEMPLATES . '/time/form.html');
 }
 
-if (!$print_view) {
-    echo '<br />';
-    $exportForm = new Hermes_Form_Export($vars);
-    $exportForm->renderActive(new Horde_Form_Renderer(), $vars, 'search.php', 'post');
-}
+echo '<br />';
+$exportForm = new Hermes_Form_Export($vars);
+$exportForm->renderActive(new Horde_Form_Renderer(), $vars, 'search.php', 'post');
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

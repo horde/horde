@@ -83,11 +83,6 @@ class Hermes_Application extends Horde_Registry_Application
             $menu->add(Horde::url('invoicing.php'), _("_Invoicing"), 'invoices.png');
         }
 
-        /* Print. */
-        // if ($GLOBALS['conf']['menu']['print'] && isset($print_link)) {
-        //     $menu->add($print_link, _("_Print"), 'print.png', '', '_blank', 'popup(this.href); return false;', '__noselection');
-        // }
-
         /* Administration. */
         if ($GLOBALS['registry']->isAdmin()) {
             $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes.png');
