@@ -19,9 +19,6 @@
     </case>
     <case name="false" desc="No" />
    </configswitch>
-   <configboolean name="allow_resume_all" desc="If this is true, the user will
-   be able to resume any message in any mailbox.  Otherwise, only messages
-   marked as 'drafts' can be resumed.">false</configboolean>
    <configboolean name="allow_view_source" desc="If this is true, then there
    will be a 'Message Source' link in the parts list of every message, allowing
    the user to view the entire raw message, or to download it and save it to

@@ -2,19 +2,19 @@
 /**
  * Dynamic (dimp) compose display page.
  *
- * <pre>
  * List of URL parameters:
  * -----------------------
- * bcc: TODO
- * cc: TODO
- * identity: TODO
- * subject: TODO
- * type: TODO
- * to: The e-mail address to send to.
- * toname: If set, will be used as personal part of e-mail address (requires
- *         'to' parameter also).
- * uids: TODO
- * </pre>
+ *   - bcc: TODO
+ *   - cc: TODO
+ *   - identity: TODO
+ *   - subject: TODO
+ *   - type: redirect, reply, reply_auto, reply_all, reply_list,
+ *           forward_attach, forward_auto, forward_body, forward_both,
+ *           forward_redirect, resume, new, editasnew
+ *   - to: The e-mail address to send to.
+ *   - toname: If set, will be used as personal part of e-mail address
+ *             (requires 'to' parameter also).
+ *   - uids: TODO
  *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
@@ -191,9 +191,10 @@ case 'forward_redirect':
     }
     break;
 
+case 'editasnew':
 case 'resume':
     try {
-        $result = $imp_compose->resumeDraft(IMP::$mailbox->getIndicesOb(IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$mailbox->getIndicesOb(IMP::$uid), ($vars->type == 'resume'));
 
         if ($result['mode'] == 'html') {
             $show_editor = true;
@@ -258,7 +259,7 @@ $t->set('compose_html', $compose_result['html']);
 Horde::addInlineJsVars($js);
 Horde::addInlineScript($compose_result['js']);
 
-$fillform_opts['focus'] = in_array($vars->type, array('forward', 'new', 'redirect')) ? 'to' : 'composeMessage';
+$fillform_opts['focus'] = in_array($vars->type, array('forward', 'new', 'redirect', 'editasnew')) ? 'to' : 'composeMessage';
 if ($vars->type != 'redirect') {
     $compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
 }

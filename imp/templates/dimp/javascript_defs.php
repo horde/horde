@@ -84,7 +84,6 @@ $code['conf'] = array_filter(array(
     'qsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH,
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
-    'resume_all' => intval(!empty($GLOBALS['conf']['user']['allow_resume_all'])),
     'searchprefix' => IMP_Search::MBOX_PREFIX,
     'sidebar_width' => max(intval($GLOBALS['prefs']->getValue('sidebar_width')), 150) . 'px',
     'snooze' => array('0' => _("select..."),

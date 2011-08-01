@@ -103,9 +103,11 @@ if ($session->get('imp', 'file_upload') &&
 /* Run through the action handlers. */
 switch ($vars->a) {
 // 'd' = draft
+// 'en' = edit as new
 case 'd':
+case 'en':
     try {
-        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid), ($vars->a == 'd'));
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);

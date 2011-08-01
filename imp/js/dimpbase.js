@@ -970,6 +970,10 @@ var DimpBase = {
             this.composeMailbox(id == 'ctx_message_forward' ? 'forward_auto' : 'reply_auto');
             break;
 
+        case 'ctx_message_editasnew':
+            this.composeMailbox('editasnew');
+            break;
+
         case 'ctx_message_source':
             this.viewport.getSelected().get('dataob').each(function(v) {
                 DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: v.imapuid, mailbox: v.view.base64urlEncode(), actionID: 'view_source', id: 0 }, true), v.imapuid + '|' + v.view);
@@ -3256,8 +3260,7 @@ var DimpBase = {
 
     isDraft: function(vs)
     {
-        return DIMP.conf.resume_all ||
-               this.viewport.getMetaData('drafts') ||
+        return this.viewport.getMetaData('drafts') ||
                vs.get('dataob').first().flag.include(DIMP.conf.FLAG_DRAFT);
     },
 

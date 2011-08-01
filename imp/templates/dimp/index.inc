@@ -355,6 +355,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  </div>
  <a id="ctx_message_reply"><span class="iconImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward"><span class="iconImg"></span><?php echo _("Forward") ?></a>
+ <a id="ctx_message_editasnew"><span class="iconImg"></span><?php echo _("Edit as New") ?></a>
  <div style="display:none">
   <div class="sep"></div>
   <a id="ctx_message_setflag"><span class="iconImg"></span><?php echo _("Mark as") ?>...</a>

@@ -2,6 +2,8 @@
 v5.0.10-git
 -----------
 
+[mms] Add 'Edit as New' action for messages (Request #10206).
+[mms] Remove 'allow_resume_all' configuration option (Request #10206).
 [mms] Add personal contacts search filter.
 [mms] Add ability to search all mailboxes (Request #10204).
 

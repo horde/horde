@@ -543,6 +543,8 @@ if (!$disable_compose) {
     }
 
     $a_template->set('redirect', Horde::widget(IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params), _("Redirect"), 'widget', '', '', _("Redirec_t"), true));
+
+    $a_template->set('editasnew', Horde::widget(IMP::composeLink(array(), array('actionID' => 'editasnew') + $compose_params), _("Edit as New"), 'widget', '', '', _("Edit as New"), true));
 }
 
 if (IMP::$mailbox->access_sortthread) {
