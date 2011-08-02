@@ -536,13 +536,13 @@ class Turba_Api extends Horde_Registry_Api
                 array_keys($histories));
 
             $include = array();
-            foreach ($nguids as $id) {
+            foreach ($nguids as $uid) {
                 $list = $driver->search(array('__uid' => $uid));
                 $object = $list->next();
                 if ($object->isGroup()) {
                     continue;
                 }
-                $include[] = $id;
+                $include[] = $uid;
             }
 
             // Strip leading turba:addressbook:.
