@@ -86,7 +86,9 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *                     This determines whether certain criteria can be
      *                     used, and determines whether workarounds are used
      *                     for other criteria. In the format returned by
-     *                     Horde_Imap_Client_Base::capability().
+     *                     Horde_Imap_Client_Base::capability(). If this value
+     *                     is null, all extensions are assumed to be
+     *                     available.
      *
      * @return array  An array with these elements:
      *   - charset: (string) The charset of the search string.
@@ -246,7 +248,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
 
         if (!empty($ptr['within'])) {
-            if (isset($exts['WITHIN'])) {
+            if (is_null($exts) || isset($exts['WITHIN'])) {
                 $exts_used[] = 'WITHIN';
                 $imap4 = true;
             }
@@ -259,7 +261,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     $imap4 = true;
                 }
 
-                if (isset($exts['WITHIN'])) {
+                if (is_null($exts) || isset($exts['WITHIN'])) {
                     $cmds[] = $key;
                     $cmds[] = array('t' => Horde_Imap_Client::DATA_NUMBER, 'v' => $val['interval']);
                 } else {
@@ -275,7 +277,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
 
         if (!empty($ptr['modseq'])) {
-            if (!isset($exts['CONDSTORE'])) {
+            if (!is_null($exts) && !isset($exts['CONDSTORE'])) {
                 throw new Horde_Imap_Client_Exception('IMAP Server does not support CONDSTORE.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
             }
 
@@ -296,7 +298,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
 
         if (isset($ptr['prevsearch'])) {
-            if (!isset($exts['SEARCHRES'])) {
+            if (!is_null($exts) && !isset($exts['SEARCHRES'])) {
                 throw new Horde_Imap_Client_Exception('IMAP Server does not support SEARCHRES.', Horde_Imap_Client_Exception::NOSUPPORTIMAPEXT);
             }
 
