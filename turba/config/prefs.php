@@ -17,8 +17,8 @@ $prefGroups['addressbooks'] = array(
 
 $prefGroups['sync'] = array(
     'column' => _("Address Books"),
-    'label' => _("Sync Preferences"),
-    'desc' => _("Choose which address books to use for synching with external devices."),
+    'label' => _("Synchronization Preferences"),
+    'desc' => _("Choose which address books to use for synchronization with external devices."),
     'members' => array('sync_books'),
 );
 

@@ -30,8 +30,8 @@ $prefGroups['share'] = array(
 
 $prefGroups['sync'] = array(
     'column' => _("Calendars"),
-    'label' => _("Sync Preferences"),
-    'desc' => _("Choose the calendars to use for syncing with external devices."),
+    'label' => _("Synchronization Preferences"),
+    'desc' => _("Choose the calendars to use for synchronization with external devices."),
     'members' => array('sync_calendars'),
 );
 
