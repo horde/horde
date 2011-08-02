@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Timeobjects H4 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
 "PO-Revision-Date: 2009-11-19 01:33+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -61,7 +61,7 @@ msgstr ""
 "Luftfeuchtigkeit: %d%%\n"
 "Winde: Aus %s mit %d%s"
 
-#: lib/Api.php:43
+#: lib/Api.php:47
 msgid "Facebook Events"
 msgstr "Facebook-Termine"
 
@@ -132,6 +132,6 @@ msgstr "Serverdaten ungültig oder nicht verfügbar."
 msgid "Unknown location provided."
 msgstr "Es wurde ein unbekannter Ort angegeben."
 
-#: lib/Api.php:38
+#: lib/Api.php:39
 msgid "Weather"
 msgstr "Wetter"

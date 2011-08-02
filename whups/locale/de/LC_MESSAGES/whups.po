@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-05-18 12:33+0200\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"PO-Revision-Date: 2011-08-02 15:28+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: admin/index.php:744
+#: admin/index.php:724
 #, php-format
 msgid "\"%s\" is no longer among those responsible for \"%s\""
 msgstr "\"%s\" gehört nicht mehr zu den Verantwortlichen für \"%s\""
@@ -44,27 +44,27 @@ msgstr "%s %s Tickets in %s"
 msgid "%s %s tickets in all queues"
 msgstr "%s %s Tickets in allen Warteschlangen."
 
-#: lib/Renderer/Comment.php:123
+#: lib/Form/Renderer/Comment.php:126
 #, php-format
 msgid "%s &rArr; %s"
 msgstr "%s &rArr; %s"
 
-#: lib/Driver.php:520
+#: lib/Driver.php:518
 #, php-format
 msgid "%s (%s) wrote:"
 msgstr "%s (%s) hat geschrieben:"
 
-#: admin/index.php:699
+#: admin/index.php:681
 #, php-format
 msgid "%s added to those responsible for \"%s\""
 msgstr "%s gehört jetzt zu den Verantwortlichen für \"%s\""
 
-#: templates/reports/stats.inc:15
+#: templates/reports/stats.inc:16
 #, php-format
 msgid "%s days"
 msgstr "%s Tage"
 
-#: lib/Mail.php:177 lib/Mail.php:180
+#: lib/Mail.php:179 lib/Mail.php:182
 #, php-format
 msgid "%s part"
 msgstr "%s-Teil"
@@ -79,33 +79,27 @@ msgstr "%s Tickets in %s"
 msgid "%s tickets in all queues"
 msgstr "%s Tickets in allen Warteschlangen"
 
-#: ticket/watch.php:57
+#: ticket/watch.php:33
 #, php-format
 msgid "%s will be notified when this ticket is updated."
 msgstr "%s wird bei einer Aktualisierung dieses Tickets benachrichtigt."
 
-#: ticket/watch.php:69
+#: ticket/watch.php:46
 #, php-format
 msgid "%s will no longer receive updates for this ticket."
 msgstr "%s wird keine Benachrichtigungen mehr über dieses Ticket erhalten."
 
-#: lib/Driver.php:188
+#: lib/Driver.php:193
 msgid "(inactive)"
 msgstr "(inaktiv)"
 
-#: admin/index.php:106
+#: admin/index.php:100
 msgid "- Stage 1"
 msgstr "- Schritt 1"
 
-#: admin/index.php:111
+#: admin/index.php:105
 msgid "- Stage 2"
 msgstr "- Schritt 2"
-
-#: scripts/mail-filter.php:149
-msgid "--queue-name or --queue-id must specify a valid and public queue."
-msgstr ""
-"--queue-name oder --queue-id müssen eine gültige und öffentliche "
-"Warteschlange bezeichnen."
 
 #: templates/prevnext.inc:15
 msgid "<<First"
@@ -115,16 +109,16 @@ msgstr "<<Anfang"
 msgid "<Prev"
 msgstr "<Zurück"
 
-#: view.php:49
+#: view.php:46
 #, php-format
 msgid "Access denied to %s"
 msgstr "Zugriff auf %s verweigert"
 
-#: lib/Forms/Admin/Attribute.php:20
+#: lib/Form/Admin/AddAttribute.php:18
 msgid "Add Attribute"
 msgstr "Attribut hinzufügen"
 
-#: lib/Forms/Query.php:270
+#: lib/Form/Query/AttributeCriterion.php:20
 msgid "Add Attribute Criterion"
 msgstr "Attributkriterium hinzufügen"
 
@@ -132,68 +126,68 @@ msgstr "Attributkriterium hinzufügen"
 msgid "Add Content"
 msgstr "Inhalt hinzufügen"
 
-#: query/index.php:235
+#: query/index.php:232
 msgid "Add Criterion"
 msgstr "Kriterium hinzufügen"
 
-#: lib/Forms/Query.php:324
+#: lib/Form/Query/DateCriterion.php:11
 msgid "Add Date Criterion"
 msgstr "Datumskriterium hinzufügen"
 
-#: lib/Forms/Admin/Reply.php:20
+#: lib/Form/Admin/AddReply.php:18
 msgid "Add Form Reply"
 msgstr "Standardantwort hinzufügen"
 
-#: lib/Forms/Query.php:88
+#: lib/Form/Query/GroupCriterion.php:11
 msgid "Add Group Criterion"
 msgstr "Gruppenkriterium hinzufügen"
 
-#: lib/Forms/Admin/Priority.php:18
+#: lib/Form/Admin/AddPriority.php:18
 msgid "Add Priority"
 msgstr "Priorität hinzufügen"
 
-#: lib/Forms/Query.php:172
+#: lib/Form/Query/PropertyCriterion.php:13
 msgid "Add Property Criterion"
 msgstr "Eigenschaftskriterium hinzufügen"
 
-#: lib/Forms/Admin/Queue.php:18 lib/Forms/Admin/Queue.php:19
+#: lib/Form/Admin/AddQueue.php:18 lib/Form/Admin/AddQueue.php:19
 msgid "Add Queue"
 msgstr "Warteschlange hinzufügen"
 
-#: lib/Forms/Admin/State.php:18
+#: lib/Form/Admin/AddState.php:18
 msgid "Add State"
 msgstr "Status hinzufügen"
 
-#: lib/Forms/Query.php:129
+#: lib/Form/Query/TextCriterion.php:11
 msgid "Add Text Criterion"
 msgstr "Textkriterium hinzufügen"
 
-#: lib/Forms/Admin/Type.php:18 lib/Forms/Admin/Type.php:19
+#: lib/Form/Admin/AddType.php:18 lib/Form/Admin/AddType.php:19
 msgid "Add Type"
 msgstr "Typ hinzufügen"
 
-#: admin/index.php:106 admin/index.php:111
+#: admin/index.php:100 admin/index.php:105
 #, php-format
 msgid "Add Type %s"
 msgstr "Typ %s hinzufügen"
 
-#: lib/Forms/Query.php:39
+#: lib/Form/Query/UserCriterion.php:25
 msgid "Add User Criterion"
 msgstr "Benutzerkriterium hinzufügen"
 
-#: lib/Forms/Admin/User.php:19
+#: lib/Form/Admin/AddUser.php:20
 msgid "Add Users"
 msgstr "Benutzer hinzufügen"
 
-#: lib/Forms/Admin/Version.php:18
+#: lib/Form/Admin/AddVersion.php:18
 msgid "Add Version"
 msgstr "Version hinzufügen"
 
-#: ticket/watch.php:45
+#: ticket/watch.php:21
 msgid "Add Watcher"
 msgstr "Beobachter hinzufügen"
 
-#: ticket/create.php:52
+#: ticket/create.php:51
 #, php-format
 msgid "Adding your ticket failed: %s."
 msgstr "Das Erstellen ihres Tickets ist fehlgeschlagen: %s."
@@ -202,20 +196,23 @@ msgstr "Das Erstellen ihres Tickets ist fehlgeschlagen: %s."
 msgid "Address Books"
 msgstr "Adressbücher"
 
-#: admin/index.php:51 lib/Application.php:61
+#: admin/index.php:51 lib/Application.php:59
 msgid "Administration"
 msgstr "Administration"
 
-#: lib/Forms/Query.php:22 lib/Renderer/Query.php:75
+#: lib/Form/InsertBranch.php:22 lib/Form/Renderer/Query.php:81
 msgid "And"
 msgstr "Und"
 
-#: lib/Forms/Query.php:179 lib/Forms/Query.php:186 lib/Forms/Query.php:191
-#: lib/Forms/Query.php:198 lib/Forms/Query.php:203 lib/Forms/Search.php:30
+#: lib/Form/Query/PropertyCriterion.php:22
+#: lib/Form/Query/PropertyCriterion.php:31
+#: lib/Form/Query/PropertyCriterion.php:36
+#: lib/Form/Query/PropertyCriterion.php:44
+#: lib/Form/Query/PropertyCriterion.php:50 lib/Form/Search.php:31
 msgid "Any"
 msgstr "Alle"
 
-#: ticket/queue.php:43 ticket/type.php:38
+#: lib/Form/Queue/StepOne.php:39 lib/Form/SetTypeStepOne.php:35
 msgid "Any Group"
 msgstr "Beliebige Gruppe"
 
@@ -223,89 +220,88 @@ msgstr "Beliebige Gruppe"
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: lib/Application.php:82
+#: lib/Application.php:80
 msgid "Assign"
 msgstr "Zuweisen"
 
-#: config/prefs.php:54 lib/Api.php:702 lib/Driver.php:213
-#: lib/Renderer/Query.php:154 lib/Ticket.php:989 lib/Whups.php:688
+#: config/prefs.php:54 lib/Api.php:660 lib/Driver.php:218
+#: lib/Form/Renderer/Query.php:160 lib/Form/TicketDetails.php:125
+#: lib/Whups.php:757
 msgid "Assigned"
 msgstr "Zugewiesen"
 
-#: lib/Forms/Query.php:337 lib/Forms/Search.php:64
+#: lib/Form/Query/DateCriterion.php:38 lib/Form/Search.php:81
 msgid "Assigned from"
 msgstr "Zugewiesen seit"
 
-#: lib/Forms/Query.php:338
+#: lib/Form/Query/DateCriterion.php:41
 msgid "Assigned to"
 msgstr "Zugewiesen bis"
 
-#: lib/Renderer/Comment.php:71
+#: lib/Form/Renderer/Comment.php:74
 #, php-format
 msgid "Assigned to %s"
 msgstr "%s zugewiesen"
 
-#: admin/index.php:1203
+#: admin/index.php:1185
 msgid "Associations updated successfully."
 msgstr "Zuordnungen erfolgreich aktualisiert."
 
-#: lib/Forms/AddComment.php:22 lib/Forms/CreateTicket.php:164
-#: lib/Forms/EditTicket.php:139
+#: lib/Form/AddComment.php:31 lib/Form/Ticket/CreateStepThree.php:74
+#: lib/Form/Ticket/Edit.php:140
 msgid "Attachment"
 msgstr "Anlage"
 
-#: ticket/delete_attachment.php:28
+#: ticket/delete_attachment.php:26
 #, php-format
 msgid "Attachment %s deleted."
 msgstr "Anlage %s wurde gelöscht."
 
-#: lib/Driver/sql.php:1232 lib/Ticket.php:492
+#: lib/Driver/Sql.php:1321 lib/Ticket.php:464
 #, php-format
 msgid "Attachment %s not found."
 msgstr "Anlage %s nicht gefunden."
 
-#: lib/Ticket.php:999
+#: lib/Form/TicketDetails.php:137
 msgid "Attachments"
 msgstr "Anlagen"
 
-#: query/index.php:158
+#: query/index.php:155
 msgid "Attri_bute Criteria"
 msgstr "Attr_ibutkriterien"
 
-#: lib/Driver.php:119
+#: lib/Driver.php:128
 #, php-format
 msgid "Attribute %d"
 msgstr "Attribut %d"
 
-#: lib/Forms/Admin/Attribute.php:24 lib/Forms/Admin/Attribute.php:94
-#: lib/Forms/Admin/Attribute.php:140
+#: lib/Form/Admin/AddAttribute.php:23 lib/Form/Admin/DeleteAttribute.php:29
+#: lib/Form/Admin/EditAttributeStepTwo.php:30
 msgid "Attribute Description"
 msgstr "Attributbeschreibung"
 
-#: lib/Forms/Admin/Attribute.php:23 lib/Forms/Admin/Attribute.php:72
-#: lib/Forms/Admin/Attribute.php:91 lib/Forms/Admin/Attribute.php:137
+#: lib/Form/Admin/AddAttribute.php:21 lib/Form/Admin/DeleteAttribute.php:26
+#: lib/Form/Admin/EditAttributeStepOne.php:36
+#: lib/Form/Admin/EditAttributeStepTwo.php:27
 msgid "Attribute Name"
 msgstr "Attributname"
 
-#: lib/Forms/Admin/Attribute.php:29 lib/Forms/Admin/Attribute.php:101
+#: lib/Form/Admin/AddAttribute.php:28
+#: lib/Form/Admin/EditAttributeStepTwo.php:37
 msgid "Attribute Type"
 msgstr "Attributtyp"
 
-#: lib/Forms/Search.php:18
+#: lib/Form/Search.php:18
 msgid "Attributes"
 msgstr "Attribute"
 
-#: lib/Forms/Admin/Type.php:112
+#: lib/Form/Admin/EditTypeStepTwo.php:74
 msgid "Attributes for this Type"
 msgstr "Attribute für diesen Typ"
 
 #: config/prefs.php:132
 msgid "Autolink to other tickets in comments?"
 msgstr "Automatisch Links zu anderen Tickets in den Kommentaren erzeugen?"
-
-#: scripts/mail-filter.php:151
-msgid "Available queues:"
-msgstr "Verfügbare Warteschlangen:"
 
 #: reports.php:21
 msgid "Average days to close by Owner"
@@ -323,17 +319,17 @@ msgstr "Durschnittliche Tage bis zum Erledigen nach Anfrager"
 msgid "Average time a ticket is unresolved"
 msgstr "Durchschnittliche Zeit bis ein Ticket erledigt wurde"
 
-#: lib/Forms/Query.php:27
+#: lib/Form/InsertBranch.php:28
 msgid "Branch Type"
 msgstr "Branch-Typ"
 
-#: scripts/mail-filter.php:172
-msgid "Cannot authenticate at mail server:"
-msgstr "Anmeldung am E-Mail-Server fehlgeschlagen:"
-
-#: lib/Query.php:159
+#: lib/Query.php:161
 msgid "Case Insensitive Substring"
 msgstr "Teilzeichenkette (Groß-/Kleinschreibung ignorieren)"
+
+#: lib/Query.php:162
+msgid "Case Sensitive Substring"
+msgstr "Teilzeichenkette (Groß-/Kleinschreibung beachten)"
 
 #: templates/renderer/querysetcurrenttype.inc:6
 msgid "Change"
@@ -351,15 +347,15 @@ msgstr ""
 "Ändern Sie die Einstellungen für E-Mail-Benachrichtigungen bei "
 "Ticketänderungen."
 
-#: query/index.php:161
+#: query/index.php:158
 msgid "Choose Action:"
 msgstr "Aktion auswählen:"
 
-#: lib/Query.php:683
+#: lib/Query.php:696
 msgid "Choose New Query instead of deleting the root node."
 msgstr "Benutzen Sie \"Neue Abfrage\" anstatt den obersten Knoten zu löschen."
 
-#: lib/Forms/CreateTicket.php:50 lib/Forms/CreateTicket.php:80
+#: lib/Form/Ticket/CreateStepOne.php:49 lib/Form/Ticket/CreateStepTwo.php:39
 msgid "Choose:"
 msgstr "Auswählen:"
 
@@ -367,15 +363,15 @@ msgstr "Auswählen:"
 msgid "Chronological (oldest first)"
 msgstr "Chronologisch (älteste zuerst)"
 
-#: lib/Forms/Admin/Type.php:193
+#: lib/Form/Admin/CloneType.php:25
 msgid "Clone"
 msgstr "Kopieren"
 
-#: lib/Forms/Admin/Type.php:200
+#: lib/Form/Admin/CloneType.php:33
 msgid "Clone Description"
 msgstr "Beschreibung kopieren"
 
-#: admin/index.php:148 lib/Forms/Admin/Type.php:34
+#: admin/index.php:139 lib/Form/Admin/EditTypeStepOne.php:23
 msgid "Clone Type"
 msgstr "Typ kopieren"
 
@@ -383,53 +379,54 @@ msgstr "Typ kopieren"
 msgid "Comma Separated Values (CSV file)"
 msgstr "Kommagetrennte Werte (CSV-Datei)"
 
-#: lib/Forms/AddComment.php:21 lib/Forms/EditTicket.php:144
-#: lib/Renderer/Query.php:86 ticket/queue.php:31 ticket/type.php:28
+#: lib/Form/AddComment.php:30 lib/Form/Queue/StepOne.php:27
+#: lib/Form/Renderer/Query.php:92 lib/Form/SetTypeStepOne.php:25
+#: lib/Form/Ticket/Edit.php:145
 msgid "Comment"
 msgstr "Kommentar"
 
-#: lib/Renderer/Comment.php:161
+#: lib/Form/Renderer/Comment.php:167
 #, php-format
 msgid "Comment #%d"
 msgstr "Kommentar #%d"
 
-#: lib/Renderer/Comment.php:159
+#: lib/Form/Renderer/Comment.php:165
 #, php-format
 msgid "Comment #%d (Private)"
 msgstr "Kommentar #%d (Privat)"
 
-#: ticket/comment.php:79
+#: ticket/comment.php:76
 msgid "Comment added"
 msgstr "Kommentar hinzugefügt"
 
-#: ticket/comment.php:44
+#: ticket/comment.php:42
 #, php-format
 msgid "Comment on %s"
 msgstr "Kommentar zu %s"
 
-#: lib/Renderer/Query.php:85
+#: lib/Form/Renderer/Query.php:91
 msgid "Commentor"
 msgstr "Kommentator"
 
-#: lib/Forms/Admin/Type.php:198
+#: lib/Form/Admin/CloneType.php:30
 #, php-format
 msgid "Copy of %s"
 msgstr "Kopie von %s"
 
-#: lib/Forms/Query.php:101
+#: lib/Form/Query/GroupCriterion.php:25
 msgid "Could not find any groups."
 msgstr "Keine Gruppen gefunden."
 
-#: lib/Mail.php:134
+#: lib/Mail.php:140
 #, php-format
 msgid "Could not find ticket \"%s\"."
 msgstr "Ticket \"%s\" nicht gefunden."
 
-#: lib/Forms/Admin/Type.php:100
+#: lib/Form/Admin/EditTypeStepTwo.php:62
 msgid "Create Default Priorities"
 msgstr "Standardprioritäten anlegen"
 
-#: lib/Forms/Admin/Type.php:83
+#: lib/Form/Admin/EditTypeStepTwo.php:45
 msgid "Create Default States"
 msgstr "Standardstatus anlegen"
 
@@ -437,40 +434,40 @@ msgstr "Standardstatus anlegen"
 msgid "Create Ticket"
 msgstr "Ticket erstellen"
 
-#: lib/Forms/CreateTicket.php:26
+#: lib/Form/Ticket/CreateStepOne.php:26
 msgid "Create Ticket - Step 1"
 msgstr "Ticket erstellen - Schritt 1"
 
-#: lib/Forms/CreateTicket.php:68
+#: lib/Form/Ticket/CreateStepTwo.php:26
 msgid "Create Ticket - Step 2"
 msgstr "Ticket erstellen - Schritt 2"
 
-#: lib/Forms/CreateTicket.php:115
+#: lib/Form/Ticket/CreateStepThree.php:23
 msgid "Create Ticket - Step 3"
 msgstr "Ticket erstellen - Schritt 3"
 
-#: lib/Forms/CreateTicket.php:208
+#: lib/Form/Ticket/CreateStepFour.php:24
 msgid "Create Ticket - Step 4"
 msgstr "Ticket erstellen - Schritt 4"
 
-#: config/prefs.php:53 lib/Api.php:707 lib/Renderer/Query.php:139
-#: lib/Ticket.php:974 lib/Whups.php:686
+#: config/prefs.php:53 lib/Api.php:665 lib/Form/Renderer/Query.php:145
+#: lib/Form/TicketDetails.php:107 lib/Whups.php:755
 msgid "Created"
 msgstr "Erstellt"
 
-#: lib/Ticket.php:624 lib/Ticket.php:650
+#: lib/Ticket.php:603 lib/Ticket.php:629
 msgid "Created By"
 msgstr "Erstellt Von"
 
-#: lib/Forms/Query.php:328 lib/Forms/Search.php:58
+#: lib/Form/Query/DateCriterion.php:17 lib/Form/Search.php:63
 msgid "Created from"
 msgstr "Erstellt seit"
 
-#: lib/Forms/Query.php:329
+#: lib/Form/Query/DateCriterion.php:20
 msgid "Created to"
 msgstr "Erstellt bis"
 
-#: query/index.php:225 query/index.php:242
+#: query/index.php:222 query/index.php:239
 msgid "Current Query"
 msgstr "Aktuelle Abfrage"
 
@@ -486,7 +483,7 @@ msgstr "TT/MM/JJ"
 msgid "DD/MM/YY HH:MM:SS"
 msgstr "TT/MM/JJ HH:MM:SS"
 
-#: lib/Ticket.php:735
+#: lib/Ticket.php:714
 msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
 msgstr ""
 "BITTE NICHT AUF DIESE NACHRICHT ANTWORTEN. NACHRICHTEN AN DIESE E-MAIL-"
@@ -496,11 +493,11 @@ msgstr ""
 msgid "Date/Time format for search results"
 msgstr "Datum-/Zeitformat für Suchergebnisse"
 
-#: lib/Forms/Search.php:57
+#: lib/Form/Search.php:61
 msgid "Dates"
 msgstr "Daten"
 
-#: lib/Forms/Admin/Queue.php:104
+#: lib/Form/Admin/EditQueueStepTwo.php:57
 msgid "Default Ticket Type"
 msgstr "Standard-Ticket-Typ"
 
@@ -512,89 +509,89 @@ msgstr "Sortierreihenfolge:"
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
-#: query/index.php:162
+#: query/index.php:159
 msgid "Delete"
 msgstr "Löschen"
 
-#: lib/Whups.php:851 lib/Whups.php:852
+#: lib/Whups.php:920 lib/Whups.php:921
 #, php-format
 msgid "Delete %s"
 msgstr "%s löschen"
 
-#: ticket/delete.php:58
+#: ticket/delete.php:29
 #, php-format
 msgid "Delete %s?"
 msgstr "%s löschen?"
 
-#: admin/index.php:948 lib/Forms/Admin/Attribute.php:55
+#: admin/index.php:930 lib/Form/Admin/EditAttributeStepOne.php:19
 msgid "Delete Attribute"
 msgstr "Attribut löschen"
 
-#: lib/Forms/Admin/Attribute.php:130
+#: lib/Form/Admin/DeleteAttribute.php:18
 msgid "Delete Attribute Confirmation"
 msgstr "Arbeitsart löschen: Bestätigung"
 
-#: admin/index.php:1083 lib/Forms/Admin/Reply.php:34
+#: admin/index.php:1067 lib/Form/Admin/EditReplyStepOne.php:19
 msgid "Delete Form Reply"
 msgstr "Standardantwort löschen"
 
-#: lib/Forms/Admin/Reply.php:92
+#: lib/Form/Admin/DeleteReply.php:18
 msgid "Delete Form Reply Confirmation"
 msgstr "Standardantwort löschen: Bestätigung"
 
-#: admin/index.php:588 lib/Forms/Admin/Priority.php:34
+#: admin/index.php:571 lib/Form/Admin/EditPriorityStepOne.php:21
 msgid "Delete Priority"
 msgstr "Priorität löschen"
 
-#: lib/Forms/Admin/Priority.php:105
+#: lib/Form/Admin/DeletePriority.php:19
 msgid "Delete Priority Confirmation"
 msgstr "Priorität löschen: Bestätigung"
 
-#: lib/Forms/Query.php:451
+#: lib/Form/Query/Delete.php:9
 msgid "Delete Query?"
 msgstr "Abfrage löschen?"
 
-#: admin/index.php:328 lib/Forms/Admin/Queue.php:42
+#: admin/index.php:315 lib/Form/Admin/EditQueueStepOne.php:22
 msgid "Delete Queue"
 msgstr "Warteschlange löschen"
 
-#: lib/Forms/Admin/Queue.php:157
+#: lib/Form/Admin/DeleteQueue.php:20
 msgid "Delete Queue Confirmation"
 msgstr "Warteschlange löschen: Bestätigung"
 
-#: admin/index.php:453 lib/Forms/Admin/State.php:33
+#: admin/index.php:439 lib/Form/Admin/EditStateStepOne.php:19
 msgid "Delete State"
 msgstr "Status löschen"
 
-#: lib/Forms/Admin/State.php:105
+#: lib/Form/Admin/DeleteState.php:18
 msgid "Delete State Confirmation"
 msgstr "Status löschen: Bestätigung"
 
-#: admin/index.php:142 lib/Forms/Admin/Type.php:35
+#: admin/index.php:133 lib/Form/Admin/EditTypeStepOne.php:24
 msgid "Delete Type"
 msgstr "Typ löschen"
 
-#: lib/Forms/Admin/Type.php:147
+#: lib/Form/Admin/DeleteType.php:20
 msgid "Delete Type Confirmation"
 msgstr "Typ löschen: Bestätigung"
 
-#: admin/index.php:816 lib/Forms/Admin/Version.php:36
+#: admin/index.php:796 lib/Form/Admin/EditVersionStepOne.php:22
 msgid "Delete Version"
 msgstr "Version löschen"
 
-#: lib/Forms/Admin/Version.php:84
+#: lib/Form/Admin/DeleteVersion.php:20
 msgid "Delete Version Confirmation"
 msgstr "Version löschen: Bestätigung"
 
-#: lib/Renderer/Comment.php:177 lib/Renderer/Comment.php:178
+#: lib/Form/Renderer/Comment.php:183 lib/Form/Renderer/Comment.php:184
 msgid "Delete entry"
 msgstr "Kommentar löschen"
 
-#: lib/Ticket.php:629 lib/Ticket.php:727
+#: lib/Ticket.php:608 lib/Ticket.php:706
 msgid "Deleted Attachment"
 msgstr "Anlage gelöscht"
 
-#: lib/Renderer/Comment.php:66
+#: lib/Form/Renderer/Comment.php:68
 #, php-format
 msgid "Deleted Attachment: %s"
 msgstr "Anlage gelöscht: %s"
@@ -603,7 +600,7 @@ msgstr "Anlage gelöscht: %s"
 msgid "Descending"
 msgstr "Absteigend"
 
-#: lib/Forms/CreateTicket.php:165
+#: lib/Form/Ticket/CreateStepThree.php:75
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -611,128 +608,129 @@ msgstr "Beschreibung"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: lib/Whups.php:842
+#: lib/Whups.php:911
 msgid "Download"
 msgstr "Herunterladen"
 
-#: templates/view/results.inc:91
+#: templates/view/results.inc:98
 msgid "Download these results as: "
 msgstr "Diese Ergebnisse herunterladen als: "
 
-#: lib/Api.php:711 lib/Renderer/Query.php:159 lib/Ticket.php:621
-#: lib/Ticket.php:815 lib/Ticket.php:979
+#: lib/Api.php:669 lib/Form/Renderer/Query.php:165
+#: lib/Form/TicketDetails.php:113 lib/Ticket.php:600 lib/Ticket.php:794
 msgid "Due"
 msgstr "Fällig am"
 
-#: lib/Renderer/Comment.php:131
+#: lib/Form/Renderer/Comment.php:134
 #, php-format
 msgid "Due &rArr; %s"
 msgstr "Fällig &rArr; %s"
 
-#: lib/Forms/CreateTicket.php:162 lib/Forms/EditTicket.php:90
+#: lib/Form/Ticket/CreateStepThree.php:72 lib/Form/Ticket/Edit.php:92
 msgid "Due Date"
 msgstr "Fälligkeitsdatum"
 
-#: lib/Forms/Query.php:340 lib/Forms/Search.php:66
+#: lib/Form/Query/DateCriterion.php:45 lib/Form/Search.php:87
 msgid "Due from"
 msgstr "Fällig seit"
 
-#: lib/Forms/Query.php:341
+#: lib/Form/Query/DateCriterion.php:48
 msgid "Due to"
 msgstr "Fällig bis"
 
-#: lib/Query.php:235
+#: lib/Query.php:244
 msgid "E_xecute Query"
 msgstr "Abfrage ausfü_hren"
 
-#: query/index.php:163
+#: query/index.php:160
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: lib/Forms/Admin/Queue.php:80 lib/Forms/Admin/Type.php:61
+#: lib/Form/Admin/EditQueueStepTwo.php:32
+#: lib/Form/Admin/EditTypeStepTwo.php:23
 #, php-format
 msgid "Edit %s"
 msgstr "%s Bearbeiten"
 
-#: admin/index.php:943 lib/Forms/Admin/Attribute.php:55
-#: lib/Forms/Admin/Attribute.php:84
+#: admin/index.php:925 lib/Form/Admin/EditAttributeStepOne.php:19
+#: lib/Form/Admin/EditAttributeStepTwo.php:18
 msgid "Edit Attribute"
 msgstr "Attribut bearbeiten"
 
-#: lib/Forms/Query.php:270
+#: lib/Form/Query/AttributeCriterion.php:19
 msgid "Edit Attribute Criterion"
 msgstr "Attributkriterium bearbeiten"
 
-#: lib/Forms/Admin/Type.php:117
+#: lib/Form/Admin/EditTypeStepTwo.php:79
 msgid "Edit Attributes"
 msgstr "Attribute bearbeiten"
 
-#: lib/Forms/Query.php:324
+#: lib/Form/Query/DateCriterion.php:11
 msgid "Edit Date Criterion"
 msgstr "Datumskriterium bearbeiten"
 
-#: lib/Forms/Admin/Type.php:133
+#: lib/Form/Admin/EditTypeStepTwo.php:95
 msgid "Edit Form Replies"
 msgstr "Standardantworten bearbeiten"
 
-#: admin/index.php:1078 lib/Forms/Admin/Reply.php:34
-#: lib/Forms/Admin/Reply.php:62
+#: admin/index.php:1062 lib/Form/Admin/EditReplyStepOne.php:19
+#: lib/Form/Admin/EditReplyStepTwo.php:18
 msgid "Edit Form Reply"
 msgstr "Standardantwort bearbeiten"
 
-#: lib/Forms/Query.php:88
+#: lib/Form/Query/GroupCriterion.php:11
 msgid "Edit Group Criterion"
 msgstr "Gruppenkriterium bearbeiten"
 
-#: lib/Forms/Admin/Type.php:96
+#: lib/Form/Admin/EditTypeStepTwo.php:58
 msgid "Edit Priorities"
 msgstr "Prioritäten bearbeiten"
 
-#: admin/index.php:583 lib/Forms/Admin/Priority.php:34
-#: lib/Forms/Admin/Priority.php:57
+#: admin/index.php:566 lib/Form/Admin/EditPriorityStepOne.php:21
+#: lib/Form/Admin/EditPriorityStepTwo.php:20
 msgid "Edit Priority"
 msgstr "Priorität bearbeiten"
 
-#: lib/Forms/Query.php:172
+#: lib/Form/Query/PropertyCriterion.php:13
 msgid "Edit Property Criterion"
 msgstr "Eigenschaftskriterium bearbeiten"
 
-#: admin/index.php:322 lib/Forms/Admin/Queue.php:42
-#: lib/Forms/Admin/Queue.php:45
+#: admin/index.php:309 lib/Form/Admin/EditQueueStepOne.php:22
+#: lib/Form/Admin/EditQueueStepOne.php:25
 msgid "Edit Queue"
 msgstr "Warteschlange bearbeiten"
 
-#: lib/Forms/Admin/Queue.php:44
+#: lib/Form/Admin/EditQueueStepOne.php:24
 msgid "Edit Queues"
 msgstr "Warteschlangen bearbeiten"
 
-#: admin/index.php:448 lib/Forms/Admin/State.php:33
-#: lib/Forms/Admin/State.php:54
+#: admin/index.php:434 lib/Form/Admin/EditStateStepOne.php:19
+#: lib/Form/Admin/EditStateStepTwo.php:18
 msgid "Edit State"
 msgstr "Status bearbeiten"
 
-#: lib/Forms/Admin/Type.php:79
+#: lib/Form/Admin/EditTypeStepTwo.php:41
 msgid "Edit States"
 msgstr "Status bearbeiten"
 
-#: lib/Forms/Query.php:129
+#: lib/Form/Query/TextCriterion.php:11
 msgid "Edit Text Criterion"
 msgstr "Textkriterium bearbeiten"
 
-#: admin/index.php:136 lib/Forms/Admin/Type.php:33
+#: admin/index.php:127 lib/Form/Admin/EditTypeStepOne.php:22
 msgid "Edit Type"
 msgstr "Typ bearbeiten"
 
-#: lib/Forms/Query.php:39
+#: lib/Form/Query/UserCriterion.php:25
 msgid "Edit User Criterion"
 msgstr "Benutzerkriterium bearbeiten"
 
-#: admin/index.php:811 lib/Forms/Admin/Version.php:36
-#: lib/Forms/Admin/Version.php:59
+#: admin/index.php:791 lib/Form/Admin/EditVersionStepOne.php:22
+#: lib/Form/Admin/EditVersionStepTwo.php:20
 msgid "Edit Version"
 msgstr "Version bearbeiten"
 
-#: lib/Query.php:231
+#: lib/Query.php:237
 msgid "Edit _Permissions"
 msgstr "Rechte bearbeiten"
 
@@ -740,111 +738,108 @@ msgstr "Rechte bearbeiten"
 msgid "Edit _Types"
 msgstr "_Typen bearbeiten"
 
-#: lib/Forms/Admin/Attribute.php:54
+#: lib/Form/Admin/EditAttributeStepOne.php:18
 msgid "Edit or Delete Attributes"
 msgstr "Attribute bearbeiten oder löschen"
 
-#: lib/Forms/Admin/Reply.php:33
+#: lib/Form/Admin/EditReplyStepOne.php:18
 msgid "Edit or Delete Form Replies"
 msgstr "Standardantworten bearbeiten oder löschen"
 
-#: lib/Forms/Admin/Priority.php:33
+#: lib/Form/Admin/EditPriorityStepOne.php:20
 msgid "Edit or Delete Priorities"
 msgstr "Prioritäten bearbeiten oder löschen"
 
-#: lib/Forms/Admin/Queue.php:41
+#: lib/Form/Admin/EditQueueStepOne.php:21
 msgid "Edit or Delete Queues"
 msgstr "Warteschlangen bearbeiten oder löschen"
 
-#: lib/Forms/Admin/State.php:32
+#: lib/Form/Admin/EditStateStepOne.php:18
 msgid "Edit or Delete States"
 msgstr "Status bearbeiten oder löschen"
 
-#: lib/Forms/Admin/Type.php:32
+#: lib/Form/Admin/EditTypeStepOne.php:19
 msgid "Edit or Delete Types"
 msgstr "Typen bearbeiten oder löschen"
 
-#: lib/Forms/Admin/Version.php:35
+#: lib/Form/Admin/EditVersionStepOne.php:21
 msgid "Edit or Delete Versions"
 msgstr "Versionen bearbeiten oder löschen"
 
-#: lib/Forms/Admin/Reply.php:79
+#: lib/Form/Admin/EditReplyStepTwo.php:35
 msgid "Edit the permissions on this form reply"
 msgstr "Rechte für diese Standardantwort bearbeiten"
 
-#: lib/Forms/Admin/Queue.php:142
+#: lib/Form/Admin/EditQueueStepTwo.php:92
 msgid "Edit the permissions on this queue"
 msgstr "Rechte für diese Warteschlange bearbeiten"
 
-#: lib/Forms/Admin/Queue.php:134
+#: lib/Form/Admin/EditQueueStepTwo.php:84
 msgid "Edit the users responsible for this queue"
 msgstr "Für diese Warteschlange verantwortliche Benutzer bearbeiten"
 
-#: lib/Forms/Admin/Queue.php:116
+#: lib/Form/Admin/EditQueueStepTwo.php:67
 msgid "Edit the versions for this queue"
 msgstr "Versionen für diese Warteschlange bearbeiten"
 
-#: ticket/watch.php:20
+#: lib/Form/AddListener.php:17
 msgid "Email address to notify"
 msgstr "E-Mail-Adresse benachrichtigen"
 
-#: ticket/watch.php:32
+#: lib/Form/DeleteListener.php:16
 msgid "Email address to remove"
 msgstr "E-Mail-Adresse entfernen"
 
-#: lib/Api.php:349
+#: lib/Api.php:315
 msgid "Empty attachment"
 msgstr "Leerer Anhang"
 
-#: ticket/delete_history.php:26
+#: ticket/delete_history.php:24
 msgid "Entry deleted."
 msgstr "Kommentar gelöscht."
 
-#: scripts/mail-filter.php:161 scripts/mail-filter.php:181
-msgid "Error processing message:"
-msgstr "Fehler beim Verarbeiten der Nachricht:"
-
-#: query/index.php:193
+#: query/index.php:190
 #, php-format
 msgid "Error: Unknown query form \"%s\", defaulting to properties"
 msgstr ""
 "Fehler: Unbekanntes Abfrageformular \"%s\", zeige Eigenschaften stattdessen."
 
-#: lib/Query.php:158
+#: lib/Query.php:160
 msgid "Exact Match"
 msgstr "Genaue Suche"
 
-#: query/run.php:112
+#: query/run.php:107
 msgid "Execute Query"
 msgstr "Abfrage ausführen"
 
-#: lib/Forms/Admin.php:33
+#: lib/Form/SendReminder.php:36
 msgid "For tickets from these queues"
 msgstr "Für Tickets von diesen Warteschlangen"
 
-#: lib/Forms/Admin.php:37
+#: lib/Form/SendReminder.php:47
 msgid "For tickets which are"
 msgstr "Für Tickets, die"
 
-#: lib/Application.php:70
+#: lib/Application.php:68
 msgid "Form Replies"
 msgstr "Standardantworten"
 
-#: lib/Forms/Admin/Type.php:128
+#: lib/Form/Admin/EditTypeStepTwo.php:90
 msgid "Form Replies for this Type"
 msgstr "Standardantworten für diesen Typ"
 
-#: lib/Forms/Admin/Reply.php:23 lib/Forms/Admin/Reply.php:50
-#: lib/Forms/Admin/Reply.php:69 lib/Forms/Admin/Reply.php:99
+#: lib/Form/Admin/AddReply.php:21 lib/Form/Admin/DeleteReply.php:26
+#: lib/Form/Admin/EditReplyStepOne.php:36
+#: lib/Form/Admin/EditReplyStepTwo.php:26
 msgid "Form Reply Name"
 msgstr "Standardantwortname"
 
-#: lib/Forms/Admin/Reply.php:24 lib/Forms/Admin/Reply.php:72
-#: lib/Forms/Admin/Reply.php:102
+#: lib/Form/Admin/AddReply.php:22 lib/Form/Admin/DeleteReply.php:29
+#: lib/Form/Admin/EditReplyStepTwo.php:29
 msgid "Form Reply Text"
 msgstr "Standardantworttext"
 
-#: lib/Forms/EditTicket.php:156
+#: lib/Form/Ticket/Edit.php:160
 msgid "Form Reply:"
 msgstr "Standardantwort:"
 
@@ -856,32 +851,33 @@ msgstr "Allgemeine Einstellungen"
 msgid "Go"
 msgstr "Los"
 
-#: lib/Forms/CreateTicket.php:243 lib/Forms/EditTicket.php:128
+#: lib/Form/Ticket/CreateStepFour.php:58 lib/Form/Ticket/Edit.php:128
 msgid "Group Owners"
 msgstr "Zuständige Gruppe"
 
-#: lib/Forms/Query.php:102 lib/Forms/Query.php:104 lib/Renderer/Query.php:83
+#: lib/Form/Query/GroupCriterion.php:27 lib/Form/Query/GroupCriterion.php:30
+#: lib/Form/Renderer/Query.php:89
 msgid "Groups"
 msgstr "Gruppen"
 
-#: lib/Application.php:64
+#: lib/Application.php:62
 msgid "Hidden Comments"
 msgstr "Versteckte Kommentare"
 
-#: ticket/index.php:41
+#: ticket/index.php:45
 msgid "History"
 msgstr "Geschichte"
 
-#: query/index.php:164
+#: query/index.php:161
 msgid "Hoist Children"
 msgstr "Kinder anheben"
 
-#: config/prefs.php:46 lib/Forms/Query.php:175 lib/Renderer/Query.php:81
-#: lib/Whups.php:671 lib/Whups.php:678
+#: config/prefs.php:46 lib/Form/Query/PropertyCriterion.php:17
+#: lib/Form/Renderer/Query.php:87 lib/Whups.php:740 lib/Whups.php:747
 msgid "Id"
 msgstr "Id"
 
-#: lib/Forms/Admin.php:40
+#: lib/Form/SendReminder.php:56
 msgid ""
 "If you select any tickets that do not have an owner, who should we send "
 "email to?"
@@ -889,35 +885,36 @@ msgstr ""
 "Wenn Sie Tickets auswählen, die keinen Zuständigen haben, an wen sollen die "
 "Benachrichtigungen geschickt werden?"
 
-#: query/index.php:165
+#: query/index.php:162
 msgid "Insert And"
 msgstr "UND einfügen"
 
-#: lib/Forms/Query.php:19
+#: lib/Form/InsertBranch.php:19
 msgid "Insert Branch"
 msgstr "Branch einfügen"
 
-#: query/index.php:167
+#: query/index.php:164
 msgid "Insert Not"
 msgstr "NICHT einfügen"
 
-#: query/index.php:166
+#: query/index.php:163
 msgid "Insert Or"
 msgstr "ODER einfügen"
 
-#: lib/Forms/Admin/Queue.php:75 lib/Forms/Admin/Queue.php:76
+#: lib/Form/Admin/EditQueueStepTwo.php:27
+#: lib/Form/Admin/EditQueueStepTwo.php:28
 msgid "Invalid Queue"
 msgstr "Ungültige Warteschlange"
 
-#: lib/Api.php:340 lib/Whups.php:267
+#: lib/Api.php:310 lib/Whups.php:337
 msgid "Invalid Ticket Id"
 msgstr "Ungültige Ticket-ID"
 
-#: lib/Api.php:392
+#: lib/Api.php:347
 msgid "Invalid argument: Missing attribute name or value."
 msgstr "Ungültiges Argument: Attributname oder -wert fehlen."
 
-#: lib/Api.php:377
+#: lib/Api.php:337
 msgid "Invalid arguments: Must supply a ticket number and new attributes."
 msgstr ""
 "Ungültige Argumente: Eine Ticketnummer und neue Attribute müssen angegeben "
@@ -927,16 +924,16 @@ msgstr ""
 msgid "Invalid queue"
 msgstr "Ungültige Warteschlange"
 
-#: search/rss.php:28
+#: search/rss.php:23
 msgid "Invalid search"
 msgstr "Ungültige Suche"
 
-#: lib/Api.php:248
+#: lib/Api.php:230
 #, php-format
 msgid "Invalid ticket data supplied: %s"
 msgstr "Ungültige Ticketdaten eingegeben: %s"
 
-#: lib/Forms/Admin/Queue.php:111
+#: lib/Form/Admin/EditQueueStepTwo.php:62
 msgid "Keep a set of versions for this queue?"
 msgstr "Sollen für diese Warteschlange Versionen verwaltet werden?"
 
@@ -944,11 +941,11 @@ msgstr "Sollen für diese Warteschlange Versionen verwaltet werden?"
 msgid "Last>>"
 msgstr "Ende>>"
 
-#: lib/Forms/Query.php:415
+#: lib/Form/Query/ChooseNameForLoad.php:10
 msgid "Load Query"
 msgstr "Abfrage laden"
 
-#: lib/Forms/VarRenderer.php:38
+#: lib/Ui/VarRenderer/Whups.php:38
 msgid "Loading..."
 msgstr "Lade..."
 
@@ -960,29 +957,30 @@ msgstr "MM/TT/JJ"
 msgid "MM/DD/YY HH:MM:SS"
 msgstr "MM/TT/JJ HH:MM"
 
-#: lib/Forms/Admin/Type.php:191
+#: lib/Form/Admin/CloneType.php:23
 #, php-format
 msgid "Make a clone of %s"
 msgstr "Kopie von %s erstellen"
 
-#: lib/Forms/AddComment.php:36 lib/Forms/EditTicket.php:180
+#: lib/Form/AddComment.php:45 lib/Form/Ticket/Edit.php:184
 msgid "Make this comment visible only to members of a group?"
 msgstr ""
 "Diesen Kommentar nur für Mitglieder einer bestimmten Gruppe sichtbar machen?"
 
-#: lib/Forms/Query.php:278
+#: lib/Form/Query/AttributeCriterion.php:33
 msgid "Match"
 msgstr "Suchbegriff"
 
-#: lib/Forms/Query.php:43 lib/Forms/Query.php:133 lib/Forms/Query.php:279
+#: lib/Form/Query/AttributeCriterion.php:35
+#: lib/Form/Query/TextCriterion.php:17 lib/Form/Query/UserCriterion.php:31
 msgid "Match Operator"
 msgstr "Suchoperation"
 
-#: lib/Query.php:162
+#: lib/Query.php:164
 msgid "Match Pattern"
 msgstr "Suchmuster"
 
-#: lib/Query.php:161
+#: lib/Query.php:163
 msgid "Match Word"
 msgstr "Suchwort"
 
@@ -998,7 +996,7 @@ msgstr "Kürzeste Zeit bis ein Ticket erledigt wurde"
 msgid "Most recent first"
 msgstr "Neueste zuerst"
 
-#: ticket/queue.php:184
+#: ticket/queue.php:91
 #, php-format
 msgid "Moved ticket %d to \"%s\""
 msgstr "Ticket %d nach \"%s\" verschoben"
@@ -1013,7 +1011,7 @@ msgstr "Meine %s"
 msgid "My %s :: Add Content"
 msgstr "Meine %s :: Inhalt hinzfügen"
 
-#: search.php:177
+#: search.php:170
 msgid "My Queries"
 msgstr "Meine Abfragen"
 
@@ -1025,56 +1023,56 @@ msgstr "Meine Anfragen"
 msgid "My Tickets"
 msgstr "Meine Tickets"
 
-#: lib/Api.php:675
+#: lib/Api.php:633
 msgid "My tickets by assignment date"
 msgstr "Meine Tickets nach Zuweisungsdatum"
 
-#: lib/Api.php:674
+#: lib/Api.php:632
 msgid "My tickets by creation date"
 msgstr "Meine Tickets nach Erstelldatum"
 
-#: lib/Api.php:676
+#: lib/Api.php:634
 msgid "My tickets by due date"
 msgstr "Meine Tickets nach Fälligkeitsdatum"
 
-#: lib/Api.php:677
+#: lib/Api.php:635
 msgid "My tickets by resolution date"
 msgstr "Meine Tickets nach Erledigungsdatum"
 
-#: lib/Forms/Query.php:426
+#: lib/Form/Query/ChooseNameForLoad.php:21
 msgid "Name"
 msgstr "Name"
 
-#: lib/Forms/Admin/Type.php:196
+#: lib/Form/Admin/CloneType.php:29
 msgid "Name of the cloned copy"
 msgstr "Name der Kopie"
 
-#: lib/Query.php:221
+#: lib/Query.php:223
 msgid "Ne_w Query"
 msgstr "Ne_ue Abfrage"
 
-#: lib/Driver.php:212
+#: lib/Driver.php:217
 msgid "New"
 msgstr "Neu"
 
-#: lib/Ticket.php:628 lib/Ticket.php:721
+#: lib/Ticket.php:607 lib/Ticket.php:700
 msgid "New Attachment"
 msgstr "Neue Anlage"
 
-#: lib/Renderer/Comment.php:56 lib/Renderer/Comment.php:60
+#: lib/Form/Renderer/Comment.php:57 lib/Form/Renderer/Comment.php:61
 #, php-format
 msgid "New Attachment: %s"
 msgstr "Neue Anlage: %s"
 
-#: ticket/queue.php:28
+#: lib/Form/Queue/StepOne.php:24
 msgid "New Queue"
 msgstr "Neue Warteschlange"
 
-#: lib/Application.php:180 ticket/create.php:63
+#: lib/Application.php:178 ticket/create.php:61
 msgid "New Ticket"
 msgstr "Neues Ticket"
 
-#: ticket/type.php:27
+#: lib/Form/SetTypeStepOne.php:24
 msgid "New Type"
 msgstr "Neuer Typ"
 
@@ -1082,14 +1080,15 @@ msgstr "Neuer Typ"
 msgid "Next>"
 msgstr "Weiter>"
 
-#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
-#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
-#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
-#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:453 ticket/delete.php:29
+#: lib/Form/Admin/DeleteAttribute.php:35 lib/Form/Admin/DeletePriority.php:33
+#: lib/Form/Admin/DeleteQueue.php:35 lib/Form/Admin/DeleteReply.php:33
+#: lib/Form/Admin/DeleteState.php:32 lib/Form/Admin/DeleteType.php:46
+#: lib/Form/Admin/DeleteVersion.php:34 lib/Form/Query/Delete.php:11
+#: lib/Form/Ticket/Delete.php:23
 msgid "No"
 msgstr "Nein"
 
-#: lib/Ticket.php:98
+#: lib/Ticket.php:94
 #, php-format
 msgid ""
 "No priority for this ticket and no default priority for ticket type \"%s\" "
@@ -1098,11 +1097,11 @@ msgstr ""
 "Es wurden keine Priorität für dieses Ticket und keine Standard-Priorität für "
 "den Ticket-Typ \"%s\" angegeben."
 
-#: lib/Block/Myqueries.php:36
+#: lib/Block/Myqueries.php:31
 msgid "No queries have been saved."
 msgstr "Es wurden keine Abfragen gespeichert."
 
-#: lib/Block/Query.php:61 lib/Driver/sql.php:541
+#: lib/Block/Query.php:59 lib/Driver/Sql.php:594
 msgid "No query to run"
 msgstr "Kein Abfrage durchzuführen"
 
@@ -1110,7 +1109,7 @@ msgstr "Kein Abfrage durchzuführen"
 msgid "No queues available."
 msgstr "Keine Afbragen verfügbar."
 
-#: lib/Ticket.php:90
+#: lib/Ticket.php:85
 #, php-format
 msgid ""
 "No state for this ticket and no default state for ticket type \"%s\" "
@@ -1123,39 +1122,34 @@ msgstr ""
 msgid "No stats available."
 msgstr "Keine Statistiken verfügbar."
 
-#: lib/View.php:31
-#, php-format
-msgid "No such view \"%s\" found"
-msgstr "Eine Darstellung \"%s\" konnte nicht gefunden werden"
-
-#: lib/Block/Mytickets.php:32
+#: lib/Block/Mytickets.php:28
 msgid "No tickets are assigned to you."
 msgstr "Keine Tickets sind Ihnen zugewiesen."
 
-#: lib/Block/Unassigned.php:32
+#: lib/Block/Unassigned.php:28
 msgid "No tickets are unassigned!"
 msgstr "Keine Tickets ohne Zuweisung!"
 
-#: lib/Block/Queuecontents.php:60 lib/Block/Queuecontents.php:71
+#: lib/Block/Queuecontents.php:60 lib/Block/Queuecontents.php:67
 msgid "No tickets in queue."
 msgstr "Keine Tickets in der Warteschlange."
 
-#: lib/Whups.php:720
+#: lib/Whups.php:789
 msgid "No tickets matched your search criteria."
 msgstr "Keine Tickets entsprachen Ihren Suchkriterien."
 
-#: lib/Ticket.php:82
+#: lib/Ticket.php:76
 #, php-format
 msgid "No type for this ticket and no default type for queue \"%s\" specified."
 msgstr ""
 "Es wurden kein Typ für dieses Ticket und kein Standard-Typ für die "
 "Warteschlange \"%s\" angegeben."
 
-#: lib/Reports.php:66
+#: lib/Reports.php:90
 msgid "None"
 msgstr "Keine"
 
-#: lib/Forms/Query.php:24 lib/Renderer/Query.php:77
+#: lib/Form/InsertBranch.php:24 lib/Form/Renderer/Query.php:83
 msgid "Not"
 msgstr "Nicht"
 
@@ -1163,7 +1157,7 @@ msgstr "Nicht"
 msgid "Notification Preferences"
 msgstr "Benachrichtigungs-Einstellungen"
 
-#: lib/Driver.php:193
+#: lib/Driver.php:198
 msgid "Older? Please update first!"
 msgstr "Älter? Bitte erst aktualisieren!"
 
@@ -1208,7 +1202,7 @@ msgstr "Offene Tickets nach Typ"
 msgid "Open Tickets in %s"
 msgstr "Offene Tickets in %s"
 
-#: queue/index.php:40 queue/index.php:54 queue/rss.php:115
+#: queue/index.php:43 queue/index.php:55 queue/rss.php:115
 #, php-format
 msgid "Open tickets in %s"
 msgstr "Offene Tickets in %s"
@@ -1217,105 +1211,108 @@ msgstr "Offene Tickets in %s"
 msgid "Open tickets in all queues."
 msgstr "Offene Tickets in allen Warteschlangen"
 
-#: lib/Forms/Query.php:23 lib/Renderer/Query.php:76
+#: lib/Form/InsertBranch.php:23 lib/Form/Renderer/Query.php:82
 msgid "Or"
 msgstr "Oder"
 
-#: lib/Forms/CreateTicket.php:236 lib/Forms/CreateTicket.php:254
-#: lib/Forms/EditTicket.php:118 lib/Renderer/Query.php:82 lib/Ticket.php:627
-#: lib/Ticket.php:711 lib/Ticket.php:712 lib/Ticket.php:715 lib/Ticket.php:819
-#: lib/Ticket.php:840 lib/Ticket.php:961 lib/Whups.php:685
+#: lib/Form/Renderer/Query.php:88 lib/Form/Ticket/CreateStepFour.php:52
+#: lib/Form/Ticket/CreateStepFour.php:67 lib/Form/Ticket/Edit.php:118
+#: lib/Form/TicketDetails.php:94 lib/Ticket.php:606 lib/Ticket.php:690
+#: lib/Ticket.php:691 lib/Ticket.php:694 lib/Ticket.php:798 lib/Ticket.php:819
+#: lib/Whups.php:754
 msgid "Owners"
 msgstr "Zuständige"
 
-#: lib/Whups.php:851
+#: lib/Whups.php:920
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "%s unwiederbringlich löschen?"
 
-#: lib/Renderer/Comment.php:177
+#: lib/Form/Renderer/Comment.php:183
 msgid "Permanently delete entry?"
 msgstr "Kommentar endgültig löschen?"
 
-#: ticket/delete.php:48 ticket/delete_attachment.php:17
-#: ticket/delete_history.php:16 ticket/queue.php:135 ticket/type.php:71
-#: ticket/update.php:19
+#: ticket/delete.php:19 ticket/delete_attachment.php:17
+#: ticket/delete_history.php:16 ticket/queue.php:43 ticket/type.php:19
+#: ticket/update.php:17
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
-#: lib/Forms/EditTicket.php:210 ticket/delete.php:36
+#: lib/Form/Ticket/Delete.php:30 lib/Form/Ticket/Edit.php:213
 msgid "Permission Denied."
 msgstr "Zugriff verweigert."
 
-#: lib/Forms/Query.php:463 query/index.php:29 query/run.php:43
+#: lib/Form/Query/Delete.php:24 query/index.php:25 query/run.php:39
 #, php-format
 msgid "Permission denied."
 msgstr "Zugriff verweigert."
 
-#: lib/Forms/Admin/Type.php:91 lib/Forms/Admin/Type.php:169
+#: lib/Form/Admin/DeleteType.php:42 lib/Form/Admin/EditTypeStepTwo.php:53
 msgid "Priorities for this Type"
 msgstr "Prioritäten für diesen Typ"
 
-#: config/prefs.php:50 lib/Forms/CreateTicket.php:158
-#: lib/Forms/EditTicket.php:84 lib/Forms/Query.php:202
-#: lib/Renderer/Query.php:123 lib/Ticket.php:620 lib/Ticket.php:814
-#: lib/Ticket.php:956 lib/Whups.php:673 lib/Whups.php:682 ticket/queue.php:113
-#: ticket/type.php:62
+#: config/prefs.php:50 lib/Form/Query/PropertyCriterion.php:49
+#: lib/Form/Queue/StepThree.php:35 lib/Form/Renderer/Query.php:129
+#: lib/Form/SetTypeStepTwo.php:28 lib/Form/Ticket/CreateStepThree.php:68
+#: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:89
+#: lib/Ticket.php:599 lib/Ticket.php:793 lib/Whups.php:742 lib/Whups.php:751
 msgid "Priority"
 msgstr "Priorität"
 
-#: lib/Renderer/Comment.php:118
+#: lib/Form/Renderer/Comment.php:121
 #, php-format
 msgid "Priority &rArr; %s"
 msgstr "Priorität &rArr; %s"
 
-#: lib/Forms/Admin/Priority.php:22 lib/Forms/Admin/Priority.php:68
-#: lib/Forms/Admin/Priority.php:116
+#: lib/Form/Admin/AddPriority.php:22 lib/Form/Admin/DeletePriority.php:30
+#: lib/Form/Admin/EditPriorityStepTwo.php:31
 msgid "Priority Description"
 msgstr "Prioritätbeschreibung"
 
-#: lib/Forms/Admin/Priority.php:21 lib/Forms/Admin/Priority.php:46
-#: lib/Forms/Admin/Priority.php:65 lib/Forms/Admin/Priority.php:92
-#: lib/Forms/Admin/Priority.php:113
+#: lib/Form/Admin/AddPriority.php:21 lib/Form/Admin/DefaultPriority.php:33
+#: lib/Form/Admin/DeletePriority.php:27
+#: lib/Form/Admin/EditPriorityStepOne.php:33
+#: lib/Form/Admin/EditPriorityStepTwo.php:28
 msgid "Priority Name"
 msgstr "Prioritätbezeichnung"
 
-#: search.php:177
+#: search.php:170
 msgid "Public Queries"
 msgstr "Öffentliche Abfragen"
 
-#: query/index.php:174
+#: query/index.php:171
 msgid "Query Builder"
 msgstr "Abfrageeditor"
 
-#: lib/Forms/Query.php:391
+#: lib/Form/Query/ChooseNameForSave.php:12
 msgid "Query Name"
 msgstr "Abfragename"
 
-#: lib/Forms/QueryParameterForm.php:18
+#: lib/Form/Query/Parameter.php:18
 msgid "Query Parameters"
 msgstr "Abfrageparameter"
 
-#: lib/Block/Query.php:13 query/rss.php:60 query/run.php:81
+#: lib/Block/Query.php:13 query/rss.php:57 query/run.php:77
 msgid "Query Results"
 msgstr "Abfrageergebnisse"
 
-#: lib/Forms/Query.php:393
+#: lib/Form/Query/ChooseNameForSave.php:14
 msgid "Query Slug"
 msgstr "Abfragekurzname"
 
-#: lib/Block/Query.php:35
+#: lib/Block/Query.php:33
 msgid "Query to run"
 msgstr "Durchzuführende Abfrage"
 
 #: config/prefs.php:51 lib/Block/Queuecontents.php:35
-#: lib/Block/Queuesummary.php:43 lib/Forms/Query.php:185
-#: lib/Forms/Search.php:38 lib/Renderer/Query.php:92 lib/Ticket.php:616
-#: lib/Ticket.php:810 lib/Ticket.php:921 lib/Ticket.php:926 lib/Whups.php:683
+#: lib/Block/Queuesummary.php:39 lib/Form/Query/PropertyCriterion.php:30
+#: lib/Form/Renderer/Query.php:98 lib/Form/Search.php:40
+#: lib/Form/TicketDetails.php:51 lib/Form/TicketDetails.php:58
+#: lib/Ticket.php:595 lib/Ticket.php:789 lib/Whups.php:752
 msgid "Queue"
 msgstr "Warteschlange"
 
-#: lib/Renderer/Comment.php:98
+#: lib/Form/Renderer/Comment.php:101
 #, php-format
 msgid "Queue &rArr; %s"
 msgstr "Warteschlange &rArr; %s"
@@ -1324,22 +1321,23 @@ msgstr "Warteschlange &rArr; %s"
 msgid "Queue Contents"
 msgstr "Warteschlangeninhalte"
 
-#: lib/Forms/Admin/Queue.php:22 lib/Forms/Admin/Queue.php:87
-#: lib/Forms/Admin/Queue.php:168
+#: lib/Form/Admin/AddQueue.php:22 lib/Form/Admin/DeleteQueue.php:32
+#: lib/Form/Admin/EditQueueStepTwo.php:40
 msgid "Queue Description"
 msgstr "Warteschlangenbeschreibung"
 
-#: lib/Forms/Admin/Queue.php:28 lib/Forms/Admin/Queue.php:95
+#: lib/Form/Admin/AddQueue.php:29 lib/Form/Admin/EditQueueStepTwo.php:48
 msgid "Queue Email"
 msgstr "Warteschlangen-E-Mail-Adresse"
 
-#: lib/Forms/Admin/Queue.php:21 lib/Forms/Admin/Queue.php:58
-#: lib/Forms/Admin/Queue.php:83 lib/Forms/Admin/Queue.php:164
-#: lib/Forms/CreateTicket.php:32 lib/Forms/CreateTicket.php:48
+#: lib/Form/Admin/AddQueue.php:21 lib/Form/Admin/DeleteQueue.php:28
+#: lib/Form/Admin/EditQueueStepOne.php:39
+#: lib/Form/Admin/EditQueueStepTwo.php:36 lib/Form/Ticket/CreateStepOne.php:32
+#: lib/Form/Ticket/CreateStepOne.php:48
 msgid "Queue Name"
 msgstr "Warteschlangenname"
 
-#: lib/Forms/Admin/Queue.php:24 lib/Forms/Admin/Queue.php:91
+#: lib/Form/Admin/AddQueue.php:24 lib/Form/Admin/EditQueueStepTwo.php:44
 msgid "Queue Slug"
 msgstr "Warteschlangenkurzname"
 
@@ -1347,8 +1345,9 @@ msgstr "Warteschlangenkurzname"
 msgid "Queue Summary"
 msgstr "Warteschlangen-Übersicht"
 
-#: lib/Forms/CreateTicket.php:96 lib/Forms/EditTicket.php:74
-#: lib/Ticket.php:935 lib/Ticket.php:941 ticket/queue.php:82
+#: lib/Form/Queue/StepTwo.php:39 lib/Form/Ticket/CreateStepTwo.php:56
+#: lib/Form/Ticket/Edit.php:75 lib/Form/TicketDetails.php:66
+#: lib/Form/TicketDetails.php:74
 msgid "Queue Version"
 msgstr "Version"
 
@@ -1360,7 +1359,7 @@ msgstr "Warteschlange/Typ Matri_x"
 msgid "Queue/Type Matrix"
 msgstr "Warteschlange/Typ Matrix"
 
-#: lib/Api.php:31 lib/Application.php:67
+#: lib/Api.php:31 lib/Application.php:65
 msgid "Queues"
 msgstr "Warteschlangen"
 
@@ -1368,29 +1367,29 @@ msgstr "Warteschlangen"
 msgid "Re_turn to Search Results"
 msgstr "_Zurück zu Suchergebnissen"
 
-#: lib/Forms/Admin/Attribute.php:145
+#: lib/Form/Admin/DeleteAttribute.php:33
 msgid "Really delete this attribute? This may cause data problems!"
 msgstr ""
 "Soll dieses Attribut wirlich gelöscht werden? Das kann Datenprobleme "
 "verursachen!"
 
-#: lib/Forms/Admin/Reply.php:106
+#: lib/Form/Admin/DeleteReply.php:32
 msgid "Really delete this form reply?"
 msgstr "Diese Standardantwort wirklich löschen?"
 
-#: lib/Forms/Admin/Priority.php:120
+#: lib/Form/Admin/DeletePriority.php:34
 msgid "Really delete this priority? This may cause data problems!"
 msgstr ""
 "Soll diese Priorität wirlich gelöscht werden? Das kann Datenprobleme "
 "verursachen!"
 
-#: lib/Forms/Query.php:454
+#: lib/Form/Query/Delete.php:13
 msgid "Really delete this query? This operation is not undoable."
 msgstr ""
 "Diese Abfrage wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht "
 "werden."
 
-#: lib/Forms/Admin/Queue.php:174
+#: lib/Form/Admin/DeleteQueue.php:37
 msgid ""
 "Really delete this queue? This will also delete all associated tickets and "
 "their comments. This can not be undone!"
@@ -1399,51 +1398,51 @@ msgstr ""
 "Tickets und Kommentare gelöscht. Dieser Vorgang kann nicht rückgängig "
 "gemacht werden!"
 
-#: lib/Forms/Admin/State.php:120
+#: lib/Form/Admin/DeleteState.php:33
 msgid "Really delete this state? This may cause data problems!"
 msgstr ""
 "Soll dieser Status wirlich gelöscht werden? Das kann Datenprobleme "
 "verursachen!"
 
-#: ticket/delete.php:30
+#: lib/Form/Ticket/Delete.php:24
 msgid ""
 "Really delete this ticket? It will NOT be archived, and will be gone forever."
 msgstr ""
 "Dieses Ticket wirklich löschen? Es wird nicht archiviert, sondern geht für "
 "immer verloren."
 
-#: lib/Forms/Admin/Type.php:176
+#: lib/Form/Admin/DeleteType.php:48
 msgid "Really delete this type? This may cause data problems!"
 msgstr ""
 "Soll dieser Typ wirlich gelöscht werden? Das kann Datenprobleme verursachen!"
 
-#: lib/Forms/Admin/Version.php:99
+#: lib/Form/Admin/DeleteVersion.php:35
 msgid "Really delete this version? This may cause data problems!"
 msgstr ""
 "Soll diese Version wirlich gelöscht werden? Das kann Datenprobleme "
 "verursachen!"
 
-#: lib/Mail.php:58
+#: lib/Mail.php:65
 msgid "Received message:"
 msgstr "Empfangene Nachricht:"
 
-#: search.php:161
+#: search.php:155
 msgid "Refine Search"
 msgstr "Suche verfeinern"
 
-#: admin/index.php:1171
+#: admin/index.php:1150
 msgid "Reminders were sent."
 msgstr "Erinnerungen wurden verschickt."
 
-#: lib/Forms/Admin/User.php:57
+#: lib/Form/Admin/EditUser.php:21
 msgid "Remove User"
 msgstr "Benutzer entfernen"
 
-#: ticket/watch.php:46
+#: ticket/watch.php:22
 msgid "Remove Watcher"
 msgstr "Beobachter entfernen"
 
-#: lib/Renderer/Comment.php:93
+#: lib/Form/Renderer/Comment.php:95
 msgid "Reply to this comment"
 msgstr "Diesen Kommentar beantworten"
 
@@ -1451,52 +1450,55 @@ msgstr "Diesen Kommentar beantworten"
 msgid "Reports"
 msgstr "Berichte"
 
-#: lib/Renderer/Query.php:84 lib/Ticket.php:968 lib/Whups.php:684
+#: lib/Form/Renderer/Query.php:90 lib/Form/TicketDetails.php:101
+#: lib/Whups.php:753
 msgid "Requester"
 msgstr "Anfrager"
 
-#: lib/Forms/Admin/Attribute.php:26 lib/Forms/Admin/Attribute.php:97
+#: lib/Form/Admin/AddAttribute.php:25
+#: lib/Form/Admin/EditAttributeStepTwo.php:33
 msgid "Required Attribute?"
 msgstr "Notwendiges Attribute?"
 
-#: config/prefs.php:55 lib/Api.php:716 lib/Driver.php:214
-#: lib/Renderer/Query.php:149 lib/Ticket.php:994 lib/Whups.php:689
+#: config/prefs.php:55 lib/Api.php:674 lib/Driver.php:219
+#: lib/Form/Renderer/Query.php:155 lib/Form/TicketDetails.php:131
+#: lib/Whups.php:758
 msgid "Resolved"
 msgstr "Erledigt"
 
-#: lib/Forms/Query.php:334 lib/Forms/Search.php:62
+#: lib/Form/Query/DateCriterion.php:31 lib/Form/Search.php:75
 msgid "Resolved from"
 msgstr "Erledigt seit"
 
-#: lib/Forms/Query.php:335
+#: lib/Form/Query/DateCriterion.php:34
 msgid "Resolved to"
 msgstr "Erledigt bis"
 
-#: lib/Forms/Admin/User.php:59
+#: lib/Form/Admin/EditUser.php:23
 msgid "Responsible Users"
 msgstr "Verantwortliche Benutzer"
 
-#: lib/Whups.php:309
+#: lib/Whups.php:378
 msgid "S_et Queue"
 msgstr "_Warteschlange festlegen"
 
-#: lib/Query.php:239
+#: lib/Query.php:248
 msgid "Sa_ve Query"
 msgstr "Abfrage s_peichern"
 
-#: lib/Forms/Query.php:389 templates/view/results.inc:97
+#: lib/Form/Query/ChooseNameForSave.php:10 templates/view/results.inc:104
 msgid "Save"
 msgstr "Speichern"
 
-#: query/index.php:235
+#: query/index.php:232
 msgid "Save Criterion"
 msgstr "Kriterium speichern"
 
-#: lib/Forms/Query.php:388
+#: lib/Form/Query/ChooseNameForSave.php:9
 msgid "Save Query"
 msgstr "Abfrage speichern"
 
-#: lib/Forms/Search.php:17 search.php:67
+#: lib/Form/Search.php:17 search.php:64
 msgid "Save as Query"
 msgstr "Als Abfrage speichern"
 
@@ -1504,32 +1506,33 @@ msgstr "Als Abfrage speichern"
 msgid "Saved Queries"
 msgstr "Gespeicherte Abfragen"
 
-#: lib/Application.php:192 search.php:154
+#: lib/Application.php:190 search.php:148
 msgid "Search"
 msgstr "Suche"
 
-#: lib/Forms/Query.php:282
+#: lib/Form/Query/AttributeCriterion.php:40
 #, php-format
 msgid "Search %s Attribute"
 msgstr "Attribut %s durchsuchen"
 
-#: lib/Forms/Query.php:276 lib/Forms/Query.php:285
+#: lib/Form/Query/AttributeCriterion.php:29
+#: lib/Form/Query/AttributeCriterion.php:45
 msgid "Search Attribute"
 msgstr "Attribut suchen"
 
-#: lib/Forms/Query.php:46 lib/Forms/Query.php:135
+#: lib/Form/Query/TextCriterion.php:20 lib/Form/Query/UserCriterion.php:35
 msgid "Search Comments"
 msgstr "Kommentare durchsuchen"
 
-#: lib/Forms/Query.php:44
+#: lib/Form/Query/UserCriterion.php:33
 msgid "Search Owners"
 msgstr "Zuständige durchsuchen"
 
-#: lib/Forms/Query.php:45
+#: lib/Form/Query/UserCriterion.php:34
 msgid "Search Requester"
 msgstr "Anfrager durchsuchen"
 
-#: search.php:146 search/rss.php:52 search/rss.php:56
+#: search.php:138 search/rss.php:47 search/rss.php:51
 msgid "Search Results"
 msgstr "Suchergebnisse"
 
@@ -1538,7 +1541,7 @@ msgstr "Suchergebnisse"
 msgid "Search Results: %s of %s"
 msgstr "Suchergebnisse: %s von %s"
 
-#: lib/Forms/Query.php:134
+#: lib/Form/Query/TextCriterion.php:19
 msgid "Search Summary"
 msgstr "Zusammenfassungen durchsuchen"
 
@@ -1562,57 +1565,57 @@ msgstr ""
 msgid "Sen_d Reminders"
 msgstr "Erinner_ungen versenden"
 
-#: lib/Forms/Admin.php:21
+#: lib/Form/SendReminder.php:21
 msgid "Send Reminders"
 msgstr "Erinnerungen versenden"
 
-#: lib/Forms/Admin.php:32
+#: lib/Form/SendReminder.php:34
 msgid "Send only for this list of ticket ids"
 msgstr "Nur für diese Liste von Ticket-IDs versenden"
 
-#: lib/Forms/Admin/Priority.php:78 lib/Forms/Admin/Priority.php:80
+#: lib/Form/Admin/DefaultPriority.php:19 lib/Form/Admin/DefaultPriority.php:21
 msgid "Set Default Priority"
 msgstr "Standardpriorität festlegen"
 
-#: lib/Forms/Admin/State.php:78 lib/Forms/Admin/State.php:80
+#: lib/Form/Admin/DefaultState.php:18 lib/Form/Admin/DefaultState.php:20
 msgid "Set Default State"
 msgstr "Standardstatus festlegen"
 
-#: ticket/queue.php:204 ticket/queue.php:213 ticket/queue.php:225
+#: ticket/queue.php:114 ticket/queue.php:123 ticket/queue.php:135
 msgid "Set Queue - Step 1"
 msgstr "Warteschlange festlegen - Schritt 1"
 
-#: ticket/queue.php:205 ticket/queue.php:214
+#: ticket/queue.php:115 ticket/queue.php:124
 msgid "Set Queue - Step 2"
 msgstr "Warteschlange festlegen - Schritt 2"
 
-#: ticket/queue.php:215
+#: ticket/queue.php:125
 msgid "Set Queue - Step 3"
 msgstr "Warteschlange festlegen - Schritt 3"
 
-#: ticket/queue.php:192
+#: ticket/queue.php:102
 #, php-format
 msgid "Set Queue for %s"
 msgstr "Warteschlange für %s festlegen"
 
-#: lib/Application.php:83
+#: lib/Application.php:81
 msgid "Set Requester"
 msgstr "Anfrager festlegen"
 
-#: ticket/type.php:136 ticket/type.php:145
+#: ticket/type.php:84 ticket/type.php:93
 msgid "Set Type - Step 1"
 msgstr "Typ festlegen - Schritt 1"
 
-#: ticket/type.php:137
+#: ticket/type.php:85
 msgid "Set Type - Step 2"
 msgstr "Typ festlegen - Schritt 2"
 
-#: ticket/type.php:124
+#: ticket/type.php:72
 #, php-format
 msgid "Set Type for %s"
 msgstr "Typ für %s festlegen"
 
-#: lib/Whups.php:314
+#: lib/Whups.php:383
 msgid "Set _Type"
 msgstr "_Typ festlegen"
 
@@ -1633,7 +1636,7 @@ msgstr "Tickets, die Sie erstellt haben, auf der Portalseite anzeigen?"
 msgid "Simple HTML Report"
 msgstr "Einfacher HTML-Bericht"
 
-#: lib/Forms/Admin/Queue.php:25
+#: lib/Form/Admin/AddQueue.php:25
 #, php-format
 msgid ""
 "Slugs allows direct access to this queue's open tickets by visiting: %s. "
@@ -1644,44 +1647,46 @@ msgstr ""
 "Warteschlange über: %s.<br />Kurznamen dürfen Buchstaben, Zahlen und "
 "Unterstriche enthalten."
 
-#: templates/view/results.inc:37 templates/view/results.inc:41
+#: templates/view/results.inc:48 templates/view/results.inc:52
 #, php-format
 msgid "Sort by %s"
 msgstr "Sortieren nach %s"
 
-#: lib/Forms/AddComment.php:18 lib/Forms/AddComment.php:49
-#: lib/Forms/CreateTicket.php:139 lib/Forms/CreateTicket.php:186
+#: lib/Form/AddComment.php:20 lib/Form/AddComment.php:58
+#: lib/Form/Ticket/CreateStepThree.php:48
+#: lib/Form/Ticket/CreateStepThree.php:96
 msgid "Spam protection"
 msgstr "Spamschutz"
 
-#: config/prefs.php:48 lib/Forms/EditTicket.php:78 lib/Forms/Query.php:197
-#: lib/Renderer/Query.php:115 lib/Ticket.php:619 lib/Ticket.php:813
-#: lib/Ticket.php:952 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:112
-#: ticket/type.php:61
+#: config/prefs.php:48 lib/Form/Query/PropertyCriterion.php:43
+#: lib/Form/Queue/StepThree.php:34 lib/Form/Renderer/Query.php:121
+#: lib/Form/SetTypeStepTwo.php:27 lib/Form/Ticket/Edit.php:80
+#: lib/Form/TicketDetails.php:84 lib/Ticket.php:598 lib/Ticket.php:792
+#: lib/Whups.php:743 lib/Whups.php:749
 msgid "State"
 msgstr "Status"
 
-#: lib/Renderer/Comment.php:113
+#: lib/Form/Renderer/Comment.php:116
 #, php-format
 msgid "State &rArr; %s"
 msgstr "Status &rArr; %s"
 
-#: lib/Forms/Admin/State.php:23 lib/Forms/Admin/State.php:68
+#: lib/Form/Admin/AddState.php:23 lib/Form/Admin/EditStateStepTwo.php:32
 msgid "State Category"
 msgstr "Statuskategorie"
 
-#: lib/Forms/Admin/State.php:22 lib/Forms/Admin/State.php:65
-#: lib/Forms/Admin/State.php:116
+#: lib/Form/Admin/AddState.php:22 lib/Form/Admin/DeleteState.php:29
+#: lib/Form/Admin/EditStateStepTwo.php:29
 msgid "State Description"
 msgstr "Statusbeschreibung"
 
-#: lib/Forms/Admin/State.php:21 lib/Forms/Admin/State.php:45
-#: lib/Forms/Admin/State.php:62 lib/Forms/Admin/State.php:94
-#: lib/Forms/Admin/State.php:113
+#: lib/Form/Admin/AddState.php:21 lib/Form/Admin/DefaultState.php:35
+#: lib/Form/Admin/DeleteState.php:26 lib/Form/Admin/EditStateStepOne.php:31
+#: lib/Form/Admin/EditStateStepTwo.php:26
 msgid "State Name"
 msgstr "Statusbezeichnung"
 
-#: lib/Forms/Admin/Type.php:74 lib/Forms/Admin/Type.php:163
+#: lib/Form/Admin/DeleteType.php:37 lib/Form/Admin/EditTypeStepTwo.php:37
 msgid "States for this Type"
 msgstr "Status für diesen Typ"
 
@@ -1689,151 +1694,151 @@ msgstr "Status für diesen Typ"
 msgid "Status"
 msgstr "Status"
 
-#: ticket/create.php:141
+#: ticket/create.php:139
 msgid "Submit"
 msgstr "Abschicken"
 
-#: query/run.php:95 query/run.php:96
+#: query/run.php:91 query/run.php:92
 msgid "Subscribe to this query"
 msgstr "Diese Abfrage abonnieren"
 
-#: admin/index.php:195
+#: admin/index.php:185
 #, php-format
 msgid "Successfully Cloned %s to %s."
 msgstr "%s wurde erfolgreich nach %s kopiert."
 
-#: ticket/type.php:115
+#: ticket/type.php:61
 msgid "Successfully changed ticket type."
 msgstr "Tickettyp erfolgreich geändert."
 
-#: config/prefs.php:47 lib/Forms/CreateTicket.php:163
-#: lib/Forms/EditTicket.php:62 lib/Renderer/Query.php:87 lib/Ticket.php:626
-#: lib/Ticket.php:653 lib/Ticket.php:656 lib/Ticket.php:660 lib/Ticket.php:819
-#: lib/Ticket.php:828 lib/Ticket.php:915 lib/Whups.php:672 lib/Whups.php:679
-#: ticket/delete.php:26
+#: config/prefs.php:47 lib/Form/Renderer/Query.php:93
+#: lib/Form/Ticket/CreateStepThree.php:73 lib/Form/Ticket/Delete.php:20
+#: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:45
+#: lib/Ticket.php:605 lib/Ticket.php:632 lib/Ticket.php:635 lib/Ticket.php:639
+#: lib/Ticket.php:798 lib/Ticket.php:807 lib/Whups.php:741 lib/Whups.php:748
 msgid "Summary"
 msgstr "Zusammenfassung"
 
-#: lib/Renderer/Comment.php:49
+#: lib/Form/Renderer/Comment.php:50
 #, php-format
 msgid "Summary &rArr; %s"
 msgstr "Zusammenfassung &rArr; %s"
 
-#: lib/Forms/Search.php:41
+#: lib/Form/Search.php:43
 msgid "Summary like"
 msgstr "Zusammenfassung"
 
-#: lib/Renderer/Comment.php:77
+#: lib/Form/Renderer/Comment.php:80
 #, php-format
 msgid "Taken from %s"
 msgstr "Genommen von %s"
 
-#: lib/Forms/Query.php:132
+#: lib/Form/Query/TextCriterion.php:15
 msgid "Text"
 msgstr "Text"
 
-#: lib/Driver/sql.php:78 lib/Driver/sql.php:1380
+#: lib/Driver/Sql.php:103 lib/Driver/Sql.php:1539
 msgid "That queue slug is already taken. Please select another."
 msgstr "Dieser Kurzname ist bereits vergeben. Bitte wählen Sie einen anderen."
 
-#: lib/Forms/CreateTicket.php:132
+#: lib/Form/Ticket/CreateStepThree.php:41
 msgid "The Requester's Email Address"
 msgstr "Die E-Mail-Adresse des Anfragers"
 
-#: lib/Ticket.php:431 lib/Ticket.php:481 view.php:43
+#: lib/Ticket.php:396 lib/Ticket.php:449 view.php:40
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
 "Das VFS-Backend muss konfiguriert sein, um das Hochladen von Dateien zu "
 "erlauben."
 
-#: admin/index.php:907
+#: admin/index.php:890
 #, php-format
 msgid "The attribute \"%s\" has been added to %s."
 msgstr "Das Attribut \"%s\" wurde zu %s hinzugefügt."
 
-#: admin/index.php:1007
+#: admin/index.php:991
 msgid "The attribute has been deleted."
 msgstr "Das Attribut wurde gelöscht."
 
-#: admin/index.php:975
+#: admin/index.php:958
 msgid "The attribute has been modified."
 msgstr "Das Attribut wurde geändert."
 
-#: admin/index.php:1016
+#: admin/index.php:1001
 msgid "The attribute was not deleted."
 msgstr "Das Attribut wurde nicht gelöscht."
 
-#: admin/index.php:641
+#: admin/index.php:620
 msgid "The default priority has been set."
 msgstr "Die Standard-Priorität wurde gespeichert."
 
-#: admin/index.php:505
+#: admin/index.php:487
 msgid "The default state has been set."
 msgstr "Der Standard-Status wurde gespeichert."
 
-#: admin/index.php:1044
+#: admin/index.php:1029
 #, php-format
 msgid "The form reply \"%s\" has been added to %s."
 msgstr "Die Standardantwort \"%s\" wurde zu %s hinzugefügt."
 
-#: admin/index.php:1136
+#: admin/index.php:1120
 msgid "The form reply has been deleted."
 msgstr "Der Standardantwort wurde gelöscht."
 
-#: admin/index.php:1109
+#: admin/index.php:1089
 msgid "The form reply has been modified."
 msgstr "Die Standardantwort wurde geändert."
 
-#: admin/index.php:1145
+#: admin/index.php:1129
 msgid "The form reply was not deleted."
 msgstr "Die Standardantwort wurde nicht gelöscht."
 
-#: admin/index.php:555
+#: admin/index.php:541
 #, php-format
 msgid "The priority \"%s\" has been added to %s."
 msgstr "Die Priorität \"%s\" wurde zu %s hinzugefügt."
 
-#: admin/index.php:660
+#: admin/index.php:642
 msgid "The priority has been deleted."
 msgstr "Die Priorität wurde gelöscht."
 
-#: admin/index.php:608
+#: admin/index.php:593
 msgid "The priority has been modified."
 msgstr "Die Priorität wurde geändert."
 
-#: admin/index.php:669
+#: admin/index.php:652
 msgid "The priority was not deleted."
 msgstr "Die Priorität wurde nicht gelöscht."
 
-#: lib/Forms/Query.php:467
+#: lib/Form/Query/Delete.php:38
 #, php-format
 msgid "The query \"%s\" couldn't be deleted: %s"
 msgstr "Die Abfrage \"%s\" konnte nicht gelöscht werden: %s"
 
-#: lib/Forms/Query.php:469
+#: lib/Form/Query/Delete.php:31
 #, php-format
 msgid "The query \"%s\" has been deleted."
 msgstr "Die Abfrage \"%s\" wurde gelöscht."
 
-#: lib/Forms/Query.php:434
+#: lib/Form/Query/ChooseNameForLoad.php:32
 #, php-format
 msgid "The query couldn't be loaded:"
 msgstr "Die Abfrage konnte nicht geladen werden:"
 
-#: admin/index.php:296
+#: admin/index.php:284
 #, php-format
 msgid "The queue \"%s\" has been created."
 msgstr "Die Warteschlange \"%s\" wurde erstellt."
 
-#: admin/index.php:391
+#: admin/index.php:377
 msgid "The queue has been deleted."
 msgstr "Die Warteschlange wurde gelöscht."
 
-#: admin/index.php:356
+#: admin/index.php:344
 msgid "The queue has been modified."
 msgstr "Die Warteschlange wurde geändert."
 
-#: admin/index.php:399
+#: admin/index.php:386
 msgid "The queue was not deleted."
 msgstr "Die Warteschlange wurde nicht gelöscht."
 
@@ -1841,98 +1846,99 @@ msgstr "Die Warteschlange wurde nicht gelöscht."
 msgid "The requested template does not exist."
 msgstr "Die ausgewählte Vorlage existiert nicht."
 
-#: admin/index.php:421
+#: admin/index.php:409
 #, php-format
 msgid "The state \"%s\" has been added to %s."
 msgstr "Der Status \"%s\" wurde zu %s hinzugefügt."
 
-#: admin/index.php:524
+#: admin/index.php:509
 msgid "The state has been deleted."
 msgstr "Der Status wurde gelöscht."
 
-#: admin/index.php:474
+#: admin/index.php:462
 msgid "The state has been modified."
 msgstr "Der Status wurde geändert."
 
-#: admin/index.php:532
+#: admin/index.php:517
 msgid "The state was not deleted."
 msgstr "Der Status wurde nicht gelöscht."
 
-#: ticket/delete.php:74
+#: ticket/delete.php:47
 msgid "The ticket was not deleted."
 msgstr "Das Ticket wurde nicht gelöscht."
 
-#: admin/index.php:219
+#: admin/index.php:205
 #, php-format
 msgid "The type \"%s\" has been modified."
 msgstr "Der Typ \"%s\" wurde geändert."
 
-#: admin/index.php:268
+#: admin/index.php:256
 msgid "The type has been deleted."
 msgstr "Der Typ wurde gelöscht."
 
-#: admin/index.php:276
+#: admin/index.php:263
 msgid "The type was not deleted."
 msgstr "Der Typ wurde nicht gelöscht."
 
-#: admin/index.php:776
+#: admin/index.php:757
 #, php-format
 msgid "The version \"%s\" has been added to %s."
 msgstr "Die Version \"%s\" wurde zu %s hinzugefügt."
 
-#: admin/index.php:866
+#: admin/index.php:848
 msgid "The version has been deleted."
 msgstr "Die Version wurde gelöscht."
 
-#: admin/index.php:836
+#: admin/index.php:818
 msgid "The version has been modified."
 msgstr "Die Version wurde geändert."
 
-#: admin/index.php:874
+#: admin/index.php:856
 msgid "The version was not deleted."
 msgstr "Die Version wurde nicht gelöscht."
 
-#: lib/Forms/Admin/Attribute.php:68
+#: lib/Form/Admin/EditAttributeStepOne.php:31
 msgid "There are no attribute types to edit"
 msgstr "Keine Attributarten zum Bearbeiten"
 
-#: lib/Forms/Query.php:285
+#: lib/Form/Query/AttributeCriterion.php:46
 msgid "There are no attributes defined."
 msgstr "Es sind keine Attribute angelegt."
 
-#: lib/Forms/Admin/Reply.php:46
+#: lib/Form/Admin/EditReplyStepOne.php:31
 msgid "There are no form replies to edit"
 msgstr "Es gibt keine Standardantworten, die bearbeitet werden können"
 
-#: lib/Block/Queuesummary.php:29
+#: lib/Block/Queuesummary.php:25
 msgid "There are no open tickets."
 msgstr "Es gibt keine offenen Tickets."
 
-#: lib/Forms/Admin/Priority.php:42 lib/Forms/Admin/Priority.php:88
+#: lib/Form/Admin/DefaultPriority.php:29
+#: lib/Form/Admin/EditPriorityStepOne.php:29
 msgid "There are no priorities to edit"
 msgstr "Keine Prioritäten zum Bearbeiten"
 
-#: lib/Forms/Admin.php:29
+#: lib/Form/SendReminder.php:30
 msgid "There are no queues available."
 msgstr "Es sind keine Warteschlangen verfügbar."
 
-#: lib/Forms/Admin/Queue.php:55
+#: lib/Form/Admin/EditQueueStepOne.php:35
 msgid "There are no queues to edit"
 msgstr "Keine Warteschlangen zum Bearbeiten"
 
-#: lib/Forms/CreateTicket.php:33
+#: lib/Form/Ticket/CreateStepOne.php:33
 msgid "There are no queues which you can create tickets in."
 msgstr "Es gibt keine Warteschlangen, für die Sie Tickets erstellen dürfen."
 
-#: lib/Forms/Search.php:36
+#: lib/Form/Search.php:37
 msgid "There are no queues which you can search."
 msgstr "Es gibt keine Warteschlangen, die Sie durchsuchen dürfen."
 
-#: lib/Forms/Admin/State.php:41 lib/Forms/Admin/State.php:90
+#: lib/Form/Admin/DefaultState.php:30 lib/Form/Admin/EditStateStepOne.php:27
 msgid "There are no states to edit"
 msgstr "Kein Status zum Bearbeiten"
 
-#: lib/Forms/CreateTicket.php:75
+#: lib/Form/Ticket/CreateStepTwo.php:34
 msgid ""
 "There are no ticket types associated with this queue; until there are, you "
 "cannot create any tickets in this queue."
@@ -1940,134 +1946,135 @@ msgstr ""
 "Dieser Warteschlange sind keine Tickettypen zugeordnet; solange können sie "
 "keine Tickets für diese Warteschlange erstellen."
 
-#: lib/Forms/Admin/Type.php:43
+#: lib/Form/Admin/EditTypeStepOne.php:32
 msgid "There are no types to edit"
 msgstr "Keine Typen zum Bearbeiten"
 
-#: lib/Forms/Admin/User.php:73
+#: lib/Form/Admin/EditUser.php:37
 msgid "There are no users responsible for this queue."
 msgstr "Für diese Warteschlange ist kein Benutzer verantwortlich."
 
-#: lib/Forms/CreateTicket.php:253
+#: lib/Form/Ticket/CreateStepFour.php:66
 msgid "There are no users to which this ticket can be assigned."
 msgstr "Es gibt keine Benutzer, denen dieses Ticket zugewiesen werden kann."
 
-#: lib/Forms/Admin/Version.php:44
+#: lib/Form/Admin/EditVersionStepOne.php:30
 msgid "There are no versions to edit"
 msgstr "Keine Versionen zum Bearbeiten"
 
-#: lib/Reports.php:142
+#: lib/Reports.php:176
 msgid "There is no data for this report."
 msgstr "Es liegen keine Daten für diesen Bericht vor."
 
-#: admin/index.php:704
+#: admin/index.php:686
 #, php-format
 msgid "There was an error adding \"%s\" to the responsible list for \"%s\":"
 msgstr ""
 "Beim Hinzufügen von \"%s\" zu der Liste der Verantwortlichen für \"%s\" ist "
 "ein Problem aufgetreten:"
 
-#: admin/index.php:912
+#: admin/index.php:896
 msgid "There was an error creating the attribute:"
 msgstr "Beim Erstellen des Attributs ist ein Fehler aufgetreten:"
 
-#: admin/index.php:1052
+#: admin/index.php:1038
 msgid "There was an error creating the form reply:"
 msgstr "Beim Erstellen der Standardantwort ist ein Fehler aufgetreten:"
 
-#: admin/index.php:560
+#: admin/index.php:546
 msgid "There was an error creating the priority:"
 msgstr "Beim Erstellen der Priorität ist ein Fehler aufgetreten:"
 
-#: admin/index.php:305
+#: admin/index.php:294
 msgid "There was an error creating the queue:"
 msgstr "Beim Erstellen der Warteschlange ist ein Fehler aufgetreten:"
 
-#: admin/index.php:425
+#: admin/index.php:414
 msgid "There was an error creating the state:"
 msgstr "Beim Erstellen des Status ist ein Fehler aufgetreten:"
 
-#: admin/index.php:780
+#: admin/index.php:762
 msgid "There was an error creating the version:"
 msgstr "Beim Erstellen der Version ist ein Fehler aufgetreten:"
 
-#: admin/index.php:1011
+#: admin/index.php:995
 msgid "There was an error deleting the attribute:"
 msgstr "Beim Löschen des Attributs ist ein Fehler aufgetreten:"
 
-#: admin/index.php:1140
+#: admin/index.php:1124
 msgid "There was an error deleting the form reply:"
 msgstr "Beim Löschen der Standardantwort ist ein Fehler aufgetreten:"
 
-#: admin/index.php:664
+#: admin/index.php:646
 msgid "There was an error deleting the priority:"
 msgstr "Beim Löschen der Priorität ist ein Fehler aufgetreten:"
 
-#: admin/index.php:394
+#: admin/index.php:381
 msgid "There was an error deleting the queue:"
 msgstr "Beim Löschen der Warteschlange ist ein Fehler aufgetreten:"
 
-#: admin/index.php:527
+#: admin/index.php:513
 msgid "There was an error deleting the state:"
 msgstr "Beim Löschen des Status ist ein Fehler aufgetreten:"
 
-#: ticket/delete.php:72
+#: ticket/delete.php:42
 msgid "There was an error deleting the ticket:"
 msgstr "Beim Löschen des Tickets ist ein Fehler aufgetreten:"
 
-#: admin/index.php:271
+#: admin/index.php:259
 msgid "There was an error deleting the type:"
 msgstr "Beim Löschen des Typs ist ein Fehler aufgetreten:"
 
-#: admin/index.php:869
+#: admin/index.php:852
 msgid "There was an error deleting the version:"
 msgstr "Beim Löschen der Version ist ein Fehler aufgetreten:"
 
-#: admin/index.php:983
+#: admin/index.php:967
 msgid "There was an error editing the attribute:"
 msgstr "Beim Bearbeiten des Attributs ist ein Fehler aufgetreten:"
 
-#: admin/index.php:1105
+#: admin/index.php:1097
 msgid "There was an error editing the form reply:"
 msgstr "Beim Bearbeiten der Standardantwort ist ein Fehler aufgetreten:"
 
-#: admin/index.php:614
+#: admin/index.php:600
 msgid "There was an error editing the priority:"
 msgstr "Beim Bearbeiten der Priorität ist ein Fehler aufgetreten:"
 
-#: admin/index.php:374
+#: admin/index.php:361
 msgid "There was an error editing the queue:"
 msgstr "Beim Bearbeiten der Warteschlange ist ein Fehler aufgetreten:"
 
-#: admin/index.php:479
+#: admin/index.php:468
 msgid "There was an error editing the state:"
 msgstr "Beim Bearbeiten des Status ist ein Fehler aufgetreten:"
 
-#: admin/index.php:842
+#: admin/index.php:825
 msgid "There was an error editing the version:"
 msgstr "Beim Bearbeiten der Version ist ein Fehler aufgetreten:"
 
-#: lib/Forms/Admin/User.php:33
+#: lib/Form/Admin/AddUser.php:44
 #, php-format
 msgid "There was an error listing users: %s; %s"
 msgstr "Beim Anzeigen der Benutzer ist ein Fehler aufgetreten: %s; %s"
 
-#: queue/index.php:49
+#: queue/index.php:63
 #, php-format
-msgid "There was an error locating tickets in this queue: "
+msgid "There was an error locating tickets in this queue: %s"
 msgstr ""
 "Beim Suchen von Tickets in dieser Warteschlange ist ein Fehler aufgetreten: "
+"%s"
 
-#: admin/index.php:215
+#: admin/index.php:212
 msgid "There was an error modifying the type:"
 msgstr "Beim Bearbeiten des Typs ist ein Fehler aufgetreten:"
 
-#: search.php:139
+#: search.php:144
 #, php-format
 msgid "There was an error performing your search: %s"
 msgstr "Bei der Ausführung Ihrer Suchanfrage ist ein Fehler aufgetreten: %s"
 
-#: admin/index.php:749
+#: admin/index.php:729
 #, php-format
 msgid ""
 "There was an error removing \"%s\" from the responsible list for \"%s\":"
@@ -2075,19 +2082,19 @@ msgstr ""
 "Beim Löschen von \"%s\" aus der Liste der Verantwortlichen für \"%s\" ist "
 "ein Fehler aufgetreten:"
 
-#: admin/index.php:637
+#: admin/index.php:624
 msgid "There was an error setting the default priority:"
 msgstr "Beim Festlegen der Standard-Priorität ist ein Fehler aufgetreten:"
 
-#: admin/index.php:501
+#: admin/index.php:491
 msgid "There was an error setting the default state:"
 msgstr "Beim Festlegen des Standard-Status ist ein Fehler aufgetreten:"
 
-#: lib/Forms/AddComment.php:35 lib/Forms/EditTicket.php:179
+#: lib/Form/AddComment.php:44 lib/Form/Ticket/Edit.php:182
 msgid "This comment is visible to everyone"
 msgstr "Dieser Kommentar ist für jedermann sichtbar"
 
-#: lib/Forms/Admin/Queue.php:29
+#: lib/Form/Admin/AddQueue.php:30
 msgid ""
 "This email address will be used when sending notifications for any queue "
 "tickets."
@@ -2099,12 +2106,12 @@ msgstr ""
 msgid "This is not a search results template."
 msgstr "Dies ist keine Vorlage für Suchergebnisse."
 
-#: lib/Query.php:440 lib/Query.php:673
+#: lib/Query.php:453 lib/Query.php:686
 msgid "This query element cannot be edited."
 msgstr "Diese Abfragekriterium kann nicht bearbeitet werden."
 
-#: lib/Forms/CreateTicket.php:91 lib/Forms/EditTicket.php:69
-#: ticket/queue.php:77
+#: lib/Form/Queue/StepTwo.php:34 lib/Form/Ticket/CreateStepTwo.php:50
+#: lib/Form/Ticket/Edit.php:70
 msgid ""
 "This queue requires that you specify a version, but there are no versions "
 "associated with it. Until versions are created for this queue, you will not "
@@ -2114,30 +2121,36 @@ msgstr ""
 "keine Versionen zugeordnet. Solange keine Versionen erzeugt worden sind, "
 "können Sie keine Tickets anlegen."
 
-#: lib/Ticket.php:648 lib/Ticket.php:827
+#: lib/Ticket.php:627 lib/Ticket.php:806
 msgid "Ticket"
 msgstr "Ticket"
 
-#: ticket/delete.php:68
+#: ticket/delete.php:38
 #, php-format
 msgid "Ticket %d has been deleted."
 msgstr "Das Ticket %d wurde gelöscht."
 
-#: lib/Api.php:641
+#: ticket/delete.php:44
+#, php-format
+msgid "Ticket %d not found."
+msgstr "Ticket %d nicht gefunden."
+
+#: lib/Api.php:601
 #, php-format
 msgid "Ticket %s - %s"
 msgstr "Ticket %s - %s"
 
-#: lib/Driver/sql.php:1068
+#: lib/Driver/Sql.php:1140
 #, php-format
 msgid "Ticket %s was not found."
 msgstr "Ticket %s nicht gefunden."
 
-#: search.php:169
+#: search.php:163
 msgid "Ticket Search"
 msgstr "Ticketsuche"
 
-#: lib/Forms/CreateTicket.php:148 lib/Forms/CreateTicket.php:151
+#: lib/Form/Ticket/CreateStepThree.php:59
+#: lib/Form/Ticket/CreateStepThree.php:62
 msgid "Ticket State"
 msgstr "Ticket-Status"
 
@@ -2145,59 +2158,60 @@ msgstr "Ticket-Status"
 msgid "Ticket Stats"
 msgstr "Ticket-Statistiken"
 
-#: lib/Forms/CreateTicket.php:83
+#: lib/Form/Ticket/CreateStepTwo.php:43
 msgid "Ticket Type"
 msgstr "Ticket-Typ"
 
-#: lib/Forms/Admin/Queue.php:101
+#: lib/Form/Admin/EditQueueStepTwo.php:53
 msgid "Ticket Types associated with this Queue"
 msgstr "Dieser Warteschlange zugehörige Tickettypen"
 
-#: lib/Ticket.php:643
+#: lib/Ticket.php:622
 #, php-format
 msgid "Ticket URL: %s"
 msgstr "Ticket-URL: %s"
 
-#: ticket/update.php:106
+#: ticket/update.php:101
 msgid "Ticket Updated"
 msgstr "Ticket aktualisiert"
 
-#: lib/Api.php:662
+#: lib/Api.php:620
 msgid "Tickets"
 msgstr "Tickets"
 
-#: query/rss.php:67
+#: query/rss.php:64
 #, php-format
 msgid "Tickets matching the query \"%s\"."
 msgstr "Zur Abfrage \"%s\" passende Tickets."
 
-#: config/prefs.php:49 lib/Forms/Query.php:178 lib/Renderer/Query.php:106
-#: lib/Ticket.php:618 lib/Ticket.php:812 lib/Ticket.php:948 lib/Whups.php:681
-#: ticket/queue.php:85
+#: config/prefs.php:49 lib/Form/Query/PropertyCriterion.php:21
+#: lib/Form/Queue/StepTwo.php:42 lib/Form/Renderer/Query.php:112
+#: lib/Form/TicketDetails.php:80 lib/Ticket.php:597 lib/Ticket.php:791
+#: lib/Whups.php:750
 msgid "Type"
 msgstr "Typ"
 
-#: lib/Renderer/Comment.php:108
+#: lib/Form/Renderer/Comment.php:111
 #, php-format
 msgid "Type &rArr; %s"
 msgstr "Typ &rArr; %s"
 
-#: lib/Forms/Admin/Type.php:21 lib/Forms/Admin/Type.php:68
-#: lib/Forms/Admin/Type.php:158
+#: lib/Form/Admin/AddType.php:21 lib/Form/Admin/DeleteType.php:32
+#: lib/Form/Admin/EditTypeStepTwo.php:31
 msgid "Type Description"
 msgstr "Typbeschreibung"
 
-#: lib/Forms/Admin/Type.php:20 lib/Forms/Admin/Type.php:46
-#: lib/Forms/Admin/Type.php:65 lib/Forms/Admin/Type.php:154
+#: lib/Form/Admin/AddType.php:20 lib/Form/Admin/DeleteType.php:28
+#: lib/Form/Admin/EditTypeStepOne.php:36 lib/Form/Admin/EditTypeStepTwo.php:27
 msgid "Type Name"
 msgstr "Typbezeichnung"
 
-#: search/rss.php:37
+#: search/rss.php:32
 #, php-format
 msgid "Type: %s; State: %s"
 msgstr "Typ: %s; Status: %s"
 
-#: lib/Ticket.php:964
+#: lib/Form/TicketDetails.php:96
 msgid "Unassigned"
 msgstr "Nicht zugewiesen"
 
@@ -2205,24 +2219,24 @@ msgstr "Nicht zugewiesen"
 msgid "Unassigned Tickets"
 msgstr "Nicht zugewiesene Tickets"
 
-#: lib/Forms/Admin.php:40
+#: lib/Form/SendReminder.php:51
 msgid "Unassigned tickets"
 msgstr "Nicht zugewiesene Tickets"
 
-#: lib/Driver.php:211
+#: lib/Driver.php:216
 msgid "Unconfirmed"
 msgstr "Unbestätigt"
 
-#: lib/Renderer/Query.php:165 lib/Renderer/Query.php:205
+#: lib/Form/Renderer/Query.php:171 lib/Form/Renderer/Query.php:211
 #, php-format
 msgid "Unknown node type %s"
 msgstr "Unbekannter Knotentyp %s"
 
-#: lib/Application.php:84
+#: lib/Application.php:82
 msgid "Update"
 msgstr "Aktualisierung"
 
-#: ticket/update.php:120
+#: ticket/update.php:117
 #, php-format
 msgid "Update %s"
 msgstr "%s aktualisieren"
@@ -2231,72 +2245,74 @@ msgstr "%s aktualisieren"
 msgid "Update Associations"
 msgstr "Zuordnungen aktualisieren"
 
-#: lib/Renderer/Query.php:144 lib/Ticket.php:984 lib/Whups.php:687
+#: lib/Form/Renderer/Query.php:150 lib/Form/TicketDetails.php:119
+#: lib/Whups.php:756
 msgid "Updated"
 msgstr "Aktualisiert"
 
-#: lib/Ticket.php:625 lib/Ticket.php:650
+#: lib/Ticket.php:604 lib/Ticket.php:629
 msgid "Updated By"
 msgstr "Aktualisiert Von"
 
-#: lib/Forms/Query.php:331 lib/Forms/Search.php:60
+#: lib/Form/Query/DateCriterion.php:24 lib/Form/Search.php:69
 msgid "Updated from"
 msgstr "Aktualisiert seit"
 
-#: lib/Forms/Query.php:332
+#: lib/Form/Query/DateCriterion.php:27
 msgid "Updated to"
 msgstr "Aktualisiert bis"
 
-#: lib/Forms/Admin/User.php:32 lib/Forms/Admin/User.php:42
-#: lib/Forms/Admin/User.php:45
+#: lib/Form/Admin/AddUser.php:40 lib/Form/Admin/AddUser.php:43
+#: lib/Form/Admin/AddUser.php:47
 msgid "User"
 msgstr "Benutzer"
 
-#: lib/Forms/Query.php:42
+#: lib/Form/Query/UserCriterion.php:29
 msgid "User ID"
 msgstr "Benutzerkennung"
 
-#: lib/Forms/Admin/Queue.php:129
+#: lib/Form/Admin/EditQueueStepTwo.php:79
 msgid "Users responsible for this Queue"
 msgstr "Für diese Warteschlange verantwortliche Benutzer"
 
-#: lib/Forms/Admin/User.php:77
+#: lib/Form/Admin/EditUser.php:41
 msgid "Users responsible for this queue"
 msgstr "Für diese Warteschlange verantwortliche Benutzer"
 
-#: config/prefs.php:52 lib/Forms/Query.php:189 lib/Renderer/Query.php:100
-#: lib/Ticket.php:617 lib/Ticket.php:811
+#: config/prefs.php:52 lib/Form/Query/PropertyCriterion.php:35
+#: lib/Form/Renderer/Query.php:106 lib/Ticket.php:596 lib/Ticket.php:790
 msgid "Version"
 msgstr "Version"
 
-#: lib/Renderer/Comment.php:103
+#: lib/Form/Renderer/Comment.php:106
 #, php-format
 msgid "Version &rArr; %s"
 msgstr "Version &rArr; %s"
 
-#: lib/Forms/Admin/Version.php:23 lib/Forms/Admin/Version.php:72
+#: lib/Form/Admin/AddVersion.php:23 lib/Form/Admin/EditVersionStepTwo.php:33
 msgid "Version Active?"
 msgstr "Version aktiv?"
 
-#: lib/Forms/Admin/Version.php:22 lib/Forms/Admin/Version.php:70
-#: lib/Forms/Admin/Version.php:95
+#: lib/Form/Admin/AddVersion.php:22 lib/Form/Admin/DeleteVersion.php:31
+#: lib/Form/Admin/EditVersionStepTwo.php:31
 msgid "Version Description"
 msgstr "Versionsbeschreibung"
 
-#: lib/Forms/Admin/Version.php:21 lib/Forms/Admin/Version.php:48
-#: lib/Forms/Admin/Version.php:67 lib/Forms/Admin/Version.php:92
+#: lib/Form/Admin/AddVersion.php:21 lib/Form/Admin/DeleteVersion.php:28
+#: lib/Form/Admin/EditVersionStepOne.php:34
+#: lib/Form/Admin/EditVersionStepTwo.php:28
 msgid "Version Name"
 msgstr "Versionsbezeichnung"
 
-#: ticket/queue.php:45 ticket/type.php:39
+#: lib/Form/Queue/StepOne.php:41 lib/Form/SetTypeStepOne.php:36
 msgid "Viewable only by members of"
 msgstr "Nur einsehbar für Mitglieder von"
 
-#: lib/Forms/AddComment.php:23
+#: lib/Form/AddComment.php:32
 msgid "Watch this ticket"
 msgstr "Dieses Ticket beobachten"
 
-#: ticket/watch.php:75
+#: ticket/watch.php:55
 #, php-format
 msgid "Watchers for %s"
 msgstr "Beobachter für %s"
@@ -2317,46 +2333,47 @@ msgstr "JJ/MM/TT"
 msgid "YY/MM/DD HH:MM:SS"
 msgstr "JJ/MM/TT HH:MM:SS"
 
-#: lib/Forms/Admin/Attribute.php:147 lib/Forms/Admin/Priority.php:119
-#: lib/Forms/Admin/Queue.php:172 lib/Forms/Admin/Reply.php:108
-#: lib/Forms/Admin/State.php:119 lib/Forms/Admin/Type.php:174
-#: lib/Forms/Admin/Version.php:98 lib/Forms/Query.php:453 ticket/delete.php:29
+#: lib/Form/Admin/DeleteAttribute.php:35 lib/Form/Admin/DeletePriority.php:33
+#: lib/Form/Admin/DeleteQueue.php:35 lib/Form/Admin/DeleteReply.php:33
+#: lib/Form/Admin/DeleteState.php:32 lib/Form/Admin/DeleteType.php:46
+#: lib/Form/Admin/DeleteVersion.php:34 lib/Form/Query/Delete.php:11
+#: lib/Form/Ticket/Delete.php:23
 msgid "Yes"
 msgstr "Ja"
 
-#: view.php:37
+#: view.php:34
 #, php-format
 msgid "You are not allowed to view ticket %d."
 msgstr "Sie haben keine Berechtigung das Ticket %d anzuzeigen."
 
-#: lib/Driver/sql.php:1077
+#: lib/Driver/Sql.php:1149
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
 msgstr "Sie haben nicht genügend Rechte, um dieses Ticket (%s) anzuzeigen."
 
-#: lib/Api.php:226
+#: lib/Api.php:208
 msgid "You do not have permission to update this ticket."
 msgstr "Sie haben nicht genügend Rechte, um dieses Ticket zu aktualisieren."
 
-#: lib/Block/Myrequests.php:33
+#: lib/Block/Myrequests.php:29
 msgid "You have no open requests."
 msgstr "Sie haben keine offenen Anfragen."
 
-#: lib/Block/Query.php:28 lib/Forms/Query.php:423
+#: lib/Block/Query.php:26 lib/Form/Query/ChooseNameForLoad.php:18
 msgid "You have no saved queries."
 msgstr "Sie haben keine gespeicherten Abfragen."
 
-#: lib/Whups.php:714
+#: lib/Whups.php:783
 msgid "You must select at least one queue to send reminders for."
 msgstr ""
 "Sie müssen erst mindestens ein Warteschlange auswählen, für die Erinnerungen "
 "verschickt werden sollen."
 
-#: lib/Forms/AddComment.php:16 lib/Forms/CreateTicket.php:135
+#: lib/Form/AddComment.php:17 lib/Form/Ticket/CreateStepThree.php:45
 msgid "Your Email Address"
 msgstr "Ihre E-Mail-Adresse"
 
-#: ticket/create.php:57
+#: ticket/create.php:55
 #, php-format
 msgid ""
 "Your ticket ID is %s. An appropriate person has been notified of this "
@@ -2364,35 +2381,35 @@ msgid ""
 msgstr ""
 "Ihre Ticketnummer lautet %s. Eine zuständige Person wurde benachrichtigt."
 
-#: lib/Mail.php:88 lib/Mail.php:92
+#: lib/Mail.php:97 lib/Mail.php:101
 msgid "[ Could not render body of message. ]"
 msgstr "[ Der Nachrichtentext konnte nicht dargestellt werden. ]"
 
-#: lib/Whups.php:487
+#: lib/Whups.php:556
 msgid "[Hidden]"
 msgstr "[Versteckt]"
 
-#: lib/Whups.php:773
+#: lib/Whups.php:842
 msgid "_Admin"
 msgstr "A_dministration"
 
-#: lib/Whups.php:301
+#: lib/Whups.php:370
 msgid "_Comment"
 msgstr "_Kommentar"
 
-#: query/index.php:156
+#: query/index.php:153
 msgid "_Date Criteria"
 msgstr "Datums_kriterien"
 
-#: lib/Whups.php:319
+#: lib/Whups.php:388
 msgid "_Delete"
 msgstr "Lös_chen"
 
-#: lib/Query.php:242
+#: lib/Query.php:251
 msgid "_Delete Query"
 msgstr "Abfrage löschen"
 
-#: lib/Query.php:223
+#: lib/Query.php:225
 msgid "_Edit Query"
 msgstr "Abfrage bea_rbeiten"
 
@@ -2404,96 +2421,92 @@ msgstr "_Warteschlangen bearbeiten"
 msgid "_Go"
 msgstr "_Los"
 
-#: query/index.php:155
+#: query/index.php:152
 msgid "_Group Criteria"
 msgstr "_Gruppenkriterien"
 
-#: lib/Whups.php:295
+#: lib/Whups.php:364
 msgid "_History"
 msgstr "_Geschichte"
 
-#: lib/Query.php:236
+#: lib/Query.php:245
 msgid "_Load Query"
 msgstr "Ab_frage laden"
 
-#: lib/Whups.php:765
+#: lib/Whups.php:834
 #, php-format
 msgid "_My %s"
 msgstr "_Meine %s"
 
-#: lib/Whups.php:767
+#: lib/Whups.php:836
 msgid "_New Ticket"
 msgstr "_Neues Ticket"
 
-#: query/index.php:153
+#: query/index.php:150
 msgid "_Property Criteria"
 msgstr "Eigens_chaftenkriterien"
 
-#: lib/Whups.php:768
+#: lib/Whups.php:837
 msgid "_Query Builder"
 msgstr "_Abfrageeditor"
 
-#: lib/Whups.php:769
+#: lib/Whups.php:838
 msgid "_Reports"
 msgstr "_Berichte"
 
-#: lib/Whups.php:766
+#: lib/Whups.php:835
 msgid "_Search"
 msgstr "_Suche"
 
-#: query/index.php:157
+#: query/index.php:154
 msgid "_Text Criteria"
 msgstr "_Textkriterien"
 
-#: lib/Whups.php:297
+#: lib/Whups.php:366
 msgid "_Update"
 msgstr "Akt_ualisierung"
 
-#: query/index.php:154
+#: query/index.php:151
 msgid "_User Criteria"
 msgstr "Benut_zerkriterien"
 
-#: lib/Whups.php:305
+#: lib/Whups.php:374
 msgid "_Watch"
 msgstr "Be_obachten"
 
-#: lib/Renderer/Query.php:185
+#: lib/Form/Renderer/Query.php:191
 msgid "contains (case insensitive) substring"
 msgstr "enthält Teilzeichenkette (Groß-/Kleinschreibung ignoriert)"
 
-#: lib/Renderer/Query.php:189
+#: lib/Form/Renderer/Query.php:195
 msgid "contains (case sensitive) substring"
 msgstr "enthält Teilzeichenkette (Groß-/Kleinschreibung beachtet)"
 
-#: lib/Renderer/Query.php:193
+#: lib/Form/Renderer/Query.php:199
 msgid "contains the word"
 msgstr "enthält das Wort"
 
-#: lib/Mail.php:128 lib/Mail.php:152 lib/Mail.php:189
-msgid "current user:"
-msgstr "aktueller Benutzer:"
-
-#: lib/Api.php:650
+#: lib/Api.php:607
 msgid "estimated time"
 msgstr "geschätzte Zeit"
 
-#: lib/Renderer/Query.php:181
+#: lib/Form/Renderer/Query.php:187
 msgid "is"
 msgstr "ist"
 
-#: lib/Renderer/Query.php:173
+#: lib/Form/Renderer/Query.php:179
 msgid "is greater than"
 msgstr "ist größer als"
 
-#: lib/Renderer/Query.php:177
+#: lib/Form/Renderer/Query.php:183
 msgid "is less than"
 msgstr "ist kleiner als"
 
-#: lib/Renderer/Query.php:197
+#: lib/Form/Renderer/Query.php:203
 msgid "matches the pattern"
 msgstr "entspricht dem Muster"
 
-#: lib/Forms/Search.php:59 lib/Forms/Search.php:61 lib/Forms/Search.php:63
-#: lib/Forms/Search.php:65 lib/Forms/Search.php:67
+#: lib/Form/Search.php:66 lib/Form/Search.php:72 lib/Form/Search.php:78
+#: lib/Form/Search.php:84 lib/Form/Search.php:90
 msgid "to"
 msgstr "bis"
