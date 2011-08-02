@@ -2293,7 +2293,7 @@ class Horde_Registry
 
         foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin', 'noadmin')) as $app) {
             try {
-                $this->callAppMethod($app, 'removeUserData', array('args' => $userId));
+                $this->callAppMethod($app, 'removeUserData', array('args' => array($userId)));
             } catch (Exception $e) {
                 Horde::logMessage($e);
                 $errApps[] = $app;
