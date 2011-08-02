@@ -204,6 +204,15 @@ extends Horde_Kolab_Storage_Queriable
     public function getObjectByBackendId($uid);
 
     /**
+     * Return the mapping of object IDs to backend IDs.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The object to backend mapping.
+     */
+    public function getObjectToBackend();
+
+    /**
      * Retrieve the list of object duplicates.
      *
      * @since Horde_Kolab_Storage 1.1.0

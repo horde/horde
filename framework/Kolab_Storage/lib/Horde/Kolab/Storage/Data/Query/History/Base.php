@@ -68,5 +68,27 @@ implements Horde_Kolab_Storage_Data_Query_History
      */
     public function synchronize()
     {
+        $stamp = $this->_data->getStamp();
+        foreach ($this->_data->getObjectToBackend() as $object => $bid) {
+            $log = $this->_history->getHistory($object);
+            if (count($log) == 0) {
+                $this->_history->log(
+                    $object, array('action' => 'add', 'bid' => $bid, 'stamp' => $stamp)
+                );
+            } else {
+                $last = array('ts' => 0);
+                foreach ($log as $entry) {
+                    if ($entry['ts'] > $last['ts']) {
+                        $last = $entry;
+                    }
+                }
+                if (!isset($last['bid']) || $last['bid'] != $bid
+                    || (isset($last['stamp']) && $last['stamp']->isReset($stamp))) {
+                    $this->_history->log(
+                        $object, array('action' => 'modify', 'bid' => $bid, 'stamp' => $stamp)
+                    );
+                }
+            }
+        }
     }
 }

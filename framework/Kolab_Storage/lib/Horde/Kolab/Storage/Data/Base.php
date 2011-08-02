@@ -205,7 +205,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         if (!isset($object['uid'])) {
             $object['uid'] = $this->generateUid();
         }
-        return $this->_driver->getParser()
+        $result = $this->_driver->getParser()
             ->create(
                 $this->_folder->getPath(),
                 $object,
@@ -215,6 +215,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                     'raw' => $raw
                 )
             );
+        $this->synchronize();
+        return $result;
     }
 
     /**
@@ -251,7 +253,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                 )
             );
         }
-        return $this->_driver->getParser()
+        $result = $this->_driver->getParser()
             ->modify(
                 $this->_folder->getPath(),
                 $object,
@@ -262,6 +264,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                     'raw' => $raw
                 )
             );
+        $this->synchronize();
+        return $result;
     }
 
     /**
@@ -442,6 +446,23 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function getObjectByBackendId($uid)
     {
         return $this->fetch($this->getStamp()->ids());
+    }
+
+    /**
+     * Return the mapping of object IDs to backend IDs.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The object to backend mapping.
+     */
+    public function getObjectToBackend()
+    {
+        $bid  = array();
+        $by_obid = $this->fetch($this->getStamp()->ids());
+        foreach ($by_obid as $obid => $object) {
+            $bid[$object['uid']] = $obid;
+        }
+        return $bid;
     }
 
     /**

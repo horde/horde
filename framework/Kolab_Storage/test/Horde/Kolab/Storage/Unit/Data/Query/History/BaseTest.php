@@ -35,7 +35,82 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testSynchronize()
     {
-        $prefs = $this->_getDataQuery()->synchronize();
+        $this->_getDataQuery();
+        $this->assertEquals(
+            1,
+            count(
+                $this->history->getHistory(
+                    '20080626155721.771268tms63o0rs4@devmail.example.com'
+                )
+            )
+        );
+    }
+
+    public function testAdded()
+    {
+        $this->_getDataQuery();
+        $this->assertEquals(
+            array(
+                '20080626155721.771268tms63o0rs4@devmail.example.com' => 1,
+                '20090731103253.11391snjudt9zgpw@webmail.example.com' => 2
+            ),
+            $this->history->getByTimestamp(
+                '>',
+                time() - 10,
+                array(
+                    array(
+                        'field' => 'action',
+                        'op' => '=',
+                        'value' => 'add'
+                    )
+                )
+            )
+        );
+    }
+
+    public function testSingleAdd()
+    {
+        $this->_getDataQuery()->synchronize();
+        $this->assertEquals(
+            array(
+                '20080626155721.771268tms63o0rs4@devmail.example.com' => 1,
+                '20090731103253.11391snjudt9zgpw@webmail.example.com' => 2
+            ),
+            $this->history->getByTimestamp(
+                '>',
+                time() - 10,
+                array(
+                    array(
+                        'field' => 'action',
+                        'op' => '=',
+                        'value' => 'add'
+                    )
+                )
+            )
+        );
+    }
+
+    public function testModify()
+    {
+        $data = $this->_getData();
+        $o = $data->getObject('20090731103253.11391snjudt9zgpw@webmail.example.com');
+        $data->modify($o);
+        $this->assertEquals(
+            array(
+                '20090731103253.11391snjudt9zgpw@webmail.example.com' => 3
+            ),
+            $this->history->getByTimestamp(
+                '>',
+                time() - 10,
+                array(
+                    array(
+                        'field' => 'action',
+                        'op' => '=',
+                        'value' => 'modify'
+                    )
+                )
+            )
+        );
     }
 
     private function _getData()
@@ -59,7 +134,7 @@ extends Horde_Kolab_Storage_TestCase
                         't' => 'h-prefs.default',
                         'm' => array(
                             1 => array('file' => dirname(__FILE__) . '/../../../../fixtures/preferences.1'),
-                            2 => array('file' => dirname(__FILE__) . '/../../../../fixtures/preferences.1'),
+                            2 => array('file' => dirname(__FILE__) . '/../../../../fixtures/preferences.2'),
                         ),
                     )
                 )

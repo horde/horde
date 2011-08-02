@@ -387,6 +387,18 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Return the mapping of object IDs to backend IDs.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The object to backend mapping.
+     */
+    public function getObjectToBackend()
+    {
+        return $this->_data->getObjectToBackend();
+    }
+
+    /**
      * Retrieve the list of object duplicates.
      *
      * @since Horde_Kolab_Storage 1.1.0
