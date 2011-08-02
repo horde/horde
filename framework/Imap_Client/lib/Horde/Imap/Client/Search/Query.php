@@ -52,6 +52,19 @@ class Horde_Imap_Client_Search_Query implements Serializable
     protected $_temp = array();
 
     /**
+     * String representation: The IMAP search string.
+     */
+    public function __toString()
+    {
+        $ob = Horde_Imap_Client::factory('Mock', array(
+            'password' => '',
+            'username' => ''
+        ));
+        $res = $this->build(null);
+        return trim($ob->parseCommandArray($res['query']));
+    }
+
+    /**
      * Sets the charset of the search text.
      *
      * @param string $charset     The charset to use for the search.
