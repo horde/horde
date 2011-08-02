@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-02</date>
- <time>16:04:28</time>
+ <time>16:06:34</time>
  <version>
-  <release>5.0.9</release>
+  <release>5.0.10</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,17 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Fix to allow search filters to be saved.
-* [mjr] Fix mouse click handling on mobile view (Bug #10355).
-* [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
-* [mms] Select all checkbox in dynamic view can now be toggled.
-* [mms] Remember vertical splitbar size in dynamic view.
-* [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
-* [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
-* [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
-* [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
-* [mms] Add save message link to dynamic view preview window.
-* [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2367,6 +2357,19 @@
 * [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
 * [mms] Add save message link to dynamic view preview window.
 * [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.10</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-02</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
