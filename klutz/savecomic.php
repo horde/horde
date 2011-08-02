@@ -26,7 +26,7 @@ $comic = $klutz->comicObject($index);
 switch ($actionID) {
 case 'save_comic':
     /* Try to retrieve the image directly from storage first*/
-    $image = $storage->retrieveImage($index, $date);
+    $image = $klutz_driver->retrieveImage($index, $date);
     if (is_string($image) && substr($image, 0, 4) == 'http') {
         $comic = $klutz->comicObject($index);
         $image = $comic->fetchImage($date);

@@ -13,7 +13,7 @@
 <?php endif; ?>
    </h1>
 
-<?php foreach ($storage->listDates($date) as $time): ?>
+<?php foreach ($klutz_driver->listDates($date) as $time): ?>
    <div class="linedRow"><?php
 $url = Horde_Util::addParameter(Horde::selfUrl(), array('actionID' => 'day',
                                                   'date' => $time));
