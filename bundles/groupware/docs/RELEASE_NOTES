@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 4.0.1.
+version 4.0.2.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -27,31 +27,27 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 4.0 are:
+The major changes compared to the Horde Groupware version 4.0.1 are:
 
 General changes:
-    * Added support for split read/write databases in PostgreSQL.
-    * Bug fixes in synchronization code.
+    * Improved synchronization support.
+    * Improved performance.
     * Small bugfixes and improvements.
-    * Updated Brazilian Portuguese, Latvian, Lithuanian, and Ukrainian
-      translations.
+    * Updated Latvian translation.
 
 Calendar changes:
-    * Added support for synchronizing multiple calendars.
-
-Tasks changes:
-    * Added Ukrainian translation.
-    * Updated French, Slovak, and Spanish translations.
+    * Improved attendee management.
+    * Relaxed WebDAV server requirements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added support for split read/write databases in PostgreSQL.
-Bug fixes in synchronization code.
-Added support for synchronizing multiple calendars.
+Improved synchronization support.
+Improved performance.
+Improved attendee management.
+Relaxed WebDAV server requirements.
 Small bugfixes and improvements.
-Added Ukrainian translation.
-Updated Brazilian Portuguese, French, Latvian, Lithuanian, Slovak, Spanish, and Ukrainian translations.
+Updated Latvian translation.
 FM;
 
 $this->notes['name'] = 'Horde Groupware';

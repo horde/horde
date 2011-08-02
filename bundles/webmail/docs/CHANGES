@@ -2,6 +2,75 @@
 v4.0.2-git
 ----------
 
+[jan] Don't load all shares with requested permissions from the backend if
+      $conf['share']['hidden'] is enabled.
+
+Horde Changes
+-------------
+[mjr] Add remove button to image fields (Request #9870).
+[mjr] Fix sending unnecessary FOLDERSYNC changes.
+[mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to
+      PING and SYNC the same collection an unlimited number of times.
+[mjr] Use FQL to obtain event list and add rsvp_status.
+[cjh] Add mobile maintenance screens.
+[jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
+[cjh] New log filter for exact level matching (Bryan Alves
+      <bryanalves@gmail.com>).
+[jan] Don't set optional integer fields to 0 when automatically updating
+      configuration.
+[mjr] ActiveSync policykey is now per user, not per device.
+[mjr] Fix recurring event exception handling for ActiveSync.
+[mjr] Use AS in column aliases to make PostgreSQL happy (Bug #10346).
+[jan] Don't show mobile login page if users are forced to traditional or
+      dynamic views (Request #10358).
+[mjr] Improve calendar PING for iOS devices.
+[mjr] Prevent an ActiveSync sync loop in some fringe cases.
+[jan] Update PGP key server list and add SKS pool.
+
+Mail Changes
+------------
+[mms] Fix to allow search filters to be saved.
+[mjr] Fix mouse click handling on mobile view (Bug #10355).
+[mms] Ensure correct message charset is use if forward/reply headers contain
+      non US-ASCII characters (Bug #10148).
+[mms] Select all checkbox in dynamic view can now be toggled.
+[mms] Remember vertical splitbar size in dynamic view.
+[mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
+[mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
+[jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
+[mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
+[mms] Add save message link to dynamic view preview window.
+[mms] Correctly quote e-mail names when composing from compose links in the
+      dynamic view (Bug #10292).
+
+Address Book Changes
+--------------------
+[mjr] Fix obtaining default share via Turba's API (vilius@lnk.lt, Bug #10393).
+[mjr] Force ActiveSync device reset after sync_books pref is changed
+      (Request #10342).
+
+Filters Changes
+---------------
+[mms] Fix creating new mailboxes (Bug #10282).
+
+Calendar Changes
+----------------
+[jan] Display event time in dynamic agenda/search view.
+[jan] Improve exporting all-day events to Funambol clients.
+[mjr] Fix removing an exception from a recurrence series (Bug # 10365).
+[jan] Close session while listing events to speed up parallel loading from
+      different calendars.
+[jan] Share list of displayed task lists with Nag (requires Nag 3.0.3).
+[jan] Don't show import/export link in preferences if using the dynamic view.
+[mjr] Force ActiveSync device reset after sync_calendars pref is changed
+      (Request #10342).
+[jan] Try to work with remote servers even if they don't support a recent
+      WebDAV protocol version.
+[jan] Support updating attendees from vCalendar 1.0 iTip responses.
+[jan] Fix sending invitations to attendees from traditional view.
+[jan] Fix organizer attribute when exporting to vCalendar 1.0.
+[mjr] Fix issue that prevented synching when no sync_calendar pref was set
+      (Bug #10329).
 
 
 ------

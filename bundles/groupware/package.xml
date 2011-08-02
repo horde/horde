@@ -84,42 +84,42 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.7</min>
+    <min>4.0.8</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.5</min>
+    <min>3.0.6</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.1</min>
+    <min>3.0.2</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.2</min>
+    <min>3.0.3</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.1</min>
+    <min>1.0.2</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.4</min>
+    <min>3.0.5</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
