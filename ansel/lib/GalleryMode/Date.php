@@ -397,7 +397,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     public function countGalleryChildren($perm = Horde_Perms::SHOW,
                                          $galleries_only = false, $noauto = true)
     {
-        $results = $this->getGalleryChildren($this->_date, 0, 0, $noauto);
+        $results = $this->getGalleryChildren($perm, 0, 0, $noauto);
         return count($results);
     }
 
