@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-13</date>
- <time>23:49:22</time>
+ <date>2011-08-02</date>
+ <time>16:10:07</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -963,7 +963,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-13</date>
+   <date>2011-08-02</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [mms] Fix creating new mailboxes (Bug #10282).
