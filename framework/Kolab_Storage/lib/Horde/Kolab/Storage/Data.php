@@ -43,6 +43,15 @@ extends Horde_Kolab_Storage_Queriable
     public function getPath();
 
     /**
+     * Return the ID of the current user.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The current user.
+     */
+    public function getAuth();
+
+    /**
      * Return the ID of this data handler.
      *
      * @return string The ID.
