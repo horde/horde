@@ -111,7 +111,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 case SYNC_ADD:
                 case SYNC_MODIFY:
                     $serverid = $importer->importFolderChange($folder);
-                $changes = true;
+                    $changes = true;
                     break;
                 case SYNC_REMOVE:
                     $serverid = $importer->importFolderDeletion($folder);
@@ -198,9 +198,12 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
         $this->_encoder->endTag();
 
-        // Save the state as well as the known folder cache
-        $this->_state->setNewSyncKey($newsynckey);
-        $this->_state->save();
+        // Save the state as well as the known folder cache if we had any
+        // changes.
+        if ($exporter->count || $changed) {
+            $this->_state->setNewSyncKey($newsynckey);
+            $this->_state->save();
+        }
 
         // Android sends a bogus device id of 'validate' during initial
         // handshake. This data is never used again, and the resulting
