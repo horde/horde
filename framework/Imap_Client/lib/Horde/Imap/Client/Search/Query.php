@@ -344,7 +344,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
                 // First OR'd query
                 if (empty($cmds)) {
-                    $cmds = $ret['query'];
+                    $cmds = array($ret['query']);
                 } else {
                     $cmds = array_merge(array(
                         'OR',
