@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-21</date>
- <time>06:15:44</time>
+ <date>2011-08-02</date>
+ <time>16:15:45</time>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -828,7 +828,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-21</date>
+   <date>2011-08-02</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * [jan] Don&apos;t load all shares with requested permissions from the backend if $conf[&apos;share&apos;][&apos;hidden&apos;] is enabled.
