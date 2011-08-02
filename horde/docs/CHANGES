@@ -1,6 +1,6 @@
-----------
-v4.0.8-git
-----------
+------
+v4.0.8
+------
 
 [mjr] Add remove button to image fields (Request #9870).
 [mjr] Fix sending unnecessary FOLDERSYNC changes.

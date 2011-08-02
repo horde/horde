@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>21:02:27</time>
+ <date>2011-08-02</date>
+ <time>16:01:35</time>
  <version>
   <release>4.0.8</release>
   <api>4.0.0</api>
@@ -4185,7 +4185,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-08-02</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [cjh] Add mobile maintenance screens.
