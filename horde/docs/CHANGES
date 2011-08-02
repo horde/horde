@@ -2,31 +2,25 @@
 v4.0.8-git
 ----------
 
+[mjr] Add remove button to image fields (Request # 9870).
+[mjr] Fix sending unnecessary FOLDERSYNC changes.
+[mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to
+      PING and SYNC the same collection an unlimited number of times.
+[mjr] Use FQL to obtain event list and add rsvp_status.
 [cjh] Add mobile maintenance screens.
-[jan] Don't show mobile login page if users are forced to traditional or
-      dynamic views (Request #10358).
-[jan] Update PGP key server list and add SKS pool.
-
-Framework
----------
-
-[mjr] Core: Add remove button to image fields (Request # 9870).
-[mjr] ActiveSync: Fix sending unnecessary FOLDERSYNC changes.
-[mjr] ActiveSync: Fix issue with FOLDERSYNC requests that was causing Android
-      clients to PING and SYNC the same collection an unlimited number of times.
-[mjr] Service_Facebook: Use FQL to obtain event list and add rsvp_status.
-[jan] Icalendar: Fix exporting multiline attributes to vCard 2.1 and vCalendar
-      1.0.
-[cjh] Log: New log filter for exact level matching (Bryan Alves
+[jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
+[cjh] New log filter for exact level matching (Bryan Alves
       <bryanalves@gmail.com>).
-[jan] Core: Don't set optional integer fields to 0 when automatically updating
+[jan] Don't set optional integer fields to 0 when automatically updating
       configuration.
-[mjr] ActiveSync: ActiveSync policykey is now per user, not per device.
-[mjr] ActiveSync: Fix recurring event exception handling for ActiveSync.
-[mjr] ActiveSync: Use AS in column aliases to make PostgreSQL happy (Bug
-      #10346).
-[mjr] ActiveSync: Improve calendar PING for iOS devices.
-[mjr] ActiveSync: Prevent an ActiveSync sync loop in some fringe cases.
+[mjr] ActiveSync policykey is now per user, not per device
+[mjr] Fix recurring event exception handling for ActiveSync.
+[mjr] use AS in column aliases to make postgres happy (Bug #10346).
+[jan] Don't show mobile login page if users are forced to tradtional or dynamic
+      views (Request #10358).
+[mjr] Improve calendar PING for iOS devices.
+[mjr] Prevent an ActiveSync sync loop in some fringe cases.
+[jan] Update PGP key server list and add SKS pool.
 
 
 ------
