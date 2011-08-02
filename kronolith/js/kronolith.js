@@ -2101,18 +2101,14 @@ KronolithCore = {
             var div = _createElement(event)
                 .setStyle({ backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                             color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
-            if (!event.value.al) {
-                div.update(new Element('span', { className: 'kronolithDate' }).update(event.value.start.toString('t')))
-                    .insert(' ')
-                    .insert(new Element('span', { className: 'kronolithSeparator' }).update('&middot;'))
-                    .insert(' ');
-            }
             this.createAgendaDay(date);
             $('kronolithAgendaDay' + date).insert(div);
             break;
         }
 
-        this.setEventText(div, event.value, view == 'month' ? 30 : null)
+        this.setEventText(div, event.value,
+                          { length: view == 'month' ? 30 : null,
+                            time: view == 'agenda' })
             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
     },
@@ -2188,15 +2184,21 @@ KronolithCore = {
         }
     },
 
-    setEventText: function(div, event, length)
+    setEventText: function(div, event, opts)
     {
         var calendar = event.calendar.split('|'),
             span = new Element('span');
+        opts = Object.extend({ length: false, time: false }, opts || {}),
+
         div.update();
         if (event.ic) {
             div.insert(new Element('img', { src: event.ic, className: 'kronolithEventIcon' }));
         }
-        div.insert((length ? event.t.truncate(length) : event.t).escapeHTML());
+        if (opts.time && !event.al) {
+            div.insert(event.start.toString(Kronolith.conf.time_format) + '-' +
+                       event.end.toString(Kronolith.conf.time_format) + ': ');
+        }
+        div.insert((opts.length ? event.t.truncate(opts.length) : event.t).escapeHTML());
         div.insert(span);
         if (event.a) {
             span.insert(' ')

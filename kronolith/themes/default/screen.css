@@ -1252,6 +1252,7 @@ table.kronolithView td.kronolithFirstCol {
 #kronolithViewAgenda td.kronolithFirstCol {
     width: 80px;
     padding: 4px;
+    vertical-align: top;
     text-align: left;
     cursor: pointer;
 }

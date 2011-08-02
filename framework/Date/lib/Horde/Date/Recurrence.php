@@ -1016,7 +1016,6 @@ class Horde_Date_Recurrence
 
         if ($this->hasRecurEnd()) {
             $recurEnd = clone $this->recurEnd;
-            $recurEnd->mday++;
             return $rrule . ' ' . $calendar->_exportDateTime($recurEnd);
         }
 
@@ -1196,7 +1195,6 @@ class Horde_Date_Recurrence
 
         if ($this->hasRecurEnd()) {
             $recurEnd = clone $this->recurEnd;
-            $recurEnd->mday++;
             $rrule .= ';UNTIL=' . $calendar->_exportDateTime($recurEnd);
         }
         if ($count = $this->getRecurCount()) {

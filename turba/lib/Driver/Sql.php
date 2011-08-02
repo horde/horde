@@ -642,7 +642,7 @@ class Turba_Driver_Sql extends Turba_Driver
      * @return Turba_List  Object list.
      * @throws Turba_Exception
      */
-    protected function _getTimeObjectTurbaList($start, $end, $field)
+    public function getTimeObjectTurbaList($start, $end, $field)
     {
         $t_object = $this->toDriver($field);
         $criteria = $this->makesearch(

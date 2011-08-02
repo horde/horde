@@ -377,14 +377,15 @@ var ImpSearch = {
         var criteria,
             data = [],
             f_out = { mbox: [], subfolder: [] },
-            sflist = [];
+            sflist = [],
+            type = $F('search_type');
 
-        if ($F('search_type') && !$('search_label').present()) {
+        if (type && !$('search_label').present()) {
             alert(this.text.need_label);
             return;
         }
 
-        if (!this.folders.size()) {
+        if (type != 'filter' && !this.folders.size()) {
             alert(this.text.need_folder);
             return;
         }

@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Fix obtaining default share via Turba&apos;s API (vilius@lnk.lt, Bug #10393).
 * [mjr] Force ActiveSync device reset after sync_books pref is changed (Request #10342).
  </notes>
  <contents>
@@ -1231,6 +1232,7 @@
    <date>2011-07-05</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Fix obtaining default share via Turba&apos;s API (vilius@lnk.lt, Bug #10393).
 * [mjr] Force ActiveSync device reset after sync_books pref is changed (Request #10342).
    </notes>
   </release>

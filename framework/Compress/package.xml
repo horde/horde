@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:19:57</time>
+ <date>2011-08-01</date>
+ <time>14:36:12</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Detect broken RAR data so it does not cause an infinite loop.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -321,6 +321,7 @@
     <dir name="Horde">
      <dir name="Compress">
       <file name="AllTests.php" role="test" />
+      <file name="RarTest.php" role="test" />
       <file name="ZipTest.php" role="test" />
      </dir> <!-- /test/Horde/Compress -->
     </dir> <!-- /test/Horde -->
@@ -470,6 +471,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Compress.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Compress.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Compress.po" name="locale/zh_TW/LC_MESSAGES/Horde_Compress.po" />
    <install as="Horde/Compress/AllTests.php" name="test/Horde/Compress/AllTests.php" />
+   <install as="Horde/Compress/RarTest.php" name="test/Horde/Compress/RarTest.php" />
    <install as="Horde/Compress/ZipTest.php" name="test/Horde/Compress/ZipTest.php" />
   </filelist>
  </phprelease>
@@ -645,10 +647,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-08-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Detect broken RAR data so it does not cause an infinite loop.
    </notes>
   </release>
  </changelog>

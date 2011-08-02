@@ -132,6 +132,7 @@ class Kronolith_Event_Horde extends Kronolith_Event
         }
         $this->_params = $event['params'];
         $this->_link = !empty($event['link']) ? $event['link'] : null;
+        $this->url = !empty($event['url']) ? (string)$event['url'] : null;
         $this->_editLink = !empty($event['edit_link']) ? $event['edit_link'] : null;
         $this->_deleteLink = !empty($event['delete_link']) ? $event['delete_link'] : null;
         $this->_ajaxLink = !empty($event['ajax_link']) ? $event['ajax_link'] : null;

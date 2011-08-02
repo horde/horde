@@ -66,21 +66,13 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] syncKey: ' . $synckey);
 
-        // Initialize state engine
-        $this->_state->init(array('synckey' => $synckey));
         try {
-            // Get folders that we know about already
             $this->_state->loadState($synckey, 'foldersync');
-
-            // Get new synckey to send back
-            $newsynckey = $this->_state->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError();
             exit;
         }
-        $seenfolders = $this->_state->getKnownFolders();
-        $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] newSyncKey: ' . $newsynckey);
 
         // Track if we have changes or not
         $changes = false;
@@ -119,7 +111,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 case SYNC_ADD:
                 case SYNC_MODIFY:
                     $serverid = $importer->importFolderChange($folder);
-                $changes = true;
+                    $changes = true;
                     break;
                 case SYNC_REMOVE:
                     $serverid = $importer->importFolderDeletion($folder);
@@ -149,11 +141,14 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Start sending server -> PIM changes
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] Preparing to send changes to PIM');
+        $newsynckey = $this->_state->getNewSyncKey($synckey);
+        $seenfolders = $this->_state->getKnownFolders();
+        $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] newSyncKey: ' . $newsynckey);
 
         // The $exporter just caches all folder changes in-memory, so we can
         // count before sending the actual data.
         $exporter = new Horde_ActiveSync_Connector_Exporter();
-        $sync = $this->_driver->GetSyncObject();
+        $sync = $this->_driver->getSyncObject();
         $sync->init($this->_state, $exporter, array('synckey' => $synckey));
 
         // Perform the actual sync operation
@@ -203,9 +198,12 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
         $this->_encoder->endTag();
 
-        // Save the state as well as the known folder cache
-        $this->_state->setNewSyncKey($newsynckey);
-        $this->_state->save();
+        // Save the state as well as the known folder cache if we had any
+        // changes.
+        if ($exporter->count || $changed) {
+            $this->_state->setNewSyncKey($newsynckey);
+            $this->_state->save();
+        }
 
         // Android sends a bogus device id of 'validate' during initial
         // handshake. This data is never used again, and the resulting

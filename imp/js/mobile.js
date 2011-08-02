@@ -256,8 +256,7 @@ var ImpMobile = {
     {
         // Set up HordeMobile.
         HordeMobile.urls.ajax = IMP.conf.URI_AJAX;
-
-        $(document).bind('vmousedown', ImpMobile.clickHandler);
+        $(document).bind('vclick', ImpMobile.clickHandler);
         $(document).bind('swipeleft', ImpMobile.navigateMessage);
         $(document).bind('swiperight', ImpMobile.navigateMessage);
     }

@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mjr] Add remove button to image fields (Request # 9870).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1522,7 +1522,7 @@
    <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mjr] Add remove button to image fields (Request # 9870).
    </notes>
   </release>
  </changelog>

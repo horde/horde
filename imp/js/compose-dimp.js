@@ -22,8 +22,8 @@ var DimpCompose = {
             sbd = $('send_button_redirect');
 
         if (window.confirm(DIMP.text_compose.cancel)) {
-            if (this.baseAvailable(true) &&
-                !DIMP.conf_compose.qreply) {
+            if (!DIMP.conf_compose.qreply &&
+                this.baseAvailable()) {
                 DimpCore.base.focus();
             }
 
@@ -254,8 +254,8 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (this.baseAvailable() &&
-                        !DIMP.conf_compose.qreply) {
+                    if (!DIMP.conf_compose.qreply &&
+                        this.baseAvailable()) {
                         DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
                     }
@@ -892,12 +892,12 @@ var DimpCompose = {
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
     },
 
-    baseAvailable: function(dimpbase)
+    baseAvailable: function()
     {
         return (this.is_popup &&
                 DimpCore.base &&
-                !DimpCore.base.closed &&
-                (!dimpbase || DimpCore.base.DimpBase));
+                !Object.isUndefined(DimpCore.base.DimpBase) &&
+                !DimpCore.base.closed);
     },
 
     /* Click observe handler. */

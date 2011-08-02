@@ -299,10 +299,12 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                                unset($this->_state[$fi]);
                            }
                        }
-                       // Only save what we need, and ensure we have a mod time
+                       // Only save what we need. Note that 'mod' is eq to the
+                       // folder id, since that is the only thing that can
+                       // change in a folder.
                        $stat = array(
                            'id' => $value['id'],
-                           'mod' => (empty($value['mod']) ? time() : $value['mod']),
+                           'mod' => (empty($value['mod']) ? $value['id'] : $value['mod']),
                            'parent' => (empty($value['parent']) ? 0 : $value['parent'])
                        );
                        $this->_state[] = $stat;
@@ -759,18 +761,18 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
      */
     public function getChanges($flags = 0)
     {
-        /* How far back to sync (for those collections that use this) */
+        // How far back to sync (for those collections that use this)
         $cutoffdate = self::_getCutOffDate(!empty($this->_collection['filtertype'])
                 ? $this->_collection['filtertype']
                 : 0);
 
-        /* Get the timestamp for THIS request */
+        // Get the timestamp for THIS request
         $this->_thisSyncTS = time();
 
         if (!empty($this->_collection['id'])) {
             $folderId = $this->_collection['id'];
             $this->_logger->debug('[' . $this->_devId . '] Initializing message diff engine for ' . $this->_collection['id']);
-            /* Do nothing if it is a dummy folder */
+            // Do nothing if it is a dummy folder
             if ($folderId != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
                 /* First, need to see if we have exising changes left over
                  * from a previous sync that resulted in a MORE_AVAILABLE */
@@ -782,12 +784,12 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
                 /* No existing changes, poll the backend */
                 $changes = $this->_backend->getServerChanges($folderId, (int)$this->_lastSyncTS, (int)$this->_thisSyncTS, $cutoffdate);
             }
-            /* Unfortunately we can't use an empty synckey to detect an initial
-             * sync. The AS protocol doesn't start looking for changes until
-             * after the device/server negotiate a synckey. What we CAN do is
-             * at least query the map table to see if there are any entries at
-             * all for this device before going through and stating all the
-             * messages. */
+            // Unfortunately we can't use an empty synckey to detect an initial
+            // sync. The AS protocol doesn't start looking for changes until
+            // after the device/server negotiate a synckey. What we CAN do is
+            // at least query the map table to see if there are any entries at
+            // all for this device before going through and stating all the
+            // messages.
             $this->_logger->debug('[' . $this->_devId . '] Found ' . count($changes) . ' message changes, checking for PIM initiated changes.');
             if ($this->_havePIMChanges()) {
                 $this->_changes = array();
@@ -811,6 +813,7 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
             if ($folderlist === false) {
                 return false;
             }
+
             $this->_changes = $this->_getDiff((empty($this->_state) ? array() : $this->_state), $folderlist);
             $this->_logger->debug('[' . $this->_devId . '] Found ' . count($this->_changes) . ' folder changes');
         }

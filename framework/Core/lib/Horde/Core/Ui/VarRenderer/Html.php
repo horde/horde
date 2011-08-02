@@ -192,6 +192,11 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         }
 
         if (!empty($image['img'])) {
+            $html .= '&nbsp;';
+            $html .= sprintf('<input class="button" name="%s" id="%S" type="submit" value="%s" /> ',
+                             'remove_' . htmlspecialchars($var->getVarName()),
+                             'remove_' . $this->_genID($var->getVarName(), false),
+                             Horde_Core_Translation::t("Remove"));
             /* Image information stored, show preview, add buttons for image
              * manipulation. */
             $html .= '<br />';
