@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,10 @@ msgstr ""
 
 #: lib/Horde/Prefs/CategoryManager.php:82
 msgid "Please type the new category name:"
+msgstr ""
+
+#: lib/Horde/Prefs/Storage/KolabImap.php:66
+msgid "Preferences"
 msgstr ""
 
 #: lib/Horde/Prefs/CategoryManager.php:63

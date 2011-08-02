@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_FreeBusy \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,22 +42,12 @@ msgstr ""
 msgid "Failed regenerating calendar %s: %s"
 msgstr ""
 
-#: lib/Horde/Kolab/FreeBusy/Imap.php:128
-#, php-format
-msgid "Folder %s does not exist!"
-msgstr ""
-
-#: lib/Horde/Kolab/FreeBusy/Imap.php:135
-#, php-format
-msgid "Folder %s has type \"%s\" not \"event\"!"
-msgstr ""
-
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:183
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:93
 #, php-format
 msgid "Invalid authentication for user %s!"
 msgstr ""
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:321
 #, php-format
 msgid "No such account %s!"
 msgstr ""
@@ -71,7 +61,7 @@ msgstr ""
 msgid "Not found"
 msgstr ""
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:179
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:89
 msgid "Please authenticate!"
 msgstr ""
 
@@ -97,7 +87,7 @@ msgstr ""
 msgid "Unable to determine owner of the free/busy data!"
 msgstr ""
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:398
 #, php-format
 msgid "Unable to read free/busy information from %s"
 msgstr ""
