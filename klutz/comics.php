@@ -268,14 +268,14 @@ case 'comic':
             . $comic_select . '</select>';
         $comic_url = Horde_Util::addParameter(Horde::selfUrl(false, false), array('actionID' => $actionID, 'date' => $date));
         if ($prev_comic) {
-            $comic_select = Horde::link(Horde_Util::addParameter($comic_url, 'index', $comics[$prev_comic])) . Horde::img('nav/left.png', '', null, $registry->getImageDir('horde')) . '</a> ' . $comic_select;
+            $comic_select = Horde::link(Horde_Util::addParameter($comic_url, 'index', $comics[$prev_comic])) . Horde::img('nav/left.png') . '</a> ' . $comic_select;
         } else {
-            $comic_select = Horde::img('nav/left-grey.png', '', null, $registry->getImageDir('horde')) . ' ' . $comic_select;
+            $comic_select = Horde::img('nav/left-grey.png') . ' ' . $comic_select;
         }
         if ($next_comic) {
-            $comic_select .= ' ' . Horde::link(Horde_Util::addParameter($comic_url, 'index', $comics[$next_comic])) . Horde::img('nav/right.png', '', null, $registry->getImageDir('horde')) . '</a>';
+            $comic_select .= ' ' . Horde::link(Horde_Util::addParameter($comic_url, 'index', $comics[$next_comic])) . Horde::img('nav/right.png') . '</a>';
         } else {
-            $comic_select .= ' ' . Horde::img('nav/right-grey.png', '', null, $registry->getImageDir('horde'));
+            $comic_select .= ' ' . Horde::img('nav/right-grey.png');
         }
     }
 
@@ -318,7 +318,7 @@ case 'comic':
 
             require KLUTZ_TEMPLATES . '/comics/comic.inc';
         } elseif ($klutz->getProperty($index, 'days') == 'random' ||
-                  !in_array(String::lower(date('D', $date)), $klutz->getProperty($index, 'days'))) {
+                  !in_array(Horde_String::lower(date('D', $date)), $klutz->getProperty($index, 'days'))) {
             continue;
         } else {
             require KLUTZ_TEMPLATES . '/comics/missing.inc';
