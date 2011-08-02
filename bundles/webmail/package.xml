@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>18:16:21</time>
+ <date>2011-08-02</date>
+ <time>16:35:43</time>
  <version>
   <release>4.0.2</release>
   <api>4.0.0</api>
@@ -241,7 +241,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-08-02</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 
