@@ -507,6 +507,13 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     {
         $title = _("Import S/MIME Key");
         require IMP_TEMPLATES . '/common-header.inc';
+
+        /* Need to use regular status notification - AJAX notifications won't
+         * show in popup windows. */
+        if (IMP::getViewMode() == 'dimp') {
+            $GLOBALS['notification']->detach('status');
+            $GLOBALS['notification']->attach('status');
+        }
         IMP::status();
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
