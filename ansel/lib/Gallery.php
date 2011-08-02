@@ -479,7 +479,7 @@ class Ansel_Gallery implements Serializable
                 ->getInstance('Ansel_Storage')
                 ->getImageAttributes($newId);
             if (count($newAttributes)) {
-                throw new Ansel_Exception(_("Image already has existing attribtues."));
+                throw new Ansel_Exception(_("Image already has existing attributes."));
             }
 
             $exif = $GLOBALS['injector']
