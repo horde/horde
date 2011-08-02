@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-02</date>
- <time>16:20:14</time>
+ <time>16:20:46</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Export location, description, status, privacy, and URL of Facebook events.
-* [jan] Fix timezone conversion of Facebook events (Bug #10341).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -242,6 +241,19 @@
    <notes>
 * [jan] Export location, description, status, privacy, and URL of Facebook events.
 * [jan] Fix timezone conversion of Facebook events (Bug #10341).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-02</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
