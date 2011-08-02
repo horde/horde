@@ -365,7 +365,7 @@ implements Horde_Kolab_Storage_Driver
      * Retrieves the messages for the given message ids.
      *
      * @param string $mailbox The mailbox to fetch the messages from.
-     * @param array  $uids                The message UIDs.
+     * @param array  $uids    The message UIDs.
      *
      * @return Horde_Mime_Part The message structure parsed into a
      *                         Horde_Mime_Part instance.
@@ -379,8 +379,8 @@ implements Horde_Kolab_Storage_Driver
      * Retrieves a bodypart for the given message ID and mime part ID.
      *
      * @param string $mailbox The mailbox to fetch the messages from.
-     * @param array  $uid                 The message UID.
-     * @param array  $id                  The mime part ID.
+     * @param array  $uid     The message UID.
+     * @param array  $id      The mime part ID.
      *
      * @return resource  The body part, in a stream resource.
      */
