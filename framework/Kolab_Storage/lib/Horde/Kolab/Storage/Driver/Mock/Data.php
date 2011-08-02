@@ -415,7 +415,8 @@ implements ArrayAccess
         $this->select($folder);
         $delete = array();
         foreach ($this->_selected['mails'] as $uid => $mail) {
-            if ($mail['flags'] & self::FLAG_DELETED) {
+            if (isset($mail['flags']) &&
+                ($mail['flags'] & self::FLAG_DELETED)) {
                 $delete[] = $uid;
             }
         }
