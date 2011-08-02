@@ -291,6 +291,22 @@ class Horde_Kolab_Storage_Factory
     }
 
     /**
+     * Create the history handler.
+     *
+     * @param string $user The current user.
+     *
+     * @return Horde_History The history handler.
+     */
+    public function createHistory($user)
+    {
+        if (isset($this->_params['history']) &&
+            $this->_params['history'] instanceOf Horde_History) {
+            return $this->_params['history'];
+        }
+        return new Horde_History_Mock($user);
+    }
+
+    /**
      * Create a Kolab format handler.
      *
      * @param string $format  The format that the handler should work with.
