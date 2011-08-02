@@ -37,7 +37,7 @@
 <hr />
 <strong><?php echo _("Maintenance Functions") ?></strong>
 <ul>
-<?php if(method_exists($storage, 'loadSums')): ?>
+<?php if(method_exists($klutz_driver, 'loadSums')): ?>
 <li><a href="<?php echo $sums_url ?>">
 <?php echo _("Rebuild Unique Identifiers file.") ?></a></li>
 <?php endif; ?>

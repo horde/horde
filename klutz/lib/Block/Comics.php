@@ -33,7 +33,7 @@ class Horde_Block_Klutz_Comics extends Horde_Block
     function _content()
     {
         require_once dirname(__FILE__) . '/../base.php';
-        global $prefs, $klutz, $storage;
+        global $prefs, $klutz, $klutz_driver;
 
         $showall = $prefs->getValue('summ_showall');
         $date = time();
@@ -51,8 +51,8 @@ class Horde_Block_Klutz_Comics extends Horde_Block
             foreach ($comicstoday as $index) {
                 $name = $klutz->getProperty($index, 'name');
                 $author = $klutz->getProperty($index, 'author');
-                if ($storage->imageExists($index, $date)) {
-                    $size = $storage->imageSize($index, $date);
+                if ($klutz_driver->imageExists($index, $date)) {
+                    $size = $klutz_driver->imageSize($index, $date);
                     $url = Horde_Util::addParameter(Horde::url('comics.php'), array('date' => $date, 'index' => $index));
                     $img = Horde::img(Horde_Util::addParameter($url, 'actionID', 'image'), sprintf("%s by %s", $name, $author), $size, '');
                     $link = Horde::link(Horde_Util::addParameter($url, 'actionID', 'comic'), sprintf("%s by %s", $name, $author));
@@ -73,11 +73,11 @@ class Horde_Block_Klutz_Comics extends Horde_Block
                 $i = rand(0, count($comicstoday) - 1);
                 $tmp = array_splice($comicstoday, $i, 1);
                 $index = array_shift($tmp);
-            } while ($storage->imageExists($index, $date) === false);
+            } while ($klutz_driver->imageExists($index, $date) === false);
 
             $name = $klutz->getProperty($index, 'name');
             $author = $klutz->getProperty($index, 'author');
-            $size = $storage->imageSize($index, $date);
+            $size = $klutz_driver->imageSize($index, $date);
             $url = Horde_Util::addParameter(Horde::url('comics.php'), array('date' => $date, 'index' => $index));
             $img = Horde::img(Horde_Util::addParameter($url, 'actionID', 'image'), sprintf("%s by %s", $name, $author), $size, '');
             $link = Horde::link(Horde_Util::addParameter($url, 'actionID', 'comic'), sprintf("%s by %s", $name, $author));
@@ -87,5 +87,4 @@ class Horde_Block_Klutz_Comics extends Horde_Block
 
         return $summary;
     }
-
 }
