@@ -2,7 +2,7 @@
 v4.0.8-git
 ----------
 
-[mjr] Add remove button to image fields (Request # 9870).
+[mjr] Add remove button to image fields (Request #9870).
 [mjr] Fix sending unnecessary FOLDERSYNC changes.
 [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to
       PING and SYNC the same collection an unlimited number of times.
@@ -13,11 +13,11 @@ v4.0.8-git
       <bryanalves@gmail.com>).
 [jan] Don't set optional integer fields to 0 when automatically updating
       configuration.
-[mjr] ActiveSync policykey is now per user, not per device
+[mjr] ActiveSync policykey is now per user, not per device.
 [mjr] Fix recurring event exception handling for ActiveSync.
-[mjr] use AS in column aliases to make postgres happy (Bug #10346).
-[jan] Don't show mobile login page if users are forced to tradtional or dynamic
-      views (Request #10358).
+[mjr] Use AS in column aliases to make PostgreSQL happy (Bug #10346).
+[jan] Don't show mobile login page if users are forced to traditional or
+      dynamic views (Request #10358).
 [mjr] Improve calendar PING for iOS devices.
 [mjr] Prevent an ActiveSync sync loop in some fringe cases.
 [jan] Update PGP key server list and add SKS pool.
