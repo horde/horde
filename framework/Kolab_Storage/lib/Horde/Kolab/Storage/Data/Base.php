@@ -215,7 +215,12 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                     'raw' => $raw
                 )
             );
-        $this->synchronize();
+        if ($result === true) {
+            $params = array();
+        } else {
+            $params = array('updated' => array($result));
+        }
+        $this->synchronize($params);
         return $result;
     }
 
@@ -264,7 +269,12 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                     'raw' => $raw
                 )
             );
-        $this->synchronize();
+        if ($result === true) {
+            $params = array();
+        } else {
+            $params = array('updated' => array($result));
+        }
+        $this->synchronize($params);
         return $result;
     }
 
@@ -556,6 +566,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             }
         }
         $this->deleteBackendIds($uids);
+        $this->synchronize(array('deleted' => array($uids)));
     }
 
     /**
