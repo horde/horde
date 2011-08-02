@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Klutz 0.0.1-cvs\n"
 "POT-Creation-Date: 2002-09-28 10:00-0700\n"
-"PO-Revision-Date: 2002-09-28 10:00-0700\n"
+"PO-Revision-Date: 2011-08-02 15:55+0200\n"
 "Last-Translator: Pavel Chytil <pavel@chytil.tk>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
@@ -19,39 +19,39 @@ msgid "%s by %s"
 msgstr "%s od %s"
 
 msgid "Admin Home"
-msgstr "Administrátor"
+msgstr "AdministrÃ¡tor"
 
 msgid "All Comics"
-msgstr "V¹echny Komiksy"
+msgstr "VÅ¡echny Komiksy"
 
 msgid "All Dates"
-msgstr "V¹echny Datumy"
+msgstr "VÅ¡echny Datumy"
 
 #, c-format
 msgid "An error occurred removing %s for %s<br />\n"
-msgstr "Nastala chyby pøi odstraòování %s z(e) %s<br />\n"
+msgstr "Nastala chyby pÅ™i odstraÅˆovÃ¡nÃ­ %s z(e) %s<br />\n"
 
 msgid "April"
 msgstr "Duben"
 
 msgid "August"
-msgstr "Øíjen"
+msgstr "Å˜Ã­jen"
 
 msgid "Browse"
-msgstr "Prohlí¾et"
+msgstr "ProhlÃ­Å¾et"
 
 msgid ""
 "Change display options such as color scheme, what comics you see, and how "
 "comics are sorted."
 msgstr ""
-"Zmìnit barevné schéma zobrazení, uspoøádání komiksù, zvolit komiksy pro "
-"zobnrazení"
+"ZmÄ›nit barevnÃ© schÃ©ma zobrazenÃ­, uspoÅ™Ã¡dÃ¡nÃ­ komiksÅ¯, zvolit komiksy pro "
+"zobnrazenÃ­"
 
 msgid "Choose the comics you wish to view."
-msgstr "Vyberte si komiksy, které si pøejete prohlí¾et."
+msgstr "Vyberte si komiksy, kterÃ© si pÅ™ejete prohlÃ­Å¾et."
 
 msgid "Comics Update"
-msgstr "Update Komiksù"
+msgstr "Update KomiksÅ¯"
 
 msgid "December"
 msgstr "Prosinec"
@@ -63,19 +63,19 @@ msgid "Delete"
 msgstr "Vymazat"
 
 msgid "Display Options"
-msgstr "Mo¾nosti Zobrazení"
+msgstr "MoÅ¾nosti ZobrazenÃ­"
 
 msgid "Don't check for uniqueness"
-msgstr "Nekontrolovat jedineènost"
+msgstr "Nekontrolovat jedineÄnost"
 
 msgid "Done"
 msgstr "Hotovo"
 
 msgid "Error storing the image"
-msgstr "Chyba pøi ukládání obrázku"
+msgstr "Chyba pÅ™i uklÃ¡dÃ¡nÃ­ obrÃ¡zku"
 
 msgid "February"
-msgstr "Únor"
+msgstr "Ãšnor"
 
 msgid "Fetch Comics"
 msgstr "Nabrat Komiksy"
@@ -85,43 +85,43 @@ msgstr "Nabrat"
 
 #, c-format
 msgid "Fetching %s for date %s..."
-msgstr "Nabírám %s ze dne %s..."
+msgstr "NabÃ­rÃ¡m %s ze dne %s..."
 
 msgid "Fr"
-msgstr "Pá"
+msgstr "PÃ¡"
 
 msgid "Goto"
 msgstr "Jdi na"
 
 msgid "Help"
-msgstr "Nápovìda"
+msgstr "NÃ¡povÄ›da"
 
 msgid "January"
 msgstr "Leden"
 
 msgid "July"
-msgstr "Èervenec"
+msgstr "ÄŒervenec"
 
 msgid "June"
-msgstr "Èerven"
+msgstr "ÄŒerven"
 
 msgid "Klutz Backend"
 msgstr "Klutz Backend"
 
 msgid "Klutz is not properly configured"
-msgstr "Klutz není nakonfigurován správnì"
+msgstr "Klutz nenÃ­ nakonfigurovÃ¡n sprÃ¡vnÄ›"
 
 msgid "Language"
 msgstr "Jazyk"
 
 msgid "Maintenance Functions"
-msgstr "Funkce údr¾by"
+msgstr "Funkce ÃºdrÅ¾by"
 
 msgid "March"
-msgstr "Bøezen"
+msgstr "BÅ™ezen"
 
 msgid "May"
-msgstr "Kvìten"
+msgstr "KvÄ›ten"
 
 msgid "Mo"
 msgstr "Po"
@@ -130,117 +130,117 @@ msgid "November"
 msgstr "Listopad"
 
 msgid "October"
-msgstr "Øijen"
+msgstr "Å˜ijen"
 
 msgid "Options"
-msgstr "Mo¾nosti"
+msgstr "MoÅ¾nosti"
 
 msgid "Other Options"
-msgstr "Dal¹í Mo¾nosti"
+msgstr "DalÅ¡Ã­ MoÅ¾nosti"
 
 msgid "Overwrite comics if they exist?"
-msgstr "Pøepsat komiksy pokud existují?"
+msgstr "PÅ™epsat komiksy pokud existujÃ­?"
 
 msgid "Problem?"
-msgstr "Problém?"
+msgstr "ProblÃ©m?"
 
 msgid "Rebuild Unique Identifiers file."
-msgstr "Obnovit soubor se Specifickımi Identifikátory."
+msgstr "Obnovit soubor se SpecifickÃ½mi IdentifikÃ¡tory."
 
 msgid "Sa"
 msgstr "So"
 
 msgid "Select All"
-msgstr "Vyber V¹e"
+msgstr "Vyber VÅ¡e"
 
 msgid "Select None"
 msgstr "Nevybrat nic"
 
 msgid "Select your preferred language:"
-msgstr "Vyberte si Vá¹ upøednostòovanı jazyk"
+msgstr "Vyberte si VÃ¡Å¡ upÅ™ednostÅˆovanÃ½ jazyk"
 
 msgid "September"
-msgstr "Záøí"
+msgstr "ZÃ¡Å™Ã­"
 
 msgid "Set the your preferred display language."
-msgstr "Nastavení Va¹eho jazyku pro zobrazení."
+msgstr "NastavenÃ­ VaÅ¡eho jazyku pro zobrazenÃ­."
 
 msgid "Show comics you haven't selected on the browse page?"
-msgstr "Zobrazit komiksy, které nebyly vybrány pro zobrazení?"
+msgstr "Zobrazit komiksy, kterÃ© nebyly vybrÃ¡ny pro zobrazenÃ­?"
 
 #, c-format
 msgid "Skipping %s for %s"
-msgstr "Vynechávám %s z(e) %s"
+msgstr "VynechÃ¡vÃ¡m %s z(e) %s"
 
 #, c-format
 msgid "Skipping %s for %s- no historical fetching"
-msgstr "Vynechávám %s z(e) %s- nebylo pøede¹le nabráno"
+msgstr "VynechÃ¡vÃ¡m %s z(e) %s- nebylo pÅ™edeÅ¡le nabrÃ¡no"
 
 msgid "Some of Klutz's configuration files are missing:"
-msgstr "Chybí nìkteré z konfiguraèních souborù Klutze:"
+msgstr "ChybÃ­ nÄ›kterÃ© z konfiguraÄnÃ­ch souborÅ¯ Klutze:"
 
 msgid "Su"
 msgstr "Ne"
 
 #, c-format
 msgid "Successfully removed %s for %s<br />\n"
-msgstr "%s z(e) %s Úspì¹nì odstranìno<br />\n"
+msgstr "%s z(e) %s ÃšspÄ›Å¡nÄ› odstranÄ›no<br />\n"
 
 msgid "Th"
-msgstr "Èt"
+msgstr "ÄŒt"
 
 msgid "The image doesn't exist or can't be retrieved"
-msgstr "Obrázek neexistuje nebo nemù¾e bıt naèten"
+msgstr "ObrÃ¡zek neexistuje nebo nemÅ¯Å¾e bÃ½t naÄten"
 
 msgid "The unique identifiers table has been rebuilt."
-msgstr "Tabulka se specifickımi identifikátory byla obnovena."
+msgstr "Tabulka se specifickÃ½mi identifikÃ¡tory byla obnovena."
 
 msgid "This file contains preferences for Klutz."
-msgstr "Tento soubor obsahuje nastavení pro Klutze"
+msgstr "Tento soubor obsahuje nastavenÃ­ pro Klutze"
 
 msgid ""
 "This file controls the stylesheet that is used to set colors and fonts in "
 "addition to or overriding Horde defaults."
 msgstr ""
-"Tento soubor obsahuje nastavení barev a typù písma pro doplòení nebo k "
-"pøepsání nastavení v Horde"
+"Tento soubor obsahuje nastavenÃ­ barev a typÅ¯ pÃ­sma pro doplÅˆenÃ­ nebo k "
+"pÅ™epsÃ¡nÃ­ nastavenÃ­ v Horde"
 
 msgid "This image appears to be a repeat"
-msgstr "Tento obrázek se opakuje"
+msgstr "Tento obrÃ¡zek se opakuje"
 
 msgid "This image is not currently available."
-msgstr "Tento obrázek není dostupnı."
+msgstr "Tento obrÃ¡zek nenÃ­ dostupnÃ½."
 
 msgid ""
 "This is the main Klutz configuration file. It contains options for all Klutz "
 "scripts."
 msgstr ""
-"Toto je hlavní konfiguraèní soubor pro Klutze. Obsahuje mo¾nosti pro v¹echny "
+"Toto je hlavnÃ­ konfiguraÄnÃ­ soubor pro Klutze. Obsahuje moÅ¾nosti pro vÅ¡echny "
 "skripty Klutze."
 
 msgid "Today"
 msgstr "Dnes"
 
 msgid "Today's Comics"
-msgstr "Dne¹ní Komiks"
+msgstr "DneÅ¡nÃ­ Komiks"
 
 msgid "Try to fetch this comic"
 msgstr "Pokus se zachytit tento komiks"
 
 msgid "Tu"
-msgstr "Út"
+msgstr "Ãšt"
 
 msgid "Update"
 msgstr "Aktualizovat"
 
 msgid "Use Ctrl/Option+Click to select multiple comics."
-msgstr "Pou¾ijte Ctrl/Option+Klik k vybrání komiksù."
+msgstr "PouÅ¾ijte Ctrl/Option+Klik k vybrÃ¡nÃ­ komiksÅ¯."
 
 msgid "User Options"
-msgstr "U¾ivatelské Mo¾nosti"
+msgstr "UÅ¾ivatelskÃ© MoÅ¾nosti"
 
 msgid "View by comic"
-msgstr "Zobrazení podle komiksù"
+msgstr "ZobrazenÃ­ podle komiksÅ¯"
 
 #, c-format
 msgid "View comics for %s"
@@ -250,13 +250,13 @@ msgid "We"
 msgstr "St"
 
 msgid "Your Information"
-msgstr "Va¹e Informace"
+msgstr "VaÅ¡e Informace"
 
 msgid "for"
 msgstr "z(e)"
 
 msgid "move down"
-msgstr "posunout dolù"
+msgstr "posunout dolÅ¯"
 
 msgid "move up"
 msgstr "posunout nahoru"

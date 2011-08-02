@@ -1,5 +1,5 @@
 # Spanish translations for klutz package
-# Traducciones al español para el paquete klutz.
+# Traducciones al espaÃ±ol para el paquete klutz.
 # Copyright (C) 2008-2011 Horde Project
 # This file is distributed under the same license as the klutz package.
 # Automatically generated, 2008.
@@ -9,11 +9,11 @@ msgstr ""
 "Project-Id-Version: Klutz 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-01-05 12:15+0100\n"
-"PO-Revision-Date: 2011-01-05 12:15+0100\n"
+"PO-Revision-Date: 2011-08-02 15:56+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -30,7 +30,7 @@ msgstr "Administrador"
 
 #: backend.php:119
 msgid "All Comics"
-msgstr "Todos los cómics"
+msgstr "Todos los cÃ³mics"
 
 #: backend.php:94
 msgid "All Dates"
@@ -58,20 +58,20 @@ msgid ""
 "Change display options such as what comics you see, and how comics are "
 "sorted."
 msgstr ""
-"Cambiar opciones de visualización tales como los cómics visibles y cómo "
+"Cambiar opciones de visualizaciÃ³n tales como los cÃ³mics visibles y cÃ³mo "
 "ordenarlos."
 
 #: templates/prefs/comic_select.inc:51
 msgid "Choose the comics you wish to view."
-msgstr "Elija los cómics que desearía ver."
+msgstr "Elija los cÃ³mics que desearÃ­a ver."
 
 #: lib/Block/summary.php:3
 msgid "Comics"
-msgstr "Cómics"
+msgstr "CÃ³mics"
 
 #: backend.php:130 backend.php:140
 msgid "Comics Update"
-msgstr "Actualización de cómics"
+msgstr "ActualizaciÃ³n de cÃ³mics"
 
 #: backend.php:259
 #, php-format
@@ -80,7 +80,7 @@ msgstr "No se puede encontrar %s para %s<br />\n"
 
 #: lib/Block/summary.php:71
 msgid "Could not find any comics to display."
-msgstr "No se puede encontrar ningún cómic que mostrar."
+msgstr "No se puede encontrar ningÃºn cÃ³mic que mostrar."
 
 #: templates/javascript/goto.inc:60
 msgid "December"
@@ -88,7 +88,7 @@ msgstr "Diciembre"
 
 #: config/.bak/prefs.php.dist:53
 msgid "Default gallery to use when saving comics:"
-msgstr "Galería por omisión usada al guardar los cómics:"
+msgstr "GalerÃ­a por omisiÃ³n usada al guardar los cÃ³mics:"
 
 #: templates/backend/backend.inc:27
 msgid "Delete"
@@ -96,15 +96,15 @@ msgstr "Eliminar"
 
 #: templates/backend/backend.inc:35
 msgid "Delete Comics"
-msgstr "Eliminar cómics"
+msgstr "Eliminar cÃ³mics"
 
 #: templates/savecomic/savecomic.inc:19
 msgid "Description"
-msgstr "Descripción"
+msgstr "DescripciÃ³n"
 
 #: config/.bak/prefs.php.dist:10
 msgid "Display Options"
-msgstr "Opciones de Visualización"
+msgstr "Opciones de VisualizaciÃ³n"
 
 #: templates/backend/backend.inc:20
 msgid "Don't check for uniqueness"
@@ -116,7 +116,7 @@ msgstr "Hecho"
 
 #: templates/savecomic/savecomic.inc:18
 msgid "Enter a description for this comic"
-msgstr "Introduzca una descripción de este cómic"
+msgstr "Introduzca una descripciÃ³n de este cÃ³mic"
 
 #: templates/savecomic/savecomic.inc:23
 msgid "Enter any tags for this image"
@@ -136,17 +136,17 @@ msgstr "Traer"
 
 #: templates/backend/backend.inc:21
 msgid "Fetch Comics"
-msgstr "Traer cómics"
+msgstr "Traer cÃ³mics"
 
 #: backend.php:212
 #, php-format
 msgid "Fetching %s for date %s..."
-msgstr "Trayendo %s del día %s..."
+msgstr "Trayendo %s del dÃ­a %s..."
 
 #: backend.php:231
 #, php-format
 msgid "Fetching %s for date %s...Done"
-msgstr "Trayendo %s del día %s...Hecho"
+msgstr "Trayendo %s del dÃ­a %s...Hecho"
 
 #: templates/javascript/goto.inc:44
 msgid "Fr"
@@ -154,7 +154,7 @@ msgstr "Vie"
 
 #: templates/savecomic/savecomic.inc:12
 msgid "Gallery"
-msgstr "Galería"
+msgstr "GalerÃ­a"
 
 #: templates/savecomic/savecomic.inc:7
 msgid "Image"
@@ -210,11 +210,11 @@ msgstr "Otras opciones"
 
 #: templates/backend/backend.inc:18
 msgid "Overwrite comics if they exist?"
-msgstr "¿Sobreescribir cómics si ya existen?"
+msgstr "Â¿Sobreescribir cÃ³mics si ya existen?"
 
 #: templates/backend/backend.inc:42
 msgid "Rebuild Unique Identifiers file."
-msgstr "Reconstruir archivo de identificadores únicos."
+msgstr "Reconstruir archivo de identificadores Ãºnicos."
 
 #: templates/javascript/goto.inc:45
 msgid "Sa"
@@ -222,7 +222,7 @@ msgstr "Sab"
 
 #: comics.php:218 comics.php:220 comics.php:315 comics.php:317
 msgid "Save Comic to Gallery"
-msgstr "Guardar cómic en la galería"
+msgstr "Guardar cÃ³mic en la galerÃ­a"
 
 #: savecomic.php:65
 msgid "Save Image"
@@ -234,11 +234,11 @@ msgstr "Seleccionar todos"
 
 #: templates/prefs/comic_select.inc:64
 msgid "Select None"
-msgstr "Anular selección"
+msgstr "Anular selecciÃ³n"
 
 #: templates/savecomic/savecomic.inc:8
 msgid "Select the gallery to save the comic to."
-msgstr "Seleccione la galería en la que guardar el cómic."
+msgstr "Seleccione la galerÃ­a en la que guardar el cÃ³mic."
 
 #: templates/javascript/goto.inc:57
 msgid "September"
@@ -246,11 +246,11 @@ msgstr "Septiembre"
 
 #: config/.bak/prefs.php.dist:46
 msgid "Show all of your selected comics on the summary page?"
-msgstr "¿Mostrar todos los cómics seleccionados en la página de resumen?"
+msgstr "Â¿Mostrar todos los cÃ³mics seleccionados en la pÃ¡gina de resumen?"
 
 #: config/.bak/prefs.php.dist:38
 msgid "Show comics you haven't selected on the browse page?"
-msgstr "¿Mostrar en la página de visualización los cómics no seleccionados?"
+msgstr "Â¿Mostrar en la pÃ¡gina de visualizaciÃ³n los cÃ³mics no seleccionados?"
 
 #: backend.php:238
 #, php-format
@@ -260,7 +260,7 @@ msgstr "Omitiendo %s de %s"
 #: backend.php:209
 #, php-format
 msgid "Skipping %s for %s - no historical fetching"
-msgstr "Omitiendo %s de %s - no hay registro histórico de obtenciones"
+msgstr "Omitiendo %s de %s - no hay registro histÃ³rico de obtenciones"
 
 #: templates/javascript/goto.inc:46
 msgid "Su"
@@ -289,40 +289,40 @@ msgstr "No existe la imagen o no se puede recuperar"
 
 #: backend.php:88
 msgid "The unique identifiers table has been rebuilt."
-msgstr "Se ha reconstruido la tabla de identificadores únicos."
+msgstr "Se ha reconstruido la tabla de identificadores Ãºnicos."
 
 #: savecomic.php:37
 msgid "There was an error retrieving the comic."
-msgstr "Se produjo un error al traer el cómic."
+msgstr "Se produjo un error al traer el cÃ³mic."
 
 #: comics.php:244
 msgid "This comic doesn't exist or is disabled."
-msgstr "Este cómic no existe o está deshabilitado."
+msgstr "Este cÃ³mic no existe o estÃ¡ deshabilitado."
 
 #: backend.php:226
 #, php-format
 msgid "This image appears to be a repeat (%s)"
-msgstr "Parece que esta imagen está repetida (%s)"
+msgstr "Parece que esta imagen estÃ¡ repetida (%s)"
 
 #: templates/comics/missing.inc:13
 msgid "This image is not currently available."
-msgstr "Esta imagen no está disponible actualmente."
+msgstr "Esta imagen no estÃ¡ disponible actualmente."
 
 #: templates/prefs/comic_select.inc:52
 msgid ""
 "To select multiple comics, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Para seleccionar varios cómics, mantenga pulsada la tecla Control (PC) o "
+"Para seleccionar varios cÃ³mics, mantenga pulsada la tecla Control (PC) o "
 "Comando (Mac) al hacer click."
 
 #: comics.php:24
 msgid "Today's Comics"
-msgstr "Cómics de hoy"
+msgstr "CÃ³mics de hoy"
 
 #: templates/comics/missing.inc:22
 msgid "Try to fetch this comic"
-msgstr "Intentar traer este cómic"
+msgstr "Intentar traer este cÃ³mic"
 
 #: templates/javascript/goto.inc:41
 msgid "Tu"
@@ -330,12 +330,12 @@ msgstr "Mar"
 
 #: templates/comics/main.inc:32
 msgid "View by comic"
-msgstr "Ver por cómics"
+msgstr "Ver por cÃ³mics"
 
 #: templates/comics/main.inc:9
 #, php-format
 msgid "View comics for %s"
-msgstr "Ver cómics de %s"
+msgstr "Ver cÃ³mics de %s"
 
 #: templates/javascript/goto.inc:42
 msgid "We"
@@ -344,7 +344,7 @@ msgstr "Mie"
 #: backend.php:46 backend.php:49
 msgid "You must define a storage backend to use the administrative interface."
 msgstr ""
-"Para usar la interfaz de administración tiene que definir un motor de "
+"Para usar la interfaz de administraciÃ³n tiene que definir un motor de "
 "almacenamiento."
 
 #: lib/Klutz.php:346
@@ -365,11 +365,11 @@ msgstr "_Actualizar"
 
 #: backend.php:279 backend.php:281
 msgid "all comics"
-msgstr "todos los cómics"
+msgstr "todos los cÃ³mics"
 
 #: backend.php:275
 msgid "any comics"
-msgstr "cualquier cómic"
+msgstr "cualquier cÃ³mic"
 
 #: backend.php:275
 msgid "any dates"

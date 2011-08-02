@@ -1,5 +1,5 @@
 # Danish translations for Klutz package
-# Danske oversættelser for pakke Klutz.
+# Danske oversÃ¦ttelser for pakke Klutz.
 # Copyright (C) 2006 Horde Project
 # This file is distributed under the same license as the Klutz package.
 # Brian Truelsen <horde+i18n@briantruelsen.dk>, 2006.
@@ -9,11 +9,11 @@ msgstr ""
 "Project-Id-Version: Klutz 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2006-03-11 12:34+0100\n"
-"PO-Revision-Date: 2006-03-11 16:17+0100\n"
+"PO-Revision-Date: 2011-08-02 15:56+0200\n"
 "Last-Translator: Brian Truelsen <horde+i18n@briantruelsen.dk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -50,12 +50,12 @@ msgid ""
 "Change display options such as what comics you see, and how comics are "
 "sorted."
 msgstr ""
-"Her kan du ændre visningsindstillinger, så som hvilke tegneserie, der bliver "
-"vist på og hvordan tegneserier sorteres."
+"Her kan du Ã¦ndre visningsindstillinger, sÃ¥ som hvilke tegneserie, der bliver "
+"vist pÃ¥ og hvordan tegneserier sorteres."
 
 #: templates/prefs/comic_select.inc:51
 msgid "Choose the comics you wish to view."
-msgstr "Vælg de tegneserier, som du ønsker at se."
+msgstr "VÃ¦lg de tegneserier, som du Ã¸nsker at se."
 
 #: lib/Block/summary.php:3
 msgid "Comics"
@@ -92,11 +92,11 @@ msgstr "Indstillinger for visning"
 
 #: templates/backend/backend.inc:20
 msgid "Don't check for uniqueness"
-msgstr "Kontrollér ikke for eneståenhed"
+msgstr "KontrollÃ©r ikke for enestÃ¥enhed"
 
 #: backend.php:208
 msgid "Done"
-msgstr "Færdig"
+msgstr "FÃ¦rdig"
 
 #: backend.php:210
 msgid "Error storing the image"
@@ -181,15 +181,15 @@ msgstr "Genopbyg fil til unikke identifikatorer."
 
 #: templates/javascript/goto.inc:45
 msgid "Sa"
-msgstr "Lør"
+msgstr "LÃ¸r"
 
 #: templates/prefs/comic_select.inc:65
 msgid "Select All"
-msgstr "Vælg alle"
+msgstr "VÃ¦lg alle"
 
 #: templates/prefs/comic_select.inc:64
 msgid "Select None"
-msgstr "Vælg ingen"
+msgstr "VÃ¦lg ingen"
 
 #: templates/javascript/goto.inc:57
 msgid "September"
@@ -197,11 +197,11 @@ msgstr "September"
 
 #: config/prefs.php.dist:46
 msgid "Show all of your selected comics on the summary page?"
-msgstr "Vis alle dine valgte tegneserier på opsummeringssiden?"
+msgstr "Vis alle dine valgte tegneserier pÃ¥ opsummeringssiden?"
 
 #: config/prefs.php.dist:38
 msgid "Show comics you haven't selected on the browse page?"
-msgstr "Vis tegneserier, som du ikke har valgt, på skimmesiden?"
+msgstr "Vis tegneserier, som du ikke har valgt, pÃ¥ skimmesiden?"
 
 #: backend.php:213
 #, php-format
@@ -215,7 +215,7 @@ msgstr "Springer %s for %s over - ingen historisk hentning"
 
 #: templates/javascript/goto.inc:46
 msgid "Su"
-msgstr "Søn"
+msgstr "SÃ¸n"
 
 #: backend.php:238
 #, php-format
@@ -236,16 +236,16 @@ msgstr "Tabellen over unikke identifikatorer er blevet genopbygget."
 
 #: comics.php:223
 msgid "This comic doesn't exist or is disabled."
-msgstr "Tegneserien eksisterer ikke eller er slået fra."
+msgstr "Tegneserien eksisterer ikke eller er slÃ¥et fra."
 
 #: backend.php:206
 #, php-format
 msgid "This image appears to be a repeat (%s)"
-msgstr "Dette billede synes at være en gentagelse (%s)"
+msgstr "Dette billede synes at vÃ¦re en gentagelse (%s)"
 
 #: templates/comics/missing.inc:13
 msgid "This image is not currently available."
-msgstr "Dette billede er p.t. ikke tilgængelig."
+msgstr "Dette billede er p.t. ikke tilgÃ¦ngelig."
 
 #: templates/prefs/comic_select.inc:52
 msgid ""
@@ -265,7 +265,7 @@ msgstr "Dagens tegneserie"
 
 #: templates/comics/missing.inc:20
 msgid "Try to fetch this comic"
-msgstr "Prøv at hente denne tegneserie"
+msgstr "PrÃ¸v at hente denne tegneserie"
 
 #: templates/javascript/goto.inc:41
 msgid "Tu"
@@ -296,7 +296,7 @@ msgstr "Skim"
 
 #: lib/Klutz.php:346
 msgid "_Goto"
-msgstr "Gå til"
+msgstr "GÃ¥ til"
 
 #: lib/Klutz.php:348
 msgid "_Today"
@@ -304,7 +304,7 @@ msgstr "I Dag"
 
 #: lib/Klutz.php:352
 msgid "_Update"
-msgstr "Opdatér"
+msgstr "OpdatÃ©r"
 
 #: backend.php:259 backend.php:261
 msgid "all comics"
@@ -312,11 +312,11 @@ msgstr "alle tegneserier"
 
 #: backend.php:255
 msgid "any comics"
-msgstr "vilkårlige tegneserier"
+msgstr "vilkÃ¥rlige tegneserier"
 
 #: backend.php:255
 msgid "any dates"
-msgstr "vilkårlige datoer"
+msgstr "vilkÃ¥rlige datoer"
 
 #: templates/backend/backend.inc:15
 msgid "for"
