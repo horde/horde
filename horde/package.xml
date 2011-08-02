@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-02</date>
- <time>16:01:35</time>
+ <time>16:03:33</time>
  <version>
-  <release>4.0.8</release>
+  <release>4.0.9</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [cjh] Add mobile maintenance screens.
-* [jan] Update Latvian translation.
-* [jan] Don&apos;t show mobile login page if users are forced to traditional or dynamic views (Request #10358).
-* [jan] Update PGP key server list and add SKS pool.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4192,6 +4189,19 @@
 * [jan] Update Latvian translation.
 * [jan] Don&apos;t show mobile login page if users are forced to traditional or dynamic views (Request #10358).
 * [jan] Update PGP key server list and add SKS pool.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.9</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-02</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
