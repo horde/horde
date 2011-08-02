@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-02</date>
- <time>16:33:02</time>
+ <time>16:33:38</time>
  <version>
-  <release>4.0.2</release>
+  <release>4.0.3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -179,6 +179,19 @@
   <release>
    <version>
     <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-02</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
     <api>4.0.0</api></version>
    <stability>
     <release>stable</release>
