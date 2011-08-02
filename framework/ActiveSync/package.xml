@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>21:25:32</time>
+ <date>2011-08-02</date>
+ <time>10:53:44</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -23,7 +23,7 @@
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
 * [mjr] Fix sending unnecessary FOLDERSYNC changes.
-* [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to PING and SYNC the same collection an unlimited number of times
+* [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to PING and SYNC the same collection an unlimited number of times.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -346,11 +346,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-08-02</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
 * [mjr] Fix sending unnecessary FOLDERSYNC changes.
-* [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to PING and SYNC the same collection an unlimited number of times
+* [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to PING and SYNC the same collection an unlimited number of times.
    </notes>
   </release>
  </changelog>
