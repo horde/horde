@@ -71,25 +71,51 @@ implements Horde_Kolab_Storage_Data_Query_History
     public function synchronize($params = array())
     {
         $stamp = $this->_data->getStamp();
-        foreach ($this->_data->getObjectToBackend() as $object => $bid) {
-            $log = $this->_history->getHistory($object);
-            if (count($log) == 0) {
+        if (isset($params['changes'])) {
+            foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] as $bid => $object) {
+                $this->updateLog($object['uid'], $bid, $stamp);
+            }
+            foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $bid => $object) {
                 $this->_history->log(
-                    $object, array('action' => 'add', 'bid' => $bid, 'stamp' => $stamp)
+                    $object, array('action' => 'delete', 'bid' => $bid, 'stamp' => $stamp)
                 );
-            } else {
-                $last = array('ts' => 0);
-                foreach ($log as $entry) {
-                    if ($entry['ts'] > $last['ts']) {
-                        $last = $entry;
-                    }
+            }
+        } else {
+            foreach ($this->_data->getObjectToBackend() as $object => $bid) {
+                $this->updateLog($object, $bid, $stamp);
+            }
+        }
+    }
+
+    /**
+     * Update the history log for an object.
+     *
+     * @param string                           $object The object ID.
+     * @param string                           $bid    The backend ID of
+     *                                                 the object.
+     * @param Horde_Kolab_Storage_Folder_Stamp $stamp  The folder stamp.
+     *
+     * @return NULL
+     */
+    protected function updateLog($object, $bid, $stamp)
+    {
+        $log = $this->_history->getHistory($object);
+        if (count($log) == 0) {
+            $this->_history->log(
+                $object, array('action' => 'add', 'bid' => $bid, 'stamp' => $stamp)
+            );
+        } else {
+            $last = array('ts' => 0);
+            foreach ($log as $entry) {
+                if ($entry['ts'] > $last['ts']) {
+                    $last = $entry;
                 }
-                if (!isset($last['bid']) || $last['bid'] != $bid
-                    || (isset($last['stamp']) && $last['stamp']->isReset($stamp))) {
-                    $this->_history->log(
-                        $object, array('action' => 'modify', 'bid' => $bid, 'stamp' => $stamp)
-                    );
-                }
+            }
+            if (!isset($last['bid']) || $last['bid'] != $bid
+                || (isset($last['stamp']) && $last['stamp']->isReset($stamp))) {
+                $this->_history->log(
+                    $object, array('action' => 'modify', 'bid' => $bid, 'stamp' => $stamp)
+                );
             }
         }
     }

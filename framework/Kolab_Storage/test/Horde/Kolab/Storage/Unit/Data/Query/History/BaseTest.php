@@ -113,6 +113,28 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testDelete()
+    {
+        $data = $this->_getData();
+        $data->delete('20090731103253.11391snjudt9zgpw@webmail.example.com');
+        $this->assertEquals(
+            array(
+                '20090731103253.11391snjudt9zgpw@webmail.example.com' => 3
+            ),
+            $this->history->getByTimestamp(
+                '>',
+                time() - 10,
+                array(
+                    array(
+                        'field' => 'action',
+                        'op' => '=',
+                        'value' => 'delete'
+                    )
+                )
+            )
+        );
+    }
+
     private function _getData()
     {
         return $this->_getFolder()->getData('INBOX/History');

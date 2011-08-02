@@ -218,7 +218,14 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         if ($result === true) {
             $params = array();
         } else {
-            $params = array('updated' => array($result));
+            $params = array(
+                'changes' => array(
+                    Horde_Kolab_Storage_Folder_Stamp::ADDED => array(
+                        $result => $object
+                    ),
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array()
+                )
+            );
         }
         $this->synchronize($params);
         return $result;
@@ -272,7 +279,14 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         if ($result === true) {
             $params = array();
         } else {
-            $params = array('updated' => array($result));
+            $params = array(
+                'changes' => array(
+                    Horde_Kolab_Storage_Folder_Stamp::ADDED => array(
+                        $result => $object
+                    ),
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array()
+                )
+            );
         }
         $this->synchronize($params);
         return $result;
@@ -455,7 +469,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function getObjectByBackendId($uid)
     {
-        return $this->fetch($this->getStamp()->ids());
+        $fetched = $this->fetch(array($uid));
+        return array_pop($fetched);
     }
 
     /**
@@ -558,15 +573,22 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $uids = array();
         foreach ($object_ids as $id) {
             if ($this->objectIdExists($id)) {
-                $uids[] = $this->getBackendId($id);
+                $uids[$this->getBackendId($id)] = $id;
             } else {
                 throw new Horde_Kolab_Storage_Exception(
                     sprintf('No such object %s!', $id)
                 );
             }
         }
-        $this->deleteBackendIds($uids);
-        $this->synchronize(array('deleted' => array($uids)));
+        $this->deleteBackendIds(array_keys($uids));
+        $this->synchronize(
+            array(
+                'changes' => array(
+                    Horde_Kolab_Storage_Folder_Stamp::ADDED => array(),
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => $uids
+                )
+            )
+        );
     }
 
     /**
@@ -625,7 +647,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     public function synchronize($params = array())
     {
         foreach ($this->_queries as $name => $query) {
-            $query->synchronize();
+            $query->synchronize($params);
         }
     }
 

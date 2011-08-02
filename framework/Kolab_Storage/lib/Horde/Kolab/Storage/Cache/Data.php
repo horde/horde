@@ -434,13 +434,35 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
+     * Map backend IDs to object ids.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param array $backend_ids The list of backend IDs
+     *
+     * @return array A list that associates object IDs (values) to backend IDs
+     *               (keys).
+     */
+    public function backendMap($backend_ids)
+    {
+        if (empty($backend_ids)) {
+            return array();
+        }
+        $map = array();
+        foreach ($backend_ids as $item) {
+            $map[$item] = $this->_data[self::B2O][$item];
+        }
+        return $map;
+    }
+
+    /**
      * Store the objects list in the cache.
      *
      * @param array                            $object  The object data to store.
      * @param Horde_Kolab_Storage_Folder_Stamp $stamp   The current stamp.
      * @param string                           $version The format version of
      *                                                  the provided data.
-     * @param array                            $delete  Object IDs that were removed.
+     * @param array                            $delete  Backend IDs that were removed.
      *
      * @return NULL
      */
@@ -452,19 +474,18 @@ class Horde_Kolab_Storage_Cache_Data
     ) {
         $this->_load();
         if (!empty($delete)) {
-            foreach ($delete as $item) {
-                $object_id = $this->_data[self::B2O][$item];
+            foreach ($delete as $obid => $object_id) {
                 $object = $this->_data[self::OBJECTS][$object_id];
                 if (isset($object['_attachments'])) {
                     foreach ($object['_attachments']['id'] as $id) {
                         $this->_cache->deleteAttachment(
-                            $this->getDataId(), $item, $id
+                            $this->getDataId(), $obid, $id
                         );
                     }
                 }
                 unset($this->_data[self::O2B][$object_id]);
                 unset($this->_data[self::OBJECTS][$object_id]);
-                unset($this->_data[self::B2O][$item]);
+                unset($this->_data[self::B2O][$obid]);
             }
         }
         foreach ($objects as $obid => $object) {

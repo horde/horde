@@ -261,7 +261,7 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     public function synchronize($params = array())
     {
         foreach ($this->_queries as $name => $query) {
-            $query->synchronize();
+            $query->synchronize($params);
         }
     }
 

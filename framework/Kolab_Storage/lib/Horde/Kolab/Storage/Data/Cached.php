@@ -237,27 +237,21 @@ extends Horde_Kolab_Storage_Data_Base
             $this->_completeSynchronization($current);
             return;
         }
-        if (isset($params['updated'])) {
-            $changes = array(
-                Horde_Kolab_Storage_Folder_Stamp::ADDED => $params['updated'],
-                Horde_Kolab_Storage_Folder_Stamp::DELETED => array()
-            );
-        } else if (isset($params['deleted'])) {
-            $changes = array(
-                Horde_Kolab_Storage_Folder_Stamp::ADDED => array(),
-                Horde_Kolab_Storage_Folder_Stamp::DELETED => $params['deleted']
-            );
-        } else {
+        if (!isset($params['changes'])) {
             $changes = $previous->getChanges($current);
+            $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] = $this->fetch(
+                $changes[Horde_Kolab_Storage_Folder_Stamp::ADDED]
+            );
+            $params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] = $this->_data_cache->backendMap(
+                $changes[Horde_Kolab_Storage_Folder_Stamp::DELETED]
+            );
         }
-        if ($changes) {
+        if ($params['changes'] !== false) {
             $this->_data_cache->store(
-                $this->fetch(
-                    $changes[Horde_Kolab_Storage_Folder_Stamp::ADDED]
-                ),
+                $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED],
                 $current,
                 $this->getVersion(),
-                $changes[Horde_Kolab_Storage_Folder_Stamp::DELETED]
+                $params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED]
             );
             parent::synchronize($params);
             $this->_data_cache->save();
@@ -279,8 +273,9 @@ extends Horde_Kolab_Storage_Data_Base
     ) {
         $this->_data_cache->reset();
         $ids = $stamp->ids();
+        $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] = empty($ids) ? array() : $this->fetch($ids);
         $this->_data_cache->store(
-            empty($ids) ? array() : $this->fetch($ids),
+            $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED],
             $stamp,
             $this->getVersion()
         );
