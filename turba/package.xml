@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>17:34:53</time>
+ <date>2011-08-02</date>
+ <time>16:07:24</time>
  <version>
   <release>3.0.5</release>
   <api>3.0.0</api>
@@ -1229,7 +1229,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-08-02</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [mjr] Fix obtaining default share via Turba&apos;s API (vilius@lnk.lt, Bug #10393).
