@@ -53,6 +53,7 @@ class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
 
             try {
                 $handler = new Horde_Log_Handler_Stream($conf['log']['name'], $append, $formatter);
+                $handler->setOption('ident', $conf['log']['ident']);
             } catch (Horde_Log_Exception $e) {
                 $this->error = $e;
                 return new Horde_Core_Log_Logger(new Horde_Log_Handler_Null());

@@ -69,6 +69,7 @@ class Horde_Kolab_Filter_Factory
 
             try {
                 $handler = new Horde_Log_Handler_Stream($conf['log']['name'], $append, $formatter);
+                $this->setOption('ident', $conf['log']['ident']);
             } catch (Horde_Log_Exception $e) {
                 return new Horde_Log_Logger(new Horde_Log_Handler_Null());
             }

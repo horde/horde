@@ -25,6 +25,15 @@
 class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
 {
     /**
+     * Options to be set by setOption().
+     *
+     * @var array
+     */
+    protected $_options = array(
+        'ident'            => ''
+    );
+
+    /**
      * Formats the log message before writing.
      *
      * @var Horde_Log_Formatter
@@ -109,6 +118,9 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
      */
     public function write($event)
     {
+        if (!empty($this->_options['ident'])) {
+            $event['message'] = $this->_options['ident'] . ' ' . $event['message'];
+        }
         $line = $this->_formatter->format($event);
 
         if (!@fwrite($this->_stream, $line)) {
