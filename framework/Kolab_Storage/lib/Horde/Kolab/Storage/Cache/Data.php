@@ -346,6 +346,19 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
+     * Return the timestamp of the last synchronization.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return int Timestamp of the last sync.
+     */
+    public function getLastSync()
+    {
+        $this->_load();
+        return isset($this->_data[self::SYNC]) ? $this->_data[self::SYNC] : false;
+    }
+
+    /**
      * Is the specified query data available in the cache?
      *
      * @since Horde_Kolab_Storage 1.1.0

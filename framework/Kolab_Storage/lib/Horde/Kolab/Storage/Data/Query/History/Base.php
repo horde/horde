@@ -37,14 +37,14 @@ implements Horde_Kolab_Storage_Data_Query_History
      *
      * @var Horde_Kolab_Storage_Data
      */
-    private $_data;
+    protected $data;
 
     /**
      * The history handler.
      *
      * @var Horde_History
      */
-    private $_history;
+    protected $history;
 
     /**
      * Constructor.
@@ -56,8 +56,8 @@ implements Horde_Kolab_Storage_Data_Query_History
         Horde_Kolab_Storage_Data $data,
         $params
     ) {
-        $this->_data = $data;
-        $this->_history = $params['factory']->createHistory($data->getAuth());
+        $this->data = $data;
+        $this->history = $params['factory']->createHistory($data->getAuth());
     }
 
     /**
@@ -70,19 +70,19 @@ implements Horde_Kolab_Storage_Data_Query_History
      */
     public function synchronize($params = array())
     {
-        $stamp = $this->_data->getStamp();
+        $stamp = $this->data->getStamp();
         if (isset($params['changes'])) {
             foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] as $bid => $object) {
-                $this->updateLog($object['uid'], $bid, $stamp);
+                $this->_updateLog($object['uid'], $bid, $stamp);
             }
             foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $bid => $object) {
-                $this->_history->log(
+                $this->history->log(
                     $object, array('action' => 'delete', 'bid' => $bid, 'stamp' => $stamp)
                 );
             }
         } else {
-            foreach ($this->_data->getObjectToBackend() as $object => $bid) {
-                $this->updateLog($object, $bid, $stamp);
+            foreach ($this->data->getObjectToBackend() as $object => $bid) {
+                $this->_updateLog($object, $bid, $stamp);
             }
         }
     }
@@ -97,11 +97,11 @@ implements Horde_Kolab_Storage_Data_Query_History
      *
      * @return NULL
      */
-    protected function updateLog($object, $bid, $stamp)
+    private function _updateLog($object, $bid, $stamp)
     {
-        $log = $this->_history->getHistory($object);
+        $log = $this->history->getHistory($object);
         if (count($log) == 0) {
-            $this->_history->log(
+            $this->history->log(
                 $object, array('action' => 'add', 'bid' => $bid, 'stamp' => $stamp)
             );
         } else {
@@ -113,7 +113,7 @@ implements Horde_Kolab_Storage_Data_Query_History
             }
             if (!isset($last['bid']) || $last['bid'] != $bid
                 || (isset($last['stamp']) && $last['stamp']->isReset($stamp))) {
-                $this->_history->log(
+                $this->history->log(
                     $object, array('action' => 'modify', 'bid' => $bid, 'stamp' => $stamp)
                 );
             }

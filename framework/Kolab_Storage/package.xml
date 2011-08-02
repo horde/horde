@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-02</date>
- <time>07:12:24</time>
+ <time>12:55:47</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -70,6 +70,7 @@
         <dir name="Query">
          <dir name="History">
           <file name="Base.php" role="php" />
+          <file name="Cache.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Storage/Data/Query/History -->
          <dir name="Preferences">
           <file name="Base.php" role="php" />
@@ -695,6 +696,7 @@
    <install as="Horde/Kolab/Storage/Data/Query/History.php" name="lib/Horde/Kolab/Storage/Data/Query/History.php" />
    <install as="Horde/Kolab/Storage/Data/Query/Preferences.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences.php" />
    <install as="Horde/Kolab/Storage/Data/Query/History/Base.php" name="lib/Horde/Kolab/Storage/Data/Query/History/Base.php" />
+   <install as="Horde/Kolab/Storage/Data/Query/History/Cache.php" name="lib/Horde/Kolab/Storage/Data/Query/History/Cache.php" />
    <install as="Horde/Kolab/Storage/Data/Query/Preferences/Base.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences/Base.php" />
    <install as="Horde/Kolab/Storage/Data/Query/Preferences/Cache.php" name="lib/Horde/Kolab/Storage/Data/Query/Preferences/Cache.php" />
    <install as="Horde/Kolab/Storage/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Decorator/Log.php" />

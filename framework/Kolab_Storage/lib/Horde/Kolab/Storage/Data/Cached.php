@@ -247,12 +247,14 @@ extends Horde_Kolab_Storage_Data_Base
             );
         }
         if ($params['changes'] !== false) {
+            $params['last_sync'] = $this->_data_cache->getLastSync();
             $this->_data_cache->store(
                 $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED],
                 $current,
                 $this->getVersion(),
                 $params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED]
             );
+            $params['current_sync'] = $this->_data_cache->getLastSync();
             parent::synchronize($params);
             $this->_data_cache->save();
         }
@@ -273,12 +275,14 @@ extends Horde_Kolab_Storage_Data_Base
     ) {
         $this->_data_cache->reset();
         $ids = $stamp->ids();
+        $params['last_sync'] = false;
         $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] = empty($ids) ? array() : $this->fetch($ids);
         $this->_data_cache->store(
             $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED],
             $stamp,
             $this->getVersion()
         );
+        $params['current_sync'] = $this->_data_cache->getLastSync();
         parent::synchronize($params);
         $this->_data_cache->save();
     }
