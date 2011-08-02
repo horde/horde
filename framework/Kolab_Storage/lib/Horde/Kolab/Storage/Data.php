@@ -31,6 +31,7 @@ extends Horde_Kolab_Storage_Queriable
     /** Identifies the preferences query */
     /** @since Horde_Kolab_Storage 1.1.0 */
     const QUERY_PREFS  = 'Preferences';
+    const QUERY_HISTORY  = 'History';
 
     /**
      * Return the folder path for this data handler.

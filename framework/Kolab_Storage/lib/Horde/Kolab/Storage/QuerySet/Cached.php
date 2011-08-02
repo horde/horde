@@ -38,6 +38,7 @@ extends Horde_Kolab_Storage_QuerySet_Base
         Horde_Kolab_Storage_List::QUERY_BASE => 'Horde_Kolab_Storage_List_Query_List_Cache',
         Horde_Kolab_Storage_List::QUERY_ACL => 'Horde_Kolab_Storage_List_Query_Acl_Cache',
         Horde_Kolab_Storage_Data::QUERY_PREFS => 'Horde_Kolab_Storage_Data_Query_Preferences_Cache',
+        Horde_Kolab_Storage_Data::QUERY_HISTORY => 'Horde_Kolab_Storage_Data_Query_History_Cache',
     );
 
     /**
