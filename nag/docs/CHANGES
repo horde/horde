@@ -1,6 +1,6 @@
-----------
-v3.0.3-git
-----------
+------
+v3.0.3
+------
 
 [jan] Don't load all shares with requested permissions from the backend if
       $conf['share']['hidden'] is enabled.
