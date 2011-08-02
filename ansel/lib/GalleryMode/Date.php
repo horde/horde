@@ -156,9 +156,8 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     public function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0,
                                        $to = 0, $noauto = false)
     {
-        /* Cache the results */
+        // Cache the results
         static $children = array();
-        static $fullcount = array();
 
         $fullkey = md5($noauto . $perm . $this->_gallery->id . serialize($this->_date) . 0 . 0);
         $cache_key = md5($noauto . $perm . $this->_gallery->id . serialize($this->_date) . $from . $to);
@@ -167,6 +166,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         } elseif (!empty($children[$fullkey])) {
             return $this->_getArraySlice($children[$fullkey], $from, $to, true);
         }
+
         $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         // Get a list of all the subgalleries
@@ -183,7 +183,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         }
         $sorted_dates = array();
 
-        // First let's see how specific the date is
+        // See how specific the date is
         if (!count($this->_date) || empty($this->_date['year'])) {
             // All available images - grouped by year
             $images = $ansel_storage->listImages($params);
@@ -193,18 +193,19 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             }
             $keys = array_keys($dates);
 
-            /* Drill down further if we only have a single group */
+            // Drill down further if we only have a single group
             if (!$noauto && count($keys) == 1) {
                 $this->_date['year'] = array_pop($keys);
                 return $this->getGalleryChildren($perm, $from, $to, $noauto);
             }
+
             sort($keys, SORT_NUMERIC);
             foreach ($keys as $key) {
                 $sorted_dates[$key] = $dates[$key];
             }
             $display_unit = 'year';
         } elseif (empty($this->_date['month'])) {
-            /* Specific year - grouped by month */
+            // Specific year - grouped by month
             $start = new Horde_Date(
                 array(
                     'year' => $this->_date['year'],
@@ -212,7 +213,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
                     'day' => 1)
             );
 
-            /* Last second of the year */
+            // Last second of the year
             $end = new Horde_Date($start);
             $end->mday = 31;
             $end->month = 12;
@@ -220,7 +221,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $end->min = 59;
             $end->sec = 59;
 
-            /* Get the image ids and dates */
+            // Get the image ids and dates
             $params['filter'] = array(
                 array(
                     'property' => 'originalDate',
@@ -231,7 +232,8 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
                     'property' => 'originalDate',
                     'op' => '>=',
                     'value' => (int)$start->timestamp()
-                ));
+                )
+            );
             $images= $ansel_storage->listImages($params);
             $dates = array();
             foreach ($images as $key => $image) {
@@ -239,7 +241,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             }
             $keys = array_keys($dates);
 
-            /* Only 1 date grouping here, automatically drill down */
+            // Only 1 date grouping here, automatically drill down
             if (!$noauto && count($keys) == 1) {
                 $this->_date['month'] = array_pop($keys);
                 return $this->getGalleryChildren($perm, $from, $to, $noauto);
@@ -251,7 +253,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             }
             $display_unit = 'month';
         } elseif (empty($this->_date['day'])) {
-            /* A single month - group by day */
+            // A single month - group by day
             $start = new Horde_Date(
                 array(
                     'year' => $this->_date['year'],
@@ -259,7 +261,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
                     'day' => 1)
             );
 
-            /* Last second of the month */
+            // Last second of the month
             $end = new Horde_Date($start);
             $end->mday = Horde_Date_Utils::daysInMonth($end->month, $end->year);
             $end->hour = 23;
@@ -285,7 +287,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             }
             $keys = array_keys($dates);
 
-            /* Only a single grouping, go deeper */
+            // Only a single grouping, go deeper
             if (!$noauto && count($keys) == 1) {
                 $this->_date['day'] = array_pop($keys);
                 return $this->getGalleryChildren($perm, $from, $to, $noauto);
@@ -298,10 +300,10 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
             $dates = $sorted_dates;
             $display_unit = 'day';
         } else {
-            /* We are down to a specific day */
+            // We are down to a specific day
             $start = new Horde_Date($this->_date);
 
-            /* Last second of this day */
+            // Last second of this day
             $end = new Horde_Date($start->timestamp());
             $end->hour = 23;
             $end->min = 59;
