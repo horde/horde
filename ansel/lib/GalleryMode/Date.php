@@ -158,14 +158,18 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     {
         /* Cache the results */
         static $children = array();
+        static $fullcount = array();
 
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
-        $cache_key = md5($this->_gallery->id . serialize($this->_date) . $from . $to);
+        $fullkey = md5($noauto . $perm . $this->_gallery->id . serialize($this->_date) . 0 . 0);
+        $cache_key = md5($noauto . $perm . $this->_gallery->id . serialize($this->_date) . $from . $to);
         if (!empty($children[$cache_key])) {
             return $children[$cache_key];
+        } elseif (!empty($children[$fullkey])) {
+            return $this->_getArraySlice($children[$fullkey], $from, $to, true);
         }
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
-        /* Get a list of all the subgalleries */
+        // Get a list of all the subgalleries
         $this->_loadSubGalleries();
         $params = array(
             'fields' => array('image_id', 'image_original_date')
@@ -179,9 +183,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         }
         $sorted_dates = array();
 
-        /* First let's see how specific the date is */
+        // First let's see how specific the date is
         if (!count($this->_date) || empty($this->_date['year'])) {
-            /* All available images - grouped by year */
+            // All available images - grouped by year
             $images = $ansel_storage->listImages($params);
             $dates = array();
             foreach ($images as $key => $image) {
