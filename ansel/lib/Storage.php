@@ -1036,21 +1036,17 @@ class Ansel_Storage
      *
      * @param array $params  Filter parameters.
      *<pre>
-     *  integer 'gallery_id'  - A gallery id to list images from
-     *  integer 'offset'      - The image to start listing from
-     *  integer 'limit'       - How many images to return
-     *  array|string 'fields' - The fields to return
-     *  string 'where'        - A SQL WHERE clause (will ignore any gallery_id).
-     *  string 'sort'         - The field to sort by.
+     *  integer|array 'gallery_id'  - A gallery id to list images from
+     *  integer 'offset'            - The image to start listing from
+     *  integer 'limit'             - How many images to return
+     *  array|string 'fields'       - The fields to return
+     *  string 'sort'               - The field to sort by.
+     *  array  'filter'             - Additional filters. Each element is an
+     *                                array containing 'property', 'op', and
+     *                                'value' keys. Passing 'IN' as the 'op'
+     *                                and an array as 'value' will produce a
+     *                                SQL IN conditional.
      *</pre>
-     * @param integer $gallery_id  The gallery to list from.
-     * @param integer $from        The image to start listing.
-     * @param integer $count       The numer of images to list.
-     * @param mixed $fields        The fields to return (either an array of
-     *                             fields or a single string).
-     * @param string $where        A SQL where clause ($gallery_id will be
-     *                             ignored if this is non-empty).
-     * @param mixed $sort          The field(s) to sort by.
      *
      * @return array  An array of images. Either an array of ids, or an array
      *                of field values, keyed by id.
@@ -1073,13 +1069,18 @@ class Ansel_Storage
             $params['sort'] = implode(', ', $params['sort']);
         }
 
-        if ($params['where']) {
-            $query_where = 'WHERE ' . $params['where'];
-        } else {
-            if (!$params->get('gallery_id')) {
-                throw new InvalidArgumentException('Missing gallery id in Ansel_Storage::listImages()');
-            }
+        if (is_array($params['gallery_id'])) {
+            $query_where = 'WHERE gallery_id IN (' . implode(',', $params['gallery_id']) . ')';
+        } elseif ($params['gallery_id']) {
             $query_where = 'WHERE gallery_id = ' . $params['gallery_id'];
+        }
+        if ($params['filter']) {
+            foreach ($params['filter'] as $filter) {
+                $query_where .= (!empty($query_where) ? ' AND ' : ' WHERE ')
+                    . $this->_toImageDriverName($filter['property'])
+                    . ' ' . $filter['op'] . ' ' .
+                    (is_array($filter['value']) ? '(' . implode(',', $filter['value']) . ')' : $filter['value']);
+            }
         }
         $sql = 'SELECT ' . $params->get('fields', 'image_id')
             . ' FROM ansel_images ' . $query_where
@@ -1088,7 +1089,8 @@ class Ansel_Storage
             $sql,
             array(
                 'limit' => $params->get('limit', 0),
-                'offset' => $params->get('offset', 0)));
+                'offset' => $params->get('offset', 0))
+        );
         try {
             if ($field_count > 1) {
                 $results = $this->_db->selectAll($sql);
@@ -1120,23 +1122,31 @@ class Ansel_Storage
         if ((!is_array($image_ids) || count($image_ids) == 0) && empty($gallery)) {
             return array();
         }
-
-        if (!empty($gallery)) {
-            $where = 'gallery_id = ' . (int)$gallery . ' AND LENGTH(image_latitude) > 0';
-        } elseif (count($image_ids) > 0) {
-            $where = 'image_id IN(' . implode(',', $image_ids) . ') AND LENGTH(image_latitude) > 0';
-        } else {
-            return array();
-        }
-
-        return $this->listImages(array(
+        $params = array(
             'fields' => array(
                 'image_id as id',
                 'image_id',
                 'image_latitude',
                 'image_longitude',
                 'image_location'),
-            'where' => $where));
+            'filter' => array(
+                array(
+                    'property' => 'latitude',
+                    'op' => '>',
+                    'value' => '0'))
+        );
+        if (!empty($gallery)) {
+            $params['gallery_id'] = (int)$gallery;
+        } elseif (count($image_ids) > 0) {
+            $params['filter'][] = array(
+                'property' => 'id',
+                'op' => 'IN',
+                'value' => $image_ids);
+        } else {
+            return array();
+        }
+
+        return $this->listImages($params);
     }
 
     /**
@@ -1167,11 +1177,7 @@ class Ansel_Storage
             return array();
         }
 
-        $where = 'gallery_id IN(' . implode(',', $ids)
-            . ') AND LENGTH(image_latitude) > 0 '
-            . 'GROUP BY image_latitude, image_longitude';
-
-        return $this->listImages(array(
+        $params = array(
             'offset' => $start,
             'limit' => $count,
             'fields' => array(
@@ -1181,8 +1187,16 @@ class Ansel_Storage
                 'image_latitude',
                 'image_longitude',
                 'image_location'),
-            'where' => $where,
-            'sort' => 'image_geotag_date DESC'));
+            'gallery_id' => $ids,
+            'filter' => array(
+                array(
+                    'property' => 'latitude',
+                    'op' => '>',
+                    'value' => '0')
+                ),
+            'sort' => 'image_geotag_date DESC');
+
+        return $this->listImages($params);
     }
 
     /**
@@ -1328,6 +1342,35 @@ class Ansel_Storage
         }
 
         return $results;
+    }
+
+    /**
+     * Convert an Ansel_Image property to it's backend storage field name.
+     *
+     * @param string $field  The field name
+     *
+     * @return string  The converted field name suitable for use in backend.
+     */
+    protected function _toImageDriverName($field)
+    {
+        switch ($field) {
+            case 'id':
+            case 'filename':
+            case 'type':
+            case 'caption':
+            case 'sort':
+            case 'faces':
+            case 'latitude':
+            case 'longitude':
+            case 'location':
+                return 'image_' . $field;
+            case 'uploadedDate':
+                return 'image_uploaded_date';
+            case 'originalDate':
+                return 'image_original_date';
+            case 'geotagDate':
+                return 'image_geotag_date';
+        }
     }
 
 }
