@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-01</date>
- <time>16:30:41</time>
+ <date>2011-08-02</date>
+ <time>16:04:28</time>
  <version>
   <release>5.0.9</release>
   <api>5.0.0</api>
@@ -2353,7 +2353,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-01</date>
+   <date>2011-08-02</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [mms] Fix to allow search filters to be saved.

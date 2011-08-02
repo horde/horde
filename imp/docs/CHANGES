@@ -1,6 +1,6 @@
-----------
-v5.0.9-git
-----------
+------
+v5.0.9
+------
 
 [mms] Fix to allow search filters to be saved.
 [mjr] Fix mouse click handling on mobile view (Bug #10355).
