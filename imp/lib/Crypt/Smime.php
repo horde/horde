@@ -294,7 +294,12 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function decryptMessage($text)
     {
-        return $this->decrypt($text, array('type' => 'message', 'pubkey' => $this->getPersonalPublicKey(), 'privkey' => $this->getPersonalPrivateKey(), 'passphrase' => $this->getPassphrase()));
+        return $this->decrypt($text, array(
+            'type' => 'message',
+            'pubkey' => $this->getPersonalPublicKey(),
+            'privkey' => $this->getPersonalPrivateKey(),
+            'passphrase' => $this->getPassphrase()
+        ));
     }
 
     /**
