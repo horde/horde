@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-02</date>
- <time>10:54:57</time>
+ <time>10:55:21</time>
  <version>
-  <release>1.1.2</release>
+  <release>1.1.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* [mjr] Fix sending unnecessary FOLDERSYNC changes.
-* [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to PING and SYNC the same collection an unlimited number of times.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -351,6 +350,19 @@
    <notes>
 * [mjr] Fix sending unnecessary FOLDERSYNC changes.
 * [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to PING and SYNC the same collection an unlimited number of times.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-02</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
