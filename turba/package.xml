@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-02</date>
- <time>16:07:24</time>
+ <time>16:08:47</time>
  <version>
-  <release>3.0.5</release>
+  <release>3.0.6</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [mjr] Fix obtaining default share via Turba&apos;s API (vilius@lnk.lt, Bug #10393).
-* [mjr] Force ActiveSync device reset after sync_books pref is changed (Request #10342).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1234,6 +1233,19 @@
    <notes>
 * [mjr] Fix obtaining default share via Turba&apos;s API (vilius@lnk.lt, Bug #10393).
 * [mjr] Force ActiveSync device reset after sync_books pref is changed (Request #10342).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-02</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
