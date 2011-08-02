@@ -1,6 +1,6 @@
-----------
-v3.0.6-git
-----------
+------
+v3.0.6
+------
 
 [jan] Display event time in dynamic agenda/search view.
 [jan] Don't load all shares with requested permissions from the backend if
