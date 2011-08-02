@@ -228,6 +228,10 @@ class Horde_Api extends Horde_Registry_Api
         $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
             'user' => $user
         ));
+        foreach ($registry->listAllApps() as $val) {
+            $prefs->retrieve($val);
+        }
+
         try {
             $prefs->remove();
         } catch (Horde_Exception $e) {
