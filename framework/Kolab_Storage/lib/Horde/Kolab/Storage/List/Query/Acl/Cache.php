@@ -241,12 +241,15 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     /**
      * Synchronize the ACL information with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
         $this->_acl = array();
         $this->_my_rights = array();
+        $this->_all_rights = array();
     }
 
     /**

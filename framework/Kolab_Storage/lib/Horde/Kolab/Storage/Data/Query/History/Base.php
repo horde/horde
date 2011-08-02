@@ -64,9 +64,11 @@ implements Horde_Kolab_Storage_Data_Query_History
      * Synchronize the preferences information with the information from the
      * backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
         $stamp = $this->_data->getStamp();
         foreach ($this->_data->getObjectToBackend() as $object => $bid) {

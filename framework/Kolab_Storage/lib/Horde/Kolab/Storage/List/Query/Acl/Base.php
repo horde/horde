@@ -206,9 +206,11 @@ implements Horde_Kolab_Storage_List_Query_Acl
     /**
      * Synchronize the ACL information with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
     }
 }

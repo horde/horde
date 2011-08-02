@@ -30,8 +30,10 @@ interface Horde_Kolab_Storage_Query
     /**
      * Synchronize the query data with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize();
+    public function synchronize($params = array());
 }
 
