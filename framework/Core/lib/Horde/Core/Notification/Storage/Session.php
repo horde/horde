@@ -27,9 +27,17 @@ class Horde_Core_Notification_Storage_Session
 implements Horde_Notification_Storage_Interface
 {
     /**
+     * Cached notifications if session is not active.
+     *
+     * @var array
+     */
+    protected $_cached = array();
+
+    /**
      */
     public function get($key)
     {
+        $this->_processCached();
         return $GLOBALS['session']->get('horde', 'notify/' . $key);
     }
 
@@ -37,13 +45,19 @@ implements Horde_Notification_Storage_Interface
      */
     public function set($key, $value)
     {
-        $GLOBALS['session']->set('horde', 'notify/' . $key, $value);
+        if ($GLOBALS['session']->isActive()) {
+            $this->_processCached();
+            $GLOBALS['session']->set('horde', 'notify/' . $key, $value);
+        } else {
+            $this->_cached[] = array($key, $value);
+        }
     }
 
     /**
      */
     public function exists($key)
     {
+        $this->_processCached();
         return $GLOBALS['session']->exists('horde', 'notify/' . $key);
     }
 
@@ -51,6 +65,7 @@ implements Horde_Notification_Storage_Interface
      */
     public function clear($key)
     {
+        $this->_cached = array();
         $GLOBALS['session']->remove('horde', 'notify/' . $key);
     }
 
@@ -60,9 +75,31 @@ implements Horde_Notification_Storage_Interface
     {
         global $session;
 
-        $events = $session->get('horde', 'notify/' . $listener, Horde_Session::TYPE_ARRAY);
-        $events[] = $event;
-        $session->set('horde', 'notify/' . $listener, $events, Horde_Session::TYPE_OBJECT);
+        if ($session->isActive()) {
+            $events = $session->get('horde', 'notify/' . $listener, Horde_Session::TYPE_ARRAY);
+            $events[] = $event;
+            $session->set('horde', 'notify/' . $listener, $events, Horde_Session::TYPE_OBJECT);
+        } else {
+            $this->_cached[] = array($listener, $event);
+        }
+    }
+
+    /**
+     */
+    protected function _processCached()
+    {
+        if (!empty($this->_cached) && $GLOBALS['session']->isActive()) {
+            $cached = $this->_cached;
+            $this->_cached = array();
+
+            foreach ($cached as $val) {
+                if ($val[1] instanceof Horde_Notification_Event) {
+                    $this->push($val[0], $val[1]);
+                } else {
+                    $this->set($val[0], $val[1]);
+                }
+            }
+        }
     }
 
 }
