@@ -108,7 +108,7 @@ class Horde_Kolab_Storage_Cache
      */
     public function storeData($data_id, $data)
     {
-        $this->horde_cache->set($data_id, $data);
+        $this->horde_cache->set($data_id, $data, 0);
     }
 
     /**
@@ -142,7 +142,8 @@ class Horde_Kolab_Storage_Cache
     {
         $this->horde_cache->set(
             $this->_getAttachmentId($data_id, $obid, $attachment_id),
-            $data
+            $data,
+            0
         );
     }
 
@@ -204,7 +205,7 @@ class Horde_Kolab_Storage_Cache
      */
     public function storeList($list_id, $data)
     {
-        $this->horde_cache->set($list_id, $data);
+        $this->horde_cache->set($list_id, $data, 0);
     }
 
     /**
