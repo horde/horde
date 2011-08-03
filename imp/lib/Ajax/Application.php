@@ -1858,10 +1858,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return object  An object with the following entries:
      *   - deleted: (object) Contains the following properties:
-     *     mbox: (string) The current mailbox.
-     *     remove: (integer) True if messages should be removed from the
+     *   - mbox: (string) The current mailbox.
+     *   - remove: (integer) True if messages should be removed from the
      *             viewport.
-     *     uids: (string) The list of messages to delete.
+     *   - uids: (string) The list of messages to delete.
      *   - ViewPort: (object) See _viewPortData().
      */
     protected function _generateDeleteResult($indices, $change,
