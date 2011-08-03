@@ -272,8 +272,8 @@ var ImpSearch = {
     {
         var tmp = [
             new Element('EM').insert(this.text.flag),
-            this.getCriteriaLabel(id).slice(0, -2),
-            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+            new Element('SPAN', { className: 'searchFlag' }).insert(this.getCriteriaLabel(id).slice(0, -2)),
+            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },

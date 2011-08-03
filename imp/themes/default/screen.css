@@ -242,6 +242,10 @@ div.msgActions, #fmanager div.folderActions {
     padding-left: 3px;
     padding-right: 3px;
 }
+.searchElement span.searchFlag {
+    padding-left: 3px;
+    padding-right: 5px;
+}
 .searchElement span.subfolders {
     padding-left: 10px;
 }
