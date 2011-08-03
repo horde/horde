@@ -20,14 +20,12 @@ $source = Horde_Util::getFormData('source');
 $key = Horde_Util::getFormData('key');
 $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 
-if ($conf['documents']['type'] != 'none') {
-    try {
-        $object = $driver->getObject($key);
-        $object->deleteFiles();
-    } catch (Turba_Exception $e) {
-        $notification->push($e, 'horde.error');
-        Horde::url($prefs->getValue('initial_page'), true)->redirect();
-    }
+try {
+    $object = $driver->getObject($key);
+    $object->deleteFiles();
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
+    Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
 try {

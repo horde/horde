@@ -13,10 +13,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('turba');
 
-if ($conf['documents']['type'] == 'none') {
-    exit;
-}
-
 $source = Horde_Util::getPost('source');
 if ($source === null || !isset($cfgSources[$source])) {
     $notification->push(_("Not found"), 'horde.error');
