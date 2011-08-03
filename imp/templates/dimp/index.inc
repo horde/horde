@@ -141,10 +141,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </div>
 
      <div id="searchbar" style="display:none">
-      <span id="search_label"></span>
       <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
       <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
       <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
+      <div id="search_label"></div>
      </div>
     </div>
 
