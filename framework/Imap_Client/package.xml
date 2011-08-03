@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-03</date>
- <time>14:36:47</time>
+ <time>14:37:14</time>
  <version>
-  <release>1.0.10</release>
+  <release>1.0.11</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix OR search if first search element contains more than one search criteria (Bug #10404).
-* [mms] Fix invalid IMAP command being sent if a changedsince search was empty.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -461,6 +460,19 @@
    <notes>
 * [mms] Fix OR search if first search element contains more than one search criteria (Bug #10404).
 * [mms] Fix invalid IMAP command being sent if a changedsince search was empty.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.11</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
