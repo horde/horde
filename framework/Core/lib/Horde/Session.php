@@ -41,6 +41,13 @@ class Horde_Session
     public $sessionHandler = null;
 
     /**
+     * Indicates that the session is active (read/write).
+     *
+     * @var boolean
+     */
+    private $_active = false;
+
+    /**
      * Indicate that a new session ID has been generated for this page load.
      *
      * @var boolean
@@ -110,9 +117,18 @@ class Horde_Session
         $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_SessionHandler');
 
         if ($start) {
-            session_start();
+            $this->start();
             $this->_start();
         }
+    }
+
+    /**
+     * Starts the session.
+     */
+    public function start()
+    {
+        session_start();
+        $this->_active = true;
     }
 
     /**
@@ -173,6 +189,7 @@ class Horde_Session
      */
     public function close()
     {
+        $this->_active = false;
         session_write_close();
     }
 
@@ -183,6 +200,16 @@ class Horde_Session
     {
         session_destroy();
         $this->_cleansession = true;
+    }
+
+    /**
+     * Is the current session active (read/write)?
+     *
+     * @return boolean  True if the current session is active.
+     */
+    public function isActive()
+    {
+        return $this->_active;
     }
 
     /* Session variable access. */
