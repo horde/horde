@@ -56,7 +56,7 @@ var ImpSearch = {
                 break;
 
             case 'IMP_Search_Element_Flag':
-                this.insertFlag(crit.f, !crit.s);
+                this.insertFlag(encodeURIComponent(decodeURIComponent(crit.f)), !crit.s);
                 break;
 
             case 'IMP_Search_Element_Header':
@@ -113,7 +113,7 @@ var ImpSearch = {
 
     getCriteriaLabel: function(id)
     {
-        return $('search_criteria_add').down('[value="' + RegExp.escape(encodeURIComponent(id)) + '"]').getText() + ': ';
+        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').getText() + ': ';
     },
 
     deleteCriteria: function(div)
