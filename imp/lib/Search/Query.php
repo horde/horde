@@ -245,8 +245,11 @@ class IMP_Search_Query implements Serializable
             $text = array(_("Search"));
 
             foreach ($this->_criteria as $elt) {
-                $text[] = $elt->queryText();
-                if (!($elt instanceof IMP_Search_Element_Or)) {
+                if ($elt instanceof IMP_Search_Element_Or) {
+                    array_pop($text);
+                    $text[] = $elt->queryText();
+                } else {
+                    $text[] = $elt->queryText();
                     $text[] = _("and");
                 }
             }
