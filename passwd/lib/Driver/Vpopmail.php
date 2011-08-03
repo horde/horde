@@ -102,7 +102,6 @@ class Passwd_Driver_Vpopmail extends Passwd_Driver {
             $sql .= ' AND ' . $this->_params['domain'] . ' = ?';
             $values[] = $domain;
         }
-        Horde::logMessage('SQL Query by Passwd_Driver_Vpopmail::_lookup(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
 
@@ -158,7 +157,6 @@ class Passwd_Driver_Vpopmail extends Passwd_Driver {
             $sql .= ' AND ' . $this->_params['domain'] . ' = ?';
             $values[] = $domain;
         }
-        Horde::logMessage('SQL Query by Passwd_Driver_Vpopmail::_modify(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
         try {
