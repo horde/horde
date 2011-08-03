@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>17:30:26</time>
+ <date>2011-08-03</date>
+ <time>05:24:44</time>
  <version>
   <release>1.0.10</release>
   <api>1.0.0</api>
@@ -84,7 +84,6 @@
        <file name="Autoload.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
-       <file name="SearchTest.php" role="test" />
        <file name="SubjectParseTest.php" role="test" />
        <file name="test_client.php" role="test" />
        <file name="UrlParseTest.php" role="test" />
@@ -196,7 +195,6 @@
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
-   <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
    <install as="Horde/Imap/Client/test_client.php" name="test/Horde/Imap/Client/test_client.php" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
@@ -458,7 +456,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-08-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Fix OR search if first search element contains more than one search criteria (Bug #10404).
