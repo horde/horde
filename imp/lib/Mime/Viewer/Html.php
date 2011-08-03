@@ -164,10 +164,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             /* Search for inlined images that we can display
              * (multipart/related parts) - see RFC 2392. */
-            if ($related_part = $this->getConfigParam('imp_contents')->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) {
+            $this->_imptmp['cid'] = array();
+            if (($related_part = $this->getConfigParam('imp_contents')->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) &&
+                ($related_cids = $related_part->getMetadata('related_cids'))) {
                 $cid_replace = array();
 
-                foreach ($related_part->getMetadata('related_cids') as $mime_id => $cid) {
+                foreach ($related_cids as $mime_id => $cid) {
                     if ($cid = trim($cid, '<>')) {
                         $cid_replace['cid:' . $cid] = $mime_id;
                     }
@@ -242,7 +244,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $data = IMP::filterText($data);
 
         /* Add unused cid information. */
-        if ($related_part &&
+        if (!empty($this->_imptmp['cid']) &&
             $unused = array_diff($this->_imptmp['cid'], array($this->_mimepart->getMimeId()), $this->_imptmp['cid_used'])) {
             $related_part->setMetadata('related_cids_unused', array_values($unused));
         }
