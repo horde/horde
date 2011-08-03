@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Fix error if Nag is not installed (Bug #10406).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1836,7 +1836,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [jan] Fix error if Nag is not installed (Bug #10406).
    </notes>
   </release>
  </changelog>

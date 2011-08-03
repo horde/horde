@@ -1116,11 +1116,12 @@ class Kronolith
         }
 
         /* Make sure all the external calendars still exist. */
-        $_temp = $GLOBALS['display_external_calendars'];
-        try {
-            $_tasklists = $GLOBALS['registry']->tasks->getDisplayedTasklists();
-        } catch (Horde_Exception $e) {
-            $_tasklists = $_temp;
+        $_tasklists = $_temp = $GLOBALS['display_external_calendars'];
+        if (self::hasApiPermission('tasks')) {
+            try {
+                $_tasklists = $GLOBALS['registry']->tasks->getDisplayedTasklists();
+            } catch (Horde_Exception $e) {
+            }
         }
         $GLOBALS['display_external_calendars'] = array();
         foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {

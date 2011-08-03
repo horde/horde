@@ -2,6 +2,7 @@
 v3.0.7-git
 ----------
 
+[jan] Fix error if Nag is not installed (Bug #10406).
 
 
 ------
