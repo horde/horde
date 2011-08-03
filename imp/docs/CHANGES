@@ -2,6 +2,7 @@
 v5.0.10-git
 -----------
 
+[mms] Add personal contacts search filter.
 [mms] Add ability to search all mailboxes (Request #10204).
 
 

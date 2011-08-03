@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>11:42:09</time>
+ <date>2011-08-03</date>
+ <time>11:59:20</time>
  <version>
   <release>5.0.10</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Add personal contacts search filter.
 * [mms] Add ability to search all mailboxes (Request #10204).
  </notes>
  <contents>
@@ -240,6 +241,7 @@
      <dir name="Element">
       <file name="Attachment.php" role="horde" />
       <file name="Bulk.php" role="horde" />
+      <file name="Contacts.php" role="horde" />
       <file name="Date.php" role="horde" />
       <file name="Flag.php" role="horde" />
       <file name="Header.php" role="horde" />
@@ -255,6 +257,7 @@
       <file name="Attachment.php" role="horde" />
       <file name="Builtin.php" role="horde" />
       <file name="Bulk.php" role="horde" />
+      <file name="Contacts.php" role="horde" />
       <file name="Mailinglist.php" role="horde" />
       <file name="Personal.php" role="horde" />
      </dir> <!-- /lib/Search/Filter -->
@@ -1543,6 +1546,7 @@
    <install as="imp/lib/Search/Vfolder.php" name="lib/Search/Vfolder.php" />
    <install as="imp/lib/Search/Element/Attachment.php" name="lib/Search/Element/Attachment.php" />
    <install as="imp/lib/Search/Element/Bulk.php" name="lib/Search/Element/Bulk.php" />
+   <install as="imp/lib/Search/Element/Contacts.php" name="lib/Search/Element/Contacts.php" />
    <install as="imp/lib/Search/Element/Date.php" name="lib/Search/Element/Date.php" />
    <install as="imp/lib/Search/Element/Flag.php" name="lib/Search/Element/Flag.php" />
    <install as="imp/lib/Search/Element/Header.php" name="lib/Search/Element/Header.php" />
@@ -1556,6 +1560,7 @@
    <install as="imp/lib/Search/Filter/Attachment.php" name="lib/Search/Filter/Attachment.php" />
    <install as="imp/lib/Search/Filter/Builtin.php" name="lib/Search/Filter/Builtin.php" />
    <install as="imp/lib/Search/Filter/Bulk.php" name="lib/Search/Filter/Bulk.php" />
+   <install as="imp/lib/Search/Filter/Contacts.php" name="lib/Search/Filter/Contacts.php" />
    <install as="imp/lib/Search/Filter/Mailinglist.php" name="lib/Search/Filter/Mailinglist.php" />
    <install as="imp/lib/Search/Filter/Personal.php" name="lib/Search/Filter/Personal.php" />
    <install as="imp/lib/Search/Vfolder/Builtin.php" name="lib/Search/Vfolder/Builtin.php" />
@@ -2368,9 +2373,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-08-03</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Add personal contacts search filter.
 * [mms] Add ability to search all mailboxes (Request #10204).
    </notes>
   </release>

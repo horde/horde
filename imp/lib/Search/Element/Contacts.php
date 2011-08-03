@@ -1,0 +1,55 @@
+<?php
+/**
+ * This class handles the search query for messages sent from a contact
+ * located in a user's addressbook.
+ *
+ * Copyright 2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
+ */
+class IMP_Search_Element_Contacts extends IMP_Search_Element
+{
+    /**
+     * Constructor.
+     *
+     * @param boolean $not  If true, do a 'NOT' search.
+     */
+    public function __construct($not = false)
+    {
+        /* Data element: (integer) Do a NOT search? */
+        $this->_data = intval($not);
+    }
+
+    /**
+     */
+    public function createQuery($mbox, $queryob)
+    {
+        $addrs = array();
+
+        foreach (IMP_Compose::getAddressList('', true) as $val) {
+            $ob = new Horde_Imap_Client_Search_Query();
+            $ob->headerText('from', $val, $this->_data);
+            $addrs[] = $ob;
+        }
+
+        $queryob->orSearch($addrs);
+
+        return $queryob;
+    }
+
+    /**
+     */
+    public function queryText()
+    {
+        return $this->_data
+            ? _("messages not from a personal contact")
+            : _("messages from a personal contact");
+    }
+
+}

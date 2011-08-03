@@ -2940,14 +2940,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     }
 
     /**
-     * Uses the Registry to expand names and return error information for
-     * any address that is either not valid or fails to expand.
+     * Uses the Registry to obtain a list of e-mail addresses in the
+     * addressbook.
      *
      * @param string $search  The term to search by.
+     * @param boolean $email  Return the e-mail only? Otherwise, returns
+     *                        the full address.
      *
      * @return array  All matching addresses.
      */
-    static public function getAddressList($search = '')
+    static public function getAddressList($search = '', $email = false)
     {
         $sparams = IMP::getAddressbookSearchParams();
         try {
@@ -2966,12 +2968,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $search = array();
         foreach (reset($res) as $val) {
             if (!empty($val['email'])) {
-                if (strpos($val['email'], ',') !== false) {
+                if (!$email && (strpos($val['email'], ',') !== false)) {
                     $search[] = Horde_Mime_Address::encode($val['name'], 'personal') . ': ' . $val['email'] . ';';
                 } else {
                     $mbox_host = explode('@', $val['email']);
                     if (isset($mbox_host[1])) {
-                        $search[] = Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $val['name']);
+                        $search[] = Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $email ? '' : $val['name']);
                     }
                 }
             }
