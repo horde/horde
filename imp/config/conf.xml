@@ -155,7 +155,7 @@
    if the addressbook is below this many entries, the user's address book will
    be transmitted to the browser if it is below this many entries. This will
    result in faster lookups and less server load, but requires additional
-   processing on compose creation. Set to 0 to disable.">200</configinteger>
+   processing on compose creation. Set to 0 to disable.">50</configinteger>
    <configinteger name="ac_threshold" desc="When autocompleting addresses in
    the compose screen, this is the minimum number of characters required
    before the search is performed on the server.">3</configinteger>
