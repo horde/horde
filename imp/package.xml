@@ -2359,7 +2359,7 @@
 * [mms] Fix to allow search filters to be saved.
 * [mjr] Fix mouse click handling on mobile view (Bug #10355).
 * [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
-* [mms] Select all checkbox in dynamic view can now be toggled.
+* [mms] Select all checkbox in dynamic view can now be toggled (Request #10067).
 * [mms] Remember vertical splitbar size in dynamic view.
 * [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
 * [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
