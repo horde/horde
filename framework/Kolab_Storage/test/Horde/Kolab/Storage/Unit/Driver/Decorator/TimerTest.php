@@ -37,6 +37,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         if (!class_exists('Horde_Support_Timer')) {
             $this->markTestSkipped('The "Horde_Support" package seems to be missing!');
         }

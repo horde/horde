@@ -36,6 +36,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->_storage = $this->getMock('Horde_Kolab_Storage', array(), array(), '', false, false);
         $this->_connection = $this->getMock('Horde_Kolab_Storage_Driver');
     }
