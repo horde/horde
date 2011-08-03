@@ -25,7 +25,7 @@ class IMP_Views_ListMessages
      * Returns a list of messages for use with ViewPort.
      *
      * @var array $args  TODO
-     *   - applyfilter
+     *   - applyfilter: (boolean) If true, apply filters to mailbox.
      *   - change: (boolean)
      *   - initial: (boolean)
      *   - mbox: (string) The mailbox of the view.
@@ -109,10 +109,10 @@ class IMP_Views_ListMessages
         $GLOBALS['registry']->setTimeZone();
 
         /* Run filters now. */
-        if ($mbox->inbox) {
-            $mbox->filterOnDisplay();
-        } elseif (!empty($args['applyfilter'])) {
+        if (!empty($args['applyfilter'])) {
             $mbox->filter();
+        } elseif ($mbox->inbox) {
+            $mbox->filterOnDisplay();
         }
 
         /* Generate the sorted mailbox list now. */
