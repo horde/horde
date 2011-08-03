@@ -2,6 +2,8 @@
 v5.0.10-git
 -----------
 
+[mms] Deletion works correctly from popup message view if base window is no
+      longer available (Bug #9761).
 [mms] Fix explicitly applying filters in INBOX in dynamic view (Bug #10291).
 [mms] Add 'Edit as New' action for messages (Request #10206).
 [mms] Remove 'allow_resume_all' configuration option (Request #10206).
