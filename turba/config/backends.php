@@ -642,7 +642,8 @@ if (!empty($GLOBALS['conf']['facebook']['id'])) {
             'name' => 'name',
             'lastname' => 'last_name',
             'firstname' => 'first_name',
-            'email' => 'proxied_email',
+            'middlenames' => 'middle_name',
+            // 'email' => 'email',
             'birthday' => 'birthday_date',
             'homeCity' => 'current_location.city',
             'homeProvince' => 'current_location.state',
@@ -652,6 +653,8 @@ if (!empty($GLOBALS['conf']['facebook']['id'])) {
                                                      'homeProvince',
                                                      'homePostalCode'),
                                    'format' => "%s, %s  %s"),
+            'notes' => 'about_me',
+            // 'website' => 'website',
         ),
         'search' => array(
             'name',
