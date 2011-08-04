@@ -501,9 +501,11 @@ class IMP_Mailbox_List implements Countable, Serializable
              * information is returned via a SELECT/EXAMINE call. */
             if ($sortpref['by'] == Horde_Imap_Client::SORT_SEQUENCE) {
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN);
+                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN | Horde_Imap_Client::STATUS_MESSAGES);
                     if (!is_null($res['firstunseen'])) {
-                        return $res['firstunseen'];
+                        return $sortpref['dir']
+                            ? ($res['messages'] - $res['firstunseen'] + 1)
+                            : $res['firstunseen'];
                     }
                 } catch (IMP_Imap_Exception $e) {}
 

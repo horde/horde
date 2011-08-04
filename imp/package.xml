@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-03</date>
- <time>17:28:59</time>
+ <date>2011-08-04</date>
+ <time>12:51:54</time>
  <version>
   <release>5.0.10</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Correctly determine page with first/last unseen messages when using descending sequence sorting (Bug #9882).
 * [mms] Deletion works correctly from popup message view if base window is no longer available (Bug #9761).
 * [mms] Fix explicitly applying filters in INBOX in dynamic view (Bug #10291).
 * [mms] Add &apos;Edit as New&apos; action for messages (Request #10206).
@@ -2377,9 +2378,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-03</date>
+   <date>2011-08-04</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Correctly determine page with first/last unseen messages when using descending sequence sorting (Bug #9882).
 * [mms] Deletion works correctly from popup message view if base window is no longer available (Bug #9761).
 * [mms] Fix explicitly applying filters in INBOX in dynamic view (Bug #10291).
 * [mms] Add &apos;Edit as New&apos; action for messages (Request #10206).

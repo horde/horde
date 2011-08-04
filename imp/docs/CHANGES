@@ -2,6 +2,8 @@
 v5.0.10-git
 -----------
 
+[mms] Correctly determine page with first/last unseen messages when using
+      descending sequence sorting (Bug #9882).
 [mms] Deletion works correctly from popup message view if base window is no
       longer available (Bug #9761).
 [mms] Fix explicitly applying filters in INBOX in dynamic view (Bug #10291).
