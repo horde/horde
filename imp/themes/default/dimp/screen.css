@@ -563,6 +563,9 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding-bottom: 2px;
     padding-right: 3px;
 }
+#partlist td.partlistempty {
+    display: none;
+}
 
 #partlist_toggle span.attachmentImg {
     margin-right: 0;

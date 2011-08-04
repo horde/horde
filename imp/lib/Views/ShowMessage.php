@@ -301,7 +301,9 @@ class IMP_Views_ShowMessage
                 $summary = $imp_contents->getSummary($id, $contents_mask);
                 $tmp .= '<tr>';
                 foreach ($part_info as $val) {
-                    $tmp .= '<td>' . $summary[$val] . '</td>';
+                    $tmp .= '<td' .
+                        (strlen($summary[$val]) ? '' : ' class="partlistempty"') .
+                        '>' . $summary[$val] . '</td>';
                 }
                 $tmp .= '</tr>';
             }
