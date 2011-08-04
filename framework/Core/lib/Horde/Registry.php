@@ -1912,26 +1912,25 @@ class Horde_Registry
     }
 
     /**
-     * Return a URL to the login screen, adding the necessary logout
+     * Returns a URL to the login screen, adding the necessary logout
      * parameters.
-     * If no reason/msg is passed in, use the current global authentication
+     *
+     * If no reason/msg is passed in, uses the current global authentication
      * error message.
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'app' - (string) Authenticate to this application
-     *         DEFAULT: Horde
-     * 'msg' - (string) If reason is Horde_Auth::REASON_MESSAGE, the message
-     *         to display to the user.
-     *         DEFAULT: None
-     * 'params' - (array) Additional params to add to the URL (not allowed:
-     *            'app', 'horde_logout_token', 'msg', 'reason', 'url').
+     *     - app: (string) Authenticate to this application
+     *            DEFAULT: Horde
+     *     - msg: (string) If reason is Horde_Auth::REASON_MESSAGE, the message
+     *            to display to the user.
      *            DEFAULT: None
-     * 'reason' - (integer) The reason for logout
-     *            DEFAULT: None
-     * </pre>
+     *     - params: (array) Additional params to add to the URL (not allowed:
+     *               'app', 'horde_logout_token', 'msg', 'reason', 'url').
+     *               DEFAULT: None
+     *     - reason: (integer) The reason for logout
+     *               DEFAULT: None
      *
-     * @return string The formatted URL
+     * @return Horde_Url  The formatted URL.
      */
     public function getLogoutUrl(array $options = array())
     {
