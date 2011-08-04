@@ -22,11 +22,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-08-03</date>
- <time>16:41:21</time>
+ <date>2011-08-04</date>
+ <time>13:06:09</time>
  <version>
-  <release>1.3.3</release>
-  <api>1.3.0</api>
+  <release>1.4.0</release>
+  <api>1.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Add Horde_Session::isActive().
+* [mjr] Add remove button to image fields (Request #9870).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1514,29 +1515,16 @@
   </release>
   <release>
    <version>
-    <release>1.3.2</release>
-    <api>1.3.0</api></version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-03</date>
+   <date>2011-08-04</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Add Horde_Session::isActive().
 * [mjr] Add remove button to image fields (Request #9870).
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.3.3</release>
-    <api>1.3.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2011-08-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>
-* 
    </notes>
   </release>
  </changelog>
