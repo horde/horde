@@ -390,17 +390,15 @@ class IMP_Mailbox_List implements Countable, Serializable
      * @param integer $start  The starting message number.
      *
      * @return array  An array with the following fields:
-     * <pre>
-     * 'anymsg' - (boolean) Are there any messages at all in mailbox? E.g. If
-     *            'msgcount' is 0, there may still be hidden deleted messages.
-     * 'begin' - (integer) The beginning message sequence number of the page.
-     * 'end' - (integer) The ending message sequence number of the page.
-     * 'index' - (integer) The index of the starting message.
-     * 'msgcount' - (integer) The number of viewable messages in the current
-     *              mailbox.
-     * 'page' - (integer) The current page number.
-     * 'pagecount' - (integer) The number of pages in this mailbox.
-     * </pre>
+     *   anymsg: (boolean) Are there any messages at all in mailbox? E.g. If
+     *           'msgcount' is 0, there may still be hidden deleted messages.
+     *   begin: (integer) The beginning message sequence number of the page.
+     *   end: (integer) The ending message sequence number of the page.
+     *   index: (integer) The index of the starting message.
+     *   msgcount: (integer) The number of viewable messages in the current
+     *             mailbox.
+     *   page: (integer) The current page number.
+     *   pagecount: (integer) The number of pages in this mailbox.
      */
     public function buildMailboxPage($page = 0, $start = 0, $opts = array())
     {
