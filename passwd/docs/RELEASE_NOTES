@@ -10,19 +10,28 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Passwd Horde
-password changing application version H3 (3.1.3).
+password changing application version H4 (4.0.0).
 
-Passwd provides fairly complete support for changing passwords via Poppassd,
-LDAP, Unix expect scripts, the Unix smbpasswd command for SMB/CIFS passwords,
-Kolab, ADSI, Pine, Serv-U FTP, VMailMgr, vpopmail, and SQL passwords.
+Passwd provides support for changing passwords via the horde authentication or
+various backends.
+
+This version of passwd supports horde authentication driver (if it supports 
+changing passwords), sql and ldap backends as well as composite backends.
+
+The following additional password backends have been given little attention 
+and have not been tested at all:
+
+Unix expect scripts, the Unix smbpasswd command for SMB/CIFS passwords,
+Kolab, ADSI, Pine, Serv-U FTP, VMailMgr, vpopmail.
 
 The major changes compared to Passwd version H3 (3.1.2) are:
-    * Fixed a PHP error in the LDAP driver.
+    * Conversion to Horde 4.
+    * added Horde Authentication as backend
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
