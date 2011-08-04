@@ -20,10 +20,10 @@ password changing application version H4 (4.0.0).
 Passwd provides support for changing passwords via the horde authentication or
 various backends.
 
-This version of passwd supports horde authentication driver (if it supports 
+This version of passwd supports horde authentication driver (if it supports
 changing passwords), sql and ldap backends as well as composite backends.
 
-The following additional password backends have been given little attention 
+The following additional password backends have been given little attention
 and have not been tested at all:
 
 Unix expect scripts, the Unix smbpasswd command for SMB/CIFS passwords,
