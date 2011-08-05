@@ -1073,6 +1073,8 @@ class Ansel_Storage
             $query_where = 'WHERE gallery_id IN (' . implode(',', $params['gallery_id']) . ')';
         } elseif ($params['gallery_id']) {
             $query_where = 'WHERE gallery_id = ' . $params['gallery_id'];
+        } else {
+            $query_where = '';
         }
         if ($params['filter']) {
             foreach ($params['filter'] as $filter) {
