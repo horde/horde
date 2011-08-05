@@ -5,7 +5,7 @@ $block_name = _("Comics");
 /**
  * @package Horde_Block
  */
-class Horde_Block_Klutz_Comics extends Horde_Block
+class Horde_Block_Klutz_Comics extends Horde_Core_Block
 {
     /**
      * Whether this block has changing content.
