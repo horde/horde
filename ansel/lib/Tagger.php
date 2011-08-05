@@ -110,10 +110,20 @@ class Ansel_Tagger
     {
         try {
             if (is_array($localId)) {
+                foreach ($localId as &$lid) {
+                    $lid = (string)$slid;
+                }
                 return $this->_tagger->getTagsByObjects($localId, $type);
             }
 
-            return $this->_tagger->getTags(array('objectId' => array('object' => $localId, 'type' => $this->_type_ids[$type])));
+            return $this->_tagger->getTags(
+                array(
+                    'objectId' => array(
+                        'object' => (string)$localId,
+                        'type' => $this->_type_ids[$type]
+                    )
+                )
+            );
         } catch (Content_Exception $e) {
             throw new Ansel_Exception($e);
         }
