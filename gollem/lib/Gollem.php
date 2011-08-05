@@ -231,9 +231,13 @@ class Gollem
      */
     static protected function _getCacheID($dir)
     {
-        global $prefs, $session;
-
-        return implode('|', array($GLOBALS['registry']->getAuth(), $session->get('gollem', 'backend_key'), $prefs->getValue('show_dotfiles'), $prefs->getValue('sortdirsfirst'), $prefs->getValue('sortby'), $prefs->getValue('sortdir'), $dir));
+        return implode('|', array($GLOBALS['registry']->getAuth(),
+                                  $GLOBALS['session']->get('gollem', 'backend_key'),
+                                  $GLOBALS['prefs']->getValue('show_dotfiles'),
+                                  $GLOBALS['prefs']->getValue('sortdirsfirst'),
+                                  $GLOBALS['prefs']->getValue('sortby'),
+                                  $GLOBALS['prefs']->getValue('sortdir'),
+                                  $dir));
     }
 
     /**
@@ -689,19 +693,19 @@ class Gollem
      */
     static public function pathEncode($path)
     {
-         return str_ireplace(array('%2F', '%2f'), '/', rawurlencode($path));
-     }
+        return str_ireplace(array('%2F', '%2f'), '/', rawurlencode($path));
+    }
 
-     /**
-      * Take a fully qualified and break off the file or directory name.
-      * This pair is used for the input to many VFS library functions.
-      *
-      * @param string $fullpath   Path to be split.
-      *
-      * @return array  Array of ($path, $name)
-      */
-     static public function getVFSPath($fullpath)
-     {
+    /**
+     * Take a fully qualified and break off the file or directory name.
+     * This pair is used for the input to many VFS library functions.
+     *
+     * @param string $fullpath   Path to be split.
+     *
+     * @return array  Array of ($path, $name)
+     */
+    static public function getVFSPath($fullpath)
+    {
         // Convert the path into VFS's ($path, $name) convention
         $i = strrpos($fullpath, '/');
         if ($i !== false) {
@@ -712,6 +716,5 @@ class Gollem
             $path = '';
         }
         return array($name, $path);
-     }
-
+    }
 }

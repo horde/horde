@@ -22,7 +22,7 @@ if (!Gollem_Auth::getBackend()) {
     $title = _("Gollem Backend Permissions Administration");
     $menu = Gollem::menu();
     require $registry->get('templates', 'horde') . '/common-header.inc';
-require GOLLEM_TEMPLATES . '/javascript_defs.php';
+    require GOLLEM_TEMPLATES . '/javascript_defs.php';
     echo $menu;
     Gollem::status();
     require $registry->get('templates', 'horde') . '/common-footer.inc';
