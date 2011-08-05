@@ -562,12 +562,14 @@ class Whups_Driver_Sql extends Whups_Driver
             }
         }
 
-        try {
-            $sql = 'DELETE FROM whups_transactions WHERE transaction_id IN '
-                . '(' . str_repeat('?,', count($txs) - 1) . '?)';
-            $this->_db->delete($sql, $txs);
-        } catch (Horde_Db_Exception $e) {
-            throw new Whups_Exception($e);
+        if (!empty($txs)) {
+            try {
+                $sql = 'DELETE FROM whups_transactions WHERE transaction_id IN '
+                    . '(' . str_repeat('?,', count($txs) - 1) . '?)';
+                $this->_db->delete($sql, $txs);
+            } catch (Horde_Db_Exception $e) {
+                throw new Whups_Exception($e);
+            }
         }
     }
 
