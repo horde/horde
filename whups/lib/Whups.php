@@ -948,10 +948,11 @@ class Whups
 
         $results = array();
         $owners = current($owners);
-        foreach ($owners as $owner) {
-            $results[] = self::formatUser($owner, $showemail, $showname);
+        if (!$owners === false) {
+            foreach ($owners as $owner) {
+                $results[] = self::formatUser($owner, $showemail, $showname);
+            }
         }
-
         return implode(', ', $results);
     }
 
