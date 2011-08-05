@@ -26,6 +26,13 @@ class Gollem
     const SORT_DESCEND = 1;
 
     /**
+     * Configuration hash for the current backend.
+     *
+     * @var array
+     */
+    static public $backend;
+
+    /**
      * Changes the current directory of the Gollem session to the supplied
      * value.
      *
@@ -40,7 +47,7 @@ class Gollem
         if (!self::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
-        $GLOBALS['gollem_be']['dir'] = $dir;
+        self::$backend['dir'] = $dir;
 
         self::_setLabel();
     }
@@ -58,40 +65,10 @@ class Gollem
             self::_setLabel();
         } else {
             if (strpos($dir, '/') !== 0) {
-                $dir = $GLOBALS['gollem_be']['dir'] . '/' . $dir;
+                $dir = self::$backend['dir'] . '/' . $dir;
             }
             self::setDir($dir);
         }
-    }
-
-    /**
-     * Get the root directory of the Gollem session.
-     *
-     * @return string  The root directory.
-     */
-    static public function getRoot()
-    {
-        return $GLOBALS['gollem_be']['root'];
-    }
-
-    /**
-     * Get the home directory of the Gollem session.
-     *
-     * @return string  The home directory.
-     */
-    static public function getHome()
-    {
-        return $GLOBALS['gollem_be']['home'];
-    }
-
-    /**
-     * Get the current directory of the Gollem session.
-     *
-     * @return mixed  Current dir on success or null on failure.
-     */
-    static public function getDir()
-    {
-        return $GLOBALS['gollem_be']['dir'];
     }
 
     /**
@@ -99,9 +76,9 @@ class Gollem
      */
     static protected function _setLabel()
     {
-        $GLOBALS['gollem_be']['label'] = self::getDisplayPath($GLOBALS['gollem_be']['dir']);
-        if (empty($GLOBALS['gollem_be']['label'])) {
-            $GLOBALS['gollem_be']['label'] = '/';
+        self::$backend['label'] = self::getDisplayPath(self::$backend['dir']);
+        if (empty(self::$backend['label'])) {
+            self::$backend['label'] = '/';
         }
     }
 
@@ -333,7 +310,7 @@ class Gollem
     static public function createFolder($dir, $name)
     {
         $totalpath = Horde_Util::realPath($dir . '/' . $name);
-        if (!Gollem::verifyDir($totalpath)) {
+        if (!self::verifyDir($totalpath)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $totalpath));
         }
 
@@ -380,7 +357,7 @@ class Gollem
      */
     static public function deleteFolder($dir, $name)
     {
-        if (!Gollem::verifyDir($dir)) {
+        if (!self::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
 
@@ -402,7 +379,7 @@ class Gollem
      */
     static public function deleteFile($dir, $name)
     {
-        if (!Gollem::verifyDir($dir)) {
+        if (!self::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
         $GLOBALS['injector']
@@ -422,7 +399,7 @@ class Gollem
      */
     static public function changePermissions($dir, $name, $permission)
     {
-        if (!Gollem::verifyDir($dir)) {
+        if (!self::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
         $GLOBALS['injector']
@@ -462,7 +439,7 @@ class Gollem
     static public function moveFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
     {
-        Gollem::_copyFile('move', $backend_f, $dir, $name, $backend_t, $newdir);
+        self::_copyFile('move', $backend_f, $dir, $name, $backend_t, $newdir);
     }
 
     /**
@@ -479,7 +456,7 @@ class Gollem
     static public function copyFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
     {
-        Gollem::_copyFile('copy', $backend_f, $dir, $name, $backend_t, $newdir);
+        self::_copyFile('copy', $backend_f, $dir, $name, $backend_t, $newdir);
     }
 
     /**
@@ -573,8 +550,7 @@ class Gollem
      */
     static public function verifyDir($dir)
     {
-        $rootdir = Gollem::getRoot();
-        return (Horde_String::substr(Horde_Util::realPath($dir), 0, Horde_String::length($rootdir)) == $rootdir);
+        return Horde_String::substr(Horde_Util::realPath($dir), 0, Horde_String::length(self::$backend['root'])) == self::$backend['root'];
     }
 
     /**
@@ -618,9 +594,7 @@ class Gollem
     static public function directoryNavLink($currdir, $url)
     {
         $label = array();
-        $root_dir = Gollem::getRoot();
-        $backend_config = $GLOBALS['session']->get('gollem', 'backends/' . $GLOBALS['session']->get('gollem', 'backend_key'));
-        $root_dir_name = $backend_config['name'];
+        $root_dir_name = self::$backend['name'];
 
         if ($currdir == $root_dir) {
             $label[] = '[' . $root_dir_name . ']';
@@ -629,13 +603,13 @@ class Gollem
             $parts_count = count($parts);
 
             $url = new Horde_Url($url);
-            $label[] = Horde::link($url->add('dir', $root_dir), sprintf(_("Up to %s"), $root_dir_name)) . '[' . $root_dir_name . ']</a>';
+            $label[] = Horde::link($url->add('dir', self::$backend['root']), sprintf(_("Up to %s"), $root_dir_name)) . '[' . $root_dir_name . ']</a>';
 
             for ($i = 1; $i <= $parts_count; ++$i) {
                 $part = array_slice($parts, 0, $i);
                 $dir = implode('/', $part);
-                if ((strstr($dir, $root_dir) !== false) &&
-                    ($root_dir != $dir)) {
+                if ((strstr($dir, self::$backend['root']) !== false) &&
+                    (self::$backend['root'] != $dir)) {
                     if ($i == $parts_count) {
                         $label[] = $parts[($i - 1)];
                     } else {
@@ -806,9 +780,9 @@ class Gollem
     static public function getDisplayPath($path)
     {
         $path = Horde_Util::realPath($path);
-        $rootdir = Gollem::getRoot();
-        if (($rootdir != '/') && (strpos($path, $rootdir) === 0)) {
-            $path = substr($path, Horde_String::length($rootdir));
+        if (self::$backend['root'] != '/' &&
+            strpos($path, self::$backend['root']) === 0) {
+            $path = substr($path, Horde_String::length(self::$backend['root']));
         }
         return $path;
     }

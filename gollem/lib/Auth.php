@@ -314,10 +314,10 @@ class Gollem_Auth
      *
      * @param string $key  The ID of the backend to set as active.
      */
-    function changeBackend($key)
+    static public function changeBackend($key)
     {
         $GLOBALS['session']->set('gollem', 'backend_key', $key);
-        $GLOBALS['gollem_be'] = $GLOBALS['session']->get('gollem', 'backends/' . $key);
+        Gollem::$backend = self::getBackend($key);
     }
 
 }

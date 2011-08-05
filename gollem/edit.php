@@ -18,7 +18,7 @@ Horde_Registry::appInit('gollem');
 
 $vars = Horde_Variables::getDefaultVariables();
 
-if ($vars->driver != $GLOBALS['gollem_be']['driver']) {
+if ($vars->driver != Gollem::$backend['driver']) {
     echo Horde::wrapInlineScript(array('window.close();'));
     exit;
 }

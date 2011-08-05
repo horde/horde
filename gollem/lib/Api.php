@@ -264,12 +264,10 @@ class Gollem_Api extends Horde_Registry_Api
             $backend = Gollem::getPreferredBackend();
         }
 
-        $backend_config = $GLOBALS['session']->get('gollem', 'backends/' . $backend);
-
         return Horde::url('view.php')->add(array(
             'actionID' => 'view_file',
             'dir' => $dir,
-            'driver' => $backend_config['driver'],
+            'driver' => Gollem::$backend['driver'],
             'file' => $file,
             'type' => substr($file, strrpos($file, '.') + 1)
         ));

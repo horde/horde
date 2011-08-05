@@ -19,10 +19,10 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
 $backkey = $session->get('gollem', 'backend_key');
-if (!empty($gollem_be['clipboard'])) {
+if (!empty(Gollem::$backend['clipboard'])) {
     $clipboard = $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY);
 }
-$old_dir = Gollem::getDir();
+$old_dir = Gollem::$backend['dir'];
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Get permissions. */
@@ -83,7 +83,7 @@ case 'delete_items':
             foreach ($items as $item) {
                 if (($vars->actionID == 'chmod_modify') && $chmod) {
                     try {
-                        Gollem::changePermissions(Gollem::getDir(), $item, $chmod);
+                        Gollem::changePermissions(Gollem::$backend['dir'], $item, $chmod);
                         Gollem::expireCache($old_dir);
                         $notification->push(_("Chmod done: ") . $item, 'horde.success');
                     } catch (Gollem_Exception $e) {
@@ -137,7 +137,7 @@ case 'upload_file':
 
 case 'copy_items':
 case 'cut_items':
-    if ($edit_perms && !empty($gollem_be['clipboard'])) {
+    if ($edit_perms && !empty(Gollem::$backend['clipboard'])) {
         $action = ($vars->actionID == 'copy_items') ? 'copy' : 'cut';
         $items = Horde_Util::getPost('items');
 
@@ -170,7 +170,7 @@ case 'cut_items':
 
 case 'clear_items':
 case 'paste_items':
-    if ($edit_perms && !empty($gollem_be['clipboard'])) {
+    if ($edit_perms && !empty(Gollem::$backend['clipboard'])) {
         $items = Horde_Util::getPost('items');
         if (is_array($items) && count($items)) {
             foreach ($items as $val) {
@@ -216,26 +216,23 @@ case 'change_sortdir':
 
 /* First loop through getting folder lists, setting the directory,
  * etc., to make sure we can catch any errors. */
-$currdir = Gollem::getDir();
-
 try {
-    Gollem::listFolder($currdir);
+    $list = Gollem::listFolder(Gollem::$backend['dir']);
 } catch (Gollem_Exception $e) {
     /* If this is a user's home directory, try autocreating it. */
-    if ($currdir == Gollem::getHome()) {
+    if (Gollem::$backend['dir'] == Gollem::$backend['home']) {
         try {
-            Gollem::createFolder('', $currdir);
+            Gollem::createFolder('', Gollem::$backend['dir']);
             try {
-                $list = Gollem::listFolder($currdir);
+                $list = Gollem::listFolder(Gollem::$backend['dir']);
             } catch (Gollem_Exception $e) {
                 /* If that didn't work, fall back to the parent or the home
                  * directory. */
-                $notification->push(sprintf(_("Permission denied to folder \"%s\": %s"), $currdir, $e->getMessage()), 'horde.error');
+                $notification->push(sprintf(_("Permission denied to folder \"%s\": %s"), Gollem::$backend['dir'], $e->getMessage()), 'horde.error');
 
-                $loc = strrpos($currdir, '/');
-                Gollem::setDir(($loc !== false) ? substr($currdir, 0, $loc) : Gollem::getHome());
-                $currdir = Gollem::getDir();
-                $list = Gollem::listFolder($currdir);
+                $loc = strrpos(Gollem::$backend['dir'], '/');
+                Gollem::setDir(($loc !== false) ? substr(Gollem::$backend['dir'], 0, $loc) : Gollem::$backend['home']);
+                $list = Gollem::listFolder(Gollem::$backend['dir']);
             }
         } catch (Gollem_Exception $e) {
             $notification->push(sprintf(_("Cannot create home directory: %s"), $created->getMessage()), 'horde.error');
@@ -244,7 +241,7 @@ try {
 }
 
 $numitem = count($list);
-$title = $gollem_be['label'];
+$title = Gollem::$backend['label'];
 
 /* Image links. */
 $edit_img = Horde::img('edit.png', _("Edit"));
@@ -273,9 +270,9 @@ if ($vars->filter) {
 
 /* Get the list of copy/cut files in this directory. */
 $clipboard_files = array();
-if (!empty($gollem_be['clipboard'])) {
+if (!empty(Gollem::$backend['clipboard'])) {
     foreach ($clipboard as $val) {
-        if (($backkey == $val['backend']) && ($val['path'] == $currdir)) {
+        if (($backkey == $val['backend']) && ($val['path'] == Gollem::$backend['dir'])) {
             $clipboard_files[$val['name']] = 1;
         }
     }
@@ -285,7 +282,7 @@ if (!empty($gollem_be['clipboard'])) {
 $sources = json_decode($prefs->getValue('columns'));
 $columns = isset($sources[$backkey])
     ? $sources[$backkey]
-    : $gollem_be['attributes'];
+    : Gollem::$backend['attributes'];
 
 /* Prepare the template. */
 $template = $injector->createInstance('Horde_Template');
@@ -308,15 +305,15 @@ $template->set('cancel', _("Cancel"));
 $template->set('ok', _("OK"));
 $template->set('action', $refresh_url);
 $template->set('forminput', Horde_Util::formInput());
-$template->set('dir', $currdir);
-$template->set('navlink', Gollem::directoryNavLink($currdir, $manager_url));
-$template->set('refresh', Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), $gollem_be['label']), '', '', '', '', '', array('id' => 'refreshimg')) . Horde::img('reload.png', sprintf("%s %s", _("Refresh"), htmlspecialchars($gollem_be['label']))) . '</a>');
+$template->set('dir', Gollem::$backend['dir']);
+$template->set('navlink', Gollem::directoryNavLink(Gollem::$backend['dir'], $manager_url));
+$template->set('refresh', Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), Gollem::$backend['label']), '', '', '', '', '', array('id' => 'refreshimg')) . Horde::img('reload.png', sprintf("%s %s", _("Refresh"), htmlspecialchars(Gollem::$backend['label']))) . '</a>');
 
-$template->set('hasclipboard', !$edit_perms || !empty($gollem_be['clipboard']), true);
+$template->set('hasclipboard', !$edit_perms || !empty(Gollem::$backend['clipboard']), true);
 if (!$template->get('hasclipboard') || empty($clipboard)) {
     $template->set('clipboard', null);
 } else {
-    $template->set('clipboard', Horde::link(Horde::url('clipboard.php')->add('dir', $currdir), _("View Clipboard")) . Horde::img('clipboard.png', _("View Clipboard")) . '</a>');
+    $template->set('clipboard', Horde::link(Horde::url('clipboard.php')->add('dir', Gollem::$backend['dir']), _("View Clipboard")) . Horde::img('clipboard.png', _("View Clipboard")) . '</a>');
 }
 
 if ($edit_perms) {
@@ -410,7 +407,7 @@ if (is_array($list) && $numitem && $read_perms) {
         /* Create proper link. */
         switch ($val['type']) {
         case '**dir':
-            $url = $manager_url->copy()->add('dir', Gollem::subdirectory($currdir, $val['name']));
+            $url = $manager_url->copy()->add('dir', Gollem::subdirectory(Gollem::$backend['dir'], $val['name']));
             $item['link'] = $url->link() . '<strong>' . $name . '</strong></a>';
             break;
 
@@ -426,7 +423,7 @@ if (is_array($list) && $numitem && $read_perms) {
                     $dir = implode('/', $parts);
                 } else {
                     $name = $val['link'];
-                    $dir = $currdir;
+                    $dir = Gollem::$backend['dir'];
                 }
 
                 $url = $manager_url->copy()->add('dir', Gollem::subdirectory($dir, $name));
@@ -445,22 +442,22 @@ if (is_array($list) && $numitem && $read_perms) {
                     'actionID' => 'edit_file',
                     'type' => $val['type'],
                     'file' => $val['name'],
-                    'dir' => $currdir,
-                    'driver' => $gollem_be['driver']
+                    'dir' => Gollem::$backend['dir'],
+                    'driver' => Gollem::$backend['driver']
                 ));
                 $item['edit'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url) . 'return false;') . $edit_img . '</a>';
             }
 
             // We can always download files.
-            $item['dl'] = Horde::link(Horde::downloadUrl($val['name'], array('actionID' => 'download_file', 'dir' => $currdir, 'driver' => $gollem_be['driver'], 'file' => $val['name'])), sprintf(_("Download %s"), $val['name'])) . $download_img . '</a>';
+            $item['dl'] = Horde::link(Horde::downloadUrl($val['name'], array('actionID' => 'download_file', 'dir' => Gollem::$backend['dir'], 'driver' => Gollem::$backend['driver'], 'file' => $val['name'])), sprintf(_("Download %s"), $val['name'])) . $download_img . '</a>';
 
             // Try a view link.
             $url = $view_url->copy()->add(array(
                 'actionID' => 'view_file',
                 'type' => $val['type'],
                 'file' => $val['name'],
-                'dir' => $currdir,
-                'driver' => $gollem_be['driver']
+                'dir' => Gollem::$backend['dir'],
+                'driver' => Gollem::$backend['driver']
             ));
             $item['link'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url) . 'return false;') . $name . '</a>';
             break;

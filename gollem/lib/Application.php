@@ -294,13 +294,16 @@ echo "Backend: $backend_key";
      */
     public function menu($menu)
     {
-        $menu->add(Horde::url('manager.php')->add('dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
+        $backend_key = Gollem_Auth::getPreferredBackend();
+
+        $menu->add(Horde::url('manager.php')->add('dir', Gollem::$backend['home']), _("_My Home"), 'folder_home.png');
 
         if ($GLOBALS['registry']->isAdmin()) {
             $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
         }
 
-        if ($GLOBALS['gollem_be']['quota_val'] != -1) {
+        if (isset(Gollem::$backend['quota_val']) &&
+            Gollem::$backend['quota_val'] != -1) {
             if ($GLOBALS['browser']->hasFeature('javascript')) {
                 $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
             } else {
