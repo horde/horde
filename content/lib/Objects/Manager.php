@@ -61,9 +61,10 @@ class Content_Objects_Manager
      * Helps save queries for things like tags when we already know the object
      * doesn't yet exist in rampage tables.
      *
-     * @param mixed $objects  Either an object identifier or an array of them.
-     * @param mixed $type     A type identifier. Either a string type name or
-     *                        the integer type_id.
+     * @param mixed string|array $objects  Either an object identifier or an
+     *                                     array of them.
+     * @param mixed $type                  A type identifier. Either a string
+     *                                     type name or the integer type_id.
      *
      * @return mixed  Either a hash of object_id => object_names or false if
      *                the object(s) do not exist.

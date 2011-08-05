@@ -200,9 +200,11 @@ class Content_Tagger
     /**
      * Obtain all the tags for a given set of objects.
      *
-     * @param array $objects  An array of local object ids
-     * @param mixed $type     Either a string type description, or an integer
-     *                        content type_id
+     * @param mixed string|array $objects  A local object id or an array of
+     *                                     local object id strings.
+     * @param mixed $type                  Either a string type description, or
+     *                                     an integer content type_id
+     *
      * @return array  An array in the form of:
      * <pre>
      *      array('localobjectId' => array('tagone', 'tagtwo'),
@@ -218,7 +220,10 @@ class Content_Tagger
                 $results[$id] = array();
             }
         } else {
-            $sql = 'SELECT DISTINCT tag_name, tagged.object_id FROM ' . $this->_t('tags') . ' t INNER JOIN ' . $this->_t('tagged') . ' tagged ON t.tag_id = tagged.tag_id AND tagged.object_id IN (' . str_repeat('?,', count($object_ids) - 1) . '?)';
+            $sql = 'SELECT DISTINCT tag_name, tagged.object_id FROM '
+                . $this->_t('tags') . ' t INNER JOIN ' . $this->_t('tagged')
+                . ' tagged ON t.tag_id = tagged.tag_id AND tagged.object_id IN ('
+                . str_repeat('?,', count($object_ids) - 1) . '?)';
             $tags = $this->_db->selectAll($sql, array_keys($object_ids));
             foreach ($tags as $tag) {
                 if (empty($results[$object_ids[$tag['object_id']]])) {
