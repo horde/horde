@@ -40,8 +40,8 @@ class Horde_Icalendar_Vnote extends Horde_Icalendar
      */
     public function setVersion($version)
     {
-        $this->oldFormat = $version < 1;
-        $this->version = $version;
+        $this->_oldFormat = $version < 1;
+        $this->_version = $version;
     }
 
     /**
