@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Check applications' authValidate() method if present.
 * [mms] Add Horde_Session::isActive().
 * [mjr] Add remove button to image fields (Request #9870).
  </notes>

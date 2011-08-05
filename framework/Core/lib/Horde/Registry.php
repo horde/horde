@@ -1860,14 +1860,20 @@ class Horde_Registry
         if ($this->getAuth() &&
             (($app == 'horde') ||
              $GLOBALS['session']->exists('horde', 'auth_app/' . $app))) {
-            return $this->checkExistingAuth();
+            if ($this->checkExistingAuth($app)) {
+                return true;
+            }
         }
 
         /* Try transparent authentication. */
+        if (!empty($options['notransparent'])) {
+            return false;
+        }
         try {
-            return empty($options['notransparent'])
-                ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create($app)->transparent()
-                : false;
+            return $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Auth')
+                ->create($app)
+                ->transparent();
         } catch (Horde_Exception $e) {
             Horde::logMessage($e);
             return false;
@@ -2229,13 +2235,18 @@ class Horde_Registry
     /**
      * Check existing auth for triggers that might invalidate it.
      *
+     * @param string $app  Check authentication for this app too.
+     *                     @since Horde_Core 1.4.0.
+     *
      * @return boolean  Is existing auth valid?
      */
-    public function checkExistingAuth()
+    public function checkExistingAuth($app = 'horde')
     {
         global $session;
 
-        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
+        $auth = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Auth')
+            ->create();
 
         if (!empty($GLOBALS['conf']['auth']['checkip']) &&
             ($remoteaddr = $session->get('horde', 'auth/remoteAddr')) &&
@@ -2251,6 +2262,14 @@ class Horde_Registry
         }
 
         if ($auth->validateAuth()) {
+            if ($app != 'horde') {
+                $auth = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Auth')
+                    ->create($app);
+                if (!$auth->validateAuth()) {
+                    return false;
+                }
+            }
             return true;
         }
 

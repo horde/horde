@@ -69,7 +69,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         'remove',
         'resetpassword',
         'transparent',
-        'update'
+        'update',
+        'validate'
     );
 
     /**
@@ -168,8 +169,12 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     public function validateAuth()
     {
-        return $this->_base
-            ? $this->_base->validateAuth()
+        if ($this->_base) {
+            return $this->_base->validateAuth();
+        }
+
+        return $this->hasCapability('validate')
+            ? $GLOBALS['registry']->callAppMethod($this->_app, 'authValidate', array('noperms' => true))
             : parent::validateAuth();
     }
 
