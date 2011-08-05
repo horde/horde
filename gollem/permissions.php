@@ -16,7 +16,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('gollem', array('admin' => true));
 
-if (!Gollem::getBackends('all')) {
+if (!Gollem_Auth::getBackend()) {
     $notification->push(_("You need at least one backend defined to set permissions."), 'horde.error');
 
     $title = _("Gollem Backend Permissions Administration");
@@ -30,7 +30,7 @@ require GOLLEM_TEMPLATES . '/javascript_defs.php';
 }
 
 /* Edit permissions for the preferred backend if none is selected. */
-$key = Horde_Util::getFormData('backend', Gollem::getPreferredBackend());
+$key = Horde_Util::getFormData('backend', Gollem_Auth::getPreferredBackend());
 $app = $registry->getApp();
 $backendTag = $app . ':backends:' . $key;
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');

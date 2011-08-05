@@ -5,14 +5,15 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author   Amith Varghese <amith@xalan.com>
+ * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Ben Klang <bklang@horde.org>
+ * @author   Amith Varghese <amith@xalan.com>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  Gollem
@@ -34,186 +35,46 @@ if (!defined('HORDE_BASE')) {
 }
 
 /* Load the Horde Framework core (needed to autoload
- *  Horde_Registry_Application::). */
+ * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
 class Gollem_Application extends Horde_Registry_Application
 {
     /**
      */
+    public $auth = array(
+        'authenticate',
+        'transparent',
+        'validate'
+    );
+
+    /**
+     */
     public $version = 'H4 (2.0-git)';
 
     /**
-     * Global variables defined:
-     *   $gollem_backends - A link to the current list of available backends
-     *   $gollem_be - A link to the current backend parameters in the session
-     *   $gollem_vfs - A link to the current VFS object for the active backend
+     * Cached values to add to the session after authentication.
+     *
+     * @var array
+     */
+    protected $_cacheSess = array();
+
+    /**
+     * Server key used in logged out session.
+     *
+     * @var string
+     */
+    protected $_oldbackend = null;
+
+    /**
      */
     protected function _init()
     {
-        return;
-        // Load the backend list.
-        Gollem::loadBackendList();
+        $GLOBALS['injector']->bindFactory('Gollem_Vfs', 'Gollem_Factory_VfsDefault', 'create');
 
-        // Set the global $gollem_be variable to the current backend's
-        // parameters.
-        $backend_key = $GLOBALS['session']->get('gollem', 'backend_key');
-
-        if (empty($backend_key)) {
-            // Get the preferred backend
-            $backend_key = Gollem::getPreferredBackend();
-            if (empty($backend_key)) {
-                // Auto-select the first backend
-                $backend_key = reset(array_keys($GLOBALS['gollem_backends']));
-            }
+        if ($backend_key = $GLOBALS['session']->get('gollem', 'backend_key')) {
+            Gollem_Auth::changeBackend($backend_key);
         }
-echo "Backend: $backend_key";
-        if ($backend_key === null) {
-            $autologin = Horde_Util::getFormData('autologin', false);
-        } else {
-            $autologin = Horde_Util::getFormData('autologin', $this->_canAutoLogin($backend_key, true));
-        }
-
-        if (isset($_SESSION['gollem']) &&
-            is_array($_SESSION['gollem']) &&
-            ($_SESSION['gollem']['backend_key'] == $backend_key)) {
-            
-            // Restore an existing session
-            $this->_restoreSession();
-        } else if (Horde_Util::getFormData('gollem_loginform') ||
-            Horde_Util::getFormData('nocredentials') ||
-            $autologin) {
-
-            // Set up a new session
-            $this->_setupSession($backend_key, $autologin);
-        } else {
-            // FIXME: Redirect to login page
-            die('FIXME: Auth required but not implemented!');
-        }
-
-        $GLOBALS['gollem_be'] =
-            $GLOBALS['session']->get('gollem', 'backends/' . $backend_key);
-
-    }
-
-    private function _setupSession($backend_key, $autologin)
-    {
-          // FIXME: How is per-app auth handled now?
-//        if (Horde_Auth::getProvider() == 'gollem') {
-//            /* Destroy any existing session on login and make sure to use
-//             * a new session ID, to avoid session fixation issues. */
-//            Horde::getCleanSession();
-//        }
-
-        /* Get the required parameters from the form data. */
-        $args = array();
-        if (isset($GLOBALS['gollem_backends'][$backend_key]['loginparams'])) {
-            $postdata = array_keys($GLOBALS['gollem_backends'][$backend_key]['loginparams']);
-        } else {
-            $postdata = array();
-        }
-        if (empty($autologin)) {
-            // Allocate a global VFS object
-            $GLOBALS['gollem_vfs'] = &Gollem::getVFSOb($backend_key, array());
-            if (is_a($GLOBALS['gollem_vfs'], 'PEAR_Error')) {
-                Horde::fatal($GLOBALS['gollem_vfs']);
-            }
-
-            $postdata = array_merge($postdata, $GLOBALS['gollem_vfs']->getRequiredCredentials());
-        } else {
-            /* We are attempting autologin.  If hordeauth is off, we need to make
-             * sure we are not trying to use horde auth info to login. */
-            if (empty($GLOBALS['gollem_backends'][$backend_key]['hordeauth'])) {
-                $pass = Horde_Util::getPost('password');
-            }
-        }
-
-        foreach ($postdata as $val) {
-            $args[$val] = Horde_Util::getPost($val);
-        }
-
-        require_once GOLLEM_BASE . '/lib/Session.php';
-        if (Gollem_Session::createSession($backend_key, $user, $pass, $args)) {
-            $entry = sprintf('Login success for User %s [%s] using backend %s.', $GLOBALS['registry']->getAuth(), $_SERVER['REMOTE_ADDR'], $backend_key);
-            Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_NOTICE);
-
-            $ie_version = Horde_Util::getFormData('ie_version');
-            if ($ie_version) {
-                $browser->setIEVersion($ie_version);
-            }
-
-            if (($horde_language = Horde_Util::getFormData('new_lang'))) {
-                $_SESSION['horde_language'] = $horde_language;
-            }
-
-            if (!empty($url_in)) {
-                $url = Horde::url(Horde_Util::removeParameter($url_in, session_name()), true);
-                if ($actionID) {
-                    $url = Horde_Util::addParameter($url, 'actionID', $actionID, false);
-                }
-            // FIXME: How is per-app auth handled now?
-            //} elseif (Horde_Auth::getProvider() == 'gollem') {
-            //    $url = Horde::applicationUrl($registry->get('webroot', 'horde') . '/index.php', true);
-            //} else {
-                $url = Horde::applicationUrl('manager.php', true);
-            }
-        } else {
-            $url = Horde_Util::addParameter(Horde_Auth::addLogoutParameters(Gollem::logoutUrl()), 'backend_key', $backend_key, false);
-            if (!empty($autologin)) {
-                $url = Horde_Util::addParameter($url, 'autologin_fail', '1', false);
-            }
-        }
-
-        if (Horde_Util::getFormData('load_frameset')) {
-            $full_url = Horde::applicationUrl($registry->get('webroot', 'horde') . '/index.php', true);
-            $url = Horde_Util::addParameter($full_url, 'url', _addAnchor($url, 'param'), false);
-        }
-
-        //header('Refresh: 0; URL=' . _addAnchor($url, 'url'));
-        //exit;
-
-    }
-
-    private function _restoreSession()
-    {
-        $backend_key = $GLOBALS['session']->get('gollem', 'backend_key');
-        
-        $user = (empty($autologin)) ? Horde_Util::getPost('username') : Gollem::getAutologinID($backend_key);
-        $pass = (empty($autologin)) ? Horde_Util::getPost('password') : Horde_Auth::getCredential('password');
-
-        /* Make sure that if a username was specified, it is the current
-         * username. */
-        if ((($user === null) ||
-             ($user == $GLOBALS['gollem_be']['params']['username'])) &&
-            (($pass === null) ||
-             ($pass == Secret::read(Secret::getKey('gollem'), $GLOBALS['gollem_be']['params']['password'])))) {
-            $url = $url_in;
-            if (empty($url)) {
-                $url = Horde::applicationUrl('manager.php', true);
-            } elseif (!empty($actionID)) {
-                $url = Horde_Util::addParameter($url, 'actionID', $actionID);
-            }
-
-            if (Horde_Util::getFormData('load_frameset')) {
-                $full_url = Horde::applicationUrl($registry->get('webroot', 'horde') . '/index.php', true);
-                $url = Horde_Util::addParameter($full_url, 'url', _addAnchor($url, 'param'), false);
-            }
-
-            header('Refresh: 0; URL=' . _addAnchor($url, 'url'));
-            exit;
-        } else {
-            /* Disable the old session. */
-            unset($_SESSION['gollem']);
-            header('Location: ' . Horde_Auth::addLogoutParameters(Gollem::logoutUrl(), AUTH_REASON_FAILED));
-            exit;
-        }
-    }
-
-    private function _canAutoLogin($key)
-    {
-        return ($GLOBALS['registry']->getAuth() &&
-                empty($GLOBALS['gollem_backends'][$key]['loginparams']) &&
-                !empty($GLOBALS['gollem_backends'][$key]['hordeauth']));
     }
 
     /**
@@ -235,6 +96,122 @@ echo "Backend: $backend_key";
         }
 
         return $perms;
+    }
+
+    /* Horde_Core_Auth_Application methods. */
+
+    /**
+     * Return login parameters used on the login page.
+     *
+     * @return array  See Horde_Core_Auth_Application#authLoginParams().
+     */
+    public function authLoginParams()
+    {
+        $params = array();
+
+        if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
+            $backend_list = array();
+            $selected = is_null($this->_oldbackend)
+                ? Horde_Util::getFormData('backend_key', Gollem_Auth::getPreferredBackend())
+                : $this->_oldbackend;
+
+            foreach (Gollem_Auth::getBackend() as $key => $val) {
+                $backend_list[$key] = array(
+                    'name' => $val['name'],
+                    'selected' => ($selected == $key)
+                );
+            }
+            $params['backend_key'] = array(
+                'label' => _("Backend"),
+                'type' => 'select',
+                'value' => $backend_list
+            );
+        }
+
+        return array(
+            'js_code' => array(),
+            'js_files' => array(),
+            'params' => $params
+        );
+    }
+
+    /**
+     * Tries to authenticate with the server and create a session.
+     *
+     * @param string $userId      The username of the user.
+     * @param array $credentials  Credentials of the user. Allowed keys:
+     *                            'backend', 'password'.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function authAuthenticate($userId, $credentials)
+    {
+        $this->init();
+
+        $new_session = Gollem_Auth::authenticate(array(
+            'password' => $credentials['password'],
+            'backend_key' => empty($credentials['backend']) ? Gollem_Auth::getPreferredBackend() : $credentials['backend'],
+            'userId' => $userId
+        ));
+
+        if ($new_session) {
+            $this->_cacheSess = $new_session;
+        }
+    }
+
+    /**
+     * Tries to transparently authenticate with the server and create a
+     * session.
+     *
+     * @param Horde_Core_Auth_Application $auth_ob  The authentication object.
+     *
+     * @return boolean  Whether transparent login is supported.
+     * @throws Horde_Auth_Exception
+     */
+    public function authTransparent($auth_ob)
+    {
+        $this->init();
+
+        if ($result = Gollem_Auth::transparent($auth_ob)) {
+            $this->_cacheSess = $result;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Does necessary authentication tasks reliant on a full app environment.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function authAuthenticateCallback()
+    {
+        if ($GLOBALS['registry']->getAuth()) {
+            $this->init();
+
+            foreach ($this->_cacheSess as $key => $val) {
+                $GLOBALS['session']->set('gollem', $key, $val);
+            }
+            $this->_cacheSess = array();
+        }
+    }
+
+    /**
+     * Validates an existing authentication.
+     *
+     * @return boolean  Whether the authentication is still valid.
+     */
+    public function authValidate()
+    {
+        if (($backend_key = Horde_Util::getFormData('backend_key')) &&
+            $backend_key != $GLOBALS['session']->get('gollem', 'backend_key')) {
+            Gollem_Auth::changeBackend($backend_key);
+        }
+        if (empty(Gollem::$backend['auth'])) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -259,7 +236,7 @@ echo "Backend: $backend_key";
             $cols = json_decode($GLOBALS['prefs']->getValue('columns'));
             $sources = array();
 
-            foreach ($GLOBALS['gollem_backends'] as $source => $info) {
+            foreach (Gollem_Auth::getBackend() as $source => $info) {
                 $selected = $unselected = array();
                 $selected_list = isset($cols[$source])
                     ? array_flip($cols[$source])
@@ -320,25 +297,19 @@ echo "Backend: $backend_key";
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
-        // TODO
-        return;
-
-        $login_url = Horde::url('login.php');
-
-        foreach ($GLOBALS['gollem_backends'] as $key => $val) {
-            if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $key)) {
-                $tree->addNode(
-                    $parent . $key,
-                    $parent,
-                    $val['name'],
-                    1,
-                    false,
-                    array(
-                        'icon' => Horde_Themes::img('gollem.png'),
-                        'url' => $login_url->copy()->add(array('backend_key' => $key, 'change_backend' => 1))
-                    )
-                );
-            }
+        $url = Horde::url('manager.php');
+        foreach (Gollem_Auth::getBackend() as $key => $val) {
+            $tree->addNode(
+                $parent . $key,
+                $parent,
+                $val['name'],
+                1,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('gollem.png'),
+                    'url' => $url->add(array('backend_key' => $key))
+                )
+            );
         }
     }
 

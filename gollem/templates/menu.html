@@ -1,10 +1,12 @@
-<form action="login.php" method="get" name="gollemmenu">
+<form action="<tag:login_url />" method="get" name="gollemmenu">
 <tag:forminput />
+<loop:hidden>
+<input type="hidden" name="<tag:hidden.key />" value="<tag:hidden.value />" />
+</loop:hidden>
 
 <div id="menu">
 <if:be_select>
  <span class="rightFloat">
-  <input type="hidden" name="change_backend" value="1" />
   <label for="backend_key" accesskey="<tag:accesskey />">
    <select id="backend_key" name="backend_key" onchange="serverSubmit()">
     <tag:be_select />

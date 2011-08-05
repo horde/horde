@@ -275,30 +275,6 @@ class Gollem
     }
 
     /**
-     * Generate an URL to the logout screen that includes any known
-     * information, such as username, server, etc., that can be filled
-     * in on the login form.
-     *
-     * @return Horde_Url  The logout URL with parameters added.
-     */
-    static public function logoutUrl()
-    {
-        $url = Horde::url('login.php', true);
-
-        if (!empty($GLOBALS['gollem_be']['params']['username'])) {
-            $url->add('username', $GLOBALS['gollem_be']['params']['username']);
-        } elseif (Horde_Util::getFormData('username')) {
-            $url->add('username', Horde_Util::getFormData('username'));
-        }
-
-        if (!empty($GLOBALS['gollem_be']['params']['port'])) {
-            $url->add('port', $GLOBALS['gollem_be']['params']['port']);
-        }
-
-        return $url;
-    }
-
-    /**
      * Create a folder using the current Gollem session settings.
      *
      * @param string $dir   The directory path.
@@ -505,43 +481,6 @@ class Gollem
     }
 
     /**
-     * Get the current preferred backend key.
-     *
-     * @return string  The preferred backend key.
-     */
-    static public function getPreferredBackend()
-    {
-        if (!($backend_key = $GLOBALS['session']->get('gollem', 'backend_key')) ){
-            /* Determine the preferred backend. */
-            foreach ($GLOBALS['gollem_backends'] as $key => $val) {
-                if (empty($backend_key) && (substr($key, 0, 1) != '_')) {
-                    $backend_key = $key;
-                }
-                if (!empty($val['preferred'])) {
-                    $preferred = false;
-                    if (!is_array($val['preferred'])) {
-                        $val['preferred'] = array($val['preferred']);
-                    }
-                    foreach ($val['preferred'] as $backend) {
-                        if (($backend == $_SERVER['SERVER_NAME']) ||
-                            ($backend == $_SERVER['HTTP_HOST'])) {
-                            $preferred = true;
-                            break;
-                        }
-                    }
-                    if ($preferred) {
-                        $backend_key = $key;
-                        break;
-                    }
-                }
-            }
-
-        }
-
-        return $backend_key;
-    }
-
-    /**
      * This function verifies whether a given directory is below the root.
      *
      * @param string $dir  The directory to check.
@@ -631,17 +570,20 @@ class Gollem
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
 
+        $t->set('login_url', Horde::getServiceLink('login', 'horde'));
         $t->set('forminput', Horde_Util::formInput());
+        $t->set('hidden', array(array('key' => 'url', 'value' => (string)Horde::url('manager.php', true)),
+                                array('key' => 'app', 'value' => 'gollem')));
         $t->set('be_select', self::backendSelect(), true);
         if ($t->get('be_select')) {
-        $t->set('accesskey', $GLOBALS['prefs']->getValue('widget_accesskey') ? Horde::getAccessKey(_("_Change Server")) : '');
+            $t->set('accesskey', $GLOBALS['prefs']->getValue('widget_accesskey') ? Horde::getAccessKey(_("_Change Server")) : '');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
             $link = Horde::link('#', _("Change Server"), '', '', 'serverSubmit(true);return false;');
             $t->set('slink', sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('gollem.png') : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("_Change Server"), $t->get('accesskey')) : ''));
         }
         $t->set('menu_string', Horde::menu(array('menu_ob' => true))->render());
 
-        $menu = $t->fetch(GOLLEM_TEMPLATES . '/menu/menu.html');
+        $menu = $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
 
         /* Need to buffer sidebar output here, because it may add things like
          * cookies which need to be sent before output begins. */
@@ -665,108 +607,23 @@ class Gollem
      */
     static public function backendSelect()
     {
+        $backends = Gollem_Auth::getBackend();
+        $backend = Gollem_Auth::getPreferredBackend();
         $text = '';
 
-        if (($GLOBALS['conf']['backend']['backend_list'] == 'shown') &&
-            (count($GLOBALS['gollem_backends']) > 1)) {
-            foreach ($GLOBALS['gollem_backends'] as $key => $val) {
-                $sel = ($GLOBALS['session']->get('gollem', 'backend_key') == $key) ? ' selected="selected"' : '';
-                $text .= sprintf('<option value="%s"%s>%s</option>%s', (empty($sel)) ? $key : '', $sel, $val['name'], "\n");
+        if ($GLOBALS['conf']['backend']['backend_list'] == 'shown' &&
+            count($backends) > 1) {
+            foreach ($backends as $key => $val) {
+                $sel = ($backend == $key) ? ' selected="selected"' : '';
+                $text .= sprintf('<option value="%s"%s>%s</option>%s',
+                                 empty($sel) ? $key : '',
+                                 $sel,
+                                 $val['name'],
+                                 "\n");
             }
         }
 
         return $text;
-    }
-
-    /**
-     * Load the backends list into the global $gollem_backends variable.
-     */
-    static public function loadBackendList()
-    {
-        if ($be_list = $GLOBALS['session']->get('gollem', 'be_list')) {
-            $GLOBALS['gollem_backends'] = $be_list;
-        } else {
-            require GOLLEM_BASE . '/config/backends.php';
-            $GLOBALS['gollem_backends'] = array();
-            foreach ($backends as $key => $val) {
-                if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $key)) {
-                    $GLOBALS['gollem_backends'][$key] = $val;
-                }
-            }
-        }
-    }
-
-    /**
-     * Get the authentication ID to use for autologins based on the value of
-     * the 'hordeauth' parameter.
-     *
-     * @param string $backend  The backend to login to.
-     *
-     * @return string  The ID string to use for logins.
-     */
-    static public function getAutologinID($backend)
-    {
-        return (!empty($GLOBALS['gollem_backends'][$backend]['hordeauth']) &&
-                (strcasecmp($GLOBALS['gollem_backends'][$backend]['hordeauth'], 'full') === 0))
-            ? $GLOBALS['registry']->getAuth()
-            : $GLOBALS['registry']->getAuth('bare');
-    }
-
-    /**
-     * Return a Horde_VFS object for the given backend.
-     *
-     * @param string $backend_key  The backend_key VFS object to return.
-     *
-     * @return object  The Horde_VFS object requested.
-     */
-    function getVFSOb($backend_key, $params = array())
-    {
-        if ($config = $GLOBALS['session']->get('gollem', 'backends/' . $backend_key)) {
-            $be_config = $config;
-            $sess_setup = true;
-        } else {
-            $be_config = $GLOBALS['gollem_backends'][$backend_key];
-            $sess_setup = false;
-        }
-        if (!count($params)) {
-            $params = $be_config['params'];
-            if (!empty($params['password'])) {
-                $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-                $params['password'] = $secret->read($secret->getKey('gollem'), $params['password']);
-            }
-        }
-
-        // Create VFS object
-        $ob = Horde_Vfs::factory($be_config['driver'], $params);
-
-        if (!isset($be_config['quota_val']) &&
-            !empty($be_config['quota'])) {
-            $quota_metric = array(
-                'B' => VFS_QUOTA_METRIC_BYTE,
-                'KB' => VFS_QUOTA_METRIC_KB,
-                'MB' => VFS_QUOTA_METRIC_MB,
-                'GB' => VFS_QUOTA_METRIC_GB
-            );
-            $quota_str = explode(' ', $be_config['quota'], 2);
-            if (is_numeric($quota_str[0])) {
-                $metric = trim(strtoupper($quota_str[1]));
-                if (!isset($quota_metric[$metric])) {
-                    $metric = 'B';
-                }
-                $ob->setQuota($quota_str[0], $quota_metric[$metric]);
-                $ob->setQuotaRoot(Gollem::getRoot());
-                if ($sess_setup) {
-                    $be_config['quota_val'] = $quota_str[0];
-                    $be_config['quota_metric'] = $quota_metric[$metric];
-                    $GLOBALS['session']->set('gollem', 'backends/' . $backend_key, $be_config);
-                }
-            }
-        } elseif ($be_config['quota_val'] > -1) {
-            $ob->setQuota($be_config['quota_val'], $be_config['quota_metric']);
-            $ob->setQuotaRoot($be_config['root']);
-        }
-
-        return $ob;
     }
 
     /**
@@ -785,38 +642,6 @@ class Gollem
             $path = substr($path, Horde_String::length(self::$backend['root']));
         }
         return $path;
-    }
-
-
-    /**
-     * Get a list of the available backends for permissions setup.
-     *
-     * @param string $perms  'all' - Return all backends.
-     *                       'perms' - Return backends which have perms set.
-     *                       'noperms' - Return backends which have no perms
-     *                                   set.
-     *
-     * @return array  The requested backend list.
-     */
-    static public function getBackends($perms = 'all')
-    {
-        $backends = $GLOBALS['session']->get('gollem', 'backends');
-        $perms = strtolower($perms);
-
-        if ($perms != 'all') {
-            foreach (array_keys($backends) as $key) {
-                $exists = $GLOBALS['injector']->getInstance('Horde_Perms')->exists('gollem:backends:' . $key);
-                /* Don't list if the perms don't exist for this backend and we
-                 * want backends with perms only OR if the perms exist for
-                 * this backend and we only want backends which have none. */
-                if ((!$exists && ($perms == 'perms')) ||
-                    ($exists && ($perms == 'noperms'))) {
-                    unset($backends[$key]);
-                }
-            }
-        }
-
-        return $backends;
     }
 
     /**

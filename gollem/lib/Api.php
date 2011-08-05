@@ -398,6 +398,8 @@ class Gollem_Api extends Horde_Registry_Api
             ? substr($path, 0, strpos($path, '/'))
             : $path;
 
+        throw new Gollem_Exception('Not implemented');
+
         // Validate and perform permissions checks on the requested backend
         if (!$GLOBALS['session']->exists('gollem', 'backends/' . $backend_key)) {
             throw new Gollem_Exception(sprintf(_("Invalid backend requested: %s"), $backend_key));

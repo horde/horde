@@ -24,8 +24,7 @@ $vars = Horde_Variables::getDefaultVariables();
 if ($vars->driver != Gollem::$backend['driver']) {
     Horde::url('login.php')->add(array(
         'backend_key' => $vars->driver,
-        'change_backend' => 1,
-        'url' => Horde::selfURL(true)
+        'url' => Horde::selfUrl(true)
     ))->redirect();
 }
 
