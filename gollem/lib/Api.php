@@ -57,7 +57,8 @@ class Gollem_Api extends Horde_Registry_Api
             list($name, $path) = Gollem::getVFSPath($fullpath);
 
             // Check to see if the request is a file or folder
-            if ($GLOBALS['gollem_vfs']->isFolder($path, $name)) {
+            $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
+            if ($gollem_vfs->isFolder($path, $name)) {
                 // This is a folder request.  Return a directory listing.
                 $list = Gollem::listFolder($path . '/' . $name);
 
@@ -94,7 +95,7 @@ class Gollem_Api extends Horde_Registry_Api
 
                 // Send the file
                 $results['name'] = $name;
-                $results['data'] = $GLOBALS['gollem_vfs']->read($path, $name);
+                $results['data'] = $gollem_vfs->read($path, $name);
                 $results['contentlength'] = $list[$i]['size'];
                 $results['mtime'] = $list[$i]['date'];
             }
@@ -131,7 +132,9 @@ class Gollem_Api extends Horde_Registry_Api
         // Get the VFS-standard $name,$path pair
         list($name, $path) = Gollem::getVFSPath($fullpath);
 
-        return $GLOBALS['gollem_vfs']->writeData($path, $name, $content);
+        return $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->writeData($path, $name, $content);
     }
 
     /**
@@ -160,7 +163,9 @@ class Gollem_Api extends Horde_Registry_Api
         // Get the VFS-standard $name,$path pair
         list($name, $path) = Gollem::getVFSPath($fullpath);
 
-        return $GLOBALS['gollem_vfs']->createFolder($path, $name);
+        return $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->createFolder($path, $name);
     }
 
     /**
@@ -203,7 +208,9 @@ class Gollem_Api extends Horde_Registry_Api
         list($srcname, $srcpath) = Gollem::getVFSPath($srcfullpath);
         list($dstname, $dstpath) = Gollem::getVFSPath($dstfullpath);
 
-        $GLOBALS['gollem_vfs']->rename($srcpath, $srcname, $dstpath, $dstname);
+        $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->rename($srcpath, $srcname, $dstpath, $dstname);
     }
 
     /**
@@ -234,7 +241,9 @@ class Gollem_Api extends Horde_Registry_Api
         // see a path with a leading '/'
         $path = $backends[$backend_key]['root'] . $path;
 
-        $GLOBALS['gollem_vfs']->isFolder($path, $name)
+        $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->isFolder($path, $name)
             ? Gollem::deleteFolder($path, $name)
             : Gollem::deleteFile($path, $name);
     }
@@ -346,7 +355,9 @@ class Gollem_Api extends Horde_Registry_Api
         }
 
         list($dir, $filename) = explode('|', $selectlist['files'][$index]);
-        return $GLOBALS['gollem_vfs']->read($dir, $filename);
+        return $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->read($dir, $filename);
     }
 
     /**

@@ -37,6 +37,9 @@ try {
     $notification->push($e);
 }
 
+/* Get VFS object. */
+$gollem_vfs = $injector->getInstance('Gollem_Vfs');
+
 /* Run through the action handlers. */
 switch ($vars->actionID) {
 case 'create_folder':

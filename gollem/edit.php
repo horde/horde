@@ -27,7 +27,9 @@ if ($vars->driver != $GLOBALS['gollem_be']['driver']) {
 switch ($vars->actionID) {
 case 'save_file':
     try {
-        $gollem_vfs->writeData($vars->filedir, $vars->filename, $vars->content);
+        $injector
+            ->getInstance('Gollem_Vfs')
+            ->writeData($vars->filedir, $vars->filename, $vars->content);
         $message = sprintf(_("%s successfully saved."), $vars->filename);
     } catch (Horde_Vfs_Exception $e) {
         $message = sprintf(_("Access denied to %s"), $vars->filename);
@@ -39,7 +41,9 @@ case 'save_file':
 
 case 'edit_file':
     try {
-        $data = $gollem_vfs->read($vars->filedir, $vars->filename);
+        $data = $injector
+            ->getInstance('Gollem_Vfs')
+            ->read($vars->filedir, $vars->filename);
     } catch (Horde_Vfs_Exception $e) {
         echo Horde::wrapInlineScript(array(
             'alert("' . addslashes(sprintf(_("Access denied to %s"), $vars->filename)) . '")'

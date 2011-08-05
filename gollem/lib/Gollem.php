@@ -227,7 +227,11 @@ class Gollem
             }
         }
 
-        $files = $GLOBALS['gollem_vfs']->listFolder($dir, isset($GLOBALS['gollem_be']['filter']) ? $GLOBALS['gollem_be']['filter'] : null, $GLOBALS['prefs']->getValue('show_dotfiles'));
+        $files = $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->listFolder($dir,
+                         isset(self::$backend['filter']) ? self::$backend['filter'] : null,
+                         $GLOBALS['prefs']->getValue('show_dotfiles'));
         $sortcols = array(
             self::SORT_TYPE => 'sortType',
             self::SORT_NAME => 'sortName',
@@ -339,11 +343,12 @@ class Gollem
         $dir = substr($totalpath, 0, $pos);
         $name = substr($totalpath, $pos + 1);
 
-        $GLOBALS['gollem_vfs']->autocreatePath($dir);
-        $GLOBALS['gollem_vfs']->createFolder($dir, $name);
+        $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
+        $gollem_vfs->autocreatePath($dir);
+        $gollem_vfs->createFolder($dir, $name);
 
-        if (!empty($GLOBALS['gollem_be']['params']['permissions'])) {
-            $GLOBALS['gollem_vfs']->changePermissions($dir, $name, $GLOBALS['gollem_be']['params']['permissions']);
+        if (!empty(self::$backend['params']['permissions'])) {
+            $gollem_vfs->changePermissions($dir, $name, self::$backend['params']['permissions']);
         }
     }
 
@@ -359,7 +364,9 @@ class Gollem
      */
     static public function renameItem($oldDir, $old, $newDir, $new)
     {
-        $GLOBALS['gollem_vfs']->rename($oldDir, $old, $newDir, $new);
+        $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->rename($oldDir, $old, $newDir, $new);
     }
 
     /**
@@ -377,9 +384,11 @@ class Gollem
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
 
-        ($GLOBALS['prefs']->getValue('recursive_deletes') != 'disabled')
-            ? $GLOBALS['gollem_vfs']->deleteFolder($dir, $name, true)
-            : $GLOBALS['gollem_vfs']->deleteFolder($dir, $name, false);
+        $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->deleteFolder($dir,
+                           $name,
+                           $GLOBALS['prefs']->getValue('recursive_deletes') != 'disabled');
     }
 
     /**
@@ -396,7 +405,9 @@ class Gollem
         if (!Gollem::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
-        $GLOBALS['gollem_vfs']->deleteFile($dir, $name);
+        $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->deleteFile($dir, $name);
     }
 
     /**
@@ -414,7 +425,9 @@ class Gollem
         if (!Gollem::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
-        $GLOBALS['gollem_vfs']->changePermissions($dir, $name, $permission);
+        $GLOBALS['injector']
+            ->getInstance('Gollem_Vfs')
+            ->changePermissions($dir, $name, $permission);
     }
 
     /**
@@ -428,9 +441,10 @@ class Gollem
      */
     static public function writeFile($dir, $name, $filename)
     {
-        $GLOBALS['gollem_vfs']->write($dir, $name, $filename);
-        if (!empty($GLOBALS['gollem_be']['params']['permissions'])) {
-            $GLOBALS['gollem_vfs']->changePermissions($dir, $name, $GLOBALS['gollem_be']['params']['permissions']);
+        $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
+        $gollem_vfs->write($dir, $name, $filename);
+        if (!empty(self::$backend['params']['permissions'])) {
+            $gollem_vfs->changePermissions($dir, $name, self::$backend['params']['permissions']);
         }
     }
 
@@ -479,29 +493,25 @@ class Gollem
         $backend_key = $GLOBALS['session']->get('gollem', 'backend_key');
 
         /* If the from/to backends are the same, we can just use the built-in
-           VFS functions. */
+         * VFS functions. */
         if ($backend_f == $backend_t) {
-            if ($backend_f == $backend_key) {
-                $ob = &$GLOBALS['gollem_vfs'];
-            } else {
-                $ob = Gollem::getVFSOb($backend_f);
+            $ob = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($backend_f);
+            if ($backend_f != $backend_key) {
                 $ob->checkCredentials();
             }
-            return ($mode == 'copy') ? $ob->copy($dir, $name, $newdir) : $ob->move($dir, $name, $newdir);
+            return $mode == 'copy'
+                ? $ob->copy($dir, $name, $newdir)
+                : $ob->move($dir, $name, $newdir);
         }
 
         /* Else, get the two VFS objects and copy/move the files. */
-        if ($backend_f == $backend_key) {
-            $from_be = &$GLOBALS['gollem_vfs'];
-        } else {
-            $from_be = Gollem::getVFSOb($backend_f);
+        $from_be = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($backend_f);
+        if ($backend_f != $backend_key) {
             $from_be->checkCredentials();
         }
 
-        if ($backend_t == $backend_key) {
-            $to_be = &$GLOBALS['gollem_vfs'];
-        } else {
-            $from_be = Gollem::getVFSOb($backend_t);
+        $to_be = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($backend_t);
+        if ($backend_t != $backend_key) {
             $to_be->checkCredentials();
         }
 
