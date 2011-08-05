@@ -61,22 +61,12 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
      */
     public function create($id = null, $save = false)
     {
-        global $registry, $session;
+        global $session;
 
         if (is_null($id) &&
             !($id = $session->get('imp', 'server_key')) &&
             !($id = $this->_authInstance)) {
-            // TODO: Sometimes, on relogin, a session can be created but
-            // 'server_key' is missing from the session. Thus, a default
-            // IMP_Imap object is used instead of the IMP_Imap object that
-            // contains a Horde_Imap_Client_Base object. I am unsure of why
-            // this happens - for now, check for auth credentials and re-add
-            // server_key to the session.
-            if ($id = $registry->getAuthCredential('imp_server_key', 'imp')) {
-                $session->set('imp/server_key', $id);
-            } else {
-                $id = 'default';
-            }
+            $id = 'default';
         }
 
         if (!isset($this->_instances[$id])) {
