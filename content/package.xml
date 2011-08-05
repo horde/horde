@@ -16,8 +16,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-19</date>
- <time>14:19:07</time>
+ <date>2011-08-05</date>
+ <time>10:57:16</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -28,7 +28,9 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [mjr] Enforce that object and type names are always taken as a string (Bug #10171).
+* [mjr] Updated unit tests to new test structure.
+* [mjr] Prevent tagging with empty tags.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -335,10 +337,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-19</date>
+   <date>2011-08-05</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [mjr] Enforce that object and type names are always taken as a string (Bug #10171).
+* [mjr] Updated unit tests to new test structure.
+* [mjr] Prevent tagging with empty tags.
    </notes>
   </release>
  </changelog>
