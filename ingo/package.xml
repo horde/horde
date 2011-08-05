@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [jan] Sort blacklist and whitelist for display instead of for storage.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -979,7 +979,7 @@
    <date>2011-08-02</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Sort blacklist and whitelist for display instead of for storage.
    </notes>
   </release>
  </changelog>

@@ -76,9 +76,9 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 throw new Ingo_Exception($e);
             }
             if ($field == self::ACTION_BLACKLIST) {
-                $ob->setBlacklist($addresses, false);
+                $ob->setBlacklist($addresses, true);
             } else {
-                $ob->setWhitelist($addresses, false);
+                $ob->setWhitelist($addresses, true);
             }
             break;
 
