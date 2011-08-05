@@ -441,7 +441,7 @@ class Klutz_Comic
         $instance = 0;
         while ($d <= $date) {
             $dow = getdate($d);
-            $dow = substr(String::lower($d['weekday']),0,3);
+            $dow = substr(Horde_String::lower($d['weekday']),0,3);
             if (in_array($dow, $days)) {
                 $instance++;
             }
@@ -502,7 +502,7 @@ class Klutz_Comic
             while ($d <= $date) {
                 $d = getdate($d);
                 $d = mktime(0, 0, 0, $d['mon'], $d['mday'] + 1, $d['year']);
-                if (in_array(String::lower(date('D', $d)), $days)) {
+                if (in_array(Horde_String::lower(date('D', $d)), $days)) {
                     $c++;
                 }
             }
@@ -516,7 +516,7 @@ class Klutz_Comic
             while ($date < $d) {
                 $d = getdate($d);
                 $d = mktime(0, 0, 0, $d['mon'], $d['mday'] - 1, $d['year']);
-                if (in_array(String::lower(date('D', $d)), $days)) {
+                if (in_array(Horde_String::lower(date('D', $d)), $days)) {
                     $c--;
                 }
             }
@@ -524,5 +524,4 @@ class Klutz_Comic
 
         return $c;
     }
-
 }
