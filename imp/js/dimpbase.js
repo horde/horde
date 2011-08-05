@@ -1887,8 +1887,8 @@ var DimpBase = {
 
             $('qsearch_input').clear();
             if (this.qsearch_ghost) {
-                // Needed because there is no clear method in ghost JS as of
-                // H4.
+                // Needed because there is no reset method in ghost JS (as of
+                // H4).
                 this.qsearch_ghost.unghost();
                 this.qsearch_ghost.ghost();
             }
