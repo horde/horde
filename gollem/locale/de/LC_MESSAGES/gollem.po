@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-02-02 18:15+0100\n"
+"PO-Revision-Date: 2011-08-01 17:49+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -147,7 +147,7 @@ msgstr "Server wechseln"
 
 #: lib/Application.php:309
 msgid "Check Quota"
-msgstr "Speicherplatzkontingent überprüfen"
+msgstr "Speicherplatz überprüfen"
 
 #: manager.php:577
 msgid "Check _All/None"
@@ -380,7 +380,7 @@ msgstr "Nein"
 
 #: templates/quota/quota.html:12
 msgid "No quota found."
-msgstr "Kein Speicherplatzkontingent gefunden."
+msgstr "Keine Speicherplatzbegrenzung gefunden."
 
 #: manager.php:305
 msgid "OK"
@@ -430,7 +430,7 @@ msgstr "Bitte geben Sie mindestens eine Datei zum Hochladen an."
 
 #: quota.php:56 templates/quota/quota.html:2
 msgid "Quota Display"
-msgstr "Speicherplatzkontingent"
+msgstr "Speicherplatz"
 
 #: templates/manager/manager.html:14
 msgid "Read"
