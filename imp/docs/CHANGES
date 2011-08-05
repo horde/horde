@@ -2,6 +2,7 @@
 v5.0.10-git
 -----------
 
+[mjr] Fix notifications not showing while accepting iTips
 [mms] Correctly determine page with first/last unseen messages when using
       descending sequence sorting (Bug #9882).
 [mms] Deletion works correctly from popup message view if base window is no

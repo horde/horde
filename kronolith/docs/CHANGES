@@ -2,6 +2,7 @@
 v3.0.7-git
 ----------
 
+[mjr] Fix updating attendees
 [jan] Fix error if Nag is not installed (Bug #10406).
 
 

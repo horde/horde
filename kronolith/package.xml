@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mjr] Fix updating attendees
 * [jan] Fix error if Nag is not installed (Bug #10406).
  </notes>
  <contents>
@@ -1836,6 +1837,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mjr] Fix updating attendees
 * [jan] Fix error if Nag is not installed (Bug #10406).
    </notes>
   </release>
