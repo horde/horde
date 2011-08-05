@@ -60,6 +60,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
             $ret[key($ret)]['data'] = Horde::endBuffer();
         }
+
         return $ret;
     }
 
@@ -421,8 +422,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
         if (Horde_Util::getFormData('ajax')) {
             foreach ($msgs as $msg) {
-                $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0], isset($msg[2]) ? $msg[2] : null);
+                $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0], isset($msg[2]) ? $msg[2] : array());
             }
+
             return array(
                 $mime_id => array(
                     'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => $this->getConfigParam('charset'))), $this->getConfigParam('charset'), 'UTF-8'),
