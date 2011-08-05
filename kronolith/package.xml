@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mjr] Fix updating attendees
+* [mjr] Fix updating attendees (Bug #10411).
 * [jan] Fix error if Nag is not installed (Bug #10406).
  </notes>
  <contents>
