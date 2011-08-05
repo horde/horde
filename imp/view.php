@@ -47,7 +47,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 $vars = Horde_Variables::getDefaultVariables();
 Horde_Registry::appInit('imp', array(
     'nocompress' => (($vars->actionID == 'download_all') || $vars->zip),
-    'session_control' => 'readonly'
+    'session_control' => (Horde_Util::getFormData('ajax') ? null : 'readonly')
 ));
 
 switch ($vars->actionID) {
@@ -173,6 +173,7 @@ case 'view_attach':
         ? IMP_Contents::RENDER_RAW_FALLBACK
         : (isset($vars->mode) ? $vars->mode : IMP_Contents::RENDER_FULL);
     $render = $contents->renderMIMEPart($vars->id, $render_mode, array('type' => $vars->ctype));
+
     if (!empty($render)) {
         reset($render);
         $key = key($render);
