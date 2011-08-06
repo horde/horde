@@ -94,7 +94,7 @@ var AnselMobile = {
         $('#ansel-image-back .ui-btn-text').text(AnselMobile.currentGallery.n);
 
         if ($.mobile.activePage.attr('id') != 'imageview') {
-            $.mobile.changePage('imageview', 'slide', false, true);
+            $.mobile.changePage($('#imageview'), { transition: 'slide' });
         }
     },
 
@@ -109,7 +109,7 @@ var AnselMobile = {
         if ($.mobile.currentPage != 'galleryview' &&
             AnselMobile.currentGallery && (r.id == AnselMobile.currentGallery.id)) {
 
-            $.mobile.changePage('galleryview', 'slide', false, true);
+            $.mobile.changePage($('#galleryview'), { transistion: 'slide' });
             return;
         }
 
@@ -127,7 +127,7 @@ var AnselMobile = {
             $('#thumbs').append(img);
         });
         if ($.mobile.activePage.attr('id') != 'galleryview') {
-            $.mobile.changePage('galleryview', 'slide', false, true);
+           $.mobile.changePage($('#galleryview'), { transistion: 'slide' });
         }
         if (r.p) {
             $('#ansel-gallery-back .ui-btn-text').text(r.pn);
@@ -237,7 +237,11 @@ var AnselMobile = {
                 case 'ansel-gallery-back':
                     switch (elt.attr('action')) {
                     case 'home':
-                        $.mobile.changePage('gallerylist', 'slide', true, true);
+                        $.mobile.changePage($('#gallerylist'),
+                            {
+                                transition: 'slide',
+                                reverse:  true
+                            });
                         break;
                     case 'gallery':
                         AnselMobile.toGallery(elt.attr('gallery-id'));

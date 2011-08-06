@@ -100,7 +100,7 @@
             }
         });
         if (list.html()) {
-            $.mobile.changePage('notification', 'pop');
+            $.mobile.changePage($('#notification'), { transition: 'pop' });
             list.listview('refresh');
         }
     },
