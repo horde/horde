@@ -48,7 +48,8 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
         $hash = parent::toHash();
         $hash['name']  = $this->_share->get('name')
           . ($owner || !$this->_share->get('owner') ? '' : ' [' . $GLOBALS['registry']->convertUsername($this->_share->get('owner'), false) . ']');
-        $hash['desc']  = $this->_share->get('desc');
+        $desc = $this->_share->get('desc');
+        $hash['desc'] = empty($desc) ? '' : $desc;
         $hash['owner'] = $owner;
         $hash['fg']    = Kronolith::foregroundColor($this->_share);
         $hash['bg']    = Kronolith::backgroundColor($this->_share);
