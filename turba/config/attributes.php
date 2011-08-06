@@ -311,7 +311,7 @@ $attributes['assistPhone'] = array(
     'required' => false
 );
 $attributes['companyPhone'] = array(
-    'label' => _("Work Switch"),
+    'label' => _("Company Phone"),
     'type' => 'phone',
     'required' => false
 );
