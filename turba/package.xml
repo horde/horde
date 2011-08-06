@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [mjr] Add and support more attributes by default.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1245,7 +1245,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [mjr] Add and support more attributes by default.
    </notes>
   </release>
  </changelog>

@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* 
+* [mjr] Support POOMCONTACTS2 schema in AS 2.5 clients also.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -362,7 +362,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
-* 
+* [mjr] Support POOMCONTACTS2 schema in AS 2.5 clients also.
    </notes>
   </release>
  </changelog>
