@@ -13,13 +13,13 @@
  * @category Horde
  * @package  Pdf
  */
-class Horde_Pdf_Font_Courier
+class Horde_Pdf_Font_Courierb
 {
     public function getWidths()
     {
         $fontWidths = array();
         for ($i = 0; $i <= 255; $i++) {
-            $fontWidths['courier'][chr($i)] = 600;
+            $fontWidths['courierB'][chr($i)] = 600;
         }
         return $fontWidths;
     }
