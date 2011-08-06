@@ -2307,8 +2307,12 @@ class Turba_Driver implements Countable
                 $message->title = $value;
                 break;
 
+            case 'alias':
             case 'nickname':
-                $message->nickname = $value;
+                try {
+                    $message->nickname = $value;
+                } catch (InvalidArgumentException $e) {
+                }
                 break;
 
             case 'nameSuffix':
@@ -2442,15 +2446,25 @@ class Turba_Driver implements Countable
                 break;
 
             case 'imaddress':
-                $message->imaddress = $value;
+                try {
+                    $message->imaddress = $value;
+                } catch (InvalidArgumentException $e) {
+                }
                 break;
 
             case 'imaddress2':
-                $message->imaddress2 = $value;
+                try {
+                    $message->imaddress2 = $value;
+                } catch (InvalidArgumentException $e) {
+
+                }
                 break;
 
             case 'imaddress3':
-                $message->imaddress3 = $value;
+                try {
+                    $message->imaddress3 = $value;
+                } catch (InvalidArgumentException $e) {
+                }
                 break;
 
             case 'title':
@@ -2554,7 +2568,10 @@ class Turba_Driver implements Countable
         );
         foreach ($textMap as $asField => $turbaField) {
             if (!$message->isGhosted($asField)) {
-                $hash[$turbaField] = $message->{$asField};
+                try {
+                    $hash[$turbaField] = $message->{$asField};
+                } catch (InvalidArgumentException $e) {
+                }
             }
         }
 
@@ -2574,7 +2591,10 @@ class Turba_Driver implements Countable
         );
         foreach ($nonTextMap as $asField => $turbaField) {
             if (!$message->isGhosted($asField)) {
-                $hash[$turbaField] = $message->{$asField};
+                try {
+                    $hash[$turbaField] = $message->{$asField};
+                } catch (InvalidArgumentException $e) {
+                }
             }
         }
 
