@@ -624,6 +624,7 @@ class IMP_Application extends Horde_Registry_Application
         /* Inline script. */
         Horde::addInlineScript(
           '$(window.document).bind("mobileinit", function() {
+              $.mobile.page.prototype.options.addBackBtn = true;
               $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
               $.mobile.loadingMessage = "' . _("loading") . '";
            });'
