@@ -5514,7 +5514,7 @@ KronolithCore = {
         var start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format),
             end = start.clone().add(1).days(),
             width = td.getWidth();
-        div = new Element('div').setStyle({ position: 'relative' });
+        div = new Element('div').setStyle({ position: 'relative', height: td.offsetHeight + 'px' });
         td.insert(div);
         $H(fb.b).each(function(busy) {
             var from = new Date(), to = new Date(), left;
