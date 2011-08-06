@@ -17,11 +17,11 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:17:55</time>
+ <date>2011-08-06</date>
+ <time>11:57:05</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [mjr] Added Horde_Routes_Matcher helper class.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -46,6 +46,7 @@
      <dir name="Routes">
       <file name="Exception.php" role="php" />
       <file name="Mapper.php" role="php" />
+      <file name="Matcher.php" role="php" />
       <file name="Printer.php" role="php" />
       <file name="Route.php" role="php" />
       <file name="Utils.php" role="php" />
@@ -98,6 +99,7 @@
    <install as="Horde/Routes/manual.txt" name="doc/Horde/Routes/manual.txt" />
    <install as="Horde/Routes/Exception.php" name="lib/Horde/Routes/Exception.php" />
    <install as="Horde/Routes/Mapper.php" name="lib/Horde/Routes/Mapper.php" />
+   <install as="Horde/Routes/Matcher.php" name="lib/Horde/Routes/Matcher.php" />
    <install as="Horde/Routes/Printer.php" name="lib/Horde/Routes/Printer.php" />
    <install as="Horde/Routes/Route.php" name="lib/Horde/Routes/Route.php" />
    <install as="Horde/Routes/Utils.php" name="lib/Horde/Routes/Utils.php" />
@@ -190,15 +192,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-08-06</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [mjr] Added Horde_Routes_Matcher helper class.
    </notes>
   </release>
  </changelog>
