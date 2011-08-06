@@ -72,7 +72,7 @@ var ImpMobile = {
         $('#imp-mailbox-header').text(label);
         $('#imp-mailbox-list').empty();
         $('#imp-mailbox-list').listview();
-        $.mobile.changePage($('#mailbox'), { transition: 'slide' });
+        $.mobile.changePage('#mailbox', 'slide', false, true);
         HordeMobile.doAction(
             'viewPort',
             {
@@ -139,7 +139,7 @@ var ImpMobile = {
         $('#imp-message-more').parent().show();
         $('#imp-message-less').parent().hide();
         if ($.mobile.activePage.attr('id') != 'message') {
-            $.mobile.changePage($('#message'), { transition: 'slide' });
+            $.mobile.changePage('#message', 'slide', false, true);
         }
         HordeMobile.doAction(
             'showMessage',

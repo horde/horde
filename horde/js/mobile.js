@@ -40,7 +40,7 @@
      */
     doAction: function(action, params, callback)
     {
-        $.mobile.pageLoading();
+        $.mobile.showPageLoadingMsg();
         var options = {
             'url': HordeMobile.urls.ajax + action,
             'data': params,
@@ -66,7 +66,7 @@
         HordeMobile.server_error = 0;
         HordeMobile.showNotifications(d.msgs || []);
         HordeMobile.inAjaxCallback = false;
-        $.mobile.pageLoading(true);
+        $.mobile.hidePageLoadingMsg(true);
     },
 
     showNotifications: function(msgs)
