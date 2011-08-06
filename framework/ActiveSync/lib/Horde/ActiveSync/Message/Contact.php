@@ -94,7 +94,7 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
      */
     public function __construct($params = array())
     {
-        /* Mappings for the encoder */
+        // Mappings for the encoder
         $this->_mapping = array(
             self::ANNIVERSARY => array(self::KEY_ATTRIBUTE =>  'anniversary', self::KEY_TYPE => self::TYPE_DATE_DASHES),
             self::ASSISTANTNAME => array(self::KEY_ATTRIBUTE => 'assistantname'),
@@ -152,7 +152,7 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             self::CATEGORIES => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::CATEGORY),
         );
 
-        /* Accepted property values */
+        // Accepted property values
         $this->_properties = array(
             'anniversary' => false,
             'assistantname' => false,
@@ -210,34 +210,31 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             'categories' => false,
         );
 
-        /* Additional mappings for AS versions >= 2.5 */
-        if (isset($params['protocolversion']) && $params['protocolversion'] >= 2.5) {
-            $this->_mapping += array(
-                self::CUSTOMERID => array(self::KEY_ATTRIBUTE => 'customerid'),
-                self::GOVERNMENTID => array(self::KEY_ATTRIBUTE => 'governmentid'),
-                self::IMADDRESS => array(self::KEY_ATTRIBUTE => 'imaddress'),
-                self::IMADDRESS2 => array(self::KEY_ATTRIBUTE => 'imaddress2'),
-                self::IMADDRESS3 => array(self::KEY_ATTRIBUTE => 'imaddress3'),
-                self::MANAGERNAME => array(self::KEY_ATTRIBUTE => 'managername'),
-                self::COMPANYMAINPHONE => array(self::KEY_ATTRIBUTE => 'companymainphone'),
-                self::ACCOUNTNAME => array(self::KEY_ATTRIBUTE => 'accountname'),
-                self::NICKNAME => array(self::KEY_ATTRIBUTE => 'nickname'),
-                self::MMS => array(self::KEY_ATTRIBUTE => 'mms'),
-            );
-
-            $this->_properties += array(
-                'customerid' => false,
-                'governmentid' => false,
-                'imaddress' => false,
-                'imaddress2' => false,
-                'imaddress3' => false,
-                'managername' => false,
-                'companymainphone' => false,
-                'accountname' => false,
-                'nickname' => false,
-                'mms' => false,
-            );
-        }
+        // POOMCONTACTS2
+        $this->_mapping += array(
+            self::CUSTOMERID => array(self::KEY_ATTRIBUTE => 'customerid'),
+            self::GOVERNMENTID => array(self::KEY_ATTRIBUTE => 'governmentid'),
+            self::IMADDRESS => array(self::KEY_ATTRIBUTE => 'imaddress'),
+            self::IMADDRESS2 => array(self::KEY_ATTRIBUTE => 'imaddress2'),
+            self::IMADDRESS3 => array(self::KEY_ATTRIBUTE => 'imaddress3'),
+            self::MANAGERNAME => array(self::KEY_ATTRIBUTE => 'managername'),
+            self::COMPANYMAINPHONE => array(self::KEY_ATTRIBUTE => 'companymainphone'),
+            self::ACCOUNTNAME => array(self::KEY_ATTRIBUTE => 'accountname'),
+            self::NICKNAME => array(self::KEY_ATTRIBUTE => 'nickname'),
+            self::MMS => array(self::KEY_ATTRIBUTE => 'mms'),
+        );
+        $this->_properties += array(
+            'customerid' => false,
+            'governmentid' => false,
+            'imaddress' => false,
+            'imaddress2' => false,
+            'imaddress3' => false,
+            'managername' => false,
+            'companymainphone' => false,
+            'accountname' => false,
+            'nickname' => false,
+            'mms' => false,
+        );
 
         parent::__construct($params);
     }
