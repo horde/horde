@@ -5351,7 +5351,7 @@ KronolithCore = {
             }
             this.attendeeStartDateHandler = function() {
                 ev.at.each(function(attendee) {
-                    this.insertFreeBusy(attendee.e);
+                    this.insertFreeBusy(attendee.l);
                 }, this);
             }.bind(this);
             $('kronolithEventStartDate').observe('change', this.attendeeStartDateHandler);
@@ -5441,7 +5441,7 @@ KronolithCore = {
                                   return;
                               }
                               this.freeBusy.get(attendee.l)[1] = r.response.fb;
-                              this.insertFreeBusy(attendee.e);
+                              this.insertFreeBusy(attendee.l);
                           }.bind(this));
         }
 
@@ -5483,20 +5483,22 @@ KronolithCore = {
      * @todo Update when changing dates; only show free time for fb times we
      *       actually received.
      *
-     * @param string email  An email address as the free/busy identifier.
+     * @param string attendee  An attendee display name as the free/busy
+     *                         identifier.
      */
-    insertFreeBusy: function(email)
+    insertFreeBusy: function(attendee)
     {
         if (!$('kronolithEventDialog').visible() ||
-            !this.freeBusy.get(email)) {
+            !this.freeBusy.get(attendee)) {
             return;
         }
-        var fb = this.freeBusy.get(email)[1],
-            tr = this.freeBusy.get(email)[0],
+        var fb = this.freeBusy.get(attendee)[1],
+            tr = this.freeBusy.get(attendee)[0],
             td = tr.select('td')[1],
             div = td.down('div');
+        console.log(fb);
         if (!td.getWidth()) {
-            this.insertFreeBusy.bind(this, email).defer();
+            this.insertFreeBusy.bind(this, attendee).defer();
             return;
         }
         tr.select('td').each(function(td, i) {
