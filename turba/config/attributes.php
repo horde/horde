@@ -222,6 +222,48 @@ $attributes['companyAddress'] = array(
     'required' => false,
     'params' => array('rows' => 3, 'cols' => 40)
 );
+$attributes['otherAddress'] = array(
+    'label' => _("Other Address"),
+    'type' => 'address',
+    'required' => false,
+    'params' => array('rows' => 3, 'cols' => 40)
+);
+$attributes['otherStreet'] = array(
+    'label' => _("Other Street Address"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
+$attributes['otherCity'] = array(
+    'label' => _("Other City"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
+$attributes['otherProvince'] = array(
+    'label' => _("Other State/Province"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
+$attributes['otherPostalCode'] = array(
+    'label' => _("Other Postal Code"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 10, 'maxlength' => 10)
+);
+$attributes['otherCountry'] = array(
+    'label' => _("Other Country"),
+    'type' => 'country',
+    'required' => false,
+    'params' => array('prompt' => true)
+);
+$attributes['otherPOBox'] = array(
+    'label' => _("Other Post Office Box"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 10, 'maxlength' => 10)
+);
 $attributes['timezone'] = array(
     'label' => _("Time Zone"),
     'type' => 'enum',
@@ -247,8 +289,29 @@ $attributes['homePhone'] = array(
     'type' => 'phone',
     'required' => false
 );
+$attributes['homePhone2'] = array(
+    'label' => _("Home Phone"),
+    'type' => 'phone',
+    'required' => false
+);
+
 $attributes['workPhone'] = array(
     'label' => _("Work Phone"),
+    'type' => 'phone',
+    'required' => false
+);
+$attributes['workPhone2'] = array(
+    'label' => _("Work Phone"),
+    'type' => 'phone',
+    'required' => false
+);
+$attributes['assistPhone'] = array(
+    'label' => _("Assistant Phone"),
+    'type' => 'phone',
+    'required' => false
+);
+$attributes['companyPhone'] = array(
+    'label' => _("Work Switch"),
     'type' => 'phone',
     'required' => false
 );
@@ -257,8 +320,23 @@ $attributes['cellPhone'] = array(
     'type' => 'cellphone',
     'required' => false
 );
+$attributes['carPhone'] = array(
+    'label' => _("Car Phone"),
+    'type' => 'phone',
+    'required' => false
+);
+$attributes['radioPhone'] = array(
+    'label' => _("Radio Phone"),
+    'type' => 'phone',
+    'required' => false
+);
 $attributes['fax'] = array(
     'label' => _("Fax"),
+    'type' => 'phone',
+    'required' => false
+);
+$attributes['homeFax'] = array(
+    'label' => _("Home Fax"),
     'type' => 'phone',
     'required' => false
 );
@@ -266,6 +344,24 @@ $attributes['pager'] = array(
     'label' => _("Pager"),
     'type' => 'phone',
     'required' => false
+);
+$attributes['imaddress'] = array(
+    'label' => _("IM Address"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
+$attributes['imaddress2'] = array(
+    'label' => _("IM Address"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
+$attributes['imaddress3'] = array(
+    'label' => _("IM Address"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
 );
 
 /* Job, company, organization. */

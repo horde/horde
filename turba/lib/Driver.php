@@ -2307,6 +2307,10 @@ class Turba_Driver implements Countable
                 $message->title = $value;
                 break;
 
+            case 'nickname':
+                $message->nickname = $value;
+                break;
+
             case 'nameSuffix':
                 $message->suffix = $value;
                 break;
@@ -2337,6 +2341,26 @@ class Turba_Driver implements Countable
                 $message->homecountry = !empty($hash['homeCountry']) ? Horde_Nls::getCountryISO($hash['homeCountry']) : null;
                 break;
 
+            case 'otherStreet':
+                $message->otherstreet = $hash['otherStreet'];
+                break;
+
+            case 'otherCity':
+                $message->othercity = $hash['otherCity'];
+                break;
+
+            case 'otherProvince':
+                $message->otherstate = $hash['otherProvince'];
+                break;
+
+            case 'otherPostalCode':
+                $message->otherpostalcode = $hash['otherPostalCode'];
+                break;
+
+            case 'otherCountry':
+                $message->othercountry = !empty($hash['otherCountry']) ? Horde_Nls::getCountryISO($hash['otherCountry']) : null;
+                break;
+
             case 'workStreet':
                 $message->businessstreet = $hash['workStreet'];
                 break;
@@ -2361,15 +2385,44 @@ class Turba_Driver implements Countable
                 $message->homephonenumber = $hash['homePhone'];
                 break;
 
+            case 'homePhone2':
+                $message->home2phonenumber = $hash['homePhone2'];
+                break;
+
             case 'cellPhone':
                 $message->mobilephonenumber = $hash['cellPhone'];
                 break;
+
+            case 'carPhone':
+                $message->carphonenumber = $hash['carPhone'];
+                break;
+
             case 'fax':
                 $message->businessfaxnumber = $hash['fax'];
                 break;
 
+            case 'homeFax':
+                $message->homefaxnumber = $hash['homeFax'];
+                break;
+
             case 'workPhone':
                 $message->businessphonenumber = $hash['workPhone'];
+                break;
+
+            case 'workPhone2':
+                $message->business2phonenumber = $hash['workPhone2'];
+                break;
+
+            case 'assistPhone':
+                $message->assistnamephonenumber = $hash['assistPhone'];
+                break;
+	     
+            case 'companyPhone':
+                $message->companymainphone = $hash['companyPhone'];
+                break;
+
+            case 'radioPhone':
+                $message->radiophonenumber = $hash['radioPhone'];
                 break;
 
             case 'pager':
@@ -2386,6 +2439,18 @@ class Turba_Driver implements Countable
 
             case 'workEmail':
                 $message->email3address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
+            case 'imaddress':
+                $message->imaddress = $value;
+                break;
+
+            case 'imaddress2':
+                $message->imaddress2 = $value;
+                break;
+
+            case 'imaddress3':
+                $message->imaddress3 = $value;
                 break;
 
             case 'title':
@@ -2461,12 +2526,17 @@ class Turba_Driver implements Countable
             'lastname' => 'lastname',
             'firstname' => 'firstname',
             'middlename' => 'middlenames',
+            'nickname' => 'nickname',
             'title' => 'namePrefix',
             'suffix' => 'nameSuffix',
             'homestreet' => 'homeStreet',
             'homecity' => 'homeCity',
             'homestate' => 'homeProvince',
             'homepostalcode' => 'homePostalCode',
+            'otherstreet' => 'otherStreet',
+            'othercity' => 'otherCity',
+            'otherstate' => 'otherProvince',
+            'otherpostalcode' => 'otherPostalCode',
             'businessstreet' => 'workStreet',
             'businesscity' => 'workCity',
             'businessstate' => 'workProvince',
@@ -2477,7 +2547,10 @@ class Turba_Driver implements Countable
             'spouse' => 'spouse',
             'body' => 'notes',
             'webpage' => 'website',
-            'assistantname' => 'assistant'
+            'assistantname' => 'assistant',
+            'imaddress' => 'imaddress',
+            'imaddress2' => 'imaddress2',
+            'imaddress3' => 'imaddress3'
         );
         foreach ($textMap as $asField => $turbaField) {
             if (!$message->isGhosted($asField)) {
@@ -2487,10 +2560,17 @@ class Turba_Driver implements Countable
 
         $nonTextMap = array(
             'homephonenumber' => 'homePhone',
+            'home2phonenumber' => 'homePhone2',
             'businessphonenumber' => 'workPhone',
+            'business2phonenumber' => 'workPhone2',
             'businessfaxnumber' => 'fax',
+            'homefaxnumber' => 'homeFax',
             'pagernumber' => 'pager',
-            'mobilephonenumber' => 'cellPhone'
+            'mobilephonenumber' => 'cellPhone',
+            'carphonenumber' => 'carPhone',
+            'assistnamephonenumber' => 'assistPhone',
+            'companymainphone' => 'companyPhone',
+            'radiophonenumber' => 'radioPhone'
         );
         foreach ($nonTextMap as $asField => $turbaField) {
             if (!$message->isGhosted($asField)) {
@@ -2556,6 +2636,16 @@ class Turba_Driver implements Countable
             $hash['workCountry'] = $country;
         } elseif (!$message->isGhosted('businesscountry')) {
             $hash['workCountry'] = null;
+        }
+
+        if (!empty($message->othercountry)) {
+            $country = array_search($message->othercountry, $countries);
+            if ($country === false) {
+                $country = $message->othercountry;
+            }
+            $hash['otherCountry'] = $country;
+        } elseif (!$message->isGhosted('othercountry')) {
+            $hash['otherCountry'] = null;
         }
 
         return $hash;
