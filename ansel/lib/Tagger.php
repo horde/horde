@@ -111,7 +111,7 @@ class Ansel_Tagger
         try {
             if (is_array($localId)) {
                 foreach ($localId as &$lid) {
-                    $lid = (string)$slid;
+                    $lid = (string)$lid;
                 }
                 return $this->_tagger->getTagsByObjects($localId, $type);
             }
