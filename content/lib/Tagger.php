@@ -700,7 +700,7 @@ class Content_Tagger
             }
 
             // Don't attempt to tag with an empty value
-            if (empty($tag)) {
+            if (!trim($tag)) {
                 continue;
             }
 
