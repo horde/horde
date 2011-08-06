@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mjr] Fix displaying of freebusy data in dynamic view (adominguez@cne.gob.ve, Bug #10347).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1850,7 +1850,7 @@
    <date>2011-08-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mjr] Fix displaying of freebusy data in dynamic view (adominguez@cne.gob.ve, Bug #10347).
    </notes>
   </release>
  </changelog>

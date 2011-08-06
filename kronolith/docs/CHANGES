@@ -2,6 +2,8 @@
 v3.0.9-git
 ----------
 
+[mjr] Fix displaying of freebusy data in dynamic view (adominguez@cne.gob.ve,
+      Bug #10347).
 
 
 ------
