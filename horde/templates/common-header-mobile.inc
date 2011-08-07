@@ -8,6 +8,7 @@ header('Vary: Accept-Language');
 <html>
 <head>
   <title><?php echo htmlspecialchars(Horde_Util::nonInputVar('title')) ?></title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 <?php
 
 Horde::includeFavicon();
