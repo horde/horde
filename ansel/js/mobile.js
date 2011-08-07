@@ -117,7 +117,7 @@ var AnselMobile = {
         $('.anselgalleries').detach();
         if (r.sg.length) {
             var l = $('<ul>').addClass('anselgalleries').attr({'data-role': 'listview', 'data-inset': 'true'});
-            $('#thumbs').before(AnselMobile.buildGalleryList(l, r.sg).trigger('create'));
+            $('#thumbs').before(AnselMobile.buildGalleryList(l, r.sg)).trigger('create');
         }
         $('#galleryview h1').text(r.n);
         $('#thumbs').empty();
