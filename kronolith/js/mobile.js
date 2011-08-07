@@ -192,7 +192,7 @@
                     if (!list.children().length) {
                         list.append($('<li>').text(Kronolith.text.noevents));
                     }
-                    $('#dayview [data-role=content]').append(list);
+                    $('#dayview [data-role=content]').append(list).trigger('create');
                 }
                 break;
 
@@ -227,8 +227,7 @@
                     haveEvent = false;
                     day.next().day();
                 }
-                list.listview();
-                $('#overview [data-role=content]').append(list);
+                $('#overview [data-role=content]').append(list).trigger('create');
                 break;
         }
         KronolithMobile.running = false;
@@ -306,7 +305,7 @@
 
          var event = data.event;
          var ul = KronolithMobile.buildEventView(event);
-         $('#eventview [data-role=content]').append(ul);
+         $('#eventview [data-role=content]').append(ul).trigger('create');
     },
 
     /**
@@ -389,8 +388,6 @@
          if (e.u) {
            list.append($('<li>').append($('<a>').attr({'rel': 'external', 'href': e.u}).text(e.u)));
          }
-
-         list.listview();
 
          return list;
     },
@@ -476,9 +473,8 @@
      */
     selectMonthDay: function(date)
     {
-        var ul = $('<ul>').attr({ 'data-role': 'listview '}),
-        d = KronolithMobile.parseDate(date), today = new Date(),
-        text;
+        var ul = $('<ul>').attr({ 'data-role': 'listview'}),
+        d = KronolithMobile.parseDate(date), today = new Date(), text;
         $('.kronolithDayDetail ul').detach();
         if (today.dateString() == d.dateString()) {
           text = Kronolith.text.today;
@@ -499,8 +495,7 @@
                 ul.append(KronolithMobile.buildDayEvent(e));
             });
         }
-        ul.listview();
-        $('.kronolithDayDetail').append(ul);
+        $('.kronolithDayDetail').append(ul).trigger('create');
         KronolithMobile.moveToDay(d);
     },
 
