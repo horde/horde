@@ -105,30 +105,32 @@ var AnselMobile = {
      */
     galleryLoaded: function(r)
     {
-        // TODO: error checks, build any subgallery lists etc...
+        var sg, thumbs;
+
         if ($.mobile.currentPage != 'galleryview' &&
             AnselMobile.currentGallery && (r.id == AnselMobile.currentGallery.id)) {
 
             $.mobile.changePage($('#galleryview'), { transistion: 'slide' });
             return;
         }
-
         AnselMobile.currentGallery = r;
-        $('.anselgalleries').detach();
+        $('#anselgalleryview').empty();
         if (r.sg.length) {
-            var l = $('<ul>').addClass('anselgalleries').attr({'data-role': 'listview', 'data-inset': 'true'});
-            $('#thumbs').before(AnselMobile.buildGalleryList(l, r.sg)).trigger('create');
+            sg = AnselMobile.buildGalleryList(
+                $('<ul>').addClass('anselgalleries').attr({ 'data-role': 'listview', 'data-inset': 'true' }),
+                r.sg);
         }
         $('#galleryview h1').text(r.n);
-        $('#thumbs').empty();
+        thumbs = $('<ul>').addClass('thumbView');
         AnselMobile.currentImages = r.imgs;
         $.each(r.imgs, function(k, i) {
             var img = $('<li>').addClass('anselthumb').append($('<a>').attr({'href': '#', 'image-key': k,}).append($('<img>').attr({ 'width': Ansel.conf.thumbWidth, 'height': Ansel.conf.thumbHeight, src: i.url })));
-            $('#thumbs').append(img);
+            thumbs.append(img);
         });
         if ($.mobile.activePage.attr('id') != 'galleryview') {
            $.mobile.changePage($('#galleryview'), { transistion: 'slide' });
         }
+        $('#anselgalleryview').append(sg).append(thumbs).trigger('create');
         if (r.p) {
             $('#ansel-gallery-back .ui-btn-text').text(r.pn);
             $('#ansel-gallery-back').attr({'action': 'gallery', 'gallery-id': r.p});
