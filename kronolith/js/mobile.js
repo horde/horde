@@ -192,7 +192,6 @@
                     if (!list.children().length) {
                         list.append($('<li>').text(Kronolith.text.noevents));
                     }
-                    list.listview();
                     $('#dayview [data-role=content]').append(list);
                 }
                 break;
