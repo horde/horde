@@ -43,7 +43,7 @@ foreach ($loginparams as $key => $val) {
             }
             echo '</select>';
         } else {
-            echo '<input id="' . $key . '" name="' . $key . '" ' . (($val['type'] == 'password') ? 'type="password" ' : '') . 'value="' . (isset($val['value']) ? $val['value'] : '') . '">';
+            echo '<input id="' . $key . '" name="' . $key . '" ' . (($val['type'] == 'password') ? 'type="password" ' : 'type="text" ') . 'value="' . (isset($val['value']) ? $val['value'] : '') . '">';
         }
         echo '</div>';
         break;
