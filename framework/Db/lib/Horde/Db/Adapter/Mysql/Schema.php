@@ -327,18 +327,18 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      * @param   string  $type
      * @param   array   $options
      */
-    public function changeColumn($tableName, $columnName, $type, $options=array())
+    public function changeColumn($tableName, $columnName, $type, $options = array())
     {
         $this->_clearTableCache($tableName);
 
         $quotedTableName = $this->quoteTableName($tableName);
         $quotedColumnName = $this->quoteColumnName($columnName);
 
+        $sql = sprintf('SHOW COLUMNS FROM %s LIKE %s',
+                       $quotedTableName,
+                       $this->quoteString($columnName));
+        $row = $this->selectOne($sql);
         if (!array_key_exists('default', $options)) {
-            $sql = sprintf('SHOW COLUMNS FROM %s LIKE %s',
-                           $quotedTableName,
-                           $this->quoteString($columnName));
-            $row = $this->selectOne($sql);
             $options['default'] = $row['Default'];
             $options['column'] = $this->makeColumn($columnName, $row['Default'], $row['Type'], $row['Null'] == 'YES');
         }
@@ -349,7 +349,9 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $unsigned  = !empty($options['unsigned'])  ? $options['unsigned']  : null;
 
         $typeSql = $this->typeToSql($type, $limit, $precision, $scale, $unsigned);
-        $dropPk = $type == 'autoincrementKey' ? 'DROP PRIMARY KEY,' : '';
+        $dropPk = ($type == 'autoincrementKey' && $row['Key'] == 'PRI')
+            ? 'DROP PRIMARY KEY,'
+            : '';
 
         $sql = sprintf('ALTER TABLE %s %s CHANGE %s %s %s',
                        $quotedTableName,
