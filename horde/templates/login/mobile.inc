@@ -1,5 +1,4 @@
 <script type="text/javascript">
-$.mobile.ajaxFormsEnabled = false;
 $(function() {
     $('#horde-login-button').click(function() {
         $('#horde-login-post').val(1);
