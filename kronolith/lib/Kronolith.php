@@ -2734,7 +2734,7 @@ class Kronolith
     {
         // strptime() is not available on Windows.
         if (!function_exists('strptime')) {
-            return new Horde_Date($start);
+            return new Horde_Date($date);
         }
 
         // strptime() is locale dependent, i.e. %p is not always matching
