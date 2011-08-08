@@ -35,7 +35,8 @@ extends Horde_Core_Notification_Handler_Decorator_Base
 
         if (!$prefs->getValue('newmail_notify') ||
             !($listener instanceof Horde_Notification_Listener_Status) ||
-            !$imp_imap->imap) {
+            !$imp_imap->imap ||
+            !$imp_imap->ob) {
             return;
         }
 
