@@ -264,8 +264,9 @@ class Turba_Driver_Sql extends Turba_Driver
         $duplicates = array();
         for ($i = 0; $i < count($joins); $i++) {
             /* Build up the full query. */
-            $query = sprintf('SELECT DISTINCT a1.%s FROM %s a1 JOIN %s a2 ON %s AND a1.%s <> a2.%s WHERE a1.%s = ? AND a2.%s = ? AND %s ORDER BY %s',
+            $query = sprintf('SELECT DISTINCT a1.%s,%s FROM %s a1 JOIN %s a2 ON %s AND a1.%s <> a2.%s WHERE a1.%s = ? AND a2.%s = ? AND %s ORDER BY %s',
                              $this->map['__key'],
+                             $order[$i],
                              $this->_params['table'],
                              $this->_params['table'],
                              $joins[$i],
