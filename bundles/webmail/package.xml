@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* [jan] Avoid double authentication to webmail in new installations.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -257,7 +257,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* [jan] Avoid double authentication to webmail in new installations.
+* 
    </notes>
   </release>
  </changelog>

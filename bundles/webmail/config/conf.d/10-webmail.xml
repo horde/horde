@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<!-- $Id$ -->
-<configuration>
-  <configsection name="auth">
-   <configswitch name="driver" desc="What backend should we use for
-   authenticating users to Horde?">application</configswitch>
-  </configsection>
-</configuration>
