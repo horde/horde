@@ -64,6 +64,20 @@ class Horde_Session
     private $_lzf = false;
 
     /**
+     * Indicates that session data is read-only.
+     *
+     * @var boolean
+     */
+    private $_readonly = false;
+
+    /**
+     * On re-login, indicate whether we were previously authenticated.
+     *
+     * @var integer
+     */
+    private $_relogin = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -131,6 +145,15 @@ class Horde_Session
     {
         session_start();
         $this->_active = true;
+
+        /* We have reopened a session. Check to make sure that authentication
+         * status has not changed in the meantime. */
+        if (!$this->_readonly &&
+            !is_null($this->_relogin) &&
+            (($GLOBALS['registry']->getAuth() !== false) !== $this->_relogin)) {
+            Horde::logMessage('Previous session attempted to be reopened after authentication status change. All session modifications will be ignored.', 'DEBUG');
+            $this->_readonly = true;
+        }
     }
 
     /**
@@ -192,6 +215,7 @@ class Horde_Session
     public function close()
     {
         $this->_active = false;
+        $this->_relogin = ($GLOBALS['registry']->getAuth() !== false);
         session_write_close();
     }
 
@@ -297,6 +321,10 @@ class Horde_Session
      */
     public function set($app, $name, $value, $mask = 0)
     {
+        if ($this->_readonly) {
+            return;
+        }
+
         /* Each particular piece of session data is generally not used on any
          * given page load.  Thus, for arrays and objects, it is beneficial to
          * always convert to string representations so that the object/array
@@ -325,6 +353,10 @@ class Horde_Session
      */
     public function remove($app, $name = null)
     {
+        if ($this->_readonly) {
+            return;
+        }
+
         if (!isset($_SESSION[$app])) {
             return;
         }

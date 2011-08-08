@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-08-04</date>
- <time>13:06:09</time>
+ <date>2011-08-08</date>
+ <time>13:40:23</time>
  <version>
   <release>1.4.0</release>
   <api>1.4.0</api>
@@ -34,8 +34,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Use 'ident' option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
-* [jan] Check applications' authValidate() method if present.
+* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10413).
+* [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
+* [jan] Check applications&apos; authValidate() method if present.
 * [mms] Add Horde_Session::isActive().
 * [mjr] Add remove button to image fields (Request #9870).
  </notes>
@@ -1522,9 +1523,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-04</date>
+   <date>2011-08-08</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10413).
+* [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
+* [jan] Check applications&apos; authValidate() method if present.
 * [mms] Add Horde_Session::isActive().
 * [mjr] Add remove button to image fields (Request #9870).
    </notes>
