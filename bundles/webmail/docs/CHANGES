@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[jan] Avoid double authentication to webmail in new installations.
 
 
 ------
