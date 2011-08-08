@@ -29,7 +29,9 @@ abstract class Horde_Log_Handler_Base
      *
      * @var array
      */
-    protected $_options = array();
+    protected $_options = array(
+        'ident' => ''
+    );
 
     /**
      * List of filter objects.

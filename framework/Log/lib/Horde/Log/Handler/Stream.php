@@ -25,15 +25,6 @@
 class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
 {
     /**
-     * Options to be set by setOption().
-     *
-     * @var array
-     */
-    protected $_options = array(
-        'ident'            => ''
-    );
-
-    /**
      * Formats the log message before writing.
      *
      * @var Horde_Log_Formatter
