@@ -437,10 +437,10 @@ the PEAR installation you just created, e.g.::
 
    /var/www/webmail/pear/pear -c /var/www/webmail/pear.conf channel-discover pear.horde.org
 
-Finally create a .htaccess file in ``/var/www/webmail/`` or configure your web
-server in some other way to point PHP's ``include_path`` setting to the PEAR
-installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the web
-root::
+Finally update the .htaccess file in ``/var/www/webmail/`` or configure your
+web server in some other way to point PHP's ``include_path`` setting to the
+PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the
+web root::
 
    php_value include_path /var/www/webmail/pear/php
    SetEnv PHP_PEAR_SYSCONF_DIR /var/www/webmail
