@@ -23,7 +23,7 @@
   <active>yes</active>
  </developer>
  <date>2011-08-08</date>
- <time>13:40:23</time>
+ <time>13:55:08</time>
  <version>
   <release>1.4.0</release>
   <api>1.4.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10413).
+* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10403).
 * [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
 * [jan] Check applications&apos; authValidate() method if present.
 * [mms] Add Horde_Session::isActive().
@@ -1526,7 +1526,7 @@
    <date>2011-08-08</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10413).
+* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10403).
 * [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
 * [jan] Check applications&apos; authValidate() method if present.
 * [mms] Add Horde_Session::isActive().
