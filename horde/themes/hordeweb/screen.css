@@ -10,11 +10,16 @@ body {
 }
 
 body,
+th,
 #sidebarPanel a, #sidebarPanel span,
 .tabset li a,
 .control,
 .notices li, .notice {
     color: #797979;
+}
+
+hr {
+    color: #d0d0d0;
 }
 
 a {
@@ -58,6 +63,20 @@ a {
     margin-top: 10px;
 }
 
+#menuBottom {
+    margin-top: -22px;
+    margin-right: -1px;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    border-bottom-width: 0;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
 #expandedSidebar {
     margin-right: 20px;
 }
@@ -96,6 +115,25 @@ a {
 .header .smallheader {
     letter-spacing: 0;
 }
+
+.headerbox {
+    border: 1px solid #d0d0d0;
+}
+.headerbox .header {
+    margin-top: 0;
+}
+
+#portal {
+    border-spacing: 19px;
+}
+/*
+.headerbox, table.nopadding td.headerbox {
+    padding-left: 20px;
+    border-color: #d0d0d0;
+}
+    margin-left: -29px;
+}
+*/
 
 .tabset {
     background: url(graphics/background.jpg) repeat;

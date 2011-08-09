@@ -60,7 +60,7 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
         $tplDir = $GLOBALS['registry']->get('templates', 'horde');
         $interval = $GLOBALS['prefs']->getValue('summary_refresh_time');
 
-        $html = '<table class="nopadding" cellspacing="8" width="100%">';
+        $html = '<table id="portal" class="nopadding" cellspacing="8" width="100%">';
 
         $bc = $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create();
         $covered = array();
