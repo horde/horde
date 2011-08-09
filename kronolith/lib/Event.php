@@ -542,11 +542,11 @@ abstract class Kronolith_Event
         if ($this->isAllDay()) {
             $vEvent->setAttribute('DTSTART', $this->start, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('DTEND', $this->end, array('VALUE' => 'DATE'));
+            $vEvent->setAttribute('X-FUNAMBOL-ALLDAY', 1);
         } else {
             $vEvent->setAttribute('DTSTART', $this->start);
             $vEvent->setAttribute('DTEND', $this->end);
         }
-        $vEvent->setAttribute('X-FUNAMBOL-ALLDAY', 1);
 
         $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
         $vEvent->setAttribute('UID', $this->uid);
