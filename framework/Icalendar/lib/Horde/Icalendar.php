@@ -216,6 +216,10 @@ class Horde_Icalendar
      */
     public function getAttribute($name, $params = false)
     {
+        if ($name == 'VERSION') {
+            return $this->_version;
+        }
+
         $result = array();
         foreach ($this->_attributes as $attribute) {
             if ($attribute['name'] == $name) {
