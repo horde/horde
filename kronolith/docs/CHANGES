@@ -2,6 +2,8 @@
 v3.0.9-git
 ----------
 
+[jan] Fix exporting all-day events to Funambol clients (Thomas Ilsche
+      <git@zulan.net>, Bug #10349).
 [jan] Fix creating events from dynamic view on Windows (Bug #9916).
 [mjr] Fix displaying of freebusy data in dynamic view (adominguez@cne.gob.ve,
       Bug #10347).
