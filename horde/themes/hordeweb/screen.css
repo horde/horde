@@ -46,6 +46,9 @@ a {
     padding-top: 7px;
     padding-right: 4px;
 }
+#menu li:last-child {
+    border-right-width: 0;
+}
 #menu a {
     font-size: 13px;
     color: #999;
