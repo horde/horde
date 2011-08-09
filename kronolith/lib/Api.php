@@ -1170,7 +1170,8 @@ class Kronolith_Api extends Horde_Registry_Api
         } elseif (!is_array($calendars)) {
             $calendars = array($calendars);
         }
-        foreach ($calendars as $calendar) {
+        foreach ($calendars as &$calendar) {
+            $calendar = str_replace('internal_', '', $calendar);
             if (!Kronolith::hasPermission($calendar, Horde_Perms::READ)) {
                 throw new Horde_Exception_PermissionDenied();
             }
