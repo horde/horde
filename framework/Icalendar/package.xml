@@ -30,7 +30,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mjr] Fix fetching the version from an Icalendar object (Bug #10411)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -775,7 +775,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mjr] Fix fetching the version from an Icalendar object (Bug #10411)
    </notes>
   </release>
  </changelog>
