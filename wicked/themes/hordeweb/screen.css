@@ -1,27 +1,22 @@
-.control {
-    padding-left: 5px;
-    padding-right: 5px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
+.pagebody {
+    color: #797979;
 }
 
-.pagebody {
-    padding: 0;
+.pagebody h1, .pagebody h2, .pagebody h3 {
+    letter-spacing: -1px;
 }
 .pagebody h1, .pagebody h2 {
-    border: none;
+    font-size: 1.5em;
 }
-#pagefooter {
-    margin-left: 0;
-    margin-right: 0;
+.pagebody h1 {
+    border-color: #556aa1;
+    color: #556aa1;
+}
+.pagebody h2 {
+    border-bottom: 2px dotted #afafaf;
 }
 
-.filelist, #toc {
-    font-size: 100%;
-    background: #cfc;
-    border: none;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
+#toc h2 {
+    border-bottom: 1px dotted #afafaf;
+    letter-spacing: 0;
 }
