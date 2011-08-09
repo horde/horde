@@ -103,7 +103,7 @@ class Horde_Icalendar
                 $component->_container = $container;
                 // Use version of container, not default set by component
                 // constructor.
-                $component->setVersion($container->version);
+                $component->setVersion($container->getAttribute('VERSION'));
             }
         } else {
             // Should return an dummy x-unknown type class here.
