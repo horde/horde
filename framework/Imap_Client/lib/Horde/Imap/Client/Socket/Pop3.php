@@ -1037,6 +1037,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             fwrite($this->_debug, 'S (' . microtime(true) . '): ' . $read . "\n");
         }
 
+        $orig_read = $read;
         $read = explode(' ', $read, 2);
 
         switch ($read[0]) {
@@ -1093,7 +1094,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         default:
-            $ob['line'] = $read;
+            $ob['line'] = $orig_read;
             break;
         }
 
