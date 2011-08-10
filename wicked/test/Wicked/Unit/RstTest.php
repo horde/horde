@@ -127,4 +127,39 @@ class Wicked_Unit_RstTest extends Wicked_TestCase
             $this->protectAgainstPearError($wiki->transform('++++++HEADER', 'Rst'))
         );
     }
+
+    public function testToc()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '.. contents:: Contents
+.. section-numbering::
+
+===
+ H
+===
+
+H4
+**
+
+===
+ G
+===
+
+H6
+``
+
+',
+            $this->protectAgainstPearError($wiki->transform('
+[[toc]]
+
++H
+
+++++H4
+
++G
+
+++++++H6', 'Rst'))
+        );
+    }
 }
