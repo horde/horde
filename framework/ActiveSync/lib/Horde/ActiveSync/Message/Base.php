@@ -102,6 +102,8 @@ class Horde_ActiveSync_Message_Base
 
         if (!empty($this->_properties[$property])) {
             return $this->_properties[$property];
+        } elseif ($this->_properties[$property] === 0) {
+            return 0;
         } else {
             return '';
         }
