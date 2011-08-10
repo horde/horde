@@ -1,15 +1,50 @@
 <?php
+/**
+ * Test the SQL driver.
+ *
+ * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPLv2). If
+ * you did not receive this file, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ *
+ * PHP version 5
+ *
+ * @category   Horde
+ * @package    Wicked
+ * @subpackage UnitTests
+ * @author     Jason Felice <jason.m.felice@gmail.com>
+ * @link       http://www.horde.org/apps/wicked
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ */
 
-class Wicked_Driver_TC extends HordeUnitTestCase {
+/**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/../../Autoload.php';
 
+/**
+ * Test the restructured text renderer.
+ *
+ * @category   Horde
+ * @package    Wicked
+ * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @link       http://www.horde.org/apps/wicked
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ */
+class Wicked_Unit_Driver_SqlTest extends Wicked_TestCase
+{
     /**
      * Driver we are testing
      * @var object
      */
     public $wicked;
 
-    function setUp()
+    public function setUp()
     {
+        $this->markTestIncomplete('This is a very old test case that certainly does not work in its current form. But it may still be useful to be rescued.');
+
         @define('WICKED_BASE', dirname(__FILE__) . '/../..');
         @define('TEST_PAGE_1', 'driver-pages.phpt Test Page One');
         @define('TEST_PAGE_2', 'Renamed driver-pages.phpt Test Page (Called "Two")');
@@ -17,7 +52,7 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         $this->wicked = Wicked_Driver::factory('sql', $this->getTestDatabaseSQLDriverConfig());
     }
 
-    function test_Driver_newPage_should_successfully_create_a_page()
+    public function test_Driver_newPage_should_successfully_create_a_page()
     {
         $this->wicked->removeAllVersions(TEST_PAGE_1);
 
@@ -30,7 +65,7 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         $this->assertEqual('This is a test.', $page['page_text']);
     }
 
-    function test_updateText_should_also_update_history()
+    public function test_updateText_should_also_update_history()
     {
         $this->wicked->updateText(TEST_PAGE_1, 'Here\'s the new page text.',
                                   'Test change.', true);
@@ -52,7 +87,7 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         $this->assertEqual('Here\'s the new page text.', $page['page_text']);
     }
 
-    function testGetHistoryAndRemoveVersion()
+    public function testGetHistoryAndRemoveVersion()
     {
         $history = $this->wicked->getHistory(TEST_PAGE_1);
         $this->assertFalse(count($history) < 2, "need more history to test");
@@ -74,7 +109,7 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         }
     }
 
-    function testLock()
+    public function testLock()
     {
         $page = $this->wicked->retrieveByName(TEST_PAGE_1);
         $this->assertFalse($page['locked']);
@@ -88,7 +123,7 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         $this->assertFalse($page['locked']);
     }
 
-    function test_logPageView_should_increment_hit_counter()
+    public function test_logPageView_should_increment_hit_counter()
     {
         $page = $this->wicked->retrieveByName(TEST_PAGE_1);
         $hits = $page['page_hits'];
@@ -97,7 +132,7 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         $this->assertEqual($page['page_hits'], $hits + 1);
     }
 
-    function testRenamePage()
+    public function testRenamePage()
     {
         $this->wicked->renamePage(TEST_PAGE_1, TEST_PAGE_2);
         $this->assertFalse($this->wicked->pageExists(TEST_PAGE_1));
@@ -108,7 +143,7 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         $this->assertFalse($this->wicked->pageExists(TEST_PAGE_2));
     }
 
-    function testGetPagesAndGetAllPages()
+    public function testGetPagesAndGetAllPages()
     {
         $pages = $this->wicked->getPages(false);
         $allPages = $this->wicked->getAllPages();
@@ -123,22 +158,22 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         $this->assertFalse(count(array_diff($allPageNames, $pages)) > 0);
     }
 
-    function test_mostPopular_call_should_not_fail()
+    public function test_mostPopular_call_should_not_fail()
     {
         $this->wicked->mostPopular();
     }
 
-    function test_leastPopular_call_should_not_fail()
+    public function test_leastPopular_call_should_not_fail()
     {
         $this->wicked->leastPopular();
     }
 
-    function test_recentChanges_call_should_not_fail()
+    public function test_recentChanges_call_should_not_fail()
     {
         $this->wicked->getRecentChanges();
     }
 
-    function testSearches()
+    public function testSearches()
     {
         $res = $this->wicked->searchTitles('.phpt');
         $this->assertFalse(count($res) < 1, "didn't find all the pages.");
@@ -149,7 +184,7 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         $this->wicked->getLikePages('Wiki');
     }
 
-    function test_removeAllVersions_should_not_leave_any_versions()
+    public function test_removeAllVersions_should_not_leave_any_versions()
     {
         $this->wicked->removeAllVersions(TEST_PAGE_1);
         $this->assertFalse($this->wicked->pageExists("TEXT_PAGE_1"));
