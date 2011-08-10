@@ -1296,7 +1296,8 @@ abstract class Kronolith_Event
      */
     public function toASAppointment()
     {
-        $message = new Horde_ActiveSync_Message_Appointment(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $message->setSubject($this->getTitle());
         $message->setBody($this->description);
         $message->setLocation($this->location);
