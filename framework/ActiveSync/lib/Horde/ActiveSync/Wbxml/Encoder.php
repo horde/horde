@@ -59,7 +59,6 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      * Const'r
      *
      * @param stream $output
-     * @param array $config
      *
      * @return Horde_ActiveSync_Wbxml_Encoder
      */
@@ -116,25 +115,25 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Start output for the specified tag
      *
-     * @param string $tag        The textual representation of the tag to start
-     * @param mixed $attributes  Any attributes for the start tag
-     * @param boolean $nocontent Force output of empty tags
+     * @param string $tag            The name of the tag to start
+     * @param mixed $attributes     Any attributes for the start tag
+     * @param boolean $output_empty  Force output of empty tags
      *
      * @return void
      */
-    public function startTag($tag, $attributes = false, $nocontent = false)
+    public function startTag($tag, $attributes = false, $output_empty = false)
     {
         $stackelem = array();
-        if (!$nocontent) {
+        if (!$output_empty) {
             $stackelem['tag'] = $tag;
             $stackelem['attributes'] = $attributes;
-            $stackelem['nocontent'] = $nocontent;
+            $stackelem['nocontent'] = $output_empty;
             $stackelem['sent'] = false;
             array_push($this->_stack, $stackelem);
         } else {
             /* Flush the stack if we want to force empty tags */
             $this->_outputStack();
-            $this->_startTag($tag, $attributes, $nocontent);
+            $this->_startTag($tag, $attributes, $output_empty);
         }
     }
 
@@ -191,13 +190,13 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      *
      * @param string $tag @see Horde_ActiveSync_Wbxml_Encoder::startTag
      * @param mixed $attributes @see Horde_ActiveSync_Wbxml_Encoder::startTag
-     * @param boolean $nocontent @see Horde_ActiveSync_Wbxml_Encoder::startTag
+     * @param boolean $output_empty @see Horde_ActiveSync_Wbxml_Encoder::startTag
      *
      * @return void
      */
-    private function _startTag($tag, $attributes = false, $nocontent = false)
+    private function _startTag($tag, $attributes = false, $output_empty = false)
     {
-        $this->_logStartTag($tag, $attributes, $nocontent);
+        $this->_logStartTag($tag, $attributes, $output_empty);
         $mapping = $this->_getMapping($tag);
         if (!$mapping) {
            return false;
@@ -213,8 +212,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         $code = $mapping['code'];
         if (isset($attributes) && is_array($attributes) && count($attributes) > 0) {
             $code |= 0x80;
-        }
-        if (!isset($nocontent) || !$nocontent) {
+        } elseif (!isset($output_empty) || !$output_empty) {
             $code |= 0x40;
         }
         $this->_outByte($code);
@@ -372,14 +370,14 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      *
      * @param string $tag
      * @param mixed $attr
-     * @param boolean $nocontent
+     * @param boolean $output_empty
      *
      * @return void
      */
-    private function _logStartTag($tag, $attr, $nocontent)
+    private function _logStartTag($tag, $attr, $output_empty)
     {
         $spaces = str_repeat(' ', count($this->_logStack));
-        if ($nocontent) {
+        if ($output_empty) {
             $this->_logger->debug(sprintf('O %s <%s/>', $spaces, $tag));
         } else {
             array_push($this->_logStack, $tag);
