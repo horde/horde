@@ -2,6 +2,7 @@
 v3.0.9-git
 ----------
 
+[jan] Import VALARM components from iCalendar 2.0 data (Request #6665).
 [jan] Fix exporting all-day events to Funambol clients (Thomas Ilsche
       <git@zulan.net>, Bug #10349).
 [jan] Fix creating events from dynamic view on Windows (Bug #9916).

@@ -994,7 +994,35 @@ abstract class Kronolith_Event
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
-        // @TODO: vCalendar 2.0 alarms
+        // vCalendar 2.0 alarms
+        foreach ($vEvent->getComponents() as $alarm) {
+            if (!($alarm instanceof Horde_Icalendar_Valarm)) {
+                continue;
+            }
+            try {
+                // @todo consider implementing different ACTION types.
+                // $action = $alarm->getAttribute('ACTION');
+                $trigger = $alarm->getAttribute('TRIGGER');
+                $triggerParams = $alarm->getAttribute('TRIGGER', true);
+            } catch (Horde_Icalendar_Exception $e) {
+                continue;
+            }
+            if (isset($triggerParams['VALUE']) &&
+                $triggerParams['VALUE'] == 'DATE-TIME') {
+                if (isset($triggerParams['RELATED']) &&
+                    $triggerParams['RELATED'] == 'END') {
+                    $this->alarm = intval(($this->end->timestamp() - $trigger) / 60);
+                } else {
+                    $this->alarm = intval(($this->start->timestamp() - $trigger) / 60);
+                }
+            } else {
+                $this->alarm = -intval($trigger / 60);
+                if (isset($triggerParams['RELATED']) &&
+                    $triggerParams['RELATED'] == 'END') {
+                    $this->alarm -= $this->durMin;
+                }
+            }
+        }
 
         // Attendance.
         // Importing attendance may result in confusion: editing an imported
