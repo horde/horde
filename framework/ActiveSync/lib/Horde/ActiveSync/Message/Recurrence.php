@@ -45,4 +45,18 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
         parent::__construct($params);
     }
 
+    /**
+     * Check for tags that can have valid, empty/zero values
+     *
+     * @return boolean
+     */
+    protected function _checkSendEmpty($tag)
+    {
+        if ($tag == Horde_ActiveSync_Message_Appointment::POOMCAL_TYPE) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
