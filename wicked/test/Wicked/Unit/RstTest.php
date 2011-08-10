@@ -58,9 +58,9 @@ class Wicked_Unit_RstTest extends Wicked_TestCase
     {
         $wiki = new Text_Wiki_Default();
         $this->assertEquals(
-            '=======
- HEADER
-=======
+            '=========
+  HEADER
+=========
 
 ',
             $this->protectAgainstPearError($wiki->transform('+ HEADER', 'Rst'))
@@ -71,9 +71,9 @@ class Wicked_Unit_RstTest extends Wicked_TestCase
     {
         $wiki = new Text_Wiki_Default();
         $this->assertEquals(
-            '------
-HEADER
-------
+            '--------
+ HEADER
+--------
 
 ',
             $this->protectAgainstPearError($wiki->transform('++HEADER', 'Rst'))

@@ -53,10 +53,12 @@ class Text_Wiki_Render_Rst_Heading extends Text_Wiki_Render
             case '1':
                 $overline = '=';
                 $underline = '=';
+                $length += 2;
                 break;
             case '2':
                 $overline = '-';
                 $underline = '-';
+                $length += 2;
                 break;
             case '3':
                 $overline = null;
@@ -77,7 +79,7 @@ class Text_Wiki_Render_Rst_Heading extends Text_Wiki_Render
             }
             $output = '';
             if ($overline !== null) {
-                $output .= str_repeat($overline, $length) . "\n";
+                $output .= str_repeat($overline, $length) . "\n ";
             }
             $previous = $options;
             $previous['length'] = $length;
