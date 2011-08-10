@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>16:03:33</time>
+ <date>2011-08-10</date>
+ <time>10:55:03</time>
  <version>
   <release>4.0.9</release>
   <api>4.0.0</api>
@@ -1726,13 +1726,27 @@
     </dir> <!-- /themes/hi-contrast -->
     <dir name="hordeweb">
      <dir name="graphics">
+      <file name="background.jpg" role="horde" />
+      <file name="help_index.png" role="horde" />
+      <file name="login.png" role="horde" />
+      <file name="logout.png" role="horde" />
+      <file name="prefs.png" role="horde" />
+      <file name="problem.png" role="horde" />
+      <file name="ribbon.png" role="horde" />
+     </dir> <!-- /themes/hordeweb/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+     <file name="webkit.css" role="horde" />
+    </dir> <!-- /themes/hordeweb -->
+    <dir name="hordeweb1">
+     <dir name="graphics">
       <file name="horde-halfgear-ie.png" role="horde" />
       <file name="horde-halfgear.png" role="horde" />
-     </dir> <!-- /themes/hordeweb/graphics -->
+     </dir> <!-- /themes/hordeweb1/graphics -->
      <file name="ie6_or_less.css" role="horde" />
      <file name="info.php" role="horde" />
      <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/hordeweb -->
+    </dir> <!-- /themes/hordeweb1 -->
     <dir name="ideas">
      <dir name="graphics">
       <file name="background.png" role="horde" />
@@ -3692,11 +3706,21 @@
    <install as="themes/grey/screen.css" name="themes/grey/screen.css" />
    <install as="themes/hi-contrast/info.php" name="themes/hi-contrast/info.php" />
    <install as="themes/hi-contrast/screen.css" name="themes/hi-contrast/screen.css" />
-   <install as="themes/hordeweb/ie6_or_less.css" name="themes/hordeweb/ie6_or_less.css" />
    <install as="themes/hordeweb/info.php" name="themes/hordeweb/info.php" />
    <install as="themes/hordeweb/screen.css" name="themes/hordeweb/screen.css" />
-   <install as="themes/hordeweb/graphics/horde-halfgear-ie.png" name="themes/hordeweb/graphics/horde-halfgear-ie.png" />
-   <install as="themes/hordeweb/graphics/horde-halfgear.png" name="themes/hordeweb/graphics/horde-halfgear.png" />
+   <install as="themes/hordeweb/webkit.css" name="themes/hordeweb/webkit.css" />
+   <install as="themes/hordeweb/graphics/background.jpg" name="themes/hordeweb/graphics/background.jpg" />
+   <install as="themes/hordeweb/graphics/help_index.png" name="themes/hordeweb/graphics/help_index.png" />
+   <install as="themes/hordeweb/graphics/login.png" name="themes/hordeweb/graphics/login.png" />
+   <install as="themes/hordeweb/graphics/logout.png" name="themes/hordeweb/graphics/logout.png" />
+   <install as="themes/hordeweb/graphics/prefs.png" name="themes/hordeweb/graphics/prefs.png" />
+   <install as="themes/hordeweb/graphics/problem.png" name="themes/hordeweb/graphics/problem.png" />
+   <install as="themes/hordeweb/graphics/ribbon.png" name="themes/hordeweb/graphics/ribbon.png" />
+   <install as="themes/hordeweb1/ie6_or_less.css" name="themes/hordeweb1/ie6_or_less.css" />
+   <install as="themes/hordeweb1/info.php" name="themes/hordeweb1/info.php" />
+   <install as="themes/hordeweb1/screen.css" name="themes/hordeweb1/screen.css" />
+   <install as="themes/hordeweb1/graphics/horde-halfgear-ie.png" name="themes/hordeweb1/graphics/horde-halfgear-ie.png" />
+   <install as="themes/hordeweb1/graphics/horde-halfgear.png" name="themes/hordeweb1/graphics/horde-halfgear.png" />
    <install as="themes/ideas/info.php" name="themes/ideas/info.php" />
    <install as="themes/ideas/screen.css" name="themes/ideas/screen.css" />
    <install as="themes/ideas/graphics/background.png" name="themes/ideas/graphics/background.png" />
@@ -4198,7 +4222,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-08-10</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 *
