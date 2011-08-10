@@ -80,12 +80,11 @@ class Horde_ActiveSync_Message_Base
     /**
      * Const'r
      *
-     * @param array $mapping  A mapping array from constants -> property names
      * @param array $options  Any addition options the message may require
      *
      * @return Horde_ActiveSync_Message_Base
      */
-    public function __construct($options)
+    public function __construct(array $options)
     {
         if (!empty($options['logger'])) {
             $this->_logger = $options['logger'];
