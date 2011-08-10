@@ -286,8 +286,9 @@ abstract class Kronolith_Event
     public $exceptionoriginaldate;
 
     /**
-     * The event .
+     * The cached event duration, split up in time units.
      *
+     * @see getDuration()
      * @var stdClass
      */
     protected $_duration;
@@ -751,6 +752,7 @@ abstract class Kronolith_Event
             } else {
                 $vAlarm = Horde_Icalendar::newComponent('valarm', $vEvent);
                 $vAlarm->setAttribute('ACTION', 'DISPLAY');
+                $vAlarm->setAttribute('DESCRIPTION', $this->getTitle());
                 $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
                 $vEvent->addComponent($vAlarm);
             }
