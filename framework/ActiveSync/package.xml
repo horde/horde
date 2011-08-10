@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
+* [mjr] Fix bug with certain recurrence types due to erroneously outputting a zero as an empty tag (Bug# 10416).
 * [mjr] Support POOMCONTACTS2 schema in AS 2.5 clients also.
  </notes>
  <contents>
@@ -362,6 +363,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
+* [mjr] Fix bug with certain recurrence types due to erroneously outputting a zero as an empty tag (Bug# 10416).
 * [mjr] Support POOMCONTACTS2 schema in AS 2.5 clients also.
    </notes>
   </release>
