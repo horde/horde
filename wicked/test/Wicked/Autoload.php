@@ -19,6 +19,7 @@
  */
 
 $mappings = array('Wicked' => dirname(__FILE__) . '/../../lib/');
+$mappings = array('Text/Wiki/Render/Rst' => dirname(__FILE__) . '/../../lib/Text_Wiki/Render/Rst');
 require_once 'Horde/Test/Autoload.php';
 
 /** Catch strict standards */

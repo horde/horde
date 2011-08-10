@@ -31,4 +31,24 @@
 class Wicked_TestCase
 extends PHPUnit_Framework_TestCase
 {
+    protected function unstrictPearTestingMode()
+    {
+        $this->_old_errorreporting = error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
+        error_reporting(E_ALL & ~(E_STRICT | E_DEPRECATED));
+    }
+
+    protected function revertTestingMode()
+    {
+        if ($this->_old_errorreporting !== null) {
+            error_reporting($this->_old_errorreporting);
+        }
+    }
+
+    protected function protectAgainstPearError($result)
+    {
+        if ($result instanceOf PEAR_Error) {
+            $this->fail(sprintf('Test failed with: %s', $result->getMessage()));
+        }
+        return $result;
+    }
 }

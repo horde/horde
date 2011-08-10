@@ -35,7 +35,22 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  */
 class Wicked_Unit_RstTest extends Wicked_TestCase
 {
-    public function testSomething()
+    public function setUp()
     {
+        $this->unstrictPearTestingMode();
+    }
+
+    public function tearDown()
+    {
+        $this->revertTestingMode();
+    }
+
+    public function testEmpty()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '',
+            $this->protectAgainstPearError($wiki->transform('', 'Rst'))
+        );
     }
 }
