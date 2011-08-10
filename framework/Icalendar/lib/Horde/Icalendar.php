@@ -1379,11 +1379,11 @@ class Horde_Icalendar
     }
 
     /**
-     * Parse a Duration Value field.
+     * Parses a DURATION value field.
      *
-     * @param $text TODO
+     * @param string $text  A DURATION value.
      *
-     * @return TODO
+     * @return integer  The duration in seconds.
      */
     protected function _parseDuration($text)
     {
