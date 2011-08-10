@@ -53,4 +53,78 @@ class Wicked_Unit_RstTest extends Wicked_TestCase
             $this->protectAgainstPearError($wiki->transform('', 'Rst'))
         );
     }
+
+    public function testHeaderOne()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '=======
+ HEADER
+=======
+
+',
+            $this->protectAgainstPearError($wiki->transform('+ HEADER', 'Rst'))
+        );
+    }
+
+    public function testHeaderTwo()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '------
+HEADER
+------
+
+',
+            $this->protectAgainstPearError($wiki->transform('++HEADER', 'Rst'))
+        );
+    }
+
+    public function testHeaderThree()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            'HEADER
+======
+
+',
+            $this->protectAgainstPearError($wiki->transform('+++HEADER', 'Rst'))
+        );
+    }
+
+    public function testHeaderFour()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            'HEADER
+******
+
+',
+            $this->protectAgainstPearError($wiki->transform('++++HEADER', 'Rst'))
+        );
+    }
+
+    public function testHeaderFive()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            'HEADER
+------
+
+',
+            $this->protectAgainstPearError($wiki->transform('+++++HEADER', 'Rst'))
+        );
+    }
+
+    public function testHeaderSix()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            'HEADER
+``````
+
+',
+            $this->protectAgainstPearError($wiki->transform('++++++HEADER', 'Rst'))
+        );
+    }
 }
