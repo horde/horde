@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [gwr] Do not fail when no basedn is set for the Horde_Kolab_Server configuration.
 * [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10403).
 * [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
 * [jan] Check applications&apos; authValidate() method if present.
@@ -1532,6 +1533,7 @@
    <date>2011-08-08</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [gwr] Do not fail when no basedn is set for the Horde_Kolab_Server configuration.
 * [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10403).
 * [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
 * [jan] Check applications&apos; authValidate() method if present.
