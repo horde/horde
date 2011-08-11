@@ -184,7 +184,7 @@ class Horde_Core_Factory_KolabServer extends Horde_Core_Factory_Base
         $configuration = $this->_injector->getInstance('Horde_Kolab_Server_Configuration');
         if (empty($configuration['mock'])) {
             if (!isset($configuration['basedn'])) {
-                throw new Horde_Exception('The parameter \'basedn\' is missing in the Kolab server configuration!');
+                $configuration['basedn'] = '';
             }
 
             $configuration['cache'] = $this->_injector->getInstance('Horde_Cache');
@@ -238,7 +238,7 @@ class Horde_Core_Factory_KolabServer extends Horde_Core_Factory_Base
     {
         $configuration = $this->getConfiguration();
         if (!isset($configuration['basedn'])) {
-            throw new Horde_Exception('The parameter \'basedn\' is missing in the Kolab server configuration!');
+            $configuration['basedn'] = '';
         }
 
         $connection = $this->getConnection();
