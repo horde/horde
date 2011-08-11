@@ -90,7 +90,7 @@ class Components_Helper_ChangeLog
     public function changes($log, $directory, $options)
     {
         $changes = false;
-        if ($changes = $this->changesFileExists($directory, $options)) {
+        if ($changes = $this->changesFileExists($directory)) {
             if (empty($options['pretend'])) {
                 $this->addChange($log, $changes);
                 $this->_output->ok(
@@ -174,23 +174,16 @@ class Components_Helper_ChangeLog
     /**
      * Indicates if there is a CHANGES file for this component.
      *
-     * @param string $dir     The basic component directory.
-     * @param array  $options Additional options.
+     * @param string $dir The basic component directory.
      *
      * @return string|boolean The path to the CHANGES file if it exists, false
      *                        otherwise.
      */
-    public function changesFileExists($dir, $options)
+    public function changesFileExists($dir)
     {
         $changes = $dir . self::CHANGES;
         if (file_exists($changes)) {
             return $changes;
-        }
-        if (isset($options['component_name'])) {
-            $changes = $dir . '/doc/' . str_replace('_', '/', $options['component_name']) . '/CHANGES';
-            if (file_exists($changes)) {
-                return $changes;
-            }
         }
         return false;
     }

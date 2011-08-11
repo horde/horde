@@ -48,26 +48,13 @@ class Horde_Release_Sentinel
     private $_component;
 
     /**
-     * Additional parameters.
-     *
-     * @var array
-     */
-    private $_params;
-
-    /**
      * Constructor.
      *
      * @param string $component Base component path.
-     * @param array  $params    Additional parameters.
-     * <pre>
-     *  - component_name: If the component name is provided additional locations
-     *                    will be checked for files with sentinels
-     * </pre>
      */
-    public function __construct($component, $params = array())
+    public function __construct($component)
     {
         $this->_component = $component;
-        $this->_params = $params;
     }
 
     /**
@@ -200,12 +187,6 @@ class Horde_Release_Sentinel
         $changes = $this->_component . self::CHANGES;
         if (file_exists($changes)) {
             return $changes;
-        }
-        if (isset($this->_params['component_name'])) {
-            $changes = $this->_component . '/doc/' . str_replace('_', '/', $this->_params['component_name']) . '/CHANGES';
-            if (file_exists($changes)) {
-                return $changes;
-            }
         }
         return false;
     }
