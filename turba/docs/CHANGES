@@ -2,6 +2,7 @@
 v3.0.6-git
 ----------
 
+[mjr] Fix issue with synchronizing deleted contacts (Bug #10422).
 [jan] Fix searching for duplicates on some databases (Bug #10383).
 [mjr] Add and support more attributes by default.
 
