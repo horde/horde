@@ -528,7 +528,6 @@ class Turba_Api extends Horde_Registry_Api
                 '>', $timestamp, $filter,
                 'turba:' . $driver->getName());
 
-
             // Filter out groups
             $nguids = str_replace(
                 'turba:' . $driver->getName() . ':',
