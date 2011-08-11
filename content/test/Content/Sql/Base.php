@@ -60,6 +60,46 @@ class Content_Test_Sql_Base extends Content_Test_Base
     /**
      * @depends testCreate
      */
+    public function testTagCloudByType()
+    {
+        $this->_testTagCloudByType();
+    }
+
+    /**
+     * @depends testCreate
+     */
+     public function testTagCloudByUser()
+     {
+         $this->_testTagCloudByUser();
+     }
+
+     /**
+      * @depends testCreate
+      */
+     public function testTagCloudByUserType()
+     {
+         $this->_testTagCloudByUserType();
+     }
+
+     /**
+      * @depends testCreate
+      */
+     public function testTagCloudByTagType()
+     {
+         $this->_testTagCloudByTagType();
+     }
+
+     /**
+      * @depends testCreate
+      */
+     public function testTagCloudByTagIds()
+     {
+         $this->_testTagCloudByTagIds();
+     }
+
+    /**
+     * @depends testCreate
+     */
     public function testGetRecentTags()
     {
         $this->_testGetRecentTags();

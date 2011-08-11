@@ -101,7 +101,7 @@ class Content_Test_Base extends Horde_Test_Case
             ),
 
             '2' => array(
-               'tag_id' => 2,
+                'tag_id' => 2,
                 'tag_name' => 'work',
                 'count' => 1
             ),
@@ -120,6 +120,91 @@ class Content_Test_Base extends Horde_Test_Case
         );
 
         $cloud = self::$tagger->getTagCloud();
+        $this->assertEquals($expected, $cloud);
+    }
+
+    protected function _testTagCloudByType()
+    {
+        $expected = array(
+            '3' => array(
+                'tag_id' => 3,
+                'tag_name' => 'apple',
+                'count' => 1
+            )
+        );
+        $cloud = self::$tagger->getTagCloud(array('typeId' => 'blog'));
+        $this->assertEquals($expected, $cloud);
+    }
+
+    protected function _testTagCloudByUser()
+    {
+        $expected = array(
+            '3' => array(
+                'tag_id' => 3,
+                'tag_name' => 'apple',
+                'count' => 1
+            ),
+            '4' => array(
+                'tag_id' => 4,
+                'tag_name' => 'personal',
+                'count' => 1
+            )
+        );
+        $cloud = self::$tagger->getTagCloud(array('userId' => 'bob'));
+        $this->assertEquals($expected, $cloud);
+    }
+
+    protected function _testTagCloudByUserType()
+    {
+        $expected = array(
+            '1' => array(
+                'tag_id' => 1,
+                'tag_name' => 'play',
+                'count' => 1
+            ),
+            '2' => array(
+                'tag_id' => 2,
+                'tag_name' => 'work',
+                'count' => 1
+            ),
+            '4' => array(
+                'tag_id' => 4,
+                'tag_name' => 'personal',
+                'count' => 1
+            )
+        );
+        $cloud = self::$tagger->getTagCloud(array('userId' => 'alice', 'typeId' => 'event'));
+        $this->assertEquals($expected, $cloud);
+    }
+
+    protected function _testTagCloudByTagType()
+    {
+        $expected = array(
+            '2' => array(
+                'tag_id' => 2,
+                'tag_name' => 'work',
+                'count' => 1
+            )
+        );
+        $cloud = self::$tagger->getTagCloud(array('tagIds' => array(2), 'typeId' => 'event'));
+        $this->assertEquals($expected, $cloud);
+    }
+
+    protected function _testTagCloudByTagIds()
+    {
+        $expected = array(
+            '2' => array(
+                'tag_id' => 2,
+                'tag_name' => 'work',
+                'count' => 1
+            ),
+            '4' => array(
+                'tag_id' => 4,
+                'tag_name' => 'personal',
+                'count' => 2
+            )
+        );
+        $cloud = self::$tagger->getTagCloud(array('tagIds' => array(2, 4)));
         $this->assertEquals($expected, $cloud);
     }
 
