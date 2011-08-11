@@ -378,7 +378,7 @@ abstract class Horde_Auth_Base
      * <pre>
      * 'change' - (boolean) Do credentials need to be changed?
      * 'credentials' - (array) The credentials needed to authenticate.
-     * 'expire' - (integer) UNIX timestamp of the credential expiration date. 
+     * 'expire' - (integer) UNIX timestamp of the credential expiration date.
      * 'userId' - (string) The user ID.
      * </pre>
      *
