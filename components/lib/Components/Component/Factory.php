@@ -229,12 +229,13 @@ class Components_Component_Factory
      * Create the sentinel helper.
      *
      * @param string $directory The directory the sentinel should act in.
+     * @param array  $options   Additional options.
      *
      * @return Horde_Release_Sentinel The sentinel helper.
      */
-    public function createSentinel($directory)
+    public function createSentinel($directory, $options = array())
     {
-        return new Horde_Release_Sentinel($directory);
+        return new Horde_Release_Sentinel($directory, $options);
     }
 
     /**

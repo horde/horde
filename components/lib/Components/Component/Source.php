@@ -175,6 +175,7 @@ class Components_Component_Source extends Components_Component_Base
         if ($file && !empty($options['commit'])) {
             $options['commit']->add($file, $this->_directory);
         }
+        $options['component_name'] = $this->getName();
         $file = $helper->changes($log, $this->_directory, $options);
         if ($file && !empty($options['commit'])) {
             $options['commit']->add($file, $this->_directory);
@@ -314,7 +315,9 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function currentSentinel($changes, $app, $options)
     {
-        $sentinel = $this->getFactory()->createSentinel($this->_directory);
+        $sentinel = $this->getFactory()->createSentinel(
+            $this->_directory, array('component_name' => $this->getName())
+        );
         if (empty($options['pretend'])) {
             $sentinel->replaceChanges($changes);
             $sentinel->updateApplication($app);
@@ -357,7 +360,9 @@ class Components_Component_Source extends Components_Component_Base
      */
     public function nextSentinel($changes, $app, $options)
     {
-        $sentinel = $this->getFactory()->createSentinel($this->_directory);
+        $sentinel = $this->getFactory()->createSentinel(
+            $this->_directory, array('component_name' => $this->getName())
+        );
         if (empty($options['pretend'])) {
             $sentinel->updateChanges($changes);
             $sentinel->updateApplication($app);
