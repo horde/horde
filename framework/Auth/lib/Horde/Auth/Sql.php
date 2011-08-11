@@ -315,6 +315,23 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     }
 
     /**
+     * Locks a user indefinitely or for a specified time
+     *
+     * @param string $userId      The userId to lock.
+     * @param integer $time       The duration in seconds, 0 = permanent
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function lockUser($userId, $time = 0)
+    {
+        $userId = trim($userId);
+        /*
+        $query = sprintf('UPDATE %s SET ', $this->_params['table']);
+        */
+
+    }
+
+    /**
      * Delete a set of authentication credentials.
      *
      * @param string $userId  The userId to delete.

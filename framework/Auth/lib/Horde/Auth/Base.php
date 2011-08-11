@@ -203,7 +203,6 @@ abstract class Horde_Auth_Base
      */
     public function lockUser($userId, $time = 0)
     {
-        $userId = trim($userId);
         throw new Horde_Auth_Exception('Unsupported.');
     }
 
