@@ -41,7 +41,7 @@ extends Components_Release_Task_Base
     {
         if (empty($options['next_version'])) {
             $options['next_version'] = Components_Helper_Version::validatePear(
-                Components_Helper_Version::nextVersion($this->getComponent()->getVersion())
+                $this->getComponent()->getVersion()
             );
         }
         if (isset($options['commit'])) {
