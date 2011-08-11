@@ -65,6 +65,30 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      *                           date after which the system will request the
      *                           user change his or her password.
      *                           DEFAULT: none
+     * 'bad_login_count_field' - (string) The name of the field containing a
+     *                           number of failed logins since the last
+     *                           successful login of the user
+     *                           DEFAULT: none
+     * 'bad_login_count_enable' - (boolean) Whether or not we count bad logins
+     *                           This might affect lookup performance on 
+     *                           very large horde installations
+     *                           DEFAULT: false
+     * 'bad_login_limit' - (integer) The number of bad logins which should
+     *                           trigger the account to be locked.
+     *                           0 disables this feature
+     *                           DEFAULT: 0
+     * 'lock_field' - (string) The name of the field containing 
+     *                           the account lock status.
+     *                           '' disables this feature
+     *                           DEFAULT: ''
+     * 'lock_expiration_field' - (string) The name of the field containing 
+     *                           the time when a lock expires.
+     *                           '' disables this feature
+     *                           DEFAULT: ''
+     * 'lock_duration' - (integer) The number of seconds a user will be locked 
+     *                           after he has used wrong credentials too often.
+     *                           0 means permanently
+     *                           DEFAULT: 0
      * 'table' - (string) The name of the SQL table to use in 'database'.
      *           DEFAULT: 'horde_users'
      * 'username_field' - (string) The name of the username field in the auth
@@ -87,11 +111,44 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             'password_field' => 'user_pass',
             'show_encryption' => false,
             'table' => 'horde_users',
-            'username_field' => 'user_uid'
+            'username_field' => 'user_uid',
+            'bad_login_limit' => 0,
+            'bad_login_count_field' => '',
+            'bad_login_count_enable' => false,
+            'lock_field' => '',
+            'lock_expiration_field' => '',
+            'lock_duration' => '0'
+
         ), $params);
 
-        $params['password_field'] = Horde_String::lower($params['password_field']);
-        $params['username_field'] = Horde_String::lower($params['username_field']);
+        $params['password_field']        = Horde_String::lower($params['password_field']);
+        $params['username_field']        = Horde_String::lower($params['username_field']);
+        $params['lock_field']            = Horde_String::lower($params['lock_field']);
+        $params['lock_expiration_field'] = Horde_String::lower($params['lock_expiration_field']);
+        $params['bad_login_count_field'] = Horde_String::lower($params['bad_login_count_field']);
+
+        /* we can count regardless of lock configuration */
+        if (($params['bad_login_count_enable'] === true) && (!empty($params['bad_login_count_field'])) ) {
+            $this->_capabilities['badlogincount'] = true;
+        }
+
+        /* this should work even with we have no lock_expiration_field and don't define lock_duration */
+        if (!empty($params['lock_field'])) {
+            $this->_capabilities['lock'] = true;
+        }
+
+         /* however, we only allow limited locks if there is a field for it */
+        if (empty($params['lock_expiration_field']) && ($params['lock_duration'] > 0)) {
+            throw new InvalidArgumentException('You can only have expiring locks [lock_duration] when you have a [lock_expiration_field].');
+        }
+        if ((!$this->_capabilities['badlogincount']) && 
+            ($params['bad_login_limit'] > 0)) {
+            throw new InvalidArgumentException('You can only have [bad_login_limit] when you do count bad logins.');
+        }
+        if ((!$this->_capabilities['lock']) && 
+            ($params['bad_login_limit'] > 0)) {
+            throw new InvalidArgumentException('You cannot set [bad_login_limit] when you cannot lock accounts.');
+        }
 
         parent::__construct($params);
     }
