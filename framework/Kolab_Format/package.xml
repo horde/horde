@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-11</date>
- <time>12:08:30</time>
+ <time>12:09:25</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,8 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
-* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
-* [gwr] Fixed detecting parse errors in subsequent parse attempts.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -342,6 +341,19 @@
    <notes>
 * [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
 * [gwr] Fixed detecting parse errors in subsequent parse attempts.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-11</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
