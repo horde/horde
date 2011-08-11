@@ -129,7 +129,7 @@ class Content_Test_Base extends Horde_Test_Case
         $this->assertEquals(4, count($recent));
         $this->assertEquals(4, $recent[0]['tag_id']);
         $this->assertEquals('personal', $recent[0]['tag_name']);
-        $this->assertEquals('2009-01-01T00:06:00', $recent[0]['created']);
+        $this->assertEquals('2009-01-01 00:06:00', $recent[0]['created']);
     }
 
     protected function _testGetRecentTagsByUser()
@@ -155,7 +155,7 @@ class Content_Test_Base extends Horde_Test_Case
         $recent = self::$tagger->getRecentObjects();
         $this->assertEquals(4, count($recent));
         $this->assertEquals(4, $recent[0]['object_id']);
-        $this->assertEquals('2009-01-01T00:06:00', $recent[0]['created']);
+        $this->assertEquals('2009-01-01 00:06:00', $recent[0]['created']);
     }
 
     protected function _testUntag()
