@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-11</date>
- <time>01:15:26</time>
+ <time>01:15:49</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [mjr] Fix broken tag cloud queries due to missing GROUP BY fields (Bug #10419)
-* [mjr] Prevent tagging with empty strings.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -354,6 +353,19 @@
    <notes>
 * [mjr] Fix broken tag cloud queries due to missing GROUP BY fields (Bug #10419)
 * [mjr] Prevent tagging with empty strings.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-11</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
