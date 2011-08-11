@@ -103,6 +103,7 @@ extends Components_Release_Task_Base
         if (!$this->getTasks()->pretend()) {
             $archive_options = $options;
             $archive_options['keep_version'] = true;
+            $archive_options['logger'] = $this->getOutput();
             $result = $this->getComponent()->placeArchive(getcwd(), $archive_options);
             if (isset($result[2])) {
                 $this->getOutput()->pear($result[2]);
