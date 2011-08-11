@@ -1,0 +1,37 @@
+<?php
+/**
+ * Release focus. Possible values:
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
+ */
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_INITIAL);
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the alpha release of the Horde
+Kolab Edition version 4.0.0.
+
+Horde Kolab Edition is a free, enterprise ready, browser based
+communication suite for the Kolab server. Users can read, send and
+organize email messages with four different webmail interfaces and
+manage and share calendars, contacts, tasks and notes with the
+standards compliant components from the Horde Project.
+
+For detailed installation and configuration instructions, please see
+http://www.horde.org/apps/kolab_webmail/docs/INSTALL
+ML;
+
+/* Freshmeat release notes, not more than 600 characters. */
+$this->notes['fm']['changes'] = <<<FM
+Initial release.
+FM;
+
+$this->notes['name'] = 'Horde Kolab Edition';
+$this->notes['list'] = 'kolab-users@kolab.org';
+$this->notes['fm']['project'] = 'kolab-webmail';
