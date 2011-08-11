@@ -1,9 +1,0 @@
-----------
-v1.0.1-git
-----------
-
-* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
-* [gwr] Fixed detecting parse errors in subsequent parse attempts.
-
-
-
