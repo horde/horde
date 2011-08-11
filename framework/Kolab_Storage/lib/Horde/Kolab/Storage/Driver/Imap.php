@@ -219,9 +219,13 @@ extends Horde_Kolab_Storage_Driver_Base
     public function setAnnotation($folder, $annotation, $value)
     {
         $this->getBackend()->login();
-        return $this->getBackend()->setMetadata(
-            $folder, array($annotation => $value)
-        );
+        try {
+            return $this->getBackend()->setMetadata(
+                $folder, array($annotation => $value)
+            );
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_Kolab_Storage_Exception($e);
+        }
     }
 
     /**
