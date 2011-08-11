@@ -86,7 +86,7 @@ public $version = \'5.0-git\';
                 sprintf('Would replace sentinel in %s/lib/Application.php with "5.0-git" now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
-                'Would run "git commit -m "Development mode for Horde-5.0.0-git"" now.'
+                'Would run "git commit -m "Development mode for Horde-5.0.0"" now.'
             ),
             $this->output->getOutput()
         );
