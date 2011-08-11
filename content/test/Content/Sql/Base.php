@@ -133,7 +133,6 @@ class Content_Test_Sql_Base extends Content_Test_Base
     public static function setUpBeforeClass()
     {
         self::$injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        self::$db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
         self::$injector->setInstance('Horde_Db_Adapter', self::$db);
 
         // FIXME: get migration directory if not running from Git checkout.
