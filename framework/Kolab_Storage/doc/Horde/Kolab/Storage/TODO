@@ -2,24 +2,31 @@
  Kolab_Storage Development TODO List
 =====================================
 
- - Change synchronization machinery so that it does not only synchronize one
-   data type but all data types in a folder.
+ - Handle attachments / VFS
+
+ - Fix the triggering decorator
+
+ - Consider quick triggering (https://bugzilla.kolabsys.com/show_bug.cgi?id=127)
+
+ - Change synchronization machinery so that it does not only
+   synchronize one data type but all data types in a folder. While at
+   the same time optimizing single data retrieval.
+
+ - The UID stamp must originate from the data cache, not the exact
+   previous stamp as we cannot be certain the previous sync was
+   complete.
+
+ - Allow queued/step-wise sync
+
+ - Fix the renaming folder hierarchies with the list cache.
 
  - Handle TLS/SSL accross all drivers (see also the Storage factory in Core).
-
- - Readd history updates
 
  - Use IMAP Condstore
 
  - Use IMAP CATENATE
 
- - Handle attachments / VFS
-
  - Do not hide the prefix of the shared namespace?
-
- - Fix the triggering decorator
-
- - Consider quick triggering (https://bugzilla.kolabsys.com/show_bug.cgi?id=127)
 
  - allow cli config file overriden by cli params
 
