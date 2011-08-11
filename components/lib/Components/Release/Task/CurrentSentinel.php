@@ -33,11 +33,11 @@ extends Components_Release_Task_Sentinel
     /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
         $changes_version = Components_Helper_Version::pearToHorde(
             $this->getComponent()->getVersion()

@@ -50,20 +50,19 @@ extends Components_Release_Task_Base
     /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
         $api_state = isset($options['next_apistate']) ? $options['next_apistate'] : null;
         $rel_state = isset($options['next_relstate']) ? $options['next_relstate'] : null;
         if (empty($options['next_version'])) {
             $options['next_version'] = Components_Helper_Version::nextVersion($this->getComponent()->getVersion());
         }
-        $options['next_version'] = Components_Helper_Version::validatePear($options['next_version']);
         $result = $this->getComponent()->nextVersion(
-            $options['next_version'],
+            Components_Helper_Version::validatePear($options['next_version']),
             $options['next_note'],
             $api_state,
             $rel_state,

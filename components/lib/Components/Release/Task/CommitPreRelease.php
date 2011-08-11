@@ -33,11 +33,11 @@ extends Components_Release_Task_Base
     /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
         if (isset($options['commit'])) {
             $options['commit']->commit(
