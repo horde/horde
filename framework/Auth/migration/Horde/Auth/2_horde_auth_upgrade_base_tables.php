@@ -24,15 +24,9 @@ class HordeAuthUpgradeBaseTables extends Horde_Db_Migration_Base
     {
         $t = $this->_connection->table('horde_users');
         $cols = $t->getColumns();
-        if (!in_array('lock_field', array_keys($cols))) {
-            $this->addColumn('horde_users', 'lock_field', 'boolean', array('default' => false));
-        }
-        if (!in_array('lock_expiration_field', array_keys($cols))) {
-            $this->addColumn('horde_users', 'lock_expiration_field', 'integer', array('default' => '0', 'null' => false));
-        }
-        if (!in_array('bad_login_count_field', array_keys($cols))) {
-            $this->addColumn('horde_users', 'bad_login_count_field', 'integer', array('default' => '0', 'null' => false));
-        }
+        $this->addColumn('horde_users', 'lock_field', 'boolean', array('default' => false));
+        $this->addColumn('horde_users', 'lock_expiration_field', 'integer', array('default' => '0', 'null' => false));
+        $this->addColumn('horde_users', 'bad_login_count_field', 'integer', array('default' => '0', 'null' => false));
     }
 
     /**
