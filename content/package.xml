@@ -16,8 +16,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-05</date>
- <time>11:02:35</time>
+ <date>2011-08-11</date>
+ <time>01:15:26</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -113,7 +113,6 @@
      <file name="Base.php" role="test" />
      <file name="conf.php.dist" role="test" />
     </dir> <!-- /test/Content -->
-    <file name="TaggerTest.php" role="test" />
    </dir> <!-- /test -->
    <file name=".htaccess" role="horde" />
   </dir> <!-- / -->
@@ -237,7 +236,6 @@
    <install as="content/lib/Users/Manager.php" name="lib/Users/Manager.php" />
    <install as="content/migration/1_rampage_base_tables.php" name="migration/1_rampage_base_tables.php" />
    <install as="content/migration/2_rampage_tag_tables.php" name="migration/2_rampage_tag_tables.php" />
-   <install as="TaggerTest.php" name="test/TaggerTest.php" />
    <install as="Content/AllTests.php" name="test/Content/AllTests.php" />
    <install as="Content/Autoload.php" name="test/Content/Autoload.php" />
    <install as="Content/Base.php" name="test/Content/Base.php" />
@@ -351,7 +349,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-05</date>
+   <date>2011-08-11</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [mjr] Fix broken tag cloud queries due to missing GROUP BY fields (Bug #10419)
