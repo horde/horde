@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:33:48</time>
+ <date>2011-08-11</date>
+ <time>10:09:47</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -36,6 +36,7 @@
         <file name="event.php" role="doc" />
         <file name="new_type.php" role="doc" />
        </dir> <!-- /doc/Horde/Kolab/Format/examples -->
+       <file name="CHANGES" role="doc" />
        <file name="TODO" role="doc" />
        <file name="usage.txt" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/Format -->
@@ -191,6 +192,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="COPYING" />
+   <install as="CHANGES" name="doc/Horde/Kolab/Format/CHANGES" />
    <install as="TODO" name="doc/Horde/Kolab/Format/TODO" />
    <install as="usage.txt" name="doc/Horde/Kolab/Format/usage.txt" />
    <install as="examples/event.php" name="doc/Horde/Kolab/Format/examples/event.php" />
@@ -337,7 +339,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-08-11</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
