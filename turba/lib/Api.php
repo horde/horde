@@ -538,9 +538,11 @@ class Turba_Api extends Horde_Registry_Api
             $include = array();
             foreach ($nguids as $uid) {
                 $list = $driver->search(array('__uid' => $uid));
-                $object = $list->next();
-                if ($object->isGroup()) {
-                    continue;
+                if ($list->count()) {
+                    $object = $list->next();
+                    if ($object->isGroup()) {
+                        continue;
+                    }
                 }
                 $include[] = $uid;
             }
