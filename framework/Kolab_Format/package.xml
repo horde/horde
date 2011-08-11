@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
  <notes>
+* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
 * [gwr] Fixed detecting parse errors in subsequent parse attempts.
  </notes>
  <contents>
@@ -339,6 +340,7 @@
    <date>2011-07-21</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
+* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
 * [gwr] Fixed detecting parse errors in subsequent parse attempts.
    </notes>
   </release>
