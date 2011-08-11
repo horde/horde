@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [mjr] Fix broken tag cloud queries due to missing GROUP BY fields (Bug #10419)
 * [mjr] Prevent tagging with empty strings.
  </notes>
  <contents>
@@ -353,6 +354,7 @@
    <date>2011-08-05</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [mjr] Fix broken tag cloud queries due to missing GROUP BY fields (Bug #10419)
 * [mjr] Prevent tagging with empty strings.
    </notes>
   </release>
