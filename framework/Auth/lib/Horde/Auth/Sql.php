@@ -253,37 +253,13 @@ class Horde_Auth_Sql extends Horde_Auth_Base
 
         $query .= ', ' . $this->_params['password_field'] . ' = ?';
         $values[] = Horde_Auth::getCryptedPassword($credentials['password'], '', $this->_params['encryption'], $this->_params['show_encryption']);
-
-        /* get $now now and reuse it for two distinct calculations - probably irrelevant in problem domain but used to be that way */
-        $now = new DateTime;
-
-        if (empty($this->_params['soft_expiration_window'])) {
-            if (!empty($this->_params['soft_expiration_field'])) {
+        if (!empty($this->_params['soft_expiration_field'])) {
                 $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
-                $values[] = null;
-            }
-        } else {
-
-            $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
-            $soft_expiration_datetime = clone $now;
-            /* more elegant but php 5.3+: $now->add(); */
-            $soft_expiration_datetime->modify(sprintf("+%s day", $this->_params['soft_expiration_window']));
-            /* more elegant but php 5.3+: $now->getTimestamp(); */
-            $values[] = $soft_expiration_datetime->format("U");
+                $values[] =  $this->_calc_expiration('soft');
         }
-
-        if (empty($this->_params['hard_expiration_window'])) {
-            if (!empty($this->_params['hard_expiration_field'])) {
+        if (!empty($this->_params['hard_expiration_field'])) {
                 $query .= ', ' . $this->_params['hard_expiration_field'] . ' = ?';
-                $values[] = null;
-            }
-        } else {
-            $query .= ', ' . $this->_params['hard_expiration_field'] . ' = ?';
-            $hard_expiration_datetime = clone $now;
-            /* more elegant but php 5.3+: $now->add(); */
-            $hard_expiration_datetime->modify(sprintf("+%s day", $this->_params['hard_expiration_window']));
-            /* more elegant but php 5.3+: $now->getTimestamp(); */
-            $values[] = $hard_expiration_datetime->format("U");
+                $values[] =  $this->_calc_expiration('hard');
         }
 
         $query .= sprintf(' WHERE %s = ?', $this->_params['username_field']);
@@ -430,4 +406,36 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                                                        $this->_params['show_encryption']);
     }
 
+    /**
+     * Calculate a timestamp and return it along with the field name
+     *
+     *
+     * @param string $type The timestamp parameter.
+     *
+     * @return integer 'timestamp' intended field value or null
+     */
+
+    private function _calc_expiration($type) {
+        switch ($type) {
+        case 'soft':
+        case 'hard':
+            if (!empty($this->_params[$type.'_expiration_field'])) {
+                $return['field'] = $this->_params[$type.'_expiration_field'];
+            }
+            if (empty($this->_params[$type.'_expiration_window'])) {
+                return null;
+            } else {
+                $expiration_datetime = new DateTime;
+                /* more elegant but php 5.3+: $now->add(); */
+                $expiration_datetime->modify(sprintf("+%s day", $this->_params[$type.'_expiration_window']));
+                /* more elegant but php 5.3+: $now->getTimestamp(); */
+                return $expiration_datetime->format("U");
+            }
+            break;
+        case 'lock':
+            /* used later for lock timeout */
+        break;
+        return 88;
+        }
+    }
 }
