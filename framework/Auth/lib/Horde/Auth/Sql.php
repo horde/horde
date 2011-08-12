@@ -141,13 +141,23 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         if (empty($params['lock_expiration_field']) && ($params['lock_duration'] > 0)) {
             throw new InvalidArgumentException('You can only have expiring locks [lock_duration] when you have a [lock_expiration_field].');
         }
-        if ((!$this->_capabilities['badlogincount']) && 
+        if ((!$this->_capabilities['badlogincount']) &&
             ($params['bad_login_limit'] > 0)) {
             throw new InvalidArgumentException('You can only have [bad_login_limit] when you do count bad logins.');
         }
         if ((!$this->_capabilities['lock']) && 
             ($params['bad_login_limit'] > 0)) {
             throw new InvalidArgumentException('You cannot set [bad_login_limit] when you cannot lock accounts.');
+        }
+        /* Only allow limits when there is a storage configured */
+        if (($params['soft_expiration_field'] == '') &&
+            ($params['soft_expiration_window'] > 0)) {
+            throw new InvalidArgumentException('You cannot set [soft_expiration_window] without [soft_expiration_field].');
+        }
+
+        if (($params['hard_expiration_field'] == '') && 
+            ($params['hard_expiration_window'] > 0)) {
+            throw new InvalidArgumentException('You cannot set [hard_expiration_window] without [hard_expiration_field].');
         }
 
         parent::__construct($params);
