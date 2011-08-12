@@ -222,7 +222,7 @@ abstract class Horde_Auth_Base
     /**
      * Checks if $userId is currently locked.
      *
-     * @param string  $userId      The userId to unlock.
+     * @param string  $userId      The userId to check.
      * @param boolean $details     Toggle array format with timeout.
      *
      * @throws Horde_Auth_Exception
