@@ -299,15 +299,13 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         $password = Horde_Auth::genRandomPassword();
 
         /* Build the SQL query. */
-        $query = sprintf('UPDATE %s SET %s = ? WHERE %s = ?',
+        $query = sprintf('UPDATE %s SET %s = ?',
                          $this->_params['table'],
-                         $this->_params['password_field'],
-                         $this->_params['username_field']);
+                         $this->_params['password_field']);
         $values = array(Horde_Auth::getCryptedPassword($password,
                                                   '',
                                                   $this->_params['encryption'],
-                                                  $this->_params['show_encryption']),
-                        $userId);
+                                                  $this->_params['show_encryption']));
         if (!empty($this->_params['soft_expiration_field'])) {
                 $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
                 $values[] =  $this->_calc_expiration('soft');
@@ -316,7 +314,8 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                 $query .= ', ' . $this->_params['hard_expiration_field'] . ' = ?';
                 $values[] =  $this->_calc_expiration('hard');
         }
-
+        $query .= sprintf(' WHERE %s = ?', $this->_params['username_field']);
+        $values[] = $userId;
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
@@ -337,9 +336,35 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     public function lockUser($userId, $time = 0)
     {
         $userId = trim($userId);
-        /*
-        $query = sprintf('UPDATE %s SET ', $this->_params['table']);
-        */
+        if (!$this->hasCapability('lock')) {
+            throw new Horde_Auth_Exception('Tried to lock a user when no lock_field was configured');
+        }
+
+        /* Build the SQL query. */
+        $query = sprintf('UPDATE %s SET %s = ?',
+                         $this->_params['table'],
+                         $this->_params['lock_field']);
+        $values = array(true);
+
+        if (!$this->_params['lock_expiration_field'] == '') {
+            if ($time > 0) {
+                $expiration_datetime = new DateTime;
+                /* more elegant but php 5.3+: $now->add(); */
+                $expiration_datetime->modify(sprintf("+%s second", $time));
+                /* more elegant but php 5.3+: $now->getTimestamp(); */
+                $time = $expiration_datetime->format("U");
+            }
+
+            $query .= ', ' . $this->_params['lock_expiration_field'] . ' = ?';
+            $values[] =  $time;
+        }
+        $query .= sprintf(' WHERE %s = ?', $this->_params['username_field']);
+        $values[] = $userId;
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        }
 
     }
 
@@ -429,33 +454,23 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     /**
      * Calculate a timestamp and return it along with the field name
      *
-     *
      * @param string $type The timestamp parameter.
      *
      * @return integer 'timestamp' intended field value or null
      */
 
     private function _calc_expiration($type) {
-        switch ($type) {
-        case 'soft':
-        case 'hard':
-            if (!empty($this->_params[$type.'_expiration_field'])) {
-                $return['field'] = $this->_params[$type.'_expiration_field'];
-            }
-            if (empty($this->_params[$type.'_expiration_window'])) {
-                return null;
-            } else {
-                $expiration_datetime = new DateTime;
-                /* more elegant but php 5.3+: $now->add(); */
-                $expiration_datetime->modify(sprintf("+%s day", $this->_params[$type.'_expiration_window']));
-                /* more elegant but php 5.3+: $now->getTimestamp(); */
-                return $expiration_datetime->format("U");
-            }
-            break;
-        case 'lock':
-            /* used later for lock timeout */
-        break;
-        return 88;
+        if (!empty($this->_params[$type.'_expiration_field'])) {
+            $return['field'] = $this->_params[$type.'_expiration_field'];
         }
+        if (empty($this->_params[$type.'_expiration_window'])) {
+            return null;
+        } else {
+            $expiration_datetime = new DateTime;
+            /* more elegant but php 5.3+: $now->add(); */
+            $expiration_datetime->modify(sprintf("+%s day", $this->_params[$type.'_expiration_window']));
+            /* more elegant but php 5.3+: $now->getTimestamp(); */
+            return $expiration_datetime->format("U");
+        }       
     }
 }
