@@ -193,6 +193,15 @@ abstract class Kronolith_Event
     public $alarm = 0;
 
     /**
+     * Snooze minutes for this event's alarm.
+     *
+     * @see Horde_Alarm::snooze()
+     *
+     * @var integer
+     */
+    protected $_snooze;
+
+    /**
      * The particular alarm methods overridden for this event.
      *
      * @var array
@@ -506,12 +515,16 @@ abstract class Kronolith_Event
             }
         }
 
+        $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
         if ($alarm = $this->toAlarm(new Horde_Date($_SERVER['REQUEST_TIME']))) {
             $alarm['start'] = new Horde_Date($alarm['start']);
             $alarm['end'] = new Horde_Date($alarm['end']);
-            $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
+            $hordeAlarm->set($alarm);
+            if ($this->_snooze) {
+                $hordeAlarm->snooze($this->uid, $GLOBALS['registry']->getAuth(), $this->_snooze);
+            }
         } else {
-            $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($this->uid);
+            $hordeAlarm->delete($this->uid);
         }
 
         return $result;
@@ -755,6 +768,16 @@ abstract class Kronolith_Event
                 $vAlarm->setAttribute('DESCRIPTION', $this->getTitle());
                 $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
                 $vEvent->addComponent($vAlarm);
+            }
+            $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+            if ($hordeAlarm->exists($this->uid, $GLOBALS['registry']->getAuth()) &&
+                $hordeAlarm->isSnoozed($this->uid, $GLOBALS['registry']->getAuth())) {
+                $vEvent->setAttribute('X-MOZ-LASTACK', new Horde_Date($_SERVER['REQUEST_TIME']));
+                $alarm = $hordeAlarm->get($this->uid, $GLOBALS['registry']->getAuth());
+                if (!empty($hordeAlarm['snooze'])) {
+                    $hordeAlarm['snooze']->setTimezone(date_default_timezone_get());
+                    $vEvent->setAttribute('X-MOZ-SNOOZE-TIME', $hordeAlarm['snooze']);
+                }
             }
         }
 
@@ -1021,6 +1044,25 @@ abstract class Kronolith_Event
                     $triggerParams['RELATED'] == 'END') {
                     $this->alarm -= $this->durMin;
                 }
+            }
+        }
+
+        // Alarm snoozing/dismissal
+        if ($this->alarm) {
+            try {
+                // If X-MOZ-LASTACK is set, this event is either dismissed or
+                // snoozed.
+                $vEvent->getAttribute('X-MOZ-LASTACK');
+                $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+                try {
+                    // If X-MOZ-SNOOZE-TIME is set, this event is snoozed.
+                    $snooze = $vEvent->getAttribute('X-MOZ-SNOOZE-TIME');
+                    $this->_snooze = intval(($snooze - time()) / 60);
+                } catch (Horde_Icalendar_Exception $e) {
+                    // If X-MOZ-SNOOZE-TIME is not set, this event is dismissed.
+                    $this->_snooze = -1;
+                }
+            } catch (Horde_Icalendar_Exception $e) {
             }
         }
 
