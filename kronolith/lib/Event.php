@@ -193,6 +193,13 @@ abstract class Kronolith_Event
     public $alarm = 0;
 
     /**
+     * Snooze time for this event's alarm.
+     *
+     * @var Horde_Date
+     */
+    protected $_snooze;
+
+    /**
      * The particular alarm methods overridden for this event.
      *
      * @var array
@@ -756,6 +763,14 @@ abstract class Kronolith_Event
                 $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
                 $vEvent->addComponent($vAlarm);
             }
+            $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm')->get($this->uid, $GLOBALS['registry']->getAuth());
+            if (isset($hordeAlarm['snooze'])) {
+                $vEvent->setAttribute('X-MOZ-LASTACK', new Horde_Date($_SERVER['REQUEST_TIME']));
+                if (!empty($hordeAlarm['snooze'])) {
+                    $hordeAlarm['snooze']->setTimezone(date_default_timezone_get());
+                    $vEvent->setAttribute('X-MOZ-SNOOZE-TIME', $hordeAlarm['snooze']);
+                }
+            }
         }
 
         // Recurrence.
@@ -1021,6 +1036,22 @@ abstract class Kronolith_Event
                     $triggerParams['RELATED'] == 'END') {
                     $this->alarm -= $this->durMin;
                 }
+            }
+        }
+
+        // Alarm snoozing/dismissal
+        if ($this->alarm) {
+            try {
+                // If X-MOZ-LASTACK is set, this event is either dismissed or
+                // snoozed.
+                $vEvent->getAttribute('X-MOZ-LASTACK');
+                $this->_snooze = false;
+                try {
+                    // If X-MOZ-SNOOZE-TIME is set, this event is snoozed.
+                    $this->_snooze = new Horde_Date($vEvent->getAttribute('X-MOZ-SNOOZE-TIME'));
+                } catch (Horde_Icalendar_Exception $e) {
+                }
+            } catch (Horde_Icalendar_Exception $e) {
             }
         }
 
@@ -1683,6 +1714,9 @@ abstract class Kronolith_Event
             'params' => $methods,
             'title' => $this->getTitle($user),
             'text' => $this->description);
+        if (isset($this->_snooze)) {
+            $alarm['snooze'] = $this->_snooze;
+        }
 
         $_SERVER['SERVER_NAME'] = $serverName;
         $GLOBALS['conf']['server']['name'] = $serverConf;

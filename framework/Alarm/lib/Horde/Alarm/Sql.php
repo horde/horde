@@ -124,7 +124,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         if (!strlen($params) && strlen($alarm['alarm_params'])) {
             $params = $alarm['alarm_params'];
         }
-        return array(
+        $hash = array(
             'id' => $alarm['alarm_id'],
             'user' => $alarm['alarm_uid'],
             'start' => new Horde_Date($alarm['alarm_start'], 'UTC'),
@@ -133,9 +133,14 @@ class Horde_Alarm_Sql extends Horde_Alarm
             'params' => @unserialize($params),
             'title' => $this->_fromDriver($alarm['alarm_title']),
             'text' => $this->_fromDriver($alarm['alarm_text']),
-            'snooze' => empty($alarm['alarm_snooze']) ? null : new Horde_Date($alarm['alarm_snooze'], 'UTC'),
             'internal' => empty($alarm['alarm_internal']) ? null : @unserialize($alarm['alarm_internal'])
         );
+        if (!empty($alarm['alarm_dismissed'])) {
+            $hash['snooze'] = false;
+        } elseif (!empty($alarm['alarm_snooze'])) {
+            $hash['snooze'] = new Horde_Date($alarm['alarm_snooze'], 'UTC');
+        }
+        return $hash;
     }
 
     /**
@@ -149,7 +154,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _get($id, $user)
     {
-        $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_id = ? AND %s',
+        $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_dismissed, alarm_internal FROM %s WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
 
@@ -205,20 +210,35 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _update(array $alarm, $keepsnooze = false)
     {
+        $snooze = '';
+        $snoozeValue = array();
+        if (isset($alarm['snooze'])) {
+            if (empty($alarm['snooze'])) {
+                $snooze = ', alarm_snooze = NULL, alarm_dismissed = 1';
+            } else {
+                $snooze = ', alarm_snooze = ?, alarm_dismissed = 0';
+                $snoozeValue[] = (string)$alarm['snooze']->setTimezone('UTC');
+            }
+        } elseif (!$keepsnooze) {
+            $snooze = ', alarm_snooze = NULL, alarm_dismissed = 0';
+        }
+
         $query = sprintf('UPDATE %s set alarm_start = ?, alarm_end = ?, alarm_methods = ?, alarm_params = ?, alarm_title = ?, alarm_text = ?%s WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
-                         $keepsnooze ? '' : ', alarm_snooze = NULL, alarm_dismissed = 0',
+                         $snooze,
                          isset($alarm['user']) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-        $values = array((string)$alarm['start']->setTimezone('UTC'),
-                        empty($alarm['end']) ? null : (string)$alarm['end']->setTimezone('UTC'),
-                        serialize($alarm['methods']),
-                        base64_encode(serialize($alarm['params'])),
-                        $this->_toDriver($alarm['title']),
-                        empty($alarm['text'])
-                              ? null
-                              : $this->_toDriver($alarm['text']),
-                        $alarm['id'],
-                        isset($alarm['user']) ? $alarm['user'] : '');
+        $values = array_merge(
+            array((string)$alarm['start']->setTimezone('UTC'),
+                  empty($alarm['end']) ? null : (string)$alarm['end']->setTimezone('UTC'),
+                  serialize($alarm['methods']),
+                  base64_encode(serialize($alarm['params'])),
+                  $this->_toDriver($alarm['title']),
+                  empty($alarm['text'])
+                      ? null
+                      : $this->_toDriver($alarm['text'])),
+            $snoozeValue,
+            array($alarm['id'],
+                  isset($alarm['user']) ? $alarm['user'] : ''));
 
         try {
             $this->_db->update($query, $values);

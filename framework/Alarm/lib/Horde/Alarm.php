@@ -162,7 +162,8 @@ abstract class Horde_Alarm
      * params: The paramters for the notification methods.
      * title: The alarm title.
      * text: An optional alarm description.
-     * snooze: The snooze time (next time) of the alarm as a Horde_Date.
+     * snooze: The snooze time (next time) of the alarm as a Horde_Date or
+     *         false if dismissed.
      * internal: Holds internally used data.
      * </pre>
      * @throws Horde_Alarm_Exception
