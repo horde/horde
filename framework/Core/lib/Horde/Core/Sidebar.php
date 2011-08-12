@@ -55,7 +55,7 @@ class Horde_Core_Sidebar
     }
 
     /**
-     * Generate the sidebar tree object.
+     * Generates the sidebar tree object.
      *
      * @return Horde_Tree_Base  The sidebar tree object.
      */
@@ -64,14 +64,14 @@ class Horde_Core_Sidebar
         global $registry;
 
         $isAdmin = $registry->isAdmin();
-        $menu = $parents = array();
+        $menu = $children = array();
 
         foreach ($registry->listApps(array('active', 'admin', 'noadmin', 'heading', 'notoolbar', 'sidebar'), true, null) as $app => $params) {
-            /* Check if the current user has permisson to see this
-             * application, and if the application is active. Headings are
-             * visible to everyone (but get filtered out later if they
-             * have no children). Administrators always see all
-             * applications except those marked 'inactive'. */
+            /* Check if the current user has permisson to see this application,
+             * and if the application is active. Headings are visible to
+             * everyone (but get filtered out later if they have no
+             * children). Administrators always see all applications except
+             * those marked 'inactive'. */
             if (($isAdmin &&
                  $params['status'] != 'noadmin') ||
                  $params['status'] == 'heading' ||
@@ -91,32 +91,34 @@ class Horde_Core_Sidebar
                 unset($menu[$key]);
             }
         }
-        /* Add the administration menu if the user is an admin or has any admin permissions. */
+
+        /* Add the administration menu if the user is an admin or has any admin
+         * permissions. */
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $admin_item_count = 0;
         try {
             foreach ($registry->callByPackage('horde', 'admin_list') as $method => $val) {
-                if($isAdmin ||
+                if ($isAdmin ||
                     $perms->hasPermission('horde:administration:' . $method, $registry->getAuth(), Horde_Perms::SHOW)) {
-                        $admin_item_count++;
-                        $menu['administration_' . $method] = array(
-                            'icon' => $val['icon'],
-                            'menu_parent' => 'administration',
-                            'name' => Horde::stripAccessKey($val['name']),
-                            'status' => 'active',
-                            'url' => Horde::url($registry->applicationWebPath($val['link'], 'horde')),
-                        );
+                    $admin_item_count++;
+                    $menu['administration_' . $method] = array(
+                        'icon' => $val['icon'],
+                        'menu_parent' => 'administration',
+                        'name' => Horde::stripAccessKey($val['name']),
+                        'status' => 'active',
+                        'url' => Horde::url($registry->applicationWebPath($val['link'], 'horde')),
+                    );
                 }
             }
-        } catch (Horde_Exception $e) {}
+        } catch (Horde_Exception $e) {
+        }
 
-       if ($admin_item_count) {
+        if ($admin_item_count) {
             $menu['administration'] = array(
                 'name' => Horde_Core_Translation::t("Administration"),
                 'icon' => Horde_Themes::img('administration.png'),
                 'status' => 'heading'
             );
-
         }
 
         if (Horde_Menu::showService('prefs') &&
