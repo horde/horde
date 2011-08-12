@@ -244,30 +244,36 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         $query .= ', ' . $this->_params['password_field'] . ' = ?';
         $values[] = Horde_Auth::getCryptedPassword($credentials['password'], '', $this->_params['encryption'], $this->_params['show_encryption']);
 
+        /* get $now now and reuse it for two distinct calculations - probably irrelevant in problem domain but used to be that way */
+        $now = new DateTime;
+
         if (empty($this->_params['soft_expiration_window'])) {
             if (!empty($this->_params['soft_expiration_field'])) {
                 $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
                 $values[] = null;
             }
         } else {
-            $datea = localtime(time(), true);
-            $date = mktime($datea['tm_hour'], $datea['tm_min'],
-                           $datea['tm_sec'], $datea['tm_mon'] + 1,
-                           $datea['tm_mday'] + $this->_params['soft_expiration_window'],
-                           $datea['tm_year']);
 
             $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
-            $values[] = $date;
+            $soft_expiration_datetime = clone $now;
+            /* more elegant but php 5.3+: $now->add(); */
+            $soft_expiration_datetime->modify(sprintf("+%s day", $this->_params['soft_expiration_window']));
+            /* more elegant but php 5.3+: $now->getTimestamp(); */
+            $values[] = $soft_expiration_datetime->format("U");
+        }
 
-            if (empty($this->_params['hard_expiration_window'])) {
+        if (empty($this->_params['hard_expiration_window'])) {
+            if (!empty($this->_params['hard_expiration_field'])) {
+                $query .= ', ' . $this->_params['hard_expiration_field'] . ' = ?';
                 $values[] = null;
-            } else {
-                $datea = localtime($date, true);
-                $values[] = mktime($datea['tm_hour'], $datea['tm_min'],
-                            $datea['tm_sec'], $datea['tm_mon'] + 1,
-                            $datea['tm_mday'] + $this->_params['soft_expiration_window'],
-                            $datea['tm_year']);
-             }
+            }
+        } else {
+            $query .= ', ' . $this->_params['hard_expiration_field'] . ' = ?';
+            $hard_expiration_datetime = clone $now;
+            /* more elegant but php 5.3+: $now->add(); */
+            $hard_expiration_datetime->modify(sprintf("+%s day", $this->_params['hard_expiration_window']));
+            /* more elegant but php 5.3+: $now->getTimestamp(); */
+            $values[] = $hard_expiration_datetime->format("U");
         }
 
         $query .= sprintf(' WHERE %s = ?', $this->_params['username_field']);
