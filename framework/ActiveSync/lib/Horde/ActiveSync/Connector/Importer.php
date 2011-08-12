@@ -121,16 +121,15 @@ class Horde_ActiveSync_Connector_Importer
 
             /* If this is a conflict, see if the server wins */
             if ($conflict && $this->_flags == Horde_ActiveSync::CONFLICT_OVERWRITE_PIM) {
-                return true;
+                return $id;
             }
         }
 
         /* Tell the backend about the change */
-        $stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device);
-        $stat['parent'] = $this->_folderId;
-        if (!is_array($stat)) {
-            return $stat;
+        if (!$stat = $this->_backend->changeMessage($this->_folderId, $id, $message, $device)) {
+            return false;
         }
+        $stat['parent'] = $this->_folderId;
 
         /* Record the state of the message */
         $this->_state->updateState('change', $stat, Horde_ActiveSync::CHANGE_ORIGIN_PIM, $this->_backend->getUser());
