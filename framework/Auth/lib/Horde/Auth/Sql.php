@@ -216,15 +216,27 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     public function addUser($userId, $credentials)
     {
         /* Build the SQL query. */
-        $query = sprintf('INSERT INTO %s (%s, %s) VALUES (?, ?)',
+        $query = sprintf('INSERT INTO %s (%s, %s',
                          $this->_params['table'],
                          $this->_params['username_field'],
                          $this->_params['password_field']);
+        $query_values_part = ' VALUES (?, ?';
         $values = array($userId,
                         Horde_Auth::getCryptedPassword($credentials['password'],
                                                   '',
                                                   $this->_params['encryption'],
                                                   $this->_params['show_encryption']));
+        if (!empty($this->_params['soft_expiration_field'])) {
+            $query .= sprintf(', %s', $this->_params['soft_expiration_field']);
+            $query_values_part .= ', ?';
+            $values[] = $this->_calc_expiration('soft');
+        }
+        if (!empty($this->_params['hard_expiration_field'])) {
+            $query .= sprintf(', %s', $this->_params['hard_expiration_field']);
+            $query_values_part .= ', ?';
+            $values[] = $this->_calc_expiration('hard');
+        }
+        $query .= ')' . $query_values_part . ')';
 
         try {
             $this->_db->insert($query, $values);
@@ -296,6 +308,14 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                                                   $this->_params['encryption'],
                                                   $this->_params['show_encryption']),
                         $userId);
+        if (!empty($this->_params['soft_expiration_field'])) {
+                $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
+                $values[] =  $this->_calc_expiration('soft');
+        }
+        if (!empty($this->_params['hard_expiration_field'])) {
+                $query .= ', ' . $this->_params['hard_expiration_field'] . ' = ?';
+                $values[] =  $this->_calc_expiration('hard');
+        }
 
         try {
             $this->_db->update($query, $values);
