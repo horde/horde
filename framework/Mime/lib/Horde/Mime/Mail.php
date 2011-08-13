@@ -480,8 +480,7 @@ class Horde_Mime_Mail
         }
 
         /* Send message. */
-        return $basepart->send(implode(', ', $recipients),
-                               $this->_headers, $mailer);
+        $basepart->send(implode(', ', $recipients), $this->_headers, $mailer);
     }
 
 }
