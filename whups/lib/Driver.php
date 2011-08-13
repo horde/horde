@@ -411,6 +411,14 @@ class Whups_Driver
         /* Don't notify any email address more than once. */
         $seen_email_addresses = array();
 
+        /* Get VFS handle for attachments. */
+        if ($opts['ticket']) {
+            $vfs = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create();
+            $attachments = Whups::getAttachments($opts['ticket']->getId());
+        }
+
         foreach ($opts['recipients'] as $user) {
             if ($user == $opts['from'] &&
                 $user == $GLOBALS['registry']->getAuth() &&
@@ -441,8 +449,34 @@ class Whups_Driver
                 continue;
             }
 
+            $attachmentAdded = false;
+            if ($opts['ticket']) {
+                foreach ($mycomments as $comment) {
+                    foreach ($comment['changes'] as $change) {
+                        if ($change['type'] == 'attachment') {
+                            foreach ($attachments as $attachment) {
+                                if ($attachment['name'] == $change['value']) {
+                                    if (!isset($attachment['part'])) {
+                                        $attachment['part'] = new Horde_Mime_Part();
+                                        $attachment['part']->setType(Horde_Mime_Magic::filenameToMime($change['value'], false));
+                                        $attachment['part']->setDisposition('attachment');
+                                        $attachment['part']->setContents($vfs->read(Whups::VFS_ATTACH_PATH . '/' . $opts['ticket']->getId(), $change['value']));
+                                        $attachment['part']->setName($change['value']);
+                                    }
+                                    $mail->addMimePart($attachment['part']);
+                                    $attachmentAdded = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             $formattedComment = $this->formatComments($mycomments);
-            if (empty($formattedComment) && $prefs->getValue('email_comments_only')) {
+            if (!$attachmentAdded &&
+                empty($formattedComment) &&
+                $prefs->getValue('email_comments_only')) {
                 continue;
             }
 
