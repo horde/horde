@@ -449,8 +449,10 @@ class Whups_Driver
                 continue;
             }
 
+            /* Add attachments. */
             $attachmentAdded = false;
-            if ($opts['ticket']) {
+            if (empty($GLOBALS['conf']['mail']['link_attach']) &&
+                $opts['ticket']) {
                 foreach ($mycomments as $comment) {
                     foreach ($comment['changes'] as $change) {
                         if ($change['type'] == 'attachment') {
@@ -473,7 +475,7 @@ class Whups_Driver
                 }
             }
 
-            $formattedComment = $this->formatComments($mycomments);
+            $formattedComment = $this->formatComments($mycomments, $opts['ticket']->getId());
             if (!$attachmentAdded &&
                 empty($formattedComment) &&
                 $prefs->getValue('email_comments_only')) {
@@ -537,21 +539,42 @@ class Whups_Driver
      * Converts a changeset array to a plain text comment snippet.
      *
      * @param array $comments  A changeset list.
+     * @param integer $ticket  A ticket ID.
      *
      * @return string  The formatted comment text, if any.
      */
-    function formatComments($comments)
+    function formatComments($comments, $ticket)
     {
         $text = '';
         foreach ($comments as $comment) {
-            if (empty($comment['comment_text'])) {
+            if (!empty($comment['comment_text'])) {
+                $text .= "\n"
+                    . sprintf(_("%s (%s) wrote:"),
+                              Whups::formatUser($comment['user_id']),
+                              strftime('%Y-%m-%d %H:%M', $comment['timestamp']))
+                    . "\n\n" . $comment['comment_text'] . "\n\n\n";
+            }
+
+            /* Add attachment links. */
+            if (empty($GLOBALS['conf']['mail']['link_attach'])) {
                 continue;
             }
-            $text .= "\n"
-                . sprintf(_("%s (%s) wrote:"),
-                          Whups::formatUser($comment['user_id']),
-                          strftime('%Y-%m-%d %H:%M', $comment['timestamp']))
-                . "\n\n" . $comment['comment_text'] . "\n\n\n";
+            foreach ($comment['changes'] as $change) {
+                if ($change['type'] != 'attachment') {
+                    continue;
+                }
+                $url_params = array('actionID' => 'download_file',
+                                    'file' => $change['value'],
+                                    'ticket' => $ticket);
+                $text .= "\n"
+                    . sprintf(_("%s (%s) uploaded: %s"),
+                              Whups::formatUser($comment['user_id']),
+                              strftime('%Y-%m-%d %H:%M', $comment['timestamp']),
+                              $change['value'])
+                    . "\n\n"
+                    . Horde::url(Horde::downloadUrl($change['value'], $url_params), true)
+                    . "\n\n\n";
+            }
         }
 
         return $text;
