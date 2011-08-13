@@ -25,11 +25,11 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
     /**
      * Adds a tab to the interface.
      *
-     * @param string $title  The text which appears on the tab.
-     * @param string $link   The target page.
-     * @param mixed $params  Either a string value to set the tab variable to,
-     *                       or a hash of parameters. If an array, the tab
-     *                       variable can be set by the 'tabname' key.
+     * @param string $title    The text which appears on the tab.
+     * @param Horde_Url $link  The target page.
+     * @param mixed $params    Either a string value to set the tab variable to,
+     *                         or a hash of parameters. If an array, the tab
+     *                         variable can be set by the 'tabname' key.
      */
     public function addTab($title, $link, $params = array())
     {
