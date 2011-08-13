@@ -15,7 +15,7 @@ Horde_Registry::appInit('whups');
 try {
     $ticket = Whups::getCurrentTicket();
 } catch (Exception $e) {
-    $notification->push($e->getMessage(), 'horde.err');
+    $notification->push($e);
     Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }
