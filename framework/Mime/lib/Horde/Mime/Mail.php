@@ -479,6 +479,9 @@ class Horde_Mime_Mail
             $recipients = array_merge($recipients, $this->_buildRecipients(Horde_Mime::encodeAddress($this->_bcc, $this->_charset)));
         }
 
+        /* Trick Horde_Mime_Part into re-generating the message headers. */
+        $this->_headers->removeHeader('MIME-Version');
+
         /* Send message. */
         $basepart->send(implode(', ', $recipients), $this->_headers, $mailer);
     }
