@@ -1601,14 +1601,12 @@ class Whups_Driver_Sql extends Whups_Driver
     public function getDefaultType($queue)
     {
         try {
-            $type = $this->_db->selectValue(
+            return $this->_db->selectValue(
                 'SELECT type_id FROM whups_types_queues WHERE type_default = 1 AND queue_id = ?',
                 array($queue));
         } catch (Horde_Db_Exception $e) {
-            return null;
+            throw new Whups_Exception($e);
         }
-
-        return $type;
     }
 
     /**
@@ -2117,11 +2115,10 @@ class Whups_Driver_Sql extends Whups_Driver
      */
     public function getDefaultState($type)
     {
-        $query = 'SELECT state_id FROM whups_states '
-            . 'WHERE state_default = 1 AND type_id = ?';
-        $values = array($type);
         try {
-            return $this->_db->selectValue($query, $values);
+            return $this->_db->selectValue(
+                'SELECT state_id FROM whups_states WHERE state_default = 1 AND type_id = ?',
+                array($type));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -2361,11 +2358,10 @@ class Whups_Driver_Sql extends Whups_Driver
 
     public function getDefaultPriority($type)
     {
-        $query = 'SELECT priority_id FROM whups_priorities '
-            . 'WHERE priority_default = 1 AND type_id = ?';
-        $values = array($type);
         try {
-            return $this->_db->selectValue($query, $values);
+            return $this->_db->selectValue(
+                'SELECT priority_id FROM whups_priorities WHERE priority_default = 1 AND type_id = ?',
+                array($type));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
