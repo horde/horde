@@ -38,7 +38,7 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
         }
 
         $this->_tabs[] = array_merge(array('title' => $title,
-                                           'link' => $link,
+                                           'link' => $link->copy(),
                                            'tabname' => null),
                                      $params);
     }
