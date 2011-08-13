@@ -498,7 +498,7 @@ case 'whups_form_admin_defaultstate':
     }
     break;
 
-case 'whups_form_admindeletestate':
+case 'whups_form_admin_deletestate':
     $vars->set('action', 'type');
     $form = new Whups_Form_Admin_DeleteState($vars);
     if ($form->validate($vars)) {
