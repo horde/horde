@@ -333,7 +333,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      *
      * @throws Horde_Auth_Exception
      */
-    public function isLocked($userId, $show_details = false)
+    public function isLocked($userId, $details = false)
     {
         $userId = trim($userId);
         if (!$this->hasCapability('lock')) {
@@ -365,7 +365,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                 }
             }
         }
-        if ($show_details == true) {
+        if ($details == true) {
             return $details;
         } else {
             return $details['locked'];
