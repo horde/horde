@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H4 (3.0.1-git)\n"
+"Project-Id-Version: Mnemo H4 (3.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: lib/Application.php:133 memo.php:92 memo.php:138
+#: lib/Application.php:128 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr ""
 
@@ -333,7 +333,7 @@ msgstr ""
 msgid "Notepad List"
 msgstr ""
 
-#: lib/Mnemo.php:530
+#: lib/Mnemo.php:568
 #, php-format
 msgid "Notepad of %s"
 msgstr ""
@@ -379,7 +379,7 @@ msgstr ""
 msgid "Save as PDF"
 msgstr ""
 
-#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
+#: lib/Application.php:154 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr ""
@@ -533,12 +533,12 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:293 lib/Driver/Sql.php:344
+#: lib/Api.php:280 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr ""
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:275 lib/Mnemo.php:276
-#: lib/Mnemo.php:290 lib/Mnemo.php:291 templates/list/memo_summaries.inc:20
+#: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
+#: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr ""
@@ -634,10 +634,6 @@ msgstr ""
 msgid "_Password:"
 msgstr ""
 
-#: lib/Application.php:86
-msgid "_Print"
-msgstr ""
-
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
 msgstr ""
@@ -659,7 +655,7 @@ msgstr ""
 msgid "by me"
 msgstr ""
 
-#: lib/Application.php:153
+#: lib/Application.php:141
 #, php-format
 msgid "in %s"
 msgstr ""

@@ -405,51 +405,13 @@ tablename_fieldname.
 Other general guidelines: Table names should be plural (users); field names
 should be singular (user_name).
 
-Try to use portable data types and avoid RDBMS specific SQL scripts as much as
-possible. Portable types are INTEGER, SMALLINT, NUMERIC(4,0) (for TINYINT),
-NUMERIC(p,s), VARCHAR(n), CHAR(n), FLOAT, and REAL. See
-http://home.fnal.gov/~dbox/SQL_API_Portability.html and
-http://articles.techrepublic.com.com/5100-10878_11-1045051.html for more
-information.
-
-Other portability guidlines: Always use the database abstraction layer's
-capabilities for result set pagination ('LIMIT' is not portable). Also, do not
-use the 'AS' keyword for table aliases.
+Use Horde_Db for any SQL schema management and for queries, especially for
+result set pagination ('LIMIT' is not portable). Also, do not use the 'AS'
+keyword for table aliases.
 
 In SQL queries, keywords should be capitalized.
 
-In table creation statements, SQL keywords and datatypes should be
-capitalized. Also, 'DEFAULT' constraints should be listed before 'NOT NULL'
-constraints for maximum portability. 'NOT NULL' constraints should not use an
-empty string for the 'DEFAULT' constraint.
-
 Identifiers should not be longer than 30 characters.
-
-
-Oracle Database Scripts
------------------------
-
-For maximum portability with several Oracle versions, Oracle-specific database
-scripts are necessary. Coming from MySQL, use the following data types:
-
-* VARCHAR2 for VARCHAR
-* NUMBER(16) for INT(EGER)
-* NUMBER(8) for SMALLINT
-* NUMBER(1) for boolean flags (TINYINT)
-* CLOB or VARCHAR2(4000) for TEXT
-* DATE for DATETIME
-
-See http://download.oracle.com/docs/html/B10257_01/ch3.htm for more
-information.
-
-Identifiers must not be longer than 30 characters. This is easily exceeded
-with some of the index names.
-
-'DEFAULT' constraints must always preceed 'NOT NULL' constraints. 'NOT NULL'
-constraints must not use an empty string for the 'DEFAULT' constraint.
-
-Instead of using `ALTER TABLE table CHANGE column column spec...` use `ALTER
-TABLE table MODIFY column spec...`.
 
 
 Regular Expression Use

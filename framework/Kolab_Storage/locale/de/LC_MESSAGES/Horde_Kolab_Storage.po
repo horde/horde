@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -152,8 +152,8 @@ msgstr ""
 "Lesen der Nachricht mit der ID %s fehlgeschlagen. Fehlermeldung des Servers: "
 "%s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:831
-#: lib/Horde/Kolab/Storage/Folder/Base.php:837
+#: lib/Horde/Kolab/Storage/Folder/Base.php:843
+#: lib/Horde/Kolab/Storage/Folder/Base.php:849
 #, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr ""
@@ -171,14 +171,14 @@ msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr "Fehler beim Anlegen des Ordners %s. Fehlermeldung des Servers: %s"
 
-#: lib/Horde/Kolab/Storage/Factory.php:184
+#: lib/Horde/Kolab/Storage/Factory.php:182
 #, php-format
 msgid ""
 "Invalid \"driver\" parameter \"%s\". Please use one of \"mock\", \"php\", "
 "\"pear\", \"horde\", \"horde-php\", and \"roundcube\"!"
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Factory.php:243
+#: lib/Horde/Kolab/Storage/Factory.php:244
 #, fuzzy, php-format
 msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr "Ungültiger Kolab-Objekttyp \"%s\"."
@@ -188,7 +188,7 @@ msgstr "Ungültiger Kolab-Objekttyp \"%s\"."
 msgid "Listing folders for %s failed. Error: %s"
 msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 
-#: lib/Horde/Kolab/Storage/Factory.php:141
+#: lib/Horde/Kolab/Storage/Factory.php:139
 #, fuzzy
 msgid "Missing \"driver\" parameter!"
 msgstr "Container-Parameter fehlt."
@@ -248,8 +248,8 @@ msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 msgid "Setting annotation %s[%s] on folder %s%s to %s failed. Error: %s"
 msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:220
-#: lib/Horde/Kolab/Storage/Data/Cached.php:119
+#: lib/Horde/Kolab/Storage/Data/Base.php:234
+#: lib/Horde/Kolab/Storage/Data/Cached.php:149
 #, fuzzy, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -260,7 +260,7 @@ msgstr ""
 "dass dieses Kolab-Object von jemand anderem verändert wurde, während Sie es "
 "bearbeitet haben. Ihre Änderungen sind verloren."
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:670
+#: lib/Horde/Kolab/Storage/Folder/Base.php:682
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -282,7 +282,7 @@ msgstr ""
 "Sie ein E-Mail-Programm, das das Kolab-Groupware-Format unterstützt. Eine "
 "Liste solcher Programme finden Sie unter %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:353
+#: lib/Horde/Kolab/Storage/Folder/Base.php:365
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr ""

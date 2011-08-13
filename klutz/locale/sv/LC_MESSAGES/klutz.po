@@ -2,18 +2,18 @@
 # Copyright (C) 2002-2006 Horde Project
 # This file is distributed under the same license as the Klutz package.
 # Joaquim Homrighausen <joho@webbplatsen.se>, 2006.
-# Andreas Dahlén <andreas@dahlen.ws>, 2002.
+# Andreas DahlÃ©n <andreas@dahlen.ws>, 2002.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Klutz 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2006-02-15 23:47+0100\n"
-"PO-Revision-Date: 2006-02-15 23:55+0100\n"
+"PO-Revision-Date: 2011-08-02 15:57+0200\n"
 "Last-Translator: Joaquim Homrighausen <joho@webbplatsen.se>\n"
 "Language-Team: Swedish <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -35,7 +35,7 @@ msgstr "Alla datum"
 #: backend.php:240
 #, php-format
 msgid "An error occurred removing %s for %s<br />\n"
-msgstr "Fel uppstod vid radering %s för %s<br />\n"
+msgstr "Fel uppstod vid radering %s fÃ¶r %s<br />\n"
 
 #: templates/javascript/goto.inc:52
 msgid "April"
@@ -54,12 +54,12 @@ msgid ""
 "Change display options such as what comics you see, and how comics are "
 "sorted."
 msgstr ""
-"Ändra inställningar för visning av vilka serier du ser och hur serierna är "
+"Ã„ndra instÃ¤llningar fÃ¶r visning av vilka serier du ser och hur serierna Ã¤r "
 "sorterade."
 
 #: templates/prefs/comic_select.inc:51
 msgid "Choose the comics you wish to view."
-msgstr "Välj de serier du vill se."
+msgstr "VÃ¤lj de serier du vill se."
 
 #: lib/Block/summary.php:3
 msgid "Comics"
@@ -72,11 +72,11 @@ msgstr "Uppdatera serier"
 #: backend.php:239
 #, php-format
 msgid "Could not find %s for %s<br />\n"
-msgstr "Kan inte hitta %s för %s<br/>\n"
+msgstr "Kan inte hitta %s fÃ¶r %s<br/>\n"
 
 #: lib/Block/summary.php:75
 msgid "Could not find any comics to display."
-msgstr "Kunde inte hitta några serier att visa."
+msgstr "Kunde inte hitta nÃ¥gra serier att visa."
 
 #: templates/javascript/goto.inc:60
 msgid "December"
@@ -92,7 +92,7 @@ msgstr "_Radera serier"
 
 #: config/prefs.php.dist:10
 msgid "Display Options"
-msgstr "Visningställningar"
+msgstr "VisningstÃ¤llningar"
 
 #: templates/backend/backend.inc:20
 msgid "Don't check for uniqueness"
@@ -104,7 +104,7 @@ msgstr "Klar"
 
 #: backend.php:210
 msgid "Error storing the image"
-msgstr "Fel när bilden skulle sparas"
+msgstr "Fel nÃ¤r bilden skulle sparas"
 
 #: templates/javascript/goto.inc:50
 msgid "February"
@@ -112,16 +112,16 @@ msgstr "februari"
 
 #: templates/backend/backend.inc:13
 msgid "Fetch"
-msgstr "Hämta"
+msgstr "HÃ¤mta"
 
 #: templates/backend/backend.inc:21
 msgid "Fetch Comics"
-msgstr "Hämta serier"
+msgstr "HÃ¤mta serier"
 
 #: backend.php:196
 #, php-format
 msgid "Fetching %s for date %s..."
-msgstr "Hämtar %s för datum %s..."
+msgstr "HÃ¤mtar %s fÃ¶r datum %s..."
 
 #: templates/javascript/goto.inc:44
 msgid "Fr"
@@ -129,7 +129,7 @@ msgstr "Fr"
 
 #: templates/menu/menu.inc:26
 msgid "Goto"
-msgstr "Gå till"
+msgstr "GÃ¥ till"
 
 #: templates/javascript/goto.inc:49
 msgid "January"
@@ -153,7 +153,7 @@ msgstr "Huvudlista"
 
 #: templates/backend/backend.inc:38
 msgid "Maintenance Functions"
-msgstr "Underhållsfunktioner"
+msgstr "UnderhÃ¥llsfunktioner"
 
 #: templates/javascript/goto.inc:51
 msgid "March"
@@ -165,7 +165,7 @@ msgstr "maj"
 
 #: templates/javascript/goto.inc:40
 msgid "Mo"
-msgstr "Må"
+msgstr "MÃ¥"
 
 #: templates/javascript/goto.inc:59
 msgid "November"
@@ -177,11 +177,11 @@ msgstr "oktober"
 
 #: config/prefs.php.dist:9
 msgid "Other Options"
-msgstr "Andra inställningar"
+msgstr "Andra instÃ¤llningar"
 
 #: templates/backend/backend.inc:18
 msgid "Overwrite comics if they exist?"
-msgstr "Skriv över befintliga serier?"
+msgstr "Skriv Ã¶ver befintliga serier?"
 
 #: templates/backend/backend.inc:42
 msgid "Rebuild Unique Identifiers file."
@@ -189,15 +189,15 @@ msgstr "Bygg om unikhetsfil."
 
 #: templates/javascript/goto.inc:45
 msgid "Sa"
-msgstr "Lö"
+msgstr "LÃ¶"
 
 #: templates/prefs/comic_select.inc:65
 msgid "Select All"
-msgstr "Välj alla"
+msgstr "VÃ¤lj alla"
 
 #: templates/prefs/comic_select.inc:64
 msgid "Select None"
-msgstr "Välj ingen"
+msgstr "VÃ¤lj ingen"
 
 #: templates/javascript/goto.inc:57
 msgid "September"
@@ -205,30 +205,30 @@ msgstr "september"
 
 #: config/prefs.php.dist:46
 msgid "Show all of your selected comics on the summary page?"
-msgstr "Visa alla serier du valt på listningssidan?"
+msgstr "Visa alla serier du valt pÃ¥ listningssidan?"
 
 #: config/prefs.php.dist:38
 msgid "Show comics you haven't selected on the browse page?"
-msgstr "Visa serier som du inte valt på listningssidan?"
+msgstr "Visa serier som du inte valt pÃ¥ listningssidan?"
 
 #: backend.php:213
 #, php-format
 msgid "Skipping %s for %s"
-msgstr "Hoppar över %s för %s"
+msgstr "Hoppar Ã¶ver %s fÃ¶r %s"
 
 #: backend.php:193
 #, php-format
 msgid "Skipping %s for %s - no historical fetching"
-msgstr "Hoppar över %s för %s- ingen historisk hämtning"
+msgstr "Hoppar Ã¶ver %s fÃ¶r %s- ingen historisk hÃ¤mtning"
 
 #: templates/javascript/goto.inc:46
 msgid "Su"
-msgstr "Sö"
+msgstr "SÃ¶"
 
 #: backend.php:238
 #, php-format
 msgid "Successfully removed %s for %s<br />\n"
-msgstr "Raderade %s för %s<br />\n"
+msgstr "Raderade %s fÃ¶r %s<br />\n"
 
 #: templates/javascript/goto.inc:43
 msgid "Th"
@@ -236,7 +236,7 @@ msgstr "To"
 
 #: backend.php:203
 msgid "The image doesn't exist or can't be retrieved"
-msgstr "Bilden existerar inte eller kan inte hämtas"
+msgstr "Bilden existerar inte eller kan inte hÃ¤mtas"
 
 #: backend.php:78
 msgid "The unique identifiers table has been rebuilt."
@@ -244,7 +244,7 @@ msgstr "Unikhetsfilen har byggts om."
 
 #: comics.php:223
 msgid "This comic doesn't exist or is disabled."
-msgstr "Den här serien finns inte eller är avaktiverad."
+msgstr "Den hÃ¤r serien finns inte eller Ã¤r avaktiverad."
 
 #: backend.php:206
 #, php-format
@@ -253,14 +253,14 @@ msgstr "Bilden verkar vara en upprepning (%s)"
 
 #: templates/comics/missing.inc:13
 msgid "This image is not currently available."
-msgstr "Bilden är för tillfället inte tillgänglig."
+msgstr "Bilden Ã¤r fÃ¶r tillfÃ¤llet inte tillgÃ¤nglig."
 
 #: templates/prefs/comic_select.inc:52
 msgid ""
 "To select multiple comics, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"För att välja flera serier, håll nere Control (på PC) eller Command (på Mac) "
+"FÃ¶r att vÃ¤lja flera serier, hÃ¥ll nere Control (pÃ¥ PC) eller Command (pÃ¥ Mac) "
 "och klicka."
 
 #: templates/menu/menu.inc:28
@@ -277,7 +277,7 @@ msgstr "Dagens serier"
 
 #: templates/comics/missing.inc:20
 msgid "Try to fetch this comic"
-msgstr "Försök hämt den här lustigheten"
+msgstr "FÃ¶rsÃ¶k hÃ¤mt den hÃ¤r lustigheten"
 
 #: templates/javascript/goto.inc:41
 msgid "Tu"
@@ -294,7 +294,7 @@ msgstr "Visa per lustighet"
 #: templates/comics/main.inc:9
 #, php-format
 msgid "View comics for %s"
-msgstr "Visa lustigheter för %s"
+msgstr "Visa lustigheter fÃ¶r %s"
 
 #: templates/javascript/goto.inc:42
 msgid "We"
@@ -303,8 +303,8 @@ msgstr "On"
 #: backend.php:43 backend.php:46
 msgid "You must define a storage backend to use the administrative interface."
 msgstr ""
-"Du måste konfigurera en lagrinskoppling för att använda det administrativa "
-"gränssnittet."
+"Du mÃ¥ste konfigurera en lagrinskoppling fÃ¶r att anvÃ¤nda det administrativa "
+"grÃ¤nssnittet."
 
 #: lib/Klutz.php:340
 msgid "_Browse"
@@ -312,7 +312,7 @@ msgstr "_Lista"
 
 #: lib/Klutz.php:346
 msgid "_Goto"
-msgstr "_Gå till"
+msgstr "_GÃ¥ till"
 
 #: lib/Klutz.php:348
 msgid "_Today"
@@ -336,4 +336,4 @@ msgstr "godtyckliga datum"
 
 #: templates/backend/backend.inc:15
 msgid "for"
-msgstr "för"
+msgstr "fÃ¶r"

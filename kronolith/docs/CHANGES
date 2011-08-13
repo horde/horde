@@ -1,6 +1,27 @@
 ----------
-v3.0.6-git
+v3.0.9-git
 ----------
+
+[jan] Support snoozing alarms with Sundbird/Lightning (Request #7470).
+[jan] Import VALARM components from iCalendar 2.0 data (Request #6665).
+[jan] Fix exporting all-day events to Funambol clients (Thomas Ilsche
+      <git@zulan.net>, Bug #10349).
+[jan] Fix creating events from dynamic view on Windows (Bug #9916).
+[mjr] Fix displaying of freebusy data in dynamic view (adominguez@cne.gob.ve,
+      Bug #10347).
+
+
+------
+v3.0.7
+------
+
+[mjr] Fix updating attendees (Bug #10411).
+[jan] Fix error if Nag is not installed (Bug #10406).
+
+
+------
+v3.0.6
+------
 
 [jan] Display event time in dynamic agenda/search view.
 [jan] Don't load all shares with requested permissions from the backend if

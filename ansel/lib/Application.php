@@ -202,11 +202,8 @@ class Ansel_Application extends Horde_Registry_Application
      */
     public function mobileInitCallback()
     {
-        //Horde::addScriptFile('mobile.js');
         require ANSEL_TEMPLATES . '/mobile/javascript_defs.php';
-
         Horde::addScriptFile('mobile.js');
-        /* Inline script. */
         Horde::addInlineScript(
           '$(window.document).bind("mobileinit", function() {
               $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
@@ -218,8 +215,6 @@ class Ansel_Application extends Horde_Registry_Application
               //        $.mobile.changePage("gallerylist", "slide", false, true);
               //    }
               //});
-              // Reactivate pinch/zoom
-              $.mobile.metaViewportContent = "width=device-width";
           });'
         );
     }

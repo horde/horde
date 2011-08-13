@@ -1,6 +1,15 @@
 ----------
-v3.0.5-git
+v3.0.6-git
 ----------
+
+[mjr] Fix issue with synchronizing deleted contacts (Bug #10422).
+[jan] Fix searching for duplicates on some databases (Bug #10383).
+[mjr] Add and support more attributes by default.
+
+
+------
+v3.0.5
+------
 
 [mjr] Fix obtaining default share via Turba's API (vilius@lnk.lt, Bug #10393).
 [mjr] Force ActiveSync device reset after sync_books pref is changed

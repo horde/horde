@@ -90,6 +90,16 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public $categories = array();
     public $bodytruncated = 0;
 
+    protected $_dayOfWeekMap = array(
+        Horde_Date::DATE_SUNDAY => Horde_Date::MASK_SUNDAY,
+        Horde_Date::DATE_MONDAY => Horde_Date::MASK_MONDAY,
+        Horde_Date::DATE_TUESDAY => Horde_Date::MASK_TUESDAY,
+        Horde_Date::DATE_WEDNESDAY => Horde_Date::MASK_WEDNESDAY,
+        Horde_Date::DATE_THURSDAY => Horde_Date::MASK_THURSDAY,
+        Horde_Date::DATE_FRIDAY => Horde_Date::MASK_FRIDAY,
+        Horde_Date::DATE_SATURDAY => Horde_Date::MASK_SATURDAY,
+    );
+
     /**
      * Constructor
      *
@@ -390,14 +400,17 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             break;
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY;
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY_NTH;
-            $r->dayofweek = $recurrence->getRecurOnDays();
+            $r->weekofmonth = ceil($recurrence->start->mday / 7);
+            $r->dayofweek = $this->_dayOfWeekMap[$recurrence->start->dayOfWeek()];
             break;
         case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_YEARLY;
             break;
         case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_YEARLYNTH;
-            $r->dayofweek = $recurrence->getRecurOnDays();
+            $r->dayofweek = $this->_dayOfWeekMap[$recurrence->start->dayOfWeek()];
+            $r->weekofmonth = ceil($recurrence->start->mday / 7);
+            $r->monthofyear = $recurrence->start->month;
             break;
         }
         if (!empty($recurrence->recurInterval)) {

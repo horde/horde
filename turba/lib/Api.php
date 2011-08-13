@@ -528,7 +528,6 @@ class Turba_Api extends Horde_Registry_Api
                 '>', $timestamp, $filter,
                 'turba:' . $driver->getName());
 
-
             // Filter out groups
             $nguids = str_replace(
                 'turba:' . $driver->getName() . ':',
@@ -536,13 +535,17 @@ class Turba_Api extends Horde_Registry_Api
                 array_keys($histories));
 
             $include = array();
-            foreach ($nguids as $id) {
-                $list = $driver->search(array('__uid' => $uid));
-                $object = $list->next();
-                if ($object->isGroup()) {
-                    continue;
+            foreach ($nguids as $uid) {
+                if ($action != 'delete') {
+                    $list = $driver->search(array('__uid' => $uid));
+                    if ($list->count()) {
+                        $object = $list->next();
+                        if ($object->isGroup()) {
+                            continue;
+                        }
+                    }
                 }
-                $include[] = $id;
+                $include[] = $uid;
             }
 
             // Strip leading turba:addressbook:.

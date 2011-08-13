@@ -267,7 +267,8 @@ if (IMP::$mailbox->access_deletemsgs) {
         : array(_("Delete"), $self_link->copy()->add(array('a' => 'd', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 
-/* Add compose actions (Reply, Reply List, Reply All, Forward, Redirect). */
+/* Add compose actions (Reply, Reply List, Reply All, Forward, Redirect, Edit
+ * as New). */
 if (IMP::canCompose()) {
     $menu[] = array(_("Reply"), IMP::composeLink(array(), array('a' => 'r') + $compose_params));
 
@@ -281,6 +282,7 @@ if (IMP::canCompose()) {
 
     $menu[] = array(_("Forward"), IMP::composeLink(array(), array('a' => 'f') + $compose_params));
     $menu[] = array(_("Redirect"), IMP::composeLink(array(), array('a' => 'rc') + $compose_params));
+    $menu[] = array(_("Edit as New"), IMP::composeLink(array(), array('a' => 'en') + $compose_params));
 }
 
 /* Generate previous/next links. */

@@ -37,6 +37,7 @@ extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         if (!function_exists('imap_open')) {
             $this->markTestSkipped('Missing PHP IMAP extension.');
         }

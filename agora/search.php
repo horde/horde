@@ -15,7 +15,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
 $scope = Horde_Util::getGet('scope', 'agora');
-$messages = &Agora_Messages::singleton($scope);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope);
 $vars = Horde_Variables::getDefaultVariables();
 $form = new Agora_Form_Search($vars, $scope);
 $thread_page = Horde_Util::getFormData('thread_page');
@@ -70,5 +70,5 @@ $view->searchForm = Horde::endBuffer();
 
 $title = _("Search Forums");
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('search.html.php');
+echo $view->render('search');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

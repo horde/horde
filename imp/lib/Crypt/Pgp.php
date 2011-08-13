@@ -675,6 +675,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         $title = _("Import PGP Key");
         require IMP_TEMPLATES . '/common-header.inc';
+
+        /* Need to use regular status notification - AJAX notifications won't
+         * show in popup windows. */
+        if (IMP::getViewMode() == 'dimp') {
+            $GLOBALS['notification']->detach('status');
+            $GLOBALS['notification']->attach('status');
+        }
         IMP::status();
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');

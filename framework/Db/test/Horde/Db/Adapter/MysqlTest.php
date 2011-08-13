@@ -756,53 +756,76 @@ class Horde_Db_Adapter_MysqlTest extends PHPUnit_Framework_TestCase
 
         $found = false;
         foreach ($oldColumns as $c) {
-            if ($c->getName() == 'age' && $c->getType() == 'integer') { $found = true; }
+            if ($c->getName() == 'age' && $c->getType() == 'integer') {
+                $found = true;
+            }
         }
         $this->assertTrue($found);
 
         $this->_conn->changeColumn('users', 'age', 'string');
-
         $newColumns = $this->_conn->columns('users', "User Columns");
 
         $found = false;
         foreach ($newColumns as $c) {
-            if ($c->getName() == 'age' && $c->getType() == 'integer') { $found = true; }
+            if ($c->getName() == 'age' && $c->getType() == 'integer') {
+                $found = true;
+            }
         }
         $this->assertFalse($found);
+
         $found = false;
         foreach ($newColumns as $c) {
-            if ($c->getName() == 'age' && $c->getType() == 'string') { $found = true; }
+            if ($c->getName() == 'age' && $c->getType() == 'string') {
+                $found = true;
+            }
         }
         $this->assertTrue($found);
 
         $found = false;
         foreach ($oldColumns as $c) {
-            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
-                $c->getDefault() == true) { $found = true; }
+            if ($c->getName() == 'approved' &&
+                $c->getType() == 'boolean' &&
+                $c->getDefault() == true) {
+                $found = true;
+            }
         }
         $this->assertTrue($found);
 
         // changeColumn() throws exception on error
         $this->_conn->changeColumn('users', 'approved', 'boolean', array('default' => false));
-
         $newColumns = $this->_conn->columns('users', "User Columns");
 
         $found = false;
         foreach ($newColumns as $c) {
-            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
-                $c->getDefault() == true) { $found = true; }
+            if ($c->getName() == 'approved' &&
+                $c->getType() == 'boolean' &&
+                $c->getDefault() == true) {
+                $found = true;
+            }
         }
         $this->assertFalse($found);
 
         $found = false;
         foreach ($newColumns as $c) {
-            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
-                $c->getDefault() == false) { $found = true; }
+            if ($c->getName() == 'approved' &&
+                $c->getType() == 'boolean' &&
+                $c->getDefault() == false) {
+                $found = true;
+            }
         }
         $this->assertTrue($found);
 
         // changeColumn() throws exception on error
         $this->_conn->changeColumn('users', 'approved', 'boolean', array('default' => true));
+
+        // Test converting to autoincrementKey
+        $this->_conn->changeColumn('users', 'id', 'integer');
+        $this->_conn->changeColumn('users', 'id', 'autoincrementKey');
+
+        // Test with non-existant primary key
+        $this->_conn->changeColumn('users', 'id', 'integer');
+        $this->_conn->execute('ALTER TABLE users DROP PRIMARY KEY');
+        $this->_conn->changeColumn('users', 'id', 'autoincrementKey');
     }
 
     public function testChangeColumnDefault()

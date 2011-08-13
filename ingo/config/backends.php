@@ -19,10 +19,11 @@
  *
  * disabled: (boolean) If true, the config entry is disabled.
  *
- * transport: (string) The Ingo_Transport driver to use to store the script on
- *            the backend server. Valid options:
+ * transport: (string) The transport driver to use to store the script on the
+ *            backend server. Valid options:
  *            - 'ldap':      LDAP server
- *            - 'null':      No backend server
+ *            - 'null':      No backend server (i.e. for script drivers, such
+ *                           as 'imap', that don't use scripts).
  *            - 'timsieved': Timsieved (managesieve) server
  *            - 'vfs':       Use Horde VFS
  *
@@ -38,9 +39,9 @@
  *            - 'full': The username will be used unmodified.
  *
  * params: (array) An array containing any additional information that the
- *         Ingo_Transport class needs.
+ *         transport class needs. See below for further details.
  *
- * script: (string) The type of Ingo_Script driver this server uses.
+ * script: (string) The type of script driver this server uses.
  *         Valid options:
  *         - 'imap':     IMAP client side filtering (POP3 servers NOT
  *                       supported)
@@ -49,7 +50,7 @@
  *         - 'sieve':    Sieve scripts
  *
  * scriptparams: (array) An array containing any additional information that
- *               the Ingo_Script driver needs.
+ *               the script driver needs. See below for further details.
  *
  * shares: (boolean) Some drivers support sharing filter rules with other
  *         users. Users can then configure filters for each other if they

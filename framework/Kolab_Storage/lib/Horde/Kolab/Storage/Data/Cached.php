@@ -91,85 +91,6 @@ extends Horde_Kolab_Storage_Data_Base
     }
 
     /**
-     * Create a new object.
-     *
-     * @param array   &$object The array that holds the object data.
-     * @param boolean $raw     True if the data to be stored has been provided in
-     *                         raw format.
-     *
-     * @return string The ID of the new object or true in case the backend does
-     *                not support this return value.
-     *
-     * @throws Horde_Kolab_Storage_Exception In case an error occured while
-     *                                       saving the data.
-     */
-    public function create(&$object, $raw = false)
-    {
-        $result = parent::create($object, $raw);
-        if ($result === true) {
-            $this->synchronize();
-        } else {
-            $this->_data_cache->store(
-                array($result => $object),
-                $this->getStamp(),
-                $this->getVersion()
-            );
-            parent::synchronize();
-            $this->_data_cache->save();
-        }
-        return $result;
-    }
-
-    /**
-     * Modify an existing object.
-     *
-     * @param array   $object The array that holds the updated object data.
-     * @param boolean $raw    True if the data to be stored has been provided in
-     *                        raw format.
-     *
-     * @return string The new backend ID of the modified object or true in case
-     *                the backend does not support this return value.
-     *
-     * @throws Horde_Kolab_Storage_Exception In case an error occured while
-     *                                       saving the data.
-     */
-    public function modify($object, $raw = false)
-    {
-        if (!isset($object['uid'])) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The provided object data contains no ID value!'
-            );
-        }
-        try {
-            $old_obid = $this->getBackendId($object['uid']);
-        } catch (Horde_Kolab_Storage_Exception $e) {
-            throw new Horde_Kolab_Storage_Exception(
-                sprintf(
-                    Horde_Kolab_Storage_Translation::t(
-                        'The message with ID %s does not exist. This probably means that the Kolab object has been modified by somebody else since you retrieved the object from the backend. Original error: %s'
-                    ),
-                    $object['uid'],
-                    0,
-                    $e
-                )
-            );
-        }
-        $result = parent::modify($object, $raw);
-        if ($result === true) {
-            $this->synchronize();
-        } else {
-            $this->_data_cache->store(
-                array($result => $object),
-                $this->getStamp(),
-                $this->getVersion(),
-                array($old_obid)
-            );
-            parent::synchronize();
-            $this->_data_cache->save();
-        }
-    }
-
-    /**
      * Return the backend ID for the given object ID.
      *
      * @param string $object_uid The object ID.
@@ -259,6 +180,19 @@ extends Horde_Kolab_Storage_Data_Base
     }
 
     /**
+     * Return the mapping of object IDs to backend IDs.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The object to backend mapping.
+     */
+    public function getObjectToBackend()
+    {
+        $this->_init();
+        return $this->_data_cache->getObjectToBackend();
+    }
+
+    /**
      * Retrieve the list of object duplicates.
      *
      * @since Horde_Kolab_Storage 1.1.0
@@ -287,9 +221,11 @@ extends Horde_Kolab_Storage_Data_Base
     /**
      * Synchronize the query data with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
         $current = $this->getStamp();
         if (!$this->_data_cache->isInitialized()) {
@@ -301,17 +237,25 @@ extends Horde_Kolab_Storage_Data_Base
             $this->_completeSynchronization($current);
             return;
         }
-        $changes = $previous->getChanges($current);
-        if ($changes) {
-            $this->_data_cache->store(
-                $this->fetch(
-                    $changes[Horde_Kolab_Storage_Folder_Stamp::ADDED]
-                ),
-                $current,
-                $this->getVersion(),
+        if (!isset($params['changes'])) {
+            $changes = $previous->getChanges($current);
+            $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] = $this->fetch(
+                $changes[Horde_Kolab_Storage_Folder_Stamp::ADDED]
+            );
+            $params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] = $this->_data_cache->backendMap(
                 $changes[Horde_Kolab_Storage_Folder_Stamp::DELETED]
             );
-            parent::synchronize();
+        }
+        if ($params['changes'] !== false) {
+            $params['last_sync'] = $this->_data_cache->getLastSync();
+            $this->_data_cache->store(
+                $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED],
+                $current,
+                $this->getVersion(),
+                $params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED]
+            );
+            $params['current_sync'] = $this->_data_cache->getLastSync();
+            parent::synchronize($params);
             $this->_data_cache->save();
         }
         $this->_init = true;
@@ -321,20 +265,25 @@ extends Horde_Kolab_Storage_Data_Base
      * Perform a complete synchronization.
      *
      * @param Horde_Kolab_Storage_Folder_Stamp $stamp The current stamp.
+     * @param array $params Additional parameters.
      *
      * @return NULL
      */
     private function _completeSynchronization(
-        Horde_Kolab_Storage_Folder_Stamp $stamp
+        Horde_Kolab_Storage_Folder_Stamp $stamp,
+        $params = array()
     ) {
         $this->_data_cache->reset();
         $ids = $stamp->ids();
+        $params['last_sync'] = false;
+        $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] = empty($ids) ? array() : $this->fetch($ids);
         $this->_data_cache->store(
-            empty($ids) ? array() : $this->fetch($ids),
+            $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED],
             $stamp,
             $this->getVersion()
         );
-        parent::synchronize();
+        $params['current_sync'] = $this->_data_cache->getLastSync();
+        parent::synchronize($params);
         $this->_data_cache->save();
     }
 }

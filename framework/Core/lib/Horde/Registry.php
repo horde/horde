@@ -1860,14 +1860,20 @@ class Horde_Registry
         if ($this->getAuth() &&
             (($app == 'horde') ||
              $GLOBALS['session']->exists('horde', 'auth_app/' . $app))) {
-            return $this->checkExistingAuth();
+            if ($this->checkExistingAuth($app)) {
+                return true;
+            }
         }
 
         /* Try transparent authentication. */
+        if (!empty($options['notransparent'])) {
+            return false;
+        }
         try {
-            return empty($options['notransparent'])
-                ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create($app)->transparent()
-                : false;
+            return $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Auth')
+                ->create($app)
+                ->transparent();
         } catch (Horde_Exception $e) {
             Horde::logMessage($e);
             return false;
@@ -1912,26 +1918,25 @@ class Horde_Registry
     }
 
     /**
-     * Return a URL to the login screen, adding the necessary logout
+     * Returns a URL to the login screen, adding the necessary logout
      * parameters.
-     * If no reason/msg is passed in, use the current global authentication
+     *
+     * If no reason/msg is passed in, uses the current global authentication
      * error message.
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'app' - (string) Authenticate to this application
-     *         DEFAULT: Horde
-     * 'msg' - (string) If reason is Horde_Auth::REASON_MESSAGE, the message
-     *         to display to the user.
-     *         DEFAULT: None
-     * 'params' - (array) Additional params to add to the URL (not allowed:
-     *            'app', 'horde_logout_token', 'msg', 'reason', 'url').
+     *     - app: (string) Authenticate to this application
+     *            DEFAULT: Horde
+     *     - msg: (string) If reason is Horde_Auth::REASON_MESSAGE, the message
+     *            to display to the user.
      *            DEFAULT: None
-     * 'reason' - (integer) The reason for logout
-     *            DEFAULT: None
-     * </pre>
+     *     - params: (array) Additional params to add to the URL (not allowed:
+     *               'app', 'horde_logout_token', 'msg', 'reason', 'url').
+     *               DEFAULT: None
+     *     - reason: (integer) The reason for logout
+     *               DEFAULT: None
      *
-     * @return string The formatted URL
+     * @return Horde_Url  The formatted URL.
      */
     public function getLogoutUrl(array $options = array())
     {
@@ -2230,13 +2235,18 @@ class Horde_Registry
     /**
      * Check existing auth for triggers that might invalidate it.
      *
+     * @param string $app  Check authentication for this app too.
+     *                     @since Horde_Core 1.4.0.
+     *
      * @return boolean  Is existing auth valid?
      */
-    public function checkExistingAuth()
+    public function checkExistingAuth($app = 'horde')
     {
         global $session;
 
-        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
+        $auth = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Auth')
+            ->create();
 
         if (!empty($GLOBALS['conf']['auth']['checkip']) &&
             ($remoteaddr = $session->get('horde', 'auth/remoteAddr')) &&
@@ -2252,6 +2262,14 @@ class Horde_Registry
         }
 
         if ($auth->validateAuth()) {
+            if ($app != 'horde') {
+                $auth = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Auth')
+                    ->create($app);
+                if (!$auth->validateAuth()) {
+                    return false;
+                }
+            }
             return true;
         }
 
@@ -2293,7 +2311,7 @@ class Horde_Registry
 
         foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin', 'noadmin')) as $app) {
             try {
-                $this->callAppMethod($app, 'removeUserData', array('args' => $userId));
+                $this->callAppMethod($app, 'removeUserData', array('args' => array($userId)));
             } catch (Exception $e) {
                 Horde::logMessage($e);
                 $errApps[] = $app;

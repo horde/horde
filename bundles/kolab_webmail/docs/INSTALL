@@ -1,0 +1,704 @@
+====================================
+ Installing Horde Kolab Edition 4.0
+====================================
+
+:Contact: horde@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+This document contains instructions for installing Horde Kolab Edition
+on your system.
+
+For information on the capabilities and features of Horde Kolab
+Edition, see the file README_ in the top-level directory of the Horde
+Kolab Edition distribution.
+
+
+Quick Install on a Kolab Server 2.3.2
+=====================================
+
+These are very terse instructions how to install Horde Kolab Edition
+and its prerequisites on a Kolab Server 2.3.2. They are addressed to
+experienced administrators who know exactly what they are doing.  For
+more detailed instructions and installation variants that do not
+require installation directly on the Kolab server, start reading below
+at Prerequisites_.
+
+1. Add the PHP filter extension::
+
+   wget http://files.pardus.de/apache-php-filter-5.3.6-20110809_kolab1.src.rpm
+   /kolab/bin/openpkg rpm --rebuild apache-php-filter-5.3.6-20110809_kolab1.src.rpm
+   /kolab/bin/openpkg rpm -ihv /kolab/RPM/PKG/apache-php-filter-*kolab.rpm
+   echo "extension=filter.so" >> /kolab/etc/kolab/templates/php.ini.template
+   echo "extension=filter.so" >> /kolab/etc/php/php.ini
+
+2. Create a separate PEAR installation::
+
+   mkdir /kolab/var/kolab/www/horde
+   /kolab/bin/pear config-create /kolab/var/kolab/www/horde /kolab/var/kolab/www/horde/pear.conf
+   /kolab/bin/pear -c /kolab/var/kolab/www/horde/pear.conf install pear
+   export PATH="/kolab/var/kolab/www/horde/pear:$PATH"
+
+2. Register Horde PEAR channel::
+
+     pear -c /kolab/var/kolab/www/horde/pear.conf channel-discover pear.horde.org
+
+3. Set the Horde installation directory to "/kolab/var/kolab/www/horde"::
+
+     pear -c /kolab/var/kolab/www/horde/pear.conf install horde/horde_role
+     pear -c /kolab/var/kolab/www/horde/pear.conf run-scripts horde/horde_role
+...
+Filesystem location for the base Horde application : /kolab/var/kolab/www/horde
+...
+
+4. Install Horde Kolab Edition::
+
+     pear -c /kolab/var/kolab/www/horde/pear.conf install -a -B horde/kolab_webmail
+
+5. Run installation script::
+
+     PHP_PEAR_SYSCONF_DIR=/kolab/var/kolab/www/horde php -d include_path="/kolab/var/kolab/www/horde/pear/php" /kolab/var/kolab/www/horde/pear/kolab-webmail-install
+
+6. Edit /kolab/etc/kolab/templates/httpd.conf.template and remove the "/horde" redirect. Set "AllowOverride" and require SSL. Run kolabconf
+
+7. Add .htaccess lines 
+
+   php_value include_path /kolab/var/kolab/www/horde/pear/php
+   SetEnv PHP_PEAR_SYSCONF_DIR /kolab/var/kolab/www/horde
+
+6. Test Horde Kolab Edition::
+
+     http://your-server/horde/test.php
+
+
+Prerequisites
+=============
+
+The following prerequisites are **REQUIRED** for Horde Kolab
+Edition to function properly.
+
+1. A webserver that supports PHP.
+
+   Horde Kolab Edition is primarily developed under the Apache and
+   Lighttpd webservers, which we recommend.  These servers are available from:
+
+      http://httpd.apache.org/
+      http://www.lighttpd.net/
+
+2. A web server with PATH_INFO support.
+
+   The dynamic interfaces of Horde Kolab Edition requires a web
+   server that correctly sets the PATH_INFO environment variable for all PHP
+   scripts. Every modern web server supports this, but you might have to enable
+   this feature in the web server configuration.  e.g. Apache servers require::
+
+      AcceptPathInfo On
+
+   Lighttpd servers require::
+
+     "broken-scriptfilename" => "enable"
+
+3. PHP 5.2.0 or above.
+
+   PHP is the interpreted language in which Horde Kolab Edition is
+   written.
+
+   .. Note:: If possible, you should install PHP with your operating system's
+             package manager. Alternatively you build PHP yourself.
+
+   To build PHP from sources, you can obtain it at
+
+      http://www.php.net/
+
+   Follow the instructions in the PHP package to build PHP for your system. If
+   you use Apache, be sure to build PHP as a library with one of the following
+   options::
+
+       --with-apache
+       --with-apxs
+       --with-apxs2
+
+   options to ``./configure``, and not as a standalone executable.
+
+   The following PHP options are **REQUIRED** by Horde Kolab
+   Edition (listed with their own prerequisites and configure options). In
+   many cases, the required libraries and tools can be obtained as packages
+   from your operating system vendor.
+
+   a. Gettext support. ``--with-gettext``
+
+      Gettext is the GNU Translation Project's localization library.  Horde
+      Kolab Edition uses gettext to provide local translations of
+      text displayed by applications. Information on obtaining the gettext
+      package is available at
+
+         http://www.gnu.org/software/gettext/gettext.html
+
+      See also note below on configuring Translations_.
+
+   b. XML and DOMXML support.
+
+      XML and DOM support are enabled in PHP 5 by default. You only have to
+      make sure that you do **not** use ``--disable-dom``,
+      ``--disable-simplexml``, or ``--disable-xml``.
+
+      Make sure you are using a newer version of libxml.  Older version of
+      libxml (e.g. 2.6.26) have been reported to be partially broken when
+      handling certain charsets.
+
+   The following PHP options are **RECOMMENDED** to enable advanced features
+   in Horde Kolab Edition:
+
+   a. File Upload Support
+
+      File upload support is **required** to allow attachments in mail
+      composition and to allow various importing features to work (e.g.
+      importing PGP or S/MIME keys, importing mbox files). To enable file
+      upload support:
+
+          1. In your php.ini file, the following line **must** be present::
+
+                file_uploads = On
+
+          2. Your temporary upload directory **must** be writable to the user
+             the web server is running as. If you leave the configuration
+             option ``upload_tmp_dir`` blank in ``php.ini``, PHP will use the
+             default directory compiled into it (normally ``/tmp`` on
+             Unix-like systems).
+
+          3. Set the maximum size of the uploaded files via the
+             ``upload_max_filesize`` configuration option in ``php.ini``. For
+             example, to allow 5 MB attachments, place the following line in
+             your ``php.ini`` file::
+
+                upload_max_filesize = 5M
+
+       If either ``file_uploads`` is turned off, or your temporary upload
+       directory is *not* writable by the server, all file upload
+       functionality will be disabled by Horde Kolab Edition and
+       will not be available to the user.
+
+       See the `File Uploads`_ FAQ entry for further information.
+
+   b. A preferences container.
+
+      Horde Kolab Edition can store user preferences in an SQL
+      database, an LDAP directory, an IMSP server, a Kolab server, or in PHP
+      sessions. An SQL database is used and configured by default.
+
+      For SQL database preferences storage, Horde Kolab Edition is
+      thoroughly tested on MySQL(i) (``--with-mysql(i)``) and PostgreSQL
+      (``--with-pgsql``), and has been reported to work with SQLite (enabled by
+      default).
+
+      Preferences can also be stored via LDAP (``--with-ldap``), Kolab
+      (``--with-ldap``), and IMSP.
+
+      Alternatively, preferences can be stored in PHP sessions, which
+      requires no external programs or configure options, but which will not
+      maintain preferences between sessions.
+
+      While the LDAP, database, Kolab, or IMSP server need not be running on
+      the machine onto which you are installing Horde Kolab
+      Edition, the appropriate client libraries to access the server must be
+      available locally.
+
+      If a preference container is not configured, no preference options will
+      be configurable via Horde Kolab Edition's web interface -
+      the default values stored in each applications ``config/prefs.php`` file
+      will be used.
+
+   c. UTF-8 support (mbstring and iconv extensions) ``--enable-mbstring``
+
+      If these extensions are enabled, Horde Kolab Edition can
+      better support multibyte character sets like UTF-8.
+
+      For iconv support you should use the GNU libiconv library, which is more
+      stable and supports more charsets, compared to other iconv
+      implementations, like Solaris', for example.
+
+      Iconv support is enabled by default in PHP 5. You only have to make sure
+      that you do **not** use ``--without-iconv``
+
+   d. GD support ``--with-gd``
+
+      Horde Kolab Edition will use the GD extension to perform
+      manipulations on image data through the Horde_Image library.
+
+      If you want GD to be able to work with PNG images, you should use the
+      ``--with-png-dir`` option to make sure PHP can find the PNG libraries
+      it needs to compile.
+
+      If you want GD to be able to work with JPEG images, you should use the
+      ``--with-jpeg-dir`` option to make sure PHP can find the JPEG libraries
+      it needs to compile.
+
+      You can also use the imagick_ extension or the ImageMagick_ package to do
+      these manipulations instead. The imagick_ extension is the recommended
+      method for image manipulation. See the ``Image Manipulation`` tab of the
+      Horde configuration for more details.
+
+      .. _imagick: http://pecl.php.net/package/imagick
+      .. _ImageMagick: http://www.imagemagick.org
+
+   e. tidy ``--with-tidy``
+
+      The tidy PHP extension is required to sanitize HTML data.
+
+.. _`OpenSSL Support`:
+
+   f. OpenSSL support ``--with-openssl``
+
+      The OpenSSL PHP extension is used by Horde Kolab Edition to
+      provide S/MIME support.  Without the extension, all S/MIME options will
+      be disabled.
+
+      Additionally, the OpenSSL PHP extension is REQUIRED if using TLS or SSL
+      to connect to the IMAP/POP3 server.
+
+      See http://www.php.net/openssl for information on compiling OpenSSL
+      into PHP.
+
+4. Additional PECL Modules
+
+   PECL is short for "PHP Extension Community Library".  The goal of PECL is
+   to provide a means of easily distributing PHP extensions.
+
+   For more information, see http://pecl.php.net/
+
+   When you install a PECL extension, you have to add it to your ``php.ini``
+   so it gets loaded.  Add the following line to your ``php.ini`` file to load
+   the extension (the extension should be installed in the directory specified
+   by the ``extension_dir`` option in ``php.ini``)::
+
+     extension=fileinfo.so
+
+   Or on Windows::
+
+     extension=fileinfo.dll
+
+   After that, restart your webserver.
+
+   These PECL modules are **RECOMMENDED** to be installed:
+
+   a. fileinfo
+
+      Allows Horde Kolab Edition modules to guess the MIME type of
+      files by analyzing their contents.
+
+      If not enabled, Horde Kolab Edition will use its own PHP
+      code to perform MIME magic lookups. However, this lookup is slower,
+      less accurate, and detects fewer MIME types than the PECL extension
+      will.
+
+      To install, enter the following at the command prompt::
+
+        pecl install fileinfo
+
+   These PECL modules are **RECOMMENDED** to be installed if you need
+   advanced functionality:
+
+   a. idn
+
+      idn is required in order to handle Internationalized Domain Names
+      (see RFC 3490).
+
+   b. imagick
+
+      The imagick module can be used by Horde's image library to provide all
+      kind of image manipulations.
+
+      To install, enter the following at the command prompt::
+
+        pecl install imagick
+
+   c. lzf
+
+      If the lzf module is available, Horde Kolab Edition can
+      compress some cached data in the current session, thus reducing the size
+      of the current session.
+
+      To install, enter the following at the command prompt::
+
+        pecl install lzf
+
+   d. memcache
+
+      If using the memcached SessionHandler, the memcache PECL extension must
+      be installed.
+
+      To install, enter the following at the command prompt::
+
+        pecl install memcache
+
+5. At least one IMAP or POP3 server.
+
+   While Horde Kolab Edition is an application that is installed
+   on a Web server and is run from a Web browser, it is only an IMAP and POP3
+   *client*, like Outlook, Apple Mail or Thunderbird. You must have access to
+   an IMAP or POP3 server(s) on which your users' mail is stored in order to
+   use Horde Kolab Edition.
+
+   IMAP is *strongly* recommended over POP3. See, e.g.,
+   http://www.imap.org/imap.vs.pop.brief.html
+
+   Freely available IMAP servers (for \*nix systems) that have been verified
+   to work with Horde Kolab Edition include:
+
+   - Cyrus (http://asg.web.cmu.edu/cyrus/)
+   - Dovecot (http://www.dovecot.org/)
+   - Courier-IMAP (http://www.inter7.com/courierimap.html)
+
+   More available IMAP servers are:
+
+   - UW-IMAP (ftp://ftp.cac.washington.edu/imap/)
+   - Archiveopteryx (http://www.archiveopteryx.org/)
+
+   Most of these packages also include POP3 support as well.
+
+   The selected IMAP server MUST support IMAP4rev1 (RFC 3501).
+   The selected POP server MUST support POP3 (RFC 1939/STD 53).
+
+   .. Note:: If using a POP server, it MUST support the UIDL capability.
+             Caching, on-demand filtering, searching, and sorting will be
+             disabled; POP3 support is limited to essentially only viewing
+             messages and performing basic mail actions.
+
+6. Sendmail or equivalent.
+
+   Horde Kolab Edition uses sendmail, or a program that implements
+   the ``sendmail(8)`` API (as included with postfix, qmail, and exim, among
+   others). If your system does not already have a full mail transport with a
+   sendmail interface, you can configure Horde Kolab Edition to
+   speak directly with a remote SMTP server, but this may incur a performance
+   penalty.
+
+
+The following non-PHP prerequisites are **RECOMMENDED**:
+
+1. aspell - Spelling Checker
+
+   Aspell, a comand-line program, is used as Horde Kolab Edition's
+   spell-checking engine.  You must install and configure aspell to use Horde
+   Kolab Edition's spell-check feature.
+
+   Version 0.60 or higher is REQUIRED.
+
+   You can obtain aspell from:
+
+      http://aspell.sourceforge.net/
+
+
+Installing Horde Kolab Edition
+==========================================
+
+There are several ways to install Horde Kolab Edition. The
+recommended way to install Horde Kolab Edition is using the PEAR
+installer. Alternatively it can be installed from tarballs.
+
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First you need to register the Horde PEAR channel server to your local PEAR
+system. This has to be done only **once** ever on a single PEAR system::
+
+   pear channel-discover pear.horde.org
+
+Next install a so-called "role" for Horde. This role defines where Horde
+Kolab Edition is supposed to be installed. This should be a
+directory in your web server's web root, e.g. ``/var/www/webmail``. Again this
+has to be done only **once** ever on a single PEAR system::
+
+   pear install horde/horde_role
+   pear run-scripts horde/horde_role
+
+When installing Horde Kolab Edition through PEAR now, the installer
+will automatically install any dependencies of Horde Kolab Edition
+too. If you want to install Horde Kolab Edition with all optional
+dependencies, but without the binary PECL packages that have to be compiled,
+specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/webmail
+
+By default, only the required dependencies will be installed::
+
+   pear install horde/webmail
+
+If you want to install Horde Kolab Edition even with all binary
+dependencies, you need to remove the ``-B`` flag. Please note that this might
+also try to install PHP extensions through PECL that might need further
+configuration or activation in your PHP configuration::
+
+   pear install -a horde/webmail
+
+
+Installing into separate PEAR
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to create a separate PEAR installation for installing Horde
+Kolab Edition, independent from the system-wide PEAR installation,
+this can be done with the following commands. The paths are only examples of
+course::
+
+   mkdir /var/www/webmail
+   pear config-create /var/www/webmail /var/www/webmail/pear.conf
+   pear -c /var/www/webmail/pear.conf install pear
+
+Then follow the regular installation steps, but use the ``pear`` command from
+the PEAR installation you just created, e.g.::
+
+   /var/www/webmail/pear/pear -c /var/www/webmail/pear.conf channel-discover pear.horde.org
+
+Finally update the .htaccess file in ``/var/www/webmail/`` or configure your
+web server in some other way to point PHP's ``include_path`` setting to the
+PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the
+web root::
+
+   php_value include_path /var/www/webmail/pear/php
+   SetEnv PHP_PEAR_SYSCONF_DIR /var/www/webmail
+
+
+Finishing installation
+~~~~~~~~~~~~~~~~~~~~~~
+
+To finish installation, run the installation script on the command line and
+answer all questions::
+
+   webmail-install
+
+If you installed Horde Kolab Edition into the global PEAR system,
+this script should be in your command path. If the script cannot be found in
+your path, you need to specify the full path to the script, e.g.::
+
+   /var/www/webmail/pear/webmail-install
+
+You can use the ``pear`` command to find the place where the script has been
+installed::
+
+   pear config-get bin_dir
+
+If you installed into a local PEAR installation, you need to tell PHP and PEAR
+where to find the installation and the script, e.g.::
+
+   PHP_PEAR_SYSCONF_DIR=/var/www/webmail php -d include_path=/var/www/webmail/pear/php /var/www/webmail/pear/webmail-install
+
+
+Configuring Horde Kolab Edition
+===========================================
+
+1. Configuring the web server
+
+   Horde Kolab Edition requires the following webserver
+   settings. Examples shown are for Apache; other webservers' configurations
+   will differ.
+
+   a. PHP interpretation for files matching ``*.php``::
+
+         AddType application/x-httpd-php .php
+
+      .. Note:: The above instructions may not work if you have specified PHP
+                as an output filter with ``SetOutputFilter`` directive in
+                Apache 2.x versions.  In particular, Red Hat 8.0 and above
+                Apache 2.x RPMS have the output filter set, and **MUST NOT**
+                have the above ``AddType`` directive added.
+
+   b. ``index.php`` as an index file (brought up when a user requests a URL for
+      a directory)::
+
+         DirectoryIndex index.php
+
+   c. If you plan to provide ActiveSync support to your users, you have to
+      create an alias of the ``/Microsoft-Servers-ActiveSync`` URL to
+      ``/webmail/rpc.php``. See http://wiki.horde.org/ActiveSync for details.
+
+2. Configuring Horde Kolab Edition
+
+   Documentation on the format and purpose of the configuration files
+   in the ``config/`` directory can be found in each file. The
+   defaults will be correct for most sites. If you wish to customize
+   Horde Kolab Edition's appearance and behavior, create
+   "local" files for the configuration file you want to change. For
+   example if you want to change the default value and lock a
+   preference, create a ``config/prefs.local.php`` file with the
+   following content::
+
+      <?php
+      $_prefs['prefname']['value'] = 'somedefault';
+      $_prefs['prefname']['locked'] = true;
+
+   This works analogous with any other configuration file.
+
+   .. Warning:: All configuration files in Horde Kolab
+                Edition are PHP scripts that are executed by the web
+                server. If you make an error in one of these files,
+                Horde might stop working. Thus it is always a good
+                idea to test the configuration files after you edited
+                them. If you want to test mime_drivers.local.php for
+                example run::
+
+                   php -l mime_drivers.local.php
+
+3. Setting up alarm emails
+
+   If you want your users to be able to receive emails from the Horde_Alarm
+   system, you must set up a cron entry for ``horde-alarms``, you
+   must have at least one administrator specified in the Horde configuration,
+   and you must have the PHP CLI installed (a CGI binary is not supported -
+   ``php -v`` will report what kind of PHP binary you have).
+
+   Running the job every 5 minutes is recommended::
+
+      # Horde Alarms
+      */5 * * * * /usr/bin/horde-alarms
+
+   If not installing Horde Kolab Edition through PEAR of if PEAR's
+   ``bin_dir`` configuration doesn't point to ``/usr/bin/``, replace
+   ``/usr/bin/horde-alarms`` with the path to the ``horde-alarms`` script in
+   your Horde installation.
+
+4. Testing Horde Kolab Edition
+
+   Once you have configured your webserver, PHP, and Horde Kolab
+   Edition, bring up the included test page in your web browser to ensure that
+   all necessary prerequisites have been met. If you installed Horde Kolab
+   Edition as described above, the URL to the test page would be::
+
+      http://your-server/webmail/test.php
+
+   Check that your PHP version is acceptably recent, that all required module
+   capabilities are present, and that ``magic_quotes_runtime`` is set to
+   ``Off``. Then note the ``Session counter: 1`` line under ``PHP Sessions``,
+   and reload the page. The session counter should increment.
+
+   If you get a warning like ``Failed opening '/path/to/test.php' for
+   inclusion``, make sure that the web server has the permission to read the
+   ``test.php`` file.
+
+5. Securing Horde Kolab Edition
+
+   a. Global Passwords
+
+      Some of Horde Kolab Edition's configuration files contain
+      passwords which local users could use to access your database.  It is
+      recommended to ensure that at least the Horde Kolab Edition
+      configuration files (in ``config/``) are not readable to system users.
+      There are ``.htaccess`` files restricting access to directories that do
+      not need to be accessed directly; before relying on those, ensure that
+      your webserver supports ``.htaccess`` and is configured to use them, and
+      that the files in those directories are in fact inaccessible via the
+      browser.
+
+      An additional approach is to make Horde Kolab Edition's
+      configuration files owned by the user ``root`` and by a group which only
+      the webserver user belongs to, and then making them readable only to
+      owner and group.  For example, if your webserver runs as ``www.www``, do
+      as follows::
+
+         chown root.www config/*
+         chmod 0440 config/*
+
+   b. User Passwords
+
+      There are two channels by which, unless steps are taken to avoid it,
+      Horde Kolab Edition encourages users to pass their IMAP and
+      POP3 passwords around the Internet unencrypted.
+
+      The first channel is between their browser and the Web server. We
+      strongly recommend using an SSL-capable Web server to give users the
+      option of encrypting communications between their browser and the Web
+      server on which Horde Kolab Edition is running; some sites
+      may wish to disable non-SSL access entirely.
+
+      The second channel is between the Web server and their IMAP or POP3
+      server. The simplest way to avoid this is to have the mail server
+      running on the same system as the Web server, and configuring Horde
+      Kolab Edition to connect to the IMAP or POP3 server on
+      ``localhost`` instead of on the Internet hostname. This is the default
+      setup. In cases where that is not possible, we recommend using IMAP-SSL
+      or POP3-SSL to ensure that users' passwords remain safe after they have
+      entrusted them to Horde Kolab Edition.
+
+   b. Sessions
+
+      Session data -- including hashed versions of your users' passwords, in
+      some applications -- may not be stored as securely as necessary.
+
+      If you are using file-based PHP sessions (which are the default), be
+      sure that session files are not being written into ``/tmp`` with
+      permissions that allow other users to read them. Ideally, change the
+      ``session.save_path`` setting in ``php.ini`` to a directory only
+      readable and writeable by your webserver.
+
+      Additionally, you can change the session handler of PHP to use any
+      storage backend requested (e.g. SQL database) via the ``Custom Session
+      Handler`` tab in the Horde setup.
+
+   For more information about securing your webserver, PHP and Horde Kolab
+   Edition, see the `docs/SECURITY`_ file.
+
+
+Temporary Files
+===============
+
+Various Horde Kolab Edition applications will generate temporary
+files in PHP's temporary directory (see the ``General`` tab in the Horde
+setup).  For various reasons, some of these files may not be removed when the
+user's session ends. To reclaim this disk space, it may be necessary to
+periodically delete these old temporary files.
+
+An example cron-based solution can be found at ``scripts/temp-cleanup.cron``.
+Another possible solution is to use Red Hat's ``tmpwatch`` utility or anything
+similar to remove old files (see http://www.redhat.com/).
+
+
+Translations
+============
+
+Note for international users: Horde Kolab Edition uses GNU gettext
+to provide local translations of text displayed by applications; the
+translations are found in the po/ directory.  If a translation is not yet
+available for your locale (and you wish to create one), or if you're having
+trouble using a provided translation, please see the `horde/docs/TRANSLATIONS`_
+file for instructions.
+
+
+Obtaining Support
+=================
+
+If you encounter problems with Horde Kolab Edition, help is
+available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
+
+  http://wiki.horde.org/FAQ
+
+The Horde Project runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/community/mail
+
+There is no separate mailing list for Horde Kolab Edition, please
+contact the mailing list of the component you have problems with, or the Horde
+mailing list for general problems and questions.
+
+Lastly, Horde developers, contributors and users may also be found on IRC,
+on the channel #horde on the Freenode Network (irc.freenode.net).
+
+Please keep in mind that Horde Kolab Edition is free software
+written by volunteers.  For information on reasonable support expectations,
+please read
+
+  http://www.horde.org/community/support
+
+Thanks for using Horde Kolab Edition!
+
+The Horde Team
+
+
+.. _README: ?f=README.html
+.. _docs/SECURITY: ?f=SECURITY.html
+.. _`horde/docs/TRANSLATIONS`: ?f=TRANSLATIONS.html
+.. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads

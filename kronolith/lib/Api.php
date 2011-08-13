@@ -1103,7 +1103,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $error = _("No attendees have been updated because none of the provided email addresses have been found in the event's attendees list.");
         $sender_lcase = Horde_String::lower($sender);
         foreach ($atnames as $index => $attendee) {
-            if ($response->oldFormat) {
+            if ($response->getAttribute('VERSION') < 2) {
                 $addresses = Horde_Mime_Address::parseAddressList($attendee);
                 if (!count($addresses)) {
                     continue;
@@ -1170,7 +1170,8 @@ class Kronolith_Api extends Horde_Registry_Api
         } elseif (!is_array($calendars)) {
             $calendars = array($calendars);
         }
-        foreach ($calendars as $calendar) {
+        foreach ($calendars as &$calendar) {
+            $calendar = str_replace('internal_', '', $calendar);
             if (!Kronolith::hasPermission($calendar, Horde_Perms::READ)) {
                 throw new Horde_Exception_PermissionDenied();
             }

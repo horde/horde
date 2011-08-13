@@ -1,15 +1,15 @@
 # German translations for Horde_Service_Facebook module.
-# Copyright (C) 2010 Horde Project
+# Copyright (C) 2010-2011 Horde Project
 # This file is distributed under the same license as the Horde_Service_Facebook module.
-# Automatically generated, 2010.
+# Jan Schneider <jan@horde.org>, 2010-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Facebook\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"PO-Revision-Date: 2011-08-02 15:37+0200\n"
+"Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -17,10 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Service/Facebook/Request.php:93
-msgid "Service is unavailable. Please try again later."
+#: lib/Horde/Service/Facebook/Request.php:102
+msgid "Facebook service is unavailable. Please try again later."
 msgstr ""
-"Der Dienst ist zur Zeit nicht verfügbar. Probieren Sie es später noch einmal."
+"Die Facebook-Schnittstelle ist zur Zeit nicht verfügbar. Probieren Sie es "
+"später noch einmal."
 
 #: lib/Horde/Service/Facebook/UploadRequest.php:93
 #, php-format

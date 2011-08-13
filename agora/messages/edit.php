@@ -11,6 +11,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
+/* TODO total message count doesn't increase in forum and threads view
+ * (cache problem) */
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('agora');
 
@@ -22,7 +24,7 @@ $vars->set('scope', $scope);
 $formname = $vars->get('formname');
 
 /* Set up the messages control object. */
-$messages = &Agora_Messages::singleton($scope, $forum_id);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push(_("Could not post the message: ") . $messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -123,5 +125,5 @@ $form->renderActive(null, $vars, 'edit.php', 'post');
 $view->formbox = Horde::endBuffer();
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('messages/edit.html.php');
+echo $view->render('messages/edit');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

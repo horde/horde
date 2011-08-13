@@ -36,6 +36,19 @@ class Turba_Driver_Favourites extends Turba_Driver
      }
 
     /**
+     * Always returns true because the driver is read-only and there is
+     * nothing to remove.
+     *
+     * @param string $user  The user's data to remove.
+     *
+     * @return boolean  Always true.
+     */
+    public function removeUserData($user)
+    {
+        return true;
+    }
+
+    /**
      * Searches the favourites list with the given criteria and returns a
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.

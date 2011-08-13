@@ -24,7 +24,7 @@ class Ingo_Storage_Blacklist extends Ingo_Storage_Rule
      * @return boolean  True on success.
      * @throws Ingo_Exception
      */
-    public function setBlacklist($data, $sort = true)
+    public function setBlacklist($data, $sort = false)
     {
         $addr = array_filter($this->_addressList($data, $sort), array('Ingo', 'filterEmptyAddress'));
         if (!empty($GLOBALS['conf']['storage']['maxblacklist'])) {

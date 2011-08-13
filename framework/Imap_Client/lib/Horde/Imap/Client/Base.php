@@ -2813,7 +2813,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @return string  The command string.
      */
-    public function parseCommandArray($query, $callback, $out = '')
+    public function parseCommandArray($query, $callback = null, $out = '')
     {
         foreach ($query as $val) {
             if (is_null($val)) {
@@ -2826,7 +2826,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         $out .= intval($val['v']);
                     } elseif (($val['t'] != Horde_Imap_Client::DATA_ATOM) &&
                               preg_match('/[\x80-\xff\n\r]/', $val['v'])) {
-                        $out = call_user_func_array($callback, array($out, $val['v']));
+                        if (is_callable($callback)) {
+                            $out = call_user_func_array($callback, array($out, $val['v']));
+                        }
                     } else {
                         switch ($val['t']) {
                         case Horde_Imap_Client::DATA_ASTRING:
@@ -2868,7 +2870,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $out .= ' ';
             } elseif (is_resource($val)) {
                 /* Resource indicates literal data. */
-                $out = call_user_func_array($callback, array($out, $val)) . ' ';
+                if (is_callable($callback)) {
+                    $out = call_user_func_array($callback, array($out, $val)) . ' ';
+                }
             } else {
                 $out .= $val . ' ';
             }

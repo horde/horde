@@ -35,11 +35,6 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Kolab_Storage_Unit_SynchronizationTest
 extends Horde_Kolab_Storage_TestCase
 {
-    public function setUp()
-    {
-        $_SESSION = array();
-    }
-
     public function testSynchronizeListReturn()
     {
         $synchronization = new Horde_Kolab_Storage_Synchronization();

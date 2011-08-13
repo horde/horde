@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-07-05 15:38+0200\n"
-"PO-Revision-Date: 2011-05-18 12:28+0200\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"PO-Revision-Date: 2011-08-02 15:40+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -77,7 +77,7 @@ msgstr "%d bis %d von %d"
 msgid "%d-day forecast"
 msgstr "%d-Tage-Vorhersage"
 
-#: services/logintasks.php:83
+#: services/logintasks.php:89
 #, php-format
 msgid "%s - Notice"
 msgstr "%s - Hinweis"
@@ -87,12 +87,12 @@ msgstr "%s - Hinweis"
 msgid "%s Configuration"
 msgstr "%s-Konfiguration"
 
-#: services/logintasks.php:64
+#: services/logintasks.php:69
 #, php-format
 msgid "%s Tasks - Confirmation"
 msgstr "%s-Aufgaben - Bestätigung"
 
-#: services/logintasks.php:74
+#: services/logintasks.php:79
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "%s Nutzungsbedingungen"
@@ -103,11 +103,11 @@ msgstr "%s Nutzungsbedingungen"
 msgid "%s at %s %s"
 msgstr "%s mit %s %s"
 
-#: services/logintasks.php:63
+#: services/logintasks.php:70
 #, php-format
 msgid ""
-"%s is ready to perform the tasks checked below. Check the box for any "
-"operation(s) you want to perform at this time."
+"%s is ready to perform the tasks below. Select each operation to run at this "
+"time."
 msgstr ""
 "%s möchte die Aufgaben durchführen, die unten angezeigt sind. Markieren Sie "
 "alle Arbeiten, die jetzt durchgeführt werden sollen."
@@ -138,7 +138,7 @@ msgstr "24-Stunden-Format"
 msgid "24 hours"
 msgstr "24 Stunden"
 
-#: config/prefs.php:439 config/prefs.php:441
+#: config/prefs.php:438 config/prefs.php:440
 msgid "24-hour format"
 msgstr "24-Stunden-Format"
 
@@ -204,7 +204,7 @@ msgstr ""
 msgid "A newer version (%s) exists."
 msgstr "Eine neuere Version (%s) existiert."
 
-#: lib/Prefs/Ui.php:712
+#: lib/Prefs/Ui.php:713
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -269,23 +269,23 @@ msgstr "AM/PM"
 msgid "Account Information"
 msgstr "Kontoinformationen"
 
-#: config/prefs.php:297
+#: config/prefs.php:296
 msgid "Account Password"
 msgstr "Kontopasswort"
 
-#: admin/activesync.php:127
+#: admin/activesync.php:128
 msgid "Actions"
 msgstr "Aktionen"
 
-#: config/prefs.php:695
+#: config/prefs.php:694
 msgid "ActiveSync"
 msgstr "ActiveSync"
 
-#: admin/activesync.php:72
+#: admin/activesync.php:73
 msgid "ActiveSync Device Administration"
 msgstr "ActiveSync-Geräteverwaltung"
 
-#: admin/activesync.php:200 lib/Api.php:80
+#: admin/activesync.php:201 lib/Api.php:80
 msgid "ActiveSync Devices"
 msgstr "ActiveSync-Geräte"
 
@@ -395,27 +395,27 @@ msgstr "Angemeldete Benutzer"
 msgid "All policy keys successfully reset."
 msgstr "Alle Richtlinien-Schlüssel wurden zurückgesetzt."
 
-#: lib/Prefs/Ui.php:722
+#: lib/Prefs/Ui.php:723
 msgid ""
-"All state removed for your devices. They will resynchronize next time they "
-"connect to the server."
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
 msgstr ""
-"Der Status aller Ihrer Geräte wurde zurückgesetzt. Bei der nächsten "
+"Der Status Ihrer ActiveSync-Geräte wurde zurückgesetzt. Bei der nächsten "
 "Verbindung mit dem Server werden sie neu synchronisiert."
 
 #: lib/Prefs/Ui.php:693
 msgid "All synchronization sessions deleted."
 msgstr "Alle Synchronisationssitzungen gelöscht."
 
-#: config/prefs.php:661
+#: config/prefs.php:660
 msgid "Alternate IMSP Login"
 msgstr "Alternative IMSP-Anmeldung"
 
-#: config/prefs.php:675
+#: config/prefs.php:674
 msgid "Alternate IMSP Password"
 msgstr "Alternatives IMSP-Passwort"
 
-#: config/prefs.php:669
+#: config/prefs.php:668
 msgid "Alternate IMSP Username"
 msgstr "Alternativer IMSP-Benutzername"
 
@@ -622,7 +622,7 @@ msgstr "Abbrechen"
 msgid "Cancel Problem Report"
 msgstr "Problembericht abbrechen"
 
-#: admin/activesync.php:184 templates/prefs/activesync.html:31
+#: admin/activesync.php:185 templates/prefs/activesync.html:31
 msgid "Cancel Wipe"
 msgstr "Löschen abbrechen"
 
@@ -632,7 +632,7 @@ msgstr ""
 "Passwort kann nicht automatisch zurückgesetzt werden, bitte wenden Sie sich "
 "an Ihren Administrator."
 
-#: config/prefs.php:464
+#: config/prefs.php:463
 msgid "Categories and Labels"
 msgstr "Kategorien und Beschriftungen"
 
@@ -652,7 +652,7 @@ msgstr "Ändern"
 msgid "Change Your Password"
 msgstr "Ändern Sie Ihr Passwort"
 
-#: config/prefs.php:234
+#: config/prefs.php:233
 msgid "Change your personal information."
 msgstr "Ändern Sie Ihre persönlichen Informationen."
 
@@ -689,15 +689,15 @@ msgstr "Chinesisch traditionell (Big5)"
 msgid "Choose %s"
 msgstr "%s auswählen"
 
-#: config/prefs.php:430
+#: config/prefs.php:429
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "Legen Sie fest, wie das Datum angezeigt werden soll (Kurzform):"
 
-#: config/prefs.php:405
+#: config/prefs.php:404
 msgid "Choose how to display dates (full format):"
 msgstr "Legen Sie fest, wie das Datum angezeigt werden soll (Vollständig):"
 
-#: config/prefs.php:444
+#: config/prefs.php:443
 msgid "Choose how to display times:"
 msgstr "Legen Sie fest, wie die Uhrzeit angezeigt werden soll:"
 
@@ -738,7 +738,7 @@ msgstr ""
 "Klicken Sie auf eines Ihrer ausgewählten Adressbücher und markieren Sie alle "
 "Felder, die durchsucht werden sollen."
 
-#: templates/logintasks/logintasks.html:28
+#: templates/logintasks/logintasks.html:30 templates/logintasks/mobile.html:40
 msgid "Click to Continue"
 msgstr "Fortfahren"
 
@@ -778,6 +778,10 @@ msgstr "Menü einfahren"
 msgid "Color Picker"
 msgstr "Farbauswahl"
 
+#: config/registry.php:246
+msgid "Comics"
+msgstr "Comics"
+
 #: admin/cmdshell.php:25 admin/cmdshell.php:47
 msgid "Command"
 msgstr "Befehl"
@@ -811,7 +815,7 @@ msgstr "Konfiguration"
 msgid "Configuration Differences"
 msgstr "Konfigurationsunterschiede"
 
-#: config/prefs.php:684
+#: config/prefs.php:683
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "Konfiguration der Synchronization mit PDAs, Smartphones und Outlook."
 
@@ -1025,7 +1029,7 @@ msgstr "Datum: %s; Uhrzeit: %s"
 msgid "Day"
 msgstr "Tag"
 
-#: config/prefs.php:355 config/prefs.php:438 lib/Prefs/Ui.php:80
+#: config/prefs.php:354 config/prefs.php:437 lib/Prefs/Ui.php:80
 #: lib/Prefs/Ui.php:94
 msgid "Default"
 msgstr "Standard"
@@ -1038,11 +1042,11 @@ msgstr "Standardfarbe"
 msgid "Default Shell"
 msgstr "Standardshell"
 
-#: config/prefs.php:358
+#: config/prefs.php:357
 msgid "Default charset for sending e-mail messages:"
 msgstr "Standardzeichensatz für neue Nachrichten:"
 
-#: config/prefs.php:270
+#: config/prefs.php:269
 msgid "Default location to use for location-aware features."
 msgstr "Standardort für die Nutzung von ortsabhängingen Funktionen."
 
@@ -1099,7 +1103,7 @@ msgstr "Entwicklung"
 msgid "Device"
 msgstr "Gerät"
 
-#: admin/activesync.php:120
+#: admin/activesync.php:121
 msgid "Device ID"
 msgstr "Geräte-ID"
 
@@ -1111,7 +1115,7 @@ msgstr "Geräteverwaltung"
 msgid "Device id:"
 msgstr "Geräte-ID:"
 
-#: admin/activesync.php:168 lib/Prefs/Ui.php:392
+#: admin/activesync.php:169 lib/Prefs/Ui.php:392
 msgid "Device is wiped"
 msgstr "Gerät wurde gelöscht"
 
@@ -1141,11 +1145,11 @@ msgstr "Taupunkt: "
 msgid "Disable"
 msgstr "Deaktivieren"
 
-#: config/prefs.php:374
+#: config/prefs.php:373
 msgid "Display 24-hour times?"
 msgstr "Zeit im 24-Stunden-Format anzeigen?"
 
-#: config/prefs.php:490
+#: config/prefs.php:489
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
@@ -1236,7 +1240,7 @@ msgstr "E-Mail-Adresse"
 msgid "Enter a name for the new category:"
 msgstr "Geben Sie einen Namen für die neue Kategorie an:"
 
-#: config/prefs.php:308
+#: config/prefs.php:307
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1276,23 +1280,23 @@ msgstr "Etnisches"
 msgid "Event Invites:"
 msgstr "Termin-Einladungen:"
 
-#: config/prefs.php:540 templates/portal/layout.inc:101
+#: config/prefs.php:539 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Alle 15 Minuten"
 
-#: config/prefs.php:576
+#: config/prefs.php:575
 msgid "Every 2 minutes"
 msgstr "Alle 2 Minuten"
 
-#: config/prefs.php:537 config/prefs.php:574 templates/portal/layout.inc:98
+#: config/prefs.php:536 config/prefs.php:573 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "Alle 30 Sekunden"
 
-#: config/prefs.php:539 config/prefs.php:577 templates/portal/layout.inc:100
+#: config/prefs.php:538 config/prefs.php:576 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Alle 5 Minuten"
 
-#: config/prefs.php:541 templates/portal/layout.inc:102
+#: config/prefs.php:540 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Alle halbe Stunde"
 
@@ -1300,7 +1304,7 @@ msgstr "Alle halbe Stunde"
 msgid "Every hour"
 msgstr "Jede Stunde"
 
-#: config/prefs.php:538 config/prefs.php:575 templates/portal/layout.inc:99
+#: config/prefs.php:537 config/prefs.php:574 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Alle 60 Sekunden"
 
@@ -1324,7 +1328,7 @@ msgstr "Extra groß"
 msgid "FTP upload of configuration"
 msgstr "Konfiguration per FTP hochladen"
 
-#: config/prefs.php:622
+#: config/prefs.php:621
 msgid "Facebook Integration"
 msgstr "Facebook-Integration"
 
@@ -1364,7 +1368,7 @@ msgstr "Vereinzelte Schneeschauer"
 msgid "Fields to search"
 msgstr "Zu durchsuchende Felder"
 
-#: config/registry.php:292
+#: config/registry.php:297
 msgid "File Manager"
 msgstr "Dateimanager"
 
@@ -1420,7 +1424,7 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
-#: config/registry.php:320
+#: config/registry.php:325
 msgid "Forms"
 msgstr "Formulare"
 
@@ -1440,7 +1444,7 @@ msgstr "Glückskekse"
 msgid "Fortunes 2"
 msgstr "Glückskekse 2"
 
-#: config/registry.php:314
+#: config/registry.php:319
 msgid "Forums"
 msgstr "Foren"
 
@@ -1627,7 +1631,7 @@ msgstr "Komiker"
 msgid "I characters"
 msgstr "I Zeichen"
 
-#: config/prefs.php:563
+#: config/prefs.php:562
 msgid "Icons Only"
 msgstr "Nur Bilder"
 
@@ -1636,7 +1640,7 @@ msgstr "Nur Bilder"
 msgid "Icons for %s"
 msgstr "Icons für %s"
 
-#: config/prefs.php:564
+#: config/prefs.php:563
 msgid "Icons with text"
 msgstr "Bilder und Text"
 
@@ -1644,7 +1648,7 @@ msgstr "Bilder und Text"
 msgid "Ideas"
 msgstr "Ideas"
 
-#: config/prefs.php:245
+#: config/prefs.php:244
 msgid "Identity's name:"
 msgstr "Bezeichnung der Identität"
 
@@ -1708,13 +1712,13 @@ msgstr "Informationen nicht mehr verfügbar."
 msgid "Inherited Members"
 msgstr "Vererbte Mitglieder"
 
-#: config/prefs.php:322
+#: config/prefs.php:321
 msgid "Insert an email address to which you can receive the new password:"
 msgstr ""
 "Geben Sie eine E-Mail-Adresse an, an die das neue Passwort geschickt werden "
 "soll:"
 
-#: config/prefs.php:315
+#: config/prefs.php:314
 msgid "Insert the required answer to the security question:"
 msgstr "Geben Sie die Antwort auf die Sicherheitsfrage ein:"
 
@@ -1787,7 +1791,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "Koreanisch (EUC-KR)"
 
-#: login.php:356 templates/login/login.inc:34
+#: login.php:359 templates/login/login.inc:34
 msgid "Language"
 msgstr "Sprache"
 
@@ -1807,7 +1811,7 @@ msgstr "Letzte Passwortänderung"
 msgid "Last Quarter"
 msgstr "Letztes Viertel"
 
-#: admin/activesync.php:99 templates/prefs/activesync.html:21
+#: admin/activesync.php:100 templates/prefs/activesync.html:21
 msgid "Last Sync Time"
 msgstr "Letzte Synchronisation"
 
@@ -1927,7 +1931,7 @@ msgstr "Lade..."
 msgid "Local time: "
 msgstr "Lokale Uhrzeit: "
 
-#: config/prefs.php:331
+#: config/prefs.php:330
 msgid "Locale and Time"
 msgstr "Sprache und Zeit"
 
@@ -1995,11 +1999,11 @@ msgstr "Magie"
 msgid "Mail"
 msgstr "Webmail"
 
-#: config/registry.php:337
+#: config/registry.php:342
 msgid "Mail Admin"
 msgstr "E-Mail Administration"
 
-#: config/prefs.php:465
+#: config/prefs.php:464
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -2007,7 +2011,7 @@ msgstr ""
 "Verwalten Sie die Kategorien, mit denen Sie Elemente und Einträge "
 "kennzeichnen können, sowie die zugehörigen Farben."
 
-#: config/prefs.php:696
+#: config/prefs.php:695
 msgid "Manage your ActiveSync devices."
 msgstr "Verwaltung Ihrer ActiveSync-Geräte."
 
@@ -2047,7 +2051,7 @@ msgstr "Mitglieder"
 msgid "Mentions"
 msgstr "Erwähnungen"
 
-#: config/prefs.php:566
+#: config/prefs.php:565
 msgid "Menu mode:"
 msgstr "Menümodus:"
 
@@ -2099,7 +2103,7 @@ msgstr "Modus"
 msgid "Moderate"
 msgstr "Mäßig"
 
-#: config/prefs.php:453
+#: config/prefs.php:452
 msgid "Monday"
 msgstr "Montag"
 
@@ -2127,7 +2131,7 @@ msgstr "Überwiegend sonnig"
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: config/registry.php:287
+#: config/registry.php:292
 msgid "My Account"
 msgstr "Mein Konto"
 
@@ -2147,7 +2151,7 @@ msgstr "Mein Portal"
 msgid "My Portal Layout"
 msgstr "Mein Portallayout"
 
-#: templates/logintasks/logintasks.html:25
+#: templates/logintasks/logintasks.html:27 templates/logintasks/mobile.html:34
 msgid "NO, I Do NOT Agree"
 msgstr "NEIN, ich stimme NICHT zu"
 
@@ -2168,7 +2172,7 @@ msgstr "Name"
 msgid "NeXT"
 msgstr "NeXT"
 
-#: config/prefs.php:536 config/prefs.php:573 templates/portal/layout.inc:97
+#: config/prefs.php:535 config/prefs.php:572 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Nie"
 
@@ -2196,7 +2200,7 @@ msgstr "Neues Passwort"
 msgid "New passwords don't match."
 msgstr "Die neuen Passwörter stimmen nicht überein."
 
-#: config/registry.php:246 lib/Block/Fortune.php:59
+#: config/registry.php:251 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Nachrichten"
 
@@ -2283,7 +2287,7 @@ msgstr "Nordisch (ISO-8859-10)"
 msgid "Northern Hemisphere"
 msgstr "Nördliche Hemisphere"
 
-#: admin/activesync.php:172 lib/Prefs/Ui.php:398
+#: admin/activesync.php:173 lib/Prefs/Ui.php:398
 msgid "Not Provisioned"
 msgstr "Nicht verknüpft"
 
@@ -2315,7 +2319,7 @@ msgstr "Objektersteller"
 msgid "Offense filter"
 msgstr "Filter für anstößige Inhalte"
 
-#: config/registry.php:258
+#: config/registry.php:263
 msgid "Office"
 msgstr "Büro"
 
@@ -2359,9 +2363,9 @@ msgstr "Organisieren"
 msgid "Other"
 msgstr "Sonstige"
 
-#: config/prefs.php:489 config/prefs.php:600 config/prefs.php:621
-#: config/prefs.php:641 config/prefs.php:660 config/prefs.php:682
-#: config/prefs.php:694
+#: config/prefs.php:488 config/prefs.php:599 config/prefs.php:620
+#: config/prefs.php:640 config/prefs.php:659 config/prefs.php:681
+#: config/prefs.php:693
 msgid "Other Information"
 msgstr "Andere Informationen"
 
@@ -2450,7 +2454,7 @@ msgid "Partly Cloudy"
 msgstr "Teilweise bewölkt"
 
 #: login.php:194 admin/config/index.php:319 admin/user.php:40
-#: admin/user.php:54 config/registry.php:304
+#: admin/user.php:54 config/registry.php:309
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Passwort"
@@ -2479,7 +2483,7 @@ msgstr "Ausstehende Registrierungen:"
 msgid "People"
 msgstr "Personen"
 
-#: templates/logintasks/logintasks.html:20
+#: templates/logintasks/logintasks.html:22
 msgid "Perform Login Tasks"
 msgstr "Anmeldeaufgaben durchführen"
 
@@ -2497,7 +2501,7 @@ msgstr "Rechte"
 msgid "Permissions Administration"
 msgstr "Rechteverwaltung"
 
-#: config/prefs.php:233
+#: config/prefs.php:232
 msgid "Personal Information"
 msgstr "Persönliche Angaben"
 
@@ -2505,7 +2509,7 @@ msgstr "Persönliche Angaben"
 msgid "Pets"
 msgstr "Haustiere"
 
-#: config/registry.php:325
+#: config/registry.php:330
 msgid "Photos"
 msgstr "Fotos"
 
@@ -2525,7 +2529,7 @@ msgstr "Bitte geben Sie einen Benutzernamen ein."
 msgid "Please provide a summary of the problem."
 msgstr "Bitte geben Sie eine Zusammenfassung Ihres Problems an."
 
-#: services/logintasks.php:73
+#: services/logintasks.php:80
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
@@ -2537,7 +2541,7 @@ msgstr ""
 msgid "Pokes:"
 msgstr "Anstupser:"
 
-#: admin/activesync.php:106
+#: admin/activesync.php:107
 msgid "Policy Key"
 msgstr "Richtlinien-Schlüssel"
 
@@ -2590,7 +2594,7 @@ msgstr "Luftdruck: "
 msgid "Problem Description"
 msgstr "Problembeschreibung"
 
-#: admin/activesync.php:172 lib/Prefs/Ui.php:397
+#: admin/activesync.php:173 lib/Prefs/Ui.php:397
 msgid "Provisioned"
 msgstr "Verknüpft"
 
@@ -2666,11 +2670,11 @@ msgstr ""
 "Daten des Benutzers \"%s\" wirklich löschen? Dieser Vorgang kann nicht "
 "rückgängig gemacht werden."
 
-#: config/prefs.php:579
+#: config/prefs.php:578
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Dynamische Menüelemente aktualisieren:"
 
-#: config/prefs.php:543
+#: config/prefs.php:542
 msgid "Refresh Portal View:"
 msgstr "Portalansicht aktualisieren:"
 
@@ -2678,7 +2682,7 @@ msgstr "Portalansicht aktualisieren:"
 msgid "Refresh rate:"
 msgstr "Aktualisierungsrhythmus:"
 
-#: admin/activesync.php:135
+#: admin/activesync.php:136
 msgid "Registered User Devices"
 msgstr "Registrierte Geräte"
 
@@ -2690,7 +2694,7 @@ msgstr "Bemerkungen"
 msgid "Remote Host:"
 msgstr "Entfernter Rechner:"
 
-#: config/prefs.php:601
+#: config/prefs.php:600
 msgid "Remote Servers"
 msgstr "Entfernte Server"
 
@@ -2698,7 +2702,7 @@ msgstr "Entfernte Server"
 msgid "Remote URL (http://www.example.com/horde):"
 msgstr "Serveradresse (http://www.example.com/horde):"
 
-#: admin/activesync.php:186 templates/admin/groups/edit.inc:26
+#: admin/activesync.php:187 templates/admin/groups/edit.inc:26
 #: templates/admin/user/approve.inc:40
 #: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
 msgid "Remove"
@@ -2725,7 +2729,7 @@ msgstr "Benutzer löschen: %s"
 msgid "Reply"
 msgstr "Antworten"
 
-#: admin/activesync.php:139
+#: admin/activesync.php:140
 msgid "Reprovision All Devices"
 msgstr "Alle Geräte neu verknüpfen"
 
@@ -2795,6 +2799,10 @@ msgstr "Rätsel"
 #: admin/sqlshell.php:111
 msgid "Run"
 msgstr "Starten"
+
+#: templates/logintasks/mobile.html:29
+msgid "Run Login Tasks"
+msgstr "Anmeldeaufgaben durchführen"
 
 #: admin/sqlshell.php:43
 msgid "SQL Shell"
@@ -2906,11 +2914,11 @@ msgstr "Wählen Sie das Zeittrennzeichen:"
 msgid "Select the time format:"
 msgstr "Wählen Sie das Zeitformat:"
 
-#: config/prefs.php:529
+#: config/prefs.php:528
 msgid "Select your color scheme."
 msgstr "Wählen Sie ein Farbschema."
 
-#: config/prefs.php:346
+#: config/prefs.php:345
 msgid "Select your preferred language:"
 msgstr "Wählen Sie Ihre bevorzugte Sprache:"
 
@@ -2942,32 +2950,32 @@ msgstr "Sitzungs-Zeitstempel:"
 msgid "Sessions"
 msgstr "Sitzungen"
 
-#: config/prefs.php:298
+#: config/prefs.php:297
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr ""
 "Legen Sie die Einstellungen fest, die es Ihnen erlauben Ihr Passwort "
 "zurückzusetzen, falls sie es einmal vergessen sollten."
 
-#: config/prefs.php:623
+#: config/prefs.php:622
 msgid "Set up integration with your Facebook account."
 msgstr "Integration mit Ihrem Facebook-Konto einrichten."
 
-#: config/prefs.php:643
+#: config/prefs.php:642
 msgid "Set up integration with your Twitter account."
 msgstr "Integration mit Ihrem Twitter-Konto einrichten."
 
-#: config/prefs.php:602
+#: config/prefs.php:601
 msgid "Set up remote servers that you want to access from your portal."
 msgstr ""
 "Legen Sie entfernte Server fest, auf die Sie von Ihrem Portal aus zugreifen "
 "möchten."
 
-#: config/prefs.php:332
+#: config/prefs.php:331
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "Wählen Sie Ihre bevorzugte Sprache, Zeitzone und Datumseinstellungen."
 
-#: config/prefs.php:491
+#: config/prefs.php:490
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -2984,7 +2992,7 @@ msgstr "Mehrere passende Orte mit diesem Parameter: "
 msgid "Short Summary"
 msgstr "Kurze Zusammenfassung"
 
-#: config/prefs.php:586
+#: config/prefs.php:585
 msgid "Should access keys be defined for most links?"
 msgstr "Sollen Tastenkombinationen für die meisten Links aktiviert werden?"
 
@@ -3014,7 +3022,7 @@ msgstr ""
 msgid "Show extra detail?"
 msgstr "Weitere Details anzeigen?"
 
-#: config/prefs.php:512
+#: config/prefs.php:511
 msgid "Show last login time when logging in?"
 msgstr "Anzeigen, wann die letzte Anmeldung erfolgt ist?"
 
@@ -3022,7 +3030,7 @@ msgstr "Anzeigen, wann die letzte Anmeldung erfolgt ist?"
 msgid "Show notifications"
 msgstr "Benachrichtigungen anzeigen"
 
-#: config/prefs.php:549
+#: config/prefs.php:548
 #, php-format
 msgid "Show the %s Menu on the left?"
 msgstr "Das %s-Menü auf der linken Seite anzeigen?"
@@ -3047,7 +3055,7 @@ msgstr "Schauer in der Umgebung"
 msgid "Simplex"
 msgstr "Simplex"
 
-#: templates/logintasks/logintasks.html:21
+#: templates/logintasks/logintasks.html:23 templates/logintasks/mobile.html:28
 msgid "Skip Login Tasks"
 msgstr "Anmeldeaufgaben überspringen"
 
@@ -3123,7 +3131,7 @@ msgstr "Star Trek"
 msgid "State Management"
 msgstr "Statusverwaltung"
 
-#: admin/activesync.php:113 templates/admin/config/index.html:39
+#: admin/activesync.php:114 templates/admin/config/index.html:39
 #: templates/prefs/activesync.html:22
 msgid "Status"
 msgstr "Status"
@@ -3213,7 +3221,7 @@ msgstr "Sonnenaufgang"
 msgid "Sun Set"
 msgstr "Sonnenuntergang"
 
-#: config/prefs.php:452
+#: config/prefs.php:451
 msgid "Sunday"
 msgstr "Sonntag"
 
@@ -3241,7 +3249,7 @@ msgstr "Sonnenuntergang"
 msgid "Sunset: "
 msgstr "Sonnenuntergang: "
 
-#: config/prefs.php:683
+#: config/prefs.php:682
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -3330,7 +3338,7 @@ msgstr ""
 msgid "Text Area"
 msgstr "Textbereich"
 
-#: config/prefs.php:562
+#: config/prefs.php:561
 msgid "Text Only"
 msgstr "Nur Text"
 
@@ -3338,7 +3346,7 @@ msgstr "Nur Text"
 msgid "Thai (TIS-620)"
 msgstr "Thailändisch (TIS-620)"
 
-#: lib/Prefs/Ui.php:716
+#: lib/Prefs/Ui.php:717
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr ""
@@ -3361,7 +3369,7 @@ msgstr ""
 "Die Konfiguration für %s konnte nicht automatisch aktualisiert werden. Bitte "
 "aktualisieren Sie die Konfiguration manuell."
 
-#: config/prefs.php:263
+#: config/prefs.php:262
 msgid "The default e-mail address to use with this identity:"
 msgstr "Die Standard-E-Mail-Adresse für diese Identität:"
 
@@ -3416,6 +3424,15 @@ msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 
+#: lib/Prefs/Ui.php:726
+#, php-format
+msgid ""
+"The state for device id %s has been reset. It will resynchronize next time "
+"it connects to the server."
+msgstr ""
+"Der Status des Gerätes mit der ID %s wurde zurückgesetzt. Bei der nächsten "
+"Verbindung mit dem Server wird es neu synchronisiert."
+
 #: lib/LoginTasks/Task/AdminCheck.php:47
 msgid ""
 "The test script is currently enabled. For security reasons, disable test "
@@ -3460,6 +3477,12 @@ msgstr "Beim Löschen von \"%s\" aus dem System ist ein Problem aufgetreten: "
 #, php-format
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Beim Aktualisieren von \"%s\" ist ein Problem aufgetreten: %s"
+
+#: lib/Prefs/Ui.php:729
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr ""
+"In der Kommunikation mit dem ActiveSync-Server ist ein Fehler aufgetreten: %s"
 
 #: lib/Block/TwitterTimeline.php:92 lib/Block/TwitterTimeline.php:108
 #, php-format
@@ -3515,7 +3538,7 @@ msgstr "Gewitter"
 msgid "Tickets"
 msgstr "Tickets"
 
-#: config/registry.php:263
+#: config/registry.php:268
 msgid "Time Tracking"
 msgstr "Zeiterfassung"
 
@@ -3576,7 +3599,7 @@ msgstr "Türkisch (ISO-8859-9)"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: config/prefs.php:642
+#: config/prefs.php:641
 msgid "Twitter Integration"
 msgstr "Twitter-Integration"
 
@@ -3683,7 +3706,7 @@ msgstr ""
 "Die Konfigurationsdateien aller Anwendungen wurden auf den Server "
 "hochgeladen."
 
-#: config/prefs.php:662
+#: config/prefs.php:661
 msgid "Use if name/password is different for IMSP server."
 msgstr ""
 "Bitte ausfüllen, wenn Sie einen anderen Benutzernamen/Passwort für den IMSP-"
@@ -3800,7 +3823,7 @@ msgstr "Wettervorhersage"
 msgid "Weather data provided by"
 msgstr "Wetterdaten von"
 
-#: config/registry.php:309
+#: config/registry.php:314
 msgid "Web Site"
 msgstr "Website"
 
@@ -3821,7 +3844,7 @@ msgstr "Westeuropäisch (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "Westeuropäisch (ISO-8859-15)"
 
-#: config/prefs.php:505
+#: config/prefs.php:504
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Welche Anwendung soll %s nach dem Anmelden angezeigen?"
@@ -3842,7 +3865,7 @@ msgstr "Welche Anführungszeichen werden verwendet?"
 msgid "What's on your mind?"
 msgstr "Was machen Sie gerade?"
 
-#: config/prefs.php:455
+#: config/prefs.php:454
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "Welcher Tag soll als Wochenbeginn angezeigt werden?"
 
@@ -3850,12 +3873,12 @@ msgstr "Welcher Tag soll als Wochenbeginn angezeigt werden?"
 msgid "Which phases"
 msgstr "Welche Phasen"
 
-#: config/prefs.php:555
+#: config/prefs.php:554
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "Breite des %s-Menüs links:"
 
-#: config/registry.php:331
+#: config/registry.php:336
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3883,11 +3906,11 @@ msgstr "Wind:"
 msgid "Wind: "
 msgstr "Wind: "
 
-#: admin/activesync.php:182 templates/prefs/activesync.html:28
+#: admin/activesync.php:183 templates/prefs/activesync.html:28
 msgid "Wipe"
 msgstr "Löschen"
 
-#: admin/activesync.php:163 lib/Prefs/Ui.php:387
+#: admin/activesync.php:164 lib/Prefs/Ui.php:387
 msgid "Wipe is pending"
 msgstr "Löschung steht an"
 
@@ -3910,7 +3933,7 @@ msgstr "Querverweise"
 msgid "YY"
 msgstr "JJ"
 
-#: templates/logintasks/logintasks.html:24
+#: templates/logintasks/logintasks.html:26 templates/logintasks/mobile.html:35
 msgid "Yes, I Agree"
 msgstr "Ja, ich stimme zu"
 
@@ -4063,8 +4086,8 @@ msgstr "Sie müssen den zu aktualisierenden Benutzernamen angeben."
 msgid "Your Email Address"
 msgstr "Ihre E-Mail-Adresse"
 
-#: config/prefs.php:232 config/prefs.php:296 config/prefs.php:330
-#: config/prefs.php:463
+#: config/prefs.php:231 config/prefs.php:295 config/prefs.php:329
+#: config/prefs.php:462
 msgid "Your Information"
 msgstr "Ihre Angaben"
 
@@ -4110,11 +4133,11 @@ msgstr ""
 msgid "Your browser does not support this feature."
 msgstr "Ihr Browser unterstützt diese Funktion nicht."
 
-#: config/prefs.php:367
+#: config/prefs.php:366
 msgid "Your current time zone:"
 msgstr "Ihre aktuelle Zeitzone:"
 
-#: config/prefs.php:254
+#: config/prefs.php:253
 msgid "Your full name:"
 msgstr "Ihr vollständiger Name:"
 

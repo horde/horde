@@ -21,7 +21,7 @@ if (empty($autoloaders)) {
     $mapping = '';
     if (!empty($mappings)) {
         foreach ($mappings as $prefix => $path) {
-            $mapping .= 'if ($filename == "' . $prefix . '") {'
+            $mapping .= 'if (strpos($filename, "/") === false && $filename == "' . $prefix . '") {'
                 . '  $filename = "' . $path . '$filename";'
                 . '}';
             $mapping .= 'if (substr($filename, 0, ' . strlen($prefix) . ') == "' . $prefix . '") {'

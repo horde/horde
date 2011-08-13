@@ -40,6 +40,6 @@ for general performance tips for Horde.
   (``Administration/Configuration/Webmail/Mailbox``).
 
 
-.. _'horde/docs/PERFORMANCE': ../../horde/docs/PERFORMANCE
+.. _`horde/docs/PERFORMANCE`: ../../horde/docs/PERFORMANCE
 .. _up-imapproxy: http://www.imapproxy.org/
 .. _Perdition: http://www.vergenet.net/linux/perdition/

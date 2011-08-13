@@ -6,7 +6,7 @@
  <summary>IMSP API</summary>
  <description>Provides an API into an IMSP server for address books and options.</description>
  <lead>
-  <name>Michael Rubinsky</name>
+  <name>Michael J Rubinsky</name>
   <user>mrubinsk</user>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -664,7 +664,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>

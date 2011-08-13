@@ -317,10 +317,6 @@ class IMP_Mailbox implements Serializable
                 : $this->_getDisplay(true);
 
         case 'drafts':
-            if (!empty($GLOBALS['conf']['user']['allow_resume_all'])) {
-                return true;
-            }
-
             $special = $this->getSpecialMailboxes();
             return ($this->_mbox == $special[self::SPECIAL_DRAFTS]);
 

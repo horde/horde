@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix setting Courier fonts with font style (PEAR Bug #18550).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

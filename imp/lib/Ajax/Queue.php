@@ -72,8 +72,11 @@ class IMP_Ajax_Queue
             $poll_list[strval($val)] = 1;
         }
 
-        foreach ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
-            $poll[$key] = intval($val['unseen']);
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        if ($imap_ob->ob) {
+            foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
+                $poll[$key] = intval($val['unseen']);
+            }
         }
 
         if (!empty($poll)) {

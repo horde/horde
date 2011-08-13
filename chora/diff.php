@@ -43,7 +43,7 @@ if (!$VC->isValidRevision($vars->r1) || !$VC->isValidRevision($vars->r2)) {
 
 /* If no type has been specified, then default to human readable. */
 $type = $vars->get('t', 'colored');
-if ($vara->ty == 'u') {
+if ($vars->ty == 'u') {
     $type = 'unified';
 }
 

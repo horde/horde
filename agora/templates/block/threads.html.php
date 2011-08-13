@@ -29,7 +29,7 @@
 <?php else: ?>
  <tr>
   <td colspan="4" class="control" align="center">
-   <?php echo _('No threads'); ?>
+   <?php echo _("No threads"); ?>
   </td>
  </tr>
 <?php endif; ?>

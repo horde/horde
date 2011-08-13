@@ -16,6 +16,12 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
+ <developer>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </developer>
  <date>2011-07-27</date>
  <time>16:35:55</time>
  <version>
@@ -28,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -657,7 +663,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>

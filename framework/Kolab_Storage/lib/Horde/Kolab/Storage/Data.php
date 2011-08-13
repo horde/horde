@@ -31,6 +31,7 @@ extends Horde_Kolab_Storage_Queriable
     /** Identifies the preferences query */
     /** @since Horde_Kolab_Storage 1.1.0 */
     const QUERY_PREFS  = 'Preferences';
+    const QUERY_HISTORY  = 'History';
 
     /**
      * Return the folder path for this data handler.
@@ -40,6 +41,15 @@ extends Horde_Kolab_Storage_Queriable
      * @return string The folder path.
      */
     public function getPath();
+
+    /**
+     * Return the ID of the current user.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The current user.
+     */
+    public function getAuth();
 
     /**
      * Return the ID of this data handler.
@@ -201,6 +211,15 @@ extends Horde_Kolab_Storage_Queriable
      * @return array An array of all objects.
      */
     public function getObjectByBackendId($uid);
+
+    /**
+     * Return the mapping of object IDs to backend IDs.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The object to backend mapping.
+     */
+    public function getObjectToBackend();
 
     /**
      * Retrieve the list of object duplicates.

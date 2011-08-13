@@ -277,7 +277,11 @@ class Kronolith_FreeBusy
             $end = new Horde_Date($end);
             $json->e = $end->dateString();
         }
-        $json->b = $fb->getBusyPeriods();
+        $b = $fb->getBusyPeriods();
+        if (empty($b)) {
+            $b = new StdClass();
+        }
+        $json->b = $b;
         return $json;
     }
 

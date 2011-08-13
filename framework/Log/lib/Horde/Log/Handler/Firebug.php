@@ -33,7 +33,8 @@ class Horde_Log_Handler_Firebug extends Horde_Log_Handler_Base
      * @var array
      */
     protected $_options = array(
-        'buffering' => false
+        'buffering' => false,
+        'ident' => ''
     );
 
     /**
@@ -84,6 +85,10 @@ class Horde_Log_Handler_Firebug extends Horde_Log_Handler_Base
      */
     public function write($event)
     {
+        if (!empty($this->_options['ident'])) {
+            $event['message'] = $this->_options['ident'] . ' ' . $event['message'];
+        }
+
         $this->_buffer[] = $event;
 
         if (empty($this->_options['buffering'])) {

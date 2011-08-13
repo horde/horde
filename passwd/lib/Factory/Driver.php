@@ -29,10 +29,9 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
      */
     public function create($name, $params = array() )
     {
-        if ($params['is_subdriver']){
+        if (!empty($params['is_subdriver'])) {
             $backends = array($name => $params);
-        }
-        else {
+        } else {
             $backends = Passwd::getBackends();
         }
 
@@ -60,25 +59,26 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
             }
 
             switch ($class) {
-            case 'Passwd_Driver_ldap':
-            case 'Passwd_Driver_smbldap':
-		if ($backend['params']['admindn']) {
-		    $backend['params']['binddn'] = $backend['params']['admindn'];
-		}
-		if ($backend['params']['adminpw']) {
-		    $backend['params']['bindpw'] = $backend['params']['adminpw'];
-		}
-		if ($backend['params']['host']) {
-		    $backend['params']['hostspec'] = $backend['params']['host'];
-		}
+            case 'Passwd_Driver_Ldap':
+            case 'Passwd_Driver_Smbldap':
+                if (isset($backend['params']['admindn'])) {
+                    $backend['params']['binddn'] = $backend['params']['admindn'];
+                }
+                if (isset($backend['params']['adminpw'])) {
+                    $backend['params']['bindpw'] = $backend['params']['adminpw'];
+                }
+                if (isset($backend['params']['host'])) {
+                    $backend['params']['hostspec'] = $backend['params']['host'];
+                }
+
                 try {
                     $backend['params']['ldap'] = new Horde_Ldap($backend['params']);
                 } catch (Horde_Ldap_Exception $e) {
                     throw new Passwd_Exception($e);
                 }
                 break;
-            case 'Passwd_Driver_sql':
-            case 'Passwd_Driver_vpopmail':
+            case 'Passwd_Driver_Sql':
+            case 'Passwd_Driver_Vpopmail':
                 try {
                     $backend['params']['db'] = empty($backend['params'])
                         ? $this->_injector->getInstance('Horde_Db_Adapter')
@@ -97,13 +97,11 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
 
             /* shouldn't we fetch policy from backend and inject some handler class here ? */
 
-            if (!$backend['params']['is_subdriver']) {
+            if (empty($backend['params']['is_subdriver'])) {
                 $this->_instances[$key] = $driver;
             }
-
         }
 
-        return $driver;
+        return $this->_instances[$key];
     }
-
 }

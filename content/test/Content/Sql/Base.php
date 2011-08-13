@@ -60,6 +60,46 @@ class Content_Test_Sql_Base extends Content_Test_Base
     /**
      * @depends testCreate
      */
+    public function testTagCloudByType()
+    {
+        $this->_testTagCloudByType();
+    }
+
+    /**
+     * @depends testCreate
+     */
+     public function testTagCloudByUser()
+     {
+         $this->_testTagCloudByUser();
+     }
+
+     /**
+      * @depends testCreate
+      */
+     public function testTagCloudByUserType()
+     {
+         $this->_testTagCloudByUserType();
+     }
+
+     /**
+      * @depends testCreate
+      */
+     public function testTagCloudByTagType()
+     {
+         $this->_testTagCloudByTagType();
+     }
+
+     /**
+      * @depends testCreate
+      */
+     public function testTagCloudByTagIds()
+     {
+         $this->_testTagCloudByTagIds();
+     }
+
+    /**
+     * @depends testCreate
+     */
     public function testGetRecentTags()
     {
         $this->_testGetRecentTags();
@@ -133,7 +173,6 @@ class Content_Test_Sql_Base extends Content_Test_Base
     public static function setUpBeforeClass()
     {
         self::$injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        self::$db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
         self::$injector->setInstance('Horde_Db_Adapter', self::$db);
 
         // FIXME: get migration directory if not running from Git checkout.

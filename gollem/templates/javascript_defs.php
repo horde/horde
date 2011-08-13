@@ -25,8 +25,7 @@ $gettext = array_map('addslashes', array(
     'opener_window' => _("The original opener window has been closed. Exiting."),
 ));
 
-?>
-<script type="text/javascript">//<![CDATA[
-var GollemVar = <?php echo Horde_Serialize::encode($var, Horde_Serialize::SERIALIZE_JSON) ?>;
-var GollemText = <?php echo Horde_Serialize::encode($gettext, Horde_Serialize::SERIALIZE_JSON) ?>;
-//]]></script>
+Horde::addInlineJsVars(array(
+    'var GollemVar' => $var,
+    'var GollemText' => $gettext
+), array('ret_vars' => true));

@@ -113,8 +113,25 @@ var DimpMessage = {
                     } else {
                         DimpCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mailbox });
                     }
-                    window.close();
+                } else {
+                    tmp = {};
+                    tmp[this.mailbox] = [ this.uid ];
+                    if (id == 'button_deleted') {
+                        DimpCore.doAction('deleteMessages', {
+                            view: this.mailbox
+                        }, {
+                            uids: tmp
+                        });
+                    } else {
+                        DimpCore.doAction('reportSpam', {
+                            spam: Number(id == 'button_spam'),
+                            view: this.mailbox
+                        }, {
+                            uids: tmp
+                        });
+                    }
                 }
+                window.close();
                 e.stop();
                 return;
 

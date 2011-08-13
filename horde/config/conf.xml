@@ -484,6 +484,15 @@
       <configstring name="hard_expiration_field" required="false" desc="The
       name of a field containing a UNIX timestamp.  A user will not be able to
       log in after the specified time.  This feature is disabled by default."/>
+      <configstring name="lock_field" required="false" desc="The
+      name of a field marking a user as locked out.  A user will not be able to
+      log in after he has been locked out. This feature is disabled by default.">
+      lock_field</configstring>
+      <configstring name="lock_expiration_field" required="false" desc="The
+      name of a field containing a UNIX timestamp. A locked user will not be able to
+      log in until after the specified time.">lock_expiration_field</configstring>
+      <configstring name="bad_login_count_field" required="false" desc="The
+      name of a field containing the number of bad login attempts.">bad_login_count_field</configstring>
       <configinteger name="soft_expiration_window" required="false"
       desc="This is how often, in days, the user must change his or her
       password.  When the user's password is updated, the &quot;soft&quot;
@@ -493,6 +502,14 @@
       number of days in the grace period the user has to change his or her
       password after it has expired.  If not provided, the grace period will
       not expire."/>
+      <configboolean name="bad_login_count_enable" desc="Enable counting the number of
+      bad login attempts. Requires [bad_login_count_field] to be set." required="false">false</configboolean>
+      <configinteger name="bad_login_limit" required="false" desc="The
+      number of bad logins after which an account is automatically locked for [lock_duration] seconds.
+      Requires [bad_login_count_enable]. A value of '0' disables this feature">0</configinteger>  
+      <configinteger name="lock_duration" required="false" desc="The
+      number of seconds an account is locked after it exceeds the limit of bad login attempts.
+      A value of '0' means permanently">0</configinteger>  
       <configenum name="encryption" required="false" desc="The password hashing algorithm to use">ssha
        <values>
         <value>aprmd5</value>

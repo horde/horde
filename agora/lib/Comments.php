@@ -26,13 +26,13 @@ class Agora_ViewComments {
      */
     static public function render($forum_name, $scope = 'agora', $base_url = null, $template_file = false)
     {
-        $forums = &Agora_Messages::singleton($scope);
+        $forums = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create($scope);
         $forum_id = $forums->getForumId($forum_name);
         if ($forum_id === null) {
             return '';
         }
 
-        $messages = &Agora_Messages::singleton($scope, $forum_id);
+        $messages = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
         if ($messages instanceof PEAR_Error) {
             return $messages->getMessage();
         }
@@ -89,14 +89,14 @@ class Agora_ViewComments {
 
         if ($view_bodies == 1) {
             $threads = $messages->getThreads(0, true, 'message_thread', 0, true, '', $base_url);
-            $html .= $messages->getThreadsUI($threads, $col_headers, true, $template_file);
+            $html .= $messages->getThreadsUi($threads, $col_headers, true, $template_file);
         } else {
             $thread_page = Horde_Util::getFormData('comments_page', 0);
             $thread_per_page = $GLOBALS['prefs']->getValue('comments_per_page');
             $thread_start = $thread_page * $thread_per_page;
 
             if (empty($template_file)) {
-                $template_file = '/messages/flat.html.php';
+                $template_file = 'messages/flat';
             }
 
             if ($messages->_forum['message_count'] > $thread_per_page && $view_bodies == 2) {
@@ -116,7 +116,7 @@ class Agora_ViewComments {
                 $html .= $threads_list->getDebugInfo();
             } else {
                 $html .= $pager_html
-                    . $messages->getThreadsUI($threads_list, $col_headers, true, $template_file)
+                    . $messages->getThreadsUi($threads_list, $col_headers, true, $template_file)
                     . $pager_html;
             }
         }

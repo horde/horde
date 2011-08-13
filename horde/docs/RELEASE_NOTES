@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 4.0.7.
+Application Framework version 4.0.8.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -30,20 +30,18 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 4.0.6 are:
+The major changes compared to the Horde version 4.0.7 are:
 
-    * Added support for split read/write databases in PostgreSQL.
-    * Bug fixes in synchronization code.
+    * Improved synchronization support.
     * Small bugfixes and improvements.
-    * Updated Brazilian Portuguese, Lithuanian, and Ukrainian translations.
+    * Updated Latvian translation.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added support for split read/write databases in PostgreSQL.
-Bug fixes in synchronization code.
+Improved synchronization support.
 Small bugfixes and improvements.
-Updated Brazilian Portuguese, Lithuanian, and Ukrainian translations.
+Updated Latvian translation.
 FM;
 
 $this->notes['name'] = 'Horde';

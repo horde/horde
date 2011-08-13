@@ -110,9 +110,11 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
      * Synchronize the preferences information with the information from the
      * backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
     }
 }

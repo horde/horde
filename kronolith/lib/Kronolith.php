@@ -1116,11 +1116,12 @@ class Kronolith
         }
 
         /* Make sure all the external calendars still exist. */
-        $_temp = $GLOBALS['display_external_calendars'];
-        try {
-            $_tasklists = $GLOBALS['registry']->tasks->getDisplayedTasklists();
-        } catch (Horde_Exception $e) {
-            $_tasklists = $_temp;
+        $_tasklists = $_temp = $GLOBALS['display_external_calendars'];
+        if (self::hasApiPermission('tasks')) {
+            try {
+                $_tasklists = $GLOBALS['registry']->tasks->getDisplayedTasklists();
+            } catch (Horde_Exception $e) {
+            }
         }
         $GLOBALS['display_external_calendars'] = array();
         foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
@@ -2733,7 +2734,7 @@ class Kronolith
     {
         // strptime() is not available on Windows.
         if (!function_exists('strptime')) {
-            return new Horde_Date($start);
+            return new Horde_Date($date);
         }
 
         // strptime() is locale dependent, i.e. %p is not always matching

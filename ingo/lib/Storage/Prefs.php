@@ -43,7 +43,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
         case self::ACTION_BLACKLIST:
             $ob = new Ingo_Storage_Blacklist();
             if ($data = @unserialize($prefs->getValue('blacklist'))) {
-                $ob->setBlacklist($data['a'], false);
+                $ob->setBlacklist($data['a'], true);
                 $ob->setBlacklistFolder($data['f']);
             }
             break;
@@ -51,7 +51,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
         case self::ACTION_WHITELIST:
             $ob = new Ingo_Storage_Whitelist();
             if ($data = @unserialize($prefs->getValue('whitelist'))) {
-                $ob->setWhitelist($data, false);
+                $ob->setWhitelist($data, true);
             }
             break;
 

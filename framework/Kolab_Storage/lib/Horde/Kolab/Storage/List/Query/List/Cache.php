@@ -308,9 +308,11 @@ implements Horde_Kolab_Storage_List_Query_List
     /**
      * Synchronize the query data with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
         $namespace = $this->_list->getNamespace();
         $annotations = $this->listFolderTypeAnnotations();

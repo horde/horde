@@ -35,6 +35,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->horde_cache = new Horde_Cache(
             new Horde_Cache_Storage_Mock()
         );

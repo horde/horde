@@ -13,7 +13,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 $scope = Horde_Util::getGet('scope', 'agora');
-$messages = &Agora_Messages::singleton($scope);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope);
 
 /* Which page are we on? Default to page 0. */
 $messages_page = Horde_Util::getFormData('page', 0);
@@ -75,12 +75,11 @@ $pager_ob->preserve('agora', Horde_Util::getFormData('agora'));
 $view->pager = $pager_ob->render();
 
 if (isset($api_call)) {
-    return $view->render('moderate.html.php');
+    return $view->render('moderate');
 } else {
     $title = _("Messages Awaiting Moderation");
     $view->menu = Horde::menu();
-    Horde::addScriptFile('stripe.js', 'horde', true);
     require $registry->get('templates', 'horde') . '/common-header.inc';
-    echo $view->render('moderate.html.php');
+    echo $view->render('moderate');
     require $registry->get('templates', 'horde') . '/common-footer.inc';
 }

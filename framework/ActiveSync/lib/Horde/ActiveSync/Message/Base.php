@@ -80,12 +80,11 @@ class Horde_ActiveSync_Message_Base
     /**
      * Const'r
      *
-     * @param array $mapping  A mapping array from constants -> property names
      * @param array $options  Any addition options the message may require
      *
      * @return Horde_ActiveSync_Message_Base
      */
-    public function __construct($options)
+    public function __construct(array $options)
     {
         if (!empty($options['logger'])) {
             $this->_logger = $options['logger'];
@@ -103,6 +102,8 @@ class Horde_ActiveSync_Message_Base
 
         if (!empty($this->_properties[$property])) {
             return $this->_properties[$property];
+        } elseif ($this->_properties[$property] === 0) {
+            return 0;
         } else {
             return '';
         }
@@ -340,7 +341,7 @@ class Horde_ActiveSync_Message_Base
                     if (strlen($this->$map[self::KEY_ATTRIBUTE]) == 0) {
                           // Do not output empty items except for the following:
                           if ($this->_checkSendEmpty($tag)) {
-                              $encoder->startTag($tag, false, true);
+                              $encoder->startTag($tag, $this->$map[self::KEY_ATTRIBUTE], true);
                           } else {
                             continue;
                           }

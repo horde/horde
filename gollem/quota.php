@@ -33,10 +33,10 @@ $template->set('noquota', true, true);
 $template->set('quotaerror', false, true);
 $template->set('quotadisplay', false, true);
 $template->set('quotagraph', false, true);
-if ($gollem_be['quota_val'] > -1) {
+if (Gollem::$backend['quota_val'] > -1) {
     $template->set('noquota', false, true);
     try {
-        $quota_info = $gollem_vfs->getQuota();
+        $quota_info = $injector->getInstance('Gollem_Vfs')->getQuota();
         $usage = $quota_info['usage'] / (1024 * 1024.0);
         $limit = $quota_info['limit'] / (1024 * 1024.0);
 

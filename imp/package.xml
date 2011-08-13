@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-01</date>
- <time>16:30:41</time>
+ <date>2011-08-04</date>
+ <time>12:51:54</time>
  <version>
-  <release>5.0.9</release>
+  <release>5.0.10</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,17 +34,14 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Fix to allow search filters to be saved.
-* [mjr] Fix mouse click handling on mobile view (Bug #10355).
-* [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
-* [mms] Select all checkbox in dynamic view can now be toggled.
-* [mms] Remember vertical splitbar size in dynamic view.
-* [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
-* [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
-* [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
-* [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
-* [mms] Add save message link to dynamic view preview window.
-* [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
+* [mjr] Fix notifications not showing while accepting iTips
+* [mms] Correctly determine page with first/last unseen messages when using descending sequence sorting (Bug #9882).
+* [mms] Deletion works correctly from popup message view if base window is no longer available (Bug #9761).
+* [mms] Fix explicitly applying filters in INBOX in dynamic view (Bug #10291).
+* [mms] Add &apos;Edit as New&apos; action for messages (Request #10206).
+* [mms] Remove &apos;allow_resume_all&apos; configuration option (Request #10206).
+* [mms] Add personal contacts search filter.
+* [mms] Add ability to search all mailboxes (Request #10204).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -250,6 +247,7 @@
      <dir name="Element">
       <file name="Attachment.php" role="horde" />
       <file name="Bulk.php" role="horde" />
+      <file name="Contacts.php" role="horde" />
       <file name="Date.php" role="horde" />
       <file name="Flag.php" role="horde" />
       <file name="Header.php" role="horde" />
@@ -265,6 +263,7 @@
       <file name="Attachment.php" role="horde" />
       <file name="Builtin.php" role="horde" />
       <file name="Bulk.php" role="horde" />
+      <file name="Contacts.php" role="horde" />
       <file name="Mailinglist.php" role="horde" />
       <file name="Personal.php" role="horde" />
      </dir> <!-- /lib/Search/Filter -->
@@ -680,6 +679,7 @@
       <file name="navbar_top.html" role="horde" />
      </dir> <!-- /templates/imp/message -->
      <dir name="search">
+      <file name="search-all.html" role="horde" />
       <file name="search-basic.html" role="horde" />
       <file name="search.html" role="horde" />
      </dir> <!-- /templates/imp/search -->
@@ -1159,7 +1159,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.4.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1552,6 +1552,7 @@
    <install as="imp/lib/Search/Vfolder.php" name="lib/Search/Vfolder.php" />
    <install as="imp/lib/Search/Element/Attachment.php" name="lib/Search/Element/Attachment.php" />
    <install as="imp/lib/Search/Element/Bulk.php" name="lib/Search/Element/Bulk.php" />
+   <install as="imp/lib/Search/Element/Contacts.php" name="lib/Search/Element/Contacts.php" />
    <install as="imp/lib/Search/Element/Date.php" name="lib/Search/Element/Date.php" />
    <install as="imp/lib/Search/Element/Flag.php" name="lib/Search/Element/Flag.php" />
    <install as="imp/lib/Search/Element/Header.php" name="lib/Search/Element/Header.php" />
@@ -1565,6 +1566,7 @@
    <install as="imp/lib/Search/Filter/Attachment.php" name="lib/Search/Filter/Attachment.php" />
    <install as="imp/lib/Search/Filter/Builtin.php" name="lib/Search/Filter/Builtin.php" />
    <install as="imp/lib/Search/Filter/Bulk.php" name="lib/Search/Filter/Bulk.php" />
+   <install as="imp/lib/Search/Filter/Contacts.php" name="lib/Search/Filter/Contacts.php" />
    <install as="imp/lib/Search/Filter/Mailinglist.php" name="lib/Search/Filter/Mailinglist.php" />
    <install as="imp/lib/Search/Filter/Personal.php" name="lib/Search/Filter/Personal.php" />
    <install as="imp/lib/Search/Vfolder/Builtin.php" name="lib/Search/Vfolder/Builtin.php" />
@@ -1739,6 +1741,7 @@
    <install as="imp/templates/imp/message/navbar_actions.html" name="templates/imp/message/navbar_actions.html" />
    <install as="imp/templates/imp/message/navbar_navigate.html" name="templates/imp/message/navbar_navigate.html" />
    <install as="imp/templates/imp/message/navbar_top.html" name="templates/imp/message/navbar_top.html" />
+   <install as="imp/templates/imp/search/search-all.html" name="templates/imp/search/search-all.html" />
    <install as="imp/templates/imp/search/search-basic.html" name="templates/imp/search/search-basic.html" />
    <install as="imp/templates/imp/search/search.html" name="templates/imp/search/search.html" />
    <install as="imp/templates/imp/thread/thread.html" name="templates/imp/thread/thread.html" />
@@ -2353,13 +2356,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-01</date>
+   <date>2011-08-02</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [mms] Fix to allow search filters to be saved.
 * [mjr] Fix mouse click handling on mobile view (Bug #10355).
 * [mms] Ensure correct message charset is use if forward/reply headers contain non US-ASCII characters (Bug #10148).
-* [mms] Select all checkbox in dynamic view can now be toggled.
+* [mms] Select all checkbox in dynamic view can now be toggled (Request #10067).
 * [mms] Remember vertical splitbar size in dynamic view.
 * [mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
 * [mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
@@ -2367,6 +2370,26 @@
 * [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
 * [mms] Add save message link to dynamic view preview window.
 * [mms] Correctly quote e-mail names when composing from compose links in the dynamic view (Bug #10292).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.10</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-04</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [mjr] Fix notifications not showing while accepting iTips
+* [mms] Correctly determine page with first/last unseen messages when using descending sequence sorting (Bug #9882).
+* [mms] Deletion works correctly from popup message view if base window is no longer available (Bug #9761).
+* [mms] Fix explicitly applying filters in INBOX in dynamic view (Bug #10291).
+* [mms] Add &apos;Edit as New&apos; action for messages (Request #10206).
+* [mms] Remove &apos;allow_resume_all&apos; configuration option (Request #10206).
+* [mms] Add personal contacts search filter.
+* [mms] Add ability to search all mailboxes (Request #10204).
    </notes>
   </release>
  </changelog>

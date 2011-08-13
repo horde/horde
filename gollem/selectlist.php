@@ -24,7 +24,6 @@ try {
 } catch (Gollem_Exception $e) {
     $notification->push($e);
 }
-$currdir = Gollem::getDir();
 
 /* Create a new cache ID if one does not already exist. */
 $cacheid = Horde_Util::getFormData('cacheid');
@@ -42,7 +41,7 @@ case 'select':
     $items = Horde_Util::getPost('items');
     if (is_array($items) && count($items)) {
         foreach ($items as $item) {
-            $item_value = $currdir . '|' . $item;
+            $item_value = Gollem::$backend['dir'] . '|' . $item;
             if (empty($selectlist['files'])) {
                 $selectlist['files'] = array($item_value);
             } else {
@@ -64,22 +63,17 @@ case 'select':
 }
 
 try {
-    $info = array(
-        'list' => Gollem::listFolder($currdir)
-    );
+    $info = array('list' => Gollem::listFolder(Gollem::$backend['dir']));
 } catch (Gollem_Exception $e) {
     /* If that didn't work, fall back to the parent or the home directory. */
-    $notification->push(sprintf(_("Permission denied to %s: %s"), $currdir, $e->getMessage()), 'horde.error');
+    $notification->push(sprintf(_("Permission denied to %s: %s"), Gollem::$backend['dir'], $e->getMessage()), 'horde.error');
 
-    $loc = strrpos($currdir, '/');
-    Gollem::setDir(($loc !== false) ? substr($currdir, 0, $loc) : Gollem::getHome());
-    $currdir = Gollem::getDir();
-    $info = array(
-        'list' => Gollem::listFolder($currdir)
-    );
+    $loc = strrpos(Gollem::$backend['dir'], '/');
+    Gollem::setDir(($loc !== false) ? substr(Gollem::$backend['dir'], 0, $loc) : Gollem::$backend['home']);
+    $info = array('list' => Gollem::listFolder(Gollem::$backend['dir']));
 }
 
-$info['title'] = htmlspecialchars($GLOBALS['gollem_be']['label']);
+$info['title'] = htmlspecialchars(Gollem::$backend['label']);
 
 /* Image links. */
 $folder_img = Horde::img('folder.png', _("folder"));
@@ -96,9 +90,9 @@ $t->set('cancelbutton', _("Cancel"));
 $t->set('self_url', $self_url);
 $t->set('forminput', Horde_Util::formInput());
 $t->set('cacheid', htmlspecialchars($cacheid));
-$t->set('currdir', htmlspecialchars($currdir));
+$t->set('currdir', htmlspecialchars(Gollem::$backend['dir']));
 $t->set('formid', htmlspecialchars($formid));
-$t->set('navlink', Gollem::directoryNavLink($currdir, $self_url->copy()->add(array('cacheid' => $cacheid, 'formid' => $formid))));
+$t->set('navlink', Gollem::directoryNavLink(Gollem::$backend['dir'], $self_url->copy()->add(array('cacheid' => $cacheid, 'formid' => $formid))));
 if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
     // TODO
     //$t->set('changeserver', Horde::link(htmlspecialchars(Horde_Auth::addLogoutParameters(Horde_Util::addParameter(Horde::url('login.php'), array('url' => Horde_Util::addParameter(Horde::url('selectlist.php'), array('formid' => $formid)))), Horde_Auth::REASON_LOGOUT)), _("Change Server")) . Horde::img('logout.png', _("Change Server")) . '</a>', true);
@@ -140,7 +134,7 @@ if (is_array($info['list']) &&
         case '**dir':
             $url = $self_url->copy()->add(array(
                 'cacheid' => $cacheid,
-                'dir' => Gollem::subdirectory($currdir, $val['name']),
+                'dir' => Gollem::subdirectory(Gollem::$backend['dir'], $val['name']),
                 'formid' => $formid
             ));
             $item['link'] = $url->link() . '<strong>' . $name . '</strong></a>';
@@ -155,12 +149,12 @@ if (is_array($info['list']) &&
                     $dir = implode('/', $parts);
                 } else {
                     $name = $val['link'];
-                    $dir = $currdir;
+                    $dir = Gollem::$backend['dir'];
                 }
 
                 $url = $self_url->copy()->add(array(
                     'cacheid' => $cacheid,
-                    'dir' => Gollem::subdirectory($currdir, $val['name']),
+                    'dir' => Gollem::subdirectory(Gollem::$backend['dir'], $val['name']),
                     'formid' => $formid
                 ));
                 $item['link'] = $item['name'] . ' -> <strong>' . $url->link() . $val['link'] . '</a></strong>';
@@ -175,7 +169,7 @@ if (is_array($info['list']) &&
         }
 
         if (!empty($selectlist['files']) &&
-            in_array($currdir . '|' . $val['name'], $selectlist['files'])) {
+            in_array(Gollem::$backend['dir'] . '|' . $val['name'], $selectlist['files'])) {
             $item['selected'] = true;
         }
 

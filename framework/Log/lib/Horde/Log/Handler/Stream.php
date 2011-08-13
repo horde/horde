@@ -109,6 +109,9 @@ class Horde_Log_Handler_Stream extends Horde_Log_Handler_Base
      */
     public function write($event)
     {
+        if (!empty($this->_options['ident'])) {
+            $event['message'] = $this->_options['ident'] . ' ' . $event['message'];
+        }
         $line = $this->_formatter->format($event);
 
         if (!@fwrite($this->_stream, $line)) {

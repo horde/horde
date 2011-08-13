@@ -1,6 +1,13 @@
 ----------
-v2.0.4-git
+v2.0.5-git
 ----------
+
+[jan] Sort blacklist and whitelist for display instead of for storage.
+
+
+------
+v2.0.4
+------
 
 [mms] Fix creating new mailboxes (Bug #10282).
 

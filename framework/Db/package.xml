@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [jan] Fix changeColumn() migration to autoincrementKey if no primary key exists yet.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -466,7 +466,7 @@
    <date>2011-07-27</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Fix changeColumn() migration to autoincrementKey if no primary key exists yet.
    </notes>
   </release>
  </changelog>

@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-14</date>
- <time>16:55:54</time>
+ <date>2011-08-10</date>
+ <time>10:48:24</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -78,9 +78,6 @@
     <dir name="Sync">
      <file name="Wicked.php" role="horde" />
     </dir> <!-- /lib/Sync -->
-    <dir name="tests">
-     <file name="Driver.php" role="horde" />
-    </dir> <!-- /lib/tests -->
     <dir name="Text_Wiki">
      <dir name="Parse">
       <dir name="BBCode">
@@ -121,6 +118,7 @@
        <file name="Wickedblock.php" role="horde" />
        <file name="Wikilink2.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Render/Xhtml -->
+      <file name="Rst.php" role="horde" />
      </dir> <!-- /lib/Text_Wiki/Render -->
     </dir> <!-- /lib/Text_Wiki -->
     <file name="Api.php" role="horde" />
@@ -169,6 +167,13 @@
       <file name="wicked.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="wicked.mo" role="horde" />
+      <file name="wicked.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
     <dir name="pt_BR">
      <dir name="LC_MESSAGES">
       <file name="wicked.mo" role="horde" />
@@ -259,6 +264,20 @@
     </dir> <!-- /templates/sync -->
     <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Wicked">
+     <dir name="Unit">
+      <dir name="Driver">
+       <file name="SqlTest.php" role="test" />
+      </dir> <!-- /test/Wicked/Unit/Driver -->
+      <file name="RstTest.php" role="test" />
+     </dir> <!-- /test/Wicked/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Wicked -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
@@ -283,8 +302,21 @@
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="hordeweb">
+     <dir name="graphics">
+      <file name="AllPages.png" role="horde" />
+      <file name="HowToUseWiki.png" role="horde" />
+      <file name="PageSearch.png" role="horde" />
+      <file name="RecentChanges.png" role="horde" />
+      <file name="SyncPages.png" role="horde" />
+      <file name="TitleSearch.png" role="horde" />
+      <file name="wicked.png" role="horde" />
+      <file name="WikiHome.png" role="horde" />
+     </dir> <!-- /themes/hordeweb/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/hordeweb -->
+    <dir name="hordeweb1">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/hordeweb1 -->
    </dir> <!-- /themes -->
    <file name=".htaccess" role="horde" />
    <file name="COPYING" role="doc" />
@@ -417,7 +449,6 @@
    <install as="wicked/lib/Page/SyncDiff.php" name="lib/Page/SyncDiff.php" />
    <install as="wicked/lib/Page/SyncPages.php" name="lib/Page/SyncPages.php" />
    <install as="wicked/lib/Sync/Wicked.php" name="lib/Sync/Wicked.php" />
-   <install as="wicked/lib/tests/Driver.php" name="lib/tests/Driver.php" />
    <install as="wicked/lib/Text_Wiki/Parse/BBCode/Image2.php" name="lib/Text_Wiki/Parse/BBCode/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Cowiki/Image2.php" name="lib/Text_Wiki/Parse/Cowiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Creole/Image2.php" name="lib/Text_Wiki/Parse/Creole/Image2.php" />
@@ -430,6 +461,7 @@
    <install as="wicked/lib/Text_Wiki/Parse/Default/Wikilink2.php" name="lib/Text_Wiki/Parse/Default/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Image2.php" name="lib/Text_Wiki/Parse/Mediawiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Image2.php" name="lib/Text_Wiki/Parse/Tiki/Image2.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst.php" name="lib/Text_Wiki/Render/Rst.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Attribute.php" name="lib/Text_Wiki/Render/Xhtml/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Code2.php" name="lib/Text_Wiki/Render/Xhtml/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Freelink2.php" name="lib/Text_Wiki/Render/Xhtml/Freelink2.php" />
@@ -456,6 +488,9 @@
    <install as="wicked/locale/it/LC_MESSAGES/wicked.po" name="locale/it/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/ja/LC_MESSAGES/wicked.mo" name="locale/ja/LC_MESSAGES/wicked.mo" />
    <install as="wicked/locale/ja/LC_MESSAGES/wicked.po" name="locale/ja/LC_MESSAGES/wicked.po" />
+   <install as="wicked/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="wicked/locale/lv/LC_MESSAGES/wicked.mo" name="locale/lv/LC_MESSAGES/wicked.mo" />
+   <install as="wicked/locale/lv/LC_MESSAGES/wicked.po" name="locale/lv/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/pt_BR/LC_MESSAGES/wicked.mo" name="locale/pt_BR/LC_MESSAGES/wicked.mo" />
    <install as="wicked/locale/pt_BR/LC_MESSAGES/wicked.po" name="locale/pt_BR/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/sl/LC_MESSAGES/wicked.mo" name="locale/sl/LC_MESSAGES/wicked.mo" />
@@ -507,6 +542,12 @@
    <install as="wicked/templates/sync/form.inc" name="templates/sync/form.inc" />
    <install as="wicked/templates/sync/header.inc" name="templates/sync/header.inc" />
    <install as="wicked/templates/sync/list.inc" name="templates/sync/list.inc" />
+   <install as="Wicked/AllTests.php" name="test/Wicked/AllTests.php" />
+   <install as="Wicked/Autoload.php" name="test/Wicked/Autoload.php" />
+   <install as="Wicked/phpunit.xml" name="test/Wicked/phpunit.xml" />
+   <install as="Wicked/TestCase.php" name="test/Wicked/TestCase.php" />
+   <install as="Wicked/Unit/RstTest.php" name="test/Wicked/Unit/RstTest.php" />
+   <install as="Wicked/Unit/Driver/SqlTest.php" name="test/Wicked/Unit/Driver/SqlTest.php" />
    <install as="wicked/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="wicked/themes/default/graphics/AllPages.png" name="themes/default/graphics/AllPages.png" />
    <install as="wicked/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
@@ -526,6 +567,15 @@
    <install as="wicked/themes/default/graphics/WikiHome.png" name="themes/default/graphics/WikiHome.png" />
    <install as="wicked/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
    <install as="wicked/themes/hordeweb/screen.css" name="themes/hordeweb/screen.css" />
+   <install as="wicked/themes/hordeweb/graphics/AllPages.png" name="themes/hordeweb/graphics/AllPages.png" />
+   <install as="wicked/themes/hordeweb/graphics/HowToUseWiki.png" name="themes/hordeweb/graphics/HowToUseWiki.png" />
+   <install as="wicked/themes/hordeweb/graphics/PageSearch.png" name="themes/hordeweb/graphics/PageSearch.png" />
+   <install as="wicked/themes/hordeweb/graphics/RecentChanges.png" name="themes/hordeweb/graphics/RecentChanges.png" />
+   <install as="wicked/themes/hordeweb/graphics/SyncPages.png" name="themes/hordeweb/graphics/SyncPages.png" />
+   <install as="wicked/themes/hordeweb/graphics/TitleSearch.png" name="themes/hordeweb/graphics/TitleSearch.png" />
+   <install as="wicked/themes/hordeweb/graphics/wicked.png" name="themes/hordeweb/graphics/wicked.png" />
+   <install as="wicked/themes/hordeweb/graphics/WikiHome.png" name="themes/hordeweb/graphics/WikiHome.png" />
+   <install as="wicked/themes/hordeweb1/screen.css" name="themes/hordeweb1/screen.css" />
   </filelist>
  </phprelease>
  <changelog>
@@ -538,7 +588,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-07-14</date>
+   <date>2011-08-10</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.
