@@ -335,72 +335,69 @@ class Whups_Driver
      * We do some ugly work in here to make sure that no one gets comments
      * mailed to them that they shouldn't see (because of group permissions).
      *
-     * @param integer $ticket_id  The ticket id.
-     * @param array $recipients   The list of recipients.
-     * @param string $subject     The email subject.
-     * @param string $message     The email message text.
-     * @param string $from        The email sender.
-     * @param boolean $reminder   Whether this is reminder email (no ticket
-     *                            changes).
-     * @param integer $queue_id   The queue id.
-     * @param boolean $is_new     Whether a ticket has been created, if
-     *                            notifying about a ticket.
+     * @param array $opts  Option hash with notification information.
+     *                     Possible values:
+     *                     - ticket:     (Whups_Ticket) A ticket. If not set,
+     *                                   this is assumed to be a reminder
+     *                                   message.
+     *                     - recipients: (array|string) The list of recipients.
+     *                     - subject:    (string) The email subject.
+     *                     - message:    (string) The email message text.
+     *                     - from:       (string) The email sender.
+     *                     - new:        (boolean, optional) Whether the passed
+     *                                   ticket was just created.
      */
-    function mail($ticket_id, $recipients, $subject, $message, $from,
-                  $reminder, $queue_id = null, $is_new = false)
+    function mail(array $opts)
     {
         global $conf, $registry, $prefs;
 
+        $opts = array_merge(array('ticket' => false, 'new' => false), $opts);
+
         /* Set up recipients and message headers. */
-        if (!is_array($recipients)) {
-            $recipients = array($recipients);
+        if (!is_array($opts['recipients'])) {
+            $opts['recipients'] = array($opts['recipients']);
         }
 
         $mail = new Horde_Mime_Mail(array(
             'X-Whups-Generated' => 1,
             'User-Agent' => 'Whups ' . $registry->getVersion(),
             'Precedence' => 'bulk',
-            'Auto-Submitted' => $reminder ? 'auto-generated' : 'auto-replied'));
+            'Auto-Submitted' => $opts['ticket'] ? 'auto-replied' : 'auto-generated'));
 
         $mail_always = null;
-        if (!$reminder && !empty($conf['mail']['always_copy'])) {
+        if ($opts['ticket'] && !empty($conf['mail']['always_copy'])) {
             $mail_always = $conf['mail']['always_copy'];
             if (strpos($mail_always, '<@>') !== false) {
                 try {
-                    $ticket = Whups_Ticket::makeTicket($ticket_id);
-                    $mail_always = str_replace('<@>', $ticket->get('queue_name'), $mail_always);
+                    $mail_always = str_replace('<@>', $opts['ticket']->get('queue_name'), $mail_always);
                 } catch (Whups_Exception $e) {
-                      $mail_always = null;
+                    $mail_always = null;
                 }
             }
             if ($mail_always) {
-                $recipients[] = $mail_always;
+                $opts['recipients'][] = $mail_always;
             }
         }
 
-        if ($queue_id) {
-            $queue = $this->getQueue($queue_id);
-        } else {
-            $queue = null;
-        }
-
-        if ($queue && !empty($queue['email'])) {
+        if ($opts['ticket'] &&
+            ($queue = $this->getQueue($opts['ticket']->get('queue'))) &&
+             !empty($queue['email'])) {
             $mail->addHeader('From', $queue['email']);
         } elseif (!empty($conf['mail']['from_addr'])) {
             $mail->addHeader('From', $conf['mail']['from_addr']);
         } else {
-            $mail->addHeader('From', Whups::formatUser($from));
+            $mail->addHeader('From', Whups::formatUser($opts['from']));
         }
 
-        $subject = (is_null($ticket_id)
-                    ? ''
-                    : '[' . $registry->get('name') . ' #' . $ticket_id . '] ')
-            . $subject;
-        $mail->addHeader('Subject', $subject);
+        if ($opts['ticket']) {
+            $opts['subject'] = '[' . $registry->get('name') . ' #'
+                . $opts['ticket']->getId() . '] ' . $opts['subject'];
+        }
+        $mail->addHeader('Subject', $opts['subject']);
 
         /* Get our array of comments, sorted in the appropriate order. */
-        if (!is_null($ticket_id)) {
-            $comments = $this->getHistory($ticket_id);
+        if ($opts['ticket']) {
+            $comments = $this->getHistory($opts['ticket']->getId());
             if ($conf['mail']['commenthistory'] == 'new' && count($comments)) {
                 $comments = array_pop($comments);
                 $comments = array($comments);
@@ -414,8 +411,9 @@ class Whups_Driver
         /* Don't notify any email address more than once. */
         $seen_email_addresses = array();
 
-        foreach ($recipients as $user) {
-            if ($user == $from && $user == $GLOBALS['registry']->getAuth() &&
+        foreach ($opts['recipients'] as $user) {
+            if ($user == $opts['from'] &&
+                $user == $GLOBALS['registry']->getAuth() &&
                 $prefs->getValue('email_others_only')) {
                 continue;
             }
@@ -471,13 +469,14 @@ class Whups_Driver
             $body = str_replace(
                 array('@@comment@@', '@@full_name@@'),
                 array("\n\n" . $formattedComment, $full_name),
-                $message);
+                $opts['message']);
             $mail->setBody($body);
 
             $mail->addHeader('Message-ID', Horde_Mime::generateMessageId());
-            if ($ticket_id) {
-                $message_id = '<whups-' . $ticket_id . '-' . md5($user) . '@' . $conf['server']['name'] . '>';
-                if ($is_new) {
+            if ($opts['ticket']) {
+                $message_id = '<whups-' . $opts['ticket']->getId() . '-'
+                    . md5($user) . '@' . $conf['server']['name'] . '>';
+                if ($opts['new']) {
                     $mail->addHeader('Message-ID', $message_id);
                 } else {
                     $mail->addHeader('In-Reply-To', $message_id);

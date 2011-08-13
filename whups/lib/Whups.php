@@ -330,7 +330,7 @@ class Whups
      * determine what to look for. Will redirect to the default view
      * if the ticket isn't found or if permissions checks fail.
      */
-   static public  function getCurrentTicket()
+    static public function getCurrentTicket()
     {
         $id = preg_replace('|\D|', '', Horde_Util::getFormData('id'));
         if (!$id) {
@@ -821,7 +821,10 @@ class Whups
             }
             $email .= "\n";
             $subject = 'Reminder: Your open tickets';
-            $whups_driver->mail(null, $user, $subject, $email, $user, true);
+            $whups_driver->mail(array('recipients' => $user,
+                                      'subject' => $subject,
+                                      'message' => $email,
+                                      'from' => $user));
         }
     }
 

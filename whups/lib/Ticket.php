@@ -773,16 +773,16 @@ class Whups_Ticket
 
         /* Pass off to Whups_Driver::mail() to do the actual comment fetching,
          * permissions checks, etc. */
-        $whups_driver->mail($this->_id, $listeners, $subject, $message, $author,
-                            false, $this->get('queue'), $isNew);
+        $whups_driver->mail(array('ticket' => $this,
+                                  'recipients' => $listeners,
+                                  'subject' => $subject,
+                                  'message' => $message,
+                                  'from' => $author,
+                                  'new' => $isNew));
     }
 
     /**
      * Returns a plain text representation of a ticket.
-     *
-     * @param string  $author  Who created/changed the ticket?
-     * @param boolean $isNew   Is this a new ticket or a change to an existing
-     *                         one?
      */
     public function toString()
     {
