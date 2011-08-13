@@ -12,13 +12,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-try {
-    $ticket = Whups::getCurrentTicket();
-} catch (Exception $e) {
-    $notification->push($e);
-    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
-        ->redirect();
-}
+$ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
 $ticket->setDetails($vars);
 $linkTags[] = $ticket->feedLink();
