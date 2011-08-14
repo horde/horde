@@ -285,7 +285,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $msg->setDisposition('inline');
         $msg->setType('application/pkcs7-mime');
         $msg->setContentTypeParameter('smime-type', 'enveloped-data');
-        $msg->setContents(substr($message, strpos($message, "\n\n") + 2));
+        $msg->setContents(substr($message, strpos($message, "\n\n") + 2), array('encoding' => 'base64'));
 
         return $msg;
     }

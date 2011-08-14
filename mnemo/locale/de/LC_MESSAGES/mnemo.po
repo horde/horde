@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
 "PO-Revision-Date: 2011-04-04 10:33+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -266,7 +266,7 @@ msgstr "Meine Notizen"
 msgid "Name"
 msgstr "Name"
 
-#: lib/Application.php:133 memo.php:92 memo.php:138
+#: lib/Application.php:128 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr "Neue Notiz"
 
@@ -335,7 +335,7 @@ msgstr "Notizblock"
 msgid "Notepad List"
 msgstr "Notizblockübersicht"
 
-#: lib/Mnemo.php:530
+#: lib/Mnemo.php:568
 #, php-format
 msgid "Notepad of %s"
 msgstr "Notizblock von %s"
@@ -384,7 +384,7 @@ msgstr "Speichern"
 msgid "Save as PDF"
 msgstr "Als PDF speichern"
 
-#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
+#: lib/Application.php:154 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Suche"
@@ -545,12 +545,12 @@ msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 "Diese Notiz wurde verschlüsselt, bitte geben Sie unten das Passwort ein"
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:293 lib/Driver/Sql.php:344
+#: lib/Api.php:280 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Diese Notiz wurde verschlüsselt."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:275 lib/Mnemo.php:276
-#: lib/Mnemo.php:290 lib/Mnemo.php:291 templates/list/memo_summaries.inc:20
+#: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
+#: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
@@ -646,10 +646,6 @@ msgstr "_Passwort"
 msgid "_Password:"
 msgstr "_Passwort:"
 
-#: lib/Application.php:86
-msgid "_Print"
-msgstr "_Drucken"
-
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
 msgstr "_Wiederholen:"
@@ -671,7 +667,7 @@ msgstr "durch %s"
 msgid "by me"
 msgstr "durch mich"
 
-#: lib/Application.php:153
+#: lib/Application.php:141
 #, php-format
 msgid "in %s"
 msgstr "in %s"

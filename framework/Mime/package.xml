@@ -17,10 +17,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>14:45:18</time>
+ <date>2011-07-27</date>
+ <time>15:09:03</time>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Explicitly build MIME IDs when doing a findBody() search.
+* [mms] Fix quoted-printable encoding for message parts contained in a multipart that do not share the same EOLs as the parent part (Bug #10324).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -699,10 +699,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Fix generation of MDN messages.
+* [jan] Update Latvian translation.
+* [mms] Explicitly build MIME IDs when doing a findBody() search.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix quoted-printable encoding for message parts contained in a multipart that do not share the same EOLs as the parent part (Bug #10324).
    </notes>
   </release>
  </changelog>

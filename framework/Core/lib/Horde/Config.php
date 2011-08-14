@@ -429,7 +429,7 @@ class Horde_Config
                     break;
 
                 case 'int':
-                    if ($val !== '') {
+                    if (strlen($val)) {
                         $value = (int)$val;
                     }
                     break;

@@ -210,7 +210,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals('行事曆', $myshare->get('desc'));
 
         $this->switchAuth('jane');
-        $janeshare = self::$share->getShareById(self::$shares['janeshare']->getId());
+        $janeshare = self::$share->getShareById(self::$shares['jane']['janeshare']->getId());
         $janeshare->getPermission();
         $this->assertInstanceOf('Horde_Share_Object', $janeshare);
         $this->assertEquals(self::$shares['jane']['janeshare'], $janeshare);
@@ -222,7 +222,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals('Jane\'s Share', $janeshare->get('name'));
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
 
-        $groupshare = self::$share->getShareById(self::$shares['groupshare']->getId());
+        $groupshare = self::$share->getShareById(self::$shares['jane']['groupshare']->getId());
         $groupshare->getPermission();
         $this->assertInstanceOf('Horde_Share_Object', $groupshare);
         $this->assertEquals(self::$shares['jane']['groupshare'], $groupshare);

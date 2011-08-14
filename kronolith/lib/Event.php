@@ -193,6 +193,15 @@ abstract class Kronolith_Event
     public $alarm = 0;
 
     /**
+     * Snooze minutes for this event's alarm.
+     *
+     * @see Horde_Alarm::snooze()
+     *
+     * @var integer
+     */
+    protected $_snooze;
+
+    /**
      * The particular alarm methods overridden for this event.
      *
      * @var array
@@ -286,8 +295,9 @@ abstract class Kronolith_Event
     public $exceptionoriginaldate;
 
     /**
-     * The event .
+     * The cached event duration, split up in time units.
      *
+     * @see getDuration()
      * @var stdClass
      */
     protected $_duration;
@@ -505,12 +515,16 @@ abstract class Kronolith_Event
             }
         }
 
+        $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
         if ($alarm = $this->toAlarm(new Horde_Date($_SERVER['REQUEST_TIME']))) {
             $alarm['start'] = new Horde_Date($alarm['start']);
             $alarm['end'] = new Horde_Date($alarm['end']);
-            $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
+            $hordeAlarm->set($alarm);
+            if ($this->_snooze) {
+                $hordeAlarm->snooze($this->uid, $GLOBALS['registry']->getAuth(), $this->_snooze);
+            }
         } else {
-            $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($this->uid);
+            $hordeAlarm->delete($this->uid);
         }
 
         return $result;
@@ -542,6 +556,7 @@ abstract class Kronolith_Event
         if ($this->isAllDay()) {
             $vEvent->setAttribute('DTSTART', $this->start, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('DTEND', $this->end, array('VALUE' => 'DATE'));
+            $vEvent->setAttribute('X-FUNAMBOL-ALLDAY', 1);
         } else {
             $vEvent->setAttribute('DTSTART', $this->start);
             $vEvent->setAttribute('DTEND', $this->end);
@@ -750,8 +765,19 @@ abstract class Kronolith_Event
             } else {
                 $vAlarm = Horde_Icalendar::newComponent('valarm', $vEvent);
                 $vAlarm->setAttribute('ACTION', 'DISPLAY');
+                $vAlarm->setAttribute('DESCRIPTION', $this->getTitle());
                 $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
                 $vEvent->addComponent($vAlarm);
+            }
+            $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+            if ($hordeAlarm->exists($this->uid, $GLOBALS['registry']->getAuth()) &&
+                $hordeAlarm->isSnoozed($this->uid, $GLOBALS['registry']->getAuth())) {
+                $vEvent->setAttribute('X-MOZ-LASTACK', new Horde_Date($_SERVER['REQUEST_TIME']));
+                $alarm = $hordeAlarm->get($this->uid, $GLOBALS['registry']->getAuth());
+                if (!empty($hordeAlarm['snooze'])) {
+                    $hordeAlarm['snooze']->setTimezone(date_default_timezone_get());
+                    $vEvent->setAttribute('X-MOZ-SNOOZE-TIME', $hordeAlarm['snooze']);
+                }
             }
         }
 
@@ -777,18 +803,28 @@ abstract class Kronolith_Event
             $search = new StdClass();
             $search->baseid = $this->uid;
             $results = $kronolith_driver->search($search);
+            $exdates = array();
             foreach ($results as $days) {
                 foreach ($days as $exceptionEvent) {
                     // Need to change the UID so it links to the original
-                    // recurring event.
-                    $exceptionEvent->uid = $this->uid;
+                    // recurring event, but only if not using $v1. If using $v1,
+                    // we add the date to EXDATE and do NOT change the UID.
+                    if (!$v1) {
+                        $exceptionEvent->uid = $this->uid;
+                    }
                     $vEventException = $exceptionEvent->toiCalendar($calendar);
+
                     // This should never happen, but protect against it anyway.
                     if (count($vEventException) > 1) {
                         throw new Kronolith_Exception(_("Unable to parse event."));
                     }
                     $vEventException = array_pop($vEventException);
-                    $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate->timestamp());
+                    // If $v1, need to add to EXDATE and
+                    if (!$v1) {
+                        $vEventException->setAttribute('RECURRENCE-ID', $exceptionEvent->exceptionoriginaldate->timestamp());
+                    } else {
+                        $exdates[] = $exceptionEvent->exceptionoriginaldate;
+                    }
                     $originaldate = $exceptionEvent->exceptionoriginaldate->format('Ymd');
                     $key = array_search($originaldate, $exceptions);
                     if ($key !== false) {
@@ -799,7 +835,6 @@ abstract class Kronolith_Event
             }
 
             /* The remaining exceptions represent deleted recurrences */
-            $exdates = array();
             foreach ($exceptions as $exception) {
                 if (!empty($exception)) {
                     list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
@@ -982,7 +1017,54 @@ abstract class Kronolith_Event
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
-        // @TODO: vCalendar 2.0 alarms
+        // vCalendar 2.0 alarms
+        foreach ($vEvent->getComponents() as $alarm) {
+            if (!($alarm instanceof Horde_Icalendar_Valarm)) {
+                continue;
+            }
+            try {
+                // @todo consider implementing different ACTION types.
+                // $action = $alarm->getAttribute('ACTION');
+                $trigger = $alarm->getAttribute('TRIGGER');
+                $triggerParams = $alarm->getAttribute('TRIGGER', true);
+            } catch (Horde_Icalendar_Exception $e) {
+                continue;
+            }
+            if (isset($triggerParams['VALUE']) &&
+                $triggerParams['VALUE'] == 'DATE-TIME') {
+                if (isset($triggerParams['RELATED']) &&
+                    $triggerParams['RELATED'] == 'END') {
+                    $this->alarm = intval(($this->end->timestamp() - $trigger) / 60);
+                } else {
+                    $this->alarm = intval(($this->start->timestamp() - $trigger) / 60);
+                }
+            } else {
+                $this->alarm = -intval($trigger / 60);
+                if (isset($triggerParams['RELATED']) &&
+                    $triggerParams['RELATED'] == 'END') {
+                    $this->alarm -= $this->durMin;
+                }
+            }
+        }
+
+        // Alarm snoozing/dismissal
+        if ($this->alarm) {
+            try {
+                // If X-MOZ-LASTACK is set, this event is either dismissed or
+                // snoozed.
+                $vEvent->getAttribute('X-MOZ-LASTACK');
+                $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+                try {
+                    // If X-MOZ-SNOOZE-TIME is set, this event is snoozed.
+                    $snooze = $vEvent->getAttribute('X-MOZ-SNOOZE-TIME');
+                    $this->_snooze = intval(($snooze - time()) / 60);
+                } catch (Horde_Icalendar_Exception $e) {
+                    // If X-MOZ-SNOOZE-TIME is not set, this event is dismissed.
+                    $this->_snooze = -1;
+                }
+            } catch (Horde_Icalendar_Exception $e) {
+            }
+        }
 
         // Attendance.
         // Importing attendance may result in confusion: editing an imported
@@ -1256,7 +1338,8 @@ abstract class Kronolith_Event
      */
     public function toASAppointment()
     {
-        $message = new Horde_ActiveSync_Message_Appointment(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
+        $message = new Horde_ActiveSync_Message_Appointment(
+            array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $message->setSubject($this->getTitle());
         $message->setBody($this->description);
         $message->setLocation($this->location);
@@ -1270,11 +1353,13 @@ abstract class Kronolith_Event
         $message->setTimezone($this->start);
 
         /* Organizer */
-        $name = Kronolith::getUserName($this->creator);
-        $message->setOrganizer(
-                array('name' => $name,
-                      'email' => Kronolith::getUserEmail($this->creator))
-        );
+        if (count($this->attendees)) {
+            $name = Kronolith::getUserName($this->creator);
+            $message->setOrganizer(
+                    array('name' => $name,
+                          'email' => Kronolith::getUserEmail($this->creator))
+            );
+        }
 
         /* Privacy */
         $message->setSensitivity($this->private ?
@@ -1373,7 +1458,12 @@ abstract class Kronolith_Event
                 /* Any dates left in $exceptions must be deleted exceptions */
                 foreach ($exceptions as $deleted) {
                     $e = new Horde_ActiveSync_Message_Exception();
-                    $e->setExceptionStartTime(new Horde_Date($deleted));
+                    // Kronolith stores the date only, but some AS clients need
+                    // the datetime.
+                    $st = new Horde_Date($deleted);
+                    $st->hour = $this->start->hour;
+                    $st->min = $this->start->min;
+                    $e->setExceptionStartTime($st);
                     $e->deleted = true;
                     $message->addException($e);
                 }
@@ -1386,7 +1476,7 @@ abstract class Kronolith_Event
             foreach ($this->attendees as $email => $properties) {
                 $attendee = new Horde_ActiveSync_Message_Attendee();
                 $attendee->email = $email;
-                // AS only as required or opitonal
+                // AS only as required or optional
                 //$attendee->type = ($properties['attendance'] !== Kronolith::PART_REQUIRED ? Kronolith::PART_OPTIONAL : Kronolith::PART_REQUIRED);
                 //$attendee->status = $properties['response'];
                 $message->addAttendee($attendee);
@@ -1406,7 +1496,9 @@ abstract class Kronolith_Event
 //        }
 
         /* Reminder */
-        $message->setReminder($this->alarm);
+        if ($this->alarm) {
+            $message->setReminder($this->alarm);
+        }
 
         /* Categories (tags) */
         foreach ($this->tags as $tag) {
@@ -1883,7 +1975,7 @@ abstract class Kronolith_Event
         $formatted = $horde_date->strftime($GLOBALS['prefs']->getValue('date_format'));
         return $formatted
             . Horde::url('edit.php')
-            ->add(array('calendar' => $this->calendar,
+            ->add(array('calendar' => $this->calendarType . '_' .$this->calendar,
                         'eventID' => $this->id,
                         'del_exception' => $date,
                         'url' => Horde_Util::getFormData('url')))

@@ -62,4 +62,5 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
     {
         $this->exceptionstarttime = $date;
     }
+
 }

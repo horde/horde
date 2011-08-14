@@ -1124,6 +1124,15 @@ var ViewPort = Class.create({
         this.onResize(true);
     },
 
+    // Return the vertical width of the row listing if splitbar is enabled
+    // and is in vertical mode.
+    getVertWidth: function()
+    {
+        return (this.pane_mode == 'vert')
+            ? this.opts.content.getWidth()
+            : 0;
+    },
+
     _initSplitBar: function()
     {
         var sp = this.split_pane;

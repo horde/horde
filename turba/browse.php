@@ -16,7 +16,7 @@ Horde_Registry::appInit('turba');
 
 /* If default source is not browsable, try one from the addressbooks pref */
 if (empty($cfgSources[$default_source]['browse'])) {
-    $addressbooks = Horde_Serialize::unserialize($prefs->getValue('addressbooks'), Horde_Serialize::JSON);
+    $addressbooks = Turba::getAddressBooks();
     foreach ($addressbooks as $source) {
         if (!empty($cfgSources[$source]['browse'])) {
             $default_source = $source;

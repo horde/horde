@@ -15,13 +15,39 @@
  */
 class Horde_Menu
 {
-    /* TODO */
+    /**
+     * Don't show any menu items.
+     */
     const MASK_NONE = 0;
+
+    /**
+     * Show help menu item.
+     */
     const MASK_HELP = 1;
+
+    /**
+     * Show login/logout menu item.
+     */
     const MASK_LOGIN = 2;
+
+    /**
+     * Show preferences menu item.
+     */
     const MASK_PREFS = 4;
+
+    /**
+     * Show problem reporting menu item.
+     */
     const MASK_PROBLEM = 8;
+
+    /**
+     * Only show application specific menu items.
+     */
     const MASK_BASE = 16;
+
+    /**
+     * Show all menu items.
+     */
     const MASK_ALL = 31;
 
     /* TODO */

@@ -143,20 +143,8 @@ class Nag_Application extends Horde_Registry_Application
                 break;
 
             case 'default_tasklist':
-                $all_tasklists = Nag::listTasklists();
-                $tasklists = array();
-
-                foreach ($all_tasklists as $id => $tasklist) {
-                    if (!empty($conf['share']['hidden']) &&
-                        ($tasklist->get('owner') != $registry->getAuth()) &&
-                        !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-                        continue;
-                    }
-                    $tasklists[$id] = $tasklist;
-                }
-
                 $vals = array();
-                foreach ($tasklists as $id => $tasklist) {
+                foreach (Nag::listTasklists() as $id => $tasklist) {
                     $vals[htmlspecialchars($id)] = htmlspecialchars($tasklist->get('name'));
                 }
                 $ui->override['default_tasklist'] = $vals;
@@ -401,12 +389,6 @@ class Nag_Application extends Horde_Registry_Application
             );
 
             foreach (Nag::listTasklists() as $name => $tasklist) {
-                if ($tasklist->get('owner') != $registry->getAuth() &&
-                    !empty($GLOBALS['conf']['share']['hidden']) &&
-                    !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-                    continue;
-                }
-
                 $tree->addNode(
                     $parent . $name . '__new',
                     $parent . '__new',

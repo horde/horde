@@ -160,7 +160,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Horde_iCalendar</name>
+    <name>Horde_iCalendar</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0beta1</min>
     <max>2.0.0</max>

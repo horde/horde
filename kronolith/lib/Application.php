@@ -127,7 +127,8 @@ class Kronolith_Application extends Horde_Registry_Application
         $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
         /* Import/Export. */
-        if ($conf['menu']['import_export']) {
+        if ($conf['menu']['import_export'] &&
+            !Kronolith::showAjaxView()) {
             $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
         }
     }
@@ -186,7 +187,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 break;
             case 'sync_calendars':
                 $out = array();
-                foreach (Kronolith::listInternalCalendars(true) as $key => $cal) {
+                foreach (Kronolith::listInternalCalendars(true, Horde_Perms::EDIT) as $key => $cal) {
                     $out[$key] = $cal->get('name');
                     $sync = @unserialize($prefs->getValue('sync_calendars'));
                     if (empty($sync)) {
@@ -567,6 +568,7 @@ class Kronolith_Application extends Horde_Registry_Application
         /* Inline script. */
         Horde::addInlineScript(
           '$(window.document).bind("mobileinit", function() {
+              $.mobile.page.prototype.options.addBackBtn = true;
               $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
               $.mobile.loadingMessage = "' . _("loading") . '";
 

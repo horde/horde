@@ -76,6 +76,7 @@ $code['conf'] = array_filter(array(
     'initial_page' => strval(IMP_Auth::getInitialPage()->mbox),
     'mbox_expand' => intval($GLOBALS['prefs']->getValue('nav_expanded') == 2),
     'name' => $GLOBALS['registry']->get('name', 'imp'),
+    'poll_alter' => intval(!$GLOBALS['prefs']->isLocked('nav_poll') && !$GLOBALS['prefs']->getValue('nav_poll_all')),
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
     'popup_height' => 610,
     'popup_width' => 820,
@@ -83,7 +84,6 @@ $code['conf'] = array_filter(array(
     'qsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH,
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
-    'resume_all' => intval(!empty($GLOBALS['conf']['user']['allow_resume_all'])),
     'searchprefix' => IMP_Search::MBOX_PREFIX,
     'sidebar_width' => max(intval($GLOBALS['prefs']->getValue('sidebar_width')), 150) . 'px',
     'snooze' => array('0' => _("select..."),
@@ -123,7 +123,8 @@ $code['conf'] = array_filter(array(
         )
     ),
     'spam_spammbox' => intval(!empty($GLOBALS['conf']['spam']['spamfolder'])),
-    'splitbar_pos' => intval($GLOBALS['prefs']->getValue('dimp_splitbar')),
+    'splitbar_horiz' => intval($GLOBALS['prefs']->getValue('dimp_splitbar')),
+    'splitbar_vert' => intval($GLOBALS['prefs']->getValue('dimp_splitbar_vert')),
 
     'toggle_pref' => intval($GLOBALS['prefs']->getValue('dimp_toggle_headers')),
     'viewport_wait' => intval($GLOBALS['conf']['dimp']['viewport']['viewport_wait']),

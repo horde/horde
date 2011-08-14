@@ -33,12 +33,11 @@ class Passwd_Driver_Horde extends Passwd_Driver {
         }
 
         /* Check the provided old password. */
-
         if ($auth->authenticate($username, array('password' => $old_password, false))) {
-            /* actually modify the password */
-            return $auth->updateUser($username, $username, array('password' => $new_password) );
+            /* Actually modify the password. */
+            return $auth->updateUser($username, $username, array('password' => $new_password));
         } else {
-            throw new Passwd_Exception(_("Incorrect old password."));        
+            throw new Passwd_Exception(_("Incorrect old password."));
         }
 
     }

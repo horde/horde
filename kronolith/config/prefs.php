@@ -24,14 +24,14 @@ $prefGroups['view'] = array(
 $prefGroups['share'] = array(
     'column' => _("Calendars"),
     'label' => _("Default Calendar"),
-    'desc' => _("Choose your default calendar and calendars to use for syncing with external devices."),
+    'desc' => _("Choose your default calendar."),
     'members' => array('default_share'),
 );
 
 $prefGroups['sync'] = array(
     'column' => _("Calendars"),
-    'label' => _("Sync Preferences"),
-    'desc' => _("Choose the calendars to use for syncing with external devices."),
+    'label' => _("Synchronization Preferences"),
+    'desc' => _("Choose the calendars to use for synchronization with external devices."),
     'members' => array('sync_calendars'),
 );
 

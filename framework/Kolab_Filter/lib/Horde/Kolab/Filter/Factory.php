@@ -72,6 +72,10 @@ class Horde_Kolab_Filter_Factory
             } catch (Horde_Log_Exception $e) {
                 return new Horde_Log_Logger(new Horde_Log_Handler_Null());
             }
+            try {
+                $handler->setOption('ident', $conf['log']['ident']);
+            } catch (Horde_Log_Exception $e) {
+            }
             break;
         case 'syslog':
             try {

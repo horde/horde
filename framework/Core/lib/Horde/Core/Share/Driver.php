@@ -43,9 +43,8 @@ class Horde_Core_Share_Driver
         $this->_share->addCallback('remove', array($this, 'shareRemoveCallback'));
         $this->_share->addCallback('list', array($this, 'shareListCallback'));
 
-        try {
+        if (Horde::hookExists('share_init')) {
             Horde::callHook('share_init', array($this, $this->_share->getApp()));
-        } catch (Horde_Exception_HookNotSet $e) {
         }
     }
 
@@ -196,10 +195,9 @@ class Horde_Core_Share_Driver
      */
     public function shareListCallback($userid, $shares, $params = array())
     {
-        try {
+        if (Horde::hookExists('share_list')) {
             $params = new Horde_Support_Array($params);
             return Horde::callHook('share_list', array($userid, $params['perm'], $params['attributes'], $shares));
-        } catch (Horde_Exception_HookNotSet $e) {
         }
 
         return $shares;

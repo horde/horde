@@ -1178,14 +1178,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                     reset($this->_parts);
                     while (list(,$part) = each($this->_parts)) {
                         $parts[] = $eol . '--' . $boundary . $eol;
-                        $oldEOL = $part->getEOL();
-                        $part->setEOL($eol);
                         $tmp = $part->toString($options);
+                        if ($part->getEOL() != $eol) {
+                            $tmp = $this->replaceEOL($tmp, $eol, !empty($options['stream']));
+                        }
                         if (!empty($options['stream'])) {
                             $parts_close[] = $tmp;
                         }
                         $parts[] = $tmp;
-                        $part->setEOL($oldEOL);
                     }
                     $parts[] = $eol . '--' . $boundary . '--' . $eol;
                 }

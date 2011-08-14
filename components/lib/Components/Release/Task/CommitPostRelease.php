@@ -33,21 +33,21 @@ extends Components_Release_Task_Base
     /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
         if (empty($options['next_version'])) {
             $options['next_version'] = Components_Helper_Version::validatePear(
-                Components_Helper_Version::nextVersion($this->getComponent()->getVersion())
+                $this->getComponent()->getVersion()
             );
         }
         if (isset($options['commit'])) {
             $options['commit']->commit(
                 'Development mode for ' . $this->getComponent()->getName()
-                . '-' . $options['next_version']
+                . '-' . Components_Helper_Version::validatePear($options['next_version'])
             );
         }
     }

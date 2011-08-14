@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Browser \n"
+"Project-Id-Version: Horde_Browser\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-03-24 16:00+0100\n"
-"PO-Revision-Date: 2011-03-24 16:00+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-07-19 13:38+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -17,24 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #: lib/Horde/Browser.php:1026
 msgid "File uploads not supported."
-msgstr ""
+msgstr "Failu augšupielāde netiek atbalstīta."
 
 #: lib/Horde/Browser.php:1043
 msgid "No file uploaded"
-msgstr ""
+msgstr "Nav augšupielādētu failu"
 
 #: lib/Horde/Browser.php:1053
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
+"Augšupielādētais fails izskatās tukšs. Varbūt tas neeksistē uz Jūsu datora."
 
 #: lib/Horde/Browser.php:1050
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr ""
+msgstr "Kļūme augšupielādējot failu: %s nav augšupielādēts."
 
 #: lib/Horde/Browser.php:1058
 #, php-format
@@ -42,9 +46,11 @@ msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
+"Problēma augšupielādējot failu:  %s ir lielāks par pieļaujamo izmēru (%d "
+"baiti)."
 
 #: lib/Horde/Browser.php:1060
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
-msgstr ""
+msgstr "Problēma augšupielādējot failu: %s augšupielādēts tikai daļēji."

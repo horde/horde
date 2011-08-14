@@ -16,7 +16,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
 $scope = Horde_Util::getGet('scope', 'agora');
-$forums = Agora_Messages::singleton($scope);
+$forums = $injector->getInstance('Agora_Factory_Driver')->create($scope);
 
 /* Set up actions */
 if ($registry->isAdmin()) {
@@ -74,5 +74,5 @@ $view->pager_link = $pager_ob->render();
 $title = _("All Forums");
 $linkTags = array('<link rel="alternate" title="' . _("Forums") . '" href="' . Horde::url('rss/index.php', true, -1)->add('scope', $scope) . '" type="application/rss+xml" />');
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('forums.html.php');
+echo $view->render('forums');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

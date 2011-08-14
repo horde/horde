@@ -1,5 +1,5 @@
 # ULAFORM Traditional Chinese Translation
-# Copyright 2004 David Chang.±i¨}¤å,¥xÆW
+# Copyright 2004 David Chang.å¼µè‰¯æ–‡,å°ç£
 # This file is distributed under the same license as the PACKAGE package.
 # David Chang <david@tmv.gov.tw>, 2004.
 #
@@ -8,417 +8,417 @@ msgstr ""
 "Project-Id-Version: ulaform 0.1-CVS\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2007-01-25 15:10+0800\n"
-"PO-Revision-Date: 2004-02-05 13:00+0800\n"
+"PO-Revision-Date: 2011-08-02 15:58+0200\n"
 "Last-Translator: David Chang <david@tmv.gov.tw>\n"
 "Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=BIG5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: edit.php:83
 msgid "-- default configured --"
-msgstr "-- ¹w³] --"
+msgstr "-- é è¨­ --"
 
 #: edit.php:63
 msgid "-- select --"
-msgstr "-- ¿ï¾Ü --"
+msgstr "-- é¸æ“‡ --"
 
 #: delete.php:33 edit.php:63 forms.php:33
 msgid "Action"
-msgstr "§@¥Î¤è¦¡"
+msgstr "ä½œç”¨æ–¹å¼"
 
 #: forms.php:32
 msgid "Available Forms"
-msgstr "¥i¥Îªºªí³æ"
+msgstr "å¯ç”¨çš„è¡¨å–®"
 
 #: lib/Action/mailto.php:123
 msgid "Bcc"
-msgstr "¯µ¥ó°Æ¥»"
+msgstr "ç§˜ä»¶å‰¯æœ¬"
 
 #: lib/Action/mailto.php:119
 msgid "Cc"
-msgstr "°Æ¥»"
+msgstr "å‰¯æœ¬"
 
 #: edit.php:46
 msgid "Changed action driver."
-msgstr "§@¥ÎÅX°Êµ{¦¡¤wÅÜ§ó."
+msgstr "ä½œç”¨é©…å‹•ç¨‹å¼å·²è®Šæ›´."
 
 #: genhtml.php:38
 msgid "Changed embed type."
-msgstr "´O¤J«¬ºA¤wÅÜ§ó."
+msgstr "åµŒå…¥å‹æ…‹å·²è®Šæ›´."
 
 #: config/fields.php.dist:49
 msgid "Characters"
-msgstr "¦r¤¸"
+msgstr "å­—å…ƒ"
 
 #: config/fields.php.dist:40 config/fields.php.dist:47
 msgid "Columns"
-msgstr "Äæ¦ì"
+msgstr "æ¬„ä½"
 
 #: display.php:31
 msgid "Could not fetch form ID \"%s\". %s"
-msgstr "µLªkÅª¨úªí³æÃÑ§O¸¹½X(form ID) \"%s\". %s"
+msgstr "ç„¡æ³•è®€å–è¡¨å–®è­˜åˆ¥è™Ÿç¢¼(form ID) \"%s\". %s"
 
 #: edit.php:57
 msgid "Create"
-msgstr "«Ø¥ß"
+msgstr "å»ºç«‹"
 
 #: edit.php:83
 msgid "Default language"
-msgstr "¹w³]»y¨¥"
+msgstr "é è¨­èªè¨€"
 
 #: delete.php:34 delete.php:37 deletefield.php:44 deletefield.php:50
 msgid "Delete"
-msgstr "§R°£"
+msgstr "åˆªé™¤"
 
 #: deletefield.php:43 fields.php:132
 msgid "Delete Field"
-msgstr "§R°£Äæ¦ì"
+msgstr "åˆªé™¤æ¬„ä½"
 
 #: forms.php:27
 msgid "Delete Form"
-msgstr "§R°£ªí³æ"
+msgstr "åˆªé™¤è¡¨å–®"
 
 #: deletefield.php:48
 msgid "Delete this field?"
-msgstr "§R°£³o­ÓÄæ¦ì?"
+msgstr "åˆªé™¤é€™å€‹æ¬„ä½?"
 
 #: delete.php:31
 msgid "Delete this form?"
-msgstr "§R°£³o­Óªí³æ?"
+msgstr "åˆªé™¤é€™å€‹è¡¨å–®?"
 
 #: fields.php:58 fields.php:130
 msgid "Description"
-msgstr "´y­z"
+msgstr "æè¿°"
 
 #: delete.php:34 deletefield.php:44 deletefield.php:68
 msgid "Do not delete"
-msgstr "¤£­n§R°£"
+msgstr "ä¸è¦åˆªé™¤"
 
 #: fields.php:133
 msgid "Edit Field"
-msgstr "½s¿èÄæ¦ì"
+msgstr "ç·¨è¼¯æ¬„ä½"
 
 #: forms.php:28
 msgid "Edit Form"
-msgstr "½s¿èªí³æ"
+msgstr "ç·¨è¼¯è¡¨å–®"
 
 #: edit.php:116
 msgid "Edit Forms"
-msgstr "½s¿èªí³æ"
+msgstr "ç·¨è¼¯è¡¨å–®"
 
 #: config/fields.php.dist:121 config/fields.php.dist:129
 msgid "End year"
-msgstr "µ²§ô¦~¥÷"
+msgstr "çµæŸå¹´ä»½"
 
 #: config/fields.php.dist:64 config/fields.php.dist:84
 #: config/fields.php.dist:92 config/fields.php.dist:100
 #: config/fields.php.dist:108 config/fields.php.dist:147
 msgid "Enter a comma separated list of values."
-msgstr "¿é¤J¤@¦ê¥H³rÂI¬°¤À¹jªº¸ê®Æ."
+msgstr "è¼¸å…¥ä¸€ä¸²ä»¥é€—é»ç‚ºåˆ†éš”çš„è³‡æ–™."
 
 #: deletefield.php:58
 #, php-format
 msgid "Error deleting field. %s."
-msgstr "§R°£Äæ¦ì®Éµo¥Í¿ù»~. %s."
+msgstr "åˆªé™¤æ¬„ä½æ™‚ç™¼ç”ŸéŒ¯èª¤. %s."
 
 #: delete.php:45
 #, php-format
 msgid "Error deleting form. %s."
-msgstr "§R°£ªí³æ®Éµo¥Í¿ù»~. %s."
+msgstr "åˆªé™¤è¡¨å–®æ™‚ç™¼ç”ŸéŒ¯èª¤. %s."
 
 #: fields.php:89
 #, php-format
 msgid "Error saving field. %s."
-msgstr "Àx¦sÄæ¦ì®Éµo¥Í¿ù»~. %s."
+msgstr "å„²å­˜æ¬„ä½æ™‚ç™¼ç”ŸéŒ¯èª¤. %s."
 
 #: sortfields.php:47
 #, php-format
 msgid "Error saving fields. %s."
-msgstr "§R°£Äæ¦ì®Éµo¥Í¿ù»~. %s."
+msgstr "åˆªé™¤æ¬„ä½æ™‚ç™¼ç”ŸéŒ¯èª¤. %s."
 
 #: edit.php:101
 #, php-format
 msgid "Error saving form. %s."
-msgstr "§R°£ªí³æ®Éµo¥Í¿ù»~. %s."
+msgstr "åˆªé™¤è¡¨å–®æ™‚ç™¼ç”ŸéŒ¯èª¤. %s."
 
 #: display.php:65 lib/Block/form.php:88
 #, php-format
 msgid "Error submitting form. %s."
-msgstr "°e¥Xªí³æ¸ê®Æ®Éµo¥Í¿ù»~. %s."
+msgstr "é€å‡ºè¡¨å–®è³‡æ–™æ™‚ç™¼ç”ŸéŒ¯èª¤. %s."
 
 #: deletefield.php:60
 msgid "Field \"%s\" deleted."
-msgstr "Äæ¦ì \"%s\" ¤w§R°£."
+msgstr "æ¬„ä½ \"%s\" å·²åˆªé™¤."
 
 #: fields.php:41
 msgid "Field Details"
-msgstr "Äæ¦ì²Ó¸`"
+msgstr "æ¬„ä½ç´°ç¯€"
 
 #: deletefield.php:69
 msgid "Field not deleted."
-msgstr "Äæ¦ì¥¼§R°£."
+msgstr "æ¬„ä½æœªåˆªé™¤."
 
 #: fields.php:91
 msgid "Field saved."
-msgstr "Äæ¦ì¤wÀx¦s."
+msgstr "æ¬„ä½å·²å„²å­˜."
 
 #: sortfields.php:49
 msgid "Field sort order saved."
-msgstr "Äæ¦ì±Æ¦C¤è¦V¤wÀx¦s"
+msgstr "æ¬„ä½æ’åˆ—æ–¹å‘å·²å„²å­˜"
 
 #: templates/fields/fields.html:17
 msgid "Fields"
-msgstr "Äæ¦ì"
+msgstr "æ¬„ä½"
 
 #: lib/Block/form.php:31
 msgid "Form"
-msgstr "ªí³æ"
+msgstr "è¡¨å–®"
 
 #: delete.php:30 edit.php:56
 msgid "Form Details"
-msgstr "ªí³æ²Ó¸`"
+msgstr "è¡¨å–®ç´°ç¯€"
 
 #: fields.php:141
 msgid "Form Fields"
-msgstr "ªí³æÄæ¦ì"
+msgstr "è¡¨å–®æ¬„ä½"
 
 #: forms.php:33
 msgid "Form Name"
-msgstr "ªí³æ¦WºÙ"
+msgstr "è¡¨å–®åç¨±"
 
 #: delete.php:47
 msgid "Form deleted."
-msgstr "ªí³æ¤w§R°£."
+msgstr "è¡¨å–®å·²åˆªé™¤."
 
 #: edit.php:103
 msgid "Form details saved."
-msgstr "ªí³æ²Ó¸`¤wÀx¦s."
+msgstr "è¡¨å–®ç´°ç¯€å·²å„²å­˜."
 
 #: delete.php:54
 msgid "Form has not been deleted."
-msgstr "ªí³æ¨S¦³³Q§R°£."
+msgstr "è¡¨å–®æ²’æœ‰è¢«åˆªé™¤."
 
 #: display.php:67 lib/Block/form.php:90
 msgid "Form submitted successfully."
-msgstr "ªí³æ¸ê®Æ¤w°e¥X§¹¦¨."
+msgstr "è¡¨å–®è³‡æ–™å·²é€å‡ºå®Œæˆ."
 
 #: config/fields.php.dist:135
 msgid "Format used to display"
-msgstr "Åã¥Ü®æ¦¡"
+msgstr "é¡¯ç¤ºæ ¼å¼"
 
 #: config/fields.php.dist:133
 msgid "Format used to submit"
-msgstr "¶Ç°e®æ¦¡"
+msgstr "å‚³é€æ ¼å¼"
 
 #: forms.php:39
 msgid "Forms List"
-msgstr "©Ò¦³ªí³æ"
+msgstr "æ‰€æœ‰è¡¨å–®"
 
 #: lib/Action/mailto.php:115
 msgid "From"
-msgstr "±H¥ó¤H"
+msgstr "å¯„ä»¶äºº"
 
 #: fields.php:134 forms.php:30 genhtml.php:49
 msgid "Generate HTML"
-msgstr "²£¥Í HTML"
+msgstr "ç”¢ç”Ÿ HTML"
 
 #: genhtml.php:43
 msgid "HTML Generation for \"%s\""
-msgstr "²£¥Í \"%s\" ªº HTML »yªk"
+msgstr "ç”¢ç”Ÿ \"%s\" çš„ HTML èªæ³•"
 
 #: genhtml.php:63
 msgid "Height"
-msgstr "°ª«×"
+msgstr "é«˜åº¦"
 
 #: fields.php:48
 msgid "Internal name"
-msgstr "¤º³¡¦WºÙ"
+msgstr "å…§éƒ¨åç¨±"
 
 #: fields.php:47 fields.php:130
 msgid "Label"
-msgstr "¼ĞÅÒ"
+msgstr "æ¨™ç±¤"
 
 #: lib/Action/mailto.php:99
 msgid "Mailto"
-msgstr "Mailto (¹q¤l¶l¥ó»¼°e)"
+msgstr "Mailto (é›»å­éƒµä»¶éé€)"
 
 #: lib/Driver/sql.php:80 lib/Driver/sql.php:160
 msgid "Missing form"
-msgstr "¿ò¥¢ªí³æ"
+msgstr "éºå¤±è¡¨å–®"
 
 #: edit.php:57
 msgid "Modify"
-msgstr "­×§ï"
+msgstr "ä¿®æ”¹"
 
 #: delete.php:32 edit.php:60 fields.php:130 genhtml.php:62
 msgid "Name"
-msgstr "¦WºÙ"
+msgstr "åç¨±"
 
 #: lib/Driver.php:120 lib/Driver.php:121
 msgid "No"
-msgstr "§_"
+msgstr "å¦"
 
 #: fields.php:109
 msgid "No available fields."
-msgstr "µL¥i¥ÎªºÄæ¦ì."
+msgstr "ç„¡å¯ç”¨çš„æ¬„ä½."
 
 #: forms.php:24
 msgid "No available forms."
-msgstr "µL¥i¥Îªºªí³æ."
+msgstr "ç„¡å¯ç”¨çš„è¡¨å–®."
 
 #: deletefield.php:33
 msgid "No field specified."
-msgstr "¥¼«ü©wÄæ¦ì."
+msgstr "æœªæŒ‡å®šæ¬„ä½."
 
 #: lib/Action.php:84
 msgid "No such action \"%s\" found"
-msgstr "§ä¤£¨ì§@¥Î¤è¦¡ \"%s\""
+msgstr "æ‰¾ä¸åˆ°ä½œç”¨æ–¹å¼ \"%s\""
 
 #: lib/Driver.php:174
 #, php-format
 msgid "No such backend \"%s\" found"
-msgstr "µL¦¹¦øªAºİ \"%s\""
+msgstr "ç„¡æ­¤ä¼ºæœç«¯ \"%s\""
 
 #: display.php:33
 msgid "No such form ID \"%s\"."
-msgstr "µL¦¹ªí³æÃÑ§O¸¹½X(form ID) \"%s\"."
+msgstr "ç„¡æ­¤è¡¨å–®è­˜åˆ¥è™Ÿç¢¼(form ID) \"%s\"."
 
 #: edit.php:87
 msgid "On submit"
-msgstr "ÂI¿ï°e¥Xªº¦P®É°õ¦æ (On submit)"
+msgstr "é»é¸é€å‡ºçš„åŒæ™‚åŸ·è¡Œ (On submit)"
 
 #: genhtml.php:53
 msgid "PHP using PEAR classes"
-msgstr "PHP ¨Ï¥Î PEAR Ãş§O"
+msgstr "PHP ä½¿ç”¨ PEAR é¡åˆ¥"
 
 #: fields.php:135
 msgid "Preview"
-msgstr "¹wÄı"
+msgstr "é è¦½"
 
 #: forms.php:29
 msgid "Preview Form"
-msgstr "¹wÄıªí³æ"
+msgstr "é è¦½è¡¨å–®"
 
 #: fields.php:57 fields.php:130
 msgid "Read only"
-msgstr "°ßÅª"
+msgstr "å”¯è®€"
 
 #: lib/Driver.php:76 lib/Driver.php:101
 msgid "Requested form does not exist."
-msgstr "©Ò»İ­nªºªí³æ¤£¦s¦b."
+msgstr "æ‰€éœ€è¦çš„è¡¨å–®ä¸å­˜åœ¨."
 
 #: fields.php:56 fields.php:130
 msgid "Required"
-msgstr "¥²¶·­n"
+msgstr "å¿…é ˆè¦"
 
 #: config/fields.php.dist:38 config/fields.php.dist:45
 msgid "Rows"
-msgstr "¦C"
+msgstr "åˆ—"
 
 #: lib/Action/sql.php:84
 msgid "SQL"
-msgstr "SQL (µ²ºc©Ê¬d¸ß»y¨¥)"
+msgstr "SQL (çµæ§‹æ€§æŸ¥è©¢èªè¨€)"
 
 #: sortfields.php:35
 msgid "Save"
-msgstr "Àx¦s"
+msgstr "å„²å­˜"
 
 #: fields.php:42
 msgid "Save Field"
-msgstr "Àx¦sÄæ¦ì"
+msgstr "å„²å­˜æ¬„ä½"
 
 #: genhtml.php:54
 msgid "Select how you wish to embed the form"
-msgstr "¿ï¾Ü¦p¦ó®r¤Jªí³æ"
+msgstr "é¸æ“‡å¦‚ä½•å´å…¥è¡¨å–®"
 
 #: sortfields.php:36
 msgid "Select the sort order of the fields"
-msgstr "¿ï¾ÜÄæ¦ì±Æ¦C¤è¦V"
+msgstr "é¸æ“‡æ¬„ä½æ’åˆ—æ–¹å‘"
 
 #: fields.php:48
 msgid ""
 "Set this name if you have a particular reason to override the automatic "
 "internal naming of fields."
-msgstr "¦pªG§A·Q­n¦Û­q¤º³¡¦WºÙ,½Ğ¦b¦¹³]©w. §_«h¦Û°Ê©R©w."
+msgstr "å¦‚æœä½ æƒ³è¦è‡ªè¨‚å…§éƒ¨åç¨±,è«‹åœ¨æ­¤è¨­å®š. å¦å‰‡è‡ªå‹•å‘½å®š."
 
 #: lib/Block/form.php:3
 msgid "Show Form"
-msgstr "Åã¥Üªí³æ"
+msgstr "é¡¯ç¤ºè¡¨å–®"
 
 #: config/fields.php.dist:131
 msgid "Show the date picker"
-msgstr "Åã¥Ü¤é´ÁÂI¿ï¾¹"
+msgstr "é¡¯ç¤ºæ—¥æœŸé»é¸å™¨"
 
 #: sortfields.php:32
 msgid "Sort Fields"
-msgstr "±Æ¦CÄæ¦ì"
+msgstr "æ’åˆ—æ¬„ä½"
 
 #: fields.php:136
 msgid "Sort fields"
-msgstr "±Æ¦CÄæ¦ì"
+msgstr "æ’åˆ—æ¬„ä½"
 
 #: config/fields.php.dist:119 config/fields.php.dist:127
 msgid "Start year"
-msgstr "±Ò©l¦~¥÷"
+msgstr "å•Ÿå§‹å¹´ä»½"
 
 #: lib/Action/mailto.php:114
 msgid "Subject"
-msgstr "¥D¦®"
+msgstr "ä¸»æ—¨"
 
 #: lib/Action/sql.php:99
 msgid "Table"
-msgstr "ªí³æ"
+msgstr "è¡¨å–®"
 
 #: forms.php:21
 #, php-format
 msgid "There was an error listing forms: %s."
-msgstr "¦C¥Xªí³æ: %s ®Éµo¥Í¤@­Ó¿ù»~."
+msgstr "åˆ—å‡ºè¡¨å–®: %s æ™‚ç™¼ç”Ÿä¸€å€‹éŒ¯èª¤."
 
 #: lib/Action/mailto.php:100
 msgid ""
 "This driver allows the sending of form results via email to one or more "
 "recipients."
-msgstr "¦¹ÅX°Êµ{¦¡¤¹³\¥H¹q¤l¶l¥ó,±Nªí³æµ²ªG±Hµoµ¹¤@¦ì¥H¤Wªº¦¬¥ó¹ï¶H."
+msgstr "æ­¤é©…å‹•ç¨‹å¼å…è¨±ä»¥é›»å­éƒµä»¶,å°‡è¡¨å–®çµæœå¯„ç™¼çµ¦ä¸€ä½ä»¥ä¸Šçš„æ”¶ä»¶å°è±¡."
 
 #: lib/Action/sql.php:85
 msgid "This driver allows to insertion of form results into a database."
-msgstr "¦¹ÅX°Êµ{¦¡¤¹³\±Nªí³æµ²ªG¼g¤J¸ê®Æ®w."
+msgstr "æ­¤é©…å‹•ç¨‹å¼å…è¨±å°‡è¡¨å–®çµæœå¯«å…¥è³‡æ–™åº«."
 
 #: fields.php:66
 msgid "This field type has extra parameters."
-msgstr "¦¹Äæ¦ìÃş«¬»İ­nÃB¥~ªº°Ñ¼Æ."
+msgstr "æ­¤æ¬„ä½é¡å‹éœ€è¦é¡å¤–çš„åƒæ•¸."
 
 #: lib/Action/mailto.php:116
 msgid "To"
-msgstr "¦¬¥ó¤H"
+msgstr "æ”¶ä»¶äºº"
 
 #: fields.php:52 fields.php:130
 msgid "Type"
-msgstr "«¬ºA"
+msgstr "å‹æ…‹"
 
 #: config/fields.php.dist:61 config/fields.php.dist:81
 #: config/fields.php.dist:89 config/fields.php.dist:97
 #: config/fields.php.dist:105 config/fields.php.dist:144
 msgid "Values"
-msgstr "­È"
+msgstr "å€¼"
 
 #: genhtml.php:64
 msgid "Width"
-msgstr "¼e«×"
+msgstr "å¯¬åº¦"
 
 #: lib/Driver.php:120 lib/Driver.php:121
 msgid "Yes"
-msgstr "¬O"
+msgstr "æ˜¯"
 
 #: lib/Ulaform.php:139
 msgid "_List Forms"
-msgstr "¦C¥Xªí³æ_L"
+msgstr "åˆ—å‡ºè¡¨å–®_L"
 
 #: lib/Ulaform.php:140
 msgid "_New Form"
-msgstr "·s¼Wªí³æ_N"
+msgstr "æ–°å¢è¡¨å–®_N"
 
 #: genhtml.php:53
 msgid "iframe"
-msgstr "®Ø¬[(iframe)"
+msgstr "æ¡†æ¶(iframe)"

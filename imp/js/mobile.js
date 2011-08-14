@@ -71,7 +71,6 @@ var ImpMobile = {
     {
         $('#imp-mailbox-header').text(label);
         $('#imp-mailbox-list').empty();
-        $('#imp-mailbox-list').listview();
         $.mobile.changePage('#mailbox', 'slide', false, true);
         HordeMobile.doAction(
             'viewPort',
@@ -256,8 +255,7 @@ var ImpMobile = {
     {
         // Set up HordeMobile.
         HordeMobile.urls.ajax = IMP.conf.URI_AJAX;
-
-        $(document).bind('vmousedown', ImpMobile.clickHandler);
+        $(document).bind('vclick', ImpMobile.clickHandler);
         $(document).bind('swipeleft', ImpMobile.navigateMessage);
         $(document).bind('swiperight', ImpMobile.navigateMessage);
     }

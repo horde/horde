@@ -1,8 +1,10 @@
 <div class="modal-form">
 
-<tag:notify />
-
 <form method="post" action="<tag:logintasks_url />" id="logintasks_confirm" name="logintasks_confirm">
+
+<div class="form">
+<div class="form-header"><tag:header /></div>
+
 <input type="hidden" name="logintasks_page" value="1" />
 <tag:maint_postdata />
 
@@ -27,6 +29,8 @@
 <if:notice>
    <input name="ok" type="submit" class="button submit-button" value="<gettext>Click to Continue</gettext>" />
 </if:notice>
+</div>
+
 </div>
 
 </form>

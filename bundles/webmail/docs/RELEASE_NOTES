@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 4.0.1.
+Webmail Edition version 4.0.2.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,40 +29,38 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 4.0
+The major changes compared to the Horde Groupware Webmail Edition version 4.0.1
 are:
 
 General changes:
-    * Added support for split read/write databases in PostgreSQL.
-    * Bug fixes in synchronization code.
+    * Improved synchronization support.
+    * Improved performance.
     * Small bugfixes and improvements.
-    * Updated Brazilian Portuguese, Latvian, Lithuanian, and Ukrainian
-      translations.
+    * Updated Latvian translation.
 
 Mail changes:
-    * Small usability improvements.
+    * Save messages from dynamic view preview.
+    * User interface improvements.
 
 Filters changes:
-    * Improved maildrop vacation driver.
+    * Fixed creating of new IMAP folders.
 
 Calendar changes:
-    * Added support for synchronizing multiple calendars.
-
-Tasks changes:
-    * Added Ukrainian translation.
-    * Updated French, Slovak, and Spanish translations.
+    * Improved attendee management.
+    * Relaxed WebDAV server requirements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added support for split read/write databases in PostgreSQL.
-Bug fixes in synchronization code.
-Small usability improvements.
-Improved maildrop vacation driver.
-Added support for synchronizing multiple calendars.
+Improved synchronization support.
+Improved performance.
+Save messages from dynamic view preview.
+User interface improvements in dynamic view.
+Fixed creating of new IMAP folders from mail filters.
+Improved attendee management.
+Relaxed WebDAV server requirements.
 Small bugfixes and improvements.
-Added Ukrainian translation.
-Updated Brazilian Portuguese, French, Latvian, Lithuanian, Slovak, Spanish, and Ukrainian translations.
+Updated Latvian translation.
 FM;
 
 $this->notes['name'] = 'Horde Groupware Webmail Edition';

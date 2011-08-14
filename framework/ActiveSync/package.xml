@@ -5,15 +5,15 @@
  <summary>Horde ActiveSync Server Library</summary>
  <description>This package provides libraries for implementing an ActiveSync server.</description>
  <lead>
-  <name>Michael J. Rubinsky</name>
+  <name>Michael J Rubinsky</name>
   <user>mrubinsk</user>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-19</date>
- <time>11:24:30</time>
+ <date>2011-08-10</date>
+ <time>18:23:37</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.4</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* [mjr] Prevent a sync loop in some fringe cases.
-* [mjr] Improve calendar syncing for iOS devices.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -90,6 +89,7 @@
     <dir name="Horde">
      <dir name="ActiveSync">
       <file name="1_horde_activesync_base_tables.php" role="data" />
+      <file name="2_horde_activesync_peruserpolicykey.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -207,6 +207,7 @@
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
    <install as="Horde/ActiveSync/Wbxml/Encoder.php" name="lib/Horde/ActiveSync/Wbxml/Encoder.php" />
    <install as="migration/1_horde_activesync_base_tables.php" name="migration/Horde/ActiveSync/1_horde_activesync_base_tables.php" />
+   <install as="migration/2_horde_activesync_peruserpolicykey.php" name="migration/Horde/ActiveSync/2_horde_activesync_peruserpolicykey.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/FileStateTest.php" name="test/Horde/ActiveSync/FileStateTest.php" />
@@ -315,11 +316,67 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-19</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
+* [mjr] Policykey is now per user, not per device
+* [mjr] use AS in column aliases to make postgres happy (Bug #10346).
 * [mjr] Prevent a sync loop in some fringe cases.
 * [mjr] Improve calendar syncing for iOS devices.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* [mjr] Add missing migration file to package.xml
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-02</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* [mjr] Fix sending unnecessary FOLDERSYNC changes.
+* [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to PING and SYNC the same collection an unlimited number of times.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-10</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* [mjr] Fix bug with certain recurrence types due to erroneously outputting a zero as an empty tag (Bug# 10416).
+* [mjr] Support POOMCONTACTS2 schema in AS 2.5 clients also.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-10</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

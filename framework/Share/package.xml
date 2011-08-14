@@ -17,11 +17,17 @@ owns or has access to.</description>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-05</date>
- <time>15:11:22</time>
+ <lead>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-07-27</date>
+ <time>17:21:16</time>
  <version>
-  <release>1.1.2</release>
-  <api>1.1.0</api>
+  <release>1.2.0</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,7 +35,8 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Fixed support for share parents in the Kolab driver.
+* [gwr] Fixed support for multiple namespaces of the same type in the Kolab driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -755,10 +762,24 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-05</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Update Latvian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [gwr] Fixed support for share parents in the Kolab driver.
+* [gwr] Fixed support for multiple namespaces of the same type in the Kolab driver.
    </notes>
   </release>
  </changelog>

@@ -1,0 +1,655 @@
+# Latvian translations for Jonah H4 package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Jonah package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Jonah H4 (1.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"PO-Revision-Date: 2011-07-21 15:55+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: lib/Block/NewsPopular.php:70 lib/Block/NewsPopular.php:73
+msgid " - Most read stories"
+msgstr " - Biežāk lasītie raksti"
+
+#: lib/Block/Delivery.php:38
+#, php-format
+msgid "\"%s\" stories in HTML"
+msgstr "\"%s\" raksti HTML formātā"
+
+#: lib/Driver.php:248
+msgid "1 hour"
+msgstr "1 stunda"
+
+#: lib/Driver.php:252
+msgid "12 hours"
+msgstr "12 stundas"
+
+#: lib/Driver.php:249
+msgid "2 hours"
+msgstr "2 stundas"
+
+#: lib/Driver.php:253
+msgid "24 hours"
+msgstr "24 stundas"
+
+#: lib/Driver.php:247
+msgid "30 mins"
+msgstr "30 minūtes"
+
+#: lib/Driver.php:250
+msgid "4 hours"
+msgstr "4 stundas"
+
+#: lib/Driver.php:251
+msgid "8 hours"
+msgstr "8 stundas"
+
+#: stories/share.php:90
+msgid "A link to the story"
+msgstr "Saite uz rakstu"
+
+#: lib/Form/Story.php:31
+msgid "Add New Story"
+msgstr "Pievienot jaunu rakstu"
+
+#: lib/View/ChannelList.php:52
+msgid "Add story"
+msgstr "Pievienot rakstu"
+
+#: lib/Application.php:54
+msgid "Administrator"
+msgstr "Administrators"
+
+#: lib/View/ChannelList.php:26
+#, php-format
+msgid "An error occurred fetching channels: %s"
+msgstr "Kļūda saņemot kanālus: %s"
+
+#: lib/Driver/Sql.php:579
+#, php-format
+msgid "Channel \"%s\" not found."
+msgstr "Kanāls \"%s\" nav atrasts."
+
+#: lib/Form/Feed.php:44
+#, fuzzy
+msgid "Channel Slug"
+msgstr "%s kanāla kopija"
+
+#: lib/Form/Feed.php:51
+msgid ""
+"Channel URL for further pages, if not the default one. %c gets replaced by "
+"the feed ID, %n by the story offset."
+msgstr ""
+
+#: lib/Form/Feed.php:50
+#, php-format
+msgid "Channel URL if not the default one. %c gets replaced by the feed ID."
+msgstr ""
+
+#: lib/View/ChannelDelete.php:70
+msgid "Channel has not been deleted."
+msgstr "Kanāls nav izdzēsts izdzēsts."
+
+#: lib/Driver/Sql.php:147
+#, php-format
+msgid "Channel id \"%s\" not found."
+msgstr "Kanāla id \"%s\" nav atrasts."
+
+#: lib/View/StoryList.php:55
+msgid "Channel refreshed."
+msgstr "Kanāls atsvaidzināts."
+
+#: lib/Application.php:60
+msgid "Channels"
+msgstr "Kanāli"
+
+#: templates/view/channellist.html.php:16
+msgid "Close Search"
+msgstr "Aizvērt meklēšanu"
+
+#: templates/stories/index.html.php:21
+msgid "Comments"
+msgstr "Komentāri"
+
+#: config/templates.php:45
+msgid "Compact"
+msgstr "Saspiest"
+
+#: lib/Jonah.php:213
+msgid "Composite Feed"
+msgstr "Salikta plūsma"
+
+#: lib/Jonah.php:51 lib/Jonah.php:54
+#, php-format
+msgid "Could not open %s: %s"
+msgstr "Nevar atvērt %s: %s"
+
+#: lib/Block/Latest.php:47
+msgid "Count reads of the latest story when this block is displayed"
+msgstr ""
+
+#: lib/Block/Story.php:49
+msgid "Count reads of this story when this block is displayed"
+msgstr "Skaitīt lasīšanas reižu skaitu kad ir parādīts šis bloks"
+
+#: templates/stories/index.html.php:16
+msgid "Date"
+msgstr "Datums"
+
+#: lib/View/ChannelDelete.php:53 lib/View/ChannelDelete.php:57
+#: lib/View/StoryDelete.php:59 lib/View/StoryDelete.php:64
+msgid "Delete"
+msgstr "Dzēst"
+
+#: lib/View/ChannelDelete.php:51
+#, php-format
+msgid "Delete News Channel \"%s\"?"
+msgstr "Dzēst ziņu kanālu \"%s\"?"
+
+#: lib/View/StoryDelete.php:56
+#, php-format
+msgid "Delete News Story \"%s\"?"
+msgstr "Dzēst ziņu rakstu \"%s\"?"
+
+#: lib/View/ChannelList.php:39
+msgid "Delete channel"
+msgstr "Dzēst kanālu"
+
+#: lib/View/StoryList.php:91 lib/View/TagSearchList.php:92
+msgid "Delete story"
+msgstr "Dzēst rakstu"
+
+#: lib/Form/Feed.php:42
+msgid "Description"
+msgstr "Apraksts"
+
+#: lib/View/ChannelDelete.php:53 lib/View/StoryDelete.php:59
+msgid "Do not delete"
+msgstr "Nedzēst"
+
+#
+#: lib/Form/Feed.php:24
+msgid "Edit Feed"
+msgstr "Labot plūsmu"
+
+#
+#: lib/Form/Story.php:31
+msgid "Edit Story"
+msgstr "Labot rakstu"
+
+#: lib/View/ChannelList.php:35
+msgid "Edit channel"
+msgstr "Labot kanālu"
+
+#: lib/View/StoryList.php:86 lib/View/TagSearchList.php:86
+msgid "Edit story"
+msgstr "Labot rakstu"
+
+#: lib/Form/Story.php:77
+msgid "Enter keywords to tag this story, separated by commas"
+msgstr "Ievadiet raksta iezīmes, atdalot tās ar komatu"
+
+#: lib/Block/Latest.php:85 lib/Block/Story.php:87 lib/View/Base.php:35
+#: lib/View/StoryView.php:77 stories/share.php:72 stories/view.php:21
+#, php-format
+msgid "Error fetching story: %s"
+msgstr "Kļūda saņemot rakstu: %s"
+
+#: lib/Form/Feed.php:35
+msgid "Extra information for this feed type"
+msgstr "Papildu informācija par šī tipa plūsmu"
+
+#: lib/Block/News.php:20 lib/Block/News.php:28 lib/Block/NewsPopular.php:30
+#: lib/Block/Story.php:40
+msgid "Feed"
+msgstr "Plūsma"
+
+#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:64
+msgid "Feeds"
+msgstr "Plūsmas"
+
+#: lib/Block/News.php:51
+msgid "First Story"
+msgstr "Pirmais raksts"
+
+#: stories/share.php:84
+msgid "From"
+msgstr "No"
+
+#: lib/Form/Story.php:72 lib/Form/Story.php:74
+msgid "Full Story Text"
+msgstr "Pilns raksta teksts"
+
+#: lib/View/DeliveryHtml.php:36
+#, php-format
+msgid "HTML Delivery for \"%s\""
+msgstr "HTML sūtījums \"%s\""
+
+#: lib/Driver.php:420
+msgid "HTML Version of Story"
+msgstr "Raksta HTML versija"
+
+#: lib/Form/Story.php:80
+msgid ""
+"If you enter a URL without a full story text, clicking on the story will "
+"send the reader straight to the URL, otherwise it will be shown at the end "
+"of the full story."
+msgstr ""
+
+#: stories/share.php:90
+msgid "Include"
+msgstr "Iekļaut"
+
+#: lib/Form/Feed.php:49
+msgid "Include full story content in syndicated feeds?"
+msgstr "Iekļaut pilnu rakstu sindicētajās plūsmās?"
+
+#: config/templates.php:34
+msgid "Internal"
+msgstr "Iekšējs"
+
+#: lib/View/StoryList.php:45 lib/View/TagSearchList.php:52
+#, php-format
+msgid "Invalid channel requested. %s"
+msgstr "Pieprasīts nepareizs kanāls. %s"
+
+#: lib/View/ChannelDelete.php:35
+msgid "Invalid channel specified for deletion."
+msgstr "Dzēšanai norādīts nepareizs kanāls."
+
+#: lib/View/DeliveryHtml.php:31
+msgid "Invalid channel."
+msgstr "Nepareizs kanāls."
+
+#: templates/view/channellist.html.php:28
+msgid "Last Update"
+msgstr "Pēdējo reizi atjaunots"
+
+#: lib/Block/Latest.php:25
+msgid "Latest News"
+msgstr "Svaigākie jaunumi"
+
+#: lib/Jonah.php:74 lib/Jonah.php:210
+msgid "Local Feed"
+msgstr "Vietējā plūsma"
+
+#
+#: templates/view/channellist.html.php:11
+msgid "Manage Feeds"
+msgstr "Organizēt plūsmas"
+
+#: lib/Block/News.php:46 lib/Block/NewsPopular.php:49
+#, fuzzy
+msgid "Maximum Stories"
+msgstr "Maksimālā vērtība"
+
+#: config/templates.php:23
+msgid "Media"
+msgstr "Mēdijs"
+
+#: stories/share.php:91
+msgid "Message"
+msgstr "Vēstule"
+
+#: lib/Driver.php:63
+msgid "Missing channel id."
+msgstr "Nav norādīts kanāla id."
+
+#: lib/Block/NewsPopular.php:22
+msgid "Most Popular Stories"
+msgstr "Populārākie raksti"
+
+#: lib/Form/Feed.php:34 templates/view/channellist.html.php:26
+msgid "Name"
+msgstr "Nosaukums"
+
+#: lib/Application.php:93 lib/Form/Feed.php:24
+msgid "New Feed"
+msgstr "Jauna plūsma"
+
+#: lib/Application.php:57
+msgid "News"
+msgstr "Jaunumi"
+
+#: lib/Block/Latest.php:32
+msgid "News Source"
+msgstr "Ziņu avots"
+
+#: channels/index.php:24
+msgid "News is not enabled."
+msgstr "Ziņas nav iespējotas."
+
+#: lib/View/StoryList.php:52 lib/View/TagSearchList.php:59
+msgid "No available stories."
+msgstr "Nav pieejamu rakstu."
+
+#: stories/index.php:19
+msgid "No channel requested."
+msgstr "Nav pieprasīts neviens kanāls."
+
+#: lib/Block/Latest.php:79
+msgid "No channel specified."
+msgstr "Nav norādīts kanāls"
+
+#: templates/view/channellist.html.php:52
+msgid "No channels are available."
+msgstr "Nav pieejams neviens kanāls."
+
+#: lib/Block/News.php:85 lib/Block/NewsPopular.php:84
+msgid "No feed specified."
+msgstr "Nav norādīta plūsma."
+
+#: lib/Block/Delivery.php:57
+msgid "No feeds are available."
+msgstr "Plūsmas nav pieejamas."
+
+#: templates/view/channellist.html.php:48
+msgid "No feeds match"
+msgstr "Neatbilst neviena plūsma"
+
+#: lib/Driver.php:309
+msgid "No stories are currently available."
+msgstr "Šobrīd nav pieejams neviens raksts."
+
+#: lib/Block/Story.php:81
+msgid "No story is selected."
+msgstr "Nav izvēlēts neviens raksts."
+
+#: lib/Factory/Driver.php:48
+#, fuzzy, php-format
+msgid "No such backend \"%s\" found"
+msgstr "\"%s\" elements nav atrasts palīgmoduļa konfigurācijā ."
+
+#: stories/results.php:20
+msgid "No tag requested."
+msgstr "Iezīme nav pieprasīta."
+
+#: feed.php:38
+msgid "No valid feed name or ID requested."
+msgstr "Pieprasīta neesoša plūsma vai ID."
+
+#: lib/View/StoryDelete.php:46
+msgid "No valid story requested for deletion."
+msgstr "Dzēšanai nav norādīts esošs raksts."
+
+#: stories/share.php:36
+msgid "Note"
+msgstr "Piezīme"
+
+#: lib/Form/Story.php:53
+msgid "Or publish on this date:"
+msgstr "Vai publicēt šai datumā:"
+
+#: lib/View/StoryList.php:82 lib/View/TagSearchList.php:81
+msgid "PDF version"
+msgstr "PDF versija"
+
+#: scripts/feed_tester.php:27
+#, fuzzy
+msgid "Parse failed:"
+msgstr " Autentificēšana neizdevās"
+
+#: scripts/feed_tester.php:30
+msgid "Parse succeeded, structure is:"
+msgstr ""
+
+#: lib/Driver.php:415
+msgid "Plaintext Version of Story"
+msgstr "Raksta vienkāršā teksta versija"
+
+#: lib/Form/Story.php:43
+msgid "Publish Now?"
+msgstr "Publicēt tagad?"
+
+#: lib/Block/Delivery.php:48
+#, php-format
+msgid "RSS Feed of \"%s\""
+msgstr "\"%s\" RSS plūsma"
+
+#: templates/stories/index.html.php:18
+msgid "Read"
+msgstr "Lasīt"
+
+#: lib/View/ChannelDelete.php:55
+msgid ""
+"Really delete this News Channel? All stories created in this channel will be "
+"lost!"
+msgstr ""
+"Tiešām dzēst šo ziņu kanālu? Visas šai kanālā ievietotās ziņas tiks dzēstas!"
+
+#
+#: lib/View/StoryDelete.php:62
+msgid "Really delete this News Story?"
+msgstr "Tiešām dzēst šo ziņu rakstu?"
+
+#: lib/Block/Cloud.php:29
+msgid "Results URL"
+msgstr "Rezultātu saite"
+
+#: lib/Jonah.php:164
+msgid "Rich Text"
+msgstr "Bagātais (Rich) teksts"
+
+# #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
+# #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
+#
+# #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
+#
+#: lib/Form/Story.php:33
+msgid "Save"
+msgstr "Saglabāt"
+
+#: templates/view/channellist.html.php:12
+msgid "Search"
+msgstr "Meklēt"
+
+#: templates/delivery/html.html:10
+msgid "Select a format:"
+msgstr "Izvēlieties formātu:"
+
+#: stories/share.php:81
+msgid "Send"
+msgstr "Sūtīt"
+
+#: stories/share.php:88
+msgid "Separate multiple email addresses with commas."
+msgstr "Atdaliet e-pasta adreses ar komatu."
+
+#: stories/share.php:79
+msgid "Share Story"
+msgstr "Izplatīt rakstu"
+
+#: lib/View/StoryView.php:125
+msgid "Share this story"
+msgstr "Izplatīt šo rakstu"
+
+#: lib/Form/Story.php:42
+msgid "Short Description"
+msgstr "Īss apraksts"
+
+#: lib/Form/Feed.php:45
+#, php-format
+msgid ""
+"Slugs allows direct access to this channel's content by visiting: %s. <br /> "
+"Slug names may contain only letters, numbers or the _ (underscore) character."
+msgstr ""
+
+#: config/templates.php:12
+msgid "Standard"
+msgstr "Standarta"
+
+#: delivery/rss.php:68
+#, php-format
+msgid "Stories tagged with %s in %s"
+msgstr "Ar %s iezīmēti raksti %s"
+
+#: lib/Block/Story.php:24 lib/Block/Story.php:45
+#: templates/stories/index.html.php:15
+msgid "Story"
+msgstr "Raksts"
+
+#: stories/share.php:113
+msgid "Story Link"
+msgstr "Raksta saite"
+
+#: lib/Form/Story.php:41
+msgid "Story Title (Headline)"
+msgstr "Virsraksts"
+
+#: lib/Form/Story.php:80
+msgid "Story URL"
+msgstr "Raksta URL"
+
+#: lib/Form/Feed.php:52
+#, php-format
+msgid ""
+"Story URL if not the default one. %c gets replaced by the feed ID, %s by the "
+"story ID."
+msgstr ""
+
+#: lib/Form/Story.php:59
+msgid "Story body type"
+msgstr "Raksta ķermeņa tips"
+
+#: lib/View/StoryDelete.php:32 lib/View/StoryEdit.php:39
+#, php-format
+msgid "Story editing failed: %s"
+msgstr "Kļūme labojot rakstu: %s."
+
+#: lib/View/StoryDelete.php:77
+msgid "Story has not been deleted."
+msgstr "Raksts nav izdzēsts."
+
+#: lib/Driver/Sql.php:527
+#, php-format
+msgid "Story id \"%s\" not found."
+msgstr "Raksta id \"%s\" nav atrasts."
+
+#: stories/share.php:89
+msgid "Subject"
+msgstr "Temats"
+
+#: lib/Block/Cloud.php:20
+msgid "Tag Cloud"
+msgstr "Tag Cloud"
+
+#: lib/Driver.php:448 lib/Driver.php:453 lib/Driver.php:458 lib/Driver.php:464
+#: lib/Driver.php:469
+msgid "Tag support not enabled in backend."
+msgstr ""
+
+#: lib/Form/Story.php:77
+msgid "Tags"
+msgstr "Iezīmes"
+
+#: templates/stories/partial/_story.html.php:18
+msgid "Tags:"
+msgstr "Iezīmes:"
+
+#: lib/Block/Story.php:99
+msgid "Tags: "
+msgstr "Iezīmes:"
+
+#: lib/Jonah.php:171
+msgid "Text"
+msgstr "Teksts"
+
+#: lib/View/ChannelDelete.php:62
+msgid "The channel has been deleted."
+msgstr "Kanāls dzēsts."
+
+#: stories/share.php:90
+msgid "The complete text of the story"
+msgstr "Raksta pilnais teksts"
+
+#: lib/View/ChannelEdit.php:52
+#, php-format
+msgid "The feed \"%s\" has been saved."
+msgstr "Plūsma \"%s\" saglabāta."
+
+#: lib/View/StoryEdit.php:65
+#, php-format
+msgid "The story \"%s\" has been saved."
+msgstr "Raksts \"%s\" saglabāts."
+
+#: lib/View/StoryDelete.php:69
+msgid "The story has been deleted."
+msgstr "Raksts izdzēsts."
+
+#: stories/share.php:124
+msgid "The story was sent successfully."
+msgstr "Raksts veiksmīgi nosūtīts."
+
+#: lib/View/ChannelDelete.php:66
+#, php-format
+msgid "There was an error deleting the channel: %s"
+msgstr "Kļūda dzēšot kanālu: %s"
+
+#: lib/View/StoryDelete.php:73
+#, php-format
+msgid "There was an error deleting the story: %s"
+msgstr "Kļūda dzēšot rakstu: %s"
+
+#: lib/View/ChannelEdit.php:56
+#, php-format
+msgid "There was an error saving the feed: %s"
+msgstr "Kļūda saglabājot plūsmu: %s"
+
+#: lib/View/StoryEdit.php:69
+#, php-format
+msgid "There was an error saving the story: %s"
+msgstr "Kļūda saglabājot rakstu: %s"
+
+#: stories/share.php:88
+msgid "To"
+msgstr "Saņēmējs"
+
+#: lib/Form/Feed.php:29 templates/view/channellist.html.php:27
+msgid "Type"
+msgstr "Tips"
+
+#: config/templates.php:56
+msgid "Ultracompact"
+msgstr "UIltrakompakts"
+
+#: stories/share.php:122
+#, php-format
+msgid "Unable to send story: %s"
+msgstr "Nevar nosūtīt rakstu: %s"
+
+#: lib/Block/News.php:38 lib/Block/NewsPopular.php:42
+msgid "View"
+msgstr "Skatīt"
+
+#: channels/index.php:18 lib/Api.php:111 lib/View/ChannelDelete.php:47
+#: lib/View/ChannelEdit.php:41 lib/View/StoryDelete.php:39
+#: lib/View/StoryEdit.php:46 lib/View/StoryList.php:32
+#: lib/View/TagSearchList.php:34
+msgid "You are not authorised for this action."
+msgstr "Jums nav atļauts veikt šo darbību."
+
+#: lib/Application.php:85
+msgid "_Feeds"
+msgstr "Plūsmas"
+
+#: lib/Application.php:106
+msgid "_New Story"
+msgstr "Jauns raksts"
+
+#: lib/Driver.php:246
+msgid "none"
+msgstr "nav"

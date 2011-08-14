@@ -190,11 +190,6 @@ class Kronolith
         // calendars.
         foreach (array(true, false) as $my) {
             foreach ($GLOBALS['all_calendars'] as $id => $calendar) {
-                if (!empty($GLOBALS['conf']['share']['hidden']) &&
-                    $calendar->owner() != $GLOBALS['registry']->getAuth() &&
-                    !in_array($id, $GLOBALS['display_calendars'])) {
-                    continue;
-                }
                 $owner = $GLOBALS['registry']->getAuth() &&
                     $calendar->owner() == $GLOBALS['registry']->getAuth();
                 if (($my && $owner) || (!$my && !$owner)) {
@@ -207,10 +202,7 @@ class Kronolith
                 continue;
             }
             foreach ($registry->tasks->listTasklists($my, Horde_Perms::SHOW) as $id => $tasklist) {
-                if (!isset($GLOBALS['all_external_calendars']['tasks/' . $id]) ||
-                    (!empty($GLOBALS['conf']['share']['hidden']) &&
-                     $tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-                     !in_array('tasks/' . $id, $GLOBALS['display_external_calendars']))) {
+                if (!isset($GLOBALS['all_external_calendars']['tasks/' . $id])) {
                     continue;
                 }
                 $owner = $GLOBALS['registry']->getAuth() &&
@@ -982,6 +974,18 @@ class Kronolith
                 } else {
                     $GLOBALS['display_external_calendars'][] = $calendarId;
                 }
+                if (strpos($calendarId, 'tasks/') === 0) {
+                    $tasklists = array();
+                    foreach ($GLOBALS['display_external_calendars'] as $id) {
+                        if (strpos($id, 'tasks/') === 0) {
+                            $tasklists[] = substr($id, 6);
+                        }
+                    }
+                    try {
+                        $GLOBALS['registry']->tasks->setDisplayedTasklists($tasklists);
+                    } catch (Horde_Exception $e) {
+                    }
+                }
             } elseif (strncmp($calendarId, 'holiday_', 8) === 0) {
                 $calendarId = substr($calendarId, 8);
                 if (in_array($calendarId, $GLOBALS['display_holidays'])) {
@@ -1112,10 +1116,18 @@ class Kronolith
         }
 
         /* Make sure all the external calendars still exist. */
-        $_temp = $GLOBALS['display_external_calendars'];
+        $_tasklists = $_temp = $GLOBALS['display_external_calendars'];
+        if (self::hasApiPermission('tasks')) {
+            try {
+                $_tasklists = $GLOBALS['registry']->tasks->getDisplayedTasklists();
+            } catch (Horde_Exception $e) {
+            }
+        }
         $GLOBALS['display_external_calendars'] = array();
         foreach ($GLOBALS['all_external_calendars'] as $id => $calendar) {
-            if (in_array($id, $_temp)) {
+            if ((substr($id, 0, 6) == 'tasks/' &&
+                 in_array(substr($id, 6), $_tasklists)) ||
+                in_array($id, $_temp)) {
                 $GLOBALS['display_external_calendars'][] = $id;
             } else {
                 /* Convert Kronolith 2 preferences.
@@ -1477,6 +1489,12 @@ class Kronolith
      * Returns all internal calendars a user has access to, according
      * to several parameters/permission levels.
      *
+     * This method takes the $conf['share']['hidden'] setting into account. If
+     * this setting is enabled, even if requesting permissions different than
+     * SHOW, it will only return calendars that the user owns or has SHOW
+     * permissions for. For checking individual calendar's permissions, use
+     * hasPermission() instead.
+     *
      * @param boolean $owneronly   Only return calenders that this user owns?
      *                             Defaults to false.
      * @param integer $permission  The permission to filter calendars by.
@@ -1489,15 +1507,43 @@ class Kronolith
             return array();
         }
 
-        try {
-            $calendars = $GLOBALS['kronolith_shares']->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => $permission,
-                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
-                      'sort_by' => 'name'));
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return array();
+        if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
+            try {
+                $calendars = $GLOBALS['kronolith_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e);
+                return array();
+            }
+        } else {
+            try {
+                $calendars = $GLOBALS['kronolith_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $GLOBALS['registry']->getAuth(),
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e);
+                return array();
+            }
+            $display_calendars = @unserialize($GLOBALS['prefs']->getValue('display_cals'));
+            if (is_array($display_calendars)) {
+                foreach ($display_calendars as $id) {
+                    try {
+                        $calendar = $GLOBALS['kronolith_shares']->getShare($id);
+                        if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
+                            $calendars[$id] = $calendar;
+                        }
+                    } catch (Horde_Exception_NotFound $e) {
+                    } catch (Horde_Share_Exception $e) {
+                        Horde::logMessage($e);
+                        return array();
+                    }
+                }
+            }
         }
 
         $default_share = $GLOBALS['prefs']->getValue('default_share');
@@ -1627,10 +1673,33 @@ class Kronolith
         }
 
         if ($cs = self::getDefaultCalendar(Horde_Perms::EDIT, true)) {
-            return $cs;
+            return array($cs);
         }
 
         return array();
+    }
+
+    /**
+     * Returns whether the current user has certain permissions on a calendar.
+     *
+     * @since Kronolith 3.0.6
+     *
+     * @param string $calendar  A calendar id.
+     * @param integer $perm     A Horde_Perms permission mask.
+     *
+     * @return boolean  True if the current user has the requested permissions.
+     */
+    static public function hasPermission($calendar, $perm)
+    {
+        try {
+            $share = $GLOBALS['kronolith_shares']->getShare($calendar);
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
+                throw new Horde_Exception_NotFound();
+            }
+        } catch (Horde_Exception_NotFound $e) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -2223,17 +2292,21 @@ class Kronolith
 
     /**
      * Sends out iTip event notifications to all attendees of a specific
-     * event. Can be used to send event invitations, event updates as well as
-     * event cancellations.
+     * event.
      *
-     * @param Kronolith_Event $event      The event in question.
-     * @param Notification $notification  A notification object used to show
-     *                                    result status.
-     * @param integer $action             The type of notification to send.
-     *                                    One of the Kronolith::ITIP_* values.
-     * @param Horde_Date $instance        If cancelling a single instance of a
-     *                                    recurring event, the date of this
-     *                                    intance.
+     * Can be used to send event invitations, event updates as well as event
+     * cancellations.
+     *
+     * @param Kronolith_Event $event
+     *        The event in question.
+     * @param Horde_Notification_Handler $notification
+     *        A notification object used to show result status.
+     * @param integer $action
+     *        The type of notification to send. One of the Kronolith::ITIP_*
+     *        values.
+     * @param Horde_Date $instance
+     *        If cancelling a single instance of a recurring event, the date of
+     *        this intance.
      */
     static public function sendITipNotifications($event, $notification,
                                                  $action, $instance = null)
@@ -2342,6 +2415,7 @@ class Kronolith
             $ics->setName($filename);
             $ics->setContentTypeParameter('METHOD', $method);
             $ics->setCharset('UTF-8');
+            $ics->setEOL("\r\n");
 
             $multipart = self::buildMimeMessage($view, 'notification', $image);
             $multipart->addPart($ics);
@@ -2660,7 +2734,7 @@ class Kronolith
     {
         // strptime() is not available on Windows.
         if (!function_exists('strptime')) {
-            return new Horde_Date($start);
+            return new Horde_Date($date);
         }
 
         // strptime() is locale dependent, i.e. %p is not always matching
@@ -2992,7 +3066,12 @@ class Kronolith
      */
     static public function backgroundColor($calendar)
     {
-        $color = is_array($calendar) ? @$calendar['color'] : $calendar->get('color');
+        $color = '';
+        if (!is_array($calendar)) {
+            $color = $calendar->get('color');
+        } elseif (isset($calendar['color'])) {
+            $color = $calendar['color'];
+        }
         return empty($color) ? '#dddddd' : $color;
     }
 

@@ -236,6 +236,18 @@ class Horde_Registry_Application
     }
 
     /**
+     * Validates an existing authentication.
+     *
+     * @since Horde_Core 1.4.0
+     *
+     * @return boolean  Whether the authentication is still valid.
+     */
+    public function authValidate()
+    {
+        return false;
+    }
+
+    /**
      * Adds a user defined by authentication credentials.
      *
      * @param string $userId      The user ID to add.

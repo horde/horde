@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-01</date>
- <time>15:45:54</time>
+ <date>2011-07-20</date>
+ <time>23:43:57</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -57,10 +57,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="migration">
-    <dir name="Horde_Cache">
-     <file name="1_horde_cache_base_tables.php" role="data" />
-    </dir> <!-- /migration/Horde_Cache -->
-   </dir> <!-- /migration -->
+    <dir name="Horde">
+     <dir name="Cache">
+      <file name="1_horde_cache_base_tables.php" role="data" />
+     </dir> <!-- /migration/Horde/Cache -->
+    </dir> <!-- /migration/Horde -->
+    </dir> <!-- /migration -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -143,8 +145,8 @@
    <install as="Horde/Cache/Storage/Sql.php" name="lib/Horde/Cache/Storage/Sql.php" />
    <install as="Horde/Cache/Storage/Stack.php" name="lib/Horde/Cache/Storage/Stack.php" />
    <install as="Horde/Cache/Storage/Xcache.php" name="lib/Horde/Cache/Storage/Xcache.php" />
-   <install as="migration/1_horde_cache_base_tables.php" name="migration/Horde_Cache/1_horde_cache_base_tables.php" />
-  </filelist>
+   <install as="migration/1_horde_cache_base_tables.php" name="migration/Horde/Cache/1_horde_cache_base_tables.php" />
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -306,7 +308,7 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-01</date>
+   <date>2011-07-20</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 

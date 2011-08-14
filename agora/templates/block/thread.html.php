@@ -15,7 +15,7 @@
 </thead>
 <?php foreach ($this->threads_list as $k1 => $v1): ?>
 <tbody>
- <tr class="<?php echo $v1['class']; ?>" valign="top">
+ <tr valign="top">
   <td>
    <?php echo $v1['link']; ?><?php echo $v1['message_subject']; ?></a>
    <?php if (!empty($this->thread_view_bodies)): ?>

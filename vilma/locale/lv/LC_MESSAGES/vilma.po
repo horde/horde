@@ -1,0 +1,707 @@
+# Latvian translations for Vilma H4 package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Vilma package.
+# Automatically generated, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Vilma H4 (1.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"PO-Revision-Date: 2011-07-21 16:40+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: users/edit.php:62
+#, php-format
+msgid "\"%s\" already has the maximum number of users allowed."
+msgstr ""
+
+#: lib/Driver/Qmailldap.php:431
+#, fuzzy
+msgid "Account Status"
+msgstr "Stāvoklis"
+
+#: users/delete.php:93
+#, fuzzy, php-format
+msgid "Account belongs to %d group."
+msgid_plural "Account belongs to %d groups."
+msgstr[0] "Izvēlieties pievienojamo grupu:"
+msgstr[1] "Jums nav atļauts pievienot grupas."
+msgstr[2] "Jums nav atļauts pievienot grupas."
+
+#: users/delete.php:87
+#, fuzzy, php-format
+msgid "Account has %d alias."
+msgid_plural "Account has %d aliases."
+msgstr[0] "Ir Necaurredzamības Kontrole"
+msgstr[1] ""
+msgstr[2] ""
+
+#: lib/Driver/Qmailldap.php:439
+#, fuzzy
+msgid "Account is active"
+msgstr "Šobrīd aktīvais objekts"
+
+#: lib/Driver/Qmailldap.php:442
+#, fuzzy
+msgid "Account is disabled"
+msgstr "Lietotāju pievienošana atslēgta."
+
+#: users/delete.php:90
+#, fuzzy, php-format
+msgid "Account is the target of %d forward."
+msgid_plural "Account is the target of %d forwards."
+msgstr[0] "Mērķa fails ir mape"
+msgstr[1] ""
+msgstr[2] ""
+
+#: templates/users/index.html:11
+msgid "Address"
+msgstr "Adrese"
+
+#: lib/Vilma.php:58
+msgid "Alias"
+msgstr "Aizstājvārds"
+
+#: lib/Form/EditAlias.php:34
+#, fuzzy
+msgid "Alias Address"
+msgstr "Adrešu grāmata"
+
+#
+#: users/delete.php:114
+#, fuzzy
+msgid "Alias deleted."
+msgstr "Iztīrīt dzēstās"
+
+#: lib/Driver/Qmailldap.php:545
+#, fuzzy, php-format
+msgid "Alias for %s"
+msgstr "(aizstājvārds priekš Hiriganas + Katakanas)"
+
+#: users/editAlias.php:31
+#, fuzzy
+msgid "Alias saved."
+msgstr "Saglabātie parametri"
+
+#: lib/Vilma.php:59
+#, fuzzy
+msgid "Aliases"
+msgstr "Aizstājvārds"
+
+#: lib/Vilma.php:52 lib/Vilma.php:53
+#, fuzzy
+msgid "All"
+msgstr "Viss"
+
+#: lib/Driver/Qmailldap.php:441
+#, fuzzy
+msgid "Bounce Incoming Only"
+msgstr "Tikai šo slāni"
+
+#: domains/delete.php:32 lib/Form/DeleteDomain.php:21 users/delete.php:75
+#: users/delete.php:104 virtuals/delete.php:37 virtuals/delete.php:41
+msgid "Delete"
+msgstr "Dzēst"
+
+#: users/delete.php:74
+#, php-format
+msgid "Delete %s"
+msgstr "Dzēst %s"
+
+#: users/delete.php:81
+#, fuzzy, php-format
+msgid "Delete %s \"%s\" and all dependencies?"
+msgstr "Dzēst visas vēstules?"
+
+#: users/delete.php:83
+#, fuzzy, php-format
+msgid "Delete %s \"%s\"?"
+msgstr "  Izdzēst %s?  "
+
+#: domains/index.php:48 lib/Form/DeleteDomain.php:15
+#, fuzzy
+msgid "Delete Domain"
+msgstr "Tulkošanas sfēra"
+
+#: users/index.php:115 virtuals/index.php:61
+#, fuzzy
+msgid "Delete User"
+msgstr " Lietotāja izvēlne "
+
+#: virtuals/delete.php:34
+#, fuzzy
+msgid "Delete Virtual Email Address"
+msgstr "Apstipriniet jauno E-pasta adresi"
+
+#: lib/Form/DeleteDomain.php:23
+#, php-format
+msgid "Delete domain \"%s\" and all associated email addresses?"
+msgstr ""
+
+#: virtuals/delete.php:39
+#, fuzzy, php-format
+msgid "Delete the virtual email address \"%s\" => \"%s\"?"
+msgstr "Apstipriniet jauno E-pasta adresi"
+
+#: virtuals/edit.php:58 templates/virtuals/index.html:18
+#, fuzzy
+msgid "Destination"
+msgstr ""
+" Nevar sāknēt galamērķi \n"
+" %s "
+
+#: virtuals/edit.php:49
+#, fuzzy
+msgid "Destination type"
+msgstr "Līknes tips:"
+
+#: lib/Driver/Qmailldap.php:440
+#, fuzzy
+msgid "Disable Delivery Only"
+msgstr "Tikai šo slāni"
+
+#: config/prefs.php:13
+#, fuzzy
+msgid "Display details"
+msgstr "Rakstzīmju _detaļas"
+
+#: config/prefs.php:12
+#, fuzzy
+msgid "Display listings"
+msgstr " Displeja biti "
+
+#: domains/delete.php:27 lib/Form/DeleteDomain.php:21 users/delete.php:75
+#: users/delete.php:97 virtuals/delete.php:27 virtuals/delete.php:37
+#, fuzzy
+msgid "Do not delete"
+msgstr "Nedzēst"
+
+#: lib/Form/EditDomain.php:30 templates/domains/index.html:14
+#, fuzzy
+msgid "Domain"
+msgstr "Domēns:"
+
+#
+#: domains/delete.php:37
+#, fuzzy
+msgid "Domain deleted."
+msgstr "Iztīrīt dzēstās"
+
+#: domains/delete.php:28
+#, fuzzy
+msgid "Domain not deleted."
+msgstr "Pieejas tiesības \"%s\" nav izdzēstas."
+
+#: domains/edit.php:32
+#, fuzzy
+msgid "Domain saved."
+msgstr "Saglabātie parametri"
+
+#: lib/Form/EditAlias.php:17
+#, fuzzy, php-format
+msgid "Edit Alias \"%s\" for \"%s\""
+msgstr "Labot opcijas: "
+
+#
+#: domains/index.php:49 lib/Form/EditDomain.php:18
+#, fuzzy
+msgid "Edit Domain"
+msgstr "Tulkošanas sfēra"
+
+#: lib/Form/EditForward.php:17
+#, fuzzy, php-format
+msgid "Edit Forward \"%s\" for \"%s\""
+msgstr "Labot opcijas: "
+
+#: lib/Form/EditUser.php:23
+#, fuzzy, php-format
+msgid "Edit Forward for \"%s\""
+msgstr "Labot opcijas: "
+
+#: lib/Form/EditUser.php:19
+#, fuzzy, php-format
+msgid "Edit Group for \"%s\""
+msgstr "Labot opcijas: "
+
+#: users/index.php:116 virtuals/index.php:62
+#, fuzzy
+msgid "Edit User"
+msgstr " Lietotāja izvēlne "
+
+#: lib/Form/EditUser.php:27
+#, fuzzy, php-format
+msgid "Edit User for \"%s\""
+msgstr "Labot opcijas: "
+
+#: virtuals/edit.php:42
+#, fuzzy
+msgid "Edit Virtual Email Address"
+msgstr "Apstipriniet jauno E-pasta adresi"
+
+#: virtuals/edit.php:48
+#, php-format
+msgid ""
+"Enter a virtual email address @%s and then indicate below where mail sent to "
+"that address is to be delivered. The address must begin with an "
+"alphanumerical character, it must contain only alphanumerical and '._-' "
+"characters, and must end with an alphanumerical character."
+msgstr ""
+
+#: lib/Driver/Qmailldap.php:380
+#, fuzzy, php-format
+msgid "Error adding account to LDAP: %s"
+msgstr "Neizdevās pieslēgties LDAP serverim %s!"
+
+#: lib/Driver/Qmailldap.php:424
+#, fuzzy, php-format
+msgid "Error deleting account from LDAP: %s"
+msgstr "Neizdevās izdzēst vēstules mapē %s. Kļūda: %s"
+
+#: users/delete.php:116
+#, fuzzy, php-format
+msgid "Error deleting alias. %s."
+msgstr "Kļūda dzēšot failu '%s': %s"
+
+#: domains/delete.php:40
+#, fuzzy, php-format
+msgid "Error deleting domain. %s."
+msgstr "Kļūda dzēšot failu '%s': %s"
+
+#: users/delete.php:129
+#, fuzzy, php-format
+msgid "Error deleting forward. %s."
+msgstr "Kļūda dzēšot failu '%s': %s"
+
+#: users/delete.php:140
+#, fuzzy, php-format
+msgid "Error deleting user. %s."
+msgstr "Kļūda dzēšot failu '%s': %s"
+
+#: virtuals/delete.php:52
+#, fuzzy, php-format
+msgid "Error deleting virtual email. %s."
+msgstr "Kļūda ar e-pasta vēstuli."
+
+#: lib/Driver/Qmailldap.php:139 lib/Driver/Qmailldap.php:144
+#, fuzzy, php-format
+msgid "Error in LDAP search: %s"
+msgstr "Meklēt rakstzīmju _detaļās"
+
+#: lib/Driver/Qmailldap.php:327 lib/Driver/Qmailldap.php:768
+#: lib/Driver/Qmailldap.php:823 lib/Driver/Qmailldap.php:899
+#: lib/Driver/Qmailldap.php:952
+#, fuzzy, php-format
+msgid "Error modifying account: %s"
+msgstr "Jūsu informācija"
+
+#: lib/Driver/Qmailldap.php:255 lib/Driver/Qmailldap.php:723
+#: lib/Driver/Qmailldap.php:790 lib/Driver/Qmailldap.php:854
+#: lib/Driver/Qmailldap.php:921
+#, fuzzy
+msgid "Error reading address information from backend."
+msgstr "Kļūda saņemot %s Brīvs/Aizņemts informāciju: %s"
+
+#: users/delete.php:30 users/edit.php:33 users/editAlias.php:59
+#: users/editAlias.php:71 users/editForward.php:57
+#, fuzzy, php-format
+msgid "Error reading address information from backend: %s"
+msgstr "Kļūda saņemot %s Brīvs/Aizņemts informāciju: %s"
+
+#: lib/Driver/Qmailldap.php:411 lib/Driver/Qmailldap.php:981
+#, fuzzy, php-format
+msgid "Error retrieving LDAP results: %s"
+msgstr "Kļūda saņemot skriptu: (%d) %s"
+
+#: lib/Driver/Qmailldap.php:523 lib/Driver/Qmailldap.php:602
+#: lib/Driver/Qmailldap.php:682
+#, fuzzy, php-format
+msgid "Error returning LDAP results: %s"
+msgstr "Neizdevās pieslēgties LDAP serverim %s!"
+
+#: lib/Driver.php:310
+msgid "Error running authentication update script."
+msgstr ""
+
+#: users/editAlias.php:37
+#, fuzzy, php-format
+msgid "Error saving alias. %s"
+msgstr "Kļūda saglabājot katalogu"
+
+#: domains/edit.php:35
+#, fuzzy, php-format
+msgid "Error saving domain: %s."
+msgstr "Kļūda saglabājot katalogu"
+
+#: users/editForward.php:35
+#, fuzzy, php-format
+msgid "Error saving forward. %s"
+msgstr "Kļūda saglabājot katalogu"
+
+#: users/edit.php:89
+#, fuzzy, php-format
+msgid "Error saving user. %s"
+msgstr "Kļūda saglabājot katalogu"
+
+#: virtuals/edit.php:76
+#, fuzzy, php-format
+msgid "Error saving virtual email. %s."
+msgstr "Kļūda ar e-pasta vēstuli."
+
+#: lib/Driver/Qmailldap.php:407 lib/Driver/Qmailldap.php:518
+#: lib/Driver/Qmailldap.php:597 lib/Driver/Qmailldap.php:678
+#: lib/Driver/Qmailldap.php:977
+#, fuzzy, php-format
+msgid "Error searching LDAP: %s"
+msgstr "Kļūda meklējot adrešu grāmatā: %s"
+
+#: lib/Driver/Qmailldap.php:747 lib/Driver/Qmailldap.php:878
+#, fuzzy, php-format
+msgid "Existing entry \"%s\" could not be found."
+msgstr "Pieprasītais pakalpojums nav atrasts."
+
+#: lib/Vilma.php:64
+msgid "Forward"
+msgstr "Pārsūtīt"
+
+#: lib/Form/EditForward.php:34
+#, fuzzy
+msgid "Forward Address"
+msgstr "Adrese(s) pārsūtīšanai:"
+
+#: lib/Form/EditUser.php:24
+#, fuzzy
+msgid "Forward Name"
+msgstr "Pieejamais vārds"
+
+#
+#: users/delete.php:127
+#, fuzzy
+msgid "Forward deleted."
+msgstr "Iztīrīt dzēstās"
+
+#: lib/Vilma.php:65
+msgid "Forwards"
+msgstr "Pārsūtīšanas"
+
+#: lib/Form/EditUser.php:51 templates/users/index.html:14
+msgid "Full Name"
+msgstr "Pilns vārds"
+
+#: lib/Vilma.php:61
+msgid "Group"
+msgstr "Grupa"
+
+#: lib/Form/EditUser.php:20
+#, fuzzy
+msgid "Group Name"
+msgstr " Grupas vārds "
+
+#: lib/Vilma.php:62
+msgid "Groups"
+msgstr "Grupas"
+
+#: config/prefs.php:22
+msgid "How many domain to display per page."
+msgstr ""
+
+#: virtuals/edit.php:51
+#, fuzzy
+msgid "Local user"
+msgstr " Lietotāja izvēlne "
+
+#: lib/MailboxDriver/Imap.php:86
+#, fuzzy, php-format
+msgid "Mailbox \"%s\" does not exist."
+msgstr "Pastkaste %s neeksistē."
+
+#: lib/MailboxDriver/Maildrop.php:64
+#, fuzzy, php-format
+msgid "Maildrop directory \"%s\" does not exist."
+msgstr "VFS mape neeksistē."
+
+#: templates/domains/index.html:17
+#, fuzzy
+msgid "Max Users"
+msgstr "Uzstādīt &lietotājus"
+
+#: lib/Form/EditDomain.php:32
+#, fuzzy
+msgid "Max users"
+msgstr "Uzstādīt &lietotājus"
+
+#: users/index.php:103
+#, fuzzy
+msgid "Maximum Users"
+msgstr "Uzstādīt &lietotājus"
+
+#: lib/Driver/Qmailldap.php:686
+msgid ""
+"More than one DN returned for this alias.  Please contact an administrator "
+"to resolve this error."
+msgstr ""
+
+#: lib/Driver/Qmailldap.php:418 lib/Driver/Qmailldap.php:988
+msgid "More than one DN returned.  Aborting delete operation."
+msgstr ""
+
+#: lib/Form/EditUser.php:45
+msgid ""
+"Name must begin with an alphanumeric character, must contain only "
+"alphanumeric and '._-' characters, and must end with an alphanumeric "
+"character."
+msgstr ""
+
+#: lib/Form/EditAlias.php:21
+#, fuzzy, php-format
+msgid "New Alias for %s"
+msgstr "(aizstājvārds priekš Hiriganas + Katakanas)"
+
+#: lib/Form/EditDomain.php:18
+#, fuzzy
+msgid "New Domain"
+msgstr "Tulkošanas sfēra"
+
+#: lib/Form/EditForward.php:21
+#, fuzzy, php-format
+msgid "New Forward for %s"
+msgstr "Printera jaunais vārds"
+
+#: lib/Form/EditUser.php:32
+#, fuzzy, php-format
+msgid "New User @%s"
+msgstr "Pievienot jaunu lietotāju:"
+
+#: virtuals/index.php:51
+#, fuzzy
+msgid "New Virtual Email"
+msgstr "Apstipriniet jauno E-pasta adresi"
+
+#: virtuals/edit.php:42
+#, fuzzy
+msgid "New Virtual Email Address"
+msgstr "Apstipriniet jauno E-pasta adresi"
+
+#: lib/Application.php:97
+#, fuzzy
+msgid "New _Address"
+msgstr "Apstipriniet jauno E-pasta adresi"
+
+#: lib/MailboxDriver/Maildrop.php:76
+msgid "No 'mail_dir_base' parameter specified to maildrop driver."
+msgstr ""
+
+#: lib/MailboxDriver/Maildrop.php:25
+msgid "No 'system_user' parameter specified to maildrop driver."
+msgstr ""
+
+#: lib/Driver.php:400
+#, fuzzy, php-format
+msgid "No such address %s of type %s found."
+msgstr "Nav atrasta derīga e-pasta adrese"
+
+#: lib/Driver.php:542
+#, fuzzy, php-format
+msgid "No such backend \"%s\" found"
+msgstr "\"%s\" elements nav atrasts palīgmoduļa konfigurācijā ."
+
+#: lib/Form/EditUser.php:47
+msgid "Only enter a password if you wish to change this user's password"
+msgstr ""
+
+#: lib/Form/EditUser.php:47 lib/Form/EditUser.php:49
+msgid "Password"
+msgstr "Parole"
+
+#: lib/Driver/Sql.php:255
+msgid "Password must be supplied when creating a new user."
+msgstr ""
+
+#: lib/Form/EditDomain.php:33
+msgid "Quota"
+msgstr "Kvota"
+
+#: virtuals/edit.php:52
+#, fuzzy
+msgid "Remote address"
+msgstr "Adrešu grāmata"
+
+#: virtuals/edit.php:55
+#, fuzzy
+msgid "Remote e-mail address"
+msgstr "Neatļauts simbols e-pasta adresē: %s."
+
+#: config/prefs.php:14
+#, fuzzy
+msgid "Set default display parameters."
+msgstr "Noklusētais GDK displejs"
+
+#: templates/users/index.html:20
+msgid "Status"
+msgstr "Statuss"
+
+#: lib/Application.php:73
+#, fuzzy
+msgid "Super Administrator"
+msgstr "Super NES ROM"
+
+#: lib/Driver/Qmailldap.php:739
+#, fuzzy
+msgid "That alias already exists!"
+msgstr "Fails ar nosaukumu '%s' jau eksistē."
+
+#: lib/Driver/Qmailldap.php:870
+#, fuzzy, php-format
+msgid "That forward, \"%s\", already exists!"
+msgstr "Fails ar nosaukumu '%s' jau eksistē."
+
+#: lib/Form/EditAlias.php:34
+msgid ""
+"The email address to add as an alias for this user.  Note that the server "
+"must be configured to receive mail for the domain contained in this address."
+msgstr ""
+
+#: lib/Form/EditForward.php:34
+msgid ""
+"The email address to add as an forward for this user.  Note that the server "
+"must be configured to receive mail for the domain contained in this address."
+msgstr ""
+
+#: lib/Form/EditDomain.php:31
+msgid "Transport"
+msgstr ""
+
+#: templates/users/index.html:17
+#, fuzzy
+msgid "Type"
+msgstr "Tips"
+
+#: lib/Driver/Qmailldap.php:415 lib/Driver/Qmailldap.php:985
+msgid "Unable to acquire handle on DN.  Aborting delete operation."
+msgstr ""
+
+#: lib/Driver/Qmailldap.php:243
+#, fuzzy
+msgid "Unable to acquire handle on address."
+msgstr "Pieprasītā adrese nav atrodama"
+
+#: lib/Driver/Qmailldap.php:286 lib/Driver/Qmailldap.php:347
+#: lib/Driver/Qmailldap.php:1023
+msgid "Unable to bind to the LDAP server.  Check authentication credentials."
+msgstr ""
+
+#: lib/Driver/Qmailldap.php:762 lib/Driver/Qmailldap.php:817
+#: lib/Driver/Qmailldap.php:893 lib/Driver/Qmailldap.php:946
+msgid "Unable to bind to the LDAP server. Check authentication credentials."
+msgstr ""
+
+#: lib/Driver/Qmailldap.php:205
+#, fuzzy
+msgid "Unable to qualify address."
+msgstr "Nevar saglabāt adrešu grāmatu \"%s\": %s"
+
+#: lib/Driver/Qmailldap.php:250
+#, fuzzy, php-format
+msgid "Unable to save account of type \"%s\""
+msgstr "Nevar saglabāt adrešu grāmatu \"%s\": %s"
+
+#: lib/Driver/Qmailldap.php:225
+#, fuzzy
+msgid "Unable to save user information."
+msgstr "Nevar saglabāt adrešu grāmatu \"%s\": %s"
+
+#: lib/Driver/Qmailldap.php:1018
+msgid "Unable to set LDAP protocol version"
+msgstr ""
+
+#: lib/Driver.php:313
+msgid "Unknown error running authentication update script."
+msgstr ""
+
+#: lib/Vilma.php:55
+msgid "User"
+msgstr "Lietotājs"
+
+#: lib/Form/EditUser.php:28
+msgid "User Name"
+msgstr "Lietotāja vārds"
+
+#: users/edit.php:72
+#, fuzzy
+msgid "User details saved."
+msgstr "Formas apraksts saglabāts."
+
+#: lib/Driver.php:258
+#, fuzzy
+msgid "User disabled."
+msgstr "Likums \"%s\" izslēgts"
+
+#
+#: users/delete.php:98
+#, fuzzy
+msgid "User not deleted."
+msgstr "Pieejas tiesības \"%s\" nav izdzēstas."
+
+#: lib/Driver.php:276
+#, fuzzy
+msgid "User ready."
+msgstr " Lietotāja izvēlne "
+
+#: lib/Vilma.php:56 virtuals/index.php:57
+msgid "Users"
+msgstr "Lietotāji"
+
+#: lib/Form/EditDomain.php:33
+#, fuzzy
+msgid "Value in MB"
+msgstr "Vērtība sarakstā"
+
+#: virtuals/edit.php:48
+#, fuzzy
+msgid "Virtual Email"
+msgstr "StarMail epasts"
+
+#: templates/virtuals/index.html:15
+#, fuzzy
+msgid "Virtual Email Address"
+msgstr "Komandas e-pasta adrese:"
+
+#: virtuals/delete.php:46
+#, fuzzy
+msgid "Virtual email deleted."
+msgstr "Virtuālā mape \"%s\" izdzēsta."
+
+#: virtuals/delete.php:28
+#, fuzzy
+msgid "Virtual email not deleted."
+msgstr "Mape \"%s\" nav nodzēšama."
+
+#: virtuals/edit.php:70
+#, fuzzy
+msgid "Virtual email saved."
+msgstr "Dzēst parametrus..."
+
+#: lib/Application.php:93
+#, fuzzy
+msgid "_Domains"
+msgstr "Satur"
+
+#: lib/Application.php:99
+#, fuzzy
+msgid "_New Domain"
+msgstr "Tulkošanas sfēra"
+
+#: users/editForward.php:32
+#, fuzzy
+msgid "forward saved."
+msgstr "Saglabātie parametri"

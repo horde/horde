@@ -301,7 +301,9 @@ class IMP_Flags implements ArrayAccess, Serializable
 
         $obs = array();
         foreach ($flags as $val) {
-            $obs[] = $this[$val];
+            if ($tmp = $this[$val]) {
+                $obs[] = $tmp;
+            }
         }
 
         if ($add) {

@@ -321,19 +321,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * Resumes a previously saved draft message.
      *
      * @param IMP_Indices $indices  An indices object.
+     * @param boolean $addheaders   Populate header entries?
      *
      * @return mixed  An array with the following keys:
-     * <pre>
-     * header - (array) A list of headers to add to the outgoing message.
-     * identity - (integer) The identity used to create the message.
-     * mode - (string) 'html' or 'text'.
-     * msg - (string) The message text.
-     * priority - (string) The message priority.
-     * readreceipt - (boolean) Add return receipt headers?
-     * </pre>
+     *   - header: (array) A list of headers to add to the outgoing message.
+     *   - identity: (integer) The identity used to create the message.
+     *   - mode: (string) 'html' or 'text'.
+     *   - msg: (string) The message text.
+     *   - priority: (string) The message priority.
+     *   - readreceipt: (boolean) Add return receipt headers?
+     *
      * @throws IMP_Compose_Exception
      */
-    public function resumeDraft($indices)
+    public function resumeDraft($indices, $addheaders = true)
     {
         global $injector, $prefs;
 
@@ -343,6 +343,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             throw new IMP_Compose_Exception($e);
         }
 
+        $header = array();
         $headers = $contents->getHeaderOb();
         $imp_draft = false;
         $reply_type = null;
@@ -429,39 +430,43 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
-        $header = array(
-            'to' => Horde_Mime_Address::addrArray2String($headers->getOb('to')),
-            'cc' => Horde_Mime_Address::addrArray2String($headers->getOb('cc')),
-            'bcc' => Horde_Mime_Address::addrArray2String($headers->getOb('bcc')),
-            'subject' => $headers->getValue('subject')
-        );
+        if ($addheaders) {
+            $header = array(
+                'to' => Horde_Mime_Address::addrArray2String($headers->getOb('to')),
+                'cc' => Horde_Mime_Address::addrArray2String($headers->getOb('cc')),
+                'bcc' => Horde_Mime_Address::addrArray2String($headers->getOb('bcc')),
+                'subject' => $headers->getValue('subject')
+            );
 
-        if ($val = $headers->getValue('references')) {
-            $this->_metadata['references'] = $val;
+            if ($val = $headers->getValue('references')) {
+                $this->_metadata['references'] = $val;
 
-            if ($val = $headers->getValue('in-reply-to')) {
-                $this->_metadata['in_reply_to'] = $val;
-            }
-        }
-
-        if ($draft_url) {
-            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-            $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($draft_url, '<'), '>'));
-            $protocol = $imp_imap->pop3 ? 'pop' : 'imap';
-
-            try {
-                if (($imap_url['type'] == $protocol) &&
-                    ($imap_url['username'] == $imp_imap->getParam('username')) &&
-                    // Ignore hostspec and port, since these can change
-                    // even though the server is the same. UIDVALIDITY should
-                    // catch any true server/backend changes.
-                    (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
-                    $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
-                    $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
-                    $this->_metadata['uid'] = $imap_url['uid'];
-                    $this->_replytype = $reply_type;
+                if ($val = $headers->getValue('in-reply-to')) {
+                    $this->_metadata['in_reply_to'] = $val;
                 }
-            } catch (Exception $e) {}
+            }
+
+            if ($draft_url) {
+                $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+                $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($draft_url, '<'), '>'));
+                $protocol = $imp_imap->pop3 ? 'pop' : 'imap';
+
+                try {
+                    if (($imap_url['type'] == $protocol) &&
+                        ($imap_url['username'] == $imp_imap->getParam('username')) &&
+                        // Ignore hostspec and port, since these can change
+                        // even though the server is the same. UIDVALIDITY
+                        // should catch any true server/backend changes.
+                    (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
+                        $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
+                        $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
+                        $this->_metadata['uid'] = $imap_url['uid'];
+                        $this->_replytype = $reply_type;
+                    }
+                } catch (Exception $e) {}
+            }
+
+            $this->_metadata['draft_uid_resume'] = $indices;
         }
 
         $imp_ui_hdrs = new IMP_Ui_Headers();
@@ -470,10 +475,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $mdn = new Horde_Mime_Mdn($headers);
         $readreceipt = (bool)$mdn->getMdnReturnAddr();
 
-        $this->_metadata['draft_uid_resume'] = $indices;
-        $this->changed = 'changed';
-
         $this->charset = $charset;
+        $this->changed = 'changed';
 
         return array(
             'header' => $header,
@@ -1630,6 +1633,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $msg_text['mode'] = 'text';
         }
 
+        // Bug #10148: Message text might be us-ascii, but reply headers may
+        // contain 8-bit characters.
+        if (($msg_text['charset'] == 'us-ascii') &&
+            (Horde_Mime::is8bit($msg_pre, 'UTF-8') ||
+             Horde_Mime::is8bit($msg_post, 'UTF-8'))) {
+            $msg_text['charset'] = 'UTF-8';
+        }
+
         return array(
             'body' => $msg . "\n",
             'charset' => $msg_text['charset'],
@@ -1768,7 +1779,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @return array  An array with the following keys:
      * <pre>
      * 'body'    - The text of the body part
-     * 'charset' - The guessed charset to use for the reply
+     * 'charset' - The guessed charset to use for the forward
      * 'format'  - The format of the body message
      * </pre>
      */
@@ -1800,6 +1811,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         } else {
             $msg = $msg_pre . $msg_text['text'] . $msg_post;
             $format = 'text';
+        }
+
+        // Bug #10148: Message text might be us-ascii, but forward headers may
+        // contain 8-bit characters.
+        if (($msg_text['charset'] == 'us-ascii') &&
+            (Horde_Mime::is8bit($msg_pre, 'UTF-8') ||
+             Horde_Mime::is8bit($msg_post, 'UTF-8'))) {
+            $msg_text['charset'] = 'UTF-8';
         }
 
         return array(
@@ -2541,11 +2560,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $body_id = $contents->findBody('html');
             if (!is_null($body_id)) {
                 switch ($options['imp_msg']) {
+                case self::COMPOSE:
                 case self::REPLY:
                     $check_id = '2';
                     break;
 
-                case self::COMPOSE:
                 case self::FORWARD:
                 default:
                     $check_id = '1';
@@ -2924,14 +2943,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     }
 
     /**
-     * Uses the Registry to expand names and return error information for
-     * any address that is either not valid or fails to expand.
+     * Uses the Registry to obtain a list of e-mail addresses in the
+     * addressbook.
      *
      * @param string $search  The term to search by.
+     * @param boolean $email  Return the e-mail only? Otherwise, returns
+     *                        the full address.
      *
      * @return array  All matching addresses.
      */
-    static public function getAddressList($search = '')
+    static public function getAddressList($search = '', $email = false)
     {
         $sparams = IMP::getAddressbookSearchParams();
         try {
@@ -2950,12 +2971,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $search = array();
         foreach (reset($res) as $val) {
             if (!empty($val['email'])) {
-                if (strpos($val['email'], ',') !== false) {
+                if (!$email && (strpos($val['email'], ',') !== false)) {
                     $search[] = Horde_Mime_Address::encode($val['name'], 'personal') . ': ' . $val['email'] . ';';
                 } else {
                     $mbox_host = explode('@', $val['email']);
                     if (isset($mbox_host[1])) {
-                        $search[] = Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $val['name']);
+                        $search[] = Horde_Mime_Address::writeAddress($mbox_host[0], $mbox_host[1], $email ? '' : $val['name']);
                     }
                 }
             }

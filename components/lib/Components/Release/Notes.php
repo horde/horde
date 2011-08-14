@@ -72,7 +72,8 @@ class Components_Release_Notes
         $this->_component = $component;
         if ($notes = $component->getReleaseNotesPath()) {
             include $notes;
-            if (strlen($this->notes['fm']['changes']) > 600) {
+            if (isset($this->notes['fm']['changes']) &&
+                strlen($this->notes['fm']['changes']) > 600) {
                 $this->_output->warn(
                     'freshmeat release notes are longer than 600 characters!'
                 );

@@ -15,7 +15,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
-$messages = &Agora_Messages::singleton($scope, $forum_id);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -86,15 +86,15 @@ if (!$view_bodies) {
         $view->message_author_moderator = 1;
     }
     $view->message_subject = $message['message_subject'];
-    $view->message_body = Agora_Messages::formatBody($message['body']);
+    $view->message_body = Agora_Driver::formatBody($message['body']);
 
     if ($message['attachments']) {
         $view->message_attachment = $messages->getAttachmentLink($message_id);
     }
 
-    $template_file = 'messages/message.html.php';
+    $template_file = 'messages/message';
 } else {
-    $template_file = 'messages/index.html.php';
+    $template_file = 'messages/index';
 }
 
 /* Actions. */
@@ -145,16 +145,16 @@ $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php'
 /* Get the thread table. */
 switch ($view_bodies) {
 case '2':
-    $threads_template = 'messages/flat.html.php';
+    $threads_template = 'messages/flat';
     if (!$prefs->isLocked('thread_view_bodies')) {
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 1), _("Thread")) . _("Thread") . '</a>';
     }
-    $threads = $messages->getThreadsUI($threads_list, $col_headers, $view_bodies, $threads_template);
+    $threads = $messages->getThreadsUi($threads_list, $col_headers, $view_bodies, $threads_template);
     break;
 
 case '1':
-    $threads_template = 'messages/flat_thread.html.php';
+    $threads_template = 'messages/flat_thread';
     if (!$prefs->isLocked('thread_view_bodies')) {
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 0), _("Hide bodies")) . _("Hide bodies") . '</a>';
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 2), _("Flat")) . _("Flat") . '</a>';
@@ -174,7 +174,7 @@ default:
     if (!$prefs->isLocked('thread_view_bodies')) {
         $actions[] = Horde::link(Horde_Util::addParameter($url, 'bodies', 1), _("View bodies")) . _("View bodies") . '</a>';
     }
-    $threads = $messages->getThreadsUI($threads_list, $col_headers, $view_bodies, $threads_template);
+    $threads = $messages->getThreadsUi($threads_list, $col_headers, $view_bodies, $threads_template);
     break;
 }
 
@@ -208,8 +208,6 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $view->form = Horde::endBuffer();
 }
 
-Horde::addScriptFile('hideable.js', 'horde', true);
-Horde::addScriptFile('stripe.js', 'horde', true);
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $view->render($template_file);
 require $registry->get('templates', 'horde') . '/common-footer.inc';

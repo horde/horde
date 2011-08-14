@@ -15,18 +15,12 @@
  */
 class Horde_Pdf_Font_Courier
 {
-
     public function getWidths()
     {
         $fontWidths = array();
         for ($i = 0; $i <= 255; $i++) {
             $fontWidths['courier'][chr($i)] = 600;
         }
-        $fontWidths['courierB']  = $fontWidths['courier'];
-        $fontWidths['courierI']  = $fontWidths['courier'];
-        $fontWidths['courierBI'] = $fontWidths['courier'];
-
         return $fontWidths;
     }
-
 }

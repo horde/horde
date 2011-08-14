@@ -44,6 +44,13 @@ class Components_Runner_Distribute
     private $_config_application;
 
     /**
+     * The output handler.
+     *
+     * @param Component_Output
+     */
+    private $_output;
+
+    /**
      * Constructor.
      *
      * @param Components_Config             $config  The configuration for the current job.
@@ -52,10 +59,12 @@ class Components_Runner_Distribute
      */
     public function __construct(
         Components_Config $config,
-        Components_Config_Application $cfgapp
+        Components_Config_Application $cfgapp,
+        Components_Output $output
     ) {
         $this->_config  = $config;
         $this->_config_application = $cfgapp;
+        $this->_output  = $output;
     }
 
     public function run()

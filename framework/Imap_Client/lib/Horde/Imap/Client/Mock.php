@@ -174,7 +174,6 @@ class Horde_Imap_Client_Mock extends Horde_Imap_Client_Base
      */
     protected function _logout()
     {
-        $this->_exception('not implemented');
     }
 
     /**

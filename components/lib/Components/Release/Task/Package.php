@@ -94,15 +94,26 @@ extends Components_Release_Task_Base
     /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
         if (!$this->getTasks()->pretend()) {
-            $options['keep_version'] = true;
-            $path = $this->getComponent()->placeArchive(getcwd(), $options);
+            $archive_options = $options;
+            $archive_options['keep_version'] = true;
+            $archive_options['logger'] = $this->getOutput();
+            $result = $this->getComponent()->placeArchive(getcwd(), $archive_options);
+            if (isset($result[2])) {
+                $this->getOutput()->pear($result[2]);
+            }
+            if (!empty($result[1])) {
+                $this->getOutput()->fail(
+                    'Generating package failed with:'. "\n\n" . join("\n", $result[1]));
+                return;
+            }
+            $path = $result[0];
         } else {
             $path = '[PATH TO RESULTING]/[PACKAGE.TGZ - PRETEND MODE]';
             $this->getOutput()->info(

@@ -63,6 +63,7 @@ if ($vars->actionID) {
     case 'forward_both':
     case 'redirect_compose':
     case 'fwd_digest':
+    case 'editasnew':
         // These are all safe actions that might be invoked without a token.
         break;
 
@@ -212,8 +213,9 @@ case 'mailto_link':
     break;
 
 case 'draft':
+case 'editasnew':
     try {
-        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid), ($vars->actionID == 'draft'));
 
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');

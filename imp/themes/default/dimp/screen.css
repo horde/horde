@@ -563,6 +563,9 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding-bottom: 2px;
     padding-right: 3px;
 }
+#partlist td.partlistempty {
+    display: none;
+}
 
 #partlist_toggle span.attachmentImg {
     margin-right: 0;
@@ -681,14 +684,19 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     padding: 4px 4px 0 4px;
 }
 .msgwrite span.loadingImg {
-    display: -moz-inline-stack;
-    display: inline-block;
     padding: 1px;
-    position: relative;
-    right: 28px;
+    position: absolute;
+    right: 10px;
+    top: 4px;
     filter: alpha(opacity=75);
     -moz-opacity: .75;
     opacity: .75;
+}
+
+.msgwrite .sendtextarea {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
 }
 
 #noticerow .notices li {
@@ -1028,7 +1036,7 @@ span.dimpactionResume {
 #ctx_message_whitelist span.iconImg, #oa_whitelist span.iconImg {
     background-image: url("../graphics/whitelist.png");
 }
-#ctx_contacts_new span.iconImg {
+#ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg {
     background-image: url("../graphics/compose.png");
 }
 #ctx_contacts_add span.iconImg {

@@ -122,7 +122,12 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
      */
     public function getTitle($name)
     {
-        return join($this->_subpath($name), ':');
+        $subpath = $this->_subpath($name);
+        if (!empty($subpath)) {
+            return array_pop($subpath);
+        } else {
+            return '';
+        }
     }
 
     /**

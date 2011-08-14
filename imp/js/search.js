@@ -56,7 +56,7 @@ var ImpSearch = {
                 break;
 
             case 'IMP_Search_Element_Flag':
-                this.insertFlag(crit.f, !crit.s);
+                this.insertFlag(encodeURIComponent(decodeURIComponent(crit.f)), !crit.s);
                 break;
 
             case 'IMP_Search_Element_Header':
@@ -272,8 +272,8 @@ var ImpSearch = {
     {
         var tmp = [
             new Element('EM').insert(this.text.flag),
-            this.getCriteriaLabel(id).slice(0, -2),
-            new Element('SPAN').insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
+            new Element('SPAN', { className: 'searchFlag' }).insert(this.getCriteriaLabel(id).slice(0, -2)),
+            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { checked: Boolean(not), className: 'checkbox', type: 'checkbox' })).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
@@ -312,6 +312,7 @@ var ImpSearch = {
 
         if (!keys.size()) {
             $('no_search_folders', 'search_folders').invoke('toggle');
+            $('search_folders_add').up().show();
         }
     },
 
@@ -323,6 +324,7 @@ var ImpSearch = {
             this.folders.values().each(this.disableFolder.bind(this, false));
             elts.invoke('remove');
             $('no_search_folders', 'search_folders').invoke('toggle');
+            $('search_folders_add').clear().up().show();
             this.folders = $H();
         }
     },
@@ -333,25 +335,35 @@ var ImpSearch = {
             div = new Element('DIV', { className: 'searchId' }),
             div2 = new Element('DIV', { className: 'searchElement' });
 
-        if ($('search_folders').childElements().size()) {
-            div.insert(new Element('EM', { className: 'join' }).insert(this.text.and));
+        if (folder == this.allsearch) {
+            this.resetFolders();
+            [ $('no_search_folders'), $('search_folders_add').up() ].invoke('hide');
+            $('search_folders').show();
+            div2.insert(
+                new Element('EM').insert(ImpSearch.text.search_all.escapeHTML())
+            ).insert(
+                new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' })
+            );
         } else {
-            $('no_search_folders', 'search_folders').invoke('toggle');
+            if ($('search_folders').childElements().size()) {
+                div.insert(new Element('EM', { className: 'join' }).insert(this.text.and));
+            } else {
+                $('no_search_folders', 'search_folders').invoke('toggle');
+            }
+
+            div2.insert(
+                new Element('EM').insert(this.getFolderLabel(folder).escapeHTML())
+            ).insert(
+                new Element('SPAN', { className: 'subfolders' }).insert(new Element('INPUT', { checked: checked, className: 'checkbox', type: 'checkbox' })).insert(this.text.subfolder_search)
+            ).insert(
+                new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' })
+            );
+
+            this.disableFolder(true, folder);
+            $('search_folders_add').clear();
         }
 
         div.insert(div2);
-
-        div2.insert(
-            new Element('EM').insert(this.getFolderLabel(folder).escapeHTML())
-        ).insert(
-            new Element('SPAN', { className: 'subfolders' }).insert(new Element('INPUT', { checked: checked, className: 'checkbox', type: 'checkbox' })).insert(this.text.subfolder_search)
-        ).insert(
-            new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' })
-        );
-
-
-        this.disableFolder(true, folder);
-        $('search_folders_add').clear();
         $('search_folders').insert(div);
 
         id = div.identify();
@@ -377,14 +389,15 @@ var ImpSearch = {
         var criteria,
             data = [],
             f_out = { mbox: [], subfolder: [] },
-            sflist = [];
+            sflist = [],
+            type = $F('search_type');
 
-        if ($F('search_type') && !$('search_label').present()) {
+        if (type && !$('search_label').present()) {
             alert(this.text.need_label);
             return;
         }
 
-        if (!this.folders.size()) {
+        if (type != 'filter' && !this.folders.size()) {
             alert(this.text.need_folder);
             return;
         }
@@ -452,12 +465,16 @@ var ImpSearch = {
 
         $('criteria_form').setValue(Object.toJSON(data));
 
-        this.folders.each(function(f) {
-            var type = $F($(f.key).down('INPUT[type=checkbox]'))
-                ? 'subfolder'
-                : 'mbox';
-            f_out[type].push(f.value);
-        });
+        if ($('search_folders_add').up().visible()) {
+            this.folders.each(function(f) {
+                var type = $F($(f.key).down('INPUT[type=checkbox]'))
+                    ? 'subfolder'
+                    : 'mbox';
+                f_out[type].push(f.value);
+            });
+        } else {
+            f_out.mbox.push(this.allsearch);
+        }
         $('folders_form').setValue(Object.toJSON(f_out));
 
         $('search_form').submit();

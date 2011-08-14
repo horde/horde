@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 4.0.4-git\n"
+"Project-Id-Version: Horde 4.0.7-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-28 01:09+0300\n"
-"PO-Revision-Date: 2011-05-29 14:23+0300\n"
+"PO-Revision-Date: 2011-07-25 14:35+0300\n"
 "Last-Translator: Vilius Šumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
@@ -1388,6 +1388,10 @@ msgstr ""
 #: templates/login/login.inc:58
 msgid "Forgot your password?"
 msgstr "Pamiršote savo slaptažodį?"
+
+#: config/registry.php:320
+msgid "Forms"
+msgstr "Formos"
 
 #: lib/Block/Fortune.php:25
 msgid "Fortune"

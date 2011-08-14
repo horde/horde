@@ -187,6 +187,25 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testHistory()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertInstanceOf(
+            'Horde_History', $factory->createHistory('test')
+        );
+    }
+
+    public function testHistoryInject()
+    {
+        $history = new Horde_History_Mock('test');
+        $factory = new Horde_Kolab_Storage_Factory(
+            array('history' => $history)
+        );
+        $this->assertSame(
+            $history, $factory->createHistory('test')
+        );
+    }
+
     public function testFolder()
     {
         $factory = new Horde_Kolab_Storage_Factory();

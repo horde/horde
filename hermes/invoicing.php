@@ -123,10 +123,10 @@ if ($form->validate()) {
     Horde::url('time.php')->redirect();
 }
 
-require $registry->get('templates', 'horde') . '/common-header.inc';
-require HERMES_TEMPLATES . '/menu.inc';
-
 $renderer = new Horde_Form_Renderer(array('varrenderer_driver' => 'tableset_html'));
-$form->renderActive($renderer, null, Horde::url('invoicing.php'), 'post');
 
+require $registry->get('templates', 'horde') . '/common-header.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
+$form->renderActive($renderer, null, Horde::url('invoicing.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

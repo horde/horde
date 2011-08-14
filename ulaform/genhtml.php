@@ -103,7 +103,6 @@ $form->renderActive(new Horde_Form_Renderer(), $vars, 'genhtml.php', 'post');
 $view->inputform = Horde::endBuffer();
 $view->html = $html;
 
-Horde::addScriptFile('stripe.js', 'horde', true);
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));

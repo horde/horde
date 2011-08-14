@@ -53,7 +53,9 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             return $result;
         }
         try {
+            session_write_close();
             $events = $kronolith_driver->listEvents($start, $end, true, false, true);
+            session_start();
             if (count($events)) {
                 $result->events = $events;
             }
@@ -878,8 +880,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
     {
         list($driver, $calendar) = explode('|', $cal);
         if ($driver == 'internal' &&
-            !array_key_exists($calendar,
-                              Kronolith::listInternalCalendars(false, Horde_Perms::SHOW))) {
+            !Kronolith::hasPermission($calendar, Horde_Perms::SHOW)) {
             $GLOBALS['notification']->push(_("Permission Denied"), 'horde.error');
             return false;
         }

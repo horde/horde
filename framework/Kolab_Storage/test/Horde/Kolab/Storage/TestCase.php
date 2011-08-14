@@ -30,6 +30,16 @@
 class Horde_Kolab_Storage_TestCase
 extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $_SESSION = array();
+    }
+
+    public function tearDown()
+    {
+        $_SESSION = array();
+    }
+
     protected function completeFactory($factory = null)
     {
         if ($factory === null) {

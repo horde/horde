@@ -1964,6 +1964,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (empty($options['ids'])) {
             $options['ids'] = new Horde_Imap_Client_Ids(empty($options['fetch_res']) ? Horde_Imap_Client_Ids::ALL : array_keys($options['fetch_res']));
+            if ($options['ids']->isEmpty()) {
+                return array();
+            }
         } elseif ($options['ids']->isEmpty()) {
             return array();
         } elseif ($options['ids']->search_res &&
@@ -2092,6 +2095,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 'ids' => $options['ids'],
                 'vanished' => !empty($options['vanished'])
             )));
+
+            if (empty($ret)) {
+                return $ret;
+            }
 
             $options['ids'] = new Horde_Imap_Client_Ids(array_keys($ret), $options['ids']->sequence);
         }
@@ -2806,7 +2813,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @return string  The command string.
      */
-    public function parseCommandArray($query, $callback, $out = '')
+    public function parseCommandArray($query, $callback = null, $out = '')
     {
         foreach ($query as $val) {
             if (is_null($val)) {
@@ -2819,7 +2826,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
                         $out .= intval($val['v']);
                     } elseif (($val['t'] != Horde_Imap_Client::DATA_ATOM) &&
                               preg_match('/[\x80-\xff\n\r]/', $val['v'])) {
-                        $out = call_user_func_array($callback, array($out, $val['v']));
+                        if (is_callable($callback)) {
+                            $out = call_user_func_array($callback, array($out, $val['v']));
+                        }
                     } else {
                         switch ($val['t']) {
                         case Horde_Imap_Client::DATA_ASTRING:
@@ -2861,7 +2870,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $out .= ' ';
             } elseif (is_resource($val)) {
                 /* Resource indicates literal data. */
-                $out = call_user_func_array($callback, array($out, $val)) . ' ';
+                if (is_callable($callback)) {
+                    $out = call_user_func_array($callback, array($out, $val)) . ' ';
+                }
             } else {
                 $out .= $val . ' ';
             }

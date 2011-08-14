@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+HORDENAME=groupware
+DESTDIR=$(CURDIR)/debian/php-horde-$(HORDENAME)
+
+%:
+	dh $@ --buildsystem=phppear --with phppear
+
+binary: build
+	dh binary --buildsystem=phppear --with phppear --until dh_install
+	dh_installdirs etc/horde4
+	# config of "horde" app:
+	mv $(DESTDIR)/usr/share/horde4/config $(DESTDIR)/etc/horde4/horde
+	dh_link etc/horde4/horde usr/share/horde4/config
+	# config of "kronolith" app:
+	mv $(DESTDIR)/usr/share/horde4/kronolith/config $(DESTDIR)/etc/horde4/kronolith
+	dh_link etc/horde4/kronolith usr/share/horde4/kronolith/config
+	# config of "turba" app:
+	mv $(DESTDIR)/usr/share/horde4/turba/config $(DESTDIR)/etc/horde4/turba
+	dh_link etc/horde4/turba usr/share/horde4/turba/config
+	# back to debhelper:
+	dh binary --buildsystem=phppear --with phppear --after dh_install

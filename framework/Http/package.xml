@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-14</date>
- <time>14:50:03</time>
+ <date>2011-07-21</date>
+ <time>10:28:02</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -33,13 +33,15 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="examples">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Http">
-      <file name="get-example-dot-com.php" role="php" />
-     </dir> <!-- /examples/Horde/Http -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+      <dir name="examples">
+       <file name="get-example-dot-com.php" role="doc" />
+      </dir> <!-- /doc/Horde/Http/examples -->
+     </dir> <!-- /doc/Horde/Http -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Http">
@@ -120,7 +122,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/Horde/Http/get-example-dot-com.php" name="examples/Horde/Http/get-example-dot-com.php" />
+   <install as="examples/get-example-dot-com.php" name="doc/Horde/Http/examples/get-example-dot-com.php" />
    <install as="Horde/Http.php" name="lib/Horde/Http.php" />
    <install as="Horde/Http/Client.php" name="lib/Horde/Http/Client.php" />
    <install as="Horde/Http/Exception.php" name="lib/Horde/Http/Exception.php" />
@@ -267,7 +269,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-06-14</date>
+   <date>2011-07-21</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 

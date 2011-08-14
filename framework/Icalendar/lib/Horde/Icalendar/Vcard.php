@@ -60,8 +60,8 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
      */
     public function setVersion($version)
     {
-        $this->oldFormat = $version < 3;
-        $this->version = $version;
+        $this->_oldFormat = $version < 3;
+        $this->_version = $version;
     }
 
     /**
@@ -74,7 +74,7 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
     {
         $requiredAttributes['VERSION'] = $this->version;
         $requiredAttributes['N'] = ';;;;;;';
-        if ($this->version == '3.0') {
+        if ($this->_version == '3.0') {
             $requiredAttributes['FN'] = '';
         }
 

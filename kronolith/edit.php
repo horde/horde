@@ -70,6 +70,7 @@ do {
                 $event->recurrence->deleteException($year, $month, $day);
                 _save($event);
             }
+            $notification->push(_("The exception has been removed."), 'horde.success');
         } catch (Exception $e) {
             $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $e->getMessage()), 'horde.error');
         }

@@ -1,0 +1,44 @@
+<?xml version='1.0'?>
+<!-- $Horde: passwd/locale/en_US/help.xml,v 1.7.2.2 2008/10/09 17:12:08 jan Exp $ -->
+<help>
+  <entry id="passwd-username">
+    <title>Username</title>
+    <para>Enter your username here (if it is not already prefilled). Not all
+    installations support this.</para>
+  </entry>
+  <entry id="passwd-old-password">
+    <title>Old password</title>
+    <para>Enter your current, working login password here. You must correctly
+    enter your current login password, or you cannot change your
+    password.</para>
+  </entry>
+  <entry id="passwd-new-password">
+    <title>New password</title>
+    <para>Enter the new password, that is what you want to change your
+    password to. Note that the password entered must meet some minimum
+    standards (sufficient length, not match your username, have a combination
+    of letters and other characters, etc) or you will get an error.</para>
+  </entry>
+  <entry id="passwd-confirm-password">
+    <title>Confirm new password</title>
+    <para>Enter the new password a second time in the Confirm New Password
+    area. This is to make sure you don't make a typo or other mistake and
+    lock you out of your account.</para>
+  </entry>
+  <entry id="passwd-server">
+    <title>Change password on</title>
+    <para>Select the server or application in which you want to change the
+    password. Not all installations support this.</para>
+  </entry>
+  <entry id="Change-your-password">
+    <title>Change password</title>
+    <para>Press the "Change your password" button at the bottom of the form
+    to submit your password request change to the system. This button tells
+    the system to actually change your password.</para>
+  </entry>
+  <entry id="reset">
+    <title>Reset</title>
+    <para>Use the Reset button at the bottom of the form to clear any form
+    data that you have entered and start over.</para>
+  </entry>
+</help>

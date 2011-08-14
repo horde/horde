@@ -8,16 +8,13 @@
  * use prefs-servername.php.
  */
 
-// This preference group will only be displayed if the configured
-// Ingo_Script:: driver can create script files.
+// This preference group will only be displayed if the configured script
+// driver can create script files.
 $prefGroups['script'] = array(
     'column' => _("Other Preferences"),
     'label' => _("Script Updating"),
     'desc' => _("Preferences about script updating."),
     'members' => array('auto_update'));
-
-// The following preferences are only used for Horde_Script:: drivers that use
-// scripts.
 
 // Automatically update the script?
 $_prefs['auto_update'] = array(
@@ -29,8 +26,10 @@ $_prefs['auto_update'] = array(
 
 // End script preferences
 
-// The following preferences are only used for Horde_Script:: drivers that can
-// do on-demand filtering.
+
+
+// The following preferences are only used for script drivers that can do
+// on-demand filtering.
 
 // Show detailed filter status messages?
 // a value of 0 = no, 1 = yes
@@ -50,8 +49,9 @@ $_prefs['filter_seen'] = array(
 
 // End on-demand filtering preferences
 
-// If NOT using the 'prefs' storage driver (see conf.php), you can comment out
-// the below entries.
+
+
+// The following preference are only used if using the 'prefs' storage driver.
 
 // Filter rules.
 $_prefs['rules'] = array(
@@ -99,3 +99,5 @@ $_prefs['spam'] = array(
     'locked' => false,
     'type' => 'implicit'
 );
+
+// End preferences storage driver entries

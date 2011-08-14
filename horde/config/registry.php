@@ -242,6 +242,11 @@ $this->applications = array(
         'status' => 'heading',
     ),
 
+    'klutz' => array(
+        'name' => _("Comics"),
+        'menu_parent' => 'info'
+    ),
+
     'jonah' => array(
         'name' => _("News"),
         'provides' => 'news',

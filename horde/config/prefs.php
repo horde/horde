@@ -93,7 +93,6 @@
  * ADDITIONAL KEYS:
  *   'desc' - (string) The description text to use on the preferences page.
  *   'value' - (integer) 0 (or false) for unchecked, 1 (or true) for checked.
- *             DEFAULT: 0
  *
  * 'enum'
  * ------

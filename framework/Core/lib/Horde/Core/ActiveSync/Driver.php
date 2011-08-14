@@ -196,7 +196,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Stat folder
+     * Stat folder. Note that since the only thing that can ever change for a
+     * folder is the name, we use that as the 'mod' value.
      *
      * @param $id
      *
@@ -413,7 +414,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $message = $this->_connector->calendar_export($id);
                 // Nokia MfE requires the optional UID element.
                 if (!$message->getUid()) {
-                    $message->setUid(pack("H*", md5($id)));
+                    $message->setUid(pack("H*", $id));
                 }
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());

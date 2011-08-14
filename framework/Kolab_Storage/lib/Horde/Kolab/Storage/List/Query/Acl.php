@@ -28,4 +28,60 @@
 interface Horde_Kolab_Storage_List_Query_Acl
 extends Horde_Kolab_Storage_List_Query
 {
+    /**
+     * Does the backend support ACL?
+     *
+     * @return boolean True if the backend supports ACLs.
+     */
+    public function hasAclSupport();
+
+    /**
+     * Retrieve the access rights for a folder.
+     *
+     * @param string $folder The folder to retrieve the ACL for.
+     *
+     * @return array An array of rights.
+     */
+    public function getAcl($folder);
+
+    /**
+     * Retrieve the access rights the current user has on a folder.
+     *
+     * @param string $folder The folder to retrieve the user ACL for.
+     *
+     * @return string The user rights.
+     */
+    public function getMyAcl($folder);
+
+    /**
+     * Retrieve the all access rights on a folder.
+     *
+     * @param string $folder The folder to retrieve the ACL for.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The folder rights.
+     */
+    public function getAllAcl($folder);
+
+    /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl);
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user);
 }

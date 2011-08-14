@@ -94,7 +94,7 @@ var AnselMobile = {
         $('#ansel-image-back .ui-btn-text').text(AnselMobile.currentGallery.n);
 
         if ($.mobile.activePage.attr('id') != 'imageview') {
-            $.mobile.changePage('imageview', 'slide', false, true);
+            $.mobile.changePage($('#imageview'), { transition: 'slide' });
         }
     },
 
@@ -105,30 +105,32 @@ var AnselMobile = {
      */
     galleryLoaded: function(r)
     {
-        // TODO: error checks, build any subgallery lists etc...
+        var sg, thumbs;
+
         if ($.mobile.currentPage != 'galleryview' &&
             AnselMobile.currentGallery && (r.id == AnselMobile.currentGallery.id)) {
 
-            $.mobile.changePage('galleryview', 'slide', false, true);
+            $.mobile.changePage($('#galleryview'), { transistion: 'slide' });
             return;
         }
-
         AnselMobile.currentGallery = r;
-        $('.anselgalleries').detach();
+        $('#anselgalleryview').empty();
         if (r.sg.length) {
-            var l = $('<ul>').addClass('anselgalleries').attr({'data-role': 'listview', 'data-inset': 'true'});
-            $('#thumbs').before(AnselMobile.buildGalleryList(l, r.sg).listview());
+            sg = AnselMobile.buildGalleryList(
+                $('<ul>').addClass('anselgalleries').attr({ 'data-role': 'listview', 'data-inset': 'true' }),
+                r.sg);
         }
         $('#galleryview h1').text(r.n);
-        $('#thumbs').empty();
+        thumbs = $('<ul>').addClass('thumbView');
         AnselMobile.currentImages = r.imgs;
         $.each(r.imgs, function(k, i) {
             var img = $('<li>').addClass('anselthumb').append($('<a>').attr({'href': '#', 'image-key': k,}).append($('<img>').attr({ 'width': Ansel.conf.thumbWidth, 'height': Ansel.conf.thumbHeight, src: i.url })));
-            $('#thumbs').append(img);
+            thumbs.append(img);
         });
         if ($.mobile.activePage.attr('id') != 'galleryview') {
-            $.mobile.changePage('galleryview', 'slide', false, true);
+           $.mobile.changePage($('#galleryview'), { transistion: 'slide' });
         }
+        $('#anselgalleryview').append(sg).append(thumbs).trigger('create');
         if (r.p) {
             $('#ansel-gallery-back .ui-btn-text').text(r.pn);
             $('#ansel-gallery-back').attr({'action': 'gallery', 'gallery-id': r.p});
@@ -237,7 +239,11 @@ var AnselMobile = {
                 case 'ansel-gallery-back':
                     switch (elt.attr('action')) {
                     case 'home':
-                        $.mobile.changePage('gallerylist', 'slide', true, true);
+                        $.mobile.changePage($('#gallerylist'),
+                            {
+                                transition: 'slide',
+                                reverse:  true
+                            });
                         break;
                     case 'gallery':
                         AnselMobile.toGallery(elt.attr('gallery-id'));
@@ -295,7 +301,7 @@ var AnselMobile = {
         HordeMobile.urls.ajax = Ansel.conf.URI_AJAX;
 
         // Bind click and swipe events
-        $(document).click(AnselMobile.clickHandler);
+        $(document).bind('vclick', AnselMobile.clickHandler);
         $('body').bind('swipeleft', AnselMobile.handleSwipe);
         $('body').bind('swiperight', AnselMobile.handleSwipe);
 

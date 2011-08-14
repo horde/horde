@@ -2,7 +2,7 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Kolab_Config</name>
  <channel>pear.horde.org</channel>
- <summary>A package for reading the Kolab server configuration.</summary>
+ <summary>A package for reading the Kolab server configuration</summary>
  <description>This package reads the various Kolab server configuration files. It should also support retrieving configuration parameters from LDAP but this is not yet implemented.</description>
  <lead>
   <name>Gunnar Wrobel</name>

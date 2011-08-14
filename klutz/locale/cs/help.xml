@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<help>
+  <entry id="Overview" state="unknown">
+    <title>Přehled</title>
+    <heading>Úvod</heading>
+    <para>
+    This is an application for viewing comic strips.  It lets you view comics by date or by comic strip.
+    Tato aplikace je určena pro prohlížení komiksů. Umožní Vám prohlížet komiksy buď podle názvu komiksu nebo podle datumu vydání.
+    </para>
+<!-- English entry:
+<entry id="Overview">
+    <title>Overview</title>
+    <heading>Introduction</heading>
+    <para>
+    This is an application for viewing comic strips.  It lets you view comics by date or by comic strip.
+    </para>
+</entry>--></entry>
+</help>

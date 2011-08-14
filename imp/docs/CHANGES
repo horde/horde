@@ -3,11 +3,33 @@ v5.1-git
 --------
 
 
+-----------
+v5.0.10-git
+-----------
 
-----------
-v5.0.9-git
-----------
+[mjr] Fix notifications not showing while accepting iTips
+[mms] Correctly determine page with first/last unseen messages when using
+      descending sequence sorting (Bug #9882).
+[mms] Deletion works correctly from popup message view if base window is no
+      longer available (Bug #9761).
+[mms] Fix explicitly applying filters in INBOX in dynamic view (Bug #10291).
+[mms] Add 'Edit as New' action for messages (Request #10206).
+[mms] Remove 'allow_resume_all' configuration option (Request #10206).
+[mms] Add personal contacts search filter.
+[mms] Add ability to search all mailboxes (Request #10204).
 
+------
+v5.0.9
+------
+
+[mms] Fix to allow search filters to be saved.
+[mjr] Fix mouse click handling on mobile view (Bug #10355).
+[mms] Ensure correct message charset is use if forward/reply headers contain
+      non US-ASCII characters (Bug #10148).
+[mms] Select all checkbox in dynamic view can now be toggled (Request #10067).
+[mms] Remember vertical splitbar size in dynamic view.
+[mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
+[mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
 [jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
 [mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
 [mms] Add save message link to dynamic view preview window.
@@ -437,6 +459,14 @@ v5.0-ALPHA1
 [mms] Added readonly mailbox and disable compose hooks.
 [mms] Saving draft on session expiration now handled via VFS.
 [mms] Add preference to delete draft on resume & send.
+
+
+-------
+v4.3.10
+-------
+
+[jan] Don't submit the action form when reloading messages with iTip
+      attachments (Bug #9502).
 
 
 ------

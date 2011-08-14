@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<help>
+  <entry id="hermes-job-types">
+    <title>Hermes Job Types</title>
+    <para>A job type in Hermes characterizes what kind of work has been done
+    in a time slice. The administrator has set a number of job types to choose
+    from.</para>
+  </entry>
+  <entry id="hermes-cost-objects">
+    <title>Hermes Cost Objects</title>
+    <para>Hermes draws possible cost objects from a variety of sources, for
+    example deliverable defined by the administator in Hermes, tasks from a
+    todo list manager, or tickets from a ticket-tracking system.</para>
+  </entry>
+  <entry id="hermes-time-format">
+    <title>Hermes Time Format</title>
+    <para>Hermes does not format its times as hours and minutes, rather the
+    time slices are formatted as decimal portions of an hour.</para>
+  </entry>
+  <entry id="hermes-submit-slices">
+    <title>Submitting Time Slices</title>
+    <para>Submitting time slices &quot;marks&quot; them as finshed. This is
+    also a sign for the administrator or bookkeeping department that they are
+    ready to be further processed. As long as you didn't submit your slices,
+    they are still considered due to be changed, but after submitting them you
+    can no longer change them.</para>
+    <heading>Submitting Certain Time Slices</heading>
+    <para>While this cannot be easily achieved from the default time slice
+    view, which shows all time slices for all clients, and the tabs simply
+    group the time slices differently, this can be accomplished by using the
+    search facility. Set the &quot;Submitted?&quot; field to &quot;No&quot;
+    and select any other criteria from the various from fields, then click
+    &quot;Search&quot;.</para>
+    <para>On submission of the search form in that way, you are presented with
+    a view just like the initial time slice view, but containing just the
+    slices with the picked criteria, with all checkboxes already checked, so
+    you can just click &quot;Submit Selected Time&quot; to do so.</para>
+  </entry>
+</help>

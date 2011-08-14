@@ -11,7 +11,7 @@
 </tr>
 <?php foreach ($this->forums as $k1 => $v1): ?>
 <tr>
-    <td><?php if (isset($v1)) { echo is_array($v1) ? $k1 : $v1; } elseif (isset($this->forums)) { echo $this->forums; } ?></td>
+    <td><?php if (isset($v1)) { echo is_array($v1) ? $v1['forum_id'] : $v1; } elseif (isset($this->forums)) { echo $this->forums; } ?></td>
     <td><?php echo $v1['forum_name']; ?></td>
     <td>
         <?php if (!empty($v1['moderators'])): ?>

@@ -462,7 +462,7 @@ extends Horde_Kolab_Storage_TestCase
             array(),
             new Horde_Kolab_Storage_Folder_Stamp_Uids('c', 'd'),
             '2',
-            array('100')
+            array('100' => 'test')
         );
         $this->assertFalse(
             $cache->getAttachment('100', '1')
@@ -620,7 +620,7 @@ extends Horde_Kolab_Storage_TestCase
             array(),
             new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
             '1',
-            array('1000')
+            array('1000' => 'OBJECTID')
         );
         return $cache;
     }

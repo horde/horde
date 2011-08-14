@@ -134,7 +134,7 @@ class Turba_Api extends Horde_Registry_Api
                 }
 
                 try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($params['source']);
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($uid);
                     if ($driver->checkDefaultShare($share, $cfgSources[$params['source']])) {
                         return $uid;
                     }
@@ -467,7 +467,9 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             foreach ($results->objects as $o) {
-                $uids[] = $o->getValue('__uid');
+                if (!$o->isGroup()) {
+                    $uids[] = $o->getValue('__uid');
+                }
             }
         }
 
@@ -503,6 +505,7 @@ class Turba_Api extends Horde_Registry_Api
         if (empty($sources)) {
             $sources = array(Turba::getDefaultAddressbook());
         }
+
         if (empty($sources)) {
             throw new Turba_Exception(_("No address book specified"));
         }
@@ -513,6 +516,7 @@ class Turba_Api extends Horde_Registry_Api
         if (!empty($end)) {
             $filter[] = array('op' => '<', 'field' => 'ts', 'value' => $end);
         }
+
         foreach ($sources as $source) {
             if (empty($source) || !isset($cfgSources[$source])) {
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
@@ -524,11 +528,28 @@ class Turba_Api extends Horde_Registry_Api
                 '>', $timestamp, $filter,
                 'turba:' . $driver->getName());
 
+            // Filter out groups
+            $nguids = str_replace(
+                'turba:' . $driver->getName() . ':',
+                '',
+                array_keys($histories));
+
+            $include = array();
+            foreach ($nguids as $uid) {
+                if ($action != 'delete') {
+                    $list = $driver->search(array('__uid' => $uid));
+                    if ($list->count()) {
+                        $object = $list->next();
+                        if ($object->isGroup()) {
+                            continue;
+                        }
+                    }
+                }
+                $include[] = $uid;
+            }
+
             // Strip leading turba:addressbook:.
-            $uids = array_merge($uids,
-                                str_replace('turba:' . $driver->getName() . ':',
-                                            '',
-                                            array_keys($histories)));
+            $uids = array_merge($uids, $include);
         }
 
         return $uids;
@@ -1683,7 +1704,11 @@ class Turba_Api extends Horde_Registry_Api
                 }
             }
 
-            $list = $driver->search($criterium, null, 'AND', array(), $strict ? array('email') : array());
+            try {
+                $list = $driver->search($criterium, null, 'AND', array(), $strict ? array('email') : array());
+            } catch (Turba_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
             if (!($list instanceof Turba_List)) {
                 continue;
             }

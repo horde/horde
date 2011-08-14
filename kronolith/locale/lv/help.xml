@@ -69,7 +69,7 @@
     </para>
 </entry>
 
-<entry id="menu-prefs" state="uptodate" md5="8a623cc08a53407d5eee2fceba0e9de1">
+<entry id="menu-prefs" state="new">
     <title>Menu: Preferences</title>
     <para>
     The <i>Preferences</i> menu item allows you to set <i>Preferences</i> that
@@ -142,7 +142,7 @@
   </para>
 </entry>
 
-<entry id="embed" md5="795e60a6e3f367b06e3e51181ac1c465" state="uptodate">
+<entry id="embed" md5="26010b7eee676f42a5d74082a96d01cc" state="changed">
   <title>Iegulšana</title>
   <para>
     Ir iespējams iegult Jūsu kalendāra atsevišķus skatus ārējās tīmekļa vietnēs.
@@ -174,5 +174,47 @@
     src="http://hostname.example.com/horde/kronolith/imple.php?imple=Embed
     /container=kronosummary/view=summary/calendar=calendar_name
     "&gt;&lt;/script&gt;</i>
-</entry>
+<!-- English entry (2011-06-15):
+<entry id="embed">
+  <title>Embedding</title>
+  <para>
+    It is possible to embed small views of your calendars in external websites.
+    You can embed the same views that you can place on Horde's portal page. The
+    following are examples of code to use to embed each view on an external
+    blog or website. You should obviously edit the code with the correct server
+    address and calendar name.  The 'container' parameter is arbitrary, but must
+    both match the DOM id of the the div element and be unique across the whole
+    page you are embedding in.
+  </para>
+  <para>
+    To embed a small Month View of the current month:
+  </para>
+  <raw>
+    &lt;div id="kronocalendar"&gt;&lt;/div&gt;&lt;script
+    src="http://hostname.example.com/horde/services/imple.php?imple=Embed/
+    impleApp=kronolith/container=kronocalendar/view=month/calendar=calendar_name
+    "type="text/javascript"&gt;&lt;/script&gt;
+  </raw>
+  <para>
+    To embed an Upcoming Events View (note the 'months' and 'maxevents'
+    parameters):
+  </para>
+  <raw>
+    &lt;div id="kronolist"&gt;&lt;/div&gt;&lt;script
+    src="http://hostname.example.com/horde/services/imple.php?imple=Embed/
+    impleApp=kronolith/view=monthlist/calendar=calendar_name/container=kronolist/
+    months=2/maxevents=10" type="text/javascript"&gt;&lt;/script
+    &gt;
+  </raw>
+  <para>
+    To embed a Summary View:
+  </para>
+  <raw>
+    &lt;div id="kronosummary"&gt;
+    &lt;/div&gt;&lt;script type="text/javascript"
+    src="http://hostname.example.com/horde/services/imple.php?imple=Embed/
+    impleApp=kronolith/container=kronosummary/view=summary/calendar=calendar_name
+    "&gt;&lt;/script&gt;
+  </raw>
+</entry>--></entry>
 </help>

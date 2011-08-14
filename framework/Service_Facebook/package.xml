@@ -5,15 +5,15 @@
  <summary>Horde Facebook client</summary>
  <description>This package provides client libraries for the Facebook REST API.</description>
  <lead>
-  <name>Michael J. Rubinsky</name>
+  <name>Michael J Rubinsky</name>
   <user>mrubinsk</user>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-14</date>
- <time>17:13:05</time>
+ <date>2011-07-28</date>
+ <time>22:33:34</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [mjr] Add dependency on Horde_Support to better support logging features.
+* [mjr] Use FQL to obtain event list and add rsvp_status
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -591,10 +591,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-14</date>
+   <date>2011-07-27</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [jan] Update Latvian translation.
 * [mjr] Add dependency on Horde_Support to better support logging features.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-28</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* [mjr] Use FQL to obtain event list and add rsvp_status
    </notes>
   </release>
  </changelog>

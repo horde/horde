@@ -8,18 +8,18 @@ msgstr ""
 "Project-Id-Version: Ulaform 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2007-11-02 15:40+0200\n"
-"PO-Revision-Date: 2007-11-11 18:55+0200\n"
+"PO-Revision-Date: 2011-08-02 15:58+0200\n"
 "Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
 "Language-Team: Lithuanian <vilius@lnk.lt>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: edit.php:83
 msgid "-- default configured --"
-msgstr "-- standartiğkai sukonfigûruota --"
+msgstr "-- standartiÅ¡kai sukonfigÅ«ruota --"
 
 #: edit.php:63
 msgid "-- select --"
@@ -43,11 +43,11 @@ msgstr "Cc"
 
 #: edit.php:46
 msgid "Changed action driver."
-msgstr "Veiksmo tvarkyklë pakeista."
+msgstr "Veiksmo tvarkyklÄ— pakeista."
 
 #: genhtml.php:38
 msgid "Changed embed type."
-msgstr "Atvaizdavimo reşimas pakeistas."
+msgstr "Atvaizdavimo reÅ¾imas pakeistas."
 
 #: config/fields.php.dist:49
 msgid "Characters"
@@ -68,31 +68,31 @@ msgstr "Sukurti"
 
 #: edit.php:83
 msgid "Default language"
-msgstr "Pagrindinë kalba"
+msgstr "PagrindinÄ— kalba"
 
 #: delete.php:34 delete.php:37 deletefield.php:44 deletefield.php:50
 msgid "Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #: fields.php:128 deletefield.php:43
 msgid "Delete Field"
-msgstr "Iğtrinti laukelá"
+msgstr "IÅ¡trinti laukelÄ¯"
 
 #: forms.php:27
 msgid "Delete Form"
-msgstr "Iğtrinti formà"
+msgstr "IÅ¡trinti formÄ…"
 
 #: deletefield.php:48
 msgid "Delete this field?"
-msgstr "Ar iğtrinti ğá laukelá?"
+msgstr "Ar iÅ¡trinti Å¡Ä¯ laukelÄ¯?"
 
 #: delete.php:31
 msgid "Delete this form?"
-msgstr "Ar iğtrinti ğià formà?"
+msgstr "Ar iÅ¡trinti Å¡iÄ… formÄ…?"
 
 #: fields.php:58 fields.php:125
 msgid "Description"
-msgstr "Aprağymas"
+msgstr "ApraÅ¡ymas"
 
 #: delete.php:34 deletefield.php:44 deletefield.php:68
 msgid "Do not delete"
@@ -100,15 +100,15 @@ msgstr "Netrinti"
 
 #: fields.php:129
 msgid "Edit Field"
-msgstr "Redaguoti laukelá"
+msgstr "Redaguoti laukelÄ¯"
 
 #: forms.php:28
 msgid "Edit Form"
-msgstr "Redaguoti formà"
+msgstr "Redaguoti formÄ…"
 
 #: edit.php:116
 msgid "Edit Forms"
-msgstr "Formø redagavimas"
+msgstr "FormÅ³ redagavimas"
 
 #: config/fields.php.dist:121 config/fields.php.dist:129
 msgid "End year"
@@ -118,58 +118,58 @@ msgstr "Galiniai metai"
 #: config/fields.php.dist:92 config/fields.php.dist:100
 #: config/fields.php.dist:108 config/fields.php.dist:147
 msgid "Enter a comma separated list of values."
-msgstr "Áveskite kableliais atskirtas reikğmes."
+msgstr "Ä®veskite kableliais atskirtas reikÅ¡mes."
 
 #: deletefield.php:58
 #, php-format
 msgid "Error deleting field. %s."
-msgstr "Klaida trinant laukelá. %s."
+msgstr "Klaida trinant laukelÄ¯. %s."
 
 #: delete.php:45
 #, php-format
 msgid "Error deleting form. %s."
-msgstr "Klaida trinant formà. %s."
+msgstr "Klaida trinant formÄ…. %s."
 
 #: fields.php:89
 #, php-format
 msgid "Error saving field. %s."
-msgstr "Klaida iğsaugant laukelá. %s."
+msgstr "Klaida iÅ¡saugant laukelÄ¯. %s."
 
 #: sortfields.php:47
 #, php-format
 msgid "Error saving fields. %s."
-msgstr "Klaida iğsaukant laukelius. %s."
+msgstr "Klaida iÅ¡saukant laukelius. %s."
 
 #: edit.php:101
 #, php-format
 msgid "Error saving form. %s."
-msgstr "Klaida iğsaugant formà. %s."
+msgstr "Klaida iÅ¡saugant formÄ…. %s."
 
 #: display.php:68 lib/Block/form.php:88
 #, php-format
 msgid "Error submitting form. %s."
-msgstr "Klaida siunèiant formà. %s."
+msgstr "Klaida siunÄiant formÄ…. %s."
 
 #: deletefield.php:60
 #, php-format
 msgid "Field \"%s\" deleted."
-msgstr "Laukelis \"%s\" iğtrintas."
+msgstr "Laukelis \"%s\" iÅ¡trintas."
 
 #: fields.php:41
 msgid "Field Details"
-msgstr "Laukelio aparağymas"
+msgstr "Laukelio aparaÅ¡ymas"
 
 #: deletefield.php:69
 msgid "Field not deleted."
-msgstr "Laukelis neiğtrintas."
+msgstr "Laukelis neiÅ¡trintas."
 
 #: fields.php:91
 msgid "Field saved."
-msgstr "Laukelis iğsaugotas."
+msgstr "Laukelis iÅ¡saugotas."
 
 #: sortfields.php:49
 msgid "Field sort order saved."
-msgstr "Laukeliø iğdëstymo tvarka iğsaugota."
+msgstr "LaukeliÅ³ iÅ¡dÄ—stymo tvarka iÅ¡saugota."
 
 #: templates/fields/fields.html:15
 msgid "Fields"
@@ -181,7 +181,7 @@ msgstr "Forma"
 
 #: delete.php:30 edit.php:56
 msgid "Form Details"
-msgstr "Formos aprağymas"
+msgstr "Formos apraÅ¡ymas"
 
 #: fields.php:134
 msgid "Form Fields"
@@ -193,19 +193,19 @@ msgstr "Formos pavadinimas"
 
 #: delete.php:47
 msgid "Form deleted."
-msgstr "Forma iğtrinta."
+msgstr "Forma iÅ¡trinta."
 
 #: edit.php:103
 msgid "Form details saved."
-msgstr "Formos aprağymas iğsaugotas."
+msgstr "Formos apraÅ¡ymas iÅ¡saugotas."
 
 #: delete.php:54
 msgid "Form has not been deleted."
-msgstr "Forma neiğtrinta."
+msgstr "Forma neiÅ¡trinta."
 
 #: display.php:70 lib/Block/form.php:90
 msgid "Form submitted successfully."
-msgstr "Forma sëkmingai iğsiøsta."
+msgstr "Forma sÄ—kmingai iÅ¡siÅ³sta."
 
 #: config/fields.php.dist:135
 msgid "Format used to display"
@@ -217,7 +217,7 @@ msgstr "Siuntimo formatas"
 
 #: forms.php:39
 msgid "Forms List"
-msgstr "Formø sàrağas"
+msgstr "FormÅ³ sÄ…raÅ¡as"
 
 #: lib/Action/mailto.php:115
 msgid "From"
@@ -234,7 +234,7 @@ msgstr "\"%s\" HTML generavimas"
 
 #: genhtml.php:63
 msgid "Height"
-msgstr "Aukğtis"
+msgstr "AukÅ¡tis"
 
 #: fields.php:48
 msgid "Internal name"
@@ -246,11 +246,11 @@ msgstr "Pavadinimas"
 
 #: lib/Action/mailto.php:99
 msgid "Mailto"
-msgstr "Siøsti pağtu"
+msgstr "SiÅ³sti paÅ¡tu"
 
 #: lib/Driver/sql.php:80 lib/Driver/sql.php:160
 msgid "Missing form"
-msgstr "Formos nëra"
+msgstr "Formos nÄ—ra"
 
 #: edit.php:57
 msgid "Modify"
@@ -266,15 +266,15 @@ msgstr "Ne"
 
 #: fields.php:109
 msgid "No available fields."
-msgstr "Laukeliø nëra."
+msgstr "LaukeliÅ³ nÄ—ra."
 
 #: forms.php:24
 msgid "No available forms."
-msgstr "Formø nëra."
+msgstr "FormÅ³ nÄ—ra."
 
 #: deletefield.php:33
 msgid "No field specified."
-msgstr "Nenurodëte laukelio."
+msgstr "NenurodÄ—te laukelio."
 
 #: lib/Action.php:84
 #, php-format
@@ -284,12 +284,12 @@ msgstr "Veiksmas \"%s\" nerastas"
 #: lib/Driver.php:175
 #, php-format
 msgid "No such backend \"%s\" found"
-msgstr "Posistemë \"%s\" nerasta"
+msgstr "PosistemÄ— \"%s\" nerasta"
 
 #: display.php:33
 #, php-format
 msgid "No such form ID \"%s\"."
-msgstr "Tokio formos ID \"%s\" nëra."
+msgstr "Tokio formos ID \"%s\" nÄ—ra."
 
 #: edit.php:87
 msgid "On submit"
@@ -297,15 +297,15 @@ msgstr "Siuntimo metu"
 
 #: genhtml.php:53
 msgid "PHP using PEAR classes"
-msgstr "PHP pasinaudojant PEAR klasëmis"
+msgstr "PHP pasinaudojant PEAR klasÄ—mis"
 
 #: fields.php:118
 msgid "Preview"
-msgstr "Perşiûra"
+msgstr "PerÅ¾iÅ«ra"
 
 #: forms.php:29
 msgid "Preview Form"
-msgstr "Perşiûrëti formà"
+msgstr "PerÅ¾iÅ«rÄ—ti formÄ…"
 
 #: fields.php:57 fields.php:125
 msgid "Read only"
@@ -321,7 +321,7 @@ msgstr "Privalomas"
 
 #: config/fields.php.dist:38 config/fields.php.dist:45
 msgid "Rows"
-msgstr "Eilutës"
+msgstr "EilutÄ—s"
 
 #: lib/Action/sql.php:89
 msgid "SQL"
@@ -329,42 +329,42 @@ msgstr "SQL"
 
 #: sortfields.php:35
 msgid "Save"
-msgstr "Iğsaugoti"
+msgstr "IÅ¡saugoti"
 
 #: fields.php:42
 msgid "Save Field"
-msgstr "Iğsaugoti laukelá"
+msgstr "IÅ¡saugoti laukelÄ¯"
 
 #: genhtml.php:54
 msgid "Select how you wish to embed the form"
-msgstr "Pasirinkite kaip norite átraukti formà á puslapá"
+msgstr "Pasirinkite kaip norite Ä¯traukti formÄ… Ä¯ puslapÄ¯"
 
 #: sortfields.php:36
 msgid "Select the sort order of the fields"
-msgstr "Pasirinkite laukeliø rûğiavimo tvarkà"
+msgstr "Pasirinkite laukeliÅ³ rÅ«Å¡iavimo tvarkÄ…"
 
 #: fields.php:48
 msgid ""
 "Set this name if you have a particular reason to override the automatic "
 "internal naming of fields."
 msgstr ""
-"Nurodykite ğá pavadinimà, jeigu norite apeiti vidiná laukeliø şymëjimà."
+"Nurodykite Å¡Ä¯ pavadinimÄ…, jeigu norite apeiti vidinÄ¯ laukeliÅ³ Å¾ymÄ—jimÄ…."
 
 #: lib/Block/form.php:3
 msgid "Show Form"
-msgstr "Rodyti formà"
+msgstr "Rodyti formÄ…"
 
 #: config/fields.php.dist:131
 msgid "Show the date picker"
-msgstr "Rodyti datos pasirinkimà"
+msgstr "Rodyti datos pasirinkimÄ…"
 
 #: sortfields.php:32
 msgid "Sort Fields"
-msgstr "Surûğiuoti laukelius"
+msgstr "SurÅ«Å¡iuoti laukelius"
 
 #: fields.php:118
 msgid "Sort fields"
-msgstr "Surûğiuoti laukelius"
+msgstr "SurÅ«Å¡iuoti laukelius"
 
 #: config/fields.php.dist:119 config/fields.php.dist:127
 msgid "Start year"
@@ -376,28 +376,28 @@ msgstr "Tema"
 
 #: lib/Action/sql.php:104
 msgid "Table"
-msgstr "Lentelë"
+msgstr "LentelÄ—"
 
 #: forms.php:21
 #, php-format
 msgid "There was an error listing forms: %s."
-msgstr "Klaida parodant formø sàrağà: %s."
+msgstr "Klaida parodant formÅ³ sÄ…raÅ¡Ä…: %s."
 
 #: lib/Action/mailto.php:100
 msgid ""
 "This driver allows the sending of form results via email to one or more "
 "recipients."
 msgstr ""
-"Ği tvarkyklë leidşia nusiøsti formos rezultatus á vienà ar daugiau pağto "
-"adresø."
+"Å i tvarkyklÄ— leidÅ¾ia nusiÅ³sti formos rezultatus Ä¯ vienÄ… ar daugiau paÅ¡to "
+"adresÅ³."
 
 #: lib/Action/sql.php:90
 msgid "This driver allows to insertion of form results into a database."
-msgstr "Ği tvarkyklë leidşia nusiøsti formos rezultatus á SQL duomenø bazæ."
+msgstr "Å i tvarkyklÄ— leidÅ¾ia nusiÅ³sti formos rezultatus Ä¯ SQL duomenÅ³ bazÄ™."
 
 #: fields.php:66
 msgid "This field type has extra parameters."
-msgstr "Ğis laukelio tipas turi papildomø nustatymø."
+msgstr "Å is laukelio tipas turi papildomÅ³ nustatymÅ³."
 
 #: lib/Action/mailto.php:116
 msgid "To"
@@ -411,7 +411,7 @@ msgstr "Tipas"
 #: config/fields.php.dist:89 config/fields.php.dist:97
 #: config/fields.php.dist:105 config/fields.php.dist:144
 msgid "Values"
-msgstr "Reikğmës"
+msgstr "ReikÅ¡mÄ—s"
 
 #: genhtml.php:64
 msgid "Width"
@@ -423,11 +423,11 @@ msgstr "Taip"
 
 #: lib/Driver/sql.php:230
 msgid "You don't have the right permission to access this form."
-msgstr "Neturite teisiø prieiti prie ğios formos."
+msgstr "Neturite teisiÅ³ prieiti prie Å¡ios formos."
 
 #: lib/Ulaform.php:198
 msgid "_List Forms"
-msgstr "Formø sàrağas"
+msgstr "FormÅ³ sÄ…raÅ¡as"
 
 #: lib/Ulaform.php:199
 msgid "_New Form"
@@ -435,4 +435,4 @@ msgstr "Nauja forma"
 
 #: genhtml.php:53
 msgid "iframe"
-msgstr "Áterptas kadras (iframe)"
+msgstr "Ä®terptas kadras (iframe)"

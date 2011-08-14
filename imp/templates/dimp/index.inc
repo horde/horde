@@ -141,10 +141,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </div>
 
      <div id="searchbar" style="display:none">
-      <span id="search_label"></span>
       <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
       <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
       <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
+      <div id="search_label"></div>
      </div>
     </div>
 
@@ -355,6 +355,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  </div>
  <a id="ctx_message_reply"><span class="iconImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward"><span class="iconImg"></span><?php echo _("Forward") ?></a>
+ <a id="ctx_message_editasnew"><span class="iconImg"></span><?php echo _("Edit as New") ?></a>
  <div style="display:none">
   <div class="sep"></div>
   <a id="ctx_message_setflag"><span class="iconImg"></span><?php echo _("Mark as") ?>...</a>
@@ -458,6 +459,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 
 <div class="context" id="ctx_mboxsort" style="display:none">
  <a id="ctx_mboxsort_none"><?php echo _("Clear Sort") ?></a>
+ <a id="ctx_mboxsort_none_toggle"><?php echo _("Toggle Sort Direction") ?></a>
 </div>
 
 <?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
@@ -528,7 +530,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div id="msglistHeaderContainer">
  <div class="item msglistHeader" id="msglistHeaderHoriz" style="display:none">
   <div class="iconImg msgStatus">
-   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
   </div>
   <div class="msgFrom sep"></div>
   <div class="msgSubject sep"></div>
@@ -537,7 +539,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  </div>
  <div class="item msglistHeader" id="msglistHeaderVert" style="display:none">
   <div class="iconImg msgStatus">
-   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
   </div>
   <div class="msgSort">
    <a class="widget" id="vertical_sort">Sort</a>

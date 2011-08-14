@@ -1,674 +1,668 @@
-# Latvian translations for Horde_Model module.
-# Copyright (C) 2010 Horde Project
-# This file is distributed under the same license as the Horde_Model module.
-# Automatically generated, 2010.
+# Latvian translations for Horde_Model package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Horde_Model package.
+# Automatically generated, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Model\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"PO-Revision-Date: 2011-07-21 15:54+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
-#: lib/Horde/Form.php:2062 lib/Horde/Form/Type/Date.php:46
+#: lib/Horde/Form.php:2049 lib/Horde/Form/Type/Date.php:46
 #, php-format
 msgid " (%s days ago)"
-msgstr ""
+msgstr "(pirms %s dienām)"
 
-#: lib/Horde/Form.php:2070 lib/Horde/Form/Type/Date.php:54
+#: lib/Horde/Form.php:2057 lib/Horde/Form/Type/Date.php:54
 #, php-format
 msgid " (in %s days)"
-msgstr ""
+msgstr "(%s dienās)"
 
-#: lib/Horde/Form.php:2066 lib/Horde/Form/Type/Date.php:50
+#: lib/Horde/Form.php:2053 lib/Horde/Form/Type/Date.php:50
 msgid " (today)"
-msgstr ""
+msgstr " (šodien)"
 
-#: lib/Horde/Form.php:2068 lib/Horde/Form/Type/Date.php:52
+#: lib/Horde/Form.php:2055 lib/Horde/Form/Type/Date.php:52
 msgid " (tomorrow)"
-msgstr ""
+msgstr " (rīt)"
 
-#: lib/Horde/Form.php:2064 lib/Horde/Form/Type/Date.php:48
+#: lib/Horde/Form.php:2051 lib/Horde/Form/Type/Date.php:48
 msgid " (yesterday)"
-msgstr ""
+msgstr " (vakar)"
 
-#: lib/Horde/Form.php:1251 lib/Horde/Form/Type/Email.php:88
+#: lib/Horde/Form.php:1238 lib/Horde/Form/Type/Email.php:88
 #, php-format
 msgid "\"%s\" is not a valid email address."
-msgstr ""
+msgstr "\"%s\"  nav derīga e-pasta adrese."
 
-#: lib/Horde/Form.php:2030
+#: lib/Horde/Form.php:2017
 #, php-format
 msgid "%s is required"
-msgstr ""
+msgstr "%s ir obligāts"
 
-#: lib/Horde/Form.php:1775 lib/Horde/Form.php:1823
-#: lib/Horde/Form/VarRenderer/Xhtml.php:650
+#: lib/Horde/Form.php:1762 lib/Horde/Form.php:1810
+#: lib/Horde/Form/VarRenderer/Xhtml.php:631
 msgid "-- select --"
-msgstr ""
+msgstr "-- izvēlieties --"
 
 #: www/test.php:39
 msgid "A Date"
-msgstr ""
+msgstr "Datums"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:456
+#: lib/Horde/Form/VarRenderer/Xhtml.php:437
 msgid "Add column"
-msgstr ""
+msgstr "Pievienot sleju"
 
 #: www/test.php:82
-#, fuzzy
 msgid "Add user"
-msgstr "Pievienot pāri"
+msgstr "Pievienot lietotāju"
 
-#: lib/Horde/Form.php:1074
+#: lib/Horde/Form.php:1061
 msgid "Address"
 msgstr "Adrese"
 
-#: lib/Horde/Form.php:1438
+#: lib/Horde/Form.php:1425
 msgid "Allow multiple addresses?"
-msgstr ""
+msgstr "Atļaut vairākas adreses?"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:301
-#: lib/Horde/Form/VarRenderer/Xhtml.php:340
+#: lib/Horde/Form/VarRenderer/Xhtml.php:282
+#: lib/Horde/Form/VarRenderer/Xhtml.php:321
 msgid "April"
-msgstr ""
+msgstr "Aprīlis"
 
-#: lib/Horde/Form.php:2902
+#: lib/Horde/Form.php:2889
 msgid "Assignment columns"
-msgstr ""
+msgstr "Piešķires slejas"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:305
-#: lib/Horde/Form/VarRenderer/Xhtml.php:344
+#: lib/Horde/Form/VarRenderer/Xhtml.php:286
+#: lib/Horde/Form/VarRenderer/Xhtml.php:325
 msgid "August"
-msgstr ""
+msgstr "Augusts"
 
 #: www/test.php:57
 msgid "Bar field"
-msgstr ""
+msgstr "Svītru lauks"
 
 #: www/test.php:37
 msgid "Boolean"
-msgstr ""
+msgstr "Loģiskais"
 
-#: lib/Horde/Form.php:1446
+#: lib/Horde/Form.php:1433
 msgid "Character to split multiple addresses with"
-msgstr ""
+msgstr "Pieturzīme vairāku adrešu atdalīšanai"
 
 #: www/test.php:60
 msgid "Checkbox Group"
-msgstr ""
+msgstr "Komandrūtiņu grupa"
 
 #: www/test.php:30
 msgid "Color"
-msgstr ""
+msgstr "Krāsa"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:398
-#: lib/Horde/Form/VarRenderer/Xhtml.php:399
+#: lib/Horde/Form/VarRenderer/Xhtml.php:379
+#: lib/Horde/Form/VarRenderer/Xhtml.php:380
 msgid "Color Picker"
-msgstr ""
+msgstr "Krāsu pipete"
 
-#: lib/Horde/Form.php:2662
+#: lib/Horde/Form.php:2649
 msgid "Colour selection"
-msgstr ""
+msgstr "Krāsu izvēle"
 
-#: lib/Horde/Form.php:1658
+#: lib/Horde/Form.php:1645
 msgid "Column titles"
-msgstr ""
+msgstr "Sleju nosaukumi"
 
-#: lib/Horde/Form.php:1054
+#: lib/Horde/Form.php:1041
 msgid "Counted text"
-msgstr ""
+msgstr "Saskaitītais teksts"
 
 #: www/test.php:51
 msgid "Credit Card"
-msgstr ""
+msgstr "Kredītkarte"
 
-#: lib/Horde/Form.php:3017
+#: lib/Horde/Form.php:3004
 msgid "Credit card number"
-msgstr ""
+msgstr "Kredītkartes numurs"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:349
+#: lib/Horde/Form/VarRenderer/Xhtml.php:330
 msgid "DD"
 msgstr "DD"
 
-#: lib/Horde/Form.php:3073
+#: lib/Horde/Form.php:3060
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
+"DSN (skat. http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 
-#: lib/Horde/Form.php:3071
+#: lib/Horde/Form.php:3058
 msgid "Database lookup"
-msgstr ""
+msgstr "Datubāzes vaicājums"
 
-#: lib/Horde/Form.php:2091
+#: lib/Horde/Form.php:2078
 msgid "Date"
-msgstr ""
+msgstr "Datums"
 
-#: lib/Horde/Form.php:2622
-#, fuzzy
+#: lib/Horde/Form.php:2609
 msgid "Date and time selection"
-msgstr "Saskaņot datuma un laika laukus"
+msgstr "Datuma un laika izvēle"
 
-#: lib/Horde/Form.php:2483
+#: lib/Horde/Form.php:2470
 msgid "Date selection"
-msgstr ""
+msgstr "Datuma izvēle"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:309
-#: lib/Horde/Form/VarRenderer/Xhtml.php:348
+#: lib/Horde/Form/VarRenderer/Xhtml.php:290
+#: lib/Horde/Form/VarRenderer/Xhtml.php:329
 msgid "December"
-msgstr ""
+msgstr "Decembris"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:932
+#: lib/Horde/Form/VarRenderer/Xhtml.php:913
 #, php-format
 msgid "Dial %s"
-msgstr ""
+msgstr "Zvanīt %s"
 
-#: lib/Horde/Form.php:2493 lib/Horde/Form.php:2632
-#, fuzzy
+#: lib/Horde/Form.php:2480 lib/Horde/Form.php:2619
 msgid "Display format"
-msgstr "Ekrāna iestatījumi"
+msgstr "Ekrāna formāts"
 
-#: lib/Horde/Form.php:1803
+#: lib/Horde/Form.php:1790
 msgid "Drop down list"
-msgstr ""
+msgstr "Izkrītošā izvēlne"
 
-#: lib/Horde/Form.php:1436 www/test.php:49
+#: lib/Horde/Form.php:1423 www/test.php:49
 msgid "Email"
 msgstr "E-pasts"
 
-#: lib/Horde/Form.php:1674 lib/Horde/Form/Type/Email.php:429
+#: lib/Horde/Form.php:1661 lib/Horde/Form/Type/Email.php:429
 msgid "Email addresses must match."
-msgstr ""
+msgstr "E-pasta adresēm jāsakrīt."
 
-#: lib/Horde/Form.php:1700
+#: lib/Horde/Form.php:1687
 msgid "Email with confirmation"
-msgstr ""
+msgstr "E-pasts ar apstiprinājumu"
 
 #: www/test.php:50
-#, fuzzy
 msgid "Email2"
-msgstr "E-pasts"
+msgstr "E-pasts2"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:200
-#: lib/Horde/Form/VarRenderer/Xhtml.php:201
+#: lib/Horde/Form/VarRenderer/Xhtml.php:181
+#: lib/Horde/Form/VarRenderer/Xhtml.php:182
 msgid "Emoticons"
-msgstr ""
+msgstr "Emotikonas"
 
-#: lib/Horde/Form.php:2283 lib/Horde/Form.php:2487 lib/Horde/Form.php:2626
+#: lib/Horde/Form.php:2270 lib/Horde/Form.php:2474 lib/Horde/Form.php:2613
 msgid "End year"
-msgstr ""
+msgstr "Beigu gads"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:794
+#: lib/Horde/Form/VarRenderer/Xhtml.php:775
 msgid "Enter the letters below:"
-msgstr ""
+msgstr "Ievadiet zemāk redzamos burtus:"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:299
-#: lib/Horde/Form/VarRenderer/Xhtml.php:338
+#: lib/Horde/Form/VarRenderer/Xhtml.php:280
+#: lib/Horde/Form/VarRenderer/Xhtml.php:319
 msgid "February"
-msgstr ""
+msgstr "Februāris"
 
-#: lib/Horde/Form.php:1656
+#: lib/Horde/Form.php:1643
 msgid "Field matrix"
-msgstr ""
+msgstr "Lauka matrica"
 
-#: lib/Horde/Form.php:3116
+#: lib/Horde/Form.php:3103
 msgid "Figlet CAPTCHA"
-msgstr ""
+msgstr "Figlet CAPTCHA"
 
-#: lib/Horde/Form.php:3120
+#: lib/Horde/Form.php:3107
 msgid "Figlet font"
-msgstr ""
+msgstr "Figlet fonts"
 
-#: lib/Horde/Form.php:2791
+#: lib/Horde/Form.php:2778
 msgid "File selection"
-msgstr ""
+msgstr "Failu izvēle"
 
-#: lib/Horde/Form.php:1128
+#: lib/Horde/Form.php:1115
 msgid "File upload"
-msgstr ""
+msgstr "Failu augšupielāde"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1037
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1018
 msgid "Google Maps"
-msgstr ""
+msgstr "Google kartes"
 
-#: lib/Horde/Form.php:2729
+#: lib/Horde/Form.php:2716
 msgid "Header"
-msgstr ""
+msgstr "Galvene"
 
-#: lib/Horde/Form.php:1015
-#, fuzzy
+#: lib/Horde/Form.php:1002
 msgid "Helper?"
-msgstr "Palīdzība"
+msgstr "Helperis?"
 
-#: lib/Horde/Form.php:966
-#, fuzzy
+#: lib/Horde/Form.php:953
 msgid "IP address"
-msgstr "Adrese"
+msgstr "IP adrese"
 
-#: lib/Horde/Form.php:2793
+#: lib/Horde/Form.php:2780
 msgid "Id"
-msgstr ""
+msgstr "id"
 
 #: www/test.php:24
 msgid "If other, please describe"
-msgstr ""
+msgstr "Lūdzu, aprakstiet, ja atšķiras"
 
 #: www/test.php:44
 msgid "Insert some text"
-msgstr ""
+msgstr "Ievelciet kādu tekstu"
 
 #: www/test.php:44
 msgid "Insert some text in this box"
-msgstr ""
+msgstr "Ievelciet šajā rāmīti kādu tekstu"
 
-#: lib/Horde/Form.php:737 www/test.php:38
+#: lib/Horde/Form.php:724 www/test.php:38
 msgid "Integer"
-msgstr ""
+msgstr "Vesels skaitlis"
 
-#: lib/Horde/Form.php:791
+#: lib/Horde/Form.php:778
 msgid "Integer list"
-msgstr ""
+msgstr "Veselo skaitļu saraksts"
 
-#: lib/Horde/Form.php:1793 lib/Horde/Form.php:1853 lib/Horde/Form.php:1916
-#: lib/Horde/Form.php:1995 lib/Horde/Form/Type/Enum.php:37
+#: lib/Horde/Form.php:1780 lib/Horde/Form.php:1840 lib/Horde/Form.php:1903
+#: lib/Horde/Form.php:1982 lib/Horde/Form/Type/Enum.php:37
 #: lib/Horde/Form/Type/Set.php:30 lib/Horde/Form/Type/Set.php:62
 msgid "Invalid data."
-msgstr ""
+msgstr "Nederīgi dati."
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:581
+#: lib/Horde/Form/VarRenderer/Xhtml.php:562
 msgid "Invert selection"
-msgstr ""
+msgstr "Invertēt iezīmēto"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:298
-#: lib/Horde/Form/VarRenderer/Xhtml.php:337
+#: lib/Horde/Form/VarRenderer/Xhtml.php:279
+#: lib/Horde/Form/VarRenderer/Xhtml.php:318
 msgid "January"
-msgstr ""
+msgstr "Janvāris"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:304
-#: lib/Horde/Form/VarRenderer/Xhtml.php:343
+#: lib/Horde/Form/VarRenderer/Xhtml.php:285
+#: lib/Horde/Form/VarRenderer/Xhtml.php:324
 msgid "July"
-msgstr ""
+msgstr "Jūlijs"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:303
-#: lib/Horde/Form/VarRenderer/Xhtml.php:342
+#: lib/Horde/Form/VarRenderer/Xhtml.php:284
+#: lib/Horde/Form/VarRenderer/Xhtml.php:323
 msgid "June"
-msgstr ""
+msgstr "Jūnijs"
 
-#: lib/Horde/Form.php:2908
+#: lib/Horde/Form.php:2895
 msgid "Left header"
-msgstr ""
+msgstr "Kreisā galvene"
 
-#: lib/Horde/Form.php:2904
-#, fuzzy
+#: lib/Horde/Form.php:2891
 msgid "Left values"
-msgstr "Paraugvērtības"
+msgstr "Kreisās vērtības"
 
-#: lib/Horde/Form.php:1181
+#: lib/Horde/Form.php:1168
 msgid "Link"
-msgstr ""
+msgstr "Saite"
 
-#: lib/Horde/Form.php:1184
+#: lib/Horde/Form.php:1171
 msgid "Link URL"
-msgstr ""
+msgstr "Saites URL"
 
-#: lib/Horde/Form.php:1199
+#: lib/Horde/Form.php:1186
 msgid "Link access key"
-msgstr ""
+msgstr "Saites pieejas atslēga"
 
-#: lib/Horde/Form.php:2797
+#: lib/Horde/Form.php:2784
 msgid "Link style"
-msgstr ""
+msgstr "Saites stils"
 
-#: lib/Horde/Form.php:1190
+#: lib/Horde/Form.php:1177
 msgid "Link target"
-msgstr ""
+msgstr "Saites mērķis"
 
-#: lib/Horde/Form.php:1187 lib/Horde/Form.php:2795
+#: lib/Horde/Form.php:1174 lib/Horde/Form.php:2782
 msgid "Link text"
-msgstr ""
+msgstr "Saites teksts"
 
-#: lib/Horde/Form.php:1442
+#: lib/Horde/Form.php:1429
 msgid "Link the email address to the compose page when displaying?"
-msgstr ""
+msgstr "Piesaistīt e-pasta adresi rediģēšanas lapai attēlojot vēstuli?"
 
-#: lib/Horde/Form.php:1196
+#: lib/Horde/Form.php:1183
 msgid "Link title attribute"
-msgstr ""
+msgstr "Saites virsraksta atribūts"
 
-#: lib/Horde/Form.php:1009
+#: lib/Horde/Form.php:996
 msgid "Long text"
-msgstr ""
+msgstr "Garš teksts"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:297
-#: lib/Horde/Form/VarRenderer/Xhtml.php:336
+#: lib/Horde/Form/VarRenderer/Xhtml.php:278
+#: lib/Horde/Form/VarRenderer/Xhtml.php:317
 msgid "MM"
 msgstr "MM"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1062
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1043
 msgid "Map24 map"
-msgstr ""
+msgstr "Map24 karte"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:993
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1077
+#: lib/Horde/Form/VarRenderer/Xhtml.php:974
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1058
 msgid "MapQuest map"
-msgstr ""
+msgstr "MapQuest karte"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:300
-#: lib/Horde/Form/VarRenderer/Xhtml.php:339
+#: lib/Horde/Form/VarRenderer/Xhtml.php:281
+#: lib/Horde/Form/VarRenderer/Xhtml.php:320
 msgid "March"
-msgstr ""
+msgstr "Marts"
 
-#: lib/Horde/Form.php:860 lib/Horde/Form.php:880
+#: lib/Horde/Form.php:847 lib/Horde/Form.php:867
 msgid "Maximum length"
-msgstr ""
+msgstr "Maksimālais garums"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:302
-#: lib/Horde/Form/VarRenderer/Xhtml.php:341
+#: lib/Horde/Form/VarRenderer/Xhtml.php:283
+#: lib/Horde/Form/VarRenderer/Xhtml.php:322
 msgid "May"
-msgstr ""
+msgstr "Maijs"
 
-#: lib/Horde/Form.php:925
+#: lib/Horde/Form.php:912
 msgid "Mobile phone number"
-msgstr ""
+msgstr "Mobilā tālruņa numurs"
 
-#: lib/Horde/Form.php:2279
+#: lib/Horde/Form.php:2266
 msgid "Month and year"
-msgstr ""
+msgstr "Mēnesis un gads"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:426
+#: lib/Horde/Form/VarRenderer/Xhtml.php:407
 msgid "Move down"
-msgstr ""
+msgstr "Uz leju"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:422
-#: lib/Horde/Form/VarRenderer/Xhtml.php:423
-#: lib/Horde/Form/VarRenderer/Xhtml.php:425
+#: lib/Horde/Form/VarRenderer/Xhtml.php:403
+#: lib/Horde/Form/VarRenderer/Xhtml.php:404
+#: lib/Horde/Form/VarRenderer/Xhtml.php:406
 msgid "Move up"
-msgstr ""
+msgstr "Uz augšu"
 
-#: lib/Horde/Form.php:1869
+#: lib/Horde/Form.php:1856
 msgid "Multi-level drop down lists"
-msgstr ""
+msgstr "Vairāklīmeņu izkrītošās izvēlnes"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:964
+#: lib/Horde/Form/VarRenderer/Xhtml.php:945
 msgid "Multimap UK map"
-msgstr ""
+msgstr "Multimap UK kartes"
 
-#: lib/Horde/Form.php:1926
+#: lib/Horde/Form.php:1913
 msgid "Multiple selection"
-msgstr ""
+msgstr "Vairāku objektu izvēle"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:35
+#: lib/Horde/Form/VarRenderer/Xhtml.php:846 www/test.php:35
 msgid "No"
-msgstr ""
+msgstr "Nē"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:873
-#: lib/Horde/Form/VarRenderer/Xhtml.php:883
-#: lib/Horde/Form/VarRenderer/Xhtml.php:894
-#: lib/Horde/Form/VarRenderer/Xhtml.php:911
+#: lib/Horde/Form/VarRenderer/Xhtml.php:854
+#: lib/Horde/Form/VarRenderer/Xhtml.php:864
+#: lib/Horde/Form/VarRenderer/Xhtml.php:875
+#: lib/Horde/Form/VarRenderer/Xhtml.php:892
 msgid "No values"
-msgstr ""
+msgstr "Nav vērtību"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:308
-#: lib/Horde/Form/VarRenderer/Xhtml.php:347
+#: lib/Horde/Form/VarRenderer/Xhtml.php:289
+#: lib/Horde/Form/VarRenderer/Xhtml.php:328
 msgid "November"
-msgstr ""
+msgstr "Novembris"
 
-#: lib/Horde/Form.php:711
+#: lib/Horde/Form.php:698
 msgid "Number"
-msgstr ""
+msgstr "Skaits"
 
-#: lib/Horde/Form.php:1060
+#: lib/Horde/Form.php:1047
 msgid "Number of characters"
-msgstr ""
+msgstr "Zīmju skaits"
 
-#: lib/Horde/Form.php:1013 lib/Horde/Form.php:1058 lib/Horde/Form.php:1078
+#: lib/Horde/Form.php:1000 lib/Horde/Form.php:1045 lib/Horde/Form.php:1065
 msgid "Number of columns"
-msgstr ""
+msgstr "Sleju skaits"
 
-#: lib/Horde/Form.php:1011 lib/Horde/Form.php:1056 lib/Horde/Form.php:1076
+#: lib/Horde/Form.php:998 lib/Horde/Form.php:1043 lib/Horde/Form.php:1063
 msgid "Number of rows"
-msgstr ""
+msgstr "Rindu skaits"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+#: lib/Horde/Form/VarRenderer/Xhtml.php:758
 msgid "Object"
-msgstr ""
+msgstr "Objekts"
 
-#: lib/Horde/Form.php:764 www/test.php:54
+#: lib/Horde/Form.php:751 www/test.php:54
 msgid "Octal"
-msgstr ""
+msgstr "Oktāls"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:307
-#: lib/Horde/Form/VarRenderer/Xhtml.php:346
+#: lib/Horde/Form/VarRenderer/Xhtml.php:288
+#: lib/Horde/Form/VarRenderer/Xhtml.php:327
 msgid "October"
-msgstr ""
+msgstr "Oktobris"
 
-#: lib/Horde/Form.php:1193
+#: lib/Horde/Form.php:1180
 msgid "Onclick event"
-msgstr ""
+msgstr "Klikšķa notikums"
 
-#: lib/Horde/Form.php:1683 lib/Horde/Form/Type/Email.php:441
+#: lib/Horde/Form.php:1670 lib/Horde/Form/Type/Email.php:441
 msgid "Only one email address allowed."
-msgstr ""
+msgstr "Atļauta tikai viena e-pasta adrese."
 
-#: lib/Horde/Form.php:1240 lib/Horde/Form/Type/Email.php:77
+#: lib/Horde/Form.php:1227 lib/Horde/Form/Type/Email.php:77
 msgid "Only one email address is allowed."
-msgstr ""
+msgstr "Atļauta tikai viena e-pasta adrese."
 
-#: lib/Horde/Form.php:1727 www/test.php:42 www/test.php:52
+#: lib/Horde/Form.php:1714 www/test.php:42 www/test.php:52
 msgid "Password"
 msgstr "Parole"
 
-#: lib/Horde/Form.php:1760 www/test.php:53
+#: lib/Horde/Form.php:1747 www/test.php:53
 msgid "Password with confirmation"
-msgstr ""
+msgstr "Parole ar apstiprinājumu"
 
-#: lib/Horde/Form.php:1742 lib/Horde/Form/Type/Password.php:38
+#: lib/Horde/Form.php:1729 lib/Horde/Form/Type/Password.php:38
 msgid "Passwords must match."
-msgstr ""
+msgstr "Parolēm ir jāsakrīt."
 
-#: lib/Horde/Form.php:913
+#: lib/Horde/Form.php:900
 msgid "Phone number"
-msgstr ""
+msgstr "Tālruņa numurs"
 
-#: lib/Horde/Form.php:2257
+#: lib/Horde/Form.php:2244
 msgid "Please enter a month and a year."
-msgstr ""
+msgstr "Ievadiet mēnesi un gadu."
 
-#: lib/Horde/Form.php:951
+#: lib/Horde/Form.php:938
 msgid "Please enter a valid IP address."
-msgstr ""
+msgstr "Lūdzu ievadiet korektu IP adresi."
 
-#: lib/Horde/Form.php:2335
+#: lib/Horde/Form.php:2322
 msgid "Please enter a valid date, check the number of days in the month."
-msgstr ""
+msgstr "Lūdzu, ievadiet pareizu datumu, pārbaudiet dienu skaitu mēnesī."
 
-#: lib/Horde/Form.php:2140
+#: lib/Horde/Form.php:2127
 msgid "Please enter a valid time."
-msgstr ""
+msgstr "Lūdzu ievadiet pareizu laiku."
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1218
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1199
 msgid "Preview"
-msgstr ""
+msgstr "Priekšskats"
 
-#: lib/Horde/Form.php:1807 lib/Horde/Form.php:1873 lib/Horde/Form.php:3077
+#: lib/Horde/Form.php:1794 lib/Horde/Form.php:1860 lib/Horde/Form.php:3064
 msgid "Prompt text"
-msgstr ""
+msgstr "Uzaicinājuma teksts"
 
-#: lib/Horde/Form.php:1440
+#: lib/Horde/Form.php:1427
 msgid "Protect address from spammers?"
-msgstr ""
+msgstr "Aizsargāt adresi no mēstuļniekiem?"
 
 #: www/test.php:55
 msgid "Radio Group"
-msgstr ""
+msgstr " Radio grupa"
 
-#: lib/Horde/Form.php:1961
+#: lib/Horde/Form.php:1948
 msgid "Radio selection"
-msgstr ""
+msgstr "Radio izvēle"
 
-#: lib/Horde/Form.php:856 lib/Horde/Form.php:876
+#: lib/Horde/Form.php:843 lib/Horde/Form.php:863
 msgid "Regex"
-msgstr ""
+msgstr "Regex"
 
-#: lib/Horde/Form.php:3034
+#: lib/Horde/Form.php:3021
 msgid "Relationship browser"
-msgstr ""
+msgstr "Relāciju pārlūks"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:459
+#: lib/Horde/Form/VarRenderer/Xhtml.php:440
 msgid "Remove column"
-msgstr ""
+msgstr "Dzēst sleju"
 
 #: lib/Horde/Form/Renderer/Xhtml.php:298
 msgid "Required Field"
-msgstr ""
+msgstr "Obligāts lauks"
 
-#: lib/Horde/Form/Renderer.php:88 lib/Horde/Form/Renderer/Xhtml.php:282
+#: lib/Horde/Form/Renderer.php:73 lib/Horde/Form/Renderer/Xhtml.php:282
 #: www/test.php:82
 msgid "Reset"
-msgstr ""
+msgstr "Atsākt no jauna"
 
-#: lib/Horde/Form.php:2910
+#: lib/Horde/Form.php:2897
 msgid "Right header"
-msgstr ""
+msgstr "Labā galvene"
 
-#: lib/Horde/Form.php:2906
+#: lib/Horde/Form.php:2893
 msgid "Right values"
-msgstr ""
+msgstr "Labās vērtības"
 
-#: lib/Horde/Form.php:3075
+#: lib/Horde/Form.php:3062
 msgid "SQL statement for value lookups"
-msgstr ""
+msgstr "SQl pieprasījums vērtību iegūšanai"
 
-#: lib/Horde/Form.php:2770
+#: lib/Horde/Form.php:2757
 msgid "Select Files"
-msgstr ""
+msgstr "Izvēlēties failus"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:579
+#: lib/Horde/Form/VarRenderer/Xhtml.php:560
 msgid "Select all"
-msgstr ""
+msgstr "Izvēlēties visus"
 
-#: lib/Horde/Form.php:2338
-#, fuzzy
+#: lib/Horde/Form.php:2325
 msgid "Select all date components."
-msgstr "Izvēlieties datuma formātu:"
+msgstr "Izvēlieties visus datuma komponentus."
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+#: lib/Horde/Form/VarRenderer/Xhtml.php:758
 msgid "Select an object"
-msgstr ""
+msgstr "Izvēlēties objektu"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:580
+#: lib/Horde/Form/VarRenderer/Xhtml.php:561
 msgid "Select none"
-msgstr ""
+msgstr "Neizvēlēties neko"
 
 #: www/test.php:22
-#, fuzzy
 msgid "Select something"
-msgstr "Izvēlieties divus saderīgus laukus."
+msgstr "Izvēlēties kaut ko"
 
 #: www/test.php:48
-#, fuzzy
 msgid "Select something2"
-msgstr "Izvēlieties divus saderīgus laukus."
+msgstr "Izvēlēties kaut ko2"
 
 #: www/test.php:33
 msgid "Select:"
-msgstr ""
+msgstr "Atlasīt:"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:948
+#: lib/Horde/Form/VarRenderer/Xhtml.php:929
 msgid "Send SMS"
-msgstr ""
+msgstr "Sūtīt SMS"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:306
-#: lib/Horde/Form/VarRenderer/Xhtml.php:345
+#: lib/Horde/Form/VarRenderer/Xhtml.php:287
+#: lib/Horde/Form/VarRenderer/Xhtml.php:326
 msgid "September"
-msgstr ""
+msgstr "Septembris"
 
-#: lib/Horde/Form.php:2005
+#: lib/Horde/Form.php:1992
 msgid "Set"
-msgstr ""
+msgstr "Uzstādīt"
 
-#: lib/Horde/Form.php:2799
+#: lib/Horde/Form.php:2786
 msgid "Show icon?"
-msgstr ""
+msgstr "Rādīt ikonu?"
 
-#: lib/Horde/Form.php:2489 lib/Horde/Form.php:2628
+#: lib/Horde/Form.php:2476 lib/Horde/Form.php:2615
 msgid "Show picker?"
-msgstr ""
+msgstr "Rādīt krāsu paleti?"
 
-#: lib/Horde/Form.php:2225 lib/Horde/Form.php:2634
+#: lib/Horde/Form.php:2212 lib/Horde/Form.php:2621
 msgid "Show seconds?"
-msgstr ""
+msgstr "Rādīt sekundes?"
 
 #: www/test.php:36
-#, fuzzy
 msgid "Simple description"
-msgstr "Problēmas apraksts"
+msgstr "Vienkāršs apraksts"
 
-#: lib/Horde/Form.php:858 lib/Horde/Form.php:878 lib/Horde/Form.php:1930
-#: lib/Horde/Form.php:2727 lib/Horde/Form.php:2912
+#: lib/Horde/Form.php:845 lib/Horde/Form.php:865 lib/Horde/Form.php:1917
+#: lib/Horde/Form.php:2714 lib/Horde/Form.php:2899
 msgid "Size"
-msgstr ""
+msgstr "Izmērs"
 
-#: lib/Horde/Form.php:2723
+#: lib/Horde/Form.php:2710
 msgid "Sort order selection"
-msgstr ""
+msgstr "Šķirošanas kārtības izvēle"
 
-#: lib/Horde/Form.php:2281 lib/Horde/Form.php:2485 lib/Horde/Form.php:2624
+#: lib/Horde/Form.php:2268 lib/Horde/Form.php:2472 lib/Horde/Form.php:2611
 msgid "Start year"
-msgstr ""
+msgstr "Sākuma gads"
 
-#: lib/Horde/Form.php:2491 lib/Horde/Form.php:2630
-#, fuzzy
+#: lib/Horde/Form.php:2478 lib/Horde/Form.php:2617
 msgid "Storage format"
-msgstr "Jūsu informācija"
+msgstr "Glabāšanas formāts"
 
-#: lib/Horde/Form.php:874
+#: lib/Horde/Form.php:861
 msgid "String list"
-msgstr ""
+msgstr "Simbolu saraksts"
 
-#: lib/Horde/Form/Renderer.php:81 lib/Horde/Form/Renderer/Xhtml.php:279
+#: lib/Horde/Form/Renderer.php:66 lib/Horde/Form/Renderer/Xhtml.php:279
 msgid "Submit"
-msgstr ""
+msgstr "Iesniegt"
 
-#: lib/Horde/Form.php:854 lib/Horde/Form.php:3118
+#: lib/Horde/Form.php:841 lib/Horde/Form.php:3105
 msgid "Text"
-msgstr ""
+msgstr "Teksts"
 
-#: lib/Horde/Form.php:1444
+#: lib/Horde/Form.php:1431
 msgid "The name to use when linking to the compose page"
-msgstr ""
+msgstr "Vārds, kuru lietot sasaistei ar rediģēšanas lapu"
 
-#: lib/Horde/Form.php:3103
+#: lib/Horde/Form.php:3090
 msgid "The text you entered did not match the text on the screen."
-msgstr ""
+msgstr "Jūsu ievadītais teksts neatbilst uz ekrāna redzamajam."
 
-#: lib/Horde/Form.php:1042
+#: lib/Horde/Form.php:1029
 #, php-format
 msgid ""
 "There are too many characters in this field. You have entered %s characters; "
 "you must enter less than %s."
 msgstr ""
+"Laukā ievadīti pārāk daudzi simboli. Jūs ievadījāt %s simbolus, taču ir "
+"jāievada mazāk nekā %s."
 
-#: lib/Horde/Form.php:2933 lib/Horde/Form/Type/CreditCard.php:18
-#, fuzzy
+#: lib/Horde/Form.php:2920 lib/Horde/Form/Type/CreditCard.php:18
 msgid "This does not seem to be a valid card number."
-msgstr "Šai vērtībai ir jābūt skaitlim."
+msgstr "Ievadītais numurs nav derīgs kredītkartes numurs."
 
-#: lib/Horde/Form.php:644 lib/Horde/Form.php:720 lib/Horde/Form.php:747
-#: lib/Horde/Form.php:774 lib/Horde/Form.php:837 lib/Horde/Form.php:896
-#: lib/Horde/Form.php:955 lib/Horde/Form.php:1039 lib/Horde/Form.php:1669
-#: lib/Horde/Form.php:1715 lib/Horde/Form.php:1737 lib/Horde/Form.php:1784
-#: lib/Horde/Form.php:1844 lib/Horde/Form.php:1905 lib/Horde/Form.php:2101
-#: lib/Horde/Form.php:2143 lib/Horde/Form.php:2332 lib/Horde/Form.php:2645
-#: lib/Horde/Form.php:2925 lib/Horde/Form.php:3098 lib/Horde/Form.php:3586
-#: lib/Horde/Form.php:3594 lib/Horde/Form/Type/Color.php:10
+#: lib/Horde/Form.php:631 lib/Horde/Form.php:707 lib/Horde/Form.php:734
+#: lib/Horde/Form.php:761 lib/Horde/Form.php:824 lib/Horde/Form.php:883
+#: lib/Horde/Form.php:942 lib/Horde/Form.php:1026 lib/Horde/Form.php:1656
+#: lib/Horde/Form.php:1702 lib/Horde/Form.php:1724 lib/Horde/Form.php:1771
+#: lib/Horde/Form.php:1831 lib/Horde/Form.php:1892 lib/Horde/Form.php:2088
+#: lib/Horde/Form.php:2130 lib/Horde/Form.php:2319 lib/Horde/Form.php:2632
+#: lib/Horde/Form.php:2912 lib/Horde/Form.php:3085 lib/Horde/Form.php:3573
+#: lib/Horde/Form.php:3581 lib/Horde/Form/Type/Color.php:10
 #: lib/Horde/Form/Type/CreditCard.php:10 lib/Horde/Form/Type/Date.php:17
 #: lib/Horde/Form/Type/Email.php:424 lib/Horde/Form/Type/Enum.php:28
 #: lib/Horde/Form/Type/Int.php:10 lib/Horde/Form/Type/Number.php:14
@@ -677,135 +671,139 @@ msgstr "Šai vērtībai ir jābūt skaitlim."
 #: lib/Horde/Form/Type/Set.php:51 lib/Horde/Form/Type/String.php:32
 #: lib/Horde/Form/Type/Time.php:10
 msgid "This field is required."
-msgstr ""
+msgstr "Šis lauks ir obligāts."
 
-#: lib/Horde/Form.php:728 lib/Horde/Form/Type/Int.php:18
+#: lib/Horde/Form.php:715 lib/Horde/Form/Type/Int.php:18
 msgid "This field may only contain integers."
-msgstr ""
+msgstr "Šis lauks var saturēt tikai veselus skaitļus."
 
-#: lib/Horde/Form.php:2109 lib/Horde/Form/Type/Time.php:18
+#: lib/Horde/Form.php:2096 lib/Horde/Form/Type/Time.php:18
 msgid "This field may only contain numbers and the colon."
-msgstr ""
+msgstr "Šis lauks var saturēt tikai skaitļus un kolu."
 
-#: lib/Horde/Form.php:755 lib/Horde/Form/Type/Octal.php:18
+#: lib/Horde/Form.php:742 lib/Horde/Form/Type/Octal.php:18
 msgid "This field may only contain octal values."
-msgstr ""
+msgstr "Šis lauks var saturēt tikai oktālus lielumus."
 
-#: lib/Horde/Form.php:782
+#: lib/Horde/Form.php:769
 msgid "This field must be a comma or space separated list of integers"
-msgstr ""
+msgstr "Šajā laukā var būt tikai ar komatu atdalīti veseli skaitļi"
 
-#: lib/Horde/Form.php:655 lib/Horde/Form/Type/Number.php:25
-#, fuzzy
+#: lib/Horde/Form.php:642 lib/Horde/Form/Type/Number.php:25
 msgid "This field must be a valid number."
-msgstr "Šai vērtībai ir jābūt skaitlim."
+msgstr "Šajā laukā var ievadīt tikai skaitliskas vērtības."
 
-#: lib/Horde/Form.php:2653 lib/Horde/Form/Type/Color.php:18
+#: lib/Horde/Form.php:2640 lib/Horde/Form/Type/Color.php:18
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
 msgstr ""
+"Šajā laukā jānorāda krāsas kods RGB heksadecimālā formātā, piemēram "
+"'#1234af'."
 
-#: lib/Horde/Form.php:388
+#: lib/Horde/Form.php:375
 msgid "This form has already been processed."
-msgstr ""
+msgstr "Šī forma jau ir apstrādāta."
 
-#: lib/Horde/Form.php:2118
+#: lib/Horde/Form.php:2105
 msgid "Time"
-msgstr ""
+msgstr "Laiks"
 
-#: lib/Horde/Form.php:2223
+#: lib/Horde/Form.php:2210
 msgid "Time selection"
-msgstr ""
+msgstr "Laika izvēle"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:551
+#: lib/Horde/Form/VarRenderer/Xhtml.php:532
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
 msgstr ""
+"Lai iezīmētu vairākus objektus, klikšķinot turiet nospiestu Control (PC) vai "
+"Command (MAC) pogu."
 
-#: lib/Horde/Form.php:1150
+#: lib/Horde/Form.php:1137
 msgid "True or false"
-msgstr ""
+msgstr "Patiess vai nepatiess"
 
 #: www/test.php:41
 msgid "Username"
 msgstr "Lietotāja vārds"
 
-#: lib/Horde/Form.php:834 lib/Horde/Form/Type/String.php:29
+#: lib/Horde/Form.php:821 lib/Horde/Form/Type/String.php:29
 #, php-format
 msgid "Value is over the maximum length of %s."
-msgstr ""
+msgstr "Vērtība pārsniedz maksimālo %s garumu."
 
-#: lib/Horde/Form.php:1928 lib/Horde/Form.php:1963 lib/Horde/Form.php:2007
-#: lib/Horde/Form.php:2725
+#: lib/Horde/Form.php:1915 lib/Horde/Form.php:1950 lib/Horde/Form.php:1994
+#: lib/Horde/Form.php:2712
 msgid "Values"
-msgstr ""
+msgstr "Vērtības"
 
-#: lib/Horde/Form.php:1805 lib/Horde/Form.php:1871
+#: lib/Horde/Form.php:1792 lib/Horde/Form.php:1858
 msgid "Values to select from"
-msgstr ""
+msgstr "Vērtības, no kurām izvēlēties"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:970
+#: lib/Horde/Form/VarRenderer/Xhtml.php:951
 msgid "Whereis Australia map"
-msgstr ""
+msgstr "Whereis Austrālijas karte"
 
-#: lib/Horde/Form.php:2914
+#: lib/Horde/Form.php:2901
 msgid "Width in CSS units"
-msgstr ""
+msgstr "Platums CSS vienībās"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:310
-#: lib/Horde/Form/VarRenderer/Xhtml.php:353
+#: lib/Horde/Form/VarRenderer/Xhtml.php:291
+#: lib/Horde/Form/VarRenderer/Xhtml.php:334
 msgid "YYYY"
-msgstr ""
+msgstr "GGGG"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:1017
+#: lib/Horde/Form/VarRenderer/Xhtml.php:998
 msgid "Yahoo! map"
-msgstr ""
+msgstr "Yahoo! karte"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:34
+#: lib/Horde/Form/VarRenderer/Xhtml.php:846 www/test.php:34
 msgid "Yes"
-msgstr ""
+msgstr "Jā"
 
-#: lib/Horde/Form.php:1687 lib/Horde/Form/Type/Email.php:445
+#: lib/Horde/Form.php:1674 lib/Horde/Form/Type/Email.php:445
 msgid "You did not enter a valid email address."
-msgstr ""
+msgstr "Jūs neievadījāt derīgu e-pasta adresi."
 
 #: www/test.php:57
 msgid "You have to fill in some long text here"
-msgstr ""
+msgstr "Šeit Jums ir jāievada kāds garš teksts"
 
-#: lib/Horde/Form.php:901 lib/Horde/Form/Type/Phone.php:19
+#: lib/Horde/Form.php:888 lib/Horde/Form/Type/Phone.php:19
 msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
 msgstr ""
+"Jums jāievada derīgs tālruņa numurs, tikai cipari un papildu '+' "
+"starptautiskiem numuriem."
 
-#: lib/Horde/Form.php:841 lib/Horde/Form/Type/String.php:36
+#: lib/Horde/Form.php:828 lib/Horde/Form/Type/String.php:36
 msgid "You must enter a valid value."
-msgstr ""
+msgstr "Jāievada derīga vērtība."
 
-#: lib/Horde/Form.php:1261 lib/Horde/Form/Type/Email.php:98
-#, fuzzy
+#: lib/Horde/Form.php:1248 lib/Horde/Form/Type/Email.php:98
 msgid "You must enter an email address."
-msgstr "Jūsu e-pasta adrese:"
+msgstr "Jāievada e-pasta adrese."
 
-#: lib/Horde/Form.php:1259 lib/Horde/Form/Type/Email.php:96
+#: lib/Horde/Form.php:1246 lib/Horde/Form/Type/Email.php:96
 msgid "You must enter at least one email address."
-msgstr ""
+msgstr "Jāievada vismaz viena e-pasta adrese."
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:259
+#: lib/Horde/Form/VarRenderer/Xhtml.php:240
 msgid "hh"
-msgstr ""
+msgstr "hh"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:269
+#: lib/Horde/Form/VarRenderer/Xhtml.php:250
 msgid "mm"
-msgstr ""
+msgstr "mm"
 
-#: lib/Horde/Form/VarRenderer/Xhtml.php:281
+#: lib/Horde/Form/VarRenderer/Xhtml.php:262
 msgid "ss"
-msgstr ""
+msgstr "ss"
 
 #: www/test.php:53
 msgid "type the password twice to confirm"
-msgstr ""
+msgstr "lai apstiprinātu, ievadiet paroli divreiz"

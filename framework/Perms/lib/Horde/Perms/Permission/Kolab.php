@@ -80,6 +80,11 @@ extends Horde_Perms_Permission
     public function getCurrentPermissions()
     {
         $data = array();
+        /**
+         * @todo: Can we lazy load $this->data so that we restrict to using
+         * MYRIGHTS only when that is all we need and use the full GETACL just
+         * when required.
+         */
         $acl = new Horde_Perms_Permission_Kolab_AclIterator(
             $this->_storage->getAcl(),
             $this->_storage->getOwner()

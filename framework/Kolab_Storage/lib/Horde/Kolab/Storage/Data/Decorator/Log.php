@@ -73,6 +73,18 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Return the ID of the current user.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The current user.
+     */
+    public function getAuth()
+    {
+        return $this->_data->getAuth();
+    }
+
+    /**
      * Return the ID of this data handler.
      *
      * @return string The ID.
@@ -387,6 +399,18 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Return the mapping of object IDs to backend IDs.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The object to backend mapping.
+     */
+    public function getObjectToBackend()
+    {
+        return $this->_data->getObjectToBackend();
+    }
+
+    /**
      * Retrieve the list of object duplicates.
      *
      * @since Horde_Kolab_Storage 1.1.0
@@ -529,9 +553,11 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Synchronize the list information with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
         $this->_data->synchronize();
         $this->_logger->debug(

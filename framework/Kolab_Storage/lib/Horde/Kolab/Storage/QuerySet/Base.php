@@ -54,6 +54,13 @@ implements Horde_Kolab_Storage_QuerySet
     private $_data_queries = array();
     
     /**
+     * The query class map. Override in extending classes.
+     *
+     * @var array
+     */
+    protected $_class_map = array();
+
+    /**
      * Predefined query sets.
      *
      * @var array
@@ -78,6 +85,7 @@ implements Horde_Kolab_Storage_QuerySet
     private $_data_query_sets = array(
         self::HORDE => array(
             Horde_Kolab_Storage_Data::QUERY_PREFS => 'h-prefs',
+            Horde_Kolab_Storage_Data::QUERY_HISTORY => true,
         )
     );
 
@@ -225,7 +233,7 @@ implements Horde_Kolab_Storage_QuerySet
     public function addDataQuerySet(Horde_Kolab_Storage_Data $data, $params = array())
     {
         foreach ($this->_data_queries as $query => $type) {
-            if ($type == $data->getType()) {
+            if ($type === true || $type == $data->getType()) {
                 $this->_addDataQuery($data, $query, $params);
             }
         }

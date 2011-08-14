@@ -22,16 +22,35 @@ $applications = array(
     'webmail'
 );
 
-if (in_array($component->getName(), $applications)) {
-    $package_name = 'horde-' . $component->getName();
-} else {
-    $package_name = $component->getName();
+$bundles = array(
+    'groupware',
+    'webmail',
+    'kolab_webmail'
+);
+
+$pkg_info = '/usr/share/pkg-php-tools/scripts/phppkginfo';
+if (!is_executable($pkg_info)) {
+    throw new Components_Exception(
+        sprintf(
+            'The file "%s" does not exists or is not executable!',
+            $pkg_info
+        )
+    );
 }
-$package_name = strtr(strtolower($package_name), '_', '-');
+$package_name = shell_exec(
+    $pkg_info . ' debian_pkgname pear.horde.org ' .
+    escapeshellarg($component->getName())
+);
+$package_version = shell_exec(
+    $pkg_info . ' debian_version ' .
+    escapeshellarg($component->getVersion())
+);
 
-$archive = array_shift($component->placeArchive($destination, array()));
+$archive = array_shift(
+    $component->placeArchive($destination, array("logger" => $this->_output))
+);
 
-$destination .= '/php-' . $package_name . '-' . $component->getVersion();
+$destination .= '/' . $package_name . '-' . $package_version;
 
 if (!file_exists($destination)) {
     mkdir($destination, 0700, true);
@@ -39,19 +58,32 @@ if (!file_exists($destination)) {
 
 system('cd ' . $destination . ' && tar xzpf ' . $archive);
 
-$build_template = new Components_Helper_Templates_Directory(
-    $this->_config_application->getTemplateDirectory() . '/templates',
-    $destination . '/debian'
+$t_dirs = array(
+    $this->_config_application->getTemplateDirectory() . '/templates'
 );
-$build_template->write(
-    array(
-        'name' => $package_name,
-        'component' => $component,
-        'applications' => $applications
-    )
-);
+if (file_exists($t_dirs[0] . '-' . $package_name)) {
+    $t_dirs[] = $t_dirs[0] . '-' . $package_name;
+}
+if (file_exists($t_dirs[0] . '-' . $package_name . '-' . $package_version)) {
+    $t_dirs[] = $t_dirs[0] . '-' . $package_name . '-' . $package_version;
+}
+foreach ($t_dirs as $template_directory) {
+    $build_template = new Components_Helper_Templates_RecursiveDirectory(
+        $template_directory,
+        $destination . '/debian'
+    );
+    $build_template->write(
+        array(
+            'name' => $package_name,
+            'version' => $package_version,
+            'component' => $component,
+            'applications' => $applications,
+            'bundles' => $bundles
+        )
+    );
+}
 
 // Properly name tarball to avoid building a native debian package
-system('cd ' . $destination . ' && mv ' . $archive . ' ../php-' . $package_name . '_' . $component->getVersion() . '.orig.tar.gz');
+system('cd ' . $destination . ' && mv ' . $archive . ' ../' . $package_name . '_' . $package_version . '.orig.tar.gz');
 
 system('cd ' . $destination . ' && dpkg-buildpackage');

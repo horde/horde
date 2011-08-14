@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.
 [mjr] Mobile view added.
 [mjr] Square image and smart square image generators added.

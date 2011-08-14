@@ -228,25 +228,9 @@ if (is_array($next_step)) {
 
 $import_tasklists = $export_tasklists = array();
 if ($GLOBALS['registry']->getAuth()) {
-    $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
-    foreach ($tasklists as $id => $tasklist) {
-        if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-            !empty($GLOBALS['conf']['share']['hidden']) &&
-            !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-            continue;
-        }
-        $import_tasklists[$id] = $tasklist;
-    }
+    $import_tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
 }
-$tasklists = Nag::listTasklists(false, Horde_Perms::READ);
-foreach ($tasklists as $id => $tasklist) {
-    if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-        !empty($GLOBALS['conf']['share']['hidden']) &&
-        !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-        continue;
-    }
-    $export_tasklists[$id] = $tasklist;
-}
+$export_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
 
 $title = _("Import/Export Tasks");
 require $registry->get('templates', 'horde') . '/common-header.inc';

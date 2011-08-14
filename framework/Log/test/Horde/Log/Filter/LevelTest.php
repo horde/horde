@@ -24,7 +24,6 @@
  */
 class Horde_Log_Filter_LevelTest extends PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         // accept at or below level 2

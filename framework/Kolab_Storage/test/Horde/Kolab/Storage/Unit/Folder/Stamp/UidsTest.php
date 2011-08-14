@@ -37,6 +37,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->status = array('uidvalidity' => '99', 'uidnext' => '5');
         $this->uids = array(1, 2, 4);
     }

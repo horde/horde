@@ -5,9 +5,17 @@ v3.1-git
 
 
 ----------
-v3.0.2-git
+v3.0.3-git
 ----------
 
+
+
+------
+v3.0.2
+------
+
+[jan] Don't load all shares with requested permissions from the backend if
+      $conf['share']['hidden'] is enabled.
 
 
 ------
@@ -54,6 +62,13 @@ v3.0-ALPHA1
 [jan] Create a default notepad if the user doesn't own any yet.
 [jan] Try to create ISO-8859-1 encoded PDFs if this matches the user's language.
 [jan] Add script to convert notes to UTF-8 in the backend.
+
+
+------
+v2.2.5
+------
+
+[jan] Add upgrade scripts for next-generation SQL share driver.
 
 
 ------

@@ -107,8 +107,7 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
             ? $GLOBALS['registry']->getApp()
             : 'horde';
 
-        $message = (empty($GLOBALS['conf']['log']['ident']) ? '' : $GLOBALS['conf']['log']['ident'] . ' ') .
-            ($app ? '[' . $app . '] ' : '') .
+        $message = ($app ? '[' . $app . '] ' : '') .
             $text .
             ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
 

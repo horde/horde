@@ -432,4 +432,11 @@ extends Horde_Kolab_Storage_TestCase
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
         $this->assertEquals('Calendar', $data['subpath']);
     }
+
+    public function testFolderDataHasDelimiter()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertEquals('/', $data['delimiter']);
+    }
 }

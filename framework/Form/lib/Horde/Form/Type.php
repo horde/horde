@@ -984,6 +984,13 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
     function onSubmit(&$var, &$vars)
     {
+        /* Are we removing an image? */
+        if ($vars->get('remove_' . $var->getVarName())) {
+            $GLOBALS['session']->remove('horde', 'form/' . $this->getRandomId());
+            $this->_img = null;
+            return;
+        }
+
         /* Get the upload. */
         $this->getImage($vars, $var);
 
@@ -1000,6 +1007,11 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
     function isValid(&$var, &$vars, $value, &$message)
     {
+
+        if ($vars->get('remove_' . $var->getVarName())) {
+            return true;
+        }
+
         /* Get the upload. */
         $this->getImage($vars, $var);
         $field = $vars->get($var->getVarName());
@@ -1147,6 +1159,14 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
             /* File has not been uploaded. */
             $upload = $vars->get($var->getVarName());
+
+            /* File is explicitly removed */
+            if ($vars->get('remove_' . $var->getVarName())) {
+                $this->_img = null;
+                $session->remove('horde', 'form/' . $upload['hash']);
+                return;
+            }
+
             if ($this->_uploaded->getCode() == 4 &&
                 !empty($upload['hash']) &&
                 $session->exists('horde', 'form/' . $upload['hash'])) {

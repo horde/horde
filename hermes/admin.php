@@ -26,7 +26,8 @@ function _open()
         $beendone = true;
         $title = _("Administration");
         require $registry->get('templates', 'horde') . '/common-header.inc';
-        require HERMES_TEMPLATES . '/menu.inc';
+        echo Horde::menu();
+        $notification->notify(array('listeners' => 'status'));
     }
 }
 

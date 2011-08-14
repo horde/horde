@@ -1,0 +1,69 @@
+Klutz
+Version 1.0
+
+What is Klutz?
+--------------
+
+Klutz is a Horde comics-fetching module.
+
+This software is OSI Certified Open Source Software.
+OSI Certified is a certification mark of the Open Source Initiative.
+
+
+Obtaining Klutz
+---------------
+
+Further information on Klutz and the latest version can be obtained
+at
+
+  http://www.horde.org/klutz/
+
+
+Documentation
+-------------
+
+The following documentation is available in the Klutz distribution:
+
+README        - This file
+COPYING       - Copyright and license information
+docs/CHANGES  - List of changes by release
+docs/CREDITS  - Who developed this
+docs/INSTALL  - Installation instructions
+
+
+Installation
+------------
+
+Instructions for installing Klutz can be found in the file INSTALL
+in the docs/ directory of the Klutz distribution.
+
+
+Assistance
+----------
+
+If you encounter problems with Klutz, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web
+at
+ 
+  http://www.horde.org/faq/
+
+The Horde Project runs a number of mailing lists, for individual
+applications and for issues relating to the project as a whole.
+Information, archives, and subscription information can be found at
+
+  http://www.horde.org/mail/
+
+Lastly, Horde developers, contributors and users also make occasional
+appearances on IRC, on the channel #horde on the Freenode Network
+(irc.freenode.net).
+
+
+Licensing
+---------
+
+For licensing and copyright information, please see the file COPYING
+in the Klutz distribution.
+
+Thanks,
+The Klutz team

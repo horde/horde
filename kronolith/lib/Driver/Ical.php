@@ -14,8 +14,6 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @todo Replace session cache
- *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
@@ -502,9 +500,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     }
 
     /**
-     * Fetches a remote calendar into the session and return the data.
+     * Fetches a remote calendar into the cache and return the data.
      *
-     * @param boolean $cache  Whether to return data from the session cache.
+     * @param boolean $cache  Whether to return data from the cache.
      *
      * @return Horde_Icalendar  The calendar data.
      * @throws Kronolith_Exception

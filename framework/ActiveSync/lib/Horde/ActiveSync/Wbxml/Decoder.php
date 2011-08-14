@@ -74,7 +74,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     {
         $this->_logger = $logger;
     }
-    
+
     /**
      * Returns either start, content or end, and auto-concatenates successive content
      */
@@ -131,7 +131,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 
             return $element;
         } else {
-            $this->_logger->debug('Unmatched tag' .  $tag . ':');
+            //$this->_logger->debug('Unmatched tag' .  $tag . ':');
             $this->_ungetElement($element);
         }
 

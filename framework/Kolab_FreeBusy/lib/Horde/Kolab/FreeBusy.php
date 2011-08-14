@@ -31,78 +31,40 @@
 class Horde_Kolab_FreeBusy
 {
     /**
-     * Singleton value.
+     * The dependency injection container.
      *
-     * @var Horde_Kolab_FreeBusy
+     * @var Horde_Injector
      */
-    static protected $instance;
+    private $_injector;
 
     /**
-     * The provider for dependency injection
+     * The backend used for the export.
      *
-     * @var Horde_Provider_Base
+     * @var string
      */
-    protected $provider;
+    private $_backend;
+
+    /**
+     * The export type.
+     *
+     * @var string
+     */
+    private $_export;
+
+    /**
+     * Class name of the factory.
+     *
+     * @var string
+     */
+    private $_factory;
 
     /**
      * Constructor.
      *
-     * @param array $params The parameters required to initialize the
-     *                      application.
-     */
-    public function __construct($params = array())
-    {
-        $this->provider             = new Horde_Provider_Base();
-        $this->provider->params     = $params;
-        $this->provider->request    = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getRequest'));
-        $this->provider->mapper     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getMapper'));
-        $this->provider->dispatcher = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getDispatcher'));
-        $this->provider->logger     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Factory', 'getLogger'));
-        $this->provider->driver     = new Horde_Provider_Injection_Factory(array('Horde_Kolab_FreeBusy_Driver_Base', 'factory'));
-    }
-
-    /**
-     * Get an element.
-     *
-     * @param string $key The key of the element to retrieve.
-     *
-     * @return mixed The element.
-     */
-    public function __get($key)
-    {
-        return $this->provider->{$key};
-    }
-
-    /**
-     * Set an element to the given value.
-     *
-     * @param string $key   The key of the element to set.
-     * @param mixed  $value The value to set the element to.
-     *
-     * @return NULL
-     */
-    public function __set($key, $value)
-    {
-        $this->provider->{$key} = $value;
-    }
-
-    /**
-     * Returns a reference to the global Horde_Kolab_FreeBusy object,
-     * only creating it if it doesn't already exist.
-     *
-     * This method must be invoked as:
-     *   $registry = Horde_Kolab_FreeBusy::singleton()
-     *
-     * We expect this method to be invoked *once* on application startup. At
-     * that point the parameters need to be set to correctly initialize the
-     * system.
-     *
-     * The singleton should then later be only used by the Controllers to access
-     * different system components (by using the MVC system we loose connection
-     * to this class within the controllers so we need global state here).
-     *
-     * @param array $params The parameters required to initialize the
-     *                      application.
+     * @param string $type    The export type.
+     * @param string $backend The chosen backend.
+     * @param array  $params  The parameters required to initialize the
+     *                        application.
      * <pre>
      * 'script'  - (string) Script name in relation to the document root.
      *                      [optional]
@@ -125,10 +87,9 @@ class Horde_Kolab_FreeBusy
      *     'params'   - (array)  Additional parameters to use on mapper
      *                           object construction.
      *
-     * 'dispatch'- (array)  Options for the dispatcher object. [optional]
+     * 'request_config'- (array)  Options for the request configuration. [optional]
      *
-     *     'controllerDir' - (string) The directory holding controllers.
-     *     'viewsDir'      - (string) The directory holding views.
+     *     'prefix' - (string) The class prefix to use for controllers.
      *
      * 'logger'  - (array)  The keys of the array are log handler class names
      *                      (e.g. Horde_Log_Handler_Stream) while the
@@ -137,28 +98,142 @@ class Horde_Kolab_FreeBusy
      *                      passed to the constructor of the log handler. It
      *                      may also hold a second key 'options' with options
      *                      passed to the instantiated log handler. [optional]
+     * 'writer'  - (array)  Options for the response writer object. [optional]
+     *
+     *     'class'    - (string) The name of the response writer class.
+     *
+     * 'owner'  - (array)  Options for the data owner. [optional]
+     *
+     *     'domain'   - (string) The domain that will be assumed for
+     *                           domainless owners.
+     *
+     * 'provider'     - (array)  Options for the data provider. [optional]
+     *
+     *     'server'   - (string) The URL that will be considered to be
+     *                           provided locally rather than redirecting
+     *                           to a remote server.
+     *     'redirect' - (boolean) Should non-local requests be redirected
+     *                            to the remote server or should the data
+     *                            be fetched and passed through?
+     * 'injector' - (Horde_Injector) An outside injector that allows to
+     *                               inject arbitrary instance replacements.
+     *                               [optional]
      *
      * </pre>
-     *
-     * @return Horde_Kolab_FreeBusy  The Horde_Registry instance.
      */
-    static public function singleton($params = array())
+    public function __construct($type, $backend, $params = array())
     {
-        if (!isset(self::$instance)) {
-            self::$instance = new self($params);
+        if (!isset($params['injector'])) {
+            $this->_injector = new Horde_Injector(
+                new Horde_Injector_TopLevel()
+            );
+        } else {
+            $this->_injector = $params['injector'];
         }
 
-        return self::$instance;
+        $this->set(
+            'Horde_Kolab_FreeBusy_Configuration',
+            $params
+        );
+
+        $this->_export = $type;
+        $this->_backend = $backend;
+        $this->_factory = 'Horde_Kolab_FreeBusy_' . $type . '_Factory_' . $backend;
+
+        $this->bindings();
+
+        $this->_injector->setInstance('Horde_Kolab_FreeBusy', $this);
     }
 
     /**
-     * Destroy the application context.
+     * Setup the basic injector bindings.
      *
      * @return NULL
      */
-    static public function destroy()
+    public function bindings()
     {
-        self::$instance = null;
+        $this->_injector->bindImplementation(
+            'Horde_Kolab_FreeBusy_Factory', $this->_factory
+        );
+        $this->_injector->bindFactory(
+            'Horde_Routes_Mapper', $this->_factory, 'createMapper'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_Controller_RequestConfiguration',
+            $this->_factory,
+            'createRequestConfiguration'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Controller_Request', $this->_factory, 'createRequest'
+        );
+        $this->_injector->bindFactory(
+            'Horde_View_Base', $this->_factory, 'createView'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Controller_ResponseWriter',
+            $this->_factory,
+            'createResponseWriter'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Log_Logger', $this->_factory, 'createLogger'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_User', $this->_factory, 'createUser'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_Owner', $this->_factory, 'createOwner'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_Resource', $this->_factory, 'createResource'
+        );
+        $this->_injector->bindFactory(
+            'Horde_Kolab_FreeBusy_Provider', $this->_factory, 'createProvider'
+        );
+    }
+
+    /**
+     * Return the backend the application uses for the export.
+     *
+     * @return string The backend used for the export.
+     */
+    public function getBackend()
+    {
+        return $this->_backend;
+    }
+
+    /**
+     * Return the export type.
+     *
+     * @return string The export type.
+     */
+    public function getExportType()
+    {
+        return $this->_export;
+    }
+
+    /**
+     * Get an element.
+     *
+     * @param string $interface The element to retrieve.
+     *
+     * @return mixed The element.
+     */
+    public function get($interface)
+    {
+        return $this->_injector->getInstance($interface);
+    }
+
+    /**
+     * Set an element to the given value.
+     *
+     * @param string $interface The element to set.
+     * @param mixed  $instance  The value to set the element to.
+     *
+     * @return NULL
+     */
+    public function set($interface, $instance)
+    {
+        return $this->_injector->setInstance($interface, $instance);
     }
 
     /**
@@ -169,10 +244,25 @@ class Horde_Kolab_FreeBusy
     public function dispatch()
     {
         try {
-            $this->provider->dispatcher->dispatch($this->provider->request);
+            $this->get('Horde_Controller_ResponseWriter')->writeResponse(
+                $this->get('Horde_Controller_Runner')->execute(
+                    $this->_injector,
+                    $this->get('Horde_Controller_Request'),
+                    $this->get('Horde_Kolab_FreeBusy_Controller_RequestConfiguration')
+                )
+            );
         } catch (Exception $e) {
-            //@todo: Error view
-            throw $e;
+            $this->_injector->bindFactory(
+                'Horde_Controller_ResponseWriter',
+                'Horde_Kolab_FreeBusy_Factory_Base',
+                'createResponseWriter'
+            );
+            $response = $this->_injector->createInstance('Horde_Controller_Response');
+            $response->setHeaders(array('Status' => '404 Not Found', 'HTTP/1.0' => '404 Not Found'));
+            $response->setBody($e->getMessage());
+            $this->get('Horde_Controller_ResponseWriter')->writeResponse(
+                $response
+            );
         }
     }
 }

@@ -273,14 +273,14 @@ class Horde_ActiveSync
                                 Horde_ActiveSync_Wbxml_Encoder $encoder,
                                 Horde_Controller_Request_Http $request)
     {
-        /* Backend driver */
+        // Backend driver
         $this->_driver = $driver;
 
-        /* Wbxml handlers */
+        // Wbxml handlers
         $this->_encoder = $encoder;
         $this->_decoder = $decoder;
 
-        /* The http request */
+        // The http request
         $this->_request = $request;
     }
 
@@ -328,7 +328,9 @@ class Horde_ActiveSync
      */
     public function handleRequest($cmd, $devId)
     {
-        /* Don't bother with everything else if all we want are Options */
+        $this->_logger->debug('['. $devId . '] ' . strtoupper($cmd) . ' request received for user ' . $this->_driver->getUser());
+
+        // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
             self::activeSyncHeader();
             self::versionHeader();
@@ -336,22 +338,27 @@ class Horde_ActiveSync
             return true;
         }
 
-        /* Delete/Update are all handled by Create as well */
+        // Delete/Update are all handled by Create as well
         //if ($cmd == 'FolderDelete' || $cmd == 'FolderUpdate') {
         //    $cmd == 'FolderCreate';
         //}
 
-        /* Check that this device is known, if not create the record. */
+        // Check that this device is known, if not create the record.
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception('Device failed to send device id.');
         }
         $state = $this->_driver->getStateObject();
+        // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$state->deviceExists($devId, $this->_driver->getUser())) {
-            $get = $this->_request->getGetVars();
+            // Device might exist, but with a new (additional) user account
             $device = new StdClass();
+            if ($state->deviceExists($devId)) {
+                $d = $state->loadDeviceInfo($devId, '');;
+            }
+            $device->policykey = 0;
+            $get = $this->_request->getGetVars();
             $device->userAgent = $this->_request->getHeader('User-Agent');
             $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
-            $device->policykey = 0;
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();
             $device->id = $devId;
@@ -360,7 +367,7 @@ class Horde_ActiveSync
             $device = $state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
 
-        /* Load the request handler to handle the request */
+        // Load the request handler to handle the request
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         $version = $this->getProtocolVersion();
         if (class_exists($class)) {
@@ -390,7 +397,7 @@ class Horde_ActiveSync
             return $result;
         }
 
-        /* No idea what the client is talking about */
+        // No idea what the client is talking about
         header('HTTP/1.1 400 Invalid Request ' . basename($cmd) . ' not supported.');
     }
 

@@ -794,28 +794,28 @@ class Horde_SyncMl_Backend
         // Internal logging to logtext
         if (is_string($this->_logtext)) {
             switch ($priority) {
-            case 'EMERG':
+            case Horde_Log::EMERG:
                 $this->_logtext .= 'EMERG:  ';
                 break;
-            case 'ALERT':
+            case Horde_Log::ALERT:
                 $this->_logtext .= 'ALERT:  ';
                 break;
-            case 'CRIT':
-                $this->_logtext .= 'CIRT:   ';
+            case Horde_Log::CRIT:
+                $this->_logtext .= 'CRIT:   ';
                 break;
-            case 'ERR':
+            case Horde_Log::ERR:
                 $this->_logtext .= 'ERR:    ';
                 break;
-            case 'WARNING':
+            case Horde_Log::WARN:
                 $this->_logtext .= 'WARNING:';
                 break;
-            case 'NOTICE':
+            case Horde_Log::NOTICE:
                 $this->_logtext .= 'NOTICE: ';
                 break;
-            case 'INFO':
+            case Horde_Log::INFO:
                 $this->_logtext .= 'INFO:   ';
                 break;
-            case 'DEBUG':
+            case Horde_Log::DEBUG:
                 $this->_logtext .= 'DEBUG:  ';
                 break;
             default:

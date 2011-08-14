@@ -21,14 +21,14 @@ Horde_Registry::appInit('imp', array(
 
 $vars = Horde_Variables::getDefaultVariables();
 
-if ($vars->driver != $gollem_be['driver']) {
+if ($vars->driver != Gollem::$backend['driver']) {
     Horde::url('login.php')->add(array(
         'backend_key' => $vars->driver,
-        'change_backend' => 1,
-        'url' => Horde::selfURL(true)
+        'url' => Horde::selfUrl(true)
     ))->redirect();
 }
 
+$gollem_vfs = $injector->getInstance('Gollem_Vfs')->getQuota();
 $stream = null;
 $data = '';
 try {

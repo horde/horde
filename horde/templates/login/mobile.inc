@@ -1,5 +1,4 @@
 <script type="text/javascript">
-$.mobile.ajaxFormsEnabled = false;
 $(function() {
     $('#horde-login-button').click(function() {
         $('#horde-login-post').val(1);
@@ -14,9 +13,9 @@ $(function() {
 
 <div data-role="header" data-nobackbtn="true"><h1><?php echo $title ?></h1></div>
 
-<div data-role="content">
+<div data-role="content" style="max-width:480px; margin:0 auto;">
 
-<form action="login.php" method="post">
+<form action="login.php" method="post" data-ajax="false">
   <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>">
   <input type="hidden" name="app" value="<?php echo htmlspecialchars($vars->app) ?>">
   <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>">
@@ -44,7 +43,7 @@ foreach ($loginparams as $key => $val) {
             }
             echo '</select>';
         } else {
-            echo '<input id="' . $key . '" name="' . $key . '" ' . (($val['type'] == 'password') ? 'type="password" ' : '') . 'value="' . (isset($val['value']) ? $val['value'] : '') . '">';
+            echo '<input id="' . $key . '" name="' . $key . '" ' . (($val['type'] == 'password') ? 'type="password" ' : 'type="text" ') . 'value="' . (isset($val['value']) ? $val['value'] : '') . '">';
         }
         echo '</div>';
         break;

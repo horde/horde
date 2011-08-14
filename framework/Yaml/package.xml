@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:24:44</time>
+ <date>2011-07-21</date>
+ <time>00:23:52</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -33,15 +33,17 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="examples">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Yaml">
-      <file name="dump.php" role="php" />
-      <file name="example.yaml" role="data" />
-      <file name="load.php" role="php" />
-     </dir> <!-- /examples/Horde/Yaml -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+      <dir name="examples">
+       <file name="dump.php" role="doc" />
+       <file name="example.yaml" role="doc" />
+       <file name="load.php" role="doc" />
+      </dir> <!-- /doc/Horde/Yaml/examples -->
+     </dir> <!-- /doc/Horde/Yaml -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Yaml">
@@ -89,9 +91,9 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/Horde/Yaml/dump.php" name="examples/Horde/Yaml/dump.php" />
-   <install as="examples/Horde/Yaml/example.yaml" name="examples/Horde/Yaml/example.yaml" />
-   <install as="examples/Horde/Yaml/load.php" name="examples/Horde/Yaml/load.php" />
+   <install as="examples/dump.php" name="doc/Horde/Yaml/examples/dump.php" />
+   <install as="examples/example.yaml" name="doc/Horde/Yaml/examples/example.yaml" />
+   <install as="examples/load.php" name="doc/Horde/Yaml/examples/load.php" />
    <install as="Horde/Yaml.php" name="lib/Horde/Yaml.php" />
    <install as="Horde/Yaml/Dumper.php" name="lib/Horde/Yaml/Dumper.php" />
    <install as="Horde/Yaml/Exception.php" name="lib/Horde/Yaml/Exception.php" />
@@ -159,7 +161,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-07-21</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * 

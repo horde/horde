@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-06-10</date>
- <time>10:53:01</time>
+ <date>2011-07-21</date>
+ <time>10:40:55</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -26,17 +26,19 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="examples">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Service">
       <dir name="Gravatar">
-       <file name="fetch_avatar.php" role="doc" />
-       <file name="fetch_profile.php" role="doc" />
-       <file name="get_profile.php" role="doc" />
-      </dir> <!-- /examples/Horde/Service/Gravatar -->
-     </dir> <!-- /examples/Horde/Service -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+       <dir name="examples">
+        <file name="fetch_avatar.php" role="doc" />
+        <file name="fetch_profile.php" role="doc" />
+        <file name="get_profile.php" role="doc" />
+       </dir> <!-- /doc/Horde/Service/Gravatar/examples -->
+      </dir> <!-- /doc/Horde/Service/Gravatar -->
+     </dir> <!-- /doc/Horde/Service -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Service">
@@ -87,9 +89,9 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/Horde/Service/Gravatar/fetch_avatar.php" name="examples/Horde/Service/Gravatar/fetch_avatar.php" />
-   <install as="examples/Horde/Service/Gravatar/fetch_profile.php" name="examples/Horde/Service/Gravatar/fetch_profile.php" />
-   <install as="examples/Horde/Service/Gravatar/get_profile.php" name="examples/Horde/Service/Gravatar/get_profile.php" />
+   <install as="examples/fetch_avatar.php" name="doc/Horde/Service/Gravatar/examples/fetch_avatar.php" />
+   <install as="examples/fetch_profile.php" name="doc/Horde/Service/Gravatar/examples/fetch_profile.php" />
+   <install as="examples/get_profile.php" name="doc/Horde/Service/Gravatar/examples/get_profile.php" />
    <install as="Horde/Service/Gravatar.php" name="lib/Horde/Service/Gravatar.php" />
    <install as="Horde/Service/Gravatar/AllTests.php" name="test/Horde/Service/Gravatar/AllTests.php" />
    <install as="Horde/Service/Gravatar/Autoload.php" name="test/Horde/Service/Gravatar/Autoload.php" />
@@ -108,7 +110,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-06-10</date>
+   <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial release.

@@ -1,5 +1,5 @@
 # Spanish translations for ulaform package
-# Traducciones al español para el paquete ulaform.
+# Traducciones al espaÃ±ol para el paquete ulaform.
 # Copyright 2008-2009 The Horde Project
 # This file is distributed under the same license as the ulaform package.
 # Automatically generated, 2008.
@@ -9,17 +9,17 @@ msgstr ""
 "Project-Id-Version: Ulaform 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-03-19 11:04+0100\n"
-"PO-Revision-Date: 2008-03-19 11:04+0100\n"
+"PO-Revision-Date: 2011-08-02 15:57+0200\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: edit.php:82
 msgid "-- default configured --"
-msgstr "-- configurado por omisión --"
+msgstr "-- configurado por omisiÃ³n --"
 
 #: edit.php:62
 msgid "-- select --"
@@ -27,7 +27,7 @@ msgstr "-- seleccionar --"
 
 #: delete.php:32 edit.php:62 forms.php:32
 msgid "Action"
-msgstr "Acción"
+msgstr "AcciÃ³n"
 
 #: forms.php:31
 msgid "Available Forms"
@@ -68,7 +68,7 @@ msgstr "Crear"
 
 #: edit.php:82
 msgid "Default language"
-msgstr "Idioma por omisión"
+msgstr "Idioma por omisiÃ³n"
 
 #: delete.php:33 delete.php:36 deletefield.php:43 deletefield.php:49
 msgid "Delete"
@@ -84,15 +84,15 @@ msgstr "Eliminar formulario"
 
 #: deletefield.php:47
 msgid "Delete this field?"
-msgstr "¿Eliminar este campo?"
+msgstr "Â¿Eliminar este campo?"
 
 #: delete.php:30
 msgid "Delete this form?"
-msgstr "¿Eliminar este formulario?"
+msgstr "Â¿Eliminar este formulario?"
 
 #: fields.php:57 fields.php:124
 msgid "Description"
-msgstr "Descripción"
+msgstr "DescripciÃ³n"
 
 #: delete.php:33 deletefield.php:43 deletefield.php:67
 msgid "Do not delete"
@@ -112,7 +112,7 @@ msgstr "Modificar formularios"
 
 #: config/.bak/fields.php.dist:121 config/.bak/fields.php.dist:129
 msgid "End year"
-msgstr "Año de terminación"
+msgstr "AÃ±o de terminaciÃ³n"
 
 #: config/.bak/fields.php.dist:64 config/.bak/fields.php.dist:84
 #: config/.bak/fields.php.dist:92 config/.bak/fields.php.dist:100
@@ -169,7 +169,7 @@ msgstr "Campo guardado."
 
 #: sortfields.php:48
 msgid "Field sort order saved."
-msgstr "Criterio de clasificación de campo guardado."
+msgstr "Criterio de clasificaciÃ³n de campo guardado."
 
 #: templates/fields/fields.html:15
 msgid "Fields"
@@ -230,7 +230,7 @@ msgstr "Generar HTML"
 #: genhtml.php:42
 #, php-format
 msgid "HTML Generation for \"%s\""
-msgstr "Generación de HTML de \"%s\""
+msgstr "GeneraciÃ³n de HTML de \"%s\""
 
 #: genhtml.php:62
 msgid "Height"
@@ -279,12 +279,12 @@ msgstr "No se han especificado campos."
 #: lib/Action.php:84
 #, php-format
 msgid "No such action \"%s\" found"
-msgstr "No se encontró el tipo de acción \"%s\""
+msgstr "No se encontrÃ³ el tipo de acciÃ³n \"%s\""
 
 #: lib/Driver.php:177
 #, php-format
 msgid "No such backend \"%s\" found"
-msgstr "No se encontró el motor \"%s\""
+msgstr "No se encontrÃ³ el motor \"%s\""
 
 #: lib/Driver/sql.php:229 lib/Driver/sql.php:275
 #, php-format
@@ -309,7 +309,7 @@ msgstr "Vista previa del formulario"
 
 #: fields.php:56 fields.php:124
 msgid "Read only"
-msgstr "Sólo lectura"
+msgstr "SÃ³lo lectura"
 
 #: fields.php:55 fields.php:124
 msgid "Required"
@@ -333,19 +333,19 @@ msgstr "Guardar campo"
 
 #: genhtml.php:53
 msgid "Select how you wish to embed the form"
-msgstr "Seleccione cómo desea incluir el formulario"
+msgstr "Seleccione cÃ³mo desea incluir el formulario"
 
 #: sortfields.php:35
 msgid "Select the sort order of the fields"
-msgstr "Seleccione el tipo de clasificación de los campos:"
+msgstr "Seleccione el tipo de clasificaciÃ³n de los campos:"
 
 #: fields.php:47
 msgid ""
 "Set this name if you have a particular reason to override the automatic "
 "internal naming of fields."
 msgstr ""
-"Defina este nombre si tiene alguna razón para ignorar el nombre interno "
-"automático de los campos."
+"Defina este nombre si tiene alguna razÃ³n para ignorar el nombre interno "
+"automÃ¡tico de los campos."
 
 #: lib/Block/form.php:3
 msgid "Show Form"
@@ -353,19 +353,19 @@ msgstr "Mostrar formulario"
 
 #: config/.bak/fields.php.dist:131
 msgid "Show the date picker"
-msgstr "¿Mostrar selector de fechas?"
+msgstr "Â¿Mostrar selector de fechas?"
 
 #: sortfields.php:31
 msgid "Sort Fields"
-msgstr "Campos de ordenación"
+msgstr "Campos de ordenaciÃ³n"
 
 #: fields.php:117
 msgid "Sort fields"
-msgstr "Campos de ordenación"
+msgstr "Campos de ordenaciÃ³n"
 
 #: config/.bak/fields.php.dist:119 config/.bak/fields.php.dist:127
 msgid "Start year"
-msgstr "Año de inicio"
+msgstr "AÃ±o de inicio"
 
 #: lib/Action/mailto.php:114
 msgid "Subject"
@@ -385,18 +385,18 @@ msgid ""
 "This driver allows the sending of form results via email to one or more "
 "recipients."
 msgstr ""
-"Este controlador permite el envío por correo formularios de resultados a uno "
-"o más destinatarios."
+"Este controlador permite el envÃ­o por correo formularios de resultados a uno "
+"o mÃ¡s destinatarios."
 
 #: lib/Action/sql.php:90
 msgid "This driver allows to insertion of form results into a database."
 msgstr ""
-"Este controlador permite la inserción de los resultados de un formulario en "
+"Este controlador permite la inserciÃ³n de los resultados de un formulario en "
 "una base de datos."
 
 #: fields.php:65
 msgid "This field type has extra parameters."
-msgstr "Este tipo de campo tiene parámetros adicionales."
+msgstr "Este tipo de campo tiene parÃ¡metros adicionales."
 
 #: lib/Action/mailto.php:116
 msgid "To"
@@ -418,7 +418,7 @@ msgstr "Anchura"
 
 #: lib/Driver.php:123 lib/Driver.php:124
 msgid "Yes"
-msgstr "Sí"
+msgstr "SÃ­"
 
 #: lib/Driver/sql.php:262
 msgid "You don't have the right permission to access this form."
@@ -430,7 +430,7 @@ msgstr "_Listar formularios"
 
 #: lib/Ulaform.php:199
 msgid "_New Form"
-msgstr "_Añadir"
+msgstr "_AÃ±adir"
 
 #: genhtml.php:52
 msgid "iframe"

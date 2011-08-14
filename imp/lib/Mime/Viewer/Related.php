@@ -116,7 +116,7 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
                 );
 
                 $ret[$related_id]['status'][] = array(
-                    'icon' => Horde::img('alerts/error.png', _("Error")),
+                    'icon' => Horde::img('alerts/warning.png', _("Warning")),
                     'text' => array(
                         _("This part contains an attachment that can not be displayed within this part:"),
                         implode('&nbsp;', array(

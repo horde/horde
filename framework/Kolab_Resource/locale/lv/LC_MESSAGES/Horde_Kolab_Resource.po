@@ -1,42 +1,46 @@
-# Latvian translations for Horde_Kolab_Resource module.
-# Copyright (C) 2010 Horde Project
-# This file is distributed under the same license as the Horde_Kolab_Resource module.
-# Automatically generated, 2010.
+# Latvian translations for Horde_Kolab_Resource package.
+# Copyright (C) 2011 Horde Project
+# This file is distributed under the same license as the Horde_Kolab_Resource package.
+# Automatically generated, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Resource\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"PO-Revision-Date: 2011-07-19 16:57+0300\n"
+"Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+"X-Poedit-Language: Latvian\n"
+"X-Poedit-Country: LATVIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
-#: lib/Horde/Kolab/Resource.php:576
+#: lib/Horde/Kolab/Resource.php:557
 #, php-format
 msgid "%s has been cancelled"
-msgstr ""
+msgstr "%s ir atcelts"
 
-#: lib/Horde/Kolab/Resource.php:555 lib/Horde/Kolab/Resource.php:560
+#: lib/Horde/Kolab/Resource.php:536 lib/Horde/Kolab/Resource.php:541
 #, php-format
 msgid "Error processing \"%s\""
-msgstr ""
+msgstr "Kļūda apstrādājot \"%s\""
 
-#: lib/Horde/Kolab/Resource.php:575
+#: lib/Horde/Kolab/Resource.php:556
 msgid "The following event has been successfully removed:"
-msgstr ""
+msgstr "Sekojošais notikums veiksmīgi izdzēsts:"
 
-#: lib/Horde/Kolab/Resource.php:559
+#: lib/Horde/Kolab/Resource.php:540
 #, php-format
 msgid "The following event that was canceled is not present in %s's calendar:"
-msgstr ""
+msgstr "Sekojošais atceltais notikums nav atrodams lietotāja %s kalendārā:"
 
-#: lib/Horde/Kolab/Resource.php:554
+#: lib/Horde/Kolab/Resource.php:535
 #, php-format
 msgid "Unable to access %s's calendar:"
-msgstr ""
+msgstr "Nevar piekļūt lietotāja %s kalendāram:"

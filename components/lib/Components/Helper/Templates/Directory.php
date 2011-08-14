@@ -73,9 +73,7 @@ extends Components_Helper_Templates
             mkdir($this->_target, 0777, true);
         }
         foreach (
-            new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($this->_source)
-            )
+            new IteratorIterator(new DirectoryIterator($this->_source))
             as $file
         ) {
             if ($file->isFile()) {

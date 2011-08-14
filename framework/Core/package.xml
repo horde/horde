@@ -22,11 +22,17 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-07-14</date>
- <time>00:24:22</time>
+ <developer>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </developer>
+ <date>2011-08-08</date>
+ <time>13:55:08</time>
  <version>
-  <release>1.3.1</release>
-  <api>1.3.0</api>
+  <release>1.4.0</release>
+  <api>1.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +40,12 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Fix removing user data from applications (Bug #10241).
+* [gwr] Do not fail when no basedn is set for the Horde_Kolab_Server configuration.
+* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10403).
+* [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
+* [jan] Check applications&apos; authValidate() method if present.
+* [mms] Add Horde_Session::isActive().
+* [mjr] Add remove button to image fields (Request #9870).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -989,7 +1000,7 @@
    <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
-    <recommended>1.5.2</recommended>
+    <min>1.5.2</min>
    </package>
    <extension>
     <name>dom</name>
@@ -1503,10 +1514,31 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-14</date>
+   <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Fix removing user data from applications (Bug #10241).
+* [jan] Update Latvian translation.
+* [jan] Don&apos;t set optional integer fields to 0 when automatically updating configuration.
+* [mjr] Fix recurring event exception handling for ActiveSync.
+* [mms] Fix removing user data from applications (Bug #10241).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [gwr] Do not fail when no basedn is set for the Horde_Kolab_Server configuration.
+* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10403).
+* [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
+* [jan] Check applications&apos; authValidate() method if present.
+* [mms] Add Horde_Session::isActive().
+* [mjr] Add remove button to image fields (Request #9870).
    </notes>
   </release>
  </changelog>

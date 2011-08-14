@@ -77,7 +77,7 @@ extends Components_TestCase
             $this->fail('No exception!');
         } catch (Components_Exception $e) {
             $this->assertEquals(
-                'Alpha version "4.0.0alpha1" marked with invalid release stability "stable"!',
+                'alpha version "4.0.0alpha1" marked with invalid release stability "stable"!',
                 $e->getMessage()
             );
         }
@@ -101,7 +101,7 @@ extends Components_TestCase
             $this->fail('No exception!');
         } catch (Components_Exception $e) {
             $this->assertEquals(
-                'Beta version "4.0.0beta1" marked with invalid release stability "stable"!',
+                'beta version "4.0.0beta1" marked with invalid release stability "stable"!',
                 $e->getMessage()
             );
         }
@@ -125,7 +125,7 @@ extends Components_TestCase
             $this->fail('No exception!');
         } catch (Components_Exception $e) {
             $this->assertEquals(
-                'Beta version "4.0.0RC1" marked with invalid release stability "stable"!',
+                'beta version "4.0.0RC1" marked with invalid release stability "stable"!',
                 $e->getMessage()
             );
         }
@@ -149,7 +149,7 @@ extends Components_TestCase
             $this->fail('No exception!');
         } catch (Components_Exception $e) {
             $this->assertEquals(
-                'Devel version "4.0.0dev1" marked with invalid release stability "stable"!',
+                'devel version "4.0.0dev1" marked with invalid release stability "stable"!',
                 $e->getMessage()
             );
         }
@@ -173,7 +173,7 @@ extends Components_TestCase
             $this->fail('No exception!');
         } catch (Components_Exception $e) {
             $this->assertEquals(
-                'Stable version "4.0.0RC1" marked with invalid api stability "beta"!',
+                'stable version "4.0.0RC1" marked with invalid api stability "beta"!',
                 $e->getMessage()
             );
         }

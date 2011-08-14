@@ -155,6 +155,10 @@ abstract class Horde_Perms_Base
             return $permission->getGuestPermissions();
         }
 
+        // Combine all other applicable permissions.
+        $type = $permission->get('type');
+        $composite_perm = ($type == 'matrix') ? 0 : array();
+
         // If $creator was specified, check creator permissions.
         // If the user is the creator of the event see if there are creator
         // permissions.
@@ -162,13 +166,21 @@ abstract class Horde_Perms_Base
             strlen($user) &&
             ($user === $creator) &&
             (($perms = $permission->getCreatorPermissions()) !== null)) {
-            return $perms;
+            if ($type == 'matrix') {
+                $composite_perm |= $perms;
+            } else {
+                $composite_perm[] = $perms;
+            }
         }
 
         // Check user-level permissions.
         $userperms = $permission->getUserPermissions();
         if (isset($userperms[$user])) {
-            return $userperms[$user];
+            if ($type == 'matrix') {
+                $composite_perm |= $userperms[$user];
+            } else {
+                $composite_perm[] = $userperms[$user];
+            }
         }
 
         // If no user permissions are found, try group permissions.
@@ -177,32 +189,31 @@ abstract class Horde_Perms_Base
             count($permission->data['groups'])) {
             $groups = $GLOBALS['injector']
                 ->getInstance('Horde_Group')
-                ->listGroups($user);;
+                ->listGroups($user);
 
-            $composite_perm = null;
-            $type = $permission->get('type');
-            foreach ($permission->data['groups'] as $group => $perm) {
+            foreach ($permission->data['groups'] as $group => $perms) {
                 if (isset($groups[$group])) {
-                    if (is_null($composite_perm)) {
-                        $composite_perm = ($type == 'matrix') ? 0 : array();
-                    }
-
                     if ($type == 'matrix') {
-                        $composite_perm |= $perm;
+                        $composite_perm |= $perms;
                     } else {
-                        $composite_perm[] = $perm;
+                        $composite_perm[] = $perms;
                     }
                 }
-            }
-
-            if (!is_null($composite_perm)) {
-                return $composite_perm;
             }
         }
 
         // If there are default permissions, return them.
         if (($perms = $permission->getDefaultPermissions()) !== null) {
-            return $perms;
+            if ($type == 'matrix') {
+                $composite_perm |= $perms;
+            } else {
+                $composite_perm[] = $perms;
+            }
+        }
+
+        // Return composed permissions.
+        if ($composite_perm) {
+            return $composite_perm;
         }
 
         // Otherwise, deny all permissions to the object.

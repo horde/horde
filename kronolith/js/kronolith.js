@@ -2101,18 +2101,14 @@ KronolithCore = {
             var div = _createElement(event)
                 .setStyle({ backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                             color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg });
-            if (!event.value.al) {
-                div.update(new Element('span', { className: 'kronolithDate' }).update(event.value.start.toString('t')))
-                    .insert(' ')
-                    .insert(new Element('span', { className: 'kronolithSeparator' }).update('&middot;'))
-                    .insert(' ');
-            }
             this.createAgendaDay(date);
             $('kronolithAgendaDay' + date).insert(div);
             break;
         }
 
-        this.setEventText(div, event.value, view == 'month' ? 30 : null)
+        this.setEventText(div, event.value,
+                          { length: view == 'month' ? 30 : null,
+                            time: view == 'agenda' })
             .observe('mouseover', div.addClassName.curry('kronolithSelected'))
             .observe('mouseout', div.removeClassName.curry('kronolithSelected'));
     },
@@ -2188,15 +2184,21 @@ KronolithCore = {
         }
     },
 
-    setEventText: function(div, event, length)
+    setEventText: function(div, event, opts)
     {
         var calendar = event.calendar.split('|'),
             span = new Element('span');
+        opts = Object.extend({ length: false, time: false }, opts || {}),
+
         div.update();
         if (event.ic) {
-            div.insert(new Element('img', { src: event.ic }));
+            div.insert(new Element('img', { src: event.ic, className: 'kronolithEventIcon' }));
         }
-        div.insert((length ? event.t.truncate(length) : event.t).escapeHTML());
+        if (opts.time && !event.al) {
+            div.insert(event.start.toString(Kronolith.conf.time_format) + '-' +
+                       event.end.toString(Kronolith.conf.time_format) + ': ');
+        }
+        div.insert((opts.length ? event.t.truncate(opts.length) : event.t).escapeHTML());
         div.insert(span);
         if (event.a) {
             span.insert(' ')
@@ -5349,7 +5351,7 @@ KronolithCore = {
             }
             this.attendeeStartDateHandler = function() {
                 ev.at.each(function(attendee) {
-                    this.insertFreeBusy(attendee.e);
+                    this.insertFreeBusy(attendee.l);
                 }, this);
             }.bind(this);
             $('kronolithEventStartDate').observe('change', this.attendeeStartDateHandler);
@@ -5439,7 +5441,7 @@ KronolithCore = {
                                   return;
                               }
                               this.freeBusy.get(attendee.l)[1] = r.response.fb;
-                              this.insertFreeBusy(attendee.e);
+                              this.insertFreeBusy(attendee.l);
                           }.bind(this));
         }
 
@@ -5481,20 +5483,21 @@ KronolithCore = {
      * @todo Update when changing dates; only show free time for fb times we
      *       actually received.
      *
-     * @param string email  An email address as the free/busy identifier.
+     * @param string attendee  An attendee display name as the free/busy
+     *                         identifier.
      */
-    insertFreeBusy: function(email)
+    insertFreeBusy: function(attendee)
     {
         if (!$('kronolithEventDialog').visible() ||
-            !this.freeBusy.get(email)) {
+            !this.freeBusy.get(attendee)) {
             return;
         }
-        var fb = this.freeBusy.get(email)[1],
-            tr = this.freeBusy.get(email)[0],
+        var fb = this.freeBusy.get(attendee)[1],
+            tr = this.freeBusy.get(attendee)[0],
             td = tr.select('td')[1],
             div = td.down('div');
         if (!td.getWidth()) {
-            this.insertFreeBusy.bind(this, email).defer();
+            this.insertFreeBusy.bind(this, attendee).defer();
             return;
         }
         tr.select('td').each(function(td, i) {
@@ -5510,7 +5513,7 @@ KronolithCore = {
         var start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format),
             end = start.clone().add(1).days(),
             width = td.getWidth();
-        div = new Element('div').setStyle({ position: 'relative' });
+        div = new Element('div').setStyle({ position: 'relative', height: td.offsetHeight + 'px' });
         td.insert(div);
         $H(fb.b).each(function(busy) {
             var from = new Date(), to = new Date(), left;

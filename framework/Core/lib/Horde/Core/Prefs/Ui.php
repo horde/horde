@@ -610,7 +610,6 @@ class Horde_Core_Prefs_Ui
             ? ''
             : Horde::menu(array(
                   'app' => $this->app,
-                  'mask' => Horde_Menu::MASK_HELP | Horde_Menu::MASK_LOGIN | Horde_Menu::MASK_PROBLEM
               ));
 
         /* Get list of accessible applications. */

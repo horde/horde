@@ -378,7 +378,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* This might be a long running operation. */
         if ($this->_vars->initial) {
-            session_write_close();
+            $GLOBALS['session']->close();
         }
 
         $initreload = ($this->_vars->initial || $this->_vars->reload);
@@ -453,7 +453,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $this->_queue->quota();
 
         if ($this->_vars->initial) {
-            session_start();
+            $GLOBALS['session']->start();
         }
 
         return $result;
@@ -676,13 +676,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             /* Ticket #7422: Listing messages may be a long-running operation
              * so close the session while we are doing it to prevent
              * deadlocks. */
-            session_write_close();
+            $GLOBALS['session']->close();
 
             $result = new stdClass;
             $result->ViewPort = $this->_viewPortData($changed);
 
             /* Reopen the session. */
-            session_start();
+            $GLOBALS['session']->start();
         } else {
             $result = false;
         }
@@ -1858,10 +1858,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return object  An object with the following entries:
      *   - deleted: (object) Contains the following properties:
-     *     mbox: (string) The current mailbox.
-     *     remove: (integer) True if messages should be removed from the
+     *   - mbox: (string) The current mailbox.
+     *   - remove: (integer) True if messages should be removed from the
      *             viewport.
-     *     uids: (string) The list of messages to delete.
+     *   - uids: (string) The list of messages to delete.
      *   - ViewPort: (object) See _viewPortData().
      */
     protected function _generateDeleteResult($indices, $change,

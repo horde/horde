@@ -244,6 +244,11 @@ class Horde_LoginTasks
      */
     public function displayTasks()
     {
+        if (!isset($this->_tasklist) ||
+            ($this->_tasklist === true)) {
+            return;
+        }
+
         return $this->_tasklist->needDisplay(true);
     }
 
@@ -272,5 +277,4 @@ class Horde_LoginTasks
             self::EVERY => Horde_LoginTasks_Translation::t("Every Login")
         );
     }
-
 }

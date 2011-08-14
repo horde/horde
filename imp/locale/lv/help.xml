@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="keyboard-navigation" state="uptodate" md5="885a83e5ce7c455f8d7d40a17ca901df">
+<entry id="keyboard-navigation" state="new">
     <title>Klaviatūra: Navigācija</title>
     <para>Pastāv iespēja izmantot klaviatūru, lai pārvietotos sarakstā no vēstules uz vēstuli, uz iepriekšējo vai nākošo vēstuli, kamēr lasāt atvērto vēstuli vai pa pastkastes vēstuļu saraksta lappusēm.
       </para>
@@ -22,7 +22,7 @@
 </entry>
 -->
 
-<entry id="compose-buttons" md5="bd0e2b0eff15d7c5cf7df9b7ef4ac40a" state="uptodate">
+<entry id="compose-buttons">
     <title>Vēstules rakstīšana: Darbības</title>
     <heading>Darbības</heading>
     <para>
@@ -39,7 +39,7 @@
     </para>
  </entry>
 
-<entry id="compose-identity" md5="9841f0cde4bf109a8f637c3e5a2cf8cf" state="uptodate">
+<entry id="compose-identity">
     <title>Vēstules rakstīšana: Identitāte</title>
     <heading>Identitāte</heading>
     <para>
@@ -47,7 +47,7 @@
     </para>
 </entry>
 
-<entry id="compose-to" md5="31cba17f169572c367aa8014831eb8f8" state="uptodate">
+<entry id="compose-to">
     <title>Vēstules rakstīšana: To (Kam)</title>
     <heading>"Kam"</heading>
     <para>
@@ -55,7 +55,7 @@
     </para>
 </entry>
 
-<entry id="compose-cc" md5="97571433ab037ef9c4d101a56bf74e25" state="uptodate">
+<entry id="compose-cc">
     <title>Vēstules rakstīšana: Cc</title>
     <heading>"Cc"</heading>
     <para>
@@ -66,7 +66,7 @@ Vēstules kopijas parasti tiek nosūtītas adresātiem, kuri nav tiešie vēstul
     </para>
 </entry>
 
-<entry id="compose-bcc" md5="aa8f9e2d44fdb74def0fa15240ff687b" state="uptodate">
+<entry id="compose-bcc">
     <title>Vēstules rakstīšana: Bcc</title>
     <heading>"Bcc"</heading>
     <para>
@@ -77,7 +77,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="compose-subject" md5="0639a8790e306acc9e19b4d1ce342d53" state="uptodate">
+<entry id="compose-subject">
     <title>Vēstules rakstīšana: Temats</title>
     <heading>"Temats"</heading>
     <para>
@@ -88,7 +88,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="compose-charset" md5="c2c878070445af81407da5bfc4083ea3" state="uptodate">
+<entry id="compose-charset">
     <title>Vēstules rakstīšana: Kodējums</title>
     <heading>Kodējums</heading>
     <para>
@@ -99,7 +99,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </tip>
 </entry>
 
-<entry id="compose-options" md5="5f1d50a733c8b7e46aecece28822ff70" state="uptodate">
+<entry id="compose-options">
     <title>Vēstules rakstīšana: Opcijas</title>
     <heading>"Opcijas"</heading>
     <para>
@@ -125,7 +125,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="compose-attachments" md5="c61d86cfad0842f122278366bb2804b0" state="uptodate">
+<entry id="compose-attachments">
     <title>Vēstules rakstīšana: Pielikumu pievienošana</title>
     <heading>"Pielikumu pievienošana"</heading>
     <para>
@@ -144,7 +144,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </tip>
 </entry>
 
-<entry id="compose-current-attachments" md5="1dac09e0dba4d062ec6a4f82718956b7" state="uptodate">
+<entry id="compose-current-attachments">
     <title>Vēstules rakstīšana: Pievienotie pielikumi</title>
     <heading>Pievienotie pielikumi</heading>
     <para>
@@ -182,7 +182,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
+<entry id="compose-priority">
     <title>Vēstules rakstīšana: Prioritāte</title>
     <heading>Prioritāte</heading>
     <para>
@@ -190,21 +190,21 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="compose-save-attachments" md5="eee31308484dc59cb84d8b7de3e8465a" state="uptodate">
+<entry id="compose-save-attachments">
     <title>Vēstules rakstīšana: Saglabāt pielikumu(s)</title>
     <para>
     Nosaka, vai Jūsu sastādītās vēstules pielikumi tiks saglabāti kopā ar vēstuli nosūtīto vēstuļu mapē. "Jā" nozīmē pielikumu saglabāšanu, "Nē" - pielikumi tiks aizvākti no vēstules pēc tās nosūtīšanas visiem saņēmējiem. Izvēloties "Nē" un nesaglabājot potenciāli liela izmēra pielikums Jūs palīdzēsiet taupīgi izmantot brīvo vietu uz servera diskiem.
     </para>
 </entry>
 
-<entry id="compose-link-attachments" md5="63b3841c95aed31b5372f0fa770ee382" state="uptodate">
+<entry id="compose-link-attachments">
     <title>Vēstules rakstīšana: Piesaistīt pielikumu(s)</title>
     <para>
     Nosaka, vai Jūs vēstules pielikumi tiks nosūtīti kā vēstules sastāvdaļa vai arī pielikumi tiks saglabāti uz lokālā servera. Piesaistīto pielikumu gadījumā saņēmējs(-i) vēstulē saņems lejupielādes saiti un varēs lejupielādēt pielikumus patstāvīgi. Pielikumu piesaiste priekšrocība - tā palīdz būtiski samazināt izejošo sūtījumu apjomu. Piesaistes trūkums - nav iespējams garantēt, ka piesaistītais pielikums būs pieejams vienmēr, jo pielikuma dati tiek nošķirti no saņemtās vestules.
     </para>
 </entry>
 
-<entry id="folder-options" md5="08ee3e450a82431727763b9db082ec08" state="uptodate">
+<entry id="folder-options">
     <title>Mapes: Mapju vadība</title>
     <para>
       Mapes var izvēlēties atķeksējot kreisajā malā esošās rūtiņas. Pēc izvēles pabeigšanas, izvēlieties darbību no izklītošās Darbību izvēlnes.
@@ -273,7 +273,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
+<entry id="filters">
     <title>Filtri: Pielietot</title>
     <heading>Pielieto filtru likumus</heading>
     <para>
@@ -281,7 +281,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="filter-edit-rules" md5="5baa5708ac9449e797f967313a9e1a27" state="uptodate">
+<entry id="filter-edit-rules">
     <title>Filtri: Labot filtru likumus</title>
     <heading>Labot filtru likumus</heading>
     <para>
@@ -289,7 +289,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="filter-edit-blacklist" md5="80ff7803c66599c7035f7f8811d218cc" state="uptodate">
+<entry id="filter-edit-blacklist">
     <title>Filtri: Labot melno sarakstu</title>
     <heading>Labot melno sarakstu</heading>
     <para>
@@ -297,7 +297,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="filter-edit-whitelist" md5="330c3a8fad198c7afe855c101c63cd0f" state="uptodate">
+<entry id="filter-edit-whitelist">
     <title>Filtri: Labot balto sarakstu</title>
     <heading>Labot balto sarakstu</heading>
     <para>
@@ -305,7 +305,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="filter-on-login" md5="37d9297d1cca46435e36b6e38e45dcdb" state="uptodate">
+<entry id="filter-on-login">
     <title>Filtri: Filtrēt pieslēdzoties</title>
     <heading>Pielietot filtrēšanas likumus pieslēdzoties?</heading>
     <para>
@@ -313,7 +313,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="filter-on-display" md5="f5afc305402ef52bad108933f3f33291" state="uptodate">
+<entry id="filter-on-display">
     <title>Filtri: Filtrēt atsvaidzinot</title>
     <heading>Pielieto filtrēšanas likumus vienmēr, kad tiek atvērts INBOX?</heading>
     <para>
@@ -321,7 +321,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="filter-any-mailbox" md5="71c51e83909f9d0bd440d220772ee3c6" state="uptodate">
+<entry id="filter-any-mailbox">
     <title>Filtri: Filtrēt ikvienu pastkasti</title>
     <heading>Pielietot filtrēšanas likumus izvienai pastkastei?</heading>
     <para>
@@ -330,7 +330,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-compose-attach-pubkey" state="uptodate" md5="2550f39bd071650d6e4ebeba1af76e25">
+<entry id="pgp-compose-attach-pubkey" state="new">
     <title>PGP: Attach Public Key</title>
     <heading>Attach Public Key</heading>
     <para>
@@ -338,7 +338,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-option-scan-body" state="uptodate" md5="6baaada0d46dc1ab0941087f235f359b">
+<entry id="pgp-option-scan-body" state="new">
     <title>PGP: Scan Text Bodies</title>
     <heading>Scan Text Bodies</heading>
     <para>
@@ -346,7 +346,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-option-reply-pubkey" state="uptodate" md5="9eeec8178d39bd61ecbd74d175179587">
+<entry id="pgp-option-reply-pubkey" state="new">
     <title>PGP: Validate PGP Public Keys When Replying</title>
     <heading>Validate PGP Public Keys When Replying</heading>
     <para>
@@ -354,7 +354,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="compose-options-encrypt" state="uptodate" md5="78ff9bd91687efb91d2798ca0458b5cb">
+<entry id="compose-options-encrypt" state="new">
     <title>Message Composition: Encryption Options</title>
     <heading>No Encryption</heading>
     <para>
@@ -394,7 +394,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-overview" state="uptodate" md5="24b5138b4b53f73b5f2f2739e4c1858d">
+<entry id="pgp-overview" state="new">
     <title>PGP: Overview</title>
     <heading>What is PGP?</heading>
     <para>
@@ -406,7 +406,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-option-attach-pubkey" state="uptodate" md5="561ce43370ac4afbcc3f9818c8fbc2f6">
+<entry id="pgp-option-attach-pubkey" state="new">
     <title>PGP: Options - Attach Public Key</title>
     <heading>Options - Attach Public Key</heading>
     <para>
@@ -414,7 +414,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-manage-pubkey" state="uptodate" md5="b289ea5824b7f69f35c0751497f4e1c3">
+<entry id="pgp-manage-pubkey" state="new">
     <title>PGP: Manage Public Keys</title>
     <heading>Overview</heading>
     <para>
@@ -434,7 +434,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-import-pubkey" state="uptodate" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382">
+<entry id="pgp-import-pubkey" state="new">
     <title>PGP: Manage Public Keys - Import</title>
     <heading>Import Public Keys</heading>
     <para>
@@ -442,7 +442,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-overview-personalkey" state="uptodate" md5="220af2b74a58f430efd72d6d6b1f993f">
+<entry id="pgp-overview-personalkey" state="new">
     <title>PGP: Manage Personal Keys</title>
     <heading>Overview</heading>
     <para>
@@ -458,7 +458,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-public" state="uptodate" md5="3c844d4ff8fdda3e0d446b47a63117e0">
+<entry id="pgp-personalkey-public" state="new">
     <title>PGP: Manage Personal Keys - Public Key</title>
     <heading>View</heading>
     <para>
@@ -470,7 +470,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-private" state="uptodate" md5="1851b67a1aeef1242fc3a2b94af75c03">
+<entry id="pgp-personalkey-private" state="new">
     <title>PGP: Manage Personal Keys - Private Key</title>
     <heading>Enter Passphrase</heading>
     <para>
@@ -490,7 +490,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-delete" state="uptodate" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce">
+<entry id="pgp-personalkey-delete" state="new">
     <title>PGP: Manage Personal Keys - Delete</title>
     <heading>Delete Personal Keys</heading>
     <para>
@@ -498,7 +498,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-name" state="uptodate" md5="748cb124b7ff52820792e278037a8c27">
+<entry id="pgp-personalkey-create-name" state="new">
     <title>PGP: Create Personal Key - Name</title>
     <heading>Name</heading>
     <para>
@@ -506,7 +506,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-comment" state="uptodate" md5="e666eb9f0ee4b49fe04f74fc18db8640">
+<entry id="pgp-personalkey-create-comment" state="new">
     <title>PGP: Create Personal Key - Comment</title>
     <heading>Comment</heading>
     <para>
@@ -514,7 +514,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-email" state="uptodate" md5="c729f70fdb3a73cbb7ba5ef5888e3092">
+<entry id="pgp-personalkey-create-email" state="new">
     <title>PGP: Create Personal Key - E-mail Address</title>
     <heading>E-mail Address</heading>
     <para>
@@ -522,7 +522,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-keylength" state="uptodate" md5="24ca641c63fb5ff310a39ee0d3b1ee55">
+<entry id="pgp-personalkey-create-keylength" state="new">
     <title>PGP: Create Personal Key - Keylength</title>
     <heading>Keylength</heading>
     <para>
@@ -530,7 +530,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-passphrase" state="uptodate" md5="2fb9372970bf33f51e988ba39dbd7193">
+<entry id="pgp-personalkey-create-passphrase" state="new">
     <title>PGP: Create Personal Key - Passphrase</title>
     <heading>Passphrase</heading>
     <para>
@@ -538,7 +538,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-actions" state="uptodate" md5="0f8234935b964c83533b4ec4c15eb712">
+<entry id="pgp-personalkey-create-actions" state="new">
     <title>PGP: Create Personal Key - Actions</title>
     <heading>Create Keys</heading>
     <para>
@@ -550,7 +550,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="smime-overview" state="uptodate" md5="d3c752b1345fb2eccfe575c07461963f">
+<entry id="smime-overview" state="new">
     <title>S/MIME: Overview</title>
     <heading>What is S/MIME?</heading>
     <para>
@@ -562,7 +562,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="smime-overview-personalkey" state="uptodate" md5="9f4f36ae72cb4abc731067d338be3b98">
+<entry id="smime-overview-personalkey" state="new">
     <title>S/MIME: Personal Keys</title>
     <heading>Overview</heading>
     <para>
@@ -570,7 +570,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="smime-import-personal-certs" state="uptodate" md5="cf0ed2e3e24d30dedf8cfef2c2645759">
+<entry id="smime-import-personal-certs" state="new">
     <title>S/MIME: Import Personal Certificates</title>
     <heading>Import Personal Certificates</heading>
     <para>
@@ -578,7 +578,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="smime-delete-personal-certs" state="uptodate" md5="018bb6b61a7e416892de288ad1c880f4">
+<entry id="smime-delete-personal-certs" state="new">
     <title>S/MIME: Delete Personal Certificates</title>
     <heading>Delete Personal Certificates</heading>
     <para>
@@ -586,7 +586,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="smime-manage-pubkey" state="uptodate" md5="8b6c63684d3d73b3d084025a78fe7e88">
+<entry id="smime-manage-pubkey" state="new">
     <title>S/MIME: Manage Public Keys</title>
     <heading>S/MIME: Manage Public Keys</heading>
     <para>
@@ -606,7 +606,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="printing" state="uptodate" md5="f233c11b6b4a6bedeb68f1d5a2a976db">
+<entry id="printing" state="new">
     <title>Printing</title>
     <heading>Print a message</heading>
     <para>
@@ -614,7 +614,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="sorting" state="uptodate" md5="18cdeac38027fe5c42bab693f2a4260a">
+<entry id="sorting" state="new">
     <title>Sorting and Threading</title>
     <heading>Sorting Entries</heading>
     <para>
@@ -626,70 +626,70 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="prefs-rename_sentmail_monthly" state="uptodate" md5="767b05efbb4370c32783ea4dc1808f91">
+<entry id="prefs-rename_sentmail_monthly" state="new">
     <title>Preferences: Rename Sent Mail Folder Monthly</title>
     <para>
     Turn this preference on if you would like to rename your sent mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent mail folder will be created.
     </para>
 </entry>
 
-<entry id="prefs-delete_sentmail_monthly_keep" state="uptodate" md5="041cf1a5b14058dbfd680f5af2c0fd52">
+<entry id="prefs-delete_sentmail_monthly_keep" state="new">
     <title>Preferences: Delete Sent Mail Folder Monthly</title>
     <para>
     This option will purge old sent mail folders after a given number of months.  Any folders older than this value will be deleted.  This may be useful if you have a quota, for example.
     </para>
 </entry>
 
-<entry id="prefs-purge_sentmail_interval" state="uptodate" md5="6b8d80249b439bb08dbc1a31d00a7286">
+<entry id="prefs-purge_sentmail_interval" state="new">
     <title>Preferences: Purge Sent Mail</title>
     <para>
     How often should your sent mail folder(s) be purged?
     </para>
 </entry>
 
-<entry id="prefs-purge_sentmail_keep" state="uptodate" md5="07df30a1ca8ef9ff46ca1c7407eb9004">
+<entry id="prefs-purge_sentmail_keep" state="new">
     <title>Preferences: Purge Sent Mail Keep</title>
     <para>
     If you are purging your sent mail folder(s), message older than how many days should be purged?
     </para>
 </entry>
 
-<entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="79d70b75d5a282bc06366b80311b115b">
+<entry id="prefs-delete_attachments_monthly_keep" state="new">
     <title>Preferences: Delete Linked Attachments Monthly</title>
     <para>
     If your local account is configured to allow sending linked attachments in outgoing compose messages, this option will purge old linked attachments after a given number of months.  Any attachments older than this value will be deleted.  This may be useful if you have a quota, for example.
     </para>
 </entry>
 
-<entry id="prefs-purge_trash_interval" state="uptodate" md5="e805e6311aeae336cfa1cca10bdcfa35">
+<entry id="prefs-purge_trash_interval" state="new">
     <title>Preferences: Maintenance: Purge Trash</title>
     <para>
     How often should your trash folder be purged?
     </para>
 </entry>
 
-<entry id="prefs-purge_trash_keep" state="uptodate" md5="3cb5a2b5b80b7ac1179ae005f983970e">
+<entry id="prefs-purge_trash_keep" state="new">
     <title>Preferences: Maintenance: Purge Trash Keep</title>
     <para>
     If you are purging your trash folder, message older than how many days should be purged?
     </para>
 </entry>
 
-<entry id="prefs-purge_spam_interval" state="uptodate" md5="dacc3d8a1d90ff928fdb72db9ceb76e1">
+<entry id="prefs-purge_spam_interval" state="new">
     <title>Preferences: Maintenance: Purge Spam</title>
     <para>
     How often should your spam folder be purged?
     </para>
 </entry>
 
-<entry id="prefs-purge_spam_keep" state="uptodate" md5="f4748aba20cf4a9b6ce92822bd185de6">
+<entry id="prefs-purge_spam_keep" state="new">
     <title>Preferences: Maintenance: Purge Spam Keep</title>
     <para>
     If you are purging your spam folder, message older than how many days should be purged?
     </para>
 </entry>
 
-<entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
+<entry id="prefs-attrib_text" state="new">
      <title>Preferences: Message Composition: Attribution Text</title>
      <para>
      Here you can enter the phrase that you wish to appear before any quoted text in a reply that you send.
@@ -712,28 +712,28 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
 
 </entry>
 
-<entry id="prefs-default_msg_charset" state="uptodate" md5="4ef4fb2090e703f6f8e03f39ab96e717">
+<entry id="prefs-default_msg_charset" state="new">
     <title>Preferences: Default Message Character Set</title>
     <para>
     Define the default character set to use for text message parts that do not contain explicit character set information. Per RFC 2045, messages without a character set parameter are displayed using the 'US-ASCII' character set. However, certain badly broken mailers may send out text messages in other character sets without setting the proper parameters in the message header. Set this parameter to the default character set string to use locally. Select "Default" to use the MIME defaults.
     </para>
 </entry>
 
-<entry id="prefs-request_mdn" state="uptodate" md5="d1848b54921777465fd46758a2f59ddc">
+<entry id="prefs-request_mdn" state="new">
     <title>Preferences: Request Read Receipts</title>
     <para>
     "Request a Read Receipt" sends a read receipt request (also known as a Message Dispositon Notification) to the recipients of a composed message to notify you when this message is opened by the recipients. Not all clients support / honor this.
     </para>
 </entry>
 
-<entry id="prefs-send_mdn" state="uptodate" md5="13244cac1f471ef717e8e380e6aed4ab">
+<entry id="prefs-send_mdn" state="new">
     <title>Preferences: Send Read Receipt</title>
     <para>
     "Send a Read Receipt" sends a read receipt (also known as a Message Disposition Notification) when you view a message in which the user has requested that they receive notification that you have read the message. By default, you will be prompted to send the notification.
     </para>
 </entry>
 
-<entry id="prefs-delete_spam_after_report" state="uptodate" md5="8d1eb1fb6f3c10802d20630a5f5ad132">
+<entry id="prefs-delete_spam_after_report" state="new">
     <title>Preferences: Delete Spam After Reporting</title>
     <para>
     You may elect to do one of three items after reporting a message as spam.
@@ -749,7 +749,7 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="prefs-move_ham_after_report" state="uptodate" md5="4b971b84ed993e6a6fff8d45a50d03c5">
+<entry id="prefs-move_ham_after_report" state="new">
     <title>Preferences: Move Spam After Reporting As Innocent</title>
     <para>
     You may elect to do one of two items after reporting a message previously maked as spam as innocent.
@@ -762,28 +762,28 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
     </para>
 </entry>
 
-<entry id="prefs-image_replacement" state="uptodate" md5="f518db9fb16b91e44b4a39b8d3bdcb8a">
+<entry id="prefs-image_replacement" state="new">
     <title>Preferences: Image Replacement</title>
     <para>
     For messages displayed inline, should all image tags be blocked until you specifically decide to view those images? Note that, if viewing as an attachment, the images will always be displayed.
     </para>
 </entry>
 
-<entry id="prefs-image_addrbook" state="uptodate" md5="0110ec5a179c32ae36cbda1d10000c5f">
+<entry id="prefs-image_addrbook" state="new">
     <title>Preferences: Image Replacement/Addressbook Show</title>
     <para>
     If blocking images for inline messages, should they be displayed automatically if the sender appears in your addressbook?
     </para>
 </entry>
 
-<entry id="prefs-mailbox_start" state="uptodate" md5="62fcc38a15f54dae7eb8bdafa93ed341">
+<entry id="prefs-mailbox_start" state="new">
     <title>Preferences: Mailbox Start Page</title>
     <para>
     Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
     </para>
 </entry>
 
-<entry id="prefs-save_attachments" state="uptodate" md5="d61dfb1fd20829a48af8d04402f857cb">
+<entry id="prefs-save_attachments" state="new">
     <title>Preferences: Save Attachments on Sent Messages</title>
     <para>
     If saving a composed message in a sent mail folder, determine if all attachment data is saved. The following options are available:
@@ -795,14 +795,14 @@ Slēptās kopijas parasti tiek sūtītas saņēmējiem, kas nav nedz tiešie, ne
      <para>* "Never save attachments" - NEVER prompt to save attachments in compose screen; the attachments are NEVER saved with the message.</para>
 </entry>
 
-<entry id="virtual_inbox" state="uptodate" md5="a91e01732bb8129cbc6a7f5c6dca3ab3">
+<entry id="virtual_inbox" state="new">
     <title>Folders: Virtual Inbox</title>
     <para>
     Virtual Inbox is a saved search that does away with the need to search every mailbox for messages marked as new.  Instead, all currently subscribed mailboxes are searched for new messages and the results are displayed in a single mailbox.
     </para>
 </entry>
 
-<entry id="virtual_trash" state="uptodate" md5="b83f73ed56dff0addcbd4702e5a21a3d">
+<entry id="virtual_trash" state="new">
     <title>Folders: Virtual Trash</title>
     <para>
     Virtual Trash is a saved search that does away with the need for a separate Trash folder.  Instead of moving messages to a centralized trash folder, messages are simply marked as deleted in the current folder they live in.  When 'show deleted messages' is turned off, this results in these messages not appearing in a mailbox view.  When a user clicks on Virtual Trash, *all* mailboxes are searched for messages that are flagged deleted and these messages are displayed in a single mailbox.
