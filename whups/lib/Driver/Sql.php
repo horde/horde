@@ -2160,7 +2160,7 @@ class Whups_Driver_Sql extends Whups_Driver
     {
         $query = 'DELETE FROM whups_states WHERE state_id = ?';
         try {
-            $this->_db->delete($query, $values);
+            $this->_db->delete($query, array((int)$state_id));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }

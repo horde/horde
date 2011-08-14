@@ -218,7 +218,7 @@ case 'whups_form_admin_edittypesteptwo':
     }
     break;
 
-case 'whups_form_admin_defaultstate':
+case 'whups_form_admin_createdefaultstates':
     $type = $vars->get('type');
     foreach ($conf['states'] as $state) {
         if ($state['active'] == 'active') {
@@ -232,7 +232,7 @@ case 'whups_form_admin_defaultstate':
     $form->renderActive($renderer, $vars, $adminurl, 'post');
     break;
 
-case 'whups_form_admin_defaultpriority':
+case 'whups_form_admin_createdefaultpriorities':
     $type = $vars->get('type');
     foreach ($conf['priorities'] as $priority) {
         if ($priority['active'] == 'active') {

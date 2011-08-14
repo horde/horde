@@ -69,7 +69,7 @@ class Whups_Ticket
 
         if (!isset($info['type'])) {
             $info['type'] = $whups_driver->getDefaultType($info['queue']);
-            if (is_null($info['type'])) {
+            if (!$info['type']) {
                 $queue = $whups_driver->getQueue($info['queue']);
                 throw new Whups_Exception(
                     sprintf(
@@ -79,7 +79,7 @@ class Whups_Ticket
         }
         if (!isset($info['state'])) {
             $info['state'] = $whups_driver->getDefaultState($info['type']);
-            if (is_null($info['state'])) {
+            if (!$info['state']) {
                 throw new Whups_Exception(
                     sprintf(
                         _("No state for this ticket and no default state for ticket type \"%s\" specified."),
@@ -88,7 +88,7 @@ class Whups_Ticket
         }
         if (!isset($info['priority'])) {
             $info['priority'] = $whups_driver->getDefaultPriority($info['type']);
-            if (is_null($info['priority'])) {
+            if (!$info['priority']) {
                 throw new Whups_Exception(
                     sprintf(
                         _("No priority for this ticket and no default priority for ticket type \"%s\" specified."),
