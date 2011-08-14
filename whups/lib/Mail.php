@@ -132,35 +132,36 @@ class Whups_Mail
         $attachments = array();
         $dl_list = array_slice(array_keys($message->contentTypeMap()), 1);
         foreach ($dl_list as $key) {
-            if (strpos($key, '.', 1) === false) {
-                $part = $message->getPart($key);
-                $tmp_name = Horde::getTempFile('whups');
-                $fp = @fopen($tmp_name, 'wb');
-                if (!$fp) {
-                    Horde::logMessage(sprintf('Cannot open file %s for writing.',
-                                              $tmp_name), 'ERR');
-                    return $ticket;
-                }
-                fwrite($fp, $part->getContents());
-                fclose($fp);
-                $part_name = $part->getName(true);
-                if (!$part_name) {
-                    $ptype = $part->getPrimaryType();
-                    switch ($ptype) {
-                    case 'multipart':
-                    case 'application':
-                        $part_name = sprintf(_("%s part"), ucfirst($part->getSubType()));
-                        break;
-                    default:
-                        $part_name = sprintf(_("%s part"), ucfirst($ptype));
-                        break;
-                    }
-                    $part_name .= '.' . Horde_Mime_Magic::mimeToExt($part->getType());
-                }
-                $attachments[] = array(
-                    'name' => $part_name,
-                    'tmp_name' => $tmp_name);
+            if (strpos($key, '.', 1) !== false) {
+                continue;
             }
+            $part = $message->getPart($key);
+            $tmp_name = Horde::getTempFile('whups');
+            $fp = @fopen($tmp_name, 'wb');
+            if (!$fp) {
+                Horde::logMessage(sprintf('Cannot open file %s for writing.',
+                                          $tmp_name), 'ERR');
+                return $ticket;
+            }
+            fwrite($fp, $part->getContents());
+            fclose($fp);
+            $part_name = $part->getName(true);
+            if (!$part_name) {
+                $ptype = $part->getPrimaryType();
+                switch ($ptype) {
+                case 'multipart':
+                case 'application':
+                    $part_name = sprintf(_("%s part"), ucfirst($part->getSubType()));
+                    break;
+                default:
+                    $part_name = sprintf(_("%s part"), ucfirst($ptype));
+                    break;
+                }
+                $part_name .= '.' . Horde_Mime_Magic::mimeToExt($part->getType());
+            }
+            $attachments[] = array(
+                'name' => $part_name,
+                'tmp_name' => $tmp_name);
         }
 
         // See if we can match this message to an existing ticket.
