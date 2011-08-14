@@ -220,14 +220,11 @@ class Whups_Driver
     }
 
     /**
-     * Returns the attributes for a specific ticket type.
+     * Returns the attributes for a ticket type.
      *
-     * This method will check if external attributes need to be fetched from
-     * hooks or whether to use the standard ones defined within Whups.
+     * @params integer $type  A ticket type ID.
      *
-     * @params integer $type  The ticket type.
-     *
-     * @return array  List of attributes.
+     * @return array  A list of attributes.
      */
     function getAttributesForType($type = null)
     {

@@ -25,13 +25,13 @@ class Whups_Form_Admin_EditAttributeStepTwo extends Horde_Form
         $this->addHidden('', 'attribute', 'int', true, true);
         $pname = &$this->addVariable(
             _("Attribute Name"), 'attribute_name', 'text', true);
-        $pname->setDefault($info['attribute_name']);
+        $pname->setDefault($info['name']);
         $pdesc = &$this->addVariable(
             _("Attribute Description"), 'attribute_description', 'text', true);
-        $pdesc->setDefault($info['attribute_description']);
+        $pdesc->setDefault($info['description']);
         $preq = &$this->addVariable(
             _("Required Attribute?"), 'attribute_required', 'boolean', false);
-        $preq->setDefault($info['attribute_required']);
+        $preq->setDefault($info['required']);
 
         $ptype = &$this->addVariable(
             _("Attribute Type"), 'attribute_type', 'enum', true, false, null,
@@ -40,11 +40,11 @@ class Whups_Form_Admin_EditAttributeStepTwo extends Horde_Form
             Horde_Form_Action::factory(
                 array('whups', 'whups_reload'),
                 array('formname' => 'whups_form_admin_editattributesteptwo_reload')));
-        $ptype->setDefault($info['attribute_type']);
+        $ptype->setDefault($info['type']);
 
         $type = $vars->get('attribute_type');
         if (empty($type)) {
-            $type = $info['attribute_type'];
+            $type = $info['type'];
         }
         foreach (Whups::fieldTypeParams($type) as $param => $param_info) {
             $pparam = &$this->addVariable(
@@ -52,8 +52,8 @@ class Whups_Form_Admin_EditAttributeStepTwo extends Horde_Form
                 'attribute_params[' . $param . ']',
                 $param_info['type'],
                 false);
-            if (isset($info['attribute_params'][$param])) {
-                $pparam->setDefault($info['attribute_params'][$param]);
+            if (isset($info['params'][$param])) {
+                $pparam->setDefault($info['params'][$param]);
             }
         }
     }
