@@ -3180,19 +3180,24 @@ class Whups_Driver_Sql extends Whups_Driver
             $transactionId = $this->newTransaction($user);
         }
 
-        foreach ($changes as $type => $value) {
-            try {
-                $this->_db->insert(
-                    'INSERT INTO whups_logs (transaction_id, '
-                        . 'ticket_id, log_type, log_value, '
-                        . 'log_value_num) VALUES (?, ?, ?, ?, ?)',
-                    array((int)$transactionId,
-                          (int)$ticket_id,
-                          $type,
-                          $this->_toBackend((string)$value),
-                          (int)$value));
-            } catch (Horde_Db_Exception $e) {
-                throw new Whups_Exception($e);
+        foreach ($changes as $type => $values) {
+            if (!is_array($values)) {
+                $values = array($values);
+            }
+            foreach ($values as $value) {
+                try {
+                    $this->_db->insert(
+                        'INSERT INTO whups_logs (transaction_id, '
+                            . 'ticket_id, log_type, log_value, '
+                            . 'log_value_num) VALUES (?, ?, ?, ?, ?)',
+                        array((int)$transactionId,
+                              (int)$ticket_id,
+                              $type,
+                              $this->_toBackend((string)$value),
+                              (int)$value));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Whups_Exception($e);
+                }
             }
         }
 
