@@ -1,6 +1,3 @@
-<script type="text/javascript">
-$.mobile.ajaxFormsEnabled = false;
-</script>
 </head>
 <body>
 
@@ -10,7 +7,7 @@ $.mobile.ajaxFormsEnabled = false;
 
 <h3><tag:header /></h3>
 
-<form method="post" action="<tag:logintasks_url />" id="logintasks_confirm" name="logintasks_confirm">
+<form method="post" action="<tag:logintasks_url />" id="logintasks_confirm" name="logintasks_confirm" data-ajax="false">
 <input type="hidden" name="logintasks_page" value="1" />
 <tag:maint_postdata />
 
