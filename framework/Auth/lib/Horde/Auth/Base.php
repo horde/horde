@@ -31,8 +31,6 @@ abstract class Horde_Auth_Base
         'remove'        => false,
         'transparent'   => false,
         'update'        => false,
-        'badlogincount' => false,
-        'lock'          => false
     );
 
     /**
@@ -109,24 +107,13 @@ abstract class Horde_Auth_Base
 
         try {
             $this->_credentials['userId'] = $userId;
-            if (($this->hasCapability('lock')) &&
-                $this->isLocked($userId)) {
-                throw new Horde_Auth_Exception('', Horde_Auth::REASON_LOCKED);
-            }
             $this->_authenticate($userId, $credentials);
             $this->setCredential('userId', $this->_credentials['userId']);
             $this->setCredential('credentials', $credentials);
-            if ($this->hasCapability('badlogincount')) {
-                $this->_resetBadLogins($userId);
-            }
             return true;
         } catch (Horde_Auth_Exception $e) {
             if (($code = $e->getCode()) &&
                 $code != Horde_Auth::REASON_MESSAGE) {
-                if (($code == Horde_Auth::REASON_BADLOGIN) && 
-                    $this->hasCapability('badlogincount')) {
-                    $this->_badLogin($userId);                   
-                }
                 $this->setError($code);
             } else {
                 $this->setError(Horde_Auth::REASON_MESSAGE, $e->getMessage());
@@ -189,69 +176,6 @@ abstract class Horde_Auth_Base
      * @throws Horde_Auth_Exception
      */
     public function addUser($userId, $credentials)
-    {
-        throw new Horde_Auth_Exception('Unsupported.');
-    }
-
-    /**
-     * Locks a user indefinitely or for a specified time
-     *
-     * @param string $userId      The userId to lock.
-     * @param integer $time       The duration in seconds, 0 = permanent
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function lockUser($userId, $time = 0)
-    {
-        throw new Horde_Auth_Exception('Unsupported.');
-    }
-
-    /**
-     * Unlocks a user and optionally resets bad login count
-     *
-     * @param string  $userId          The userId to unlock.
-     * @param boolean $resetBadLogins  Reset bad login counter, default no.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function unlockUser($userId, $resetBadLogins = false)
-    {
-        throw new Horde_Auth_Exception('Unsupported.');
-    }
-
-    /**
-     * Checks if $userId is currently locked.
-     *
-     * @param string  $userId      The userId to unlock.
-     * @param boolean $details     Toggle array format with timeout.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function isLocked($userId, $details = false)
-    {
-        throw new Horde_Auth_Exception('Unsupported.');
-    }
-
-    /**
-     * Handles a bad login
-     *
-     * @param string  $userId      The userId with bad login.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    protected function _badLogin($userId)
-    {
-        throw new Horde_Auth_Exception('Unsupported.');
-    }
-
-    /**
-     * Reset the bad login counter
-     *
-     * @param string  $userId      The userId to reset.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    protected function _resetBadLogins($userId)
     {
         throw new Horde_Auth_Exception('Unsupported.');
     }
