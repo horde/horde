@@ -136,6 +136,9 @@ class Whups_Mail
                 continue;
             }
             $part = $message->getPart($key);
+            if ($key == $body_id && $part->getType() == 'text/plain') {
+                continue;
+            }
             $tmp_name = Horde::getTempFile('whups');
             $fp = @fopen($tmp_name, 'wb');
             if (!$fp) {
