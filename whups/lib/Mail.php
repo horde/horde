@@ -128,35 +128,8 @@ class Whups_Mail
             $GLOBALS['registry']->setAuth($auth_user, array());
         }
 
-        // See if we can match this message to an existing ticket.
-        if ($ticket = self::_findTicket($info)) {
-            $ticket->change('comment', $info['comment']);
-            $ticket->change('comment-email', $from);
-            $ticket->commit($author);
-        } elseif (!empty($info['ticket'])) {
-            // Didn't match an existing ticket though a ticket number had been
-            // specified.
-            throw new Whups_Exception(
-                sprintf(_("Could not find ticket \"%s\"."),
-                $info['ticket']));
-        } else {
-            if (!empty($info['guess-queue'])) {
-                // Try to guess the queue name for the new ticket from the
-                // message subject.
-                $queues = $GLOBALS['whups_driver']->getQueues();
-                foreach ($queues as $queueId => $queueName) {
-                    if (preg_match('/\b' . preg_quote($queueName, '/') . '\b/i',
-                                   $info['summary'])) {
-                        $info['queue'] = $queueId;
-                        break;
-                    }
-                }
-            }
-            // Create a new ticket.
-            $ticket = Whups_Ticket::newTicket($info, $author);
-        }
-
         // Extract attachments.
+        $attachments = array();
         $dl_list = array_slice(array_keys($message->contentTypeMap()), 1);
         foreach ($dl_list as $key) {
             if (strpos($key, '.', 1) === false) {
@@ -184,13 +157,42 @@ class Whups_Mail
                     }
                     $part_name .= '.' . Horde_Mime_Magic::mimeToExt($part->getType());
                 }
-                $ticket->change(
-                    'attachment',
-                     array(
-                         'name' => $part_name,
-                         'tmp_name' => $tmp_name));
-                $result = $ticket->commit();
+                $attachments[] = array(
+                    'name' => $part_name,
+                    'tmp_name' => $tmp_name);
             }
+        }
+
+        // See if we can match this message to an existing ticket.
+        if ($ticket = self::_findTicket($info)) {
+            $ticket->change('comment', $info['comment']);
+            $ticket->change('comment-email', $from);
+            if ($attachments) {
+                $ticket->change('attachments', $attachments);
+            }
+            $ticket->commit($author);
+        } elseif (!empty($info['ticket'])) {
+            // Didn't match an existing ticket though a ticket number had been
+            // specified.
+            throw new Whups_Exception(
+                sprintf(_("Could not find ticket \"%s\"."), $info['ticket']));
+        } else {
+            if (!empty($info['guess-queue'])) {
+                // Try to guess the queue name for the new ticket from the
+                // message subject.
+                $queues = $GLOBALS['whups_driver']->getQueues();
+                foreach ($queues as $queueId => $queueName) {
+                    if (preg_match('/\b' . preg_quote($queueName, '/') . '\b/i',
+                                   $info['summary'])) {
+                        $info['queue'] = $queueId;
+                        break;
+                    }
+                }
+            }
+            $info['attachments'] = $attachments;
+
+            // Create a new ticket.
+            $ticket = Whups_Ticket::newTicket($info, $author);
         }
     }
 

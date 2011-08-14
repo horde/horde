@@ -11,7 +11,6 @@
  * @package Whups
  */
 
-
 class Whups_Form_Admin_DefaultPriority extends Horde_Form
 {
     public function __construct(&$vars)

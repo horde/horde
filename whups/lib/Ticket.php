@@ -117,18 +117,22 @@ class Whups_Ticket
                 array(
                     'name' => $info['deferred_attachment'],
                     'tmp_name' => $a_name));
-
             unlink($a_name);
         }
 
-        // Send email notifications.
-        $ticket->notify($ticket->get('user_id_requester'), true);
+        // Check for manually added attachments.
+        if (!empty($info['attachments'])) {
+            $ticket->change('attachments', $info['attachments']);
+        }
 
         // Commit any changes (new attachments, etc.)
         $ticket->commit(
             $ticket->get('user_id_requester'),
             $info['last-transaction'],
             false);
+
+        // Send email notifications.
+        $ticket->notify($ticket->get('user_id_requester'), true);
 
         return $ticket;
     }
@@ -336,7 +340,16 @@ class Whups_Ticket
                 $this->addAttachment($value['name'], $value['tmp_name']);
                 // Store the new file name in the updates array for the
                 // log.
-                $updates['attachment'] = $value['name'];
+                $updates['attachment'][] = $value['name'];
+                break;
+
+            case 'attachments':
+                foreach ($value as $attachment) {
+                    $this->addAttachment($attachment['name'], $attachment['tmp_name']);
+                    // Store the new file name in the updates array for the
+                    // log.
+                    $updates['attachment'][] = $attachment['name'];
+                }
                 break;
 
             case 'delete-attachment':
@@ -699,6 +712,12 @@ class Whups_Ticket
         if (isset($this->_changes['attachment'])) {
             $table .= '+' . Horde_String::pad(_("New Attachment"), $length) . ' | '
                 . $this->_changes['attachment']['to']['name'] . "\n";
+        }
+        if (!empty($this->_changes['attachments'])) {
+            foreach ($this->_changes['attachments']['to'] as $attachment) {
+                $table .= '+' . Horde_String::pad(_("New Attachment"), $length)
+                    . ' | ' . $attachment['name'] . "\n";
+            }
         }
 
         /* Deleted Attachments. */
