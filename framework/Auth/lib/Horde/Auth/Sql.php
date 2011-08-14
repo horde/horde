@@ -326,53 +326,6 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     }
 
     /**
-     * Checks if $userId is currently locked.
-     *
-     * @param string  $userId      The userId to check.
-     * @param boolean $details     Toggle array format with timeout.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function isLocked($userId, $details = false)
-    {
-        $userId = trim($userId);
-        if (!$this->hasCapability('lock')) {
-            throw new Horde_Auth_Exception('No lock_field was configured');
-        }
-        /* Build the SQL query. */
-        $query = sprintf('SELECT * FROM %s WHERE %s = ?',
-                         $this->_params['table'],
-                         $this->_params['username_field']);
-        $values = array($userId);
-
-        try {
-            $row = $this->_db->selectOne($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_Auth_Exception('User not found', Horde_Auth::REASON_MESSAGE);
-        }
-        
-        $details = array('locked' => (bool)$row[$this->_params['lock_field']], 'lock_timeout' => 0 );
-
-        if ($this->_params['lock_expiration_field']) {
-            if ($row[$this->_params['lock_expiration_field']] > 0 ) {
-                $now = time();
-                if ($now > $row[$this->_params['lock_expiration_field']]) {
-                    /* clean the table */
-                    $this->unlockUser($userId, true);
-                    $details = array('locked' => false, 'lock_timeout' => 0);
-                } else {
-                    $details['lock_timeout'] = $row[$this->_params['lock_expiration_field']];
-                }
-            }
-        }
-        if ($details == true) {
-            return $details;
-        } else {
-            return $details['locked'];
-        }
-    }
-
-    /**
      * Locks a user indefinitely or for a specified time
      *
      * @param string $userId      The userId to lock.
@@ -384,12 +337,9 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     {
         $userId = trim($userId);
         if (!$this->hasCapability('lock')) {
-            throw new Horde_Auth_Exception('Tried to lock a user when no lock_field was configured', Horde_Auth::REASON_MESSAGE);
+            throw new Horde_Auth_Exception('Tried to lock a user when no lock_field was configured');
         }
-        /* prevent users from shortening a permanent or long-running lock by triggering some other lock */
-        if ($this->isLocked($userId)) {
-            throw new Horde_Auth_Exception('User is already locked', Horde_Auth::REASON_MESSAGE);
-        }
+
         /* Build the SQL query. */
         $query = sprintf('UPDATE %s SET %s = ?',
                          $this->_params['table'],
@@ -416,44 +366,6 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             throw new Horde_Auth_Exception($e);
         }
 
-    }
-
-    /**
-     * Unlocks a user and optionally resets bad login count
-     *
-     * @param string  $userId          The userId to unlock.
-     * @param boolean $resetBadLogins  Reset bad login counter, default no.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function unlockUser($userId, $resetBadLogins = false)
-    {
-        $userId = trim($userId);
-        if (!$this->hasCapability('lock')) {
-            throw new Horde_Auth_Exception('No lock_field was configured', Horde_Auth::REASON_MESSAGE);
-        }
-        /* Build the SQL query. */
-        $query = sprintf('UPDATE %s SET %s = ?',
-                         $this->_params['table'],
-                         $this->_params['lock_field']);
-        $values = array(false);
-
-        if (!$this->_params['lock_expiration_field'] == '') {
-            $query .= ', ' . $this->_params['lock_expiration_field'] . ' = ?';
-            $values[] =  0;
-        }
-        if (!$this->_params['bad_login_count_field'] == '' && $resetBadLogins) {
-            $query .= ', ' . $this->_params['bad_login_count_field'] . ' = ?';
-            $values[] =  0;
-        }
-
-        $query .= sprintf(' WHERE %s = ?', $this->_params['username_field']);
-        $values[] = $userId;
-        try {
-            $this->_db->update($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_Auth_Exception($e);
-        }
     }
 
     /**
@@ -540,74 +452,6 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     }
 
     /**
-     * Handles a bad login
-     *
-     * @param string  $userId      The userId with bad login.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    protected function _badLogin($userId)
-    {
-        if (!$this->hasCapability('badlogincount')) {
-            throw new Horde_Auth_Exception('Unsupported.');
-        } else {
-            $query = sprintf('UPDATE %s SET %s = %s + 1  WHERE %s = ?',
-                                $this->_params['table'],
-                                $this->_params['bad_login_count_field'],
-                                $this->_params['bad_login_count_field'],
-                                $this->_params['username_field']);
-
-            $values = array($userId);
-            try {
-                $this->_db->update($query, $values);
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_Auth_Exception($e);
-            }
-            if ($this->params['bad_login_limit'] > 0) {
-                $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
-                    $this->_params['bad_login_count_field'],
-                    $this->_params['table'],
-                    $this->_params['username_field']);
-                $values = array($userId);
-                try {
-                    $row = $this->_db->selectOne($query, $values);
-                    } catch (Horde_Db_Exception $e) {
-                    throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
-                }
-                if ($row[$this->_params['bad_login_count_field']] >= $this->_params['bad_login_limit']) {
-                    $this->lockUser($userId, $this->_params['lock_duration']);
-                }
-            }
-        }
-    }
-
-    /**
-     * Reset the bad login counter
-     *
-     * @param string  $userId      The userId to reset.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    protected function _resetBadLogins($userId)
-    {
-        if (!$this->hasCapability('badlogincount')) {
-            throw new Horde_Auth_Exception('Unsupported.');
-        } else {
-            $query = sprintf('UPDATE %s SET %s = ?  WHERE %s = ?',
-                                $this->_params['table'],
-                                $this->_params['bad_login_count_field'],
-                                $this->_params['username_field']);
-
-            $values = array(0, $userId);
-            try {
-                $this->_db->update($query, $values);
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_Auth_Exception($e);
-            }
-        }
-    }
-
-    /**
      * Calculate a timestamp and return it along with the field name
      *
      * @param string $type The timestamp parameter.
@@ -615,12 +459,11 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      * @return integer 'timestamp' intended field value or null
      */
 
-    private function _calc_expiration($type)
-    {
-        if (!empty($this->_params[$type . '_expiration_field'])) {
+    private function _calc_expiration($type) {
+        if (!empty($this->_params[$type.'_expiration_field'])) {
             $return['field'] = $this->_params[$type.'_expiration_field'];
         }
-        if (empty($this->_params[$type . '_expiration_window'])) {
+        if (empty($this->_params[$type.'_expiration_window'])) {
             return null;
         } else {
             $expiration_datetime = new DateTime;
@@ -628,6 +471,6 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             $expiration_datetime->modify(sprintf("+%s day", $this->_params[$type.'_expiration_window']));
             /* more elegant but php 5.3+: $now->getTimestamp(); */
             return $expiration_datetime->format("U");
-        }
+        }       
     }
 }
