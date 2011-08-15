@@ -493,6 +493,14 @@
       number of days in the grace period the user has to change his or her
       password after it has expired.  If not provided, the grace period will
       not expire."/>
+      <configboolean name="bad_login_count_enable" desc="Enable counting the number of
+      bad login attempts. Requires [bad_login_count_field] to be set." required="false">false</configboolean>
+      <configinteger name="bad_login_limit" required="false" desc="The
+      number of bad logins after which an account is automatically locked for [lock_duration] seconds.
+      Requires [bad_login_count_enable]. A value of '0' disables this feature">0</configinteger>
+      <configinteger name="lock_duration" required="false" desc="The
+      number of seconds an account is locked after it exceeds the limit of bad login attempts.
+      A value of '0' means permanently">0</configinteger>
       <configenum name="encryption" required="false" desc="The password hashing algorithm to use">ssha
        <values>
         <value>aprmd5</value>
