@@ -23,7 +23,7 @@ HordeMap = {
      * Initialize hordemap javascript
      *
      * @param object opts  Hash containing:
-     *      'driver':    HordeMap driver to use (Horde | SAPO)
+     *      'driver':    HordeMap driver to use (Horde)
      *      'geocoder':  Geocoder driver to use
      *      'providers': Default provider layers to add (Google, Yahoo etc...)
      *      'jsuri':     The uri to the hordemap directory
@@ -129,7 +129,7 @@ HordeMap = {
     {
         switch (p) {
         case 'Google':
-            return 'http://maps.google.com/maps?file=api&v=2&sensor=false&key=' + this.conf['apikeys']['google'];
+           return  'http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
         case 'Yahoo':
             return 'http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=' + this.conf['apikeys']['yahoo'];
         case 'Ve':
