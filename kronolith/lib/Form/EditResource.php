@@ -9,7 +9,7 @@
  */
 
 /**
- * The Kronolith_EditResourceForm class provides the form for editing a
+ * The Kronolith_Form_EditResource class provides the form for editing a
  * resource.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
