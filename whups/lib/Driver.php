@@ -427,6 +427,7 @@ class Whups_Driver
              * address, and as the recipient for all others. */
             $to = $full_name = '';
             if (!empty($mail_always) && $user == $mail_always) {
+                $details = null;
                 $mycomments = Whups::permissionsFilter(
                     $comments, 'comment', Horde_Perms::READ, '');
                 $to = $mail_always;
@@ -480,10 +481,16 @@ class Whups_Driver
             }
 
             $formattedComment = $this->formatComments($mycomments, $opts['ticket']->getId());
-            if (!$attachmentAdded &&
-                empty($formattedComment) &&
-                $prefs->getValue('email_comments_only')) {
-                continue;
+
+            if (isset($details['type']) && $details['type'] == 'user') {
+                $user_prefs = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Prefs')
+                    ->create('whups', array('user' => $details['user']));
+                if (!$attachmentAdded &&
+                    empty($formattedComment) &&
+                    $user_prefs->getValue('email_comments_only')) {
+                    continue;
+                }
             }
 
             try {

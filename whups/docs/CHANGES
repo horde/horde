@@ -2,6 +2,7 @@
 v2.0-cvs
 --------
 
+[jan] Fix determining whether to send updates without comments.
 [jan] Send uploaded attachments with notification messages (Request #7615).
 [mjr] Correctly set ticket version when changing queues (Bug #9645).
 [jan] Add listSlugs API method.
