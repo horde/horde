@@ -78,7 +78,7 @@ class Horde_Text_Flowed
      * @param string $text     The text to process.
      * @param string $charset  The character set of $text.
      */
-    public function __construct($text, $charset = null)
+    public function __construct($text, $charset = 'UTF-8')
     {
         $this->_text = $text;
         $this->_charset = $charset;

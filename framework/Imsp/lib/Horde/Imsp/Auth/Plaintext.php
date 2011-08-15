@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Imsp_Auth_plaintext class for IMSP authentication.
+ * IMSP authentication class for plaintext LOGIN authentication.
  *
  * Required parameters:<pre>
  *   'username'  Username to logon to IMSP server as.

@@ -35,7 +35,6 @@ class Horde_Auth
     const REASON_LOGOUT = 4;
     const REASON_MESSAGE = 5;
     const REASON_SESSION = 6;
-    const REASON_LOCKED = 7;
 
     /**
      * 64 characters that are valid for APRMD5 passwords.

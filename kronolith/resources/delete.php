@@ -32,7 +32,7 @@ try {
     Horde::url('resources/', true)->redirect();
 }
 
-$form = new Kronolith_DeleteResourceForm($vars, $resource);
+$form = new Kronolith_Form_DeleteResource($vars, $resource);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {

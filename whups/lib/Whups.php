@@ -330,13 +330,14 @@ class Whups
      * determine what to look for. Will redirect to the default view
      * if the ticket isn't found or if permissions checks fail.
      */
-   static public  function getCurrentTicket()
+    static public function getCurrentTicket()
     {
+        $default = Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true);
+
         $id = preg_replace('|\D|', '', Horde_Util::getFormData('id'));
         if (!$id) {
             $GLOBALS['notification']->push(_("Invalid Ticket Id"), 'horde.error');
-            Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
-                ->redirect();
+            $default->redirect();
         }
 
         try {
@@ -345,11 +346,11 @@ class Whups
             if ($ticket->code === 0) {
                 // No permissions to this ticket.
                 $GLOBALS['notification']->push($e->getMessage(), 'horde.warning');
-            } else {
-                $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                $default->redirect();
             }
-            Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true)
-                ->redirect();
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e);
+            $default->redirect();
         }
     }
 
@@ -821,7 +822,10 @@ class Whups
             }
             $email .= "\n";
             $subject = 'Reminder: Your open tickets';
-            $whups_driver->mail(null, $user, $subject, $email, $user, true);
+            $whups_driver->mail(array('recipients' => $user,
+                                      'subject' => $subject,
+                                      'message' => $email,
+                                      'from' => $user));
         }
     }
 

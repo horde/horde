@@ -24,11 +24,11 @@ class Whups_Form_Admin_DeleteAttribute extends Horde_Form
         $this->addHidden('', 'attribute', 'int', true, true);
         $pname = &$this->addVariable(
             _("Attribute Name"), 'attribute_name', 'text', false, true);
-        $pname->setDefault($info['attribute_name']);
+        $pname->setDefault($info['name']);
         $pdesc = &$this->addVariable(
             _("Attribute Description"), 'attribute_description', 'text', false,
             true);
-        $pdesc->setDefault($info['attribute_description']);
+        $pdesc->setDefault($info['description']);
         $this->addVariable(
             _("Really delete this attribute? This may cause data problems!"),
             'yesno', 'enum', true, false, null,

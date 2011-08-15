@@ -161,7 +161,7 @@ if (empty($mail['user'])) {
     try {
         Whups_Mail::processMail($cli->readStdin(), $info);
     } catch (Whups_Exception $e) {
-        $cli->fatal(_("Error processing message:") . ' ' . $result->getMessage());
+        $cli->fatal(_("Error processing message:") . ' ' . $e->getMessage());
     }
 } else {
     $messages = array();

@@ -58,6 +58,9 @@
      first">revchronological</value>
     </values>
    </configenum>
+   <configboolean name="link_attach" desc="Should ticket emails contain
+   download links for uploaded attachments instead of the attachment
+   itself?">false</configboolean>
    <configboolean name="incl_resp" desc="Should all users responsible for a
    queue continue to receive email once a ticket is
    assigned?" required="false">true</configboolean>

@@ -11,8 +11,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:27:54</time>
+ <date>2011-08-15</date>
+ <time>10:48:05</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-*
+* [jan] Fix file names for plaintext and imtest authentication drivers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -33,8 +33,8 @@
       <dir name="Auth">
        <file name="Base.php" role="php" />
        <file name="CramMd5.php" role="php" />
-       <file name="imtest.php" role="php" />
-       <file name="plaintext.php" role="php" />
+       <file name="Imtest.php" role="php" />
+       <file name="Plaintext.php" role="php" />
       </dir> <!-- /lib/Horde/Imsp/Auth -->
       <dir name="Client">
        <file name="Base.php" role="php" />
@@ -336,8 +336,8 @@
    <install as="Horde/Imsp/Translation.php" name="lib/Horde/Imsp/Translation.php" />
    <install as="Horde/Imsp/Auth/Base.php" name="lib/Horde/Imsp/Auth/Base.php" />
    <install as="Horde/Imsp/Auth/CramMd5.php" name="lib/Horde/Imsp/Auth/CramMd5.php" />
-   <install as="Horde/Imsp/Auth/imtest.php" name="lib/Horde/Imsp/Auth/imtest.php" />
-   <install as="Horde/Imsp/Auth/plaintext.php" name="lib/Horde/Imsp/Auth/plaintext.php" />
+   <install as="Horde/Imsp/Auth/Imtest.php" name="lib/Horde/Imsp/Auth/Imtest.php" />
+   <install as="Horde/Imsp/Auth/Plaintext.php" name="lib/Horde/Imsp/Auth/Plaintext.php" />
    <install as="Horde/Imsp/Client/Base.php" name="lib/Horde/Imsp/Client/Base.php" />
    <install as="Horde/Imsp/Client/Mock.php" name="lib/Horde/Imsp/Client/Mock.php" />
    <install as="Horde/Imsp/Client/Socket.php" name="lib/Horde/Imsp/Client/Socket.php" />
@@ -661,10 +661,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-08-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-*
+* [jan] Fix file names for plaintext and imtest authentication drivers.
    </notes>
   </release>
  </changelog>

@@ -139,7 +139,7 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
         }
 
         if ($comment) {
-            $flowed = new Horde_Text_Flowed($comment);
+            $flowed = new Horde_Text_Flowed($comment, 'UTF-8');
             $flowed->setDelSp(true);
             $comment = $flowed->toFlowed(false);
             $comment = $GLOBALS['injector']

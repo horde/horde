@@ -128,17 +128,59 @@ class Whups_Mail
             $GLOBALS['registry']->setAuth($auth_user, array());
         }
 
+        // Extract attachments.
+        $attachments = array();
+        $dl_list = array_slice(array_keys($message->contentTypeMap()), 1);
+        foreach ($dl_list as $key) {
+            $part = $message->getPart($key);
+            if (($key == $body_id && $part->getType() == 'text/plain') ||
+                $part->getType() == 'multipart/alternative' ||
+                $part->getType() == 'multipart/mixed') {
+                continue;
+            }
+            $tmp_name = Horde::getTempFile('whups');
+            $fp = @fopen($tmp_name, 'wb');
+            if (!$fp) {
+                Horde::logMessage(sprintf('Cannot open file %s for writing.',
+                                          $tmp_name), 'ERR');
+                return $ticket;
+            }
+            fwrite($fp, $part->getContents());
+            fclose($fp);
+            $part_name = $part->getName(true);
+            if (!$part_name) {
+                $ptype = $part->getPrimaryType();
+                switch ($ptype) {
+                case 'multipart':
+                case 'application':
+                    $part_name = sprintf(_("%s part"), ucfirst($part->getSubType()));
+                    break;
+                default:
+                    $part_name = sprintf(_("%s part"), ucfirst($ptype));
+                    break;
+                }
+                if ($ext = Horde_Mime_Magic::mimeToExt($part->getType())) {
+                    $part_name .= '.' . $ext;
+                }
+            }
+            $attachments[] = array(
+                'name' => $part_name,
+                'tmp_name' => $tmp_name);
+        }
+
         // See if we can match this message to an existing ticket.
         if ($ticket = self::_findTicket($info)) {
             $ticket->change('comment', $info['comment']);
             $ticket->change('comment-email', $from);
+            if ($attachments) {
+                $ticket->change('attachments', $attachments);
+            }
             $ticket->commit($author);
         } elseif (!empty($info['ticket'])) {
             // Didn't match an existing ticket though a ticket number had been
             // specified.
             throw new Whups_Exception(
-                sprintf(_("Could not find ticket \"%s\"."),
-                $info['ticket']));
+                sprintf(_("Could not find ticket \"%s\"."), $info['ticket']));
         } else {
             if (!empty($info['guess-queue'])) {
                 // Try to guess the queue name for the new ticket from the
@@ -152,45 +194,10 @@ class Whups_Mail
                     }
                 }
             }
+            $info['attachments'] = $attachments;
+
             // Create a new ticket.
             $ticket = Whups_Ticket::newTicket($info, $author);
-        }
-
-        // Extract attachments.
-        $dl_list = array_slice(array_keys($message->contentTypeMap()), 1);
-        foreach ($dl_list as $key) {
-            if (strpos($key, '.', 1) === false) {
-                $part = $message->getPart($key);
-                $tmp_name = Horde::getTempFile('whups');
-                $fp = @fopen($tmp_name, 'wb');
-                if (!$fp) {
-                    Horde::logMessage(sprintf('Cannot open file %s for writing.',
-                                              $tmp_name), 'ERR');
-                    return $ticket;
-                }
-                fwrite($fp, $part->getContents());
-                fclose($fp);
-                $part_name = $part->getName(true);
-                if (!$part_name) {
-                    $ptype = $part->getPrimaryType();
-                    switch ($ptype) {
-                    case 'multipart':
-                    case 'application':
-                        $part_name = sprintf(_("%s part"), ucfirst($part->getSubType()));
-                        break;
-                    default:
-                        $part_name = sprintf(_("%s part"), ucfirst($ptype));
-                        break;
-                    }
-                    $part_name .= '.' . Horde_Mime_Magic::mimeToExt($part->getType());
-                }
-                $ticket->change(
-                    'attachment',
-                     array(
-                         'name' => $part_name,
-                         'tmp_name' => $tmp_name));
-                $result = $ticket->commit();
-            }
         }
     }
 
