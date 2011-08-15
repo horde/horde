@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Imsp_Auth_cram_md5 class for IMSP authentication.
+ * IMSP authentication class for CRAM-MD5 authentication.
  *
  * Required parameters:<pre>
  *   'username'  Username to logon to IMSP server as.

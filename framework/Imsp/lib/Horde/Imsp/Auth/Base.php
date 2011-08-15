@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Imsp_Auth class abstract class for IMSP authentication.
+ * Abstract IMSP authentication class.
  *
  * Required Parameters:<pre>
  *   'username'  Username to logon to IMSP server as.
