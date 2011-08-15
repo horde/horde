@@ -132,11 +132,10 @@ class Whups_Mail
         $attachments = array();
         $dl_list = array_slice(array_keys($message->contentTypeMap()), 1);
         foreach ($dl_list as $key) {
-            if (strpos($key, '.', 1) !== false) {
-                continue;
-            }
             $part = $message->getPart($key);
-            if ($key == $body_id && $part->getType() == 'text/plain') {
+            if (($key == $body_id && $part->getType() == 'text/plain') ||
+                $part->getType() == 'multipart/alternative' ||
+                $part->getType() == 'multipart/mixed') {
                 continue;
             }
             $tmp_name = Horde::getTempFile('whups');
