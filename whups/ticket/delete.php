@@ -34,7 +34,7 @@ if ($vars->get('formname') == 'whups_form_ticket_delete') {
         if ($vars->get('yesno') == 1) {
             $deleteform->getInfo($vars, $info);
             try {
-                $whups_driver->deleteTicket($info['id']);
+                $ticket->delete();
                 $notification->push(sprintf(_("Ticket %d has been deleted."), $info['id']), 'horde.success');
                 Horde::url($prefs->getValue('whups_default_view') . '.php', true)
                     ->redirect();

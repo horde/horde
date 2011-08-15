@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Imsp_Auth_imtest class for IMSP authentication.
+ * IMSP authentication class for authentication through imtest.
  *
  * Required parameters:<pre>
  *   'username'        Username to logon to IMSP server as.

@@ -69,7 +69,7 @@ class Whups_Ticket
 
         if (!isset($info['type'])) {
             $info['type'] = $whups_driver->getDefaultType($info['queue']);
-            if (is_null($info['type'])) {
+            if (!$info['type']) {
                 $queue = $whups_driver->getQueue($info['queue']);
                 throw new Whups_Exception(
                     sprintf(
@@ -79,7 +79,7 @@ class Whups_Ticket
         }
         if (!isset($info['state'])) {
             $info['state'] = $whups_driver->getDefaultState($info['type']);
-            if (is_null($info['state'])) {
+            if (!$info['state']) {
                 throw new Whups_Exception(
                     sprintf(
                         _("No state for this ticket and no default state for ticket type \"%s\" specified."),
@@ -88,7 +88,7 @@ class Whups_Ticket
         }
         if (!isset($info['priority'])) {
             $info['priority'] = $whups_driver->getDefaultPriority($info['type']);
-            if (is_null($info['priority'])) {
+            if (!$info['priority']) {
                 throw new Whups_Exception(
                     sprintf(
                         _("No priority for this ticket and no default priority for ticket type \"%s\" specified."),
@@ -117,18 +117,22 @@ class Whups_Ticket
                 array(
                     'name' => $info['deferred_attachment'],
                     'tmp_name' => $a_name));
-
             unlink($a_name);
         }
 
-        // Send email notifications.
-        $ticket->notify($ticket->get('user_id_requester'), true);
+        // Check for manually added attachments.
+        if (!empty($info['attachments'])) {
+            $ticket->change('attachments', $info['attachments']);
+        }
 
         // Commit any changes (new attachments, etc.)
         $ticket->commit(
             $ticket->get('user_id_requester'),
             $info['last-transaction'],
             false);
+
+        // Send email notifications.
+        $ticket->notify($ticket->get('user_id_requester'), true);
 
         return $ticket;
     }
@@ -336,7 +340,16 @@ class Whups_Ticket
                 $this->addAttachment($value['name'], $value['tmp_name']);
                 // Store the new file name in the updates array for the
                 // log.
-                $updates['attachment'] = $value['name'];
+                $updates['attachment'][] = $value['name'];
+                break;
+
+            case 'attachments':
+                foreach ($value as $attachment) {
+                    $this->addAttachment($attachment['name'], $attachment['tmp_name']);
+                    // Store the new file name in the updates array for the
+                    // log.
+                    $updates['attachment'][] = $attachment['name'];
+                }
                 break;
 
             case 'delete-attachment':
@@ -378,6 +391,36 @@ class Whups_Ticket
 
         // Reset the changes array.
         $this->_changes = array();
+    }
+
+    /**
+     * Deletes this ticket.
+     *
+     * @throws Whups_Exception
+     */
+    public function delete()
+    {
+        global $whups_driver;
+
+        if ($GLOBALS['conf']['mail']['incl_resp'] ||
+            !count(current($whups_driver->getOwners($this->_id)))) {
+            /* Include all responsible.  */
+            $listeners = $whups_driver->getListeners(
+                $this->_id, true, false, true);
+        } else {
+            /* Don't include all responsible unless ticket is assigned. */
+            $listeners = $whups_driver->getListeners(
+                $this->_id, true, false, false);
+        }
+
+        $this->change('comment', _("The ticket was deleted."));
+        $this->commit(null, null, false);
+        $whups_driver->deleteTicket($this->_id);
+        $whups_driver->mail(array('ticket' => $this,
+                                  'recipients' => $listeners,
+                                  'subject' => _("Deleted:") . ' ' . $this->get('summary'),
+                                  'message' => _("The ticket was deleted."),
+                                  'from' => $GLOBALS['registry']->getAuth()));
     }
 
     /**
@@ -700,6 +743,12 @@ class Whups_Ticket
             $table .= '+' . Horde_String::pad(_("New Attachment"), $length) . ' | '
                 . $this->_changes['attachment']['to']['name'] . "\n";
         }
+        if (!empty($this->_changes['attachments'])) {
+            foreach ($this->_changes['attachments']['to'] as $attachment) {
+                $table .= '+' . Horde_String::pad(_("New Attachment"), $length)
+                    . ' | ' . $attachment['name'] . "\n";
+            }
+        }
 
         /* Deleted Attachments. */
         if (isset($this->_changes['delete-attachment'])) {
@@ -773,16 +822,16 @@ class Whups_Ticket
 
         /* Pass off to Whups_Driver::mail() to do the actual comment fetching,
          * permissions checks, etc. */
-        $whups_driver->mail($this->_id, $listeners, $subject, $message, $author,
-                            false, $this->get('queue'), $isNew);
+        $whups_driver->mail(array('ticket' => $this,
+                                  'recipients' => $listeners,
+                                  'subject' => $subject,
+                                  'message' => $message,
+                                  'from' => $author,
+                                  'new' => $isNew));
     }
 
     /**
      * Returns a plain text representation of a ticket.
-     *
-     * @param string  $author  Who created/changed the ticket?
-     * @param boolean $isNew   Is this a new ticket or a change to an existing
-     *                         one?
      */
     public function toString()
     {

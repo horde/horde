@@ -54,7 +54,7 @@ if ($tid = $vars->get('transaction')) {
             }
         }
 
-        $flowed = new Horde_Text_Flowed(preg_replace("/\s*\n/U", "\n", $history[$tid]['comment']));
+        $flowed = new Horde_Text_Flowed(preg_replace("/\s*\n/U", "\n", $history[$tid]['comment']), 'UTF-8');
         $vars->set('newcomment', $flowed->toFlowed(true));
     }
 }

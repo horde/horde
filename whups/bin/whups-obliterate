@@ -54,8 +54,9 @@ $cli->writeln();
 foreach (array_keys($queues) as $queue) {
     $info['queue_id'] = $queue;
     $tickets = $whups_driver->getTicketsByProperties($info);
-    foreach ($tickets as $ticket) {
-        $cli->message('Deleting ticket: ' . $ticket['id']);
-        $whups_driver->deleteTicket($ticket['id']);
+    foreach ($tickets as $info) {
+        $cli->message('Deleting ticket: ' . $info['id']);
+        $ticket = Whups_Ticket::makeTicket($info['id']);
+        $ticket->delete();
     }
 }

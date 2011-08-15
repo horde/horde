@@ -2616,7 +2616,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         if ($type == 'text/plain') {
             if ($part->getContentTypeParameter('format') == 'flowed') {
-                $flowed = new Horde_Text_Flowed($msg);
+                $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
                 if (Horde_String::lower($part->getContentTypeParameter('delsp')) == 'yes') {
                     $flowed->setDelSp(true);
                 }
@@ -2629,7 +2629,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             if (isset($options['toflowed'])) {
-                $flowed = new Horde_Text_Flowed($msg);
+                $flowed = new Horde_Text_Flowed($msg, 'UTF-8');
                 $msg = $options['toflowed']
                     ? $flowed->toFlowed(true)
                     : $flowed->toFlowed(false, array('nowrap' => true));

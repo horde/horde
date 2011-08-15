@@ -1861,6 +1861,7 @@
    <date>2011-08-05</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix deleting resources (Bug #10427)
 * [jan] Support snoozing alarms with Sundbird/Lightning (Request #7470).
 * [jan] Import VALARM components from iCalendar 2.0 data (Request #6665).
 * [jan] Fix creating events from dynamic view on Windows (Bug #9916).

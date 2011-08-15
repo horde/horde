@@ -9,7 +9,7 @@
  */
 
 /**
- * The Kronolith_CreateResourceForm class provides the form for creating a
+ * The Kronolith_Form_CreateResource class provides the form for creating a
  * resource.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>

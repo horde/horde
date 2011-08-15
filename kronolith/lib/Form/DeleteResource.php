@@ -9,7 +9,7 @@
  */
 
 /**
- * The Kronolith_DeleteResourceForm class provides the form for deleting a
+ * The Kronolith_Form_DeleteResource class provides the form for deleting a
  * resource.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
