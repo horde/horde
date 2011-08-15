@@ -394,6 +394,36 @@ class Whups_Ticket
     }
 
     /**
+     * Deletes this ticket.
+     *
+     * @throws Whups_Exception
+     */
+    public function delete()
+    {
+        global $whups_driver;
+
+        if ($GLOBALS['conf']['mail']['incl_resp'] ||
+            !count(current($whups_driver->getOwners($this->_id)))) {
+            /* Include all responsible.  */
+            $listeners = $whups_driver->getListeners(
+                $this->_id, true, false, true);
+        } else {
+            /* Don't include all responsible unless ticket is assigned. */
+            $listeners = $whups_driver->getListeners(
+                $this->_id, true, false, false);
+        }
+
+        $this->change('comment', _("The ticket was deleted."));
+        $this->commit(null, null, false);
+        $whups_driver->deleteTicket($this->_id);
+        $whups_driver->mail(array('ticket' => $this,
+                                  'recipients' => $listeners,
+                                  'subject' => _("Deleted:") . ' ' . $this->get('summary'),
+                                  'message' => _("The ticket was deleted."),
+                                  'from' => $GLOBALS['registry']->getAuth()));
+    }
+
+    /**
      * Adds an attachment to this ticket.
      *
      * @param string $attachment_name  The name of the attachment.
