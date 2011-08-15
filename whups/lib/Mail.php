@@ -159,7 +159,9 @@ class Whups_Mail
                     $part_name = sprintf(_("%s part"), ucfirst($ptype));
                     break;
                 }
-                $part_name .= '.' . Horde_Mime_Magic::mimeToExt($part->getType());
+                if ($ext = Horde_Mime_Magic::mimeToExt($part->getType())) {
+                    $part_name .= '.' . $ext;
+                }
             }
             $attachments[] = array(
                 'name' => $part_name,
