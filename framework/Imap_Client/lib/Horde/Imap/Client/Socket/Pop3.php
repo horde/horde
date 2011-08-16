@@ -524,7 +524,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _expunge($options)
     {
-        $msg_list = $this->_deleted();
+        $msg_list = $this->_deleted;
         $this->logout();
         return empty($options['list'])
             ? null

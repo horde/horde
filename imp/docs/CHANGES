@@ -2,6 +2,8 @@
 v5.0.10-git
 -----------
 
+[mms] Immediately update mailbox list when message is deleted and the mailbox
+      does not support flags (e.g. POP3) (Bug #10424).
 [mjr] Fix notifications not showing while accepting iTips
 [mms] Correctly determine page with first/last unseen messages when using
       descending sequence sorting (Bug #9882).

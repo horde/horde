@@ -456,7 +456,7 @@ var DimpBase = {
                 }
 
                 /* Generate the status flags. */
-                if (r.flag) {
+                if (!DIMP.conf.pop3 && r.flag) {
                     r.flag.each(function(a) {
                         var ptr = DIMP.conf.flags[a];
                         if (ptr.u) {
