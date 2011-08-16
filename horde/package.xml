@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [rla] Don&apos;t present security question dialog if none is set #10430
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4225,7 +4225,7 @@
    <date>2011-08-10</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [rla] Don&apos;t present security question dialog if none is set #10430
+*
    </notes>
   </release>
  </changelog>
