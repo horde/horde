@@ -125,10 +125,24 @@ HordeMap.Map.Horde = Class.create({
      */
     addGeoRssLayer: function(name, feed_url, proxy)
     {
-        if (proxy) {
-            OpenLayers.ProxyHost = proxy;
-        }
-        var layer = new OpenLayers.Layer.GeoRSS(name, feed_url);
+        var style = new OpenLayers.Style({ 'pointRadius': 20, 'externalGraphic': '${thumbnail}' });
+        var layer = new OpenLayers.Layer.GML(name, feed_url, {
+            projection: new OpenLayers.Projection("EPSG:4326"),
+            format: OpenLayers.Format.GeoRSS,
+            formatOptions: {
+                createFeatureFromItem: function(item) {
+                        var feature = OpenLayers.Format.GeoRSS.prototype
+                                .createFeatureFromItem.apply(this, arguments);
+                        feature.attributes.thumbnail =
+                                this.getElementsByTagNameNS(
+                                item, "*", "thumbnail")[0].getAttribute("url");
+                        return feature;
+                }
+            },
+            styleMap: new OpenLayers.StyleMap({
+                    "default": style
+            })
+        });
         this.map.addLayer(layer);
         return layer;
     },
@@ -136,7 +150,7 @@ HordeMap.Map.Horde = Class.create({
     removeGeoRssLayer: function(layer)
     {
         this.map.removeLayer(layer);
-    }
+    },
 
     getZoom: function()
     {
