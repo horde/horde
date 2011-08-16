@@ -766,31 +766,30 @@ class Whups_Ticket
         }
 
         /* Build message template. */
-        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-        $name = $identity->getValue('fullname');
-        if (empty($name)) {
-            $name = $GLOBALS['registry']->getAuth('bare');
+        $view = new Horde_View(array('templatePath' => WHUPS_BASE . '/config'));
+        $view->ticket_url = $url;
+        $view->table = $table;
+        $view->dont_reply = empty($conf['mail']['reply']);
+        $view->date = strftime($GLOBALS['prefs']->getValue('date_format'));
+        $view->auth_name = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create()
+            ->getValue('fullname');
+        if (empty($view->auth_name)) {
+            $view->auth_name = $GLOBALS['registry']->getAuth('bare');
         }
 
         /* Get queue specific notification message text, if available. */
         $message_file = WHUPS_BASE . '/config/'
-            . ($isNew ? 'create_email' : 'notify_email');
-        if (file_exists($message_file . '_' . $this->get('queue') . '.txt')) {
-            $message_file .= '_' . $this->get('queue');
+            . ($isNew ? 'create_email.plain' : 'notify_email.plain');
+        if (file_exists($message_file . '.' . $this->get('queue') . '.php')) {
+            $message_file .= '.' . $this->get('queue') . '.php';
+        } elseif (file_exists($message_file . '.local.php')) {
+            $message_file .= '.local.php';
+        } else {
+            $message_file .= '.php';
         }
-        $message_file .= '.txt';
-
-        /* Prepare message text. */
-        $message = str_replace(
-            array('@@ticket_url@@',
-                  '@@table@@',
-                  '@@dont_reply@@',
-                  '@@date@@',
-                  '@@auth_name@@'),
-            array($url, $table, $dont_reply,
-                  strftime($GLOBALS['prefs']->getValue('date_format')),
-                  $name),
-            file_get_contents($message_file));
+        $message_file = basename($message_file);
 
         /* Include Re: if the ticket isn't new for easy
          * filtering/eyeballing. */
@@ -825,7 +824,8 @@ class Whups_Ticket
         $whups_driver->mail(array('ticket' => $this,
                                   'recipients' => $listeners,
                                   'subject' => $subject,
-                                  'message' => $message,
+                                  'view' => $view,
+                                  'template' => $message_file,
                                   'from' => $author,
                                   'new' => $isNew));
     }

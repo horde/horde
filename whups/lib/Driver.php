@@ -339,7 +339,10 @@ class Whups_Driver
      *                                   message.
      *                     - recipients: (array|string) The list of recipients.
      *                     - subject:    (string) The email subject.
-     *                     - message:    (string) The email message text.
+     *                     - view:       (Horde_View) The view object for the
+     *                                   message text.
+     *                     - template:   (string) The template file for the
+     *                                   message text.
      *                     - from:       (string) The email sender.
      *                     - new:        (boolean, optional) Whether the passed
      *                                   ticket was just created.
@@ -513,11 +516,9 @@ class Whups_Driver
                 $full_name = $to;
             }
 
-            $body = str_replace(
-                array('@@comment@@', '@@full_name@@'),
-                array("\n\n" . $formattedComment, $full_name),
-                $opts['message']);
-            $mail->setBody($body);
+            $opts['view']->comment = $formattedComment;
+            $opts['view']->full_name = $fullname;
+            $mail->setBody($opts['view']->render($opts['template']));
 
             $mail->addHeader('Message-ID', Horde_Mime::generateMessageId());
             if ($opts['ticket']) {

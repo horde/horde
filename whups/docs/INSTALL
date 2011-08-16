@@ -139,25 +139,9 @@ Configuring Whups
    automatically sent out reminders about open tickets) the defaults will be
    correct for most sites.
 
-   The ``create_email.txt`` and ``notify_email.txt`` files define how outgoing
-   email notifications about new respectively updated tickets look like. If
-   using non-ascii character in these files, they have to saved with UTF-8
-   encoding. The following placeholders are available:
-
-      :@@ticket_url@@: The link to the ticket page.
-      :@@table@@:      The ticket summary table.
-      :@@comment@@:    The last user comment if any, including leading
-                       linebreaks.
-      :@@dont_reply@@: The message telling users to not reply, if enabled in
-                       the configuration, including trailing line breaks.
-      :@@date@@:       The current date.
-      :@@full_name@@:  The full name of the notification recipient.
-      :@@auth_name@@:  The full name of the user that updated the ticket.
-
-   You can also specify queue-specific notification messages by creating
-   seperate files with the following naming convention: ``create_email_X.txt``
-   will be used for ticket creation emails for queue "X";
-   ``notify_email_Y.txt`` will be used for notification emails for queue "Y".
+   The ``create_email.plain.php`` and ``notify_email.plain.php`` files define
+   how outgoing email notifications about new respectively updated tickets look
+   like. See the comments in these files for details.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Whups. Use the Horde ``Administration`` menu item to get
