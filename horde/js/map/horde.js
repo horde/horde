@@ -23,6 +23,9 @@
  * // opts.delayed - don't bind the map to the dom until display() is called.
  * // opts.markerDragEnd - callback to handle when a marker is dragged.
  * // opts.mapClick - callback to handle a click on the map
+ * // opts.markerImage
+ * // opts.markerBackground
+ * // opts.useMarkerLayer
  * var map = new HordeMap.OpenLayers(options);
  *
  */
@@ -40,7 +43,7 @@ HordeMap.Map.Horde = Class.create({
             delayed: false,
             layers: []
         };
-        this.opts = Object.extend(o, opts || {});
+        this.opts = Object.extend(o, opts);
 
         // Generate the base map object. Always use EPSG:4326 (WGS84) for display
         // and EPSG:900913 (spherical mercator) for projection for compatibility
@@ -56,7 +59,6 @@ HordeMap.Map.Horde = Class.create({
             // @TODO: configurable (allow smaller zoom control etc...
             // @TODO: custom LayerSwitcher control?
             controls: [new OpenLayers.Control.PanZoomBar({ 'zoomWorldIcon': true }),
-                       new OpenLayers.Control.LayerSwitcher(),
                        new OpenLayers.Control.Navigation(),
                        new OpenLayers.Control.Attribution()],
 
@@ -68,10 +70,15 @@ HordeMap.Map.Horde = Class.create({
         this.map = new OpenLayers.Map((this.opts.delayed ? null : this.opts.elt), options);
 
         // Create the vector layer for markers if requested.
-        if (HordeMap.conf.useMarkerLayer) {
+        // @TODO H5 BC break - useMarkerLayer should be permap, not per page
+        if (HordeMap.conf.markerImage) {
+            this.opts.markerImage = HordeMap.conf.markerImage;
+            this.opts.markerBackground = HordeMap.conf.markerBackground;
+        }
+        if (this.opts.useMarkerLayer || HordeMap.conf.useMarkerLayer) {
             styleMap = new OpenLayers.StyleMap({
-                externalGraphic: HordeMap.conf.markerImage,
-                backgroundGraphic: HordeMap.conf.markerBackground,
+                externalGraphic: this.opts.markerImage,
+                backgroundGraphic: this.opts.markerBackground,
                 backgroundXOffset: 0,
                 backgroundYOffset: -7,
                 graphicZIndex: 11,
@@ -87,13 +94,12 @@ HordeMap.Map.Horde = Class.create({
             var dragControl = new OpenLayers.Control.DragFeature(this.markerLayer, { onComplete: this.opts.markerDragEnd });
             this.map.addControl(dragControl);
             dragControl.activate();
+            this.opts.layers.push(this.markerLayer);
         }
-
-        this.opts.layers.push(this.markerLayer);
         this.map.addLayers(this.opts.layers);
-
         if (this.opts.showLayerSwitcher) {
-            this.map.addControl(new OpenLayers.Control.LayerSwitcher());
+            this._layerSwitcher = new OpenLayers.Control.LayerSwitcher();
+            this.map.addControl(this._layerSwitcher);
         }
 
         // Create a click control to handle click events on the map
