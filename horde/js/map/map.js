@@ -33,10 +33,10 @@ HordeMap = {
      *          'apikeys': An object containing any api keys needed by the mapping
      *                     provider(s). {'google': 'xxxxx', ...}
      *          'useMarkerLayer': whether or not to use the 'built-in' marker
-     *                            layer (only applies to the Horde driver).
-     *
+     *                            layer.
      *          'markerImage':  Path to a marker icon.
      *          'markerBackground':  Path to a marker icon background.
+     *          ''
      */
     initialize: function(opts)
     {
