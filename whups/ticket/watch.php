@@ -28,7 +28,7 @@ if ($vars->get('formname') == 'whups_form_addlistener') {
         try {
             $whups_driver->addListener($id, '**' . $info['add_listener']);
             $ticket->notify(
-                $info['add_listener'], false, array('**' . $info['add_listener']));
+                $info['add_listener'], false, array('**' . $info['add_listener'] => 'listener'));
             $notification->push(
                 sprintf(_("%s will be notified when this ticket is updated."), $info['add_listener']),
                 'horde.success');

@@ -1669,9 +1669,9 @@ class Whups_Driver_Sql extends Whups_Driver
     public function getQueueUsers($queueId)
     {
         try {
-            return $this->_db->selectAssoc(
-                'SELECT user_uid AS u1, user_uid AS u2 FROM whups_queues_users'
-                    . ' WHERE queue_id = ? ORDER BY u1',
+            return $this->_db->selectValues(
+                'SELECT user_uid FROM whups_queues_users'
+                    . ' WHERE queue_id = ? ORDER BY user_uid',
                 array((int)$queueId));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
@@ -2642,21 +2642,27 @@ class Whups_Driver_Sql extends Whups_Driver
                                  $withresponsible = false)
     {
         try {
-            $users = $this->_db->selectValues(
+            $listeners = $this->_db->selectValues(
                 'SELECT DISTINCT l.user_uid FROM whups_ticket_listeners l, '
                     . 'whups_tickets t WHERE (l.ticket_id = ?)',
                 array((int)$ticket));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
+        $users = array();
+        foreach ($listeners as $user) {
+            $users[$user] = 'listener';
+        }
 
         $tinfo = $this->getTicketDetails($ticket);
-        $requester = $tinfo['user_id_requester'];
         if ($withresponsible) {
-            $users = array_merge($users, $this->getQueueUsers($tinfo['queue']));
+            foreach ($this->getQueueUsers($tinfo['queue']) as $user) {
+                $users[$user] = 'queue';
+            }
         }
 
         // Tricky - handle case where owner = requester.
+        $requester = $tinfo['user_id_requester'];
         $owner_is_requester = false;
         if (isset($tinfo['owners'])) {
             foreach ($tinfo['owners'] as $owner) {
@@ -2665,7 +2671,7 @@ class Whups_Driver_Sql extends Whups_Driver
                     $owner_is_requester = true;
                 }
                 if ($withowners) {
-                    $users[$owner] = $owner;
+                    $users[$owner] = 'owner';
                 } else {
                     if (isset($users[$owner])) {
                         unset($users[$owner]);
@@ -2679,8 +2685,8 @@ class Whups_Driver_Sql extends Whups_Driver
                 (!$withowners || $owner_is_requester)) {
                 unset($users[$requester]);
             }
-        } elseif (!empty($requester)) {
-            $users[$requester] = $requester;
+        } elseif (!empty($requester) && !isset($users[$requester])) {
+            $users[$requester] = 'requester';
         }
 
         return $users;

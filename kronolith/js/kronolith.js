@@ -5948,7 +5948,6 @@ KronolithCore = {
     onReverseGeocode: function(r)
     {
         if (!r.length) {
-            $('kronolithEventLocation').value = '';
             return;
         }
         $('kronolithEventLocation').value = r[0].address;
@@ -5993,12 +5992,6 @@ KronolithCore = {
      */
     placeMapMarker: function(ll, center, zoom)
     {
-        if (center) {
-            this.map.setCenter(ll, zoom);
-            if (!zoom) {
-                this.map.zoomToFit();
-            }
-        }
         if (!this.mapMarker) {
             this.mapMarker = this.map.addMarker(
                     ll,
@@ -6009,6 +6002,13 @@ KronolithCore = {
                     });
         } else {
             this.map.moveMarker(this.mapMarker, ll);
+        }
+
+        if (center) {
+            this.map.setCenter(ll, zoom);
+            if (!zoom) {
+                this.map.zoomToFit();
+            }
         }
         $('kronolithEventLocationLon').value = ll.lon;
         $('kronolithEventLocationLat').value = ll.lat;
