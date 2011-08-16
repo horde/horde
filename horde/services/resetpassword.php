@@ -42,23 +42,26 @@ if ($username = $vars->get('username')) {
     /* Does the alternate email stored in prefs match the one submitted? */
     if ($vars->get('email') == $email) {
         $can_validate = true;
-        $form->setButtons(_("Reset Password"));
         $question = $prefs->getValue('security_question');
-        $form->addVariable($question, 'question', 'description', false);
-        $form->addVariable(_("Answer"), 'answer', 'text', true);
+        if($question) {
+            $form->setButtons(_("Reset Password"));
+            $form->addVariable($question, 'question', 'description', false);
+            $form->addVariable(_("Answer"), 'answer', 'text', true);
+        }
     } else {
         $notification->push(_("Incorrect username or alternate address. Try again or contact your administrator if you need further help."), 'horde.error');
     }
 }
 
 /* Validate the form. */
-if ($can_validate && $form->validate($vars)) {
+if (($can_validate && $form->validate($vars)) ||
+    ($can_validate && !$question)) {
     $form->getInfo($vars, $info);
 
     /* Fetch values from prefs for selected user. */
     $answer = $prefs->getValue('security_answer');
 
-    /* Check the given values witht the prefs stored ones. */
+    /* Check the given values with the prefs stored ones. */
     if ($email == $info['email'] &&
         strtolower($answer) == strtolower($info['answer'])) {
         /* Info matches, so reset the password. */
