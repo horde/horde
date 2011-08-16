@@ -2,6 +2,7 @@
 v4.0.9-git
 ----------
 
+[rla] Don't present security question dialog if none is set #10430
 
 
 ------
