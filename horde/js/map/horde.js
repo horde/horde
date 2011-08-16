@@ -34,6 +34,7 @@ HordeMap.Map.Horde = Class.create({
     map: null,
     markerLayer: null,
     _proj: null,
+    _layerSwitcher: null,
 
     initialize: function(opts)
     {
@@ -43,7 +44,7 @@ HordeMap.Map.Horde = Class.create({
             delayed: false,
             layers: []
         };
-        this.opts = Object.extend(o, opts);
+        this.opts = Object.extend(o, opts || {});
 
         // Generate the base map object. Always use EPSG:4326 (WGS84) for display
         // and EPSG:900913 (spherical mercator) for projection for compatibility
@@ -76,7 +77,7 @@ HordeMap.Map.Horde = Class.create({
             this.opts.markerBackground = HordeMap.conf.markerBackground;
         }
         if (this.opts.useMarkerLayer || HordeMap.conf.useMarkerLayer) {
-            styleMap = new OpenLayers.StyleMap({
+            var styleMap = new OpenLayers.StyleMap({
                 externalGraphic: this.opts.markerImage,
                 backgroundGraphic: this.opts.markerBackground,
                 backgroundXOffset: 0,
@@ -113,6 +114,29 @@ HordeMap.Map.Horde = Class.create({
         this._proj = new OpenLayers.Projection("EPSG:4326");
         this.map.zoomToMaxExtent();
     },
+
+    /**
+     * @param string name  The feed display name.
+     * @param string feed_url  The URL for the feed.
+     * @param string proxy     A local proxy to get around same origin policy.
+     *
+     * @return OpenLayers.Layer  With narkers added to displayed map for each
+     *                           georss entry.
+     */
+    addGeoRssLayer: function(name, feed_url, proxy)
+    {
+        if (proxy) {
+            OpenLayers.ProxyHost = proxy;
+        }
+        var layer = new OpenLayers.Layer.GeoRSS(name, feed_url);
+        this.map.addLayer(layer);
+        return layer;
+    },
+
+    removeGeoRssLayer: function(layer)
+    {
+        this.map.removeLayer(layer);
+    }
 
     getZoom: function()
     {
@@ -210,7 +234,6 @@ HordeMap.Map.Horde = Class.create({
     }
 
 });
-
 
     // Extension to OpenLayers to allow better abstraction:
     OpenLayers.Feature.Vector.prototype.getLonLat = function() {
