@@ -535,7 +535,7 @@ class Whups_Driver
             $mail->addHeader('To', $to);
 
             try {
-                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
                 $entry = sprintf('%s Message sent to %s from "%s"',
                                  $_SERVER['REMOTE_ADDR'], $to,
                                  $GLOBALS['registry']->getAuth());
