@@ -337,7 +337,9 @@ class Whups_Driver
      *                     - ticket:     (Whups_Ticket) A ticket. If not set,
      *                                   this is assumed to be a reminder
      *                                   message.
-     *                     - recipients: (array|string) The list of recipients.
+     *                     - recipients: (array|string) The list of recipients,
+     *                                   with user names as keys and user roles
+     *                                   as values.
      *                     - subject:    (string) The email subject.
      *                     - view:       (Horde_View) The view object for the
      *                                   message text.
@@ -354,10 +356,6 @@ class Whups_Driver
         $opts = array_merge(array('ticket' => false, 'new' => false), $opts);
 
         /* Set up recipients and message headers. */
-        if (!is_array($opts['recipients'])) {
-            $opts['recipients'] = array($opts['recipients']);
-        }
-
         $mail = new Horde_Mime_Mail(array(
             'X-Whups-Generated' => 1,
             'User-Agent' => 'Whups ' . $registry->getVersion(),
@@ -374,8 +372,8 @@ class Whups_Driver
                     $mail_always = null;
                 }
             }
-            if ($mail_always) {
-                $opts['recipients'][] = $mail_always;
+            if ($mail_always && !isset($opts['recipients'][$mail_always])) {
+                $opts['recipients'][$mail_always] = 'always';
             }
         }
 
@@ -419,7 +417,7 @@ class Whups_Driver
             $attachments = Whups::getAttachments($opts['ticket']->getId());
         }
 
-        foreach ($opts['recipients'] as $user) {
+        foreach ($opts['recipients'] as $user => $role) {
             if ($user == $opts['from'] &&
                 $user == $GLOBALS['registry']->getAuth() &&
                 $prefs->getValue('email_others_only')) {
@@ -518,6 +516,7 @@ class Whups_Driver
 
             $opts['view']->comment = $formattedComment;
             $opts['view']->full_name = $fullname;
+            $opts['view']->role = $role;
             $mail->setBody($opts['view']->render($opts['template']));
 
             $mail->addHeader('Message-ID', Horde_Mime::generateMessageId());

@@ -624,7 +624,8 @@ class Whups_Ticket
      * @param boolean $isNew    Is this a new ticket or a change to an existing
      *                          one?
      * @param array $listeners  The list of listener that should receive the
-     *                          notification. If empty, the list will be
+     *                          notification, with user names as keys and user
+     *                          roles as values. If empty, the list will be
      *                          created automatically.
      */
     public function notify($author, $isNew, $listeners = array())
@@ -812,10 +813,9 @@ class Whups_Ticket
 
             /* Notify both old and new queue users if the queue has changed. */
             if (isset($this->_changes['queue'])) {
-                $listeners = array_merge(
-                    $listeners,
-                    $whups_driver->getQueueUsers(
-                        $this->_changes['queue']['from_name']));
+                foreach ($whups_driver->getQueueUsers($this->_changes['queue']['from_name']) as $user) {
+                    $listeners[$user] = 'queue';
+                }
             }
         }
 

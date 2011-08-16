@@ -822,7 +822,7 @@ class Whups
             }
             $email .= "\n";
             $subject = 'Reminder: Your open tickets';
-            $whups_driver->mail(array('recipients' => $user,
+            $whups_driver->mail(array('recipients' => array($user => 'owner'),
                                       'subject' => $subject,
                                       'message' => $email,
                                       'from' => $user));

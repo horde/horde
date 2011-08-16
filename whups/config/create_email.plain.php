@@ -20,6 +20,9 @@
  * $this->date:       The current date.
  * $this->full_name:  The full name of the notification recipient.
  * $this->auth_name:  The full name of the user that updated the ticket.
+ * $this->role:       The recipient role, one of 'always', 'listener',
+ *                    'requester', 'queue', 'owner' in ascending importance
+ *                    order.
  */
 ?>
 <?php if ($this->dont_reply): ?>
