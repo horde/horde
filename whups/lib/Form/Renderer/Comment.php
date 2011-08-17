@@ -52,11 +52,17 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
 
             case 'attachment':
                 $ticket = $vars->get('ticket_id');
-                if ($file = Whups::getAttachments($ticket, $change['value'])) {
-                    $changes[] = sprintf(
-                        _("New Attachment: %s"),
-                        Whups::attachmentUrl($ticket, $file, $vars->get('queue')));
-                } else {
+                try {
+                    if ($file = Whups::getAttachments($ticket, $change['value'])) {
+                        $changes[] = sprintf(
+                            _("New Attachment: %s"),
+                            Whups::attachmentUrl($ticket, $file, $vars->get('queue')));
+                    } else {
+                        $changes[] = sprintf(
+                            _("New Attachment: %s"),
+                            htmlspecialchars($change['value']));
+                    }
+                } catch (Whups_Exception $e) {
                     $changes[] = sprintf(
                         _("New Attachment: %s"),
                         htmlspecialchars($change['value']));

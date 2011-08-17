@@ -414,7 +414,12 @@ class Whups_Driver
             $vfs = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Vfs')
                 ->create();
-            $attachments = Whups::getAttachments($opts['ticket']->getId());
+            try {
+                $attachments = Whups::getAttachments($opts['ticket']->getId());
+            } catch (Whups_Exception $e) {
+                $attachments = array();
+                Horde::logMessage($e);
+            }
         }
 
         foreach ($opts['recipients'] as $user => $role) {

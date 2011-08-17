@@ -763,9 +763,9 @@ class Whups
     /**
      * Send reminders. One email per user.
      *
-     * @param Horde_Variables &$vars  The selection criteria.
+     * @param Horde_Variables $vars  The selection criteria.
      */
-    static public  function sendReminders(&$vars)
+    static public function sendReminders($vars)
     {
         global $whups_driver;
 
@@ -781,13 +781,13 @@ class Whups
                 $info['category'] = array('unconfirmed', 'new', 'assigned');
             }
         } else {
-            return PEAR::raiseError(_("You must select at least one queue to send reminders for."));
+            throw new Whups_Exception(_("You must select at least one queue to send reminders for."));
         }
 
         $tickets = $whups_driver->getTicketsByProperties($info);
         self::sortTickets($tickets);
         if (!count($tickets)) {
-            return PEAR::raiseError(_("No tickets matched your search criteria."));
+            throw new Whups_Exception(_("No tickets matched your search criteria."));
         }
 
         $unassigned = $vars->get('unassigned');
@@ -866,7 +866,7 @@ class Whups
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
         } catch (Horde_Vfs_Exception $e) {
-            return PEAR::raiseError($vfs->getMessage());
+            throw new Whups_Exception($e);
         }
 
         if ($vfs->isFolder(self::VFS_ATTACH_PATH, $ticket)) {
