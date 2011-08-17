@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-16</date>
- <time>11:07:41</time>
+ <date>2011-08-17</date>
+ <time>11:52:35</time>
  <version>
   <release>1.0.12</release>
   <api>1.0.0</api>
@@ -484,7 +484,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-16</date>
+   <date>2011-08-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Fix typo that prevented deletion of messages on POP3 servers (Bug #10424).
