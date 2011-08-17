@@ -515,7 +515,7 @@ class Whups_Driver
             }
 
             $opts['view']->comment = $formattedComment;
-            $opts['view']->full_name = $fullname;
+            $opts['view']->full_name = $full_name;
             $opts['view']->role = $role;
             $mail->setBody($opts['view']->render($opts['template']));
 
