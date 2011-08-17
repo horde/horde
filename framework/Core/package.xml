@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-08-08</date>
- <time>13:55:08</time>
+ <date>2011-08-17</date>
+ <time>14:52:31</time>
  <version>
   <release>1.4.0</release>
   <api>1.4.0</api>
@@ -1531,7 +1531,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-08</date>
+   <date>2011-08-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [rla] Display permissions of hidden apps too
