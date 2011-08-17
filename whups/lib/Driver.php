@@ -448,50 +448,53 @@ class Whups_Driver
                 continue;
             }
 
-            /* Add attachments. */
-            $attachmentAdded = false;
-            if (empty($GLOBALS['conf']['mail']['link_attach']) &&
-                $opts['ticket']) {
-                /* We don't know how many attachments exactly have been added
-                 * for the last recipient, but we need to remove all of them
-                 * because the attachment list is potentially limited by
-                 * permissions. */
-                for ($i = 0, $c = count($attachments); $i < $c; $i++) {
-                    $mail->removePart($i);
-                }
-                foreach ($mycomments as $comment) {
-                    foreach ($comment['changes'] as $change) {
-                        if ($change['type'] == 'attachment') {
-                            foreach ($attachments as $attachment) {
-                                if ($attachment['name'] == $change['value']) {
-                                    if (!isset($attachment['part'])) {
-                                        $attachment['part'] = new Horde_Mime_Part();
-                                        $attachment['part']->setType(Horde_Mime_Magic::filenameToMime($change['value'], false));
-                                        $attachment['part']->setDisposition('attachment');
-                                        $attachment['part']->setContents($vfs->read(Whups::VFS_ATTACH_PATH . '/' . $opts['ticket']->getId(), $change['value']));
-                                        $attachment['part']->setName($change['value']);
+            if ($opts['ticket']) {
+                /* Add attachments. */
+                $attachmentAdded = false;
+                if (empty($GLOBALS['conf']['mail']['link_attach'])) {
+                    /* We don't know how many attachments exactly have been added
+                     * for the last recipient, but we need to remove all of them
+                     * because the attachment list is potentially limited by
+                     * permissions. */
+                    for ($i = 0, $c = count($attachments); $i < $c; $i++) {
+                        $mail->removePart($i);
+                    }
+                    foreach ($mycomments as $comment) {
+                        foreach ($comment['changes'] as $change) {
+                            if ($change['type'] == 'attachment') {
+                                foreach ($attachments as $attachment) {
+                                    if ($attachment['name'] == $change['value']) {
+                                        if (!isset($attachment['part'])) {
+                                            $attachment['part'] = new Horde_Mime_Part();
+                                            $attachment['part']->setType(Horde_Mime_Magic::filenameToMime($change['value'], false));
+                                            $attachment['part']->setDisposition('attachment');
+                                            $attachment['part']->setContents($vfs->read(Whups::VFS_ATTACH_PATH . '/' . $opts['ticket']->getId(), $change['value']));
+                                            $attachment['part']->setName($change['value']);
+                                        }
+                                        $mail->addMimePart($attachment['part']);
+                                        $attachmentAdded = true;
+                                        break;
                                     }
-                                    $mail->addMimePart($attachment['part']);
-                                    $attachmentAdded = true;
-                                    break;
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            $formattedComment = $this->formatComments($mycomments, $opts['ticket']->getId());
+                $formattedComment = $this->formatComments($mycomments, $opts['ticket']->getId());
 
-            if (isset($details['type']) && $details['type'] == 'user') {
-                $user_prefs = $GLOBALS['injector']
-                    ->getInstance('Horde_Core_Factory_Prefs')
-                    ->create('whups', array('user' => $details['user']));
-                if (!$attachmentAdded &&
-                    empty($formattedComment) &&
-                    $user_prefs->getValue('email_comments_only')) {
-                    continue;
+                if (isset($details['type']) && $details['type'] == 'user') {
+                    $user_prefs = $GLOBALS['injector']
+                        ->getInstance('Horde_Core_Factory_Prefs')
+                        ->create('whups', array('user' => $details['user']));
+                    if (!$attachmentAdded &&
+                        empty($formattedComment) &&
+                        $user_prefs->getValue('email_comments_only')) {
+                        continue;
+                    }
                 }
+
+                $opts['view']->comment = $formattedComment;
             }
 
             try {
@@ -514,7 +517,6 @@ class Whups_Driver
                 $full_name = $to;
             }
 
-            $opts['view']->comment = $formattedComment;
             $opts['view']->full_name = $full_name;
             $opts['view']->role = $role;
             $mail->setBody($opts['view']->render($opts['template']));
