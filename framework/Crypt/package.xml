@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>16:46:55</time>
+ <date>2011-08-17</date>
+ <time>14:53:29</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -669,7 +669,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-08-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Encrypted data is already base64 encoded (Bug #10285).
