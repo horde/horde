@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>17:42:29</time>
+ <time>17:45:37</time>
  <version>
-  <release>5.0.10</release>
+  <release>5.0.11</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,16 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [mms] Display flag to indicate a mailing list message.
-* [mms] Immediately update mailbox list when message is deleted and the mailbox does not support flags (e.g. POP3) (Bug #10424).
-* [mjr] Fix notifications not showing while accepting iTips
-* [mms] Correctly determine page with first/last unseen messages when using descending sequence sorting (Bug #9882).
-* [mms] Deletion works correctly from popup message view if base window is no longer available (Bug #9761).
-* [mms] Fix explicitly applying filters in INBOX in dynamic view (Bug #10291).
-* [mms] Add &apos;Edit as New&apos; action for messages (Request #10206).
-* [mms] Remove &apos;allow_resume_all&apos; configuration option (Request #10206).
-* [mms] Add personal contacts search filter.
-* [mms] Add ability to search all mailboxes (Request #10204).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2400,6 +2391,19 @@
 * [mms] Remove &apos;allow_resume_all&apos; configuration option (Request #10206).
 * [mms] Add personal contacts search filter.
 * [mms] Add ability to search all mailboxes (Request #10204).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.11</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
