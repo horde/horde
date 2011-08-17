@@ -238,7 +238,8 @@ class IMP_Flags implements ArrayAccess, Serializable
                     $val->match($opts['personal'])) {
                     $ret[] = $val;
                 }
-            } elseif ($val instanceof IMP_Flag_System_Match_Flag) {
+            } elseif (($val instanceof IMP_Flag_Imap) ||
+                      ($val instanceof IMP_Flag_System_Match_Flag)) {
                 if ($imap && $val->match($opts['flags'])) {
                     $ret[] = $val;
                 }
