@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>17:45:37</time>
+ <time>12:33:23</time>
  <version>
   <release>5.0.11</release>
   <api>5.0.0</api>
@@ -137,6 +137,11 @@
       <file name="Seen.php" role="horde" />
      </dir> <!-- /lib/Flag/Imap -->
      <dir name="System">
+      <dir name="Match">
+       <file name="Address.php" role="horde" />
+       <file name="Flag.php" role="horde" />
+       <file name="Header.php" role="horde" />
+      </dir> <!-- /lib/Flag/System/Match -->
       <file name="Attachment.php" role="horde" />
       <file name="Encrypted.php" role="horde" />
       <file name="HighPriority.php" role="horde" />
@@ -148,7 +153,6 @@
      </dir> <!-- /lib/Flag/System -->
      <file name="Base.php" role="horde" />
      <file name="Imap.php" role="horde" />
-     <file name="System.php" role="horde" />
      <file name="User.php" role="horde" />
     </dir> <!-- /lib/Flag -->
     <dir name="Imap">
@@ -1471,7 +1475,6 @@
    <install as="imp/lib/Factory/Smime.php" name="lib/Factory/Smime.php" />
    <install as="imp/lib/Flag/Base.php" name="lib/Flag/Base.php" />
    <install as="imp/lib/Flag/Imap.php" name="lib/Flag/Imap.php" />
-   <install as="imp/lib/Flag/System.php" name="lib/Flag/System.php" />
    <install as="imp/lib/Flag/User.php" name="lib/Flag/User.php" />
    <install as="imp/lib/Flag/Imap/Answered.php" name="lib/Flag/Imap/Answered.php" />
    <install as="imp/lib/Flag/Imap/Deleted.php" name="lib/Flag/Imap/Deleted.php" />
@@ -1489,6 +1492,9 @@
    <install as="imp/lib/Flag/System/Personal.php" name="lib/Flag/System/Personal.php" />
    <install as="imp/lib/Flag/System/Signed.php" name="lib/Flag/System/Signed.php" />
    <install as="imp/lib/Flag/System/Unseen.php" name="lib/Flag/System/Unseen.php" />
+   <install as="imp/lib/Flag/System/Match/Address.php" name="lib/Flag/System/Match/Address.php" />
+   <install as="imp/lib/Flag/System/Match/Flag.php" name="lib/Flag/System/Match/Flag.php" />
+   <install as="imp/lib/Flag/System/Match/Header.php" name="lib/Flag/System/Match/Header.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
    <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
