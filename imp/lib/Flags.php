@@ -233,32 +233,20 @@ class IMP_Flags implements ArrayAccess, Serializable
         $ret = array();
 
         foreach (array_merge($this->_flags, $this->_userflags) as $val) {
-            switch (get_class($val)) {
-            case 'IMP_Flag_System_Attachment':
-            case 'IMP_Flag_System_Encrypted':
-            case 'IMP_Flag_System_HighPriority':
-            case 'IMP_Flag_System_List':
-            case 'IMP_Flag_System_LowPriority':
-            case 'IMP_Flag_System_Signed':
-                if (!is_null($opts['headers']) &&
-                    $val->match($opts['headers'])) {
-                    $ret[] = $val;
-                }
-                break;
-
-            case 'IMP_Flag_System_Personal':
+            if ($val instanceof IMP_Flag_System_Match_Address) {
                 if (!is_null($opts['personal']) &&
                     $val->match($opts['personal'])) {
                     $ret[] = $val;
                 }
-                break;
-
-            case 'IMP_Flag_System_Unseen':
-            default:
+            } elseif ($val instanceof IMP_Flag_System_Match_Flag) {
                 if ($imap && $val->match($opts['flags'])) {
                     $ret[] = $val;
                 }
-                break;
+            } elseif ($val instanceof IMP_Flag_System_Match_Header) {
+                if (!is_null($opts['headers']) &&
+                    $val->match($opts['headers'])) {
+                    $ret[] = $val;
+                }
             }
         }
 
