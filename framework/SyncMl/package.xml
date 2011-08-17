@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix logging errors while retrieving server changes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
