@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:29:37</time>
+ <date>2011-08-17</date>
+ <time>14:56:10</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Add 'ident' option to all handlers (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
+* [jan] Add &apos;ident&apos; option to all handlers (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -258,10 +258,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-08-17</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Add &apos;ident&apos; option to all handlers (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
    </notes>
   </release>
  </changelog>
