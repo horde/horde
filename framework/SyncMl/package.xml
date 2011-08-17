@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>10:15:07</time>
+ <time>10:15:53</time>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix logging errors while retrieving server changes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1168,6 +1168,19 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix logging errors while retrieving server changes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
