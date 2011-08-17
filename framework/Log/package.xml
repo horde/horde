@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>14:56:10</time>
+ <time>14:56:40</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Add &apos;ident&apos; option to all handlers (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -262,6 +262,19 @@
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [jan] Add &apos;ident&apos; option to all handlers (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
