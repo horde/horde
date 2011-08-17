@@ -97,7 +97,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             throw new InvalidArgumentException('You cannot set [soft_expiration_window] without [soft_expiration_field].');
         }
 
-        if (($params['hard_expiration_field'] == '') && 
+        if (($params['hard_expiration_field'] == '') &&
             ($params['hard_expiration_window'] > 0)) {
             throw new InvalidArgumentException('You cannot set [hard_expiration_window] without [hard_expiration_field].');
         }
@@ -359,9 +359,6 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      */
     private function _calc_expiration($type)
     {
-        if (!empty($this->_params[$type . '_expiration_field'])) {
-            $return['field'] = $this->_params[$type.'_expiration_field'];
-        }
         if (empty($this->_params[$type . '_expiration_window'])) {
             return null;
         } else {

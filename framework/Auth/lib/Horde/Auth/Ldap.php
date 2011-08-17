@@ -271,7 +271,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         try {
             $this->_ldap->add(Horde_Ldap_Entry::createFresh($dn, $entry));
         } catch (Horde_Ldap_Exception $e) {
-           throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to add user "%s". This is what the server said: ', $userId) . $e->getMessage());
+            throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to add user "%s". This is what the server said: ', $userId) . $e->getMessage());
         }
     }
 
@@ -286,7 +286,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     public function removeUser($userId, $dn = null)
     {
         if ($this->_params['ad']) {
-           throw new Horde_Auth_Exception(__CLASS__ . ': Removing users is not supported for Active Directory');
+            throw new Horde_Auth_Exception(__CLASS__ . ': Removing users is not supported for Active Directory');
         }
 
         if (is_null($dn)) {
@@ -301,7 +301,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         try {
             $this->_ldap->delete($dn);
         } catch (Horde_Ldap_Exception $e) {
-           throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to remove user "%s"', $userId));
+            throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to remove user "%s"', $userId));
         }
     }
 
@@ -320,7 +320,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                                $newdn = null)
     {
         if ($this->_params['ad']) {
-           throw new Horde_Auth_Exception(__CLASS__ . ': Updating users is not supported for Active Directory.');
+            throw new Horde_Auth_Exception(__CLASS__ . ': Updating users is not supported for Active Directory.');
         }
 
         if (is_null($olddn)) {
