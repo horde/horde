@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>11:52:35</time>
+ <time>11:52:57</time>
  <version>
-  <release>1.0.12</release>
+  <release>1.0.13</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* Fix typo that prevented deletion of messages on POP3 servers (Bug #10424).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -488,6 +488,19 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Fix typo that prevented deletion of messages on POP3 servers (Bug #10424).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.13</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
