@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>14:53:29</time>
+ <time>14:54:02</time>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Encrypted data is already base64 encoded (Bug #10285).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -673,6 +673,19 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Encrypted data is already base64 encoded (Bug #10285).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
