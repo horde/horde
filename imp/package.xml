@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-16</date>
- <time>22:48:30</time>
+ <date>2011-08-17</date>
+ <time>17:42:29</time>
  <version>
   <release>5.0.10</release>
   <api>5.0.0</api>
@@ -2387,7 +2387,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-16</date>
+   <date>2011-08-17</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [mms] Display flag to indicate a mailing list message.
