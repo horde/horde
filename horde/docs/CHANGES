@@ -2,6 +2,7 @@
 v4.0.9-git
 ----------
 
+[rla] Reset password dialog shows a warning when no security question is set #10430
 
 
 ------
