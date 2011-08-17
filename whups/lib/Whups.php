@@ -757,7 +757,7 @@ class Whups
             _("Updated")   => 'date_updated',
             _("Assigned")  => 'date_assigned',
             _("Resolved")  => 'date_resolved',
-            );
+        );
     }
 
     /**
@@ -804,27 +804,29 @@ class Whups
             }
         }
 
+        /* Build message template. */
+        $view = new Horde_View(array('templatePath' => WHUPS_BASE . '/config'));
+        $view->date = strftime($GLOBALS['prefs']->getValue('date_format'));
+
+        /* Get queue specific notification message text, if available. */
+        $message_file = WHUPS_BASE . '/config/reminder_email.plain';
+        if (file_exists($message_file . '.local.php')) {
+            $message_file .= '.local.php';
+        } else {
+            $message_file .= '.php';
+        }
+        $message_file = basename($message_file);
+
         foreach ($remind as $user => $utickets) {
             if (empty($user) || !count($utickets)) {
                 continue;
             }
-            $email = "\nHere is a summary of your open tickets:\n";
-            foreach ($utickets as $info) {
-                if (!empty($email)) {
-                    $email .= "\n";
-                }
-                $email .= "------\n"
-                    . 'Ticket #' . $info['id'] . ': ' . $info['summary'] . "\n"
-                    . 'Opened: ' . strftime('%a %d %B', $info['timestamp'])
-                    . Horde_Form_Type_date::getAgo($info['timestamp']) . "\n"
-                    . 'State: ' . $info['state_name'] . "\n"
-                    . 'Link: ' . $info['link'] . "\n";
-            }
-            $email .= "\n";
-            $subject = 'Reminder: Your open tickets';
+            $view->tickets = $utickets;
+            $subject = _("Reminder: Your open tickets");
             $whups_driver->mail(array('recipients' => array($user => 'owner'),
                                       'subject' => $subject,
-                                      'message' => $email,
+                                      'view' => $view,
+                                      'template' => $message_file,
                                       'from' => $user));
         }
     }
