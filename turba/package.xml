@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>17:48:08</time>
+ <time>22:23:35</time>
  <version>
   <release>3.0.7</release>
   <api>3.0.0</api>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Add missing migration script (Bug #10436).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -410,6 +410,7 @@
     <file name="3_turba_upgrade_sqlng.php" role="horde" />
     <file name="4_turba_upgrade_sqlhierarchical.php" role="horde" />
     <file name="5_turba_upgrade_sqlnghierarchical.php" role="horde" />
+    <file name="6_turba_upgrade_updateschema.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
@@ -963,6 +964,7 @@
    <install as="turba/migration/3_turba_upgrade_sqlng.php" name="migration/3_turba_upgrade_sqlng.php" />
    <install as="turba/migration/4_turba_upgrade_sqlhierarchical.php" name="migration/4_turba_upgrade_sqlhierarchical.php" />
    <install as="turba/migration/5_turba_upgrade_sqlnghierarchical.php" name="migration/5_turba_upgrade_sqlnghierarchical.php" />
+   <install as="turba/migration/6_turba_upgrade_updateschema.php" name="migration/6_turba_upgrade_updateschema.php" />
    <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
@@ -1260,7 +1262,7 @@
    <date>2011-08-17</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Add missing migration script (Bug #10436).
    </notes>
   </release>
  </changelog>
