@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-16</date>
- <time>11:08:39</time>
+ <time>22:48:30</time>
  <version>
   <release>5.0.10</release>
   <api>5.0.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Display flag to indicate a mailing list message.
+* [mms] Immediately update mailbox list when message is deleted and the mailbox does not support flags (e.g. POP3) (Bug #10424).
 * [mjr] Fix notifications not showing while accepting iTips
 * [mms] Correctly determine page with first/last unseen messages when using descending sequence sorting (Bug #9882).
 * [mms] Deletion works correctly from popup message view if base window is no longer available (Bug #9761).
@@ -147,6 +149,7 @@
       <file name="Attachment.php" role="horde" />
       <file name="Encrypted.php" role="horde" />
       <file name="HighPriority.php" role="horde" />
+      <file name="List.php" role="horde" />
       <file name="LowPriority.php" role="horde" />
       <file name="Personal.php" role="horde" />
       <file name="Signed.php" role="horde" />
@@ -859,6 +862,7 @@
       <file name="filters.png" role="horde" />
       <file name="forward.png" role="horde" />
       <file name="gallery.png" role="horde" />
+      <file name="group.png" role="horde" />
       <file name="ham.png" role="horde" />
       <file name="help.png" role="horde" />
       <file name="ico_message_off.png" role="horde" />
@@ -1005,6 +1009,7 @@
       <file name="fetchmail.png" role="horde" />
       <file name="filters.png" role="horde" />
       <file name="forward.png" role="horde" />
+      <file name="group.png" role="horde" />
       <file name="ham.png" role="horde" />
       <file name="help.png" role="horde" />
       <file name="imp.png" role="horde" />
@@ -1488,6 +1493,7 @@
    <install as="imp/lib/Flag/System/Attachment.php" name="lib/Flag/System/Attachment.php" />
    <install as="imp/lib/Flag/System/Encrypted.php" name="lib/Flag/System/Encrypted.php" />
    <install as="imp/lib/Flag/System/HighPriority.php" name="lib/Flag/System/HighPriority.php" />
+   <install as="imp/lib/Flag/System/List.php" name="lib/Flag/System/List.php" />
    <install as="imp/lib/Flag/System/LowPriority.php" name="lib/Flag/System/LowPriority.php" />
    <install as="imp/lib/Flag/System/Personal.php" name="lib/Flag/System/Personal.php" />
    <install as="imp/lib/Flag/System/Signed.php" name="lib/Flag/System/Signed.php" />
@@ -1838,6 +1844,7 @@
    <install as="imp/themes/default/graphics/filters.png" name="themes/default/graphics/filters.png" />
    <install as="imp/themes/default/graphics/forward.png" name="themes/default/graphics/forward.png" />
    <install as="imp/themes/default/graphics/gallery.png" name="themes/default/graphics/gallery.png" />
+   <install as="imp/themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
    <install as="imp/themes/default/graphics/ham.png" name="themes/default/graphics/ham.png" />
    <install as="imp/themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
    <install as="imp/themes/default/graphics/ico_message_off.png" name="themes/default/graphics/ico_message_off.png" />
@@ -1944,6 +1951,7 @@
    <install as="imp/themes/silver/graphics/fetchmail.png" name="themes/silver/graphics/fetchmail.png" />
    <install as="imp/themes/silver/graphics/filters.png" name="themes/silver/graphics/filters.png" />
    <install as="imp/themes/silver/graphics/forward.png" name="themes/silver/graphics/forward.png" />
+   <install as="imp/themes/silver/graphics/group.png" name="themes/silver/graphics/group.png" />
    <install as="imp/themes/silver/graphics/ham.png" name="themes/silver/graphics/ham.png" />
    <install as="imp/themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
    <install as="imp/themes/silver/graphics/imp.png" name="themes/silver/graphics/imp.png" />
@@ -2382,6 +2390,8 @@
    <date>2011-08-16</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Display flag to indicate a mailing list message.
+* [mms] Immediately update mailbox list when message is deleted and the mailbox does not support flags (e.g. POP3) (Bug #10424).
 * [mjr] Fix notifications not showing while accepting iTips
 * [mms] Correctly determine page with first/last unseen messages when using descending sequence sorting (Bug #9882).
 * [mms] Deletion works correctly from popup message view if base window is no longer available (Bug #9761).

@@ -2,6 +2,7 @@
 v5.0.10-git
 -----------
 
+[mms] Display flag to indicate a mailing list message.
 [mms] Immediately update mailbox list when message is deleted and the mailbox
       does not support flags (e.g. POP3) (Bug #10424).
 [mjr] Fix notifications not showing while accepting iTips
