@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>17:46:36</time>
+ <time>17:48:08</time>
  <version>
-  <release>3.0.6</release>
+  <release>3.0.7</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [mjr] Fix issue with synchronizing deleted contacts (Bug #10422).
-* [jan] Fix searching for duplicates on some databases (Bug #10383).
-* [mjr] Add and support more attributes by default.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1250,6 +1248,19 @@
 * [mjr] Fix issue with synchronizing deleted contacts (Bug #10422).
 * [jan] Fix searching for duplicates on some databases (Bug #10383).
 * [mjr] Add and support more attributes by default.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.7</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
