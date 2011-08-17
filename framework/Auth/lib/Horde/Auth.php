@@ -21,12 +21,11 @@ class Horde_Auth
      *
      * <pre>
      * REASON_BADLOGIN - Bad username and/or password
-     * REASON_FAILED - Login failed
-     * REASON_EXPIRED - Password has expired
-     * REASON_LOGOUT - Logout due to user request
-     * REASON_MESSAGE - Logout with custom message
-     * REASON_SESSION - Logout due to session expiration
-     * REASON_LOCKED - User is locked
+     * REASON_FAILED   - Login failed
+     * REASON_EXPIRED  - Password has expired
+     * REASON_LOGOUT   - Logout due to user request
+     * REASON_MESSAGE  - Logout with custom message
+     * REASON_SESSION  - Logout due to session expiration
      * </pre>
      */
     const REASON_BADLOGIN = 1;
