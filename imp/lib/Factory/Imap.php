@@ -98,9 +98,11 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
      */
     public function shutdown()
     {
-        foreach (array_unique($this->_save) as $id) {
-            if ($this->_instances[$id]->changed) {
-                $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
+        if ($GLOBALS['registry']->getAuth() !== false) {
+            foreach (array_unique($this->_save) as $id) {
+                if ($this->_instances[$id]->changed) {
+                    $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
+                }
             }
         }
     }

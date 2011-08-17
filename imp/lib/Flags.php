@@ -211,8 +211,8 @@ class IMP_Flags implements ArrayAccess, Serializable
      * <pre>
      * 'flags' - (array) IMAP flag info. A lowercase list of flags returned
      *           by the IMAP server.
-     * 'headers' - (Horde_Mime_Headers) Determines attachment and priority
-     *             information from a headers object.
+     * 'headers' - (Horde_Mime_Headers) Determines message information
+     *             from a headers object.
      * 'personal' - (mixed) Personal message info. Either an array of To
      *              addresses as returned by
      *              Horde_Mime_Address::getAddressesFromObject() or the
@@ -237,6 +237,7 @@ class IMP_Flags implements ArrayAccess, Serializable
             case 'IMP_Flag_System_Attachment':
             case 'IMP_Flag_System_Encrypted':
             case 'IMP_Flag_System_HighPriority':
+            case 'IMP_Flag_System_List':
             case 'IMP_Flag_System_LowPriority':
             case 'IMP_Flag_System_Signed':
                 if (!is_null($opts['headers']) &&

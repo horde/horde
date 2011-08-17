@@ -861,7 +861,7 @@ var DimpBase = {
 
             this.folderaction = DimpCore.redirect.bind(DimpCore, DimpCore.addURLParam(DIMP.conf.URI_VIEW, {
                 actionID: 'download_mbox',
-                mailbox: tmp.retrieve('mbox'),
+                mailbox: tmp.retrieve('mbox').base64urlEncode(),
                 zip: Number(id == 'ctx_folder_export_zip')
             }));
 
