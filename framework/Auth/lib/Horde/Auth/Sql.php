@@ -357,19 +357,16 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      *
      * @return integer 'timestamp' intended field value or null
      */
-
-    private function _calc_expiration($type) {
-        if (!empty($this->_params[$type.'_expiration_field'])) {
+    private function _calc_expiration($type)
+    {
+        if (!empty($this->_params[$type . '_expiration_field'])) {
             $return['field'] = $this->_params[$type.'_expiration_field'];
         }
-        if (empty($this->_params[$type.'_expiration_window'])) {
+        if (empty($this->_params[$type . '_expiration_window'])) {
             return null;
         } else {
-            $expiration_datetime = new DateTime;
-            /* more elegant but php 5.3+: $now->add(); */
-            $expiration_datetime->modify(sprintf("+%s day", $this->_params[$type.'_expiration_window']));
-            /* more elegant but php 5.3+: $now->getTimestamp(); */
-            return $expiration_datetime->format("U");
-        }       
+            $now = new Horde_Date(time());
+            return $now->add(array('mday' => $this->_params[$type.'_expiration_window']))->timestamp();
+        }
     }
 }
