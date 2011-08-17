@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2011-08-17</date>
- <time>14:52:31</time>
+ <time>14:53:03</time>
  <version>
-  <release>1.4.0</release>
+  <release>1.4.1</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -40,13 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [rla] Display permissions of hidden apps too
-* [gwr] Do not fail when no basedn is set for the Horde_Kolab_Server configuration.
-* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10403).
-* [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
-* [jan] Check applications&apos; authValidate() method if present.
-* [mms] Add Horde_Session::isActive().
-* [mjr] Add remove button to image fields (Request #9870).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1541,6 +1535,19 @@
 * [jan] Check applications&apos; authValidate() method if present.
 * [mms] Add Horde_Session::isActive().
 * [mjr] Add remove button to image fields (Request #9870).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
