@@ -24,9 +24,9 @@ owns or has access to.</description>
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>14:58:11</time>
+ <time>14:58:44</time>
  <version>
-  <release>1.2.0</release>
+  <release>1.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -35,8 +35,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [gwr] Fixed support for share parents in the Kolab driver.
-* [gwr] Fixed support for multiple namespaces of the same type in the Kolab driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -780,6 +779,19 @@ Initial release as a PEAR package
    <notes>
 * [gwr] Fixed support for share parents in the Kolab driver.
 * [gwr] Fixed support for multiple namespaces of the same type in the Kolab driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
