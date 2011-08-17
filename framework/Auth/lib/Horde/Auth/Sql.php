@@ -91,9 +91,6 @@ class Horde_Auth_Sql extends Horde_Auth_Base
 
         ), $params);
 
-        $params['password_field']        = Horde_String::lower($params['password_field']);
-        $params['username_field']        = Horde_String::lower($params['username_field']);
-
         /* Only allow limits when there is a storage configured */
         if (($params['soft_expiration_field'] == '') &&
             ($params['soft_expiration_window'] > 0)) {
