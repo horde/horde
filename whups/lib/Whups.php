@@ -795,9 +795,9 @@ class Whups
         foreach ($tickets as $info) {
             $info['link'] = self::urlFor('ticket', $info['id'], true, -1);
             $owners = current($whups_driver->getOwners($info['id']));
-            if (count($owners)) {
+            if (!empty($owners)) {
                 foreach ($owners as $owner) {
-                    $remind[$owner] = $info;
+                    $remind[$owner][] = $info;
                 }
             } elseif (!empty($unassigned)) {
                 $remind['**' . $unassigned][] = $info;
