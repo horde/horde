@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>17:51:14</time>
+ <time>17:53:19</time>
  <version>
-  <release>3.0.8</release>
+  <release>3.0.9</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Fix deleting resources (Bug #10427)
-* [jan] Support snoozing alarms with Sundbird/Lightning (Request #7470).
-* [jan] Import VALARM components from iCalendar 2.0 data (Request #6665).
-* [jan] Fix creating events from dynamic view on Windows (Bug #9916).
-* [mjr] Fix displaying of freebusy data in dynamic view (adominguez@cne.gob.ve, Bug #10347).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1859,6 +1855,19 @@
 * [jan] Import VALARM components from iCalendar 2.0 data (Request #6665).
 * [jan] Fix creating events from dynamic view on Windows (Bug #9916).
 * [mjr] Fix displaying of freebusy data in dynamic view (adominguez@cne.gob.ve, Bug #10347).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.9</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
