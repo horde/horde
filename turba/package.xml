@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-17</date>
- <time>22:27:20</time>
+ <time>22:30:21</time>
  <version>
-  <release>3.0.7</release>
+  <release>3.0.8</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Add missing migration script (Bug #10436).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1263,6 +1263,19 @@
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Add missing migration script (Bug #10436).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.8</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

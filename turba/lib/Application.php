@@ -38,7 +38,7 @@ class Turba_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0.7)';
+    public $version = 'H4 (3.0.8-git)';
 
     /**
      * Global variables defined:
