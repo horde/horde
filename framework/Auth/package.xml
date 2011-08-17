@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* 
+* [rla] fix sql driver when using soft_expiration and hard_expiration features. No Longer enforce lowercase fieldnames
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -441,7 +441,7 @@
    <date>2011-07-05</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* 
+* [rla] fix sql driver when using soft_expiration and hard_expiration features. No Longer enforce lowercase fieldnames
    </notes>
   </release>
  </changelog>
