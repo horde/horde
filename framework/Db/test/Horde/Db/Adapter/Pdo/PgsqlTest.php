@@ -476,6 +476,10 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
             $this->_conn->execute("INSERT INTO testings (foo) VALUES (NULL)");
             $this->fail("Expected exception for inserting null value");
         } catch (Exception $e) {}
+
+        // Manually insert a primary key value.
+        $this->_conn->execute("INSERT INTO testings (foo, bar) VALUES (2, 1)");
+        $this->_conn->execute("INSERT INTO testings (bar) VALUES (1)");
     }
 
     public function testAlterTableWithSeparatePk()
