@@ -2546,18 +2546,36 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        $t['fetchresults'] = $options['ids']->sequence
-            ? array('seq' => $results, 'uid' => array())
-            : array('seq' => array(), 'uid' => $results);
+        $fr = $this->_newFetchResponse();
+        if ($options['ids']->sequence) {
+            $fr->seq = $results;
+        } else {
+            $fr->uid = $results;
+        }
 
         $this->_sendLine($cmd, array(
-            'fetch' => &$t['fetchresults']
+            'fetch' => $fr
         ));
 
-        $ret = $t['fetchresults'][$options['ids']->sequence ? 'seq' : 'uid'];
-        unset($t['fetchcmd'], $t['fetchresp'], $t['fetchresults']);
+        unset($t['fetchcmd'], $t['fetchresp']);
 
-        return $ret;
+        return $options['ids']->sequence
+            ? $fr->seq
+            : $fr->uid;
+    }
+
+    /**
+     */
+    protected function _newFetchResponse()
+    {
+        if (!isset($this->_temp['fr_ob'])) {
+            $fr = new stdClass;
+            $fr->seq = array();
+            $fr->uid = array();
+            $this->_temp['fr_ob'] = $fr;
+        }
+
+        return clone $this->_temp['fr_ob'];
     }
 
     /**
@@ -2589,7 +2607,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseFetch($id, $data)
     {
         $cnt = count($data);
-        $fr = &$this->_temp['fetchresp'];
         $i = 0;
         $uid = null;
 
@@ -2723,14 +2740,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ++$i;
         }
 
-        if (!is_null($uid) && isset($fr['uid'][$uid])) {
-            $fr['uid'][$uid]->merge($ob);
-        } elseif (isset($fr['seq'][$id])) {
-            $fr['seq'][$id]->merge($ob);
+        $fr = $this->_temp['fetchresp'];
+        if (!is_null($uid) && isset($fr->uid[$uid])) {
+            $fr->uid[$uid]->merge($ob);
+        } elseif (isset($fr->seq[$id])) {
+            $fr->seq[$id]->merge($ob);
         } else {
-            $fr['seq'][$id] = $ob;
+            $fr->seq[$id] = $ob;
             if (!is_null($uid)) {
-                $fr['uid'][$uid] = $ob;
+                $fr->uid[$uid] = $ob;
             }
         }
     }
@@ -3027,18 +3045,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if (!isset($this->_init['enabled']['CONDSTORE']) ||
             empty($this->_temp['mailbox']['highestmodseq']) ||
-            empty($this->_temp['fetchresp']['seq'])) {
+            empty($this->_temp['fetchresp']->seq)) {
             return;
         }
 
         $fr = $this->_temp['fetchresp'];
         $tocache = $uids = array();
 
-        if (empty($fr['uid'])) {
-            $res = $fr['seq'];
+        if (empty($fr->uid)) {
+            $res = $fr->seq;
             $seq_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(array_keys($res), true));
         } else {
-            $res = $fr['uid'];
+            $res = $fr->uid;
             $seq_res = null;
         }
 
@@ -3629,14 +3647,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $out = ++$this->_tag . ' ';
 
             /* Catch all FETCH responses until a tagged response. */
-            if (empty($options['fetch'])) {
-                $this->_temp['fetchresp'] = array(
-                    'seq' => array(),
-                    'uid' => array()
-                );
-            } else {
-                $this->_temp['fetchresp'] = &$options['fetch'];
-            }
+            $this->_temp['fetchresp'] = empty($options['fetch'])
+                ? $this->_newFetchResponse()
+                : $options['fetch'];
         }
 
         if (is_array($data)) {
@@ -4089,10 +4102,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                 /* Update the cache, if needed. */
                 $tmp = $this->_temp['fetchresp'];
-                if (!empty($tmp['uid'])) {
-                    $this->_updateCache($tmp['uid']);
-                } elseif (!empty($tmp['seq'])) {
-                    $this->_updateCache($tmp['seq'], array(
+                if (!empty($tmp->uid)) {
+                    $this->_updateCache($tmp->uid);
+                } elseif (!empty($tmp->seq)) {
+                    $this->_updateCache($tmp->seq, array(
                         'seq' => true
                     ));
                 }
