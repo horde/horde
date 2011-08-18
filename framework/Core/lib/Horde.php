@@ -317,26 +317,6 @@ HTML;
                 : $conf['cachejsparams']['lifetime'];
         }
 
-        switch ($conf['cachejsparams']['compress']) {
-        case 'closure':
-            $jsmin_params = array(
-                'closure' => $conf['cachejsparams']['closurepath'],
-                'java' => $conf['cachejsparams']['javapath']
-            );
-            break;
-
-        case 'yui':
-            $jsmin_params = array(
-                'java' => $conf['cachejsparams']['javapath'],
-                'yui' => $conf['cachejsparams']['yuipath']
-            );
-            break;
-
-        default:
-            $jsmin_params = array();
-            break;
-        }
-
         /* Output prototype.js separately from the other files. */
         if ($s_list['horde'][0]['f'] == 'prototype.js') {
             $js['force'][] = $s_list['horde'][0]['p'] . $s_list['horde'][0]['f'];
@@ -358,6 +338,7 @@ HTML;
             }
         }
 
+        $jsmin_params = null;
         foreach ($js as $key => $files) {
             if (!count($files)) {
                 continue;
@@ -397,6 +378,24 @@ HTML;
                     if ($conf['cachejsparams']['compress'] == 'none') {
                         $out .= $js_text . "\n";
                     } else {
+                        if (is_null($jsmin_params)) {
+                            switch ($conf['cachejsparams']['compress']) {
+                            case 'closure':
+                                $jsmin_params = array(
+                                    'closure' => $conf['cachejsparams']['closurepath'],
+                                    'java' => $conf['cachejsparams']['javapath']
+                                );
+                            break;
+
+                            case 'yui':
+                                $jsmin_params = array(
+                                    'java' => $conf['cachejsparams']['javapath'],
+                                    'yui' => $conf['cachejsparams']['yuipath']
+                                );
+                                break;
+                            }
+                        }
+
                         /* Separate JS files with a newline since some
                          * compressors may strip trailing terminators. */
                         try {
