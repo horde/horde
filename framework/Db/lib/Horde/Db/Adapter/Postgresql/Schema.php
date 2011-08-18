@@ -629,11 +629,13 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                            $this->quoteColumnName($columnName),
                            $this->quoteSequenceName($seq_name));
             $this->execute($sql);
-            $sql = sprintf('ALTER SEQUENCE %s OWNED BY %s.%s',
-                           $seq_name,
-                           $this->quoteTableName($tableName),
-                           $this->quoteColumnName($columnName));
-            $this->execute($sql);
+            if ($this->postgresqlVersion() >= 80200) {
+                $sql = sprintf('ALTER SEQUENCE %s OWNED BY %s.%s',
+                               $seq_name,
+                               $this->quoteTableName($tableName),
+                               $this->quoteColumnName($columnName));
+                $this->execute($sql);
+            }
         } elseif (array_key_exists('default', $options)) {
             $this->changeColumnDefault($tableName, $columnName, $default);
         }
