@@ -906,11 +906,11 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $index = $this->_getIndex('sports', 'is_college');
         $this->assertNull($index);
 
-        $this->_conn->addIndex('sports', 'is_college', array('name' => 'test'));
+        $this->_conn->addIndex('sports', 'is_college', array('name' => 'sports_test'));
 
         $index = $this->_getIndex('sports', 'is_college');
         $this->assertNotNull($index);
-        $this->assertEquals('test', $index->name);
+        $this->assertEquals('sports_test', $index->name);
     }
 
     public function testRemoveIndexSingleColumn()
@@ -948,12 +948,12 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->_createTestTable('sports');
 
         // add the index
-        $this->_conn->addIndex('sports', 'is_college', array('name' => 'test'));
+        $this->_conn->addIndex('sports', 'is_college', array('name' => 'sports_test'));
         $index = $this->_getIndex('sports', 'is_college');
         $this->assertNotNull($index);
 
         // remove it again
-        $this->_conn->removeIndex('sports', array('name' => 'test'));
+        $this->_conn->removeIndex('sports', array('name' => 'sports_test'));
         $index = $this->_getIndex('sports', 'is_college');
         $this->assertNull($index);
     }
