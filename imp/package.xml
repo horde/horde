@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-17</date>
- <time>12:33:23</time>
+ <date>2011-08-18</date>
+ <time>13:17:01</time>
  <version>
   <release>5.0.11</release>
   <api>5.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mms] Correctly display submailboxes in dynamic view when new submailbox is created before parent mailbox is expanded (Bug #10429).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2406,10 +2406,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-17</date>
+   <date>2011-08-18</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] Correctly display submailboxes in dynamic view when new submailbox is created before parent mailbox is expanded (Bug #10429).
    </notes>
   </release>
  </changelog>

@@ -2574,7 +2574,7 @@ var DimpBase = {
 
     _folderAction: function(e, folder, mode)
     {
-        var action, params, val,
+        var action, params, tmp, val,
             form = e.findElement('form');
         val = $F(form.down('input'));
 
@@ -2597,6 +2597,11 @@ var DimpBase = {
                 params = { mbox: val };
                 if (mode == 'createsub') {
                     params.parent = folder.up('LI').retrieve('mbox');
+                    tmp = folder.up('LI').next();
+                    if (!tmp.hasClassName('subfolders') ||
+                        !tmp.down('UL').childElements().size()) {
+                        params.noexpand = 1;
+                    }
                 }
                 break;
             }
@@ -2618,7 +2623,7 @@ var DimpBase = {
         if (r.c) {
             r.c.each(this.changeFolder.bind(this));
         }
-        if (r.a) {
+        if (r.a && !r.noexpand) {
             r.a.each(this.createFolder.bind(this));
         }
     },
