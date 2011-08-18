@@ -390,7 +390,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     public function resetPkSequence($table, $pk = null, $sequence = null)
     {
         if (!($pk && $sequence)) {
-            list($defaultPk, $efaultSequence) = $this->pkAndSequenceFor($table);
+            list($defaultPk, $defaultSequence) = $this->pkAndSequenceFor($table);
             if (!$pk) {
                 $pk = $defaultPk;
             }
