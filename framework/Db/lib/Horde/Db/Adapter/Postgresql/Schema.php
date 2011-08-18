@@ -242,7 +242,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $sql = sprintf('SELECT column_name FROM information_schema.constraint_column_usage WHERE table_name = %s AND constraint_name = %s',
                        $this->quoteString($tableName),
-                       $this->quoteString($tableName . '_pkey'));
+                       $this->quoteString($this->defaultSequenceName($tableName)));
         $pk = $this->selectValues($sql, $name);
 
         return $this->makeIndex($tableName, 'PRIMARY', true, true, $pk);
@@ -549,12 +549,16 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             $type = 'integer';
             $autoincrement = true;
             $limit = $precision = $scale = null;
-            $sql = sprintf('ALTER TABLE %s DROP CONSTRAINT %s CASCADE',
-                           $quotedTableName,
-                           $this->quoteColumnName($tableName . '_pkey'));
-            try {
-                $this->execute($sql);
-            } catch (Horde_Db_Exception $e) {}
+            list(, $keyName) = $this->pkAndSequenceFor($tableName);
+            if ($keyName) {
+                $sql = sprintf('ALTER TABLE %s DROP CONSTRAINT %s CASCADE',
+                               $quotedTableName,
+                               $this->quoteColumnName($keyName));
+                try {
+                    $this->execute($sql);
+                } catch (Horde_Db_Exception $e) {
+                }
+            }
         }
 
         $sql = sprintf('ALTER TABLE %s ALTER COLUMN %s TYPE %s',
