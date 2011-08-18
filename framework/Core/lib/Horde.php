@@ -338,9 +338,11 @@ HTML;
         }
 
         /* Output prototype.js separately from the other files. */
-        $js['force'][] = $s_list['horde'][0]['p'] . $s_list['horde'][0]['f'];
-        $mtime['force'][] = filemtime($s_list['horde'][0]['p'] . $s_list['horde'][0]['f']);
-        unset($s_list['horde'][0]);
+        if ($s_list['horde'][0]['f'] == 'prototype.js') {
+            $js['force'][] = $s_list['horde'][0]['p'] . $s_list['horde'][0]['f'];
+            $mtime['force'][] = filemtime($s_list['horde'][0]['p'] . $s_list['horde'][0]['f']);
+            unset($s_list['horde'][0]);
+        }
 
         foreach ($s_list as $files) {
             foreach ($files as $file) {
