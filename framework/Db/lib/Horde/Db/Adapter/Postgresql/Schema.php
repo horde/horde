@@ -240,10 +240,17 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function primaryKey($tableName, $name = null)
     {
-        $sql = sprintf('SELECT column_name FROM information_schema.constraint_column_usage WHERE table_name = %s AND constraint_name = %s',
-                       $this->quoteString($tableName),
-                       $this->quoteString($this->defaultSequenceName($tableName)));
-        $pk = $this->selectValues($sql, $name);
+        $sql = '
+            SELECT column_name
+            FROM information_schema.constraint_column_usage
+            WHERE table_name = ?
+                AND constraint_name = (SELECT constraint_name
+                                       FROM information_schema.table_constraints
+                                       WHERE table_name = ?
+                                           AND constraint_type = ?)';
+        $pk = $this->selectValues($sql,
+                                  array($tableName, $tableName, 'PRIMARY KEY'),
+                                  $name);
 
         return $this->makeIndex($tableName, 'PRIMARY', true, true, $pk);
     }
