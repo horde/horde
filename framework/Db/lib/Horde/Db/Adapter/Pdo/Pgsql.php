@@ -132,12 +132,14 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     /**
      * Returns the last auto-generated ID from the affected table.
      *
-     * @param   string  $sql
-     * @param   mixed   $arg1  Either an array of bound parameters or a query name.
-     * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
-     * @param   string  $pk
-     * @param   int     $idValue
-     * @param   string  $sequenceName
+     * @param string $sql
+     * @param mixed $arg1           Either an array of bound parameters or a
+     *                              query name.
+     * @param string $arg2          If $arg1 contains bound parameters, the
+     *                              query name.
+     * @param string $pk
+     * @param integer $idValue
+     * @param string $sequenceName
      */
     public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
                            $idValue = null, $sequenceName = null)
@@ -148,15 +150,19 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
 
         // Try an insert with 'returning id' if available (PG >= 8.2)
         if ($this->supportsInsertWithReturning()) {
-            if (!$pk) list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
+            if (!$pk) {
+                list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
+            }
             if ($pk) {
-                $id = $this->selectValue($sql.' RETURNING '.$this->quoteColumnName($pk), $arg1, $arg2);
+                $id = $this->selectValue($sql . ' RETURNING ' . $this->quoteColumnName($pk), $arg1, $arg2);
+                $this->resetPkSequence($table, $pk, $sequenceName);
                 return $id;
             }
         }
 
         // Otherwise, insert then grab last_insert_id.
         if ($insertId = parent::insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName)) {
+            $this->resetPkSequence($table, $pk, $sequenceName);
             return $insertId;
         }
 
@@ -167,7 +173,10 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
 
         // If a pk is given, fallback to default sequence name.
         // Don't fetch last insert id for a table without a pk.
-        if ($pk && ($sequenceName || $sequenceName = $this->defaultSequenceName($table, $pk))) {
+        if ($pk &&
+            ($sequenceName ||
+             $sequenceName = $this->defaultSequenceName($table, $pk))) {
+            //$this->resetPkSequence($table, $pk, $sequenceName);
             return $this->_lastInsertId($table, $sequenceName);
         }
     }
