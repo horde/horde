@@ -2546,7 +2546,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        $fr = $this->_newFetchResponse();
+        $fr = $this->_newFetchResult();
         if ($options['ids']->sequence) {
             $fr->seq = $results;
         } else {
@@ -2557,7 +2557,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'fetch' => $fr
         ));
 
-        unset($t['fetchcmd'], $t['fetchresp']);
+        unset($t['fetchcmd']);
 
         return $options['ids']->sequence
             ? $fr->seq
@@ -2565,8 +2565,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
+     * Created a new object to use for fetch results.
+     *
+     * @return object  Object with two properties: 'seq' and 'uid'.
      */
-    protected function _newFetchResponse()
+    protected function _newFetchResult()
     {
         if (!isset($this->_temp['fr_ob'])) {
             $fr = new stdClass;
@@ -3644,10 +3647,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (empty($options['notag'])) {
             $out = ++$this->_tag . ' ';
-
-            /* Catch all FETCH responses until a tagged response. */
             $this->_temp['fetchresp'] = empty($options['fetch'])
-                ? $this->_newFetchResponse()
+                ? $this->_newFetchResult()
                 : $options['fetch'];
         }
 
