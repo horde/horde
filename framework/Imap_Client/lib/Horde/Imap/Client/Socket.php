@@ -3603,39 +3603,38 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * The only advantage of pipelining commands is to reduce the (small)
      * amount of overhead needed to send commands. Modern IMAP servers do not
      * meaningfully optimize response order internally, so that is not a
-     * worthwhile reason to implement pipelining.
+     * worthwhile reason to implement pipelining. Even the IMAP gurus admit
+     * that pipelining is probably more trouble than it is worth.
      *
      * @param mixed $data    The IMAP command to execute. If string output as
      *                       is. If array, parsed via parseCommandArray(). If
      *                       resource, output directly to server.
      * @param array $options  Additional options:
-     * <pre>
-     * 'binary' - (boolean) Does $data contain binary data?  If so, and the
-     *            'BINARY' extension is available on the server, the data
-     *            will be sent in literal8 format. If not available, an
-     *            exception will be returned. 'binary' requires literal to
-     *            be defined.
-     *            DEFAULT: Sends literals in a non-binary compliant method.
-     * 'debug' - (string) When debugging, send this string instead of the
-     *           actual command/data sent.
-     *           DEFAULT: Raw data output to debug stream.
-     * 'errignore' - (boolean) Don't throw error on BAD/NO response.
-     *               DEFAULT: false
-     * 'fetch' - (array) Use this as the initial value of the fetch response.
-     *           DEFAULT: Fetch response is empty
-     * 'literal' - (integer) Send the command followed by a literal. The value
-     *             of 'literal' is the length of the literal data.
-     *             Will attempt to use LITERAL+ capability if possible.
-     *             DEFAULT: Do not send literal
-     * 'literaldata' - (boolean) Is this literal data?
-     *                 DEFAULT: Not literal data
-     * 'noparse' - (boolean) Don't parse the response and instead return the
-     *             server response.
-     *             DEFAULT: Parses the response
-     * 'notag' - (boolean) Don't prepend an IMAP tag (i.e. for a continuation
-     *           response).
-     *           DEFAULT: false
-     * </pre>
+     *   - binary: (boolean) Does $data contain binary data?  If so, and the
+     *             'BINARY' extension is available on the server, the data
+     *             will be sent in literal8 format. If not available, an
+     *             exception will be returned. 'binary' requires literal to
+     *             be defined.
+     *             DEFAULT: Sends literals in a non-binary compliant method.
+     *   - debug: (string) When debugging, send this string instead of the
+     *            actual command/data sent.
+     *            DEFAULT: Raw data output to debug stream.
+     *   - errignore: (boolean) Don't throw error on BAD/NO response.
+     *                DEFAULT: false
+     *   - fetch: (array) Use this as the initial value of the fetch results.
+     *            DEFAULT: Fetch result is empty
+     *   - literal: (integer) Send the command followed by a literal. The value
+     *              of 'literal' is the length of the literal data.
+     *              Will attempt to use LITERAL+ capability if possible.
+     *              DEFAULT: Do not send literal
+     *   - literaldata: (boolean) Is this literal data?
+     *                  DEFAULT: Not literal data
+     *   - noparse: (boolean) Don't parse the response and instead return the
+     *              server response.
+     *              DEFAULT: Parses the response
+     *   - notag: (boolean) Don't prepend an IMAP tag (i.e. for a continuation
+     *            response).
+     *            DEFAULT: false
      *
      * @throws Horde_Imap_Client_Exception
      */
