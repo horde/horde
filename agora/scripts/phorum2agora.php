@@ -111,6 +111,7 @@ $sql = 'INSERT INTO agora_messages  '
 // $b_agora->query('TRUNCATE TABLE agora_messages');
 // $db_agora->query('TRUNCATE TABLE agora_messages_seq');
 
+// IMPORTANT: when porting to Horde_Db use $idValue parameter of insert().
 /* Start inserting */
 foreach ($messages as $message) {
     $params = array();

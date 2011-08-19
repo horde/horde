@@ -129,7 +129,7 @@ class Content_Tagger
 
             // increment tag stats
             if (!$this->_db->update('UPDATE ' . $this->_t('tag_stats') . ' SET count = count + 1 WHERE tag_id = ' . (int)$tagId)) {
-                $this->_db->insert('INSERT INTO ' . $this->_t('tag_stats') . ' (tag_id, count) VALUES (' . (int)$tagId . ', 1)');
+                $this->_db->insert('INSERT INTO ' . $this->_t('tag_stats') . ' (tag_id, count) VALUES (' . (int)$tagId . ', 1)', null, null, 'tag_id', $tagId);
             }
 
             // increment user-tag stats
