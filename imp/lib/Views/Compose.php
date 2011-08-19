@@ -19,6 +19,8 @@ class IMP_Views_Compose
      *
      * @param array $args  Configuration parameters:
      *   - composeCache: (string) The cache ID of the IMP_Compose object.
+     *   - fwdattach: (boolean) Are we forwarding and attaching the original
+     *     message?
      *   - qreply: (boolean) Is this a quickreply view?
      *   - redirect: (string) Display the redirect interface?
      *   - show_editor: (boolean) Show the HTML editor?
@@ -57,13 +59,16 @@ class IMP_Views_Compose
             if ($t->get('composeCache') && count($imp_compose)) {
                 foreach ($imp_compose as $num => $atc) {
                     $mime = $atc['part'];
-                    $opts = Horde_Serialize::serialize(array(
+                    $opts = array(
                         'name' => $mime->getName(true),
                         'num' => intval($num),
                         'size' => $mime->getSize(),
                         'type' => $mime->getType()
-                    ), Horde_Serialize::JSON, 'UTF-8');
-                    $result['jsonload'][] = 'DimpCompose.addAttach(' . $opts . ')';
+                    );
+                    if (!empty($args['fwdattach'])) {
+                        $opts['fwdattach'] = 1;
+                    }
+                    $result['jsonload'][] = 'DimpCompose.addAttach(' . Horde_Serialize::serialize($opts, Horde_Serialize::JSON, 'UTF-8') . ')';
                 }
             }
 
