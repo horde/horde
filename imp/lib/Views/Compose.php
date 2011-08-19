@@ -18,19 +18,15 @@ class IMP_Views_Compose
      * Create content needed to output the compose screen.
      *
      * @param array $args  Configuration parameters:
-     * <pre>
-     * 'composeCache' - (string) The cache ID of the IMP_Compose object.
-     * 'qreply' - (boolean) Is this a quickreply view?
-     * 'redirect' - (string) Display the redirect interface?
-     * 'show_editor' - (boolean) Show the HTML editor?
-     * </pre>
+     *   - composeCache: (string) The cache ID of the IMP_Compose object.
+     *   - qreply: (boolean) Is this a quickreply view?
+     *   - redirect: (string) Display the redirect interface?
+     *   - show_editor: (boolean) Show the HTML editor?
      *
      * @return array  Array with the following keys:
-     * <pre>
-     * 'html' - (string) The rendered HTML content.
-     * 'js' - (array) Javascript code to run immediately.
-     * 'jsonload' - (array) Javascript code to run on load.
-     * </pre>
+     *   - html: (string) The rendered HTML content.
+     *   - js: (array) Javascript code to run immediately.
+     *   - jsonload: (array) Javascript code to run on load.
      */
     static public function showCompose($args)
     {
