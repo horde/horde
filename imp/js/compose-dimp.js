@@ -306,12 +306,7 @@ var DimpCompose = {
             case 'addAttachment':
                 this.uploading = false;
                 if (d.success) {
-                    this.addAttach({
-                        name: d.atc.name,
-                        num: d.atc.num,
-                        size: d.atc.size,
-                        type: d.atc.type
-                    });
+                    this.addAttach(d.atc);
                 }
 
                 $('upload_wait').hide();
@@ -667,14 +662,7 @@ var DimpCompose = {
     processFwdList: function(f)
     {
         if (f && f.size()) {
-            f.each(function(ptr) {
-                this.addAttach({
-                    name: ptr.name,
-                    num: ptr.num,
-                    size: ptr.size,
-                    type: ptr.type
-                });
-            }, this);
+            f.each(this.addAttach.bind(this));
         }
     },
 
