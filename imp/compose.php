@@ -484,6 +484,7 @@ case 'fwd_digest':
     if (isset($vars->fwddigest)) {
         try {
             $header['subject'] = $imp_compose->attachImapMessage(new IMP_Indices($vars->fwddigest));
+            $fwd_msg = array('type' => IMP_Compose::FORWARD_ATTACH);
         } catch (IMP_Compose_Exception $e) {
             $notification->push($e, 'horde.error');
         }
@@ -998,6 +999,7 @@ if ($redirect) {
                 $type = $mime->getType();
 
                 $entry = array(
+                    'fwdattach' => (isset($fwd_msg) && ($fwd_msg['type'] != IMP_Compose::FORWARD_BODY)),
                     'name' => $mime->getName(true),
                     'icon' => $v->getIcon($type),
                     'number' => $atc_num,
@@ -1006,7 +1008,8 @@ if ($redirect) {
                     'description' => $mime->getDescription(true)
                 );
 
-                if ($type != 'application/octet-stream') {
+                if (empty($entry['fwdattach']) &&
+                    ($type != 'application/octet-stream')) {
                     $preview_url = Horde::url('view.php')->add(array(
                         'actionID' => 'compose_attach_preview',
                         'composeCache' => $composeCacheID,

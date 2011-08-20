@@ -1,7 +1,14 @@
 ----------
-v3.0.7-git
+v3.0.8-git
 ----------
 
+
+
+------
+v3.0.7
+------
+
+[jan] Add missing migration script (Bug #10436).
 
 
 ------

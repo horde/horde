@@ -221,12 +221,12 @@ class Horde_Auth
 
         case 'crypt-sha256':
             return $seed
-                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed,'$'))
+                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed, '$'))
                 : '$5$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
 
         case 'crypt-sha512':
             return $seed
-                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed,'$'))
+                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed, '$'))
                 : '$6$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
 
         case 'ssha':

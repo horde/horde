@@ -402,6 +402,28 @@ class Whups_Ticket
     {
         global $whups_driver;
 
+        /* Build message template. */
+        $view = new Horde_View(array('templatePath' => WHUPS_BASE . '/config'));
+        $view->date = strftime($GLOBALS['prefs']->getValue('date_format'));
+        $view->auth_name = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create()
+            ->getValue('fullname');
+        if (empty($view->auth_name)) {
+            $view->auth_name = $GLOBALS['registry']->getAuth('bare');
+        }
+
+        /* Get queue specific notification message text, if available. */
+        $message_file = WHUPS_BASE . '/config/delete_email.plain';
+        if (file_exists($message_file . '.' . $this->get('queue') . '.php')) {
+            $message_file .= '.' . $this->get('queue') . '.php';
+        } elseif (file_exists($message_file . '.local.php')) {
+            $message_file .= '.local.php';
+        } else {
+            $message_file .= '.php';
+        }
+        $message_file = basename($message_file);
+
         if ($GLOBALS['conf']['mail']['incl_resp'] ||
             !count(current($whups_driver->getOwners($this->_id)))) {
             /* Include all responsible.  */
@@ -419,7 +441,8 @@ class Whups_Ticket
         $whups_driver->mail(array('ticket' => $this,
                                   'recipients' => $listeners,
                                   'subject' => _("Deleted:") . ' ' . $this->get('summary'),
-                                  'message' => _("The ticket was deleted."),
+                                  'view' => $view,
+                                  'template' => $message_file,
                                   'from' => $GLOBALS['registry']->getAuth()));
     }
 

@@ -465,7 +465,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $pkColumn = $table['foo'];
         $this->assertEquals('"foo" serial primary key', $pkColumn->toSql());
 
-        $this->_conn->execute("INSERT INTO testings (bar) VALUES (1)");
+        $this->_conn->insert("INSERT INTO testings (bar) VALUES (1)");
 
         $sql = "SELECT * FROM testings WHERE foo = 1";
         $result = $this->_conn->select($sql);
@@ -473,9 +473,13 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
         // This should fail.
         try {
-            $this->_conn->execute("INSERT INTO testings (foo) VALUES (NULL)");
+            $this->_conn->insert("INSERT INTO testings (foo) VALUES (NULL)");
             $this->fail("Expected exception for inserting null value");
         } catch (Exception $e) {}
+
+        // Manually insert a primary key value.
+        $this->_conn->insert("INSERT INTO testings (foo, bar) VALUES (2, 1)");
+        $this->_conn->insert("INSERT INTO testings (bar) VALUES (1)");
     }
 
     public function testAlterTableWithSeparatePk()
@@ -488,7 +492,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         // Convert 'foo' to auto-increment
         $this->_conn->changeColumn('testings', 'foo', 'autoincrementKey');
 
-        $this->_conn->execute("INSERT INTO testings (bar) VALUES (1)");
+        $this->_conn->insert("INSERT INTO testings (bar) VALUES (1)");
 
         $sql = "SELECT * FROM testings WHERE foo = 1";
         $result = $this->_conn->select($sql);
@@ -544,7 +548,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $table->end();
 
         try {
-            $this->_conn->execute("INSERT INTO testings (foo) VALUES (NULL)");
+            $this->_conn->insert("INSERT INTO testings (foo) VALUES (NULL)");
         } catch (Exception $e) { return; }
         $this->fail('Expected exception wasn\'t raised');
     }
@@ -624,7 +628,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->_conn->renameTable('octopuses', 'octopi');
 
         $sql = "INSERT INTO octopi (id, url) VALUES (1, 'http://www.foreverflying.com/octopus-black7.jpg')";
-        $this->_conn->execute($sql);
+        $this->_conn->insert($sql);
 
         $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
                 $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
@@ -648,7 +652,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->_conn->renameTable('octopuses', 'octopi');
 
         $sql = "INSERT INTO octopi (id, url) VALUES (1, 'http://www.foreverflying.com/octopus-black7.jpg')";
-        $this->_conn->execute($sql);
+        $this->_conn->insert($sql);
 
         $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
                 $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
@@ -906,11 +910,11 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $index = $this->_getIndex('sports', 'is_college');
         $this->assertNull($index);
 
-        $this->_conn->addIndex('sports', 'is_college', array('name' => 'test'));
+        $this->_conn->addIndex('sports', 'is_college', array('name' => 'sports_test'));
 
         $index = $this->_getIndex('sports', 'is_college');
         $this->assertNotNull($index);
-        $this->assertEquals('test', $index->name);
+        $this->assertEquals('sports_test', $index->name);
     }
 
     public function testRemoveIndexSingleColumn()
@@ -948,12 +952,12 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->_createTestTable('sports');
 
         // add the index
-        $this->_conn->addIndex('sports', 'is_college', array('name' => 'test'));
+        $this->_conn->addIndex('sports', 'is_college', array('name' => 'sports_test'));
         $index = $this->_getIndex('sports', 'is_college');
         $this->assertNotNull($index);
 
         // remove it again
-        $this->_conn->removeIndex('sports', array('name' => 'test'));
+        $this->_conn->removeIndex('sports', array('name' => 'sports_test'));
         $index = $this->_getIndex('sports', 'is_college');
         $this->assertNull($index);
     }
@@ -1094,7 +1098,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => ''));
 
         try {
-            $this->_conn->execute("INSERT INTO testings (foo, bar) VALUES ('hello', NULL)");
+            $this->_conn->insert("INSERT INTO testings (foo, bar) VALUES ('hello', NULL)");
         } catch (Exception $e) { return; }
         $this->fail('Expected exception wasn\'t raised');
 
@@ -1106,12 +1110,12 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
             $table->column('foo', 'string');
         $table->end();
 
-        $this->_conn->execute("INSERT INTO testings (id, foo) VALUES ('1', 'hello')");
+        $this->_conn->insert("INSERT INTO testings (id, foo) VALUES ('1', 'hello')");
 
         $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => 'default'));
 
         try {
-            $this->_conn->execute("INSERT INTO testings (id, foo, bar) VALUES (2, 'hello', NULL)");
+            $this->_conn->insert("INSERT INTO testings (id, foo, bar) VALUES (2, 'hello', NULL)");
         } catch (Exception $e) { return; }
         $this->fail('Expected exception wasn\'t raised');
     }

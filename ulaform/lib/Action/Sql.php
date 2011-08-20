@@ -96,7 +96,7 @@ class Ulaform_Action_Sql extends Ulaform_Action {
                        str_repeat('?, ', count($values) - 1) . '?');
 
         try {
-            $this->_db->execute($sql, $values);
+            $this->_db->insert($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Ulaform_Exception($e->getMessage());
         }

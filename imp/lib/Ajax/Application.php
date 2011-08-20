@@ -107,10 +107,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Create a mailbox.
      *
      * Variables used:
-     * <pre>
-     * 'mbox' - (string) The name of the new mailbox.
-     * 'parent' - (string) The parent mailbox.
-     * </pre>
+     *   - mbox: (string) The name of the new mailbox.
+     *   - noexpand: (integer) Submailbox is not yet expanded.
+     *   - parent: (string) The parent mailbox.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -138,6 +137,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             if ($result) {
                 $result = new stdClass;
                 $result->mailbox = $this->_getMailboxResponse($imptree);
+                if (isset($this->_vars->parent) && $this->_vars->noexpand) {
+                    $result->mailbox['noexpand'] = 1;
+                }
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);

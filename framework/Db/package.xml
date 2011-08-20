@@ -35,6 +35,8 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Fix migrations from primary keys that have not been created with Horde_Db in PostgreSQL.
+* [jan] Fix autoincrementKey sequences not incrementing after manually inserting key values in PostgreSQL.
 * [jan] Fix changeColumn() migration to autoincrementKey if no primary key exists yet.
  </notes>
  <contents>

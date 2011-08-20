@@ -402,7 +402,8 @@ class Ansel_Faces_Base
      * @return array Faces found
      * @throws Ansel_Exception, Horde_Exception_PermissionDenied
      */
-    public function saveCustomFace($face_id, $image, $x1, $y1, $x2, $y2, $name = '')
+    public function saveCustomFace($face_id, $image, $x1, $y1, $x2, $y2,
+                                   $name = '')
     {
         $image = $GLOBALS['injector']->getInstance('Ansel_Storage')
             ->getImage($image);
@@ -410,10 +411,6 @@ class Ansel_Faces_Base
             ->getGallery($image->gallery);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
-        }
-
-        if (empty($face_id)) {
-            $new = true;
         }
 
         // The user edits the screen image not the full image
@@ -432,7 +429,7 @@ class Ansel_Faces_Base
         $image->reset();
 
         // Store face id db
-        if (empty($new)) {
+        if (!empty($face_id)) {
             $sql = 'UPDATE ansel_faces SET face_name = ?, face_x1 = ?, '
                 . 'face_y1 = ?, face_x2 = ?, face_y2 = ? WHERE face_id = ?';
 
@@ -450,12 +447,11 @@ class Ansel_Faces_Base
                 throw new Ansel_Exception($e);
             }
         } else {
-            $sql = 'INSERT INTO ansel_faces (face_id, image_id, gallery_id, face_name, '
+            $sql = 'INSERT INTO ansel_faces (image_id, gallery_id, face_name, '
                 . ' face_x1, face_y1, face_x2, face_y2)'
-                . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+                . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
 
             $params = array(
-                $face_id,
                 $image->id,
                 $image->gallery,
                 $name,

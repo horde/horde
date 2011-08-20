@@ -44,7 +44,7 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
     }
 
     /**
-     * Normalize the tranasaction data.
+     * Normalize the transaction data.
      */
     protected function _normalize()
     {
@@ -64,10 +64,12 @@ class WhupsUpgradeTransactions extends Horde_Db_Migration_Base
                     continue;
                 }
                 $this->insert($insert,
-                    array(
-                        $row['transaction_id'],
-                        $row['log_timestamp'],
-                        $row['user_id']));
+                              array($row['transaction_id'],
+                                    $row['log_timestamp'],
+                                    $row['user_id']),
+                              null,
+                              'transaction_id',
+                              $row['transaction_id']);
             }
         } catch (Horde_Db_Exception $e) {
             $this->rollbackDbTransaction();

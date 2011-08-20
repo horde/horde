@@ -757,15 +757,15 @@ class Whups
             _("Updated")   => 'date_updated',
             _("Assigned")  => 'date_assigned',
             _("Resolved")  => 'date_resolved',
-            );
+        );
     }
 
     /**
      * Send reminders. One email per user.
      *
-     * @param Horde_Variables &$vars  The selection criteria.
+     * @param Horde_Variables $vars  The selection criteria.
      */
-    static public  function sendReminders(&$vars)
+    static public function sendReminders($vars)
     {
         global $whups_driver;
 
@@ -781,13 +781,13 @@ class Whups
                 $info['category'] = array('unconfirmed', 'new', 'assigned');
             }
         } else {
-            return PEAR::raiseError(_("You must select at least one queue to send reminders for."));
+            throw new Whups_Exception(_("You must select at least one queue to send reminders for."));
         }
 
         $tickets = $whups_driver->getTicketsByProperties($info);
         self::sortTickets($tickets);
         if (!count($tickets)) {
-            return PEAR::raiseError(_("No tickets matched your search criteria."));
+            throw new Whups_Exception(_("No tickets matched your search criteria."));
         }
 
         $unassigned = $vars->get('unassigned');
@@ -795,36 +795,38 @@ class Whups
         foreach ($tickets as $info) {
             $info['link'] = self::urlFor('ticket', $info['id'], true, -1);
             $owners = current($whups_driver->getOwners($info['id']));
-            if (count($owners)) {
+            if (!empty($owners)) {
                 foreach ($owners as $owner) {
-                    $remind[$owner] = $info;
+                    $remind[$owner][] = $info;
                 }
             } elseif (!empty($unassigned)) {
                 $remind['**' . $unassigned][] = $info;
             }
         }
 
+        /* Build message template. */
+        $view = new Horde_View(array('templatePath' => WHUPS_BASE . '/config'));
+        $view->date = strftime($GLOBALS['prefs']->getValue('date_format'));
+
+        /* Get queue specific notification message text, if available. */
+        $message_file = WHUPS_BASE . '/config/reminder_email.plain';
+        if (file_exists($message_file . '.local.php')) {
+            $message_file .= '.local.php';
+        } else {
+            $message_file .= '.php';
+        }
+        $message_file = basename($message_file);
+
         foreach ($remind as $user => $utickets) {
             if (empty($user) || !count($utickets)) {
                 continue;
             }
-            $email = "\nHere is a summary of your open tickets:\n";
-            foreach ($utickets as $info) {
-                if (!empty($email)) {
-                    $email .= "\n";
-                }
-                $email .= "------\n"
-                    . 'Ticket #' . $info['id'] . ': ' . $info['summary'] . "\n"
-                    . 'Opened: ' . strftime('%a %d %B', $info['timestamp'])
-                    . Horde_Form_Type_date::getAgo($info['timestamp']) . "\n"
-                    . 'State: ' . $info['state_name'] . "\n"
-                    . 'Link: ' . $info['link'] . "\n";
-            }
-            $email .= "\n";
-            $subject = 'Reminder: Your open tickets';
+            $view->tickets = $utickets;
+            $subject = _("Reminder: Your open tickets");
             $whups_driver->mail(array('recipients' => array($user => 'owner'),
                                       'subject' => $subject,
-                                      'message' => $email,
+                                      'view' => $view,
+                                      'template' => $message_file,
                                       'from' => $user));
         }
     }
@@ -864,7 +866,7 @@ class Whups
         try {
             $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
         } catch (Horde_Vfs_Exception $e) {
-            return PEAR::raiseError($vfs->getMessage());
+            throw new Whups_Exception($e);
         }
 
         if ($vfs->isFolder(self::VFS_ATTACH_PATH, $ticket)) {

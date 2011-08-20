@@ -268,10 +268,16 @@
  <tr class="item">
   <td>
    <img style="padding-right:5px" src="<tag:atc.icon />" alt="[Icon]" />
-   <strong><tag:atc.name /></strong> (<tag:atc.type />) <strong><gettext>Size:</gettext></strong> <tag:atc.size /> <gettext>KB</gettext>
+   <strong><tag:atc.name /></strong>
+<if:atc.fwdattach>
+   (<strong><gettext>Size:</gettext></strong> <tag:atc.size /> <gettext>KB</gettext>)
+<else:atc.fwdattach>
+   (<tag:atc.type />) <strong><gettext>Size:</gettext></strong> <tag:atc.size /> <gettext>KB</gettext>
+</else:atc.fwdattach></if:atc.fwdattach>
   </td>
  </tr>
  <tr class="item">
+<if:atc.fwdattach><else:atc.fwdattach>
   <td style="padding-left:30px">
    <table>
     <tr>
@@ -284,8 +290,9 @@
     </tr>
    </table>
   </td>
- </tr>
+</else:atc.fwdattach></if:atc.fwdattach>
 </loop:atc>
+ </tr>
 </table>
 </if:numberattach>
 </if:file_upload>

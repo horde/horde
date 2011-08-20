@@ -306,12 +306,7 @@ var DimpCompose = {
             case 'addAttachment':
                 this.uploading = false;
                 if (d.success) {
-                    this.addAttach({
-                        name: d.atc.name,
-                        num: d.atc.num,
-                        size: d.atc.size,
-                        type: d.atc.type
-                    });
+                    this.addAttach(d.atc);
                 }
 
                 $('upload_wait').hide();
@@ -667,14 +662,7 @@ var DimpCompose = {
     processFwdList: function(f)
     {
         if (f && f.size()) {
-            f.each(function(ptr) {
-                this.addAttach({
-                    name: ptr.name,
-                    num: ptr.num,
-                    size: ptr.size,
-                    type: ptr.type
-                });
-            }, this);
+            f.each(this.addAttach.bind(this));
         }
     },
 
@@ -703,6 +691,7 @@ var DimpCompose = {
                 break;
 
             case 'forward_body':
+                this.removeAttach([ $('attach_list').down() ]);
                 this.setBodyText(r.response.body);
                 break;
             }
@@ -719,21 +708,25 @@ var DimpCompose = {
     },
 
     // opts = (Object)
-    //   'name' - (string) Attachment name
-    //   'num' - (integer) Attachment number
-    //   'size' - (integer) Size, in KB
-    //   'type' - (string) MIME type
+    //   fwdattach: (integer) Attachment is forwarded message
+    //   name: (string) Attachment name
+    //   num: (integer) Attachment number
+    //   size: (integer) Size, in KB
+    //   type: (string) MIME type
     addAttach: function(opts)
     {
         var span = new Element('SPAN').insert(opts.name),
-            li = new Element('LI').insert(span).insert(' [' + opts.type + '] (' + opts.size + ' KB) '),
-            input = new Element('SPAN', { className: 'button remove' }).insert(DIMP.text_compose.remove).store('atc_id', opts.num);
-        li.insert(input);
-        $('attach_list').insert(li).show();
-
-        if (opts.type != 'application/octet-stream') {
-            span.addClassName('attachName');
+            li = new Element('LI').insert(span).store('atc_id', opts.num);
+        if (opts.fwdattach) {
+            li.insert(' (' + opts.size + ' KB)');
+            span.addClassName('attachNameFwdmsg');
+        } else {
+            li.insert(' [' + opts.type + '] (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DIMP.text_compose.remove));
+            if (opts.type != 'application/octet-stream') {
+                span.addClassName('attachName');
+            }
         }
+        $('attach_list').insert(li).show();
 
         this.resizeMsgArea();
     },
@@ -743,7 +736,7 @@ var DimpCompose = {
         var ids = [];
         e.each(function(n) {
             n = $(n);
-            ids.push(n.down('SPAN.remove').retrieve('atc_id'));
+            ids.push(n.retrieve('atc_id'));
             n.fade({
                 afterFinish: function() {
                     n.remove();
@@ -974,7 +967,7 @@ var DimpCompose = {
                 if (orig.match('SPAN.remove')) {
                     this.removeAttach([ orig.up() ]);
                 } else if (orig.match('SPAN.attachName')) {
-                    atc_num = orig.next().retrieve('atc_id');
+                    atc_num = orig.up('LI').retrieve('atc_id');
                     DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num);
                 }
                 break;

@@ -450,7 +450,7 @@ class Whups_Query
                 }
                 break;
             }
-            return PEAR::raiseError(_("This query element cannot be edited."));
+            throw new Whups_Exception(_("This query element cannot be edited."));
         }
 
         switch ($qobj['criterion']) {

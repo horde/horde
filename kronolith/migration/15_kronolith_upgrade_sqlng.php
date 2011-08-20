@@ -151,7 +151,7 @@ class KronolithUpgradeSqlng extends Horde_Db_Migration_Base
                     $values[] = (bool)($share['perm_' . $who] & $perm);
                 }
             }
-            $this->insert($sql, $values);
+            $this->insert($sql, $values, null, 'share_id', $share['share_id']);
         }
 
         foreach (array('user', 'group') as $what) {

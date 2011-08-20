@@ -80,6 +80,12 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
     }
 
     /**
+     * Create the Cache storage backend.
+     *
+     * @param string $driver The storage driver name.
+     * @param array  $params The storage backend parameters.
+     *
+     * @return Horde_Cache_Storage_Base A cache storage backend.
      */
     protected function _getStorage($driver, $params)
     {

@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Flag_System_Attachment extends IMP_Flag_System
+class IMP_Flag_System_Attachment extends IMP_Flag_System_Match_Header
 {
     /**
      */
@@ -30,9 +30,8 @@ class IMP_Flag_System_Attachment extends IMP_Flag_System
     }
 
     /**
-     * @param Horde_Mime_Headers $data  Headers object for a message.
      */
-    public function match($data)
+    public function match(Horde_Mime_Headers $data)
     {
         if (!($ctype = $data->getValue('content-type', Horde_Mime_Headers::VALUE_BASE))) {
             return false;

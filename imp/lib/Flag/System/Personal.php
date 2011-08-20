@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class IMP_Flag_System_Personal extends IMP_Flag_System
+class IMP_Flag_System_Personal extends IMP_Flag_System_Match_Address
 {
     /**
      */
@@ -30,9 +30,6 @@ class IMP_Flag_System_Personal extends IMP_Flag_System
     }
 
     /**
-     * @param mixed $data  Either an array of To addresses as returned by
-     *                     Horde_Mime_Address::getAddressesFromObject() or the
-     *                     identity that matched the address list.
      */
     public function match($data)
     {
