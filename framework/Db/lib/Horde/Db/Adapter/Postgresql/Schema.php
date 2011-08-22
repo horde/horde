@@ -556,7 +556,12 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             $type = 'integer';
             $autoincrement = true;
             $limit = $precision = $scale = null;
-            list(, $keyName) = $this->pkAndSequenceFor($tableName);
+            $keyName = $this->selectValue(
+                'SELECT constraint_name
+                 FROM information_schema.table_constraints
+                 WHERE table_name = ?
+                     AND constraint_type = ?',
+                array($tableName, 'PRIMARY KEY'));
             if ($keyName) {
                 $sql = sprintf('ALTER TABLE %s DROP CONSTRAINT %s CASCADE',
                                $quotedTableName,
