@@ -258,7 +258,7 @@ class IMP_Imap implements Serializable
 
         $ns = $this->getNamespaceList();
 
-        if ($mailbox === null) {
+        if (is_null($mailbox)) {
             reset($ns);
             $mailbox = key($ns);
         }
