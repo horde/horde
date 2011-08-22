@@ -271,6 +271,10 @@ class Horde_Group_Ldap extends Horde_Group_Base
      */
     public function setData($gid, $attribute, $value = null)
     {
+        if ($this->readOnly()) {
+            throw new Horde_Group_Exception('This group backend is read-only.');
+        }
+
         $attributes = is_array($attribute)
             ? $attribute
             : array($attribute => $value);
