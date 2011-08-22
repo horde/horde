@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix bind for modifying existing LDAP groups.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -325,7 +325,7 @@ Initial release as a PEAR package
    <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix bind for modifying existing LDAP groups.
    </notes>
   </release>
  </changelog>
