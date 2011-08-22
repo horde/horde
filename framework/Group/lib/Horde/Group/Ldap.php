@@ -287,7 +287,9 @@ class Horde_Group_Ldap extends Horde_Group_Base
                 }
                 $entry->replace(array($attribute => $value));
             }
+            $this->_rebind(true);
             $entry->update();
+            $this->_rebind(false);
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
