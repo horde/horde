@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [jan] Add missing configuration for LDAP groups write support.
 * [rla] Reset password dialog shows a warning when no security question is set #10430
  </notes>
  <contents>
@@ -4225,6 +4226,7 @@
    <date>2011-08-10</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [jan] Add missing configuration for LDAP groups write support.
 * [rla] Reset password dialog shows a warning when no security question is set #10430
    </notes>
   </release>
