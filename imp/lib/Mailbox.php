@@ -1174,6 +1174,14 @@ class IMP_Mailbox implements Serializable
             case self::SPECIAL_SENT:
                 if (count($val) == 1) {
                     $sub[strval(reset($val))] = _("Sent");
+                } else {
+                    $sent = self::getPref('sent_mail_folder');
+                    foreach ($val as $mbox) {
+                        if ($mbox == $sent) {
+                            $sub[strval($mbox)] = _("Sent");
+                            break;
+                        }
+                    }
                 }
                 break;
 
