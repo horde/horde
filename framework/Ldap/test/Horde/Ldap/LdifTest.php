@@ -89,7 +89,7 @@ class Horde_Ldap_LdifTest extends PHPUnit_Framework_TestCase
         $this->_testentries = array();
         foreach ($this->_testdata as $dn => $attrs) {
             $entry = Horde_Ldap_Entry::createFresh($dn, $attrs);
-            $this->assertType('Horde_Ldap_Entry', $entry);
+            $this->assertInstanceOf('Horde_Ldap_Entry', $entry);
             array_push($this->_testentries, $entry);
         }
 
@@ -188,7 +188,7 @@ class Horde_Ldap_LdifTest extends PHPUnit_Framework_TestCase
         $entries = array();
         do {
             $entry = $ldif->readEntry();
-            $this->assertType('Horde_Ldap_Entry', $entry);
+            $this->assertInstanceOf('Horde_Ldap_Entry', $entry);
             array_push($entries, $entry);
         } while (!$ldif->eof());
 
@@ -201,7 +201,7 @@ class Horde_Ldap_LdifTest extends PHPUnit_Framework_TestCase
         $entries = array();
         do {
             $entry = $ldif->readEntry();
-            $this->assertType('Horde_Ldap_Entry', $entry);
+            $this->assertInstanceOf('Horde_Ldap_Entry', $entry);
             array_push($entries, $entry);
         } while (!$ldif->eof());
 
@@ -349,7 +349,7 @@ class Horde_Ldap_LdifTest extends PHPUnit_Framework_TestCase
         $entries = array();
         do {
             $entry = $ldif->readEntry();
-            $this->assertType('Horde_Ldap_Entry', $entry);
+            $this->assertInstanceOf('Horde_Ldap_Entry', $entry);
             array_push($entries, $entry);
         } while (!$ldif->eof());
         $ldif->done();

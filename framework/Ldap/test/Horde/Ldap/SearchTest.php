@@ -48,19 +48,19 @@ class Horde_Ldap_SearchTest extends Horde_Ldap_TestBase
 
         /* Search and test each method. */
         $search = $ldap->search(null, '(ou=Horde_Ldap*)');
-        $this->assertType('Horde_Ldap_Search', $search);
+        $this->assertInstanceOf('Horde_Ldap_Search', $search);
         $this->assertEquals(2, $search->count());
 
         // current() is supposed to return first valid element.
         $e1 = $search->current();
-        $this->assertType('Horde_Ldap_Entry', $e1);
+        $this->assertInstanceOf('Horde_Ldap_Entry', $e1);
         $this->assertEquals($e1->dn(), $search->key());
         $this->assertTrue($search->valid());
 
         // Shift to next entry.
         $search->next();
         $e2 = $search->current();
-        $this->assertType('Horde_Ldap_Entry', $e2);
+        $this->assertInstanceOf('Horde_Ldap_Entry', $e2);
         $this->assertEquals($e2->dn(), $search->key());
         $this->assertTrue($search->valid());
 
@@ -73,14 +73,14 @@ class Horde_Ldap_SearchTest extends Horde_Ldap_TestBase
         // Rewind and test, which should return the first entry a second time.
         $search->rewind();
         $e1_1 = $search->current();
-        $this->assertType('Horde_Ldap_Entry', $e1_1);
+        $this->assertInstanceOf('Horde_Ldap_Entry', $e1_1);
         $this->assertEquals($e1_1->dn(), $search->key());
         $this->assertTrue($search->valid());
         $this->assertEquals($e1->dn(), $e1_1->dn());
 
         // Don't rewind but call current, should return first entry again.
         $e1_2 = $search->current();
-        $this->assertType('Horde_Ldap_Entry', $e1_2);
+        $this->assertInstanceOf('Horde_Ldap_Entry', $e1_2);
         $this->assertEquals($e1_2->dn(), $search->key());
         $this->assertTrue($search->valid());
         $this->assertEquals($e1->dn(), $e1_2->dn());
@@ -89,14 +89,14 @@ class Horde_Ldap_SearchTest extends Horde_Ldap_TestBase
         // time.
         $search->rewind();
         $e1_3 = $search->current();
-        $this->assertType('Horde_Ldap_Entry', $e1_3);
+        $this->assertInstanceOf('Horde_Ldap_Entry', $e1_3);
         $this->assertEquals($e1_3->dn(), $search->key());
         $this->assertTrue($search->valid());
         $this->assertEquals($e1->dn(), $e1_3->dn());
 
         /* Try methods on empty search result. */
         $search = $ldap->search(null, '(ou=Horde_LdapTest_NotExistentEntry)');
-        $this->assertType('Horde_Ldap_Search', $search);
+        $this->assertInstanceOf('Horde_Ldap_Search', $search);
         $this->assertEquals(0, $search->count());
         $this->assertFalse($search->current());
         $this->assertFalse($search->key());
@@ -109,14 +109,14 @@ class Horde_Ldap_SearchTest extends Horde_Ldap_TestBase
         /* Search and simple iterate through the test entries.  Then, rewind
          * and do it again several times. */
         $search2 = $ldap->search(null, '(ou=Horde_Ldap*)');
-        $this->assertType('Horde_Ldap_Search', $search2);
+        $this->assertInstanceOf('Horde_Ldap_Search', $search2);
         $this->assertEquals(2, $search2->count());
         for ($i = 0; $i <= 5; $i++) {
             $counter = 0;
             foreach ($search2 as $dn => $entry) {
                 $counter++;
                 // Check on type.
-                $this->assertType('Horde_Ldap_Entry', $entry);
+                $this->assertInstanceOf('Horde_Ldap_Entry', $entry);
                 // Check on key.
                 $this->assertThat(strlen($dn), $this->greaterThan(1));
                 $this->assertEquals($dn, $entry->dn());
