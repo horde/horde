@@ -2,6 +2,7 @@
 v5.0.11-git
 -----------
 
+[mms] Fix POP3 regression (Bug #10450).
 [mms] Forwarded messages no longer treated as an attachment in the UI (Request
       #9754).
 [mms] Correctly display submailboxes in dynamic view when new submailbox is

@@ -802,8 +802,9 @@ class IMP_Mailbox implements Serializable
     {
         global $injector, $prefs;
 
-        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
-            return true;
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
+            return $imp_imap->imap;
         }
 
         $delhide = isset(self::$_temp[self::CACHE_HIDEDELETED])
