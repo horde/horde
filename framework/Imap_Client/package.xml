@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-19</date>
- <time>10:29:22</time>
+ <date>2011-08-23</date>
+ <time>10:22:25</time>
  <version>
   <release>1.0.13</release>
   <api>1.0.0</api>
@@ -497,7 +497,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-19</date>
+   <date>2011-08-23</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Fix rare race condition that may cause FETCH requests in the IMAP Socket driver to return empty results (Bug #10434).
