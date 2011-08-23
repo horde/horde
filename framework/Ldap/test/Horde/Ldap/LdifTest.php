@@ -423,94 +423,24 @@ class Horde_Ldap_LdifTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests if syntax errors are detected.
-     *
-     * The used LDIF files have several damaged entries but always one
-     * correct too, to test if Horde_Ldap_Ldif is continue reading as it should
-     * each entry must have 2 correct attributes.
-     */
-    public function testSyntaxerrors()
-    {
-        $this->markTestSkipped('We don\'t continue on syntax errors.');
-        // Test malformed encoding
-        // I think we can ignore this test, because if the LDIF is not encoded properly, we
-        // might be able to successfully fetch the entries data. However, it is possible
-        // that it will be corrupted, but thats not our fault then.
-        // If we should catch that error, we must adjust Horde_Ldap_Ldif::next_lines().
-        /*
-        $ldif = new Horde_Ldap_Ldif(dirname(__FILE__).'/fixtures/malformed_encoding.ldif', 'r', $this->_defaultConfig);
-        $this->assertFalse((boolean)$ldif->error());
-        $entries = array();
-        do {
-            $entry = $ldif->readEntry();
-            if ($entry) {
-                // the correct attributes need to be parsed
-                $this->assertThat(count(array_keys($entry->getValues())), $this->equalTo(2));
-                $entries[] = $entry;
-            }
-        } while (!$ldif->eof());
-        $this->assertTrue((boolean)$ldif->error());
-        $this->assertThat($ldif->error_lines(), $this->greaterThan(1));
-        $this->assertThat(count($entries), $this->equalTo(1));
-        */
-
-        // Test malformed syntax
-        $ldif = new Horde_Ldap_Ldif(dirname(__FILE__).'/fixtures/malformed_syntax.ldif', 'r', $this->_defaultConfig);
-        $this->assertFalse((boolean)$ldif->error());
-        $entries = array();
-        do {
-            $entry = $ldif->readEntry();
-            if ($entry) {
-                // the correct attributes need to be parsed
-                $this->assertThat(count(array_keys($entry->getValues())), $this->equalTo(2));
-                $entries[] = $entry;
-            }
-        } while (!$ldif->eof());
-        $this->assertTrue((boolean)$ldif->error());
-        $this->assertThat($ldif->error_lines(), $this->greaterThan(1));
-        $this->assertThat(count($entries), $this->equalTo(2));
-
-        // test bad wrapping
-        $ldif = new Horde_Ldap_Ldif(dirname(__FILE__).'/fixtures/malformed_wrapping.ldif', 'r', $this->_defaultConfig);
-        $this->assertFalse((boolean)$ldif->error());
-        $entries = array();
-        do {
-           $entry = $ldif->readEntry();
-            if ($entry) {
-                // the correct attributes need to be parsed
-                $this->assertThat(count(array_keys($entry->getValues())), $this->equalTo(2));
-                $entries[] = $entry;
-            }
-        } while (!$ldif->eof());
-        $this->assertTrue((boolean)$ldif->error());
-        $this->assertThat($ldif->error_lines(), $this->greaterThan(1));
-        $this->assertThat(count($entries), $this->equalTo(2));
-    }
-
-    /**
      * Test error dropping functionality.
      */
     public function testError()
     {
-        $this->markTestSkipped('We use exceptions, not the original error handling.');
-
         // No error.
-        $ldif = new Horde_Ldap_Ldif(dirname(__FILE__).'/fixtures/unsorted_w50.ldif', 'r', $this->_defaultConfig);
-
-        // Error giving error msg and line number:
-        $ldif = new Horde_Ldap_Ldif(dirname(__FILE__).'/some_not_existing/path/for/net_ldap_ldif', 'r', $this->_defaultConfig);
-        $this->assertTrue((boolean)$ldif->error());
-        $this->assertType('Net_LDAP2_Error', $ldif->error());
-        $this->assertType('string', $ldif->error(true));
-        $this->assertType('int', $ldif->error_lines());
-        $this->assertThat(strlen($ldif->error(true)), $this->greaterThan(0));
+        $ldif = new Horde_Ldap_Ldif(dirname(__FILE__) . '/fixtures/unsorted_w50.ldif', 'r', $this->_defaultConfig);
 
         // Test for line number reporting
-        $ldif = new Horde_Ldap_Ldif(dirname(__FILE__).'/fixtures/malformed_syntax.ldif', 'r', $this->_defaultConfig);
-        $this->assertFalse((boolean)$ldif->error());
-        do { $entry = $ldif->readEntry(); } while (!$ldif->eof());
-        $this->assertTrue((boolean)$ldif->error());
-        $this->assertThat($ldif->error_lines(), $this->greaterThan(1));
+        $ldif = new Horde_Ldap_Ldif(dirname(__FILE__) . '/fixtures/malformed_syntax.ldif', 'r', $this->_defaultConfig);
+        $this->setExpectedException('Horde_Ldap_Exception',
+                                    'Invalid syntax at input line 7');
+        do {
+            $entry = $ldif->readEntry();
+        } while (!$ldif->eof());
+
+        // Error giving error msg and line number:
+        $this->setExpectedException('Horde_Ldap_Exception');
+        $ldif = new Horde_Ldap_Ldif(dirname(__FILE__) . '/some_not_existing/path/for/net_ldap_ldif', 'r', $this->_defaultConfig);
     }
 
     /**
