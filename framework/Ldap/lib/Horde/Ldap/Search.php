@@ -145,12 +145,10 @@ class Horde_Ldap_Search implements Iterator
      */
     public function shiftEntry()
     {
-        if (!$this->count()) {
-            return false;
-        }
-
         if (is_null($this->_entry)) {
-            $this->_entry = @ldap_first_entry($this->_link, $this->_search);
+            if (!$this->_entry = @ldap_first_entry($this->_link, $this->_search)) {
+                return false;
+            }
             $entry = Horde_Ldap_Entry::createConnected($this->_ldap, $this->_entry);
         } else {
             if (!$this->_entry = @ldap_next_entry($this->_link, $this->_entry)) {

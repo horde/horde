@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
-* 
+* [jan] Speed up Horde_Ldap_Search#shiftEntry() on large result sets.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -264,7 +264,7 @@
    <date>2011-07-05</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
    <notes>
-* 
+* [jan] Speed up Horde_Ldap_Search#shiftEntry() on large result sets.
    </notes>
   </release>
  </changelog>
