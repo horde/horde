@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: trean/add.php,v 1.49 2009/07/09 08:18:39 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
@@ -19,7 +17,7 @@ switch ($actionID) {
 case 'add_bookmark':
     /* Check permissions. */
     if (Trean::hasPermission('max_bookmarks') !== true &&
-        Trean::hasPermission('max_bookmarks') <= $trean_shares->countBookmarks()) {
+        Trean::hasPermission('max_bookmarks') <= $trean_gateway->countBookmarks()) {
         Horde::permissionDeniedError(
             'trean',
             'max_bookmarks',
@@ -36,8 +34,7 @@ case 'add_bookmark':
     );
 
     try {
-        $bookmark = new Trean_Bookmark($properties);
-        $bookmark->save();
+        $bookmark = $trean_gateway->newBookmark($properties);
     } catch (Exception $e) {
         $notification->push(sprintf(_("There was an error adding the bookmark: %s"), $e->getMessage()), 'horde.error');
     }

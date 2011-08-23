@@ -37,10 +37,10 @@ class Trean_Application extends Horde_Registry_Application
 
     /**
      * Global variables defined:
-     * - $trean_db:     TODO
-     * - $trean_shares: TODO
-     * - $linkTags:     <link> tags for common-header.inc.
-     * - $bodyClass:    <body> CSS class for common-header.inc.
+     * - $trean_db:      TODO
+     * - $trean_gateway: TODO
+     * - $linkTags:      <link> tags for common-header.inc.
+     * - $bodyClass:     <body> CSS class for common-header.inc.
      */
     protected function _init()
     {

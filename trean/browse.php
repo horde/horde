@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: trean/browse.php,v 1.73 2009-11-29 15:51:42 chuck Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -21,7 +19,6 @@ $bookmarks = array();
 
 Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('effects.js', 'horde', true);
-Horde::addScriptFile('redbox.js', 'horde', true);
 $title = _("Browse");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 if (!Horde_Util::getFormData('popup')) {

@@ -10,8 +10,14 @@
  */
 class Trean_Bookmarks
 {
+    /**
+     * @var Content_Users_Manager
+     */
     protected $_userManager;
 
+    /**
+     * @var integer
+     */
     protected $_userId;
 
     /**
@@ -20,11 +26,20 @@ class Trean_Bookmarks
     public function __construct(Content_Users_Manager $userManager)
     {
         $this->_userManager = $userManager;
-        try {
-            Horde::callHook('share_init', array($this, 'trean'));
-        } catch (Horde_Exception_HookNotSet $e) {}
-
         $this->_userId = current($this->_userManager->ensureUsers($GLOBALS['registry']->getAuth()));
+    }
+
+    /**
+     * Create a new bookmark for the current user
+     *
+     * @return Trean_Bookmark
+     */
+    public function newBookmark(array $properties)
+    {
+        $properties['user_id'] = $this->_userId;
+        $bookmark = new Trean_Bookmark($properties);
+        $bookmark->save();
+        return $bookmark;
     }
 
     /**

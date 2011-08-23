@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde: trean/config/conf.xml,v 1.2 2005/03/29 04:34:10 ben Exp $ -->
+<!-- $Id$ -->
 <configuration>
  <configsection name="menu" desc="Menu settings">
    <configheader>

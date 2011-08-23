@@ -6,6 +6,7 @@
 class Trean_Bookmark
 {
     var $id = null;
+    var $userId = null;
     var $url = null;
     var $title = '';
     var $description = '';
@@ -17,6 +18,7 @@ class Trean_Bookmark
     public function __construct($bookmark = array())
     {
         if ($bookmark) {
+            $this->userId = $bookmark['user_id'];
             $this->url = $bookmark['bookmark_url'];
             $this->title = $bookmark['bookmark_title'];
             $this->description = $bookmark['bookmark_description'];
@@ -45,13 +47,15 @@ class Trean_Bookmark
             // Update an existing bookmark.
             return $GLOBALS['trean_db']->update('
                 UPDATE trean_bookmarks
-                SET bookmark_url = ?,
+                SET user_id = ?,
+                    bookmark_url = ?,
                     bookmark_title = ?,
                     bookmark_description = ?,
                     bookmark_clicks = ?,
                     bookmark_rating = ?
                 WHERE bookmark_id = ?',
                 array(
+                    $this->userId,
                     Horde_String::convertCharset($this->url, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                     Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                     Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
@@ -72,7 +76,7 @@ class Trean_Bookmark
                  bookmark_clicks, bookmark_rating)
             VALUES (?, ?, ?, ?, ?, ?)',
             array(
-                $this->_userId,
+                $this->userId,
                 Horde_String::convertCharset($this->url, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
