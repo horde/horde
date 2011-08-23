@@ -19,7 +19,7 @@ if (!$registry->isAdmin() &&
 $groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
-$form = 'add.inc';
+$form = $groups->readOnly() ? null : 'add.inc';
 $actionID = Horde_Util::getFormData('actionID');
 $gid = Horde_Util::getFormData('gid');
 

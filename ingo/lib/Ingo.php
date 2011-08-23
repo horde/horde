@@ -67,7 +67,9 @@ class Ingo
         $session->set('ingo', 'script_generate', $ingo_script->generateAvailable());
 
         /* Disable categories as specified in preferences */
-        $categories = array_merge($ingo_script->availableActions(), $ingo_script->availableCategories());
+        $categories = array_flip(
+            array_merge($ingo_script->availableActions(),
+                        $ingo_script->availableCategories()));
         if ($prefs->isLocked('blacklist')) {
             unset($categories[Ingo_Storage::ACTION_BLACKLIST]);
         }
@@ -83,6 +85,7 @@ class Ingo
         if ($prefs->isLocked('spam')) {
             unset($categories[Ingo_Storage::ACTION_SPAM]);
         }
+        $categories = array_flip($categories);
 
         /* Set the list of categories this driver supports. */
         $session->set('ingo', 'script_categories', $categories);

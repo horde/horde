@@ -111,7 +111,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
             array('objectClass' => array('top', 'person'),
                   'cn'          => $cn,
                   'sn'          => 'TestEntry'));
-        $this->assertType('Horde_Ldap_Entry', $fresh_entry);
+        $this->assertInstanceOf('Horde_Ldap_Entry', $fresh_entry);
         $ldap->add($fresh_entry);
 
         // Deleting this entry.
@@ -241,7 +241,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
                                               'telephoneNumber', 'postalcode',
                                               'st', 'l', 'businessCategory',
                                               'description'));
-        $this->assertType('Horde_Ldap_Entry', $actual_entry);
+        $this->assertInstanceOf('Horde_Ldap_Entry', $actual_entry);
         $expected_attributes = array(
             'objectClass'      => array('top', 'organizationalUnit'),
             'ou'               => 'Horde_Ldap_Test_modify',
@@ -304,29 +304,29 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         // Search for test filter, should at least return our two test entries.
         $res = $ldap->search(null, '(ou=Horde_Ldap*)',
                              array('attributes' => '1.1'));
-        $this->assertType('Horde_Ldap_Search', $res);
+        $this->assertInstanceOf('Horde_Ldap_Search', $res);
         $this->assertThat($res->count(), $this->greaterThanOrEqual(2));
 
         // Same, but with Horde_Ldap_Filter object.
         $filtero = Horde_Ldap_Filter::create('ou', 'begins', 'Horde_Ldap');
-        $this->assertType('Horde_Ldap_Filter', $filtero);
+        $this->assertInstanceOf('Horde_Ldap_Filter', $filtero);
         $res = $ldap->search(null, $filtero,
                              array('attributes' => '1.1'));
-        $this->assertType('Horde_Ldap_Search', $res);
+        $this->assertInstanceOf('Horde_Ldap_Search', $res);
         $this->assertThat($res->count(), $this->greaterThanOrEqual(2));
 
         // Search using default filter for base-onelevel scope, should at least
         // return our two test entries.
         $res = $ldap->search(null, null,
                              array('scope' => 'one', 'attributes' => '1.1'));
-        $this->assertType('Horde_Ldap_Search', $res);
+        $this->assertInstanceOf('Horde_Ldap_Search', $res);
         $this->assertThat($res->count(), $this->greaterThanOrEqual(2));
 
         // Base-search using custom base (string), should only return the test
         // entry $ou1 and not the entry below it.
         $res = $ldap->search($ou1->dn(), null,
                              array('scope' => 'base', 'attributes' => '1.1'));
-        $this->assertType('Horde_Ldap_Search', $res);
+        $this->assertInstanceOf('Horde_Ldap_Search', $res);
         $this->assertEquals(1, $res->count());
 
         // Search using custom base, this time using an entry object.  This
@@ -334,7 +334,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         // the test entry $ou1.
         $res = $ldap->search($ou1, '(ou=*)',
                              array('scope' => 'base', 'attributes' => '1.1'));
-        $this->assertType('Horde_Ldap_Search', $res);
+        $this->assertInstanceOf('Horde_Ldap_Search', $res);
         $this->assertEquals(1, $res->count());
 
         // Search using default filter for base-onelevel scope with sizelimit,
@@ -344,7 +344,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
             null, null,
             array('scope' => 'one', 'sizelimit' => 1, 'attributes' => '1.1')
         );
-        $this->assertType('Horde_Ldap_Search', $res);
+        $this->assertInstanceOf('Horde_Ldap_Search', $res);
         $this->assertEquals(1, $res->count());
         // Sizelimit should be exceeded now.
         $this->assertTrue($res->sizeLimitExceeded());
@@ -366,7 +366,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         // Nullresult.
         $res = $ldap->search(null, '(cn=nevermatching_filter)',
                              array('scope' => 'base', 'attributes' => '1.1'));
-        $this->assertType('Horde_Ldap_Search', $res);
+        $this->assertInstanceOf('Horde_Ldap_Search', $res);
         $this->assertEquals(0, $res->count());
     }
 
@@ -415,7 +415,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         $ldap->add($entry);
 
         // Existing DN.
-        $this->assertType('Horde_Ldap_Entry', $ldap->getEntry($dn));
+        $this->assertInstanceOf('Horde_Ldap_Entry', $ldap->getEntry($dn));
 
         // Not existing DN.
         try {
@@ -557,7 +557,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
 
         // Copy over the entry to another tree with rename.
         $entrycp = $ldap->copy($entry, 'l=test_copied,' . $ou2->dn());
-        $this->assertType('Horde_Ldap_Entry', $entrycp);
+        $this->assertInstanceOf('Horde_Ldap_Entry', $entrycp);
         $this->assertNotEquals($entry->dn(), $entrycp->dn());
         $this->assertTrue($ldap->exists($entrycp->dn()));
 
@@ -580,7 +580,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
     public function testRootDSE()
     {
         $ldap = new Horde_Ldap(self::$ldapcfg['server']);
-        $this->assertType('Horde_Ldap_RootDse', $ldap->rootDSE());
+        $this->assertInstanceOf('Horde_Ldap_RootDse', $ldap->rootDSE());
     }
 
     /**
@@ -589,7 +589,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
     public function testSchema()
     {
         $ldap = new Horde_Ldap(self::$ldapcfg['server']);
-        $this->assertType('Horde_Ldap_Schema', $ldap->schema());
+        $this->assertInstanceOf('Horde_Ldap_Schema', $ldap->schema());
     }
 
     /**

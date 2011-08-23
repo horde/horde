@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Fix attribute name for assistant phone (Bug #10449).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1275,7 +1275,7 @@
    <date>2011-08-17</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Fix attribute name for assistant phone (Bug #10449).
    </notes>
   </release>
  </changelog>

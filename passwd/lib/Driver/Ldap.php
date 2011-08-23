@@ -101,7 +101,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver {
         $this->_ldap->bind($this->_userdn, $old_password);
 
         // rebind with admin credentials
-        if (!($this->_params['writeAsUserDN']) ) {
+        if (!empty($this->_params['admindn'])) {
             $this->_ldap->bind();
         }
         // Get existing user information

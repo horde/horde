@@ -583,7 +583,7 @@ class Horde_Icalendar
         //  last=20line
         while (preg_match_all('/^([^:]+;\s*(ENCODING=)?QUOTED-PRINTABLE(.*=\r?\n)+(.*[^=])?(\r?\n|$))/mU', $vCal, $matches)) {
             foreach ($matches[1] as $s) {
-                $r = preg_replace('/=\r?\n\s/', '', $s);
+                $r = preg_replace('/=\r?\n/', '', $s);
                 $vCal = str_replace($s, $r, $vCal);
             }
         }
