@@ -135,7 +135,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver
 
         // Change the user's password and update lastchange.
         try {
-            $entry->replace(array($this->_params['attribute'] => $this->encryptPassword($new_password)));
+            $entry->replace(array($this->_params['attribute'] => $this->encryptPassword($new_password)), true);
 
             if (!empty($this->_params['shadowlastchange']) &&
                 $lookupshadow['shadowlastchange']) {
