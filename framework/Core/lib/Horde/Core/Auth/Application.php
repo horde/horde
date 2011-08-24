@@ -199,7 +199,70 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             parent::addUser($userId, $credentials);
         }
     }
+    /**
+     * Locks a user indefinitely or for a specified time
+     *
+     * @param string $userId      The userId to lock.
+     * @param integer $time       The duration in seconds, 0 = permanent
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function lockUser($userId, $time = 0)
+    {
+        if ($this->_base) {
+            $this->_base->lockUser($userId, $time);
+            return;
+        }
 
+        if ($this->hasCapability('lock')) {
+            $GLOBALS['registry']->callAppMethod($this->_app, 'authLockUser', array('args' => array($userId, $time)));
+        } else {
+            parent::lockUser($userId, $time);
+        }
+    }
+
+    /**
+     * Unlocks a user and optionally resets bad login count
+     *
+     * @param string  $userId          The userId to unlock.
+     * @param boolean $resetBadLogins  Reset bad login counter, default no.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function unlockUser($userId, $resetBadLogins = false)
+    {
+        if ($this->_base) {
+            $this->_base->unlockUser($userId, $resetBadLogins);
+            return;
+        }
+
+        if ($this->hasCapability('lock')) {
+            $GLOBALS['registry']->callAppMethod($this->_app, 'authUnlockUser', array('args' => array($userId, $resetBadLogins)));
+        } else {
+            parent::unlockUser($userId, $resetBadLogins);
+        }
+    }
+
+    /**
+     * Checks if $userId is currently locked.
+     *
+     * @param string  $userId      The userId to check.
+     * @param boolean $show_details     Toggle array format with timeout.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function isLocked($userId, $show_details = false)
+    {
+        if ($this->_base) {
+            return $this->_base->isLocked($userId, $show_details);
+        }
+
+        if ($this->hasCapability('lock')) {
+            return $GLOBALS['registry']->callAppMethod($this->_app, 'authIsLocked', array('args' => array($userId, $show_details)));
+        } else {
+            return parent::isLocked($userId, $show_details);
+        }
+    }
     /**
      * Update a set of authentication credentials.
      *
