@@ -274,10 +274,7 @@ $backends['ldapadmin'] = array(
         // 'referrals' => 0,
         // Whether to enable TLS for this LDAP connection
         // Note: make sure that the host matches cn in the server certificate.
-        'tls' => false,
-        // The following allows you to search with admin credentials
-        // but edit the user with user credentials
-        'writeAsUserDN' => false
+        'tls' => false
     )
 );
 
