@@ -59,8 +59,8 @@ class Passwd_Driver_Ldap extends Passwd_Driver {
                   'filter' => null,
                   'tls' => false,
                   'attribute' => 'userPassword',
-                  'shadowlastchange' => 'shadowLastChange',
-                  'shadowmin' => 'shadowMin'),
+                  'shadowlastchange' => '',
+                  'shadowmin' => ''),
             $params);
 
         if (!empty($this->_params['tls']) &&

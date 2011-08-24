@@ -226,10 +226,10 @@ $backends['ldap'] = array(
         'port' => 389,
         'basedn' => 'o=example.com',
         'uid' => 'uid',
-        // these attributes will enable shadow password policies.
-        // 'shadowlastchange' => 'shadowlastchange',
-        // 'shadowmin' => 'shadowmin',
-        // this will be appended to the username when looking for the userdn.
+        // These attributes will enable shadow password policies.
+        // 'shadowlastchange' => 'shadowLastChange',
+        // 'shadowmin' => 'shadowMin',
+        // This will be appended to the username when looking for the userdn.
         'realm' => '',
         'encryption' => 'crypt',
         // make sure the host == cn in the server certificate
@@ -255,9 +255,9 @@ $backends['ldapadmin'] = array(
         'adminpw' => 'somepassword',
         // LDAP object key attribute
         'uid' => 'uid',
-        // these attributes will enable shadow password policies.
-        // 'shadowlastchange' => 'shadowlastchange',
-        // 'shadowmin' => 'shadowmin',
+        // These attributes will enable shadow password policies.
+        // 'shadowlastchange' => 'shadowLastChange',
+        // 'shadowmin' => 'shadowMin',
         'attribute' => 'clearPassword',
         // This will be appended to the username when looking for the userdn.
         'realm' => '',
