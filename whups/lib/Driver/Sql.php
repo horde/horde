@@ -574,7 +574,7 @@ class Whups_Driver_Sql extends Whups_Driver
         $this->jtables = array();
         $this->joins   = array();
 
-        $where = $query->reduce($this, '_clauseFromQuery', $vars);
+        $where = $query->reduce(array($this, 'clauseFromQuery'), $vars);
         if (!$where) {
             $GLOBALS['notification']->push(_("No query to run"), 'horde.message');
             return array();
@@ -606,7 +606,7 @@ class Whups_Driver_Sql extends Whups_Driver
         return $ids;
     }
 
-    protected function _clauseFromQuery($args, $type, $criterion, $cvalue,
+    public function clauseFromQuery($args, $type, $criterion, $cvalue,
                                         $operator, $value)
     {
         switch ($type) {

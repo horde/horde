@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-19</date>
- <time>11:11:12</time>
+ <date>2011-08-22</date>
+ <time>23:54:11</time>
  <version>
   <release>5.0.11</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix POP3 regression (Bug #10450).
 * [mms] Forwarded messages no longer treated as an attachment in the UI (Request #9754).
 * [mms] Correctly display submailboxes in dynamic view when new submailbox is created before parent mailbox is expanded (Bug #10429).
  </notes>
@@ -2407,9 +2408,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-19</date>
+   <date>2011-08-22</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix POP3 regression (Bug #10450).
 * [mms] Forwarded messages no longer treated as an attachment in the UI (Request #9754).
 * [mms] Correctly display submailboxes in dynamic view when new submailbox is created before parent mailbox is expanded (Bug #10429).
    </notes>

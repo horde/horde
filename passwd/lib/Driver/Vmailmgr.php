@@ -8,10 +8,11 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
- * WARNING: This driver has only formally been converted to Horde 4. 
- * No testing has been done. If this doesn't work, please file bugs at
- * bugs.horde.org
- * If you really need this to work reliably, think about sponsoring development
+ * WARNING: This driver has only formally been converted to Horde 4.  No
+ *          testing has been done. If this doesn't work, please file bugs at
+ *          bugs.horde.org.  If you really need this to work reliably, think
+ *          about sponsoring development. Please let the Horde developers know
+ *          if you can verify this driver to work.
  *
  * @author  Marco Kaiser <bate@php.net>
  * @since   Passwd 2.2

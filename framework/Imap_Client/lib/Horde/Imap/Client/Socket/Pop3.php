@@ -284,16 +284,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     {
         switch ($method) {
         case 'CRAM-MD5':
-            // RFC 5034
-            if (!class_exists('Auth_SASL')) {
-                $this->_exception('The Auth_SASL package is required for CRAM-MD5 authentication');
-            }
-
-            $challenge = $this->_sendLine('AUTH CRAM-MD5');
-
-            $auth_sasl = Auth_SASL::factory('crammd5');
-            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode(substr($challenge['line'], 2))));
-            $this->_sendLine($response, array('debug' => '[CRAM-MD5 Response]'));
+        case 'CRAM-SHA1':
+        case 'CRAM-SHA256':
+            // RFC 5034: CRAM-MD5
+            // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
+            $challenge = $this->_sendLine('AUTH ' . $method);
+            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower($method, 5), $this->getParam('password'), base64_decode(substr($challenge['line'], 2)), true));
+            $this->_sendLine($response, array('debug' => '[' . $method . ' Response]'));
             break;
 
         case 'DIGEST-MD5':
@@ -344,6 +341,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 'debug' => '[USER Command - password]'
             ));
             break;
+
+        default:
+            $this->_exception('Unknown authentication method: ' . $method);
         }
     }
 

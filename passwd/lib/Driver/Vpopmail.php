@@ -9,17 +9,17 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
- * WARNING: This driver has only formally been converted to Horde 4. 
- * No testing has been done. If this doesn't work, please file bugs at
- * bugs.horde.org
- * If you really need this to work reliably, think about sponsoring development
- * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
- *
+ * WARNING: This driver has only formally been converted to Horde 4.  No
+ *          testing has been done. If this doesn't work, please file bugs at
+ *          bugs.horde.org.  If you really need this to work reliably, think
+ *          about sponsoring development. Please let the Horde developers know
+ *          if you can verify this driver to work.
+y *
  * @author  Anton Nekhoroshikh <anton@valuehost.ru>
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Ilya Krel <mail@krel.org>
  * @author  Tjeerd van der Zee <admin@xar.nl>
- * @author  Mattias Webjörn Eriksson <mattias@webjorn.org>
+ * @author  Mattias WebjÃ¶rn Eriksson <mattias@webjorn.org>
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
  * @author  Ralf Lang <lang@b1-systems.de>
  * @since   Passwd 2.2
@@ -141,7 +141,7 @@ class Passwd_Driver_Vpopmail extends Passwd_Driver {
 
         /* Encrypt the password. */
         $clear_password = $new_password;
-        $new_password = $this->encryptPassword($new_password, $this->_params['show_encryption']);
+        $new_password = $this->encryptPassword($new_password);
 
         /* Build the SQL query. */
         $sql = 'UPDATE ' . $this->_params['table'] .

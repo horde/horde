@@ -147,8 +147,9 @@ case 'copy_messages':
     if (isset($vars->targetMbox) &&
         count($indices) &&
         (!$readonly || $actionID == 'copy_messages')) {
+        $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);
         if (!empty($vars->newMbox) && ($vars->newMbox == 1)) {
-            $targetMbox = IMP_Mailbox::prefFrom($vars->targetMbox);
+            $targetMbox = IMP_Mailbox::get($vars->targetMbox)->namespace_append;
             $newMbox = true;
         } else {
             $targetMbox = IMP_Mailbox::formFrom($vars->targetMbox);

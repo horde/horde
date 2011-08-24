@@ -74,7 +74,6 @@ class Hermes_Form_Time_Entry extends Hermes_Form_Time
             try {
                 $info = $GLOBALS['injector']->getInstance('Hermes_Driver')->getClientSettings($vars->get('client'));
             } catch (Horde_Exception_NotFound $e) {
-                throw new Hermes_Exception($e);
             }
             if (!$info['enterdescription']) {
                 $vars->set('description', _("See Attached Timesheet"));

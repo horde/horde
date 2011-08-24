@@ -95,7 +95,7 @@
  *            per default. Otherwise the first entry in the list is
  *            selected.
  *
- * show_encryption: If you are using the sql or the vpopmail backend
+ * show_encryption: If you are using the ldap, sql or vpopmail backends
  *                  you have the choice whether or not to store the
  *                  encryption type with the password. If you are
  *                  using for example an SQL based PAM you will most
@@ -103,8 +103,6 @@
  *                  would cause PAM to never match the passwords.
  *
  */
-
-
 
 $backends['hordeauth'] = array (
     'disabled' => true,
@@ -225,14 +223,21 @@ $backends['ldap'] = array(
         'host' => 'localhost',
         'port' => 389,
         'basedn' => 'o=example.com',
+        // LDAP object key attribute.
         'uid' => 'uid',
-        // these attributes will enable shadow password policies.
-        // 'shadowlastchange' => 'shadowlastchange',
-        // 'shadowmin' => 'shadowmin',
-        // this will be appended to the username when looking for the userdn.
+        // The attribute storing the password.
+        'attribute' => 'userPassword',
+        // These attributes will enable shadow password policies.
+        // 'shadowlastchange' => 'shadowLastChange',
+        // 'shadowmin' => 'shadowMin',
+        // This will be appended to the username when looking for the userdn.
         'realm' => '',
+        // Use this filter when searching for the user's DN.
+        'filter' => '',
+        // Hash method to use when storing the password
         'encryption' => 'crypt',
-        // make sure the host == cn in the server certificate
+        // Whether to enable TLS for this LDAP connection
+        // Note: make sure that the host matches cn in the server certificate.
         'tls' => false
     )
 );
@@ -253,28 +258,26 @@ $backends['ldapadmin'] = array(
         'basedn' => 'o=example.com',
         'admindn' => 'cn=admin,o=example.com',
         'adminpw' => 'somepassword',
-        // LDAP object key attribute
+        // LDAP object key attribute.
         'uid' => 'uid',
-        // these attributes will enable shadow password policies.
-        // 'shadowlastchange' => 'shadowlastchange',
-        // 'shadowmin' => 'shadowmin',
-        'attribute' => 'clearPassword',
+        // The attribute storing the password.
+        'attribute' => 'userPassword',
+        // These attributes will enable shadow password policies.
+        // 'shadowlastchange' => 'shadowLastChange',
+        // 'shadowmin' => 'shadowMin',
         // This will be appended to the username when looking for the userdn.
         'realm' => '',
         // Use this filter when searching for the user's DN.
         'filter' => '',
         // Hash method to use when storing the password
         'encryption' => 'crypt',
-        // Only applies to LDAP servers. If set, should be 0 or 1. See the LDAP 
-        // documentation about the corresponding parameter REFERRALS.
+        // If set, should be 0 or 1. See the LDAP documentation about the
+        // corresponding parameter REFERRALS.
         // Windows 2003 Server require to set this parameter to 0
         // 'referrals' => 0,
         // Whether to enable TLS for this LDAP connection
-        // Note: make sure the host matches cn in the server certificate
-        'tls' => false,
-        // The following allows you to search with admin credentials
-        // but edit the user with user credentials
-        'writeAsUserDN' => false
+        // Note: make sure that the host matches cn in the server certificate.
+        'tls' => false
     )
 );
 
@@ -294,11 +297,18 @@ $backends['smbldap'] = array(
         'host' => 'localhost',
         'port' => 389,
         'basedn' => 'o=example.com',
+        // LDAP object key attribute.
         'uid' => 'uid',
+        // The attribute storing the password.
+        'attribute' => 'userPassword',
         // This will be appended to the username when looking for the userdn.
         'realm' => '',
+        // Use this filter when searching for the user's DN.
+        'filter' => '',
+        // Hash method to use when storing the password
         'encryption' => 'crypt',
-        // Make sure the host == cn in the server certificate.
+        // Whether to enable TLS for this LDAP connection
+        // Note: make sure that the host matches cn in the server certificate.
         'tls' => false,
         // If any of the following attributes are commented out, they
         // won't be set on the LDAP server.

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix fatal error while searching if hitting certain recurring events.
 * [jan] Fix exporting events with snoozed alarms (Bug #10438).
  </notes>
  <contents>
@@ -1867,6 +1868,7 @@
    <date>2011-08-17</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix fatal error while searching if hitting certain recurring events.
 * [jan] Fix exporting events with snoozed alarms (Bug #10438).
    </notes>
   </release>
