@@ -498,7 +498,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         switch ($method) {
         case 'CRAM-MD5':
-        case 'DIGEST-MD5':
+            // RFC 2195
             $ob = $this->_sendLine(array(
                 'AUTHENTICATE',
                 array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $method)
@@ -506,40 +506,36 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 'noparse' => true
             ));
 
-            switch ($method) {
-            case 'CRAM-MD5':
-                // RFC 2195
-                if (!class_exists('Auth_SASL')) {
-                    $this->_exception('The Auth_SASL package is required for CRAM-MD5 authentication');
-                }
-                $auth_sasl = Auth_SASL::factory('crammd5');
-                $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line'])));
-                $this->_sendLine($response, array(
-                    'debug' => '[CRAM-MD5 Response]',
-                    'notag' => true
-                ));
-                break;
+            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac('md5', $this->getParam('password'), base64_decode($ob['line']), true));
+            $this->_sendLine($response, array(
+                'debug' => '[' . $method . ' Response]',
+                'notag' => true
+            ));
+            break;
 
-            case 'DIGEST-MD5':
-                if (!class_exists('Auth_SASL')) {
-                    $this->_exception('The Auth_SASL package is required for DIGEST-MD5 authentication');
-                }
-                $auth_sasl = Auth_SASL::factory('digestmd5');
-                $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line']), $this->_params['hostspec'], 'imap'));
-                $ob = $this->_sendLine($response, array(
-                    'debug' => '[DIGEST-MD5 Response]',
-                    'noparse' => true,
-                    'notag' => true
-                ));
-                $response = base64_decode($ob['line']);
-                if (strpos($response, 'rspauth=') === false) {
-                    $this->_exception('Unexpected response from server to Digest-MD5 response.');
-                }
-                $this->_sendLine('', array(
-                    'notag' => true
-                ));
-                break;
+        case 'DIGEST-MD5':
+            // RFC 2831/4422
+            $ob = $this->_sendLine(array(
+                'AUTHENTICATE',
+                array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $method)
+            ), array(
+                'noparse' => true
+            ));
+
+            $auth_sasl = Auth_SASL::factory('digestmd5');
+            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line']), $this->_params['hostspec'], 'imap'));
+            $ob = $this->_sendLine($response, array(
+                'debug' => '[DIGEST-MD5 Response]',
+                'noparse' => true,
+                'notag' => true
+            ));
+            $response = base64_decode($ob['line']);
+            if (strpos($response, 'rspauth=') === false) {
+                $this->_exception('Unexpected response from server to Digest-MD5 response.');
             }
+            $this->_sendLine('', array(
+                'notag' => true
+            ));
             break;
 
         case 'LOGIN':
