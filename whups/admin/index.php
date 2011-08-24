@@ -171,9 +171,10 @@ case 'whups_form_admin_clonetype':
         }
 
         // Add attributes.
-        foreach ($attributes as $a) {
+        foreach ($attributes as $attribute) {
+            $a = $whups_driver->getAttributeDesc($attribute['attribute_id']);
             $whups_driver->addAttributeDesc(
-                $nid, $a['attribute_name'], $a['attribute_description']);
+                $nid, $a['name'], $a['description'], $a['type'], $a['params'], $a['required']);
         }
 
         $notification->push(
