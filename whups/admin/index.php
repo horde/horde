@@ -114,11 +114,6 @@ case 'whups_form_admin_addtype':
     }
     break;
 
-case 'whups_form_admin_edittypesteptwo':
-    $form1 = new Whups_Form_Admin_AddType($vars);
-    $form2 = new Whups_Form_Admin_EditTypeStepTwo($vars);
-    break;
-
 case 'whups_form_admin_edittypestepone':
     $form1 = new Whups_Form_Admin_EditTypeStepOne($vars);
     $vars->set('action', 'type');
@@ -191,26 +186,24 @@ case 'whups_form_admin_clonetype':
     }
     break;
 
-case 'whups_form_admin_edittypestepone':
 case 'whups_form_admin_edittypesteptwo':
     $form = new Whups_Form_Admin_EditTypeStepTwo($vars);
-    if ($vars->get('formname') == 'whups_form_admin_edittypesteptwo' && $form->validate($vars)) {
-
+    if ($form->validate($vars)) {
         try {
             $whups_driver->updateType(
                 $vars->get('type'),
                 $vars->get('name'),
                 $vars->get('description'));
-
             $notification->push(sprintf(_("The type \"%s\" has been modified."),
                                         $vars->get('name')),
                                 'horde.success');
-            _open();
-            $form->renderActive($renderer, $vars, $adminurl, 'post');
+            Horde::url('admin/?action=type', true)->redirect();
         } catch (Whups_Exception $e) {
             $notification->push(
                 _("There was an error modifying the type:") . ' ' . $e->getMessage(),
                 'horde.error');
+            _open();
+            $form->renderActive($renderer, $vars, $adminurl, 'post');
         }
     } else {
         _open();
