@@ -95,7 +95,7 @@
  *            per default. Otherwise the first entry in the list is
  *            selected.
  *
- * show_encryption: If you are using the sql or the vpopmail backend
+ * show_encryption: If you are using the ldap, sql or vpopmail backends
  *                  you have the choice whether or not to store the
  *                  encryption type with the password. If you are
  *                  using for example an SQL based PAM you will most

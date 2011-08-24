@@ -110,7 +110,7 @@ class Passwd_Driver_Sql extends Passwd_Driver {
             list($sql, $values) = $this->_parseQuery($this->_params['query_modify'], $user, $new_password);
         } else {
             /* Encrypt the password. */
-            $new_password = $this->encryptPassword($new_password, $this->_params['show_encryption']);
+            $new_password = $this->encryptPassword($new_password);
 
             /* Build the SQL query. */
             $sql = 'UPDATE ' . $this->_params['table'] .
@@ -171,7 +171,7 @@ class Passwd_Driver_Sql extends Passwd_Driver {
 
                 case 'e':
                     $query .= '?';
-                    $values[] = $this->encryptPassword($password, $this->_params['show_encryption']);
+                    $values[] = $this->encryptPassword($password);
                     break;
 
                 case '%':

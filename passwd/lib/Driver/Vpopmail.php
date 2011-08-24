@@ -141,7 +141,7 @@ class Passwd_Driver_Vpopmail extends Passwd_Driver {
 
         /* Encrypt the password. */
         $clear_password = $new_password;
-        $new_password = $this->encryptPassword($new_password, $this->_params['show_encryption']);
+        $new_password = $this->encryptPassword($new_password);
 
         /* Build the SQL query. */
         $sql = 'UPDATE ' . $this->_params['table'] .
