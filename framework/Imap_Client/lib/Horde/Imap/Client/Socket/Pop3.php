@@ -344,6 +344,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 'debug' => '[USER Command - password]'
             ));
             break;
+
+        default:
+            $this->_exception('Unknown authentication method: ' . $method);
         }
     }
 

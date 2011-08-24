@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-23</date>
- <time>10:23:01</time>
+ <date>2011-08-24</date>
+ <time>10:32:34</time>
  <version>
   <release>1.0.14</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Ignore unknown authentication methods; otherwise, they give false positive when authenticating (Bug #10453).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -510,10 +510,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-23</date>
+   <date>2011-08-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Ignore unknown authentication methods; otherwise, they give false positive when authenticating (Bug #10453).
    </notes>
   </release>
  </changelog>

@@ -574,6 +574,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ));
             }
             break;
+
+        default:
+            $this->_exception('Unknown authentication method: ' . $method);
         }
     }
 
