@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Don&apos;t include backtrace in Horde_Exception_Pear messages.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -600,7 +600,7 @@
    <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Don&apos;t include backtrace in Horde_Exception_Pear messages.
    </notes>
   </release>
  </changelog>

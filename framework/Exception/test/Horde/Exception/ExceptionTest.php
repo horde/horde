@@ -145,7 +145,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
         } catch (Horde_Exception_Pear $e) {
             $this->assertContains(
                 'Horde_Exception_ExceptionTest->testCatchingAndConvertingPearErrors unkown:unkown',
-                $e->getMessage()
+                $e->details
             );
         }
     }
@@ -158,10 +158,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
                 new PEAR_Error('An error occurred.', null, null, null, 'userinfo')
             );
         } catch (Horde_Exception_Pear $e) {
-            $this->assertContains(
-                'userinfo',
-                $e->getMessage()
-            );
+            $this->assertContains('userinfo', $e->details);
         }
     }
 
@@ -173,10 +170,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
                 new PEAR_Error('An error occurred.', null, null, null, array('userinfo'))
             );
         } catch (Horde_Exception_Pear $e) {
-            $this->assertContains(
-                '[0] => userinfo',
-                $e->getMessage()
-            );
+            $this->assertContains('[0] => userinfo', $e->details);
         }
     }
 
