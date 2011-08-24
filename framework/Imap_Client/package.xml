@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-24</date>
- <time>11:20:15</time>
+ <time>11:27:35</time>
  <version>
   <release>1.0.14</release>
   <api>1.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Add support for CRAM-SHA1 and CRAM-SHA256 authentication (available in Courier SASL library).
 * [mms] Remove dependency on Auth_SASL for CRAM-MD5 authentication.
 * [mms] Ignore unknown authentication methods; otherwise, they give false positive when authenticating (Bug #10453).
  </notes>
@@ -514,6 +515,7 @@
    <date>2011-08-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mms] Add support for CRAM-SHA1 and CRAM-SHA256 authentication (available in Courier SASL library).
 * [mms] Remove dependency on Auth_SASL for CRAM-MD5 authentication.
 * [mms] Ignore unknown authentication methods; otherwise, they give false positive when authenticating (Bug #10453).
    </notes>

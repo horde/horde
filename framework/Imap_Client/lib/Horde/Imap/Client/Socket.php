@@ -498,7 +498,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         switch ($method) {
         case 'CRAM-MD5':
-            // RFC 2195
+        case 'CRAM-SHA1':
+        case 'CRAM-SHA256':
+            // RFC 2195: CRAM-MD5
+            // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
             $ob = $this->_sendLine(array(
                 'AUTHENTICATE',
                 array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $method)
@@ -506,7 +509,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 'noparse' => true
             ));
 
-            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac('md5', $this->getParam('password'), base64_decode($ob['line']), true));
+            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), $this->getParam('password'), base64_decode($ob['line']), true));
             $this->_sendLine($response, array(
                 'debug' => '[' . $method . ' Response]',
                 'notag' => true
