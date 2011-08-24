@@ -827,15 +827,15 @@ class Whups_Query
     /**
      * Bottom up traversal.
      */
-    public function reduce(&$obj, $method, &$vars)
+    public function reduce($method, &$vars)
     {
-        return $this->_reduce($this->query, $obj, $method, $vars);
+        return $this->_reduce($this->query, $method, $vars);
     }
 
     /**
      * @access private
      */
-    protected function _reduce(&$node, &$obj, $method, &$vars)
+    protected function _reduce(&$node, $method, &$vars)
     {
         $args = array();
 
@@ -843,7 +843,7 @@ class Whups_Query
             $count = count($node['children']);
 
             for ($i = 0; $i < $count; $i++) {
-                $result = $this->_reduce($node['children'][$i], $obj, $method, $vars);
+                $result = $this->_reduce($node['children'][$i], $method, $vars);
                 $args[] = $result;
             }
         }
@@ -856,14 +856,12 @@ class Whups_Query
                 $value = $vars->get($pn);
             }
 
-            $result = $obj->$method(
-                $args, Whups_Query::TYPE_CRITERION, $node['criterion'],
+            return call_user_func(
+                $method, $args, Whups_Query::TYPE_CRITERION, $node['criterion'],
                 $node['cvalue'], $node['operator'], $value);
-        } else {
-            $result = $obj->$method($args, $node['type'], null, null, null, null);
         }
 
-        return $result;
+        return call_user_func($method, $args, $node['type'], null, null, null, null);
     }
 
     /**
