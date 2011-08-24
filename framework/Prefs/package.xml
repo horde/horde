@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:33:35</time>
+ <date>2011-08-24</date>
+ <time>10:12:34</time>
  <version>
   <release>1.1.4</release>
   <api>1.1.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Fix identities when default_identity is locked (Bug #10098).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -752,10 +752,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-08-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Fix identities when default_identity is locked (Bug #10098).
    </notes>
   </release>
  </changelog>
