@@ -133,7 +133,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver {
 
             if (!empty($this->_params['shadowlastchange']) &&
                 $lookupshadow['shadowlastchange']) {
-                $Entry->replace(array($this->_params['shadowlastchange'] = floor(time() / 86400)));
+                $Entry->replace(array($this->_params['shadowlastchange'] => floor(time() / 86400)));
             }
 
             $Entry->update();
