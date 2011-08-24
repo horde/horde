@@ -26,6 +26,7 @@ class Horde_Auth
      * REASON_LOGOUT   - Logout due to user request
      * REASON_MESSAGE  - Logout with custom message
      * REASON_SESSION  - Logout due to session expiration
+     * REASON_LOCKED   - User is locked
      * </pre>
      */
     const REASON_BADLOGIN = 1;
@@ -34,6 +35,7 @@ class Horde_Auth
     const REASON_LOGOUT = 4;
     const REASON_MESSAGE = 5;
     const REASON_SESSION = 6;
+    const REASON_LOCKED = 7;
 
     /**
      * 64 characters that are valid for APRMD5 passwords.
