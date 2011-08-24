@@ -20,13 +20,6 @@ class Horde_Exception_Pear extends Horde_Exception
     static protected $_class = __CLASS__;
 
     /**
-     * The original PEAR error.
-     *
-     * @var PEAR_Error
-     */
-    private $_error;
-
-    /**
      * Exception constructor.
      *
      * @param PEAR_Error $error The PEAR error.
