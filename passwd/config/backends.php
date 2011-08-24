@@ -104,8 +104,6 @@
  *
  */
 
-
-
 $backends['hordeauth'] = array (
     'disabled' => true,
     'name' => 'Horde Authentication',
@@ -227,11 +225,15 @@ $backends['ldap'] = array(
         'basedn' => 'o=example.com',
         // LDAP object key attribute.
         'uid' => 'uid',
+        // The attribute storing the password.
+        'attribute' => 'userPassword',
         // These attributes will enable shadow password policies.
         // 'shadowlastchange' => 'shadowLastChange',
         // 'shadowmin' => 'shadowMin',
         // This will be appended to the username when looking for the userdn.
         'realm' => '',
+        // Use this filter when searching for the user's DN.
+        'filter' => '',
         // Hash method to use when storing the password
         'encryption' => 'crypt',
         // Whether to enable TLS for this LDAP connection
@@ -258,10 +260,11 @@ $backends['ldapadmin'] = array(
         'adminpw' => 'somepassword',
         // LDAP object key attribute.
         'uid' => 'uid',
+        // The attribute storing the password.
+        'attribute' => 'userPassword',
         // These attributes will enable shadow password policies.
         // 'shadowlastchange' => 'shadowLastChange',
         // 'shadowmin' => 'shadowMin',
-        'attribute' => 'clearPassword',
         // This will be appended to the username when looking for the userdn.
         'realm' => '',
         // Use this filter when searching for the user's DN.
@@ -296,8 +299,12 @@ $backends['smbldap'] = array(
         'basedn' => 'o=example.com',
         // LDAP object key attribute.
         'uid' => 'uid',
+        // The attribute storing the password.
+        'attribute' => 'userPassword',
         // This will be appended to the username when looking for the userdn.
         'realm' => '',
+        // Use this filter when searching for the user's DN.
+        'filter' => '',
         // Hash method to use when storing the password
         'encryption' => 'crypt',
         // Whether to enable TLS for this LDAP connection
