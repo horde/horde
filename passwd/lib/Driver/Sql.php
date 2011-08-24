@@ -11,7 +11,7 @@
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @author  Ilya Krel <mail@krel.org>
  * @author  Tjeerd van der Zee <admin@xar.nl>
- * @author  Mattias Webjörn Eriksson <mattias@webjorn.org>
+ * @author  Mattias WebjÃ¶rn Eriksson <mattias@webjorn.org>
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
  * @author  Ralf Lang <lang@b1-systems.de> (H4 conversion)
  * @package Passwd
