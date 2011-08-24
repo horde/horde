@@ -115,16 +115,6 @@ class Horde_Prefs_Identity
             $this->_identities = array($identity);
             $this->verify(0);
         }
-
-        if ($this->_prefs->isLocked($this->_prefnames['default_identity'])) {
-            foreach ($this->_prefnames['properties'] as $key) {
-                $value = $this->getValue($key);
-                if (is_array($value)) {
-                    $value = implode("\n", $value);
-                }
-                $this->_prefs->setValue($key, $value, array('nosave' => true));
-            }
-        }
     }
 
     /**
