@@ -583,7 +583,8 @@ class IMP_Hooks
      */
 //    public function post_spam($action, $indices)
 //    {
-//        // Example #1: Copy messages to a (not)spam mailbox.
+//        // Example #1: Copy messages to a (not)spam mailbox. This is the
+//        // full mailbox name.
 //        $targetMbox = 'foo';
 //
 //        $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
