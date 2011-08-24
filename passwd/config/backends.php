@@ -225,14 +225,17 @@ $backends['ldap'] = array(
         'host' => 'localhost',
         'port' => 389,
         'basedn' => 'o=example.com',
+        // LDAP object key attribute.
         'uid' => 'uid',
         // These attributes will enable shadow password policies.
         // 'shadowlastchange' => 'shadowLastChange',
         // 'shadowmin' => 'shadowMin',
         // This will be appended to the username when looking for the userdn.
         'realm' => '',
+        // Hash method to use when storing the password
         'encryption' => 'crypt',
-        // make sure the host == cn in the server certificate
+        // Whether to enable TLS for this LDAP connection
+        // Note: make sure that the host matches cn in the server certificate.
         'tls' => false
     )
 );
@@ -253,7 +256,7 @@ $backends['ldapadmin'] = array(
         'basedn' => 'o=example.com',
         'admindn' => 'cn=admin,o=example.com',
         'adminpw' => 'somepassword',
-        // LDAP object key attribute
+        // LDAP object key attribute.
         'uid' => 'uid',
         // These attributes will enable shadow password policies.
         // 'shadowlastchange' => 'shadowLastChange',
@@ -265,12 +268,12 @@ $backends['ldapadmin'] = array(
         'filter' => '',
         // Hash method to use when storing the password
         'encryption' => 'crypt',
-        // Only applies to LDAP servers. If set, should be 0 or 1. See the LDAP 
-        // documentation about the corresponding parameter REFERRALS.
+        // If set, should be 0 or 1. See the LDAP documentation about the
+        // corresponding parameter REFERRALS.
         // Windows 2003 Server require to set this parameter to 0
         // 'referrals' => 0,
         // Whether to enable TLS for this LDAP connection
-        // Note: make sure the host matches cn in the server certificate
+        // Note: make sure that the host matches cn in the server certificate.
         'tls' => false,
         // The following allows you to search with admin credentials
         // but edit the user with user credentials
@@ -294,11 +297,14 @@ $backends['smbldap'] = array(
         'host' => 'localhost',
         'port' => 389,
         'basedn' => 'o=example.com',
+        // LDAP object key attribute.
         'uid' => 'uid',
         // This will be appended to the username when looking for the userdn.
         'realm' => '',
+        // Hash method to use when storing the password
         'encryption' => 'crypt',
-        // Make sure the host == cn in the server certificate.
+        // Whether to enable TLS for this LDAP connection
+        // Note: make sure that the host matches cn in the server certificate.
         'tls' => false,
         // If any of the following attributes are commented out, they
         // won't be set on the LDAP server.
