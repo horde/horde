@@ -412,7 +412,7 @@ class Horde_Hooks
 //            $searchResult = @ldap_search($ds, $searchBase, $userAttr . '=' . $userId, array($groupAttr), 0, 1, 5);
 //            if ($information = @ldap_get_entries($ds, $searchResult)) {
 //                // Make pattern case-insensitive
-//                $pattern = '/' . $$roupdn . '/i';
+//                $pattern = '/' . $groupdn . '/i';
 //                foreach ($information[0][$groupAttr] as $group) {
 //                    if (preg_match($pattern, $group)) {
 //                        $ret = true;
@@ -454,6 +454,25 @@ class Horde_Hooks
 //        return $toHorde
 //            ? Horde_String::lower($userId)
 //            : $userId;
+//
+//        // Example #3: Map the LDAP "uid" back to the LDAP "mail"
+//        // attribute in case both are allowed user IDs for login.
+//        $ldapServer = 'localhost';
+//        $ldapPort = '389';
+//        $searchBase = 'dc=example,dc=com';
+//        $binddn = 'cn=manager,' . $searchBase;
+//        $bindpw = 'PASSWORD';
+//
+//        $ds = @ldap_connect($ldapServer, $ldapPort);
+//        $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $userId);
+//        $information = @ldap_get_entries($ds, $searchResult);
+//        if (($information !== false) && ($information['count'] > 0)) {
+//            $userId = $information[0]['mail'][0];
+//        }
+//        return array(
+//            'userId' => $userId,
+//            'credentials' => $credentials
+//        );
 //    }
 
 
