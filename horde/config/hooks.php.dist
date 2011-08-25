@@ -231,10 +231,6 @@ class Horde_Hooks
 //            $ldapServer = '172.31.0.236';
 //            $ldapPort = '389';
 //            $searchBase = 'o=myorg';
-$ldapServer = 'localhost';
-$ldapPort = '389';
-$ds = @ldap_connect($ldapServer, $ldapPort);
-
 //
 //            $ds = @ldap_connect($ldapServer, $ldapPort);
 //
