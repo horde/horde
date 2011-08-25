@@ -31,6 +31,8 @@ abstract class Horde_Auth_Base
         'remove'        => false,
         'transparent'   => false,
         'update'        => false,
+        'badlogincount' => false,
+        'lock'          => false,
     );
 
     /**
@@ -60,6 +62,20 @@ abstract class Horde_Auth_Base
     protected $_logger;
 
     /**
+     * History object.
+     *
+     * @var Horde_History
+     */
+    protected $_history_api;
+
+    /**
+     * Lock object.
+     *
+     * @var Horde_Lock
+     */
+    protected $_lock_api;
+
+    /**
      * Authentication error information.
      *
      * @var array
@@ -73,6 +89,14 @@ abstract class Horde_Auth_Base
      * <pre>
      * 'default_user' - (string) The default user.
      * 'logger' - (Horde_Log_Logger) A logger object.
+     * 'lock_api' - (Horde_Lock) A locking object.
+     * 'history_api' - (Horde_History) A history object.
+     * 'login_block_count' - (integer) How many failed logins trigger autoblocking?.
+     *                      0 disables the feature
+     *                      Requires history_api and lock_api
+     * 'login_block_time' - (integer) How many minutes should autoblocking last?.
+     *                      0 means no expiration
+     *                      Requires history_api and lock_api
      * </pre>
      */
     public function __construct(array $params = array())
@@ -80,6 +104,18 @@ abstract class Horde_Auth_Base
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
             unset($params['logger']);
+        }
+
+        if (isset($params['lock_api'])) {
+            $this->_lock_api = $params['lock_api'];
+            $this->_capabilities['lock'] = true;
+            unset($params['lock_api']);
+        }
+
+        if (isset($params['history_api'])) {
+            $this->_history_api = $params['history_api'];
+            $this->_capabilities['badlogincount'] = true;
+            unset($params['history_api']);
         }
 
         $params = array_merge(array(
@@ -107,13 +143,24 @@ abstract class Horde_Auth_Base
 
         try {
             $this->_credentials['userId'] = $userId;
+            if (($this->hasCapability('lock')) &&
+                $this->isLocked($userId)) {
+                throw new Horde_Auth_Exception('', Horde_Auth::REASON_LOCKED);
+            }
             $this->_authenticate($userId, $credentials);
             $this->setCredential('userId', $this->_credentials['userId']);
             $this->setCredential('credentials', $credentials);
+            if ($this->hasCapability('badlogincount')) {
+                $this->_resetBadLogins($userId);
+            }
             return true;
         } catch (Horde_Auth_Exception $e) {
             if (($code = $e->getCode()) &&
                 $code != Horde_Auth::REASON_MESSAGE) {
+                if (($code == Horde_Auth::REASON_BADLOGIN) && 
+                    $this->hasCapability('badlogincount')) {
+                    $this->_badLogin($userId);                   
+                }
                 $this->setError($code);
             } else {
                 $this->setError(Horde_Auth::REASON_MESSAGE, $e->getMessage());
@@ -177,6 +224,139 @@ abstract class Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
+        throw new Horde_Auth_Exception('Unsupported.');
+    }
+
+    /**
+     * Locks a user indefinitely or for a specified time
+     *
+     * @param string $userId      The userId to lock.
+     * @param integer $time       The duration in minutes, 0 = permanent
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function lockUser($userId, $time = 0)
+    {
+        try {
+            if ($this->_lock_api) {
+                if ($time == 0) {
+                    /* roughly max timestamp32 */
+                    $time = pow(2,32) - time();
+                } else {
+                    $time *= 60;
+                }
+                if ($this->_lock_api->setLock($userId, 'horde_auth', 'login:' . $userId, $time, Horde_Lock::TYPE_EXCLUSIVE)) {
+                    return;
+                } else {
+                    throw new Horde_Auth_Exception('User is already locked', Horde_Auth::REASON_LOCKED);
+                }
+            }
+        } catch (Horde_Db_Exception $e) {
+                throw new Horde_Auth_Exception($e);
+        }
+ 
+        throw new Horde_Auth_Exception('Unsupported.');
+    }
+
+    /**
+     * Unlocks a user and optionally resets bad login count
+     *
+     * @param string  $userId          The userId to unlock.
+     * @param boolean $resetBadLogins  Reset bad login counter, default no.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function unlockUser($userId, $resetBadLogins = false)
+    {
+        try {
+            if ($this->_lock_api) {
+                $locks = $this->_lock_api->getLocks('horde_auth', 'login:' . $userId, Horde_Lock::TYPE_EXCLUSIVE);
+                $lock_id = key($locks);
+                if ($lock_id) {
+                    $this->_lock_api->clearLock($lock_id);
+                }
+                if ($resetBadLogins) {
+                    $this->_resetBadLogins($userId);
+                }
+                return;
+            }
+        } catch (Horde_Db_Exception $e) {
+                throw new Horde_Auth_Exception($e);
+        }
+        throw new Horde_Auth_Exception('Unsupported.');
+    }
+
+    /**
+     * Checks if $userId is currently locked.
+     *
+     * @param string  $userId      The userId to check.
+     * @param boolean $show_details     Toggle array format with timeout.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function isLocked($userId, $show_details = false)
+    {
+        try  {
+            if ($this->_lock_api) {
+                $locks = $this->_lock_api->getLocks('horde_auth', 'login:' . $userId, Horde_Lock::TYPE_EXCLUSIVE);
+                if ($show_details) {
+                    $lock_id = key($locks);
+                    return (empty($lock_id)) ? array('locked' => false, 'lock_timeout' => 0)
+                                             : array('locked' => true, 'lock_timeout' => $locks[$lock_id]['lock_expiry_timestamp']);
+                } else {
+                    return !empty($locks);
+                }
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        }
+        throw new Horde_Auth_Exception('Unsupported.');
+    }
+
+    /**
+     * Handles a bad login
+     *
+     * @param string  $userId      The userId with bad login.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    protected function _badLogin($userId)
+    {
+        try {
+            if ($this->_history_api) {
+                $history_identifier = $userId . '@logins.failed';
+                $this->_history_api->log($history_identifier,
+                    array('action' => 'login_failed', 'who' => $userId));
+                $history_log = $this->_history_api->getHistory($history_identifier);
+                if (($this->_params['login_block_count'] > 0) &&
+                    $this->_params['login_block_count'] <= $history_log->count()) {
+                    $this->lockUser($userId, $this->_params['login_block_time']);
+                }
+                return;
+            }
+        } catch (Horde_History_Exception $e) {
+                throw new Horde_Auth_Exception($e);
+        }
+        throw new Horde_Auth_Exception('Unsupported.');
+    }
+
+    /**
+     * Reset the bad login counter
+     *
+     * @param string  $userId      The userId to reset.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    protected function _resetBadLogins($userId)
+    {
+        try {
+            if ($this->_history_api) {
+                $this->_history_api->removeByNames(array($userId . '@logins.failed'));
+                return;
+            }
+        } catch (Horde_History_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        }
         throw new Horde_Auth_Exception('Unsupported.');
     }
 

@@ -88,8 +88,9 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             'show_encryption' => false,
             'table' => 'horde_users',
             'username_field' => 'user_uid',
-
         ), $params);
+
+        parent::__construct($params);
 
         /* Only allow limits when there is a storage configured */
         if (($params['soft_expiration_field'] == '') &&
@@ -102,7 +103,6 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             throw new InvalidArgumentException('You cannot set [hard_expiration_window] without [hard_expiration_field].');
         }
 
-        parent::__construct($params);
     }
 
     /**

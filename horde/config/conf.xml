@@ -303,13 +303,6 @@
 
     <case name="kolab" desc="Kolab authentication">
      <configsection name="params">
-      <configboolean name="login_block" desc="Should the login be
-      blocked after a given number of failed logins?">
-      false</configboolean>
-      <configinteger name="login_block_count" desc="After how many
-      failed logins the login should be blocked?">3</configinteger>
-      <configinteger name="login_block_time" desc="How many minutes
-      the login should be blocked?">5</configinteger>
      </configsection>
     </case>
 
@@ -689,6 +682,16 @@
      </configsection>
     </case>
    </configswitch>
+   <configsection name="params">
+      <configboolean name="count_bad_logins" required="false" desc="Should horde count the number of bad logins?
+      Requires Horde_Auth 1.2.0 or higher">false</configboolean>                   
+      <configboolean name="login_block" required="false" desc="Allow blocking the login for certain users?
+      Requires Horde_Auth 1.2.0 or higher">false</configboolean>
+      <configinteger name="login_block_count" required="false" desc="After how many
+      failed logins the login should be blocked? Setting 0 disables the feature">5</configinteger>
+      <configinteger name="login_block_time" required="false" desc="How many minutes
+      the login should be blocked? Setting 0 means permanent blocking">5</configinteger>
+    </configsection>
   </configsection>
 
   <configsection name="tos">

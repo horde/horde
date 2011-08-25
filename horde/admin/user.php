@@ -180,7 +180,15 @@ case 'update':
             }
         }
     }
-
+    if ($auth->hasCapability('lock')) {
+        $user_locked = Horde_Util::getPost('user_locked');
+        /* only execute lock/unlock if it would result in a change */
+        if (($auth->isLocked($user_name_2)) && (!$user_locked)) {
+            $auth->unlockUser($user_name_2);
+        } elseif ((!$auth->isLocked($user_name_2)) && ($user_locked)) {
+            $auth->lockUser($user_name_2);
+        }
+    }
     $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($user_name_1);
     $identity->setValue('fullname', $fullname);
     $identity->setValue('from_addr', $email);
