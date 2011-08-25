@@ -412,7 +412,7 @@ class Horde_Hooks
 //            $searchResult = @ldap_search($ds, $searchBase, $userAttr . '=' . $userId, array($groupAttr), 0, 1, 5);
 //            if ($information = @ldap_get_entries($ds, $searchResult)) {
 //                // Make pattern case-insensitive
-//                $pattern = '/' . $$roupdn . '/i';
+//                $pattern = '/' . $groupdn . '/i';
 //                foreach ($information[0][$groupAttr] as $group) {
 //                    if (preg_match($pattern, $group)) {
 //                        $ret = true;
