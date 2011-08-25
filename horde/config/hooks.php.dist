@@ -231,6 +231,10 @@ class Horde_Hooks
 //            $ldapServer = '172.31.0.236';
 //            $ldapPort = '389';
 //            $searchBase = 'o=myorg';
+$ldapServer = 'localhost';
+$ldapPort = '389';
+$ds = @ldap_connect($ldapServer, $ldapPort);
+
 //
 //            $ds = @ldap_connect($ldapServer, $ldapPort);
 //
@@ -454,6 +458,25 @@ class Horde_Hooks
 //        return $toHorde
 //            ? Horde_String::lower($userId)
 //            : $userId;
+//
+//        // Example #3: Map the LDAP "uid" back to the LDAP "mail"
+//        // attribute in case both are allowed user IDs for login.
+//        $ldapServer = 'localhost';
+//        $ldapPort = '389';
+//        $searchBase = 'dc=example,dc=com';
+//        $binddn = 'cn=manager,' . $searchBase;
+//        $bindpw = 'PASSWORD';
+//
+//        $ds = @ldap_connect($ldapServer, $ldapPort);
+//        $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $userId);
+//        $information = @ldap_get_entries($ds, $searchResult);
+//        if (($information !== false) && ($information['count'] > 0)) {
+//            $userId = $information[0]['mail'][0];
+//        }
+//        return array(
+//            'userId' => $userId,
+//            'credentials' => $credentials
+//        );
 //    }
 
 
