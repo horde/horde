@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Fix disabling of actions by locking preferences.
+* [jan] Fix disabling of actions by locking preferences (Bug #10455).
 * [jan] Sort blacklist and whitelist for display instead of for storage.
  </notes>
  <contents>
