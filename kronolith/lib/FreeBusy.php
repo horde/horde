@@ -72,7 +72,11 @@ class Kronolith_FreeBusy
         /* Fetch events. */
         $busy = array();
         foreach ($calendars as $calendar) {
-            @list($type, $calendar) = explode('_', $calendar, 2);
+            if (strpos($calendar, '_')) {
+                @list($type, $calendar) = explode('_', $calendar, 2);
+            } else {
+                $type = 'internal';
+            }
             try {
                 $driver = Kronolith::getDriver($type, $calendar);
                 $events = $driver->listEvents(new Horde_Date($startstamp),
