@@ -2447,10 +2447,13 @@ class Horde_Registry
         $GLOBALS['language'] = $lang;
 
         $lang_charset = $lang . '.UTF-8';
-        setlocale(LC_ALL, $lang_charset);
-        putenv('LC_ALL=' . $lang_charset);
-        putenv('LANG=' . $lang_charset);
-        putenv('LANGUAGE=' . $lang_charset);
+        if (setlocale(LC_ALL, $lang_charset)) {
+            putenv('LC_ALL=' . $lang_charset);
+            putenv('LANG=' . $lang_charset);
+            putenv('LANGUAGE=' . $lang_charset);
+        } else {
+            $changed = false;
+        }
 
         if ($changed) {
             $this->rebuild();
