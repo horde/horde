@@ -103,9 +103,11 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
 
             if (empty($backend['params']['is_subdriver'])) {
                 $this->_instances[$key] = $driver;
+            } else {
+                return $driver;
             }
         }
 
-        return $driver;
+        return $this->_instances[$key];
     }
 }
