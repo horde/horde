@@ -32,7 +32,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
         if (!empty($params['is_subdriver'])) {
             $backends = array($name => $params);
         } else {
-            // rethink this
+            // rethink this. It is not mockable.
             $backends = Passwd::getBackends();
         }
 
