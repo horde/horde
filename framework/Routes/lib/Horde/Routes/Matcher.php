@@ -9,7 +9,7 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Horde_Routes
- * @since    1.0.1
+ * @since    1.1.0
  */
 
 /**
@@ -26,7 +26,7 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Horde_Routes
- * @since    1.0.1
+ * @since    1.1.0
  */
 class Horde_Routes_Matcher
 {
