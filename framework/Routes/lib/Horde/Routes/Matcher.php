@@ -55,11 +55,12 @@ class Horde_Routes_Matcher
      * Constructor
      *
      * @param Horde_Routes_Mapper $mapper        The mapper
-     * @param Horde_Controller_Request $request  A request object
+     * @param Object $request  A request object that implements a ::getPath()
+     *                         method similar to Horde_Controller_Request::
      */
     public function __construct(
         Horde_Routes_Mapper $mapper,
-        Horde_Controller_Request $request)
+        $request)
     {
         $this->_mapper = $mapper;
         $this->_request = $request;
