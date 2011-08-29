@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-09</date>
- <time>11:01:01</time>
+ <date>2011-08-24</date>
+ <time>11:27:35</time>
  <version>
-  <release>1.0.12</release>
+  <release>1.0.14</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,9 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Add support for CRAM-SHA1 and CRAM-SHA256 authentication (available in Courier SASL library).
+* [mms] Remove dependency on Auth_SASL for CRAM-MD5 authentication.
+* [mms] Ignore unknown authentication methods; otherwise, they give false positive when authenticating (Bug #10453).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -484,10 +486,38 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-09</date>
+   <date>2011-08-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Fix typo that prevented deletion of messages on POP3 servers (Bug #10424).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.13</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-23</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Fix rare race condition that may cause FETCH requests in the IMAP Socket driver to return empty results (Bug #10434).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.14</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-24</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* [mms] Add support for CRAM-SHA1 and CRAM-SHA256 authentication (available in Courier SASL library).
+* [mms] Remove dependency on Auth_SASL for CRAM-MD5 authentication.
+* [mms] Ignore unknown authentication methods; otherwise, they give false positive when authenticating (Bug #10453).
    </notes>
   </release>
  </changelog>

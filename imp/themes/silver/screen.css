@@ -45,6 +45,9 @@ span.spellcheckPopdownImg {
 .msgflags.flagAttachmsg {
     background-image: url("graphics/attachment.png");
 }
+.msgflags.flagList {
+    background-image: url("graphics/group.png");
+}
 .msgflags.flagJunk, span.iconImg.flagJunk {
     background-image: url("graphics/spam.png");
 }

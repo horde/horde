@@ -48,11 +48,11 @@
  * Special thanks to Mark Russinovich (mark@sysinternals.com) for the
  * tool and helping me solve some questions about it.
  *
- * WARNING: This driver has only formally been converted to Horde 4. 
- * No testing has been done. If this doesn't work, please file bugs at
- * bugs.horde.org
- * If you really need this to work reliably, think about sponsoring development
- * Please send a mail to lang -at- b1-systems.de if you can verify this driver to work
+ * WARNING: This driver has only formally been converted to Horde 4.  No
+ *          testing has been done. If this doesn't work, please file bugs at
+ *          bugs.horde.org.  If you really need this to work reliably, think
+ *          about sponsoring development. Please let the Horde developers know
+ *          if you can verify this driver to work.
  *
  * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
  *

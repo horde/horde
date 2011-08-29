@@ -332,6 +332,10 @@ case Horde_Auth::REASON_EXPIRED:
     $reason = _("Your login has expired.");
     break;
 
+case Horde_Auth::REASON_LOCKED:
+    $reason = _("Your login has been locked.");
+    break;
+
 case Horde_Auth::REASON_MESSAGE:
     if (!($reason = $auth->getError(true))) {
         $reason = $vars->logout_msg;

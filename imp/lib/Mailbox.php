@@ -392,11 +392,30 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Imap_Tree')->isNamespace($this->_mbox);
 
         case 'namespace_append':
-            $ns_info = $this->namespace_info;
-            if (is_null($ns_info)) {
-                $ns_info = $injector->getInstance('IMP_Factory_Imap')->create()->defaultNamespace();
+            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+            $def_ns = $imp_imap->defaultNamespace();
+            if (is_null($def_ns)) {
+                return $this;
             }
-            return self::get($ns_info['name'] . $this->_mbox);
+            $empty_ns = $imp_imap->getNamespace('');
+
+
+            /* If default namespace is empty, or there is no empty namespace,
+             * then we can auto-detect namespace from input.
+             * If a non-default namespace is empty, then we must always use
+             * default namespace. */
+            if (!is_null($empty_ns) &&
+                ($def_ns['name'] == $empty_ns['name'])) {
+                return $this;
+            }
+
+            $ns_info = $this->namespace_info;
+
+            if (is_null($ns_info) || !is_null($empty_ns)) {
+                return self::get($def_ns['name'] . $this->_mbox);
+            }
+
+            return $this;
 
         case 'namespace_delimiter':
             $ns_info = $this->namespace_info;
@@ -802,8 +821,9 @@ class IMP_Mailbox implements Serializable
     {
         global $injector, $prefs;
 
-        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
-            return false;
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
+            return $imp_imap->imap;
         }
 
         $delhide = isset(self::$_temp[self::CACHE_HIDEDELETED])
@@ -1174,6 +1194,14 @@ class IMP_Mailbox implements Serializable
             case self::SPECIAL_SENT:
                 if (count($val) == 1) {
                     $sub[strval(reset($val))] = _("Sent");
+                } else {
+                    $sent = self::getPref('sent_mail_folder');
+                    foreach ($val as $mbox) {
+                        if ($mbox == $sent) {
+                            $sub[strval($mbox)] = _("Sent");
+                            break;
+                        }
+                    }
                 }
                 break;
 

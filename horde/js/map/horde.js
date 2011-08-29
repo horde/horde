@@ -44,7 +44,7 @@ HordeMap.Map.Horde = Class.create({
             delayed: false,
             layers: []
         };
-        this.opts = Object.extend(o, opts || {});
+        this.opts = Object.extend(o, opts);
 
         // Generate the base map object. Always use EPSG:4326 (WGS84) for display
         // and EPSG:900913 (spherical mercator) for projection for compatibility

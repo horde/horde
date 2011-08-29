@@ -8,6 +8,7 @@ v2.1-git
 v2.0.5-git
 ----------
 
+[jan] Fix disabling of actions by locking preferences (Bug #10455).
 [jan] Sort blacklist and whitelist for display instead of for storage.
 
 

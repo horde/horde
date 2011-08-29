@@ -498,7 +498,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         switch ($method) {
         case 'CRAM-MD5':
-        case 'DIGEST-MD5':
+        case 'CRAM-SHA1':
+        case 'CRAM-SHA256':
+            // RFC 2195: CRAM-MD5
+            // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
             $ob = $this->_sendLine(array(
                 'AUTHENTICATE',
                 array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $method)
@@ -506,40 +509,36 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 'noparse' => true
             ));
 
-            switch ($method) {
-            case 'CRAM-MD5':
-                // RFC 2195
-                if (!class_exists('Auth_SASL')) {
-                    $this->_exception('The Auth_SASL package is required for CRAM-MD5 authentication');
-                }
-                $auth_sasl = Auth_SASL::factory('crammd5');
-                $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line'])));
-                $this->_sendLine($response, array(
-                    'debug' => '[CRAM-MD5 Response]',
-                    'notag' => true
-                ));
-                break;
+            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), $this->getParam('password'), base64_decode($ob['line']), true));
+            $this->_sendLine($response, array(
+                'debug' => '[' . $method . ' Response]',
+                'notag' => true
+            ));
+            break;
 
-            case 'DIGEST-MD5':
-                if (!class_exists('Auth_SASL')) {
-                    $this->_exception('The Auth_SASL package is required for DIGEST-MD5 authentication');
-                }
-                $auth_sasl = Auth_SASL::factory('digestmd5');
-                $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line']), $this->_params['hostspec'], 'imap'));
-                $ob = $this->_sendLine($response, array(
-                    'debug' => '[DIGEST-MD5 Response]',
-                    'noparse' => true,
-                    'notag' => true
-                ));
-                $response = base64_decode($ob['line']);
-                if (strpos($response, 'rspauth=') === false) {
-                    $this->_exception('Unexpected response from server to Digest-MD5 response.');
-                }
-                $this->_sendLine('', array(
-                    'notag' => true
-                ));
-                break;
+        case 'DIGEST-MD5':
+            // RFC 2831/4422
+            $ob = $this->_sendLine(array(
+                'AUTHENTICATE',
+                array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $method)
+            ), array(
+                'noparse' => true
+            ));
+
+            $auth_sasl = Auth_SASL::factory('digestmd5');
+            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line']), $this->_params['hostspec'], 'imap'));
+            $ob = $this->_sendLine($response, array(
+                'debug' => '[DIGEST-MD5 Response]',
+                'noparse' => true,
+                'notag' => true
+            ));
+            $response = base64_decode($ob['line']);
+            if (strpos($response, 'rspauth=') === false) {
+                $this->_exception('Unexpected response from server to Digest-MD5 response.');
             }
+            $this->_sendLine('', array(
+                'notag' => true
+            ));
             break;
 
         case 'LOGIN':
@@ -574,6 +573,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ));
             }
             break;
+
+        default:
+            $this->_exception('Unknown authentication method: ' . $method);
         }
     }
 
@@ -2546,18 +2548,39 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        $t['fetchresults'] = $options['ids']->sequence
-            ? array('seq' => $results, 'uid' => array())
-            : array('seq' => array(), 'uid' => $results);
+        $fr = $this->_newFetchResult();
+        if ($options['ids']->sequence) {
+            $fr->seq = $results;
+        } else {
+            $fr->uid = $results;
+        }
 
         $this->_sendLine($cmd, array(
-            'fetch' => &$t['fetchresults']
+            'fetch' => $fr
         ));
 
-        $ret = $t['fetchresults'][$options['ids']->sequence ? 'seq' : 'uid'];
-        unset($t['fetchcmd'], $t['fetchresp'], $t['fetchresults']);
+        unset($t['fetchcmd']);
 
-        return $ret;
+        return $options['ids']->sequence
+            ? $fr->seq
+            : $fr->uid;
+    }
+
+    /**
+     * Created a new object to use for fetch results.
+     *
+     * @return object  Object with two properties: 'seq' and 'uid'.
+     */
+    protected function _newFetchResult()
+    {
+        if (!isset($this->_temp['fr_ob'])) {
+            $fr = new stdClass;
+            $fr->seq = array();
+            $fr->uid = array();
+            $this->_temp['fr_ob'] = $fr;
+        }
+
+        return clone $this->_temp['fr_ob'];
     }
 
     /**
@@ -2589,7 +2612,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseFetch($id, $data)
     {
         $cnt = count($data);
-        $fr = &$this->_temp['fetchresp'];
         $i = 0;
         $uid = null;
 
@@ -2723,14 +2745,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ++$i;
         }
 
-        if (!is_null($uid) && isset($fr['uid'][$uid])) {
-            $fr['uid'][$uid]->merge($ob);
-        } elseif (isset($fr['seq'][$id])) {
-            $fr['seq'][$id]->merge($ob);
+        $fr = $this->_temp['fetchresp'];
+        if (!is_null($uid) && isset($fr->uid[$uid])) {
+            $fr->uid[$uid]->merge($ob);
+        } elseif (isset($fr->seq[$id])) {
+            $fr->seq[$id]->merge($ob);
         } else {
-            $fr['seq'][$id] = $ob;
+            $fr->seq[$id] = $ob;
             if (!is_null($uid)) {
-                $fr['uid'][$uid] = $ob;
+                $fr->uid[$uid] = $ob;
             }
         }
     }
@@ -3027,18 +3050,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if (!isset($this->_init['enabled']['CONDSTORE']) ||
             empty($this->_temp['mailbox']['highestmodseq']) ||
-            empty($this->_temp['fetchresp']['seq'])) {
+            empty($this->_temp['fetchresp']->seq)) {
             return;
         }
 
         $fr = $this->_temp['fetchresp'];
         $tocache = $uids = array();
 
-        if (empty($fr['uid'])) {
-            $res = $fr['seq'];
+        if (empty($fr->uid)) {
+            $res = $fr->seq;
             $seq_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(array_keys($res), true));
         } else {
-            $res = $fr['uid'];
+            $res = $fr->uid;
             $seq_res = null;
         }
 
@@ -3585,39 +3608,38 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * The only advantage of pipelining commands is to reduce the (small)
      * amount of overhead needed to send commands. Modern IMAP servers do not
      * meaningfully optimize response order internally, so that is not a
-     * worthwhile reason to implement pipelining.
+     * worthwhile reason to implement pipelining. Even the IMAP gurus admit
+     * that pipelining is probably more trouble than it is worth.
      *
      * @param mixed $data    The IMAP command to execute. If string output as
      *                       is. If array, parsed via parseCommandArray(). If
      *                       resource, output directly to server.
      * @param array $options  Additional options:
-     * <pre>
-     * 'binary' - (boolean) Does $data contain binary data?  If so, and the
-     *            'BINARY' extension is available on the server, the data
-     *            will be sent in literal8 format. If not available, an
-     *            exception will be returned. 'binary' requires literal to
-     *            be defined.
-     *            DEFAULT: Sends literals in a non-binary compliant method.
-     * 'debug' - (string) When debugging, send this string instead of the
-     *           actual command/data sent.
-     *           DEFAULT: Raw data output to debug stream.
-     * 'errignore' - (boolean) Don't throw error on BAD/NO response.
-     *               DEFAULT: false
-     * 'fetch' - (array) Use this as the initial value of the fetch response.
-     *           DEFAULT: Fetch response is empty
-     * 'literal' - (integer) Send the command followed by a literal. The value
-     *             of 'literal' is the length of the literal data.
-     *             Will attempt to use LITERAL+ capability if possible.
-     *             DEFAULT: Do not send literal
-     * 'literaldata' - (boolean) Is this literal data?
-     *                 DEFAULT: Not literal data
-     * 'noparse' - (boolean) Don't parse the response and instead return the
-     *             server response.
-     *             DEFAULT: Parses the response
-     * 'notag' - (boolean) Don't prepend an IMAP tag (i.e. for a continuation
-     *           response).
-     *           DEFAULT: false
-     * </pre>
+     *   - binary: (boolean) Does $data contain binary data?  If so, and the
+     *             'BINARY' extension is available on the server, the data
+     *             will be sent in literal8 format. If not available, an
+     *             exception will be returned. 'binary' requires literal to
+     *             be defined.
+     *             DEFAULT: Sends literals in a non-binary compliant method.
+     *   - debug: (string) When debugging, send this string instead of the
+     *            actual command/data sent.
+     *            DEFAULT: Raw data output to debug stream.
+     *   - errignore: (boolean) Don't throw error on BAD/NO response.
+     *                DEFAULT: false
+     *   - fetch: (array) Use this as the initial value of the fetch results.
+     *            DEFAULT: Fetch result is empty
+     *   - literal: (integer) Send the command followed by a literal. The value
+     *              of 'literal' is the length of the literal data.
+     *              Will attempt to use LITERAL+ capability if possible.
+     *              DEFAULT: Do not send literal
+     *   - literaldata: (boolean) Is this literal data?
+     *                  DEFAULT: Not literal data
+     *   - noparse: (boolean) Don't parse the response and instead return the
+     *              server response.
+     *              DEFAULT: Parses the response
+     *   - notag: (boolean) Don't prepend an IMAP tag (i.e. for a continuation
+     *            response).
+     *            DEFAULT: false
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -3627,16 +3649,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (empty($options['notag'])) {
             $out = ++$this->_tag . ' ';
-
-            /* Catch all FETCH responses until a tagged response. */
-            if (empty($options['fetch'])) {
-                $this->_temp['fetchresp'] = array(
-                    'seq' => array(),
-                    'uid' => array()
-                );
-            } else {
-                $this->_temp['fetchresp'] = &$options['fetch'];
-            }
+            $this->_temp['fetchresp'] = empty($options['fetch'])
+                ? $this->_newFetchResult()
+                : $options['fetch'];
         }
 
         if (is_array($data)) {
@@ -4089,10 +4104,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                 /* Update the cache, if needed. */
                 $tmp = $this->_temp['fetchresp'];
-                if (!empty($tmp['uid'])) {
-                    $this->_updateCache($tmp['uid']);
-                } elseif (!empty($tmp['seq'])) {
-                    $this->_updateCache($tmp['seq'], array(
+                if (!empty($tmp->uid)) {
+                    $this->_updateCache($tmp->uid);
+                } elseif (!empty($tmp->seq)) {
+                    $this->_updateCache($tmp->seq, array(
                         'seq' => true
                     ));
                 }

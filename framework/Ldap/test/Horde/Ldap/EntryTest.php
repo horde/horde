@@ -22,6 +22,6 @@ class Horde_Ldap_EntryTest extends PHPUnit_Framework_TestCase
         $entry = Horde_Ldap_Entry::createFresh('cn=test',
                                                array('attr1' => 'single',
                                                      'attr2' => array('mv1', 'mv2')));
-        $this->assertType('Horde_Ldap_Entry', $entry);
+        $this->assertInstanceOf('Horde_Ldap_Entry', $entry);
     }
 }

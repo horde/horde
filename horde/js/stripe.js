@@ -25,7 +25,11 @@ Horde.stripeElement = function(elt)
     if (elt.tagName == 'TABLE') {
         // Tables can have more than one tbody element; get all child
         // tbody tags and interate through them.
-        e.each(this.stripeElement.bind(this));
+        e.each(function(child) {
+            child.childElements().each(function(c) {
+                c.removeClassName(classes[i % 2]).addClassName(classes[++i % 2]);
+            });
+        });
     } else {
         // Toggle the classname of any child node that is an element.
         e.each(function(c) {

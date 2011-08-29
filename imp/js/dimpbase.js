@@ -456,7 +456,7 @@ var DimpBase = {
                 }
 
                 /* Generate the status flags. */
-                if (r.flag) {
+                if (!DIMP.conf.pop3 && r.flag) {
                     r.flag.each(function(a) {
                         var ptr = DIMP.conf.flags[a];
                         if (ptr.u) {
@@ -861,7 +861,7 @@ var DimpBase = {
 
             this.folderaction = DimpCore.redirect.bind(DimpCore, DimpCore.addURLParam(DIMP.conf.URI_VIEW, {
                 actionID: 'download_mbox',
-                mailbox: tmp.retrieve('mbox'),
+                mailbox: tmp.retrieve('mbox').base64urlEncode(),
                 zip: Number(id == 'ctx_folder_export_zip')
             }));
 
@@ -2574,7 +2574,7 @@ var DimpBase = {
 
     _folderAction: function(e, folder, mode)
     {
-        var action, params, val,
+        var action, params, tmp, val,
             form = e.findElement('form');
         val = $F(form.down('input'));
 
@@ -2597,6 +2597,11 @@ var DimpBase = {
                 params = { mbox: val };
                 if (mode == 'createsub') {
                     params.parent = folder.up('LI').retrieve('mbox');
+                    tmp = folder.up('LI').next();
+                    if (!tmp.hasClassName('subfolders') ||
+                        !tmp.down('UL').childElements().size()) {
+                        params.noexpand = 1;
+                    }
                 }
                 break;
             }
@@ -2618,7 +2623,7 @@ var DimpBase = {
         if (r.c) {
             r.c.each(this.changeFolder.bind(this));
         }
-        if (r.a) {
+        if (r.a && !r.noexpand) {
             r.a.each(this.createFolder.bind(this));
         }
     },

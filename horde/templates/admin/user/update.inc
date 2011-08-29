@@ -48,6 +48,16 @@
    <input type="text" id="user_email" name="user_email"  value="<?php echo htmlspecialchars($identity->getValue('from_addr')) ?>" />
   </td>
  </tr>
+ <?php if ($auth->hasCapability('lock')): ?>
+ <tr>
+  <td class="rightAlign">
+   <?php echo Horde::label('user_locked', _("Lock User")) ?>
+  </td>
+  <td>
+   <input type="checkbox" id="user_locked" name="user_locked" value="1"<?php if ($auth->isLocked($f_user_name)) echo ' checked="checked"' ?> />
+  </td>
+ </tr>
+ <?php endif; ?>
  <tr>
   <td class="control leftAlign" colspan="2">
    <input type="submit" class="button" name="submit" value="<?php echo _("Update user") ?>" />

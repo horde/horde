@@ -4,9 +4,23 @@ v5.1-git
 
 
 -----------
-v5.0.10-git
+v5.0.11-git
 -----------
 
+[mms] Fix POP3 regression (Bug #10450).
+[mms] Forwarded messages no longer treated as an attachment in the UI (Request
+      #9754).
+[mms] Correctly display submailboxes in dynamic view when new submailbox is
+      created before parent mailbox is expanded (Bug #10429).
+
+
+-------
+v5.0.10
+-------
+
+[mms] Display flag to indicate a mailing list message.
+[mms] Immediately update mailbox list when message is deleted and the mailbox
+      does not support flags (e.g. POP3) (Bug #10424).
 [mjr] Fix notifications not showing while accepting iTips
 [mms] Correctly determine page with first/last unseen messages when using
       descending sequence sorting (Bug #9882).

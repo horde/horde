@@ -80,7 +80,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                             $resource->getId());
 
             try {
-                $result = $this->_db->update($query, $values);
+                $this->_db->update($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Kronolith_Exception($e);
             }
@@ -98,7 +98,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                             serialize($resource->get('members')),
                             $resource->get('email'));
             try {
-                $result = $this->_db->insert($query, $values);
+                $id = $this->_db->insert($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Kronolith_Exception($e);
             }

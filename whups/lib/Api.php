@@ -51,7 +51,7 @@ class Whups_Api extends Horde_Registry_Api
                 } else {
                     if (!Whups::hasPermission($queues[$path[1]], 'queue',
                                               Horde_Perms::READ)) {
-                        return PEAR::raiseError('permission denied');
+                        throw new Horde_Exception_PermissionDenied();
                     }
 
                     $tickets = $whups_driver->getTicketsByProperties(
@@ -80,9 +80,8 @@ class Whups_Api extends Horde_Registry_Api
     {
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin'))) {
             return $GLOBALS['whups_driver']->addQueue($name, '');
-        } else {
-            return PEAR::raiseError('You must be an administrator to perform this action.');
         }
+        throw new Horde_Exception_PermissionDenied('You must be an administrator to perform this action.');
     }
 
     /**
@@ -135,7 +134,7 @@ class Whups_Api extends Horde_Registry_Api
         global $whups_driver;
 
         if (!is_array($ticket_info)) {
-            return PEAR::raiseError('Invalid arguments');
+            throw new Whups_Exception('Invalid arguments');
         }
 
         $vars = new Horde_Variables($ticket_info);
@@ -153,15 +152,15 @@ class Whups_Api extends Horde_Registry_Api
         // Complain if we've been given bad parameters.
         if (!$form1->validate($vars, true)) {
             $f1 = var_export($form1->_errors, true);
-            return PEAR::raiseError("Invalid arguments ($f1)");
+            throw new Whups_Exception("Invalid arguments ($f1)");
         }
         if (!$form2->validate($vars, true)) {
             $f2 = var_export($form2->_errors, true);
-            return PEAR::raiseError("Invalid arguments ($f2)");
+            throw new Whups_Exception("Invalid arguments ($f2)");
         }
         if (!$form3->validate($vars, true)) {
             $f3 = var_export($form3->_errors, true);
-            return PEAR::raiseError("Invalid arguments ($f3)");
+            throw new Whups_Exception("Invalid arguments ($f3)");
         }
 
         $form1->getInfo($vars, $info);
@@ -176,7 +175,7 @@ class Whups_Api extends Horde_Registry_Api
             $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
             $form4->useToken(false);
             if (!$form4->validate($vars, true)) {
-                return PEAR::raiseError('Invalid arguments (' . var_export($form4->_errors, true) . ')');
+                throw new Whups_Exception('Invalid arguments (' . var_export($form4->_errors, true) . ')');
             }
 
             $form4->getInfo($vars, $info);
@@ -205,7 +204,7 @@ class Whups_Api extends Horde_Registry_Api
         // Check that we have permission to update the ticket
         if (!$GLOBALS['registry']->getAuth() ||
             !Whups::hasPermission($ticket->get('queue'), 'queue', 'update')) {
-            return PEAR::raiseError(_('You do not have permission to update this ticket.'));
+            throw new Whups_Exception_PermissionDenied(_('You do not have permission to update this ticket.'));
         }
 
         // Populate $vars with existing ticket details.
@@ -227,7 +226,7 @@ class Whups_Api extends Horde_Registry_Api
         // Attempt to validate and update the ticket.
         if (!$editform->validate($vars)) {
              $form_errors = var_export($editform->_errors, true);
-             return PEAR::raiseError(sprintf(_("Invalid ticket data supplied: %s"), $form_errors));
+             throw new Whups_Exception(sprintf(_("Invalid ticket data supplied: %s"), $form_errors));
         }
 
         $editform->getInfo($vars, $info);
@@ -273,7 +272,7 @@ class Whups_Api extends Horde_Registry_Api
     {
         $ticket_id = (int)$ticket_id;
         if (empty($ticket_id)) {
-            return PEAR::raiseError('Invalid ticket id');
+            throw new Whups_Exception('Invalid ticket id');
         }
 
         $ticket = Whups_Ticket::makeTicket($ticket_id);
@@ -307,7 +306,7 @@ class Whups_Api extends Horde_Registry_Api
     {
         $ticket_id = (int)$ticket_id;
         if (empty($ticket_id)) {
-            return PEAR::raiseError(_("Invalid Ticket Id"));
+            throw new Whups_Exception(_("Invalid Ticket Id"));
         }
 
         $ticket = Whups_Ticket::makeTicket($ticket_id);
@@ -334,7 +333,7 @@ class Whups_Api extends Horde_Registry_Api
         global $whups_driver;
 
         if (!isset($info['ticket_id']) || !isset($info['attributes'])) {
-            return PEAR::raiseError(_("Invalid arguments: Must supply a ticket number and new attributes."));
+            throw new Whups_Exception(_("Invalid arguments: Must supply a ticket number and new attributes."));
         }
 
         $ticket = $whups_driver->getTicketDetails($info['ticket_id']);

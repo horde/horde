@@ -187,7 +187,10 @@ abstract class IMP_Flag_Base implements Serializable
      *
      * @return boolean  True if flag exists.
      */
-    abstract public function match($data);
+    public function match($data)
+    {
+        return false;
+    }
 
     /**
      * Return the flag label.

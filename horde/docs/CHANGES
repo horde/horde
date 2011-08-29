@@ -8,6 +8,10 @@ v4.1-git
 v4.0.9-git
 ----------
 
+[rla] Add account blocking similar to the former kolab-specific option.
+[jan] Add missing configuration for LDAP groups write support.
+[rla] Show a warning when resetting password and no security question is set
+      (Request #10430).
 
 
 ------

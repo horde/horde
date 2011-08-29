@@ -774,9 +774,9 @@ abstract class Kronolith_Event
                 $hordeAlarm->isSnoozed($this->uid, $GLOBALS['registry']->getAuth())) {
                 $vEvent->setAttribute('X-MOZ-LASTACK', new Horde_Date($_SERVER['REQUEST_TIME']));
                 $alarm = $hordeAlarm->get($this->uid, $GLOBALS['registry']->getAuth());
-                if (!empty($hordeAlarm['snooze'])) {
-                    $hordeAlarm['snooze']->setTimezone(date_default_timezone_get());
-                    $vEvent->setAttribute('X-MOZ-SNOOZE-TIME', $hordeAlarm['snooze']);
+                if (!empty($alarm['snooze'])) {
+                    $alarm['snooze']->setTimezone(date_default_timezone_get());
+                    $vEvent->setAttribute('X-MOZ-SNOOZE-TIME', $alarm['snooze']);
                 }
             }
         }

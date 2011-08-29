@@ -108,7 +108,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         $success = @ldap_add($this->_ds, $dn, $entry);
 
         if (!$success) {
-           throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to add user "%s". This is what the server said: ', $accountName) . ldap_error($this->_ds));
+            throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to add user "%s". This is what the server said: ', $accountName) . ldap_error($this->_ds));
         }
 
         @ldap_close($this->_ds);

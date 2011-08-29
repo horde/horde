@@ -88,11 +88,9 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             'show_encryption' => false,
             'table' => 'horde_users',
             'username_field' => 'user_uid',
-
         ), $params);
 
-        $params['password_field']        = Horde_String::lower($params['password_field']);
-        $params['username_field']        = Horde_String::lower($params['username_field']);
+        parent::__construct($params);
 
         /* Only allow limits when there is a storage configured */
         if (($params['soft_expiration_field'] == '') &&
@@ -100,12 +98,11 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             throw new InvalidArgumentException('You cannot set [soft_expiration_window] without [soft_expiration_field].');
         }
 
-        if (($params['hard_expiration_field'] == '') && 
+        if (($params['hard_expiration_field'] == '') &&
             ($params['hard_expiration_window'] > 0)) {
             throw new InvalidArgumentException('You cannot set [hard_expiration_window] without [hard_expiration_field].');
         }
 
-        parent::__construct($params);
     }
 
     /**
@@ -360,19 +357,13 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      *
      * @return integer 'timestamp' intended field value or null
      */
-
-    private function _calc_expiration($type) {
-        if (!empty($this->_params[$type.'_expiration_field'])) {
-            $return['field'] = $this->_params[$type.'_expiration_field'];
-        }
-        if (empty($this->_params[$type.'_expiration_window'])) {
+    private function _calc_expiration($type)
+    {
+        if (empty($this->_params[$type . '_expiration_window'])) {
             return null;
         } else {
-            $expiration_datetime = new DateTime;
-            /* more elegant but php 5.3+: $now->add(); */
-            $expiration_datetime->modify(sprintf("+%s day", $this->_params[$type.'_expiration_window']));
-            /* more elegant but php 5.3+: $now->getTimestamp(); */
-            return $expiration_datetime->format("U");
-        }       
+            $now = new Horde_Date(time());
+            return $now->add(array('mday' => $this->_params[$type.'_expiration_window']))->timestamp();
+        }
     }
 }

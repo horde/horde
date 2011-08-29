@@ -563,16 +563,18 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     }
 
     /**
-     * Returns the last auto-generated ID from the affected table.
+     * Inserts a row into a table.
      *
      * @param string $sql           SQL statement.
-     * @param mixed $arg1           Either an array of bound parameters or a
+     * @param array|string $arg1    Either an array of bound parameters or a
      *                              query name.
      * @param string $arg2          If $arg1 contains bound parameters, the
      *                              query name.
-     * @param string $pk            TODO
-     * @param integer $idValue      TODO
-     * @param string $sequenceName  TODO
+     * @param string $pk            The primary key column.
+     * @param integer $idValue      The primary key value. This parameter is
+     *                              required if the primary key is inserted
+     *                              manually.
+     * @param string $sequenceName  The sequence name.
      *
      * @return integer  Last inserted ID.
      * @throws Horde_Db_Exception

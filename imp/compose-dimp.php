@@ -250,6 +250,7 @@ $t->set('title', $title);
 
 $compose_result = IMP_Views_Compose::showCompose(array(
     'composeCache' => $imp_compose->getCacheId(),
+    'fwdattach' => (isset($fwd_msg) && ($fwd_msg['type'] != IMP_Compose::FORWARD_BODY)),
     'redirect' => ($vars->type == 'redirect'),
     'show_editor' => $show_editor
 ));

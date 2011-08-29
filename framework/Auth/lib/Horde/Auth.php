@@ -21,12 +21,12 @@ class Horde_Auth
      *
      * <pre>
      * REASON_BADLOGIN - Bad username and/or password
-     * REASON_FAILED - Login failed
-     * REASON_EXPIRED - Password has expired
-     * REASON_LOGOUT - Logout due to user request
-     * REASON_MESSAGE - Logout with custom message
-     * REASON_SESSION - Logout due to session expiration
-     * REASON_LOCKED - User is locked
+     * REASON_FAILED   - Login failed
+     * REASON_EXPIRED  - Password has expired
+     * REASON_LOGOUT   - Logout due to user request
+     * REASON_MESSAGE  - Logout with custom message
+     * REASON_SESSION  - Logout due to session expiration
+     * REASON_LOCKED   - User is locked
      * </pre>
      */
     const REASON_BADLOGIN = 1;
@@ -35,6 +35,7 @@ class Horde_Auth
     const REASON_LOGOUT = 4;
     const REASON_MESSAGE = 5;
     const REASON_SESSION = 6;
+    const REASON_LOCKED = 7;
 
     /**
      * 64 characters that are valid for APRMD5 passwords.
@@ -222,12 +223,12 @@ class Horde_Auth
 
         case 'crypt-sha256':
             return $seed
-                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed,'$'))
+                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed, '$'))
                 : '$5$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
 
         case 'crypt-sha512':
             return $seed
-                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed,'$'))
+                ? substr(preg_replace('|^{crypt}|i', '', $seed), 0, strrpos($seed, '$'))
                 : '$6$' . base64_encode(hash('md5', sprintf('%08X%08X%08X', mt_rand(), mt_rand(), mt_rand()), true)) . '$';
 
         case 'ssha':

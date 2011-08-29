@@ -96,13 +96,22 @@ class IMP_Api extends Horde_Registry_Api
      * Creates a new folder.
      *
      * @param string $folder  The name of the folder to create (UTF7-IMAP).
+     * @param array $options  Additional options:
+     *   - full: (boolean) If true, $folder is a full mailbox name. If false,
+     *           $folder will be created in the default namespace.
+     *           Available since IMP 5.0.11
+     *           DEFAULT: false
      *
      * @return string  The full folder name created or false on failure.
+     *
      * @throws IMP_Exception
      */
-    public function createFolder($folder)
+    public function createFolder($folder, array $options = array())
     {
-        $fname = IMP_Mailbox::get($folder)->namespace_append;
+        $fname = IMP_Mailbox::get($folder);
+        if (empty($options['full'])) {
+            $fname = IMP_Mailbox::get($folder)->namespace_append;
+        }
 
         return $GLOBALS['injector']->getInstance('IMP_Folder')->create($fname, $GLOBALS['prefs']->getValue('subscribe'))
             ? $fname

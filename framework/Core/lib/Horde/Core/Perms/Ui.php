@@ -112,7 +112,7 @@ class Horde_Core_Perms_Ui
                 $perms_extra = array();
                 $parents = explode(':', $node);
 
-                if (!in_array($parents[0], $GLOBALS['registry']->listApps())) {
+                if (!in_array($parents[0], $GLOBALS['registry']->listApps(array('notoolbar', 'active', 'hidden')))) {
                     // This backend has permissions for an application that is
                     // not installed.  Perhaps the application has been removed
                     // or the backend is shared with other Horde installations.

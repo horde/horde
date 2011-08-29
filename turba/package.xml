@@ -410,6 +410,7 @@
     <file name="3_turba_upgrade_sqlng.php" role="horde" />
     <file name="4_turba_upgrade_sqlhierarchical.php" role="horde" />
     <file name="5_turba_upgrade_sqlnghierarchical.php" role="horde" />
+    <file name="6_turba_upgrade_updateschema.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
@@ -963,6 +964,7 @@
    <install as="turba/migration/3_turba_upgrade_sqlng.php" name="migration/3_turba_upgrade_sqlng.php" />
    <install as="turba/migration/4_turba_upgrade_sqlhierarchical.php" name="migration/4_turba_upgrade_sqlhierarchical.php" />
    <install as="turba/migration/5_turba_upgrade_sqlnghierarchical.php" name="migration/5_turba_upgrade_sqlnghierarchical.php" />
+   <install as="turba/migration/6_turba_upgrade_updateschema.php" name="migration/6_turba_upgrade_updateschema.php" />
    <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
@@ -1253,12 +1255,38 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-08-17</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [mjr] Fix issue with synchronizing deleted contacts (Bug #10422).
 * [jan] Fix searching for duplicates on some databases (Bug #10383).
 * [mjr] Add and support more attributes by default.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.7</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Add missing migration script (Bug #10436).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.8</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Fix attribute name for assistant phone (Bug #10449).
    </notes>
   </release>
  </changelog>

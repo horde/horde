@@ -2,6 +2,9 @@
 v2.0-cvs
 --------
 
+[jan] Add templates for delete and reminder notifications.
+[jan] Add message template variable for recipient role.
+[jan] Convert notification message templates to Horde_View.
 [jan] Send notification when deleting tickets.
 [jan] Fix determining whether to send updates without comments.
 [jan] Send uploaded attachments with notification messages (Request #7615).

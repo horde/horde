@@ -780,7 +780,7 @@ class Kronolith
                 if (empty($query->end)) {
                     $eventEnd = $event->recurrence->nextRecurrence($now);
                     if (!$eventEnd) {
-                        continue;
+                        return;
                     }
                 } else {
                     $eventEnd = $query->end;
