@@ -1,12 +1,28 @@
 <?php
 /**
- * Class for dealing with Exif data using a bundled PHP library based on
- * Exifer.
+ * Class for dealing with Exif data using a bundled PHP library based on the
+ * Exifer code written by and Copyright 2003 Jake Olefsky
+ * See: http://www.offsky.com/software/exif/index.php
  *
+ * ---
+ * This file is licensed under the GPL as stated in Jake Olefsky's original
+ * code. Jake has given Horde permission to incorporate Exifer into our
+ * codebase.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * for more details. http://www.gnu.org/copyleft/gpl.html
+ * ---
+ *
+ * The original Exifer library has been heavily modified and refactored. All
+ * modifications are
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Image
