@@ -411,9 +411,20 @@ class Content_Tagger
                     $args['objectId']['obejct'],
                     $args['objectId']['type']));
             }
-            $radius = isset($args['radius']) ? (int)$args['radius'] : $this->_defaultRadius;
-            $inner = $this->_db->addLimitOffset('SELECT tag_id, object_id FROM ' . $this->_t('tagged') . ' WHERE object_id = ' . (int)$args['objectId'], array('limit' => $radius));
-            $sql = $this->_db->addLimitOffset('SELECT t2.object_id AS object_id, object_name FROM (' . $inner . ') t1 INNER JOIN ' . $this->_t('tagged') . ' t2 ON t1.tag_id = t2.tag_id INNER JOIN ' . $this->_t('objects') . ' objects ON objects.object_id = t1.object_id WHERE t2.object_id != ' . (int)$args['objectId'] . ' GROUP BY t2.object_id, object_name', array('limit' => $radius));
+            $radius = isset($args['radius']) ?
+                (int)$args['radius'] :
+                $this->_defaultRadius;
+            $inner = $this->_db->addLimitOffset(
+                'SELECT tag_id, object_id FROM ' . $this->_t('tagged')
+                    . ' WHERE object_id = ' . (int)$args['objectId'],
+                array('limit' => $radius));
+            $sql = $this->_db->addLimitOffset(
+                'SELECT t2.object_id AS object_id, object_name FROM ('
+                    . $inner . ') t1 INNER JOIN ' . $this->_t('tagged')
+                    . ' t2 ON t1.tag_id = t2.tag_id INNER JOIN ' . $this->_t('objects')
+                    . ' objects ON objects.object_id = t1.object_id WHERE t2.object_id != '
+                    . (int)$args['objectId'] . ' GROUP BY t2.object_id, object_name',
+                array('limit' => $radius));
         } elseif (isset($args['tagId'])) {
             $tags = is_array($args['tagId']) ? array_values($args['tagId']) : array($args['tagId']);
             $count = count($tags);
