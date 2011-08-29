@@ -408,7 +408,7 @@ class Content_Tagger
         if (isset($args['objectId'])) {
             if (is_array($args['objectId'])) {
                 $args['objectId'] = current($this->_objectManager->ensureObjects(
-                    $args['objectId']['obejct'],
+                    $args['objectId']['object'],
                     $args['objectId']['type']));
             }
             $radius = isset($args['radius']) ?
