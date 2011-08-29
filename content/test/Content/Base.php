@@ -19,13 +19,6 @@ class Content_Test_Base extends Horde_Test_Case
     static $tagger;
 
     /**
-     * Cache the tag_id => tag_names for further testing
-     *
-     * @var array
-     */
-     protected $_tags;
-
-    /**
      * Primes the fixture, and tests basic tagging functionality where all
      * bits of data are new (user, type, object, tag)..
      *
@@ -48,13 +41,6 @@ class Content_Test_Base extends Horde_Test_Case
         // Two users have tagged the same object, with the same tag
         self::$tagger->tag('alice', array('type' => 'event', 'object' => 'anniversary'), 'personal', new Horde_Date('2009-01-01T00:05:00'));
         self::$tagger->tag('bob', array('type' => 'event', 'object' => 'anniversary'), 'personal', new Horde_Date('2009-01-01T00:06:00'));
-
-        // save for later.
-        $this->_tags = self::$tagger->getTags(array());
-
-        // Check that the tags now exist.
-        //$this->assertEquals(4, count(self::$tagger->getTags(array())));
-
     }
 
     protected function _testEmpty()
