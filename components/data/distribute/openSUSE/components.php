@@ -116,7 +116,7 @@ $package_version = $component->getVersion();
 $destination .= '/server:php:applications/' . $package_name;
 
 $archive = array_shift(
-    $component->placeArchive($destination, array("logger" => $this->_output))
+    $component->placeArchive($destination, array("logger" => $this->_output, 'keep_version' => true))
 );
 
 if (!file_exists($destination)) {
@@ -149,5 +149,7 @@ foreach ($t_dirs as $template_directory) {
     );
 }
 // build a text containing only the last change. Use dash instead of *
+
 $changes = "updated to version $package_version\n- [xxx] something changed\n- [yyy] This changed too" . $component->getChangelog(new Components_Helper_ChangeLog($this->_output));
+//$changes = $component->getInstallationFileList();
 shell_exec("cd $destination && mv package.spec $package_name.spec && osc vc -m \"$changes\" &> file");
