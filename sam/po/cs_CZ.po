@@ -1,0 +1,190 @@
+# Czech translations for SAM package.
+# Copyright 2003-2009 The Horde Project
+# This file is distributed under the same license as the SAM package.
+# t macek <maca02@atlas.cz>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: SAM 0.0.2-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2003-06-26 14:05+0200\n"
+"PO-Revision-Date: 2003-06-26 14:05+0200\n"
+"Last-Translator: t macek <maca02@atlas.cz>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%s is already in your blacklist filter."
+msgstr "%s je ji¾ na Va¹í Èerné listinì."
+
+#, c-format
+msgid "%s is already in your whitelist filter."
+msgstr "%s je ji¾ na Va¹í Bílé listinì."
+
+msgid ""
+"All settings on this page will become the defaults for all users.  Proceed?"
+msgstr ""
+"V¹echna nastavení na této stránce budou pøednastavená pro v¹echny u¾ivatele. "
+"Pokraèovat?"
+
+msgid "Black List From:"
+msgstr "Èerná listina Od:"
+
+msgid "Black List Manager"
+msgstr "Správce Èerné listiny"
+
+msgid "Black List To:"
+msgstr "Èerná listina Komu:"
+
+msgid "Black List"
+msgstr "Èerná listina"
+
+msgid "Defang MIME: "
+msgstr "Zmìnit MIME:"
+
+msgid "General SpamAssassin Options"
+msgstr "Obecné nastavení"
+
+msgid "Help"
+msgstr "Nápovìda"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "No configuration information specified for SQL Tasks."
+msgstr "Nebyly specifikovány ¾ádné konfiguraèní informace pro úlohy SQL."
+
+msgid "Non-numeric value for Required Hits"
+msgstr "Nebyla zadána èíselná informace v poli Poèet zásahù"
+
+msgid "Only an administrator may change the global defaults.  "
+msgstr "Pouze administrátor mù¾e mìnit globální nastavení.  "
+
+msgid "Only an administrator may change the global defaults."
+msgstr "Pouze administrátor mù¾e mìnit globální nastavení."
+
+msgid "Options"
+msgstr "Mo¾nosti"
+
+msgid "Report Header: "
+msgstr "Zobrazit zprávu:"
+
+msgid "Required 'database' not specified in Spam Assassin configuration."
+msgstr ""
+"Po¾adovaná polo¾ka 'database' nebyla specifikována v konfiguraci Spam "
+"Assassinu."
+
+msgid "Required 'hostspec' not specified in Spam Assassin configuration."
+msgstr ""
+"Po¾adovaná polo¾ka 'hostspec' nebyla specifikována v konfiguraci Spam "
+"Assassinu."
+
+msgid "Required 'password' not specified in Spam Assassin configuration."
+msgstr ""
+"Po¾adovaná polo¾ka 'password' nebyla specifikována v konfiguraci Spam "
+"Assassinu."
+
+msgid "Required 'phptype' not specified in Spam Assassin configuration."
+msgstr ""
+"Po¾adovaná polo¾ka 'phptype' nebyla specifikována v konfiguraci Spam "
+"Assassinu."
+
+msgid "Required 'username' not specified in Spam Assassin configuration."
+msgstr ""
+"Po¾adovaná polo¾ka 'username' nebyla specifikována v konfiguraci Spam "
+"Assassinu."
+
+msgid "Required Hits: "
+msgstr "Poèet zásahù: "
+
+msgid "Rewrite Subject: "
+msgstr "Pøepsat Pøedmìt "
+
+msgid "SAM is not properly configured"
+msgstr "SAM není správnì nakonfigurován"
+
+msgid "Save Changes"
+msgstr "Ulo¾it zmìny"
+
+msgid "Save as Defaults"
+msgstr "Ulo¾it jako standardní"
+
+msgid "Select your preferred language:"
+msgstr "Zvolte jazyk:"
+
+msgid "Set the your preferred display language."
+msgstr "Nastavte jazyk pro zobrazování."
+
+msgid "Skip RBL Checks: "
+msgstr "Vynechat testy RBL: "
+
+msgid "Some of SAM's configuration files are missing:"
+msgstr "Nìkterý z konfiguraèních souborù SAMu chybí:"
+
+msgid "Spam Level Stars: "
+msgstr "Hodnota nevy¾ádané po¹ty: "
+
+msgid "Spam Rules"
+msgstr "Pravidla Nevy¾ádané po¹ty"
+
+msgid "Subject Tag: "
+msgstr "Text Pøedmìtu: "
+
+msgid "Terse Report: "
+msgstr "Pou¾ít krátkou zprávu"
+
+msgid "This blacklist will become the default for all users.  Proceed?"
+msgstr ""
+"Tato Èerná listina bude pøednastavená pro v¹echny u¾ivatele. Pokraèovat?"
+
+msgid ""
+"This is the main SAM configuration file. It contains options for all SAM "
+"scripts."
+msgstr ""
+"Toto je hlavní konfiguraèní soubor SAMu. Obsahuje volby pro v¹echny skripty "
+"SAMu."
+
+msgid "This whitelist will become the default for all users.  Proceed?"
+msgstr ""
+"Tato Bílá listina bude pøednastavená pro v¹echny u¾ivatele. Pokraèovat?"
+
+msgid "Undo Changes"
+msgstr "Vrátit zmìny"
+
+msgid "Updated Black List Filter"
+msgstr "Filtr Èerné listiny byl ulo¾en"
+
+msgid "Updated Global Black List Filter"
+msgstr "Globální filtr Èerné listiny byl ulo¾en"
+
+msgid "Updated Global Rules"
+msgstr "Globální pravidla byla ulo¾ena"
+
+msgid "Updated Global White List Filter"
+msgstr "Globální filtr Bílé listiny byl ulo¾en"
+
+msgid "Updated Spam Rules"
+msgstr "Pravidla Nevy¾ádané po¹ty byla ulo¾ena"
+
+msgid "Updated White List Filter"
+msgstr "Filtr Bílé listiny byl ulo¾en"
+
+msgid "User Options"
+msgstr "U¾ivatelské nastavení"
+
+msgid "White List From:"
+msgstr "Bílá listina Od:"
+
+msgid "White List Manager"
+msgstr "Správce Bílé listiny"
+
+msgid "White List To:"
+msgstr "Bílá listina Komu:"
+
+msgid "White List"
+msgstr "Bílá listina"
+
+msgid "Your Information"
+msgstr "Va¹e informace"

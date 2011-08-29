@@ -1,0 +1,228 @@
+# Romanian translations for SAM package.
+# Copyright 2003-2009 The Horde Project
+# This file is distributed under the same license as the SAM package.
+# Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sam\n"
+"POT-Creation-Date: 2003-03-04 13:46+0100\n"
+"PO-Revision-Date: 2003-03-25 10:37+0200\n"
+"Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
+"Language-Team: Romanian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/api.php:43 lib/api.php:49
+msgid "%s is already in your blacklist filter."
+msgstr "%s exista deja in filtrul listei negre."
+
+#: lib/api.php:73 lib/api.php:79
+msgid "%s is already in your whitelist filter."
+msgstr "%s exista deja in filtrul listei albe."
+
+#: templates/spamassassin/body.inc:70
+msgid ""
+"All settings on this page will become the defaults for all users.  Proceed?"
+msgstr ""
+"Toate setarile vor deveni implicite pentru toti utilizatorii. Continuam?"
+
+#: templates/menu/menu.inc:8
+msgid "Black List"
+msgstr "Lista neagra"
+
+#: templates/blacklist/body.inc:10
+msgid "Black List From:"
+msgstr "Lista neagra From:"
+
+#: blacklist.php:19
+msgid "Black List Manager"
+msgstr "Administrator lista neagra"
+
+#: templates/blacklist/body.inc:18
+msgid "Black List To:"
+msgstr "Lista neagra To:"
+
+#: templates/spamassassin/body.inc:51
+msgid "Defang MIME: "
+msgstr "Dezactivare MIME:"
+
+#: spamassassin.php:18
+msgid "General SpamAssassin Options"
+msgstr "Optiuni generale SpamAssassin"
+
+#: templates/menu/menu.inc:18
+msgid "Help"
+msgstr "Ajutor"
+
+#: config/prefs.php.dist:6
+msgid "Language"
+msgstr "Limba"
+
+#: lib/Driver/sql.php:304
+msgid "No configuration information specified for SQL Tasks."
+msgstr "Nici o configurare specificata pentru sarcinile SQL."
+
+#: spamassassin.php:37
+msgid "Non-numeric value for Required Hits"
+msgstr "Valoare nenumerica pentru hiturile necesare"
+
+#: spamassassin.php:25
+msgid "Only an administrator may change the global defaults."
+msgstr "Doar administratorul poate schimba setarile implicite globale."
+
+#: whitelist.php:27 blacklist.php:27
+msgid "Only an administrator may change the global defaults.\n"
+msgstr "Doar administratorul poate schimba setarile implicite globale.\n"
+
+#: templates/menu/menu.inc:10
+msgid "Options"
+msgstr "Optiuni"
+
+#: templates/spamassassin/body.inc:37
+msgid "Report Header: "
+msgstr "Raporteaza header:"
+
+#: lib/Driver/sql.php:319
+msgid "Required 'database' not specified in Spam Assassin configuration."
+msgstr "'database' nespecificat in configurarea Spam Assassin."
+
+#: lib/Driver/sql.php:310
+msgid "Required 'hostspec' not specified in Spam Assassin configuration."
+msgstr "'hostspec' nespecificat in configurarea Spam Assassin."
+
+#: lib/Driver/sql.php:316
+msgid "Required 'password' not specified in Spam Assassin configuration."
+msgstr "'password' nespecificat in configurarea Spam Assassin."
+
+#: lib/Driver/sql.php:307
+msgid "Required 'phptype' not specified in Spam Assassin configuration."
+msgstr "'phptype' nespecificat in configurarea Spam Assassin."
+
+#: lib/Driver/sql.php:313
+msgid "Required 'username' not specified in Spam Assassin configuration."
+msgstr "'username' nespecificat in configurarea Spam Assassin."
+
+#: templates/spamassassin/body.inc:9
+msgid "Required Hits: "
+msgstr "Hituri cerute:"
+
+#: templates/spamassassin/body.inc:16
+msgid "Rewrite Subject: "
+msgstr "Rescrie subiect:"
+
+#: templates/index/notconfigured.inc:4
+msgid "SAM is not properly configured"
+msgstr "SAM nu este corect configurat"
+
+#: templates/spamassassin/body.inc:72 templates/blacklist/body.inc:32
+#: templates/whitelist/body.inc:32
+msgid "Save Changes"
+msgstr "Salveaza schimbari"
+
+#: templates/spamassassin/body.inc:70 templates/blacklist/body.inc:30
+#: templates/whitelist/body.inc:30
+msgid "Save as Defaults"
+msgstr "Salveaza ca implicite"
+
+#: config/prefs.php.dist:16
+msgid "Select your preferred language:"
+msgstr "Selectare limba favorita:"
+
+#: config/prefs.php.dist:7
+msgid "Set the your preferred display language."
+msgstr "Setare limba favorita."
+
+#: templates/spamassassin/body.inc:58
+msgid "Skip RBL Checks: "
+msgstr "Renunta la verificari RBL: "
+
+#: templates/index/notconfigured.inc:40
+msgid "Some of SAM's configuration files are missing:"
+msgstr "Anumite fisiere de configurare SAM lipsesc:"
+
+#: templates/spamassassin/body.inc:30
+msgid "Spam Level Stars: "
+msgstr "Stele nivel spam: "
+
+#: templates/menu/menu.inc:6
+msgid "Spam Rules"
+msgstr "Reguli spam"
+
+#: templates/spamassassin/body.inc:23
+msgid "Subject Tag: "
+msgstr "Eticheta subiect: "
+
+#: templates/spamassassin/body.inc:44
+msgid "Terse Report: "
+msgstr "Raport concis:"
+
+#: templates/blacklist/body.inc:30
+msgid "This blacklist will become the default for all users.  Proceed?"
+msgstr "Aceasta lista neagra va fi implicita pentru toti userii. Continuam?"
+
+#: templates/index/notconfigured.inc:44
+msgid ""
+"This is the main SAM configuration file. It contains options for all SAM "
+"scripts."
+msgstr ""
+"Acesta este principalul fisier de configurare SAM. Contine optiuni "
+"pentru toate scripturile SAM "
+
+#: templates/whitelist/body.inc:30
+msgid "This whitelist will become the default for all users.  Proceed?"
+msgstr "Aceasta lista alba va deveni implicita pentru toti userii. Continuam?"
+
+#: templates/spamassassin/body.inc:73 templates/blacklist/body.inc:33
+#: templates/whitelist/body.inc:33
+msgid "Undo Changes"
+msgstr "Anulare schimbari"
+
+#: blacklist.php:49
+msgid "Updated Black List Filter"
+msgstr "Filtru lista neagra improspatat"
+
+#: blacklist.php:52
+msgid "Updated Global Black List Filter"
+msgstr "Filtru global lista neagra improspatat"
+
+#: spamassassin.php:62
+msgid "Updated Global Rules"
+msgstr "Reguli globale improspatate"
+
+#: whitelist.php:52
+msgid "Updated Global White List Filter"
+msgstr "Filtru global lista alba improspatat"
+
+#: spamassassin.php:59
+msgid "Updated Spam Rules"
+msgstr "Reguli spam improspatate"
+
+#: whitelist.php:49
+msgid "Updated White List Filter"
+msgstr "Filtru lista alba improspatat"
+
+#: prefs.php:37
+msgid "User Options"
+msgstr "Optiuni utilizator"
+
+#: templates/menu/menu.inc:7
+msgid "White List"
+msgstr "Lista alba"
+
+#: templates/whitelist/body.inc:10
+msgid "White List From:"
+msgstr "Lista alba From:"
+
+#: whitelist.php:19
+msgid "White List Manager"
+msgstr "Administrator lista alba"
+
+#: templates/whitelist/body.inc:18
+msgid "White List To:"
+msgstr "Lista alba To:"
+
+#: config/prefs.php.dist:5
+msgid "Your Information"
+msgstr "Detalii personale"

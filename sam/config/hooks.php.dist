@@ -1,0 +1,27 @@
+<?php
+/**
+ * Sam Hooks configuration file.
+ *
+ * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
+ * BLINDLY IF YOU DO NOT KNOW WHAT YOU ARE DOING.  YOU HAVE TO CUSTOMIZE THEM
+ * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
+ *
+ * For more information please see the horde/config/hooks.php.dist file.
+ *
+ * $Horde: sam/config/hooks.php.dist,v 1.1 2007/09/10 22:28:56 jan Exp $
+ */
+
+// Here is an example _sam_hook_username function to set the username that
+// SpamAssassin sees to one different from the Horde username.
+
+// if (!function_exists('_sam_hook_username')) {
+//     function _sam_hook_username($horde_uid)
+//     {
+//         if (strstr($horde_uid, '@')) {
+//             $parts = explode('@', $horde_uid);
+//             return $parts[0];
+//         } else {
+//             return $horde_uid;
+//         }
+//     }
+// }
