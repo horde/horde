@@ -1,30 +1,31 @@
 <?php
-/*
- * This file lets you extend the Spam Assassin Module's menu with your own items.
+/**
+ * This file lets you extend Sam's menu with your own items.
  *
  * To add a new menu item, simply add a new entry to the $_menu array.
- * Valid attributes for a new menu item are:
  *
- *  'url'       The URL value for the menu item.
- *  'text'      The text to accompany the menu item.
+ * REQUIRED attributes for a menu item are:
  *
- * These attributes are optional:
+ *  'url'   The URL value for the menu item.
+ *  'text'  The text to accompany the menu item.
  *
- *  'icon'      The filename of an icon to use for the menu item.
- *  'icon_path' The path to the icon if it doesn't exist in the graphics/
- *              directory.
- *  'target'    The "target" of the link (e.g. '_top', '_blank').
- *  'onclick'   Any JavaScript to execute on the "onclick" event.
+ * These attributes are OPTIONAL:
+ *
+ *  'icon'       The filename of an icon to use for the menu item.
+ *  'icon_path'  The path to the icon if it doesn't exist in the graphics/
+ *               directory.
+ *  'onclick'    Javascript to execute on the "onclick" event (standard view
+                 only).
+ *  'target'     The "target" of the link (e.g. '_top', '_blank').
  *
  * Here's an example entry:
  *
- *  $_menu[] = array(   
+ *  $_menu[] = array(
  *      'url' =>        'http://www.example.com/',
  *      'text' =>       'Example, Inc.',
- *      'icon' =>       'example.gif',
+ *      'icon' =>       'example.png',
  *      'icon_path' =>  'http://www.example.com/images/',
- *      'target' =>     '_blank',
- *      'onclick' =>    ''
+ *      'target' =>     '_blank'
  *  );
  *
  * You can also add a "separator" (a spacer) between menu items.  To add a
@@ -32,6 +33,8 @@
  * 'separator'.  It should look like this:
  *
  *  $_menu[] = 'separator';
+ *
+ * $Id$
  */
 
 $_menu = array();
