@@ -26,8 +26,6 @@ require_once dirname(__FILE__) . '/spamd.php';
  * script appropriate for your database, or modified from one that is
  * available.
  *
- * $Horde: sam/lib/Driver/spamd_sql.php,v 1.59 2009/01/06 18:01:44 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

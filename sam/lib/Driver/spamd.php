@@ -9,8 +9,6 @@ define('_SAM_OPTION_ON',  '1');
 /**
  * Base class for all SpamAssassin drivers.
  *
- * $Horde: sam/lib/Driver/spamd.php,v 1.17 2009/01/06 18:01:44 jan Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

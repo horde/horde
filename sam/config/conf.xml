@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- $Horde: sam/config/conf.xml,v 1.7 2003/08/28 20:02:45 max Exp $ -->
+<!-- $Id$ -->
 <configuration>
  <configsection name="menu" desc="Menu settings">
    <configheader>

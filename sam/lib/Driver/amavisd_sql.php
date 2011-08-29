@@ -23,8 +23,6 @@
  * script appropriate for your database, or modified from one that is
  * available.
  *
- * $Horde: sam/lib/Driver/amavisd_sql.php,v 1.23 2008/09/26 23:09:10 chuck Exp $
- *
  * @author  Max Kalika <max@horde.org>
  * @since   Sam 0.0.1
  * @package Sam

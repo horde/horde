@@ -2,8 +2,6 @@
 /**
  * SAM_Driver defines an API for implementing storage backends for SAM.
  *
- * $Horde: sam/lib/Driver.php,v 1.27 2007/08/03 19:53:53 chuck Exp $
- *
  * @author  Chris Bowlby <excalibur@hub.org>
  * @author  Max Kalika <max@gentoo.org>
  * @since   Sam 0.0.1

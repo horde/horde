@@ -1,7 +1,5 @@
 <?php
 /*
- * $Horde: sam/index.php,v 1.18 2009/01/06 18:01:43 jan Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

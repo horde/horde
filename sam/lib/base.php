@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: sam/lib/base.php,v 1.40 2009/07/13 20:05:55 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

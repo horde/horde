@@ -13,8 +13,6 @@ require_once dirname(__FILE__) . '/spamd.php';
  *   'attribute'    --  The spamAssassin attribute to use.
  *   'uid'          --  The uid attribute for building userDNs.
  *
- * $Horde: sam/lib/Driver/spamd_ldap.php,v 1.27 2009/07/08 18:29:52 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

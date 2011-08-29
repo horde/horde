@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: sam/config/backends.php.dist,v 1.13 2006/03/17 05:00:19 chuck Exp $
- *
  * This file is where you specify what backends people using your
  * installation of Sam can store settings on. There are a number of
  * properties that you can set for each backend:

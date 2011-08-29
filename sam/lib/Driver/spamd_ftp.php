@@ -11,8 +11,6 @@ require_once dirname(__FILE__) . '/spamd.php';
  *   'user_prefs'    The file with the user preferences, relative to the home
  *                   directory. DEFAULT: '.spamassassin/user_prefs'</pre>
  *
- * $Horde: sam/lib/Driver/spamd_ftp.php,v 1.24 2009/07/08 18:29:52 slusarz Exp $
- *
  * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

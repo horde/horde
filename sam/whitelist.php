@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: sam/whitelist.php,v 1.31 2009/07/08 18:29:51 slusarz Exp $
- *
  * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you

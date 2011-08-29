@@ -2,8 +2,6 @@
 /**
  * Sam external API interface.
  *
- * $Horde: sam/lib/api.php,v 1.9 2006/03/22 18:45:16 jan Exp $
- *
  * This file defines SAM's external API interface. Other applications
  * can interact with Sam through this API.
  */

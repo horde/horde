@@ -13,8 +13,6 @@
  * General configuration is in 'conf.php'.
  * Backend storage is defined in 'backends.php'.
  *
- * $Horde: sam/config/attributes.php.dist,v 1.14 2007/08/03 19:53:53 chuck Exp $
- *
  * The syntax of this array is as follows:
  *      label    - the text that the user will see attached to this field
  *      type     - one of the following:
