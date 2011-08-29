@@ -9,7 +9,6 @@
  *
  * @author  Chris Bowlby <cbowlby@tenthpowertech.com>
  * @author  Max Kalika <max@horde.org>
- * @since   Sam 1.0
  * @package Sam
  */
 class Sam {

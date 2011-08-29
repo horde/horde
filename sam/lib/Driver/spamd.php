@@ -17,7 +17,6 @@ define('_SAM_OPTION_ON',  '1');
  * @author  Chris Bowlby <cbowlby@tenthpowertech.com>
  * @author  Max Kalika <max@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Sam 0.1
  * @package Sam
  */
 class SAM_Driver_spamd extends SAM_Driver {

@@ -20,7 +20,6 @@ require_once dirname(__FILE__) . '/spamd.php';
  * @author  Max Kalika <max@horde.org>
  * @author  Ben Chavet <ben@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Sam 0.1
  * @package Sam
  */
 class SAM_Driver_spamd_ftp extends SAM_Driver_spamd {

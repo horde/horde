@@ -4,7 +4,6 @@
  *
  * @author  Chris Bowlby <excalibur@hub.org>
  * @author  Max Kalika <max@gentoo.org>
- * @since   Sam 0.0.1
  * @package Sam
  */
 class SAM_Driver {

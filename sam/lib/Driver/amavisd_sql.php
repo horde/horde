@@ -24,7 +24,6 @@
  * available.
  *
  * @author  Max Kalika <max@horde.org>
- * @since   Sam 0.0.1
  * @package Sam
  */
 
