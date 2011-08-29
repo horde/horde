@@ -11,7 +11,7 @@ require_once dirname(__FILE__) . '/spamd.php';
  *   'user_prefs'    The file with the user preferences, relative to the home
  *                   directory. DEFAULT: '.spamassassin/user_prefs'</pre>
  *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
