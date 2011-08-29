@@ -400,6 +400,7 @@ class Content_Tagger
      *   typeId     Only return objects with a specific type.
      *   objectId   Return objects with the same tags as $objectId.
      *   userId     Limit results to objects tagged by a specific user.
+     *   radius     Radius setting for relationship queries e.g., objectId
      *
      * @return array  An array of object ids.
      */
@@ -411,6 +412,7 @@ class Content_Tagger
                     $args['objectId']['object'],
                     $args['objectId']['type']));
             }
+
             $radius = isset($args['radius']) ?
                 (int)$args['radius'] :
                 $this->_defaultRadius;
@@ -418,13 +420,14 @@ class Content_Tagger
                 'SELECT tag_id, object_id FROM ' . $this->_t('tagged')
                     . ' WHERE object_id = ' . (int)$args['objectId'],
                 array('limit' => $radius));
-            $sql = $this->_db->addLimitOffset(
-                'SELECT t2.object_id AS object_id, object_name FROM ('
+            $sql = 'SELECT t2.object_id AS object_id, object_name FROM ('
                     . $inner . ') t1 INNER JOIN ' . $this->_t('tagged')
                     . ' t2 ON t1.tag_id = t2.tag_id INNER JOIN ' . $this->_t('objects')
                     . ' objects ON objects.object_id = t1.object_id WHERE t2.object_id != '
                     . (int)$args['objectId'] . ' GROUP BY t2.object_id, object_name',
-                array('limit' => $radius));
+            if (!empty($args['limit'])) {
+                $sql = $this->_db->addLimitOffset($sql, $args['limit']);
+            }
         } elseif (isset($args['tagId'])) {
             $tags = is_array($args['tagId']) ? array_values($args['tagId']) : array($args['tagId']);
             $count = count($tags);
