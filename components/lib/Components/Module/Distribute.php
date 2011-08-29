@@ -110,6 +110,7 @@ extends Components_Module_Base
     {
         return array(
             '--destination' => '',
+            '--templatedir' => 'Location of a template directory that contains the distribution specific template definitions. *DO NOT* use the default value here as that one does not contain distribution specific templates.',
         );
     }
 

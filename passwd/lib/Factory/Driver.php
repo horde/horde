@@ -32,6 +32,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
         if (!empty($params['is_subdriver'])) {
             $backends = array($name => $params);
         } else {
+            // rethink this. It is not mockable.
             $backends = Passwd::getBackends();
         }
 
@@ -79,12 +80,15 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
                 break;
             case 'Passwd_Driver_Sql':
             case 'Passwd_Driver_Vpopmail':
-                try {
-                    $backend['params']['db'] = empty($backend['params'])
+                if (!($backend['params']['db'] instanceof Horde_Db_Adapter)) {
+                    try {
+                        $backend['params']['db'] = empty($backend['params'])
                         ? $this->_injector->getInstance('Horde_Db_Adapter')
-                        : $this->_injector->getInstance('Horde_Core_Factory_Db')->create('passwd', $backend['params']);
-                } catch (Horde_Db_Exception $e) {
-                    throw new Passwd_Exception($e);
+                        : $this->_injector->getInstance('Horde_Core_Factory_Db')
+                            ->create('passwd', $backend['params']);
+                    } catch (Horde_Db_Exception $e) {
+                        throw new Passwd_Exception($e);
+                    }
                 }
                 break;
             /* more to come later as drivers are upgraded to H4 / PHP5 */
@@ -99,6 +103,8 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
 
             if (empty($backend['params']['is_subdriver'])) {
                 $this->_instances[$key] = $driver;
+            } else {
+                return $driver;
             }
         }
 
