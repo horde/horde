@@ -282,10 +282,16 @@ class Content_Test_Base extends Horde_Test_Case
         $this->assertEquals(1, count($recent));
     }
 
+    /**
+     * Test obtaining objects that are tagged with the same tags as the provided
+     * object.
+     *
+     * See Bug: 10439
+     */
     public function testGetObjectsByObjectId()
     {
-        self::$tagger->tag('irene', array('type' => 'event', 'object' => 'irene'), 'hurricane', new Horde_Date('2011-08-28T00:01:00'));
-        self::$tagger->tag('irene', array('type' => 'event', 'object' => 'floyd'), 'hurricane', new Horde_Date('1999-09-07T00:02:00'));
+        self::$tagger->tag('mike', array('type' => 'event', 'object' => 'irene'), 'hurricane', new Horde_Date('2011-08-28T00:01:00'));
+        self::$tagger->tag('mike', array('type' => 'event', 'object' => 'floyd'), 'hurricane', new Horde_Date('1999-09-07T00:02:00'));
         $object = self::$tagger->getObjects(array('objectId' => array('type' => 'event', 'object' => 'irene')));
         $this->assertEquals('floyd', current($object));
     }
