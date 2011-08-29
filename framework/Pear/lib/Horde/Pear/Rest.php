@@ -47,6 +47,13 @@ class Horde_Pear_Rest
     private $_url;
 
     /**
+     * The package states already fetched.
+     *
+     * @var array
+     */
+    private $_package_states;
+
+    /**
      * Constructor.
      *
      * @param Horde_Http_Client $client The HTTP client.
@@ -108,13 +115,29 @@ class Horde_Pear_Rest
      */
     public function fetchLatestPackageReleases($package)
     {
-        $base = $this->_url . '/rest/r/' . strtolower($package);
-        return array(
-            'stable' => $this->_read($base . '/stable.txt'),
-            'alpha'  => $this->_read($base . '/alpha.txt'),
-            'beta'   => $this->_read($base . '/beta.txt'),
-            'devel'  => $this->_read($base . '/devel.txt'),
-        );
+        if (!isset($this->_package_states[$package])) {
+            $base = $this->_url . '/rest/r/' . strtolower($package);
+            $this->_package_states[$package] = array(
+                'stable' => $this->_read($base . '/stable.txt'),
+                'alpha'  => $this->_read($base . '/alpha.txt'),
+                'beta'   => $this->_read($base . '/beta.txt'),
+                'devel'  => $this->_read($base . '/devel.txt'),
+            );
+        }
+        return $this->_package_states[$package];
+    }
+
+    /**
+     * Return the latest release version for a specific package.
+     *
+     * @param string $package The name of the package to retrieve the latest
+     *                        release for.
+     *
+     * @return string The version of the latest release.
+     */
+    public function fetchLatestRelease($package)
+    {
+        return $this->_read($this->_url . '/rest/r/' . strtolower($package) . '/latest.txt');
     }
 
     /**

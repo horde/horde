@@ -100,12 +100,17 @@ class Horde_Pear_Rest_Access
      * @param string $package The name of the package.
      * @param string $stability The stability of the release.
      *
-     * @return array A list of latest releases per level of stability.
+     * @return string|boolean The latest version for this stability or false if
+     *                        no version with this stability level exists.
      */
-    public function getLatestRelease($package, $stability)
+    public function getLatestRelease($package, $stability = null)
     {
-        $result = $this->_getRest()->fetchLatestPackageReleases($package);
-        return isset($result[$stability]) ? $result[$stability] : false;
+        if ($stability === null) {
+            return $this->_getRest()->fetchLatestRelease($package);
+        } else {
+            $result = $this->_getRest()->fetchLatestPackageReleases($package);
+            return isset($result[$stability]) ? $result[$stability] : false;
+        }
     }
 
     /**
