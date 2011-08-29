@@ -544,7 +544,7 @@ class Content_Tagger
                 . $this->_db->quoteString($args['typeId']);
         }
         $sql .= ' WHERE tags.tag_id IN (' . implode(',', $tagArray) . ') AND matches.object_id <> ' . (int)$object_id
-            .' GROUP BY objects.object_name HAVING num_common_tags >= ' . $threshold
+            .' GROUP BY objects.object_name HAVING COUNT(matches.object_id) >= ' . $threshold
             . ' ORDER BY num_common_tags DESC';
 
         $sql = $this->_db->addLimitOffset($sql, array('limit' => $max_objects));
