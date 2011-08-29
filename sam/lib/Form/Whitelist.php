@@ -10,13 +10,13 @@
  * @author Max Kalika <max@horde.org>
  * @package Sam
  */
-class WhitelistForm extends Horde_Form {
-
-    function WhitelistForm(&$vars)
+class Sam_Form_Whitelist extends Horde_Form
+{
+    public function __construct(&$vars)
     {
         global $sam_driver;
 
-        parent::Horde_Form($vars, _("Whitelist Manager"));
+        parent::__construct($vars, _("Whitelist Manager"));
 
         $this->setButtons(_("Save"), true);
 
@@ -45,5 +45,4 @@ class WhitelistForm extends Horde_Form {
             $var->setHelp('global_defaults');
         }
     }
-
 }

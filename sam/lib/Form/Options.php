@@ -7,16 +7,16 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Max Kalika <max@horde.org>
+ * @author  Max Kalika <max@horde.org>
  * @package Sam
  */
-class OptionsForm extends Horde_Form {
-
-    function OptionsForm(&$vars)
+class Sam_Form_Options extends Horde_Form
+{
+    public function __construct(&$vars)
     {
         global $sam_driver;
 
-        parent::Horde_Form($vars, _("Spam Options"));
+        parent::__construct($vars, _("Spam Options"));
 
         $this->setButtons(_("Save"), true);
 
@@ -89,5 +89,4 @@ class OptionsForm extends Horde_Form {
             $var->setHelp('global_defaults');
         }
     }
-
 }

@@ -21,7 +21,7 @@
  *               be used by the driver.
  *
  * params:       An array containing any additional information that the
- *               SAM_Driver class needs.
+ *               Sam_Driver class needs.
  */
 
 /* SpamAssassin SQL storage example. */

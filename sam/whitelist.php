@@ -21,7 +21,7 @@ if (is_a($result, 'PEAR_Error')) {
 
 /* Initialize the form. */
 $vars = Horde_Variables::getDefaultVariables();
-$form = new WhitelistForm($vars);
+$form = new Sam_Form_Whitelist($vars);
 $renderer = new Horde_Form_Renderer();
 $defaults = false;
 

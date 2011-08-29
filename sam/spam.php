@@ -27,7 +27,7 @@ if (is_a($result, 'PEAR_Error')) {
 
 /* Initialize the form. */
 $vars = Horde_Variables::getDefaultVariables();
-$form = new OptionsForm($vars);
+$form = new Sam_Form_Options($vars);
 $renderer = new Horde_Form_Renderer();
 $defaults = false;
 

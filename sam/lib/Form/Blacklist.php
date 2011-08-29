@@ -10,13 +10,13 @@
  * @author Max Kalika <max@horde.org>
  * @package Sam
  */
-class BlacklistForm extends Horde_Form {
-
-    function BlacklistForm(&$vars)
+class Sam_Form_Blacklist extends Horde_Form
+{
+    public function __construct(&$vars)
     {
         global $sam_driver;
 
-        parent::Horde_Form($vars, _("Blacklist Manager"));
+        parent::__construct($vars, _("Blacklist Manager"));
 
         $this->setButtons(_("Save"), true);
 
@@ -45,5 +45,4 @@ class BlacklistForm extends Horde_Form {
             $var->setHelp('global_defaults');
         }
     }
-
 }

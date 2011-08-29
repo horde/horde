@@ -22,15 +22,15 @@ require_once dirname(__FILE__) . '/spamd.php';
  * @author  Jan Schneider <jan@horde.org>
  * @package Sam
  */
-class SAM_Driver_spamd_ftp extends SAM_Driver_spamd {
-
+class Sam_Driver_Spamd_Ftp extends Sam_Driver_Spamd_Base
+{
     /**
      * Constructs a new FTP storage object.
      *
      * @param string $user   The user who owns these SPAM options.
      * @param array $params  A hash containing connection parameters.
      */
-    function SAM_Driver_spamd_ftp($user, $params = array())
+    public function __construct($user, $params = array())
     {
         $default_params = array(
             'hostspec'   => 'localhost',
@@ -47,7 +47,7 @@ class SAM_Driver_spamd_ftp extends SAM_Driver_spamd {
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
      */
-    function retrieve()
+    public function retrieve()
     {
         $options = $this->_retrieve();
         if (!is_a($options, 'PEAR_Error')) {
@@ -64,7 +64,7 @@ class SAM_Driver_spamd_ftp extends SAM_Driver_spamd {
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
      */
-    function store()
+    public function store()
     {
         return $this->_store();
     }
@@ -77,7 +77,7 @@ class SAM_Driver_spamd_ftp extends SAM_Driver_spamd {
      * @return mixed  Array of field-value pairs or a PEAR_Error object on
      *                failure.
      */
-    function _retrieve()
+    protected function _retrieve()
     {
         $this->_params['username'] = $this->_user;
         $this->_params['password'] = Horde_Auth::getCredential('password');
@@ -112,7 +112,7 @@ class SAM_Driver_spamd_ftp extends SAM_Driver_spamd {
      *
      * @return array  Hash with options and values.
      */
-    function _parse($config)
+    protected function _parse($config)
     {
         $config = explode("\n", $config);
         $parsed = array();
@@ -138,7 +138,7 @@ class SAM_Driver_spamd_ftp extends SAM_Driver_spamd {
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
      */
-    function _store()
+    protected function _store()
     {
         $this->_params['username'] = $this->_user;
         $this->_params['password'] = Horde_Auth::getCredential('password');
@@ -159,5 +159,4 @@ class SAM_Driver_spamd_ftp extends SAM_Driver_spamd {
         $vfs = &VFS::singleton('ftp', $this->_params);
         return $vfs->writeData(dirname($this->_params['user_prefs']), basename($this->_params['user_prefs']), $output, true);
     }
-
 }

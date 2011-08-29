@@ -37,28 +37,28 @@ define('_SAM_OPTION_OFF', 'N');
  */
 define('_SAM_OPTION_ON',  'Y');
 
-class SAM_Driver_amavisd_sql extends SAM_Driver {
-
+class Sam_Driver_Amavisd_Sql extends Sam_Driver
+{
     /**
      * Handle for the current database connection.
      *
      * @var DB
      */
-    var $_db;
+    protected $_db;
 
     /**
      * Boolean indicating whether or not we're connected to the SQL server.
      *
      * @var boolean
      */
-    var $_connected = false;
+    protected $_connected = false;
 
     /**
      * List of the capabilities supported by this driver.
      *
      * @var array
      */
-    var $_capabilities = array('tag_level',
+    protected $_capabilities = array('tag_level',
                                'hit_level',
                                'kill_level',
                                'rewrite_sub',
@@ -83,7 +83,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      * @param string $user   The user who owns these SPAM options.
      * @param array $params  A hash containing connection parameters.
      */
-    function SAM_Driver_amavisd_sql($user, $params = array())
+    public function __construct($user, $params = array())
     {
         global $conf;
 
@@ -101,7 +101,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      * @return string  The converted Amavisd-new table or the original name if
      *                 no match is found.
      */
-    function _mapNameToTable($table)
+    protected function _mapNameToTable($table)
     {
         return isset($this->_params['table_map'][$table]['name'])
                ? $this->_params['table_map'][$table]['name'] : $table;
@@ -119,7 +119,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      * @return string  The converted Amavisd-new field or the original
      *                 attribute if no match is found.
      */
-    function _mapAttributeToField($table, $attribute)
+    protected function _mapAttributeToField($table, $attribute)
     {
         return isset($this->_params['table_map'][$table]['field_map'][$attribute])
                ? $this->_params['table_map'][$table]['field_map'][$attribute] : $attribute;
@@ -136,7 +136,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      * @return string  The converted Sam attribute or the original field if no
      *                 match is found.
      */
-    function _mapFieldToAttribute($table, $field)
+    protected function _mapFieldToAttribute($table, $field)
     {
         $attribute_map = array();
         if (isset($this->_params['table_map'][$table]['field_map'])) {
@@ -155,7 +155,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      * @return mixed  The id of the newly created recipient or a PEAR_Error
      *                object on failure.
      */
-    function _createUserID()
+    protected function _createUserID()
     {
         /* Make sure we have a valid database connection. */
         $this->_connect();
@@ -167,7 +167,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
         $values = array($this->_user);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_createUserID(): %s', $query),
+        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_createUserID(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_db->query($query, $values);
@@ -193,7 +193,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      * @return mixed  The ID of the found or newly created recipient or a
      *                PEAR_Error object on failure.
      */
-    function _lookupUserID()
+    protected function _lookupUserID()
     {
         static $_userID;
 
@@ -212,7 +212,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
         $values = array($this->_user);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_lookupUserID(): %s', $query),
+        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_lookupUserID(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
@@ -238,7 +238,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      *                the policy, null if not found, or a PEAR_Error object on
      *                failure.
      */
-    function _lookupPolicyID()
+    protected function _lookupPolicyID()
     {
         /* Make sure we have a valid database connection. */
         $this->_connect();
@@ -251,7 +251,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
         $values = array($this->_user);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_lookupPolicyID(): %s', $query),
+        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_lookupPolicyID(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
@@ -271,7 +271,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      * @return mixed  Array of field-value pairs or a PEAR_Error object on
      *                failure.
      */
-    function _retrieve()
+    protected function _retrieve()
     {
         /* Make sure we have a valid database connection. */
         $this->_connect();
@@ -297,7 +297,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
         $values = array($policyID);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_retrieve(): %s', $query),
+        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_retrieve(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
@@ -326,7 +326,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
         $values = array($userID);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_retrieve(): %s', $query),
+        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_retrieve(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_db->query($query, $values);
@@ -350,7 +350,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                 $values = array($senderID);
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_retrieve(): %s', $query),
+                Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_retrieve(): %s', $query),
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                 $sender = $this->_db->getOne($query, $values);
@@ -384,7 +384,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
      */
-    function retrieve()
+    public function retrieve()
     {
         $options = $this->_retrieve();
         if (!is_a($options, 'PEAR_Error')) {
@@ -403,7 +403,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
      */
-    function _store()
+    protected function _store()
     {
         /* Make sure we have a valid database connection. */
         $this->_connect();
@@ -422,7 +422,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
             $values = array($this->_user);
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
             $result = $this->_db->query($query, $values);
@@ -449,7 +449,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
             $values = array_merge(array($this->_user), $insertVals);
 
             /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
             $result = $this->_db->query($query, $values);
@@ -473,7 +473,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
         $values = array($policyID, $this->_user);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_db->query($query, $values);
@@ -499,7 +499,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
         $values = array($userID);
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_db->query($query, $values);
@@ -523,7 +523,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                 $values = array($senderID);
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+                Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                 $sender = $this->_db->getOne($query, $values);
@@ -541,7 +541,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                         $values = array($senderID, $userID);
 
                         /* Log the query at a DEBUG log level. */
-                        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+                        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                         $deleted = $this->_db->query($query, $values);
@@ -558,7 +558,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                         $values = array($senderID);
 
                         /* Log the query at a DEBUG log level. */
-                        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+                        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                         /* No one else needs this sender address, delete it
@@ -570,7 +570,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                             $values = array($senderID);
 
                             /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                             $deleted = $this->_db->query($query, $values);
@@ -606,7 +606,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                         $values = array($sender);
 
                         /* Log the query at a DEBUG log level. */
-                        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+                        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                         $wb_result = $this->_db->getOne($query, $values);
@@ -618,7 +618,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                             $values = array($sender);
 
                             /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                             $result = $this->_db->query($query, $values);
@@ -634,7 +634,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                             $values = array($sender);
 
                             /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                             $senderID = $this->_db->getOne($query, $values);
@@ -651,7 +651,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                             $values = array($userID, $senderID, $type);
 
                             /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                             $result = $this->_db->query($query, $values);
@@ -669,7 +669,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
                             $values = array($userID, $wb_result, $type);
 
                             /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                                               __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                             $result = $this->_db->query($query, $values);
@@ -690,7 +690,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
         $values = array('');
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SAM_Driver_amavisd_sql::_store(): %s', $query),
+        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_db->query($query, $values);
@@ -707,7 +707,7 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
      */
-    function store()
+    public function store()
     {
         return $this->_store();
     }
@@ -719,12 +719,12 @@ class SAM_Driver_amavisd_sql extends SAM_Driver {
      *
      * @return mixed    True on success or a PEAR_Error object on failure.
      */
-    function _connect()
+    public function _connect()
     {
         if (!$this->_connected) {
             Horde::assertDriverConfig($this->_params, 'amavisd_sql',
                 array('phptype'),
-                'SAM backend', 'backends.php', '$backends');
+                'Sam backend', 'backends.php', '$backends');
             if (!isset($this->_params['table'])) {
                 $this->_params['table'] = 'userpref';
             }

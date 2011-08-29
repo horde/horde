@@ -58,5 +58,5 @@ Horde::compressOutput();
 require_once SAM_BASE . '/lib/Driver.php';
 $backend = Sam::getBackend();
 $user = Sam::mapUser($backend['hordeauth']);
-$GLOBALS['sam_driver'] = &SAM_Driver::singleton($backend['driver'], $user,
-                                                $backend['params']);
+$GLOBALS['sam_driver'] = Sam_Driver::singleton($backend['driver'], $user,
+                                               $backend['params']);

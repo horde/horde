@@ -24,21 +24,21 @@ require_once dirname(__FILE__) . '/spamd.php';
  * @author  Jan Schneider <jan@horde.org>
  * @package Sam
  */
-class SAM_Driver_spamd_ldap extends SAM_Driver_spamd {
-
+class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
+{
     /**
      * Handle for the current LDAP connection.
      *
      * @var resource
      */
-    var $_linkid;
+    protected $_linkid;
 
     /**
      * Boolean indicating whether or not we're connected to the LDAP server.
      *
      * @var boolean
      */
-    var $_connected = false;
+    protected $_connected = false;
 
     /**
      * Constructs a new LDAP storage object.
@@ -46,7 +46,7 @@ class SAM_Driver_spamd_ldap extends SAM_Driver_spamd {
      * @param string $user   The user who owns these SPAM options.
      * @param array $params  A hash containing connection parameters.
      */
-    function SAM_Driver_spamd_ldap($user, $params = array())
+    public function __construct($user, $params = array())
     {
         $this->_user = $user;
         $this->_params = $params;
@@ -57,7 +57,7 @@ class SAM_Driver_spamd_ldap extends SAM_Driver_spamd {
      *
      * @return boolean  True on success or false on failure.
      */
-    function retrieve()
+    public function retrieve()
     {
         /* Make sure we have a valid LDAP connection. */
         if (!$this->_connect()) { 
@@ -113,7 +113,7 @@ class SAM_Driver_spamd_ldap extends SAM_Driver_spamd {
      *
      * @access private
      */
-    function _setDefaults()
+    protected function _setDefaults()
     {
         $this->_options = array_merge($this->_options, $this->_params['defaults']);
     }
@@ -123,7 +123,7 @@ class SAM_Driver_spamd_ldap extends SAM_Driver_spamd {
      *
      * @return boolean  True on success or false on failure.
      */
-    function store()
+    public function store()
     {
         /* Make sure we have a valid LDAP connection. */
         if (!$this->_connect()) {
@@ -159,7 +159,7 @@ class SAM_Driver_spamd_ldap extends SAM_Driver_spamd {
      *
      * @return boolean  True on success or false on failure.
      */
-    function _connect()
+    protected function _connect()
     {
         if ($this->_connected) {
             return true;
@@ -194,5 +194,4 @@ class SAM_Driver_spamd_ldap extends SAM_Driver_spamd {
         Horde::logMessage('LDAP error: ' . $error, __FILE__, __LINE__, PEAR_LOG_ERR);
         return false;
     }
-
 }

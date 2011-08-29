@@ -31,27 +31,26 @@ require_once dirname(__FILE__) . '/spamd.php';
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- *
  * @author  Chris Bowlby <cbowlby@tenthpowertech.com>
  * @author  Max Kalika <max@horde.org>
  * @author  Jan Schneider <jan@horde.org>
  * @package Sam
  */
-class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
-
+class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
+{
     /**
      * Handle for the current database connection.
      *
      * @var DB
      */
-    var $_db;
+    protected $_db;
 
     /**
      * Boolean indicating whether or not we're connected to the SQL server.
      *
      * @var boolean
      */
-    var $_connected = false;
+    protected $_connected = false;
 
     /**
      * Constructs a new SQL storage object.
@@ -59,7 +58,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
      * @param string $user   The user who owns these SPAM options.
      * @param array $params  A hash containing connection parameters.
      */
-    function SAM_Driver_spamd_sql($user, $params = array())
+    public function __construct($user, $params = array())
     {
         global $conf;
 
@@ -79,7 +78,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
      * @return mixed    Array of option-value pairs or a PEAR_Error object
      *                  on failure.
      */
-    function _retrieve($defaults = false)
+    protected function _retrieve($defaults = false)
     {
         /* Make sure we have a valid database connection. */
         $this->_connect();
@@ -99,7 +98,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
         $return = array();
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SAM_Driver_spamd_sql::_retrieve(): %s', $query),
+        Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_retrieve(): %s', $query),
                           __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         /* Execute the query. */
@@ -139,7 +138,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
      *
      * @return mixed    True on success or a PEAR_Error object on failure.
      */
-    function retrieve()
+    public function retrieve()
     {
         /* Load defaults for any options the user hasn't already overridden. */
         $defaults = $this->_retrieve(true);
@@ -171,7 +170,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
      */
-    function _store($defaults = false)
+    protected function _store($defaults = false)
     {
         /* Make sure we have a valid database connection. */
         $this->_connect();
@@ -195,7 +194,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
                          ' WHERE username = ? AND preference = ?';
                 $values = array($user, $option);
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('SAM_Driver_spamd_sql::_store(): %s', $query),
+                Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 $this->_db->query($query, $values);
                 continue;
@@ -206,7 +205,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
                          ' WHERE username = ? AND preference = ?';
                 $values = array($user, $option);
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('SAM_Driver_spamd_sql::_store(): %s', $query),
+                Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 $this->_db->query($query, $values);
 
@@ -224,7 +223,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
                              ' VALUES (?, ?, ?)';
                     $values = array($user, $option, $address);
                     /* Log the query at a DEBUG log level. */
-                    Horde::logMessage(sprintf('SAM_Driver_spamd_sql::_store(): %s', $query),
+                    Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
                                       __FILE__, __LINE__, PEAR_LOG_DEBUG);
                     $result = $this->_db->query($query, $values);
                     if (is_a($result, 'PEAR_Error')) {
@@ -238,7 +237,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
                 $values = array($user, $option);
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('SAM_Driver_spamd_sql::_store(): %s', $query),
+                Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                 $result = $this->_db->getOne($query, $values);
@@ -260,7 +259,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
                 }
 
                 /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('SAM_Driver_spamd_sql::_store(): %s', $query),
+                Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                 $result = $this->_db->query($query, $values);
@@ -283,7 +282,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
      */
-    function store($defaults = false)
+    public function store($defaults = false)
     {
         return $this->_store($defaults);
     }
@@ -295,7 +294,7 @@ class SAM_Driver_spamd_sql extends SAM_Driver_spamd {
      *
      * @return mixed  True on success or a PEAR_Error object on failure.
      */
-    function _connect()
+    protected function _connect()
     {
         if (!$this->_connected) {
             Horde::assertDriverConfig($this->_params, 'spamd_sql',

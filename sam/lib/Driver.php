@@ -1,19 +1,19 @@
 <?php
 /**
- * SAM_Driver defines an API for implementing storage backends for SAM.
+ * Sam_Driver defines an API for implementing storage backends for Sam.
  *
  * @author  Chris Bowlby <excalibur@hub.org>
  * @author  Max Kalika <max@gentoo.org>
  * @package Sam
  */
-class SAM_Driver {
-
+class Sam_Driver
+{
     /**
      * Array holding a user's SPAM options.
      *
      * @var array
      */
-    var $_options = array();
+    protected $_options = array();
 
     /**
      * Array holding the defaults to use if user hasn't defined
@@ -21,39 +21,39 @@ class SAM_Driver {
      *
      * @var array
      */
-    var $_defaults = array();
+    protected $_defaults = array();
 
     /**
      * Hash containing connection parameters for this backend.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * The user name to whom the SPAM options belong.
      *
      * @var string
      */
-    var $_user;
+    protected $_user;
 
     /**
-     * Attempts to return a concrete SAM_Driver instance based on $driver.
+     * Attempts to return a concrete Sam_Driver instance based on $driver.
      *
-     * @param string $driver  The type of concrete SAM_Driver subclass to
+     * @param string $driver  The type of concrete Sam_Driver subclass to
      *                        return.
      * @param string $user    The name of the user who owns these SPAM options.
      * @param array $params   A hash containing any additional configuration or
      *                        connection parameters a subclass might need.
      *
-     * @return SAM_Driver  The newly created concrete SAM_Driver instance, or
+     * @return Sam_Driver  The newly created concrete Sam_Driver instance, or
      *                     false on error.
      */
-    function &factory($driver, $user, $params = array())
+    public function factory($driver, $user, $params = array())
     {
         $driver = basename($driver);
         require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        $class = 'SAM_Driver_' . $driver;
+        $class = 'Sam_Driver_' . $driver;
         if (class_exists($class)) {
             $sam = &new $class($user, $params);
         } else {
@@ -64,26 +64,26 @@ class SAM_Driver {
     }
 
     /**
-     * Attempts to return a reference to a concrete SAM_Driver instance based
+     * Attempts to return a reference to a concrete Sam_Driver instance based
      * on $driver.
      *
-     * It will only create a new instance if no SAM_Driver instance with the
+     * It will only create a new instance if no Sam_Driver instance with the
      * same parameters currently exists.
      *
      * This should be used if multiple storage sources are required.
      *
-     * This method must be invoked as: $var = &SAM_Driver::singleton()
+     * This method must be invoked as: $var = &Sam_Driver::singleton()
      *
-     * @param string $driver  The type of concrete SAM_Driver subclass to
+     * @param string $driver  The type of concrete Sam_Driver subclass to
      *                        return.
      * @param string $user    The name of the user who owns these SPAM options.
      * @param array $params   A hash containing any additional configuration or
      *                        connection parameters a subclass might need.
      *
-     * @return SAM_Driver  The created concrete SAM_Driver instance, or false
+     * @return Sam_Driver  The created concrete Sam_Driver instance, or false
      *                     on error.
      */
-    function &singleton($driver, $user, $params = array())
+    public function singleton($driver, $user, $params = array())
     {
         static $instances;
 
@@ -93,7 +93,7 @@ class SAM_Driver {
 
         $signature = serialize(array($driver, $user, $params));
         if (!isset($instances[$signature])) {
-            $instances[$signature] = &SAM_Driver::factory($driver, $user, $params);
+            $instances[$signature] = &Sam_Driver::factory($driver, $user, $params);
         }
 
         return $instances[$signature];
@@ -106,7 +106,7 @@ class SAM_Driver {
      *
      * @return boolean  True if the backend is capable, false otherwise.
      */
-    function hasCapability($capability)
+    public function hasCapability($capability)
     {
         return in_array($capability, $this->_capabilities);
     }
@@ -119,7 +119,7 @@ class SAM_Driver {
      * @return mixed    Either a backend-specific boolean value or
      *                  1 if true and 0 if false.
      */
-    function booleanToOption($boolean)
+    public function booleanToOption($boolean)
     {
         if ($boolean) {
             return defined('_SAM_OPTION_ON') ? _SAM_OPTION_ON : 1;
@@ -136,7 +136,7 @@ class SAM_Driver {
      * @return boolean  True if the backend-specific value is true,
      *                  false otherwise.
      */
-    function optionToBoolean($option)
+    public function optionToBoolean($option)
     {
         return $option === $this->booleanToOption(true);
     }
@@ -148,7 +148,7 @@ class SAM_Driver {
      *
      * @return string  The requested option value.
      */
-    function getOption($option)
+    public function getOption($option)
     {
         if (isset($this->_options[$option])) {
             return $this->_options[$option];
@@ -169,7 +169,7 @@ class SAM_Driver {
      * @param boolean $defaults  Whether to set the global defaults instead of
      *                           user options.
      */
-    function setOption($option, $value, $defaults = false)
+    public function setOption($option, $value, $defaults = false)
     {
         if ($defaults) {
             $this->_defaults[$option] = $value;
@@ -189,7 +189,7 @@ class SAM_Driver {
      *
      * @abstract
      */
-    function retrieve()
+    public function retrieve()
     {
         return false;
     }
@@ -204,7 +204,7 @@ class SAM_Driver {
      *
      * @abstract
      */
-    function store($defaults = false)
+    public function store($defaults = false)
     {
         return false;
     }
@@ -219,7 +219,7 @@ class SAM_Driver {
      * @return string  New-line separated list value of the requested option.
      *
      */
-    function getListOption($option)
+    public function getListOption($option)
     {
         $list = $this->getOption($option);
         return is_array($list) ? implode("\n", array_unique($list)) : $list;
@@ -238,7 +238,7 @@ class SAM_Driver {
      *
      * @return boolean  Results of the setOption() call.
      */
-    function setListOption($option, $value, $defaults = false)
+    public function setListOption($option, $value, $defaults = false)
     {
         $list = preg_split('/\s+/', trim($value), -1, PREG_SPLIT_NO_EMPTY);
         return $this->setOption($option, array_unique($list), $defaults);
@@ -264,10 +264,9 @@ class SAM_Driver {
      *
      * @return boolean  Results of the setOption() call.
      */
-    function setStackedOption($option, $value, $defaults = false)
+    public function setStackedOption($option, $value, $defaults = false)
     {
         $list = preg_split('/\n/', trim($value), -1, PREG_SPLIT_NO_EMPTY);
         return $this->setOption($option, array_unique($list), $defaults);
     }
-
 }

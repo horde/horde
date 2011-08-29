@@ -19,14 +19,14 @@ define('_SAM_OPTION_ON',  '1');
  * @author  Jan Schneider <jan@horde.org>
  * @package Sam
  */
-class SAM_Driver_spamd extends SAM_Driver {
-
+class Sam_Driver_Spamd_Base extends Sam_Driver
+{
     /**
      * List of the capabilities supported by this driver.
      *
      * @var array
      */
-    var $_capabilities = array('hit_level',
+    protected $_capabilities = array('hit_level',
                                'score_level',
                                'report_safe',
                                'rewrite_sub',
@@ -45,7 +45,7 @@ class SAM_Driver_spamd extends SAM_Driver {
      *
      * @var array
      */
-    var $_option_map = array('hit_level' => 'required_hits',
+    protected $_option_map = array('hit_level' => 'required_hits',
                              'rewrite_sub' => 'rewrite_subject',
                              'skip_rbl' => 'skip_rbl_checks',
                              'score_level' => 'required_score');
@@ -60,7 +60,7 @@ class SAM_Driver_spamd extends SAM_Driver {
      * @return string  The converted SpamAssassin option or the original
      *                 attribute if no match is found.
      */
-    function _mapAttributeToOption($attribute)
+    protected function _mapAttributeToOption($attribute)
     {
         return isset($this->_option_map[$attribute])
                ? $this->_option_map[$attribute] : $attribute;
@@ -76,11 +76,10 @@ class SAM_Driver_spamd extends SAM_Driver {
      * @return string  The converted Sam attribute or the original option if
      *                 no match is found.
      */
-    function _mapOptionToAttribute($option)
+    protected function _mapOptionToAttribute($option)
     {
         $attribute_map = array_flip($this->_option_map);
         return isset($attribute_map[$option])
                ? $attribute_map[$option] : $option;
     }
-
 }

@@ -11,8 +11,8 @@
  * @author  Max Kalika <max@horde.org>
  * @package Sam
  */
-class Sam {
-
+class Sam
+{
     /**
      * Determine the backend to use.
      *
@@ -23,7 +23,7 @@ class Sam {
      *
      * @return array  The backend entry. Calls Horde::fatal() on error.
      */
-    function getBackend()
+    static public function getBackend()
     {
         include SAM_BASE . '/config/backends.php';
         if (!isset($backends) || !is_array($backends)) {
@@ -71,7 +71,7 @@ class Sam {
      *
      * @return array    The attributes list.
      */
-    function getAttributes()
+    static public function getAttributes()
     {
         static $_attributes;
 
@@ -91,7 +91,7 @@ class Sam {
      * @return boolean  Returns true if the given type is known to be
      *                  informational only.
      */
-    function infoAttribute($type = '')
+    static public function infoAttribute($type = '')
     {
         return in_array($type, array('description', 'spacer', 'html',
                                      'header', 'link'));
@@ -110,7 +110,7 @@ class Sam {
      *
      * @return string   The converted username.
      */
-    function mapUser($hordeauth)
+    static public function mapUser($hordeauth)
     {
         $uid = $hordeauth === 'full' ? Horde_Auth::getAuth() : Horde_Auth::getBareAuth();
         if (!empty($GLOBALS['conf']['hooks']['username'])) {
@@ -121,9 +121,9 @@ class Sam {
     }
 
     /**
-     * Build SAM's list of menu items.
+     * Build Sam's list of menu items.
      */
-    function getMenu($returnType = 'object')
+    static public function getMenu($returnType = 'object')
     {
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
         if ($GLOBALS['conf']['enable']['rules']) {
@@ -142,5 +142,4 @@ class Sam {
             return $menu->render();
         }
     }
-
 }
