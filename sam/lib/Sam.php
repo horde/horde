@@ -112,7 +112,7 @@ class Sam
      */
     static public function mapUser($hordeauth)
     {
-        $uid = $hordeauth === 'full' ? Horde_Auth::getAuth() : Horde_Auth::getBareAuth();
+        $uid = $GLOBALS['registry']->getAuth($hordeauth === 'full' ? null : 'bare');
         if (!empty($GLOBALS['conf']['hooks']['username'])) {
             return Horde::callHook('_sam_hook_username', array($uid), 'sam');
         }

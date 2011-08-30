@@ -82,7 +82,8 @@ class Sam_Form_Options extends Horde_Form
             }
         }
 
-        if ($sam_driver->hasCapability('global_defaults') && Horde_Auth::isAdmin()) {
+        if ($sam_driver->hasCapability('global_defaults') &&
+            $GLOBALS['registry']->isAdmin()) {
             $this->addVariable('', '', 'spacer', false);
             $var = &$this->addVariable(_("Make Settings Global"),
                                        'global_defaults', 'boolean', false);

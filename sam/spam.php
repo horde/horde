@@ -35,7 +35,7 @@ $title = _("Spam Options");
 
 if ($form->isSubmitted() &&
     $vars->exists('global_defaults') && $vars->get('global_defaults')) {
-    if (!Horde_Auth::isAdmin()) {
+    if (!$registry->isAdmin()) {
         $notification->push(_("Only an administrator may change the global defaults."), 'horde.error');
         $vars->remove('global_defaults');
         $form->setSubmitted(false);

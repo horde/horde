@@ -162,7 +162,7 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
             return true;
         }
 
-        $bindpass = Horde_Auth::getCredential('password');
+        $bindpass = $GLOBALS['registry']->getAuthCredential('password');
         $user = $this->_user;
         $binddn = sprintf('%s=%s,%s', $this->_params['uid'], $user, $this->_params['basedn']);
         Horde::assertDriverConfig($this->_params, 'spamd_ldap',
