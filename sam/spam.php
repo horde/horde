@@ -14,8 +14,7 @@ Horde_Registry::appInit('sam');
 
 if (!$conf['enable']['rules']) {
     $notification->push(_("The Spam Rules page is not enabled."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('index.php'));
-    exit;
+    Horde::url('index.php', true)->redirect();
 }
 
 /* Request retrieval of related user data. */
