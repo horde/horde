@@ -6,11 +6,11 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Chris Bowlby <cbowlby@tenthpowertech.com>
+ * @author Jan Schneider <jan@horde.org>
  */
 
-/* Determine base directory. */
-@define('SAM_BASE', dirname(__FILE__));
-require_once SAM_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('sam');
 
 if (!$conf['enable']['rules']) {
     $notification->push(_("The Spam Rules page is not enabled."), 'horde.error');
@@ -94,12 +94,13 @@ if ($form->validate($vars)) {
         } else {
             $notification->push(_("Updated user spam rules"), 'horde.success');
         }
-    } catch (Sam_Exception($e)) {
+    } catch (Sam_Exception $e) {
         $notification->push(sprintf(_("Cannot set options: %s"), $e->getMessage()), 'horde.error');
     }
 }
 
-require SAM_TEMPLATES . '/common-header.inc';
-require SAM_TEMPLATES . '/menu.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, $vars, 'spam.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

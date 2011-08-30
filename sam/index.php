@@ -6,22 +6,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Chris Bowlby <cbowlby@tenthpowertech.com>
+ * @author Jan Schneider <jan@horde.org>
  */
 
-@define('SAM_BASE', dirname(__FILE__));
-$sam_configured = (is_readable(SAM_BASE . '/config/conf.php') &&
-                   is_readable(SAM_BASE . '/config/attributes.php') &&
-                   is_readable(SAM_BASE . '/config/backends.php'));
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('sam');
 
-if (!$sam_configured) {
-    require SAM_BASE . '/../lib/Test.php';
-    Horde_Test::configFilesMissing('SAM', SAM_BASE,
-        array('conf.php', 'backends.php'),
-        array('attributes.php' => 'This file lists all of the form options ' .
-                                  'available to SAM.'));
-}
-
-require_once SAM_BASE . '/lib/base.php';
 if ($conf['enable']['rules']) {
     require SAM_BASE . '/spam.php';
 } else {

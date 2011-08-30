@@ -4,9 +4,10 @@
  *
  * @author  Chris Bowlby <excalibur@hub.org>
  * @author  Max Kalika <max@gentoo.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Sam
  */
-class Sam_Driver
+abstract class Sam_Driver
 {
     /**
      * Array holding a user's SPAM options.
