@@ -415,6 +415,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Horde_Pear</name>
     <channel>pear.horde.org</channel>
    </package>
