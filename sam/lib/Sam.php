@@ -119,27 +119,4 @@ class Sam
 
         return $uid;
     }
-
-    /**
-     * Build Sam's list of menu items.
-     */
-    static public function getMenu($returnType = 'object')
-    {
-        $menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
-        if ($GLOBALS['conf']['enable']['rules']) {
-            $menu->add(Horde::applicationUrl('spam.php'), _("Spam Options"), 'sam.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        }
-        if (!is_a($whitelist_url = $GLOBALS['registry']->link('mail/showWhitelist'), 'PEAR_Error')) {
-            $menu->add(Horde::url($whitelist_url), _("Whitelist"), 'whitelist.png');
-        }
-        if (!is_a($blacklist_url = $GLOBALS['registry']->link('mail/showBlacklist'), 'PEAR_Error')) {
-            $menu->add(Horde::url($blacklist_url), _("Blacklist"), 'blacklist.png');
-        }
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
-        }
-    }
 }
