@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-30</date>
- <time>13:57:32</time>
+ <time>15:36:50</time>
  <version>
   <release>5.0.11</release>
   <api>5.0.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Fix contents of sent message when directly sending from spellcheck in standard view (Bug #10464).
+* [mms] Fix namespace auto-detection for non-sane namespace configs (Bug #10447).
 * [mms] Fix POP3 regression (Bug #10450).
 * [mms] Forwarded messages no longer treated as an attachment in the UI (Request #9754).
 * [mms] Correctly display submailboxes in dynamic view when new submailbox is created before parent mailbox is expanded (Bug #10429).
@@ -2411,6 +2413,8 @@
    <date>2011-08-30</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Fix contents of sent message when directly sending from spellcheck in standard view (Bug #10464).
+* [mms] Fix namespace auto-detection for non-sane namespace configs (Bug #10447).
 * [mms] Fix POP3 regression (Bug #10450).
 * [mms] Forwarded messages no longer treated as an attachment in the UI (Request #9754).
 * [mms] Correctly display submailboxes in dynamic view when new submailbox is created before parent mailbox is expanded (Bug #10429).

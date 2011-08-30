@@ -2,8 +2,8 @@
 v5.0.11-git
 -----------
 
-[mms] Fix send message when directly sending from spellcheck in standard view
-      (Bug #10464).
+[mms] Fix contents of sent message when directly sending from spellcheck in
+      standard view (Bug #10464).
 [mms] Fix namespace auto-detection for non-sane namespace configs (Bug #10447).
 [mms] Fix POP3 regression (Bug #10450).
 [mms] Forwarded messages no longer treated as an attachment in the UI (Request
