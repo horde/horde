@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-30</date>
- <time>11:29:10</time>
+ <time>11:29:34</time>
  <version>
-  <release>1.1.4</release>
+  <release>1.1.5</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Fix identities when default_identity is locked (Bug #10098).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -756,6 +756,19 @@ Initial release as a PEAR package
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Fix identities when default_identity is locked (Bug #10098).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
