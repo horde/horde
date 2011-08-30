@@ -7,8 +7,9 @@
 
 var ImpCompose = {
     // Variables defined in compose.php:
-    //   cancel_url, spellcheck, cursor_pos, last_msg, max_attachments,
-    //   popup, redirect, reloaded, sc_submit, smf_check, skip_spellcheck
+    //   cancel_url, cursor_pos, editor_wait, last_msg, max_attachments,
+    //   popup, redirect, reloaded, sc_submit, smf_check, skip_spellcheck,
+    //   spellcheck
     display_unload_warning: true,
 
     confirmCancel: function(e)
@@ -142,6 +143,10 @@ var ImpCompose = {
 
         default:
             return;
+        }
+
+        if (this.editor_wait && IMP_Compose_Base.editor_on) {
+            return this.uniqSubmit.bind(this, actionID, e).defer();
         }
 
         // Ticket #6727; this breaks on WebKit w/FCKeditor.
@@ -325,7 +330,8 @@ var ImpCompose = {
 
     _onAfterSpellCheck: function()
     {
-        CKEDITOR.instances.composeMessage.setData($F('composeMessage'));
+        this.editor_wait = true;
+        CKEDITOR.instances.composeMessage.setData($F('composeMessage'), function() { this.editor_wait = false; }.bind(this));
         $('composeMessage').next().show();
         this.sc_submit = null;
     },

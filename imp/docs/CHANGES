@@ -2,6 +2,8 @@
 v5.0.11-git
 -----------
 
+[mms] Fix send message when directly sending from spellcheck in standard view
+      (Bug #10464).
 [mms] Fix POP3 regression (Bug #10450).
 [mms] Forwarded messages no longer treated as an attachment in the UI (Request
       #9754).
