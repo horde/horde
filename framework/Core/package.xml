@@ -40,8 +40,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [rla] added lock and unlock routines to auth_application
-* [rla] added support for Horde_Auth&apos;s new blocking feature in the factory. Optionally inserts Horde_History and Horde_Lock.
+* [rla] Add locking routines to Horde_Core_Auth_Application.
+* [rla] Add support for Horde_Auth&apos;s new locking feature.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
