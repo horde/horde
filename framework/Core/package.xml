@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-08-29</date>
- <time>22:23:22</time>
+ <date>2011-08-30</date>
+ <time>14:03:00</time>
  <version>
   <release>1.4.1</release>
   <api>1.4.0</api>
@@ -1547,11 +1547,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-29</date>
+   <date>2011-08-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [rla] added lock and unlock routines to auth_application
-* [rla] added support for Horde_Auth&apos;s new blocking feature in the factory. Optionally inserts Horde_History and Horde_Lock.
+* [rla] Add locking routines to Horde_Core_Auth_Application.
+* [rla] Add support for Horde_Auth&apos;s new locking feature.
    </notes>
   </release>
  </changelog>
