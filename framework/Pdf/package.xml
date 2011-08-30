@@ -23,8 +23,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:16:46</time>
+ <date>2011-08-30</date>
+ <time>11:22:42</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -213,10 +213,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-08-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix setting Courier fonts with font style (PEAR Bug #18550).
    </notes>
   </release>
  </changelog>
