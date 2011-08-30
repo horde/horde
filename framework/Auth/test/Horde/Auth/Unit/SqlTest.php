@@ -16,6 +16,12 @@ class Horde_Auth_Unit_SqlTest extends Horde_Auth_TestCase
 
     protected function setUp() 
     {
+        if (!class_exists('Horde_Db')) {
+            $this->markTestSkipped('The Horde_Db package is not installed!');
+        }
+        if (!class_exists('Horde_Lock')) {
+            $this->markTestSkipped('The Horde_Lock package is not installed!');
+        }
         $db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
 
 // Move to fixture file or maybe wrap PHPUnit_Extensions_Database_TestCase?
