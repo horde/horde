@@ -110,4 +110,35 @@ class Components_Component_Archive extends Components_Component_Base
         copy($this->_archive, $destination . '/' . basename($this->_archive));
         return array($destination . '/' . basename($this->_archive));
     }
+
+    /**
+     * Install a component.
+     *
+     * @param Components_Pear_Environment $env The environment to install
+     *                                         into.
+     * @param array                 $options   Install options.
+     * @param string                $reason    Optional reason for adding the
+     *                                         package.
+     *
+     * @return NULL
+     */
+    public function install(
+        Components_Pear_Environment $env, $options = array(), $reason = ''
+    )
+    {
+        $this->installChannel($env, $options);
+
+        $installation_options = array();
+        $installation_options['force'] = !empty($options['force']);
+        $installation_options['nodeps'] = !empty($options['nodeps']);
+        $installation_options['offline'] = true;
+
+        $env->addComponent(
+            $this->getName(),
+            array($component->getArchivePath()),
+            $installation_options,
+            ' from the archive ' . $component->getArchivePath(),
+            $reason
+        );
+    }
 }

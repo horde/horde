@@ -512,7 +512,11 @@ class Components_Component_Source extends Components_Component_Base
             );
         } else {
             $env->addComponent(
-                $this, $options, $reason
+                $this->getName(),
+                array($this->_getPackageXmlPath()),
+                $this->getBaseInstallationOptions($options),
+                ' from source in ' . dirname($this->_getPackageXmlPath()),
+                $reason
             );
         }
     }
