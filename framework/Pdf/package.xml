@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-30</date>
- <time>11:22:42</time>
+ <time>11:23:11</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix setting Courier fonts with font style (PEAR Bug #18550).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -217,6 +217,19 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix setting Courier fonts with font style (PEAR Bug #18550).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
