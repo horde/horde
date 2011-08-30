@@ -42,16 +42,9 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
     protected $_db;
-
-    /**
-     * Boolean indicating whether or not we're connected to the SQL server.
-     *
-     * @var boolean
-     */
-    protected $_connected = false;
 
     /**
      * List of the capabilities supported by this driver.
@@ -59,23 +52,23 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver
      * @var array
      */
     protected $_capabilities = array('tag_level',
-                               'hit_level',
-                               'kill_level',
-                               'rewrite_sub',
-                               'spam_extension',
-                               'virus_extension',
-                               'banned_extension',
-                               'spam_quarantine',
-                               'allow_virus',
-                               'allow_spam',
-                               'allow_banned',
-                               'allow_header',
-                               'skip_virus',
-                               'skip_spam',
-                               'skip_banned',
-                               'skip_header',
-                               'whitelist_from',
-                               'blacklist_from');
+                                     'hit_level',
+                                     'kill_level',
+                                     'rewrite_sub',
+                                     'spam_extension',
+                                     'virus_extension',
+                                     'banned_extension',
+                                     'spam_quarantine',
+                                     'allow_virus',
+                                     'allow_spam',
+                                     'allow_banned',
+                                     'allow_header',
+                                     'skip_virus',
+                                     'skip_spam',
+                                     'skip_banned',
+                                     'skip_header',
+                                     'whitelist_from',
+                                     'blacklist_from');
 
     /**
      * Constructs a new SQL storage object.
@@ -150,80 +143,48 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver
      * Create an Amavisd-new recipient for policy, whitelist and blacklist
      * storage and retrieval.
      *
-     * @access private
-     *
-     * @return mixed  The id of the newly created recipient or a PEAR_Error
-     *                object on failure.
+     * @return string  The id of the newly created recipient.
+     * @throws Sam_Exception
      */
     protected function _createUserID()
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
-        /* Build the recipient creation query. */
-        $query = sprintf('INSERT INTO %s (%s) VALUES (?)',
-                         $this->_mapNameToTable('recipients'),
-                         $this->_mapAttributeToField('recipients', 'email'));
-        $values = array($this->_user);
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_createUserID(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Cannot create recipient %s: %s"),
-                                            $this->_user, $result->getMessage()));
-        } else {
-            $GLOBALS['notification']->push(sprintf(_("Recipient created: %s"),
-                                                   $this->_user), 'horde.success');
-            return $this->_lookupUserID();
+        try {
+            $this->_db->insert(
+                sprintf('INSERT INTO %s (%s) VALUES (?)',
+                        $this->_mapNameToTable('recipients'),
+                        $this->_mapAttributeToField('recipients', 'email')),
+                array($this->_user));
+        } catch (Horde_Db_Exception $e) {
+            throw new Sam_Exception(sprintf(_("Cannot create recipient %s: %s"),
+                                            $this->_user, $e->getMessage()));
         }
+        $GLOBALS['notification']->push(sprintf(_("Recipient created: %s"),
+                                               $this->_user), 'horde.success');
+        return $this->_lookupUserID();
     }
 
     /*
      * Lookup an Amavisd-new recipient for policy, whitelist and blacklist
      * storage and retrieval.
      *
-     * This function will cache the found ID for quicker lookup on subsequent
-     * calls.
-     *
-     * @access private
-     *
-     * @return mixed  The ID of the found or newly created recipient or a
-     *                PEAR_Error object on failure.
+     * @return string  The ID of the found or newly created recipient.
+     * @throws Sam_Exception
      */
     protected function _lookupUserID()
     {
-        static $_userID;
-
-        if (!empty($_userID)) {
-            return $_userID;
+        try {
+            $userID = $this->_db->selectValue(
+                sprintf('SELECT %s FROM %s WHERE %s = ?',
+                        $this->_mapAttributeToField('recipients', 'id'),
+                        $this->_mapNameToTable('recipients'),
+                        $this->_mapAttributeToField('recipients', 'email')),
+                array($this->_user));
+        } catch (Horde_Db_Exception $e) {
+            throw new Sam_Exception($e);
         }
 
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
-        /* Build the recipient lookup query. */
-        $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
-                         $this->_mapAttributeToField('recipients', 'id'),
-                         $this->_mapNameToTable('recipients'),
-                         $this->_mapAttributeToField('recipients', 'email'));
-        $values = array($this->_user);
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_lookupUserID(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Execute the query. */
-        $result = $this->_db->getOne($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
-        } elseif (is_null($result)) {
-            $_userID = $this->_createUserID();
-        } else {
-            $_userID = $result;
+        if (is_null($result)) {
+            $userID = $this->_createUserID();
         }
 
         return $_userID;
@@ -232,83 +193,52 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver
     /*
      * Lookup an Amavisd-new policy for storage and retrieval.
      *
-     * @access private
-     *
-     * @return mixed  The results of the of the policy lookup. Can be the ID of
-     *                the policy, null if not found, or a PEAR_Error object on
-     *                failure.
+     * @return string  The results of the of the policy lookup. Can be the ID of
+     *                the policy, null if not found.
+     * @throws Sam_Exception
      */
     protected function _lookupPolicyID()
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
-        /* Build the policy lookup query. */
-        $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
-                         $this->_mapAttributeToField('policies', 'id'),
-                         $this->_mapNameToTable('policies'),
-                         $this->_mapAttributeToField('policies', 'name'));
-        $values = array($this->_user);
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_lookupPolicyID(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Execute the query. */
-        $result = $this->_db->getOne($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            return $this->_db->selectValue(
+                sprintf('SELECT %s FROM %s WHERE %s = ?',
+                        $this->_mapAttributeToField('policies', 'id'),
+                        $this->_mapNameToTable('policies'),
+                        $this->_mapAttributeToField('policies', 'name')),
+                array($this->_user));
+        } catch (Horde_Db_Exception $e) {
+            return null;
         }
-
-        return $result;
     }
 
     /**
      * Retrieve an option set from the storage backend.
      *
-     * @access private
-     *
-     * @return mixed  Array of field-value pairs or a PEAR_Error object on
-     *                failure.
+     * @return array  Array of field-value pairs.
+     * @throws Sam_Exception
      */
     protected function _retrieve()
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
         /* Find the user id. */
         $userID = $this->_lookupUserID();
-        if (is_a($userID, 'PEAR_Error')) {
-            return $userID;
-        }
 
         /* Find the policy id. */
         $policyID = $this->_lookupPolicyID();
-        if (is_a($policyID, 'PEAR_Error')) {
-            return $policyID;
-        }
 
-        $return = array();
-
-        /* Build the SQL query for SPAM policy. */
-        $query = sprintf('SELECT * FROM %s WHERE %s = ?',
-                         $this->_mapNameToTable('policies'),
-                         $this->_mapAttributeToField('policies', 'id'));
-        $values = array($policyID);
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_retrieve(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Execute the query. */
-        $result = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        /* Query for SPAM policy. */
+        try {
+            $result = $this->_db->selectOne(
+                sprintf('SELECT * FROM %s WHERE %s = ?',
+                        $this->_mapNameToTable('policies'),
+                        $this->_mapAttributeToField('policies', 'id')),
+                array($policyID));
+        } catch (Horde_Db_Exception $e) {
+            throw new Sam_Exception($e);
         }
 
         /* Loop through elements of the result, retrieving options. */
-        if (!is_null($result)) {
+        $return = array();
+        if ($result) {
             foreach ($result as $field => $value) {
                 $attribute = $this->_mapFieldToAttribute('policies', $field);
                 if ($this->hasCapability($attribute) && !is_null($value)) {
@@ -317,63 +247,48 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver
             }
         }
 
-        /* Build the SQL query for whitelists and blacklists. */
-        $query = sprintf('SELECT %s, %s FROM %s WHERE %s = ?',
-                         $this->_mapAttributeToField('wblists', 'sender'),
-                         $this->_mapAttributeToField('wblists', 'type'),
-                         $this->_mapNameToTable('wblists'),
-                         $this->_mapAttributeToField('wblists', 'recipient'));
-        $values = array($userID);
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_retrieve(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        /* Query for whitelists and blacklists. */
+        try {
+            $result = $this->_db->select(
+                sprintf('SELECT %s, %s FROM %s WHERE %s = ?',
+                        $this->_mapAttributeToField('wblists', 'sender'),
+                        $this->_mapAttributeToField('wblists', 'type'),
+                        $this->_mapNameToTable('wblists'),
+                        $this->_mapAttributeToField('wblists', 'recipient')),
+                array($userID));
+        } catch (Horde_Db_Exception $e) {
+            throw new Sam_Exception($e);
         }
 
         /* Loop through results, retrieving whitelists and blacklists. */
-        while (($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) &&
-               !is_a($row, 'PEAR_Error')) {
+        foreach ($result as $row) {
             $type = $row[$this->_mapAttributeToField('wblists', 'type')];
             $senderID = $row[$this->_mapAttributeToField('wblists', 'sender')];
 
             /* Only proceed if sender is listed white or black. */
             if (preg_match('/[WYBN]/i', $type)) {
-                $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
-                                 $this->_mapAttributeToField('senders', 'email'),
-                                 $this->_mapNameToTable('senders'),
-                                 $this->_mapAttributeToField('senders', 'id'));
-                $values = array($senderID);
+                try {
+                    $sender = $this->_db->selectValue(
+                        sprintf('SELECT %s FROM %s WHERE %s = ?',
+                                $this->_mapAttributeToField('senders', 'email'),
+                                $this->_mapNameToTable('senders'),
+                                $this->_mapAttributeToField('senders', 'id')),
+                        array($senderID));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Sam_Exception($e);
+                }
 
-                /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_retrieve(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-                $sender = $this->_db->getOne($query, $values);
-                if (is_a($sender, 'PEAR_Error')) {
-                    Horde::logMessage($sender, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return $sender;
-                } else {
-                    $list = preg_match('/[WY]/i', $type) ? 'whitelist_from' : 'blacklist_from';
-                    if (isset($return[$list])) {
-                        if (!in_array($sender, $return[$list])) {
-                            $return[$list][] = $sender;
-                        }
-                    } else {
-                        $return[$list] = array($sender);
+                $list = preg_match('/[WY]/i', $type)
+                    ? 'whitelist_from'
+                    : 'blacklist_from';
+                if (isset($return[$list])) {
+                    if (!in_array($sender, $return[$list])) {
+                        $return[$list][] = $sender;
                     }
+                } else {
+                    $return[$list] = array($sender);
                 }
             }
-        }
-        $result->free();
-
-        if (is_a($row, 'PEAR_Error')) {
-            Horde::logMessage($row, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $row;
         }
 
         return $return;
@@ -382,384 +297,221 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver
     /**
      * Retrieves the user options and stores them in the member array.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws Sam_Exception
      */
     public function retrieve()
     {
-        $options = $this->_retrieve();
-        if (!is_a($options, 'PEAR_Error')) {
-            $this->_options = $options;
-        } else {
-            return $options;
-        }
-
-        return true;
+        $this->_options = $this->_retrieve();
     }
 
     /**
-     * Store an option set from the member array to the storage backend.
+     * Stores the user options from the member array.
      *
-     * @access private
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws Sam_Exception
      */
-    protected function _store()
+    public function store()
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
         /* Check if the policy already exists. */
         $policyID = $this->_lookupPolicyID();
-        if (is_a($policyID, 'PEAR_Error')) {
-            return $policyID;
-        }
 
         /* Delete existing policy. */
         if (!is_null($policyID)) {
-            $query = sprintf('DELETE FROM %s WHERE %s = ?',
-                             $this->_mapNameToTable('policies'),
-                             $this->_mapAttributeToField('policies', 'name'));
-            $values = array($this->_user);
-
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-            $result = $this->_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $result;
+            try {
+                $this->_db->delete(
+                    sprintf('DELETE FROM %s WHERE %s = ?',
+                            $this->_mapNameToTable('policies'),
+                            $this->_mapAttributeToField('policies', 'name')),
+                    array($this->_user));
+            } catch (Horde_Db_Exception $e) {
+                throw new Sam_Exception($e);
             }
         }
 
         /* Insert new policy (everything but whitelists and blacklists). */
         $insertKeys = $insertVals = array();
         foreach ($this->_options as $attribute => $value) {
-            if ($attribute != 'whitelist_from' && $attribute != 'blacklist_from') {
+            if ($attribute != 'whitelist_from' &&
+                $attribute != 'blacklist_from') {
                 $insertKeys[] = $this->_mapAttributeToField('policies', $attribute);
                 $insertVals[] = strlen($value) ? $value : null;
             }
         }
         if (count($insertKeys)) {
-            $query = sprintf('INSERT INTO %s (%s, %s) VALUES (%s)',
-                             $this->_mapNameToTable('policies'),
-                             $this->_mapAttributeToField('policies', 'name'),
-                             implode(', ', $insertKeys),
-                             implode(', ', array_fill(0, count($insertVals) + 1, '?')));
-            $values = array_merge(array($this->_user), $insertVals);
-
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-            $result = $this->_db->query($query, $values);
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $result;
+            try {
+                $this->_db->insert(
+                    sprintf('INSERT INTO %s (%s, %s) VALUES (%s)',
+                            $this->_mapNameToTable('policies'),
+                            $this->_mapAttributeToField('policies', 'name'),
+                            implode(', ', $insertKeys),
+                            implode(', ', array_fill(0, count($insertVals) + 1, '?'))),
+                    array_merge(array($this->_user), $insertVals));
+            } catch (Horde_Db_Exception $e) {
+                throw new Sam_Exception($e);
             }
         }
 
         /* Get the new policy id for the recipients table. */
         $policyID = $this->_lookupPolicyID();
-        if (is_a($policyID, 'PEAR_Error')) {
-            return $policyID;
-        }
 
         /* Update recipients with new policy id. */
-        $query = sprintf('UPDATE %s SET %s = ? WHERE %s = ?',
+        try {
+            $this->_db->update(
+                sprintf('UPDATE %s SET %s = ? WHERE %s = ?',
                          $this->_mapNameToTable('recipients'),
                          $this->_mapAttributeToField('recipients', 'policy_id'),
-                         $this->_mapAttributeToField('recipients', 'email'));
-        $values = array($policyID, $this->_user);
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+                         $this->_mapAttributeToField('recipients', 'email')),
+                array($policyID, $this->_user));
+        } catch (Horde_Db_Exception $e) {
+            throw new Sam_Exception($e);
         }
 
         /* Find the user id. */
         $userID = $this->_lookupUserID();
-        if (is_a($userID, 'PEAR_Error')) {
-            return $userID;
-        }
 
-        $existing = array('whitelist_from' => array(), 'blacklist_from' => array());
-
-        /* Build the SQL query for whitelists and blacklists. */
-        $query = sprintf('SELECT %s, %s FROM %s WHERE %s = ?',
-                         $this->_mapAttributeToField('wblists', 'sender'),
-                         $this->_mapAttributeToField('wblists', 'type'),
-                         $this->_mapNameToTable('wblists'),
-                         $this->_mapAttributeToField('wblists', 'recipient'));
-        $values = array($userID);
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        /* Query for whitelists and blacklists. */
+        try {
+            $result = $this->_db->select(
+                sprintf('SELECT %s, %s FROM %s WHERE %s = ?',
+                        $this->_mapAttributeToField('wblists', 'sender'),
+                        $this->_mapAttributeToField('wblists', 'type'),
+                        $this->_mapNameToTable('wblists'),
+                        $this->_mapAttributeToField('wblists', 'recipient')),
+                array($userID));
+        } catch (Horde_Db_Exception $e) {
+            throw new Sam_Exception($e);
         }
 
         /* Loop through results, retrieving whitelists and blacklists. */
-        while (($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) &&
-               !is_a($row, 'PEAR_Error')) {
+        $existing = array('whitelist_from' => array(),
+                          'blacklist_from' => array());
+        foreach ($result as $row) {
             $type = $row[$this->_mapAttributeToField('wblists', 'type')];
             $senderID = $row[$this->_mapAttributeToField('wblists', 'sender')];
 
             /* Only proceed if sender is listed white or black. */
             if (preg_match('/[WYBN]/i', $type)) {
-                $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
-                                 $this->_mapAttributeToField('senders', 'email'),
-                                 $this->_mapNameToTable('senders'),
-                                 $this->_mapAttributeToField('senders', 'id'));
-                $values = array($senderID);
+                try {
+                    $sender = $this->_db->selectValue(
+                        sprintf('SELECT %s FROM %s WHERE %s = ?',
+                                $this->_mapAttributeToField('senders', 'email'),
+                                $this->_mapNameToTable('senders'),
+                                $this->_mapAttributeToField('senders', 'id')),
+                        array($senderID));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Sam_Exception($e);
+                }
 
-                /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                $list = preg_match('/[WY]/i', $type)
+                    ? 'whitelist_from'
+                    : 'blacklist_from';
 
-                $sender = $this->_db->getOne($query, $values);
-                if (is_a($sender, 'PEAR_Error')) {
-                    Horde::logMessage($sender, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return $sender;
+                if (isset($this->_options[$list]) &&
+                    in_array($sender, $this->_options[$list])) {
+                    $existing[$list][] = $sender;
                 } else {
-                    $list = preg_match('/[WY]/i', $type) ? 'whitelist_from' : 'blacklist_from';
                     /* User removed an address from a list. */
-                    if (!isset($this->_options[$list]) || !in_array($sender, $this->_options[$list])) {
-                        $query = sprintf('DELETE FROM %s WHERE %s = ? AND %s = ?',
-                                         $this->_mapNameToTable('wblists'),
-                                         $this->_mapAttributeToField('wblists', 'sender'),
-                                         $this->_mapAttributeToField('wblists', 'recipient'));
-                        $values = array($senderID, $userID);
+                    try {
+                        $this->_db->delete(
+                            sprintf('DELETE FROM %s WHERE %s = ? AND %s = ?',
+                                    $this->_mapNameToTable('wblists'),
+                                    $this->_mapAttributeToField('wblists', 'sender'),
+                                    $this->_mapAttributeToField('wblists', 'recipient')),
+                            array($senderID, $userID));
+                    } catch (Horde_Db_Exception $e) {
+                        throw new Sam_Exception($e);
+                    }
 
-                        /* Log the query at a DEBUG log level. */
-                        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-                        $deleted = $this->_db->query($query, $values);
-                        if (is_a($deleted, 'PEAR_Error')) {
-                            Horde::logMessage($deleted, __FILE__, __LINE__, PEAR_LOG_ERR);
-                            return $deleted;
-                        }
-
-                        /* Check if there is anyone else using this sender
-                         * address. */
-                        $query = sprintf('SELECT 1 FROM %s WHERE %s = ?',
-                                         $this->_mapNameToTable('wblists'),
-                                         $this->_mapAttributeToField('wblists', 'sender'));
-                        $values = array($senderID);
-
-                        /* Log the query at a DEBUG log level. */
-                        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
+                    /* Check if there is anyone else using this sender
+                     * address. */
+                    $query = sprintf('SELECT 1 FROM %s WHERE %s = ?',
+                                     $this->_mapNameToTable('wblists'),
+                                     $this->_mapAttributeToField('wblists', 'sender'));
+                    if (!$this->_db->selectValue($query, array($senderID))) {
                         /* No one else needs this sender address, delete it
                          * from senders table. */
-                        if (is_null($this->_db->getOne($query, $values))) {
-                            $query = sprintf('DELETE FROM %s WHERE %s = ?',
-                                             $this->_mapNameToTable('senders'),
-                                             $this->_mapAttributeToField('senders', 'id'));
-                            $values = array($senderID);
-
-                            /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-                            $deleted = $this->_db->query($query, $values);
-                            if (is_a($deleted, 'PEAR_Error')) {
-                                Horde::logMessage($deleted, __FILE__, __LINE__, PEAR_LOG_ERR);
-                                return $deleted;
-                            }
+                        try {
+                            $this->_db->delete(
+                                sprintf('DELETE FROM %s WHERE %s = ?',
+                                         $this->_mapNameToTable('senders'),
+                                         $this->_mapAttributeToField('senders', 'id')),
+                                array($senderID));
+                        } catch (Horde_Db_Exception $e) {
+                            throw new Sam_Exception($e);
                         }
-                    } else {
-                        $existing[$list][] = $sender;
                     }
                 }
             }
         }
-        $result->free();
-
-        if (is_a($row, 'PEAR_Error')) {
-            Horde::logMessage($row, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $row;
-        }
 
         /* Check any additions to the lists. */
         foreach (array('whitelist_from' => 'W', 'blacklist_from' => 'B') as $list => $type) {
-            if (isset($this->_options[$list])) {
-                foreach ($this->_options[$list] as $sender) {
-                    if (!in_array($sender, $existing[$list])) {
+            if (!isset($this->_options[$list])) {
+                continue;
+            }
 
-                        /* Check if this sender address exists already. */
-                        $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
-                                         $this->_mapAttributeToField('senders', 'id'),
-                                         $this->_mapNameToTable('senders'),
-                                         $this->_mapAttributeToField('senders', 'email'));
-                        $values = array($sender);
+            foreach ($this->_options[$list] as $sender) {
+                if (in_array($sender, $existing[$list])) {
+                    continue;
+                }
 
-                        /* Log the query at a DEBUG log level. */
-                        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                /* Check if this sender address exists already. */
+                $wb_result = $this->_db->selectValue(
+                    sprintf('SELECT %s FROM %s WHERE %s = ?',
+                            $this->_mapAttributeToField('senders', 'id'),
+                            $this->_mapNameToTable('senders'),
+                            $this->_mapAttributeToField('senders', 'email')),
+                    array($sender));
 
-                        $wb_result = $this->_db->getOne($query, $values);
-                        if (is_null($wb_result)) {
-                            /* Address doesn't exist, add it. */
-                            $query = sprintf('INSERT INTO %s (%s) VALUES (?)',
-                                             $this->_mapNameToTable('senders'),
-                                             $this->_mapAttributeToField('senders', 'email'));
-                            $values = array($sender);
-
-                            /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-                            $result = $this->_db->query($query, $values);
-                            if (is_a($result, 'PEAR_Error')) {
-                                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                                return $result;
-                            }
-
-                            $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
-                                             $this->_mapAttributeToField('senders', 'id'),
-                                             $this->_mapNameToTable('senders'),
-                                             $this->_mapAttributeToField('senders', 'email'));
-                            $values = array($sender);
-
-                            /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-                            $senderID = $this->_db->getOne($query, $values);
-                            if (is_a($senderID, 'PEAR_Error')) {
-                                Horde::logMessage($senderID, __FILE__, __LINE__, PEAR_LOG_ERR);
-                                return $senderID;
-                            }
-
-                            $query = sprintf('INSERT INTO %s (%s, %s, %s) VALUES (?, ?, ?)',
-                                             $this->_mapNameToTable('wblists'),
-                                             $this->_mapAttributeToField('wblists', 'recipient'),
-                                             $this->_mapAttributeToField('wblists', 'sender'),
-                                             $this->_mapAttributeToField('wblists', 'type'));
-                            $values = array($userID, $senderID, $type);
-
-                            /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-                            $result = $this->_db->query($query, $values);
-                            if (is_a($result, 'PEAR_Error')) {
-                                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                                return $result;
-                            }
-                        } else {
-                            /* Address exists, use it's ID */
-                            $query = sprintf('INSERT INTO %s (%s, %s, %s) VALUES (?, ?, ?)',
-                                             $this->_mapNameToTable('wblists'),
-                                             $this->_mapAttributeToField('wblists', 'recipient'),
-                                             $this->_mapAttributeToField('wblists', 'sender'),
-                                             $this->_mapAttributeToField('wblists', 'type'));
-                            $values = array($userID, $wb_result, $type);
-
-                            /* Log the query at a DEBUG log level. */
-                            Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-                            $result = $this->_db->query($query, $values);
-                            if (is_a($result, 'PEAR_Error')) {
-                                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                                return $result;
-                            }
-                        }
+                if (!is_null($wb_result)) {
+                    /* Address exists, use it's ID */
+                    $senderID = $wb_result;
+                } else {
+                    /* Address doesn't exist, add it. */
+                    try {
+                        $this->_db->insert(
+                            sprintf('INSERT INTO %s (%s) VALUES (?)',
+                                    $this->_mapNameToTable('senders'),
+                                    $this->_mapAttributeToField('senders', 'email')),
+                            array($sender));
+                    } catch (Horde_Db_Exception $e) {
+                        throw new Sam_Exception($e);
                     }
+
+                    try {
+                        $senderID = $this->_db->selectValue(
+                            sprintf('SELECT %s FROM %s WHERE %s = ?',
+                                    $this->_mapAttributeToField('senders', 'id'),
+                                    $this->_mapNameToTable('senders'),
+                                    $this->_mapAttributeToField('senders', 'email')),
+                            array($sender));
+                    } catch (Horde_Db_Exception $e) {
+                        throw new Sam_Exception($e);
+                    }
+                }
+
+                try {
+                    $this->_db->insert(
+                        sprintf('INSERT INTO %s (%s, %s, %s) VALUES (?, ?, ?)',
+                                $this->_mapNameToTable('wblists'),
+                                $this->_mapAttributeToField('wblists', 'recipient'),
+                                $this->_mapAttributeToField('wblists', 'sender'),
+                                $this->_mapAttributeToField('wblists', 'type')),
+                        array($userID, $senderID, $type));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Sam_Exception($e);
                 }
             }
         }
 
         /* Remove any disjoined sender IDs. */
-        $query = sprintf('DELETE FROM %s WHERE %s = ?',
-                         $this->_mapNameToTable('wblists'),
-                         $this->_mapAttributeToField('wblists', 'recipient'));
-        $values = array('');
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Sam_Driver_Amavisd_Sql::_store(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        try {
+            $this->_db->delete(
+                sprintf('DELETE FROM %s WHERE %s = ?',
+                        $this->_mapNameToTable('wblists'),
+                        $this->_mapAttributeToField('wblists', 'recipient')),
+                array(''));
+        } catch (Horde_Db_Exception $e) {
+            throw new Sam_Exception($e);
         }
-
-        return true;
     }
-
-    /**
-     * Stores the user options from the member array.
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
-     */
-    public function store()
-    {
-        return $this->_store();
-    }
-
-    /**
-     * Attempts to open a persistent connection to the SQL server.
-     *
-     * @access private
-     *
-     * @return mixed    True on success or a PEAR_Error object on failure.
-     */
-    public function _connect()
-    {
-        if (!$this->_connected) {
-            Horde::assertDriverConfig($this->_params, 'amavisd_sql',
-                array('phptype'),
-                'Sam backend', 'backends.php', '$backends');
-            if (!isset($this->_params['table'])) {
-                $this->_params['table'] = 'userpref';
-            }
-
-            if (!isset($this->_params['database'])) {
-                $this->_params['database'] = '';
-            }
-            if (!isset($this->_params['username'])) {
-                $this->_params['username'] = '';
-            }
-            if (!isset($this->_params['hostspec'])) {
-                $this->_params['hostspec'] = '';
-            }
-
-            /* Connect to the SQL server using the supplied parameters. */
-            require_once 'DB.php';
-            $this->_db = &DB::connect($this->_params,
-                                      array('persistent' => !empty($this->_params['persistent'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-            $this->_connected = true;
-        }
-
-        return true;
-    }
-
 }

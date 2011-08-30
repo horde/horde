@@ -38,16 +38,9 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
     protected $_db;
-
-    /**
-     * Boolean indicating whether or not we're connected to the SQL server.
-     *
-     * @var boolean
-     */
-    protected $_connected = false;
 
     /**
      * Constructs a new SQL storage object.
@@ -67,46 +60,33 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
     /**
      * Retrieve an option set from the storage backend.
      *
-     * @access private
-     *
      * @param boolean $defaults  Whether to retrieve the global defaults
      *                           instead of user options.
      *
-     * @return mixed    Array of option-value pairs or a PEAR_Error object
-     *                  on failure.
+     * @return array  Array of option-value pairs.
+     * @throws Sam_Exception
      */
     protected function _retrieve($defaults = false)
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
         if ($defaults) {
             $user = isset($this->_params['global_user'])
-                    ? $this->_params['global_user'] : '@GLOBAL';
+                ? $this->_params['global_user']
+                : '@GLOBAL';
         } else {
             $user = $this->_user;
         }
 
-        /* Build the SQL query. */
-        $query = 'SELECT * FROM ' . $this->_params['table'] .
-                 ' WHERE username = ?';
-        $values = array($user);
-
-        $return = array();
-
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_retrieve(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Execute the query. */
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        try {
+            $result = $this->_db->select(
+                'SELECT * FROM ' . $this->_params['table'] . ' WHERE username = ?',
+                array($user));
+        } catch (Horde_Db_Exception $e) {
+            throw new Sam_Exception($e);
         }
 
         /* Loop through rows, retrieving options. */
-        while (($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) && !is_a($row, 'PEAR_Error')) {
+        $return = array();
+        foreach ($result as $row) {
             $attribute = $this->_mapOptionToAttribute($row['preference']);
 
             if (isset($return[$attribute])) {
@@ -120,11 +100,6 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
                 $return[$attribute] = $row['value'];
             }
         }
-        $result->free();
-
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
-        }
 
         return $return;
     }
@@ -133,49 +108,32 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
      * Retrieves the global defaults and user options and stores them in the
      * appropriate member array (options or defaults).
      *
-     * @return mixed    True on success or a PEAR_Error object on failure.
+     * @throws Sam_Exception
      */
     public function retrieve()
     {
         /* Load defaults for any options the user hasn't already overridden. */
-        $defaults = $this->_retrieve(true);
-        if (!is_a($defaults, 'PEAR_Error')) {
-            $this->_defaults = $defaults;
-        } else {
-            return $defaults;
-        }
+        $this->_defaults = $this->_retrieve(true);
 
-        $this->_options = $this->_defaults;
-        $options = $this->_retrieve();
-        if (!is_a($options, 'PEAR_Error')) {
-            $this->_options = array_merge($this->_options, $options);
-        } else {
-            return $options;
-        }
-
-        return true;
+        $this->_options = array_merge($this->_defaults, $this->_retrieve());
     }
 
     /**
      * Store an option set from the appropriate member array (options or
      * defaults) to the storage backend.
      *
-     * @access private
-     *
      * @param boolean $defaults  Whether to store the global defaults instead
      *                           of user options.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws Sam_Exception
      */
     protected function _store($defaults = false)
     {
-        /* Make sure we have a valid database connection. */
-        $this->_connect();
-
         if ($defaults) {
             $store = $this->_defaults;
             $user = isset($this->_params['global_user'])
-                        ? $this->_params['global_user'] : '@GLOBAL';
+                ? $this->_params['global_user']
+                : '@GLOBAL';
         } else {
             $store = $this->_options;
             $user = $this->_user;
@@ -187,24 +145,26 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
             /* Delete the option if it is the same as the default */
             if (!$defaults && isset($this->_defaults[$attribute]) &&
                 $this->_defaults[$attribute] === $value) {
-                $query = 'DELETE FROM ' . $this->_params['table'] .
-                         ' WHERE username = ? AND preference = ?';
-                $values = array($user, $option);
-                /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                $this->_db->query($query, $values);
+                try {
+                    $this->_db->delete(
+                        'DELETE FROM ' . $this->_params['table']
+                        . ' WHERE username = ? AND preference = ?',
+                        array($user, $option));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Sam_Exception($e);
+                }
                 continue;
             }
 
             if (is_array($value)) {
-                $query = 'DELETE FROM ' . $this->_params['table'] .
-                         ' WHERE username = ? AND preference = ?';
-                $values = array($user, $option);
-                /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                $this->_db->query($query, $values);
+                try {
+                    $this->_db->delete(
+                        'DELETE FROM ' . $this->_params['table']
+                        . ' WHERE username = ? AND preference = ?',
+                        array($user, $option));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Sam_Exception($e);
+                }
 
                 foreach ($value as $address) {
                     /* Don't save email addresses already in defaults. */
@@ -215,59 +175,45 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
                         continue;
                     }
 
-                    $query = 'INSERT INTO ' . $this->_params['table'] .
-                             ' (username, preference, value)' .
-                             ' VALUES (?, ?, ?)';
-                    $values = array($user, $option, $address);
-                    /* Log the query at a DEBUG log level. */
-                    Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
-                                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                    $result = $this->_db->query($query, $values);
-                    if (is_a($result, 'PEAR_Error')) {
-                        Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                        return $result;
+                    try {
+                        $this->_db->insert(
+                            'INSERT INTO ' . $this->_params['table']
+                            . ' (username, preference, value)'
+                            . ' VALUES (?, ?, ?)',
+                            array($user, $option, $address));
+                    } catch (Horde_Db_Exception $e) {
+                        throw new Sam_Exception($e);
                     }
                 }
             } else {
-                $query = 'SELECT 1 FROM ' . $this->_params['table'] .
-                         ' WHERE username = ? AND preference = ?';
-                $values = array($user, $option);
-
-                /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-                $result = $this->_db->getOne($query, $values);
-                if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return $result;
+                try {
+                    $result = $this->_db->selectValue(
+                        'SELECT 1 FROM ' . $this->_params['table']
+                        . ' WHERE username = ? AND preference = ?',
+                    array($user, $option));
+                } catch (Horde_Db_Exception $e) {
+                    throw new Sam_Exception($e);
                 }
 
-                if (is_null($result)) {
-                    $query = 'INSERT INTO ' . $this->_params['table'] .
-                             ' (username, preference, value)' .
-                             ' VALUES (?, ?, ?)';
-                    $values = array($user, $option, $value);
-                } else {
-                    $query = 'UPDATE ' . $this->_params['table'] .
-                             ' SET value = ?' .
-                             ' WHERE username = ? AND preference = ?';
-                    $values = array($value, $user, $option);
-                }
-
-                /* Log the query at a DEBUG log level. */
-                Horde::logMessage(sprintf('Sam_Driver_Spamd_Sql::_store(): %s', $query),
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-                $result = $this->_db->query($query, $values);
-                if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return $result;
+                try {
+                    if (is_null($result)) {
+                        $this->_db->insert(
+                            'INSERT INTO ' . $this->_params['table']
+                            . ' (username, preference, value)'
+                            . ' VALUES (?, ?, ?)',
+                        array($user, $option, $value));
+                    } else {
+                        $this->_db->insert(
+                            'UPDATE ' . $this->_params['table']
+                            . ' SET value = ?'
+                            . ' WHERE username = ? AND preference = ?',
+                        array($value, $user, $option, $option, $value));
+                    }
+                } catch (Horde_Db_Exception $e) {
+                    throw new Sam_Exception($e);
                 }
             }
         }
-
-        return true;
     }
 
     /**
@@ -277,61 +223,10 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
      * @param boolean $defaults  Whether to store the global defaults instead
      *                           of user options.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws Sam_Exception
      */
     public function store($defaults = false)
     {
-        return $this->_store($defaults);
+        $this->_store($defaults);
     }
-
-    /**
-     * Attempts to open a persistent connection to the SQL server.
-     *
-     * @access private
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
-     */
-    protected function _connect()
-    {
-        if (!$this->_connected) {
-            Horde::assertDriverConfig($this->_params, 'spamd_sql',
-                array('phptype'),
-                'SAM backend', 'backends.php', '$backends');
-            if (!isset($this->_params['table'])) {
-                $this->_params['table'] = 'userpref';
-            }
-
-            if (!isset($this->_params['database'])) {
-                $this->_params['database'] = '';
-            }
-            if (!isset($this->_params['username'])) {
-                $this->_params['username'] = '';
-            }
-            if (!isset($this->_params['hostspec'])) {
-                $this->_params['hostspec'] = '';
-            }
-
-            /* Connect to the SQL server using the supplied parameters. */
-            require_once 'DB.php';
-            $this->_db = &DB::connect($this->_params,
-                                      array('persistent' => !empty($this->_params['persistent'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-            $this->_connected = true;
-        }
-
-        return true;
-    }
-
 }
