@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-30</date>
- <time>11:14:29</time>
+ <time>11:15:03</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* [jan] Fix migrations from primary keys that have not been created with Horde_Db in PostgreSQL.
-* [jan] Fix autoincrementKey sequences not incrementing after manually inserting key values in PostgreSQL.
-* [jan] Fix changeColumn() migration to autoincrementKey if no primary key exists yet.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -471,6 +469,19 @@
 * [jan] Fix migrations from primary keys that have not been created with Horde_Db in PostgreSQL.
 * [jan] Fix autoincrementKey sequences not incrementing after manually inserting key values in PostgreSQL.
 * [jan] Fix changeColumn() migration to autoincrementKey if no primary key exists yet.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
