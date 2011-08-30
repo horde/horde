@@ -1,27 +1,6 @@
 <?php
 /**
- * Sam storage implementation for PHP's PEAR database abstraction layer.
- *
- * Required parameters:<pre>
- *   'phptype'       The database type (ie. 'pgsql', 'mysql', etc.).</pre>
- *
- * Optional preferences:<pre>
- *   'table'         The name of the Sam options table in 'database'.
- *                   DEFAULT: 'userpref'</pre>
- *
- * Required by some database implementations:<pre>
- *   'hostspec'      The hostname of the database server.
- *   'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *   'database'      The name of the database.
- *   'username'      The username with which to connect to the database.
- *   'password'      The password associated with 'username'.
- *   'options'       Additional options to pass to the database.
- *   'port'          The port on which to connect to the database.
- *   'tty'           The TTY on which to connect to the database.</pre>
-
- * The table structure can be created by the scripts/sql/spamd_*.sql
- * script appropriate for your database, or modified from one that is
- * available.
+ * Sam SQL storage implementation using Horde_Db.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
@@ -43,18 +22,31 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
     protected $_db;
 
     /**
-     * Constructs a new SQL storage object.
+     * Constructor.
      *
-     * @param string $user   The user who owns these SPAM options.
-     * @param array $params  A hash containing connection parameters.
+     * @param string $user   A user name.
+     * @param array $params  Class parameters:
+     *                       - db:    (Horde_Db_Adapater) A database handle.
+     *                       - table: (string) The name of the preference table.
+     *                       - global_user: (string, optional) A user name to
+     *                         use when setting global preferences. Defaults to
+     *                         '@GLOBAL'.
      */
     public function __construct($user, $params = array())
     {
-        global $conf;
+        foreach (array('db', 'table') as $param) {
+            if (!isset($params[$param])) {
+                throw new InvalidArgumentException(
+                    sprintf('"%s" parameter is missing', $param));
+            }
+        }
 
         $this->_user = $user;
+        $this->_db = $params['db'];
+        unset($params['db']);
+        $this->_params = array_merge(array('global_user' => '@GLOBAL'),
+                                     $params);
         $this->_capabilities[] = 'global_defaults';
-        $this->_params = array_merge($conf['sql'], $params);
     }
 
     /**
@@ -68,13 +60,7 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
      */
     protected function _retrieve($defaults = false)
     {
-        if ($defaults) {
-            $user = isset($this->_params['global_user'])
-                ? $this->_params['global_user']
-                : '@GLOBAL';
-        } else {
-            $user = $this->_user;
-        }
+        $user = $defaults ? $this->_params['global_user'] : $this->_user;
 
         try {
             $result = $this->_db->select(
@@ -131,9 +117,7 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
     {
         if ($defaults) {
             $store = $this->_defaults;
-            $user = isset($this->_params['global_user'])
-                ? $this->_params['global_user']
-                : '@GLOBAL';
+            $user = $this->_params['global_user'];
         } else {
             $store = $this->_options;
             $user = $this->_user;

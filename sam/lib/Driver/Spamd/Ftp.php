@@ -2,12 +2,6 @@
 /**
  * Sam storage implementation for FTP access to the users' user_prefs files.
  *
- * Optional preferences:<pre>
- *   'hostspec'      The hostname of the FTP server.
- *   'port'          The port that the FTP server listens on.
- *   'user_prefs'    The file with the user preferences, relative to the home
- *                   directory. DEFAULT: '.spamassassin/user_prefs'</pre>
- *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -22,21 +16,35 @@
 class Sam_Driver_Spamd_Ftp extends Sam_Driver_Spamd_Base
 {
     /**
-     * Constructs a new FTP storage object.
+     * VFS instance.
      *
-     * @param string $user   The user who owns these SPAM options.
-     * @param array $params  A hash containing connection parameters.
+     * @var Horde_Vfs_Base
+     */
+    protected $_vfs;
+
+    /**
+     * Constructor.
+     *
+     * @param string $user   A user name.
+     * @param array $params  Class parameters:
+     *                       - vfs: (Horde_Vfs_Base) A VFS handle pointing to
+     *                         the FTP server.
+     *                       - user_prefs: (string) The file with the
+     *                         user preferences, relative to the home directory.
      */
     public function __construct($user, $params = array())
     {
-        $default_params = array(
-            'hostspec'   => 'localhost',
-            'port'       => 21,
-            'user_prefs' => '.spamassassin/user_prefs'
-        );
+        foreach (array('vfs', 'user_prefs') as $param) {
+            if (!isset($params[$param])) {
+                throw new InvalidArgumentException(
+                    sprintf('"%s" parameter is missing', $param));
+            }
+        }
+
         $this->_user = $user;
-        $this->_params = array_merge($default_params, $params);
-        $this->_params['vfstype'] = 'ftp';
+        $this->_vfs = $params['vfs'];
+        unset($params['vfs']);
+        $this->_params = $params;
     }
 
     /**

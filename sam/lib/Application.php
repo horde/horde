@@ -39,17 +39,10 @@ class Sam_Application extends Horde_Registry_Application
     public $version = 'H4 (1.0-git)';
 
     /**
-     * Global variables defined:
-     * - $sam_driver: (Sam_Driver) The storage driver.
      */
     protected function _init()
     {
-        // Load the storage driver. It appears in the global variable
-        // $sam_driver.
-        $backend = Sam::getBackend();
-        $user = Sam::mapUser($backend['hordeauth']);
-        $GLOBALS['sam_driver'] = Sam_Driver::singleton(
-            $backend['driver'], $user, $backend['params']);
+        $GLOBALS['injector']->bindFactory('Sam_Driver', 'Sam_Factory_Driver', 'create');
     }
 
     /**

@@ -9,7 +9,8 @@ class Sam_Api extends Horde_Registry_Api
 {
     public function whitelistFrom($addresses)
     {
-        global $sam_driver;
+        $sam_driver = $GLOBALS['injector']->getInstance('Sam_Driver');
+
         if (!$sam_driver->hasCapability('whitelist_from')) {
             return false;
         }
@@ -34,7 +35,8 @@ class Sam_Api extends Horde_Registry_Api
 
     public function blacklistFrom($addresses)
     {
-        global $sam_driver;
+        $sam_driver = $GLOBALS['injector']->getInstance('Sam_Driver');
+
         if (!$sam_driver->hasCapability('blacklist_from')) {
             return false;
         }

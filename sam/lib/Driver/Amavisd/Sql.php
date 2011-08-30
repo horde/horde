@@ -1,29 +1,14 @@
 <?php
 /**
- * Sam storage implementation for PHP's PEAR database abstraction layer.
+ * Sam SQL storage implementation using Horde_Db.
  *
- * Required parameters:<pre>
- *   'phptype'       The database type (ie. 'pgsql', 'mysql', etc.).</pre>
+ * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
-  * Optional preferences:<pre>
- *   'table'         The name of the Sam options table in 'database'.
- *                   DEFAULT: 'userpref'</pre>
- *
- * Required by some database implementations:<pre>
- *   'hostspec'      The hostname of the database server.
- *   'protocol'      The communication protocol ('tcp', 'unix', etc.).
- *   'database'      The name of the database.
- *   'username'      The username with which to connect to the database.
- *   'password'      The password associated with 'username'.
- *   'options '      Additional options to pass to the database.
- *   'port'          The port on which to connect to the database.
- *   'tty'           The TTY on which to connect to the database.</pre>
- *
- * The table structure can be created by the scripts/sql/amavisd_*.sql
- * script appropriate for your database, or modified from one that is
- * available.
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Max Kalika <max@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Sam
  */
 
@@ -71,17 +56,27 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver
                                      'blacklist_from');
 
     /**
-     * Constructs a new SQL storage object.
+     * Constructor.
      *
-     * @param string $user   The user who owns these SPAM options.
-     * @param array $params  A hash containing connection parameters.
+     * @param string $user   A user name.
+     * @param array $params  Class parameters:
+     *                       - db:    (Horde_Db_Adapater) A database handle.
+     *                       - table_map: (array) A map of table and field
+     *                         names. See config/backends.php.
      */
     public function __construct($user, $params = array())
     {
-        global $conf;
+        foreach (array('db', 'table_map') as $param) {
+            if (!isset($params[$param])) {
+                throw new InvalidArgumentException(
+                    sprintf('"%s" parameter is missing', $param));
+            }
+        }
 
         $this->_user = $user;
-        $this->_params = array_merge($conf['sql'], $params);
+        $this->_db = $params['db'];
+        unset($params['db']);
+        $this->_params = $params;
     }
 
     /**

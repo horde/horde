@@ -26,9 +26,35 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
     /**
      * Handle for the current LDAP connection.
      *
-     * @var resource
+     * @var Horde_Ldap
      */
     protected $_ldap;
+
+    /**
+     * Constructor.
+     *
+     * @param string $user   A user name.
+     * @param array $params  Class parameters:
+     *                       - ldap: (Horde_Ldap) An LDAP handle pointing to
+     *                         the directory server.
+     *                       - uid: (string) The user ID attribute name.
+     *                       - basedn: (string) The base DN.
+     *                       - attribute: (string) The storage attribute.
+     */
+    public function __construct($user, $params = array())
+    {
+        foreach (array('ldap', 'uid', 'basedn', 'attribute') as $param) {
+            if (!isset($params[$param])) {
+                throw new InvalidArgumentException(
+                    sprintf('"%s" parameter is missing', $param));
+            }
+        }
+
+        $this->_user = $user;
+        $this->_ldap = $params['ldap'];
+        unset($params['ldap'])
+        $this->_params = $params;
+    }
 
     /**
      * Constructs a new LDAP storage object.
@@ -132,48 +158,5 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
         } catch (Horde_Ldap_Exception $e) {
             throw new Sam_Exception($e);
         }
-    }
-
-    /**
-     * Attempts to open a connection to the LDAP server.
-     *
-     * @access private
-     *
-     * @return boolean  True on success or false on failure.
-     */
-    protected function _connect()
-    {
-        if ($this->_connected) {
-            return true;
-        }
-
-        $bindpass = $GLOBALS['registry']->getAuthCredential('password');
-        $user = $this->_user;
-        $binddn = sprintf('%s=%s,%s', $this->_params['uid'], $user, $this->_params['basedn']);
-        Horde::assertDriverConfig($this->_params, 'spamd_ldap',
-                                  array('ldapserver', 'basedn', 'attribute', 'uid'),
-                                  'SAM backend', 'backends.php', '$backends');
-
-        /* try three times */
-        for ($tries = 3; $tries > 0; $tries--) {
-            $lc = @ldap_connect($this->_params['ldapserver']);
-            if ($lc) {
-                $lb = @ldap_bind($lc, $binddn, $bindpass);
-                if ($lb) {
-                    $this->_ldap = $lc;
-                    $this->connected = true;
-                    return true;
-                } else  {
-                    $error = ldap_error($lc);
-                    @ldap_unbind($lc);
-                }
-            } else {
-                $error = 'ldap_connect() failed.';
-            }
-        }
-
-        /* If we reached this point, connection or bind failed. */
-        Horde::logMessage('LDAP error: ' . $error, __FILE__, __LINE__, PEAR_LOG_ERR);
-        return false;
     }
 }

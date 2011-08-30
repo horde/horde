@@ -14,11 +14,9 @@ class Sam_Form_Blacklist extends Horde_Form
 {
     public function __construct(&$vars)
     {
-        global $sam_driver;
-
         parent::__construct($vars, _("Blacklist Manager"));
-
         $this->setButtons(_("Save"), true);
+        $sam_driver = $GLOBALS['injector']->getInstance('Sam_Driver');
 
         $attributes = array(
             'blacklist_from' => _("Blacklist From"),

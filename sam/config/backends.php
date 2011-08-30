@@ -28,7 +28,7 @@
 $backends['spamd_sql'] = array(
     'preferred' => '',
     'hordeauth' => true,
-    'driver' => 'spamd_sql',
+    'driver' => 'Spamd_Sql',
     'params' => array(
         // The following parameters are only necessary if they differ from
         // the default Horde SQL settings.
@@ -49,7 +49,7 @@ $backends['spamd_sql'] = array(
 $backends['spamd_ldap'] = array(
     'preferred' => '',
     'hordeauth' => true,
-    'driver' => 'spamd_ldap',
+    'driver' => 'Spamd_Ldap',
     'params' => array(
         'ldapserver' => 'localhost',
         'basedn' => 'ou=users,dc=example,dc=com',
@@ -69,7 +69,7 @@ $backends['spamd_ldap'] = array(
 $backends['spamd_ftp'] = array(
     'preferred' => '',
     'hordeauth' => true,
-    'driver' => 'spamd_ftp',
+    'driver' => 'Spamd_Ftp',
     'params' => array(
         'hostspec' => 'localhost',
         // Location of system-wide config file. Used for any undefined
@@ -85,7 +85,7 @@ $backends['spamd_ftp'] = array(
 $backends['amavisd_sql'] = array(
     'preferred' => '',
     'hordeauth' => true,
-    'driver' => 'amavisd_sql',
+    'driver' => 'Amavisd_Sql',
     'params' => array(
         // The following parameters are only necessary if they differ from
         // the default Horde SQL settings.

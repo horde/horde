@@ -19,6 +19,7 @@ if (!$conf['enable']['rules']) {
 }
 
 /* Request retrieval of related user data. */
+$sam_driver = $injector->getInstance('Sam_Driver');
 $result = $sam_driver->retrieve();
 if (is_a($result, 'PEAR_Error')) {
     $notification->push(sprintf(_("Cannot get options: %s"), $result->getMessage()), 'horde.error');

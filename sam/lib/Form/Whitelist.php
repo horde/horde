@@ -14,11 +14,9 @@ class Sam_Form_Whitelist extends Horde_Form
 {
     public function __construct(&$vars)
     {
-        global $sam_driver;
-
         parent::__construct($vars, _("Whitelist Manager"));
-
         $this->setButtons(_("Save"), true);
+        $sam_driver = $GLOBALS['injector']->getInstance('Sam_Driver');
 
         $attributes = array(
             'whitelist_from' => _("Whitelist From"),

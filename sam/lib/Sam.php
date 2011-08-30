@@ -24,7 +24,7 @@ class Sam
      * @return array  The backend entry.
      * @throws Sam_Exception
      */
-    static public function getBackend()
+    static public function getPreferredBackend()
     {
         include SAM_BASE . '/config/backends.php';
         if (!isset($backends) || !is_array($backends)) {

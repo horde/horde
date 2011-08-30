@@ -14,11 +14,9 @@ class Sam_Form_Options extends Horde_Form
 {
     public function __construct(&$vars)
     {
-        global $sam_driver;
-
         parent::__construct($vars, _("Spam Options"));
-
         $this->setButtons(_("Save"), true);
+        $sam_driver = $GLOBALS['injector']->getInstance('Sam_Driver');
 
         foreach (Sam::getAttributes() as $key => $attribute) {
             if (Sam::infoAttribute($attribute['type']) ||
