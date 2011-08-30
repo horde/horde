@@ -19,7 +19,7 @@ Filter Rules Manager version H4 (2.0.5).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
-(Sieve, procmail) and client-side (IMAP) message filtering. For more
+(Sieve, Procmail, Maildrop) and client-side (IMAP) message filtering. For more
 information on Ingo, visit http://www.horde.org/apps/ingo.
 
 The major changes compared to the Ingo version H4 (2.0.4) are:
