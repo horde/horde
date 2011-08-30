@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-17</date>
- <time>22:30:21</time>
+ <date>2011-08-30</date>
+ <time>12:01:23</time>
  <version>
   <release>3.0.8</release>
   <api>3.0.0</api>
@@ -1272,7 +1272,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-17</date>
+   <date>2011-08-30</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Fix attribute name for assistant phone (Bug #10449).
