@@ -25,9 +25,9 @@
   <active>yes</active>
  </developer>
  <date>2011-08-30</date>
- <time>11:17:58</time>
+ <time>11:18:28</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -36,8 +36,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mjr] Fix version access (Bug# 10425).
-* [jan] Avoid infinite loop when importing certain vCalendar 1.0/vCard 2.1 data.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -797,6 +796,19 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <notes>
 * [mjr] Fix version access (Bug# 10425).
 * [jan] Avoid infinite loop when importing certain vCalendar 1.0/vCard 2.1 data.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
