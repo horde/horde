@@ -35,11 +35,10 @@ var DimpBase = {
     {
         var bounds,
             row = this.viewport.createSelection('domid', id),
-            rownum = row.get('rownum').first(),
             sel = this.isSelected('domid', id),
             selcount = this.selectedCount();
 
-        this.lastrow = rownum;
+        this.lastrow = row;
 
         // Some browsers need to stop the mousedown event before it propogates
         // down to the browser level in order to prevent text selection on
@@ -56,13 +55,13 @@ var DimpBase = {
         if (opts.shift) {
             if (selcount) {
                 if (!sel || selcount != 1) {
-                    bounds = [ rownum, this.pivotrow ];
+                    bounds = [ row.get('rownum').first(), this.pivotrow.get('rownum').first() ];
                     this.viewport.select($A($R(bounds.min(), bounds.max())));
                 }
                 return;
             }
         } else if (opts.ctrl) {
-            this.pivotrow = rownum;
+            this.pivotrow = row;
             if (sel) {
                 this.viewport.deselect(row, { right: opts.right });
                 return;
@@ -746,7 +745,7 @@ var DimpBase = {
         container.observe('ViewPort:select', function(e) {
             var d = e.memo.vs.get('rownum');
             if (d.size() == 1) {
-                this.lastrow = this.pivotrow = d.first();
+                this.lastrow = this.pivotrow = e.memo.vs;
             }
 
             this.setMsgHash();
@@ -2085,7 +2084,7 @@ var DimpBase = {
         case Event.KEY_RIGHT:
             prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
             if (e.shiftKey && this.lastrow != -1) {
-                row = this.viewport.createSelection('rownum', this.lastrow + ((prev) ? -1 : 1));
+                row = this.viewport.createSelection('rownum', this.lastrow.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
                     this.viewport.scrollTo(row.VP_rownum);
