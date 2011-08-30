@@ -85,13 +85,15 @@ if ($form->validate($vars)) {
         $sam_driver->setStackedOption($key, $data);
     }
 
-    $result = $sam_driver->store($defaults);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Cannot set options: %s"), $result->getMessage()), 'horde.error');
-    } elseif ($defaults) {
-        $notification->push(_("Updated global default rules"), 'horde.success');
-    } else {
-        $notification->push(_("Updated user spam rules"), 'horde.success');
+    try {
+        $sam_driver->store($defaults);
+        if ($defaults) {
+            $notification->push(_("Updated global default rules"), 'horde.success');
+        } else {
+            $notification->push(_("Updated user spam rules"), 'horde.success');
+        }
+    } catch (Sam_Exception($e)) {
+        $notification->push(sprintf(_("Cannot set options: %s"), $e->getMessage()), 'horde.error');
     }
 }
 

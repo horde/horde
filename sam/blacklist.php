@@ -49,13 +49,15 @@ if ($form->validate($vars)) {
         }
     }
 
-    $result = $sam_driver->store($defaults);
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Cannot set options: %s"), $result->getMessage()), 'horde.error');
-    } elseif ($defaults) {
-        $notification->push(_("Updated global blacklists"), 'horde.success');
-    } else {
-        $notification->push(_("Updated user blacklists"), 'horde.success');
+    try {
+        $sam_driver->store($defaults);
+        if ($defaults) {
+            $notification->push(_("Updated global blacklists"), 'horde.success');
+        } else {
+            $notification->push(_("Updated user blacklists"), 'horde.success');
+        }
+    } catch (Sam_Exception($e)) {
+        $notification->push(sprintf(_("Cannot set options: %s"), $e->getMessage()), 'horde.error');
     }
 }
 

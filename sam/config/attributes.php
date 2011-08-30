@@ -280,20 +280,23 @@ $_attributes['banned_extension'] = array(
 // Existing folders example:
 
 //if ($GLOBALS['registry']->hasMethod('mail/folderlist')) {
-//    $mailboxes = $GLOBALS['registry']->call('mail/folderlist');
-//}
-//if ($mailboxes && !is_a($mailboxes, 'PEAR_Error')) {
-//    $_attributes['spam_extension'] = array(
-//        'label' => _("File spam Into Mailbox:"),
-//        'type' => 'enum',
-//        'required' => false,
-//        'params' => array(array())
-//    );
+//    try {
+//        $mailboxes = $GLOBALS['registry']->call('mail/folderlist');
+//        if ($mailboxes) {
+//            $_attributes['spam_extension'] = array(
+//                'label' => _("File spam Into Mailbox:"),
+//                'type' => 'enum',
+//                'required' => false,
+//                'params' => array(array())
+//            );
 //
-//    foreach ($mailboxes as $mbox) {
-//        if ($mbox['val'] != 'INBOX') {
-//            $_attributes['spam_quarantine']['params'][0][] = $mbox['label'];
+//            foreach ($mailboxes as $mbox => $info) {
+//                if ($mbox != 'INBOX') {
+//                    $_attributes['spam_quarantine']['params'][0][$mbox] = $info['label'];
+//                }
+//            }
 //        }
+//    } catch (Horde_Exception $e) {
 //    }
 //}
 

@@ -21,13 +21,14 @@ class Sam
      * in the backend's definition.  The 'preferred' field may take a
      * single value or an array of multiple values.
      *
-     * @return array  The backend entry. Calls Horde::fatal() on error.
+     * @return array  The backend entry.
+     * @throws Sam_Exception
      */
     static public function getBackend()
     {
         include SAM_BASE . '/config/backends.php';
         if (!isset($backends) || !is_array($backends)) {
-            Horde::fatal(PEAR::raiseError(_("No backends configured in backends.php")), __FILE__, __LINE__);
+            throw new Sam_Exception(_("No backends configured in backends.php")));
         }
 
         foreach ($backends as $temp) {
@@ -50,9 +51,10 @@ class Sam
 
         /* Check for valid backend configuration. */
         if (!isset($backend)) {
-            Horde::fatal(PEAR::raiseError(_("No backend configured for this host")), __FILE__, __LINE__);
-        } elseif (empty($backend['driver'])) {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No \"%s\" element found in backend configuration."), 'driver')), __FILE__, __LINE__);
+            throw new Sam_Exception(_("No backend configured for this host"));
+        }
+        if (empty($backend['driver'])) {
+            throw new Sam_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'driver'));
         }
 
         /* Make sure the 'params' entry exists. */
