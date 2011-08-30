@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>17:18:01</time>
+ <date>2011-08-30</date>
+ <time>11:17:02</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -322,7 +322,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-08-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [jan] Fix bind for modifying existing LDAP groups.
