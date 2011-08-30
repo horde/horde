@@ -161,6 +161,16 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Return the package notes.
+     *
+     * @return string The notes for the current release.
+     */
+    public function getNotes()
+    {
+        return $this->getPackageXml()->getNotes();
+    }
+
+    /**
      * Indicate if the component has a local package.xml.
      *
      * @return boolean True if a package.xml exists.

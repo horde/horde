@@ -155,6 +155,16 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Return the package notes.
+     *
+     * @return string The notes for the current release.
+     */
+    public function getNotes()
+    {
+        return $this->getNodeText('/p:package/p:notes');
+    }
+
+    /**
      * Return the stability of the release or api.
      *
      * @param string $key "release" or "api"
