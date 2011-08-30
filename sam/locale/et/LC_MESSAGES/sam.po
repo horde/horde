@@ -8,11 +8,11 @@ msgstr ""
 "Project-Id-Version: Sam 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2008-05-29 15:49+0300\n"
-"PO-Revision-Date: 2008-07-30 19:05+0200\n"
+"PO-Revision-Date: 2011-08-30 18:22+0200\n"
 "Last-Translator: Alar SIng <alar.sing@err.ee>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -22,7 +22,7 @@ msgstr "# SpamAssassin seade fail genereeritud SAM'i poolt"
 
 #: config/attributes.php.dist:211
 msgid "0: Only add X-Spam-* headers"
-msgstr "0: Ainult lisa X-SPAM-* p‰ised"
+msgstr "0: Ainult lisa X-SPAM-* p√§ised"
 
 #: config/attributes.php.dist:212
 msgid "1: Attach the original message to the report"
@@ -79,7 +79,7 @@ msgstr "Salvesta seadistus Globaalselt"
 
 #: config/attributes.php.dist:208
 msgid "Modify messages tagged as spam:"
-msgstr "M‰rgi mail spammiks:"
+msgstr "M√§rgi mail spammiks:"
 
 #: lib/SAM.php:57
 #, php-format
@@ -92,15 +92,15 @@ msgstr "Alusrakendus ei ole sellel serveril seadistatud"
 
 #: lib/SAM.php:32
 msgid "No backends configured in backends.php"
-msgstr "Failis backends.php pole ¸htki alusrakendust seadistatud"
+msgstr "Failis backends.php pole √ºhtki alusrakendust seadistatud"
 
 #: spam.php:39 whitelist.php:34 blacklist.php:35
 msgid "Only an administrator may change the global defaults."
-msgstr "Ainult administrator saab muuta globaalseid v‰‰rtusi"
+msgstr "Ainult administrator saab muuta globaalseid v√§√§rtusi"
 
 #: config/attributes.php.dist:256
 msgid "Receive Bad Headers"
-msgstr "Saabunud vigaste p‰stega"
+msgstr "Saabunud vigaste p√§stega"
 
 #: config/attributes.php.dist:251
 msgid "Receive Banned Files"
@@ -116,7 +116,7 @@ msgstr "Saabunud Viirus"
 
 #: lib/Driver/amavisd_sql.php:181
 msgid "Recipient created: %s"
-msgstr "Vastuvıtja loodud: %s"
+msgstr "Vastuv√µtja loodud: %s"
 
 #: config/attributes.php.dist:101
 msgid "Required Score"
@@ -141,23 +141,23 @@ msgstr "Salvesta"
 
 #: config/attributes.php.dist:236
 msgid "Skip Bad Header Checks"
-msgstr "J‰tta Vigaste P‰iste kontrollimine"
+msgstr "J√§tta Vigaste P√§iste kontrollimine"
 
 #: config/attributes.php.dist:231
 msgid "Skip Banned File Checks"
-msgstr "J‰tta Keelatud Failide kontrollimine"
+msgstr "J√§tta Keelatud Failide kontrollimine"
 
 #: config/attributes.php.dist:216
 msgid "Skip RBL Checks"
-msgstr "J‰tta RBL kontrollimine"
+msgstr "J√§tta RBL kontrollimine"
 
 #: config/attributes.php.dist:226
 msgid "Skip Spam Checks"
-msgstr "J‰tta Spami kontrollimine"
+msgstr "J√§tta Spami kontrollimine"
 
 #: config/attributes.php.dist:221
 msgid "Skip Virus Checks"
-msgstr "J‰tta Viiruste Kontrollimine"
+msgstr "J√§tta Viiruste Kontrollimine"
 
 #: config/attributes.php.dist:261
 msgid "Spam Folder"
@@ -173,15 +173,15 @@ msgstr "Spami garantiini aadress"
 
 #: config/attributes.php.dist:61
 msgid "Tag Level"
-msgstr "M‰rgistamise tase"
+msgstr "M√§rgistamise tase"
 
 #: spam.php:16
 msgid "The Spam Rules page is not enabled."
-msgstr "SPAMi reeglite kasutamine ei ole vıimaldatu."
+msgstr "SPAMi reeglite kasutamine ei ole v√µimaldatu."
 
 #: spam.php:43 whitelist.php:38 blacklist.php:39
 msgid "The configured backend does not support global defaults."
-msgstr "Seadistatud alusrakendus ei vıimalda globaalseid vaikev‰‰rtusi."
+msgstr "Seadistatud alusrakendus ei v√µimalda globaalseid vaikev√§√§rtusi."
 
 #: blacklist.php:58
 msgid "Updated global blacklists"

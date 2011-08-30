@@ -9,11 +9,11 @@ msgstr ""
 "Project-Id-Version: Sam 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2009-05-01 18:31+0200\n"
-"PO-Revision-Date: 2009-05-21 13:59+0200\n"
+"PO-Revision-Date: 2011-08-30 18:23+0200\n"
 "Last-Translator: CSI Piemonte <sistemisti-posta@csi.it>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -44,7 +44,7 @@ msgstr "Includi destinatario nella Lista Nera"
 #: lib/Driver/amavisd_sql.php:178
 #, php-format
 msgid "Cannot create recipient %s: %s"
-msgstr "Non si puÚ creare il destinatario %s: %s"
+msgstr "Non si pu√≤ creare il destinatario %s: %s"
 
 #: whitelist.php:21 blacklist.php:22 spam.php:27
 #, php-format
@@ -54,7 +54,7 @@ msgstr "Non si possono applicare le opzioni: %s"
 #: whitelist.php:57 blacklist.php:58 spam.php:91
 #, php-format
 msgid "Cannot set options: %s"
-msgstr "Non Ë possibile impostare le opzioni: %s"
+msgstr "Non √® possibile impostare le opzioni: %s"
 
 #: lib/Driver/amavisd_ldap.php:96 lib/Driver/amavisd_ldap.php:176
 msgid "Could not bind to LDAP server"
@@ -78,7 +78,7 @@ msgid ""
 "virus filter. For help about any option, please click the help button, at "
 "the right of each option."
 msgstr ""
-"Da questa pagina, si sar‡ in grado di configurare le opzioni in merito allo "
+"Da questa pagina, si sar√† in grado di configurare le opzioni in merito allo "
 "SPAM e del filtro Antivirus. Per ulteriori informazioni su ogni opzione, "
 "fare clic sul pulsante Guida, situato a destra di ogni opzione."
 
@@ -158,7 +158,7 @@ msgstr "Notifica al destinatario virus"
 
 #: whitelist.php:36 blacklist.php:37 spam.php:42
 msgid "Only an administrator may change the global defaults."
-msgstr "Solo un Amministratore puÚ cambiare le impostazioni globali."
+msgstr "Solo un Amministratore pu√≤ cambiare le impostazioni globali."
 
 #: config/attributes.php.dist:94
 msgid "Receive Bad Headers"
@@ -240,7 +240,7 @@ msgstr "Livello di etichettatura (Tag)"
 
 #: spam.php:19
 msgid "The Spam Rules page is not enabled."
-msgstr "Non Ë attiva la pagina delle regole dello Spam"
+msgstr "Non √® attiva la pagina delle regole dello Spam"
 
 #: whitelist.php:40 blacklist.php:41 spam.php:46
 msgid "The configured backend does not support global defaults."

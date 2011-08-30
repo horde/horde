@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SpamAssasin\n"
 "POT-Creation-Date: 2002-06-09 00:30+0200\n"
-"PO-Revision-Date: 2002-06-09 01:03+0100\n"
+"PO-Revision-Date: 2011-08-30 18:23+0200\n"
 "Last-Translator: Per-Stian Vatne <psv@orsta.org>\n"
 "Language-Team: Norwegian Nynorsk <psv@orsta.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "General SpamAssassin Options"
@@ -21,13 +21,13 @@ msgid "Help"
 msgstr "Hjelp"
 
 msgid "Language"
-msgstr "Språk"
+msgstr "SprÃ¥k"
 
 msgid "No configuration information specified for SQL Tasks."
-msgstr "Ingen konfigurasjonsinformasjon spesifisert for SQL-oppgåver."
+msgstr "Ingen konfigurasjonsinformasjon spesifisert for SQL-oppgÃ¥ver."
 
 msgid "Non-numeric value for Required Hits"
-msgstr "Ikkje-numeriske verdiar for nødvendige treff"
+msgstr "Ikkje-numeriske verdiar for nÃ¸dvendige treff"
 
 msgid "Options"
 msgstr "Alternativ"
@@ -36,25 +36,25 @@ msgid "Problem?"
 msgstr "Problem?"
 
 msgid "Required 'database' not specified in SpamAssassin configuration."
-msgstr "Nødvendig 'database' ikkje spesifisert i konfigurasjon for SpamAssasin."
+msgstr "NÃ¸dvendig 'database' ikkje spesifisert i konfigurasjon for SpamAssasin."
 
 msgid "Required 'hostspec' not specified in SpamAssassin configuration."
-msgstr "Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for SpamAssasin."
+msgstr "NÃ¸dvendig 'hostspec' ikkje spesifisert i konfigurasjon for SpamAssasin."
 
 msgid "Required 'password' not specified in SpamAssassin configuration."
-msgstr "Nødvendig 'password' ikkje spesifisert i konfigurasjon for SpamAssasin."
+msgstr "NÃ¸dvendig 'password' ikkje spesifisert i konfigurasjon for SpamAssasin."
 
 msgid "Required 'phptype' not specified in SpamAssassin configuration."
-msgstr "Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for SpamAssasin."
+msgstr "NÃ¸dvendig 'phptype' ikkje spesifisert i konfigurasjon for SpamAssasin."
 
 msgid "Required 'table' not specified in SpamAssassin configuration."
-msgstr "Nødvendig 'table' ikkje spesifisert i konfigurasjon for SpamAssasin."
+msgstr "NÃ¸dvendig 'table' ikkje spesifisert i konfigurasjon for SpamAssasin."
 
 msgid "Required 'username' not specified in SpamAssassin configuration."
-msgstr "Nødvendig 'username' ikkje spesifisert i konfigurasjon for SpamAssasin."
+msgstr "NÃ¸dvendig 'username' ikkje spesifisert i konfigurasjon for SpamAssasin."
 
 msgid "Required Hits: "
-msgstr "Nødvendige treff:"
+msgstr "NÃ¸dvendige treff:"
 
 msgid "SAM is not properly configured"
 msgstr "SAM er ikkje ordentleg konfigurert"
@@ -63,16 +63,16 @@ msgid "Save Changes"
 msgstr "Lagre endringar"
 
 msgid "Select your preferred language:"
-msgstr "Vel ønska språk:"
+msgstr "Vel Ã¸nska sprÃ¥k:"
 
 msgid "Set the your preferred display language."
-msgstr "Vel ønska språk for vising."
+msgstr "Vel Ã¸nska sprÃ¥k for vising."
 
 msgid "Some of SAM's configuration files are missing:"
 msgstr "Nokre av SAM sine konfigurasjonsfiler manglar:"
 
 msgid "Spam Rules"
-msgstr "Søppelpostreglar"
+msgstr "SÃ¸ppelpostreglar"
 
 msgid "This is the main SAM configuration file. It contains options for all SAM scripts."
 msgstr "Dette er "

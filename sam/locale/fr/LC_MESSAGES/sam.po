@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SpamAssassin 0.0.1-cvs\n"
 "POT-Creation-Date: 2002-06-08 21:31+0200\n"
-"PO-Revision-Date: 2003-01-04 14:46+0100\n"
+"PO-Revision-Date: 2011-08-30 18:23+0200\n"
 "Last-Translator: Thierry Thomas <thierry@pompo.net>\n"
 "Language-Team: French <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "General SpamAssassin Options"
-msgstr "Options générales du module SpamAssassin"
+msgstr "Options gÃ©nÃ©rales du module SpamAssassin"
 
 msgid "Help"
 msgstr "Aide"
@@ -24,83 +24,83 @@ msgid "Language"
 msgstr "Langue"
 
 msgid "No configuration information specified for SQL Tasks."
-msgstr "Aucune configuration des tâches SQL n'a été effectuée."
+msgstr "Aucune configuration des tÃ¢ches SQL n'a Ã©tÃ© effectuÃ©e."
 
 msgid "Non-numeric value for Required Hits"
-msgstr "Valeur non-numérique dans « Nombre d'impacts requis »"
+msgstr "Valeur non-numÃ©rique dans Â«Â Nombre d'impacts requisÂ Â»"
 
 msgid "Options"
 msgstr "Options"
 
 msgid "Problem?"
-msgstr "Problème ?"
+msgstr "ProblÃ¨meÂ ?"
 
 msgid "Required 'database' not specified in SpamAssassin configuration."
 msgstr ""
-"Le paramètre obligatoire 'database' n'est pas renseigné dans les fichiers de "
+"Le paramÃ¨tre obligatoire 'database' n'est pas renseignÃ© dans les fichiers de "
 "configuration de SpamAssassin."
 
 msgid "Required 'hostspec' not specified in SpamAssassin configuration."
 msgstr ""
-"Le paramètre obligatoire 'hostspec' n'est pas renseigné dans les fichiers de "
+"Le paramÃ¨tre obligatoire 'hostspec' n'est pas renseignÃ© dans les fichiers de "
 "configuration de SpamAssassin."
 
 msgid "Required 'password' not specified in SpamAssassin configuration."
 msgstr ""
-"Le paramètre obligatoire 'password' n'est pas renseigné dans les fichiers de "
+"Le paramÃ¨tre obligatoire 'password' n'est pas renseignÃ© dans les fichiers de "
 "configuration de SpamAssassin."
 
 msgid "Required 'phptype' not specified in SpamAssassin configuration."
 msgstr ""
-"Le paramètre obligatoire 'phptype' n'est pas renseigné dans les fichiers de "
+"Le paramÃ¨tre obligatoire 'phptype' n'est pas renseignÃ© dans les fichiers de "
 "configuration de SpamAssassin."
 
 msgid "Required 'table' not specified in SpamAssassin configuration."
 msgstr ""
-"Le paramètre obligatoire 'table' n'est pas renseigné dans les fichiers de "
+"Le paramÃ¨tre obligatoire 'table' n'est pas renseignÃ© dans les fichiers de "
 "configuration de SpamAssassin."
 
 msgid "Required 'username' not specified in SpamAssassin configuration."
 msgstr ""
-"Le paramètre obligatoire 'username' n'est pas renseigné dans les fichiers de "
+"Le paramÃ¨tre obligatoire 'username' n'est pas renseignÃ© dans les fichiers de "
 "configuration de SpamAssassin."
 
 msgid "Required Hits: "
-msgstr "Nombre d'impacts requis : "
+msgstr "Nombre d'impacts requisÂ : "
 
 msgid "SAM is not properly configured"
-msgstr "SAM n'est pas configuré correctement"
+msgstr "SAM n'est pas configurÃ© correctement"
 
 msgid "Save Changes"
 msgstr "Enregistrer les modifications"
 
 msgid "Select your preferred language:"
-msgstr "Sélectionnez votre langue habituelle :"
+msgstr "SÃ©lectionnez votre langue habituelleÂ :"
 
 msgid "Set the your preferred display language."
-msgstr "Sélectionner la langue d'affichage."
+msgstr "SÃ©lectionner la langue d'affichage."
 
 msgid "Some of SAM's configuration files are missing:"
-msgstr "Il manque certains fichiers de configuration de SAM :"
+msgstr "Il manque certains fichiers de configuration de SAMÂ :"
 
 msgid "Spam Rules"
-msgstr "Règles anti-spam"
+msgstr "RÃ¨gles anti-spam"
 
 msgid ""
 "This is the main SAM configuration file. It contains options for all SAM "
 "scripts."
 msgstr ""
-"Ceci est le principal fichier de configuration de SAM ; il contient les "
+"Ceci est le principal fichier de configuration de SAMÂ ; il contient les "
 "options de tous ses scripts."
 
 msgid "Undo Changes"
 msgstr "Annuler les modifications"
 
 msgid "Updated SpamAssassin Options"
-msgstr "Options de SpamAssassin modifiées"
+msgstr "Options de SpamAssassin modifiÃ©es"
 
 msgid "User Options"
-msgstr "Préférences personnelles"
+msgstr "PrÃ©fÃ©rences personnelles"
 
 msgid "Your Information"
-msgstr "Données personnelles"
+msgstr "DonnÃ©es personnelles"

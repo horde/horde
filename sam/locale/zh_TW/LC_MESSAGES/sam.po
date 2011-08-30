@@ -1,5 +1,5 @@
 # Sam Traditional Chinese Translation.
-# Copyright 2002 David Chang. ±i¨}¤å,¥xÆW
+# Copyright 2002 David Chang. å¼µè‰¯æ–‡,å°ç£
 # David Chang <david@tmv.gov.tw>, 2002.
 #
 msgid ""
@@ -7,32 +7,32 @@ msgstr ""
 "Project-Id-Version: Sam 0.0.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2003-11-24 08:44+0800\n"
-"PO-Revision-Date: 2001-12-20 12:00+0800\n"
+"PO-Revision-Date: 2011-08-30 18:25+0200\n"
 "Last-Translator: David Chang <david@tmv.gov.tw>\n"
 "Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=BIG5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: blacklist.php:32
 msgid "Black List Manager"
-msgstr "¶Â¦W³æºŞ²z­û"
+msgstr "é»‘åå–®ç®¡ç†å“¡"
 
 #: templates/menu/menu.inc:13
 msgid "Blacklist"
-msgstr "¶Â¦W³æ"
+msgstr "é»‘åå–®"
 
 #: lib/BlacklistForm.php:27
 msgid "Blacklist From"
-msgstr "±H¥ó¶Â¦W³æ"
+msgstr "å¯„ä»¶é»‘åå–®"
 
 #: lib/BlacklistForm.php:22
 msgid "Blacklist Manager"
-msgstr "¶Â¦W³æºŞ²z­û"
+msgstr "é»‘åå–®ç®¡ç†å“¡"
 
 #: lib/BlacklistForm.php:28
 msgid "Blacklist To"
-msgstr "¦¬¥ó¶Â¦W³æ"
+msgstr "æ”¶ä»¶é»‘åå–®"
 
 #: lib/Driver/amavisd_sql.php:171
 #, php-format
@@ -42,12 +42,12 @@ msgstr ""
 #: blacklist.php:21 spam.php:26 whitelist.php:21
 #, php-format
 msgid "Cannot get options: %s"
-msgstr "µLªkÀò¨ú¿ï¶µ: %s"
+msgstr "ç„¡æ³•ç²å–é¸é …: %s"
 
 #: blacklist.php:58 spam.php:68 whitelist.php:58
 #, php-format
 msgid "Cannot set options: %s"
-msgstr "µLªk³]©w¿ï¶µ: %s"
+msgstr "ç„¡æ³•è¨­å®šé¸é …: %s"
 
 #: config/attributes.php.dist:103
 msgid "DeFang MIME"
@@ -55,7 +55,7 @@ msgstr ""
 
 #: templates/menu/menu.inc:24
 msgid "Help"
-msgstr "»¡©ú"
+msgstr "èªªæ˜"
 
 #: config/attributes.php.dist:51
 msgid "Hit Level"
@@ -67,7 +67,7 @@ msgstr ""
 
 #: config/prefs.php.dist:10
 msgid "Language"
-msgstr "»y¨¥"
+msgstr "èªè¨€"
 
 #: lib/BlacklistForm.php:46 lib/OptionsForm.php:51 lib/WhitelistForm.php:46
 msgid "Make Settings Global"
@@ -76,23 +76,23 @@ msgstr ""
 #: lib/SAM.php:60
 #, php-format
 msgid "No '%s' element found in backend configuration."
-msgstr "¦b¦øªAºİªº³]©w¸ê®Æ¤¤§ä¤£¨ìÃö©ó '%s' ªº¤¸¥ó."
+msgstr "åœ¨ä¼ºæœç«¯çš„è¨­å®šè³‡æ–™ä¸­æ‰¾ä¸åˆ°é—œæ–¼ '%s' çš„å…ƒä»¶."
 
 #: lib/SAM.php:58
 msgid "No backend configured for this host"
-msgstr "¦¹¥D¾÷ªº¦øªAºİ¥¼³]©w"
+msgstr "æ­¤ä¸»æ©Ÿçš„ä¼ºæœç«¯æœªè¨­å®š"
 
 #: lib/SAM.php:35
 msgid "No backends configured in backends.php"
-msgstr "©|¥¼¦b backends.php ¤¤³]©w¦øªAºİ¸ê°T"
+msgstr "å°šæœªåœ¨ backends.php ä¸­è¨­å®šä¼ºæœç«¯è³‡è¨Š"
 
 #: blacklist.php:37 spam.php:42 whitelist.php:37
 msgid "Only an administrator may change the global defaults."
-msgstr "¥u¦³¤@¦ìºŞ²z­û¥i¥HÅÜ§ó¼s°ì³]©w."
+msgstr "åªæœ‰ä¸€ä½ç®¡ç†å“¡å¯ä»¥è®Šæ›´å»£åŸŸè¨­å®š."
 
 #: templates/menu/menu.inc:16
 msgid "Options"
-msgstr "¿ï¶µ"
+msgstr "é¸é …"
 
 #: config/attributes.php.dist:148
 msgid "Receive Bad Headers"
@@ -121,7 +121,7 @@ msgstr ""
 
 #: config/attributes.php.dist:83
 msgid "Rewrite Subject"
-msgstr "§ï¼g¥D¦®"
+msgstr "æ”¹å¯«ä¸»æ—¨"
 
 #: lib/base.php:22
 msgid ""
@@ -131,23 +131,23 @@ msgstr ""
 
 #: config/attributes.php.dist:88
 msgid "SPAM Level Stars"
-msgstr "SPAM ¬P¯Å¤Àµ¥"
+msgstr "SPAM æ˜Ÿç´šåˆ†ç­‰"
 
 #: lib/BlacklistForm.php:24 lib/OptionsForm.php:24 lib/WhitelistForm.php:24
 msgid "Save"
-msgstr "Àx¦s"
+msgstr "å„²å­˜"
 
 #: config/prefs.php.dist:20
 msgid "Select your preferred language:"
-msgstr "¿ï¾Ü§Aªº°¾¦n»y¨¥:"
+msgstr "é¸æ“‡ä½ çš„åå¥½èªè¨€:"
 
 #: config/prefs.php.dist:11
 msgid "Set the your preferred display language."
-msgstr "³]©w§A­n¥Î¨ÓÅã¥Üªº°¾¦n»y¨¥."
+msgstr "è¨­å®šä½ è¦ç”¨ä¾†é¡¯ç¤ºçš„åå¥½èªè¨€."
 
 #: config/attributes.php.dist:128
 msgid "Skip Bad Header Checks"
-msgstr "©¿²¤ÃaªíÀYªºÀË¬d"
+msgstr "å¿½ç•¥å£è¡¨é ­çš„æª¢æŸ¥"
 
 #: config/attributes.php.dist:123
 msgid "Skip Banned File Checks"
@@ -155,27 +155,27 @@ msgstr ""
 
 #: config/attributes.php.dist:108
 msgid "Skip RBL Checks"
-msgstr "©¿²¤ RBL ÀË¬d"
+msgstr "å¿½ç•¥ RBL æª¢æŸ¥"
 
 #: config/attributes.php.dist:118
 msgid "Skip Spam Checks"
-msgstr "©¿²¤©U§£¶l¥óÀË¬d"
+msgstr "å¿½ç•¥åƒåœ¾éƒµä»¶æª¢æŸ¥"
 
 #: config/attributes.php.dist:113
 msgid "Skip Virus Checks"
-msgstr "©¿²¤¯f¬rÀË¬d"
+msgstr "å¿½ç•¥ç—…æ¯’æª¢æŸ¥"
 
 #: spam.php:37 templates/menu/menu.inc:7 lib/OptionsForm.php:22
 msgid "Spam Options"
-msgstr "©U§£¶l¥ó¿ï¶µ"
+msgstr "åƒåœ¾éƒµä»¶é¸é …"
 
 #: config/attributes.php.dist:78
 msgid "Subject Tag"
-msgstr "¥D¦®¼ĞÅÒ"
+msgstr "ä¸»æ—¨æ¨™ç±¤"
 
 #: config/attributes.php.dist:46
 msgid "Tag Level"
-msgstr "¼ĞÅÒµ¥¯Å"
+msgstr "æ¨™ç±¤ç­‰ç´š"
 
 #: spam.php:18
 msgid "The Spam Rules page is not enabled."
@@ -187,56 +187,56 @@ msgstr ""
 
 #: blacklist.php:60
 msgid "Updated global blacklists"
-msgstr "¼s°ì¶Â¦W³æ¤w§ó·s"
+msgstr "å»£åŸŸé»‘åå–®å·²æ›´æ–°"
 
 #: spam.php:70
 msgid "Updated global default rules"
-msgstr "¼s°ì¹w³]³W«h¤w§ó·s"
+msgstr "å»£åŸŸé è¨­è¦å‰‡å·²æ›´æ–°"
 
 #: whitelist.php:60
 msgid "Updated global whitelists"
-msgstr "¼s°ì¤Íµ½¦W³æ¤w§ó·s"
+msgstr "å»£åŸŸå‹å–„åå–®å·²æ›´æ–°"
 
 #: blacklist.php:62
 msgid "Updated user blacklists"
-msgstr "¨Ï¥ÎªÌ¶Â¦W³æ¤w§ó·s"
+msgstr "ä½¿ç”¨è€…é»‘åå–®å·²æ›´æ–°"
 
 #: spam.php:72
 msgid "Updated user spam rules"
-msgstr "¨Ï¥ÎªÌªº©U§£¶l¥ó³W«h¤w§ó·s"
+msgstr "ä½¿ç”¨è€…çš„åƒåœ¾éƒµä»¶è¦å‰‡å·²æ›´æ–°"
 
 #: whitelist.php:62
 msgid "Updated user whitelists"
-msgstr "¨Ï¥ÎªÌªº¤Íµ½¦W³æ¤w§ó·s"
+msgstr "ä½¿ç”¨è€…çš„å‹å–„åå–®å·²æ›´æ–°"
 
 #: config/attributes.php.dist:98
 msgid "Use Terse Report"
-msgstr "¨Ï¥ÎºëÂ²³ø§i"
+msgstr "ä½¿ç”¨ç²¾ç°¡å ±å‘Š"
 
 #: prefs.php:36
 msgid "User Options"
-msgstr "¨Ï¥ÎªÌ¿ï¶µ"
+msgstr "ä½¿ç”¨è€…é¸é …"
 
 #: whitelist.php:32
 msgid "White List Manager"
-msgstr "¤Íµ½¦W³æºŞ²z­û"
+msgstr "å‹å–„åå–®ç®¡ç†å“¡"
 
 #: templates/menu/menu.inc:10
 msgid "Whitelist"
-msgstr "¤Íµ½¦W³æ"
+msgstr "å‹å–„åå–®"
 
 #: lib/WhitelistForm.php:27
 msgid "Whitelist From"
-msgstr "±H¥ó¤Íµ½¦W³æ"
+msgstr "å¯„ä»¶å‹å–„åå–®"
 
 #: lib/WhitelistForm.php:22
 msgid "Whitelist Manager"
-msgstr "¤Íµ½¦W³æºŞ²z­û"
+msgstr "å‹å–„åå–®ç®¡ç†å“¡"
 
 #: lib/WhitelistForm.php:28
 msgid "Whitelist To"
-msgstr "¦¬¥ó¤Íµ½¦W³æ"
+msgstr "æ”¶ä»¶å‹å–„åå–®"
 
 #: config/prefs.php.dist:9
 msgid "Your Information"
-msgstr "§Aªº­Ó¤H¸ê°T"
+msgstr "ä½ çš„å€‹äººè³‡è¨Š"

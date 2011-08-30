@@ -9,11 +9,11 @@ msgstr ""
 "Project-Id-Version: Sam 0.0.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2009-11-21 13:39+0100\n"
-"PO-Revision-Date: 2006-12-30 11:56+0100\n"
+"PO-Revision-Date: 2011-08-30 18:21+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -23,19 +23,19 @@ msgstr "# SpamAssassin Konfigurationsdatei, erzeugt von SAM"
 
 #: config/attributes.php.dist:211
 msgid "0: Only add X-Spam-* headers"
-msgstr "0: Nur X-Spam-* Nachrichtenköpfe hinzufügen"
+msgstr "0: Nur X-Spam-* NachrichtenkÃ¶pfe hinzufÃ¼gen"
 
 #: config/attributes.php.dist:212
 msgid "1: Attach the original message to the report"
-msgstr "1: Originalnachricht in die Antwort einfügen"
+msgstr "1: Originalnachricht in die Antwort einfÃ¼gen"
 
 #: config/attributes.php.dist:213
 msgid "2: Attach the original message as plain text to the report"
-msgstr "2: Originalnachricht als einfachen Text in die Antwort einfügen"
+msgstr "2: Originalnachricht als einfachen Text in die Antwort einfÃ¼gen"
 
 #: config/attributes.php.dist:271
 msgid "Banned Files Folder"
-msgstr "Ordner für verbotene Dateien"
+msgstr "Ordner fÃ¼r verbotene Dateien"
 
 #: blacklist.php:31
 msgid "Black List Manager"
@@ -55,17 +55,17 @@ msgstr "Ausschllusslisten-Verwaltung"
 
 #: lib/Forms/Blacklist.php:27
 msgid "Blacklist To"
-msgstr "Ausgeschlossene Empfänger"
+msgstr "Ausgeschlossene EmpfÃ¤nger"
 
 #: lib/Driver/amavisd_sql.php:178
 #, php-format
 msgid "Cannot create recipient %s: %s"
-msgstr "Empfänger %s konnte nicht erstellt werden: %s"
+msgstr "EmpfÃ¤nger %s konnte nicht erstellt werden: %s"
 
 #: spam.php:27 whitelist.php:21 blacklist.php:21
 #, php-format
 msgid "Cannot get options: %s"
-msgstr "Einstellungen können nicht geladen werden: %s"
+msgstr "Einstellungen kÃ¶nnen nicht geladen werden: %s"
 
 #: spam.php:93 whitelist.php:57 blacklist.php:57
 #, php-format
@@ -74,7 +74,7 @@ msgstr "Einstellungen konnten nicht gespeichert werden: %s"
 
 #: config/attributes.php.dist:127
 msgid "Kill Level"
-msgstr "Löschhöhe"
+msgstr "LÃ¶schhÃ¶he"
 
 #: lib/Forms/Blacklist.php:45 lib/Forms/Whitelist.php:45
 #: lib/Forms/Options.php:89
@@ -83,7 +83,7 @@ msgstr "Einstellungen als global speichern"
 
 #: config/attributes.php.dist:208
 msgid "Modify messages tagged as spam:"
-msgstr "Als Spam markierte Nachrichten verändern:"
+msgstr "Als Spam markierte Nachrichten verÃ¤ndern:"
 
 #: lib/SAM.php:58
 #, php-format
@@ -92,7 +92,7 @@ msgstr "\"%s\" in der Backendkonfiguration nicht angegeben."
 
 #: lib/SAM.php:56
 msgid "No backend configured for this host"
-msgstr "Keine Backendkonfiguration für diesen Host angegeben"
+msgstr "Keine Backendkonfiguration fÃ¼r diesen Host angegeben"
 
 #: lib/SAM.php:33
 msgid "No backends configured in backends.php"
@@ -100,11 +100,11 @@ msgstr "Keine Backends in backends.php konfiguriert"
 
 #: spam.php:42 whitelist.php:36 blacklist.php:36
 msgid "Only an administrator may change the global defaults."
-msgstr "Nur Administratoren dürfen Standardwerte ändern."
+msgstr "Nur Administratoren dÃ¼rfen Standardwerte Ã¤ndern."
 
 #: config/attributes.php.dist:256
 msgid "Receive Bad Headers"
-msgstr "Ungültige Kopfeinträge empfangen"
+msgstr "UngÃ¼ltige KopfeintrÃ¤ge empfangen"
 
 #: config/attributes.php.dist:251
 msgid "Receive Banned Files"
@@ -121,11 +121,11 @@ msgstr "Viren empfangen"
 #: lib/Driver/amavisd_sql.php:181
 #, php-format
 msgid "Recipient created: %s"
-msgstr "Empfänger erstellt: %s"
+msgstr "EmpfÃ¤nger erstellt: %s"
 
 #: config/attributes.php.dist:101
 msgid "Required Score"
-msgstr "Benötigte Treffer"
+msgstr "BenÃ¶tigte Treffer"
 
 #: config/attributes.php.dist:169
 msgid "Rewrite Email Subject"
@@ -146,23 +146,23 @@ msgstr "Speichern"
 
 #: config/attributes.php.dist:236
 msgid "Skip Bad Header Checks"
-msgstr "Tests auf ungültige Kopfeinträge überspringen"
+msgstr "Tests auf ungÃ¼ltige KopfeintrÃ¤ge Ã¼berspringen"
 
 #: config/attributes.php.dist:231
 msgid "Skip Banned File Checks"
-msgstr "Tests auf unerlaubte Dateien überspringen"
+msgstr "Tests auf unerlaubte Dateien Ã¼berspringen"
 
 #: config/attributes.php.dist:216
 msgid "Skip RBL Checks"
-msgstr "RBL-Tests überspringen"
+msgstr "RBL-Tests Ã¼berspringen"
 
 #: config/attributes.php.dist:226
 msgid "Skip Spam Checks"
-msgstr "Spam-Tests überspringen"
+msgstr "Spam-Tests Ã¼berspringen"
 
 #: config/attributes.php.dist:221
 msgid "Skip Virus Checks"
-msgstr "Virus-Tests überspringen: "
+msgstr "Virus-Tests Ã¼berspringen: "
 
 #: config/attributes.php.dist:261
 msgid "Spam Folder"
@@ -174,11 +174,11 @@ msgstr "Spam-Einstellungen"
 
 #: config/attributes.php.dist:203
 msgid "Spam Quarantine Address"
-msgstr "Spam-Quarantäne-Adresse"
+msgstr "Spam-QuarantÃ¤ne-Adresse"
 
 #: config/attributes.php.dist:61
 msgid "Tag Level"
-msgstr "Markierungshöhe"
+msgstr "MarkierungshÃ¶he"
 
 #: spam.php:19
 msgid "The Spam Rules page is not enabled."
@@ -186,7 +186,7 @@ msgstr "Die Spamregelseite ist nicht aktiviert."
 
 #: spam.php:46 whitelist.php:40 blacklist.php:40
 msgid "The configured backend does not support global defaults."
-msgstr "Das konfigurierte Backend unterstützt keine globalen Standardwerte."
+msgstr "Das konfigurierte Backend unterstÃ¼tzt keine globalen Standardwerte."
 
 #: blacklist.php:59
 msgid "Updated global blacklists"
@@ -234,4 +234,4 @@ msgstr "Positivlisten-Verwaltung"
 
 #: lib/Forms/Whitelist.php:27
 msgid "Whitelist To"
-msgstr "Positivgelistete Empfänger"
+msgstr "Positivgelistete EmpfÃ¤nger"
