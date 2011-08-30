@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>01:46:31</time>
+ <date>2011-08-30</date>
+ <time>17:24:21</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -130,7 +130,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-07</date>
+   <date>2011-08-30</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL</license>
    <notes>
 * Initial Horde 4 package.
