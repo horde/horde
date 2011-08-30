@@ -18,7 +18,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-30</date>
- <time>11:22:35</time>
+ <time>13:37:11</time>
  <version>
   <release>1.0.7</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -730,7 +730,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
    </notes>
   </release>
  </changelog>

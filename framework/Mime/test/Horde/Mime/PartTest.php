@@ -237,6 +237,29 @@ C
         );
     }
 
+    public function testFindBody()
+    {
+        $part = $this->_getTestPart();
+        $part31 = $part->getPart('3.1');
+        $part31->setType('text/html');
+
+        $this->assertEquals(
+            '1',
+            $part->findBody()
+        );
+
+        $this->assertEquals(
+            '3.1',
+            $part->findBody('html')
+        );
+
+        // Bug #10458
+        $part31->setDisposition('attachment');
+        $this->assertNull(
+            $part->findBody('html')
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
