@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-24</date>
- <time>11:27:35</time>
+ <date>2011-08-30</date>
+ <time>11:19:30</time>
  <version>
   <release>1.0.14</release>
   <api>1.0.0</api>
@@ -512,7 +512,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-24</date>
+   <date>2011-08-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Add support for CRAM-SHA1 and CRAM-SHA256 authentication (available in Courier SASL library).
