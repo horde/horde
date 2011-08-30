@@ -58,6 +58,7 @@ if ($form->validate($vars)) {
         }
     } catch (Sam_Exception($e)) {
         $notification->push(sprintf(_("Cannot set options: %s"), $e->getMessage()), 'horde.error');
+    }
 }
 
 require SAM_TEMPLATES . '/common-header.inc';
