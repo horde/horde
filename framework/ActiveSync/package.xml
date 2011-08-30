@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-30</date>
- <time>10:14:26</time>
+ <time>10:14:54</time>
  <version>
-  <release>1.1.4</release>
+  <release>1.1.5</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* [mjr] Fix sending MONTHLY_NTH and YEARLY_NTH recurrence types (Bug# 10416).
-* [mjr] Fix synchronization loop due to messages being deleted on server then attempting a change from the client.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -379,6 +378,19 @@
    <notes>
 * [mjr] Fix sending MONTHLY_NTH and YEARLY_NTH recurrence types (Bug# 10416).
 * [mjr] Fix synchronization loop due to messages being deleted on server then attempting a change from the client.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
