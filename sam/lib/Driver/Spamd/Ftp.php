@@ -1,7 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/spamd.php';
-
 /**
  * Sam storage implementation for FTP access to the users' user_prefs files.
  *
@@ -83,7 +80,6 @@ class Sam_Driver_Spamd_Ftp extends Sam_Driver_Spamd_Base
         $this->_params['password'] = Horde_Auth::getCredential('password');
 
         // Get config file(s).
-        require_once 'VFS.php';
         $vfs = &VFS::singleton('ftp', $this->_params);
         $content = $vfs->read('', $this->_params['system_prefs']);
         if (is_a($content, 'PEAR_Error')) {
@@ -155,7 +151,6 @@ class Sam_Driver_Spamd_Ftp extends Sam_Driver_Spamd_Base
         }
 
         // Write config file.
-        require_once 'VFS.php';
         $vfs = &VFS::singleton('ftp', $this->_params);
         return $vfs->writeData(dirname($this->_params['user_prefs']), basename($this->_params['user_prefs']), $output, true);
     }

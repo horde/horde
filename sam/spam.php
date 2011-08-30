@@ -11,7 +11,6 @@
 /* Determine base directory. */
 @define('SAM_BASE', dirname(__FILE__));
 require_once SAM_BASE . '/lib/base.php';
-require_once SAM_BASE . '/lib/Forms/Options.php';
 
 if (!$conf['enable']['rules']) {
     $notification->push(_("The Spam Rules page is not enabled."), 'horde.error');

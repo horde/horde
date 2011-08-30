@@ -1,7 +1,4 @@
 <?php
-
-require_once dirname(__FILE__) . '/spamd.php';
-
 /**
  * Sam storage implementation for PHP's PEAR database abstraction layer.
  *

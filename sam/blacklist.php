@@ -11,7 +11,6 @@
 /* Determine base directory. */
 @define('SAM_BASE', dirname(__FILE__));
 require_once SAM_BASE . '/lib/base.php';
-require_once SAM_BASE . '/lib/Forms/Blacklist.php';
 
 /* Request retrieval of related user data. */
 $result = $sam_driver->retrieve();

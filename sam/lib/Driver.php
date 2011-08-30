@@ -52,7 +52,6 @@ class Sam_Driver
     public function factory($driver, $user, $params = array())
     {
         $driver = basename($driver);
-        require_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
         $class = 'Sam_Driver_' . $driver;
         if (class_exists($class)) {
             $sam = &new $class($user, $params);

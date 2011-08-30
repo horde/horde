@@ -43,19 +43,11 @@ if (!Horde_Auth::isAuthenticated()) {
 // Find the base file path of SAM.
 @define('SAM_BASE', dirname(__FILE__) . '/..');
 
-// Sam base library.
-require_once SAM_BASE . '/lib/SAM.php';
-
-// Horde libraries.
-require_once 'Horde/Form.php';
-require_once 'Horde/Form/Renderer.php';
-
 // Start compression.
 Horde::compressOutput();
 
 // Load the storage driver. It appears in the global variable
 // $sam_driver.
-require_once SAM_BASE . '/lib/Driver.php';
 $backend = Sam::getBackend();
 $user = Sam::mapUser($backend['hordeauth']);
 $GLOBALS['sam_driver'] = Sam_Driver::singleton($backend['driver'], $user,
