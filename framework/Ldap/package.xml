@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-30</date>
- <time>11:37:45</time>
+ <time>11:38:15</time>
  <version>
-  <release>1.1.3</release>
+  <release>1.1.4</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
  <notes>
-* [jan] Speed up Horde_Ldap_Search#shiftEntry() on large result sets.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -265,6 +265,19 @@
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
    <notes>
 * [jan] Speed up Horde_Ldap_Search#shiftEntry() on large result sets.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
