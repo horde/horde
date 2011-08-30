@@ -14,9 +14,10 @@ require_once SAM_BASE . '/lib/base.php';
 
 /* Request retrieval of related user data. */
 $sam_driver = $injector->getInstance('Sam_Driver');
-$result = $sam_driver->retrieve();
-if (is_a($result, 'PEAR_Error')) {
-    $notification->push(sprintf(_("Cannot get options: %s"), $result->getMessage()), 'horde.error');
+try {
+    $sam_driver->retrieve();
+} catch (Sam_Exception $e) {
+    $notification->push(sprintf(_("Cannot get options: %s"), $e->getMessage()), 'horde.error');
 }
 
 /* Initialize the form. */
