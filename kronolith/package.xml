@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-30</date>
- <time>11:59:07</time>
+ <time>12:00:30</time>
  <version>
-  <release>3.0.9</release>
+  <release>3.0.10</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* [jan] Fix fatal error while searching if hitting certain recurring events.
-* [jan] Fix exporting events with snoozed alarms (Bug #10438).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1870,6 +1869,19 @@
    <notes>
 * [jan] Fix fatal error while searching if hitting certain recurring events.
 * [jan] Fix exporting events with snoozed alarms (Bug #10438).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.10</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
