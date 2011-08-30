@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-06</date>
- <time>11:57:05</time>
+ <date>2011-08-30</date>
+ <time>14:02:30</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -197,7 +197,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-06</date>
+   <date>2011-08-30</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
 * [mjr] Added Horde_Routes_Matcher helper class.
