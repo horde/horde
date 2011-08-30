@@ -55,6 +55,14 @@ implements Components_Dependencies
     {
         if (!isset($this->_instances[$interface])) {
             switch ($interface) {
+            case 'Components_Component_Factory':
+                require_once dirname(__FILE__) . '/../Component/Factory.php';
+                $this->_instances[$interface] = new $interface(
+                    $this->getInstance('Components_Config'),
+                    $this->getInstance('Components_Pear_Factory'),
+                    new Horde_Http_Client()
+                );
+                break;
             case 'Components_Pear_Factory':
                 require_once dirname(__FILE__) . '/../Pear/Factory.php';
                 $this->_instances[$interface] = new $interface($this);

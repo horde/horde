@@ -37,8 +37,10 @@ extends Components_Config_Base
     public function __construct()
     {
         $this->_options = array(
-            'include' => 'ALL',
-            'exclude' => 'channel:pecl.php.net,PEAR_CompatInfo',
+            'instructions' => array(
+                'ALL' => array('include' => true),
+                'channel:pecl.php.net' => array('exclude' => true),
+            ),
             'force' => true,
             'symlink' => true,
         );
