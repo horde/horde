@@ -153,9 +153,9 @@ abstract class Horde_Auth_Base
         } catch (Horde_Auth_Exception $e) {
             if (($code = $e->getCode()) &&
                 $code != Horde_Auth::REASON_MESSAGE) {
-                if (($code == Horde_Auth::REASON_BADLOGIN) && 
+                if (($code == Horde_Auth::REASON_BADLOGIN) &&
                     $this->hasCapability('badlogincount')) {
-                    $this->_badLogin($userId);                   
+                    $this->_badLogin($userId);
                 }
                 $this->setError($code);
             } else {
