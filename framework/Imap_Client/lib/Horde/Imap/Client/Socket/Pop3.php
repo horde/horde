@@ -9,6 +9,7 @@
  *   - RFC 2195: CRAM-MD5 authentication
  *   - RFC 2449: POP3 extension mechanism
  *   - RFC 2595/4616: PLAIN authentication
+ *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
  *   - RFC 3206: AUTH/SYS response codes
  *   - RFC 1734/5034: POP3 SASL
  *
@@ -294,17 +295,18 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         case 'DIGEST-MD5':
-            // RFC 5034
-            if (!class_exists('Auth_SASL')) {
-                $this->_exception('The Auth_SASL package is required for DIGEST-MD5 authentication');
-            }
-
+            // RFC 2831; Obsoleted by RFC 6331
             $challenge = $this->_sendLine('AUTH DIGEST-MD5');
-
-            $auth_sasl = Auth_SASL::factory('digestmd5');
-            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode(substr($challenge['line'], 2)), $this->_params['hostspec'], 'pop3'));
-
-            $sresponse = $this->_sendLine($response, array('debug' => '[DIGEST-MD5 Response]'));
+            $response = base64_encode(new Horde_Imap_Client_Auth_DigestMD5(
+                $this->_params['username'],
+                $this->getParam('password'),
+                base64_decode(substr($challenge['line'], 2)),
+                $this->_params['hostspec'],
+                'pop3'
+            ));
+            $sresponse = $this->_sendLine($response, array(
+                'debug' => '[DIGEST-MD5 Response]'
+            ));
             if (stripos(base64_decode(substr($sresponse['line'], 2)), 'rspauth=') === false) {
                 $this->_exception('Unexpected response from server to Digest-MD5 response.');
             }

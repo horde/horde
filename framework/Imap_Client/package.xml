@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-30</date>
- <time>11:20:02</time>
+ <time>23:23:54</time>
  <version>
   <release>1.0.15</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Remove dependency on Auth_SASL.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -30,6 +30,9 @@
     <dir name="Horde">
      <dir name="Imap">
       <dir name="Client">
+       <dir name="Auth">
+        <file name="DigestMD5.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Auth -->
        <dir name="Cclient">
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Cclient -->
@@ -78,8 +81,12 @@
         <file name="test_email.txt" role="test" />
         <file name="test_email2.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
+       <dir name="Stub">
+        <file name="DigestMD5.php" role="test" />
+       </dir> <!-- /test/Horde/Imap/Client/Stub -->
        <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
+       <file name="AuthTest.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
@@ -149,10 +156,6 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
-   <package>
-    <name>Auth_SASL</name>
-    <channel>pear.php.net</channel>
-   </package>
    <extension>
     <name>imap</name>
    </extension>
@@ -178,6 +181,7 @@
    <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
+   <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
    <install as="Horde/Imap/Client/Cclient/Pop3.php" name="lib/Horde/Imap/Client/Cclient/Pop3.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
@@ -192,6 +196,7 @@
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
+   <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
@@ -202,6 +207,7 @@
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
    <install as="Horde/Imap/Client/fixtures/test_email.txt" name="test/Horde/Imap/Client/fixtures/test_email.txt" />
    <install as="Horde/Imap/Client/fixtures/test_email2.txt" name="test/Horde/Imap/Client/fixtures/test_email2.txt" />
+   <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -528,7 +534,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Remove dependency on Auth_SASL.
    </notes>
   </release>
  </changelog>

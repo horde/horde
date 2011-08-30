@@ -12,7 +12,7 @@
  *   RFC 2221 - LOGIN-REFERRALS
  *   RFC 2342 - NAMESPACE
  *   RFC 2595/4616 - TLS & AUTH=PLAIN
- *   RFC 2831 - DIGEST-MD5 authentication mechanism.
+ *   RFC 2831 - DIGEST-MD5 authentication mechanism (obsoleted by RFC 6331)
  *   RFC 2971 - ID
  *   RFC 3348 - CHILDREN
  *   RFC 3501 - IMAP4rev1 specification
@@ -309,8 +309,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $auth_methods = $this->queryCapability('AUTH');
             if (!empty($auth_methods)) {
-                // Add SASL methods.
-                $imap_auth_mech = array_intersect(array('DIGEST-MD5', 'CRAM-MD5'), $auth_methods);
+                // Add SASL methods. Prefer CRAM-MD5 over DIGEST-MD5, as the
+                // latter has been obsoleted (RFC 6331).
+                $imap_auth_mech = array_intersect(array('CRAM-MD5', 'DIGEST-MD5'), $auth_methods);
 
                 // Next, try 'PLAIN' authentication.
                 if (in_array('PLAIN', $auth_methods)) {
@@ -517,7 +518,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'DIGEST-MD5':
-            // RFC 2831/4422
+            // RFC 2831/4422; obsoleted by RFC 6331
             $ob = $this->_sendLine(array(
                 'AUTHENTICATE',
                 array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $method)
@@ -525,8 +526,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 'noparse' => true
             ));
 
-            $auth_sasl = Auth_SASL::factory('digestmd5');
-            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line']), $this->_params['hostspec'], 'imap'));
+            $response = base64_encode(new Horde_Imap_Client_Auth_DigestMD5(
+                $this->_params['username'],
+                $this->getParam('password'),
+                base64_decode($ob['line']),
+                $this->_params['hostspec'],
+                'imap'
+            ));
             $ob = $this->_sendLine($response, array(
                 'debug' => '[DIGEST-MD5 Response]',
                 'noparse' => true,
