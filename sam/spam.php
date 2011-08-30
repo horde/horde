@@ -35,7 +35,8 @@ $defaults = false;
 $title = _("Spam Options");
 
 if ($form->isSubmitted() &&
-    $vars->exists('global_defaults') && $vars->get('global_defaults')) {
+    $vars->exists('global_defaults') &&
+    $vars->get('global_defaults')) {
     if (!$registry->isAdmin()) {
         $notification->push(_("Only an administrator may change the global defaults."), 'horde.error');
         $vars->remove('global_defaults');
@@ -66,10 +67,12 @@ if ($form->validate($vars)) {
                 /* Build string with all basepref entries, separated by
                  * newlines */
                 if (!isset($stackedOptions[$attribute['basepref']])) {
-                    $stackedOptions[$attribute['basepref']] = $attribute['subtype'] . " " . $data;
+                    $stackedOptions[$attribute['basepref']] = '';
                 } else {
-                    $stackedOptions[$attribute['basepref']] .= "\n" . $attribute['subtype'] . " " . $data;
+                    $stackedOptions[$attribute['basepref']] .= "\n";
                 }
+                $stackedOptions[$attribute['basepref']] .=
+                    $attribute['subtype'] . ' ' . $data;
             } elseif ($attribute['type'] == 'boolean') {
                 $sam_driver->setOption($key, $sam_driver->booleanToOption($data), $defaults);
             } elseif ($attribute['type'] == 'number') {
