@@ -43,13 +43,6 @@ implements Iterator, Countable
     private $_modules;
 
     /**
-     * The dependency provider.
-     *
-     * @var Cli_Modular_Dependencies
-     */
-    private $_dependencies;
-
-    /**
      * Constructor.
      *
      * @param array $parameters Options for this instance.
