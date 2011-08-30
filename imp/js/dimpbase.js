@@ -14,7 +14,6 @@ var DimpBase = {
     //   template, uid, viewport
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
-    cacheids: {},
     lastrow: -1,
     pivotrow: -1,
     ppcache: {},
@@ -570,15 +569,10 @@ var DimpBase = {
                 DimpCore.doActionComplete(o);
             },
             onCachedList: function(id) {
-                if (!this.cacheids[id]) {
-                    var vs = this.viewport.createSelectionBuffer(id);
-                    if (!vs.size()) {
-                        return '';
-                    }
-
-                    this.cacheids[id] = DimpCore.toRangeString(DimpCore.selectionToRange(vs));
-                }
-                return this.cacheids[id];
+                var vs = this.viewport.createSelectionBuffer(id);
+                return vs.size()
+                    ? DimpCore.toRangeString(DimpCore.selectionToRange(vs))
+                    : '';
             }.bind(this),
             onContentOffset: function(offset) {
                 if (this.uid) {
@@ -607,10 +601,6 @@ var DimpBase = {
                 type: 'message'
             });
             new Drag(row, this._msgDragConfig);
-        }.bindAsEventListener(this));
-
-        container.observe('ViewPort:cacheUpdate', function(e) {
-            delete this.cacheids[e.memo];
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {

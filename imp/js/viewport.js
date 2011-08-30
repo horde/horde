@@ -96,10 +96,6 @@
  *   Fired when a row has been added to the screen.
  *   params: (Element) The viewport row being added.
  *
- * ViewPort:cacheUpdate
- *   Fired when the internal cached data of a view is changed.
- *   params: (string) View which is being updated.
- *
  * ViewPort:clear
  *   Fired when a row is being removed from the screen.
  *   params: (Element) The viewport row being removed.
@@ -453,7 +449,6 @@ var ViewPort = Class.create({
         this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
 
         this._getBuffer().remove(vs.get('rownum'));
-        this.opts.container.fire('ViewPort:cacheUpdate', opts.view || this.view);
 
         if (!opts.noupdate) {
             this.requestContentRefresh(this.currentOffset());
@@ -880,8 +875,6 @@ var ViewPort = Class.create({
             tmp.label = r.label;
         }
         buffer.setMetaData(tmp, true);
-
-        this.opts.container.fire('ViewPort:cacheUpdate', r.view);
 
         if (r.requestid &&
             r.requestid == this.active_req) {
