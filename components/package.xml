@@ -438,14 +438,14 @@
     <name>Horde_Injector</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Horde_Release</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
   <optional>
    <package>
     <name>Horde_Test</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Horde_Release</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
