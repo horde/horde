@@ -28,14 +28,7 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
      *
      * @var resource
      */
-    protected $_linkid;
-
-    /**
-     * Boolean indicating whether or not we're connected to the LDAP server.
-     *
-     * @var boolean
-     */
-    protected $_connected = false;
+    protected $_ldap;
 
     /**
      * Constructs a new LDAP storage object.
@@ -52,57 +45,51 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
     /**
      * Retrieves an option set from the storage backend.
      *
-     * @return boolean  True on success or false on failure.
+     * @throws Sam_Exception
      */
     public function retrieve()
     {
-        /* Make sure we have a valid LDAP connection. */
-        if (!$this->_connect()) { 
-            return false; 
-        }
-
         /* Set default values. */
         $this->_setDefaults();
-        $eres = false;
-        $user = $this->_user;
-        $attrib = strtolower($this->_params['attribute']);
-        $filter = sprintf('(%s=%s)', $this->_params['uid'], $user);
-        $res = @ldap_search($this->_linkid, $this->_params['basedn'],
-                            $filter, array($attrib));
-        if ($res) {
-            $eres = @ldap_get_entries($this->_linkid, $res);
-        }
-        if (!$res || !$eres) {
-            Horde::logMessage('LDAP search failed: ' . ldap_error($this->_linkid), __FILE__, __LINE__, PEAR_LOG_ERR);
-            return false;
-        }
-        if (isset($eres[0][$attrib])) {
-            for ($i = 0; $i < $eres[0][$attrib]['count']; $i++) {
-                list($a, $v) = explode(' ', $eres[0][$attrib][$i]);
+        $attrib = Horde_String::lower($this->_params['attribute']);
+
+        try {
+            $search = $this->_ldap->search(
+                $this->_params['basedn'],
+                Horde_Ldap_Filter::create($this->_params['uid'], 'equals', $this->_user),
+                array('attributes' => array($attrib)));
+
+            $entry = $search->shiftEntry();
+            if (!$entry) {
+                throw new Sam_Exception(sprintf('LDAP user "%s" not found.', $this->_user));
+            }
+
+            foreach ($entry->getValue($attrib, 'all') as $attribute) {
+                list($a, $v) = explode(' ', $attribute);
                 $ra = $this->_mapOptionToAttribute($a);
                 if (is_numeric($v)) {
                     if (strstr($v, '.')) {
-                        $newoptions[$ra][] = (float) $v;
+                        $newoptions[$ra][] = (float)$v;
                     } else {
-                        $newoptions[$ra][] = (int) $v;
+                        $newoptions[$ra][] = (int)$v;
                     }
                 } else {
                     $newoptions[$ra][] = $v;
                 }
             }
-
-            /* Go through new options and pull single values out of their
-             * arrays. */
-            foreach ($newoptions as $k => $v) {
-                if (count($v) > 1) {
-                    $this->_options[$k] = $v;
-                } else {
-                    $this->_options[$k] = $v[0];
-                }
-            }
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Sam_Exception($e);
         }
 
-        return true;
+        /* Go through new options and pull single values out of their
+         * arrays. */
+        foreach ($newoptions as $k => $v) {
+            if (count($v) > 1) {
+                $this->_options[$k] = $v;
+            } else {
+                $this->_options[$k] = $v[0];
+            }
+        }
     }
 
     /**
@@ -118,35 +105,33 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
     /**
      * Stores an option set in the storage backend.
      *
-     * @return boolean  True on success or false on failure.
+     * @throws Sam_Exception
      */
     public function store()
     {
-        /* Make sure we have a valid LDAP connection. */
-        if (!$this->_connect()) {
-            return false;
-        }
-        $user = $this->_user;
-        $attrib = $this->_params['attribute'];
-        $userdn = sprintf('%s=%s,%s', $this->_params['uid'], $user,$this->_params['basedn']);
-        $store = $this->_options;
-        foreach ($store as $a => $v) {
+        $entry = array();
+        foreach ($this->_options as $a => $v) {
             $sa = $this->_mapAttributeToOption($a);
             if (is_array($v)) {
                 foreach ($v as $av) {
-                    $entry[$attrib][] = $sa . ' ' . $av;
+                    $entry[] = $sa . ' ' . $av;
                 }
             } else {
-                $entry[$attrib][] = $sa . ' ' . $v;
+                $entry[] = $sa . ' ' . $v;
             }
         }
 
-        $result = @ldap_modify($this->_linkid, $userdn, $entry);
-        if (!$result) {
-            Horde::logMessage('LDAP modify failed: ' . ldap_error($this->_linkid), __FILE__, __LINE__, PEAR_LOG_ERR);
+        $userdn = sprintf('%s=%s,%s',
+                          $this->_params['uid'],
+                          $this->_user,
+                          $this->_params['basedn']);
+        try {
+            $this->_ldap->modify(
+                $userdn,
+                array('replace' => array($this->_params['attribute'] => $entry)));
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Sam_Exception($e);
         }
-
-        return $result;
     }
 
     /**
@@ -175,7 +160,7 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
             if ($lc) {
                 $lb = @ldap_bind($lc, $binddn, $bindpass);
                 if ($lb) {
-                    $this->_linkid = $lc;
+                    $this->_ldap = $lc;
                     $this->connected = true;
                     return true;
                 } else  {
