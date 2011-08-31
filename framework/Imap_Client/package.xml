@@ -493,7 +493,7 @@
    <date>2011-08-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Fix typo that prevented deletion of messages on POP3 servers (Bug #10424).
+* [mms] Fix typo that prevented deletion of messages on POP3 servers (Bug #10424).
    </notes>
   </release>
   <release>
