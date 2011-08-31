@@ -100,12 +100,12 @@ class SamBaseTables extends Horde_Db_Migration_Base
             $t->column('spam_quarantine_to', 'string', array('limit' => 64, 'default' => null));
 
             // higher score inserts spam info headers
-            $t->column('spam_tag_level', 'number');
+            $t->column('spam_tag_level', 'numeric');
             // higher score inserts 'declared spam' info header fields
-            $t->column('spam_tag2_level', 'number', array('null' => false));
+            $t->column('spam_tag2_level', 'numeric', array('null' => false));
             // higher score activates evasive actions, e.g. reject/drop,
             // quarantine, ... (subject to final_spam_destiny setting)
-            $t->column('spam_kill_level', 'number');
+            $t->column('spam_kill_level', 'numeric');
 
             // extension to add to the localpart of an address for detected
             // spam
