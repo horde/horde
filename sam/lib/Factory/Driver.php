@@ -20,9 +20,9 @@ class Sam_Factory_Driver extends Horde_Core_Factory_Injector
     private $_instances = array();
 
     /**
-     * Return an Sam_Driver instance.
+     * Return an Sam_Driver_Base instance.
      *
-     * @return Sam_Driver
+     * @return Sam_Driver_Base
      */
     public function create(Horde_Injector $injector)
     {

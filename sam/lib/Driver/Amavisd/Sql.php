@@ -22,7 +22,7 @@ define('_SAM_OPTION_OFF', 'N');
  */
 define('_SAM_OPTION_ON',  'Y');
 
-class Sam_Driver_Amavisd_Sql extends Sam_Driver
+class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
 {
     /**
      * Handle for the current database connection.

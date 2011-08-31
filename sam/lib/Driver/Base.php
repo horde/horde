@@ -1,13 +1,13 @@
 <?php
 /**
- * Sam_Driver defines an API for implementing storage backends for Sam.
+ * Sam_Driver_Base defines an API for implementing storage backends for Sam.
  *
  * @author  Chris Bowlby <excalibur@hub.org>
  * @author  Max Kalika <max@gentoo.org>
  * @author  Jan Schneider <jan@horde.org>
  * @package Sam
  */
-abstract class Sam_Driver
+abstract class Sam_Driver_Base
 {
     /**
      * Array holding a user's SPAM options.
@@ -37,67 +37,6 @@ abstract class Sam_Driver
      * @var string
      */
     protected $_user;
-
-    /**
-     * Attempts to return a concrete Sam_Driver instance based on $driver.
-     *
-     * @param string $driver  The type of concrete Sam_Driver subclass to
-     *                        return.
-     * @param string $user    The name of the user who owns these SPAM options.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return Sam_Driver  The newly created concrete Sam_Driver instance, or
-     *                     false on error.
-     */
-    public function factory($driver, $user, $params = array())
-    {
-        $driver = basename($driver);
-        $class = 'Sam_Driver_' . $driver;
-        if (class_exists($class)) {
-            $sam = &new $class($user, $params);
-        } else {
-            $sam = false;
-        }
-
-        return $sam;
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Sam_Driver instance based
-     * on $driver.
-     *
-     * It will only create a new instance if no Sam_Driver instance with the
-     * same parameters currently exists.
-     *
-     * This should be used if multiple storage sources are required.
-     *
-     * This method must be invoked as: $var = &Sam_Driver::singleton()
-     *
-     * @param string $driver  The type of concrete Sam_Driver subclass to
-     *                        return.
-     * @param string $user    The name of the user who owns these SPAM options.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return Sam_Driver  The created concrete Sam_Driver instance, or false
-     *                     on error.
-     */
-    public function singleton($driver, $user, $params = array())
-    {
-        static $instances;
-
-        if (!isset($instances)) {
-            $instances = array();
-        }
-
-        $signature = serialize(array($driver, $user, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = &Sam_Driver::factory($driver, $user, $params);
-        }
-
-        return $instances[$signature];
-    }
 
     /**
      * Check to see if the backend supports a particular capability.

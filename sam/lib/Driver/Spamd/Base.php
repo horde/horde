@@ -19,7 +19,7 @@ define('_SAM_OPTION_ON',  '1');
  * @author  Jan Schneider <jan@horde.org>
  * @package Sam
  */
-class Sam_Driver_Spamd_Base extends Sam_Driver
+class Sam_Driver_Spamd_Base extends Sam_Driver_Base
 {
     /**
      * List of the capabilities supported by this driver.
