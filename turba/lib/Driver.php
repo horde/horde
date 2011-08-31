@@ -285,6 +285,7 @@ class Turba_Driver implements Countable
         $search = $search_terms = $subsearch = $strict_search = array();
         $glue = $temp = '';
         $lastChar = '\"';
+        $blobs = $this->getBlobs();
 
         foreach ($criteria as $key => $val) {
             if (!isset($this->map[$key])) {
@@ -327,6 +328,9 @@ class Turba_Driver implements Countable
                 }
 
                 foreach ($this->map[$key]['fields'] as $field) {
+                    if (!empty($blobs[$field])) {
+                        continue;
+                    }
                     $field = $this->toDriver($field);
                     if (!empty($strict[$field])) {
                         /* For strict matches, use the original search
@@ -383,6 +387,9 @@ class Turba_Driver implements Countable
                 }
             } else {
                 /* Not a composite field. */
+                if (!empty($blobs[$key])) {
+                    continue;
+                }
                 if (!empty($strict[$this->map[$key]])) {
                     $strict_search[] = array(
                         'field' => $this->map[$key],
