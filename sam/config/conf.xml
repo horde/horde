@@ -1,29 +1,19 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
- <configsection name="menu" desc="Menu settings">
-  <configheader>Menu settings</configheader>
-  <configmultienum name="apps" desc="Select any applications that should be
-  linked in SAM's menu">
-   <values>
-    <configspecial name="list-horde-apps" />
-   </values>
-  </configmultienum>
- </configsection>
-
  <configsection name="enable">
   <configheader>Enabled Sections</configheader>
-  <configboolean name="rules" required="false" desc="Should the Spam Rules page
+  <configboolean name="rules" required="false" desc="Should the rules page
   be enabled?">false</configboolean>
  </configsection>
 
- <configsection name="hooks">
-  <configheader>Custom Hooks</configheader>
-  <configboolean name="username" required="false" desc="Should we use a custom
-  hook to determine what username SpamAssassin sees (if it needs to be
-  different from the Horde username)? If so, make sure you define
-  _sam_hook_username() in horde/config/hooks.php. The hook will be used to set
-  the username field that SpamAssassin uses in the preferences database. There
-  are examples in horde/config/hooks.php.dist.">false</configboolean>
+ <configsection name="menu" desc="Menu settings">
+  <configheader>Menu settings</configheader>
+  <configmultienum name="apps" desc="Select any applications that should be
+  linked in Sam's menu">
+   <values>
+    <configspecial application="horde" name="apps" />
+   </values>
+  </configmultienum>
  </configsection>
 </configuration>
