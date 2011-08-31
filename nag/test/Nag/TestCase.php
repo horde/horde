@@ -48,6 +48,30 @@ extends PHPUnit_Framework_TestCase
     {
         self::_setupDefaultGlobals();
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
+        $storage = self::createKolabStorage();
+        $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $storage);
+        $GLOBALS['nag_shares'] = self::createKolabShares($storage);
+        list($share, $other_share) = self::_createDefaultShares();
+        return new Nag_Driver_Kolab($share->getName());
+    }
+
+    static protected function getSqlDriver(Horde_Db_Adapter $db)
+    {
+        self::_setupDefaultGlobals();
+        $GLOBALS['conf']['storage']['driver'] = 'sql';
+        $GLOBALS['injector']->setInstance(
+            'Horde_Core_Factory_Db',
+            new Nag_Stub_DbFactory($db)
+        );
+        $GLOBALS['nag_shares'] = self::createSqlShares($db);
+        list($share, $other_share) = self::_createDefaultShares();
+        return new Nag_Driver_Sql(
+            $share->getName(), array('charset' => 'UTF-8')
+        );
+    }
+
+    static public function createKolabStorage()
+    {
         $kolab_factory = new Horde_Kolab_Storage_Factory(
             array(
                 'driver' => 'mock',
@@ -64,32 +88,31 @@ extends PHPUnit_Framework_TestCase
                 )
             )
         );
-        $storage = $kolab_factory->create();
-        $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $storage);
-        $GLOBALS['nag_shares'] = new Horde_Share_Kolab(
-            'nag', 'test@example.com', new Horde_Perms_Null(), new Horde_Group_Mock()
-        );
-        $GLOBALS['nag_shares']->setStorage($storage);
-        list($share, $other_share) = self::_createDefaultShares();
-        return new Nag_Driver_Kolab($share->getName());
+        return $kolab_factory->create();
     }
 
-    static protected function getSqlDriver(Horde_Db_Adapter $db)
+    static public function createKolabShares(Horde_Kolab_Storage $storage)
     {
-        self::_setupDefaultGlobals();
-        $GLOBALS['conf']['storage']['driver'] = 'sql';
-        $GLOBALS['injector']->setInstance(
-            'Horde_Core_Factory_Db',
-            new Nag_Stub_DbFactory($db)
+        $shares = new Horde_Share_Kolab(
+            'nag',
+            'test@example.com',
+            new Horde_Perms_Null(),
+            new Horde_Group_Mock()
         );
-        $GLOBALS['nag_shares'] = new Horde_Share_Sqlng(
-            'nag', 'test@example.com', new Horde_Perms_Null(), new Horde_Group_Mock()
+        $shares->setStorage($storage);
+        return $shares;
+    }
+
+    static public function createSqlShares(Horde_Db_Adapter $db)
+    {
+        $shares = new Horde_Share_Sqlng(
+            'nag',
+            'test@example.com',
+            new Horde_Perms_Null(),
+            new Horde_Group_Mock()
         );
-        $GLOBALS['nag_shares']->setStorage($db);
-        list($share, $other_share) = self::_createDefaultShares();
-        return new Nag_Driver_Sql(
-            $share->getName(), array('charset' => 'UTF-8')
-        );
+        $shares->setStorage($db);
+        return $shares;
     }
 
     static private function _createDefaultShares()
