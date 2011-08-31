@@ -165,15 +165,15 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
             }
         }
 
+        // If neither pk nor sequence name is given, look them up.
+        if (!($pk || $sequenceName)) {
+            list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
+        }
+
         // Otherwise, insert then grab last_insert_id.
         if ($insertId = parent::insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName)) {
             $this->resetPkSequence($table, $pk, $sequenceName);
             return $insertId;
-        }
-
-        // If neither pk nor sequence name is given, look them up.
-        if (!($pk || $sequenceName)) {
-            list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
         }
 
         // If a pk is given, fallback to default sequence name.
