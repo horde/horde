@@ -41,12 +41,25 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
             }
         }
 
-        $this->_user = $user;
         $this->_db = $params['db'];
         unset($params['db']);
-        $this->_params = array_merge(array('global_user' => '@GLOBAL'),
-                                     $params);
+        $params = array_merge(array('global_user' => '@GLOBAL'), $params);
         $this->_capabilities[] = 'global_defaults';
+
+        parent::__construct($user, $params);
+    }
+
+    /**
+     * Retrieves user preferences and default values from the backend.
+     *
+     * @throws Sam_Exception
+     */
+    public function retrieve()
+    {
+        /* Load defaults for any options the user hasn't already overridden. */
+        $this->_defaults = $this->_retrieve(true);
+
+        $this->_options = array_merge($this->_defaults, $this->_retrieve());
     }
 
     /**
@@ -91,29 +104,14 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
     }
 
     /**
-     * Retrieves the global defaults and user options and stores them in the
-     * appropriate member array (options or defaults).
-     *
-     * @throws Sam_Exception
-     */
-    public function retrieve()
-    {
-        /* Load defaults for any options the user hasn't already overridden. */
-        $this->_defaults = $this->_retrieve(true);
-
-        $this->_options = array_merge($this->_defaults, $this->_retrieve());
-    }
-
-    /**
-     * Store an option set from the appropriate member array (options or
-     * defaults) to the storage backend.
+     * Stores user preferences and default values in the backend.
      *
      * @param boolean $defaults  Whether to store the global defaults instead
      *                           of user options.
      *
      * @throws Sam_Exception
      */
-    protected function _store($defaults = false)
+    public function store($defaults = false)
     {
         if ($defaults) {
             $store = $this->_defaults;
@@ -198,19 +196,5 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
                 }
             }
         }
-    }
-
-    /**
-     * Stores the global defaults or user options from the appropriate
-     * member array (options or defaults).
-     *
-     * @param boolean $defaults  Whether to store the global defaults instead
-     *                           of user options.
-     *
-     * @throws Sam_Exception
-     */
-    public function store($defaults = false)
-    {
-        $this->_store($defaults);
     }
 }

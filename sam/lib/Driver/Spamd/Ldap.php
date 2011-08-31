@@ -1,14 +1,9 @@
 <?php
 /**
  * Sam storage implementation for LDAP backend.
+
  * Requires SpamAssassin patch found at:
  * http://bugzilla.spamassassin.org/show_bug.cgi?id=2205
- *
- * Required parameters:<pre>
- *   'ldapserver'       The hostname of the ldap server.
- *   'basedn'       --  The basedn for user entries.
- *   'attribute'    --  The spamAssassin attribute to use.
- *   'uid'          --  The uid attribute for building userDNs.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
@@ -43,40 +38,27 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
      */
     public function __construct($user, $params = array())
     {
-        foreach (array('ldap', 'uid', 'basedn', 'attribute') as $param) {
+        foreach (array('ldap', 'uid', 'basedn', 'attribute', 'defaults') as $param) {
             if (!isset($params[$param])) {
                 throw new InvalidArgumentException(
                     sprintf('"%s" parameter is missing', $param));
             }
         }
 
-        $this->_user = $user;
         $this->_ldap = $params['ldap'];
-        unset($params['ldap'])
-        $this->_params = $params;
+        $this->_options = $params['defaults'];
+        unset($params['ldap'], $params['defaults'])
+
+        parent::__construct($user, $params);
     }
 
     /**
-     * Constructs a new LDAP storage object.
-     *
-     * @param string $user   The user who owns these SPAM options.
-     * @param array $params  A hash containing connection parameters.
-     */
-    public function __construct($user, $params = array())
-    {
-        $this->_user = $user;
-        $this->_params = $params;
-    }
-
-    /**
-     * Retrieves an option set from the storage backend.
+     * Retrieves user preferences from the backend.
      *
      * @throws Sam_Exception
      */
     public function retrieve()
     {
-        /* Set default values. */
-        $this->_setDefaults();
         $attrib = Horde_String::lower($this->_params['attribute']);
 
         try {
@@ -119,21 +101,14 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
     }
 
     /**
-     * Set default values.
+     * Stores user preferences in the backend.
      *
-     * @access private
-     */
-    protected function _setDefaults()
-    {
-        $this->_options = array_merge($this->_options, $this->_params['defaults']);
-    }
-
-    /**
-     * Stores an option set in the storage backend.
+     * @param boolean $defaults  Whether to store the global defaults instead
+     *                           of user options. Unused.
      *
      * @throws Sam_Exception
      */
-    public function store()
+    public function store($defaults = false)
     {
         $entry = array();
         foreach ($this->_options as $a => $v) {
