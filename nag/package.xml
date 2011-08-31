@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-31</date>
- <time>12:14:06</time>
+ <time>21:13:21</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -392,6 +392,16 @@
        <file name="Base.php" role="test" />
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Nag/Unit/Driver -->
+      <dir name="Nag">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Nag/Unit/Nag/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Nag/Unit/Nag/Sql -->
+       <file name="Base.php" role="test" />
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Nag/Unit/Nag -->
      </dir> <!-- /test/Nag/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -813,6 +823,10 @@
    <install as="Nag/Unit/Driver/KolabTest.php" name="test/Nag/Unit/Driver/KolabTest.php" />
    <install as="Nag/Unit/Driver/Sql/Base.php" name="test/Nag/Unit/Driver/Sql/Base.php" />
    <install as="Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" />
+   <install as="Nag/Unit/Nag/Base.php" name="test/Nag/Unit/Nag/Base.php" />
+   <install as="Nag/Unit/Nag/KolabTest.php" name="test/Nag/Unit/Nag/KolabTest.php" />
+   <install as="Nag/Unit/Nag/Sql/Base.php" name="test/Nag/Unit/Nag/Sql/Base.php" />
+   <install as="Nag/Unit/Nag/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Nag/Sql/Pdo/SqliteTest.php" />
    <install as="nag/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="nag/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
