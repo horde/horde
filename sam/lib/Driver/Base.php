@@ -51,20 +51,15 @@ abstract class Sam_Driver_Base
     }
 
     /**
-     * Convert a boolean option to a backend specific value.
+     * Converts a boolean option to a backend specific value.
      *
      * @param boolean $boolean  The value to convert.
      *
-     * @return mixed    Either a backend-specific boolean value or
-     *                  1 if true and 0 if false.
+     * @return mixed  1 if true and 0 if false.
      */
     public function booleanToOption($boolean)
     {
-        if ($boolean) {
-            return defined('_SAM_OPTION_ON') ? _SAM_OPTION_ON : 1;
-        } else {
-            return defined('_SAM_OPTION_OFF') ? _SAM_OPTION_OFF : 0;
-        }
+        return (int)(bool)$boolean;
     }
 
     /**

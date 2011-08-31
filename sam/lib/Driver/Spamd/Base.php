@@ -1,11 +1,4 @@
 <?php
-
-/** Backend-specific 'false' value. */
-define('_SAM_OPTION_OFF', '0');
-
-/** Backend-specific 'true' value. */
-define('_SAM_OPTION_ON',  '1');
-
 /**
  * Base class for all SpamAssassin drivers.
  *

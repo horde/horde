@@ -11,17 +11,6 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Sam
  */
-
-/**
- * Backend-specific 'false' value.
- */
-define('_SAM_OPTION_OFF', 'N');
-
-/**
- * Backend-specific 'true' value.
- */
-define('_SAM_OPTION_ON',  'Y');
-
 class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
 {
     /**
@@ -77,6 +66,18 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
         $this->_db = $params['db'];
         unset($params['db']);
         $this->_params = $params;
+    }
+
+    /**
+     * Converts a boolean option to a backend specific value.
+     *
+     * @param boolean $boolean  The value to convert.
+     *
+     * @return mixed  Y if true and N if false.
+     */
+    public function booleanToOption($boolean)
+    {
+        return $boolean ? 'Y' : 'N';
     }
 
     /**
