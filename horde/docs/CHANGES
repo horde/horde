@@ -1,6 +1,6 @@
-----------
-v4.0.9-git
-----------
+------
+v4.0.9
+------
 
 [rla] Add account locking similar to the former kolab-specific option.
 [jan] Add missing configuration for LDAP groups write support.

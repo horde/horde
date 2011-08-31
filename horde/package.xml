@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-10</date>
- <time>10:55:03</time>
+ <date>2011-08-31</date>
+ <time>18:20:51</time>
  <version>
   <release>4.0.9</release>
   <api>4.0.0</api>
@@ -4226,12 +4226,14 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-10</date>
+   <date>2011-08-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [rla] Added account blocking similar to the former kolab-specific option. Requires recent Horde_Auth and Horde_Core
+* [rla] Add account locking similar to the former kolab-specific option.
 * [jan] Add missing configuration for LDAP groups write support.
-* [rla] Reset password dialog shows a warning when no security question is set #10430
+* [rla] Reset password dialog shows a warning when no security question is set (Request #10430).
+* [mjr] Update jQuery Mobile to version 1.0 Beta 2.
+* [jan] Update hordeweb theme to match new website layout.
    </notes>
   </release>
  </changelog>
