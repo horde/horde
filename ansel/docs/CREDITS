@@ -10,16 +10,6 @@ Core Developers
 - Michael J. Rubinsky <mrubinsk@horde.org>
 
 
-Features
-========
-
-The Exif-reading code was written by Jake Olefsky <jake@olefsky.com>.
-
-The original Exifer is available from
-http://www.offsky.com/software/exif/index.php, and Jake has given his
-permission for the library to be integrated into Ansel.
-
-
 Localization
 ============
 

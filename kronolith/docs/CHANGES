@@ -1,6 +1,12 @@
-----------
-v3.0.9-git
-----------
+-----------
+v3.0.10-git
+-----------
+
+
+
+------
+v3.0.9
+------
 
 [jan] Fix fatal error while searching if hitting certain recurring events.
 [jan] Fix exporting events with snoozed alarms (Bug #10438).

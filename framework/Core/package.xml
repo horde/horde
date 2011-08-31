@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-08-17</date>
- <time>14:53:03</time>
+ <date>2011-08-30</date>
+ <time>14:03:41</time>
  <version>
-  <release>1.4.1</release>
+  <release>1.4.2</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [rla] added lock and unlock routines to auth_application
-* [rla] added support for Horde_Auth&apos;s new blocking feature in the factory. Optionally inserts Horde_History and Horde_Lock.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -159,6 +158,7 @@
        <file name="LoginTasks.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Mapper.php" role="php" />
+       <file name="Matcher.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="MimeViewer.php" role="php" />
        <file name="Notification.php" role="php" />
@@ -949,7 +949,7 @@
    <package>
     <name>Horde_Routes</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1117,6 +1117,7 @@
    <install as="Horde/Core/Factory/LoginTasks.php" name="lib/Horde/Core/Factory/LoginTasks.php" />
    <install as="Horde/Core/Factory/Mail.php" name="lib/Horde/Core/Factory/Mail.php" />
    <install as="Horde/Core/Factory/Mapper.php" name="lib/Horde/Core/Factory/Mapper.php" />
+   <install as="Horde/Core/Factory/Matcher.php" name="lib/Horde/Core/Factory/Matcher.php" />
    <install as="Horde/Core/Factory/Memcache.php" name="lib/Horde/Core/Factory/Memcache.php" />
    <install as="Horde/Core/Factory/MimeViewer.php" name="lib/Horde/Core/Factory/MimeViewer.php" />
    <install as="Horde/Core/Factory/Notification.php" name="lib/Horde/Core/Factory/Notification.php" />
@@ -1545,11 +1546,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-17</date>
+   <date>2011-08-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [rla] added lock and unlock routines to auth_application
-* [rla] added support for Horde_Auth&apos;s new blocking feature in the factory. Optionally inserts Horde_History and Horde_Lock.
+* [rla] Add locking routines to Horde_Core_Auth_Application.
+* [rla] Add support for Horde_Auth&apos;s new locking feature.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.2</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -39,7 +39,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertType(
             'array',
-            $this->_getRemoteList()->listPackages()
+            $this->getRemoteList()->listPackages()
         );
     }
 
@@ -47,7 +47,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             array('A', 'B'),
-            $this->_getRemoteList()->listPackages()
+            $this->getRemoteList()->listPackages()
         );
     }
 
@@ -75,6 +75,21 @@ extends Horde_Pear_TestCase
         $this->_getLatestRemote()->getLatestDownloadUri('A', 'dev');
     }
 
+    public function testNoDetails()
+    {
+        $this->assertFalse(
+            $this->_getNoLatest()->getLatestDetails('X')
+        );
+    }
+
+    public function testLatestDetails()
+    {
+        $this->assertEquals(
+            '1.0.0',
+            $this->_getLatest()->getLatestDetails('A')->getVersion()
+        );
+    }
+
     public function testDependencies()
     {
         $this->assertEquals(
@@ -91,21 +106,6 @@ extends Horde_Pear_TestCase
         );
     }
 
-    private function _getRemoteList()
-    {
-        if (!class_exists('Horde_Http_Client')) {
-            $this->markTestSkipped('Horde_Http is missing!');
-        }
-        $string = '<?xml version="1.0" encoding="UTF-8" ?>
-<l><p xlink:href="/rest/p/a">A</p><p xlink:href="/rest/p/b">B</p></l>';
-        $body = new Horde_Support_StringStream($string);
-        $response = new Horde_Http_Response_Mock('', $body->fopen());
-        $response->code = 200;
-        $request = new Horde_Http_Request_Mock();
-        $request->setResponse($response);
-        return $this->_createRemote($request);
-    }
-
     private function _getRemoteDependencies()
     {
         if (!class_exists('Horde_Http_Client')) {
@@ -117,7 +117,7 @@ extends Horde_Pear_TestCase
         $response->code = 200;
         $request = new Horde_Http_Request_Mock();
         $request->setResponse($response);
-        return $this->_createRemote($request);
+        return $this->createRemote($request);
     }
 
     private function _getLatestRemote()
@@ -150,19 +150,44 @@ extends Horde_Pear_TestCase
                 ),
             )
         );
-        return $this->_createRemote($request);
+        return $this->createRemote($request);
     }
 
-    private function _createRemote($request)
+    private function _getNoLatest()
     {
-        $access = new Horde_Pear_Rest_Access();
-        $access->setRest(
-            'http://test',
-            new Horde_Pear_Rest(
-                new Horde_Http_Client(array('request' => $request)),
-                'http://test'
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $request = new Horde_Pear_Stub_Request();
+        $request->setResponses(
+            array(
+                array(
+                    'body' => '',
+                    'code' => 404,
+                ),
             )
         );
-        return new Horde_Pear_Remote('test', $access);
+        return $this->createRemote($request);
+    }
+
+    private function _getLatest()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $request = new Horde_Pear_Stub_Request();
+        $request->setResponses(
+            array(
+                array(
+                    'body' => '1.0.0',
+                    'code' => 200,
+                ),
+                array(
+                    'body' => $this->_getRelease(),
+                    'code' => 200,
+                ),
+            )
+        );
+        return $this->createRemote($request);
     }
 }

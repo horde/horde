@@ -88,12 +88,16 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             'show_encryption' => false,
             'table' => 'horde_users',
             'username_field' => 'user_uid',
+            'soft_expiration_field' => null,
+            'soft_expiration_window' => null,
+            'hard_expiration_field' => null,
+            'hard_expiration_window' => null           
         ), $params);
 
         parent::__construct($params);
 
         /* Only allow limits when there is a storage configured */
-        if (($params['soft_expiration_field'] == '') &&
+        if ((empty($params['soft_expiration_field'])) &&
             ($params['soft_expiration_window'] > 0)) {
             throw new InvalidArgumentException('You cannot set [soft_expiration_window] without [soft_expiration_field].');
         }
@@ -302,10 +306,9 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                          $this->_params['username_field'],
                          $this->_params['table']);
         if ($sort) {
-            $query .= sprintf('ORDER BY %s ASC',
+            $query .= sprintf(' ORDER BY %s ASC',
                                $this->_params['username_field']);
         }
-
         try {
             return $this->_db->selectValues($query);
         } catch (Horde_Db_Exception $e) {

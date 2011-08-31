@@ -72,7 +72,7 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
      */
     public function exportvCalendar()
     {
-        $requiredAttributes['VERSION'] = $this->version;
+        $requiredAttributes['VERSION'] = $this->_version;
         $requiredAttributes['N'] = ';;;;;;';
         if ($this->_version == '3.0') {
             $requiredAttributes['FN'] = '';

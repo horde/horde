@@ -105,7 +105,7 @@ class Horde_Pear_Rest_Release extends Horde_Xml_Element
     /**
      * Return the release notes.
      *
-     * @return string The release notest.
+     * @return string The release notes.
      */
     public function getNotes()
     {
