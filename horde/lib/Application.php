@@ -119,4 +119,53 @@ class Horde_Application extends Horde_Registry_Application
             return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlocksList();
         }
     }
+
+    /**
+     */
+    public function removeUserData($user)
+    {
+        $error = false;
+
+        /* Remove user from all groups */
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+        try {
+            $allGroups = $groups->listGroups($user);
+            foreach (array_keys($allGroups) as $id) {
+                $groups->removeUser($id, $user);
+            }
+        } catch (Horde_Group_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            $error = true;
+        }
+
+        /* Remove the user from all application permissions */
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        try {
+            $tree = $perms->getTree();
+        } catch (Horde_Perms_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            $error = true;
+            $tree = array();
+        }
+
+        foreach (array_keys($tree) as $id) {
+            try {
+                $perm = $perms->getPermissionById($id);
+                if ($perms->getPermissions($perm, $user)) {
+                    // The Horde_Perms::ALL is used if this is a matrix perm,
+                    // otherwise it's ignored in the method and the entry is
+                    // totally removed.
+                    $perm->removeUserPermission($user, Horde_Perms::ALL, true);
+                }
+            } catch (Horde_Perms_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                $error = true;
+            }
+        }
+
+        if ($error) {
+            throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
+        }
+    }
+
 }

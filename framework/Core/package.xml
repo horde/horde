@@ -29,7 +29,7 @@
   <active>yes</active>
  </developer>
  <date>2011-08-31</date>
- <time>00:13:40</time>
+ <time>01:01:07</time>
  <version>
   <release>1.4.2</release>
   <api>1.4.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
 * [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
 * [mms] Fix cookie timeouts.
  </notes>
@@ -1564,6 +1565,7 @@
    <date>2011-08-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
+* [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
 * [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
 * [mms] Fix cookie timeouts.
    </notes>

@@ -2288,7 +2288,7 @@ class Horde_Registry
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Auth_Exception
+     * @throws Horde_Exception
      */
     public function removeUser($userId)
     {
@@ -2300,27 +2300,51 @@ class Horde_Registry
     }
 
     /**
-     * Calls all applications' removeUserData method.
+     * Removes user's application data.
      *
-     * @param string $userId  The userId to delete.
+     * @param string $user  The user ID to delete.
+     * @param string $app   If set, only removes data from this application.
+     *                      By default, removes data from all apps.
      *
-     * @throws Horde_Auth_Exception
+     * @throws Horde_Exception
      */
-    public function removeUserData($userId)
+    public function removeUserData($user, $app = null)
     {
-        $errApps = array();
+        if (!$this->isAdmin() && ($user != $this->getAuth())) {
+            throw new Horde_Exception(Horde_Core_Translation::t("You are not allowed to remove user data."));
+        }
 
-        foreach ($this->listApps(array('notoolbar', 'hidden', 'active', 'admin', 'noadmin')) as $app) {
+        $applist = empty($app)
+            ? $this->listApps(array('notoolbar', 'hidden', 'active', 'admin', 'noadmin'))
+            : array($app);
+        $errApps = array();
+        if (!empty($applist)) {
+            $prefs_ob = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
+                'user' => $user
+            ));
+        }
+
+        foreach ($applist as $app) {
             try {
-                $this->callAppMethod($app, 'removeUserData', array('args' => array($userId)));
+                $this->callAppMethod($app, 'removeUserData', array(
+                    'args' => array($user)
+                ));
             } catch (Exception $e) {
+                Horde::logMessage($e);
+                $errApps[] = $app;
+            }
+
+            try {
+                $prefs_ob->retrieve($app);
+                $prefs_ob->remove();
+            } catch (Horde_Exception $e) {
                 Horde::logMessage($e);
                 $errApps[] = $app;
             }
         }
 
         if (count($errApps)) {
-            throw new Horde_Auth_Exception(sprintf(Horde_Core_Translation::t("The following applications encountered errors removing user data: %s"), implode(', ', $errApps)));
+            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("The following applications encountered errors removing user data: %s"), implode(', ', array_unique($errApps))));
         }
     }
 
