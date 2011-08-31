@@ -18,7 +18,12 @@ class Sam_Form_List extends Horde_Form
     {
         parent::__construct($vars, $title);
         $this->setButtons(_("Save"), true);
-        $sam_driver = $GLOBALS['injector']->getInstance('Sam_Driver');
+
+        try {
+            $sam_driver = $GLOBALS['injector']->getInstance('Sam_Driver');
+        } catch (Sam_Exception $e) {
+            return;
+        }
 
         foreach ($this->_attributes as $key => $attribute) {
             if (!$sam_driver->hasCapability($key)) {

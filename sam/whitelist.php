@@ -13,8 +13,8 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('sam');
 
 /* Request retrieval of related user data. */
-$sam_driver = $injector->getInstance('Sam_Driver');
 try {
+    $sam_driver = $injector->getInstance('Sam_Driver');
     $sam_driver->retrieve();
 } catch (Sam_Exception $e) {
     $notification->push(sprintf(_("Cannot get options: %s"), $e->getMessage()), 'horde.error');

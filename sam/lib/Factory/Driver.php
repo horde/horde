@@ -23,6 +23,7 @@ class Sam_Factory_Driver extends Horde_Core_Factory_Injector
      * Return an Sam_Driver_Base instance.
      *
      * @return Sam_Driver_Base
+     * @throws Sam_Exception
      */
     public function create(Horde_Injector $injector)
     {
@@ -35,9 +36,13 @@ class Sam_Factory_Driver extends Horde_Core_Factory_Injector
             switch ($backend['driver']) {
             case 'Amavisd_Sql':
             case 'Spamd_Sql':
-                $db = $injector->getInstance('Horde_Core_Factory_Db')
-                    ->create('sam', $backend['params']);
-                $params = array('db' => $db);
+                try {
+                    $db = $injector->getInstance('Horde_Core_Factory_Db')
+                        ->create('sam', array_merge(Horde::getDriverConfig(null, 'sql'), $backend['params']));
+                } catch (Horde_Exception $e) {
+                    throw new Sam_Exception($e);
+                }
+                $params = array_merge($backend['params'], array('db' => $db));
                 break;
 
             case 'Spamd_Ldap':
@@ -48,9 +53,13 @@ class Sam_Factory_Driver extends Horde_Core_Factory_Injector
                                               $backend['params']['basedn']),
                           'bindpw' => $GLOBALS['registry']->getAuthCredential('password')),
                     $backend['params']);
-                $ldap = $injector->getInstance('Horde_Core_Factory_Ldap')
-                    ->create('sam', $params);
-                $params = array('ldap' => $ldap);
+                try {
+                    $ldap = $injector->getInstance('Horde_Core_Factory_Ldap')
+                        ->create('sam', $params);
+                } catch (Horde_Exception $e) {
+                    throw new Sam_Exception($e);
+                }
+                $params = array_merge($backend['params'], array('ldap' => $ldap));
                 break;
 
             case 'Spamd_Ftp':
@@ -58,11 +67,15 @@ class Sam_Factory_Driver extends Horde_Core_Factory_Injector
                     array('username' => $user,
                           'password' => $GLOBALS['registry']->getAuthCredential('password')),
                     $backend['params']);
-                $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')
-                    ->create('sam',
-                             array('driver' => 'ftp',
-                                   'params' => $params));
-                $params = array('vfs' => $vfs);
+                try {
+                    $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')
+                        ->create('sam',
+                                 array('type' => 'ftp',
+                                       'params' => $params));
+                } catch (Horde_Exception $e) {
+                    throw new Sam_Exception($e);
+                }
+                $params = array_merge($backend['params'], array('vfs' => $vfs));
                 break;
             }
 
