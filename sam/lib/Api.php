@@ -7,6 +7,16 @@
  */
 class Sam_Api extends Horde_Registry_Api
 {
+    /**
+     * Links.
+     *
+     * @var array
+     */
+    public $links = array(
+        'showBlacklist' => '%application%/blacklist.php',
+        'showWhitelist' => '%application%/whitelist.php',
+    );
+
     public function whitelistFrom($addresses)
     {
         $this->_listFrom($addresses, 'white');
