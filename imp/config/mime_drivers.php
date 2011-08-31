@@ -80,9 +80,6 @@ $mime_drivers = array(
             'image/*'
         ),
 
-        /* Display thumbnails for all images, not just large images? */
-        'allthumbs' => true,
-
         /* Display images inline that are less than this size (in bytes). */
         'inlinesize' => 262144,
 
