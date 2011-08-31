@@ -15,7 +15,7 @@
 class Sam
 {
     /**
-     * Determine the backend to use.
+     * Determines the backend to use.
      *
      * This decision is based on the global 'SERVER_NAME' and 'HTTP_HOST'
      * server variables and the contents of the 'preferred' either field
@@ -72,7 +72,7 @@ class Sam
      * Load the attributes configuration file or uses an already-loaded
      * cached copy. If loading for the first time, cache it for later use.
      *
-     * @return array    The attributes list.
+     * @return array  The attributes list.
      */
     static public function getAttributes()
     {
@@ -89,15 +89,16 @@ class Sam
     /**
      * Find out whether the given attribute type is informational only.
      *
-     * @param string $attribute           The attribute type to check.
+     * @param string $attribute  The attribute type to check.
      *
      * @return boolean  Returns true if the given type is known to be
      *                  informational only.
      */
     static public function infoAttribute($type = '')
     {
-        return in_array($type, array('description', 'spacer', 'html',
-                                     'header', 'link'));
+        return in_array(
+            $type,
+            array('description', 'spacer', 'html', 'header', 'link'));
     }
 
     /**
