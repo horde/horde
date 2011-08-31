@@ -189,7 +189,7 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
                             'UPDATE ' . $this->_params['table']
                             . ' SET value = ?'
                             . ' WHERE username = ? AND preference = ?',
-                        array($value, $user, $option, $option, $value));
+                        array($value, $user, $option));
                     }
                 } catch (Horde_Db_Exception $e) {
                     throw new Sam_Exception($e);
