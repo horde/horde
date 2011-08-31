@@ -4,7 +4,7 @@
  <configsection name="enable">
   <configheader>Enabled Sections</configheader>
   <configboolean name="rules" required="false" desc="Should the rules page
-  be enabled?">false</configboolean>
+  be enabled?">true</configboolean>
  </configsection>
 
  <configsection name="menu" desc="Menu settings">
