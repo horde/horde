@@ -34,7 +34,7 @@ class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
                 $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($row['gallery_id'], $row['tag_name'], $row['share_owner'], 'gallery');
             }
             $this->announce('Gallery tags finished.');
-            $sql = 'SELECT ansel_images.image_id iid, tag_name, share_owner FROM ansel_images '
+            $sql = 'SELECT ansel_images.image_id AS iid, tag_name, share_owner FROM ansel_images '
                 . 'RIGHT JOIN ansel_images_tags ON ansel_images.image_id = ansel_images_tags.image_id '
                 . 'LEFT JOIN ansel_shares ON ansel_shares.share_id = ansel_images.gallery_id '
                 . 'LEFT JOIN ansel_tags ON ansel_tags.tag_id = ansel_images_tags.tag_id';
