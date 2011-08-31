@@ -56,9 +56,13 @@ class Sam_Driver_Spamd_Ftp extends Sam_Driver_Spamd_Base
     {
         /* Get preference file(s). */
         try {
-            $content = $this->_vfs->read('', $this->_params['system_prefs']);
+            $content = $this->_vfs->read(
+                dirname($this->_params['system_prefs']),
+                basename($this->_params['system_prefs']));
             $conf = $this->_parse($content);
-            $content = $this->_vfs->read('', $this->_params['user_prefs']);
+            $content = $this->_vfs->read(
+                dirname($this->_params['user_prefs']),
+                basename($this->_params['user_prefs']));
             $conf = array_merge($conf, $this->_parse($content));
         } catch (Horde_Vfs_Exception $e) {
             throw new Sam_Exception($e);
