@@ -30,7 +30,7 @@ class Sam
         $backends = Horde::loadConfiguration('backends.php', 'backends');
 
         if (!isset($backends) || !is_array($backends)) {
-            throw new Sam_Exception(_("No backends configured in backends.php")));
+            throw new Sam_Exception(_("No backends configured in backends.php"));
         }
 
         foreach ($backends as $temp) {

@@ -61,7 +61,7 @@ class Sam_Factory_Driver extends Horde_Core_Factory_Injector
                 $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')
                     ->create('sam',
                              array('driver' => 'ftp',
-                                   'params' => $params);
+                                   'params' => $params));
                 $params = array('vfs' => $vfs);
                 break;
             }

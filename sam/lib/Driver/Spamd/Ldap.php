@@ -47,7 +47,7 @@ class Sam_Driver_Spamd_Ldap extends Sam_Driver_Spamd_Base
 
         $this->_ldap = $params['ldap'];
         $this->_options = $params['defaults'];
-        unset($params['ldap'], $params['defaults'])
+        unset($params['ldap'], $params['defaults']);
 
         parent::__construct($user, $params);
     }
