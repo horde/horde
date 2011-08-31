@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>16:15:14</time>
+ <date>2011-08-31</date>
+ <time>12:14:06</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -378,10 +378,18 @@
    <dir name="test">
     <dir name="Nag">
      <dir name="Stub">
+      <file name="DbFactory.php" role="test" />
       <file name="Registry.php" role="test" />
      </dir> <!-- /test/Nag/Stub -->
      <dir name="Unit">
       <dir name="Driver">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Nag/Unit/Driver/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Nag/Unit/Driver/Sql -->
+       <file name="Base.php" role="test" />
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Nag/Unit/Driver -->
      </dir> <!-- /test/Nag/Unit -->
@@ -799,8 +807,12 @@
    <install as="Nag/Autoload.php" name="test/Nag/Autoload.php" />
    <install as="Nag/phpunit.xml" name="test/Nag/phpunit.xml" />
    <install as="Nag/TestCase.php" name="test/Nag/TestCase.php" />
+   <install as="Nag/Stub/DbFactory.php" name="test/Nag/Stub/DbFactory.php" />
    <install as="Nag/Stub/Registry.php" name="test/Nag/Stub/Registry.php" />
+   <install as="Nag/Unit/Driver/Base.php" name="test/Nag/Unit/Driver/Base.php" />
    <install as="Nag/Unit/Driver/KolabTest.php" name="test/Nag/Unit/Driver/KolabTest.php" />
+   <install as="Nag/Unit/Driver/Sql/Base.php" name="test/Nag/Unit/Driver/Sql/Base.php" />
+   <install as="Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" />
    <install as="nag/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="nag/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
@@ -989,7 +1001,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-08-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * 
