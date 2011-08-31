@@ -40,9 +40,11 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [rla] Add account blocking similar to the former kolab-specific option.
+* [rla] Add account locking similar to the former kolab-specific option.
 * [jan] Add missing configuration for LDAP groups write support.
-* [rla] Reset password dialog shows a warning when no security question is set #10430
+* [rla] Reset password dialog shows a warning when no security question is set (Request #10430).
+* [mjr] Update jQuery Mobile to version 1.0 Beta 2.
+* [jan] Update hordeweb theme to match new website layout.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
