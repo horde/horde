@@ -732,7 +732,7 @@ class Horde_Ldap
      * case its DN will be used.
      *
      * $params may contain:
-     * - scope: The scope which will be used for searching:
+     * - scope: The scope which will be used for searching, defaults to 'sub':
      *          - base: Just one entry
      *          - sub: The whole tree
      *          - one: Immediately below $base
