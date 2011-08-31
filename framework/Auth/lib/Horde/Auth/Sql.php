@@ -91,7 +91,7 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             'soft_expiration_field' => null,
             'soft_expiration_window' => null,
             'hard_expiration_field' => null,
-            'hard_expiration_window' => null           
+            'hard_expiration_window' => null
         ), $params);
 
         parent::__construct($params);
