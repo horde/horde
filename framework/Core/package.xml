@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-08-30</date>
- <time>14:03:41</time>
+ <date>2011-08-31</date>
+ <time>00:13:40</time>
  <version>
   <release>1.4.2</release>
   <api>1.4.0</api>
@@ -40,7 +40,8 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
+* [mms] Fix cookie timeouts.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1560,10 +1561,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-08-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
+* [mms] Fix cookie timeouts.
    </notes>
   </release>
  </changelog>
