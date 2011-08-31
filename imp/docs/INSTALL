@@ -57,20 +57,7 @@ To function properly, IMP **requires** the following:
       See http://www.php.net/openssl for information on compiling OpenSSL
       into PHP.
 
-3. The following PEAR modules:
-   (See `horde/docs/INSTALL`_ for instructions on installing PEAR modules)
-
-   .. Important:: If you are going to install IMP the recommended way,
-                  i.e. using the PEAR installer, you can skip the remainder of
-                  this section. Installing IMP through PEAR will
-                  automatically download and install all required PEAR modules.
-
-   a. Auth_SASL [OPTIONAL]
-
-      Auth_SASL is required only if your IMAP server uses CRAM-MD5 or
-      DIGEST-MD5 authentication.
-
-4. At least one IMAP or POP3 server.
+3. At least one IMAP or POP3 server.
 
    While IMP is an application that is installed on a web server and is run
    from a web browser, it is only an IMAP and POP3 *client*, like Outlook,
@@ -87,7 +74,7 @@ To function properly, IMP **requires** the following:
    - Dovecot (http://www.dovecot.org/)
    - Courier-IMAP (http://www.inter7.com/courierimap.html)
 
-   More available IMAP servers are:
+   Other available IMAP servers are:
 
    - UW-IMAP (ftp://ftp.cac.washington.edu/imap/)
    - Archiveopteryx (http://www.archiveopteryx.org/)
@@ -102,7 +89,7 @@ To function properly, IMP **requires** the following:
              disabled; POP3 support is limited to essentially only viewing
              messages and performing basic mail actions.
 
-5. Sendmail or SMTP server.
+4. Sendmail or SMTP server.
 
    Horde sends mail via either a local sendmail or a remote SMTP server.
 

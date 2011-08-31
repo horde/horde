@@ -39,17 +39,6 @@ class IMP_Test extends Horde_Test
     );
 
     /**
-     * PEAR modules list.
-     *
-     * @var array
-     */
-    protected $_pearList = array(
-        'Auth_SASL' => array(
-            'error' => 'If your IMAP server uses CRAM-MD5 or DIGEST-MD5 authentication, this module is required.'
-        )
-    );
-
-    /**
      * Required configuration files.
      *
      * @var array
