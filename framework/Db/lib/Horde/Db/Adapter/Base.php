@@ -584,9 +584,9 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     {
         $this->execute($sql, $arg1, $arg2);
 
-        return isset($idValue)
+        return $idValue
             ? $idValue
-            : $this->_connection->lastInsertId();
+            : $this->_connection->lastInsertId($sequenceName);
     }
 
     /**
