@@ -24,7 +24,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* Fix reading the user name.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -757,7 +757,7 @@
    <date>2011-07-21</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* Fix reading the user name.
    </notes>
   </release>
  </changelog>
