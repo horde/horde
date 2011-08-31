@@ -22,6 +22,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public $notify = true;
 
     /**
+     * The mailbox (view) we are dealing with on the browser.
+     *
+     * @var IMP_Mailbox
+     */
+    protected $_mbox;
+
+    /**
      * Queue object.
      *
      * @var IMP_Ajax_Queue
@@ -44,6 +51,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         parent::__construct($app, $vars, $action);
 
         $this->_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
+
+        /* Bug #10462: 'view' POST parameter is base64url encoded to
+         * workaround suhosin. */
+        if (isset($vars->view)) {
+            $this->_mbox = IMP_Mailbox::formFrom($vars->view);
+        }
     }
 
     /**
@@ -528,7 +541,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $this->_queue->poll($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList());
         $this->_queue->quota();
 
-        if ($this->_vars->view && $this->_changed()) {
+        if ($this->_mbox && $this->_changed()) {
             $result->ViewPort = $this->_viewPortData(true);
         }
 
@@ -644,15 +657,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function viewPort()
     {
-        if (!$this->_vars->view) {
+        if (!$this->_mbox) {
             return false;
         }
 
-        $mbox = IMP_Mailbox::get($this->_vars->view);
-
         /* Change sort preferences if necessary. */
         if (isset($this->_vars->sortby) || isset($this->_vars->sortdir)) {
-            $mbox->setSort($this->_vars->sortby, $this->_vars->sortdir);
+            $this->_mbox->setSort($this->_vars->sortby, $this->_vars->sortdir);
         }
 
         $changed = $this->_changed(false);
@@ -660,7 +671,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (is_null($changed)) {
             $list_msg = new IMP_Views_ListMessages();
             $result = new stdClass;
-            $result->ViewPort = $list_msg->getBaseOb($mbox);
+            $result->ViewPort = $list_msg->getBaseOb($this->_mbox);
 
             $req_id = $this->_vars->requestid;
             if (!is_null($req_id)) {
@@ -670,7 +681,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return $result;
         }
 
-        $this->_queue->poll($mbox);
+        $this->_queue->poll($this->_mbox);
 
         if ($changed ||
             $this->_vars->rangeslice ||
@@ -807,8 +818,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->ViewPort = $this->_viewPortData(true);
         } else {
             $result->ViewPort = new stdClass;
-            $result->ViewPort->updatecacheid = IMP_Mailbox::get($this->_vars->view)->cacheid;
-            $result->ViewPort->view = $this->_vars->view;
+            $result->ViewPort->updatecacheid = $this->_mbox->cacheid;
+            $result->ViewPort->view = strval($this->_mbox);
         }
 
         return $result;
@@ -1039,11 +1050,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 } else {
                     /* Cache ID has changed due to viewing this message. So
                      * update the cacheid in the ViewPort. */
-                    $cacheid = IMP_Mailbox::get($this->_vars->view)->cacheid;
+                    $cacheid = $this->_mbox->cacheid;
                     if ($cacheid != $this->_vars->cacheid) {
                         $result->ViewPort = new stdClass;
                         $result->ViewPort->updatecacheid = $cacheid;
-                        $result->ViewPort->view = $this->_vars->view;
+                        $result->ViewPort->view = strval($this->_mbox);
                     }
                 }
 
@@ -1365,23 +1376,21 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $mbox = IMP_Mailbox::get($this->_vars->view);
-
         if (!$change) {
-            $sort = $mbox->getSort();
+            $sort = $this->_mbox->getSort();
             $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
         }
 
-        $expunged = $injector->getInstance('IMP_Message')->expungeMailbox(array($this->_vars->view => 1), array('list' => true));
+        $expunged = $injector->getInstance('IMP_Message')->expungeMailbox(array(strval($this->_mbox) => 1), array('list' => true));
 
         if (!($expunge_count = count($expunged))) {
             return false;
         }
 
         if ($expunge_count == 1) {
-            $GLOBALS['notification']->push(sprintf(_("1 message was purged from \"%s\"."), $mbox->display), 'horde.success');
+            $GLOBALS['notification']->push(sprintf(_("1 message was purged from \"%s\"."), $this->_mbox->display), 'horde.success');
         } else {
-            $GLOBALS['notification']->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $mbox->display), 'horde.success');
+            $GLOBALS['notification']->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $this->_mbox->display), 'horde.success');
         }
         $result = $this->_generateDeleteResult($expunged, $change);
 
@@ -1837,7 +1846,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected function _checkUidvalidity($result = false)
     {
         try {
-            IMP_Mailbox::get($this->_vars->view)->uidvalid;
+            $this->_mbox->uidvalid;
         } catch (IMP_Exception $e) {
             if (!is_object($result)) {
                 $result = new stdClass;
@@ -1870,12 +1879,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                                              $nothread = false)
     {
         $del = new stdClass;
-        $del->mbox = $this->_vars->view;
+        $del->mbox = strval($this->_mbox);
         $del->uids = strval($indices);
 
-        $mbox = IMP_Mailbox::get($this->_vars->view);
-
-        if ($mbox->hideDeletedMsgs(true)) {
+        if ($this->_mbox->hideDeletedMsgs(true)) {
             $del->remove = 1;
         }
 
@@ -1884,7 +1891,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Check if we need to update thread information. */
         if (!$change && (!$nothread || !empty($del->remove))) {
-            $sort = $mbox->getSort();
+            $sort = $this->_mbox->getSort();
             $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
         }
 
@@ -1892,8 +1899,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->ViewPort = $this->_viewPortData(true);
         } else {
             $result->ViewPort = new stdClass;
-            $result->ViewPort->updatecacheid = $mbox->cacheid;
-            $result->ViewPort->view = $this->_vars->view;
+            $result->ViewPort->updatecacheid = $this->_mbox->cacheid;
+            $result->ViewPort->view = strval($this->_mbox);
         }
 
         $this->_queue->poll(array_keys($indices->indices()));
@@ -1916,10 +1923,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _changed($rw = null)
     {
-        $mbox = IMP_Mailbox::get($this->_vars->view);
-
         /* Only update search mailboxes on forced refreshes. */
-        if ($mbox->search) {
+        if ($this->_mbox->search) {
             return !empty($this->_vars->forceUpdate);
         }
 
@@ -1927,14 +1932,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * on the IMAP server (saves some STATUS calls). */
         if (!is_null($rw)) {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->openMailbox($this->_vars->view, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+                $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->openMailbox($this->_mbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (IMP_Imap_Exception $e) {
                 $e->notify();
                 return null;
             }
         }
 
-        return ($mbox->cacheid != $this->_vars->cacheid);
+        return ($this->_mbox->cacheid != $this->_vars->cacheid);
     }
 
     /**
@@ -1953,7 +1958,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'cacheid' => $this->_vars->cacheid,
             'change' => $change,
             'initial' => $this->_vars->initial,
-            'mbox' => $this->_vars->view,
+            'mbox' => strval($this->_mbox),
             'qsearch' => $this->_vars->qsearch,
             'qsearchfilter' => $this->_vars->qsearchfilter,
             'qsearchflag' => $this->_vars->qsearchflag,

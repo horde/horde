@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-31</date>
- <time>18:27:32</time>
+ <time>14:11:56</time>
  <version>
   <release>5.0.12</release>
   <api>5.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [mms] More workarounds for broken suhosin extension (Bug #10462).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2427,7 +2427,7 @@
    <date>2011-08-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [mms] More workarounds for broken suhosin extension (Bug #10462).
    </notes>
   </release>
  </changelog>
