@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>11:15:03</time>
+ <date>2011-08-31</date>
+ <time>22:58:11</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -478,10 +478,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-08-31</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-* 
+* [jan] Fix determination of last insert id on PostgreSQL up to 8.1.
    </notes>
   </release>
  </changelog>
