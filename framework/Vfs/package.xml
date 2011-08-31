@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Fix reading file contents from FTP.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -868,7 +868,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2011-07-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [jan] Fix reading file contents from FTP.
    </notes>
   </release>
  </changelog>
