@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-31</date>
- <time>18:06:18</time>
+ <time>18:07:12</time>
  <version>
-  <release>1.2.0</release>
+  <release>1.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* [rla] Add bad login blocking and account locking to the base driver.
-* [rla] Fix SQL driver when using soft_expiration and hard_expiration features.
-* [rla] No longer enforce lowercase fieldnames.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -460,6 +458,19 @@
 * [rla] Add bad login blocking and account locking to the base driver.
 * [rla] Fix SQL driver when using soft_expiration and hard_expiration features.
 * [rla] No longer enforce lowercase fieldnames.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-31</date>
+   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
