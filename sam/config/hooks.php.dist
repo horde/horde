@@ -8,15 +8,22 @@
  *
  * For more information please see the horde/config/hooks.php.dist file.
  *
- * $Horde: sam/config/hooks.php.dist,v 1.1 2007/09/10 22:28:56 jan Exp $
+ * $Id$
  */
 
-// Here is an example _sam_hook_username function to set the username that
-// SpamAssassin sees to one different from the Horde username.
-
-// if (!function_exists('_sam_hook_username')) {
-//     function _sam_hook_username($horde_uid)
+class Sam_Hooks
+{
+    /**
+     * Converts a Horde user name to the name used in the backend.
+     *
+     * @param string $horde_uid  A Horde user name.
+     *
+     * @return string  The converted user name.
+     */
+//     public function username($horde_uid)
 //     {
+//         // This example is a bit lame, because the same can be achieved
+//         // by setting 'hordeauth' to true in the backend configuration.
 //         if (strstr($horde_uid, '@')) {
 //             $parts = explode('@', $horde_uid);
 //             return $parts[0];
@@ -24,4 +31,4 @@
 //             return $horde_uid;
 //         }
 //     }
-// }
+}

@@ -101,25 +101,25 @@ class Sam
     }
 
     /**
-     * Map the given Horde username to the value used after applying any
-     * configured hooks.
+     * Converts the current user's name, optionally removing the domain part or
+     * applying any configured hooks.
      *
-     * @param mixed $hordeauth            Defines how to use the authenticated
-     *                                    Horde username. If set to 'full',
-     *                                    will initialize the username to
-     *                                    contain the @realm part. Otherwise,
-     *                                    the username will initialize as a
-     *                                    simple login.
+     * @param string|boolean $hordeauth  Defines how to use the authenticated
+     *                                   Horde username. If set to 'full',
+     *                                   will initialize the username to
+     *                                   contain the @realm part. Otherwise,
+     *                                   the username will initialize as a
+     *                                   simple login.
      *
      * @return string   The converted username.
      */
     static public function mapUser($hordeauth)
     {
         $uid = $GLOBALS['registry']->getAuth($hordeauth === 'full' ? null : 'bare');
-        if (!empty($GLOBALS['conf']['hooks']['username'])) {
-            return Horde::callHook('_sam_hook_username', array($uid), 'sam');
+        try {
+            return Horde::callHook('username', array($uid), 'sam');
+        } catch (Horde_Exception_HookNotSet $e) {
+            return $uid;
         }
-
-        return $uid;
     }
 }
