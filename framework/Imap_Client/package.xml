@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-08-31</date>
- <time>10:53:02</time>
+ <time>10:53:23</time>
  <version>
-  <release>1.0.15</release>
+  <release>1.0.16</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [mms] Remove dependency on Auth_SASL.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -535,6 +535,19 @@
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Remove dependency on Auth_SASL.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.16</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-31</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
