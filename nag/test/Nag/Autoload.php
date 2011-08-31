@@ -20,6 +20,9 @@ error_reporting(E_ALL | E_STRICT);
 
 /** Load the basic test definition */
 require_once dirname(__FILE__) . '/TestCase.php';
+require_once dirname(__FILE__) . '/Unit/Driver/Base.php';
+require_once dirname(__FILE__) . '/Unit/Driver/Sql/Base.php';
 
 /** Load the stub definitions */
+require_once dirname(__FILE__) . '/Stub/DbFactory.php';
 require_once dirname(__FILE__) . '/Stub/Registry.php';

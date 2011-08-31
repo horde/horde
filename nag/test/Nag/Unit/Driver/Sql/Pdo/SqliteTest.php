@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the Kolab driver.
+ * Test the SQL driver with a sqlite DB.
  *
  * PHP version 5
  *
@@ -15,10 +15,10 @@
 /**
  * Prepare the test setup.
  */
-require_once dirname(__FILE__) . '/../../Autoload.php';
+require_once dirname(__FILE__) . '/../../../../Autoload.php';
 
 /**
- * Test the Kolab driver.
+ * Test the SQL driver with a sqlite DB.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -32,13 +32,18 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @link       http://www.horde.org/apps/nag
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  */
-class Nag_Unit_Driver_KolabTest extends Nag_Unit_Driver_Base
+class Nag_Unit_Driver_Sql_Pdo_SqliteTest extends Nag_Unit_Driver_Sql_Base
 {
     protected $backupGlobals = false;
 
     public static function setUpBeforeClass()
     {
-        self::$driver = self::getKolabDriver();
+        if (!extension_loaded('pdo') ||
+            !in_array('sqlite', PDO::getAvailableDrivers())) {
+            self::$reason = 'No sqlite extension or no sqlite PDO driver';
+            return;
+        }
+        self::$db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:', 'charset' => 'utf-8'));
         parent::setUpBeforeClass();
     }
 }
