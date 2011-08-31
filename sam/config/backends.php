@@ -10,6 +10,8 @@
  *
  * There are a number of properties that you can set for each backend:
  *
+ * disabled:     If true, the config entry is disabled.
+ *
  * driver:       The backend storage driver to use for user options. Valid
  *               options are 'spamd_sql' for use with a SpamAssassin SQL
  *               backend, 'spamd_ldap' for use with a SpamAssassin LDAP
@@ -32,6 +34,7 @@
 
 /* SpamAssassin SQL storage example. */
 $backends['spamd_sql'] = array(
+    'disabled' => false,
     'preferred' => '',
     'hordeauth' => 'full',
     'driver' => 'Spamd_Sql',
@@ -53,6 +56,8 @@ $backends['spamd_sql'] = array(
 
 /* SpamAssassin LDAP storage example. */
 $backends['spamd_ldap'] = array(
+    // Disabled by default
+    'disabled' => true,
     'preferred' => '',
     'hordeauth' => 'full',
     'driver' => 'Spamd_Ldap',
@@ -73,6 +78,8 @@ $backends['spamd_ldap'] = array(
 
 /* SpamAssassin FTP storage example. */
 $backends['spamd_ftp'] = array(
+    // Disabled by default
+    'disabled' => true,
     'preferred' => '',
     'hordeauth' => 'full',
     'driver' => 'Spamd_Ftp',
@@ -89,6 +96,8 @@ $backends['spamd_ftp'] = array(
 
 /* Amavisd-new SQL storage example. */
 $backends['amavisd_sql'] = array(
+    // Disabled by default
+    'disabled' => true,
     'preferred' => '',
     'hordeauth' => 'full',
     'driver' => 'Amavisd_Sql',

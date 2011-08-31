@@ -27,7 +27,8 @@ class Sam
      */
     static public function getPreferredBackend()
     {
-        include SAM_BASE . '/config/backends.php';
+        $backends = Horde::loadConfiguration('backends.php', 'backends');
+
         if (!isset($backends) || !is_array($backends)) {
             throw new Sam_Exception(_("No backends configured in backends.php")));
         }
@@ -79,8 +80,7 @@ class Sam
         static $_attributes;
 
         if (!isset($_attributes)) {
-            $_attributes = array();
-            require_once SAM_BASE . '/config/attributes.php';
+            $_attributes = Horde::loadConfiguration('attributes.php', '_attributes');
         }
 
         return $_attributes;
