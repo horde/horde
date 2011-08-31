@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>sam</name>
+ <channel>pear.horde.org</channel>
+ <summary>Sam is short for Spam Assassin Module.</summary>
+ <description>Sam allows each user to change their specific anti-spam rules for SpamAssassion or Amavisd-new, given a general subset of the overall features that are available.</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-08-31</date>
+ <time>16:06:09</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name="attributes.php" role="horde" />
+    <file name="backends.php" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="menu.php.dist" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="lib">
+    <dir name="Driver">
+     <dir name="Amavisd">
+      <file name="Sql.php" role="horde" />
+     </dir> <!-- /lib/Driver/Amavisd -->
+     <dir name="Spamd">
+      <file name="Base.php" role="horde" />
+      <file name="Ftp.php" role="horde" />
+      <file name="Ldap.php" role="horde" />
+      <file name="Sql.php" role="horde" />
+     </dir> <!-- /lib/Driver/Spamd -->
+     <file name="Base.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="Form">
+     <file name="Blacklist.php" role="horde" />
+     <file name="List.php" role="horde" />
+     <file name="Options.php" role="horde" />
+     <file name="Whitelist.php" role="horde" />
+    </dir> <!-- /lib/Form -->
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Sam.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="sam.mo" role="horde" />
+      <file name="sam.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="sam.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_sam_base_tables.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="blacklist.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="sam.png" role="horde" />
+      <file name="whitelist.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+    </dir> <!-- /themes/default -->
+    <dir name="silver">
+     <dir name="graphics">
+      <file name="blacklist.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="sam.png" role="horde" />
+      <file name="whitelist.png" role="horde" />
+     </dir> <!-- /themes/silver/graphics -->
+    </dir> <!-- /themes/silver -->
+   </dir> <!-- /themes -->
+   <file name="blacklist.php" role="horde" />
+   <file name="COPYING" role="doc" />
+   <file name="index.php" role="horde" />
+   <file name="README" role="doc" />
+   <file name="spam.php" role="horde" />
+   <file name="whitelist.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.5.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="sam/blacklist.php" name="blacklist.php" />
+   <install as="COPYING" name="COPYING" />
+   <install as="sam/index.php" name="index.php" />
+   <install as="README" name="README" />
+   <install as="sam/spam.php" name="spam.php" />
+   <install as="sam/whitelist.php" name="whitelist.php" />
+   <install as="sam/config/attributes.php" name="config/attributes.php" />
+   <install as="sam/config/backends.php" name="config/backends.php" />
+   <install as="sam/config/conf.xml" name="config/conf.xml" />
+   <install as="sam/config/hooks.php.dist" name="config/hooks.php.dist" />
+   <install as="sam/config/menu.php.dist" name="config/menu.php.dist" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="sam/lib/Api.php" name="lib/Api.php" />
+   <install as="sam/lib/Application.php" name="lib/Application.php" />
+   <install as="sam/lib/Exception.php" name="lib/Exception.php" />
+   <install as="sam/lib/Sam.php" name="lib/Sam.php" />
+   <install as="sam/lib/Driver/Base.php" name="lib/Driver/Base.php" />
+   <install as="sam/lib/Driver/Amavisd/Sql.php" name="lib/Driver/Amavisd/Sql.php" />
+   <install as="sam/lib/Driver/Spamd/Base.php" name="lib/Driver/Spamd/Base.php" />
+   <install as="sam/lib/Driver/Spamd/Ftp.php" name="lib/Driver/Spamd/Ftp.php" />
+   <install as="sam/lib/Driver/Spamd/Ldap.php" name="lib/Driver/Spamd/Ldap.php" />
+   <install as="sam/lib/Driver/Spamd/Sql.php" name="lib/Driver/Spamd/Sql.php" />
+   <install as="sam/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="sam/lib/Form/Blacklist.php" name="lib/Form/Blacklist.php" />
+   <install as="sam/lib/Form/List.php" name="lib/Form/List.php" />
+   <install as="sam/lib/Form/Options.php" name="lib/Form/Options.php" />
+   <install as="sam/lib/Form/Whitelist.php" name="lib/Form/Whitelist.php" />
+   <install as="sam/locale/sam.pot" name="locale/sam.pot" />
+   <install as="sam/locale/cs/LC_MESSAGES/sam.mo" name="locale/cs/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/cs/LC_MESSAGES/sam.po" name="locale/cs/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/de/LC_MESSAGES/sam.mo" name="locale/de/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/de/LC_MESSAGES/sam.po" name="locale/de/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="sam/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="sam/locale/es/LC_MESSAGES/sam.mo" name="locale/es/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/es/LC_MESSAGES/sam.po" name="locale/es/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/et/LC_MESSAGES/sam.mo" name="locale/et/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/et/LC_MESSAGES/sam.po" name="locale/et/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="sam/locale/fi/LC_MESSAGES/sam.mo" name="locale/fi/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/fi/LC_MESSAGES/sam.po" name="locale/fi/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/fr/LC_MESSAGES/sam.mo" name="locale/fr/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/fr/LC_MESSAGES/sam.po" name="locale/fr/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/it/LC_MESSAGES/sam.mo" name="locale/it/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/it/LC_MESSAGES/sam.po" name="locale/it/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/nn/LC_MESSAGES/sam.mo" name="locale/nn/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/nn/LC_MESSAGES/sam.po" name="locale/nn/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/ro/LC_MESSAGES/sam.mo" name="locale/ro/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/ro/LC_MESSAGES/sam.po" name="locale/ro/LC_MESSAGES/sam.po" />
+   <install as="sam/locale/zh_TW/LC_MESSAGES/sam.mo" name="locale/zh_TW/LC_MESSAGES/sam.mo" />
+   <install as="sam/locale/zh_TW/LC_MESSAGES/sam.po" name="locale/zh_TW/LC_MESSAGES/sam.po" />
+   <install as="sam/migration/1_sam_base_tables.php" name="migration/1_sam_base_tables.php" />
+   <install as="sam/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
+   <install as="sam/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="sam/themes/default/graphics/sam.png" name="themes/default/graphics/sam.png" />
+   <install as="sam/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
+   <install as="sam/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
+   <install as="sam/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
+   <install as="sam/themes/silver/graphics/sam.png" name="themes/silver/graphics/sam.png" />
+   <install as="sam/themes/silver/graphics/whitelist.png" name="themes/silver/graphics/whitelist.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-08-31</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
