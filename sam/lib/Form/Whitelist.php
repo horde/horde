@@ -12,13 +12,12 @@
  */
 class Sam_Form_Whitelist extends Sam_Form_List
 {
-    protected $_attributes = array(
-        'whitelist_from' => _("Whitelist From"),
-        'whitelist_to' => _("Whitelist To"),
-    );
-
     public function __construct($vars)
     {
+        $this->_attributes = array(
+            'whitelist_from' => _("Whitelist From"),
+            'whitelist_to' => _("Whitelist To"),
+        );
         parent::__construct($vars, _("Whitelist Manager"));
     }
 }

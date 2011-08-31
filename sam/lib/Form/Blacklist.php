@@ -12,13 +12,12 @@
  */
 class Sam_Form_Blacklist extends Sam_Form_List
 {
-    protected $_attributes = array(
-        'blacklist_from' => _("Blacklist From"),
-        'blacklist_to' => _("Blacklist To")
-    );
-
     public function __construct($vars)
     {
+        $this->_attributes = array(
+            'blacklist_from' => _("Blacklist From"),
+            'blacklist_to' => _("Blacklist To")
+        );
         parent::__construct($vars, _("Blacklist Manager"));
     }
 }
