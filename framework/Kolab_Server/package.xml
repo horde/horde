@@ -757,7 +757,7 @@
    <date>2011-08-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* Fix reading the user name.
+* [gwr] Fix reading the user name.
    </notes>
   </release>
   <release>
