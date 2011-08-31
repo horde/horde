@@ -34,6 +34,9 @@ class Sam
         }
 
         foreach ($backends as $temp) {
+            if (!empty($temp['disabled'])) {
+                continue;
+            }
             if (!isset($backend)) {
                 $backend = $temp;
             } elseif (!empty($temp['preferred'])) {
