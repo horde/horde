@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-* 
+* [jan] Fix determination of last insert id on PostgreSQL up to 8.1.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
