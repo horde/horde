@@ -181,9 +181,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         if ($pk &&
             ($sequenceName ||
              $sequenceName = $this->defaultSequenceName($table, $pk))) {
-            // Resetting the sequence shouldn't be necessary at this point. But
-            // we're missing a unit test for this code path.
-            // $this->resetPkSequence($table, $pk, $sequenceName);
+            $this->resetPkSequence($table, $pk, $sequenceName);
             return $this->_lastInsertId($table, $sequenceName);
         }
     }
