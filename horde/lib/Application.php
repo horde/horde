@@ -134,7 +134,7 @@ class Horde_Application extends Horde_Registry_Application
                 $groups->removeUser($id, $user);
             }
         } catch (Horde_Group_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::logMessage($e, 'NOTICE');
             $error = true;
         }
 
@@ -143,7 +143,7 @@ class Horde_Application extends Horde_Registry_Application
         try {
             $tree = $perms->getTree();
         } catch (Horde_Perms_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::logMessage($e, 'NOTICE');
             $error = true;
             $tree = array();
         }
@@ -158,7 +158,7 @@ class Horde_Application extends Horde_Registry_Application
                     $perm->removeUserPermission($user, Horde_Perms::ALL, true);
                 }
             } catch (Horde_Perms_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::logMessage($e, 'NOTICE');
                 $error = true;
             }
         }

@@ -169,10 +169,11 @@ class Mnemo_Application extends Horde_Registry_Application
         try {
             $share = $GLOBALS['mnemo_shares']->getShare($user);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::logMessage($e, 'NOTICE');
         }
 
         $GLOBALS['display_notepads'] = array($user);
+        $error = false;
         $memos = Mnemo::listMemos();
         $uids = array();
         foreach ($memos as $memo) {
@@ -189,8 +190,8 @@ class Mnemo_Application extends Horde_Registry_Application
             try {
                 $GLOBALS['mnemo_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-                throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
             }
         }
 
@@ -201,7 +202,11 @@ class Mnemo_Application extends Horde_Registry_Application
                 $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+        }
+
+        if ($error) {
             throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
         }
     }
