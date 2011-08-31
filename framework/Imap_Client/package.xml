@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>23:23:54</time>
+ <date>2011-08-31</date>
+ <time>10:53:02</time>
  <version>
   <release>1.0.15</release>
   <api>1.0.0</api>
@@ -531,7 +531,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-08-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [mms] Remove dependency on Auth_SASL.
