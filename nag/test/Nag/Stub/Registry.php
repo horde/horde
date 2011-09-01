@@ -4,7 +4,7 @@ class Nag_Stub_Registry
 {
     public function getAuth()
     {
-        return 'test';
+        return 'test@example.com';
     }
 
     public function get()

@@ -99,6 +99,17 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $this->assertTrue((bool) $this->perms->hasPermission($permission, 'test', Horde_Perms::DELETE));
     }
 
+    public function testImapTAclResultsInDeletePermission() 
+    {
+        $this->storage->expects($this->once())
+            ->method('getAcl')
+            ->will($this->returnValue(array('test' => 't')));
+        $permission = new Horde_Perms_Permission_Kolab(
+            $this->storage, $this->groups
+        );
+        $this->assertTrue((bool) $this->perms->hasPermission($permission, 'test', Horde_Perms::DELETE));
+    }
+
     public function testImapAnonymousUserMapsToGuestUsers()
     {
         $this->storage->expects($this->once())

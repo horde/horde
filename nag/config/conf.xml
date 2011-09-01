@@ -15,6 +15,14 @@
   </configswitch>
  </configsection>
 
+ <configsection name="tasklists">
+  <configheader>Tasklist Handler Settings</configheader>
+  <configswitch name="driver" desc="What type of tasklist handler should we use?">default
+   <case name="default" desc="Default" />
+   <case name="kolab" desc="Kolab" />
+  </configswitch>
+ </configsection>
+
  <configsection name="menu">
   <configheader>Menu settings</configheader>
   <configboolean name="import_export" desc="Should we display an Import/Export

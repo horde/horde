@@ -1151,14 +1151,17 @@ class Turba_Api extends Horde_Registry_Api
                 ? $sort_columns[$source] : array();
 
             foreach ($names as $name) {
+                $trimname = trim($name);
                 $criteria = array();
-                if (isset($fields[$source])) {
-                    foreach ($fields[$source] as $field) {
-                        $criteria[$field] = trim($name);
+                if (strlen($trimname)) {
+                    if (isset($fields[$source])) {
+                        foreach ($fields[$source] as $field) {
+                            $criteria[$field] = $trimname;
+                        }
                     }
-                }
-                if (count($criteria) == 0) {
-                    $criteria['name'] = trim($name);
+                    if (count($criteria) == 0) {
+                        $criteria['name'] = $trimname;
+                    }
                 }
 
                 $search = $driver->search($criteria, Turba::getPreferredSortOrder(), 'OR', array(), array(), $matchBegin);

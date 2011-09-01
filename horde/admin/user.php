@@ -121,7 +121,7 @@ case 'remove':
         try {
             $registry->removeUser($f_user_name);
             $notification->push(sprintf(_("Successfully removed \"%s\" from the system."), $f_user_name), 'horde.success');
-        } catch (Horde_Auth_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("There was a problem removing \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
         }
     }
@@ -141,7 +141,7 @@ case 'clear':
         try {
             $registry->removeUserData($f_user_name);
             $notification->push(sprintf(_("Successfully cleared data for user \"%s\" from the system."), $f_user_name), 'horde.success');
-        } catch (Horde_Auth_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("There was a problem clearing data for user \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
         }
     }

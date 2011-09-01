@@ -72,7 +72,7 @@ abstract class Horde_Share_Base
     /**
      * The Horde_Perms object
      *
-     * @var Horde_Perms
+     * @var Horde_Perms_Base
      */
     protected $_permsObject;
 
@@ -588,7 +588,7 @@ abstract class Horde_Share_Base
     /**
      * Getter for Horde_Perms object
      *
-     * @return Horde_Perms
+     * @return Horde_Perms_Base
      */
     public function getPermsObject()
     {

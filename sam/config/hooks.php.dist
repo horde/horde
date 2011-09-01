@@ -1,0 +1,34 @@
+<?php
+/**
+ * Sam Hooks configuration file.
+ *
+ * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
+ * BLINDLY IF YOU DO NOT KNOW WHAT YOU ARE DOING.  YOU HAVE TO CUSTOMIZE THEM
+ * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
+ *
+ * For more information please see the horde/config/hooks.php.dist file.
+ *
+ * $Id$
+ */
+
+class Sam_Hooks
+{
+    /**
+     * Converts a Horde user name to the name used in the backend.
+     *
+     * @param string $horde_uid  A Horde user name.
+     *
+     * @return string  The converted user name.
+     */
+//     public function username($horde_uid)
+//     {
+//         // This example is a bit lame, because the same can be achieved
+//         // by setting 'hordeauth' to true in the backend configuration.
+//         if (strstr($horde_uid, '@')) {
+//             $parts = explode('@', $horde_uid);
+//             return $parts[0];
+//         } else {
+//             return $horde_uid;
+//         }
+//     }
+}

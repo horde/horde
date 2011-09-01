@@ -110,7 +110,7 @@ var DimpCore = {
     // 'opts' -> ajaxopts, callback, uids
     doAction: function(action, params, opts)
     {
-        params = $H(params);
+        params = $H(params).clone();
         opts = opts || {};
 
         var ajaxopts = Object.extend(Object.clone(this.doActionOpts), opts.ajaxopts || {});
@@ -122,7 +122,9 @@ var DimpCore = {
             params.set('uid', this.toRangeString(opts.uids));
         }
 
-        ajaxopts.parameters = this.addRequestParams(params);
+        this.addRequestParams(params);
+        ajaxopts.parameters = params;
+
         ajaxopts.onComplete = function(t, o) { this.doActionComplete(t, opts.callback); }.bind(this);
 
         new Ajax.Request(DIMP.conf.URI_AJAX + action, ajaxopts);
@@ -158,16 +160,12 @@ var DimpCore = {
         return tmp;
     },
 
-    // params - (Hash)
+    // params: (Hash)
     addRequestParams: function(params)
     {
-        var p = params.clone();
-
         if (DIMP.conf.SESSION_ID) {
-            p.update(DIMP.conf.SESSION_ID.toQueryParams());
+            params.update(DIMP.conf.SESSION_ID.toQueryParams());
         }
-
-        return p;
     },
 
     doActionComplete: function(request, callback)

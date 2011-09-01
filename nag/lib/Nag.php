@@ -779,18 +779,10 @@ class Nag
             $GLOBALS['display_tasklists'] = array_keys($GLOBALS['all_tasklists']);
         }
 
-        /* If the user doesn't own a task list, create one. */
-        if (!empty($GLOBALS['conf']['share']['auto_create']) &&
-            $GLOBALS['registry']->getAuth() &&
-            !count(self::listTasklists(true))) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $share = $GLOBALS['nag_shares']->newShare(
-                $GLOBALS['registry']->getAuth(),
-                strval(new Horde_Support_Randomid()),
-                sprintf(_("Task list of %s"), $identity->getName())
-            );
-            $GLOBALS['nag_shares']->addShare($share);
-            $GLOBALS['display_tasklists'][] = $share->getName();
+        $tasklists = $GLOBALS['injector']->getInstance('Nag_Factory_Tasklists')
+            ->create();
+        if (($new_default = $tasklists->ensureDefaultShare()) !== null) {
+            $GLOBALS['display_tasklists'][] = $new_default;
         }
 
         $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));

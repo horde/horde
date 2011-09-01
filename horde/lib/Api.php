@@ -208,80 +208,22 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Removes user data.
      *
-     * @param string $user      Name of user to remove data for.
-     * @param boolean $allapps  Remove data from all applications?
+     * @param string $user  Name of user to remove data for.
+     * @param string $app   Remove data from this application. If boolean
+     *                      true, removes all applications. If boolean false,
+     *                      removes only base Horde data.
      *
      * @throws Horde_Exception
      */
-    public function removeUserData($user, $allapps = false)
+    public function removeUserData($user, $app = false)
     {
-        global $conf, $injector, $registry;
-
-        if (!$registry->isAdmin() && ($user != $registry->getAuth())) {
-            throw new Horde_Exception(_("You are not allowed to remove user data."));
+        if ($app === true) {
+            $app = null;
+        } elseif ($app === false || !strlen($app)) {
+            $app = false;
         }
 
-        /* Error flag */
-        $haveError = false;
-
-        /* Remove user's prefs */
-        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
-            'user' => $user
-        ));
-        foreach ($registry->listAllApps() as $val) {
-            $prefs->retrieve($val);
-        }
-
-        try {
-            $prefs->remove();
-        } catch (Horde_Exception $e) {
-            $haveError = true;
-        }
-
-        /* Remove user from all groups */
-        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
-        try {
-            $allGroups = $groups->listGroups($user);
-            foreach (array_keys($allGroups) as $id) {
-                $groups->removeUser($id, $user);
-            }
-        } catch (Horde_Group_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            $haveError = true;
-        }
-
-        /* Remove the user from all application permissions */
-        $perms = $injector->getInstance('Horde_Perms');
-        try {
-            $tree = $perms->getTree();
-        } catch (Horde_Perms_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            $haveError = true;
-            $tree = array();
-        }
-
-        foreach (array_keys($tree) as $id) {
-            try {
-                $perm = $perms->getPermissionById($id);
-                if ($perms->getPermissions($perm, $user)) {
-                    // The Horde_Perms::ALL is used if this is a matrix perm,
-                    // otherwise it's ignored in the method and the entry is
-                    // totally removed.
-                    $perm->removeUserPermission($user, Horde_Perms::ALL, true);
-                }
-            } catch (Horde_Perms_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-                $haveError = true;
-            }
-        }
-
-        if ($allapps) {
-            $registry->removeUserData($user);
-        }
-
-        if ($haveError) {
-            throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
-        }
+        $GLOBALS['registry']->removeUserData($user, $app);
     }
 
     /* Groups. */

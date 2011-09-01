@@ -430,16 +430,17 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
+        $error = false;
+
         /* Remove all events owned by the user in all calendars. */
-        $result = Kronolith::getDriver()->removeUserData($user);
+        Kronolith::getDriver()->removeUserData($user);
 
         /* Get the user's default share */
         try {
-            $share = $GLOBALS['kronolith_shares']->getShare($user);
-            $result = $GLOBALS['kronolith_shares']->removeShare($share);
+            $GLOBALS['kronolith_shares']->removeShare($GLOBALS['kronolith_shares']->getShare($user));
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            throw $e;
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
         }
 
         /* Get a list of all shares this user has perms to and remove the
@@ -450,8 +451,12 @@ class Kronolith_Application extends Horde_Registry_Application
                 $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            throw $e;
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+        }
+
+        if ($error) {
+            throw new Kronolith_Exception(sprintf(_("There was an error removing calendars for %s. Details have been logged."), $user));
         }
     }
 

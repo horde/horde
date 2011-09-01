@@ -111,8 +111,24 @@ class Nag_Driver_Kolab extends Nag_Driver
         $task['name'] = $task['summary'];
         unset($task['summary']);
 
+        if (isset($task['due-date'])) {
+            $task['due'] = $task['due-date'];
+            unset($task['due-date']);
+        }
+
+        if (isset($task['start-date'])) {
+            $task['start'] = $task['start-date'];
+            unset($task['start-date']);
+        }
+
         $task['desc'] = $task['body'];
         unset($task['body']);
+
+        if (!empty($task['completed'])) {
+            $task['completed'] = 1;
+        } else {
+            $task['completed'] = 0;
+        }
 
         if ($task['sensitivity'] == 'public') {
             $task['private'] = false;
@@ -278,7 +294,6 @@ class Nag_Driver_Kolab extends Nag_Driver
             'body' => $desc,
             //@todo: Match Horde/Kolab priority values
             'priority' => $priority,
-            'percentage' => $completed,
             //@todo: Extend to Kolab multiple categories (tagger)
             'categories' => $category,
             'parent' => $parent,
@@ -289,10 +304,12 @@ class Nag_Driver_Kolab extends Nag_Driver
         if ($due !== 0) {
             $object['due-date'] = $due;
         }
-        if ($completed == 100) {
-            $object['completed'] = 1;
+        if ($completed) {
+            $object['completed'] = 100;
+            $object['status'] = 'completed';
         } else {
             $object['completed'] = 0;
+            $object['status'] = 'not-started';
         }
         if ($alarm !== 0) {
             $object['alarm'] = $alarm;
@@ -303,7 +320,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             $object['sensitivity'] = 'public';
         }
         if ($completed_date !== null) {
-            $object['completed-date'] = $completed_date;
+            $object['completed_date'] = $completed_date;
         }
         if ($estimate !== 0.0) {
             $object['estimate'] = number_format($estimate, 2);

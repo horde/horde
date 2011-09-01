@@ -90,6 +90,11 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
 
         $this->_checkRequiredConfig(array('adapter', 'username'));
 
+        if (!empty($this->_config['socket'])) {
+            $this->_config['unix_socket'] = $this->_config['socket'];
+            unset($this->_config['socket']);
+        }
+
         if (!empty($this->_config['host']) &&
             $this->_config['host'] == 'localhost') {
             $this->_config['host'] = '127.0.0.1';
@@ -112,6 +117,13 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
         if (isset($dsnOpts['port'])) {
             if (empty($dsnOpts['host'])) {
                 throw new Horde_Db_Exception('Host is required if port is specified');
+            }
+        }
+
+        if (isset($dsnOpts['unix_socket'])) {
+            if (!empty($dsnOpts['host']) ||
+                !empty($dsnOpts['port'])) {
+                throw new Horde_Db_Exception('Host and port must not be set if using a UNIX socket');
             }
         }
 

@@ -20,10 +20,12 @@
 <?php endif; ?>
 <?php foreach ($this->map as $name => $v): ?>
 <?php if (substr($name, 0, 2) != '__'): ?>
+<?php if (empty($this->blobs[$name])): ?>
  <tr>
   <td width="1%" class="nowrap rightAlign" ><strong><label for="<?php echo $name ?>"><?php echo $this->h($this->attributes[$name]['label']) ?></label></strong></td>
   <td class="leftAlign"><input type="text" size="30" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo isset($this->criteria[$name]) ? $this->h($this->criteria[$name]) : '' ?>" /></td>
  </tr>
+<?php endif; ?>
 <?php endif; ?>
 <?php endforeach; ?>
 </table>

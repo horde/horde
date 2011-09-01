@@ -141,8 +141,21 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         $result->is_static = intval($this->_static);
         $result->nodes = $this->_nodes;
         $result->root_nodes = $this->_root_nodes;
+        $result->files = array();
+
+        foreach ($GLOBALS['injector']->getInstance('Horde_Script_Files')->listFiles() as $apps) {
+            foreach ($apps as $file) {
+                /* Ignore files that are already loaded before building the
+                 * tree. */
+                if ($file['f'] == 'prototype.js' ||
+                    $file['f'] == 'hordetree.js' ||
+                    $file['f'] == 'accesskeys.js') {
+                    continue;
+                }
+                $result->files[] = (string)$file['u'];
+            }
+        }
 
         return $result;
     }
-
 }

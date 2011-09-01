@@ -223,6 +223,7 @@ $searchView->shareSources = $shareSources;
 $searchView->attributes = $GLOBALS['attributes'];
 $searchView->allCriteria = $allCriteria;
 $searchView->map = $map;
+$searchView->blobs = $driver->getBlobs();
 $searchView->source = $source;
 $searchView->criteria = $criteria;
 $searchView->value = $val;

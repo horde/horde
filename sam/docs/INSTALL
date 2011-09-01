@@ -1,0 +1,175 @@
+============================================
+|| INSTALLING The SpamAssassin Module 0.1 ||
+============================================
+
+This document contains instructions for installing the SpamAssassin Module
+web-based todo list application on your system.
+
+For information on the capabilities and features of the SpamAssassin Module, see
+the file README in the top-level directory of the SpamAssassin Module
+distribution.
+
+OBTAINING The SpamAssassin Module
+----------------------------------
+(Not yet official)
+
+The SpamAssassin Module can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/sam/
+   ftp://ftp.horde.org/pub/sam/
+
+Bleeding-edge development versions of the SpamAssassin Module are available via
+CVS; see the file docs/HACKING in the Horde distribution for information on
+accessing the Horde CVS repository.
+
+
+PREREQUISITES
+-------------
+
+To function properly, the SpamAssassin Module requires the following:
+
+  1. A working Horde installation.
+
+     The SpamAssassin Module runs within the Horde Application Framework, a set
+     of common tools for Web applications written in PHP. You must install Horde
+     before installing the SpamAssassin Module.
+
+     The Horde Framework can be obtained from the Horde website and
+     FTP server, at
+
+        http://www.horde.org/horde/
+        ftp://ftp.horde.org/pub/horde/
+
+     Many of the SpamAssassin Module's prerequisites are also Horde prerequisites.
+     Be sure to have completed all of the steps in the INSTALL
+     file for the Horde Framework before installing the SpamAssassin Module.
+
+  2. SQL support in PHP.
+
+     The SpamAssassin Module store its data in an SQL database. Build PHP with
+     whichever SQL driver you require; see the Horde INSTALL file for details.
+     Currently the Spam Assassin Module supports PostgreSQL based tables, but
+     should plug into MySQL with the proper DSN.
+
+  3. SpamAssassin.
+
+     The SpamAssassin Module was designed to help simplify the user level
+     configuration of SpamAssassin. SpamAssassin itself must be installed and
+     configured to use the SQL based configuration options that are available
+     for SpamAssassin.
+
+     SpamAssassin can be obtained from http://spamassassin.org/.
+
+INSTALLING The SpamAssassin Module
+-----------------------------------
+
+The SpamAssassin Module is written in PHP, and must be installed in a
+web-accessible directory. The precise location of this directory will differ
+from system to system. Conventionally, the SpamAssassin Module is installed
+directly underneath Horde in the webserver's document tree.
+
+Since the SpamAssassin Module is written in PHP, there is no compilation
+necessary; simply expand the distribution where you want it to reside and rename
+the root directory of the distribution to whatever you wish to appear
+in the URL. For example, with the Apache webserver's default document
+root of '/usr/local/apache/htdocs', you would type:
+
+   cd /usr/local/apache/htdocs/horde
+   tar zxvf /path/to/sam-0.0.1.tar.gz
+   mv sam-0.0.1 sam
+
+and would then find the SpamAssassin Module at the URL
+
+   http://your-server/horde/sam/
+
+CONFIGURING The SpamAssassin Module
+------------------------------------
+
+1. Configuring Horde for the SpamAssassin Module
+
+   a. Register the application
+
+      In horde/config/registry.php, find the applications['sam'] stanza.
+      The 'show' parameter should already be marked '=> true'.
+      If you have changed the location of the SpamAssassin Module relative to
+      Horde, either in the URL or in the filesystem or both, you must
+      update the 'fileroot' and 'webroot' settings to their correct
+      values.
+
+2. Creating the database table
+
+   The specific steps to create the SpamAssassin Module database table depend
+   on which database you've chosen to use.
+
+   First, look in scripts/drivers/ to see if a script already
+   exists for your database type. If so, you should be
+   able to simply execute that script as superuser in your
+   database. (Note that executing the script as the "horde" user will
+   probably fail when granting privileges.)
+
+   If such a script does not exist, you'll need to build your own, using
+   the file sam_*.sql as a starting point. If you need
+   assistance in creating databases, you may wish to let us know on
+   the SpamAssassin Module mailing list.
+
+3. Configuring The SpamAssassin Module.
+
+   To configure the SpamAssassin Module, change to the config/ directory of the
+   installed distribution, and make copies of all of the configuration
+   "dist" files without the "dist" suffix:
+
+      cd config/
+      for foo in *.dist; do cp $foo `basename $foo .dist`; done
+
+   Documentation on the format of those files can be found in each file.
+
+   You must at least configure the SpamAssassin Module in conf.php.
+
+   The other files in config/ need only be modified if you wish
+   to customize the SpamAssassin Module's appearance or behavior, as the
+   defaults will be correct for most sites.
+
+   Note for international users:  The SpamAssassin Module uses GNU gettext to
+   provide local translations of text displayed by applications; the
+   translations are found in the po/ directory.  If a translation is not yet
+   available for your locale (and you wish to create one), or if you're having
+   trouble using a provided translation, please see the horde/docs/TRANSLATIONS
+   file for instructions.
+
+4. Testing The SpamAssassin Module
+
+   Use The SpamAssassin Module to change the default user configuration of
+   SpamAssassin. Test at least the following:
+
+     - Add a new Required Hits value.
+     - Modify an existing Required Hits setting.
+
+OBTAINING SUPPORT
+-----------------
+
+If you encounter problems with the SpamAssassin Module, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), is available on the Web
+at
+
+  http://www.horde.org/faq/
+
+The Horde Project runs a number of mailing lists, for individual
+applications and for issues relating to the project as a whole.
+Information, archives, and subscription information can be found at
+
+  http://www.horde.org/mail/
+
+Lastly, Horde developers, contributors and users may also be found on IRC,
+on the channel #horde on the Freenode Network (irc.freenode.net).
+
+Please keep in mind that the SpamAssassin Module is free software written by
+volunteers. For information on reasonable support expectations, please read
+
+  http://www.horde.org/support.php
+
+Thanks for using the SpamAssassin Module!
+
+The Horde team
+
+$Horde: sam/docs/INSTALL,v 1.10 2007/06/19 09:56:34 jan Exp $

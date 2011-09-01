@@ -99,6 +99,14 @@ $this->applications = array(
         'menu_parent' => 'imp'
     ),
 
+    'sam' => array(
+        'name' => _("Spam"),
+        // Add this line to registry.local.php if you want Sam to handle the
+        // blacklist and whitelist filters instead of Ingo:
+        // $this->applications['sam']['provides'] = array('mail/blacklistFrom', 'mail/showBlacklist', 'mail/whitelistFrom', 'mail/showWhitelist');
+        'menu_parent' => 'imp'
+    ),
+
     'imp-menu' => array(
         'app' => 'imp',
         'menu_parent' => 'imp',

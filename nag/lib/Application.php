@@ -212,11 +212,12 @@ class Nag_Application extends Horde_Registry_Application
         try {
             $share = $GLOBALS['nag_shares']->getShare($user);
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::logMessage($e, 'NOTICE');
         }
 
         /* Get the list of all tasks */
         $tasks = Nag::listTasks(null, null, null, $user, 1);
+        $error = false;
         $uids = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
@@ -228,14 +229,13 @@ class Nag_Application extends Horde_Registry_Application
             $this->delete($uid);
         }
 
-
         /* ...and finally, delete the actual share */
         if (!empty($share)) {
             try {
                 $GLOBALS['nag_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-                throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
             }
         }
 
@@ -246,7 +246,11 @@ class Nag_Application extends Horde_Registry_Application
                $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+        }
+
+        if ($error) {
             throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
         }
     }

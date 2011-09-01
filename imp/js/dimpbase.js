@@ -545,34 +545,34 @@ var DimpBase = {
                 }
                 this.loadingImg('viewport', false);
             }.bind(this),
-            onAjaxRequest: function(id) {
-                var p = $H();
-                if (this.folderswitch && this.isSearch(id, true)) {
-                    p.set('qsearchmbox', this.search.mbox);
+            onAjaxRequest: function(params) {
+                var tmp = params.get('cache'),
+                    view = params.get('view');
+
+                if (this.folderswitch && this.isSearch(view, true)) {
+                    params.set('qsearchmbox', this.search.mbox);
                     if (this.search.filter) {
-                        p.update({
-                            qsearchfilter: this.search.filter
-                        });
+                        params.set('qsearchfilter', this.search.filter);
                     } else if (this.search.flag) {
-                        p.update({
+                        params.update({
                             qsearchflag: this.search.flag,
                             qsearchflagnot: Number(this.search.not)
                         });
                     } else {
-                        p.set('qsearch', $F('qsearch_input'));
+                        params.set('qsearch', $F('qsearch_input'));
                     }
                 }
-                return DimpCore.addRequestParams(p);
+
+                if (tmp) {
+                    params.set('cache', DimpCore.toRangeString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
+                }
+                params.set('view', view.base64urlEncode());
+
+                DimpCore.addRequestParams(params);
             }.bind(this),
             onAjaxResponse: function(o, h) {
                 DimpCore.doActionComplete(o);
             },
-            onCachedList: function(id) {
-                var vs = this.viewport.createSelectionBuffer(id);
-                return vs.size()
-                    ? DimpCore.toRangeString(DimpCore.selectionToRange(vs))
-                    : '';
-            }.bind(this),
             onContentOffset: function(offset) {
                 if (this.uid) {
                     var row = this.viewport.createSelectionBuffer().search({ imapuid: { equal: this.uid }, view: { equal: [ this.folder ] } });

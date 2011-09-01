@@ -645,7 +645,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-08-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [mjr] Add remove button to image fields (Request # 9870).
+* [mjr] Add remove button to image fields (Request #9870).
    </notes>
   </release>
   <release>

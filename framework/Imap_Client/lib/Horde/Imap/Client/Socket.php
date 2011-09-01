@@ -12,7 +12,7 @@
  *   RFC 2221 - LOGIN-REFERRALS
  *   RFC 2342 - NAMESPACE
  *   RFC 2595/4616 - TLS & AUTH=PLAIN
- *   RFC 2831 - DIGEST-MD5 authentication mechanism.
+ *   RFC 2831 - DIGEST-MD5 authentication mechanism (obsoleted by RFC 6331)
  *   RFC 2971 - ID
  *   RFC 3348 - CHILDREN
  *   RFC 3501 - IMAP4rev1 specification
@@ -191,8 +191,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _getNamespaces()
     {
-        $this->login();
-
         if (!$this->queryCapability('NAMESPACE')) {
             return array();
         }
@@ -309,8 +307,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $auth_methods = $this->queryCapability('AUTH');
             if (!empty($auth_methods)) {
-                // Add SASL methods.
-                $imap_auth_mech = array_intersect(array('DIGEST-MD5', 'CRAM-MD5'), $auth_methods);
+                // Add SASL methods. Prefer CRAM-MD5 over DIGEST-MD5, as the
+                // latter has been obsoleted (RFC 6331).
+                $imap_auth_mech = array_intersect(array('CRAM-MD5', 'DIGEST-MD5'), $auth_methods);
 
                 // Next, try 'PLAIN' authentication.
                 if (in_array('PLAIN', $auth_methods)) {
@@ -517,7 +516,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'DIGEST-MD5':
-            // RFC 2831/4422
+            // RFC 2831/4422; obsoleted by RFC 6331
             $ob = $this->_sendLine(array(
                 'AUTHENTICATE',
                 array('t' => Horde_Imap_Client::DATA_ATOM, 'v' => $method)
@@ -525,8 +524,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 'noparse' => true
             ));
 
-            $auth_sasl = Auth_SASL::factory('digestmd5');
-            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode($ob['line']), $this->_params['hostspec'], 'imap'));
+            $response = base64_encode(new Horde_Imap_Client_Auth_DigestMD5(
+                $this->_params['username'],
+                $this->getParam('password'),
+                base64_decode($ob['line']),
+                $this->_params['hostspec'],
+                'imap'
+            ));
             $ob = $this->_sendLine($response, array(
                 'debug' => '[DIGEST-MD5 Response]',
                 'noparse' => true,
@@ -776,8 +780,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _openMailbox($mailbox, $mode)
     {
-        $this->login();
-
         $condstore = false;
         $qresync = isset($this->_init['enabled']['QRESYNC']);
 
@@ -861,8 +863,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _createMailbox($mailbox, $opts)
     {
-        $this->login();
-
         $cmd = array(
             'CREATE',
             array('t' => Horde_Imap_Client::DATA_MAILBOX, 'v' => $mailbox)
@@ -886,8 +886,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _deleteMailbox($mailbox)
     {
-        $this->login();
-
         // Some IMAP servers will not allow a delete of a currently open
         // mailbox.
         if ($this->_selected == $mailbox) {
@@ -922,8 +920,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _renameMailbox($old, $new)
     {
-        $this->login();
-
         // RENAME returns no untagged information (RFC 3501 [6.3.5])
         $this->_sendLine(array(
             'RENAME',
@@ -936,8 +932,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _subscribeMailbox($mailbox, $subscribe)
     {
-        $this->login();
-
         // SUBSCRIBE/UNSUBSCRIBE returns no untagged information (RFC 3501
         // [6.3.6 & 6.3.7])
         $this->_sendLine(array(
@@ -950,8 +944,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _listMailboxes($pattern, $mode, $options)
     {
-        $this->login();
-
         // RFC 5258 [3.1]: Use LSUB for MBOX_SUBSCRIBED if no other server
         // return options are specified.
         if (($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) &&
@@ -1226,8 +1218,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
             ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY)) {
             $this->openMailbox($mailbox);
-        } else {
-            $this->login();
         }
 
         foreach ($items as $key => $val) {
@@ -1311,8 +1301,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _append($mailbox, $data, $options)
     {
-        $this->login();
-
         // Check for MULTIAPPEND extension (RFC 3502)
         if ((count($data) > 1) && !$this->queryCapability('MULTIAPPEND')) {
             $result = new Horde_Imap_Client_Ids();
@@ -2173,8 +2161,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _setComparator($comparator)
     {
-        $this->_login();
-
         $cmd = array('COMPARATOR');
         foreach ($comparator as $val) {
             $cmd[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val);
@@ -2186,8 +2172,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _getComparator()
     {
-        $this->_login();
-
         $this->_sendLine('COMPARATOR');
 
         return isset($this->_temp['comparator'])
@@ -3167,8 +3151,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _setQuota($root, $options)
     {
-        $this->login();
-
         $limits = array();
         if (isset($options['messages'])) {
             $limits[] = 'MESSAGE';
@@ -3190,8 +3172,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _getQuota($root)
     {
-        $this->login();
-
         $this->_temp['quotaresp'] = array();
         $this->_sendLine(array(
             'GETQUOTA',
@@ -3223,8 +3203,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _getQuotaRoot($mailbox)
     {
-        $this->login();
-
         $this->_temp['quotaresp'] = array();
         $this->_sendLine(array(
             'GETQUOTAROOT',
@@ -3237,8 +3215,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _setACL($mailbox, $identifier, $options)
     {
-        $this->login();
-
         // SETACL/DELETEACL returns no untagged information (RFC 4314 [3.1 &
         // 3.2]).
         if (empty($options['rights']) && !empty($options['remove'])) {
@@ -3261,8 +3237,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _getACL($mailbox)
     {
-        $this->login();
-
         $this->_temp['getacl'] = array();
         $this->_sendLine(array(
             'GETACL',
@@ -3293,8 +3267,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _listACLRights($mailbox, $identifier)
     {
-        $this->login();
-
         unset($this->_temp['listaclrights']);
         $this->_sendLine(array(
             'LISTRIGHTS',
@@ -3325,8 +3297,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _getMyACLRights($mailbox)
     {
-        $this->login();
-
         unset($this->_temp['myrights']);
         $this->_sendLine(array(
             'MYRIGHTS',
@@ -3352,8 +3322,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _getMetadata($mailbox, $entries, $options)
     {
-        $this->login();
-
         $this->_temp['metadata'] = array();
         $queries = array();
 

@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-08-30</date>
- <time>14:03:41</time>
+ <date>2011-08-31</date>
+ <time>01:01:07</time>
  <version>
-  <release>1.4.2</release>
-  <api>1.4.0</api>
+  <release>1.5.0</release>
+  <api>1.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,7 +40,10 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [jan] Allow to pass a configuration array to the LDAP factory.
+* [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
+* [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
+* [mms] Fix cookie timeouts.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1555,15 +1558,17 @@
   </release>
   <release>
    <version>
-    <release>1.4.2</release>
-    <api>1.4.0</api></version>
+    <release>1.5.0</release>
+    <api>1.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-08-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
+* [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
+* [mms] Fix cookie timeouts.
    </notes>
   </release>
  </changelog>

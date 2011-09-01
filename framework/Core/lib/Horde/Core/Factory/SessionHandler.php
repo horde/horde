@@ -76,7 +76,6 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
             ));
         }
 
-
         return new Horde_SessionHandler(
             $storage,
             array(

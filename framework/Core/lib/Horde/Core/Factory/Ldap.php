@@ -37,16 +37,19 @@ class Horde_Core_Factory_Ldap extends Horde_Core_Factory_Base
     /**
      * Return the LDAP instance.
      *
-     * @param string $app   The application.
-     * @param string $type  The type.
+     * @param string $app            The application.
+     * @param string|array $backend  The backend, see Horde::getDriverConfig().
+     *                               If this is an array, this is used as the
+     *                               configuration array (@since Horde_Core
+     *                               1.5.0).
      *
      * @return Horde_Ldap  The singleton instance.
      * @throws Horde_Exception
      * @throws Horde_Ldap_Exception
      */
-    public function create($app = 'horde', $type = null)
+    public function create($app = 'horde', $backend = null)
     {
-        $sig = $app . '|' . $type;
+        $sig = hash('md5', serialize(array($app, $backend)));
 
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];
@@ -56,11 +59,13 @@ class Horde_Core_Factory_Ldap extends Horde_Core_Factory_Base
             ? false
             : $GLOBALS['registry']->pushApp($app);
 
-        $config = $this->getConfig($type);
+        $config = is_array($backend)
+            ? $backend
+            : $this->getConfig($backend);
 
         /* BC check for old configuration without 'user' setting, so that
-         administrators can still log in through LDAP and update the
-         configuration. */
+         * administrators can still log in through LDAP and update the
+         * configuration. */
         if (!isset($config['user'])) {
             $config['user'] = $config;
         }
@@ -89,9 +94,9 @@ class Horde_Core_Factory_Ldap extends Horde_Core_Factory_Base
 
     /**
      */
-    public function getConfig($type)
+    public function getConfig($backend)
     {
-        return Horde::getDriverConfig($type, 'ldap');
+        return Horde::getDriverConfig($backend, 'ldap');
     }
 
 }

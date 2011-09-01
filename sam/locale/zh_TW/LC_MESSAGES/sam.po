@@ -1,0 +1,242 @@
+# Sam Traditional Chinese Translation.
+# Copyright 2002 David Chang. 張良文,台灣
+# David Chang <david@tmv.gov.tw>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Sam 0.0.2-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2003-11-24 08:44+0800\n"
+"PO-Revision-Date: 2011-08-30 18:25+0200\n"
+"Last-Translator: David Chang <david@tmv.gov.tw>\n"
+"Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: blacklist.php:32
+msgid "Black List Manager"
+msgstr "黑名單管理員"
+
+#: templates/menu/menu.inc:13
+msgid "Blacklist"
+msgstr "黑名單"
+
+#: lib/BlacklistForm.php:27
+msgid "Blacklist From"
+msgstr "寄件黑名單"
+
+#: lib/BlacklistForm.php:22
+msgid "Blacklist Manager"
+msgstr "黑名單管理員"
+
+#: lib/BlacklistForm.php:28
+msgid "Blacklist To"
+msgstr "收件黑名單"
+
+#: lib/Driver/amavisd_sql.php:171
+#, php-format
+msgid "Cannot create recipient %s: %s"
+msgstr ""
+
+#: blacklist.php:21 spam.php:26 whitelist.php:21
+#, php-format
+msgid "Cannot get options: %s"
+msgstr "無法獲取選項: %s"
+
+#: blacklist.php:58 spam.php:68 whitelist.php:58
+#, php-format
+msgid "Cannot set options: %s"
+msgstr "無法設定選項: %s"
+
+#: config/attributes.php.dist:103
+msgid "DeFang MIME"
+msgstr ""
+
+#: templates/menu/menu.inc:24
+msgid "Help"
+msgstr "說明"
+
+#: config/attributes.php.dist:51
+msgid "Hit Level"
+msgstr ""
+
+#: config/attributes.php.dist:73
+msgid "Kill Level"
+msgstr ""
+
+#: config/prefs.php.dist:10
+msgid "Language"
+msgstr "語言"
+
+#: lib/BlacklistForm.php:46 lib/OptionsForm.php:51 lib/WhitelistForm.php:46
+msgid "Make Settings Global"
+msgstr ""
+
+#: lib/SAM.php:60
+#, php-format
+msgid "No '%s' element found in backend configuration."
+msgstr "在伺服端的設定資料中找不到關於 '%s' 的元件."
+
+#: lib/SAM.php:58
+msgid "No backend configured for this host"
+msgstr "此主機的伺服端未設定"
+
+#: lib/SAM.php:35
+msgid "No backends configured in backends.php"
+msgstr "尚未在 backends.php 中設定伺服端資訊"
+
+#: blacklist.php:37 spam.php:42 whitelist.php:37
+msgid "Only an administrator may change the global defaults."
+msgstr "只有一位管理員可以變更廣域設定."
+
+#: templates/menu/menu.inc:16
+msgid "Options"
+msgstr "選項"
+
+#: config/attributes.php.dist:148
+msgid "Receive Bad Headers"
+msgstr ""
+
+#: config/attributes.php.dist:143
+msgid "Receive Banned Files"
+msgstr ""
+
+#: config/attributes.php.dist:138
+msgid "Receive Spam"
+msgstr ""
+
+#: config/attributes.php.dist:133
+msgid "Receive Viruses"
+msgstr ""
+
+#: lib/Driver/amavisd_sql.php:174
+#, php-format
+msgid "Recipient created: %s"
+msgstr ""
+
+#: config/attributes.php.dist:93
+msgid "Report Header"
+msgstr ""
+
+#: config/attributes.php.dist:83
+msgid "Rewrite Subject"
+msgstr "改寫主旨"
+
+#: lib/base.php:22
+msgid ""
+"SAM is not correctly configured or there was an error loading configuration "
+"files."
+msgstr ""
+
+#: config/attributes.php.dist:88
+msgid "SPAM Level Stars"
+msgstr "SPAM 星級分等"
+
+#: lib/BlacklistForm.php:24 lib/OptionsForm.php:24 lib/WhitelistForm.php:24
+msgid "Save"
+msgstr "儲存"
+
+#: config/prefs.php.dist:20
+msgid "Select your preferred language:"
+msgstr "選擇你的偏好語言:"
+
+#: config/prefs.php.dist:11
+msgid "Set the your preferred display language."
+msgstr "設定你要用來顯示的偏好語言."
+
+#: config/attributes.php.dist:128
+msgid "Skip Bad Header Checks"
+msgstr "忽略壞表頭的檢查"
+
+#: config/attributes.php.dist:123
+msgid "Skip Banned File Checks"
+msgstr ""
+
+#: config/attributes.php.dist:108
+msgid "Skip RBL Checks"
+msgstr "忽略 RBL 檢查"
+
+#: config/attributes.php.dist:118
+msgid "Skip Spam Checks"
+msgstr "忽略垃圾郵件檢查"
+
+#: config/attributes.php.dist:113
+msgid "Skip Virus Checks"
+msgstr "忽略病毒檢查"
+
+#: spam.php:37 templates/menu/menu.inc:7 lib/OptionsForm.php:22
+msgid "Spam Options"
+msgstr "垃圾郵件選項"
+
+#: config/attributes.php.dist:78
+msgid "Subject Tag"
+msgstr "主旨標籤"
+
+#: config/attributes.php.dist:46
+msgid "Tag Level"
+msgstr "標籤等級"
+
+#: spam.php:18
+msgid "The Spam Rules page is not enabled."
+msgstr ""
+
+#: blacklist.php:41 spam.php:46 whitelist.php:41
+msgid "The configured backend does not support global defaults."
+msgstr ""
+
+#: blacklist.php:60
+msgid "Updated global blacklists"
+msgstr "廣域黑名單已更新"
+
+#: spam.php:70
+msgid "Updated global default rules"
+msgstr "廣域預設規則已更新"
+
+#: whitelist.php:60
+msgid "Updated global whitelists"
+msgstr "廣域友善名單已更新"
+
+#: blacklist.php:62
+msgid "Updated user blacklists"
+msgstr "使用者黑名單已更新"
+
+#: spam.php:72
+msgid "Updated user spam rules"
+msgstr "使用者的垃圾郵件規則已更新"
+
+#: whitelist.php:62
+msgid "Updated user whitelists"
+msgstr "使用者的友善名單已更新"
+
+#: config/attributes.php.dist:98
+msgid "Use Terse Report"
+msgstr "使用精簡報告"
+
+#: prefs.php:36
+msgid "User Options"
+msgstr "使用者選項"
+
+#: whitelist.php:32
+msgid "White List Manager"
+msgstr "友善名單管理員"
+
+#: templates/menu/menu.inc:10
+msgid "Whitelist"
+msgstr "友善名單"
+
+#: lib/WhitelistForm.php:27
+msgid "Whitelist From"
+msgstr "寄件友善名單"
+
+#: lib/WhitelistForm.php:22
+msgid "Whitelist Manager"
+msgstr "友善名單管理員"
+
+#: lib/WhitelistForm.php:28
+msgid "Whitelist To"
+msgstr "收件友善名單"
+
+#: config/prefs.php.dist:9
+msgid "Your Information"
+msgstr "你的個人資訊"
