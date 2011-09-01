@@ -34,11 +34,11 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
      *
      * @var string
      */
-    protected $default_name = 'Task list of test';
+    protected $default_name = 'Task list of test@example.com';
 
     public static function setUpBeforeClass()
     {
-        $GLOBALS['prefs'] = new Horde_Prefs('kronolith', new Horde_Prefs_Storage_Null('test'));
+        $GLOBALS['prefs'] = new Horde_Prefs('kronolith', new Horde_Prefs_Storage_Null('test@example.com'));
         $GLOBALS['registry'] = new Nag_Stub_Registry();
         parent::setUpBeforeClass();
     }
@@ -50,7 +50,7 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
 
     public function tearDown()
     {
-        foreach ($GLOBALS['nag_shares']->listShares('test') as $share) {
+        foreach ($GLOBALS['nag_shares']->listShares('test@example.com') as $share) {
             $GLOBALS['nag_shares']->removeShare($share);
         }
         parent::tearDown();
@@ -67,7 +67,7 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
     {
         $GLOBALS['conf']['share']['auto_create'] = true;
         Nag::initialize();
-        $shares = $GLOBALS['nag_shares']->listShares('test');
+        $shares = $GLOBALS['nag_shares']->listShares('test@example.com');
         $default = array_pop($shares);
         $this->assertEquals(
             $this->default_name,
@@ -80,6 +80,19 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
         $GLOBALS['conf']['share']['auto_create'] = false;
         Nag::initialize();
         $this->assertEquals(0, count($GLOBALS['display_tasklists']));
+    }
+
+    public function testDefaultShareDeletePermission()
+    {
+        $GLOBALS['conf']['share']['auto_create'] = true;
+        Nag::initialize();
+        $shares = $GLOBALS['nag_shares']->listShares('test@example.com');
+        $default = array_pop($shares);
+        $this->assertTrue(
+            $default->hasPermission(
+                $GLOBALS['registry']->getAuth(), Horde_Perms::DELETE
+            )
+        );
     }
 
 }
