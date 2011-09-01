@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [gwr] Avoid including the owner name into the default share.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1036,7 +1036,7 @@
    <date>2011-08-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [gwr] Avoid including the owner name into the default share.
    </notes>
   </release>
  </changelog>
