@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-31</date>
- <time>23:11:33</time>
+ <date>2011-09-01</date>
+ <time>10:58:01</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -107,7 +107,6 @@
     <file name="Nag.php" role="horde" />
     <file name="QuickParser.php" role="horde" />
     <file name="Task.php" role="horde" />
-    <file name="Tasklists.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ar">
@@ -698,7 +697,6 @@
    <install as="nag/lib/Nag.php" name="lib/Nag.php" />
    <install as="nag/lib/QuickParser.php" name="lib/QuickParser.php" />
    <install as="nag/lib/Task.php" name="lib/Task.php" />
-   <install as="nag/lib/Tasklists.php" name="lib/Tasklists.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
@@ -1034,7 +1032,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-31</date>
+   <date>2011-09-01</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [gwr] Fix Kolab object attribute handling for tasks.

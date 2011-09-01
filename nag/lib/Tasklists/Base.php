@@ -9,7 +9,6 @@
  * @package Nag
  */
 abstract class Nag_Tasklists_Base
-implements Nag_Tasklists
 {
     /**
      * The share backend.
