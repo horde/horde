@@ -155,13 +155,12 @@ class Ingo
     static public function validateFolder(Horde_Variables $vars, $name)
     {
         $new_id = $name . '_new';
-        if (isset($vars->$new_id) &&
-            $GLOBALS['registry']->hasMethod('mail/createFolder') &&
-            $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($vars->$new_id, 'UTF-8', 'UTF7-IMAP')))) {
-            return $vars->$new_id;
-        }
-
-        if ($vars->$name) {
+        if (isset($vars->$new_id)) {
+            if ($GLOBALS['registry']->hasMethod('mail/createFolder') &&
+                $GLOBALS['registry']->call('mail/createFolder', array(Horde_String::convertCharset($vars->$new_id, 'UTF-8', 'UTF7-IMAP')))) {
+                return $vars->$new_id;
+            }
+        } elseif ($vars->$name) {
             return $vars->$name;
         }
 
