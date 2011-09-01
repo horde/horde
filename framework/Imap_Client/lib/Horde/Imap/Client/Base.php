@@ -639,8 +639,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function logout()
     {
-        $this->_logout();
-        $this->_isAuthenticated = false;
+        if ($this->_isAuthenticated) {
+            $this->_logout();
+            $this->_isAuthenticated = false;
+        }
         $this->_selected = null;
         $this->_mode = 0;
     }
