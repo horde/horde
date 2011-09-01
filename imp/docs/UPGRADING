@@ -29,6 +29,19 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+
+Upgrading IMP From 5.0.x To 5.0.12
+==================================
+
+MIME Viewer Options (mime_drivers.php)
+--------------------------------------
+
+The 'allthumbs' option has been removed from the HTML driver.  Image thumbnail
+previews are now always shown if an image conversion utility is present on the
+system.
+
+
+
 Upgrading IMP From 5.0.x To 5.0.10
 ==================================
 
@@ -38,6 +51,7 @@ Configuration Options (conf.php)
 The 'allow_resume_all' option has been removed.  Only messages specifically
 marked as drafts can be resumed; however, all messages are given the option
 to "Edit As New".
+
 
 
 Upgrading IMP From 4.x To 5.x
@@ -286,6 +300,7 @@ Javascript HTML Editor
 Support has been added for FCKeditor as an option for the javascript HTML
 editor available on the compose page.  You must have Horde 3.2 or later
 installed to use this editor.
+
 
 
 Upgrading IMP From 4.0.x To 4.1.x

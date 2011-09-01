@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-31</date>
- <time>14:11:56</time>
+ <time>23:58:40</time>
  <version>
   <release>5.0.12</release>
   <api>5.0.0</api>
@@ -35,6 +35,7 @@
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
 * [mms] More workarounds for broken suhosin extension (Bug #10462).
+* [mms] Always show image thumbnail previews, if an image conversion utility is present on the system.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2428,6 +2429,7 @@
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [mms] More workarounds for broken suhosin extension (Bug #10462).
+* [mms] Always show image thumbnail previews, if an image conversion utility is present on the system.
    </notes>
   </release>
  </changelog>

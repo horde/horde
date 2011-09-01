@@ -2,6 +2,8 @@
 v5.0.12-git
 -----------
 
+[mms] Always show image thumbnail previews, if an image conversion utility is
+      present on the system.
 [mms] More workarounds for broken suhosin extension (Bug #10462).
 
 
