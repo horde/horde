@@ -88,6 +88,22 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
         $this->assertEquals(2, self::$driver->tasks->count());
     }
 
+    public function testDueTasks()
+    {
+        $due = time() + 20;
+        $id = $this->_add('TEST','Some test task.', 0, $due);
+        $result = self::$driver->get($id[0]);
+        $this->assertEquals($due, $result->due);
+    }
+
+    public function testStartTasks()
+    {
+        $start = time() + 20;
+        $id = $this->_add('TEST','Some test task.', $start);
+        $result = self::$driver->get($id[0]);
+        $this->assertEquals($start, $result->start);
+    }
+
     public function testDelete()
     {
         $this->_add('TEST','Some test task.');
