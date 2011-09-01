@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-08-31</date>
- <time>10:53:23</time>
+ <time>23:46:48</time>
  <version>
   <release>1.0.16</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -547,7 +547,7 @@
    <date>2011-08-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
    </notes>
   </release>
  </changelog>

@@ -402,8 +402,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         if (strcasecmp($mailbox, 'INBOX') !== 0) {
             $this->_exception('Mailboxes other than INBOX not supported on POP3 servers.', 'POP3_NOTSUPPORTED');
         }
-
-        $this->login();
     }
 
     /**
