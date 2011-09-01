@@ -132,7 +132,7 @@ class Hermes_Application extends Horde_Registry_Application
                 false,
                 array(
                     'icon' => Horde_Themes::img('timer-start.png'),
-                    'url' => 'javascript:' . Horde::popupJs(Horde::url('start.php'), array('height' => 100, 'width' => 400))
+                    'url' => 'javascript:' . Horde::popupJs(Horde::url('start.php'), array('height' => 200, 'width' => 400))
                 )
             );
 
