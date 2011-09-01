@@ -527,8 +527,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Poll mailboxes.
      *
      * See the list of variables needed for _changed() and _viewPortData().
-     * Additional variables used:
-     *   - view: (string) The current view (mailbox).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -649,7 +647,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - requestid: (string) Request ID. See js/viewport.js.
      *   - sortby: (integer) The Horde_Imap_Client sort constant.
      *   - sortdir: (integer) 0 for ascending, 1 for descending.
-     *   - view: (string) The current full mailbox name.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -1362,7 +1359,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * _generateDeleteResult().  Additional variables used:
      *   - uid: (string) Indices of the messages to purge (IMAP sequence
      *          string).
-     *   - view: (string) The current full mailbox.
      *
      * @return mixed  False on failure, or an object (see
      *                _generateDeleteResult() for format).
@@ -1914,7 +1910,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * Variables used:
      *   - cacheid: (string) The browser (ViewPort) cache identifier.
      *   - forceUpdate: (integer) If 1, forces an update.
-     *   - view: (string) The current ViewPort view (mailbox).
      *
      * @param boolean $rw  Open mailbox as READ+WRITE?
      *
