@@ -852,6 +852,10 @@ class Whups_Driver_Sql extends Whups_Driver
     public function getTicketsByProperties(array $info, $munge = true,
                                            $perowner = false)
     {
+        if (isset($info['queue']) && !count($info['queue'])) {
+            return array();
+        }
+
         // Search conditions.
         $where = $this->_generateWhere(
             'whups_tickets',
