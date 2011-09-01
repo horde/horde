@@ -220,6 +220,14 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     {
         $this->_config['adapter'] = 'pgsql';
 
+        // PDO for PostgreSQL does not accept a socket argument
+        // in the connection string; the location can be set via the
+        // "host" argument instead.
+        if (!empty($this->_config['socket'])) {
+            $this->_config['host'] = $this->_config['socket'];
+            unset($this->_config['socket']);
+        }
+
         return parent::_parseConfig();
     }
 

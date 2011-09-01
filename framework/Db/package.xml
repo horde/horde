@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-*
+* [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -494,7 +494,7 @@
    <date>2011-08-31</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
-*
+* [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
    </notes>
   </release>
  </changelog>
