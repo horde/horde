@@ -29,12 +29,23 @@
  */
 class Nag_Unit_Nag_Base extends Nag_TestCase
 {
+    /**
+     * The default share name expected to be used.
+     *
+     * @var string
+     */
+    protected $default_name = 'Task list of test';
+
     public static function setUpBeforeClass()
     {
         $GLOBALS['prefs'] = new Horde_Prefs('kronolith', new Horde_Prefs_Storage_Null('test'));
         $GLOBALS['registry'] = new Nag_Stub_Registry();
-        $GLOBALS['injector'] = self::getInjector();
         parent::setUpBeforeClass();
+    }
+
+    public function setUp()
+    {
+        $GLOBALS['injector'] = self::getInjector();
     }
 
     public function tearDown()
@@ -58,6 +69,17 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
         Nag::initialize();
         $shares = $GLOBALS['nag_shares']->listShares('test');
         $default = array_pop($shares);
-        $this->assertEquals('Task list of test', $default->get('name'));
+        $this->assertEquals(
+            $this->default_name,
+            $default->get('name')
+        );
     }
+
+    public function testNoAutoCreate()
+    {
+        $GLOBALS['conf']['share']['auto_create'] = false;
+        Nag::initialize();
+        $this->assertEquals(0, count($GLOBALS['display_tasklists']));
+    }
+
 }

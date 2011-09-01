@@ -36,8 +36,16 @@ class Nag_Unit_Nag_KolabTest extends Nag_Unit_Nag_Base
 {
     protected $backupGlobals = false;
 
+    /**
+     * The default share name expected to be used.
+     *
+     * @var string
+     */
+    protected $default_name = 'Tasks';
+
     public static function setUpBeforeClass()
     {
+        $GLOBALS['conf']['tasklists']['driver'] = 'kolab';
         $GLOBALS['nag_shares'] = self::createKolabShares(
             self::createKolabStorage()
         );
