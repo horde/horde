@@ -39,6 +39,13 @@ class IMP_Test extends Horde_Test
     );
 
     /**
+     * PEAR modules list.
+     *
+     * @var array
+     */
+    protected $_pearList = array();
+
+    /**
      * Required configuration files.
      *
      * @var array
