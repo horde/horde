@@ -1382,15 +1382,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *                                the automatically determined value.
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * body - The text of the body part
-     * format - The format of the body message
-     * headers - The headers of the message to use for the reply
-     * identity - The identity to use for the reply based on the original
+     *   - body: The text of the body part
+     *   - format: The format of the body message
+     *   - headers: The headers of the message to use for the reply
+     *   - identity: The identity to use for the reply based on the original
      *            message's addresses.
-     * type - The reply type used (either self::REPLY_ALL, self::REPLY_LIST,
-     *        or self::REPLY_SENDER).
-     * </pre>
+     *   - reply_list_id: TODO
+     *   - reply_recip: TODO
+     *   - type: The reply type used (either self::REPLY_ALL,
+     *           self::REPLY_LIST, or self::REPLY_SENDER).
      */
     public function replyMessage($type, $contents, $to = null)
     {
@@ -1551,6 +1551,26 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $this->changed = 'changed';
         }
         unset($ret['charset']);
+
+        if ($type == self::REPLY_AUTO) {
+            switch ($reply_type) {
+            case self::REPLY_ALL:
+                try {
+                    $recip_list = $this->recipientList($header);
+                    $ret['reply_recip'] = count($recip_list['list']);
+                } catch (IMP_Compose_Exception $e) {
+                    $ret['reply_recip'] = 0;
+                }
+                break;
+
+            case self::REPLY_LIST:
+                $addr_ob = Horde_Mime_Address::parseAddressList($h->getValue('list-id'));
+                if (isset($addr_ob[0]['personal'])) {
+                    $ret['reply_list_id'] = $addr_ob[0]['personal'];
+                }
+                break;
+            }
+        }
 
         return array_merge(array(
             'headers' => $header,

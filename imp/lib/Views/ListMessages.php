@@ -14,6 +14,9 @@
  */
 class IMP_Views_ListMessages
 {
+    /* String used to separate mailboxes/indexes in search mailboxes. */
+    const IDX_SEP = "\0";
+
     /**
      * Does the flags hook exist?
      *
@@ -29,7 +32,8 @@ class IMP_Views_ListMessages
      *   - change: (boolean)
      *   - initial: (boolean)
      *   - mbox: (string) The mailbox of the view.
-     *   - qsearchmbox: (string) The mailbox to do the quicksearch in.
+     *   - qsearchmbox: (string) The mailbox to do the quicksearch in
+     *                  (base64url encoded).
      *   - qsearchfilter
      *
      * @return array  TODO
@@ -44,9 +48,11 @@ class IMP_Views_ListMessages
 
         /* Check for quicksearch request. */
         if (strlen($args['qsearchmbox'])) {
+            $qsearch_mbox = IMP_Mailbox::formFrom($args['qsearchmbox']);
+
             if (strlen($args['qsearchfilter'])) {
                 $imp_search = $injector->getInstance('IMP_Search');
-                $imp_search->applyFilter($args['qsearchfilter'], array($args['qsearchmbox']), $mbox);
+                $imp_search->applyFilter($args['qsearchfilter'], array($qsearch_mbox), $mbox);
                 $is_search = true;
             } else {
                 /* Create the search query. */
@@ -96,7 +102,7 @@ class IMP_Views_ListMessages
                 if ($is_search) {
                     $injector->getInstance('IMP_Search')->createQuery($c_list, array(
                         'id' => $mbox,
-                        'mboxes' => array($args['qsearchmbox']),
+                        'mboxes' => array($qsearch_mbox),
                         'type' => IMP_Search::CREATE_QUERY
                     ));
                 }
@@ -302,7 +308,7 @@ class IMP_Views_ListMessages
         for ($i = 1, $end = count($sorted_list['s']); $i <= $end; ++$i) {
             $uid = $sorted_list['s'][$i];
             if (isset($sorted_list['m'][$i])) {
-                $uid = $sorted_list['m'][$i] . IMP_Dimp::IDX_SEP . $uid;
+                $uid = IMP::base64urlEncode($sorted_list['m'][$i] . self::IDX_SEP . $uid);
             }
             $uidlist[] = $uid;
         }
@@ -365,7 +371,7 @@ class IMP_Views_ListMessages
         if ($args['rangeslice']) {
             $slice = new stdClass;
             $slice->rangelist = array_keys($rowlist);
-            $slice->view = strval($mbox);
+            $slice->view = $mbox->form_to;
 
             return $slice;
         }
@@ -420,8 +426,8 @@ class IMP_Views_ListMessages
             /* Initialize the header fields. */
             $msg = array(
                 'flag' => array(),
-                'uid' => ($pop3 ? $ob['uid'] : intval($ob['uid'])),
-                'view' => $ob['mailbox']
+                'mbox' => IMP_Mailbox::formTo($ob['mailbox']),
+                'uid' => ($pop3 ? $ob['uid'] : intval($ob['uid']))
             );
 
             /* Get all the flag information. */
@@ -469,7 +475,7 @@ class IMP_Views_ListMessages
             /* Need both mailbox and UID to create a unique ID string if
              * using a search mailbox.  Otherwise, use only the UID. */
             if ($search) {
-                $msgs[$ob['mailbox'] . IMP_Dimp::IDX_SEP . $ob['uid']] = $msg;
+                $msgs[IMP::base64urlEncode($ob['mailbox'] . self::IDX_SEP . $ob['uid'])] = $msg;
             } else {
                 $msgs[$ob['uid']] = $msg;
             }
@@ -499,7 +505,7 @@ class IMP_Views_ListMessages
         $ob->metadata = new stdClass;
         $ob->rowlist = array();
         $ob->totalrows = 0;
-        $ob->view = strval($mbox);
+        $ob->view = $mbox->form_to;
 
         return $ob;
     }

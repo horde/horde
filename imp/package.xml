@@ -64,7 +64,6 @@
    </dir> <!-- /docs -->
    <dir name="js">
     <file name="acl.js" role="horde" />
-    <file name="base64url.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
     <file name="compose.js" role="horde" />
@@ -163,6 +162,9 @@
      <file name="Thread.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
+    <dir name="Indices">
+     <file name="Form.php" role="horde" />
+    </dir> <!-- /lib/Indices -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="GarbageCollection.php" role="horde" />
@@ -1408,7 +1410,6 @@
    <install as="RFCS" name="docs/RFCS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/js/acl.js" name="js/acl.js" />
-   <install as="imp/js/base64url.js" name="js/base64url.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
@@ -1505,6 +1506,7 @@
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
+   <install as="imp/lib/Indices/Form.php" name="lib/Indices/Form.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeAuth.php" name="lib/LoginTasks/SystemTask/UpgradeAuth.php" />

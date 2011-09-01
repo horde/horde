@@ -274,7 +274,7 @@ class IMP_Ui_Compose
                 // Signature location
                 'sig_loc' => (bool)$identity->getValue('sig_first', $ident),
                 // Sent mail folder name
-                'smf_name' => strval($smf),
+                'smf_name' => $smf->form_to,
                 // Save in sent mail folder by default?
                 'smf_save' => (bool)$identity->saveSentmail($ident),
                 // Sent mail display name

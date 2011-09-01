@@ -46,10 +46,10 @@ class IMP_Ajax_Queue
      *   - add: (array) The list of flags that were added.
      *   - remove: (array) The list of flags that were removed.
      *   - uids: (string) Indices of the messages that have changed (IMAP
-     *           sequence string).
+     *           sequence string; mboxes are base64url encoded).
      *
-     * For poll data (key: 'poll'), an array with keys as mailbox names,
-     * values as the number of unseen messages.
+     * For poll data (key: 'poll'), an array with keys as base64url encoded
+     * mailbox names, values as the number of unseen messages.
      *
      * For quota data (key: 'quota'), an array with these keys:
      *   - m: (string) Quota message.
@@ -75,7 +75,7 @@ class IMP_Ajax_Queue
         $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         if ($imap_ob->ob) {
             foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
-                $poll[$key] = intval($val['unseen']);
+                $poll[IMP_Mailbox::formTo($key)] = intval($val['unseen']);
             }
         }
 
@@ -122,7 +122,7 @@ class IMP_Ajax_Queue
         if (!empty($changed['remove'])) {
             $result->remove = array_map('strval', $changed['remove']);
         }
-        $result->uids = strval($indices);
+        $result->uids = $indices->formTo();
 
         $this->_flag[] = $result;
     }

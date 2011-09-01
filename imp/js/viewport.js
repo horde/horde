@@ -114,6 +114,10 @@
  *   Fired when a non-background AJAX response is sent.
  *   params: (string) Current view.
  *
+ * ViewPort:remove
+ *   Fired when rows are removed from the buffer.
+ *   params: (ViewPort_Selection) The removed rows.
+ *
  * ViewPort:select
  *   Fired when rows are selected.
  *   params: (object) opts = (object) Boolean options [delay, right]
@@ -189,9 +193,6 @@
  * totalrows: (integer) Total number of rows in the view.
  * update [optional]: (integer) If set, update the rowlist instead of
  *                    overwriting it.
- * updatecacheid [optional]: (string) If set, simply update the cacheid with
- *                           the new value. Indicates that the browser
- *                           contains the up-to-date version of the cache.
  * view: (string) The view ID of the request.
  *
  *
@@ -446,6 +447,8 @@ var ViewPort = Class.create({
         this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
 
         this._getBuffer().remove(vs.get('rownum'));
+
+        this.opts.container.fire('ViewPort:remove', vs);
 
         if (!opts.noupdate) {
             this.requestContentRefresh(this.currentOffset());
@@ -825,9 +828,7 @@ var ViewPort = Class.create({
             this.opts.container.fire('ViewPort:endFetch', r.view);
         }
 
-        if (!Object.isUndefined(r.updatecacheid)) {
-            this._getBuffer(r.view).setMetaData({ cacheid: r.updatecacheid }, true);
-        } else if (!Object.isUndefined(r.cacheid)) {
+        if (!Object.isUndefined(r.cacheid)) {
             this._ajaxResponse(r);
         }
     },
