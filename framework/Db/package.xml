@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [gwr] Fix usage of Horde_Exception_Wrapped.
 * [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
  </notes>
  <contents>
@@ -193,7 +194,7 @@
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.7</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -494,6 +495,7 @@
    <date>2011-08-31</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [gwr] Fix usage of Horde_Exception_Wrapped.
 * [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
    </notes>
   </release>

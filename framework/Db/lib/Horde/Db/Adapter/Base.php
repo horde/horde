@@ -553,7 +553,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         } catch (Exception $e) {
             $this->_logError($sql, 'QUERY FAILED: ' . $e->getMessage());
             $this->_logInfo($sql, $name);
-            throw new Horde_Db_Exception((string)$e->getMessage(), (int)$e->getCode());
+            throw new Horde_Db_Exception($e);
         }
 
         $this->_logInfo($sql, $name, $t->pop());
