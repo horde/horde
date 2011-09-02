@@ -226,6 +226,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_COMMANDS)) {
+                // Some broken clients send SYNC_COMMANDS with a synckey of 0.
+                // This is a violation of the spec, and could lead to all kinds
+                // of data integrity issues.
+                if ($collection['synckey'] == 0) {
+                    $this->_statusCode = Horde_ActiveSync::SYNC_STATUS_PROTERROR;
+                    $this->_handleError($collection);
+                    exit;
+                }
+
                 // Configure importer with last state
                 $importer = $this->_driver->getImporter();
                 $importer->init($this->_state, $collection['id'], $collection['conflict']);
