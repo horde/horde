@@ -159,8 +159,11 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             $ob = new $class($config);
 
             if (!isset($config['cache'])) {
+                $cacheConfig = $this->getConfig('cache');
+                unset($cacheConfig['umask']);
+                $cacheConfig['cache'] = false;
                 $injector = $this->_injector->createChildInjector();
-                $injector->setInstance('Horde_Db_Adapter', $ob);
+                $injector->setInstance('Horde_Db_Adapter', $this->createDb($cacheConfig));
                 $cacheFactory = $this->_injector->getInstance('Horde_Core_Factory_Cache');
                 $cache = $cacheFactory->create($injector);
                 $ob->setCache($cache);
