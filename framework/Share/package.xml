@@ -35,7 +35,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Fix usage of Horde_Exception_Wrapped.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -791,7 +791,7 @@ Initial release as a PEAR package
    <date>2011-08-17</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Fix usage of Horde_Exception_Wrapped.
    </notes>
   </release>
  </changelog>

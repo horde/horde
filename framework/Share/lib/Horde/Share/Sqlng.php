@@ -120,7 +120,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
         try {
             $rows = $this->_db->selectAll($query);
         } catch (Horde_Db_Exception $e) {
-            throw new Horde_Share_Exception($e->getMessage());
+            throw new Horde_Share_Exception($e);
         }
 
         $sharelist = array();
