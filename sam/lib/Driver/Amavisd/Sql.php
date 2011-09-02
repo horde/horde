@@ -161,7 +161,7 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
         $policyID = $this->_lookupPolicyID();
 
         /* Delete existing policy. */
-        if (!is_null($policyID)) {
+        if ($policyID !== false) {
             try {
                 $this->_db->delete(
                     sprintf('DELETE FROM %s WHERE %s = ?',
@@ -308,7 +308,7 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
                             $this->_mapAttributeToField('senders', 'email')),
                     array($sender));
 
-                if (!is_null($wb_result)) {
+                if ($wb_result !== false) {
                     /* Address exists, use it's ID */
                     $senderID = $wb_result;
                 } else {
@@ -468,7 +468,7 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
             throw new Sam_Exception($e);
         }
 
-        if (is_null($result)) {
+        if ($userID === false) {
             $userID = $this->_createUserID();
         }
 
@@ -479,7 +479,7 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
      * Returns an Amavisd-new policy for storage and retrieval.
      *
      * @return string  The results of the of the policy lookup. Can be the ID
-     *                 of the policy, null if not found.
+     *                 of the policy, false if not found.
      * @throws Sam_Exception
      */
     protected function _lookupPolicyID()
@@ -492,7 +492,7 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
                         $this->_mapAttributeToField('policies', 'name')),
                 array($this->_user));
         } catch (Horde_Db_Exception $e) {
-            return null;
+            return false;
         }
     }
 }
