@@ -54,9 +54,11 @@ class Gollem_Factory_Vfs extends Horde_Core_Factory_Base
             case 'sql':
             case 'sqlfile':
             case 'musql':
+                $db_params = $params;
+                unset($db_params['table']);
                 $params['db'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Db')
-                    ->create('gollem', $params);
+                    ->create('gollem', $db_params);
                 break;
             }
 
