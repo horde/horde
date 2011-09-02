@@ -1,6 +1,6 @@
 <?php
 /**
- * A class allowing easy access to threaded sort results from
+ * Object allowing easy access to threaded sort results from
  * Horde_Imap_Client_Base::thread().
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)

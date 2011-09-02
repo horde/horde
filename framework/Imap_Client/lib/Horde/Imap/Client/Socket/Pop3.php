@@ -1,6 +1,7 @@
 <?php
 /**
- * This driver provides an interface to a POP3 server using PHP functions.
+ * An interface to a POP3 server using PHP functions.
+ *
  * It is an abstraction layer allowing POP3 commands to be used based on
  * IMAP equivalents.
  *
@@ -608,8 +609,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _fetch($query, $results, $options)
     {
-        // Already guaranteed to be logged in here
-
         // These options are not supported by this driver.
         if (!empty($options['changedsince']) ||
             !empty($options['vanished'])) {
@@ -785,6 +784,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *
      * @return mixed  The cached data. 'msg' returns a stream resource. All
      *                other types return strings.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _pop3Cache($type, $index = null, $data = null)
@@ -994,11 +994,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *
      * @param string $query   The command to execute.
      * @param array $options  Additional options:
-     * <pre>
-     * 'debug' - (string) When debugging, send this string instead of the
-     *           actual command/data sent.
-     *           DEFAULT: Raw data output to debug stream.
-     * </pre>
+     *   - debug: (string) When debugging, send this string instead of the
+     *            actual command/data sent.
+     *            DEFAULT: Raw data output to debug stream.
      */
     protected function _sendLine($query, $options = array())
     {
@@ -1017,6 +1015,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * @return array  An array with the following keys:
      *   - line: (string) The server response text.
      *   - response: (string) Either 'OK', 'END', '+', or ''.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getLine()
@@ -1108,6 +1107,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *
      * @return mixed  An array if $retarray is true, a stream resource
      *                otherwise.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getMultiline($retarray = false)
