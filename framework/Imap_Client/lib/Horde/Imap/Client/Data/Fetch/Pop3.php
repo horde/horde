@@ -1,6 +1,6 @@
 <?php
 /**
- * POP3 fetch data.
+ * Object containg POP3 fetch data.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *

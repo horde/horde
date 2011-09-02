@@ -1,8 +1,9 @@
 <?php
 /**
- * Horde_Imap_Client_DateTime:: is a wrapper around PHP's native DateTime
- * class that works around the PHP 5.2.x issue that does not allow DateTime
- * objects to be serialized.  See http://bugs.php.net/bug.php?id=41334
+ * A wrapper around PHP's native DateTime class that works around a PHP 5.2.x
+ * issue that does not allow DateTime objects to be serialized.
+ *
+ * See: http://bugs.php.net/bug.php?id=41334
  *
  * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
  *

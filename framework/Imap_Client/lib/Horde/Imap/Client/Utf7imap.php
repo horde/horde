@@ -1,9 +1,9 @@
 <?php
 /**
- * Horde_Imap_Client_Utf7imap:: provides code to convert between UTF-8 and
- * UTF7-IMAP (RFC 3501 [5.1.3]).
+ * Allows conversions between UTF-8 and UTF7-IMAP (RFC 3501 [5.1.3]).
  *
  * Originally based on code:
+ *
  *  Copyright (C) 2000 Edmund Grimley Evans <edmundo@rano.org>
  *  Released under the GPL (version 2)
  *
@@ -284,4 +284,5 @@ class Horde_Imap_Client_Utf7imap
 
         return $p;
     }
+
 }

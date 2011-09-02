@@ -1,6 +1,6 @@
 <?php
 /**
- * This object provides a way to identify a list of IMAP indices.
+ * An object that provides a way to identify a list of IMAP indices.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
