@@ -15,11 +15,12 @@ class RampageTagTables extends Horde_Db_Migration_Base
 
         if (!in_array('rampage_tagged', $tableList)) {
             // rampage_tagged
-            $t = $this->createTable('rampage_tagged', array('autoincrementKey' => array('user_id', 'object_id', 'tag_id')));
+            $t = $this->createTable('rampage_tagged', array('autoincrementKey' => false));
             $t->column('user_id',   'integer', array('null' => false, 'unsigned' => true));
             $t->column('object_id', 'integer', array('null' => false, 'unsigned' => true));
             $t->column('tag_id',    'integer', array('null' => false, 'unsigned' => true));
             $t->column('created',   'datetime');
+            $t->primaryKey(array('user_id', 'object_id', 'tag_id'));
             $t->end();
             $this->addIndex('rampage_tagged', array('object_id'), array('name' => 'rampage_tagged_object_id'));
             $this->addIndex('rampage_tagged', array('tag_id'), array('name' => 'rampage_tagged_tag_id'));
@@ -28,17 +29,20 @@ class RampageTagTables extends Horde_Db_Migration_Base
 
         if (!in_array('rampage_tag_stats', $tableList)) {
             // rampage_tag_stats
-            $t = $this->createTable('rampage_tag_stats', array('autoincrementKey' => 'tag_id'));
+            $t = $this->createTable('rampage_tag_stats', array('autoincrementKey' => false));
+            $t->column('tag_id', 'integer', array('null' => false, 'unsigned' => true));
             $t->column('count', 'integer', array('unsigned' => true));
+            $t->primaryKey(array('tag_id'));
             $t->end();
         }
 
         if (!in_array('rampage_user_tag_stats', $tableList)) {
             // rampage_user_tag_stats
-            $t = $this->createTable('rampage_user_tag_stats', array('autoincrementKey' => array('user_id', 'tag_id')));
+            $t = $this->createTable('rampage_user_tag_stats', array('autoincrementKey' => false));
             $t->column('user_id', 'integer', array('null' => false, 'unsigned' => true));
             $t->column('tag_id',  'integer', array('null' => false, 'unsigned' => true));
             $t->column('count',   'integer', array('unsigned' => true));
+            $t->primaryKey(array('user_id', 'tag_id'));
             $t->end();
             $this->addIndex('rampage_user_tag_stats', array('tag_id'), array('name' => 'rampage_user_tag_stats_tag_id'));
         }
