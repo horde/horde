@@ -29,6 +29,8 @@
  */
 class Nag_Unit_Nag_Base extends Nag_TestCase
 {
+    static $setup;
+
     /**
      * The default share name expected to be used.
      *
@@ -38,14 +40,42 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
 
     public static function setUpBeforeClass()
     {
-        $GLOBALS['prefs'] = new Horde_Prefs('kronolith', new Horde_Prefs_Storage_Null('test@example.com'));
-        $GLOBALS['registry'] = new Nag_Stub_Registry();
+        self::$setup->setup(
+            array(
+                'Horde_Prefs' => array(
+                    'factory' => 'Prefs',
+                    'method' => 'Null',
+                    'params' => array(
+                        'user' => 'test@example.com',
+                        'app' => 'nag'
+                    ),
+                ),
+                'Horde_Registry' => array(
+                    'factory' => 'Registry',
+                    'method' => 'Stub',
+                    'params' => array(
+                        'user' => 'test@example.com',
+                        'app' => 'nag'
+                    ),
+                ),
+            )
+        );
+        self::$setup->makeGlobal(
+            array(
+                'prefs' => 'Horde_Prefs',
+                'registry' => 'Horde_Registry',
+                'injector' => 'Horde_Injector',
+            )
+        );
         parent::setUpBeforeClass();
     }
 
     public function setUp()
     {
-        $GLOBALS['injector'] = self::getInjector();
+        $error = self::$setup->getError();
+        if (!empty($error)) {
+            $this->markTestSkipped($error);
+        }
     }
 
     public function tearDown()
@@ -53,6 +83,7 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
         foreach ($GLOBALS['nag_shares']->listShares('test@example.com') as $share) {
             $GLOBALS['nag_shares']->removeShare($share);
         }
+        $GLOBALS['injector']->setInstance('Nag_Factory_Tasklists', null);
         parent::tearDown();
     }
 
