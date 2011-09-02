@@ -136,8 +136,8 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
                 $list = preg_match('/[WY]/i', $type)
                     ? 'whitelist_from'
                     : 'blacklist_from';
-                if (isset($return[$list])) {
-                    if (!in_array($sender, $return[$list])) {
+                if (isset($this->_options[$list])) {
+                    if (!in_array($sender, $this->_options[$list])) {
                         $this->_options[$list][] = $sender;
                     }
                 } else {
@@ -472,7 +472,7 @@ class Sam_Driver_Amavisd_Sql extends Sam_Driver_Base
             $userID = $this->_createUserID();
         }
 
-        return $_userID;
+        return $userID;
     }
 
     /**
