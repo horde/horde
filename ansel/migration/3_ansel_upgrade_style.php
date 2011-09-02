@@ -20,14 +20,14 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
         $this->changeColumn('ansel_shares', 'attribute_style', 'text');
 
         // Create: ansel_hashes
-        $tableList = $this->tables();
-        if (!in_array('ansel_hashes', $tableList)) {
-            $t = $this->createTable('ansel_hashes', array('autoincrementKey' => 'style_hash'));
-            $t->column('style_hash', 'string', array('limit' => 255));
-            $t->end();
-        }
-
+        $t = $this->createTable(
+            'ansel_hashes',
+            array('autoincrementKey' => false));
+        $t->column('style_hash', 'string', array('limit' => 255));
+        $t->primaryKey(array('style_hash'));
+        $t->end();
         $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
+        
         // Migrate existing data
         $sql = 'SELECT share_id, attribute_style FROM ansel_shares';
         $this->announce('Migrating gallery styles.', 'cli.message');
