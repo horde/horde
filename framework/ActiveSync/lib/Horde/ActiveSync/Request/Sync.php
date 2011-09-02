@@ -273,7 +273,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $clientid = false;
                     }
 
-                    // Create Streamer object from messages passed from PIM
+                    // Create Message object from messages passed from PIM
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
                         switch ($collection['class']) {
                         case 'Email':
@@ -330,7 +330,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     case Horde_ActiveSync::SYNC_REMOVE:
                         if (isset($collection['deletesasmoves'])) {
                             $folderid = $this->_driver->getWasteBasket();
-
                             if ($folderid) {
                                 $importer->importMessageMove($serverid, $folderid);
                                 $collection['importedchanges'] = true;
@@ -390,7 +389,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
         foreach ($collections as $collection) {
-            // Get new synckey if needed
             $changecount = 0;
             if (isset($collection['getchanges'])) {
                 $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
