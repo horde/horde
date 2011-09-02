@@ -403,7 +403,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $changecount > 0 ||
                 $collection['synckey'] == '0') {
                 try {
+                    $this->_logger->debug('Generating new synckey. Old synckey: ' . $collection['synckey']);
                     $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
+                    $this->_logger->debug('New synckey generated: ' . $collection['newsynckey']);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_KEYMISM;
                 }
