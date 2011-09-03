@@ -165,28 +165,19 @@ class Mnemo_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        // Get the share object for later deletion
-        try {
-            $share = $GLOBALS['mnemo_shares']->getShare($user);
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'NOTICE');
-        }
-
-        $GLOBALS['display_notepads'] = array($user);
         $error = false;
-        $memos = Mnemo::listMemos();
-        $uids = array();
-        foreach ($memos as $memo) {
-            $uids[] = $memo['uid'];
-        }
+        $notepads = Mnemo::listNotepads(true);
+        foreach ($notepads as $notepad => $share) {
+            $driver = $GLOBALS['injector']
+                ->getInstance('Mnemo_Factory_Driver')
+                ->create($notepad);
+            try {
+                $driver->deleteAll();
+            } catch (Mnemo_Exception $e) {
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
+            }
 
-        // ... and delete them.
-        foreach ($uids as $uid) {
-            $this->delete($uid);
-        }
-
-        /* Remove the share itself */
-        if (!empty($share)) {
             try {
                 $GLOBALS['mnemo_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {

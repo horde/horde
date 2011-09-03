@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
-* 
+* [mjr] Fix removeUserData implementation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -844,7 +844,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
-* 
+* [mjr] Fix removeUserData implementation.
    </notes>
   </release>
  </changelog>
