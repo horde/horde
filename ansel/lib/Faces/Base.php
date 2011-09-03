@@ -630,7 +630,7 @@ class Ansel_Faces_Base
 
         // save compressed signature
         $sql = 'UPDATE ansel_faces SET face_signature = ? WHERE face_id = ?';
-        $params = array(puzzle_compress_cvec($signature), $face_id);
+        $params = array(new Horde_Db_Value_Binary(puzzle_compress_cvec($signature)), $face_id);
         try {
             $GLOBALS['ansel_db']->update($sql, $params);
         } catch (Horde_Db_Exception $e) {
