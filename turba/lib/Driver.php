@@ -285,117 +285,125 @@ class Turba_Driver implements Countable
         $search = $search_terms = $subsearch = $strict_search = array();
         $glue = $temp = '';
         $lastChar = '\"';
+        $blobs = $this->getBlobs();
 
         foreach ($criteria as $key => $val) {
-            if (isset($this->map[$key])) {
-                if (is_array($this->map[$key])) {
-                    /* Composite field, break out the search terms. */
-                    $parts = explode(' ', $val);
-                    if (count($parts) > 1) {
-                        /* Only parse if there was more than 1 search term and
-                         * 'AND' the cumulative subsearches. */
-                        for ($i = 0; $i < count($parts); ++$i) {
-                            $term = $parts[$i];
-                            $firstChar = substr($term, 0, 1);
-                            if ($firstChar == '"') {
-                                $temp = substr($term, 1, strlen($term) - 1);
-                                $done = false;
-                                while (!$done && $i < count($parts) - 1) {
-                                    $lastChar = substr($parts[$i + 1], -1);
-                                    if ($lastChar == '"') {
-                                        $temp .= ' ' . substr($parts[$i + 1], 0, -1);
-                                        $done = true;
-                                    } else {
-                                        $temp .= ' ' . $parts[$i + 1];
-                                    }
-                                    ++$i;
+            if (!isset($this->map[$key])) {
+                continue;
+            }
+            if (is_array($this->map[$key])) {
+                /* Composite field, break out the search terms. */
+                $parts = explode(' ', $val);
+                if (count($parts) > 1) {
+                    /* Only parse if there was more than 1 search term and
+                     * 'AND' the cumulative subsearches. */
+                    for ($i = 0; $i < count($parts); ++$i) {
+                        $term = $parts[$i];
+                        $firstChar = substr($term, 0, 1);
+                        if ($firstChar == '"') {
+                            $temp = substr($term, 1, strlen($term) - 1);
+                            $done = false;
+                            while (!$done && $i < count($parts) - 1) {
+                                $lastChar = substr($parts[$i + 1], -1);
+                                if ($lastChar == '"') {
+                                    $temp .= ' ' . substr($parts[$i + 1], 0, -1);
+                                    $done = true;
+                                } else {
+                                    $temp .= ' ' . $parts[$i + 1];
                                 }
-                                $search_terms[] = $temp;
-                            } else {
-                                $search_terms[] = $term;
+                                ++$i;
                             }
-                        }
-                        $glue = 'AND';
-                    } else {
-                        /* If only one search term, use original input and
-                           'OR' the searces since we're only looking for 1
-                           term in any of the composite fields. */
-                        $search_terms[0] = $val;
-                        $glue = 'OR';
-                    }
-
-                    foreach ($this->map[$key]['fields'] as $field) {
-                        $field = $this->toDriver($field);
-                        if (!empty($strict[$field])) {
-                            /* For strict matches, use the original search
-                             * vals. */
-                            $strict_search[] = array(
-                                'field' => $field,
-                                'op' => '=',
-                                'test' => $val,
-                            );
+                            $search_terms[] = $temp;
                         } else {
-                            /* Create a subsearch for each individual search
-                             * term. */
-                            if (count($search_terms) > 1) {
-                                /* Build the 'OR' search for each search term
-                                 * on this field. */
-                                $atomsearch = array();
-                                for ($i = 0; $i < count($search_terms); ++$i) {
-                                    $atomsearch[] = array(
-                                        'field' => $field,
-                                        'op' => 'LIKE',
-                                        'test' => $search_terms[$i],
-                                        'begin' => $match_begin,
-                                        'approximate' => !empty($this->approximate[$field]),
-                                    );
-                                }
-                                $atomsearch[] = array(
-                                    'field' => $field,
-                                    'op' => '=',
-                                    'test' => '',
-                                    'begin' => $match_begin,
-                                    'approximate' => !empty($this->approximate[$field])
-                                );
-
-                                $subsearch[] = array('OR' => $atomsearch);
-                                unset($atomsearch);
-                                $glue = 'AND';
-                            } else {
-                                /* $parts may have more than one element, but
-                                 * if they are all quoted we will only have 1
-                                 * $subsearch. */
-                                $subsearch[] = array(
-                                    'field' => $field,
-                                    'op' => 'LIKE',
-                                    'test' => $search_terms[0],
-                                    'begin' => $match_begin,
-                                    'approximate' => !empty($this->approximate[$field]),
-                                );
-                                $glue = 'OR';
-                            }
+                            $search_terms[] = $term;
                         }
                     }
-                    if (count($subsearch)) {
-                        $search[] = array($glue => $subsearch);
-                    }
+                    $glue = 'AND';
                 } else {
-                    /* Not a composite field. */
-                    if (!empty($strict[$this->map[$key]])) {
+                    /* If only one search term, use original input and
+                       'OR' the searces since we're only looking for 1
+                       term in any of the composite fields. */
+                    $search_terms[0] = $val;
+                    $glue = 'OR';
+                }
+
+                foreach ($this->map[$key]['fields'] as $field) {
+                    if (!empty($blobs[$field])) {
+                        continue;
+                    }
+                    $field = $this->toDriver($field);
+                    if (!empty($strict[$field])) {
+                        /* For strict matches, use the original search
+                         * vals. */
                         $strict_search[] = array(
-                            'field' => $this->map[$key],
+                            'field' => $field,
                             'op' => '=',
                             'test' => $val,
                         );
                     } else {
-                        $search[] = array(
-                            'field' => $this->map[$key],
-                            'op' => 'LIKE',
-                            'test' => $val,
-                            'begin' => $match_begin,
-                            'approximate' => !empty($this->approximate[$this->map[$key]]),
-                        );
+                        /* Create a subsearch for each individual search
+                         * term. */
+                        if (count($search_terms) > 1) {
+                            /* Build the 'OR' search for each search term
+                             * on this field. */
+                            $atomsearch = array();
+                            for ($i = 0; $i < count($search_terms); ++$i) {
+                                $atomsearch[] = array(
+                                    'field' => $field,
+                                    'op' => 'LIKE',
+                                    'test' => $search_terms[$i],
+                                    'begin' => $match_begin,
+                                    'approximate' => !empty($this->approximate[$field]),
+                                );
+                            }
+                            $atomsearch[] = array(
+                                'field' => $field,
+                                'op' => '=',
+                                'test' => '',
+                                'begin' => $match_begin,
+                                'approximate' => !empty($this->approximate[$field])
+                            );
+
+                            $subsearch[] = array('OR' => $atomsearch);
+                            unset($atomsearch);
+                            $glue = 'AND';
+                        } else {
+                            /* $parts may have more than one element, but
+                             * if they are all quoted we will only have 1
+                             * $subsearch. */
+                            $subsearch[] = array(
+                                'field' => $field,
+                                'op' => 'LIKE',
+                                'test' => $search_terms[0],
+                                'begin' => $match_begin,
+                                'approximate' => !empty($this->approximate[$field]),
+                            );
+                            $glue = 'OR';
+                        }
                     }
+                }
+                if (count($subsearch)) {
+                    $search[] = array($glue => $subsearch);
+                }
+            } else {
+                /* Not a composite field. */
+                if (!empty($blobs[$key])) {
+                    continue;
+                }
+                if (!empty($strict[$this->map[$key]])) {
+                    $strict_search[] = array(
+                        'field' => $this->map[$key],
+                        'op' => '=',
+                        'test' => $val,
+                    );
+                } else {
+                    $search[] = array(
+                        'field' => $this->map[$key],
+                        'op' => 'LIKE',
+                        'test' => $val,
+                        'begin' => $match_begin,
+                        'approximate' => !empty($this->approximate[$this->map[$key]]),
+                    );
                 }
             }
         }
@@ -2876,7 +2884,7 @@ class Turba_Driver implements Countable
      */
     public function removeUserData($user)
     {
-        throw new Turba_Exception(_("Removing user data is not supported in the current address book storage driver."));
+        throw new Turba_Exception_NotSupported(_("Removing user data is not supported in the current address book storage driver."));
     }
 
     /**

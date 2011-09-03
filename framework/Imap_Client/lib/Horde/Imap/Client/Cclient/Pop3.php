@@ -1,8 +1,10 @@
 <?php
 /**
- * Horde_Imap_Client_Cclient_Pop3 provides an interface to a POP3 server (RFC
- * 1939) via the PHP imap (c-client) module.  This driver is an abstraction
- * layer allowing POP3 commands to be used based on its IMAP equivalents.
+ * An interface to a POP3 server (RFC 1939) via the PHP imap (c-client)
+ * module.
+ *
+ * This driver is an abstraction layer allowing POP3 commands to be used based
+ * on its IMAP equivalents.
  *
  * Caching is not supported in this driver.
  *

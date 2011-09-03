@@ -165,15 +165,15 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
             }
         }
 
+        // If neither pk nor sequence name is given, look them up.
+        if (!($pk || $sequenceName)) {
+            list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
+        }
+
         // Otherwise, insert then grab last_insert_id.
         if ($insertId = parent::insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName)) {
             $this->resetPkSequence($table, $pk, $sequenceName);
             return $insertId;
-        }
-
-        // If neither pk nor sequence name is given, look them up.
-        if (!($pk || $sequenceName)) {
-            list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
         }
 
         // If a pk is given, fallback to default sequence name.
@@ -181,7 +181,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         if ($pk &&
             ($sequenceName ||
              $sequenceName = $this->defaultSequenceName($table, $pk))) {
-            //$this->resetPkSequence($table, $pk, $sequenceName);
+            $this->resetPkSequence($table, $pk, $sequenceName);
             return $this->_lastInsertId($table, $sequenceName);
         }
     }
@@ -219,6 +219,14 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     protected function _parseConfig()
     {
         $this->_config['adapter'] = 'pgsql';
+
+        // PDO for PostgreSQL does not accept a socket argument
+        // in the connection string; the location can be set via the
+        // "host" argument instead.
+        if (!empty($this->_config['socket'])) {
+            $this->_config['host'] = $this->_config['socket'];
+            unset($this->_config['socket']);
+        }
 
         return parent::_parseConfig();
     }

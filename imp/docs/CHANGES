@@ -4,9 +4,23 @@ v5.1-git
 
 
 -----------
-v5.0.11-git
+v5.0.12-git
 -----------
 
+[mms] Always show image thumbnail previews, if an image conversion utility is
+      present on the system.
+[mms] More workarounds for broken suhosin extension (Bug #10462).
+
+
+-------
+v5.0.11
+-------
+
+[mms] Automatically track rownumber updates when selecting messages; fixes
+      SHIFT-DEL behavior in the dynamic view.
+[mms] Fix contents of sent message when directly sending from spellcheck in
+      standard view (Bug #10464).
+[mms] Fix namespace auto-detection for non-sane namespace configs (Bug #10447).
 [mms] Fix POP3 regression (Bug #10450).
 [mms] Forwarded messages no longer treated as an attachment in the UI (Request
       #9754).

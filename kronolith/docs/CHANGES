@@ -4,9 +4,17 @@ v3.1-git
 
 
 
-----------
-v3.0.9-git
-----------
+-----------
+v3.0.10-git
+-----------
+
+[mjr] Fix removeUserData API (Bug #10241).
+[jan] Fix deleting events with a WebDAV client (Bug #10478).
+
+
+------
+v3.0.9
+------
 
 [jan] Fix fatal error while searching if hitting certain recurring events.
 [jan] Fix exporting events with snoozed alarms (Bug #10438).

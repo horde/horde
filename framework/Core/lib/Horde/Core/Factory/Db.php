@@ -35,19 +35,20 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
     private $_instances = array();
 
     /**
-     * Return the DB instance.
+     * Returns the DB instance.
      *
-     * @param string $app  The application.
-     * @param mixed $type  The type. If this is an array, this is used as
-     *                     the configuration array.
+     * @param string $app            The application.
+     * @param string|array $backend  The backend, see Horde::getDriverConfig().
+     *                               If this is an array, this is used as the
+     *                               configuration array.
      *
      * @return Horde_Db_Adapter  The singleton instance.
      * @throws Horde_Exception
      * @throws Horde_Db_Exception
      */
-    public function create($app = 'horde', $type = null)
+    public function create($app = 'horde', $backend = null)
     {
-        $sig = hash('md5', serialize(array($app, $type)));
+        $sig = hash('md5', serialize(array($app, $backend)));
 
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];
@@ -57,9 +58,9 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             ? false
             : $GLOBALS['registry']->pushApp($app);
 
-        $config = is_array($type)
-            ? $type
-            : $this->getConfig($type);
+        $config = is_array($backend)
+            ? $backend
+            : $this->getConfig($backend);
 
         /* Determine if we are using the base SQL config. */
         if (isset($config['driverconfig']) &&
@@ -72,7 +73,7 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
         // non-custom auth type connections. All other custom sql
         // configurations MUST be cleansed prior to passing to the
         // factory (at least until Horde 5).
-        if (!is_array($type) && $type == 'auth') {
+        if (!is_array($backend) && $backend == 'auth') {
             unset($config['driverconfig'],
                   $config['query_auth'],
                   $config['query_add'],
@@ -108,9 +109,9 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
     /**
      */
-    public function getConfig($type)
+    public function getConfig($backend)
     {
-        return Horde::getDriverConfig($type, 'sql');
+        return Horde::getDriverConfig($backend, 'sql');
     }
 
     /**
@@ -158,8 +159,11 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             $ob = new $class($config);
 
             if (!isset($config['cache'])) {
+                $cacheConfig = $this->getConfig('cache');
+                unset($cacheConfig['umask']);
+                $cacheConfig['cache'] = false;
                 $injector = $this->_injector->createChildInjector();
-                $injector->setInstance('Horde_Db_Adapter', $ob);
+                $injector->setInstance('Horde_Db_Adapter', $this->createDb($cacheConfig));
                 $cacheFactory = $this->_injector->getInstance('Horde_Core_Factory_Cache');
                 $cache = $cacheFactory->create($injector);
                 $ob->setCache($cache);

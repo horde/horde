@@ -476,69 +476,48 @@ class Components_Pear_Environment
     /**
      * Add a component to the environemnt.
      *
-     * @param Components_Component  $component The component that should be
-     *                                         installed.
-     * @param array                 $options   Install options.
-     * @param string                $reason    Optional reason for adding the
-     *                                         package.
+     * @param string $component The name of the component that should be
+     *                          installed.
+     * @param string $install   The package that should be installed.
+     * @param array  $options   PEAR specific installation opions.
+     * @param string $info      Installation details.
+     * @param string $reason    Optional reason for adding the package.
+     * @param array  $warnings  Optional warnings that should be displayed to
+     *                          the user.
      *
      * @return NULL
      */
     public function addComponent(
-        Components_Component $component,
-        $options = array(),
-        $reason = ''
-    ) {
+        $component,
+        $install,
+        $options,
+        $info,
+        $reason = '',
+        $warnings = array()
+    )
+    {
         $installer = $this->getInstallationHandler();
         $this->_output->ok(
             sprintf(
                 'About to add component %s%s',
-                $component->getName(),
+                $component,
                 $reason
             )
         );
-        $installation_options = array();
-        $installation_options['force'] = !empty($options['force']);
-        $installation_options['nodeps'] = !empty($options['nodeps']);
-        if ($component instanceOf Components_Component_Archive) {
-            $installation_options['offline'] = true;
-            $install = array($component->getArchivePath());
-            $info = ' from the archive ' . $component->getArchivePath();
-        } else if ($component instanceOf Components_Component_Source) {
-            $install = array($component->getPackageXml());
-            $info = ' from source in ' . dirname($component->getPackageXml());
-        } else {
-            if (empty($options['allow_remote'])) {
-                throw new Components_Exception(
-                    sprintf(
-                        'Cannot add component "%s". Remote access has been disabled (activate with --allow-remote)!',
-                        $component->getName()
-                    )
-                );
+        if (!empty($warnings)) {
+            foreach ($warnings as $warning) {
+                $this->_output->warn($warnings);
             }
-            $this->_output->warn(
-                sprintf(
-                    'Adding component %s/%s via network.',
-                    $component->getChannel(),
-                    $component->getName()
-                )
-            );
-            $installation_options['channel'] = $component->getChannel();
-            $install = array(
-                'channel://' . $component->getChannel() . '/' .
-                $component->getName()
-            );
-            $info = ' via remote channel ' . $component->getChannel();
         }
         ob_start();
         Components_Exception_Pear::catchError(
-            $installer->doInstall('install', $installation_options, $install)
+            $installer->doInstall('install', $options, $install)
         );
         $this->_output->pear(ob_get_clean());
         $this->_output->ok(
             sprintf(
                 'Successfully added component %s%s%s',
-                $component->getName(),
+                $component,
                 $info,
                 $reason
             )

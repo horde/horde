@@ -19,13 +19,6 @@ class Content_Test_Base extends Horde_Test_Case
     static $tagger;
 
     /**
-     * Cache the tag_id => tag_names for further testing
-     *
-     * @var array
-     */
-     protected $_tags;
-
-    /**
      * Primes the fixture, and tests basic tagging functionality where all
      * bits of data are new (user, type, object, tag)..
      *
@@ -48,13 +41,6 @@ class Content_Test_Base extends Horde_Test_Case
         // Two users have tagged the same object, with the same tag
         self::$tagger->tag('alice', array('type' => 'event', 'object' => 'anniversary'), 'personal', new Horde_Date('2009-01-01T00:05:00'));
         self::$tagger->tag('bob', array('type' => 'event', 'object' => 'anniversary'), 'personal', new Horde_Date('2009-01-01T00:06:00'));
-
-        // save for later.
-        $this->_tags = self::$tagger->getTags(array());
-
-        // Check that the tags now exist.
-        //$this->assertEquals(4, count(self::$tagger->getTags(array())));
-
     }
 
     protected function _testEmpty()
@@ -294,6 +280,20 @@ class Content_Test_Base extends Horde_Test_Case
 
         $recent = self::$tagger->getRecentUsers(array('typeId' => 2));
         $this->assertEquals(1, count($recent));
+    }
+
+    /**
+     * Test obtaining objects that are tagged with the same tags as the provided
+     * object.
+     *
+     * See Bug: 10439
+     */
+    public function testGetObjectsByObjectId()
+    {
+        self::$tagger->tag('mike', array('type' => 'event', 'object' => 'irene'), 'hurricane', new Horde_Date('2011-08-28T00:01:00'));
+        self::$tagger->tag('mike', array('type' => 'event', 'object' => 'floyd'), 'hurricane', new Horde_Date('1999-09-07T00:02:00'));
+        $object = self::$tagger->getObjects(array('objectId' => array('type' => 'event', 'object' => 'irene')));
+        $this->assertEquals('floyd', current($object));
     }
 
     public function testDuplicateTagsByCase()

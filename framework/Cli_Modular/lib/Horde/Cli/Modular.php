@@ -5,10 +5,10 @@
  * PHP version 5
  *
  * @category Horde
- * @package  Components
+ * @package  Cli_Modular
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Components
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Cli_Modular
  */
 
 /**
@@ -17,13 +17,13 @@
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
- * @package  Components
+ * @package  Cli_Modular
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Components
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Cli_Modular
  */
 class Horde_Cli_Modular
 {

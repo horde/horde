@@ -226,6 +226,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_COMMANDS)) {
+                // Some broken clients send SYNC_COMMANDS with a synckey of 0.
+                // This is a violation of the spec, and could lead to all kinds
+                // of data integrity issues.
+                if ($collection['synckey'] == 0) {
+                    $this->_statusCode = Horde_ActiveSync::SYNC_STATUS_PROTERROR;
+                    $this->_handleError($collection);
+                    exit;
+                }
+
                 // Configure importer with last state
                 $importer = $this->_driver->getImporter();
                 $importer->init($this->_state, $collection['id'], $collection['conflict']);
@@ -264,7 +273,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $clientid = false;
                     }
 
-                    // Create Streamer object from messages passed from PIM
+                    // Create Message object from messages passed from PIM
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
                         switch ($collection['class']) {
                         case 'Email':
@@ -321,7 +330,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     case Horde_ActiveSync::SYNC_REMOVE:
                         if (isset($collection['deletesasmoves'])) {
                             $folderid = $this->_driver->getWasteBasket();
-
                             if ($folderid) {
                                 $importer->importMessageMove($serverid, $folderid);
                                 $collection['importedchanges'] = true;
@@ -381,7 +389,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
         foreach ($collections as $collection) {
-            // Get new synckey if needed
             $changecount = 0;
             if (isset($collection['getchanges'])) {
                 $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
@@ -396,7 +403,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $changecount > 0 ||
                 $collection['synckey'] == '0') {
                 try {
+                    $this->_logger->debug('Generating new synckey. Old synckey: ' . $collection['synckey']);
                     $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
+                    $this->_logger->debug('New synckey generated: ' . $collection['newsynckey']);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_KEYMISM;
                 }

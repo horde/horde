@@ -191,7 +191,9 @@ class Horde_Memcache implements Serializable
         /* Check to see if we have any oversize items we need to get. */
         if (!empty($this->_params['large_items'])) {
             foreach ($key_map as $key => $val) {
-                $part_count = ($flags[$val] >> self::FLAGS_RESERVED) - 1;
+                $part_count = isset($flags[$val])
+                    ? ($flags[$val] >> self::FLAGS_RESERVED) - 1
+                    : -1;
 
                 switch ($part_count) {
                 case -1:

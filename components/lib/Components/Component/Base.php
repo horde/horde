@@ -161,6 +161,16 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Return the package notes.
+     *
+     * @return string The notes for the current release.
+     */
+    public function getNotes()
+    {
+        return $this->getPackageXml()->getNotes();
+    }
+
+    /**
      * Indicate if the component has a local package.xml.
      *
      * @return boolean True if a package.xml exists.
@@ -359,27 +369,6 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
-     * Install a component.
-     *
-     * @param Components_Pear_Environment $env The environment to install
-     *                                         into.
-     * @param array                 $options   Install options.
-     * @param string                $reason    Optional reason for adding the
-     *                                         package.
-     *
-     * @return NULL
-     */
-    public function install(
-        Components_Pear_Environment $env, $options = array(), $reason = ''
-    )
-    {
-        $this->installChannel($env, $options);
-        $env->addComponent(
-            $this, $options, $reason
-        );
-    }
-
-    /**
      * Return the application options.
      *
      * @return array The options.
@@ -423,4 +412,18 @@ abstract class Components_Component_Base implements Components_Component
         throw new Component_Exception('Not supported!');
     }
 
+    /**
+     * Derive the basic PEAR install options from the current option set.
+     *
+     * @param array $options The current options.
+     *
+     * @return array The installatin options.
+     */
+    protected function getBaseInstallationOptions($options)
+    {
+        $installation_options = array();
+        $installation_options['force'] = !empty($options['force']);
+        $installation_options['nodeps'] = !empty($options['nodeps']);
+        return $installation_options;
+    }
 }

@@ -129,12 +129,8 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _renderInfo()
     {
-        /* Display the thumbnail link only if we show thumbs for all images or
-         * if image is over 50 KB. Also, check to see if convert utility is
-         * available. */
-        if ((!$this->getConfigParam('allthumbs') &&
-             ($this->_mimepart->getBytes() < 51200)) ||
-            !$this->_getHordeImageOb(false)) {
+        /* Check to see if convert utility is available. */
+        if (!$this->_getHordeImageOb(false)) {
             return array();
         }
 
@@ -223,7 +219,9 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 $img->loadString($this->_mimepart->getContents());
             }
             return $img;
-        } catch (Horde_Exception $e) {}
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, 'DEBUG');
+        }
 
         return false;
     }

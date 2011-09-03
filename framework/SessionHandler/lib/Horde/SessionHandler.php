@@ -262,6 +262,10 @@ class Horde_SessionHandler
             return $info;
         }
 
+        /* Explicitly do garbage collection call here to make sure session
+         * data is correct. */
+        $this->gc(ini_get('session.gc_maxlifetime'));
+
         $sessions = $this->getSessionIDs();
 
         $this->_storage->readonly = true;
@@ -269,6 +273,7 @@ class Horde_SessionHandler
         foreach ($sessions as $id) {
             try {
                 $data = $this->read($id);
+                $this->close();
             } catch (Horde_SessionHandler_Exception $e) {
                 continue;
             }

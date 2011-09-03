@@ -55,7 +55,9 @@ class Whups_Form_Search extends Horde_Form
             $v = $this->addVariable(
                 $typeName, "states[$typeID]", 'multienum', false, false, null,
                 array ($list, 4));
-            $v->setDefault($default);
+            if (!$this->isSubmitted()) {
+                $v->setDefault($default);
+            }
         }
 
         $this->setSection('dates', _("Dates"));
@@ -110,6 +112,8 @@ class Whups_Form_Search extends Horde_Form
                     Horde_Perms::READ,
                     $GLOBALS['registry']->getAuth(),
                     $GLOBALS['registry']->getAuth()));
+        } else {
+            $info['queue'] = array($info['queue']);
         }
 
         if (empty($info['states'])) {
@@ -128,6 +132,21 @@ class Whups_Form_Search extends Horde_Form
             }
             unset($info['states']);
         }
-    }
 
+        // Remove any queues that don't have a state selected.
+        $types = array();
+        foreach ($info['queue'] as $queue) {
+            foreach ($GLOBALS['whups_driver']->getTypeIds($queue) as $type) {
+                $types[$type][$queue] = true;
+            }
+        }
+        $queues = array();
+        foreach ($info['state_id'] as $stateId) {
+            $state = $GLOBALS['whups_driver']->getState($stateId);
+            if (isset($types[$state['type']])) {
+                $queues = array_merge($queues, array_keys($types[$state['type']]));
+            }
+        }
+        $info['queue'] = array_intersect($info['queue'], $queues);
+    }
 }

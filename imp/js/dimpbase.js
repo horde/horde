@@ -14,7 +14,6 @@ var DimpBase = {
     //   template, uid, viewport
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
-    cacheids: {},
     lastrow: -1,
     pivotrow: -1,
     ppcache: {},
@@ -36,11 +35,10 @@ var DimpBase = {
     {
         var bounds,
             row = this.viewport.createSelection('domid', id),
-            rownum = row.get('rownum').first(),
             sel = this.isSelected('domid', id),
             selcount = this.selectedCount();
 
-        this.lastrow = rownum;
+        this.lastrow = row;
 
         // Some browsers need to stop the mousedown event before it propogates
         // down to the browser level in order to prevent text selection on
@@ -57,13 +55,13 @@ var DimpBase = {
         if (opts.shift) {
             if (selcount) {
                 if (!sel || selcount != 1) {
-                    bounds = [ rownum, this.pivotrow ];
+                    bounds = [ row.get('rownum').first(), this.pivotrow.get('rownum').first() ];
                     this.viewport.select($A($R(bounds.min(), bounds.max())));
                 }
                 return;
             }
         } else if (opts.ctrl) {
-            this.pivotrow = rownum;
+            this.pivotrow = row;
             if (sel) {
                 this.viewport.deselect(row, { right: opts.right });
                 return;
@@ -547,39 +545,34 @@ var DimpBase = {
                 }
                 this.loadingImg('viewport', false);
             }.bind(this),
-            onAjaxRequest: function(id) {
-                var p = $H();
-                if (this.folderswitch && this.isSearch(id, true)) {
-                    p.set('qsearchmbox', this.search.mbox);
+            onAjaxRequest: function(params) {
+                var tmp = params.get('cache'),
+                    view = params.get('view');
+
+                if (this.folderswitch && this.isSearch(view, true)) {
+                    params.set('qsearchmbox', this.search.mbox);
                     if (this.search.filter) {
-                        p.update({
-                            qsearchfilter: this.search.filter
-                        });
+                        params.set('qsearchfilter', this.search.filter);
                     } else if (this.search.flag) {
-                        p.update({
+                        params.update({
                             qsearchflag: this.search.flag,
                             qsearchflagnot: Number(this.search.not)
                         });
                     } else {
-                        p.set('qsearch', $F('qsearch_input'));
+                        params.set('qsearch', $F('qsearch_input'));
                     }
                 }
-                return DimpCore.addRequestParams(p);
+
+                if (tmp) {
+                    params.set('cache', DimpCore.toRangeString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
+                }
+                params.set('view', view.base64urlEncode());
+
+                DimpCore.addRequestParams(params);
             }.bind(this),
             onAjaxResponse: function(o, h) {
                 DimpCore.doActionComplete(o);
             },
-            onCachedList: function(id) {
-                if (!this.cacheids[id]) {
-                    var vs = this.viewport.createSelectionBuffer(id);
-                    if (!vs.size()) {
-                        return '';
-                    }
-
-                    this.cacheids[id] = DimpCore.toRangeString(DimpCore.selectionToRange(vs));
-                }
-                return this.cacheids[id];
-            }.bind(this),
             onContentOffset: function(offset) {
                 if (this.uid) {
                     var row = this.viewport.createSelectionBuffer().search({ imapuid: { equal: this.uid }, view: { equal: [ this.folder ] } });
@@ -607,10 +600,6 @@ var DimpBase = {
                 type: 'message'
             });
             new Drag(row, this._msgDragConfig);
-        }.bindAsEventListener(this));
-
-        container.observe('ViewPort:cacheUpdate', function(e) {
-            delete this.cacheids[e.memo];
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {
@@ -756,7 +745,7 @@ var DimpBase = {
         container.observe('ViewPort:select', function(e) {
             var d = e.memo.vs.get('rownum');
             if (d.size() == 1) {
-                this.lastrow = this.pivotrow = d.first();
+                this.lastrow = this.pivotrow = e.memo.vs;
             }
 
             this.setMsgHash();
@@ -2095,7 +2084,7 @@ var DimpBase = {
         case Event.KEY_RIGHT:
             prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
             if (e.shiftKey && this.lastrow != -1) {
-                row = this.viewport.createSelection('rownum', this.lastrow + ((prev) ? -1 : 1));
+                row = this.viewport.createSelection('rownum', this.lastrow.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
                     this.viewport.scrollTo(row.VP_rownum);

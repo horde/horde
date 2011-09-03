@@ -22,11 +22,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
+<<<<<<< HEAD
  <date>2011-04-21</date>
  <time>18:54:43</time>
  <version>
   <release>5.1.0</release>
   <api>5.1.0</api>
+=======
+ <date>2011-08-31</date>
+ <time>23:58:40</time>
+ <version>
+  <release>5.0.12</release>
+  <api>5.0.0</api>
+>>>>>>> master
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +42,12 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+<<<<<<< HEAD
 *
+=======
+* [mms] More workarounds for broken suhosin extension (Bug #10462).
+* [mms] Always show image thumbnail previews, if an image conversion utility is present on the system.
+>>>>>>> master
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1215,7 +1228,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.15</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -2417,12 +2430,29 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-22</date>
+   <date>2011-08-31</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Automatically track rownumber updates when selecting messages; fixes SHIFT-DEL behavior in the dynamic view.
+* [mms] Fix contents of sent message when directly sending from spellcheck in standard view (Bug #10464).
+* [mms] Fix namespace auto-detection for non-sane namespace configs (Bug #10447).
 * [mms] Fix POP3 regression (Bug #10450).
 * [mms] Forwarded messages no longer treated as an attachment in the UI (Request #9754).
 * [mms] Correctly display submailboxes in dynamic view when new submailbox is created before parent mailbox is expanded (Bug #10429).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.12</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-31</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [mms] More workarounds for broken suhosin extension (Bug #10462).
+* [mms] Always show image thumbnail previews, if an image conversion utility is present on the system.
    </notes>
   </release>
  </changelog>

@@ -71,7 +71,8 @@ abstract class Horde_Perms_Permission_Kolab_Acl
         if (strpos($this->_acl, 'i') !== false) {
             $result |= Horde_Perms::EDIT;
         }
-        if (strpos($this->_acl, 'd') !== false) {
+        if (strpos($this->_acl, 'd') !== false ||
+            strpos($this->_acl, 't') !== false) {
             $result |= Horde_Perms::DELETE;
         }
         return $result;

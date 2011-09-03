@@ -208,34 +208,23 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        /* Get the share for later deletion */
+        /* Get the shares for later deletion */
         try {
-            $share = $GLOBALS['nag_shares']->getShare($user);
+            $shares = $GLOBALS['nag_shares']->listShares($user, array('attributes' => $user));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
+            throw new Nag_Exception($e);
         }
 
-        /* Get the list of all tasks */
-        $tasks = Nag::listTasks(null, null, null, $user, 1);
-        $uids = array();
-        $tasks->reset();
-        while ($task = $tasks->each()) {
-            $uids[] = $task->uid;
-        }
-
-        /* ... and delete them. */
-        foreach ($uids as $uid) {
-            $this->delete($uid);
-        }
-
-
-        /* ...and finally, delete the actual share */
-        if (!empty($share)) {
+        $error = false;
+        foreach ($shares as $share) {
+            $storage = Nag_Driver::singleton($share->getName());
+            $result = $storage->deleteAll();
             try {
                 $GLOBALS['nag_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-                throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
             }
         }
 
@@ -246,7 +235,11 @@ class Nag_Application extends Horde_Registry_Application
                $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+        }
+
+        if ($error) {
             throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
         }
     }

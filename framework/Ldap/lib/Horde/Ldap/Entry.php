@@ -363,11 +363,9 @@ class Horde_Ldap_Entry
      *
      * The second parameter influences the way the value is returned:
      * - 'single': only the first value is returned as string.
-     * - 'all': all values including the value count are returned in an
-     *          array.
+     * - 'all': all values are returned in an array.
      * In all other cases an attribute value with a single value is returned as
-     * string, if it has multiple values it is returned as an array (without
-     * value count).
+     * string, if it has multiple values it is returned as an array.
      *
      * @param string $attr   Attribute name.
      * @param string $option Option.

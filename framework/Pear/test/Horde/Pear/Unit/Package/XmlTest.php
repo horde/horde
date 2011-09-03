@@ -120,6 +120,14 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testGetNotes()
+    {
+        $this->assertEquals('
+* Fixed bug #1
+* Initial release
+ ', $this->_getFixture()->getNotes());
+    }
+
     public function testTimestamp()
     {
         $xml = $this->_getFixture();

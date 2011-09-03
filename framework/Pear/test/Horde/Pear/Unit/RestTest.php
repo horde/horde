@@ -138,6 +138,19 @@ extends Horde_Pear_TestCase
         $this->assertFalse($this->_getRest(404)->releaseExists('TEST', '1'));
     }
 
+    public function testFetchLatest()
+    {
+        $this->assertEquals(
+            'RESPONSE',
+            $this->_getRest()->fetchLatestRelease('TEST')
+        );
+    }
+
+    public function testFetchNoLatest()
+    {
+        $this->assertFalse($this->_getRest(404)->fetchLatestRelease('TEST'));
+    }
+
     private function _getRest($code = 200)
     {
         if (!class_exists('Horde_Http_Client')) {

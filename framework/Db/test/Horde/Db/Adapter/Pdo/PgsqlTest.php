@@ -206,7 +206,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     public function testInsert()
     {
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-        $result = $this->_conn->insert($sql);
+        $result = $this->_conn->insert($sql, null, null, null, 7);
 
         $this->assertEquals(7, $result);
     }

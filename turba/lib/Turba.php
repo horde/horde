@@ -497,7 +497,9 @@ class Turba
             if (isset($sortedSources[$source])) {
                 $newSources = array_merge($newSources, $sortedSources[$source]);
             }
-            if ($GLOBALS['registry']->getAuth() && !$personal) {
+            if (!empty($GLOBALS['conf']['share']['auto_create']) &&
+                $GLOBALS['registry']->getAuth() && !$personal) {
+                
                 // User's default share is missing.
                 try {
                     $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);

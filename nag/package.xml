@@ -70,6 +70,9 @@
      <file name="Kolab.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Tasklists.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
     <dir name="Form">
      <dir name="Renderer">
       <file name="Task.php" role="horde" />
@@ -85,6 +88,11 @@
      <file name="EditTaskList.php" role="horde" />
      <file name="Task.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <dir name="Tasklists">
+     <file name="Base.php" role="horde" />
+     <file name="Default.php" role="horde" />
+     <file name="Kolab.php" role="horde" />
+    </dir> <!-- /lib/Tasklists -->
     <dir name="Ui">
      <dir name="VarRenderer">
       <file name="Nag.php" role="horde" />
@@ -378,12 +386,33 @@
    <dir name="test">
     <dir name="Nag">
      <dir name="Stub">
+      <file name="DbFactory.php" role="test" />
       <file name="Registry.php" role="test" />
      </dir> <!-- /test/Nag/Stub -->
      <dir name="Unit">
       <dir name="Driver">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Nag/Unit/Driver/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Nag/Unit/Driver/Sql -->
+       <file name="Base.php" role="test" />
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Nag/Unit/Driver -->
+      <dir name="Factory">
+       <file name="TasklistsTest.php" role="test" />
+      </dir> <!-- /test/Nag/Unit/Factory -->
+      <dir name="Nag">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Nag/Unit/Nag/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Nag/Unit/Nag/Sql -->
+       <file name="Base.php" role="test" />
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Nag/Unit/Nag -->
      </dir> <!-- /test/Nag/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -633,6 +662,13 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>1.2.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </optional>
  </dependencies>
  <usesrole>
@@ -671,6 +707,7 @@
    <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="nag/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="nag/lib/Factory/Tasklists.php" name="lib/Factory/Tasklists.php" />
    <install as="nag/lib/Form/CreateTaskList.php" name="lib/Form/CreateTaskList.php" />
    <install as="nag/lib/Form/DeleteTaskList.php" name="lib/Form/DeleteTaskList.php" />
    <install as="nag/lib/Form/EditTaskList.php" name="lib/Form/EditTaskList.php" />
@@ -680,6 +717,9 @@
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
    <install as="nag/lib/Form/Type/NagStart.php" name="lib/Form/Type/NagStart.php" />
+   <install as="nag/lib/Tasklists/Base.php" name="lib/Tasklists/Base.php" />
+   <install as="nag/lib/Tasklists/Default.php" name="lib/Tasklists/Default.php" />
+   <install as="nag/lib/Tasklists/Kolab.php" name="lib/Tasklists/Kolab.php" />
    <install as="nag/lib/Ui/VarRenderer/Nag.php" name="lib/Ui/VarRenderer/Nag.php" />
    <install as="nag/locale/.htaccess" name="locale/.htaccess" />
    <install as="nag/locale/nag.pot" name="locale/nag.pot" />
@@ -799,8 +839,17 @@
    <install as="Nag/Autoload.php" name="test/Nag/Autoload.php" />
    <install as="Nag/phpunit.xml" name="test/Nag/phpunit.xml" />
    <install as="Nag/TestCase.php" name="test/Nag/TestCase.php" />
+   <install as="Nag/Stub/DbFactory.php" name="test/Nag/Stub/DbFactory.php" />
    <install as="Nag/Stub/Registry.php" name="test/Nag/Stub/Registry.php" />
+   <install as="Nag/Unit/Driver/Base.php" name="test/Nag/Unit/Driver/Base.php" />
    <install as="Nag/Unit/Driver/KolabTest.php" name="test/Nag/Unit/Driver/KolabTest.php" />
+   <install as="Nag/Unit/Driver/Sql/Base.php" name="test/Nag/Unit/Driver/Sql/Base.php" />
+   <install as="Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" />
+   <install as="Nag/Unit/Factory/TasklistsTest.php" name="test/Nag/Unit/Factory/TasklistsTest.php" />
+   <install as="Nag/Unit/Nag/Base.php" name="test/Nag/Unit/Nag/Base.php" />
+   <install as="Nag/Unit/Nag/KolabTest.php" name="test/Nag/Unit/Nag/KolabTest.php" />
+   <install as="Nag/Unit/Nag/Sql/Base.php" name="test/Nag/Unit/Nag/Sql/Base.php" />
+   <install as="Nag/Unit/Nag/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Nag/Sql/Pdo/SqliteTest.php" />
    <install as="nag/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="nag/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
@@ -989,9 +1038,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-09-01</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+<<<<<<< HEAD
 *
    </notes>
   </release>
@@ -1006,6 +1056,11 @@
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 *
+=======
+* [mjr] Fix removeUserData implementation.
+* [gwr] Fix Kolab object attribute handling for tasks.
+* [gwr] Avoid including the owner name into the default share.
+>>>>>>> master
    </notes>
   </release>
  </changelog>

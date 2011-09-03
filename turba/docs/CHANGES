@@ -5,8 +5,18 @@ v3.1-git
 
 
 ----------
-v3.0.8-git
+v3.0.9-git
 ----------
+
+[mjr] Improve handling of removeUserData.
+[mjr] Honor auto_create configuration setting (Bug #10452,
+      qoole.horde@lillimoth.com)
+[jan] Don't allow to search binary fields.
+
+
+------
+v3.0.8
+------
 
 [jan] Fix attribute name for assistant phone (Bug #10449).
 

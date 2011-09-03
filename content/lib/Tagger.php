@@ -400,16 +400,34 @@ class Content_Tagger
      *   typeId     Only return objects with a specific type.
      *   objectId   Return objects with the same tags as $objectId.
      *   userId     Limit results to objects tagged by a specific user.
+     *   radius     Radius setting for relationship queries e.g., objectId
      *
      * @return array  An array of object ids.
      */
     public function getObjects($args)
     {
         if (isset($args['objectId'])) {
-            $args['objectId'] = current($this->_objectManager->ensureObject($args['objectId']));
-            $radius = isset($args['radius']) ? (int)$args['radius'] : $this->_defaultRadius;
-            $inner = $this->_db->addLimitOffset('SELECT tag_id FROM ' . $this->_t('tagged') . ' WHERE object_id = ' . (int)$objectId, array('limit' => $radius));
-            $sql = $this->_db->addLimitOffset('SELECT tagged2.object_id AS object_id, object_name FROM (' . $inner . ') t1 INNER JOIN ' . $this->_tagged . ' tagged2 ON t1.tag_id = t2.tag_id INNER JOIN ' . $this->_t('objects') . ' objects ON objects.object_id = tagged.object_id WHERE t2.object_id != ' . (int)$objectId . ' GROUP BY t2.object_id', array('limit' => $radius));
+            if (is_array($args['objectId'])) {
+                $args['objectId'] = current($this->_objectManager->ensureObjects(
+                    $args['objectId']['object'],
+                    $args['objectId']['type']));
+            }
+
+            $radius = isset($args['radius']) ?
+                (int)$args['radius'] :
+                $this->_defaultRadius;
+            $inner = $this->_db->addLimitOffset(
+                'SELECT tag_id, object_id FROM ' . $this->_t('tagged')
+                    . ' WHERE object_id = ' . (int)$args['objectId'],
+                array('limit' => $radius));
+            $sql = 'SELECT t2.object_id AS object_id, object_name FROM ('
+                    . $inner . ') t1 INNER JOIN ' . $this->_t('tagged')
+                    . ' t2 ON t1.tag_id = t2.tag_id INNER JOIN ' . $this->_t('objects')
+                    . ' objects ON objects.object_id = t2.object_id WHERE t2.object_id != '
+                    . (int)$args['objectId'] . ' GROUP BY t2.object_id, object_name';
+            if (!empty($args['limit'])) {
+                $sql = $this->_db->addLimitOffset($sql, $args['limit']);
+            }
         } elseif (isset($args['tagId'])) {
             $tags = is_array($args['tagId']) ? array_values($args['tagId']) : array($args['tagId']);
             $count = count($tags);
@@ -529,7 +547,7 @@ class Content_Tagger
                 . $this->_db->quoteString($args['typeId']);
         }
         $sql .= ' WHERE tags.tag_id IN (' . implode(',', $tagArray) . ') AND matches.object_id <> ' . (int)$object_id
-            .' GROUP BY objects.object_name HAVING num_common_tags >= ' . $threshold
+            .' GROUP BY objects.object_name HAVING COUNT(matches.object_id) >= ' . $threshold
             . ' ORDER BY num_common_tags DESC';
 
         $sql = $this->_db->addLimitOffset($sql, array('limit' => $max_objects));

@@ -844,6 +844,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
+<<<<<<< HEAD
 *
    </notes>
   </release>
@@ -858,6 +859,9 @@
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 *
+=======
+* [mjr] Fix removeUserData implementation.
+>>>>>>> master
    </notes>
   </release>
  </changelog>

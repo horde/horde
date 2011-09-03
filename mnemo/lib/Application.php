@@ -161,4 +161,45 @@ class Mnemo_Application extends Horde_Registry_Application
         );
     }
 
+    /**
+     */
+    public function removeUserData($user)
+    {
+        $error = false;
+        $notepads = Mnemo::listNotepads(true);
+        foreach ($notepads as $notepad => $share) {
+            $driver = $GLOBALS['injector']
+                ->getInstance('Mnemo_Factory_Driver')
+                ->create($notepad);
+            try {
+                $driver->deleteAll();
+            } catch (Mnemo_Exception $e) {
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
+            }
+
+            try {
+                $GLOBALS['mnemo_shares']->removeShare($share);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
+            }
+        }
+
+        // Get a list of all shares this user has perms to and remove the perms.
+        try {
+            $shares = $GLOBALS['mnemo_shares']->listShares($user);
+            foreach ($shares as $share) {
+                $share->removeUser($user);
+            }
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+        }
+
+        if ($error) {
+            throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
+        }
+    }
+
 }

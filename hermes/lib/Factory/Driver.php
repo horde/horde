@@ -15,9 +15,9 @@ class Hermes_Factory_Driver extends Horde_Core_Factory_Injector
     private $_instances = array();
 
     /**
-     * Return an Hermes_Storage instance.
+     * Return an Hermes_Driver instance.
      *
-     * @return Ansel_Storage
+     * @return Hermes_Driver
      */
     public function create(Horde_Injector $injector)
     {

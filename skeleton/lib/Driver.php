@@ -1,6 +1,6 @@
 <?php
 /**
- * Skeleton_Driver:: defines an API for implementing storage backends for
+ * Skeleton_Driver defines an API for implementing storage backends for
  * Skeleton.
  *
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)

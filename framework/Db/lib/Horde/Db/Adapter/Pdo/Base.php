@@ -174,7 +174,6 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     {
         // Normalize config parameters to what PDO expects.
         $normalize = array('database' => 'dbname',
-                           'socket' => 'unix_socket',
                            'hostspec' => 'host');
 
         foreach ($normalize as $from => $to) {
@@ -222,7 +221,8 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             $dsnOpts['protocol'],
             $dsnOpts['persistent'],
             $dsnOpts['charset'],
-            $dsnOpts['phptype']
+            $dsnOpts['phptype'],
+            $dsnOpts['socket']
         );
 
         // return DSN and user/pass for connection

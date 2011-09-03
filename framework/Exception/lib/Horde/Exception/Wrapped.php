@@ -27,7 +27,7 @@ class Horde_Exception_Wrapped extends Horde_Exception
             method_exists($message, 'getMessage')) {
             if (empty($code) &&
                 method_exists($message, 'getCode')) {
-                $code = $message->getCode();
+                $code = (int)$message->getCode();
             }
             if ($message instanceof Exception) {
                 $previous = $message;
@@ -36,7 +36,7 @@ class Horde_Exception_Wrapped extends Horde_Exception
                 $details = $message->getUserinfo()) {
                 $this->details = $details;
             }
-            $message = $message->getMessage();
+            $message = (string)$message->getMessage();
         }
 
         parent::__construct($message, $code, $previous);

@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-06</date>
- <time>05:59:35</time>
+ <date>2011-08-29</date>
+ <time>22:59:49</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -389,7 +389,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-07-06</date>
+   <date>2011-08-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * [gwr] Added support for fetching package dependencies from the remote server.

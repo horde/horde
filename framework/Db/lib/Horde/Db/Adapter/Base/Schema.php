@@ -425,26 +425,20 @@ abstract class Horde_Db_Adapter_Base_Schema
         $tableDefinition = $this->makeTableDefinition($name, $this, $options);
 
         if (isset($options['autoincrementKey'])) {
-            if ($options['autoincrementKey'] === false) {
+            if ($options['autoincrementKey'] === true ||
+                $options['autoincrementKey'] === 'true' ||
+                $options['autoincrementKey'] === 't' ||
+                $options['autoincrementKey'] === 1 ||
+                $options['autoincrementKey'] === '1') {
+                $pk = 'id';
+            } elseif ($options['autoincrementKey'] === false ||
+                      $options['autoincrementKey'] === 'false' ||
+                      $options['autoincrementKey'] === 'f' ||
+                      $options['autoincrementKey'] === 0 ||
+                      $options['autoincrementKey'] === '0') {
                 $pk = false;
             } else {
-                switch ($options['autoincrementKey']) {
-                case 'true':
-                case 't':
-                case 1:
-                case '1':
-                    $pk = 'id';
-                    break;
-
-                case 'false':
-                case 'f':
-                case 0:
-                case '0':
-                    $pk = false;
-
-                default:
-                    $pk = $options['autoincrementKey'];
-                }
+                $pk = $options['autoincrementKey'];
             }
         } else {
             $pk = 'id';

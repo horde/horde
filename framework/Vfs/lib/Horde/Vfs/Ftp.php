@@ -127,6 +127,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
     public function read($path, $name)
     {
         $file = $this->readFile($path, $name);
+        clearstatcache();
         $size = filesize($file);
 
         return ($size === 0)

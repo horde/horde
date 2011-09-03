@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<help>
+  <entry id="tag_level" md5="bb25cb5169bcf158ee711ce15ed74185" state="uptodate">
+    <title>Yleiset asetukset: Merkint&#xE4;taso</title>
+    <heading>Merkint&#xE4;taso</heading>
+    <para>
+        M&#xE4;&#xE4;rittele minimi pistem&#xE4;&#xE4;r&#xE4;, joka tarvitaan siihen ett&#xE4; viesteihin lis&#xE4;t&#xE4;&#xE4;n <b>X-Spam-Status:</b> otsake. T&#xE4;m&#xE4;n otsakkeen olemassaolo ei v&#xE4;ltt&#xE4;m&#xE4;tt&#xE4; tarkoita ett&#xE4; viesti on spam (roskapostia), mutta n&#xE4;ytt&#xE4;&#xE4; viestin saamat pisteet ja mist&#xE4; testeist&#xE4; se sai n&#xE4;m&#xE4; pisteet.
+    </para>
+    <para>
+        Mit&#xE4; pienempi pistem&#xE4;&#xE4;r&#xE4;, niin sit&#xE4; agressiivisempaa suodatus on. Esimerkiksi pistem&#xE4;&#xE4;r&#xE4; 2.0 lis&#xE4;&#xE4; edell&#xE4; mainitun otsakkeen kaikkiin niihin viesteihin, joiden pistem&#xE4;&#xE4;r&#xE4; on 2.0 tai ylitse. T&#xE4;m&#xE4; on eritt&#xE4;in agressiivinen ja tiukka asetus.
+    </para>
+</entry>
+  <entry id="hit_level" md5="c153a136289cea8c0fd170925d696bf2" state="uptodate">
+    <title>Yleiset asetukset: Osumataso</title>
+    <heading>Osumataso</heading>
+    <para>
+        M&#xE4;&#xE4;rittele minimi pistem&#xE4;&#xE4;r&#xE4;, joka tarvitaan siihen ett&#xE4; viesteihin lis&#xE4;t&#xE4;&#xE4;n <b>X-Spam-Flag: YES</b> otsake. T&#xE4;m&#xE4;n otsakkeen olemassaolo yleens&#xE4; tarkoittaa ett&#xE4; viesti on tunnistettu spam (roskaposti). T&#xE4;t&#xE4; otsaketta voi k&#xE4;ytt&#xE4;&#xE4; esimerkiksi suodatuss&#xE4;&#xE4;nn&#xF6;iss&#xE4;.
+    </para>
+    <para>
+     Mit&#xE4; pienempi pistem&#xE4;&#xE4;r&#xE4;, niin sit&#xE4; agressiivisempaa suodatus on. Esimerkiksi pistem&#xE4;&#xE4;r&#xE4; 2.0 lis&#xE4;&#xE4; edell&#xE4; mainitun otsakkeen kaikkiin niihin viesteihin, joiden pistem&#xE4;&#xE4;r&#xE4; on 2.0 tai ylitse. T&#xE4;m&#xE4; on eritt&#xE4;in agressiivinen ja tiukka asetus. Osumataso on yleens&#xE4; suurempi kuin <i>Merkint&#xE4;taso</i> (jos se on asetettu). Oletuksena osumataso on 5.0.
+    </para>
+</entry>
+  <entry id="kill_level" md5="14433be630faa1b64e4dcedbd4029664" state="uptodate">
+    <title>Yleiset asetukset: Poistotaso</title>
+    <heading>Poisto</heading>
+    <para>
+       M&#xE4;&#xE4;rittele minimi pistem&#xE4;&#xE4;r&#xE4;, joka tarvitaan siihen ett&#xE4; spam (roskapostiksi) tunnistettuja viestej&#xE4; aletaan suodattamaan. T&#xE4;m&#xE4; toiminto on j&#xE4;rjestelm&#xE4;kohtainen ja voi tarkoittaa ett&#xE4; viestit poistetaan kokonaan tai ne toimitetaan toiseen kansioon.
+    </para>
+    <para>
+     Mit&#xE4; pienempi pistem&#xE4;&#xE4;r&#xE4;, niin sit&#xE4; agressiivisempaa suodatus on. Esimer\
+kiksi pistem&#xE4;&#xE4;r&#xE4; 2.0 lis&#xE4;&#xE4; edell&#xE4; mainitun otsakkeen kaikkiin niihin viesteihin, joiden pistem&#xE4;&#xE4;r&#xE4; on 2.0 tai ylitse. T&#xE4;m&#xE4; on eritt&#xE4;in agressiivinen ja tiukka asetus. Poisto on yleens&#xE4; pienempi tai yht&#xE4;suuri kuin <i>Osumataso</i> (jos se on asetettu).
+    </para>
+</entry>
+  <entry id="subject_tag" md5="22aed979aa4a007c19ac8465775fe6a2" state="uptodate">
+    <title>Yleiset asetukset: Otsikkomerkint&#xE4;</title>
+    <heading>Otsikkomerkint&#xE4;</heading>
+    <para>
+        Teksti, joka lis&#xE4;t&#xE4;&#xE4;n spam (roskapostiksi) tunnistetun viestin Otsikko: riville, mutta vain jos <i>Kirjoita otsikko uudelleen</i> on laitettu p&#xE4;&#xE4;lle.
+    </para>
+    <para>
+        Jos skanneri tukee toimintoa, niin sana <b>_HITS_</b> merkinn&#xE4;ss&#xE4; korvataan viestin saamalla pistem&#xE4;&#xE4;r&#xE4;ll&#xE4; ja sana <b>_REQD_</b> korvataan pistem&#xE4;&#xE4;r&#xE4;ll&#xE4;, joka tarvitaan siihen ett&#xE4; viesti ylitt&#xE4;&#xE4; <i>Osumatason</i>.
+    </para>
+</entry>
+  <entry id="rewrite_sub" md5="3912384243693fcd559e0fc2a2214d80" state="uptodate">
+    <title>Yleiset asetukset: Kirjoita otsikko uudelleen</title>
+    <heading>Kirjoita otsikko uudelleen</heading>
+    <para>
+        Voit valita kirjoitetaanko viestin Otsikko: rivi uudestaan, jos viesti on tunnistettu spam (roskapostiksi).
+    </para>
+</entry>
+  <entry id="spam_quarantine" md5="91ebda9c7d47d180660363e5343b7509" state="uptodate">
+    <title>Yleiset asetukset: Karanteeniosoite roskapostille</title>
+    <heading>Karanteeniosoite roskapostille</heading>
+    <para>
+        Laita t&#xE4;h&#xE4;n osoite, johon l&#xE4;hetet&#xE4;&#xE4;n spam (roskapostiksi) tunnistetut viestit.
+    </para>
+</entry>
+  <entry id="report_safe" md5="b4c0384a8a4d1675dc18868207fc0913" state="uptodate">
+    <title>Yleiset asetukset: Raporttiturvallisuus</title>
+    <heading>Raporttiturvallisuus</heading>
+    <para>
+        Voit valita miten turvallisesti muokataan roskapostiksi tunnistettuja viestej&#xE4;. Jos taso on 0, niin viesteihin lis&#xE4;t&#xE4;&#xE4;n vain X-Spam-* otsakkeet.
+    </para>
+    <para>
+        Tasolla 1 alkuper&#xE4;inen viesti liitet&#xE4;&#xE4;n raporttiviestiin message/rfc822 tyyppisen&#xE4; liitetiedostona. T&#xE4;m&#xE4; tapa s&#xE4;ilytt&#xE4;&#xE4; viestin alkuper&#xE4;isen muodon ja tiedot, mutta viesti&#xE4; on vaikea aukaista vahingossa.
+    </para>
+    <para>
+        Tasolla 2 alkuper&#xE4;inen viesti liitet&#xE4;&#xE4;n raporttiviestiin liitetiedostona, joka on tavallista teksti&#xE4;. T&#xE4;m&#xE4; taso tuo lis&#xE4;suojaa, etenkin jos k&#xE4;yt&#xF6;ss&#xE4; on s&#xE4;hk&#xF6;postiohjelma, joka aukaisee liitteet automaattisesti kysym&#xE4;tt&#xE4; lupaa k&#xE4;ytt&#xE4;j&#xE4;lt&#xE4;. T&#xE4;m&#xE4; tapa saattaa tehd&#xE4; vaikeaksi aukaista alkuper&#xE4;ist&#xE4; viesti&#xE4;.
+    </para>
+</entry>
+  <entry id="skip_rbl" md5="ef5f7b4350b65c21883795539c589ae9" state="uptodate">
+    <title>Yleiset asetukset: Ohita RBL-tarkistukset</title>
+    <heading>Ohita RBL-tarkistukset</heading>
+    <para>
+        Voit valita tarkastetaanko onko viestin l&#xE4;hett&#xE4;j&#xE4; mustalla listalla. N&#xE4;m&#xE4; listat eiv&#xE4;t ole aina tarkkoja ja n&#xE4;iden tarkistusten k&#xE4;ytt&#xE4;minen voi hidastaa s&#xE4;hk&#xF6;postin kulkua ja j&#xE4;rjestelm&#xE4;&#xE4;. Jos sinun internetpalvelujen tarjoajasi (ISP) tekee jo n&#xE4;m&#xE4; tarkistuksen, niin sinun ei kannata tehd&#xE4; tarkistusta uudestaan ja sinun kannattaa laittaa tarkistus pois p&#xE4;&#xE4;lt&#xE4;.
+    </para>
+</entry>
+  <entry id="skip_virus" md5="d1b15a4a4ff4c3fad8019040d1c5cf87" state="uptodate">
+    <title>Yleiset asetukset: Ohita virustarkistukset</title>
+    <heading>Ohita virustarkistukset</heading>
+    <para>
+        Voit valita ohitetaanko virustarkistukset. Tarkistukset voi ohittaa vain jos j&#xE4;rjestelm&#xE4;n yleiset asetukset sen sallivat.
+    </para>
+</entry>
+  <entry id="skip_spam" md5="4ba6e58b7a95d40f29754a08d0e34ce0" state="uptodate">
+    <title>Yleiset asetukset: Ohita roskapostitarkistukset</title>
+    <heading>Ohita roskapostitarkistukset</heading>
+    <para>
+        Voit valita ohitetaanko roskapostitarkistukset. Tarkistukset voi ohittaa vain jos j&#xE4;rjestelm&#xE4;n asetukset sen sallivat.
+    </para>
+</entry>
+  <entry id="skip_banned" md5="f670d0bf2afc56f414a0c36047c7ccf2" state="uptodate">
+    <title>Yleiset asetukset: Ohita kiellettyjen tiedostojen tarkistus</title>
+    <heading>Ohita kiellettyjen tiedostojen tarkistus</heading>
+    <para>
+        Voit valita ohitetaanko kiellettyjen liitetiedostotyyppien tarkistukset. Tarkistukset voi ohittaa vain jos j&#xE4;rjestelm&#xE4;n yleiset asetukset sen sallivat.
+    </para>
+</entry>
+  <entry id="skip_header" md5="8a5c019e9cb61f7d8f368172e4059952" state="uptodate">
+    <title>Yleiset asetukset: Ohita v&#xE4;&#xE4;rien otsakkeiden tarkistukset</title>
+    <heading>Ohita v&#xE4;&#xE4;rien otsakkeiden tarkistukset</heading>
+    <para>
+        Voit valita ohitetaanko Ohita v&#xE4;&#xE4;rien otsakkeiden tarkistukset. Tarkistukset voi ohittaa vain jos j&#xE4;rjestelm&#xE4;n yleiset asetukset sen sallivat.
+    </para>
+</entry>
+  <entry id="allow_virus" md5="e484a8ec9ec46712b81ebe82db0a5896" state="uptodate">
+    <title>Yleiset asetukset: Vastaanota viruksia</title>
+    <heading>Vastaanota viruksia</heading>
+    <para>
+        Voit valita vastaanotetaanko tunnistettuja viruksia. Riippuen j&#xE4;rjestelm&#xE4;n k&#xE4;ytt&#xF6;politiikasta t&#xE4;m&#xE4; asetus ei v&#xE4;ltt&#xE4;m&#xE4;tt&#xE4; ole k&#xE4;ytt&#xE4;j&#xE4;n asetettavissa.
+    </para>
+</entry>
+  <entry id="allow_spam" md5="e6e3522bcb48402ce8cdd29b2568482e" state="uptodate">
+    <title>Yleiset asetukset: Vastaanota roskapostia</title>
+    <heading>Vastaanota roskapostia</heading>
+    <para>
+        Voit valita vastaanotetaanko tunnistettuja roskaposteja. Riippuen j&#xE4;rjestelm&#xE4;n k&#xE4;ytt&#xF6;politiikasta t&#xE4;m&#xE4; asetus ei v&#xE4;ltt&#xE4;m&#xE4;tt&#xE4; ole k&#xE4;ytt&#xE4;j&#xE4;n asetettavissa.
+    </para>
+</entry>
+  <entry id="allow_banned" md5="a2b96a0b1cbab9d35c8261d4f4c50338" state="uptodate">
+    <title>Yleiset asetukset: Vastaanota kiellettyj&#xE4; tiedostoja</title>
+    <heading>Vastaanota kiellettyj&#xE4; tiedostoja</heading>
+    <para>
+        Voit valita vastaanotetaanko kiellettyj&#xE4; tiedostoja. Riippuen j&#xE4;rjestelm&#xE4;n k&#xE4;ytt&#xF6;politiikasta t&#xE4;m&#xE4; asetus ei v&#xE4;ltt&#xE4;m&#xE4;tt&#xE4; ole k&#xE4;ytt&#xE4;j&#xE4;n asetettavissa.
+    </para>
+</entry>
+  <entry id="allow_header" md5="78d2cc51745a39fe335c2f627d8c3103" state="uptodate">
+    <title>Yleiset asetukset: Vastaanota v&#xE4;&#xE4;ri&#xE4; otsakkeita</title>
+    <heading>Vastaanota v&#xE4;&#xE4;ri&#xE4; otsakkeita</heading>
+    <para>
+        Voit valita vastaanotetaanko v&#xE4;&#xE4;ri&#xE4; otsakkeita. Riippuen j&#xE4;rjestelm&#xE4;n k&#xE4;ytt&#xF6;politiikasta t&#xE4;m&#xE4; asetus ei v&#xE4;ltt&#xE4;m&#xE4;tt&#xE4; ole k&#xE4;ytt&#xE4;j&#xE4;n asetettavissa.
+    </para>
+</entry>
+  <entry id="spam_extension" md5="83e97d05935f8fbdc677c9c2bcb4896a" state="uptodate">
+    <title>Yleiset asetukset: Roskapostikansio</title>
+    <heading>Roskapostikansio</heading>
+    <para>
+        Valitse kansio, johon roskapostit toimitetaan.
+    </para>
+</entry>
+  <entry id="virus_extension" md5="3598aa3db4e7b7868af37c871f2b289d" state="uptodate">
+    <title>Yleiset asetukset: Viruskansio</title>
+    <heading>Viruskansio</heading>
+    <para>
+        Valitse kansio, johon toimitetaan ilmoitukset virusviesteit&#xE4;.
+    </para>
+</entry>
+  <entry id="banned_extension" md5="8b354b1af281bbc8e1ff0ec29156fde5" state="uptodate">
+    <title>Yleiset asetukset: Kiellettyjen tiedostojen kansio</title>
+    <heading>Kiellettyjen tiedostojen kansio</heading>
+    <para>
+        Valitse kansio, johon toimitetaan ilmoitukset poistetuista liitetiedostoista.
+    </para>
+</entry>
+  <entry id="whitelist_from" md5="4a7c7b432c5f4ebd74a8a6d4c2937379" state="uptodate">
+    <title>Sallittujen listan asetukset: Sallittujen l&#xE4;hett&#xE4;jien lista</title>
+    <heading>Sallittujen l&#xE4;hett&#xE4;jien lista</heading>
+    <para>
+        Laita t&#xE4;h&#xE4;n lista l&#xE4;hett&#xE4;jien osoitteista, joita ei tunnisteta roskapostiksi. Jokainen osoite pit&#xE4;&#xE4; laittaa omalle rivilleen.
+    </para>
+</entry>
+  <entry id="whitelist_to" md5="ae102144304eebeb6dc4b770e2bed580" state="uptodate">
+    <title>Sallittujen listan asetukset: Sallittujen vastaanottajie lista</title>
+    <heading>Sallittujen vastaanottajien lista</heading>
+    <para>
+        Laita t&#xE4;h&#xE4;n lista vastaanottajien osoitteista, joita ei tunnisteta roskapostiksi. Jokainen osoite pit&#xE4;&#xE4; laittaa omalle rivilleen.
+    </para>
+</entry>
+  <entry id="blacklist_from" md5="b52f5d38e5291a6fb96c9438133e2699" state="uptodate">
+    <title>Mustan listan asetukset: L&#xE4;hett&#xE4;jien musta lista</title>
+    <heading>L&#xE4;hett&#xE4;jien musta lista</heading>
+    <para>
+        Laita t&#xE4;h&#xE4;n lista l&#xE4;hett&#xE4;jien osoitteista, jotka tunnistetaan aina roskapostiksi. Jokainen osoite pit&#xE4;&#xE4; laittaa omalle rivilleen.
+    </para>
+</entry>
+  <entry id="blacklist_to" md5="35957ccfdaeda67b5b790e02e58da978" state="uptodate">
+    <title>Mustan listan asetukset: Vastaanottajien musta lista</title>
+    <heading>Vastaanottajien musta lista</heading>
+    <para>
+        Laita t&#xE4;h&#xE4;n lista vastaanottajien osoitteista, jotka tunnistetaan aina roskapostiksi. Jokainen osoite pit&#xE4;&#xE4; laittaa omalle rivilleen.
+    </para>
+</entry>
+  <entry id="global_defaults" md5="c2149f1eb8af5c51212155d200f8ec44" state="uptodate">
+    <title>Yll&#xE4;pit&#xE4;j&#xE4;n asetukset: Aseta asetukset globaaleiksi</title>
+    <heading>Aseta asetukset globaaleiksi</heading>
+    <para>
+    Jos t&#xE4;lle on tuki taustaj&#xE4;rjestelm&#xE4;ss&#xE4;, niin yll&#xE4;pit&#xE4;j&#xE4; voi asettaa n&#xE4;kyviss&#xE4; olevat asetukset globaaleiksi asetuksiksi. K&#xE4;ytt&#xE4;j&#xE4;t voivat silti muuttaa omia asetuksia ja siten muuttaa omalta kohdaltaan globaaleja oletusasetuksia. Jos k&#xE4;ytt&#xE4;j&#xE4;lle ei ole omia asetuksia, niin silloin h&#xE4;n k&#xE4;ytt&#xE4;&#xE4; oletuksena globaaleja asetuksia. Voit valita laitetaanko n&#xE4;kyviss&#xE4; olevat asetukset globaaleiksi koko ymp&#xE4;rist&#xF6;&#xE4; koskeviksi oletusasetuksiksi.
+    </para>
+</entry>
+</help>

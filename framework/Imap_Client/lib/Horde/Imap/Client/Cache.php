@@ -1,7 +1,6 @@
 <?php
 /**
- * Horde_Imap_Client_Cache:: provides an interface to cache various data
- * retrieved from the IMAP server.
+ * An interface to cache various data retrieved from the IMAP server.
  *
  * Requires the horde/Cache package.
  *
@@ -89,22 +88,19 @@ class Horde_Imap_Client_Cache
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     * <pre>
-     * REQUIRED Parameters:
-     *   - cacheob: (Horde_Cache) The cache object to use.
-     *   - hostspec: (string) The IMAP hostspec.
-     *   - port: (string) The IMAP port.
-     *   - username: (string) The IMAP username.
-     *
-     * Optional Parameters:
-     *   - debug: (resource) If set, will output debug information to the
-     *            given stream.
-     *            DEFAULT: No debug output
-     *   - lifetime: (integer) The lifetime of the cache data (in seconds).
-     *               DEFAULT: 1 week (604800 seconds)
-     *   - slicesize: (integer) The slicesize to use.
-     *                DEFAULT: 50
-     * </pre>
+     *   - REQUIRED Parameters:
+     *     - cacheob: (Horde_Cache) The cache object to use.
+     *     - hostspec: (string) The IMAP hostspec.
+     *     - port: (string) The IMAP port.
+     *     - username: (string) The IMAP username.
+     *   - Optional Parameters:
+     *     - debug: (resource) If set, will output debug information to the
+     *              given stream.
+     *              DEFAULT: No debug output
+     *     - lifetime: (integer) The lifetime of the cache data (in seconds).
+     *                 DEFAULT: 1 week (604800 seconds)
+     *     - slicesize: (integer) The slicesize to use.
+     *                  DEFAULT: 50
      *
      * @throws InvalidArgumentException
      */
@@ -201,6 +197,7 @@ class Horde_Imap_Client_Cache
      *                key (if found) and the fields as values (will be
      *                undefined if not found). If $uids is empty, returns the
      *                full list of cached UIDs.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     public function get($mailbox, $uids = array(), $fields = array(),
@@ -295,9 +292,7 @@ class Horde_Imap_Client_Cache
      * @return array  The requested metadata. Requested entries that do not
      *                exist will be undefined. The following entries are
      *                defaults and always present:
-     * <pre>
-     * 'uidvalid' - (integer) The UIDVALIDITY of the mailbox.
-     * </pre>
+     *   - uidvalid: (integer) The UIDVALIDITY of the mailbox.
      */
     public function getMetaData($mailbox, $uidvalid = null, $entries = array())
     {
@@ -398,8 +393,7 @@ class Horde_Imap_Client_Cache
 
     /**
      * Load the given mailbox by regenerating from the cache.
-     * Throws a Horde_Imap_Client_Exception on error ONLY if $uidvalid is
-     * set.
+     * Throws an exception on error ONLY if $uidvalid is set.
      *
      * @param string $mailbox    The mailbox to load.
      * @param array $uids        The UIDs to load.
@@ -483,6 +477,7 @@ class Horde_Imap_Client_Cache
      * @param boolean $set     Set the slice information in $_slicemap?
      *
      * @return array  UIDs as the keys, the slice number as the value.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getCacheSlices($mailbox, $uids, $set = false)
@@ -588,4 +583,5 @@ class Horde_Imap_Client_Cache
             'slice' => array()
         );
     }
+
 }

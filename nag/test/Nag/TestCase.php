@@ -30,15 +30,48 @@
 class Nag_TestCase
 extends PHPUnit_Framework_TestCase
 {
-    protected function getInjector()
+    static protected function getInjector()
     {
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
-    protected function getKolabDriver()
+    static private function _setupDefaultGlobals()
     {
         $GLOBALS['registry'] = new Nag_Stub_Registry();
-        $GLOBALS['injector'] = $this->getInjector();
+        $GLOBALS['injector'] = self::getInjector();
+        $GLOBALS['injector']->setInstance('Horde_History', new Horde_History_Mock('test@example.com'));
+        $GLOBALS['injector']->setInstance('Horde_Group', new Horde_Group_Mock());
+        $GLOBALS['conf']['prefs']['driver'] = 'Null';
+    }
+
+    static protected function getKolabDriver()
+    {
+        self::_setupDefaultGlobals();
+        $GLOBALS['conf']['storage']['driver'] = 'kolab';
+        $storage = self::createKolabStorage();
+        $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $storage);
+        $GLOBALS['nag_shares'] = self::createKolabShares($storage);
+        list($share, $other_share) = self::_createDefaultShares();
+        return new Nag_Driver_Kolab($share->getName());
+    }
+
+    static protected function getSqlDriver(Horde_Db_Adapter $db)
+    {
+        self::_setupDefaultGlobals();
+        $GLOBALS['conf']['storage']['driver'] = 'sql';
+        $GLOBALS['injector']->setInstance(
+            'Horde_Core_Factory_Db',
+            new Nag_Stub_DbFactory($db)
+        );
+        $GLOBALS['nag_shares'] = self::createSqlShares($db);
+        list($share, $other_share) = self::_createDefaultShares();
+        return new Nag_Driver_Sql(
+            $share->getName(), array('charset' => 'UTF-8')
+        );
+    }
+
+    static public function createKolabStorage()
+    {
         $kolab_factory = new Horde_Kolab_Storage_Factory(
             array(
                 'driver' => 'mock',
@@ -55,28 +88,50 @@ extends PHPUnit_Framework_TestCase
                 )
             )
         );
-        $storage = $kolab_factory->create();
-        $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $storage);
-        $GLOBALS['injector']->setInstance('Horde_History', new Horde_History_Mock('test@example.com'));
-        $GLOBALS['injector']->setInstance('Horde_Group', new Horde_Group_Mock());
-        $GLOBALS['conf']['prefs']['driver'] = 'Null';
-        $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $GLOBALS['nag_shares'] = new Horde_Share_Kolab(
-            'nag', 'test@example.com', new Horde_Perms_Null(), new Horde_Group_Mock()
-        );
-        $GLOBALS['nag_shares']->setStorage($storage);
-        $this->share = $GLOBALS['nag_shares']->newShare(
+        return $kolab_factory->create();
+    }
+
+    static public function createKolabShares(Horde_Kolab_Storage $storage)
+    {
+        $shares = new Horde_Share_Kolab(
+            'nag',
             'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Notepad of Tester"
+            new Horde_Perms_Null(),
+            new Horde_Group_Mock()
         );
-        $GLOBALS['nag_shares']->addShare($this->share);
-        $this->other_share = $GLOBALS['nag_shares']->newShare(
+        $shares->setStorage($storage);
+        return $shares;
+    }
+
+    static public function createSqlShares(Horde_Db_Adapter $db)
+    {
+        $shares = new Horde_Share_Sqlng(
+            'nag',
             'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Other Notepad of Tester"
+            new Horde_Perms_Null(),
+            new Horde_Group_Mock()
         );
-        $GLOBALS['nag_shares']->addShare($this->other_share);
-        return new Nag_Driver_Kolab($this->share->getName());
+        $shares->setStorage($db);
+        return $shares;
+    }
+
+    static private function _createDefaultShares()
+    {
+        $share = self::_createShare(
+            'Tasklist of Tester', 'test@example.com'
+        );
+        $other_share = self::_createShare(
+            'Other tasklist of Tester', 'test@example.com'
+        );
+        return array($share, $other_share);
+    }
+
+    static private function _createShare($name, $owner)
+    {
+        $share = $GLOBALS['nag_shares']->newShare(
+            $owner, strval(new Horde_Support_Randomid()), $name
+        );
+        $GLOBALS['nag_shares']->addShare($share);
+        return $share;
     }
 }

@@ -8,8 +8,8 @@
  * @package    Cli_Modular
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Cli_Modular
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL
+ * @link       http://www.horde.org/components/Horde_Cli_Modular
  */
 
 /**
@@ -23,14 +23,14 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Kolab
  * @package    Cli_Modular
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Cli_Modular
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL
+ * @link       http://www.horde.org/components/Horde_Cli_Modular
  */
 class Horde_Cli_Modular_Unit_ModuleProviderTest
 extends Horde_Cli_Modular_TestCase

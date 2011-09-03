@@ -1,6 +1,7 @@
 <?php
 /**
- * This driver provides an interface to a POP3 server using PHP functions.
+ * An interface to a POP3 server using PHP functions.
+ *
  * It is an abstraction layer allowing POP3 commands to be used based on
  * IMAP equivalents.
  *
@@ -9,6 +10,7 @@
  *   - RFC 2195: CRAM-MD5 authentication
  *   - RFC 2449: POP3 extension mechanism
  *   - RFC 2595/4616: PLAIN authentication
+ *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
  *   - RFC 3206: AUTH/SYS response codes
  *   - RFC 1734/5034: POP3 SASL
  *
@@ -294,17 +296,18 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         case 'DIGEST-MD5':
-            // RFC 5034
-            if (!class_exists('Auth_SASL')) {
-                $this->_exception('The Auth_SASL package is required for DIGEST-MD5 authentication');
-            }
-
+            // RFC 2831; Obsoleted by RFC 6331
             $challenge = $this->_sendLine('AUTH DIGEST-MD5');
-
-            $auth_sasl = Auth_SASL::factory('digestmd5');
-            $response = base64_encode($auth_sasl->getResponse($this->_params['username'], $this->getParam('password'), base64_decode(substr($challenge['line'], 2)), $this->_params['hostspec'], 'pop3'));
-
-            $sresponse = $this->_sendLine($response, array('debug' => '[DIGEST-MD5 Response]'));
+            $response = base64_encode(new Horde_Imap_Client_Auth_DigestMD5(
+                $this->_params['username'],
+                $this->getParam('password'),
+                base64_decode(substr($challenge['line'], 2)),
+                $this->_params['hostspec'],
+                'pop3'
+            ));
+            $sresponse = $this->_sendLine($response, array(
+                'debug' => '[DIGEST-MD5 Response]'
+            ));
             if (stripos(base64_decode(substr($sresponse['line'], 2)), 'rspauth=') === false) {
                 $this->_exception('Unexpected response from server to Digest-MD5 response.');
             }
@@ -400,8 +403,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         if (strcasecmp($mailbox, 'INBOX') !== 0) {
             $this->_exception('Mailboxes other than INBOX not supported on POP3 servers.', 'POP3_NOTSUPPORTED');
         }
-
-        $this->login();
     }
 
     /**
@@ -608,8 +609,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _fetch($query, $results, $options)
     {
-        // Already guaranteed to be logged in here
-
         // These options are not supported by this driver.
         if (!empty($options['changedsince']) ||
             !empty($options['vanished'])) {
@@ -785,6 +784,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *
      * @return mixed  The cached data. 'msg' returns a stream resource. All
      *                other types return strings.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _pop3Cache($type, $index = null, $data = null)
@@ -994,11 +994,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *
      * @param string $query   The command to execute.
      * @param array $options  Additional options:
-     * <pre>
-     * 'debug' - (string) When debugging, send this string instead of the
-     *           actual command/data sent.
-     *           DEFAULT: Raw data output to debug stream.
-     * </pre>
+     *   - debug: (string) When debugging, send this string instead of the
+     *            actual command/data sent.
+     *            DEFAULT: Raw data output to debug stream.
      */
     protected function _sendLine($query, $options = array())
     {
@@ -1017,6 +1015,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      * @return array  An array with the following keys:
      *   - line: (string) The server response text.
      *   - response: (string) Either 'OK', 'END', '+', or ''.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getLine()
@@ -1108,6 +1107,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *
      * @return mixed  An array if $retarray is true, a stream resource
      *                otherwise.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getMultiline($retarray = false)

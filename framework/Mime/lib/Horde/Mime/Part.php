@@ -1665,7 +1665,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         foreach ($this->contentTypeMap() as $mime_id => $mime_type) {
             if ((strpos($mime_type, 'text/') === 0) &&
                 (!$initial_id || (intval($mime_id) == 1)) &&
-                (is_null($subtype) || (substr($mime_type, 5) == $subtype))) {
+                (is_null($subtype) || (substr($mime_type, 5) == $subtype)) &&
+                ($part = $this->getPart($mime_id)) &&
+                ($part->getDisposition() != 'attachment')) {
                 return $mime_id;
             }
         }

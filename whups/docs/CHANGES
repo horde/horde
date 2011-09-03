@@ -2,6 +2,7 @@
 v2.0-cvs
 --------
 
+[jan] Don't search for all states if no states have been selected.
 [jan] Add templates for delete and reminder notifications.
 [jan] Add message template variable for recipient role.
 [jan] Convert notification message templates to Horde_View.

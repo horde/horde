@@ -1,7 +1,6 @@
 <?php
 /**
- * Horde_Imap_Client_Cclient provides an interface to an IMAP server using the
- * PHP imap (c-client) module.
+ * An interface to an IMAP server using the PHP imap (c-client) module.
  *
  * PHP IMAP module: http://www.php.net/imap
  *
@@ -73,20 +72,18 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * @param array $params  Additional optional parameters for this driver:
-     * <pre>
-     * retries - (integer) Connection retries.
-     *           DEFAULT: 3
-     * timeout - (array) Timeout value (in seconds) for various actions.
-     *           Unlike the base class, this driver supports an array of
-     *           timeout entries as follows:
-     *             'open', 'read', 'write', 'close'
-     *           If timeout is an integer/string, the same timeout will be
-     *           used for all values.
-     *           DEFAULT: c-client default values
-     * validate_cert - (boolean)  If using tls or ssl connections, validate the
-     *                 certificate?
-     *                 DEFAULT: false (don't validate)
-     * </pre>
+     *   - retries: (integer) Connection retries.
+     *              DEFAULT: 3
+     *   - timeout: (array) Timeout value (in seconds) for various actions.
+     *              Unlike the base class, this driver supports an array of
+     *              timeout entries as follows:
+     *                'open', 'read', 'write', 'close'
+     *              If timeout is an integer/string, the same timeout will be
+     *              used for all values.
+     *              DEFAULT: c-client default values
+     *   - validate_cert: (boolean)  If using tls or ssl connections, validate
+     *                    the certificate?
+     *                    DEFAULT: false (don't validate)
      */
     public function __construct(array $params = array())
     {
@@ -237,7 +234,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _openMailbox($mailbox, $mode)
     {
-        $this->login();
         $flag = ($mode == Horde_Imap_Client::OPEN_READONLY) ? OP_READONLY : 0;
 
         $res = (version_compare(PHP_VERSION, '5.2.1') != -1)
@@ -258,8 +254,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->login();
-
         if (@imap_createmailbox($this->_stream, $this->_connString($mailbox)) === false) {
             $this->_exception('Could not create mailbox "' . $mailbox . '": ' . imap_last_error());
         }
@@ -269,8 +263,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _deleteMailbox($mailbox)
     {
-        $this->login();
-
         if (@imap_deletemailbox($this->_stream, $this->_connString($mailbox) === false)) {
             $this->_exception('Could not delete mailbox "' . $mailbox . '": ' . imap_last_error());
         }
@@ -280,8 +272,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _renameMailbox($old, $new)
     {
-        $this->login();
-
         if (@imap_renamemailbox($this->_stream, $this->_connString($old), $this->_connString($new)) === false) {
             $this->_exception('Could not rename mailbox "' . $old . '": ' . imap_last_error());
         }
@@ -291,8 +281,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _subscribeMailbox($mailbox, $subscribe)
     {
-        $this->login();
-
         $res = $subscribe
             ? @imap_subscribe($this->_stream, $this->_connString($mailbox))
             : @imap_unsubscribe($this->_stream, $this->_connString($mailbox));
@@ -305,15 +293,16 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     /**
      * For the 'attributes' option, this driver will return only these
      * attributes:
-     * <pre>
-     *   '\noinferiors', '\noselect', '\marked', '\unmarked', '\referral',
-     *   '\haschildren', '\hasnochildren'
-     * </pre>
+     *   - \noinferiors
+     *   - \noselect
+     *   - \marked
+     *   - \unmarked
+     *   - \referral
+     *   - \haschildren
+     *   - \hasnochildren
      */
     protected function _listMailboxes($pattern, $mode, $options)
     {
-        $this->login();
-
         switch ($mode) {
         case Horde_Imap_Client::MBOX_ALL:
             if (!empty($options['flat'])) {
@@ -433,8 +422,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _status($mailbox, $flags)
     {
-        $this->login();
-
         /* If FLAGS/PERMFLAGS/HIGHESTMODSEQ/UIDNOTSTICKY are needed, we must
          * use the Socket driver. */
         if (($flags & Horde_Imap_Client::STATUS_FLAGS) ||
@@ -492,8 +479,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _append($mailbox, $data, $options)
     {
-        $this->login();
-
         /* This driver does not support flags other than those defined in the
          * IMAP4 spec, and does not support 'internaldate'. If either of these
          * conditions exist, use the Socket driver instead. */
@@ -1190,8 +1175,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->login();
-
         $res = @imap_set_quota($this->_stream, $root, $options['storage']);
 
         if ($res === false) {
@@ -1203,8 +1186,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _getQuota($root)
     {
-        $this->login();
-
         if (@imap_get_quota($this->_stream, $root) === false) {
             $this->_exception('Error when retrieving quota: ' . imap_last_error());
         }
@@ -1214,8 +1195,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _getQuotaRoot($mailbox)
     {
-        $this->login();
-
         $res = imap_get_quotaroot($this->_stream, $mailbox);
 
         if ($res === false) {
@@ -1229,8 +1208,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _setACL($mailbox, $identifier, $options)
     {
-        $this->login();
-
         if (empty($options['rights']) && !empty($options['remove'])) {
             $this->setACL($mailbox, $identifier, array_merge($options, array(
                 'rights' => $this->listACLRights($mailbox, $identifier)
@@ -1249,8 +1226,6 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _getACL($mailbox)
     {
-        $this->login();
-
         $acl = array();
         $res = @imap_getacl($this->_stream, $mailbox);
 

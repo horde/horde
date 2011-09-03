@@ -914,9 +914,9 @@
        gidnumber attributes as well as the group search key">
        posixGroup,hordeGroup</configlist>
        <configstring name="writedn" desc="DN used to bind for creating and
-       editing LDAP groups." required="false"/> 
+       editing LDAP groups." required="false"/>
        <configstring name="writepw" desc="Password for bind DN."
-       required="false"/> 
+       required="false"/>
        <configsection name="search">
         <configswitch name="filter_type" desc="How to specify a filter for the
         group lists">objectclass

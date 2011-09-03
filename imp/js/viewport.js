@@ -51,18 +51,15 @@
  *                return: NONE
  * onAjaxRequest: (function) Callback function that allows additional
  *                parameters to be added to the outgoing AJAX request.
- *                params: (string) The current view.
- *                return: (Hash) Parameters to add to the outgoing request.
+ *                params: (Hash) The params list (the current view can be
+ *                        obtained via the view property).
+ *                return: NONE
  * onAjaxResponse: (function) Callback function that allows user-defined code
  *                 to additionally process the AJAX return data.
  *                params: (XMLHttpRequest object)
  *                        (mixed) Result of evaluating the X-JSON response
  *                        header, if any (can be null).
  *                return: NONE
- * onCachedList: (function) Callback function that allows the cache ID string
- *               to be dynamically generated.
- *               params: (string) The current view.
- *               return: (string) The cache ID string to use.
  * onContentOffset: (function) Callback function that alters the starting
  *                  offset of the content about to be rendered.
  *                  params: (integer) The current offset.
@@ -95,10 +92,6 @@
  * ViewPort:add
  *   Fired when a row has been added to the screen.
  *   params: (Element) The viewport row being added.
- *
- * ViewPort:cacheUpdate
- *   Fired when the internal cached data of a view is changed.
- *   params: (string) View which is being updated.
  *
  * ViewPort:clear
  *   Fired when a row is being removed from the screen.
@@ -453,7 +446,6 @@ var ViewPort = Class.create({
         this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
 
         this._getBuffer().remove(vs.get('rownum'));
-        this.opts.container.fire('ViewPort:cacheUpdate', opts.view || this.view);
 
         if (!opts.noupdate) {
             this.requestContentRefresh(this.currentOffset());
@@ -771,11 +763,8 @@ var ViewPort = Class.create({
     {
         opts = opts || {};
         var cid = this.getMetaData('cacheid', opts.view),
-            cached, params, rowlist;
-
-        params = this.opts.onAjaxRequest
-            ? this.opts.onAjaxRequest(opts.view || this.view)
-            : $H();
+            params = $H(args),
+            cached, rowlist;
 
         params.update({ view: opts.view || this.view });
 
@@ -788,20 +777,16 @@ var ViewPort = Class.create({
             params.update({ slice: rowlist.start + ':' + rowlist.end });
         }
 
-        if (this.opts.onCachedList) {
-            cached = this.opts.onCachedList(opts.view || this.view);
-        } else {
-            cached = this._getBuffer(opts.view).getAllUIDs();
-            cached = cached.size()
-                ? Object.toJSON(cached)
-                : '';
+        cached = this._getBuffer(opts.view).getAllUIDs();
+        if (cached.size()) {
+            params.update({ cache: Object.toJSON(cached) });
         }
 
-        if (cached.length) {
-            params.update({ cache: cached });
+        if (this.opts.onAjaxRequest) {
+            this.opts.onAjaxRequest(params);
         }
 
-        return params.merge(args);
+        return params;
     },
 
     // params - (object) A list of parameters to send to server
@@ -880,8 +865,6 @@ var ViewPort = Class.create({
             tmp.label = r.label;
         }
         buffer.setMetaData(tmp, true);
-
-        this.opts.container.fire('ViewPort:cacheUpdate', r.view);
 
         if (r.requestid &&
             r.requestid == this.active_req) {

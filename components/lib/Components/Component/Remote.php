@@ -197,6 +197,52 @@ class Components_Component_Remote extends Components_Component_Base
     }
 
     /**
+     * Install a component.
+     *
+     * @param Components_Pear_Environment $env The environment to install
+     *                                         into.
+     * @param array                 $options   Install options.
+     * @param string                $reason    Optional reason for adding the
+     *                                         package.
+     *
+     * @return NULL
+     */
+    public function install(
+        Components_Pear_Environment $env, $options = array(), $reason = ''
+    )
+    {
+        if (empty($options['allow_remote'])) {
+            throw new Components_Exception(
+                sprintf(
+                    'Cannot add component "%s". Remote access has been disabled (activate with --allow-remote)!',
+                    $this->getName()
+                )
+            );
+        }
+
+        $this->installChannel($env, $options);
+
+        $installation_options = $this->getBaseInstallationOptions($options);
+        $installation_options['channel'] = $this->getChannel();
+        $env->addComponent(
+            $this->getName(),
+            array(
+                'channel://' . $this->getChannel() . '/' . $this->getName()
+            ),
+            $installation_options,
+            ' via remote channel ' . $this->getChannel(),
+            $reason,
+            array(
+                sprintf(
+                    'Adding component %s/%s via network.',
+                    $this->getChannel(),
+                    $this->getName()
+                )
+            )
+        );
+    }
+
+    /**
      * Return a PEAR package representation for the component.
      *
      * @return Horde_Pear_Package_Xml The package representation.

@@ -114,8 +114,12 @@ class Horde_Session
             }
         }
 
+        if (!empty($conf['session']['timeout'])) {
+            ini_set('session.gc_maxlifetime', $conf['session']['timeout']);
+        }
+
         session_set_cookie_params(
-            $conf['session']['timeout'],
+            0,
             $conf['cookie']['path'],
             $conf['cookie']['domain'],
             $conf['use_ssl'] == 1 ? 1 : 0

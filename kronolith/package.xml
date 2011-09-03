@@ -1875,11 +1875,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-17</date>
+   <date>2011-08-30</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Fix fatal error while searching if hitting certain recurring events.
 * [jan] Fix exporting events with snoozed alarms (Bug #10438).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.10</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <notes>
+* [mjr] Fix removeUserData API (Bug #10241).
+* [jan] Fix deleting events with a WebDAV client (Bug #10478).
    </notes>
   </release>
  </changelog>
