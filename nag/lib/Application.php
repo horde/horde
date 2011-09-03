@@ -216,6 +216,7 @@ class Nag_Application extends Horde_Registry_Application
             throw new Nag_Exception($e);
         }
 
+        $error = false;
         foreach ($shares as $share) {
             $storage = Nag_Driver::singleton($share->getName());
             $result = $storage->deleteAll();
