@@ -378,10 +378,12 @@ class Kronolith_Driver
     /**
      * Stub for child class to override if it can implement.
      *
+     * @todo Remove in Kronolith 4.0
+     * @deprecated  Now lives in Kronolith::
      * @throws Kronolith_Exception
      */
     public function removeUserData($user)
     {
-        throw new Kronolith_Exception(_("Removing user data is not supported with the current calendar storage backend."));
+        throw new Kronolith_Exception('Deprecated.');
     }
 }

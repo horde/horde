@@ -3227,4 +3227,45 @@ class Kronolith
         return ($app && $GLOBALS['registry']->hasPermission($app, $perm));
     }
 
+    /**
+     * Remove all events owned by the specified user in all calendars.
+     *
+     * @since  Kronolith 3.0.10
+     *
+     * @param string $user  The user name to delete events for.
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Exception_PermissionDenied
+     */
+    static public function removeUserEvents($user)
+    {
+        if (!$GLOBALS['registry']->isAdmin()) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+
+        try {
+            $shares = $GLOBALS['kronolith_shares']->listShares(
+                $user, array('perm' => Horde_Perms::EDIT));
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($shares, 'ERR');
+            throw new Kronolith_Exception($shares);
+        }
+
+        foreach (array_keys($shares) as $calendar) {
+            $driver = Kronolith::getDriver(null, $calendar);
+            $events = $driver->listEvents(null, null, false, false, false);
+            $uids = array();
+            foreach ($events as $dayevents) {
+                foreach ($dayevents as $event) {
+                    $uids[] = $event->uid;
+                }
+            }
+            foreach ($uids as $uid) {
+                $event = $driver->getByUID($uid, array($calendar));
+                $driver->deleteEvent($event->id);
+            }
+        }
+    }
+
 }
