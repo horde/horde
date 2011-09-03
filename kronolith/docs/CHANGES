@@ -2,6 +2,7 @@
 v3.0.10-git
 -----------
 
+[mjr] Fix removeUserData API (Bug #10241).
 [jan] Fix deleting events with a WebDAV client (Bug #10478).
 
 
