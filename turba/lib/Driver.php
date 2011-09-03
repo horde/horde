@@ -2884,7 +2884,7 @@ class Turba_Driver implements Countable
      */
     public function removeUserData($user)
     {
-        throw new Turba_Exception(_("Removing user data is not supported in the current address book storage driver."));
+        throw new Turba_Exception_NotSupported(_("Removing user data is not supported in the current address book storage driver."));
     }
 
     /**

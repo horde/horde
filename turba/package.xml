@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>12:02:29</time>
+ <date>2011-09-02</date>
+ <time>21:32:47</time>
  <version>
   <release>3.0.9</release>
   <api>3.0.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Improve handling of removeUserData.
 * [mjr] Honor auto_create configuration setting (Bug #10452, qoole.horde@lillimoth.com)
 * [jan] Don&apos;t allow to search binary fields.
  </notes>
@@ -114,6 +115,9 @@
      <file name="Sql.php" role="horde" />
      <file name="Vbook.php" role="horde" />
     </dir> <!-- /lib/Driver -->
+    <dir name="Exception">
+     <file name="NotSupported.php" role="horde" />
+    </dir> <!-- /lib/Exception -->
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
     </dir> <!-- /lib/Factory -->
@@ -849,6 +853,7 @@
    <install as="turba/lib/Driver/Share.php" name="lib/Driver/Share.php" />
    <install as="turba/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="turba/lib/Driver/Vbook.php" name="lib/Driver/Vbook.php" />
+   <install as="turba/lib/Exception/NotSupported.php" name="lib/Exception/NotSupported.php" />
    <install as="turba/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="turba/lib/Form/AddContact.php" name="lib/Form/AddContact.php" />
    <install as="turba/lib/Form/Contact.php" name="lib/Form/Contact.php" />
@@ -1286,9 +1291,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-09-02</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Improve handling of removeUserData.
 * [mjr] Honor auto_create configuration setting (Bug #10452, qoole.horde@lillimoth.com)
 * [jan] Don&apos;t allow to search binary fields.
    </notes>
