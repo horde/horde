@@ -47,8 +47,9 @@ class Ansel_Faces_Base
             $file = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Vfs')
                 ->create('images')
-                ->readFile($image->getVFSPath('screen'),
-                           $image->getVFSName('screen'));
+                ->readFile(
+                    $image->getVFSPath('screen'),
+                    $image->getVFSName('screen'));
         } else {
             $file = $image;
         }
@@ -138,16 +139,21 @@ class Ansel_Faces_Base
      */
     protected function _fetchFaces(array $info, $from = 0, $count = 0)
     {
-        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $galleries = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->listGalleries(array('perm' => Horde_Perms::READ));
 
+        $ids = array();
+        foreach ($galleries as $gallery) {
+            $ids[] = $gallery->id;
+        }
         $sql = 'SELECT f.face_id, f.gallery_id, f.image_id, f.face_name FROM '
-                . 'ansel_faces f WHERE f.gallery_id IN(' . implode(',', array_keys($galleries))
-                . ') ORDER BY '
-                . (isset($info['order']) ? $info['order'] : ' f.face_id DESC');
+            . 'ansel_faces f WHERE f.gallery_id IN (' . implode(',', $ids)
+            . ') ORDER BY '
+            . (isset($info['order']) ? $info['order'] : ' f.face_id DESC');
 
-        $sql = $GLOBALS['ansel_db']
-            ->addLimitOffset($sql, array('offset' => $from, 'limit' => $count));
+        $sql = $GLOBALS['ansel_db']->addLimitOffset(
+            $sql, array('offset' => $from, 'limit' => $count));
         try {
             return $GLOBALS['ansel_db']->selectAll($sql);
         } catch (Horde_Db_Exception $e) {
@@ -168,8 +174,12 @@ class Ansel_Faces_Base
         $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
             ->listGalleries(array('perm' => Horde_Perms::READ));
 
+        $ids = array();
+        foreach ($galleries as $gallery) {
+            $ids[] = $gallery->id;
+        }
         $sql = 'SELECT COUNT(*) FROM ansel_faces f WHERE f.gallery_id IN ('
-            . implode(',', array_keys($galleries)) . ')';
+            . implode(',', $ids) . ')';
 
         try {
             return $GLOBALS['ansel_db']->selectValue($sql);
@@ -470,7 +480,7 @@ class Ansel_Faces_Base
         // Update gallery and image counts
         try {
             $GLOBALS['ansel_db']->update('UPDATE ansel_images SET image_faces = image_faces + 1 WHERE image_id = ' . $image->id);
-            $GLOBALS['ansel_db']->update('UPDATE ansel_shares SET attribute_faces = attribute_faces + 1 WHERE gallery_id = ' . $image->gallery);
+            $GLOBALS['ansel_db']->update('UPDATE ansel_shares SET attribute_faces = attribute_faces + 1 WHERE share_id = ' . $image->gallery);
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -545,7 +555,7 @@ class Ansel_Faces_Base
                 . count($fids) . ' WHERE image_id = ' . $image->id);
             $GLOBALS['ansel_db']->updatec('UPDATE ansel_shares '
                 . 'SET attribute_faces = attribute_faces + ' . count($fids)
-                . ' WHERE gallery_id = ' . $image->gallery);
+                . ' WHERE share_id = ' . $image->gallery);
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -814,7 +824,7 @@ class Ansel_Faces_Base
         if ($indexes) {
             $sql .= ' AND (' . implode(' OR ', $indexes) . ')';
         }
-        $sql .= ' GROUP BY i.face_id HAVING face_matches > 0 '
+        $sql .= ' GROUP BY i.face_id, f.face_name HAVING face_matches > 0 '
             . 'ORDER BY face_matches DESC';
         $sql = $GLOBALS['ansel_db']->addLimitOffset($sql,
             array(
@@ -830,8 +840,7 @@ class Ansel_Faces_Base
             return array();
         }
 
-        $faces = array();
-        foreach ($results as &$face) {
+        foreach ($faces as &$face) {
             $face['similarity'] = puzzle_vector_normalized_distance(
                 $signature,
                 puzzle_uncompress_cvec($face['face_signature']));
