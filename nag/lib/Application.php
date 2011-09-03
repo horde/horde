@@ -213,6 +213,7 @@ class Nag_Application extends Horde_Registry_Application
             $shares = $GLOBALS['nag_shares']->listShares($user, array('attributes' => $user));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
+            throw new Nag_Exception($e);
         }
 
         foreach ($shares as $share) {
