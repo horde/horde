@@ -208,29 +208,16 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        /* Get the share for later deletion */
+        /* Get the shares for later deletion */
         try {
-            $share = $GLOBALS['nag_shares']->getShare($user);
+            $shares = $GLOBALS['nag_shares']->listShares($user, array('attributes' => $user));
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'NOTICE');
+            Horde::logMessage($e, 'ERR');
         }
 
-        /* Get the list of all tasks */
-        $tasks = Nag::listTasks(null, null, null, $user, 1);
-        $error = false;
-        $uids = array();
-        $tasks->reset();
-        while ($task = $tasks->each()) {
-            $uids[] = $task->uid;
-        }
-
-        /* ... and delete them. */
-        foreach ($uids as $uid) {
-            $this->delete($uid);
-        }
-
-        /* ...and finally, delete the actual share */
-        if (!empty($share)) {
+        foreach ($shares as $share) {
+            $storage = Nag_Driver::singleton($share->getName());
+            $result = $storage->deleteAll();
             try {
                 $GLOBALS['nag_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
