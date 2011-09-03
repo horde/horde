@@ -362,7 +362,7 @@ class Kronolith_Api extends Horde_Registry_Api
             throw new Kronolith_Exception(sprintf(_("Unsupported Content-Type: %s"), $content_type));
         }
 
-        if (!Kronolith::hasPermission($calendar, Horde_Perms::DELETE)) {
+        if (Kronolith::hasPermission($calendar, Horde_Perms::DELETE)) {
             foreach (array_keys($uids_remove) as $uid) {
                 $this->delete($uid);
             }

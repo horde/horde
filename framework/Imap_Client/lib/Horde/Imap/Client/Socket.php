@@ -1,11 +1,10 @@
 <?php
 /**
- * Horde_Imap_Client_Socket:: provides an interface to an IMAP4rev1 server
- * (RFC 3501) using PHP functions.
+ * An interface to an IMAP4rev1 server (RFC 3501) using built-in PHP features.
  *
  * This driver implements the following IMAP-related RFCs:
  * <pre>
- *   RFC 2086/4314 - ACL
+ *  RFC 2086/4314 - ACL
  *   RFC 2087 - QUOTA
  *   RFC 2088 - LITERAL+
  *   RFC 2195 - AUTH=CRAM-MD5
@@ -105,12 +104,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
     /**
      * @param array $params  A hash containing configuration parameters.
-     *                       Additional parameters:
-     * <pre>
-     * debug_literal - (boolean) If true, will output the raw text of literal
-     *                 responses to the debug stream. Otherwise, outputs a
-     *                 summary of the literal response.
-     * </pre>
+     *                       Additional parameters to base driver:
+     *   - debug_literal: (boolean) If true, will output the raw text of
+     *                    literal responses to the debug stream. Otherwise,
+     *                    outputs a summary of the literal response.
      */
     public function __construct(array $params = array())
     {
@@ -994,7 +991,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *                           using the LIST-EXTENDED capability.
      * @param array $subscribed  A list of subscribed mailboxes.
      *
-     * @return array  See self::listMailboxes(().
+     * @return array  See listMailboxes(().
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getMailboxList($pattern, $mode, $options,
@@ -1951,6 +1949,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @param array $opts  The options to search().
      *
      * @return array  The sort results.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _clientSort($res, $opts)
@@ -3396,6 +3395,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @return array  A list of two elements: The entry name and the value
      *                type.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getAnnotateMoreEntry($name)
@@ -3743,15 +3743,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * Gets data from the IMAP stream and parses it.
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * 'line' - (string) The server response text (set for all but an untagged
-     *          response with no response code).
-     * 'response' - (string) Either 'OK', 'NO', 'BAD', 'PREAUTH', or ''.
-     * 'tag' - (string) If tagged response, the tag string.
-     * 'token' - (array) The tokenized response (set if an untagged response
-     *           with no response code).
-     * 'type' - (string) Either 'tagged', 'untagged', or 'continuation'.
-     * </pre>
+     *   - line: (string) The server response text (set for all but an
+     *           untagged response with no response code).
+     *   - response: (string) Either 'OK', 'NO', 'BAD', 'PREAUTH', or ''.
+     *   - tag: (string) If tagged response, the tag string.
+     *   - token: (array) The tokenized response (set if an untagged response
+     *            with no response code).
+     *   - type: (string) Either 'tagged', 'untagged', or 'continuation'.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _getLine()
@@ -3864,6 +3863,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @param boolean $binary  Binary data?
      *
      * @return string  The data requested (stripped of trailing CRLF).
+     *
      * @throws Horde_Imap_Client_Exception
      */
     protected function _readData($len = null, $binary = false)

@@ -1,7 +1,6 @@
 <?php
 /**
- * Horde_Imap_Client_Cclient provides an interface to an IMAP server using the
- * PHP imap (c-client) module.
+ * An interface to an IMAP server using the PHP imap (c-client) module.
  *
  * PHP IMAP module: http://www.php.net/imap
  *
@@ -73,20 +72,18 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 
     /**
      * @param array $params  Additional optional parameters for this driver:
-     * <pre>
-     * retries - (integer) Connection retries.
-     *           DEFAULT: 3
-     * timeout - (array) Timeout value (in seconds) for various actions.
-     *           Unlike the base class, this driver supports an array of
-     *           timeout entries as follows:
-     *             'open', 'read', 'write', 'close'
-     *           If timeout is an integer/string, the same timeout will be
-     *           used for all values.
-     *           DEFAULT: c-client default values
-     * validate_cert - (boolean)  If using tls or ssl connections, validate the
-     *                 certificate?
-     *                 DEFAULT: false (don't validate)
-     * </pre>
+     *   - retries: (integer) Connection retries.
+     *              DEFAULT: 3
+     *   - timeout: (array) Timeout value (in seconds) for various actions.
+     *              Unlike the base class, this driver supports an array of
+     *              timeout entries as follows:
+     *                'open', 'read', 'write', 'close'
+     *              If timeout is an integer/string, the same timeout will be
+     *              used for all values.
+     *              DEFAULT: c-client default values
+     *   - validate_cert: (boolean)  If using tls or ssl connections, validate
+     *                    the certificate?
+     *                    DEFAULT: false (don't validate)
      */
     public function __construct(array $params = array())
     {
@@ -296,10 +293,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
     /**
      * For the 'attributes' option, this driver will return only these
      * attributes:
-     * <pre>
-     *   '\noinferiors', '\noselect', '\marked', '\unmarked', '\referral',
-     *   '\haschildren', '\hasnochildren'
-     * </pre>
+     *   - \noinferiors
+     *   - \noselect
+     *   - \marked
+     *   - \unmarked
+     *   - \referral
+     *   - \haschildren
+     *   - \hasnochildren
      */
     protected function _listMailboxes($pattern, $mode, $options)
     {

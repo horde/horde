@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
  <notes>
-* 
+* [mjr] Prevent broken clients from sending incoming changes with initial SYNC request (Bug #10461).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -390,7 +390,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
-* 
+* [mjr] Prevent broken clients from sending incoming changes with initial SYNC request (Bug #10461).
    </notes>
   </release>
  </changelog>

@@ -13,16 +13,24 @@
  * @package  Imap_Client
  *
  * @property array $bcc                        Bcc address(es).
+ * @property array $bcc_decoded                Bcc address(es) (MIME decoded).
  * @property array $cc                         Cc address(es).
+ * @property array $cc_decoded                 Cc address(es) (MIME decoded).
  * @property Horde_Imap_Client_DateTime $date  IMAP internal date.
  * @property array $from                       From address(es).
+ * @property array $from_decoded               From address(es) (MIME decoded).
  * @property string $in_reply_to               Message-ID of the message
  *                                             replied to.
  * @property string $message_id                Message-ID of the message.
  * @property array $reply_to                   Reply-to address(es).
+ * @property array $reply_to_decoded           Reply-to address(es) (MIME
+ *                                             decoded).
  * @property array $sender                     Sender address.
+ * @property array $sender_decoded             Sender address (MIME decoded).
  * @property string $subject                   Subject.
+ * @property string $subject_decoded           Subject (MIME decoded).
  * @property array $to                         To address(es).
+ * @property array $to_decoded                 To address(es) (MIME decoded).
  *
  * For array properties, the value will be an array of arrays. Each of the
  * the underlying arrays corresponds to a single address and contains
@@ -76,6 +84,21 @@ class Horde_Imap_Client_Data_Envelope
 
         case 'date':
             return new Horde_Imap_Client_DateTime();
+
+        case 'subject_decoded':
+            return Horde_Mime::decode($this->subject, 'UTF-8');
+
+        case 'bcc_decoded':
+        case 'cc_decoded':
+        case 'from_decoded':
+        case 'reply_to_decoded':
+        case 'sender_decoded':
+        case 'to_decoded':
+            $tmp = $this->__get(substr($name, 0, strrpos($name, '_')));
+            foreach (array_keys($tmp) as $key) {
+                $tmp[$key]['personal'] = Horde_Mime::decode($tmp[$key]['personal'], 'UTF-8');
+            }
+            return $tmp;
 
         case 'in_reply_to':
         case 'message_id':

@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Honor auto_create configuration setting (Bug #10452, qoole.horde@lillimoth.com)
 * [jan] Don&apos;t allow to search binary fields.
  </notes>
  <contents>
@@ -1288,6 +1289,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Honor auto_create configuration setting (Bug #10452, qoole.horde@lillimoth.com)
 * [jan] Don&apos;t allow to search binary fields.
    </notes>
   </release>

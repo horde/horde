@@ -2,6 +2,8 @@
 v3.0.9-git
 ----------
 
+[mjr] Honor auto_create configuration setting (Bug #10452,
+      qoole.horde@lillimoth.com)
 [jan] Don't allow to search binary fields.
 
 

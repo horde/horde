@@ -24,7 +24,6 @@ class SamBaseTables extends Horde_Db_Migration_Base
         /* SpamAssassin table. */
         if (!in_array('userpref', $tableList)) {
             $t = $this->createTable('userpref', array('autoincrementKey' => 'prefid'));
-            $t->column('prefid', 'int', array('null' => false));
             $t->column('username', 'string', array('limit' => 255, 'null' => false));
             $t->column('preference', 'string', array('limit' => 30, 'null' => false));
             $t->column('value', 'string', array('limit' => 100, 'null' => false));
@@ -37,7 +36,6 @@ class SamBaseTables extends Horde_Db_Migration_Base
         // local users
         if (!in_array('users', $tableList)) {
             $t = $this->createTable('users', array('autoincrementKey' => 'id'));
-            $t->column('id', 'int', array('null' => false));
             $t->column('policy_id', 'int', array('default' => 1, 'null' => false));
             $t->column('email', 'string', array('limit' => 255, 'null' => false));
             $t->end();
@@ -48,7 +46,6 @@ class SamBaseTables extends Horde_Db_Migration_Base
         // any e-mail address, external or local, used as senders in wblist
         if (!in_array('mailaddr', $tableList)) {
             $t = $this->createTable('mailaddr', array('autoincrementKey' => 'id'));
-            $t->column('id', 'int', array('null' => false));
             $t->column('email', 'string', array('limit' => 255, 'null' => false));
             $t->end();
 
@@ -72,7 +69,6 @@ class SamBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('policy', $tableList)) {
             $t = $this->createTable('policy', array('autoincrementKey' => 'id'));
-            $t->column('id', 'int', array('null' => false));
             // not used by amavisd-new
             $t->column('policy_name', 'string', array('limit' => 255));
 

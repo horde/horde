@@ -1,9 +1,8 @@
 <?php
 /**
- * Abstraction of the IMAP4rev1 search criteria (see RFC 3501 [6.4.4]).  This
- * class allows translation between abstracted search criteria and a
- * generated IMAP search criteria string suitable for sending to a remote
- * IMAP server.
+ * Abstraction of the IMAP4rev1 search criteria (see RFC 3501 [6.4.4]).
+ * Allows translation between abstracted search criteria and a generated IMAP
+ * search criteria string suitable for sending to a remote IMAP server.
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
@@ -110,6 +109,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *   - imap4: (boolean) True if the search uses IMAP4 criteria (as opposed
      *            to IMAP2 search criteria).
      *   - query: (array) The IMAP search string.
+     *
      * @throws Horde_Imap_Client_Exception
      */
     public function build($exts = array())
@@ -548,11 +548,9 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *
      * @param mixed $date    DateTime or Horde_Date object.
      * @param string $range  Either:
-     * <pre>
-     * Horde_Imap_Client_Search_Query::DATE_BEFORE,
-     * Horde_Imap_Client_Search_Query::DATE_ON, or
-     * Horde_Imap_Client_Search_Query::DATE_SINCE.
-     * </pre>
+     *   - Horde_Imap_Client_Search_Query::DATE_BEFORE
+     *   - Horde_Imap_Client_Search_Query::DATE_ON
+     *   - Horde_Imap_Client_Search_Query::DATE_SINCE
      * @param boolean $header  If true, search using the date in the message
      *                         headers. If false, search using the internal
      *                         IMAP date (usually arrival time).
@@ -585,10 +583,8 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *
      * @param integer $interval  Seconds from the present.
      * @param string $range      Either:
-     * <pre>
-     * Horde_Imap_Client_Search_Query::INTERVAL_OLDER, or
-     * Horde_Imap_Client_Search_Query::INTERVAL_YOUNGER
-     * </pre>
+     *   - Horde_Imap_Client_Search_Query::INTERVAL_OLDER
+     *   - Horde_Imap_Client_Search_Query::INTERVAL_YOUNGER
      * @param boolean $not       If true, do a 'NOT' search.
      * @param array $opts        Additional options:
      *   - fuzzy: (boolean) If true, perform a fuzzy search. The IMAP server

@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* 
+* [gwr] Ensure correct message and code type.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -613,7 +613,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* 
+* [gwr] Ensure correct message and code type.
    </notes>
   </release>
  </changelog>

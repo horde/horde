@@ -29,38 +29,33 @@
  */
 class Nag_Unit_Nag_Sql_Base extends Nag_Unit_Nag_Base
 {
-    /**
-     * @static Horde_Db_Adapter_Base
-     */
-    static $db;
-
-    /**
-     * @static Horde_Db_Migration_Migrator
-     */
-    static $migrator;
-
     public static function setUpBeforeClass()
     {
-        // FIXME: get migration directory if not running from Git checkout.
-        self::$migrator = new Horde_Db_Migration_Migrator(
-            self::$db,
-            null,
-            array('migrationsPath' => dirname(__FILE__) . '/../../../../../migration',
-                  'schemaTableName' => 'nag_test_schema'));
-
-        self::$migrator->up();
-        $GLOBALS['nag_shares'] = self::createSqlShares(
-            self::$db
+        self::$setup->setup(
+            array(
+                'Horde_Perms' => array(
+                    'factory' => 'Perms',
+                    'method' => 'Null',
+                ),
+                'Horde_Group' => array(
+                    'factory' => 'Group',
+                    'method' => 'Mock',
+                ),
+                'Horde_Share_Base' => array(
+                    'factory' => 'Share',
+                    'method' => 'Sqlng',
+                    'params' => array(
+                        'user' => 'test@example.com',
+                        'app' => 'nag'
+                    ),
+                ),
+            )
+        );
+        self::$setup->makeGlobal(
+            array(
+                'nag_shares' => 'Horde_Share_Base',
+            )
         );
         parent::setUpBeforeClass();
-    }
-
-    public static function tearDownAfterClass()
-    {
-        if (self::$migrator) {
-            self::$migrator->down();
-        }
-        self::$db = null;
-        parent::tearDownAfterClass();
     }
 }

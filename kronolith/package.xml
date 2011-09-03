@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
-* 
+* [jan] Fix deleting events with a WebDAV client (Bug #10478).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1881,7 +1881,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* 
+* [jan] Fix deleting events with a WebDAV client (Bug #10478).
    </notes>
   </release>
  </changelog>

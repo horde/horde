@@ -2,6 +2,7 @@
 v3.0.10-git
 -----------
 
+[jan] Fix deleting events with a WebDAV client (Bug #10478).
 
 
 ------

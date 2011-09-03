@@ -178,7 +178,7 @@ class Sam_Driver_Spamd_Sql extends Sam_Driver_Spamd_Base
                 }
 
                 try {
-                    if (is_null($result)) {
+                    if (!$result) {
                         $this->_db->insert(
                             'INSERT INTO ' . $this->_params['table']
                             . ' (username, preference, value)'

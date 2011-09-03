@@ -45,10 +45,41 @@ class Nag_Unit_Nag_KolabTest extends Nag_Unit_Nag_Base
 
     public static function setUpBeforeClass()
     {
-        $GLOBALS['conf']['tasklists']['driver'] = 'kolab';
-        $GLOBALS['nag_shares'] = self::createKolabShares(
-            self::createKolabStorage()
+        self::$setup = new Horde_Test_Setup();
+        self::$setup->setup(
+            array(
+                'Horde_Perms' => array(
+                    'factory' => 'Perms',
+                    'method' => 'Null',
+                ),
+                'Horde_Group' => array(
+                    'factory' => 'Group',
+                    'method' => 'Mock',
+                ),
+                'Horde_Kolab_Storage' => array(
+                    'factory' => 'KolabStorage',
+                    'method' => 'Empty',
+                    'params' => array(
+                        'user' => 'test@example.com',
+                        'imapuser' => 'test',
+                    )
+                ),
+                'Horde_Share_Base' => array(
+                    'factory' => 'Share',
+                    'method' => 'Kolab',
+                    'params' => array(
+                        'user' => 'test@example.com',
+                        'app' => 'nag'
+                    ),
+                ),
+            )
         );
+        self::$setup->makeGlobal(
+            array(
+                'nag_shares' => 'Horde_Share_Base',
+            )
+        );
+        $GLOBALS['conf']['tasklists']['driver'] = 'kolab';
         parent::setUpBeforeClass();
     }
 }

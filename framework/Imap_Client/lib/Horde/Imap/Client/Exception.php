@@ -1,6 +1,6 @@
 <?php
 /**
- * Exception handler for the Horde_Imap_Client class.
+ * Exception handler for the Horde_Imap_Client package.
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
  *
