@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mjr] Fix removeUserData implementation.
 * [gwr] Fix Kolab object attribute handling for tasks.
 * [gwr] Avoid including the owner name into the default share.
  </notes>
@@ -1042,6 +1043,7 @@
    <date>2011-09-01</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mjr] Fix removeUserData implementation.
 * [gwr] Fix Kolab object attribute handling for tasks.
 * [gwr] Avoid including the owner name into the default share.
    </notes>
