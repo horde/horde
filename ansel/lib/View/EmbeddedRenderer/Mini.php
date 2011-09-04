@@ -66,6 +66,22 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
             // in the ::getImageJson() call since they could all be from different
             // galleries.
             $images = explode(':', $images);
+        } elseif (!empty($this->_params['user'])) {
+            // User's most recent images.
+            $galleries = array();
+            $gs = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->listGalleries(array('attributes' => $this->_params['user']));
+            foreach ($gs as $gallery) {
+                $galleries[] = $gallery->id;
+            }
+            $images = array();
+            $is = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getRecentImages($galleries, $count);
+            foreach ($is as $i) {
+                $images[] = $i->id;
+            }
         } else {
             try {
                 $this->gallery = $this->_getGallery($gallery_id, $gallery_slug);
