@@ -1334,7 +1334,7 @@ class Ansel_Storage
      *
      * @param array $shares  An array of Horde_Share_Object objects.
      *
-     * @return array A hash (keyed by gallery_id) of Ansel_Gallery objects.
+     * @return array Ansel_Gallery objects.
      */
     public function buildGalleries(array $shares)
     {

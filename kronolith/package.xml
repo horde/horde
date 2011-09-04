@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mjr] Fix removeUserData API (Bug #10241).
 * [jan] Fix deleting events with a WebDAV client (Bug #10478).
  </notes>
  <contents>
@@ -1881,6 +1882,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mjr] Fix removeUserData API (Bug #10241).
 * [jan] Fix deleting events with a WebDAV client (Bug #10478).
    </notes>
   </release>

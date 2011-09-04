@@ -432,12 +432,17 @@ class Kronolith_Application extends Horde_Registry_Application
     {
         $error = false;
 
-        /* Remove all events owned by the user in all calendars. */
-        Kronolith::getDriver()->removeUserData($user);
+        // Remove all events owned by the user in all calendars.
+        Kronolith::removeUserEvents($user);
 
-        /* Get the user's default share */
+        // Get the shares owned by the user being deleted.
         try {
-            $GLOBALS['kronolith_shares']->removeShare($GLOBALS['kronolith_shares']->getShare($user));
+            $shares = $GLOBALS['kronolith_shares']->listShares(
+                $user,
+                array('attributes' => $user));
+            foreach ($shares as $share) {
+                $GLOBALS['kronolith_shares']->removeShare($share);
+            }
         } catch (Exception $e) {
             Horde::logMessage($e, 'NOTICE');
             $error = true;
