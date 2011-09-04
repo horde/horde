@@ -77,7 +77,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
                                            'count' => $count,
                                            'view_links' => true));
         } else {
-            if ($thumbsize = 'thumb') {
+            if ($thumbsize == 'thumb') {
                 $style = Ansel::getStyleDefinition('ansel_default');
                 $style->thumbstyle = $thumbtype;
             } else {
