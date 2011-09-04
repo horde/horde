@@ -26,19 +26,41 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
         }
 
         // Optional
-        $gallery_slug = !empty($this->_params['gallery_slug']) ? $this->_params['gallery_slug'] : '';
-        $gallery_id = !empty($this->_params['gallery_id']) ? $this->_params['gallery_id']: null;
-        $start = isset($this->_params['start']) ? $this->_params['start'] : 0;
-        $count = isset($this->_params['count']) ? $this->_params['count'] : 0;
-        $perpage = isset($this->_params['perpage']) ? $this->_params['perpage'] : 0;
-        $thumbsize = !empty($this->_params['thumbsize']) ? $this->_params['thumbsize'] : 'mini';
+        $gallery_slug = !empty($this->_params['gallery_slug']) ?
+            $this->_params['gallery_slug'] :
+            '';
+
+        $gallery_id = !empty($this->_params['gallery_id'])
+            ? $this->_params['gallery_id'] :
+            null;
+
+        $start = isset($this->_params['start']) ?
+        $this->_params['start'] :
+        0;
+
+        $count = isset($this->_params['count']) ?
+        $this->_params['count'] :
+        0;
+
+        $perpage = isset($this->_params['perpage']) ?
+            $this->_params['perpage'] :
+            0;
+
+        $thumbsize = !empty($this->_params['thumbsize']) ?
+            $this->_params['thumbsize'] :
+            'mini';
+
         if ($thumbsize != 'mini' && $thumbsize != 'thumb' && $thumbsize != 'screen') {
              $thumbsize = 'mini';
         }
-        $thumbtype = !empty($this->_params['thumbtype']) ? $this->_params['thumbtype'] : 'squarethumb';
+        $thumbtype = !empty($this->_params['thumbtype']) ?
+            $this->_params['thumbtype'] :
+            'squarethumb';
 
-        // An image list instead of a gallery?
-        $images = (!empty($this->_params['images'])) ? $this->_params['images'] : array();
+        // Do we have a gallery, imagelist or user?
+        $images = (!empty($this->_params['images'])) ?
+            $this->_params['images'] :
+            array();
         if (!empty($images)) {
             // Images are filtered for age and password protected galleries
             // in the ::getImageJson() call since they could all be from different
@@ -83,8 +105,14 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Base
             } else {
                 $style = null;
             }
-            $json = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, $style, true, $thumbsize, true);
-            $json_full = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImageJson($images, $style, true, 'screen', true);
+
+            $json = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getImageJson($images, $style, true, $thumbsize, true);
+
+            $json_full = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getImageJson($images, $style, true, 'screen', true);
         }
 
         $horde_css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
