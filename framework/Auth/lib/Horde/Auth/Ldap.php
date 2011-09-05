@@ -65,6 +65,10 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             }
         }
 
+        if ($this->_params['ad']) {
+            $this->_capabilities['resetpassword'] = false;
+        }
+
         $this->_ldap = $params['ldap'];
         unset($params['ldap']);
 
@@ -381,6 +385,10 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     public function resetPassword($userId)
     {
+        if ($this->_params['ad']) {
+            throw new Horde_Auth_Exception(__CLASS__ . ': Updating users is not supported for Active Directory.');
+        }
+
         /* Search for the user's full DN. */
         try {
             $dn = $this->_ldap->findUserDN($userId);
