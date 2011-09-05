@@ -2,6 +2,8 @@
 v3.0.10-git
 -----------
 
+[jan] Update group permission when changing group down list in basic
+      permissions (Bug #10482).
 [jan] Fix race condition when editing group permission in basic permission
       screen (Bug #10482).
 [mjr] Fix removeUserData API (Bug #10241).

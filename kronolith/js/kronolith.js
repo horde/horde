@@ -2868,6 +2868,12 @@ KronolithCore = {
                 if (r.response.chunk) {
                     this.redBoxLoading = true;
                     RedBox.showHtml(r.response.chunk);
+                    ['internal', 'tasklists'].each(function(type) {
+                        $('kronolithC' + type + 'PGList').observe('change', function() {
+                            $('kronolithC' + type + 'PG').setValue(1);
+                            this.permsClickHandler(type, 'G');
+                        }.bind(this));
+                    }, this);
                     this.editCalendarCallback(calendar);
                 } else {
                     this.closeRedBox();
