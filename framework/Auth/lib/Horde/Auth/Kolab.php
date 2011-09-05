@@ -5,10 +5,10 @@
  * parameters to it based on the global Kolab configuration.
  *
  * Copyright 2004-2007 Stuart Binge <s.binge@codefusion.co.za>
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ * not receive this file, http://www.horde.org/licenses/lgpl21
  *
  * @author   Stuart Binge <s.binge@codefusion.co.za>
  * @author   Gunnar Wrobel <wrobel@pardus.de>

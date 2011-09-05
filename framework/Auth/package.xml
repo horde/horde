@@ -33,14 +33,21 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [jan] Fix updating users in LDAP while using preauthenticate hooks.
 * [jan] Add support for resetting passwords to LDAP driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="lib">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Auth">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Auth -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+    <dir name="lib">
     <dir name="Horde">
      <dir name="Auth">
       <dir name="Http">
@@ -205,6 +212,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Auth/COPYING" />
    <install as="Horde/Auth.php" name="lib/Horde/Auth.php" />
    <install as="Horde/Auth/Auto.php" name="lib/Horde/Auth/Auto.php" />
    <install as="Horde/Auth/Base.php" name="lib/Horde/Auth/Base.php" />
@@ -255,7 +263,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fixed error handling when removing user data.
 * Retrieve password where necessary for salt calculations in the custom SQL driver (Bug #3739).
@@ -294,7 +302,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Imap driver now uses Horde_Imap_Client library.
 * Add signup drivers to package.xml (Bug #7345).
@@ -314,7 +322,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Remove dependency on horde/Core.
@@ -334,7 +342,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -349,7 +357,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -364,7 +372,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
 * Remove Cyrus driver.
@@ -381,7 +389,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Fix Cyrsql driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9781).
@@ -398,7 +406,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-20</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix default userhierarchy for Cyrsql driver (Bug #9895).
 * [cjh] Add crypt-sha256 and crypt-sha512 password hashes (patrickdk@patrickdk.com, Request #6991).
@@ -413,7 +421,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix listing users in Customsql driver (Bug #9963).
    </notes>
@@ -426,7 +434,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Cyrsql driver doesn&apos;t support resetting passwords currently (Bug #10060).
    </notes>
@@ -439,7 +447,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-08</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] SECURITY: Fix propagating failed login in composite driver (Bug #10211).
    </notes>
@@ -452,7 +460,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add sort parameter to listUsers() method.
 * [mms] Fix addUser() for Cyrsql driver (vilius@lnk.lt, Bug #10239).
@@ -466,7 +474,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add bad login blocking and account locking to the base driver.
 * [rla] Fix SQL driver when using soft_expiration and hard_expiration features.
@@ -481,7 +489,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-09-05</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix updating users in LDAP while using preauthenticate hooks.
 * [jan] Add support for resetting passwords to LDAP driver.
