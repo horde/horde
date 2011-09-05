@@ -587,6 +587,37 @@ abstract class Horde_Db_Adapter_Base_Schema
     abstract public function renameColumn($tableName, $columnName, $newColumnName);
 
     /**
+     * Adds a primary key to a table.
+     *
+     * @since Horde_Db 1.1.0
+     *
+     * @param string $tableName         A table name.
+     * @param string|array $columnName  One or more column names.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function addPrimaryKey($tableName, $columns)
+    {
+        $this->_clearTableCache($tableName);
+        $columns = (array)$columns;
+        $sql = sprintf('ALTER TABLE %s ADD PRIMARY KEY (%s)',
+                       $this->quoteTableName($tableName),
+                       implode(', ', $columns));
+        return $this->execute($sql);
+    }
+
+    /**
+     * Removes a primary key from a table.
+     *
+     * @since Horde_Db 1.1.0
+     *
+     * @param string $tableName  A table name.
+     *
+     * @throws Horde_Db_Exception
+     */
+    abstract public function removePrimaryKey($tableName);
+
+    /**
      * Adds a new index to a table.
      *
      * The index will be named after the table and the first column names,

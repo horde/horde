@@ -556,20 +556,9 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             $type = 'integer';
             $autoincrement = true;
             $limit = $precision = $scale = null;
-            $keyName = $this->selectValue(
-                'SELECT constraint_name
-                 FROM information_schema.table_constraints
-                 WHERE table_name = ?
-                     AND constraint_type = ?',
-                array($tableName, 'PRIMARY KEY'));
-            if ($keyName) {
-                $sql = sprintf('ALTER TABLE %s DROP CONSTRAINT %s CASCADE',
-                               $quotedTableName,
-                               $this->quoteColumnName($keyName));
-                try {
-                    $this->execute($sql);
-                } catch (Horde_Db_Exception $e) {
-                }
+            try {
+                $this->removePrimaryKey($tableName);
+            } catch (Horde_Db_Exception $e) {
             }
         }
 
@@ -657,10 +646,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         }
 
         if ($primaryKey) {
-            $sql = sprintf('ALTER TABLE %s ADD PRIMARY KEY (%s)',
-                           $this->quoteTableName($tableName),
-                           $this->quoteColumnName($columnName));
-            $this->execute($sql);
+            $this->addPrimaryKey($tableName, $columnName);
         }
 
         if (array_key_exists('null', $options)) {
@@ -710,6 +696,32 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
                        $this->quoteColumnName($columnName),
                        $this->quoteColumnName($newColumnName));
         return $this->execute($sql);
+    }
+
+    /**
+     * Removes a primary key from a table.
+     *
+     * @since Horde_Db 1.1.0
+     *
+     * @param string $tableName  A table name.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function removePrimaryKey($tableName)
+    {
+        $this->_clearTableCache($tableName);
+        $keyName = $this->selectValue(
+            'SELECT constraint_name
+             FROM information_schema.table_constraints
+             WHERE table_name = ?
+                 AND constraint_type = ?',
+            array($tableName, 'PRIMARY KEY'));
+        if ($keyName) {
+            $sql = sprintf('ALTER TABLE %s DROP CONSTRAINT %s CASCADE',
+                           $this->quoteTableName($tableName),
+                           $this->quoteColumnName($keyName));
+            return $this->execute($sql);
+        }
     }
 
     /**

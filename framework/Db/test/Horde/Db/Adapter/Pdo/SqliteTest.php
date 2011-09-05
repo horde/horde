@@ -366,6 +366,25 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('id', (string)$pk);
         $this->assertEquals(1, count($pk->columns));
         $this->assertEquals('id', $pk->columns[0]);
+
+        $table = $this->_conn->createTable('pk_tests', array('autoincrementKey' => false));
+        $table->column('foo', 'string');
+        $table->column('bar', 'string');
+        $table->end();
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEmpty((string)$pk);
+        $this->assertEquals(0, count($pk->columns));
+        $this->_conn->addPrimaryKey('pk_tests', 'foo');
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEquals('foo', (string)$pk);
+        $this->assertEquals(1, count($pk->columns));
+        $this->_conn->removePrimaryKey('pk_tests');
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEmpty((string)$pk);
+        $this->assertEquals(0, count($pk->columns));
+        $this->_conn->addPrimaryKey('pk_tests', array('foo', 'bar'));
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEquals('foo,bar', (string)$pk);
     }
 
     public function testIndexes()
