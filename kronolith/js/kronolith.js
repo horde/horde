@@ -2991,7 +2991,7 @@ KronolithCore = {
         if (newCalendar || info.owner) {
             if (type == 'internal' || type == 'tasklists') {
                 this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
-                                      ['kronolithC' + type + 'PGNew']]);
+                                          ['kronolithC' + type + 'PGNew']]);
                 $('kronolithC' + type + 'PBasic').show();
                 $('kronolithC' + type + 'PAdvanced').hide();
                 $('kronolithC' + type + 'PNone').setValue(1);
@@ -3068,7 +3068,6 @@ KronolithCore = {
         $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
             return tr.retrieve('remove');
         }).invoke('remove');
-        this.updateGroupDropDown([['kronolithC' + type + 'PGNew']]);
 
         switch (perm) {
         case 'None':
