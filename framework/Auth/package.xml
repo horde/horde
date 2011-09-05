@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-31</date>
- <time>18:07:12</time>
+ <date>2011-09-05</date>
+ <time>19:15:29</time>
  <version>
   <release>1.3.0</release>
   <api>1.3.0</api>
@@ -86,6 +86,14 @@
        <file name="test.passwd" role="test" />
       </dir> <!-- /test/Horde/Auth/fixtures -->
       <dir name="Unit">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteLockTest.php" role="test" />
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Horde/Auth/Unit/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+        <file name="Locks.php" role="test" />
+       </dir> <!-- /test/Horde/Auth/Unit/Sql -->
        <file name="AuthTest.php" role="test" />
        <file name="KolabTest.php" role="test" />
        <file name="PasswdTest.php" role="test" />
@@ -230,6 +238,10 @@
    <install as="Horde/Auth/Unit/AuthTest.php" name="test/Horde/Auth/Unit/AuthTest.php" />
    <install as="Horde/Auth/Unit/KolabTest.php" name="test/Horde/Auth/Unit/KolabTest.php" />
    <install as="Horde/Auth/Unit/PasswdTest.php" name="test/Horde/Auth/Unit/PasswdTest.php" />
+   <install as="Horde/Auth/Unit/Sql/Base.php" name="test/Horde/Auth/Unit/Sql/Base.php" />
+   <install as="Horde/Auth/Unit/Sql/Locks.php" name="test/Horde/Auth/Unit/Sql/Locks.php" />
+   <install as="Horde/Auth/Unit/Sql/Pdo/SqliteLockTest.php" name="test/Horde/Auth/Unit/Sql/Pdo/SqliteLockTest.php" />
+   <install as="Horde/Auth/Unit/Sql/Pdo/SqliteTest.php" name="test/Horde/Auth/Unit/Sql/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -468,7 +480,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-31</date>
+   <date>2011-09-05</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
 * [jan] Fix updating users in LDAP while using preauthenticate hooks.
