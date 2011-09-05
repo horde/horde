@@ -3287,11 +3287,11 @@ KronolithCore = {
                         $('kronolithC' + type + 'PGList').setValue(group);
                         if ($('kronolithC' + type + 'PGList').getValue() != group) {
                             // Group no longer exists.
-                            this.permsClickHandler('None');
+                            this.permsClickHandler(type, 'None');
                         }
                     } else if ($('kronolithC' + type + 'PGSingle').getValue() != group) {
                         // Group no longer exists.
-                        this.permsClickHandler('None');
+                        this.permsClickHandler(type, 'None');
                     }
                 }.bind(this, groupId);
                 if (this.groupLoading) {
@@ -3343,7 +3343,7 @@ KronolithCore = {
                 params.each(function(param) {
                     groups.each(function(group) {
                         $(param[0]).insert(new Element('option', { value: group.key })
-                                     .update(group.value.escapeHTML()));
+                                           .update(group.value.escapeHTML()));
                     });
                 });
             }
