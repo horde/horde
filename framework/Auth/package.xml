@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
+* [jan] Fix checking and updating shadow attributes in LDAP driver while using preauthenticate hooks.
 * [jan] Add support for resetting passwords to LDAP driver.
  </notes>
  <contents>
@@ -470,6 +471,7 @@
    <date>2011-08-31</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
+* [jan] Fix checking and updating shadow attributes in LDAP driver while using preauthenticate hooks.
 * [jan] Add support for resetting passwords to LDAP driver.
    </notes>
   </release>

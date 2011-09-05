@@ -334,27 +334,29 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
 
             $olddn = $dn;
             $newdn = preg_replace('/uid=.*?,/', 'uid=' . $newID . ',', $dn, 1);
-            $shadow = $this->_lookupShadow($dn);
-
-            /* If shadowmin hasn't yet expired only change when we are
-               administrator */
-            if ($shadow['shadowlastchange'] &&
-                $shadow['shadowmin'] &&
-                ($shadow['shadowlastchange'] + $shadow['shadowmin'] > (time() / 86400))) {
-                throw new Horde_Auth_Exception('Minimum password age has not yet expired');
-            }
-
-            /* Set the lastchange field */
-            if ($shadow['shadowlastchange']) {
-                $entry['shadowlastchange'] =  floor(time() / 86400);
-            }
-
-            /* Encrypt the new password */
-            $entry['userpassword'] = Horde_Auth::getCryptedPassword(
-                $credentials['password'], '',
-                $this->_params['encryption'],
-                'true');
         }
+
+        $entry = array();
+        $shadow = $this->_lookupShadow($dn);
+
+        /* If shadowmin hasn't yet expired only change when we are
+           administrator */
+        if ($shadow['shadowlastchange'] &&
+            $shadow['shadowmin'] &&
+            ($shadow['shadowlastchange'] + $shadow['shadowmin'] > (time() / 86400))) {
+            throw new Horde_Auth_Exception('Minimum password age has not yet expired');
+        }
+
+        /* Set the lastchange field */
+        if ($shadow['shadowlastchange']) {
+            $entry['shadowlastchange'] =  floor(time() / 86400);
+        }
+
+        /* Encrypt the new password */
+        $entry['userpassword'] = Horde_Auth::getCryptedPassword(
+            $credentials['password'], '',
+            $this->_params['encryption'],
+            'true');
 
         try {
             if ($oldID != $newID) {
