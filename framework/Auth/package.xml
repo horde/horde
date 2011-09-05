@@ -26,8 +26,8 @@
  <date>2011-08-31</date>
  <time>18:07:12</time>
  <version>
-  <release>1.2.1</release>
-  <api>1.2.0</api>
+  <release>1.3.0</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
  <notes>
-* 
+* [jan] Add support for resetting passwords to LDAP driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -462,15 +462,15 @@
   </release>
   <release>
    <version>
-    <release>1.2.1</release>
-    <api>1.2.0</api></version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
    <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
    <notes>
-* 
+* [jan] Add support for resetting passwords to LDAP driver.
    </notes>
   </release>
  </changelog>
