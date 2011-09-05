@@ -644,16 +644,15 @@ abstract class Horde_Db_Adapter_Base_Schema
         $this->_clearTableCache($tableName);
 
         $columnNames = (array)$columnName;
+        $indexName = empty($options['name'])
+            ? $this->indexName($tableName, array('column' => $columnNames))
+            : $options['name'];
         foreach ($columnNames as &$colName) {
             $colName = $this->quoteColumnName($colName);
         }
 
-        $indexName = empty($options['name'])
-            ? $this->indexName($tableName, array('column' => $columnNames))
-            : $options['name'];
-
         $sql = sprintf('CREATE %s INDEX %s ON %s (%s)',
-                       empty($options['unique']) ? null : 'UNIQUE';,
+                       empty($options['unique']) ? null : 'UNIQUE',
                        $this->quoteColumnName($indexName),
                        $this->quoteTableName($tableName),
                        implode(', ', $columnNames));
