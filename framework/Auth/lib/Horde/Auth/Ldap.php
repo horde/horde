@@ -313,6 +313,8 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     /**
      * Update a set of authentication credentials.
      *
+     * @todo Clean this up for Horde 5.
+     *
      * @param string $oldID       The old userId.
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials.
