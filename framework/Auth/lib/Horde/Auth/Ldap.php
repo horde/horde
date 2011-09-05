@@ -315,9 +315,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      *
      * @param string $oldID       The old userId.
      * @param string $newID       The new userId.
-     * @param array $credentials  The new credentials
-     * @param string $olddn       TODO
-     * @param string $newdn       TODO
+     * @param array $credentials  The new credentials.
+     * @param string $olddn       The old user DN.
+     * @param string $newdn       The new user DN.
      *
      * @throws Horde_Auth_Exception
      */
@@ -358,6 +358,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 $credentials['password'], '',
                 $this->_params['encryption'],
                 'true');
+        } else {
+            $entry = $credentials;
+            unset($entry['dn']);
         }
 
         try {
