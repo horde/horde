@@ -445,27 +445,22 @@ class Turba_Application extends Horde_Registry_Application
             array('perm' => Horde_Perms::EDIT,
                   'attributes' => $user));
 
-        /* Look for the deleted user's default share and remove it */
+        // Look for the deleted user's shares and remove them
         foreach ($shares as $share) {
-            $params = @unserialize($share->get('params'));
+            $config = Turba::getSourceFromShare($share);
+            try {
+                $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($config);
+            } catch (Turba_Exception $e) {
+                continue;
+            }
 
-            /* Only attempt to delete the user's default share */
-            if (!empty($params['default'])) {
-                $config = Turba::getSourceFromShare($share);
-                try {
-                    $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($config);
-                } catch (Turba_Exception $e) {
-                    continue;
-                }
-
-                try {
-                    $driver->removeUserData($user);
-                } catch (Turba_Exception_NotSupported $e) {
-                    continue;
-                } catch (Turba_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
-                    throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
-                }
+            try {
+                $driver->removeUserData($user);
+            } catch (Turba_Exception_NotSupported $e) {
+                continue;
+            } catch (Turba_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Turba_Exception(sprintf(_("There was an error removing an address book for %s"), $user));
             }
         }
 

@@ -27,6 +27,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     protected $_capabilities = array(
         'add' => true,
         'update' => true,
+        'resetpassword' => true,
         'remove' => true,
         'list' => true,
         'authenticate' => true,
@@ -62,6 +63,10 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             if (!isset($params[$val])) {
                 throw new InvalidArgumentException(__CLASS__ . ': Missing ' . $val . ' parameter.');
             }
+        }
+
+        if ($this->_params['ad']) {
+            $this->_capabilities['resetpassword'] = false;
         }
 
         $this->_ldap = $params['ldap'];
@@ -308,11 +313,13 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     /**
      * Update a set of authentication credentials.
      *
+     * @todo Clean this up for Horde 5.
+     *
      * @param string $oldID       The old userId.
      * @param string $newID       The new userId.
-     * @param array $credentials  The new credentials
-     * @param string $olddn       TODO
-     * @param string $newdn       TODO
+     * @param array $credentials  The new credentials.
+     * @param string $olddn       The old user DN.
+     * @param string $newdn       The new user DN.
      *
      * @throws Horde_Auth_Exception
      */
@@ -353,6 +360,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 $credentials['password'], '',
                 $this->_params['encryption'],
                 'true');
+        } else {
+            $entry = $credentials;
+            unset($entry['dn']);
         }
 
         try {
@@ -365,6 +375,54 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to update user "%s"', $newID));
         }
+    }
+
+    /**
+     * Reset a user's password. Used for example when the user does not
+     * remember the existing password.
+     *
+     * @param string $userId  The user id for which to reset the password.
+     *
+     * @return string  The new password on success.
+     * @throws Horde_Auth_Exception
+     */
+    public function resetPassword($userId)
+    {
+        if ($this->_params['ad']) {
+            throw new Horde_Auth_Exception(__CLASS__ . ': Updating users is not supported for Active Directory.');
+        }
+
+        /* Search for the user's full DN. */
+        try {
+            $dn = $this->_ldap->findUserDN($userId);
+        } catch (Horde_Exception_Ldap $e) {
+            throw new Horde_Auth_Exception($e);
+        }
+
+        /* Get a new random password. */
+        $password = Horde_Auth::genRandomPassword();
+
+        /* Encrypt the new password */
+        $entry = array(
+            'userpassword' => Horde_Auth::getCryptedPassword($password,
+                                                             '',
+                                                             $this->_params['encryption'],
+                                                             'true'));
+
+        /* Set the lastchange field */
+        $shadow = $this->_lookupShadow($dn);
+        if ($shadow['shadowlastchange']) {
+            $entry['shadowlastchange'] = floor(time() / 86400);
+        }
+
+        /* Update user entry. */
+        try {
+            $this->_ldap->modify($dn, $entry);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        }
+
+        return $password;
     }
 
     /**

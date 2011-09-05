@@ -437,9 +437,11 @@ class Kronolith_Application extends Horde_Registry_Application
 
         // Get the shares owned by the user being deleted.
         try {
-            $shares = Kronolith::listInternalCalendars(true);
-            foreach (array_keys($shares) as $share) {
-                $GLOBALS['kronolith_shares']->removeShare($GLOBALS['kronolith_shares']->getShare($share));
+            $shares = $GLOBALS['kronolith_shares']->listShares(
+                $user,
+                array('attributes' => $user));
+            foreach ($shares as $share) {
+                $GLOBALS['kronolith_shares']->removeShare($share);
             }
         } catch (Exception $e) {
             Horde::logMessage($e, 'NOTICE');

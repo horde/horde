@@ -733,7 +733,7 @@ class Ansel_Storage
     }
 
     /**
-     * Return a list of image ids of the most recently added images for the
+     * Returns a list of Ansel_Images of the most recently added images for the
      * current user.
      *
      * @param array $galleries  An array of gallery ids to search in. If

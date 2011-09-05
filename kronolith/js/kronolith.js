@@ -2991,7 +2991,7 @@ KronolithCore = {
         if (newCalendar || info.owner) {
             if (type == 'internal' || type == 'tasklists') {
                 this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
-                                      ['kronolithC' + type + 'PGNew']]);
+                                          ['kronolithC' + type + 'PGNew']]);
                 $('kronolithC' + type + 'PBasic').show();
                 $('kronolithC' + type + 'PAdvanced').hide();
                 $('kronolithC' + type + 'PNone').setValue(1);
@@ -3068,7 +3068,6 @@ KronolithCore = {
         $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
             return tr.retrieve('remove');
         }).invoke('remove');
-        this.updateGroupDropDown([['kronolithC' + type + 'PGNew']]);
 
         switch (perm) {
         case 'None':
@@ -3287,11 +3286,11 @@ KronolithCore = {
                         $('kronolithC' + type + 'PGList').setValue(group);
                         if ($('kronolithC' + type + 'PGList').getValue() != group) {
                             // Group no longer exists.
-                            this.permsClickHandler('None');
+                            this.permsClickHandler(type, 'None');
                         }
                     } else if ($('kronolithC' + type + 'PGSingle').getValue() != group) {
                         // Group no longer exists.
-                        this.permsClickHandler('None');
+                        this.permsClickHandler(type, 'None');
                     }
                 }.bind(this, groupId);
                 if (this.groupLoading) {
@@ -3343,7 +3342,7 @@ KronolithCore = {
                 params.each(function(param) {
                     groups.each(function(group) {
                         $(param[0]).insert(new Element('option', { value: group.key })
-                                     .update(group.value.escapeHTML()));
+                                           .update(group.value.escapeHTML()));
                     });
                 });
             }

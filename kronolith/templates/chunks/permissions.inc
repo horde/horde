@@ -1,11 +1,3 @@
-<?php
-$groupOptions = '';
-if (count($groups) > 1) {
-    foreach ($groups as $id => $group) {
-        $groupOptions .= '<option value="' . $id . '">' . htmlspecialchars($group) . '</option>';
-    }
-}
-?>
   <div id="kronolithC<?php echo $type ?>PBasic">
     <div class="kronolithDialogInfo"><?php printf(_("%sStandard sharing.%s You can also set %sadvanced sharing%s options."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' .  $type . 'PMore">', '</a></strong>') ?></div>
     <div>
@@ -26,14 +18,10 @@ if (count($groups) > 1) {
         <?php printf(_("%s %sShare with the %s %sgroup%s and %sallow them to%s %s"),
                      '<input type="radio" id="kronolithC' . $type . 'PG" name="basic_perms" />',
                      '<label for="kronolithC' . $type . 'PG">',
-                     '<input type="hidden" id="kronolithC' . $type . 'PGSingle"'
-                     . (count($groups) == 1 ? ' value="' . key($groups) . '"' : '') . ' />
-                     <span id="kronolithC' . $type . 'PGName">'
-                     . (count($groups) == 1 ? '&quot;' . htmlspecialchars(reset($groups)) . '&quot;' : '') . '</span>
+                     '<input type="hidden" id="kronolithC' . $type . 'PGSingle" />
+                     <span id="kronolithC' . $type . 'PGName"></span>
                      </label>
-                     <select id="kronolithC' . $type . 'PGList">'
-                     . $groupOptions
-                     . '</select>',
+                     <select id="kronolithC' . $type . 'PGList"></select>',
                      '<label for="kronolithC' . $type . 'PG">', '</label>',
                      '<label for="kronolithC' . $type . 'PGPerms">', '</label>',
                      '<select id="kronolithC' . $type . 'PGPerms" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'G\')">

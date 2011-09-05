@@ -1892,6 +1892,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [jan] Fix race condition when editing group permission in basic permission screen (Bug #10482).
 * [mjr] Fix removeUserData API (Bug #10241).
 * [jan] Fix deleting events with a WebDAV client (Bug #10478).
    </notes>

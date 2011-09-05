@@ -166,7 +166,8 @@ class Mnemo_Application extends Horde_Registry_Application
     public function removeUserData($user)
     {
         $error = false;
-        $notepads = Mnemo::listNotepads(true);
+        $notepads = $GLOBALS['mnemo_shares']->listShares(
+            $user, array('attribtues' => $user));
         foreach ($notepads as $notepad => $share) {
             $driver = $GLOBALS['injector']
                 ->getInstance('Mnemo_Factory_Driver')
