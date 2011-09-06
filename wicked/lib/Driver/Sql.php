@@ -337,8 +337,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
             $params[] = (int)$version;
         }
 
-        Horde::logMessage('Wicked_Driver_sql::removeAttachment: ' . $sql, 'DEBUG');
-
         $result = $this->_db->delete($sql, $params);
 
         /* Now try against the attachment history table. $params is
@@ -348,8 +346,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
         if (!is_null($version)) {
             $sql .= ' AND attachment_version = ?';
         }
-
-        Horde::logMessage('Wicked_Driver_sql::removeAttachment: ' . $sql, 'DEBUG');
 
         $this->_db->delete($sql, $params);
     }
@@ -372,16 +368,12 @@ class Wicked_Driver_Sql extends Wicked_Driver
             ' WHERE page_id = ?';
         $params = array($pageId);
 
-        Horde::logMessage('Wicked_Driver_sql::removeAllAttachments: ' . $sql, 'DEBUG');
-
         $result = $this->_db->delete($sql, $params);
 
         /* Now try against the attachment history table. $params is
          * unchanged. */
         $sql = 'DELETE FROM ' . $this->_params['attachmenthistorytable'] .
             ' WHERE page_id = ?';
-
-        Horde::logMessage('Wicked_Driver_sql::removeAllAttachments: ' . $sql, 'DEBUG');
 
         $this->_db->delete($sql, $params);
     }
@@ -457,8 +449,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
                  ' SET page_hits = page_hits + 1 WHERE page_name = ?';
         $values = array($this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::logPageView(' . $pagename . '): ' . $query, 'DEBUG');
-
         return $this->_db->update($query, $values);
     }
 
@@ -516,8 +506,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
             $author,
         );
 
-        Horde::logMessage('Wicked_Driver_sql::newPage(): ' . $query, 'DEBUG');
-
         /* Attempt the insertion/update query. */
         $page_id = $this->_db->insert($query, $values);
 
@@ -547,15 +535,11 @@ class Wicked_Driver_Sql extends Wicked_Driver
                  ' SET page_name = ? WHERE page_name = ?';
         $values = array($this->_convertToDriver($newname), $this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::renamePage(): ' . $query, 'DEBUG');
-
         $this->_db->update($query, $values);
 
         $query = 'UPDATE ' . $this->_params['historytable'] .
                  ' SET page_name = ? WHERE page_name = ?';
         $values = array($this->_convertToDriver($newname), $this->_convertToDriver($pagename));
-
-        Horde::logMessage('Wicked_Driver_sql::renamePage(): ' . $query, 'DEBUG');
 
         $this->_db->update($query, $values);
 
@@ -583,12 +567,10 @@ class Wicked_Driver_Sql extends Wicked_Driver
         $values = array($this->_convertToDriver($pagename));
 
         Horde::logMessage('Page ' . $pagename . ' saved with user agent ' . $GLOBALS['browser']->getAgentString(), 'DEBUG');
-        Horde::logMessage('Wicked_Driver_sql::updateText(): ' . $query, 'DEBUG');
 
         try {
             $this->_db->insert($query, $values);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
             throw new Wicked_Exception($e);
         }
 
@@ -608,8 +590,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
                         time(),
                         $this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::updateText(): ' . $query, 'DEBUG');
-
         $this->_db->update($query, $values);
     }
 
@@ -618,7 +598,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
         static $pageNames;
         if (!isset($pageNames) || $no_cache) {
             $query = 'SELECT page_id, page_name FROM ' . $this->_params['table'];
-            Horde::logMessage('Wicked_Driver_sql::getPages(): ' . $query, 'DEBUG');
             try {
                 $result = $this->_db->selectAssoc($query);
             } catch (Horde_Db_Exception $e) {
@@ -643,8 +622,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
                  ' WHERE page_name = ? AND page_version = ?';
         $values = array($this->_convertToDriver($pagename), $version);
 
-        Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
-
         try {
             $result = $this->_db->selectValue($query, $values);
         } catch (Horde_Db_Exception $e) {
@@ -656,7 +633,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
              * history table. $values is unchanged. */
             $query = 'DELETE FROM ' . $this->_params['historytable'] .
                 ' WHERE page_name = ? and page_version = ?';
-            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
             $this->_db->delete($query, $values);
             return;
         }
@@ -666,8 +642,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
         $query = 'SELECT * FROM ' . $this->_params['historytable'] .
                  ' WHERE page_name = ? ORDER BY page_version DESC';
         $query = $this->_db->addLimitOffset($query, array('limit' => 1));
-
-        Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
         $revision = $this->_db->selectOne($query, array($this->_convertToDriver($pagename)), DB_FETCHMODE_ASSOC);
 
@@ -683,8 +657,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
                         $revision['change_author'],
                         $revision['change_log'],
                         $this->_convertToDriver($pagename));
-
-        Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
         $this->_db->update($query, $values);
 
         /* Finally, remove the version that we promoted from the
@@ -693,8 +665,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
             ' WHERE page_name = ? and page_version = ?';
         $values = array($this->_convertToDriver($pagename),
                         $revision['page_version']);
-
-        Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
         $this->_db->delete($query, $values);
     }
@@ -709,15 +679,11 @@ class Wicked_Driver_Sql extends Wicked_Driver
                  ' WHERE page_name = ?';
         $values = array($this->_convertToDriver($pagename));
 
-        Horde::logMessage('Wicked_Driver_sql::removeAllVersions(): ' . $query, 'DEBUG');
-
         $this->_db->delete($query, $values);
 
         $query = 'DELETE FROM ' . $this->_params['historytable'] .
                  ' WHERE page_name = ?';
         $values = array($this->_convertToDriver($pagename));
-
-        Horde::logMessage('Wicked_Driver_sql::removeAllVersions(): ' . $query, 'DEBUG');
 
         $this->_db->delete($query, $values);
 
@@ -748,11 +714,9 @@ class Wicked_Driver_Sql extends Wicked_Driver
             $query = $this->_db->addLimitOffset($query, array('limit' => $limit));
         }
 
-        Horde::logMessage('Wicked_Driver_sql::_retrieve(): ' . $query, 'DEBUG');
         try {
             $result = $this->_db->selectAll($query);
         } catch (Horde_Db_Exception $e) {
-            Horde::logMessage($e);
             throw new Wicked_Exception($e);
         }
 
