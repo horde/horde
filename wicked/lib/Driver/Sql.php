@@ -62,12 +62,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
         return $this->_retrieve($this->_params['historytable'], $where);
     }
 
-    public function getPage($pagename)
-    {
-        $where = 'page_name = ' . $this->_db->quoteString($this->_convertToDriver($pagename));
-        return $this->_retrieve($this->_params['table'], $where);
-    }
-
     public function getPageById($id)
     {
         $where = 'page_id = ' . (int)$id;

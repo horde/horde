@@ -100,10 +100,10 @@ if (!empty($listpages)) {
 
 // retrieve a user-specified page or all of them
 if (!is_null($get)) {
-    $results = $wicked->getPage($get);
-    if (empty($results)) {
-        $error = sprintf(_("page \"%s\" doesn't exist."), $get);
-        $cli->message($error, 'cli.error');
+    try {
+        $results = $wicked->retrieveByName($get);
+    } catch (Wicked_Exception $e) {
+        $cli->message($e->getString, 'cli.error');
         exit;
     }
 } elseif (is_null($get)) {
