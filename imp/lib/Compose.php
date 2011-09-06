@@ -1089,16 +1089,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
-        if ($exceed) {
-            $recipients = 0;
-            foreach ($addrlist as $recipient) {
-                $recipients += count(explode(',', $recipient));
-            }
-
-            if (!$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_recipients', array('opts' => array('value' => $recipients)))) {
-                Horde::permissionDeniedError('imp', 'max_recipients');
-                throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
-            }
+        if ($exceed &&
+            !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_recipients', array('opts' => array('value' => count($addrlist))))) {
+            Horde::permissionDeniedError('imp', 'max_recipients');
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
         }
 
         return array('list' => $addrlist, 'header' => $header);
