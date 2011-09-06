@@ -210,6 +210,7 @@ class Ansel_Image Implements Iterator
 
         $this->_image = Ansel::getImageObject();
         $this->_image->reset();
+        $this->id = !empty($image['image_id']) ? $image['image_id'] : null;
     }
 
     /**
