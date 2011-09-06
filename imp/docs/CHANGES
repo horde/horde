@@ -2,6 +2,7 @@
 v5.0.12-git
 -----------
 
+[mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
 [mms] Always show image thumbnail previews, if an image conversion utility is
       present on the system.
 [mms] More workarounds for broken suhosin extension (Bug #10462).

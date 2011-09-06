@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
 * [mms] More workarounds for broken suhosin extension (Bug #10462).
 * [mms] Always show image thumbnail previews, if an image conversion utility is present on the system.
  </notes>

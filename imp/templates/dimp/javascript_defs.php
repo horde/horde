@@ -10,7 +10,9 @@
 
 $code = $filters = $flags = array();
 
-$compose_page = in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-dimp.php'));
+$script_file = basename($_SERVER['PHP_SELF']);
+$compose_page = ($script_file == 'message-dimp.php') ||
+                (strpos($script_file, 'compose') === 0);
 
 /* Generate filter array. */
 $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');

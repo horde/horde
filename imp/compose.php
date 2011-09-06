@@ -20,6 +20,21 @@ Horde_Registry::appInit('imp', array(
     'session_control' => 'netscape'
 ));
 
+$vars = Horde_Variables::getDefaultVariables();
+
+/* Mailto link handler: redirect based on current view. */
+if ($vars->actionID == 'mailto_link') {
+    switch (IMP::getViewMode()) {
+    case 'dimp':
+        require IMP_BASE . '/compose-dimp.php';
+        exit;
+
+    case 'mimp':
+        require IMP_BASE . '/compose-mimp.php';
+        exit;
+    }
+}
+
 $registry->setTimeZone();
 
 /* The message headers and text. */
@@ -29,8 +44,6 @@ $msg = '';
 $get_sig = true;
 $showmenu = $spellcheck = false;
 $oldrtemode = $rtemode = null;
-
-$vars = Horde_Variables::getDefaultVariables();
 
 /* Set the current identity. */
 $identity = $injector->getInstance('IMP_Identity');

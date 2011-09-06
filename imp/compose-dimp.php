@@ -4,17 +4,18 @@
  *
  * List of URL parameters:
  * -----------------------
- *   - bcc: TODO
- *   - cc: TODO
- *   - identity: TODO
- *   - subject: TODO
+ *   - bcc: BCC addresses.
+ *   - body: Message body text.
+ *   - cc: CC addresses.
+ *   - identity: Force message to use this identity by default.
+ *   - subject: Subject to use.
  *   - type: redirect, reply, reply_auto, reply_all, reply_list,
  *           forward_attach, forward_auto, forward_body, forward_both,
  *           forward_redirect, resume, new, editasnew
- *   - to: The e-mail address to send to.
+ *   - to: Address to send to.
  *   - toname: If set, will be used as personal part of e-mail address
  *             (requires 'to' parameter also).
- *   - uids: TODO
+ *   - uids: UIDs of message to forward (only used when forwarding a message).
  *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
@@ -51,7 +52,7 @@ if (isset($header['to']) &&
 
 $fillform_opts = array('noupdate' => 1);
 $get_sig = true;
-$msg = '';
+$msg = $vars->body;
 
 $js = array();
 
