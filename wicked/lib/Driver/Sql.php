@@ -8,6 +8,7 @@
  *
  * @author  Tyler Colbert <tyler@colberts.us>
  * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Wicked
  */
 class Wicked_Driver_Sql extends Wicked_Driver
@@ -20,6 +21,13 @@ class Wicked_Driver_Sql extends Wicked_Driver
     protected $_db;
 
     /**
+     * A cached list of all available page names.
+     *
+     * @var array
+     */
+    protected $_pageNames;
+
+    /**
      * Retrieves the page of a particular name from the database.
      *
      * @param string $pagename The name of the page to retrieve.
@@ -29,9 +37,9 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function retrieveByName($pagename)
     {
-        $where = 'page_name = ' . $this->_db->quoteString($this->_convertToDriver($pagename));
-
-        $pages = $this->_retrieve($this->_params['table'], $where);
+        $pages = $this->_retrieve(
+            $this->_params['table'],
+            array('page_name = ?', array($this->_convertToDriver($pagename))));
 
         if (!empty($pages[0])) {
             return $pages[0];
@@ -51,21 +59,20 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function retrieveHistory($pagename, $version)
     {
-        if (empty($version) or !preg_match('/^\d+$/', $version)) {
+        if (!preg_match('/^\d+$/', $version)) {
             throw new Wicked_Exception('invalid version number');
         }
 
-        $where = sprintf('page_name = %s AND page_version = %d',
-                         $this->_db->quoteString($this->_convertToDriver($pagename)),
-                         $version);
-
-        return $this->_retrieve($this->_params['historytable'], $where);
+        return $this->_retrieve(
+            $this->_params['historytable'],
+            array('page_name = ? AND page_version = ?',
+                  array($this->_convertToDriver($pagename), (int)$version)));
     }
 
     public function getPageById($id)
     {
-        $where = 'page_id = ' . (int)$id;
-        return $this->_retrieve($this->_params['table'], $where);
+        return $this->_retrieve($this->_params['table'],
+                                array('page_id = ?', array((int)$id)));
     }
 
     public function getAllPages()
@@ -75,11 +82,10 @@ class Wicked_Driver_Sql extends Wicked_Driver
 
     public function getHistory($pagename)
     {
-        $where = 'page_name = '
-            . $this->_db->quoteString($this->_convertToDriver($pagename))
-            . ' ORDER BY page_version DESC';
-
-        return $this->_retrieve($this->_params['historytable'], $where);
+        return $this->_retrieve(
+            $this->_params['historytable'],
+            array('page_name = ?', array($this->_convertToDriver($pagename))),
+            'page_version DESC');
     }
 
     /**
@@ -92,7 +98,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function getRecentChanges($days = 3)
     {
-        $where = 'version_created > ' . (time() - (86400 * $days));
+        $where = array('version_created > ?', time() - (86400 * $days));
         $result = $this->_retrieve($this->_params['table'],
                                    $where,
                                    'version_created DESC');
@@ -112,7 +118,8 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function mostPopular($limit = 10)
     {
-        return $this->_retrieve($this->_params['table'], '', 'page_hits DESC', $limit);
+        return $this->_retrieve($this->_params['table'], '',
+                                'page_hits DESC', $limit);
     }
 
     /**
@@ -125,23 +132,26 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function leastPopular($limit = 10)
     {
-        return $this->_retrieve($this->_params['table'], '', 'page_hits ASC', $limit);
+        return $this->_retrieve($this->_params['table'], '',
+                                'page_hits ASC', $limit);
     }
 
     public function searchTitles($searchtext)
     {
         $searchtext = $this->_convertToDriver($searchtext);
-        $where = $this->_db->buildClause('page_name', 'LIKE', $searchtext);
+        try {
+            $where = $this->_db->buildClause('page_name', 'LIKE', $searchtext);
+        } catch (Horde_Db_Exception $e) {
+            throw new Wicked_Exception($e);
+        }
         return $this->_retrieve($this->_params['table'], $where);
     }
 
     /**
      * Finds pages with matches in text or title.
      *
-     * @param string  $searchtext  The search expression (Google-like).
-     * @param boolean $title default true  If true, both page title and text
-     *                                     are searched.  If false, only page
-     *                                     text is searched.
+     * @param string $searchtext  The search expression (Google-like).
+     * @param boolean $title      Search both page title and text?
      *
      * @return array  A list of pages.
      * @throws Wicked_Exception
@@ -173,11 +183,18 @@ class Wicked_Driver_Sql extends Wicked_Driver
 
     public function getBackLinks($pagename)
     {
-        $where = 'page_text LIKE ' . $this->_db->quoteString('%' . $this->_convertToDriver($pagename) . '%');
+        try {
+            $where = $this->_db->buildClause(
+                'page_text', 'LIKE',
+                '%' . $this->_convertToDriver($pagename) . '%');
+        } catch (Horde_Db_Exception $e) {
+            throw new Wicked_Exception($e);
+        }
         $pages = $this->_retrieve($this->_params['table'], $where);
 
         /* We've cast a wide net, so now we filter out pages which don't
          * actually refer to $pagename. */
+        /* @todo this should match the current wiki engine's syntax. */
         $patterns = array('/\(\(' . preg_quote($pagename, '/') . '(?:\|[^)]+)?\)\)/');
         if (preg_match('/^' . Wicked::REGEXP_WIKIWORD . '$/', $pagename)) {
             $patterns[] = '/\b' . preg_quote($pagename, '/') . '\b/';
@@ -188,6 +205,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
             foreach ($patterns as $pattern) {
                 if (preg_match($pattern, $page['page_text'])) {
                     $match = true;
+                    break;
                 }
             }
             if (!$match) {
@@ -198,29 +216,39 @@ class Wicked_Driver_Sql extends Wicked_Driver
         return $pages;
     }
 
-    public function getMatchingPages($searchtext, $matchType = Wicked_Page::MATCH_ANY)
+    public function getMatchingPages($searchtext,
+                                     $matchType = Wicked_Page::MATCH_ANY)
     {
-        $searchtext = Horde_String::lower($searchtext);
+        $searchtext = strtolower($searchtext);
 
-        /* Short circuit the simple case. */
-        if ($matchType == Wicked_Page::MATCH_ANY) {
-            return $this->_retrieve($this->_params['table'],
-                                    'LOWER(page_name) LIKE ' . $this->_db->quoteString('%' . $searchtext . '%'));
-        }
+        try {
+            /* Short circuit the simple case. */
+            if ($matchType == Wicked_Page::MATCH_ANY) {
+                return $this->_retrieve(
+                    $this->_params['table'],
+                    $this->_db->buildClause('LOWER(page_name)', 'LIKE',
+                                            '%' . $searchtext . '%'));
+            }
 
-        $clauses = array();
-        if ($matchType & Wicked_Page::MATCH_LEFT) {
-            $clauses[] = 'LOWER(page_name) LIKE ' . $this->_db->quoteString($searchtext . '%');
-        }
-        if ($matchType & Wicked_Page::MATCH_RIGHT) {
-            $clauses[] = 'LOWER(page_name) LIKE ' . $this->_db->quoteString('%' . $searchtext);
+            $clauses = array();
+            if ($matchType & Wicked_Page::MATCH_LEFT) {
+                $clauses[] = $this->_db->buildClause('LOWER(page_name)', 'LIKE',
+                                                     $searchtext . '%');
+            }
+            if ($matchType & Wicked_Page::MATCH_RIGHT) {
+                $clauses[] = $this->_db->buildClause('LOWER(page_name)', 'LIKE',
+                                                     '%' . $searchtext);
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Wicked_Exception($e);
         }
 
         if (!$clauses) {
             return array();
         }
 
-        return $this->_retrieve($this->_params['table'], implode(' OR ', $clauses));
+        return $this->_retrieve($this->_params['table'],
+                                implode(' OR ', $clauses));
     }
 
     public function getLikePages($pagename)
@@ -258,9 +286,13 @@ class Wicked_Driver_Sql extends Wicked_Driver
             }
         }
 
-        $where = $this->_db->buildClause('page_name', 'LIKE', $firstword);
-        if (!empty($lastword) && $lastword != $firstword) {
-            $where .= ' OR ' . $this->_db->buildClause('page_name', 'LIKE', $lastword);
+        try {
+            $where = $this->_db->buildClause('page_name', 'LIKE', $firstword);
+            if (!empty($lastword) && $lastword != $firstword) {
+                $where .= ' OR ' . $this->_db->buildClause('page_name', 'LIKE', $lastword);
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Wicked_Exception($e);
         }
 
         return $this->_retrieve($this->_params['table'], $where);
@@ -280,40 +312,40 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function getAttachedFiles($pageId, $allversions = false)
     {
-        $where = 'page_id = ' . (int)$pageId;
+        $where = array('page_id = ?', array((int)$pageId));
         $data = $this->_retrieve($this->_params['attachmenttable'], $where);
 
         if ($allversions) {
-            $more_data = $this->_retrieve($this->_params['attachmenthistorytable'], $where);
+            $more_data = $this->_retrieve(
+                $this->_params['attachmenthistorytable'], $where);
             $data = array_merge($data, $more_data);
         }
 
         foreach (array_keys($data) as $key) {
             $data[$key]['attachment_name'] = $this->_convertFromDriver($data[$key]['attachment_name']);
         }
-
         usort($data, array($this, '_getAttachedFiles_usort'));
+
         return $data;
     }
 
     protected function _getAttachedFiles_usort($a, $b)
     {
-        $res = strcmp($a['attachment_name'], $b['attachment_name']);
-        if ($res != 0) {
+        if ($res = strcmp($a['attachment_name'], $b['attachment_name'])) {
             return $res;
         }
         return ($a['attachment_version'] - $b['attachment_version']);
     }
 
     /**
-     * Remove a single version or all versions of an attachment from
-     * $pageId. Calls parent::removeAttachment() to delete files from
-     * VFS.
+     * Removes a single version or all versions of an attachment from
+     * $pageId.
      *
-     * @param integer $pageId  The Id of the page the file is attached to.
+     * @param integer $pageId     The Id of the page the file is attached to.
      * @param string $attachment  The name of the file.
-     * @param string $version  If specified, the version to delete. If null,
-     *                         then all versions of $attachment will be removed.
+     * @param string $version     If specified, the version to delete. If null,
+     *                            then all versions of $attachment will be
+     *                            removed.
      *
      * @throws Wicked_Exception
      */
@@ -325,30 +357,35 @@ class Wicked_Driver_Sql extends Wicked_Driver
         /* First try against the current attachments table. */
         $sql = 'DELETE FROM ' . $this->_params['attachmenttable'] .
             ' WHERE page_id = ? AND attachment_name = ?';
-        $params = array($pageId, $attachment);
+        $params = array((int)$pageId, $attachment);
         if (!is_null($version)) {
             $sql .= ' AND attachment_version = ?';
             $params[] = (int)$version;
         }
 
-        $result = $this->_db->delete($sql, $params);
+        try {
+            $this->_db->beginDbTransaction();
+            $result = $this->_db->delete($sql, $params);
 
-        /* Now try against the attachment history table. $params is
-         * unchanged. */
-        $sql = 'DELETE FROM ' . $this->_params['attachmenthistorytable'] .
-            ' WHERE page_id = ? AND attachment_name = ?';
-        if (!is_null($version)) {
-            $sql .= ' AND attachment_version = ?';
+            /* Now try against the attachment history table. $params is
+             * unchanged. */
+            $sql = 'DELETE FROM ' . $this->_params['attachmenthistorytable'] .
+                ' WHERE page_id = ? AND attachment_name = ?';
+            if (!is_null($version)) {
+                $sql .= ' AND attachment_version = ?';
+            }
+            $this->_db->delete($sql, $params);
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Wicked_Exception($e);
         }
-
-        $this->_db->delete($sql, $params);
     }
 
     /**
-     * Removes all attachments from $pageId. Calls
-     * parent::removeAllAttachments() to delete files from VFS.
+     * Removes all attachments from a page.
      *
-     * @param integer $pageId  The Id of the page to remove attachments from.
+     * @param integer $pageId  A page ID.
      *
      * @throws Wicked_Exception
      */
@@ -357,19 +394,26 @@ class Wicked_Driver_Sql extends Wicked_Driver
         /* Try to delete from the VFS first. */
         $result = parent::removeAllAttachments($pageId);
 
-        /* First try against the current attachments table. */
-        $sql = 'DELETE FROM ' . $this->_params['attachmenttable'] .
-            ' WHERE page_id = ?';
-        $params = array($pageId);
+        $params = array((int)$pageId);
+        try {
+            $this->_db->beginDbTransaction();
+            /* First try against the current attachments table. */
+            $result = $this->_db->delete(
+                'DELETE FROM ' . $this->_params['attachmenttable']
+                . ' WHERE page_id = ?',
+                $params);
 
-        $result = $this->_db->delete($sql, $params);
-
-        /* Now try against the attachment history table. $params is
-         * unchanged. */
-        $sql = 'DELETE FROM ' . $this->_params['attachmenthistorytable'] .
-            ' WHERE page_id = ?';
-
-        $this->_db->delete($sql, $params);
+            /* Now try against the attachment history table. $params is
+             * unchanged. */
+            $this->_db->delete(
+                'DELETE FROM ' . $this->_params['attachmenthistorytable']
+                . ' WHERE page_id = ?',
+                $params);
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Wicked_Exception($e);
+        }
     }
 
     /**
@@ -378,60 +422,69 @@ class Wicked_Driver_Sql extends Wicked_Driver
      * Wicked_Driver::attachFile() calls down to this method for the driver-
      * specific portion, and then uses VFS to store the attachment.
      *
-     * @access protected
-     *
      * @param array $file  See Wicked_Driver::attachFile().
      *
-     * @return string  The new version of the file attached.
+     * @return integer  The new version of the file attached.
      * @throws Wicked_Exception
      */
     protected function _attachFile($file)
     {
-        $where = 'page_id = ' . intval($file['page_id']) .
-                 ' AND attachment_name = ' . $this->_db->quoteString($file['attachment_name']);
-        $attachments = $this->_retrieve($this->_params['attachmenttable'], $where);
-
         if ($file['change_author'] === false) {
             $file['change_author'] = null;
         }
 
+        $attachments = $this->_retrieve(
+            $this->_params['attachmenttable'],
+            array('page_id = ? AND attachment_name = ?',
+                  array((int)$file['page_id'], $file['attachment_name'])));
+
         if ($attachments) {
-            list($old) = $attachments;
-            $version = $old['attachment_version'] + 1;
+            $version = $attachments[0]['attachment_version'] + 1;
 
-            $sql = sprintf('INSERT INTO %s (page_id, attachment_name, attachment_version, attachment_created, change_author, change_log) SELECT page_id, attachment_name, attachment_version, attachment_created, change_author, change_log FROM %s WHERE page_id = %s AND attachment_name = %s',
-                           $this->_params['attachmenthistorytable'],
-                           $this->_params['attachmenttable'],
-                           intval($file['page_id']),
-                           $this->_db->quoteString($file['attachment_name']));
-            $this->_db->insert($sql);
+            try {
+                $this->_db->beginDbTransaction();
+                $this->_db->insert(
+                    sprintf('INSERT INTO %s (page_id, attachment_name, attachment_version, attachment_created, change_author, change_log) SELECT page_id, attachment_name, attachment_version, attachment_created, change_author, change_log FROM %s WHERE page_id = ? AND attachment_name = ?',
+                            $this->_params['attachmenthistorytable'],
+                            $this->_params['attachmenttable']),
+                    array((int)$file['page_id'],
+                          $file['attachment_name']));
 
-            $sql = sprintf('UPDATE %s SET attachment_version = %s, change_log = %s, change_author = %s, attachment_created = %s WHERE page_id = %d AND attachment_name = %s',
-                           $this->_params['attachmenttable'],
-                           intval($version),
-                           $this->_db->quoteString($this->_convertToDriver($file['change_log'])),
-                           $this->_db->quoteString($this->_convertToDriver($file['change_author'])),
-                           intval(time()),
-                           intval($file['page_id']),
-                           $this->_db->quoteString($this->_convertToDriver($file['attachment_name'])));
-            $this->_db->update($sql);
+                $this->_db->update(
+                    sprintf('UPDATE %s SET attachment_version = ?, change_log = ?, change_author = ?, attachment_created = ? WHERE page_id = ? AND attachment_name = ?',
+                            $this->_params['attachmenttable']),
+                    array((int)$version,
+                          $this->_convertToDriver($file['change_log']),
+                          $this->_convertToDriver($file['change_author']),
+                          time(),
+                          (int)$file['page_id'],
+                          $this->_convertToDriver($file['attachment_name'])));
+                $this->_db->commitDbTransaction();
+            } catch (Horde_Db_Exception $e) {
+                $this->_db->rollbackDbTransaction();
+                throw new Wicked_Exception($e);
+            }
         } else {
             $version = 1;
-            $sql = sprintf('INSERT INTO %s (page_id, attachment_version, change_log, change_author, attachment_created, attachment_name) VALUES (%d, 1, %s, %s, %s, %s)',
-                           $this->_params['attachmenttable'],
-                           intval($file['page_id']),
-                           $this->_db->quoteString($this->_convertToDriver($file['change_log'])),
-                           $this->_db->quoteString($this->_convertToDriver($file['change_author'])),
-                           intval(time()),
-                           $this->_db->quoteString($this->_convertToDriver($file['attachment_name'])));
-            $this->_db->insert($sql);
+            try {
+                $this->_db->insert(
+                    sprintf('INSERT INTO %s (page_id, attachment_version, change_log, change_author, attachment_created, attachment_name) VALUES (?, 1, ?, ?, ?, ?)',
+                            $this->_params['attachmenttable']),
+                    array((int)$file['page_id'],
+                          $this->_convertToDriver($file['change_log']),
+                          $this->_convertToDriver($file['change_author']),
+                          time(),
+                          $this->_convertToDriver($file['attachment_name'])));
+            } catch (Horde_Db_Exception $e) {
+                throw new Wicked_Exception($e);
+            }
         }
 
-        return (int)$version;
+        return $version;
     }
 
     /**
-     * Log a hit to $pagename.
+     * Logs a page view.
      *
      * @param string $pagename  The page that was viewed.
      *
@@ -439,11 +492,14 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function logPageView($pagename)
     {
-        $query = 'UPDATE ' . $this->_params['table'] .
-                 ' SET page_hits = page_hits + 1 WHERE page_name = ?';
-        $values = array($this->_convertToDriver($pagename));
-
-        return $this->_db->update($query, $values);
+        try {
+            return $this->_db->update(
+                'UPDATE ' . $this->_params['table']
+                . ' SET page_hits = page_hits + 1 WHERE page_name = ?',
+                array($this->_convertToDriver($pagename)));
+        } catch (Horde_Db_Exception $e) {
+            throw new Wicked_Exception($e);
+        }
     }
 
     /**
@@ -490,33 +546,35 @@ class Wicked_Driver_Sql extends Wicked_Driver
             $author = null;
         }
 
-        $query = 'INSERT INTO ' . $this->_params['table'] . ' '
-            . '(page_name, page_text, version_created, page_version, '
-            . 'page_hits, change_author) VALUES (?, ?, ?, 1, 0, ?)';
-        $values = array(
-            $this->_convertToDriver($pagename),
-            $this->_convertToDriver($text),
-            time(),
-            $author,
-        );
-
         /* Attempt the insertion/update query. */
-        $page_id = $this->_db->insert($query, $values);
+        try {
+            $page_id = $this->_db->insert(
+                'INSERT INTO ' . $this->_params['table']
+                . ' (page_name, page_text, version_created, page_version,'
+                . ' page_hits, change_author) VALUES (?, ?, ?, 1, 0, ?)',
+                array($this->_convertToDriver($pagename),
+                      $this->_convertToDriver($text),
+                      time(),
+                      $author));
+        } catch (Horde_Db_Exception $e) {
+            throw new Wicked_Exception($e);
+        }
 
         /* Send notification. */
         $url = Wicked::url($pagename, true, -1);
-        Wicked::mail("Created page: $url\n\n$text\n", array(
-            'Subject' => '[' . $GLOBALS['registry']->get('name') .
-                '] created: ' . $pagename));
+        Wicked::mail("Created page: $url\n\n$text\n",
+                     array('Subject' => '[' . $GLOBALS['registry']->get('name')
+                           . '] created: ' . $pagename));
 
         /* Call getPages with no caching so that the new list of pages is
          * read in. */
         $this->getPages(true, true);
+
         return $page_id;
     }
 
     /**
-     * Rename a page (and keep the page's history).
+     * Renames a page, keeping the page's history.
      *
      * @param string $pagename  The name of the page to rename.
      * @param string $newname   The page's new name.
@@ -525,17 +583,24 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function renamePage($pagename, $newname)
     {
-        $query = 'UPDATE ' . $this->_params['table'] .
-                 ' SET page_name = ? WHERE page_name = ?';
-        $values = array($this->_convertToDriver($newname), $this->_convertToDriver($pagename));
+        try {
+            $this->_db->beginDbTransaction();
+            $this->_db->update(
+                'UPDATE ' . $this->_params['table']
+                . ' SET page_name = ? WHERE page_name = ?',
+                array($this->_convertToDriver($newname),
+                      $this->_convertToDriver($pagename)));
 
-        $this->_db->update($query, $values);
-
-        $query = 'UPDATE ' . $this->_params['historytable'] .
-                 ' SET page_name = ? WHERE page_name = ?';
-        $values = array($this->_convertToDriver($newname), $this->_convertToDriver($pagename));
-
-        $this->_db->update($query, $values);
+            $this->_db->update(
+                'UPDATE ' . $this->_params['historytable']
+                . ' SET page_name = ? WHERE page_name = ?',
+                array($this->_convertToDriver($newname),
+                      $this->_convertToDriver($pagename)));
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Wicked_Exception($e);
+        }
 
         $changelog = sprintf(_("Renamed page from %s"), $pagename);
         $newPage = $this->retrieveByName($newname);
@@ -543,6 +608,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
         /* Call getPages with no caching so that the new list of pages is
          * read in. */
         $this->getPages(true, true);
+
         return $this->updateText($newname, $newPage['page_text'], $changelog);
     }
 
@@ -553,71 +619,70 @@ class Wicked_Driver_Sql extends Wicked_Driver
         }
 
         /* Copy the old version into the page history. */
-        $query = sprintf(
-            'INSERT INTO %s (page_id, page_name, page_text, page_version, version_created, change_author, change_log)' .
-            ' SELECT page_id, page_name, page_text, page_version, version_created, change_author, change_log FROM %s WHERE page_name = ?',
-            $this->_params['historytable'],
-            $this->_params['table']);
-        $values = array($this->_convertToDriver($pagename));
-
         Horde::logMessage('Page ' . $pagename . ' saved with user agent ' . $GLOBALS['browser']->getAgentString(), 'DEBUG');
 
-        try {
-            $this->_db->insert($query, $values);
-        } catch (Horde_Db_Exception $e) {
-            throw new Wicked_Exception($e);
-        }
-
-        /* Now move on to updating the record. */
         $author = $GLOBALS['registry']->getAuth();
         if ($author === false) {
             $author = null;
         }
 
-        $query = 'UPDATE ' . $this->_params['table']
-            . ' SET change_author = ?, page_text = ?, change_log = ?,'
-            . ' version_created = ?, page_version = page_version + 1'
-            . ' WHERE page_name = ?';
-        $values = array($author,
-                        $this->_convertToDriver($text),
-                        $this->_convertToDriver($changelog),
-                        time(),
-                        $this->_convertToDriver($pagename));
+        try {
+            $this->_db->beginDbTransaction();
+            $this->_db->insert(
+                sprintf('INSERT INTO %s (page_id, page_name, page_text, page_version, version_created, change_author, change_log) SELECT page_id, page_name, page_text, page_version, version_created, change_author, change_log FROM %s WHERE page_name = ?',
+                        $this->_params['historytable'],
+                        $this->_params['table']),
+                array($this->_convertToDriver($pagename)));
 
-        $this->_db->update($query, $values);
+            /* Now move on to updating the record. */
+            $this->_db->update(
+                'UPDATE ' . $this->_params['table']
+                . ' SET change_author = ?, page_text = ?, change_log = ?,'
+                . ' version_created = ?, page_version = page_version + 1'
+                . ' WHERE page_name = ?',
+                array($author,
+                      $this->_convertToDriver($text),
+                      $this->_convertToDriver($changelog),
+                      time(),
+                      $this->_convertToDriver($pagename)));
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Wicked_Exception($e);
+        }
     }
 
     public function getPages($special = true, $no_cache = false)
     {
-        static $pageNames;
-        if (!isset($pageNames) || $no_cache) {
-            $query = 'SELECT page_id, page_name FROM ' . $this->_params['table'];
+        if (!isset($this->_pageNames) || $no_cache) {
             try {
-                $result = $this->_db->selectAssoc($query);
+                $result = $this->_db->selectAssoc(
+                    'SELECT page_id, page_name FROM ' . $this->_params['table']);
             } catch (Horde_Db_Exception $e) {
                 throw new Wicked_Exception($e);
             }
-            $pageNames = $this->_convertFromDriver($result);
+            $this->_pageNames = $this->_convertFromDriver($result);
         }
 
         if ($special) {
-            $pageNames += $this->getSpecialPages();
+            $this->_pageNames += $this->getSpecialPages();
         }
 
-        return $pageNames;
+        return $this->_pageNames;
     }
 
     /**
      */
     public function removeVersion($pagename, $version)
     {
-        /* We need to know if we're deleting the current version. */
-        $query = 'SELECT 1 FROM ' . $this->_params['table'] .
-                 ' WHERE page_name = ? AND page_version = ?';
-        $values = array($this->_convertToDriver($pagename), $version);
+        $values = array($this->_convertToDriver($pagename), (int)$version);
 
+        /* We need to know if we're deleting the current version. */
         try {
-            $result = $this->_db->selectValue($query, $values);
+            $result = $this->_db->selectValue(
+                'SELECT 1 FROM ' . $this->_params['table']
+                . ' WHERE page_name = ? AND page_version = ?',
+                $values);
         } catch (Horde_Db_Exception $e) {
             $result = false;
         }
@@ -625,42 +690,53 @@ class Wicked_Driver_Sql extends Wicked_Driver
         if (!$result) {
             /* Removing a historical revision - we can just slice it out of the
              * history table. $values is unchanged. */
-            $query = 'DELETE FROM ' . $this->_params['historytable'] .
-                ' WHERE page_name = ? and page_version = ?';
-            $this->_db->delete($query, $values);
+            try {
+                $this->_db->delete(
+                    'DELETE FROM ' . $this->_params['historytable']
+                    . ' WHERE page_name = ? and page_version = ?',
+                    $values);
+            } catch (Horde_Db_Exception $e) {
+                throw new Wicked_Exception($e);
+            }
             return;
         }
 
-        /* We're deleting the current version. Have to promote the
-         * next-most revision from the history table. */
-        $query = 'SELECT * FROM ' . $this->_params['historytable'] .
-                 ' WHERE page_name = ? ORDER BY page_version DESC';
-        $query = $this->_db->addLimitOffset($query, array('limit' => 1));
+        /* We're deleting the current version. Have to promote the next-most
+         * revision from the history table. */
+        try {
+            $query = 'SELECT * FROM ' . $this->_params['historytable'] .
+                ' WHERE page_name = ? ORDER BY page_version DESC';
+            $query = $this->_db->addLimitOffset($query, array('limit' => 1));
+            $revision = $this->_db->selectOne(
+                $query, array($this->_convertToDriver($pagename)));
 
-        $revision = $this->_db->selectOne($query, array($this->_convertToDriver($pagename)), DB_FETCHMODE_ASSOC);
+            /* Replace the current version of the page with the version being
+             * promoted. */
+            $this->_db->beginDbTransaction();
+            $this->_db->update(
+                'UPDATE ' . $this->_params['table'] . ' SET' .
+                ' page_text = ?, page_version = ?,' .
+                ' version_created = ?, change_author = ?, change_log = ?' .
+                ' WHERE page_name = ?',
+                array($revision['page_text'],
+                      (int)$revision['page_version'],
+                      (int)$revision['version_created'],
+                      $revision['change_author'],
+                      $revision['change_log'],
+                      $this->_convertToDriver($pagename)));
 
-        /* Replace the current version of the page with the
-         * version being promoted. */
-        $query = 'UPDATE ' . $this->_params['table'] . ' SET' .
-            ' page_text = ?, page_version = ?,' .
-            ' version_created = ?, change_author = ?, change_log = ?' .
-            ' WHERE page_name = ?';
-        $values = array($revision['page_text'],
-                        $revision['page_version'],
-                        $revision['version_created'],
-                        $revision['change_author'],
-                        $revision['change_log'],
-                        $this->_convertToDriver($pagename));
-        $this->_db->update($query, $values);
-
-        /* Finally, remove the version that we promoted from the
-         * history table. */
-        $query = 'DELETE FROM ' . $this->_params['historytable'] .
-            ' WHERE page_name = ? and page_version = ?';
-        $values = array($this->_convertToDriver($pagename),
-                        $revision['page_version']);
-
-        $this->_db->delete($query, $values);
+            /* Finally, remove the version that we promoted from the history
+             * table. */
+            $this->_db->delete(
+                'DELETE FROM ' . $this->_params['historytable'] .
+                ' WHERE page_name = ? and page_version = ?',
+                array($this->_convertToDriver($pagename),
+                      (int)$revision['page_version']));
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Wicked_Exception($e);
+        }
     }
 
     /**
@@ -669,17 +745,22 @@ class Wicked_Driver_Sql extends Wicked_Driver
     {
         $this->_pageNames = null;
 
-        $query = 'DELETE FROM ' . $this->_params['table'] .
-                 ' WHERE page_name = ?';
-        $values = array($this->_convertToDriver($pagename));
+        try {
+            $this->_db->beginDbTransaction();
+            $this->_db->delete(
+                'DELETE FROM ' . $this->_params['table']
+                . ' WHERE page_name = ?',
+                array($this->_convertToDriver($pagename)));
 
-        $this->_db->delete($query, $values);
-
-        $query = 'DELETE FROM ' . $this->_params['historytable'] .
-                 ' WHERE page_name = ?';
-        $values = array($this->_convertToDriver($pagename));
-
-        $this->_db->delete($query, $values);
+            $this->_db->delete(
+                'DELETE FROM ' . $this->_params['historytable']
+                . ' WHERE page_name = ?',
+                array($this->_convertToDriver($pagename)));
+            $this->_db->commitDbTransaction();
+        } catch (Horde_Db_Exception $e) {
+            $this->_db->rollbackDbTransaction();
+            throw new Wicked_Exception($e);
+        }
 
         /* Remove attachments and do other cleanup. */
         return parent::removeAllVersions($pagename);
@@ -699,8 +780,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
      * @return array  A list of page hashes.
      * @throws Wicked_Exception
      */
-    protected function _retrieve($table, $sqlWhere, $orderBy = null,
-                                 $limit = null)
+    protected function _retrieve($table, $where, $orderBy = null, $limit = null)
     {
         $query = 'SELECT * FROM ' . $table;
         $values = array();
@@ -762,7 +842,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
      *
      * @param mixed $value  A value to convert.
      *
-     * @return mixed        The converted value.
+     * @return mixed  The converted value.
      */
     protected function _convertFromDriver($value)
     {
@@ -774,7 +854,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
      *
      * @param mixed $value  A value to convert.
      *
-     * @return mixed        The converted value.
+     * @return mixed  The converted value.
      */
     protected function _convertToDriver($value)
     {
@@ -803,5 +883,4 @@ class Wicked_Driver_Sql extends Wicked_Driver
 
         return true;
     }
-
 }
