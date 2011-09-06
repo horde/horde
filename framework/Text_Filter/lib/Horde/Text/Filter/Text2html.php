@@ -3,30 +3,6 @@
  * Turn text into HTML with varying levels of parsing.  For no html
  * whatsoever, use htmlspecialchars() instead.
  *
- * Parameters:
- * <pre>
- * charset - (string) The charset to use for htmlspecialchars() calls.
- * class - (string) See Horde_Text_Filter_Linkurls::.
- * emails - (array)
- * linkurls - (array)
- * parselevel - (integer) The parselevel of the output (see below).
- * space2html - (array)
- * </pre>
- *
- * <pre>
- * List of valid constants for the parse level:
- * --------------------------------------------
- * PASSTHRU        =  No action. Pass-through. Included for completeness.
- * SYNTAX          =  Allow full html, also do line-breaks, in-lining,
- *                    syntax-parsing.
- * MICRO           =  Micro html (only line-breaks, in-line linking).
- * MICRO_LINKURL   =  Micro html (only line-breaks, in-line linking of URLS;
- *                    no email addresses are linked).
- * NOHTML          =  No html (all stripped, only line-breaks)
- * NOHTML_NOBREAK  =  No html whatsoever, no line breaks added.
- *                    Included for completeness.
- * </pre>
- *
  * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -34,6 +10,7 @@
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Text_Filter
@@ -65,7 +42,29 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
     /**
      * Constructor.
      *
-     * @param array $params  Any parameters that the filter instance needs.
+     * @param array $params  Parameters specific to this driver:
+     * <ul>
+     *  <li>charset: (string) The charset to use for htmlspecialchars()
+     *               calls.</li>
+     *  <li>class: (string) See Horde_Text_Filter_Linkurls::.</li>
+     *  <li>emails: (array) TODO</li>
+     *  <li>linkurls: (array) TODO</li>
+     *  <li>parselevel: (integer) The parselevel of the output.
+     *   <ul>
+     *    <li>PASSTHRU: No action. Pass-through. Included for
+     *                  completeness.</li>
+     *    <li>SYNTAX: Allow full html, also do line-breaks, in-lining,
+     *                syntax-parsing.</li>
+     *    <li>MICRO: Micro html (only line-breaks, in-line linking).</li>
+     *    <li>MICRO_LINKURL: Micro html (only line-breaks, in-line linking of
+     *                       URLS; no email addresses are linked).</li>
+     *    <li>NOHTML: No html (all stripped, only line-breaks).</li>
+     *    <li>NOHTML_NOBREAK: No html whatsoever, no line breaks added.
+     *                        Included for completeness.</li>
+     *   </ul>
+     *  </li>
+     *  <li>space2html: (array) TODO</li>
+     * </ul>
      */
     public function __construct($params = array())
     {
