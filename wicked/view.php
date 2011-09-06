@@ -35,8 +35,7 @@ if (empty($version)) {
 
     foreach ($attachments as $attachment) {
         if ($attachment['attachment_name'] == $file) {
-            $version = $attachment['attachment_majorversion'] . '.' .
-                       $attachment['attachment_minorversion'];
+            $version = $attachment['attachment_version'];
         }
     }
 
@@ -54,7 +53,7 @@ try {
     // If we redirect here, we cause an infinite loop with inline
     // attachments.
     header('HTTP/1.1 404 Not Found');
-    echo $data->getMessage();
+    echo $e->getMessage();
     exit;
 }
 

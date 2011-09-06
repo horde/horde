@@ -1,6 +1,6 @@
 <?php
 /**
- * Wicked_Sync:: defines an API for implementing synchronization backends for
+ * Wicked_Sync defines an API for implementing synchronization backends for
  * Wicked.
  *
  * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
@@ -11,8 +11,8 @@
  * @author  Duck <duck@obala.net>
  * @package Wicked
  */
-abstract class Wicked_Sync {
-
+abstract class Wicked_Sync
+{
     /**
      * Hash containing connection parameters.
      *
@@ -117,9 +117,8 @@ abstract class Wicked_Sync {
      * @param string $pagename Page to edit
      * @param string $text Page content
      * @param string $changelog Description of the change
-     * @param boolean $minorchange True if this is a minor change
      *
      * @throws Wicked_Exception
      */
-    abstract function editPage($pagename, $text, $changelog = '', $minorchange = false);
+    abstract function editPage($pagename, $text, $changelog = '');
 }

@@ -286,11 +286,11 @@ class Wicked_Page_StandardPage extends Wicked_Page {
     /**
      * @throws Wicked_Exception
      */
-    public function updateText($newtext, $changelog, $minorchange)
+    public function updateText($newtext, $changelog)
     {
         $version = $this->version();
         $result = $GLOBALS['wicked']->updateText($this->pageName(), $newtext,
-                                                 $changelog, $minorchange);
+                                                 $changelog);
 
         $url = Wicked::url($this->pageName(), true, -1);
         $new_page = $this->getPage($this->pageName());
@@ -347,10 +347,8 @@ class Wicked_Page_StandardPage extends Wicked_Page {
 
     public function version()
     {
-        if (isset($this->_page['page_majorversion']) &&
-            isset($this->_page['page_minorversion'])) {
-            return $this->_page['page_majorversion'] . '.' .
-                $this->_page['page_minorversion'];
+        if (isset($this->_page['page_version'])) {
+            return $this->_page['page_version'];
         } else {
             return '';
         }

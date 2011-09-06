@@ -55,15 +55,13 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      */
     public function retrieveHistory($pagename, $version)
     {
-        if (empty($version) or !preg_match('/^[0-9]+\.[0-9]+$/', $version)) {
+        if (empty($version) or !preg_match('/^\d+$/', $version)) {
             throw new Wicked_Exception('invalid version number');
         }
 
-        list($major, $minor) = explode('.', $version);
-        $where = sprintf('page_name = %s AND page_majorversion = %s AND ' .
-                         'page_minorversion = %s',
+        $where = sprintf('page_name = %s AND page_version = %d',
                          $this->_db->quoteString($this->_convertToDriver($pagename)),
-                         (int)$major, (int)$minor);
+                         $version);
 
         return $this->_retrieve($this->_params['historytable'], $where);
     }
@@ -87,8 +85,9 @@ class Wicked_Driver_Sql extends Wicked_Driver {
 
     public function getHistory($pagename)
     {
-        $where = 'page_name = ' . $this->_db->quoteString($this->_convertToDriver($pagename)) .
-                 ' ORDER BY page_majorversion DESC, page_minorversion DESC';
+        $where = 'page_name = '
+            . $this->_db->quoteString($this->_convertToDriver($pagename))
+            . ' ORDER BY page_version DESC';
 
         return $this->_retrieve($this->_params['historytable'], $where);
     }
@@ -313,12 +312,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         if ($res != 0) {
             return $res;
         }
-        $res = ($a['attachment_majorversion'] - $b['attachment_minorversion']);
-        if ($res != 0) {
-            return $res;
-        }
-
-        return ($a['attachment_minorversion'] - $b['attachment_minorversion']);
+        return ($a['attachment_version'] - $b['attachment_version']);
     }
 
     /**
@@ -343,10 +337,8 @@ class Wicked_Driver_Sql extends Wicked_Driver {
             ' WHERE page_id = ? AND attachment_name = ?';
         $params = array($pageId, $attachment);
         if (!is_null($version)) {
-            list($major, $minor) = explode('.', $version);
-            $sql .= ' AND attachment_majorversion = ? AND attachment_minorversion = ?';
-            $params[] = (int)$major;
-            $params[] = (int)$minor;
+            $sql .= ' AND attachment_version = ?';
+            $params[] = (int)$version;
         }
 
         Horde::logMessage('Wicked_Driver_sql::removeAttachment: ' . $sql, 'DEBUG');
@@ -358,7 +350,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         $sql = 'DELETE FROM ' . $this->_params['attachmenthistorytable'] .
             ' WHERE page_id = ? AND attachment_name = ?';
         if (!is_null($version)) {
-            $sql .= ' AND attachment_majorversion = ? AND attachment_minorversion = ?';
+            $sql .= ' AND attachment_version = ?';
         }
 
         Horde::logMessage('Wicked_Driver_sql::removeAttachment: ' . $sql, 'DEBUG');
@@ -423,26 +415,18 @@ class Wicked_Driver_Sql extends Wicked_Driver {
 
         if ($attachments) {
             list($old) = $attachments;
-            $majorversion = $old['attachment_majorversion'];
-            $minorversion = $old['attachment_minorversion'];
-            if ($file['minor']) {
-                $minorversion++;
-            } else {
-                $majorversion++;
-                $minorversion = 0;
-            }
+            $version = $old['attachment_version'] + 1;
 
-            $sql = sprintf('INSERT INTO %s (page_id, attachment_name, attachment_majorversion, attachment_minorversion, attachment_created, change_author, change_log) SELECT page_id, attachment_name, attachment_majorversion, attachment_minorversion, attachment_created, change_author, change_log FROM %s WHERE page_id = %s AND attachment_name = %s',
+            $sql = sprintf('INSERT INTO %s (page_id, attachment_name, attachment_version, attachment_created, change_author, change_log) SELECT page_id, attachment_name, attachment_version, attachment_created, change_author, change_log FROM %s WHERE page_id = %s AND attachment_name = %s',
                            $this->_params['attachmenthistorytable'],
                            $this->_params['attachmenttable'],
                            intval($file['page_id']),
                            $this->_db->quoteString($file['attachment_name']));
             $this->_db->insert($sql);
 
-            $sql = sprintf('UPDATE %s SET attachment_majorversion = %s, attachment_minorversion = %s, change_log = %s, change_author = %s, attachment_created = %s WHERE page_id = %d AND attachment_name = %s',
+            $sql = sprintf('UPDATE %s SET attachment_version = %s, change_log = %s, change_author = %s, attachment_created = %s WHERE page_id = %d AND attachment_name = %s',
                            $this->_params['attachmenttable'],
-                           intval($majorversion),
-                           intval($minorversion),
+                           intval($version),
                            $this->_db->quoteString($this->_convertToDriver($file['change_log'])),
                            $this->_db->quoteString($this->_convertToDriver($file['change_author'])),
                            intval(time()),
@@ -450,9 +434,8 @@ class Wicked_Driver_Sql extends Wicked_Driver {
                            $this->_db->quoteString($this->_convertToDriver($file['attachment_name'])));
             $this->_db->update($sql);
         } else {
-            $majorversion = 1;
-            $minorversion = 0;
-            $sql = sprintf('INSERT INTO %s (page_id, attachment_majorversion, attachment_minorversion, change_log, change_author, attachment_created, attachment_name) VALUES (%d, 1, 0, %s, %s, %s, %s)',
+            $version = 1;
+            $sql = sprintf('INSERT INTO %s (page_id, attachment_version, change_log, change_author, attachment_created, attachment_name) VALUES (%d, 1, %s, %s, %s, %s)',
                            $this->_params['attachmenttable'],
                            intval($file['page_id']),
                            $this->_db->quoteString($this->_convertToDriver($file['change_log'])),
@@ -462,7 +445,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
             $this->_db->insert($sql);
         }
 
-        return (int)$majorversion . '.' . (int)$minorversion;
+        return (int)$version;
     }
 
     /**
@@ -506,11 +489,9 @@ class Wicked_Driver_Sql extends Wicked_Driver {
             $author = null;
         }
 
-        $query = 'INSERT INTO ' . $this->_params['table'] . ' ' .
-                 '(page_name, page_text, ' .
-                 'version_created, page_majorversion, ' .
-                 'page_minorversion, page_hits, change_author) ' .
-                 'VALUES (?, ?, ?, 1, 0, 0, ?)';
+        $query = 'INSERT INTO ' . $this->_params['table'] . ' '
+            . '(page_name, page_text, version_created, page_version, '
+            . 'page_hits, change_author) VALUES (?, ?, ?, 1, 0, ?)';
         $values = array(
             $this->_convertToDriver($pagename),
             $this->_convertToDriver($text),
@@ -567,10 +548,10 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         /* Call getPages with no caching so that the new list of pages is
          * read in. */
         $this->getPages(true, true);
-        return $this->updateText($newname, $newPage['page_text'], $changelog, true);
+        return $this->updateText($newname, $newPage['page_text'], $changelog);
     }
 
-    public function updateText($pagename, $text, $changelog, $minorchange)
+    public function updateText($pagename, $text, $changelog)
     {
         if (!$this->pageExists($pagename)) {
             return $this->newPage($pagename, $text);
@@ -578,8 +559,8 @@ class Wicked_Driver_Sql extends Wicked_Driver {
 
         /* Copy the old version into the page history. */
         $query = sprintf(
-            'INSERT INTO %s (page_id, page_name, page_text, page_majorversion, page_minorversion, version_created, change_author, change_log)' .
-            ' SELECT page_id, page_name, page_text, page_majorversion, page_minorversion, version_created, change_author, change_log FROM %s WHERE page_name = ?',
+            'INSERT INTO %s (page_id, page_name, page_text, page_version, version_created, change_author, change_log)' .
+            ' SELECT page_id, page_name, page_text, page_version, version_created, change_author, change_log FROM %s WHERE page_name = ?',
             $this->_params['historytable'],
             $this->_params['table']);
         $values = array($this->_convertToDriver($pagename));
@@ -595,20 +576,15 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         }
 
         /* Now move on to updating the record. */
-        if ($minorchange) {
-            $versionchange = 'page_minorversion = page_minorversion + 1';
-        } else {
-            $versionchange = 'page_majorversion = page_majorversion + 1, page_minorversion = 0';
-        }
-
         $author = $GLOBALS['registry']->getAuth();
         if ($author === false) {
             $author = null;
         }
 
-        $query = 'UPDATE ' . $this->_params['table'] .
-                 ' SET change_author = ?, page_text = ?, change_log = ?, version_created = ?, ' . $versionchange .
-                 ' WHERE page_name = ?';
+        $query = 'UPDATE ' . $this->_params['table']
+            . ' SET change_author = ?, page_text = ?, change_log = ?,'
+            . ' version_created = ?, page_version = page_version + 1'
+            . ' WHERE page_name = ?';
         $values = array($author,
                         $this->_convertToDriver($text),
                         $this->_convertToDriver($changelog),
@@ -645,12 +621,10 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      */
     public function removeVersion($pagename, $version)
     {
-        list($major, $minor) = explode('.', $version);
-
         /* We need to know if we're deleting the current version. */
         $query = 'SELECT 1 FROM ' . $this->_params['table'] .
-                 ' WHERE page_name = ? AND page_majorversion = ? AND page_minorversion = ?';
-        $values = array($this->_convertToDriver($pagename), $major, $minor);
+                 ' WHERE page_name = ? AND page_version = ?';
+        $values = array($this->_convertToDriver($pagename), $version);
 
         Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
@@ -664,7 +638,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
             /* Removing a historical revision - we can just slice it out of the
              * history table. $values is unchanged. */
             $query = 'DELETE FROM ' . $this->_params['historytable'] .
-                ' WHERE page_name = ? and page_majorversion = ? and page_minorversion = ?';
+                ' WHERE page_name = ? and page_version = ?';
             Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
             $this->_db->delete($query, $values);
             return;
@@ -673,7 +647,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         /* We're deleting the current version. Have to promote the
          * next-most revision from the history table. */
         $query = 'SELECT * FROM ' . $this->_params['historytable'] .
-                 ' WHERE page_name = ? ORDER BY page_majorversion DESC, page_minorversion DESC';
+                 ' WHERE page_name = ? ORDER BY page_version DESC';
         $query = $this->_db->addLimitOffset($query, array('limit' => 1));
 
         Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
@@ -683,12 +657,11 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         /* Replace the current version of the page with the
          * version being promoted. */
         $query = 'UPDATE ' . $this->_params['table'] . ' SET' .
-            ' page_text = ?, page_majorversion = ?, page_minorversion = ?,' .
+            ' page_text = ?, page_version = ?,' .
             ' version_created = ?, change_author = ?, change_log = ?' .
             ' WHERE page_name = ?';
         $values = array($revision['page_text'],
-                        $revision['page_majorversion'],
-                        $revision['page_minorversion'],
+                        $revision['page_version'],
                         $revision['version_created'],
                         $revision['change_author'],
                         $revision['change_log'],
@@ -700,8 +673,9 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         /* Finally, remove the version that we promoted from the
          * history table. */
         $query = 'DELETE FROM ' . $this->_params['historytable'] .
-            ' WHERE page_name = ? and page_majorversion = ? and page_minorversion = ?';
-        $values = array($this->_convertToDriver($pagename), $revision['page_majorversion'], $revision['page_minorversion']);
+            ' WHERE page_name = ? and page_version = ?';
+        $values = array($this->_convertToDriver($pagename),
+                        $revision['page_version']);
 
         Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
