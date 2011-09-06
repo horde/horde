@@ -2530,22 +2530,26 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param array $options          Additional options:
-     * <pre>
-     * html - (boolean) Return text/html part, if available.
-     * imp_msg - (integer) If non-empty, the message data was created by IMP.
-     *           Either self::COMPOSE, self::FORWARD, or self::REPLY.
-     * replylimit - (boolean) Enforce length limits?
-     * toflowed - (boolean) Do flowed conversion?
-     * </pre>
+     * <ul>
+     *  <li>html: (boolean) Return text/html part, if available.</li>
+     *  <li>imp_msg: (integer) If non-empty, the message data was created by
+     *               IMP. Either:
+     *   <ul>
+     *    <li>self::COMPOSE</li>
+     *    <li>self::FORWARD</li>
+     *    <li>self::REPLY</li>
+     *   </ul>
+     *  </li>
+     *  <li>replylimit: (boolean) Enforce length limits?</li>
+     *  <li>toflowed: (boolean) Do flowed conversion?</li>
+     * </ul>
      *
      * @return mixed  Null if bodypart not found, or array with the following
      *                keys:
-     * <pre>
-     * 'charset' - (string) The guessed charset to use.
-     * 'id' - (string) The MIME ID of the bodypart.
-     * 'mode' - (string) Either 'text' or 'html'.
-     * 'text' - (string) The body text.
-     * </pre>
+     *   - charset: (string) The guessed charset to use.
+     *   - id: (string) The MIME ID of the bodypart.
+     *   - mode: (string) Either 'text' or 'html'.
+     *   - text: (string) The body text.
      */
     protected function _getMessageText($contents, array $options = array())
     {
