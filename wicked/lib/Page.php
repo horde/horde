@@ -203,7 +203,7 @@ class Wicked_Page
      * @return Wicked_Page  The requested page.
      * @throws Wicked_Exception
      */
-    public function getPage($pagename, $pagever = null, $referrer = null)
+    static public function getPage($pagename, $pagever = null, $referrer = null)
     {
         global $conf, $notification, $wicked;
 
