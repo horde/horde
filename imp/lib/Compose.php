@@ -37,6 +37,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     const FORWARD_BOTH = 10;
     const REDIRECT = 11;
 
+    /* The blockquote tag to use to indicate quoted text in HTML data. */
+    const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">';
+
     /**
      * Mark as changed for purposes of storing in the session.
      * Either empty, 'changed', or 'deleted'.
@@ -1621,8 +1624,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if (!empty($msg_text) &&
             (($msg_text['mode'] == 'html') || $force_html)) {
             $msg = '<p>' . $this->text2html(trim($msg_pre)) . '</p>' .
-                   '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">' .
-                   (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
+                   self::HTML_BLOCKQUOTE .
+                   (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['flowed'] ? $msg_text['flowed'] : $msg_text['text']) : $msg_text['text']) .
                    '</blockquote><br />' .
                    ($msg_post ? $this->text2html($msg_post) : '') . '<br />';
             $msg_text['mode'] = 'html';
@@ -2547,6 +2550,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @return mixed  Null if bodypart not found, or array with the following
      *                keys:
      *   - charset: (string) The guessed charset to use.
+     *   - flowed: (Horde_Text_Flowed) A flowed object, if the text is flowed.
+     *             Otherwise, null.
      *   - id: (string) The MIME ID of the bodypart.
      *   - mode: (string) Either 'text' or 'html'.
      *   - text: (string) The body text.
@@ -2646,6 +2651,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         return array(
             'charset' => $part_charset,
+            'flowed' => isset($flowed) ? $flowed : null,
             'id' => $body_id,
             'mode' => $mode,
             'text' => $msg
@@ -2767,6 +2773,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     {
         return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
             'always_mailto' => true,
+            'flowed' => self::HTML_BLOCKQUOTE,
             'parselevel' => Horde_Text_Filter_Text2html::MICRO
         ));
     }

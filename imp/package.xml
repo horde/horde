@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-31</date>
- <time>23:58:40</time>
+ <date>2011-09-06</date>
+ <time>13:46:14</time>
  <version>
   <release>5.0.12</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] More intelligent quoting of flowed text messages sent in HTML format.
 * [mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
 * [mms] More workarounds for broken suhosin extension (Bug #10462).
 * [mms] Always show image thumbnail previews, if an image conversion utility is present on the system.
@@ -1308,7 +1309,7 @@
    <package>
     <name>Horde_Text_Flowed</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -2426,9 +2427,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-31</date>
+   <date>2011-09-06</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] More intelligent quoting of flowed text messages sent in HTML format.
+* [mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
 * [mms] More workarounds for broken suhosin extension (Bug #10462).
 * [mms] Always show image thumbnail previews, if an image conversion utility is present on the system.
    </notes>
