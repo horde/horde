@@ -248,6 +248,7 @@ div.contextMenu div.msCheck, div.contextMenu div.msCheckOn {
 /* Rows (vertical mode) */
 div.vpRowVert {
     height: auto;
+    border-bottom: 1px solid silver;
 }
 div.vpRowVert div {
     font-size: 100%;
@@ -259,7 +260,6 @@ div.vpRowVert div.msgStatus {
     width: 15%;
 }
 div.vpRowVert div.msgFrom {
-    font-weight: bold;
     width: auto;
 }
 div.vpRowVert div.msgDate {
@@ -270,16 +270,11 @@ div.vpRowVert div.msgDate {
 }
 div.vpRowVert div.msgSubject {
     float: none;
-    font-style: italic;
     margin-right: 2px;
     width: auto;
 }
 div.vpRowVert div.msgSubject span.flagUser {
     font-style: normal;
-}
-
-div.vpRowVert.flagUnseen {
-    font-weight: normal;
 }
 
 /* ViewPort - scroller */

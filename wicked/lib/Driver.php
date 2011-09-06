@@ -1,11 +1,6 @@
 <?php
 /**
- * @package Wicked
- */
-
-/**
- * Wicked_Driver:: defines an API for implementing storage backends for
- * Wicked.
+ * Wicked_Driver defines an API for implementing storage backends for Wicked.
  *
  * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
  *
@@ -15,8 +10,8 @@
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-abstract class Wicked_Driver {
-
+abstract class Wicked_Driver
+{
     /**
      * Hash containing connection parameters.
      *
@@ -94,7 +89,7 @@ abstract class Wicked_Driver {
      */
     abstract function newPage($pagename, $text);
 
-    abstract function updateText($pagename, $text, $changelog, $minorchange);
+    abstract function updateText($pagename, $text, $changelog);
 
     abstract function renamePage($pagename, $newname);
 
@@ -221,8 +216,6 @@ abstract class Wicked_Driver {
      *   'page_id' =>          This is the id of the page to which we would
      *                         like to attach the file.
      *   'attachment_name' =>  This is the filename of the attachment.
-     *   'minor' =>            This is a boolean which indicates whether this
-     *                         is a minor version update.
      *   'change_log' =>       A change log entry for this attach or update
      *                         operation.  (Optional)
      *   'change_author' =>    The user uploading this file.  If not present,
@@ -267,7 +260,7 @@ abstract class Wicked_Driver {
 
         $fileList = $this->getAttachedFiles($pageId, true);
         foreach ($fileList as $file) {
-            $fileversion = $file['attachment_majorversion'] . '.' . $file['attachment_minorversion'];
+            $fileversion = $file['attachment_version'];
             if ($file['attachment_name'] == $attachment &&
                 (is_null($version) || $fileversion == $version)) {
                 /* Skip any attachments that don't exist so they can

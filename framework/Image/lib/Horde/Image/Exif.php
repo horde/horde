@@ -120,11 +120,11 @@ class Horde_Image_Exif
                 'LightSource' => array('description' => Horde_Image_Translation::t("Light source"), 'type' => 'number'),
                 'ImageStabalization' => array('description' => Horde_Image_Translation::t("Image Stabilization"), 'type' => 'text'),
                 'SceneCaptureType' => array('description' => Horde_Image_Translation::t("Scene Type"), 'type' => 'number'),
-
             ),
 
             'COMPOSITE' => array(
-                'LensID' => array('description' => Horde_Image_Translation::t("Lens"), 'type' => 'text'),
+                'LensID' => array('description' => Horde_Image_Translation::t("Lens Id"), 'type' => 'text'),
+                'Lens' => array('description' => 'Lens', 'type' => 'text'),
                 'Aperture' => array('description' => Horde_Image_Translation::t("Aperture"), 'type' => 'text'),
                 'DOF' => array('description' => Horde_Image_Translation::t("Depth of Field"), 'type' => 'text'),
                 'FOV' => array('description' => Horde_Image_Translation::t("Field of View"), 'type' => 'text')

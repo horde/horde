@@ -345,6 +345,46 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * Adds a primary key to a table.
+     *
+     * @since Horde_Db 1.1.0
+     *
+     * @param string $tableName         A table name.
+     * @param string|array $columnName  One or more column names.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function addPrimaryKey($tableName, $columns)
+    {
+        $this->_clearTableCache($tableName);
+        $columns = (array)$columns;
+        foreach ($columns as &$column) {
+            $column = '"' . $column . '"';
+        }
+        $callback = create_function(
+            '$definition',
+            sprintf('$definition->primaryKey(array(%s));', implode(', ', $columns)));
+        $this->_alterTable($tableName, array(), $callback);
+    }
+
+    /**
+     * Removes a primary key from a table.
+     *
+     * @since Horde_Db 1.1.0
+     *
+     * @param string $tableName  A table name.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function removePrimaryKey($tableName)
+    {
+        $this->_clearTableCache($tableName);
+        $callback = create_function('$definition',
+                                    '$definition->primaryKey(false);');
+        $this->_alterTable($tableName, array(), $callback);
+    }
+
+    /**
      * Remove the given index from the table.
      *
      * Remove the suppliers_name_index in the suppliers table (legacy support, use the second or third forms).
@@ -442,9 +482,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
                                       'null' => $column->isNull()));
         }
 
-        $primaryKey = $this->primaryKey($from);
-        if ($primaryKey && $copyPk) {
-            $definition->primaryKey($primaryKey->columns);
+        if ($pkColumn && count($pk->columns) && $copyPk) {
+            $definition->primaryKey($pk->columns);
         }
 
         if (is_callable($callback)) {

@@ -4,16 +4,16 @@
  * authentication system with the possibility to set custom-made queries.
  *
  * Copyright 2002 Ronnie Garcia <ronnie@mk2.net>
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ * not receive this file, http://www.horde.org/licenses/lgpl21
  *
  * @author   Ronnie Garcia <ronnie@mk2.net>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Joel Vandal <joel@scopserv.com>
  * @category Horde
- * @license  http://opensource.org/licenses/lgpl-2.1.php
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Customsql extends Horde_Auth_Sql

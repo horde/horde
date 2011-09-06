@@ -44,15 +44,11 @@ class Horde_Core_Auth_Ldap extends Horde_Auth_Ldap
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
         list($oldID, $old_credentials) = $auth->runHook($oldID, $credentials, 'preauthenticate', 'admin');
-        if (isset($old_credentials['ldap'])) {
-            list($newID, $new_credentials) = $auth->runHook($newID, $credentials, 'preauthenticate', 'admin');
-            $olddn = $old_credentials['ldap']['dn'];
-            $newdn = $new_credentials['ldap']['dn'];
-        } else {
-            $olddn = $newdn = null;
-        }
+        list($newID, $new_credentials) = $auth->runHook($newID, $credentials, 'preauthenticate', 'admin');
+        $olddn = $old_credentials['dn'];
+        $newdn = $new_credentials['dn'];
 
-        parent::updateUser($oldID, $newID, $credentials, $olddn, $newdn);
+        parent::updateUser($oldID, $newID, $new_credentials, $olddn, $newdn);
     }
 
     /**

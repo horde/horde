@@ -393,6 +393,23 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * Removes a primary key from a table.
+     *
+     * @since Horde_Db 1.1.0
+     *
+     * @param string $tableName  A table name.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function removePrimaryKey($tableName)
+    {
+        $this->_clearTableCache($tableName);
+        $sql = sprintf('ALTER TABLE %s DROP PRIMARY KEY',
+                       $this->quoteTableName($tableName));
+        return $this->execute($sql);
+    }
+
+    /**
      * Get the name of the index
      *
      * @param   string  $tableName

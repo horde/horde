@@ -192,7 +192,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
             // Merge the two pages.
             $newText = $destPage->getText() . "\n----\n" . $sourcePage->getText();
             $changelog = sprintf(_("Merged from %s"), $referrer);
-            $wicked->updateText($new_name, $newText, $changelog, true);
+            $wicked->updateText($new_name, $newText, $changelog);
             $wicked->removeAllVersions($referrer);
 
             $notification->push(sprintf(_("Merged \"%s\" into \"%s\"."), $referrer, $new_name), 'horde.success');
@@ -255,7 +255,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
             }
 
             $newText = preg_replace($from, $to, $refPage['page_text']);
-            $wicked->updateText($page_name, $newText, $changelog, true);
+            $wicked->updateText($page_name, $newText, $changelog);
         }
 
         Wicked::url($new_name, true)->redirect();

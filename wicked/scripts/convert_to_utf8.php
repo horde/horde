@@ -64,20 +64,19 @@ $cli->writeln($cli->green('Done'));
 
 // Read existing history.
 $rows = $db->selectAll(
-    'SELECT page_id, page_majorversion, page_minorversion, page_name, page_text, change_log FROM '
+    'SELECT page_id, page_version, page_name, page_text, change_log FROM '
     . $conf['storage']['params']['historytable']);
 $updateSql =
     'UPDATE ' . $conf['storage']['params']['historytable']
     . ' SET page_name = ?, page_text = ?, change_log = ?'
-    . ' WHERE page_id = ? AND page_majorversion = ? AND page_minorversion = ?';
+    . ' WHERE page_id = ? AND page_version = ?';
 echo 'Converting history';
 foreach ($rows as $row) {
     $values = Horde_String::convertCharset(
         array($row['page_name'], $row['page_text'], $row['change_log']),
         $charset, 'UTF-8');
     $values[] = $row['page_id'];
-    $values[] = $row['page_majorversion'];
-    $values[] = $row['page_minorversion'];
+    $values[] = $row['page_version'];
     $db->update($updateSql, $values);
 }
 $cli->writeln($cli->green('Done'));

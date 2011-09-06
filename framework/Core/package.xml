@@ -40,7 +40,6 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-* [jan] Fix SQL cache backend not using the correct configuration when combined with custom configuration for other SQL backends (Bug #10460).
 * [jan] Allow to pass a configuration array to the LDAP factory.
 * [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
 * [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
@@ -1567,8 +1566,6 @@
    <date>2011-08-31</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-* [jan] Fix SQL cache backend not using the correct configuration when combined with custom configuration for other SQL backends (Bug #10460).
-* [jan] Allow to pass a configuration array to the LDAP factory.
 * [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
 * [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
 * [mms] Fix cookie timeouts.

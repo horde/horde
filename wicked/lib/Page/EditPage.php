@@ -163,11 +163,10 @@ class Wicked_Page_EditPage extends Wicked_Page {
                 ), 'dom');
                 return;
             }
-            $minorchange = Horde_Util::getFormData('minor');
             if (trim($text) == trim($page->getText())) {
                 $notification->push(_("No changes made"), 'horde.warning');
             } else {
-                $page->updateText($text, $changelog, $minorchange);
+                $page->updateText($text, $changelog);
                 $notification->push(_("Page Saved"), 'horde.success');
             }
 

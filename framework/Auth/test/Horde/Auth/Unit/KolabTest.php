@@ -2,13 +2,16 @@
 /**
  * Test the Horde_Auth_Kolab:: class.
  *
- * PHP version 5
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Auth
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @link       http://pear.horde.org/index.php?package=Auth
  */
 
@@ -17,21 +20,6 @@
  */
 require_once dirname(__FILE__) . '/../Autoload.php';
 
-/**
- * Test the Horde_Auth_Kolab:: class.
- *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
- *
- * @category   Horde
- * @package    Auth
- * @subpackage UnitTests
- * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Auth
- */
 class Horde_Auth_Unit_KolabTest extends Horde_Auth_TestCase
 {
     public function setUp()

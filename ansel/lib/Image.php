@@ -210,6 +210,7 @@ class Ansel_Image Implements Iterator
 
         $this->_image = Ansel::getImageObject();
         $this->_image->reset();
+        $this->id = !empty($image['image_id']) ? $image['image_id'] : null;
     }
 
     /**
@@ -566,7 +567,7 @@ class Ansel_Image Implements Iterator
 
         // Get the EXIF data if we are not a gallery key image.
         if ($this->gallery > 0) {
-            $needUpdate = $this->_getEXIF();
+            $needUpdate = $this->getEXIF();
         }
 
         // Create tags from exif data if desired
@@ -614,7 +615,7 @@ class Ansel_Image Implements Iterator
             ->clearImageAttributes($this->id);
 
         // Load the new image data
-        $this->_getEXIF();
+        $this->getEXIF();
         $this->updateData($imageData);
     }
 
@@ -650,10 +651,12 @@ class Ansel_Image Implements Iterator
      * storage. Also populates any local properties that come from the EXIF
      * data.
      *
+     * @param boolean $replacing  Set to true if we are replacing the exif data.
+     *
      * @return boolean  True if any local properties were modified, False if not.
      * @throws Ansel_Exception
      */
-    protected function _getEXIF()
+    public function getEXIF($replacing = false)
     {
         /* Clear the local copy */
         $this->_exif = array();
@@ -711,8 +714,15 @@ class Ansel_Image Implements Iterator
         $this->_autoRotate();
 
         // Save attributes.
+        if ($replacing) {
+            $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->clearImageAttributes($this->id);
+        }
+
         foreach ($exif_fields as $name => $value) {
-            $GLOBALS['injector']->getInstance('Ansel_Storage')
+            $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
                 ->saveImageAttribute($this->id, $name, $value);
             $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
         }

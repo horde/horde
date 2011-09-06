@@ -346,6 +346,13 @@
     <exclude>5.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.1.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Text_Wiki</name>
     <channel>pear.php.net</channel>
     <min>1.2.0</min>

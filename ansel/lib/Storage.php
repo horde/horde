@@ -588,7 +588,7 @@ class Ansel_Storage
     public function clearImageAttributes($image_id)
     {
         try {
-            $this->_db->delete('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$this->id);
+            $this->_db->delete('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -733,7 +733,7 @@ class Ansel_Storage
     }
 
     /**
-     * Return a list of image ids of the most recently added images for the
+     * Returns a list of Ansel_Images of the most recently added images for the
      * current user.
      *
      * @param array $galleries  An array of gallery ids to search in. If

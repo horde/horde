@@ -26,8 +26,8 @@
  <date>2011-08-31</date>
  <time>22:58:39</time>
  <version>
-  <release>1.0.6</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
+* [jan] Add methods to add and drop primary keys (Request #10469).
 * [gwr] Fix usage of Horde_Exception_Wrapped.
 * [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
  </notes>
@@ -487,14 +488,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.6</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
    <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
    <notes>
+* [jan] Add methods to add and drop primary keys (Request #10469).
 * [gwr] Fix usage of Horde_Exception_Wrapped.
 * [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
    </notes>

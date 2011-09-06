@@ -587,79 +587,143 @@ abstract class Horde_Db_Adapter_Base_Schema
     abstract public function renameColumn($tableName, $columnName, $newColumnName);
 
     /**
-     * Adds a new index to the table.  +column_name+ can be a single Symbol, or
-     * an Array of Symbols.
+     * Adds a primary key to a table.
      *
-     * The index will be named after the table and the first column names,
-     * unless you pass +:name+ as an option.
+     * @since Horde_Db 1.1.0
      *
-     * When creating an index on multiple columns, the first column is used as a name
-     * for the index. For example, when you specify an index on two columns
-     * [+:first+, +:last+], the DBMS creates an index for both columns as well as an
-     * index for the first colum +:first+. Using just the first name for this index
-     * makes sense, because you will never have to create a singular index with this
-     * name.
+     * @param string $tableName         A table name.
+     * @param string|array $columnName  One or more column names.
      *
-     * ===== Examples
-     * ====== Creating a simple index
-     *  add_index(:suppliers, :name)
-     * generates
-     *  CREATE INDEX suppliers_name_index ON suppliers(name)
-     *
-     * ====== Creating a unique index
-     *  add_index(:accounts, [:branch_id, :party_id], :unique => true)
-     * generates
-     *  CREATE UNIQUE INDEX accounts_branch_id_index ON accounts(branch_id, party_id)
-     *
-     * ====== Creating a named index
-     *  add_index(:accounts, [:branch_id, :party_id], :unique => true, :name => 'by_branch_party')
-     * generates
-     *  CREATE UNIQUE INDEX by_branch_party ON accounts(branch_id, party_id)
-     *
-     * @param   string  $tableName
-     * @param   string  $columnName
-     * @param   array   $options
+     * @throws Horde_Db_Exception
      */
-    public function addIndex($tableName, $columnName, $options=array())
+    public function addPrimaryKey($tableName, $columns)
     {
         $this->_clearTableCache($tableName);
-
-        $columnNames = (array)($columnName);
-        $indexName = $this->indexName($tableName, array('column' => $columnNames));
-
-        $indexType = !empty($options['unique']) ? 'UNIQUE'         : null;
-        $indexName = !empty($options['name'])   ? $options['name'] : $indexName;
-
-        foreach ($columnNames as $colName) {
-            $quotedCols[] = $this->quoteColumnName($colName);
-        }
-        $quotedColumnNames = implode(', ', $quotedCols);
-        $sql = sprintf('CREATE %s INDEX %s ON %s (%s)',
-                       $indexType,
-                       $this->quoteColumnName($indexName),
+        $columns = (array)$columns;
+        $sql = sprintf('ALTER TABLE %s ADD PRIMARY KEY (%s)',
                        $this->quoteTableName($tableName),
-                       $quotedColumnNames);
+                       implode(', ', $columns));
         return $this->execute($sql);
     }
 
     /**
-     * Remove the given index from the table.
+     * Removes a primary key from a table.
      *
-     * Remove the suppliers_name_index in the suppliers table (legacy support, use the second or third forms).
-     *   remove_index :suppliers, :name
-     * Remove the index named accounts_branch_id in the accounts table.
-     *   remove_index :accounts, :column => :branch_id
-     * Remove the index named by_branch_party in the accounts table.
-     *   remove_index :accounts, :name => :by_branch_party
+     * @since Horde_Db 1.1.0
      *
-     * You can remove an index on multiple columns by specifying the first column.
-     *   add_index :accounts, [:username, :password]
-     *   remove_index :accounts, :username
+     * @param string $tableName  A table name.
      *
-     * @param   string  $tableName
-     * @param   array   $options
+     * @throws Horde_Db_Exception
      */
-    public function removeIndex($tableName, $options=array())
+    abstract public function removePrimaryKey($tableName);
+
+    /**
+     * Adds a new index to a table.
+     *
+     * The index will be named after the table and the first column names,
+     * unless you pass 'name' as an option.
+     *
+     * When creating an index on multiple columns, the first column is used as
+     * a name for the index. For example, when you specify an index on two
+     * columns 'first' and 'last', the DBMS creates an index for both columns
+     * as well as an index for the first colum 'first'. Using just the first
+     * name for this index makes sense, because you will never have to create a
+     * singular index with this name.
+     *
+     * Examples:
+     *
+     * Creating a simple index
+     * <code>
+     * $schema->addIndex('suppliers', 'name');
+     * </code>
+     * generates
+     * <code>
+     * CREATE INDEX suppliers_name_index ON suppliers(name)
+     * </code>
+     *
+     * Creating a unique index
+     * <code>
+     * $schema->addIndex('accounts',
+     *                   array('branch_id', 'party_id'),
+     *                   array('unique' => true));
+     * </code>
+     * generates
+     * <code>
+     * CREATE UNIQUE INDEX accounts_branch_id_index ON accounts(branch_id, party_id)
+     * </code>
+     *
+     * Creating a named index
+     * <code>
+     * $schema->addIndex('accounts',
+     *                   array('branch_id', 'party_id'),
+     *                   array('unique' => true, 'name' => 'by_branch_party'));
+     * </code>
+     * generates
+     * <code>
+     * CREATE UNIQUE INDEX by_branch_party ON accounts(branch_id, party_id)
+     * </code>
+     *
+     * @param string $tableName         A table name.
+     * @param string|array $columnName  One or more column names.
+     * @param array $options            Index options:
+     *                                  - name: (string) the index name.
+     *                                  - unique: (boolean) create a unique
+     *                                            index?
+     */
+    public function addIndex($tableName, $columnName, $options = array())
+    {
+        $this->_clearTableCache($tableName);
+
+        $columnNames = (array)$columnName;
+        $indexName = empty($options['name'])
+            ? $this->indexName($tableName, array('column' => $columnNames))
+            : $options['name'];
+        foreach ($columnNames as &$colName) {
+            $colName = $this->quoteColumnName($colName);
+        }
+
+        $sql = sprintf('CREATE %s INDEX %s ON %s (%s)',
+                       empty($options['unique']) ? null : 'UNIQUE',
+                       $this->quoteColumnName($indexName),
+                       $this->quoteTableName($tableName),
+                       implode(', ', $columnNames));
+
+        return $this->execute($sql);
+    }
+
+    /**
+     * Removes an index from a table.
+     *
+     * Examples:
+     *
+     * Remove the suppliers_name_index in the suppliers table:
+     * <code>
+     * $schema->removeIndex('suppliers', 'name');
+     * </code>
+     *
+     * Remove the index named accounts_branch_id in the accounts table:
+     * <code>
+     * $schema->removeIndex('accounts', array('column' => 'branch_id'));
+     * </code>
+     *
+     * Remove the index named by_branch_party in the accounts table:
+     * <code>
+     * $schema->removeIndex('accounts', array('name' => 'by_branch_party'));
+     * </code>
+     *
+     * You can remove an index on multiple columns by specifying the first
+     * column:
+     * <code>
+     * $schema->addIndex('accounts', array('username', 'password'))
+     * $schema->removeIndex('accounts', 'username');
+     * </code>
+     *
+     * @param string $tableName      A table name.
+     * @param string|array $options  Either a column name or index options:
+     *                               - name: (string) the index name.
+     *                               - column: (strin|array) column name(s).
+     */
+    public function removeIndex($tableName, $options = array())
     {
         $this->_clearTableCache($tableName);
 
@@ -667,6 +731,7 @@ abstract class Horde_Db_Adapter_Base_Schema
         $sql = sprintf('DROP INDEX %s ON %s',
                        $this->quoteColumnName($index),
                        $this->quoteTableName($tableName));
+
         return $this->execute($sql);
     }
 
