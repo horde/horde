@@ -16,14 +16,25 @@ class Horde_Auth_Unit_Sql_Locks extends Horde_Auth_Unit_Sql_Base
 
     protected static $locks;
 
+    protected static $skip = '';
+
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
 
+        if (is_dir(dirname(__FILE__) .'/../../../../../../Lock/migration')) {
+            $lockMigrationsPath = dirname(__FILE__) .'/../../../../../../Lock/migration';
+        } elseif (is_dir(dirname(__FILE__) .'/../../../../../../deps/Lock/migration')) {
+            $lockMigrationsPath = dirname(__FILE__) .'/../../../../../../deps/Lock/migration';
+            // how would that work for any possible pear_dir ?
+        } else {
+            self::$skip = 'Could not determine path to Horde_Lock migration';
+            return;
+        }
         self::$locksMigrator = new Horde_Db_Migration_Migrator(
             self::$db,
             null,//$logger,
-            array('migrationsPath' => dirname(__FILE__) . '/../../../../../../Lock/migration',
+            array('migrationsPath' => $lockMigrationsPath,
                   'schemaTableName' => 'horde_lock_test_schema'));
         self::$locksMigrator->up();
 
@@ -43,6 +54,9 @@ class Horde_Auth_Unit_Sql_Locks extends Horde_Auth_Unit_Sql_Base
         }
         if (!class_exists('Horde_Lock')) {
             $this->markTestSkipped('The Horde_Lock package is not installed!');
+        }
+        if (self::$skip) {
+            $this->markTestSkipped(self::$skip);
         }
         if (!self::$db) {
             $this->markTestSkipped(self::$reason);
