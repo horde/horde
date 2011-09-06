@@ -33,6 +33,7 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
         'charset' => 'ISO-8859-1',
         'class' => 'fixed',
         'emails' => false,
+        'flowed' => '<blockquote>',
         'linkurls' => false,
         'text2html' => false,
         'parselevel' => 0,
@@ -48,6 +49,8 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
      *               calls.</li>
      *  <li>class: (string) See Horde_Text_Filter_Linkurls::.</li>
      *  <li>emails: (array) TODO</li>
+     *  <li>flowed: (string) For flowed text, the HTML blockquote tag to
+     *              insert before each level.
      *  <li>linkurls: (array) TODO</li>
      *  <li>parselevel: (integer) The parselevel of the output.
      *   <ul>
@@ -79,12 +82,51 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
     /**
      * Executes any code necessary before applying the filter patterns.
      *
-     * @param string $text  The text before the filtering.
+     * @param mixed $text  The text before the filtering. Either a string or
+     *                     a Horde_Text_Flowed object.
      *
      * @return string  The modified text.
      */
     public function preProcess($text)
     {
+        if ($text instanceof Horde_Text_Flowed) {
+            $text->setMaxLength(0);
+            $lines = $text->toFixedArray();
+            $level = 0;
+            $out = $txt = '';
+
+            foreach ($lines as $key => $val) {
+                $line = ltrim($val['text'], '>');
+
+                if (!isset($lines[$key + 1])) {
+                    $out .= $this->preProcess(ltrim($txt) . $line);
+                    while (--$level > 0) {
+                        $out .= '</blockquote>';
+                    }
+                } elseif ($val['level'] > $level) {
+                    $out .= $this->preProcess(ltrim($txt));
+                    do {
+                        $out .= $this->_params['flowed'];
+                    } while (++$level != $val['level']);
+                    $txt = $line;
+                } elseif ($val['level'] < $level) {
+                    $out .= $this->preProcess(ltrim($txt));
+                    do {
+                        $out .= '</blockquote>';
+                    } while (--$level != $val['level']);
+                    $txt = $line;
+                } else {
+                    $txt .= "\n" . $line;
+                }
+            }
+
+            return $out;
+        }
+
+        if (!strlen($text)) {
+            return '';
+        }
+
         /* Abort out on simple cases. */
         if ($this->_params['parselevel'] == self::PASSTHRU) {
             return $text;
