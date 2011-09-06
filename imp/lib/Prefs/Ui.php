@@ -924,7 +924,7 @@ class IMP_Prefs_Ui
                     'actionID' => 'mailto_link',
                     'to' => ''
                 )) .
-                '%s","' . $GLOBALS['registry']->get('name') . '");' .
+                '=%s","' . $GLOBALS['registry']->get('name') . '");' .
             '})'
         ), 'dom');
 
