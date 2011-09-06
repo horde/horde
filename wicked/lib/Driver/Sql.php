@@ -692,36 +692,51 @@ class Wicked_Driver_Sql extends Wicked_Driver
     }
 
     /**
-     * Retrieves a page or set of pages given an SQL WHERE clause.
+     * Retrieves a set of pages matching an SQL WHERE clause.
      *
-     * @access private
+     * @param string $table        Table to retrieve pages from.
+     * @param array|string $where  Where clause for sql statement (without the
+     *                             'WHERE'). If an array the 1st element is the
+     *                             clause with placeholder, the 2nd element the
+     *                             values.
+     * @param string $orderBy      Order results by this column.
+     * @param integer $limit       Maximum number of pages to fetch.
      *
-     * @param string $table     Which table are we retrieving pages from?
-     * @param string $sqlWhere  Where clause for sql statement (without the
-     *                          'WHERE').
-     * @param string $orderBy   What column should we order results by?
-     * @param integer $limit    Maximum number of pages to fetch.
-     *
-     * @return array | object  Either an array of pages or PEAR::Error.
+     * @return array  A list of page hashes.
+     * @throws Wicked_Exception
      */
-    protected function _retrieve($table, $sqlWhere, $orderBy = null, $limit = null)
+    protected function _retrieve($table, $sqlWhere, $orderBy = null,
+                                 $limit = null)
     {
-        $query = sprintf('SELECT * FROM %s%s%s',
-                         $table,
-                         !empty($sqlWhere) ? ' WHERE ' . $sqlWhere : '',
-                         !empty($orderBy) ? ' ORDER BY ' . $orderBy : '');
+        $query = 'SELECT * FROM ' . $table;
+        $values = array();
+        if (!empty($where)) { 
+            $query .= ' WHERE ';
+            if (is_array($where)) {
+                $query .= $where[0];
+                $values = $where[1];
+            } else {
+                $query .= $where;
+            }
+        }
+        if (!empty($orderBy)) {
+            $query .= ' ORDER BY ' . $orderBy;
+        }
         if (!empty($limit)) {
-            $query = $this->_db->addLimitOffset($query, array('limit' => $limit));
+            try {
+                $query = $this->_db->addLimitOffset($query, array('limit' => $limit));
+            } catch (Horde_Db_Exception $e) {
+                throw new Wicked_Exception($e);
+            }
         }
 
         try {
-            $result = $this->_db->selectAll($query);
+            $result = $this->_db->select($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Wicked_Exception($e);
         }
 
         $pages = array();
-        $index = 0;
         foreach ($result as $row) {
             if (isset($row['page_name'])) {
                 $row['page_name'] = $this->_convertFromDriver($row['page_name']);
@@ -732,7 +747,6 @@ class Wicked_Driver_Sql extends Wicked_Driver
             if (isset($row['change_log'])) {
                 $row['change_log'] = $this->_convertFromDriver($row['change_log']);
             }
-
             $pages[] = $row;
         }
 
