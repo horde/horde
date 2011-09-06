@@ -4,18 +4,14 @@
  */
 
 /**
- * Wicked storage implementation for PHP's PEAR database abstraction
- * layer.
- *
- * The table structure can be created by the scripts/drivers/wicked_foo.sql
- * script.
+ * Wicked storage implementation for the Horde_Db database abstraction layer.
  *
  * @author  Tyler Colbert <tyler@colberts.us>
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class Wicked_Driver_Sql extends Wicked_Driver {
-
+class Wicked_Driver_Sql extends Wicked_Driver
+{
     /**
      * Handle for the current database connection.
      *
@@ -464,6 +460,27 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         Horde::logMessage('Wicked_Driver_sql::logPageView(' . $pagename . '): ' . $query, 'DEBUG');
 
         return $this->_db->update($query, $values);
+    }
+
+    /**
+     * Logs an attachment download.
+     *
+     * @param integer $pageid     The page with the attachment.
+     * @param string $attachment  The attachment name.
+     *
+     * @throws Wicked_Exception
+     */
+    public function logAttachmentDownload($pageid, $attachment)
+    {
+        try {
+            return $this->_db->update(
+                'UPDATE ' . $this->_params['attachmenttable']
+                . ' SET attachment_hits = attachment_hits + 1'
+                . ' WHERE page_id = ? AND attachment_name = ?',
+                array((int)$pageid, $this->_convertToDriver($attachment)));
+        } catch (Horde_Db_Exception $e) {
+            throw new Wicked_Exception($e);
+        }
     }
 
     /**

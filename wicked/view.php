@@ -49,6 +49,7 @@ if (empty($version)) {
 
 try {
     $data = $wicked->getAttachmentContents($page_id, $file, $version);
+    $wicked->logAttachmentDownload($page_id, $file);
 } catch (Wicked_Exception $e) {
     // If we redirect here, we cause an infinite loop with inline
     // attachments.
