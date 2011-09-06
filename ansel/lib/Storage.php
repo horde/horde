@@ -588,7 +588,7 @@ class Ansel_Storage
     public function clearImageAttributes($image_id)
     {
         try {
-            $this->_db->delete('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$this->id);
+            $this->_db->delete('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
