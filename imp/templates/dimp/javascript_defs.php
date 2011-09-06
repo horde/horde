@@ -195,6 +195,7 @@ if ($compose_page) {
         'cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
         'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
         'remove' => _("Remove"),
+        'replyall' => _("%d recipients"),
         'spell_noerror' => _("No spelling errors found."),
         'toggle_html' => _("Really discard all formatting information? This operation cannot be undone."),
         'uploading' => _("Uploading..."),

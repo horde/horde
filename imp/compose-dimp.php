@@ -96,6 +96,14 @@ case 'reply_list':
     $header = $reply_msg['headers'];
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
+        if ($fillform_opts['auto'] == 'reply_all') {
+            try {
+                $recip_list = $imp_compose->recipientList($header);
+                $fillform_opts['reply_recip'] = count($recip_list['list']);
+            } catch (IMP_Compose_Exception $e) {
+                $fillform_opts['reply_recip'] = 0;
+            }
+        }
     }
 
     switch ($reply_msg['type']) {
