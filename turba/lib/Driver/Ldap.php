@@ -391,7 +391,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                 unset($attributes[$key]);
             }
             /* drop unchanged elements from list of attributes to write */
-            elseif (isset($attributes[$key])&&
+            elseif (isset($attributes[$key]) &&
                     $var[0] == $attributes[$key]) {
                     unset($attributes[$key]);
             }
@@ -402,7 +402,7 @@ class Turba_Driver_Ldap extends Turba_Driver
         $attributes = array_filter($attributes, array($this, '_emptyAttributeFilter'));
 
         /* Modify objectclasses only if they really changed. */
-        $oldClasses = array_map('strtolower',$info['objectclass']);
+        $oldClasses = array_map('Horde_String::lower', $info['objectclass']);
         array_shift($oldClasses);
         $attributes['objectclass'] = array_unique(array_map('strtolower', array_merge($info['objectclass'], $this->_params['objectclass'])));
         unset($attributes['objectclass']['count']);
@@ -413,7 +413,7 @@ class Turba_Driver_Ldap extends Turba_Driver
             unset($attributes['objectclass']);
         }
         if (!@ldap_modify($this->_ds, Horde_String::convertCharset($object_id, 'UTF-8', $this->_params['charset']), $attributes)) {
-            throw new Turba_Exception(sprintf(_("Modify failed: (%s) %s") . "%s" , ldap_errno($this->_ds), ldap_error($this->_ds), print_r($attributes,1)));
+            throw new Turba_Exception(sprintf(_("Modify failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
 
         return $object_id;
