@@ -39,8 +39,11 @@ $vars = Horde_Variables::getDefaultVariables();
 
 /* The headers of the message. */
 $header = array();
-foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
-    $header[$v] = strval($vars->$v);
+$args = IMP::getComposeArgs();
+foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
+    if (isset($args[$val])) {
+        $header[$val] = $args[$val];
+    }
 }
 
 /* Check for personal information for 'to' address. */
