@@ -76,5 +76,13 @@ class Horde_Auth_Unit_Sql_Base extends Horde_Auth_TestCase
         $this->assertFalse(self::$auth->hasCapability('lock'));
     }
 
+    public function testExistsReturnsTrueForPresentUser()
+    {
+        $this->assertTrue(self::$auth->exists('konqui'));
+    }
 
+    public function testExistsReturnsFalseForMissingUser()
+    {
+        $this->assertFalse(self::$auth->exists('beasty'));
+    }
 }
