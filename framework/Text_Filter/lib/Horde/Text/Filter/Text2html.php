@@ -83,7 +83,7 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
      * Executes any code necessary before applying the filter patterns.
      *
      * @param mixed $text  The text before the filtering. Either a string or
-     *                     a Horde_Text_Flowed object.
+     *                     a Horde_Text_Flowed object (since 1.1.0).
      *
      * @return string  The modified text.
      */
