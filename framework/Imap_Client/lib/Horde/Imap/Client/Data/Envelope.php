@@ -14,23 +14,30 @@
  *
  * @property array $bcc                        Bcc address(es).
  * @property array $bcc_decoded                Bcc address(es) (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property array $cc                         Cc address(es).
  * @property array $cc_decoded                 Cc address(es) (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property Horde_Imap_Client_DateTime $date  IMAP internal date.
  * @property array $from                       From address(es).
  * @property array $from_decoded               From address(es) (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property string $in_reply_to               Message-ID of the message
  *                                             replied to.
  * @property string $message_id                Message-ID of the message.
  * @property array $reply_to                   Reply-to address(es).
  * @property array $reply_to_decoded           Reply-to address(es) (MIME
  *                                             decoded).
+ *                                             (Since 1.1.0)
  * @property array $sender                     Sender address.
  * @property array $sender_decoded             Sender address (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property string $subject                   Subject.
  * @property string $subject_decoded           Subject (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property array $to                         To address(es).
  * @property array $to_decoded                 To address(es) (MIME decoded).
+ *                                             (Since 1.1.0)
  *
  * For array properties, the value will be an array of arrays. Each of the
  * the underlying arrays corresponds to a single address and contains
