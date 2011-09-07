@@ -210,7 +210,7 @@ Configuring Ansel
 
    Note for users of Lighttpd web server: The pretty url generation relies on
    rewrite rules being configured on your web server. Since lighttpd does not
-   support htaccess files like Apache, there is also a configuration file for
+   support .htaccess files like Apache, there is also a configuration file for
    lighttpd included that contains the necessary rewrite rules. This file is::
 
        docs/lighttpd-ansel.conf
