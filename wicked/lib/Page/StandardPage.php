@@ -55,7 +55,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
             $page = $GLOBALS['wicked']->retrieveByName($pagename);
         } catch (Wicked_Exception $e) {
             // If we can't load $pagename, see if there's default data for it.
-            $pagefile = WICKED_BASE . '/scripts/data/' . basename($pagename);
+            $pagefile = WICKED_BASE . '/data/' . basename($pagename);
             if ($pagename == basename($pagename) &&
                 substr($pagename, 0, 1) != '.' &&
                 file_exists($pagefile)) {

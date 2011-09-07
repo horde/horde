@@ -182,14 +182,14 @@ characters, followed by a space and the text to be quoted.
 <code>
 This is normal text here.
 
-> Indent me! The quick brown fox jumps over the lazy dog. \ 
-Now this the time for all good men to come to the aid of \ 
-their country. Notice how we can continue the block-quote \ 
-in the same "paragraph" by using a backslash at the end of \ 
+> Indent me! The quick brown fox jumps over the lazy dog. \
+Now this the time for all good men to come to the aid of \
+their country. Notice how we can continue the block-quote \
+in the same "paragraph" by using a backslash at the end of \
 the line.
 >
 > Another block, leading to...
->> Second level of indenting.  This second is indented even \ 
+>> Second level of indenting.  This second is indented even \
 more than the previous one.
 
 Back to normal text.

@@ -3,7 +3,7 @@
 ++ About This Rule
 
 || **Name**   || wikilink ||
-|| **Type**   || inline || 
+|| **Type**   || inline ||
 || **Syntax** normal || {{``AnyPageName``}} ||
 || **Syntax** described || {{``[AnyPageName displayed link text]``}} ||
 
@@ -60,7 +60,7 @@ page is not in the 'pages' array, it will use 'new_url'.
 <code type="php">
 $wiki->setRenderConf('xhtml', 'wikilink', 'view_url',
                               'http://example.php/view.php?page=%s');
-                              
+
 $wiki->setRenderConf('xhtml', 'wikilink', 'new_url',
                               'http://example.php/new.php?page=%s');
 </code>
