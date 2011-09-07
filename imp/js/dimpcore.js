@@ -346,7 +346,7 @@ var DimpCore = {
         } else {
             args.uids.get('dataob').each(function(d) {
                 params.mailbox = d.view.base64urlEncode();
-                params.uid = d.imapuid;
+                params.uid = d.uid;
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
             }, this);
         }

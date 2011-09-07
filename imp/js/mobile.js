@@ -103,7 +103,7 @@ var ImpMobile = {
                     });
                 }
                 list.prepend(
-                    $('<li class="' + c + '" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
+                    $('<li class="' + c + '" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.uid + '">').append(
                         $('<h3>').append(
                             $('<a href="#">').html(data.subject))).append(
                         $('<div class="ui-grid-a">').append(

@@ -417,7 +417,7 @@ class IMP_Views_ListMessages
             /* Initialize the header fields. */
             $msg = array(
                 'flag' => array(),
-                'imapuid' => ($pop3 ? $ob['uid'] : intval($ob['uid'])),
+                'uid' => ($pop3 ? $ob['uid'] : intval($ob['uid'])),
                 'view' => $ob['mailbox']
             );
 

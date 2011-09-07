@@ -157,7 +157,7 @@ var DimpBase = {
         row = this.viewport.createSelection('rownum', curr);
         if (row.size()) {
             row_data = row.get('dataob').first();
-            if (!curr_row || row_data.imapuid != curr_row.imapuid) {
+            if (!curr_row || row_data.uid != curr_row.uid) {
                 this.viewport.scrollTo(row_data.VP_rownum, { bottom: bottom });
                 this.viewport.select(row, { delay: 0.3 });
             }
@@ -365,8 +365,8 @@ var DimpBase = {
         var url = DIMP.conf.URI_MESSAGE;
         url += (url.include('?') ? '&' : '?') +
                $H({ mailbox: r.view.base64urlEncode(),
-                    uid: r.imapuid }).toQueryString();
-        DimpCore.popupWindow(url, 'msgview' + r.view + r.imapuid);
+                    uid: r.uid }).toQueryString();
+        DimpCore.popupWindow(url, 'msgview' + r.view + r.uid);
     },
 
     composeMailbox: function(type)
@@ -411,7 +411,7 @@ var DimpBase = {
             }
         }
 
-        this.viewport.loadView(f, { search: (this.uid ? { imapuid: this.uid.first() } : null), background: opts.background});
+        this.viewport.loadView(f, { search: (this.uid ? { uid: this.uid.first() } : null), background: opts.background});
 
         if (need_delete) {
             this.viewport.deleteView(need_delete);
@@ -441,7 +441,7 @@ var DimpBase = {
 
                 // Add thread graphics
                 if (tsort && mode != 'vert') {
-                    u = thread.get(r.imapuid);
+                    u = thread.get(r.uid);
                     if (u) {
                         $R(0, u.length, true).each(function(i) {
                             var c = u.charAt(i);
@@ -575,7 +575,7 @@ var DimpBase = {
             },
             onContentOffset: function(offset) {
                 if (this.uid) {
-                    var row = this.viewport.createSelectionBuffer().search({ imapuid: { equal: this.uid }, view: { equal: [ this.folder ] } });
+                    var row = this.viewport.createSelectionBuffer().search({ uid: { equal: this.uid }, view: { equal: [ this.folder ] } });
                     if (row.size()) {
                         this.rownum = row.get('rownum');
                     }
@@ -965,7 +965,7 @@ var DimpBase = {
 
         case 'ctx_message_source':
             this.viewport.getSelected().get('dataob').each(function(v) {
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: v.imapuid, mailbox: v.view.base64urlEncode(), actionID: 'view_source', id: 0 }, true), v.imapuid + '|' + v.view);
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: v.uid, mailbox: v.view.base64urlEncode(), actionID: 'view_source', id: 0 }, true), v.uid + '|' + v.view);
             }, this);
             break;
 
@@ -1430,15 +1430,15 @@ var DimpBase = {
 
         if (!params) {
             if (this.pp &&
-                this.pp.imapuid == data.imapuid &&
+                this.pp.uid == data.uid &&
                 this.pp.view == data.view) {
                 return;
             }
             this.pp = data;
-            pp_uid = this._getPPId(data.imapuid, data.view);
+            pp_uid = this._getPPId(data.uid, data.view);
 
             if (this.ppfifo.indexOf(pp_uid) != -1) {
-                this.flag('\\seen', true, { mailbox: data.view, uid: data.imapuid });
+                this.flag('\\seen', true, { mailbox: data.view, uid: data.uid });
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
         }
@@ -1456,7 +1456,7 @@ var DimpBase = {
             t = $('msgHeadersContent').down('THEAD');
 
         bg = (this.pp &&
-              (this.pp.imapuid != r.uid || this.pp.view != r.mailbox));
+              (this.pp.uid != r.uid || this.pp.view != r.mailbox));
 
         if (r.error || this.viewport.getSelected().size() != 1) {
             if (!bg) {
@@ -1566,7 +1566,7 @@ var DimpBase = {
             this._expirePPCache([ this._getPPId(r.response.uid, r.response.mbox) ]);
 
             if (this.pp &&
-                this.pp.imapuid == r.response.uid &&
+                this.pp.uid == r.response.uid &&
                 this.pp.view == r.response.mbox) {
                 this.loadingImg('msg', false);
                 $('sendMdnMessage').up(1).fade({ duration: 0.2 });
@@ -1581,7 +1581,7 @@ var DimpBase = {
 
         if (!opts ||
             (this.pp &&
-             this.pp.imapuid == opts.uid &&
+             this.pp.uid == opts.uid &&
              this.pp.view == opts.mailbox)) {
             $('msgLogInfo').show();
 
@@ -2391,12 +2391,12 @@ var DimpBase = {
             case 'msg_newwin':
             case 'msg_newwin_options':
             case 'ppane_view_error':
-                this.msgWindow(this.viewport.getSelection().search({ imapuid: { equal: [ this.pp.imapuid ] } , view: { equal: [ this.pp.view ] } }).get('dataob').first());
+                this.msgWindow(this.viewport.getSelection().search({ uid: { equal: [ this.pp.uid ] } , view: { equal: [ this.pp.view ] } }).get('dataob').first());
                 e.stop();
                 return;
 
             case 'msg_view_source':
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view.base64urlEncode(), actionID: 'view_source', id: 0 }, true), this.pp.imapuid + '|' + this.pp.view);
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.uid, mailbox: this.pp.view.base64urlEncode(), actionID: 'view_source', id: 0 }, true), this.pp.uid + '|' + this.pp.view);
                 break;
 
             case 'msg_resume_draft':
@@ -2438,7 +2438,7 @@ var DimpBase = {
             case 'send_mdn_link':
                 this.loadingImg('msg', true);
                 tmp = {};
-                tmp[this.pp.view] = [ this.pp.imapuid ];
+                tmp[this.pp.view] = [ this.pp.uid ];
                 DimpCore.doAction('sendMDN', {
                     uid: DimpCore.toRangeString(tmp)
                 }, {
@@ -2449,7 +2449,7 @@ var DimpBase = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.imapuid, mailbox: this.pp.view.base64urlEncode(), actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.imapuid + '|' + this.pp.view + '|print', IMP_JS.printWindow);
+                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.uid, mailbox: this.pp.view.base64urlEncode(), actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.pp.uid + '|' + this.pp.view + '|print', IMP_JS.printWindow);
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
@@ -2682,7 +2682,7 @@ var DimpBase = {
         r.flag.each(function(entry) {
             $H(DimpCore.parseRangeString(entry.uids)).each(function(m) {
                 var s = sb.search({
-                    imapuid: { equal: m.value },
+                    uid: { equal: m.value },
                     view: { equal: m.key }
                 });
 
@@ -3126,7 +3126,7 @@ var DimpBase = {
             vs = opts.vs;
         } else if (opts.uid) {
             vs = opts.mailbox
-                ? this.viewport.createSelectionBuffer().search({ imapuid: { equal: [ opts.uid ] }, view: { equal: [ opts.mailbox ] } })
+                ? this.viewport.createSelectionBuffer().search({ uid: { equal: [ opts.uid ] }, view: { equal: [ opts.mailbox ] } })
                 : this.viewport.createSelection('dataob', opts.uid);
         } else {
             vs = this.viewport.getSelected();
@@ -3225,14 +3225,14 @@ var DimpBase = {
                 if (!s[ob.view]) {
                     s[ob.view] = [];
                 }
-                s[ob.view].push(ob.imapuid);
+                s[ob.view].push(ob.uid);
             }
         }, this);
 
         /* If this is a search mailbox, also need to update flag in base view,
          * if it is in the buffer. */
         $H(s).each(function(m) {
-            var tmp = this.viewport.createSelectionBuffer(m.key).search({ imapuid: { equal: m.value }, view: { equal: m.key } });
+            var tmp = this.viewport.createSelectionBuffer(m.key).search({ uid: { equal: m.value }, view: { equal: m.key } });
             if (tmp.size()) {
                 this._updateFlag(tmp.get('dataob').first(), flag, add);
             }
