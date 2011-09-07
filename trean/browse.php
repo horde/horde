@@ -9,10 +9,11 @@
  *
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
-
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('trean');
-
+if ($GLOBALS['prefs']->getValue('show_folder_actions')) {
+    $GLOBALS['bodyClass'] = 'folderActions';
+}
 require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 
 /* Get bookmarks to display. */
