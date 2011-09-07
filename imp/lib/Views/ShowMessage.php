@@ -189,10 +189,9 @@ class IMP_Views_ShowMessage
 
         /* JS requires camelized name for reply-to. */
         if (!$preview && isset($headers['reply-to'])) {
-            $head = 'replyTo';
             $result['replyTo'] = $result['reply-to'];
+            $headers['reply-to']['id'] = 'ReplyTo';
             unset($result['reply-to']);
-            $headers['reply-to']['id'] = Horde_String::ucfirst($head);
         }
 
         /* Grab maillog information. */
