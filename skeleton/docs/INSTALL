@@ -170,7 +170,7 @@ Configuring Skeleton
    with horde's ``horde-db-migrate`` utility.  If your database is properly setup in
    the Horde configuration, just run the following::
 
-      horde/bin/horde-db-migrate skeleton
+      horde-db-migrate skeleton
 
 3. More instructions, upgrading, securing, etc.
 
