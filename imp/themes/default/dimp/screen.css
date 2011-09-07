@@ -662,9 +662,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgwrite .dimpOptions label, #replyallnotice, #replylistnotice {
     cursor: pointer;
 }
-#replyallnotice, #replylistnotice {
-    background-color: #fbb;
-}
 #noticerow li span.closeImg {
     float: right;
     margin: -1px 0 0;
@@ -700,10 +697,6 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 #noticerow .notices li {
     display: -moz-inline-stack;
     display: inline-block;
-}
-
-.replyAllNoticeUnderline {
-    text-decoration: underline;
 }
 
 #composeMessageParent {

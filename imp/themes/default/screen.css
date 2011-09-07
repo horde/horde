@@ -348,6 +348,13 @@ span.trashImg {
     vertical-align: top;
 }
 
+#replyallnotice, #replylistnotice {
+    background-color: #fcc;
+}
+.replyAllNoticeUnderline {
+    text-decoration: underline;
+}
+
 .folders {
     font-size: 100%;
 }

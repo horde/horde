@@ -148,6 +148,32 @@
  </tr>
 </if:compose_html>
 
+<if:replyauto_all>
+ <tr>
+  <td></td>
+  <td class="item">
+   <span class="notices">
+    <li id="replyallnotice">
+     <gettext>You are</gettext> <span class="replyAllNoticeUnderline"><gettext>replying to ALL</gettext></span> (<tag:replyauto_all /> <gettext>recipients</gettext>).
+    </li>
+   </span>
+  </td>
+ </tr>
+</if:replyauto_all>
+
+<if:replyauto_list>
+ <tr>
+  <td></td>
+  <td class="item">
+   <span class="notices">
+    <li id="replylistnotice">
+     <gettext>You are replying to the mailing list.</gettext>
+    </li>
+   </span>
+  </td>
+ </tr>
+</if:replyauto_list>
+
  <tr>
   <td class="light rightAlign"><strong><tag:message_label /></strong></td>
   <td class="item" id="composeMessageParent">

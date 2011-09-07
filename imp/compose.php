@@ -279,11 +279,20 @@ case 'reply_list':
         break;
 
     case IMP_Compose::REPLY_ALL:
+        if ($vars->actionID == 'reply_auto') {
+            try {
+                $recip_list = $imp_compose->recipientList($header);
+                $replyauto_all = count($recip_list['list']);
+            } catch (IMP_Compose_Exception $e) {}
+        }
+
         $vars->actionID = 'reply_all';
         $title = _("Reply to All:");
         break;
 
     case IMP_Compose::REPLY_LIST:
+        $replyauto_list = ($vars->actionID == 'reply_auto');
+
         $vars->actionID = 'reply_list';
         $title = _("Reply to List:");
         break;
@@ -943,6 +952,12 @@ if ($redirect) {
             'title' => _("Switch Composition Method")
         )));
         $t->set('rtemode', $rtemode);
+    }
+
+    if (isset($replyauto_all)) {
+        $t->set('replyauto_all', $replyauto_all);
+    } elseif (isset($replyauto_list)) {
+        $t->set('replyauto_list', true);
     }
 
     $t->set('message_label', Horde::label('composeMessage', _("Te_xt")));
