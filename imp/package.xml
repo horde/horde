@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-07</date>
- <time>02:55:06</time>
+ <time>03:17:57</time>
  <version>
   <release>5.0.12</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [mms] Add List-ID information (if available) to auto-reply method notification in dynamic view.
 * [mms] Display information on reply method in standard view when automatically choosing the reply type.
 * [mms] Fix generation of Save All attachments link in dynamic view.
 * [mms] More intelligent quoting of flowed text messages sent in HTML format.
@@ -2432,6 +2433,7 @@
    <date>2011-09-07</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
+* [mms] Add List-ID information (if available) to auto-reply method notification in dynamic view.
 * [mms] Display information on reply method in standard view when automatically choosing the reply type.
 * [mms] Fix generation of Save All attachments link in dynamic view.
 * [mms] More intelligent quoting of flowed text messages sent in HTML format.

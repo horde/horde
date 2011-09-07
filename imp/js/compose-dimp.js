@@ -573,6 +573,7 @@ var DimpCompose = {
             break
 
         case 'reply_list':
+            $('replylistnotice').down('SPAN.replyListNoticeId').setText(opts.reply_list_id ? (' (' + opts.reply_list_id + ')') : '');
             $('noticerow', 'replylistnotice').invoke('show');
             break;
         }

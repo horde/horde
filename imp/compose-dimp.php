@@ -96,13 +96,24 @@ case 'reply_list':
     $header = $reply_msg['headers'];
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
-        if ($fillform_opts['auto'] == 'reply_all') {
+
+        switch ($fillform_opts['auto']) {
+        case 'reply_all':
             try {
                 $recip_list = $imp_compose->recipientList($header);
                 $fillform_opts['reply_recip'] = count($recip_list['list']);
             } catch (IMP_Compose_Exception $e) {
                 $fillform_opts['reply_recip'] = 0;
             }
+            break;
+
+        case 'reply_list':
+            $hdr_ob = $contents->getHeaderOb();
+            $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
+            if (isset($addr_ob[0]['personal'])) {
+                $fillform_opts['reply_list_id'] = $addr_ob[0]['personal'];
+            }
+            break;
         }
     }
 
