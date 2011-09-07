@@ -28,6 +28,28 @@ class Wicked_Driver_Sql extends Wicked_Driver
     protected $_pageNames;
 
     /**
+     * Constructor.
+     *
+     * @param array $params  A hash containing connection parameters.
+     */
+    public function __construct($params = array())
+    {
+        if (!isset($params['db'])) {
+            throw new InvalidArgumentException('Missing db parameter.');
+        }
+        $this->_db = $params['db'];
+        unset($params['db']);
+
+        $params = array_merge(array(
+            'table' => 'wicked_pages',
+            'historytable' => 'wicked_history',
+            'attachmenttable' => 'wicked_attachments',
+            'attachmenthistorytable' => 'wicked_attachment_history'
+        ), $params);
+        parent::__construct($params);
+    }
+
+    /**
      * Retrieves the page of a particular name from the database.
      *
      * @param string $pagename The name of the page to retrieve.
@@ -859,28 +881,5 @@ class Wicked_Driver_Sql extends Wicked_Driver
     protected function _convertToDriver($value)
     {
         return Horde_String::convertCharset($value, 'UTF-8', $this->getCharset());
-    }
-
-    /**
-     * Attempts to open a persistent connection to the SQL server.
-     *
-     * @throws Wicked_Exception
-     */
-    public function connect()
-    {
-        try {
-            $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
-        } catch (Horde_Exception $e) {
-            throw new Wicked_Exception($e);
-        }
-
-        $this->_params = array_merge(array(
-            'table' => 'wicked_pages',
-            'historytable' => 'wicked_history',
-            'attachmenttable' => 'wicked_attachments',
-            'attachmenthistorytable' => 'wicked_attachment_history'
-        ), $this->_params);
-
-        return true;
     }
 }
