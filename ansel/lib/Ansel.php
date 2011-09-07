@@ -306,11 +306,13 @@ class Ansel
 
             case 'mygalleries':
             default:
-               $url = Ansel::getUrlFor('view',
-                                       array('view' => 'List',
-                                             'owner' => $GLOBALS['registry']->getAuth(),
-                                             'groupby' => 'owner'),
-                                       true);
+               $url = Ansel::getUrlFor(
+                   'view',
+                   array(
+                        'view' => 'List',
+                        'owner' => $GLOBALS['registry']->getAuth(),
+                        'groupby' => 'owner'),
+                   true);
                break;
             }
 
@@ -351,7 +353,9 @@ class Ansel
             // We have to make sure the image exists first, since we won't
             // be going through img/*.php to auto-create it.
             try {
-                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($imageId);
+                $image = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->getImage($imageId);
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
@@ -525,13 +529,19 @@ class Ansel
             } elseif ($owner == $GLOBALS['registry']->getAuth()) {
                 $owner_title = _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-                $uprefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('ansel', array(
-                    'cache' => false,
-                    'user' => $owner
-                ));
+                $uprefs = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Prefs')
+                    ->create(
+                        'ansel',
+                        array(
+                            'cache' => false,
+                            'user' => $owner)
+                );
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($owner);
+                    $identity = $GLOBALS['injector']
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
                         $fullname = $owner;
@@ -555,7 +565,8 @@ class Ansel
 
         // Check for an active image
         if (!empty($image_id)) {
-            $text = '<span class="thiscrumb" id="PhotoName">' . htmlspecialchars($image->filename) . '</span>';
+            $text = '<span class="thiscrumb" id="PhotoName">'
+                . htmlspecialchars($image->filename) . '</span>';
             $nav = $separator . $text . $nav;
             $levels++;
         }
@@ -572,9 +583,12 @@ class Ansel
                     } else {
                         $urlParameters = $urlFlags;
                     }
-                    $nav = $separator . Ansel::getUrlFor('view', array_merge($navdata, $urlParameters))->link() . $title . '</a>' . $nav;
+                    $nav = $separator
+                        . Ansel::getUrlFor('view', array_merge($navdata, $urlParameters))->link()
+                        . $title . '</a>' . $nav;
                 } else {
-                    $nav = $separator . '<span class="thiscrumb">' . $title . '</span>' . $nav;
+                    $nav = $separator . '<span class="thiscrumb">' . $title
+                        . '</span>' . $nav;
                 }
             }
         }
@@ -583,7 +597,15 @@ class Ansel
             $owner_title = htmlspecialchars($owner_title);
             $levels++;
             if ($gallery) {
-                $nav = $separator . Ansel::getUrlFor('view', array('view' => 'List', 'groupby' => 'owner', 'owner' => $owner, 'havesearch' => $haveSearch))->link() . $owner_title . '</a>' . $nav;
+                $nav = $separator
+                    . Ansel::getUrlFor(
+                        'view',
+                        array(
+                            'view' => 'List',
+                            'groupby' => 'owner',
+                            'owner' => $owner,
+                            'havesearch' => $haveSearch))->link()
+                    . $owner_title . '</a>' . $nav;
             } else {
                 $nav = $separator . $owner_title . $nav;
             }
@@ -633,7 +655,8 @@ class Ansel
 
         $html = '<select id="' . $element_name . '" name="' . $element_name . '">';
         foreach ($options as $key => $option) {
-            $html .= '  <option value="' . $key . '"' . (($selected == $key) ? 'selected="selected"' : '') . '>' . $option . '</option>';
+            $html .= '  <option value="' . $key . '"' . (($selected == $key) ? 'selected="selected"' : '') . '>'
+                . $option . '</option>';
         }
 
         return $html .= '</select>';
