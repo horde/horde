@@ -183,7 +183,7 @@ class IMP_Views_ShowMessage
         }
 
         if (empty($result['reply-to']) ||
-            ($result['from'] == $result['reply-to'])) {
+            (Horde_Mime_Address::bareAddress($result['from']) == Horde_Mime_Address::bareAddress($result['reply-to']))) {
             unset($result['reply-to'], $headers['reply-to']);
         }
 
