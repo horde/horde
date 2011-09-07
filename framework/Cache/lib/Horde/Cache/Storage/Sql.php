@@ -110,7 +110,7 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
             return false;
         }
 
-        if (is_null($result)) {
+        if (!$result) {
             /* No rows were found - cache miss */
             if ($this->_logger) {
                 $this->_logger->log(sprintf('Cache miss: %s (Id %s newer than %d)', $okey, $key, $maxage), 'DEBUG');
