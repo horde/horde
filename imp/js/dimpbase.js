@@ -663,10 +663,10 @@ var DimpBase = {
                 }
 
                 if (this.viewport.getMetaData('drafts')) {
-                    $('button_resume').show();
+                    $('button_resume').up().show();
                     $('button_reply', 'button_forward', 'button_spam', 'button_ham').compact().invoke('up').invoke('hide');
                 } else {
-                    $('button_resume').hide();
+                    $('button_resume').up().hide();
                     $('button_reply', 'button_forward').compact().invoke('up').invoke('show');
 
                     if (this.viewport.getMetaData('spam')) {
@@ -3400,7 +3400,7 @@ var DimpBase = {
         this._listFolders({ initial: 1, mboxes: this.folder });
 
         /* Add popdown menus. Check for disabled compose at the same time. */
-        DimpCore.addPopdown('button_other', 'otheractions', true);
+        DimpCore.addPopdownButton('button_other', 'otheractions', true);
         DimpCore.addPopdown('folderopts_link', 'folderopts', true);
         DimpCore.addPopdown('vertical_sort', 'sortopts', true);
 
@@ -3428,8 +3428,8 @@ var DimpBase = {
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            DimpCore.addPopdown('button_reply', 'reply', false, true);
-            DimpCore.addPopdown('button_forward', 'forward', false, true);
+            DimpCore.addPopdownButton('button_reply', 'reply', false, true);
+            DimpCore.addPopdownButton('button_forward', 'forward', false, true);
         }
 
         DimpCore.addContextMenu({

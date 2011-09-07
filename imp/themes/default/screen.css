@@ -551,17 +551,9 @@ td.msgheader {
 
 /* Popdown styles. */
 span.spellcheckPopdownImg {
-    cursor: pointer;
     background: url("graphics/popdown.png") no-repeat center center;
+    cursor: pointer;
     vertical-align: top;
-    margin-left: 3px;
-}
-span.spellcheckPopdownImg:hover {
-    border-left: 1px solid #fff;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
-    margin: -1px -1px -1px 2px;
 }
 
 /* Large addresslist display. */

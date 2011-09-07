@@ -446,8 +446,12 @@ var DimpCore = {
             offset: elt.up(),
             type: t
         });
+    },
 
-        return elt;
+    addPopdownButton: function(p, t, trigger, d)
+    {
+        this.addPopdown(p, t, trigger, d);
+        $(p).next('SPAN.popdown').insert({ before: new Element('SPAN', { className: 'popdownSep' }) });
     },
 
     addContextMenu: function(p)
