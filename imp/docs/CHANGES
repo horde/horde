@@ -2,8 +2,7 @@
 v5.0.12-git
 -----------
 
-[mms] Add List-ID information (if available) to auto-reply method notification
-      in dynamic view.
+[mms] Add List-ID information, if available, to auto-reply notification.
 [mms] Display information on reply method in standard view when automatically
       choosing the reply type.
 [mms] Fix generation of Save All attachments link in dynamic view.

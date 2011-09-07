@@ -291,7 +291,15 @@ case 'reply_list':
         break;
 
     case IMP_Compose::REPLY_LIST:
-        $replyauto_list = ($vars->actionID == 'reply_auto');
+        if ($vars->actionID == 'reply_auto') {
+            $replyauto_list = true;
+
+            $hdr_ob = $contents->getHeaderOb();
+            $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
+            if (isset($addr_ob[0]['personal'])) {
+                $replyauto_list_id = $addr_ob[0]['personal'];
+            }
+        }
 
         $vars->actionID = 'reply_list';
         $title = _("Reply to List:");
@@ -958,6 +966,9 @@ if ($redirect) {
         $t->set('replyauto_all', $replyauto_all);
     } elseif (isset($replyauto_list)) {
         $t->set('replyauto_list', true);
+        if (isset($replyauto_list_id)) {
+            $t->set('replyauto_list_id', $replyauto_list_id);
+        }
     }
 
     $t->set('message_label', Horde::label('composeMessage', _("Te_xt")));
