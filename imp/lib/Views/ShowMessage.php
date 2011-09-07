@@ -284,7 +284,7 @@ class IMP_Views_ShowMessage
             $result['atc_label'] = ($show_parts == 'all')
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", count($inlineout['atc_parts'])), count($inlineout['atc_parts']));
-            if (count($inlineout['display_ids']) > 2) {
+            if (count($inlineout['atc_parts']) > 2) {
                 $result['atc_download'] = Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>';
             }
         }
