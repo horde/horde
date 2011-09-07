@@ -14,6 +14,13 @@
 class Skeleton_Driver
 {
     /**
+     * Hash containing connection parameters.
+     *
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
      * Array holding the current foo list. Each array entry is a hash
      * describing a foo. The array is indexed by the IDs.
      *
@@ -22,35 +29,13 @@ class Skeleton_Driver
     protected $_foos = array();
 
     /**
-     * Attempts to return a concrete instance based on $driver.
+     * Constructor.
      *
-     * @param string $driver  The type of the concrete subclass to return.
-     *                        The class name is based on the storage driver
-     *                        ($driver).  The code is dynamically included.
-     *
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
-     *
-     * @return Skeleton_Driver  The newly created concrete instance.
-     * @throws Skeleton_Exception
+     * @param array $params  A hash containing connection parameters.
      */
-    static public function factory($driver = null, $params = null)
+    public function __construct($params = array())
     {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-
-        $driver = ucfirst(basename($driver));
-        $class = 'Skeleton_Driver_' . $driver;
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Skeleton_Exception('Could not find driver ' . $class);
+        $this->_params = $params;
     }
 
     /**
@@ -62,5 +47,4 @@ class Skeleton_Driver
     {
         return $this->_foos;
     }
-
 }
