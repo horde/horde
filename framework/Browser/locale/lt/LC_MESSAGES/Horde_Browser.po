@@ -1,5 +1,5 @@
 # Lithuanian translations for Horde_Browser package.
-# Copyright 2011 The Horde Project
+# Copyright 2011 Horde LLC
 # This file is distributed under the same license as the Horde_Browser package.
 # Vilius Šumskas <vilius@lnk.lt>, 2011.
 #

@@ -1,5 +1,5 @@
 # Croatian translations for Horde_Browser package.
-# Copyright (C) 2011 Horde Project
+# Copyright (C) 2011 Horde LLC
 # This file is distributed under the same license as the Horde_Browser package.
 # Automatically generated, 2011.
 #
