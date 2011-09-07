@@ -4,7 +4,7 @@
  * such as a Contact or Appointment. Encoding/Decoding logic taken from the
  * Z-Push library. Original file header and copyright notice appear below.
  *
- * @copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * @copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
@@ -24,7 +24,7 @@
 * Created   :   01.10.2007
 *
 * � Zarafa Deutschland GmbH, www.zarafaserver.de
-* This file is distributed under GPL v2.
+* This file is distributed under GPL-2.0.
 * Consult LICENSE file for details
 ************************************************/
 class Horde_ActiveSync_Message_Base
