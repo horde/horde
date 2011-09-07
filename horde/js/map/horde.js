@@ -181,12 +181,18 @@ HordeMap.Map.Horde = Class.create({
     },
 
     /**
+     * Adds a simple marker to the map. Will use the markerImage property
+     * optionally passed into the map options. To add a feature with varying
+     * markerImage, pass a stylecallback method that returns a suitable style
+     * object.
      */
     addMarker: function(p, opts)
     {
+        opts = Object.extend({'styleCallback': Prototype.K }, opts);
         var ll = new OpenLayers.Geometry.Point(p.lon, p.lat);
         ll.transform(this._proj, this.map.getProjectionObject());
-        var m = new OpenLayers.Feature.Vector(ll);
+        s = opts.styleCallback(this.markerLayer.style);
+        var m = new OpenLayers.Feature.Vector(ll, null, s);
         this.markerLayer.addFeatures([m]);
 
         return m;
