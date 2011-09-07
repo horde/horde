@@ -428,6 +428,8 @@ class Wicked_Page
                 $this->_proc->insertRule('Code2', 'Code');
                 $this->_proc->deleteRule('Code');
 
+                $this->_proc->insertRule('Wickedblock', 'Code2');
+
                 $this->_proc->insertRule('Wikilink2', 'Wikilink');
                 $this->_proc->deleteRule('Wikilink');
 
