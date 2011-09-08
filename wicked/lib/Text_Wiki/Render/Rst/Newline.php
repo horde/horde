@@ -1,6 +1,6 @@
 <?php
 /**
- * Renders Wiki page paragraphs to restructured text.
+ * Renders a newline for a Wiki page.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -18,7 +18,7 @@
  */
 
 /**
- * Renders Wiki page paragraphs to restructured text.
+ * Renders a newline for a Wiki page.
  *
  * @category Horde
  * @package  Wicked
@@ -26,27 +26,18 @@
  * @link     http://www.horde.org/apps/wicked
  * @license  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  */
-class Text_Wiki_Render_Rst_Paragraph extends Text_Wiki_Render
+class Text_Wiki_Render_Rst_Newline extends Text_Wiki_Render
 {
     /**
      * Renders a token into text matching the requested format.
      * 
      * @param array $options The "options" portion of the token (second
-     * element).
+     *                       element).
      * 
      * @return string The text rendered from the token options.
      */
     public function token($options)
     {
-        extract($options);
-        
-        if ($type == 'start') {
-            return '';
-        }
-        
-        if ($type == 'end') {
-            $result = Text_Wiki_Render_Rst_Links::append();
-            return $result . "\n\n";
-        }
+        return "\n";
     }
 }

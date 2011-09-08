@@ -1,6 +1,6 @@
 <?php
 /**
- * Renders Wiki page paragraphs to restructured text.
+ * Renders collected links for a Wiki page.
  *
  * Copyright 2011 The Horde Project (http://www.horde.org/)
  *
@@ -18,7 +18,7 @@
  */
 
 /**
- * Renders Wiki page paragraphs to restructured text.
+ * Renders collected links for a Wiki page.
  *
  * @category Horde
  * @package  Wicked
@@ -26,27 +26,23 @@
  * @link     http://www.horde.org/apps/wicked
  * @license  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
  */
-class Text_Wiki_Render_Rst_Paragraph extends Text_Wiki_Render
+class Text_Wiki_Render_Rst_Links
 {
-    /**
-     * Renders a token into text matching the requested format.
-     * 
-     * @param array $options The "options" portion of the token (second
-     * element).
-     * 
-     * @return string The text rendered from the token options.
-     */
-    public function token($options)
+    static public function append()
     {
-        extract($options);
-        
-        if ($type == 'start') {
-            return '';
+        $result = '';
+        $links = array_merge(
+            Text_Wiki_Render_Rst_Url::$paragraph_links,
+            Text_Wiki_Render_Rst_Freelink::$paragraph_links
+        );
+        if (!empty($links)) {
+            $result .= "\n";
+            foreach ($links as $link) {
+                $result .= "\n" . $link ;
+            }
+            Text_Wiki_Render_Rst_Url::$paragraph_links = array();
+            Text_Wiki_Render_Rst_Freelink::$paragraph_links = array();
         }
-        
-        if ($type == 'end') {
-            $result = Text_Wiki_Render_Rst_Links::append();
-            return $result . "\n\n";
-        }
+        return $result;
     }
 }
