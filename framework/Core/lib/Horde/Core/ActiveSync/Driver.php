@@ -1,21 +1,7 @@
 <?php
 /**
  * Horde backend. Provides the communication between horde data and
- * ActiveSync server.  Some code based on an implementation found on Z-Push's
- * fourm.
- *
- * Original header:
- *
- * File      :   horde.php
- * Project   :   Z-Push
- * Descr     :   Horde backend
- * Created   :   09.03.2009
- *
- * (c) Holger de Carne holger@carne.de
- * This file is distributed under GPL-2.0.
- * Consult LICENSE file for details
- *
- * All other changes are:
+ * ActiveSync server.
  *
  * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
