@@ -1,7 +1,8 @@
-What is Skeleton?
-=================
+===================
+ What is Skeleton?
+===================
 
-:Contact: foo@example.com
+:Contact: horde@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -15,7 +16,7 @@ certification mark of the `Open Source Initiative`_.
 
 
 Obtaining Skeleton
-------------------
+==================
 
 Further information on Skeleton and the latest version can be obtained at
 
@@ -23,7 +24,7 @@ Further information on Skeleton and the latest version can be obtained at
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Skeleton distribution:
 
@@ -38,14 +39,14 @@ The following documentation is available in the Skeleton distribution:
 
 
 Installation
-------------
+============
 
 Instructions for installing Skeleton can be found in the file INSTALL_ in the
 ``docs/`` directory of the Skeleton distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Skeleton, help is available!
 
@@ -60,12 +61,12 @@ subscription information can be found at
   http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
-appearances on IRC, on the channel #horde on the freenode Network
+appearances on IRC, on the channel #horde on the Freenode Network
 (irc.freenode.net).
 
 
 Licensing
----------
+=========
 
 For licensing and copyright information, please see the file COPYING_/LICENSE_
 [pick one] in the Skeleton distribution.
@@ -78,6 +79,7 @@ The Skeleton team
 .. _README: README
 .. _COPYING: http://www.horde.org/licenses/gpl
 .. _LICENSE: http://www.horde.org/licenses/apache
+.. _LICENSE: http://www.horde.org/licenses/bsd
 .. _docs/CHANGES: CHANGES
 .. _docs/CREDITS: CREDITS
 .. _INSTALL:
