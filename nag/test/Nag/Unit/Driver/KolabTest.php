@@ -38,7 +38,31 @@ class Nag_Unit_Driver_KolabTest extends Nag_Unit_Driver_Base
 
     public static function setUpBeforeClass()
     {
-        self::$driver = self::getKolabDriver();
         parent::setUpBeforeClass();
+
+        self::$setup->setup(
+            array(
+                'Horde_Kolab_Storage' => array(
+                    'factory' => 'KolabStorage',
+                    'params' => array(
+                        'imapuser' => 'test',
+                    )
+                ),
+                'Horde_Share_Base' => array(
+                    'factory' => 'Share',
+                    'method' => 'Kolab',
+                ),
+            )
+        );
+        self::$setup->makeGlobal(
+            array(
+                'nag_shares' => 'Horde_Share_Base',
+            )
+        );
+
+        $GLOBALS['conf']['tasklists']['driver'] = 'kolab';
+
+        list($share, $other_share) = self::_createDefaultShares();
+        self::$driver = new Nag_Driver_Kolab($share->getName());
     }
 }

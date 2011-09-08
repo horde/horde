@@ -6,7 +6,7 @@
  * @package  Controller
  * @author   Bob McKee <bob@bluestatedigital.com>
  * @author   James Pepin <james@bluestatedigital.com>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  */
 class Horde_Controller_SettingsExporter_Default implements Horde_Controller_SettingsExporter
 {

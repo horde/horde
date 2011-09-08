@@ -1856,6 +1856,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $contents = $this->getContentsOb();
         $headers = $contents->getHeaderOb();
 
+        /* We need to set the Return-Path header to the current user - see RFC
+         * 2821 [4.4]. */
+        $headers->removeHeader('return-path');
+        $headers->addHeader('Return-Path', $from_addr);
+
         /* Generate the 'Resent' headers (RFC 5322 [3.6.6]). These headers are
          * prepended to the message. */
         $resent_headers = new Horde_Mime_Headers();

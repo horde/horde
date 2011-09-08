@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
  <notes>
+* [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
 * [mms] Add List-ID information, if available, to auto-reply notification.
 * [mms] Display information on reply method in standard view when automatically choosing the reply type.
 * [mms] Fix generation of Save All attachments link in dynamic view.
@@ -2433,7 +2434,8 @@
    <date>2011-09-07</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-* [mms] Add List-ID information (if available) to auto-reply method notification in dynamic view.
+* [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
+* [mms] Add List-ID information, if available, to auto-reply notification.
 * [mms] Display information on reply method in standard view when automatically choosing the reply type.
 * [mms] Fix generation of Save All attachments link in dynamic view.
 * [mms] More intelligent quoting of flowed text messages sent in HTML format.

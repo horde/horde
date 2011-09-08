@@ -14,7 +14,7 @@
 /**
  * Generates preferences services for testing purposes.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -40,7 +40,7 @@ class Horde_Test_Factory_Prefs
      *
      * @return Horde_Prefs The test service.
      */
-    public function createNull($params)
+    public function create($params)
     {
         if (!class_exists('Horde_Prefs')) {
             throw new Horde_Test_Exception('The "Horde_Prefs" class is unavailable!');
