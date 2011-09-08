@@ -437,6 +437,7 @@ span.iconImgSidebar {
     cursor: pointer;
     float: left;
     margin-right: 5px;
+    overflow: hidden;
     padding: 1px 0;
 }
 .dimpActions a, .dimpActions a:visited, .dimpActions label {
@@ -462,8 +463,7 @@ span.iconImgSidebar {
 }
 .dimpActions span.popdownSep {
     border-left: 1px solid silver;
-    padding-bottom: 3px;
-    padding-top: 1px;
+    padding: 2px 0 20px;
 }
 .dimpActions a:hover {
     filter: alpha(opacity=100);
