@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-01</date>
- <time>10:58:01</time>
+ <date>2011-09-08</date>
+ <time>14:43:59</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -405,6 +405,18 @@
       <dir name="Factory">
        <file name="TasklistsTest.php" role="test" />
       </dir> <!-- /test/Nag/Unit/Factory -->
+      <dir name="Form">
+       <dir name="Task">
+        <dir name="Sql">
+         <dir name="Pdo">
+          <file name="SqliteTest.php" role="test" />
+         </dir> <!-- /test/Nag/Unit/Form/Task/Sql/Pdo -->
+         <file name="Base.php" role="test" />
+        </dir> <!-- /test/Nag/Unit/Form/Task/Sql -->
+        <file name="Base.php" role="test" />
+        <file name="KolabTest.php" role="test" />
+       </dir> <!-- /test/Nag/Unit/Form/Task -->
+      </dir> <!-- /test/Nag/Unit/Form -->
       <dir name="Nag">
        <dir name="Sql">
         <dir name="Pdo">
@@ -848,6 +860,10 @@
    <install as="Nag/Unit/Driver/Sql/Base.php" name="test/Nag/Unit/Driver/Sql/Base.php" />
    <install as="Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" />
    <install as="Nag/Unit/Factory/TasklistsTest.php" name="test/Nag/Unit/Factory/TasklistsTest.php" />
+   <install as="Nag/Unit/Form/Task/Base.php" name="test/Nag/Unit/Form/Task/Base.php" />
+   <install as="Nag/Unit/Form/Task/KolabTest.php" name="test/Nag/Unit/Form/Task/KolabTest.php" />
+   <install as="Nag/Unit/Form/Task/Sql/Base.php" name="test/Nag/Unit/Form/Task/Sql/Base.php" />
+   <install as="Nag/Unit/Form/Task/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Form/Task/Sql/Pdo/SqliteTest.php" />
    <install as="Nag/Unit/Nag/Base.php" name="test/Nag/Unit/Nag/Base.php" />
    <install as="Nag/Unit/Nag/KolabTest.php" name="test/Nag/Unit/Nag/KolabTest.php" />
    <install as="Nag/Unit/Nag/Sql/Base.php" name="test/Nag/Unit/Nag/Sql/Base.php" />
@@ -1040,7 +1056,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-01</date>
+   <date>2011-09-08</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [mjr] Fix removeUserData implementation.
