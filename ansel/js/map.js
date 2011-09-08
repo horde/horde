@@ -47,7 +47,9 @@
         this.maps[e].display();
         // Need to override this style here, since the OL CSS is loaded after
         // our main CSS, we can't override it in screen.css
-        $(e).down('.olControlZoomPanel').setStyle({'top': '10px'});
+        if (!this.opts.panzoom) {
+            $(e).down('.olControlZoomPanel').setStyle({'top': '10px'});
+        }
         this.mapInitialized[e] = true;
     },
 
