@@ -57,16 +57,26 @@ if (!empty($args['post'])) {
     }
 }
 
-Horde_Registry::appInit('horde', array('nologintasks' => true, 'session_control' => empty($args['sessionWrite']) ? 'readonly' : null));
-
-$impleargs = $impleName;
-if (isset($args['impleApp'])) {
-    $registry->pushApp($args['impleApp']);
-    $impleargs = array($args['impleApp'], $impleName);
+try {
+    Horde_Registry::appInit(
+        'horde',
+        array(
+            'nologintasks' => true,
+            'session_control' => empty($args['sessionWrite']) ? 'readonly' : null,
+            'authentication' => 'throw'
+        )
+    );
+    $impleargs = $impleName;
+    if (isset($args['impleApp'])) {
+        $registry->pushApp($args['impleApp']);
+        $impleargs = array($args['impleApp'], $impleName);
+    }
+    $imple = $injector->getInstance('Horde_Core_Factory_Imple')->create($impleargs, array(), true);
+    $result = $imple->handle($args, $post);
+} catch (Horde_Exception $e) {
+    Horde::logMessage($e, 'ERR');
+    $result = $e->getMessage();
 }
-
-$imple = $injector->getInstance('Horde_Core_Factory_Imple')->create($impleargs, array(), true);
-$result = $imple->handle($args, $post);
 
 $ct = empty($_SERVER['Content-Type'])
     ? (is_string($result) ? 'plain' : 'json')
