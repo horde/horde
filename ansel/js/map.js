@@ -22,7 +22,7 @@
             'panzoom': false,
             'layerswitcher': false
         }
-        opts = Object.extend(o, opts || {});
+        this.opts = Object.extend(o, opts || {});
         var layers = [];
         if (Ansel.conf.maps.providers) {
             Ansel.conf.maps.providers.each(function(l) {
@@ -35,8 +35,8 @@
             delayed: true,
             layers: layers,
             draggableFeatures: false,
-            panzoom: o.panzoom,
-            showLayerSwitcher: o.layerswitcher,
+            panzoom: this.opts.panzoom,
+            showLayerSwitcher: this.opts.layerswitcher,
             useMarkerLayer: true,
             markerImage: Ansel.conf.markeruri,
             markerBackground: Ansel.conf.shadowuri
@@ -97,10 +97,10 @@
     /**
      * Ensures the map tab is visible and sets UI elements accordingly.
      */
-    ensureMap: function(e)
+    ensureMap: function(e, opts)
     {
         if (!this.mapInitialized[e]) {
-            this.initializeMap(e);
+            this.initializeMap(e, opts);
         }
     },
 
