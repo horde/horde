@@ -197,6 +197,11 @@ HordeMap.Map.Horde = Class.create({
         this.map.setCenter(ll, z);
     },
 
+    zoomTo: function(z)
+    {
+        this.map.zoomTo(z);
+    },
+
     /**
      * Adds a simple marker to the map. Will use the markerImage property
      * optionally passed into the map options. To add a feature with varying
