@@ -30,6 +30,13 @@
 class Nag_Unit_Driver_Base extends Nag_TestCase
 {
     /**
+     * The test setup.
+     *
+     * @var Horde_Test_Setup
+     */
+    static $setup;
+
+    /**
      * @static Nag_Driver
      */
     static $driver;
@@ -38,6 +45,50 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
      * List of tasks added during the test.
      */
     private $_added = array();
+
+    public static function setUpBeforeClass()
+    {
+        self::$setup = new Horde_Test_Setup();
+
+        self::$setup->setup(
+            array(
+                '_PARAMS' => array(
+                    'user' => 'test@example.com',
+                    'app' => 'nag'
+                ),
+                'Horde_Prefs' => 'Prefs',
+                'Horde_Perms' => 'Perms',
+                'Horde_Group' => 'Group',
+                'Horde_History' => 'History',
+                'Horde_Registry' => 'Registry',
+            )
+        );
+        self::$setup->makeGlobal(
+            array(
+                'prefs' => 'Horde_Prefs',
+                'registry' => 'Horde_Registry',
+                'injector' => 'Horde_Injector',
+            )
+        );
+
+        $GLOBALS['conf']['prefs']['driver'] = 'Null';
+
+        parent::setUpBeforeClass();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        self::$driver = null;
+        parent::tearDownAfterClass();
+    }
+
+    public function setUp()
+    {
+        $error = self::$setup->getError();
+        if (!empty($error)) {
+            $this->markTestSkipped($error);
+        }
+    }
 
     public function tearDown()
     {
@@ -48,12 +99,6 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
             } catch (Horde_Exception_NotFound $e) {
             }
         }
-    }
-
-    public static function tearDownAfterClass()
-    {
-        self::$driver = null;
-        parent::tearDownAfterClass();
     }
 
     private function _add($name, $desc, $start = 0, $due = 0, $priority = 0,

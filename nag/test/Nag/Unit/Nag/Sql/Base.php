@@ -49,6 +49,9 @@ class Nag_Unit_Nag_Sql_Base extends Nag_Unit_Nag_Base
                 'nag_shares' => 'Horde_Share_Base',
             )
         );
+
+        $GLOBALS['conf']['tasklists']['driver'] = 'default';
+
         parent::setUpBeforeClass();
     }
 }

@@ -29,6 +29,11 @@
  */
 class Nag_Unit_Nag_Base extends Nag_TestCase
 {
+    /**
+     * The test setup.
+     *
+     * @var Horde_Test_Setup
+     */
     static $setup;
 
     /**
