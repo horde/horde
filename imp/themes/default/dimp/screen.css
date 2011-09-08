@@ -458,17 +458,12 @@ span.iconImgSidebar {
 .dimpActions a:hover {
     text-decoration: none;
 }
-.dimpActions span.popdown, .dimpActions span.spellcheckPopdownImg, span.popdownImg {
-    filter: alpha(opacity=50);
-    -moz-opacity: .5;
-    opacity: .5;
-}
 .dimpActions span.popdownSep {
     border-left: 1px solid silver;
     padding-bottom: 2px;
     padding-top: 1px;
 }
-.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover, span.popdownImg:hover {
+.dimpActions a:hover {
     filter: alpha(opacity=100);
     -moz-opacity: 1;
     opacity: 1;
