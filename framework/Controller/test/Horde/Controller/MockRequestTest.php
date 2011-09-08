@@ -8,7 +8,7 @@
  * @package    Controller
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  */
 
 /**
@@ -19,13 +19,13 @@ require_once dirname(__FILE__) . '/Autoload.php';
 /**
  * Test the mock request handler.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Controller
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Controller_MockRequestTest extends Horde_Test_Case
 {
