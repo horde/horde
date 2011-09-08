@@ -16,7 +16,7 @@
     initializeMap: function(e, opts)
     {
         if (this.mapInitialized[e]) {
-            return;
+            return this.maps[e];
         }
         var o = {
             'panzoom': false,
@@ -51,6 +51,7 @@
             $(e).down('.olControlZoomPanel').setStyle({'top': '10px'});
         }
         this.mapInitialized[e] = true;
+        return this.maps[e];
     },
 
     resetMap: function(e)
@@ -101,9 +102,12 @@
      */
     ensureMap: function(e, opts)
     {
+        var m;
         if (!this.mapInitialized[e]) {
-            this.initializeMap(e, opts);
+            m = this.initializeMap(e, opts);
         }
+
+        return m;
     },
 
     onDomLoad: function()
