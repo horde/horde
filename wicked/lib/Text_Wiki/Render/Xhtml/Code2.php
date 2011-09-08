@@ -14,15 +14,13 @@ class Text_Wiki_Render_Xhtml_Code2 extends Text_Wiki_Render_Xhtml_Code
      */
     public function token($options)
     {
-        if (!($type = $options['attr']['type'])) {
-            // Default to shell script
-            $type = 'sh';
-        }
-
         $part = new Horde_Mime_Part();
         $part->setContents($options['text']);
-        $part->setType("application/x-extension-$type");
-        $viewer = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->create($part);
+        $part->setType('application/x-extension-' . $options['attr']['type']);
+        $viewer = Horde_Mime_Viewer::factory(
+            'Horde_Core_Mime_Viewer_Syntaxhighlighter',
+            $part,
+            array('registry' => $GLOBALS['registry']));
         $data = $viewer->render('inline');
         $data = reset($data);
         return $data['data'];
