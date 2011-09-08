@@ -3,7 +3,7 @@
  * Image effect easily creating small, center-cropped thumbnails.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Image
