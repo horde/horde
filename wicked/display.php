@@ -87,6 +87,12 @@ case 'export':
         $mime = 'text/x-tex';
         break;
 
+    case 'rst':
+        $format = 'Rst';
+        $ext = '';
+        $mime = 'text/text';
+        break;
+
     case 'plain':
     default:
         $format = 'Plain';
