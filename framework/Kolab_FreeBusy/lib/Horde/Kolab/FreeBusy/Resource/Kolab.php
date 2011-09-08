@@ -7,7 +7,7 @@
  * @category Kolab
  * @package  Kolab_FreeBusy
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 
@@ -15,16 +15,16 @@
  * The backend for Kolab resources.
  *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
- * Copyright 2008-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2009 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_FreeBusy
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 class Horde_Kolab_FreeBusy_Resource_Kolab

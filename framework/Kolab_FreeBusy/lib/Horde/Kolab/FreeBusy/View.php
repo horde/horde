@@ -11,7 +11,7 @@
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -51,7 +51,7 @@ class Horde_Kolab_FreeBusy_View {
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -164,7 +164,7 @@ define('FREEBUSY_ERROR_SERVER', 2);
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>

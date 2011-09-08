@@ -16,7 +16,7 @@ require_once 'Horde/Icalendar/Vfreebusy.php';
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -357,7 +357,7 @@ class Horde_Kolab_FreeBusy_Cache {
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -618,7 +618,7 @@ class Horde_Kolab_FreeBusy_Cache_DB {
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -680,7 +680,7 @@ class Horde_Kolab_FreeBusy_Cache_DB_acl extends Horde_Kolab_FreeBusy_Cache_DB {
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -740,7 +740,7 @@ class Horde_Kolab_FreeBusy_Cache_DB_xacl extends Horde_Kolab_FreeBusy_Cache_DB {
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -917,7 +917,7 @@ class Horde_Kolab_FreeBusy_Cache_File {
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -985,7 +985,7 @@ class Horde_Kolab_FreeBusy_Cache_File_pvcal extends Horde_Kolab_FreeBusy_Cache_F
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -1125,7 +1125,7 @@ class Horde_Kolab_FreeBusy_Cache_File_vcal extends Horde_Kolab_FreeBusy_Cache_Fi
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -1234,7 +1234,7 @@ class Horde_Kolab_FreeBusy_Cache_File_acl extends Horde_Kolab_FreeBusy_Cache_Fil
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Gunnar Wrobel <p@rdus.de>
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
