@@ -6,10 +6,10 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
      * Originates from
      * http://framework.zend.com/wiki/display/ZFPROP/previous+Exception+on+Zend_Exception+-+Marc+Bennewitz
      *
-     * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+     * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (LGPL). If you
-     * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+     * did not receive this file, see http://www.horde.org/licenses/lgpl21.
      *
      * @category Horde
      * @package  Exception
@@ -68,10 +68,10 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
     /**
      * Horde base exception class.
      *
-     * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+     * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (LGPL). If you
-     * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+     * did not receive this file, see http://www.horde.org/licenses/lgpl21.
      *
      * @category Horde
      * @package  Exception
