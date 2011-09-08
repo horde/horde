@@ -29,36 +29,21 @@
  */
 class Nag_Unit_Driver_Sql_Base extends Nag_Unit_Driver_Base
 {
-    /**
-     * @static Horde_Db_Adapter_Base
-     */
-    static $db;
+    static $callback;
 
-    /**
-     * @static Horde_Db_Migration_Migrator
-     */
-    static $migrator;
-
-    public static function setUpBeforeClass()
+    static public function setUpBeforeClass()
     {
-        // FIXME: get migration directory if not running from Git checkout.
-        self::$migrator = new Horde_Db_Migration_Migrator(
-            self::$db,
-            null,
-            array('migrationsPath' => dirname(__FILE__) . '/../../../../../migration',
-                  'schemaTableName' => 'nag_test_schema'));
-
-        self::$migrator->up();
-        self::$driver = self::getSqlDriver(self::$db);
         parent::setUpBeforeClass();
+        self::getDb();
+        self::createSqlShares(self::$setup);
+        list($share, $other_share) = self::_createDefaultShares();
+        self::$driver = new Nag_Driver_Sql(
+            $share->getName(), array('charset' => 'UTF-8')
+        );
     }
 
-    public static function tearDownAfterClass()
+    static protected function getDb()
     {
-        if (self::$migrator) {
-            self::$migrator->down();
-        }
-        self::$db = null;
-        parent::tearDownAfterClass();
+        call_user_func_array(self::$callback, array());
     }
 }

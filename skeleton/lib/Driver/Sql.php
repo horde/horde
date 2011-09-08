@@ -1,9 +1,6 @@
 <?php
 /**
- * Skeleton storage implementation for PHP's PEAR database abstraction layer.
- *
- * The table structure can be created by the scripts/sql/skeleton_foo.sql
- * script.
+ * Skeleton storage implementation for the Horde_Db database abstraction layer.
  *
  * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
  *
@@ -16,13 +13,6 @@
  */
 class Skeleton_Driver_Sql extends Skeleton_Driver
 {
-    /**
-     * Hash containing connection parameters.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
     /**
      * Handle for the current database connection.
      *
@@ -40,12 +30,10 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
     /**
      * Constructs a new SQL storage object.
      *
-     * @param array $params  Parameters:
-     * <pre>
-     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * 'table' - (string) The name of the SQL table.
-     *           DEFAULT: 'skeleton_foo'
-     * </pre>
+     * @param array $params  Class parameters:
+     *                       - db:    (Horde_Db_Adapater) A database handle.
+     *                       - table: (string, optional) The name of the
+     *                                database table.
      *
      * @throws InvalidArgumentException
      */
@@ -57,9 +45,11 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
         $this->_db = $params['db'];
         unset($params['db']);
 
-        $this->_params = array_merge($this->_params, array(
+        $params = array_merge($params, array(
             'table' => 'skeleton_foo'
         ), $params);
+
+        parent::__construct($params);
     }
 
     /**
@@ -83,5 +73,4 @@ class Skeleton_Driver_Sql extends Skeleton_Driver
         /* Store the retrieved values in the foo variable. */
         $this->_foo = array_merge($this->_foo, $rows);
     }
-
 }

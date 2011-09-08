@@ -29,6 +29,11 @@
  */
 class Nag_Unit_Nag_Base extends Nag_TestCase
 {
+    /**
+     * The test setup.
+     *
+     * @var Horde_Test_Setup
+     */
     static $setup;
 
     /**
@@ -40,33 +45,7 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
 
     public static function setUpBeforeClass()
     {
-        self::$setup->setup(
-            array(
-                'Horde_Prefs' => array(
-                    'factory' => 'Prefs',
-                    'method' => 'Null',
-                    'params' => array(
-                        'user' => 'test@example.com',
-                        'app' => 'nag'
-                    ),
-                ),
-                'Horde_Registry' => array(
-                    'factory' => 'Registry',
-                    'method' => 'Stub',
-                    'params' => array(
-                        'user' => 'test@example.com',
-                        'app' => 'nag'
-                    ),
-                ),
-            )
-        );
-        self::$setup->makeGlobal(
-            array(
-                'prefs' => 'Horde_Prefs',
-                'registry' => 'Horde_Registry',
-                'injector' => 'Horde_Injector',
-            )
-        );
+        self::createBasicNagSetup(self::$setup);
         parent::setUpBeforeClass();
     }
 

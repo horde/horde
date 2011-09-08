@@ -38,9 +38,8 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix SQL cache backend not using the correct configuration when combined with custom configuration for other SQL backends (Bug #10460).
 * [jan] Allow to pass a configuration array to the LDAP factory.
 * [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
 * [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
@@ -1287,7 +1286,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Add cache support for themes.
@@ -1323,7 +1322,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Catch fatal errors about missing tables during initial configuration.
 * Added LoginTasks upgrade framework.
@@ -1342,7 +1341,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
 * [jan] Fix converting identities with non-ascii characters to new format.
@@ -1361,7 +1360,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Fix loading of Horde&apos;s vhost conf.php file (Bug #9704).
@@ -1380,7 +1379,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
 * [mms] Add Horde_Core_Notification_Handler_Decorator_Base.
@@ -1398,7 +1397,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix loading correct identities driver for the Horde application (Bug #9936).
 * [mms] Don&apos;t setup notification handlers in applications that are not yet authenticated (Bug #9733).
@@ -1418,7 +1417,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t show IMP compose link if user doesn&apos;t have permissions to IMP (Bug #10016).
 * [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
@@ -1432,7 +1431,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-14</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Horde_Config#configFile() and Horde_Config#writePHPConfiguration().
 * [mjr] Fix issue with deleting identities (Bug #9997).
@@ -1447,7 +1446,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Updated German translation.
 * [mms] Optimize session storage.
@@ -1461,7 +1460,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Horde_Config::configSQL() method.
 * [jan] Add Horde_Core_Cli and Horde_Core_Bundle classes.
@@ -1481,7 +1480,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-09</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Only list sidebar apps in listApps() if parent app is active (Bug #10017).
 * [mms] Fix autocomplete javascript when contents of DOM element is dynamically altered.
@@ -1497,7 +1496,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Lithuanian translation.
 * [jan] Update Brazilian Portuguese translation.
@@ -1516,7 +1515,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Latvian translation.
 * [jan] Don&apos;t set optional integer fields to 0 when automatically updating configuration.
@@ -1532,7 +1531,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-17</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Display permissions of hidden apps too
 * [gwr] Do not fail when no basedn is set for the Horde_Kolab_Server configuration.
@@ -1551,7 +1550,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add locking routines to Horde_Core_Auth_Application.
 * [rla] Add support for Horde_Auth&apos;s new locking feature.
@@ -1565,10 +1564,8 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Fix SQL cache backend not using the correct configuration when combined with custom configuration for other SQL backends (Bug #10460).
-* [jan] Allow to pass a configuration array to the LDAP factory.
 * [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
 * [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
 * [mms] Fix cookie timeouts.

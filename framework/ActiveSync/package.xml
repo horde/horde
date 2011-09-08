@@ -20,7 +20,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [mjr] Prevent broken clients from sending incoming changes with initial SYNC request (Bug #10461).
  </notes>
@@ -229,7 +229,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -244,7 +244,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -259,7 +259,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -274,7 +274,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -289,7 +289,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Use Horde_Support_Uuid to generate UUIDs.
@@ -303,7 +303,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix race conditions caused by broken clients sending an inappropriate PING request.
 * [mjr] Fix issue with initial Android pairing
@@ -317,7 +317,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Policykey is now per user, not per device
 * [mjr] use AS in column aliases to make postgres happy (Bug #10346).
@@ -333,7 +333,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add missing migration file to package.xml
    </notes>
@@ -346,7 +346,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix sending unnecessary FOLDERSYNC changes.
 * [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to PING and SYNC the same collection an unlimited number of times.
@@ -360,7 +360,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-10</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix bug with certain recurrence types due to erroneously outputting a zero as an empty tag (Bug# 10416).
 * [mjr] Support POOMCONTACTS2 schema in AS 2.5 clients also.
@@ -374,7 +374,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix sending MONTHLY_NTH and YEARLY_NTH recurrence types (Bug# 10416).
 * [mjr] Fix synchronization loop due to messages being deleted on server then attempting a change from the client.
@@ -388,7 +388,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Prevent broken clients from sending incoming changes with initial SYNC request (Bug #10461).
    </notes>

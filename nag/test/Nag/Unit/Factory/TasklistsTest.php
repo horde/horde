@@ -36,11 +36,11 @@ class Nag_Unit_Factory_TasklistsTest extends Nag_TestCase
 {
     public function setUp()
     {
-        $GLOBALS['prefs'] = new Horde_Prefs('kronolith', new Horde_Prefs_Storage_Null('test'));
-        $GLOBALS['registry'] = new Nag_Stub_Registry();
-        $GLOBALS['nag_shares'] = self::createKolabShares(
-            self::createKolabStorage()
-        );
+        $setup = self::createKolabSetup();
+        $error = $setup->getError();
+        if (!empty($error)) {
+            $this->markTestSkipped($error);
+        }
     }
 
     /**

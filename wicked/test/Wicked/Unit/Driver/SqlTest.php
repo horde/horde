@@ -68,14 +68,13 @@ class Wicked_Unit_Driver_SqlTest extends Wicked_TestCase
     public function test_updateText_should_also_update_history()
     {
         $this->wicked->updateText(TEST_PAGE_1, 'Here\'s the new page text.',
-                                  'Test change.', true);
+                                  'Test change.');
         $page = $this->wicked->retrieveByName(TEST_PAGE_1);
         $this->assertEqual('Here\'s the new page text.', $page['page_text']);
 
-        $last_version = sprintf('%d.%d', $page['page_majorversion'],
-                                $page['page_minorversion']);
+        $last_version = $page['page_version'];
         $this->wicked->updateText(TEST_PAGE_1, 'Here\'s the second change.',
-                                  'Test change 2.', false);
+                                  'Test change 2.');
 
         $page = $this->wicked->retrieveByName(TEST_PAGE_1);
         $this->assertEqual('Here\'s the second change.', $page['page_text']);
@@ -94,16 +93,14 @@ class Wicked_Unit_Driver_SqlTest extends Wicked_TestCase
 
         $nvers = count($history);
         $item_1 = $history[0];
-        $item_1_ver = sprintf('%d.%d', $item_1['page_majorversion'],
-                              $item_1['page_minorversion']);
+        $item_1_ver = $item_1['page_version'];
 
         $this->wicked->removeVersion(TEST_PAGE_1, $item_1_ver);
         $history = $this->wicked->getHistory(TEST_PAGE_1);
         $this->assertEqual(count($history), ($nvers - 1));
 
         foreach ($history as $page) {
-            $testver = sprintf('%d.%d', $page['page_majorversion'],
-                               $page['page_minorversion']);
+            $testver = $page['page_version'];
             $this->assertNotEqual($testver, $item_1_ver,
                                   "removeVersion() version still there.");
         }

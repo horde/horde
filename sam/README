@@ -1,59 +1,64 @@
-Sam
-Version 0.1
+==============
+ What is Sam?
+==============
 
-What is Sam?
---------------
+:Contact: horde@lists.horde.org
 
-Sam is the Horde Spam Assassin module. It allows each user to change their
-specific anti-spam rules, given a general subset of the overall features
-that are available. 
+.. contents:: Contents
+.. section-numbering::
 
-This software is OSI Certified Open Source Software.
-OSI Certified is a certification mark of the Open Source Initiative.
+Sam is short for Spam Assassin Module. It allows each user to change their
+specific anti-spam rules for SpamAssassion or Amavisd-new, given a general
+subset of the overall features that are available.
+
+This software is OSI Certified Open Source Software. OSI Certified is a
+certification mark of the `Open Source Initiative`_.
+
+.. _`Open Source Initiative`: http://www.opensource.org/
+
 
 Obtaining Sam
----------------
+=============
 
-Further information on Sam and the latest version can be obtained
-at
+Further information on Sam and the latest version can be obtained at
 
-  http://www.horde.org/sam/
+  http://www.horde.org/apps/sam
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Sam distribution:
 
-README        - This file
-COPYING       - Copyright license (GPL)
-docs/INSTALL  - Installation instructions and notes
-docs/CREDITS  - Project developers
-docs/CHANGES  - Changes by release
-docs/TODO     - Development TODO list
+:README_:            This file
+:COPYING_:           Copyright and license information
+:`docs/CHANGES`_:    Changes by release
+:`docs/CREDITS`_:    Project developers
+:`docs/INSTALL`_:    Installation instructions and notes
+:`docs/TODO`_:       Development TODO list
+
 
 Installation
-------------
+============
 
-Instructions for installing Sam can be found in the file INSTALL
-in the docs/ directory of the Sam distribution.
+Instructions for installing Sam can be found in the file INSTALL_ in the
+``docs/`` directory of the Sam distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Sam, help is available!
 
-The Horde Frequently Asked Questions List (FAQ), available on the Web
-at
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual
-applications and for issues relating to the project as a whole.
-Information, archives, and subscription information can be found at
+The Horde Project runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
+subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
 appearances on IRC, on the channel #horde on the Freenode Network
@@ -61,11 +66,20 @@ appearances on IRC, on the channel #horde on the Freenode Network
 
 
 Licensing
----------
+=========
 
-For licensing and copyright information, please see the file
-COPYING in the Sam distribution.
+For licensing and copyright information, please see the file COPYING_ in the
+Sam distribution.
 
 Thanks,
 
-The Horde team
+The Sam team
+
+
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
+.. _INSTALL:
+.. _docs/INSTALL: INSTALL
+.. _docs/TODO: TODO

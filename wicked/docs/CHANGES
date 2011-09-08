@@ -2,6 +2,10 @@
 v1.0-cvs
 --------
 
+[gwr] Added support for reStructuredText export.
+[jan] Add embedding of Horde blocks.
+[jan] Log attachment downloads.
+[jan] Replace major and minor versions with single versions (Request #7210).
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.
 [jan] Require delete permissions for merging/renaming pages.

@@ -75,7 +75,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             throw new Horde_Vfs_Exception($e);
         }
 
-        if (is_null($size)) {
+        if ($size === false) {
             throw new Horde_Vfs_Exception(sprintf('Unable to check file size of "%s/%s".', $path, $name));
         }
 
@@ -107,7 +107,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             throw new Horde_Vfs_Exception($e);
         }
 
-        return is_null($size) ? $size : 0;
+        return (int)$size;
     }
 
     /**
@@ -596,7 +596,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         $values = array(self::FOLDER, $this->_getNativePath($oldpath, $oldname));
 
         try {
-            $folderList = $this->_db->selectValues($sql, 0, $values);
+            $folderList = $this->_db->selectValues($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
@@ -673,7 +673,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             throw new Horde_Vfs_Exception($e);
         }
 
-        if (is_null($result)) {
+        if ($result === false) {
             throw new Horde_Vfs_Exception('Unable to load SQL data.');
         }
 

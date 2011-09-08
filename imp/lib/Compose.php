@@ -37,6 +37,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     const FORWARD_BOTH = 10;
     const REDIRECT = 11;
 
+    /* The blockquote tag to use to indicate quoted text in HTML data. */
+    const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">';
+
     /**
      * Mark as changed for purposes of storing in the session.
      * Either empty, 'changed', or 'deleted'.
@@ -1086,16 +1089,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
-        if ($exceed) {
-            $recipients = 0;
-            foreach ($addrlist as $recipient) {
-                $recipients += count(explode(',', $recipient));
-            }
-
-            if (!$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_recipients', array('opts' => array('value' => $recipients)))) {
-                Horde::permissionDeniedError('imp', 'max_recipients');
-                throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
-            }
+        if ($exceed &&
+            !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_recipients', array('opts' => array('value' => count($addrlist))))) {
+            Horde::permissionDeniedError('imp', 'max_recipients');
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
         }
 
         return array('list' => $addrlist, 'header' => $header);
@@ -1621,8 +1618,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if (!empty($msg_text) &&
             (($msg_text['mode'] == 'html') || $force_html)) {
             $msg = '<p>' . $this->text2html(trim($msg_pre)) . '</p>' .
-                   '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">' .
-                   (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
+                   self::HTML_BLOCKQUOTE .
+                   (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['flowed'] ? $msg_text['flowed'] : $msg_text['text']) : $msg_text['text']) .
                    '</blockquote><br />' .
                    ($msg_post ? $this->text2html($msg_post) : '') . '<br />';
             $msg_text['mode'] = 'html';
@@ -1858,6 +1855,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $contents = $this->getContentsOb();
         $headers = $contents->getHeaderOb();
+
+        /* We need to set the Return-Path header to the current user - see RFC
+         * 2821 [4.4]. */
+        $headers->removeHeader('return-path');
+        $headers->addHeader('Return-Path', $from_addr);
 
         /* Generate the 'Resent' headers (RFC 5322 [3.6.6]). These headers are
          * prepended to the message. */
@@ -2530,22 +2532,28 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param array $options          Additional options:
-     * <pre>
-     * html - (boolean) Return text/html part, if available.
-     * imp_msg - (integer) If non-empty, the message data was created by IMP.
-     *           Either self::COMPOSE, self::FORWARD, or self::REPLY.
-     * replylimit - (boolean) Enforce length limits?
-     * toflowed - (boolean) Do flowed conversion?
-     * </pre>
+     * <ul>
+     *  <li>html: (boolean) Return text/html part, if available.</li>
+     *  <li>imp_msg: (integer) If non-empty, the message data was created by
+     *               IMP. Either:
+     *   <ul>
+     *    <li>self::COMPOSE</li>
+     *    <li>self::FORWARD</li>
+     *    <li>self::REPLY</li>
+     *   </ul>
+     *  </li>
+     *  <li>replylimit: (boolean) Enforce length limits?</li>
+     *  <li>toflowed: (boolean) Do flowed conversion?</li>
+     * </ul>
      *
      * @return mixed  Null if bodypart not found, or array with the following
      *                keys:
-     * <pre>
-     * 'charset' - (string) The guessed charset to use.
-     * 'id' - (string) The MIME ID of the bodypart.
-     * 'mode' - (string) Either 'text' or 'html'.
-     * 'text' - (string) The body text.
-     * </pre>
+     *   - charset: (string) The guessed charset to use.
+     *   - flowed: (Horde_Text_Flowed) A flowed object, if the text is flowed.
+     *             Otherwise, null.
+     *   - id: (string) The MIME ID of the bodypart.
+     *   - mode: (string) Either 'text' or 'html'.
+     *   - text: (string) The body text.
      */
     protected function _getMessageText($contents, array $options = array())
     {
@@ -2642,6 +2650,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         return array(
             'charset' => $part_charset,
+            'flowed' => isset($flowed) ? $flowed : null,
             'id' => $body_id,
             'mode' => $mode,
             'text' => $msg
@@ -2763,6 +2772,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     {
         return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
             'always_mailto' => true,
+            'flowed' => self::HTML_BLOCKQUOTE,
             'parselevel' => Horde_Text_Filter_Text2html::MICRO
         ));
     }

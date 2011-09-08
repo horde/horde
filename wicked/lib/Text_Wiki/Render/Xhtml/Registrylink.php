@@ -21,7 +21,7 @@ class Text_Wiki_Render_Xhtml_Registrylink extends Text_Wiki_Render
         try {
             $link = new Horde_Url($GLOBALS['registry']->link($options['method'], $options['args']));
         } catch (Horde_Exception $e) {
-            return '';
+            return $e->getMessage();
         }
 
         return $link->link() . $options['title'] . '</a>';

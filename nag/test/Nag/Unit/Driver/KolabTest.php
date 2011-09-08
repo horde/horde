@@ -38,7 +38,9 @@ class Nag_Unit_Driver_KolabTest extends Nag_Unit_Driver_Base
 
     public static function setUpBeforeClass()
     {
-        self::$driver = self::getKolabDriver();
         parent::setUpBeforeClass();
+        self::createKolabShares(self::$setup);
+        list($share, $other_share) = self::_createDefaultShares();
+        self::$driver = new Nag_Driver_Kolab($share->getName());
     }
 }

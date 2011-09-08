@@ -73,8 +73,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
                 $attach['attachment_name'],
                 array('page' => $referrer_id,
                       'file' => $attach['attachment_name'],
-                      'version' => $attach['attachment_majorversion'] . '.'
-                                   . $attach['attachment_minorversion']));
+                      'version' => $attach['attachment_version']));
 
             $attachments[$idx]['delete_form'] = $this->allows(Wicked::MODE_REMOVE);
 
@@ -250,7 +249,6 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
             }
         }
 
-        $minor_change = false;
         if ($is_update) {
             if (!$found) {
                 $notification->push(
@@ -259,7 +257,6 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
                     'horde.error');
                 return;
             }
-            $minor_change = Horde_Util::getFormData('minor_change');
         } else {
             if ($found) {
                 $notification->push(
@@ -272,7 +269,6 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
 
         $file = array('page_id'         => $referrer_id,
                       'attachment_name' => $filename,
-                      'minor'           => $minor_change,
                       'change_log'      => $change_log);
 
         try {

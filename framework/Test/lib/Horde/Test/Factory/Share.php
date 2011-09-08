@@ -14,7 +14,7 @@
 /**
  * Generates test database connectors.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -57,7 +57,7 @@ class Horde_Test_Factory_Share
      *
      * @return Horde_Share_Sqlng The share setup.
      */
-    public function createSqlng($params)
+    public function create($params)
     {
         $shares = $this->_createShares('Horde_Share_Sqlng', $params);
         try {

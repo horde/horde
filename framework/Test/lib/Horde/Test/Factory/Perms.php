@@ -14,7 +14,7 @@
 /**
  * Generates the test permission service.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -34,7 +34,7 @@ class Horde_Test_Factory_Perms
      *
      * @return Horde_Perms_Null The test service.
      */
-    public function createNull()
+    public function create()
     {
         if (!class_exists('Horde_Perms_Null')) {
             throw new Horde_Test_Exception('The "Horde_Perms_Null" class is unavailable!');

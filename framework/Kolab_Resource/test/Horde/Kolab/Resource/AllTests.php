@@ -8,7 +8,7 @@
  * @package    Kolab_Resource
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Resource
  */
 
@@ -31,7 +31,7 @@ require_once 'Horde/Test/AllTests.php';
  * @package    Kolab_Resource
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Resource
  */
 class Horde_Kolab_Resource_AllTests extends Horde_Test_AllTests

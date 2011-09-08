@@ -203,7 +203,7 @@ class Wicked_Page
      * @return Wicked_Page  The requested page.
      * @throws Wicked_Exception
      */
-    public function getPage($pagename, $pagever = null, $referrer = null)
+    static public function getPage($pagename, $pagever = null, $referrer = null)
     {
         global $conf, $notification, $wicked;
 
@@ -296,9 +296,7 @@ class Wicked_Page
         }
         if ($this->isOld()) {
             for ($i = 0; $i < count($history); $i++) {
-                $checkver = sprintf('%d.%d', $history[$i]['page_majorversion'],
-                                    $history[$i]['page_minorversion']);
-                if ($checkver == $this->version()) {
+                if ($history[$i]['page_version'] == $this->version()) {
                     if ($i + 1 < count($history)) {
                         $i++;
                         break;
@@ -315,8 +313,7 @@ class Wicked_Page
             $i = 0;
         }
 
-        return sprintf('%d.%d', $history[$i]['page_majorversion'],
-                       $history[$i]['page_minorversion']);
+        return $history[$i]['page_version'];
     }
 
     public function isOld()
@@ -431,6 +428,8 @@ class Wicked_Page
                 $this->_proc->insertRule('Code2', 'Code');
                 $this->_proc->deleteRule('Code');
 
+                $this->_proc->insertRule('Wickedblock', 'Code2');
+
                 $this->_proc->insertRule('Wikilink2', 'Wikilink');
                 $this->_proc->deleteRule('Wikilink');
 
@@ -516,7 +515,7 @@ class Wicked_Page
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    public function updateText($newtext, $changelog, $minorchange)
+    public function updateText($newtext, $changelog)
     {
         throw new Wicked_Exception(_("Unsupported"));
     }

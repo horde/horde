@@ -7,20 +7,25 @@
  * @category Horde
  * @package  Test
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Test
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Test
  */
 
 /**
  * A test helper for generating complex test setups.
+ *
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @since Horde_Test 1.2.0
  *
  * @category Horde
  * @package  Test
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Test
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Test
  */
 class Horde_Test_Setup
 {
@@ -76,13 +81,20 @@ class Horde_Test_Setup
     public function setup($params)
     {
         foreach ($params as $interface => $setup) {
+            if (is_array($setup)) {
+                $factory = $setup['factory'];
+                $method = isset($setup['method']) ? $setup['method'] : 'create';
+            } else {
+                $factory = $setup;
+                $method = 'create';
+            }
             if (!empty($this->_error)) {
                 break;
             }
             $this->add(
                 $interface,
-                $setup['factory'],
-                $setup['method'],
+                $factory,
+                $method,
                 isset($setup['params']) ? $setup['params'] : array()
             );
         }

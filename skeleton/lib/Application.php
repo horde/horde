@@ -44,6 +44,7 @@ class Skeleton_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
+        $GLOBALS['injector']->bindFactory('Skeleton_Driver', 'Skeleton_Factory_Driver', 'create');
     }
 
     /**
@@ -52,5 +53,4 @@ class Skeleton_Application extends Horde_Registry_Application
     {
         $menu->add(Horde::url('list.php'), _("List"), 'user.png');
     }
-
 }

@@ -72,7 +72,7 @@ class Wicked_Page_RevertPage extends Wicked_Page {
 <input type="hidden" name="referrer" value="<?php echo htmlspecialchars($page->pageName()) ?>" />
 
 <h1 class="header">
- <?php echo _("Revert Page") . ': ' . Horde::link($page->pageUrl(), $page->pageName(), 'header') . $page->pageName() . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
+ <?php echo _("Revert Page") . ': ' . Horde::link($page->pageUrl(), $page->pageName()) . $page->pageName() . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
 </h1>
 
 <div class="headerbox" style="padding:4px">
@@ -114,9 +114,7 @@ class Wicked_Page_RevertPage extends Wicked_Page {
                 Wicked::url($this->referrer(), true)->redirect();
             }
             $oldpage = Wicked_Page::getPage($this->referrer(), $version);
-            $minor = substr($page->version(), 0, strpos($page->version(), '.')) ==
-                substr($oldpage->version(), 0, strpos($oldpage->version(), '.'));
-            $page->updateText($oldpage->getText(), 'Revert', $minor);
+            $page->updateText($oldpage->getText(), 'Revert');
             $notification->push(sprintf(_("Reverted to version %s of \"%s\"."), $version, $page->pageName()));
             Wicked::url($page->pageName(), true)->redirect();
         }

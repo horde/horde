@@ -568,10 +568,12 @@ var DimpCompose = {
             break
 
         case 'reply_all':
+            $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(DIMP.text_compose.replyall.sub('%d', opts.reply_recip));
             $('noticerow', 'replyallnotice').invoke('show');
             break
 
         case 'reply_list':
+            $('replylistnotice').down('SPAN.replyListNoticeId').setText(opts.reply_list_id ? (' (' + opts.reply_list_id + ')') : '');
             $('noticerow', 'replylistnotice').invoke('show');
             break;
         }

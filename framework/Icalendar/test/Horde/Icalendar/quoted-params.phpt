@@ -28,7 +28,7 @@ echo $attr[0]['CN'];
 --EXPECT--
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//The Horde Project//Horde iCalendar Library//EN
+PRODID:-//Horde LLC//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:20041120-8550-innerjoin-org

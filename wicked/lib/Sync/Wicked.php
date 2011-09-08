@@ -9,9 +9,6 @@
  */
 
 /**
- * Wicked_Driver:: defines an API for implementing storage backends for
- * Wicked.
- *
  * @author  Duck <duck@obala.net>
  * @package Wicked
  */
@@ -101,13 +98,12 @@ class Wicked_Sync_Wicked extends Wicked_Sync
      * @param string $pagename Page to edit
      * @param string $text Page content
      * @param string $changelog Description of the change
-     * @param boolean $minorchange True if this is a minor change
      *
      * @throws Wicked_Exception
      */
-    public function editPage($pagename, $text, $changelog = '', $minorchange = false)
+    public function editPage($pagename, $text, $changelog = '')
     {
-        $this->_getData('edit', array($pagename, $text, $changelog, $minorchange));
+        $this->_getData('edit', array($pagename, $text, $changelog));
     }
 
     /**

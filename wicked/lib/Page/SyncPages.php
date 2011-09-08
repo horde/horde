@@ -70,8 +70,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
         foreach ($session->get('wicked', 'sync_pages/') as $pageName => $info) {
             if (!$wicked->pageExists($pageName)) {
                 $new_remote[$pageName] = array(
-                    'page_majorversion' => $info['page_majorversion'],
-                    'page_minorversion' => $info['page_minorversion'],
+                    'page_version' => $info['page_version'],
                     'page_checksum' => $info['page_checksum'],
                     'version_created' => $info['version_created'],
                     'change_author' => $info['change_author'],
@@ -89,8 +88,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
             }
             $page = Wicked_Page::getPage($pageName);
             $new_local[$pageName] = array(
-                'page_majorversion' => $page->_page['page_majorversion'],
-                'page_minorversion' => $page->_page['page_minorversion'],
+                'page_version' => $page->_page['page_version'],
                 'page_checksum' => md5($page->getText()),
                 'version_created' => $page->_page['version_created'],
                 'change_author' => $page->_page['change_author'],
@@ -306,8 +304,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
     {
         $page = Wicked_Page::getPage($pageName);
         return array(
-            'page_majorversion' => $page->_page['page_majorversion'],
-            'page_minorversion' => $page->_page['page_minorversion'],
+            'page_version' => $page->_page['page_version'],
             'page_checksum' => md5($page->getText()),
             'version_created' => $page->_page['version_created'],
             'change_author' => $page->_page['change_author'],
@@ -352,7 +349,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
                 $GLOBALS['notification']->push(_("No changes made"), 'horde.message');
                 return;
             }
-            $page->updateText($text, _("Downloaded from remote server"), true);
+            $page->updateText($text, _("Downloaded from remote server"));
         } catch (Wicked_Exception $e) {
             // Maybe the page does not exists, if not create it
             if ($GLOBALS['wicked']->pageExists($pageName)) {

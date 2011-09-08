@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Core
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
  */
 
 /**
  * A Horde_Injector:: based factory for creating Horde_Db_Adapter objects.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Core
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
  */
 class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
@@ -159,11 +159,8 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             $ob = new $class($config);
 
             if (!isset($config['cache'])) {
-                $cacheConfig = $this->getConfig('cache');
-                unset($cacheConfig['umask']);
-                $cacheConfig['cache'] = false;
                 $injector = $this->_injector->createChildInjector();
-                $injector->setInstance('Horde_Db_Adapter', $this->createDb($cacheConfig));
+                $injector->setInstance('Horde_Db_Adapter', $ob);
                 $cacheFactory = $this->_injector->getInstance('Horde_Core_Factory_Cache');
                 $cache = $cacheFactory->create($injector);
                 $ob->setCache($cache);

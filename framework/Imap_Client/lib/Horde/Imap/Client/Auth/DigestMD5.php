@@ -5,12 +5,12 @@
  * still is in use on legacy servers.
  *
  * Copyright (c) 2002-2003 Richard Heyes
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * @author   Richard Heyes <richard@php.net>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  *
  * This code is based on the original code contained in the PEAR Auth_SASL

@@ -346,7 +346,7 @@ var DimpCore = {
         } else {
             args.uids.get('dataob').each(function(d) {
                 params.mailbox = d.view.base64urlEncode();
-                params.uid = d.imapuid;
+                params.uid = d.uid;
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
             }, this);
         }
@@ -446,8 +446,12 @@ var DimpCore = {
             offset: elt.up(),
             type: t
         });
+    },
 
-        return elt;
+    addPopdownButton: function(p, t, trigger, d)
+    {
+        this.addPopdown(p, t, trigger, d);
+        $(p).next('SPAN.popdown').insert({ before: new Element('SPAN', { className: 'popdownSep' }) });
     },
 
     addContextMenu: function(p)

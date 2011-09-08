@@ -1981,7 +1981,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         } else {
             $search = Horde_Serialize::unserialize($this->_vars->search, Horde_Serialize::JSON);
             $args += array(
-                'search_uid' => isset($search->imapuid) ? $search->imapuid : null,
+                'search_uid' => isset($search->uid) ? $search->uid : null,
                 'search_unseen' => isset($search->unseen) ? $search->unseen : null
             );
         }

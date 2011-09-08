@@ -244,8 +244,8 @@ var DimpMessage = {
         if (DIMP.conf.disable_compose) {
             $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
-            DimpCore.addPopdown('reply_link', 'replypopdown');
-            DimpCore.addPopdown('forward_link', 'forwardpopdown');
+            DimpCore.addPopdownButton('reply_link', 'replypopdown');
+            DimpCore.addPopdownButton('forward_link', 'forwardpopdown');
         }
 
         /* Set up address linking. */
