@@ -20,7 +20,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Add shortcuts to get MIME decoded envelope information.
 * [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
@@ -222,7 +222,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Add PHPUnit test framework.
 * Added constants for RFC-defined flags.
@@ -247,7 +247,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fix client-side sorting using envelope data.
 * Workaround PHP &lt; 5.2.6 (broken stream handling) (Bug #9644).
@@ -264,7 +264,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
 * [mms] Use UIDPLUS results to copy cached data to new mailbox when copying messags.
@@ -281,7 +281,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
 * Provide way to indicate mailboxes that should not have FETCH data cached.
@@ -297,7 +297,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
 * [mms] Fixes for IMAP servers that support CONDSTORE but disable MODSEQs in mialboxes (Bug #9796).
@@ -315,7 +315,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-20</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Work around broken IMAP servers that send EXISTS data in EXPUNGE response (Bug #9915).
 * [mms] Work around broken ESEARCH on Cyrus (Bug #9842).
@@ -334,7 +334,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-21</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Return cloned objects from Data results, to prevent issues when caching (Bug #9931).
 * Optimize listing subscribed mailboxes for certain queries.
@@ -350,7 +350,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-21</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Return cloned objects from Data results, to prevent issues when caching (Bug #9931).
 * Optimize listing subscribed mailboxes for certain queries.
@@ -366,7 +366,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Filter CAPABILITY return if sent in response code (Bug #9976).
 * [mms] Correctly limit FETCH results when specifying changedsince or vanished options and all requested fetch data is already cached.
@@ -383,7 +383,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-11</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix OVERQUOTA Exception error constant (Bug #10068; Felipe Zipitría &lt;fzipi@fing.edu.uy&gt;).
 * [mms] Correctly return PERMANENTFLAGS information if missing in server return.
@@ -401,7 +401,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-25</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix changedsince FETCH results when no cacheable fields were present in query.
 * [mms] Fix/optimize updating Sequence -&gt; UID list when processing EXPUNGEs (Bug #10097).
@@ -421,7 +421,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Support response code for POP3 servers (RFC 2449/3206).
 * [mms] Enable cache support for POP3 Socket driver (FETCH data only).
@@ -437,7 +437,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix re-subscribing to child mailboxes of a renamed mailbox (Bug #10212).
 * [mms] Fix base subject generation under RFC 5256 [2.1].
@@ -451,7 +451,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix stripping attachments from mailboxes with non-ascii names.
 * [mjr] Fix incorrect method name in Pop3 Socket driver.
@@ -465,7 +465,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix OR search if first search element contains more than one search criteria (Bug #10404).
 * [mms] Fix invalid IMAP command being sent if a changedsince search was empty.
@@ -479,7 +479,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-09</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in POP3 Socket driver that caused incorrect parsing of server data (Bug #10417).
    </notes>
@@ -492,7 +492,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-17</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix typo that prevented deletion of messages on POP3 servers (Bug #10424).
    </notes>
@@ -505,7 +505,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-23</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix rare race condition that may cause FETCH requests in the IMAP Socket driver to return empty results (Bug #10434).
    </notes>
@@ -518,7 +518,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add support for CRAM-SHA1 and CRAM-SHA256 authentication (available in Courier SASL library).
 * [mms] Remove dependency on Auth_SASL for CRAM-MD5 authentication.
@@ -533,7 +533,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Remove dependency on Auth_SASL.
    </notes>
@@ -546,7 +546,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-09-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add shortcuts to get MIME decoded envelope information.
 * [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
