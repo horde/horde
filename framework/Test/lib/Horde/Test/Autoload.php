@@ -2,12 +2,19 @@
 /**
  * Reduced Horde Autoloader for test suites.
  *
- * @author     Jan Schneider <jan@horde.org>
- * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @category   Horde
- * @package    Test
- * @subpackage UnitTests
+ * PHP version 5
+ *
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category Horde
+ * @package  Test
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Test
  */
 $autoloaders = spl_autoload_functions();
 if (!empty($autoloaders)) {

@@ -2,11 +2,14 @@
 /**
  * Horde base test suite
  *
- * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @category   Horde
- * @package    Test
- * @subpackage UnitTests
+ * PHP version 5
+ *
+ * @category Horde
+ * @package  Test
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Test
  */
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
@@ -16,8 +19,19 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'PHPUnit/Autoload.php';
 
 /**
- * @package    Test
- * @subpackage UnitTests
+ * Horde base test suite
+ *
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category Horde
+ * @package  Test
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Test
  */
 class Horde_Test_AllTests
 {
