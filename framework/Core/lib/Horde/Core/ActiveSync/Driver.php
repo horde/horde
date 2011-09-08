@@ -12,12 +12,12 @@
  * Created   :   09.03.2009
  *
  * (c) Holger de Carne holger@carne.de
- * This file is distributed under GPL v2.
+ * This file is distributed under GPL-2.0.
  * Consult LICENSE file for details
  *
  * All other changes are:
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Core

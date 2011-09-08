@@ -3,10 +3,10 @@
  * Wrapper for Horde_Cli that adds functionality specific to Horde
  * applications.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @todo Extend Horde_Cli when we can use LSB of PHP 5.3 in Horde_Cli::init().
  *
