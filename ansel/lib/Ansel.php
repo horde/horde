@@ -854,16 +854,82 @@ class Ansel
     static public function initJSVariables()
     {
         if (!$GLOBALS['browser']->isMobile()) {
-            $config = array(
+            $code['conf'] = array(
                 'BASE_URI' => (string)Horde::url(
                     '',
                     true,
                     array(
                         'app' => 'ansel',
                         'append_session' => -1)));
-            Horde::addInlineJsVars(
-                array('var Ansel' => array('ajax' => new stdClass, 'widgets' => new stdClass, 'conf' => $config)));
+
+            // IF
+            $code['conf']['maps'] = $GLOBALS['conf']['maps'];
+            $code['conf']['pixeluri'] = (string)Horde::getServiceLink('pixel', 'ansel');
+            $code['conf']['markeruri'] = (string)Horde_Themes::img('map/marker.png');
+            $code['conf']['markerBackground'] = (string)Horde_Themes::img('map/marker-shadow.png');
+            $code['ajax'] = new stdClass();
+            $code['widgets'] = new stdClass();
+            Horde::addInlineJsVars(array(
+                'var Ansel' => $code));
         }
+    }
+
+   /**
+     * Initialize the map.
+     *
+     * @TODO: Horde 5 - move this to a method in either Core or a new Horde_Map
+     *        framework pacakge.
+     * @param array $params Parameters to pass the the map
+     *
+     * @return void
+     */
+    static public function initHordeMap($params)
+    {
+        if (empty($params['providers'])) {
+            $params['providers'] = $GLOBALS['conf']['maps']['providers'];
+        }
+        $language = $GLOBALS['language'];
+        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/' . $language . '.js')) {
+            $language = 'en-US';
+        }
+        $params['conf'] = array(
+            'language' => $language
+        );
+        $params['driver'] = 'Horde';
+        foreach ($params['providers'] as $layer) {
+            switch ($layer) {
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                break;
+            case 'Cloudmade':
+                $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
+                break;
+            case 'Mytopo':
+                $params['conf']['apikeys']['mytopo'] = $GLOBALS['conf']['api']['mytopo'];
+            }
+        }
+
+        if (!empty($params['geocoder'])) {
+            switch ($params['geocoder']) {
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                break;
+            case 'Cloudmade':
+                $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
+                break;
+            }
+        }
+        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
+        Horde::addScriptFile('map/map.js', 'horde');
+        Horde::addScriptFile('map.js');
+        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
+        Horde::addinlineScript($js);
     }
 
 }
