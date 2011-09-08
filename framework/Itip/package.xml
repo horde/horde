@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:28:35</time>
+ <date>2011-09-08</date>
+ <time>22:56:16</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -32,6 +32,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Itip">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Itip -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Itip">
@@ -354,7 +361,6 @@
      </dir> <!-- /test/Horde/Itip -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="COPYING" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -383,6 +389,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Itip/COPYING" />
    <install as="Horde/Itip.php" name="lib/Horde/Itip.php" />
    <install as="Horde/Itip/Event.php" name="lib/Horde/Itip/Event.php" />
    <install as="Horde/Itip/Exception.php" name="lib/Horde/Itip/Exception.php" />
@@ -495,8 +502,7 @@
    <install as="Horde/Itip/Stub/Identity.php" name="test/Horde/Itip/Stub/Identity.php" />
    <install as="Horde/Itip/Unit/Event/VeventTest.php" name="test/Horde/Itip/Unit/Event/VeventTest.php" />
    <install as="Horde/Itip/Unit/Response/Type/BaseTest.php" name="test/Horde/Itip/Unit/Response/Type/BaseTest.php" />
-   <install as="COPYING" name="COPYING" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -605,7 +611,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-09-08</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL-2.1</license>
    <notes>
 * 

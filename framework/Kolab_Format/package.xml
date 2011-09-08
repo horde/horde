@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-08-11</date>
- <time>12:09:25</time>
+ <date>2011-09-08</date>
+ <time>22:56:22</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -35,6 +35,7 @@
         <file name="event.php" role="doc" />
         <file name="new_type.php" role="doc" />
        </dir> <!-- /doc/Horde/Kolab/Format/examples -->
+       <file name="COPYING" role="doc" />
        <file name="TODO" role="doc" />
        <file name="usage.txt" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/Format -->
@@ -138,7 +139,6 @@
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="COPYING" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -189,7 +189,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="COPYING" name="COPYING" />
+   <install as="COPYING" name="doc/Horde/Kolab/Format/COPYING" />
    <install as="TODO" name="doc/Horde/Kolab/Format/TODO" />
    <install as="usage.txt" name="doc/Horde/Kolab/Format/usage.txt" />
    <install as="examples/event.php" name="doc/Horde/Kolab/Format/examples/event.php" />
@@ -350,7 +350,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-11</date>
+   <date>2011-09-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
