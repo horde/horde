@@ -20,7 +20,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [jan] Update Latvian translation.
  </notes>
@@ -202,7 +202,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-10</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -217,7 +217,7 @@
     <api>beta</api>
    </stability>
    <date>2011-06-30</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Latvian translation.
    </notes>
