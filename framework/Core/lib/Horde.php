@@ -499,6 +499,7 @@ HTML;
      * 'login'
      * 'logintasks'
      * 'logout'
+     * 'pixel'
      * 'portal'
      * 'problem'
      * 'sidebar'
@@ -551,6 +552,9 @@ HTML;
 
         case 'logout':
             return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
+
+        case 'pixel':
+            return self::url('services/images/pixel.php', false, $opts);
 
         case 'prefs':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
