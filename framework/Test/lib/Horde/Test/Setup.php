@@ -76,13 +76,20 @@ class Horde_Test_Setup
     public function setup($params)
     {
         foreach ($params as $interface => $setup) {
+            if (is_array($setup)) {
+                $factory = $setup['factory'];
+                $method = isset($setup['method']) ? $setup['method'] : 'create';
+            } else {
+                $factory = $setup;
+                $method = 'create';
+            }
             if (!empty($this->_error)) {
                 break;
             }
             $this->add(
                 $interface,
-                $setup['factory'],
-                $setup['method'],
+                $factory,
+                $method,
                 isset($setup['params']) ? $setup['params'] : array()
             );
         }

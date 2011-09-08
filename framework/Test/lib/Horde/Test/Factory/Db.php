@@ -42,7 +42,7 @@ class Horde_Test_Factory_Db
      *
      * @return Horde_Db_Adapter_Pdo_Sqlite The DB adapter.
      */
-    public function createInMemorySqlite($params = array())
+    public function create($params = array())
     {
         if (!extension_loaded('pdo') ||
             !in_array('sqlite', PDO::getAvailableDrivers())) {

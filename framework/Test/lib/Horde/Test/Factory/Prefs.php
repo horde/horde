@@ -40,7 +40,7 @@ class Horde_Test_Factory_Prefs
      *
      * @return Horde_Prefs The test service.
      */
-    public function createNull($params)
+    public function create($params)
     {
         if (!class_exists('Horde_Prefs')) {
             throw new Horde_Test_Exception('The "Horde_Prefs" class is unavailable!');

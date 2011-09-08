@@ -48,17 +48,10 @@ class Nag_Unit_Nag_KolabTest extends Nag_Unit_Nag_Base
         self::$setup = new Horde_Test_Setup();
         self::$setup->setup(
             array(
-                'Horde_Perms' => array(
-                    'factory' => 'Perms',
-                    'method' => 'Null',
-                ),
-                'Horde_Group' => array(
-                    'factory' => 'Group',
-                    'method' => 'Mock',
-                ),
+                'Horde_Perms' => 'Perms',
+                'Horde_Group' => 'Group',
                 'Horde_Kolab_Storage' => array(
                     'factory' => 'KolabStorage',
-                    'method' => 'Empty',
                     'params' => array(
                         'user' => 'test@example.com',
                         'imapuser' => 'test',

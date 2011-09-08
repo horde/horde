@@ -34,7 +34,7 @@ class Horde_Test_Factory_Perms
      *
      * @return Horde_Perms_Null The test service.
      */
-    public function createNull()
+    public function create()
     {
         if (!class_exists('Horde_Perms_Null')) {
             throw new Horde_Test_Exception('The "Horde_Perms_Null" class is unavailable!');

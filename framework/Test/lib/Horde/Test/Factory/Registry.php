@@ -40,7 +40,7 @@ class Horde_Test_Factory_Registry
      *
      * @return Horde_Test_Stub_Registry The test registry.
      */
-    public function createStub($params)
+    public function create($params)
     {
         return new Horde_Test_Stub_Registry($params['user'], $params['app']);
     }

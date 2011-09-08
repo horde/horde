@@ -40,7 +40,7 @@ class Horde_Test_Factory_KolabStorage
      *
      * @return Horde_Share_Sqlng The share setup.
      */
-    public function createEmpty($params)
+    public function create($params)
     {
         if (!class_exists('Horde_Kolab_Storage_Factory')) {
             throw new Horde_Test_Exception('The "Horde_Kolab_Storage_Factory" class is unavailable!');

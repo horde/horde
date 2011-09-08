@@ -57,7 +57,7 @@ class Horde_Test_Factory_Share
      *
      * @return Horde_Share_Sqlng The share setup.
      */
-    public function createSqlng($params)
+    public function create($params)
     {
         $shares = $this->_createShares('Horde_Share_Sqlng', $params);
         try {

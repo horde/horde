@@ -33,17 +33,10 @@ class Nag_Unit_Nag_Sql_Base extends Nag_Unit_Nag_Base
     {
         self::$setup->setup(
             array(
-                'Horde_Perms' => array(
-                    'factory' => 'Perms',
-                    'method' => 'Null',
-                ),
-                'Horde_Group' => array(
-                    'factory' => 'Group',
-                    'method' => 'Mock',
-                ),
+                'Horde_Perms' => 'Perms',
+                'Horde_Group' => 'Group',
                 'Horde_Share_Base' => array(
                     'factory' => 'Share',
-                    'method' => 'Sqlng',
                     'params' => array(
                         'user' => 'test@example.com',
                         'app' => 'nag'

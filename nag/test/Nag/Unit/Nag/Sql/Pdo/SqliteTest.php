@@ -43,7 +43,6 @@ class Nag_Unit_Nag_Sql_Pdo_SqliteTest extends Nag_Unit_Nag_Sql_Base
             array(
                 'Horde_Db_Adapter' => array(
                     'factory' => 'Db',
-                    'method' => 'InMemorySqlite',
                     'params' => array(
                         'migrations' => array(
                             'migrationsPath' => dirname(__FILE__) . '/../../../../../../migration',

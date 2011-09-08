@@ -44,7 +44,6 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
             array(
                 'Horde_Prefs' => array(
                     'factory' => 'Prefs',
-                    'method' => 'Null',
                     'params' => array(
                         'user' => 'test@example.com',
                         'app' => 'nag'
@@ -52,7 +51,6 @@ class Nag_Unit_Nag_Base extends Nag_TestCase
                 ),
                 'Horde_Registry' => array(
                     'factory' => 'Registry',
-                    'method' => 'Stub',
                     'params' => array(
                         'user' => 'test@example.com',
                         'app' => 'nag'

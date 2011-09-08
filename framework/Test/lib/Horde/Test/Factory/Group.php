@@ -34,7 +34,7 @@ class Horde_Test_Factory_Group
      *
      * @return Horde_Group_Mock The mock service.
      */
-    public function createMock()
+    public function create()
     {
         if (!class_exists('Horde_Group_Mock')) {
             throw new Horde_Test_Exception('The "Horde_Group_Mock" class is unavailable!');
