@@ -40,8 +40,13 @@ HordeMap.Map.Horde = Class.create({
     {
         // defaults
         var o = {
+            useMarkerLayer: false,
+            draggableFeatures: true,
             showLayerSwitcher: true,
+            markerLayerTitle: 'Markers',
             delayed: false,
+            panzoom: true,
+            zoomworldicon: true,
             layers: []
         };
         this.opts = Object.extend(o, opts || {});
@@ -57,15 +62,20 @@ HordeMap.Map.Horde = Class.create({
             maxResolution: 156543.0339,
             maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
 
-            // @TODO: configurable (allow smaller zoom control etc...
             // @TODO: custom LayerSwitcher control?
-            controls: [new OpenLayers.Control.PanZoomBar({ 'zoomWorldIcon': true }),
-                       new OpenLayers.Control.Navigation(),
-                       new OpenLayers.Control.Attribution()],
+            controls: [
+                new OpenLayers.Control.Navigation(),
+                new OpenLayers.Control.Attribution()
+            ],
 
            fallThrough: false
         };
 
+        if (this.opts.panzoom) {
+            options.controls.push(new OpenLayers.Control.PanZoomBar({ 'zoomWorldIcon': this.opts.zoomworldicon }));
+        } else {
+            options.controls.push(new OpenLayers.Control.ZoomPanel({ 'zoomWorldIcon': this.opts.zoomworldicon }));
+        }
         // Set the language to use
         OpenLayers.Lang.setCode(HordeMap.conf.language);
         this.map = new OpenLayers.Map((this.opts.delayed ? null : this.opts.elt), options);
@@ -86,15 +96,22 @@ HordeMap.Map.Horde = Class.create({
                 backgroundGraphicZIndex: 10,
                 pointRadius: 10
             });
-            this.markerLayer = new OpenLayers.Layer.Vector("Markers",
+            this.markerLayer = new OpenLayers.Layer.Vector(
+                this.opts.markerLayerTitle,
                 {
                     'styleMap': styleMap,
                     'rendererOptions': {yOrdering: true}
                 });
 
-            var dragControl = new OpenLayers.Control.DragFeature(this.markerLayer, { onComplete: this.opts.markerDragEnd });
-            this.map.addControl(dragControl);
-            dragControl.activate();
+            if (this.opts.draggableFeatures) {
+                var dragControl = new OpenLayers.Control.DragFeature(
+                    this.markerLayer,
+                    { onComplete: this.opts.markerDragEnd });
+
+                this.map.addControl(dragControl);
+                dragControl.activate();
+            }
+
             this.opts.layers.push(this.markerLayer);
         }
         this.map.addLayers(this.opts.layers);
@@ -188,7 +205,7 @@ HordeMap.Map.Horde = Class.create({
      */
     addMarker: function(p, opts)
     {
-        opts = Object.extend({'styleCallback': Prototype.K }, opts);
+        opts = Object.extend({ 'styleCallback': Prototype.K }, opts);
         var ll = new OpenLayers.Geometry.Point(p.lon, p.lat);
         ll.transform(this._proj, this.map.getProjectionObject());
         s = opts.styleCallback(this.markerLayer.style);
