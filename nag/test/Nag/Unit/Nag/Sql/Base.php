@@ -31,27 +31,7 @@ class Nag_Unit_Nag_Sql_Base extends Nag_Unit_Nag_Base
 {
     public static function setUpBeforeClass()
     {
-        self::$setup->setup(
-            array(
-                'Horde_Perms' => 'Perms',
-                'Horde_Group' => 'Group',
-                'Horde_Share_Base' => array(
-                    'factory' => 'Share',
-                    'params' => array(
-                        'user' => 'test@example.com',
-                        'app' => 'nag'
-                    ),
-                ),
-            )
-        );
-        self::$setup->makeGlobal(
-            array(
-                'nag_shares' => 'Horde_Share_Base',
-            )
-        );
-
-        $GLOBALS['conf']['tasklists']['driver'] = 'default';
-
         parent::setUpBeforeClass();
+        self::createSqlShares(self::$setup);
     }
 }

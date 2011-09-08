@@ -38,24 +38,12 @@ class Nag_Unit_Driver_Sql_Pdo_SqliteTest extends Nag_Unit_Driver_Sql_Base
 
     static public function setUpBeforeClass()
     {
-        self::$callback = array('Nag_Unit_Driver_Sql_Pdo_SqliteTest', 'getDb');
+        self::$callback = array(__CLASS__, 'getDb');
         parent::setUpBeforeClass();
     }
 
     static protected function getDb()
     {
-        self::$setup->setup(
-            array(
-                'Horde_Db_Adapter' => array(
-                    'factory' => 'Db',
-                    'params' => array(
-                        'migrations' => array(
-                            'migrationsPath' => dirname(__FILE__) . '/../../../../../../migration',
-                            'schemaTableName' => 'nag_test_schema'
-                        )
-                    )
-                ),
-            )
-        );
+        self::createSqlPdoSqlite(self::$setup);
     }
 }

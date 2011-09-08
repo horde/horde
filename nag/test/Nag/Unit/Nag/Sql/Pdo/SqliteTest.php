@@ -39,19 +39,7 @@ class Nag_Unit_Nag_Sql_Pdo_SqliteTest extends Nag_Unit_Nag_Sql_Base
     public static function setUpBeforeClass()
     {
         self::$setup = new Horde_Test_Setup();
-        self::$setup->setup(
-            array(
-                'Horde_Db_Adapter' => array(
-                    'factory' => 'Db',
-                    'params' => array(
-                        'migrations' => array(
-                            'migrationsPath' => dirname(__FILE__) . '/../../../../../../migration',
-                            'schemaTableName' => 'nag_test_schema'
-                        )
-                    )
-                ),
-            )
-        );
+        self::createSqlPdoSqlite(self::$setup);
         parent::setUpBeforeClass();
     }
 }

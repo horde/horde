@@ -35,27 +35,7 @@ class Nag_Unit_Driver_Sql_Base extends Nag_Unit_Driver_Base
     {
         parent::setUpBeforeClass();
         self::getDb();
-        self::$setup->getInjector()->setInstance(
-            'Horde_Core_Factory_Db',
-            new Nag_Stub_DbFactory(
-                self::$setup->getInjector()->getInstance(
-                    'Horde_Db_Adapter'
-                )
-            )
-        );
-        self::$setup->setup(
-            array(
-                'Horde_Share_Base' => 'Share'
-            )
-        );
-        self::$setup->makeGlobal(
-            array(
-                'nag_shares' => 'Horde_Share_Base',
-            )
-        );
-
-        $GLOBALS['conf']['tasklists']['driver'] = 'default';
-
+        self::createSqlShares(self::$setup);
         list($share, $other_share) = self::_createDefaultShares();
         self::$driver = new Nag_Driver_Sql(
             $share->getName(), array('charset' => 'UTF-8')

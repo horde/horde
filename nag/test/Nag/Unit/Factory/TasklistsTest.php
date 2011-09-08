@@ -36,36 +36,7 @@ class Nag_Unit_Factory_TasklistsTest extends Nag_TestCase
 {
     public function setUp()
     {
-        $setup = new Horde_Test_Setup();
-        $setup->setup(
-            array(
-                '_PARAMS' => array(
-                    'user' => 'test@example.com',
-                    'app' => 'nag'
-                ),
-                'Horde_Prefs' => 'Prefs',
-                'Horde_Perms' => 'Perms',
-                'Horde_Group' => 'Group',
-                'Horde_Registry' => 'Registry',
-                'Horde_Kolab_Storage' => array(
-                    'factory' => 'KolabStorage',
-                    'params' => array(
-                        'imapuser' => 'test',
-                    )
-                ),
-                'Horde_Share_Base' => array(
-                    'factory' => 'Share',
-                    'method' => 'Kolab',
-                ),
-            )
-        );
-        $setup->makeGlobal(
-            array(
-                'prefs' => 'Horde_Prefs',
-                'registry' => 'Horde_Registry',
-                'nag_shares' => 'Horde_Share_Base',
-            )
-        );
+        $setup = self::createKolabSetup();
         $error = $setup->getError();
         if (!empty($error)) {
             $this->markTestSkipped($error);
