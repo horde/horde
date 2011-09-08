@@ -25,7 +25,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 *
  </notes>
@@ -291,7 +291,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
     * Fix quoting when delivering to Dovecot.
     * kolab/issue973 (Rewritten from shown inconveniently in kontact)
@@ -311,7 +311,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
     * LDAP errors should be marked as temporary failures.
     * kolab/issue3464 (kolab-filter inserts double encoded utf-8 code
@@ -345,7 +345,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
     * Added french translation. Submitted by Mathieu Parent
       (mathieuparent@users.sourceforge.net).
@@ -376,7 +376,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
     * Resources with policy "always accept" do not work if domain != kolabhost
       (kolab/issue3441, https://www.intevation.de/roundup/kolab/issue3441)
@@ -403,7 +403,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
     * Fixed log location for fatal errors (kolab/issue3426,
       https://www.intevation.de/roundup/kolab/issue3426)
@@ -430,7 +430,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
     * Fixed Dovecot delivery.
     * Fixed copyright information.
@@ -446,7 +446,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
     * kolab/issue3260 (kolabfilter does not allow empty sender (and therefore
       MAILER-DAEMON))
@@ -465,7 +465,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
      * Fixed retrival of the user data.
      * Corrected some minor errors from restructuring the package.
@@ -481,7 +481,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
      * Preparations for an initial release.
    </notes>

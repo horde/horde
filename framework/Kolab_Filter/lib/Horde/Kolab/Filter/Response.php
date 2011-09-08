@@ -30,7 +30,7 @@ define('EX_CONFIG', 78);      /* local configuration error */
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
