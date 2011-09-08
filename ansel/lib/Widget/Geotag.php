@@ -246,7 +246,8 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
 
             doMap: function() {
                 AnselMap.ensureMap('ansel_map');
-                AnselMap.ensureMap('ansel_map_small');
+                var m =AnselMap.ensureMap('ansel_map_small');
+
                 for (var i = 0; i < this.images.length; i++) {
                     AnselMap.placeMapMarker(
                         'ansel_map',
@@ -268,6 +269,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                         null
                     );
                 }
+                 m.setCenter({'lat': this.images[0].image_latitude, 'lon': 0}, 1);
 //                this.map.getLocationCallback_ = this.map.getLocationCallback;
 //                this.map.getLocationCallback = function(points, marker) {
 //                    this.map.getLocationCallback_(points, marker, (typeof points.NoUpdate == 'undefined'));
