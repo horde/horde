@@ -494,17 +494,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @return array  An array of namespace information with the name as the
      *                key and the following values:
-     *   - delimiter: (string) The namespace delimiter.
-     *   - hidden: (boolean) Is this a hidden namespace?
-     *   - name: (string) The namespace name.
-     *   - translation: (string) Returns the translated name of the namespace.
-     *                  Requires RFC 5255 and a previous call to
-     *                  setLanguage(). The translation will be returned in
-     *                  UTF7-IMAP.
-     *   - type: (integer) The namespace type. Either:
-     *     - Horde_Imap_Client::NS_PERSONAL
-     *     - Horde_Imap_Client::NS_OTHER
-     *     - Horde_Imap_Client::NS_SHARED
+     * <ul>
+     *  <li>delimiter: (string) The namespace delimiter.</li>
+     *  <li>hidden: (boolean) Is this a hidden namespace?</li>
+     *  <li>name: (string) The namespace name.</li>
+     *  <li>translation: (string) Returns the translated name of the
+     *      namespace. Requires RFC 5255 and a previous call to setLanguage().
+     *      The translation will be returned in UTF7-IMAP.</li>
+     *  <li>
+     *   type: (integer) The namespace type. Either:
+     *   <ul>
+     *    <li>Horde_Imap_Client::NS_PERSONAL</li>
+     *    <li>Horde_Imap_Client::NS_OTHER</li>
+     *    <li>Horde_Imap_Client::NS_SHARED</li>
+     *   </ul>
+     *  </li>
+     * </ul>
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -1031,56 +1036,79 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   - Horde_Imap_Client::MBOX_UNSUBSCRIBED
      *   - Horde_Imap_Client::MBOX_ALL
      * @param array $options   Additional options:
-     *   - attributes: (boolean) If true, return attribute information under
-     *                 the 'attributes' key. The attributes will be returned
-     *                 in an array with each attribute in lowercase.
-     *                 DEFAULT: Do not return this information.
-     *   - children: (boolean) Tell server to return children attribute
-     *               information (\HasChildren, \HasNoChildren). Requires the
-     *               LIST-EXTENDED extension to guarantee this information is
-     *               returned. Server MAY return this attribute without this
-     *               option, or if the CHILDREN extension is available, but it
-     *               is not guaranteed.
-     *               DEFAULT: false
-     *   - delimiter: (boolean) If true, return delimiter information under
-     *                the 'delimiter' key.
-     *                DEFAULT: Do not return this information.
-     *   - flat: (boolean) If true, return a flat list of mailbox names only.
-     *           Overrides both the 'attributes' and 'delimiter' options.
-     *           DEFAULT: Do not return flat list.
-     *   - recursivematch: (boolean) Force the server to return information
-     *                     about parent mailboxes that don't match other
-     *                     selection options, but have some submailboxes that
-     *                     do. Information about children is returned in the
-     *                     CHILDINFO extended data item ('extended'). Requires
-     *                     the LIST-EXTENDED extension.
-     *                     DEFAULT: false
-     *   - remote: (boolean) Tell server to return mailboxes that reside on
-     *             another server. Requires the LIST-EXTENDED extension.
-     *             DEFAULT: false
-     *   - special_use: (boolean) Tell server to return special-use attribute
-     *                  information (\Drafts, \Flagged, \Junk, \Sent, \Trash,
-     *                  \All, \Archive)). Server must support the SPECIAL-USE
-     *                  return option for this setting to have any effect.
-     *                  Server MAY return this attribute without this option.
-     *                  DEFAULT: false
-     *   - status: (integer) Tell server to return status information. The
-     *             value is a bitmask that may contain the following:
-     *               - Horde_Imap_Client::STATUS_MESSAGES
-     *               - Horde_Imap_Client::STATUS_RECENT
-     *               - Horde_Imap_Client::STATUS_UIDNEXT
-     *               - Horde_Imap_Client::STATUS_UIDVALIDITY
-     *               - Horde_Imap_Client::STATUS_UNSEEN
-     *               - Horde_Imap_Client::STATUS_HIGHESTMODSEQ
-     *             Requires the LIST-STATUS extension.
-     *             DEFAULT: 0
-     *   - sort: (boolean) If true, return a sorted list of mailboxes?
-     *           DEFAULT: Do not sort the list.
-     *   - sort_delimiter: (string) If 'sort' is true, this is the delimiter
-     *                     used to sort the mailboxes.
-     *                     DEFAULT: '.'
-     *   - utf8: (boolean) True to return mailbox names in UTF-8.
-     *           DEFAULT: Names are returned in UTF7-IMAP.
+     * <ul>
+     *  <li>
+     *   attributes: (boolean) If true, return attribute information under
+     *   the 'attributes' key. The attributes will be returned in an array
+     *   with each attribute in lowercase.
+     *   DEFAULT: Do not return this information.
+     *  </li>
+     *  <li>
+     *   children: (boolean) Tell server to return children attribute
+     *   information (\HasChildren, \HasNoChildren). Requires the
+     *   LIST-EXTENDED extension to guarantee this information is returned.
+     *   Server MAY return this attribute without this option, or if the
+     *   CHILDREN extension is available, but it is not guaranteed.
+     *   DEFAULT: false
+     *  </li>
+     *  <li>
+     *   delimiter: (boolean) If true, return delimiter information under the
+     *   'delimiter' key.
+     *   DEFAULT: Do not return this information.
+     *  </li>
+     *  <li>
+     *   flat: (boolean) If true, return a flat list of mailbox names only.
+     *   Overrides both the 'attributes' and 'delimiter' options.
+     *   DEFAULT: Do not return flat list.
+     *  </li>
+     *  <li>
+     *   recursivematch: (boolean) Force the server to return information
+     *   about parent mailboxes that don't match other selection options, but
+     *   have some submailboxes that do. Information about children is
+     *   returned in the CHILDINFO extended data item ('extended'). Requires
+     *   the LIST-EXTENDED extension.
+     *   DEFAULT: false
+     *  </li>
+     *  <li>
+     *   remote: (boolean) Tell server to return mailboxes that reside on
+     *   another server. Requires the LIST-EXTENDED extension.
+     *   DEFAULT: false
+     *  </li>
+     *  <li>
+     *   special_use: (boolean) Tell server to return special-use attribute
+     *   information (\Drafts, \Flagged, \Junk, \Sent, \Trash, \All,
+     *   \Archive). Server must support the SPECIAL-USE return option for this
+     *   setting to have any effect. Server MAY return this attribute without
+     *   this option.
+     *   DEFAULT: false
+     *  <li>
+     *   status: (integer) Tell server to return status information. The
+     *   value is a bitmask that may contain any of:
+     *   <ul>
+     *    <li>Horde_Imap_Client::STATUS_MESSAGES</li>
+     *    <li>Horde_Imap_Client::STATUS_RECENT</li>
+     *    <li>Horde_Imap_Client::STATUS_UIDNEXT</li>
+     *    <li>Horde_Imap_Client::STATUS_UIDVALIDITY</li>
+     *    <li>Horde_Imap_Client::STATUS_UNSEEN</li>
+     *    <li>Horde_Imap_Client::STATUS_HIGHESTMODSEQ</li>
+     *   </ul>
+     *           Requires the LIST-STATUS extension.
+     *           DEFAULT: 0
+     *  </li>
+     *  <li>
+     *   sort: (boolean) If true, return a sorted list of mailboxes?
+     *   DEFAULT: Do not sort the list.
+     *  </li>
+     *  <li>
+     *   sort_delimiter: (string) If 'sort' is true, this is the delimiter
+     *   used to sort the mailboxes.
+     *   DEFAULT: '.'
+     *  </li>
+     *  <li>
+     *   utf8: (boolean) True to return mailbox names in UTF-8.
+     *   DEFAULT: Names are returned in UTF7-IMAP.
+     *  </li>
+     * </ul>
      *
      * @return array  If 'flat' option is true, the array values are the list
      *                of mailboxes.  Otherwise, the array values are arrays
@@ -1138,71 +1166,170 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                        method).
      * @param integer $flags  A bitmask of information requested from the
      *                        server. Allowed flags:
-     *   - Horde_Imap_Client::STATUS_MESSAGES
-     *     - Return key: messages
-     *     - Return format: (integer) The number of messages in the mailbox.
-     *   - Horde_Imap_Client::STATUS_RECENT
-     *     - Return key: recent
-     *     - Return format: (integer) The number of messages with the \Recent
-     *                      flag set
-     *   - Horde_Imap_Client::STATUS_UIDNEXT
-     *     - Return key: uidnext
-     *     - Return format: (integer) The next UID to be assigned in the
-     *                      mailbox.
-     *   - Horde_Imap_Client::STATUS_UIDVALIDITY
-     *     - Return key: uidvalidity
-     *     - Return format: (integer) The unique identifier validity of the
-     *                      mailbox.
-     *   - Horde_Imap_Client::STATUS_UNSEEN
-     *     - Return key: unseen
-     *     - Return format: (integer) The number of messages which do not have
-     *                      the \Seen flag set.
-     *   - Horde_Imap_Client::STATUS_FIRSTUNSEEN
-     *     - Return key: firstunseen
-     *     - Return format: (integer) The sequence number of the first unseen
-     *                      message in the mailbox.
-     *   - Horde_Imap_Client::STATUS_FLAGS
-     *     - Return key: flags
-     *     - Return format: (array) The list of defined flags in the mailbox
-     *                      (all flags are in lowercase).
-     *   - Horde_Imap_Client::STATUS_PERMFLAGS
-     *     - Return key: permflags
-     *     - Return format: (array) The list of flags that a client can change
-     *                      permanently (all flags are in lowercase).
-     *   - Horde_Imap_Client::STATUS_HIGHESTMODSEQ
-     *     - Return key: highestmodseq
-     *     - Return format: (integer) If the server supports the CONDSTORE
-     *                      IMAP extension, this will be the highest
-     *                      mod-sequence value of all messages in the mailbox.
-     *                      Else 0 if CONDSTORE not available or the mailbox
-     *                      does not support mod-sequences.
-     *   - Horde_Imap_Client::STATUS_LASTMODSEQ
-     *     - Return key: lastmodseq
-     *     - Return format: (integer) If the server supports the CONDSTORE
-     *                      IMAP extension, this will be the cached
-     *                      mod-sequence value of the mailbox when it was
-     *                      first opened if HIGHESTMODSEQ changed. Else 0 if
-     *                      CONDSTORE not available, the mailbox does not
-     *                      support mod-sequences, or the mod-sequence did not
-     *                      change.
-     *   - Horde_Imap_Client::STATUS_LASTMODSEQUIDS
-     *     - Return key: lastmodsequids
-     *     - Return format: (array) If the server supports the QRESYNC IMAP
-     *                      extension, this will be the list of UIDs changed
-     *                      in the mailbox when it was first opened if
-     *                      HIGHESTMODSEQ changed. Else an empty array if
-     *                      QRESYNC not available, the mailbox does not
-     *                      support mod-sequences, or the mod-sequence did not
-     *                      change.
-     *   - Horde_Imap_Client::STATUS_UIDNOTSTICKY
-     *     - Return key: uidnotsticky
-     *     - Return format: (boolean) If the server supports the UIDPLUS IMAP
-     *                      extension, and the queried mailbox does not
-     *                      support persistent UIDs, this value will be true.
-     *                      In all other cases, this value will be false.
-     *   - Horde_Imap_Client::STATUS_ALL (DEFAULT)
-     *     - Shortcut to return 'messages', 'recent', 'uidnext',
-     *       'uidvalidity', and 'unseen' values.
+     * <ul>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_MESSAGES
+     *   <ul>
+     *    <li>
+     *     Return key: messages
+     *    </li>
+     *    <li>
+     *     Return format: (integer) The number of messages in the mailbox.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_RECENT
+     *   <ul>
+     *    <li>
+     *     Return key: recent
+     *    </li>
+     *    <li>
+     *     Return format: (integer) The number of messages with the \Recent
+     *     flag set
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_UIDNEXT
+     *   <ul>
+     *    <li>
+     *     Return key: uidnext
+     *    </li>
+     *    <li>
+     *     Return format: (integer) The next UID to be assigned in the
+     *     mailbox.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_UIDVALIDITY
+     *   <ul>
+     *    <li>
+     *     Return key: uidvalidity
+     *    </li>
+     *    <li>
+     *     Return format: (integer) The unique identifier validity of the
+     *     mailbox.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_UNSEEN
+     *   <ul>
+     *    <li>
+     *     Return key: unseen
+     *    </li>
+     *    <li>
+     *     Return format: (integer) The number of messages which do not have
+     *     the \Seen flag set.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_FIRSTUNSEEN
+     *   <ul>
+     *    <li>
+     *     Return key: firstunseen
+     *    </li>
+     *    <li>
+     *     Return format: (integer) The sequence number of the first unseen
+     *     message in the mailbox.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_FLAGS
+     *   <ul>
+     *    <li>
+     *     Return key: flags
+     *    </li>
+     *    <li>
+     *     Return format: (array) The list of defined flags in the mailbox
+     *     (all flags are in lowercase).
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_PERMFLAGS
+     *   <ul>
+     *    <li>
+     *     Return key: permflags
+     *    </li>
+     *    <li>
+     *     Return format: (array) The list of flags that a client can change
+     *     permanently (all flags are in lowercase).
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_HIGHESTMODSEQ
+     *   <ul>
+     *    <li>
+     *     Return key: highestmodseq
+     *    </li>
+     *    <li>
+     *     Return format: (integer) If the server supports the CONDSTORE
+     *     IMAP extension, this will be the highest mod-sequence value of all
+     *     messages in the mailbox. Else 0 if CONDSTORE not available or the
+     *     mailbox does not support mod-sequences.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_LASTMODSEQ
+     *   <ul>
+     *    <li>
+     *     Return key: lastmodseq
+     *    </li>
+     *    <li>
+     *     Return format: (integer) If the server supports the CONDSTORE
+     *     IMAP extension, this will be the cached mod-sequence value of the
+     *     mailbox when it was first opened if HIGHESTMODSEQ changed. Else 0
+     *     if CONDSTORE not available, the mailbox does not support
+     *     mod-sequences, or the mod-sequence did not change.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_LASTMODSEQUIDS
+     *   <ul>
+     *    <li>
+     *     Return key: lastmodsequids
+     *    </li>
+     *    <li>
+     *     Return format: (array) If the server supports the QRESYNC IMAP
+     *     extension, this will be the list of UIDs changed in the mailbox
+     *     when it was first opened if HIGHESTMODSEQ changed. Else an empty
+     *     array if QRESYNC not available, the mailbox does not support
+     *     mod-sequences, or the mod-sequence did not change.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_UIDNOTSTICKY
+     *   <ul>
+     *    <li>
+     *     Return key: uidnotsticky
+     *    </li>
+     *    <li>
+     *     Return format: (boolean) If the server supports the UIDPLUS IMAP
+     *     extension, and the queried mailbox does not support persistent
+     *     UIDs, this value will be true. In all other cases, this value will
+     *     be false.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_ALL (DEFAULT)
+     *   <ul>
+     *    <li>
+     *     Shortcut to return 'messages', 'recent', 'uidnext', 'uidvalidity',
+     *     and 'unseen' values.
+     *    </li>
+     *   </ul>
+     *  </li>
+     * </ul>
      *
      * @return array  An array with the requested keys (see above).
      *
@@ -1397,24 +1524,36 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                        additional options. An array of arrays with
      *                        each embedded array having the following
      *                        entries:
-     *   - data: (mixed) The data to append. If a string or a stream resource,
-     *           this will be used as the entire contents of a single message.
-     *           If an array, will catenate all given parts into a single
-     *           message. This array contains one or more arrays with two
-     *           keys:
-     *             - t: (string) Either 'url' or 'text'.
-     *             - v: (mixed) If 't' is 'url', this is the IMAP URL to the
-     *                  message part to append. If 't' is 'text', this is
-     *                  either a string or resource representation of the
-     *                  message part data.
-     *           DEFAULT: NONE (entry is MANDATORY)
-     *   - flags: (array) An array of flags/keywords to set on the appended
-     *            message.
-     *            DEFAULT: Only the \Recent flag is set.
-     *   - internaldate: (DateTime) The internaldate to set for the appended
-     *                   message.
-     *                   DEFAULT: internaldate will be the same date as when
-     *                   the message was appended.
+     * <ul>
+     *  <li>
+     *   data: (mixed) The data to append. If a string or a stream resource,
+     *   this will be used as the entire contents of a single message. If an
+     *   array, will catenate all given parts into a single message. This
+     *   array contains one or more arrays with two keys:
+     *   <ul>
+     *    <li>
+     *     t: (string) Either 'url' or 'text'.
+     *    </li>
+     *    <li>
+     *     v: (mixed) If 't' is 'url', this is the IMAP URL to the message
+     *     part to append. If 't' is 'text', this is either a string or
+     *     resource representation of the message part data.
+     *     DEFAULT: NONE (entry is MANDATORY)
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   flags: (array) An array of flags/keywords to set on the appended
+     *   message.
+     *   DEFAULT: Only the \Recent flag is set.
+     *  </li>
+     *  <li>
+     *   internaldate: (DateTime) The internaldate to set for the appended
+     *   message.
+     *   DEFAULT: internaldate will be the same date as when the message was
+     *   appended.
+     *  </li>
+     * </ul>
      * @param array $options  Additonal options:
      *   - create: (boolean) Try to create $mailbox if it does not exist?
      *             DEFAULT: No.
@@ -1605,43 +1744,68 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                                               Defaults to an ALL
      *                                               search.
      * @param array $options                         Additional options:
-     *   - nocache: (boolean) Don't cache the results.
-     *              DEFAULT: false (results cached, if possible)
-     *   - partial: (mixed) The range of results to return (message sequence
-     *              numbers).
-     *              DEFAULT: All messages are returned.
-     *   - results: (array) The data to return. Consists of zero or more of
-     *              the following flags:
-     *              - Horde_Imap_Client::SEARCH_RESULTS_COUNT
-     *              - Horde_Imap_Client::SEARCH_RESULTS_MATCH (DEFAULT)
-     *              - Horde_Imap_Client::SEARCH_RESULTS_MAX
-     *              - Horde_Imap_Client::SEARCH_RESULTS_MIN
-     *              - Horde_Imap_Client::SEARCH_RESULTS_SAVE (This option is
-     *                currently meant for internal use only)
-     *              - Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY
-     *   - sequence: (boolean) If true, returns an array of sequence numbers.
-     *               DEFAULT: Returns an array of UIDs
-     *   - sort: (array) Sort the returned list of messages. Multiple sort
-     *           criteria can be specified. Any sort criteria can be sorted in
-     *           reverse order (instead of the default ascending order) by
-     *           adding a Horde_Imap_Client::SORT_REVERSE element to the array
-     *           directly before adding the sort element.
-     *           The following sort criteria are available:
-     *             - Horde_Imap_Client::SORT_ARRIVAL
-     *             - Horde_Imap_Client::SORT_CC
-     *             - Horde_Imap_Client::SORT_DATE
-     *             - Horde_Imap_Client::SORT_FROM
-     *             - Horde_Imap_Client::SORT_SEQUENCE
-     *             - Horde_Imap_Client::SORT_SIZE
-     *             - Horde_Imap_Client::SORT_SUBJECT
-     *             - Horde_Imap_Client::SORT_TO
-     *             - [On servers that support SORT=DISPLAY, these criteria are
-     *               also available:]
-     *               - Horde_Imap_Client::SORT_DISPLAYFROM
-     *               - Horde_Imap_Client::SORT_DISPLAYTO
-     *             - [On servers that support SEARCH=FUZZY, this criteria is
-     *               also available:]
-     *               - Horde_Imap_Client::SORT_RELEVANCY
+     * <ul>
+     *  <li>
+     *   nocache: (boolean) Don't cache the results.
+     *   DEFAULT: false (results cached, if possible)
+     *  </li>
+     *  <li>
+     *   partial: (mixed) The range of results to return (message sequence
+     *   numbers).
+     *   DEFAULT: All messages are returned.
+     *  </li>
+     *  <li>
+     *   results: (array) The data to return. Consists of zero or more of
+     *   the following flags:
+     *   <ul>
+     *    <li>Horde_Imap_Client::SEARCH_RESULTS_COUNT</li>
+     *    <li>Horde_Imap_Client::SEARCH_RESULTS_MATCH (DEFAULT)</li>
+     *    <li>Horde_Imap_Client::SEARCH_RESULTS_MAX</li>
+     *    <li>Horde_Imap_Client::SEARCH_RESULTS_MIN</li>
+     *    <li>
+     *     Horde_Imap_Client::SEARCH_RESULTS_SAVE (This option is currently
+     *     meant for internal use only)
+     *    </li>
+     *    <li>Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY</li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   sequence: (boolean) If true, returns an array of sequence numbers.
+     *   DEFAULT: Returns an array of UIDs
+     *  </li>
+     *  <li>
+     *   sort: (array) Sort the returned list of messages. Multiple sort
+     *   criteria can be specified. Any sort criteria can be sorted in reverse
+     *   order (instead of the default ascending order) by adding a
+     *   Horde_Imap_Client::SORT_REVERSE element to the array directly before
+     *   adding the sort element. The following sort criteria are available:
+     *   <ul>
+     *    <li>Horde_Imap_Client::SORT_ARRIVAL</li>
+     *    <li>Horde_Imap_Client::SORT_CC</li>
+     *    <li>Horde_Imap_Client::SORT_DATE</li>
+     *    <li>Horde_Imap_Client::SORT_FROM</li>
+     *    <li>Horde_Imap_Client::SORT_SEQUENCE</li>
+     *    <li>Horde_Imap_Client::SORT_SIZE</li>
+     *    <li>Horde_Imap_Client::SORT_SUBJECT</li>
+     *    <li>Horde_Imap_Client::SORT_TO</li>
+     *    <li>
+     *     [On servers that support SORT=DISPLAY, these criteria are also
+     *     available:]
+     *     <ul>
+     *      <li>Horde_Imap_Client::SORT_DISPLAYFROM</li>
+     *      <li>Horde_Imap_Client::SORT_DISPLAYTO</li>
+     *     </ul>
+     *    </li>
+     *    <li>
+     *     [On servers that support SEARCH=FUZZY, this criteria is also
+     *     available:]
+     *     <ul>
+     *      <li>Horde_Imap_Client::SORT_RELEVANCY</li>
+     *     </ul>
+     *    </li>
+     *   </ul>
+     *  </li>
+     * </ul>
      *
      * @return array  An array with the following keys:
      *   - count: (integer) The number of messages that match the search
@@ -1873,18 +2037,30 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                        or UTF-8 (can be object with __toString()
      *                        method).
      * @param array $options  Additional options:
-     *   - criteria: (mixed) The following thread criteria are available:
-     *     - Horde_Imap_Client::THREAD_ORDEREDSUBJECT
-     *     - Horde_Imap_Client::THREAD_REFERENCES
-     *     - Horde_Imap_Client::THREAD_REFS
-     *     - Other algorithms can be explicitly specified by passing the IMAP
-     *       thread algorithm in as a string value.
-     *     DEFAULT: Horde_Imap_Client::THREAD_ORDEREDSUBJECT
-     *   - search: (Horde_Imap_Client_Search_Query) The search query.
-     *             DEFAULT: All messages in mailbox included in thread sort.
-     *   - sequence: (boolean) If true, each message is stored and referred to
-     *               by its message sequence number.
-     *               DEFAULT: Stored/referred to by UID.
+     * <ul>
+     *  <li>
+     *   criteria: (mixed) The following thread criteria are available:
+     *   <ul>
+     *    <li>Horde_Imap_Client::THREAD_ORDEREDSUBJECT</li>
+     *    <li>Horde_Imap_Client::THREAD_REFERENCES</li>
+     *    <li>Horde_Imap_Client::THREAD_REFS</li>
+     *    <li>
+     *     Other algorithms can be explicitly specified by passing the IMAP
+     *     thread algorithm in as a string value.
+     *    </li>
+     *   </ul>
+     *   DEFAULT: Horde_Imap_Client::THREAD_ORDEREDSUBJECT
+     *  </li>
+     *  <li>
+     *   search: (Horde_Imap_Client_Search_Query) The search query.
+     *   DEFAULT: All messages in mailbox included in thread sort.
+     *  </li>
+     *  <li>
+     *   sequence: (boolean) If true, each message is stored and referred to
+     *   by its message sequence number.
+     *   DEFAULT: Stored/referred to by UID.
+     *  </li>
+     * </ul>
      *
      * @return Horde_Imap_Client_Data_Thread  A thread data object.
      *
@@ -2856,18 +3032,44 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                            literal data. The return value should be the
      *                            new value for the current command string.
      * @param array $query        An array with the following format:
-     *   - Array
-     *     - Array with keys 't' and 'v'
-     *       - t: IMAP data type (Horde_Imap_Client::DATA_* constants)
-     *       - v: Data value
-     *     - Array with only values
-     *       - Treated as a parenthesized list
-     *   - Null
-     *     - Ignored
-     *   - Resource
-     *     - Treated as literal data
-     *   - String
-     *     - Output as-is (raw)
+     * <ul>
+     *  <li>
+     *   Array
+     *   <ul>
+     *    <li>
+     *     Array with keys 't' and 'v'
+     *     <ul>
+     *      <li>t: IMAP data type (Horde_Imap_Client::DATA_* constants)</li>
+     *      <li>v: Data value</li>
+     *     </ul>
+     *    </li>
+     *    <li>
+     *     Array with only values
+     *     <ul>
+     *      <li>Treated as a parenthesized list</li>
+     *     </ul>
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Null
+     *   <ul>
+     *    <li>Ignored</li>
+     *   </ul>
+     * </li>
+     *  <li>
+     *   Resource
+     *   <ul>
+     *    <li>Treated as literal data</li>
+     *   </ul>
+     * </li>
+     *  <li>
+     *   String
+     *   <ul>
+     *    <li>Output as-is (raw)</li>
+     *   </ul>
+     *  </li>
+     * </ul>
      *
      * @return string  The command string.
      */

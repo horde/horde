@@ -763,7 +763,7 @@ var ViewPort = Class.create({
     {
         opts = opts || {};
         var cid = this.getMetaData('cacheid', opts.view),
-            params = $H(args),
+            params = $H(),
             cached, rowlist;
 
         params.update({ view: opts.view || this.view });
@@ -781,6 +781,8 @@ var ViewPort = Class.create({
         if (cached.size()) {
             params.update({ cache: Object.toJSON(cached) });
         }
+
+        params.update(args);
 
         if (this.opts.onAjaxRequest) {
             this.opts.onAjaxRequest(params);

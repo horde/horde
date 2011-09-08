@@ -19,7 +19,8 @@ Horde_Registry::appInit('wicked', array('cli' => true));
 if ($conf['storage']['driver'] != 'sql') {
     exit("You must have an SQL backend configured.\n");
 }
-$db = $wicked->_db;
+
+$db = $injector->getInstance('Wicked_Factory_Driver')->getDb($injector);
 
 // Get current charset.
 $charset = $cli->prompt('Please specify the current charset of the data',

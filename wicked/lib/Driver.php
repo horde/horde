@@ -27,7 +27,7 @@ abstract class Wicked_Driver
     protected $_vfs;
 
     /**
-     * Constructs a new Wicked driver object.
+     * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
      */
@@ -357,37 +357,4 @@ abstract class Wicked_Driver
     {
         return 'UTF-8';
     }
-
-    /**
-     * Attempts to return a concrete Wicked_Driver instance based on $driver.
-     *
-     * @param string $driver  The type of the concrete Wicked_Driver subclass
-     *                        to return.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return Wicked_Driver  The newly created concrete Wicked_Driver instance.
-     * @throws Wicked_Exception
-     */
-    public function factory($driver = null, $params = null)
-    {
-        if ($driver === null) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-        $driver = Horde_String::ucfirst(basename($driver));
-
-        if ($params === null) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-
-        $class = 'Wicked_Driver_' . $driver;
-        if (!class_exists($class)) {
-            throw new Wicked_Exception('Definition of ' . $class . ' not found.');
-        }
-
-        $wicked = new $class($params);
-        $result = $wicked->connect();
-        return $wicked;
-    }
-
 }

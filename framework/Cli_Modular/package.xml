@@ -20,7 +20,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="http://www.horde.org/licenses/lgpl">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
  <notes>
 * First beta release for Horde 4.
  </notes>
@@ -131,7 +131,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-08-30</date>
-   <license uri="http://www.horde.org/licenses/lgpl">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
    <notes>
 * Initial Horde 4 package.
    </notes>
@@ -144,7 +144,7 @@
     <release>alpha</release>
     <api>alpha</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.horde.org/licenses/lgpl">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>

@@ -175,7 +175,7 @@ $prefGroups['compose'] = array(
     )
 );
 
-// Link to add a Firefox 3 mailto: handler
+// Link to register a mailto: handler with the browser
 $_prefs['mailto_handler'] = array(
     'type' => 'special'
 );

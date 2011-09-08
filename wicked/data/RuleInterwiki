@@ -3,7 +3,7 @@
 ++ About This Rule
 
 || **Name**   || interwiki ||
-|| **Type**   || inline || 
+|| **Type**   || inline ||
 || **Syntax** normal || {{``SiteName:PageName``}} ||
 || **Syntax** described || {{[``SiteName:PageName`` Show this text instead]}}
 || **||

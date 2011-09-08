@@ -13,8 +13,8 @@
  <date>2011-09-01</date>
  <time>17:11:54</time>
  <version>
-  <release>1.0.16</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -540,8 +540,8 @@
   </release>
   <release>
    <version>
-    <release>1.0.16</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>

@@ -20,6 +20,21 @@ Horde_Registry::appInit('imp', array(
     'session_control' => 'netscape'
 ));
 
+$vars = Horde_Variables::getDefaultVariables();
+
+/* Mailto link handler: redirect based on current view. */
+if ($vars->actionID == 'mailto_link') {
+    switch (IMP::getViewMode()) {
+    case 'dimp':
+        require IMP_BASE . '/compose-dimp.php';
+        exit;
+
+    case 'mimp':
+        require IMP_BASE . '/compose-mimp.php';
+        exit;
+    }
+}
+
 $registry->setTimeZone();
 
 /* The message headers and text. */
@@ -29,8 +44,6 @@ $msg = '';
 $get_sig = true;
 $showmenu = $spellcheck = false;
 $oldrtemode = $rtemode = null;
-
-$vars = Horde_Variables::getDefaultVariables();
 
 /* Set the current identity. */
 $identity = $injector->getInstance('IMP_Identity');
@@ -266,11 +279,28 @@ case 'reply_list':
         break;
 
     case IMP_Compose::REPLY_ALL:
+        if ($vars->actionID == 'reply_auto') {
+            try {
+                $recip_list = $imp_compose->recipientList($header);
+                $replyauto_all = count($recip_list['list']);
+            } catch (IMP_Compose_Exception $e) {}
+        }
+
         $vars->actionID = 'reply_all';
         $title = _("Reply to All:");
         break;
 
     case IMP_Compose::REPLY_LIST:
+        if ($vars->actionID == 'reply_auto') {
+            $replyauto_list = true;
+
+            $hdr_ob = $contents->getHeaderOb();
+            $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
+            if (isset($addr_ob[0]['personal'])) {
+                $replyauto_list_id = $addr_ob[0]['personal'];
+            }
+        }
+
         $vars->actionID = 'reply_list';
         $title = _("Reply to List:");
         break;
@@ -930,6 +960,15 @@ if ($redirect) {
             'title' => _("Switch Composition Method")
         )));
         $t->set('rtemode', $rtemode);
+    }
+
+    if (isset($replyauto_all)) {
+        $t->set('replyauto_all', $replyauto_all);
+    } elseif (isset($replyauto_list)) {
+        $t->set('replyauto_list', true);
+        if (isset($replyauto_list_id)) {
+            $t->set('replyauto_list_id', $replyauto_list_id);
+        }
     }
 
     $t->set('message_label', Horde::label('composeMessage', _("Te_xt")));

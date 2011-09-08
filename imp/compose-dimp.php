@@ -4,17 +4,18 @@
  *
  * List of URL parameters:
  * -----------------------
- *   - bcc: TODO
- *   - cc: TODO
- *   - identity: TODO
- *   - subject: TODO
+ *   - bcc: BCC addresses.
+ *   - body: Message body text.
+ *   - cc: CC addresses.
+ *   - identity: Force message to use this identity by default.
+ *   - subject: Subject to use.
  *   - type: redirect, reply, reply_auto, reply_all, reply_list,
  *           forward_attach, forward_auto, forward_body, forward_both,
  *           forward_redirect, resume, new, editasnew
- *   - to: The e-mail address to send to.
+ *   - to: Address to send to.
  *   - toname: If set, will be used as personal part of e-mail address
  *             (requires 'to' parameter also).
- *   - uids: TODO
+ *   - uids: UIDs of message to forward (only used when forwarding a message).
  *
  * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
  *
@@ -38,8 +39,11 @@ $vars = Horde_Variables::getDefaultVariables();
 
 /* The headers of the message. */
 $header = array();
-foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
-    $header[$v] = strval($vars->$v);
+$args = IMP::getComposeArgs();
+foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
+    if (isset($args[$val])) {
+        $header[$val] = $args[$val];
+    }
 }
 
 /* Check for personal information for 'to' address. */
@@ -51,7 +55,7 @@ if (isset($header['to']) &&
 
 $fillform_opts = array('noupdate' => 1);
 $get_sig = true;
-$msg = '';
+$msg = $vars->body;
 
 $js = array();
 
@@ -92,6 +96,25 @@ case 'reply_list':
     $header = $reply_msg['headers'];
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
+
+        switch ($fillform_opts['auto']) {
+        case 'reply_all':
+            try {
+                $recip_list = $imp_compose->recipientList($header);
+                $fillform_opts['reply_recip'] = count($recip_list['list']);
+            } catch (IMP_Compose_Exception $e) {
+                $fillform_opts['reply_recip'] = 0;
+            }
+            break;
+
+        case 'reply_list':
+            $hdr_ob = $contents->getHeaderOb();
+            $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
+            if (isset($addr_ob[0]['personal'])) {
+                $fillform_opts['reply_list_id'] = $addr_ob[0]['personal'];
+            }
+            break;
+        }
     }
 
     switch ($reply_msg['type']) {

@@ -14,7 +14,7 @@ class Text_Wiki_Parse_Wickedblock extends Text_Wiki_Parse
      *
      * @var string
      */
-    public $regex = "/\[\[block (.*)?\]\]/sU";
+    public $regex = "/\[\[block (.*)?\/(.*)? (.*)?\]\]/sU";
 
     /**
      * Generates a token entry for the matched text. Token options are:
@@ -31,5 +31,15 @@ class Text_Wiki_Parse_Wickedblock extends Text_Wiki_Parse
      */
     public function process(&$matches)
     {
+        $args = array();
+        foreach (explode(' ', $matches[3], 2) as $pair) {
+            @list($arg, $value) = explode('=', $pair);
+            $args[$arg] = $value;
+        }
+        return $this->wiki->addToken(
+            $this->rule,
+            array('app' => $matches[1],
+                  'block' => $matches[2],
+                  'args' => $args));
     }
 }
