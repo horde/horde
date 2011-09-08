@@ -20,7 +20,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
 * 
  </notes>
@@ -538,7 +538,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First alpha release for Horde 4.
 * More robust parsing (recover from XML errors, fall back to HTML parsing)
@@ -558,7 +558,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -573,7 +573,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -588,7 +588,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Fix loading of local files with non-URI characters in the file name.
@@ -605,7 +605,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -618,7 +618,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [gwr] Added an example on how to post to blogger.com.
 * [gwr] Support additional request headers when updating Atom entries.
@@ -632,7 +632,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-21</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * 
    </notes>
