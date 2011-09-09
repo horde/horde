@@ -663,7 +663,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgwrite .dimpOptions div {
     padding-bottom: 0;
 }
-.msgwrite .dimpOptions label, #replyallnotice, #replylistnotice {
+.msgwrite .dimpOptions label {
     cursor: pointer;
 }
 #noticerow li span.closeImg {
