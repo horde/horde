@@ -3107,12 +3107,17 @@ var DimpBase = {
 
     subscribeFolder: function(f, sub)
     {
-        var fid = this.getFolderId(f);
+        var fid = $(this.getFolderId(f));
         DimpCore.doAction('subscribe', { mbox: f, sub: Number(sub) });
 
         if (this.showunsub) {
-            [ $(fid) ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
+            [ fid ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
         } else if (!sub) {
+            if (!this.showunsub &&
+                !fid.siblings().size() &&
+                fid.up('LI.subfolders')) {
+                fid.up('LI').previous().down('SPAN.iconImgSidebar').removeClassName('exp').removeClassName('col').addClassName('folderImg');
+            }
             this.deleteFolderElt(fid);
         }
     },
