@@ -12,6 +12,14 @@
  
 class Passwd_Factory_Driver extends Horde_Core_Factory_Base
 {
+
+    /**
+    * Backends
+    *
+    * @var array
+    */
+    protected $_backends = array();
+
     /**
      * Instances.
      *
@@ -32,8 +40,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
         if (!empty($params['is_subdriver'])) {
             $backends = array($name => $params);
         } else {
-            // rethink this. It is not mockable.
-            $backends = Passwd::getBackends();
+            $backends = $this->getBackends();
         }
 
         $key = $name;
@@ -109,5 +116,30 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
         }
 
         return $this->_instances[$key];
+    }
+
+    /**
+     * Set the backends available in this factory
+     *
+     * @param array $backends A list of backends in the format of backends.php
+     *
+     * @return Passwd_Factory_Driver The object itself for fluid interface.
+     */
+    public function setBackends(array $backends) {
+        $this->_backends = $backends;
+        return $this;
+    }
+
+    /**
+     * Get the backends available in this factory
+     *
+     * @return array $backends A list of backends in the format of backends.php
+     * @throws Passwd_Exception If no backends have been set
+     */
+    public function getBackends() {
+        if (empty($this->_backends)) {
+            throw new Passwd_Exception('No Backends have been set before getBackends was called');
+        }
+        return $this->_backends;
     }
 }

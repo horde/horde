@@ -214,7 +214,6 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
 
         $res = $this->_smtp->mailFrom($from, ltrim($params));
         if ($res instanceof PEAR_Error) {
-            $this->_smtp->rset();
             $this->_error("Failed to set sender: $from", $res, self::ERROR_SENDER);
         }
 
@@ -228,7 +227,6 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
         foreach ($recipients as $recipient) {
             $res = $this->_smtp->rcptTo($recipient);
             if ($res instanceof PEAR_Error) {
-                $this->_smtp->rset();
                 $this->_error("Failed to add recipient: $recipient", $res, self::ERROR_RECIPIENT);
             }
         }
@@ -248,7 +246,6 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
         $this->greeting = $this->_smtp->getGreeting();
 
         if ($res instanceof PEAR_Error) {
-            $this->_smtp->rset();
             $this->_error('Failed to send data', $res, self::ERROR_DATA);
         }
 
@@ -300,7 +297,6 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
 
             $res = $this->_smtp->auth($this->_params['username'], $this->_params['password'], $method);
             if ($res instanceof PEAR_Error) {
-                $this->_smtp->rset();
                 $this->_error("$method authentication failure", $res, self::ERROR_AUTH);
             }
         }
@@ -348,6 +344,9 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
     {
         /* Split the SMTP response into a code and a response string. */
         list($code, $response) = $this->_smtp->getResponse();
+
+        /* Abort current SMTP transaction. */
+        $this->_smtp->rset();
 
         /* Build our standardized error string. */
         throw new Horde_Mail_Exception($text . ' [SMTP: ' . $error->getMessage() . " (code: $code, response: $response)]", $e_code);

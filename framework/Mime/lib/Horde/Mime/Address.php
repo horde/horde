@@ -249,7 +249,7 @@ class Horde_Mime_Address
 
         $addrList = array();
 
-        foreach ($addresses as $addr) {
+        foreach ($addresses as &$addr) {
             $val = self::addrObject2String($addr, $opts);
             if (!empty($val)) {
                 $addrList[Horde_String::lower(self::bareAddress($val))] = $val;
