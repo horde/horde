@@ -669,6 +669,9 @@ class Turba_Api extends Horde_Registry_Api
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = $cManager->get();
 
+        // Need an object to add attributes to.
+        $object = new Turba_Object($driver);
+
         if (!($content instanceof Horde_Icalendar_Vcard)) {
             switch ($contentType) {
             case 'array':
