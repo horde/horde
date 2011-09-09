@@ -4,7 +4,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Serialize
  * @package    Serialize
  * @subpackage UnitTests
