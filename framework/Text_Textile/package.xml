@@ -20,7 +20,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
 *
  </notes>
@@ -91,7 +91,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.
 * Add return links to footnotes
@@ -107,7 +107,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial Horde 4 package.
    </notes>
