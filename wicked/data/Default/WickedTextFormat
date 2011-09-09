@@ -1,19 +1,17 @@
-+ Sample Page for Text_Wiki Default Markup
++ Sample Page for Wiki Markup
 
 [[toc]]
 
-----
 
 ++ General Notes
 
-The markup described on this page is for the default {{Text_Wiki}} rules; \
-it is a combination of the [http://tavi.sourceforge.net WikkTikkiTavi] \
-and [http://develnet.org/ coWiki] markup styles.
+The markup described is a combination of the [http://tavi.sourceforge.net \
+WikkTikkiTavi] and [http://develnet.org/ coWiki] markup styles.
 
 All text is entered as plain text, and will be converted to HTML entities as \
 necessary.  This means that {{<}}, {{>}}, {{&}}, and so on are converted for \
 you (except in special situations where the characters are Wiki markup; \
-Text_Wiki is generally smart enough to know when to convert and when not to).
+the Wiki is generally smart enough to know when to convert and when not to).
 
 Just hit "return" twice to make a paragraph break.  If you want \
 to keep the same logical line but have to split it across \
@@ -25,22 +23,23 @@ or space, it will ''not'' be joined with the next line, and the backslash \
 will be printed.)
 
 
-----
-
 ++ Inline Formatting
 
-|| {{``//emphasis text//``}}                 || //emphasis text// ||
-|| {{``**strong text**``}}                   || **strong text** ||
-|| {{``//**emphasis and strong**//``}}       || //**emphasis and strong**// ||
+|| {{``//emphasis text//``}}                    || //emphasis text// ||
+|| {{``**strong text**``}}                      || **strong text** ||
+|| {{``//**emphasis and strong**//``}}          || //**emphasis and strong**// ||
+|| {{``'''bold text'''``}}                      || '''bold text''' ||
+|| {{``''italic text''``}}                      || ''italic text'' ||
+|| {{``__underline text__``}}                   || __underline text__ ||
 || {{``{{teletype text}}``}}                    || {{teletype text}} ||
+|| {{``,,subscript,, text``}}                   || ,,subscript,, text ||
+|| {{``^^superscript^^ text``}}                 || ^^superscript^^ text ||
 || {{``@@--- delete text +++ insert text @@``}} || @@--- delete text +++ insert text @@ ||
 || {{``@@--- delete only @@``}}                 || @@--- delete only @@ ||
 || {{``@@+++ insert only @@``}}                 || @@+++ insert only @@ ||
-|| {{``##red|red text## ``}} || ##red|red text## ||
-|| {{``##FFFF00|yellow text##``}} || ##FFFF00|yellow text## ||
+|| {{``##red|red text## ``}}                    || ##red|red text## ||
+|| {{``##FFFF00|yellow text##``}}               || ##FFFF00|yellow text## ||
 
-
-----
 
 ++ Literal Text
 
@@ -58,7 +57,6 @@ This //text// gets **parsed**.
 
 ``This //text// does not get **parsed**.``
 
-----
 
 ++ Headings
 
@@ -77,7 +75,17 @@ plus-signs before the text (all on its own line):
 +++++ Level 5 Heading
 ++++++ Level 6 Heading
 
-----
+
+++ Text Alignment
+
+You can center align paragraphs by starting it with an equal sign.
+
+<code>
+= Center aligned text
+</code>
+
+= Center aligned text
+
 
 ++ Table of Contents
 
@@ -87,7 +95,6 @@ To create a list of every heading, with a link to that heading, put a table of c
 [[toc]]
 </code>
 
-----
 
 ++ Horizontal Rules
 
@@ -95,7 +102,9 @@ Use four dashes ({{``----``}}) to create a horizontal rule.
 
 ----
 
+
 ++ Lists
+
 
 +++ Bullet Lists
 
@@ -109,6 +118,7 @@ more asterisks.
 
 * Bullet one
  * Sub-bullet
+
 
 +++ Numbered Lists
 
@@ -159,7 +169,6 @@ You can mix and match bullet and number lists:
  * Bullet
 
 
-
 +++ Definition Lists
 
 You can create a definition (description) list with the following syntax:
@@ -172,7 +181,6 @@ You can create a definition (description) list with the following syntax:
 : Item 1 : Something
 : Item 2 : Something else
 
-----
 
 ++ Block Quotes
 
@@ -210,15 +218,14 @@ more than the previous one.
 Back to normal text.
 
 
-----
-
 ++ Links and Images
+
 
 +++ Wiki Links
 
 SmashWordsTogether to create a page link.
 
-You can force a WikiPage name '''not''' to be clickable by putting \
+You can force a Wiki page name '''not''' to be clickable by putting \
 an exclamation mark in front of it.
 
 <code>
@@ -227,7 +234,23 @@ WikiPage !WikiPage
 
 WikiPage !WikiPage
 
-You can create a "described" or "labeled" link to a wiki page by putting the page name in brackets, followed by some text.
+You can force a Wiki page to be clickable even if it does '''not''' match the page name format by putting the name in parentheses.
+
+<code>
+((WikiPage))
+</code>
+
+((WikiPage))
+
+You can also use this format to create a "described" or "labeled" link or to add an anchor target.
+
+<code>
+((WikiPage|Descriptive text for the link.#anchor))
+</code>
+
+((WikiPage|Descriptive text for the link.#anchor))
+
+You can alternatively create a "described" or "labeled" link to a wiki page by putting the page name in brackets, followed by some text.
 
 <code>
 [WikiPage Descriptive text for the link.]
@@ -236,6 +259,7 @@ You can create a "described" or "labeled" link to a wiki page by putting the pag
 [WikiPage Descriptive text for the link.]
 
 > **Note:** existing wiki pages must be in the [RuleWikilink wikilink] {{pages}} configuration,  and the [RuleWikilink wikilink] {{view_url}} configuration value must be set for the linking to work.
+
 
 +++ Interwiki Links
 
@@ -247,6 +271,18 @@ Type the {{``SiteName:PageName``}} like this:
 * Wiki:WorseIsBetter
 
 > **Note:** the interwiki site must be in the [RuleInterwiki interwiki] {{sites}} configuration array.
+
+
++++ PHP Manual Links
+
+PHP manual links are links to the PHP manual on the php.net web site.
+
+<code>
+[[php strtolower]]
+</code>
+
+[[php strtolower]]
+
 
 +++ URLs
 
@@ -261,9 +297,11 @@ Or you can have a described-reference instead of a numbered reference:
 </code>
 [http://pear.php.net PEAR]
 
+
 +++ On-Page Links
 
 Create and anchor on the page by {{``[[# anchorName nice anchor text]]``}} [[# anchorName nice anchor text]] and refer to it by {{``#anchorName``}} #anchorName, or {{``[#anchorName use normal link renaming]``}} [#anchorName use normal link renaming].
+
 
 +++ Images
 
@@ -271,7 +309,6 @@ You can put a picture in a page with {{``[[image foo.jpg]]``}}. You can use any 
 
 Additonal attributes, such as "alt" can follow the image filename or URL like so: {{``[[image foo.jpg alt="A Foo JPEG"]]``}}.  "link" is a special attribute which makes the image a link to the specified URL.
 
-----
 
 ++ Application Content
 
@@ -293,7 +330,6 @@ Links to other Horde applications is supported if those applications support API
 
 [[link Link to some other wiki page|wiki/show page=WikiPage]]
 
-----
 
 ++ Code Blocks
 
@@ -302,7 +338,6 @@ Create code blocks by using {{<code>...</code>}} tags (each on its own line).
 <code>
 This is an example code block!
 </code>
-
 
 To create PHP blocks that get automatically colorized when you use PHP tags, simply surround the code with {{<code type="php">...</code>}} tags (the tags themselves should each be on their own lines, and no need for the {{<?php ... ?>}} tags).
 
@@ -338,7 +373,37 @@ $wiki = new Text_Wiki($options);
 echo $wiki->transform($text);
 </code>
 
-----
+API references can be generated using {{<function>}} tags.
+
+<code>
+<function>
+name:listUsers
+access:public
+param:string,Filter users by this string.,'USER'
+returns:array
+throws:Exception,if user backend not available.
+</function>
+</code>
+
+//Rendering of this rule is broken as of Text_Wiki 1.2.1, usage is discouraged.//
+
+
+++ HTML Markup
+
+You can add native HTML markup using {{<html>...</html>}} tags.
+
+<code>
+<html>
+<div style="border:2px double blue"><strong>HTML</strong></div>
+</html>
+</code>
+
+//This rule is disabled by default.//
+
+<html>
+<div style="border:2px double blue"><strong>HTML</strong></div>
+</html>
+
 
 ++ Tables
 
