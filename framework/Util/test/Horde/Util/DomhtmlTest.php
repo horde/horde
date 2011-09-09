@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @category   Horde
  * @package    Util
  * @subpackage UnitTests
