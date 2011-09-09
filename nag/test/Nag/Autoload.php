@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/nag
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
 $mappings = array('Nag' => dirname(__FILE__) . '/../../lib/');

@@ -3,7 +3,7 @@
  * The factory for the tasklists handler.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Nag
