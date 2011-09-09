@@ -8,7 +8,7 @@
  * @package    Service_Gravatar
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Service_Gravatar
  */
 
@@ -31,7 +31,7 @@ require_once 'Horde/Test/AllTests.php';
  * @package    Service_Gravatar
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Service_Gravatar
  */
 class Horde_Service_Gravatar_AllTests extends Horde_Test_AllTests
