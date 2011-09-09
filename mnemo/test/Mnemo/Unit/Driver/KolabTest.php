@@ -6,7 +6,7 @@
  *
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Mnemo
  * @package    Mnemo
  * @subpackage UnitTests
@@ -20,14 +20,14 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the Kolab driver.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Mnemo
  * @package    Mnemo
  * @subpackage UnitTests
