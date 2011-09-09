@@ -23,7 +23,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * First release candidate for Horde 4.
  </notes>
