@@ -984,17 +984,15 @@ var DimpCompose = {
             case 'replyallnotice':
             case 'replylistnotice':
                 this.fadeNotice(elt);
-                if (!orig.match('SPAN.closeImg')) {
-                    if (id.startsWith('reply')) {
-                        $('to_loading_img').show();
-                        DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
-                    } else if (id.startsWith('fwd')) {
-                        DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
-                        $('composeMessage').stopObserving('keydown');
-                    } else if (id == 'identitychecknotice') {
-                        $('identity').setValue(this.old_identity);
-                        this.changeIdentity();
-                    }
+                if (id.startsWith('reply')) {
+                    $('to_loading_img').show();
+                    DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
+                } else if (id.startsWith('fwd')) {
+                    DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
+                    $('composeMessage').stopObserving('keydown');
+                } else if (id == 'identitychecknotice') {
+                    $('identity').setValue(this.old_identity);
+                    this.changeIdentity();
                 }
                 e.stop();
                 return;
