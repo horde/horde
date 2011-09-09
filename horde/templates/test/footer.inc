@@ -1,5 +1,7 @@
 <?php if ($app != 'horde'): ?>
-<a href="<?php echo $url ?>">Return to Main Horde Test Page</a>
+  <p>
+   <a href="<?php echo $url ?>">Return to Main Horde Test Page</a>
+  </p>
 <?php endif; ?>
-</body>
+ </body>
 </html>

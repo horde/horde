@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-31</date>
- <time>18:22:46</time>
+ <date>2011-09-08</date>
+ <time>23:58:28</time>
  <version>
   <release>4.0.10</release>
   <api>4.0.0</api>
@@ -911,6 +911,7 @@
      <file name="footer.inc" role="horde" />
      <file name="header.inc" role="horde" />
      <file name="php_version.inc" role="horde" />
+     <file name="test.css" role="horde" />
      <file name="version.inc" role="horde" />
     </dir> <!-- /templates/test -->
     <file name=".htaccess" role="horde" />
@@ -2975,6 +2976,7 @@
    <install as="templates/test/footer.inc" name="templates/test/footer.inc" />
    <install as="templates/test/header.inc" name="templates/test/header.inc" />
    <install as="templates/test/php_version.inc" name="templates/test/php_version.inc" />
+   <install as="templates/test/test.css" name="templates/test/test.css" />
    <install as="templates/test/version.inc" name="templates/test/version.inc" />
    <install as="themes/azur/info.php" name="themes/azur/info.php" />
    <install as="themes/azur/screen.css" name="themes/azur/screen.css" />
@@ -4239,7 +4241,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-31</date>
+   <date>2011-09-08</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * 
