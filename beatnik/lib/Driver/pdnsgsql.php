@@ -5,7 +5,7 @@
  * support MySQL, PostgreSQL, SQLite and Oracle.  This driver attempts to do the
  * same as long as the default queries are used.
  *
- * Copyright 2008 The Horde Project <http://www.horde.org>
+ * Copyright 2008 Horde LLC <http://www.horde.org>
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
