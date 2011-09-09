@@ -1,6 +1,7 @@
 <?php
 /**
- * The Horde_Mime_Part:: class provides a wrapper around MIME parts and
+ * This class provides an object-oriented representation of a MIME part
+ * (defined by RFC 2045).
  * methods for dealing with them.
  *
  * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
