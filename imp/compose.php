@@ -53,7 +53,7 @@ if (!$prefs->isLocked('default_identity') && !is_null($vars->identity)) {
 
 /* Catch submits if javascript is not present. */
 if (!$vars->actionID) {
-    foreach (array('send_message', 'save_draft', 'cancel_compose', 'add_attachment') as $val) {
+    foreach (array('replyall_revert', 'replylist_revert', 'send_message', 'save_draft', 'cancel_compose', 'add_attachment') as $val) {
         if ($vars->get('btn_' . $val)) {
             $vars->actionID = $val;
             break;
@@ -310,6 +310,12 @@ case 'reply_list':
     if (!is_null($rtemode)) {
         $rtemode = $rtemode || $format == 'html';
     }
+    break;
+
+case 'replyall_revert':
+case 'replylist_revert':
+    $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb());
+    $header = $reply_msg['headers'];
     break;
 
 case 'forward_attach':
