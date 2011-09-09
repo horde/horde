@@ -20,7 +20,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * First release candidate of Horde Kolab Edition 4.0.
  </notes>
@@ -274,7 +274,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-07-15</date>
-   <license uri="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First release candidate of Horde Kolab Edition 4.0.
    </notes>
