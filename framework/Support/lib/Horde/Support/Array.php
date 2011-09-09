@@ -2,15 +2,15 @@
 /**
  * @category   Horde
  * @package    Support
- * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @copyright  2007-2009 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/bsd
  */
 
 /**
  * @category   Horde
  * @package    Support
- * @copyright  2007-2009 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @copyright  2007-2009 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/bsd
  *
  * Incorporate stuff from Horde_Array?
  * http://docs.python.org/lib/typesmapping.html
