@@ -8,10 +8,10 @@
  * only detect it by the decice ID: so in the connector configuration the
  * device ID must be set to 'sc-pim-<type>' which should be the default anyhow.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @package SyncMl
@@ -219,7 +219,7 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
 
         $iCal = new Horde_Icalendar();
         $iCal->setAttribute('VERSION', '1.1');
-        $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
+        $iCal->setAttribute('PRODID', '-//Horde LLC//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         $vnote = Horde_Icalendar::newComponent('vnote', $iCal);
@@ -240,7 +240,7 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
 
         $iCal = new Horde_Icalendar();
         $iCal->setAttribute('VERSION', '3.0');
-        $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
+        $iCal->setAttribute('PRODID', '-//Horde LLC//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         $vcard = Horde_Icalendar::newComponent('vcard', $iCal);
@@ -363,7 +363,7 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
         $a = Horde_SyncMl_Device_sync4j::sif2array($sif);
 
         $iCal = new Horde_Icalendar();
-        $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
+        $iCal->setAttribute('PRODID', '-//Horde LLC//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         $vEvent = Horde_Icalendar::newComponent('vevent', $iCal);
@@ -540,7 +540,7 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
         $a = Horde_SyncMl_Device_sync4j::sif2array($sif);
 
         $iCal = new Horde_Icalendar();
-        $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
+        $iCal->setAttribute('PRODID', '-//Horde LLC//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         $vtodo = Horde_Icalendar::newComponent('vtodo', $iCal);

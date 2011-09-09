@@ -21,7 +21,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -989,7 +989,7 @@
     <api>alpha</api>
    </stability>
    <date>2004-01-19</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial implementation
    </notes>
@@ -1004,7 +1004,7 @@ Initial implementation
     <api>alpha</api>
    </stability>
    <date>2005-04-23</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Major update
    </notes>
@@ -1019,7 +1019,7 @@ Major update
     <api>beta</api>
    </stability>
    <date>2006-01-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Passes all tests of SyncML conformance suite now.
    </notes>
@@ -1034,7 +1034,7 @@ Passes all tests of SyncML conformance suite now.
     <api>beta</api>
    </stability>
    <date>2011-03-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Make the SyncML package independant from Horde, provide a new Sql backend as a reference implementation for a backend.
    </notes>
@@ -1049,7 +1049,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -1064,7 +1064,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
 * [jan] Fix calendar synchronization with certain Nokia phones (Bug #9646).
@@ -1080,7 +1080,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -1095,7 +1095,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Add removeMaps() method to Horde backend driver.
@@ -1110,7 +1110,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix issue causing slow syncs only (Bug #10008).
    </notes>
@@ -1123,7 +1123,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-25</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Complete fix for issue causing slow syncs only (Bug #10008).
    </notes>
@@ -1136,7 +1136,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Lithuanian translation.
 * [jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug #10081).
@@ -1150,7 +1150,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix log level output in log file.
 * [jan] Update Latvian translation.
@@ -1165,7 +1165,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-17</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix logging errors while retrieving server changes.
    </notes>
@@ -1178,7 +1178,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-17</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>
