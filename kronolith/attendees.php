@@ -4,7 +4,7 @@
  * Copyright 2004-2007 Stuart Binge <s.binge@codefusion.co.za>
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
