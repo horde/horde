@@ -6,7 +6,7 @@
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Ansel
  */
 class Ansel_Factory_Storage extends Horde_Core_Factory_Injector
