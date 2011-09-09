@@ -7,22 +7,22 @@
  * @category Horde
  * @package  IMP
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @link     http://pear.horde.org/index.php?package=IMP
  */
 
 /**
  * A Horde_Injector:: based Horde_Mime_Viewer factory for IMP drivers.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category Horde
  * @package  IMP
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @link     http://pear.horde.org/index.php?package=IMP
  */
 class IMP_Factory_MimeViewer extends Horde_Core_Factory_Base

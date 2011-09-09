@@ -6,7 +6,7 @@
  *
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
@@ -20,14 +20,14 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the IMP HTML Mime Viewer driver.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests

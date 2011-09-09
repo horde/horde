@@ -3,14 +3,14 @@
  * The IMP_Mime_Viewer_Enriched class renders out plain text from
  * enriched content tags, ala RFC 1896
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Eric Rostetter <eric.rostetter@physics.utexas.edu>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
