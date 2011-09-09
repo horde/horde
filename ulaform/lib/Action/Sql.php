@@ -3,10 +3,10 @@
  * Ulaform_Action_Sql Class provides a Ulaform action driver to submit the
  * results of a form to database.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Vilius Šumskas <vilius@lnk.lt>
  * @package Ulaform
