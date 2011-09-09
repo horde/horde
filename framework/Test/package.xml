@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-08</date>
- <time>07:29:30</time>
+ <time>08:15:26</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -45,6 +45,7 @@
       <dir name="Factory">
        <file name="Db.php" role="php" />
        <file name="Group.php" role="php" />
+       <file name="History.php" role="php" />
        <file name="KolabStorage.php" role="php" />
        <file name="Perms.php" role="php" />
        <file name="Prefs.php" role="php" />
@@ -131,6 +132,7 @@
    <install as="Horde/Test/Setup.php" name="lib/Horde/Test/Setup.php" />
    <install as="Horde/Test/Factory/Db.php" name="lib/Horde/Test/Factory/Db.php" />
    <install as="Horde/Test/Factory/Group.php" name="lib/Horde/Test/Factory/Group.php" />
+   <install as="Horde/Test/Factory/History.php" name="lib/Horde/Test/Factory/History.php" />
    <install as="Horde/Test/Factory/KolabStorage.php" name="lib/Horde/Test/Factory/KolabStorage.php" />
    <install as="Horde/Test/Factory/Perms.php" name="lib/Horde/Test/Factory/Perms.php" />
    <install as="Horde/Test/Factory/Prefs.php" name="lib/Horde/Test/Factory/Prefs.php" />
