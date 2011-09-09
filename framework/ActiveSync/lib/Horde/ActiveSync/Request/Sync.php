@@ -230,7 +230,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 // This is a violation of the spec, and could lead to all kinds
                 // of data integrity issues.
                 if ($collection['synckey'] == 0) {
-                    $this->_statusCode = Horde_ActiveSync::STATUS_PROTERROR;
+                    $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
                     exit;
                 }
