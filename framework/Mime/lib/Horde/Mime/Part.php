@@ -200,6 +200,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     protected $_contentid = null;
 
     /**
+     * The duration of this part's media data (RFC 3803).
+     *
+     * @var integer
+     */
+    protected $_duration;
+
+    /**
      * Do we need to reindex the current part?
      *
      * @var boolean
@@ -241,6 +248,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         '_boundary',
         '_bytes',
         '_contentid',
+        '_duration',
         '_reindex',
         '_basepart',
         '_hdrCharset'
@@ -725,6 +733,36 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     }
 
     /**
+     * Set the content duration of the data contained in this part (see RFC
+     * 3803).
+     *
+     * @param integer $duration  The duration of the data, in seconds. If
+     *                           null, clears the duration information.
+     */
+    public function setDuration($duration)
+    {
+        if (is_null($duration)) {
+            unset($this->_duration);
+        } else {
+            $this->_duration = intval($duration);
+        }
+    }
+
+    /**
+     * Get the content duration of the data contained in this part (see RFC
+     * 3803).
+     *
+     * @return integer  The duration of the data, in seconds. Returns null if
+     *                  there is no duration information.
+     */
+    public function getDuration()
+    {
+        return isset($this->_duration)
+            ? $this->_duration
+            : null;
+    }
+
+    /**
      * Set the description of this part.
      *
      * @param string $description  The description of this part.
@@ -1007,6 +1045,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         /* Get the description, if any. */
         if (($descrip = $this->getDescription())) {
             $headers->replaceHeader('Content-Description', $descrip);
+        }
+
+        /* Set the duration, if it exists. (RFC 3803) */
+        if (($duration = $this->getDuration()) !== null) {
+            $headers->replaceHeader('Content-Duration', $duration);
         }
 
         /* Per RFC 2046 [4], this MUST appear in the base message headers. */
@@ -1924,6 +1967,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             foreach ($hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_PARAMS) as $key => $val) {
                 $ob->setDispositionParameter($key, $val);
             }
+        }
+
+        /* Content-Duration */
+        if ($tmp = $hdrs->getValue('content-duration')) {
+            $ob->setDuration($tmp);
         }
 
         /* Content-ID. */

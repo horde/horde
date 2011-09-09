@@ -20,8 +20,8 @@
  <date>2011-08-30</date>
  <time>13:37:11</time>
  <version>
-  <release>1.0.7</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
+* [mms] Support Content-Duration MIME header (RFC 3803).
 * [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
  </notes>
  <contents>
@@ -722,8 +723,8 @@
   </release>
   <release>
    <version>
-    <release>1.0.7</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
