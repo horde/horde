@@ -283,7 +283,10 @@ $t->set('compose_html', $compose_result['html']);
 Horde::addInlineJsVars($js);
 Horde::addInlineScript($compose_result['js']);
 
-$fillform_opts['focus'] = in_array($vars->type, array('forward', 'new', 'redirect', 'editasnew')) ? 'to' : 'composeMessage';
+$fillform_opts['focus'] = (($vars->type == 'new') && isset($args['to']))
+    ? 'composeMessage'
+    : (in_array($vars->type, array('forward', 'new', 'redirect', 'editasnew')) ? 'to' : 'composeMessage');
+
 if ($vars->type != 'redirect') {
     $compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
 }
