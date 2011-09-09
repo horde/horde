@@ -644,8 +644,8 @@ class Turba_Api extends Horde_Registry_Api
         /* Get default address book from user preferences. */
         if (empty($import_source)) {
             $import_source = $prefs->getValue('default_dir');
-            /* On new installations default_dir is not set, use first source
-             * instead. */
+            // On new installations default_dir is not set, use first source
+            // instead.
             if (empty($import_source)) {
                 $import_source = key(Turba::getAddressBooks(Horde_Perms::EDIT));
             }
@@ -653,16 +653,19 @@ class Turba_Api extends Horde_Registry_Api
 
         // Check existance of and permissions on the specified source.
         if (!isset($cfgSources[$import_source])) {
-            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $import_source));
+            throw new Turba_Exception(
+                sprintf(_("Invalid address book: %s"), $import_source));
         }
 
-        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($import_source);
+        $driver = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($import_source);
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             throw new Turba_Exception(_("Permission denied"));
         }
 
-        /* Create a category manager. */
+        // Create a category manager.
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = $cManager->get();
 
