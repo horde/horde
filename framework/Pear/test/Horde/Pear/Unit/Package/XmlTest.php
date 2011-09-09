@@ -8,7 +8,7 @@
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the core package XML handler.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Unit_Package_XmlTest
@@ -236,7 +236,7 @@ extends Horde_Pear_TestCase
     {
         $xml = $this->_getFixture();
         $this->assertEquals(
-            'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html',
+            'http://www.horde.org/licenses/lgpl21',
             $xml->getLicenseLocation()
         );
     }
@@ -297,7 +297,7 @@ extends Horde_Pear_TestCase
     {
         $xml = $this->_getSyncedFixture();
         $this->assertEquals(
-            'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html', 
+            'http://www.horde.org/licenses/lgpl21', 
             $xml->findNode('/p:package/p:changelog/p:release')
             ->getElementsByTagNameNS(Horde_Pear_Package_Xml::XMLNAMESPACE, 'license')
             ->item(0)
