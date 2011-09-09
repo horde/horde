@@ -28,7 +28,7 @@ Framework.</description>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
 * Initial release.
  </notes>
@@ -391,7 +391,7 @@ Framework.</description>
     <api>alpha</api>
    </stability>
    <date>2011-04-12</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.
    </notes>
