@@ -27,7 +27,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Support Content-Duration MIME header (RFC 3803).
 * [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
@@ -542,7 +542,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Add RFC 3282 language support to Horde_Mime_Part.
@@ -574,7 +574,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Simplify charset handling in Horde_Mime_Mail.
    </notes>
@@ -589,7 +589,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -604,7 +604,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
 * [mms] Improve handling of empty address groups.
@@ -620,7 +620,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Provide option to always use Windows-1252 when decoding ISO-8859-1 data.
    </notes>
@@ -635,7 +635,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
 * [mms] Fix Horde_Mime::isChild().
@@ -649,7 +649,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix unserializing Horde_Mime_Part containing data (Bug #9819).
    </notes>
@@ -662,7 +662,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix encoding of headers if charset passed to toArray() is empty (Bug #10054).
    </notes>
@@ -675,7 +675,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix error when determining part size if contents is empty (rick@havokmon.com, Bug #10223).
    </notes>
@@ -688,7 +688,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix accessing the MIME part content after serialization (Bug #10252).
    </notes>
@@ -701,7 +701,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix generation of MDN messages.
 * [jan] Update Latvian translation.
@@ -716,7 +716,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix quoted-printable encoding for message parts contained in a multipart that do not share the same EOLs as the parent part (Bug #10324).
    </notes>
@@ -729,7 +729,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
    </notes>
