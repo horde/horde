@@ -33,7 +33,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 *
  </notes>
@@ -143,7 +143,7 @@
     <api>beta</api>
    </stability>
    <date>2004-01-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 - Fix caching of Patchset objects.
 - Add a VC_Patchset parent class for common Patchset functionality.
@@ -159,7 +159,7 @@
     <api>beta</api>
    </stability>
    <date>2006-05-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Converted to package.xml 2.0 for pear.horde.org
 * Fix subversion diffs on files with spaces (helly@php.net, Bug #5244)
@@ -176,7 +176,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
