@@ -2,7 +2,7 @@
 /**
  * Delete records
  *
- * Copyright 2006-2008 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2008 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/merk/LICENSE.

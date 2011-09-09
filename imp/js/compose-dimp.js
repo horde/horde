@@ -1,10 +1,10 @@
 /**
  * compose.js - Javascript code used in the DIMP compose view.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var DimpCompose = {
@@ -980,22 +980,24 @@ var DimpCompose = {
 
             case 'fwdattachnotice':
             case 'fwdbodynotice':
-            case 'identitychecknotice':
-            case 'replyallnotice':
-            case 'replylistnotice':
                 this.fadeNotice(elt);
-                if (!orig.match('SPAN.closeImg')) {
-                    if (id.startsWith('reply')) {
-                        $('to_loading_img').show();
-                        DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
-                    } else if (id.startsWith('fwd')) {
-                        DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
-                        $('composeMessage').stopObserving('keydown');
-                    } else if (id == 'identitychecknotice') {
-                        $('identity').setValue(this.old_identity);
-                        this.changeIdentity();
-                    }
-                }
+                DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
+                $('composeMessage').stopObserving('keydown');
+                e.stop();
+                return;
+
+            case 'identitychecknotice':
+                this.fadeNotice(elt);
+                $('identity').setValue(this.old_identity);
+                this.changeIdentity();
+                e.stop();
+                return;
+
+            case 'replyall_revert':
+            case 'replylist_revert':
+                this.fadeNotice(elt.up('LI'));
+                $('to_loading_img').show();
+                DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
                 e.stop();
                 return;
             }

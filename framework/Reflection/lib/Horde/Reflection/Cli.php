@@ -6,10 +6,10 @@
  *
  * Copyright 2004-2006 Sergio Gonalves Carvalho
  *                     (<sergio.carvalho@portugalmail.com>)
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Sergio Carvalho <sergio.carvalho@portugalmail.com>
  * @author  Duck <duck@obala.net>

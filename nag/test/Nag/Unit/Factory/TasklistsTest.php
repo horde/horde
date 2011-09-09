@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/nag
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
 /**
@@ -20,52 +20,23 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the tasklists factory.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If you did not
- * receive this file, see http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * receive this file, see http://www.horde.org/licenses/gpl
  *
  * @category   Horde
  * @package    Nag
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/nag
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 class Nag_Unit_Factory_TasklistsTest extends Nag_TestCase
 {
     public function setUp()
     {
-        $setup = new Horde_Test_Setup();
-        $setup->setup(
-            array(
-                '_PARAMS' => array(
-                    'user' => 'test@example.com',
-                    'app' => 'nag'
-                ),
-                'Horde_Prefs' => 'Prefs',
-                'Horde_Perms' => 'Perms',
-                'Horde_Group' => 'Group',
-                'Horde_Registry' => 'Registry',
-                'Horde_Kolab_Storage' => array(
-                    'factory' => 'KolabStorage',
-                    'params' => array(
-                        'imapuser' => 'test',
-                    )
-                ),
-                'Horde_Share_Base' => array(
-                    'factory' => 'Share',
-                    'method' => 'Kolab',
-                ),
-            )
-        );
-        $setup->makeGlobal(
-            array(
-                'prefs' => 'Horde_Prefs',
-                'registry' => 'Horde_Registry',
-                'nag_shares' => 'Horde_Share_Base',
-            )
-        );
+        $setup = self::createKolabSetup();
         $error = $setup->getError();
         if (!empty($error)) {
             $this->markTestSkipped($error);

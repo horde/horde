@@ -6,7 +6,7 @@
  * Copyright 2008-2010 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, see http://opensource.org/licenses/lgpl-license.php.
+ * not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Ben Klang <bklang@horde.org>
  * @category Horde

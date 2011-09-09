@@ -20,7 +20,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).
@@ -390,7 +390,7 @@
     <api>beta</api>
    </stability>
    <date>2011-08-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).

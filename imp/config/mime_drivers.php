@@ -203,6 +203,26 @@ $mime_drivers = array(
         )
     ),
 
+    /* Audio data. */
+    'audio' => array(
+        'handles' => array(
+            'audio/*'
+        ),
+        'icons' => array(
+            'default' => 'audio.png'
+        )
+    ),
+
+    /* Video data. */
+    'video' => array(
+        'handles' => array(
+            'video/*'
+        ),
+        'icons' => array(
+            'default' => 'video.png'
+        )
+    ),
+
     /* Alternative part display.
      * YOU SHOULD NOT NORMALLY ALTER THIS SETTING. */
     'alternative' => array(

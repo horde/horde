@@ -34,7 +34,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -587,7 +587,7 @@
     <api>alpha</api>
    </stability>
    <date>2003-07-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial release as a PEAR package
    </notes>
@@ -602,7 +602,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2004-12-05</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Lots of improvements, bugfixes and support for more fields and members of the iCalendar family.
    </notes>
@@ -617,7 +617,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Converted to package.xml 2.0 for pear.horde.org.
    </notes>
@@ -632,7 +632,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fix vFreebusy merging (Bug #4807).
 * Implement handling of vTimezones in iCalendar data (lists-horde@carlthompson.net, Bug #4399).
@@ -679,7 +679,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -694,7 +694,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -709,7 +709,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -724,7 +724,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -739,7 +739,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -752,7 +752,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Speed up exporting of objects with binary content (Bug #9405).
    </notes>
@@ -765,7 +765,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
 * [jan] Update Latvian translation.
@@ -779,7 +779,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-09</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix fetching the version from an Icalendar object (Bug #10411)
    </notes>
@@ -792,7 +792,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix version access (Bug# 10425).
 * [jan] Avoid infinite loop when importing certain vCalendar 1.0/vCard 2.1 data.
@@ -806,7 +806,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

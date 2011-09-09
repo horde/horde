@@ -3,7 +3,7 @@
  * The Kolab class attempts to change a user's password on the designated Kolab
  * backend. Based off the LDAP passwd class.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * WARNING: This driver has only formally been converted to Horde 4.  No
  *          testing has been done. If this doesn't work, please file bugs at

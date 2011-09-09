@@ -3,7 +3,7 @@
  * Horde_Service_Twitter class abstracts communication with Twitter's
  * rest interface.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @property-read Horde_Service_Twitter_Account $account
  *                The twitter account object for calling account methods.
@@ -21,7 +21,7 @@
  *                The default cache lifetime.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package Service_Twitter
  */

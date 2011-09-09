@@ -2,10 +2,10 @@
 /**
  * Preferences storage implementation using files in a directory
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Michael Slusarz <slusarz@horde.org>

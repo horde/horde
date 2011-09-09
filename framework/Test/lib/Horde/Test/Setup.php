@@ -45,6 +45,13 @@ class Horde_Test_Setup
     private $_error;
 
     /**
+     * Global parameters that apply to several factories.
+     *
+     * @var string
+     */
+    private $_params = array();
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -80,23 +87,24 @@ class Horde_Test_Setup
      */
     public function setup($params)
     {
+        if (isset($params['_PARAMS'])) {
+            $this->_params = $params['_PARAMS'];
+            unset($params['_PARAMS']);
+        }
         foreach ($params as $interface => $setup) {
             if (is_array($setup)) {
                 $factory = $setup['factory'];
                 $method = isset($setup['method']) ? $setup['method'] : 'create';
+                $params = isset($setup['params']) ? $setup['params'] : array();
             } else {
                 $factory = $setup;
                 $method = 'create';
+                $params = array();
             }
             if (!empty($this->_error)) {
                 break;
             }
-            $this->add(
-                $interface,
-                $factory,
-                $method,
-                isset($setup['params']) ? $setup['params'] : array()
-            );
+            $this->add($interface, $factory, $method, $params);
         }
     }
 
@@ -135,10 +143,11 @@ class Horde_Test_Setup
         if (method_exists($f, 'create' . $method)) {
             $method = 'create' . $method;
         }
+        $params = array_merge($this->_params, $params);
         try {
             $this->_injector->setInstance($interface, $f->{$method}($params));
         } catch (Horde_Test_Exception $e) {
-            $this->_error = $e->getMessage();
+            $this->_error = $e->getMessage() . "\n\n" . $e->getFile() . ':' . $e->getLine();
         }
     }
 

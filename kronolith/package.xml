@@ -32,7 +32,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [jan] Update group permission when changing group down list in basic permissions (Bug #10482).
 * [jan] Fix race condition when editing group permission in basic permission screen (Bug #10482).
@@ -1642,7 +1642,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -1657,7 +1657,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Only load external events in IFRAME if configured.
 * Fix retrieving event UIDs without date limit (Simon Bühler, Bug #9651).
@@ -1675,7 +1675,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First release candidate for Horde 4.
 * [jan] Fix custom event alarm settings in traditional view (Bug #9154).
@@ -1691,7 +1691,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Fix javascript error when viewing events with desktop notifications (Bug #9727).
@@ -1707,7 +1707,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Fix application-specific permission checks (Bug #9786).
@@ -1727,7 +1727,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t store all task lists in the session.
 * [jan] Fix new task lists not showing up until next login (Bug #9814).
@@ -1747,7 +1747,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t show event edit links if user doesn&apos;t have edit permissions on any calendar.
 * [jan] Fix parsing of recurrence end date in dynamic view (Bug #10025).
@@ -1765,7 +1765,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add header for timeobjects calendars.
 * [jan] Fix date picker in advanced search form (Bug #10039).
@@ -1781,7 +1781,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Only highlight days in the mini calendar that are currently displayed (Bug #10048).
 * [jan] Fix advanced search with empty search criteria (Bug #10038).
@@ -1795,7 +1795,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update task due date in interface after dragging a task (Bug #10001).
 * [jan] Correctly sort events in portal block or widget if only displaying a single calendar (Bug #10099).
@@ -1813,7 +1813,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Display event time in dynamic agenda/search view.
 * [jan] Don&apos;t load all shares with requested permissions from the backend if $conf[&apos;share&apos;][&apos;hidden&apos;] is enabled.
@@ -1837,7 +1837,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-05</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix updating attendees (Bug #10411).
 * [jan] Fix error if Nag is not installed (Bug #10406).
@@ -1851,7 +1851,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-17</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix deleting resources (Bug #10427)
 * [jan] Support snoozing alarms with Sundbird/Lightning (Request #7470).
@@ -1868,7 +1868,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix fatal error while searching if hitting certain recurring events.
 * [jan] Fix exporting events with snoozed alarms (Bug #10438).
@@ -1882,7 +1882,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update group permission when changing group down list in basic permissions (Bug #10482).
 * [jan] Fix race condition when editing group permission in basic permission screen (Bug #10482).

@@ -3,14 +3,14 @@
  * An abstracted API interface to IMAP backends supporting the IMAP4rev1
  * protocol (RFC 3501).
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  *
  * @property Horde_Imap_Client_Utils $utils  A Utils object.
@@ -3253,6 +3253,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
     /**
      * Determines if the given charset is valid for search-related queries.
+     * This check pertains just to the basic IMAP SEARCH command.
      *
      * @param string $charset  The query charset.
      *
@@ -3267,15 +3268,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             case 'US-ASCII';
                 /* US-ASCII is always supported (RFC 3501 [6.4.4]). */
                 $support = true;
-                break;
-
-            case 'UTF-8':
-                /* SORT (RFC 5256) & ESORT (RFC 5267) require UTF-8
-                 * support. */
-                if ($this->queryCapability('SORT') ||
-                    $this->queryCapability('ESORT')) {
-                    $support = true;
-                }
                 break;
             }
 

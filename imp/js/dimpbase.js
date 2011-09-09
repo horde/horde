@@ -1,10 +1,10 @@
 /**
  * dimpbase.js - Javascript used in the base DIMP page.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var DimpBase = {
@@ -3107,12 +3107,17 @@ var DimpBase = {
 
     subscribeFolder: function(f, sub)
     {
-        var fid = this.getFolderId(f);
+        var fid = $(this.getFolderId(f));
         DimpCore.doAction('subscribe', { mbox: f, sub: Number(sub) });
 
         if (this.showunsub) {
-            [ $(fid) ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
+            [ fid ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
         } else if (!sub) {
+            if (!this.showunsub &&
+                !fid.siblings().size() &&
+                fid.up('LI.subfolders')) {
+                fid.up('LI').previous().down('SPAN.iconImgSidebar').removeClassName('exp').removeClassName('col').addClassName('folderImg');
+            }
             this.deleteFolderElt(fid);
         }
     },

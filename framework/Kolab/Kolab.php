@@ -15,10 +15,10 @@ require_once 'Horde/Kolab/Format/Date.php';
  * several functions to help in the IMAP folder <-> Horde Share synchronisation
  * process.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @package Kolab

@@ -20,7 +20,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="http://www.horde.org/licenses/gpl.php">GPL</license>
+ <license uri="http://www.horde.org/licenses/gpl.php">GPL-2.0</license>
  <notes>
 * First alpha release for Horde 4.
  </notes>
@@ -261,7 +261,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-07-10</date>
-   <license uri="http://www.horde.org/licenses/gpl.php">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl.php">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>

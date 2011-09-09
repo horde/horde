@@ -17,7 +17,7 @@
  *
  * � Zarafa Deutschland GmbH, www.zarafaserver.de
  * This file is distributed under GPL-2.0.
- * Consult LICENSE file for details
+ * Consult COPYING file for details
  */
 class Horde_ActiveSync_Connector_Exporter
 {

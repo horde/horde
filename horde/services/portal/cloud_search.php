@@ -2,10 +2,10 @@
 /**
  * Perform search request for the horde-wide tag cloud block.
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @TODO: If/when more apps support the searchTags api calls, probably
  *        should not hardcode the supported apps.  Also should allow excluding

@@ -2,11 +2,11 @@
 /**
  * Test the restructured text renderer.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see
- * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * http://www.horde.org/licenses/gpl
  *
  * PHP version 5
  *
@@ -15,7 +15,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/wicked
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
 /**
@@ -31,7 +31,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/wicked
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 class Wicked_Unit_RstTest extends Wicked_TestCase
 {
@@ -162,4 +162,83 @@ H6
 ++++++H6', 'Rst'))
         );
     }
+
+    public function testPlainUrl()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            'Further information on Horde and the latest version can be obtained at
+
+  http://www.horde.org/apps/horde
+
+',
+            $this->protectAgainstPearError($wiki->transform('Further information on Horde and the latest version can be obtained at
+
+{{  }}http://www.horde.org/apps/horde
+
+', 'Rst'))
+        );
+    }
+
+    public function testPlainEmbeddedUrl()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            'There
+is a list of Horde applications and projects at http://www.horde.org/apps.
+
+',
+            $this->protectAgainstPearError($wiki->transform('There
+is a list of Horde applications and projects at http://www.horde.org/apps.
+
+', 'Rst'))
+        );
+    }
+
+    public function testNamedUrl()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            'certification mark of the `Open Source Initiative`_.
+
+.. _`Open Source Initiative`: http://www.opensource.org/
+
+',
+            $this->protectAgainstPearError($wiki->transform('certification mark of the [http://www.opensource.org/ Open Source Initiative].
+', 'Rst'))
+        );
+    }
+
+    public function testLiteral()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            'in the ``docs/`` directory
+
+',
+            $this->protectAgainstPearError($wiki->transform('in the ``docs/`` directory', 'Rst'))
+        );
+    }
+
+    public function testFreelink()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            'The following documentation is available in the Horde distribution:
+
+:`COPYING`_:      Copyright and license information
+:`docs/CHANGES`_: Changes by release
+
+
+.. _`COPYING`: http://www.horde.org/licenses/lgpl
+.. _`docs/CHANGES`: CHANGES',
+            $this->protectAgainstPearError($wiki->transform('The following documentation is available in the Horde distribution:
+
+: [http://www.horde.org/licenses/lgpl COPYING] : Copyright and license information
+: ((CHANGES|docs/CHANGES)) : Changes by release
+', 'Rst'))
+        );
+    }
+
+
 }

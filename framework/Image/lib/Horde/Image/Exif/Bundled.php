@@ -17,12 +17,12 @@
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
  * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- * for more details. http://www.gnu.org/copyleft/gpl.html
+ * for more details. http://www.horde.org/licenses/gpl
  * ---
  *
  * The original Exifer library has been heavily modified and refactored. All
  * modifications are
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Image

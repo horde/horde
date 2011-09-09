@@ -5,7 +5,7 @@
  * This file defines Turba's external API interface. Other applications can
  * interact with Turba through this API.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -644,8 +644,8 @@ class Turba_Api extends Horde_Registry_Api
         /* Get default address book from user preferences. */
         if (empty($import_source)) {
             $import_source = $prefs->getValue('default_dir');
-            /* On new installations default_dir is not set, use first source
-             * instead. */
+            // On new installations default_dir is not set, use first source
+            // instead.
             if (empty($import_source)) {
                 $import_source = key(Turba::getAddressBooks(Horde_Perms::EDIT));
             }
@@ -653,18 +653,24 @@ class Turba_Api extends Horde_Registry_Api
 
         // Check existance of and permissions on the specified source.
         if (!isset($cfgSources[$import_source])) {
-            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $import_source));
+            throw new Turba_Exception(
+                sprintf(_("Invalid address book: %s"), $import_source));
         }
 
-        $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($import_source);
+        $driver = $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($import_source);
 
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             throw new Turba_Exception(_("Permission denied"));
         }
 
-        /* Create a category manager. */
+        // Create a category manager.
         $cManager = new Horde_Prefs_CategoryManager();
         $categories = $cManager->get();
+
+        // Need an object to add attributes to.
+        $object = new Turba_Object($driver);
 
         if (!($content instanceof Horde_Icalendar_Vcard)) {
             switch ($contentType) {
@@ -695,7 +701,10 @@ class Turba_Api extends Horde_Registry_Api
                             if (count($result)) {
                                 continue;
                             }
-
+                            foreach ($content as $attribute => $value) {
+                                $object->setValue($attribute, $value);
+                            }
+                            $content = $object->attributes;
                             $result = $driver->add($content);
                             if (!empty($content['category']) &&
                                 !in_array($content['category'], $categories)) {
@@ -722,6 +731,11 @@ class Turba_Api extends Horde_Registry_Api
         if ($content instanceof Horde_Icalendar_Vcard) {
             $content = $driver->toHash($content);
         }
+
+        foreach ($content as $attribute => $value) {
+            $object->setValue($attribute, $value);
+        }
+        $content = $object->attributes;
 
         // Check if the entry already exists in the data source:
         $result = $driver->search($content);
@@ -1057,15 +1071,9 @@ class Turba_Api extends Horde_Registry_Api
                     throw new Turba_Exception(_("Only one vcard supported."));
                 }
                 break;
+
             case 'activesync':
                 $content = $driver->fromASContact($content);
-                /* Must check for ghosted properties for activesync requests */
-                foreach ($content as $attribute => $value) {
-                    if ($attribute != '__key') {
-                        $object->setValue($attribute, $value);
-                    }
-                }
-
                 break;
 
             default:

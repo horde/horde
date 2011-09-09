@@ -2,11 +2,11 @@
 /**
  * Renders a table of contents for a Wiki page.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see
- * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * http://www.horde.org/licenses/gpl
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
  * @package  Wicked
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @link     http://www.horde.org/apps/wicked
- * @license  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license  http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
 /**
@@ -24,24 +24,19 @@
  * @package  Wicked
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @link     http://www.horde.org/apps/wicked
- * @license  http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license  http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 class Text_Wiki_Render_Rst_Toc extends Text_Wiki_Render
 {
     /**
-    * 
-    * Renders a token into text matching the requested format.
-    * 
-    * @access public
-    * 
-    * @param array $options The "options" portion of the token (second
-    * element).
-    * 
-    * @return string The text rendered from the token options.
-    * 
-    */
-    
-    function token($options)
+     * Renders a token into text matching the requested format.
+     * 
+     * @param array $options The "options" portion of the token (second
+     * element).
+     * 
+     * @return string The text rendered from the token options.
+     */
+    public function token($options)
     {
         if($options['type'] == 'list_start') {
             return ".. contents:: Contents\n.. section-numbering::\n\n";

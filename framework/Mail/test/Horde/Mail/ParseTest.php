@@ -1,7 +1,7 @@
 <?php
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @license    http://www.horde.org/licenses/bsd BSD
  * @category   Horde
  * @package    Mail
  * @subpackage UnitTests

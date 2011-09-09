@@ -3,8 +3,8 @@
  * @category   Horde
  * @package    Date
  * @subpackage UnitTests
- * @copyright  2008-2010 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @copyright  2008-2010 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/bsd
  */
 
 /**

@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Injector
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @link     http://pear.horde.org/index.php?package=Injector
  */
 
@@ -20,7 +20,7 @@ require 'Horde/Autoloader.php';
  * @category Horde
  * @package  Injector
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @link     http://pear.horde.org/index.php?package=Injector
  */
 class Binder implements Horde_Injector_Binder

@@ -2,10 +2,10 @@
 /**
  * Wicked Abtract Page Class.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
@@ -398,22 +398,13 @@ class Wicked_Page
             return $this->_proc;
         }
 
-        global $wicked, $conf;
-
         $view_url = Wicked::url('%s')
             ->setRaw(true)
             ->add('referrer', $this->pageName());
         $view_url = str_replace(array(urlencode('%s'), urlencode('/')), array('%s', '%' . urlencode('/')), $view_url);
 
-        /* Make sure we have a valid wiki format */
-        $format = $conf['wicked']['format'];
-        if (!in_array($format, array('BBCode', 'Cowiki', 'Creole', 'Mediawiki', 'Tiki'))) {
-            $format = 'Default';
-        }
-
         /* Create format-specific Text_Wiki object */
-        $class = 'Text_Wiki_' . $format;
-        require_once 'Text/Wiki/' . $format . '.php';
+        $class = 'Text_Wiki_' . $GLOBALS['conf']['wicked']['format'];
         $this->_proc = new $class();
 
         /* Use a non-printable delimiter character that is still a valid UTF-8
@@ -424,7 +415,7 @@ class Wicked_Page
             /* Override rules */
             $this->_proc->insertRule('Image2', 'Image');
             $this->_proc->deleteRule('Image');
-            if ($format == 'Default') {
+            if ($GLOBALS['conf']['wicked']['format'] == 'Default') {
                 $this->_proc->insertRule('Code2', 'Code');
                 $this->_proc->deleteRule('Code');
 
@@ -447,7 +438,7 @@ class Wicked_Page
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
             $create = $this->allows(Wicked::MODE_CREATE) ? 1 : 0;
             $linkConf = array(
-                'pages' => $wicked->getPages(),
+                'pages' => $GLOBALS['wicked']->getPages(),
                 'view_url' => $view_url,
                 'new_url' => $create ? $view_url : false,
                 'new_text_pos' => false,
@@ -467,9 +458,13 @@ class Wicked_Page
                                               'css_th' => 'table-cell'));
 
             $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Xhtml/', WICKED_BASE . '/lib/Text_Wiki/Render/Xhtml'));
+        } else if ($output_format == 'Rst') {
+            require_once dirname(__FILE__) . '/Text_Wiki/Render/Rst.php';
+            $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Rst/', WICKED_BASE . '/lib/Text_Wiki/Render/Rst'));
         }
 
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Parse/', WICKED_BASE . '/lib/Text_Wiki/Parse/' . $format));
+
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Parse/', WICKED_BASE . '/lib/Text_Wiki/Parse/' . $GLOBALS['conf']['wicked']['format']));
 
         return $this->_proc;
     }

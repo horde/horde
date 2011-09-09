@@ -1029,7 +1029,7 @@ class Nag_Api extends Horde_Registry_Api
         case 'text/calendar':
             // Create the new iCalendar container.
             $iCal = new Horde_Icalendar($version);
-            $iCal->setAttribute('PRODID', '-//The Horde Project//Nag ' . $GLOBALS['registry']->getVersion() . '//EN');
+            $iCal->setAttribute('PRODID', '-//Horde LLC//Nag ' . $GLOBALS['registry']->getVersion() . '//EN');
             $iCal->setAttribute('METHOD', 'PUBLISH');
 
             // Create new vTodo object.

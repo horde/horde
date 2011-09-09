@@ -4,7 +4,7 @@
  *
  * @author     Bryan Alves <bryanalves@gmail.com>
  * @category   Horde
- * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @license    http://www.horde.org/licenses/bsd BSD
  * @package    Log
  * @subpackage Filters
  */
@@ -12,7 +12,7 @@
 /**
  * @author     Bryan Alves <bryanalves@gmail.com>
  * @category   Horde
- * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @license    http://www.horde.org/licenses/bsd BSD
  * @package    Log
  * @subpackage Filters
  */

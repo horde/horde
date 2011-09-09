@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-07</date>
- <time>15:56:47</time>
+ <date>2011-09-09</date>
+ <time>05:46:12</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -44,17 +44,19 @@
     <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="data">
+    <dir name="Default">
+     <file name="AddingPages" role="horde" />
+     <file name="HowToUseWiki" role="horde" />
+     <file name="MethodSetRenderConf" role="horde" />
+     <file name="RuleInterwiki" role="horde" />
+     <file name="RuleWikilink" role="horde" />
+     <file name="SandBox" role="horde" />
+     <file name="SmashWordsTogether" role="horde" />
+     <file name="WickedTextFormat" role="horde" />
+     <file name="WikiHome" role="horde" />
+     <file name="WikiPage" role="horde" />
+    </dir> <!-- /data/Default -->
     <file name=".htaccess" role="horde" />
-    <file name="AddingPages" role="horde" />
-    <file name="HowToUseWiki" role="horde" />
-    <file name="MethodSetRenderConf" role="horde" />
-    <file name="RuleInterwiki" role="horde" />
-    <file name="RuleWikilink" role="horde" />
-    <file name="SandBox" role="horde" />
-    <file name="SmashWordsTogether" role="horde" />
-    <file name="WickedTextFormat" role="horde" />
-    <file name="WikiHome" role="horde" />
-    <file name="WikiPage" role="horde" />
    </dir> <!-- /data -->
    <dir name="docs">
     <file name="CHANGES" role="doc" />
@@ -73,6 +75,9 @@
     <dir name="Driver">
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
+    <dir name="Factory">
+     <file name="Driver.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
     <dir name="Page">
      <file name="AddPage.php" role="horde" />
      <file name="AllPages.php" role="horde" />
@@ -125,9 +130,16 @@
      </dir> <!-- /lib/Text_Wiki/Parse -->
      <dir name="Render">
       <dir name="Rst">
+       <file name="Deflist.php" role="horde" />
+       <file name="Freelink.php" role="horde" />
        <file name="Heading.php" role="horde" />
+       <file name="Links.php" role="horde" />
+       <file name="Newline.php" role="horde" />
        <file name="Paragraph.php" role="horde" />
+       <file name="Raw.php" role="horde" />
        <file name="Toc.php" role="horde" />
+       <file name="Tt.php" role="horde" />
+       <file name="Url.php" role="horde" />
       </dir> <!-- /lib/Text_Wiki/Render/Rst -->
       <dir name="Xhtml">
        <file name="Attribute.php" role="horde" />
@@ -431,16 +443,16 @@
    <install as="wicked/config/menu.php.dist" name="config/menu.php.dist" />
    <install as="wicked/config/prefs.php" name="config/prefs.php" />
    <install as="wicked/data/.htaccess" name="data/.htaccess" />
-   <install as="wicked/data/AddingPages" name="data/AddingPages" />
-   <install as="wicked/data/HowToUseWiki" name="data/HowToUseWiki" />
-   <install as="wicked/data/MethodSetRenderConf" name="data/MethodSetRenderConf" />
-   <install as="wicked/data/RuleInterwiki" name="data/RuleInterwiki" />
-   <install as="wicked/data/RuleWikilink" name="data/RuleWikilink" />
-   <install as="wicked/data/SandBox" name="data/SandBox" />
-   <install as="wicked/data/SmashWordsTogether" name="data/SmashWordsTogether" />
-   <install as="wicked/data/WickedTextFormat" name="data/WickedTextFormat" />
-   <install as="wicked/data/WikiHome" name="data/WikiHome" />
-   <install as="wicked/data/WikiPage" name="data/WikiPage" />
+   <install as="wicked/data/Default/AddingPages" name="data/Default/AddingPages" />
+   <install as="wicked/data/Default/HowToUseWiki" name="data/Default/HowToUseWiki" />
+   <install as="wicked/data/Default/MethodSetRenderConf" name="data/Default/MethodSetRenderConf" />
+   <install as="wicked/data/Default/RuleInterwiki" name="data/Default/RuleInterwiki" />
+   <install as="wicked/data/Default/RuleWikilink" name="data/Default/RuleWikilink" />
+   <install as="wicked/data/Default/SandBox" name="data/Default/SandBox" />
+   <install as="wicked/data/Default/SmashWordsTogether" name="data/Default/SmashWordsTogether" />
+   <install as="wicked/data/Default/WickedTextFormat" name="data/Default/WickedTextFormat" />
+   <install as="wicked/data/Default/WikiHome" name="data/Default/WikiHome" />
+   <install as="wicked/data/Default/WikiPage" name="data/Default/WikiPage" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
@@ -457,6 +469,7 @@
    <install as="wicked/lib/Wicked.php" name="lib/Wicked.php" />
    <install as="wicked/lib/Block/Page.php" name="lib/Block/Page.php" />
    <install as="wicked/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
+   <install as="wicked/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="wicked/lib/Page/AddPage.php" name="lib/Page/AddPage.php" />
    <install as="wicked/lib/Page/AllPages.php" name="lib/Page/AllPages.php" />
    <install as="wicked/lib/Page/AttachedFiles.php" name="lib/Page/AttachedFiles.php" />
@@ -489,9 +502,16 @@
    <install as="wicked/lib/Text_Wiki/Parse/Mediawiki/Image2.php" name="lib/Text_Wiki/Parse/Mediawiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Image2.php" name="lib/Text_Wiki/Parse/Tiki/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst.php" name="lib/Text_Wiki/Render/Rst.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Deflist.php" name="lib/Text_Wiki/Render/Rst/Deflist.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Freelink.php" name="lib/Text_Wiki/Render/Rst/Freelink.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Heading.php" name="lib/Text_Wiki/Render/Rst/Heading.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Links.php" name="lib/Text_Wiki/Render/Rst/Links.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Newline.php" name="lib/Text_Wiki/Render/Rst/Newline.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Paragraph.php" name="lib/Text_Wiki/Render/Rst/Paragraph.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Raw.php" name="lib/Text_Wiki/Render/Rst/Raw.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Toc.php" name="lib/Text_Wiki/Render/Rst/Toc.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Tt.php" name="lib/Text_Wiki/Render/Rst/Tt.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Url.php" name="lib/Text_Wiki/Render/Rst/Url.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Attribute.php" name="lib/Text_Wiki/Render/Xhtml/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Code2.php" name="lib/Text_Wiki/Render/Xhtml/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Freelink2.php" name="lib/Text_Wiki/Render/Xhtml/Freelink2.php" />
@@ -605,7 +625,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-09-07</date>
+   <date>2011-09-09</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.

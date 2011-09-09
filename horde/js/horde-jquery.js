@@ -2,7 +2,7 @@
  * Some general javascript code, prototypejs free, safe to use with jquery.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
 Date.prototype.getRealWeek = function()
 {

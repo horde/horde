@@ -37,7 +37,7 @@ Reading, writing and listing of files are all supported, and there are both obje
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [jan] Fix renaming and catching errors while reading sizes in SQL driver.
 * [jan] Fix reading file contents from FTP.
@@ -564,7 +564,7 @@ Reading, writing and listing of files are all supported, and there are both obje
     <api>alpha</api>
    </stability>
    <date>2002-09-24</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial release as a PEAR package
    </notes>
@@ -579,7 +579,7 @@ Initial release as a PEAR package
     <api>alpha</api>
    </stability>
    <date>2002-10-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Added an ObjectVFS wrapper class, returns a ListItem on each call to listFolder, until no items are left.
    </notes>
@@ -594,7 +594,7 @@ Added an ObjectVFS wrapper class, returns a ListItem on each call to listFolder,
     <api>beta</api>
    </stability>
    <date>2003-07-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Added a class for providing garbage collection; removed all Horde dependancies.
    </notes>
@@ -609,7 +609,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <api>beta</api>
    </stability>
    <date>2003-09-09</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Default ftp driver to port 21.
 * Distinguish between connection and authentication errors in the ftp driver.
@@ -630,7 +630,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <api>beta</api>
    </stability>
    <date>2005-04-07</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fix typo that prevented the sql_file driver to load its parameters.
 * PHP 5 compatibility fixes.
@@ -660,7 +660,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <api>beta</api>
    </stability>
    <date>2006-04-12</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * SQL drivers now return empty values if the particular parameter does not exist on the server (instead of &apos;-&apos;).
 * Add initial VFS quota support.
@@ -689,7 +689,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <api>beta</api>
    </stability>
    <date>2008-02-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fix listing of folders with whitespace in the name using the SSH2 VFS driver (Horde Bug #6227).
 * Fix some string parsing on systems that don&apos;t have the &apos;en&apos; or &apos;en_US&apos; locales installed (Horde Bug #6194).
@@ -713,7 +713,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Allow access to files with multiple consecutive dots in the name (valentin.vidic@carnet.hr; Horde Bug #7646).
 * Rename fixes for SMB driver (leena.heino@uta.fi, Horde Bug #7933).
@@ -738,7 +738,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -753,7 +753,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Convert to PHP 5 and Horde 4 package layout.
    </notes>
@@ -768,7 +768,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -783,7 +783,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
 * Fixed VFS folder creation (Bug #9711).
@@ -799,7 +799,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -812,7 +812,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix creating folders with SQL driver (Bug #9894).
 * [jan] Fix creating temporary files with open_basedir restrictions.
@@ -826,7 +826,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix call to setAuth() (Bug #10027).
    </notes>
@@ -839,7 +839,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix garbage collection with SQL driver (Bug #10242).
    </notes>
@@ -852,7 +852,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Latvian translation.
 * [jan] Fix listing files with SSH2 driver if not using a bourne-style shell (lstewart@room52.net, Bug #9497).
@@ -867,7 +867,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix renaming and catching errors while reading sizes in SQL driver.
 * [jan] Fix reading file contents from FTP.

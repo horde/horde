@@ -2,8 +2,8 @@
 /**
  * @category   Horde
  * @package    Support
- * @copyright  1999-2010 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @copyright  1999-2010 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/bsd
  */
 
 /**
@@ -11,8 +11,8 @@
  *
  * @category   Horde
  * @package    Support
- * @copyright  1999-2010 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @copyright  1999-2010 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_Backtrace
 {

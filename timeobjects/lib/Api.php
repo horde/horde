@@ -3,7 +3,7 @@
  * API methods for exposing various bits of data via the listTimeObjects API
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package TimeObjects
  */

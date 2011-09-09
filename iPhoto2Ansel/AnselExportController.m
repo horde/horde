@@ -2,9 +2,9 @@
  * AnselExportController.m
  * iPhoto2Ansel
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org)
  * 
- * @license http://opensource.org/licenses/bsd-license.php
+ * @license http://www.horde.org/licenses/bsd
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
 

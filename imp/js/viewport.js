@@ -215,10 +215,10 @@
  * Requires prototypejs 1.6+, scriptaculous 1.8+ (effects.js only), and
  * Horde's dragdrop2.js and slider2.js.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var ViewPort = Class.create({
