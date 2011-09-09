@@ -26,7 +26,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [gwr] Add Horde_Test_Setup for complex test suite setups.
  </notes>
@@ -154,7 +154,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -169,7 +169,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -184,7 +184,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -199,7 +199,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -214,7 +214,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -227,7 +227,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Added test case for log output.
 * [gwr] Added stub for application testing.
@@ -241,7 +241,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix Horde_Text_Exception extending the wrong class name.
    </notes>
@@ -254,7 +254,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Improve detection of the lib directory.
 * [gwr] Extract the setup pieces we do in the AllTests helper and heed the Autoload.php file of a test suite.
@@ -268,7 +268,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-09-08</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Add Horde_Test_Setup for complex test suite setups.
    </notes>
