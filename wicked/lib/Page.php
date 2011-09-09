@@ -410,6 +410,7 @@ class Wicked_Page
         /* Use a non-printable delimiter character that is still a valid UTF-8
          * character. See http://pear.php.net/bugs/bug.php?id=12490. */
         $this->_proc->delim = chr(1);
+        $this->_proc->setParseConf('Wikilink', 'utf-8', true);
 
         if ($output_format == 'Xhtml') {
             /* Override rules */
@@ -422,6 +423,7 @@ class Wicked_Page
                 $this->_proc->insertRule('Wickedblock', 'Code2');
 
                 $this->_proc->insertRule('Wikilink2', 'Wikilink');
+                $this->_proc->setParseConf('Wikilink2', 'utf-8', true);
                 $this->_proc->deleteRule('Wikilink');
 
                 $this->_proc->insertRule('Freelink2', 'Freelink');
