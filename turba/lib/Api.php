@@ -1071,14 +1071,9 @@ class Turba_Api extends Horde_Registry_Api
                     throw new Turba_Exception(_("Only one vcard supported."));
                 }
                 break;
+
             case 'activesync':
                 $content = $driver->fromASContact($content);
-                foreach ($content as $attribute => $value) {
-                    if ($attribute != '__key') {
-                        $object->setValue($attribute, $value);
-                    }
-                }
-
                 break;
 
             default:
