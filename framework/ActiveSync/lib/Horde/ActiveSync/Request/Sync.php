@@ -229,7 +229,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 // Some broken clients send SYNC_COMMANDS with a synckey of 0.
                 // This is a violation of the spec, and could lead to all kinds
                 // of data integrity issues.
-                if ($collection['synckey'] == 0) {
+                if (empty($collection['synckey'])) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
                     exit;
