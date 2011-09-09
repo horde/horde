@@ -27,7 +27,7 @@
  * Patrice Levesque or dev@lists.horde.org.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Paul Gareau <paul@xhawk.net>
  * @author  Patrice Levesque <wayne@ptaff.ca>

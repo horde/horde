@@ -26,11 +26,11 @@
  *        Possible values: 'unix', 'win', 'netware'
  *        By default, we attempt to auto-detect type.</pre>
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  * Copyright 2002-2007 Michael Varghese <mike.varghese@ascellatech.com>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Varghese <mike.varghese@ascellatech.com>
