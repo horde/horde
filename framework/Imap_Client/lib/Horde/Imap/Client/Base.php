@@ -3253,6 +3253,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
     /**
      * Determines if the given charset is valid for search-related queries.
+     * This check pertains just to the basic IMAP SEARCH command.
      *
      * @param string $charset  The query charset.
      *
@@ -3267,15 +3268,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             case 'US-ASCII';
                 /* US-ASCII is always supported (RFC 3501 [6.4.4]). */
                 $support = true;
-                break;
-
-            case 'UTF-8':
-                /* SORT (RFC 5256) & ESORT (RFC 5267) require UTF-8
-                 * support. */
-                if ($this->queryCapability('SORT') ||
-                    $this->queryCapability('ESORT')) {
-                    $support = true;
-                }
                 break;
             }
 
