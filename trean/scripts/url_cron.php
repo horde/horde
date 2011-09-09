@@ -127,6 +127,7 @@ function get_body($bookmark)
 
     get_favicon($bookmark, $body);
 
+}
 
 /**
  * Attempts to retrieve a favicon for the given bookmark.  If successful, the
