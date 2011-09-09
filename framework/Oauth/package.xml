@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:16:30</time>
+ <date>2011-09-09</date>
+ <time>14:34:59</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -28,7 +28,12 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <file name="TODO.txt" role="doc" />
+    <dir name="Horde">
+     <dir name="Oauth">
+      <file name="COPYING" role="doc" />
+      <file name="TODO.txt" role="doc" />
+     </dir> <!-- /doc/Horde/Oauth -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -81,7 +86,8 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="TODO.txt" name="doc/TODO.txt" />
+   <install as="COPYING" name="doc/Horde/Oauth/COPYING" />
+   <install as="TODO.txt" name="doc/Horde/Oauth/TODO.txt" />
    <install as="Horde/Oauth/Consumer.php" name="lib/Horde/Oauth/Consumer.php" />
    <install as="Horde/Oauth/Exception.php" name="lib/Horde/Oauth/Exception.php" />
    <install as="Horde/Oauth/Request.php" name="lib/Horde/Oauth/Request.php" />
@@ -191,7 +197,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-09-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * 

@@ -11,8 +11,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-17</date>
- <time>10:15:53</time>
+ <date>2011-09-09</date>
+ <time>14:35:16</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -28,10 +28,15 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <file name="INSTALL.p900.txt" role="doc" />
-    <file name="README.program_flow.txt" role="doc" />
-    <file name="README.syncml_primer.txt" role="doc" />
-    <file name="TODO" role="doc" />
+    <dir name="Horde">
+     <dir name="SyncMl">
+      <file name="COPYING" role="doc" />
+      <file name="INSTALL.p900.txt" role="doc" />
+      <file name="README.program_flow.txt" role="doc" />
+      <file name="README.syncml_primer.txt" role="doc" />
+      <file name="TODO" role="doc" />
+     </dir> <!-- /doc/Horde/SyncMl -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -649,10 +654,11 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="INSTALL.p900.txt" name="doc/INSTALL.p900.txt" />
-   <install as="README.program_flow.txt" name="doc/README.program_flow.txt" />
-   <install as="README.syncml_primer.txt" name="doc/README.syncml_primer.txt" />
-   <install as="TODO" name="doc/TODO" />
+   <install as="COPYING" name="doc/Horde/SyncMl/COPYING" />
+   <install as="INSTALL.p900.txt" name="doc/Horde/SyncMl/INSTALL.p900.txt" />
+   <install as="README.program_flow.txt" name="doc/Horde/SyncMl/README.program_flow.txt" />
+   <install as="README.syncml_primer.txt" name="doc/Horde/SyncMl/README.syncml_primer.txt" />
+   <install as="TODO" name="doc/Horde/SyncMl/TODO" />
    <install as="Horde/SyncMl.php" name="lib/Horde/SyncMl.php" />
    <install as="Horde/SyncMl/Backend.php" name="lib/Horde/SyncMl/Backend.php" />
    <install as="Horde/SyncMl/Command.php" name="lib/Horde/SyncMl/Command.php" />
@@ -1177,7 +1183,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-17</date>
+   <date>2011-09-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

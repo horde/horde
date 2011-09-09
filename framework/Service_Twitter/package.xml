@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-06</date>
- <time>12:26:44</time>
+ <date>2011-09-09</date>
+ <time>14:35:11</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -27,8 +27,15 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <file name="twitter_browser.php" role="doc" />
-    <file name="twitter_cli.php" role="doc" />
+    <dir name="Horde">
+     <dir name="Service">
+      <dir name="Twitter">
+       <file name="COPYING" role="doc" />
+       <file name="twitter_browser.php" role="doc" />
+       <file name="twitter_cli.php" role="doc" />
+      </dir> <!-- /doc/Horde/Service/Twitter -->
+     </dir> <!-- /doc/Horde/Service -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -99,8 +106,9 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="twitter_browser.php" name="doc/twitter_browser.php" />
-   <install as="twitter_cli.php" name="doc/twitter_cli.php" />
+   <install as="COPYING" name="doc/Horde/Service/Twitter/COPYING" />
+   <install as="twitter_browser.php" name="doc/Horde/Service/Twitter/twitter_browser.php" />
+   <install as="twitter_cli.php" name="doc/Horde/Service/Twitter/twitter_cli.php" />
    <install as="Horde/Service/Twitter.php" name="lib/Horde/Service/Twitter.php" />
    <install as="Horde/Service/Twitter/Account.php" name="lib/Horde/Service/Twitter/Account.php" />
    <install as="Horde/Service/Twitter/Auth.php" name="lib/Horde/Service/Twitter/Auth.php" />
@@ -208,7 +216,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-06</date>
+   <date>2011-09-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 *
