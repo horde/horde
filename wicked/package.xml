@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-09</date>
- <time>05:46:12</time>
+ <time>15:22:08</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -52,9 +52,9 @@
      <file name="RuleWikilink" role="horde" />
      <file name="SandBox" role="horde" />
      <file name="SmashWordsTogether" role="horde" />
-     <file name="WickedTextFormat" role="horde" />
      <file name="WikiHome" role="horde" />
      <file name="WikiPage" role="horde" />
+     <file name="WikiTextFormat" role="horde" />
     </dir> <!-- /data/Default -->
     <file name=".htaccess" role="horde" />
    </dir> <!-- /data -->
@@ -450,9 +450,9 @@
    <install as="wicked/data/Default/RuleWikilink" name="data/Default/RuleWikilink" />
    <install as="wicked/data/Default/SandBox" name="data/Default/SandBox" />
    <install as="wicked/data/Default/SmashWordsTogether" name="data/Default/SmashWordsTogether" />
-   <install as="wicked/data/Default/WickedTextFormat" name="data/Default/WickedTextFormat" />
    <install as="wicked/data/Default/WikiHome" name="data/Default/WikiHome" />
    <install as="wicked/data/Default/WikiPage" name="data/Default/WikiPage" />
+   <install as="wicked/data/Default/WikiTextFormat" name="data/Default/WikiTextFormat" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
