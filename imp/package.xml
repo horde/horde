@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-07</date>
- <time>03:17:57</time>
+ <date>2011-09-09</date>
+ <time>02:38:34</time>
  <version>
   <release>5.0.12</release>
   <api>5.0.0</api>
@@ -200,6 +200,7 @@
      <dir name="Viewer">
       <file name="Alternative.php" role="horde" />
       <file name="Appledouble.php" role="horde" />
+      <file name="Audio.php" role="horde" />
       <file name="Enriched.php" role="horde" />
       <file name="Externalbody.php" role="horde" />
       <file name="Html.php" role="horde" />
@@ -216,6 +217,7 @@
       <file name="Smime.php" role="horde" />
       <file name="Status.php" role="horde" />
       <file name="Vcard.php" role="horde" />
+      <file name="Video.php" role="horde" />
       <file name="Zip.php" role="horde" />
      </dir> <!-- /lib/Mime/Viewer -->
     </dir> <!-- /lib/Mime -->
@@ -1524,6 +1526,7 @@
    <install as="imp/lib/Menu/Dimp.php" name="lib/Menu/Dimp.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
    <install as="imp/lib/Mime/Viewer/Appledouble.php" name="lib/Mime/Viewer/Appledouble.php" />
+   <install as="imp/lib/Mime/Viewer/Audio.php" name="lib/Mime/Viewer/Audio.php" />
    <install as="imp/lib/Mime/Viewer/Enriched.php" name="lib/Mime/Viewer/Enriched.php" />
    <install as="imp/lib/Mime/Viewer/Externalbody.php" name="lib/Mime/Viewer/Externalbody.php" />
    <install as="imp/lib/Mime/Viewer/Html.php" name="lib/Mime/Viewer/Html.php" />
@@ -1540,6 +1543,7 @@
    <install as="imp/lib/Mime/Viewer/Smime.php" name="lib/Mime/Viewer/Smime.php" />
    <install as="imp/lib/Mime/Viewer/Status.php" name="lib/Mime/Viewer/Status.php" />
    <install as="imp/lib/Mime/Viewer/Vcard.php" name="lib/Mime/Viewer/Vcard.php" />
+   <install as="imp/lib/Mime/Viewer/Video.php" name="lib/Mime/Viewer/Video.php" />
    <install as="imp/lib/Mime/Viewer/Zip.php" name="lib/Mime/Viewer/Zip.php" />
    <install as="imp/lib/Notification/Event/Status.php" name="lib/Notification/Event/Status.php" />
    <install as="imp/lib/Notification/Handler/Decorator/ImapAlerts.php" name="lib/Notification/Handler/Decorator/ImapAlerts.php" />
@@ -2431,7 +2435,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-07</date>
+   <date>2011-09-09</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
 * [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).

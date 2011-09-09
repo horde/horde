@@ -207,18 +207,20 @@ class IMP_Contents
                 : $ob->getContents();
         }
 
-        $bodypart_params = array(
-            'decode' => !empty($options['decode']),
-            'peek' => true
-        );
-
-        if (!empty($options['length'])) {
-            $bodypart_params['start'] = 0;
-            $bodypart_params['length'] = $options['length'];
-        }
-
         $query = new Horde_Imap_Client_Fetch_Query();
-        $query->bodyPart($id, $bodypart_params);
+        if (!isset($options['length']) || !empty($options['length'])) {
+            $bodypart_params = array(
+                'decode' => !empty($options['decode']),
+                'peek' => true
+            );
+
+            if (isset($options['length'])) {
+                $bodypart_params['start'] = 0;
+                $bodypart_params['length'] = $options['length'];
+            }
+
+            $query->bodyPart($id, $bodypart_params);
+        }
 
         if (!empty($options['mimeheaders'])) {
             $query->mimeHeader($id, array(

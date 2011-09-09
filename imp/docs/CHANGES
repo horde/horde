@@ -2,6 +2,8 @@
 v5.0.12-git
 -----------
 
+[mms] Provide content duration information for audio & video data if that
+      information is available (RFC 3803).
 [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
 [mms] Add List-ID information, if available, to auto-reply notification.
 [mms] Display information on reply method in standard view, and allow for
