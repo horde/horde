@@ -1,5 +1,5 @@
 # Italian translations for trean package.
-# Copyright 2008-2009 The Horde Project
+# Copyright 2008-2009 Horde LLC
 # This file is distributed under the same license as the trean package.
 # Fabio Pedretti <fabio.pedretti@ing.unibs.it>, 2008.
 #

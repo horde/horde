@@ -3,7 +3,7 @@
 /**
  * $Horde: trean/scripts/check_links.php,v 1.30 2009/01/06 18:02:14 jan Exp $
  *
- * Copyright 2005-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2009 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
