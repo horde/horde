@@ -24,7 +24,7 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Itip

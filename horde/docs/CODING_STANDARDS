@@ -267,13 +267,13 @@ Example for `GPL`_'ed application code::
      * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (GPL). If you
-     * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+     * did not receive this file, see http://www.horde.org/licenses/gpl.
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
      * @category Horde
      * @package  App
-     * @license  http://www.fsf.org/copyleft/gpl.html GPL
+     * @license  http://www.horde.org/licenses/gpl GPL
      * @since    App 1.0.1 [only if needed]
      */
 

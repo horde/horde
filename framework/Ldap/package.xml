@@ -164,7 +164,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPLv3</license>
+   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -179,7 +179,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -194,7 +194,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -209,7 +209,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -222,7 +222,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Add parameter to Horde_Ldap_Schema#must() and #may() to return attributes from superior objectclasses too (Bug #9826).
 * [jan] Don&apos;t throw exceptions from Horde_Ldap_Schema#must() and #may() (Bug #9826).
@@ -236,7 +236,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Fix detecting superiour objectclass&apos; must/may attributes (Bug #9826).
    </notes>
@@ -249,7 +249,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Always use negative lookbehind assertions to work around bug in PCRE 6.6 (Steve Teti, Bug #10294).
    </notes>
@@ -262,7 +262,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Speed up Horde_Ldap_Search#shiftEntry() on large result sets.
    </notes>
@@ -275,7 +275,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-30</date>
-   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * 
    </notes>
