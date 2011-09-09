@@ -271,6 +271,7 @@ div.vpRowVert div.msgDate {
     width: auto;
 }
 div.vpRowVert div.msgSubject {
+    color: darkgray;
     float: none;
     margin-right: 2px;
     width: auto;
