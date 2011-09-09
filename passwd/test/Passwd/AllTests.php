@@ -3,7 +3,7 @@
  * Passwd test suite.
  *
  * @author     Ralf Lang <lang@b1-systems.de>
- * @license    http://www.gnu.org/licenses/gpl-2.0.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @category   Horde
  * @package    Passwd
  * @subpackage UnitTests

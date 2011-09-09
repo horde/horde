@@ -3,7 +3,7 @@
  * The serv-u ftp class attempts to change a user's password via the SITE PSWD
  * command used by Serv-u ftpd for windows.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * WARNING: This driver has only formally been converted to Horde 4.  No
  *          testing has been done. If this doesn't work, please file bugs at
