@@ -4,7 +4,7 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Ansel
  */
 class TimeObjects_Factory_Driver
