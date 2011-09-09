@@ -9,15 +9,15 @@
  * encode_all -- Replace all spaces with &nbsp;?  Defaults to false.
  * </pre>
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Mathieu Arnold <mat@mat.cc>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Text_Filter
  */
 class Horde_Text_Filter_Space2html extends Horde_Text_Filter_Base
