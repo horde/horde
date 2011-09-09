@@ -9,8 +9,8 @@ require_once dirname(__FILE__) . '/Base.php';
  * @category   Horde
  * @package    Content
  * @subpackage UnitTests
- * @copyright  2010 The Horde Project (http://www.horde.org/)
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @copyright  2010 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Content_Sql_MysqlTest extends Content_Test_Sql_Base
 {
