@@ -96,7 +96,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SUPPORTED)) {
                 // Only allowed on initial sync request
                 if ($collection['synckey'] != 0) {
-                    $this->_statusCode = Horde_ActiveSync::SYNC_STATUS_PROTERROR;
+                    $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
                     exit;
                 }
