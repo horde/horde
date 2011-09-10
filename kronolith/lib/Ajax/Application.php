@@ -985,7 +985,11 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $rend = new Horde_Date($attributes->rend);
         } else {
             $rstart = new Horde_Date($attributes->rday);
+            $rstart->hour = $event->start->hour;
+            $rstart->min = $event->start->min;
             $rend = $rstart->add($event->getDuration);
+            $rend->hour = $event->end->hour;
+            $rend->min = $event->end->min;
         }
 
         $event->recurrence->addException($rstart->year, $rstart->month, $rstart->mday);
