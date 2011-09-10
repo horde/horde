@@ -45,15 +45,15 @@
  *
  * -----
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Mime
  */
 class Horde_Mime
@@ -128,7 +128,7 @@ class Horde_Mime
         $line = '';
 
         /* Return if nothing needs to be encoded. */
-        foreach ($matches as $key => $val) {
+        foreach ($matches as $key => &$val) {
             if (self::is8bit($val[1], $charset)) {
                 if ((($key + 1) < $size) &&
                     self::is8bit($matches[$key + 1][1], $charset)) {
@@ -167,7 +167,7 @@ class Horde_Mime
         $p_size = count($parts);
         $out = '';
 
-        foreach ($parts as $key => $val) {
+        foreach ($parts as $key => &$val) {
             $out .= '=?' . $charset . '?b?' . $val . '?=';
             if ($p_size > $key + 1) {
                 /* RFC 2047 [2]: no encoded word can be more than 75
@@ -261,13 +261,13 @@ class Horde_Mime
         }
 
         $text = '';
-        foreach ($addresses as $addr) {
+        foreach ($addresses as &$addr) {
             $addrobs = empty($addr['groupname'])
                 ? array($addr)
                 : $addr['addresses'];
             $addrlist = array();
 
-            foreach ($addrobs as $val) {
+            foreach ($addrobs as &$val) {
                 if (empty($val['personal'])) {
                     $personal = '';
                 } else {
@@ -301,63 +301,71 @@ class Horde_Mime
      */
     static public function decode($string, $to_charset)
     {
-        if (($pos = strpos($string, '=?')) === false) {
-            return $string;
-        }
-
         /* Take out any spaces between multiple encoded words. */
         $string = preg_replace('|\?=\s+=\?|', '?==?', $string);
 
-        /* Save any preceding text. */
-        $preceding = substr($string, 0, $pos);
+        $out = '';
+        $old_pos = 0;
 
-        $search = substr($string, $pos + 2);
-        $d1 = strpos($search, '?');
-        if ($d1 === false) {
-            return $string;
-        }
+        while (($pos = strpos($string, '=?', $old_pos)) !== false) {
+            /* Save any preceding text. */
+            $out .= substr($string, $old_pos, $pos - $old_pos);
 
-        $charset = $orig_charset = substr($string, $pos + 2, $d1);
-        if (self::$decodeWindows1252 &&
-            (Horde_String::lower($orig_charset) == 'iso-8859-1')) {
-            $orig_charset = 'windows-1252';
-        }
-        $search = substr($search, $d1 + 1);
+            /* Search for first delimiting question mark (charset). */
+            if (($d1 = strpos($string, '?', $pos + 2)) === false) {
+                $old_pos = $pos;
+                continue;
+            }
 
-        $d2 = strpos($search, '?');
-        if ($d2 === false) {
-            return $string;
-        }
+            $orig_charset = substr($string, $pos + 2, $d1 - $pos - 2);
+            if (self::$decodeWindows1252 &&
+                (Horde_String::lower($orig_charset) == 'iso-8859-1')) {
+                $orig_charset = 'windows-1252';
+            }
 
-        $encoding = substr($search, 0, $d2);
-        $search = substr($search, $d2 + 1);
+            /* Search for second delimiting question mark (encoding). */
+            if (($d2 = strpos($string, '?', $d1 + 1)) === false) {
+                $old_pos = $pos;
+                continue;
+            }
 
-        $end = strpos($search, '?=');
-        if ($end === false) {
-            $end = strlen($search);
-        }
+            $encoding = substr($string, $d1 + 1, $d2 - $d1 - 1);
 
-        $encoded_text = substr($search, 0, $end);
-        $rest = substr($string, (strlen($preceding . $charset . $encoding . $encoded_text) + 6));
+            /* Search for end of encoded data. */
+            if (($end = strpos($string, '?=', $d2 + 1)) === false) {
+                $end = strlen($string);
+            }
 
-        switch ($encoding) {
-        case 'Q':
-        case 'q':
-            $decoded = preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', str_replace('_', ' ', $encoded_text));
-            $decoded = Horde_String::convertCharset($decoded, $orig_charset, $to_charset);
+            $encoded_text = substr($string, $d2 + 1, $end - $d2 - 1);
+
+            switch ($encoding) {
+            case 'Q':
+            case 'q':
+                $out .= Horde_String::convertCharset(
+                    preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', str_replace('_', ' ', $encoded_text)),
+                    $orig_charset,
+                    $to_charset
+                );
             break;
 
-        case 'B':
-        case 'b':
-            $decoded = Horde_String::convertCharset(base64_decode($encoded_text), $orig_charset, $to_charset);
+            case 'B':
+            case 'b':
+                $out .= Horde_String::convertCharset(
+                    base64_decode($encoded_text),
+                    $orig_charset,
+                    $to_charset
+                );
             break;
 
-        default:
-            $decoded = '=?' . $charset . '?' . $encoding . '?' . $encoded_text . '?=';
-            break;
+            default:
+                // Ignore unknown encoding.
+                break;
+            }
+
+            $old_pos = $end + 2;
         }
 
-        return $preceding . $decoded . self::decode($rest, $to_charset);
+        return $out . substr($string, $old_pos);
     }
 
     /**

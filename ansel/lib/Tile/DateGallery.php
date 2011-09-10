@@ -4,7 +4,7 @@
  * DateGallery psuedo gallery.
  *
  * @author   Michael Rubinsky <mrubinsk@horde.org>
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @category Horde
  * @package  Ansel
  */

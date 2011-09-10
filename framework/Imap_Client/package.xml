@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-01</date>
- <time>17:11:54</time>
+ <date>2011-09-09</date>
+ <time>00:12:43</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -22,11 +22,21 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).
 * [mms] Add shortcuts to get MIME decoded envelope information.
 * [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Imap">
+      <dir name="Client">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Imap/Client -->
+     </dir> <!-- /doc/Horde/Imap -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Imap">
@@ -170,6 +180,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Imap/Client/COPYING" />
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
    <install as="Horde/Imap/Client/Cache.php" name="lib/Horde/Imap/Client/Cache.php" />
@@ -545,9 +556,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-01</date>
+   <date>2011-09-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).
 * [mms] Add shortcuts to get MIME decoded envelope information.
 * [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
    </notes>

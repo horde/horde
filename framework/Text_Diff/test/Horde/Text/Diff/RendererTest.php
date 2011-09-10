@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @category   Horde
  * @package    Text_Diff
  * @subpackage UnitTests

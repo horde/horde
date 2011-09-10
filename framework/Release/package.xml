@@ -26,7 +26,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [jan] Keep file mode of Application.php (Bug #9697).
  </notes>
@@ -150,7 +150,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-07</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -165,7 +165,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Keep file mode of Application.php (Bug #9697).
    </notes>

@@ -2,7 +2,7 @@
 /**
  * Horde_Pdf package
  *
- * @license  http://opensource.org/licenses/lgpl-license.php
+ * @license  http://www.horde.org/licenses/lgpl21
  * @category Horde
  * @package  Pdf
  */

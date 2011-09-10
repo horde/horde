@@ -32,7 +32,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Horde_Text_Filter_Text2Html now accepts a Horde_Text_Flowed object as input to filter(); allows proper quoting of input text.
  </notes>
@@ -525,7 +525,7 @@
     <api>alpha</api>
    </stability>
    <date>2004-10-12</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial release as a PEAR package
    </notes>
@@ -541,7 +541,7 @@ Initial release as a PEAR package
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Don&apos;t strip BASE tags when &apos;strip_styles&apos; is false.
 * Added ability to link &lt;test@example.com&gt; e-mail addresses in plain text.
@@ -561,7 +561,7 @@ Initial release as a PEAR package
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Html2text filter will use horde/Text_Filter, if available, to wrap text.
@@ -589,7 +589,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Horde_Text_Filter#filter() now throws an exception on error (Bug #9640).
    </notes>
@@ -604,7 +604,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -619,7 +619,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -634,7 +634,7 @@ Initial release as a PEAR package
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -647,7 +647,7 @@ Initial release as a PEAR package
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Remove dependency on Horde_Text_Filter_Csstidy.
    </notes>
@@ -660,7 +660,7 @@ Initial release as a PEAR package
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-24</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix deletion of unwanted HTML nodes in XSS filter.
 * [mms] Make sure tidy can parse incoming HTML string (Bug #9946).
@@ -674,7 +674,7 @@ Initial release as a PEAR package
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-25</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Correct fix for deletion of unwanted HTML nodes in XSS filter.
    </notes>
@@ -687,7 +687,7 @@ Initial release as a PEAR package
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Latvian translation.
    </notes>
@@ -700,7 +700,7 @@ Initial release as a PEAR package
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-09-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Horde_Text_Filter_Text2Html now accepts a Horde_Text_Flowed object as input to filter(); allows proper quoting of input text.
    </notes>

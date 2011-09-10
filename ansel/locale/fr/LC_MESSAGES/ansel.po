@@ -1,5 +1,5 @@
 # Ansel French translation
-# Copyright (C) 2010 Horde Project
+# Copyright 2010-2011 Horde LLC
 # This file is distributed under the same license as the Ansel package.
 # Maxime Chavagne <maxime@chavagne.net>, 2010.
 #

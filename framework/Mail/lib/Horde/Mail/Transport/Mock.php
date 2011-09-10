@@ -36,7 +36,7 @@
  * @package   Mail
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @copyright 2010 Chuck Hagenbuch
- * @license   http://opensource.org/licenses/bsd-license.php New BSD License
+ * @license   http://www.horde.org/licenses/bsd New BSD License
  */
 
 /**

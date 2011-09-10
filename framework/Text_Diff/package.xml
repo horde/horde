@@ -27,7 +27,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -195,7 +195,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -210,7 +210,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fix package layout.
    </notes>
@@ -225,7 +225,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Convert to PHP 5 and Horde 4 package layout.
    </notes>
@@ -240,7 +240,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -255,7 +255,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -270,7 +270,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -283,7 +283,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix creating temporary files with open_basedir restrictions.
    </notes>
@@ -296,7 +296,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-21</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

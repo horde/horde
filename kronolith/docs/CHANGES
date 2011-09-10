@@ -2,6 +2,8 @@
 v3.0.10-git
 -----------
 
+[mjr] Ensure exception gets start and end times when created from month view
+      (Bug #10496)
 [jan] Update group permission when changing group down list in basic
       permissions (Bug #10482).
 [jan] Fix race condition when editing group permission in basic permission

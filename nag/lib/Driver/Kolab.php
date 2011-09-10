@@ -2,10 +2,10 @@
 /**
  * Nag driver classes for the Kolab IMAP server.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @author  Thomas Jarosch <thomas.jarosch@intra2net.com>

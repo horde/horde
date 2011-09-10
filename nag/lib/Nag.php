@@ -3,7 +3,7 @@
  * Nag Base Class.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jon Parise <jon@horde.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>

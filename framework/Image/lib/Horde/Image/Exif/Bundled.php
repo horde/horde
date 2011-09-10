@@ -17,7 +17,7 @@
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
  * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- * for more details. http://www.gnu.org/copyleft/gpl.html
+ * for more details. http://www.horde.org/licenses/gpl
  * ---
  *
  * The original Exifer library has been heavily modified and refactored. All

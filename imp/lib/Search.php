@@ -3,14 +3,14 @@
  * The IMP_Search:: class contains all code related to mailbox searching
  * in IMP.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Search implements ArrayAccess, Iterator, Serializable

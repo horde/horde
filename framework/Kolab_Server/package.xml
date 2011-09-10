@@ -22,7 +22,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -554,7 +554,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Renamed package to Kolab_Server.
 * Removed an unnecessary translation.
@@ -572,7 +572,7 @@
     <api>alpha</api>
    </stability>
    <date>2008-07-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.
    </notes>
@@ -587,7 +587,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fixed retrieval of the users IMAP home server.
 * Allowed retrieving a DN for an id matching either mail, uid or alias.
@@ -611,7 +611,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fixed the fallback for a missing freebusy_server value.
 * Fixed identification of external addresses.
@@ -627,7 +627,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fixed objectClass evaluation to respect case-insensitivity (Bug: #7694)
 * kolab/issue2207 (Make it possible to enable and disable users to be able to
@@ -652,7 +652,7 @@
     <api>alpha</api>
    </stability>
    <date>2010-02-17</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Converted the package to Horde 4 / PHP 5.
 * Split the session driver into a separate package (Kolab_Session).
@@ -681,7 +681,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -696,7 +696,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -711,7 +711,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -726,7 +726,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -741,7 +741,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Use Horde_Auth for generating password hashes.
@@ -755,7 +755,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Fix reading the user name.
    </notes>
@@ -768,7 +768,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

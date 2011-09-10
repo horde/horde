@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:15:01</time>
+ <date>2011-09-09</date>
+ <time>17:37:33</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -26,9 +26,9 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [mms] Fix SMTP error codes/messages (Bug #10498).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -115,7 +115,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -130,7 +130,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -145,7 +145,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First release candidate for Horde 4.
 * [jan] Fix passing arguments to sendmail binary (Gonçalo Queirós, Bug #9693).
@@ -161,7 +161,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -176,7 +176,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -188,10 +188,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <date>2011-09-09</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mms] Fix SMTP error codes/messages (Bug #10498).
    </notes>
   </release>
  </changelog>

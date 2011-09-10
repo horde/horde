@@ -3,14 +3,14 @@
  * Login tasks module that purges old messages in the Spam folder.  Based on
  * the purge_trash task, written by Michael Slusarz <slusarz@horde.org>.
  *
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Matt Selsky <selsky@columbia.edu>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task

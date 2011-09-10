@@ -37,7 +37,7 @@
  * @package    Mail
  * @author     gERD Schaufelberger <gerd@php-tools.net>
  * @copyright  2010 gERD Schaufelberger
- * @license    http://opensource.org/licenses/bsd-license.php New BSD License
+ * @license    http://www.horde.org/licenses/bsd New BSD License
  */
 
 /**

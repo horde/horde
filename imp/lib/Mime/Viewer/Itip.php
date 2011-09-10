@@ -4,16 +4,16 @@
  * and provides an option to import the data into a calendar source,
  * if one is available.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
@@ -366,7 +366,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     // Build the reply.
                     $msg_headers = new Horde_Mime_Headers();
                     $vCal = new Horde_Icalendar();
-                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . $msg_headers->getUserAgent() . '//EN');
+                    $vCal->setAttribute('PRODID', '-//Horde LLC//' . $msg_headers->getUserAgent() . '//EN');
                     $vCal->setAttribute('METHOD', 'REPLY');
                     $vCal->addComponent($vfb_reply);
 

@@ -20,7 +20,7 @@
    <release>alpha</release>
    <api>alpha</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * First alpha release for Horde 4.
  </notes>
@@ -87,7 +87,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-07-21</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>

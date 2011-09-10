@@ -1,5 +1,5 @@
 # Latvian translation for Mnemo package.
-# Copyright (C) 2011 Horde Project
+# Copyright 2011 Horde LLC
 # This file is distributed under the same license as the Mnemo package.
 # Janis Eisaks, <jancs@dv.lv>, 2011.
 #

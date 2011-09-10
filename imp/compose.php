@@ -2,15 +2,15 @@
 /**
  * Compose script for traditional (IMP) view.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -53,7 +53,7 @@ if (!$prefs->isLocked('default_identity') && !is_null($vars->identity)) {
 
 /* Catch submits if javascript is not present. */
 if (!$vars->actionID) {
-    foreach (array('send_message', 'save_draft', 'cancel_compose', 'add_attachment') as $val) {
+    foreach (array('replyall_revert', 'replylist_revert', 'send_message', 'save_draft', 'cancel_compose', 'add_attachment') as $val) {
         if ($vars->get('btn_' . $val)) {
             $vars->actionID = $val;
             break;
@@ -310,6 +310,12 @@ case 'reply_list':
     if (!is_null($rtemode)) {
         $rtemode = $rtemode || $format == 'html';
     }
+    break;
+
+case 'replyall_revert':
+case 'replylist_revert':
+    $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb());
+    $header = $reply_msg['headers'];
     break;
 
 case 'forward_attach':

@@ -3,7 +3,7 @@
  * Horde_Support test suite
  *
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests

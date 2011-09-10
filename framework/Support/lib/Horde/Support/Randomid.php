@@ -1,8 +1,8 @@
 <?php
 /**
  * @category   Horde
- * @copyright  2010-2011 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @copyright  2010-2011 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/bsd BSD
  * @package    Support
  */
 
@@ -16,8 +16,8 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2010-2011 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @copyright  2010-2011 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/bsd BSD
  * @package    Support
  */
 class Horde_Support_Randomid

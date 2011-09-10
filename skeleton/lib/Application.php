@@ -5,10 +5,10 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Skeleton through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Skeleton
  */

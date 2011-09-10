@@ -20,7 +20,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
 * [gwr] Better help display for context modules.
@@ -657,7 +657,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-02-20</date>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release
    </notes>
@@ -672,7 +672,7 @@
     <api>beta</api>
    </stability>
    <date>2011-07-24</date>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
 * [gwr] Better help display for context modules.

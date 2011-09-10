@@ -2,15 +2,15 @@
 /**
  * The Horde_Util:: class provides generally useful methods.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Util
  */
 class Horde_Util

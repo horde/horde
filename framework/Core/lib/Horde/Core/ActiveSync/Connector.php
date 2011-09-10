@@ -3,8 +3,8 @@
  * Registry connector for Horde backend. Provides the communication between
  * the Horde Registry on the local machine and the ActiveSync Horde driver.
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *

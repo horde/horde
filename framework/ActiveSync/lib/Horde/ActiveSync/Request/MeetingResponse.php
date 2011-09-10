@@ -12,7 +12,7 @@
 /**
  * Zarafa Deutschland GmbH, www.zarafaserver.de
  * This file is distributed under GPL-2.0.
- * Consult LICENSE file for details
+ * Consult COPYING file for details
  */
 // MeetingResponse
 define("SYNC_MEETINGRESPONSE_CALENDARID","MeetingResponse:CalendarId");

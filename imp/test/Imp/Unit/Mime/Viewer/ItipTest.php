@@ -8,7 +8,7 @@
  * @package    IMP
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the itip response handling.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category   Horde
  * @package    IMP
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  */
 class Imp_Unit_Mime_Viewer_ItipTest
@@ -207,7 +207,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('-//The Horde Project//Horde Application Framework 4//EN', $this->_getIcalendar()->getAttribute('PRODID'));
+        $this->assertEquals('-//Horde LLC//Horde Application Framework 4//EN', $this->_getIcalendar()->getAttribute('PRODID'));
     }
 
     public function testResultMessageIndicatesMethodReply()

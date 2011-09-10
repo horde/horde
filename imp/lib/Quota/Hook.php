@@ -9,14 +9,14 @@
  * 'params' - (array) Parameters to pass to the quota function.
  * </pre>
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Redinger <Michael.Redinger@uibk.ac.at>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Quota_Hook extends IMP_Quota_Base

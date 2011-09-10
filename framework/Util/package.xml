@@ -27,7 +27,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -184,7 +184,7 @@
     <api>alpha</api>
    </stability>
    <date>2003-10-28</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial release as a PEAR package
    </notes>
@@ -199,7 +199,7 @@ Initial release as a PEAR package
     <api>alpha</api>
    </stability>
    <date>2006-05-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Converted to package.xml 2.0 for pear.horde.org
    </notes>
@@ -214,7 +214,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2008-09-25</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Added magic PHP5 methods to the Variables class.
 * Added array_merge_recursive_overwrite() to Horde_Array().
@@ -250,7 +250,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Added Horde_String::rpos().
@@ -277,7 +277,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -292,7 +292,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
 * [mms] Tweak loading HTML documents (encodings) in Horde_Domhtml.
@@ -310,7 +310,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
 * Fix parsing ISO-8859-15 data with Horde_Domhtml (Bug #9714).
@@ -326,7 +326,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -339,7 +339,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix wrapping of several follow-up lines with existing line breaks.
 * [jan] Fix creating temporary files with open_basedir restrictions.
@@ -353,7 +353,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] In Horde_Variables, operate on a copy of the $_REQUEST variable.
    </notes>
@@ -366,7 +366,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Don&apos;t try to use dl() in PHP 5.3+.
    </notes>
@@ -379,7 +379,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Unescape escaped quotes when importing CSV data.
    </notes>
@@ -392,7 +392,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix removing too many backslashes with magic quotes enabled (Bug #10149).
 * [jan] Fix reading CSV data with PHP &lt; 5.3.
@@ -406,7 +406,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Ensure encode_attribute hook is called on imported objects
 * [mjr] Improve handling of removeUserData.
 * [mjr] Honor auto_create configuration setting (Bug #10452, qoole.horde@lillimoth.com)
 * [jan] Don&apos;t allow to search binary fields.
@@ -1294,6 +1295,7 @@
    <date>2011-09-02</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Ensure encode_attribute hook is called on imported objects
 * [mjr] Improve handling of removeUserData.
 * [mjr] Honor auto_create configuration setting (Bug #10452, qoole.horde@lillimoth.com)
 * [jan] Don&apos;t allow to search binary fields.

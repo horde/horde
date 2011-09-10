@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Ralf Lang <lang@ralf-lang.de>
- * @license    http://www.gnu.org/licenses/gpl-2.0.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @category   Horde
  * @package    Passwd
  * @subpackage UnitTests

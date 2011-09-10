@@ -11,10 +11,10 @@
  * 'post' - name of POST variable that contains any values required to be sent
  *          by POST. Format is the same as imple (/var1=value/var2=value)
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde

@@ -26,7 +26,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -505,7 +505,7 @@
     <api>alpha</api>
    </stability>
    <date>2003-07-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial release as a PEAR package
    </notes>
@@ -520,7 +520,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2004-11-23</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Remove assumption of IPv4 IP address format
    </notes>
@@ -535,7 +535,7 @@ Remove assumption of IPv4 IP address format
     <api>beta</api>
    </stability>
    <date>2005-01-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Add support for separate read and write DB servers for the sql driver.
    </notes>
@@ -551,7 +551,7 @@ Remove assumption of IPv4 IP address format
    </stability>
    <date>2006-05-08</date>
    <time>23:48:27</time>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Converted to package.xml 2.0 for pear.horde.org
    </notes>
@@ -566,7 +566,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Remove Horde_Token::factory().
@@ -587,7 +587,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -602,7 +602,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -617,7 +617,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -632,7 +632,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -645,7 +645,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Updated Spanish translation.
    </notes>
@@ -658,7 +658,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Updated Slovak translation.
    </notes>
@@ -671,7 +671,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Latvian translation.
 * [gwr] Allow to specify a custom timeout or to disable it completely when validating tokens.
@@ -687,7 +687,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

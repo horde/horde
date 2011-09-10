@@ -21,7 +21,7 @@ The package has a driver based output generation and currently generates HTML an
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+ <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL-2.1</license>
  <notes>
 *
  </notes>
@@ -68,7 +68,7 @@ The package has a driver based output generation and currently generates HTML an
     <api>alpha</api>
    </stability>
    <date>2011-03-07</date>
-   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>

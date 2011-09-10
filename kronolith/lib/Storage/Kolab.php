@@ -1,10 +1,10 @@
 <?php
 /**
  * Horde Kronolith free/busy driver for the Kolab IMAP Server.
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * not receive such a file, see also http://www.fsf.org/copyleft/gpl.html.
+ * not receive such a file, see also http://www.horde.org/licenses/gpl.
  *
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @package Kronolith

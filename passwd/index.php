@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/gpl.php.
@@ -13,7 +13,6 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('passwd');
 
 $backends = Passwd::getBackends();
-
 // Get the backend details.
 $backend_key = Horde_Util::getFormData('backend', false);
 if (!isset($backends[$backend_key])) {
@@ -186,7 +185,7 @@ do {
     // Create a Password_Driver instance.
     require_once PASSWD_BASE . '/lib/Driver.php';
     try {
-        $daemon = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->create($backend_key);
+        $daemon = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->setBackends($backends)->create($backend_key);
     }
     catch (Passwd_Exception $e) {
         Horde::logMessage($e);

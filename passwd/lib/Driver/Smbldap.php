@@ -11,7 +11,7 @@ require_once dirname(__FILE__) . '/ldap.php';
  * The Smbldap class attempts to change a user's LDAP password and Samba password
  * stored in an LDAP directory service.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.

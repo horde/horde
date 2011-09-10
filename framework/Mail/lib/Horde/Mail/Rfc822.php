@@ -37,7 +37,7 @@
  * @author      Richard Heyes <richard@phpguru.org>
  * @author      Chuck Hagenbuch <chuck@horde.org
  * @copyright   2001-2010 Richard Heyes
- * @license     http://opensource.org/licenses/bsd-license.php New BSD License
+ * @license     http://www.horde.org/licenses/bsd New BSD License
  */
 
 /**

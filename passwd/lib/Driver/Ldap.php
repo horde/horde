@@ -3,7 +3,7 @@
  * The LDAP class attempts to change a user's password stored in an LDAP
  * directory service.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See http://www.horde.org/licenses/gpl.php for license information (GPL).
  *

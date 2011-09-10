@@ -139,6 +139,6 @@ foreach ($attachments as $attachment) {
  <?php echo _("Download this page as:") ?>
  <a href="<?php echo Horde_Util::addParameter(Wicked::url($this->pageName()), array('actionID' => 'export', 'format' => 'plain')); ?>"><?php echo _("Plain Text") ?></a>,
  <a href="<?php echo Horde_Util::addParameter(Wicked::url($this->pageName()), array('actionID' => 'export', 'format' => 'html')); ?>"><?php echo _("HTML") ?></a>,
- <a href="<?php echo Horde_Util::addParameter(Wicked::url($this->pageName()), array('actionID' => 'export', 'format' => 'tex')); ?>"><?php echo _("Latex") ?></a>
+ <a href="<?php echo Horde_Util::addParameter(Wicked::url($this->pageName()), array('actionID' => 'export', 'format' => 'tex')); ?>"><?php echo _("Latex") ?></a>,
  <a href="<?php echo Horde_Util::addParameter(Wicked::url($this->pageName()), array('actionID' => 'export', 'format' => 'rst')); ?>"><?php echo _("reStructuredText") ?></a>
 </div>

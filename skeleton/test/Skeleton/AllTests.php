@@ -3,7 +3,7 @@
  * Skeleton test suite.
  *
  * @author     Your Name <you@example.com>
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @category   Horde
  * @package    Skeleton
  * @subpackage UnitTests

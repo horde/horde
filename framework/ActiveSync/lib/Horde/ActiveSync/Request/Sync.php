@@ -10,7 +10,7 @@
 /**
  * Zarafa Deutschland GmbH, www.zarafaserver.de
  * This file is distributed under GPL-2.0.
- * Consult LICENSE file for details
+ * Consult COPYING file for details
  */
 class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 {
@@ -96,7 +96,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SUPPORTED)) {
                 // Only allowed on initial sync request
                 if ($collection['synckey'] != 0) {
-                    $this->_statusCode = Horde_ActiveSync::SYNC_STATUS_PROTERROR;
+                    $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
                     exit;
                 }
@@ -229,8 +229,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 // Some broken clients send SYNC_COMMANDS with a synckey of 0.
                 // This is a violation of the spec, and could lead to all kinds
                 // of data integrity issues.
-                if ($collection['synckey'] == 0) {
-                    $this->_statusCode = Horde_ActiveSync::SYNC_STATUS_PROTERROR;
+                if (empty($collection['synckey'])) {
+                    $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
                     exit;
                 }
