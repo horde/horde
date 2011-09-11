@@ -2301,7 +2301,7 @@ class Turba_Driver implements Countable
     {
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $hash = $object->getAttributes();
-        $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba')
+        $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba');
         foreach ($hash as $field => $value) {
             if ($haveDecodeHook) {
                 try {
