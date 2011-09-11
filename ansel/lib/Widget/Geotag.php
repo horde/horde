@@ -73,6 +73,21 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
     {
         $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
         $geodata = $ansel_storage->getImagesGeodata($this->_params['images']);
+        $viewType = $this->_view->viewType();
+
+        // Exit early?
+        if (count($geodata) == 0 && $viewType != 'Image') {
+            return '';
+        } elseif (count($geodata) == 0) {
+            $noGeotag = true;
+        }
+
+        // Setup map and javascript includes
+        Ansel::initHordeMap($conf['maps']);
+        Horde::addScriptFile('popup.js', 'horde');
+        Horde::addScriptFile('widgets/geotag.js');
+
+        // Values needed by map javascript
         $url = Horde::url('map_edit.php', true);
         $rtext = _("Relocate this image");
         $dtext = _("Delete geotag");
@@ -85,19 +100,6 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         $permsEdit = $this->_view->gallery->hasPermission(
             $GLOBALS['registry']->getAuth(),
             Horde_Perms::EDIT);
-        $viewType = $this->_view->viewType();
-
-        if (count($geodata) == 0 && $viewType != 'Image') {
-            return '';
-        } elseif (count($geodata) == 0) {
-            $noGeotag = true;
-        }
-        Ansel::initHordeMap($conf['maps']);
-        // Bring in googlemap.js now that we know we need it.
-        Horde::addScriptFile('popup.js', 'horde');
-
-        $html = $this->_htmlBegin() . "\n";
-        $content = '<div id="ansel_geo_widget">';
 
         // Add extra information to the JSON data to be sent:
         foreach ($geodata as $id => $data) {
@@ -107,12 +109,17 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 true);
             $geodata[$id]['markerOnly'] = ($viewType == 'Image');
             $geodata[$id]['link'] = (string)Ansel::getUrlFor(
-                    'view',
-                     array(
-                         'view' => 'Image',
-                         'gallery' => $this->_view->gallery->id,
-                         'image' => $geodata[$id]['image_id']), true);
+                'view',
+                 array(
+                     'view' => 'Image',
+                     'gallery' => $this->_view->gallery->id,
+                     'image' => $geodata[$id]['image_id']),
+                true);
         }
+
+        // Start HTML building for widget
+        $html = $this->_htmlBegin() . "\n";
+        $content = '<div id="ansel_geo_widget">';
 
         // If this is an image view, get the other gallery images
         if ($viewType == 'Image') {
@@ -129,13 +136,16 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                             array(
                                 'view' => 'Image',
                                 'gallery' => $this->_view->gallery->id,
-                                'image' => $others[$id]['image_id']), true);
+                                'image' => $others[$id]['image_id']),
+                            true);
                 } else {
                     unset($others[$id]);
                 }
             }
             $geodata = array_values(array_merge($geodata, $others));
 
+            // If we have geo data, build dom structure for maps, otherwise
+            // build HTML for "Add geodata" section.
             if (empty($noGeotag)) {
                 $content .= '<div id="ansel_map"></div>';
                 $content .= '<div class="ansel_geolocation">';
@@ -143,7 +153,6 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 $content .= '<div id="ansel_latlng"></div>';
                 $content .= '<div id="ansel_relocate"></div><div id="ansel_deleteGeotag"></div></div>';
                 $content .= '<div id="ansel_map_small"></div>';
-
             } elseif ($permsEdit) {
                 // Image view, but no geotags, provide ability to add it.
                 $addurl = Horde::url('map_edit.php')->add(
@@ -176,18 +185,20 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         } else {
             // Gallery view-------------
             $image_id = 0;
-            $content .= '<div id="ansel_map"></div><div id="ansel_locationtext" style="min-height: 20px;"></div><div id="ansel_map_small"></div>';
+            $content .= '<div id="ansel_map"></div>'
+                      . '<div id="ansel_locationtext" style="min-height: 20px;"></div>'
+                      . '<div id="ansel_map_small"></div>';
         }
-
         $content .= '</div>';
+
+        // Build the javascript to handle the map on the gallery/image views.
         $json = Horde_Serialize::serialize(array_values($geodata), Horde_Serialize::JSON);
         $html .= <<<EOT
         <script type="text/javascript">
         Ansel.widgets = Ansel.widgets || {};
-        Ansel.widgets.geotag = {
-            map: {},
-            images: {$json},
-            options: {
+        Ansel.widgets.geotag = new AnselGeoTagWidget(
+            {$json},
+            {
                 smallMap: 'ansel_map_small',
                 mainMap:  'ansel_map',
                 viewType: '{$viewType}',
@@ -195,89 +206,9 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 relocateText: '{$rtext}',
                 deleteGeotagText: '{$dtext}',
                 hasEdit: {$permsEdit},
-                calculateMaxZoom: true,
                 updateEndpoint: '{$impleUrl}',
-                deleteGeotagCallback: function() { Ansel.widgets.geotag.deleteLocation(); }.bind(this)
-            },
-
-            // setLocation: function(lat, lng)  {
-            //     var params = { "values": "img={$image_id}/lat=" + lat + "/lng=" + lng };
-
-            //     var url = "{$impleUrl}";
-            //     new Ajax.Request(url + "/action=geotag/post=values", {
-            //         method: 'post',
-            //         parameters: params,
-            //         onComplete: function(transport) {
-            //              if (typeof Horde_ToolTips != 'undefined') {
-            //                  Horde_ToolTips.out();
-            //              }
-            //              if (transport.responseJSON.response == 1) {
-            //                 var w = new Element('div');
-            //                 w.appendChild(new Element('div', {id: 'ansel_map'}));
-            //                 var ag = new Element('div', {'class': 'ansel_geolocation'});
-            //                 ag.appendChild(new Element('div', {id: 'ansel_locationtext'}));
-            //                 ag.appendChild(new Element('div', {id: 'ansel_latlng'}));
-            //                 ag.appendChild(new Element('div', {id: 'ansel_relocate'}));
-            //                 ag.appendChild(new Element('div', {id: 'ansel_deleteGeotag'}));
-            //                 w.appendChild(ag);
-            //                 w.appendChild(new Element('div', {id: 'ansel_map_small'}));
-            //                 $('ansel_geo_widget').update(w);
-            //                 this.images.unshift({image_id: {$image_id}, image_latitude: lat, image_longitude: lng, image_location:'', markerOnly:true});
-            //                 this.doMap();
-            //              }
-            //          }.bind(this)
-            //     });
-            // },
-
-            // deleteLocation: function() {
-            //     var params = {"values": "img={$image_id}" };
-            //     var url = "{$impleUrl}";
-            //     new Ajax.Request(url + "/action=untag/post=values", {
-            //         method: 'post',
-            //         parameters: params,
-            //         onComplete: function(transport) {
-            //             if (transport.responseJSON.response == 1) {
-            //                 $('ansel_geo_widget').update(transport.responseJSON.message);
-            //             }
-            //         }
-            //     });
-
-            // },
-
-            doMap: function() {
-                AnselMap.ensureMap('ansel_map');
-                var m =AnselMap.ensureMap('ansel_map_small');
-
-                for (var i = 0; i < this.images.length; i++) {
-                    AnselMap.placeMapMarker(
-                        'ansel_map',
-                        {
-                            'lat': this.images[i].image_latitude,
-                            'lon': this.images[i].image_longitude
-                        },
-                        true,
-                        null,
-                        this.images[i].icon
-                    );
-                    AnselMap.placeMapMarker(
-                        'ansel_map_small',
-                        {
-                            'lat': this.images[i].image_latitude,
-                            'lon': this.images[i].image_longitude
-                        },
-                        false,
-                        null
-                    );
-                }
-                 m.setCenter({'lat': this.images[0].image_latitude, 'lon': 0}, 1);
-//                this.map.getLocationCallback_ = this.map.getLocationCallback;
-//                this.map.getLocationCallback = function(points, marker) {
-//                    this.map.getLocationCallback_(points, marker, (typeof points.NoUpdate == 'undefined'));
-//                }.bind(this);
-//                this.map.addPoints(this.images);
-//                this.map.display();
             }
-        };
+        );
 EOT;
         if (empty($noGeotag)) {
             $html .= "\n" . 'Event.observe(window, "load", function() {Ansel.widgets.geotag.doMap();});' . "\n";
@@ -294,7 +225,9 @@ EOT;
      */
     protected function _getGalleryImagesWithGeodata()
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Storage')->getImagesGeodata(array(), $this->_view->gallery->id);
+        return $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getImagesGeodata(array(), $this->_view->gallery->id);
     }
 
     /**
