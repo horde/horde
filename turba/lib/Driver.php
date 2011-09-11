@@ -980,11 +980,19 @@ class Turba_Driver implements Countable
             ? array('CHARSET' => 'UTF-8')
             : array();
 
+        $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba');
         foreach ($hash as $key => $val) {
             if ($skipEmpty && !strlen($val)) {
                 continue;
             }
-
+            if ($haveDecodeHook) {
+                try {
+                    $val = Horde::callHook(
+                        'decode_attribute',
+                        array($attribute, $this->attributes[$attribute], $this),
+                        'turba');
+                } catch (Turba_Exception $e) {}
+            }
             switch ($key) {
             case 'name':
                 if ($fields && !isset($fields['FN'])) {
@@ -2293,7 +2301,18 @@ class Turba_Driver implements Countable
     {
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $hash = $object->getAttributes();
+        $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba')
         foreach ($hash as $field => $value) {
+            if ($haveDecodeHook) {
+                try {
+                    $value = Horde::callHook(
+                        'decode_attribute',
+                        array($attribute, $this->attributes[$attribute], $this),
+                        'turba');
+                } catch (Turba_Exception $e) {
+                    Horde::logMessage($e);
+                }
+            }
             switch ($field) {
             case 'name':
                 $message->fileas = $value;
