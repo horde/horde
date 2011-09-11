@@ -2,6 +2,7 @@
 v3.0.9-git
 ----------
 
+[mjr] Run attribute values through decode_attribute hook when exporting.
 [mjr] Ensure encode_attribute hook is called on imported objects
 [mjr] Improve handling of removeUserData.
 [mjr] Honor auto_create configuration setting (Bug #10452,
