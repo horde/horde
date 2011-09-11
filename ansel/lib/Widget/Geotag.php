@@ -56,10 +56,6 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
      */
     public function attach(Ansel_View_Base $view)
     {
-        // // Don't even try if we don't have an api key
-        // if (empty($GLOBALS['conf']['api']['googlemaps'])) {
-        //     return false;
-        // }
         parent::attach($view);
         return true;
     }
@@ -207,6 +203,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 deleteGeotagText: '{$dtext}',
                 hasEdit: {$permsEdit},
                 updateEndpoint: '{$impleUrl}',
+                geocoder: "{$GLOBALS['conf']['maps']['geocoder']}"
             }
         );
 EOT;

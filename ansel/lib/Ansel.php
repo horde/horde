@@ -888,6 +888,9 @@ class Ansel
         if (empty($params['providers'])) {
             $params['providers'] = $GLOBALS['conf']['maps']['providers'];
         }
+        if (empty($params['geocoder'])) {
+            $params['geocoder'] = $GLOBALS['conf']['maps']['geocoder'];
+        }
         $language = $GLOBALS['language'];
         if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/' . $language . '.js')) {
             $language = 'en-US';
