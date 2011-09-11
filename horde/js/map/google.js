@@ -29,7 +29,12 @@ HordeMap.Google = Class.create(
 
             'terrain': new OpenLayers.Layer.Google(
                 'Google Physical',
-                { 'type': google.maps.MapTypeId.TERRAIN})}
+                {
+                    'type': google.maps.MapTypeId.TERRAIN,
+                    'numZoomLevels': 16
+                }
+            )
+        }
     }
 });
 
