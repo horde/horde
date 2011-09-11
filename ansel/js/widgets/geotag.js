@@ -171,7 +171,6 @@ AnselGeoTagWidget = Class.create({
 
     onError: function(r)
     {
-        console.log(r);
     },
 
     _getRelocateLink: function(iid) {
