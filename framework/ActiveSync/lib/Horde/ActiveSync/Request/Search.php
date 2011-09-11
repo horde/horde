@@ -162,6 +162,18 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $this->_encoder->content($u[Horde_ActiveSync::GAL_PHONE]);
             $this->_encoder->endTag();
 
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_OFFICE);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_OFFICE]);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_TITLE);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_TITLE]);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_COMPANY);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_COMPANY]);
+            $this->_encoder->endTag();
+
             $this->_encoder->startTag(Horde_ActiveSync::GAL_ALIAS);
             $this->_encoder->content($u[Horde_ActiveSync::GAL_ALIAS]);
             $this->_encoder->endTag();
@@ -174,16 +186,16 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $this->_encoder->content($u[Horde_ActiveSync::GAL_LASTNAME]);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(Horde_ActiveSync::GAL_EMAILADDRESS);
-            $this->_encoder->content($u[Horde_ActiveSync::GAL_EMAILADDRESS]);
-            $this->_encoder->endTag();
-
             $this->_encoder->startTag(Horde_ActiveSync::GAL_HOMEPHONE);
             $this->_encoder->content($u[Horde_ActiveSync::GAL_HOMEPHONE]);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(Horde_ActiveSync::GAL_COMPANY);
-            $this->_encoder->content($u[Horde_ActiveSync::GAL_COMPANY]);
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_MOBILEPHONE);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_MOBILEPHONE]);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_EMAILADDRESS);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_EMAILADDRESS]);
             $this->_encoder->endTag();
 
             $this->_encoder->endTag();//result
