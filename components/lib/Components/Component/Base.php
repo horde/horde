@@ -215,6 +215,15 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Return the path to a DOCS_ORIGIN file within the component.
+     *
+     * @return string|NULL The path name or NULL if there is no DOCS_ORIGIN file.
+     */
+    public function getDocumentOrigin()
+    {
+    }
+
+    /**
      * Update the package.xml file for this component.
      *
      * @param string $action  The action to perform. Either "update", "diff",
