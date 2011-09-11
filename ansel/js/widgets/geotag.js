@@ -67,7 +67,6 @@ AnselGeoTagWidget = Class.create({
     doMap: function() {
         AnselMap.ensureMap('ansel_map');
         var m =AnselMap.ensureMap('ansel_map_small');
-
         for (var i = 0; i < this._images.length; i++) {
             AnselMap.placeMapMarker(
                 'ansel_map',
@@ -77,7 +76,7 @@ AnselGeoTagWidget = Class.create({
                 },
                 true,
                 null,
-                this._images[i].icon
+                (!this._images[i].markerOnly) ? this._images[i].icon : null
             );
             AnselMap.placeMapMarker(
                 'ansel_map_small',
