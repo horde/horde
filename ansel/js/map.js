@@ -71,7 +71,6 @@
      */
     placeMapMarker: function(e, ll, center, zoom, img)
     {
-
         var cb, marker;
         if (img) {
             cb = function(s) {
