@@ -2,6 +2,7 @@
 v5.0.12-git
 -----------
 
+[mms] Add auto-generated message filter (see RFC 3834).
 [mms] Remove non-existent parent mailbox when removing last child mailbox in
       dynamic view (Bug #10495).
 [mms] Provide content duration information for audio & video data if that
