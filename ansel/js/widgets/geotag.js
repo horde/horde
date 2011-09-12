@@ -2,7 +2,6 @@ AnselGeoTagWidget = Class.create({
     _bigMap: null,
     _smallMap: null,
     _images: null,
-    tilePrefix: 'imagetile_',
     locationId: 'ansel_locationtext',
     coordId: 'ansel_latlng',
     relocateId: 'ansel_relocate',
@@ -78,27 +77,51 @@ AnselGeoTagWidget = Class.create({
 
     doMap: function() {
         // Create map and geocoder objects
-        this._bigMap = AnselMap.ensureMap('ansel_map');
-        this._smallMap = AnselMap.ensureMap('ansel_map_small');
+        this._bigMap = AnselMap.initMainMap('ansel_map', {
+            'viewType': this.viewType,
+            // Hover handler to modify style of image tiles
+            'onHover': function(e) {
+                switch (e.type) {
+                case 'beforefeaturehighlighted':
+                    break;
+                case 'featurehighlighted':
+                    if (this.viewType == 'GalleryView') {
+                        $$('#imagetile_' + e.feature.attributes.image_id + ' img')[0].toggleClassName('image-tile-highlight');
+                    }
+                    break;
+                case 'featureunhighlighted':
+                    if (this.viewType == 'GalleryView') {
+                        $$('#imagetile_' + e.feature.attributes.image_id + ' img')[0].toggleClassName('image-tile-highlight');
+                    }
+                }
+                return true;
+            }
+        });
+        this._smallMap = AnselMap.initMiniMap('ansel_map_small', {
+            'viewType': this.viewType
+        });
         this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
 
         // Place the image markers
         for (var i = 0; i < this._images.length; i++) {
-            AnselMap.placeMapMarker(
+            var m = AnselMap.placeMapMarker(
                 'ansel_map',
                 {
                     'lat': this._images[i].image_latitude,
                     'lon': this._images[i].image_longitude
                 },
-                true,
-                null,
-                (!this._images[i].markerOnly) ? this._images[i].icon : null
+                {
+                    'img': (!this._images[i].markerOnly) ? this._images[i].icon : Ansel.conf.markeruri,
+                    'background': (!this._images[i].markerOnly) ? Ansel.conf.pixeluri + '?c=333333' : Ansel.conf.markerBackground,
+                    'image_id': this._images[i].image_id,
+                    'markerOnly': (this._images[i].markerOnly) ? 'true' : 'false',
+                    'center': true
+                }
             );
-
             if (this._images[i].markerOnly) {
                 (function() {
                     var p = this._images[i];
-                    this.getLocation(p);
+                    this.getLocation(p, m);
                 }.bind(this))();
             }
 
@@ -107,30 +130,26 @@ AnselGeoTagWidget = Class.create({
                 {
                     'lat': this._images[i].image_latitude,
                     'lon': this._images[i].image_longitude
-                },
-                false,
-                null
+                }
             );
         }
-
+        // Attempt to make a good guess as to where to center the mini-map
         this._smallMap.setCenter({'lat': this._images[0].image_latitude, 'lon': 0}, 1);
-//                this.map.getLocationCallback_ = this.map.getLocationCallback;
-//                this.map.getLocationCallback = function(points, marker) {
-//                    this.map.getLocationCallback_(points, marker, (typeof points.NoUpdate == 'undefined'));
-//                }.bind(this);
-//                this.map.addPoints(this.images);
-//                this.map.display();
     },
 
-    getLocation: function(p) {
+    /**
+     * p = image data
+     * m = marker
+     */
+    getLocation: function(p, m) {
         if (p.image_location.length > 0) {
             // Have cached reverse geocode results
             var r = [ { address: p.image_location, lat: p.image_latitude, lon: p.image_longitude } ];
-            this.getLocationCallback(p, false, r);
+            this.getLocationCallback(p, false, m, r);
         } else {
             this.geocoder.reverseGeocode(
                 { lat: p.image_latitude, lon: p.image_longitude },
-                this.getLocationCallback.bind(this).curry(p, true),
+                this.getLocationCallback.bind(this).curry(p, true, m),
                 this.onError.bind(this));
         }
     },
@@ -140,9 +159,10 @@ AnselGeoTagWidget = Class.create({
      *
      * @param object i   The image hash
      * @param boolean u  Update the image location in the backend
+     * @param object m   Marker
      * @param object r   The AJAX response
      */
-    getLocationCallback: function(i, u, r)
+    getLocationCallback: function(i, u, m, r)
     {
         // Update image view links
         if (i.markerOnly) {
@@ -159,7 +179,11 @@ AnselGeoTagWidget = Class.create({
                 $(this.deleteId).update(this._getDeleteLink(i.image_id));
             }
         } else if (this.viewType == 'GalleryView') {
-
+            // console.log('foobar');
+            // $$('#imagetile_' + i.image_id + ' img')[0].observe('mouseover', function(e) {
+            //     console.log(e);
+            //     e.toggleClassName('image-tile-highlight');
+            // });
         }
 
 

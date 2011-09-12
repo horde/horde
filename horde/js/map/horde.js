@@ -18,14 +18,21 @@
  * specific to any commercial mapping providers, such as google/yahoo etc...
  *
  * var options = {};
- * // opts.elt - dom node
- * // opts.layers - An Array of OpenLayers.Layer objects
- * // opts.delayed - don't bind the map to the dom until display() is called.
- * // opts.markerDragEnd - callback to handle when a marker is dragged.
- * // opts.mapClick - callback to handle a click on the map
- * // opts.markerImage
- * // opts.markerBackground
- * // opts.useMarkerLayer
+ * // opts.delayed          - Don't bind the map to the dom until display() is
+ * //                         called.
+ * // opts.elt              - DOM Node to place map in
+ * // opts.onhover          - Event handler to run on feature hover (hightlight)
+ * // opts.layers           - An Array of OpenLayers.Layer objects
+ * // opts.mapClick         - Callback to handle a click on the map
+ * // opts.markerBackground - Custom marker background image to use by default.
+ * // opts.markerDragEnd    - Callback to handle when a marker is dragged.
+ * // opts.markerImage      - Custom marker image to use by default.
+ * // opts.panzoom          - Use the larger PanZoomBar control. If false, will
+ * //                         use the smaller ZoomPanel control.
+ * //                       - Callback
+ * // opts.useMarkerLayer   - Add a vector layer to be used to place markers.
+ * // opts.zoomworldicon    - Show the worldzoomicon on the PanZoomBar control
+ * //                         that resets/centers map.
  * var map = new HordeMap.OpenLayers(options);
  *
  */
@@ -34,10 +41,17 @@ HordeMap.Map.Horde = Class.create({
     map: null,
     markerLayer: null,
     _proj: null,
+    selectControl: null,
     _layerSwitcher: null,
 
     initialize: function(opts)
     {
+        // @TODO: BC Break
+        if (HordeMap.conf.markerImage) {
+            opts.markerImage = HordeMap.conf.markerImage;
+            opts.markerBackground = HordeMap.conf.markerBackground;
+        }
+
         // defaults
         var o = {
             useMarkerLayer: false,
@@ -46,8 +60,19 @@ HordeMap.Map.Horde = Class.create({
             markerLayerTitle: 'Markers',
             delayed: false,
             panzoom: true,
-            zoomworldicon: true,
-            layers: []
+            zoomworldicon: false,
+            layers: [],
+            onHover: false,
+            styleMap: new OpenLayers.StyleMap({
+                'default': {
+                    externalGraphic: opts.markerImage,
+                    backgroundGraphic: opts.markerBackground,
+                    backgroundXOffset: 0,
+                    backgroundYOffset: -7,
+                    backgroundGraphicZIndex: 10,
+                    pointRadius: 10,
+                }
+            })
         };
         this.opts = Object.extend(o, opts || {});
 
@@ -64,13 +89,13 @@ HordeMap.Map.Horde = Class.create({
             controls: [
                 new OpenLayers.Control.Navigation(),
                 new OpenLayers.Control.Attribution()
-            ]
+            ],
+            styleMap: this.opts.styleMap
         };
-
         if (this.opts.panzoom) {
             options.controls.push(new OpenLayers.Control.PanZoomBar({ 'zoomWorldIcon': this.opts.zoomworldicon }));
         } else {
-            options.controls.push(new OpenLayers.Control.ZoomPanel({ 'zoomWorldIcon': this.opts.zoomworldicon }));
+            options.controls.push(new OpenLayers.Control.ZoomPanel());
         }
         // Set the language
         OpenLayers.Lang.setCode(HordeMap.conf.language);
@@ -78,25 +103,15 @@ HordeMap.Map.Horde = Class.create({
 
         // Create the vector layer for markers if requested.
         // @TODO H5 BC break - useMarkerLayer should be permap, not per page
-        if (HordeMap.conf.markerImage) {
-            this.opts.markerImage = HordeMap.conf.markerImage;
-            this.opts.markerBackground = HordeMap.conf.markerBackground;
-        }
+
         if (this.opts.useMarkerLayer || HordeMap.conf.useMarkerLayer) {
-            var styleMap = new OpenLayers.StyleMap({
-                externalGraphic: this.opts.markerImage,
-                backgroundGraphic: this.opts.markerBackground,
-                backgroundXOffset: 0,
-                backgroundYOffset: -7,
-                graphicZIndex: 11,
-                backgroundGraphicZIndex: 10,
-                pointRadius: 10
-            });
+            var styleMap = this.opts.styleMap;
+            //styleMap.extendDefault = true;
             this.markerLayer = new OpenLayers.Layer.Vector(
                 this.opts.markerLayerTitle,
                 {
                     'styleMap': styleMap,
-                    'rendererOptions': { yOrdering: true }
+                    'rendererOptions': { zIndexing: true }
                 });
 
             if (this.opts.draggableFeatures) {
@@ -107,9 +122,26 @@ HordeMap.Map.Horde = Class.create({
                 this.map.addControl(dragControl);
                 dragControl.activate();
             }
-
             this.opts.layers.push(this.markerLayer);
+
+            if (this.opts.onHover) {
+                this.selectControl = new OpenLayers.Control.SelectFeature(
+                    this.markerLayer, {
+                        hover: true,
+                        highlightOnly: true,
+                        renderIntent: "temporary",
+                        eventListeners: {
+                             beforefeaturehighlighted: this.opts.onHover,
+                             featurehighlighted: this.opts.onHover,
+                             featureunhighlighted: this.opts.onHover
+                        }
+                    }
+                );
+                this.map.addControl(this.selectControl);
+                this.selectControl.activate();
+            }
         }
+        console.log(this.opts);
         this.map.addLayers(this.opts.layers);
         if (this.opts.showLayerSwitcher) {
             this._layerSwitcher = new OpenLayers.Control.LayerSwitcher();
@@ -212,7 +244,8 @@ HordeMap.Map.Horde = Class.create({
         var ll = new OpenLayers.Geometry.Point(p.lon, p.lat);
         ll.transform(this._proj, this.map.getProjectionObject());
         s = opts.styleCallback(this.markerLayer.style);
-        var m = new OpenLayers.Feature.Vector(ll, null, s);
+        var m = new OpenLayers.Feature.Vector(ll);
+        m.thumbnail = opts.thumbnail;
         this.markerLayer.addFeatures([m]);
 
         return m;
