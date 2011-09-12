@@ -2637,13 +2637,10 @@ var DimpBase = {
         // we may be dealing with multiple mailboxes (i.e. virtual folders)
         vs = this.viewport.getSelection(this.folder);
         if (vs.getBuffer().getMetaData('search')) {
+            search = this.viewport.getSelection();
             $H(r.uids).each(function(pair) {
-                pair.value.each(function(v) {
-                    uids.push(pair.key + DIMP.conf.IDX_SEP + v);
-                });
+                search = search.search({ uid: { equal: pair.value } });
             });
-
-            search = this.viewport.getSelection().search({ VP_id: { equal: uids } });
         } else {
             r.uids = r.uids[this.folder];
             r.uids.each(function(f, u) {

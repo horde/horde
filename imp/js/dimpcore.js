@@ -145,12 +145,11 @@ var DimpCore = {
             tmp = {};
 
         if (b.getMetaData('search')) {
-            s.get('uid').each(function(r) {
-                var parts = r.split(DIMP.conf.IDX_SEP);
+            s.get('dataob').each(function(r) {
                 if (tmp[parts[0]]) {
-                    tmp[parts[0]].push(parts[1]);
+                    tmp[r.view].push(r.uid);
                 } else {
-                    tmp[parts[0]] = [ parts[1] ];
+                    tmp[r.view] = [ r.uid ];
                 }
             });
         } else {
