@@ -260,9 +260,8 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     padding: 3px;
 }
 .image-tile-highlight {
-    background-color: red;
+    background-color: #ccc;
 }
-
 /* Actions */
 .anselActions {
     margin-left: 0;

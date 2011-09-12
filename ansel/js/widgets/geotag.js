@@ -112,7 +112,7 @@ AnselGeoTagWidget = Class.create({
                 },
                 {
                     'img': (!this._images[i].markerOnly) ? this._images[i].icon : Ansel.conf.markeruri,
-                    'background': (!this._images[i].markerOnly) ? Ansel.conf.pixeluri + '?c=333333' : Ansel.conf.markerBackground,
+                    'background': (!this._images[i].markerOnly) ? Ansel.conf.pixeluri + '?c=ffffff' : Ansel.conf.markerBackground,
                     'image_id': this._images[i].image_id,
                     'markerOnly': (this._images[i].markerOnly) ? 'true' : 'false',
                     'center': true
@@ -178,7 +178,7 @@ AnselGeoTagWidget = Class.create({
             if (this.deleteId) {
                 $(this.deleteId).update(this._getDeleteLink(i.image_id));
             }
-        } else if (this.viewType == 'GalleryView') {
+        } else if (this.viewType == 'Gallery') {
             // console.log('foobar');
             // $$('#imagetile_' + i.image_id + ' img')[0].observe('mouseover', function(e) {
             //     console.log(e);

@@ -57,9 +57,7 @@
         var markerStyleTemporary = {
             'true': {},
             'false': {
-                'backgroundGraphic': Ansel.conf.pixeluri + '?c=ffffff',
-                'backgroundWidth': 58,
-                'backgroundHeight': 58
+                'backgroundGraphic': Ansel.conf.pixeluri + '?c=333333'
             }
         };
         style.addUniqueValueRules('default', 'markerOnly', markerStyleDefault);
