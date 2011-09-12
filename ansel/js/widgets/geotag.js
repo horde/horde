@@ -85,17 +85,17 @@ AnselGeoTagWidget = Class.create({
                 case 'beforefeaturehighlighted':
                     break;
                 case 'featurehighlighted':
-                    if (this.viewType == 'GalleryView') {
+                    if (this.opts.viewType == 'Gallery') {
                         $$('#imagetile_' + e.feature.attributes.image_id + ' img')[0].toggleClassName('image-tile-highlight');
                     }
                     break;
                 case 'featureunhighlighted':
-                    if (this.viewType == 'GalleryView') {
+                    if (this.opts.viewType == 'Gallery') {
                         $$('#imagetile_' + e.feature.attributes.image_id + ' img')[0].toggleClassName('image-tile-highlight');
                     }
                 }
                 return true;
-            }
+            }.bind(this)
         });
         this._smallMap = AnselMap.initMiniMap('ansel_map_small', {
             'viewType': this.viewType
