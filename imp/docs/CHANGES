@@ -2,6 +2,8 @@
 v5.0.12-git
 -----------
 
+[mms] Remove non-existent parent mailbox when removing last child mailbox in
+      dynamic view (Bug #10495).
 [mms] Provide content duration information for audio & video data if that
       information is available (RFC 3803).
 [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).

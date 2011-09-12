@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-09</date>
- <time>02:38:34</time>
+ <date>2011-09-11</date>
+ <time>19:17:06</time>
  <version>
   <release>5.0.12</release>
   <api>5.0.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Remove non-existent parent mailbox when removing last child mailbox in dynamic view (Bug #10495).
+* [mms] Provide content duration information for audio &amp; video data if that information is available (RFC 3803).
 * [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
 * [mms] Add List-ID information, if available, to auto-reply notification.
 * [mms] Display information on reply method in standard view when automatically choosing the reply type.
@@ -1103,6 +1105,7 @@
     </dir> <!-- /themes/tango-blue -->
    </dir> <!-- /themes -->
    <file name="attachment.php" role="horde" />
+   <file name="close" role="horde" />
    <file name="compose-dimp.php" role="horde" />
    <file name="compose-mimp.php" role="horde" />
    <file name="compose.php" role="horde" />
@@ -2050,6 +2053,7 @@
    <install as="imp/themes/tango-blue/graphics/folders/spam.png" name="themes/tango-blue/graphics/folders/spam.png" />
    <install as="imp/themes/tango-blue/graphics/folders/trash.png" name="themes/tango-blue/graphics/folders/trash.png" />
    <install as="imp/attachment.php" name="attachment.php" />
+   <install as="imp/close" name="close" />
    <install as="imp/compose-dimp.php" name="compose-dimp.php" />
    <install as="imp/compose-mimp.php" name="compose-mimp.php" />
    <install as="imp/compose.php" name="compose.php" />
@@ -2435,9 +2439,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-09</date>
+   <date>2011-09-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Remove non-existent parent mailbox when removing last child mailbox in dynamic view (Bug #10495).
+* [mms] Provide content duration information for audio &amp; video data if that information is available (RFC 3803).
 * [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
 * [mms] Add List-ID information, if available, to auto-reply notification.
 * [mms] Display information on reply method in standard view when automatically choosing the reply type.
