@@ -146,7 +146,7 @@ var DimpCore = {
 
         if (b.getMetaData('search')) {
             s.get('dataob').each(function(r) {
-                if (tmp[parts[0]]) {
+                if (tmp[r.view]) {
                     tmp[r.view].push(r.uid);
                 } else {
                     tmp[r.view] = [ r.uid ];
