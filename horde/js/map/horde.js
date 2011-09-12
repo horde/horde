@@ -141,7 +141,6 @@ HordeMap.Map.Horde = Class.create({
                 this.selectControl.activate();
             }
         }
-        console.log(this.opts);
         this.map.addLayers(this.opts.layers);
         if (this.opts.showLayerSwitcher) {
             this._layerSwitcher = new OpenLayers.Control.LayerSwitcher();
