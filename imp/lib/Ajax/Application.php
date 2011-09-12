@@ -663,6 +663,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $this->_mbox->setSort($this->_vars->sortby, $this->_vars->sortdir);
         }
 
+        /* Toggle hide deleted preference if necessary. */
+        if (isset($this->_vars->delhide)) {
+            $this->_mbox->setHideDeletedMsgs($this->_vars->delhide);
+        }
+
         $changed = $this->_changed(false);
 
         if (is_null($changed)) {
@@ -693,6 +698,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
             /* Reopen the session. */
             $GLOBALS['session']->start();
+
+            if (isset($this->_vars->delhide)) {
+                $result->ViewPort->resetmd = 1;
+            }
         } else {
             $result = false;
         }

@@ -430,6 +430,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
   <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
  </div>
+<?php if (!$prefs->isLocked('delhide')): ?>
+ <a id="oa_show_deleted"><span class="iconImg"></span><?php echo _("Show Deleted") ?></a>
+ <a id="oa_hide_deleted"><span class="iconImg"></span><?php echo _("Hide Deleted") ?></a>
+<?php endif; ?>
 <?php endif; ?>
  <div class="sep"></div>
  <a id="oa_help"><span class="iconImg"></span><?php echo _("Help") ?></a>

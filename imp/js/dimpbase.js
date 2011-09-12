@@ -1018,6 +1018,11 @@ var DimpBase = {
             this.purgeDeleted();
             break;
 
+        case 'oa_hide_deleted':
+        case 'oa_show_deleted':
+            this.viewport.reload({ delhide: Number(id == 'oa_hide_deleted') });
+            break;
+
         case 'oa_help':
             this.toggleHelp();
             break;
@@ -1187,6 +1192,15 @@ var DimpBase = {
 
             if (tmp = $('oa_purge_options')) {
                 [ tmp ].invoke(tmp.select('> a').any(Element.visible) ? 'show' : 'hide');
+                if (tmp = $('oa_hide_deleted')) {
+                    if (this.viewport.getMetaData('delhide')) {
+                        tmp.hide();
+                        $('oa_show_deleted').show();
+                    } else {
+                        tmp.show();
+                        $('oa_show_deleted').hide();
+                    }
+                }
             }
             break;
 
