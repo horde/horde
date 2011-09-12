@@ -13676,6 +13676,103 @@ OpenLayers.Handler.MouseWheel = OpenLayers.Class(OpenLayers.Handler, {
     CLASS_NAME: "OpenLayers.Handler.MouseWheel"
 });
 /* ======================================================================
+    OpenLayers/Symbolizer.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/BaseTypes/Class.js
+ */
+
+/**
+ * Class: OpenLayers.Symbolizer
+ * Base class representing a symbolizer used for feature rendering.
+ */
+OpenLayers.Symbolizer = OpenLayers.Class({
+    
+
+    /**
+     * APIProperty: zIndex
+     * {Number} The zIndex determines the rendering order for a symbolizer.
+     *     Symbolizers with larger zIndex values are rendered over symbolizers
+     *     with smaller zIndex values.  Default is 0.
+     */
+    zIndex: 0,
+    
+    /**
+     * Constructor: OpenLayers.Symbolizer
+     * Instances of this class are not useful.  See one of the subclasses.
+     *
+     * Parameters:
+     * config - {Object} An object containing properties to be set on the 
+     *     symbolizer.  Any documented symbolizer property can be set at 
+     *     construction.
+     *
+     * Returns:
+     * A new symbolizer.
+     */
+    initialize: function(config) {
+        OpenLayers.Util.extend(this, config);
+    },
+    
+    /** 
+     * APIMethod: clone
+     * Create a copy of this symbolizer.
+     *
+     * Returns a symbolizer of the same type with the same properties.
+     */
+    clone: function() {
+        var Type = eval(this.CLASS_NAME);
+        return new Type(OpenLayers.Util.extend({}, this));
+    },
+    
+    CLASS_NAME: "OpenLayers.Symbolizer"
+    
+});
+
+/* ======================================================================
+    OpenLayers/Symbolizer/Raster.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Symbolizer.js
+ */
+
+/**
+ * Class: OpenLayers.Symbolizer.Raster
+ * A symbolizer used to render raster images.
+ */
+OpenLayers.Symbolizer.Raster = OpenLayers.Class(OpenLayers.Symbolizer, {
+    
+    /**
+     * Constructor: OpenLayers.Symbolizer.Raster
+     * Create a symbolizer for rendering rasters.
+     *
+     * Parameters:
+     * config - {Object} An object containing properties to be set on the 
+     *     symbolizer.  Any documented symbolizer property can be set at 
+     *     construction.
+     *
+     * Returns:
+     * A new raster symbolizer.
+     */
+    initialize: function(config) {
+        OpenLayers.Symbolizer.prototype.initialize.apply(this, arguments);
+    },
+    
+    CLASS_NAME: "OpenLayers.Symbolizer.Raster"
+    
+});
+/* ======================================================================
     OpenLayers/Tile.js
    ====================================================================== */
 
@@ -24640,6 +24737,79 @@ OpenLayers.Control.Attribution =
     CLASS_NAME: "OpenLayers.Control.Attribution"
 });
 /* ======================================================================
+    OpenLayers/Filter.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+ * full text of the license. */
+
+
+/**
+ * @requires OpenLayers/BaseTypes/Class.js
+ * @requires OpenLayers/Util.js
+ * @requires OpenLayers/Style.js
+ */
+
+/**
+ * Class: OpenLayers.Filter
+ * This class represents an OGC Filter.
+ */
+OpenLayers.Filter = OpenLayers.Class({
+    
+    /** 
+     * Constructor: OpenLayers.Filter
+     * This class represents a generic filter.
+     *
+     * Parameters:
+     * options - {Object} Optional object whose properties will be set on the
+     *     instance.
+     * 
+     * Returns:
+     * {<OpenLayers.Filter>}
+     */
+    initialize: function(options) {
+        OpenLayers.Util.extend(this, options);
+    },
+
+    /** 
+     * APIMethod: destroy
+     * Remove reference to anything added.
+     */
+    destroy: function() {
+    },
+
+    /**
+     * APIMethod: evaluate
+     * Evaluates this filter in a specific context.  Instances or subclasses
+     * are supposed to override this method.
+     * 
+     * Parameters:
+     * context - {Object} Context to use in evaluating the filter.  If a vector
+     *     feature is provided, the feature.attributes will be used as context.
+     * 
+     * Returns:
+     * {Boolean} The filter applies.
+     */
+    evaluate: function(context) {
+        return true;
+    },
+    
+    /**
+     * APIMethod: clone
+     * Clones this filter. Should be implementted by subclasses.
+     * 
+     * Returns:
+     * {<OpenLayers.Filter>} Clone of this filter.
+     */
+    clone: function() {
+        return null;
+    },
+    
+    CLASS_NAME: "OpenLayers.Filter"
+});
+/* ======================================================================
     OpenLayers/Layer/GeoRSS.js
    ====================================================================== */
 
@@ -30771,6 +30941,656 @@ OpenLayers.Layer.SphericalMercator = {
     
 })();
 /* ======================================================================
+    OpenLayers/Symbolizer/Point.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Symbolizer.js
+ */
+
+/**
+ * Class: OpenLayers.Symbolizer.Point
+ * A symbolizer used to render point features.
+ */
+OpenLayers.Symbolizer.Point = OpenLayers.Class(OpenLayers.Symbolizer, {
+    
+    /**
+     * APIProperty: strokeColor
+     * {String} Color for line stroke.  This is a RGB hex value (e.g. "#ff0000"
+     *     for red).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: strokeOpacity
+     * {Number} Stroke opacity (0-1).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: strokeWidth
+     * {Number} Pixel stroke width.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: strokeLinecap
+     * {String} Stroke cap type ("butt", "round", or "square").
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * Property: strokeDashstyle
+     * {String} Stroke dash style according to the SLD spec. Note that the
+     *     OpenLayers values for strokeDashstyle ("dot", "dash", "dashdot",
+     *     "longdash", "longdashdot", or "solid") will not work in SLD, but
+     *     most SLD patterns will render correctly in OpenLayers.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /**
+     * APIProperty: fillColor
+     * {String} RGB hex fill color (e.g. "#ff0000" for red).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: fillOpacity
+     * {Number} Fill opacity (0-1).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /**
+     * APIProperty: pointRadius
+     * {Number} Pixel point radius.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /**
+     * APIProperty: externalGraphic
+     * {String} Url to an external graphic that will be used for rendering 
+     *     points.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: graphicWidth
+     * {Number} Pixel width for sizing an external graphic.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: graphicHeight
+     * {Number} Pixel height for sizing an external graphic.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: graphicOpacity
+     * {Number} Opacity (0-1) for an external graphic.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: graphicXOffset
+     * {Number} Pixel offset along the positive x axis for displacing an 
+     *     external graphic.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: graphicYOffset
+     * {Number} Pixel offset along the positive y axis for displacing an 
+     *     external graphic.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /**
+     * APIProperty: rotation
+     * {Number} The rotation of a graphic in the clockwise direction about its 
+     *     center point (or any point off center as specified by 
+     *     <graphicXOffset> and <graphicYOffset>).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: graphicName
+     * {String} Named graphic to use when rendering points.  Supported values 
+     *     include "circle", "square", "star", "x", "cross", and "triangle".
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * Constructor: OpenLayers.Symbolizer.Point
+     * Create a symbolizer for rendering points.
+     *
+     * Parameters:
+     * config - {Object} An object containing properties to be set on the 
+     *     symbolizer.  Any documented symbolizer property can be set at 
+     *     construction.
+     *
+     * Returns:
+     * A new point symbolizer.
+     */
+    initialize: function(config) {
+        OpenLayers.Symbolizer.prototype.initialize.apply(this, arguments);
+    },
+    
+    CLASS_NAME: "OpenLayers.Symbolizer.Point"
+    
+});
+
+/* ======================================================================
+    OpenLayers/Symbolizer/Line.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Symbolizer.js
+ */
+
+/**
+ * Class: OpenLayers.Symbolizer.Line
+ * A symbolizer used to render line features.
+ */
+OpenLayers.Symbolizer.Line = OpenLayers.Class(OpenLayers.Symbolizer, {
+
+    /**
+     * APIProperty: strokeColor
+     * {String} Color for line stroke.  This is a RGB hex value (e.g. "#ff0000"
+     *     for red).  
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: strokeOpacity
+     * {Number} Stroke opacity (0-1).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: strokeWidth
+     * {Number} Pixel stroke width.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: strokeLinecap
+     * {String} Stroke cap type ("butt", "round", or "square").
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * Property: strokeDashstyle
+     * {String} Stroke dash style according to the SLD spec. Note that the
+     *     OpenLayers values for strokeDashstyle ("dot", "dash", "dashdot",
+     *     "longdash", "longdashdot", or "solid") will not work in SLD, but
+     *     most SLD patterns will render correctly in OpenLayers.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /**
+     * Constructor: OpenLayers.Symbolizer.Line
+     * Create a symbolizer for rendering lines.
+     *
+     * Parameters:
+     * config - {Object} An object containing properties to be set on the 
+     *     symbolizer.  Any documented symbolizer property can be set at 
+     *     construction.
+     *
+     * Returns:
+     * A new line symbolizer.
+     */
+    initialize: function(config) {
+        OpenLayers.Symbolizer.prototype.initialize.apply(this, arguments);
+    },
+    
+    CLASS_NAME: "OpenLayers.Symbolizer.Line"
+    
+});
+
+/* ======================================================================
+    OpenLayers/Symbolizer/Polygon.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Symbolizer.js
+ */
+
+/**
+ * Class: OpenLayers.Symbolizer.Polygon
+ * A symbolizer used to render line features.
+ */
+OpenLayers.Symbolizer.Polygon = OpenLayers.Class(OpenLayers.Symbolizer, {
+    
+    /**
+     * APIProperty: strokeColor
+     * {String} Color for line stroke.  This is a RGB hex value (e.g. "#ff0000"
+     *     for red).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: strokeOpacity
+     * {Number} Stroke opacity (0-1).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: strokeWidth
+     * {Number} Pixel stroke width.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: strokeLinecap
+     * {String} Stroke cap type ("butt", "round", or "square").
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * Property: strokeDashstyle
+     * {String} Stroke dash style according to the SLD spec. Note that the
+     *     OpenLayers values for strokeDashstyle ("dot", "dash", "dashdot",
+     *     "longdash", "longdashdot", or "solid") will not work in SLD, but
+     *     most SLD patterns will render correctly in OpenLayers.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /**
+     * APIProperty: fillColor
+     * {String} RGB hex fill color (e.g. "#ff0000" for red).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * APIProperty: fillOpacity
+     * {Number} Fill opacity (0-1).
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /**
+     * Constructor: OpenLayers.Symbolizer.Polygon
+     * Create a symbolizer for rendering polygons.
+     *
+     * Parameters:
+     * config - {Object} An object containing properties to be set on the 
+     *     symbolizer.  Any documented symbolizer property can be set at 
+     *     construction.
+     *
+     * Returns:
+     * A new polygon symbolizer.
+     */
+    initialize: function(config) {
+        OpenLayers.Symbolizer.prototype.initialize.apply(this, arguments);
+    },
+    
+    CLASS_NAME: "OpenLayers.Symbolizer.Polygon"
+    
+});
+
+/* ======================================================================
+    OpenLayers/Symbolizer/Text.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Symbolizer.js
+ */
+
+/**
+ * Class: OpenLayers.Symbolizer.Text
+ * A symbolizer used to render text labels for features.
+ */
+OpenLayers.Symbolizer.Text = OpenLayers.Class(OpenLayers.Symbolizer, {
+    
+    /** 
+     * APIProperty: label
+     * {String} The text for the label.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /** 
+     * APIProperty: fontFamily
+     * {String} The font family for the label.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /** 
+     * APIProperty: fontSize
+     * {String} The font size for the label.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /** 
+     * APIProperty: fontWeight
+     * {String} The font weight for the label.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+    
+    /**
+     * Property: fontStyle
+     * {String} The font style for the label.
+     * 
+     * No default set here.  Use OpenLayers.Renderer.defaultRenderer for defaults.
+     */
+
+    /**
+     * Constructor: OpenLayers.Symbolizer.Text
+     * Create a symbolizer for rendering text labels.
+     *
+     * Parameters:
+     * config - {Object} An object containing properties to be set on the 
+     *     symbolizer.  Any documented symbolizer property can be set at 
+     *     construction.
+     *
+     * Returns:
+     * A new text symbolizer.
+     */
+    initialize: function(config) {
+        OpenLayers.Symbolizer.prototype.initialize.apply(this, arguments);
+    },
+    
+    CLASS_NAME: "OpenLayers.Symbolizer.Text"
+    
+});
+
+/* ======================================================================
+    OpenLayers/Rule.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+ * full text of the license. */
+
+
+/**
+ * @requires OpenLayers/BaseTypes/Class.js
+ * @requires OpenLayers/Util.js
+ * @requires OpenLayers/Style.js
+ * @requires OpenLayers/Symbolizer/Point.js
+ * @requires OpenLayers/Symbolizer/Line.js
+ * @requires OpenLayers/Symbolizer/Polygon.js
+ * @requires OpenLayers/Symbolizer/Text.js
+ * @requires OpenLayers/Symbolizer/Raster.js
+ */
+
+/**
+ * Class: OpenLayers.Rule
+ * This class represents an SLD Rule, as being used for rule-based SLD styling.
+ */
+OpenLayers.Rule = OpenLayers.Class({
+    
+    /**
+     * Property: id
+     * {String} A unique id for this session.
+     */
+    id: null,
+    
+    /**
+     * APIProperty: name
+     * {String} name of this rule
+     */
+    name: null,
+    
+    /**
+     * Property: title
+     * {String} Title of this rule (set if included in SLD)
+     */
+    title: null,
+    
+    /**
+     * Property: description
+     * {String} Description of this rule (set if abstract is included in SLD)
+     */
+    description: null,
+
+    /**
+     * Property: context
+     * {Object} An optional object with properties that the rule should be
+     * evaluated against. If no context is specified, feature.attributes will
+     * be used.
+     */
+    context: null,
+    
+    /**
+     * Property: filter
+     * {<OpenLayers.Filter>} Optional filter for the rule.
+     */
+    filter: null,
+
+    /**
+     * Property: elseFilter
+     * {Boolean} Determines whether this rule is only to be applied only if
+     * no other rules match (ElseFilter according to the SLD specification). 
+     * Default is false.  For instances of OpenLayers.Rule, if elseFilter is
+     * false, the rule will always apply.  For subclasses, the else property is 
+     * ignored.
+     */
+    elseFilter: false,
+    
+    /**
+     * Property: symbolizer
+     * {Object} Symbolizer or hash of symbolizers for this rule. If hash of
+     * symbolizers, keys are one or more of ["Point", "Line", "Polygon"]. The
+     * latter if useful if it is required to style e.g. vertices of a line
+     * with a point symbolizer. Note, however, that this is not implemented
+     * yet in OpenLayers, but it is the way how symbolizers are defined in
+     * SLD.
+     */
+    symbolizer: null,
+    
+    /**
+     * Property: symbolizers
+     * {Array} Collection of symbolizers associated with this rule.  If 
+     *     provided at construction, the symbolizers array has precedence
+     *     over the deprecated symbolizer property.  Note that multiple 
+     *     symbolizers are not currently supported by the vector renderers.
+     *     Rules with multiple symbolizers are currently only useful for
+     *     maintaining elements in an SLD document.
+     */
+    symbolizers: null,
+    
+    /**
+     * APIProperty: minScaleDenominator
+     * {Number} or {String} minimum scale at which to draw the feature.
+     * In the case of a String, this can be a combination of text and
+     * propertyNames in the form "literal ${propertyName}"
+     */
+    minScaleDenominator: null,
+
+    /**
+     * APIProperty: maxScaleDenominator
+     * {Number} or {String} maximum scale at which to draw the feature.
+     * In the case of a String, this can be a combination of text and
+     * propertyNames in the form "literal ${propertyName}"
+     */
+    maxScaleDenominator: null,
+    
+    /** 
+     * Constructor: OpenLayers.Rule
+     * Creates a Rule.
+     *
+     * Parameters:
+     * options - {Object} An optional object with properties to set on the
+     *           rule
+     * 
+     * Returns:
+     * {<OpenLayers.Rule>}
+     */
+    initialize: function(options) {
+        this.symbolizer = {};
+        OpenLayers.Util.extend(this, options);
+        if (this.symbolizers) {
+            delete this.symbolizer;
+        }
+        this.id = OpenLayers.Util.createUniqueID(this.CLASS_NAME + "_");
+    },
+
+    /** 
+     * APIMethod: destroy
+     * nullify references to prevent circular references and memory leaks
+     */
+    destroy: function() {
+        for (var i in this.symbolizer) {
+            this.symbolizer[i] = null;
+        }
+        this.symbolizer = null;
+        delete this.symbolizers;
+    },
+    
+    /**
+     * APIMethod: evaluate
+     * evaluates this rule for a specific feature
+     * 
+     * Parameters:
+     * feature - {<OpenLayers.Feature>} feature to apply the rule to.
+     * 
+     * Returns:
+     * {Boolean} true if the rule applies, false if it does not.
+     * This rule is the default rule and always returns true.
+     */
+    evaluate: function(feature) {
+        var context = this.getContext(feature);
+        var applies = true;
+
+        if (this.minScaleDenominator || this.maxScaleDenominator) {
+            var scale = feature.layer.map.getScale();
+        }
+        
+        // check if within minScale/maxScale bounds
+        if (this.minScaleDenominator) {
+            applies = scale >= OpenLayers.Style.createLiteral(
+                    this.minScaleDenominator, context);
+        }
+        if (applies && this.maxScaleDenominator) {
+            applies = scale < OpenLayers.Style.createLiteral(
+                    this.maxScaleDenominator, context);
+        }
+        
+        // check if optional filter applies
+        if(applies && this.filter) {
+            // feature id filters get the feature, others get the context
+            if(this.filter.CLASS_NAME == "OpenLayers.Filter.FeatureId") {
+                applies = this.filter.evaluate(feature);
+            } else {
+                applies = this.filter.evaluate(context);
+            }
+        }
+
+        return applies;
+    },
+    
+    /**
+     * Method: getContext
+     * Gets the context for evaluating this rule
+     * 
+     * Paramters:
+     * feature - {<OpenLayers.Feature>} feature to take the context from if
+     *           none is specified.
+     */
+    getContext: function(feature) {
+        var context = this.context;
+        if (!context) {
+            context = feature.attributes || feature.data;
+        }
+        if (typeof this.context == "function") {
+            context = this.context(feature);
+        }
+        return context;
+    },
+    
+    /**
+     * APIMethod: clone
+     * Clones this rule.
+     * 
+     * Returns:
+     * {<OpenLayers.Rule>} Clone of this rule.
+     */
+    clone: function() {
+        var options = OpenLayers.Util.extend({}, this);
+        if (this.symbolizers) {
+            // clone symbolizers
+            var len = this.symbolizers.length;
+            options.symbolizers = new Array(len);
+            for (var i=0; i<len; ++i) {
+                options.symbolizers[i] = this.symbolizers[i].clone();
+            }
+        } else {
+            // clone symbolizer
+            options.symbolizer = {};
+            var value, type;
+            for(var key in this.symbolizer) {
+                value = this.symbolizer[key];
+                type = typeof value;
+                if(type === "object") {
+                    options.symbolizer[key] = OpenLayers.Util.extend({}, value);
+                } else if(type === "string") {
+                    options.symbolizer[key] = value;
+                }
+            }
+        }
+        // clone filter
+        options.filter = this.filter && this.filter.clone();
+        // clone context
+        options.context = this.context && OpenLayers.Util.extend({}, this.context);
+        return new OpenLayers.Rule(options);
+    },
+        
+    CLASS_NAME: "OpenLayers.Rule"
+});
+/* ======================================================================
     OpenLayers/Layer/FixedZoomLevels.js
    ====================================================================== */
 
@@ -34597,6 +35417,275 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
 
     CLASS_NAME: "OpenLayers.Control.DragFeature"
 });
+/* ======================================================================
+    OpenLayers/Filter/Comparison.js
+   ====================================================================== */
+
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+ * full text of the license. */
+
+/**
+ * @requires OpenLayers/Filter.js
+ * @requires OpenLayers/Console.js
+ */
+
+/**
+ * Class: OpenLayers.Filter.Comparison
+ * This class represents a comparison filter.
+ * 
+ * Inherits from
+ * - <OpenLayers.Filter>
+ */
+OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
+
+    /**
+     * APIProperty: type
+     * {String} type: type of the comparison. This is one of
+     * - OpenLayers.Filter.Comparison.EQUAL_TO                 = "==";
+     * - OpenLayers.Filter.Comparison.NOT_EQUAL_TO             = "!=";
+     * - OpenLayers.Filter.Comparison.LESS_THAN                = "<";
+     * - OpenLayers.Filter.Comparison.GREATER_THAN             = ">";
+     * - OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO    = "<=";
+     * - OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO = ">=";
+     * - OpenLayers.Filter.Comparison.BETWEEN                  = "..";
+     * - OpenLayers.Filter.Comparison.LIKE                     = "~"; 
+     */
+    type: null,
+    
+    /**
+     * APIProperty: property
+     * {String}
+     * name of the context property to compare
+     */
+    property: null,
+    
+    /**
+     * APIProperty: value
+     * {Number} or {String}
+     * comparison value for binary comparisons. In the case of a String, this
+     * can be a combination of text and propertyNames in the form
+     * "literal ${propertyName}"
+     */
+    value: null,
+    
+    /**
+     * Property: matchCase
+     * {Boolean} Force case sensitive searches for EQUAL_TO and NOT_EQUAL_TO
+     *     comparisons.  The Filter Encoding 1.1 specification added a matchCase
+     *     attribute to ogc:PropertyIsEqualTo and ogc:PropertyIsNotEqualTo
+     *     elements.  This property will be serialized with those elements only
+     *     if using the v1.1.0 filter format. However, when evaluating filters
+     *     here, the matchCase property will always be respected (for EQUAL_TO
+     *     and NOT_EQUAL_TO).  Default is true. 
+     */
+    matchCase: true,
+    
+    /**
+     * APIProperty: lowerBoundary
+     * {Number} or {String}
+     * lower boundary for between comparisons. In the case of a String, this
+     * can be a combination of text and propertyNames in the form
+     * "literal ${propertyName}"
+     */
+    lowerBoundary: null,
+    
+    /**
+     * APIProperty: upperBoundary
+     * {Number} or {String}
+     * upper boundary for between comparisons. In the case of a String, this
+     * can be a combination of text and propertyNames in the form
+     * "literal ${propertyName}"
+     */
+    upperBoundary: null,
+
+    /** 
+     * Constructor: OpenLayers.Filter.Comparison
+     * Creates a comparison rule.
+     *
+     * Parameters:
+     * options - {Object} An optional object with properties to set on the
+     *           rule
+     * 
+     * Returns:
+     * {<OpenLayers.Filter.Comparison>}
+     */
+    initialize: function(options) {
+        OpenLayers.Filter.prototype.initialize.apply(this, [options]);
+        // since matchCase on PropertyIsLike is not schema compliant, we only
+        // want to use this if explicitly asked for
+        if (this.type === OpenLayers.Filter.Comparison.LIKE 
+            && options.matchCase === undefined) {
+                this.matchCase = null;
+        }
+    },
+
+    /**
+     * APIMethod: evaluate
+     * Evaluates this filter in a specific context.
+     * 
+     * Parameters:
+     * context - {Object} Context to use in evaluating the filter.  If a vector
+     *     feature is provided, the feature.attributes will be used as context.
+     * 
+     * Returns:
+     * {Boolean} The filter applies.
+     */
+    evaluate: function(context) {
+        if (context instanceof OpenLayers.Feature.Vector) {
+            context = context.attributes;
+        }
+        var result = false;
+        var got = context[this.property];
+        var exp;
+        switch(this.type) {
+            case OpenLayers.Filter.Comparison.EQUAL_TO:
+                exp = this.value;
+                if(!this.matchCase &&
+                   typeof got == "string" && typeof exp == "string") {
+                    result = (got.toUpperCase() == exp.toUpperCase());
+                } else {
+                    result = (got == exp);
+                }
+                break;
+            case OpenLayers.Filter.Comparison.NOT_EQUAL_TO:
+                exp = this.value;
+                if(!this.matchCase &&
+                   typeof got == "string" && typeof exp == "string") {
+                    result = (got.toUpperCase() != exp.toUpperCase());
+                } else {
+                    result = (got != exp);
+                }
+                break;
+            case OpenLayers.Filter.Comparison.LESS_THAN:
+                result = got < this.value;
+                break;
+            case OpenLayers.Filter.Comparison.GREATER_THAN:
+                result = got > this.value;
+                break;
+            case OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO:
+                result = got <= this.value;
+                break;
+            case OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO:
+                result = got >= this.value;
+                break;
+            case OpenLayers.Filter.Comparison.BETWEEN:
+                result = (got >= this.lowerBoundary) &&
+                    (got <= this.upperBoundary);
+                break;
+            case OpenLayers.Filter.Comparison.LIKE:
+                var regexp = new RegExp(this.value, "gi");
+                result = regexp.test(got);
+                break;
+        }
+        return result;
+    },
+    
+    /**
+     * APIMethod: value2regex
+     * Converts the value of this rule into a regular expression string,
+     * according to the wildcard characters specified. This method has to
+     * be called after instantiation of this class, if the value is not a
+     * regular expression already.
+     * 
+     * Parameters:
+     * wildCard   - {<Char>} wildcard character in the above value, default
+     *              is "*"
+     * singleChar - {<Char>) single-character wildcard in the above value
+     *              default is "."
+     * escape     - {<Char>) escape character in the above value, default is
+     *              "!"
+     * 
+     * Returns:
+     * {String} regular expression string
+     */
+    value2regex: function(wildCard, singleChar, escapeChar) {
+        if (wildCard == ".") {
+            var msg = "'.' is an unsupported wildCard character for "+
+                    "OpenLayers.Filter.Comparison";
+            OpenLayers.Console.error(msg);
+            return null;
+        }
+        
+
+        // set UMN MapServer defaults for unspecified parameters
+        wildCard = wildCard ? wildCard : "*";
+        singleChar = singleChar ? singleChar : ".";
+        escapeChar = escapeChar ? escapeChar : "!";
+        
+        this.value = this.value.replace(
+                new RegExp("\\"+escapeChar+"(.|$)", "g"), "\\$1");
+        this.value = this.value.replace(
+                new RegExp("\\"+singleChar, "g"), ".");
+        this.value = this.value.replace(
+                new RegExp("\\"+wildCard, "g"), ".*");
+        this.value = this.value.replace(
+                new RegExp("\\\\.\\*", "g"), "\\"+wildCard);
+        this.value = this.value.replace(
+                new RegExp("\\\\\\.", "g"), "\\"+singleChar);
+        
+        return this.value;
+    },
+    
+    /**
+     * Method: regex2value
+     * Convert the value of this rule from a regular expression string into an
+     *     ogc literal string using a wildCard of *, a singleChar of ., and an
+     *     escape of !.  Leaves the <value> property unmodified.
+     * 
+     * Returns:
+     * {String} A string value.
+     */
+    regex2value: function() {
+        
+        var value = this.value;
+        
+        // replace ! with !!
+        value = value.replace(/!/g, "!!");
+
+        // replace \. with !. (watching out for \\.)
+        value = value.replace(/(\\)?\\\./g, function($0, $1) {
+            return $1 ? $0 : "!.";
+        });
+        
+        // replace \* with #* (watching out for \\*)
+        value = value.replace(/(\\)?\\\*/g, function($0, $1) {
+            return $1 ? $0 : "!*";
+        });
+        
+        // replace \\ with \
+        value = value.replace(/\\\\/g, "\\");
+
+        // convert .* to * (the sequence #.* is not allowed)
+        value = value.replace(/\.\*/g, "*");
+        
+        return value;
+    },
+    
+    /**
+     * APIMethod: clone
+     * Clones this filter.
+     * 
+     * Returns:
+     * {<OpenLayers.Filter.Comparison>} Clone of this filter.
+     */
+    clone: function() {
+        return OpenLayers.Util.extend(new OpenLayers.Filter.Comparison(), this);
+    },
+    
+    CLASS_NAME: "OpenLayers.Filter.Comparison"
+});
+
+
+OpenLayers.Filter.Comparison.EQUAL_TO                 = "==";
+OpenLayers.Filter.Comparison.NOT_EQUAL_TO             = "!=";
+OpenLayers.Filter.Comparison.LESS_THAN                = "<";
+OpenLayers.Filter.Comparison.GREATER_THAN             = ">";
+OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO    = "<=";
+OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO = ">=";
+OpenLayers.Filter.Comparison.BETWEEN                  = "..";
+OpenLayers.Filter.Comparison.LIKE                     = "~";
 /* ======================================================================
     OpenLayers/Control/LayerSwitcher.js
    ====================================================================== */
