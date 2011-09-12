@@ -28,4 +28,4 @@ $gettext = array_map('addslashes', array(
 Horde::addInlineJsVars(array(
     'var GollemVar' => $var,
     'var GollemText' => $gettext
-), array('ret_vars' => true));
+), array('top' => true));
