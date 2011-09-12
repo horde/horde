@@ -88,6 +88,10 @@ div#quota {
     text-decoration: underline;
     cursor: pointer;
 }
+#spellcheck img {
+    padding-right: 2px;
+    vertical-align: bottom;
+}
 
 /* Splitbar styles. */
 #msgSplitPane {
@@ -424,48 +428,44 @@ span.iconImgSidebar {
 
 /* Actions */
 .dimpActions {
-    background: #efefef;
-    padding: 4px 2px;
-    border: 1px silver solid;
     background: transparent url("../graphics/backhead_s2.png") repeat-x;
+    border: 1px silver solid;
     height: 20px;
+    padding: 4px 2px;
 }
 .dimpActions div {
     border: 1px solid silver;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    cursor: pointer;
     float: left;
     margin-right: 5px;
     overflow: hidden;
     padding: 1px 0;
 }
-.dimpActions a, .dimpActions a:visited, .dimpActions label {
+.dimpActions a, .dimpActions a:visited {
     color: #000;
+    cursor: pointer;
     font-weight: bold;
     padding: 2px 4px 4px 4px;
     white-space: nowrap;
 }
-.dimpActions a, .dimpActions a:visited, .dimpActions .disabled a:hover {
+.dimpActions a, .dimpActions a:visited, .dimpActions div.disabled a:hover {
     filter: alpha(opacity=60);
     -moz-opacity: .6;
     opacity: .6;
 }
-.dimpActions a img {
-    margin-right: 4px;
-    vertical-align: top;
-}
 .dimpActions .iconImg {
     vertical-align: top;
-}
-.dimpActions a:hover {
-    text-decoration: none;
 }
 .dimpActions span.popdown, .dimpActions span.spellcheckPopdownImg, span.popdownImg {
     filter: alpha(opacity=50);
     -moz-opacity: .5;
     opacity: .5;
+}
+.dimpActions span.popdown, .dimpActions span.spellcheckPopdownImg {
+    margin: -1px 0;
+    padding: 1px 0;
 }
 .dimpActions span.popdownSep {
     border-left: 1px solid silver;
@@ -476,12 +476,17 @@ span.iconImgSidebar {
     -moz-opacity: 1;
     opacity: 1;
 }
-.dimpactions .disabled, .dimpActions .disabled a, .dimpActions .disabled a:visited, .dimpActions .disabled a:active {
-    color: silver !important;
-    cursor: default;
+.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover {
+    background-color: lightgrey;
     text-decoration: none;
 }
-.dimpActions .disabled span.iconImg, .dimpActions .disabled span.spellcheckPopdownImg, .dimpActions .disabled img {
+.dimpactions div.disabled, .dimpActions div.disabled a, .dimpActions div.disabled a:visited, .dimpActions div.disabled .popdownImg {
+    background-color: transparent !important;
+    color: silver !important;
+    cursor: default !important;
+    text-decoration: none;
+}
+.dimpActions div.disabled span.iconImg, .dimpActions div.disabled span.spellcheckPopdownImg, .dimpActions div.disabled img {
     filter: alpha(opacity=25);
     -moz-opacity: .25;
     opacity: .25;
@@ -903,7 +908,7 @@ a.address:hover img {
 }
 
 /* Images */
-span.iconImg, span.spellcheckPopdownImg {
+span.iconImg {
     margin-right: 4px;
 }
 
