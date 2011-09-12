@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-01</date>
- <time>08:24:08</time>
+ <date>2011-09-12</date>
+ <time>12:15:58</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -49,8 +49,6 @@
       </dir> <!-- /doc/Horde/Kolab/Format -->
      </dir> <!-- /doc/Horde/Kolab -->
     </dir> <!-- /doc/Horde -->
-    <file name="CHANGES" role="doc" />
-    <file name="TODO" role="doc" />
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -417,8 +415,9 @@
     <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
-    <api>stable</api></stability>
-   <date>2011-06-30</date>
+    <api>stable</api>
+   </stability>
+   <date>2011-09-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Moved Horde specific functionality out of the events parser.
@@ -427,8 +426,8 @@
 * [gwr] KEP2 support.
 * [gwr] Allow adding XML attributes on the fly.
 * [gwr] Avoid overwriting data from other Kolab clients.
-* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
 * [gwr] Added improved root node handler (version checking, avoids overwriting other data).
+* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
 * [gwr] Fixed detecting parse errors in subsequent parse attempts.
    </notes>
   </release>
@@ -438,7 +437,8 @@
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
-    <api>stable</api></stability>
+    <api>stable</api>
+   </stability>
    <date>2011-09-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
