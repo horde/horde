@@ -7,17 +7,18 @@ AnselGeoTagWidget = Class.create({
     coordId: 'ansel_latlng',
     relocateId: 'ansel_relocate',
     deleteId: 'ansel_deleteGeotag',
+    opts: null,
 
     /**
      * Const'r.
      *
      * Required opts:
      *   viewType [Gallery|Image]
-     *    relocateUrl [Url for relocate popup]
-     *    relocateText [Localized text]
-     *    deleteGeotagText [Localized text]
-     *    hasEdit [boolean - do we have PERMS_EDIT?]
-     *    updateEndPoint [AJAX endpoint for updating image data]
+     *   relocateUrl [Url for relocate popup]
+     *   relocateText [Localized text]
+     *   deleteGeotagText [Localized text]
+     *   hasEdit [boolean do we have PERMS_EDIT?]
+     *   updateEndPoint [AJAX endpoint for updating image data]
      */
     initialize: function(imgs, opts) {
          var o = {
@@ -76,9 +77,12 @@ AnselGeoTagWidget = Class.create({
     // },
 
     doMap: function() {
+        // Create map and geocoder objects
         this._bigMap = AnselMap.ensureMap('ansel_map');
-        this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
         this._smallMap = AnselMap.ensureMap('ansel_map_small');
+        this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
+
+        // Place the image markers
         for (var i = 0; i < this._images.length; i++) {
             AnselMap.placeMapMarker(
                 'ansel_map',
@@ -91,7 +95,6 @@ AnselGeoTagWidget = Class.create({
                 (!this._images[i].markerOnly) ? this._images[i].icon : null
             );
 
-            // @TODO: finish this - do we still want to do this for gallery view?
             if (this._images[i].markerOnly) {
                 (function() {
                     var p = this._images[i];
@@ -141,7 +144,7 @@ AnselGeoTagWidget = Class.create({
      */
     getLocationCallback: function(i, u, r)
     {
-        // Update image view for current image
+        // Update image view links
         if (i.markerOnly) {
             if (this.locationId) {
                 $(this.locationId).update(r[0].address);
@@ -152,11 +155,13 @@ AnselGeoTagWidget = Class.create({
             if (this.relocateId) {
                 $(this.relocateId).update(this._getRelocateLink(i.image_id));
             }
-
             if (this.deleteId) {
                 $(this.deleteId).update(this._getDeleteLink(i.image_id));
             }
+        } else if (this.viewType == 'GalleryView') {
+
         }
+
 
         // Save the results?
         if (u) {

@@ -61,14 +61,10 @@ HordeMap.Map.Horde = Class.create({
             numZoomLevels: 18,
             maxResolution: 156543.0339,
             maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
-
-            // @TODO: custom LayerSwitcher control?
             controls: [
                 new OpenLayers.Control.Navigation(),
                 new OpenLayers.Control.Attribution()
-            ],
-
-           fallThrough: false
+            ]
         };
 
         if (this.opts.panzoom) {
@@ -76,7 +72,7 @@ HordeMap.Map.Horde = Class.create({
         } else {
             options.controls.push(new OpenLayers.Control.ZoomPanel({ 'zoomWorldIcon': this.opts.zoomworldicon }));
         }
-        // Set the language to use
+        // Set the language
         OpenLayers.Lang.setCode(HordeMap.conf.language);
         this.map = new OpenLayers.Map((this.opts.delayed ? null : this.opts.elt), options);
 
@@ -100,7 +96,7 @@ HordeMap.Map.Horde = Class.create({
                 this.opts.markerLayerTitle,
                 {
                     'styleMap': styleMap,
-                    'rendererOptions': {yOrdering: true}
+                    'rendererOptions': { yOrdering: true }
                 });
 
             if (this.opts.draggableFeatures) {
@@ -122,7 +118,9 @@ HordeMap.Map.Horde = Class.create({
 
         // Create a click control to handle click events on the map
         if (this.opts.mapClick) {
-            var click = new OpenLayers.Control.Click({ onClick: this._onMapClick.bind(this) });
+            var click = new OpenLayers.Control.Click({
+                onClick: this._onMapClick.bind(this)
+            });
             this.map.addControl(click);
             click.activate();
         }

@@ -27,7 +27,7 @@
         if (Ansel.conf.maps.providers) {
             Ansel.conf.maps.providers.each(function(l) {
                 var p = new HordeMap[l]();
-                $H(p.getLayers()).values().each(function(e) {layers.push(e);});
+                $H(p.getLayers()).values().each(function(e) { layers.push(e); });
             });
         }
         this.maps[e] = new HordeMap.Map[Ansel.conf.maps.driver]({
