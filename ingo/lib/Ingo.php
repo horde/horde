@@ -114,11 +114,11 @@ class Ingo
                 $mailboxes = $registry->call('mail/folderlist');
 
                 $text = '<select class="flistSelect" id="' . $tagname . '" name="' . $tagname . '">' .
-                    '<option>' . _("Select target folder:") . '</option>' .
+                    '<option value="">' . _("Select target folder:") . '</option>' .
                     '<option disabled="disabled">- - - - - - - - - -</option>';
 
                 if ($createfolder) {
-                    $text .= '<option class="flistCreate">' . _("Create new folder") . '</option>' .
+                    $text .= '<option class="flistCreate" value="">' . _("Create new folder") . '</option>' .
                         '<option disabled="disabled">- - - - - - - - - -</option>';
                 }
 
@@ -160,7 +160,7 @@ class Ingo
                 $GLOBALS['registry']->call('mail/createFolder', array(Horde_String::convertCharset($vars->$new_id, 'UTF-8', 'UTF7-IMAP')))) {
                 return $vars->$new_id;
             }
-        } elseif ($vars->$name) {
+        } elseif (isset($vars->$name) && strlen($vars->$name)) {
             return $vars->$name;
         }
 
