@@ -56,6 +56,9 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
      */
     public function attach(Ansel_View_Base $view)
     {
+        if (empty($GLOBALS['conf']['maps']['driver'])) {
+            return false;
+        }
         parent::attach($view);
         return true;
     }
