@@ -351,7 +351,7 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 
 /* OL specific tweaks */
 .olControlZoomPanel {
-  top: 10px;
+  top: 10px !important;
 }
 
 /* Autocomplete styles. */
