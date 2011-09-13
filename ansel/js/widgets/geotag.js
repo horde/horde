@@ -95,6 +95,11 @@ AnselGeoTagWidget = Class.create({
                     }
                 }
                 return true;
+            }.bind(this),
+
+            'onClick': function(f) {
+                var uri = f.feature.attributes.image_link;
+                location.href = uri;
             }.bind(this)
         });
         this._smallMap = AnselMap.initMiniMap('ansel_map_small', {
