@@ -258,8 +258,6 @@ You can alternatively create a "described" or "labeled" link to a wiki page by p
 
 [WikiPage Descriptive text for the link.]
 
-> **Note:** existing wiki pages must be in the [RuleWikilink wikilink] {{pages}} configuration,  and the [RuleWikilink wikilink] {{view_url}} configuration value must be set for the linking to work.
-
 
 +++ Interwiki Links
 
@@ -269,8 +267,6 @@ Type the {{``SiteName:PageName``}} like this:
 * MeatBall:RecentChanges
 * Advogato:proj/WikkiTikkiTavi
 * Wiki:WorseIsBetter
-
-> **Note:** the interwiki site must be in the [RuleInterwiki interwiki] {{sites}} configuration array.
 
 
 +++ PHP Manual Links
@@ -312,15 +308,19 @@ Additonal attributes, such as "alt" can follow the image filename or URL like so
 
 ++ Application Content
 
++++ Application Blocks
+
 Content from other Horde applications provided by portal blocks can be embedded into a page using {{[[block]]}} tags.
 
-To include the Wiki's own "Page" block for example, you can embed any other wiki pages:
+To include Horde's moon phases block for example:
 
 <code>
 [[block horde/Moon phase=next hemisphere=northern]]
 </code>
 
 [[block horde/Moon phase=next hemisphere=northern]]
+
++++ Application Links
 
 Links to other Horde applications is supported if those applications support API links. The Wiki itself supports such an API to link to individual wiki pages:
 
