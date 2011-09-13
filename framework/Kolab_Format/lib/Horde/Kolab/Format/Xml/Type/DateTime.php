@@ -60,7 +60,7 @@ extends Horde_Kolab_Format_Xml_Type_String
                 'date' => Horde_Kolab_Format_Date::readDateTime(
                     $result, $tz
                 ),
-                'date-only' => true
+                'date-only' => false
             );
         }
         if ($date['date'] === false && !$this->isRelaxed($params)) {
