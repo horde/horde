@@ -40,9 +40,11 @@
         // Symbolizer map for Default intent
         var markerStyleDefault = {
             'true': {
-                'pointRadius': 10,
+                'graphicHeight': 37,
+                'graphicWidth': 32,
+                'graphicYOffset': -37,
                 'backgroundXOffset': 0,
-                'backgroundYOffset': -7,
+                'backgroundYOffset': -42,
                 'backgroundGraphicZIndex': 10,
             },
             'false': {
