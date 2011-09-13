@@ -59,12 +59,7 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
                 'type'    => self::TYPE_INTEGER,
                 'value'   => self::VALUE_MAYBE_MISSING,
             ),
-            'recurrence' => array(
-                'type'    => self::TYPE_COMPOSITE,
-                'value'   => self::VALUE_CALCULATED,
-                'load'    => 'Recurrence',
-                'save'    => 'Recurrence',
-            ),
+            'recurrence' => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
             'attendee' => array(
                 'type'    => self::TYPE_MULTIPLE,
                 'value'   => self::VALUE_MAYBE_MISSING,

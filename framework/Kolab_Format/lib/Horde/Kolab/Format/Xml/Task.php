@@ -58,8 +58,7 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
                 'value'   => self::VALUE_DEFAULT,
                 'default' => '',
             ),
-            'organizer' => array (
-                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'           ),
+            'organizer' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson',
             'start-date' => array(
                 'type'    => self::TYPE_DATE_OR_DATETIME,
                 'value'   => self::VALUE_MAYBE_MISSING,
@@ -68,12 +67,7 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
                 'type'    => self::TYPE_INTEGER,
                 'value'   => self::VALUE_MAYBE_MISSING,
             ),
-            'recurrence' => array(
-                'type'    => self::TYPE_COMPOSITE,
-                'value'   => self::VALUE_CALCULATED,
-                'load'    => 'Recurrence',
-                'save'    => 'Recurrence',
-            ),
+            'recurrence' => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
             'attendee' => array(
                 'type'    => self::TYPE_MULTIPLE,
                 'value'   => self::VALUE_MAYBE_MISSING,
@@ -106,8 +100,7 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
             ),
             // These are not part of the Kolab specification but it is
             // ok if the client supports additional entries
-            'creator'   => array (
-                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'           ),
+            'creator'   => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson',
             'percentage' => array(
                 'type'    => self::TYPE_INTEGER,
                 'value'   => self::VALUE_MAYBE_MISSING,
