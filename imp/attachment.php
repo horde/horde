@@ -96,6 +96,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 $msg_headers->addHeader('From', $mail_address_full);
                 $msg_headers->addHeader('To', $mail_address_full);
                 $msg_headers->addHeader('Subject', _("Notification: Linked attachment downloaded"));
+                $msg_headers->addHeader('Auto-Submitted', 'auto-generated');
 
                 $msg = new Horde_Mime_Part();
                 $msg->setType('text/plain');

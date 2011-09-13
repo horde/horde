@@ -114,6 +114,25 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
+     * Return the path to a DOCS_ORIGIN file within the component.
+     *
+     * @return array|NULL An array containing the path name and the component
+     *                    base directory or NULL if there is no DOCS_ORIGIN
+     *                    file.
+     */
+    public function getDocumentOrigin()
+    {
+        foreach (array('doc', 'docs') as $doc_dir) {
+            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_directory . '/' . $doc_dir)) as $file) {
+                if ($file->isFile() &&
+                    $file->getFilename() == 'DOCS_ORIGIN') {
+                    return array($file->getPathname(), $this->_directory);
+                }
+            }
+        }
+    }
+
+    /**
      * Update the package.xml file for this component.
      *
      * @param string $action  The action to perform. Either "update", "diff",

@@ -670,11 +670,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if (empty($this->_parent[$parent])) {
             /* This folder is now completely empty (no children).  If the
-             * folder is a container only, we should delete the folder from
+             * folder has not children, we should delete the folder from
              * the tree. */
             unset($this->_parent[$parent]);
             if (isset($this->_tree[$parent])) {
-                if ($this->isContainer($this->_tree[$parent]) &&
+                if (!$this->isContainer($this->_tree[$parent]) &&
                     !$this->isNamespace($this->_tree[$parent])) {
                     $this->delete($parent);
                 } else {

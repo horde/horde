@@ -202,9 +202,7 @@ case 'filter_messages':
     break;
 
 case 'hide_deleted':
-    $prefs->setValue('delhide', !$prefs->getValue('delhide'));
-    IMP::$mailbox->expire(IMP_Mailbox::CACHE_HIDEDELETED);
-    $injector->getInstance('IMP_Factory_MailboxList')->expireAll();
+    IMP::$mailbox->setHideDeletedMsgs(!$prefs->getValue('delhide'));
     break;
 
 case 'expunge_mailbox':

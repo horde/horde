@@ -25,7 +25,7 @@ extends Nag_Tasklists_Base
      * @param string           $user   The current user.
      * @param array            $params Additional parameters.
      */
-    public function __construct(Horde_Share_Base $shares, $user, $params)
+    public function __construct($shares, $user, $params)
     {
         if (!isset($params['identity'])) {
             throw new Nag_Exception('This tasklist handler needs an "identity" parameter!');

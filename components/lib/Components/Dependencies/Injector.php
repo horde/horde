@@ -135,11 +135,21 @@ implements Components_Dependencies
     /**
      * Returns the documentation handler for a package.
      *
-     * @return Components_Runner_Document The distribution handler.
+     * @return Components_Runner_Document The documentation handler.
      */
     public function getRunnerDocument()
     {
         return $this->getInstance('Components_Runner_Document');
+    }
+
+    /**
+     * Returns the documentation fetch handler for a package.
+     *
+     * @return Components_Runner_Fetchdocs The fetch handler.
+     */
+    public function getRunnerFetchdocs()
+    {
+        return $this->getInstance('Components_Runner_Fetchdocs');
     }
 
     /**

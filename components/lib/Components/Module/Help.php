@@ -92,7 +92,7 @@ extends Components_Module_Base
                 $action = '';
             }
             $modules = $this->_dependencies->getModules();
-            foreach ($modules->getModules() as $module) {
+            foreach ($modules->getModules()->listModules() as $module) {
                 $element = $modules->getProvider()->getModule($module);
                 if (in_array($action, $element->getActions())) {
                     $title = "ACTION \"" . $action . "\"";
