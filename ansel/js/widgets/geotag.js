@@ -120,7 +120,8 @@ AnselGeoTagWidget = Class.create({
                     'background': (!this._images[i].markerOnly) ? Ansel.conf.pixeluri + '?c=ffffff' : Ansel.conf.markerBackground,
                     'image_id': this._images[i].image_id,
                     'markerOnly': (this._images[i].markerOnly) ? 'true' : 'false',
-                    'center': true
+                    'center': true,
+                    'image_link': this._images[i].link
                 }
             );
 
