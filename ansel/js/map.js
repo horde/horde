@@ -77,7 +77,7 @@
         }
         var o = {
             'panzoom': false,
-            'layerswitcher': false,
+            'layerSwitcher': false,
             'onHover': false
         }
         this.opts = Object.extend(o, opts || {});
@@ -94,7 +94,7 @@
             layers: layers,
             draggableFeatures: false,
             panzoom: this.opts.panzoom,
-            showLayerSwitcher: this.opts.layerswitcher,
+            showLayerSwitcher: this.opts.layerSwitcher,
             useMarkerLayer: true,
             markerImage: Ansel.conf.markeruri,
             markerBackground: Ansel.conf.shadowuri,
