@@ -27,6 +27,8 @@
  * // opts.markerBackground - Custom marker background image to use by default.
  * // opts.markerDragEnd    - Callback to handle when a marker is dragged.
  * // opts.markerImage      - Custom marker image to use by default.
+ * // opts.onClick          - Callback for handling click events on features.
+ * // opts.onHover          - Callback for handling hover events on features.
  * // opts.panzoom          - Use the larger PanZoomBar control. If false, will
  * //                         use the smaller ZoomPanel control.
  * //                       - Callback
@@ -63,6 +65,7 @@ HordeMap.Map.Horde = Class.create({
             zoomworldicon: false,
             layers: [],
             onHover: false,
+            onClick: false,
             styleMap: new OpenLayers.StyleMap({
                 'default': {
                     externalGraphic: opts.markerImage,
@@ -129,7 +132,7 @@ HordeMap.Map.Horde = Class.create({
                     this.markerLayer, {
                         hover: true,
                         highlightOnly: true,
-                        renderIntent: "temporary",
+                        renderIntent: 'temporary',
                         eventListeners: {
                              beforefeaturehighlighted: this.opts.onHover,
                              featurehighlighted: this.opts.onHover,
@@ -139,6 +142,24 @@ HordeMap.Map.Horde = Class.create({
                 );
                 this.map.addControl(this.selectControl);
                 this.selectControl.activate();
+            }
+
+            if (this.opts.onClick) {
+                this.clickControl = new OpenLayers.Control.SelectFeature(
+                    this.markerLayer, {
+                        'hover': false,
+                        'clickout': false,
+                        'toggle': true,
+                        'hover': false,
+                        'multiple': false,
+                        'renderIntent': 'temporary'
+                    }
+                );
+                this.markerLayer.events.on({
+                    'featureselected': this.opts.onClick
+                });
+                this.map.addControl(this.clickControl);
+                this.clickControl.activate();
             }
         }
         this.map.addLayers(this.opts.layers);

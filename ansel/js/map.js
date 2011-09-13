@@ -63,7 +63,12 @@
         style.addUniqueValueRules('default', 'markerOnly', markerStyleDefault);
         style.addUniqueValueRules('temporary', 'markerOnly', markerStyleTemporary);
 
-        return this._initializeMap(e, { 'styleMap': style, 'onHover': opts.onHover });
+        return this._initializeMap(e, {
+            'styleMap': style,
+            'onHover': opts.onHover,
+            'layerSwitcher': true,
+            'onClick': opts.onClick
+        });
     },
 
     initMiniMap: function(e) {
@@ -99,6 +104,7 @@
             markerImage: Ansel.conf.markeruri,
             markerBackground: Ansel.conf.shadowuri,
             onHover: this.opts.onHover,
+            onClick: this.opts.onClick
             //markerDragEnd: this.onMarkerDragEnd.bind(this),
             //mapClick: this.afterClickMap.bind(this),
         }
@@ -144,6 +150,7 @@
             marker.attributes['image_id'] = opts.image_id;
             marker.attributes['markerOnly'] = opts.markerOnly;
             marker.attributes['background'] = opts.background;
+            marker.attributes['image_link'] = opts.image_link;
         } else {
             marker = this.maps[e].addMarker(ll);
         }
