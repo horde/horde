@@ -133,6 +133,9 @@ class IMP_Views_ListMessages
 
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
+        if ($mbox->hideDeletedMsgs(true)) {
+            $md->delhide = 1;
+        }
         if (!$mbox->access_sortthread) {
             $md->nothread = 1;
         }

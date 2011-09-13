@@ -862,6 +862,18 @@ class IMP_Mailbox implements Serializable
     }
 
     /**
+     * Sets the 'delhide' preference and clears necessary cached data.
+     *
+     * @param boolean $value  The value to set 'delhide' to.
+     */
+    public function setHideDeletedMsgs($value)
+    {
+        $GLOBALS['prefs']->setValue('delhide', $value);
+        $this->expire(IMP_Mailbox::CACHE_HIDEDELETED);
+        $GLOBALS['injector']->getInstance('IMP_Factory_MailboxList')->expireAll();
+    }
+
+    /**
      * Run a search query on this mailbox that is not stored in the current
      * session. Allows custom queries with custom sorts to be used without
      * affecting cached mailboxes.

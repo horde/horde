@@ -78,6 +78,5 @@ class Components_Runner_Document
         $build_template->write(
             array('package' => $this->_config->getComponent())
         );
-
     }
 }

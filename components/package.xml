@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-24</date>
- <time>09:58:18</time>
+ <date>2011-09-11</date>
+ <time>07:30:28</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -44,6 +44,9 @@
     <dir name="distribute">
      <dir name="debian">
       <dir name="templates">
+       <dir name="source">
+        <file name="format" role="horde" />
+       </dir> <!-- /data/distribute/debian/templates/source -->
        <file name="changelog" role="data" />
        <file name="compat" role="data" />
        <file name="control" role="data" />
@@ -51,11 +54,62 @@
        <file name="rules" role="data" />
        <file name="watch" role="horde" />
       </dir> <!-- /data/distribute/debian/templates -->
+      <dir name="templates-php-horde">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde -->
+      <dir name="templates-php-horde-content">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-content -->
+      <dir name="templates-php-horde-groupware">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-groupware -->
+      <dir name="templates-php-horde-imp">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-imp -->
+      <dir name="templates-php-horde-ingo">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-ingo -->
+      <dir name="templates-php-horde-jonah">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-jonah -->
+      <dir name="templates-php-horde-kolab-webmail">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-kolab-webmail -->
+      <dir name="templates-php-horde-kronolith">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-kronolith -->
+      <dir name="templates-php-horde-mnemo">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-mnemo -->
+      <dir name="templates-php-horde-nag">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-nag -->
+      <dir name="templates-php-horde-passwd">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-passwd -->
+      <dir name="templates-php-horde-turba">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-turba -->
+      <dir name="templates-php-horde-ulaform">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-ulaform -->
+      <dir name="templates-php-horde-webmail">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-webmail -->
+      <dir name="templates-php-horde-wicked">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-wicked -->
       <file name="components.php" role="data" />
      </dir> <!-- /data/distribute/debian -->
      <dir name="openpkg">
       <file name="package.spec" role="data" />
      </dir> <!-- /data/distribute/openpkg -->
+     <dir name="openSUSE">
+      <dir name="templates">
+       <file name="package.spec" role="horde" />
+      </dir> <!-- /data/distribute/openSUSE/templates -->
+      <file name="components.php" role="horde" />
+     </dir> <!-- /data/distribute/openSUSE -->
     </dir> <!-- /data/distribute -->
     <dir name="html">
      <file name="index.html" role="data" />
@@ -102,6 +156,7 @@
       <file name="ChangeLog.php" role="horde" />
       <file name="Commit.php" role="horde" />
       <file name="Dependencies.php" role="horde" />
+      <file name="DocsOrigin.php" role="horde" />
       <file name="Installer.php" role="horde" />
       <file name="Root.php" role="php" />
       <file name="Template.php" role="php" />
@@ -115,6 +170,7 @@
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Document.php" role="php" />
+      <file name="Fetchdocs.php" role="horde" />
       <file name="Help.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="Release.php" role="php" />
@@ -152,6 +208,7 @@
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Document.php" role="php" />
+      <file name="Fetchdocs.php" role="horde" />
       <file name="Installer.php" role="php" />
       <file name="Release.php" role="php" />
       <file name="Snapshot.php" role="php" />
@@ -195,6 +252,11 @@
        <file name="b.php" role="test" />
        <file name="null.php" role="test" />
       </dir> <!-- /test/Components/fixture/config -->
+      <dir name="docsorigin">
+       <file name="empty" role="test" />
+       <file name="multiple" role="test" />
+       <file name="simple" role="test" />
+      </dir> <!-- /test/Components/fixture/docsorigin -->
       <dir name="empty">
        <file name="package.xml" role="test" />
       </dir> <!-- /test/Components/fixture/empty -->
@@ -356,6 +418,7 @@
         <file name="FileTest.php" role="test" />
        </dir> <!-- /test/Components/Unit/Components/Config -->
        <dir name="Helper">
+        <file name="DocsOriginTest.php" role="test" />
         <file name="RootTest.php" role="test" />
         <file name="TemplatesTest.php" role="test" />
         <file name="VersionDescriptionTest.php" role="test" />
@@ -465,7 +528,25 @@
    <install as="distribute/debian/templates/pearrc" name="data/distribute/debian/templates/pearrc" />
    <install as="distribute/debian/templates/rules" name="data/distribute/debian/templates/rules" />
    <install as="distribute/debian/templates/watch" name="data/distribute/debian/templates/watch" />
+   <install as="distribute/debian/templates/source/format" name="data/distribute/debian/templates/source/format" />
+   <install as="distribute/debian/templates-php-horde/rules" name="data/distribute/debian/templates-php-horde/rules" />
+   <install as="distribute/debian/templates-php-horde-content/rules" name="data/distribute/debian/templates-php-horde-content/rules" />
+   <install as="distribute/debian/templates-php-horde-groupware/rules" name="data/distribute/debian/templates-php-horde-groupware/rules" />
+   <install as="distribute/debian/templates-php-horde-imp/rules" name="data/distribute/debian/templates-php-horde-imp/rules" />
+   <install as="distribute/debian/templates-php-horde-ingo/rules" name="data/distribute/debian/templates-php-horde-ingo/rules" />
+   <install as="distribute/debian/templates-php-horde-jonah/rules" name="data/distribute/debian/templates-php-horde-jonah/rules" />
+   <install as="distribute/debian/templates-php-horde-kolab-webmail/rules" name="data/distribute/debian/templates-php-horde-kolab-webmail/rules" />
+   <install as="distribute/debian/templates-php-horde-kronolith/rules" name="data/distribute/debian/templates-php-horde-kronolith/rules" />
+   <install as="distribute/debian/templates-php-horde-mnemo/rules" name="data/distribute/debian/templates-php-horde-mnemo/rules" />
+   <install as="distribute/debian/templates-php-horde-nag/rules" name="data/distribute/debian/templates-php-horde-nag/rules" />
+   <install as="distribute/debian/templates-php-horde-passwd/rules" name="data/distribute/debian/templates-php-horde-passwd/rules" />
+   <install as="distribute/debian/templates-php-horde-turba/rules" name="data/distribute/debian/templates-php-horde-turba/rules" />
+   <install as="distribute/debian/templates-php-horde-ulaform/rules" name="data/distribute/debian/templates-php-horde-ulaform/rules" />
+   <install as="distribute/debian/templates-php-horde-webmail/rules" name="data/distribute/debian/templates-php-horde-webmail/rules" />
+   <install as="distribute/debian/templates-php-horde-wicked/rules" name="data/distribute/debian/templates-php-horde-wicked/rules" />
    <install as="distribute/openpkg/package.spec" name="data/distribute/openpkg/package.spec" />
+   <install as="distribute/openSUSE/components.php" name="data/distribute/openSUSE/components.php" />
+   <install as="distribute/openSUSE/templates/package.spec" name="data/distribute/openSUSE/templates/package.spec" />
    <install as="html/index.html" name="data/html/index.html" />
    <install as="html/install.html" name="data/html/install.html" />
    <install as="Components.php" name="lib/Components.php" />
@@ -499,6 +580,7 @@
    <install as="Components/Helper/ChangeLog.php" name="lib/Components/Helper/ChangeLog.php" />
    <install as="Components/Helper/Commit.php" name="lib/Components/Helper/Commit.php" />
    <install as="Components/Helper/Dependencies.php" name="lib/Components/Helper/Dependencies.php" />
+   <install as="Components/Helper/DocsOrigin.php" name="lib/Components/Helper/DocsOrigin.php" />
    <install as="Components/Helper/Installer.php" name="lib/Components/Helper/Installer.php" />
    <install as="Components/Helper/Root.php" name="lib/Components/Helper/Root.php" />
    <install as="Components/Helper/Template.php" name="lib/Components/Helper/Template.php" />
@@ -513,6 +595,7 @@
    <install as="Components/Module/Dependencies.php" name="lib/Components/Module/Dependencies.php" />
    <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
    <install as="Components/Module/Document.php" name="lib/Components/Module/Document.php" />
+   <install as="Components/Module/Fetchdocs.php" name="lib/Components/Module/Fetchdocs.php" />
    <install as="Components/Module/Help.php" name="lib/Components/Module/Help.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/Release.php" name="lib/Components/Module/Release.php" />
@@ -541,6 +624,7 @@
    <install as="Components/Runner/Dependencies.php" name="lib/Components/Runner/Dependencies.php" />
    <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
    <install as="Components/Runner/Document.php" name="lib/Components/Runner/Document.php" />
+   <install as="Components/Runner/Fetchdocs.php" name="lib/Components/Runner/Fetchdocs.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
    <install as="Components/Runner/Release.php" name="lib/Components/Runner/Release.php" />
    <install as="Components/Runner/Snapshot.php" name="lib/Components/Runner/Snapshot.php" />
@@ -560,6 +644,9 @@
    <install as="Components/fixture/config/a.php" name="test/Components/fixture/config/a.php" />
    <install as="Components/fixture/config/b.php" name="test/Components/fixture/config/b.php" />
    <install as="Components/fixture/config/null.php" name="test/Components/fixture/config/null.php" />
+   <install as="Components/fixture/docsorigin/empty" name="test/Components/fixture/docsorigin/empty" />
+   <install as="Components/fixture/docsorigin/multiple" name="test/Components/fixture/docsorigin/multiple" />
+   <install as="Components/fixture/docsorigin/simple" name="test/Components/fixture/docsorigin/simple" />
    <install as="Components/fixture/empty/package.xml" name="test/Components/fixture/empty/package.xml" />
    <install as="Components/fixture/framework/Dependency/package.xml" name="test/Components/fixture/framework/Dependency/package.xml" />
    <install as="Components/fixture/framework/Dependency/lib/Dependency.php" name="test/Components/fixture/framework/Dependency/lib/Dependency.php" />
@@ -630,6 +717,7 @@
    <install as="Components/Unit/Components/Component/IdentifyTest.php" name="test/Components/Unit/Components/Component/IdentifyTest.php" />
    <install as="Components/Unit/Components/Component/ResolverTest.php" name="test/Components/Unit/Components/Component/ResolverTest.php" />
    <install as="Components/Unit/Components/Config/FileTest.php" name="test/Components/Unit/Components/Config/FileTest.php" />
+   <install as="Components/Unit/Components/Helper/DocsOriginTest.php" name="test/Components/Unit/Components/Helper/DocsOriginTest.php" />
    <install as="Components/Unit/Components/Helper/RootTest.php" name="test/Components/Unit/Components/Helper/RootTest.php" />
    <install as="Components/Unit/Components/Helper/TemplatesTest.php" name="test/Components/Unit/Components/Helper/TemplatesTest.php" />
    <install as="Components/Unit/Components/Helper/VersionDescriptionTest.php" name="test/Components/Unit/Components/Helper/VersionDescriptionTest.php" />
@@ -671,7 +759,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-07-24</date>
+   <date>2011-09-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.

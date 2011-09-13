@@ -30,6 +30,9 @@ class Wicked_Factory_Driver extends Horde_Core_Factory_Injector
     public function create(Horde_Injector $injector)
     {
         $driver = Horde_String::ucfirst($GLOBALS['conf']['storage']['driver']);
+        if (empty($driver)) {
+            throw new Wicked_Exception('Wicked is not configured');
+        }
         $signature = serialize(array($driver, $GLOBALS['conf']['storage']['params']['driverconfig']));
         if (empty($this->_instances[$signature])) {
             switch ($driver) {

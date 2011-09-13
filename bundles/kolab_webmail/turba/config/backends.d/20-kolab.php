@@ -39,6 +39,7 @@ if (function_exists('ldap_connect')) {
             'alias'             => 'alias',
             'title'             => 'title',
             'company'           => 'o',
+            'department'        => 'ou',
             'workStreet'        => 'street',
             'workCity'          => 'l',
             'workProvince'      => 'st',

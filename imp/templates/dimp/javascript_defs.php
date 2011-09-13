@@ -57,7 +57,6 @@ $code['conf'] = array_filter(array(
     'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
     'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
 
-    'IDX_SEP' => IMP_Dimp::IDX_SEP,
     'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables
