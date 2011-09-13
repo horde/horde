@@ -118,9 +118,27 @@ AnselGeoTagWidget = Class.create({
                     'center': true
                 }
             );
+
+            // Need closures here
+            (function() {
+                var f = m;
+                $$('#imagetile_' + this._images[i].image_id + ' img')[0].observe(
+                    'mouseover',
+                    function(e) {
+                        AnselMap.selectMarker('ansel_map', f);
+                    }
+                );
+                $$('#imagetile_' + this._images[i].image_id + ' img')[0].observe(
+                    'mouseout',
+                    function(e) {
+                        AnselMap.unselectMarker('ansel_map', f);
+                    }
+                );
+            }.bind(this))();
             if (this._images[i].markerOnly) {
                 (function() {
                     var p = this._images[i];
+                    var f = m;
                     this.getLocation(p, m);
                 }.bind(this))();
             }
