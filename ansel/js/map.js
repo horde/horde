@@ -159,7 +159,12 @@
 
     selectMarker: function(e, m)
     {
-        this.maps[e].selectControl(m);
+        this.maps[e].selectControl.select(m);
+    },
+
+    unselectMarker: function(e, m)
+    {
+        this.maps[e].selectControl.unselect(m);
     },
 
     onDomLoad: function()
