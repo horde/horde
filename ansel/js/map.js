@@ -166,12 +166,12 @@
 
     selectMarker: function(e, m)
     {
-        this.maps[e].selectControl.select(m);
+        this.maps[e].selectControl.highlight(m);
     },
 
     unselectMarker: function(e, m)
     {
-        this.maps[e].selectControl.unselect(m);
+        this.maps[e].selectControl.unhighlight(m);
     },
 
     onDomLoad: function()
