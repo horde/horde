@@ -7,14 +7,14 @@
  * @category Kolab
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
  * Provides DOM utility methods.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -25,8 +25,8 @@
  * @category Kolab
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Helper
 {
@@ -93,11 +93,10 @@ class Horde_Kolab_Format_Xml_Helper
      * @param DOMNode $parent_node Attach the new node to this parent.
      * @param string  $name        Name of the new child node.
      * @param string  $value       Text value of the new child node.
-     * @param array   $params      The parameters for this write operation.
      *
      * @return DOMNode The new child node.
      */
-    public function storeNewNodeValue($parent_node, $name, $value, $params)
+    public function storeNewNodeValue($parent_node, $name, $value)
     {
         $node = $this->createNewNode($parent_node, $name);
         $this->createNodeValue($node, $name, $value);
@@ -115,10 +114,25 @@ class Horde_Kolab_Format_Xml_Helper
      */
     public function createNodeValue($parent_node, $name, $value)
     {
-        $parent_node->appendChild(
-            $this->_xmldoc->createTextNode($value)
-        );
-        return $parent_node;
+        $node = $this->_xmldoc->createTextNode($value);
+        $parent_node->appendChild($node);
+        return $node;
+    }
+
+    /**
+     * Append an XML snippet.
+     *
+     * @param DOMNode $parent_node Attach the XML below this parent.
+     * @param string  $xml         The XML to append.
+     *
+     * @return DOMNode The new child node.
+     */
+    public function appendXml($parent_node, $xml)
+    {
+        $node = $this->_xmldoc->createDocumentFragment();
+        $node->appendXML($xml);
+        $parent_node->appendChild($node);
+        return $node;
     }
 
     /**
