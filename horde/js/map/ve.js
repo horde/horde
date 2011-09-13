@@ -7,6 +7,8 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @deprecated This driver is deprecated in favor of the (much more effecient)
+ *             Bing driver.
  */
 HordeMap.Ve = Class.create(
 {
