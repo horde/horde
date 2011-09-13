@@ -78,7 +78,7 @@ AnselGeoTagWidget = Class.create({
     doMap: function() {
         // Create map and geocoder objects
         this._bigMap = AnselMap.initMainMap('ansel_map', {
-            'viewType': this.viewType,
+            'viewType': this.opts.viewType,
             // Hover handler to modify style of image tiles
             'onHover': function(e) {
                 switch (e.type) {
@@ -103,7 +103,7 @@ AnselGeoTagWidget = Class.create({
             }.bind(this)
         });
         this._smallMap = AnselMap.initMiniMap('ansel_map_small', {
-            'viewType': this.viewType
+            'viewType': this.opts.viewType
         });
         this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
 
@@ -201,7 +201,7 @@ AnselGeoTagWidget = Class.create({
             if (this.deleteId) {
                 $(this.deleteId).update(this._getDeleteLink(i.image_id));
             }
-        } else if (this.viewType == 'Gallery') {
+        } else if (this.opts.viewType == 'Gallery') {
             // console.log('foobar');
             // $$('#imagetile_' + i.image_id + ' img')[0].observe('mouseover', function(e) {
             //     console.log(e);
