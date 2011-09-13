@@ -414,8 +414,6 @@ class Wicked_Page
 
         if ($output_format == 'Xhtml') {
             /* Override rules */
-            $this->_proc->insertRule('Image2', 'Image');
-            $this->_proc->deleteRule('Image');
             if ($GLOBALS['conf']['wicked']['format'] == 'Default') {
                 $this->_proc->insertRule('Code2', 'Code');
                 $this->_proc->deleteRule('Code');
@@ -429,12 +427,17 @@ class Wicked_Page
                 $this->_proc->insertRule('Freelink2', 'Freelink');
                 $this->_proc->deleteRule('Freelink');
 
-                $this->_proc->insertRule('RegistryLink', 'Toc');
-                $this->_proc->insertRule('Attribute', 'RegistryLink');
-
                 $this->_proc->deleteRule('Include');
                 $this->_proc->deleteRule('Embed');
+            } else {
+                $this->_proc->insertRule('Wickedblock', 'Code');
             }
+
+            $this->_proc->insertRule('Image2', 'Image');
+            $this->_proc->deleteRule('Image');
+
+            $this->_proc->insertRule('RegistryLink', 'Toc');
+            $this->_proc->insertRule('Attribute', 'RegistryLink');
 
             $this->_proc->setFormatConf('Xhtml', 'charset', 'UTF-8');
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
