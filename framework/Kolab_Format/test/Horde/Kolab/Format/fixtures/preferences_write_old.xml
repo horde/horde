@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <h-prefs version="1.0">
   <uid>1</uid>
-  <body></body>
-  <categories></categories>
+  <body/>
   <creation-date>1970-01-01T00:00:00Z</creation-date>
   
   <sensitivity>public</sensitivity>

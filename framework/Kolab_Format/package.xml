@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-09-12</date>
- <time>12:15:58</time>
+ <date>2011-09-13</date>
+ <time>07:55:16</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -85,6 +85,7 @@
          <file name="Integer.php" role="php" />
          <file name="ModificationDate.php" role="php" />
          <file name="Multiple.php" role="php" />
+         <file name="PrefsApplication.php" role="php" />
          <file name="ProductId.php" role="php" />
          <file name="Root.php" role="php" />
          <file name="String.php" role="php" />
@@ -165,6 +166,7 @@
           <file name="IntegerTest.php" role="test" />
           <file name="ModificationDateTest.php" role="test" />
           <file name="MultipleTest.php" role="test" />
+          <file name="PrefsApplicationTest.php" role="test" />
           <file name="ProductIdTest.php" role="test" />
           <file name="RootTest.php" role="test" />
           <file name="StringTest.php" role="test" />
@@ -272,6 +274,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/Integer.php" name="lib/Horde/Kolab/Format/Xml/Type/Integer.php" />
    <install as="Horde/Kolab/Format/Xml/Type/ModificationDate.php" name="lib/Horde/Kolab/Format/Xml/Type/ModificationDate.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/PrefsApplication.php" name="lib/Horde/Kolab/Format/Xml/Type/PrefsApplication.php" />
    <install as="Horde/Kolab/Format/Xml/Type/ProductId.php" name="lib/Horde/Kolab/Format/Xml/Type/ProductId.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Root.php" name="lib/Horde/Kolab/Format/Xml/Type/Root.php" />
    <install as="Horde/Kolab/Format/Xml/Type/String.php" name="lib/Horde/Kolab/Format/Xml/Type/String.php" />
@@ -325,6 +328,7 @@
    <install as="Horde/Kolab/Format/Unit/Xml/Type/IntegerTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/IntegerTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/Type/ModificationDateTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/ModificationDateTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/Type/MultipleTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/MultipleTest.php" />
+   <install as="Horde/Kolab/Format/Unit/Xml/Type/PrefsApplicationTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/PrefsApplicationTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/Type/ProductIdTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/ProductIdTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/Type/RootTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/RootTest.php" />
    <install as="Horde/Kolab/Format/Unit/Xml/Type/StringTest.php" name="test/Horde/Kolab/Format/Unit/Xml/Type/StringTest.php" />
@@ -417,7 +421,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-09-12</date>
+   <date>2011-09-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Moved Horde specific functionality out of the events parser.

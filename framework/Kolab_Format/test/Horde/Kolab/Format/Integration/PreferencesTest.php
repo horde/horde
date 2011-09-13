@@ -44,7 +44,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $preferences = $this->_getHprefs();
 
-        $xml    = file_get_contents(
+        $xml = file_get_contents(
             dirname(__FILE__) . '/../fixtures/preferences_read_old.xml'
         );
         $object = $preferences->load($xml);
@@ -56,7 +56,7 @@ extends Horde_Kolab_Format_TestCase
             'pref' => array('test'),
             'categories' => 'Test'
         );
-        $xml    = $preferences->save($object);
+        $xml = $preferences->save($object, array('previous' => $xml));
         $expect = file_get_contents(
             dirname(__FILE__) . '/../fixtures/preferences_write_old.xml'
         );
@@ -70,7 +70,7 @@ extends Horde_Kolab_Format_TestCase
             'pref' => array('test'),
             'application' => 'Test'
         );
-        $xml    = $preferences->save($object);
+        $xml    = $preferences->save($object, array('previous' => $xml));
         $expect = file_get_contents(
             dirname(__FILE__) . '/../fixtures/preferences_write_old.xml'
         );

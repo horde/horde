@@ -52,10 +52,7 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
         /** Specific preferences fields, in kolab format specification order
          */
         $this->_fields_specific = array(
-            'application' => array (
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
+            'application' => 'Horde_Kolab_Format_Xml_Type_PrefsApplication',
             'pref' => array(
                 'type'    => self::TYPE_MULTIPLE,
                 'value'   => self::VALUE_MAYBE_MISSING,
@@ -67,53 +64,5 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
         );
 
         parent::__construct($parser, $params);
-    }
-
-    /**
-     * Load an object based on the given XML stream.
-     *
-     * @param resource $xml The XML stream of the message.
-     *
-     * @return array The data array representing the object.
-     *
-     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
-     */
-    public function load($xml)
-    {
-        $object = parent::load($xml);
-
-        if (empty($object['application'])) {
-            if (!empty($object['categories'])) {
-                $object['application'] = $object['categories'];
-                unset($object['categories']);
-            } else {
-                throw new Horde_Kolab_Format_Exception('Preferences XML object is missing an application setting.');
-            }
-        }
-
-        return $object;
-    }
-
-    /**
-     * Convert the data to a XML stream.
-     *
-     * @param array $object The data array representing the object.
-     *
-     * @return resource The data as XML stream.
-     *
-     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
-     */
-    public function save($object)
-    {
-        if (empty($object['application'])) {
-            if (!empty($object['categories'])) {
-                $object['application'] = $object['categories'];
-                unset($object['categories']);
-            } else {
-                throw new Horde_Kolab_Format_Exception('Preferences XML object is missing an application setting.');
-            }
-        }
-
-        return parent::save($object);
     }
 }

@@ -53,8 +53,9 @@ extends Horde_Kolab_Format_Xml_Type_AutomaticDate
         $node = $params['helper']->findNodeRelativeTo(
             './' . $name, $parent_node
         );
-        if ($node !== false && isset($attributes[$name])) {
-            if (($old = $this->loadNodeValue($node, $params)) != $attributes[$name]) {
+        if ($node !== false) {
+            if (isset($attributes[$name]) &&
+                ($old = $this->loadNodeValue($node, $params)) != $attributes[$name]) {
                 if (!$this->isRelaxed($params)) {
                     throw new Horde_Kolab_Format_Exception(
                         sprintf(
