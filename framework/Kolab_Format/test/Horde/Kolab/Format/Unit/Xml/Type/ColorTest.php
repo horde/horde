@@ -8,8 +8,8 @@
  * @package    Kolab_Format
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -20,17 +20,17 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the color attribute handler.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Kolab
  * @package    Kolab_Format
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Unit_Xml_Type_ColorTest
 extends Horde_Kolab_Format_TestCase
