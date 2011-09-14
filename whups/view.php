@@ -58,6 +58,8 @@ case 'view_file':
     $mime_part->setType(Horde_Mime_Magic::extToMime($type));
     $mime_part->setContents($data);
     $mime_part->setName($filename);
+    // We don't know better.
+    $mime_part->setCharset('US-ASCII');
 
     $ret = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
     reset($ret);
