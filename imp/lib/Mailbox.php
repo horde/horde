@@ -1155,10 +1155,10 @@ class IMP_Mailbox implements Serializable
         /* Handle special container mailboxes. */
         switch ($this->_mbox) {
         case IMP_Imap_Tree::OTHER_KEY:
-            return _("Other Users' Folders");
+            return _("Other Users");
 
         case IMP_Imap_Tree::SHARED_KEY:
-            return _("Shared Folders");
+            return _("Shared");
 
         case IMP_Imap_Tree::VFOLDER_KEY:
             return _("Virtual Folders");
