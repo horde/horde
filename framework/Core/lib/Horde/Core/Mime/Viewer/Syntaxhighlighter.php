@@ -51,7 +51,7 @@ class Horde_Core_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Syntaxh
             self::$_shBrushes[$brush] = true;
         }
 
-        $results = '<pre class="brush: ' . $language . '; toolbar: false;">' . htmlspecialchars($this->_mimepart->getContents(), ENT_QUOTES, $this->getConfigParam('charset')) . '</pre>';
+        $results = '<pre class="brush: ' . $language . '; toolbar: false;">' . htmlspecialchars(Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset(), $this->getConfigParam('charset')), ENT_QUOTES, $this->getConfigParam('charset')) . '</pre>';
         return $this->_renderReturn(
             $results,
             'text/html; charset=' . $this->getConfigParam('charset')
