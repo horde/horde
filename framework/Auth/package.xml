@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Dynamically disable capabilities of Customsql authentication driver if queries are empty (Michael Gröne, Request #10510).
 * [jan] Fix updating users in LDAP while using preauthenticate hooks.
 * [jan] Add support for resetting passwords to LDAP driver.
  </notes>
@@ -491,6 +492,7 @@
    <date>2011-09-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Dynamically disable capabilities of Customsql authentication driver if queries are empty (Michael Gröne, Request #10510).
 * [jan] Fix updating users in LDAP while using preauthenticate hooks.
 * [jan] Add support for resetting passwords to LDAP driver.
    </notes>

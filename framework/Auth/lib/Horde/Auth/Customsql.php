@@ -44,29 +44,44 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      *
      * Eg: "SELECT * FROM users WHERE uid = \L
      *                          AND passwd = \P
-     *                          AND billing = 'paid'
+     *                          AND billing = 'paid'"
      *
      * @param array $params  Configuration parameters:
-     * <pre>
-     * 'query_auth' - (string) Authenticate the user. ('\L' & '\P')
-     * 'query_add' - (string) Add user. ('\L' & '\P')
-     * 'query_getpw' - (string) Get one user's password. ('\L')
-     * 'query_update' - (string) Update user. ('\O', '\L' & '\P')
-     * 'query_resetpassword' - (string) Reset password. ('\L', & '\P')
-     * 'query_remove' - (string) Remove user. ('\L')
-     * 'query_list' - (string) List user.
-     * 'query_exists' - (string) Check for existance of user. ('\L')
-     * </pre>
-     *
-     * @throws InvalidArgumentException
+     *   - query_auth:          (string) Authenticate the user. ('\L' & '\P')
+     *   - query_add:           (string) Add user. ('\L' & '\P')
+     *   - query_getpw:         (string) Get one user's password. ('\L')
+     *   - query_update:        (string) Update user. ('\O', '\L' & '\P')
+     *   - query_resetpassword: (string) Reset password. ('\L', & '\P')
+     *   - query_remove:        (string) Remove user. ('\L')
+     *   - query_list:          (string) List user.
+     *   - query_exists:        (string) Check for existance of user. ('\L')
      */
     public function __construct(array $params = array())
     {
-        foreach (array('query_auth', 'query_add', 'query_getpw',
+        foreach (array('query_auth', 'query_add',
                        'query_update', 'query_resetpassword', 'query_remove',
-                       'query_list', 'query_exists') as $val) {
-            if (!isset($params[$val])) {
-                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+                       'query_list') as $val) {
+            if (empty($params[$val])) {
+                switch($val) {
+                case 'query_auth':
+                   $this->_capabilities['authenticate'] = false;
+                   break;
+                case 'query_add':
+                   $this->_capabilities['add'] = false;
+                   break;
+                case 'query_update':
+                   $this->_capabilities['update'] = false;
+                   break;
+                case 'query_resetpassword':
+                   $this->_capabilities['resetpassword'] = false;
+                   break;
+                case 'query_remove':
+                   $this->_capabilities['remove'] = false;
+                   break;
+                case 'query_list':
+                   $this->_capabilities['list'] = false;
+                   break;
+                }
             }
         }
 
@@ -246,6 +261,10 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      */
     public function exists($userId)
     {
+        if (empty($this->_params['query_exists'])) {
+            return parent::exists($userId);
+        }
+
         /* Build a custom query, based on the config file. */
         $query = str_replace(
             '\L',
