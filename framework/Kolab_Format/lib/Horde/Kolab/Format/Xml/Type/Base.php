@@ -260,6 +260,8 @@ class Horde_Kolab_Format_Xml_Type_Base
     /**
      * Returns if the XML handling should be relaxed.
      *
+     * @param array $params The parameters.
+     *
      * @return boolean True if the XML should not be strict.
      */
     protected function isRelaxed($params)
@@ -282,11 +284,11 @@ class Horde_Kolab_Format_Xml_Type_Base
         unset($type_params['array']);
         unset($type_params['value']);
         if (is_array($sub_params)) {
-            $sub_type = $this->createSubType($sub_params['type']);
+            $sub_type = $this->createSubType($sub_params['type'], $params);
             unset($sub_params['type']);
             $type_params = array_merge($type_params, $sub_params);
         } else {
-            $sub_type = $this->createSubType($sub_params);
+            $sub_type = $this->createSubType($sub_params, $params);
         }
         return array($sub_type, $type_params);
     }
@@ -294,13 +296,14 @@ class Horde_Kolab_Format_Xml_Type_Base
     /**
      * Create a handler for the sub type of this attribute.
      *
-     * @param string $type The sub type.
+     * @param string $type   The sub type.
+     * @param array  $params Additional parameters.
      *
      * @return Horde_Kolab_Format_Xml_Type The sub type handler.
      */
-    protected function createSubType($type)
+    protected function createSubType($type, $params)
     {
-        return $this->_factory->createXmlType($type);
+        return $this->_factory->createXmlType($type, $params);
     }
 
     /**

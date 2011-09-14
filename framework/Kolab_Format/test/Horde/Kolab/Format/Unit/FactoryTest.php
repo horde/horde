@@ -134,4 +134,57 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testTypeFactory()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Stub_Types',
+            $factory->createXmlType('Horde_Kolab_Format_Stub_Types')
+        );
+    }
+
+    public function testTypeFactoryV1()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Stub_Types_V1',
+            $factory->createXmlType(
+                'Horde_Kolab_Format_Stub_Types',
+                array('api-version' => 1)
+            )
+        );
+    }
+
+    public function testTypeFactoryV2()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Stub_Types_V2',
+            $factory->createXmlType(
+                'Horde_Kolab_Format_Stub_Types',
+                array('api-version' => 2)
+            )
+        );
+    }
+
+    public function testTypeFactoryV3()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Stub_Types',
+            $factory->createXmlType(
+                'Horde_Kolab_Format_Stub_Types',
+                array('api-version' => 3)
+            )
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception
+     */
+    public function testTypeMissing()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $factory->createXmlType('Horde_Kolab_Format_Stub_Types_NOSUCH');
+    }
 }

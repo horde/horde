@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-14</date>
- <time>07:20:38</time>
+ <time>21:08:38</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -147,6 +147,7 @@
        <dir name="Stub">
         <file name="Dummy.php" role="test" />
         <file name="Log.php" role="test" />
+        <file name="Types.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Format/Stub -->
        <dir name="Unit">
         <dir name="Decorator">
@@ -315,6 +316,7 @@
    <install as="Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" />
    <install as="Horde/Kolab/Format/Stub/Dummy.php" name="test/Horde/Kolab/Format/Stub/Dummy.php" />
    <install as="Horde/Kolab/Format/Stub/Log.php" name="test/Horde/Kolab/Format/Stub/Log.php" />
+   <install as="Horde/Kolab/Format/Stub/Types.php" name="test/Horde/Kolab/Format/Stub/Types.php" />
    <install as="Horde/Kolab/Format/Unit/DateTest.php" name="test/Horde/Kolab/Format/Unit/DateTest.php" />
    <install as="Horde/Kolab/Format/Unit/FactoryTest.php" name="test/Horde/Kolab/Format/Unit/FactoryTest.php" />
    <install as="Horde/Kolab/Format/Unit/XmlTest.php" name="test/Horde/Kolab/Format/Unit/XmlTest.php" />

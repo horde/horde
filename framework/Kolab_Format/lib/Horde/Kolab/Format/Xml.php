@@ -175,7 +175,8 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         Horde_Kolab_Format_Xml_Parser $parser,
         Horde_Kolab_Format_Factory $factory,
         $params = null
-    ) {
+    )
+    {
         $this->_parser = $parser;
         $this->_factory = $factory;
 
@@ -268,7 +269,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         $this->_refreshParser();
 
         $params = $this->_getParameters($options);
-        $this->_getRoot()->save(
+        $this->_getRoot($params)->save(
             $this->_root_name, $object, $this->_xmldoc, $params
         );
         return $this->_xmldoc->saveXML();
@@ -299,10 +300,12 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     /**
      * Return the root handler.
      *
+     * @param array  $params Additional parameters.
+     *
      * @return Horde_Kolab_Xml_Type_Root The root handler.
      */
-    private function _getRoot()
+    private function _getRoot($params = array())
     {
-        return $this->_factory->createXmlType(self::TYPE_ROOT);
+        return $this->_factory->createXmlType(self::TYPE_ROOT, $params);
     }
 }

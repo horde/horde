@@ -157,26 +157,34 @@ class Horde_Kolab_Format_Factory
     /**
      * Generates a XML type that deals with XML data modifications.
      *
+     * @since Horde_Kolab_Format 1.1.0
+     *
      * @param string      $type   The value type.
-     * @param array       $params Additional parameters. See each time for
-     *                            available options.
+     * @param array       $params Additional parameters.
      *
      * @return Horde_Kolab_Format_Xml_Type The type.
      *
      * @throws Horde_Kolab_Format_Exception If the specified type does not
      *                                      exist.
      */
-    public function createXmlType($type)
+    public function createXmlType($type, $params = array())
     {
-        if (!isset($this->_xml_type_instances[$type])) {
-            if (class_exists($type)) {
-                $this->_xml_type_instances[$type] = new $type($this);
+        if (isset($params['api-version'])) {
+            $class = $type . '_V' . $params['api-version'];
+        } else {
+            $class = $type;
+        }
+        if (!isset($this->_xml_type_instances[$class])) {
+            if (class_exists($class)) {
+                $this->_xml_type_instances[$class] = new $class($this);
+            } else if (class_exists($type)) {
+                $this->_xml_type_instances[$class] = new $type($this);
             } else {
                 throw new Horde_Kolab_Format_Exception(
                     sprintf('XML type %s not supported!', $type)
                 );
             }
         }
-        return $this->_xml_type_instances[$type];
+        return $this->_xml_type_instances[$class];
     }
 }
