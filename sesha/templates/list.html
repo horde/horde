@@ -1,0 +1,68 @@
+<div class="header">
+ <span class="smallheader" style="float:right">
+  <tag:count />
+ </span>
+ <tag:header />
+</div>
+
+<div id="category-select">
+<form action="<tag:form_url />" method="get" name="stockcategoriesmenu">
+ <tag:form_input />
+ <select name="category_id" onchange="document.stockcategoriesmenu.submit()">
+  <option value=""><gettext>Show Category:</gettext></option>
+  <loop:categories>
+  <option value="<tag:categories.category_id />"<tag:categories.selected />><tag:categories.category /></option>
+  </loop:categories>
+ </select>
+</form>
+</div>
+
+<if:stock>
+<script type="text/javascript">
+var PREFS_UPDATE_TIMEOUT;
+
+function table_sortCallback(tableId, column, sortDown)
+{
+    if (typeof PREFS_UPDATE_TIMEOUT != "undefined") {
+        window.clearTimeout(PREFS_UPDATE_TIMEOUT);
+    }
+
+    PREFS_UPDATE_TIMEOUT = window.setTimeout('doPrefsUpdate("' + column + '", "' + sortDown + '")', 300);
+}
+
+function doPrefsUpdate(column, sortDown)
+{
+    baseurl = '<tag:prefs_url />';
+    try {
+        new Ajax.Request(baseurl, { parameters: { app: 'sesha', pref: 'sortby', value: encodeURIComponent(column.substring(1)) } });
+        new Ajax.Request(baseurl, { parameters: { app: 'sesha', pref: 'sortdir', value: encodeURIComponent(sortDown) } });
+    } catch (e) {}
+}
+</script>
+
+<table id="stock" class="stock sortable striped" cellspacing="0">
+<thead>
+ <tr class="item leftAlign">
+  <th width="1%" class="nosort">&nbsp;</th>
+  <loop:column_headers>
+  <th id="<tag:column_headers.id />"<tag:column_headers.class /><tag:column_headers.width />>
+   <tag:column_headers.link />
+  </th>
+  </loop:column_headers>
+ </tr>
+</thead>
+<tbody>
+<loop:stock>
+ <tr>
+ <loop:stock.rows>
+  <td<tag:stock.rows.class />><tag:stock.rows.row /></td>
+ </loop:stock.rows>
+ </tr>
+</loop:stock>
+</tbody>
+</table>
+
+<else:stock>
+<em><gettext>There are no stocked items matching the criteria</gettext></em>
+</else:stock>
+</if:stock>
