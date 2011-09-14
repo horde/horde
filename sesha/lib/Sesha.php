@@ -96,7 +96,8 @@ class Sesha
      */
     function listCategories()
     {
-        return $GLOBALS['backend']->getCategories();
+        $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
+        return $sesha_driver->getCategories();
     }
 
     /**

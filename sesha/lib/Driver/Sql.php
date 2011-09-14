@@ -29,32 +29,33 @@
  * @author  Andrew Coleman <mercury@appisolutions.net>
  * @package Sesha
  */
-class Sesha_Driver_sql extends Sesha_Driver
+class Sesha_Driver_Sql extends Sesha_Driver
 {
     /**
      * Handle for the database connection.
      * @var DB
      * @access private
      */
-    var $_db;
+    protected $_db;
 
     /**
      * Flag for the SQL server connection.
      * @var boolean
      * @access private
      */
-    var $_connected;
+    protected $_connected;
 
     /**
      * This is the basic constructor for the sql driver.
      *
      * @param array $params  Hash containing the connection parameters.
      */
-    function Sesha_Driver_sql($params = null)
+    public function __construct($name, $params = array())
     {
-        parent::Sesha_Driver($params);
-        $this->_db = null;
-        $this->_connected = false;
+
+	$this->_db = $params['db'];
+        $this->_table = $params['table'];
+        $this->_charset = $params['charset'];
     }
 
     /**
@@ -66,10 +67,8 @@ class Sesha_Driver_sql extends Sesha_Driver
      *
      * @return mixed  Array of results on success; PEAR_Error on failure.
      */
-    function listStock($category_id = null, $property_ids = array())
+    public function listStock($category_id = null, $property_ids = array())
     {
-        $this->_connect();
-
         if (!$property_ids) {
             $sql = 'SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note FROM sesha_inventory i';
             if ($category_id) {
@@ -121,13 +120,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return mixed  Array of results on success; PEAR_Error on failure.
      */
-    function searchStock($what, $where = SESHA_SEARCH_NAME, $property_ids = array())
+    public function searchStock($what, $where = SESHA_SEARCH_NAME, $property_ids = array())
     {
         if (is_null($what) || is_null($where)) {
             return PEAR::raiseError(_("Invalid search parameters"));
         }
 
-        $this->_connect();
 
         // Start the query
         if ($property_ids) {
@@ -196,9 +194,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return mixed  True on success; PEAR_Error on failure.
      */
-    function fetch($stock_id)
+    public function fetch($stock_id)
     {
-        $this->_connect();
 
         // Build the query
         $sql = 'SELECT * FROM sesha_inventory WHERE stock_id = ?';
@@ -225,9 +222,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return mixed  True on success; PEAR_Error otherwise.
      */
-    function delete($stock_id)
+    public function delete($stock_id)
     {
-        $this->_connect();
 
         // Build, log, and issue the query
         $sql = 'DELETE FROM sesha_inventory WHERE stock_id = ?';
@@ -252,10 +248,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @return mixed  The numeric ID of the newly added item; PEAR_Error on
      *                failure.
      */
-    function add($stock)
+    public function add($stock)
     {
-        $this->_connect();
-
         // Make sure we have a proper stock ID
         if (empty($stock['stock_id']) || $stock['stock_id'] < 1) {
             $stock['stock_id'] = $this->_db->nextId('sesha_inventory');
@@ -288,10 +282,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return mixed  True on success; PEAR_Error on failure.
      */
-    function modify($stock_id, $stock)
+    public function modify($stock_id, $stock)
     {
-        $this->_connect();
-
         // Can't change the stock id. ever.
         if (isset($stock['stock_id'])) {
             unset($stock['stock_id']);
@@ -320,7 +312,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return mixed  The category on success; PEAR_Error otherwise.
      */
-    function getCategory($category_id)
+    public function getCategory($category_id)
     {
         $categories = $this->getCategories(null, $category_id);
         return $categories[$category_id];
@@ -336,10 +328,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @return array  The array of matching categories on success, an empty
      *                array otherwise.
      */
-    function getCategories($stock_id = null, $category_id = null)
+    public function getCategories($stock_id = null, $category_id = null)
     {
-        $this->_connect();
-
         $where = ' WHERE 1 = 1 ';
         $sql = 'SELECT c.category_id AS id, c.category_id AS category_id, c.category AS category, c.description AS description, c.priority AS priority FROM sesha_categories c';
         if (!empty($stock_id)) {
@@ -367,10 +357,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @return mixed  An array of matching properties on success; PEAR_Error on
      *                failure.
      */
-    function getProperties($property_id = null)
+    public function getProperties($property_id = null)
     {
-        $this->_connect();
-
         $sql = 'SELECT * FROM sesha_properties';
         if (is_array($property_id)) {
             $sql .= ' WHERE property_id IN (';
@@ -403,7 +391,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return mixed  The specified property on success; PEAR_Error on failure.
      */
-    function getProperty($property_id)
+    public function getProperty($property_id)
     {
         $result = $this->getProperties($property_id);
         return $result[$property_id];
@@ -416,10 +404,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  The PEAR DB_Result object from the sql query.
      */
-    function updateCategory($info)
+    public function updateCategory($info)
     {
-        $this->_connect();
-
         $sql = 'UPDATE sesha_categories' .
                ' SET category = ?, description = ?, priority = ?' .
                ' WHERE category_id = ?';
@@ -439,10 +425,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @return mixed  The ID of the new of the category on success; PEAR_Error
      *                otherwise.
      */
-    function addCategory($info)
+    public function addCategory($info)
     {
-        $this->_connect();
-
         $category_id = $this->_db->nextId('sesha_categories');
         if (is_a($category_id, 'PEAR_Error')) {
             return $category_id;
@@ -470,7 +454,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  The PEAR DB_Result object from the sql query.
      */
-    function deleteCategory($category_id)
+    public function deleteCategory($category_id)
     {
         $this->_connect();
         $sql = 'DELETE FROM sesha_categories WHERE category_id = ?';
@@ -490,9 +474,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return boolean  True on success; false otherwise.
      */
-    function categoryExists($category)
+    public function categoryExists($category)
     {
-        $this->_connect();
         $sql = 'SELECT * FROM sesha_categories WHERE category = ?';
         $values = array($category);
 
@@ -513,10 +496,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  The PEAR DB_Result object from the query.
      */
-    function updateProperty($info)
+    public function updateProperty($info)
     {
-        $this->_connect();
-
         $sql = 'UPDATE sesha_properties SET property = ?, datatype = ?, parameters = ?, unit = ?, description = ?, priority = ?, WHERE property_id = ?';
         $values = array(
             $info['property'],
@@ -541,9 +522,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  The PEAR DB_Result from the sql query.
      */
-    function addProperty($info)
+    public function addProperty($info)
     {
-        $this->_connect();
         $property_id = $this->_db->nextId('sesha_properties');
         if (is_a($property_id, 'PEAR_Error')) {
             return $property_id;
@@ -573,7 +553,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  The PEAR DB_Result object from the sql query.
      */
-    function deleteProperty($property_id)
+    public function deleteProperty($property_id)
     {
         $this->_connect();
         $sql = 'DELETE FROM sesha_properties WHERE property_id = ?';
@@ -592,10 +572,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return mixed  An array of properties on success; PEAR_Error on failure.
      */
-    function getPropertiesForCategories($categories = array())
+    public function getPropertiesForCategories($categories = array())
     {
-        $this->_connect();
-
         if (!is_array($categories)) {
             $categories = array($categories);
         }
@@ -628,9 +606,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  PEAR DB_Result object from the sql query.
      */
-    function setPropertiesForCategory($category_id, $properties = array())
+    public function setPropertiesForCategory($category_id, $properties = array())
     {
-        $this->_connect();
         $this->clearPropertiesForCategory($category_id);
         foreach ($properties as $property) {
             $sql = sprintf('INSERT INTO sesha_relations
@@ -656,9 +633,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  The PEAR DB_Result object from the sql query.
      */
-    function clearPropertiesForCategory($category_id)
+    public function clearPropertiesForCategory($category_id)
     {
-        $this->_connect();
         $sql = sprintf('DELETE FROM sesha_relations WHERE category_id = %d',
             $category_id);
 
@@ -677,10 +653,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  The PEAR DB_Result object from the sql query.
      */
-    function getPropertiesForStock($stock_id)
+    public function getPropertiesForStock($stock_id)
     {
-        $this->_connect();
-
         $sql = sprintf('SELECT p.property_id AS property_id, p.property AS property, p.datatype AS datatype, ' .
             'p.unit AS unit, p.description AS description, a.attribute_id AS attribute_id, a.int_datavalue AS int_datavalue, ' .
             'a.txt_datavalue AS txt_datavalue FROM sesha_properties p, ' .
@@ -711,10 +685,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  The PEAR DB_Result object from the sql query.
      */
-    function clearPropertiesForStock($stock_id, $categories = array())
+    public function clearPropertiesForStock($stock_id, $categories = array())
     {
-        $this->_connect();
-
         if (!is_array($categories)) {
             $categories = array(0 => array('category_id' => $categories));
         }
@@ -751,10 +723,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return mixed  The DB_Result object on success; PEAR_Error otherwise.
      */
-    function updatePropertiesForStock($stock_id, $properties = array())
+    public function updatePropertiesForStock($stock_id, $properties = array())
     {
-        $this->_connect();
-
         $result = false;
         foreach ($properties as $property_id => $property_value) {
             // Now clear any existing attribute values for this property_id
@@ -790,10 +760,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @return object  The PEAR DB_Result object from the sql query.
      */
-    function updateCategoriesForStock($stock_id, $category = array())
+    public function updateCategoriesForStock($stock_id, $category = array())
     {
-        $this->_connect();
-
         if (!is_array($category)) {
             $category = array($category);
         }
@@ -826,57 +794,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
 
     /**
      */
-    function _unserializeParameters(&$val, $key)
+    public function _unserializeParameters(&$val, $key)
     {
         $val['parameters'] = @unserialize($val['parameters']);
     }
 
-    /**
-     * This function will connect to the sql database.
-     *
-     * @return boolean  True on success; exits (Horde::fatal) on error.
-     * @access private
-     */
-    function _connect()
-    {
-        if (!$this->_connected) {
-            // Get the driver parameters.
-            Horde::assertDriverConfig($this->_params, 'storage',
-                array('phptype', 'charset'));
-
-            if (!isset($this->_params['database'])) {
-                $this->_params['database'] = '';
-            }
-            if (!isset($this->_params['username'])) {
-                $this->_params['username'] = '';
-            }
-            if (!isset($this->_params['hostspec'])) {
-                $this->_params['hostspec'] = '';
-            }
-
-            // Connect to the server.
-            include_once 'DB.php';
-            $this->_db = &DB::connect($this->_params, array('persistent' => !empty($this->_params['persistent'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-            $this->_connected = true;
-        }
-
-        return true;
-    }
-
-    function _normalizeStockProperties($rows, $property_ids)
+    public function _normalizeStockProperties($rows, $property_ids)
     {
         $stock = array();
         foreach ($rows as $row) {
