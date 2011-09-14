@@ -2,25 +2,21 @@
  Kolab_Format Development TODO List
 ====================================
 
+ - Test new Horde_Kolab_Format_Date functions.
+
  - AllDay events
 
  - Recurrence start handling
 
- - Test new Horde_Kolab_Format_Date functions.
-
- - Type handlers left to do:
-
-   - Recurrences
+ - Remove the use of the Horde_Date class from testing. It should be
+   no problem to get the same code coverage without using the external
+   class.
 
  - better internal api version support
 
  - performance check
 
  - cleanup handlers.
-
- - Remove the use of the Horde_Date class from testing. It should be
-   no problem to get the same code coverage without using the external
-   class.
 
  - Think about storing the data in iCal format.
 
