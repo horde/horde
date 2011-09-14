@@ -189,7 +189,7 @@ class Horde_Kolab_Format_Date
          */
         $date_time = preg_replace('/Z$/','', $date_time);
         if ($date = DateTime::createFromFormat(
-                'Y-m-d\TH:i:s\Z', $date_time, new DateTimeZone($timezone)
+                'Y-m-d\TH:i:s', $date_time, new DateTimeZone($timezone)
             )) {
             return $date;
         }
