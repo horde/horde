@@ -849,11 +849,20 @@ a.address:hover img {
 #qsearch form {
     display: inline;
 }
-#qsearch_icon {
+#qsearch span.searchImg {
     background: url("../graphics/search.png") center no-repeat;
     cursor: pointer;
     margin-right: 0;
     padding-top: 2px;
+}
+#qsearch span.popdownImg {
+    cursor: pointer;
+    margin: 0 -4px 0 -8px;
+}
+#qsearch_icon:hover span.popdownImg {
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
 }
 #qsearch_input {
     background-color: #fff;
