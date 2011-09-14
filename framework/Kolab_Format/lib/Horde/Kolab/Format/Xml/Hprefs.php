@@ -29,40 +29,26 @@
 class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
 {
     /**
+     * The name of the root element.
+     *
+     * @var string
+     */
+    protected $_root_name = 'h-prefs';
+
+    /**
      * Specific data fields for the prefs object
      *
      * @var Kolab
      */
-    protected $_fields_specific;
-
-    /**
-     * Automatically create categories if they are missing?
-     *
-     * @var boolean
-     */
-    protected $_create_categories = false;
-
-    /**
-     * Constructor
-     */
-    public function __construct($parser, $params = array())
-    {
-        $this->_root_name = 'h-prefs';
-
-        /** Specific preferences fields, in kolab format specification order
-         */
-        $this->_fields_specific = array(
-            'application' => 'Horde_Kolab_Format_Xml_Type_PrefsApplication',
-            'pref' => array(
-                'type'    => self::TYPE_MULTIPLE,
-                'value'   => self::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type' => self::TYPE_STRING,
-                    'value' => self::VALUE_MAYBE_MISSING,
-                ),
+    protected $_fields_specific = array(
+        'application' => 'Horde_Kolab_Format_Xml_Type_PrefsApplication',
+        'pref' => array(
+            'type'    => self::TYPE_MULTIPLE,
+            'value'   => self::VALUE_MAYBE_MISSING,
+            'array'   => array(
+                'type' => self::TYPE_STRING,
+                'value' => self::VALUE_MAYBE_MISSING,
             ),
-        );
-
-        parent::__construct($parser, $params);
-    }
+        ),
+    );
 }

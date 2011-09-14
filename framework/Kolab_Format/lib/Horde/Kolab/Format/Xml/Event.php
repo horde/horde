@@ -31,56 +31,56 @@
 class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
 {
     /**
-     * Constructor
+     * The name of the root element.
+     *
+     * @var string
      */
-    public function __construct($parser, $params = array())
-    {
-        $this->_root_name = 'event';
+    protected $_root_name = 'event';
 
-        /** Specific event fields, in kolab format specification order
-         */
-        $this->_fields_specific = array(
-            'summary' => array (
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_MAYBE_MISSING,
+    /**
+     * Specific data fields for the prefs object
+     *
+     * @var Kolab
+     */
+    protected $_fields_specific = array(
+        'summary' => array (
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
+        ),
+        'location' => array (
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
+        ),
+        'organizer' => array (
+            'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'
+        ),
+        'start-date' => array(
+            'type'    => self::TYPE_DATE_OR_DATETIME,
+            'value'   => self::VALUE_NOT_EMPTY,
+        ),
+        'alarm' => array(
+            'type'    => self::TYPE_INTEGER,
+            'value'   => self::VALUE_MAYBE_MISSING,
+        ),
+        'recurrence' => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
+        'attendee' => array(
+            'type'    => self::TYPE_MULTIPLE,
+            'value'   => self::VALUE_MAYBE_MISSING,
+            'array'   => array(
+                'type'    => 'Horde_Kolab_Format_Xml_Type_Composite_Attendee'
             ),
-            'location' => array (
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'organizer' => array (
-                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'
-            ),
-            'start-date' => array(
-                'type'    => self::TYPE_DATE_OR_DATETIME,
-                'value'   => self::VALUE_NOT_EMPTY,
-            ),
-            'alarm' => array(
-                'type'    => self::TYPE_INTEGER,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'recurrence' => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
-            'attendee' => array(
-                'type'    => self::TYPE_MULTIPLE,
-                'value'   => self::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type'    => 'Horde_Kolab_Format_Xml_Type_Composite_Attendee'
-                ),
-            ),
-            'show-time-as' => array (
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'color-label' => array (
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_MAYBE_MISSING,
-            ),
-            'end-date' => array(
-                'type'    => self::TYPE_DATE_OR_DATETIME,
-                'value'   => self::VALUE_NOT_EMPTY,
-            ),
-        );
-
-        parent::__construct($parser, $params);
-    }
+        ),
+        'show-time-as' => array (
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
+        ),
+        'color-label' => array (
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_MAYBE_MISSING,
+        ),
+        'end-date' => array(
+            'type'    => self::TYPE_DATE_OR_DATETIME,
+            'value'   => self::VALUE_NOT_EMPTY,
+        ),
+    );
 }

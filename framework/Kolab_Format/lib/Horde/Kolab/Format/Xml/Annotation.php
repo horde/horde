@@ -29,35 +29,27 @@
 class Horde_Kolab_Format_Xml_Annotation extends Horde_Kolab_Format_Xml
 {
     /**
+     * The name of the root element.
+     *
+     * @var string
+     */
+    protected $_root_name = 'annotations';
+
+    /**
      * Specific data fields for the prefs object
      *
      * @var Kolab
      */
-    protected $_fields_specific;
-
-    /**
-     * Constructor
-     */
-    public function __construct($parser, $params = array())
-    {
-        $this->_root_name = 'annotations';
-
-        /**
-         * Specific preferences fields, in kolab format specification order
-         */
-        $this->_fields_specific = array(
-            'annotation' => array(
-                'type'    => self::TYPE_MULTIPLE,
-                'value'   => self::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type' => self::TYPE_STRING,
-                    'value' => self::VALUE_MAYBE_MISSING,
-                ),
+    protected $_fields_specific = array(
+        'annotation' => array(
+            'type'    => self::TYPE_MULTIPLE,
+            'value'   => self::VALUE_MAYBE_MISSING,
+            'array'   => array(
+                'type' => self::TYPE_STRING,
+                'value' => self::VALUE_MAYBE_MISSING,
             ),
-        );
-
-        parent::__construct($parser, $params);
-    }
+        ),
+    );
 
     /**
      * Load the groupware object based on the specifc XML values.
