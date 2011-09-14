@@ -68,10 +68,11 @@ class Sesha
         $list_property_ids = @unserialize($prefs->getValue('list_properties'));
 
         // Retrieve the inventory from the storage driver
+        $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
         if (!is_null($what) && !is_null($where)) {
-            $inventory = $GLOBALS['backend']->searchStock($what, $where, $list_property_ids);
+            $inventory = $sesha_driver->searchStock($what, $where, $list_property_ids);
         } else {
-            $inventory = $GLOBALS['backend']->listStock($category_id, $list_property_ids);
+            $inventory = $sesha_driver->listStock($category_id, $list_property_ids);
         }
 
         // Sort the inventory if there is a sort function defined

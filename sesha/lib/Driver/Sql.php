@@ -96,10 +96,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             }
         }
 
-        Horde::logMessage('Sesha_Driver_sql::retrieve: ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        try {
+            $result = $this->_db->selectAll($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
 
-        $result = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
         }
@@ -345,7 +347,13 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         Horde::logMessage(sprintf('Sesha_Driver_sql::getCategories %s', $sql),
             __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
-        return $this->_db->getAssoc($sql, true, null, DB_FETCHMODE_ASSOC);
+        try {
+            $rows = $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
+
+        return $rows;
     }
 
     /**
@@ -373,7 +381,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         Horde::logMessage(sprintf('Sesha_Driver_sql::getProperties %s', $sql),
             __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
-        $properties = $this->_db->getAssoc($sql, true, null, DB_FETCHMODE_ASSOC);
+        try {
+            $properties = $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
+
         if (is_a($properties, 'PEAR_Error')) {
             Horde::logMessage($properties, __FILE__, __LINE__, PEAR_LOG_ERR);
             return $properties;

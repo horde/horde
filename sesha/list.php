@@ -56,13 +56,13 @@ if (is_a($inventory, 'PEAR_Error')) {
 }
 
 // Properties being displayed
-$properties = $GLOBALS['backend']->getProperties(@unserialize($prefs->getValue('list_properties')));
+$properties = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getProperties(@unserialize($prefs->getValue('list_properties')));
 if (is_a($properties, 'PEAR_Error')) {
     Horde::fatal($properties, __FILE__, __LINE__);
 }
 
 // Start page display.
-require SESHA_TEMPLATES . '/common-header.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 require SESHA_TEMPLATES . '/menu.inc';
 
 Horde::addScriptFile('prototype.js', 'horde', true);
@@ -70,10 +70,10 @@ Horde::addScriptFile('tables.js', 'horde', true);
 
 $sortby = $prefs->getValue('sortby');
 $sortdir = $prefs->getValue('sortdir');
-$isAdminEdit = Horde_Auth::isAdmin('sesha:admin');
-$itemEditImg = Horde::img('edit.png', _("Edit Item"), '', $registry->getImageDir('horde'));
-$isAdminDelete = Horde_Auth::isAdmin('sesha:admin', Horde_Perms::DELETE);
-$adminDeleteImg = Horde::img('delete.png', _("Delete Item"), '', $registry->getImageDir('horde'));
+$isAdminEdit = $GLOBALS['registry']->isAdmin('sesha:admin');
+$itemEditImg = Horde::img('edit.png', _("Edit Item"));
+$isAdminDelete = $GLOBALS['registry']->isAdmin('sesha:admin', Horde_Perms::DELETE);
+$adminDeleteImg = Horde::img('delete.png', _("Delete Item"));
 
 $item_count = count($inventory) == 1
     ? _("1 Item")
@@ -85,7 +85,7 @@ foreach ($categories as $id => $category) {
 
 $prefs_url = Horde::url($registry->get('webroot', 'horde') . '/services/prefs/', true);
 $sortdirclass = $sortdir ? 'sortup' : 'sortdown';
-$baseurl = Horde::applicationUrl('list.php');
+$baseurl = SESHA_BASE . '/list.php';
 $column_headers = array(
     array('id' => 's' . SESHA_SORT_STOCKID,
           'class' => $sortby == SESHA_SORT_STOCKID ? ' class="' . $sortdirclass . '"' : '',
@@ -112,7 +112,7 @@ $column_headers[] = array(
 );
 
 $property_ids = array_keys($properties);
-$stock_url = Horde::applicationUrl('stock.php');
+$stock_url = SESHA_BASE . '/stock.php';
 $stock = array();
 foreach ($inventory as $row) {
     $url = Horde_Util::addParameter($stock_url, 'stock_id', $row['stock_id']);
@@ -149,7 +149,7 @@ $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('header', $table_header);
 $t->set('count', $item_count);
-$t->set('form_url', Horde::applicationUrl('list.php'));
+$t->set('form_url', SESHA_BASE . '/list.php');
 $t->set('form_input', Horde_Util::pformInput());
 $t->set('categories', $categories);
 $t->set('prefs_url', $prefs_url);
