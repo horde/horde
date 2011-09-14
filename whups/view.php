@@ -49,9 +49,9 @@ try {
 /* Run through action handlers */
 switch ($actionID) {
 case 'download_file':
-     $browser->downloadHeaders($filename, null, false, strlen($data));
-     echo $data;
-     exit;
+    $browser->downloadHeaders($filename, null, false, strlen($data));
+    echo $data;
+    exit;
 
 case 'view_file':
     $mime_part = new Horde_Mime_Part();
@@ -63,7 +63,10 @@ case 'view_file':
     reset($ret);
     $key = key($ret);
 
-    if (strpos($ret[$key]['type'], 'text/html') !== false) {
+    if (empty($ret)) {
+        $browser->downloadHeaders($filename, null, false, strlen($data));
+        echo $data;
+    } elseif (strpos($ret[$key]['type'], 'text/html') !== false) {
         require $registry->get('templates', 'horde') . '/common-header.inc';
         echo $ret[$key]['data'];
         require $registry->get('templates', 'horde') . '/common-footer.inc';
