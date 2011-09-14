@@ -1476,24 +1476,24 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * @param string|Horde_Tree $name  Either the tree name, or a Horde_Tree
      *                                 object to add nodes to.
      * @param array $opts              Additional options:
-     * <pre>
-     * 'basename' - (boolean) Use raw basename instead of abbreviated label?
-     *              DEFAULT: false
-     * 'checkbox' - (boolean) Display checkboxes?
-     *              DEFAULT: false
-     * 'editvfolder' - (boolean) Display vfolder edit links?
-     *                 DEFAULT: false
-     * 'parent' - (string) The parent object of the current level.
-     *            DEFAULT: null (add to base level)
-     * 'poll_info' - (boolean) Include poll information?
+     *   - basename: (boolean) Use raw basename instead of abbreviated label?
      *               DEFAULT: false
-     * 'render_params' - (array) List of params to pass to renderer if
-     *                   auto-creating.
-     *                   DEFAULT: 'alternate', 'lines', and 'lines_base'
-     *                            are passed in with true values.
-     * 'render_type' - (string) The renderer name.
-     *                 DEFAULT: Javascript
-     * </pre>
+     *   - checkbox: (boolean) Display checkboxes?
+     *               DEFAULT: false
+     *   - editvfolder: (boolean) Display vfolder edit links?
+     *                  DEFAULT: false
+     *   - open: (boolean) Force child mailboxes to this status.
+     *           DEFAULT: null
+     *   - parent: (string) The parent object of the current level.
+     *             DEFAULT: null (add to base level)
+     *   - poll_info: (boolean) Include poll information?
+     *                DEFAULT: false
+     *   - render_params: (array) List of params to pass to renderer if
+     *                    auto-creating.
+     *                    DEFAULT: 'alternate', 'lines', and 'lines_base'
+     *                             are passed in with true values.
+     *   - render_type: (string) The renderer name.
+     *                  DEFAULT: Javascript
      *
      * @return Horde_Tree  The tree object.
      */
@@ -1611,7 +1611,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 ($val->level) ? IMP_Mailbox::get($val->parent)->form_to : $parent,
                 $label,
                 $val->level,
-                $is_open,
+                isset($opts['open']) ? $opts['open'] : $is_open,
                 $params,
                 $after,
                 empty($opts['checkbox']) ? null : $checkbox . ' />'

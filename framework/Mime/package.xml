@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>13:37:11</time>
+ <date>2011-09-13</date>
+ <time>15:30:18</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -29,11 +29,19 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Provide method to return approximate size of parts if it contains base64 encoded data (Request #9783).
 * [mms] Support Content-Duration MIME header (RFC 3803).
 * [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Mime">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Mime -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mime">
@@ -420,6 +428,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Mime/COPYING" />
    <install as="Horde/Mime.php" name="lib/Horde/Mime.php" />
    <install as="Horde/Mime/Address.php" name="lib/Horde/Mime/Address.php" />
    <install as="Horde/Mime/Exception.php" name="lib/Horde/Mime/Exception.php" />
@@ -728,9 +737,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-09-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Provide method to return approximate size of parts if it contains base64 encoded data (Request #9783).
+* [mms] Support Content-Duration MIME header (RFC 3803).
 * [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
    </notes>
   </release>

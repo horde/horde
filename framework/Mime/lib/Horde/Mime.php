@@ -313,8 +313,7 @@ class Horde_Mime
 
             /* Search for first delimiting question mark (charset). */
             if (($d1 = strpos($string, '?', $pos + 2)) === false) {
-                $old_pos = $pos;
-                continue;
+                break;
             }
 
             $orig_charset = substr($string, $pos + 2, $d1 - $pos - 2);
@@ -325,15 +324,14 @@ class Horde_Mime
 
             /* Search for second delimiting question mark (encoding). */
             if (($d2 = strpos($string, '?', $d1 + 1)) === false) {
-                $old_pos = $pos;
-                continue;
+                break;
             }
 
             $encoding = substr($string, $d1 + 1, $d2 - $d1 - 1);
 
             /* Search for end of encoded data. */
             if (($end = strpos($string, '?=', $d2 + 1)) === false) {
-                $end = strlen($string);
+                break;
             }
 
             $encoded_text = substr($string, $d2 + 1, $end - $d2 - 1);

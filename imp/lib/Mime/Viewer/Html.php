@@ -332,7 +332,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         /* See Bug #8695: internal anchors are broken in
                          * Mozilla. */
                         $node->removeAttribute('href');
-                    } elseif (!$node->hasAttribute('target')) {
+                    } elseif (!$node->hasAttribute('target') ||
+                              Horde_String::lower($node->getAttribute('target')) == '_self') {
                         $node->setAttribute('target', $this->_imptmp['target']);
                     }
                 }

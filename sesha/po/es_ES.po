@@ -1,0 +1,491 @@
+# Spanish translations for sesha package.
+# Traducciones al español para el paquete sesha.
+# Copyright 2008-2009 The Horde Project
+# This file is distributed under the same license as the sesha package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Sesha 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-03-19 08:42+0100\n"
+"PO-Revision-Date: 2008-03-19 08:42+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/menu.inc:6
+msgid "#Stock"
+msgstr "#Existencia"
+
+#: list.php:86
+#, php-format
+msgid "%d Items"
+msgstr "%d elementos"
+
+#: list.php:85
+msgid "1 Item"
+msgstr "1 elemento"
+
+#: lib/api.php:47
+msgid "Add Stock"
+msgstr "Añadir existencias"
+
+#: stock.php:37
+msgid "Add Stock To Inventory"
+msgstr "Añadir existencias al inventario"
+
+#: admin.php:39
+msgid "Add a category"
+msgstr "Añadir una categoría"
+
+#: admin.php:226
+msgid "Add a new category"
+msgstr "Añadir una categoría"
+
+#: admin.php:190 admin.php:253
+msgid "Add a new property"
+msgstr "Añadir una propiedad"
+
+#: admin.php:186
+msgid "Add a property"
+msgstr "Añadir una propiedad"
+
+#: lib/Sesha.php:225
+msgid "Admin"
+msgstr "Administrar"
+
+#: lib/api.php:45
+msgid "Administration"
+msgstr "Administración"
+
+#: config/.bak/prefs.php.dist:35
+msgid "Ascending"
+msgstr "Ascendente"
+
+#: list.php:56
+msgid "Available Inventory"
+msgstr "Inventario disponible"
+
+#: list.php:55
+#, php-format
+msgid "Available Inventory in %s"
+msgstr "Inventario disponible en %s"
+
+#: lib/Forms/Stock.php:68 lib/Forms/Category.php:84
+msgid "Category"
+msgstr "Categoría"
+
+#: lib/Forms/Category.php:44
+msgid "Category Name"
+msgstr "Nombre de la categoría"
+
+#: config/.bak/prefs.php.dist:13
+msgid "Change your inventory sorting and display options."
+msgstr "Cambia las opción de visualización y clasificación del inventario"
+
+#: lib/Forms/Stock.php:137
+msgid "Client"
+msgstr "Cliente"
+
+#: lib/Forms/Property.php:136 lib/Forms/Category.php:102
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: admin.php:57
+msgid "Could not add new category."
+msgstr "No se pudo añadir la categoría."
+
+#: admin.php:54
+#, php-format
+msgid "Could not add properties to new category: %s, %s"
+msgstr "No se pudieron añadir propiedades a la categoría: %s, %s"
+
+#: admin.php:205
+msgid "Could not add property."
+msgstr "No se pudo añadir la propiedad."
+
+#: admin.php:90
+msgid "Could not update category details."
+msgstr "No se pudieron actualizar los detalles de la categoría."
+
+#: admin.php:87
+msgid "Could not update properties for this category."
+msgstr "No se pudieron actualizar las propiedades de esta categoría."
+
+#: admin.php:156
+msgid "Could not update property details."
+msgstr "No se pudieron actualizar los detalles de la propiedad."
+
+#: lib/Forms/Search.php:32
+msgid "Criteria"
+msgstr "Criterio"
+
+#: list.php:20
+msgid "Current Inventory"
+msgstr "Inventario actual"
+
+#: lib/Forms/Property.php:38
+msgid "Data Type"
+msgstr "Tipo de dato"
+
+#: config/.bak/prefs.php.dist:26
+msgid "Default sorting criteria:"
+msgstr "Criterio de clasificación por omisión:"
+
+#: config/.bak/prefs.php.dist:37
+msgid "Default sorting direction:"
+msgstr "Sentido de clasificación por omisión:"
+
+#: admin.php:100 lib/Forms/Category.php:68 lib/Forms/Category.php:95
+msgid "Delete Category"
+msgstr "Eliminar categoría"
+
+#: admin.php:101
+#, php-format
+msgid "Delete Category \"%s\""
+msgstr "Eliminar categoría \"%s\""
+
+#: list.php:83 list.php:119
+msgid "Delete Item"
+msgstr "Eliminar elemento"
+
+#: admin.php:131 lib/Forms/Property.php:101 lib/Forms/Property.php:129
+msgid "Delete Property"
+msgstr "Eliminar propiedad"
+
+#: admin.php:132
+#, php-format
+msgid "Delete Property \"%s\""
+msgstr "Eliminar propiedad \"%s\""
+
+#: config/.bak/prefs.php.dist:36
+msgid "Descending"
+msgstr "Descendente"
+
+#: lib/Forms/Property.php:44 lib/Forms/Category.php:45
+msgid "Description"
+msgstr "Descripción"
+
+#: config/.bak/prefs.php.dist:12
+msgid "Display Options"
+msgstr "Opciones de visualización"
+
+#: stock.php:136
+msgid "Edit"
+msgstr "Modificar"
+
+#: admin.php:70 lib/Forms/Category.php:67
+msgid "Edit Category"
+msgstr "Modificar categoría"
+
+#: stock.php:134
+msgid "Edit Inventory Item"
+msgstr "Modificar elemento de inventario"
+
+#: list.php:81 list.php:116
+msgid "Edit Item"
+msgstr "Modificar elemento"
+
+#: lib/Forms/Property.php:101
+msgid "Edit Property"
+msgstr "Modificar propiedad"
+
+#: lib/Forms/Category.php:74
+msgid "Edit a category"
+msgstr "Modificar una categoría"
+
+#: lib/Forms/Property.php:107
+msgid "Edit a property"
+msgstr "Modificar una propiedad"
+
+#: config/.bak/prefs.php.dist:11
+msgid "General Options"
+msgstr "Opciones generales"
+
+#: templates/menu.inc:7
+msgid "Go"
+msgstr "Ir"
+
+#: lib/Driver/sql.php:107
+msgid "Invalid search parameters!"
+msgstr "¡Parámetros de búsqueda no válidos!"
+
+#: list.php:103 lib/Forms/Search.php:36 config/.bak/prefs.php.dist:24
+msgid "Item Name"
+msgstr "Nombre"
+
+#: lib/Forms/Search.php:37
+msgid "Item Note"
+msgstr "Comentario"
+
+#: stock.php:86
+#, php-format
+msgid "Item number %d was successfully deleted"
+msgstr "Se eliminó correctamente el elemento número %d"
+
+#: lib/Forms/Search.php:33
+msgid "Location"
+msgstr "Buscar en"
+
+#: admin.php:26
+msgid "Manage Categories"
+msgstr "Gestionar categorías"
+
+#: admin.php:27
+msgid "Manage Properties"
+msgstr "Gestionar propiedades"
+
+#: list.php:52
+msgid "Matching Inventory"
+msgstr "Inventario coincidente"
+
+#: admin.php:72
+#, php-format
+msgid "Modifying %s"
+msgstr "Modificando %s"
+
+#: admin.php:137
+#, php-format
+msgid "Modifying property \"%s\""
+msgstr "Modificando propiedad \"%s\""
+
+#: lib/Forms/Stock.php:61
+msgid "Name"
+msgstr "Nombre"
+
+#: admin.php:52
+msgid "New category added successfully."
+msgstr "Se añadió correctamente la categoría."
+
+#: admin.php:200
+msgid "New property added successfully."
+msgstr "Se añadió correctamente la propiedad."
+
+#: lib/Forms/Property.php:131 lib/Forms/Category.php:97
+msgid "No"
+msgstr "No"
+
+#: lib/Forms/Stock.php:64
+msgid ""
+"No categories are currently configured. Click 'Admin' (above) to add some."
+msgstr ""
+"Actualmente no se han configurado categorías. Pulse 'Administrar' (arriba) "
+"para añadir alguna."
+
+#: lib/Forms/Category.php:80
+msgid "No categories are currently configured. Use the form below to add one."
+msgstr ""
+"Actualmente no se han configurado categorías. Utilice el siguiente "
+"formulario para añadir una."
+
+#: lib/Forms/Category.php:48
+msgid ""
+"No properties are currently configured. Use the 'Manage Properties' tab "
+"(above) to add some."
+msgstr ""
+"Actualmente no se han configurado propiedades. Utilice la pestaña 'Gestionar "
+"propiedades' (arriba) para añadir alguna."
+
+#: lib/Forms/Property.php:113
+msgid "No properties are currently configured. Use the form below to add one."
+msgstr ""
+"Actualmente no se han configurado propiedades. Utilice el siguiente "
+"formulario para añadir una."
+
+#: list.php:107 lib/Forms/Stock.php:99 config/.bak/prefs.php.dist:25
+msgid "Note"
+msgstr "Comentario"
+
+#: lib/Forms/Property.php:45
+msgid "Priority"
+msgstr "Prioridad"
+
+#: lib/Forms/Category.php:52
+msgid "Properties"
+msgstr "Propiedades"
+
+#: lib/Forms/Property.php:117
+msgid "Property"
+msgstr "Propiedad"
+
+#: lib/Forms/Property.php:36
+msgid "Property Name"
+msgstr "Nombre de la propiedad"
+
+#: lib/Forms/Search.php:38
+msgid "Property Value"
+msgstr "Propiedades"
+
+#: lib/Forms/Category.php:98
+msgid "Really delete this category?"
+msgstr "¿Eliminar realmente esta categoría?"
+
+#: lib/Forms/Property.php:132
+msgid "Really delete this property?"
+msgstr "¿Eliminar realmente esta propiedad?"
+
+#: admin.php:71 lib/Forms/Category.php:22
+msgid "Save Category"
+msgstr "Guardar categoría"
+
+#: lib/Forms/Stock.php:34
+msgid "Save Item"
+msgstr "Guardar elemento"
+
+#: lib/Forms/Property.php:22
+msgid "Save Property"
+msgstr "Guardar propiedad"
+
+#: lib/Forms/Search.php:29
+msgid "Search"
+msgstr "Buscar"
+
+#: list.php:51 search.php:20
+msgid "Search Inventory"
+msgstr "Buscar inventario"
+
+#: lib/Forms/Search.php:27
+msgid "Search The Inventory"
+msgstr "Buscar en el inventario"
+
+#: templates/list/list.html:11
+msgid "Show Category"
+msgstr "Mostrar categoría"
+
+#: list.php:103
+msgid "Sort by item name"
+msgstr "Ordenar por nombre de elemento"
+
+#: list.php:107
+msgid "Sort by note"
+msgstr "Ordenar por comentario"
+
+#: list.php:99
+msgid "Sort by stock ID"
+msgstr "Ordenar por ID de existencia"
+
+#: list.php:99 lib/Forms/Stock.php:55 lib/Forms/Stock.php:57
+#: lib/Forms/Search.php:35 config/.bak/prefs.php.dist:23
+msgid "Stock ID"
+msgstr "ID de existencia"
+
+#: admin.php:117
+msgid "The category was deleted."
+msgstr "Se eliminó la categoría."
+
+#: admin.php:120
+msgid "The category was not deleted."
+msgstr "No se eliminó la categoría."
+
+#: lib/Forms/Property.php:69
+#, php-format
+msgid "The form field type \"%s\" doesn't exist."
+msgstr "El campo de formulario de tipo \"%s\" no existe."
+
+#: stock.php:52
+msgid "The item was added succcessfully."
+msgstr "Se añadió correctamente el elemento."
+
+#: admin.php:175
+msgid "The property was deleted."
+msgstr "Se eliminó la propiedad."
+
+#: admin.php:178
+msgid "The property was not deleted."
+msgstr "No se eliminó la propiedad."
+
+#: stock.php:159
+msgid "The stock item was successfully updated."
+msgstr "Se actualizó correctamente el elemento en existencias."
+
+#: templates/list/list.html:64
+msgid "There are no stocked items matching the criteria"
+msgstr "No hay elementos en existencia que coincidan con el criterio"
+
+#: stock.php:48
+#, php-format
+msgid "There was a problem adding the item: %s"
+msgstr "Se produjo un problema al añadir el elemento: %s"
+
+#: stock.php:171
+#, php-format
+msgid "There was a problem updating the inventory: %s"
+msgstr "Se produjo un problema al actualizar el inventario: %s"
+
+#: stock.php:82
+#, php-format
+msgid "There was a problem with the driver while deleting: %s"
+msgstr "Se produjo un problema con el controlador al eliminar: %s"
+
+#: list.php:64
+#, php-format
+msgid "There was a problem with the driver: %s"
+msgstr "Se produjo un problema con el controlador: %s"
+
+#: admin.php:115
+msgid "There was an error removing the category."
+msgstr "Se produjo un error al eliminar la categoría."
+
+#: admin.php:173
+msgid "There was an error removing the property."
+msgstr "Se produjo un error al elimnar la propiedad."
+
+#: lib/Forms/Property.php:43
+msgid "Unit"
+msgstr "Unidad"
+
+#: lib/Forms/Stock.php:84
+msgid "Unit: "
+msgstr "Unidad: "
+
+#: admin.php:107
+msgid "Unknown category"
+msgstr "Categoría desconocida"
+
+#: admin.php:165
+msgid "Unknown property"
+msgstr "Propiedad desconocida"
+
+#: admin.php:85
+msgid "Updated category successfully."
+msgstr "Se actualizó correctamente la categoría."
+
+#: admin.php:151
+msgid "Updated property successfully."
+msgstr "Se actualizó correctamente la propiedad."
+
+#: stock.php:97
+msgid "View Inventory Item"
+msgstr "Ver elemento del inventario"
+
+#: list.php:121
+msgid "View Item"
+msgstr "Ver elemento"
+
+#: lib/Forms/Property.php:130 lib/Forms/Category.php:96
+msgid "Yes"
+msgstr "Sí"
+
+#: stock.php:74
+msgid "You do not have sufficient permissions to delete."
+msgstr "No dispone de permisos suficientes para eliminar."
+
+#: lib/Sesha.php:224
+msgid "_Add Stock"
+msgstr "_Añadir"
+
+#: lib/Sesha.php:222
+msgid "_List Stock"
+msgstr "_Examinar"
+
+#: lib/Sesha.php:231
+msgid "_Print"
+msgstr "_Imprimir"
+
+#: lib/Sesha.php:227
+msgid "_Search"
+msgstr "_Buscar"

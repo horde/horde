@@ -2,6 +2,7 @@
 v5.0.12-git
 -----------
 
+[jan] Don't open certain links in HTML messages in the message pane.
 [mms] Add ability to toggle hide deleted messages in dynamic view (Request
       #10256).
 [mms] Add auto-generated message filter (see RFC 3834).
