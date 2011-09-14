@@ -5,13 +5,11 @@
  * to modify the inventory (useful for displaying the inventory in a store or
  * catalog).
  *
- * $Horde: sesha/stock.php,v 1.24 2009-12-01 12:52:41 jan Exp $
- *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Bo Daley <bo@darkwork.net>
  */

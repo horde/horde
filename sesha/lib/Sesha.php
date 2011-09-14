@@ -23,13 +23,11 @@ define('SESHA_SEARCH_PROPERTY', 8);
 /**
  * This is the base Sesha class.
  *
- * $Horde: sesha/lib/Sesha.php,v 1.38 2009-12-01 12:52:40 jan Exp $
- *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
- * Copyright 2007-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Andrew Coleman <mercury@appisolutions.net>
  * @package Sesha

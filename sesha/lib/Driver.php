@@ -2,12 +2,10 @@
 /**
  * This is the base Driver class for the Sesha application.
  *
- * $Horde: sesha/lib/Driver.php,v 1.15 2008/07/24 20:30:01 chuck Exp $
- *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Andrew Coleman <mercury@appisolutions.net>
  * @package Sesha

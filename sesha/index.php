@@ -2,12 +2,10 @@
 /**
  * This is an inventory application written for the Horde framework.
  *
- * $Horde: sesha/index.php,v 1.11 2008/06/16 15:29:38 chuck Exp $
- *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 @define('SESHA_BASE', dirname(__FILE__));

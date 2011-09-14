@@ -4,12 +4,10 @@
  * Sesha. It should also be able to display search results and other useful
  * things.
  *
- * $Horde: sesha/search.php,v 1.14 2009/06/10 17:33:42 slusarz Exp $
- *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 @define('SESHA_BASE', dirname(__FILE__));

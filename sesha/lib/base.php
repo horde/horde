@@ -2,8 +2,6 @@
 /**
  * This is the base include file for the Sesha application.
  *
- * $Horde: sesha/lib/base.php,v 1.18 2009/07/13 20:05:56 slusarz Exp $
- *
  * @author Andrew Coleman <mercury@appisolutions.net>
  * @package Sesha
  */
