@@ -35,43 +35,10 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Kolab_Format_Integration_RecurrenceTest
 extends Horde_Kolab_Format_TestCase
 {
-
-    /**
-     * Set up testing.
-     *
-     * @return NULL
-     */
-    protected function setUp()
-    {
-        if (!class_exists('Horde_Date_Recurrence')) {
-            $this->markTestSkipped('The Horde_Date_Recurrence class is missing.');
-        }
-
-        $this->_oldTimezone = date_default_timezone_get();
-        date_default_timezone_set('Europe/Berlin');
-    }
-
-    public function tearDown()
-    {
-        date_default_timezone_set($this->_oldTimezone);
-    }
-
-    /**
-     * Test for http://bugs.horde.org/ticket/?id=6388
-     *
-     * @return NULL
-     */
     public function testBug6388()
     {
-        $xml = $this->getFactory()->create('XML', 'event');
-
-        // Load XML
-        $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml');
-
-        // Load XML
         $xml   = $this->getFactory()->create('XML', 'event');
         $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur_fail.xml');
-
         // Check that the xml fails because of a missing interval value
         try {
             $xml->load($recur);
@@ -81,38 +48,56 @@ extends Horde_Kolab_Format_TestCase
         }
     }
 
-
-    /**
-     * Test exception handling.
-     *
-     * @return NULL
-     */
-    public function testExceptions()
+    public function testRecurrenceEnd()
     {
-        $xml = $this->getFactory()->create('XML', 'event');
+        $object = $this->_loadExclusions();
+        $this->assertInstanceOf('DateTime', $object['recurrence']['range']);
+    }
 
-        // Load XML
-        $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml');
+    public function testExclusion()
+    {
+        $object = $this->_loadExclusions();
+        $this->assertTrue(
+            $this->_hasException(
+                $object['recurrence']['exclusion'], '2006-08-16'
+            )
+        );
+    }
 
-        $object = $xml->load($recur);
+    public function testExclusion2()
+    {
+        $object = $this->_loadExclusions();
+        $this->assertTrue(
+            $this->_hasException(
+                $object['recurrence']['exclusion'], '2006-10-18'
+            )
+        );
+    }
 
-        $r = new Horde_Date_Recurrence($object['start-date']);
-        $r->fromHash($object['recurrence']);
+    public function testReloadedRecurrenceEnd()
+    {
+        $object = $this->_reloadExclusions();
+        $this->assertInstanceOf('DateTime', $object['recurrence']['range']);
+    }
 
-        $this->assertTrue($r->hasRecurEnd());
-        $this->assertTrue($r->hasException(2006, 8, 16));
-        $this->assertTrue($r->hasException(2006, 10, 18));
+    public function testReloadedExclusion()
+    {
+        $object = $this->_reloadExclusions();
+        $this->assertTrue(
+            $this->_hasException(
+                $object['recurrence']['exclusion'], '2006-08-16'
+            )
+        );
+    }
 
-        $object['recurrence'] = $r->toHash();
-        $recur                = $xml->save($object);
-        $object               = $xml->load($recur);
-
-        $s = new Horde_Date_Recurrence($object['start-date']);
-        $s->fromHash($object['recurrence']);
-
-        $this->assertTrue($s->hasRecurEnd());
-        $this->assertTrue($s->hasException(2006, 8, 16));
-        $this->assertTrue($s->hasException(2006, 10, 18));
+    public function testReloadedExclusion2()
+    {
+        $object = $this->_reloadExclusions();
+        $this->assertTrue(
+            $this->_hasException(
+                $object['recurrence']['exclusion'], '2006-10-18'
+            )
+        );
     }
 
     /**
@@ -122,6 +107,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testCompletions()
     {
+        $this->markTestIncomplete('TODO');
         $xml = $this->getFactory()->create('XML', 'event');
 
         $r = new Horde_Date_Recurrence(0);
@@ -155,4 +141,33 @@ extends Horde_Kolab_Format_TestCase
         $s->deleteCompletion(1970, 1, 4);
         $this->assertEquals(0, count($s->getCompletions()));
     }
+
+    private function _hasException($exclusions, $date)
+    {
+        foreach ($exclusions as $exclusion) {
+            
+            if ($exclusion->format('Y-m-d') == $date) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function _loadExclusions()
+    {
+        return $this->getFactory()->create('XML', 'event')->load(
+            file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml')
+        );
+    }
+
+    private function _reloadExclusions()
+    {
+        $parser = $this->getFactory()->create('XML', 'event');
+        $object = $parser->load(
+            file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml')
+        );
+        $xml = $parser->save($object);
+        return $parser->load($xml);
+    }
+
 }
