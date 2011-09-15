@@ -163,9 +163,11 @@ extends Horde_Kolab_Format_Xml_Type_Base
     ) {
         if ($old_node === false) {
             $node = $params['helper']->createNewNode($parent_node, $name);
-            return $this->_writeComposite($node, $name, $value, $params);
+            $this->_writeComposite($node, $name, $value, $params);
+            return $node;
         } else {
-            return $this->_writeComposite($old_node, $name, $value, $params);
+            $this->_writeComposite($old_node, $name, $value, $params);
+            return $old_node;
         }
     }
 
