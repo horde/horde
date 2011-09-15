@@ -56,7 +56,10 @@ extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
                 'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
                 'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
             ),
-            'range' => 'Horde_Kolab_Format_Xml_Type_Range',
+            'range' => array(
+                'type'    => 'Horde_Kolab_Format_Xml_Type_Range',
+                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
+            ),
             'exclusion' => array(
                 'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
                 'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
@@ -98,6 +101,9 @@ extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
             $attributes['recurrence']['cycle'] = $node->getAttribute('cycle');
             // Get the sub type (may be present)
             $attributes['recurrence']['type'] = $node->getAttribute('type');
+        }
+        if (empty($attributes['recurrence'])) {
+            return $result;
         }
 
         $recurrence = $attributes['recurrence'];
