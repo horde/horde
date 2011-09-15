@@ -18,7 +18,6 @@ abstract class Sesha_Driver
      * Variable holding the items in the inventory.
      *
      * @var array
-     * @access private
      */
     protected $_stock;
 
@@ -27,9 +26,9 @@ abstract class Sesha_Driver
         $this->_params = $params;
     }
 
-    function &factory($driver = null, $params = null)
+    public function factory($driver = null, $params = null)
     {
-        if(is_null($driver))
+        if (is_null($driver))
             $driver = $GLOBALS['conf']['storage']['driver'];
 
         $driver = basename($driver);

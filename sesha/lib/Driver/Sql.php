@@ -53,7 +53,7 @@ class Sesha_Driver_Sql extends Sesha_Driver
     public function __construct($name, $params = array())
     {
 
-	$this->_db = $params['db'];
+        $this->_db = $params['db'];
         $this->_table = $params['table'];
         $this->_charset = $params['charset'];
     }
@@ -100,10 +100,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $result = $this->_db->selectAll($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
-        }
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
         }
 
         if ($property_ids) {
@@ -174,9 +170,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $sql .= ', p.priority DESC';
         }
 
-        Horde::logMessage('Sesha_Driver_sql::search: ' . $sql,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         $result = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
@@ -203,9 +196,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $sql = 'SELECT * FROM sesha_inventory WHERE stock_id = ?';
         $values = array((int)$stock_id);
 
-        Horde::logMessage('Sesha_Driver_sql::fetch: ' . $sql,
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         // Perform the search
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
@@ -230,8 +220,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         // Build, log, and issue the query
         $sql = 'DELETE FROM sesha_inventory WHERE stock_id = ?';
         $values = array((int)$stock_id);
-        Horde::logMessage('Sesha_Driver_sql::delete: ' . $sql, __FILE__,
-            __LINE__, PEAR_LOG_DEBUG);
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
@@ -265,9 +253,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $sql = sprintf('INSERT INTO sesha_inventory %s',
             Horde_SQL::insertValues($this->_db, $stock));
 
-        Horde::logMessage(sprintf('Sesha_Driver_sql::add %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         // Perform the queries
         $result = $this->_db->query($sql);
         if (is_a($result, 'PEAR_Error')) {
@@ -294,9 +279,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         require_once 'Horde/SQL.php';
         $sql = sprintf('UPDATE sesha_inventory SET %s WHERE stock_id = %d',
             Horde_SQL::updateValues($this->_db, $stock), $stock_id);
-
-        Horde::logMessage(sprintf('Sesha_Driver_sql::modify %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         // Perform the queries
         $result = $this->_db->query($sql);
@@ -344,9 +326,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         }
         $sql .= $where . ' ORDER BY c.priority DESC, c.category';
 
-        Horde::logMessage(sprintf('Sesha_Driver_sql::getCategories %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         try {
             $rows = $this->_db->selectAll($sql);
         } catch (Horde_Db_Exception $e) {
@@ -378,18 +357,10 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $sql .= sprintf(' WHERE property_id = %d', $property_id);
         }
 
-        Horde::logMessage(sprintf('Sesha_Driver_sql::getProperties %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         try {
             $properties = $this->_db->selectAll($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
-        }
-
-        if (is_a($properties, 'PEAR_Error')) {
-            Horde::logMessage($properties, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $properties;
         }
 
         array_walk($properties, array($this, '_unserializeParameters'));
@@ -424,9 +395,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                ' WHERE category_id = ?';
         $values = array($info['category'], $info['description'], $info['priority'], $info['category_id']);
 
-        Horde::logMessage(sprintf('Sesha_Driver_sql::updateCategory %s',
-            $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         return $this->_db->query($sql, $values);
     }
 
@@ -450,9 +418,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                ' VALUES (?, ?, ?, ?)';
         $values = array($category_id, $info['category'], $info['description'], $info['priority']);
 
-        Horde::logMessage(sprintf('Sesha_Driver_sql::addCategory %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
@@ -469,12 +434,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function deleteCategory($category_id)
     {
-        $this->_connect();
         $sql = 'DELETE FROM sesha_categories WHERE category_id = ?';
         $values = array($category_id);
-
-        Horde::logMessage(sprintf('Sesha_Driver_sql::deleteCategory %s',
-            $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         return $this->_db->query($sql, $values);
     }
@@ -491,9 +452,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     {
         $sql = 'SELECT * FROM sesha_categories WHERE category = ?';
         $values = array($category);
-
-        Horde::logMessage(sprintf('Sesha_Driver_sql::categoryExists %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $result = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
         if (count($result)) {
@@ -521,9 +479,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $info['priority'],
             $info['property_id'],
         );
-
-        Horde::logMessage(sprintf('Sesha_Driver_sql::updateProperty %s', $sql),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         return $this->_db->query($sql, $values);
     }
@@ -553,9 +508,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $info['priority'],
         );
 
-        Horde::logMessage(sprintf('Sesha_Driver_sql::addProperty %s', $sql),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         return $this->_db->query($sql, $values);
     }
 
@@ -571,9 +523,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $this->_connect();
         $sql = 'DELETE FROM sesha_properties WHERE property_id = ?';
         $values = array($property_id);
-
-        Horde::logMessage(sprintf('Sesha_Driver_sql::deleteProperty %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         return $this->_db->query($sql, $values);
     }
@@ -597,9 +546,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         }
         $sql = sprintf('SELECT c.category_id AS category_id, c.category AS category, p.property_id AS property_id, p.property AS property, p.unit AS unit, p.description AS description, p.datatype AS datatype, p.parameters AS parameters FROM sesha_categories c, sesha_properties p, sesha_relations cp WHERE c.category_id = cp.category_id AND cp.property_id = p.property_id AND c.category_id IN (%s) ORDER BY p.priority DESC',
                        empty($in) ? $this->_db->quote($in) : $in);
-
-        Horde::logMessage(sprintf('Sesha_Driver_sql::getPropertiesForCategories %s', $sql),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $properties = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
         if (is_a($properties, 'PEAR_Error')) {
@@ -627,10 +573,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                 (category_id, property_id) VALUES (%d, %d)',
                 $category_id, $property);
 
-            Horde::logMessage(sprintf(
-                'Sesha_Driver_sql::setPropertiesForCategory %s', $sql),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
             $result = $this->_db->query($sql);
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
@@ -651,10 +593,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $sql = sprintf('DELETE FROM sesha_relations WHERE category_id = %d',
             $category_id);
 
-        Horde::logMessage(sprintf(
-            'Sesha_Driver_sql::clearPropertiesForCategory %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         return $this->_db->query($sql);
     }
 
@@ -674,9 +612,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             'sesha_inventory_properties a WHERE p.property_id = ' .
             'a.property_id AND a.stock_id = %d ORDER BY p.priority DESC',
             $stock_id);
-
-        Horde::logMessage(sprintf('Sesha_Driver_sql::getPropertiesForStock %s',
-            $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
         $properties = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
 
@@ -721,10 +656,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                             $stock_id,
                             $propertylist);
 
-        Horde::logMessage(sprintf(
-            'Sesha_Driver_sql::clearPropertiesForStock %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         return $this->_db->query($sql);
     }
 
@@ -746,8 +677,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                            'WHERE stock_id = %d AND property_id = %d',
                            $stock_id, $property_id);
 
-            Horde::logMessage(sprintf('Sesha_Driver_sql::updatePropertiesForStock %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
             $result = $this->_db->query($sql);
             if (!is_a($result, 'PEAR_Error') && !empty($property_value)) {
                 $new_id = $this->_db->nextId('sesha_inventory_properties');
@@ -758,7 +687,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                        ' (attribute_id, property_id, stock_id, txt_datavalue)' .
                        ' VALUES (?, ?, ?, ?)';
                 $values = array($new_id, $property_id, $stock_id, is_string($property_value) ? $property_value : serialize($property_value));
-                Horde::logMessage(sprintf('Sesha_Driver_sql::updatePropertiesForStock %s', $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 $result = $this->_db->query($sql, $values);
             }
         }
@@ -782,10 +710,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $sql = sprintf('DELETE FROM sesha_inventory_categories ' .
                        'WHERE stock_id = %d ', $stock_id);
 
-        Horde::logMessage(sprintf(
-            'Sesha_Driver_sql::updateCategoriesForStock %s', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         $result = $this->_db->query($sql);
         if (!is_a($result, 'PEAR_Error')) {
             for ($i = 0; $i < count($category); $i++) {
@@ -793,10 +717,6 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                 $sql = sprintf('INSERT INTO sesha_inventory_categories ' .
                     '(stock_id, category_id) VALUES (%d, %d)',
                     $stock_id, $category_id);
-
-                Horde::logMessage(sprintf(
-                    'Sesha_Driver_sql::updateCategoriesForStock %s',
-                    $sql), __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
                 $result = $this->_db->query($sql);
             }
