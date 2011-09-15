@@ -2,7 +2,7 @@
 /**
  * Create sesha base tables
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -10,7 +10,7 @@
  * @author   
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Jonah
+ * @package  Sesha
  */
 class SeshaBaseTables extends Horde_Db_Migration_Base
 {
