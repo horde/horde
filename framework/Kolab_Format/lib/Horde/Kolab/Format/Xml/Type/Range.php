@@ -96,7 +96,7 @@ extends Horde_Kolab_Format_Xml_Type_String
             $type = 'number';
         }
         $node = parent::saveNodeValue(
-            $name, $date, $parent_node, $params, $old_node
+            $name, $value, $parent_node, $params, $old_node
         );
         $node->setAttribute('type', $type);
         if ($tz !== false) {
