@@ -85,7 +85,7 @@ foreach ($categories as $id => $category) {
 
 $prefs_url = Horde::url($registry->get('webroot', 'horde') . '/services/prefs/', true);
 $sortdirclass = $sortdir ? 'sortup' : 'sortdown';
-$baseurl = SESHA_BASE . '/list.php';
+$baseurl = Horde::url('list.php');
 $column_headers = array(
     array('id' => 's' . SESHA_SORT_STOCKID,
           'class' => $sortby == SESHA_SORT_STOCKID ? ' class="' . $sortdirclass . '"' : '',
@@ -112,7 +112,7 @@ $column_headers[] = array(
 );
 
 $property_ids = array_keys($properties);
-$stock_url = SESHA_BASE . '/stock.php';
+$stock_url = Horde::url('stock.php');
 $stock = array();
 foreach ($inventory as $row) {
     $url = Horde_Util::addParameter($stock_url, 'stock_id', $row['stock_id']);
@@ -149,7 +149,7 @@ $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('header', $table_header);
 $t->set('count', $item_count);
-$t->set('form_url', SESHA_BASE . '/list.php');
+$t->set('form_url', Horde::url('/list.php'));
 $t->set('form_input', Horde_Util::pformInput());
 $t->set('categories', $categories);
 $t->set('prefs_url', $prefs_url);
