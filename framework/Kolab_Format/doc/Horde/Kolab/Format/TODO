@@ -8,11 +8,9 @@
 
  - Recurrence start handling
 
- - Remove the use of the Horde_Date class from testing. It should be
-   no problem to get the same code coverage without using the external
-   class.
+ - Handle distribution list
 
- - better internal api version support
+ - Extract Xml_* subtypes to Xml_Type_Composite_* types
 
  - performance check
 
