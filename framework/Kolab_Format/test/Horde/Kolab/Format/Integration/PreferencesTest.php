@@ -69,6 +69,34 @@ extends Horde_Kolab_Format_TestCase
         );
     }
 
+    public function testCreationDateOnApiV1()
+    {
+        $preferences = $this->_getHprefsV1();
+
+        $object = array(
+            'uid' => 1,
+            'pref' => array('test'),
+            'categories' => 'Test',
+            'creation-date' => 1
+        );
+        $xml = $preferences->save($object);
+        $this->assertEquals(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<h-prefs version="1.0">
+  <uid>1</uid>
+  <body></body>
+  <creation-date>1970-01-01T00:00:01Z</creation-date>
+  
+  <sensitivity>public</sensitivity>
+  <product-id>Horde_Kolab_Format_Xml-@version@ (api version: 1)</product-id>
+  <application>Test</application>
+  <pref>test</pref>
+</h-prefs>
+',
+            $this->removeLastModification($xml)
+        );
+    }
+
     private function _loadOld()
     {
         $preferences = $this->_getHprefs();
@@ -83,6 +111,12 @@ extends Horde_Kolab_Format_TestCase
     {
         $factory = new Horde_Kolab_Format_Factory();
         return $factory->create('Xml', 'Hprefs');
+    }
+
+    private function _getHprefsV1()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        return $factory->create('Xml', 'Hprefs', array('version' => 1));
     }
 }
 

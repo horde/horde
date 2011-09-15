@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-09-14</date>
- <time>21:08:38</time>
+ <date>2011-09-15</date>
+ <time>16:16:33</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -76,6 +76,9 @@
           <file name="Recurrence.php" role="php" />
           <file name="SimplePerson.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/Composite -->
+         <dir name="CreationDate">
+          <file name="V1.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/CreationDate -->
          <file name="AutomaticDate.php" role="php" />
          <file name="Base.php" role="php" />
          <file name="Boolean.php" role="php" />
@@ -292,6 +295,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/Composite/Predefined.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Predefined.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Composite/Recurrence.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Recurrence.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/CreationDate/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/CreationDate/V1.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />
@@ -429,7 +433,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-09-14</date>
+   <date>2011-09-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Moved Horde specific functionality out of the events parser.
