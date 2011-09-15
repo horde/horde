@@ -28,7 +28,7 @@ if ($vars->driver != Gollem::$backend['driver']) {
     ))->redirect();
 }
 
-$gollem_vfs = $injector->getInstance('Gollem_Vfs')->getQuota();
+$gollem_vfs = $injector->getInstance('Gollem_Vfs');
 $stream = null;
 $data = '';
 try {

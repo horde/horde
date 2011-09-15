@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [jan] Catch if files don&apos;t exist while deleting with VFS transport (michael-dev@fami-braun.de, Bug #10494).
 * [mms] Additional fixes when creating new mailboxes (Bug #10282).
  </notes>
  <contents>
@@ -994,6 +995,7 @@
    <date>2011-09-01</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [jan] Catch if files don&apos;t exist while deleting with VFS transport (michael-dev@fami-braun.de, Bug #10494).
 * [mms] Additional fixes when creating new mailboxes (Bug #10282).
    </notes>
   </release>

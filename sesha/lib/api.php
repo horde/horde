@@ -2,9 +2,7 @@
 /**
  * Sesha external API interface.
  *
- * $Horde: sesha/lib/api.php,v 1.24 2009/06/10 05:25:14 slusarz Exp $
- *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * This file defines Sesha's external API interface. Other applications can
  * interact with Sesha through this API.

@@ -1,1 +1,1 @@
-<?php define('SESHA_VERSION', 'H4 (1.0-cvs)') ?>
+<?php define('SESHA_VERSION', 'H4 (2.0-git)') ?>

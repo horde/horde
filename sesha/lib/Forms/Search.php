@@ -3,12 +3,10 @@
  * This class is the search form that will be responsible for finding
  * everything.
  *
- * $Horde: sesha/lib/Forms/Search.php,v 1.5 2009/07/14 18:43:45 selsky Exp $
- *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Andrew Coleman <mercury@appisolutions.net>
  * @package Sesha

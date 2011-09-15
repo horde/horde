@@ -19,13 +19,11 @@
  * The table structure can be created by the scripts/drivers/sesha_tables.sql
  * script.
  *
- * $Horde: sesha/lib/Driver/sql.php,v 1.50 2009/01/06 18:02:08 jan Exp $
- *
- * Copyright 2003-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Bo Daley <bo@darkwork.net>
  * @author  Andrew Coleman <mercury@appisolutions.net>

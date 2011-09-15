@@ -682,6 +682,9 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgwrite td {
     font-size: 90%;
 }
+.msgwrite td .button {
+    font-size: 100%;
+}
 .msgwrite td.label {
     white-space: nowrap;
     text-align: right;
@@ -706,6 +709,10 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 #noticerow .notices li {
     display: -moz-inline-stack;
     display: inline-block;
+    padding: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 #composeMessageParent {
