@@ -51,7 +51,7 @@ class Sesha_Application extends Horde_Registry_Application
                 'title' => _("Administration"),
             ),
             'addStock' => array(
-                'title' => _("Add Stock");
+                'title' => _("Add Stock")
             )
         );
     }
