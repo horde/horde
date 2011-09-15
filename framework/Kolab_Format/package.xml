@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-15</date>
- <time>16:16:33</time>
+ <time>20:32:49</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -85,6 +85,7 @@
          <file name="Color.php" role="php" />
          <file name="Composite.php" role="php" />
          <file name="CreationDate.php" role="php" />
+         <file name="Date.php" role="php" />
          <file name="DateTime.php" role="php" />
          <file name="Integer.php" role="php" />
          <file name="ModificationDate.php" role="php" />
@@ -217,13 +218,6 @@
   </required>
   <optional>
    <package>
-    <name>Horde_Date</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -277,6 +271,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/Color.php" name="lib/Horde/Kolab/Format/Xml/Type/Color.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Composite.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite.php" />
    <install as="Horde/Kolab/Format/Xml/Type/CreationDate.php" name="lib/Horde/Kolab/Format/Xml/Type/CreationDate.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Date.php" name="lib/Horde/Kolab/Format/Xml/Type/Date.php" />
    <install as="Horde/Kolab/Format/Xml/Type/DateTime.php" name="lib/Horde/Kolab/Format/Xml/Type/DateTime.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Integer.php" name="lib/Horde/Kolab/Format/Xml/Type/Integer.php" />
    <install as="Horde/Kolab/Format/Xml/Type/ModificationDate.php" name="lib/Horde/Kolab/Format/Xml/Type/ModificationDate.php" />
