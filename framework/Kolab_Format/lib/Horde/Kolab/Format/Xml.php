@@ -77,7 +77,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     /**
      * Defines a XML value as date type
      */
-    const TYPE_DATE = 'Horde_Kolab_Format_Xml_Type_DateTime';
+    const TYPE_DATE = 'Horde_Kolab_Format_Xml_Type_Date';
 
     /**
      * Defines a XML value as datetime type
