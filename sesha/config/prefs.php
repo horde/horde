@@ -41,6 +41,19 @@ $_prefs['sortdir'] = array(
     'desc' => _("Default sorting direction:")
 );
 
+// default view
+$_prefs['sesha_default_view'] = array(
+    'value' => 'list',
+    'type' => 'enum',
+    'enum' => array(
+        'list' => _("List"),
+        'search' => _("Search"),
+        'stock' => _("Stock")
+    ),
+    'desc' => _("Select the view to display after login:")
+);
+
+
 // properties to show in lists
 $_prefs['list_properties'] = array(
     'value' => array(),

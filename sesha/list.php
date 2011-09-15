@@ -5,13 +5,14 @@
  * things.
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
+ * Copyright 2004-2011 Horde LLC www.horde.org
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Template.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('sesha');
 
 // Page variables
 $title = _("Current Inventory");
