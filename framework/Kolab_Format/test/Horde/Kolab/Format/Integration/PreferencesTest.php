@@ -35,22 +35,25 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Kolab_Format_Integration_PreferencesTest
 extends Horde_Kolab_Format_TestCase
 {
-    /**
-     * Test preferences format conversion.
-     *
-     * @return NULL
-     */
-    public function testConversionFromOld()
+    public function testLoadOldPrefs()
+    {
+        $object = $this->_loadOld();
+        $this->assertContains('test', $object['pref']);
+    }
+
+    public function testLoadOldApplication()
+    {
+        $object = $this->_loadOld();
+        $this->assertEquals('Test', $object['application']);
+    }
+
+    public function testOverwrite()
     {
         $preferences = $this->_getHprefs();
 
         $xml = file_get_contents(
             dirname(__FILE__) . '/../fixtures/preferences_read_old.xml'
         );
-        $object = $preferences->load($xml);
-        $this->assertContains('test', $object['pref']);
-        $this->assertEquals('Test', $object['application']);
-
         $object = array(
             'uid' => 1,
             'pref' => array('test'),
@@ -64,20 +67,16 @@ extends Horde_Kolab_Format_TestCase
             $this->removeLastModification($expect),
             $this->removeLastModification($xml)
         );
+    }
 
-        $object = array(
-            'uid' => 1,
-            'pref' => array('test'),
-            'application' => 'Test'
+    private function _loadOld()
+    {
+        $preferences = $this->_getHprefs();
+
+        $xml = file_get_contents(
+            dirname(__FILE__) . '/../fixtures/preferences_read_old.xml'
         );
-        $xml    = $preferences->save($object, array('previous' => $xml));
-        $expect = file_get_contents(
-            dirname(__FILE__) . '/../fixtures/preferences_write_old.xml'
-        );
-        $this->assertEquals(
-            $this->removeLastModification($expect),
-            $this->removeLastModification($xml)
-        );
+        return $preferences->load($xml);
     }
 
     private function _getHprefs()
