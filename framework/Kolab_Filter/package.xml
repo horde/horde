@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Kolab_Filter</name>
  <channel>pear.horde.org</channel>
  <summary>Postfix filters for the Kolab server</summary>
@@ -16,7 +13,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2010-04-19</date>
+ <date>2011-09-15</date>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -31,12 +28,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </notes>
  <contents>
   <dir name="/">
-   <file name="COPYING" role="doc" />
    <dir name="doc">
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Filter">
+       <file name="COPYING" role="doc" />
        <file name="kolabfilter.1" role="doc" />
+       <file name="kolabfilter.pod" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/Filter -->
      </dir> <!-- /doc/Horde/Kolab -->
     </dir> <!-- /doc/Horde -->
@@ -96,10 +94,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Kolab">
       <dir name="Filter">
        <file name="kolabfilter.php" role="script">
-        <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+        <replace from="@php_bin@" to="php_bin" type="pear-config" />
        </file>
        <file name="kolabmailboxfilter.php" role="script">
-        <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+        <replace from="@php_bin@" to="php_bin" type="pear-config" />
        </file>
       </dir> <!-- /script/Horde/Kolab/Filter -->
      </dir> <!-- /script/Horde/Kolab -->
@@ -109,21 +107,40 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Filter">
+       <dir name="Helper">
+        <file name="AddressFilter.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Filter/Helper -->
+       <dir name="Integration">
+        <file name="CliTest.php" role="test" />
+        <file name="IncomingTest.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Filter/Integration -->
+       <dir name="Unit">
+        <dir name="Helper">
+         <file name="AddressFilter.php" role="test" />
+        </dir> <!-- /test/Horde/Kolab/Filter/Unit/Helper -->
+       </dir> <!-- /test/Horde/Kolab/Filter/Unit -->
        <file name="AllTests.php" role="test" />
        <dir name="fixtures">
         <file name="allday_invitation.eml" role="test" />
         <file name="attendee_status_invitation.eml" role="test" />
         <file name="empty.eml" role="test" />
+        <file name="empty.ret" role="test" />
         <file name="empty2.ret" role="test" />
         <file name="forged.eml" role="test" />
         <file name="forged.ret" role="test" />
         <file name="forged_trans.ret" role="test" />
         <file name="invitation_forward.eml" role="test" />
         <file name="invitation_forward.ret" role="test" />
+        <file name="invitation_plus_addressing.eml" role="test" />
+        <file name="invitation_plus_addressing.ret" role="test" />
+        <file name="invitation_whole_day.eml" role="test" />
+        <file name="invitation_whole_day.ret" role="test" />
         <file name="longstring_invitation.eml" role="test" />
+        <file name="longstring_invitation.ret" role="test" />
         <file name="null.ret" role="test" />
         <file name="privileged.ret" role="test" />
         <file name="recur_invitation.eml" role="test" />
+        <file name="recur_invitation.ret2" role="test" />
         <file name="recur_invitation2.eml" role="test" />
         <file name="recur_invitation.ret" role="test" />
         <file name="simple.eml" role="test" />
@@ -138,10 +155,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="validation.eml" role="test" />
         <file name="validation.ret" role="test" />
        </dir> <!-- /test/Horde/Kolab/Filter/fixtures -->
+       <file name="Autoload.php" role="test" />
+       <file name="ContentTestOld.php" role="test" />
+       <file name="phpunit.xml" role="test" />
+       <file name="ResourceTestOld.php" role="test" />
+       <file name="StoryTestCase.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Filter -->
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
+   <file name="TODO" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -222,8 +245,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="" name="TODO" />
+   <install as="COPYING" name="doc/Horde/Kolab/Filter/COPYING" />
    <install name="doc/Horde/Kolab/Filter/kolabfilter.1" as="man/man1/kolabfilter.1" />
    <install name="lib/Horde/Kolab/Test/Filter.php" as="Horde/Kolab/Test/Filter.php" />
+   <install as="kolabfilter.pod" name="doc/Horde/Kolab/Filter/kolabfilter.pod" />
    <install name="lib/Horde/Kolab/Filter.php" as="Horde/Kolab/Filter.php" />
    <install name="lib/Horde/Kolab/Filter/Cli.php" as="Horde/Kolab/Filter/Cli.php" />
    <install name="lib/Horde/Kolab/Filter/Cli/Parser.php" as="Horde/Kolab/Filter/Cli/Parser.php" />
@@ -252,19 +278,31 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="script/Horde/Kolab/Filter/kolabmailboxfilter.php" as="kolabmailboxfilter" />
    <install name="script/Horde/Kolab/Filter/kolabfilter.php" as="kolabfilter" />
    <install name="test/Horde/Kolab/Filter/AllTests.php" as="Horde/Kolab/Filter/AllTests.php" />
+   <install as="Horde/Kolab/Filter/Autoload.php" name="test/Horde/Kolab/Filter/Autoload.php" />
+   <install as="Horde/Kolab/Filter/ContentTestOld.php" name="test/Horde/Kolab/Filter/ContentTestOld.php" />
+   <install as="Horde/Kolab/Filter/phpunit.xml" name="test/Horde/Kolab/Filter/phpunit.xml" />
+   <install as="Horde/Kolab/Filter/ResourceTestOld.php" name="test/Horde/Kolab/Filter/ResourceTestOld.php" />
+   <install as="Horde/Kolab/Filter/StoryTestCase.php" name="test/Horde/Kolab/Filter/StoryTestCase.php" />
    <install name="test/Horde/Kolab/Filter/fixtures/allday_invitation.eml" as="Horde/Kolab/Filter/fixtures/allday_invitation.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/attendee_status_invitation.eml" as="Horde/Kolab/Filter/fixtures/attendee_status_invitation.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/empty.eml" as="Horde/Kolab/Filter/fixtures/empty.eml" />
+   <install as="Horde/Kolab/Filter/fixtures/empty.ret" name="test/Horde/Kolab/Filter/fixtures/empty.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/empty2.ret" as="Horde/Kolab/Filter/fixtures/empty2.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/forged.eml" as="Horde/Kolab/Filter/fixtures/forged.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/forged.ret" as="Horde/Kolab/Filter/fixtures/forged.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/forged_trans.ret" as="Horde/Kolab/Filter/fixtures/forged_trans.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/invitation_forward.eml" as="Horde/Kolab/Filter/fixtures/invitation_forward.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/invitation_forward.ret" as="Horde/Kolab/Filter/fixtures/invitation_forward.ret" />
+   <install as="Horde/Kolab/Filter/fixtures/invitation_plus_addressing.eml" name="test/Horde/Kolab/Filter/fixtures/invitation_plus_addressing.eml" />
+   <install as="Horde/Kolab/Filter/fixtures/invitation_plus_addressing.ret" name="test/Horde/Kolab/Filter/fixtures/invitation_plus_addressing.ret" />
+   <install as="Horde/Kolab/Filter/fixtures/invitation_whole_day.eml" name="test/Horde/Kolab/Filter/fixtures/invitation_whole_day.eml" />
+   <install as="Horde/Kolab/Filter/fixtures/invitation_whole_day.ret" name="test/Horde/Kolab/Filter/fixtures/invitation_whole_day.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/longstring_invitation.eml" as="Horde/Kolab/Filter/fixtures/longstring_invitation.eml" />
+   <install as="Horde/Kolab/Filter/fixtures/longstring_invitation.ret" name="test/Horde/Kolab/Filter/fixtures/longstring_invitation.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/null.ret" as="Horde/Kolab/Filter/fixtures/null.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/privileged.ret" as="Horde/Kolab/Filter/fixtures/privileged.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/recur_invitation.eml" as="Horde/Kolab/Filter/fixtures/recur_invitation.eml" />
+   <install as="Horde/Kolab/Filter/fixtures/recur_invitation.ret2" name="test/Horde/Kolab/Filter/fixtures/recur_invitation.ret2" />
    <install name="test/Horde/Kolab/Filter/fixtures/recur_invitation2.eml" as="Horde/Kolab/Filter/fixtures/recur_invitation2.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/recur_invitation.ret" as="Horde/Kolab/Filter/fixtures/recur_invitation.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/simple.eml" as="Horde/Kolab/Filter/fixtures/simple.eml" />
@@ -278,6 +316,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="test/Horde/Kolab/Filter/fixtures/vacation.ret" as="Horde/Kolab/Filter/fixtures/vacation.ret" />
    <install name="test/Horde/Kolab/Filter/fixtures/validation.eml" as="Horde/Kolab/Filter/fixtures/validation.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/validation.ret" as="Horde/Kolab/Filter/fixtures/validation.ret" />
+   <install as="Horde/Kolab/Filter/Helper/AddressFilter.php" name="test/Horde/Kolab/Filter/Helper/AddressFilter.php" />
+   <install as="Horde/Kolab/Filter/Integration/CliTest.php" name="test/Horde/Kolab/Filter/Integration/CliTest.php" />
+   <install as="Horde/Kolab/Filter/Integration/IncomingTest.php" name="test/Horde/Kolab/Filter/Integration/IncomingTest.php" />
+   <install as="Horde/Kolab/Filter/Unit/Helper/AddressFilter.php" name="test/Horde/Kolab/Filter/Unit/Helper/AddressFilter.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -319,7 +361,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     * kolab/issue3616 (automatic replies to invitations contain
       127.0.0.1 in Message-ID)
     * kolab/issue3364 (manpages for kolabfilter and kolabmailboxfilter)
-    * kolab/issue3768 (Kolab server 2.2.2 resmgr doesn't copy attendee
+    * kolab/issue3768 (Kolab server 2.2.2 resmgr doesn&apos;t copy attendee
       status)
     * kolab/issue3767 (Kolab server 2.2.0 resmgr creates incorrect event
       attendee status values)
@@ -329,7 +371,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       should be localized)
     * kolab/issue2544 (Encoding problem in cancelled appointments)
     * Reverted the fix for kolab/issue2495 (The reply to an invitation
-      with umlauts of a group account doesn't display the umlauts.) It
+      with umlauts of a group account doesn&apos;t display the umlauts.) It
       should be covered by the fix for kolab/issue2499.
     * Added dutch translation. Submitted by Richard Bos
       (ml@radoeka.nl).
@@ -484,6 +526,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
      * Preparations for an initial release.
+   </notes>
+  </release>
+  <release>
+   <date>2011-09-15</date>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+*
    </notes>
   </release>
  </changelog>

@@ -10,10 +10,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>00:57:23</time>
+ <date>2011-09-15</date>
+ <time>23:14:47</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0alpha1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,10 +22,21 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 4.
 * [jan] Update Latvian translation.
+* [gwr] Extracted package from Kolab_Filter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Resource">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Kolab/Resource -->
+     </dir> <!-- /doc/Horde/Kolab -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
@@ -322,7 +333,6 @@
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="COPYING" role="doc" />
    <file name="TODO" role="data" />
   </dir> <!-- / -->
  </contents>
@@ -384,6 +394,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Kolab/Resource/COPYING" />
    <install as="Horde/Kolab/Resource.php" name="lib/Horde/Kolab/Resource.php" />
    <install as="Horde/Kolab/Resource/Epoch.php" name="lib/Horde/Kolab/Resource/Epoch.php" />
    <install as="Horde/Kolab/Resource/Exception.php" name="lib/Horde/Kolab/Resource/Exception.php" />
@@ -484,7 +495,6 @@
    <install as="Horde/Kolab/Resource/phpunit.xml" name="test/Horde/Kolab/Resource/phpunit.xml" />
    <install as="Horde/Kolab/Resource/TestCase.php" name="test/Horde/Kolab/Resource/TestCase.php" />
    <install as="Horde/Kolab/Resource/fixtures/recur_invitation.eml" name="test/Horde/Kolab/Resource/fixtures/recur_invitation.eml" />
-   <install as="COPYING" name="COPYING" />
    <install as="TODO" name="TODO" />
   </filelist>
  </phprelease>
@@ -495,14 +505,15 @@
     <api>1.0.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2011-03-07</date>
+   <date>2011-09-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
-* Extracted package from Kolab_Filter.
+* [jan] Update Latvian translation.
+* [gwr] Extracted package from Kolab_Filter.
    </notes>
   </release>
  </changelog>
