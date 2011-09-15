@@ -44,4 +44,15 @@ class Sesha_Application extends Horde_Registry_Application
      */
     public $version = 'H4 (1.0-git)';
 
+    public function perms() 
+    {
+        $permissions = array(
+            'administration' => array(
+                'title' => _("Administration"),
+            ),
+            'addStock' => array(
+                'title' => _("Add Stock");
+            )
+        );
+    }
 }
