@@ -63,12 +63,23 @@ class Horde_Text_Filter_Linkurls extends Horde_Text_Filter_Base
         'target' => '_blank',
     );
 
+    /**
+     * Return the regex used to search for links.
+     *
+     * @return string  The regex string.
+     */
     public static function getRegex()
     {
-        if (!self::$regex) { self::initializeRegex(); }
+        if (!self::$regex) {
+            self::initializeRegex();
+        }
+
         return self::$regex;
     }
 
+    /**
+     * Initialize the regex for this instance.
+     */
     public static function initializeRegex()
     {
         self::$regex = <<<END_OF_REGEX
@@ -106,6 +117,8 @@ END_OF_REGEX;
         return array('regexp_callback' => array('@' . self::getRegex() . '@' => array($this, 'callback')));
     }
 
+    /**
+     */
     public function callback($match)
     {
         $href = $match[0];
@@ -153,4 +166,5 @@ END_OF_REGEX;
     {
         return preg_replace('/\00\00\00([\w=+\/]*)\00\00\00/e', 'base64_decode(\'$1\')', $text);
     }
+
 }
