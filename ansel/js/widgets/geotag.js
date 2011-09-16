@@ -272,6 +272,6 @@ AnselGeoTagWidget = Class.create({
          }
 
          return dec2deg(ll.lat, true) + " " + dec2deg(ll.lon);
-    },
+    }
 
 });
