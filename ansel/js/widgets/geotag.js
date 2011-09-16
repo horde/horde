@@ -25,7 +25,7 @@ AnselGeoTagWidget = Class.create({
             mainMap:  'ansel_map',
             geocoder: 'None',
             calculateMaxZoom: true,
-            //deleteGeotagCallback: this.deleteLocation
+            deleteGeotagCallback: this.deleteLocation.bind(this)
         };
         this._images = imgs;
         this.opts = Object.extend(o, opts || {});
@@ -60,20 +60,19 @@ AnselGeoTagWidget = Class.create({
     //     });
     // },
 
-    // deleteLocation: function() {
-    //     var params = {"values": "img={$image_id}" };
-    //     var url = "{$impleUrl}";
-    //     new Ajax.Request(url + "/action=untag/post=values", {
-    //         method: 'post',
-    //         parameters: params,
-    //         onComplete: function(transport) {
-    //             if (transport.responseJSON.response == 1) {
-    //                 $('ansel_geo_widget').update(transport.responseJSON.message);
-    //             }
-    //         }
-    //     });
+    deleteLocation: function(iid) {
+        var params = { 'values': 'img=' + iid };
+        new Ajax.Request(this.opts.updateEndpoint + "/action=untag/post=values", {
+            method: 'post',
+            parameters: params,
+            onComplete: function(transport) {
+                if (transport.responseJSON.response == 1) {
+                    $('ansel_geo_widget').update(transport.responseJSON.message);
+                }
+            }
+        });
 
-    // },
+    },
 
     doMap: function() {
         // Create map and geocoder objects
@@ -249,12 +248,13 @@ AnselGeoTagWidget = Class.create({
     },
 
     _getDeleteLink: function(iid) {
+        var imageid = iid;
         var x = new Element('a', {
-            href: this.opts.relocateUrl + '?image=' + iid}
+            href: this.opts.relocateUrl + '?image=' + imageid }
         ).update(this.opts.deleteGeotagText);
 
         x.observe('click', function(e) {
-            this.opts.deleteGeotagCallback();
+            this.opts.deleteGeotagCallback(iid);
             e.stop();
         }.bindAsEventListener(this));
         return x;
