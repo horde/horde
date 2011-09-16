@@ -235,31 +235,23 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $stock  A hash of values for the stock item.
      *
-     * @return mixed  The numeric ID of the newly added item; PEAR_Error on
-     *                failure.
+     * @return mixed  The numeric ID of the newly added item or false.
      */
     public function add($stock)
     {
-        // Make sure we have a proper stock ID
-        if (empty($stock['stock_id']) || $stock['stock_id'] < 1) {
-            $stock['stock_id'] = $this->_db->nextId('sesha_inventory');
-            if (is_a($stock['stock_id'], 'PEAR_Error')) {
-                return $stock['stock_id'];
-            }
-        }
-
-        require_once 'Horde/SQL.php';
         // Create the queries
-        $sql = sprintf('INSERT INTO sesha_inventory %s',
-            Horde_SQL::insertValues($this->_db, $stock));
+        $sql = 'INSERT INTO sesha_inventory(stock_name,note) VALUES(?,?)';
+
+        $values = array($stock['stock_name'], $stock['note']);
 
         // Perform the queries
-        $result = $this->_db->query($sql);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $result = $this->_db->insert($sql,$values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
         }
 
-        return $stock['stock_id'];
+        return $result;
     }
 
     /**
@@ -267,23 +259,21 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $stock  The hash of values for the inventory item.
      *
-     * @return mixed  True on success; PEAR_Error on failure.
+     * @return mixed  True on success.
      */
     public function modify($stock_id, $stock)
     {
-        // Can't change the stock id. ever.
-        if (isset($stock['stock_id'])) {
-            unset($stock['stock_id']);
-        }
 
         require_once 'Horde/SQL.php';
-        $sql = sprintf('UPDATE sesha_inventory SET %s WHERE stock_id = %d',
-            Horde_SQL::updateValues($this->_db, $stock), $stock_id);
+        $sql = 'UPDATE sesha_inventory SET stock_name = ?, note = ? WHERE stock_id = ?';
 
+        $values = array($stock['stock_name'],$stock['note'], $stockid);
         // Perform the queries
-        $result = $this->_db->query($sql);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try { 
+            $result = $this->_db->query($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+            return false;
         }
 
         return true;
@@ -344,21 +334,15 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @return mixed  An array of matching properties on success; PEAR_Error on
      *                failure.
      */
-    public function getProperties($property_id = null)
+    public function getProperties($property_id = array())
     {
-        // catch empty case
-        if (empty($property_id)) {
-            return array();
-        }
         $sql = 'SELECT * FROM sesha_properties';
-        if (is_array($property_id)) {
+        if (!empty($property_id)) {
             $sql .= ' WHERE property_id IN (';
             foreach ($property_id as $id) {
                 $sql .= (int)$id . ',';
             }
             $sql = substr($sql, 0, -1) . ')';
-        } elseif ($property_id) {
-            $sql .= sprintf(' WHERE property_id = %d', $property_id);
         }
 
         try {
@@ -412,21 +396,18 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function addCategory($info)
     {
-        $category_id = $this->_db->nextId('sesha_categories');
-        if (is_a($category_id, 'PEAR_Error')) {
-            return $category_id;
-        }
 
         $sql = 'INSERT INTO sesha_categories' .
-               ' (category_id, category, description, priority)' .
-               ' VALUES (?, ?, ?, ?)';
-        $values = array($category_id, $info['category'], $info['description'], $info['priority']);
+               ' (category, description, priority)' .
+               ' VALUES (?, ?, ?)';
+        $values = array($info['category'], $info['description'], $info['priority']);
 
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $result = $this->_db->insert($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
         }
-        return $category_id;
+        return $result;
     }
 
     /**
@@ -496,14 +477,9 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function addProperty($info)
     {
-        $property_id = $this->_db->nextId('sesha_properties');
-        if (is_a($property_id, 'PEAR_Error')) {
-            return $property_id;
-        }
 
-        $sql = 'INSERT INTO sesha_properties (property_id, property, datatype, parameters, unit, description, priority) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO sesha_properties (property, datatype, parameters, unit, description, priority) VALUES (?, ?, ?, ?, ?, ?)';
         $values = array(
-            $property_id,
             $info['property'],
             $info['datatype'],
             serialize($info['parameters']),
@@ -512,7 +488,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $info['priority'],
         );
 
-        return $this->_db->query($sql, $values);
+        try {
+            return $this->_db->insert($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
     }
 
     /**
@@ -551,11 +531,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $sql = sprintf('SELECT c.category_id AS category_id, c.category AS category, p.property_id AS property_id, p.property AS property, p.unit AS unit, p.description AS description, p.datatype AS datatype, p.parameters AS parameters FROM sesha_categories c, sesha_properties p, sesha_relations cp WHERE c.category_id = cp.category_id AND cp.property_id = p.property_id AND c.category_id IN (%s) ORDER BY p.priority DESC',
                        empty($in) ? $this->_db->quote($in) : $in);
 
-        $properties = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
-        if (is_a($properties, 'PEAR_Error')) {
-            Horde::logMessage($properties, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $properties;
-        }
+        $properties = $this->_db->selectAll($sql);
         array_walk($properties, array($this, '_unserializeParameters'));
 
         return $properties;
@@ -573,14 +549,10 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     {
         $this->clearPropertiesForCategory($category_id);
         foreach ($properties as $property) {
-            $sql = sprintf('INSERT INTO sesha_relations
-                (category_id, property_id) VALUES (%d, %d)',
-                $category_id, $property);
+            $sql = 'INSERT INTO sesha_relations
+                (category_id, property_id) VALUES (?, ?)';
 
-            $result = $this->_db->query($sql);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $result = $this->_db->execute($sql, array($category_id, $property));
         }
         return $result;
     }
@@ -594,10 +566,9 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function clearPropertiesForCategory($category_id)
     {
-        $sql = sprintf('DELETE FROM sesha_relations WHERE category_id = %d',
-            $category_id);
+        $sql = 'DELETE FROM sesha_relations WHERE category_id = ?';
 
-        return $this->_db->query($sql);
+        return $this->_db->execute($sql, array($category_id));
     }
 
     /**
@@ -681,17 +652,21 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                            'WHERE stock_id = %d AND property_id = %d',
                            $stock_id, $property_id);
 
-            $result = $this->_db->query($sql);
-            if (!is_a($result, 'PEAR_Error') && !empty($property_value)) {
-                $new_id = $this->_db->nextId('sesha_inventory_properties');
-                if (is_a($new_id, 'PEAR_Error')) {
-                    return $new_id;
-                }
+            try {
+                $result = $this->_db->query($sql);
+            } catch (Horde_Db_Exception $e) {
+                throw new Sesha_Exception($e);
+            }
+            if (!is_null($result) && !empty($property_value)) {
                 $sql = 'INSERT INTO sesha_inventory_properties' .
-                       ' (attribute_id, property_id, stock_id, txt_datavalue)' .
-                       ' VALUES (?, ?, ?, ?)';
-                $values = array($new_id, $property_id, $stock_id, is_string($property_value) ? $property_value : serialize($property_value));
-                $result = $this->_db->query($sql, $values);
+                       ' (property_id, stock_id, txt_datavalue)' .
+                       ' VALUES (?, ?, ?)';
+                $values = array($property_id, $stock_id, is_string($property_value) ? $property_value : serialize($property_value));
+                try {
+                    $result = $this->_db->insert($sql, $values);
+                } catch (Horde_Db_Exception $e) {
+                    throw new Sesha_Exception($e);
+                }
             }
         }
         return $result;

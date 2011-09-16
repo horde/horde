@@ -60,7 +60,7 @@ case 'add_category':
             exit;
         }
         $notification->push(_("New category added successfully."), 'horde.success');
-        header('Location: ' . Horde::applicationUrl($url, true));
+        header('Location: ' . Horde::url($url, true));
         exit;
     }
     break;

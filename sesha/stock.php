@@ -40,7 +40,6 @@ case 'add_stock':
     if ($valid && $form->isSubmitted()) {
         // Add the item to the inventory.
         $ret = $sesha_driver->add(array(
-            'stock_id'   => $vars->get('stock_id'),
             'stock_name' => $vars->get('stock_name'),
             'note'       => $vars->get('note')));
         if (is_a($ret, 'PEAR_Error')) {
