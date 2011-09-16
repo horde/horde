@@ -169,7 +169,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                         }
                         $imgsrc .= $addurl->link(
                                     array('title' => $title,
-                                          'onclick' => "Ansel.widgets.geotag.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "');return false"))
+                                          'onclick' => "Ansel.widgets.geotag.setLocation(" . $id . ",'" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "');return false"))
                                 . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[image]" /></a>';
                     }
                     $imgsrc .= '</div>';
