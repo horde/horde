@@ -128,7 +128,7 @@ class Horde_Mime
         $line = '';
 
         /* Return if nothing needs to be encoded. */
-        foreach ($matches as $key => &$val) {
+        foreach ($matches as $key => $val) {
             if (self::is8bit($val[1], $charset)) {
                 if ((($key + 1) < $size) &&
                     self::is8bit($matches[$key + 1][1], $charset)) {
@@ -167,7 +167,7 @@ class Horde_Mime
         $p_size = count($parts);
         $out = '';
 
-        foreach ($parts as $key => &$val) {
+        foreach ($parts as $key => $val) {
             $out .= '=?' . $charset . '?b?' . $val . '?=';
             if ($p_size > $key + 1) {
                 /* RFC 2047 [2]: no encoded word can be more than 75
@@ -261,13 +261,13 @@ class Horde_Mime
         }
 
         $text = '';
-        foreach ($addresses as &$addr) {
+        foreach ($addresses as $addr) {
             $addrobs = empty($addr['groupname'])
                 ? array($addr)
                 : $addr['addresses'];
             $addrlist = array();
 
-            foreach ($addrobs as &$val) {
+            foreach ($addrobs as $val) {
                 if (empty($val['personal'])) {
                     $personal = '';
                 } else {
