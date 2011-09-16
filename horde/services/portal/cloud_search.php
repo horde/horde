@@ -17,15 +17,19 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintaks' => true));
 
-// If/when more apps support the searchTags api calls, we should probably
-// find a better solution to putting the apps hardcoded like this.
-// Should also probably
-$apis = array('images', 'news');
-
 $tag = Horde_Util::getFormData('tag');
-$results = $registry->call('images/searchTags', array(array($tag)));
-$results = array_merge($results, $registry->call('news/searchTags',
-                                                 array(array($tag))));
+$results = array();
+foreach ($GLOBALS['registry']->listAPIs() as $api) {
+    if ($GLOBALS['registry']->hasMethod($api . '/listTagInfo')) {
+        try {
+            $results = array_merge(
+                $results, $registry->{$api}->searchTags(array($tag)));
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
+    }
+}
+
 echo '<div class="control"><strong>'
     . sprintf(_("Results for %s"), '<span style="font-style:italic">' . htmlspecialchars($tag) . '</span>')
     . '</strong>'
