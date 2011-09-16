@@ -258,10 +258,10 @@ AnselGeoTagWidget = Class.create({
             href: this.opts.relocateUrl + '?image=' + imageid }
         ).update(this.opts.deleteGeotagText);
 
-        x.observe('click', function(e) {
-            this.opts.deleteGeotagCallback(iid);
+        x.observe('click', function(img, e) {
+            this.opts.deleteGeotagCallback(img);
             e.stop();
-        }.bindAsEventListener(this));
+        }.curry(iid).bindAsEventListener(this));
         return x;
     },
 
