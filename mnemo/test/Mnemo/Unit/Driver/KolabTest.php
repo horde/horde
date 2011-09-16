@@ -85,7 +85,8 @@ class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
         $driver->move($id, $this->other_share->getName());
         $driver->retrieve();
         $this->assertEquals(0, count($driver->listMemos()));
-        $other_driver = $this->factory->create($this->other_share->getName());
+        $other_driver = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')
+            ->create($this->other_share->getName());
         $other_driver->retrieve();
         $this->assertEquals(
             1,

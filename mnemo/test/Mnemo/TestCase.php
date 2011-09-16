@@ -37,50 +37,89 @@ extends PHPUnit_Framework_TestCase
 
     protected function getKolabDriver()
     {
-        $this->getKolabFactory();
-        $this->other_share = $GLOBALS['mnemo_shares']->newShare(
-            'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Other Notepad of Tester"
+        self::createKolabSetup();
+        list($share, $this->other_share) = self::_createDefaultShares();
+        return $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create(
+            $share->getName()
         );
-        $GLOBALS['mnemo_shares']->addShare($this->other_share);
-        return $this->factory->create($this->share->getName());
     }
 
-    protected function getKolabFactory()
+    static protected function createKolabSetup()
     {
-        $GLOBALS['injector'] = $this->getInjector();
-        $kolab_factory = new Horde_Kolab_Storage_Factory(
+        $setup = new Horde_Test_Setup();
+        self::createBasicMnemoSetup($setup);
+        self::createKolabShares($setup);
+        return $setup;
+    }
+
+    static protected function createBasicMnemoSetup(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
             array(
-                'driver' => 'mock',
-                'queryset' => array('list' => array('queryset' => 'horde')),
-                'params' => array(
-                    'username' => 'test@example.com',
-                    'host' => 'localhost',
-                    'port' => 143,
-                    'data' => array(
-                        'user/test' => array(
-                            'permissions' => array('anyone' => 'alrid')
-                        )
-                    )
-                )
+                '_PARAMS' => array(
+                    'user' => 'test@example.com',
+                    'app' => 'mnemo'
+                ),
+                'Horde_Prefs' => 'Prefs',
+                'Horde_Perms' => 'Perms',
+                'Horde_Group' => 'Group',
+                'Horde_History' => 'History',
+                'Horde_Registry' => 'Registry',
             )
         );
-        $storage = $kolab_factory->create();
-        $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $storage);
-        $GLOBALS['injector']->setInstance('Horde_History', new Horde_History_Mock('test@example.com'));
-        $this->factory = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver');
+        $setup->makeGlobal(
+            array(
+                'prefs' => 'Horde_Prefs',
+                'registry' => 'Horde_Registry',
+                'injector' => 'Horde_Injector',
+            )
+        );
+
+        $GLOBALS['conf']['prefs']['driver'] = 'Null';
+    }
+
+    static protected function createKolabShares(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
+            array(
+                'Horde_Kolab_Storage' => array(
+                    'factory' => 'KolabStorage',
+                    'params' => array(
+                        'imapuser' => 'test',
+                    )
+                ),
+                'Horde_Share_Base' => array(
+                    'factory' => 'Share',
+                    'method' => 'Kolab',
+                ),
+            )
+        );
+        $setup->makeGlobal(
+            array(
+                'mnemo_shares' => 'Horde_Share_Base',
+            )
+        );
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $GLOBALS['mnemo_shares'] = new Horde_Share_Kolab(
-            'mnemo', 'test@example.com', new Horde_Perms_Null(), new Horde_Group_Mock()
+        $GLOBALS['conf']['notepads']['driver'] = 'kolab';
+    }
+
+    static protected function _createDefaultShares()
+    {
+        $share = self::_createShare(
+            'Notepad of Tester', 'test@example.com'
         );
-        $GLOBALS['mnemo_shares']->setStorage($storage);
-        $this->share = $GLOBALS['mnemo_shares']->newShare(
-            'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Notepad of Tester"
+        $other_share = self::_createShare(
+            'Other notepad of Tester', 'test@example.com'
         );
-        $GLOBALS['mnemo_shares']->addShare($this->share);
-        return $this->factory;
+        return array($share, $other_share);
+    }
+
+    static private function _createShare($name, $owner)
+    {
+        $share = $GLOBALS['mnemo_shares']->newShare(
+            $owner, strval(new Horde_Support_Randomid()), $name
+        );
+        $GLOBALS['mnemo_shares']->addShare($share);
+        return $share;
     }
 }

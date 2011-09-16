@@ -47,15 +47,25 @@ class Mnemo_Unit_Factory_DriverTest extends Mnemo_TestCase
 
     public function testCreateKolab()
     {
-        $factory = $this->getKolabFactory();
+        self::createKolabSetup();
+        list($share, $other_share) = self::_createDefaultShares();
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $this->assertInstanceOf('Mnemo_Driver_Kolab', $factory->create($this->share->getName()));
+        $this->assertInstanceOf(
+            'Mnemo_Driver_Kolab',
+            $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create(
+                $share->getName()
+            )
+        );
     }
 
     public function testCreateKolabEmpty()
     {
-        $factory = $this->getKolabFactory();
+        self::createKolabSetup();
+        list($share, $other_share) = self::_createDefaultShares();
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $this->assertInstanceOf('Mnemo_Driver_Kolab', $factory->create(''));
+        $this->assertInstanceOf(
+            'Mnemo_Driver_Kolab',
+            $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create('')
+        );
     }
 }
