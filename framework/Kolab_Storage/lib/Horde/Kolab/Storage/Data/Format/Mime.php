@@ -110,9 +110,10 @@ implements Horde_Kolab_Storage_Data_Format
             } catch (Horde_Kolab_Format_Exception $e) {
                 throw new Horde_Kolab_Storage_Exception(
                     sprintf(
-                        'Failed parsing Kolab object %s in folder %s!',
+                        'Failed parsing Kolab object %s in folder %s: %s',
                         $obid,
-                        $folder
+                        $folder,
+                        $e->getMessage()
                     ),
                     0,
                     $e

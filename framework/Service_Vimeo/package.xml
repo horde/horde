@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-06</date>
- <time>23:55:05</time>
+ <date>2011-09-15</date>
+ <time>23:11:12</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0alpha1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -27,7 +27,14 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <file name="vimeo_example.php" role="doc" />
+    <dir name="Horde">
+     <dir name="Service">
+      <dir name="Vimeo">
+       <file name="COPYING" role="doc" />
+       <file name="vimeo_example.php" role="doc" />
+      </dir> <!-- /doc/Horde/Service/Vimeo -->
+     </dir> <!-- /doc/Horde/Service -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -62,7 +69,8 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="vimeo_example.php" name="doc/vimeo_example.php" />
+   <install as="COPYING" name="doc/Horde/Service/Vimeo/COPYING" />
+   <install as="vimeo_example.php" name="doc/Horde/Service/Vimeo/vimeo_example.php" />
    <install as="Horde/Service/Vimeo.php" name="lib/Horde/Service/Vimeo.php" />
    <install as="Horde/Service/Vimeo/Advanced.php" name="lib/Horde/Service/Vimeo/Advanced.php" />
    <install as="Horde/Service/Vimeo/Exception.php" name="lib/Horde/Service/Vimeo/Exception.php" />
@@ -76,13 +84,13 @@
     <api>1.0.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2011-03-06</date>
+   <date>2011-09-15</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* First alpha release for Horde 4.
+*
    </notes>
   </release>
  </changelog>

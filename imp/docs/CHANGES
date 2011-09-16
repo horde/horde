@@ -14,7 +14,7 @@ v5.0.12-git
 [mms] Add List-ID information, if available, to auto-reply notification.
 [mms] Display information on reply method in standard view, and allow for
       easy method switching, when automatically choosing the reply type.
-[mms] Fix generation of Save All attachments link in dynamic view.
+[mms] Fix generation of Save All attachments link.
 [mms] More intelligent quoting of flowed text messages sent in HTML format.
 [mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
 [mms] Always show image thumbnail previews, if an image conversion utility is

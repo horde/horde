@@ -58,7 +58,10 @@ class Whups_Mail
         }
 
         // Use the message subject as the ticket summary.
-        $info['summary'] = $headers->getValue('subject');
+        $info['summary'] = trim($headers->getValue('subject'));
+        if (empty($info['summary'])) {
+            $info['summary'] = _("[No Subject]");
+        }
         $from = $headers->getValue('from');
 
         // Format the message into a comment.

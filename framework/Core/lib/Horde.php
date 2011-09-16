@@ -1055,7 +1055,8 @@ HTML;
 
         if (isset($puri['path']) &&
             (substr($puri['path'], 0, 1) == '/') &&
-            !preg_match($schemeRegexp, $webroot)) {
+            (!preg_match($schemeRegexp, $webroot) ||
+             (preg_match($schemeRegexp, $webroot) && isset($puri['scheme'])))) {
             $url .= $puri['path'];
         } elseif (isset($puri['path']) && preg_match($schemeRegexp, $webroot)) {
             $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];

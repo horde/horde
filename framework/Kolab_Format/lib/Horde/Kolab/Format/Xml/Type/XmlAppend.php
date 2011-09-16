@@ -8,7 +8,7 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -24,39 +24,33 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Type_XmlAppend
+extends Horde_Kolab_Format_Xml_Type_Base
 {
     /**
-     * The XML document this object works with.
+     * Update the specified attribute.
      *
-     * @var DOMDocument
+     * @param string  $name        The name of the the attribute
+     *                             to be updated.
+     * @param array   $attributes  The data array that holds all
+     *                             attribute values.
+     * @param DOMNode $parent_node The parent node of the node that
+     *                             should be updated.
+     * @param array   $params      The parameters for this write operation.
+     *
+     * @return DOMNode|boolean The new/updated child node or false if this
+     *                         failed.
+     *
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    private $_xmldoc;
-
-    /**
-     * Constructor
-     */
-    public function __construct($xmldoc)
+    public function save($name, $attributes, $parent_node, $params = array())
     {
-        $this->_xmldoc = $xmldoc;
+        $this->checkParams($params, $name);
+        $value = $this->generateWriteValue($name, $attributes, $params);
+        return empty($value) ? false : $params['helper']->appendXml(
+            $parent_node, $value
+        );
     }
-
-    /**
-     * Create a node with raw XML content.
-     *
-     * @param DOMNode $parent The parent of the new node.
-     * @param string  $xml    The XML content.
-     *
-     * @return DOMNode The new node.
-     */
-    public function save($parent, $xml)
-    {
-        $node = $this->_xmldoc->createDocumentFragment();
-        $node->appendXML($xml);
-        $parent->appendChild($node);
-        return $node;
-    }
-
 }
