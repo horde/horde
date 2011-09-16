@@ -303,7 +303,7 @@ class Ansel_Tagger
      * @return array  An array of hashes, tag_id, tag_name, and count.
      * @throws Ansel_Exception
      */
-    public function getTagInfo($tags, $limit = 500, $type = null)
+    public function getTagInfo($tags = null, $limit = 500, $type = null)
     {
         $filter = array('typeId' => empty($type) ? array_values($this->_type_ids) : $this->_type_ids[$type],
                         'tagIds' => $tags,
