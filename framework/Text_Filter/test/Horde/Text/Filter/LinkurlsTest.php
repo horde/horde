@@ -78,4 +78,17 @@ class Horde_Text_Filter_LinkurlsTest extends PHPUnit_Framework_TestCase
             array('example.com/', 'example.com/'),
         );
     }
+
+    public function testBug10516()
+    {
+        $testText = '[http://example.com](http://example2.com)';
+
+        Horde_Text_Filter::filter($testText, 'linkurls');
+
+        $this->assertNotEquals(
+            2,
+            preg_last_error()
+        );
+    }
+
 }
