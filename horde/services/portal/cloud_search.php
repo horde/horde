@@ -37,10 +37,10 @@ echo '<div class="control"><strong>'
     . '(' . _("Hide Results") . ')</a></span></div><ul class="linedRow">';
 
 foreach ($results as $result) {
-    echo '<li class="linedRow">' .
+    echo '<li class="linedRow"><span style="width:50%" ' .
          Horde::img(Horde_Themes::img($result['app'] . '.png', $result['app'])) .
          Horde::link($result['view_url'], '', '', '', '', '', '', array('style' => 'margin:4px')) .
-         $result['title'] .
-         '</a><span style="font-style:italic;"><div style="margin-left:10px;font-style:italic">' . $result['desc'] . '</div></li>';
+         (empty($result['icon']) ? $result['title'] : '<img src="' . $result['icon'] . '" />') .
+         '</a></span><span style="width:50%;font-style:italic;">' . $result['desc'] . '</span></li>';
 }
 echo '</ul>';
