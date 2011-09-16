@@ -11,7 +11,6 @@
 HordeMap.Bing = Class.create(
 {
     getLayers: function(opts) {
-        console.log(HordeMap.conf);
         return {
             'streets': new OpenLayers.Layer.Bing({
                 'key': HordeMap.conf.apikeys['bing'],
