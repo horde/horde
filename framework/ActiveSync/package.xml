@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix syncing daily recurrence types.
 * [mjr] Support additional GAL fields (Bug #10504).
 * [mjr] Prevent broken clients from sending incoming changes with initial SYNC request (Bug #10461).
  </notes>
@@ -391,6 +392,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix syncing daily recurrence types.
 * [mjr] Support additional GAL fields (Bug #10504).
 * [mjr] Prevent broken clients from sending incoming changes with initial SYNC request (Bug #10461).
    </notes>
