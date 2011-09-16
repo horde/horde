@@ -224,7 +224,7 @@ $_prefs['default_share'] = array(
 $_prefs['sync_calendars'] = array(
     'value' => 'a:0:{}',
     'type' => 'multienum',
-    'desc' => _("Select the calendars that should be used for synchronization with external devices:"),
+    'desc' => _("Select the calendars that, in addition to the default, should be used for synchronization with external devices:"),
 );
 
 // Which drivers are we supposed to use to examine holidays?
