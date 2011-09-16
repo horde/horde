@@ -1009,29 +1009,39 @@ class Ansel_Api extends Horde_Registry_Api
                 $image = $GLOBALS['injector']
                     ->getInstance('Ansel_Storage')
                     ->getImage($image_id);
+                $g = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->getGallery($image->gallery);
                 $view_url = Ansel::getUrlFor('view',
                     array('gallery' => $image->gallery,
                     'image' => $image_id,
                     'view' => 'Image'),
                     true);
-                $return[] = array('title' => $image->filename,
-                                  'desc'=> $image->caption,
-                                  'view_url' => $view_url,
-                                  'app' => $app);
+                $gurl = Ansel::getUrlFor('view', array('view' => 'Gallery', 'gallery' => $image->gallery));
+                $return[] = array(
+                    'title' => $image->filename,
+                    'desc'=> $image->caption . ' '. _("from") . ' ' . $gurl->link() . $g->get('name') . '</a>',
+                    'view_url' => $view_url,
+                    'app' => $app,
+                    'icon' => Ansel::getImageUrl($image_id, 'mini'));
             }
-
         }
 
         if (!empty($results['galleries'])) {
             foreach ($results['galleries'] as $gallery) {
-                $gal = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery);
-                $view_url = Horde::url('view.php')->add(
+                $gal = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->getGallery($gallery);
+                $view_url = Horde::url('view.php')
+                    ->add(
                         array('gallery' => $gallery,
                               'view' => 'Gallery'));
-                $return[] = array('title' => $gal->get('name'),
-                                  'desc' => $gal->get('desc'),
-                                  'view_url' => $view_url,
-                                  'app' => $app);
+                $return[] = array(
+                    'title' => $gal->get('name'),
+                    'desc' => $gal->get('desc'),
+                    'view_url' => $view_url,
+                    'app' => $app,
+                    'icon' => Ansel::getImageUrl($gal0>getKeyImage(), 'mini'));
             }
         }
 
