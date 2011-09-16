@@ -42,7 +42,7 @@
 * [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
 * [mms] Add List-ID information, if available, to auto-reply notification.
 * [mms] Display information on reply method in standard view when automatically choosing the reply type.
-* [mms] Fix generation of Save All attachments link in dynamic view.
+* [mms] Fix generation of Save All attachments link.
 * [mms] More intelligent quoting of flowed text messages sent in HTML format.
 * [mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
 * [mms] More workarounds for broken suhosin extension (Bug #10462).
@@ -2455,7 +2455,7 @@
 * [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
 * [mms] Add List-ID information, if available, to auto-reply notification.
 * [mms] Display information on reply method in standard view when automatically choosing the reply type.
-* [mms] Fix generation of Save All attachments link in dynamic view.
+* [mms] Fix generation of Save All attachments link.
 * [mms] More intelligent quoting of flowed text messages sent in HTML format.
 * [mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
 * [mms] More workarounds for broken suhosin extension (Bug #10462).
