@@ -1036,12 +1036,12 @@ class Ansel_Api extends Horde_Registry_Api
                     ->add(
                         array('gallery' => $gallery,
                               'view' => 'Gallery'));
+                $gurl = Ansel::getUrlFor('view', array('view' => 'Gallery', 'gallery' => $gallery));
                 $return[] = array(
-                    'title' => $gal->get('name'),
-                    'desc' => $gal->get('desc'),
+                    'desc' => $gurl->link() . $gal->get('name') . '</a>',
                     'view_url' => $view_url,
                     'app' => $app,
-                    'icon' => Ansel::getImageUrl($gal0>getKeyImage(), 'mini'));
+                    'icon' => Ansel::getImageUrl($gal->getKeyImage(), 'mini'));
             }
         }
 
