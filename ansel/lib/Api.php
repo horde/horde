@@ -1006,9 +1006,9 @@ class Ansel_Api extends Horde_Registry_Api
         $return = array();
         if (!empty($results['images'])) {
             foreach ($results['images'] as $image_id) {
-                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
-                $desc = $image->caption;
-                $title = $image->filename;
+                $image = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->getImage($image_id);
                 $view_url = Ansel::getUrlFor('view',
                     array('gallery' => $image->gallery,
                     'image' => $image_id,
