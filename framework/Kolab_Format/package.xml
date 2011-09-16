@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-16</date>
- <time>05:54:05</time>
+ <time>08:55:23</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -82,6 +82,9 @@
          <dir name="CreationDate">
           <file name="V1.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/CreationDate -->
+         <dir name="DateTime">
+          <file name="V1.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/DateTime -->
          <file name="AutomaticDate.php" role="php" />
          <file name="Base.php" role="php" />
          <file name="Boolean.php" role="php" />
@@ -295,6 +298,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/Composite/Recurrence.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Recurrence.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" />
    <install as="Horde/Kolab/Format/Xml/Type/CreationDate/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/CreationDate/V1.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/DateTime/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/DateTime/V1.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />
