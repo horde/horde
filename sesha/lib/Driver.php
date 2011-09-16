@@ -34,8 +34,9 @@ abstract class Sesha_Driver
 
         $driver = basename($driver);
 
-        if (is_null($params))
+        if (is_null($params)) {
             $params = Horde::getDriverConfig('storage', $driver);
+        }
 
         $class = 'Sesha_Driver_' . $driver;
         if (class_exists($class)) {
