@@ -19,7 +19,7 @@ $property_id = $vars->get('property_id');
 $actionID = $vars->get('actionID');
 
 // Admin actions.
-$baseUrl = $registry->get('webroot', 'horde');
+$baseUrl = $registry->get('webroot', 'sesha');
 $adminurl = Horde::url($baseUrl . '/admin.php', true);
 $tabs = new Horde_Core_Ui_Tabs('actionID', $vars);
 $tabs->addTab(_("Manage Categories"), $adminurl, 'list_categories');
@@ -218,7 +218,7 @@ case 'list_categories':
     $url = Horde_Util::addParameter($baseUrl . '/admin.php', 'actionID', 'edit_category');
     $vars->set('actionID', 'edit_category');
     $renderer = new Horde_Form_Renderer();
-    $form = new CategoryListForm($vars, 'admin.php', 'post');
+    $form = new Sesha_Forms_CategoryList($vars, 'admin.php', 'post');
     $valid = $form->validate($vars);
     if ($valid) {
         // Redirect to the category list form.
@@ -227,7 +227,7 @@ case 'list_categories':
         exit;
     }
     $vars2 = Horde_Variables::getDefaultVariables();
-    $form2 = new CategoryForm($vars2, 'admin.php', 'post');
+    $form2 = new Sesha_Forms_Category($vars2, 'admin.php', 'post');
     $form2->setTitle(_("Add a new category"));
     $vars2->set('actionID', 'add_category');
     $valid = $form2->validate($vars2);
