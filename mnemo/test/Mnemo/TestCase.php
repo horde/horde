@@ -8,8 +8,8 @@
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Mnemo
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 
 /**
@@ -17,15 +17,15 @@
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license instorageion (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @category   Horde
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Mnemo
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 class Mnemo_TestCase
 extends PHPUnit_Framework_TestCase
