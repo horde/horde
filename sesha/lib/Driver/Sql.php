@@ -346,6 +346,10 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function getProperties($property_id = null)
     {
+        // catch empty case
+        if (empty($property_id)) {
+            return array();
+        }
         $sql = 'SELECT * FROM sesha_properties';
         if (is_array($property_id)) {
             $sql .= ' WHERE property_id IN (';
