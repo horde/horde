@@ -290,6 +290,23 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testFullUrl()
+    {
+        $GLOBALS['registry'] = new RegistryFull();
+        $GLOBALS['conf']['server']['name'] = 'www.example.com';
+        $GLOBALS['conf']['use_ssl'] = 1;
+
+        $this->assertEquals(
+            'http://www.example.com/hordeurl/foo?PHPSESSID',
+            (string)Horde::url('foo'));
+        $this->assertEquals(
+            'http://www.example.com/hordeurl/foo',
+            (string)Horde::url('foo', true, array('append_session' => -1)));
+        $this->assertEquals(
+            'http://www.example.com/hordeurl/foo/bar',
+            (string)Horde::url('http://www.example.com/hordeurl/foo/bar', true, array('append_session' => -1)));
+    }
+
     public function testBug9712()
     {
         $GLOBALS['registry'] = new Registry();
@@ -377,14 +394,24 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Registry {
+class Registry
+{
     public function get()
     {
         return '/hordeurl';
     }
 }
 
-class Browser {
+class RegistryFull
+{
+    public function get()
+    {
+        return 'http://www.example.com/hordeurl';
+    }
+}
+
+class Browser
+{
     public function hasQuirk()
     {
         return false;
