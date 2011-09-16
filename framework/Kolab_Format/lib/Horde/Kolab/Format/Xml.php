@@ -234,7 +234,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
         $this->_refreshParser();
        
         $params = $this->_getParameters($options);
-        $this->_getRoot()->load(
+        $this->_getRoot($params)->load(
             $this->_root_name, $object, $this->_xmldoc, $params
         );
         return $object;
