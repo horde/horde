@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles the creation date attribute.
+ * Handles api version 1 of the creation date attribute.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Handles the creation date attribute.
+ * Handles api version 1 of the creation date attribute.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -29,7 +29,7 @@
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Type_CreationDate_V1
-extends Horde_Kolab_Format_Xml_Type_AutomaticDate
+extends Horde_Kolab_Format_Xml_Type_AutomaticDate_V1
 {
     /**
      * Update the specified attribute.

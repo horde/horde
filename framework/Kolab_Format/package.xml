@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-09-15</date>
- <time>20:32:49</time>
+ <date>2011-09-16</date>
+ <time>05:54:05</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -67,6 +67,9 @@
        </dir> <!-- /lib/Horde/Kolab/Format/Exception -->
        <dir name="Xml">
         <dir name="Type">
+         <dir name="AutomaticDate">
+          <file name="V1.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/AutomaticDate -->
          <dir name="Composite">
           <file name="Address.php" role="php" />
           <file name="Attendee.php" role="php" />
@@ -283,6 +286,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/String.php" name="lib/Horde/Kolab/Format/Xml/Type/String.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Uid.php" name="lib/Horde/Kolab/Format/Xml/Type/Uid.php" />
    <install as="Horde/Kolab/Format/Xml/Type/XmlAppend.php" name="lib/Horde/Kolab/Format/Xml/Type/XmlAppend.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/AutomaticDate/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/AutomaticDate/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Composite/Address.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Address.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Composite/Attendee.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Attendee.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Composite/Name.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/Name.php" />
@@ -428,7 +432,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-09-15</date>
+   <date>2011-09-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Moved Horde specific functionality out of the events parser.

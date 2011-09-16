@@ -68,6 +68,37 @@ extends Horde_Kolab_Format_TestCase
         );
     }
 
+    public function testRoundtripWithPrevious()
+    {
+        $xml = $this->_getPlain();
+        $first = $xml->save(array(), array('relaxed' => true));
+        $second = $xml->save(
+            $xml->load($first, array('relaxed' => true)),
+            array('relaxed' => true, 'previous' => $first)
+        );
+        $this->assertEquals(
+            $this->removeLastModification($first),
+            $this->removeLastModification($second)
+        );
+    }
+
+    public function testRoundtripWithPreviousOnApiV1()
+    {
+        $xml = new Horde_Kolab_Format_Xml(
+            new Horde_Kolab_Format_Xml_Parser(
+                new DOMDocument('1.0', 'UTF-8')
+            ),
+            new Horde_Kolab_Format_Factory(),
+            array('version' => 1)
+        );
+        $first = $xml->save(array('uid' => 1));
+        $second = $xml->save($xml->load($first));
+        $this->assertEquals(
+            $this->removeLastModification($first),
+            $this->removeLastModification($second)
+        );
+    }
+
     public function testReload()
     {
         $xml = $this->_getPlain();
