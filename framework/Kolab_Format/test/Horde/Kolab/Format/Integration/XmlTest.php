@@ -33,7 +33,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Integration_XmlTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
     public function testBasic()
     {
@@ -62,10 +62,13 @@ extends PHPUnit_Framework_TestCase
             $xml->load($first, array('relaxed' => true)),
             array('relaxed' => true)
         );
-        $this->assertEquals($first, $second);
+        $this->assertEquals(
+            $this->removeLastModification($first),
+            $this->removeLastModification($second)
+        );
     }
 
-    public function testReleod()
+    public function testReload()
     {
         $xml = $this->_getPlain();
         $cdate = new DateTime('1970-01-01T00:00:00Z');
