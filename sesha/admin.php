@@ -21,7 +21,7 @@ $actionID = $vars->get('actionID');
 // Admin actions.
 $baseUrl = $registry->get('webroot', 'horde');
 $adminurl = Horde::url($baseUrl . '/admin.php', true);
-$tabs = new Horde_Ui_Tabs('actionID', $vars);
+$tabs = new Horde_Core_Ui_Tabs('actionID', $vars);
 $tabs->addTab(_("Manage Categories"), $adminurl, 'list_categories');
 $tabs->addTab(_("Manage Properties"), $adminurl, 'list_properties');
 
