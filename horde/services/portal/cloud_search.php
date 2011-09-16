@@ -37,7 +37,7 @@ echo '<div class="control"><strong>'
     . '(' . _("Hide Results") . ')</a></span></div><ul class="linedRow">';
 
 foreach ($results as $result) {
-    echo '<li class="linedRow"><span style="width:50%" ' .
+    echo '<li class="linedRow"><span style="width:50%"> ' .
          Horde::img(Horde_Themes::img($result['app'] . '.png', $result['app'])) .
          Horde::link($result['view_url'], '', '', '', '', '', '', array('style' => 'margin:4px')) .
          (empty($result['icon']) ? $result['title'] : '<img src="' . $result['icon'] . '" />') .
