@@ -89,6 +89,9 @@ class Horde_Themes_Css
             ? $opts['theme']
             : $prefs->getValue('theme');
         $css = $this->getStylesheets($theme, $opts);
+        if (!count($css)) {
+            return array();
+        }
 
         $cache_type = !empty($opts['nocache']) || empty($conf['cachecss'])
             ? 'none'

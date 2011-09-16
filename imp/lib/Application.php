@@ -561,6 +561,7 @@ class IMP_Application extends Horde_Registry_Application
         $imaptree = $injector->getInstance('IMP_Imap_Tree');
         $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
         $imaptree->createTree($tree, array(
+            'open' => false,
             'parent' => $parent,
             'poll_info' => true
         ));

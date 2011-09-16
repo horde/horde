@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] The current default calendar is always included in the sync_calendars pref.
 * [mjr] Ensure exception gets start and end times when created from month view (Bug #10496)
 * [jan] Update group permission when changing group down list in basic permissions (Bug #10482).
 * [jan] Fix race condition when editing group permission in basic permission screen (Bug #10482).
@@ -1885,6 +1886,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] The current default calendar is always included in the sync_calendars pref.
 * [mjr] Ensure exception gets start and end times when created from month view (Bug #10496)
 * [jan] Update group permission when changing group down list in basic permissions (Bug #10482).
 * [jan] Fix race condition when editing group permission in basic permission screen (Bug #10482).

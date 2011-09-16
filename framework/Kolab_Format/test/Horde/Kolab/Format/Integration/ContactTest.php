@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -30,98 +30,112 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Integration_ContactTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Kolab_Format_TestCase
 {
-    /**
-     * Test storing single mail addresses.
-     *
-     * @return NULL
-     */
     public function testSingleEmail()
     {
-        $contact = $this->_getContactDummy();
-        $object  = array('uid' => '1',
-                         'full-name' => 'User Name',
-                         'email' => 'user@example.org');
+        $contact = $this->_getContact();
+        $object  = array(
+            'uid' => '1',
+            'name' => array(
+                'full-name' => 'User Name',
+            ),
+            'email' => array(
+                array(
+                    'smtp-address' => 'user@example.org',
+                    'display-name' => 'User Name'
+                )
+            ),
+            'creation-date' => new DateTime('1970-01-01T00:00:00Z')
+        );
         $xml     = $contact->save($object);
         $expect  = file_get_contents(dirname(__FILE__)
-                                     . '/fixtures/contact_mail.xml');
-        $this->assertEquals($expect, $xml);
+                                     . '/../fixtures/contact_mail.xml');
+        $this->assertEquals(
+            $this->removeLastModification($expect),
+            $this->removeLastModification($xml)
+        );
     }
 
-    /**
-     * Test storing PGP public keys.
-     *
-     * @return NULL
-     */
-    public function testPGP()
+    public function testPgp()
     {
-        $contact = $this->_getContactDummy();
-        $object  = array('uid' => '1',
-                         'full-name' => 'User Name',
-                         'pgp-publickey' => 'PGP Test Key',
-                         'email' => 'user@example.org');
+        $contact = $this->_getContact();
+        $object  = array(
+            'uid' => '1',
+            'name' => array(
+                'full-name' => 'User Name',
+            ),
+            'pgp-publickey' => 'PGP Test Key',
+            'email' => array(
+                array(
+                    'smtp-address' => 'user@example.org',
+                    'display-name' => 'User Name'
+                )
+            ),
+            'creation-date' => new DateTime('1970-01-01T00:00:00Z')
+        );
         $xml     = $contact->save($object);
         $expect  = file_get_contents(dirname(__FILE__)
-                                     . '/fixtures/contact_pgp.xml');
-        $this->assertEquals($expect, $xml);
+                                     . '/../fixtures/contact_pgp.xml');
+        $this->assertEquals(
+            $this->removeLastModification($expect),
+            $this->removeLastModification($xml)
+        );
     }
 
-    /**
-     * Test loading a contact with a category.
-     *
-     * @return NULL
-     */
     public function testCategories()
     {
-        $contact = $this->_getContactDummy();
+        $contact = $this->_getContact();
         $xml     = file_get_contents(dirname(__FILE__)
-                                     . '/fixtures/contact_category.xml');
+                                     . '/../fixtures/contact_category.xml');
         $object  = $contact->load($xml);
-        $this->assertContains('Test', $object['categories']);
-
-        $object = $contact->load($xml);
         $this->assertContains('Test', $object['categories']);
     }
 
     public function testUtf8()
     {
-        $contact = $this->_getContactDummy();
-        $xml = file_get_contents(dirname(__FILE__) . '/fixtures/contact-kyr.xml');
+        $contact = $this->_getContact();
+        $xml = file_get_contents(dirname(__FILE__) . '/../fixtures/contact-kyr.xml');
 
         $object = $contact->load($xml);
-        $this->assertEquals('леле  Какакака', $object['full-name']);
+        $this->assertEquals('леле  Какакака', $object['name']['full-name']);
     }
 
-    /* /\** */
-    /*  * Test loading a contact with a category with preferences. */
-    /*  * */
-    /*  * @return NULL */
-    /*  *\/ */
-    /* public function testCategoriesWithPrefs() */
-    /* { */
-    /*     if (class_exists('Horde_Prefs')) { */
-    /*         /\* Monkey patch to allw the value to be set. *\/ */
-    /*         $prefs->_prefs['categories'] = array('v' => ''); */
+    public function testAddresses()
+    {
+        $contact = $this->_getContact();
+        $xml = file_get_contents(dirname(__FILE__) . '/../fixtures/contact_address.xml');
 
-    /*         $contact = new Horde_Kolab_Format_Xml_Contact( */
-    /*             new Horde_Kolab_Format_Xml_Parser( */
-    /*                 new DOMDocument('1.0', 'UTF-8') */
-    /*             ) */
-    /*         ); */
-    /*         $xml     = file_get_contents(dirname(__FILE__) */
-    /*                                      . '/fixtures/contact_category.xml'); */
-    /*         $object  = $contact->load($xml); */
-    /*         $this->assertContains('Test', $object['categories']); */
-    /*     } */
-    /* } */
+        $object = $contact->load($xml);
+        $this->assertEquals(
+            array(
+                array(
+                    'type' => 'business',
+                    'street' => 'Blumenlandstr. 1',
+                    'locality' => 'Güldenburg',
+                    'region' => 'Nordrhein-Westfalen',
+                    'postal-code' => '12345',
+                    'country' => 'DE',
+                ),
+                array(
+                    'type' => 'home',
+                    'street' => 'WölkchenКакакака 1',
+                    'locality' => '&',
+                    'region' => 'SOMEWHERE',
+                    'postal-code' => '12345',
+                    'country' => 'US',
+                )
+            ),
+            $object['address']
+        );
+    }
 
-    private function _getContactDummy()
+    private function _getContact()
     {
         $factory = new Horde_Kolab_Format_Factory();
-        return $factory->create('Xml', 'ContactDummy');
+        return $factory->create('Xml', 'Contact');
     }
 }

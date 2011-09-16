@@ -8,8 +8,8 @@
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Mnemo
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 
 $mappings = array('Mnemo' => dirname(__FILE__) . '/../../lib/');

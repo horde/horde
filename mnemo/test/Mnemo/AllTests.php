@@ -8,8 +8,8 @@
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Mnemo
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 
 /**
@@ -27,12 +27,17 @@ require_once 'Horde/Test/AllTests.php';
 /**
  * All tests for the Mnemo:: package.
  *
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
  * @category   Horde
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Mnemo
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 class Mnemo_AllTests extends Horde_Test_AllTests
 {

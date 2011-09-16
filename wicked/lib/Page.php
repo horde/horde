@@ -410,11 +410,10 @@ class Wicked_Page
         /* Use a non-printable delimiter character that is still a valid UTF-8
          * character. See http://pear.php.net/bugs/bug.php?id=12490. */
         $this->_proc->delim = chr(1);
+        $this->_proc->setParseConf('Wikilink', 'utf-8', true);
 
         if ($output_format == 'Xhtml') {
             /* Override rules */
-            $this->_proc->insertRule('Image2', 'Image');
-            $this->_proc->deleteRule('Image');
             if ($GLOBALS['conf']['wicked']['format'] == 'Default') {
                 $this->_proc->insertRule('Code2', 'Code');
                 $this->_proc->deleteRule('Code');
@@ -422,17 +421,23 @@ class Wicked_Page
                 $this->_proc->insertRule('Wickedblock', 'Code2');
 
                 $this->_proc->insertRule('Wikilink2', 'Wikilink');
+                $this->_proc->setParseConf('Wikilink2', 'utf-8', true);
                 $this->_proc->deleteRule('Wikilink');
 
                 $this->_proc->insertRule('Freelink2', 'Freelink');
                 $this->_proc->deleteRule('Freelink');
 
-                $this->_proc->insertRule('RegistryLink', 'Toc');
-                $this->_proc->insertRule('Attribute', 'RegistryLink');
-
                 $this->_proc->deleteRule('Include');
                 $this->_proc->deleteRule('Embed');
+            } else {
+                $this->_proc->insertRule('Wickedblock', 'Code');
             }
+
+            $this->_proc->insertRule('Image2', 'Image');
+            $this->_proc->deleteRule('Image');
+
+            $this->_proc->insertRule('RegistryLink', 'Toc');
+            $this->_proc->insertRule('Attribute', 'RegistryLink');
 
             $this->_proc->setFormatConf('Xhtml', 'charset', 'UTF-8');
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);

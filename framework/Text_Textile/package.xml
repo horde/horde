@@ -10,10 +10,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-06</date>
- <time>23:29:41</time>
+ <date>2011-09-15</date>
+ <time>23:10:29</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0alpha1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,10 +22,19 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-*
+* Initial Horde 4 package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Textile">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Text/Textile -->
+     </dir> <!-- /doc/Horde/Text -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Text">
@@ -50,7 +59,6 @@
      </dir> <!-- /test/Horde/Text -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="LICENSE" role="data" />
    <file name="README" role="data" />
   </dir> <!-- / -->
  </contents>
@@ -66,6 +74,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Text/Textile/COPYING" />
    <install as="Horde/Text/Textile.php" name="lib/Horde/Text/Textile.php" />
    <install as="Horde/Text/Textile/AllTests.php" name="test/Horde/Text/Textile/AllTests.php" />
    <install as="Horde/Text/Textile/AttributesTest.php" name="test/Horde/Text/Textile/AttributesTest.php" />
@@ -76,37 +85,20 @@
    <install as="Horde/Text/Textile/TablesTest.php" name="test/Horde/Text/Textile/TablesTest.php" />
    <install as="Horde/Text/Textile/TestCase.php" name="test/Horde/Text/Textile/TestCase.php" />
    <install as="Horde/Text/Textile/WritingTest.php" name="test/Horde/Text/Textile/WritingTest.php" />
-   <install as="LICENSE" name="LICENSE" />
    <install as="README" name="README" />
   </filelist>
  </phprelease>
  <changelog>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-06</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
-   <notes>
-* Initial release.
-* Add return links to footnotes
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2011-03-06</date>
+   <date>2011-09-15</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial Horde 4 package.

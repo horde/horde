@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -30,7 +30,7 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Unit_FactoryTest
 extends PHPUnit_Framework_TestCase
@@ -134,4 +134,57 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testTypeFactory()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Stub_Types',
+            $factory->createXmlType('Horde_Kolab_Format_Stub_Types')
+        );
+    }
+
+    public function testTypeFactoryV1()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Stub_Types_V1',
+            $factory->createXmlType(
+                'Horde_Kolab_Format_Stub_Types',
+                array('api-version' => 1)
+            )
+        );
+    }
+
+    public function testTypeFactoryV2()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Stub_Types_V2',
+            $factory->createXmlType(
+                'Horde_Kolab_Format_Stub_Types',
+                array('api-version' => 2)
+            )
+        );
+    }
+
+    public function testTypeFactoryV3()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $this->assertInstanceOf(
+            'Horde_Kolab_Format_Stub_Types',
+            $factory->createXmlType(
+                'Horde_Kolab_Format_Stub_Types',
+                array('api-version' => 3)
+            )
+        );
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Format_Exception
+     */
+    public function testTypeMissing()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $factory->createXmlType('Horde_Kolab_Format_Stub_Types_NOSUCH');
+    }
 }

@@ -433,8 +433,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $response = $this->_saveEvent($event);
         if (!in_array($response->code, array(200, 201, 204))) {
-            Horde::logMessage(sprintf('Failed to create event on remote calendar: url = "%s", status = %s',
-                                      $url, $response->code), 'INFO');
+            Horde::logMessage(sprintf('Failed to create event on remote calendar: status = %s',
+                                      $response->code), 'INFO');
             throw new Kronolith_Exception(_("The event could not be added to the remote server."));
         }
         return $event->id;

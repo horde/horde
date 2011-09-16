@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -25,7 +25,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_TestCase
 extends PHPUnit_Framework_TestCase
@@ -38,5 +38,116 @@ extends PHPUnit_Framework_TestCase
             $this->_factory = new Horde_Kolab_Format_Factory();
         }
         return $this->_factory;
+    }
+
+    protected function removeLastModification($text)
+    {
+        return preg_replace(
+            '#<last-modification-date>.*</last-modification-date>#',
+            '',
+            $text
+        );
+    }
+
+    protected function getXmlType(
+        $type,
+        $previous = null,
+        $kolab_type = 'kolab',
+        $version = '1.0'
+    )
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $doc = new DOMDocument('1.0', 'UTF-8');
+        if ($previous !== null) {
+            $doc->loadXML($previous);
+            $helper = $factory->createXmlHelper($doc);
+            $root_node = $helper->findNode('/' . $kolab_type);
+        } else {
+            $helper = $factory->createXmlHelper($doc);
+            $root_node = $helper->createNewNode($doc, $kolab_type);
+            $root_node->setAttribute('version', $version);
+        }
+        $type = $factory->createXmlType($type);
+        $params = array('helper' => $helper);
+        return array($params, $root_node, $type);
+    }
+
+    protected function load($previous, $params = array())
+    {
+        list($params, $root_node, $type) = $this->getTestType(
+            $previous, $params
+        );
+        $attributes = array();
+        $type->load(
+            $this->getElement($params), $attributes, $root_node, $params
+        );
+        return $attributes;
+    }
+
+    protected function saveToXml(
+        $previous = null, $attributes = array(), $params = array()
+    )
+    {
+        list($params, $root_node, $type) = $this->getTestType(
+            $previous, $params
+        );
+        $type->save(
+            $this->getElement($params), $attributes, $root_node, $params
+        );
+        return (string)$params['helper'];
+    }
+
+    protected function saveToReturn(
+        $previous = null, $attributes = array(), $params = array()
+    )
+    {
+        list($params, $root_node, $type) = $this->getTestType(
+            $previous, $params
+        );
+        return $type->save(
+            $this->getElement($params), $attributes, $root_node, $params
+        );
+    }
+
+    protected function getTestType($previous, &$params)
+    {
+        if (isset($params['kolab_type'])) {
+            $kolab_type = $params['kolab_type'];
+            unset($params['kolab_type']);
+        } else {
+            $kolab_type = 'kolab';
+        }
+        if (isset($params['version'])) {
+            $version = $params['version'];
+            unset($params['version']);
+        } else {
+            $version = '1.0';
+        }
+        list($type_params, $root_node, $type) = $this->getXmlType(
+            $this->getTypeClass(),
+            $previous,
+            $kolab_type,
+            $version
+        );
+        $params = array_merge($type_params, $params);
+        return array($params, $root_node, $type);
+    }
+
+    protected function getElement(&$params)
+    {
+        if (isset($params['element'])) {
+            $element = $params['element'];
+            unset($params['element']);
+            return $element;
+        } else {
+            $elements = explode('_', $this->getTypeClass());
+            $element = strtolower(array_pop($elements));
+            return $element;
+        }
+    }
+
+    protected function getTypeClass()
+    {
+        throw new Exception('Override!');
     }
 }

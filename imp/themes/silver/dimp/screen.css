@@ -166,7 +166,7 @@ span.dimpactionResume {
     background-image: url("../graphics/newwin.png");
 }
 
-#qsearch_icon {
+#qsearch span.searchImg {
     background-image: url("../graphics/search.png");
 }
 

@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -37,7 +37,7 @@ require_once 'Horde/Test/AllTests.php';
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Format
+ * @link       http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_AllTests extends Horde_Test_AllTests
 {

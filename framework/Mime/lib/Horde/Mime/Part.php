@@ -2,7 +2,6 @@
 /**
  * This class provides an object-oriented representation of a MIME part
  * (defined by RFC 2045).
- * methods for dealing with them.
  *
  * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
@@ -1396,22 +1395,38 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Determine the size of this MIME part and its child members.
      *
+     * @param boolean $approx  If true, determines an approximate size for
+     *                         parts consisting of base64 encoded data (since
+     *                         1.1.0).
+     *
      * @return integer  Size of the part, in bytes.
      */
-    public function getBytes()
+    public function getBytes($approx = false)
     {
         $bytes = 0;
 
         if (isset($this->_bytes)) {
             $bytes = $this->_bytes;
+
+            /* Base64 transfer encoding is approx. 33% larger than original
+             * data size (RFC 2045 [6.8]). */
+            if ($approx && ($this->_transferEncoding == 'base64')) {
+                $bytes *= 0.75;
+            }
         } elseif ($this->getPrimaryType() == 'multipart') {
             reset($this->_parts);
             while (list(,$part) = each($this->_parts)) {
-                $bytes += $part->getBytes();
+                $bytes += $part->getBytes($approx);
             }
         } elseif ($this->_contents) {
             fseek($this->_contents, 0, SEEK_END);
             $bytes = ftell($this->_contents);
+
+            /* Base64 transfer encoding is approx. 33% larger than original
+             * data size (RFC 2045 [6.8]). */
+            if ($approx && ($this->_transferEncoding == 'base64')) {
+                $bytes *= 0.75;
+            }
         }
 
         return $bytes;
@@ -1435,13 +1450,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Output the size of this MIME part in KB.
      *
+     * @param boolean $approx  If true, determines an approximate size for
+     *                         parts consisting of base64 encoded data (since
+     *                         1.1.0).
+     *
      * @return string  Size of the part, in string format.
      */
-    public function getSize()
+    public function getSize($approx = false)
     {
-        $bytes = $this->getBytes();
-        if (empty($bytes)) {
-            return $bytes;
+        if (!($bytes = $this->getBytes($approx))) {
+            return 0;
         }
 
         $localeinfo = Horde_Nls::getLocaleInfo();

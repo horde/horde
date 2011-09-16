@@ -119,7 +119,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      <div class="dimpActions">
 <?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
       <div id="qsearch">
-       <span class="iconImg" id="qsearch_icon"></span>
+       <span id="qsearch_icon">
+        <span class="iconImg searchImg"></span>
+        <span class="iconImg popdownImg"></span>
+       </span>
        <form action="#" method="post">
         <input autocomplete="off" id="qsearch_input" type="text" />
        </form>

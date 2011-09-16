@@ -9,7 +9,7 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -27,44 +27,37 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Note extends Horde_Kolab_Format_Xml
 {
     /**
-     * Specific data fields for the note object
+     * The name of the root element.
+     *
+     * @var string
+     */
+    protected $_root_name = 'note';
+
+    /**
+     * Specific data fields for the prefs object
      *
      * @var Kolab
      */
-    protected $_fields_specific;
-
-    /**
-     * Constructor
-     */
-    public function __construct($parser, $params = array())
-    {
-        $this->_root_name = 'note';
-
-        /** Specific note fields, in kolab format specification order
-         */
-        $this->_fields_specific = array(
-            'summary' => array(
-                'type'    => self::TYPE_STRING,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '',
-            ),
-            'background-color' => array(
-                'type'    => self::TYPE_COLOR,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '#000000',
-            ),
-            'foreground-color' => array(
-                'type'    => self::TYPE_COLOR,
-                'value'   => self::VALUE_DEFAULT,
-                'default' => '#ffff00',
-            ),
-        );
-
-        parent::__construct($parser, $params);
-    }
+    protected $_fields_specific = array(
+        'summary' => array(
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_DEFAULT,
+            'default' => '',
+        ),
+        'background-color' => array(
+            'type'    => self::TYPE_COLOR,
+            'value'   => self::VALUE_DEFAULT,
+            'default' => '#000000',
+        ),
+        'foreground-color' => array(
+            'type'    => self::TYPE_COLOR,
+            'value'   => self::VALUE_DEFAULT,
+            'default' => '#ffff00',
+        ),
+    );
 }

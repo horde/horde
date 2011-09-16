@@ -14,7 +14,7 @@
 /**
  * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Autoloader.php';
+require_once 'Horde/Autoloader/Default.php';
 
 /**
  * Kolab XML handler for a string value
@@ -38,12 +38,12 @@ class Horde_Kolab_Format_Xml_String extends Horde_Kolab_Format_Xml
      *
      * @var Kolab
      */
-    var $_fields_specific;
+    protected $_fields_specific;
 
     /**
      * Constructor
      */
-    function __construct()
+    public function __construct($parser, $params = array())
     {
         $this->_root_name = 'string';
 
@@ -56,12 +56,15 @@ class Horde_Kolab_Format_Xml_String extends Horde_Kolab_Format_Xml
             ),
         );
 
-        parent::__construct();
+        parent::__construct($parser, $params);
     }
 }
 
+/** Create the factory */
+$factory = new Horde_Kolab_Format_Factory();
+
 /** Generate the format handler */
-$format = Horde_Kolab_Format::factory('Xml', 'String');
+$format = $factory->create('Xml', 'String');
 
 /** Prepare a test object */
 $object = array(

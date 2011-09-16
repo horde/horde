@@ -219,7 +219,7 @@ class Horde_Imap_Client_Utils
         // Rule 1b: Remove superfluous whitespace.
         $str = preg_replace("/[\t\r\n ]+/", ' ', $str);
 
-        if (!$str) {
+        if (!strlen($str)) {
             return '';
         }
 

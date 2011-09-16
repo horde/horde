@@ -16,7 +16,9 @@ class Horde_Controller_Runner
         $this->_logger = $logger;
     }
 
-    public function execute(Horde_Injector $injector, Horde_Controller_Request $request, Horde_Controller_RequestConfiguration $config)
+    public function execute(Horde_Injector $injector,
+                            Horde_Controller_Request $request,
+                            Horde_Controller_RequestConfiguration $config)
     {
         $this->_logger->debug('RequestConfiguration in Horde_Controller_Runner: ' . print_r($config, true));
 

@@ -47,7 +47,7 @@ extends Horde_Pear_TestCase
 
     public function testLicense()
     {
-        $this->assertEquals('LGPL', $this->_getPackage()->getLicense());
+        $this->assertEquals('LGPL-2.1', $this->_getPackage()->getLicense());
     }
 
     public function testSummary()
