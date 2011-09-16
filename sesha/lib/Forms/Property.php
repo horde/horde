@@ -8,11 +8,11 @@
  * @author  Bo Daley <bo@darkwork.net>
  * @package Sesha
  */
-class PropertyForm extends Horde_Form
+class Sesha_Forms_Property extends Horde_Form
 {
-    function PropertyForm(&$vars)
+    function __construct($vars)
     {
-        parent::Horde_Form($vars);
+        parent::__construct($vars);
 
         $this->appendButtons(_("Save Property"));
 
@@ -31,9 +31,8 @@ class PropertyForm extends Horde_Form
         $this->addHidden('', 'property_id', 'text', false, false, null);
         $this->addVariable(_("Property Name"), 'property', 'text', true);
 
-        require_once 'Horde/Form/Action.php';
         $action = Horde_Form_Action::factory('submit');
-        $v = &$this->addVariable(_("Data Type"), 'datatype', 'enum', true, false, null, array($types, true));
+        $v = $this->addVariable(_("Data Type"), 'datatype', 'enum', true, false, null, array($types, true));
         $v->setAction($action);
         $v->setOption('trackchange', true);
 
@@ -42,13 +41,13 @@ class PropertyForm extends Horde_Form
         $this->addVariable(_("Sort Weight"), 'priority', 'enum', false, false, _("When properties are displayed, they will be shown in weight order from highest to lowest"), array($priorities));
     }
 
-    function validate(&$vars)
+    function validate($vars)
     {
         $this->_addParameters($vars);
         return parent::validate($vars);
     }
 
-    function renderActive(&$renderer, &$vars, $action, $method = 'get', $enctype = null, $focus = true)
+    function renderActive($renderer, &$vars, $action, $method = 'get', $enctype = null, $focus = true)
     {
         if ($vars->get('old_datatype') === null) {
             $this->_addParameters($vars);
@@ -89,46 +88,3 @@ class PropertyForm extends Horde_Form
     }
 }
 
-class PropertyListForm extends Horde_Form
-{
-    function PropertyListForm(&$vars)
-    {
-        parent::Horde_Form($vars);
-        $this->setButtons(array(_("Edit Property"), _("Delete Property")));
-        $properties = $GLOBALS['backend']->getProperties();
-        $params = array();
-        foreach ($properties as $property_id => $property) {
-            $params[$property_id] = $property['property'];
-        }
-        $title = !empty($title) ? $title : _("Edit a property");
-        $this->setTitle($title);
-
-        $this->addHidden('', 'actionID', 'text', false, false, null, array('edit_property'));
-        if (!count($params)) {
-            $fieldtype = 'invalid';
-            $params = _("No properties are currently configured. Use the form below to add one.");
-        } else {
-            $fieldtype = 'enum';
-        }
-        $this->addVariable(_("Property"), 'property_id', $fieldtype, true, false, null, array($params));
-    }
-
-}
-
-class PropertyDeleteForm extends Horde_Form
-{
-    function PropertyDeleteForm(&$vars)
-    {
-        parent::Horde_Form($vars);
-
-        $this->appendButtons(_("Delete Property"));
-        $params = array('yes' => _("Yes"),
-                        'no' => _("No"));
-        $desc = _("Really delete this property?");
-
-        $this->addHidden('', 'actionID', 'text', false, false, null, array('delete_property'));
-        $this->addHidden('', 'property_id', 'text', false, false, null);
-        $this->addVariable(_("Confirm"), 'confirm', 'enum', true, false, $desc, array($params));
-    }
-
-}
