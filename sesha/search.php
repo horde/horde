@@ -5,14 +5,14 @@
  * things.
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
+ * Copyright 2011 Horce LLC http://www.horde.org
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-@define('SESHA_BASE', dirname(__FILE__));
-require_once SESHA_BASE . '/lib/base.php';
-require_once SESHA_BASE . '/lib/Forms/Search.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('sesha');
 
 // Page variables.
 $title = _("Search Inventory");
@@ -25,7 +25,8 @@ $form = new SearchForm($vars);
 $vars->set('location', array(SESHA_SEARCH_NAME));
 
 // Page display.
-require_once SESHA_TEMPLATES . '/common-header.inc';
-require_once SESHA_TEMPLATES . '/menu.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
 $form->renderActive($renderer, $vars, 'list.php', 'post');
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/common-footer.inc';
