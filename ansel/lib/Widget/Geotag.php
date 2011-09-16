@@ -157,20 +157,30 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 $addurl = Horde::url('map_edit.php')->add(
                     'image',
                     $this->_params['images'][0]);
-                $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::url('map_edit.php'), array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
-                $imgs = $ansel_storage->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
+                $addLink = $addurl->link(
+                    array('onclick' => Horde::popupJs(
+                        Horde::url('map_edit.php'),
+                        array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600'))
+                    . 'return false;'));
+
+                $imgs = $ansel_storage
+                    ->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
                 if (count($imgs) > 0) {
                     $imgsrc = '<div class="ansel_location_sameas">';
                     foreach ($imgs as $id => $data) {
                         if (!empty($data['image_location'])) {
                             $title = $data['image_location'];
                         } else {
-                            $title = $this->_point2Deg($data['image_latitude'], true) . ' ' . $this->_point2Deg($data['image_longitude']);
+                            $title = $this->_point2Deg($data['image_latitude'], true)
+                                . ' '
+                                . $this->_point2Deg($data['image_longitude']);
                         }
                         $imgsrc .= $addurl->link(
-                                    array('title' => $title,
-                                          'onclick' => "Ansel.widgets.geotag.setLocation(" . $id . ",'" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "');return false"))
-                                . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[image]" /></a>';
+                            array('
+                                title' => $title,
+                                'onclick' => "Ansel.widgets.geotag.setLocation(" . $image_id . ",'" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "'); return false"
+                            ))
+                            . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[image]" /></a>';
                     }
                     $imgsrc .= '</div>';
                     $content .= sprintf(_("No location data present. Place using %s map %s or click on image to place at the same location."), $addLink, '</a>') . $imgsrc;
@@ -211,7 +221,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         );
 EOT;
         if (empty($noGeotag)) {
-            $html .= "\n" . 'Event.observe(window, "load", function() {Ansel.widgets.geotag.doMap();});' . "\n";
+            $html .= "\n" . 'Event.observe(window, "load", function() { Ansel.widgets.geotag.doMap(); });' . "\n";
         }
         $html .= '</script>' . "\n";
         $html .= $content. $this->_htmlEnd();
