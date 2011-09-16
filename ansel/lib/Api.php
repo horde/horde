@@ -959,7 +959,7 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @return array  An array containing tag_name, and total
      */
-    public function getTagInfo($tags = null)
+    public function listTagInfo($tags = null)
     {
         return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTagInfo($tags);
     }
@@ -972,9 +972,9 @@ class Ansel_Api extends Horde_Registry_Api
      * The 'raw' results array can be returned instead by setting $raw = true.
      *
      * @param array $names           An array of tag_names to search for.
-     * @param integer $max           The maximum number of stories to return.
-     * @param integer $from          The number of the story to start with.
-     * @param string $resource_type  An array of channel_ids to limit the search to.
+     * @param integer $max           The maximum number of resources to return.
+     * @param integer $from          The number of the resource to start with.
+     * @param string $resource_type  The resource type [gallery, image, '']
      * @param string $user           Restrict results to resources owned by $user.
      * @param boolean $raw           Return the raw data?
      * @param string $app            Application scope to use, if not the default.
@@ -988,11 +988,15 @@ class Ansel_Api extends Horde_Registry_Api
      * </pre>
      */
     public function searchTags($names, $max = 10, $from = 0,
-                               $resource_type = 'all', $user = null, $raw = false,
+                               $resource_type = '', $user = null, $raw = false,
                                $app = 'ansel')
     {
         $GLOBALS['injector']->getInstance('Ansel_Config')->set('scope', $app);
-        $results = $GLOBALS['injector']->getInstance('Ansel_Tagger')->search($names, array('type' => $resource_type, 'user' => $user));
+        $results = $GLOBALS['injector']
+            ->getInstance('Ansel_Tagger')
+            ->search(
+                $names,
+                array('type' => $resource_type, 'user' => $user));
 
         // Check for error or if we requested the raw data array.
         if ($raw) {
