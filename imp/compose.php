@@ -706,23 +706,18 @@ if ($prefs->getValue('use_pgp') &&
 }
 
 /* Define some variables used in the javascript code. */
-$js_code = array(
-    'IMP_Compose_Base.editor_on = ' . intval($rtemode),
-    'ImpCompose.auto_save = ' . intval($prefs->getValue('auto_save_drafts')),
-    'ImpCompose.cancel_url = \'' . $cancel_url . '\'',
-    'ImpCompose.cursor_pos = ' .($rtemode ? 'null' : ('"' . $prefs->getValue('compose_cursor') . '"')),
-    'ImpCompose.max_attachments = ' . (($max_attach === true) ? 'null' : $max_attach),
-    'ImpCompose.popup = ' . intval($isPopup),
-    'ImpCompose.redirect = ' . intval($redirect),
-    'ImpCompose.reloaded = ' . intval($vars->compose_formToken),
-    'ImpCompose.smf_check = ' . intval($smf_check),
-    'ImpCompose.spellcheck = ' . intval($spellcheck && $prefs->getValue('compose_spellcheck'))
+$js_vars = array(
+    'IMP_Compose_Base.editor_on' => intval($rtemode),
+    'ImpCompose.auto_save' => intval($prefs->getValue('auto_save_drafts')),
+    'ImpCompose.cancel_url' => $cancel_url,
+    'ImpCompose.cursor_pos' => ($rtemode ? null : $prefs->getValue('compose_cursor')),
+    'ImpCompose.max_attachments' => (($max_attach === true) ? null : $max_attach),
+    'ImpCompose.popup' => intval($isPopup),
+    'ImpCompose.redirect' => intval($redirect),
+    'ImpCompose.reloaded' => intval($vars->compose_formToken),
+    'ImpCompose.smf_check' => intval($smf_check),
+    'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck'))
 );
-
-/* Create javascript identities array. */
-if (!$redirect) {
-    $js_code = array_merge($js_code, $imp_ui->identityJs());
-}
 
 /* Set up the base template now. */
 $t = $injector->createInstance('Horde_Template');
@@ -745,9 +740,10 @@ if ($redirect) {
     if ($registry->hasMethod('contacts/search')) {
         $t->set('abook', $blank_url->copy()->link(array(
             'class' => 'widget',
-            'onclick.raw' => 'window.open("' . Horde::url('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1)) . '", "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100"); return false;',
+            'id' => 'redirect_abook',
             'title' => _("Address Book")
         )) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>');
+        $js_vars['ImpCompose.redirect_contacts'] = strval(Horde::url('contacts.php')->add(array('formname' => 'redirect', 'to_only' => 1))->setRaw(true));
     }
 
     $t->set('to', Horde::label('to', _("To")));
@@ -1097,7 +1093,10 @@ Horde::addScriptFile('compose-base.js', 'imp');
 Horde::addScriptFile('compose.js', 'imp');
 Horde::addScriptFile('md5.js', 'horde');
 require IMP_TEMPLATES . '/common-header.inc';
-Horde::addInlineScript($js_code);
+Horde::addInlineJsVars($js_vars);
+if (!$redirect) {
+    Horde::addInlineScript($imp_ui->identityJs());
+}
 if ($showmenu) {
     echo $menu;
 }

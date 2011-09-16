@@ -215,7 +215,10 @@ var ImpCompose = {
         var elt = e.element(), name;
 
         while (Object.isElement(elt)) {
-            if (elt.hasClassName('button')) {
+            if (elt.readAttribute('id') == 'redirect_abook') {
+                window.open(this.redirect_contacts, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
+                return;
+            } else if (elt.hasClassName('button')) {
                 name = elt.readAttribute('name');
                 switch (name) {
                 case 'btn_add_attachment':
@@ -270,22 +273,23 @@ var ImpCompose = {
 
     onDomLoad: function()
     {
-        var handler = this.keyDownHandler.bindAsEventListener(this);
-
-        /* Prevent Return from sending messages - it should bring us out of
-         * autocomplete, not submit the whole form. */
-        $('compose').select('INPUT').each(function(i) {
-            /* Attach to everything but button and submit elements. */
-            if (i.type != 'submit' && i.type != 'button') {
-                i.observe('keydown', handler);
-            }
-        });
-
-        IMP_Compose_Base.setCursorPosition('composeMessage', this.cursor_pos, IMP_Compose_Base.getIdentity($F('last_identity')).sig);
+        var handler;
 
         if (this.redirect) {
             $('to').focus();
         } else {
+            handler = this.keyDownHandler.bindAsEventListener(this);
+            /* Prevent Return from sending messages - it should bring us out
+             * of autocomplete, not submit the whole form. */
+            $('compose').select('INPUT').each(function(i) {
+                /* Attach to everything but button and submit elements. */
+                if (i.type != 'submit' && i.type != 'button') {
+                    i.observe('keydown', handler);
+                }
+            });
+
+            IMP_Compose_Base.setCursorPosition('composeMessage', this.cursor_pos, IMP_Compose_Base.getIdentity($F('last_identity')).sig);
+
             if (Prototype.Browser.IE) {
                 $('subject').observe('keydown', function(e) {
                     if (e.keyCode == Event.KEY_TAB && !e.shiftKey) {
@@ -309,22 +313,22 @@ var ImpCompose = {
                     $('composeMessage').focus();
                 }
             }
+
+            document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
+
+            if (Prototype.Browser.IE) {
+                $('identity', 'stationery', 'sentmail_folder', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+            } else {
+                document.observe('change', this.changeHandler.bindAsEventListener(this));
+            }
+
+            if (this.auto_save) {
+                /* Immediately execute to get MD5 hash of empty message. */
+                new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60).execute();
+            }
         }
 
         document.observe('click', this.clickHandler.bindAsEventListener(this));
-        document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
-
-        if (Prototype.Browser.IE) {
-            $('identity', 'stationery', 'sentmail_folder', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
-        } else {
-            document.observe('change', this.changeHandler.bindAsEventListener(this));
-        }
-
-        if (this.auto_save) {
-            /* Immediately execute to get MD5 hash of empty message. */
-            new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60).execute();
-        }
-
         this.resize.bind(this).delay(0.25);
     },
 
