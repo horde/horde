@@ -28,8 +28,9 @@ abstract class Sesha_Driver
 
     public function factory($driver = null, $params = null)
     {
-        if (is_null($driver))
+        if (is_null($driver)) {
             $driver = $GLOBALS['conf']['storage']['driver'];
+        }
 
         $driver = basename($driver);
 
