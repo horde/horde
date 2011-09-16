@@ -17,7 +17,7 @@ $prefGroups['display'] = array(
     'column' => _("General Options"),
     'label' => _("Display Options"),
     'desc' => _("Change your inventory sorting and display options."),
-    'members' => array('sortby', 'sortdir', 'list_properties')
+    'members' => array('sortby', 'sortdir', 'list_properties', 'sesha_default_view')
 );
 
 // user preferred sorting column
