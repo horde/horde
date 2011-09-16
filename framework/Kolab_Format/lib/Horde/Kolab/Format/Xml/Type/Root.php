@@ -102,6 +102,7 @@ extends Horde_Kolab_Format_Xml_Type_Composite
             );
         }
         $attributes['_format-version'] = $root->getAttribute('version');
+        $attributes['_api-version'] = $params['api-version'];
         if (!$this->isRelaxed($params)) {
             if (version_compare($params['expected-version'], $attributes['_format-version']) < 0) {
                 throw new Horde_Kolab_Format_Exception_InvalidRoot(

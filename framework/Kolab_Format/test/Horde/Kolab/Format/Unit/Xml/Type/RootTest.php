@@ -54,6 +54,25 @@ extends Horde_Kolab_Format_TestCase
         );
     }
 
+    public function testLoadApiVersion()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid>A</uid></kolab>'
+        );
+        $this->assertEquals('2', $attributes['_api-version']);
+    }
+
+    public function testLoadLowerApiVersion()
+    {
+        $attributes = $this->load(
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><uid>A</uid></kolab>',
+            array('api-version' => '1')
+        );
+        $this->assertEquals('1', $attributes['_api-version']);
+    }
+
     /**
      * @expectedException Horde_Kolab_Format_Exception_InvalidRoot
      */
