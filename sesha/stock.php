@@ -15,13 +15,15 @@
  */
 
 @define('SESHA_BASE', dirname(__FILE__));
-require_once SESHA_BASE . '/lib/base.php';
-require_once SESHA_BASE . '/lib/Forms/Stock.php';
 
+$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+$sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
 // Basic actions and configuration.
 $actionId = Horde_Util::getFormData('actionId');
 $stock_id = Horde_Util::getFormData('stock_id');
-$active = Horde_Auth::isAdmin('sesha:admin') || $perms->hasPermission('sesha:addStock', Horde_Auth::getAuth(), Horde_Perms::READ);
+$active = $GLOBALS['registry']->isAdmin() ||
+    $perms->hasPermission('sesha:administration', Horde_Auth::getAuth(), Horde_Perms::READ) ||
+    $perms->hasPermission('sesha:addStock', Horde_Auth::getAuth(), Horde_Perms::READ);
 
 // Determine action.
 switch ($actionId) {
@@ -37,7 +39,7 @@ case 'add_stock':
     $valid = $form->validate($vars);
     if ($valid && $form->isSubmitted()) {
         // Add the item to the inventory.
-        $ret = $backend->add(array(
+        $ret = $sesha_driver->add(array(
             'stock_id'   => $vars->get('stock_id'),
             'stock_name' => $vars->get('stock_name'),
             'note'       => $vars->get('note')));
@@ -50,10 +52,10 @@ case 'add_stock':
             $notification->push(_("The item was added succcessfully."),
                                 'horde.success');
             // Add categories to the item.
-            $backend->updateCategoriesForStock($stock_id,
+            $sesha_driver->updateCategoriesForStock($stock_id,
                                                $vars->get('category_id'));
             // Add properties to the item as well.
-            $backend->updatePropertiesForStock($stock_id,
+            $sesha_driver->updatePropertiesForStock($stock_id,
                                                $vars->get('property'));
         }
 
@@ -67,22 +69,18 @@ case 'add_stock':
     break;
 
 case 'remove_stock':
-    if (!Horde_Auth::isAdmin('sesha:admin', Horde_Perms::DELETE)) {
-        $notification->push(
-                            _("You do not have sufficient permissions to delete."),
-                            'horde.error');
-        header('Location: ' . Horde::applicationUrl('list.php', true));
-        exit;
-    }
-    $ret = $backend->delete($stock_id);
-    if (is_a($ret, 'PEAR_Error')) {
-        $notification->push(sprintf(
-            _("There was a problem with the driver while deleting: %s"),
-            $ret->getMessage()), 'horde.error');
+    if (($GLOBALS['registry']->isAdmin() ||
+    $perms->hasPermission('sesha:administration', Horde_Auth::getAuth(), Horde_Perms::DELETE))) {
+        try {
+            $ret = $sesha_driver->delete($stock_id);
+        } catch (Sesha_Exception $e) {
+            $notification->push(sprintf(_("There was a problem with the driver while deleting: %s"), $e->getMessage()), 'horde.error');
+            header('Location: ' . Horde::applicationUrl('list.php', true));
+            exit;
+        }
+        $notification->push(sprintf(_("Item number %d was successfully deleted"), $stock_id), 'horde.success');
     } else {
-        $notification->push(sprintf(
-            _("Item number %d was successfully deleted"), $stock_id),
-            'horde.success');
+        $notification->push(_("You do not have sufficient permissions to delete."), 'horde.error');
     }
     header('Location: ' . Horde::applicationUrl('list.php', true));
     exit;
@@ -95,9 +93,9 @@ case 'update_stock':
         $form_title = _("View Inventory Item");
     }
     // Get the stock item.
-    $stock = $backend->fetch($stock_id);
-    $categories = $backend->getCategories($stock_id);
-    $properties = $backend->getPropertiesForStock($stock_id);
+    $stock = $sesha_driver->fetch($stock_id);
+    $categories = $sesha_driver->getCategories($stock_id);
+    $properties = $sesha_driver->getPropertiesForStock($stock_id);
 
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionId', $actionId);
@@ -136,39 +134,37 @@ case 'update_stock':
 
     if ($form->validate($vars) && $form->isSubmitted()) {
         // Update the stock item.
-        $result = $backend->modify($vars->get('stock_id'), array(
-            'stock_name' => Horde_Util::getFormData('stock_name'),
-            'note'       => Horde_Util::getFormData('note')));
-
+        try {
+            $result = $sesha_driver->modify($vars->get('stock_id'), array(
+                'stock_name' => Horde_Util::getFormData('stock_name'),
+                'note'       => Horde_Util::getFormData('note')));
+        } catch (Sesha_Exception $e) {
+            $notification->push(sprintf(
+                _("There was a problem updating the inventory: %s"),
+                $e->getMessage()), 'horde.error');
+        }
         // Update categories for the stock item.
         $category = $vars->get('category_id');
         if (!empty($category)) {
-            $backend->updateCategoriesForStock($stock_id, $category);
-            $backend->clearPropertiesForStock($stock_id, $category);
+            $sesha_driver->updateCategoriesForStock($stock_id, $category);
+            $sesha_driver->clearPropertiesForStock($stock_id, $category);
         }
 
         // Update properties.
         $property = $vars->get('property');
         if (count($property)) {
-            $backend->updatePropertiesForStock($stock_id, $property);
+            $sesha_driver->updatePropertiesForStock($stock_id, $property);
         }
 
-        if (!is_a($result, 'PEAR_Error')) {
-            $notification->push(_("The stock item was successfully updated."),
-                'horde.success');
+        $notification->push(_("The stock item was successfully updated."), 'horde.success');
 
-            // Redirect after update.
-            $url = Horde::selfUrl(false, true, true);
-            $url = Horde_Util::addParameter($url, array('actionId' => 'view_stock',
-                                                  'stock_id' => $vars->get('stock_id')),
-                                      null, false);
-            header('Location: ' . $url);
-            exit;
-        } else {
-            $notification->push(sprintf(
-                _("There was a problem updating the inventory: %s"),
-                $result->getMessage()), 'horde.error');
-        }
+        // Redirect after update.
+        $url = Horde::selfUrl(false, true, true);
+        $url = Horde_Util::addParameter($url, array('actionId' => 'view_stock',
+                                                'stock_id' => $vars->get('stock_id')),
+                                    null, false);
+        header('Location: ' . $url);
+        exit;
     }
     break;
 
@@ -178,11 +174,14 @@ default:
 }
 
 // Begin page display.
-require SESHA_TEMPLATES . '/common-header.inc';
-require SESHA_TEMPLATES . '/menu.inc';
+// require SESHA_TEMPLATES . '/menu.inc';
+require $registry->get('templates', 'horde') . '/common-header.inc';
+
 if ($active) {
     $form->renderActive($renderer, $vars, Horde::selfUrl(), 'post');
 } else {
     $form->renderInactive($renderer, $vars, Horde::selfUrl(), 'post');
 }
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/common-footer.inc';
