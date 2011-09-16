@@ -56,11 +56,11 @@ if (is_a($inventory, 'PEAR_Error')) {
 }
 
 // Properties being displayed
-$properties = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getProperties(@unserialize($prefs->getValue('list_properties')));
-if (is_a($properties, 'PEAR_Error')) {
-    Horde::fatal($properties, __FILE__, __LINE__);
-}
+try {
+    $properties = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getProperties(@unserialize($prefs->getValue('list_properties')));
+} catch (Sesha_Exception $e) {
 
+}
 // Start page display.
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require SESHA_TEMPLATES . '/menu.inc';
