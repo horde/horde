@@ -268,4 +268,8 @@ class Sesha
         }
     }
 
+    public function isAdmin()
+    {
+        return ($GLOBALS['registry']->isAdmin() && $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('sesha:administration'));
+    }
 }

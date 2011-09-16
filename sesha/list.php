@@ -70,7 +70,7 @@ Horde::addScriptFile('tables.js', 'horde', true);
 
 $sortby = $prefs->getValue('sortby');
 $sortdir = $prefs->getValue('sortdir');
-$isAdminEdit = $GLOBALS['registry']->isAdmin('sesha:admin');
+$isAdminEdit = Sesha::isAdmin();
 $itemEditImg = Horde::img('edit.png', _("Edit Item"));
 $isAdminDelete = $GLOBALS['registry']->isAdmin('sesha:admin', Horde_Perms::DELETE);
 $adminDeleteImg = Horde::img('delete.png', _("Delete Item"));
