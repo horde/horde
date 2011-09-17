@@ -21,12 +21,12 @@ $actionId = Horde_Util::getFormData('actionId');
 // Form creation.
 $vars = Horde_Variables::getDefaultVariables();
 $renderer = new Horde_Form_Renderer();
-$form = new SearchForm($vars);
+$form = new Sesha_Forms_Search($vars);
 $vars->set('location', array(SESHA_SEARCH_NAME));
 
 // Page display.
 require $registry->get('templates', 'horde') . '/common-header.inc';
-$form->renderActive($renderer, $vars, 'list.php', 'post');
-echo Horde::menu();
+require SESHA_TEMPLATES . '/menu.inc';
 $notification->notify(array('listeners' => 'status'));
+$form->renderActive($renderer, $vars, 'list.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
