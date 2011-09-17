@@ -4,6 +4,7 @@
  * everything.
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -11,16 +12,16 @@
  * @author  Andrew Coleman <mercury@appisolutions.net>
  * @package Sesha
  */
-class SearchForm extends Horde_Form {
+class Sesha_Forms_Search extends Horde_Form {
 
     /**
      * Basic constructor for the SearchForm.
      *
      * @param  Horde_Variables $vars  The default variables to use.
      */
-    function SearchForm(&$vars)
+    function __construct(&$vars)
     {
-        parent::Horde_Form($vars, _("Search The Inventory"));
+        parent::__construct($vars, _("Search The Inventory"));
 
         $this->appendButtons(_("Search"));
         $this->addHidden('', 'actionId', 'text', true);

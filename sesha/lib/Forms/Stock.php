@@ -3,9 +3,8 @@
  * This class is the Stock form that will be responsible for displaying and
  * editing stock entries in the Sesha application.
  *
- * $Horde: sesha/lib/Forms/Stock.php,v 1.5 2009/07/14 18:43:45 selsky Exp $
- *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -15,20 +14,18 @@
  * @package Sesha
  */
 
-require_once 'Horde/Form/Action.php';
-
-class StockForm extends Horde_Form {
+class Sesha_Forms_Stock extends Horde_Form {
 
     /**
      * The default constructor for the StockForm class.
      *
      * @param Horde_Variables $vars  The default variables to use.
      */
-    function StockForm(&$vars)
+    function __construct($vars)
     {
-        global $backend;
 
-        parent::Horde_Form($vars);
+        parent::__construct($vars);
+        $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
 
         // Buttons and hidden configuration
         $this->setButtons(_("Save Item"));
@@ -36,7 +33,7 @@ class StockForm extends Horde_Form {
 
         // Prepare the categories
         $cat = array();
-        $categories = $backend->getCategories();
+        $categories = $sesha_driver->getCategories();
         foreach ($categories as $c) {
             $cat[$c['category_id']] = $c['category'];
         }
@@ -65,49 +62,52 @@ class StockForm extends Horde_Form {
         } else {
             $fieldtype = 'multienum';
         }
-        $categoryVar = &$this->addVariable(_("Category"), 'category_id',
+        $categoryVar = $this->addVariable(_("Category"), 'category_id',
                                            $fieldtype, true, false, null,
                                            array($cat));
 
         // Set the variables already stored in the Driver, if applicable
         foreach ($categoryIds as $categoryId) {
-            $properties = $backend->getPropertiesForCategories($categoryId);
-            if (!is_a($properties, 'PEAR_Error')) {
-                foreach ($properties as $property) {
-                    $fieldname   = 'property[' . $property['property_id'] . ']';
-                    $fieldtitle  = $property['property'];
-                    $fielddesc   = $property['description'];
-                    if (!empty($property['unit'])) {
-                        if (!empty($fielddesc)) {
-                            $fielddesc .= ' -- ';
-                        }
-                        $fielddesc .= _("Unit: ") . $property['unit'];
+            try {
+                $properties = $sesha_driver->getPropertiesForCategories($categoryId);
+            } catch (Sesha_Exception $e) {
+                throw new Sesha_Exception($e);
+            }
+
+            foreach ($properties as $property) {
+                $fieldname   = 'property[' . $property['property_id'] . ']';
+                $fieldtitle  = $property['property'];
+                $fielddesc   = $property['description'];
+                if (!empty($property['unit'])) {
+                    if (!empty($fielddesc)) {
+                        $fielddesc .= ' -- ';
                     }
-                    $fieldtype   = $property['datatype'];
-                    $fieldparams = array();
-                    if (is_array($property['parameters'])) {
-                        $fieldparams = $property['parameters'];
-                        if (in_array($fieldtype, array('link', 'enum', 'multienum', 'mlenum', 'radio', 'set', 'sorter'))) {
-                            $fieldparams['values'] = Sesha::getStringlistArray($fieldparams['values']);
-                        }
-                    }
-                    $this->addVariable($fieldtitle, $fieldname, $fieldtype,
-                                       false, false, $fielddesc, $fieldparams);
+                    $fielddesc .= _("Unit: ") . $property['unit'];
                 }
+                $fieldtype   = $property['datatype'];
+                $fieldparams = array();
+                if (is_array($property['parameters'])) {
+                    $fieldparams = $property['parameters'];
+                    if (in_array($fieldtype, array('link', 'enum', 'multienum', 'mlenum', 'radio', 'set', 'sorter'))) {
+                        $fieldparams['values'] = Sesha::getStringlistArray($fieldparams['values']);
+                    }
+                }
+                $this->addVariable($fieldtitle, $fieldname, $fieldtype,
+                                    false, false, $fielddesc, $fieldparams);
             }
         }
         $this->addVariable(_("Note"), 'note', 'longtext', false);
 
         // Default action
-        $action = &Horde_Form_Action::factory('submit');
+        $action = Horde_Form_Action::factory('submit');
         $categoryVar->setAction($action);
         $categoryVar->setOption('trackchange', true);
     }
 }
+// leave this in here until there is a feedback from the list what to do about it
+class Sesha_Forms_Type_client extends Horde_Form_Type_enum {
 
-class Horde_Form_Type_client extends Horde_Form_Type_enum {
-
-    function init($values = null, $prompt = null)
+    public function init($values = null, $prompt = null)
     {
         global $conf, $registry;
 
@@ -131,7 +131,7 @@ class Horde_Form_Type_client extends Horde_Form_Type_enum {
     /**
      * Return info about field type.
      */
-    function about()
+    public function about()
     {
         $about = array();
         $about['name'] = _("Client");
