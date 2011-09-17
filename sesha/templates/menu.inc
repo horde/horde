@@ -6,6 +6,7 @@
   <input type="text" name="stock_id" size="8" value="<?php echo _("#Stock") ?>" onfocus="this.value='';" />
   <input class="button" type="submit" onclick="if (!document.stockjumpform.stock_id.value) return false;" value="<?php echo _("Go") ?>" />
  </span>
+ <?php echo Sesha::getMenu('string') ?>
  <br class="clear" />
 </div>
 </form>
