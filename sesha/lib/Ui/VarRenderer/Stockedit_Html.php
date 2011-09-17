@@ -8,7 +8,7 @@
  * @author  Bo Daley <bo@darkwork.net>
  * @package Sesha
  */
-class Horde_UI_VarRenderer_stockedit_html extends Horde_Ui_VarRenderer_Html {
+class Horde_Core_UI_VarRenderer_Stockedit_Html extends Horde_Core_Ui_VarRenderer_Html {
 
     function _renderVarInput_client(&$form, &$var, &$vars)
     {
