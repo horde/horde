@@ -14,7 +14,8 @@
  * @author Bo Daley <bo@darkwork.net>
  */
 
-@define('SESHA_BASE', dirname(__FILE__));
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('sesha');
 
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
@@ -25,40 +26,44 @@ $active = $GLOBALS['registry']->isAdmin() ||
     $perms->hasPermission('sesha:administration', Horde_Auth::getAuth(), Horde_Perms::READ) ||
     $perms->hasPermission('sesha:addStock', Horde_Auth::getAuth(), Horde_Perms::READ);
 
+$baseUrl = $registry->get('webroot', 'sesha');
+
 // Determine action.
 switch ($actionId) {
 case 'add_stock':
+    $url = $baseUrl . '/stock.php';
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionId', $actionId);
     $vars->set('stock_id', $stock_id);
     $params = array('varrenderer_driver' => array('sesha', 'stockedit_html'));
     $renderer = new Horde_Form_Renderer($params);
-    $form = new StockForm($vars);
+    $form = new Sesha_Forms_Stock($vars);
     $form->setTitle(_("Add Stock To Inventory"));
 
     $valid = $form->validate($vars);
     if ($valid && $form->isSubmitted()) {
         // Add the item to the inventory.
-        $ret = $sesha_driver->add(array(
+        try  {
+            $ret = $sesha_driver->add(array(
             'stock_name' => $vars->get('stock_name'),
             'note'       => $vars->get('note')));
-        if (is_a($ret, 'PEAR_Error')) {
+        } catch (Sesha_Exception $e) {
             $notification->push(sprintf(
                 _("There was a problem adding the item: %s"),
                 $ret->getMessage()), 'horde.error');
-        } else {
-            $stock_id = $ret;
-            $notification->push(_("The item was added succcessfully."),
-                                'horde.success');
-            // Add categories to the item.
-            $sesha_driver->updateCategoriesForStock($stock_id,
-                                               $vars->get('category_id'));
-            // Add properties to the item as well.
-            $sesha_driver->updatePropertiesForStock($stock_id,
-                                               $vars->get('property'));
+            header('Location: ' . $url);
+            exit;
         }
+        $stock_id = $ret;
+        $notification->push(_("The item was added succcessfully."),
+                            'horde.success');
+        // Add categories to the item.
+        $sesha_driver->updateCategoriesForStock($stock_id,
+                                            $vars->get('category_id'));
+        // Add properties to the item as well.
+        $sesha_driver->updatePropertiesForStock($stock_id,
+                                            $vars->get('property'));
 
-        $url = Horde::selfUrl(false, true, true);
         $url = Horde_Util::addParameter($url, array('actionId' => 'view_stock',
                                               'stock_id' => $stock_id),
                                   null, false);
@@ -74,14 +79,14 @@ case 'remove_stock':
             $ret = $sesha_driver->delete($stock_id);
         } catch (Sesha_Exception $e) {
             $notification->push(sprintf(_("There was a problem with the driver while deleting: %s"), $e->getMessage()), 'horde.error');
-            header('Location: ' . Horde::applicationUrl('list.php', true));
+            header('Location: ' . Horde::url($baseUrl .'/list.php', true));
             exit;
         }
         $notification->push(sprintf(_("Item number %d was successfully deleted"), $stock_id), 'horde.success');
     } else {
         $notification->push(_("You do not have sufficient permissions to delete."), 'horde.error');
     }
-    header('Location: ' . Horde::applicationUrl('list.php', true));
+    header('Location: ' . Horde::url($baseUrl . '/list.php', true));
     exit;
 
 case 'view_stock':
@@ -125,7 +130,7 @@ case 'update_stock':
     // Set up form variables.
     $params = array('varrenderer_driver' => array('sesha', 'stockedit_html'));
     $renderer = new Horde_Form_Renderer($params);
-    $form = new StockForm($vars);
+    $form = new Sesha_Forms_Stock($vars);
     $form->setTitle((!isset($form_title) ? _("Edit Inventory Item") : $form_title));
     if (!$active) {
         $form->setExtra('<span class="smallheader">' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('stock.php'), array('stock_id' => $vars->get('stock_id'), 'actionId' => 'update_stock'))) . _("Edit") . '</a></span>');
@@ -168,7 +173,7 @@ case 'update_stock':
     break;
 
 default:
-    header('Location: ' . Horde::applicationUrl('list.php', true));
+    header('Location: ' . Horde::url($baseUrl . '/list.php', true));
     exit;
 }
 
