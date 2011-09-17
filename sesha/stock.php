@@ -35,7 +35,7 @@ case 'add_stock':
     $vars = Horde_Variables::getDefaultVariables();
     $vars->set('actionId', $actionId);
     $vars->set('stock_id', $stock_id);
-    $params = array('varrenderer_driver' => array('sesha', 'stockedit_html'));
+    $params = array('varrenderer_driver' => array('sesha', 'Stockedit_Html'));
     $renderer = new Horde_Form_Renderer($params);
     $form = new Sesha_Forms_Stock($vars);
     $form->setTitle(_("Add Stock To Inventory"));
@@ -180,12 +180,12 @@ default:
 // Begin page display.
 // require SESHA_TEMPLATES . '/menu.inc';
 require $registry->get('templates', 'horde') . '/common-header.inc';
+require SESHA_TEMPLATES . '/menu.inc';
+$notification->notify(array('listeners' => 'status'));
 
 if ($active) {
     $form->renderActive($renderer, $vars, Horde::selfUrl(), 'post');
 } else {
     $form->renderInactive($renderer, $vars, Horde::selfUrl(), 'post');
 }
-echo Horde::menu();
-$notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/common-footer.inc';
