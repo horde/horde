@@ -7,15 +7,14 @@ class Sesha_Factory_Driver extends Horde_Core_Factory_Base
     public function create($name = '', $params = array())
     {
         if (!isset($this->_instances[$name])) {
-            $class = 'Sesha_Driver_' . ucfirst($name);
-            if (isset($params['driver'])) {
+            if (!empty($params['driver'])) {
                 $driver = $params['driver'];
                 unset($params['driver']);
             } else {
                 $driver = $GLOBALS['conf']['storage']['driver'];
                 $params = Horde::getDriverConfig('storage', $driver);
-                $class = 'Sesha_Driver_' . ucfirst(basename($driver));
             }
+            $class = 'Sesha_Driver_' . ucfirst(basename($driver));
 
             if (!class_exists($class)) {
                 throw new Sesha_Exception(sprintf('Unable to load the definition of %s.', $class));
@@ -28,9 +27,10 @@ class Sesha_Factory_Driver extends Horde_Core_Factory_Base
                 }
                 break;
             }
+            $this->_instances[$name] = new $class($name, $params);
         }
-        $this->_instances[$name] = new $class($name, $params);
 
         return $this->_instances[$name];
     }
+
 }
