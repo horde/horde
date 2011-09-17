@@ -1,34 +1,35 @@
 <?php
 
-class Sesha_Factory_Driver
+class Sesha_Factory_Driver extends Horde_Core_Factory_Base
 {
     private $_instances = array();
 
-    private $_injector;
-
-    public function __construct(Horde_Injector $injector)
-    {
-        $this->_injector = $injector;
-    }
-
-    public function create($name = '')
+    public function create($name = '', $params = array())
     {
         if (!isset($this->_instances[$name])) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-            $params = Horde::getDriverConfig('storage', $driver);
-            $class = 'Sesha_Driver_' . ucfirst(basename($driver));
+            $class = 'Sesha_Driver_' . ucfirst($name);
+            if (isset($params['driver'])) {
+                $driver = $params['driver'];
+                unset($params['driver']);
+            } else {
+                $driver = $GLOBALS['conf']['storage']['driver'];
+                $params = Horde::getDriverConfig('storage', $driver);
+                $class = 'Sesha_Driver_' . ucfirst(basename($driver));
+            }
+
             if (!class_exists($class)) {
                 throw new Sesha_Exception(sprintf('Unable to load the definition of %s.', $class));
             }
 
             switch ($class) {
             case 'Sesha_Driver_Sql':
-                $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('sesha', $params);
+                if (empty($params['db'])) {
+                    $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('sesha', $params);
+                }
                 break;
             }
-            $driver = new $class($name, $params);
-            $this->_instances[$name] = $driver;
         }
+        $this->_instances[$name] = new $class($name, $params);
 
         return $this->_instances[$name];
     }
