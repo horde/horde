@@ -27,7 +27,7 @@ class Sesha_Factory_Driver extends Horde_Core_Factory_Base
                 }
                 break;
             }
-            $this->_instances[$name] = new $class($name, $params);
+            $this->_instances[$name] = new $class($params);
         }
 
         return $this->_instances[$name];

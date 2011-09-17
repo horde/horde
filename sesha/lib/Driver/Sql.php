@@ -48,7 +48,7 @@ class Sesha_Driver_Sql extends Sesha_Driver
      *
      * @param array $params  Hash containing the connection parameters.
      */
-    public function __construct($name, $params = array())
+    public function __construct($params = array())
     {
         $this->_db = $params['db'];
     }
