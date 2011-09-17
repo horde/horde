@@ -684,16 +684,18 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $sql = sprintf('DELETE FROM sesha_inventory_categories ' .
                        'WHERE stock_id = %d ', $stock_id);
 
-        $result = $this->_db->query($sql);
-        if (!is_a($result, 'PEAR_Error')) {
-            for ($i = 0; $i < count($category); $i++) {
-                $category_id = $category[$i];
-                $sql = sprintf('INSERT INTO sesha_inventory_categories ' .
-                    '(stock_id, category_id) VALUES (%d, %d)',
-                    $stock_id, $category_id);
+        try {
+            $result = $this->_db->delete($sql);
+        } catch (Sesha_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
+        for ($i = 0; $i < count($category); $i++) {
+            $category_id = $category[$i];
+            $sql = sprintf('INSERT INTO sesha_inventory_categories ' .
+                '(stock_id, category_id) VALUES (%d, %d)',
+                $stock_id, $category_id);
 
-                $result = $this->_db->query($sql);
-            }
+            $result = $this->_db->insert($sql);
         }
 
         return $result;
