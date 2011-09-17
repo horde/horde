@@ -3804,7 +3804,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $literal_len = null;
 
                     if ($literal) {
-                        $this->_temp['token']['ptr'][$this->_temp['token']['paren']][] = $line;
+                        $this->_temp['token']->ptr[$this->_temp['token']->paren][] = $line;
                     } else {
                         if (substr($line, -1) == '}') {
                             $pos = strrpos($line, '{');
@@ -3838,8 +3838,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     }
                 } while (true);
 
-                $ob['token'] = $this->_temp['token']['out'];
-                $this->_temp['token'] = null;
+                $ob['token'] = $this->_temp['token']->out;
+                unset($this->_temp['token']);
             }
             break;
 
@@ -3958,59 +3958,58 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _tokenizeData($line)
     {
         if (empty($this->_temp['token'])) {
-            $this->_temp['token'] = array(
-                'in_quote' => false,
-                'paren' => 0,
-                'out' => array(),
-                'ptr' => array()
-            );
-            $this->_temp['token']['ptr'][0] = &$this->_temp['token']['out'];
+            $c = $this->_temp['token'] = new stdClass;
+            $c->in_quote = false;
+            $c->out = array();
+            $c->paren = 0;
+            $c->ptr = array(&$c->out);
+        } else {
+            $c = $this->_temp['token'];
         }
 
-        $c = &$this->_temp['token'];
         $tmp = '';
 
         for ($i = 0, $len = strlen($line); $i < $len; ++$i) {
             $char = $line[$i];
             switch ($char) {
             case '"':
-                if ($c['in_quote']) {
+                if ($c->in_quote) {
                     if ($i && ($line[$i - 1] != '\\')) {
-                        $c['in_quote'] = false;
-                        $c['ptr'][$c['paren']][] = stripcslashes($tmp);
+                        $c->in_quote = false;
+                        $c->ptr[$c->paren][] = stripcslashes($tmp);
                         $tmp = '';
                     } else {
                         $tmp .= $char;
                     }
                 } else {
-                    $c['in_quote'] = true;
+                    $c->in_quote = true;
                 }
                 break;
 
             default:
-                if ($c['in_quote']) {
+                if ($c->in_quote) {
                     $tmp .= $char;
                     break;
                 }
 
                 switch ($char) {
                 case '(':
-                    $c['ptr'][$c['paren']][] = array();
-                    $c['ptr'][$c['paren'] + 1] = &$c['ptr'][$c['paren']][count($c['ptr'][$c['paren']]) - 1];
-                    ++$c['paren'];
+                    $c->ptr[$c->paren][] = array();
+                    $c->ptr[$c->paren + 1] = &$c->ptr[$c->paren][count($c->ptr[$c->paren]) - 1];
+                    ++$c->paren;
                     break;
 
                 case ')':
                     if (strlen($tmp)) {
-                        $c['ptr'][$c['paren']][] = $tmp;
+                        $c->ptr[$c->paren][] = $tmp;
                         $tmp = '';
                     }
-                    --$c['paren'];
+                    --$c->paren;
                     break;
 
                 case ' ':
                     if (strlen($tmp)) {
-                        $c['ptr'][$c['paren']][] = $tmp;
+                        $c->ptr[$c->paren][] = $tmp;
                         $tmp = '';
                     }
                     break;
@@ -4024,7 +4023,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if (strlen($tmp)) {
-            $c['ptr'][$c['paren']][] = $tmp;
+            $c->ptr[$c->paren][] = $tmp;
         }
     }
 
@@ -4259,8 +4258,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'CAPABILITY':
             $this->_tokenizeData($response->data);
-            $this->_parseCapability($this->_temp['token']['out']);
-            $this->_temp['token'] = null;
+            $this->_parseCapability($this->_temp['token']->out);
+            unset($this->_temp['token']);
             break;
 
         case 'PARSE':
@@ -4285,8 +4284,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'PERMANENTFLAGS':
             $this->_tokenizeData($response->data);
-            $this->_temp['mailbox']['permflags'] = array_map('strtolower', reset($this->_temp['token']['out']));
-            $this->_temp['token'] = null;
+            $this->_temp['mailbox']['permflags'] = array_map('strtolower', reset($this->_temp['token']->out));
+            unset($this->_temp['token']);
             break;
 
         case 'UIDNEXT':
@@ -4402,17 +4401,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'METADATA':
             $this->_tokenizeData($response->data);
 
-            switch (reset($this->_temp['token']['out'])) {
+            switch (reset($this->_temp['token']->out)) {
             case 'LONGENTRIES':
                 // Defined by RFC 5464 [4.2.1]
-                $this->_temp['metadata']['*longentries'] = intval(end($this->_temp['token']['out']));
+                $this->_temp['metadata']['*longentries'] = intval(end($this->_temp['token']->out));
                 break;
 
             case 'MAXSIZE':
                 // Defined by RFC 5464 [4.3]
                 $this->_temp['parsestatuserr'] = array(
                     'METADATA_MAXSIZE',
-                    intval(end($this->_temp['token']['out']))
+                    intval(end($this->_temp['token']->out))
                 );
                 break;
 
