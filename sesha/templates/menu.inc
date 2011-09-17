@@ -10,4 +10,5 @@
  <br class="clear" />
 </div>
 </form>
+<?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $notification->notify(array('listeners' => 'status')) ?>
