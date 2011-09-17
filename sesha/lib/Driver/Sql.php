@@ -16,8 +16,6 @@
  *      'tty'           The TTY on which to connect to the database.
  *      'port'          The port on which to connect to the database.</pre>
  *
- * The table structure can be created by the scripts/drivers/sesha_tables.sql
- * script.
  *
  * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
@@ -52,10 +50,7 @@ class Sesha_Driver_Sql extends Sesha_Driver
      */
     public function __construct($name, $params = array())
     {
-
         $this->_db = $params['db'];
-        $this->_table = $params['table'];
-        $this->_charset = $params['charset'];
     }
 
     /**
