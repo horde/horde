@@ -104,38 +104,4 @@ class Sesha_Forms_Stock extends Horde_Form {
         $categoryVar->setOption('trackchange', true);
     }
 }
-// leave this in here until there is a feedback from the list what to do about it
-class Sesha_Forms_Type_client extends Horde_Form_Type_enum {
 
-    public function init($values = null, $prompt = null)
-    {
-        global $conf, $registry;
-
-        // Get list of clients, if available.
-        if ($registry->hasMethod('clients/getClientSource')) {
-            $source = $registry->call('clients/getClientSource');
-            if (!empty($source)) {
-                $results = $registry->call('clients/searchClients', array(array('')));
-                $clientlist = $results[''];
-                $clients = array();
-                foreach ($clientlist as $client) {
-                    $key = isset($client['id']) ? $client['id'] : $client['__key'];
-                    $clients[$key] = isset($client[$conf['client']['field']]) ? $client[$conf['client']['field']] : '';
-                }
-                asort($clients);
-                parent::init($clients);
-            }
-        }
-    }
-
-    /**
-     * Return info about field type.
-     */
-    public function about()
-    {
-        $about = array();
-        $about['name'] = _("Client");
-        return $about;
-    }
-
-}
