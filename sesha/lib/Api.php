@@ -21,7 +21,7 @@ class Sesha_Api extends Horde_Registry_Api
     public function listQueues()
     {
         $queues = array();
-        $categories = $GLOBALS['backend']->getCategories();
+        $categories = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getCategories();
         foreach ($categories as $category) {
             $queues[$category['category_id']] = $category['category'];
         }
@@ -41,12 +41,12 @@ class Sesha_Api extends Horde_Registry_Api
     {
         global $registry;
 
-        $category = $GLOBALS['backend']->getCategory($queue_id);
+        $category = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->getCategory($queue_id);
 
         return array('id' => $queue_id,
                  'name' => $category['category'],
                  'description' => $category['description'],
-                 'link' => Horde_Util::addParameter(Horde::applicationUrl('list.php', true), 'display_category', $queue_id - 1, false),
+                 'link' => Horde_Util::addParameter(Horde::url('list.php', true), 'display_category', $queue_id - 1, false),
                  'subjectlist' => $GLOBALS['conf']['tickets']['subjects'],
                  'versioned' => $registry->hasMethod('tickets/listVersions') == $registry->getApp(),
                  'readonly' => true);
@@ -61,7 +61,7 @@ class Sesha_Api extends Horde_Registry_Api
     */
     public function listVersions($queue_id)
     {
-        $inventory = $GLOBALS['backend']->listStock($queue_id);
+        $inventory = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->listStock($queue_id);
         $versions = array();
         foreach ($inventory as $item) {
         $versions[] = array('id' => $item['stock_id'],
@@ -86,15 +86,15 @@ class Sesha_Api extends Horde_Registry_Api
     {
         global $registry;
 
-        $item = $GLOBALS['backend']->fetch($version_id);
-        if (is_a($item, 'PEAR_Error')) {
-            return $item;
+        try {
+            $item = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create()->fetch($version_id);
+        } catch (Sesha_Exception $e) {
+            return array();
         }
-
         return array('id' => $version_id,
                  'name' => $item['stock_name'],
                  'description' => $item['note'],
-                 'link' => Horde_Util::addParameter(Horde::applicationUrl('stock.php', true), array('stock_id' => $version_id, 'actionId' => 'view_stock'), null, false),
+                 'link' => Horde_Util::addParameter(Horde::url('stock.php', true), array('stock_id' => $version_id, 'actionId' => 'view_stock'), null, false),
                  'readonly' => true);
     }
 }
