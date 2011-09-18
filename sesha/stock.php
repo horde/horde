@@ -131,7 +131,7 @@ case 'update_stock':
     $form = new Sesha_Forms_Stock($vars);
     $form->setTitle((!isset($form_title) ? _("Edit Inventory Item") : $form_title));
     if (!$active) {
-        $form->setExtra('<span class="smallheader">' . Horde::link(Horde_Util::addParameter(Horde::applicationUrl('stock.php'), array('stock_id' => $vars->get('stock_id'), 'actionId' => 'update_stock'))) . _("Edit") . '</a></span>');
+        $form->setExtra('<span class="smallheader">' . Horde::link(Horde_Util::addParameter(Horde::url('stock.php'), array('stock_id' => $vars->get('stock_id'), 'actionId' => 'update_stock'))) . _("Edit") . '</a></span>');
     }
 
     if ($form->validate($vars) && $form->isSubmitted()) {
