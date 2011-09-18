@@ -19,9 +19,34 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 
 class Sesha_Unit_Driver_SqlTest extends Sesha_TestCase
 {
+
+    protected function setUp()
+    {
+        self::$db->delete("DELETE FROM sesha_categories");
+        $categoryAddSql = 'INSERT INTO sesha_categories' .
+               ' (category, description, priority)' .
+               ' VALUES ("books", "Book inventory", "3")';
+
+        self::$db->insert($categoryAddSql);
+
+    }
+
     public function testSetup()
     {
         $driver = self::$driver;
         $this->assertInstanceOf('Sesha_Driver', $driver);
     }
+
+    public function testCategoryExists() {
+        $this->assertTrue(self::$driver->categoryExists('books'));
+    }
+
+    public function testAddCategory() {
+        $category = array( 'category' => 'fish',
+            'description' => 'Frutti di mare',
+            'priority' => '2'
+        );
+        $this->assertStringMatchesFormat('%d',self::$driver->addCategory($category));
+    }
+
 }

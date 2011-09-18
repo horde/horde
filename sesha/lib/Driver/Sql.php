@@ -447,7 +447,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $sql = 'SELECT * FROM sesha_categories WHERE category = ?';
         $values = array($category);
 
-        $result = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        $result = $this->_db->selectOne($sql, $values);
         if (count($result)) {
             return true;
         }
