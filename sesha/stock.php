@@ -22,8 +22,7 @@ $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->creat
 // Basic actions and configuration.
 $actionId = Horde_Util::getFormData('actionId');
 $stock_id = Horde_Util::getFormData('stock_id');
-$active = $GLOBALS['registry']->isAdmin() ||
-    $perms->hasPermission('sesha:administration', Horde_Auth::getAuth(), Horde_Perms::READ) ||
+$active = Sesha::isAdmin(Horde_Perms::READ) ||
     $perms->hasPermission('sesha:addStock', Horde_Auth::getAuth(), Horde_Perms::READ);
 
 $baseUrl = $registry->get('webroot', 'sesha');
@@ -73,8 +72,7 @@ case 'add_stock':
     break;
 
 case 'remove_stock':
-    if (($GLOBALS['registry']->isAdmin() ||
-    $perms->hasPermission('sesha:administration', Horde_Auth::getAuth(), Horde_Perms::DELETE))) {
+    if (Sesha::isAdmin(Horde_Perms::DELETE)) {
         try {
             $ret = $sesha_driver->delete($stock_id);
         } catch (Sesha_Exception $e) {

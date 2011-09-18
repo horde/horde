@@ -28,10 +28,13 @@ if (!is_null($sortdir)) {
 }
 
 // Set the category if possible
-$categories = Sesha::listCategories();
-if (is_a($categories, 'PEAR_Error')) {
+try {
+    $categories = Sesha::listCategories();
+} catch (Sesha_Exception $e) {
+    $notification->push(_("There are no categories"), 'horde.warning');
     $categories = array();
 }
+
 $category_id = Horde_Util::getFormData('category_id');
 
 // Search variables
@@ -50,9 +53,10 @@ if (!is_null($what) && !is_null($where)) {
 }
 
 // Get the inventory
-$inventory = Sesha::listStock($sortby, $sortdir, $category_id, $what, $where);
-if (is_a($inventory, 'PEAR_Error')) {
-    Horde::fatal($inventory, __FILE__, __LINE__);
+try {
+    $inventory = Sesha::listStock($sortby, $sortdir, $category_id, $what, $where);
+} catch (Sesha_Exception $e) {
+    throw new Horde_Exception($e);
 }
 
 // Properties being displayed
@@ -70,9 +74,9 @@ Horde::addScriptFile('tables.js', 'horde', true);
 
 $sortby = $prefs->getValue('sortby');
 $sortdir = $prefs->getValue('sortdir');
-$isAdminEdit = Sesha::isAdmin();
+$isAdminEdit = Sesha::isAdmin(Horde_Perms::EDIT);
 $itemEditImg = Horde::img('edit.png', _("Edit Item"));
-$isAdminDelete = $GLOBALS['registry']->isAdmin('sesha:admin', Horde_Perms::DELETE);
+$isAdminDelete = Sesha::isAdmin(Horde_Perms::DELETE);
 $adminDeleteImg = Horde::img('delete.png', _("Delete Item"));
 
 $item_count = count($inventory) == 1
@@ -149,7 +153,7 @@ $t = new Horde_Template();
 $t->setOption('gettext', true);
 $t->set('header', $table_header);
 $t->set('count', $item_count);
-$t->set('form_url', Horde::url('/list.php'));
+$t->set('form_url', Horde::url('list.php'));
 $t->set('form_input', Horde_Util::pformInput());
 $t->set('categories', $categories);
 $t->set('prefs_url', $prefs_url);

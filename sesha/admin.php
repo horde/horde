@@ -20,15 +20,14 @@ $actionID = $vars->get('actionID');
 
 // Admin actions.
 $baseUrl = $registry->get('webroot', 'sesha');
-$adminurl = Horde::url($baseUrl . '/admin.php', true);
+$adminurl = Horde::url('admin.php', true);
 $tabs = new Horde_Core_Ui_Tabs('actionID', $vars);
 $tabs->addTab(_("Manage Categories"), $adminurl, 'list_categories');
 $tabs->addTab(_("Manage Properties"), $adminurl, 'list_properties');
 
-if (!($GLOBALS['registry']->isAdmin() ||
-    $perms->hasPermission('sesha:administration', Horde_Auth::getAuth(), Horde_Perms::DELETE))) {
+if (!Sesha::isAdmin(Horde_Perms::DELETE)) {
     $notification->push(_("You are no administrator"), 'horde.warning');
-    header('Location: ' . Horde::url($baseUrl . '/list.php', true));
+    header('Location: ' . Horde::url('list.php', true));
     exit;
 }
 
