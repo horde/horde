@@ -60,7 +60,7 @@ class Sesha_Driver_Sql extends Sesha_Driver
      * @param integer $category_id  The category ID you want to fetch.
      * @param array $property_ids   The ids of any properties to include in the list.
      *
-     * @return mixed  Array of results on success; PEAR_Error on failure.
+     * @return array  Array of results on success;
      */
     public function listStock($category_id = null, $property_ids = array())
     {
@@ -111,12 +111,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @param constant $where  Where to find the information (bitmask).
      * @param array $property_ids   The ids of any properties to include in the list.
      *
-     * @return mixed  Array of results on success; PEAR_Error on failure.
+     * @return array  Array of results on success
      */
     public function searchStock($what, $where = SESHA_SEARCH_NAME, $property_ids = array())
     {
         if (is_null($what) || is_null($where)) {
-            return PEAR::raiseError(_("Invalid search parameters"));
+            throw new Sesha_Exception("Invalid search parameters");
         }
 
 
@@ -165,9 +165,10 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $sql .= ', p.priority DESC';
         }
 
-        $result = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $result = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
         }
 
         if ($property_ids) {
@@ -182,7 +183,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param integer $stock_id  The numeric ID of the stock item to fetch.
      *
-     * @return mixed  True on success; PEAR_Error on failure.
+     * @return array  a stock item
+     * @throws Sesha_Exception
      */
     public function fetch($stock_id)
     {
@@ -192,11 +194,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $values = array((int)$stock_id);
 
         // Perform the search
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            return $this->_db->execute($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
         }
-
         // Give the user what we found
         return $result->fetchRow(DB_FETCHMODE_ASSOC);
     }
@@ -207,7 +209,9 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param integer $stock_id  The ID of the item to delete.
      *
-     * @return mixed  True on success; PEAR_Error otherwise.
+     * @return boolean  True on success
+     * @throws Sesha_Exception
+     *
      */
     public function delete($stock_id)
     {
@@ -215,9 +219,10 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         // Build, log, and issue the query
         $sql = 'DELETE FROM sesha_inventory WHERE stock_id = ?';
         $values = array((int)$stock_id);
-        $result = $this->_db->query($sql, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $result = $this->_db->delete($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
         }
 
         $this->clearPropertiesForStock($stock_id);
@@ -230,7 +235,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $stock  A hash of values for the stock item.
      *
-     * @return mixed  The numeric ID of the newly added item or false.
+     * @return integer  The numeric ID of the newly added item or false.
+     * @throws Sesha_Exception
      */
     public function add($stock)
     {
@@ -254,21 +260,19 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $stock  The hash of values for the inventory item.
      *
-     * @return mixed  True on success.
+     * @return boolean  True on success.
+     * @throws Sesha_Exception
      */
     public function modify($stock_id, $stock)
     {
-
-        require_once 'Horde/SQL.php';
         $sql = 'UPDATE sesha_inventory SET stock_name = ?, note = ? WHERE stock_id = ?';
 
         $values = array($stock['stock_name'],$stock['note'], $stockid);
         // Perform the queries
         try { 
-            $result = $this->_db->query($sql);
+            $result = $this->_db->update($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
-            return false;
         }
 
         return true;
@@ -279,7 +283,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param integer $category_id  The integer ID of the category to find.
      *
-     * @return mixed  The category on success; PEAR_Error otherwise.
+     * @return array  The category on success
      */
     public function getCategory($category_id)
     {
@@ -326,8 +330,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @param integer $property_id  The numeric ID of properties to find.
      *                              Matches all properties when null.
      *
-     * @return mixed  An array of matching properties on success; PEAR_Error on
-     *                failure.
+     * @return array  matching properties on success
+     * @throws Sesha_Exception
      */
     public function getProperties($property_id = array())
     {
@@ -356,7 +360,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param integer $property_id  The numeric ID of properties to find.
      *
-     * @return mixed  The specified property on success; PEAR_Error on failure.
+     * @return mixed  The specified property on success
+     * @throws Sesha_Exception
      */
     public function getProperty($property_id)
     {
@@ -369,7 +374,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $info  Updated category attributes.
      *
-     * @return object  The PEAR DB_Result object from the sql query.
+     * @return integer The number of affected rows
+     * @throws Sesha_Exception
      */
     public function updateCategory($info)
     {
@@ -377,8 +383,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                ' SET category = ?, description = ?, priority = ?' .
                ' WHERE category_id = ?';
         $values = array($info['category'], $info['description'], $info['priority'], $info['category_id']);
+        try {
+            return $this->_db->query($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
 
-        return $this->_db->query($sql, $values);
     }
 
     /**
@@ -386,8 +396,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $info  The new category's attributes.
      *
-     * @return mixed  The ID of the new of the category on success; PEAR_Error
-     *                otherwise.
+     * @return integer  The ID of the new of the category on success
+     * @throws Sesha_Exception
      */
     public function addCategory($info)
     {
@@ -410,14 +420,18 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param integer $category_id  The numeric ID of the category to delete.
      *
-     * @return object  The PEAR DB_Result object from the sql query.
+     * @return integer The number of rows deleted
      */
     public function deleteCategory($category_id)
     {
         $sql = 'DELETE FROM sesha_categories WHERE category_id = ?';
         $values = array($category_id);
+        try {
+            return $this->_db->delete($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
 
-        return $this->_db->query($sql, $values);
     }
 
     /**
@@ -459,8 +473,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $info['priority'],
             $info['property_id'],
         );
-
-        return $this->_db->query($sql, $values);
+        try {
+            return $this->_db->query($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
     }
 
     /**
@@ -502,8 +519,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         $this->_connect();
         $sql = 'DELETE FROM sesha_properties WHERE property_id = ?';
         $values = array($property_id);
-
-        return $this->_db->query($sql, $values);
+        try {
+            return $this->_db->query($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
     }
 
     /**
@@ -511,7 +531,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param array $categories  The set of categories to fetch properties.
      *
-     * @return mixed  An array of properties on success; PEAR_Error on failure.
+     * @return mixed  An array of properties on success
+     * @throws Sesha_Exception
      */
     public function getPropertiesForCategories($categories = array())
     {
@@ -525,8 +546,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         }
         $sql = sprintf('SELECT c.category_id AS category_id, c.category AS category, p.property_id AS property_id, p.property AS property, p.unit AS unit, p.description AS description, p.datatype AS datatype, p.parameters AS parameters FROM sesha_categories c, sesha_properties p, sesha_relations cp WHERE c.category_id = cp.category_id AND cp.property_id = p.property_id AND c.category_id IN (%s) ORDER BY p.priority DESC',
                        empty($in) ? $this->_db->quote($in) : $in);
+        try {
+            $properties = $this->_db->selectAll($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
 
-        $properties = $this->_db->selectAll($sql);
         array_walk($properties, array($this, '_unserializeParameters'));
 
         return $properties;
@@ -535,10 +560,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
     /**
      * Updates a category with a set of properties.
      *
-     * @param integer $category_id  The numeric ID of the category to update.
-     * @param array $properties     An array of property ID's to add.
+     * @param integer   $category_id    The numeric ID of the category to update.
+     * @param array     $properties     An array of property ID's to add.
      *
-     * @return object  PEAR DB_Result object from the sql query.
+     * @return integer  number of inserted row
+     * @throws Sesha_Exception
      */
     public function setPropertiesForCategory($category_id, $properties = array())
     {
@@ -546,8 +572,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         foreach ($properties as $property) {
             $sql = 'INSERT INTO sesha_relations
                 (category_id, property_id) VALUES (?, ?)';
-
-            $result = $this->_db->execute($sql, array($category_id, $property));
+            try {
+                $result = $this->_db->execute($sql, array($category_id, $property));
+            } catch (Horde_Db_Exception $e) {
+                throw new Sesha_Exception($e);
+            }
         }
         return $result;
     }
@@ -557,13 +586,17 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *
      * @param integer $category_id  The numeric ID of the category to update.
      *
-     * @return object  The PEAR DB_Result object from the sql query.
+     * @return integer The number of deleted properties
+     * @throws Sesha_Exception
      */
     public function clearPropertiesForCategory($category_id)
     {
         $sql = 'DELETE FROM sesha_relations WHERE category_id = ?';
-
-        return $this->_db->execute($sql, array($category_id));
+        try {
+            return $this->_db->delete($sql, array($category_id));
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
     }
 
     /**
@@ -573,6 +606,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      *                           properties for.
      *
      * @return object  The PEAR DB_Result object from the sql query.
+     * @throws Sesha_Exception
      */
     public function getPropertiesForStock($stock_id)
     {
@@ -582,8 +616,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             'sesha_inventory_properties a WHERE p.property_id = ' .
             'a.property_id AND a.stock_id = %d ORDER BY p.priority DESC',
             $stock_id);
-
-        $properties = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
+        try {
+            $properties = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
 
         for ($i = 0; $i < count($properties); $i++) {
             $value = @unserialize($properties[$i]['txt_datavalue']);
@@ -602,6 +639,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @param array $categories  The array of categories to remove.
      *
      * @return object  The PEAR DB_Result object from the sql query.
+     * @throws Sesha_Exception
      */
     public function clearPropertiesForStock($stock_id, $categories = array())
     {
@@ -609,10 +647,12 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $categories = array(0 => array('category_id' => $categories));
         }
         /* Get list of properties for this set of categories. */
-        $properties = $this->getPropertiesForCategories($categories);
-        if (is_a($properties, 'PEAR_Error')) {
-            return $properties;
+        try {
+            $properties = $this->getPropertiesForCategories($categories);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
         }
+
         $propertylist = '';
         for ($i = 0;$i < count($properties); $i++) {
             if (!empty($propertylist)) {
@@ -625,8 +665,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                         AND property_id IN (%s)',
                             $stock_id,
                             $propertylist);
-
-        return $this->_db->query($sql);
+        try {
+            return $this->_db->query($sql);
+        } catch (Horde_Db_Exception $e) {
+            throw new Sesha_Exception($e);
+        }
     }
 
     /**
@@ -635,7 +678,8 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      * @param integer $stock_id  The numeric ID of the stock to update.
      * @param array $properties  The hash of properties to update.
      *
-     * @return mixed  The DB_Result object on success; PEAR_Error otherwise.
+     * @return mixed  The DB_Result object on success
+     * @throws Sesha_Exception
      */
     public function updatePropertiesForStock($stock_id, $properties = array())
     {
