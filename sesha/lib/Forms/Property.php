@@ -41,13 +41,41 @@ class Sesha_Forms_Property extends Horde_Form
         $this->addVariable(_("Sort Weight"), 'priority', 'enum', false, false, _("When properties are displayed, they will be shown in weight order from highest to lowest"), array($priorities));
     }
 
-    function validate($vars)
+    /**
+     * Validates the form, checking if it really has been submitted by calling
+     * isSubmitted() and if true does any onSubmit() calls for variable types
+     * in the form. The _submitted variable is then rechecked.
+     *
+     * @param Variables $vars       A Variables instance, optional since Horde
+     *                              3.2.
+     * @param boolean $canAutofill  Can the form be valid without being
+     *                              submitted?
+     *
+     * @return boolean  True if the form is valid.
+     */
+
+    public function validate($vars, $canAutoFill = false)
     {
         $this->_addParameters($vars);
-        return parent::validate($vars);
+        return parent::validate($vars, $canAutoFill);
     }
 
-    function renderActive($renderer, &$vars, $action, $method = 'get', $enctype = null, $focus = true)
+    /**
+     * Renders the form for editing.
+     *
+     * @param Horde_Form_Renderer $renderer  A renderer instance, optional
+     *                                       since Horde 3.2.
+     * @param Variables $vars                A Variables instance, optional
+     *                                       since Horde 3.2.
+     * @param string $action                 The form action (url).
+     * @param string $method                 The form method, usually either
+     *                                       'get' or 'post'.
+     * @param string $enctype                The form encoding type. Determined
+     *                                       automatically if null.
+     * @param boolean $focus                 Focus the first form field?
+     */
+
+    public function renderActive($renderer, $vars, $action, $method = 'get', $enctype = null, $focus = true)
     {
         if ($vars->get('old_datatype') === null) {
             $this->_addParameters($vars);
@@ -55,15 +83,16 @@ class Sesha_Forms_Property extends Horde_Form
         parent::renderActive($renderer, $vars, $action, $method, $enctype, $focus);
     }
 
-    function _addParameters(&$vars)
+    protected function _addParameters($vars)
     {
-        $data_type = $vars->get('datatype');
-        if (empty($data_type)) {
+        $dataType = $vars->get('datatype');
+        $className = $this->_buildTypeClassname($dataType);
+        if (empty($dataType)) {
             // Noop.
-        } elseif (!class_exists('Horde_Form_Type_' . $data_type)) {
-            $GLOBALS['notification']->push(sprintf(_("The form field type \"%s\" doesn't exist."), $data_type), 'horde.error');
+        } elseif (!$className) {
+            $GLOBALS['notification']->push(sprintf(_("The form field type \"%s\" doesn't exist."), $dataType), 'horde.error');
         } else {
-            $params = call_user_func(array('Horde_Form_Type_' . $data_type, 'about'));
+            $params = call_user_func(array($className, 'about'));
             if (isset($params['params'])) {
                 foreach ($params['params'] as $name => $param) {
                     $field_id = 'parameters[' . $name . ']';
@@ -81,9 +110,30 @@ class Sesha_Forms_Property extends Horde_Form
                                                 $param['required'],
                                                 $param['readonly'],
                                                 $param['desc']);
-                    $vars->set('old_datatype', $data_type);
+                    $vars->set('old_datatype', $dataType);
                 }
             }
+        }
+    }
+
+   /**
+    * Helper method to build either h3 style class names as seen in Horde_Form_Type_ccc
+    * or autoloadable class names used in Sesha
+    *
+    * @param string $dataType  The type identifier to turn into a class name
+    *
+    * @return string  A class name or an empty string
+    *
+    */
+
+    protected function _buildTypeClassname($dataType)
+    {
+        if (class_exists('Horde_Form_Type_' . $dataType)) {
+            return 'Horde_Form_Type_' . $dataType;
+        } elseif (class_exists('Sesha_Forms_Type_' . ucfirst($dataType))) {
+            return 'Sesha_Forms_Type_' . ucfirst($dataType);
+        } else {
+            return '';
         }
     }
 }
