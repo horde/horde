@@ -47,7 +47,7 @@ class Sesha_Application extends Horde_Registry_Application
     public function perms() 
     {
         $permissions = array(
-            'administration' => array(
+            'admin' => array(
                 'title' => _("Administration"),
             ),
             'addStock' => array(
