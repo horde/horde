@@ -35,6 +35,23 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
+    static protected function createSqlPdoSqlite(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
+            array(
+                'Horde_Db_Adapter' => array(
+                    'factory' => 'Db',
+                    'params' => array(
+                        'migrations' => array(
+                            'migrationsPath' => dirname(__FILE__) . '/../../migration',
+                            'schemaTableName' => 'mnemo_test_schema'
+                        )
+                    )
+                ),
+            )
+        );
+    }
+
     protected function getKolabDriver()
     {
         self::createKolabSetup();
@@ -78,6 +95,28 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
     }
 
+    static protected function createSqlShares(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
+            array(
+                'Horde_Share_Base' => 'Share',
+            )
+        );
+        $setup->makeGlobal(
+            array(
+                'mnemo_shares' => 'Horde_Share_Base',
+            )
+        );
+        $setup->getInjector()->setInstance(
+            'Horde_Core_Factory_Share',
+            new Horde_Test_Stub_Factory(
+                $setup->getInjector()->getInstance('Horde_Share_Base')
+            )
+        );
+        $GLOBALS['conf']['storage']['driver'] = 'sql';
+        $GLOBALS['conf']['notepads']['driver'] = 'default';
+    }
+
     static protected function createKolabShares(Horde_Test_Setup $setup)
     {
         $setup->setup(
@@ -97,6 +136,12 @@ extends PHPUnit_Framework_TestCase
         $setup->makeGlobal(
             array(
                 'mnemo_shares' => 'Horde_Share_Base',
+            )
+        );
+        $setup->getInjector()->setInstance(
+            'Horde_Core_Factory_Share',
+            new Horde_Test_Stub_Factory(
+                $setup->getInjector()->getInstance('Horde_Share_Base')
             )
         );
         $GLOBALS['conf']['storage']['driver'] = 'kolab';

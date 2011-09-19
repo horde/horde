@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>16:16:42</time>
+ <date>2011-09-19</date>
+ <time>11:12:31</time>
  <version>
   <release>3.0.3</release>
   <api>3.0.0</api>
@@ -326,6 +326,16 @@
       <dir name="Factory">
        <file name="DriverTest.php" role="test" />
       </dir> <!-- /test/Mnemo/Unit/Factory -->
+      <dir name="Mnemo">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Mnemo/Unit/Mnemo/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Mnemo/Unit/Mnemo/Sql -->
+       <file name="Base.php" role="test" />
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Mnemo/Unit/Mnemo -->
      </dir> <!-- /test/Mnemo/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -691,6 +701,10 @@
    <install as="Mnemo/TestCase.php" name="test/Mnemo/TestCase.php" />
    <install as="Mnemo/Unit/Driver/KolabTest.php" name="test/Mnemo/Unit/Driver/KolabTest.php" />
    <install as="Mnemo/Unit/Factory/DriverTest.php" name="test/Mnemo/Unit/Factory/DriverTest.php" />
+   <install as="Mnemo/Unit/Mnemo/Base.php" name="test/Mnemo/Unit/Mnemo/Base.php" />
+   <install as="Mnemo/Unit/Mnemo/KolabTest.php" name="test/Mnemo/Unit/Mnemo/KolabTest.php" />
+   <install as="Mnemo/Unit/Mnemo/Sql/Base.php" name="test/Mnemo/Unit/Mnemo/Sql/Base.php" />
+   <install as="Mnemo/Unit/Mnemo/Sql/Pdo/SqliteTest.php" name="test/Mnemo/Unit/Mnemo/Sql/Pdo/SqliteTest.php" />
    <install as="mnemo/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="mnemo/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="mnemo/themes/default/screen.css" name="themes/default/screen.css" />
@@ -848,7 +862,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-09-19</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * [mjr] Fix removeUserData implementation.
