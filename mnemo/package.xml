@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-19</date>
- <time>11:12:31</time>
+ <time>11:38:36</time>
  <version>
   <release>3.0.3</release>
   <api>3.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
+* [gwr] Avoid including the owner name into the default share (Kolab backend).
 * [mjr] Fix removeUserData implementation.
  </notes>
  <contents>
@@ -68,12 +69,18 @@
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
+     <file name="Notepads.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
      <file name="CreateNotepad.php" role="horde" />
      <file name="DeleteNotepad.php" role="horde" />
      <file name="EditNotepad.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <dir name="Notepads">
+     <file name="Base.php" role="horde" />
+     <file name="Default.php" role="horde" />
+     <file name="Kolab.php" role="horde" />
+    </dir> <!-- /lib/Notepads -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -595,9 +602,13 @@
    <install as="mnemo/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="mnemo/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="mnemo/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="mnemo/lib/Factory/Notepads.php" name="lib/Factory/Notepads.php" />
    <install as="mnemo/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
    <install as="mnemo/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
    <install as="mnemo/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
+   <install as="mnemo/lib/Notepads/Base.php" name="lib/Notepads/Base.php" />
+   <install as="mnemo/lib/Notepads/Default.php" name="lib/Notepads/Default.php" />
+   <install as="mnemo/lib/Notepads/Kolab.php" name="lib/Notepads/Kolab.php" />
    <install as="mnemo/locale/.htaccess" name="locale/.htaccess" />
    <install as="mnemo/locale/mnemo.pot" name="locale/mnemo.pot" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.mo" name="locale/bg/LC_MESSAGES/mnemo.mo" />
@@ -865,6 +876,7 @@
    <date>2011-09-19</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
+* [gwr] Avoid including the owner name into the default share (Kolab backend).
 * [mjr] Fix removeUserData implementation.
    </notes>
   </release>

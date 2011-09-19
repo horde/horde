@@ -75,7 +75,6 @@ class Mnemo_Unit_Mnemo_Base extends Mnemo_TestCase
 
     public function testDefaultShareName()
     {
-        $this->markTestIncomplete('Fix for Kolab');
         $GLOBALS['conf']['share']['auto_create'] = true;
         Mnemo::initialize();
         $shares = $GLOBALS['mnemo_shares']->listShares('test@example.com');
