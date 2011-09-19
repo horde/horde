@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add administration page to list and clear locks.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4244,7 +4244,7 @@
    <date>2011-09-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add administration page to list and clear locks.
    </notes>
   </release>
  </changelog>

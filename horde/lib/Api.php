@@ -42,6 +42,11 @@ class Horde_Api extends Horde_Registry_Api
                 'name' => _("_Permissions"),
                 'icon' => Horde_Themes::img('perms.png')
             ),
+            'locks' => array(
+                'link' => '%application%/admin/locks.php',
+                'name' => _("_Locks"),
+                'icon' => Horde_Themes::img('locked.png')
+            ),
             'alarms' => array(
                 'link' => '%application%/admin/alarms.php',
                 'name' => _("_Alarms"),
