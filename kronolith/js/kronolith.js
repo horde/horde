@@ -3528,6 +3528,8 @@ KronolithCore = {
         }
         if (r.response.saved) {
             if ($F('kronolithCalendarinternalImport')) {
+                this.loading++;
+                $('kronolithLoading').show();
                 var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
                     iframe = new Element('iframe', { src: 'about:blank', name: name, id: name }).setStyle({ display: 'none' });
                 document.body.insert(iframe);
