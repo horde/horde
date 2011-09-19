@@ -581,11 +581,23 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
 
     public function getCurrentURI()
     {
-        if ($this->_isAttribute) {
-            return $this->_tagDTD->getURI();
-        } else {
-            return $this->_attributeDTD->getURI();
-        }
+        $uri = $this->_isAttribute
+            ? $this->_tagDTD->getURI()
+            : $this->_attributeDTD->getURI();
+        return str_replace(
+            array('syncml:metinf1.0',
+                  'syncml:metinf1.1',
+                  'syncml:metinf1.2',
+                  'syncml:devinf1.0',
+                  'syncml:devinf1.1',
+                  'syncml:devinf1.2'),
+            array('syncml:metinf',
+                  'syncml:metinf',
+                  'syncml:metinf',
+                  'syncml:devinf',
+                  'syncml:devinf',
+                  'syncml:devinf'),
+            $uri);
     }
 
     public function writeString($str)

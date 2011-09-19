@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix incorrect syncml:metinf and syncml:devinf URNs (Bug #10229).
 * [jan] Mark Xml_Wbxml:: methods as static.
  </notes>
  <contents>

@@ -48,7 +48,6 @@ class Horde_Xml_Wbxml_DtdManager
         if (isset($this->_strDTD[$publicIdentifier])) {
             return $this->_strDTD[$publicIdentifier];
         }
-        return null;
     }
 
     /**
@@ -56,22 +55,9 @@ class Horde_Xml_Wbxml_DtdManager
     public function getInstanceURI($uri)
     {
         $uri = strtolower($uri);
-
-        // some manual hacks:
-        if ($uri == 'syncml:syncml') {
-            $uri = 'syncml:syncml1.0';
-        }
-        if ($uri == 'syncml:metinf') {
-            $uri = 'syncml:metinf1.0';
-        }
-        if ($uri == 'syncml:devinf') {
-            $uri = 'syncml:devinf1.0';
-        }
-
         if (isset($this->_strDTDURI[$uri])) {
             return $this->_strDTDURI[$uri];
         }
-        return null;
     }
 
     /**
