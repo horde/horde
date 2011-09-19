@@ -39,10 +39,19 @@ class Horde_Xml_Wbxml_DecodeTest extends PHPUnit_Framework_TestCase
                 // Ignore <?xml and <!DOCTYPE stuff.
                 $xml = preg_replace('/<\?xml version=\"1\.0\"\?><!DOCTYPE [^>]*>/', '', $xml);
 
-                // Handle different mimetypes.
-                $xml = str_replace('application/vnd.syncml-devinf+wbxml',
-                                   'application/vnd.syncml-devinf+xml',
-                                   $xml);
+                // Hack to fix wrong mimetype.
+                $xml = str_replace(
+                    array('application/vnd.syncml-devinf+wbxml',
+                          'xmlns="syncml:metinf1.0"',
+                          'xmlns="syncml:devinf1.0"',
+                          'xmlns="syncml:metinf1.1"',
+                          'xmlns="syncml:devinf1.1"'),
+                    array('application/vnd.syncml-devinf+xml',
+                          'xmlns="syncml:metinf"',
+                          'xmlns="syncml:devinf"',
+                          'xmlns="syncml:metinf"',
+                          'xmlns="syncml:devinf"'),
+                    $xml);
             }
 
             $this->assertEquals(strtolower($xml_ref), strtolower($xml));

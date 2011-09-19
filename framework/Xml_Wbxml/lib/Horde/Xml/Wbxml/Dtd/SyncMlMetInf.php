@@ -44,14 +44,17 @@ class Horde_Xml_Wbxml_Dtd_SyncMlMetInf extends Horde_Xml_Wbxml_Dtd
 
         if ($this->version == 1) {
             $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::SYNCML_1_1, 'syncml:syncml1.1');
-            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_1, 'syncml:metinf');
+            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_1, 'syncml:metinf1.1');
+            $this->setURI('syncml:metinf1.1');
+            //$this->setURI('syncml:metinf'); // for some funny reason, libwbxml produces no :metinf1.1 here
         } elseif ($this->version == 2) {
             $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::SYNCML_1_2, 'syncml:syncml1.2');
-            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_2, 'syncml:metinf');
+            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_2, 'syncml:metinf1.2');
+            $this->setURI('syncml:metinf1.2');
         } else {
             $this->setCodePage(0, Horde_Xml_Wbxml_Dtd::SYNCML_1_0, 'syncml:syncml1.0');
-            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_0, 'syncml:metinf');
+            $this->setCodePage(1, Horde_Xml_Wbxml_Dtd::METINF_1_0, 'syncml:metinf1.0');
+            $this->setURI('syncml:metinf1.0');
         }
-        $this->setURI('syncml:metinf');
     }
 }
