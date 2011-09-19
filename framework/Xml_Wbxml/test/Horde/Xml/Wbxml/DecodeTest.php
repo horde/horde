@@ -45,7 +45,7 @@ class Horde_Xml_Wbxml_DecodeTest extends PHPUnit_Framework_TestCase
                                    $xml);
             }
 
-            $this->assertEquals(strtolower($xml_ref), strtolower($xml));
+            $this->assertEquals(Horde_String::lower($xml_ref), Horde_String::lower($xml));
         }
     }
 }

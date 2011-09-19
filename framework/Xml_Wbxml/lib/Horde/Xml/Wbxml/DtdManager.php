@@ -44,7 +44,7 @@ class Horde_Xml_Wbxml_DtdManager
      */
     public function getInstance($publicIdentifier)
     {
-        $publicIdentifier = strtolower($publicIdentifier);
+        $publicIdentifier = Horde_String::lower($publicIdentifier);
         if (isset($this->_strDTD[$publicIdentifier])) {
             return $this->_strDTD[$publicIdentifier];
         }
@@ -54,7 +54,7 @@ class Horde_Xml_Wbxml_DtdManager
      */
     public function getInstanceURI($uri)
     {
-        $uri = strtolower($uri);
+        $uri = Horde_String::lower($uri);
         if (isset($this->_strDTDURI[$uri])) {
             return $this->_strDTDURI[$uri];
         }
@@ -66,9 +66,9 @@ class Horde_Xml_Wbxml_DtdManager
     {
         $dtd->setDPI($publicIdentifier);
 
-        $publicIdentifier = strtolower($publicIdentifier);
+        $publicIdentifier = Horde_String::lower($publicIdentifier);
 
         $this->_strDTD[$publicIdentifier] = $dtd;
-        $this->_strDTDURI[strtolower($uri)] = $dtd;
+        $this->_strDTDURI[Horde_String::lower($uri)] = $dtd;
     }
 }
