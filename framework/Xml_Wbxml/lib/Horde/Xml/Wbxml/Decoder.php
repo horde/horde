@@ -322,9 +322,7 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
 
         case Horde_Xml_Wbxml::GLOBAL_TOKEN_PI:
             // Section 5.8.4.4
-            // throw new IOException
-            // die("WBXML global token processing instruction(PI, " + token + ") is unsupported!\n");
-            break;
+            throw new Horde_Xml_Wbxml_Exception('WBXML global token processing instruction is unsupported');
 
         case Horde_Xml_Wbxml::GLOBAL_TOKEN_LITERAL:
             // Section 5.8.4.5
