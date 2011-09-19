@@ -5221,6 +5221,9 @@ KronolithCore = {
 
         var t = new Element('div');
         r.response.tags.each(function(tag) {
+            if (tag == null) {
+                return;
+            }
             t.insert(new Element('span', { className: tagclass }).update(tag.escapeHTML()));
         });
         $(update).update(t);
