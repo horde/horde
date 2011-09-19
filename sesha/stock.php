@@ -126,7 +126,7 @@ case 'update_stock':
     }
 
     // Set up form variables.
-    $params = array('varrenderer_driver' => array('sesha', 'stockedit_html'));
+    $params = array('varrenderer_driver' => array('sesha', 'stockedit_Html'));
     $renderer = new Horde_Form_Renderer($params);
     $form = new Sesha_Forms_Stock($vars);
     $form->setTitle((!isset($form_title) ? _("Edit Inventory Item") : $form_title));
