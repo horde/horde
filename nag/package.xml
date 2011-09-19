@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-08</date>
- <time>14:43:59</time>
+ <date>2011-09-19</date>
+ <time>11:04:46</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -387,10 +387,6 @@
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Nag">
-     <dir name="Stub">
-      <file name="DbFactory.php" role="test" />
-      <file name="Registry.php" role="test" />
-     </dir> <!-- /test/Nag/Stub -->
      <dir name="Unit">
       <dir name="Driver">
        <dir name="Sql">
@@ -853,8 +849,6 @@
    <install as="Nag/Autoload.php" name="test/Nag/Autoload.php" />
    <install as="Nag/phpunit.xml" name="test/Nag/phpunit.xml" />
    <install as="Nag/TestCase.php" name="test/Nag/TestCase.php" />
-   <install as="Nag/Stub/DbFactory.php" name="test/Nag/Stub/DbFactory.php" />
-   <install as="Nag/Stub/Registry.php" name="test/Nag/Stub/Registry.php" />
    <install as="Nag/Unit/Driver/Base.php" name="test/Nag/Unit/Driver/Base.php" />
    <install as="Nag/Unit/Driver/KolabTest.php" name="test/Nag/Unit/Driver/KolabTest.php" />
    <install as="Nag/Unit/Driver/Sql/Base.php" name="test/Nag/Unit/Driver/Sql/Base.php" />
@@ -1056,7 +1050,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-08</date>
+   <date>2011-09-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix removeUserData implementation.
