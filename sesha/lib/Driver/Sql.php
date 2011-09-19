@@ -384,7 +384,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                ' WHERE category_id = ?';
         $values = array($info['category'], $info['description'], $info['priority'], $info['category_id']);
         try {
-            return $this->_db->query($sql, $values);
+            return $this->_db->execute($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
         }
@@ -610,14 +610,13 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
      */
     public function getPropertiesForStock($stock_id)
     {
-        $sql = sprintf('SELECT p.property_id AS property_id, p.property AS property, p.datatype AS datatype, ' .
+        $sql = 'SELECT p.property_id AS property_id, p.property AS property, p.datatype AS datatype, ' .
             'p.unit AS unit, p.description AS description, a.attribute_id AS attribute_id, a.int_datavalue AS int_datavalue, ' .
             'a.txt_datavalue AS txt_datavalue FROM sesha_properties p, ' .
             'sesha_inventory_properties a WHERE p.property_id = ' .
-            'a.property_id AND a.stock_id = %d ORDER BY p.priority DESC',
-            $stock_id);
+            'a.property_id AND a.stock_id = ? ORDER BY p.priority DESC';
         try {
-            $properties = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
+            $properties = $this->_db->selectAll($sql, array($stock_id));
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
         }
@@ -666,7 +665,7 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
                             $stock_id,
                             $propertylist);
         try {
-            return $this->_db->query($sql);
+            return $this->_db->execute($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Sesha_Exception($e);
         }
@@ -687,12 +686,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
         foreach ($properties as $property_id => $property_value) {
             // Now clear any existing attribute values for this property_id
             // and stock_id.
-            $sql = sprintf('DELETE FROM sesha_inventory_properties ' .
-                           'WHERE stock_id = %d AND property_id = %d',
-                           $stock_id, $property_id);
+            $sql = 'DELETE FROM sesha_inventory_properties ' .
+                   'WHERE stock_id = ? AND property_id = ?';
 
             try {
-                $result = $this->_db->query($sql);
+                $result = $this->_db->execute($sql, array($stock_id, $property_id));
             } catch (Horde_Db_Exception $e) {
                 throw new Sesha_Exception($e);
             }
@@ -725,11 +723,11 @@ SELECT i.stock_id AS stock_id, i.stock_name AS stock_name, i.note AS note, p.pro
             $category = array($category);
         }
         /* First clear any categories that might be set for this item. */
-        $sql = sprintf('DELETE FROM sesha_inventory_categories ' .
-                       'WHERE stock_id = %d ', $stock_id);
+        $sql = 'DELETE FROM sesha_inventory_categories ' .
+                       'WHERE stock_id = ? ';
 
         try {
-            $result = $this->_db->delete($sql);
+            $result = $this->_db->execute($sql, array($stock_id));
         } catch (Sesha_Exception $e) {
             throw new Sesha_Exception($e);
         }
