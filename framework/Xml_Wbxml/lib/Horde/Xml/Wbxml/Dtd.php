@@ -114,13 +114,9 @@ class Horde_Xml_Wbxml_Dtd
     public function toCodePageURI($uri)
     {
         $uri = Horde_String::lower($uri);
-        if (!isset($this->strCodePagesURI[$uri])) {
-            throw new Horde_Xml_Wbxml_Exception('Unable to find codepage for ' . $uri);
-        }
-
-        $ret = isset($this->strCodePagesURI[$uri]) ? $this->strCodePagesURI[$uri] : false;
-
-        return $ret;
+        return isset($this->strCodePagesURI[$uri])
+            ? $this->strCodePagesURI[$uri]
+            : false;
     }
 
     /**
