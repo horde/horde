@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:47+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: 2011-08-02 15:48+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -123,7 +123,7 @@ msgstr "Galerien von %s"
 msgid "%s: faces %s"
 msgstr "%s: %s Gesichter"
 
-#: lib/Image.php:1049
+#: lib/Image.php:1059
 #, php-format
 msgid "(c) %s %s"
 msgstr "(c) %s %s"
@@ -160,7 +160,7 @@ msgstr "Zugriff verweigert beim Hinzufügen der Fotos zu \"%s\"."
 msgid "Access denied adding tags to this gallery."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu dieser Galerie."
 
-#: lib/Image.php:1197
+#: lib/Image.php:1207
 msgid "Access denied adding tags to this photo."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu diesem Foto."
 
@@ -192,7 +192,7 @@ msgstr "Zugriff verweigert beim Löschen der Fotos aus \"%s\"."
 msgid "Access denied downloading full sized photos from \"%s\"."
 msgstr "Zugriff verweigert beim Herunterladen der Originalfotos von \"%s\"."
 
-#: gallery.php:40 image.php:694 lib/Image.php:882
+#: gallery.php:40 image.php:694 lib/Image.php:892
 #, php-format
 msgid "Access denied downloading photos from \"%s\"."
 msgstr "Zugriff verweigert beim Herunterladen der Fotos von \"%s\"."
@@ -246,7 +246,7 @@ msgid "Access denied viewing this gallery."
 msgstr "Zugriff auf diese Galerie verweigert."
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1159
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1169
 msgid "Access denied viewing this photo."
 msgstr "Zugriff auf dieses Foto verweigert."
 
@@ -360,7 +360,7 @@ msgstr "Angemeldete Benutzer"
 msgid "Automatically watermark photos?"
 msgstr "Fotos automatisch mit Wasserzeichen markieren?"
 
-#: lib/Application.php:212 templates/mobile/image.html.php:3
+#: lib/Application.php:209 templates/mobile/image.html.php:3
 msgid "Back"
 msgstr "Zurück"
 
@@ -1398,7 +1398,7 @@ msgstr "Person"
 msgid "Person in photo"
 msgstr "Person im Foto"
 
-#: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:147
+#: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:191
 #: lib/View/GalleryRenderer/GalleryLightbox.php:141
 #: templates/faces/face.inc:27 templates/faces/gallery.inc:6
 msgid "Photo"
@@ -2437,6 +2437,10 @@ msgstr "_Neue Galerie"
 msgid "_Print"
 msgstr "_Drucken"
 
+#: lib/Api.php:1023
+msgid "from"
+msgstr "von"
+
 #: templates/faces/define.inc:61 templates/image/crop_image.inc:159
 #: templates/image/resize_image.inc:69
 msgid "height"
@@ -2446,7 +2450,7 @@ msgstr "Höhe"
 msgid "here"
 msgstr "hier"
 
-#: lib/Application.php:213
+#: lib/Application.php:210
 msgid "loading"
 msgstr "lade"
 
@@ -2454,7 +2458,7 @@ msgstr "lade"
 msgid "none"
 msgstr "Nichts"
 
-#: lib/View/EmbeddedRenderer/Mini.php:148
+#: lib/View/EmbeddedRenderer/Mini.php:192
 #: lib/View/GalleryRenderer/GalleryLightbox.php:142
 msgid "of"
 msgstr "von"

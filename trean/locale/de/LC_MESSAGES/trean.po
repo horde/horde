@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: 2011-02-02 18:13+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -115,7 +115,7 @@ msgstr "UND"
 msgid "Accepted"
 msgstr "Angenommen"
 
-#: lib/Application.php:110 templates/add.html.php:59
+#: lib/Application.php:107 templates/add.html.php:59
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -174,7 +174,7 @@ msgstr "Lesezeichen"
 msgid "Bookmarks Feed"
 msgstr "Lesezeichen-Feed"
 
-#: browse.php:59
+#: browse.php:60
 msgid "Browse"
 msgstr "Liste"
 
@@ -425,11 +425,11 @@ msgstr "Längenangabe erforderlich"
 msgid "Match"
 msgstr "Zutreffend auf"
 
-#: lib/Application.php:76
+#: lib/Application.php:73
 msgid "Maximum Number of Bookmarks"
 msgstr "Maximale Anzahl an Lesezeichen"
 
-#: lib/Application.php:80
+#: lib/Application.php:77
 msgid "Maximum Number of Folders"
 msgstr "Maximale Anzahl an Ordnern"
 
@@ -637,7 +637,7 @@ msgstr "Inhalt zurückgesetzt"
 msgid "Save"
 msgstr "Speichern"
 
-#: lib/Application.php:122 lib/Forms/Search.php:20 search.php:19
+#: lib/Application.php:119 lib/Forms/Search.php:20 search.php:19
 msgid "Search"
 msgstr "Suche"
 
@@ -832,7 +832,7 @@ msgstr "Sie dürfen nicht mehr als %d Lesezeichen erstellen."
 msgid "You are not allowed to create more than %d folders."
 msgstr "Sie dürfen nicht mehr als %d Ordner erstellen."
 
-#: browse.php:45
+#: browse.php:46
 msgid "You do not have permission to view this folder."
 msgstr "Sie haben nicht die nötigen Rechte um diesen Ordner anzuzeigen."
 
@@ -840,7 +840,7 @@ msgstr "Sie haben nicht die nötigen Rechte um diesen Ordner anzuzeigen."
 msgid "You must select a target folder first"
 msgstr "Sie müssen erst einen Zielordner angeben"
 
-#: lib/Application.php:90
+#: lib/Application.php:87
 msgid "_Browse"
 msgstr "_Liste"
 
@@ -852,7 +852,7 @@ msgstr "Lesezeichen lös_chen "
 msgid "_Edit Bookmarks"
 msgstr "Lesezeichen be_arbeiten"
 
-#: lib/Application.php:96
+#: lib/Application.php:93
 msgid "_Import/Export"
 msgstr "_Import/Export"
 
@@ -860,11 +860,11 @@ msgstr "_Import/Export"
 msgid "_New Bookmark"
 msgstr "_Neues Lesezeichen"
 
-#: lib/Application.php:92
+#: lib/Application.php:89
 msgid "_Reports"
 msgstr "_Berichte"
 
-#: lib/Application.php:91
+#: lib/Application.php:88
 msgid "_Search"
 msgstr "_Suche"
 
