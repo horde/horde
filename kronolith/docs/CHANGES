@@ -3,8 +3,8 @@ v3.0.10-git
 -----------
 
 [jan] Fix opening events from agenda view.
-[mjr] The current default calendar is always included in the sync_calendars
-      pref.
+[mjr] Always included the current default calendar in the sync_calendars
+      preference.
 [mjr] Ensure exception gets start and end times when created from month view
       (Bug #10496)
 [jan] Update group permission when changing group down list in basic
