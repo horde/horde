@@ -362,9 +362,9 @@ abstract class Horde_Db_Adapter_Base_Schema
      * Creates a new table.
      *
      * The $options hash can include the following keys:
-     * - primaryKey (string|array):
-     *   The name of the primary key, if one is to be added automatically.
-     *   Defaults to "id".
+     * - autoincrementKey (string|array):
+     *   The name of the autoincrementing primary key, if one is to be added
+     *   automatically. Defaults to "id".
      * - options (array):
      *   Any extra options you want appended to the table definition.
      * - temporary (boolean):
@@ -381,7 +381,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      * generates:
      * <pre>
      *  CREATE TABLE suppliers (
-     *    id int(11) DEFAULT NULL auto_increment PRIMARY KEY
+     *    id int(10) UNSIGNED  NOT NULL AUTO_INCREMENT PRIMARY KEY
      *  ) ENGINE=InnoDB DEFAULT CHARSET=utf8
      * </pre>
      *
@@ -394,23 +394,24 @@ abstract class Horde_Db_Adapter_Base_Schema
      * generates:
      * <pre>
      *  CREATE TABLE objects (
-     *    guid int(11) DEFAULT NULL auto_increment PRIMARY KEY,
+     *    guid int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
      *    name varchar(80)
      *  )
      * </pre>
      *
      * <code>
-     * // Do not add a primary key column
-     * $table = $schema->createTable('categories_suppliers', array('autoincrementKey' => false));
-     * $table->column('category_id', 'integer');
-     * $table->column('supplier_id', 'integer');
-     * $table->end();
+     * // Do not add a primary key column, use fluent interface, use type
+     * // method.
+     * $schema->createTable('categories_suppliers', array('autoincrementKey' => false))
+     *     ->column('category_id', 'integer')
+     *     ->integer('supplier_id')
+     *     ->end();
      * </code>
      * generates:
      * <pre>
      *  CREATE TABLE categories_suppliers (
-     *    category_id int,
-     *    supplier_id int
+     *    category_id int(11),
+     *    supplier_id int(11)
      *  )
      * </pre>
      *
