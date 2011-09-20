@@ -24,9 +24,9 @@ owns or has access to.</description>
   <active>yes</active>
  </lead>
  <date>2011-09-20</date>
- <time>14:36:21</time>
+ <time>14:36:44</time>
  <version>
-  <release>1.2.1</release>
+  <release>1.2.2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [gwr] Fix usage of Horde_Exception_Wrapped.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -792,6 +792,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Fix usage of Horde_Exception_Wrapped.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
