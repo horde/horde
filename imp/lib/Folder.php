@@ -181,10 +181,7 @@ class IMP_Folder
             return false;
         }
 
-        $deleted = array($old);
-        $inserted = array($new);
-
-        $all_folders = $old->subfolders;
+        $old_list = $old->subfolders;
 
         try {
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->renameMailbox($old, $new);
@@ -195,17 +192,8 @@ class IMP_Folder
 
         $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" was successfully renamed to \"%s\"."), $old->display, $new->display), 'horde.success');
 
-        foreach ($all_folders as $folder_old) {
-            $deleted[] = $folder_old;
-
-            /* Get the new folder name. */
-            $inserted[] = $folder_new = substr_replace($folder_old, $new, 0, strlen($old));
-        }
-
-        if (!empty($deleted)) {
-            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->rename($deleted, $inserted);
-            $this->_onDelete($deleted);
-        }
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->rename($old, $new);
+        $this->_onDelete($old_list);
 
         return true;
     }
