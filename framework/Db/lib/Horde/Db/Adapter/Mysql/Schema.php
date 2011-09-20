@@ -273,10 +273,17 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function endTable($name, $options = array())
     {
-        if (empty($options['charset'])) {
-            $options['charset'] = $this->getCharset();
+        if ($name instanceof Horde_Db_Adapter_Base_TableDefinition) {
+            $options = array_merge($name->getOptions(), $options);
         }
-        $opts = 'ENGINE=InnoDB DEFAULT CHARSET=' . $options['charset'];
+        if (isset($options['options'])) {
+            $opts = $options['options'];
+        } else {
+            if (empty($options['charset'])) {
+                $options['charset'] = $this->getCharset();
+            }
+            $opts = 'ENGINE=InnoDB DEFAULT CHARSET=' . $options['charset'];
+        }
         return parent::endTable($name, array_merge(array('options' => $opts), $options));
     }
 
