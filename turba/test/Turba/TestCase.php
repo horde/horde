@@ -35,51 +35,98 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
-    protected function getKolabDriver()
+    static protected function createBasicTurbaSetup(Horde_Test_Setup $setup)
     {
-        $GLOBALS['injector'] = $this->getInjector();
-        $kolab_factory = new Horde_Kolab_Storage_Factory(
+        $setup->setup(
             array(
-                'driver' => 'mock',
-                'queryset' => array('list' => array('queryset' => 'horde')),
-                'params' => array(
-                    'username' => 'test@example.com',
-                    'host' => 'localhost',
-                    'port' => 143,
-                    'data' => array(
-                        'user/test' => array(
-                            'permissions' => array('anyone' => 'alrid')
-                        )
-                    )
-                )
+                '_PARAMS' => array(
+                    'user' => 'test@example.com',
+                    'app' => 'turba'
+                ),
+                'Horde_Prefs' => 'Prefs',
+                'Horde_Perms' => 'Perms',
+                'Horde_Group' => 'Group',
+                'Horde_History' => 'History',
+                'Horde_Registry' => 'Registry',
             )
         );
-        $this->storage = $kolab_factory->create();
-        $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $this->storage);
-        $GLOBALS['turba_shares'] = new Horde_Share_Kolab(
-            'turba', 'test@example.com', new Horde_Perms_Null(), new Horde_Group_Mock()
+        $setup->makeGlobal(
+            array(
+                'prefs' => 'Horde_Prefs',
+                'registry' => 'Horde_Registry',
+                'injector' => 'Horde_Injector',
+            )
         );
-        $GLOBALS['turba_shares']->setStorage($this->storage);
-        $this->share = $GLOBALS['turba_shares']->newShare(
-            'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Addressbook of Tester"
-        );
-        $GLOBALS['turba_shares']->addShare($this->share);
-        $this->other_share = $GLOBALS['turba_shares']->newShare(
-            'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Other addressbook of Tester"
-        );
-        $GLOBALS['turba_shares']->addShare($this->other_share);
-        $GLOBALS['cfgSources'][$this->share->getName()]['type'] = 'Kolab';
-        $GLOBALS['cfgSources'][$this->share->getName()]['title'] = $this->share->get('name');
-        $GLOBALS['cfgSources'][$this->share->getName()]['map'] = $this->_getKolabMap();
-        $factory = new Turba_Factory_Driver($GLOBALS['injector']);
-        return $factory->create($this->share->getName());
+
+        $GLOBALS['conf']['prefs']['driver'] = 'Null';
     }
 
-    private function _getKolabMap()
+    static protected function createKolabShares(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
+            array(
+                'Horde_Kolab_Storage' => array(
+                    'factory' => 'KolabStorage',
+                    'params' => array(
+                        'imapuser' => 'test',
+                    )
+                ),
+                'Horde_Share_Base' => array(
+                    'factory' => 'Share',
+                    'method' => 'Kolab',
+                ),
+            )
+        );
+        $setup->makeGlobal(
+            array(
+                'turba_shares' => 'Horde_Share_Base',
+            )
+        );
+        $setup->getInjector()->setInstance(
+            'Horde_Core_Factory_Share',
+            new Horde_Test_Stub_Factory(
+                $setup->getInjector()->getInstance('Horde_Share_Base')
+            )
+        );
+        $GLOBALS['conf']['storage']['driver'] = 'kolab';
+        $GLOBALS['conf']['notepads']['driver'] = 'kolab';
+    }
+
+    protected function getKolabDriver()
+    {
+        $setup = new Horde_Test_Setup();
+        self::createBasicTurbaSetup($setup);
+        self::createKolabShares($setup);
+        list($share, $other_share) = self::_createDefaultShares();
+
+        $GLOBALS['cfgSources'][$share->getName()]['type'] = 'Kolab';
+        $GLOBALS['cfgSources'][$share->getName()]['title'] = $share->get('name');
+        $GLOBALS['cfgSources'][$share->getName()]['map'] = $this->_getKolabMap();
+        return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')
+            ->create($share->getName());
+    }
+
+    static protected function _createDefaultShares()
+    {
+        $share = self::_createShare(
+            'Address book of Tester', 'test@example.com'
+        );
+        $other_share = self::_createShare(
+            'Other address book of Tester', 'test@example.com'
+        );
+        return array($share, $other_share);
+    }
+
+    static private function _createShare($name, $owner)
+    {
+        $share = $GLOBALS['turba_shares']->newShare(
+            $owner, strval(new Horde_Support_Randomid()), $name
+        );
+        $GLOBALS['turba_shares']->addShare($share);
+        return $share;
+    }
+
+    static private function _getKolabMap()
     {
         return array(
             '__key' => 'uid',
