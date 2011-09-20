@@ -28,6 +28,11 @@ class Horde_Rdo_Query
     public $fields = array('*');
 
     /**
+     * @var boolean
+     */
+    public $distinct = false;
+
+    /**
      * @var array
      */
     public $tests = array();
@@ -160,6 +165,24 @@ class Horde_Rdo_Query
         }
 
         return $this;
+    }
+
+    /**
+     * Make the query return only distinct (different) values from table.
+     *
+     * @param boolean $boolean true to enable distinct query, false to disable it.
+     * 						   Defaults to true if left blank.
+     *
+     * @return Horde_Rdo_Query Returns self for fluent method chaining.
+     */
+    public function distinct($boolean)
+    {
+	if (!isset($boolean)) {
+	    $this->distinct = true;
+	} else {
+	    $this->distinct = $boolean;
+	}
+	return $this;
     }
 
     /**
@@ -338,7 +361,12 @@ class Horde_Rdo_Query
             }
         }
 
-        $sql = 'SELECT ' . implode(', ', $fields);
+        if ($this->distinct) {
+            $distinctClause = $this->mapper->adapter->distinct(implode(', ', $fields), implode(', ', $this->sortby));
+            $sql = 'SELECT ' . $distinctClause;
+        } else {
+            $sql = 'SELECT ' . implode(', ', $fields);
+        }
     }
 
     /**
