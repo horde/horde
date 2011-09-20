@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-08-30</date>
- <time>11:15:38</time>
+ <date>2011-09-20</date>
+ <time>14:24:49</time>
  <version>
   <release>1.0.7</release>
   <api>1.0.0</api>
@@ -610,7 +610,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Ensure correct message and code type.
