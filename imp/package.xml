@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-12</date>
- <time>16:04:44</time>
+ <date>2011-09-20</date>
+ <time>01:40:42</time>
  <version>
   <release>5.0.12</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix UI artifacts when renaming mailboxes in dynamic view (Bug #10533).
 * [jan] Don&apos;t open certain links in HTML messages in the message pane.
 * [mms] Add ability to toggle hide deleted messages in dynamic view (Request #10256).
 * [mms] Add auto-generated message filter (see RFC 3834).
@@ -2444,9 +2445,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-12</date>
+   <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix UI artifacts when renaming mailboxes in dynamic view (Bug #10533).
 * [jan] Don&apos;t open certain links in HTML messages in the message pane.
 * [mms] Add ability to toggle hide deleted messages in dynamic view (Request #10256).
 * [mms] Add auto-generated message filter (see RFC 3834).

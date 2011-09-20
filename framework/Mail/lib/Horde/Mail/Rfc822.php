@@ -227,6 +227,11 @@ class Horde_Mail_Rfc822
             ++$this->num_groups;
         }
 
+        $string = trim($string);
+        if (!strlen($string)) {
+            return '';
+        }
+
         // $string now contains the first full address/group.
         // Add to the addresses array.
         $this->addresses[] = array(
