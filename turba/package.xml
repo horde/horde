@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-20</date>
- <time>08:48:43</time>
+ <time>09:10:43</time>
  <version>
   <release>3.0.10</release>
   <api>3.0.0</api>
@@ -492,6 +492,12 @@
      </dir> <!-- /test/Turba/ToDo -->
      <dir name="Unit">
       <dir name="Driver">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Turba/Unit/Driver/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Turba/Unit/Driver/Sql -->
        <file name="Base.php" role="test" />
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Turba/Unit/Driver -->
@@ -1023,6 +1029,8 @@
    <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
    <install as="Turba/Unit/Driver/Base.php" name="test/Turba/Unit/Driver/Base.php" />
    <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
+   <install as="Turba/Unit/Driver/Sql/Base.php" name="test/Turba/Unit/Driver/Sql/Base.php" />
+   <install as="Turba/Unit/Driver/Sql/Pdo/SqliteTest.php" name="test/Turba/Unit/Driver/Sql/Pdo/SqliteTest.php" />
    <install as="turba/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="turba/themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="turba/themes/default/ie7.css" name="themes/default/ie7.css" />

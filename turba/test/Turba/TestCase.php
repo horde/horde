@@ -61,6 +61,43 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
     }
 
+    static protected function createSqlPdoSqlite(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
+            array(
+                'Horde_Db_Adapter' => array(
+                    'factory' => 'Db',
+                    'params' => array(
+                        'migrations' => array(
+                            'migrationsPath' => dirname(__FILE__) . '/../../migration',
+                            'schemaTableName' => 'turba_test_schema'
+                        )
+                    )
+                ),
+            )
+        );
+    }
+
+    static protected function createSqlShares(Horde_Test_Setup $setup)
+    {
+        $setup->getInjector()->setInstance(
+            'Horde_Core_Factory_Db',
+            new Horde_Test_Stub_Factory(
+                $setup->getInjector()->getInstance('Horde_Db_Adapter')
+            )
+        );
+        $setup->setup(
+            array(
+                'Horde_Share_Base' => 'Share',
+            )
+        );
+        $setup->makeGlobal(
+            array(
+                'turba_shares' => 'Horde_Share_Base',
+            )
+        );
+    }
+
     static protected function createKolabShares(Horde_Test_Setup $setup)
     {
         $setup->setup(
@@ -88,8 +125,6 @@ extends PHPUnit_Framework_TestCase
                 $setup->getInjector()->getInstance('Horde_Share_Base')
             )
         );
-        $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $GLOBALS['conf']['notepads']['driver'] = 'kolab';
     }
 
     static protected function getKolabDriver()
@@ -107,6 +142,19 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['cfgSources'][$share->getName()]['type'] = 'Kolab';
         $GLOBALS['cfgSources'][$share->getName()]['title'] = $share->get('name');
         $GLOBALS['cfgSources'][$share->getName()]['map'] = self::_getKolabMap();
+        return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')
+            ->create($share->getName());
+    }
+
+    static protected function createSqlDriverWithShares($setup)
+    {
+        self::createSqlShares($setup);
+        list($share, $other_share) = self::_createDefaultShares();
+
+        $GLOBALS['cfgSources'][$share->getName()]['type'] = 'Sql';
+        $GLOBALS['cfgSources'][$share->getName()]['title'] = $share->get('name');
+        $GLOBALS['cfgSources'][$share->getName()]['map'] = self::_getSqlMap();
+        $GLOBALS['cfgSources'][$share->getName()]['params']['table'] = 'turba_objects';
         return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')
             ->create($share->getName());
     }
@@ -210,6 +258,86 @@ extends PHPUnit_Framework_TestCase
             /* Invisible */
             'email'             => 'email',
             'pgpPublicKey'      => 'pgp-publickey',
+        );
+    }
+
+    static private function _getSqlMap()
+    {
+        return array(
+            '__key' => 'object_id',
+            '__owner' => 'owner_id',
+            '__type' => 'object_type',
+            '__members' => 'object_members',
+            '__uid' => 'object_uid',
+            'firstname' => 'object_firstname',
+            'lastname' => 'object_lastname',
+            'middlenames' => 'object_middlenames',
+            'namePrefix' => 'object_nameprefix',
+            'nameSuffix' => 'object_namesuffix',
+            'name' => array('fields' => array('namePrefix', 'firstname',
+                                              'middlenames', 'lastname',
+                                              'nameSuffix'),
+                            'format' => '%s %s %s %s %s',
+                            'parse' => array(
+                                array('fields' => array('firstname', 'middlenames',
+                                                        'lastname'),
+                                      'format' => '%s %s %s'),
+                                array('fields' => array('firstname', 'lastname'),
+                                      'format' => '%s %s'))),
+            // This is a shorter version of a "name" composite field which only
+            // consists of the first name and last name.
+            // 'name' => array('fields' => array('firstname', 'lastname'),
+            //                 'format' => '%s %s'),
+            'alias' => 'object_alias',
+            'birthday' => 'object_bday',
+            'anniversary' => 'object_anniversary',
+            'spouse' => 'object_spouse',
+            'photo' => 'object_photo',
+            'phototype' => 'object_phototype',
+            'homeStreet' => 'object_homestreet',
+            'homePOBox' => 'object_homepob',
+            'homeCity' => 'object_homecity',
+            'homeProvince' => 'object_homeprovince',
+            'homePostalCode' => 'object_homepostalcode',
+            'homeCountry' => 'object_homecountry',
+            'homeAddress' => array('fields' => array('homeStreet', 'homeCity',
+                                                     'homeProvince',
+                                                     'homePostalCode'),
+                                   'format' => "%s \n %s, %s  %s"),
+            'workStreet' => 'object_workstreet',
+            'workPOBox' => 'object_workpob',
+            'workCity' => 'object_workcity',
+            'workProvince' => 'object_workprovince',
+            'workPostalCode' => 'object_workpostalcode',
+            'workCountry' => 'object_workcountry',
+            'workAddress' => array('fields' => array('workStreet', 'workCity',
+                                                     'workProvince',
+                                                     'workPostalCode'),
+                                   'format' => "%s \n %s, %s  %s"),
+            'department' => 'object_department',
+            'timezone' => 'object_tz',
+            'email' => 'object_email',
+            'homePhone' => 'object_homephone',
+            'homeFax' => 'object_homefax',
+            'workPhone' => 'object_workphone',
+            'cellPhone' => 'object_cellphone',
+            'assistPhone' => 'object_assistantphone',
+            'fax' => 'object_fax',
+            'pager' => 'object_pager',
+            'title' => 'object_title',
+            'role' => 'object_role',
+            'company' => 'object_company',
+            'logo' => 'object_logo',
+            'logotype' => 'object_logotype',
+            'category' => 'object_category',
+            'notes' => 'object_notes',
+            'website' => 'object_url',
+            'freebusyUrl' => 'object_freebusyurl',
+            'pgpPublicKey' => 'object_pgppublickey',
+            'smimePublicKey' => 'object_smimepublickey',
+            'imaddress' => 'object_imaddress',
+            'imaddress2' => 'object_imaddress2',
+            'imaddress3' => 'object_imaddress3'
         );
     }
 }
