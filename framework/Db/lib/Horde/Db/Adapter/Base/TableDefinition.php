@@ -175,13 +175,13 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     public function __call($method, $arguments)
     {
         if (!in_array($method, $this->_columntypes)) {
-            throw new BadMethodCallException('Call to undeclared method "'.$method.'"');
-        } elseif (count($arguments) > 0 && count($arguments) < 3) {
+            throw new BadMethodCallException('Call to undeclared method "' . $method . '"');
+        }
+        if (count($arguments) > 0 && count($arguments) < 3) {
             return $this->column($arguments[0], $method,
                                  isset($arguments[1]) ? $arguments[1] : array());
-        } else {
-            throw new BadMethodCallException('Method "'.$method.'" takes two arguments');
         }
+        throw new BadMethodCallException('Method "'.$method.'" takes two arguments');
     }
 
     /**
