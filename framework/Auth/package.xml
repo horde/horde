@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-05</date>
- <time>19:15:29</time>
+ <date>2011-09-20</date>
+ <time>13:44:46</time>
  <version>
   <release>1.3.0</release>
   <api>1.3.0</api>
@@ -489,7 +489,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-05</date>
+   <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Dynamically disable capabilities of Customsql authentication driver if queries are empty (Michael Gröne, Request #10510).
