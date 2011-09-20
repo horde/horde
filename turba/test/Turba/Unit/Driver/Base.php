@@ -91,4 +91,12 @@ class Turba_Unit_Driver_Base extends Turba_TestCase
         $contact = self::$driver->getObject($id);
         $this->assertEquals('TEST', $contact->attributes['lastname']);
     }
+
+    public function testNullSearch()
+    {
+        $this->assertInstanceOf(
+            'Turba_List',
+            self::$driver->search(array(), null, 'AND')
+        );
+    }
 }
