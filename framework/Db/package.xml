@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-20</date>
- <time>14:24:00</time>
+ <time>14:24:18</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [jan] Add methods to add and drop primary keys (Request #10469).
-* [gwr] Fix usage of Horde_Exception_Wrapped.
-* [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -499,6 +497,19 @@
 * [jan] Add methods to add and drop primary keys (Request #10469).
 * [gwr] Fix usage of Horde_Exception_Wrapped.
 * [jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug #10466).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
