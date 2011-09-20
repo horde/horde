@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:58:25</time>
+ <date>2011-09-20</date>
+ <time>14:39:52</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -866,7 +866,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix renaming and catching errors while reading sizes in SQL driver.
