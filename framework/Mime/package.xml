@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-20</date>
- <time>14:31:55</time>
+ <time>14:32:10</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,9 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Provide method to return approximate size of parts if it contains base64 encoded data (Request #9783).
-* [mms] Support Content-Duration MIME header (RFC 3803).
-* [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -743,6 +741,19 @@
 * [mms] Provide method to return approximate size of parts if it contains base64 encoded data (Request #9783).
 * [mms] Support Content-Duration MIME header (RFC 3803).
 * [mms] MIME body part can not have disposition of &apos;attachment&apos; (Bug #10458).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
