@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-20</date>
- <time>14:35:46</time>
+ <time>14:35:59</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Call garbage collection before grabbing list of active sessions.
-* [mms] Fix obtaining session information from more than one session.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -278,6 +277,19 @@ Initial release as a PEAR package
    <notes>
 * [mms] Call garbage collection before grabbing list of active sessions.
 * [mms] Fix obtaining session information from more than one session.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
