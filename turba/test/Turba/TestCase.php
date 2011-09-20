@@ -92,16 +92,21 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['notepads']['driver'] = 'kolab';
     }
 
-    protected function getKolabDriver()
+    static protected function getKolabDriver()
     {
         $setup = new Horde_Test_Setup();
         self::createBasicTurbaSetup($setup);
+        return self::createKolabDriverWithShares();
+    }
+
+    static protected function createKolabDriverWithShares($setup)
+    {
         self::createKolabShares($setup);
         list($share, $other_share) = self::_createDefaultShares();
 
         $GLOBALS['cfgSources'][$share->getName()]['type'] = 'Kolab';
         $GLOBALS['cfgSources'][$share->getName()]['title'] = $share->get('name');
-        $GLOBALS['cfgSources'][$share->getName()]['map'] = $this->_getKolabMap();
+        $GLOBALS['cfgSources'][$share->getName()]['map'] = self::_getKolabMap();
         return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')
             ->create($share->getName());
     }
