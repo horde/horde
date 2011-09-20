@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -359,15 +359,15 @@ msgstr ""
 msgid "Copyright"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Bundled.php:269
+#: lib/Horde/Image/Exif/Bundled.php:285
 msgid "Couldnt Find IFD1"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Bundled.php:315
+#: lib/Horde/Image/Exif/Bundled.php:331
 msgid "Couldnt Find InteroperabilityIFD"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Bundled.php:232
+#: lib/Horde/Image/Exif/Bundled.php:248
 msgid "Couldnt Find SubIFD"
 msgstr ""
 
@@ -595,15 +595,15 @@ msgstr ""
 msgid "ISO studio tungsten"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Bundled.php:288
+#: lib/Horde/Image/Exif/Bundled.php:304
 msgid "Illegal size for IFD1"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Bundled.php:334
+#: lib/Horde/Image/Exif/Bundled.php:350
 msgid "Illegal size for InteroperabilityIFD"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Bundled.php:251
+#: lib/Horde/Image/Exif/Bundled.php:267
 msgid "Illegal size for SubIFD"
 msgstr ""
 
@@ -659,8 +659,8 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:127
-msgid "Lens"
+#: lib/Horde/Image/Exif.php:126
+msgid "Lens Id"
 msgstr ""
 
 #: lib/Horde/Image/Exif.php:120
@@ -1119,7 +1119,7 @@ msgstr ""
 msgid "Superfine"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Bundled.php:53
+#: lib/Horde/Image/Exif/Bundled.php:69
 msgid "The file could not be opened."
 msgstr ""
 
@@ -1317,7 +1317,7 @@ msgstr ""
 msgid "sRGB"
 msgstr ""
 
-#: lib/Horde/Image/Exif/Bundled.php:800
+#: lib/Horde/Image/Exif/Bundled.php:816
 #, php-format
 msgid "version %d"
 msgstr ""

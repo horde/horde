@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H4 (3.0.2-git)\n"
+"Project-Id-Version: Mnemo H4 (3.0.3-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -248,7 +248,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:378
+#: lib/Api.php:346
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 
@@ -272,7 +272,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: lib/Api.php:222 lib/Api.php:371
+#: lib/Api.php:190 lib/Api.php:339
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -333,13 +333,17 @@ msgstr ""
 msgid "Notepad List"
 msgstr ""
 
-#: lib/Mnemo.php:568
+#: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
 msgstr ""
 
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
+msgstr ""
+
+#: lib/Notepads/Kolab.php:38
+msgid "Notes"
 msgstr ""
 
 #: lib/Block/Summary.php:12
@@ -350,8 +354,8 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
-#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
+#: lib/Api.php:73 lib/Api.php:106 lib/Api.php:138 lib/Api.php:169
+#: lib/Api.php:254 lib/Api.php:299 lib/Api.php:322
 msgid "Permission Denied"
 msgstr ""
 
@@ -487,11 +491,11 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:216 lib/Api.php:365
+#: lib/Api.php:184 lib/Api.php:333
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
-#: lib/Api.php:53 lib/Api.php:65
+#: lib/Application.php:202
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
@@ -533,7 +537,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
+#: lib/Api.php:248 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr ""
 
@@ -543,7 +547,7 @@ msgstr ""
 msgid "Unfiled"
 msgstr ""
 
-#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
+#: lib/Api.php:217 lib/Api.php:273 lib/Api.php:356
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""

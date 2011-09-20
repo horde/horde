@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,8 +234,7 @@ msgstr ""
 msgid "Setting annotation %s[%s] on folder %s%s to %s failed. Error: %s"
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:234
-#: lib/Horde/Kolab/Storage/Data/Cached.php:149
+#: lib/Horde/Kolab/Storage/Data/Base.php:260
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -251,7 +250,7 @@ msgid ""
 "edits have been lost."
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:216
+#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:217
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "

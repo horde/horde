@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgid ""
 "entry?"
 msgstr ""
 
-#: lib/Form/Time/Entry.php:84 templates/index/timeedit.inc:41
+#: lib/Form/Time/Entry.php:83 templates/index/timeedit.inc:41
 msgid "Additional Notes"
 msgstr ""
 
@@ -254,7 +254,7 @@ msgid "Deliverables"
 msgstr ""
 
 #: invoicing.php:41 lib/Api.php:72 lib/Form/Deliverable.php:27
-#: lib/Form/Time/Entry.php:83 templates/index/search.inc:55
+#: lib/Form/Time/Entry.php:82 templates/index/search.inc:55
 #: templates/index/timeedit.inc:38 templates/index/timeedit.inc:61
 msgid "Description"
 msgstr ""
@@ -595,7 +595,7 @@ msgstr ""
 msgid "Search for Time"
 msgstr ""
 
-#: lib/Form/Admin/EditClientStepTwo.php:39 lib/Form/Time/Entry.php:80
+#: lib/Form/Admin/EditClientStepTwo.php:39 lib/Form/Time/Entry.php:79
 msgid "See Attached Timesheet"
 msgstr ""
 
@@ -640,7 +640,7 @@ msgstr ""
 msgid "Show the dynamic view by default, if the browser supports it?"
 msgstr ""
 
-#: lib/Application.php:133
+#: lib/Application.php:130
 msgid "Start Watch"
 msgstr ""
 
