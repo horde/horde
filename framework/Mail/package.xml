@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-20</date>
- <time>14:30:53</time>
+ <time>14:31:06</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mms] Fix parseAddressList() for empty address strings (Bug #10534).
-* [mms] Fix SMTP error codes/messages (Bug #10498).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -202,6 +201,19 @@
    <notes>
 * [mms] Fix parseAddressList() for empty address strings (Bug #10534).
 * [mms] Fix SMTP error codes/messages (Bug #10498).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
