@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-20</date>
- <time>14:40:52</time>
+ <time>14:41:06</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix incorrect syncml:metinf and syncml:devinf URNs (Bug #10229).
-* [jan] Mark Xml_Wbxml:: methods as static.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -225,6 +224,19 @@
    <notes>
 * [jan] Fix incorrect syncml:metinf and syncml:devinf URNs (Bug #10229).
 * [jan] Mark Xml_Wbxml:: methods as static.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
