@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-20</date>
- <time>01:40:42</time>
+ <date>2011-09-21</date>
+ <time>11:30:27</time>
  <version>
   <release>5.0.12</release>
   <api>5.0.0</api>
@@ -2445,7 +2445,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-20</date>
+   <date>2011-09-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix UI artifacts when renaming mailboxes in dynamic view (Bug #10533).
