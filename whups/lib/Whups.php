@@ -418,7 +418,7 @@ class Whups
             $permission == 'requester') {
             $admin_perm = Horde_Perms::EDIT;
         } else {
-            $admin_perm = Horde_Perms::EDIT;
+            $admin_perm = $permission;
         }
 
         $admin = $GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => $admin_perm, 'user' => $user));
