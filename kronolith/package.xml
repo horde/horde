@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix displaying resources when no attendees are present (Bug #10507).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1900,7 +1900,7 @@
    <date>2011-09-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix displaying resources when no attendees are present (Bug #10507).
    </notes>
   </release>
  </changelog>
