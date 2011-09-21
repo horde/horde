@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 4.0.2.
+version 4.0.3.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -27,27 +27,35 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 4.0.1 are:
+The major changes compared to the Horde Groupware version 4.0.2 are:
 
 General changes:
-    * Improved synchronization support.
-    * Improved performance.
+    * Added account locking and tracking of failed logins.
+    * Fixed title of tasks portal block.
+    * Fixed write support for LDAP groups.
     * Small bugfixes and improvements.
-    * Updated Latvian translation.
+
+Address book changes:
+    * Added more default attributes.
 
 Calendar changes:
-    * Improved attendee management.
-    * Relaxed WebDAV server requirements.
+    * Always synchronize the default calendar.
+    * Support snoozing alarms with Sundbird/Lightning.
+    * Support VALARM components from iCalendar 2.0 data.
+    * Fixed displaying of freebusy data in dynamic view.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Improved synchronization support.
-Improved performance.
-Improved attendee management.
-Relaxed WebDAV server requirements.
+Added account locking and tracking of failed logins.
+Fixed title of tasks portal block.
+Fixed write support for LDAP groups.
+Added more default address book attributes.
+Always synchronize the default calendar.
+Support snoozing alarms with Sundbird/Lightning.
+Support VALARM components from iCalendar 2.0 data.
+Fixed displaying of freebusy data in dynamic view.
 Small bugfixes and improvements.
-Updated Latvian translation.
 FM;
 
 $this->notes['name'] = 'Horde Groupware';
