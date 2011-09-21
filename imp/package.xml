@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix sending notifications after download of linked attachments (Bug #10539).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2474,7 +2474,7 @@
    <date>2011-09-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix sending notifications after download of linked attachments (Bug #10539).
    </notes>
   </release>
  </changelog>
