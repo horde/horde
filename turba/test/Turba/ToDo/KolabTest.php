@@ -7,7 +7,7 @@ require_once dirname(__FILE__) . '/KolabTestBase.php';
  * @package Turba
  * @subpackage UnitTests
  */
-class Turba_KolabTest extends Turba_KolabTestBase {
+class Turba_ToDo_KolabTest extends Turba_KolabTestBase {
 
     /**
      * Test setup.
@@ -16,6 +16,7 @@ class Turba_KolabTest extends Turba_KolabTestBase {
      */
     public function setUp()
     {
+        $this->markTestIncomplete('Convert to use Horde_Test.');
         $this->prepareTurba();
 
         $this->_kolab = &new Kolab();

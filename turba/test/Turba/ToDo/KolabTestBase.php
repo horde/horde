@@ -11,16 +11,6 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
-/**
- *  We need the unit test framework
- */
-require_once 'Horde/Kolab/Test/Storage.php';
-
-/**
- *  We need some additional tools for Turba
- */
-require_once 'Horde/Share.php';
-require_once 'Horde/Kolab.php';
 
 /**
  * Base for PHPUnit scenarios.
@@ -36,7 +26,7 @@ require_once 'Horde/Kolab.php';
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Turba_KolabTestBase extends Horde_Kolab_Test_Storage
+class Turba_KolabTestBase extends Turba_TestCase
 {
     /**
      * Handle a "given" step.
