@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-09-06</date>
- <time>13:45:18</time>
+ <date>2011-09-21</date>
+ <time>12:53:10</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -699,7 +699,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-06</date>
+   <date>2011-09-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Horde_Text_Filter_Text2Html now accepts a Horde_Text_Flowed object as input to filter(); allows proper quoting of input text.
