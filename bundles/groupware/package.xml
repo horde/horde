@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-21</date>
- <time>16:47:27</time>
+ <time>16:47:48</time>
  <version>
-  <release>4.0.3</release>
+  <release>4.0.4</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* [jan] Fix German title of tasks portal block (Bug #10486).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -200,6 +200,19 @@
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * [jan] Fix German title of tasks portal block (Bug #10486).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-21</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
