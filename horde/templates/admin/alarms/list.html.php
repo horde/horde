@@ -3,7 +3,7 @@
   (<?php echo count($this->alarms) ?>)
 </h1>
 <?php if ($this->error): ?>
-<p class="headerbox"><em><?php echo $this-h($this->error) ?></em></p>
+<p class="headerbox"><em><?php echo $this->h($this->error) ?></em></p>
 <?php else: ?>
 <ul class="headerbox linedRow">
   <?php foreach ($this->alarms as $alarm): ?>

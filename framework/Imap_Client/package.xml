@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-09</date>
- <time>00:12:43</time>
+ <date>2011-09-18</date>
+ <time>22:16:10</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -89,11 +89,13 @@
      <dir name="Imap">
       <dir name="Client">
        <dir name="fixtures">
+        <file name="bug_10503.txt" role="test" />
         <file name="test_email.txt" role="test" />
         <file name="test_email2.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
        <dir name="Stub">
         <file name="DigestMD5.php" role="test" />
+        <file name="Socket.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Stub -->
        <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
@@ -102,6 +104,7 @@
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
+       <file name="SocketTest.php" role="test" />
        <file name="SubjectParseTest.php" role="test" />
        <file name="test_client.php" role="test" />
        <file name="UrlParseTest.php" role="test" />
@@ -213,13 +216,16 @@
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
+   <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
    <install as="Horde/Imap/Client/test_client.php" name="test/Horde/Imap/Client/test_client.php" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
+   <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
    <install as="Horde/Imap/Client/fixtures/test_email.txt" name="test/Horde/Imap/Client/fixtures/test_email.txt" />
    <install as="Horde/Imap/Client/fixtures/test_email2.txt" name="test/Horde/Imap/Client/fixtures/test_email2.txt" />
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
+   <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -556,7 +562,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-09</date>
+   <date>2011-09-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).

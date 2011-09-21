@@ -490,7 +490,7 @@ class Horde_Icalendar
     {
         // Default values.
         // TODO: HORDE_VERSION does not exist.
-        $requiredAttributes['PRODID'] = '-//Horde LLC//Horde iCalendar Library' . (defined('HORDE_VERSION') ? ', Horde ' . constant('HORDE_VERSION') : '') . '//EN';
+        $requiredAttributes['PRODID'] = '-//The Horde Project//Horde iCalendar Library' . (defined('HORDE_VERSION') ? ', Horde ' . constant('HORDE_VERSION') : '') . '//EN';
         $requiredAttributes['METHOD'] = 'PUBLISH';
 
         foreach ($requiredAttributes as $name => $default_value) {

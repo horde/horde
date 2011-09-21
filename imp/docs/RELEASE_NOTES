@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H4 (5.0.11).
+Program (IMP) version H4 (5.0.13).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -23,13 +23,28 @@ access to IMAP and POP3 mail servers and provides Ajax, mobile and traditional
 interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
-The major changes compared to the IMP version H4 (5.0.10) are:
+The major changes compared to the IMP version H4 (5.0.12) are:
 
+    * Fixed broken dependency on Text_Flowed.
+
+The major changes compared to the IMP version H4 (5.0.11) are:
+
+    * Improved display and switching of reply method in dynamic view.
+    * Added display and switching of reply method to standard view.
+    * Improved button design in dynamic view.
+    * Added filter for automatically generated messages.
+    * Added ability to hide deleted messages to dynamic view.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Fixed broken dependency on Text_Flowed.
+Improved display and switching of reply method in dynamic view.
+Added display and switching of reply method to standard view.
+Improved button design in dynamic view.
+Added filter for automatically generated messages.
+Added ability to hide deleted messages to dynamic view.
 Small bugfixes and improvements.
 FM;
 

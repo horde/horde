@@ -82,7 +82,7 @@ extends PHPUnit_Framework_TestCase
     {
         $setup->getInjector()->setInstance(
             'Horde_Core_Factory_Db',
-            new Nag_Stub_DbFactory(
+            new Horde_Test_Stub_Factory(
                 $setup->getInjector()->getInstance('Horde_Db_Adapter')
             )
         );

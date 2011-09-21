@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-12</date>
- <time>16:04:44</time>
+ <date>2011-09-21</date>
+ <time>12:57:44</time>
  <version>
-  <release>5.0.12</release>
+  <release>5.0.14</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,19 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Don&apos;t open certain links in HTML messages in the message pane.
-* [mms] Add ability to toggle hide deleted messages in dynamic view (Request #10256).
-* [mms] Add auto-generated message filter (see RFC 3834).
-* [mms] Remove non-existent parent mailbox when removing last child mailbox in dynamic view (Bug #10495).
-* [mms] Provide content duration information for audio &amp; video data if that information is available (RFC 3803).
-* [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
-* [mms] Add List-ID information, if available, to auto-reply notification.
-* [mms] Display information on reply method in standard view when automatically choosing the reply type.
-* [mms] Fix generation of Save All attachments link in dynamic view.
-* [mms] More intelligent quoting of flowed text messages sent in HTML format.
-* [mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
-* [mms] More workarounds for broken suhosin extension (Bug #10462).
-* [mms] Always show image thumbnail previews, if an image conversion utility is present on the system.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1315,14 +1303,14 @@
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>Horde_Text_Flowed</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.0</min>
+    <min>1.0.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -2444,9 +2432,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-12</date>
+   <date>2011-09-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix UI artifacts when renaming mailboxes in dynamic view (Bug #10533).
 * [jan] Don&apos;t open certain links in HTML messages in the message pane.
 * [mms] Add ability to toggle hide deleted messages in dynamic view (Request #10256).
 * [mms] Add auto-generated message filter (see RFC 3834).
@@ -2455,11 +2444,37 @@
 * [jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
 * [mms] Add List-ID information, if available, to auto-reply notification.
 * [mms] Display information on reply method in standard view when automatically choosing the reply type.
-* [mms] Fix generation of Save All attachments link in dynamic view.
+* [mms] Fix generation of Save All attachments link.
 * [mms] More intelligent quoting of flowed text messages sent in HTML format.
 * [mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
 * [mms] More workarounds for broken suhosin extension (Bug #10462).
 * [mms] Always show image thumbnail previews, if an image conversion utility is present on the system.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.13</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix broken dependency on Text_Flowed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.14</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

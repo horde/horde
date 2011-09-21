@@ -2,6 +2,239 @@
 v4.0.3-git
 ----------
 
+[jan] Fix German title of tasks portal block (Bug #10486).
+
+Horde Changes
+-------------
+[rla] Add account locking similar to the former kolab-specific option.
+[jan] Add missing configuration for LDAP groups write support.
+[rla] Show a warning when resetting password and no security question is set
+      (Request #10430).
+[mjr] Update jQuery Mobile to version 1.0 Beta 2.
+[jan] Update hordeweb theme to match new website layout.
+
+Address Book Changes
+--------------------
+[rla] Turba LDAP Driver now only rewrites changed attributes (Bug #9343).
+[mjr] Run attribute values through decode_attribute hook when exporting.
+[mjr] Ensure encode_attribute hook is called on imported objects
+[mjr] Improve handling of removeUserData.
+[mjr] Honor auto_create configuration setting (Bug #10452,
+      qoole.horde@lillimoth.com)
+[jan] Don't allow to search binary fields.
+[jan] Fix attribute name for assistant phone (Bug #10449).
+[jan] Add missing migration script (Bug #10436).
+[mjr] Fix issue with synchronizing deleted contacts (Bug #10422).
+[jan] Fix searching for duplicates on some databases (Bug #10383).
+[mjr] Add and support more attributes by default.
+
+Calendar Changes
+----------------
+[jan] Fix opening events from agenda view.
+[mjr] Always included the current default calendar in the sync_calendars
+      preference.
+[mjr] Ensure exception gets start and end times when created from month view
+      (Bug #10496)
+[jan] Update group permission when changing group down list in basic
+      permissions (Bug #10482).
+[jan] Fix race condition when editing group permission in basic permission
+      screen (Bug #10482).
+[mjr] Fix removeUserData API (Bug #10241).
+[jan] Fix deleting events with a WebDAV client (Bug #10478).
+[jan] Fix fatal error while searching if hitting certain recurring events.
+[jan] Fix exporting events with snoozed alarms (Bug #10438).
+[jan] Fix deleting resources (Bug #10427)
+[jan] Support snoozing alarms with Sundbird/Lightning (Request #7470).
+[jan] Import VALARM components from iCalendar 2.0 data (Request #6665).
+[jan] Fix exporting all-day events to Funambol clients (Thomas Ilsche
+      <git@zulan.net>, Bug #10349).
+[jan] Fix creating events from dynamic view on Windows (Bug #9916).
+[mjr] Fix displaying of freebusy data in dynamic view (adominguez@cne.gob.ve,
+      Bug #10347).
+[mjr] Fix updating attendees (Bug #10411).
+[jan] Fix error if Nag is not installed (Bug #10406).
+
+Tagging Changes
+---------------
+[mjr] Fix broken tag cloud queries due to missing GROUP BY fields (Bug #10419)
+[mjr] Prevent tagging with empty strings.
+[mjr] Enforce that object and type names are always taken as a string (Bug
+      #10171).
+[mjr] Updated unit tests to new test structure.
+[mjr] Prevent tagging with empty tags.
+
+Library Changes
+---------------
+
+ActiveSync
+[mjr] Fix syncing daily recurrence types.
+[mjr] Support additional GAL fields (Bug #10504).
+[mjr] Prevent broken clients from sending incoming changes with initial SYNC
+      request (Bug #10461).
+[mjr] Fix sending MONTHLY_NTH and YEARLY_NTH recurrence types (Bug# 10416).
+[mjr] Fix synchronization loop due to messages being deleted on server then
+      attempting a change from the client.
+[mjr] Fix bug with certain recurrence types due to erroneously outputting a
+      zero as an empty tag (Bug# 10416).
+[mjr] Support POOMCONTACTS2 schema in AS 2.5 clients also.
+[mjr] Fix sending unnecessary FOLDERSYNC changes.
+[mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to
+      PING and SYNC the same collection an unlimited number of times.
+
+Auth
+[jan] Dynamically disable capabilities of Customsql authentication driver if
+      queries are empty (Michael Gröne, Request #10510).
+[jan] Fix updating users in LDAP while using preauthenticate hooks.
+[jan] Add support for resetting passwords to LDAP driver.
+[rla] Add bad login blocking and account locking to the base driver.
+[rla] Fix SQL driver when using soft_expiration and hard_expiration features.
+[rla] No longer enforce lowercase fieldnames.
+
+Compress
+[mms] Detect broken RAR data so it does not cause an infinite loop.
+
+Core
+[jan] Fix generating of URLs if both the webroot and the original URL are full
+      URLs.
+[mjr] Support additional GAL fields (Bug #10504).
+[jan] Allow to pass a configuration array to the LDAP factory.
+[mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be
+      the sole access point to delete user data for any/all apps (Bug #10241).
+[mms] Correctly apply value of $conf['session']['timeout'] to PHP environment.
+[mms] Fix cookie timeouts.
+[rla] Add locking routines to Horde_Core_Auth_Application.
+[rla] Add support for Horde_Auth's new locking feature.
+[rla] Display permissions of hidden apps too
+[gwr] Do not fail when no basedn is set for the Horde_Kolab_Server
+      configuration.
+[mms] When reopening sessions, ensure that we don't alter session information
+      if the authentication status changed (Bug #10403).
+[jan] Use 'ident' option of Horde_Log handlers to prefix log messages (Gonçalo
+      Queirós <goncalo.queiros@portugalmail.net>, Request #9322).
+[jan] Check applications' authValidate() method if present.
+[mms] Add Horde_Session::isActive().
+[mjr] Add remove button to image fields (Request #9870).
+
+Crypt
+[mms] Encrypted data is already base64 encoded (Bug #10285).
+
+Date
+[jan] Fix exporting recurrence end date to iCalendar.
+
+Db
+[jan] Add methods to add and drop primary keys (Request #10469).
+[gwr] Fix usage of Horde_Exception_Wrapped.
+[jan] Fix setting unix socket in PostgreSQL DSN (bug-reports@flipjam.co.uk, Bug
+      #10466).
+[jan] Fix determination of last insert id on PostgreSQL up to 8.1.
+[jan] Fix migrations from primary keys that have not been created with Horde_Db
+      in PostgreSQL.
+[jan] Fix autoincrementKey sequences not incrementing after manually inserting
+      key values in PostgreSQL.
+[jan] Fix changeColumn() migration to autoincrementKey if no primary key exists
+      yet.
+
+Exception
+[gwr] Ensure correct message and code type.
+[jan] Don't include backtrace in Horde_Exception_Pear messages.
+
+Form
+[mjr] Add remove button to image fields (Request #9870).
+
+Group
+[jan] Fix bind for modifying existing LDAP groups.
+
+Icalendar
+[mjr] Fix version access (Bug #10425).
+[jan] Avoid infinite loop when importing certain vCalendar 1.0/vCard 2.1 data.
+[mjr] Fix fetching the version from an Icalendar object (Bug #10411).
+
+Imap_Client
+[mms] Remove dependency on Auth_SASL.
+[mms] Add support for CRAM-SHA1 and CRAM-SHA256 authentication (available in
+      Courier SASL library).
+[mms] Remove dependency on Auth_SASL for CRAM-MD5 authentication.
+[mms] Ignore unknown authentication methods; otherwise, they give false
+      positive when authenticating (Bug #10453).
+[mms] Fix rare race condition that may cause FETCH requests in the IMAP Socket
+      driver to return empty results (Bug #10434).
+[mms] Fix typo that prevented deletion of messages on POP3 servers (Bug #10424).
+[mms] Fix regression in POP3 Socket driver that caused incorrect parsing of
+      server data (Bug #10417).
+[mms] Fix OR search if first search element contains more than one search
+      criteria (Bug #10404).
+[mms] Fix invalid IMAP command being sent if a changedsince search was empty.
+
+Imsp
+[jan] Fix file names for plaintext and imtest authentication drivers.
+
+Kolab_Format
+[gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
+[gwr] Fixed detecting parse errors in subsequent parse attempts.
+
+Kolab_Server
+[gwr] Fix reading the user name.
+
+Kolab_Session
+[gwr] Added a backend that avoids querying LDAP.
+
+Ldap
+[jan] Speed up Horde_Ldap_Search#shiftEntry() on large result sets.
+
+Log
+[jan] Add 'ident' option to all handlers (Gonçalo Queirós
+      <goncalo.queiros@portugalmail.net>, Request #9322).
+
+Mail
+[mms] Fix parseAddressList() for empty address strings (Bug #10534).
+[mms] Fix SMTP error codes/messages (Bug #10498).
+
+Memcache
+[mms] Silence undefined errors when a search key is not found on the server.
+
+Mime
+[mms] Provide method to return approximate size of parts if it contains base64
+      encoded data (Request #9783).
+[mms] Support Content-Duration MIME header (RFC 3803).
+[mms] MIME body part can not have disposition of 'attachment' (Bug #10458).
+[mms] Fix quoted-printable encoding for message parts contained in a multipart
+      that do not share the same EOLs as the parent part (Bug #10324).
+
+Pdf
+[jan] Fix setting Courier fonts with font style (PEAR Bug #18550).
+
+Perms
+[gwr] Accept either d or t IMAP ACL as deletion right.
+
+Prefs
+[mms] Fix identities when default_identity is locked (Bug #10098).
+
+Routes
+[mjr] Added Horde_Routes_Matcher helper class.
+
+Service_Facebook
+[mjr] Use FQL to obtain event list and add rsvp_status
+
+SessionHandler
+[mms] Call garbage collection before grabbing list of active sessions.
+[mms] Fix obtaining session information from more than one session.
+
+Share
+[gwr] Fix usage of Horde_Exception_Wrapped.
+[gwr] Fixed support for share parents in the Kolab driver.
+[gwr] Fixed support for multiple namespaces of the same type in the Kolab
+      driver.
+
+SyncMl
+[jan] Fix logging errors while retrieving server changes.
+
+Vfs
+[jan] Fix renaming and catching errors while reading sizes in SQL driver.
+[jan] Fix reading file contents from FTP.
+
+Xml_Wbxml
+[jan] Fix incorrect syncml:metinf and syncml:devinf URNs (Bug #10229).
+[jan] Mark Xml_Wbxml:: methods as static.
 
 
 ------

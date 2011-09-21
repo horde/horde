@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: 2011-08-02 15:27+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -87,7 +87,7 @@ msgstr ""
 "Stoppuhr-Bezeichnung und Start- und Endezeit in die Beschreibung des "
 "Zeiteintrags übernehmen?"
 
-#: lib/Form/Time/Entry.php:84 templates/index/timeedit.inc:41
+#: lib/Form/Time/Entry.php:83 templates/index/timeedit.inc:41
 msgid "Additional Notes"
 msgstr "Zusätzliche Bemerkungen"
 
@@ -262,7 +262,7 @@ msgid "Deliverables"
 msgstr "Ergebnisse"
 
 #: invoicing.php:41 lib/Api.php:72 lib/Form/Deliverable.php:27
-#: lib/Form/Time/Entry.php:83 templates/index/search.inc:55
+#: lib/Form/Time/Entry.php:82 templates/index/search.inc:55
 #: templates/index/timeedit.inc:38 templates/index/timeedit.inc:61
 msgid "Description"
 msgstr "Beschreibung"
@@ -609,7 +609,7 @@ msgstr "Zeit suchen"
 msgid "Search for Time"
 msgstr "Nach Zeit suchen"
 
-#: lib/Form/Admin/EditClientStepTwo.php:39 lib/Form/Time/Entry.php:80
+#: lib/Form/Admin/EditClientStepTwo.php:39 lib/Form/Time/Entry.php:79
 msgid "See Attached Timesheet"
 msgstr "Siehe angehängte Zeitübersicht"
 
@@ -661,7 +661,7 @@ msgstr ""
 "Standardmäßig die dynamische Ansicht anzeigen, falls der Browser dies "
 "unterstützt?"
 
-#: lib/Application.php:133
+#: lib/Application.php:130
 msgid "Start Watch"
 msgstr "Stoppuhr starten"
 

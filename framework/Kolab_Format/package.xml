@@ -430,6 +430,21 @@
   </release>
   <release>
    <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-08-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
+* [gwr] Fixed detecting parse errors in subsequent parse attempts.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>1.1.0</release>
     <api>1.1.0</api></version>
    <stability>
@@ -446,22 +461,6 @@
 * [gwr] Allow adding XML attributes on the fly.
 * [gwr] Avoid overwriting data from other Kolab clients.
 * [gwr] Added improved root node handler (version checking, avoids overwriting other data).
-* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
-* [gwr] Fixed detecting parse errors in subsequent parse attempts.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.0.2</release>
-    <api>1.0.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2011-09-08</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
-   <notes>
-* 
    </notes>
   </release>
  </changelog>

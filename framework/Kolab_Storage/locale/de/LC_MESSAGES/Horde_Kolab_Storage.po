@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -248,8 +248,7 @@ msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 msgid "Setting annotation %s[%s] on folder %s%s to %s failed. Error: %s"
 msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:234
-#: lib/Horde/Kolab/Storage/Data/Cached.php:149
+#: lib/Horde/Kolab/Storage/Data/Base.php:260
 #, fuzzy, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -271,7 +270,7 @@ msgstr ""
 "dass dieses Kolab-Object von jemand anderem verändert wurde, während Sie es "
 "bearbeitet haben. Ihre Änderungen sind verloren."
 
-#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:216
+#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:217
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "

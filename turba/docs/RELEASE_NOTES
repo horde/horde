@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Turba Contact
-Manager version H4 (3.0.8).
+Manager version H4 (3.0.9).
 
 Turba is the Horde contact management application. Leveraging the Horde
 framework to provide seamless integration with IMP and other Horde
@@ -23,14 +23,14 @@ applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP
 address books. For more information on Turba, visit
 http://www.horde.org/apps/turba.
 
-The major changes compared to the Turba version H4 (3.0.7) are:
+The major changes compared to the Turba version H4 (3.0.8) are:
 
-    * Fixed attribute name for assistant phone fields.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fixed attribute name for assistant phone fields.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Turba';

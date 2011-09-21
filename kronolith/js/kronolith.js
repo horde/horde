@@ -873,11 +873,11 @@ KronolithCore = {
             row = $('kronolithAgendaTemplate').clone(true);
 
         // Fill week number and day cells.
-        row.store('date', date)
-            .down()
+        row.down()
             .setText(this.parseDate(date).toString('D'))
             .next()
-            .writeAttribute('id', 'kronolithAgendaDay' + date);
+            .writeAttribute('id', 'kronolithAgendaDay' + date)
+            .store('date', date);
         row.removeAttribute('id');
 
         // Insert row.
@@ -3528,6 +3528,8 @@ KronolithCore = {
         }
         if (r.response.saved) {
             if ($F('kronolithCalendarinternalImport')) {
+                this.loading++;
+                $('kronolithLoading').show();
                 var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
                     iframe = new Element('iframe', { src: 'about:blank', name: name, id: name }).setStyle({ display: 'none' });
                 document.body.insert(iframe);
@@ -5221,6 +5223,9 @@ KronolithCore = {
 
         var t = new Element('div');
         r.response.tags.each(function(tag) {
+            if (tag == null) {
+                return;
+            }
             t.insert(new Element('span', { className: tagclass }).update(tag.escapeHTML()));
         });
         $(update).update(t);

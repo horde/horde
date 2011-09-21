@@ -1063,7 +1063,13 @@ HTML;
              (preg_match($schemeRegexp, $webroot) && isset($puri['scheme'])))) {
             $url .= $puri['path'];
         } elseif (isset($puri['path']) && preg_match($schemeRegexp, $webroot)) {
-            $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];
+            if (substr($puri['path'], 0, 1) == '/') {
+                $pwebroot = parse_url($webroot);
+                $url = $pwebroot['scheme'] . '://' . $pwebroot['host']
+                    . $puri['path'];
+            } else {
+                $url = $webroot . '/' . $puri['path'];
+            }
         } else {
             $url .= '/' . ($webroot ? $webroot . '/' : '') . (isset($puri['path']) ? $puri['path'] : '');
         }

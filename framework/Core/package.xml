@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-08-31</date>
- <time>01:01:07</time>
+ <date>2011-09-20</date>
+ <time>13:51:17</time>
  <version>
-  <release>1.5.0</release>
+  <release>1.5.1</release>
   <api>1.5.0</api>
  </version>
  <stability>
@@ -40,12 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix generating of URLs if both the webroot and the original URL are full URLs.
-* [mjr] Support additional GAL fields (Bug #10504).
-* [jan] Allow to pass a configuration array to the LDAP factory.
-* [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
-* [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
-* [mms] Fix cookie timeouts.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1565,7 +1560,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-31</date>
+   <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix generating of URLs if both the webroot and the original URL are full URLs.
@@ -1574,6 +1569,19 @@
 * [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
 * [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
 * [mms] Fix cookie timeouts.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.1</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

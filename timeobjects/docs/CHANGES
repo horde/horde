@@ -1,0 +1,26 @@
+----------
+v1.0.3-git
+----------
+
+
+
+------
+v1.0.2
+------
+
+[jan] Export location, description, status, privacy, and URL of Facebook events.
+[jan] Fix timezone conversion of Facebook events (Bug #10341).
+
+
+------
+v1.0.1
+------
+
+[jan] Fix installation paths.
+
+
+------
+v1.0.0
+------
+
+Initial release.

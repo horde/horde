@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 4.0.2.
+Webmail Edition version 4.0.3.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,38 +29,53 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 4.0.1
+The major changes compared to the Horde Groupware Webmail Edition version 4.0.2
 are:
 
 General changes:
-    * Improved synchronization support.
-    * Improved performance.
+    * Added account locking and tracking of failed logins.
+    * Fixed title of tasks portal block.
+    * Fixed write support for LDAP groups.
     * Small bugfixes and improvements.
-    * Updated Latvian translation.
 
 Mail changes:
-    * Save messages from dynamic view preview.
-    * User interface improvements.
+    * Improved display and switching of reply method in dynamic view.
+    * Added display and switching of reply method to standard view.
+    * Improved search features.
+    * Improved button design in dynamic view.
+    * Added filter for automatically generated messages.
+    * Added flag to indicate mailing list messages.
+    * Added ability to hide deleted messages to dynamic view.
+    * Fixed manual filtering in INBOX.
+
+Address book changes:
+    * Added more default attributes.
 
 Filters changes:
-    * Fixed creating of new IMAP folders.
+    * Fixed disabling of actions.
+    * Fixed sorting of blacklists and whitelists.
 
 Calendar changes:
-    * Improved attendee management.
-    * Relaxed WebDAV server requirements.
+    * Always synchronize the default calendar.
+    * Support snoozing alarms with Sundbird/Lightning.
+    * Support VALARM components from iCalendar 2.0 data.
+    * Fixed displaying of freebusy data in dynamic view.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Improved synchronization support.
-Improved performance.
-Save messages from dynamic view preview.
-User interface improvements in dynamic view.
-Fixed creating of new IMAP folders from mail filters.
-Improved attendee management.
-Relaxed WebDAV server requirements.
-Small bugfixes and improvements.
-Updated Latvian translation.
+Added account locking and tracking of failed logins.
+Fixed title of tasks portal block.
+Fixed write support for LDAP groups.
+Improved email searching, display and switching of reply methods and button design.
+Added mail filter for automatic messages and flag for mailing list messages.
+Added ability to hide deleted messages to dynamic view.
+Added more default address book attributes.
+Fixed disabling of filter actions.
+Always synchronize the default calendar.
+Support snoozing alarms with Sundbird/Lightning.
+Support VALARM components from iCalendar 2.0 data.
+Fixed displaying of freebusy data.
 FM;
 
 $this->notes['name'] = 'Horde Groupware Webmail Edition';
