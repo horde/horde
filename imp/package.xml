@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix broken dependency on Text_Flowed.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2461,7 +2461,7 @@
    <date>2011-09-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix broken dependency on Text_Flowed.
    </notes>
   </release>
  </changelog>
