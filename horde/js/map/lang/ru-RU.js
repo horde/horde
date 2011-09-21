@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Ferrer
  *  - Komzpa
@@ -19,17 +15,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["ru_RU"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["ru-RU"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "Необработанный запрос вернул ${statusText}",
 
-    'permalink': "Постоянная ссылка",
+    'Permalink': "Постоянная ссылка",
 
-    'overlays': "Слои",
+    'Overlays': "Слои",
 
-    'baseLayer': "Основной слой",
-
-    'sameProjection': "Обзорная карта работает только тогда, когда имеет ту же проекцию, что и основная",
+    'Base Layer': "Основной слой",
 
     'readNotImplemented': "Чтение не реализовано.",
 
@@ -51,11 +45,11 @@ OpenLayers.Lang["ru_RU"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "Транзакция WFS: ОШИБКА ${response}",
 
-    'googleWarning': "Слой Google не удалось нормально загрузить.\x3cbr\x3e\x3cbr\x3eЧтобы избавиться от этого сообщения, выбите другой основной слой в переключателе в правом верхнем углу.\x3cbr\x3e\x3cbr\x3eСкорее всего, причина в том, что библиотека Google Maps не была включена или не содержит корректного API-ключа для вашего сайта.\x3cbr\x3e\x3cbr\x3eРазработчикам: чтобы узнать, как сделать, чтобы всё заработало, \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3eщёлкните тут\x3c/a\x3e",
+    'googleWarning': "Слой Google не удалось нормально загрузить.\x3cbr\x3e\x3cbr\x3eЧтобы избавиться от этого сообщения, выбите другой основной слой в переключателе в правом верхнем углу.\x3cbr\x3e\x3cbr\x3eСкорее всего, причина в том, что библиотека Google Maps не была включена или не содержит корректного API-ключа для вашего сайта.\x3cbr\x3e\x3cbr\x3eРазработчикам: чтобы узнать, как сделать, чтобы всё заработало, \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3eщёлкните тут\x3c/a\x3e",
 
-    'getLayerWarning': "Слой ${layerType} не удалось нормально загрузить. \x3cbr\x3e\x3cbr\x3eЧтобы избавиться от этого сообщения, выбите другой основной слой в переключателе в правом верхнем углу.\x3cbr\x3e\x3cbr\x3eСкорее всего, причина в том, что библиотека ${layerLib} не была включена или была включена некорректно.\x3cbr\x3e\x3cbr\x3eРазработчикам: чтобы узнать, как сделать, чтобы всё заработало, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'_blank\'\x3eщёлкните тут\x3c/a\x3e",
+    'getLayerWarning': "Слой ${layerType} не удалось нормально загрузить. \x3cbr\x3e\x3cbr\x3eЧтобы избавиться от этого сообщения, выбите другой основной слой в переключателе в правом верхнем углу.\x3cbr\x3e\x3cbr\x3eСкорее всего, причина в том, что библиотека ${layerLib} не была включена или была включена некорректно.\x3cbr\x3e\x3cbr\x3eРазработчикам: чтобы узнать, как сделать, чтобы всё заработало, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'-blank\'\x3eщёлкните тут\x3c/a\x3e",
 
-    'scale': "Масштаб = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Масштаб = 1 : ${scaleDenom}",
 
     'W': "З",
 
@@ -78,8 +72,6 @@ OpenLayers.Lang["ru_RU"] = OpenLayers.Util.applyDefaults({
     'pixelAddError': "Функции add надо передавать оба значения, x и y.",
 
     'unsupportedGeometryType': "Неподдерживаемый тип геометрии: ${geomType}",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition failed: элемент с id ${elemId} может находиться не в нужном месте.",
 
     'filterEvaluateNotImplemented': "evaluate не реализовано для фильтра данного типа."
 

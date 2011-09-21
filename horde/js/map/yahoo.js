@@ -91,7 +91,6 @@ HordeMap.Geocoder.Yahoo = Class.create(
     }
 
 });
-
 /* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the Clear BSD license.  
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
@@ -523,3 +522,5 @@ OpenLayers.Layer.Yahoo = OpenLayers.Class(
     
     CLASS_NAME: "OpenLayers.Layer.Yahoo"
 });
+
+

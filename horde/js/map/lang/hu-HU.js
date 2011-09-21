@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - City-busz
  *  - Glanthor Reviol
@@ -17,17 +13,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["hu_HU"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["hu-HU"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "Nem kezelt kérés visszatérése ${statusText}",
 
-    'permalink': "Permalink",
+    'Permalink': "Permalink",
 
-    'overlays': "Rávetítések",
+    'Overlays': "Rávetítések",
 
-    'baseLayer': "Alapréteg",
-
-    'sameProjection': "Az áttekintő térkép csak abban az esetben működik, ha ugyanazon a vetületen van, mint a fő térkép.",
+    'Base Layer': "Alapréteg",
 
     'readNotImplemented': "Olvasás nincs végrehajtva.",
 
@@ -49,11 +43,11 @@ OpenLayers.Lang["hu_HU"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "WFS tranzakció: SIKERTELEN ${response}",
 
-    'googleWarning': "A Google fólia betöltése sikertelen.\x3cbr\x3e\x3cbr\x3eAhhoz, hogy ez az üzenet eltűnjön, válasszon egy új BaseLayer fóliát a jobb felső sarokban található fóliakapcsoló segítségével.\x3cbr\x3e\x3cbr\x3eNagy valószínűséggel ez azért van, mert a Google Maps könyvtár parancsfájlja nem található, vagy nem tartalmazza az Ön oldalához tartozó megfelelő API-kulcsot.\x3cbr\x3e\x3cbr\x3eFejlesztőknek: A helyes működtetésre vonatkozó segítség az alábbi helyen érhető el, \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3ekattintson ide\x3c/a\x3e",
+    'googleWarning': "A Google fólia betöltése sikertelen.\x3cbr\x3e\x3cbr\x3eAhhoz, hogy ez az üzenet eltűnjön, válasszon egy új BaseLayer fóliát a jobb felső sarokban található fóliakapcsoló segítségével.\x3cbr\x3e\x3cbr\x3eNagy valószínűséggel ez azért van, mert a Google Maps könyvtár parancsfájlja nem található, vagy nem tartalmazza az Ön oldalához tartozó megfelelő API-kulcsot.\x3cbr\x3e\x3cbr\x3eFejlesztőknek: A helyes működtetésre vonatkozó segítség az alábbi helyen érhető el, \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3ekattintson ide\x3c/a\x3e",
 
-    'getLayerWarning': "A(z) ${layerType} fólia nem töltődött be helyesen.\x3cbr\x3e\x3cbr\x3eAhhoz, hogy ez az üzenet eltűnjön, válasszon egy új BaseLayer fóliát a jobb felső sarokban található fóliakapcsoló segítségével.\x3cbr\x3e\x3cbr\x3eNagy valószínűséggel ez azért van, mert a(z) ${layerLib} könyvtár parancsfájlja helytelen.\x3cbr\x3e\x3cbr\x3eFejlesztőknek: A helyes működtetésre vonatkozó segítség az alábbi helyen érhető el, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'_blank\'\x3ekattintson ide\x3c/a\x3e",
+    'getLayerWarning': "A(z) ${layerType} fólia nem töltődött be helyesen.\x3cbr\x3e\x3cbr\x3eAhhoz, hogy ez az üzenet eltűnjön, válasszon egy új BaseLayer fóliát a jobb felső sarokban található fóliakapcsoló segítségével.\x3cbr\x3e\x3cbr\x3eNagy valószínűséggel ez azért van, mert a(z) ${layerLib} könyvtár parancsfájlja helytelen.\x3cbr\x3e\x3cbr\x3eFejlesztőknek: A helyes működtetésre vonatkozó segítség az alábbi helyen érhető el, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'-blank\'\x3ekattintson ide\x3c/a\x3e",
 
-    'scale': "Lépték = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Lépték = 1 : ${scaleDenom}",
 
     'W': "Ny",
 
@@ -76,8 +70,6 @@ OpenLayers.Lang["hu_HU"] = OpenLayers.Util.applyDefaults({
     'pixelAddError': "Az x és y értékeknek egyaránt meg kell felelnie, hogy a funkciót hozzáadhassa.",
 
     'unsupportedGeometryType': "Nem támogatott geometriatípus: ${geomType}",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition sikertelen: lehetséges, hogy a(z) ${elemId} azonosítójú elem téves helyre került.",
 
     'filterEvaluateNotImplemented': "ennél a szűrőtípusnál kiértékelés nem hajtódik végre."
 

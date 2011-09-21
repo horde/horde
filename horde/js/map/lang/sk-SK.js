@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Helix84
  */
@@ -16,17 +12,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["sk_SK"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["sk-SK"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "Neobslúžené požiadavky vracajú ${statusText}",
 
-    'permalink': "Trvalý odkaz",
+    'Permalink': "Trvalý odkaz",
 
-    'overlays': "Prekrytia",
+    'Overlays': "Prekrytia",
 
-    'baseLayer': "Základná vrstva",
-
-    'sameProjection': "Prehľadová mapka funguje iba vtedy, keď je v rovnakej projekcii ako hlavná mapa",
+    'Base Layer': "Základná vrstva",
 
     'readNotImplemented': "Čítanie nie je implementované.",
 
@@ -48,11 +42,11 @@ OpenLayers.Lang["sk_SK"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "Transakcia WFS: ZLYHALA ${response}",
 
-    'googleWarning': "Vrstvu Google nebolo možné správne načítať.\x3cbr\x3e\x3cbr\x3eAby ste sa tejto správy zbavili vyberte novú BaseLayer v prepínači vrstiev v pravom hornom rohu.\x3cbr\x3e\x3cbr\x3eToto sa stalo pravdepodobne preto, že skript knižnice Google Maps buď nebol načítaný alebo neobsahuje správny kľúč API pre vašu lokalitu.\x3cbr\x3e\x3cbr\x3eVývojári: Tu môžete získať \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3epomoc so sfunkčnením\x3c/a\x3e",
+    'googleWarning': "Vrstvu Google nebolo možné správne načítať.\x3cbr\x3e\x3cbr\x3eAby ste sa tejto správy zbavili vyberte novú BaseLayer v prepínači vrstiev v pravom hornom rohu.\x3cbr\x3e\x3cbr\x3eToto sa stalo pravdepodobne preto, že skript knižnice Google Maps buď nebol načítaný alebo neobsahuje správny kľúč API pre vašu lokalitu.\x3cbr\x3e\x3cbr\x3eVývojári: Tu môžete získať \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3epomoc so sfunkčnením\x3c/a\x3e",
 
-    'getLayerWarning': "Vrstvu ${layerType} nebolo možné správne načítať.\x3cbr\x3e\x3cbr\x3eAby ste sa tejto správy zbavili vyberte novú BaseLayer v prepínači vrstiev v pravom hornom rohu.\x3cbr\x3e\x3cbr\x3eToto sa stalo pravdepodobne preto, že skript knižnice ${layerType} buď nebol načítaný alebo neobsahuje správny kľúč API pre vašu lokalitu.\x3cbr\x3e\x3cbr\x3eVývojári: Tu môžete získať \x3ca href=\'http://trac.openlayers.org/wiki/${layerType}\' target=\'_blank\'\x3epomoc so sfunkčnením\x3c/a\x3e",
+    'getLayerWarning': "Vrstvu ${layerType} nebolo možné správne načítať.\x3cbr\x3e\x3cbr\x3eAby ste sa tejto správy zbavili vyberte novú BaseLayer v prepínači vrstiev v pravom hornom rohu.\x3cbr\x3e\x3cbr\x3eToto sa stalo pravdepodobne preto, že skript knižnice ${layerType} buď nebol načítaný alebo neobsahuje správny kľúč API pre vašu lokalitu.\x3cbr\x3e\x3cbr\x3eVývojári: Tu môžete získať \x3ca href=\'http://trac.openlayers.org/wiki/${layerType}\' target=\'-blank\'\x3epomoc so sfunkčnením\x3c/a\x3e",
 
-    'scale': "Mierka = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Mierka = 1 : ${scaleDenom}",
 
     'layerAlreadyAdded': "Pokúsili ste sa do mapy pridať vrstvu ${layerName}, ale tá už bola pridaná",
 
@@ -67,8 +61,6 @@ OpenLayers.Lang["sk_SK"] = OpenLayers.Util.applyDefaults({
     'pixelAddError': "Sčítacej funkcii musíte dať hodnoty x aj y.",
 
     'unsupportedGeometryType': "Nepodporovaný typ geometrie: ${geomType}",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition zlyhalo: prvok s id ${elemId} môže byť zle umiestnený.",
 
     'filterEvaluateNotImplemented': "evaluate nie je implementovaný pre tento typ filtra"
 

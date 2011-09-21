@@ -38,9 +38,8 @@ HordeMap.Geocoder.Bing = Class.create(
     geocode: function(address, completeCallback, errorCallback) {},
     reverseGeocode: function(latlon, completeCallback, errorCallback){}
 });
-
-/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for
- * full list of contributors). Published under the Clear BSD license.
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for 
+ * full list of contributors). Published under the Clear BSD license.  
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -49,14 +48,14 @@ HordeMap.Geocoder.Bing = Class.create(
  * @requires OpenLayers/Layer/SphericalMercator.js
  */
 
-/**
+/** 
  * Class: OpenLayers.Layer.Bing
  * Bing layer using direct tile access as provided by Bing Maps REST Services.
  * See http://msdn.microsoft.com/en-us/library/ff701713.aspx for more
  * information. Note: Terms of Service compliant use requires the map to be
  * configured with an <OpenLayers.Control.Attribution> control and the
  * attribution placed on or near the map.
- *
+ * 
  * Inherits from:
  *  - <OpenLayers.Layer.XYZ>
  */
@@ -76,7 +75,7 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
         0.5971642833948135, 0.29858214169740677, 0.14929107084870338,
         0.07464553542435169
     ],
-
+    
     /**
      * Property: attributionTemplate
      * {String}
@@ -93,7 +92,7 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
      * {Object} Metadata for this layer, as returned by the callback script
      */
     metadata: null,
-
+    
     /**
      * APIProperty: type
      * {String} The layer identifier.  Any non-birdseye imageryType
@@ -101,7 +100,7 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
      *     used.  Default is "Road".
      */
     type: "Road",
-
+    
     /**
      * APIProperty: metadataParams
      * {Object} Optional url parameters for the Get Imagery Metadata request
@@ -139,10 +138,10 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
             sphericalMercator: true
         }, options);
         var name = options.name || "Bing " + (options.type || this.type);
-
+        
         var newArgs = [name, null, options];
         OpenLayers.Layer.XYZ.prototype.initialize.apply(this, newArgs);
-        this.loadMetadata();
+        this.loadMetadata(); 
     },
 
     /**
@@ -168,7 +167,7 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
         script.id = this._callbackId;
         document.getElementsByTagName("head")[0].appendChild(script);
     },
-
+    
     /**
      * Method: initLayer
      *
@@ -221,7 +220,7 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
 
         return OpenLayers.String.format(url, {'quadkey': quadKey});
     },
-
+    
     /**
      * Method: updateAttribution
      * Updates the attribution according to the requirements outlined in
@@ -260,7 +259,7 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
             property: "attribution"
         });
     },
-
+    
     /**
      * Method: setMap
      */
@@ -269,13 +268,13 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
         this.updateAttribution();
         this.map.events.register("moveend", this, this.updateAttribution);
     },
-
+    
     /**
      * APIMethod: clone
-     *
+     * 
      * Parameters:
      * obj - {Object}
-     *
+     * 
      * Returns:
      * {<OpenLayers.Layer.Bing>} An exact clone of this <OpenLayers.Layer.Bing>
      */
@@ -288,7 +287,7 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
         // copy/set any non-init, non-simple values here
         return obj;
     },
-
+    
     /**
      * Method: destroy
      */
@@ -297,7 +296,7 @@ OpenLayers.Layer.Bing = OpenLayers.Class(OpenLayers.Layer.XYZ, {
             this.map.events.unregister("moveend", this, this.updateAttribution);
         OpenLayers.Layer.XYZ.prototype.destroy.apply(this, arguments);
     },
-
+    
     CLASS_NAME: "OpenLayers.Layer.Bing"
 });
 
@@ -317,4 +316,3 @@ OpenLayers.Layer.Bing.processMetadata = function(metadata) {
     window[this._callbackId] = undefined; // cannot delete from window in IE
     delete this._callbackId;
 };
-

@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Toliño
  */
@@ -16,17 +12,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["gl_ES"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["gl-ES"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "Solicitude non xerada; a resposta foi: ${statusText}",
 
-    'permalink': "Ligazón permanente",
+    'Permalink': "Ligazón permanente",
 
-    'overlays': "Capas superpostas",
+    'Overlays': "Capas superpostas",
 
-    'baseLayer': "Capa base",
-
-    'sameProjection': "A vista xeral do mapa só funciona cando está na mesma proxección có mapa principal",
+    'Base Layer': "Capa base",
 
     'readNotImplemented': "Lectura non implementada.",
 
@@ -34,7 +28,7 @@ OpenLayers.Lang["gl_ES"] = OpenLayers.Util.applyDefaults({
 
     'noFID': "Non se pode actualizar a funcionalidade para a que non hai FID.",
 
-    'errorLoadingGML': "Erro ao cargar o ficheiro GML $(url)",
+    'errorLoadingGML': "Erro ao cargar o ficheiro GML ${url}",
 
     'browserNotSupported': "O seu navegador non soporta a renderización de vectores. Os renderizadores soportados actualmente son:\n${renderers}",
 
@@ -48,11 +42,11 @@ OpenLayers.Lang["gl_ES"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "Transacción WFS: FALLIDA ${response}",
 
-    'googleWarning': "A capa do Google non puido cargarse correctamente.\x3cbr\x3e\x3cbr\x3ePara evitar esta mensaxe, escolla unha nova capa base no seleccionador de capas na marxe superior dereita.\x3cbr\x3e\x3cbr\x3eProbablemente, isto acontece porque a escritura da libraría do Google Maps ou ben non foi incluída ou ben non contén a clave API correcta para o seu sitio.\x3cbr\x3e\x3cbr\x3eDesenvolvedores: para axudar a facer funcionar isto correctamente, \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3epremede aquí\x3c/a\x3e",
+    'googleWarning': "A capa do Google non puido cargarse correctamente.\x3cbr\x3e\x3cbr\x3ePara evitar esta mensaxe, escolla unha nova capa base no seleccionador de capas na marxe superior dereita.\x3cbr\x3e\x3cbr\x3eProbablemente, isto acontece porque a escritura da libraría do Google Maps ou ben non foi incluída ou ben non contén a clave API correcta para o seu sitio.\x3cbr\x3e\x3cbr\x3eDesenvolvedores: para axudar a facer funcionar isto correctamente, \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3epremede aquí\x3c/a\x3e",
 
-    'getLayerWarning': "A capa ${layerType} foi incapaz de cargarse correctamente.\x3cbr\x3e\x3cbr\x3ePara evitar esta mensaxe, escolla unha nova capa base no seleccionador de capas na marxe superior dereita.\x3cbr\x3e\x3cbr\x3eProbablemente, isto acontece porque a escritura da libraría ${layerLib} non foi ben incluída.\x3cbr\x3e\x3cbr\x3eDesenvolvedores: para axudar a facer funcionar isto correctamente, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'_blank\'\x3epremede aquí\x3c/a\x3e",
+    'getLayerWarning': "A capa ${layerType} foi incapaz de cargarse correctamente.\x3cbr\x3e\x3cbr\x3ePara evitar esta mensaxe, escolla unha nova capa base no seleccionador de capas na marxe superior dereita.\x3cbr\x3e\x3cbr\x3eProbablemente, isto acontece porque a escritura da libraría ${layerLib} non foi ben incluída.\x3cbr\x3e\x3cbr\x3eDesenvolvedores: para axudar a facer funcionar isto correctamente, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'-blank\'\x3epremede aquí\x3c/a\x3e",
 
-    'scale': "Escala = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Escala = 1 : ${scaleDenom}",
 
     'W': "O",
 
@@ -75,8 +69,6 @@ OpenLayers.Lang["gl_ES"] = OpenLayers.Util.applyDefaults({
     'pixelAddError': "Debe achegar os valores x e y á función add.",
 
     'unsupportedGeometryType': "Tipo xeométrico non soportado: ${geomType}",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition fallou: o elemento con id ${elemId} pode non estar na súa posición.",
 
     'filterEvaluateNotImplemented': "avaliar non está implementado para este tipo de filtro."
 

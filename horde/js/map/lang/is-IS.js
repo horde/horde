@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Ævar Arnfjörð Bjarmason
  */
@@ -16,15 +12,13 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["is_IS"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["is-IS"] = OpenLayers.Util.applyDefaults({
 
-    'permalink': "Varanlegur tengill",
+    'Permalink': "Varanlegur tengill",
 
-    'overlays': "Þekjur",
+    'Overlays': "Þekjur",
 
-    'baseLayer': "Grunnlag",
-
-    'sameProjection': "Yfirlitskortið virkar aðeins ef það er í sömu vörpun og aðalkortið",
+    'Base Layer': "Grunnlag",
 
     'readNotImplemented': "Skrifun er óútfærð.",
 
@@ -32,7 +26,7 @@ OpenLayers.Lang["is_IS"] = OpenLayers.Util.applyDefaults({
 
     'errorLoadingGML': "Villa kom upp við að hlaða inn GML skránni ${url}",
 
-    'scale': "Skali = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Skali = 1 : ${scaleDenom}",
 
     'layerAlreadyAdded': "Þú reyndir að bæta laginu ${layerName} á kortið en það er þegar búið að bæta því við",
 

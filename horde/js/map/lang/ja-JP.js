@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Fryed-peach
  *  - Mage Whopper
@@ -17,17 +13,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["ja_JP"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["ja-JP"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "未処理の要求は ${statusText} を返します",
 
-    'permalink': "パーマリンク",
+    'Permalink': "パーマリンク",
 
-    'overlays': "オーバーレイ",
+    'Overlays': "オーバーレイ",
 
-    'baseLayer': "基底レイヤー",
-
-    'sameProjection': "概観地図はメインの地図と同じ投影法をとる場合のみ機能します",
+    'Base Layer': "基底レイヤー",
 
     'readNotImplemented': "読み込みは実装されていません。",
 
@@ -49,11 +43,11 @@ OpenLayers.Lang["ja_JP"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "WFS トランザクション: 失敗 ${response}",
 
-    'googleWarning': "Google レイヤーが正しく読み込みを行えませんでした。\x3cbr\x3e\x3cbr\x3eこのメッセージを消すには、右上の隅にあるレイヤー切り替え部分で新しい基底レイヤーを選んでください。\x3cbr\x3e\x3cbr\x3eおそらく、これは Google マップ用ライブラリのスクリプトが組み込まれていないか、あなたのサイトに対応する正しい API キーが設定されていないためです。\x3cbr\x3e\x3cbr\x3e開発者の方へ: 正しい動作をさせるために\x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3eこちらのウィキ\x3c/a\x3eを参照してください。",
+    'googleWarning': "Google レイヤーが正しく読み込みを行えませんでした。\x3cbr\x3e\x3cbr\x3eこのメッセージを消すには、右上の隅にあるレイヤー切り替え部分で新しい基底レイヤーを選んでください。\x3cbr\x3e\x3cbr\x3eおそらく、これは Google マップ用ライブラリのスクリプトが組み込まれていないか、あなたのサイトに対応する正しい API キーが設定されていないためです。\x3cbr\x3e\x3cbr\x3e開発者の方へ: 正しい動作をさせるために\x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3eこちらのウィキ\x3c/a\x3eを参照してください。",
 
-    'getLayerWarning': "${layerType} レイヤーが正しく読み込みを行えませんでした。\x3cbr\x3e\x3cbr\x3eこのメッセージを消すには、右上の隅にあるレイヤー切り替え部分で新しい基底レイヤーを選んでください。\x3cbr\x3e\x3cbr\x3eおそらく、これは ${layerLib} ライブラリのスクリプトが正しく組み込まれていないためです。\x3cbr\x3e\x3cbr\x3e開発者の方へ: 正しい動作をさせるために\x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'_blank\'\x3eこちらのウィキ\x3c/a\x3eを参照してください。",
+    'getLayerWarning': "${layerType} レイヤーが正しく読み込みを行えませんでした。\x3cbr\x3e\x3cbr\x3eこのメッセージを消すには、右上の隅にあるレイヤー切り替え部分で新しい基底レイヤーを選んでください。\x3cbr\x3e\x3cbr\x3eおそらく、これは ${layerLib} ライブラリのスクリプトが正しく組み込まれていないためです。\x3cbr\x3e\x3cbr\x3e開発者の方へ: 正しい動作をさせるために\x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'-blank\'\x3eこちらのウィキ\x3c/a\x3eを参照してください。",
 
-    'scale': "縮尺 = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "縮尺 = 1 : ${scaleDenom}",
 
     'W': "西",
 
@@ -76,8 +70,6 @@ OpenLayers.Lang["ja_JP"] = OpenLayers.Util.applyDefaults({
     'pixelAddError': "x と y の値両方を add 関数に渡さなければなりません。",
 
     'unsupportedGeometryType': "未対応の形状型: ${geomType}",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition が失敗しました: id ${elemId} をもつ要素が誤った位置にある可能性があります。",
 
     'filterEvaluateNotImplemented': "このフィルター型について evaluate は実装されていません。"
 

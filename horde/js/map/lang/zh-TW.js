@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /**
  * @requires OpenLayers/Lang.js
  */
@@ -13,18 +9,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["zh_TW"] = {
+OpenLayers.Lang["zh-TW"] = {
 
     'unhandledRequest': "未處理的請求，傳回值為 ${statusText}。",
 
-    'permalink': "永久連結",
+    'Permalink': "永久連結",
 
-    'overlays': "額外圖層",
+    'Overlays': "額外圖層",
 
-    'baseLayer': "基礎圖層",
-
-    'sameProjection':
-        "地圖縮覽(OverviewMap)只能在跟主地圖相同投影時起作用。",
+    'Base Layer': "基礎圖層",
 
     'readNotImplemented': "沒有實作讀取的功能。",
 
@@ -69,7 +62,7 @@ OpenLayers.Lang["zh_TW"] = {
         "您網站上正確的 API key <br><br>" +
         "開發者: 要幫助這個行為正確完成，" +
         "<a href='http://trac.openlayers.org/wiki/Google' " +
-        "target='_blank'>請按這裡</a>",
+        "target='-blank'>請按這裡</a>",
 
     'getLayerWarning':
         "${layerType} 圖層無法被正確的載入。<br><br>" +
@@ -79,9 +72,9 @@ OpenLayers.Lang["zh_TW"] = {
         "腳本沒有被正確的置入。<br><br>" +
         "開發者: 要幫助這個行為正確完成，" +
         "<a href='http://trac.openlayers.org/wiki/${layerLib}' " +
-        "target='_blank'>請按這裡</a>",
+        "target='-blank'>請按這裡</a>",
 
-    'scale': "Scale = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Scale = 1 : ${scaleDenom}",
 
     // console message
     'layerAlreadyAdded':
@@ -113,9 +106,5 @@ OpenLayers.Lang["zh_TW"] = {
     // console message
     'unsupportedGeometryType': "未支援的幾何型別: ${geomType}。",
 
-    // console message
-    'pagePositionFailed':
-        "OpenLayers.Util.pagePosition 失敗: id ${elemId} 的 element 可能被錯置。",
-                    
     'end': ''
 };

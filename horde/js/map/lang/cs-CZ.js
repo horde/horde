@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Mormegil
  */
@@ -16,17 +12,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["cs_CZ"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["cs-CZ"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "Nezpracovaná návratová hodnota ${statusText}",
 
-    'permalink': "Trvalý odkaz",
+    'Permalink': "Trvalý odkaz",
 
-    'overlays': "Překryvné vrstvy",
+    'Overlays': "Překryvné vrstvy",
 
-    'baseLayer': "Podkladové vrstvy",
-
-    'sameProjection': "Přehledka pracuje správně pouze tehdy, pokud je ve stejné projekci jako hlavní mapa",
+    'Base Layer': "Podkladové vrstvy",
 
     'readNotImplemented': "Read není implementováno.",
 
@@ -48,11 +42,11 @@ OpenLayers.Lang["cs_CZ"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "WFS Transaction: CHYBA ${response}",
 
-    'googleWarning': "Nepodařilo se správně načíst vrstvu Google.\x3cbr\x3e\x3cbr\x3eAbyste se zbavili této zprávy, zvolte jinou základní vrstvu v přepínači vrstev.\x3cbr\x3e\x3cbr\x3eTo se většinou stává, pokud nebyl načten skript, nebo neobsahuje správný klíč pro API pro tuto stránku.\x3cbr\x3e\x3cbr\x3eVývojáři: Pro pomoc, aby tohle fungovalo , \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3eklikněte sem\x3c/a\x3e",
+    'googleWarning': "Nepodařilo se správně načíst vrstvu Google.\x3cbr\x3e\x3cbr\x3eAbyste se zbavili této zprávy, zvolte jinou základní vrstvu v přepínači vrstev.\x3cbr\x3e\x3cbr\x3eTo se většinou stává, pokud nebyl načten skript, nebo neobsahuje správný klíč pro API pro tuto stránku.\x3cbr\x3e\x3cbr\x3eVývojáři: Pro pomoc, aby tohle fungovalo , \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3eklikněte sem\x3c/a\x3e",
 
-    'getLayerWarning': "The ${layerType} Layer was unable to load correctly.\x3cbr\x3e\x3cbr\x3eTo get rid of this message, select a new BaseLayer in the layer switcher in the upper-right corner.\x3cbr\x3e\x3cbr\x3eMost likely, this is because the ${layerLib} library script was either not correctly included.\x3cbr\x3e\x3cbr\x3eDevelopers: For help getting this working correctly, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'_blank\'\x3eclick here\x3c/a\x3e",
+    'getLayerWarning': "The ${layerType} Layer was unable to load correctly.\x3cbr\x3e\x3cbr\x3eTo get rid of this message, select a new BaseLayer in the layer switcher in the upper-right corner.\x3cbr\x3e\x3cbr\x3eMost likely, this is because the ${layerLib} library script was either not correctly included.\x3cbr\x3e\x3cbr\x3eDevelopers: For help getting this working correctly, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'-blank\'\x3eclick here\x3c/a\x3e",
 
-    'scale': "Měřítko = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Měřítko = 1 : ${scaleDenom}",
 
     'layerAlreadyAdded': "Pokusili jste se přidat vrstvu: ${layerName} do mapy, ale tato vrstva je již v mapě přítomna.",
 
@@ -66,8 +60,6 @@ OpenLayers.Lang["cs_CZ"] = OpenLayers.Util.applyDefaults({
 
     'pixelAddError': "Pro přídavnou funkci musíte zadat obě souřadnice x a y.",
 
-    'unsupportedGeometryType': "Nepodporovaný typ geometrie: ${geomType}",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition selhalo: element s  id ${elemId} je asi umístěn chybně."
+    'unsupportedGeometryType': "Nepodporovaný typ geometrie: ${geomType}"
 
 });

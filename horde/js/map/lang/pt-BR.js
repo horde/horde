@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Luckas Blade
  *  - Rodrigo Avila
@@ -17,17 +13,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["pt_br"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["pt-BR"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "A requisição retornou um erro não tratado: ${statusText}",
 
-    'permalink': "Link para essa página",
+    'Permalink': "Link para essa página",
 
-    'overlays': "Camadas de Sobreposição",
+    'Overlays': "Camadas de Sobreposição",
 
-    'baseLayer': "Camada Base",
-
-    'sameProjection': "O mapa de referência só funciona quando ele está na mesma projeção do mapa principal",
+    'Base Layer': "Camada Base",
 
     'readNotImplemented': "Leitura não implementada.",
 
@@ -49,11 +43,11 @@ OpenLayers.Lang["pt_br"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "Transação WFS : ERRO ${response}",
 
-    'googleWarning': "Não foi possível carregar a camada Google corretamente.\x3cbr\x3e\x3cbr\x3ePara se livrar dessa mensagem, selecione uma nova Camada Base, na ferramenta de alternação de camadas localização do canto superior direito.\x3cbr\x3e\x3cbr\x3eMuito provavelmente, isso foi causado porque o script da biblioteca do Google Maps não foi incluído, ou porque ele não contém a chave correta da API para o seu site.\x3cbr\x3e\x3cbr\x3eDesenvolvedores: Para obter ajuda em solucionar esse problema \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3ecliquem aqui\x3c/a\x3e",
+    'googleWarning': "Não foi possível carregar a camada Google corretamente.\x3cbr\x3e\x3cbr\x3ePara se livrar dessa mensagem, selecione uma nova Camada Base, na ferramenta de alternação de camadas localização do canto superior direito.\x3cbr\x3e\x3cbr\x3eMuito provavelmente, isso foi causado porque o script da biblioteca do Google Maps não foi incluído, ou porque ele não contém a chave correta da API para o seu site.\x3cbr\x3e\x3cbr\x3eDesenvolvedores: Para obter ajuda em solucionar esse problema \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3ecliquem aqui\x3c/a\x3e",
 
-    'getLayerWarning': "Não foi possível carregar a camada ${layerType} corretamente.\x3cbr\x3e\x3cbr\x3ePara se livrar dessa mensagem, selecione uma nova Camada Base, na ferramenta de alternação de camadas localização do canto superior direito.\x3cbr\x3e\x3cbr\x3eMuito provavelmente, isso foi causado porque o script da biblioteca ${layerLib} não foi incluído corretamente.\x3cbr\x3e\x3cbr\x3eDesenvolvedores: Para obter ajuda em solucionar esse problema \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'_blank\'\x3ecliquem aqui\x3c/a\x3e",
+    'getLayerWarning': "Não foi possível carregar a camada ${layerType} corretamente.\x3cbr\x3e\x3cbr\x3ePara se livrar dessa mensagem, selecione uma nova Camada Base, na ferramenta de alternação de camadas localização do canto superior direito.\x3cbr\x3e\x3cbr\x3eMuito provavelmente, isso foi causado porque o script da biblioteca ${layerLib} não foi incluído corretamente.\x3cbr\x3e\x3cbr\x3eDesenvolvedores: Para obter ajuda em solucionar esse problema \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'-blank\'\x3ecliquem aqui\x3c/a\x3e",
 
-    'scale': "Escala = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Escala = 1 : ${scaleDenom}",
 
     'W': "O",
 
@@ -76,8 +70,6 @@ OpenLayers.Lang["pt_br"] = OpenLayers.Util.applyDefaults({
     'pixelAddError': "Você deve informar ambos os valores x e y para a função add.",
 
     'unsupportedGeometryType': "Tipo geométrico não suportado: ${geomType}.",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition falhou: o elemento de id ${elemId} deve estar fora do lugar.",
 
     'filterEvaluateNotImplemented': "evaluete não está implementado para este tipo de filtro."
 

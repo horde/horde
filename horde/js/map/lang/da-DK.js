@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /**
  * @requires OpenLayers/Lang.js
  */
@@ -12,18 +8,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang['da_DK'] = {
+OpenLayers.Lang['da-DK'] = {
 
     'unhandledRequest': "En ikke håndteret forespørgsel returnerede ${statusText}",
 
-    'permalink': "Permalink",
+    'Permalink': "Permalink",
 
-    'overlays': "Kortlag",
+    'Overlays': "Kortlag",
 
-    'baseLayer': "Baggrundslag",
-
-    'sameProjection':
-        "Oversigtskortet fungerer kun når det har samme projektion som hovedkortet",
+    'Base Layer': "Baggrundslag",
 
     'readNotImplemented': "Læsning er ikke implementeret.",
 
@@ -70,7 +63,7 @@ OpenLayers.Lang['da_DK'] = {
         "korrkte API nøgle for dit site.<br><br>" +
         "Udviklere: For hjælp til at få dette til at fungere, " +
         "<a href='http://trac.openlayers.org/wiki/Google' " +
-        "target='_blank'>klik her</a>",
+        "target='-blank'>klik her</a>",
 
     'getLayerWarning':
         "${layerType}-laget kunne ikke indlæses.<br><br>" +
@@ -80,9 +73,9 @@ OpenLayers.Lang['da_DK'] = {
         "scriptet ikke er inkluderet.<br><br>" +
         "Udviklere: For hjælp til at få dette til at fungere, " +
         "<a href='http://trac.openlayers.org/wiki/${layerLib}' " +
-        "target='_blank'>klik her</a>",
+        "target='-blank'>klik her</a>",
 
-    'scale': "Målforhold = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Målforhold = 1 : ${scaleDenom}",
 
     // console message
     'layerAlreadyAdded':
@@ -113,10 +106,6 @@ OpenLayers.Lang['da_DK'] = {
 
     // console message
     'unsupportedGeometryType': "Geometri typen: ${geomType} er ikke understøttet.",
-
-    // console message
-    'pagePositionFailed':
-        "OpenLayers.Util.pagePosition fejlede: elementet med id ${elemId} er måske placeret forkert.",
 
     // console message
     'filterEvaluateNotImplemented': "evaluering er ikke implementeret for denne filter type."

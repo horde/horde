@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Sannab
  */
@@ -16,17 +12,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["sv_SE"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["sv-SE"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "Ej hanterad fråga retur ${statusText}",
 
-    'permalink': "Permalänk",
+    'Permalink': "Permalänk",
 
-    'overlays': "Kartlager",
+    'Overlays': "Kartlager",
 
-    'baseLayer': "Bakgrundskarta",
-
-    'sameProjection': "Översiktskartan fungerar endast när den har samma projektion som huvudkartan",
+    'Base Layer': "Bakgrundskarta",
 
     'readNotImplemented': "Läsning ej implementerad.",
 
@@ -48,11 +42,11 @@ OpenLayers.Lang["sv_SE"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "WFS-transaktion: MISSLYCKADES ${response}",
 
-    'googleWarning': "Google-lagret kunde inte laddas korrekt.\x3cbr\x3e\x3cbr\x3eFör att slippa detta meddelande, välj en annan bakgrundskarta i lagerväljaren i övre högra hörnet.\x3cbr\x3e\x3cbr\x3eSannolikt beror felet på att Google Maps-biblioteket inte är inkluderat på webbsidan eller på att sidan inte anger korrekt API-nyckel för webbplatsen.\x3cbr\x3e\x3cbr\x3eUtvecklare: hjälp för att åtgärda detta, \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3eklicka här\x3c/a\x3e.",
+    'googleWarning': "Google-lagret kunde inte laddas korrekt.\x3cbr\x3e\x3cbr\x3eFör att slippa detta meddelande, välj en annan bakgrundskarta i lagerväljaren i övre högra hörnet.\x3cbr\x3e\x3cbr\x3eSannolikt beror felet på att Google Maps-biblioteket inte är inkluderat på webbsidan eller på att sidan inte anger korrekt API-nyckel för webbplatsen.\x3cbr\x3e\x3cbr\x3eUtvecklare: hjälp för att åtgärda detta, \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3eklicka här\x3c/a\x3e.",
 
-    'getLayerWarning': "${layerType}-lagret kunde inte laddas korrekt.\x3cbr\x3e\x3cbr\x3eFör att slippa detta meddelande, välj en annan bakgrundskarta i lagerväljaren i övre högra hörnet.\x3cbr\x3e\x3cbr\x3eSannolikt beror felet på att ${layerLib}-biblioteket inte är inkluderat på webbsidan.\x3cbr\x3e\x3cbr\x3eUtvecklare: hjälp för att åtgärda detta, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'_blank\'\x3eklicka här\x3c/a\x3e.",
+    'getLayerWarning': "${layerType}-lagret kunde inte laddas korrekt.\x3cbr\x3e\x3cbr\x3eFör att slippa detta meddelande, välj en annan bakgrundskarta i lagerväljaren i övre högra hörnet.\x3cbr\x3e\x3cbr\x3eSannolikt beror felet på att ${layerLib}-biblioteket inte är inkluderat på webbsidan.\x3cbr\x3e\x3cbr\x3eUtvecklare: hjälp för att åtgärda detta, \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'-blank\'\x3eklicka här\x3c/a\x3e.",
 
-    'scale': "\x3cstrong\x3eSkala\x3c/strong\x3e 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "\x3cstrong\x3eSkala\x3c/strong\x3e 1 : ${scaleDenom}",
 
     'layerAlreadyAdded': "Du försökte lägga till lagret: ${layerName} på kartan, men det har lagts till tidigare",
 
@@ -67,8 +61,6 @@ OpenLayers.Lang["sv_SE"] = OpenLayers.Util.applyDefaults({
     'pixelAddError': "Du måste skicka både x- och y-värde till funktionen add.",
 
     'unsupportedGeometryType': "Stöd saknas för geometritypen: ${geomType}",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition misslyckades: elementet med id ${elemId} kan placeras fel.",
 
     'filterEvaluateNotImplemented': "evaluering har ej implementerats för denna typ av filter."
 

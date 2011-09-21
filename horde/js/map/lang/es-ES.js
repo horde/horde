@@ -1,29 +1,22 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /**
  * @requires OpenLayers/Lang.js
  */
 
 /**
- * Namespace: OpenLayers.Lang["es"]
+ * Namespace: OpenLayers.Lang["es-ES"]
  * Dictionary for Spanish, UTF8 encoding. Keys for entries are used in calls to
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["es_ES"] = {
+OpenLayers.Lang.es-ES = {
 
     'unhandledRequest': "Respuesta a petición no gestionada ${statusText}",
 
-    'permalink': "Enlace permanente",
+    'Permalink': "Enlace permanente",
 
-    'overlays': "Capas superpuestas",
+    'Overlays': "Capas superpuestas",
 
-    'baseLayer': "Capa Base",
-
-    'sameProjection':
-        "El mini mapa sólo funciona si está en la misma proyección que el mapa principal",
+    'Base Layer': "Capa Base",
 
     'readNotImplemented': "Lectura no implementada.",
 
@@ -40,14 +33,14 @@ OpenLayers.Lang["es_ES"] = {
 
     // console message
     'getFeatureError':
-        "getFeatureFromEvent llamado en una capa sin renderizador. Esto normalmente quiere decir que " +
+        "getFeatureFromEvent se ha llamado desde una capa sin renderizador. Esto normalmente quiere decir que " +
         "se ha destruido una capa, pero no el manejador asociado a ella.",
 
     // console message
     'minZoomLevelError':
         "La propiedad minZoomLevel debe sólo utilizarse " +
         "con las capas que tienen FixedZoomLevels. El hecho de que " +
-        "una capa wfs compruebe minZoomLevel is una reliquia del " +
+        "una capa wfs compruebe minZoomLevel es una reliquia del " +
         "pasado. Sin embargo, no podemos eliminarla sin discontinuar " +
         "probablemente las aplicaciones OL que puedan depender de ello. " +
         "Así pues estamos haciéndolo obsoleto --la comprobación " +
@@ -68,7 +61,7 @@ OpenLayers.Lang["es_ES"] = {
 	"contiene la clave del API correcta para su sitio.<br><br>" +
         "Desarrolladores: Para ayudar a hacer funcionar esto correctamente, " +
         "<a href='http://trac.openlayers.org/wiki/Google' " +
-        "target='_blank'>haga clic aquí</a>",
+        "target='-blank'>haga clic aquí</a>",
 
     'getLayerWarning':
         "La capa ${layerType} no pudo ser cargada correctamente.<br><br>" +
@@ -79,10 +72,17 @@ OpenLayers.Lang["es_ES"] = {
         "no fue correctamente incluido en su página.<br><br>" +
         "Desarrolladores: Para ayudar a hacer funcionar esto correctamente, " +
         "<a href='http://trac.openlayers.org/wiki/${layerLib}' " +
-        "target='_blank'>haga clic aquí</a>",
+        "target='-blank'>haga clic aquí</a>",
 
-    'scale': "Escala = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Escala = 1 : ${scaleDenom}",
 
+    //labels for the graticule control
+    'W': 'O',
+    'E': 'E',
+    'N': 'N',
+    'S': 'S',
+    'Graticule': 'Retícula',
+    
     // console message
     'layerAlreadyAdded':
         "Intentó añadir la capa: ${layerName} al mapa, pero ya había sido añadida previamente",
@@ -90,15 +90,15 @@ OpenLayers.Lang["es_ES"] = {
     // console message
     'reprojectDeprecated':
         "Está usando la opción 'reproject' en la capa " +
-        "${layerName}. Esta opción está obsoleta: su uso fue diseñado " +
+        "${layerName}. Esta opción es obsoleta: su uso fue diseñado " +
         "para soportar la visualización de datos sobre mapas base comerciales, " + 
-        "pero esa funcionalidad debería conseguirse ahora mediante el soporte " +
+        "pero ahora esa funcionalidad debería conseguirse mediante el soporte " +
         "de la proyección Spherical Mercator. Más información disponible en " +
         "http://trac.openlayers.org/wiki/SphericalMercator.",
 
     // console message
     'methodDeprecated':
-        "Este método está obsoleto y se eliminará en la versión 3.0. " +
+        "Este método es obsoleto y se eliminará en la versión 3.0. " +
         "Por favor utilice el método ${newMethod} en su lugar.",
 
     // console message
@@ -114,12 +114,9 @@ OpenLayers.Lang["es_ES"] = {
     'unsupportedGeometryType': "Tipo de geometría no soportada: ${geomType}",
 
     // console message
-    'pagePositionFailed':
-        "OpenLayers.Util.pagePosition falló: el elemento con id ${elemId} puede haberse colocado de manera errónea.",
-                    
-    // console message
     'filterEvaluateNotImplemented': "evaluate no está implementado para este tipo de filtro.",
 
+    // **** end ****
     'end': ''
 
 };

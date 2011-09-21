@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Grille chompa
  *  - Nikiwaibel
@@ -18,17 +14,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["de_DE"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["de-DE"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "Unbehandelte Anfragerückmeldung ${statusText}",
 
-    'permalink': "Permalink",
+    'Permalink': "Permalink",
 
-    'overlays': "Overlays",
+    'Overlays': "Overlays",
 
-    'baseLayer': "Grundkarte",
-
-    'sameProjection': "Die Übersichtskarte funktioniert nur, wenn sie dieselbe Projektion wie die Hauptkarte verwendet",
+    'Base Layer': "Grundkarte",
 
     'readNotImplemented': "Lesen nicht implementiert.",
 
@@ -50,11 +44,11 @@ OpenLayers.Lang["de_DE"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "WFS-Transaktion: Fehlgeschlagen ${response}",
 
-    'googleWarning': "Der Google-Layer konnte nicht korrekt geladen werden.\x3cbr\x3e\x3cbr\x3eUm diese Meldung nicht mehr zu erhalten, wählen Sie einen anderen Hintergrundlayer aus dem LayerSwitcher in der rechten oberen Ecke.\x3cbr\x3e\x3cbr\x3eSehr wahrscheinlich tritt dieser Fehler auf, weil das Skript der Google-Maps-Bibliothek nicht eingebunden wurde oder keinen gültigen API-Schlüssel für Ihre URL enthält.\x3cbr\x3e\x3cbr\x3eEntwickler: Besuche \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3edas Wiki\x3c/a\x3e für Hilfe zum korrekten Einbinden des Google-Layers",
+    'googleWarning': "Der Google-Layer konnte nicht korrekt geladen werden.\x3cbr\x3e\x3cbr\x3eUm diese Meldung nicht mehr zu erhalten, wählen Sie einen anderen Hintergrundlayer aus dem LayerSwitcher in der rechten oberen Ecke.\x3cbr\x3e\x3cbr\x3eSehr wahrscheinlich tritt dieser Fehler auf, weil das Skript der Google-Maps-Bibliothek nicht eingebunden wurde oder keinen gültigen API-Schlüssel für Ihre URL enthält.\x3cbr\x3e\x3cbr\x3eEntwickler: Besuche \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3edas Wiki\x3c/a\x3e für Hilfe zum korrekten Einbinden des Google-Layers",
 
-    'getLayerWarning': "Der ${layerType}-Layer konnte nicht korrekt geladen werden.\x3cbr\x3e\x3cbr\x3eUm diese Meldung nicht mehr zu erhalten, wählen Sie einen anderen Hintergrundlayer aus dem LayerSwitcher in der rechten oberen Ecke.\x3cbr\x3e\x3cbr\x3eSehr wahrscheinlich tritt dieser Fehler auf, weil das Skript der \'${layerLib}\'-Bibliothek nicht eingebunden wurde.\x3cbr\x3e\x3cbr\x3eEntwickler: Besuche \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'_blank\'\x3edas Wiki\x3c/a\x3e für Hilfe zum korrekten Einbinden von Layern",
+    'getLayerWarning': "Der ${layerType}-Layer konnte nicht korrekt geladen werden.\x3cbr\x3e\x3cbr\x3eUm diese Meldung nicht mehr zu erhalten, wählen Sie einen anderen Hintergrundlayer aus dem LayerSwitcher in der rechten oberen Ecke.\x3cbr\x3e\x3cbr\x3eSehr wahrscheinlich tritt dieser Fehler auf, weil das Skript der \'${layerLib}\'-Bibliothek nicht eingebunden wurde.\x3cbr\x3e\x3cbr\x3eEntwickler: Besuche \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'-blank\'\x3edas Wiki\x3c/a\x3e für Hilfe zum korrekten Einbinden von Layern",
 
-    'scale': "Maßstab = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Maßstab = 1 : ${scaleDenom}",
 
     'W': "W",
 
@@ -77,8 +71,6 @@ OpenLayers.Lang["de_DE"] = OpenLayers.Util.applyDefaults({
     'pixelAddError': "Beide Werte (x und y) müssen der add-Funktion übergeben werden.",
 
     'unsupportedGeometryType': "Nicht unterstützter Geometrie-Typ: ${geomType}",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition fehlgeschlagen: Element mit Id ${elemId} möglicherweise falsch platziert.",
 
     'filterEvaluateNotImplemented': "„evaluate“ ist für diesen Filter-Typ nicht implementiert."
 

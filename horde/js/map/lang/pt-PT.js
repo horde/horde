@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /* Translators (2009 onwards):
  *  - Hamilton Abreu
  *  - Malafaya
@@ -18,17 +14,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["pt_PT"] = OpenLayers.Util.applyDefaults({
+OpenLayers.Lang["pt-PT"] = OpenLayers.Util.applyDefaults({
 
     'unhandledRequest': "Servidor devolveu erro não contemplado ${statusText}",
 
-    'permalink': "Ligação permanente",
+    'Permalink': "Ligação permanente",
 
-    'overlays': "Sobreposições",
+    'Overlays': "Sobreposições",
 
-    'baseLayer': "Camada Base",
-
-    'sameProjection': "O mapa panorâmico só funciona quando está na mesma projeção que o mapa principal",
+    'Base Layer': "Camada Base",
 
     'readNotImplemented': "Leitura não implementada.",
 
@@ -50,11 +44,11 @@ OpenLayers.Lang["pt_PT"] = OpenLayers.Util.applyDefaults({
 
     'commitFailed': "Transacção WFS: FALHOU ${response}",
 
-    'googleWarning': "A Camada Google não foi correctamente carregada.\x3cbr\x3e\x3cbr\x3ePara deixar de receber esta mensagem, seleccione uma nova Camada-Base no \'\'switcher\'\' de camadas no canto superior direito.\x3cbr\x3e\x3cbr\x3eProvavelmente, isto acontece porque o \'\'script\'\' da biblioteca do Google Maps não foi incluído ou não contém a chave API correcta para o seu sítio.\x3cbr\x3e\x3cbr\x3eProgramadores: Para ajuda sobre como solucionar o problema \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'_blank\'\x3eclique aqui\x3c/a\x3e .",
+    'googleWarning': "A Camada Google não foi correctamente carregada.\x3cbr\x3e\x3cbr\x3ePara deixar de receber esta mensagem, seleccione uma nova Camada-Base no \'\'switcher\'\' de camadas no canto superior direito.\x3cbr\x3e\x3cbr\x3eProvavelmente, isto acontece porque o \'\'script\'\' da biblioteca do Google Maps não foi incluído ou não contém a chave API correcta para o seu sítio.\x3cbr\x3e\x3cbr\x3eProgramadores: Para ajuda sobre como solucionar o problema \x3ca href=\'http://trac.openlayers.org/wiki/Google\' target=\'-blank\'\x3eclique aqui\x3c/a\x3e .",
 
-    'getLayerWarning': "A camada ${layerType} não foi correctamente carregada.\x3cbr\x3e\x3cbr\x3ePara desactivar esta mensagem, seleccione uma nova Camada-Base no \'\'switcher\'\' de camadas no canto superior direito.\x3cbr\x3e\x3cbr\x3eProvavelmente, isto acontece porque o \'\'script\'\' da biblioteca ${layerLib} não foi incluído correctamente.\x3cbr\x3e\x3cbr\x3eProgramadores: Para ajuda sobre como solucionar o problema \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'_blank\'\x3eclique aqui\x3c/a\x3e .",
+    'getLayerWarning': "A camada ${layerType} não foi correctamente carregada.\x3cbr\x3e\x3cbr\x3ePara desactivar esta mensagem, seleccione uma nova Camada-Base no \'\'switcher\'\' de camadas no canto superior direito.\x3cbr\x3e\x3cbr\x3eProvavelmente, isto acontece porque o \'\'script\'\' da biblioteca ${layerLib} não foi incluído correctamente.\x3cbr\x3e\x3cbr\x3eProgramadores: Para ajuda sobre como solucionar o problema \x3ca href=\'http://trac.openlayers.org/wiki/${layerLib}\' target=\'-blank\'\x3eclique aqui\x3c/a\x3e .",
 
-    'scale': "Escala = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Escala = 1 : ${scaleDenom}",
 
     'W': "O",
 
@@ -77,8 +71,6 @@ OpenLayers.Lang["pt_PT"] = OpenLayers.Util.applyDefaults({
     'pixelAddError': "Você deve passar tanto o valor x como o y à função de adição.",
 
     'unsupportedGeometryType': "Tipo de geometria não suportado: ${geomType}",
-
-    'pagePositionFailed': "OpenLayers.Util.pagePosition falhou: o elemento com o id ${elemId} poderá estar mal-posicionado.",
 
     'filterEvaluateNotImplemented': "avaliar não está implementado para este tipo de filtro."
 

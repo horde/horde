@@ -1,7 +1,3 @@
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
- * full text of the license. */
-
 /**
  * @requires OpenLayers/Lang.js
  */
@@ -12,18 +8,15 @@
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
  */
-OpenLayers.Lang["it_IT"] = {
+OpenLayers.Lang['it-IT'] = {
 
     'unhandledRequest': "Codice di ritorno della richiesta ${statusText}",
 
-    'permalink': "Permalink",
+    'Permalink': "Permalink",
 
-    'overlays': "Overlays",
+    'Overlays': "Overlays",
 
-    'baseLayer': "Livello base",
-
-    'sameProjection':
-        "La mini mappa funziona solamente se ha la stessa proiezione della mappa principale",
+    'Base Layer': "Livello base",
 
     'readNotImplemented': "Lettura non implementata.",
 
@@ -68,7 +61,7 @@ OpenLayers.Lang["it_IT"] = {
         "corretta API key per il tuo sito.<br><br>" +
         "Sviluppatori: Per aiuto su come farlo funzionare correttamente, " +
         "<a href='http://trac.openlayers.org/wiki/Google' " +
-        "target='_blank'>clicca qui</a>",
+        "target='-blank'>clicca qui</a>",
 
     'getLayerWarning':
         "Il livello ${layerType} non è riuscito a caricare correttamente.<br><br>" +
@@ -78,9 +71,9 @@ OpenLayers.Lang["it_IT"] = {
         "non è stata inclusa nella pagina.<br><br>" +
         "Sviluppatori: Per aiuto su come farlo funzionare correttamente, " +
         "<a href='http://trac.openlayers.org/wiki/${layerLib}' " +
-        "target='_blank'>clicca qui</a>",
+        "target='-blank'>clicca qui</a>",
 
-    'scale': "Scala = 1 : ${scaleDenom}",
+    'Scale = 1 : ${scaleDenom}': "Scala = 1 : ${scaleDenom}",
 
     // console message
     'layerAlreadyAdded':
@@ -112,9 +105,5 @@ OpenLayers.Lang["it_IT"] = {
     // console message
     'unsupportedGeometryType': "Tipo di geometria non supportata: ${geomType}",
 
-    // console message
-    'pagePositionFailed':
-        "OpenLayers.Util.pagePosition fallita: l'elemento con id ${elemId} è posizionato in modo errato.",
-                    
     'end': ''
 };
