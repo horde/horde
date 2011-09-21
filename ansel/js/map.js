@@ -32,7 +32,7 @@
         var style = new OpenLayers.StyleMap({
                 'default': {
                     'externalGraphic': '${thumbnail}',
-                    'backgroundGraphic': '${background}',
+                    'backgroundGraphic': '${background}'
                 },
                 'temporary': {}
         });
@@ -46,12 +46,15 @@
                 'backgroundXOffset': 0,
                 'backgroundYOffset': -42,
                 'backgroundGraphicZIndex': 10,
+                'graphicZIndex': 30
             },
             'noMarkerOnly': {
                 'backgroundWidth': 54,
                 'backgroundHeight': 54,
                 'graphicWidth': 50,
-                'graphicHeight': 50
+                'graphicHeight': 50,
+                'backgroundGraphicZIndex': 20,
+                'graphicZIndex': 20
             }
         };
 
