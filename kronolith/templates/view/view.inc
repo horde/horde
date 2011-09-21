@@ -159,8 +159,8 @@ if ($this->event->initialized && $this->event->alarm > 0):
 
 </table>
 
-<?php if (!empty($attendees)): ?>
 <table cellspacing="0">
+<?php if (!empty($attendees)): ?>
  <!-- attendees -->
  <tr>
   <td colspan="3" class="control"><strong><?php echo _("Attendees") ?></strong></td>
@@ -177,7 +177,9 @@ if ($this->event->initialized && $this->event->alarm > 0):
   <td><?php echo Kronolith::responseToString($status['response']) ?></td>
  </tr>
  <?php endforeach; ?>
+<?php endif; ?>
  <!-- resources -->
+ <?php if (!empty($resources)): ?>
  <tr>
   <td colspan="3" class="control"><strong><?php echo _("Resources") ?></strong></td>
  </tr>
@@ -193,5 +195,5 @@ if ($this->event->initialized && $this->event->alarm > 0):
  <td><?php echo Kronolith::responseToString($resource['response']) ?></td>
 </tr>
 <?php endforeach;?>
-</table>
 <?php endif; ?>
+</table>
