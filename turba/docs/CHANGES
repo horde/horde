@@ -1,6 +1,6 @@
-----------
-v3.0.9-git
-----------
+------
+v3.0.9
+------
 
 [rla] Turba LDAP Driver now only rewrites changed attributes (Bug #9343).
 [mjr] Run attribute values through decode_attribute hook when exporting.
