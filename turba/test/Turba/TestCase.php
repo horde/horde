@@ -57,8 +57,19 @@ extends PHPUnit_Framework_TestCase
                 'injector' => 'Horde_Injector',
             )
         );
-
+        $GLOBALS['session'] = new Horde_Session();
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
+    }
+
+    static protected function tearDownBasicTurbaSetup()
+    {
+        unset(
+            $GLOBALS['session'],
+            $GLOBALS['prefs'],
+            $GLOBALS['injector'],
+            $GLOBALS['registry'],
+            $GLOBALS['conf']
+        );
     }
 
     static protected function createSqlPdoSqlite(Horde_Test_Setup $setup)
@@ -124,6 +135,17 @@ extends PHPUnit_Framework_TestCase
             new Horde_Test_Stub_Factory(
                 $setup->getInjector()->getInstance('Horde_Share_Base')
             )
+        );
+        $GLOBALS['cfgSources']['test']['type'] = 'Kolab';
+        $GLOBALS['cfgSources']['test']['title'] = 'Kolab';
+        $GLOBALS['cfgSources']['test']['map'] = self::_getKolabMap();
+    }
+
+    static protected function tearDownShares()
+    {
+        unset(
+            $GLOBALS['cfgSources'],
+            $GLOBALS['turba_shares']
         );
     }
 
