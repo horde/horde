@@ -253,7 +253,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function quoteDate($value)
     {
-        return $this->_adapter->quoteString((string)$value);
+        return $this->quoteString((string)$value);
     }
 
     /**
