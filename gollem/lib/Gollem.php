@@ -399,7 +399,7 @@ class Gollem
     static public function writeFile($dir, $name, $filename)
     {
         $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
-        $gollem_vfs->write($dir, $name, $filename);
+        $gollem_vfs->write($dir, $name, $filename, true);
         if (!empty(self::$backend['params']['permissions'])) {
             $gollem_vfs->changePermissions($dir, $name, self::$backend['params']['permissions']);
         }
