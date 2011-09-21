@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-21</date>
- <time>11:39:00</time>
+ <time>11:39:57</time>
  <version>
-  <release>3.0.9</release>
+  <release>3.0.10</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,12 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [rla] #9343 Turba LDAP Driver now only rewrites changed attributes
-* [mjr] Run attribute values through decode_attribute hook when exporting.
-* [mjr] Ensure encode_attribute hook is called on imported objects
-* [mjr] Improve handling of removeUserData.
-* [mjr] Honor auto_create configuration setting (Bug #10452, qoole.horde@lillimoth.com)
-* [jan] Don&apos;t allow to search binary fields.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1303,6 +1298,19 @@
 * [mjr] Improve handling of removeUserData.
 * [mjr] Honor auto_create configuration setting (Bug #10452, qoole.horde@lillimoth.com)
 * [jan] Don&apos;t allow to search binary fields.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.10</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-21</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
