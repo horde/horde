@@ -1,6 +1,6 @@
------------
-v5.0.13-git
------------
+-------
+v5.0.13
+-------
 
 [jan] Fix broken dependency on Text_Flowed.
 
