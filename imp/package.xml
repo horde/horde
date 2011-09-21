@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-21</date>
- <time>12:55:55</time>
+ <time>12:57:44</time>
  <version>
-  <release>5.0.13</release>
+  <release>5.0.14</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix broken dependency on Text_Flowed.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2462,6 +2462,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix broken dependency on Text_Flowed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.14</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
