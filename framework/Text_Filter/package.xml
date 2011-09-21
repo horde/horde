@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2011-09-21</date>
- <time>12:53:10</time>
+ <time>12:53:25</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Horde_Text_Filter_Text2Html now accepts a Horde_Text_Flowed object as input to filter(); allows proper quoting of input text.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -703,6 +703,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Horde_Text_Filter_Text2Html now accepts a Horde_Text_Flowed object as input to filter(); allows proper quoting of input text.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
