@@ -56,6 +56,8 @@ class Turba_Unit_Driver_Base extends Turba_TestCase
     public static function tearDownAfterClass()
     {
         self::$driver = null;
+        self::tearDownBasicTurbaSetup();
+        self::tearDownShares();
         parent::tearDownAfterClass();
     }
 
