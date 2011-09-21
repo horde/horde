@@ -856,7 +856,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function getCharset()
     {
-        return $this->_params['charset'];
+        return $this->_db->getOption('charset');
     }
 
     /**
