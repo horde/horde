@@ -34,7 +34,7 @@ AnselBlockGeoTag = Class.create({
                     'img': (!imgs[i].markerOnly) ? imgs[i].icon : Ansel.conf.markeruri,
                     'background': (!imgs[i].markerOnly) ? Ansel.conf.pixeluri + '?c=ffffff' : Ansel.conf.markerBackground,
                     'image_id': imgs[i].image_id,
-                    'markerOnly': (imgs[i].markerOnly) ? 'true' : 'false',
+                    'markerOnly': (imgs[i].markerOnly) ? 'markerOnly' : 'noMarkerOnly',
                     'center': true,
                     'image_link': imgs[i].link
                 }

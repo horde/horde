@@ -39,7 +39,7 @@
 
         // Symbolizer map for Default intent
         var markerStyleDefault = {
-            'true': {
+            'markerOnly': {
                 'graphicHeight': 37,
                 'graphicWidth': 32,
                 'graphicYOffset': -37,
@@ -47,7 +47,7 @@
                 'backgroundYOffset': -42,
                 'backgroundGraphicZIndex': 10,
             },
-            'false': {
+            'noMarkerOnly': {
                 'backgroundWidth': 54,
                 'backgroundHeight': 54,
                 'graphicWidth': 50,
@@ -57,8 +57,8 @@
 
         // Symbolizer map for Temporary intent (hover)
         var markerStyleTemporary = {
-            'true': {},
-            'false': {
+            'markerOnly': {},
+            'noMarkerOnly': {
                 'backgroundGraphic': Ansel.conf.pixeluri + '?c=333333'
             }
         };
@@ -97,7 +97,7 @@
         }
         var mapOpts = {
             elt: e,
-            delayed: true,
+            //delayed: true,
             layers: layers,
             draggableFeatures: false,
             panzoom: this.opts.panzoom,
@@ -114,7 +114,6 @@
             mapOpts.styleMap = this.opts.styleMap;
         }
         this.maps[e] = new HordeMap.Map[Ansel.conf.maps.driver](mapOpts);
-        this.maps[e].display();
         this.mapInitialized[e] = true;
         return this.maps[e];
     },
@@ -172,6 +171,6 @@
 
     onDomLoad: function()
     {
-
+        this.maps.each(function(x) { x.display(); });
     }
 }
