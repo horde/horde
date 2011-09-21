@@ -362,6 +362,10 @@ class IMP_Auth
 
         /* Store some basic IMAP server information. */
         if ($imp_imap->imap) {
+            /* Can't call this until now, since we need prefs to be properly
+             * loaded to grab the special mailboxes information. */
+            $imp_imap->updateFetchIgnore();
+
             foreach (array('acl', 'admin', 'namespace', 'quota') as $val) {
                 if (!empty($ptr[$val])) {
                     $tmp = $ptr[$val];
