@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-21</date>
- <time>11:35:06</time>
+ <time>11:36:14</time>
  <version>
-  <release>3.0.10</release>
+  <release>3.0.11</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,13 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix opening events from agenda view.
-* [mjr] The current default calendar is always included in the sync_calendars pref.
-* [mjr] Ensure exception gets start and end times when created from month view (Bug #10496)
-* [jan] Update group permission when changing group down list in basic permissions (Bug #10482).
-* [jan] Fix race condition when editing group permission in basic permission screen (Bug #10482).
-* [mjr] Fix removeUserData API (Bug #10241).
-* [jan] Fix deleting events with a WebDAV client (Bug #10478).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1894,6 +1888,19 @@
 * [jan] Fix race condition when editing group permission in basic permission screen (Bug #10482).
 * [mjr] Fix removeUserData API (Bug #10241).
 * [jan] Fix deleting events with a WebDAV client (Bug #10478).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.11</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
