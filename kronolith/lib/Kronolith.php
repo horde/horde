@@ -1206,7 +1206,7 @@ class Kronolith
             // Language specific file needed?
             //$language = str_replace('_', '-', $GLOBALS['language']);
             $language = $GLOBALS['language'];
-            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/' . $language . '.js')) {
+            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
                 $language = 'en-US';
             }
             $params['conf'] = array(
