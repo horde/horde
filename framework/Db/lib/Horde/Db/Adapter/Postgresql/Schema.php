@@ -783,7 +783,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         // Return a DISTINCT ON() clause that's distinct on the columns we want but includes
         // all the required columns for the ORDER BY to work properly.
         return sprintf('DISTINCT ON (%s) %s, %s',
-                       $colummns, $columns, implode(', ', $orderColumns));
+                       $columns, $columns, implode(', ', $orderColumns));
     }
 
     /**
