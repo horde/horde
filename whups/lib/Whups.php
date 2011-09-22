@@ -188,10 +188,16 @@ class Whups
         $ticket['sort_by'] = array();
         if (is_array($by)) {
             foreach ($by as $field) {
-                $ticket['sort_by'][$field] = Horde_String::lower($ticket[$field], true, 'UTF-8');
+                if (!isset($ticket[$field])) {
+                    $ticket['sort_by'][$field] = '';
+                } else {
+                    $ticket['sort_by'][$field] = Horde_String::lower($ticket[$field], true, 'UTF-8');
+                }
             }
         } else {
-            if (is_array($ticket[$by])) {
+            if (!isset($ticket[$by])) {
+                $ticket['sort_by'][$by] = '';
+            } elseif (is_array($ticket[$by])) {
                 natcasesort($ticket[$by]);
                 $ticket['sort_by'][$by] = implode('', $ticket[$by]);
             } else {
