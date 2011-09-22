@@ -34,7 +34,7 @@ AnselGeoTagWidget = Class.create({
     setLocation: function(img, lat, lng)  {
         var params = { 'values': 'img=' + img + '/lat=' + lat + '/lng=' + lng };
 
-        new Ajax.Request(this.opts.updateEndpoint + "/action=geotag/post=values", {
+        new Ajax.Request(this.opts.updateEndpoint + '/action=geotag/post=values', {
             method: 'post',
             parameters: params,
             onComplete: function(transport) {
@@ -57,7 +57,7 @@ AnselGeoTagWidget = Class.create({
                         image_latitude: lat,
                         image_longitude: lng,
                         image_location: '',
-                        markerOnly:true
+                        markerOnly: true
                     });
                     this.doMap();
                  }
@@ -67,7 +67,7 @@ AnselGeoTagWidget = Class.create({
 
     deleteLocation: function(iid) {
         var params = { 'values': 'img=' + iid };
-        new Ajax.Request(this.opts.updateEndpoint + "/action=untag/post=values", {
+        new Ajax.Request(this.opts.updateEndpoint + '/action=untag/post=values', {
             method: 'post',
             parameters: params,
             onComplete: function(transport) {
@@ -76,7 +76,6 @@ AnselGeoTagWidget = Class.create({
                 }
             }
         });
-
     },
 
     doMap: function() {
@@ -253,9 +252,8 @@ AnselGeoTagWidget = Class.create({
     },
 
     _getDeleteLink: function(iid) {
-        var imageid = iid;
         var x = new Element('a', {
-            href: this.opts.relocateUrl + '?image=' + imageid }
+            href: this.opts.relocateUrl + '?image=' + iid }
         ).update(this.opts.deleteGeotagText);
 
         x.observe('click', function(img, e) {
