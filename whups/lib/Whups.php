@@ -10,17 +10,32 @@
  */
 
 /**
- * The Whups:: class provides functionality that all of Whups needs,
- * or that should be encapsulated from other parts of the Whups
- * system.
+ * The Whups class provides functionality that all of Whups needs, or that
+ * should be encapsulated from other parts of the Whups system.
  *
  * @package Whups
  */
 class Whups
 {
+    /**
+     * Path to ticket attachments in the VFS.
+     */
     const VFS_ATTACH_PATH = '.horde/whups/attachments';
 
-    static public function urlFor($controller, $data, $full = false, $append_session = 0)
+    /**
+     * URL factory.
+     *
+     * @param string $controller       The controller to link to, one of
+     *                                 'queue', 'ticket', 'ticket_rss',
+     *                                 'ticket_action', 'query', 'query_rss'.
+     * @param array|string $data       URL data, depending on the controller.
+     * @param boolean $full            @see Horde::url()
+     * @param integer $append_session  @see Horde::url()
+     *
+     * @return Horde_Url  The generated URL.
+     */
+    static public function urlFor($controller, $data, $full = false,
+                                  $append_session = 0)
     {
         $rewrite = isset($GLOBALS['conf']['urls']['pretty']) &&
             $GLOBALS['conf']['urls']['pretty'] == 'rewrite';
@@ -110,15 +125,13 @@ class Whups
     }
 
     /**
-     * Sort tickets by requested direction and fields
+     * Sorts tickets by requested direction and fields.
      *
-     * @param array $tickets  The array of tickets to sort
+     * @param array $tickets  The list of tickets to sort.
      * @param string $by      The field to sort by. If omitted, obtain from
-     *                        prefs
+     *                        preferences.
      * @param string $dir     The direction to sort. If omitted, obtain from
-     *                        prefs
-     *
-     * @return array  The sorted array of tickets.
+     *                        preferences.
      */
     static public function sortTickets(&$tickets, $by = null, $dir = null)
     {
@@ -139,11 +152,11 @@ class Whups
     }
 
     /**
-     * Set or obtain the current sortBy value.
+     * Sets or returns the current sort field.
      *
      * @param string $b  The field to sort by.
      *
-     * @return  If $b is null, returns the previously set value, null otherwise.
+     * @return string  If $b is null, returns the previously set value.
      */
     static public function sortBy($b = null)
     {
@@ -157,11 +170,11 @@ class Whups
     }
 
     /**
-     * Set or obtain the current sortdir value.
+     * Sets or returns the current sort direction.
      *
-     * @param string $d  The direction to sort by.
+     * @param integer $d  The direction to sort by.
      *
-     * @return  If $d is null, returns the previously set value, null otherwise.
+     * @return integer  If $d is null, returns the previously set value.
      */
     static public function sortDir($d = null)
     {
@@ -175,15 +188,17 @@ class Whups
     }
 
     /**
-     * Helper method to prepare an array of tickets for sorting. Adds a sort_by
-     * key to each ticket array, with values lowercased. Used a new key in order
-     * to avoid altering the raw value. Used as a callback to array_map()
+     * Helper method to prepare an array of tickets for sorting.
+     *
+     * Adds a sort_by key to each ticket array, with values lowercased. Used as
+     * a callback to array_map().
      *
      * @param array $ticket  The ticket array to prepare.
      *
      * @return array  The altered $ticket array
      */
-    static protected function _prepareSort(array $ticket) {
+    static protected function _prepareSort(array $ticket)
+    {
         $by = self::sortBy();
         $ticket['sort_by'] = array();
         if (is_array($by)) {
@@ -208,12 +223,14 @@ class Whups
     }
 
     /**
-     * Helper method to sort an array of tickets. Used as callback to usort().
+     * Helper method to sort an array of tickets.
      *
-     * @param array $a         The first ticket to compare
-     * @param array $b         The secon ticket to compare
-     * @param string $sortby   The field to sortby. If null, uses the field from
-     *                         self::sortBy()
+     * Used as callback to usort().
+     *
+     * @param array $a         The first ticket to compare.
+     * @param array $b         The second ticket to compare.
+     * @param string $sortby   The field to sort by. If null, uses the field
+     *                         from self::sortBy().
      * @param string $sortdir  The direction to sort. If null, uses the value
      *                         from self::sortDir().
      *
@@ -311,9 +328,10 @@ class Whups
     }
 
     /**
-     * List all templates of a given type.
+     * Lists all templates of a given type.
      *
-     * @param string $type  The kind of template ('searchresults', etc.) to list.
+     * @param string $type  The kind of template ('searchresults', etc.) to
+     *                      list.
      *
      * @return array  All templates of the requested type.
      */
@@ -332,9 +350,13 @@ class Whups
     }
 
     /**
-     * Get the current ticket - use the 'id' request variable to
-     * determine what to look for. Will redirect to the default view
-     * if the ticket isn't found or if permissions checks fail.
+     * Returns the current ticket.
+     *
+     * Uses the 'id' request variable to determine what to look for. Will
+     * redirect to the default view if the ticket isn't found or if permissions
+     * checks fail.
+     *
+     * @return Whups_Ticket  The current ticket.
      */
     static public function getCurrentTicket()
     {
@@ -361,9 +383,9 @@ class Whups
     }
 
     /**
-     * Get the tabs for navigating between ticket actions.
+     * Returns the tabs for navigating between ticket actions.
      */
-   static public  function getTicketTabs(&$vars, $id)
+    static public function getTicketTabs(&$vars, $id)
     {
         $tabs = new Horde_Core_Ui_Tabs(null, $vars);
         $queue = $vars->get('queue');
@@ -407,8 +429,8 @@ class Whups
      * @param string $filter              The kind of resource specified in
      *                                    $in, currently only 'queue'.
      * @param string|integer $permission  A permission, either 'assign' or
-     *                                    'update', or one of the PERM_*
-     *                                    constants.
+     *                                    'update', 'requester', or one of the
+     *                                    PERM_* constants.
      * @param string $user                A user name.
      *
      * @return boolean  True if the user has the specified permission.
@@ -474,7 +496,7 @@ class Whups
     }
 
     /**
-     * Filters a list of resources based on whether a user use certain
+     * Filters a list of resources based on whether a user has certain
      * permissions on it.
      *
      * @param array $in            A list of resources to check.
@@ -488,8 +510,9 @@ class Whups
      *
      * @return array  The list of resources matching the permission criteria.
      */
-   static public  function permissionsFilter($in, $filter, $permission = Horde_Perms::READ,
-                               $user = null, $creator = null)
+    static public function permissionsFilter($in, $filter,
+                                             $permission = Horde_Perms::READ,
+                                             $user = null, $creator = null)
     {
         if (is_null($user)) {
             $user = $GLOBALS['registry']->getAuth();
@@ -577,7 +600,17 @@ class Whups
         return $out;
     }
 
-    function getOwnerCriteria($user)
+    /**
+     * Builds a list of criteria for Whups_Driver#getTicketsByProperties() that
+     * match a certain user.
+     *
+     * Merges the user's groups with the user name.
+     *
+     * @param string $user  A user name.
+     *
+     * @return array  A list of criteria that would match the user.
+     */
+    static public function getOwnerCriteria($user)
     {
         $criteria = array('user:' . $user);
         $mygroups = $GLOBALS['injector']
@@ -586,11 +619,16 @@ class Whups
         foreach ($mygroups as $id => $group) {
             $criteria[] = 'group:' . $id;
         }
-
         return $criteria;
     }
 
     /**
+     * Returns a hash with user information.
+     *
+     * @param string $user  A (Whups) user name, defaults to the current user.
+     *
+     * @return array  An information hash with 'user', 'name', 'email', and
+     *                'type' values.
      */
     static public function getUserAttributes($user = null)
     {
@@ -693,8 +731,8 @@ class Whups
      *                            escaped for HTML output, and a group icon
      *                            might be added.
      */
-    static public function formatUser($user = null, $showemail = true, $showname = true,
-                        $html = false)
+    static public function formatUser($user = null, $showemail = true,
+                                      $showname = true, $html = false)
     {
         if (!is_null($user) && empty($user)) {
             return '';
@@ -741,12 +779,13 @@ class Whups
 
     /**
      * Returns the set of columns and their associated parameter from the
-     * backend that should be displayed to the user. The results can depend on
-     * the current user preferences and which search function was executed.
+     * backend that should be displayed to the user.
      *
-     * @param integer $search_type  The type of search that was executed. Must
-     *                              be one of the WHUPS_SEARCH_ constants
-     *                              defined above.
+     * The results can depend on the current user preferences and which search
+     * function was executed.
+     *
+     * @param integer $search_type  The type of search that was executed.
+     *                              Currently only 'block' is supported.
      */
     static public function getSearchResultColumns($search_type = null)
     {
@@ -775,15 +814,23 @@ class Whups
     }
 
     /**
-     * Send reminders. One email per user.
+     * Sends reminders, one email per user.
      *
-     * @param Horde_Variables $vars  The selection criteria.
+     * @param Horde_Variables $vars  The selection criteria:
+     *                               - 'id' (integer) for individual tickets
+     *                               - 'queue' (integer) for tickets of a queue.
+     *                                 - 'category' (array) for ticket
+     *                                   categories, defaults to unresolved
+     *                                   tickets.
+     *                               - 'unassigned' (boolean) for unassigned
+     *                                 tickets.
+     *
+     * @throws Whups_Exception
      */
     static public function sendReminders($vars)
     {
         global $whups_driver;
 
-        // Fetch all unresolved tickets.
         if ($vars->get('id')) {
             $info = array('id' => $vars->get('id'));
         } elseif ($vars->get('queue')) {
@@ -846,11 +893,21 @@ class Whups
     }
 
     /**
+     * Returns attachment information hashes from the VFS backend.
+     *
+     * @param integer $ticket  A ticket ID.
+     * @param string $name     An attachment name.
+     *
+     * @return array  If $name is empty a list of all attachments' information
+     *                hashes, otherwise only the hash for the attachment of
+     *                that name.
+     *
+     * @throws Whups_Exception if the VFS object cannot be created.
      */
     static public function getAttachments($ticket, $name = null)
     {
         if (empty($GLOBALS['conf']['vfs']['type'])) {
-            return false;
+            return;
         }
 
         try {
@@ -859,27 +916,31 @@ class Whups
             throw new Whups_Exception($e);
         }
 
-        if ($vfs->isFolder(self::VFS_ATTACH_PATH, $ticket)) {
-            try {
-                $files = $vfs->listFolder(self::VFS_ATTACH_PATH . '/' . $ticket);
-            } catch (Horde_Vfs_Exception $e) {
-                $files = array();
-            }
-            if (is_null($name)) {
-                return $files;
-            } else {
-                foreach ($files as $file) {
-                    if ($file['name'] == $name) {
-                        return $file;
-                    }
-                }
-            }
+        if (!$vfs->isFolder(self::VFS_ATTACH_PATH, $ticket)) {
+            return;
         }
 
-        return false;
+        try {
+            $files = $vfs->listFolder(self::VFS_ATTACH_PATH . '/' . $ticket);
+        } catch (Horde_Vfs_Exception $e) {
+            $files = array();
+        }
+        if (is_null($name)) {
+            return $files;
+        }
+        foreach ($files as $file) {
+            if ($file['name'] == $name) {
+                return $file;
+            }
+        }
     }
 
     /**
+     * Returns the links to view, download, and delete an attachment.
+     *
+     * @param integer $ticket  A ticket ID.
+     * @param string $file     An attachment name.
+     * @param integer $queue   The ticket's queue ID.
      */
     static public function attachmentUrl($ticket, $file, $queue)
     {
@@ -921,30 +982,29 @@ class Whups
     }
 
     /**
-     * Obtain formatted owner string
+     * Returns formatted owner names of a ticket.
      *
-     * @param integer $ticket    The ticket id. Only used if $owners is null.
+     * @param integer $ticket    A ticket id. Only used if $owners is null.
      * @param boolean $showmail  Should we include the email address in the
      *                           output?
      * @param boolean $showname  Should we include the name in the output?
      * @param array $owners      An array of owners as returned from
      *                           Whups_Driver::getOwners() to be formatted. If
-     *                           this is provided, they are used in place of
-     *                           fetcing owners from $ticket.
+     *                           this is provided, they are used instead of
+     *                           the owners from $ticket.
      *
      * @return string  The formatted owner string.
      */
-    static public function getOwners(
-        $ticket, $showemail = true, $showname = true, $owners = null)
+    static public function getOwners($ticket, $showemail = true,
+                                     $showname = true, $owners = null)
     {
         if (is_null($owners)) {
-            global $whups_driver;
-            $owners = $whups_driver->getOwners($ticket);
+            $owners = $GLOBALS['whups_driver']->getOwners($ticket);
         }
 
         $results = array();
-        $owners = current($owners);
-        if (!$owners === false) {
+        $owners = reset($owners);
+        if ($owners !== false) {
             foreach ($owners as $owner) {
                 $results[] = self::formatUser($owner, $showemail, $showname);
             }
@@ -953,12 +1013,14 @@ class Whups
     }
 
     /**
-     * Retruns the available field types including all type information from
-     * the Horde_Form classes.
+     * Returns all available form field types including all type information
+     * from the Horde_Form classes.
+     *
+     * @todo Doesn't work with autoloading.
      *
      * @return array  The full field types array.
      */
-   static public  function fieldTypes()
+    static public function fieldTypes()
     {
         static $fields_array = array();
         if (!empty($fields_array)) {
@@ -969,14 +1031,13 @@ class Whups
         $classes = get_declared_classes();
 
         /* Filter for the Horde_Form_Type classes. */
+        $blacklist = array('invalid', 'addresslink', 'spacer', 'description',
+                           'captcha', 'figlet', 'header');
         foreach ($classes as $class) {
-            if (strtolower(substr($class, 0, 16)) == 'horde_form_type_') {
+            if (stripos($class, 'horde_form_type_') !== false) {
                 $field_type = substr($class, 16);
                 /* Don't bother including the types that cannot be handled
                  * usefully. */
-                $blacklist = array('invalid', 'addresslink', 'spacer',
-                                   'description', 'captcha', 'figlet',
-                                   'header');
                 if (in_array($field_type, $blacklist)) {
                     continue;
                 }
@@ -1027,7 +1088,7 @@ class Whups
     }
 
     /**
-     * Determines parameters needed to do an address search
+     * Returns the parameters necessary to run an address search.
      *
      * @return array  An array with two keys: 'sources' and 'fields'.
      */
@@ -1048,5 +1109,4 @@ class Whups
             'sources' => $src
         );
     }
-
 }
