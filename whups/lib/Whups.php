@@ -604,70 +604,78 @@ class Whups
                          'email' => '');
         }
 
-        if (!isset($results[$user])) {
-            if (strpos($user, ':') !== false) {
-                list($type, $user) = explode(':', $user, 2);
-            } else {
-                $type = 'user';
-            }
+        if (isset($results[$user])) {
+            return $results[$user];
+        }
 
-            // Default this; some of the cases below might change it.
-            $results[$user]['user'] = $user;
-            $results[$user]['type'] = $type;
+        if (strpos($user, ':') !== false) {
+            list($type, $user) = explode(':', $user, 2);
+        } else {
+            $type = 'user';
+        }
 
-            if ($type == 'user') {
-                if (substr($user, 0, 2) == '**') {
-                    unset($results[$user]);
-                    $user = substr($user, 2);
+        // Default this; some of the cases below might change it.
+        $results[$user]['user'] = $user;
+        $results[$user]['type'] = $type;
 
-                    $results[$user]['user'] = $user;
-                    $results[$user]['name'] = '';
-                    $results[$user]['email'] = '';
+        switch ($type) {
+        case 'user':
+            if (substr($user, 0, 2) == '**') {
+                unset($results[$user]);
+                $user = substr($user, 2);
 
-                    try {
-                        $addr_arr = Horde_Mime_Address::parseAddressList($user);
-                        if (isset($addr_arr[0])) {
-                            $results[$user]['name'] = isset($addr_arr[0]['personal'])
-                                ? $addr_arr[0]['personal'] : '';
-                            $results[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
-                                . $addr_arr[0]['host'];
-                        }
-                    } catch (Horde_Mime_Exception $e) {}
-                } elseif ($user < 0) {
-                    global $whups_driver;
+                $results[$user]['user'] = $user;
+                $results[$user]['name'] = '';
+                $results[$user]['email'] = '';
 
-                    $results[$user]['user'] = '';
-                    $results[$user]['name'] = '';
-                    $results[$user]['email'] = $whups_driver->getGuestEmail($user);
-
-                    try {
-                        $addr_arr = Horde_Mime_Address::parseAddressList($results[$user]['email']);
-                        if (isset($addr_arr[0])) {
-                            $results[$user]['name'] = isset($addr_arr[0]['personal'])
-                                ? $addr_arr[0]['personal'] : '';
-                            $results[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
-                                . $addr_arr[0]['host'];
-                        }
-                    } catch (Horde_Mime_Exception $e) {}
-                } else {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
-
-                    $results[$user]['name'] = $identity->getValue('fullname');
-                    $results[$user]['email'] = $identity->getValue('from_addr');
-                }
-            } elseif ($type == 'group') {
                 try {
-                    $group = $GLOBALS['injector']
-                        ->getInstance('Horde_Group')
-                        ->getData($user);
-                    $results[$user]['user'] = $group['name'];
-                    $results[$user]['name'] = $group['name'];
-                    $results[$user]['email'] = $group['email'];
-                } catch (Horde_Exception $e) {
-                    $results['user']['name'] = '';
-                    $results['user']['email'] = '';
+                    $addr_arr = Horde_Mime_Address::parseAddressList($user);
+                    if (isset($addr_arr[0])) {
+                        $results[$user]['name'] = isset($addr_arr[0]['personal'])
+                            ? $addr_arr[0]['personal'] : '';
+                        $results[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
+                            . $addr_arr[0]['host'];
+                    }
+                } catch (Horde_Mime_Exception $e) {
                 }
+            } elseif ($user < 0) {
+                global $whups_driver;
+
+                $results[$user]['user'] = '';
+                $results[$user]['name'] = '';
+                $results[$user]['email'] = $whups_driver->getGuestEmail($user);
+
+                try {
+                    $addr_arr = Horde_Mime_Address::parseAddressList($results[$user]['email']);
+                    if (isset($addr_arr[0])) {
+                        $results[$user]['name'] = isset($addr_arr[0]['personal'])
+                            ? $addr_arr[0]['personal'] : '';
+                        $results[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
+                            . $addr_arr[0]['host'];
+                    }
+                } catch (Horde_Mime_Exception $e) {
+                }
+            } else {
+                $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
+
+                $results[$user]['name'] = $identity->getValue('fullname');
+                $results[$user]['email'] = $identity->getValue('from_addr');
             }
+            break;
+
+        case 'group':
+            try {
+                $group = $GLOBALS['injector']
+                    ->getInstance('Horde_Group')
+                    ->getData($user);
+                $results[$user]['user'] = $group['name'];
+                $results[$user]['name'] = $group['name'];
+                $results[$user]['email'] = $group['email'];
+            } catch (Horde_Exception $e) {
+                $results['user']['name'] = '';
+                $results['user']['email'] = '';
+            }
+            break;
         }
 
         return $results[$user];
