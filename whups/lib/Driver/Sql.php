@@ -49,28 +49,28 @@ class Whups_Driver_Sql extends Whups_Driver
      *
      * @var array
      */
-    private $_guestEmailCache = array();
+    protected $_guestEmailCache = array();
 
     /**
      * Local cache of internal queue hashes
      *
      * @var array
      */
-    private $_internalQueueCache = array();
+    protected $_internalQueueCache = array();
 
     /**
      * Local queues internal cache
      *
      * @var array
      */
-     private $_queues = null;
+    protected $_queues = null;
 
     /**
      * Local slug cache
      *
      * @var array
      */
-     private $_slugs = null;
+     protected $_slugs = null;
 
      public function setStorage($storage)
      {
