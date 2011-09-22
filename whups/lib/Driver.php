@@ -457,13 +457,9 @@ class Whups_Driver
                 /* Add attachments. */
                 $attachmentAdded = false;
                 if (empty($GLOBALS['conf']['mail']['link_attach'])) {
-                    /* We don't know how many attachments exactly have been added
-                     * for the last recipient, but we need to remove all of them
-                     * because the attachment list is potentially limited by
-                     * permissions. */
-                    for ($i = 0, $c = count($attachments); $i < $c; $i++) {
-                        $mail->removePart($i);
-                    }
+                    /* We need to remove all attachments because the attachment
+                     * list is potentially limited by permissions. */
+                    $mail->clearParts();
                     foreach ($mycomments as $comment) {
                         foreach ($comment['changes'] as $change) {
                             if ($change['type'] == 'attachment') {
