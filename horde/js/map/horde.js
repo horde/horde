@@ -107,7 +107,6 @@ HordeMap.Map.Horde = Class.create({
 
         // Create the vector layer for markers if requested.
         // @TODO H5 BC break - useMarkerLayer should be permap, not per page
-
         if (this.opts.useMarkerLayer || HordeMap.conf.useMarkerLayer) {
             var styleMap = this.opts.styleMap;
             //styleMap.extendDefault = true;
