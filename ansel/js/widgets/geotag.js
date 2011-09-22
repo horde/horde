@@ -195,35 +195,38 @@ AnselGeoTagWidget = Class.create({
     {
         // Update image view links
         if (i.markerOnly) {
-            if (this.locationId) {
-                $(this.locationId).update(r[0].address);
-            }
-            if (this.coordId) {
-                $(this.coordId).update(AnselMap.point2Deg({ lat: r[0].lat, lon: r[0].lon }));
-            }
-            if (this.relocateId) {
-                $(this.relocateId).update(this._getRelocateLink(i.image_id));
-            }
-            if (this.deleteId) {
-                $(this.deleteId).update(this._getDeleteLink(i.image_id));
-            }
+            for (var j = 0; j < r.length; i++) {
+                if (r[j].precision == 1) {
+                    if (this.locationId) {
+                        $(this.locationId).update(r[j].address);
+                    }
+                    if (this.coordId) {
+                        $(this.coordId).update(AnselMap.point2Deg({ lat: r[j].lat, lon: r[j].lon }));
+                    }
+                    if (this.relocateId) {
+                        $(this.relocateId).update(this._getRelocateLink(i.image_id));
+                    }
+                    if (this.deleteId) {
+                        $(this.deleteId).update(this._getDeleteLink(i.image_id));
+                    }
+                    // Save the results?
+                    if (u) {
+                        new Ajax.Request(this.opts['updateEndpoint'] + '/action=location/post=values',
+                            {
+                                method: 'post',
+                                parameters: { 'values': 'location=' + encodeURIComponent(r[j].address) + '/img=' + i.image_id }
+                            }
+                        );
+                    }
+                    break;
+               }
+           }
         } else if (this.opts.viewType == 'Gallery') {
             // console.log('foobar');
             // $$('#imagetile_' + i.image_id + ' img')[0].observe('mouseover', function(e) {
             //     console.log(e);
             //     e.toggleClassName('image-tile-highlight');
             // });
-        }
-
-
-        // Save the results?
-        if (u) {
-            new Ajax.Request(this.opts['updateEndpoint'] + "/action=location/post=values",
-                {
-                    method: 'post',
-                    parameters: { "values": "location=" + encodeURIComponent(r[0].address) + "/img=" + i.image_id }
-                }
-            );
         }
     },
 
