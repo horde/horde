@@ -15,7 +15,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
-class Whups_Driver
+abstract class Whups_Driver
 {
     /**
      * @var array
@@ -147,7 +147,7 @@ class Whups_Driver
 
     /**
      */
-    function getQueue($queueId)
+    public function getQueue($queueId)
     {
         return $GLOBALS['registry']->call('tickets/getQueueDetails',
                                           array($queueId));
@@ -155,14 +155,14 @@ class Whups_Driver
 
     /**
      */
-    function getQueues()
+    public function getQueues()
     {
         return $GLOBALS['registry']->call('tickets/listQueues');
     }
 
     /**
      */
-    function getVersionInfo($queue)
+    public function getVersionInfo($queue)
     {
         return $GLOBALS['registry']->call('tickets/listVersions',
                                           array($queue));
@@ -171,7 +171,7 @@ class Whups_Driver
     /**
      * Returns a hash of versions suitable for select lists.
      */
-    function getVersions($queue, $all = false)
+    public function getVersions($queue, $all = false)
     {
         if (empty($queue)) {
             return array();
@@ -203,7 +203,7 @@ class Whups_Driver
 
     /**
      */
-    function getVersion($version)
+    public function getVersion($version)
     {
         return $GLOBALS['registry']->call('tickets/getVersionDetails',
                                           array($version));
@@ -211,7 +211,7 @@ class Whups_Driver
 
     /**
      */
-    function getCategories()
+    public function getCategories()
     {
         return array('unconfirmed' => _("Unconfirmed"),
                      'new' => _("New"),
@@ -226,7 +226,7 @@ class Whups_Driver
      *
      * @return array  A list of attributes.
      */
-    function getAttributesForType($type = null)
+    public function getAttributesForType($type = null)
     {
         $attributes = $this->_getAttributesForType($type);
         foreach ($attributes as $id => $attribute) {
@@ -251,7 +251,7 @@ class Whups_Driver
      *
      * @return array  List of attributes.
      */
-    function getAllTicketAttributesWithNames($ticket_id)
+    public function getAllTicketAttributesWithNames($ticket_id)
     {
         $ta = $this->_getAllTicketAttributesWithNames($ticket_id);
 
@@ -278,7 +278,7 @@ class Whups_Driver
      *
      * @param integer $queueId  The id of the queue being deleted.
      */
-    function deleteQueue($queueId)
+    public function deleteQueue($queueId)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         try {
@@ -297,7 +297,7 @@ class Whups_Driver
      *
      * @param integer $reply  The id of the form reply being deleted.
      */
-    function deleteReply($reply)
+    public function deleteReply($reply)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         try {
@@ -310,7 +310,7 @@ class Whups_Driver
 
     /**
      */
-    function filterTicketsByState($tickets, $state_category = array())
+    public function filterTicketsByState($tickets, $state_category = array())
     {
         /* Take a list of tickets and return only those of the specified
          * state_category. */
@@ -349,7 +349,7 @@ class Whups_Driver
      *                     - new:        (boolean, optional) Whether the passed
      *                                   ticket was just created.
      */
-    function mail(array $opts)
+    public function mail(array $opts)
     {
         global $conf, $registry, $prefs;
 
@@ -557,7 +557,7 @@ class Whups_Driver
      *
      * @return string  The formatted comment text, if any.
      */
-    function formatComments($comments, $ticket)
+    public function formatComments($comments, $ticket)
     {
         $text = '';
         foreach ($comments as $comment) {
