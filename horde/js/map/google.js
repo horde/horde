@@ -88,6 +88,12 @@ HordeMap.Geocoder.Google = Class.create(
         this._userCallback(results);
     },
 
+    /**
+     * precision:
+     *  0 - none
+     *  1 - location
+     *  2 - street address
+     */
     _reverseCallback: function(r, s)
     {
         if (s != google.maps.GeocoderStatus.OK) {
@@ -100,7 +106,8 @@ HordeMap.Geocoder.Google = Class.create(
             var ll = {
                 lon: entry.geometry.location.lng(),
                 lat: entry.geometry.location.lat(),
-                address: entry.formatted_address
+                address: entry.formatted_address,
+                precision: (entry.types[0] == 'street_address') ? 2 : 1
             };
             results.push(ll);
         });

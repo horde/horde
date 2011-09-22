@@ -45,6 +45,7 @@ HordeMap.Geocoder.Yahoo = Class.create(
             }
         }
         if (!this._map) {
+            console.log(this);
             this._map = new YMap(new Element('div'));
         }
     },
@@ -70,10 +71,7 @@ HordeMap.Geocoder.Yahoo = Class.create(
     {
         this._completeCallback = completeCallback || function() {};
         this._errorCallback = errorCallback || function() {};
-        this._reverseCallback([]);
-        //YEvent.Capture(this._map, EventsList.onEndLocalSearch, this._reverseCallback.bind(this));
-        //this._map.searchLocal(new YGeoPoint(latlon.lat, latlon.lon), 'address');
-        //return [];
+        this._reverseCallback([{ 'lon': latlon.lon, 'lat': latlon.lat, 'address': '', 'precision': 0 }]);
     },
 
     _callback: function(p)
