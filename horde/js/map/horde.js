@@ -265,7 +265,6 @@ HordeMap.Map.Horde = Class.create({
         ll.transform(this._proj, this.map.getProjectionObject());
         s = opts.styleCallback(this.markerLayer.style);
         var m = new OpenLayers.Feature.Vector(ll);
-        m.thumbnail = opts.thumbnail;
         this.markerLayer.addFeatures([m]);
 
         return m;
