@@ -104,6 +104,22 @@ class Whups_Application extends Horde_Registry_Application
 
     /**
      */
+    public function menu($menu)
+    {
+        $menu->add(Horde::url('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'search' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('ticket/create.php'), _("_New Ticket"), 'create.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'ticket/create' && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('query/index.php'), _("_Query Builder"), 'query.png');
+        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
+
+        /* Administration. */
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin'))) {
+            $menu->add(Horde::url('admin/'), _("_Admin"), 'admin.png');
+        }
+    }
+
+    /**
+     */
     public function prefsInit($ui)
     {
         if (!$GLOBALS['registry']->hasMethod('contacts/sources')) {
