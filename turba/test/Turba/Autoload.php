@@ -22,3 +22,5 @@ error_reporting(E_ALL | E_STRICT);
 require_once dirname(__FILE__) . '/TestCase.php';
 require_once dirname(__FILE__) . '/Unit/Driver/Base.php';
 require_once dirname(__FILE__) . '/Unit/Driver/Sql/Base.php';
+require_once dirname(__FILE__) . '/Unit/Turba/Base.php';
+require_once dirname(__FILE__) . '/Unit/Turba/Sql/Base.php';

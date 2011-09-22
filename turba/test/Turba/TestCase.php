@@ -107,6 +107,9 @@ extends PHPUnit_Framework_TestCase
                 'turba_shares' => 'Horde_Share_Base',
             )
         );
+        $GLOBALS['cfgSources']['test']['type'] = 'Sql';
+        $GLOBALS['cfgSources']['test']['title'] = 'SQL';
+        $GLOBALS['cfgSources']['test']['map'] = self::_getSqlMap();
     }
 
     static protected function createKolabShares(Horde_Test_Setup $setup)
