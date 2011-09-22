@@ -35,7 +35,7 @@ HordeMap.Geocoder.Yahoo = Class.create(
     {
         // Try to find an existing Yahoo layer and reuse it. Otherwise, we can
         // get away with just creating an unattached node.
-        if (map) {
+        if (map.layers) {
             var layers = map.layers;
             for (var i = 0; i < layers.length; i++) {
                 if (layers[i].CLASS_NAME == 'OpenLayers.Layer.Yahoo') {
