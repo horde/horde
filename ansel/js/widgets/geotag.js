@@ -200,7 +200,7 @@ AnselGeoTagWidget = Class.create({
                 $(this.locationId).update(r[0].address);
             }
             if (this.coordId) {
-                $(this.coordId).update(this._point2Deg({ lat: r[0].lat, lon: r[0].lon }));
+                $(this.coordId).update(AnselMap.point2Deg({ lat: r[0].lat, lon: r[0].lon }));
             }
             if (this.relocateId) {
                 $(this.relocateId).update(this._getRelocateLink(i.image_id));
@@ -263,20 +263,6 @@ AnselGeoTagWidget = Class.create({
             e.stop();
         }.curry(iid).bindAsEventListener(this));
         return x;
-    },
-
-    _point2Deg: function(ll) {
-         function dec2deg(dec, lat)
-         {
-             var letter = lat ? (dec > 0 ? "N" : "S") : (dec > 0 ? "E" : "W");
-             dec = Math.abs(dec);
-             var deg = Math.floor(dec);
-             var min = Math.floor((dec - deg) * 60);
-             var sec = (dec - deg - min / 60) * 3600;
-             return deg + "&deg; " + min + "' " + sec.toFixed(2) + "\" " + letter;
-         }
-
-         return dec2deg(ll.lat, true) + " " + dec2deg(ll.lon);
     }
 
 });
