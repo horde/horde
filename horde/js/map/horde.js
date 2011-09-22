@@ -115,7 +115,8 @@ HordeMap.Map.Horde = Class.create({
                 {
                     'styleMap': styleMap,
                     'rendererOptions': { zIndexing: true }
-                });
+                }
+            );
 
             if (this.opts.draggableFeatures) {
                 var dragControl = new OpenLayers.Control.DragFeature(
