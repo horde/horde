@@ -2,8 +2,6 @@
  Kolab_Format Development TODO List
 ====================================
 
- - Test new Horde_Kolab_Format_Date functions.
-
  - AllDay events
 
  - Recurrence start handling
