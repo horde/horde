@@ -173,7 +173,7 @@ AnselGeoTagWidget = Class.create({
     getLocation: function(p, m) {
         if (p.image_location.length > 0) {
             // Have cached reverse geocode results
-            var r = [ { address: p.image_location, lat: p.image_latitude, lon: p.image_longitude } ];
+            var r = [ { address: p.image_location, lat: p.image_latitude, lon: p.image_longitude, precision: 1 } ];
             this.getLocationCallback(p, false, m, r);
         } else {
             this.geocoder.reverseGeocode(
