@@ -93,6 +93,23 @@ class Turba_Driver_Sql extends Turba_Driver
      * @param array $criteria      Array containing the search criteria.
      * @param array $fields        List of fields to return.
      * @param array $blobFields    TODO
+     *
+     * @return array  Hash containing the search results.
+     * @throws Turba_Exception
+     */
+    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    {
+        return $this->_internalSearch($criteria, $fields, $blobFields);
+    }
+
+    /**
+     * Searches the SQL database with the given criteria and returns a
+     * filtered list of results. If the criteria parameter is an empty array,
+     * all records will be returned.
+     *
+     * @param array $criteria      Array containing the search criteria.
+     * @param array $fields        List of fields to return.
+     * @param array $blobFields    TODO
      * @param array $appendWhere   An additional where clause to append.
      *                             Array should contain 'sql' and 'params'
      *                             params are used as bind parameters.
@@ -100,7 +117,7 @@ class Turba_Driver_Sql extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields, $blobFields = array(), $appendWhere = array())
+    protected function _internalSearch(array $criteria, array $fields, $blobFields = array(), $appendWhere = array())
     {
         /* Build the WHERE clause. */
         $where = '';
@@ -643,7 +660,7 @@ class Turba_Driver_Sql extends Turba_Driver
      * @return Turba_List  Object list.
      * @throws Turba_Exception
      */
-    public function getTimeObjectTurbaList($start, $end, $field)
+    public function getTimeObjectTurbaList(Horde_Date $start, Horde_Date $end, $field)
     {
         $t_object = $this->toDriver($field);
         $criteria = $this->makesearch(
@@ -703,7 +720,7 @@ class Turba_Driver_Sql extends Turba_Driver
             }
         }
 
-        return $this->_toTurbaObjects($this->_search($criteria, $fields, array(), $where));
+        return $this->_toTurbaObjects($this->_internalSearch($criteria, $fields, array(), $where));
     }
 
 }
