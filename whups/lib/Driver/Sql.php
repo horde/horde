@@ -363,7 +363,7 @@ class Whups_Driver_Sql extends Whups_Driver
                                $creator_email = null)
     {
         if (empty($creator) || $creator < 0) {
-            $creator = '-' . $id . '_comment';
+            $creator = '-' . $ticket_id . '_comment';
         }
 
         // Add the row.
