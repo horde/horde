@@ -195,31 +195,33 @@ AnselGeoTagWidget = Class.create({
     {
         // Update image view links
         if (i.markerOnly) {
-            for (var j = 0; j < r.length; i++) {
-                if (r[j].precision == 1) {
-                    if (this.locationId) {
-                        $(this.locationId).update(r[j].address);
-                    }
-                    if (this.coordId) {
-                        $(this.coordId).update(AnselMap.point2Deg({ lat: r[j].lat, lon: r[j].lon }));
-                    }
-                    if (this.relocateId) {
-                        $(this.relocateId).update(this._getRelocateLink(i.image_id));
-                    }
-                    if (this.deleteId) {
-                        $(this.deleteId).update(this._getDeleteLink(i.image_id));
-                    }
-                    // Save the results?
-                    if (u) {
-                        new Ajax.Request(this.opts['updateEndpoint'] + '/action=location/post=values',
-                            {
-                                method: 'post',
-                                parameters: { 'values': 'location=' + encodeURIComponent(r[j].address) + '/img=' + i.image_id }
-                            }
-                        );
-                    }
-                    break;
-               }
+            if (r.length) {
+                r.each(function(result) {
+                    if (result.precision == 1) {
+                        if (this.locationId) {
+                            $(this.locationId).update(result.address);
+                        }
+                        if (this.coordId) {
+                            $(this.coordId).update(AnselMap.point2Deg({ lat: result.lat, lon: result.lon }));
+                        }
+                        if (this.relocateId) {
+                            $(this.relocateId).update(this._getRelocateLink(i.image_id));
+                        }
+                        if (this.deleteId) {
+                            $(this.deleteId).update(this._getDeleteLink(i.image_id));
+                        }
+                        // Save the results?
+                        if (u) {
+                            new Ajax.Request(this.opts.updateEndpoint + '/action=location/post=values',
+                                {
+                                    method: 'post',
+                                    parameters: { 'values': 'location=' + encodeURIComponent(result.address) + '/img=' + i.image_id }
+                                }
+                            );
+                        }
+                        throw $break;
+                   }
+               }.bind(this));
            }
         } else if (this.opts.viewType == 'Gallery') {
             // console.log('foobar');
