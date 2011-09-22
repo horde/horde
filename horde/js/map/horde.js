@@ -66,6 +66,7 @@ HordeMap.Map.Horde = Class.create({
             layers: [],
             onHover: false,
             onClick: false,
+            // default stylemap
             styleMap: new OpenLayers.StyleMap({
                 'default': {
                     externalGraphic: opts.markerImage,
@@ -73,7 +74,7 @@ HordeMap.Map.Horde = Class.create({
                     backgroundXOffset: 0,
                     backgroundYOffset: -7,
                     backgroundGraphicZIndex: 10,
-                    pointRadius: 10,
+                    pointRadius: (opts.pointRadius) ? opts.pointRadius : 10,
                 }
             })
         };
