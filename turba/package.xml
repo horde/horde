@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [gwr] Avoid including the owner name into the default share (Kolab backend).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1332,7 +1332,7 @@
    <date>2011-09-21</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [gwr] Avoid including the owner name into the default share (Kolab backend).
    </notes>
   </release>
  </changelog>
