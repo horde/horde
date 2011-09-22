@@ -36,7 +36,7 @@ HordeMap.Geocoder.Bing = Class.create(
 {
     intialize: function() {},
     geocode: function(address, completeCallback, errorCallback) {},
-    reverseGeocode: function(latlon, completeCallback, errorCallback){}
+    reverseGeocode: function(latlon, completeCallback, errorCallback) {}
 });
 /* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the Clear BSD license.
