@@ -81,7 +81,6 @@ AnselGeoTagWidget = Class.create({
     doMap: function() {
         // Create map and geocoder objects
         this._bigMap = AnselMap.initMainMap('ansel_map', {
-            'viewType': this.opts.viewType,
             // Hover handler to modify style of image tiles
             'onHover': function(e) {
                 switch (e.type) {
@@ -105,9 +104,7 @@ AnselGeoTagWidget = Class.create({
                 location.href = uri;
             }.bind(this)
         });
-        this._smallMap = AnselMap.initMiniMap('ansel_map_small', {
-            'viewType': this.opts.viewType
-        });
+        this._smallMap = AnselMap.initMiniMap('ansel_map_small', {});
         this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
 
         // Place the image markers

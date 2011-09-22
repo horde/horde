@@ -19,10 +19,9 @@
      *
      * e - dom id
      * opts {
-     *    'viewType': current view,
      *    'onHover':  callback for handling a feature's hover event or false
      *                if not used.
-     *    'mapClick': Callback for click event on the map (not a feature).
+     *    'onClick': Callback for click event on the map (not a feature).
      * }
      */
     initMainMap: function(e, opts) {
@@ -93,6 +92,7 @@
         return this._initializeMap(e, {
             'panzoom': true,
             'zoomworldicon': true,
+            'layerSwitcher': true,
             'mapClick': opts.mapClick,
             'markerDragEnd': opts.markerDragEnd,
             'draggableFeatures': true,
