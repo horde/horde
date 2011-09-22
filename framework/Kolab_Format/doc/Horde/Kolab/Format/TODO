@@ -2,17 +2,9 @@
  Kolab_Format Development TODO List
 ====================================
 
- - AllDay events
-
- - Recurrence start handling
-
- - Handle distribution list
-
- - Extract Xml_* subtypes to Xml_Type_Composite_* types
-
  - performance check
 
- - cleanup handlers.
+ - Extract Xml_* subtypes to Xml_Type_Composite_* types
 
  - Think about storing the data in iCal format.
 
