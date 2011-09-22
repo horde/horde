@@ -22,9 +22,11 @@
      *    'viewType': current view,
      *    'onHover':  callback for handling a feature's hover event or false
      *                if not used.
+     *    'mapClick': Callback for click event on the map (not a feature).
      * }
      */
     initMainMap: function(e, opts) {
+
         this.opts = opts;
 
         // Default OL StyleMap. We use a sybolizer since we have two different
@@ -77,7 +79,35 @@
     },
 
     initMiniMap: function(e) {
-        return this._initializeMap(e, {});
+        return this._initializeMap(e, {
+            'styleMap': new OpenLayers.StyleMap(
+                {
+                    'externalGraphic': Ansel.conf.markeruri,
+                    'pointRadius': 10
+                }
+            )
+        });
+    },
+
+    initEditMap: function(e, opts) {
+        return this._initializeMap(e, {
+            'panzoom': true,
+            'zoomworldicon': true,
+            'mapClick': opts.mapClick,
+            'markerDragEnd': opts.markerDragEnd,
+            'draggableFeatures': true,
+            'styleMap': new OpenLayers.StyleMap(
+                {
+                    'externalGraphic': Ansel.conf.markeruri,
+                    'backgroundGraphic': Ansel.conf.shadowuri,
+                    'graphicHeight': 37,
+                    'graphicWidth': 32,
+                    'graphicYOffset': -37,
+                    'backgroundXOffset': 0,
+                    'backgroundYOffset': -42
+                }
+            )
+        });
     },
 
     _initializeMap: function(e, opts)
@@ -88,7 +118,8 @@
         var o = {
             'panzoom': false,
             'layerSwitcher': false,
-            'onHover': false
+            'onHover': false,
+            'markerDragEnd': Prototype.EmptyFunction
         }
         this.opts = Object.extend(o, opts || {});
         var layers = [];
@@ -100,18 +131,19 @@
         }
         var mapOpts = {
             elt: e,
-            //delayed: true,
             layers: layers,
-            draggableFeatures: false,
+            draggableFeatures: (opts.draggableFeatures) ? true : false,
             panzoom: this.opts.panzoom,
+            zoomworldicon: (this.opts.zoomworldicon) ? this.opts.zoomworldicon : false,
             showLayerSwitcher: this.opts.layerSwitcher,
             useMarkerLayer: true,
             markerImage: Ansel.conf.markeruri,
             markerBackground: Ansel.conf.shadowuri,
+            pointRadius: 20,
             onHover: this.opts.onHover,
-            onClick: this.opts.onClick
-            //markerDragEnd: this.onMarkerDragEnd.bind(this),
-            //mapClick: this.afterClickMap.bind(this),
+            onClick: this.opts.onClick,
+            markerDragEnd: this.opts.markerDragEnd,
+            mapClick: (this.opts.mapClick) ? this.opts.mapClick.bind(this) : Prototype.EmptyFunction
         }
         if (this.opts.styleMap) {
             mapOpts.styleMap = this.opts.styleMap;
@@ -162,6 +194,11 @@
         return marker;
     },
 
+    moveMarker: function(e, m, ll)
+    {
+        this.maps[e].moveMarker(m, ll);
+    },
+
     selectMarker: function(e, m)
     {
         this.maps[e].selectControl.highlight(m);
@@ -170,6 +207,20 @@
     unselectMarker: function(e, m)
     {
         this.maps[e].selectControl.unhighlight(m);
+    },
+
+    point2Deg: function(ll) {
+             function dec2deg(dec, lat)
+             {
+                 var letter = lat ? (dec > 0 ? "N" : "S") : (dec > 0 ? "E" : "W");
+                 dec = Math.abs(dec);
+                 var deg = Math.floor(dec);
+                 var min = Math.floor((dec - deg) * 60);
+                 var sec = (dec - deg - min / 60) * 3600;
+                 return deg + "&deg; " + min + "' " + sec.toFixed(2) + "\" " + letter;
+             }
+
+             return dec2deg(ll.lat, true) + " " + dec2deg(ll.lon);
     },
 
     onDomLoad: function()
