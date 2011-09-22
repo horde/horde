@@ -1,4 +1,4 @@
-    /**
+/**
  * HordeMap support for Ansel
  *
  * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
@@ -77,6 +77,11 @@
         });
     },
 
+    /**
+     * Inits the 'mini' map on the geotag widget
+     *
+     * @param string e  DOM id of the minimap
+     */
     initMiniMap: function(e) {
         return this._initializeMap(e, {
             'styleMap': new OpenLayers.StyleMap(
@@ -88,6 +93,14 @@
         });
     },
 
+    /**
+     * Inits the main map for the manual geotag view.
+     *
+     * @param string e    The DOM id of the editmap.
+     * @param array opts  Options:
+     *   mapClick       Handler for mapclick events
+     *   markerDragEnd  Handler for feature drag events
+     */
     initEditMap: function(e, opts) {
         return this._initializeMap(e, {
             'panzoom': true,
@@ -167,10 +180,20 @@
      * Optionally center the map on the marker and zoom. Zoom only honored if
      * center is set, and if center is set, but zoom is null, we zoomToFit().
      *
+     * @param string e    The DOM id of the map we are placing the marker on.
+     * @param latlon ll   { 'lat': x, 'lon': y }
+     * @param object opts Options
+     *   img         URI for image thumbnail to use for this marker.
+     *   image_id    The image_id this marker represents
+     *   markerOnly  We should place a traditional marker, not a thumbnail.
+     *   background  The marker background URI
+     *   image_link  The URL to the image view for this marker.
+     *   zoom        We should auto zoom after placing the marker.
+     *   center      Auto center the map after placing the marker.
      */
     placeMapMarker: function(e, ll, opts)
     {
-        var cb, marker;
+        var marker;
         if (!opts) {
             opts = {};
         }
@@ -194,21 +217,40 @@
         return marker;
     },
 
+    /**
+     * Move an existing marker.
+     *
+     * @param string e   The DOM id for the map the marker exists on.
+     * @param object m   A marker object representing the marker
+     * @param latlon ll  { 'lat': x, 'lon': x }
+     */
     moveMarker: function(e, m, ll)
     {
         this.maps[e].moveMarker(m, ll);
     },
 
+    /**
+     * Manually mark a marker as 'selected'. This has the effect of changing the
+     * marker's render intent to indicate it is highlighted. Has the same effect
+     * as hovering over the marker.
+     */
     selectMarker: function(e, m)
     {
         this.maps[e].selectControl.highlight(m);
     },
 
+    /**
+     * Unselect a marker. Changes the markers render intent back to default.
+     * Same effect as mouseout.
+     */
     unselectMarker: function(e, m)
     {
         this.maps[e].selectControl.unhighlight(m);
     },
 
+    /**
+     * Utility method for rendering a lat/lon pair.
+     */
     point2Deg: function(ll) {
              function dec2deg(dec, lat)
              {
@@ -227,4 +269,5 @@
     {
         this.maps.each(function(x) { x.display(); });
     }
+
 }
