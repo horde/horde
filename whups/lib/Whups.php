@@ -13,6 +13,8 @@
  * The Whups class provides functionality that all of Whups needs, or that
  * should be encapsulated from other parts of the Whups system.
  *
+ * @author  Robert E. Coyle <robertecoyle@hotmail.com>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
 class Whups
@@ -21,6 +23,39 @@ class Whups
      * Path to ticket attachments in the VFS.
      */
     const VFS_ATTACH_PATH = '.horde/whups/attachments';
+
+    /**
+     * The current sort field.
+     *
+     * @see sortBy()
+     * @var string
+     */
+    static protected $_sortBy;
+
+    /**
+     * The current sort direction.
+     *
+     * @see sortDir()
+     * @var integer
+     */
+    static protected $_sortDir;
+
+    /**
+     * Cached list of user information.
+     *
+     * @see getUserAttributes()
+     * @var array
+     */
+    static protected $_users = array();
+
+    /**
+     * All available form field types including all type information
+     * from the Horde_Form classes.
+     *
+     * @see fieldTypes()
+     * @var array
+     */
+    static protected $_fieldTypes = array();
 
     /**
      * URL factory.
@@ -160,12 +195,10 @@ class Whups
      */
     static public function sortBy($b = null)
     {
-        static $by;
-
         if (!is_null($b)) {
-            $by = $b;
+            self::$_sortBy = $b;
         } else {
-            return $by;
+            return self::$_sortBy;
         }
     }
 
@@ -178,12 +211,10 @@ class Whups
      */
     static public function sortDir($d = null)
     {
-        static $dir;
-
         if (!is_null($d)) {
-            $dir = $d;
+            self::$_sortDir = $d;
         } else {
-            return $dir;
+            return self::$_sortDir;
         }
     }
 
@@ -238,17 +269,11 @@ class Whups
      */
     static protected function _sort($a, $b, $sortby = null, $sortdir = null)
     {
-        static $by, $dir;
-        if (is_null($by)) {
-            $by = self::sortBy();
-            $dir = self::sortDir();
-        }
-
         if (is_null($sortby)) {
-            $sortby = $by;
+            $sortby = self::$_sortBy;
         }
         if (is_null($sortdir)) {
-            $sortdir = $dir;
+            $sortdir = self::$_sortDir;
         }
 
         if (is_array($sortby)) {
@@ -261,47 +286,40 @@ class Whups
 
             if (!count($sortby)) {
                 return 0;
-            } elseif ($a['sort_by'][$sortby[0]] > $b['sort_by'][$sortby[0]]) {
+            }
+            if ($a['sort_by'][$sortby[0]] > $b['sort_by'][$sortby[0]]) {
                 return $sortdir[0] ? -1 : 1;
-            } elseif ($a['sort_by'][$sortby[0]] === $b['sort_by'][$sortby[0]]) {
+            }
+            if ($a['sort_by'][$sortby[0]] === $b['sort_by'][$sortby[0]]) {
                 array_shift($sortby);
                 array_shift($sortdir);
                 return self::_sort($a, $b, $sortby, $sortdir);
-            } else {
-                return $sortdir[0] ? 1 : -1;
             }
-        } else {
-            $a_val = isset($a['sort_by'][$sortby]) ? $a['sort_by'][$sortby] : null;
-            $b_val = isset($b['sort_by'][$sortby]) ? $b['sort_by'][$sortby] : null;
-
-            // Take care of the simplest case first
-            if ($a_val === $b_val) {
-                return 0;
-            }
-
-            if ((is_numeric($a_val) || is_null($a_val)) &&
-                (is_numeric($b_val) || is_null($b_val))) {
-                // Numeric comparison
-                if ($sortdir) {
-                    return (int)($b_val > $a_val);
-                } else {
-                    return (int)($a_val > $b_val);
-                }
-            } else {
-                // Some special case sorting
-                if (is_array($a_val) || is_array($b_val)) {
-                    $a_val = implode('', $a_val);
-                    $b_val = implode('', $b_val);
-                }
-
-                // String comparison
-                if ($sortdir) {
-                    return strcoll($b_val, $a_val);
-                } else {
-                    return strcoll($a_val, $b_val);
-                }
-            }
+            return $sortdir[0] ? 1 : -1;
         }
+
+        $a_val = isset($a['sort_by'][$sortby]) ? $a['sort_by'][$sortby] : null;
+        $b_val = isset($b['sort_by'][$sortby]) ? $b['sort_by'][$sortby] : null;
+
+        // Take care of the simplest case first
+        if ($a_val === $b_val) {
+            return 0;
+        }
+
+        if ((is_numeric($a_val) || is_null($a_val)) &&
+            (is_numeric($b_val) || is_null($b_val))) {
+            // Numeric comparison
+            return (int)($sortdir ? ($b_val > $a_val) : ($a_val > $b_val));
+        }
+
+        // Some special case sorting
+        if (is_array($a_val) || is_array($b_val)) {
+            $a_val = implode('', $a_val);
+            $b_val = implode('', $b_val);
+        }
+
+        // String comparison
+        return $sortdir ? strcoll($b_val, $a_val) : strcoll($a_val, $b_val);
     }
 
     /**
@@ -632,8 +650,6 @@ class Whups
      */
     static public function getUserAttributes($user = null)
     {
-        static $results;
-
         if (is_null($user)) {
             $user = $GLOBALS['registry']->getAuth();
         } elseif (empty($user)) {
@@ -642,8 +658,8 @@ class Whups
                          'email' => '');
         }
 
-        if (isset($results[$user])) {
-            return $results[$user];
+        if (isset(self::$_users[$user])) {
+            return self::$_users[$user];
         }
 
         if (strpos($user, ':') !== false) {
@@ -653,25 +669,25 @@ class Whups
         }
 
         // Default this; some of the cases below might change it.
-        $results[$user]['user'] = $user;
-        $results[$user]['type'] = $type;
+        self::$_users[$user]['user'] = $user;
+        self::$_users[$user]['type'] = $type;
 
         switch ($type) {
         case 'user':
             if (substr($user, 0, 2) == '**') {
-                unset($results[$user]);
+                unset(self::$_users[$user]);
                 $user = substr($user, 2);
 
-                $results[$user]['user'] = $user;
-                $results[$user]['name'] = '';
-                $results[$user]['email'] = '';
+                self::$_users[$user]['user'] = $user;
+                self::$_users[$user]['name'] = '';
+                self::$_users[$user]['email'] = '';
 
                 try {
                     $addr_arr = Horde_Mime_Address::parseAddressList($user);
                     if (isset($addr_arr[0])) {
-                        $results[$user]['name'] = isset($addr_arr[0]['personal'])
+                        self::$_users[$user]['name'] = isset($addr_arr[0]['personal'])
                             ? $addr_arr[0]['personal'] : '';
-                        $results[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
+                        self::$_users[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
                             . $addr_arr[0]['host'];
                     }
                 } catch (Horde_Mime_Exception $e) {
@@ -679,16 +695,16 @@ class Whups
             } elseif ($user < 0) {
                 global $whups_driver;
 
-                $results[$user]['user'] = '';
-                $results[$user]['name'] = '';
-                $results[$user]['email'] = $whups_driver->getGuestEmail($user);
+                self::$_users[$user]['user'] = '';
+                self::$_users[$user]['name'] = '';
+                self::$_users[$user]['email'] = $whups_driver->getGuestEmail($user);
 
                 try {
-                    $addr_arr = Horde_Mime_Address::parseAddressList($results[$user]['email']);
+                    $addr_arr = Horde_Mime_Address::parseAddressList(self::$_users[$user]['email']);
                     if (isset($addr_arr[0])) {
-                        $results[$user]['name'] = isset($addr_arr[0]['personal'])
+                        self::$_users[$user]['name'] = isset($addr_arr[0]['personal'])
                             ? $addr_arr[0]['personal'] : '';
-                        $results[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
+                        self::$_users[$user]['email'] = $addr_arr[0]['mailbox'] . '@'
                             . $addr_arr[0]['host'];
                     }
                 } catch (Horde_Mime_Exception $e) {
@@ -696,8 +712,8 @@ class Whups
             } else {
                 $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
 
-                $results[$user]['name'] = $identity->getValue('fullname');
-                $results[$user]['email'] = $identity->getValue('from_addr');
+                self::$_users[$user]['name'] = $identity->getValue('fullname');
+                self::$_users[$user]['email'] = $identity->getValue('from_addr');
             }
             break;
 
@@ -706,17 +722,17 @@ class Whups
                 $group = $GLOBALS['injector']
                     ->getInstance('Horde_Group')
                     ->getData($user);
-                $results[$user]['user'] = $group['name'];
-                $results[$user]['name'] = $group['name'];
-                $results[$user]['email'] = $group['email'];
+                self::$_users[$user]['user'] = $group['name'];
+                self::$_users[$user]['name'] = $group['name'];
+                self::$_users[$user]['email'] = $group['email'];
             } catch (Horde_Exception $e) {
-                $results['user']['name'] = '';
-                $results['user']['email'] = '';
+                self::$_users['user']['name'] = '';
+                self::$_users['user']['email'] = '';
             }
             break;
         }
 
-        return $results[$user];
+        return self::$_users[$user];
     }
 
     /**
@@ -1022,9 +1038,8 @@ class Whups
      */
     static public function fieldTypes()
     {
-        static $fields_array = array();
-        if (!empty($fields_array)) {
-            return $fields_array;
+        if (!empty(self::$_fieldTypes)) {
+            return self::$_fieldTypes;
         }
 
         /* Fetch all declared classes. */
@@ -1041,12 +1056,12 @@ class Whups
                 if (in_array($field_type, $blacklist)) {
                     continue;
                 }
-                $fields_array[$field_type] = @call_user_func(
+                self::$_fieldTypes[$field_type] = @call_user_func(
                     array('Horde_Form_Type_' . $field_type, 'about'));
             }
         }
 
-        return $fields_array;
+        return self::$_fieldTypes;
     }
 
     /**
