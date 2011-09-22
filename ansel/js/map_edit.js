@@ -1,5 +1,14 @@
+/**
+ * Class for managing a HordeMap for manually geocoding images.
+ *
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 AnselMapEdit = Class.create({
-
     _marker: null,
     _map: null,
     _geocoder: null,
@@ -11,7 +20,7 @@ AnselMapEdit = Class.create({
         this._img = img[0];
         this._opts = Object.extend(
             {
-                'geocoder': 'Google'
+                'geocoder': 'Null'
             },
             opts
         );
@@ -21,16 +30,28 @@ AnselMapEdit = Class.create({
         });
         this._geocoder = new HordeMap.Geocoder[this._opts.geocoder](this._map, 'ansel_map');
         if (this._img.image_location) {
-            this.setLocation(this._img.image_latitude, this._img.image_longitude, this._img.image_location);
+            this.setLocation(
+                this._img.image_latitude,
+                this._img.image_longitude,
+                this._img.image_location);
         }
     },
 
     placeMapMarker: function(ll)
     {
         if (!this._marker) {
-             this._marker = AnselMap.placeMapMarker('ansel_map', ll);
+             this._marker = AnselMap.placeMapMarker(
+                'ansel_map',
+                ll,
+                { 'center': true, 'zoom': 5 }
+            );
         } else {
-            this._map.moveMarker(this._marker, ll);
+            AnselMap.moveMarker(
+                'ansel_map',
+                this._marker,
+                ll,
+                { 'center': true, 'zoom': 5 }
+            );
         }
     },
 
@@ -42,12 +63,17 @@ AnselMapEdit = Class.create({
 
     geocode: function(loc)
     {
-        this._geocoder.geocode(loc, this._geocodeCallback.curry(loc).bind(this), this._onError.bind(this));
+        this._geocoder.geocode(
+            loc,
+            this._geocodeCallback.curry(loc).bind(this),
+            this._onError.bind(this));
     },
 
     save: function()
     {
-        var params = { "values": "img=" + this._opts.image_id + "/lat=" + this._marker.getLonLat().lat + "/lng=" + this._marker.getLonLat().lon };
+        var params = {
+            'values': 'img=' + this._opts.image_id + '/lat=' + this._marker.getLonLat().lat + '/lng=' + this._marker.getLonLat().lon
+        };
         new Ajax.Request(this._opts.ajaxuri + '/action=geotag/post=values', {
             method: 'post',
             parameters: params,

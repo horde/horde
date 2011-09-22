@@ -188,7 +188,7 @@
      *   markerOnly  We should place a traditional marker, not a thumbnail.
      *   background  The marker background URI
      *   image_link  The URL to the image view for this marker.
-     *   zoom        We should auto zoom after placing the marker.
+     *   zoom        We should auto zoom to this zoom level after placing.
      *   center      Auto center the map after placing the marker.
      */
     placeMapMarker: function(e, ll, opts)
@@ -220,13 +220,22 @@
     /**
      * Move an existing marker.
      *
-     * @param string e   The DOM id for the map the marker exists on.
-     * @param object m   A marker object representing the marker
-     * @param latlon ll  { 'lat': x, 'lon': x }
+     * @param string e     The DOM id for the map the marker exists on.
+     * @param object m     A marker object representing the marker
+     * @param latlon ll    { 'lat': x, 'lon': x },
+     * @param object opts  Options hash
+     *    center  Center map after moving?
+     *    zoom    Zoom level to set map to after moving.
      */
-    moveMarker: function(e, m, ll)
+    moveMarker: function(e, m, ll, opts)
     {
         this.maps[e].moveMarker(m, ll);
+        if (opts.center) {
+            this.maps[e].setCenter(ll, opts.zoom);
+            if (!opts.zoom) {
+                this.maps[e].zoomToFit();
+            }
+        }
     },
 
     /**
