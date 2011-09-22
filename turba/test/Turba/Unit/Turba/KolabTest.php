@@ -41,7 +41,7 @@ class Turba_Unit_Turba_KolabTest extends Turba_Unit_Turba_Base
      *
      * @var string
      */
-    protected $default_name = 'Contacs';
+    protected $default_name = 'Contacts';
 
     public static function setUpBeforeClass()
     {

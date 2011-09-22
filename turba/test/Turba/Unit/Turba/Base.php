@@ -84,7 +84,6 @@ class Turba_Unit_Turba_Base extends Turba_TestCase
 
     public function testDefaultShareName()
     {
-        $this->markTestIncomplete('Fix Kolab situation');
         $GLOBALS['conf']['share']['auto_create'] = true;
         Turba::getConfigFromShares(array('test' => array('use_shares' => true)));
         $shares = $GLOBALS['turba_shares']->listShares('test@example.com');
