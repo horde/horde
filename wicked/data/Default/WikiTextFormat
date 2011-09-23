@@ -296,7 +296,7 @@ Or you can have a described-reference instead of a numbered reference:
 
 +++ On-Page Links
 
-Create and anchor on the page by {{``[[# anchorName nice anchor text]]``}} [[# anchorName nice anchor text]] and refer to it by {{``#anchorName``}} #anchorName, or {{``[#anchorName use normal link renaming]``}} [#anchorName use normal link renaming].
+Create an anchor on the page by {{``[[# anchorName nice anchor text]]``}} [[# anchorName nice anchor text]] and refer to it by {{``#anchorName``}} #anchorName, or {{``[#anchorName use normal link renaming]``}} [#anchorName use normal link renaming].
 
 
 +++ Images
