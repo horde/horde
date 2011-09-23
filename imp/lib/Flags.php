@@ -85,14 +85,12 @@ class IMP_Flags implements ArrayAccess, Serializable
      * Return the raw list of flags.
      *
      * @param array $opts  Additional options:
-     * <pre>
-     * 'imap' - (boolean) If true, only return IMAP flags that can be set by
-     *          the user.
-     *          DEFAULT: false
-     * 'mailbox' - (string) A real (not virtual) IMAP mailbox. If set, will
-     *             determine what flags are available in the mailbox.
-     *             DEFAULT: '' (no mailbox check)
-     * </pre>
+     *   - imap: (boolean) If true, only return IMAP flags that can be set by
+     *           the user.
+     *            DEFAULT: false
+     *   - mailbox: (string) A real (not virtual) IMAP mailbox. If set, will
+     *              determine what flags are available in the mailbox.
+     *              DEFAULT: '' (no mailbox check)
      *
      * @return array  An array of IMP_Flag_Base elements.
      */
@@ -208,16 +206,14 @@ class IMP_Flags implements ArrayAccess, Serializable
      * Parse a list of flag information.
      *
      * @param array $opts  Options:
-     * <pre>
-     * 'flags' - (array) IMAP flag info. A lowercase list of flags returned
-     *           by the IMAP server.
-     * 'headers' - (Horde_Mime_Headers) Determines message information
-     *             from a headers object.
-     * 'personal' - (mixed) Personal message info. Either an array of To
-     *              addresses as returned by
-     *              Horde_Mime_Address::getAddressesFromObject() or the
-     *              identity that matched the address list.
-     * </pre>
+     *   - flags: (array) IMAP flag info. A lowercase list of flags returned
+     *            by the IMAP server.
+     *   - headers: (Horde_Mime_Headers) Determines message information
+     *              from a headers object.
+     *   - personal: (mixed) Personal message info. Either an array of To
+     *               addresses as returned by
+     *               Horde_Mime_Address::getAddressesFromObject() or the
+     *               identity that matched the address list.
      *
      * @return array  A list of IMP_Flag_Base objects.
      */
@@ -260,10 +256,8 @@ class IMP_Flags implements ArrayAccess, Serializable
      * @param string $id  The ID from form data.
      *
      * @return array  Two element array:
-     * <pre>
-     * 'flag' - (string) The flag name.
-     * 'set' - (boolean) Whether the flag should be set or not.
-     * </pre>
+     *   - flag: (string) The flag name.
+     *   - set: (boolean) Whether the flag should be set or not.
      */
     public function parseFormId($id)
     {
