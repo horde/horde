@@ -834,15 +834,41 @@ abstract class Kronolith_Event
                 }
             }
 
-            /* The remaining exceptions represent deleted recurrences */
+            /* The remaining exceptions represent deleted recurrences. Note 
+             * that although it's possible to encode all the exception dates in 
+             * 1 EXDATE property (comma separated), iCal does not support this 
+             * so we're splitting it up. */
             foreach ($exceptions as $exception) {
                 if (!empty($exception)) {
                     list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
-                    $exdates[] = new Horde_Date($year, $month, $mday);
+                    if ($this->isAllDAy()) {
+                        $vEvent->setAttribute(
+                            'EXDATE',
+                            array(new Horde_Date($year, $month, $mday)), // not sure why, but it only works with arrays.
+                            array('VALUE' => 'DATE'),
+                            true // $append 
+                        );
+                    } else {
+
+                        // We need to use the startdate as a basis. We need 
+                        // this because the EXDATE needs to match the DTSTART 
+                        // from a specific recurrence event exactly. This 
+                        // includes the hours, minutes and seconds.
+                        $exDateObj = clone $this->start;
+                        $exDateObj->year = $year;
+                        $exDateObj->month = $month;
+                        $exDateObj->mday = $mday; 
+
+                        $vEvent->setAttribute(
+                            'EXDATE',
+                            array($exDateObj), // not sure why, but it only works with arrays.
+                            array('VALUE' => 'DATETIME'), 
+                            true // append
+                        );
+                        
+                    } 
+
                 }
-            }
-            if ($exdates) {
-                $vEvent->setAttribute('EXDATE', $exdates);
             }
         }
         array_unshift($vEvents, $vEvent);
