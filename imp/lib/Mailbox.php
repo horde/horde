@@ -572,9 +572,7 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Imap_Tree')->isSubscribed($this->_mbox);
 
         case 'subfolders':
-            $imaptree = $injector->getInstance('IMP_Imap_Tree');
-            $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER | IMP_Imap_Tree::FLIST_UNSUB | IMP_Imap_Tree::FLIST_NOBASE, $this->_mbox);
-            return array_merge(array($this), iterator_to_array($imaptree));
+            return array_merge(array($this->_mbox), $injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true)));
 
         case 'uidvalid':
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();

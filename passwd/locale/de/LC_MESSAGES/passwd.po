@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd 3.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: 2011-08-02 15:35+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -122,13 +122,13 @@ msgstr "Fehler beim Ändern des Passworts für %s: %s"
 msgid "Full buffer."
 msgstr "Zwischenspeicher voll."
 
-#: lib/Driver.php:73 lib/Driver/Horde.php:41 lib/Driver/Http.php:78
+#: lib/Driver.php:73 lib/Driver/Horde.php:40 lib/Driver/Http.php:78
 #: lib/Driver/Kolab.php:90 lib/Driver/Poppassd.php:118
-#: lib/Driver/Vmailmgr.php:45
+#: lib/Driver/Vmailmgr.php:46
 msgid "Incorrect old password."
 msgstr "Falsches altes Passwort."
 
-#: lib/Driver/Ldap.php:127
+#: lib/Driver/Ldap.php:133
 msgid "Minimum password age has not yet expired"
 msgstr "Das minimale Passwortalter ist noch nicht abgelaufen"
 
@@ -177,11 +177,11 @@ msgstr "Passwd fehlen benötigte Parameter."
 msgid "Password module is missing target parameter."
 msgstr "Passwd fehlt der \"Ziel\"-Parameter."
 
-#: index.php:192 lib/Driver/Composite.php:63 lib/Driver/Servuftp.php:78
+#: index.php:192 lib/Driver/Composite.php:63 lib/Driver/Servuftp.php:77
 msgid "Password module is not properly configured"
 msgstr "Passwd ist nicht vollständig konfiguriert"
 
-#: lib/Driver/Servuftp.php:105
+#: lib/Driver/Servuftp.php:104
 msgid "Password module is not properly configured."
 msgstr "Passwd ist nicht vollständig konfiguriert."
 
@@ -210,7 +210,7 @@ msgid "The current horde configuration does not allow changing passwords."
 msgstr ""
 "Die aktuelle Horde-Konfiguration erlaubt keine Änderung der Passwörter."
 
-#: lib/Factory/Driver.php:42
+#: lib/Factory/Driver.php:49
 #, php-format
 msgid "The password backend \"%s\" does not exist."
 msgstr "Das Passwort-Backend \"%s\" existiert nicht."
@@ -227,7 +227,7 @@ msgstr "Der Benutzername konnte nicht gefunden werden."
 msgid "Time out."
 msgstr "Zeitüberschreitung."
 
-#: lib/Factory/Driver.php:49
+#: lib/Factory/Driver.php:56
 #, php-format
 msgid "Unable to load the definition of %s."
 msgstr "Der %s-Treiber konnte nicht geladen werden."
@@ -236,12 +236,12 @@ msgstr "Der %s-Treiber konnte nicht geladen werden."
 msgid "Unable to open expect stream!"
 msgstr "Der Expect-Stream konnte nicht geöffnet werden!"
 
-#: lib/Driver/Poppassd.php:110 lib/Driver/Sql.php:94
-#: lib/Driver/Vpopmail.php:119
+#: lib/Driver/Poppassd.php:110 lib/Driver/Sql.php:93
+#: lib/Driver/Vpopmail.php:118
 msgid "User not found"
 msgstr "Benutzer nicht gefunden"
 
-#: lib/Driver/Kolab.php:82 lib/Driver/Ldap.php:110 lib/Driver/Pine.php:231
+#: lib/Driver/Kolab.php:82 lib/Driver/Ldap.php:113 lib/Driver/Pine.php:231
 msgid "User not found."
 msgstr "Benutzer nicht gefunden."
 
@@ -249,24 +249,24 @@ msgstr "Benutzer nicht gefunden."
 msgid "Username:"
 msgstr "Benutzername:"
 
-#: index.php:55
+#: index.php:54
 #, php-format
 msgid "You can't change password for user %s"
 msgstr "Sie können das Passwort von Benutzer %s nicht ändern"
 
-#: index.php:63
+#: index.php:62
 msgid "You must give your current password"
 msgstr "Sie müssen Ihr altes Passwort angeben"
 
-#: index.php:72
+#: index.php:71
 msgid "You must give your new password"
 msgstr "Sie müssen Ihr neues Passwort angeben"
 
-#: index.php:76
+#: index.php:75
 msgid "You must verify your new password"
 msgstr "Sie müssen Ihr neues Passwort bestätigen"
 
-#: index.php:96
+#: index.php:95
 #, php-format
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
@@ -275,24 +275,24 @@ msgstr ""
 "Ihr neues Passwort ist zu lang, das Passwort darf nicht länger als %d "
 "Zeichen sein!"
 
-#: index.php:180
+#: index.php:179
 msgid "Your new password is too simple to guess!  Not changed!"
 msgstr "Ihr neues Passwort ist zu leicht zu erraten! Nicht geändert!"
 
-#: index.php:171
+#: index.php:170
 msgid "Your new password is too simple to guess. Not changed!"
 msgstr "Ihr neues Passwort ist zu leicht zu erraten. Nicht geändert!"
 
-#: index.php:91
+#: index.php:90
 #, php-format
 msgid "Your new password must be at least %d characters long!"
 msgstr "Ihr neues Passwort muss mindestens %d Zeichen lang sein!"
 
-#: index.php:84
+#: index.php:83
 msgid "Your new password must be different from your current password"
 msgstr "Ihr neues Passwort muss sich von Ihrem alten unterscheiden"
 
-#: index.php:136
+#: index.php:135
 #, php-format
 msgid "Your new password must contain at least %d alphabetic character."
 msgid_plural ""
@@ -300,7 +300,7 @@ msgid_plural ""
 msgstr[0] "Ihr neues Passwort muss mindestens %d Buchstaben enthalten."
 msgstr[1] "Ihr neues Passwort muss mindestens %d Buchstaben enthalten."
 
-#: index.php:141
+#: index.php:140
 #, php-format
 msgid "Your new password must contain at least %d alphanumeric character."
 msgid_plural ""
@@ -310,7 +310,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Ihr neues Passwort muss mindestens %d Buchstaben oder Zahlen enthalten."
 
-#: index.php:146
+#: index.php:145
 #, php-format
 msgid ""
 "Your new password must contain at least %d different types of characters. "
@@ -319,44 +319,44 @@ msgstr ""
 "Ihr neues Passwort muss mindestens %d verschiedenen Zeichentypen enhalten. "
 "Typen sind: Kleinbuchstaben, Großbuchstaben, Zahlen und Sonderzeichen."
 
-#: index.php:126
+#: index.php:125
 #, php-format
 msgid "Your new password must contain at least %d lowercase character."
 msgid_plural "Your new password must contain at least %d lowercase characters."
 msgstr[0] "Ihr neues Passwort muss mindestens %d Kleinbuchstaben enthalten."
 msgstr[1] "Ihr neues Passwort muss mindestens %d Kleinbuchstaben enthalten."
 
-#: index.php:131
+#: index.php:130
 #, php-format
 msgid "Your new password must contain at least %d numeric character."
 msgid_plural "Your new password must contain at least %d numeric characters."
 msgstr[0] "Ihr neues Passwort muss mindestens %d Zahl enthalten."
 msgstr[1] "Ihr neues Passwort muss mindestens %d Zahlen enthalten."
 
-#: index.php:160
+#: index.php:159
 #, php-format
 msgid "Your new password must contain at least %d symbol character."
 msgid_plural "Your new password must contain at least %d symbol characters."
 msgstr[0] "Ihr neues Passwort muss mindestens %d Symbolzeichen enthalten."
 msgstr[1] "Ihr neues Passwort muss mindestens %d Symbolzeichen enthalten."
 
-#: index.php:121
+#: index.php:120
 #, php-format
 msgid "Your new password must contain at least %d uppercase character."
 msgid_plural "Your new password must contain at least %d uppercase characters."
 msgstr[0] "Ihr neues Passwort muss mindestens %d Großbuchstaben enthalten."
 msgstr[1] "Ihr neues Passwort muss mindestens %d Großbuchstaben enthalten."
 
-#: index.php:152
+#: index.php:151
 #, php-format
 msgid "Your new password must contain less than %d whitespace characters."
 msgstr "Ihr neues Passwort darf nicht mehr als %d Leerzeichen enthalten."
 
-#: index.php:154
+#: index.php:153
 msgid "Your new password must not contain whitespace characters."
 msgstr "Ihr neues Passwort darf keine Leerzeichen enthalten."
 
-#: index.php:80
+#: index.php:79
 msgid "Your new passwords didn't match"
 msgstr "Ihre neuen Passwörter stimmen nicht überein"
 

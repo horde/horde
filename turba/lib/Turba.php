@@ -473,7 +473,11 @@ class Turba
                 if (empty($params['name'])) {
                     $params['name'] = $name;
                     $share->set('params', serialize($params));
-                    $share->save();
+                    try {
+                        $share->save();
+                    } catch (Horde_Share_Exception $e) {
+                        Horde::logMessage($e, 'ERR');
+                    }
                 }
 
                 $info = $sources[$params['source']];

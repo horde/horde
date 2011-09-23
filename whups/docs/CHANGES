@@ -1,5 +1,5 @@
 --------
-v2.0-cvs
+v2.0-git
 --------
 
 [jan] Don't search for all states if no states have been selected.
@@ -14,16 +14,6 @@ v2.0-cvs
 [jan] Convert HTML messages to plain text when processing mail messages.
 [jan] Fix creating temporary files with open_basedir restrictions.
 [jan] Provide default configuration files instead of .dist versions.
-
-
-----------
-v1.0.2-cvs
-----------
-
-[jan] Select unresolved states in search form by default.
-[jan] Add upgrade scripts for next-generation SQL share driver.
-[jan] Add Hungarian translation (Andras Galos <galosa@netinform.hu>).
-[jan] Add option to delete individual ticket history entries.
 
 
 ------

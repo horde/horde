@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:47+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,7 +123,7 @@ msgstr ""
 msgid "%s: faces %s"
 msgstr ""
 
-#: lib/Image.php:1049
+#: lib/Image.php:1059
 #, php-format
 msgid "(c) %s %s"
 msgstr ""
@@ -158,7 +158,7 @@ msgstr ""
 msgid "Access denied adding tags to this gallery."
 msgstr ""
 
-#: lib/Image.php:1197
+#: lib/Image.php:1207
 msgid "Access denied adding tags to this photo."
 msgstr ""
 
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Access denied downloading full sized photos from \"%s\"."
 msgstr ""
 
-#: gallery.php:40 image.php:694 lib/Image.php:882
+#: gallery.php:40 image.php:694 lib/Image.php:892
 #, php-format
 msgid "Access denied downloading photos from \"%s\"."
 msgstr ""
@@ -244,7 +244,7 @@ msgid "Access denied viewing this gallery."
 msgstr ""
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1159
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1169
 msgid "Access denied viewing this photo."
 msgstr ""
 
@@ -355,7 +355,7 @@ msgstr ""
 msgid "Automatically watermark photos?"
 msgstr ""
 
-#: lib/Application.php:212 templates/mobile/image.html.php:3
+#: lib/Application.php:209 templates/mobile/image.html.php:3
 msgid "Back"
 msgstr ""
 
@@ -1370,7 +1370,7 @@ msgstr ""
 msgid "Person in photo"
 msgstr ""
 
-#: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:147
+#: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:191
 #: lib/View/GalleryRenderer/GalleryLightbox.php:141
 #: templates/faces/face.inc:27 templates/faces/gallery.inc:6
 msgid "Photo"
@@ -2370,6 +2370,10 @@ msgstr ""
 msgid "_Print"
 msgstr ""
 
+#: lib/Api.php:1023
+msgid "from"
+msgstr ""
+
 #: templates/faces/define.inc:61 templates/image/crop_image.inc:159
 #: templates/image/resize_image.inc:69
 msgid "height"
@@ -2379,7 +2383,7 @@ msgstr ""
 msgid "here"
 msgstr ""
 
-#: lib/Application.php:213
+#: lib/Application.php:210
 msgid "loading"
 msgstr ""
 
@@ -2387,7 +2391,7 @@ msgstr ""
 msgid "none"
 msgstr ""
 
-#: lib/View/EmbeddedRenderer/Mini.php:148
+#: lib/View/EmbeddedRenderer/Mini.php:192
 #: lib/View/GalleryRenderer/GalleryLightbox.php:142
 msgid "of"
 msgstr ""

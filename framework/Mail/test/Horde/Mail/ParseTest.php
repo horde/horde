@@ -218,4 +218,15 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testBug10534()
+    {
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList('');
+
+        $this->assertEquals(
+            0,
+            count($ob)
+        );
+    }
+
 }

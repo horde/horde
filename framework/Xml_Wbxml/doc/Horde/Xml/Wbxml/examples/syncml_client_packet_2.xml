@@ -29,10 +29,10 @@
   </Source>
   <Cred>
    <Meta>
-    <Format xmlns="syncml:metinf1.1">
+    <Format xmlns="syncml:metinf">
      b64
     </Format>
-    <Type xmlns="syncml:metinf1.1">
+    <Type xmlns="syncml:metinf">
      syncml:auth-md5
     </Type>
    </Meta>
@@ -41,10 +41,10 @@
    </Data>
   </Cred>
   <Meta>
-   <MaxMsgSize xmlns="syncml:metinf1.1">
+   <MaxMsgSize xmlns="syncml:metinf">
     10000
    </MaxMsgSize>
-   <MaxObjSize xmlns="syncml:metinf1.1">
+   <MaxObjSize xmlns="syncml:metinf">
     4000000
    </MaxObjSize>
   </Meta>
@@ -55,7 +55,7 @@
     1
    </CmdID>
    <Meta>
-    <Type xmlns="syncml:metinf1.1">
+    <Type xmlns="syncml:metinf">
      application/vnd.syncml-devinf+xml
     </Type>
    </Meta>
@@ -74,7 +74,7 @@
     2
    </CmdID>
    <Meta>
-    <Type xmlns="syncml:metinf1.1">
+    <Type xmlns="syncml:metinf">
      application/vnd.syncml-devinf+xml
     </Type>
    </Meta>
@@ -105,7 +105,7 @@
      </LocURI>
     </Source>
     <Meta>
-     <Anchor xmlns="syncml:metinf1.1">
+     <Anchor xmlns="syncml:metinf">
       <Next>
        20030925T175524Z
       </Next>

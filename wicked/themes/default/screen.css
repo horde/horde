@@ -81,6 +81,9 @@
 .pagebody blockquote {
     margin-left: 40px;
 }
+.pagebody .center {
+    text-align: center;
+}
 
 /* Page footer */
 #pagefooter {

@@ -814,7 +814,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return $this->_checkUidvalidity();
         }
 
-        list($mbox,) = $indices->getSingle();
         if (in_array(Horde_Imap_Client::FLAG_SEEN, $flags)) {
             $this->_queue->poll(array_keys($indices->indices()));
         }

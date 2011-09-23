@@ -4,7 +4,7 @@
  <span class="rightFloat">
   <input type="text" size="8" name="id" value="<?php echo _("#Id") ?>" onfocus="this.value='';" <?php echo Horde::getAccessKeyAndTitle(_("_Go")) ?> /> <input type="submit" onclick="if (!document.tjump.id.value) return false;" class="button" value="<?php echo _("Go") ?>" />
  </span>
- <?php echo Whups::getMenu('string') ?>
+ <?php echo Horde::menu(array('menu_ob' => true))->render() ?>
  <br class="clear" />
 </div>
 </form>

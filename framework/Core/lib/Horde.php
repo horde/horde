@@ -499,6 +499,7 @@ HTML;
      * 'login'
      * 'logintasks'
      * 'logout'
+     * 'pixel'
      * 'portal'
      * 'problem'
      * 'sidebar'
@@ -551,6 +552,9 @@ HTML;
 
         case 'logout':
             return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
+
+        case 'pixel':
+            return self::url('services/images/pixel.php', false, $opts);
 
         case 'prefs':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
@@ -1059,7 +1063,13 @@ HTML;
              (preg_match($schemeRegexp, $webroot) && isset($puri['scheme'])))) {
             $url .= $puri['path'];
         } elseif (isset($puri['path']) && preg_match($schemeRegexp, $webroot)) {
-            $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];
+            if (substr($puri['path'], 0, 1) == '/') {
+                $pwebroot = parse_url($webroot);
+                $url = $pwebroot['scheme'] . '://' . $pwebroot['host']
+                    . $puri['path'];
+            } else {
+                $url = $webroot . '/' . $puri['path'];
+            }
         } else {
             $url .= '/' . ($webroot ? $webroot . '/' : '') . (isset($puri['path']) ? $puri['path'] : '');
         }

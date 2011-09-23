@@ -96,8 +96,7 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
     {
         $this->_dtd = $this->_dtdManager->getInstanceURI($uri);
         if (!$this->_dtd) {
-            // TODO: proper error handling
-            die('Unable to find dtd for ' . $uri);
+            throw new Horde_Xml_Wbxml_Exception('Unable to find dtd for ' . $uri);
         }
         $dpiString = $this->_dtd->getDPI();
 
@@ -244,7 +243,9 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
     protected function _startElement($parser, $tag, $attributes)
     {
         list($uri, $name) = $this->_splitURI($tag);
-
+        if (in_array(Horde_String::lower($uri), array('syncml:metinf', 'syncml:devinf'))) {
+            $uri .= '1.' . $this->getVersion();
+        }
         $this->startElement($uri, $name, $attributes);
     }
 
@@ -404,9 +405,8 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         $cp = $this->_dtd->toCodePageURI($uri);
         if (strlen($cp)) {
             $this->_dtd = $this->_dtdManager->getInstanceURI($uri);
-           if (!$this->_dtd) {
-                // TODO: proper error handling
-                die('Unable to find dtd for ' . $uri);
+            if (!$this->_dtd) {
+                throw new Horde_Xml_Wbxml_Exception('Unable to find dtd for ' . $uri);
             }
             $this->_output .= chr(Horde_Xml_Wbxml::GLOBAL_TOKEN_SWITCH_PAGE);
             $this->_output .= chr($cp);

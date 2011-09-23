@@ -49,6 +49,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const FLIST_ANCESTORS = 32;
     const FLIST_SAMELEVEL = 64;
     const FLIST_NOBASE = 128;
+    const FLIST_ASIS = 256;
 
     /* The string used to indicate the base of the tree. This must include
      * null since this is the only 7-bit character not allowed in IMAP
@@ -562,9 +563,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->_parent[$elt['p']][] = $elt['v'];
         $this->_tree[$elt['v']] = $elt;
 
-        if (!is_null($prev)) {
+        if ($this->_trackdiff && !is_null($this->_eltdiff)) {
+            unset($this->_eltdiff['c'][$elt['v']], $this->_eltdiff['d'][$elt['v']]);
             $this->_eltdiff['a'][$elt['v']] = 1;
-            if ($this->hasChildren($this->_tree[$elt['p']]) != $prev) {
+            if (!is_null($prev) &&
+                ($this->hasChildren($this->_tree[$elt['p']]) != $prev)) {
                 $this->_eltdiff['c'][$elt['p']] = 1;
             }
         }
@@ -615,6 +618,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             unset($this->_tree[$id]);
 
             if (!is_null($this->_eltdiff)) {
+                unset($this->_eltdiff['a'][$id], $this->_eltdiff['c'][$id]);
                 $this->_eltdiff['d'][$id] = 1;
             }
 
@@ -665,16 +669,15 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         unset($this->_parent[$parent][$key]);
 
         if (!is_null($this->_eltdiff)) {
+            unset($this->_eltdiff['a'][$id], $this->_eltdiff['c'][$id]);
             $this->_eltdiff['d'][$id] = 1;
         }
 
         if (empty($this->_parent[$parent])) {
-            /* This folder is now completely empty (no children).  If the
-             * folder has not children, we should delete the folder from
-             * the tree. */
+            /* This folder is now completely empty (no children). */
             unset($this->_parent[$parent]);
             if (isset($this->_tree[$parent])) {
-                if (!$this->isContainer($this->_tree[$parent]) &&
+                if ($this->isContainer($this->_tree[$parent]) &&
                     !$this->isNamespace($this->_tree[$parent])) {
                     $this->delete($parent);
                 } else {
@@ -1403,22 +1406,29 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Rename a current folder.
      *
-     * @param array $old  The old folder names.
-     * @param array $new  The new folder names.
+     * @param string $old  The old mailbox name.
+     * @param string $new  The new mailbox name.
      */
     public function rename($old, $new)
     {
-        foreach ($old as $key => $val) {
-            $polled = isset($this->_tree[strval($val)])
-                ? $this->isPolled($this->_tree[strval($val)])
-                : false;
-            if ($this->delete($val)) {
-                $this->insert($new[$key]);
-                if ($polled) {
-                    $this->addPollList($new[$key]);
-                }
+        $new_list = $polled = array();
+
+        $this->setIteratorFilter(self::FLIST_NOCONTAINER | self::FLIST_UNSUB | self::FLIST_NOBASE | self::FLIST_ASIS, $old);
+        $old_list = array_merge(
+            array(IMP_Mailbox::get($old)),
+            iterator_to_array($this)
+        );
+
+        foreach ($old_list as $val) {
+            $new_list[] = $new_name = substr_replace($val, $new, 0, strlen($old));
+            if ($val->polled) {
+                $polled[] = $new_name;
             }
         }
+
+        $this->delete($old_list);
+        $this->insert($new_list);
+        $this->addPollList($polled);
     }
 
     /**
@@ -1749,7 +1759,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         /* If showing unsubscribed, toggle subscribed flag to make sure we
          * have subscribed mailbox information. */
-        if (!$this->_showunsub && ($c['mask'] & self::FLIST_UNSUB)) {
+        if (!$this->_showunsub &&
+            ($c['mask'] & self::FLIST_UNSUB) &&
+            !($c['mask'] & self::FLIST_ASIS)) {
             $this->showUnsubscribed(true);
             $this->showUnsubscribed(false);
         }
@@ -1812,6 +1824,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * IMP_Imap_Tree::FLIST_VFOLDER - Include Virtual Folders.
      * IMP_Imap_Tree::FLIST_NOCHILDREN - Don't include child elements.
      * IMP_Imap_Tree::FLIST_EXPANDED - Only include expanded folders.
+     * IMP_Imap_Tree::FLIST_ASIS - Display the list as is currently cached
+     *                             in this object.
      * ---
      * These options require that $base be set:
      * IMP_Imap_Tree::FLIST_ANCESTORS - Include ancestors of $base.

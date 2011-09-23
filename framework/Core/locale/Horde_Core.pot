@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/Horde.php:1745
+#: lib/Horde.php:1753
 #, php-format
 msgid " (Accesskey %s)"
 msgstr ""
@@ -28,7 +28,7 @@ msgstr ""
 msgid "\"%s\" group driver not found."
 msgstr ""
 
-#: lib/Horde/Registry.php:1201 lib/Horde/Registry.php:1684
+#: lib/Horde/Registry.php:1202 lib/Horde/Registry.php:1685
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr ""
@@ -45,14 +45,14 @@ msgid_plural "%d contacts were successfully added to your address book."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Core/Auth/Application.php:588
+#: lib/Horde/Core/Auth/Application.php:656
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Registry.php:1306
+#: lib/Horde/Registry.php:1307
 #, php-format
 msgid "%s is not authorized for %s."
 msgstr ""
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Address Book"
 msgstr ""
 
-#: lib/Horde/Core/Sidebar.php:115
+#: lib/Horde/Core/Sidebar.php:118
 msgid "Administration"
 msgstr ""
 
@@ -380,7 +380,7 @@ msgstr ""
 msgid "Friday"
 msgstr ""
 
-#: lib/Horde/Core/Prefs/Ui.php:650 lib/Horde/Core/Sidebar.php:137
+#: lib/Horde/Core/Prefs/Ui.php:650 lib/Horde/Core/Sidebar.php:139
 msgid "Global Preferences"
 msgstr ""
 
@@ -449,11 +449,11 @@ msgstr ""
 msgid "Keep original?"
 msgstr ""
 
-#: lib/Horde/Core/Sidebar.php:166
+#: lib/Horde/Core/Sidebar.php:168
 msgid "Log in"
 msgstr ""
 
-#: lib/Horde/Core/Sidebar.php:159
+#: lib/Horde/Core/Sidebar.php:161
 msgid "Log out"
 msgstr ""
 
@@ -554,7 +554,7 @@ msgstr ""
 msgid "No children can be added to this permission."
 msgstr ""
 
-#: lib/Horde.php:948
+#: lib/Horde.php:949
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr ""
@@ -618,7 +618,7 @@ msgstr ""
 msgid "Postal Address"
 msgstr ""
 
-#: lib/Horde/Core/Sidebar.php:126
+#: lib/Horde/Core/Sidebar.php:128
 msgid "Preferences"
 msgstr ""
 
@@ -654,7 +654,7 @@ msgstr ""
 msgid "Remove source"
 msgstr ""
 
-#: lib/Horde.php:957
+#: lib/Horde.php:958
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr ""
@@ -771,21 +771,21 @@ msgid ""
 "window now."
 msgstr ""
 
-#: lib/Horde.php:731
+#: lib/Horde.php:732
 msgid "The encryption features require a secure web connection."
 msgstr ""
 
-#: lib/Horde.php:958
+#: lib/Horde.php:959
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr ""
 
-#: lib/Horde.php:949
+#: lib/Horde.php:950
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr ""
 
-#: lib/Horde/Registry.php:2304
+#: lib/Horde/Registry.php:2347
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
@@ -838,7 +838,7 @@ msgstr ""
 msgid "There were errors encountered while updating your preferences."
 msgstr ""
 
-#: lib/Horde/Registry.php:443
+#: lib/Horde/Registry.php:444
 msgid "This system is currently deactivated."
 msgstr ""
 
@@ -948,7 +948,11 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Registry.php:1890
+#: lib/Horde/Registry.php:2314
+msgid "You are not allowed to remove user data."
+msgstr ""
+
+#: lib/Horde/Registry.php:1897
 msgid "You are not authenticated."
 msgstr ""
 

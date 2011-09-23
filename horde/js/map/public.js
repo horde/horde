@@ -10,6 +10,8 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  *
+ * @TODO Horde 5 - remove the OSM layer from here. Leave in place for now to
+ *                 support BC.
  */
 HordeMap.Public = Class.create(
 {

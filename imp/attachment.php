@@ -105,7 +105,8 @@ if ($conf['compose']['link_attachments_notify']) {
                 $d_url = new Horde_Url(Horde::selfUrl(true, false, true));
                 $msg->setContents(Horde_String::wrap(sprintf(_("Your linked attachment has been downloaded by at least one user.\n\nAttachment name: %s\nAttachment date: %s\n\nClick on the following link to permanently delete the attachment:\n%s"), $file_name, date('r', $time_stamp), $d_url->add('d', $id))));
 
-                $msg->send($mail_address, $msg_headers);
+                $msg->send($mail_address, $msg_headers,
+                           $GLOBALS['injector']->getInstance('Horde_Mail'));
             }
         } catch (Horde_Vfs_Exception $e) {
             Horde::logMessage($e, 'ERR');

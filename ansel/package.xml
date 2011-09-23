@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>ansel</name>
+ <channel>pear.horde.org</channel>
+ <summary>TODO</summary>
+ <description>TODO</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-09-08</date>
+ <time>12:57:37</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="TODO">TODO</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="ansel" role="script" />
+    <file name="ansel-exif-to-tags" role="script" />
+    <file name="ansel-garbage-collection" role="script" />
+    <file name="AnselPublish.scpt" role="script" />
+   </dir> <!-- /bin -->
+   <dir name="config">
+    <file name="conf.xml" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
+    <file name="styles.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="lighttpd-ansel.conf" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="faces">
+    <dir name="search">
+     <file name="all.php" role="horde" />
+     <file name="image.php" role="horde" />
+     <file name="image_define.php" role="horde" />
+     <file name="image_save.php" role="horde" />
+     <file name="image_search.php" role="horde" />
+     <file name="img.php" role="horde" />
+     <file name="name.php" role="horde" />
+     <file name="named.php" role="horde" />
+     <file name="owner.php" role="horde" />
+     <file name="tabs.php" role="horde" />
+    </dir> <!-- /faces/search -->
+    <file name="claim.php" role="horde" />
+    <file name="custom.php" role="horde" />
+    <file name="face.php" role="horde" />
+    <file name="gallery.php" role="horde" />
+    <file name="image.php" role="horde" />
+    <file name="img.php" role="horde" />
+    <file name="name.php" role="horde" />
+    <file name="report.php" role="horde" />
+    <file name="savecustom.php" role="horde" />
+   </dir> <!-- /faces -->
+   <dir name="gallery">
+    <file name="captions.php" role="horde" />
+    <file name="delete.php" role="horde" />
+    <file name="index.php" role="horde" />
+    <file name="sort.php" role="horde" />
+   </dir> <!-- /gallery -->
+   <dir name="img">
+    <file name="download.php" role="horde" />
+    <file name="ecard.php" role="horde" />
+    <file name="full.php" role="horde" />
+    <file name="index.php" role="horde" />
+    <file name="mini.php" role="horde" />
+    <file name="screen.php" role="horde" />
+    <file name="thumb.php" role="horde" />
+    <file name="upload.php" role="horde" />
+    <file name="upload_preview.php" role="horde" />
+   </dir> <!-- /img -->
+   <dir name="js">
+    <file name="block.js" role="horde" />
+    <file name="carousel.js" role="horde" />
+    <file name="cropper.js" role="horde" />
+    <file name="editfaces.js" role="horde" />
+    <file name="embed.js" role="horde" />
+    <file name="googlemap.js" role="horde" />
+    <file name="googlemap_edit.js" role="horde" />
+    <file name="imagefaces.js" role="horde" />
+    <file name="lightbox.js" role="horde" />
+    <file name="map.js" role="horde" />
+    <file name="mobile.js" role="horde" />
+    <file name="slideshow.js" role="horde" />
+    <file name="slugcheck.js" role="horde" />
+    <file name="tagactions.js" role="horde" />
+    <file name="togglewidget.js" role="horde" />
+   </dir> <!-- /js -->
+   <dir name="lib">
+    <dir name="Ajax">
+     <dir name="Imple">
+      <file name="EditCaption.php" role="horde" />
+      <file name="EditFaces.php" role="horde" />
+      <file name="EditGalleryFaces.php" role="horde" />
+      <file name="Embed.php" role="horde" />
+      <file name="GallerySlugCheck.php" role="horde" />
+      <file name="ImageSaveGeotag.php" role="horde" />
+      <file name="LocationAutoCompleter.php" role="horde" />
+      <file name="TagActions.php" role="horde" />
+      <file name="ToggleGalleryActions.php" role="horde" />
+      <file name="ToggleOtherGalleries.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Imple -->
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
+    <dir name="Block">
+     <file name="Cloud.php" role="horde" />
+     <file name="Gallery.php" role="horde" />
+     <file name="MyGalleries.php" role="horde" />
+     <file name="RandomPhoto.php" role="horde" />
+     <file name="RecentComments.php" role="horde" />
+     <file name="RecentFaces.php" role="horde" />
+     <file name="RecentlyAdded.php" role="horde" />
+     <file name="RecentlyAddedGeodata.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="Faces">
+     <file name="Base.php" role="horde" />
+     <file name="Facedetect.php" role="horde" />
+     <file name="User.php" role="horde" />
+    </dir> <!-- /lib/Faces -->
+    <dir name="Factory">
+     <file name="Faces.php" role="horde" />
+     <file name="Storage.php" role="horde" />
+     <file name="Styles.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="Form">
+     <file name="Ecard.php" role="horde" />
+     <file name="Image.php" role="horde" />
+     <file name="ImageDate.php" role="horde" />
+     <file name="Upload.php" role="horde" />
+     <file name="Watermark.php" role="horde" />
+    </dir> <!-- /lib/Form -->
+    <dir name="Gallery">
+     <dir name="Decorator">
+      <file name="Date.php" role="horde" />
+     </dir> <!-- /lib/Gallery/Decorator -->
+    </dir> <!-- /lib/Gallery -->
+    <dir name="GalleryMode">
+     <file name="Base.php" role="horde" />
+     <file name="Date.php" role="horde" />
+     <file name="Normal.php" role="horde" />
+    </dir> <!-- /lib/GalleryMode -->
+    <dir name="ImageGenerator">
+     <file name="Mini.php" role="horde" />
+     <file name="PolaroidThumb.php" role="horde" />
+     <file name="PolaroidThumbStack.php" role="horde" />
+     <file name="RoundedThumb.php" role="horde" />
+     <file name="RoundedThumbStack.php" role="horde" />
+     <file name="Screen.php" role="horde" />
+     <file name="ShadowThumb.php" role="horde" />
+     <file name="ShadowThumbStack.php" role="horde" />
+     <file name="SquareThumb.php" role="horde" />
+     <file name="Thumb.php" role="horde" />
+    </dir> <!-- /lib/ImageGenerator -->
+    <dir name="LoginTasks">
+     <dir name="SystemTask">
+      <file name="Upgrade.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/SystemTask -->
+    </dir> <!-- /lib/LoginTasks -->
+    <dir name="Report">
+     <file name="letter.php" role="horde" />
+     <file name="mail.php" role="horde" />
+     <file name="tickets.php" role="horde" />
+    </dir> <!-- /lib/Report -->
+    <dir name="Search">
+     <file name="exif.php" role="horde" />
+     <file name="Tag.php" role="horde" />
+    </dir> <!-- /lib/Search -->
+    <dir name="Tile">
+     <file name="DateGallery.php" role="horde" />
+     <file name="Gallery.php" role="horde" />
+     <file name="Image.php" role="horde" />
+    </dir> <!-- /lib/Tile -->
+    <dir name="View">
+     <dir name="EmbeddedRenderer">
+      <file name="GalleryLink.php" role="horde" />
+      <file name="Mini.php" role="horde" />
+      <file name="Slideshow.php" role="horde" />
+     </dir> <!-- /lib/View/EmbeddedRenderer -->
+     <dir name="GalleryRenderer">
+      <file name="Base.php" role="horde" />
+      <file name="Gallery.php" role="horde" />
+      <file name="GalleryLightbox.php" role="horde" />
+     </dir> <!-- /lib/View/GalleryRenderer -->
+     <file name="Ansel.php" role="horde" />
+     <file name="Base.php" role="horde" />
+     <file name="Gallery.php" role="horde" />
+     <file name="GalleryProperties.php" role="horde" />
+     <file name="Image.php" role="horde" />
+     <file name="List.php" role="horde" />
+     <file name="Results.php" role="horde" />
+     <file name="Slideshow.php" role="horde" />
+     <file name="Upload.php" role="horde" />
+    </dir> <!-- /lib/View -->
+    <dir name="Widget">
+     <file name="Actions.php" role="horde" />
+     <file name="Base.php" role="horde" />
+     <file name="GalleryFaces.php" role="horde" />
+     <file name="Geotag.php" role="horde" />
+     <file name="ImageFaces.php" role="horde" />
+     <file name="Links.php" role="horde" />
+     <file name="OtherGalleries.php" role="horde" />
+     <file name="OwnerFaces.php" role="horde" />
+     <file name="SimilarPhotos.php" role="horde" />
+     <file name="Tags.php" role="horde" />
+    </dir> <!-- /lib/Widget -->
+    <file name="Ansel.php" role="horde" />
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Config.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Faces.php" role="horde" />
+    <file name="Gallery.php" role="horde" />
+    <file name="Image.php" role="horde" />
+    <file name="ImageGenerator.php" role="horde" />
+    <file name="Report.php" role="horde" />
+    <file name="Search.php" role="horde" />
+    <file name="Storage.php" role="horde" />
+    <file name="Style.php" role="horde" />
+    <file name="Tagger.php" role="horde" />
+    <file name="Test.php" role="horde" />
+    <file name="Widget.php" role="horde" />
+    <file name="XPPublisher.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/de -->
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
+    <file name="ansel.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="migration">
+    <file name="1_ansel_base_tables.php" role="horde" />
+    <file name="2_ansel_upgrade_autoincrement.php" role="horde" />
+    <file name="3_ansel_upgrade_style.php" role="horde" />
+    <file name="4_ansel_upgrade_tagstocontent.php" role="horde" />
+    <file name="5_ansel_upgrade_categoriestotags.php" role="horde" />
+    <file name="6_ansel_upgrade_unsignedints.php" role="horde" />
+    <file name="7_ansel_upgrade_stylefix.php" role="horde" />
+    <file name="8_ansel_upgrade_sqlhierarchical.php" role="horde" />
+    <file name="9_ansel_upgrade_sqlng.php" role="horde" />
+   </dir> <!-- /migration -->
+   <dir name="templates">
+    <dir name="captions">
+     <file name="captions.inc" role="horde" />
+    </dir> <!-- /templates/captions -->
+    <dir name="faces">
+     <file name="custom.inc" role="horde" />
+     <file name="define.inc" role="horde" />
+     <file name="face.inc" role="horde" />
+     <file name="faces.inc" role="horde" />
+     <file name="gallery.inc" role="horde" />
+     <file name="image.inc" role="horde" />
+     <file name="index.inc" role="horde" />
+     <file name="search.inc" role="horde" />
+    </dir> <!-- /templates/faces -->
+    <dir name="gallery">
+     <dir name="partial">
+      <file name="_styles.html.php" role="horde" />
+     </dir> <!-- /templates/gallery/partial -->
+     <file name="delete_confirmation.inc" role="horde" />
+     <file name="properties.html.php" role="horde" />
+    </dir> <!-- /templates/gallery -->
+    <dir name="group">
+     <file name="footer.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="owner.inc" role="horde" />
+     <file name="pager.inc" role="horde" />
+    </dir> <!-- /templates/group -->
+    <dir name="image">
+     <file name="crop_image.inc" role="horde" />
+     <file name="edit_image.inc" role="horde" />
+     <file name="plupload.inc" role="horde" />
+     <file name="preview_cropimage.inc" role="horde" />
+     <file name="preview_image.inc" role="horde" />
+     <file name="resize_image.inc" role="horde" />
+     <file name="upload.inc" role="horde" />
+    </dir> <!-- /templates/image -->
+    <dir name="list">
+     <file name="footer.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="pager.inc" role="horde" />
+    </dir> <!-- /templates/list -->
+    <dir name="mobile">
+     <file name="galleries.html.php" role="horde" />
+     <file name="gallery.html.php" role="horde" />
+     <file name="head.html.php" role="horde" />
+     <file name="image.html.php" role="horde" />
+     <file name="javascript_defs.php" role="horde" />
+     <file name="notice.html.php" role="horde" />
+    </dir> <!-- /templates/mobile -->
+    <dir name="rss">
+     <file name="rss.inc" role="horde" />
+     <file name="rss2.inc" role="horde" />
+    </dir> <!-- /templates/rss -->
+    <dir name="tile">
+     <file name="dategallery.inc" role="horde" />
+     <file name="face.inc" role="horde" />
+     <file name="gallery.inc" role="horde" />
+     <file name="gallerymini.inc" role="horde" />
+     <file name="image.inc" role="horde" />
+    </dir> <!-- /templates/tile -->
+    <dir name="view">
+     <file name="gallery.inc" role="horde" />
+     <file name="gallerylightbox.inc" role="horde" />
+     <file name="image.inc" role="horde" />
+     <file name="list.inc" role="horde" />
+     <file name="results.inc" role="horde" />
+     <file name="slideshow.inc" role="horde" />
+    </dir> <!-- /templates/view -->
+    <dir name="xppublish">
+     <file name="javascript.inc" role="horde" />
+     <file name="list.inc" role="horde" />
+     <file name="login.inc" role="horde" />
+     <file name="new.inc" role="horde" />
+    </dir> <!-- /templates/xppublish -->
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <dir name="carousel">
+       <file name="left-disabled.gif" role="horde" />
+       <file name="left.gif" role="horde" />
+       <file name="right-disabled.gif" role="horde" />
+       <file name="right.gif" role="horde" />
+      </dir> <!-- /themes/default/graphics/carousel -->
+      <dir name="lightbox">
+       <file name="bullet.gif" role="horde" />
+       <file name="close.gif" role="horde" />
+       <file name="closelabel.gif" role="horde" />
+       <file name="loading.gif" role="horde" />
+       <file name="nextlabel.gif" role="horde" />
+       <file name="prevlabel.gif" role="horde" />
+      </dir> <!-- /themes/default/graphics/lightbox -->
+      <file name="add.png" role="horde" />
+      <file name="ansel.png" role="horde" />
+      <file name="arrow_switch.png" role="horde" />
+      <file name="browse.png" role="horde" />
+      <file name="down.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="galleries.png" role="horde" />
+      <file name="gallery-locked-mini.png" role="horde" />
+      <file name="gallery-locked.png" role="horde" />
+      <file name="image_add.png" role="horde" />
+      <file name="mini-error.png" role="horde" />
+      <file name="mygalleries.png" role="horde" />
+      <file name="point.png" role="horde" />
+      <file name="prettythumb-error.png" role="horde" />
+      <file name="problem.png" role="horde" />
+      <file name="resize.png" role="horde" />
+      <file name="scaler_slider.gif" role="horde" />
+      <file name="scaler_slider_track.gif" role="horde" />
+      <file name="screen-error.png" role="horde" />
+      <file name="slideshow_next.png" role="horde" />
+      <file name="slideshow_pause.png" role="horde" />
+      <file name="slideshow_play.png" role="horde" />
+      <file name="slideshow_prev.png" role="horde" />
+      <file name="success.png" role="horde" />
+      <file name="text.png" role="horde" />
+      <file name="thumb-error.png" role="horde" />
+      <file name="up.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="cropper.css" role="horde" />
+     <file name="embed.css" role="horde" />
+     <file name="lightbox.css" role="horde" />
+     <file name="mobile.css" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+    <dir name="silver">
+     <dir name="graphics">
+      <dir name="lightbox">
+       <file name="bullet.gif" role="horde" />
+       <file name="close.gif" role="horde" />
+       <file name="closelabel.gif" role="horde" />
+       <file name="loading.gif" role="horde" />
+       <file name="nextlabel.gif" role="horde" />
+       <file name="prevlabel.gif" role="horde" />
+      </dir> <!-- /themes/silver/graphics/lightbox -->
+      <file name="add.png" role="horde" />
+      <file name="ansel.png" role="horde" />
+      <file name="browse.png" role="horde" />
+      <file name="galleries.png" role="horde" />
+      <file name="image_add.png" role="horde" />
+      <file name="mygalleries.png" role="horde" />
+      <file name="slideshow_next.png" role="horde" />
+      <file name="slideshow_pause.png" role="horde" />
+      <file name="slideshow_play.png" role="horde" />
+      <file name="slideshow_prev.png" role="horde" />
+     </dir> <!-- /themes/silver/graphics -->
+    </dir> <!-- /themes/silver -->
+    <dir name="tango-blue">
+     <dir name="graphics">
+      <dir name="lightbox">
+       <file name="bullet.gif" role="horde" />
+       <file name="close.gif" role="horde" />
+       <file name="closelabel.gif" role="horde" />
+       <file name="loading.gif" role="horde" />
+       <file name="nextlabel.gif" role="horde" />
+       <file name="prevlabel.gif" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/lightbox -->
+      <file name="add.png" role="horde" />
+      <file name="ansel.png" role="horde" />
+      <file name="browse.png" role="horde" />
+      <file name="down.png" role="horde" />
+      <file name="galleries.png" role="horde" />
+      <file name="mygalleries.png" role="horde" />
+      <file name="slideshow_next.png" role="horde" />
+      <file name="slideshow_pause.png" role="horde" />
+      <file name="slideshow_play.png" role="horde" />
+      <file name="slideshow_prev.png" role="horde" />
+      <file name="up.png" role="horde" />
+     </dir> <!-- /themes/tango-blue/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/tango-blue -->
+   </dir> <!-- /themes -->
+   <file name=".htaccess" role="horde" />
+   <file name="browse.php" role="horde" />
+   <file name="browse_edit.php" role="horde" />
+   <file name="COPYING" role="doc" />
+   <file name="disclamer.php" role="horde" />
+   <file name="edit_dates.php" role="horde" />
+   <file name="gallery.php" role="horde" />
+   <file name="group.php" role="horde" />
+   <file name="image.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="maptest.php" role="horde" />
+   <file name="map_edit.php" role="horde" />
+   <file name="mobile.php" role="horde" />
+   <file name="perms.php" role="horde" />
+   <file name="preview.php" role="horde" />
+   <file name="protect.php" role="horde" />
+   <file name="README" role="doc" />
+   <file name="report.php" role="horde" />
+   <file name="rss.php" role="horde" />
+   <file name="view.php" role="horde" />
+   <file name="xppublish.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="ansel/.htaccess" name=".htaccess" />
+   <install as="ansel/browse.php" name="browse.php" />
+   <install as="ansel/browse_edit.php" name="browse_edit.php" />
+   <install as="COPYING" name="COPYING" />
+   <install as="ansel/disclamer.php" name="disclamer.php" />
+   <install as="ansel/edit_dates.php" name="edit_dates.php" />
+   <install as="ansel/gallery.php" name="gallery.php" />
+   <install as="ansel/group.php" name="group.php" />
+   <install as="ansel/image.php" name="image.php" />
+   <install as="ansel/index.php" name="index.php" />
+   <install as="ansel/maptest.php" name="maptest.php" />
+   <install as="ansel/map_edit.php" name="map_edit.php" />
+   <install as="ansel/mobile.php" name="mobile.php" />
+   <install as="ansel/perms.php" name="perms.php" />
+   <install as="ansel/preview.php" name="preview.php" />
+   <install as="ansel/protect.php" name="protect.php" />
+   <install as="README" name="README" />
+   <install as="ansel/report.php" name="report.php" />
+   <install as="ansel/rss.php" name="rss.php" />
+   <install as="ansel/view.php" name="view.php" />
+   <install as="ansel/xppublish.php" name="xppublish.php" />
+   <install as="ansel" name="bin/ansel" />
+   <install as="ansel-exif-to-tags" name="bin/ansel-exif-to-tags" />
+   <install as="ansel-garbage-collection" name="bin/ansel-garbage-collection" />
+   <install as="AnselPublish.scpt" name="bin/AnselPublish.scpt" />
+   <install as="ansel/config/conf.xml" name="config/conf.xml" />
+   <install as="ansel/config/hooks.php.dist" name="config/hooks.php.dist" />
+   <install as="ansel/config/prefs.php" name="config/prefs.php" />
+   <install as="ansel/config/styles.php" name="config/styles.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="lighttpd-ansel.conf" name="docs/lighttpd-ansel.conf" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="ansel/faces/claim.php" name="faces/claim.php" />
+   <install as="ansel/faces/custom.php" name="faces/custom.php" />
+   <install as="ansel/faces/face.php" name="faces/face.php" />
+   <install as="ansel/faces/gallery.php" name="faces/gallery.php" />
+   <install as="ansel/faces/image.php" name="faces/image.php" />
+   <install as="ansel/faces/img.php" name="faces/img.php" />
+   <install as="ansel/faces/name.php" name="faces/name.php" />
+   <install as="ansel/faces/report.php" name="faces/report.php" />
+   <install as="ansel/faces/savecustom.php" name="faces/savecustom.php" />
+   <install as="ansel/faces/search/all.php" name="faces/search/all.php" />
+   <install as="ansel/faces/search/image.php" name="faces/search/image.php" />
+   <install as="ansel/faces/search/image_define.php" name="faces/search/image_define.php" />
+   <install as="ansel/faces/search/image_save.php" name="faces/search/image_save.php" />
+   <install as="ansel/faces/search/image_search.php" name="faces/search/image_search.php" />
+   <install as="ansel/faces/search/img.php" name="faces/search/img.php" />
+   <install as="ansel/faces/search/name.php" name="faces/search/name.php" />
+   <install as="ansel/faces/search/named.php" name="faces/search/named.php" />
+   <install as="ansel/faces/search/owner.php" name="faces/search/owner.php" />
+   <install as="ansel/faces/search/tabs.php" name="faces/search/tabs.php" />
+   <install as="ansel/gallery/captions.php" name="gallery/captions.php" />
+   <install as="ansel/gallery/delete.php" name="gallery/delete.php" />
+   <install as="ansel/gallery/index.php" name="gallery/index.php" />
+   <install as="ansel/gallery/sort.php" name="gallery/sort.php" />
+   <install as="ansel/img/download.php" name="img/download.php" />
+   <install as="ansel/img/ecard.php" name="img/ecard.php" />
+   <install as="ansel/img/full.php" name="img/full.php" />
+   <install as="ansel/img/index.php" name="img/index.php" />
+   <install as="ansel/img/mini.php" name="img/mini.php" />
+   <install as="ansel/img/screen.php" name="img/screen.php" />
+   <install as="ansel/img/thumb.php" name="img/thumb.php" />
+   <install as="ansel/img/upload.php" name="img/upload.php" />
+   <install as="ansel/img/upload_preview.php" name="img/upload_preview.php" />
+   <install as="ansel/js/block.js" name="js/block.js" />
+   <install as="ansel/js/carousel.js" name="js/carousel.js" />
+   <install as="ansel/js/cropper.js" name="js/cropper.js" />
+   <install as="ansel/js/editfaces.js" name="js/editfaces.js" />
+   <install as="ansel/js/embed.js" name="js/embed.js" />
+   <install as="ansel/js/googlemap.js" name="js/googlemap.js" />
+   <install as="ansel/js/googlemap_edit.js" name="js/googlemap_edit.js" />
+   <install as="ansel/js/imagefaces.js" name="js/imagefaces.js" />
+   <install as="ansel/js/lightbox.js" name="js/lightbox.js" />
+   <install as="ansel/js/map.js" name="js/map.js" />
+   <install as="ansel/js/mobile.js" name="js/mobile.js" />
+   <install as="ansel/js/slideshow.js" name="js/slideshow.js" />
+   <install as="ansel/js/slugcheck.js" name="js/slugcheck.js" />
+   <install as="ansel/js/tagactions.js" name="js/tagactions.js" />
+   <install as="ansel/js/togglewidget.js" name="js/togglewidget.js" />
+   <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
+   <install as="ansel/lib/Api.php" name="lib/Api.php" />
+   <install as="ansel/lib/Application.php" name="lib/Application.php" />
+   <install as="ansel/lib/Config.php" name="lib/Config.php" />
+   <install as="ansel/lib/Exception.php" name="lib/Exception.php" />
+   <install as="ansel/lib/Faces.php" name="lib/Faces.php" />
+   <install as="ansel/lib/Gallery.php" name="lib/Gallery.php" />
+   <install as="ansel/lib/Image.php" name="lib/Image.php" />
+   <install as="ansel/lib/ImageGenerator.php" name="lib/ImageGenerator.php" />
+   <install as="ansel/lib/Report.php" name="lib/Report.php" />
+   <install as="ansel/lib/Search.php" name="lib/Search.php" />
+   <install as="ansel/lib/Storage.php" name="lib/Storage.php" />
+   <install as="ansel/lib/Style.php" name="lib/Style.php" />
+   <install as="ansel/lib/Tagger.php" name="lib/Tagger.php" />
+   <install as="ansel/lib/Test.php" name="lib/Test.php" />
+   <install as="ansel/lib/Widget.php" name="lib/Widget.php" />
+   <install as="ansel/lib/XPPublisher.php" name="lib/XPPublisher.php" />
+   <install as="ansel/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="ansel/lib/Ajax/Imple/EditCaption.php" name="lib/Ajax/Imple/EditCaption.php" />
+   <install as="ansel/lib/Ajax/Imple/EditFaces.php" name="lib/Ajax/Imple/EditFaces.php" />
+   <install as="ansel/lib/Ajax/Imple/EditGalleryFaces.php" name="lib/Ajax/Imple/EditGalleryFaces.php" />
+   <install as="ansel/lib/Ajax/Imple/Embed.php" name="lib/Ajax/Imple/Embed.php" />
+   <install as="ansel/lib/Ajax/Imple/GallerySlugCheck.php" name="lib/Ajax/Imple/GallerySlugCheck.php" />
+   <install as="ansel/lib/Ajax/Imple/ImageSaveGeotag.php" name="lib/Ajax/Imple/ImageSaveGeotag.php" />
+   <install as="ansel/lib/Ajax/Imple/LocationAutoCompleter.php" name="lib/Ajax/Imple/LocationAutoCompleter.php" />
+   <install as="ansel/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
+   <install as="ansel/lib/Ajax/Imple/ToggleGalleryActions.php" name="lib/Ajax/Imple/ToggleGalleryActions.php" />
+   <install as="ansel/lib/Ajax/Imple/ToggleOtherGalleries.php" name="lib/Ajax/Imple/ToggleOtherGalleries.php" />
+   <install as="ansel/lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
+   <install as="ansel/lib/Block/Gallery.php" name="lib/Block/Gallery.php" />
+   <install as="ansel/lib/Block/MyGalleries.php" name="lib/Block/MyGalleries.php" />
+   <install as="ansel/lib/Block/RandomPhoto.php" name="lib/Block/RandomPhoto.php" />
+   <install as="ansel/lib/Block/RecentComments.php" name="lib/Block/RecentComments.php" />
+   <install as="ansel/lib/Block/RecentFaces.php" name="lib/Block/RecentFaces.php" />
+   <install as="ansel/lib/Block/RecentlyAdded.php" name="lib/Block/RecentlyAdded.php" />
+   <install as="ansel/lib/Block/RecentlyAddedGeodata.php" name="lib/Block/RecentlyAddedGeodata.php" />
+   <install as="ansel/lib/Faces/Base.php" name="lib/Faces/Base.php" />
+   <install as="ansel/lib/Faces/Facedetect.php" name="lib/Faces/Facedetect.php" />
+   <install as="ansel/lib/Faces/User.php" name="lib/Faces/User.php" />
+   <install as="ansel/lib/Factory/Faces.php" name="lib/Factory/Faces.php" />
+   <install as="ansel/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
+   <install as="ansel/lib/Factory/Styles.php" name="lib/Factory/Styles.php" />
+   <install as="ansel/lib/Form/Ecard.php" name="lib/Form/Ecard.php" />
+   <install as="ansel/lib/Form/Image.php" name="lib/Form/Image.php" />
+   <install as="ansel/lib/Form/ImageDate.php" name="lib/Form/ImageDate.php" />
+   <install as="ansel/lib/Form/Upload.php" name="lib/Form/Upload.php" />
+   <install as="ansel/lib/Form/Watermark.php" name="lib/Form/Watermark.php" />
+   <install as="ansel/lib/Gallery/Decorator/Date.php" name="lib/Gallery/Decorator/Date.php" />
+   <install as="ansel/lib/GalleryMode/Base.php" name="lib/GalleryMode/Base.php" />
+   <install as="ansel/lib/GalleryMode/Date.php" name="lib/GalleryMode/Date.php" />
+   <install as="ansel/lib/GalleryMode/Normal.php" name="lib/GalleryMode/Normal.php" />
+   <install as="ansel/lib/ImageGenerator/Mini.php" name="lib/ImageGenerator/Mini.php" />
+   <install as="ansel/lib/ImageGenerator/PolaroidThumb.php" name="lib/ImageGenerator/PolaroidThumb.php" />
+   <install as="ansel/lib/ImageGenerator/PolaroidThumbStack.php" name="lib/ImageGenerator/PolaroidThumbStack.php" />
+   <install as="ansel/lib/ImageGenerator/RoundedThumb.php" name="lib/ImageGenerator/RoundedThumb.php" />
+   <install as="ansel/lib/ImageGenerator/RoundedThumbStack.php" name="lib/ImageGenerator/RoundedThumbStack.php" />
+   <install as="ansel/lib/ImageGenerator/Screen.php" name="lib/ImageGenerator/Screen.php" />
+   <install as="ansel/lib/ImageGenerator/ShadowThumb.php" name="lib/ImageGenerator/ShadowThumb.php" />
+   <install as="ansel/lib/ImageGenerator/ShadowThumbStack.php" name="lib/ImageGenerator/ShadowThumbStack.php" />
+   <install as="ansel/lib/ImageGenerator/SquareThumb.php" name="lib/ImageGenerator/SquareThumb.php" />
+   <install as="ansel/lib/ImageGenerator/Thumb.php" name="lib/ImageGenerator/Thumb.php" />
+   <install as="ansel/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="ansel/lib/Report/letter.php" name="lib/Report/letter.php" />
+   <install as="ansel/lib/Report/mail.php" name="lib/Report/mail.php" />
+   <install as="ansel/lib/Report/tickets.php" name="lib/Report/tickets.php" />
+   <install as="ansel/lib/Search/exif.php" name="lib/Search/exif.php" />
+   <install as="ansel/lib/Search/Tag.php" name="lib/Search/Tag.php" />
+   <install as="ansel/lib/Tile/DateGallery.php" name="lib/Tile/DateGallery.php" />
+   <install as="ansel/lib/Tile/Gallery.php" name="lib/Tile/Gallery.php" />
+   <install as="ansel/lib/Tile/Image.php" name="lib/Tile/Image.php" />
+   <install as="ansel/lib/View/Ansel.php" name="lib/View/Ansel.php" />
+   <install as="ansel/lib/View/Base.php" name="lib/View/Base.php" />
+   <install as="ansel/lib/View/Gallery.php" name="lib/View/Gallery.php" />
+   <install as="ansel/lib/View/GalleryProperties.php" name="lib/View/GalleryProperties.php" />
+   <install as="ansel/lib/View/Image.php" name="lib/View/Image.php" />
+   <install as="ansel/lib/View/List.php" name="lib/View/List.php" />
+   <install as="ansel/lib/View/Results.php" name="lib/View/Results.php" />
+   <install as="ansel/lib/View/Slideshow.php" name="lib/View/Slideshow.php" />
+   <install as="ansel/lib/View/Upload.php" name="lib/View/Upload.php" />
+   <install as="ansel/lib/View/EmbeddedRenderer/GalleryLink.php" name="lib/View/EmbeddedRenderer/GalleryLink.php" />
+   <install as="ansel/lib/View/EmbeddedRenderer/Mini.php" name="lib/View/EmbeddedRenderer/Mini.php" />
+   <install as="ansel/lib/View/EmbeddedRenderer/Slideshow.php" name="lib/View/EmbeddedRenderer/Slideshow.php" />
+   <install as="ansel/lib/View/GalleryRenderer/Base.php" name="lib/View/GalleryRenderer/Base.php" />
+   <install as="ansel/lib/View/GalleryRenderer/Gallery.php" name="lib/View/GalleryRenderer/Gallery.php" />
+   <install as="ansel/lib/View/GalleryRenderer/GalleryLightbox.php" name="lib/View/GalleryRenderer/GalleryLightbox.php" />
+   <install as="ansel/lib/Widget/Actions.php" name="lib/Widget/Actions.php" />
+   <install as="ansel/lib/Widget/Base.php" name="lib/Widget/Base.php" />
+   <install as="ansel/lib/Widget/GalleryFaces.php" name="lib/Widget/GalleryFaces.php" />
+   <install as="ansel/lib/Widget/Geotag.php" name="lib/Widget/Geotag.php" />
+   <install as="ansel/lib/Widget/ImageFaces.php" name="lib/Widget/ImageFaces.php" />
+   <install as="ansel/lib/Widget/Links.php" name="lib/Widget/Links.php" />
+   <install as="ansel/lib/Widget/OtherGalleries.php" name="lib/Widget/OtherGalleries.php" />
+   <install as="ansel/lib/Widget/OwnerFaces.php" name="lib/Widget/OwnerFaces.php" />
+   <install as="ansel/lib/Widget/SimilarPhotos.php" name="lib/Widget/SimilarPhotos.php" />
+   <install as="ansel/lib/Widget/Tags.php" name="lib/Widget/Tags.php" />
+   <install as="ansel/locale/.htaccess" name="locale/.htaccess" />
+   <install as="ansel/locale/ansel.pot" name="locale/ansel.pot" />
+   <install as="ansel/locale/de/help.xml" name="locale/de/help.xml" />
+   <install as="ansel/locale/de/LC_MESSAGES/ansel.mo" name="locale/de/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/de/LC_MESSAGES/ansel.po" name="locale/de/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="ansel/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="ansel/locale/es/LC_MESSAGES/ansel.mo" name="locale/es/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/es/LC_MESSAGES/ansel.po" name="locale/es/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="ansel/locale/fi/LC_MESSAGES/ansel.mo" name="locale/fi/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/fi/LC_MESSAGES/ansel.po" name="locale/fi/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/fr/LC_MESSAGES/ansel.mo" name="locale/fr/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/fr/LC_MESSAGES/ansel.po" name="locale/fr/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/it/LC_MESSAGES/ansel.mo" name="locale/it/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/it/LC_MESSAGES/ansel.po" name="locale/it/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/ja/LC_MESSAGES/ansel.mo" name="locale/ja/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/ja/LC_MESSAGES/ansel.po" name="locale/ja/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/lt/LC_MESSAGES/ansel.mo" name="locale/lt/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/lt/LC_MESSAGES/ansel.po" name="locale/lt/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/lv/LC_MESSAGES/ansel.mo" name="locale/lv/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/lv/LC_MESSAGES/ansel.po" name="locale/lv/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/sl/LC_MESSAGES/ansel.mo" name="locale/sl/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/sl/LC_MESSAGES/ansel.po" name="locale/sl/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/sv/LC_MESSAGES/ansel.mo" name="locale/sv/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/sv/LC_MESSAGES/ansel.po" name="locale/sv/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/tr/LC_MESSAGES/ansel.mo" name="locale/tr/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/tr/LC_MESSAGES/ansel.po" name="locale/tr/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/zh_TW/LC_MESSAGES/ansel.mo" name="locale/zh_TW/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/zh_TW/LC_MESSAGES/ansel.po" name="locale/zh_TW/LC_MESSAGES/ansel.po" />
+   <install as="ansel/migration/1_ansel_base_tables.php" name="migration/1_ansel_base_tables.php" />
+   <install as="ansel/migration/2_ansel_upgrade_autoincrement.php" name="migration/2_ansel_upgrade_autoincrement.php" />
+   <install as="ansel/migration/3_ansel_upgrade_style.php" name="migration/3_ansel_upgrade_style.php" />
+   <install as="ansel/migration/4_ansel_upgrade_tagstocontent.php" name="migration/4_ansel_upgrade_tagstocontent.php" />
+   <install as="ansel/migration/5_ansel_upgrade_categoriestotags.php" name="migration/5_ansel_upgrade_categoriestotags.php" />
+   <install as="ansel/migration/6_ansel_upgrade_unsignedints.php" name="migration/6_ansel_upgrade_unsignedints.php" />
+   <install as="ansel/migration/7_ansel_upgrade_stylefix.php" name="migration/7_ansel_upgrade_stylefix.php" />
+   <install as="ansel/migration/8_ansel_upgrade_sqlhierarchical.php" name="migration/8_ansel_upgrade_sqlhierarchical.php" />
+   <install as="ansel/migration/9_ansel_upgrade_sqlng.php" name="migration/9_ansel_upgrade_sqlng.php" />
+   <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
+   <install as="ansel/templates/faces/custom.inc" name="templates/faces/custom.inc" />
+   <install as="ansel/templates/faces/define.inc" name="templates/faces/define.inc" />
+   <install as="ansel/templates/faces/face.inc" name="templates/faces/face.inc" />
+   <install as="ansel/templates/faces/faces.inc" name="templates/faces/faces.inc" />
+   <install as="ansel/templates/faces/gallery.inc" name="templates/faces/gallery.inc" />
+   <install as="ansel/templates/faces/image.inc" name="templates/faces/image.inc" />
+   <install as="ansel/templates/faces/index.inc" name="templates/faces/index.inc" />
+   <install as="ansel/templates/faces/search.inc" name="templates/faces/search.inc" />
+   <install as="ansel/templates/gallery/delete_confirmation.inc" name="templates/gallery/delete_confirmation.inc" />
+   <install as="ansel/templates/gallery/properties.html.php" name="templates/gallery/properties.html.php" />
+   <install as="ansel/templates/gallery/partial/_styles.html.php" name="templates/gallery/partial/_styles.html.php" />
+   <install as="ansel/templates/group/footer.inc" name="templates/group/footer.inc" />
+   <install as="ansel/templates/group/header.inc" name="templates/group/header.inc" />
+   <install as="ansel/templates/group/owner.inc" name="templates/group/owner.inc" />
+   <install as="ansel/templates/group/pager.inc" name="templates/group/pager.inc" />
+   <install as="ansel/templates/image/crop_image.inc" name="templates/image/crop_image.inc" />
+   <install as="ansel/templates/image/edit_image.inc" name="templates/image/edit_image.inc" />
+   <install as="ansel/templates/image/plupload.inc" name="templates/image/plupload.inc" />
+   <install as="ansel/templates/image/preview_cropimage.inc" name="templates/image/preview_cropimage.inc" />
+   <install as="ansel/templates/image/preview_image.inc" name="templates/image/preview_image.inc" />
+   <install as="ansel/templates/image/resize_image.inc" name="templates/image/resize_image.inc" />
+   <install as="ansel/templates/image/upload.inc" name="templates/image/upload.inc" />
+   <install as="ansel/templates/list/footer.inc" name="templates/list/footer.inc" />
+   <install as="ansel/templates/list/header.inc" name="templates/list/header.inc" />
+   <install as="ansel/templates/list/pager.inc" name="templates/list/pager.inc" />
+   <install as="ansel/templates/mobile/galleries.html.php" name="templates/mobile/galleries.html.php" />
+   <install as="ansel/templates/mobile/gallery.html.php" name="templates/mobile/gallery.html.php" />
+   <install as="ansel/templates/mobile/head.html.php" name="templates/mobile/head.html.php" />
+   <install as="ansel/templates/mobile/image.html.php" name="templates/mobile/image.html.php" />
+   <install as="ansel/templates/mobile/javascript_defs.php" name="templates/mobile/javascript_defs.php" />
+   <install as="ansel/templates/mobile/notice.html.php" name="templates/mobile/notice.html.php" />
+   <install as="ansel/templates/rss/rss.inc" name="templates/rss/rss.inc" />
+   <install as="ansel/templates/rss/rss2.inc" name="templates/rss/rss2.inc" />
+   <install as="ansel/templates/tile/dategallery.inc" name="templates/tile/dategallery.inc" />
+   <install as="ansel/templates/tile/face.inc" name="templates/tile/face.inc" />
+   <install as="ansel/templates/tile/gallery.inc" name="templates/tile/gallery.inc" />
+   <install as="ansel/templates/tile/gallerymini.inc" name="templates/tile/gallerymini.inc" />
+   <install as="ansel/templates/tile/image.inc" name="templates/tile/image.inc" />
+   <install as="ansel/templates/view/gallery.inc" name="templates/view/gallery.inc" />
+   <install as="ansel/templates/view/gallerylightbox.inc" name="templates/view/gallerylightbox.inc" />
+   <install as="ansel/templates/view/image.inc" name="templates/view/image.inc" />
+   <install as="ansel/templates/view/list.inc" name="templates/view/list.inc" />
+   <install as="ansel/templates/view/results.inc" name="templates/view/results.inc" />
+   <install as="ansel/templates/view/slideshow.inc" name="templates/view/slideshow.inc" />
+   <install as="ansel/templates/xppublish/javascript.inc" name="templates/xppublish/javascript.inc" />
+   <install as="ansel/templates/xppublish/list.inc" name="templates/xppublish/list.inc" />
+   <install as="ansel/templates/xppublish/login.inc" name="templates/xppublish/login.inc" />
+   <install as="ansel/templates/xppublish/new.inc" name="templates/xppublish/new.inc" />
+   <install as="ansel/themes/default/cropper.css" name="themes/default/cropper.css" />
+   <install as="ansel/themes/default/embed.css" name="themes/default/embed.css" />
+   <install as="ansel/themes/default/lightbox.css" name="themes/default/lightbox.css" />
+   <install as="ansel/themes/default/mobile.css" name="themes/default/mobile.css" />
+   <install as="ansel/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="ansel/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
+   <install as="ansel/themes/default/graphics/ansel.png" name="themes/default/graphics/ansel.png" />
+   <install as="ansel/themes/default/graphics/arrow_switch.png" name="themes/default/graphics/arrow_switch.png" />
+   <install as="ansel/themes/default/graphics/browse.png" name="themes/default/graphics/browse.png" />
+   <install as="ansel/themes/default/graphics/down.png" name="themes/default/graphics/down.png" />
+   <install as="ansel/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="ansel/themes/default/graphics/galleries.png" name="themes/default/graphics/galleries.png" />
+   <install as="ansel/themes/default/graphics/gallery-locked-mini.png" name="themes/default/graphics/gallery-locked-mini.png" />
+   <install as="ansel/themes/default/graphics/gallery-locked.png" name="themes/default/graphics/gallery-locked.png" />
+   <install as="ansel/themes/default/graphics/image_add.png" name="themes/default/graphics/image_add.png" />
+   <install as="ansel/themes/default/graphics/mini-error.png" name="themes/default/graphics/mini-error.png" />
+   <install as="ansel/themes/default/graphics/mygalleries.png" name="themes/default/graphics/mygalleries.png" />
+   <install as="ansel/themes/default/graphics/point.png" name="themes/default/graphics/point.png" />
+   <install as="ansel/themes/default/graphics/prettythumb-error.png" name="themes/default/graphics/prettythumb-error.png" />
+   <install as="ansel/themes/default/graphics/problem.png" name="themes/default/graphics/problem.png" />
+   <install as="ansel/themes/default/graphics/resize.png" name="themes/default/graphics/resize.png" />
+   <install as="ansel/themes/default/graphics/scaler_slider.gif" name="themes/default/graphics/scaler_slider.gif" />
+   <install as="ansel/themes/default/graphics/scaler_slider_track.gif" name="themes/default/graphics/scaler_slider_track.gif" />
+   <install as="ansel/themes/default/graphics/screen-error.png" name="themes/default/graphics/screen-error.png" />
+   <install as="ansel/themes/default/graphics/slideshow_next.png" name="themes/default/graphics/slideshow_next.png" />
+   <install as="ansel/themes/default/graphics/slideshow_pause.png" name="themes/default/graphics/slideshow_pause.png" />
+   <install as="ansel/themes/default/graphics/slideshow_play.png" name="themes/default/graphics/slideshow_play.png" />
+   <install as="ansel/themes/default/graphics/slideshow_prev.png" name="themes/default/graphics/slideshow_prev.png" />
+   <install as="ansel/themes/default/graphics/success.png" name="themes/default/graphics/success.png" />
+   <install as="ansel/themes/default/graphics/text.png" name="themes/default/graphics/text.png" />
+   <install as="ansel/themes/default/graphics/thumb-error.png" name="themes/default/graphics/thumb-error.png" />
+   <install as="ansel/themes/default/graphics/up.png" name="themes/default/graphics/up.png" />
+   <install as="ansel/themes/default/graphics/carousel/left-disabled.gif" name="themes/default/graphics/carousel/left-disabled.gif" />
+   <install as="ansel/themes/default/graphics/carousel/left.gif" name="themes/default/graphics/carousel/left.gif" />
+   <install as="ansel/themes/default/graphics/carousel/right-disabled.gif" name="themes/default/graphics/carousel/right-disabled.gif" />
+   <install as="ansel/themes/default/graphics/carousel/right.gif" name="themes/default/graphics/carousel/right.gif" />
+   <install as="ansel/themes/default/graphics/lightbox/bullet.gif" name="themes/default/graphics/lightbox/bullet.gif" />
+   <install as="ansel/themes/default/graphics/lightbox/close.gif" name="themes/default/graphics/lightbox/close.gif" />
+   <install as="ansel/themes/default/graphics/lightbox/closelabel.gif" name="themes/default/graphics/lightbox/closelabel.gif" />
+   <install as="ansel/themes/default/graphics/lightbox/loading.gif" name="themes/default/graphics/lightbox/loading.gif" />
+   <install as="ansel/themes/default/graphics/lightbox/nextlabel.gif" name="themes/default/graphics/lightbox/nextlabel.gif" />
+   <install as="ansel/themes/default/graphics/lightbox/prevlabel.gif" name="themes/default/graphics/lightbox/prevlabel.gif" />
+   <install as="ansel/themes/silver/graphics/add.png" name="themes/silver/graphics/add.png" />
+   <install as="ansel/themes/silver/graphics/ansel.png" name="themes/silver/graphics/ansel.png" />
+   <install as="ansel/themes/silver/graphics/browse.png" name="themes/silver/graphics/browse.png" />
+   <install as="ansel/themes/silver/graphics/galleries.png" name="themes/silver/graphics/galleries.png" />
+   <install as="ansel/themes/silver/graphics/image_add.png" name="themes/silver/graphics/image_add.png" />
+   <install as="ansel/themes/silver/graphics/mygalleries.png" name="themes/silver/graphics/mygalleries.png" />
+   <install as="ansel/themes/silver/graphics/slideshow_next.png" name="themes/silver/graphics/slideshow_next.png" />
+   <install as="ansel/themes/silver/graphics/slideshow_pause.png" name="themes/silver/graphics/slideshow_pause.png" />
+   <install as="ansel/themes/silver/graphics/slideshow_play.png" name="themes/silver/graphics/slideshow_play.png" />
+   <install as="ansel/themes/silver/graphics/slideshow_prev.png" name="themes/silver/graphics/slideshow_prev.png" />
+   <install as="ansel/themes/silver/graphics/lightbox/bullet.gif" name="themes/silver/graphics/lightbox/bullet.gif" />
+   <install as="ansel/themes/silver/graphics/lightbox/close.gif" name="themes/silver/graphics/lightbox/close.gif" />
+   <install as="ansel/themes/silver/graphics/lightbox/closelabel.gif" name="themes/silver/graphics/lightbox/closelabel.gif" />
+   <install as="ansel/themes/silver/graphics/lightbox/loading.gif" name="themes/silver/graphics/lightbox/loading.gif" />
+   <install as="ansel/themes/silver/graphics/lightbox/nextlabel.gif" name="themes/silver/graphics/lightbox/nextlabel.gif" />
+   <install as="ansel/themes/silver/graphics/lightbox/prevlabel.gif" name="themes/silver/graphics/lightbox/prevlabel.gif" />
+   <install as="ansel/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
+   <install as="ansel/themes/tango-blue/graphics/add.png" name="themes/tango-blue/graphics/add.png" />
+   <install as="ansel/themes/tango-blue/graphics/ansel.png" name="themes/tango-blue/graphics/ansel.png" />
+   <install as="ansel/themes/tango-blue/graphics/browse.png" name="themes/tango-blue/graphics/browse.png" />
+   <install as="ansel/themes/tango-blue/graphics/down.png" name="themes/tango-blue/graphics/down.png" />
+   <install as="ansel/themes/tango-blue/graphics/galleries.png" name="themes/tango-blue/graphics/galleries.png" />
+   <install as="ansel/themes/tango-blue/graphics/mygalleries.png" name="themes/tango-blue/graphics/mygalleries.png" />
+   <install as="ansel/themes/tango-blue/graphics/slideshow_next.png" name="themes/tango-blue/graphics/slideshow_next.png" />
+   <install as="ansel/themes/tango-blue/graphics/slideshow_pause.png" name="themes/tango-blue/graphics/slideshow_pause.png" />
+   <install as="ansel/themes/tango-blue/graphics/slideshow_play.png" name="themes/tango-blue/graphics/slideshow_play.png" />
+   <install as="ansel/themes/tango-blue/graphics/slideshow_prev.png" name="themes/tango-blue/graphics/slideshow_prev.png" />
+   <install as="ansel/themes/tango-blue/graphics/up.png" name="themes/tango-blue/graphics/up.png" />
+   <install as="ansel/themes/tango-blue/graphics/lightbox/bullet.gif" name="themes/tango-blue/graphics/lightbox/bullet.gif" />
+   <install as="ansel/themes/tango-blue/graphics/lightbox/close.gif" name="themes/tango-blue/graphics/lightbox/close.gif" />
+   <install as="ansel/themes/tango-blue/graphics/lightbox/closelabel.gif" name="themes/tango-blue/graphics/lightbox/closelabel.gif" />
+   <install as="ansel/themes/tango-blue/graphics/lightbox/loading.gif" name="themes/tango-blue/graphics/lightbox/loading.gif" />
+   <install as="ansel/themes/tango-blue/graphics/lightbox/nextlabel.gif" name="themes/tango-blue/graphics/lightbox/nextlabel.gif" />
+   <install as="ansel/themes/tango-blue/graphics/lightbox/prevlabel.gif" name="themes/tango-blue/graphics/lightbox/prevlabel.gif" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-09-08</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

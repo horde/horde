@@ -1,9 +1,17 @@
 -----------
-v3.0.10-git
+v3.0.11-git
 -----------
 
-[mjr] The current default calendar is always included in the sync_calendars
-      pref.
+[mjr] Fix displaying resources when no attendees are present (Bug #10507).
+
+
+-------
+v3.0.10
+-------
+
+[jan] Fix opening events from agenda view.
+[mjr] Always included the current default calendar in the sync_calendars
+      preference.
 [mjr] Ensure exception gets start and end times when created from month view
       (Bug #10496)
 [jan] Update group permission when changing group down list in basic

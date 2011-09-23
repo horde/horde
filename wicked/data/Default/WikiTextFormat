@@ -303,7 +303,7 @@ Create and anchor on the page by {{``[[# anchorName nice anchor text]]``}} [[# a
 
 You can put a picture in a page with {{``[[image foo.jpg]]``}}. You can use any file type, but most browsers only support GIF, JPEG, and PNG formats. The filename can either be a relative reference (in which case the wiki looks for a file attached to the current page - or a different wiki page if the file name is prefixed with a page name, e.g. {{``[[image WikiHome:foo.jpg]]``}}), an absolute reference which begins with a slash (in which case the wiki uses it to retrieve a file relative to the web server's root), or a full, external URL.
 
-Additonal attributes, such as "alt" can follow the image filename or URL like so: {{``[[image foo.jpg alt="A Foo JPEG"]]``}}.  "link" is a special attribute which makes the image a link to the specified URL.
+Additional attributes, such as "alt" can follow the image filename or URL like so: {{``[[image foo.jpg alt="A Foo JPEG"]]``}}.  "link" is a special attribute which makes the image a link to the specified URL.
 
 
 ++ Application Content

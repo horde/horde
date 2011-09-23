@@ -120,7 +120,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function getRecentChanges($days = 3)
     {
-        $where = array('version_created > ?', time() - (86400 * $days));
+        $where = array('version_created > ?', array(time() - (86400 * $days)));
         $result = $this->_retrieve($this->_params['table'],
                                    $where,
                                    'version_created DESC');
@@ -856,7 +856,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
      */
     public function getCharset()
     {
-        return $this->_params['charset'];
+        return $this->_db->getOption('charset');
     }
 
     /**

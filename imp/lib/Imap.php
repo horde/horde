@@ -426,7 +426,6 @@ class IMP_Imap implements Serializable
                 }
 
                 $this->_changed = $this->_login = true;
-                $this->updateFetchIgnore();
             }
             break;
         }

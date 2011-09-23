@@ -303,6 +303,9 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
             'http://www.example.com/hordeurl/foo',
             (string)Horde::url('foo', true, array('append_session' => -1)));
         $this->assertEquals(
+            'http://www.example.com/hordeurl/foo',
+            (string)Horde::url('/hordeurl/foo', true, array('append_session' => -1)));
+        $this->assertEquals(
             'http://www.example.com/hordeurl/foo/bar',
             (string)Horde::url('http://www.example.com/hordeurl/foo/bar', true, array('append_session' => -1)));
     }

@@ -42,23 +42,29 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
      */
     protected function _content()
     {
+        Ansel::initHordeMap();
+        Horde::addScriptFile('blocks/geotag.js');
         try {
-            $images = $GLOBALS['injector']->getInstance('Ansel_Storage')->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
+            $images = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getRecentImagesGeodata(null, 0, min($this->_params['limit'], 100));
         } catch (Ansel_Exception $e) {
             return $e->getMessage();
         }
         $images = array_reverse($images);
         foreach ($images as $key => $image) {
             $id = $image['image_id'];
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image['gallery_id']);
+            $gallery = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getGallery($image['gallery_id']);
 
-            /* Don't show locked galleries in the block. */
+            // Don't show locked galleries in the block.
             if (!$gallery->isOldEnough() || $gallery->hasPasswd()) {
                 continue;
             }
             $style = $gallery->getStyle();
 
-            /* Generate the image view url */
+            // Generate the image view url
             $url = Ansel::getUrlFor(
                 'view',
                 array('view' => 'Image',
@@ -68,32 +74,16 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
                       'gallery_view' => $style->gallery_view), true);
             $images[$key]['icon'] = (string)Ansel::getImageUrl($images[$key]['image_id'], 'mini', true);
             $images[$key]['link'] = (string)$url;
+            $images[$key]['markerOnly'] = false;
         }
 
         $json = Horde_Serialize::serialize(array_values($images), Horde_Serialize::JSON);
         $html = '<div id="ansel_map" style="height:' . $this->_params['height'] . 'px;"></div>';
         $html .= <<<EOT
         <script type="text/javascript">
-        var map = {};
-        var pageImages = {$json};
-        options = {
-            mainMap:  'ansel_map',
-            viewType: 'Block',
-            calculateMaxZoom: false
-        };
-        function doMap(points) {
-            map = new Ansel_GMap(options);
-            map.addPoints(points);
-            map.display();
-        }
-
-        Event.observe(window, "load", function() {doMap(pageImages);});
+            document.observe('dom:loaded', function() { new AnselBlockGeoTag({$json}); });
         </script>
 EOT;
-
-        Horde::addScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel', array('external' => true));
-        Horde::addScriptFile('http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/1.1/src/markermanager.js', 'ansel', array('external' => true));
-        Horde::addScriptFile('googlemap.js');
         return $html;
     }
 

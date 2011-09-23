@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-08</date>
- <time>08:15:26</time>
+ <date>2011-09-19</date>
+ <time>10:55:41</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [gwr] Added Horde_Test_Stub_Factory as a simple factory stub.
 * [gwr] Add Horde_Test_Setup for complex test suite setups.
  </notes>
  <contents>
@@ -54,6 +55,7 @@
       </dir> <!-- /lib/Horde/Test/Factory -->
       <dir name="Stub">
        <file name="Cli.php" role="php" />
+       <file name="Factory.php" role="php" />
        <file name="Parser.php" role="php" />
        <file name="Registry.php" role="php" />
       </dir> <!-- //lib/Horde/Test/Stub -->
@@ -139,6 +141,7 @@
    <install as="Horde/Test/Factory/Registry.php" name="lib/Horde/Test/Factory/Registry.php" />
    <install as="Horde/Test/Factory/Share.php" name="lib/Horde/Test/Factory/Share.php" />
    <install as="Horde/Test/Stub/Cli.php" name="lib/Horde/Test/Stub/Cli.php" />
+   <install as="Horde/Test/Stub/Factory.php" name="lib/Horde/Test/Stub/Factory.php" />
    <install as="Horde/Test/Stub/Parser.php" name="lib/Horde/Test/Stub/Parser.php" />
    <install as="Horde/Test/Stub/Registry.php" name="lib/Horde/Test/Stub/Registry.php" />
   </filelist>
@@ -267,9 +270,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-08</date>
+   <date>2011-09-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [gwr] Added Horde_Test_Stub_Factory as a simple factory stub.
 * [gwr] Add Horde_Test_Setup for complex test suite setups.
    </notes>
   </release>

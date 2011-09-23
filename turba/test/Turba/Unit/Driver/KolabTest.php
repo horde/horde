@@ -22,8 +22,8 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category   Horde
  * @package    Turba
@@ -32,13 +32,14 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @link       http://www.horde.org/apps/turba
  * @license    http://www.horde.org/licenses/apache Apache-like
  */
-class Turba_Unit_Driver_KolabTest extends Turba_TestCase
+class Turba_Unit_Driver_KolabTest
+extends Turba_Unit_Driver_Base
 {
-    public function testAdd()
+    protected $backupGlobals = false;
+
+    public static function setUpBeforeClass()
     {
-        $driver = $this->getKolabDriver();
-        $id = $driver->add(array('lastname' => 'TEST'));
-        $contact = $driver->getObject($id);
-        $this->assertEquals('TEST', $contact->attributes['lastname']);
+        parent::setUpBeforeClass();
+        self::$driver = self::createKolabDriverWithShares(self::$setup);
     }
 }
