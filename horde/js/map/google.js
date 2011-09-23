@@ -19,19 +19,26 @@ HordeMap.Google = Class.create(
 
             'sat':     new OpenLayers.Layer.Google(
                 'Google Satellite',
-                { 'type': google.maps.MapTypeId.SATELLITE }
+                {
+                    'type': google.maps.MapTypeId.SATELLITE,
+                    'minZoomLevel': 0
+                }
             ),
 
             'hybrid':  new OpenLayers.Layer.Google(
                 'Google Hybrid',
-                { 'type': google.maps.MapTypeId.HYBRID }
+                {
+                    'type': google.maps.MapTypeId.HYBRID,
+                    'minZoomLevel': 0
+                }
             ),
 
             'terrain': new OpenLayers.Layer.Google(
                 'Google Physical',
                 {
                     'type': google.maps.MapTypeId.TERRAIN,
-                    'numZoomLevels': 16
+                    'numZoomLevels': 16,
+                    'minZoomLevel': 0
                 }
             )
         }
