@@ -108,20 +108,30 @@ AnselGeoTagWidget = Class.create({
         this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
 
         // Place the image markers
-        for (var i = 0; i < this._images.length; i++) {
+        var centerImage;
+        this._images.each(function(img) {
+            if (img.markerOnly) {
+                (function() {
+                    var p = img;
+                    var f = m;
+                    this.getLocation(p, m);
+                }.bind(this))();
+                centerImage = img;
+                return;
+            }
             var m = AnselMap.placeMapMarker(
                 'ansel_map',
                 {
-                    'lat': this._images[i].image_latitude,
-                    'lon': this._images[i].image_longitude
+                    'lat': img.image_latitude,
+                    'lon': img.image_longitude
                 },
                 {
-                    'img': (!this._images[i].markerOnly) ? this._images[i].icon : Ansel.conf.markeruri,
-                    'background': (!this._images[i].markerOnly) ? Ansel.conf.pixeluri + '?c=ffffff' : Ansel.conf.shadowuri,
-                    'image_id': this._images[i].image_id,
-                    'markerOnly': (this._images[i].markerOnly) ? 'markerOnly' : 'noMarkerOnly',
-                    'center': true,
-                    'image_link': this._images[i].link
+                    'img': (!img.markerOnly) ? img.icon : Ansel.conf.markeruri,
+                    'background': (!img.markerOnly) ? Ansel.conf.pixeluri + '?c=ffffff' : Ansel.conf.shadowuri,
+                    'image_id': img.image_id,
+                    'markerOnly': (img.markerOnly) ? 'markerOnly' : 'noMarkerOnly',
+                    'center': false,
+                    'image_link': img.link
                 }
             );
 
@@ -129,13 +139,13 @@ AnselGeoTagWidget = Class.create({
             if (this.opts.viewType == 'Gallery') {
                 (function() {
                     var f = m;
-                    $$('#imagetile_' + this._images[i].image_id + ' img')[0].observe(
+                    $$('#imagetile_' + img.image_id + ' img')[0].observe(
                         'mouseover',
                         function(e) {
                             AnselMap.selectMarker('ansel_map', f);
                         }
                     );
-                    $$('#imagetile_' + this._images[i].image_id + ' img')[0].observe(
+                    $$('#imagetile_' + img.image_id + ' img')[0].observe(
                         'mouseout',
                         function(e) {
                             AnselMap.unselectMarker('ansel_map', f);
@@ -143,19 +153,29 @@ AnselGeoTagWidget = Class.create({
                     );
                 }.bind(this))();
             }
-            if (this._images[i].markerOnly) {
-                (function() {
-                    var p = this._images[i];
-                    var f = m;
-                    this.getLocation(p, m);
-                }.bind(this))();
-            }
 
             AnselMap.placeMapMarker(
                 'ansel_map_small',
                 {
-                    'lat': this._images[i].image_latitude,
-                    'lon': this._images[i].image_longitude
+                    'lat': img.image_latitude,
+                    'lon': img.image_longitude
+                }
+            );
+        }.bind(this));
+        if (centerImage) {
+            AnselMap.placeMapMarker(
+                'ansel_map',
+                {
+                    'lat': centerImage.image_latitude,
+                    'lon': centerImage.image_longitude
+                },
+                {
+                    'img': Ansel.conf.markeruri,
+                    'background': Ansel.conf.shadowuri,
+                    'image_id': centerImage.image_id,
+                    'markerOnly': 'markerOnly',
+                    'center': true,
+                    'image_link': centerImage.link
                 }
             );
         }
