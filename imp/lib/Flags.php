@@ -181,10 +181,10 @@ class IMP_Flags implements ArrayAccess, Serializable
      */
     public function updateFlag($key, $type, $data)
     {
-        if (isset($this->_flags[$key])) {
-            $ob = $this->_flags[$key];
-        } elseif (isset($this->_userflags[$key])) {
-            $ob = $this->_userflags[$key];
+        if (isset($this->_userflags[$key])) {
+            $ob = clone $this->_userflags[$key];
+        } elseif (isset($this->_flags[$key])) {
+            $ob = clone $this->_flags[$key];
         } else {
             return;
         }
@@ -192,14 +192,12 @@ class IMP_Flags implements ArrayAccess, Serializable
         $ob->$type = $data;
 
         if (isset($this->_flags[$key]) && ($this->_flags[$key] == $ob)) {
-            if (isset($this->_userflags[$key])) {
-                unset($this->_userflags[$key]);
-                $this->_save();
-            }
+            unset($this->_userflags[$key]);
         } else {
             $this->_userflags[$key] = $ob;
-            $this->_save();
         }
+
+        $this->_save();
     }
 
     /**
