@@ -39,7 +39,7 @@ class Text_Wiki_Parse_Attribute extends Text_Wiki_Parse
         $options = array('attributes' => array());
 
         $text = $matches[1];
-        while (preg_match('/^\[\[([A-Za-z0-9]+):\s+(.*?)\]\]\s*(.*)$/s',
+        while (preg_match('/^\[\[(' . Wicked::REGEXP_WIKIWORD . '):\s+(.*?)\]\]\s*(.*)$/s',
                           $text, $sub)) {
 
             $options['attributes'][] = array('name' => $sub[1],
