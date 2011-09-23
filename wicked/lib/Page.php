@@ -438,10 +438,16 @@ class Wicked_Page
             $this->_proc->insertRule('Image2', 'Image');
             $this->_proc->deleteRule('Image');
 
-            if ($GLOBALS['conf']['wicked']['format'] == 'Creole') {
+            switch ($GLOBALS['conf']['wicked']['format']) {
+            case 'BBCode':
+                $this->_proc->insertRule('RegistryLink', 'Code');
+                break;
+            case 'Creole':
                 $this->_proc->insertRule('RegistryLink', 'Heading');
-            } else {
+                break;
+            default:
                 $this->_proc->insertRule('RegistryLink', 'Toc');
+                break;
             }
             $this->_proc->insertRule('Attribute', 'RegistryLink');
 
