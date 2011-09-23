@@ -175,6 +175,7 @@ AnselGeoTagWidget = Class.create({
                     'image_id': centerImage.image_id,
                     'markerOnly': 'markerOnly',
                     'center': true,
+                    'zoom': (this._images.length > 1) ? false : 10,
                     'image_link': centerImage.link
                 }
             );
