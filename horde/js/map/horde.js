@@ -108,61 +108,10 @@ HordeMap.Map.Horde = Class.create({
         // Create the vector layer for markers if requested.
         // @TODO H5 BC break - useMarkerLayer should be permap, not per page
         if (this.opts.useMarkerLayer || HordeMap.conf.useMarkerLayer) {
-            var styleMap = this.opts.styleMap;
-            //styleMap.extendDefault = true;
-            this.markerLayer = new OpenLayers.Layer.Vector(
-                this.opts.markerLayerTitle,
-                {
-                    'styleMap': styleMap,
-                    'rendererOptions': { zIndexing: true }
-                }
-            );
-
-            if (this.opts.draggableFeatures) {
-                var dragControl = new OpenLayers.Control.DragFeature(
-                    this.markerLayer,
-                    { onComplete: this.opts.markerDragEnd });
-
-                this.map.addControl(dragControl);
-                dragControl.activate();
-            }
+            this.markerLayer = this.createVectorLayer(this.opts);
             this.opts.layers.push(this.markerLayer);
-
-            if (this.opts.onHover) {
-                this.selectControl = new OpenLayers.Control.SelectFeature(
-                    this.markerLayer, {
-                        hover: true,
-                        highlightOnly: true,
-                        renderIntent: 'temporary',
-                        eventListeners: {
-                             beforefeaturehighlighted: this.opts.onHover,
-                             featurehighlighted: this.opts.onHover,
-                             featureunhighlighted: this.opts.onHover
-                        }
-                    }
-                );
-                this.map.addControl(this.selectControl);
-                this.selectControl.activate();
-            }
-
-            if (this.opts.onClick) {
-                this.clickControl = new OpenLayers.Control.SelectFeature(
-                    this.markerLayer, {
-                        'hover': false,
-                        'clickout': false,
-                        'toggle': true,
-                        'hover': false,
-                        'multiple': false,
-                        'renderIntent': 'temporary'
-                    }
-                );
-                this.markerLayer.events.on({
-                    'featureselected': this.opts.onClick
-                });
-                this.map.addControl(this.clickControl);
-                this.clickControl.activate();
-            }
         }
+
         this.map.addLayers(this.opts.layers);
         if (this.opts.showLayerSwitcher) {
             this._layerSwitcher = new OpenLayers.Control.LayerSwitcher();
@@ -181,6 +130,63 @@ HordeMap.Map.Horde = Class.create({
         // Used for converting between internal and display projections.
         this._proj = new OpenLayers.Projection("EPSG:4326");
         this.map.zoomToMaxExtent();
+    },
+
+    createVectorLayer: function(opts)
+    {
+        var styleMap = opts.styleMap || this.styleMap;
+        var layer = new OpenLayers.Layer.Vector(
+            opts.markerLayerTitle,
+            {
+                'styleMap': styleMap,
+                'rendererOptions': { zIndexing: true }
+            }
+        );
+
+        if (opts.draggableFeatures) {
+            var dragControl = new OpenLayers.Control.DragFeature(
+                layer,
+                { onComplete: opts.markerDragEnd });
+
+            this.map.addControl(dragControl);
+            dragControl.activate();
+        }
+
+        if (opts.onHover) {
+            this.selectControl = new OpenLayers.Control.SelectFeature(
+                layer, {
+                    hover: true,
+                    highlightOnly: true,
+                    renderIntent: 'temporary',
+                    eventListeners: {
+                         beforefeaturehighlighted: opts.onHover,
+                         featurehighlighted: opts.onHover,
+                         featureunhighlighted: opts.onHover
+                    }
+                }
+            );
+            this.map.addControl(this.selectControl);
+            this.selectControl.activate();
+        }
+        if (opts.onClick) {
+            var clickControl = new OpenLayers.Control.SelectFeature(
+                layer, {
+                    'hover': false,
+                    'clickout': false,
+                    'toggle': true,
+                    'hover': false,
+                    'multiple': false,
+                    'renderIntent': 'temporary'
+                }
+            );
+            layer.events.on({
+                'featureselected': opts.onClick
+            });
+            this.map.addControl(clickControl);
+            clickControl.activate();
+        }
+
+        return layer;
     },
 
     /**
@@ -258,6 +264,11 @@ HordeMap.Map.Horde = Class.create({
      * optionally passed into the map options. To add a feature with varying
      * markerImage, pass a stylecallback method that returns a suitable style
      * object.
+     *
+     * @param lonlat p    { 'lon': x, 'lat': y }
+     * @para object opts  Options
+     *    'styleCallback': callback to provide a custom styleobject for marker
+     *    'layer': use this layer instead of this.markerLayer to place marker
      */
     addMarker: function(p, opts)
     {
@@ -266,8 +277,11 @@ HordeMap.Map.Horde = Class.create({
         ll.transform(this._proj, this.map.getProjectionObject());
         s = opts.styleCallback(this.markerLayer.style);
         var m = new OpenLayers.Feature.Vector(ll);
-        this.markerLayer.addFeatures([m]);
-
+        if (opts.layer) {
+            opts.layer.addFeatures([m]);
+        } else {
+            this.markerLayer.addFeatures([m]);
+        }
         return m;
     },
 
@@ -294,11 +308,15 @@ HordeMap.Map.Horde = Class.create({
     /**
      * Zoom map to the best fit while containing all markers
      *
-     * @param integer max  Highest zoom level (@TODO)
      */
-    zoomToFit: function(max)
+    zoomToFit: function(layer)
     {
-        this.map.zoomToExtent(this.markerLayer.getDataExtent());
+        if (!layer) {
+            layer = this.markerLayer;
+        }
+        if (layer.getDataExtent()) {
+            this.map.zoomToExtent(layer.getDataExtent());
+        }
     },
 
     getMap: function()
