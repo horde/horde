@@ -563,10 +563,12 @@ class Nag_Api extends Horde_Registry_Api
                             isset($task->completed) ? (int)$task->completed : $existing->completed,
                             isset($task->category) ? $task->category : $existing->category,
                             isset($task->alarm) ? $task->alarm : $existing->alarm,
+                            isset($task->methods) ? $task->methods : $existing->methods,
                             isset($task->parent_id) ? $task->parent_id : $existing->parent_id,
                             isset($task->private) ? $task->private : $existing->private,
                             $owner,
-                            isset($task->assignee) ? $task->assignee : $existing->assignee
+                            isset($task->assignee) ? $task->assignee : $existing->assignee,
+                            isset($task->completed_date) ? $task->completed_date : $existing->completed_date
                         );
                     } catch (Nag_Exception $e) {
                         throw new Nag_Exception($e->getMessage(), 500);
@@ -584,6 +586,7 @@ class Nag_Api extends Horde_Registry_Api
                             !empty($task->completed),
                             isset($task->category) ? $task->category : '',
                             isset($task->alarm) ? $task->alarm : 0,
+                            isset($task->methods) ? $task->methods : null,
                             isset($task->uid) ? $task->uid : null,
                             isset($task->parent_id) ? $task->parent_id : '',
                             !empty($task->private),
