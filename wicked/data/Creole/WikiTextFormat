@@ -27,7 +27,7 @@ Just hit "return" twice to make a paragraph break.
 
 == Literal Text ==
 
-If you don't want Text_Wiki to parse some text, enclose it in triple curly
+If you don't want the wiki to parse some text, enclose it in triple curly
 braces, or prefix the markup with a tilde.
 
 {{{
@@ -175,13 +175,13 @@ add an anchor target.
 
 === URLs ===
 
-Create a remote link simply by typing its URL: http://ciaweb.net.
+Create a remote link simply by typing its URL: http://www.horde.org/.
 
 You can have a described-reference:
 {{{
-[[http://pear.php.net|PEAR]]
+[[http://www.horde.org|Horde]]
 }}}
-[[http://pear.php.net|PEAR]]
+[[http://www.horde.org|Horde]]
 
 //Rendering of described URLs is broken as of Text_Wiki 1.2.1.//
 

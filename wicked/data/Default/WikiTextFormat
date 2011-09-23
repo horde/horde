@@ -43,7 +43,7 @@ will be printed.)
 
 ++ Literal Text
 
-If you don't want Text_Wiki to parse some text, enclose it in two backticks (not single-quotes).
+If you don't want the wiki to parse some text, enclose it in two backticks (not single-quotes).
 
 <code>
 
@@ -282,16 +282,16 @@ PHP manual links are links to the PHP manual on the php.net web site.
 
 +++ URLs
 
-Create a remote link simply by typing its URL: http://ciaweb.net.
+Create a remote link simply by typing its URL: http://www.horde.org.
 
 If you like, enclose it in brackets to create a numbered reference \
-and avoid cluttering the page; {{``[http://ciaweb.net/free/]``}} becomes [http://ciaweb.net/free/].
+and avoid cluttering the page; {{``[http://www.horde.org/]``}} becomes [http://www.horde.org/].
 
 Or you can have a described-reference instead of a numbered reference:
 <code>
-[http://pear.php.net PEAR]
+[http://www.horde.org Horde]
 </code>
-[http://pear.php.net PEAR]
+[http://www.horde.org Horde]
 
 
 +++ On-Page Links

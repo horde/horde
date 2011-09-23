@@ -250,7 +250,7 @@ You can also use this format to create a "described" or "labeled" link or to add
 Create a remote link simply by typing its URL: http://www.horde.org.
 
 If you like, enclose it in brackets to create a numbered reference \
-and avoid cluttering the page; <tt><nowiki>[http://ciaweb.net/free/]</nowiki></tt> becomes [http://ciaweb.net/free/].
+and avoid cluttering the page; <tt><nowiki>[http://www.horde.org/]</nowiki></tt> becomes [http://www.horde.org/].
 
 //Rendering of URLs as numbers is broken as of Text_Wiki 1.2.1.//
 
