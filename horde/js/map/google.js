@@ -15,31 +15,23 @@ HordeMap.Google = Class.create(
     getLayers: function(layer)
     {
         return {
-            'streets': new OpenLayers.Layer.Google(
-                'Google Streets', { 'minZoomLevel': 1 }),
+            'streets': new OpenLayers.Layer.Google('Google Streets', {}),
 
             'sat':     new OpenLayers.Layer.Google(
                 'Google Satellite',
-                {
-                    'type': google.maps.MapTypeId.SATELLITE,
-                    'minZoomLevel': 1
-                }
+                { 'type': google.maps.MapTypeId.SATELLITE }
             ),
 
             'hybrid':  new OpenLayers.Layer.Google(
                 'Google Hybrid',
-                {
-                    'type': google.maps.MapTypeId.HYBRID,
-                    'minZoomLevel': 1
-                }
+                { 'type': google.maps.MapTypeId.HYBRID }
             ),
 
             'terrain': new OpenLayers.Layer.Google(
                 'Google Physical',
                 {
                     'type': google.maps.MapTypeId.TERRAIN,
-                    'numZoomLevels': 16,
-                    'minZoomLevel': 1
+                    'numZoomLevels': 16
                 }
             )
         }
