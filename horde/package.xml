@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-08</date>
- <time>23:58:28</time>
+ <date>2011-09-23</date>
+ <time>13:37:51</time>
  <version>
   <release>4.0.10</release>
   <api>4.0.0</api>
@@ -89,6 +89,7 @@
     <file name="datatree.php" role="horde" />
     <file name="groups.php" role="horde" />
     <file name="index.html" role="horde" />
+    <file name="locks.php" role="horde" />
     <file name="phpshell.php" role="horde" />
     <file name="sessions.php" role="horde" />
     <file name="signup_confirm.php" role="horde" />
@@ -214,6 +215,7 @@
       <file name="east-mini.png" role="horde" />
       <file name="layer-switcher-maximize.png" role="horde" />
       <file name="layer-switcher-minimize.png" role="horde" />
+      <file name="marker.png" role="horde" />
       <file name="measuring-stick-off.png" role="horde" />
       <file name="measuring-stick-on.png" role="horde" />
       <file name="north-mini.png" role="horde" />
@@ -228,33 +230,37 @@
       <file name="zoombar.png" role="horde" />
      </dir> <!-- /js/map/img -->
      <dir name="lang">
-      <file name="ar_SY.js" role="horde" />
-      <file name="bg_BG.js" role="horde" />
-      <file name="ca_ES.js" role="horde" />
-      <file name="cs_CZ.js" role="horde" />
-      <file name="da_DK.js" role="horde" />
-      <file name="de_DE.js" role="horde" />
-      <file name="el_GR.js" role="horde" />
-      <file name="en_CA.js" role="horde" />
-      <file name="es_ES.js" role="horde" />
-      <file name="fi_FI.js" role="horde" />
-      <file name="fr_FR.js" role="horde" />
-      <file name="gl_ES.js" role="horde" />
-      <file name="hu_HU.js" role="horde" />
-      <file name="id_ID.js" role="horde" />
-      <file name="is_IS.js" role="horde" />
-      <file name="it_IT.js" role="horde" />
-      <file name="ja_JP.js" role="horde" />
-      <file name="km_KH.js" role="horde" />
-      <file name="nl_NL.js" role="horde" />
-      <file name="nn_NO.js" role="horde" />
-      <file name="pt_BR.js" role="horde" />
-      <file name="pt_PT.js" role="horde" />
-      <file name="ru_RU.js" role="horde" />
-      <file name="sk_SK.js" role="horde" />
-      <file name="sv_SE.js" role="horde" />
-      <file name="zh_CN.js" role="horde" />
-      <file name="zh_TW.js" role="horde" />
+      <file name="ar-SY.js" role="horde" />
+      <file name="bg-BG.js" role="horde" />
+      <file name="ca-ES.js" role="horde" />
+      <file name="cs-CZ.js" role="horde" />
+      <file name="da-DK.js" role="horde" />
+      <file name="de-DE.js" role="horde" />
+      <file name="el-GR.js" role="horde" />
+      <file name="en-CA.js" role="horde" />
+      <file name="es-ES.js" role="horde" />
+      <file name="fi-FI.js" role="horde" />
+      <file name="fr-FR.js" role="horde" />
+      <file name="gl-ES.js" role="horde" />
+      <file name="hr-HR.js" role="horde" />
+      <file name="hu-HU.js" role="horde" />
+      <file name="id-ID.js" role="horde" />
+      <file name="is-IS.js" role="horde" />
+      <file name="it-IT.js" role="horde" />
+      <file name="ja-JP.js" role="horde" />
+      <file name="km-KH.js" role="horde" />
+      <file name="nl-NL.js" role="horde" />
+      <file name="nn-NO.js" role="horde" />
+      <file name="no-NO.js" role="horde" />
+      <file name="pt-BR.js" role="horde" />
+      <file name="pt-PT.js" role="horde" />
+      <file name="ru-RU.js" role="horde" />
+      <file name="sk-SK.js" role="horde" />
+      <file name="sv-SE.js" role="horde" />
+      <file name="te-TE.js" role="horde" />
+      <file name="vi-VI.js" role="horde" />
+      <file name="zh-CN.js" role="horde" />
+      <file name="zh-TW.js" role="horde" />
      </dir> <!-- /js/map/lang -->
      <dir name="theme">
       <dir name="default">
@@ -296,18 +302,27 @@
        </dir> <!-- /js/map/theme/default/img -->
        <file name="framedCloud.css" role="horde" />
        <file name="google.css" role="horde" />
+       <file name="google.tidy.css" role="horde" />
        <file name="ie6-style.css" role="horde" />
+       <file name="ie6-style.tidy.css" role="horde" />
        <file name="style.css" role="horde" />
+       <file name="style.tidy.css" role="horde" />
       </dir> <!-- /js/map/theme/default -->
      </dir> <!-- /js/map/theme -->
+     <file name="bing.js" role="horde" />
      <file name="cloudmade.js" role="horde" />
      <file name="google.js" role="horde" />
      <file name="horde.js" role="horde" />
      <file name="map.js" role="horde" />
+     <file name="mapquest.js" role="horde" />
+     <file name="mytopo.js" role="horde" />
      <file name="null.js" role="horde" />
+     <file name="ocm.js" role="horde" />
      <file name="OpenLayers-debug.js" role="horde" />
      <file name="OpenLayers.js" role="horde" />
+     <file name="osm.js" role="horde" />
      <file name="public.js" role="horde" />
+     <file name="tilesathome.js" role="horde" />
      <file name="ve.js" role="horde" />
      <file name="yahoo.js" role="horde" />
     </dir> <!-- /js/map -->
@@ -817,6 +832,9 @@
       <file name="delete.inc" role="horde" />
       <file name="edit.inc" role="horde" />
      </dir> <!-- /templates/admin/groups -->
+     <dir name="locks">
+      <file name="list.html.php" role="horde" />
+     </dir> <!-- /templates/admin/locks -->
      <dir name="user">
       <file name="add.inc" role="horde" />
       <file name="approve.inc" role="horde" />
@@ -2420,6 +2438,7 @@
    <install as="admin/datatree.php" name="admin/datatree.php" />
    <install as="admin/groups.php" name="admin/groups.php" />
    <install as="admin/index.html" name="admin/index.html" />
+   <install as="admin/locks.php" name="admin/locks.php" />
    <install as="admin/phpshell.php" name="admin/phpshell.php" />
    <install as="admin/sessions.php" name="admin/sessions.php" />
    <install as="admin/signup_confirm.php" name="admin/signup_confirm.php" />
@@ -2582,14 +2601,20 @@
    <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
    <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
    <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
+   <install as="js/map/bing.js" name="js/map/bing.js" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
    <install as="js/map/google.js" name="js/map/google.js" />
    <install as="js/map/horde.js" name="js/map/horde.js" />
    <install as="js/map/map.js" name="js/map/map.js" />
+   <install as="js/map/mapquest.js" name="js/map/mapquest.js" />
+   <install as="js/map/mytopo.js" name="js/map/mytopo.js" />
    <install as="js/map/null.js" name="js/map/null.js" />
+   <install as="js/map/ocm.js" name="js/map/ocm.js" />
    <install as="js/map/OpenLayers-debug.js" name="js/map/OpenLayers-debug.js" />
    <install as="js/map/OpenLayers.js" name="js/map/OpenLayers.js" />
+   <install as="js/map/osm.js" name="js/map/osm.js" />
    <install as="js/map/public.js" name="js/map/public.js" />
+   <install as="js/map/tilesathome.js" name="js/map/tilesathome.js" />
    <install as="js/map/ve.js" name="js/map/ve.js" />
    <install as="js/map/yahoo.js" name="js/map/yahoo.js" />
    <install as="js/map/img/blank.gif" name="js/map/img/blank.gif" />
@@ -2599,6 +2624,7 @@
    <install as="js/map/img/east-mini.png" name="js/map/img/east-mini.png" />
    <install as="js/map/img/layer-switcher-maximize.png" name="js/map/img/layer-switcher-maximize.png" />
    <install as="js/map/img/layer-switcher-minimize.png" name="js/map/img/layer-switcher-minimize.png" />
+   <install as="js/map/img/marker.png" name="js/map/img/marker.png" />
    <install as="js/map/img/measuring-stick-off.png" name="js/map/img/measuring-stick-off.png" />
    <install as="js/map/img/measuring-stick-on.png" name="js/map/img/measuring-stick-on.png" />
    <install as="js/map/img/north-mini.png" name="js/map/img/north-mini.png" />
@@ -2611,37 +2637,44 @@
    <install as="js/map/img/zoom-plus-mini.png" name="js/map/img/zoom-plus-mini.png" />
    <install as="js/map/img/zoom-world-mini.png" name="js/map/img/zoom-world-mini.png" />
    <install as="js/map/img/zoombar.png" name="js/map/img/zoombar.png" />
-   <install as="js/map/lang/ar_SY.js" name="js/map/lang/ar_SY.js" />
-   <install as="js/map/lang/bg_BG.js" name="js/map/lang/bg_BG.js" />
-   <install as="js/map/lang/ca_ES.js" name="js/map/lang/ca_ES.js" />
-   <install as="js/map/lang/cs_CZ.js" name="js/map/lang/cs_CZ.js" />
-   <install as="js/map/lang/da_DK.js" name="js/map/lang/da_DK.js" />
-   <install as="js/map/lang/de_DE.js" name="js/map/lang/de_DE.js" />
-   <install as="js/map/lang/el_GR.js" name="js/map/lang/el_GR.js" />
-   <install as="js/map/lang/en_CA.js" name="js/map/lang/en_CA.js" />
-   <install as="js/map/lang/es_ES.js" name="js/map/lang/es_ES.js" />
-   <install as="js/map/lang/fi_FI.js" name="js/map/lang/fi_FI.js" />
-   <install as="js/map/lang/fr_FR.js" name="js/map/lang/fr_FR.js" />
-   <install as="js/map/lang/gl_ES.js" name="js/map/lang/gl_ES.js" />
-   <install as="js/map/lang/hu_HU.js" name="js/map/lang/hu_HU.js" />
-   <install as="js/map/lang/id_ID.js" name="js/map/lang/id_ID.js" />
-   <install as="js/map/lang/is_IS.js" name="js/map/lang/is_IS.js" />
-   <install as="js/map/lang/it_IT.js" name="js/map/lang/it_IT.js" />
-   <install as="js/map/lang/ja_JP.js" name="js/map/lang/ja_JP.js" />
-   <install as="js/map/lang/km_KH.js" name="js/map/lang/km_KH.js" />
-   <install as="js/map/lang/nl_NL.js" name="js/map/lang/nl_NL.js" />
-   <install as="js/map/lang/nn_NO.js" name="js/map/lang/nn_NO.js" />
-   <install as="js/map/lang/pt_BR.js" name="js/map/lang/pt_BR.js" />
-   <install as="js/map/lang/pt_PT.js" name="js/map/lang/pt_PT.js" />
-   <install as="js/map/lang/ru_RU.js" name="js/map/lang/ru_RU.js" />
-   <install as="js/map/lang/sk_SK.js" name="js/map/lang/sk_SK.js" />
-   <install as="js/map/lang/sv_SE.js" name="js/map/lang/sv_SE.js" />
-   <install as="js/map/lang/zh_CN.js" name="js/map/lang/zh_CN.js" />
-   <install as="js/map/lang/zh_TW.js" name="js/map/lang/zh_TW.js" />
+   <install as="js/map/lang/ar-SY.js" name="js/map/lang/ar-SY.js" />
+   <install as="js/map/lang/bg-BG.js" name="js/map/lang/bg-BG.js" />
+   <install as="js/map/lang/ca-ES.js" name="js/map/lang/ca-ES.js" />
+   <install as="js/map/lang/cs-CZ.js" name="js/map/lang/cs-CZ.js" />
+   <install as="js/map/lang/da-DK.js" name="js/map/lang/da-DK.js" />
+   <install as="js/map/lang/de-DE.js" name="js/map/lang/de-DE.js" />
+   <install as="js/map/lang/el-GR.js" name="js/map/lang/el-GR.js" />
+   <install as="js/map/lang/en-CA.js" name="js/map/lang/en-CA.js" />
+   <install as="js/map/lang/es-ES.js" name="js/map/lang/es-ES.js" />
+   <install as="js/map/lang/fi-FI.js" name="js/map/lang/fi-FI.js" />
+   <install as="js/map/lang/fr-FR.js" name="js/map/lang/fr-FR.js" />
+   <install as="js/map/lang/gl-ES.js" name="js/map/lang/gl-ES.js" />
+   <install as="js/map/lang/hr-HR.js" name="js/map/lang/hr-HR.js" />
+   <install as="js/map/lang/hu-HU.js" name="js/map/lang/hu-HU.js" />
+   <install as="js/map/lang/id-ID.js" name="js/map/lang/id-ID.js" />
+   <install as="js/map/lang/is-IS.js" name="js/map/lang/is-IS.js" />
+   <install as="js/map/lang/it-IT.js" name="js/map/lang/it-IT.js" />
+   <install as="js/map/lang/ja-JP.js" name="js/map/lang/ja-JP.js" />
+   <install as="js/map/lang/km-KH.js" name="js/map/lang/km-KH.js" />
+   <install as="js/map/lang/nl-NL.js" name="js/map/lang/nl-NL.js" />
+   <install as="js/map/lang/nn-NO.js" name="js/map/lang/nn-NO.js" />
+   <install as="js/map/lang/no-NO.js" name="js/map/lang/no-NO.js" />
+   <install as="js/map/lang/pt-BR.js" name="js/map/lang/pt-BR.js" />
+   <install as="js/map/lang/pt-PT.js" name="js/map/lang/pt-PT.js" />
+   <install as="js/map/lang/ru-RU.js" name="js/map/lang/ru-RU.js" />
+   <install as="js/map/lang/sk-SK.js" name="js/map/lang/sk-SK.js" />
+   <install as="js/map/lang/sv-SE.js" name="js/map/lang/sv-SE.js" />
+   <install as="js/map/lang/te-TE.js" name="js/map/lang/te-TE.js" />
+   <install as="js/map/lang/vi-VI.js" name="js/map/lang/vi-VI.js" />
+   <install as="js/map/lang/zh-CN.js" name="js/map/lang/zh-CN.js" />
+   <install as="js/map/lang/zh-TW.js" name="js/map/lang/zh-TW.js" />
    <install as="js/map/theme/default/framedCloud.css" name="js/map/theme/default/framedCloud.css" />
    <install as="js/map/theme/default/google.css" name="js/map/theme/default/google.css" />
+   <install as="js/map/theme/default/google.tidy.css" name="js/map/theme/default/google.tidy.css" />
    <install as="js/map/theme/default/ie6-style.css" name="js/map/theme/default/ie6-style.css" />
+   <install as="js/map/theme/default/ie6-style.tidy.css" name="js/map/theme/default/ie6-style.tidy.css" />
    <install as="js/map/theme/default/style.css" name="js/map/theme/default/style.css" />
+   <install as="js/map/theme/default/style.tidy.css" name="js/map/theme/default/style.tidy.css" />
    <install as="js/map/theme/default/img/add_point_off.png" name="js/map/theme/default/img/add_point_off.png" />
    <install as="js/map/theme/default/img/add_point_on.png" name="js/map/theme/default/img/add_point_on.png" />
    <install as="js/map/theme/default/img/blank.gif" name="js/map/theme/default/img/blank.gif" />
@@ -2909,6 +2942,7 @@
    <install as="templates/admin/groups/add.inc" name="templates/admin/groups/add.inc" />
    <install as="templates/admin/groups/delete.inc" name="templates/admin/groups/delete.inc" />
    <install as="templates/admin/groups/edit.inc" name="templates/admin/groups/edit.inc" />
+   <install as="templates/admin/locks/list.html.php" name="templates/admin/locks/list.html.php" />
    <install as="templates/admin/user/add.inc" name="templates/admin/user/add.inc" />
    <install as="templates/admin/user/approve.inc" name="templates/admin/user/approve.inc" />
    <install as="templates/admin/user/clear.inc" name="templates/admin/user/clear.inc" />
@@ -4241,7 +4275,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-08</date>
+   <date>2011-09-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add administration page to list and clear locks.
