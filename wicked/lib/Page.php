@@ -411,38 +411,40 @@ class Wicked_Page
          * character. See http://pear.php.net/bugs/bug.php?id=12490. */
         $this->_proc->delim = chr(1);
 
+        /* Override rules */
+        if ($GLOBALS['conf']['wicked']['format'] != 'Creole') {
+            $this->_proc->insertRule('Code2', 'Code');
+            $this->_proc->deleteRule('Code');
+        }
+
+        if ($GLOBALS['conf']['wicked']['format'] == 'BBCode') {
+            $this->_proc->insertRule('Wickedblock', 'Code2');
+        } else {
+            $this->_proc->insertRule('Wikilink2', 'Wikilink');
+            $this->_proc->setParseConf('Wikilink2', 'utf-8', true);
+            $this->_proc->deleteRule('Wikilink');
+
+            $this->_proc->insertRule('Wickedblock', 'Raw');
+        }
+
+        if ($GLOBALS['conf']['wicked']['format'] == 'Default' ||
+            $GLOBALS['conf']['wicked']['format'] == 'Cowiki' ||
+            $GLOBALS['conf']['wicked']['format'] == 'Tiki') {
+            $this->_proc->insertRule('Freelink2', 'Freelink');
+            $this->_proc->deleteRule('Freelink');
+        }
+
+        $this->_proc->insertRule('Image2', 'Image');
+        $this->_proc->deleteRule('Image');
+        $this->_proc->insertRule('RegistryLink', 'Wickedblock');
+        $this->_proc->insertRule('Attribute', 'RegistryLink');
+
+        $this->_proc->deleteRule('Include');
+        $this->_proc->deleteRule('Embed');
+
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Parse/', WICKED_BASE . '/lib/Text_Wiki/Parse/' . $GLOBALS['conf']['wicked']['format']));
+
         if ($output_format == 'Xhtml') {
-            /* Override rules */
-            if ($GLOBALS['conf']['wicked']['format'] != 'Creole') {
-                $this->_proc->insertRule('Code2', 'Code');
-                $this->_proc->deleteRule('Code');
-            }
-
-            if ($GLOBALS['conf']['wicked']['format'] == 'BBCode') {
-                $this->_proc->insertRule('Wickedblock', 'Code2');
-            } else {
-                $this->_proc->insertRule('Wikilink2', 'Wikilink');
-                $this->_proc->setParseConf('Wikilink2', 'utf-8', true);
-                $this->_proc->deleteRule('Wikilink');
-
-                $this->_proc->insertRule('Wickedblock', 'Raw');
-            }
-
-            if ($GLOBALS['conf']['wicked']['format'] == 'Default' ||
-                $GLOBALS['conf']['wicked']['format'] == 'Cowiki' ||
-                $GLOBALS['conf']['wicked']['format'] == 'Tiki') {
-                $this->_proc->insertRule('Freelink2', 'Freelink');
-                $this->_proc->deleteRule('Freelink');
-            }
-
-            $this->_proc->insertRule('Image2', 'Image');
-            $this->_proc->deleteRule('Image');
-            $this->_proc->insertRule('RegistryLink', 'Wickedblock');
-            $this->_proc->insertRule('Attribute', 'RegistryLink');
-
-            $this->_proc->deleteRule('Include');
-            $this->_proc->deleteRule('Embed');
-
             $this->_proc->setFormatConf('Xhtml', 'charset', 'UTF-8');
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
             $create = $this->allows(Wicked::MODE_CREATE) ? 1 : 0;
@@ -469,9 +471,6 @@ class Wicked_Page
             require_once dirname(__FILE__) . '/Text_Wiki/Render/Rst.php';
             $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Rst/', WICKED_BASE . '/lib/Text_Wiki/Render/Rst'));
         }
-
-
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Parse/', WICKED_BASE . '/lib/Text_Wiki/Parse/' . $GLOBALS['conf']['wicked']['format']));
 
         return $this->_proc;
     }
