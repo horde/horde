@@ -39,10 +39,11 @@ abstract class Horde_Db_Adapter_Base_Schema
     ##########################################################################*/
 
     /**
-     * @param Horde_Db_Adapter_Base $adapter
-     * @param array $config
+     * Constructor.
+     *
+     * @param Horde_Db_Adapter_Base $adapter  A Horde_Db_Adapter instance.
      */
-    public function __construct(Horde_Db_Adapter $adapter, $config = array())
+    public function __construct(Horde_Db_Adapter $adapter)
     {
         $this->setAdapter($adapter);
     }
@@ -252,7 +253,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function quoteDate($value)
     {
-        return $this->_adapter->quoteString((string)$value);
+        return $this->quoteString((string)$value);
     }
 
     /**

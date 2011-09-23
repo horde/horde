@@ -7,10 +7,11 @@ require_once dirname(__FILE__) . '/TestBase.php';
  * @package Turba
  * @subpackage UnitTests
  */
-class Turba_ViewListTest extends Turba_TestBase {
+class Turba_ToDo_ListViewTest extends Turba_TestBase {
 
     function setUp()
     {
+        $this->markTestIncomplete('Convert to use Horde_Test.');
         parent::setUp();
         $this->setUpDatabase();
         require_once dirname(__FILE__) . '/../View/List.php';

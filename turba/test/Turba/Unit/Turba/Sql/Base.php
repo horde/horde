@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the Kolab driver.
+ * Test the core Turba class with a SQL backend.
  *
  * PHP version 5
  *
@@ -13,12 +13,7 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once dirname(__FILE__) . '/../../Autoload.php';
-
-/**
- * Test the Kolab driver.
+ * Test the core Turba class with a SQL backend.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -30,16 +25,12 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/turba
- * @license    http://www.horde.org/licenses/apache Apache-like
- */
-class Turba_Unit_Driver_KolabTest
-extends Turba_Unit_Driver_Base
+ * @license    http://www.horde.org/licenses/apache Apache-li */
+class Turba_Unit_Turba_Sql_Base extends Turba_Unit_Turba_Base
 {
-    protected $backupGlobals = false;
-
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::$driver = self::createKolabDriverWithShares(self::$setup);
+        self::createSqlShares(self::$setup);
     }
 }

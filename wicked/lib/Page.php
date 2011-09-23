@@ -429,6 +429,8 @@ class Wicked_Page
 
                 $this->_proc->deleteRule('Include');
                 $this->_proc->deleteRule('Embed');
+            } elseif ($GLOBALS['conf']['wicked']['format'] == 'Creole') {
+                $this->_proc->insertRule('Wickedblock', 'Raw');
             } else {
                 $this->_proc->insertRule('Wickedblock', 'Code');
             }
@@ -436,7 +438,11 @@ class Wicked_Page
             $this->_proc->insertRule('Image2', 'Image');
             $this->_proc->deleteRule('Image');
 
-            $this->_proc->insertRule('RegistryLink', 'Toc');
+            if ($GLOBALS['conf']['wicked']['format'] == 'Creole') {
+                $this->_proc->insertRule('RegistryLink', 'Heading');
+            } else {
+                $this->_proc->insertRule('RegistryLink', 'Toc');
+            }
             $this->_proc->insertRule('Attribute', 'RegistryLink');
 
             $this->_proc->setFormatConf('Xhtml', 'charset', 'UTF-8');

@@ -2,6 +2,8 @@
 v5.0.14-git
 -----------
 
+[jan] Fix sending notifications after download of linked attachments (Bug
+      #10539).
 
 
 -------

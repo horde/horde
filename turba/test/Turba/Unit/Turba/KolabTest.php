@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the Kolab driver.
+ * Test the core Turba class with the Kolab backend.
  *
  * PHP version 5
  *
@@ -18,7 +18,7 @@
 require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
- * Test the Kolab driver.
+ * Test the core Turba class with the Kolab backend.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -32,14 +32,21 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @link       http://www.horde.org/apps/turba
  * @license    http://www.horde.org/licenses/apache Apache-like
  */
-class Turba_Unit_Driver_KolabTest
-extends Turba_Unit_Driver_Base
+class Turba_Unit_Turba_KolabTest extends Turba_Unit_Turba_Base
 {
     protected $backupGlobals = false;
 
+    /**
+     * The default share name expected to be used.
+     *
+     * @var string
+     */
+    protected $default_name = 'Contacts';
+
     public static function setUpBeforeClass()
     {
+        self::$setup = new Horde_Test_Setup();
         parent::setUpBeforeClass();
-        self::$driver = self::createKolabDriverWithShares(self::$setup);
+        self::createKolabShares(self::$setup);
     }
 }

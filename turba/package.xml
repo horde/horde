@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-21</date>
- <time>11:39:57</time>
+ <date>2011-09-22</date>
+ <time>06:39:28</time>
  <version>
   <release>3.0.10</release>
   <api>3.0.0</api>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [gwr] Avoid including the owner name into the default share (Kolab backend).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -468,10 +468,8 @@
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Turba">
-     <dir name="Integration">
-      <file name="ApiTest.php" role="test" />
-     </dir> <!-- /test/Turba/Integration -->
      <dir name="ToDo">
+      <file name="ApiTest.php" role="test" />
       <file name="az.png" role="test" />
       <file name="BrowsePageTest.php" role="test" />
       <file name="bug_6518.phpt" role="test" />
@@ -494,8 +492,25 @@
      </dir> <!-- /test/Turba/ToDo -->
      <dir name="Unit">
       <dir name="Driver">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Turba/Unit/Driver/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Turba/Unit/Driver/Sql -->
+       <file name="Base.php" role="test" />
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Turba/Unit/Driver -->
+      <dir name="Turba">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Turba/Unit/Turba/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Turba/Unit/Turba/Sql -->
+       <file name="Base.php" role="test" />
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Turba/Unit/Turba -->
      </dir> <!-- /test/Turba/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -1002,7 +1017,7 @@
    <install as="Turba/Autoload.php" name="test/Turba/Autoload.php" />
    <install as="Turba/phpunit.xml" name="test/Turba/phpunit.xml" />
    <install as="Turba/TestCase.php" name="test/Turba/TestCase.php" />
-   <install as="Turba/Integration/ApiTest.php" name="test/Turba/Integration/ApiTest.php" />
+   <install as="Turba/ToDo/ApiTest.php" name="test/Turba/ToDo/ApiTest.php" />
    <install as="Turba/ToDo/az.png" name="test/Turba/ToDo/az.png" />
    <install as="Turba/ToDo/BrowsePageTest.php" name="test/Turba/ToDo/BrowsePageTest.php" />
    <install as="Turba/ToDo/bug_6518.phpt" name="test/Turba/ToDo/bug_6518.phpt" />
@@ -1022,7 +1037,14 @@
    <install as="Turba/ToDo/tovcard.phpt" name="test/Turba/ToDo/tovcard.phpt" />
    <install as="Turba/ToDo/ViewBrowseTest.php" name="test/Turba/ToDo/ViewBrowseTest.php" />
    <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
+   <install as="Turba/Unit/Driver/Base.php" name="test/Turba/Unit/Driver/Base.php" />
    <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
+   <install as="Turba/Unit/Driver/Sql/Base.php" name="test/Turba/Unit/Driver/Sql/Base.php" />
+   <install as="Turba/Unit/Driver/Sql/Pdo/SqliteTest.php" name="test/Turba/Unit/Driver/Sql/Pdo/SqliteTest.php" />
+   <install as="Turba/Unit/Turba/Base.php" name="test/Turba/Unit/Turba/Base.php" />
+   <install as="Turba/Unit/Turba/KolabTest.php" name="test/Turba/Unit/Turba/KolabTest.php" />
+   <install as="Turba/Unit/Turba/Sql/Base.php" name="test/Turba/Unit/Turba/Sql/Base.php" />
+   <install as="Turba/Unit/Turba/Sql/Pdo/SqliteTest.php" name="test/Turba/Unit/Turba/Sql/Pdo/SqliteTest.php" />
    <install as="turba/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="turba/themes/default/ie6_or_less.css" name="themes/default/ie6_or_less.css" />
    <install as="turba/themes/default/ie7.css" name="themes/default/ie7.css" />
@@ -1289,7 +1311,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-21</date>
+   <date>2011-09-22</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [rla] #9343 Turba LDAP Driver now only rewrites changed attributes
@@ -1310,7 +1332,7 @@
    <date>2011-09-21</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [gwr] Avoid including the owner name into the default share (Kolab backend).
    </notes>
   </release>
  </changelog>

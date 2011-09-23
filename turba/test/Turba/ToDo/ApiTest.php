@@ -34,8 +34,13 @@ require_once dirname(__FILE__) . '/../Autoload.php';
  * @link       http://www.horde.org/apps/turba
  * @license    http://www.horde.org/licenses/apache Apache-like
  */
-class Turba_Integration_ApiTest extends Turba_TestCase
+class Turba_ToDo_ApiTest extends Turba_TestCase
 {
+    public function setUp()
+    {
+        $this->markTestIncomplete('Convert to use Horde_Test.');
+    }
+
     public function testSearchApi()
     {
         global $registry;

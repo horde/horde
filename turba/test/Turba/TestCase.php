@@ -35,51 +35,176 @@ extends PHPUnit_Framework_TestCase
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
-    protected function getKolabDriver()
+    static protected function createBasicTurbaSetup(Horde_Test_Setup $setup)
     {
-        $GLOBALS['injector'] = $this->getInjector();
-        $kolab_factory = new Horde_Kolab_Storage_Factory(
+        $setup->setup(
             array(
-                'driver' => 'mock',
-                'queryset' => array('list' => array('queryset' => 'horde')),
-                'params' => array(
-                    'username' => 'test@example.com',
-                    'host' => 'localhost',
-                    'port' => 143,
-                    'data' => array(
-                        'user/test' => array(
-                            'permissions' => array('anyone' => 'alrid')
-                        )
-                    )
-                )
+                '_PARAMS' => array(
+                    'user' => 'test@example.com',
+                    'app' => 'turba'
+                ),
+                'Horde_Prefs' => 'Prefs',
+                'Horde_Perms' => 'Perms',
+                'Horde_Group' => 'Group',
+                'Horde_History' => 'History',
+                'Horde_Registry' => 'Registry',
             )
         );
-        $this->storage = $kolab_factory->create();
-        $GLOBALS['injector']->setInstance('Horde_Kolab_Storage', $this->storage);
-        $GLOBALS['turba_shares'] = new Horde_Share_Kolab(
-            'turba', 'test@example.com', new Horde_Perms_Null(), new Horde_Group_Mock()
+        $setup->makeGlobal(
+            array(
+                'prefs' => 'Horde_Prefs',
+                'registry' => 'Horde_Registry',
+                'injector' => 'Horde_Injector',
+            )
         );
-        $GLOBALS['turba_shares']->setStorage($this->storage);
-        $this->share = $GLOBALS['turba_shares']->newShare(
-            'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Addressbook of Tester"
-        );
-        $GLOBALS['turba_shares']->addShare($this->share);
-        $this->other_share = $GLOBALS['turba_shares']->newShare(
-            'test@example.com',
-            strval(new Horde_Support_Randomid()),
-            "Other addressbook of Tester"
-        );
-        $GLOBALS['turba_shares']->addShare($this->other_share);
-        $GLOBALS['cfgSources'][$this->share->getName()]['type'] = 'Kolab';
-        $GLOBALS['cfgSources'][$this->share->getName()]['title'] = $this->share->get('name');
-        $GLOBALS['cfgSources'][$this->share->getName()]['map'] = $this->_getKolabMap();
-        $factory = new Turba_Factory_Driver($GLOBALS['injector']);
-        return $factory->create($this->share->getName());
+        $GLOBALS['session'] = new Horde_Session();
+        $GLOBALS['conf']['prefs']['driver'] = 'Null';
     }
 
-    private function _getKolabMap()
+    static protected function tearDownBasicTurbaSetup()
+    {
+        unset(
+            $GLOBALS['session'],
+            $GLOBALS['prefs'],
+            $GLOBALS['injector'],
+            $GLOBALS['registry'],
+            $GLOBALS['conf']
+        );
+    }
+
+    static protected function createSqlPdoSqlite(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
+            array(
+                'Horde_Db_Adapter' => array(
+                    'factory' => 'Db',
+                    'params' => array(
+                        'migrations' => array(
+                            'migrationsPath' => dirname(__FILE__) . '/../../migration',
+                            'schemaTableName' => 'turba_test_schema'
+                        )
+                    )
+                ),
+            )
+        );
+    }
+
+    static protected function createSqlShares(Horde_Test_Setup $setup)
+    {
+        $setup->getInjector()->setInstance(
+            'Horde_Core_Factory_Db',
+            new Horde_Test_Stub_Factory(
+                $setup->getInjector()->getInstance('Horde_Db_Adapter')
+            )
+        );
+        $setup->setup(
+            array(
+                'Horde_Share_Base' => 'Share',
+            )
+        );
+        $setup->makeGlobal(
+            array(
+                'turba_shares' => 'Horde_Share_Base',
+            )
+        );
+        $GLOBALS['cfgSources']['test']['type'] = 'Sql';
+        $GLOBALS['cfgSources']['test']['title'] = 'SQL';
+        $GLOBALS['cfgSources']['test']['map'] = self::_getSqlMap();
+    }
+
+    static protected function createKolabShares(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
+            array(
+                'Horde_Kolab_Storage' => array(
+                    'factory' => 'KolabStorage',
+                    'params' => array(
+                        'imapuser' => 'test',
+                    )
+                ),
+                'Horde_Share_Base' => array(
+                    'factory' => 'Share',
+                    'method' => 'Kolab',
+                ),
+            )
+        );
+        $setup->makeGlobal(
+            array(
+                'turba_shares' => 'Horde_Share_Base',
+            )
+        );
+        $setup->getInjector()->setInstance(
+            'Horde_Core_Factory_Share',
+            new Horde_Test_Stub_Factory(
+                $setup->getInjector()->getInstance('Horde_Share_Base')
+            )
+        );
+        $GLOBALS['cfgSources']['test']['type'] = 'Kolab';
+        $GLOBALS['cfgSources']['test']['title'] = 'Kolab';
+        $GLOBALS['cfgSources']['test']['map'] = self::_getKolabMap();
+    }
+
+    static protected function tearDownShares()
+    {
+        unset(
+            $GLOBALS['cfgSources'],
+            $GLOBALS['turba_shares']
+        );
+    }
+
+    static protected function getKolabDriver()
+    {
+        $setup = new Horde_Test_Setup();
+        self::createBasicTurbaSetup($setup);
+        return self::createKolabDriverWithShares();
+    }
+
+    static protected function createKolabDriverWithShares($setup)
+    {
+        self::createKolabShares($setup);
+        list($share, $other_share) = self::_createDefaultShares();
+
+        $GLOBALS['cfgSources'][$share->getName()]['type'] = 'Kolab';
+        $GLOBALS['cfgSources'][$share->getName()]['title'] = $share->get('name');
+        $GLOBALS['cfgSources'][$share->getName()]['map'] = self::_getKolabMap();
+        return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')
+            ->create($share->getName());
+    }
+
+    static protected function createSqlDriverWithShares($setup)
+    {
+        self::createSqlShares($setup);
+        list($share, $other_share) = self::_createDefaultShares();
+
+        $GLOBALS['cfgSources'][$share->getName()]['type'] = 'Sql';
+        $GLOBALS['cfgSources'][$share->getName()]['title'] = $share->get('name');
+        $GLOBALS['cfgSources'][$share->getName()]['map'] = self::_getSqlMap();
+        $GLOBALS['cfgSources'][$share->getName()]['params']['table'] = 'turba_objects';
+        return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')
+            ->create($share->getName());
+    }
+
+    static protected function _createDefaultShares()
+    {
+        $share = self::_createShare(
+            'Address book of Tester', 'test@example.com'
+        );
+        $other_share = self::_createShare(
+            'Other address book of Tester', 'test@example.com'
+        );
+        return array($share, $other_share);
+    }
+
+    static private function _createShare($name, $owner)
+    {
+        $share = $GLOBALS['turba_shares']->newShare(
+            $owner, strval(new Horde_Support_Randomid()), $name
+        );
+        $GLOBALS['turba_shares']->addShare($share);
+        return $share;
+    }
+
+    static private function _getKolabMap()
     {
         return array(
             '__key' => 'uid',
@@ -158,6 +283,86 @@ extends PHPUnit_Framework_TestCase
             /* Invisible */
             'email'             => 'email',
             'pgpPublicKey'      => 'pgp-publickey',
+        );
+    }
+
+    static private function _getSqlMap()
+    {
+        return array(
+            '__key' => 'object_id',
+            '__owner' => 'owner_id',
+            '__type' => 'object_type',
+            '__members' => 'object_members',
+            '__uid' => 'object_uid',
+            'firstname' => 'object_firstname',
+            'lastname' => 'object_lastname',
+            'middlenames' => 'object_middlenames',
+            'namePrefix' => 'object_nameprefix',
+            'nameSuffix' => 'object_namesuffix',
+            'name' => array('fields' => array('namePrefix', 'firstname',
+                                              'middlenames', 'lastname',
+                                              'nameSuffix'),
+                            'format' => '%s %s %s %s %s',
+                            'parse' => array(
+                                array('fields' => array('firstname', 'middlenames',
+                                                        'lastname'),
+                                      'format' => '%s %s %s'),
+                                array('fields' => array('firstname', 'lastname'),
+                                      'format' => '%s %s'))),
+            // This is a shorter version of a "name" composite field which only
+            // consists of the first name and last name.
+            // 'name' => array('fields' => array('firstname', 'lastname'),
+            //                 'format' => '%s %s'),
+            'alias' => 'object_alias',
+            'birthday' => 'object_bday',
+            'anniversary' => 'object_anniversary',
+            'spouse' => 'object_spouse',
+            'photo' => 'object_photo',
+            'phototype' => 'object_phototype',
+            'homeStreet' => 'object_homestreet',
+            'homePOBox' => 'object_homepob',
+            'homeCity' => 'object_homecity',
+            'homeProvince' => 'object_homeprovince',
+            'homePostalCode' => 'object_homepostalcode',
+            'homeCountry' => 'object_homecountry',
+            'homeAddress' => array('fields' => array('homeStreet', 'homeCity',
+                                                     'homeProvince',
+                                                     'homePostalCode'),
+                                   'format' => "%s \n %s, %s  %s"),
+            'workStreet' => 'object_workstreet',
+            'workPOBox' => 'object_workpob',
+            'workCity' => 'object_workcity',
+            'workProvince' => 'object_workprovince',
+            'workPostalCode' => 'object_workpostalcode',
+            'workCountry' => 'object_workcountry',
+            'workAddress' => array('fields' => array('workStreet', 'workCity',
+                                                     'workProvince',
+                                                     'workPostalCode'),
+                                   'format' => "%s \n %s, %s  %s"),
+            'department' => 'object_department',
+            'timezone' => 'object_tz',
+            'email' => 'object_email',
+            'homePhone' => 'object_homephone',
+            'homeFax' => 'object_homefax',
+            'workPhone' => 'object_workphone',
+            'cellPhone' => 'object_cellphone',
+            'assistPhone' => 'object_assistantphone',
+            'fax' => 'object_fax',
+            'pager' => 'object_pager',
+            'title' => 'object_title',
+            'role' => 'object_role',
+            'company' => 'object_company',
+            'logo' => 'object_logo',
+            'logotype' => 'object_logotype',
+            'category' => 'object_category',
+            'notes' => 'object_notes',
+            'website' => 'object_url',
+            'freebusyUrl' => 'object_freebusyurl',
+            'pgpPublicKey' => 'object_pgppublickey',
+            'smimePublicKey' => 'object_smimepublickey',
+            'imaddress' => 'object_imaddress',
+            'imaddress2' => 'object_imaddress2',
+            'imaddress3' => 'object_imaddress3'
         );
     }
 }
