@@ -700,7 +700,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $GLOBALS['session']->start();
 
             if (isset($this->_vars->delhide)) {
-                $result->ViewPort->resetmd = 1;
+                $result->ViewPort->metadata_reset = 1;
             }
         } else {
             $result = false;
@@ -819,7 +819,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         } else {
             $result->ViewPort = new stdClass;
             $result->ViewPort->cacheid = $this->_mbox->cacheid;
-            $result->ViewPort->update = 1;
+            $result->ViewPort->rowlist_reset = 1;
             $result->ViewPort->view = $this->_mbox->form_to;
         }
 
@@ -1057,7 +1057,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                     if ($cacheid != $this->_vars->cacheid) {
                         $result->ViewPort = new stdClass;
                         $result->ViewPort->cacheid = $cacheid;
-                        $result->ViewPort->update = 1;
+                        $result->ViewPort->rowlist_reset = 1;
                         $result->ViewPort->view = $this->_mbox->form_to;
                     }
                 }
@@ -1900,7 +1900,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 }
                 $result->ViewPort->disappear = $disappear;
             }
-            $result->ViewPort->update = 1;
             $result->ViewPort->view = $this->_mbox->form_to;
         }
 

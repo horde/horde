@@ -222,8 +222,7 @@ class IMP_Views_ListMessages
 
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
-         * purge the cached items on the browser (send 'reset' param to
-         * ViewPort). */
+         * purge the cached items on the browser. */
         if (!$is_search &&
             !empty($args['cacheid']) &&
             !empty($args['cache'])) {
@@ -238,15 +237,15 @@ class IMP_Views_ListMessages
 
             if ($uid_expire) {
                 $args['cache'] = array();
-                $result->reset = $result->resetmd = 1;
+                $result->data_reset = $result->metadata_reset = 1;
             }
         }
 
         /* TODO: This can potentially be optimized for arrival time sort - if
          * the cache ID changes, we know the changes must occur at end of
          * mailbox. */
-        if (!isset($result->reset) && !empty($args['change'])) {
-            $result->update = 1;
+        if (!isset($result->data_reset) && !empty($args['change'])) {
+            $result->rowlist_reset = 1;
         }
 
         /* Get the cached list. */
@@ -316,7 +315,7 @@ class IMP_Views_ListMessages
         /* If we are updating the rowlist on the browser, and we have cached
          * browser data information, we need to send a list of messages that
          * have 'disappeared'. */
-        if (isset($result->update)) {
+        if (isset($result->rowlist_reset)) {
             $disappear = array();
             foreach (array_diff(array_keys($cached), $uidlist) as $uid) {
                 $disappear[] = $uid;

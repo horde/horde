@@ -166,33 +166,30 @@
  *          In the format: [first_row]:[last_row]
  *
  *
- * Incoming AJAX response has the following params:
- * ------------------------------------------------
+ * Incoming AJAX response has the following parameters:
+ * ----------------------------------------------------
  * cacheid: (string) A unique string that changes whenever the viewport
  *          list changes.
- * data: (object) Data for each entry that is passed to the template to create
- *       the viewable rows. Keys are a unique ID (see also the 'rowlist'
- *       entry). Values are the data objects. Internal keys for these data
- *       objects must NOT begin with the string 'VP_'.
- * disappear: (array) If update is set, this is the list of unique IDs that
- *            have been cached by the browser but no longer appear on the
- *            server.
- * label: (string) [REQUIRED when initial is true] The label to use for the
+ * data: (object) Data for each entry. Keys are a unique ID (see also the
+ *       'rowlist' entry). Values are the data objects. Internal keys for
+ *       these data objects must NOT begin with the string 'VP_' (reserved
+ *       keys). THese values update current cached values.
+ * data_reset: (integer) If set, purge all browser cached data objects.
+ * disappear: (array) The list of unique IDs that are browser cached but no
+ *            longer exist on the server.
+ * label: (string) [REQUIRED on initial response] The label to use for the
  *        view.
- * metadata [optional]: (object) Metadata for the view. Entries in buffer are
- *                      updated with these entries (unless resetmd is set).
- * rangelist [optional]: (object) The list of unique IDs -> rownumbers that
- *                       correspond the the given request. Only returned for
- *                       a rangeslice request.
- * requestid: (string) The request ID sent in the outgoing AJAX request.
- * reset [optional]: (integer) If set, purges all cached data.
- * resetmd [optional]: (integer) If set, purges all user metadata.
+ * metadata: (object) Metadata for the view. Entries in buffer are updated
+ *           with these entries.
+ * metadata_reset: (integer) If set, purges all browser cached metadata.
+ * rangelist: (object) The list of unique IDs -> rownumbers that correspond
+ *            to the given request. Only returned for a rangeslice request.
+ * requestid: (string) The request ID from the outgoing AJAX request.
  * rowlist: (object) A mapping of unique IDs (keys) to the row numbers
  *          (values). Row numbers start at 1.
- * rownum [optional]: (integer) The row number to position screen on.
+ * rowlist_reset: (integer) If set, purges the browser cached rowlist.
+ * rownum: (integer) The row number to position screen on.
  * totalrows: (integer) Total number of rows in the view.
- * update [optional]: (integer) If set, update the rowlist instead of
- *                    overwriting it.
  * view: (string) The view ID of the request.
  *
  *
@@ -844,17 +841,23 @@ var ViewPort = Class.create({
         this.isbusy = true;
         this._clearWait();
 
-        var callback, offset, tmp,
+        var callback, offset, rows, tmp,
             buffer = this._getBuffer(r.view),
             llist = buffer.getMetaData('llist') || $H();
 
-        buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, { reset: r.reset, resetmd: r.resetmd, update: r.update });
+        buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, {
+            datareset: r.data_reset,
+            mdreset: r.metadata_reset,
+            rowreset: r.rowlist_reset
+        });
 
-        if (r.reset) {
+        rows = r.totalrows || this.getMetaData('total_rows');
+
+        if (r.data_reset) {
             this.deselect(this.getSelected());
-        } else if (r.update && r.disappear && r.disappear.size()) {
-            this.deselect(this.createSelection('uid', r.disappear, r.view));
-            buffer.removeData(r.disappear);
+        } else if (r.disappear && r.disappear.size()) {
+            this.remove(this.createSelection('uid', r.disappear, r.view));
+            rows -= r.disappear.size();
         }
 
         llist.unset(r.requestid);
@@ -862,7 +865,7 @@ var ViewPort = Class.create({
         tmp = {
             cacheid: r.cacheid,
             llist: llist,
-            total_rows: r.totalrows
+            total_rows: rows
         };
         if (r.label) {
             tmp.label = r.label;
@@ -885,8 +888,8 @@ var ViewPort = Class.create({
             this.opts.container.fire('ViewPort:endFetch', r.view);
         }
 
-        if (this.view == r.view) {
-            this._updateContent(Object.isUndefined(r.rownum) ? (Object.isUndefined(offset) ? this.currentOffset() : offset) : Number(r.rownum) - 1, { updated: r.update });
+        if (!r.disappear && this.view == r.view) {
+            this._updateContent(Object.isUndefined(r.rownum) ? (Object.isUndefined(offset) ? this.currentOffset() : offset) : Number(r.rownum) - 1, { updated: r.rowlist_reset });
         } else if (r.rownum) {
             // We loaded in the background. If rownumber information was
             // provided, we need to save this or else we will position the
@@ -1474,20 +1477,20 @@ ViewPort_Buffer = Class.create({
     // d = (object) Data
     // l = (object) Rowlist
     // md = (object) User defined metadata
-    // opts = (object) TODO [reset, resetmd, update]
+    // opts = (object) TODO [datareset, mdreset, rowreset]
     update: function(d, l, md, opts)
     {
         d = $H(d);
         l = $H(l);
         opts = opts || {};
 
-        if (!opts.reset && this.data.size()) {
+        if (!opts.datareset) {
             this.data.update(d);
         } else {
             this.data = d;
         }
 
-        if (opts.update || opts.reset) {
+        if (opts.rowreset || opts.datareset) {
             this.resetRowlist();
         }
 
@@ -1496,7 +1499,7 @@ ViewPort_Buffer = Class.create({
             this.rowlist.set(o.value, o.key);
         }, this);
 
-        if (opts.resetmd) {
+        if (opts.mdreset) {
             this.usermdata = $H(md);
         } else {
             $H(md).each(function(pair) {
