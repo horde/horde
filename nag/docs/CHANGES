@@ -2,6 +2,7 @@
 v3.0.4-git
 ----------
 
+[jan] Add missing parameters when PUTing tasks (Bug #10545).
 [mjr] Fix removeUserData implementation.
 [gwr] Fix Kolab object attribute handling for tasks.
 [gwr] Avoid including the owner name into the default share.

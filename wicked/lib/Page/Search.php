@@ -140,9 +140,9 @@ class Wicked_Page_Search extends Wicked_Page {
         $template->set('hits', false, true);
 
         $template->set('th_page', _("Page"), true);
-        $template->set('th_version', _("Version"), true);
-        $template->set('th_author', _("Author"), true);
-        $template->set('th_created', _("Creation Date"), true);
+        $template->set('th_version', _("Current Version"), true);
+        $template->set('th_author', _("Last Author"), true);
+        $template->set('th_updated', _("Last Update"), true);
 
         // Show search form and page header.
         require WICKED_TEMPLATES . '/pagelist/search.inc';

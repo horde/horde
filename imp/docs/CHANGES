@@ -2,6 +2,7 @@
 v5.0.14-git
 -----------
 
+[mms] Fix altering background color of system message flags (Bug #10544).
 [jan] Fix sending notifications after download of linked attachments (Bug
       #10539).
 
