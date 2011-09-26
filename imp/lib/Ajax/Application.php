@@ -863,7 +863,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $change = $this->_changed(true);
 
         if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($indices)) {
-            return $this->_generateDeleteResult($indices, $change, true);
+            return $this->_generateDeleteResult($indices, $change);
         }
 
         return is_null($change)
@@ -1879,28 +1879,27 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @param IMP_Indices $indices  An indices object.
      * @param boolean $changed      If true, add ViewPort information.
-     * @param boolean $nothread     Skip thread sort check if not hiding
-     *                              messages.
      *
      * @return object  An object with the following entries:
      *   - ViewPort: (object) See _viewPortData().
      */
-    protected function _generateDeleteResult($indices, $change,
-                                             $nothread = false)
+    protected function _generateDeleteResult($indices, $changed)
     {
         /* Check if we need to update thread information. */
-        if (!$change && (!$nothread || !empty($del->remove))) {
+        if (!$changed) {
             $sort = $this->_mbox->getSort();
-            $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
+            $changed = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
         }
 
         $result = new stdClass;
 
-        if ($change) {
+        if ($changed) {
             $result->ViewPort = $this->_viewPortData(true);
         } else {
             $result->ViewPort = new stdClass;
             $result->ViewPort->cacheid = $this->_mbox->cacheid;
+            $result->ViewPort->view = $this->_mbox->form_to;
+
             if ($this->_mbox->hideDeletedMsgs(true)) {
                 if ($this->_mbox->search) {
                     $disappear = array();
@@ -1912,7 +1911,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 }
                 $result->ViewPort->disappear = $disappear;
             }
-            $result->ViewPort->view = $this->_mbox->form_to;
         }
 
         $this->_queue->poll(array_keys($indices->indices()));
