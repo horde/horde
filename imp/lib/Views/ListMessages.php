@@ -218,6 +218,11 @@ class IMP_Views_ListMessages
                 $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $mbox->label), 'horde.error');
             }
 
+            if (!empty($args['change'])) {
+                unset($result->data, $result->rowlist, $result->totalrows);
+                $result->data_reset = $result->rowlist_reset = 1;
+            }
+
             return $result;
         }
 
