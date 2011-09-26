@@ -2,6 +2,8 @@
 v5.0.14-git
 -----------
 
+[mms] Optimize deletion of messages in dynamic view.
+[mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
 [mms] Fix altering background color of system message flags (Bug #10544).
 [jan] Fix sending notifications after download of linked attachments (Bug
       #10539).
