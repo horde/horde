@@ -214,26 +214,26 @@ SmashWordsTogether to create a page link.
 You can force a Wiki page to be clickable even if it does __not__ match the page name format by putting the name in parentheses.
 
 {CODE()}
-((WikiPage))
+((Wiki/Page))
 {CODE}
 
-((WikiPage))
+((Wiki/Page))
 
 You can also use this format to create a "described" or "labeled" link or to add an anchor target.
 
 {CODE()}
-((WikiPage#anchor|Descriptive text for the link.))
+((Wiki/Page#anchor|Descriptive text for the link.))
 {CODE}
 
-((WikiPage#anchor|Descriptive text for the link.))
+((Wiki/Page#anchor|Descriptive text for the link.))
 
 You can alternatively create a "described" or "labeled" link to a wiki page by putting the page name in brackets, followed by some text.
 
 {CODE()}
-[WikiPage|Descriptive text for the link.]
+[Wiki/Page|Descriptive text for the link.]
 {CODE}
 
-[WikiPage|Descriptive text for the link.]
+[Wiki/Page|Descriptive text for the link.]
 
 
 !!! URLs
@@ -256,7 +256,7 @@ Create an anchor on the page by -+~np~[[# anchorName nice anchor text]]~/np~+- [
 
 !!! Images
 
-You can put a picture in a page with -+~np~{img foo.jpg}~/np~+-. You can use any file type, but most browsers only support GIF, JPEG, and PNG formats. The filename can either be a relative reference (in which case the wiki looks for a file attached to the current page - or a different wiki page if the file name is prefixed with a page name, e.g. -+~np~{img WikiHome:foo.jpg}~/np~+-), an absolute reference which begins with a slash (in which case the wiki uses it to retrieve a file relative to the web server's root), or a full, external URL.
+You can put a picture in a page with -+~np~{img foo.jpg}~/np~+-. You can use any file type, but most browsers only support GIF, JPEG, and PNG formats. The filename can either be a relative reference (in which case the wiki looks for a file attached to the current page - or a different wiki page if the file name is prefixed with a page name, e.g. -+~np~{img SomePage:foo.jpg}~/np~+-), an absolute reference which begins with a slash (in which case the wiki uses it to retrieve a file relative to the web server's root), or a full, external URL.
 
 Additional attributes, such as "alt" can follow the image filename or URL like so: -+~np~{img foo.jpg alt="A Foo JPEG"}~/np~+-.  "link" is a special attribute which makes the image a link to the specified URL.
 
@@ -280,10 +280,10 @@ To include Horde's moon phases block for example:
 Links to other Horde applications is supported if those applications support API links. The Wiki itself supports such an API to link to individual wiki pages:
 
 {CODE()}
-[[link Link to some other wiki page|wiki/show page=WikiPage]]
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
 {CODE}
 
-[[link Link to some other wiki page|wiki/show page=WikiPage]]
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
 
 
 !! Code Blocks

@@ -248,10 +248,10 @@ To include Horde's moon phases block for example:
 Links to other Horde applications is supported if those applications support API links. The Wiki itself supports such an API to link to individual wiki pages:
 
 [code]
-[[link Link to some other wiki page|wiki/show page=WikiPage]]
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
 [/code]
 
-[[link Link to some other wiki page|wiki/show page=WikiPage]]
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
 
 
 [b][size=18]Code Blocks[/size][/b]

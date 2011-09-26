@@ -226,22 +226,22 @@ Back to normal text.
 
 SmashWordsTogether to create a page link.
 
-You can force a WikiPage name *not* to be clickable by putting \
+You can force a SmashWordsTogether name *not* to be clickable by putting \
 an exclamation mark in front of it.
 
 <code>
-WikiPage !WikiPage
+SmashWordsTogether !SmashWordsTogether
 </code>
 
-WikiPage !WikiPage
+SmashWordsTogether !SmashWordsTogether
 
 You can create a "described" or "labeled" link to a wiki page by putting the page name in brackets, followed by some text.
 
 <code>
-((WikiPage)(Descriptive text for the link.))
+((Wiki/Page)(Descriptive text for the link.))
 </code>
 
-((WikiPage)(Descriptive text for the link.))
+((Wiki/Page)(Descriptive text for the link.))
 
 
 +++ Interwiki Links
@@ -286,7 +286,7 @@ Create and anchor on the page by =<noop>[[# anchorName nice anchor text]]</noop>
 
 +++ Images
 
-You can put a picture in a page with =<noop>{img foo.jpg}</noop>=. You can use any file type, but most browsers only support GIF, JPEG, and PNG formats. The filename can either be a relative reference (in which case the wiki looks for a file attached to the current page - or a different wiki page if the file name is prefixed with a page name, e.g. =<noop>{img WikiHome:foo.jpg=</noop>=), an absolute reference which begins with a slash (in which case the wiki uses it to retrieve a file relative to the web server's root), or a full, external URL.
+You can put a picture in a page with =<noop>{img foo.jpg}</noop>=. You can use any file type, but most browsers only support GIF, JPEG, and PNG formats. The filename can either be a relative reference (in which case the wiki looks for a file attached to the current page - or a different wiki page if the file name is prefixed with a page name, e.g. =<noop>{img Wiki/Home:foo.jpg=</noop>=), an absolute reference which begins with a slash (in which case the wiki uses it to retrieve a file relative to the web server's root), or a full, external URL.
 
 Additional attributes, such as "alt" can follow the image filename or URL like so: =<noop>{img foo.jpg alt="A Foo JPEG"}</noop>=.  "link" is a special attribute which makes the image a link to the specified URL.
 
@@ -310,10 +310,10 @@ To include Horde's moon phases block for example:
 Links to other Horde applications is supported if those applications support API links. The Wiki itself supports such an API to link to individual wiki pages:
 
 <code>
-[[link Link to some other wiki page|wiki/show page=WikiPage]]
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
 </code>
 
-[[link Link to some other wiki page|wiki/show page=WikiPage]]
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
 
 
 ++ Code Blocks
