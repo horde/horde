@@ -28,6 +28,17 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     );
 
     /**
+     */
+    public function canRender($mode)
+    {
+        /* For mimp - allow rendering of attachments inline (on the view
+         * parts page). */
+        return (($mode == 'inline') && (IMP::getViewMode() == 'mimp'))
+            ? true
+            : parent::_canRender($mode);
+    }
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
@@ -77,7 +88,9 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 $imgview = new IMP_Ui_Imageview();
                 $showimg = $imgview->showInlineImage($this->getConfigParam('imp_contents'));
             } else {
-                $showimg = false;
+                /* For mimp - allow rendering of attachments inline (on the
+                 * view parts page). */
+                $showimg = (IMP::getViewMode() == 'mimp');
             }
 
             if (!$showimg) {

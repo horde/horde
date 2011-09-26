@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-25</date>
- <time>23:54:32</time>
+ <date>2011-09-26</date>
+ <time>00:17:54</time>
  <version>
   <release>5.0.14</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Allow image attachments to be displayed without download in mobile view.
 * [mms] Fix reporting spam/innocent on mailbox page in mobile view.
 * [mms] Fix viewing next message after deleting message in mobile view.
 * [mms] Fix composing messages in mobile view.
@@ -2479,9 +2480,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-25</date>
+   <date>2011-09-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Allow image attachments to be displayed without download in mobile view.
 * [mms] Fix reporting spam/innocent on mailbox page in mobile view.
 * [mms] Fix viewing next message after deleting message in mobile view.
 * [mms] Fix composing messages in mobile view.
