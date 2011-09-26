@@ -403,55 +403,35 @@ var ViewPort = Class.create({
     },
 
     // vs = (ViewPort_Selection) A ViewPort_Selection object.
-    // opts = (object) TODO [noupdate, view]
-    remove: function(vs, opts)
+    remove: function(vs)
     {
-        if (!vs.size()) {
-            return;
-        }
-
-        if (this.isbusy) {
-            this.remove.bind(this, vs, opts).defer();
-            return;
-        }
-
-        this.isbusy = true;
-        opts = opts || {};
-
-        var args = { duration: 0.2, to: 0.01 },
-            visible = vs.get('div');
-
-        this.deselect(vs);
-
-        // If we have visible elements to remove, only call refresh after
-        // the last effect has finished.
-        if (visible.size()) {
-            // Set 'to' to a value slightly above 0 to prevent fade()
-            // from auto hiding.  Hiding is unnecessary, since we will be
-            // removing from the document shortly.
-            visible.slice(0, -1).invoke('fade', args);
-            args.afterFinish = this._removeids.bind(this, vs, opts);
-            visible.last().fade(args);
-        } else {
-            this._removeids(vs, opts);
+        if (vs.size()) {
+            if (this.isbusy) {
+                this._remove.bind(this, vs).defer();
+            } else {
+                this.isbusy = true;
+                this._remove(vs);
+                if (vs.getBuffer().getView() == this.view) {
+                    this.requestContentRefresh(this.currentOffset());
+                }
+                this.isbusy = false;
+            }
         }
     },
 
     // vs = (ViewPort_Selection) A ViewPort_Selection object.
-    // opts = (object) TODO [noupdate, view]
-    _removeids: function(vs, opts)
+    _remove: function(vs)
     {
-        this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
+        var buffer = vs.getBuffer();
 
-        this._getBuffer().remove(vs.get('rownum'));
-
-        this.opts.container.fire('ViewPort:remove', vs);
-
-        if (!opts.noupdate) {
-            this.requestContentRefresh(this.currentOffset());
+        if (buffer.getView() == this.view) {
+            this.deselect(vs);
         }
 
-        this.isbusy = false;
+        buffer.remove(vs.get('rownum'));
+        buffer.setMetaData({ total_rows: buffer.getMetaData('total_rows') - vs.size() }, true);
+
+        this.opts.container.fire('ViewPort:remove', vs);
     },
 
     // nowait = (boolean) If true, don't delay before resizing.
@@ -845,17 +825,17 @@ var ViewPort = Class.create({
             buffer = this._getBuffer(r.view),
             llist = buffer.getMetaData('llist') || $H();
 
+        if (r.data_reset) {
+            this.deselect(this.getSelected());
+        } else if (r.disappear && r.disappear.size()) {
+            this._remove(this.createSelection('uid', r.disappear, r.view));
+        }
+
         buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, {
             datareset: r.data_reset,
             mdreset: r.metadata_reset,
             rowreset: r.rowlist_reset
         });
-
-        if (r.data_reset) {
-            this.deselect(this.getSelected());
-        } else if (r.disappear && r.disappear.size()) {
-            this.remove(this.createSelection('uid', r.disappear, r.view));
-        }
 
         llist.unset(r.requestid);
 
@@ -887,7 +867,7 @@ var ViewPort = Class.create({
             this.opts.container.fire('ViewPort:endFetch', r.view);
         }
 
-        if (!r.disappear && this.view == r.view) {
+        if (this.view == r.view) {
             this._updateContent(Object.isUndefined(r.rownum) ? (Object.isUndefined(offset) ? this.currentOffset() : offset) : Number(r.rownum) - 1, { updated: r.rowlist_reset });
         } else if (r.rownum) {
             // We loaded in the background. If rownumber information was
