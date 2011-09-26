@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-25</date>
- <time>20:46:55</time>
+ <time>23:43:02</time>
  <version>
   <release>5.0.14</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix composing messages in mobile view.
 * [mms] Optimize deletion of messages in dynamic view.
 * [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
 * [mms] Fix altering background color of system message flags (Bug #10544).
@@ -2479,6 +2480,7 @@
    <date>2011-09-25</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix composing messages in mobile view.
 * [mms] Optimize deletion of messages in dynamic view.
 * [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
 * [mms] Fix altering background color of system message flags (Bug #10544).
