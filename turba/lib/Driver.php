@@ -994,6 +994,12 @@ class Turba_Driver implements Countable
                 } catch (Turba_Exception $e) {}
             }
             switch ($key) {
+            case '__uid' :
+                if ($fields && !isset($fields['UID'])) {
+                    break;
+                }    
+                $vcard->setAttribute('UID', $val);
+                break;
             case 'name':
                 if ($fields && !isset($fields['FN'])) {
                     break;
