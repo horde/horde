@@ -158,8 +158,8 @@ if (($vars->a == 'pa') &&
     } else {
         $title = _("View Attachment");
 
-        $data = $imp_contents->renderMIMEPart($vars->id, $imp_contents->canDisplay($vars->id, IMP_Contents::RENDER_INLINE | IMP_Contents::RENDER_INFO));
-        $t->set('view_data', $data ? $data : _("This part is empty."));
+        $data = $imp_contents->renderMIMEPart($vars->id, $imp_contents->canDisplay($vars->id, IMP_Contents::RENDER_INLINE));
+        $t->set('view_data', isset($data[$vars->id]) ? $data[$vars->id]['data'] : _("This part is empty."));
     }
 
     $t->set('self_link', $self_link);
@@ -346,7 +346,7 @@ foreach ($inlineout['atc_parts'] as $key) {
             : $summary['download'];
     }
 
-    if ($imp_contents->canDisplay($key, IMP_Contents::RENDER_INLINE_AUTO)) {
+    if ($imp_contents->canDisplay($key, IMP_Contents::RENDER_INLINE)) {
         $tmp['view'] = $self_link->copy()->add(array('a' => 'pa', 'id' => $key));
     }
 
