@@ -238,11 +238,12 @@ while (true) {
             $cli->message('Cached fields: ' . implode(', ', array_keys($res[$uid])));
 
             $data = serialize($res[$uid]);
-            $cli->message('Approximate size (bytes): ' . strlen($data));
+            $msg_size = strlen($data);
+            $cli->message('Approximate size (bytes): ' . $msg_size);
 
             if ($use_lzf) {
-                $lzf_size += strlen(lzf_compress($data));
-                $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 -round($lzf_size / $total_size * 100, 1) . '% savings') . ']');
+                $lzf_size = strlen(lzf_compress($data));
+                $cli->message('Approximate size - LZF (bytes): ' . $lzf_size . ' [' . $cli->red(100 - round($lzf_size / $msg_size * 100, 1) . '% savings') . ']');
             }
 
             if ($action == 5) {
