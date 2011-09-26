@@ -74,6 +74,8 @@ var DimpCompose = {
         }
         $('compose').reset();
 
+        this.setDisabled(false);
+
         // Disable auto-save-drafts now.
         if (this.auto_save_interval) {
             this.auto_save_interval.stop();

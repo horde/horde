@@ -2,6 +2,7 @@
 v5.0.14-git
 -----------
 
+[mms] Allow multiple messages to be sent via quickreply in dynamic view.
 [mms] Allow image attachments to be displayed without download in mobile view.
 [mms] Fix reporting spam/innocent on mailbox page in mobile view.
 [mms] Fix viewing next message after deleting message in mobile view.
