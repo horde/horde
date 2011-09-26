@@ -841,7 +841,7 @@ var ViewPort = Class.create({
         this.isbusy = true;
         this._clearWait();
 
-        var callback, offset, rows, tmp,
+        var callback, offset, tmp,
             buffer = this._getBuffer(r.view),
             llist = buffer.getMetaData('llist') || $H();
 
@@ -851,24 +851,23 @@ var ViewPort = Class.create({
             rowreset: r.rowlist_reset
         });
 
-        rows = r.totalrows || this.getMetaData('total_rows');
-
         if (r.data_reset) {
             this.deselect(this.getSelected());
         } else if (r.disappear && r.disappear.size()) {
             this.remove(this.createSelection('uid', r.disappear, r.view));
-            rows -= r.disappear.size();
         }
 
         llist.unset(r.requestid);
 
         tmp = {
             cacheid: r.cacheid,
-            llist: llist,
-            total_rows: rows
+            llist: llist
         };
         if (r.label) {
             tmp.label = r.label;
+        }
+        if (r.totalrows) {
+            tmp.total_rows = r.totalrows;
         }
         buffer.setMetaData(tmp, true);
 
