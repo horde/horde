@@ -2,6 +2,7 @@
 v5.0.14-git
 -----------
 
+[mms] Fix viewing next message after deleting message in mobile view.
 [mms] Fix composing messages in mobile view.
 [mms] Optimize deletion of messages in dynamic view.
 [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).

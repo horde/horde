@@ -54,7 +54,10 @@ case 'u':
     if ($vars->a == 'd') {
         try {
             $injector->getInstance('Horde_Token')->validate($vars->mt, 'imp.message-mimp');
-            $msg_delete = (bool)$imp_message->delete($imp_indices);
+            $msg_delete = (bool)$imp_message->delete(
+                $imp_indices,
+                array('mailboxob' => $imp_mailbox)
+            );
         } catch (Horde_Token_Exception $e) {
             $notification->push($e);
         }
