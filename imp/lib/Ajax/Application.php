@@ -2055,7 +2055,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if (!empty($changes['d'])) {
             $result['d'] = array();
             foreach (array_reverse($changes['d']) as $val) {
-                $result['d'][] = $val->form_to;
+                $result['d'][] = IMP_Mailbox::get($val)->form_to;
             }
         }
 
