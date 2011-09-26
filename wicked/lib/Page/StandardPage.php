@@ -55,10 +55,12 @@ class Wicked_Page_StandardPage extends Wicked_Page {
             $page = $GLOBALS['wicked']->retrieveByName($pagename);
         } catch (Wicked_Exception $e) {
             // If we can't load $pagename, see if there's default data for it.
-            $pagefile = WICKED_BASE . '/data/'
-                . $GLOBALS['conf']['wicked']['format'] . '/'
-                . basename($pagename);
-            if ($pagename == basename($pagename) &&
+            // Protect against directory traversion.
+            $pagepath = realpath(WICKED_BASE . '/data/'
+                                 . $GLOBALS['conf']['wicked']['format']);
+            $pagefile = realpath($pagepath . '/' . $pagename);
+            if ($pagefile &&
+                Horde_String::common($pagefile, $pagepath) == $pagepath &&
                 substr($pagename, 0, 1) != '.' &&
                 file_exists($pagefile)) {
                 $text = file_get_contents($pagefile);
@@ -76,8 +78,8 @@ class Wicked_Page_StandardPage extends Wicked_Page {
         if ($page) {
             $this->_page = $page;
         } else {
-            if ($pagename == 'WikiHome') {
-                $GLOBALS['notification']->push(_("Unable to create WikiHome. The wiki is not configured."), 'horde.error');
+            if ($pagename == 'Wiki/Home') {
+                $GLOBALS['notification']->push(_("Unable to create Wiki/Home. The wiki is not configured."), 'horde.error');
             }
             $this->_page = array();
         }

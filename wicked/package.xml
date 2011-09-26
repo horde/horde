@@ -28,6 +28,7 @@
  </stability>
  <license uri="TODO">TODO</license>
  <notes>
+* [jan] Move all default pages into the Wiki/ namespace (Request #7021).
 * Initial release.
  </notes>
  <contents>
@@ -660,6 +661,7 @@
    <date>2011-09-13</date>
    <license uri="TODO">TODO</license>
    <notes>
+* [jan] Move all default pages into the Wiki/ namespace (Request #7021).
 * Initial release.
    </notes>
   </release>
