@@ -1651,6 +1651,7 @@ ViewPort_Buffer = Class.create({
     resetRowlist: function()
     {
         this.rowlist = $H();
+        this.setMetaData({ total_rows: 0 }, true);
     },
 
     clear: function()

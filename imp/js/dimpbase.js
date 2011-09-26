@@ -2562,7 +2562,7 @@ var DimpBase = {
                 break;
 
             case 'empty':
-                this.viewaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: params.elt.retrieve('mbox') }, { callback: this._emptyMailboxCallback.bind(this) });
+                this.viewaction = DimpCore.doAction.bind(DimpCore, 'emptyMailbox', { mbox: params.elt.retrieve('mbox') });
                 IMPDialog.display({
                     cancel_text: DIMP.text.cancel,
                     noinput: true,
@@ -2648,19 +2648,6 @@ var DimpBase = {
         }
         if (r.a && !r.noexpand) {
             r.a.each(this.createFolder.bind(this));
-        }
-    },
-
-    _emptyMailboxCallback: function(r)
-    {
-        if (r.response.mbox) {
-            if (this.view == r.response.mbox) {
-                this.viewport.reload();
-                this.clearPreviewPane();
-            } else {
-                this.viewport.deleteView(r.response.mbox);
-            }
-            this.setFolderLabel(r.response.mbox, 0);
         }
     },
 

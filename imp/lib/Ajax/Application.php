@@ -322,7 +322,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     *   - mbox: (string) The mailbox that was emptied (base64url encoded).
+     *   - ViewPort: (object) See _viewPortData().
      */
     public function emptyMailbox()
     {
@@ -337,7 +337,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $this->_queue->poll($mbox);
 
         $result = new stdClass;
-        $result->mbox = $this->_vars->mbox;
+        $result->ViewPort = new stdClass;
+        $result->ViewPort->cacheid = $mbox->cacheid;
+        $result->ViewPort->data_reset = 1;
+        $result->ViewPort->rowlist_reset = 1;
+        $result->ViewPort->view = $mbox->form_to;
 
         return $result;
     }
