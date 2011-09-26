@@ -35,7 +35,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
          * parts page). */
         return (($mode == 'inline') && (IMP::getViewMode() == 'mimp'))
             ? true
-            : parent::_canRender($mode);
+            : parent::canRender($mode);
     }
 
     /**
