@@ -1,3 +1,13 @@
+/**
+ * Geotagging widget
+ *
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 AnselGeoTagWidget = Class.create({
     _bigMap: null,
     _smallMap: null,
@@ -7,6 +17,7 @@ AnselGeoTagWidget = Class.create({
     relocateId: 'ansel_relocate',
     deleteId: 'ansel_deleteGeotag',
     opts: null,
+    _iLayer: null,
 
     /**
      * Const'r.
@@ -81,7 +92,6 @@ AnselGeoTagWidget = Class.create({
     doMap: function() {
         // Create map and geocoder objects
         this._bigMap = AnselMap.initMainMap('ansel_map', {
-            // Hover handler to modify style of image tiles
             'onHover': function(e) {
                 switch (e.type) {
                 case 'beforefeaturehighlighted':
@@ -102,7 +112,8 @@ AnselGeoTagWidget = Class.create({
             'onClick': function(f) {
                 var uri = f.feature.attributes.image_link;
                 location.href = uri;
-            }.bind(this)
+            }.bind(this),
+            'imageLayer': (this.opts.viewType == 'Image') ? true : false
         });
         this._smallMap = AnselMap.initMiniMap('ansel_map_small', {});
         this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
@@ -180,8 +191,28 @@ AnselGeoTagWidget = Class.create({
                 }
             );
         }
+        if (centerImage) {
+            AnselMap.placeMapMarker(
+                'ansel_map',
+                {
+                    'lat': centerImage.image_latitude,
+                    'lon': centerImage.image_longitude
+                },
+                {
+                    'img': (!centerImage.markerOnly) ? centerImage.icon : Ansel.conf.markeruri,
+                    'background': (!centerImage.markerOnly) ? Ansel.conf.pixeluri + '?c=ffffff' : Ansel.conf.shadowuri,
+                    'image_id': centerImage.image_id,
+                    'markerOnly': 'markerOnly',
+                    'center': true,
+                    'image_link': centerImage.link
+                }
+            );
+        } else {
+            //this._bigMap.markerLayer.redraw();
+            this._bigMap.zoomToFit();
+        }
         // Attempt to make a good guess as to where to center the mini-map
-        this._smallMap.setCenter({'lat': this._images[0].image_latitude, 'lon': 0}, 1);
+        this._smallMap.setCenter({'lat': this._images[0].image_latitude, 'lon': 0}, 0);
     },
 
     /**
