@@ -108,7 +108,14 @@ if ($ob->cache) {
         $cli->message('Caching has been disabled for this server.', 'cli.error');
         exit;
     }
-    $cli->message('Cache driver used: ' . get_class($driver['cacheob']));
+
+    try {
+        $driver['cacheob']->set('imap_cache_test', 1);
+        $driver['cacheob']->expire('imap_cache_test');
+    } catch (Exception $e) {
+        $cli->message($e, 'cli.error');
+        exit;
+    }
 }
 
 try {
