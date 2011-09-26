@@ -122,9 +122,11 @@ class IMP_Ajax_Queue
         if (!empty($changed['remove'])) {
             $result->remove = array_map('strval', $changed['remove']);
         }
-        $result->uids = $indices->formTo();
 
-        $this->_flag[] = $result;
+        if (count($indices)) {
+            $result->uids = $indices->formTo();
+            $this->_flag[] = $result;
+        }
     }
 
     /**
