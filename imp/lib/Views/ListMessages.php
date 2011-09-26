@@ -139,11 +139,11 @@ class IMP_Views_ListMessages
 
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
-        if ($mbox->hideDeletedMsgs(true)) {
+        if (($args['initial'] ||
+             !is_null($args['sortby']) ||
+             !is_null($args['sortdir'])) &&
+            $mbox->hideDeletedMsgs(true)) {
             $md->delhide = 1;
-        }
-        if (!$mbox->access_sortthread) {
-            $md->nothread = 1;
         }
         if ($args['initial'] || !is_null($args['sortby'])) {
             $md->sortby = intval($sortpref['by']);
@@ -154,6 +154,9 @@ class IMP_Views_ListMessages
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
+            if (!$mbox->access_sortthread) {
+                $md->nothread = 1;
+            }
             if ($mbox->special_outgoing) {
                 $md->special = 1;
                 if ($mbox == IMP_Mailbox::getPref('drafts_folder')) {
