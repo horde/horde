@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-25</date>
- <time>23:49:49</time>
+ <time>23:54:32</time>
  <version>
   <release>5.0.14</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix reporting spam/innocent on mailbox page in mobile view.
 * [mms] Fix viewing next message after deleting message in mobile view.
 * [mms] Fix composing messages in mobile view.
 * [mms] Optimize deletion of messages in dynamic view.
@@ -2481,6 +2482,7 @@
    <date>2011-09-25</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix reporting spam/innocent on mailbox page in mobile view.
 * [mms] Fix viewing next message after deleting message in mobile view.
 * [mms] Fix composing messages in mobile view.
 * [mms] Optimize deletion of messages in dynamic view.
