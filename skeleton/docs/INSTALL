@@ -166,8 +166,8 @@ Configuring Skeleton
    database tables by clicking the ``DB schema is out of date.`` link in the
    Skeleton row of the configuration screen.
 
-   Alternatively you creating the Skeleton database tables can be accomplished
-   with horde's ``horde-db-migrate`` utility.  If your database is properly setup in
+   Alternatively creating the Skeleton database tables can be accomplished with
+   horde's ``horde-db-migrate`` utility.  If your database is properly setup in
    the Horde configuration, just run the following::
 
       horde-db-migrate skeleton
