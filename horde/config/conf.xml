@@ -706,6 +706,15 @@
   </configsection>
  </configtab>
 
+ <configtab name="themes" desc="Themes">
+  <configheader>Theme Settings</configheader>
+  <configboolean name="nobase64_img" required="false" desc="Always send full
+  URLs for image data? By default, Horde will send image data within the page
+  itself if the browser supports it. This eliminates the need for additional
+  server connections to grab the image data, at the expense of slightly
+  larger page sizes.">false</configboolean>
+ </configtab>
+
  <configtab name="signup" desc="Sign Up">
   <configsection name="signup">
    <configheader>Sign Up Settings</configheader>

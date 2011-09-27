@@ -30,6 +30,15 @@ schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
 
+Upgrading Horde from 4.0.x to 4.1.0
+===================================
+
+Configuration changes
+---------------------
+
+The 'nobase64_img' option was added.
+
+
 Upgrading Horde from 4.0 to 4.0.1
 =================================
 
