@@ -88,12 +88,10 @@
                 'active': [map.markerLayer]
             });
         } else {
-            this._iLayer = map.createVectorLayer(
-                {
-                    'markerLayerTitle': opts.imageLayerText,
-                    'styleMap': style,
-                }
-            );
+            this._iLayer = map.createVectorLayer({
+                'markerLayerTitle': opts.imageLayerText,
+                'styleMap': style,
+            });
             map.map.addLayers([this._iLayer]);
             map.addHighlightControl({
                 'layers': [this._iLayer, map.markerLayer],
