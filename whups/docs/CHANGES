@@ -1,6 +1,6 @@
---------
-v2.0-git
---------
+-----------
+v2.0-ALPHA1
+-----------
 
 [jan] Fix automatic linking of bug numbers inside URLs (Bug #7081).
 [jan] Don't search for all states if no states have been selected.
