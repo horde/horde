@@ -74,26 +74,39 @@
 
         var map = this._initializeMap(e, {
             'styleMap': style,
-            'onHover': opts.onHover,
             'layerSwitcher': true,
-            'onClick': opts.onClick,
+            'markerLayerTitle': opts.markerLayerText
         });
-
-        if (opts.imageLayer) {
+        if (!opts.imageLayer) {
+            this.maps[e]._highlightControl = map.addHighlightControl({
+                'onHover': opts.onHover,
+                'layers': map.markerLayer
+            });
+            map.addClickControl({
+                'onClick': opts.onClick,
+                'layers': [map.markerLayer],
+                'active': [map.markerLayer]
+            });
+        } else {
             this._iLayer = map.createVectorLayer(
                 {
-                    'markerLayerTitle': 'Images',
+                    'markerLayerTitle': opts.imageLayerText,
                     'styleMap': style,
-                    'onHover': opts.onHover,
-                    'onClick': opts.onClick
                 }
             );
             map.map.addLayers([this._iLayer]);
+            map.addHighlightControl({
+                'layers': [this._iLayer, map.markerLayer],
+                'onHover': opts.onHover
+            });
+            map.addClickControl({
+                'layers': [this._iLayer, map.markerLayer],
+                'active': [this._iLayer, map.markerLayer],
+                'onClick': opts.onClick
+            })
             map.map.raiseLayer(map.markerLayer, 1);
             map.map.raiseLayer(this._iLayer, -1);
             map.map.resetLayersZIndex();
-            //map.map.display('ansel_map');
-            console.log(map.map.getLayerIndex(map.markerLayer));
         }
 
         return map;
@@ -154,7 +167,8 @@
             'panzoom': false,
             'layerSwitcher': false,
             'onHover': false,
-            'markerDragEnd': Prototype.EmptyFunction
+            'markerDragEnd': Prototype.EmptyFunction,
+            'markerLayerTitle': ''
         }
         this.opts = Object.extend(o, opts || {});
         var layers = [];
@@ -179,7 +193,8 @@
             onClick: this.opts.onClick,
             markerDragEnd: this.opts.markerDragEnd,
             mapClick: (this.opts.mapClick) ? this.opts.mapClick.bind(this) : Prototype.EmptyFunction,
-            delayed: (this.opts.delayed) ? true : false
+            delayed: (this.opts.delayed) ? true : false,
+            markerLayerTitle: this.opts.markerLayerTitle
         }
         if (this.opts.styleMap) {
             mapOpts.styleMap = this.opts.styleMap;
@@ -272,7 +287,7 @@
      */
     selectMarker: function(e, m)
     {
-        this.maps[e].selectControl.highlight(m);
+        this.maps[e]._highlightControl.highlight(m);
     },
 
     /**
@@ -281,7 +296,7 @@
      */
     unselectMarker: function(e, m)
     {
-        this.maps[e].selectControl.unhighlight(m);
+        this.maps[e]._highlightControl.unhighlight(m);
     },
 
     /**

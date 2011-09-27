@@ -110,10 +110,18 @@ AnselGeoTagWidget = Class.create({
             }.bind(this),
 
             'onClick': function(f) {
+                if (f.object.name == this.opts.markerLayerTitle) {
+                   this._bigMap.setCenter(f.feature.getLonLat());
+                   this._bigMap.zoomToFit();
+                   return false;
+                }
                 var uri = f.feature.attributes.image_link;
                 location.href = uri;
             }.bind(this),
-            'imageLayer': (this.opts.viewType == 'Image') ? true : false
+
+            'imageLayer': (this.opts.viewType == 'Image') ? true : false,
+            'imageLayerText': this.opts.imageLayerTitle,
+            'markerLayerText': (this.opts.viewType == 'Image') ? this.opts.markerLayerTitle : this.opts.imageLayerTitle,
         });
         this._smallMap = AnselMap.initMiniMap('ansel_map_small', {});
         this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
@@ -181,29 +189,12 @@ AnselGeoTagWidget = Class.create({
                     'lon': centerImage.image_longitude
                 },
                 {
-                    'img': Ansel.conf.markeruri,
-                    'background': Ansel.conf.shadowuri,
-                    'image_id': centerImage.image_id,
-                    'markerOnly': 'markerOnly',
-                    'center': true,
-                    'zoom': (this._images.length > 1) ? false : 10,
-                    'image_link': centerImage.link
-                }
-            );
-        }
-        if (centerImage) {
-            AnselMap.placeMapMarker(
-                'ansel_map',
-                {
-                    'lat': centerImage.image_latitude,
-                    'lon': centerImage.image_longitude
-                },
-                {
                     'img': (!centerImage.markerOnly) ? centerImage.icon : Ansel.conf.markeruri,
                     'background': (!centerImage.markerOnly) ? Ansel.conf.pixeluri + '?c=ffffff' : Ansel.conf.shadowuri,
                     'image_id': centerImage.image_id,
                     'markerOnly': 'markerOnly',
                     'center': true,
+                    'zoom': 10,
                     'image_link': centerImage.link
                 }
             );
