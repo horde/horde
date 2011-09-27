@@ -79,4 +79,20 @@ class Wicked_Application extends Horde_Registry_Application
         return $perms;
     }
 
+    /**
+     */
+    public function configSpecialValues($what)
+    {
+        switch ($what) {
+        case 'engines':
+            $engines = array('Default' => 'Default');
+            foreach (array('Creole', 'Mediawiki', 'Tiki') as $engine) {
+                if (class_exists('Text_Wiki_' . $engine)) {
+                    $engines[$engine] = $engine;
+                }
+            }
+            return $engines;
+        }
+    }
+
 }
