@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-08</date>
- <time>12:57:37</time>
+ <date>2011-09-27</date>
+ <time>10:11:18</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -93,16 +93,21 @@
     <file name="upload_preview.php" role="horde" />
    </dir> <!-- /img -->
    <dir name="js">
+    <dir name="blocks">
+     <file name="geotag.js" role="horde" />
+    </dir> <!-- /js/blocks -->
+    <dir name="widgets">
+     <file name="geotag.js" role="horde" />
+    </dir> <!-- /js/widgets -->
     <file name="block.js" role="horde" />
     <file name="carousel.js" role="horde" />
     <file name="cropper.js" role="horde" />
     <file name="editfaces.js" role="horde" />
     <file name="embed.js" role="horde" />
-    <file name="googlemap.js" role="horde" />
-    <file name="googlemap_edit.js" role="horde" />
     <file name="imagefaces.js" role="horde" />
     <file name="lightbox.js" role="horde" />
     <file name="map.js" role="horde" />
+    <file name="map_edit.js" role="horde" />
     <file name="mobile.js" role="horde" />
     <file name="slideshow.js" role="horde" />
     <file name="slugcheck.js" role="horde" />
@@ -479,11 +484,14 @@
       <file name="galleries.png" role="horde" />
       <file name="image_add.png" role="horde" />
       <file name="mygalleries.png" role="horde" />
+      <file name="photomarker-shadow.png" role="horde" />
+      <file name="photomarker.png" role="horde" />
       <file name="slideshow_next.png" role="horde" />
       <file name="slideshow_pause.png" role="horde" />
       <file name="slideshow_play.png" role="horde" />
       <file name="slideshow_prev.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
     <dir name="tango-blue">
      <dir name="graphics">
@@ -520,7 +528,6 @@
    <file name="group.php" role="horde" />
    <file name="image.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="maptest.php" role="horde" />
    <file name="map_edit.php" role="horde" />
    <file name="mobile.php" role="horde" />
    <file name="perms.php" role="horde" />
@@ -727,6 +734,11 @@
    </extension>
   </optional>
  </dependencies>
+  <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
  <phprelease>
   <filelist>
    <install as="ansel/.htaccess" name=".htaccess" />
@@ -739,7 +751,6 @@
    <install as="ansel/group.php" name="group.php" />
    <install as="ansel/image.php" name="image.php" />
    <install as="ansel/index.php" name="index.php" />
-   <install as="ansel/maptest.php" name="maptest.php" />
    <install as="ansel/map_edit.php" name="map_edit.php" />
    <install as="ansel/mobile.php" name="mobile.php" />
    <install as="ansel/perms.php" name="perms.php" />
@@ -801,16 +812,17 @@
    <install as="ansel/js/cropper.js" name="js/cropper.js" />
    <install as="ansel/js/editfaces.js" name="js/editfaces.js" />
    <install as="ansel/js/embed.js" name="js/embed.js" />
-   <install as="ansel/js/googlemap.js" name="js/googlemap.js" />
-   <install as="ansel/js/googlemap_edit.js" name="js/googlemap_edit.js" />
    <install as="ansel/js/imagefaces.js" name="js/imagefaces.js" />
    <install as="ansel/js/lightbox.js" name="js/lightbox.js" />
    <install as="ansel/js/map.js" name="js/map.js" />
+   <install as="ansel/js/map_edit.js" name="js/map_edit.js" />
    <install as="ansel/js/mobile.js" name="js/mobile.js" />
    <install as="ansel/js/slideshow.js" name="js/slideshow.js" />
    <install as="ansel/js/slugcheck.js" name="js/slugcheck.js" />
    <install as="ansel/js/tagactions.js" name="js/tagactions.js" />
    <install as="ansel/js/togglewidget.js" name="js/togglewidget.js" />
+   <install as="ansel/js/blocks/geotag.js" name="js/blocks/geotag.js" />
+   <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
    <install as="ansel/lib/Api.php" name="lib/Api.php" />
    <install as="ansel/lib/Application.php" name="lib/Application.php" />
@@ -1036,12 +1048,15 @@
    <install as="ansel/themes/default/graphics/lightbox/loading.gif" name="themes/default/graphics/lightbox/loading.gif" />
    <install as="ansel/themes/default/graphics/lightbox/nextlabel.gif" name="themes/default/graphics/lightbox/nextlabel.gif" />
    <install as="ansel/themes/default/graphics/lightbox/prevlabel.gif" name="themes/default/graphics/lightbox/prevlabel.gif" />
+   <install as="ansel/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="ansel/themes/silver/graphics/add.png" name="themes/silver/graphics/add.png" />
    <install as="ansel/themes/silver/graphics/ansel.png" name="themes/silver/graphics/ansel.png" />
    <install as="ansel/themes/silver/graphics/browse.png" name="themes/silver/graphics/browse.png" />
    <install as="ansel/themes/silver/graphics/galleries.png" name="themes/silver/graphics/galleries.png" />
    <install as="ansel/themes/silver/graphics/image_add.png" name="themes/silver/graphics/image_add.png" />
    <install as="ansel/themes/silver/graphics/mygalleries.png" name="themes/silver/graphics/mygalleries.png" />
+   <install as="ansel/themes/silver/graphics/photomarker-shadow.png" name="themes/silver/graphics/photomarker-shadow.png" />
+   <install as="ansel/themes/silver/graphics/photomarker.png" name="themes/silver/graphics/photomarker.png" />
    <install as="ansel/themes/silver/graphics/slideshow_next.png" name="themes/silver/graphics/slideshow_next.png" />
    <install as="ansel/themes/silver/graphics/slideshow_pause.png" name="themes/silver/graphics/slideshow_pause.png" />
    <install as="ansel/themes/silver/graphics/slideshow_play.png" name="themes/silver/graphics/slideshow_play.png" />
@@ -1082,7 +1097,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-09-08</date>
+   <date>2011-09-27</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.
