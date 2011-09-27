@@ -558,7 +558,7 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
+    <min>4.0.10</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
