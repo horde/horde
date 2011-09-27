@@ -44,37 +44,21 @@ To function properly, Ansel **requires** the following:
 3. A database:
 
    Ansel needs a database to store information about images and galleries. Any
-   database supported by MDB2 should work; MySQL and PostgreSQL are the most
+   database supported by Horde_Db will work; MySQL and PostgreSQL are the most
    tested. If you use MySQL, you need at least version 5.0.
 
-4. The following PEAR packages:
-   (See `horde/docs/INSTALL`_ for instructions on installing PEAR packages)
-
-   .. Important:: If you are going to install Ansel the recommended way,
-                  i.e. using the PEAR installer, you can skip the remainder of
-                  this section. Installing Ansel through PEAR will
-                  automatically download and install all required PEAR modules.
-
-   a. MDB2
-
-      Ansel uses the MDB2 classes for database access.  In addition, you will
-      need to ensure you have the proper MDB2_Driver package for your specific
-      database backend.
-
-5. The following PECL modules:
+4. The following PECL modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PECL modules)
 
    a. _`imagick`
 
       The imagick module provides a quicker, more efficient interface to
-      ImageMagick's capabilities and is used if Horde finds it available on
-      your system.  It provides better results when doing things like
-      generating thumbnails with rounded corners and drop shadows. To use the
-      imagick module, make sure you still set the path to ``convert`` as
-      described below. You can alternatively use the GD_ extension or the
-      ImageMagick_ software, but one of these is **required**. The imagick
-      extension **must** be compiled against ImageMagick version 6.2.9 or
-      better, though version 6.5.7 or better is recommended though.
+      ImageMagick's capabilities. It provides better results when doing things
+      like generating thumbnails with rounded corners and drop shadows. You can
+      alternatively use the GD_ extension or the ImageMagick_ software, but one
+      of these is **required**. The imagick extension **must** be compiled
+      against ImageMagick version 6.2.9 or better, though version 6.5.7 or
+      better is recommended.
 
    b. _`OpenCV`
 
@@ -125,9 +109,9 @@ Installing Ansel
 ================
 
 There are several ways to install Ansel. The recommended way to install Ansel
-is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Ansel from Git.
+is using the PEAR installer. Alternatively, if you want to run the latest
+development code, or get the latest, not yet released, fixes, you can install
+Ansel from Git.
 
 
 Installing with PEAR
