@@ -318,9 +318,13 @@ HordeMap.Map.Horde = Class.create({
         return m;
     },
 
-    removeMarker: function(m)
+    removeMarker: function(m, opts)
     {
-        this.markerLayer.destroyFeatures([m]);
+        if (opts.layer) {
+            opts.layer.destroyFeatures([m]);
+        } else {
+            this.markerLayer.destroyFeatures([m]);
+        }
     },
 
     /**
