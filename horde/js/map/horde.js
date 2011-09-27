@@ -153,40 +153,71 @@ HordeMap.Map.Horde = Class.create({
         }
 
         if (opts.onHover) {
-            this.selectControl = new OpenLayers.Control.SelectFeature(
-                layer, {
-                    hover: true,
-                    highlightOnly: true,
-                    renderIntent: 'temporary',
-                    eventListeners: {
-                         beforefeaturehighlighted: opts.onHover,
-                         featurehighlighted: opts.onHover,
-                         featureunhighlighted: opts.onHover
-                    }
-                }
-            );
-            this.map.addControl(this.selectControl);
-            this.selectControl.activate();
-        }
-        if (opts.onClick) {
-            var clickControl = new OpenLayers.Control.SelectFeature(
-                layer, {
-                    'hover': false,
-                    'clickout': false,
-                    'toggle': true,
-                    'hover': false,
-                    'multiple': false,
-                    'renderIntent': 'temporary'
-                }
-            );
-            layer.events.on({
-                'featureselected': opts.onClick
+            this.selectControl = this.addHighlightControl({
+                'onHover': opts.onHover,
+                'layers': layer
             });
-            this.map.addControl(clickControl);
-            clickControl.activate();
+        }
+
+        if (opts.onClick) {
+            this.addClickControl({
+                'layers': layer,
+                'onClick': opts.onClick
+            });
         }
 
         return layer;
+    },
+
+    addHighlightControl: function(opts)
+    {
+        var selectControl = new OpenLayers.Control.SelectFeature(
+            opts.layers, {
+                hover: true,
+                highlightOnly: true,
+                renderIntent: 'temporary',
+                eventListeners: {
+                     beforefeaturehighlighted: opts.onHover,
+                     featurehighlighted: opts.onHover,
+                     featureunhighlighted: opts.onHover
+                }
+            }
+        );
+        this.map.addControl(selectControl);
+        selectControl.activate();
+        return selectControl;
+    },
+
+    /**
+     * Add a click control to the map. HordeMap only supports one selectFeature
+     * control for click handlers per map, though it may contain several layers.
+     *
+     * @param object opts
+     *    'layers': [] All layers that should be included in the control layer.
+     *              Note that any layers on top of layers that should handle
+     *              clicks *must* be included in the array.
+     *              This is an OL requirement.
+     *    'active': [] Layers that should actually respond to the click request.
+     */
+    addClickControl: function(opts)
+    {
+        var clickControl = new OpenLayers.Control.SelectFeature(
+            opts.layers, {
+                'hover': false,
+                'clickout': false,
+                'toggle': true,
+                'hover': false,
+                'multiple': false,
+                'renderIntent': 'temporary'
+            }
+        );
+        opts.active.each(function(l) {
+            l.events.on({
+                'featureselected': opts.onClick
+            });
+       });
+        this.map.addControl(clickControl);
+        clickControl.activate();
     },
 
     /**
