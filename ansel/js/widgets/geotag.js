@@ -129,6 +129,13 @@ AnselGeoTagWidget = Class.create({
         // Place the image markers
         var centerImage;
         this._images.each(function(img) {
+            AnselMap.placeMapMarker(
+                'ansel_map_small',
+                {
+                    'lat': img.image_latitude,
+                    'lon': img.image_longitude
+                }
+            );
             if (img.markerOnly) {
                 (function() {
                     var p = img;
@@ -156,6 +163,13 @@ AnselGeoTagWidget = Class.create({
 
             // Watch for hover on imagetiles too, need closures
             if (this.opts.viewType == 'Gallery') {
+                AnselMap.placeMapMarker(
+                    'ansel_map_small',
+                    {
+                        'lat': img.image_latitude,
+                        'lon': img.image_longitude
+                    }
+                );
                 (function() {
                     var f = m;
                     $$('#imagetile_' + img.image_id + ' img')[0].observe(
@@ -172,14 +186,6 @@ AnselGeoTagWidget = Class.create({
                     );
                 }.bind(this))();
             }
-
-            AnselMap.placeMapMarker(
-                'ansel_map_small',
-                {
-                    'lat': img.image_latitude,
-                    'lon': img.image_longitude
-                }
-            );
         }.bind(this));
         if (centerImage) {
             AnselMap.placeMapMarker(
