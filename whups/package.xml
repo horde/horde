@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-22</date>
- <time>15:55:33</time>
+ <date>2011-09-27</date>
+ <time>18:08:17</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0alpha1</api>
@@ -28,7 +28,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
-* [jan] Fix automatic linking of bug numbers inside URLs (Bug #7081).
 * First alpha release for Horde 4.
  </notes>
  <contents>
@@ -484,12 +483,165 @@
     <exclude>5.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Autoloader</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Compress</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Form</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Group</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
     <min>1.2.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Mime_Viewer</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Notification</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.3</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Scheduler</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Share</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Vfs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_View</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
+   <extension>
+    <name>json</name>
+   </extension>
   </required>
  </dependencies>
  <phprelease>
@@ -755,10 +907,9 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-09-22</date>
-   <license uri="TODO">TODO</license>
+   <date>2011-09-27</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
-* [jan] Fix automatic linking of bug numbers inside URLs (Bug #7081).
 * First alpha release for Horde 4.
    </notes>
   </release>
