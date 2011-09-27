@@ -64,18 +64,18 @@ install any dependencies of Whups too. If you want to install Whups with all
 optional dependencies, but without the binary PECL packages that need to be
 compiled, specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/whups
+   pear install -a -B horde/whups-alpha
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/whups
+   pear install horde/whups-alpha
 
 If you want to install Whups even with all binary dependencies, you need to
 remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/whups
+   pear install -a horde/whups-alpha
 
 
 Installing from Release Tarballs
@@ -120,29 +120,6 @@ Configuring Whups
 
 1. Configuring Whups
 
-   TODO: clean up for 2.0 release!
-
-   To configure Whups, change to the ``config/`` directory of the installed
-   distribution, and make copies of all of the configuration ``dist`` files
-   without the ``dist`` suffix::
-
-      cd config/
-      for foo in *.dist; do cp $foo `basename $foo .dist`; done
-
-   Or on Windows::
-
-      copy *.dist *.
-
-   Documentation on the format and purpose of those files can be found in each
-   file. You may edit these files if you wish to customize Whups's appearance
-   and behavior. With one exception (``reminders.php``, in case you want to
-   automatically sent out reminders about open tickets) the defaults will be
-   correct for most sites.
-
-   The ``create_email.plain.php`` and ``notify_email.plain.php`` files define
-   how outgoing email notifications about new respectively updated tickets look
-   like. See the comments in these files for details.
-
    You must login to Horde as a Horde Administrator to finish the
    configuration of Whups. Use the Horde ``Administration`` menu item to get
    to the administration page, and then click on the ``Configuration`` icon to
@@ -154,21 +131,36 @@ Configuring Whups
    file. In this case, go back to ``Configuration`` and choose one of the
    other methods to create the configuration file ``whups/config/conf.php``.
 
-   If you would like the ability to create and update tickets via
-   email, you will need to set up ``whups/scripts/mail-filter.php`` to
-   receive email from the appropriate addresses. This script takes a
-   number of arguments; see the script for more details. A typical
-   setup might be::
+   Documentation on the format and purpose of the other configuration files and
+   templates in the ``config/`` directory can be found in each file. You may
+   create ``*.local.php`` versions of these files if you wish to customize
+   Whups' appearance and behavior. See the header of the configuration files
+   for details and examples. With one exception (``reminders.php``, in case you
+   want to automatically sent out reminders about open tickets) the defaults
+   will be correct for most sites.
 
-      bugs |/path/to/horde/whups/scripts/mail-filter.php --queue-name=Bugs --type-name=Bug --state-name=New --priority-name=Low
+   The ``*_email.plain.php`` files define how outgoing email notifications
+   about ticket changes look like. See the comments in these files for details.
 
-   This will take in mail to the ``bugs`` address at your domain, and
-   create new tickets in the ``Bugs`` queue, with a type of ``Bug``, a
-   state of ``New``, and ``Low`` priority. Note that this must be a
-   valid combination of queue/type/state/priority names in your Whups
-   installation. If an email references an existing ticket (ticket
-   numbers are recognized in the subject line) it will be updated
-   instead.
+   If you would like the ability to create and update tickets via email, you
+   will need to set up ``whups-mail-filter`` to receive email from the
+   appropriate addresses. This script takes a number of arguments; see the
+   script for more details. A typical setup might be::
+
+      bugs |/usr/bin/whups-mail-filter --queue-name=Bugs --type-name=Bug --state-name=New --priority-name=Low
+
+   This will take in mail to the ``bugs`` address at your domain, and create
+   new tickets in the ``Bugs`` queue, with a type of ``Bug``, a state of
+   ``New``, and ``Low`` priority. Note that this must be a valid combination of
+   queue/type/state/priority names in your Whups installation. If an email
+   references an existing ticket (ticket numbers are recognized in the subject
+   line) it will be updated instead.
+
+   If not installing Whups through PEAR of if PEAR's ``bin_dir`` configuration
+   doesn't point to ``/usr/bin/``, replace ``/usr/bin/whups-mail-filter`` with
+   the path to the ``whups-mail-filter`` script in your Horde installation.
+
+   See also `Creating tickets from email messages`_ below.
 
 2. Creating the database table
 
@@ -176,16 +168,16 @@ Configuring Whups
    database tables by clicking the ``DB schema is out of date.`` link in the
    Whups row of the configuration screen.
 
-   Alternatively you creating the Whups database tables can be accomplished with
-   horde's ``horde-db-migrate`` utility.  If your database is properly setup in the
-   Horde configuration, just run the following::
+   Alternatively creating the Whups database tables can be accomplished with
+   horde's ``horde-db-migrate`` utility.  If your database is properly setup in
+   the Horde configuration, just run the following::
 
-      horde/bin/horde-db-migrate whups
+      horde-db-migrate whups
 
 3. Testing Whups
 
-   Use Whups to create your base data, create tickets, and modify
-   tickets. Test at least the following:
+   Use Whups to create your base data, create tickets, and modify tickets. Test
+   at least the following:
 
      - Creating a new project (queue)
      - Creating ticket types, states, priorities for a project
@@ -197,7 +189,7 @@ Configuring Whups
 
    Whups provides functionality that can be used to create and update tickets
    from email messages. One part of this functionality is the
-   ``mail-filter.php`` in the ``whups/scripts/`` directory. It can either be
+   ``whups-mail-filter`` script. It can either be
    installed inside the mail chain, or run as a standalone script against an
    IMAP or POP3 server. It provides a list of all available command line
    arguments if called with the ``--help`` argument: ``./mail-filter.php
@@ -216,7 +208,7 @@ Configuring Whups
    this script, e.g. through the forwarding or alias mechanism. An example
    entry in ``/etc/alias`` could look like this::
 
-      bugs:"|/pathtohorde/whups/scripts/mail-filter.php -q 'Test Queue' -t mytype -p '1. Low' -s Unconfirmed"
+      bugs:"|/usr/bin/whups-mail-filter -q 'Test Queue' -t mytype -p '1. Low' -s Unconfirmed"
 
    Even though this example uses "names" for the arguments, it's preferred to
    use IDs, because those doesn't cause any problems with spaces, or non-ascii
@@ -244,11 +236,11 @@ Configuring Whups
 
    Finally, you might want to to enable the setting in Whups' configuration,
    below the "Email Settings" tab, that allows users to reply to ticket
-   emails. This setting removes the warning from the generated ticket emails
-   to *not* reply to those emails. And you should of course make sure that you
-   specify the correct email address here for the generated messages. It
-   should the address that you use for the mail pipe, or the IMAP/POP3 account
-   when calling ``mail-filter.php``.
+   emails. This setting removes the warning from the generated ticket emails to
+   *not* reply to those emails. And you should of course make sure that you
+   specify the correct email address here for the generated messages. It should
+   be the address that you use for the mail pipe, or the IMAP/POP3 account when
+   calling ``whups-mail-filter``.
 
 
 Obtaining Support
