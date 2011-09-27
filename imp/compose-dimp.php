@@ -138,7 +138,7 @@ case 'forward_auto':
 case 'forward_body':
 case 'forward_both':
     $indices = $vars->uids
-        ? new IMP_Indices($vars->uids)
+        ? new IMP_Indices_Form($vars->uids)
         : null;
 
     if ($indices && (count($indices) > 1)) {
@@ -148,7 +148,7 @@ case 'forward_both':
 
         try {
             $header = array(
-                'subject' => $imp_compose->attachImapMessage(new IMP_Indices($vars->uids))
+                'subject' => $imp_compose->attachImapMessage($indices)
             );
         } catch (IMP_Compose_Exception $e) {
             $notification->push($e, 'horde.error');
