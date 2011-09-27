@@ -13,6 +13,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('passwd');
 
 $backends = Passwd::getBackends();
+
 // Get the backend details.
 $backend_key = Horde_Util::getFormData('backend', false);
 if (!isset($backends[$backend_key])) {
@@ -26,8 +27,7 @@ do {
     }
 
     // Has the user submitted the form yet?
-    $submit = Horde_Util::getFormData('submit', false);
-    if (!$submit) {
+    if (!Horde_Util::getFormData('submit')) {
         // No so we don't need to do anything in this loop.
         break;
     }
@@ -183,7 +183,6 @@ do {
     }
 
     // Create a Password_Driver instance.
-    require_once PASSWD_BASE . '/lib/Driver.php';
     try {
         $daemon = $GLOBALS['injector']->getInstance('Passwd_Factory_Driver')->setBackends($backends)->create($backend_key);
     }
@@ -201,8 +200,8 @@ do {
     }
 
     try {
-    $res = $daemon->changePassword($backend_userid, $old_password,
-                                   $new_password0);
+        $res = $daemon->changePassword($backend_userid, $old_password,
+                                       $new_password0);
         if (!isset($backends[$backend_key]['no_reset']) ||
             !$backends[$backend_key]['no_reset']) {
             Passwd::resetCredentials($old_password, $new_password0);
@@ -213,15 +212,15 @@ do {
 
         try {
             Horde::callHook('password_changed', array($backend_userid, $old_password, $new_password0), 'passwd');
-        } catch (Horde_Exception_HookNotSet $e) {}
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
 
         $return_to = Horde_Util::getFormData('return_to');
         if (!empty($return_to)) {
             header('Location: ' . $return_to);
             exit;
         }
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
         $notification->push(sprintf(_("Failure in changing password for %s: %s"),
                                     $backends[$backend_key]['name'],
                                     $e->getMessage()), 'horde.error');
