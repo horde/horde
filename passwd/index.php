@@ -21,6 +21,7 @@ if (!isset($backends[$backend_key])) {
 }
 
 // Use a do-while to allow easy breaking if an error is found.
+// @todo: use goto when we depend on PHP 5.3+
 do {
     if (!$backend_key) {
         break;
