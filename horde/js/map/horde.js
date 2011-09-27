@@ -65,6 +65,7 @@ HordeMap.Map.Horde = Class.create({
             layers: [],
             onHover: false,
             onClick: false,
+            hide: true,
             // default stylemap
             styleMap: new OpenLayers.StyleMap({
                 'default': {
@@ -131,6 +132,18 @@ HordeMap.Map.Horde = Class.create({
         this.map.zoomToMaxExtent();
     },
 
+    /**
+     * Create a vector layer and attach to map. Can pass hover and click
+     * handlers if this is the *only* layer to use them. Otherwise, use
+     * addHighlightControl/addClickControl methods after all layers are
+     * created.
+     *
+     * opts
+     *   markerLayerTitle  - The title to show in the LayerSwitcher
+     *   hide              - Do not show layer in LayerSwitcher
+     *   onHover           - Hover handler
+     *   onClick           - Click handler
+     */
     createVectorLayer: function(opts)
     {
         var styleMap = opts.styleMap || this.styleMap;
@@ -138,10 +151,12 @@ HordeMap.Map.Horde = Class.create({
             opts.markerLayerTitle,
             {
                 'styleMap': styleMap,
-                'rendererOptions': { zIndexing: true }
+                'rendererOptions': { zIndexing: true },
             }
         );
-
+        if (opts.hide) {
+            layer.displayInLayerSwitcher = false;
+        }
         if (opts.draggableFeatures) {
             var dragControl = new OpenLayers.Control.DragFeature(
                 layer,
