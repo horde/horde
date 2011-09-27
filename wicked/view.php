@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('wicked');
 
-$page = Horde_Util::getFormData('page', 'WikiHome');
+$page = Horde_Util::getFormData('page', 'Wiki/Home');
 $file = Horde_Util::getFormData('file');
 $mime = Horde_Util::getFormData('mime');
 

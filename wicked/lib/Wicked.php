@@ -47,8 +47,9 @@ class Wicked
        "[A-Z\xc0-\xde]" .            // 1 upper
        "[A-Za-z0-9\xc0-\xfe]*" .     // 0+ alpha or digit
        "[a-z0-9\xdf-\xfe]+" .        // 1+ lower or digit
+       "\/?" .                       // 0/1 slash
        "[A-Z\xc0-\xde]" .            // 1 upper
-       "[A-Za-z0-9\xc0-\xfe]*" .     // 0+ or more alpha or digit
+       "[A-Za-z0-9\xc0-\xfe\/]*" .   // 0+ or more alpha or digit or slash
        ")" .                         // END WikiPage pattern (/1)
        "((\#" .                      // START Anchor pattern (2)(3)
        "[A-Za-z0-9\xc0-\xfe]" .      // 1 alpha
@@ -58,7 +59,7 @@ class Wicked
        "[-_A-Za-z0-9\xc0-\xfe]" .    // 1 dash, alpha, digit, or underscore
        ")?)?)");                     // end subpatterns (/4)(/3)(/2)
      */
-    const REGEXP_WIKIWORD = "(!?[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe]*[a-z0-9\xdf-\xfe]+[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe]*)((\#[A-Za-z0-9\xc0-\xfe]([-_A-Za-z0-9\xc0-\xfe:.]*[-_A-Za-z0-9\xc0-\xfe])?)?)";
+    const REGEXP_WIKIWORD = "(!?[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe]*[a-z0-9\xdf-\xfe]+\/?[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe\/]*)((\#[A-Za-z0-9\xc0-\xfe]([-_A-Za-z0-9\xc0-\xfe:.]*[-_A-Za-z0-9\xc0-\xfe])?)?)";
 
     /** Where we store our attachments in VFS. */
     const VFS_ATTACH_PATH = '.horde/wicked/attachments';
@@ -99,8 +100,8 @@ class Wicked
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
 
         if (@count($conf['menu']['pages'])) {
-            $pages = array('WikiHome' => _("_Home"),
-                           'HowToUseWiki' => _("_Usage"),
+            $pages = array('Wiki/Home' => _("_Home"),
+                           'Wiki/Usage' => _("_Usage"),
                            'RecentChanges' => _("_Recent Changes"),
                            'AllPages' => _("_All Pages"));
             foreach ($conf['menu']['pages'] as $pagename) {
@@ -119,7 +120,7 @@ class Wicked
                 }
 
                 $url = Horde_Util::addParameter(self::url($pagename), 'referrer', $referrer);
-                $menu->add($url, $pages[$pagename], $pagename . '.png', null, null, null, $cellclass);
+                $menu->add($url, $pages[$pagename], str_replace('/', '', $pagename) . '.png', null, null, null, $cellclass);
             }
         }
 

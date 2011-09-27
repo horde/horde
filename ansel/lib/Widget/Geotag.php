@@ -90,7 +90,8 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         $url = Horde::url('map_edit.php', true);
         $rtext = _("Relocate this image");
         $dtext = _("Delete geotag");
-
+        $thisTitleText = _("This image");
+        $otherTitleText = _("Other images in this gallery");
         $imple = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Imple')
             ->create(array('ansel', 'ImageSaveGeotag'));
@@ -213,6 +214,8 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 viewType: '{$viewType}',
                 relocateUrl: '{$url}',
                 relocateText: '{$rtext}',
+                markerLayerTitle: '{$thisTitleText}',
+                imageLayerTitle: '{$otherTitleText}',
                 deleteGeotagText: '{$dtext}',
                 hasEdit: {$permsEdit},
                 updateEndpoint: '{$impleUrl}',

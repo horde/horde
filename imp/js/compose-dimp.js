@@ -40,7 +40,7 @@ var DimpCompose = {
     updateDraftsMailbox: function()
     {
         if (this.baseAvailable() &&
-            DimpCore.base.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
+            DimpCore.base.DimpBase.view == DIMP.conf_compose.drafts_mbox) {
             DimpCore.base.DimpBase.poll();
         }
     },
@@ -67,11 +67,14 @@ var DimpCompose = {
 
         $('composeCache').clear();
         $('qreply', 'sendcc', 'sendbcc').compact().invoke('hide');
+        $('noticerow').down('UL.notices').childElements().invoke('hide');
         $('msgData', 'togglecc', 'togglebcc').compact().invoke('show');
         if (IMP_Compose_Base.editor_on) {
             this.toggleHtmlEditor();
         }
         $('compose').reset();
+
+        this.setDisabled(false);
 
         // Disable auto-save-drafts now.
         if (this.auto_save_interval) {
@@ -140,10 +143,6 @@ var DimpCompose = {
             l = (id == 'sm')
                 ? (l.f || l.v)
                 : l.l;
-        }
-
-        if (id == 'sm') {
-            s = s.base64urlEncode();
         }
 
         $(k.opts.input).setValue(s);

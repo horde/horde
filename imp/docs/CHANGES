@@ -2,6 +2,14 @@
 v5.0.14-git
 -----------
 
+[mms] Re-add 'msgs_shown' parameter to Newmail block.
+[mms] Allow multiple messages to be sent via quickreply in dynamic view.
+[mms] Allow image attachments to be displayed without download in mobile view.
+[mms] Fix reporting spam/innocent on mailbox page in mobile view.
+[mms] Fix viewing next message after deleting message in mobile view.
+[mms] Fix composing messages in mobile view.
+[mms] Optimize deletion of messages in dynamic view.
+[mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
 [mms] Fix altering background color of system message flags (Bug #10544).
 [jan] Fix sending notifications after download of linked attachments (Bug
       #10539).

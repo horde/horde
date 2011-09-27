@@ -208,7 +208,7 @@ class Wicked_Page
         global $conf, $notification, $wicked;
 
         if (empty($pagename)) {
-            $pagename = 'WikiHome';
+            $pagename = 'Wiki/Home';
         }
 
         $classname = 'Wicked_Page_' . $pagename;

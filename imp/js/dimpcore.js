@@ -146,10 +146,10 @@ var DimpCore = {
 
         if (b.getMetaData('search')) {
             s.get('dataob').each(function(r) {
-                if (tmp[r.view]) {
-                    tmp[r.view].push(r.uid);
+                if (tmp[r.mbox]) {
+                    tmp[r.mbox].push(r.uid);
                 } else {
-                    tmp[r.view] = [ r.uid ];
+                    tmp[r.mbox] = [ r.uid ];
                 }
             });
         } else {
@@ -344,7 +344,7 @@ var DimpCore = {
             this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
         } else {
             args.uids.get('dataob').each(function(d) {
-                params.mailbox = d.view.base64urlEncode();
+                params.mailbox = d.mbox;
                 params.uid = d.uid;
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
             }, this);

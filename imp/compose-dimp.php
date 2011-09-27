@@ -97,23 +97,12 @@ case 'reply_list':
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
 
-        switch ($fillform_opts['auto']) {
-        case 'reply_all':
-            try {
-                $recip_list = $imp_compose->recipientList($header);
-                $fillform_opts['reply_recip'] = count($recip_list['list']);
-            } catch (IMP_Compose_Exception $e) {
-                $fillform_opts['reply_recip'] = 0;
-            }
-            break;
+        if (isset($reply_msg['reply_recip'])) {
+            $fillform_opts['reply_recip'] = $reply_msg['reply_recip'];
+        }
 
-        case 'reply_list':
-            $hdr_ob = $contents->getHeaderOb();
-            $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
-            if (isset($addr_ob[0]['personal'])) {
-                $fillform_opts['reply_list_id'] = $addr_ob[0]['personal'];
-            }
-            break;
+        if (isset($reply_msg['reply_list_id'])) {
+            $fillform_opts['reply_list_id'] = $reply_msg['reply_list_id'];
         }
     }
 
@@ -293,7 +282,6 @@ if ($vars->type != 'redirect') {
 Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
 $scripts = array(
-    array('base64url.js', 'imp'),
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),

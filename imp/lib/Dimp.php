@@ -14,9 +14,6 @@
  */
 class IMP_Dimp
 {
-    /* String used to separate indexes. */
-    const IDX_SEP = "\0";
-
     /**
      * Output a dimp-style action (menubar) link.
      *

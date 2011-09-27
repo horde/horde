@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-23</date>
- <time>14:00:44</time>
+ <date>2011-09-26</date>
+ <time>13:03:31</time>
  <version>
   <release>5.0.14</release>
   <api>5.0.0</api>
@@ -34,6 +34,14 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
+* [mms] Allow multiple messages to be sent via quickreply in dynamic view.
+* [mms] Allow image attachments to be displayed without download in mobile view.
+* [mms] Fix reporting spam/innocent on mailbox page in mobile view.
+* [mms] Fix viewing next message after deleting message in mobile view.
+* [mms] Fix composing messages in mobile view.
+* [mms] Optimize deletion of messages in dynamic view.
+* [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
 * [mms] Fix altering background color of system message flags (Bug #10544).
 * [jan] Fix sending notifications after download of linked attachments (Bug #10539).
  </notes>
@@ -64,7 +72,6 @@
    </dir> <!-- /docs -->
    <dir name="js">
     <file name="acl.js" role="horde" />
-    <file name="base64url.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
     <file name="compose.js" role="horde" />
@@ -163,6 +170,9 @@
      <file name="Thread.php" role="horde" />
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
+    <dir name="Indices">
+     <file name="Form.php" role="horde" />
+    </dir> <!-- /lib/Indices -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="GarbageCollection.php" role="horde" />
@@ -1408,7 +1418,6 @@
    <install as="RFCS" name="docs/RFCS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/js/acl.js" name="js/acl.js" />
-   <install as="imp/js/base64url.js" name="js/base64url.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
@@ -1505,6 +1514,7 @@
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Thread.php" name="lib/Imap/Thread.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
+   <install as="imp/lib/Indices/Form.php" name="lib/Indices/Form.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeAuth.php" name="lib/LoginTasks/SystemTask/UpgradeAuth.php" />
@@ -2472,9 +2482,17 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-23</date>
+   <date>2011-09-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
+* [mms] Allow multiple messages to be sent via quickreply in dynamic view.
+* [mms] Allow image attachments to be displayed without download in mobile view.
+* [mms] Fix reporting spam/innocent on mailbox page in mobile view.
+* [mms] Fix viewing next message after deleting message in mobile view.
+* [mms] Fix composing messages in mobile view.
+* [mms] Optimize deletion of messages in dynamic view.
+* [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
 * [mms] Fix altering background color of system message flags (Bug #10544).
 * [jan] Fix sending notifications after download of linked attachments (Bug #10539).
    </notes>

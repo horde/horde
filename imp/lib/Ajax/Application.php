@@ -97,16 +97,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * AJAX action: Check access rights for creation of a sub mailbox.
+     * AJAX action: Check access rights for creation of a submailbox.
      *
      * Variables used:
-     *   - mbox: (string) The name of the mailbox to check.
+     *   - mbox: (string) The name of the mailbox to check (base64url
+     *           encoded).
      *
-     * @return boolean  True if sub mailboxes can be created
+     * @return boolean  True if submailboxes can be created
      */
     public function createMailboxPrepare()
     {
-        $mbox = IMP_Mailbox::get($this->_vars->mbox);
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
 
         if (!$mbox->access_creatembox) {
             $GLOBALS['notification']->push(sprintf(_("You may not create child folders in \"%s\"."), $mbox->display), 'horde.error');
@@ -122,15 +123,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * Variables used:
      *   - mbox: (string) The name of the new mailbox.
      *   - noexpand: (integer) Submailbox is not yet expanded.
-     *   - parent: (string) The parent mailbox.
+     *   - parent: (string) The parent mailbox (base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
      *   - mailbox: (object) Mailboxes that were altered. Contains the
      *              following properties:
-     *       a: (array) Mailboxes that were added.
-     *       c: (array) Mailboxes that were changed.
-     *       d: (array) Mailboxes that were deleted.
+     *       a: (array) Mailboxes that were added (base64url encoded).
+     *       c: (array) Mailboxes that were changed (base64url encoded).
+     *       d: (array) Mailboxes that were deleted (base64url encoded).
      */
     public function createMailbox()
     {
@@ -143,7 +144,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         try {
             $result = $imptree->createMailboxName(
-                $this->_vars->parent,
+                isset($this->_vars->parent) ? IMP_Mailbox::formFrom($this->_vars->parent) : '',
                 Horde_String::convertCharset($this->_vars->mbox, 'UTF-8', 'UTF7-IMAP')
             )->create();
 
@@ -166,14 +167,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Check access rights for deletion/rename of mailbox.
      *
      * Variables used:
-     *   - mbox: (string) The name of the mailbox to check.
+     *   - mbox: (string) The name of the mailbox to check (base64url
+     *           encoded).
      *   - type: (string) Either 'delete' or 'rename'.
      *
-     * @return boolean  True if sub mailboxes can be created.
+     * @return boolean  True if mailbox can be deleted/renamed.
      */
     public function deleteMailboxPrepare()
     {
-        $mbox = IMP_Mailbox::get($this->_vars->mbox);
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
 
         if (!$mbox->fixed && $mbox->access_deletembox) {
             return true;
@@ -196,17 +198,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Delete a mailbox.
      *
      * Variables used:
-     * <pre>
-     * 'mbox' - (string) The full mailbox name to delete.
-     * </pre>
+     *   - mbox: (string) The full mailbox name to delete (base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
      *   - mailbox: (object) Mailboxes that were altered. Contains the
      *              following properties:
-     *     a: (array) Mailboxes that were added.
-     *     c: (array) Mailboxes that were changed.
-     *     d: (array) Mailboxes that were deleted.
+     *     a: (array) Mailboxes that were added (base64url encoded).
+     *     c: (array) Mailboxes that were changed (base64url encoded).
+     *     d: (array) Mailboxes that were deleted (base64url encoded).
      */
     public function deleteMailbox()
     {
@@ -214,17 +214,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
+
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $imptree->eltDiffStart();
 
-        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-
-        if ($imp_search->isVFolder($this->_vars->mbox, true)) {
-            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $imp_search[$this->_vars->mbox]->label), 'horde.success');
-            unset($imp_search[$this->_vars->mbox]);
+        if ($mbox->edit_vfolder) {
+            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+            unset($imp_search[strval($mbox)]);
+            $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $mbox->label), 'horde.success');
             $result = true;
         } else {
-            $result = $GLOBALS['injector']->getInstance('IMP_Folder')->delete(array($this->_vars->mbox));
+            $result = $GLOBALS['injector']->getInstance('IMP_Folder')->delete(array($mbox));
         }
 
         if ($result) {
@@ -239,19 +240,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Rename a mailbox.
      *
      * Variables used:
-     * <pre>
-     * new_name: (string) New mailbox name (child node) (UTF-8).
-     * new_parent: (string) New parent name (UTF7-IMAP).
-     * old_name: (string) Full name of old mailbox.
-     * </pre>
+     *   - new_name: (string) New mailbox name (child node) (UTF-8).
+     *   - new_parent: (string) New parent name (UTF7-IMAP) (base64url
+     *                 encoded).
+     *   - old_name: (string) Full name of old mailbox (base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
      *   - mailbox: (object) Mailboxes that were altered. Contains the
      *              following properties:
-     *     a: (array) Mailboxes that were added.
-     *     c: (array) Mailboxes that were changed.
-     *     d: (array) Mailboxes that were deleted.
+     *     a: (array) Mailboxes that were added (base64url encoded).
+     *     c: (array) Mailboxes that were changed (base64url encoded).
+     *     d: (array) Mailboxes that were deleted (base64url encoded).
      */
     public function renameMailbox()
     {
@@ -265,17 +265,19 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result = false;
 
         try {
-            $new = $imptree->createMailboxName(
-                $this->_vars->new_parent,
+            $new_name = $imptree->createMailboxName(
+                isset($this->_vars->new_parent) ? IMP_Mailbox::formFrom($this->_vars->new_parent) : '',
                 Horde_String::convertCharset($this->_vars->new_name, 'UTF-8', 'UTF7-IMAP')
             );
 
-            if (($this->_vars->old_name != $new) &&
-                $GLOBALS['injector']->getInstance('IMP_Folder')->rename($this->_vars->old_name, $new)) {
+            $old_name = IMP_Mailbox::formFrom($this->_vars->old_name);
+
+            if (($old_name != $new_name) &&
+                $GLOBALS['injector']->getInstance('IMP_Folder')->rename($old_name, $new_name)) {
                 $result = new stdClass;
                 $result->mailbox = $this->_getMailboxResponse($imptree);
 
-                $this->_queue->poll($new);
+                $this->_queue->poll($new_name);
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
@@ -289,13 +291,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * messages to be emptied.
      *
      * Variables used:
-     *   - mbox: (string) The name of the mailbox to check.
+     *   - mbox: (string) The name of the mailbox to check (base64url
+     *           encoded).
      *
      * @return integer  The number of messages to be deleted.
      */
     public function emptyMailboxPrepare()
     {
-        $mbox = IMP_Mailbox::get($this->_vars->mbox);
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
 
         if (!$mbox->access_deletemsgs || !$mbox->access_expunge) {
             $GLOBALS['notification']->push(sprintf(_("The folder \"%s\" may not be emptied."), $mbox->display), 'horde.error');
@@ -315,13 +318,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Empty a mailbox.
      *
      * Variables used:
-     * <pre>
-     * 'mbox' - (string) The full mailbox name to empty.
-     * </pre>
+     *   - mbox: (string) The full mailbox name to empty (base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     *   - mbox: (string) The mailbox that was emptied.
+     *   - ViewPort: (object) See _viewPortData().
      */
     public function emptyMailbox()
     {
@@ -329,12 +330,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $GLOBALS['injector']->getInstance('IMP_Message')->emptyMailbox(array($this->_vars->mbox));
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
 
-        $this->_queue->poll($this->_vars->mbox);
+        $GLOBALS['injector']->getInstance('IMP_Message')->emptyMailbox(array($mbox));
+
+        $this->_queue->poll($mbox);
 
         $result = new stdClass;
-        $result->mbox = $this->_vars->mbox;
+        $result->ViewPort = new stdClass;
+        $result->ViewPort->cacheid = $mbox->cacheid;
+        $result->ViewPort->data_reset = 1;
+        $result->ViewPort->rowlist_reset = 1;
+        $result->ViewPort->view = $mbox->form_to;
 
         return $result;
     }
@@ -346,9 +353,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - add: (integer) Add the flags?
      *   - flags: (string) The IMAP flags to add/remove (JSON serialized
      *            array).
-     *   - mbox: (string) The full mailbox name.
+     *   - mbox: (string) The full mailbox name (base64url encoded).
      *
-     * @return mixed  False on failure, or an object on success.
+     * @return boolean  True/false.
      */
     public function flagAll()
     {
@@ -357,13 +364,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, array($this->_vars->mbox), $this->_vars->add)) {
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
+
+        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, array($mbox), $this->_vars->add)) {
             return false;
         }
 
-        $this->_queue->poll($this->_vars->mbox);
+        $this->_queue->poll($mbox);
 
-        return new stdClass;
+        return true;
     }
 
     /**
@@ -374,7 +383,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - initial: (string) 1 to indicate the initial request for mailbox
      *              list.
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array).
+     *             array; mailboxes are base64url encoded).
      *   - reload: (integer) 1 to force reload of mailboxes.
      *   - unsub: (integer) 1 to show unsubscribed mailboxes.
      *
@@ -383,9 +392,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - expand: (integer) Expand subfolders on load.
      *   - mailbox: (object) Mailboxes that were altered. Contains the
      *              following properties:
-     *     a: (array) Mailboxes that were added.
-     *     c: (array) Mailboxes that were changed.
-     *     d: (array) Mailboxes that were deleted.
+     *     a: (array) Mailboxes that were added (base64url encoded).
+     *     c: (array) Mailboxes that were changed (base64url encoded).
+     *     d: (array) Mailboxes that were deleted (base64url encoded).
      */
     public function listMailboxes()
     {
@@ -426,7 +435,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $folder_list = array();
         if (!empty($this->_vars->mboxes)) {
-            foreach (Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON) as $val) {
+            foreach (IMP_Mailbox::formFrom(Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON)) as $val) {
                 $imptree->setIteratorFilter($mask, $val);
                 $folder_list += iterator_to_array($imptree);
 
@@ -478,19 +487,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Expand mailboxes (saves expanded state in prefs).
      *
      * Variables used:
-     *   - encoded: (integer) 1 if mboxes is base64url encoded.
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array) if 'all' is 0.
+     *             array; mailboxes are base64url encoded).
      *
      * @return boolean  True.
      */
     public function expandMailboxes()
     {
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-
         if (!empty($this->_vars->mboxes)) {
+            $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+
             foreach (Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON) as $val) {
-                $imptree->expand($this->_vars->encoded ? IMP_Mailbox::formFrom($val) : $val);
+                $imptree->expand(IMP_Mailbox::formFrom($val));
             }
         }
 
@@ -502,9 +510,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - all: (integer) 1 to show all mailboxes.
-     *   - encoded: (integer) 1 if mboxes is base64url encoded.
      *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array) if 'all' is 0.
+     *             array; mailboxes are base64url encoded) if 'all' is 0.
      *
      * @return boolean  True.
      */
@@ -516,7 +523,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $imptree->collapseAll();
         } elseif (!empty($this->_vars->mboxes)) {
             foreach (Horde_Serialize::unserialize($this->_vars->mboxes, Horde_Serialize::JSON) as $val) {
-                $imptree->collapse($this->_vars->encoded ? IMP_Mailbox::formFrom($val) : $val);
+                $imptree->collapse(IMP_Mailbox::formFrom($val));
             }
         }
 
@@ -551,7 +558,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - add: (integer) 1 to add to the poll list, 0 to remove.
-     *   - mbox: (string) The full mailbox name to modify.
+     *   - mbox: (string) The full mailbox name to modify (base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -564,7 +571,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $display = IMP_Mailbox::get($this->_vars->mbox)->display;
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
 
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
 
@@ -573,12 +580,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->mbox = $this->_vars->mbox;
 
         if ($this->_vars->add) {
-            $imptree->addPollList($this->_vars->mbox);
-            $this->_queue->poll($this->_vars->mbox);
-            $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox now polled for new mail."), $display), 'horde.success');
+            $imptree->addPollList($mbox);
+            $this->_queue->poll($mbox);
+            $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox now polled for new mail."), $mbox->display), 'horde.success');
         } else {
-            $imptree->removePollList($this->_vars->mbox);
-            $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."), $display), 'horde.success');
+            $imptree->removePollList($mbox);
+            $GLOBALS['notification']->push(sprintf(_("\"%s\" mailbox no longer polled for new mail."), $mbox->display), 'horde.success');
         }
 
         return $result;
@@ -588,7 +595,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: [un]Subscribe to a mailbox.
      *
      * Variables used:
-     *   - mbox: (string) The full mailbox name to [un]subscribe to.
+     *   - mbox: (string) The full mailbox name to [un]subscribe to (base64url
+     *           encoded).
      *   - sub: (integer) 1 to subscribe, empty to unsubscribe.
      *
      * @return boolean  True on success, false on failure.
@@ -600,28 +608,34 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
+
         return $this->_vars->sub
-            ? $imp_folder->subscribe(array($this->_vars->mbox))
-            : $imp_folder->unsubscribe(array($this->_vars->mbox));
+            ? $imp_folder->subscribe(array($mbox))
+            : $imp_folder->unsubscribe(array($mbox));
     }
 
     /**
      * AJAX action: Import a mailbox.
      *
      * Variables used:
-     *   - import_mbox: (string) The mailbox to import into.
+     *   - import_mbox: (string) The mailbox to import into (base64url
+     *                  encoded).
      *
      * @return object  False on failure, or an object with the following
      *                 properties:
      *   - action: (string) The action name (importMailbox).
-     *   - mbox: (string) The mailbox the messages were imported to.
+     *   - mbox: (string) The mailbox the messages were imported to (base64url
+     *           encoded).
      */
     public function importMailbox()
     {
         global $injector, $notification;
 
+        $mbox = IMP_Mailbox::formFrom($this->_vars->import_mbox);
+
         try {
-            $notification->push($injector->getInstance('IMP_Ui_Folder')->importMbox($this->_vars->import_mbox, 'import_file'), 'horde.success');
+            $notification->push($injector->getInstance('IMP_Ui_Folder')->importMbox($mbox, 'import_file'), 'horde.success');
         } catch (Horde_Exception $e) {
             $notification->push($e);
             return false;
@@ -631,7 +645,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->action = 'importMailbox';
         $result->mbox = $this->_vars->import_mbox;
 
-        $this->_queue->poll($this->_vars->import_mbox);
+        $this->_queue->poll($mbox);
 
         return $result;
     }
@@ -700,7 +714,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $GLOBALS['session']->start();
 
             if (isset($this->_vars->delhide)) {
-                $result->ViewPort->resetmd = 1;
+                $result->ViewPort->metadata_reset = 1;
             }
         } else {
             $result = false;
@@ -715,16 +729,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed(),
      * _generateDeleteResult(), and _checkUidvalidity(). Additional variables
      * used:
-     *   - mboxto: (string) Mailbox to move the message to.
+     *   - mboxto: (string) Mailbox to move the message to (base64url
+     *             encoded).
      *   - uid: (string) Indices of the messages to move (IMAP sequence
-     *          string).
+     *          string; mailboxes are base64url encoded).
      *
      * @return mixed  False on failure, or an object (see
      *                _generateDeleteResult() for format).
      */
     public function moveMessages()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         if (!$this->_vars->mboxto || !count($indices)) {
             return false;
         }
@@ -735,16 +750,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        $result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($this->_vars->mboxto, 'move', $indices);
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+
+        $result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($mbox, 'move', $indices);
 
         if ($result) {
             $result = $this->_generateDeleteResult($indices, $change);
-            /* Need to manually set remove to true since we want to remove
-             * message from the list no matter the current pref
-             * settings. */
-            $result->deleted->remove = 1;
-
-            $this->_queue->poll($this->_vars->mboxto);
+            $this->_queue->poll($mbox);
         } else {
             $result = $this->_checkUidvalidity();
         }
@@ -757,9 +769,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * See the list of variables needed for _checkUidvalidity(). Additional
      * variables used:
-     *   - mboxto: (string) Mailbox to move the message to.
+     *   - mboxto: (string) Mailbox to copy the message to (base64url
+     *             encoded).
      *   - uid: (string) Indices of the messages to copy (IMAP sequence
-     *          string).
+     *          string; mailboxes are base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -767,13 +780,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function copyMessages()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         if (!$this->_vars->mboxto || !count($indices)) {
             return false;
         }
 
-        if ($result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($this->_vars->mboxto, 'copy', $indices)) {
-            $this->_queue->poll($this->_vars->mboxto);
+        $mbox = IMP_Mailbox::formFrom($this->_vars->mboxto);
+
+        if ($result = $GLOBALS['injector']->getInstance('IMP_Message')->copy($mbox, 'copy', $indices)) {
+            $this->_queue->poll($mbox);
         } else {
             $result = $this->_checkUidvalidity();
         }
@@ -789,7 +804,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - add: (integer) Set the flag?
      *   - flags: (string) The flags to set (JSON serialized array).
      *   - uid: (string) Indices of the messages to flag (IMAP sequence
-     *          string).
+     *          string; mailboxes are base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -797,7 +812,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function flagMessages()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         if (!$this->_vars->flags || !count($indices)) {
             return false;
         }
@@ -823,8 +838,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->ViewPort = $this->_viewPortData(true);
         } else {
             $result->ViewPort = new stdClass;
-            $result->ViewPort->updatecacheid = $this->_mbox->cacheid;
-            $result->ViewPort->view = strval($this->_mbox);
+            $result->ViewPort->cacheid = $this->_mbox->cacheid;
+            $result->ViewPort->view = $this->_mbox->form_to;
         }
 
         return $result;
@@ -837,14 +852,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * _generateDeleteResult(), and _checkUidvalidity(). Additional variables
      * used:
      *   - uid: (string) Indices of the messages to delete (IMAP sequence
-     *          string).
+     *          string; mailboxes are base64url encoded).
      *
      * @return mixed  False on failure, or an object (see
      *                _generateDeleteResult() for format).
      */
     public function deleteMessages()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         if (!count($indices)) {
             return false;
         }
@@ -852,7 +867,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $change = $this->_changed(true);
 
         if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($indices)) {
-            return $this->_generateDeleteResult($indices, $change, true);
+            return $this->_generateDeleteResult($indices, $change);
         }
 
         return is_null($change)
@@ -894,7 +909,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * used:
      *   - spam: (integer) 1 to mark as spam, 0 to mark as innocent.
      *   - uid: (string) Indices of the messages to report (IMAP sequence
-     *          string).
+     *          string; mailboxes are base64url encoded).
      *
      * @return mixed  If messages were deleted, data as returned by
      *                _generateDeleteResult(). Else, true.
@@ -902,14 +917,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function reportSpam()
     {
         $change = $this->_changed(false);
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         $result = true;
 
         if (IMP_Spam::reportSpam($indices, $this->_vars->spam ? 'spam' : 'notspam')) {
             $result = $this->_generateDeleteResult($indices, $change);
-            /* If result of reportSpam() is non-zero, then we know the message
-             * has been removed from the current mailbox. */
-            $result->deleted->remove = 1;
         } elseif (!is_null($change)) {
             $result = $this->_checkUidvalidity(true);
         }
@@ -925,14 +937,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * used:
      *   - blacklist: (integer) 1 to blacklist, 0 to whitelist.
      *   - uid: (string) Indices of the messages to report (IMAP sequence
-     *          string).
+     *          string; mailboxes are base64url encoded).
      *
      * @return mixed  False on failure, or an object (see
      *                _generateDeleteResult() for format).
      */
     public function blacklist()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         if (!count($indices)) {
             return false;
         }
@@ -967,7 +979,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
      *   - uid: (string) Index of the messages to preview (IMAP sequence
-     *          string) - must be single index.
+     *          string; mailbox is base64url encoded) - must be single index.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -975,7 +987,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function showMessage()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         list($mbox, $idx) = $indices->getSingle();
         if (!$idx) {
             return false;
@@ -997,6 +1009,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->message = (object)$show_msg->showMessage($args);
             if (isset($result->message->error)) {
                 $result = $this->_checkUidvalidity($result);
+            } else {
+                $result->message->view = $this->_vars->view;
             }
         } catch (IMP_Imap_Exception $e) {
             $result->message = new stdClass;
@@ -1004,6 +1018,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->message->errortype = 'horde.error';
             $result->message->mailbox = $args['mailbox'];
             $result->message->uid = $args['uid'];
+            $result->message->view = $this->_vars->view;
         }
 
         return $result;
@@ -1015,17 +1030,17 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
      *   - uid: (string) Index of the messages to preview (IMAP sequence
-     *          string) - must be single index.
+     *          string; mailbox is base64url encoded) - must be single index.
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
      *   - preview: (object) Return from IMP_View_ShowMessage::showMessage().
-     *   - ViewPort: (object) See _viewPortData(). (Only returns updatecacheid
-     *                        entry - don't do mailbox poll here).
+     *   - ViewPort: (object) See _viewPortData(). (Only updated cacheid
+     *                        entry; don't do mailbox poll here).
      */
     public function showPreview()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         list($mbox, $idx) = $indices->getSingle();
         if (!$idx) {
             return false;
@@ -1050,6 +1065,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             if (isset($result->preview->error)) {
                 $result = $this->_checkUidvalidity($result);
             } else {
+                $result->preview->view = $this->_vars->view;
+
                 if ($change) {
                     $result->ViewPort = $this->_viewPortData(true);
                 } else {
@@ -1058,8 +1075,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                     $cacheid = $this->_mbox->cacheid;
                     if ($cacheid != $this->_vars->cacheid) {
                         $result->ViewPort = new stdClass;
-                        $result->ViewPort->updatecacheid = $cacheid;
-                        $result->ViewPort->view = strval($this->_mbox);
+                        $result->ViewPort->cacheid = $cacheid;
+                        $result->ViewPort->view = $this->_mbox->form_to;
                     }
                 }
 
@@ -1070,6 +1087,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $result->preview->errortype = 'horde.error';
             $result->preview->mailbox = $args['mailbox'];
             $result->preview->uid = $args['uid'];
+            $result->preview->view = $this->_vars->view;
         }
 
         return $result;
@@ -1172,7 +1190,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - type: (string) Forward type.
      *   - uid: (string) Indices of the messages to forward (IMAP sequence
-     *          string).
+     *          string; mailboxes are base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -1234,7 +1252,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - type: (string) See IMP_Compose::replyMessage().
      *   - uid: (string) Indices of the messages to reply to (IMAP sequence
-     *          string).
+     *          string; mailboxes are base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -1272,7 +1290,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result->identity = $reply_msg['identity'];
                 $result->imp_compose = $imp_compose->getCacheId();
                 if ($this->_vars->type == 'reply_auto') {
-                    $result->opts = array('auto' => array_search($reply_msg['type'], $reply_map));
+                    $result->opts = array_filter(array(
+                        'auto' => array_search($reply_msg['type'], $reply_map),
+                        'reply_list_id' => (isset($reply_msg['reply_list_id']) ? $reply_msg['reply_list_id'] : null),
+                        'reply_recip' => (isset($reply_msg['reply_recip']) ? $reply_msg['reply_recip'] : null),
+                    ));
                 }
             }
         } catch (Horde_Exception $e) {
@@ -1288,7 +1310,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - uid: (string) Index of the message to redirect (IMAP sequence
-     *          string).
+     *          string; mailbox is base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
@@ -1364,9 +1386,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * AJAX action: Purge deleted messages.
      *
      * See the list of variables needed for _changed(), and
-     * _generateDeleteResult().  Additional variables used:
-     *   - uid: (string) Indices of the messages to purge (IMAP sequence
-     *          string).
+     * _generateDeleteResult().
      *
      * @return mixed  False on failure, or an object (see
      *                _generateDeleteResult() for format).
@@ -1396,13 +1416,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         } else {
             $GLOBALS['notification']->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $this->_mbox->display), 'horde.success');
         }
-        $result = $this->_generateDeleteResult($expunged, $change);
 
-        /* Need to manually set remove to true since we want to remove message
-         * from the list no matter the current pref settings. */
-        $result->deleted->remove = 1;
-
-        return $result;
+        return $this->_generateDeleteResult($expunged, $change);
     }
 
     /**
@@ -1410,15 +1425,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - uid: (string) Index of the messages to preview (IMAP sequence
-     *          string) - must be single index.
+     *          string; mailbox is base64url encoded) - must be single index.
      *
      * @return mixed  False on failure, or an object with these properties:
-     *   - mbox: (string) Mailbox of message.
+     *   - mbox: (string) Mailbox of message (base64url encoded).
      *   - uid: (integer) UID of message.
      */
     public function sendMDN()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         if (count($indices) != 1) {
             return false;
         }
@@ -1445,7 +1460,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $GLOBALS['notification']->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
 
         $result = new stdClass;
-        $result->mbox = strval($mbox);
+        $result->mbox = $mbox->form_to;
         $result->uid = $uid;
 
         return $result;
@@ -1457,18 +1472,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
      *   - uid: (string) Index of the messages to preview (IMAP sequence
-     *          string) - must be single index.
+     *          string; bsae64url encoded) - must be single index.
      *
      * @return mixed  False on failure, the return from showPreview() on
      *                success along with these properties:
      *   - newuid: (integer) UID of new message.
-     *   - oldmbox: (string) Mailbox of old message.
+     *   - oldmbox: (string) Mailbox of old message (base64url encoded).
      *   - olduid: (integer) UID of old message.
      *   - ViewPort: (object) See _viewPortData().
      */
     public function stripAttachment()
     {
-        $indices = new IMP_Indices($this->_vars->uid);
+        $indices = new IMP_Indices_Form($this->_vars->uid);
         if (count($indices) != 1) {
             return false;
         }
@@ -1493,7 +1508,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $new_indices_list = $new_indices->getSingle();
         $result->newuid = $new_indices_list[1];
         $old_indices_list = $indices->getSingle();
-        $result->oldmbox = strval($old_indices_list[0]);
+        $result->oldmbox = $old_indices_list[0]->form_to;
         $result->olduid = $old_indices_list[1];
         $result->ViewPort = $this->_viewPortData(true);
 
@@ -1507,9 +1522,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - composeCache: (string) The IMP_Compose cache identifier.
      *
      * @return object  An object with the following entries:
-     *   - atc: TODO
+     *   - atc: (integer) The attachment ID.
      *   - error: (string) An error message.
-     *   - imp_compose: TODO
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - success: (integer) 1 on success, 0 on failure.
      */
     public function addAttachment()
@@ -1575,7 +1590,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *               the current recipient address.
      *   - log: (array) Maillog information
      *   - mailbox: (array) See _getMailboxResponse().
-     *   - mbox: (string) Mailbox of original message.
+     *   - mbox: (string) Mailbox of original message (base64url encoded).
      *   - success: (integer) 1 on success, 0 on failure.
      *   - uid: (integer) IMAP UID of original message.
      */
@@ -1670,7 +1685,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        $result->mbox = strval($imp_compose->getMetadata('mailbox'));
+        $result->mbox = $imp_compose->getMetadata('mailbox')->form_to;
         $result->uid = $imp_compose->getMetadata('uid');
 
         $imp_compose->destroy('send');
@@ -1689,9 +1704,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return object  An object with the following entries:
      *   - log: (array) TODO
-     *   - mbox: (array) TODO
+     *   - mbox: (string) Mailbox of original message (base64url encoded).
      *   - success: (integer) 1 on success, 0 on failure.
-     *   - uid: (integer) TODO
+     *   - uid: (string) The UID of the original message.
      */
     public function redirectMessage()
     {
@@ -1703,7 +1718,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
             $imp_compose->sendRedirectMessage($this->_vars->redirect_to);
 
-            $result->mbox = strval($imp_compose->getMetadata('mailbox'));
+            $result->mbox = $imp_compose->getMetadata('mailbox')->form_to;
             $result->uid = $imp_compose->getMetadata('uid');
 
             $contents = $imp_compose->getContentsOb();
@@ -1733,13 +1748,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - identity: (integer) The identity to use
      *
      * @return array  An array with the following values:
-     * <pre>
-     * [0] (object) AJAX base return object (with action and success
+     *   - (object) AJAX base return object (with action and success
      *     parameters defined).
-     * [1] (IMP_Compose) The IMP_Compose object for the message.
-     * [2] (array) The list of headers for the object.
-     * [3] (Horde_Prefs_Identity) The identity used for the composition.
-     * </pre>
+     *   - (IMP_Compose) The IMP_Compose object for the message.
+     *   - (array) The list of headers for the object.
+     *   - (Horde_Prefs_Identity) The identity used for the composition.
      */
     protected function _dimpComposeSetup()
     {
@@ -1782,14 +1795,16 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * TODO
+     * Initialize the objects needed to compose.
+     *
+     * @return array  An IMP_Compose object and an IMP_Contents object.
      */
     protected function _initCompose()
     {
         $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->imp_compose);
         if (!($imp_contents = $imp_compose->getContentsOb())) {
             $imp_contents = $this->_vars->uid
-                ? $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($this->_vars->uid))
+                ? $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Form($this->_vars->uid))
                 : null;
         }
 
@@ -1868,43 +1883,38 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @param IMP_Indices $indices  An indices object.
      * @param boolean $changed      If true, add ViewPort information.
-     * @param boolean $nothread     Skip thread sort check if not hiding
-     *                              messages.
      *
      * @return object  An object with the following entries:
-     *   - deleted: (object) Contains the following properties:
-     *   - mbox: (string) The current mailbox.
-     *   - remove: (integer) True if messages should be removed from the
-     *             viewport.
-     *   - uids: (string) The list of messages to delete.
      *   - ViewPort: (object) See _viewPortData().
      */
-    protected function _generateDeleteResult($indices, $change,
-                                             $nothread = false)
+    protected function _generateDeleteResult($indices, $changed)
     {
-        $del = new stdClass;
-        $del->mbox = strval($this->_mbox);
-        $del->uids = strval($indices);
-
-        if ($this->_mbox->hideDeletedMsgs(true)) {
-            $del->remove = 1;
+        /* Check if we need to update thread information. */
+        if (!$changed) {
+            $sort = $this->_mbox->getSort();
+            $changed = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
         }
 
         $result = new stdClass;
-        $result->deleted = $del;
 
-        /* Check if we need to update thread information. */
-        if (!$change && (!$nothread || !empty($del->remove))) {
-            $sort = $this->_mbox->getSort();
-            $change = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
-        }
-
-        if ($change) {
+        if ($changed) {
             $result->ViewPort = $this->_viewPortData(true);
         } else {
             $result->ViewPort = new stdClass;
-            $result->ViewPort->updatecacheid = $this->_mbox->cacheid;
-            $result->ViewPort->view = strval($this->_mbox);
+            $result->ViewPort->cacheid = $this->_mbox->cacheid;
+            $result->ViewPort->view = $this->_mbox->form_to;
+
+            if ($this->_mbox->hideDeletedMsgs(true)) {
+                if ($this->_mbox->search) {
+                    $disappear = array();
+                    foreach ($indices as $key => $val) {
+                        $disappear[] = IMP::base64urlEncode($key . IMP_View_ListMessages::IDX_SEP . $val);
+                    }
+                } else {
+                    $disappear = end($indices->getSingle(true));
+                }
+                $result->ViewPort->disappear = $disappear;
+            }
         }
 
         $this->_queue->poll(array_keys($indices->indices()));
@@ -2043,7 +2053,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         if (!empty($changes['d'])) {
-            $result['d'] = array_map('strval', array_reverse($changes['d']));
+            $result['d'] = array();
+            foreach (array_reverse($changes['d']) as $val) {
+                $result['d'][] = IMP_Mailbox::get($val)->form_to;
+            }
         }
 
         return $result;
@@ -2065,7 +2078,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *        DEFAULT: none
      *   - l: (string) [label] The mailbox display label.
      *        DEFAULT: 'm' val
-     *   - m: (string) [mbox] The mailbox value.
+     *   - m: (string) [mbox] The mailbox value (base64url encoded).
      *   - n: (boolean) [non-imap] A non-IMAP element?
      *        DEFAULT: no
      *   - pa: (string) [parent] The parent element.
@@ -2089,7 +2102,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         if ($elt->children) {
             $ob->ch = 1;
         }
-        $ob->m = $elt->value;
+        $ob->m = $elt->form_to;
 
         $label = $elt->label;
         if ($ob->m != $label) {
@@ -2103,7 +2116,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $parent = $elt->parent;
         if ($parent != IMP_Imap_Tree::BASE_ELT) {
-            $ob->pa = strval($parent);
+            $ob->pa = $parent->form_to;
         }
         if ($elt->vfolder) {
             $ob->v = $elt->editvfolder ? 2 : 1;

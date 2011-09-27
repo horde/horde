@@ -1,3 +1,13 @@
+/**
+ * Geotagging widget
+ *
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 AnselGeoTagWidget = Class.create({
     _bigMap: null,
     _smallMap: null,
@@ -7,6 +17,7 @@ AnselGeoTagWidget = Class.create({
     relocateId: 'ansel_relocate',
     deleteId: 'ansel_deleteGeotag',
     opts: null,
+    _iLayer: null,
 
     /**
      * Const'r.
@@ -19,7 +30,8 @@ AnselGeoTagWidget = Class.create({
      *   hasEdit [boolean do we have PERMS_EDIT?]
      *   updateEndPoint [AJAX endpoint for updating image data]
      */
-    initialize: function(imgs, opts) {
+    initialize: function(imgs, opts)
+    {
          var o = {
             smallMap: 'ansel_map_small',
             mainMap:  'ansel_map',
@@ -31,7 +43,8 @@ AnselGeoTagWidget = Class.create({
         this.opts = Object.extend(o, opts || {});
     },
 
-    setLocation: function(img, lat, lng)  {
+    setLocation: function(img, lat, lng)
+    {
         var params = { 'values': 'img=' + img + '/lat=' + lat + '/lng=' + lng };
 
         new Ajax.Request(this.opts.updateEndpoint + '/action=geotag/post=values', {
@@ -65,7 +78,8 @@ AnselGeoTagWidget = Class.create({
         });
     },
 
-    deleteLocation: function(iid) {
+    deleteLocation: function(iid)
+    {
         var params = { 'values': 'img=' + iid };
         new Ajax.Request(this.opts.updateEndpoint + '/action=untag/post=values', {
             method: 'post',
@@ -78,10 +92,10 @@ AnselGeoTagWidget = Class.create({
         });
     },
 
-    doMap: function() {
+    doMap: function()
+    {
         // Create map and geocoder objects
         this._bigMap = AnselMap.initMainMap('ansel_map', {
-            // Hover handler to modify style of image tiles
             'onHover': function(e) {
                 switch (e.type) {
                 case 'beforefeaturehighlighted':
@@ -100,9 +114,18 @@ AnselGeoTagWidget = Class.create({
             }.bind(this),
 
             'onClick': function(f) {
+                if (f.object.name == this.opts.markerLayerTitle) {
+                   this._bigMap.setCenter(f.feature.getLonLat());
+                   this._bigMap.zoomToFit();
+                   return false;
+                }
                 var uri = f.feature.attributes.image_link;
                 location.href = uri;
-            }.bind(this)
+            }.bind(this),
+
+            'imageLayer': (this.opts.viewType == 'Image') ? true : false,
+            'imageLayerText': this.opts.imageLayerTitle,
+            'markerLayerText': (this.opts.viewType == 'Image') ? this.opts.markerLayerTitle : this.opts.imageLayerTitle,
         });
         this._smallMap = AnselMap.initMiniMap('ansel_map_small', {});
         this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
@@ -111,6 +134,14 @@ AnselGeoTagWidget = Class.create({
         var centerImage;
         this._images.each(function(img) {
             if (img.markerOnly) {
+                AnselMap.placeMapMarker(
+                    'ansel_map_small',
+                    {
+                        'lat': img.image_latitude,
+                        'lon': img.image_longitude
+                    },
+                    { 'center': true, 'zoom': 1 }
+                );
                 (function() {
                     var p = img;
                     var f = m;
@@ -137,6 +168,13 @@ AnselGeoTagWidget = Class.create({
 
             // Watch for hover on imagetiles too, need closures
             if (this.opts.viewType == 'Gallery') {
+                AnselMap.placeMapMarker(
+                    'ansel_map_small',
+                    {
+                        'lat': img.image_latitude,
+                        'lon': img.image_longitude
+                    }
+                );
                 (function() {
                     var f = m;
                     $$('#imagetile_' + img.image_id + ' img')[0].observe(
@@ -153,14 +191,6 @@ AnselGeoTagWidget = Class.create({
                     );
                 }.bind(this))();
             }
-
-            AnselMap.placeMapMarker(
-                'ansel_map_small',
-                {
-                    'lat': img.image_latitude,
-                    'lon': img.image_longitude
-                }
-            );
         }.bind(this));
         if (centerImage) {
             AnselMap.placeMapMarker(
@@ -170,25 +200,34 @@ AnselGeoTagWidget = Class.create({
                     'lon': centerImage.image_longitude
                 },
                 {
-                    'img': Ansel.conf.markeruri,
-                    'background': Ansel.conf.shadowuri,
+                    'img': (!centerImage.markerOnly) ? centerImage.icon : Ansel.conf.markeruri,
+                    'background': (!centerImage.markerOnly) ? Ansel.conf.pixeluri + '?c=ffffff' : Ansel.conf.shadowuri,
                     'image_id': centerImage.image_id,
                     'markerOnly': 'markerOnly',
                     'center': true,
-                    'zoom': (this._images.length > 1) ? false : 10,
+                    'zoom': 10,
                     'image_link': centerImage.link
                 }
             );
+        } else {
+            //this._bigMap.markerLayer.redraw();
+            this._bigMap.zoomToFit();
         }
         // Attempt to make a good guess as to where to center the mini-map
-        this._smallMap.setCenter({'lat': this._images[0].image_latitude, 'lon': 0}, 1);
+        if (this.opts.viewType == 'Gallery') {
+            this._smallMap.setCenter({
+                'lat': this._images[0].image_latitude,
+                'lon': 0
+            }, 0);
+        }
     },
 
     /**
      * p = image data
      * m = marker
      */
-    getLocation: function(p, m) {
+    getLocation: function(p, m)
+    {
         if (p.image_location.length > 0) {
             // Have cached reverse geocode results
             var r = [ { address: p.image_location, lat: p.image_latitude, lon: p.image_longitude, precision: 1 } ];
@@ -254,7 +293,8 @@ AnselGeoTagWidget = Class.create({
     {
     },
 
-    _getRelocateLink: function(iid) {
+    _getRelocateLink: function(iid)
+    {
         if (this.opts.hasEdit) {
             var a = new Element('a', {
                 href: this.opts.relocateUrl + '?image=' + iid }
@@ -274,7 +314,8 @@ AnselGeoTagWidget = Class.create({
         }
     },
 
-    _getDeleteLink: function(iid) {
+    _getDeleteLink: function(iid)
+    {
         var x = new Element('a', {
             href: this.opts.relocateUrl + '?image=' + iid }
         ).update(this.opts.deleteGeotagText);

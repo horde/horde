@@ -165,6 +165,23 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         return $this->_indices;
     }
 
+    /**
+     * Converts an indices object string to a string form representation.
+     * Needed because null characters (used for various internal non-IMAP
+     * mailbox representations) will not work in form elements.
+     *
+     * @return string  String representation (IMAP sequence string).
+     */
+    public function formTo()
+    {
+        $converted = array();
+        foreach ($this->_indices as $key => $val) {
+            $converted[IMP_Mailbox::formTo($key)] = $val;
+        }
+
+        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->toSequenceString($converted, array('mailbox' => true));
+    }
+
     /* ArrayAccess methods. */
 
     /**

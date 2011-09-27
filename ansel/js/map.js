@@ -13,6 +13,7 @@
     mapInitialized: {},
     maps: {},
     opts: {},
+    _iLayer: null,
 
     /**
      * Builds the main map widget
@@ -22,12 +23,14 @@
      *    'onHover':  callback for handling a feature's hover event or false
      *                if not used.
      *    'onClick': Callback for click event on the map (not a feature).
+     *    'imageLayer': Separate layer for thumbnails? If this is set, a
+     *                  second vector layer will be added and thumbnails will
+     *                  be placed on this layer, separate from the 'markerOnly'
+     *                  markers. Used from the Image View.
      * }
      */
-    initMainMap: function(e, opts) {
-
-        this.opts = opts;
-
+    initMainMap: function(e, opts)
+    {
         // Default OL StyleMap. We use a sybolizer since we have two different
         // types of features (thumbnail and marker) depending on the current view.
         var style = new OpenLayers.StyleMap({
@@ -69,12 +72,42 @@
         style.addUniqueValueRules('default', 'markerOnly', markerStyleDefault);
         style.addUniqueValueRules('temporary', 'markerOnly', markerStyleTemporary);
 
-        return this._initializeMap(e, {
+        var map = this._initializeMap(e, {
             'styleMap': style,
-            'onHover': opts.onHover,
             'layerSwitcher': true,
-            'onClick': opts.onClick
+            'markerLayerTitle': opts.markerLayerText
         });
+        if (!opts.imageLayer) {
+            this.maps[e]._highlightControl = map.addHighlightControl({
+                'onHover': opts.onHover,
+                'layers': map.markerLayer
+            });
+            map.addClickControl({
+                'onClick': opts.onClick,
+                'layers': [map.markerLayer],
+                'active': [map.markerLayer]
+            });
+        } else {
+            this._iLayer = map.createVectorLayer({
+                'markerLayerTitle': opts.imageLayerText,
+                'styleMap': style,
+            });
+            map.map.addLayers([this._iLayer]);
+            map.addHighlightControl({
+                'layers': [this._iLayer, map.markerLayer],
+                'onHover': opts.onHover
+            });
+            map.addClickControl({
+                'layers': [this._iLayer, map.markerLayer],
+                'active': [this._iLayer, map.markerLayer],
+                'onClick': opts.onClick
+            })
+            map.map.raiseLayer(map.markerLayer, 1);
+            map.map.raiseLayer(this._iLayer, -1);
+            map.map.resetLayersZIndex();
+        }
+
+        return map;
     },
 
     /**
@@ -132,7 +165,8 @@
             'panzoom': false,
             'layerSwitcher': false,
             'onHover': false,
-            'markerDragEnd': Prototype.EmptyFunction
+            'markerDragEnd': Prototype.EmptyFunction,
+            'markerLayerTitle': ''
         }
         this.opts = Object.extend(o, opts || {});
         var layers = [];
@@ -156,7 +190,9 @@
             onHover: this.opts.onHover,
             onClick: this.opts.onClick,
             markerDragEnd: this.opts.markerDragEnd,
-            mapClick: (this.opts.mapClick) ? this.opts.mapClick.bind(this) : Prototype.EmptyFunction
+            mapClick: (this.opts.mapClick) ? this.opts.mapClick.bind(this) : Prototype.EmptyFunction,
+            delayed: (this.opts.delayed) ? true : false,
+            markerLayerTitle: this.opts.markerLayerTitle
         }
         if (this.opts.styleMap) {
             mapOpts.styleMap = this.opts.styleMap;
@@ -198,7 +234,11 @@
             opts = {};
         }
         if (opts.img) {
-            marker = this.maps[e].addMarker(ll);
+            if (this._iLayer && opts.markerOnly == 'noMarkerOnly') {
+                marker = this.maps[e].addMarker(ll, { 'layer': this._iLayer });
+            } else {
+                marker = this.maps[e].addMarker(ll);
+            }
             marker.attributes['thumbnail'] = opts.img;
             marker.attributes['image_id'] = opts.image_id;
             marker.attributes['markerOnly'] = opts.markerOnly;
@@ -210,7 +250,7 @@
         if (opts.center) {
             this.maps[e].setCenter(ll, opts.zoom);
             if (!opts.zoom) {
-                this.maps[e].zoomToFit();
+                this.maps[e].zoomToFit((this._iLayer) ? this._iLayer : false);
             }
         }
 
@@ -245,7 +285,7 @@
      */
     selectMarker: function(e, m)
     {
-        this.maps[e].selectControl.highlight(m);
+        this.maps[e]._highlightControl.highlight(m);
     },
 
     /**
@@ -254,7 +294,7 @@
      */
     unselectMarker: function(e, m)
     {
-        this.maps[e].selectControl.unhighlight(m);
+        this.maps[e]._highlightControl.unhighlight(m);
     },
 
     /**

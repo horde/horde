@@ -29,6 +29,19 @@ class IMP_Block_Newmail extends Horde_Core_Block
 
     /**
      */
+    protected function _params()
+    {
+        return array(
+            'msgs_shown' => array(
+                'type' => 'int',
+                'name' => _("The number of unseen messages to show"),
+                'default' => 3
+            )
+        );
+    }
+
+    /**
+     */
     protected function _content()
     {
         $inbox = IMP_Mailbox::get('INBOX');

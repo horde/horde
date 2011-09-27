@@ -174,7 +174,12 @@ class Wicked_Page_Search extends Wicked_Page {
 
     public function getContext($page, $searchtext)
     {
-        if (preg_match('/.{0,100}' . preg_quote($searchtext, '/') . '.{0,100}/i', $page->getText(), $context)) {
+        try {
+            $text = strip_tags($page->displayContents(false));
+        } catch (Wicked_Exception $e) {
+            $text = $page->getText();
+        }
+        if (preg_match('/.{0,100}' . preg_quote($searchtext, '/') . '.{0,100}/i', $text, $context)) {
             return preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">' . htmlspecialchars($searchtext) . '</span>', htmlspecialchars($context[0]));
         }
         return '';

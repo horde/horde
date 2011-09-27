@@ -44,7 +44,7 @@ class Wicked_Block_Page extends Horde_Core_Block
             'page' => array(
                 'type' => 'text',
                 'name' => _("Name of wiki page to display"),
-                'default' => 'WikiHome'
+                'default' => 'Wiki/Home'
             )
         );
     }

@@ -35,7 +35,7 @@ try {
     $page = Wicked_Page::getPage(Horde_Util::getFormData('page'), $v2);
 } catch (Wicked_Exception $e) {
     $notification->push(sprintf(_("Internal error viewing requested page: %s"), $e->getMessage()), 'horde.error');
-    Wicked::url('WikiHome', true)->redirect();
+    Wicked::url('Wiki/Home', true)->redirect();
 }
 
 if ($v1 == '?') {

@@ -69,7 +69,7 @@ class IMP_Views_ShowMessage
      * 'from' - The From addresses
      * 'js' - Javascript code to run on display
      * 'log' - Log information
-     * 'mailbox' - The IMAP mailbox
+     * 'mbox' - The IMAP mailbox (base64url encoded)
      * 'msgtext' - The text of the message
      * 'save_as' - The save link
      * 'subject' - The subject
@@ -97,7 +97,7 @@ class IMP_Views_ShowMessage
 
         $result = array(
             'js' => array(),
-            'mailbox' => strval($mailbox),
+            'mbox' => $mailbox->form_to,
             'uid' => $uid
         );
 

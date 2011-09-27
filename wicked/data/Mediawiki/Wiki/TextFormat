@@ -231,18 +231,18 @@ Back to normal text.
 You can create page links by putting the name in brackets.
 
 <code>
-[[WikiPage]]
+[[Wiki/Page]]
 </code>
 
-[[WikiPage]]
+[[Wiki/Page]]
 
 You can also use this format to create a "described" or "labeled" link or to add an anchor target.
 
 <code>
-[[WikiPage#anchor|Descriptive text for the link.]]
+[[Wiki/Page#anchor|Descriptive text for the link.]]
 </code>
 
-[[WikiPage#anchor|Descriptive text for the link.]]
+[[Wiki/Page#anchor|Descriptive text for the link.]]
 
 
 === URLs ===
@@ -265,7 +265,7 @@ Or you can have a described-reference instead of a numbered reference:
 
 === Images ===
 
-You can put a picture in a page with <tt><nowiki>[[Image:foo.jpg]]</nowiki></tt>. You can use any file type, but most browsers only support GIF, JPEG, and PNG formats. The filename can either be a relative reference (in which case the wiki looks for a file attached to the current page - or a different wiki page if the file name is prefixed with a page name, e.g. <tt><nowiki>[[Image:WikiHome:foo.jpg]]</nowiki></tt>), an absolute reference which begins with a slash (in which case the wiki uses it to retrieve a file relative to the web server's root), or a full, external URL.
+You can put a picture in a page with <tt><nowiki>[[Image:foo.jpg]]</nowiki></tt>. You can use any file type, but most browsers only support GIF, JPEG, and PNG formats. The filename can either be a relative reference (in which case the wiki looks for a file attached to the current page - or a different wiki page if the file name is prefixed with a page name, e.g. <tt><nowiki>[[Image:SomePage:foo.jpg]]</nowiki></tt>), an absolute reference which begins with a slash (in which case the wiki uses it to retrieve a file relative to the web server's root), or a full, external URL.
 
 Additional "alt", "width", and "height" attributes can follow the image filename or URL like so: <tt><nowiki>[[Image:foo.jpg|A Foo JPEG|WIDTHxHEIGHTpx]]</nowiki></tt>.
 
@@ -289,10 +289,10 @@ To include Horde's moon phases block for example:
 Links to other Horde applications is supported if those applications support API links. The Wiki itself supports such an API to link to individual wiki pages:
 
 <code>
-[[link Link to some other wiki page|wiki/show page=WikiPage]]
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
 </code>
 
-[[link Link to some other wiki page|wiki/show page=WikiPage]]
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
 
 
 == Code Blocks ==

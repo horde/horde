@@ -37,7 +37,6 @@ IMP_Dimp::header('', array(
     array('slider2.js', 'horde'),
     array('form_ghost.js', 'horde'),
     array('toggle_quotes.js', 'horde'),
-    array('base64url.js', 'imp')
 ));
 
 echo "<body>\n";

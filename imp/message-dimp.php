@@ -63,11 +63,10 @@ $scripts = array(
     array('textarearesize.js', 'horde'),
     array('toggle_quotes.js', 'horde'),
     array('message-dimp.js', 'imp'),
-    array('imp.js', 'imp'),
-    array('base64url.js', 'imp'),
+    array('imp.js', 'imp')
 );
 
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
     }

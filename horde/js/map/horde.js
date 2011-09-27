@@ -33,6 +33,8 @@
  * //                         use the smaller ZoomPanel control.
  * //                       - Callback
  * // opts.useMarkerLayer   - Add a vector layer to be used to place markers.
+ * // opts.hide             - Don't show markerlayer in LayerSwitcher
+ * // opts.onBaseLayerChange - Callback fired when baselayer is changed.
  * // opts.zoomworldicon    - Show the worldzoomicon on the PanZoomBar control
  * //                         that resets/centers map.
  * var map = new HordeMap.OpenLayers(options);
@@ -43,7 +45,6 @@ HordeMap.Map.Horde = Class.create({
     map: null,
     markerLayer: null,
     _proj: null,
-    selectControl: null,
     _layerSwitcher: null,
 
     initialize: function(opts)
@@ -66,6 +67,8 @@ HordeMap.Map.Horde = Class.create({
             layers: [],
             onHover: false,
             onClick: false,
+            hide: true,
+            onBaseLayerChange: false,
             // default stylemap
             styleMap: new OpenLayers.StyleMap({
                 'default': {
@@ -96,6 +99,9 @@ HordeMap.Map.Horde = Class.create({
             ],
             styleMap: this.opts.styleMap
         };
+        if (this.opts.onBaseLayerChange) {
+            options.eventListeners = { 'changebaselayer': this.opts.onBaseLayerChange };
+        }
         if (this.opts.panzoom) {
             options.controls.push(new OpenLayers.Control.PanZoomBar({ 'zoomWorldIcon': this.opts.zoomworldicon }));
         } else {
@@ -132,6 +138,18 @@ HordeMap.Map.Horde = Class.create({
         this.map.zoomToMaxExtent();
     },
 
+    /**
+     * Create a vector layer and attach to map. Can pass hover and click
+     * handlers if this is the *only* layer to use them. Otherwise, use
+     * addHighlightControl/addClickControl methods after all layers are
+     * created.
+     *
+     * opts
+     *   markerLayerTitle  - The title to show in the LayerSwitcher
+     *   hide              - Do not show layer in LayerSwitcher
+     *   onHover           - Hover handler
+     *   onClick           - Click handler
+     */
     createVectorLayer: function(opts)
     {
         var styleMap = opts.styleMap || this.styleMap;
@@ -139,10 +157,12 @@ HordeMap.Map.Horde = Class.create({
             opts.markerLayerTitle,
             {
                 'styleMap': styleMap,
-                'rendererOptions': { zIndexing: true }
+                'rendererOptions': { zIndexing: true },
             }
         );
-
+        if (opts.hide) {
+            layer.displayInLayerSwitcher = false;
+        }
         if (opts.draggableFeatures) {
             var dragControl = new OpenLayers.Control.DragFeature(
                 layer,
@@ -153,40 +173,74 @@ HordeMap.Map.Horde = Class.create({
         }
 
         if (opts.onHover) {
-            this.selectControl = new OpenLayers.Control.SelectFeature(
-                layer, {
-                    hover: true,
-                    highlightOnly: true,
-                    renderIntent: 'temporary',
-                    eventListeners: {
-                         beforefeaturehighlighted: opts.onHover,
-                         featurehighlighted: opts.onHover,
-                         featureunhighlighted: opts.onHover
-                    }
-                }
-            );
-            this.map.addControl(this.selectControl);
-            this.selectControl.activate();
-        }
-        if (opts.onClick) {
-            var clickControl = new OpenLayers.Control.SelectFeature(
-                layer, {
-                    'hover': false,
-                    'clickout': false,
-                    'toggle': true,
-                    'hover': false,
-                    'multiple': false,
-                    'renderIntent': 'temporary'
-                }
-            );
-            layer.events.on({
-                'featureselected': opts.onClick
+            this.addHighlightControl({
+                'onHover': opts.onHover,
+                'layers': layer
             });
-            this.map.addControl(clickControl);
-            clickControl.activate();
+        }
+
+        if (opts.onClick) {
+            this.addClickControl({
+                'layers': layer,
+                'onClick': opts.onClick
+            });
         }
 
         return layer;
+    },
+
+    addHighlightControl: function(opts)
+    {
+        var selectControl = new OpenLayers.Control.SelectFeature(
+            opts.layers, {
+                hover: true,
+                highlightOnly: true,
+                renderIntent: 'temporary',
+                eventListeners: {
+                     beforefeaturehighlighted: opts.onHover,
+                     featurehighlighted: opts.onHover,
+                     featureunhighlighted: opts.onHover
+                }
+            }
+        );
+        this.map.addControl(selectControl);
+        selectControl.activate();
+
+        return selectControl;
+    },
+
+    /**
+     * Add a click control to the map. HordeMap only supports one selectFeature
+     * control for click handlers per map, though it may contain several layers.
+     *
+     * @param object opts
+     *    'layers': [] All layers that should be included in the control layer.
+     *              Note that any layers on top of layers that should handle
+     *              clicks *must* be included in the array.
+     *              This is an OL requirement.
+     *    'active': [] Layers that should actually respond to the click request.
+     */
+    addClickControl: function(opts)
+    {
+        var clickControl = new OpenLayers.Control.SelectFeature(
+            opts.layers, {
+                'hover': false,
+                'clickout': false,
+                'toggle': true,
+                'hover': false,
+                'multiple': false,
+                'renderIntent': 'temporary'
+            }
+        );
+        opts.active.each(function(l) {
+            l.events.on({
+                'featureselected': opts.onClick
+            });
+       });
+        this.map.addControl(clickControl);
+        clickControl.activate();
+
+        return clickControl;
     },
 
     /**
@@ -285,9 +339,13 @@ HordeMap.Map.Horde = Class.create({
         return m;
     },
 
-    removeMarker: function(m)
+    removeMarker: function(m, opts)
     {
-        this.markerLayer.destroyFeatures([m]);
+        if (opts.layer) {
+            opts.layer.destroyFeatures([m]);
+        } else {
+            this.markerLayer.destroyFeatures([m]);
+        }
     },
 
     /**

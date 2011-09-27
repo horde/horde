@@ -252,7 +252,7 @@ case _("Send"):
     $header['replyto'] = $identity->getValue('replyto_addr');
     $header['subject'] = strval($vars->subject);
 
-    foreach ($display_hdrs as $val) {
+    foreach (array_keys($display_hdrs) as $val) {
         $header[$val] = $imp_ui->getAddressList($old_header[$val]);
     }
 
@@ -270,7 +270,7 @@ case _("Send"):
         }
         break;
 
-    case _("Save"):
+    case _("Send"):
         $sig = $identity->getSignature();
         if (!empty($sig)) {
             $message .= "\n" . $sig;
