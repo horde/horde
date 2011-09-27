@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandfolder, pollPE, pp, preview_replace, qsearch_ghost, resize,
+    //   expandmbox, pollPE, pp, preview_replace, qsearch_ghost, resize,
     //   rownum, search, splitbar, template, uid, view, viewaction, viewport,
     //   viewswitch
     // msglist_template_horiz and msglist_template_vert set via
@@ -2686,13 +2686,13 @@ var DimpBase = {
         var nf = $('normalfolders');
 
         if (r.response.expand) {
-            this.expandfolder = true;
+            this.expandmbox = base ? base : true;
         }
         this.mailboxCallback(r);
-        this.expandfolder = false;
+        this.expandmbox = false;
 
         if (base) {
-            this.setFolderLabel(base);
+            this._toggleSubFolder(base, 'tog');
         }
 
         if (this.view) {
@@ -2842,10 +2842,10 @@ var DimpBase = {
 
     // Folder actions.
     // For format of the ob object, see IMP_Dimp::_createFolderElt().
-    // If this.expandfolder is set, expand folder list on initial display.
+    // If this.expandmbox is set, expand folder list on initial display.
     createFolder: function(ob)
     {
-        var div, f_node, ftype, li, ll, parent_e, tmp,
+        var div, f_node, ftype, li, ll, parent_e, tmp, tmp2,
             cname = 'container',
             fid = this.getMboxId(ob.m),
             label = ob.l || ob.m,
@@ -2940,8 +2940,13 @@ var DimpBase = {
                 f_node.insert({ before: li });
             } else {
                 parent_e.insert(li);
-                if (this.expandfolder && !parent_e.hasClassName('folderlist')) {
-                    parent_e.up('LI').show().previous().down().removeClassName('exp').addClassName('col');
+                if (this.expandmbox && !parent_e.hasClassName('folderlist')) {
+                    tmp2 = parent_e.up('LI').previous();
+                    if (!Object.isElement(this.expandmbox) ||
+                        this.expandmbox != tmp2) {
+                        tmp2.next().show();
+                        tmp2.down().removeClassName('exp').addClassName('col');
+                    }
                 }
             }
 
