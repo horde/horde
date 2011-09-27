@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-27</date>
- <time>11:39:37</time>
+ <time>17:16:12</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -103,6 +103,7 @@
     <file name="CREDITS" role="doc" />
     <file name="INSTALL" role="doc" />
     <file name="lighttpd-wicked.conf" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
     <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
@@ -653,6 +654,7 @@
    <install as="CREDITS" name="docs/CREDITS" />
    <install as="INSTALL" name="docs/INSTALL" />
    <install as="lighttpd-wicked.conf" name="docs/lighttpd-wicked.conf" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="wicked/js/toc.js" name="js/toc.js" />
    <install as="wicked/lib/Api.php" name="lib/Api.php" />
@@ -848,7 +850,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-09-27</date>
-   <license uri="TODO">TODO</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Initial release.
    </notes>
