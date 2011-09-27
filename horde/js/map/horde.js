@@ -43,7 +43,6 @@ HordeMap.Map.Horde = Class.create({
     map: null,
     markerLayer: null,
     _proj: null,
-    selectControl: null,
     _layerSwitcher: null,
 
     initialize: function(opts)
@@ -153,7 +152,7 @@ HordeMap.Map.Horde = Class.create({
         }
 
         if (opts.onHover) {
-            this.selectControl = this.addHighlightControl({
+            this.addHighlightControl({
                 'onHover': opts.onHover,
                 'layers': layer
             });
@@ -185,6 +184,7 @@ HordeMap.Map.Horde = Class.create({
         );
         this.map.addControl(selectControl);
         selectControl.activate();
+
         return selectControl;
     },
 
@@ -218,6 +218,8 @@ HordeMap.Map.Horde = Class.create({
        });
         this.map.addControl(clickControl);
         clickControl.activate();
+
+        return clickControl;
     },
 
     /**
