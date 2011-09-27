@@ -2681,20 +2681,18 @@ var DimpBase = {
         }, this);
     },
 
-    _folderLoadCallback: function(r, callback)
+    _folderLoadCallback: function(base, r)
     {
         var nf = $('normalfolders');
 
         if (r.response.expand) {
             this.expandfolder = true;
         }
-
         this.mailboxCallback(r);
-
         this.expandfolder = false;
 
-        if (callback) {
-            callback();
+        if (base) {
+            this.setFolderLabel(base);
         }
 
         if (this.view) {
@@ -2779,7 +2777,7 @@ var DimpBase = {
                 }
                 this._listFolders({
                     all: Number(mode == 'expall'),
-                    callback: this._toggleSubFolder.bind(this, base, mode, noeffect, true),
+                    base: base,
                     mboxes: need
                 });
                 return;
@@ -2832,8 +2830,6 @@ var DimpBase = {
 
     _listFolders: function(params)
     {
-        var cback;
-
         params = params || {};
         params.unsub = Number(this.showunsub);
         if (!Object.isArray(params.mboxes)) {
@@ -2841,14 +2837,7 @@ var DimpBase = {
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
-        if (params.callback) {
-            cback = function(func, r) { this._folderLoadCallback(r, func); }.bind(this, params.callback);
-            delete params.callback;
-        } else {
-            cback = this._folderLoadCallback.bind(this);
-        }
-
-        DimpCore.doAction('listMailboxes', params, { callback: cback });
+        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params.base) });
     },
 
     // Folder actions.
