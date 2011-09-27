@@ -30,7 +30,8 @@ AnselGeoTagWidget = Class.create({
      *   hasEdit [boolean do we have PERMS_EDIT?]
      *   updateEndPoint [AJAX endpoint for updating image data]
      */
-    initialize: function(imgs, opts) {
+    initialize: function(imgs, opts)
+    {
          var o = {
             smallMap: 'ansel_map_small',
             mainMap:  'ansel_map',
@@ -42,7 +43,8 @@ AnselGeoTagWidget = Class.create({
         this.opts = Object.extend(o, opts || {});
     },
 
-    setLocation: function(img, lat, lng)  {
+    setLocation: function(img, lat, lng)
+    {
         var params = { 'values': 'img=' + img + '/lat=' + lat + '/lng=' + lng };
 
         new Ajax.Request(this.opts.updateEndpoint + '/action=geotag/post=values', {
@@ -76,7 +78,8 @@ AnselGeoTagWidget = Class.create({
         });
     },
 
-    deleteLocation: function(iid) {
+    deleteLocation: function(iid)
+    {
         var params = { 'values': 'img=' + iid };
         new Ajax.Request(this.opts.updateEndpoint + '/action=untag/post=values', {
             method: 'post',
@@ -89,7 +92,8 @@ AnselGeoTagWidget = Class.create({
         });
     },
 
-    doMap: function() {
+    doMap: function()
+    {
         // Create map and geocoder objects
         this._bigMap = AnselMap.initMainMap('ansel_map', {
             'onHover': function(e) {
@@ -216,7 +220,8 @@ AnselGeoTagWidget = Class.create({
      * p = image data
      * m = marker
      */
-    getLocation: function(p, m) {
+    getLocation: function(p, m)
+    {
         if (p.image_location.length > 0) {
             // Have cached reverse geocode results
             var r = [ { address: p.image_location, lat: p.image_latitude, lon: p.image_longitude, precision: 1 } ];
@@ -282,7 +287,8 @@ AnselGeoTagWidget = Class.create({
     {
     },
 
-    _getRelocateLink: function(iid) {
+    _getRelocateLink: function(iid)
+    {
         if (this.opts.hasEdit) {
             var a = new Element('a', {
                 href: this.opts.relocateUrl + '?image=' + iid }
@@ -302,7 +308,8 @@ AnselGeoTagWidget = Class.create({
         }
     },
 
-    _getDeleteLink: function(iid) {
+    _getDeleteLink: function(iid)
+    {
         var x = new Element('a', {
             href: this.opts.relocateUrl + '?image=' + iid }
         ).update(this.opts.deleteGeotagText);
