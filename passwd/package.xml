@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-28</date>
- <time>17:33:07</time>
+ <date>2011-09-27</date>
+ <time>22:30:34</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -201,6 +201,13 @@
       <file name="passwd.po" role="horde" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
     </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
       <file name="passwd.mo" role="horde" />
@@ -286,8 +293,8 @@
    </dir> <!-- /locale -->
    <dir name="scripts">
     <file name=".htaccess" role="horde" />
-    <file name="kpasswd_expect" role="horde" />
-    <file name="passwd_expect" role="horde" />
+    <file name="passwd-expect" role="horde" />
+    <file name="passwd-expect-kerberos" role="horde" />
    </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="main">
@@ -295,6 +302,21 @@
     </dir> <!-- /templates/main -->
     <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Passwd">
+     <dir name="Unit">
+      <dir name="Driver">
+       <file name="SqlTest.php" role="test" />
+      </dir> <!-- /test/Passwd/Unit/Driver -->
+      <dir name="Factory">
+       <file name="DriverTest.php" role="test" />
+      </dir> <!-- /test/Passwd/Unit/Factory -->
+     </dir> <!-- /test/Passwd/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Passwd -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
@@ -411,6 +433,9 @@
    <install as="passwd/locale/ja/LC_MESSAGES/passwd.po" name="locale/ja/LC_MESSAGES/passwd.po" />
    <install as="passwd/locale/lt/LC_MESSAGES/passwd.mo" name="locale/lt/LC_MESSAGES/passwd.mo" />
    <install as="passwd/locale/lt/LC_MESSAGES/passwd.po" name="locale/lt/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="passwd/locale/lv/LC_MESSAGES/passwd.mo" name="locale/lv/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/lv/LC_MESSAGES/passwd.po" name="locale/lv/LC_MESSAGES/passwd.po" />
    <install as="passwd/locale/nl/help.xml" name="locale/nl/help.xml" />
    <install as="passwd/locale/nl/LC_MESSAGES/passwd.mo" name="locale/nl/LC_MESSAGES/passwd.mo" />
    <install as="passwd/locale/nl/LC_MESSAGES/passwd.po" name="locale/nl/LC_MESSAGES/passwd.po" />
@@ -440,10 +465,15 @@
    <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.mo" name="locale/zh_TW/LC_MESSAGES/passwd.mo" />
    <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.po" name="locale/zh_TW/LC_MESSAGES/passwd.po" />
    <install as="passwd/scripts/.htaccess" name="scripts/.htaccess" />
-   <install as="passwd/scripts/kpasswd_expect" name="scripts/kpasswd_expect" />
-   <install as="passwd/scripts/passwd_expect" name="scripts/passwd_expect" />
+   <install as="passwd/scripts/passwd-expect" name="scripts/passwd-expect" />
+   <install as="passwd/scripts/passwd-expect-kerberos" name="scripts/passwd-expect-kerberos" />
    <install as="passwd/templates/.htaccess" name="templates/.htaccess" />
    <install as="passwd/templates/main/main.inc" name="templates/main/main.inc" />
+   <install as="Passwd/AllTests.php" name="test/Passwd/AllTests.php" />
+   <install as="Passwd/Autoload.php" name="test/Passwd/Autoload.php" />
+   <install as="Passwd/TestCase.php" name="test/Passwd/TestCase.php" />
+   <install as="Passwd/Unit/Driver/SqlTest.php" name="test/Passwd/Unit/Driver/SqlTest.php" />
+   <install as="Passwd/Unit/Factory/DriverTest.php" name="test/Passwd/Unit/Factory/DriverTest.php" />
    <install as="passwd/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="passwd/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="passwd/themes/default/graphics/passwd.png" name="themes/default/graphics/passwd.png" />
@@ -461,9 +491,10 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-06-28</date>
+   <date>2011-09-27</date>
    <license uri="TODO">TODO</license>
    <notes>
+* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Provide default configuration files instead of .dist versions.
 * [jan] Fix creating temporary files with open_basedir restrictions.
 * [rla] Added new driver &apos;horde&apos; which uses the update() function of horde&apos;s current auth driver

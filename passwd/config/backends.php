@@ -175,7 +175,7 @@ $backends['expect'] = array(
     'driver' => 'Expect',
     'params' => array(
         'program' => '/usr/bin/expect',
-        'script' => dirname(__FILE__) . '/../scripts/passwd_expect',
+        'script' => PASSWD_BASE . '/scripts/passwd-expect',
         'params' => '-telnet -host localhost -output /tmp/passwd.log'
     )
 );
@@ -190,8 +190,9 @@ $backends['sudo_expect'] = array(
     ),
     'driver' => 'Procopen',
     'params' => array(
-        'program' => '/usr/bin/expect ' . dirname(__FILE__) . '/../scripts/passwd_expect -sudo'
-    )
+        'program' => '/usr/bin/expect '
+            . PASSWD_BASE . '/scripts/passwd_expect -sudo'
+    ),
 );
 
 $backends['smbpasswd'] = array(
