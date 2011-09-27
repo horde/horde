@@ -37,6 +37,6 @@
 
  <configsection name="password">
   <configboolean name="strengthtests" desc="Should strength tests be done on
-  the new password" required="false">false</configboolean>
+  the new password" required="false">true</configboolean>
  </configsection>
 </configuration>
