@@ -260,9 +260,19 @@ if (empty($userid)) {
     }
 }
 
+Horde::addScriptFile('stripe.js', 'horde', true);
+Horde::addScriptFile('passwd.js', 'passwd', true);
 Horde::addInlineScript(array(
-    'setFocus()'
+    '$(\'passwd\').focusFirstElement()'
 ), 'dom');
+Horde::addInlineJsVars(array(
+    'var Passwd' => array(
+        'current_pass' => _("Please provide your current password"),
+        'new_pass' => _("Please provide a new password"),
+        'verify_pass' => _("Please verify your new password"),
+        'no_match' => _("Your passwords do not match"),
+    )
+));
 
 $title = _("Change Password");
 require $registry->get('templates', 'horde') . '/common-header.inc';

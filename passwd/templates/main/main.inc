@@ -1,56 +1,13 @@
-<script type="text/javascript">
-<!--
-
-function submit_form()
-{
-    if (document.passwd.oldpassword.value == "") {
-        alert('<?php echo addslashes(_("Please provide your current password")); ?>');
-        document.passwd.oldpassword.focus();
-        return false;
-    } else if (document.passwd.newpassword0.value == "") {
-        alert('<?php echo addslashes(_("Please provide a new password")); ?>');
-        document.passwd.newpassword0.focus();
-        return false;
-    } else if (document.passwd.newpassword1.value == "") {
-        alert('<?php echo addslashes(_("Please verify your new password")); ?>');
-        document.passwd.newpassword1.focus();
-        return false;
-    } else if (document.passwd.newpassword0.value != document.passwd.newpassword1.value) {
-        alert('<?php echo addslashes(_("Your passwords do not match")); ?>');
-        document.passwd.newpassword0.value = '';
-        document.passwd.newpassword1.value = '';
-        document.passwd.newpassword0.focus();
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function setFocus()
-{
-    if (document.passwd.oldpassword.value == "") {
-        document.passwd.oldpassword.focus();
-    } else if (document.passwd.newpassword0.value == "") {
-        document.passwd.newpassword0.focus();
-    } else {
-        document.passwd.newpassword1.focus();
-    }
-}
-//-->
-</script>
-
 <div id="menu">
 <?php
-Horde::addScriptFile('stripe.js', 'horde', true);
 $menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
 echo $menu->render();
-$item = 1;
 ?>
 </div>
 <?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $notification->notify(array('listeners' => 'status')) ?>
 
-<form method="post" action="<?php echo Horde::url('index.php', false, -1, true) ?>" name="passwd">
+<form method="post" action="<?php echo Horde::url('index.php', false, -1, true) ?>" name="passwd" id="passwd">
 <?php echo Horde_Util::formInput() ?>
 <?php if ($conf['backend']['backend_list'] == 'hidden'): ?>
 <input type="hidden" name="backend" value="<?php echo htmlspecialchars($backend_key) ?>" />
@@ -89,7 +46,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
   <strong><?php echo Horde::label('oldpassword', _("Old password:")) ?></strong>
  </td>
  <td>
-  <input type="password" tabindex="1" id="oldpassword" name="oldpassword" size="32" />
+  <input type="password" id="oldpassword" name="oldpassword" size="32" />
  </td>
  <td class="rightAlign">
   <?php echo Horde_Help::link('passwd', 'passwd-old-password') ?>
@@ -101,7 +58,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
   <strong><?php echo Horde::label('newpassword0', _("New password:")) ?></strong>
  </td>
  <td>
-  <input type="password" tabindex="2" id="newpassword0" name="newpassword0" size="32" />
+  <input type="password" id="newpassword0" name="newpassword0" size="32" />
  </td>
  <td class="rightAlign">
   <?php echo Horde_Help::link('passwd', 'passwd-new-password') ?>
@@ -113,7 +70,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
   <strong><?php echo Horde::label('newpassword1', _("Confirm new password:")) ?></strong>
  </td>
  <td>
-  <input type="password" tabindex="3" id="newpassword1" name="newpassword1" size="32" />
+  <input type="password" id="newpassword1" name="newpassword1" size="32" />
  </td>
  <td class="rightAlign">
   <?php echo Horde_Help::link('passwd', 'passwd-confirm-password') ?>
@@ -126,7 +83,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
   <strong><?php echo Horde::label('backend', _("Change password for:")) ?></strong>
  </td>
  <td style="direction: ltr">
-  <select id="backend" name="backend" tabindex="4">
+  <select id="backend" name="backend">
    <?php echo $backends_list ?>
   </select>
  </td>
@@ -138,7 +95,7 @@ if ($conf['backend']['backend_list'] == 'hidden') {
 
 <tr class="control">
  <td colspan="3" class="control">
-  <input class="button" type="submit" name="submit" value="<?php echo _("Change Password") ?>" onclick="return submit_form();" />
+  <input class="button" type="submit" name="submit" id="submit" value="<?php echo _("Change Password") ?>" />
   <input class="button" type="reset" name="reset" value="<?php echo _("Reset") ?>" />
  </td>
 </tr>
