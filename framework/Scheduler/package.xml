@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-27</date>
- <time>18:34:02</time>
+ <time>18:34:19</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First stable release for Horde 4.
-* Removed Horde-specific command line script.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -132,6 +131,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * First stable release for Horde 4.
 * Removed Horde-specific command line script.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
