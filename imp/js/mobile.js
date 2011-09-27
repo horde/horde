@@ -169,7 +169,7 @@ var ImpMobile = {
         if (!newuid || !ImpMobile.data[newuid]) {
             return;
         }
-        ImpMobile.toMessage(ImpMobile.data[newuid].view, newuid);
+        ImpMobile.toMessage(ImpMobile.data[newuid].mbox, newuid);
     },
 
     /**
