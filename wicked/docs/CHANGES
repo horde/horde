@@ -1,6 +1,6 @@
---------
-v1.0-git
---------
+-----------
+v1.0-ALPHA1
+-----------
 
 [jan] Move all default pages into the Wiki/ namespace (Request #7021).
 [jan] Support Unicode wiki page names.
