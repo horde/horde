@@ -117,7 +117,7 @@ $backends['hordeauth'] = array (
 
 $backends['hordesql'] = array (
     'disabled' => false,
-    'name' => 'Horde Sql Authentication',
+    'name' => 'Horde SQL Authentication',
     'preferred' => '',
     'password policy' => array(
         'minLength' => 6,

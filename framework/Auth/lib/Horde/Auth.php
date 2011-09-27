@@ -11,7 +11,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth
@@ -305,4 +305,133 @@ class Horde_Auth
             substr(self::NUMBERS, mt_rand(0, strlen(self::NUMBERS) - 1), 1);
     }
 
+    /**
+     * Checks whether a password matches some expected policy.
+     *
+     * @since   Horde_Auth 1.4.0
+     *
+     * @param string $password  A password.
+     * @param array $policy     A configuration with policy rules. Supported
+     *                          rules:
+     *
+     *   - minLength:   Minimum length of the password
+     *   - maxLength:   Maximum length of the password
+     *   - maxSpace:    Maximum number of white space characters
+     *
+     *     The following are the types of characters required in a
+     *     password.  Either specific characters, character classes,
+     *     or both can be required.  Specific types are:
+     *
+     *   - minUpper:    Minimum number of uppercase characters
+     *   - minLower:    Minimum number of lowercase characters
+     *   - minNumeric:  Minimum number of numeric characters (0-9)
+     *   - minAlphaNum: Minimum number of alphanumeric characters
+     *   - minAlpha:    Minimum number of alphabetic characters
+     *   - minSymbol:   Minimum number of alphabetic characters
+     *
+     *     Alternatively (or in addition to), the minimum number of
+     *     character classes can be configured by setting the
+     *     following.  The valid range is 0 through 4 character
+     *     classes may be required for a password. The classes are:
+     *     'upper', 'lower', 'number', and 'symbol'.  For example: A
+     *     password of 'p@ssw0rd' satisfies three classes ('number',
+     *     'lower', and 'symbol'), while 'passw0rd' only satisfies two
+     *     classes ('lower' and 'symbols').
+     *
+     *   - minClasses:  Minimum number (0 through 4) of character
+     *                  classes.
+     *
+     * @throws Horde_Auth_Exception if the password does not match the policy.
+     */
+    static public function checkPasswordPolicy($password, $policy)
+    {
+        // Check max/min lengths if specified in the policy.
+        if (isset($policy['minLength']) &&
+            strlen($password) < $policy['minLength']) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::t("The password must be at least %d characters long!"), $policy['minLength']));
+        }
+        if (isset($policy['maxLength']) &&
+            strlen($password) > $policy['maxLength']) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::t("The password is too long; passwords may not be more than %d characters long!"), $policy['maxLength']));
+        }
+
+        // Dissect the password in a localized way.
+        $classes = array();
+        $alpha = $alnum = $num = $upper = $lower = $space = $symbol = 0;
+        for ($i = 0; $i < strlen($password); $i++) {
+            $char = substr($password, $i, 1);
+            if (ctype_lower($char)) {
+                $lower++; $alpha++; $alnum++; $classes['lower'] = 1;
+            } elseif (ctype_upper($char)) {
+                $upper++; $alpha++; $alnum++; $classes['upper'] = 1;
+            } elseif (ctype_digit($char)) {
+                $num++; $alnum++; $classes['number'] = 1;
+            } elseif (ctype_punct($char)) {
+                $symbol++; $classes['symbol'] = 1;
+            } elseif (ctype_space($char)) {
+                $space++; $classes['symbol'] = 1;
+            }
+        }
+
+        // Check reamaining password policy options.
+        if (isset($policy['minUpper']) && $policy['minUpper'] > $upper) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d uppercase character.", "The password must contain at least %d uppercase characters.", $policy['minUpper']), $policy['minUpper']));
+        }
+        if (isset($policy['minLower']) && $policy['minLower'] > $lower) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d lowercase character.", "The password must contain at least %d lowercase characters.", $policy['minLower']), $policy['minLower']));
+        }
+        if (isset($policy['minNumeric']) && $policy['minNumeric'] > $num) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d numeric character.", "The password must contain at least %d numeric characters.", $policy['minNumeric']), $policy['minNumeric']));
+        }
+        if (isset($policy['minAlpha']) && $policy['minAlpha'] > $alpha) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d alphabetic character.", "The password must contain at least %d alphabetic characters.", $policy['minAlpha']), $policy['minAlpha']));
+        }
+        if (isset($policy['minAlphaNum']) && $policy['minAlphaNum'] > $alnum) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d alphanumeric character.", "The password must contain at least %d alphanumeric characters.", $policy['minAlphaNum']), $policy['minAlphaNum']));
+        }
+        if (isset($policy['minClasses']) && $policy['minClasses'] > array_sum($classes)) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::t("The password must contain at least %d different types of characters. The types are: lower, upper, numeric, and symbols."), $policy['minClasses']));
+        }
+        if (isset($policy['maxSpace']) && $policy['maxSpace'] < $space) {
+            if ($policy['maxSpace'] > 0) {
+                throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::t("The password must contain less than %d whitespace characters."), $policy['maxSpace'] + 1));
+            }
+            throw new Horde_Auth_Exception(Horde_Auth_Translation::t("The password must not contain whitespace characters."));
+        }
+        if (isset($policy['minSymbol']) && $policy['minSymbol'] > $symbol) {
+            throw new Horde_Auth_Exception(sprintf(Horde_Auth_Translation::ngettext("The password must contain at least %d symbol character.", "The password must contain at least %d symbol characters.", $policy['minSymbol']), $policy['minSymbol']));
+        }
+    }
+
+    /**
+     * Checks whether a password is too similar to a dictionary of strings.
+     *
+     * @since   Horde_Auth 1.4.0
+     *
+     * @param string $password  A password.
+     * @param array $dict       A dictionary to check for similarity, for
+     *                          example the user name or an old password.
+     * @param float $percent    The maximum allowed similarity in percent.
+     *
+     * @throws Horde_Auth_Exception if the password is too similar.
+     */
+    static public function checkPasswordSimilarity($password, $dict, $max = 80)
+    {
+        // Check for pass == dict, simple reverse strings, etc.
+        foreach ($dict as $test) {
+            if ((strcasecmp($password, $test) == 0) ||
+                (strcasecmp($password, strrev($test)) == 0)) {
+                throw new Horde_Auth_Exception(Horde_Auth_Translation::t("The password is too simple to guess."));
+            }
+        }
+
+        // Check for percentages similarity also.  This will catch very simple
+        // Things like "password" -> "password2" or "xpasssword"...
+        foreach ($dict as $test) {
+            similar_text($password, $test, $percent);
+            if ($percent > $max) {
+                throw new Horde_Auth_Exception(Horde_Auth_Translation::t("The password is too simple to guess."));
+            }
+        }
+    }
 }
