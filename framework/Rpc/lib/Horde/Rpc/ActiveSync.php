@@ -115,11 +115,16 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $serverVars = $this->_request->getServerVars();
         switch ($serverVars['REQUEST_METHOD']) {
         case 'OPTIONS':
-            $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
-            try {
-                $this->_server->handleRequest('Options', null, null);
-            } catch (Horde_ActiveSync_Exception $e) {
-                $this->_handleError($e);
+        case 'GET':
+            if ($serverVars['REQUEST_METHOD'] == 'GET' && $this->_get['Cmd'] != 'OPTIONS') {
+                throw new Horde_Rpc_Exception('Trying to access the ActiveSync endpoint from a browser. Not Supported.');
+            } else {
+                $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
+                try {
+                    $this->_server->handleRequest('Options', null, null);
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_handleError($e);
+                }
             }
             break;
 
@@ -131,11 +136,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_handleError($e);
             }
-            break;
-
-        case 'GET':
-            // Someone trying to access the activesync url from a browser
-            throw new Horde_Rpc_Exception('Trying to access the ActiveSync endpoint from a browser. Not Supported.');
             break;
         }
     }
