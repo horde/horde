@@ -16,19 +16,25 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
+<lead>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </lead>
  <date>2011-09-27</date>
  <time>10:11:18</time>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>2.0.0alpha1</release>
+  <api>2.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="TODO">TODO</license>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* Initial release.
+* First alpha release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1090,17 +1096,17 @@
  <changelog>
   <release>
    <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0alpha1</api>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
    <date>2011-09-27</date>
-   <license uri="TODO">TODO</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* Initial release.
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>
