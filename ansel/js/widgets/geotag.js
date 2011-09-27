@@ -139,7 +139,8 @@ AnselGeoTagWidget = Class.create({
                     {
                         'lat': img.image_latitude,
                         'lon': img.image_longitude
-                    }
+                    },
+                    { 'center': true, 'zoom': 1 }
                 );
                 (function() {
                     var p = img;
@@ -213,7 +214,12 @@ AnselGeoTagWidget = Class.create({
             this._bigMap.zoomToFit();
         }
         // Attempt to make a good guess as to where to center the mini-map
-        this._smallMap.setCenter({'lat': this._images[0].image_latitude, 'lon': 0}, 0);
+        if (this.opts.viewType == 'Gallery') {
+            this._smallMap.setCenter({
+                'lat': this._images[0].image_latitude,
+                'lon': 0
+            }, 0);
+        }
     },
 
     /**
