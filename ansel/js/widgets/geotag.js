@@ -133,14 +133,14 @@ AnselGeoTagWidget = Class.create({
         // Place the image markers
         var centerImage;
         this._images.each(function(img) {
-            AnselMap.placeMapMarker(
-                'ansel_map_small',
-                {
-                    'lat': img.image_latitude,
-                    'lon': img.image_longitude
-                }
-            );
             if (img.markerOnly) {
+                AnselMap.placeMapMarker(
+                    'ansel_map_small',
+                    {
+                        'lat': img.image_latitude,
+                        'lon': img.image_longitude
+                    }
+                );
                 (function() {
                     var p = img;
                     var f = m;
