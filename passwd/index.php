@@ -6,6 +6,7 @@
  * did not receive this file, see http://www.horde.org/gpl.php.
  *
  * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Passwd
  */
 
@@ -13,9 +14,11 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('passwd');
 
 $backends = Passwd::getBackends();
+$userid = null;
+$return_to = Horde_Util::getFormData('return_to');
 
 // Get the backend details.
-$backend_key = Horde_Util::getFormData('backend', false);
+$backend_key = Horde_Util::getFormData('backend');
 if (!isset($backends[$backend_key])) {
     $backend_key = null;
 }
@@ -216,7 +219,6 @@ do {
         } catch (Horde_Exception_HookNotSet $e) {
         }
 
-        $return_to = Horde_Util::getFormData('return_to');
         if (!empty($return_to)) {
             header('Location: ' . $return_to);
             exit;
@@ -240,17 +242,6 @@ foreach ($backends as $key => $current_backend) {
     }
 }
 
-// Build the <select> widget for the backends list.
-if ($conf['backend']['backend_list'] == 'shown') {
-    $backends_list = '';
-
-    foreach ($backends as $key => $current_backend) {
-        $sel = ($key == $backend_key) ? ' selected="selected"' : '';
-        $backends_list .= '<option value="' . htmlspecialchars($key) . '"' . $sel . '>' .
-            htmlspecialchars($current_backend['name']) . '</option>';
-    }
-}
-
 // Extract userid to be shown in the username field.
 if (empty($userid)) {
     try {
@@ -259,6 +250,44 @@ if (empty($userid)) {
         $userid = $registry->getAuth();
     }
 }
+
+$view = new Horde_View(array('templatePath' => PASSWD_TEMPLATES));
+new Horde_View_Helper_Text($view);
+$view->formInput = Horde_Util::formInput();
+$view->url = $return_to;
+$view->userid = $userid;
+$view->userChange = $conf['user']['change'];
+$view->showlist = $conf['backend']['backend_list'] == 'shown';
+$view->backend = $backend_key;
+$view->label = (object)array(
+    'userid'       => Horde::label('userid', _("Username:")),
+    'oldpassword'  => Horde::label('oldpassword', _("Old password:")),
+    'newpassword0' => Horde::label('newpassword0', _("New password:")),
+    'newpassword1' => Horde::label('newpassword1', _("Confirm new password:")),
+    'backend'      => Horde::label('backend', _("Change password for:")));
+$view->help = (object)array(
+    'username'        => Horde_Help::link('passwd', 'passwd-username'),
+    'oldpassword'     => Horde_Help::link('passwd', 'passwd-old-password'),
+    'newpassword'     => Horde_Help::link('passwd', 'passwd-new-password'),
+    'confirmpassword' => Horde_Help::link('passwd', 'passwd-confirm-password'),
+    'server'          => Horde_Help::link('passwd', 'passwd-server'));
+
+// Build the <select> widget for the backends list.
+if ($view->showlist) {
+    foreach ($backends as $key => &$backend) {
+        $backend['selected'] = ($key == $backend_key)
+            ? ' selected="selected"'
+            : '';
+    }
+    $view->backends = $backends;
+    $view->header = _("Change your password");
+} else {
+    $view->header = sprintf(_("Changing password for %s"),
+                            htmlspecialchars($backends[$backend_key]['name']));
+}
+
+$menu = new Horde_Menu(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
+$view->menu = $menu->render();
 
 Horde::addScriptFile('stripe.js', 'horde', true);
 Horde::addScriptFile('passwd.js', 'passwd', true);
@@ -276,5 +305,6 @@ Horde::addInlineJsVars(array(
 
 $title = _("Change Password");
 require $registry->get('templates', 'horde') . '/common-header.inc';
-require PASSWD_TEMPLATES . '/main/main.inc';
+echo Horde::menu();
+echo $view->render('index');
 require $registry->get('templates', 'horde') . '/common-footer.inc';
