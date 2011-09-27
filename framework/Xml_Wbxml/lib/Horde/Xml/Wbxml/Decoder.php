@@ -362,7 +362,7 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
                 // document and thus start a new wbxml decoder instance on it.
 
                 if ($size > 0 && $this->_isData && ord($b) <= 10) {
-                    $decoder = new Horde_Xml_Wbxml_Decoder(true);
+                    $decoder = new Horde_Xml_Wbxml_Decoder();
                     $decoder->setContentHandler($this->_ch);
                     $decoder->decode($b);
             //                /* // @todo: FIXME currently we can't decode Nokia

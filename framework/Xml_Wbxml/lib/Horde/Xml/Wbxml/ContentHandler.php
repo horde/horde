@@ -92,7 +92,7 @@ class Horde_Xml_Wbxml_ContentHandler
 
     public function characters($str)
     {
-        $this->_output .= $str;
+        $this->_output .= htmlspecialchars($str);
     }
 
     public function opaque($o)

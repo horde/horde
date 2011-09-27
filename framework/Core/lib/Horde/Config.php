@@ -1492,7 +1492,8 @@ class Horde_Config
                     if ($value->nodeType == XML_ELEMENT_NODE) {
                         if ($value->tagName == 'configspecial') {
                             return $this->_handleSpecials($value);
-                        } elseif ($value->tagName == 'value') {
+                        }
+                        if ($value->tagName == 'value') {
                             $text = $value->textContent;
                             $desc = $value->getAttribute('desc');
                             $values[$text] = empty($desc) ? $text : $desc;
@@ -1549,7 +1550,10 @@ class Horde_Config
      */
     protected function _handleSpecials($node)
     {
-        $app = $GLOBALS['registry']->hasInterface($node->getAttribute('application'));
+        $app = $node->getAttribute('application');
+        if (!in_array($app, $GLOBALS['registry']->listApps())) {
+            $app = $GLOBALS['registry']->hasInterface($app);
+        }
         if (!$app) {
             return array();
         }

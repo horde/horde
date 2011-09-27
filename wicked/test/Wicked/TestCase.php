@@ -28,8 +28,7 @@
  * @link       http://www.horde.org/apps/wicked
  * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
-class Wicked_TestCase
-extends PHPUnit_Framework_TestCase
+class Wicked_TestCase extends PHPUnit_Framework_TestCase
 {
     protected function unstrictPearTestingMode()
     {
@@ -46,7 +45,7 @@ extends PHPUnit_Framework_TestCase
 
     protected function protectAgainstPearError($result)
     {
-        if ($result instanceOf PEAR_Error) {
+        if ($result instanceof PEAR_Error) {
             $this->fail(sprintf('Test failed with: %s', $result->getMessage()));
         }
         return $result;

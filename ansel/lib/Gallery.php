@@ -844,7 +844,7 @@ class Ansel_Gallery implements Serializable
                         'gallery');
             }
         } else {
-            throw new Horde_PermissionDenied(_("Access denied adding tags to this gallery."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied adding tags to this gallery."));
         }
     }
 

@@ -883,7 +883,7 @@ class Ansel
      *
      * @return void
      */
-    static public function initHordeMap($params)
+    static public function initHordeMap($params = array())
     {
         if (empty($params['providers'])) {
             $params['providers'] = $GLOBALS['conf']['maps']['providers'];

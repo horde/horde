@@ -191,9 +191,6 @@ class Wicked_Page_SyncPages extends Wicked_Page {
 
         // Prepare default values
         $stored = @unserialize($GLOBALS['prefs']->getValue('sync_data'));
-        if (isset($_GET['__old_sync_select'])) {
-            $session->remove('wicked', 'sync');
-        }
         if ($vars->get('sync_select') && isset($stored[$vars->get('sync_select')])) {
             $defaults = $stored[$vars->get('sync_select')];
             foreach ($defaults as $k => $v) {

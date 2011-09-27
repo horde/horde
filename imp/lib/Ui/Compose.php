@@ -162,7 +162,7 @@ class IMP_Ui_Compose
         if (is_null($vars) || !isset($vars->uids)) {
             $indices = IMP::$thismailbox->getIndicesOb(IMP::$uid);
         } else {
-            $indices = new IMP_Indices($vars->uids);
+            $indices = new IMP_Indices_Form($vars->uids);
         }
 
         if (!is_null($indices)) {

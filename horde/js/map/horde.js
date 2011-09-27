@@ -99,9 +99,6 @@ HordeMap.Map.Horde = Class.create({
             ],
             styleMap: this.opts.styleMap
         };
-        if (this.opts.onBaseLayerChange) {
-            options.eventListeners = { 'changebaselayer': this.opts.onBaseLayerChange };
-        }
         if (this.opts.panzoom) {
             options.controls.push(new OpenLayers.Control.PanZoomBar({ 'zoomWorldIcon': this.opts.zoomworldicon }));
         } else {
@@ -136,6 +133,7 @@ HordeMap.Map.Horde = Class.create({
         // Used for converting between internal and display projections.
         this._proj = new OpenLayers.Projection("EPSG:4326");
         this.map.zoomToMaxExtent();
+        this.map.events.register('changebaselayer', null, this.opts.onBaseLayerChange);
     },
 
     /**

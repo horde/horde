@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Allow both application and interface names in &lt;configspecial&gt;.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1581,7 +1581,7 @@
    <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Allow both application and interface names in &lt;configspecial&gt;.
    </notes>
   </release>
  </changelog>

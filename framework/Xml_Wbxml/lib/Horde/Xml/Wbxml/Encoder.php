@@ -95,13 +95,13 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
     public function writeHeader($uri)
     {
         // @todo: this is a hack!
-        if ($this->_dtd->getVersion() == 2 && !preg_match('/1\.2$/', $uri)) {
+        if ($this->_wbxmlVersion == 2 && !preg_match('/1\.2$/', $uri)) {
             $uri .= '1.2';
         }
-        if ($this->_dtd->getVersion() == 1 && !preg_match('/1\.1$/', $uri)) {
+        if ($this->_wbxmlVersion == 1 && !preg_match('/1\.1$/', $uri)) {
             $uri .= '1.1';
         }
-        if ($this->_dtd->getVersion() == 0 && !preg_match('/1\.0$/', $uri)) {
+        if ($this->_wbxmlVersion == 0 && !preg_match('/1\.0$/', $uri)) {
             $uri .= '1.0';
         }
 

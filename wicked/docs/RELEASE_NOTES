@@ -10,16 +10,16 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_INITIAL);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Whups
-Ticket Tracking System version H4 (2.0-ALPHA1).
+The Horde Team is pleased to announce the first alpha release of the Wicked
+wiki application version H4 (1.0-ALPHA1).
 
-Whups is a Horde ticket-tracking application. It is very flexible in design,
-and can be used for help-desk requests, tracking sofware development, and
-anything else that needs to track a set of requests and their status.
+Wicked is a wiki application for the Horde Framework. It uses PEAR's Text_Wiki
+library for the actual wiki markup parsing and rendering. It supports Creole,
+Mediawiki, Tiki Wiki, and its own markup engine.
 
 This is a preview version that should not be used on production systems.  This
 version is considered feature complete but there might still be a few bugs.
@@ -28,23 +28,14 @@ You should not use this preview version over existing production data.
 We encourage widespread testing and feedback via the mailing lists or our bug
 tracking system. Updated and new translations are very welcome, though some
 strings might still change before the final release.
-
-Major changes compared to the Whups H3 versions are:
-    * Updated to work with Horde 4.
-    * Improved mail filter for converting email messages to tickets.
-    * More flexible and extended notification messages.
-    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Updated to work with Horde 4.
-Improved mail filter for converting email messages to tickets.
-More flexible and extended notification messages.
-Small bugfixes and improvements.
+Initial alpha release.
 FM;
 
-$this->notes['name'] = 'Whups';
+$this->notes['name'] = 'Wicked';
 $this->notes['list'] = 'horde';
-$this->notes['fm']['project'] = 'whups';
+$this->notes['fm']['project'] = 'wicked';
 $this->notes['fm']['branch'] = 'Horde 4';
