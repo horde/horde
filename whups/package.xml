@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
+* [jan] Fix automatic linking of bug numbers inside URLs (Bug #7081).
 * First alpha release for Horde 4.
  </notes>
  <contents>
@@ -757,7 +758,8 @@
    <date>2011-09-22</date>
    <license uri="TODO">TODO</license>
    <notes>
-* Initial release.
+* [jan] Fix automatic linking of bug numbers inside URLs (Bug #7081).
+* First alpha release for Horde 4.
    </notes>
   </release>
  </changelog>

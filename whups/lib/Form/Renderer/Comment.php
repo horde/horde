@@ -16,6 +16,13 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
     public $priority = null;
     public $due = null;
 
+    /**
+     * Intermediate storage for links during comment formatting.
+     *
+     * @var array
+     */
+    protected $_tokens = array();
+
     public function begin($title)
     {
         $this->_sectionHeader($title);
@@ -159,10 +166,14 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
                         array()));
             if ($prefs->getValue('autolink_tickets') &&
                 $conf['prefs']['autolink_terms']) {
-
-                $term_regex = '/(' . $conf['prefs']['autolink_terms'] . ')\s*#?(\d+)/i';
+                // Replace existing links by tokens to avoid double linking.
                 $comment = preg_replace_callback(
-                    $term_regex, array(&$this, '_autolink'), $comment);
+                    '/<a.*?<\/a>/', array($this, '_writeTokens'), $comment);
+                $comment = preg_replace_callback(
+                    '/(' . $conf['prefs']['autolink_terms'] . ')\s*#?(\d+)/i',
+                    array($this, '_autolink'), $comment);
+                $comment = preg_replace_callback(
+                    '/\0/', array($this, '_readTokens'), $comment);
             }
 
             $comment_count++;
@@ -219,6 +230,31 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
         }
 
         return '';
+    }
+
+    /**
+     * Replaces links with tokens and stores them for later _readTokens() calls.
+     *
+     * @param array $matches  Match from preg_replace_callback().
+     *
+     * @return string  NUL character.
+     */
+    protected function _writeTokens($matches)
+    {
+        $this->_tokens[] = $matches[0];
+        return chr(0);
+    }
+
+    /**
+     * Replaces tokens with links stored earlier during _writeTokens() calls.
+     *
+     * @param array $matches  Match from preg_replace_callback().
+     *
+     * @return string  The first available link.
+     */
+    protected function _readTokens($matches)
+    {
+        return array_shift($this->_tokens);
     }
 
     protected function _autolink($matches)

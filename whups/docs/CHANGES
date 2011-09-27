@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[jan] Fix automatic linking of bug numbers inside URLs (Bug #7081).
 [jan] Don't search for all states if no states have been selected.
 [jan] Add templates for delete and reminder notifications.
 [jan] Add message template variable for recipient role.
