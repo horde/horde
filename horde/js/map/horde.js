@@ -33,6 +33,8 @@
  * //                         use the smaller ZoomPanel control.
  * //                       - Callback
  * // opts.useMarkerLayer   - Add a vector layer to be used to place markers.
+ * // opts.hide             - Don't show markerlayer in LayerSwitcher
+ * // opts.onBaseLayerChange - Callback fired when baselayer is changed.
  * // opts.zoomworldicon    - Show the worldzoomicon on the PanZoomBar control
  * //                         that resets/centers map.
  * var map = new HordeMap.OpenLayers(options);
@@ -66,6 +68,7 @@ HordeMap.Map.Horde = Class.create({
             onHover: false,
             onClick: false,
             hide: true,
+            onBaseLayerChange: false,
             // default stylemap
             styleMap: new OpenLayers.StyleMap({
                 'default': {
@@ -96,6 +99,9 @@ HordeMap.Map.Horde = Class.create({
             ],
             styleMap: this.opts.styleMap
         };
+        if (this.opts.onBaseLayerChange) {
+            options.eventListeners = { 'changebaselayer': this.opts.onBaseLayerChange };
+        }
         if (this.opts.panzoom) {
             options.controls.push(new OpenLayers.Control.PanZoomBar({ 'zoomWorldIcon': this.opts.zoomworldicon }));
         } else {
