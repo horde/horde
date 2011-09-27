@@ -3,13 +3,3 @@
 =============================
 
 :Contact:       ansel@lists.horde.org
-
-- Further abstract out all database access from Ansel_Gallery/Ansel_Image and
-  place in Ansel_Storage. Likewise, consolidate the static Ansel_Tags methods
-  into the Ansel_Storage class.
-
-- A command line script for batch importing/exporting/management of galleries
-  (importing is done).
-
-- Complete XMLRPC/SOAP API that remote programs can use to upload/edit/manage
-  images.
