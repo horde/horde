@@ -17,10 +17,10 @@
   <active>yes</active>
  </lead>
  <date>2011-09-28</date>
- <time>21:42:52</time>
+ <time>21:46:07</time>
  <version>
-  <release>4.0.1</release>
-  <api>4.0.0alpha1</api>
+  <release>4.0.0RC1</release>
+  <api>4.0.0RC1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -588,8 +588,8 @@
   </release>
   <release>
    <version>
-    <release>4.0.1</release>
-    <api>4.0.0alpha1</api></version>
+    <release>4.0.0RC1</release>
+    <api>4.0.0RC1</api></version>
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
