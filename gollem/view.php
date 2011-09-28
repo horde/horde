@@ -58,21 +58,36 @@ case 'download_file':
     break;
 
 case 'view_file':
-    if (is_resource($stream)) {
-        $data = '';
-        while ($buffer = fread($stream, 102400)) {
-            $data .= $buffer;
-        }
-    }
-    $mime = new Horde_Mime_Part();
-    // TODO
-    exit;
+    $mime_part = new Horde_Mime_Part();
+    $mime_part->setType(Horde_Mime_Magic::extToMime($vars->type));
+    $mime_part->setContents(is_resource($stream) ? $stream : $data);
+    $mime_part->setName($vars->file);
+    // We don't know better.
+    $mime_part->setCharset('US-ASCII');
 
-    $mime->setName($vars->name);
-    $contents = new MIME_Contents($mime);
-    $body = $contents->renderMIMEPart($mime);
-    $type = $contents->getMIMEViewerType($mime);
-    $browser->downloadHeaders($mime->getName(true, true), $type, true, strlen($body));
-    echo $body;
+    $ret = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
+    reset($ret);
+    $key = key($ret);
+
+    if (empty($ret)) {
+        $browser->downloadHeaders($vars->file, null, false, $gollem_vfs->size($vars->dir, $vars->file));
+        if (is_resource($stream)) {
+            while ($buffer = fread($stream, 8192)) {
+                echo $buffer;
+                ob_flush();
+                flush();
+            }
+        } else {
+            echo $data;
+        }
+    } elseif (strpos($ret[$key]['type'], 'text/html') !== false) {
+        require $registry->get('templates', 'horde') . '/common-header.inc';
+        echo $ret[$key]['data'];
+        require $registry->get('templates', 'horde') . '/common-footer.inc';
+    } else {
+        $browser->downloadHeaders($vars->file, $ret[$key]['type'], true, strlen($ret[$key]['data']));
+        echo $ret[$key]['data'];
+    }
+
     break;
 }
