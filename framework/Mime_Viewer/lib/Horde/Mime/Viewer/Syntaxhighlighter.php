@@ -47,7 +47,6 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         /* Determine the language and brush from the mime type. */
         $mimeType = $this->_mimepart->getType();
         $language = $this->_mimeTypeToLanguage($mimeType);
-        $brush = $this->_languageToBrush($language);
 
         $results = '<pre class="brush: ' . $language . '">' . htmlspecialchars($this->_mimepart->getContents()) . '</pre>';
         return $this->_renderReturn(
