@@ -1,5 +1,6 @@
 <!-- <h3><?php /*echo date('Y-m-d', $logMessage->queryDate()) */?></h3> -->
 <div class="commit-summary">
+<?php if (empty($hide_diff)): ?>
  <div class="commit-info">
   <ul>
    <li>
@@ -32,6 +33,7 @@
   </ul>
   <?php endif; ?>
  </div>
+<?php endif; ?>
 
  <div class="commit-message"><?php echo Chora::formatLogMessage($logMessage->queryLog()) ?></div>
 
