@@ -44,9 +44,9 @@ To function properly, Passwd **requires** the following:
 
       LDAP support is required for the kolab, ldap, and smbldap drivers.
 
-   c. Mhash support ``--with-mhash`` [OPTIONAL]
+   c. Hash support [OPTIONAL]
 
-      Mhash support is necessary for the smbldap driver.  See `LDAP
+      Hash support is necessary for the smbldap driver.  See `LDAP
       Implementation Information`_ for details.
 
    d. Mcrypt support ``--with-mcrypt`` [OPTIONAL]
@@ -243,10 +243,9 @@ d. Crypt encrypted passwords
 e. MD5 encrypted passwords (using base64 encoding - md5-base64)
 f. SMD5 encrypted passwords
 
-The smbldap extension require the php mhash and mcrypt extensions.  To
-enable these you must compile php with the ``--with-mhash[=DIR]`` and
-``--with-mcrypt[=DIR]`` parameters. ``DIR`` is the mhash or mcrypt
-install directory.
+The smbldap extension require the php hash and mcrypt extensions.  To enable
+these you must compile php with ``--with-mcrypt[=DIR]`` and **without** the
+``--disable-hash`` parameters. ``DIR`` is the mcrypt install directory.
 
 Crypt cannot handle passwords longer than eight characters (it accepts them
 but truncates them at 8 characters).  If you want to use longer passwords, you
