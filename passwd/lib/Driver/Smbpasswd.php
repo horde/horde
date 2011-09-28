@@ -10,8 +10,8 @@
  * @author  Rene Lund Jensen <Rene@lundjensen.net>
  * @package Passwd
  */
-class Passwd_Driver_Smbpasswd extends Passwd_Driver {
-
+class Passwd_Driver_Smbpasswd extends Passwd_Driver
+{
     /**
      * Socket connection resource.
      *
@@ -20,11 +20,11 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver {
     protected $_fp;
 
     /**
-     * Constructs a new Passwd_Driver_Smbpasswd object.
+     * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         $this->_params = array_merge(array('host' => 'localhost',
                                            'program' => '/usr/bin/smbpasswd'),
@@ -37,9 +37,10 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver {
      * @param string $user     The user to change the password for
      * @param string $tmpfile  The name of a temporary file in which to write
      *                         output.
-     * @return mixed  True on success, throws a Passwd_Exception on failure
+     *
+     * @throws Passwd_Exception
      */
-    function _connect($user, $tmpfile)
+    protected function _connect($user, $tmpfile)
     {
         if (!is_executable($this->_params['program'])) {
             throw new Passwd_Exception(_("Passwd is not properly configured."));
@@ -54,14 +55,12 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver {
         if (!$this->_fp) {
             throw new Passwd_Exception(_("Could not open pipe to smbpasswd."));
         }
-
-        return true;
     }
 
     /**
      * Disconnects the pipe to the sambaserver.
      */
-    function _disconnect()
+    protected function _disconnect()
     {
         @pclose($this->_fp);
     }
@@ -70,14 +69,15 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver {
      * Sends a string to the waiting sambaserver.
      *
      * @param string $cmd  The string to send to the server.
+     *
+     * @throws Passwd_Exception
      */
-    function _sendCommand($cmd)
+    protected function _sendCommand($cmd)
     {
         if (fputs($this->_fp, $cmd . "\n") == -1) {
             throw new Passwd_Exception(_("Error sending data to smbpasswd."));
         }
-        sleep(1); // why?
-        return true;
+        sleep(1);
     }
 
     /**
@@ -87,19 +87,15 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver {
      * @param string $old_password  The old (current) user password.
      * @param string $new_password  The new user password to set.
      *
-     * @return mixed  True or throws Passwd_Exception based on success of the change.
+     * @throws Passwd_Exception
      */
-    function changePassword($username, $old_password, $new_password)
+    public function changePassword($username, $old_password, $new_password)
     {
-        $res = true;
-
         // Clean up user name in case evil characters are in it.
         $user = escapeshellcmd($username);
 
         $tmpfile = Horde::getTempFile('smbpasswd');
 
-        // we only expect Passwd_exception here. 
-        // These can be dealt with at application level.
         $this->_connect($user, $tmpfile);
         $this->_sendCommand($old_password);
         $this->_sendCommand($new_password);
@@ -110,8 +106,5 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver {
         if (strstr($res[count($res) - 1], 'Password changed for user') === false) {
             throw new Passwd_Exception(strrchr(trim($res[count($res) - 2]), ':'));
         }
-
-        return true;
     }
-
 }

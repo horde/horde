@@ -102,10 +102,32 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
                 }
                 break;
 
+            case 'Passwd_Driver_Horde':
+                $backend['params']['auth'] = $this->_injector
+                    ->getInstance('Horde_Core_Factory_Auth')
+                    ->create();
+                break;
+
+            case 'Passwd_Driver_Soap':
+                if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
+                    $backend['params']['soap_params']['proxy_host'] = $GLOBALS['conf']['http']['proxy']['proxy_host'];
+                    $backend['params']['soap_params']['proxy_port'] = $GLOBALS['conf']['http']['proxy']['proxy_port'];
+                    $backend['params']['soap_params']['proxy_login'] = $GLOBALS['conf']['http']['proxy']['proxy_user'];
+                    $backend['params']['soap_params']['proxy_password'] = $GLOBALS['conf']['http']['proxy']['proxy_pass'];
+                }
+                $backend['params']['soap_params']['encoding'] = 'UTF-8';
+                break;
+
             /* more to come later as drivers are upgraded to H4 / PHP5 */
             }
 
-            $driver = new $class($backend['params']);
+            try {
+                $driver = new $class($backend['params']);
+            } catch (Passwd_Exception $e) {
+                throw $e;
+            } catch (Exception $e) {
+                throw new Passwd_Exception($e);
+            }
 
             /* Shouldn't we fetch policy from backend and inject some handler
              * class here? */

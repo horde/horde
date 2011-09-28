@@ -16,20 +16,18 @@
  * @author  Ralf Lang <lang@b1-systems.de> (H4 conversion)
  * @package Passwd
  */
-class Passwd_Driver_Sql extends Passwd_Driver {
-
+class Passwd_Driver_Sql extends Passwd_Driver
+{
     /**
      * Handle for the current database connection.
      *
      * @var Horde_Db_Adapter
      */
-
     protected $_db;
 
     /**
-     * Constructs a new Passwd_Driver_Sql object.
+     * Constructor.
      *
-     * @param string $name   The source name
      * @param array $params  Additional parameters needed:
      * <pre>
      * 'db' - (Horde_Db_Adapter) A DB Adapter object.
@@ -42,8 +40,10 @@ class Passwd_Driver_Sql extends Passwd_Driver {
      * 'query_lookup'    - (string)  Should we use a custom query for lookup?
      * 'query_modify'    - (string)  Should we use a custom query for changing?
      * </pre>
+     *
+     * @throws InvalidArgumentException
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         if (isset($params['db'])) {
             $this->_db = $params['db'];
@@ -52,24 +52,26 @@ class Passwd_Driver_Sql extends Passwd_Driver {
             throw new InvalidArgumentException('Missing required Horde_Db_Adapter object');
         }
         /* These default to matching the Auth_sql defaults. */
-        $this->_params['table'] = isset($params['table']) ? $params['table'] : 'horde_users';
-        $this->_params['encryption'] = isset($params['encryption']) ? $params['encryption'] : 'ssha';
-        $this->_params['user_col'] = isset($params['user_col']) ? $params['user_col'] : 'user_uid';
-        $this->_params['pass_col'] = isset($params['pass_col']) ? $params['pass_col'] : 'user_pass';
-        $this->_params['show_encryption'] = isset($params['show_encryption']) ? $params['show_encryption'] : false;
-        $this->_params['query_lookup'] = isset($params['query_lookup']) ? $params['query_lookup'] : false;
-        $this->_params['query_modify'] = isset($params['query_modify']) ? $params['query_modify'] : false;
+        $this->_params = array_merge(
+            array('table'           => 'horde_users',
+                  'encryption'      => 'ssha',
+                  'user_col'        => 'user_uid',
+                  'pass_col'        => 'user_pass',
+                  'show_encryption' => false,
+                  'query_lookup'    => false,
+                  'query_modify'    => false),
+            $params);
     }
 
      /**
-     * Find out if a username and password is valid.
+      * Finds out if a username and password is valid.
+      *
+      * @param string $userID        The userID to check.
+      * @param string $old_password  An old password to check.
      *
-     * @param string $userID        The userID to check.
-     * @param string $old_password  An old password to check.
-     *
-     * @return boolean  True on valid
-     */
-    function _lookup($user, $old_password)
+     * @throws Passwd_Exception
+      */
+    protected function _lookup($user, $old_password)
     {
         if (!empty($this->_params['query_lookup'])) {
             list($sql, $values) = $this->_parseQuery($this->_params['query_lookup'], $user, $old_password);
@@ -84,7 +86,7 @@ class Passwd_Driver_Sql extends Passwd_Driver {
         try {
             $result = $this->_db->selectOne($sql, $values);
         } catch (Horde_Db_Exception $e) {
-             throw new Passwd_Exception($e);
+            throw new Passwd_Exception($e);
         }
 
         if (is_array($result)) {
@@ -92,25 +94,26 @@ class Passwd_Driver_Sql extends Passwd_Driver {
         } else {
             throw new Passwd_Exception(_("User not found"));
         }
+
         /* Check the passwords match. */
-        return $this->comparePasswords($current_password, $old_password);
+        $this->_comparePasswords($current_password, $old_password);
     }
 
     /**
-     * Modify (update) a mysql password record for a user.
+     * Modifies a SQL password record for a user.
      *
      * @param string $user          The user whose record we will udpate.
      * @param string $new_password  The new password value to set.
      *
-     * @return boolean  True or False based on success of the modify.
+     * @throws Passwd_Exception
      */
-    function _modify($user, $new_password)
+    protected function _modify($user, $new_password)
     {
         if (!empty($this->_params['query_modify'])) {
             list($sql, $values) = $this->_parseQuery($this->_params['query_modify'], $user, $new_password);
         } else {
             /* Encrypt the password. */
-            $new_password = $this->encryptPassword($new_password);
+            $new_password = $this->_encryptPassword($new_password);
 
             /* Build the SQL query. */
             $sql = 'UPDATE ' . $this->_params['table'] .
@@ -120,18 +123,15 @@ class Passwd_Driver_Sql extends Passwd_Driver {
         }
 
         /* Execute the query. */
-
         try {
             $this->_db->update($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Passwd_Exception($e);
         }
-
-        return true;
     }
 
     /**
-     * Parse the string as an SQL query substituting placeholders for
+     * Parses the string as an SQL query substituting placeholders for
      * their values.
      *
      * @param string $string    The string to process as a query.
@@ -140,7 +140,7 @@ class Passwd_Driver_Sql extends Passwd_Driver {
      *
      * @return string  The processed SQL query.
      */
-    function _parseQuery($string, $user, $password)
+    protected function _parseQuery($string, $user, $password)
     {
         $query = '';
         $values = array();
@@ -171,7 +171,7 @@ class Passwd_Driver_Sql extends Passwd_Driver {
 
                 case 'e':
                     $query .= '?';
-                    $values[] = $this->encryptPassword($password);
+                    $values[] = $this->_encryptPassword($password);
                     break;
 
                 case '%':
@@ -191,20 +191,18 @@ class Passwd_Driver_Sql extends Passwd_Driver {
     }
 
     /**
-     * Change the user's password.
+     * Changes the user's password.
      *
      * @param string $username      The user for which to change the password.
      * @param string $old_password  The old (current) user password.
      * @param string $new_password  The new user password to set.
      *
-     * @return boolean  True or false based on success of the change.
+     * @throws Passwd_Exception
      */
-    function changePassword($username,  $old_password, $new_password)
+    public function changePassword($username,  $old_password, $new_password)
     {
         /* Check the current password. */
-        $res = $this->_lookup($username, $old_password);
-
-        return $this->_modify($username, $new_password);
+        $this->_lookup($username, $old_password);
+        $this->_modify($username, $new_password);
     }
-
 }
