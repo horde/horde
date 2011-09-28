@@ -180,7 +180,11 @@ class Horde_Kolab_Format_Xml_Helper
      */
     public function findNode($query)
     {
-        return $this->_findSingleNode($this->findNodes($query));
+        $result = $this->_xpath->query($query);
+        if ($result->length) {
+            return $result->item(0);
+        }
+        return false;
     }
 
     /**
@@ -194,20 +198,7 @@ class Horde_Kolab_Format_Xml_Helper
      */
     public function findNodeRelativeTo($query, DOMNode $context)
     {
-        return $this->_findSingleNode(
-            $this->findNodesRelativeTo($query, $context)
-        );
-    }
-
-    /**
-     * Return a single node for the result set.
-     *
-     * @param DOMNodeList $result The query result.
-     *
-     * @return DOMNode|false The DOMNode or empty if no node was found.
-     */
-    private function _findSingleNode($result)
-    {
+        $result = $this->_xpath->query($query, $context);
         if ($result->length) {
             return $result->item(0);
         }
