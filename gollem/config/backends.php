@@ -9,7 +9,7 @@
  * use backends-servername.php.
  *
  * Example configuration file that enables the Samba backend in favor of the
- * FTP backend and sets a server name for the Sabma server:
+ * FTP backend and sets a server name for the Samba server:
  *
  * <code>
  * <?php
@@ -102,11 +102,13 @@
  *            entry will be selected by default on the login screen. Otherwise
  *            the first entry in the list is selected.
  *
- * $Id$
+ * $Id: ab0ea802731049d75e59e3e05c02e6acd838f04f $
  */
 
 // FTP Example.
 $backends['ftp'] = array(
+    // ENABLED by default
+    'disabled' => false,
     'name' => 'FTP Server',
     'driver' => 'ftp',
     'preferred' => '',
@@ -146,6 +148,8 @@ $backends['ftp'] = array(
 
 // This backend uses Horde credentials to automatically log in.
 $backends['hordeftp'] = array(
+    // Disabled by default
+    'disabled' => true,
     'name' => 'FTP Server',
     'driver' => 'ftp',
     'preferred' => '',
@@ -185,6 +189,8 @@ $backends['hordeftp'] = array(
 
 // SQL Example.
 $backends['sql'] = array(
+    // Disabled by default
+    'disabled' => true,
     'name' => 'SQL Server',
     'driver' => 'sql',
     'preferred' => '',
@@ -222,6 +228,8 @@ $backends['sql'] = array(
 
 // This backend specifies a home directory and root directory in a SQL vfs.
 $backends['sqlhome'] = array(
+    // Disabled by default
+    'disabled' => true,
     'name' => 'SQL Server with home',
     'driver' => 'sql',
     'preferred' => '',
@@ -262,6 +270,8 @@ $backends['sqlhome'] = array(
 // will need to use suexec or something else that can adjust the web
 // server effective uid.
 $backends['file'] = array(
+    // Disabled by default
+    'disabled' => true,
     'name' => 'Virtual Home Directories',
     'driver' => 'file',
     'preferred' => '',
@@ -284,6 +294,8 @@ $backends['file'] = array(
 
 // SMB Example
 $backends['smb'] = array(
+    // Disabled by default
+    'disabled' => true,
     'name' => 'SMB Server',
     'driver' => 'smb',
     'preferred' => '',
@@ -320,6 +332,8 @@ $backends['smb'] = array(
 
 // SSH2 Example
 $backends['ssh2'] = array(
+    // Disabled by default
+    'disabled' => true,
     'name' => 'SSH2 Server',
     'driver' => 'ssh2',
     'preferred' => '',
