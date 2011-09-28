@@ -160,31 +160,22 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
     protected function _languageToBrush($language)
     {
         switch ($language) {
-        case 'php':
-            return 'Php';
-
-        case 'xml':
-        case 'html':
-        case 'xhtml':
-        case 'xslt':
-            return 'Xml';
-
         case 'bash':
         case 'sh':
         case 'shell':
             return 'Bash';
 
-        case 'diff':
-        case 'patch':
-        case 'pas':
-            return 'Diff';
+        case 'c':
+        case 'cpp':
+            return 'Cpp';
 
         case 'css':
             return 'Css';
 
-        case 'c':
-        case 'cpp':
-            return 'Cpp';
+        case 'diff':
+        case 'patch':
+        case 'pas':
+            return 'Diff';
 
         case 'java':
             return 'Java';
@@ -193,6 +184,15 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         case 'jscript':
         case 'javascript':
             return 'JScript';
+
+        case 'php':
+            return 'Php';
+
+        case 'xml':
+        case 'html':
+        case 'xhtml':
+        case 'xslt':
+            return 'Xml';
 
         default:
             return 'Plain';
