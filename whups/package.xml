@@ -16,11 +16,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-27</date>
- <time>19:12:23</time>
+ <date>2011-09-28</date>
+ <time>15:16:26</time>
  <version>
-  <release>2.0.1</release>
-  <api>2.0.0alpha1</api>
+  <release>2.0.0RC1</release>
+  <api>2.0.0RC1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -915,12 +915,12 @@
   </release>
   <release>
    <version>
-    <release>2.0.1</release>
-    <api>2.0.0alpha1</api></version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0RC1</api></version>
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-09-27</date>
+   <date>2011-09-28</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
 * [jan] Fix adding comments as a guest (Bug #10559).
