@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-09-28</date>
- <time>21:41:37</time>
+ <time>21:42:52</time>
  <version>
-  <release>4.0.0alpha1</release>
+  <release>4.0.1</release>
   <api>4.0.0alpha1</api>
  </version>
  <stability>
@@ -28,11 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* First alpha release for Horde 4.
-* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
-* [rla] Added new driver &apos;horde&apos; which uses the update() function of horde&apos;s authentication driver.
-* [jan] Provide default configuration files instead of .dist versions.
-* [jan] Fix creating temporary files with open_basedir restrictions.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -588,6 +584,19 @@
 * [rla] Added new driver &apos;horde&apos; which uses the update() function of horde&apos;s authentication driver.
 * [jan] Provide default configuration files instead of .dist versions.
 * [jan] Fix creating temporary files with open_basedir restrictions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.1</release>
+    <api>4.0.0alpha1</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2011-09-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
