@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the first alpha release of the Passwd
-Horde password changing application version H4 (4.0.0-ALPHA1).
+Horde password changing application version H4 (4.0-ALPHA1).
 
 Passwd provides support for changing passwords via the Horde authentication
 system or various password backends.
