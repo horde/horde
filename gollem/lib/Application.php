@@ -88,8 +88,7 @@ class Gollem_Application extends Horde_Registry_Application
         );
 
         // Run through every backend.
-        require GOLLEM_BASE . '/config/backends.php';
-        foreach ($backends as $key => $val) {
+        foreach (Gollem_Auth::getBackend() as $key => $val) {
             $perms['backends:' . $key] = array(
                 'title' => $val['name']
             );
