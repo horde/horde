@@ -2068,10 +2068,10 @@ KronolithCore = {
             }
             this.dayGroups[pos].push(event.value);
             // Update the widths of all events in a conflict group.
-            width = 100 / columns;
+            width = (100 - margin) / columns;
             this.dayGroups[pos].each(function(ev) {
                 ev.columns = columns;
-                $(ev.nodeId).setStyle({ width: width - margin + '%', left: (width * (ev.column - 1)) + '%' });
+                $(ev.nodeId).setStyle({ width: width + '%', left: (width * (ev.column - 1)) + '%' });
             });
             this.dayEvents.push(event.value);
 

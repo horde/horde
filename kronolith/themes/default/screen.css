@@ -636,11 +636,12 @@ span#kronolithNewEvent {
     width: 125px;
     height: 23px;
     line-height: 23px;
-    margin-right: 1px;
     text-align: center;
 }
 span#kronolithQuickEvent {
-    border: 1px solid #999;
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
     -moz-border-radius: 0 5px 5px 0;
     -webkit-border-top-right-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
@@ -735,7 +736,7 @@ a.kronolithFormCancel {
 #kronolithNav a {
     display: block;
     float: left;
-    margin: 0 1px 0 0;
+    margin: 0;
     padding: 0 5px 0 25px;
     background-color: #f0f0f0;
     background-position: 5px center;
@@ -744,9 +745,12 @@ a.kronolithFormCancel {
     text-decoration: none;
     color: #202020;
     cursor: pointer;
-    border: 1px solid #999;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    border-right: 1px solid #999;
 }
 #kronolithNav li:first-child a {
+    border-left: 1px solid #999;
     -moz-border-radius: 5px 0 0 5px;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
@@ -951,7 +955,8 @@ div.kronolithFormActions {
 }
 .kronolithMinical table {
     width: 100%;
-    border-spacing: 1px;
+    border-spacing: 0;
+    border-collapse: collapse;
 }
 .kronolithMinical caption, #kronolithBody .kronolithMinical caption {
     position: relative;
@@ -1028,7 +1033,8 @@ table.kronolithView {
     width: 100%;
     height: 100%;
     table-layout: fixed;
-    border-spacing: 2px;
+    border-spacing: 0;
+    border-collapse: collapse;
     margin-left: -2px;
 }
 table.kronolithView td {
@@ -1051,9 +1057,15 @@ table.kronolithView td.kronolithFirstCol {
     height: 20px;
     line-height: 20px;
     font-weight: bold;
+    border-spacing: 0;
+    border-collapse: collapse;
 }
 #kronolithViewMonthHead span {
     padding: 0 5px;
+}
+#kronolithViewMonthHead td {
+    border: none;
+    text-align: center;
 }
 #kronolithViewMonthHead .kronolithFirstCol {
     border-color: transparent;
@@ -1077,7 +1089,6 @@ table.kronolithView td.kronolithFirstCol {
     margin: 2px 2px 0 26px;
     height: 20px;
     line-height: 20px;
-    border-bottom: 1px dotted #999;
     text-align: left;
     font-weight: bold;
 }
@@ -1452,6 +1463,12 @@ img.kronolithEventIcon {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+}
+#kronolithViewMonth div.kronolithEvent {
+    font-size: 75%;
+}
+#kronolithViewWeek div.kronolithEvent {
+    font-size: 90%;
 }
 #kronolithViewDay .kronolithViewHead div.kronolithEvent,
 #kronolithViewWeek .kronolithViewHead div.kronolithEvent {
