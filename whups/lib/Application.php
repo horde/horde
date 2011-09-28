@@ -36,7 +36,7 @@ class Whups_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (2.0-git)';
+    public $version = 'H4 (2.0.1-git)';
 
     /**
      * Global variables defined:
@@ -47,6 +47,9 @@ class Whups_Application extends Horde_Registry_Application
     {
         $GLOBALS['whups_driver'] = $GLOBALS['injector']->getInstance('Whups_Factory_Driver')->create();
         $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');
+
+        /* Set the timezone variable, if available. */
+        $GLOBALS['registry']->setTimeZone();
     }
 
     /**

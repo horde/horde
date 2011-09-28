@@ -53,8 +53,8 @@ $diff_img = Horde::img('diff.png', _("Diff"));
 
 reset($patchsets);
 while (list($id, $patchset) = each($patchsets)) {
-    $patchset_link = Chora::url('patchsets', $where, array('ps' => $id))
-        ->link(array('title' => sprintf("Commits to %s", $id)))
+    $patchset_link = Chora::url('commit', $where, array('commit' => $id))
+        ->link(array('title' => $id))
         . htmlspecialchars($VC->abbrev($id)) . '</a>';
 
     $commitDate = Chora::formatDate($patchset['log']->queryDate());

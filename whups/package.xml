@@ -3,7 +3,7 @@
  <name>whups</name>
  <channel>pear.horde.org</channel>
  <summary>Ticket-tracking application</summary>
- <description>Whups is a Horde ticket-tracking application. It is very flexible in design, and can be used for help-desk requests, tracking sofware development, and anything else that needs to track a set of requests and their status.</description>
+ <description>Whups is a Horde ticket-tracking application. It is very flexible in design, and can be used for help-desk requests, tracking software development, and anything else that needs to track a set of requests and their status.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -16,11 +16,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-27</date>
- <time>18:08:17</time>
+ <date>2011-09-28</date>
+ <time>15:16:26</time>
  <version>
-  <release>2.0.0alpha1</release>
-  <api>2.0.0alpha1</api>
+  <release>2.0.0RC1</release>
+  <api>2.0.0RC1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
-* First alpha release for Horde 4.
+* [jan] Fix adding comments as a guest (Bug #10559).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -911,6 +911,19 @@
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
 * First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0RC1</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2011-09-28</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <notes>
+* [jan] Fix adding comments as a guest (Bug #10559).
    </notes>
   </release>
  </changelog>

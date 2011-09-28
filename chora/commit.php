@@ -48,5 +48,8 @@ Horde::addScriptFile('tables.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
+
+$commit_page = 1;
 require CHORA_TEMPLATES . '/patchsets/ps_single.inc';
+
 require $registry->get('templates', 'horde') . '/common-footer.inc';

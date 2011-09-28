@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-26</date>
- <time>13:03:31</time>
+ <date>2011-09-27</date>
+ <time>13:17:59</time>
  <version>
   <release>5.0.14</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] When expanding a submailbox in dynamic view, honor expanded children status.
 * [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
 * [mms] Allow multiple messages to be sent via quickreply in dynamic view.
 * [mms] Allow image attachments to be displayed without download in mobile view.
@@ -2482,9 +2483,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-26</date>
+   <date>2011-09-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] When expanding a submailbox in dynamic view, honor expanded children status.
 * [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
 * [mms] Allow multiple messages to be sent via quickreply in dynamic view.
 * [mms] Allow image attachments to be displayed without download in mobile view.

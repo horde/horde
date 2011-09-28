@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandfolder, pollPE, pp, preview_replace, qsearch_ghost, resize,
+    //   expandmbox, pollPE, pp, preview_replace, qsearch_ghost, resize,
     //   rownum, search, splitbar, template, uid, view, viewaction, viewport,
     //   viewswitch
     // msglist_template_horiz and msglist_template_vert set via
@@ -2681,20 +2681,18 @@ var DimpBase = {
         }, this);
     },
 
-    _folderLoadCallback: function(r, callback)
+    _folderLoadCallback: function(base, r)
     {
         var nf = $('normalfolders');
 
         if (r.response.expand) {
-            this.expandfolder = true;
+            this.expandmbox = base ? base : true;
         }
-
         this.mailboxCallback(r);
+        this.expandmbox = false;
 
-        this.expandfolder = false;
-
-        if (callback) {
-            callback();
+        if (base) {
+            this._toggleSubFolder(base, 'tog');
         }
 
         if (this.view) {
@@ -2779,7 +2777,7 @@ var DimpBase = {
                 }
                 this._listFolders({
                     all: Number(mode == 'expall'),
-                    callback: this._toggleSubFolder.bind(this, base, mode, noeffect, true),
+                    base: base,
                     mboxes: need
                 });
                 return;
@@ -2832,8 +2830,6 @@ var DimpBase = {
 
     _listFolders: function(params)
     {
-        var cback;
-
         params = params || {};
         params.unsub = Number(this.showunsub);
         if (!Object.isArray(params.mboxes)) {
@@ -2841,22 +2837,15 @@ var DimpBase = {
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
-        if (params.callback) {
-            cback = function(func, r) { this._folderLoadCallback(r, func); }.bind(this, params.callback);
-            delete params.callback;
-        } else {
-            cback = this._folderLoadCallback.bind(this);
-        }
-
-        DimpCore.doAction('listMailboxes', params, { callback: cback });
+        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params.base) });
     },
 
     // Folder actions.
     // For format of the ob object, see IMP_Dimp::_createFolderElt().
-    // If this.expandfolder is set, expand folder list on initial display.
+    // If this.expandmbox is set, expand folder list on initial display.
     createFolder: function(ob)
     {
-        var div, f_node, ftype, li, ll, parent_e, tmp,
+        var div, f_node, ftype, li, ll, parent_e, tmp, tmp2,
             cname = 'container',
             fid = this.getMboxId(ob.m),
             label = ob.l || ob.m,
@@ -2951,8 +2940,13 @@ var DimpBase = {
                 f_node.insert({ before: li });
             } else {
                 parent_e.insert(li);
-                if (this.expandfolder && !parent_e.hasClassName('folderlist')) {
-                    parent_e.up('LI').show().previous().down().removeClassName('exp').addClassName('col');
+                if (this.expandmbox && !parent_e.hasClassName('folderlist')) {
+                    tmp2 = parent_e.up('LI').previous();
+                    if (!Object.isElement(this.expandmbox) ||
+                        this.expandmbox != tmp2) {
+                        tmp2.next().show();
+                        tmp2.down().removeClassName('exp').addClassName('col');
+                    }
                 }
             }
 

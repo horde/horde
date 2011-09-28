@@ -2,6 +2,7 @@
 v4.0.10-git
 -----------
 
+[mms] Allow in-page base64 image encoding to be disabled via configuration.
 [jan] Add administration page to list and clear locks.
 
 

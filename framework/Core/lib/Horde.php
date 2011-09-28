@@ -1410,7 +1410,7 @@ HTML;
         }
 
         /* Return the closed image tag. */
-        return $img . ' src="' . self::base64ImgData($src) . '" />';
+        return $img . ' src="' . (empty($GLOBALS['conf']['nobase64_img']) ? self::base64ImgData($src) : $src) . '" />';
     }
 
     /**
@@ -1433,7 +1433,9 @@ HTML;
         }
 
         /* If we can send as data, no need to get the full path */
-        $src = self::base64ImgData($src);
+        if (!empty($GLOBALS['conf']['nobase64_img'])) {
+            $src = self::base64ImgData($src);
+        }
         if (substr($src, 0, 10) != 'data:image') {
             $src = self::url($src, true, array('append_session' => -1));
         }

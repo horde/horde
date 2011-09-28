@@ -23,11 +23,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-20</date>
- <time>13:45:04</time>
+ <date>2011-09-27</date>
+ <time>23:59:32</time>
  <version>
-  <release>1.3.1</release>
-  <api>1.3.0</api>
+  <release>1.4.0</release>
+  <api>1.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add checkPasswordPolicy() and checkPasswordSimilarity() methods.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -74,6 +74,7 @@
       <file name="Smb.php" role="php" />
       <file name="Smbclient.php" role="php" />
       <file name="Sql.php" role="php" />
+      <file name="Translation.php" role="php" />
      </dir> <!-- /lib/Horde/Auth -->
      <file name="Auth.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -205,6 +206,9 @@
     <channel>pecl.php.net</channel>
    </package>
    <extension>
+    <name>ctype</name>
+   </extension>
+   <extension>
     <name>ftp</name>
    </extension>
   </optional>
@@ -235,6 +239,7 @@
    <install as="Horde/Auth/Smb.php" name="lib/Horde/Auth/Smb.php" />
    <install as="Horde/Auth/Smbclient.php" name="lib/Horde/Auth/Smbclient.php" />
    <install as="Horde/Auth/Sql.php" name="lib/Horde/Auth/Sql.php" />
+   <install as="Horde/Auth/Translation.php" name="lib/Horde/Auth/Translation.php" />
    <install as="Horde/Auth/Http/Remote.php" name="lib/Horde/Auth/Http/Remote.php" />
    <install as="migration/1_horde_auth_base_tables.php" name="migration/Horde/Auth/1_horde_auth_base_tables.php" />
    <install as="Horde/Auth/AllTests.php" name="test/Horde/Auth/AllTests.php" />
@@ -497,15 +502,15 @@
   </release>
   <release>
    <version>
-    <release>1.3.1</release>
-    <api>1.3.0</api></version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-20</date>
+   <date>2011-09-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add checkPasswordPolicy() and checkPasswordSimilarity() methods.
    </notes>
   </release>
  </changelog>

@@ -2,6 +2,8 @@
 v5.0.14-git
 -----------
 
+[mms] When expanding a submailbox in dynamic view, honor expanded children
+      status.
 [mms] Re-add 'msgs_shown' parameter to Newmail block.
 [mms] Allow multiple messages to be sent via quickreply in dynamic view.
 [mms] Allow image attachments to be displayed without download in mobile view.

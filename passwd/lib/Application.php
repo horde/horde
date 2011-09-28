@@ -39,4 +39,11 @@ class Passwd_Application extends Horde_Registry_Application {
      */
     public $version = 'H4 (4.0.0-git)';
 
+    /**
+     */
+    public function menu($menu)
+    {
+        $menu->setMask(Horde_Menu::MASK_ALL & ~Horde_Menu::MASK_PREFS);
+        $menu->add(Horde::url('', false, array('app' => 'passwd')), _("Password"), 'passwd.png');
+    }
 }

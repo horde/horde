@@ -1,7 +1,6 @@
 <?php
 /**
- * Whups_Driver_sql class - implements a Whups backend for the
- * PEAR::DB abstraction layer.
+ * Whups backend driver for the Horde_Db abstraction layer.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
@@ -15,7 +14,6 @@
  */
 class Whups_Driver_Sql extends Whups_Driver
 {
-
     /**
      * The database connection object.
      *
@@ -362,10 +360,6 @@ class Whups_Driver_Sql extends Whups_Driver
     public function addComment($ticket_id, $comment, $creator,
                                $creator_email = null)
     {
-        if (empty($creator) || $creator < 0) {
-            $creator = '-' . $ticket_id . '_comment';
-        }
-
         // Add the row.
         try {
             $id = $this->_db->insert(
@@ -375,6 +369,14 @@ class Whups_Driver_Sql extends Whups_Driver
                       $creator,
                       $this->_toBackend($comment),
                       time()));
+
+            if (empty($creator) || $creator < 0) {
+                $creator = '-' . $id . '_comment';
+            }
+            $this->_db->update(
+                'UPDATE whups_comments SET user_id_creator = ?'
+                . ' WHERE comment_id = ?',
+                array($creator, $id));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
