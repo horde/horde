@@ -34,23 +34,31 @@ extends Horde_Kolab_Format_Xml_Type_AutomaticDate_V1
     /**
      * Update the specified attribute.
      *
-     * @param string  $name        The name of the the attribute
-     *                             to be updated.
-     * @param array   $attributes  The data array that holds all
-     *                             attribute values.
-     * @param DOMNode $parent_node The parent node of the node that
-     *                             should be updated.
-     * @param array   $params      The parameters for this write operation.
+     * @param string                        $name        The name of the the
+     *                                                   attribute to be updated.
+     * @param array                         $attributes  The data array that holds
+     *                                                   all attribute values.
+     * @param DOMNode                       $parent_node The parent node of the
+     *                                                   node that should be
+     *                                                   updated.
+     * @param Horde_Kolab_Format_Xml_Helper $helper      A XML helper instance.
+     * @param array                         $params      Additional parameters
+     *                                                   for this write operation.
      *
      * @return DOMNode|boolean The new/updated child node or false if this
      *                         failed.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save($name, $attributes, $parent_node, $params = array())
+    public function save(
+        $name,
+        $attributes,
+        $parent_node,
+        Horde_Kolab_Format_Xml_Helper $helper,
+        $params = array()
+    )
     {
-        $this->checkParams($params, $name);
-        $node = $params['helper']->findNodeRelativeTo(
+        $node = $helper->findNodeRelativeTo(
             './' . $name, $parent_node
         );
         if ($node !== false) {
@@ -74,6 +82,7 @@ extends Horde_Kolab_Format_Xml_Type_AutomaticDate_V1
             $name,
             $this->generateWriteValue($name, $attributes, $params),
             $parent_node,
+            $helper,
             $params,
             $node
         );

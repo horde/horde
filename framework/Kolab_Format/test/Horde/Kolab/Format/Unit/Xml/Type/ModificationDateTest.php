@@ -37,18 +37,20 @@ extends Horde_Kolab_Format_TestCase
 {
     public function testLoadModificationDate()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><modification-date>2011-06-28T08:42:11Z</modification-date>c</kolab>'
+<kolab version="1.0" a="b"><modification-date>2011-06-28T08:42:11Z</modification-date>c</kolab>',
+            array('element' => 'modification-date')
         );
         $this->assertInstanceOf('DateTime', $attributes['modification-date']);
     }
 
     public function testLoadModificationDateValue()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><modification-date>2011-06-28T08:42:11Z</modification-date>c</kolab>'
+<kolab version="1.0" a="b"><modification-date>2011-06-28T08:42:11Z</modification-date>c</kolab>',
+            array('element' => 'modification-date')
         );
         $this->assertEquals(
             1309250531, 
@@ -58,18 +60,20 @@ extends Horde_Kolab_Format_TestCase
 
     public function testLoadStrangeModificationDate()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><modification-date type="strange"><b/>1970-01-01T00:00:00Z<a/></modification-date>c</kolab>'
+<kolab version="1.0" a="b"><modification-date type="strange"><b/>1970-01-01T00:00:00Z<a/></modification-date>c</kolab>',
+            array('element' => 'modification-date')
         );
         $this->assertEquals(0, $attributes['modification-date']->format('U'));
     }
 
     public function testLoadMissingModificationDate()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('element' => 'modification-date')
         );
         $this->assertInstanceOf('DateTime', $attributes['modification-date']);
     }
@@ -78,7 +82,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertInstanceOf(
             'DOMNode', 
-            $this->_saveToReturn()
+            $this->saveToReturn()
         );
     }
 
@@ -86,7 +90,11 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertRegexp(
             '#<modification-date>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z</modification-date>#', 
-            $this->_saveToXml()
+            $this->saveToXml(
+                null,
+                array(),
+                array('element' => 'modification-date')
+            )
         );
     }
 
@@ -94,47 +102,18 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertRegexp(
             '#<modification-date type="strange">\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z<b/><a/></modification-date>#', 
-            $this->_saveToXml(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><modification-date type="strange"><b/>1970-01-01T00:00:00Z<a/></modification-date>c</kolab>'
+            $this->saveToXml(
+                '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><modification-date type="strange"><b/>1970-01-01T00:00:00Z<a/></modification-date>c</kolab>',
+                array(),
+                array('element' => 'modification-date')
             )
         );
     }
 
-    private function _load($previous)
-    {
-        list($params, $root_node, $type) = $this->_getModificationDate($previous);
-        $attributes = array();
-        $type->load('modification-date', $attributes, $root_node, $params);
-        return $attributes;
-    }
 
-    private function _saveToXml($previous = null)
+    protected function getTypeClass()
     {
-        list($params, $root_node, $type) = $this->_getModificationDate($previous);
-        $attributes = array();
-        $type->save('modification-date', $attributes, $root_node, $params);
-        return (string)$params['helper'];
-    }
-
-    private function _saveToReturn($previous = null)
-    {
-        list($params, $root_node, $type) = $this->_getModificationDate($previous);
-        $attributes = array();
-        return $type->save('modification-date', $attributes, $root_node, $params);
-    }
-
-    private function _getModificationDate(
-        $previous = null,
-        $kolab_type = 'kolab',
-        $version = '1.0'
-    )
-    {
-        return $this->getXmlType(
-            'Horde_Kolab_Format_Xml_Type_ModificationDate',
-            $previous,
-            $kolab_type,
-            $version
-        );
+        return 'Horde_Kolab_Format_Xml_Type_ModificationDate';
     }
 }

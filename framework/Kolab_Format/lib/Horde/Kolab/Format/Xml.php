@@ -235,7 +235,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
        
         $params = $this->_getParameters($options);
         $this->_getRoot($params)->load(
-            $this->_root_name, $object, $this->_xmldoc, $params
+            $this->_root_name,
+            $object,
+            $this->_xmldoc,
+            $this->_factory->createXmlHelper($this->_xmldoc),
+            $params
         );
         return $object;
     }
@@ -270,7 +274,11 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
 
         $params = $this->_getParameters($options);
         $this->_getRoot($params)->save(
-            $this->_root_name, $object, $this->_xmldoc, $params
+            $this->_root_name,
+            $object,
+            $this->_xmldoc,
+            $this->_factory->createXmlHelper($this->_xmldoc),
+            $params
         );
         return $this->_xmldoc->saveXML();
     }

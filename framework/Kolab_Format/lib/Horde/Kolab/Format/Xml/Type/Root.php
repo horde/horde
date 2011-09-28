@@ -82,21 +82,29 @@ extends Horde_Kolab_Format_Xml_Type_Composite
     /**
      * Load the node value from the Kolab object.
      *
-     * @param string  $name        The name of the the attribute
-     *                             to be fetched.
-     * @param array   &$attributes The data array that holds all
-     *                             attribute values.
-     * @param DOMNode $parent_node The parent node of the node to be loaded.
-     * @param array   $params      The parameters for this parse operation.
+     * @param string                        $name        The name of the the
+     *                                                   attribute to be fetched.
+     * @param array                         &$attributes The data array that
+     *                                                   holds all attribute
+     *                                                   values.
+     * @param DOMNode                       $parent_node The parent node of the
+     *                                                   node to be loaded.
+     * @param Horde_Kolab_Format_Xml_Helper $helper      A XML helper instance.
+     * @param array                         $params      Additiona parameters for
+     *                                                   this parse operation.
      *
      * @return DOMNode|boolean The named DOMNode or false if no node value was
      *                         found.
      */
-    public function load($name, &$attributes, $parent_node, $params = array())
+    public function load(
+        $name,
+        &$attributes,
+        $parent_node,
+        Horde_Kolab_Format_Xml_Helper $helper,
+        $params = array()
+    )
     {
-        $this->checkParams($params, $name);
-        $this->_getHelper($parent_node, $params);
-        if (!($root = $params['helper']->findNode('/' . $name))) {
+        if (!($root = $helper->findNode('/' . $name))) {
             throw new Horde_Kolab_Format_Exception_InvalidRoot(
                 sprintf('Missing root node "%s"!', $name)
             );
@@ -117,33 +125,39 @@ extends Horde_Kolab_Format_Xml_Type_Composite
         $this->_prepareCompositeParameters(
             $params, $attributes['_format-version']
         );
-        parent::load($name, $attributes, $parent_node, $params);
+        parent::load($name, $attributes, $parent_node, $helper, $params);
         return $root;
     }
 
     /**
      * Update the specified attribute.
      *
-     * @param string  $name        The name of the the attribute
-     *                             to be updated.
-     * @param array   $attributes  The data array that holds all
-     *                             attribute values.
-     * @param DOMNode $parent_node The parent node of the node that
-     *                             should be updated.
-     * @param array   $params      The parameters for this write operation.
+     * @param string                        $name        The name of the the
+     *                                                   attribute to be updated.
+     * @param array                         $attributes  The data array that holds
+     *                                                   all attribute values.
+     * @param DOMNode                       $parent_node The parent node of the
+     *                                                   node that should be
+     *                                                   updated.
+     * @param Horde_Kolab_Format_Xml_Helper $helper      A XML helper instance.
+     * @param array                         $params      Additional parameters
+     *                                                   for this write operation.
      *
      * @return DOMNode|boolean The new/updated child node or false if this
      *                         failed.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save($name, $attributes, $parent_node, $params = array())
+    public function save(
+        $name,
+        $attributes,
+        $parent_node,
+        Horde_Kolab_Format_Xml_Helper $helper,
+        $params = array()
+    )
     {
-        $this->checkParams($params, $name);
-        $this->_getHelper($parent_node, $params);
-
-        if (!($root = $params['helper']->findNode('/' . $name, $parent_node))) {
-            $root = $params['helper']->createNewNode($parent_node, $name);
+        if (!($root = $helper->findNode('/' . $name, $parent_node))) {
+            $root = $helper->createNewNode($parent_node, $name);
             $root->setAttribute('version', $params['expected-version']);
         } else {
             if (!$this->isRelaxed($params)) {
@@ -164,28 +178,8 @@ extends Horde_Kolab_Format_Xml_Type_Composite
         $this->_prepareCompositeParameters(
             $params, $params['expected-version']
         );
-        parent::save($name, $attributes, $parent_node, $params);
+        parent::save($name, $attributes, $parent_node, $helper, $params);
         return $root;
-    }
-
-    /**
-     * Check the parent_node parameter and provide the XML helper in the
-     * parameters.
-     *
-     * @param DOMDocument $parent_node The Document root
-     * @param array       &$params     The parameters for this operation.
-     *
-     * @return NULL
-     */
-    private function _getHelper($parent_node, &$params)
-    {
-        if ($parent_node instanceOf DOMDocument) {
-            $params['helper'] = $this->createHelper($parent_node);
-        } else {
-            throw new Horde_Kolab_Format_Exception(
-                'The root handler expected a DOMDocument!'
-            );
-        }
     }
 
     /**

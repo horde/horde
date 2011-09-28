@@ -32,26 +32,31 @@ class Horde_Kolab_Format_Xml_Type_ProductId
 extends Horde_Kolab_Format_Xml_Type_Base
 {
     /**
-     * The parameters required for the parsing operation.
-     */
-    protected $_required_parameters = array('helper', 'api-version');
-
-    /**
      * Load the node value from the Kolab object.
      *
-     * @param string  $name        The name of the the attribute
-     *                             to be fetched.
-     * @param array   &$attributes The data array that holds all
-     *                             attribute values.
-     * @param DOMNode $parent_node The parent node of the node to be loaded.
-     * @param array   $params      The parameters for this parse operation.
+     * @param string                        $name        The name of the the
+     *                                                   attribute to be fetched.
+     * @param array                         &$attributes The data array that
+     *                                                   holds all attribute
+     *                                                   values.
+     * @param DOMNode                       $parent_node The parent node of the
+     *                                                   node to be loaded.
+     * @param Horde_Kolab_Format_Xml_Helper $helper      A XML helper instance.
+     * @param array                         $params      Additiona parameters for
+     *                                                   this parse operation.
      *
      * @return DOMNode|boolean The named DOMNode or false if no node value was
      *                         found.
      */
-    public function load($name, &$attributes, $parent_node, $params = array())
+    public function load(
+        $name,
+        &$attributes,
+        $parent_node,
+        Horde_Kolab_Format_Xml_Helper $helper,
+        $params = array()
+    )
     {
-        $result = parent::load($name, $attributes, $parent_node, $params);
+        $result = parent::load($name, $attributes, $parent_node, $helper, $params);
         if ($result !== false) {
             return $result;
         } else {

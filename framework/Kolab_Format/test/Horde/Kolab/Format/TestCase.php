@@ -68,18 +68,21 @@ extends PHPUnit_Framework_TestCase
             $root_node->setAttribute('version', $version);
         }
         $type = $factory->createXmlType($type);
-        $params = array('helper' => $helper);
-        return array($params, $root_node, $type);
+        return array($helper, $root_node, $type);
     }
 
     protected function load($previous, $params = array())
     {
-        list($params, $root_node, $type) = $this->getTestType(
+        list($params, $root_node, $type, $helper) = $this->getTestType(
             $previous, $params
         );
         $attributes = array();
         $type->load(
-            $this->getElement($params), $attributes, $root_node, $params
+            $this->getElement($params),
+            $attributes,
+            $root_node,
+            $helper,
+            $params
         );
         return $attributes;
     }
@@ -88,24 +91,24 @@ extends PHPUnit_Framework_TestCase
         $previous = null, $attributes = array(), $params = array()
     )
     {
-        list($params, $root_node, $type) = $this->getTestType(
+        list($params, $root_node, $type, $helper) = $this->getTestType(
             $previous, $params
         );
         $type->save(
-            $this->getElement($params), $attributes, $root_node, $params
+            $this->getElement($params), $attributes, $root_node, $helper, $params
         );
-        return (string)$params['helper'];
+        return (string)$helper;
     }
 
     protected function saveToReturn(
         $previous = null, $attributes = array(), $params = array()
     )
     {
-        list($params, $root_node, $type) = $this->getTestType(
+        list($params, $root_node, $type, $helper) = $this->getTestType(
             $previous, $params
         );
         return $type->save(
-            $this->getElement($params), $attributes, $root_node, $params
+            $this->getElement($params), $attributes, $root_node, $helper, $params
         );
     }
 
@@ -123,14 +126,13 @@ extends PHPUnit_Framework_TestCase
         } else {
             $version = '1.0';
         }
-        list($type_params, $root_node, $type) = $this->getXmlType(
+        list($helper, $root_node, $type) = $this->getXmlType(
             $this->getTypeClass(),
             $previous,
             $kolab_type,
             $version
         );
-        $params = array_merge($type_params, $params);
-        return array($params, $root_node, $type);
+        return array($params, $root_node, $type, $helper);
     }
 
     protected function getElement(&$params)
