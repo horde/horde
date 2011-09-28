@@ -136,14 +136,8 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         case 'text/x-java':
             return 'java';
 
-        case 'text/x-pascal':
-            return 'pascal';
-
         case 'text/x-sql':
             return 'sql';
-
-        case 'application/x-extension-bat':
-            return 'batch';
 
         case 'application/x-extension-cs':
             return 'csharp';
@@ -165,6 +159,9 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         case 'shell':
             return 'Bash';
 
+        case 'csharp':
+            return 'Csharp';
+
         case 'c':
         case 'cpp':
             return 'Cpp';
@@ -185,8 +182,23 @@ class Horde_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Base
         case 'javascript':
             return 'JScript';
 
+        case 'perl':
+            return 'Perl';
+
         case 'php':
             return 'Php';
+
+        case 'python':
+            return 'Python';
+
+        case 'ruby':
+            return 'Ruby';
+
+        case 'sql':
+            return 'Sql';
+
+        case 'vb':
+            return 'Vb';
 
         case 'xml':
         case 'html':
