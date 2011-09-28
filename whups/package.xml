@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
-* 
+* [jan] Fix adding comments as a guest (Bug #10559).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -923,7 +923,7 @@
    <date>2011-09-27</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
-* 
+* [jan] Fix adding comments as a guest (Bug #10559).
    </notes>
   </release>
  </changelog>
