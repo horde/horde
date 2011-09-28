@@ -22,7 +22,6 @@ $backkey = $session->get('gollem', 'backend_key');
 if (!empty(Gollem::$backend['clipboard'])) {
     $clipboard = $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY);
 }
-$old_dir = Gollem::$backend['dir'];
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Get permissions. */
@@ -36,6 +35,7 @@ try {
 } catch (Horde_Vfs_Exception $e) {
     $notification->push($e);
 }
+$old_dir = Gollem::$backend['dir'];
 
 /* Get VFS object. */
 $gollem_vfs = $injector->getInstance('Gollem_Vfs');
