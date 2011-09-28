@@ -463,7 +463,13 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                     $file['owner'] = $item[2];
                     $file['group'] = $item[3];
                 }
-                $file['name'] = substr($line, strpos($line, sprintf("%s %2s %5s", $item[5], $item[6], $item[7])) + 13);
+
+                // /dev file systems may have an additional column.
+                $addcol = 0;
+                if (substr($item[4], -1) == ',') {
+                    $addcol = 1;
+                }
+                $file['name'] = substr($line, strpos($line, sprintf("%s %2s %5s", $item[5 + $addcol], $item[6 + $addcol], $item[7 + $addcol])) + 13);
 
                 // Filter out '.' and '..' entries.
                 if (preg_match('/^\.\.?\/?$/', $file['name'])) {
@@ -508,10 +514,10 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                 if ($file['type'] == '**dir') {
                     $file['size'] = -1;
                 } else {
-                    $file['size'] = $item[4];
+                    $file['size'] = $item[4 + $addcol];
                 }
-                if (strpos($item[7], ':') !== false) {
-                    $file['date'] = strtotime($item[7] . ':00' . $item[5] . ' ' . $item[6] . ' ' . date('Y', $currtime));
+                if (strpos($item[7 + $addcol], ':') !== false) {
+                    $file['date'] = strtotime($item[7 + $addcol] . ':00' . $item[5 + $addcol] . ' ' . $item[6 + $addcol] . ' ' . date('Y', $currtime));
                     // If the ssh2 server reports a file modification date more
                     // less than one day in the future, don't try to subtract
                     // a year from the date.  There is no way to know, for
@@ -519,13 +525,13 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
                     // in different timezones.  We should simply report to the
                     //  user what the SSH2 server is returning.
                     if ($file['date'] > ($currtime + 86400)) {
-                        $file['date'] = strtotime($item[7] . ':00' . $item[5] . ' ' . $item[6] . ' ' . (date('Y', $currtime) - 1));
+                        $file['date'] = strtotime($item[7 + $addcol] . ':00' . $item[5 + $addcol] . ' ' . $item[6 + $addcol] . ' ' . (date('Y', $currtime) - 1));
                     }
                 } else {
-                    $file['date'] = strtotime('00:00:00' . $item[5] . ' ' . $item[6] . ' ' . $item[7]);
+                    $file['date'] = strtotime('00:00:00' . $item[5 + $addcol] . ' ' . $item[6 + $addcol] . ' ' . $item[7 + $addcol]);
                 }
             } elseif ($type == 'netware') {
-                $file = Array();
+                $file = array();
                 $file['perms'] = $item[1];
                 $file['owner'] = $item[2];
                 if ($item[0] == 'd') {

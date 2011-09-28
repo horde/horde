@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix parsing of directory listings on /dev file systems in the SSH driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -882,7 +882,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix parsing of directory listings on /dev file systems in the SSH driver.
    </notes>
   </release>
  </changelog>
