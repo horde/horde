@@ -27,8 +27,12 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
-Upgrading Passwd from 3.0 to 4.0
-================================
+Upgrading to Passwd 4.0
+=======================
+
+
+Upgrading to Passwd 3.1
+=======================
 
 
 Application Hooks
