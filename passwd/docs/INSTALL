@@ -175,10 +175,6 @@ Configuring Passwd
    the file.  In this case, go back to ``Configuration`` and choose one of the
    other methods to create the configuration file ``passwd/config/conf.php``.
 
-   To configure Passwd, change to the ``config/`` directory of the installed
-   distribution, and copy the ``backends.php.dist`` configuration file to
-   ``backends.php`` and edit it to your needs.
-
    Documentation on the format and purpose of the other configuration files in
    the ``config/`` directory can be found in each file. You may create
    ``*.local.php`` versions of these files if you wish to customize Passwd's
