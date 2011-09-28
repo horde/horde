@@ -5,31 +5,16 @@
  *
  * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
- * WARNING: This driver has only formally been converted to Horde 4.  No
- *          testing has been done. If this doesn't work, please file bugs at
- *          bugs.horde.org.  If you really need this to work reliably, think
- *          about sponsoring development. Please let the Horde developers know
- *          if you can verify this driver to work.
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
+ * @todo Extend Passwd_Driver_Ldap, inject parameters.
+ *
  * @author  Stuart Bingë <skbinge@gmail.com>
- * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_Kolab extends Passwd_Driver {
-
-    /**
-     * Constructs a new Passwd_Driver_kolab object.
-     *
-     * @param array $params  A hash containing connection parameters.
-     */
-    function __construct($params = array())
-    {
-        // We don't need any backends.php-configurable parameters
-    }
-
+class Passwd_Driver_Kolab extends Passwd_Driver
+{
     /**
      * Changes the user's password.
      *
@@ -37,11 +22,9 @@ class Passwd_Driver_Kolab extends Passwd_Driver {
      * @param string $old_password  The old (current) user password.
      * @param string $new_password  The new user password to set.
      *
-     * @return boolean  True or false based on success of the change.
+     * @throws Passwd_Exception
      */
-
-    // TODO: Shouldn't this extend on Passwd_Driver_ldap or at least be similar?
-    function changePassword($username, $old_password, $new_password)
+    public function changePassword($username, $old_password, $new_password)
     {
         // Connect to the LDAP server.
         $ds = ldap_connect(
@@ -99,8 +82,5 @@ class Passwd_Driver_Kolab extends Passwd_Driver {
         }
 
         ldap_unbind($ds);
-
-        return true;
     }
-
 }

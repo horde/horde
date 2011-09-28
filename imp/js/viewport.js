@@ -542,10 +542,12 @@ var ViewPort = Class.create({
         }
     },
 
-    // offset = (integer) TODO
+    // offset = (integer) Offset of row to display
     // opts = (object) See _updateContent()
     requestContentRefresh: function(offset, opts)
     {
+        offset = Math.max(0, offset);
+
         if (!this._updateContent(offset, opts)) {
             return false;
         }
@@ -879,10 +881,11 @@ var ViewPort = Class.create({
         this.isbusy = false;
     },
 
-    // offset = (integer) TODO
+    // offset = (integer) Offset of row to display
     // opts = (object) TODO [background, updated, view]
     _updateContent: function(offset, opts)
     {
+        offset = Math.max(0, offset);
         opts = opts || {};
 
         if (!this._getBuffer(opts.view).sliceLoaded(offset)) {
