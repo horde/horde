@@ -2,7 +2,7 @@
 /**
  * Passwd application interface.
  *
- * This file brings in all of the dependencies that every PASSWD script will
+ * This file brings in all of the dependencies that every Passwd script will
  * need, and sets up objects that all scripts use.
  *
  * Copyright 2002-2011 Horde LLC (http://www.horde.org/)

@@ -23,23 +23,20 @@ class Passwd_Unit_Factory_DriverTest extends Passwd_TestCase
 
     public function setUp()
     {
-        $this->_backends = array( 'hordeauth' => array (
-                        'disabled' => false,
-                        'name' => 'Horde',
-                        'preferred' => false,
-                        'password policy' => array ( 
-                            'minLength' => 6,
-                            'minNumeric' => 1 ),
-                         'driver' => 'Horde',
-                         'params' => array ( ) 
-                    )
-                );
+        $this->_backends = array(
+            'hordeauth' => array(
+                'disabled' => false,
+                'name' => 'Horde',
+                'preferred' => false,
+                'policy' => array('minLength' => 6, 'minNumeric' => 1),
+                'driver' => 'Horde',
+                'params' => array()));
     }
 
     public function testGettingSubdriversWorks()
     {
         $driver_factory = new Passwd_Factory_Driver($this->getInjector());
-        $params = array('is_subdriver' => true, 'driver' => 'horde'); 
+        $params = array('is_subdriver' => true, 'driver' => 'horde');
         $driver = $driver_factory->create('Horde', $params);
         $this->assertInstanceOf('Passwd_Driver', $driver);
     }

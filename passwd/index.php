@@ -38,8 +38,8 @@ do {
 
     $driver = $backends[$backend_key]['driver'];
     $params = $backends[$backend_key]['params'];
-    $password_policy = isset($backends[$backend_key]['password policy'])
-        ? $backends[$backend_key]['password policy']
+    $password_policy = isset($backends[$backend_key]['policy'])
+        ? $backends[$backend_key]['policy']
         : array();
 
     // Get the username.

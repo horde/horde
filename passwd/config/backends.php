@@ -14,35 +14,33 @@
  *       if you are using the drop down server list.  Also displayed on the
  *       main page (input form).
  *
- * password policy: The password policies for this backend. You are responsible
- *                  for the sanity checks of these options. Options are:
+ * policy: The password policies for this backend. You are responsible for the
+ *         sanity checks of these options. Options are:
  *
- *                  minLength:   Minimum length of the password
- *                  maxLength:   Maximum length of the password
- *                  maxSpace:    Maximum number of white space characters
+ *         minLength:   Minimum length of the password
+ *         maxLength:   Maximum length of the password
+ *         maxSpace:    Maximum number of white space characters
  *
- *                  The following are the types of characters required in a
- *                  password.  Either specific characters, character classes,
- *                  or both can be required.  Specific types are:
+ *         The following are the types of characters required in a password.
+ *         Either specific characters, character classes, or both can be
+ *         required.  Specific types are:
  *
- *                  minUpper:    Minimum number of uppercase characters
- *                  minLower:    Minimum number of lowercase characters
- *                  minNumeric:  Minimum number of numeric characters (0-9)
- *                  minAlphaNum: Minimum number of alphanumeric characters
- *                  minAlpha:    Minimum number of alphabetic characters
- *                  minSymbol:   Minimum number of alphabetic characters
+ *         minUpper:    Minimum number of uppercase characters
+ *         minLower:    Minimum number of lowercase characters
+ *         minNumeric:  Minimum number of numeric characters (0-9)
+ *         minAlphaNum: Minimum number of alphanumeric characters
+ *         minAlpha:    Minimum number of alphabetic characters
+ *         minSymbol:   Minimum number of alphabetic characters
  *
- *                  Alternatively (or in addition to), the minimum number of
- *                  character classes can be configured by setting the
- *                  following.  The valid range is 0 through 4 character
- *                  classes may be required for a password. The classes are:
- *                  'upper', 'lower', 'number', and 'symbol'.  For example: A
- *                  password of 'p@ssw0rd' satisfies three classes ('number',
- *                  'lower', and 'symbol'), while 'passw0rd' only satisfies two
- *                  classes ('lower' and 'symbols').
+ *         Alternatively (or in addition to), the minimum number of character
+ *         classes can be configured by setting the following.  The valid range
+ *         is 0 through 4 character classes may be required for a password. The
+ *         classes are: 'upper', 'lower', 'number', and 'symbol'.  For example:
+ *         A password of 'p@ssw0rd' satisfies three classes ('number', 'lower',
+ *         and 'symbol'), while 'passw0rd' only satisfies two classes ('lower'
+ *         and 'symbols').
  *
- *                  minClasses:  Minimum number (0 through 4) of character
- *                               classes.
+ *         minClasses: Minimum number (0 through 4) of character classes.
  *
  * driver: The Passwd driver used to change the password. Valid values are
  *         currently:
@@ -108,7 +106,7 @@ $backends['hordeauth'] = array (
     'disabled' => true,
     'name' => 'Horde Authentication',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -119,7 +117,7 @@ $backends['hordesql'] = array (
     'disabled' => false,
     'name' => 'Horde SQL Authentication',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -138,7 +136,7 @@ $backends['poppassd'] = array(
     'disabled' => true,
     'name' => 'Poppassd Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -153,7 +151,7 @@ $backends['servuftp'] = array(
     'disabled' => true,
     'name' => 'Serv-U FTP Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -169,7 +167,7 @@ $backends['expect'] = array(
     'disabled' => true,
     'name' => 'Expect Script',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -185,7 +183,7 @@ $backends['sudo_expect'] = array(
     'disabled' => true,
     'name' => 'Expect with Sudo Script',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -200,7 +198,7 @@ $backends['smbpasswd'] = array(
     'disabled' => true,
     'name' => 'Samba Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -216,7 +214,7 @@ $backends['ldap'] = array(
     'disabled' => true,
     'name' => 'LDAP Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -249,7 +247,7 @@ $backends['ldapadmin'] = array(
     'disabled' => true,
     'name' => 'LDAP Server with Admin Bindings',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -290,7 +288,7 @@ $backends['smbldap'] = array(
     'disabled' => true,
     'name' => 'Samba/LDAP Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -328,7 +326,7 @@ $backends['sql'] = array (
     'disabled' => true,
     'name' => 'SQL Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -363,7 +361,7 @@ $backends['mailmgr'] = array(
     'disabled' => true,
     'name' => 'VMailMgr Server',
     'preferred' => '',
-    'password policy' => array(),
+    'policy' => array(),
     'driver' => 'Vmailmgr',
     'params' => array(
         'vmailinc' => '/your/path/to/the/vmail.inc'
@@ -374,7 +372,7 @@ $backends['vpopmail'] = array (
     'disabled' => true,
     'name' => 'Vpopmail Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -400,7 +398,7 @@ $backends['pine'] = array(
     'disabled' => true,
     'name' => 'Pine Password File',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -423,7 +421,7 @@ $backends['kolab'] = array(
     'disabled' => true,
     'name' => 'Local Kolab Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -435,7 +433,7 @@ $backends['myscript'] = array(
     'disabled' => true,
     'name' => 'Custom Script',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -457,7 +455,7 @@ $backends['http'] = array(
     'disabled' => true,
     'name' => 'HTTP Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -484,7 +482,7 @@ $backends['soap'] = array(
     'disabled' => true,
     'name' => 'SOAP Server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
@@ -514,7 +512,7 @@ $backends['postfixadmin'] = array (
     'disabled' => true,
     'name' => 'Postfix Admin server',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'maxLength' => 20,
         'minNumeric' => 1,
@@ -557,7 +555,7 @@ $backends['composite'] = array(
     'disabled' => true,
     'name' => 'All Services',
     'preferred' => '',
-    'password policy' => array(
+    'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),

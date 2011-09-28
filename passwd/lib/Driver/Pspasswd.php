@@ -19,7 +19,7 @@
  * $backends['pspasswd'] = array(
  *   'name' => 'Sample pspasswd backend',
  *   'preferred' => 'localhost',
- *   'password policy' => array(
+ *   'policy' => array(
  *       'minLength' => 8,
  *       'maxLength' => 14
  *   ),
