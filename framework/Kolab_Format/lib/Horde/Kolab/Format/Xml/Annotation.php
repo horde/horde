@@ -41,14 +41,7 @@ class Horde_Kolab_Format_Xml_Annotation extends Horde_Kolab_Format_Xml
      * @var Kolab
      */
     protected $_fields_specific = array(
-        'annotation' => array(
-            'type'    => self::TYPE_MULTIPLE,
-            'value'   => self::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type' => self::TYPE_STRING,
-                'value' => self::VALUE_MAYBE_MISSING,
-            ),
-        ),
+        'annotation' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
     );
 
     /**

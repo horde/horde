@@ -118,27 +118,9 @@ class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
             'type'    => self::TYPE_STRING,
             'value'   => self::VALUE_MAYBE_MISSING,
         ),
-        'address' => array(
-            'type'    => self::TYPE_MULTIPLE,
-            'value'   => self::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_Address'
-            ),
-        ),
-        'email' => array (
-            'type'    => self::TYPE_MULTIPLE,
-            'value'   => self::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'
-            ),
-        ),
-        'phone' => array(
-            'type'    => self::TYPE_MULTIPLE,
-            'value'   => self::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_Phone'
-            ),
-        ),
+        'address' => 'Horde_Kolab_Format_Xml_Type_Multiple_Address',
+        'email' => 'Horde_Kolab_Format_Xml_Type_Multiple_SimplePerson',
+        'phone' => 'Horde_Kolab_Format_Xml_Type_Multiple_Phone',
         'preferred-address' => array (
             'type'    => self::TYPE_STRING,
             'value'   => self::VALUE_MAYBE_MISSING,

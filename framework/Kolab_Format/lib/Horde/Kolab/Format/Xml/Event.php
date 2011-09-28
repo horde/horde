@@ -63,13 +63,7 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
             'value'   => self::VALUE_MAYBE_MISSING,
         ),
         'recurrence' => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
-        'attendee' => array(
-            'type'    => self::TYPE_MULTIPLE,
-            'value'   => self::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type'    => 'Horde_Kolab_Format_Xml_Type_Composite_Attendee'
-            ),
-        ),
+        'attendee' => 'Horde_Kolab_Format_Xml_Type_Multiple_Attendee',
         'show-time-as' => array (
             'type'    => self::TYPE_STRING,
             'value'   => self::VALUE_MAYBE_MISSING,

@@ -32,6 +32,27 @@ class Horde_Kolab_Format_Xml_Type_Multiple
 extends Horde_Kolab_Format_Xml_Type_Base
 {
     /**
+     * The class name representing the element that can occur multiple times.
+     *
+     * @var string
+     */
+    protected $element;
+
+    /**
+     * Indicate which value type is expected.
+     *
+     * @var int
+     */
+    protected $value = Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING;
+
+    /**
+     * A default value if required.
+     *
+     * @var string
+     */
+    protected $default;
+
+    /**
      * Load the node value from the Kolab object.
      *
      * @param string                        $name        The name of the the
@@ -58,14 +79,11 @@ extends Horde_Kolab_Format_Xml_Type_Base
     {
         $children = $helper->findNodesRelativeTo('./' . $name, $parent_node);
         if ($children->length > 0) {
-            $this->checkMissing('array', $params, $name);
-            list($sub_type, $type_params) = $this->createTypeAndParams(
-                $params, $params['array']
-            );
+            $sub_type = $this->createSubType($this->element, $params);
             $result = array();
             foreach ($children as $child) {
                 $result[] = $sub_type->loadNodeValue(
-                    $child, $helper, $type_params
+                    $child, $helper, $params
                 );
             }
             $attributes[$name] = $result;
@@ -73,6 +91,29 @@ extends Horde_Kolab_Format_Xml_Type_Base
             $attributes[$name] = $this->loadMissing($name, $params);
         }
         return false;
+    }
+
+    /**
+     * Load a default value for a node.
+     *
+     * @param string $name   The attribute name.
+     * @param array  $params The parameters for the current operation.
+     *
+     * @return mixed The default value.
+     *
+     * @throws Horde_Kolab_Format_Exception In case the attribute may not be
+     *                                      missing or the default value was
+     *                                      left undefined.
+     */
+    protected function loadMissing($name, $params)
+    {
+        if ($this->value == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
+            && !$this->isRelaxed($params)) {
+            throw new Horde_Kolab_Format_Exception_MissingValue($name);
+        }
+        if ($this->value == Horde_Kolab_Format_Xml::VALUE_DEFAULT) {
+            return $this->default;
+        }
     }
 
     /**
@@ -108,14 +149,13 @@ extends Horde_Kolab_Format_Xml_Type_Base
 
         if (!isset($attributes[$name])) {
             if ($children->length == 0) {
-                if (!isset($params['value']) ||
-                    $params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING ||
-                    ($params['value'] == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY &&
+                if ($this->value == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING ||
+                    ($this->value == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY &&
                      $this->isRelaxed($params))) {
                     return false;
                 }
             } else {
-                if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
+                if ($this->value == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
                     /** Client indicates that the value should get removed */
                     $helper->removeNodes($parent_node, $name);
                     return false;
@@ -182,14 +222,11 @@ extends Horde_Kolab_Format_Xml_Type_Base
         $params
     )
     {
-        $this->checkMissing('array', $params, $name);
-        list($sub_type, $type_params) = $this->createTypeAndParams(
-            $params, $params['array']
-        );
+        $sub_type = $this->createSubType($this->element, $params);
         $result = array();
         foreach ($values as $value) {
             $result[] = $sub_type->saveNodeValue(
-                $name, $value, $parent_node, $helper, $type_params
+                $name, $value, $parent_node, $helper, $params
             );
         }
         return $result;

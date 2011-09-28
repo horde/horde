@@ -40,14 +40,7 @@ extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
                 'value'   => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
             ),
 
-            'day' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_STRING,
-                    'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                ),
-            ),
+            'day' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
             'daynumber' => array(
                 'type'    => Horde_Kolab_Format_Xml::TYPE_INTEGER,
                 'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
@@ -60,22 +53,8 @@ extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
                 'type'    => 'Horde_Kolab_Format_Xml_Type_Range',
                 'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
             ),
-            'exclusion' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_DATE,
-                    'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                ),
-            ),
-            'complete' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_DATE,
-                    'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                ),
-            ),
+            'exclusion' => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
+            'complete' => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
         ),
     );
 

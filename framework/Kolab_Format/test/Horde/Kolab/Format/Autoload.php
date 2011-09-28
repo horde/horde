@@ -28,4 +28,6 @@ require_once dirname(__FILE__) . '/TestCase.php';
 /** Load stub definitions */
 require_once dirname(__FILE__) . '/Stub/Log.php';
 require_once dirname(__FILE__) . '/Stub/Dummy.php';
+require_once dirname(__FILE__) . '/Stub/MultipleNotEmpty.php';
+require_once dirname(__FILE__) . '/Stub/MultipleDefault.php';
 require_once dirname(__FILE__) . '/Stub/Types.php';

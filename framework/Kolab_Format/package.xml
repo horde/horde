@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-09-16</date>
- <time>08:55:23</time>
+ <date>2011-09-28</date>
+ <time>09:37:18</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -85,6 +85,18 @@
          <dir name="DateTime">
           <file name="V1.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/DateTime -->
+         <dir name="Multiple">
+          <file name="Address.php" role="php" />
+          <file name="Attendee.php" role="php" />
+          <file name="Boolean.php" role="php" />
+          <file name="Date.php" role="php" />
+          <file name="Phone.php" role="php" />
+          <file name="SimplePerson.php" role="php" />
+          <file name="String.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/Multiple -->
+         <dir name="String">
+          <file name="MaybeMissing.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/String -->
          <file name="AutomaticDate.php" role="php" />
          <file name="Base.php" role="php" />
          <file name="Boolean.php" role="php" />
@@ -157,6 +169,8 @@
        <dir name="Stub">
         <file name="Dummy.php" role="test" />
         <file name="Log.php" role="test" />
+        <file name="MultipleDefault.php" role="test" />
+        <file name="MultipleNotEmpty.php" role="test" />
         <file name="Types.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Format/Stub -->
        <dir name="Unit">
@@ -299,6 +313,14 @@
    <install as="Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" />
    <install as="Horde/Kolab/Format/Xml/Type/CreationDate/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/CreationDate/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/DateTime/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/DateTime/V1.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Multiple/Address.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Address.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Multiple/Attendee.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Attendee.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Multiple/Boolean.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Boolean.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Multiple/Date.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Date.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Multiple/Phone.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Phone.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Multiple/SimplePerson.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/SimplePerson.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/Multiple/String.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/String.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/String/MaybeMissing.php" name="lib/Horde/Kolab/Format/Xml/Type/String/MaybeMissing.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />
@@ -323,6 +345,8 @@
    <install as="Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" name="test/Horde/Kolab/Format/Integration/fixtures/recur_fail.xml" />
    <install as="Horde/Kolab/Format/Stub/Dummy.php" name="test/Horde/Kolab/Format/Stub/Dummy.php" />
    <install as="Horde/Kolab/Format/Stub/Log.php" name="test/Horde/Kolab/Format/Stub/Log.php" />
+   <install as="Horde/Kolab/Format/Stub/MultipleDefault.php" name="test/Horde/Kolab/Format/Stub/MultipleDefault.php" />
+   <install as="Horde/Kolab/Format/Stub/MultipleNotEmpty.php" name="test/Horde/Kolab/Format/Stub/MultipleNotEmpty.php" />
    <install as="Horde/Kolab/Format/Stub/Types.php" name="test/Horde/Kolab/Format/Stub/Types.php" />
    <install as="Horde/Kolab/Format/Unit/DateTest.php" name="test/Horde/Kolab/Format/Unit/DateTest.php" />
    <install as="Horde/Kolab/Format/Unit/FactoryTest.php" name="test/Horde/Kolab/Format/Unit/FactoryTest.php" />
@@ -451,7 +475,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-09-16</date>
+   <date>2011-09-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Moved Horde specific functionality out of the events parser.
@@ -461,6 +485,8 @@
 * [gwr] Allow adding XML attributes on the fly.
 * [gwr] Avoid overwriting data from other Kolab clients.
 * [gwr] Added improved root node handler (version checking, avoids overwriting other data).
+* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
+* [gwr] Fixed detecting parse errors in subsequent parse attempts.
    </notes>
   </release>
  </changelog>

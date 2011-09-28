@@ -60,22 +60,8 @@ extends Horde_Kolab_Format_Xml_Type_Composite
             'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
             'default' => 'public',
         ),
-        'inline-attachment' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type'  => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-        ),
-        'link-attachment' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type'  => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-        ),
+        'inline-attachment' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
+        'link-attachment' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
         'product-id' => 'Horde_Kolab_Format_Xml_Type_ProductId',
     );
 
