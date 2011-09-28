@@ -163,7 +163,7 @@ var DimpBase = {
                 this.viewport.scrollTo(row_data.VP_rownum, { bottom: bottom });
                 this.viewport.select(row, { delay: 0.3 });
             }
-        } else {
+        } else if (curr) {
             this.rownum = [ curr ];
             this.viewport.requestContentRefresh(curr - 1);
         }
