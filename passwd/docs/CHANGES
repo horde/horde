@@ -1,6 +1,6 @@
---------
-v4.0-git
---------
+-----------
+v4.0-ALPHA1
+-----------
 
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [rla] Add new driver 'horde' which uses the update() function of horde's
