@@ -263,7 +263,7 @@ $view_url = Horde::url('view.php');
 $edit_url = Horde::url('edit.php');
 $manager_url = Horde::url('manager.php');
 
-$refresh_url = $manager_url->copy()->add('page', $page);
+$refresh_url = Horde::selfUrl(true, true);
 if ($vars->filter) {
     $refresh_url->add('filter', $vars->filter);
 }
