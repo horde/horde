@@ -3051,7 +3051,7 @@ var DimpBase = {
         [ DragDrop.Drags.getDrag(fid), DragDrop.Drops.getDrop(fid) ].compact().invoke('destroy');
         this._removeMouseEvents(f);
         if (this.viewport) {
-            this.viewport.deleteView(fid);
+            this.viewport.deleteView(f.retrieve('mbox'));
         }
         f.remove();
     },
