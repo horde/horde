@@ -31,6 +31,19 @@
     margin: 1em 0 0 0;
 }
 
+/* Images */
+.editImg {
+    background-image: url("graphics/edit.png");
+}
+.groupImg {
+    background-image: url("graphics/group.png");
+}
+.searchImg {
+    background-image: url("graphics/search.png");
+}
+.vcardImg {
+    background-image: url("graphics/mime/vcard.png");
+}
 
 /* Tables. */
 table#addressbook-list {
