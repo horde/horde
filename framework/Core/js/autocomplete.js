@@ -156,9 +156,9 @@ Autocompleter.Base = Class.create({
 
         var entry = this.getToken();
 
-        if (entry.length >= this.opts.minChars) {
-            entry = this.opts.onType(entry);
-        }
+        entry = (entry.length >= this.opts.minChars)
+            ? this.opts.onType(entry)
+            : '';
 
         if (entry.length) {
             if (this.opts.indicator) {
