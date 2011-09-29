@@ -110,6 +110,26 @@ span.trashImg {
 .reloadImg {
     background-image: url("graphics/reload.png");
 }
+.searchImg {
+    background-image: url("graphics/search.png");
+}
+.readonlyImg {
+    background-image: url("graphics/locked.png");
+}
+.addrbookaddImg {
+    background-image: url("graphics/addressbook_add.png");
+}
+.spellcheckImg {
+    background-image: url("graphics/spellcheck.png");
+}
+.emptytrashImg {
+    background-image: url("graphics/empty_trash.png");
+    width: 13px;
+}
+
+.filtersIcon {
+    background-image: url("graphics/filters.png");
+}
 
 .downloadAtc, .saveAsImg {
     background-image: url("graphics/download.png");
@@ -119,4 +139,30 @@ span.trashImg {
 }
 .printAtc {
     background-image: url("graphics/print.png");
+}
+
+/* Nav images (TODO: move to Horde) */
+.navfirstgreyImg {
+    background-image: url("graphics/nav/first-grey.png");
+}
+.navfirstImg {
+    background-image: url("graphics/nav/first.png");
+}
+.navlastgreyImg {
+    background-image: url("graphics/nav/last-grey.png");
+}
+.navlastImg {
+    background-image: url("graphics/nav/last.png");
+}
+.navleftgreyImg {
+    background-image: url("graphics/nav/left-grey.png");
+}
+.navleftImg {
+    background-image: url("graphics/nav/left.png");
+}
+.navrightgreyImg {
+    background-image: url("graphics/nav/right-grey.png");
+}
+.navrightImg {
+    background-image: url("graphics/nav/right.png");
 }

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-27</date>
- <time>13:17:59</time>
+ <date>2011-09-30</date>
+ <time>01:41:15</time>
  <version>
   <release>5.0.14</release>
   <api>5.0.0</api>
@@ -839,6 +839,16 @@
        <file name="compressed.png" role="horde" />
        <file name="itip.png" role="horde" />
       </dir> <!-- /themes/default/graphics/mime -->
+      <dir name="nav">
+       <file name="first-grey.png" role="horde" />
+       <file name="first.png" role="horde" />
+       <file name="last-grey.png" role="horde" />
+       <file name="last.png" role="horde" />
+       <file name="left-grey.png" role="horde" />
+       <file name="left.png" role="horde" />
+       <file name="right-grey.png" role="horde" />
+       <file name="right.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/nav -->
       <file name="addressbook_add.png" role="horde" />
       <file name="addressbook_browse.png" role="horde" />
       <file name="add_contact.png" role="horde" />
@@ -997,6 +1007,16 @@
        <file name="compressed.png" role="horde" />
        <file name="itip.php" role="horde" />
       </dir> <!-- /themes/silver/graphics/mime -->
+      <dir name="nav">
+       <file name="first-grey.png" role="horde" />
+       <file name="first.png" role="horde" />
+       <file name="last-grey.png" role="horde" />
+       <file name="last.png" role="horde" />
+       <file name="left-grey.png" role="horde" />
+       <file name="left.png" role="horde" />
+       <file name="right-grey.png" role="horde" />
+       <file name="right.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/nav -->
       <file name="addressbook_add.png" role="horde" />
       <file name="addressbook_browse.png" role="horde" />
       <file name="add_contact.png" role="horde" />
@@ -1061,6 +1081,7 @@
       <file name="warning.png" role="horde" />
       <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
+     <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
     <dir name="simplex">
@@ -1930,6 +1951,14 @@
    <install as="imp/themes/default/graphics/mime/apple.png" name="themes/default/graphics/mime/apple.png" />
    <install as="imp/themes/default/graphics/mime/compressed.png" name="themes/default/graphics/mime/compressed.png" />
    <install as="imp/themes/default/graphics/mime/itip.png" name="themes/default/graphics/mime/itip.png" />
+   <install as="imp/themes/default/graphics/nav/first-grey.png" name="themes/default/graphics/nav/first-grey.png" />
+   <install as="imp/themes/default/graphics/nav/first.png" name="themes/default/graphics/nav/first.png" />
+   <install as="imp/themes/default/graphics/nav/last-grey.png" name="themes/default/graphics/nav/last-grey.png" />
+   <install as="imp/themes/default/graphics/nav/last.png" name="themes/default/graphics/nav/last.png" />
+   <install as="imp/themes/default/graphics/nav/left-grey.png" name="themes/default/graphics/nav/left-grey.png" />
+   <install as="imp/themes/default/graphics/nav/left.png" name="themes/default/graphics/nav/left.png" />
+   <install as="imp/themes/default/graphics/nav/right-grey.png" name="themes/default/graphics/nav/right-grey.png" />
+   <install as="imp/themes/default/graphics/nav/right.png" name="themes/default/graphics/nav/right.png" />
    <install as="imp/themes/default/mimp/screen.css" name="themes/default/mimp/screen.css" />
    <install as="imp/themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
    <install as="imp/themes/gennevilliers/screen.css" name="themes/gennevilliers/screen.css" />
@@ -1943,6 +1972,7 @@
    <install as="imp/themes/postnuke/screen.css" name="themes/postnuke/screen.css" />
    <install as="imp/themes/purple/screen.css" name="themes/purple/screen.css" />
    <install as="imp/themes/purple/dimp/screen.css" name="themes/purple/dimp/screen.css" />
+   <install as="imp/themes/silver/rtl.css" name="themes/silver/rtl.css" />
    <install as="imp/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="imp/themes/silver/dimp/screen.css" name="themes/silver/dimp/screen.css" />
    <install as="imp/themes/silver/graphics/addressbook_add.png" name="themes/silver/graphics/addressbook_add.png" />
@@ -2023,6 +2053,14 @@
    <install as="imp/themes/silver/graphics/folders/trash.png" name="themes/silver/graphics/folders/trash.png" />
    <install as="imp/themes/silver/graphics/mime/compressed.png" name="themes/silver/graphics/mime/compressed.png" />
    <install as="imp/themes/silver/graphics/mime/itip.php" name="themes/silver/graphics/mime/itip.php" />
+   <install as="imp/themes/silver/graphics/nav/first-grey.png" name="themes/silver/graphics/nav/first-grey.png" />
+   <install as="imp/themes/silver/graphics/nav/first.png" name="themes/silver/graphics/nav/first.png" />
+   <install as="imp/themes/silver/graphics/nav/last-grey.png" name="themes/silver/graphics/nav/last-grey.png" />
+   <install as="imp/themes/silver/graphics/nav/last.png" name="themes/silver/graphics/nav/last.png" />
+   <install as="imp/themes/silver/graphics/nav/left-grey.png" name="themes/silver/graphics/nav/left-grey.png" />
+   <install as="imp/themes/silver/graphics/nav/left.png" name="themes/silver/graphics/nav/left.png" />
+   <install as="imp/themes/silver/graphics/nav/right-grey.png" name="themes/silver/graphics/nav/right-grey.png" />
+   <install as="imp/themes/silver/graphics/nav/right.png" name="themes/silver/graphics/nav/right.png" />
    <install as="imp/themes/simplex/screen.css" name="themes/simplex/screen.css" />
    <install as="imp/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
    <install as="imp/themes/tango-blue/dimp/screen.css" name="themes/tango-blue/dimp/screen.css" />
@@ -2483,7 +2521,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-27</date>
+   <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] When expanding a submailbox in dynamic view, honor expanded children status.

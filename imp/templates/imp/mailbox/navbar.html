@@ -71,10 +71,36 @@
     <form method="get" action="<tag:mailbox_url />">
     <input type="hidden" name="mailbox" value="<tag:mailbox />" />
     <tag:sessiontag />
-    <tag:pages_first /> <tag:pages_prev />
+<if:url_first>
+    <a href="<tag:url_first />" title="<gettext>First Page</gettext>">
+</if:url_first>
+    <span class="iconImg <tag:pages_first />"></span>
+<if:url_first>
+    </a>
+</if:url_first>
+<if:url_prev>
+    <a href="<tag:url_prev />" title="<gettext>Previous Page</gettext>">
+</if:url_prev>
+    <span class="iconImg <tag:pages_prev />"></span>
+<if:url_prev>
+    </a>
+</if:url_prev>
     <label for="page<tag:id />" class="hidden"><gettext>Page:</gettext></label>
     <input type="text" id="page<tag:id />" name="page" value="<tag:page_val />" size="<tag:page_size />" />
-    <tag:pages_next /> <tag:pages_last />
+<if:url_next>
+    <a href="<tag:url_next />" title="<gettext>Next Page</gettext>">
+</if:url_next>
+    <span class="iconImg <tag:pages_next />"></span>
+<if:url_next>
+    </a>
+</if:url_next>
+<if:url_last>
+    <a href="<tag:url_last />" title="<gettext>Last Page</gettext>">
+</if:url_last>
+    <span class="iconImg <tag:pages_last />"></span>
+<if:url_last>
+    </a>
+</if:url_last>
     </form>
 </if:multiple_page>
    </div>

@@ -850,7 +850,6 @@ a.address:hover img {
     display: inline;
 }
 #qsearch span.searchImg {
-    background: url("../graphics/search.png") center no-repeat;
     cursor: pointer;
     margin-right: 0;
     padding-top: 2px;
@@ -932,9 +931,6 @@ span.iconImg {
 span.infoIcon {
     background-image: url("../graphics/info_icon.png");
 }
-span.filtersIcon {
-    background-image: url("../graphics/filters.png");
-}
 span.prefsIcon {
     background-image: url("../graphics/prefs.png");
 }
@@ -972,9 +968,6 @@ span.dimpactionOther {
 }
 span.dimpactionSort {
     background-image: url("../graphics/plus.png");
-}
-span.dimpactionSpellcheck {
-    background-image: url("../graphics/spellcheck.png");
 }
 span.dimpactionDrafts {
     background-image: url("../graphics/drafts.png");
@@ -1124,7 +1117,6 @@ span.keydownImg {
     background-image: url("../graphics/key_down.png");
 }
 span.readonlyImg {
-    background-image: url("../graphics/locked.png");
     vertical-align: sub;
 }
 

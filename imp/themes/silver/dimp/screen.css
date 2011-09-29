@@ -28,9 +28,6 @@
 span.infoIcon {
     background-image: url("../graphics/info_icon.png");
 }
-span.filtersIcon {
-    background-image: url("../graphics/filters.png");
-}
 span.prefsIcon {
     background-image: url("../graphics/prefs.png");
 }
@@ -64,9 +61,6 @@ span.dimpactionDelete {
 }
 span.dimpactionOther {
     background-image: url("../graphics/plus.png");
-}
-span.dimpactionSpellcheck {
-    background-image: url("../graphics/spellcheck.png");
 }
 span.dimpactionDrafts {
     background-image: url("../graphics/drafts.png");
@@ -166,10 +160,6 @@ span.dimpactionResume {
     background-image: url("../graphics/newwin.png");
 }
 
-#qsearch span.searchImg {
-    background-image: url("../graphics/search.png");
-}
-
 #th_expand span.iconImg, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
 }
@@ -179,9 +169,6 @@ span.dimpactionResume {
 
 span.popdownImg, span.spellcheckPopdownImg {
     background-image: url("../graphics/popdown.png");
-}
-span.readonlyImg {
-    background-image: url("../graphics/locked.png");
 }
 
 #Growler div.imp-reply {

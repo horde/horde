@@ -91,7 +91,7 @@ class IMP_Ui_Compose
     public function attachSpellChecker()
     {
         $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-        $spell_img = Horde::img('spellcheck.png');
+        $spell_img = '<span class="iconImg spellcheckImg"></span>';
 
         if (IMP::getViewMode() == 'imp') {
             $br = '<br />';

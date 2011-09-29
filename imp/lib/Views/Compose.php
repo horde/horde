@@ -128,7 +128,6 @@ class IMP_Views_Compose
                 'title' => _("Send")
             )));
             $t->set('spell_button', IMP_Dimp::actionButton(array(
-                'icon' => 'Spellcheck',
                 'id' => 'spellcheck',
                 'title' => _("Check Spelling")
             )));
