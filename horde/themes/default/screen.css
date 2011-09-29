@@ -630,11 +630,15 @@ div.logintasks-item input {
     overflow: hidden;
 }
 #expandedSidebar #expandButton {
+    background-image: url("graphics/hide_panel.png");
+    cursor: pointer;
+    margin-right: 0.5em;
     float: right;
 }
-
-#hiddenSidebar img {
-    padding-right: 2px;
+#hiddenSidebar {
+    background-image: url("graphics/show_panel.png");
+    cursor: pointer;
+    margin-right: 2px;
 }
 
 /* Main body. */
