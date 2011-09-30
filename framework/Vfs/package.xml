@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-20</date>
- <time>14:40:07</time>
+ <date>2011-09-30</date>
+ <time>11:29:58</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -39,6 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix internal reference to QUOTA_METRIC_* constants (Bug #10585).
 * [jan] Fix parsing of directory listings on /dev file systems in the SSH driver.
  </notes>
  <contents>
@@ -46,6 +47,13 @@ Reading, writing and listing of files are all supported, and there are both obje
    <dir name="bin">
     <file name="horde-vfs" role="script" />
    </dir> <!-- /bin -->
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Vfs">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Vfs -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Vfs">
@@ -439,6 +447,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  <phprelease>
   <filelist>
    <install as="horde-vfs" name="bin/horde-vfs" />
+   <install as="COPYING" name="doc/Horde/Vfs/COPYING" />
    <install as="Horde/Vfs.php" name="lib/Horde/Vfs.php" />
    <install as="Horde/Vfs/Base.php" name="lib/Horde/Vfs/Base.php" />
    <install as="Horde/Vfs/Browser.php" name="lib/Horde/Vfs/Browser.php" />
@@ -879,9 +888,10 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-20</date>
+   <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix internal reference to QUOTA_METRIC_* constants (Bug #10585).
 * [jan] Fix parsing of directory listings on /dev file systems in the SSH driver.
    </notes>
   </release>
