@@ -411,12 +411,14 @@ class Ansel_Faces_Base
      * @return array Faces found
      * @throws Ansel_Exception, Horde_Exception_PermissionDenied
      */
-    public function saveCustomFace($face_id, $image, $x1, $y1, $x2, $y2,
-                                   $name = '')
+    public function saveCustomFace(
+        $face_id, $image, $x1, $y1, $x2, $y2, $name = '')
     {
-        $image = $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $image = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->getImage($image);
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $gallery = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->getGallery($image->gallery);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
@@ -596,8 +598,10 @@ class Ansel_Faces_Base
         $path = Ansel_Faces::getVFSPath($image->id);
         $image->getHordeImage()->resize(50, 50, false);
         try {
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
-                ->create('images')->writeData(
+            $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create('images')
+                ->writeData(
                     $path . 'faces',
                     $face_id . $ext,
                     $image->getHordeImage()->raw(),
