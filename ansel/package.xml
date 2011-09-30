@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-27</date>
- <time>10:11:18</time>
+ <date>2011-09-30</date>
+ <time>11:20:48</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0</api>
@@ -130,6 +130,7 @@
       <file name="GallerySlugCheck.php" role="horde" />
       <file name="ImageSaveGeotag.php" role="horde" />
       <file name="LocationAutoCompleter.php" role="horde" />
+      <file name="MapLayerSelect.php" role="horde" />
       <file name="TagActions.php" role="horde" />
       <file name="ToggleGalleryActions.php" role="horde" />
       <file name="ToggleOtherGalleries.php" role="horde" />
@@ -854,6 +855,7 @@
    <install as="ansel/lib/Ajax/Imple/GallerySlugCheck.php" name="lib/Ajax/Imple/GallerySlugCheck.php" />
    <install as="ansel/lib/Ajax/Imple/ImageSaveGeotag.php" name="lib/Ajax/Imple/ImageSaveGeotag.php" />
    <install as="ansel/lib/Ajax/Imple/LocationAutoCompleter.php" name="lib/Ajax/Imple/LocationAutoCompleter.php" />
+   <install as="ansel/lib/Ajax/Imple/MapLayerSelect.php" name="lib/Ajax/Imple/MapLayerSelect.php" />
    <install as="ansel/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
    <install as="ansel/lib/Ajax/Imple/ToggleGalleryActions.php" name="lib/Ajax/Imple/ToggleGalleryActions.php" />
    <install as="ansel/lib/Ajax/Imple/ToggleOtherGalleries.php" name="lib/Ajax/Imple/ToggleOtherGalleries.php" />
@@ -1103,7 +1105,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-09-27</date>
+   <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 4.
