@@ -29,49 +29,16 @@
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Type_Composite_Address
-extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
+extends Horde_Kolab_Format_Xml_Type_Composite
 {
-    /** Override in extending classes to set predefined parameters. */
-    protected $_predefined_parameters = array(
-        'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-        'array'   => array(
-            'type' => array (
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                'default' => 'home',
-            ),
-            'street' => array (
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'locality' => array (
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'region' => array (
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'postal-code' => array (
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'country' => array (
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-        )
+    protected $elements = array(
+        'type'        => 'Horde_Kolab_Format_Xml_Type_AddressType',
+        'street'      => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'locality'    => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'region'      => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'postal-code' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'country'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
     );
 
-    /**
-     * Address types
-     *
-     * @var array
-     */
-    private $_address_types = array(
-        'business',
-        'home',
-        'other',
-    );
 
 }

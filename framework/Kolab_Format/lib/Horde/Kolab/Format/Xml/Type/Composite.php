@@ -32,6 +32,34 @@ class Horde_Kolab_Format_Xml_Type_Composite
 extends Horde_Kolab_Format_Xml_Type_Base
 {
     /**
+     * The elements of the composite attribute.
+     *
+     * @var array
+     */
+    protected $elements;
+
+    /**
+     * Indicate which value type is expected.
+     *
+     * @var int
+     */
+    protected $value = Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING;
+
+    /**
+     * A default value if required.
+     *
+     * @var string
+     */
+    protected $default;
+
+    /**
+     * Should the velues be merged into the parent attributes?
+     *
+     * @var boolean
+     */
+    protected $merge = false;
+
+    /**
      * Load the node value from the Kolab object.
      *
      * @param string                        $name        The name of the the
@@ -56,13 +84,12 @@ extends Horde_Kolab_Format_Xml_Type_Base
         $params = array()
     )
     {
-        $this->checkMissing('array', $params, $name);
         if ($node = $helper->findNodeRelativeTo('./' . $name, $parent_node)) {
             $result = $this->loadNodeValue($node, $helper, $params);
         } else {
             $result = $this->loadMissing($name, $params);
         }
-        if (empty($params['merge'])) {
+        if (!$this->merge) {
             $attributes[$name] = $result;
         } else {
             $attributes = array_merge($attributes, $result);
@@ -86,14 +113,10 @@ extends Horde_Kolab_Format_Xml_Type_Base
         $params = array()
     )
     {
-        $new_params = $params;
-        unset($new_params['merge']);
         $result = array();
-        foreach ($params['array'] as $sub_name => $sub_params) {
-            list($sub_type, $type_params) = $this->createTypeAndParams(
-                $new_params, $sub_params
-            );
-            $sub_type->load($sub_name, $result, $node, $helper, $type_params);
+        foreach ($this->elements as $sub_name => $sub_type) {
+            $this->createSubType($sub_type, $params)
+                ->load($sub_name, $result, $node, $helper, $params);
         }
         return $result;
     }
@@ -129,16 +152,15 @@ extends Horde_Kolab_Format_Xml_Type_Base
             './' . $name, $parent_node
         );
 
-        if (empty($params['merge']) && !isset($attributes[$name])) {
+        if (!$this->merge && !isset($attributes[$name])) {
             if ($node === false) {
-                if (!isset($params['value']) ||
-                    $params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING ||
-                    ($params['value'] == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY &&
+                if ($this->value == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING ||
+                    ($this->value == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY &&
                      $this->isRelaxed($params))) {
                     return false;
                 }
             } else {
-                if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
+                if ($this->value == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
                     /** Client indicates that the value should get removed */
                     $helper->removeNodes($parent_node, $name);
                     return false;
@@ -221,12 +243,9 @@ extends Horde_Kolab_Format_Xml_Type_Base
         Horde_Kolab_Format_Xml_Helper $helper,
         $params
     ) {
-        foreach ($params['array'] as $name => $sub_params) {
-            unset($params['merge']);
-            list($sub_type, $type_params) = $this->createTypeAndParams(
-                $params, $sub_params
-            );
-            $sub_type->save($name, $values, $parent_node, $helper, $type_params);
+        foreach ($this->elements as $sub_name => $sub_type) {
+            $this->createSubType($sub_type, $params)
+                ->save($sub_name, $values, $parent_node, $helper, $params);
         }
     }
 
@@ -244,7 +263,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
      */
     protected function generateWriteValue($name, $attributes, $params)
     {
-        if (!empty($params['merge'])) {
+        if ($this->merge) {
             return $attributes;
         }
         if (isset($attributes[$name])) {

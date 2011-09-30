@@ -28,7 +28,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
-class Horde_Kolab_Format_Xml_Type_Range
+class Horde_Kolab_Format_Xml_Type_RecurrenceRange
 extends Horde_Kolab_Format_Xml_Type_String
 {
     /**

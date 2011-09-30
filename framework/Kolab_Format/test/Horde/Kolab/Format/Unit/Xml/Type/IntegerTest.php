@@ -39,8 +39,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><integer>1</integer>c</kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+<kolab version="1.0" a="b"><integer>1</integer>c</kolab>'
         );
         $this->assertSame(1, $attributes['integer']);
     }
@@ -52,8 +51,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><integer type="strange"><b/>false<a/></integer>c</kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+<kolab version="1.0" a="b"><integer type="strange"><b/>false<a/></integer>c</kolab>'
         );
     }
 
@@ -61,23 +59,17 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+<kolab version="1.0"/>'
         );
         $this->assertFalse(isset($attributes['integer']));
     }
 
     public function testLoadDefault()
     {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                'default' => 5
-            )
+        $attributes = $this->loadWithClass(
+            'Horde_Kolab_Format_Stub_IntegerDefault'
         );
-        $this->assertSame(5, $attributes['integer']);
+        $this->assertSame(10, $attributes['integer']);
     }
 
     /**
@@ -85,22 +77,15 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testLoadNotEmpty()
     {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,)
-        );
+        $this->loadWithClass('Horde_Kolab_Format_Stub_IntegerNotEmpty');
     }
 
     public function testLoadNotEmptyRelaxed()
     {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                'relaxed' => true,
-            )
+        $attributes = $this->loadWithClass(
+            'Horde_Kolab_Format_Stub_IntegerNotEmpty',
+            null,
+            array('relaxed' => true)
         );
         $this->assertFalse(isset($attributes['integer']));
     }
@@ -111,8 +96,7 @@ extends Horde_Kolab_Format_TestCase
             'DOMNode',
             $this->saveToReturn(
                 null,
-                array('integer' => 1),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                array('integer' => 1)
             )
         );
     }
@@ -125,8 +109,7 @@ extends Horde_Kolab_Format_TestCase
 ',
             $this->saveToXml(
                 null,
-                array('integer' => 7),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                array('integer' => 7)
             )
         );
     }
@@ -140,8 +123,7 @@ extends Horde_Kolab_Format_TestCase
             $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><integer type="strange"><b/>STRANGE<a/></integer>c</kolab>',
-                array('integer' => 7),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                array('integer' => 7)
             )
         );
     }
@@ -151,12 +133,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testSaveNotEmpty()
     {
-        $this->saveToXml(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(),
-            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
-        );
+        $this->saveWithClass('Horde_Kolab_Format_Stub_IntegerNotEmpty');
     }
 
     /**
@@ -164,38 +141,33 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testSaveInvalidInteger()
     {
-        $this->saveToXml(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array('integer' => 'INVALID'),
-            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
+        $this->saveWithClass(
+            'Horde_Kolab_Format_Stub_IntegerNotEmpty',
+            null,
+            array(),
+            array('integer' => 'INVALID')
         );
     }
 
     public function testSaveNotEmptyWithOldValue()
     {
-        $this->assertInstanceOf(
+       $this->assertInstanceOf(
             'DOMNode', 
-            $this->saveToReturn(
+            $this->saveWithClass(
+                'Horde_Kolab_Format_Stub_IntegerNotEmpty',
                 '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><integer type="strange"><b/>STRANGE<a/></integer>c</kolab>',
-                array(),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
+<kolab version="1.0" a="b"><integer type="strange"><b/>STRANGE<a/></integer>c</kolab>'
             )
-        );
+       );
     }
 
     public function testSaveNotEmptyRelaxed()
     {
-        $this->assertFalse(
-            $this->saveToReturn(
-                '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-                array(),
-                array(
-                    'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                    'relaxed' => true,
-                )
+       $this->assertFalse(
+            $this->saveWithClass(
+                'Horde_Kolab_Format_Stub_IntegerNotEmpty',
+                null,
+                array('relaxed' => true)
             )
         );
     }

@@ -60,8 +60,7 @@ extends Horde_Kolab_Format_Xml_Type_Base
         if ($result !== false) {
             return $result;
         } else {
-            if (!isset($params['value']) ||
-                $params['value'] != Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
+            if ($this->value != Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
                 $attributes[$name] = $this->loadMissing($name, $params);
             }
             return false;
@@ -124,15 +123,13 @@ extends Horde_Kolab_Format_Xml_Type_Base
 
         if (!isset($attributes[$name])) {
             if ($node === false) {
-                if (!isset($params['value']) ||
-                    $params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING ||
-                    ($params['value'] == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY &&
+                if ($this->value == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING ||
+                    ($this->value == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY &&
                      $this->isRelaxed($params))) {
                     return false;
                 }
             } else {
-                if (!isset($params['value']) ||
-                    $params['value'] == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
+                if ($this->value == Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING) {
                     /** Client indicates that the value should get removed */
                     $helper->removeNodes($parent_node, $name);
                     return false;

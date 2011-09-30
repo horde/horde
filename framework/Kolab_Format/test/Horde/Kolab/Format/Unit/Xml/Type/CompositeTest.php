@@ -42,16 +42,8 @@ extends Horde_Kolab_Format_TestCase
 <kolab version="1.0"><composite><uid>a&amp;</uid><test>TEST</test></composite></kolab>',
             array(
                 'array' => array(
-                    'uid' => array(
-                        'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                        'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                        'default' => '',
-                    ),
-                    'test' => array(
-                        'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                        'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                        'default' => '',
-                    ),
+                    'uid' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+                    'test' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
                 ),
                 'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
             )
@@ -115,16 +107,8 @@ extends Horde_Kolab_Format_TestCase
                 array('composite' => array()),
                 array(
                     'array' => array(
-                        'uid' => array(
-                            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                            'default' => '',
-                        ),
-                        'test' => array(
-                            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                            'default' => '',
-                        ),
+                        'uid' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+                        'test' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
                     ),
                     'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
                 )
@@ -144,16 +128,8 @@ extends Horde_Kolab_Format_TestCase
                 array('composite' => array('uid' => 1, 'test' => '&')),
                 array(
                     'array' => array(
-                        'uid' => array(
-                            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                            'default' => '',
-                        ),
-                        'test' => array(
-                            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                            'default' => '',
-                        ),
+                        'uid' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+                        'test' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
                     ),
                     'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
                 )
@@ -229,6 +205,6 @@ extends Horde_Kolab_Format_TestCase
 
     protected function getTypeClass()
     {
-        return 'Horde_Kolab_Format_Xml_Type_Composite';
+        return 'Horde_Kolab_Format_Stub_Composite';
     }
 }

@@ -43,38 +43,15 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
      * @var Kolab
      */
     protected $_fields_specific = array(
-        'summary' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'location' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'organizer' => array (
-            'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'
-        ),
-        'start-date' => array(
-            'type'    => self::TYPE_DATE_OR_DATETIME,
-            'value'   => self::VALUE_NOT_EMPTY,
-        ),
-        'alarm' => array(
-            'type'    => self::TYPE_INTEGER,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'recurrence' => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
-        'attendee' => 'Horde_Kolab_Format_Xml_Type_Multiple_Attendee',
-        'show-time-as' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'color-label' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'end-date' => array(
-            'type'    => self::TYPE_DATE_OR_DATETIME,
-            'value'   => self::VALUE_NOT_EMPTY,
-        ),
+        'summary'      => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'location'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'organizer'    => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson',
+        'start-date'   => 'Horde_Kolab_Format_Xml_Type_EventDate',
+        'alarm'        => 'Horde_Kolab_Format_Xml_Type_Integer',
+        'recurrence'   => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
+        'attendee'     => 'Horde_Kolab_Format_Xml_Type_Multiple_Attendee',
+        'show-time-as' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'color-label'  => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'end-date'     => 'Horde_Kolab_Format_Xml_Type_EventDate',
     );
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles name attributes.
+ * Handles the attendee status.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Handles name attributes.
+ * Handles the attendee status.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -28,16 +28,24 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
-class Horde_Kolab_Format_Xml_Type_Composite_Name
-extends Horde_Kolab_Format_Xml_Type_Composite
+class Horde_Kolab_Format_Xml_Type_AttendeeStatus
+extends Horde_Kolab_Format_Xml_Type_String
 {
-    protected $elements = array(
-        'given-name'   => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'middle-names' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'last-name'    => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'full-name'    => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'initials'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'prefix'       => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'suffix'       => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-    );
+    /**
+     * Indicate which value type is expected.
+     *
+     * @var int
+     */
+    protected $value = Horde_Kolab_Format_Xml::VALUE_DEFAULT;
+
+    /**
+     * A default value if required.
+     *
+     * @var string
+     */
+    protected $default = 'none';
+
+    /**
+     * @todo Check enum possibilities
+     */
 }

@@ -29,27 +29,11 @@
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Type_Composite_SimplePerson
-extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
+extends Horde_Kolab_Format_Xml_Type_Composite
 {
-    /** Override in extending classes to set predefined parameters. */
-    protected $_predefined_parameters = array(
-        'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-        'array'   => array(
-            'display-name' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                'default' => '',
-            ),
-            'smtp-address' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                'default' => '',
-            ),
-            'uid' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                'default' => '',
-            ),
-        ),
+    protected $elements = array(
+        'display-name' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+        'smtp-address' => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+        'uid'          => 'Horde_Kolab_Format_Xml_Type_String_Empty',
     );
 }

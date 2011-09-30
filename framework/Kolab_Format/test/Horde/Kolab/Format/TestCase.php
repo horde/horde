@@ -77,6 +77,20 @@ extends PHPUnit_Framework_TestCase
             $previous, $params
         );
         $attributes = array();
+        $this->_load($type, $attributes, $root_node, $helper, $params);
+        return $attributes;
+    }
+
+    public function loadWithClass($class, $previous = null, $params = array())
+    {
+        list($helper, $root_node, $type) = $this->getXmlType($class, $previous);
+        $attributes = array();
+        $this->_load($type, $attributes, $root_node, $helper, $params);
+        return $attributes;
+    }
+
+    private function _load($type, &$attributes, $root_node, $helper, $params)
+    {
         $type->load(
             $this->getElement($params),
             $attributes,
@@ -84,7 +98,6 @@ extends PHPUnit_Framework_TestCase
             $helper,
             $params
         );
-        return $attributes;
     }
 
     protected function saveToXml(
@@ -107,6 +120,14 @@ extends PHPUnit_Framework_TestCase
         list($params, $root_node, $type, $helper) = $this->getTestType(
             $previous, $params
         );
+        return $type->save(
+            $this->getElement($params), $attributes, $root_node, $helper, $params
+        );
+    }
+
+    protected function saveWithClass($class, $previous = null, $params = array(), $attributes = array())
+    {
+        list($helper, $root_node, $type) = $this->getXmlType($class, $previous);
         return $type->save(
             $this->getElement($params), $attributes, $root_node, $helper, $params
         );

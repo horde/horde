@@ -32,9 +32,18 @@ class Horde_Kolab_Format_Xml_Type_Root
 extends Horde_Kolab_Format_Xml_Type_Composite
 {
     /**
-     * The parameters required for the parsing operation.
+     * Indicate which value type is expected.
+     *
+     * @var int
      */
-    protected $_required_parameters = array('expected-version');
+    protected $value = Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY;
+
+    /**
+     * Should the velues be merged into the parent attributes?
+     *
+     * @var boolean
+     */
+    protected $merge = true;
 
     /**
      * Basic attributes in any Kolab object
@@ -42,27 +51,15 @@ extends Horde_Kolab_Format_Xml_Type_Composite
      * @var array
      */
     private $_attributes_basic = array(
-        'uid' => 'Horde_Kolab_Format_Xml_Type_Uid',
-        'body' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-            'default' => '',
-        ),
-        'categories' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-            'default' => '',
-        ),
-        'creation-date' => 'Horde_Kolab_Format_Xml_Type_CreationDate',
+        'uid'                    => 'Horde_Kolab_Format_Xml_Type_Uid',
+        'body'                   => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+        'categories'             => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+        'creation-date'          => 'Horde_Kolab_Format_Xml_Type_CreationDate',
         'last-modification-date' => 'Horde_Kolab_Format_Xml_Type_ModificationDate',
-        'sensitivity' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-            'default' => 'public',
-        ),
-        'inline-attachment' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
-        'link-attachment' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
-        'product-id' => 'Horde_Kolab_Format_Xml_Type_ProductId',
+        'sensitivity'            => 'Horde_Kolab_Format_Xml_Type_Sensitivity',
+        'inline-attachment'      => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
+        'link-attachment'        => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
+        'product-id'             => 'Horde_Kolab_Format_Xml_Type_ProductId',
     );
 
     /**
@@ -180,18 +177,16 @@ extends Horde_Kolab_Format_Xml_Type_Composite
     {
         $params['format-version'] = $version;
 
-        $params['array'] = $this->_attributes_basic;
+        $this->elements = $this->_attributes_basic;
         if (isset($params['attributes-specific'])) {
-            $params['array'] = array_merge(
-                $params['array'], $params['attributes-specific']
+            $this->elements = array_merge(
+                $this->elements, $params['attributes-specific']
             );
         }
         if (isset($params['attributes-application'])) {
-            $params['array'] = array_merge(
-                $params['array'], $params['attributes-application']
+            $this->elements = array_merge(
+                $this->elements, $params['attributes-application']
             );
         }
-        $params['value'] = Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY;
-        $params['merge'] = true;
     }
 }

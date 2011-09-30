@@ -43,109 +43,35 @@ class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
      * @var array
      */
     protected $_fields_specific = array(
-        'name' => array (
-            'type'    => 'Horde_Kolab_Format_Xml_Type_Composite_Name'
-        ),
-        'free-busy-url' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'organization' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'web-page' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'im-address' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'department' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'office-location' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'profession' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'job-title' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'manager-name' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'assistant' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'nick-name' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'spouse-name' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'birthday' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'anniversary' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'picture' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'children' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'gender' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'language' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'address' => 'Horde_Kolab_Format_Xml_Type_Multiple_Address',
-        'email' => 'Horde_Kolab_Format_Xml_Type_Multiple_SimplePerson',
-        'phone' => 'Horde_Kolab_Format_Xml_Type_Multiple_Phone',
-        'preferred-address' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'latitude' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'longitude' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
+        'name'              => 'Horde_Kolab_Format_Xml_Type_Composite_Name',
+        'free-busy-url'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'organization'      => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'web-page'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'im-address'        => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'department'        => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'office-location'   => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'profession'        => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'job-title'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'manager-name'      => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'assistant'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'nick-name'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'spouse-name'       => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'birthday'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'anniversary'       => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'picture'           => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'children'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'gender'            => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'language'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'address'           => 'Horde_Kolab_Format_Xml_Type_Multiple_Address',
+        'email'             => 'Horde_Kolab_Format_Xml_Type_Multiple_SimplePerson',
+        'phone'             => 'Horde_Kolab_Format_Xml_Type_Multiple_Phone',
+        'preferred-address' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'latitude'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'longitude'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         // Horde specific fields
-        'pgp-publickey' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
+        'pgp-publickey'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         // Support for broken clients
-        'website' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'im-adress' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
+        'website'           => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'im-adress'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
     );
 }

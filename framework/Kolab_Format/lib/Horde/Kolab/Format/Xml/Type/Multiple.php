@@ -94,29 +94,6 @@ extends Horde_Kolab_Format_Xml_Type_Base
     }
 
     /**
-     * Load a default value for a node.
-     *
-     * @param string $name   The attribute name.
-     * @param array  $params The parameters for the current operation.
-     *
-     * @return mixed The default value.
-     *
-     * @throws Horde_Kolab_Format_Exception In case the attribute may not be
-     *                                      missing or the default value was
-     *                                      left undefined.
-     */
-    protected function loadMissing($name, $params)
-    {
-        if ($this->value == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
-            && !$this->isRelaxed($params)) {
-            throw new Horde_Kolab_Format_Exception_MissingValue($name);
-        }
-        if ($this->value == Horde_Kolab_Format_Xml::VALUE_DEFAULT) {
-            return $this->default;
-        }
-    }
-
-    /**
      * Update the specified attribute.
      *
      * @param string                        $name        The name of the the

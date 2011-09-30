@@ -29,33 +29,16 @@
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Type_Composite_Recurrence
-extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
+extends Horde_Kolab_Format_Xml_Type_Composite
 {
-    /** Override in extending classes to set predefined parameters. */
-    protected $_predefined_parameters = array(
-        'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-        'array'   => array(
-            'interval' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_INTEGER,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
-
-            'day' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
-            'daynumber' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_INTEGER,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'month' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'range' => array(
-                'type'    => 'Horde_Kolab_Format_Xml_Type_Range',
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'exclusion' => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
-            'complete' => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
-        ),
+    protected $elements = array(
+        'interval'  => 'Horde_Kolab_Format_Xml_Type_RecurrenceInterval',
+        'day'       => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
+        'daynumber' => 'Horde_Kolab_Format_Xml_Type_Integer',
+        'month'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'range'     => 'Horde_Kolab_Format_Xml_Type_RecurrenceRange',
+        'exclusion' => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
+        'complete'  => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
     );
 
     /**

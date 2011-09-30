@@ -38,6 +38,27 @@ class Horde_Kolab_Format_Xml_Type_Base
     private $_factory;
 
     /**
+     * Indicate which value type is expected.
+     *
+     * @var int
+     */
+    protected $value = Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING;
+
+    /**
+     * A default value if required.
+     *
+     * @var string
+     */
+    protected $default;
+
+    /**
+     * Collects xml types already created.
+     *
+     * @var array
+     */
+    static private $_xml_types;
+
+    /**
      * Constructor
      *
      * @param Horde_Kolab_Format_Factory $factory The factory for any additional
@@ -115,13 +136,12 @@ class Horde_Kolab_Format_Xml_Type_Base
      */
     protected function loadMissing($name, $params)
     {
-        if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
+        if ($this->value == Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY
             && !$this->isRelaxed($params)) {
             throw new Horde_Kolab_Format_Exception_MissingValue($name);
         }
-        if ($params['value'] == Horde_Kolab_Format_Xml::VALUE_DEFAULT) {
-            $this->checkMissing('default', $params, $name);
-            return $params['default'];
+        if ($this->value == Horde_Kolab_Format_Xml::VALUE_DEFAULT) {
+            return $this->default;
         }
     }
 
@@ -274,30 +294,6 @@ class Horde_Kolab_Format_Xml_Type_Base
     }
 
     /**
-     * Create a handler and the parameters for the sub type of this attribute.
-     *
-     * @param array $params     The parent parameters.
-     * @param array $sub_params The parameters for creating the sub type handler.
-     *
-     * @return array An array with the sub type handler and the sub type
-     *               parameters.
-     */
-    protected function createTypeAndParams($params, $sub_params)
-    {
-        $type_params = $params;
-        unset($type_params['array']);
-        unset($type_params['value']);
-        if (is_array($sub_params)) {
-            $sub_type = $this->createSubType($sub_params['type'], $params);
-            unset($sub_params['type']);
-            $type_params = array_merge($type_params, $sub_params);
-        } else {
-            $sub_type = $this->createSubType($sub_params, $params);
-        }
-        return array($sub_type, $type_params);
-    }
-
-    /**
      * Create a handler for the sub type of this attribute.
      *
      * @param string $type   The sub type.
@@ -307,6 +303,14 @@ class Horde_Kolab_Format_Xml_Type_Base
      */
     protected function createSubType($type, $params)
     {
-        return $this->_factory->createXmlType($type, $params);
+        if (isset($params['api-version'])) {
+            $class = $type . '_V' . $params['api-version'];
+        } else {
+            $class = $type;
+        }
+        if (!isset(self::$_xml_types[$class])) {
+            self::$_xml_types[$class] = $this->_factory->createXmlType($type, $params);
+        }
+        return self::$_xml_types[$class];
     }
 }
