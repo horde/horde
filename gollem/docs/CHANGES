@@ -1,6 +1,6 @@
---------
-v2.0-git
---------
+-----------
+v2.0-ALPHA1
+-----------
 
 [jan] Convert authentication infrastructure to H4.
 [jan] Provide default configuration files instead of .dist versions.

@@ -50,7 +50,7 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (2.0-git)';
+    public $version = 'H4 (2.0-ALPHA1)';
 
     /**
      * Cached values to add to the session after authentication.
