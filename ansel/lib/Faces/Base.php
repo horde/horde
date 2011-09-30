@@ -54,7 +54,7 @@ class Ansel_Faces_Base
             $file = $image;
         }
         if (empty($file)) {
-              return array();
+            return array();
         }
 
         // Get faces from driver
@@ -91,7 +91,7 @@ class Ansel_Faces_Base
      */
     public function getImageFacesData($image_id, $full = false)
     {
-        $sql = 'SELECT face_id, face_name';
+        $sql = 'SELECT face_id, face_name, image_id';
         if ($full) {
             $sql .= ', gallery_id, face_x1, face_y1, face_x2, face_y2';
         }
@@ -310,14 +310,13 @@ class Ansel_Faces_Base
     {
         $vfspath = Ansel_Faces::getVFSPath($image_id) . 'faces';
         $vfsname = $face_id . Ansel_Faces::getExtension();
-        if (!$GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
-            ->create('images')->exists($vfspath, $vfsname)) {
-
+        if (!$GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->exists($vfspath, $vfsname)) {
             if (!$create) {
                 return false;
             }
             $data = $this->getFaceById($face_id, true);
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            $image = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
                 ->getImage($image_id);
 
             // Actually create the image.
