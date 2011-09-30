@@ -313,15 +313,10 @@ class IMP_Message
                 $imp_headers = $imp_contents->getHeaderOb();
                 $subject = $imp_headers->getValue('subject');
 
-                /* Extract the message body. */
-                $mime_message = $imp_contents->getMIMEMessage();
-                $body_id = $imp_contents->findBody();
-                $body_part = $mime_message->getPart($body_id);
-                $body = $body_part->getContents();
-
                 /* Re-flow the message for prettier formatting. */
-                $flowed = new Horde_Text_Flowed($mime_message->replaceEOL($body, "\n"));
-                if ($mime_message->getContentTypeParameter('delsp') == 'yes') {
+                $body_part = $imp_contents->getMIMEPart($imp_contents->findBody());
+                $flowed = new Horde_Text_Flowed($body_part->replaceEOL($body, "\n"));
+                if ($body_part->getContentTypeParameter('delsp') == 'yes') {
                     $flowed->setDelSp(true);
                 }
                 $body = $flowed->toFlowed(false);
