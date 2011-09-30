@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix empty_file_input_value quirk for Chrome browsers (Bug #8481).
+* [jan] Fix empty_file_input_value quirk for Chrome browsers (Bug #8438).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
