@@ -280,7 +280,7 @@ $backends['file'] = array(
         // The base location under which the user home directories live.
         'vfsroot' => '/exampledir/home/',
         // The default permissions to set for newly created folders and files.
-        // 'permissions' => $conf['umask']
+        // 'permissions' => $GLOBALS['conf']['umask']
     ),
     'loginparams' => array(),
     'root' => '/',
