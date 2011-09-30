@@ -18,6 +18,7 @@
  * specific to any commercial mapping providers, such as google/yahoo etc...
  *
  * var options = {};
+ * // opts.defaultBase      - Id of the baselayer to enable by default.
  * // opts.delayed          - Don't bind the map to the dom until display() is
  * //                         called.
  * // opts.elt              - DOM Node to place map in
@@ -69,6 +70,7 @@ HordeMap.Map.Horde = Class.create({
             onClick: false,
             hide: true,
             onBaseLayerChange: false,
+            defaultBaseLayer: false,
             // default stylemap
             styleMap: new OpenLayers.StyleMap({
                 'default': {
@@ -132,8 +134,13 @@ HordeMap.Map.Horde = Class.create({
 
         // Used for converting between internal and display projections.
         this._proj = new OpenLayers.Projection("EPSG:4326");
+        if (this.opts.defaultBaseLayer) {
+           this.map.setBaseLayer(this.map.getLayersByName(this.opts.defaultBaseLayer).pop());
+        }
         this.map.zoomToMaxExtent();
-        this.map.events.register('changebaselayer', null, this.opts.onBaseLayerChange);
+        if (this.opts.onBaseLayerChange) {
+            this.map.events.register('changebaselayer', null, this.opts.onBaseLayerChange);
+        }
     },
 
     /**
