@@ -290,7 +290,7 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'class' => '__noselection',
                 'icon' =>  'empty_spam.png',
-                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your spam folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
                 'text' => _("Empty _Spam"),
                 'url' => $spam_folder->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
             ));
