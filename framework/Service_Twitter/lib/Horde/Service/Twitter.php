@@ -102,14 +102,14 @@ class Horde_Service_Twitter
      *
      * @param array $params  Configuration parameters, with the following keys:
      *                       - 'oauth' (required):
-     *                         - 'consumer_key' (required): The application's
-     *                           consumer key
-     *                         - 'consumer_secret' (required): The application's
-     *                           consumer secret
-     *                         - 'access_token' (optional): The user's access
-     *                           token
-     *                         - 'access_token_secret' (optional): The user's
-     *                           access token secret.
+     *                       - 'consumer_key' (required): The application's
+     *                         consumer key
+     *                       - 'consumer_secret' (required): The application's
+     *                         consumer secret
+     *                       - 'access_token' (optional): The user's access
+     *                         token
+     *                       - 'access_token_secret' (optional): The user's
+     *                         access token secret.
      *                       - 'http' (optional): any configuration parameters
      *                         for Horde_Http_Client, e.g. proxy settings.
      *
