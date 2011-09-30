@@ -76,13 +76,13 @@ var Horde_Twitter = Class.create({
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
             parameters: params,
-            onComplete: function(response) {
+            onSuccess: function(response) {
                 this.updateCallback(response.responseJSON);
             }.bind(this),
             onFailure: function() {
                 $(this.opts.spinner).toggle();
                 this.inReplyTo = '';
-            }
+            }.bind(this)
         });
     },
 
@@ -99,13 +99,13 @@ var Horde_Twitter = Class.create({
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
             parameters: params,
-            onComplete: function(response) {
+            onSuccess: function(response) {
                 this.updateCallback(response.responseJSON);
             }.bind(this),
             onFailure: function() {
                 $(this.opts.spinner).toggle();
                 this.inReplyTo = '';
-            }
+            }.bind(this)
         });
     },
 
@@ -141,7 +141,7 @@ var Horde_Twitter = Class.create({
             onSuccess: callback,
             onFailure: function() {
                 $(this.opts.spinner).toggle();
-            }
+            }.bind(this)
         });
     },
 
@@ -177,7 +177,7 @@ var Horde_Twitter = Class.create({
             onSuccess: callback,
             onFailure: function() {
                 $(this.opts.spinner).toggle();
-            }
+            }.bind(this)
         });
     },
 
@@ -291,6 +291,7 @@ var Horde_Twitter = Class.create({
      * Callback for after a new tweet is posted.
      */
     updateCallback: function(response) {
+       if (response.error)
        this.buildNewTweet(response);
        $(this.opts.input).value = this.opts.strings.defaultText;
        $(this.opts.spinner).toggle();

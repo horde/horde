@@ -39,15 +39,23 @@ case 'updateStatus':
     } else {
         $params = array();
     }
-    $result = $twitter->statuses->update(Horde_Util::getPost('statusText'), $params);
-    header('Content-Type: application/json');
-    echo $result;
+    try {
+        $result = $twitter->statuses->update(Horde_Util::getPost('statusText'), $params);
+        header('Content-Type: application/json');
+        echo $result;
+    } catch (Horde_Service_Twitter_Exception $e) {
+        header('HTTP/1.1: 500');
+    }
     exit;
 
 case 'retweet':
-    $result = $twitter->statuses->retweet(Horde_Util::getPost('tweetId'));
-    header('Content-Type: application/json');
-    echo $result;
+    try {
+        $result = $twitter->statuses->retweet(Horde_Util::getPost('tweetId'));
+        header('Content-Type: application/json');
+        echo $result;
+    } catch (Horde_Service_Twitter_Exception $e) {
+        header('HTTP/1.1: 500');
+    }
     exit;
 
 case 'getPage':
@@ -65,6 +73,7 @@ case 'getPage':
             $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
         }
     } catch (Horde_Service_Twitter_Exception $e) {
+        //header('HTTP/1.1: 500');
         echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
         exit;
     }
