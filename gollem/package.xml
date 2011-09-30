@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-30</date>
- <time>12:28:28</time>
+ <time>12:34:02</time>
  <version>
   <release>2.0.0alpha2</release>
   <api>2.0.0alpha2</api>
@@ -34,12 +34,14 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add missing backends configuration.
 * [jan] Add missing sort icons.
 * [jan] Fix broken dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="config">
+    <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="menu.php.dist" role="horde" />
     <file name="mime_drivers.php" role="horde" />
@@ -490,6 +492,7 @@
    <install as="README" name="README" />
    <install as="gollem/selectlist.php" name="selectlist.php" />
    <install as="gollem/view.php" name="view.php" />
+   <install as="gollem/config/backends.php" name="config/backends.php" />
    <install as="gollem/config/conf.xml" name="config/conf.xml" />
    <install as="gollem/config/menu.php.dist" name="config/menu.php.dist" />
    <install as="gollem/config/mime_drivers.php" name="config/mime_drivers.php" />
@@ -639,6 +642,7 @@
    <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add missing backends configuration.
 * [jan] Add missing sort icons.
 * [jan] Fix broken dependency.
    </notes>
