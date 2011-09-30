@@ -346,8 +346,8 @@ if (!$preview_tooltip) {
 
 $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SORT_RESULTS_COUNT);
 
-Horde::addInlineScript(array(
-    'ImpMailbox.unread = ' . intval($unread)
+Horde::addInlineJsVars(array(
+    'ImpMailbox.unread' => intval($unread)
 ));
 
 $pagetitle = $title = IMP::$mailbox->label;

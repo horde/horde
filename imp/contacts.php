@@ -106,13 +106,13 @@ $template->set('cc', intval(!$vars->to_only));
 $template->set('sa', $selected_addresses);
 
 $js = array(
-    'ImpContacts.formname = "' . $vars->formname . '"',
-    'ImpContacts.to_only = ' . intval($vars->to_only)
+    'ImpContacts.formname' => $vars->formname,
+    'ImpContacts.to_only' => intval($vars->to_only)
 );
 if (isset($vars->formfield)) {
-    $js[] = 'ImpContacts.formfield = "' . $vars->formfield . '"';
+    $js['ImpContacts.formfield'] = $vars->formfield;
 }
-Horde::addInlineScript($js);
+Horde::addInlineJsVars($js);
 
 /* Display the form. */
 $title = _("Address Book");
