@@ -2,6 +2,8 @@
 v2.0.1-git
 ----------
 
+[jan] Fix file viewing.
+[jan] Add missing backends configuration.
 [jan] Add missing sort icons.
 [jan] Fix broken dependency.
 

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix file viewing.
 * [jan] Add missing backends configuration.
 * [jan] Add missing sort icons.
 * [jan] Fix broken dependency.
@@ -642,6 +643,7 @@
    <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix file viewing.
 * [jan] Add missing backends configuration.
 * [jan] Add missing sort icons.
 * [jan] Fix broken dependency.

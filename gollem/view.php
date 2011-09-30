@@ -15,7 +15,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp', array(
+Horde_Registry::appInit('gollem', array(
     'session_control' => 'readonly'
 ));
 
