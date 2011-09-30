@@ -683,16 +683,17 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     }
 
     /**
-     * Stub to check if we have a valid connection. Makes sure that
-     * the vfsroot is readable.
+     * Make sure that the vfsroot is readable.
      *
      * @throws Horde_Vfs_Exception
      */
     protected function _connect()
     {
-        if (!(@is_dir($this->_params['vfsroot']) &&
-              is_readable($this->_params['vfsroot'])) ||
-            !@mkdir($this->_params['vfsroot'])) {
+        if (!@is_dir($this->_params['vfsroot'])) {
+            @mkdir($this->_params['vfsroot']);
+        }
+
+        if (!is_readable($this->_params['vfsroot'])) {
             throw new Horde_Vfs_Exception('Unable to read the vfsroot directory.');
         }
     }

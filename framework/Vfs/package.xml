@@ -28,7 +28,7 @@ Reading, writing and listing of files are all supported, and there are both obje
   <active>yes</active>
  </lead>
  <date>2011-09-30</date>
- <time>11:29:58</time>
+ <time>12:32:28</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -39,6 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix using File driver if vfsroot directory already exists (Bug #10584).
 * [mms] Fix internal reference to QUOTA_METRIC_* constants (Bug #10585).
 * [jan] Fix parsing of directory listings on /dev file systems in the SSH driver.
  </notes>
@@ -354,6 +355,7 @@ Reading, writing and listing of files are all supported, and there are both obje
        <file name="samba2.txt" role="test" />
       </dir> <!-- /test/Horde/Vfs/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="FileTest.php" role="test" />
       <file name="KolabTest.php" role="test" />
       <file name="SmbTest.php" role="test" />
      </dir> <!-- /test/Horde/Vfs -->
@@ -555,6 +557,7 @@ Reading, writing and listing of files are all supported, and there are both obje
    <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/Vfs/1_horde_vfs_base_tables.php" />
    <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/Vfs/2_horde_vfs_upgrade_autoincrement.php" />
    <install as="Horde/Vfs/AllTests.php" name="test/Horde/Vfs/AllTests.php" />
+   <install as="Horde/Vfs/FileTest.php" name="test/Horde/Vfs/FileTest.php" />
    <install as="Horde/Vfs/KolabTest.php" name="test/Horde/Vfs/KolabTest.php" />
    <install as="Horde/Vfs/SmbTest.php" name="test/Horde/Vfs/SmbTest.php" />
    <install as="Horde/Vfs/fixtures/samba1.txt" name="test/Horde/Vfs/fixtures/samba1.txt" />
@@ -891,6 +894,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix using File driver if vfsroot directory already exists (Bug #10584).
 * [mms] Fix internal reference to QUOTA_METRIC_* constants (Bug #10585).
 * [jan] Fix parsing of directory listings on /dev file systems in the SSH driver.
    </notes>
