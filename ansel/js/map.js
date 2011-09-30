@@ -20,9 +20,9 @@
      *
      * e - dom id
      * opts {
-     *    'onHover':  callback for handling a feature's hover event or false
-     *                if not used.
-     *    'onClick': Callback for click event on the map (not a feature).
+     *    'onHover':    Callback for handling a feature's hover event or false
+     *                  if not used.
+     *    'onClick':    Callback for click event on the map (not a feature).
      *    'imageLayer': Separate layer for thumbnails? If this is set, a
      *                  second vector layer will be added and thumbnails will
      *                  be placed on this layer, separate from the 'markerOnly'
@@ -75,8 +75,11 @@
         var map = this._initializeMap(e, {
             'styleMap': style,
             'layerSwitcher': true,
-            'markerLayerTitle': opts.markerLayerText
+            'markerLayerTitle': opts.markerLayerText,
+            'onBaseLayerChange': (opts.onBaseLayerChange) ? opts.onBaseLayerChange : false,
+            'defaultBaseLayer': opts.defaultBaseLayer
         });
+
         if (!opts.imageLayer) {
             this.maps[e]._highlightControl = map.addHighlightControl({
                 'onHover': opts.onHover,
@@ -156,7 +159,7 @@
         });
     },
 
-    _initializeMap: function(e, opts)
+    _initializeMap: function(e, op)
     {
         if (this.mapInitialized[e]) {
             return this.maps[e];
@@ -166,9 +169,10 @@
             'layerSwitcher': false,
             'onHover': false,
             'markerDragEnd': Prototype.EmptyFunction,
-            'markerLayerTitle': ''
+            'markerLayerTitle': '',
+            'onBaseLayerChange': false
         }
-        this.opts = Object.extend(o, opts || {});
+        var opts = Object.extend(o, op || {});
         var layers = [];
         if (Ansel.conf.maps.providers) {
             Ansel.conf.maps.providers.each(function(l) {
@@ -180,25 +184,31 @@
             elt: e,
             layers: layers,
             draggableFeatures: (opts.draggableFeatures) ? true : false,
-            panzoom: this.opts.panzoom,
-            zoomworldicon: (this.opts.zoomworldicon) ? this.opts.zoomworldicon : false,
-            showLayerSwitcher: this.opts.layerSwitcher,
+            panzoom: opts.panzoom,
+            zoomworldicon: (opts.zoomworldicon) ? opts.zoomworldicon : false,
+            showLayerSwitcher: opts.layerSwitcher,
             useMarkerLayer: true,
             markerImage: Ansel.conf.markeruri,
             markerBackground: Ansel.conf.shadowuri,
             pointRadius: 20,
-            onHover: this.opts.onHover,
-            onClick: this.opts.onClick,
-            markerDragEnd: this.opts.markerDragEnd,
-            mapClick: (this.opts.mapClick) ? this.opts.mapClick.bind(this) : Prototype.EmptyFunction,
-            delayed: (this.opts.delayed) ? true : false,
-            markerLayerTitle: this.opts.markerLayerTitle
+            onHover: opts.onHover,
+            onClick: opts.onClick,
+            markerDragEnd: opts.markerDragEnd,
+            mapClick: (opts.mapClick) ? opts.mapClick.bind(this) : Prototype.EmptyFunction,
+            delayed: (opts.delayed) ? true : false,
+            markerLayerTitle: opts.markerLayerTitle
         }
-        if (this.opts.styleMap) {
-            mapOpts.styleMap = this.opts.styleMap;
+        if (opts.styleMap) {
+            mapOpts.styleMap = opts.styleMap;
         }
+        mapOpts.onBaseLayerChange = opts.onBaseLayerChange;
+
         this.maps[e] = new HordeMap.Map[Ansel.conf.maps.driver](mapOpts);
         this.mapInitialized[e] = true;
+        if (opts.defaultBaseLayer) {
+            this.maps[e].map.setBaseLayer(this.maps[e].map.getLayersByName(opts.defaultBaseLayer).pop());
+        }
+
         return this.maps[e];
     },
 

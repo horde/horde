@@ -3,14 +3,17 @@ AnselBlockGeoTag = Class.create({
     _map: null,
     _imgs: null,
 
-    initialize: function(imgs)
+    initialize: function(imgs, opts)
     {
+        this.opts = opts;
         AnselMap.initMainMap('ansel_map', {
             'onHover': function() { return true },
             'onClick': function(f) {
                 var uri = f.feature.attributes.image_link;
                 location.href = uri;
-            }.bind(this)
+            }.bind(this),
+           'defaultBaseLayer': opts.defaultBaseLayer,
+           'onBaseLayerChange': this.updateBaseLayer.bind(this)
         });
         this.placeImages(imgs);
     },
@@ -41,5 +44,19 @@ AnselBlockGeoTag = Class.create({
             );
         }
     },
+
+    updateBaseLayer: function(l)
+    {
+        var params = { 'values': 'name=' + l.layer.name };
+        new Ajax.Request(this.opts.layerUpdateEndpoint + '/post=values', {
+            method: 'post',
+            parameters: params,
+            onComplete: function(transport) {
+                 if (typeof Horde_ToolTips != 'undefined') {
+                     Horde_ToolTips.out();
+                 }
+             }.bind(this)
+        });
+    }
 
 });

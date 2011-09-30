@@ -141,7 +141,9 @@ $_prefs['show_actions'] = array(
 $_prefs['show_othergalleries'] = array(
     'value' => 0
 );
-
+$_prefs['current_maplayer'] = array(
+    'value' => ''
+);
 $_prefs['watermark_text'] = array(
     'value' => '',
     'type' => 'text',
