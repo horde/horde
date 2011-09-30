@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link       http://pear.horde.org/index.php?package=Vfs
  */
 
 /**
@@ -25,7 +25,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link       http://pear.horde.org/index.php?package=Kolab_Storage
+ * @link       http://pear.horde.org/index.php?package=Vfs
  */
 class Horde_Vfs_KolabTest extends PHPUnit_Framework_TestCase
 {
