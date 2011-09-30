@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-30</date>
- <time>20:08:55</time>
+ <time>20:55:58</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -42,6 +42,7 @@
        <dir name="examples">
         <file name="event.php" role="doc" />
         <file name="new_type.php" role="doc" />
+        <file name="speed_check.php" role="doc" />
        </dir> <!-- /doc/Horde/Kolab/Format/examples -->
        <file name="COPYING" role="doc" />
        <file name="TODO" role="doc" />
@@ -243,8 +244,6 @@
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="test_new.php" role="php" />
-   <file name="test_old.php" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -288,13 +287,12 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="" name="test_new.php" />
-   <install as="" name="test_old.php" />
    <install as="COPYING" name="doc/Horde/Kolab/Format/COPYING" />
    <install as="TODO" name="doc/Horde/Kolab/Format/TODO" />
    <install as="usage.txt" name="doc/Horde/Kolab/Format/usage.txt" />
    <install as="examples/event.php" name="doc/Horde/Kolab/Format/examples/event.php" />
    <install as="examples/new_type.php" name="doc/Horde/Kolab/Format/examples/new_type.php" />
+   <install as="examples/speed_check.php" name="doc/Horde/Kolab/Format/examples/speed_check.php" />
    <install as="Horde/Kolab/Format.php" name="lib/Horde/Kolab/Format.php" />
    <install as="Horde/Kolab/Format/Date.php" name="lib/Horde/Kolab/Format/Date.php" />
    <install as="Horde/Kolab/Format/Exception.php" name="lib/Horde/Kolab/Format/Exception.php" />
