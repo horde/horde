@@ -23,10 +23,10 @@
   <active>yes</active>
  </lead>
  <date>2011-09-30</date>
- <time>11:21:31</time>
+ <time>12:28:28</time>
  <version>
-  <release>2.0.0RC1</release>
-  <api>2.0.0RC1</api>
+  <release>2.0.0alpha2</release>
+  <api>2.0.0alpha2</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -34,7 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Add missing sort icons.
+* [jan] Fix broken dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -291,6 +292,7 @@
     </dir> <!-- /themes/brown -->
     <dir name="default">
      <dir name="graphics">
+      <file name="az.png" role="horde" />
       <file name="clipboard.png" role="horde" />
       <file name="copy.png" role="horde" />
       <file name="cut.png" role="horde" />
@@ -301,6 +303,7 @@
       <file name="folder_home.png" role="horde" />
       <file name="folder_symlink.png" role="horde" />
       <file name="gollem.png" role="horde" />
+      <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
@@ -434,13 +437,6 @@
    </package>
    <package>
     <name>Horde_Serialize</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Session</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -593,6 +589,7 @@
    <install as="gollem/templates/selectlist/selectlist.html" name="templates/selectlist/selectlist.html" />
    <install as="gollem/themes/brown/screen.css" name="themes/brown/screen.css" />
    <install as="gollem/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="gollem/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="gollem/themes/default/graphics/clipboard.png" name="themes/default/graphics/clipboard.png" />
    <install as="gollem/themes/default/graphics/copy.png" name="themes/default/graphics/copy.png" />
    <install as="gollem/themes/default/graphics/cut.png" name="themes/default/graphics/cut.png" />
@@ -603,6 +600,7 @@
    <install as="gollem/themes/default/graphics/folder_home.png" name="themes/default/graphics/folder_home.png" />
    <install as="gollem/themes/default/graphics/folder_symlink.png" name="themes/default/graphics/folder_symlink.png" />
    <install as="gollem/themes/default/graphics/gollem.png" name="themes/default/graphics/gollem.png" />
+   <install as="gollem/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
    <install as="gollem/themes/purple/screen.css" name="themes/purple/screen.css" />
    <install as="gollem/themes/silver/graphics/clipboard.png" name="themes/silver/graphics/clipboard.png" />
    <install as="gollem/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
@@ -633,15 +631,16 @@
   </release>
   <release>
    <version>
-    <release>2.0.0RC1</release>
-    <api>2.0.0RC1</api></version>
+    <release>2.0.0alpha2</release>
+    <api>2.0.0alpha2</api></version>
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
    <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Add missing sort icons.
+* [jan] Fix broken dependency.
    </notes>
   </release>
  </changelog>
