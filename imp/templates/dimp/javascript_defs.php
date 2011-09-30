@@ -86,12 +86,14 @@ $code['conf'] = array_filter(array(
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'sidebar_width' => max(intval($GLOBALS['prefs']->getValue('sidebar_width')), 150) . 'px',
-    'snooze' => array('0' => _("select..."),
-                      '5' => _("5 minutes"),
-                      '15' => _("15 minutes"),
-                      '60' => _("1 hour"),
-                      '360' => _("6 hours"),
-                      '1440' => _("1 day")),
+    'snooze' => array(
+        '0' => _("select..."),
+        '5' => _("5 minutes"),
+        '15' => _("15 minutes"),
+        '60' => _("1 hour"),
+        '360' => _("6 hours"),
+        '1440' => _("1 day")
+    ),
     'sort' => array(
         'sequence' => array(
             't' => '',
@@ -125,7 +127,6 @@ $code['conf'] = array_filter(array(
     'spam_spammbox' => intval(!empty($GLOBALS['conf']['spam']['spamfolder'])),
     'splitbar_horiz' => intval($GLOBALS['prefs']->getValue('dimp_splitbar')),
     'splitbar_vert' => intval($GLOBALS['prefs']->getValue('dimp_splitbar_vert')),
-
     'toggle_pref' => intval($GLOBALS['prefs']->getValue('dimp_toggle_headers')),
     'viewport_wait' => intval($GLOBALS['conf']['dimp']['viewport']['viewport_wait']),
 ));

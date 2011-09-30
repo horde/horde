@@ -124,28 +124,26 @@ class IMP
      * and &lt;/select&gt; tags are NOT included in the output.
      *
      * @param array $options  Optional parameters:
-     * <pre>
-     * 'abbrev' - (boolean) Abbreviate long mailbox names by replacing the
-     *            middle of the name with '...'?
-     *            DEFAULT: Yes
-     * 'basename' - (boolean)  Use raw basename instead of abbreviated label?
-     *              DEFAULT: false
-     * 'filter' - (array) An array of mailboxes to ignore.
-     *            DEFAULT: Display all
-     * 'heading' - (string) The label for an empty-value option at the top of
-     *             the list.
-     *             DEFAULT: ''
-     * 'inc_notepads' - (boolean) Include user's editable notepads in list?
+     *   - abbrev: (boolean) Abbreviate long mailbox names by replacing the
+     *             middle of the name with '...'?
+     *             DEFAULT: Yes
+     *   - basename: (boolean)  Use raw basename instead of abbreviated label?
+     *               DEFAULT: false
+     *   - filter: (array) An array of mailboxes to ignore.
+     *             DEFAULT: Display all
+     *   - heading: (string) The label for an empty-value option at the top of
+     *              the list.
+     *              DEFAULT: ''
+     *   - inc_notepads: (boolean) Include user's editable notepads in list?
      *                   DEFAULT: No
-     * 'inc_tasklists' - (boolean) Include user's editable tasklists in list?
-     *                   DEFAULT: No
-     * 'inc_vfolder' - (boolean) Include user's virtual folders in list?
-     *                   DEFAULT: No
-     * 'new_folder' - (boolean) Display an option to create a new folder?
-     *                DEFAULT: No
-     * 'selected' - (string) The mailbox to have selected by default.
-     *             DEFAULT: None
-     * </pre>
+     *   - inc_tasklists: (boolean) Include user's editable tasklists in list?
+     *                    DEFAULT: No
+     *   - inc_vfolder: (boolean) Include user's virtual folders in list?
+     *                  DEFAULT: No
+     *   - new_folder: (boolean) Display an option to create a new folder?
+     *                 DEFAULT: No
+     *   - selected: (string) The mailbox to have selected by default.
+     *               DEFAULT: None
      *
      * @return string  A string containing <option> elements for each mailbox
      *                 in the list.
