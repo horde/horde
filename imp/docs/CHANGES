@@ -2,6 +2,7 @@
 v5.0.14-git
 -----------
 
+[mms] Fix setting MDN flag on sent message after compose (Bug #10579).
 [mms] When expanding a submailbox in dynamic view, honor expanded children
       status.
 [mms] Re-add 'msgs_shown' parameter to Newmail block.

@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-09-30</date>
- <time>01:41:15</time>
+ <time>11:27:44</time>
  <version>
   <release>5.0.14</release>
   <api>5.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix setting MDN flag on sent message after compose (Bug #10579).
 * [mms] When expanding a submailbox in dynamic view, honor expanded children status.
 * [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
 * [mms] Allow multiple messages to be sent via quickreply in dynamic view.
@@ -2524,6 +2525,7 @@
    <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix setting MDN flag on sent message after compose (Bug #10579).
 * [mms] When expanding a submailbox in dynamic view, honor expanded children status.
 * [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
 * [mms] Allow multiple messages to be sent via quickreply in dynamic view.

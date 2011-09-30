@@ -731,7 +731,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             if ($prefs->getValue('request_mdn') != 'never') {
                 $mdn = new Horde_Mime_Mdn($headers);
                 if ($mdn->getMdnReturnAddr()) {
-                    $flags[] = array(Horde_Imap_Client::FLAG_MDNSENT);
+                    $flags[] = Horde_Imap_Client::FLAG_MDNSENT;
                 }
             }
 
