@@ -424,9 +424,6 @@ class Ansel_Faces_Base
             throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
         }
 
-        // The user edits the screen image not the full image
-        $image->load('screen');
-
         // Process the image
         $this->createView(
             $face_id,
