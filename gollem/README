@@ -9,7 +9,7 @@
 
 Gollem is a web-based file manager, providing the ability to fully manage a
 hierarchical file system stored in a variety of backends such as a SQL
-database, as part of a real filesystem, or on an FTP server.
+database, as part of a real filesystem, or on FTP, Samba or SSH servers.
 
 This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.

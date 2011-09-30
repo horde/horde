@@ -10,16 +10,16 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the first alpha release of the Gollem
-File Manager version H4 (2.0).
+File Manager version H4 (2.0-ALPHA1).
 
 Gollem is a web-based file manager, providing the ability to fully manage a
 hierarchical file system stored in a variety of backends such as a SQL
-database, as part of a real filesystem, an FTP server, or an SSH2 server.
+database, as part of a real filesystem, or on FTP, Samba or SSH servers.
 
 This is a preview version that should not be used on production systems.  This
 version is considered feature complete but there might still be a few bugs.
