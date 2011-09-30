@@ -35,7 +35,8 @@ $allTests = array(
     'testResize' => 'Test resize method.',
     'multipage' => 'Test Multipage tiffs',
     'liquid' => 'Test Seam Carving',
-    'smart' => 'Test Smart Crop (Center of Edginess)'
+    'smart' => 'Test Smart Crop (Center of Edginess)',
+    'crop' => 'Basic Crop Test'
 );
 ?>
 <html>

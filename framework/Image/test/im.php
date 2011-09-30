@@ -34,6 +34,15 @@ case 'smart':
     logThis($test, $time, $memory);
     exit;
 
+case 'crop':
+    $time = xdebug_time_index();
+    $image = getImageObject(array('filename' => 'img4.jpg'));
+    $image->crop(1, 1, 50, 50);
+    $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
+
 case 'liquid':
     $time = xdebug_time_index();
     $image = getImageObject(array('filename' => 'img4.jpg'));
@@ -479,14 +488,22 @@ case 'testPolaroidstackBlueBG':
  */
 function getImageObject($params = array())
 {
-    global $conf;
+    global $conf, $driver;
 
-    $context = array('tmpdir' => Horde::getTempDir(),
-                     'convert' => $GLOBALS['convert'],
-                     'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
-                     'identify' => $GLOBALS['identify']);
+    $context = array(
+        'tmpdir' => Horde::getTempdir(),
+    );
+    if ($driver == 'Im') {
+        $context['convert'] = $conf['image']['convert'];
+        $context['identify'] = $conf['image']['identify'];
+    }
+    // Use the default
+    $class = 'Horde_Image_' . $driver;
+    if (class_exists($class)) {
+        return new $class($params, $context);
+    }
 
-    return new Horde_Image_Im($params, $context);
+    throw new Horde_Exception('Invalid Image driver specified: ' . $class . ' not found.');
 }
 
 function logThis($effect, $time, $memory)
