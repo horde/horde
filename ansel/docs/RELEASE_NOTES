@@ -10,25 +10,51 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 
-The Horde Team is pleased to announce the final release of the Ansel Photo
-Management and Web Gallery application version H3 (1.0).
+The Horde Team is pleased to announce the first alpha release of the Ansel Photo
+Management and Web Gallery application version H4 (2.0-ALPHA1).
 
 Ansel is a full featured photo management application. With it, you can organize
 your photos in any number of galleries and subgalleries, share galleries among
-other Horde users or even make them public. Ansel supports a wide range of
+other Horde users or make them public. Ansel supports a wide range of
 features. See http://horde.org/ansel for more information.
+
+This is a preview version that should not be used on production systems.  This
+version is considered feature complete but there might still be a few bugs.
+You should not use this preview version over existing production data.
+
+We encourage widespread testing and feedback via the mailing lists or our bug
+tracking system. Updated and new translations are very welcome, though some
+strings might still change before the final release.
+
+Major changes compared to the Ansel H3 versions are:
+    * Updated to work with Horde 4.
+    * Improved geotagging features based on OpenLayers.
+    * Now uses the global Horde Tagging system.
+    * New, improved uploader.
+    * Improved Exif support.
+    * Added new thumbnail types and processing options.
+    * Mobile view added.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-This is the first stable release.
+Updated to work with Horde 4.
+Improved geotagging features based on OpenLayers.
+Now uses the global Horde Tagging system.
+New, improved uploader.
+Improved Exif support.
+Added new thumbnail types and processing options.
+Mobile view added.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Ansel';
+$this->notes['list'] = 'ansel';
 $this->notes['fm']['project'] = 'horde-ansel';
 $this->notes['fm']['branch'] = 'Horde 4';
