@@ -20,7 +20,7 @@ class Horde_Block_Cloud extends Horde_Core_Block
     {
         $cloud = new Horde_Core_Ui_TagCloud();
         foreach ($this->_getTags() as $tag) {
-            $cloud->addElement($tag['tag_name'], '#', $tag['total'],
+            $cloud->addElement($tag['tag_name'], '#', $tag['count'],
                                null,
                                'doSearch(\'' . $tag['tag_name'] . '\');');
         }
