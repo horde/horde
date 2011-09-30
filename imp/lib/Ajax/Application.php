@@ -1412,11 +1412,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return false;
         }
 
-        if ($expunge_count == 1) {
-            $GLOBALS['notification']->push(sprintf(_("1 message was purged from \"%s\"."), $this->_mbox->display), 'horde.success');
-        } else {
-            $GLOBALS['notification']->push(sprintf(_("%s messages were purged from \"%s\"."), $expunge_count, $this->_mbox->display), 'horde.success');
-        }
+        $GLOBALS['notification']->push(sprintf(ngettext("%d message was purged from \"%s\".", "%d messages were purged from \"%s\".", $expunge_count), $expunge_count, $this->_mbox->display), 'horde.success');
 
         return $this->_generateDeleteResult($expunged, $change);
     }
