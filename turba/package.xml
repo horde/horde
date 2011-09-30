@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-29</date>
- <time>14:47:43</time>
+ <date>2011-09-30</date>
+ <time>08:51:29</time>
  <version>
   <release>3.0.10</release>
   <api>3.0.0</api>
@@ -511,7 +511,6 @@
        <file name="Base.php" role="test" />
        <file name="KolabTest.php" role="test" />
       </dir> <!-- /test/Turba/Unit/Turba -->
-      <file name=".gitignore" role="test" />
      </dir> <!-- /test/Turba/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -1047,7 +1046,6 @@
    <install as="Turba/ToDo/tovcard.phpt" name="test/Turba/ToDo/tovcard.phpt" />
    <install as="Turba/ToDo/ViewBrowseTest.php" name="test/Turba/ToDo/ViewBrowseTest.php" />
    <install as="Turba/ToDo/ViewListTest.php" name="test/Turba/ToDo/ViewListTest.php" />
-   <install as="Turba/Unit/.gitignore" name="test/Turba/Unit/.gitignore" />
    <install as="Turba/Unit/Driver/Base.php" name="test/Turba/Unit/Driver/Base.php" />
    <install as="Turba/Unit/Driver/KolabTest.php" name="test/Turba/Unit/Driver/KolabTest.php" />
    <install as="Turba/Unit/Driver/Sql/Base.php" name="test/Turba/Unit/Driver/Sql/Base.php" />
@@ -1345,7 +1343,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-29</date>
+   <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
