@@ -2,8 +2,6 @@
  Kolab_Format Development TODO List
 ====================================
 
- - performance check
-
  - Extract Xml_* subtypes to Xml_Type_Composite_* types
 
  - Think about storing the data in iCal format.
