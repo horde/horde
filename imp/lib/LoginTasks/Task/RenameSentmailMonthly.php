@@ -96,7 +96,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
         // @TODO
         $last_maint = $GLOBALS['prefs']->getValue('last_maintenance');
         if (empty($last_maint)) {
-            $last_maintenance = mktime(0, 0, 0, date('m') - 1, 1);
+            $last_maint = mktime(0, 0, 0, date('m') - 1, 1);
         }
 
         $text = (substr($GLOBALS['language'], 0, 2) == 'en')
