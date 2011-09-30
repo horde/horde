@@ -284,6 +284,19 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     }
 
     /**
+     * Return the API version of the data structures that are being used for in-
+     * and output.
+     *
+     * @since Horde_Kolab_Format 1.1.0
+     *
+     * @return int The version number;
+     */
+    public function getVersion()
+    {
+        return $this->_version;
+    }
+
+    /**
      * Generate the internal parameter list for this operation.
      *
      * @param array $options The options for this operation.
