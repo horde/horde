@@ -294,33 +294,45 @@ class Ansel_Image Implements Iterator
             $this->_image->loadString($this->_data['full']);
             $this->_loaded['full'] = true;
             return;
-        }
-        $viewHash = $this->getViewHash($view, $style);
+        } elseif ($view == 'full') {
+            try {
+                $data = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('images')
+                    ->read($this->getVFSPath('full'), $this->getVFSName('full'));
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ansel_Exception($e);
+            }
+            $viewHash = 'full';
+        } else {
+            $viewHash = $this->getViewHash($view, $style);
 
-        // If we've already loaded the data, just return now.
-        if (!empty($this->_loaded[$viewHash])) {
-            return;
-        }
-        $this->createView($view, $style);
+            // If we've already loaded the data, just return now.
+            if (!empty($this->_loaded[$viewHash])) {
+                return;
+            }
+            $this->createView($view, $style);
 
-        // If createView() had to resize the full image, we've already
-        // loaded the data, so return now.
-        if (!empty($this->_loaded[$viewHash])) {
-            return;
-        }
+            // If createView() had to resize the full image, we've already
+            // loaded the data, so return now.
+            if (!empty($this->_loaded[$viewHash])) {
+                return;
+            }
 
-        // Get the VFS info.
-        $vfspath = $this->getVFSPath($view, $style);
+            // Get the VFS info.
+            $vfspath = $this->getVFSPath($view, $style);
 
-        // Read in the requested view.
-        try {
-            $data = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Vfs')
-                ->create('images')
-                ->read($vfspath, $this->getVFSName($view));
-        } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            throw new Ansel_Exception($e);
+            // Read in the requested view.
+            try {
+                $data = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('images')
+                    ->read($vfspath, $this->getVFSName($view));
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ansel_Exception($e);
+            }
         }
 
         /* We've definitely successfully loaded the image now. */
@@ -391,7 +403,6 @@ class Ansel_Image Implements Iterator
         if ($GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
             ->create('images')
             ->exists($vfspath, $this->getVFSName($view))) {
-
             return;
         }
         try {
