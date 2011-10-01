@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-08-17</date>
- <time>14:56:40</time>
+ <date>2011-10-01</date>
+ <time>21:13:29</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -29,10 +29,17 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [gwr] Fix installation paths (Bug #10588)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Log">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Log -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Log">
@@ -129,12 +136,14 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Log/COPYING" />
    <install as="Horde/Log.php" name="lib/Horde/Log.php" />
    <install as="Horde/Log/Exception.php" name="lib/Horde/Log/Exception.php" />
    <install as="Horde/Log/Filter.php" name="lib/Horde/Log/Filter.php" />
    <install as="Horde/Log/Formatter.php" name="lib/Horde/Log/Formatter.php" />
    <install as="Horde/Log/Logger.php" name="lib/Horde/Log/Logger.php" />
    <install as="Horde/Log/Filter/Constraint.php" name="lib/Horde/Log/Filter/Constraint.php" />
+   <install as="Horde/Log/Filter/ExactLevel.php" name="lib/Horde/Log/Filter/ExactLevel.php" />
    <install as="Horde/Log/Filter/Level.php" name="lib/Horde/Log/Filter/Level.php" />
    <install as="Horde/Log/Filter/Message.php" name="lib/Horde/Log/Filter/Message.php" />
    <install as="Horde/Log/Filter/Suppress.php" name="lib/Horde/Log/Filter/Suppress.php" />
@@ -151,6 +160,7 @@
    <install as="Horde/Log/LogTest.php" name="test/Horde/Log/LogTest.php" />
    <install as="Horde/Log/Filter/ChainingTest.php" name="test/Horde/Log/Filter/ChainingTest.php" />
    <install as="Horde/Log/Filter/ConstraintTest.php" name="test/Horde/Log/Filter/ConstraintTest.php" />
+   <install as="Horde/Log/Filter/ExactLevelTest.php" name="test/Horde/Log/Filter/ExactLevelTest.php" />
    <install as="Horde/Log/Filter/LevelTest.php" name="test/Horde/Log/Filter/LevelTest.php" />
    <install as="Horde/Log/Filter/MessageTest.php" name="test/Horde/Log/Filter/MessageTest.php" />
    <install as="Horde/Log/Filter/SuppressTest.php" name="test/Horde/Log/Filter/SuppressTest.php" />
@@ -271,10 +281,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-17</date>
+   <date>2011-10-01</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [gwr] Fix installation paths (Bug #10588)
    </notes>
   </release>
  </changelog>
