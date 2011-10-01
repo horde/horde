@@ -401,7 +401,7 @@ class Ansel_Faces_Base
      * image. Used for setting a face range explicitly.
      *
      * @param integer $face_id   Face id to save
-     * @param integer $image     Image face belongs to
+     * @param integer $image_id  Image face belongs to
      * @param integer $x1        The top left corner of the cropped image.
      * @param integer $y1        The top right corner of the cropped image.
      * @param integer $x2        The bottom left corner of the cropped image.
@@ -412,29 +412,17 @@ class Ansel_Faces_Base
      * @throws Ansel_Exception, Horde_Exception_PermissionDenied
      */
     public function saveCustomFace(
-        $face_id, $image, $x1, $y1, $x2, $y2, $name = '')
+        $face_id, $image_id, $x1, $y1, $x2, $y2, $name = '')
     {
         $image = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
-            ->getImage($image);
+            ->getImage($image_id);
         $gallery = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
             ->getGallery($image->gallery);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
         }
-
-        // Process the image
-        $this->createView(
-            $face_id,
-            $image,
-            $x1,
-            $y1,
-            $x2,
-            $y2);
-
-        // Clean up as images are static and all gallery images data will remain in memory
-        $image->reset();
 
         // Store face id db
         if (!empty($face_id)) {
@@ -474,6 +462,15 @@ class Ansel_Faces_Base
                 throw new Ansel_Exception($e);
             }
         }
+
+        // Process the image
+        $this->createView(
+            $face_id,
+            $image,
+            $x1,
+            $y1,
+            $x2,
+            $y2);
 
         // Update gallery and image counts
         try {
@@ -579,21 +576,23 @@ class Ansel_Faces_Base
      * @return integer the face id
      * @throws Ansel_Exception
      */
-    public function createView($face_id, $image, $x1, $y1, $x2, $y2)
+    public function createView($face_id, Ansel_Image $image, $x1, $y1, $x2, $y2)
     {
         // Make sure screen view is created and loaded
         $image->load('screen');
+        $i = $image->getHordeImage();
 
         // Crop to the face
         try {
-            $result = $image->getHordeImage()->crop($x1, $y1, $x2, $y2);
+            $i->crop($x1, $y1, $x2, $y2);
         } catch (Horde_Image_Exception $e) {
             throw new Ansel_Exception($e->getMessage());
         }
+
         // Resize and save
         $ext = Ansel_Faces::getExtension();
         $path = Ansel_Faces::getVFSPath($image->id);
-        $image->getHordeImage()->resize(50, 50, false);
+        $i->resize(50, 50, false);
         try {
             $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Vfs')
@@ -601,7 +600,7 @@ class Ansel_Faces_Base
                 ->writeData(
                     $path . 'faces',
                     $face_id . $ext,
-                    $image->getHordeImage()->raw(),
+                    $i->raw(),
                     true);
         } catch (Horde_Vfs_Exception $e) {
             throw new Ansel_Exception($e);
