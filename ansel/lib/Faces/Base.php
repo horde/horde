@@ -86,7 +86,7 @@ class Ansel_Faces_Base
      * @param boolean $full      Get full face data or just face_id and
      *                           face_name.
      *
-     * @return  Array An array of faces data.
+     * @return array  An array of faces data.
      * @throws Ansel_Exception
      */
     public function getImageFacesData($image_id, $full = false)
@@ -108,15 +108,15 @@ class Ansel_Faces_Base
     /**
      * Get existing faces data for an entire gallery.
      *
-     * @param integer $gallery  gallery_id to get data for.
+     * @param integer $gallery_id  gallery_id to get data for.
      *
      * @return array  An array of faces data.
      * @throws Ansel_Exception
      */
-    public function getGalleryFaces($gallery)
+    public function getGalleryFaces($gallery_id)
     {
         $sql = 'SELECT face_id, image_id, gallery_id, face_name FROM ansel_faces '
-            . ' WHERE gallery_id = ' . (int)$gallery . ' ORDER BY face_id DESC';
+            . ' WHERE gallery_id = ' . (int)$gallery_id . ' ORDER BY face_id DESC';
 
         try {
             return $GLOBALS['ansel_db']->selectAll($sql);
@@ -126,7 +126,7 @@ class Ansel_Faces_Base
     }
 
     /**
-     * Fetchs all faces from all galleries the current user has READ access to?
+     * Fetchs all faces from all galleries the current user has READ access to
      *
      * @param array $info     Array of select criteria
      * @param integer $from   Offset
@@ -171,7 +171,8 @@ class Ansel_Faces_Base
      */
     protected function _countFaces(array $info)
     {
-        $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $galleries = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->listGalleries(array('perm' => Horde_Perms::READ));
 
         $ids = array();
@@ -193,6 +194,8 @@ class Ansel_Faces_Base
      *
      * @param integer $from Offset
      * @param integer $count Limit
+     *
+     * @return array  Array of face hashes.
      */
     public function allFaces($from = 0, $count = 0)
     {
@@ -205,6 +208,8 @@ class Ansel_Faces_Base
      *
      * @param integer $from Offset
      * @param integer $count Limit
+     *
+     * @return array An array of face hashes
      */
     public function namedFaces($from = 0, $count = 0)
     {
@@ -218,6 +223,8 @@ class Ansel_Faces_Base
      * @param string  $owner User
      * @param integer $from Offset
      * @param integer $count Limit
+     *
+     * @return array  An array of face hashes.
      */
     public function ownerFaces($owner, $from = 0, $count = 0)
     {
