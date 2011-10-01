@@ -33,13 +33,13 @@ if (Horde_Util::getPost('submit') == _("Cancel")) {
 try {
     $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
     $result = $faces->saveCustomFace(
-                           $face_id,
-                           $image_id,
-                           (int)Horde_Util::getFormData('x1'),
-                           (int)Horde_Util::getFormData('y1'),
-                           (int)Horde_Util::getFormData('x2'),
-                           (int)Horde_Util::getFormData('y2'),
-                           Horde_Util::getFormData('name'));
+      $face_id,
+      $image_id,
+      (int)Horde_Util::getFormData('x1'),
+      (int)Horde_Util::getFormData('y1'),
+      (int)Horde_Util::getFormData('x2'),
+      (int)Horde_Util::getFormData('y2'),
+      Horde_Util::getFormData('name'));
 } catch (Horde_Exception $e) {
     $notification->push($e->getMessage());
     $back_url->redirect();

@@ -295,14 +295,12 @@ class Ansel_Image Implements Iterator
             $this->_loaded['full'] = true;
             return;
         }
-
         $viewHash = $this->getViewHash($view, $style);
 
         // If we've already loaded the data, just return now.
         if (!empty($this->_loaded[$viewHash])) {
             return;
         }
-
         $this->createView($view, $style);
 
         // If createView() had to resize the full image, we've already
@@ -382,8 +380,10 @@ class Ansel_Image Implements Iterator
     {
         // Default to the gallery's style
         if (empty($style)) {
-            $style = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                ->getGallery($this->gallery)->getStyle();
+            $style = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getGallery($this->gallery)
+                ->getStyle();
         }
 
         // Get the VFS info.
