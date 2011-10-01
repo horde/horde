@@ -241,7 +241,6 @@ EOT;
     protected function _handleFileUpload()
     {
         if ($filename = Horde_Util::getFormData('name')) {
-            /* First, figure out the content type */
             if (isset($_SERVER["HTTP_CONTENT_TYPE"])) {
                 $type = $_SERVER["HTTP_CONTENT_TYPE"];
             } elseif (isset($_SERVER["CONTENT_TYPE"])) {
@@ -261,40 +260,65 @@ EOT;
                     } else {
                         fclose($out);
                         header('Content-Type: application/json');
-                        echo('{"status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open input stream." } }');
+                        echo('{ "status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open input stream." } }');
                         exit;
                     }
+                } else {
+                    header('Content-Type: application/json');
+                    echo('{ "status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open output stream." } }');
+                    exit;
                 }
 
                 // Don't know type. Try to deduce it.
                 if (!($type = Horde_Mime_Magic::analyzeFile($temp, isset($GLOBALS['conf']['mime']['magic_db']) ? $GLOBALS['conf']['mime']['magic_db'] : null))) {
                     $type = Horde_Mime_Magic::filenameToMime($filename);
                 }
-
             } elseif (strpos($type, "multipart") !== false) {
-                // TODO:
+                // Handle mulitpart uploads
+                $temp = Horde_Util::getTempFile('', true);
+                $out = fopen($temp, 'wb');
+                if ($out) {
+                    $in = fopen($_FILES['file']['tmp_name'], 'rb');
+                    if ($in) {
+                        while ($buff = fread($in, 4096)) {
+                            fwrite($out, $buff);
+                        }
+                    } else {
+                        fclose($out);
+                        header('Content-Type: application/json');
+                        echo('{ "status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open input stream." } }');
+                        exit;
+                    }
+                } else {
+                    header('Content-Type: application/json');
+                    echo('{ "status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open output stream." } }');
+                    exit;
+                }
             }
 
-            /* Figure out what to do with the file */
-            if (in_array($type, array('x-extension/zip',
-                                      'application/x-compressed',
-                                      'application/x-zip-compressed',
-                                      'application/zip')) ||
+            // Figure out what to do with the file
+            if (in_array(
+                    $type,
+                    array(
+                        'x-extension/zip',
+                        'application/x-compressed',
+                        'application/x-zip-compressed',
+                        'application/zip')) ||
                 Horde_Mime_Magic::filenameToMime($temp) == 'application/zip') {
 
-                /* handle zip files */
+                // ZIP file
                 try {
                     $image_ids = $this->_handleZip($temp);
                 } catch (Ansel_Exception $e) {
-                    $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
+                    $notification->push(
+                        sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
                 }
 
                 header('Content-Type: application/json');
                 echo('{ "status" : "200", "error" : {} }');
                 exit;
             } else {
-                /* Try and make sure the image is in a recognizeable
-                 * format. */
+                // Try and make sure the image is in a recognizeable format.
                 $data = file_get_contents($temp);
                 if (getimagesize($temp) === false) {
                     header('Content-Type: application/json');
@@ -302,12 +326,11 @@ EOT;
                     exit;
                 }
 
-                /* Add the image to the gallery */
-                $image_data = array('image_filename' => $filename,
-                                    //'image_caption' => $vars->get('image' . $i . '_desc'),
-                                    'image_type' => $type,
-                                    'data' => $data,
-                                    );
+                // Add the image to the gallery
+                $image_data = array(
+                    'image_filename' => $filename,
+                    'image_type' => $type,
+                    'data' => $data);
 
                 try {
                     $image_id = $this->_gallery->addImage($image_data);
