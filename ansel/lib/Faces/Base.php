@@ -577,13 +577,12 @@ class Ansel_Faces_Base
      */
     public function createView($face_id, Ansel_Image $image, $x1, $y1, $x2, $y2)
     {
-        // Make sure screen view is created and loaded
+        // Make sure the image data is fresh
         $image->load('screen');
-        $i = $image->getHordeImage();
 
         // Crop to the face
         try {
-            $i->crop($x1, $y1, $x2, $y2);
+            $image->crop($x1, $y1, $x2, $y2);
         } catch (Horde_Image_Exception $e) {
             throw new Ansel_Exception($e->getMessage());
         }
@@ -591,7 +590,7 @@ class Ansel_Faces_Base
         // Resize and save
         $ext = Ansel_Faces::getExtension();
         $path = Ansel_Faces::getVFSPath($image->id);
-        $i->resize(50, 50, false);
+        $image->resize(50, 50, false);
         try {
             $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Vfs')
@@ -599,7 +598,7 @@ class Ansel_Faces_Base
                 ->writeData(
                     $path . 'faces',
                     $face_id . $ext,
-                    $i->raw(),
+                    $image->raw(),
                     true);
         } catch (Horde_Vfs_Exception $e) {
             throw new Ansel_Exception($e);
