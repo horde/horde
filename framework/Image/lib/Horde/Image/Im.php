@@ -111,8 +111,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Publically visible raw method. Hides the extra parameters from client
-     * code.
+     * Publically visible raw method.
      *
      * @see self::_raw
      */
