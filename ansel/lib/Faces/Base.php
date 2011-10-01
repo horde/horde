@@ -573,7 +573,6 @@ class Ansel_Faces_Base
      * @param integer $x2         The bottom left corner of the cropped image.
      * @param integer $y2         The bottom right corner of the cropped image.
      *
-     * @return integer the face id
      * @throws Ansel_Exception
      */
     public function createView($face_id, Ansel_Image $image, $x1, $y1, $x2, $y2)
@@ -605,8 +604,6 @@ class Ansel_Faces_Base
         } catch (Horde_Vfs_Exception $e) {
             throw new Ansel_Exception($e);
         }
-
-        return $face_id;
     }
 
     /**
