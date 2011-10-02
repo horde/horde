@@ -3224,15 +3224,21 @@ var DimpBase = {
 
     _updateFlag: function(ob, flag, add)
     {
-        ob.flag = ob.flag
-            ? ob.flag.without(flag)
-            : [];
+        var hasflag;
 
-        if (add) {
-            ob.flag.push(flag);
+        if (!ob.flag) {
+            ob.flag = [];
+        } else {
+            hasflag = ob.flag.include(flag);
         }
 
-        this.viewport.updateRow(ob);
+        if (add && !hasflag) {
+            ob.flag.push(flag);
+            this.viewport.updateRow(ob);
+        } else if (!add && hasflag) {
+            ob.flag = ob.flag.without(flag);
+            this.viewport.updateRow(ob);
+        }
     },
 
     isDraft: function(vs)
