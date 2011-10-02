@@ -640,7 +640,6 @@ class Ansel_Faces_Base
         if (empty($signature)) {
             return;
         }
-
         // save compressed signature
         $sql = 'UPDATE ansel_faces SET face_signature = ? WHERE face_id = ?';
         $params = array(new Horde_Db_Value_Binary(puzzle_compress_cvec($signature)), $face_id);
@@ -659,7 +658,7 @@ class Ansel_Faces_Base
             $data = array(
                 $face_id,
                 $i,
-                substr($signature, $i, $word_len));
+                new Horde_Db_Value_Binary(substr($signature, $i, $word_len)));
             try {
                 $GLOBALS['ansel_db']->insert($q, $data);
             } catch (Horde_Db_Exception $e) {
@@ -807,13 +806,10 @@ class Ansel_Faces_Base
     {
         $word_len = $GLOBALS['conf']['faces']['search'];
         $str_len = strlen($signature);
-        $times = $str_len / (empty($word_len) ? 1 : $word_len);
-
         $indexes = array();
-        for ($i = 0; $i < $times; $i++) {
-            $indexes[] = '(index_position = ' . $i . ' AND index_part = '
-                . $GLOBALS['ansel_db']->quoteString(substr($signature, $i * $word_len, $word_len))
-                . ')';
+        for ($i = 0; $i < $str_len - $word_len; $i++) {        
+            $sig = new Horde_Db_Value_Binary(substr($signature, $i, $word_len));
+            $indexes[] = '(index_position = ' . $i . ' AND index_part = ' . $sig->quote($GLOBALS['ansel_db']) . ')';
         }
 
         $sql = 'SELECT i.face_id, f.face_name, '
