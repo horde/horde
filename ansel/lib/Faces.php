@@ -21,9 +21,8 @@ class Ansel_Faces
      *                           removed
      *
      * @throws Ansel_Exception
-     * @static
      */
-    static public function delete($image, $face = null)
+    static public function delete(Ansel_Image $image, $face = null)
     {
         if ($image->facesCount == 0) {
             return true;
@@ -41,7 +40,8 @@ class Ansel_Faces
             }
             try {
                 foreach ($faces as $id) {
-                    $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
+                    $GLOBALS['injector']
+                        ->getInstance('Horde_Core_Factory_Vfs')
                         ->create('images')
                         ->deleteFile($path, $id . $ext);
                 }
@@ -55,13 +55,16 @@ class Ansel_Faces
             } catch (Horde_Db_Exception $e) {
                 throw new Ansel_Exception($e);
             }
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            $gallery = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
                 ->getGallery($image->gallery);
             $gallery->set('faces', $gallery->get('faces') - count($faces), true);
         } else {
             try {
-                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
-                    ->create('images')->deleteFile($path, (int)$face . $ext);
+                $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('images')
+                    ->deleteFile($path, (int)$face . $ext);
             } catch (Horde_Vfs_Exception $e) {}
             try {
                 $GLOBALS['ansel_db']->delete('DELETE FROM ansel_faces WHERE'
@@ -72,7 +75,8 @@ class Ansel_Faces
             } catch (Horde_Db_Exception $e) {
                 throw new Ansel_Exception($e);
             }
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            $gallery = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
                 ->getGallery($image->gallery);
             $gallery->set('faces', $gallery->get('faces') - 1, true);
         }
@@ -85,8 +89,7 @@ class Ansel_Faces
      */
     static public function getVFSPath($image)
     {
-        return '.horde/ansel/' . substr(str_pad($image, 2, 0, STR_PAD_LEFT), -2)
-            . '/';
+        return '.horde/ansel/' . substr(str_pad($image, 2, 0, STR_PAD_LEFT), -2) . '/';
     }
 
     /**
@@ -107,19 +110,23 @@ class Ansel_Faces
      *
      * @param array $face  Face data
      *
-     * @static
      * @return string  The url for the image this face belongs to.
      */
-    static public function getLink($face)
+    static public function getLink(array $face)
     {
-        return Ansel::getUrlFor('view',
-                                array('view' => 'Image',
-                                      'gallery' => $face['gallery_id'],
-                                      'image' => $face['image_id']));
+        return Ansel::getUrlFor(
+            'view',
+            array('view' => 'Image',
+                  'gallery' => $face['gallery_id'],
+                  'image' => $face['image_id']));
     }
 
     /**
-     * Output HTML for a face's tile
+     * Generate HTML for a face's tile
+     *
+     * @param integer $face  The face id.
+     *
+     * @return string  The generated HTML
      */
     static public function getFaceTile($face)
     {
