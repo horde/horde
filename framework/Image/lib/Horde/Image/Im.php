@@ -19,16 +19,17 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @var array
      */
-    protected $_capabilities = array('resize',
-                                     'crop',
-                                     'rotate',
-                                     'grayscale',
-                                     'flip',
-                                     'mirror',
-                                     'sepia',
-                                     'canvas',
-                                     'multipage',
-                                     'pdf');
+    protected $_capabilities = array(
+        'resize',
+        'crop',
+        'rotate',
+        'grayscale',
+        'flip',
+        'mirror',
+        'sepia',
+        'canvas',
+        'multipage',
+        'pdf');
 
     /**
      * Operations to be performed before the source filename is specified on the
