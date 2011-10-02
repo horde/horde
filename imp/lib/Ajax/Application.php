@@ -336,12 +336,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $this->_queue->poll($mbox);
 
-        $result = new stdClass;
-        $result->ViewPort = new stdClass;
-        $result->ViewPort->cacheid = $mbox->cacheid;
+        $result = $this->_viewPortOb($mbox);
         $result->ViewPort->data_reset = 1;
         $result->ViewPort->rowlist_reset = 1;
-        $result->ViewPort->view = $mbox->form_to;
 
         return $result;
     }
@@ -542,16 +539,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function poll()
     {
-        $result = new stdClass;
-
         $this->_queue->poll($GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList());
         $this->_queue->quota();
 
-        if ($this->_mbox && $this->_changed()) {
-            $result->ViewPort = $this->_viewPortData(true);
-        }
-
-        return $result;
+        return ($this->_mbox && $this->_changed())
+            ? $this->_viewPortData(true)
+            : new stdClass;
     }
 
     /**
@@ -687,8 +680,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         if (is_null($changed)) {
             $list_msg = new IMP_Views_ListMessages();
-            $result = new stdClass;
-            $result->ViewPort = $list_msg->getBaseOb($this->_mbox);
+            $result = $list_msg->getBaseOb($this->_mbox);
 
             $req_id = $this->_vars->requestid;
             if (!is_null($req_id)) {
@@ -708,8 +700,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
              * deadlocks. */
             $GLOBALS['session']->close();
 
-            $result = new stdClass;
-            $result->ViewPort = $this->_viewPortData($changed);
+            $result = $this->_viewPortData($changed);
 
             /* Reopen the session. */
             $GLOBALS['session']->start();
@@ -834,16 +825,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $this->_queue->poll(array_keys($indices->indices()));
         }
 
-        $result = new stdClass;
-        if ($change) {
-            $result->ViewPort = $this->_viewPortData(true);
-        } else {
-            $result->ViewPort = new stdClass;
-            $result->ViewPort->cacheid = $this->_mbox->cacheid;
-            $result->ViewPort->view = $this->_mbox->form_to;
-        }
-
-        return $result;
+        return $change
+            ? $this->_viewPortData(true)
+            : $this->_viewPortOb();
     }
 
     /**
@@ -1069,16 +1053,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result->preview->view = $this->_vars->view;
 
                 if ($change) {
-                    $result->ViewPort = $this->_viewPortData(true);
-                } else {
+                    $result = $this->_viewPortData(true, $result);
+                } elseif ($this->_mbox->cacheid != $this->_vars->cacheid) {
                     /* Cache ID has changed due to viewing this message. So
                      * update the cacheid in the ViewPort. */
-                    $cacheid = $this->_mbox->cacheid;
-                    if ($cacheid != $this->_vars->cacheid) {
-                        $result->ViewPort = new stdClass;
-                        $result->ViewPort->cacheid = $cacheid;
-                        $result->ViewPort->view = $this->_mbox->form_to;
-                    }
+                    $result = $this->_viewPortOb(null, $result);
                 }
 
                 $this->_queue->poll($mbox);
@@ -1507,7 +1486,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $old_indices_list = $indices->getSingle();
         $result->oldmbox = $old_indices_list[0]->form_to;
         $result->olduid = $old_indices_list[1];
-        $result->ViewPort = $this->_viewPortData(true);
+
+        $result = $this->_viewPortData(true, $result);
 
         return $result;
     }
@@ -1864,10 +1844,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $this->_mbox->uidvalid;
         } catch (IMP_Exception $e) {
-            if (!is_object($result)) {
-                $result = new stdClass;
-            }
-            $result->ViewPort = $this->_viewPortData(true);
+            $result = $this->_viewPortData(true, $result);
         }
 
         return $result;
@@ -1892,14 +1869,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $changed = ($sort['by'] == Horde_Imap_Client::SORT_THREAD);
         }
 
-        $result = new stdClass;
-
         if ($changed) {
-            $result->ViewPort = $this->_viewPortData(true);
+            $result = $this->_viewPortData(true);
         } else {
-            $result->ViewPort = new stdClass;
-            $result->ViewPort->cacheid = $this->_mbox->cacheid;
-            $result->ViewPort->view = $this->_mbox->form_to;
+            $result = $this->_viewPortOb();
 
             if ($this->_mbox->hideDeletedMsgs(true)) {
                 if ($this->_mbox->search) {
@@ -1957,10 +1930,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * browser.
      *
      * @param boolean $change  True if cache information has changed.
+     * @param object $base     The object to use as the base.
      *
      * @return array  See IMP_Views_ListMessages::listMessages().
      */
-    protected function _viewPortData($change)
+    protected function _viewPortData($change, $base = null)
     {
         $args = array(
             'applyfilter' => $this->_vars->applyfilter,
@@ -2001,8 +1975,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             );
         }
 
+        if (is_null($base) || !is_object($base)) {
+            $base = new stdClass;
+        }
+
         $list_msg = new IMP_Views_ListMessages();
-        return $list_msg->listMessages($args);
+        $base->ViewPort = $list_msg->listMessages($args);
+
+        return $base;
     }
 
     /**
@@ -2150,6 +2130,33 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         return $ob;
+    }
+
+    /**
+     * Return a basic ViewPort object.
+     *
+     * @param IMP_Mailbox $mbox  The mailbox view of the ViewPort request.
+     *                           Defaults to current view.
+     * @param object $base       The base object to add ViewPort data to.
+     *                           Creates a new base object if empty.
+     *
+     * @return object  The return object with ViewPort data added.
+     */
+    protected function _viewPortOb($mbox = null, $base = null)
+    {
+        if (is_null($mbox)) {
+            $mbox = $this->_mbox;
+        }
+
+        if (is_null($base)) {
+            $base = new stdClass;
+        }
+
+        $base->ViewPort = new stdClass;
+        $base->ViewPort->cacheid = $mbox->cacheid;
+        $base->ViewPort->view = $mbox->form_to;
+
+        return $base;
     }
 
 }
