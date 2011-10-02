@@ -1393,7 +1393,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $GLOBALS['notification']->push(sprintf(ngettext("%d message was purged from \"%s\".", "%d messages were purged from \"%s\".", $expunge_count), $expunge_count, $this->_mbox->display), 'horde.success');
 
-        return $this->_generateDeleteResult($expunged, $change);
+        return $this->_generateDeleteResult($expunged, $change, true);
     }
 
     /**
@@ -1856,12 +1856,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * See the list of variables needed for _viewPortData().
      *
      * @param IMP_Indices $indices  An indices object.
-     * @param boolean $changed      If true, add ViewPort information.
+     * @param boolean $changed      If true, add full ViewPort information.
+     * @param boolean $force        If true, forces addition of disappear
+     *                              information.
      *
      * @return object  An object with the following entries:
      *   - ViewPort: (object) See _viewPortData().
      */
-    protected function _generateDeleteResult($indices, $changed)
+    protected function _generateDeleteResult($indices, $changed,
+                                             $force = false)
     {
         /* Check if we need to update thread information. */
         if (!$changed) {
@@ -1874,7 +1877,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         } else {
             $result = $this->_viewPortOb();
 
-            if ($this->_mbox->hideDeletedMsgs(true)) {
+            if ($force || $this->_mbox->hideDeletedMsgs(true)) {
                 if ($this->_mbox->search) {
                     $disappear = array();
                     foreach ($indices as $key => $val) {
