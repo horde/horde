@@ -630,7 +630,8 @@ class Ansel_Faces_Base
         }
 
         // Ensure we have an on-disk file to read the signature from.
-        $path  = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
+        $path = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Vfs')
             ->create('images')->readFile(
                 Ansel_Faces::getVFSPath($image_id) . '/faces',
                 $face_id . Ansel_Faces::getExtension());
@@ -652,15 +653,13 @@ class Ansel_Faces_Base
         // create index
         $word_len = $GLOBALS['conf']['faces']['search'];
         $str_len = strlen($signature);
-        $times = $str_len / $word_len;
         $GLOBALS['ansel_db']->delete('DELETE FROM ansel_faces_index WHERE face_id = ' . $face_id);
         $q = 'INSERT INTO ansel_faces_index (face_id, index_position, index_part) VALUES (?, ?, ?)';
-        for ($i = 0; $i < $times; $i++) {
+        for ($i = 0; $i < $str_len - $word_len; $i++) {
             $data = array(
                 $face_id,
                 $i,
-                substr($signature, $i * $word_len, $word_len));
-
+                substr($signature, $i, $word_len));
             try {
                 $GLOBALS['ansel_db']->insert($q, $data);
             } catch (Horde_Db_Exception $e) {
@@ -700,7 +699,8 @@ class Ansel_Faces_Base
      */
     public function getFromGallery($gallery_id, $create = false, $force = false)
     {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $gallery = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(sprintf("Access denied editing gallery \"%s\".", $gallery->get('name')));
@@ -811,12 +811,12 @@ class Ansel_Faces_Base
 
         $indexes = array();
         for ($i = 0; $i < $times; $i++) {
-            $indexes[] = '(index_position = $i AND index_part = '
+            $indexes[] = '(index_position = ' . $i . ' AND index_part = '
                 . $GLOBALS['ansel_db']->quoteString(substr($signature, $i * $word_len, $word_len))
                 . ')';
         }
 
-        $sql = 'SELECT COUNT(*) as face_matches, i.face_id, f.face_name, '
+        $sql = 'SELECT i.face_id, f.face_name, '
             . 'f.image_id, f.gallery_id, f.face_signature '
             . 'FROM ansel_faces_index i, ansel_faces f '
             . 'WHERE f.face_id = i.face_id';
@@ -826,12 +826,14 @@ class Ansel_Faces_Base
         if ($indexes) {
             $sql .= ' AND (' . implode(' OR ', $indexes) . ')';
         }
-        $sql .= ' GROUP BY i.face_id, f.face_name HAVING face_matches > 0 '
-            . 'ORDER BY face_matches DESC';
-        $sql = $GLOBALS['ansel_db']->addLimitOffset($sql,
+        $sql .= ' GROUP BY i.face_id, f.face_name HAVING count(face_id) > 0 '
+            . 'ORDER BY count(face_id) DESC';
+        $sql = $GLOBALS['ansel_db']->addLimitOffset(
+            $sql,
             array(
                 'limit' => $count,
-                'offset' => $from));
+                'offset' => $from
+            ));
 
         try {
             $faces = $GLOBALS['ansel_db']->selectAll($sql);
@@ -854,12 +856,13 @@ class Ansel_Faces_Base
 
     protected function _getParamsArray($image, $rect)
     {
-        return array($image->id,
-                     $image->gallery,
-                     $rect['x'],
-                     $rect['y'],
-                     $rect['x'] + $rect['w'],
-                     $rect['y'] + $rect['h']);
+        return array(
+            $image->id,
+            $image->gallery,
+            $rect['x'],
+            $rect['y'],
+            $rect['x'] + $rect['w'],
+            $rect['y'] + $rect['h']);
     }
 
     /**
