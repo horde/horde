@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-23</date>
- <time>13:37:51</time>
+ <date>2011-10-03</date>
+ <time>18:14:49</time>
  <version>
   <release>4.0.10</release>
   <api>4.0.0</api>
@@ -328,13 +328,24 @@
     </dir> <!-- /js/map -->
     <dir name="plupload">
      <dir name="i18n">
+      <file name="cs.js" role="horde" />
       <file name="da.js" role="horde" />
+      <file name="de.js" role="horde" />
+      <file name="es.js" role="horde" />
+      <file name="fi.js" role="horde" />
+      <file name="fr.js" role="horde" />
+      <file name="it.js" role="horde" />
+      <file name="ja.js" role="horde" />
+      <file name="lv.js" role="horde" />
+      <file name="nl.js" role="horde" />
+      <file name="pt-br.js" role="horde" />
+      <file name="ru.js" role="horde" />
       <file name="sv.js" role="horde" />
      </dir> <!-- /js/plupload/i18n -->
-     <file name="jquery.plupload.queue.js" role="horde" />
      <file name="plupload.browserplus.js" role="horde" />
      <file name="plupload.flash.js" role="horde" />
      <file name="plupload.flash.swf" role="horde" />
+     <file name="plupload.full.js" role="horde" />
      <file name="plupload.gears.js" role="horde" />
      <file name="plupload.html4.js" role="horde" />
      <file name="plupload.html5.js" role="horde" />
@@ -2709,10 +2720,10 @@
    <install as="js/map/theme/default/img/view_previous_on.png" name="js/map/theme/default/img/view_previous_on.png" />
    <install as="js/map/theme/default/img/zoom-panel-NOALPHA.png" name="js/map/theme/default/img/zoom-panel-NOALPHA.png" />
    <install as="js/map/theme/default/img/zoom-panel.png" name="js/map/theme/default/img/zoom-panel.png" />
-   <install as="js/plupload/jquery.plupload.queue.js" name="js/plupload/jquery.plupload.queue.js" />
    <install as="js/plupload/plupload.browserplus.js" name="js/plupload/plupload.browserplus.js" />
    <install as="js/plupload/plupload.flash.js" name="js/plupload/plupload.flash.js" />
    <install as="js/plupload/plupload.flash.swf" name="js/plupload/plupload.flash.swf" />
+   <install as="js/plupload/plupload.full.js" name="js/plupload/plupload.full.js" />
    <install as="js/plupload/plupload.gears.js" name="js/plupload/plupload.gears.js" />
    <install as="js/plupload/plupload.html4.js" name="js/plupload/plupload.html4.js" />
    <install as="js/plupload/plupload.html5.js" name="js/plupload/plupload.html5.js" />
@@ -2720,7 +2731,18 @@
    <install as="js/plupload/plupload.silverlight.js" name="js/plupload/plupload.silverlight.js" />
    <install as="js/plupload/plupload.silverlight.xap" name="js/plupload/plupload.silverlight.xap" />
    <install as="js/plupload/uploader.js" name="js/plupload/uploader.js" />
+   <install as="js/plupload/i18n/cs.js" name="js/plupload/i18n/cs.js" />
    <install as="js/plupload/i18n/da.js" name="js/plupload/i18n/da.js" />
+   <install as="js/plupload/i18n/de.js" name="js/plupload/i18n/de.js" />
+   <install as="js/plupload/i18n/es.js" name="js/plupload/i18n/es.js" />
+   <install as="js/plupload/i18n/fi.js" name="js/plupload/i18n/fi.js" />
+   <install as="js/plupload/i18n/fr.js" name="js/plupload/i18n/fr.js" />
+   <install as="js/plupload/i18n/it.js" name="js/plupload/i18n/it.js" />
+   <install as="js/plupload/i18n/ja.js" name="js/plupload/i18n/ja.js" />
+   <install as="js/plupload/i18n/lv.js" name="js/plupload/i18n/lv.js" />
+   <install as="js/plupload/i18n/nl.js" name="js/plupload/i18n/nl.js" />
+   <install as="js/plupload/i18n/pt-br.js" name="js/plupload/i18n/pt-br.js" />
+   <install as="js/plupload/i18n/ru.js" name="js/plupload/i18n/ru.js" />
    <install as="js/plupload/i18n/sv.js" name="js/plupload/i18n/sv.js" />
    <install as="lib/.htaccess" name="lib/.htaccess" />
    <install as="lib/Api.php" name="lib/Api.php" />
@@ -4275,7 +4297,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-23</date>
+   <date>2011-10-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add administration page to list and clear locks.
