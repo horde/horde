@@ -37,14 +37,6 @@ class Wicked_Test extends Horde_Test
             'required' => true,
             'function' => '_checkPearTextWikiVersion'
         ),
-        'Text_Wiki_BBCode' => array(
-            'error' => 'The Text_Wiki_BBCode module is required if you plan on using BBCode formatting.',
-            'required' => false,
-        ),
-        'Text_Wiki_Cowiki' => array(
-            'error' => 'The Text_Wiki_Cowiki module is required if you plan on using Cowiki formatting.',
-            'required' => false,
-        ),
         'Text_Wiki_Creole' => array(
             'error' => 'The Text_Wiki_Creole module is required if you plan on using Creole formatting.',
             'required' => false,
