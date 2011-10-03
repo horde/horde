@@ -186,12 +186,6 @@ a.button {
 #sidebarPanel a:hover {
     color: #333;
 }
-#expandedSidebar #expandButton {
-    background-image: url("graphics/hide_panel.png");
-}
-#hiddenSidebar {
-    background-image: url("graphics/show_panel.png");
-}
 
 /* Tab styles. */
 .tabset {
