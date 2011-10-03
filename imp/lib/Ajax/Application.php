@@ -103,7 +103,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - mbox: (string) The name of the mailbox to check (base64url
      *           encoded).
      *
-     * @return boolean  True if submailboxes can be created
+     * @return boolean  True if submailboxes can be created.
      */
     public function createMailboxPrepare()
     {
@@ -352,7 +352,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *            array).
      *   - mbox: (string) The full mailbox name (base64url encoded).
      *
-     * @return boolean  True/false.
+     * @return mixed  False on failure, object on success (empty object
+     *                ensures queued actions will be run).
      */
     public function flagAll()
     {
@@ -369,7 +370,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $this->_queue->poll($mbox);
 
-        return true;
+        return new stdClass;
     }
 
     /**
