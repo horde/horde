@@ -170,12 +170,12 @@ class Whups_Application extends Horde_Registry_Application
             $data = Horde_Core_Prefs_Ui_Widgets::addressbooksUpdate($ui);
 
             if (isset($data['sources'])) {
-                $prefs->setValue('search_sources', $data['sources']);
+                $GLOBALS['prefs']->setValue('search_sources', $data['sources']);
                 $updated = true;
             }
 
             if (isset($data['fields'])) {
-                $prefs->setValue('search_fields', $data['fields']);
+                $GLOBALS['prefs']->setValue('search_fields', $data['fields']);
                 $updated = true;
             }
             break;
