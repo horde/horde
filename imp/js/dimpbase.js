@@ -2924,16 +2924,17 @@ var DimpBase = {
             /* Virtual folders are sorted on the server. */
             if (!ob.v) {
                 if (ob.s) {
-                    f_node = (mbox == this.INBOX)
-                        ? parent_e.down()
-                        : null;
+                    tmp2 = (mbox == this.INBOX)
+                        ? []
+                        : parent_e.down().siblings();
                 } else {
-                    ll = label.toLowerCase();
-                    f_node = parent_e.childElements().find(function(node) {
-                        var l = node.retrieve('l');
-                        return (l && (ll < l.toLowerCase()));
-                    });
+                    tmp2 = parent_e.childElements();
                 }
+                ll = label.toLowerCase();
+                f_node = tmp2.find(function(node) {
+                    var l = node.retrieve('l');
+                    return (l && (ll < l.toLowerCase()));
+                });
             }
 
             if (f_node) {
