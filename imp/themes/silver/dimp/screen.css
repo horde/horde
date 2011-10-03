@@ -43,6 +43,7 @@ span.dimpactionForward {
 }
 span.dimpactionSpam {
     background-image: url("../graphics/spam.png");
+    width: 16px;
 }
 span.dimpactionHam {
     background-image: url("../graphics/ham.png");
