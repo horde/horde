@@ -2688,7 +2688,7 @@ var DimpBase = {
         this.expandmbox = false;
 
         if (base) {
-            this._toggleSubFolder(base, 'tog');
+            this._toggleSubFolder(base, 'tog', false, true);
         }
 
         if (this.view) {
