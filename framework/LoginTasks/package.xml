@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* Prevent unnecessary URL redirection if no logintasks need to be confirmed.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -546,7 +546,7 @@
    <date>2011-07-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>

@@ -224,12 +224,14 @@ class Horde_LoginTasks
              * completed the login tasks for this application. */
             $this->_tasklist = true;
 
-            return $this->_backend->redirect($url);
-        }
-
-        if ((!$processed || $opts['user_confirmed']) &&
+            if ($opts['user_confirmed']) {
+                $this->_backend->redirect($url);
+                exit;
+            }
+        } elseif ((!$processed || $opts['user_confirmed']) &&
             $this->_tasklist->needDisplay()) {
-            return $this->_backend->redirect($this->getLoginTasksUrl());
+            $this->_backend->redirect($this->getLoginTasksUrl());
+            exit;
         }
     }
 
