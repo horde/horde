@@ -178,12 +178,10 @@ class Horde_LoginTasks
      * the function that should be called from the application upon login.
      *
      * @param array $opts  Options:
-     * <pre>
-     * confirmed - (array) The list of confirmed tasks.
-     * url - (string) The URL to redirect to when finished.
-     * user_confirmed - (boolean) If true, indicates that any pending actions
-     *                  have been confirmed by the user.
-     * </pre>
+     *   - confirmed: (array) The list of confirmed tasks.
+     *   - url: (string) The URL to redirect to when finished.
+     *   - user_confirmed: (boolean) If true, indicates that any pending
+     *                     actions have been confirmed by the user.
      */
     public function runTasks(array $opts = array())
     {
