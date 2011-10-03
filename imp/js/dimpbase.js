@@ -310,9 +310,9 @@ var DimpBase = {
         }
     },
 
-    setTitle: function(title)
+    setTitle: function(title, unread)
     {
-        document.title = DIMP.conf.name + ' :: ' + title;
+        document.title = (unread ? '(' + unread + ') ' : '') + DIMP.conf.name + ' :: ' + title;
     },
 
     highlightSidebar: function(id)
@@ -1314,7 +1314,7 @@ var DimpBase = {
 
     updateTitle: function(foldername)
     {
-        var elt, flabel, unseen,
+        var elt, unseen,
             label = this.viewport.getMetaData('label');
 
         // 'label' will not be set if there has been an error
@@ -1329,16 +1329,12 @@ var DimpBase = {
             }
         } else if (elt = $(this.getMboxId(this.view))) {
             unseen = elt.retrieve('u');
-            if (unseen > 0) {
-                flabel = label;
-                label += ' (' + unseen + ')';
-            }
         }
 
         // Label is HTML encoded - but this is not HTML code so unescape.
-        this.setTitle(label.unescapeHTML());
+        this.setTitle(label.unescapeHTML(), unseen);
         if (foldername) {
-            $('folderName').update(flabel ? flabel : label);
+            $('folderName').update(label);
         }
     },
 
