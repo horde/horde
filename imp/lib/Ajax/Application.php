@@ -1478,7 +1478,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $GLOBALS['notification']->push(_("Attachment successfully stripped."), 'horde.success');
 
-        $this->_vars->uid = strval($new_indices);
+        $this->_vars->uid = $new_indices->formTo();
 
         $result = $this->showPreview();
         $new_indices_list = $new_indices->getSingle();
