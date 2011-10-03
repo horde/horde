@@ -113,13 +113,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function quoteBinaryCallback($matches)
     {
-        if ($matches[0] == "'") {
-            return '\\\'';
-        } elseif ($matches[0] == '\\') {
-            return '\\\\\\\\';
-        } else {
-            return sprintf('\\\\%03.o', ord($matches[0]));
-        }
+        return sprintf('\\%03.o', ord($matches[0]));
     }
 
 
