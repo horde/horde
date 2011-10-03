@@ -151,15 +151,15 @@ class Whups_Api extends Horde_Registry_Api
 
         // Complain if we've been given bad parameters.
         if (!$form1->validate($vars, true)) {
-            $f1 = var_export($form1->_errors, true);
+            $f1 = var_export($form1->getErrors(), true);
             throw new Whups_Exception("Invalid arguments ($f1)");
         }
         if (!$form2->validate($vars, true)) {
-            $f2 = var_export($form2->_errors, true);
+            $f2 = var_export($form2->getErrors(), true);
             throw new Whups_Exception("Invalid arguments ($f2)");
         }
         if (!$form3->validate($vars, true)) {
-            $f3 = var_export($form3->_errors, true);
+            $f3 = var_export($form3->getErrors(), true);
             throw new Whups_Exception("Invalid arguments ($f3)");
         }
 
@@ -175,7 +175,7 @@ class Whups_Api extends Horde_Registry_Api
             $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
             $form4->useToken(false);
             if (!$form4->validate($vars, true)) {
-                throw new Whups_Exception('Invalid arguments (' . var_export($form4->_errors, true) . ')');
+                throw new Whups_Exception('Invalid arguments (' . var_export($form4->getErrors(), true) . ')');
             }
 
             $form4->getInfo($vars, $info);
@@ -225,7 +225,7 @@ class Whups_Api extends Horde_Registry_Api
 
         // Attempt to validate and update the ticket.
         if (!$editform->validate($vars)) {
-             $form_errors = var_export($editform->_errors, true);
+             $form_errors = var_export($editform->getErrors(), true);
              throw new Whups_Exception(sprintf(_("Invalid ticket data supplied: %s"), $form_errors));
         }
 

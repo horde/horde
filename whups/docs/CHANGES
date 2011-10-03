@@ -2,6 +2,8 @@
 v2.0.1-git
 ----------
 
+[jan] Don't access protected properties in the addTicket/updateTicket API
+      methods (Bug #10566).
 [jan] Fix adding comments as a guest (Bug #10559).
 
 

@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
+* [jan] Don&apos;t access protected properties in the addTicket/updateTicket API methods (Bug #10566).
 * [jan] Fix adding comments as a guest (Bug #10559).
  </notes>
  <contents>
@@ -923,6 +924,7 @@
    <date>2011-09-28</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
+* [jan] Don&apos;t access protected properties in the addTicket/updateTicket API methods (Bug #10566).
 * [jan] Fix adding comments as a guest (Bug #10559).
    </notes>
   </release>
