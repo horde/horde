@@ -19,24 +19,6 @@ table.monthgrid {
 table.kronolithView td.button {
     border-color: #999;
 }
-#kronolithNotifications {
-    background-image: url("graphics/alerts/message.png");
-}
-#kronolithNotifications.horde-error {
-    background-image: url("graphics/alerts/error.png")
-}
-#kronolithNotifications.horde-success {
-    background-image: url("graphics/alerts/success.png")
-}
-#kronolithNotifications.horde-warning {
-    background-image: url("graphics/alerts/warning.png")
-}
-#kronolithNotifications.kronolithClose {
-    background-image: url("graphics/close.png")
-}
-.kronolithPrint span {
-    background-image: url('graphics/print.png');
-}
 
 /*****************
  * AJAX INTERFACE
@@ -44,7 +26,10 @@ table.kronolithView td.button {
 
 /* Themed images. */
 #kronolithNotifications {
-    background-image: url("graphics/alerts/message.png");
+    background: url("graphics/alerts/message.png") no-repeat center center, url("graphics/menu.png") repeat-x;
+}
+#kronolithNotifications:hover {
+    background-image: url("graphics/alerts/message.png"), url("graphics/menu-active.png");
 }
 #kronolithNotifications.horde-error {
     background-image: url("graphics/alerts/error.png")
@@ -63,9 +48,6 @@ table.kronolithView td.button {
 }
 #kronolithMenu a.kronolithAdd {
     background-image: url("graphics/plus.png");
-}
-span#kronolithQuickEvent {
-    background-image: url("graphics/new.png");
 }
 .kronolithDialogInfo {
     background-image: url('graphics/alerts/message.png');
@@ -100,19 +82,26 @@ span#kronolithQuickEvent {
 }
 
 /* Navigation bar. */
-span#kronolithNewEvent, #kronolithApplications a {
+#kronolithBar .kronolithDateChoice,
+span#kronolithNewEvent,
+#kronolithApplications a {
     background-image: url("graphics/menu.png");
     background-repeat: repeat-x;
 }
-#kronolithBar .kronolithDateChoice, #kronolithApplications a:hover {
-    background: url("graphics/menu-active.png") repeat-x;
+#kronolithBar .kronolithDateChoice:hover,
+span#kronolithNewEvent:hover,
+#kronolithApplications a:hover {
+    background-image: url("graphics/menu-active.png");
 }
-#kronolithQuickEvent {
+span#kronolithQuickEvent {
+    background-image: url("graphics/new.png"), url("graphics/menu.png");
+}
+span#kronolithQuickEvent:hover {
     background-image: url("graphics/new.png"), url("graphics/menu-active.png");
 }
-#kronolithQuickEvent, #kronolithNav a {
+span#kronolithQuickEvent, #kronolithNav a {
     background-repeat: no-repeat, repeat-x;
-    background-position: 5px center, left top;
+    background-position: 3px center, left top;
 }
 #kronolithNavTasks {
     background-image: url("graphics/tasks.png"), url("graphics/menu.png");
@@ -152,14 +141,16 @@ span#kronolithNewEvent, #kronolithApplications a {
 }
 
 /* Misc */
-.kronolithMinical td, .kronolithMinical .kronolithMinicalEmpty,
-.kronolithFirstCol {
+.kronolithMinical td, .kronolithFirstCol {
     background-color: #efefef;
 }
 .kronolithViewHead thead .kronolithFirstCol {
     background-color: transparent;
 }
 
-.kronolithWeekDay {
+.kronolithWeekDay, .kronolithColHead {
     background: transparent url("graphics/menu.png") repeat-x;
+}
+.kronolithWeekDay:hover {
+    background-image: url("graphics/menu-active.png");
 }

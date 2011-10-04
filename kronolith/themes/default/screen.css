@@ -382,10 +382,10 @@ body.kronolithAjax {
     left: 0;
 }
 #kronolithLoadingday, #kronolithLoadingmonth {
-    top: 24px;
+    top: 22px;
 }
 #kronolithLoadingweek {
-    top: 2px;
+    top: 0;
 }
 #kronolithLoadingtasks, #kronolithLoadingagenda {
     display: inline-block;
@@ -1011,7 +1011,6 @@ div.kronolithFormActions {
 }
 .kronolithMinical .kronolithMinicalEmpty {
     background: none;
-    border-color: #e2e2e2;
     color: silver;
 }
 .kronolithMinical .kronolithSelected {
@@ -1035,7 +1034,6 @@ table.kronolithView {
     table-layout: fixed;
     border-spacing: 0;
     border-collapse: collapse;
-    margin-left: -2px;
 }
 table.kronolithView td {
     padding: 0;
@@ -1063,12 +1061,9 @@ table.kronolithView td.kronolithFirstCol {
 #kronolithViewMonthHead span {
     padding: 0 5px;
 }
-#kronolithViewMonthHead td {
-    border: none;
-    text-align: center;
-}
 #kronolithViewMonthHead .kronolithFirstCol {
-    border-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
     background-color: transparent;
 }
 .kronolithViewHead thead {
@@ -1080,7 +1075,8 @@ table.kronolithView td.kronolithFirstCol {
     padding: 0 5px;
 }
 .kronolithViewHead thead .kronolithFirstCol {
-    border-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
 }
 
 /* Captions. */
@@ -1235,7 +1231,7 @@ table.kronolithView td.kronolithFirstCol {
 /* Main view month */
 #kronolithViewMonthContainer {
     position: absolute;
-    top: 46px;
+    top: 43px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -1464,9 +1460,7 @@ img.kronolithEventIcon {
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
-#kronolithViewMonth div.kronolithEvent {
-    font-size: 75%;
-}
+#kronolithViewMonth div.kronolithEvent,
 #kronolithViewWeek div.kronolithEvent {
     font-size: 90%;
 }
