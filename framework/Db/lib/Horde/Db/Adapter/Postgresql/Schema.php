@@ -77,7 +77,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
         if (is_string($value) &&
             $column->getType() == 'binary') {
-            return $this->quotedStringPrefix() . "'" . $this->quoteBinary($value) . "'";
+            return $this->quoteBinary($value);
         } elseif (is_string($value) && $column->getSqlType() == 'xml') {
             return "xml '" . $this->quoteString($value) . "'";
         } elseif (is_numeric($value) && $column->getSqlType() == 'money') {
@@ -105,7 +105,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         /* MUST escape zero octet(0), single quote (39), and backslash (92).
          * MAY escape non-printable octets, but they are required in some
          * instances so it is best to escape all. */
-        return "'" . preg_replace_callback("/[^\\x20-\\x26\\x28-\\x5b\\x5d-\\x73]/", array($this, 'quoteBinaryCallback'), $value) . "'";
+        return "E'" . preg_replace_callback("/[\\x00-\\x1f\\x27\\x5c\\x7f-\\xff]/", array($this, 'quoteBinaryCallback'), $value) . "'";
     }
 
     /**
