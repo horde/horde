@@ -242,7 +242,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     {
         $this->_conn->beginDbTransaction();
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-        $this->_conn->insert($sql);
+        $this->_conn->insert($sql, null, null, 'id', 7);
         $this->_conn->commitDbTransaction();
 
         // make sure it inserted
@@ -254,10 +254,10 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     {
         $this->_conn->beginDbTransaction();
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-        $this->_conn->insert($sql);
+        $this->_conn->insert($sql, null, null, 'id', 7);
         $this->_conn->rollbackDbTransaction();
 
-        // make sure it inserted
+        // make sure it not inserted
         $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
         $this->assertEquals(null, $this->_conn->selectValue($sql));
     }
@@ -671,7 +671,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->_conn->renameTable('octopuses', 'octopi');
 
         $sql = "INSERT INTO octopi (id, url) VALUES (1, 'http://www.foreverflying.com/octopus-black7.jpg')";
-        $this->_conn->insert($sql);
+        $this->_conn->insert($sql, null, null, 'id', 1);
 
         $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
                 $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
@@ -1129,7 +1129,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
             $table->column('foo', 'string');
         $table->end();
 
-        $this->_conn->insert("INSERT INTO testings (id, foo) VALUES ('1', 'hello')");
+        $this->_conn->insert("INSERT INTO testings (id, foo) VALUES ('1', 'hello')", null, null, 'id', 1);
 
         $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => 'default'));
 
