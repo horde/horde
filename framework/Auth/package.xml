@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-03</date>
- <time>19:28:29</time>
+ <date>2011-10-04</date>
+ <time>10:25:33</time>
  <version>
   <release>1.4.2</release>
   <api>1.4.0</api>
@@ -547,7 +547,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-03</date>
+   <date>2011-10-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix detecting locale directory from PEAR installation (Bug #10589).
