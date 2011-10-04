@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use portable queries in SQL session handler (Bug #10574).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -289,7 +289,7 @@ Initial release as a PEAR package
    <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Use portable queries in SQL session handler (Bug #10574).
    </notes>
   </release>
  </changelog>
