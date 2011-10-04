@@ -323,7 +323,7 @@ class IMP_Flags implements ArrayAccess, Serializable
     {
         if (isset($this->_flags[$offset])) {
             return $this->_flags[$offset];
-        } elseif ($this->_userflags[$offset]) {
+        } elseif (isset($this->_userflags[$offset])) {
             return $this->_userflags[$offset];
         }
 
