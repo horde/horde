@@ -53,7 +53,7 @@ table.monthgrid th, table.monthgrid td {
 }
 .monthgrid .today {
     border: 2px solid #446;
-    background: #fff;
+    background: #cfc;
 }
 .othermonth {
     background: #e7eeec;
@@ -1404,21 +1404,11 @@ table.kronolithView td.kronolithFirstCol {
     color: silver;
 }
 .kronolithToday, .kronolithMinical .kronolithToday {
-    background-color: #ebf3fc;
-    border-color: #808080;
+    background-color: #cfc;
 }
-/*
 .kronolithWeekend {
     background: #ffc;
 }
-.kronolithOtherMonth {
-    background: #e7eeec;
-}
-table.kronolithView td.kronolithToday {
-    border: 2px solid #446;
-    background: #fff;
-}
-*/
 #kronolithViewIframe iframe {
     position: absolute;
     left: 0;
