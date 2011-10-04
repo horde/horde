@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the Horde_Push interface.
+ * A content element that will be pushed to various recipients.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Test the Horde_Push interface.
+ * A content element that will be pushed to various recipients.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -27,8 +27,30 @@
  */
 class Horde_Push
 {
+    /**
+     * Content summary.
+     *
+     * @var string
+     */
+    private $_summary = '';
+
+    /**
+     * Constructor.
+     *
+     * @params array $params The parameters that define this content element.
+     */
+    public function __construct($params = array())
+    {
+        if (isset($params['summary'])) {
+            $this->_summary = $params['summary'];
+        }
+    }
+
+    /**
+     * Return the summary for this content element.
+     */
     public function getSummary()
     {
-        return '';
+        return $this->_summary;
     }
 }

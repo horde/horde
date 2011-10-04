@@ -40,4 +40,10 @@ extends Horde_Push_TestCase
         $push = new Horde_Push();
         $this->assertEquals('', $push->getSummary());
     }
+
+    public function testSummaryParameter()
+    {
+        $push = new Horde_Push(array('summary' => 'SUMMARY'));
+        $this->assertEquals('SUMMARY', $push->getSummary());
+    }
 }
