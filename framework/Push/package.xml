@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-04</date>
- <time>08:48:26</time>
+ <time>09:12:08</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -39,6 +39,7 @@
      <dir name="Push">
       <dir name="Recipient">
        <file name="Mock.php" role="php" />
+       <file name="Twitter.php" role="php" />
       </dir> <!-- /lib/Horde/Push/Recipient -->
       <file name="Recipient.php" role="php" />
      </dir> <!-- /lib/Horde/Push -->
@@ -48,7 +49,15 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Push">
+      <dir name="Stub">
+       <file name="Twitter.php" role="test" />
+      </dir> <!-- /test/Horde/Push/Stub -->
       <dir name="Unit">
+       <dir name="Push">
+        <dir name="Recipient">
+         <file name="TwitterTest.php" role="test" />
+        </dir> <!-- /test/Horde/Push/Unit/Push/Recipient -->
+       </dir> <!-- /test/Horde/Push/Unit/Push -->
        <file name="PushTest.php" role="test" />
       </dir> <!-- /test/Horde/Push/Unit -->
       <file name="AllTests.php" role="test" />
@@ -77,11 +86,14 @@
    <install as="Horde/Push.php" name="lib/Horde/Push.php" />
    <install as="Horde/Push/Recipient.php" name="lib/Horde/Push/Recipient.php" />
    <install as="Horde/Push/Recipient/Mock.php" name="lib/Horde/Push/Recipient/Mock.php" />
+   <install as="Horde/Push/Recipient/Twitter.php" name="lib/Horde/Push/Recipient/Twitter.php" />
    <install as="Horde/Push/AllTests.php" name="test/Horde/Push/AllTests.php" />
    <install as="Horde/Push/Autoload.php" name="test/Horde/Push/Autoload.php" />
    <install as="Horde/Push/phpunit.xml" name="test/Horde/Push/phpunit.xml" />
    <install as="Horde/Push/TestCase.php" name="test/Horde/Push/TestCase.php" />
+   <install as="Horde/Push/Stub/Twitter.php" name="test/Horde/Push/Stub/Twitter.php" />
    <install as="Horde/Push/Unit/PushTest.php" name="test/Horde/Push/Unit/PushTest.php" />
+   <install as="Horde/Push/Unit/Push/Recipient/TwitterTest.php" name="test/Horde/Push/Unit/Push/Recipient/TwitterTest.php" />
   </filelist>
  </phprelease>
  <changelog>
