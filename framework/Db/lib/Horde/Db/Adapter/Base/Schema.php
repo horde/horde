@@ -264,14 +264,6 @@ abstract class Horde_Db_Adapter_Base_Schema
         return $this->quoteString($value);
     }
 
-    /**
-     * @return  string
-     */
-    public function quotedStringPrefix()
-    {
-        return '';
-    }
-
 
     /*##########################################################################
     # Schema Statements

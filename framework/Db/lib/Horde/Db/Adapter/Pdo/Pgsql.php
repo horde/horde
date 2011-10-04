@@ -104,28 +104,6 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
 
 
     /*##########################################################################
-    # Quoting
-    ##########################################################################*/
-
-    /**
-     * @return  string
-     */
-    public function quotedStringPrefix()
-    {
-        // Use escape string syntax if available. We cannot do this lazily
-        // when encountering the first string, because that could then break
-        // any transactions in progress.
-        // See: http://www.postgresql.org/docs/current/static/runtime-config-compatible.html
-        // If PostgreSQL doesn't know the standard_conforming_strings
-        // parameter then it doesn't support escape string syntax. Don't
-        // override the inherited quotedStringPrefix.
-        return $this->supportsStandardConformingStrings()
-            ? 'E'
-            : '';
-    }
-
-
-    /*##########################################################################
     # Database Statements
     ##########################################################################*/
 
