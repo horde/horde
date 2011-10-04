@@ -105,7 +105,7 @@ class IMP_Views_Compose
                         $tmp = array(
                             'f' => $val->display,
                             'l' => Horde_String::abbreviate(str_repeat(' ', 2 * $val->level) . $val->basename, 30),
-                            'v' => $val->container ? '' : $val->value
+                            'v' => $val->container ? '' : $val->form_to
                         );
                         if ($tmp['f'] == $tmp['v']) {
                             unset($tmp['f']);
