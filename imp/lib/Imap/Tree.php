@@ -688,7 +688,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                      * we can't catch it via the bitflag (since hasChildren()
                      * is dynamically determined). */
                     if (!is_null($this->_eltdiff)) {
-                        $this->_eltdiff['c'][$parent] = 1;
+                        $this->_eltdiff['d'][$parent] = 1;
                     }
                 }
             }
