@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-04</date>
- <time>07:34:59</time>
+ <time>08:41:11</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -35,6 +35,12 @@
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
+     <dir name="Push">
+      <dir name="Recipient">
+       <file name="Mock.php" role="php" />
+      </dir> <!-- /lib/Horde/Push/Recipient -->
+      <file name="Recipient.php" role="php" />
+     </dir> <!-- /lib/Horde/Push -->
      <file name="Push.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -69,6 +75,8 @@
    <install as="" name="TODO" />
    <install as="COPYING" name="doc/Horde/Push/COPYING" />
    <install as="Horde/Push.php" name="lib/Horde/Push.php" />
+   <install as="Horde/Push/Recipient.php" name="lib/Horde/Push/Recipient.php" />
+   <install as="Horde/Push/Recipient/Mock.php" name="lib/Horde/Push/Recipient/Mock.php" />
    <install as="Horde/Push/AllTests.php" name="test/Horde/Push/AllTests.php" />
    <install as="Horde/Push/Autoload.php" name="test/Horde/Push/Autoload.php" />
    <install as="Horde/Push/phpunit.xml" name="test/Horde/Push/phpunit.xml" />

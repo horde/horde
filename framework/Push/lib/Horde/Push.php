@@ -35,22 +35,91 @@ class Horde_Push
     private $_summary = '';
 
     /**
-     * Constructor.
+     * Content.
      *
-     * @params array $params The parameters that define this content element.
+     * @var array
      */
-    public function __construct($params = array())
-    {
-        if (isset($params['summary'])) {
-            $this->_summary = $params['summary'];
-        }
-    }
+    private $_content = array();
+
+    /**
+     * The recipients that will receive the content.
+     *
+     * @var array
+     */
+    private $_recipients = array();
 
     /**
      * Return the summary for this content element.
+     *
+     * @return string The summary.
      */
     public function getSummary()
     {
         return $this->_summary;
+    }
+
+    /**
+     * Set the summary for this content element.
+     *
+     * @param string $summary The summary.
+     *
+     * @return Horde_Push This content element.
+     */
+    public function setSummary($summary)
+    {
+        $this->_summary = $summary;
+        return $this;
+    }
+
+    /**
+     * Return the contents for this element.
+     *
+     * @return array The content list.
+     */
+    public function getContent()
+    {
+        return $this->_content;
+    }
+
+    /**
+     * Add content to this element.
+     *
+     * @param string|resource $content The UTF-8 encoded content.
+     * @param array           $params  Content specific parameters.
+     *
+     * @return Horde_Push This content element.
+     */
+    public function addContent($content, $params = array())
+    {
+        $this->_content[] = array('content' => $content, 'params' => $params);
+        return $this;
+    }
+
+    /**
+     * Add a recipient for this element.
+     *
+     * @param Horde_Push_Recipient $recipient The recipient.
+     *
+     * @return Horde_Push This content element.
+     */
+    public function addRecipient(
+        Horde_Push_Recipient $recipient
+    )
+    {
+        $this->_recipients[] = $recipient;
+        return $this;
+    }
+
+    /**
+     * Push the content to the recipients.
+     *
+     * @return Horde_Push This content element.
+     */
+    public function push()
+    {
+        foreach ($this->_recipients as $recipient) {
+            $recipient->push($this);
+        }
+        return $this;
     }
 }
