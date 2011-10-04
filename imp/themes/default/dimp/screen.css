@@ -216,10 +216,6 @@ div.vpRow, div.vpRow div {
     height: 16px;
     border-bottom: 1px;
 }
-div.vpRow:hover {
-    border: 1px solid silver;
-    margin: -1px;
-}
 div.vpRowSelected {
     background: #ffa !important;
 }
