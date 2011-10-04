@@ -1794,7 +1794,7 @@ KronolithCore = {
         case 'week':
             var storage = view + 'Sizes',
                 div = _createElement(event),
-                margin = view == 'day' ? 5 : 10,
+                margin = view == 'day' ? 1 : 3,
                 style = { backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                           color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg };
 
@@ -2068,10 +2068,10 @@ KronolithCore = {
             }
             this.dayGroups[pos].push(event.value);
             // Update the widths of all events in a conflict group.
-            width = (100 - margin) / columns;
+            width = 100 / columns;
             this.dayGroups[pos].each(function(ev) {
                 ev.columns = columns;
-                $(ev.nodeId).setStyle({ width: width + '%', left: (width * (ev.column - 1)) + '%' });
+                $(ev.nodeId).setStyle({ width: width - margin + '%', left: (width * (ev.column - 1)) + '%' });
             });
             this.dayEvents.push(event.value);
 
