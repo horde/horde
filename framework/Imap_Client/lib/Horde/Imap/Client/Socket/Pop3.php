@@ -262,11 +262,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         stream_set_timeout($this->_stream, $this->_params['timeout']);
 
-        // Add separator to make it easier to read debug log.
-        if ($this->_debug) {
-            fwrite($this->_debug, str_repeat('-', 30) . "\n");
-        }
-
         $line = $this->_getLine();
 
         // Check for string matching APOP timestamp
@@ -1000,9 +995,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _sendLine($query, $options = array())
     {
-        if ($this->_debug) {
-            fwrite($this->_debug, 'C (' . microtime(true) . '): ' . (empty($options['debug']) ? $query : $options['debug']) . "\n");
-        }
+        $this->_writeDebug((empty($options['debug']) ? $query : $options['debug']) . "\n", 'client');
 
         fwrite($this->_stream, $query . "\r\n");
 
@@ -1032,9 +1025,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             return;
         }
 
-        if ($this->_debug) {
-            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . $read . "\n");
-        }
+        $this->_writeDebug($read . "\n", 'server');
 
         $orig_read = $read;
         $read = explode(' ', $read, 2);

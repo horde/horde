@@ -314,7 +314,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 if (!empty($this->_params['capability_ignore'])) {
                     if ($this->_debug &&
                         ($ignored = array_intersect_key($val, array_flip($this->_params['capability_ignore'])))) {
-                        fwrite($this->_debug, sprintf(">>> IGNORING these IMAP capabilities: %s\n", implode(', ', array_keys($ignored))));
+                        $this->_writeDebug(sprintf("IGNORING these IMAP capabilities: %s\n", implode(', ', array_keys($ignored))), 'info');
                     }
                     $val = array_diff_key($val, array_flip($this->_params['capability_ignore']));
                 }
@@ -3381,9 +3381,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (in_array($mailbox, $this->_params['cache']['fetch_ignore'])) {
-            if ($this->_debug) {
-                fwrite($this->_debug, sprintf(">>> IGNORING cached FETCH data (mailbox: %s)\n", $mailbox));
-            }
+            $this->_writeDebug(sprintf("IGNORING cached FETCH data (mailbox: %s)\n", $mailbox), 'info');
             return;
         }
 
@@ -3507,9 +3505,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (in_array($to, $this->_params['cache']['fetch_ignore'])) {
-            if ($this->_debug) {
-                fwrite($this->_debug, sprintf(">>> IGNORING moving cached FETCH data (%s => %s)\n", $from, $to));
-            }
+            $this->_writeDebug(sprintf("IGNORING moving cached FETCH data (%s => %s)\n", $from, $to), 'info');
             return;
         }
 
@@ -3572,13 +3568,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $metadata[self::CACHE_SEARCH] = array();
             if ($this->_debug &&
                 !isset($this->_temp['searchcacheexpire'][$mailbox])) {
-                fwrite($this->_debug, sprintf(">>> Expired search results from cache (mailbox: %s)\n", $mailbox));
+                $this->_writeDebug(sprintf("Expired search results from cache (mailbox: %s)\n", $mailbox), 'info');
                 $this->_temp['searchcacheexpire'][$mailbox] = true;
             }
         } elseif (isset($metadata[self::CACHE_SEARCH][$cache])) {
-            if ($this->_debug) {
-                fwrite($this->_debug, sprintf(">>> Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache));
-            }
+            $this->_writeDebug(sprintf("Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache), 'info');
 
             return array(
                 'data' => unserialize($metadata[self::CACHE_SEARCH][$cache]),
@@ -3612,7 +3606,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_updateMetaData($cache['mailbox'], $cache['metadata']);
 
         if ($this->_debug) {
-            fwrite($this->_debug, sprintf(">>> Saved %s results to cache (mailbox: %s; id: %s)\n", $cache['type'], $cache['mailbox'], $cache['id']));
+            $this->_writeDebug(sprintf("Saved %s results to cache (mailbox: %s; id: %s)\n", $cache['type'], $cache['mailbox'], $cache['id']), 'info');
             unset($this->_temp['searchcacheexpire'][$cache['mailbox']]);
         }
     }
@@ -3748,6 +3742,57 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         return $ret;
+    }
+
+    /**
+     * Output debug information.
+     *
+     * @param string $msg    Debug line.
+     * @param string $type   The message type. One of the following:
+     *                       - null: None (output raw message)
+     *                       - 'client': Client command
+     *                       - 'info': Informational message
+     *                       - 'server': Server command
+     */
+    protected function _writeDebug($msg, $type = null)
+    {
+        if (!$this->_debug) {
+            return;
+        }
+
+        $pre = '';
+
+        if ($type) {
+            $new_time = microtime(true);
+            if (isset($this->_temp['debug_time'])) {
+                if (($diff = ($new_time - $this->_temp['debug_time'])) > Horde_Imap_Client::SLOW_COMMAND) {
+                    fwrite($this->_debug, '>>> Slow IMAP Command: ' . round($diff, 3) . " seconds\n");
+                }
+            } else {
+                fwrite($this->_debug,
+                    str_repeat('-', 30) . "\n" .
+                    '>>> Timestamp: ' . date('r') . "\n"
+                );
+            }
+
+            $this->_temp['debug_time'] = $new_time;
+
+            switch ($type) {
+            case 'client':
+                $pre .= 'C: ';
+                break;
+
+            case 'info':
+                $pre .= '>>> ';
+                break;
+
+            case 'server':
+                $pre .= 'S: ';
+                break;
+            }
+        }
+
+        fwrite($this->_debug, $pre . $msg);
     }
 
 }

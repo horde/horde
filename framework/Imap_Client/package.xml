@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Improved IMAP debug logging.
 * [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).
 * [mms] Add shortcuts to get MIME decoded envelope information.
 * [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).

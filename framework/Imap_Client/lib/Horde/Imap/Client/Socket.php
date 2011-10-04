@@ -442,11 +442,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_temp['no_cap'] = true;
         }
 
-        // Add separator to make it easier to read debug log.
-        if ($this->_debug) {
-            fwrite($this->_debug, str_repeat('-', 30) . "\n");
-        }
-
         // Get greeting information.  This is untagged so we need to specially
         // deal with it here.  A BYE response will be caught and thrown in
         // _getLine().
@@ -3658,19 +3653,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if ($this->_debug && empty($this->_temp['sendnodebug'])) {
-            fwrite($this->_debug, '(' . str_pad(microtime(true), 15, 0) . ') C: ');
             if (is_resource($data)) {
                 if (empty($this->_params['debug_literal'])) {
                     fseek($data, 0, SEEK_END);
-                    fwrite($this->_debug, '[LITERAL DATA - ' . ftell($data) . ' bytes]' . "\n");
+                    $this->_writeDebug('[LITERAL DATA - ' . ftell($data) . ' bytes]' . "\n", 'client');
                 } else {
                     rewind($data);
+                    $this->_writeDebug('', 'client');
                     while (!feof($data)) {
-                        fwrite($this->_debug, fread($data, 8192));
+                        $this->_writeDebug(fread($data, 8192));
                     }
                 }
             } else {
-                fwrite($this->_debug, (empty($options['debug']) ? $out : $options['debug']) . "\n");
+                $this->_writeDebug((empty($options['debug']) ? $out : $options['debug']) . "\n", 'client');
             }
         }
 
@@ -3876,9 +3871,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (feof($this->_stream)) {
             $this->_temp['logout'] = true;
             $this->logout();
-            if ($this->_debug) {
-                fwrite($this->_debug, "[ERROR: IMAP server closed the connection.]\n");
-            }
+            $this->_writeDebug("ERROR: IMAP server closed the connection.\n", 'info');
             $this->_exception('IMAP server closed the connection unexpectedly.', 'DISCONNECT');
         }
 
@@ -3930,25 +3923,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if (!$got_data) {
-            if ($this->_debug) {
-                fwrite($this->_debug, "[ERROR: IMAP read/timeout error.]\n");
-            }
+            $this->_writeDebug("ERROR: IMAP read/timeout error.\n", 'info');
             $this->logout();
             $this->_exception('IMAP read error or IMAP connection timed out.', 'SERVER_READERROR');
         }
 
         if ($this->_debug) {
-            fwrite($this->_debug, '(' . str_pad(microtime(true), 15, 0) . ') S: ');
             if ($binary) {
-                fwrite($this->_debug, '[BINARY DATA - ' . $old_len . ' bytes]' . "\n");
+                $this->_writeDebug('[BINARY DATA - ' . $old_len . ' bytes]' . "\n", 'server');
             } elseif (!is_null($len) &&
                       empty($this->_params['debug_literal'])) {
-                fwrite($this->_debug, '[LITERAL DATA - ' . $old_len . ' bytes]' . "\n");
+                $this->_writeDebug('[LITERAL DATA - ' . $old_len . ' bytes]' . "\n", 'server');
             } elseif ($stream) {
                 rewind($data);
-                fwrite($this->_debug, rtrim(stream_get_contents($data)) . "\n");
+                $this->_writeDebug(rtrim(stream_get_contents($data)) . "\n", 'server');
             } else {
-                fwrite($this->_debug, rtrim($data) . "\n");
+                $this->_writeDebug(rtrim($data) . "\n", 'server');
             }
         }
 
@@ -4496,9 +4486,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'CLIENTBUG':
         case 'CANNOT':
             // Defined by RFC 5530 [3]
-            if ($this->_debug) {
-                fwrite($this->_debug, "*** ERROR in IMAP command. ***\n");
-            }
+            $this->_writeDebug("ERROR: IMAP server explicitly reporting an error.\n", 'info');
             break;
 
         case 'LIMIT':
