@@ -16,7 +16,6 @@ Horde_Registry::appInit('ansel');
 $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 
 $name = '';
-$autocreate = true;
 $image_id = (int)Horde_Util::getPost('image');
 $reload = (int)Horde_Util::getPost('reload');
 $results = $faces->getImageFacesData($image_id);
@@ -24,10 +23,12 @@ $results = $faces->getImageFacesData($image_id);
 // Attempt to get faces from the picture if we don't already have results,
 // or if we were asked to explicitly try again.
 if (($reload || empty($results))) {
-    $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
+    $image = $GLOBALS['injector']
+        ->getInstance('Ansel_Storage')
+        ->getImage($image_id);
     try {
         $image->createView('screen');
-        $results = $faces->getFromPicture($image_id, $autocreate);
+        $results = $faces->getFromPicture($image_id, true);
     } catch (Horde_Exception $e) {
         Horde::logMessage($e, 'ERR');
         $results = null;
