@@ -343,7 +343,7 @@ class Horde_Auth
      *
      * @throws Horde_Auth_Exception if the password does not match the policy.
      */
-    static public function checkPasswordPolicy($password, $policy)
+    static public function checkPasswordPolicy($password, array $policy)
     {
         // Check max/min lengths if specified in the policy.
         if (isset($policy['minLength']) &&
@@ -415,7 +415,8 @@ class Horde_Auth
      *
      * @throws Horde_Auth_Exception if the password is too similar.
      */
-    static public function checkPasswordSimilarity($password, $dict, $max = 80)
+    static public function checkPasswordSimilarity($password, array $dict,
+                                                   $max = 80)
     {
         // Check for pass == dict, simple reverse strings, etc.
         foreach ($dict as $test) {
