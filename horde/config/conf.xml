@@ -526,13 +526,13 @@
         socket"></configstring>
        </case>
        <case name="tcp" desc="TCP/IP">
+        <configstring name="hostspec" desc="What hostname is the database server
+        running on, or what is the name of the system DSN to use?">
+        localhost</configstring>
         <configinteger name="port" required="false" desc="Port the DB is
-        running on, if non-standard">5432</configinteger>
+        running on, if non-standard"/>
        </case>
       </configswitch>
-      <configstring name="hostspec" desc="What hostname is the database server
-      running on, or what is the name of the system DSN to use?">
-      localhost</configstring>
       <configstring name="username" desc="What username do we authenticate to
       the database server as?">horde</configstring>
       <configstring name="password" required="false" desc="What password do we
