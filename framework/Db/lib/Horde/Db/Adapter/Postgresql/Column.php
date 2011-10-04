@@ -170,9 +170,9 @@ class Horde_Db_Adapter_Postgresql_Column extends Horde_Db_Adapter_Base_Column
             $string = stream_get_contents($value);
             fclose($value);
             return $string;
-        } else {
-            return preg_replace_callback("/(?:\\\'|\\\\\\\\|\\\\\d{3})/", array($this, 'binaryToStringCallback'), $value);
         }
+
+        return preg_replace_callback("/(?:\\\'|\\\\\\\\|\\\\\d{3})/", array($this, 'binaryToStringCallback'), $value);
     }
 
     /**
