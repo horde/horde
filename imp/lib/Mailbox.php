@@ -948,7 +948,7 @@ class IMP_Mailbox implements Serializable
             if (($page != 'search.php') && (IMP::getViewMode() == 'dimp')) {
                 $anchor = is_null($uid)
                     ? ('mbox:' . $this->form_to)
-                    : ('msg:' . strval($this->getIndicesOb($uid)));
+                    : ('msg:' . $this->getIndicesOb($uid)->formTo());
                 return Horde::url('index.php')->setAnchor($anchor);
             }
 
