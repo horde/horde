@@ -1159,14 +1159,14 @@ table.kronolithView td.kronolithFirstCol {
     top: 1px;
     right: 2px;
     bottom: 3px;
-    left: 25px;
+    left: 23px;
 }
 #kronolithEventsWeek {
     position: absolute;
     top: 1px;
-    right: 3px;
+    right: 1px;
     bottom: 3px;
-    left: 23px;
+    left: 21px;
 }
 .kronolithEventsWeek {
     position: relative;
