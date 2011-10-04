@@ -555,7 +555,7 @@ class Ansel_Faces_Base
         try {
             $GLOBALS['ansel_db']->update('UPDATE ansel_images SET image_faces = '
                 . count($fids) . ' WHERE image_id = ' . $image->id);
-            $GLOBALS['ansel_db']->updatec('UPDATE ansel_shares '
+            $GLOBALS['ansel_db']->update('UPDATE ansel_shares '
                 . 'SET attribute_faces = attribute_faces + ' . count($fids)
                 . ' WHERE share_id = ' . $image->gallery);
         } catch (Horde_Db_Exception $e) {
