@@ -287,7 +287,7 @@ class IMP_Mailbox implements Serializable
             return $acl;
 
         case 'basename':
-            if ($this->nonimap || $this->special) {
+            if ($this->nonimap) {
                 return $this->label;
             }
 

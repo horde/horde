@@ -1544,10 +1544,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 }
 
                 $is_open = true;
-                $params['orig_label'] = empty($opts['basename'])
+                $label = $params['orig_label'] = empty($opts['basename'])
                     ? $val->abbrev_label
                     : $val->basename;
-                $label = $params['orig_label'];
                 break;
 
             case 'IMP_Tree_Jquerymobile':
