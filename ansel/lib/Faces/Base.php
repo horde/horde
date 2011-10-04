@@ -654,7 +654,8 @@ class Ansel_Faces_Base
         $str_len = strlen($signature);
         $GLOBALS['ansel_db']->delete('DELETE FROM ansel_faces_index WHERE face_id = ' . $face_id);
         $q = 'INSERT INTO ansel_faces_index (face_id, index_position, index_part) VALUES (?, ?, ?)';
-        for ($i = 0; $i < $str_len - $word_len; $i++) {
+        $c = $str_len - $word_len;
+        for ($i = 0; $i <= $c; $i++) {
             $data = array(
                 $face_id,
                 $i,
@@ -806,8 +807,9 @@ class Ansel_Faces_Base
     {
         $word_len = $GLOBALS['conf']['faces']['search'];
         $str_len = strlen($signature);
+        $c = $str_len - $word_len;
         $indexes = array();
-        for ($i = 0; $i < $str_len - $word_len; $i++) {        
+        for ($i = 0; $i <= $c; $i++) {
             $sig = new Horde_Db_Value_Binary(substr($signature, $i, $word_len));
             $indexes[] = '(index_position = ' . $i . ' AND index_part = ' . $sig->quote($GLOBALS['ansel_db']) . ')';
         }
