@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
