@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix detecting locale directory from PEAR installation (Bug #10589).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -550,7 +550,7 @@
    <date>2011-10-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix detecting locale directory from PEAR installation (Bug #10589).
    </notes>
   </release>
  </changelog>
