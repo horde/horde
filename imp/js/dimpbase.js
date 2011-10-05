@@ -1660,7 +1660,7 @@ var DimpBase = {
         }
         $('previewInfo').update(txt + ' ' + DIMP.text.selected + '.').show();
 
-        this.pp = null;
+        delete this.pp;
     },
 
     _toggleHeaders: function(elt, update)
@@ -1906,7 +1906,7 @@ var DimpBase = {
             if (!noload) {
                 this.go('mbox', (this.search ? this.search.mbox : this.INBOX));
             }
-            this.search = null;
+            delete this.search;
 
             $('qsearch_input').clear();
             if (this.qsearch_ghost) {

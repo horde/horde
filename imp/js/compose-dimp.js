@@ -158,7 +158,7 @@ var DimpCompose = {
     {
         if (this.old_action) {
             this.uniqueSubmit(this.old_action);
-            this.old_action = null;
+            delete this.old_action;
         }
     },
 

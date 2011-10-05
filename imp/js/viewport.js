@@ -310,7 +310,7 @@ var ViewPort = Class.create({
             if (!this.view) {
                 this.onResize(true);
             } else if (this.view != view) {
-                this.active_req = null;
+                delete this.active_req;
             }
             this.view = view;
         }
@@ -520,7 +520,8 @@ var ViewPort = Class.create({
                     sp.horiz.loc = this.page_size;
                 }
                 [ this.opts.pane_data, sp.currbar ].invoke('hide');
-                sp.curr = sp.currbar = null;
+                delete sp.curr;
+                delete sp.currbar;
             }
 
             if (!size) {
@@ -855,7 +856,7 @@ var ViewPort = Class.create({
 
         if (r.requestid &&
             r.requestid == this.active_req) {
-            this.active_req = null;
+            delete this.active_req;
             callback = buffer.getMetaData('callback');
             offset = buffer.getMetaData('req_offset');
 
@@ -990,7 +991,7 @@ var ViewPort = Class.create({
     {
         if (this.waitHandler) {
             clearTimeout(this.waitHandler);
-            this.waitHandler = null;
+            delete this.waitHandler;
         }
     },
 

@@ -337,7 +337,7 @@ var ImpCompose = {
         this.editor_wait = true;
         CKEDITOR.instances.composeMessage.setData($F('composeMessage'), function() { this.editor_wait = false; }.bind(this));
         $('composeMessage').next().show();
-        this.sc_submit = null;
+        delete this.sc_submit;
     },
 
     _onBeforeSpellCheck: function()
@@ -355,7 +355,7 @@ var ImpCompose = {
         } else if (IMP_Compose_Base.editor_on) {
             this._onAfterSpellCheck();
         } else {
-            this.sc_submit = null;
+            delete this.sc_submit;
         }
     },
 
