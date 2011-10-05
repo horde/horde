@@ -378,7 +378,7 @@ var DimpBase = {
 
     loadMailbox: function(f, opts)
     {
-        var need_delete;
+        var is_search, need_delete;
         opts = opts || {};
 
         if (!this.viewport) {
@@ -1898,12 +1898,9 @@ var DimpBase = {
 
         if (this.isSearch()) {
             $(qs, 'qsearch_icon', 'qsearch_input').invoke('show');
-            if (noload) {
-                this.resetSelected();
-            } else {
+            if (!noload) {
                 this.go('mbox', (this.search ? this.search.mbox : this.INBOX));
             }
-            this.viewport.deleteView(f);
             this.search = null;
 
             $('qsearch_input').clear();
