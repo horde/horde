@@ -151,7 +151,7 @@ var Horde_Uploader = Class.create({
             error_class: 'hordeUploaderError',
             footer_class: 'hordeUploaderFooter',
             multipart: false,
-            max_file_size: '1mb',
+            max_file_size: false,
             chunk_size: null
         }, params);
 
