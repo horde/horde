@@ -98,11 +98,11 @@ var ImpComposeBase = {
 
             if (pos != -1) {
                 if (next.id.sig_loc == last.id.sig_loc) {
-                    msg = msg.substring(0, pos) + nextsig + msg.substring(pos + lastsig.length, msg.length);
+                    msg = msg.substring(0, pos) + next.sig + msg.substring(pos + lastsig.length, msg.length);
                 } else if (next.id.sig_loc) {
-                    msg = nextsig + msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length);
+                    msg = next.sig + msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length);
                 } else {
-                    msg = msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length) + nextsig;
+                    msg = msg.substring(0, pos) + msg.substring(pos + lastsig.length, msg.length) + next.sig;
                 }
 
                 $('composeMessage').setValue(msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n'));
