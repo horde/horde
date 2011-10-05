@@ -1872,6 +1872,7 @@ var DimpBase = {
             if (this.search.query != q) {
                 this.viewswitch = true;
             }
+            this.resetSelected();
             this.viewport.reload();
         } else {
             this.search = {
@@ -1895,9 +1896,10 @@ var DimpBase = {
         }
 
         if (this.isSearch()) {
-            this.resetSelected();
             $(qs, 'qsearch_icon', 'qsearch_input').invoke('show');
-            if (!noload) {
+            if (noload) {
+                this.resetSelected();
+            } else {
                 this.go('mbox', (this.search ? this.search.mbox : this.INBOX));
             }
             this.viewport.deleteView(f);
