@@ -797,9 +797,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* If QRESYNC is available, synchronize the mailbox. */
         if (!$reopen && $qresync) {
             $this->_initCache();
-            $metadata = $this->cache->getMetaData($mailbox, null, array('HICmodseq', 'uidvalid'));
+            $metadata = $this->cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
-            if (isset($metadata['HICmodseq'])) {
+            if (isset($metadata[self::CACHE_MODSEQ])) {
                 $uids = $this->cache->get($mailbox);
                 if (!empty($uids)) {
                     /* This command may cause several things to happen.
@@ -817,7 +817,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         'QRESYNC',
                         array(
                             $metadata['uidvalid'],
-                            $metadata['HICmodseq'],
+                            $metadata[self::CACHE_MODSEQ],
                             $this->utils->toSequenceString($uids)
                         )
                     );
@@ -1561,7 +1561,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Update MODSEQ if active for mailbox. */
         if (!empty($this->_temp['mailbox']['highestmodseq'])) {
             if (isset($this->_init['enabled']['QRESYNC'])) {
-                $this->_updateMetaData($mailbox, array('HICmodseq' => $this->_temp['mailbox']['highestmodseq']), isset($this->_temp['mailbox']['uidvalidity']) ? $this->_temp['mailbox']['uidvalidity'] : null);
+                $this->_updateMetaData($mailbox, array(
+                    self::CACHE_MODSEQ => $this->_temp['mailbox']['highestmodseq']
+                ), isset($this->_temp['mailbox']['uidvalidity']) ? $this->_temp['mailbox']['uidvalidity'] : null);
             } else {
                 /* Unfortunately, RFC 4551 does not provide any method to
                  * obtain the HIGHESTMODSEQ after an EXPUNGE is completed.
