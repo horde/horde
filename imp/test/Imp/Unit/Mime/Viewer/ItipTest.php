@@ -38,10 +38,14 @@ extends PHPUnit_Framework_TestCase
     private $_identity;
     private $_identityId = 'default';
     private $_mail;
+    private $_oldtz;
     private $_registryCharset = 'UTF-8';
 
     public function setUp()
     {
+        $this->_oldtz = date_default_timezone_get();
+        date_default_timezone_set('UTC');
+
         $browser = $this->getMock('Horde_Browser');
         $browser->expects($this->any())
             ->method('hasQuirk')
@@ -75,6 +79,11 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['server']['name'] = 'localhost';
         $_GET['identity'] = 'test';
         $_SERVER['REMOTE_ADDR'] = 'localhost';
+    }
+
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_oldtz);
     }
 
     public function _injectorGetInstance($interface)
@@ -284,7 +293,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('1222419600', $this->_getVevent()->getAttribute('DTSTART'));
+        $this->assertEquals('1222426800', $this->_getVevent()->getAttribute('DTSTART'));
     }
 
     public function testResultMessageContainsCopiedStartDateParameters()
@@ -301,7 +310,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('1222423200', $this->_getVevent()->getAttribute('DTEND'));
+        $this->assertEquals('1222430400', $this->_getVevent()->getAttribute('DTEND'));
     }
 
     public function testResultMessageContainsCopiedEndDateParameters()
