@@ -508,9 +508,11 @@ class Ansel_Faces_Base
     {
         // get image if ID is passed
         if (!($image instanceof Ansel_Image)) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            $image = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
                 ->getImage($image);
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')
+            $gallery = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
                 ->getGallery($image->gallery);
 
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
