@@ -62,10 +62,11 @@ class Ansel_View_Upload
         $header = _("Upload to gallery");
         $returnText =_("View Gallery");
         $subText = _("Add files to the upload queue and click the start button.");
+        $sizeError = _("File size error.");
+        $typeError = _("File type error.");
         $previewUrl = Horde::url('img/upload_preview.php')->add('gallery', $this->_gallery->id);
 
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
-
         $jsuri = $GLOBALS['registry']->get('jsuri', 'horde');
         $js = <<< EOT
         var uploader = new Horde_Uploader({
@@ -78,7 +79,9 @@ class Ansel_View_Upload
                     add: '{$addText}',
                     header: '{$header}',
                     returnButton: '{$returnText}',
-                    subheader: '{$subText}'
+                    subheader: '{$subText}',
+                    size: '{$sizeError}',
+                    type: '{$typeError}'
             },
             header_class: 'hordeUploaderHeader',
             container_class: 'uploaderContainer',
