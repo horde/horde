@@ -84,7 +84,7 @@ class Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Base
      */
     protected function _formatFlowed($text, $delsp = null)
     {
-        $flowed = new Horde_Text_Flowed($this->_mimepart->replaceEOL($text, "\n"), $this->_mimepart->getCharset());
+        $flowed = new Horde_Text_Flowed($text, $this->_mimepart->getCharset());
         $flowed->setMaxLength(0);
         if (!is_null($delsp)) {
             $flowed->setDelSp($delsp);
