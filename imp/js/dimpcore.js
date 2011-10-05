@@ -36,22 +36,24 @@ var DimpCore = {
 
     // Convert object to an IMP UID Range string. See IMP::toRangeString()
     // ob = (object) mailbox name as keys, values are array of uids.
-    toRangeString: function(ob)
+    // force = (boolean) Force into parsing in string mode (e.g. POP3 mode)
+    toRangeString: function(ob, force)
     {
         var str = '';
+        force = force || DIMP.conf.pop3;
 
         $H(ob).each(function(o) {
             if (!o.value.size()) {
                 return;
             }
 
-            var u = (DIMP.conf.pop3 ? o.value.clone() : o.value.numericSort()),
+            var u = (force ? o.value.clone() : o.value.numericSort()),
                 first = u.shift(),
                 last = first,
                 out = [];
 
             u.each(function(k) {
-                if (!DIMP.conf.pop3 && (last + 1 == k)) {
+                if (!force && (last + 1 == k)) {
                     last = k;
                 } else {
                     out.push(first + (last == first ? '' : (':' + last)));
@@ -67,11 +69,13 @@ var DimpCore = {
 
     // Parses an IMP UID Range string. See IMP::parseRangeString()
     // str = (string) An IMP UID range string.
-    parseRangeString: function(str)
+    // force = (boolean) Force into parsing in string mode (e.g. POP3 mode)
+    parseRangeString: function(str, force)
     {
         var count, end, i, mbox, uidstr,
             mlist = {},
             uids = [];
+        force = force || DIMP.conf.pop3;
         str = str.strip();
 
         while (!str.blank()) {
@@ -94,7 +98,7 @@ var DimpCore = {
             uidstr.split(',').each(function(e) {
                 var r = e.split(':');
                 if (r.size() == 1) {
-                    uids.push(DIMP.conf.pop3 ? e : Number(e));
+                    uids.push(force ? e : Number(e));
                 } else {
                     // POP3 will never exist in range here.
                     uids = uids.concat($A($R(Number(r[0]), Number(r[1]))));

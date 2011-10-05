@@ -164,7 +164,7 @@ var DimpBase = {
                 this.viewport.select(row, { delay: 0.3 });
             }
         } else if (curr) {
-            this.rownum = [ curr ];
+            this.rownum = curr;
             this.viewport.requestContentRefresh(curr - 1);
         }
     },
@@ -210,9 +210,9 @@ var DimpBase = {
 
         if (type == 'msg') {
             type = 'mbox';
-            msg = DimpCore.parseRangeString(data);
+            msg = DimpCore.parseRangeString(data, true);
             data = Object.keys(msg).first();
-            this.uid = msg[data];
+            this.uid = msg[data].first();
             // Fall through to the 'mbox' check below.
         }
 
@@ -300,11 +300,18 @@ var DimpBase = {
 
     setMsgHash: function()
     {
-        var vs = this.viewport.getSelection(),
+        var msg,
+            vs = this.viewport.getSelection(),
             view = vs.getBuffer().getView();
 
         if (vs.size()) {
-            this.setHash('msg', DimpCore.toRangeString(DimpCore.selectionToRange(vs)));
+            if (this.isSearch()) {
+                msg = {};
+                msg[this.view] = vs.get('uid');
+            } else {
+                msg = DimpCore.selectionToRange(vs);
+            }
+            this.setHash('msg', DimpCore.toRangeString(msg, this.isSearch()));
         } else {
             this.setHash('mbox', view);
         }
@@ -404,7 +411,7 @@ var DimpBase = {
             }
         }
 
-        this.viewport.loadView(f, { search: (this.uid ? { uid: this.uid.first() } : null), background: opts.background});
+        this.viewport.loadView(f, { search: (this.uid ? { uid: this.uid } : null), background: opts.background});
 
         if (need_delete) {
             this.viewport.deleteView(need_delete);
@@ -569,15 +576,13 @@ var DimpBase = {
             },
             onContentOffset: function(offset) {
                 if (this.uid) {
-                    var row = this.viewport.createSelectionBuffer().search({ uid: { equal: this.uid }, mbox: { equal: [ this.view ] } });
-                    if (row.size()) {
-                        this.rownum = row.get('rownum');
-                    }
-                    this.uid = null;
+                    // UID here is the ViewPort UID, not the message UID
+                    this.rownum = this.viewport.createSelectionBuffer().search({ VP_id: { equal: [ this.uid ] } }).get('rownum').first();
+                    delete this.uid;
                 }
 
                 if (this.rownum) {
-                    this.viewport.scrollTo(this.rownum.first(), { noupdate: true, top: true });
+                    this.viewport.scrollTo(this.rownum, { noupdate: true, top: true });
                     offset = this.viewport.currentOffset();
                 }
 
@@ -634,8 +639,8 @@ var DimpBase = {
             }
 
             if (this.rownum) {
-                this.viewport.select(this.rownum);
-                this.rownum = null;
+                this.viewport.select([ this.rownum ]);
+                delete this.rownum;
             }
 
             this.updateTitle(true);
@@ -1569,7 +1574,7 @@ var DimpBase = {
         // cause the preview pane to be cleared.
         if (DimpCore.inAjaxCallback) {
             this.preview_replace = true;
-            this.uid = [ r.response.newuid ];
+            this.uid = r.response.newuid;
             this._stripAttachmentCallback.bind(this, r).defer();
             return;
         }
