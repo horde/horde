@@ -1871,6 +1871,7 @@ var DimpBase = {
             /* Search text has changed. */
             if (this.search.query != q) {
                 this.viewswitch = true;
+                this.search.query = q;
             }
             this.resetSelected();
             this.viewport.reload();
