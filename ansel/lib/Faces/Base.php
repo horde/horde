@@ -826,7 +826,7 @@ class Ansel_Faces_Base
         if ($indexes) {
             $sql .= ' AND (' . implode(' OR ', $indexes) . ')';
         }
-        $sql .= ' GROUP BY i.face_id, f.face_name HAVING count(i.face_id) > 0 '
+        $sql .= ' GROUP BY i.face_id, f.face_name, i.image_id HAVING count(i.face_id) > 0 '
             . 'ORDER BY count(i.face_id) DESC';
         $sql = $GLOBALS['ansel_db']->addLimitOffset(
             $sql,
