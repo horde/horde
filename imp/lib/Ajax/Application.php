@@ -1882,7 +1882,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 if ($this->_mbox->search) {
                     $disappear = array();
                     foreach ($indices as $key => $val) {
-                        $disappear[] = IMP::base64urlEncode($key . IMP_Views_ListMessages::IDX_SEP . $val);
+                        $disappear[] = IMP_Views_ListMessages::searchUid($key, $val);
                     }
                 } else {
                     $disappear = end($indices->getSingle(true));

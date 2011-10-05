@@ -315,7 +315,7 @@ class IMP_Views_ListMessages
         for ($i = 1, $end = count($sorted_list['s']); $i <= $end; ++$i) {
             $uid = $sorted_list['s'][$i];
             if (isset($sorted_list['m'][$i])) {
-                $uid = IMP::base64urlEncode($sorted_list['m'][$i] . self::IDX_SEP . $uid);
+                $uid = $this->searchUid($sorted_list['m'][$i], $uid);
             }
             $uidlist[] = $uid;
         }
@@ -482,7 +482,7 @@ class IMP_Views_ListMessages
             /* Need both mailbox and UID to create a unique ID string if
              * using a search mailbox.  Otherwise, use only the UID. */
             if ($search) {
-                $msgs[IMP::base64urlEncode($ob['mailbox'] . self::IDX_SEP . $ob['uid'])] = $msg;
+                $msgs[$this->searchUid($ob['mailbox'], $ob['uid'])] = $msg;
             } else {
                 $msgs[$ob['uid']] = $msg;
             }
@@ -515,6 +515,19 @@ class IMP_Views_ListMessages
         $ob->view = $mbox->form_to;
 
         return $ob;
+    }
+
+    /**
+     * Generate the ViewPort UID to use for search mailboxes.
+     *
+     * @param string $mbox  Message mailbox.
+     * @param string $uid   Message UID.
+     *
+     * @return string  ViewPort UID.
+     */
+    static public function searchUid($mbox, $uid)
+    {
+        return IMP::base64urlEncode(strval($mbox) . self::IDX_SEP . $uid);
     }
 
 }
