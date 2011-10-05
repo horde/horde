@@ -85,7 +85,7 @@ class Horde_Push_Cli
         $recipients = $recipient_factory->create($conf);
 
         foreach ($recipients as $recipient) {
-            $push->addRecipients($recipient);
+            $push->addRecipient($recipient);
         }
 
         $results = $push->push(isset($options['pretend']));
