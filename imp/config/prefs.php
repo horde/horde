@@ -209,12 +209,15 @@ $_prefs['set_priority'] = array(
     'desc' => _("Set a priority header when composing messages?")
 );
 
-// If browser supports the HTML editor, should we compose in HTML mode by
-// default?
+// Default composition method.
 $_prefs['compose_html'] = array(
     'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Compose messages with an HTML editor by default?")
+    'type' => 'enum',
+    'enum' => array(
+        0 => _("Plain Text"),
+        1 => _("Rich Text (HTML)")
+    ),
+    'desc' => _("Default method to compose messages:")
 );
 
 // For the HTML editor, this is the default font family.
