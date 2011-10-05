@@ -33,14 +33,14 @@ var ImpCompose = {
     changeIdentity: function(elt)
     {
         var id = $F(elt),
-            last = IMP_Compose_Base.getIdentity($F('last_identity')),
-            next = IMP_Compose_Base.getIdentity(id),
+            last = ImpComposeBase.getIdentity($F('last_identity')),
+            next = ImpComposeBase.getIdentity(id),
             bcc = $('bcc'),
             save = $('ssm'),
             smf = $('sent_mail_folder'),
             re;
 
-        IMP_Compose_Base.replaceSignature(id);
+        ImpComposeBase.replaceSignature(id);
 
         if (this.smf_check) {
             smf.setValue(next.id.smf_name);
@@ -124,7 +124,7 @@ var ImpCompose = {
 
         case 'auto_save_draft':
             // Move HTML text to textarea field for submission.
-            if (IMP_Compose_Base.editor_on) {
+            if (ImpComposeBase.editor_on) {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
 
@@ -145,7 +145,7 @@ var ImpCompose = {
             return;
         }
 
-        if (this.editor_wait && IMP_Compose_Base.editor_on) {
+        if (this.editor_wait && ImpComposeBase.editor_on) {
             return this.uniqSubmit.bind(this, actionID, e).defer();
         }
 
@@ -288,7 +288,7 @@ var ImpCompose = {
                 }
             });
 
-            IMP_Compose_Base.setCursorPosition('composeMessage', this.cursor_pos, IMP_Compose_Base.getIdentity($F('last_identity')).sig);
+            ImpComposeBase.setCursorPosition('composeMessage', this.cursor_pos, ImpComposeBase.getIdentity($F('last_identity')).sig);
 
             if (Prototype.Browser.IE) {
                 $('subject').observe('keydown', function(e) {
@@ -299,7 +299,7 @@ var ImpCompose = {
                 });
             }
 
-            if (IMP_Compose_Base.editor_on) {
+            if (ImpComposeBase.editor_on) {
                 document.observe('SpellChecker:after', this._onAfterSpellCheck.bind(this));
                 document.observe('SpellChecker:before', this._onBeforeSpellCheck.bind(this));
             }
@@ -307,7 +307,7 @@ var ImpCompose = {
             if ($('to') && !$F('to')) {
                 $('to').focus();
             } else if (!$F('subject')) {
-                if (IMP_Compose_Base.editor_on) {
+                if (ImpComposeBase.editor_on) {
                     $('subject').focus();
                 } else {
                     $('composeMessage').focus();
@@ -352,7 +352,7 @@ var ImpCompose = {
         if (this.sc_submit) {
             this.skip_spellcheck = true;
             this.uniqSubmit(this.sc_submit.a, this.sc_submit.e);
-        } else if (IMP_Compose_Base.editor_on) {
+        } else if (ImpComposeBase.editor_on) {
             this._onAfterSpellCheck();
         } else {
             delete this.sc_submit;

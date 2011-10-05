@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-var IMP_Compose_Base = {
+var ImpComposeBase = {
 
     // Vars defaulting to null: editor_on, identities
 

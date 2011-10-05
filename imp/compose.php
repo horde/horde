@@ -707,7 +707,7 @@ if ($prefs->getValue('use_pgp') &&
 
 /* Define some variables used in the javascript code. */
 $js_vars = array(
-    'IMP_Compose_Base.editor_on' => intval($rtemode),
+    'ImpComposeBase.editor_on' => intval($rtemode),
     'ImpCompose.auto_save' => intval($prefs->getValue('auto_save_drafts')),
     'ImpCompose.cancel_url' => $cancel_url,
     'ImpCompose.cursor_pos' => ($rtemode ? null : $prefs->getValue('compose_cursor')),
