@@ -1881,8 +1881,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             if ($force || $this->_mbox->hideDeletedMsgs(true)) {
                 if ($this->_mbox->search) {
                     $disappear = array();
-                    foreach ($indices as $key => $val) {
-                        $disappear[] = IMP_Views_ListMessages::searchUid($key, $val);
+                    foreach ($indices as $val) {
+                        foreach ($val->uids as $val2) {
+                            $disappear[] = IMP_Views_ListMessages::searchUid($val->mbox, $val2);
+                        }
                     }
                 } else {
                     $disappear = end($indices->getSingle(true));
