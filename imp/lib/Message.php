@@ -315,7 +315,7 @@ class IMP_Message
 
                 /* Re-flow the message for prettier formatting. */
                 $body_part = $imp_contents->getMIMEPart($imp_contents->findBody());
-                $flowed = new Horde_Text_Flowed($body_part->replaceEOL($body, "\n"));
+                $flowed = new Horde_Text_Flowed($body_part->getContents());
                 if ($body_part->getContentTypeParameter('delsp') == 'yes') {
                     $flowed->setDelSp(true);
                 }
