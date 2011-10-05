@@ -969,7 +969,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     *   - message: (object) Return from IMP_View_ShowMessage::showMessage().
+     *   - message: (object) Return from IMP_Views_ShowMessage::showMessage().
      */
     public function showMessage()
     {
@@ -1020,7 +1020,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
-     *   - preview: (object) Return from IMP_View_ShowMessage::showMessage().
+     *   - preview: (object) Return from IMP_Views_ShowMessage::showMessage().
      *   - ViewPort: (object) See _viewPortData(). (Only updated cacheid
      *                        entry; don't do mailbox poll here).
      */
@@ -1882,7 +1882,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 if ($this->_mbox->search) {
                     $disappear = array();
                     foreach ($indices as $key => $val) {
-                        $disappear[] = IMP::base64urlEncode($key . IMP_View_ListMessages::IDX_SEP . $val);
+                        $disappear[] = IMP::base64urlEncode($key . IMP_Views_ListMessages::IDX_SEP . $val);
                     }
                 } else {
                     $disappear = end($indices->getSingle(true));
