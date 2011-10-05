@@ -114,8 +114,8 @@ var Horde_Uploader = Class.create({
     initialize: function(params)
     {
         this._params = Object.extend({
-            browsebutton_class: 'button hordeUploaderAdd',
-            uploadbutton_class: 'button hordeUploaderStart',
+            browsebutton_class: 'button',
+            uploadbutton_class: 'button',
             header_class: 'hordeUploaderHeader',
             headercontent_class: 'hordeUploaderHeaderContent',
             subheader_class: 'hordeUploaderSubHeader',
