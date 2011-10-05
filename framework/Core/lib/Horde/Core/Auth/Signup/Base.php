@@ -9,7 +9,7 @@
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
  * @author   Marko Djukic <marko@oblo.com>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
  * @package  Core
