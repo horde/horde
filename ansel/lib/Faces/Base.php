@@ -37,7 +37,7 @@ class Ansel_Faces_Base
      *
      * @return mixed  Array of face data
      */
-    public function getFaces($image)
+    public function getFaces(Ansel_Image $image)
     {
         if ($image instanceof Ansel_Image) {
             // First check if screen view exists
