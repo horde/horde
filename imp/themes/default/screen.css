@@ -664,6 +664,9 @@ div.mimeStatusMessage, div.mimePartInfo {
     background-repeat: no-repeat;
     padding-left: 25px;
 }
+span.mimePartInfoSize {
+    color: #666;
+}
 
 .mimeStatusMessageTable td {
     padding: 0;

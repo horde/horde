@@ -1384,6 +1384,15 @@ class IMP_Contents
 
         foreach ($display as $val) {
             if (isset($summary[$val])) {
+                switch ($val) {
+                case 'description':
+                    $summary[$val] = '<span class="mimePartInfoDescrip">' . $summary[$val] . '</span>';
+                    break;
+
+                case 'size':
+                    $summary[$val] = '<span class="mimePartInfoSize">(' . $summary[$val] . ')</span>';
+                    break;
+                }
                 $tmp_summary[] = $summary[$val];
             }
         }
