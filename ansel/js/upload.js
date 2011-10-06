@@ -8,9 +8,10 @@ AnselUpload = {
             method: 'post',
             parameters: params,
             onSuccess: function(r) {
-                console.log(r);
+                // TODO Add a notification text area
+                $('twitter').hide();
             },
-            onError: function(r) {
+            onFailure: function(r) {
                 console.log(r);
             }
         });

@@ -35,8 +35,8 @@ class Ansel_Ajax_Imple_UploadNotification extends Horde_Core_Ajax_Imple
                     ->getInstance('Horde_Service_UrlShortener')
                     ->shorten($url);
             } catch (Horde_Service_UrlShortener_Exception $e) {
-                // @TODO: return error code to js
-                throw new Horde_Exception($e);
+                Horde::logMessage($e, 'ERR');
+                header('HTTP/1.1 500');
             }
             $text = sprintf(_("New images uploaded to %s. %s"), $gallery->get('name'), $url);
             $twitter = $this->_getTwitterObject();
@@ -44,7 +44,8 @@ class Ansel_Ajax_Imple_UploadNotification extends Horde_Core_Ajax_Imple
             try {
                 return $twitter->statuses->update($text);
             } catch (Horde_Service_Twitter_Exception $e) {
-                throw Horde_Exception($e);
+                Horde::logMessage($e, 'ERR');
+                header('HTTP/1.1 500');
             }
         }
     }
