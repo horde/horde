@@ -70,6 +70,7 @@ case 'getPage':
         if (Horde_Util::getPost('mentions', null)) {
             $stream = Horde_Serialize::unserialize($twitter->statuses->mentions($params), Horde_Serialize::JSON);
         } else {
+            $params['include_entities'] = 1;
             $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
         }
     } catch (Horde_Service_Twitter_Exception $e) {
@@ -97,7 +98,12 @@ case 'getPage':
         $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
          /* links */
-        $body = $filter->filter($tweet->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
+        $links = $tweet->entities->urls;
+        $body = $tweet->text;
+        foreach ($links as $link) {
+            $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . $link->display_url . '</a>';
+            $body = substr($body, 0, $link->indices[0]) . $replace . substr($body, $link->indices[1]);
+        }
         $view->body = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $body);
 
         /* If this is a retweet, use the original author's profile info */
