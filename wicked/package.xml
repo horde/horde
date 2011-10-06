@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-06</date>
- <time>21:01:20</time>
+ <time>22:34:26</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0RC1</api>
@@ -353,6 +353,10 @@
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Wicked">
+     <dir name="fixtures">
+      <file name="cli_modular.rst" role="test" />
+      <file name="cli_modular.wiki" role="test" />
+     </dir> <!-- /test/Wicked/fixtures -->
      <dir name="Unit">
       <dir name="Driver">
        <file name="SqlTest.php" role="test" />
@@ -811,6 +815,8 @@
    <install as="Wicked/Autoload.php" name="test/Wicked/Autoload.php" />
    <install as="Wicked/phpunit.xml" name="test/Wicked/phpunit.xml" />
    <install as="Wicked/TestCase.php" name="test/Wicked/TestCase.php" />
+   <install as="Wicked/fixtures/cli_modular.rst" name="test/Wicked/fixtures/cli_modular.rst" />
+   <install as="Wicked/fixtures/cli_modular.wiki" name="test/Wicked/fixtures/cli_modular.wiki" />
    <install as="Wicked/Unit/RstTest.php" name="test/Wicked/Unit/RstTest.php" />
    <install as="Wicked/Unit/Driver/SqlTest.php" name="test/Wicked/Unit/Driver/SqlTest.php" />
    <install as="wicked/themes/default/screen.css" name="themes/default/screen.css" />

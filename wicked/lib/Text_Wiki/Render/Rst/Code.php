@@ -38,6 +38,6 @@ class Text_Wiki_Render_Rst_Code extends Text_Wiki_Render
      */
     public function token($options)
     {
-        return "::" . join("\n ", explode("\n", $options['text'])) . "\n\n";
+        return "::\n" . join("\n ", explode("\n", $options['text'])) . "\n\n";
     }
 }

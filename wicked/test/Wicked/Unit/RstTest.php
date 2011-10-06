@@ -230,6 +230,7 @@ is a list of Horde applications and projects at http://www.horde.org/apps.
 :`docs/CHANGES`_: Changes by release
 
 
+
 .. _`COPYING`: http://www.horde.org/licenses/lgpl
 .. _`docs/CHANGES`: CHANGES',
             $this->protectAgainstPearError($wiki->transform('The following documentation is available in the Horde distribution:
@@ -245,6 +246,7 @@ is a list of Horde applications and projects at http://www.horde.org/apps.
         $wiki = new Text_Wiki_Default();
         $this->assertEquals(
             '::
+
  test
 
 ',
@@ -264,6 +266,49 @@ test
 
 ',
             $this->protectAgainstPearError($wiki->transform("'''bold'''", 'Rst'))
+        );
+    }
+
+    public function testDeflist()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            ':The term:     A definition
+:Another term: Another definition
+
+',
+            $this->protectAgainstPearError($wiki->transform('
+: The term : A definition
+: Another term : Another definition
+', 'Rst'))
+        );
+    }
+
+    public function testLongDeflist()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            ':The term:     A long long long long long long long long long long long long
+               long definition
+:Another term: Another definition
+
+',
+            $this->protectAgainstPearError($wiki->transform('
+: The term : A long long long long long long long long long long long long long definition
+: Another term : Another definition
+', 'Rst'))
+        );
+    }
+
+    public function testFixtureCliModular()
+    {
+        $fixture = dirname(__FILE__) . '/../fixtures/cli_modular';
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            file_get_contents($fixture . '.rst'),
+            $this->protectAgainstPearError(
+                $wiki->transform(file_get_contents($fixture . '.wiki'), 'Rst')
+            )
         );
     }
 
