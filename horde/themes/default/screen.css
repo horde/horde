@@ -1460,7 +1460,14 @@ div.GrowlerNoticeExit:hover {
   color: #42454A;
   padding: 8px;
 }
-
+.hordeUploaderAdd {
+    background: url("graphics/plus.png") no-repeat !important;
+    padding-left: 16px !important;
+}
+.hordeUploaderStart {
+     background: url("graphics/uploader/up.png") no-repeat !important;
+    padding-left: 16px !important;
+}
 .hordeUploaderFilelist {
     height: 350px;
     overflow: auto;
