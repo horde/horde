@@ -94,7 +94,7 @@ class Horde_Release_Whups
      *
      * @return boolean  TODO
      */
-    function getQueueId($module)
+    public function getQueueId($module)
     {
         $queues = $this->_listQueues();
 

@@ -102,7 +102,8 @@ class Horde_Release_MailingList
      */
     public function __construct(
         $component, $name, $branch, $from, $list, $version, $tag_list
-    ) {
+    )
+    {
         $this->_component = $component;
         $this->_name = $name;
         $this->_branch = $branch;

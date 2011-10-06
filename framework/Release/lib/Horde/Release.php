@@ -303,7 +303,6 @@ class Horde_Release
                 // GNU diff reports binary diffs as the following:
                 // Binary files ./locale/de_DE/LC_MESSAGES/imp.mo and ../../horde/imp/locale/de_DE/LC_MESSAGES/imp.mo differ
                 if (preg_match("/^Binary files (.+) and (.+) differ$/i", rtrim(fgets($handle)), $matches)) {
-                    // [1] = oldname, [2] = newname
                     $this->_binaryDiffs[] = ltrim(str_replace($this->_oldDirectoryName . '/', '', $matches[1]));
                 }
             }
@@ -953,7 +952,7 @@ class Horde_Release
         if ($this->_options['module'] == 'horde') {
             $this->_ticketVersionDesc .= ' ' . implode('.', $ver);
         } else {
-            $this->_ticketVersionDesc .= ' ' . '(' . implode('.', $ver) . ')';
+            $this->_ticketVersionDesc .= ' (' . implode('.', $ver) . ')';
         }
 
         // See if we have a 'Final', 'Alpha', or 'RC' to add.
@@ -995,52 +994,52 @@ class Horde_Release
         // Parse the command-line arguments
         array_shift($argv);
         foreach ($argv as $arg) {
-            // Check to see if they gave us a module
             if (preg_match('/--module=(.*)/', $arg, $matches)) {
+                // Check to see if they gave us a module
                 $this->_options['module'] = $matches[1];
 
-            // Check to see if they tell us the version of the tarball to make
             } elseif (preg_match('/--version=(.*)/', $arg, $matches)) {
+                // Check to see if they tell us the version of the tarball to make
                 $this->_options['version']= $matches[1];
 
-            // Check to see if they tell us the last release version
             } elseif (preg_match('/--oldversion=(.*)/', $arg, $matches)) {
+                // Check to see if they tell us the last release version
                 $this->_options['oldversion']= $matches[1];
 
-            // Check to see if they tell us which branch to work with
             } elseif (preg_match('/--branch=(.*)/', $arg, $matches)) {
+                // Check to see if they tell us which branch to work with
                 $this->_options['branch']= $matches[1];
 
-            // Check to see if they tell us not to commit or tag
             } elseif (strstr($arg, '--nocommit')) {
+                // Check to see if they tell us not to commit or tag
                 $this->_options['nocommit']= true;
 
-            // Check to see if they tell us not to upload
             } elseif (strstr($arg, '--noftp')) {
+                // Check to see if they tell us not to upload
                 $this->_options['noftp']= true;
 
-            // Check to see if they tell us not to announce
             } elseif (strstr($arg, '--noannounce')) {
+                // Check to see if they tell us not to announce
                 $this->_options['noannounce']= true;
 
-            // Check to see if they tell us not to announce
             } elseif (strstr($arg, '--nofreshmeat')) {
+                // Check to see if they tell us not to announce
                 $this->_options['nofreshmeat']= true;
 
-            // Check to see if they tell us not to add new ticket versions
             } elseif (strstr($arg, '--noticketversion')) {
+                // Check to see if they tell us not to add new ticket versions
                 $this->_options['nowhups'] = true;
 
-            // Check to see if they tell us to do a dry run
             } elseif (strstr($arg, '--dryrun')) {
+                // Check to see if they tell us to do a dry run
                 $this->_options['nocommit'] = true;
                 $this->_options['noftp'] = true;
                 $this->_options['noannounce'] = true;
                 $this->_options['nowhups'] = true;
                 $this->_options['nofreshmeat']= true;
 
-            // Check to see if they tell us to test (for development only)
             } elseif (strstr($arg, '--test')) {
+                // Check to see if they tell us to test (for development only)
                 $this->_options['test']= true;
                 // safety first
                 $this->_options['nocommit'] = true;
@@ -1049,13 +1048,13 @@ class Horde_Release
                 $this->_options['nowhups'] = true;
                 $this->_options['nofreshmeat']= true;
 
-            // Check for help usage.
             } elseif (strstr($arg, '--help')) {
+                // Check for help usage.
                 $this->print_usage();
                 exit;
 
-            // We have no idea what this is
             } else {
+                // We have no idea what this is
                 $this->print_usage('You have used unknown arguments: ' . $arg);
                 exit;
             }
