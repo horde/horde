@@ -29,7 +29,7 @@ class Ansel_Ajax_Imple_UploadNotification extends Horde_Core_Ajax_Imple
 
         switch ($post['s']) {
         case 'twitter':
-            $url = Ansel::getUrlFor('view', array('gallery' => $gallery->id));
+            $url = Ansel::getUrlFor('view', array('view' => 'Gallery', 'gallery' => $gallery->id));
             try {
                 $url = $GLOBALS['injector']
                     ->getInstance('Horde_Service_UrlShortener')
