@@ -425,7 +425,6 @@ body.kronolithAjax {
     list-style: none;
 }
 #kronolithApplications li {
-    margin-bottom: 1px;
     text-align: left;
 }
 #kronolithApplications a {
@@ -434,11 +433,15 @@ body.kronolithAjax {
     overflow: hidden;
     background-color: #f0f0f0;
     border: 1px solid #999;
+    border-top-width: 0;
     color: #202020;
     font-weight: bold;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+}
+#kronolithApplications li:first-child a {
+    border-top-width: 1px;
 }
 #kronolithApplications:hover a {
     -moz-border-radius: 0;
