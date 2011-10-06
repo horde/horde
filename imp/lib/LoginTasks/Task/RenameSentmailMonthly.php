@@ -1,6 +1,6 @@
 <?php
 /**
- * Login tasks module that renames the sent-mail folder.
+ * Login tasks module that renames sent-mail mailboxes every month.
  *
  * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
@@ -27,32 +27,67 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
     }
 
     /**
-     * Renames the old sent-mail folders.
+     * Renames the old sent-mail mailboxes.
      *
-     * @return boolean  Whether all sent-mail folders were renamed.
+     * Folder name: sent-mail-month-year
+     *   month = English:         3 letter abbreviation
+     *           Other Languages: Month value (01-12)
+     *   year  = 4 digit year
+     *
+     * The mailbox name needs to be in this specific format (as opposed to a
+     * user-defined one) to ensure that 'delete_sentmail_monthly' processing
+     * can accurately find all the old sent-mail mailboxes.
+     *
+     * @return boolean  Whether all sent-mail mailboxes were renamed.
      */
     public function execute()
     {
-        $success = true;
+        global $injector, $notification;
 
-        foreach ($this->_getSentmail() as $sent_folder) {
-            /* Display a message to the user and rename the folder.
-             * Only do this if sent-mail folder currently exists. */
-            if ($sent_folder->exists) {
-                $old_folder = $this->_renameSentmailMonthly($sent_folder);
-                $GLOBALS['notification']->push(sprintf(_("%s folder being renamed at the start of the month."), $sent_folder->display), 'horde.message');
-                if ($old_folder->exists) {
-                    $GLOBALS['notification']->push(sprintf(_("%s already exists. Your %s folder was not renamed."), $old_folder->display, $sent_folder->display), 'horde.warning');
-                    $success = false;
-                } else {
-                    $success =
-                        $sent_folder->rename($old_folder, true) &&
-                        $sent_folder->create();
+        $date_format = (substr($GLOBALS['language'], 0, 2) == 'en')
+            ? 'M-Y'
+            : 'm-Y';
+
+        $datetime = new DateTime();
+        $now = $datetime->format($date_format);
+
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
+        foreach ($this->_getSentmail() as $sent) {
+            /* Display a message to the user and rename the mailbox.
+             * Only do this if sent-mail mailbox currently exists. */
+            if ($sent->exists) {
+                $notification->push(sprintf(_("%s mailbox being renamed at the start of the month."), $sent->display), 'horde.message');
+
+                $query = new Horde_Imap_Client_Fetch_Query();
+                $query->imapDate();
+                $query->uid();
+
+                $res = $imp_imap->fetch($sent, $query);
+
+                $msgs = array();
+                foreach ($res as $val) {
+                    $date_string = $val->getImapDate()->format($date_format);
+                    if (!isset($msgs[$date_string])) {
+                        $msgs[$date_string] = new Horde_Imap_Client_Ids();
+                    }
+                    $msgs[$date_string]->add($val->getUid());
+                }
+
+                unset($msgs[$now]);
+                foreach ($msgs as $key => $val) {
+                    $new_mbox = IMP_Mailbox::get(strval($sent) . '-' . Horde_String::convertCharset(Horde_String::lower($key), 'UTF-8', 'UTF7-IMAP'));
+
+                    $imp_imap->copy($sent, $new_mbox, array(
+                        'create' => true,
+                        'ids' => $val,
+                        'move' => true
+                    ));
                 }
             }
         }
 
-        return $success;
+        return true;
     }
 
     /**
@@ -63,45 +98,13 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function describe()
     {
-        $new_folders = $old_folders = array();
+        $mbox_list = array();
 
-        foreach ($this->_getSentmail() as $folder) {
-            $old_folders[] = $folder->display;
-            $new_folders[] = $this->_renameSentmailMonthly($folder)->display;
+        foreach ($this->_getSentmail() as $mbox) {
+            $mbox_list[] = $mbox->display;
         }
 
-        return sprintf(_("The current folder(s) \"%s\" will be renamed to \"%s\"."), implode(', ', $old_folders), implode(', ', $new_folders));
-    }
-
-    /**
-     * Determines the name the sent-mail folder will be renamed to.
-     * <pre>
-     * Folder name: sent-mail-month-year
-     *   month = English:         3 letter abbreviation
-     *           Other Languages: Month value (01-12)
-     *   year  = 4 digit year
-     * The folder name needs to be in this specific format (as opposed to a
-     *   user-defined one) to ensure that 'delete_sentmail_monthly' processing
-     *   can accurately find all the old sent-mail folders.
-     * </pre>
-     *
-     * @param string $folder  The name of the sent-mail folder to rename.
-     *
-     * @return IMP_Mailbox  New sent-mail folder.
-     */
-    protected function _renameSentmailMonthly($folder)
-    {
-        // @TODO
-        $last_maint = $GLOBALS['prefs']->getValue('last_maintenance');
-        if (empty($last_maint)) {
-            $last_maint = mktime(0, 0, 0, date('m') - 1, 1);
-        }
-
-        $text = (substr($GLOBALS['language'], 0, 2) == 'en')
-            ? strtolower(strftime('-%b-%Y', $last_maint))
-            : strftime('-%m-%Y', $last_maint);
-
-        return IMP_Mailbox::get($folder . Horde_String::convertCharset($text, 'UTF-8', 'UTF7-IMAP'));
+        return sprintf(_("The current sent-mail mailbox(es) \"%s\" will be renamed."), implode(', ', $mbox_list));
     }
 
     /**
