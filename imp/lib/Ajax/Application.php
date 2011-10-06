@@ -225,7 +225,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $GLOBALS['notification']->push(sprintf(_("Deleted Virtual Folder \"%s\"."), $mbox->label), 'horde.success');
             $result = true;
         } else {
-            $result = $GLOBALS['injector']->getInstance('IMP_Folder')->delete(array($mbox));
+            $result = $mbox->delete();
         }
 
         if ($result) {
@@ -272,8 +272,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
             $old_name = IMP_Mailbox::formFrom($this->_vars->old_name);
 
-            if (($old_name != $new_name) &&
-                $GLOBALS['injector']->getInstance('IMP_Folder')->rename($old_name, $new_name)) {
+            if (($old_name != $new_name) && $old_name->rename($new_name)) {
                 $result = new stdClass;
                 $result->mailbox = $this->_getMailboxResponse($imptree);
 
@@ -598,16 +597,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function subscribe()
     {
-        if (!$GLOBALS['prefs']->getValue('subscribe')) {
-            return false;
-        }
-
-        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
-        $mbox = IMP_Mailbox::formFrom($this->_vars->mbox);
-
-        return $this->_vars->sub
-            ? $imp_folder->subscribe(array($mbox))
-            : $imp_folder->unsubscribe(array($mbox));
+        return $GLOBALS['prefs']->getValue('subscribe')
+            ? IMP_Mailbox::formFrom($this->_vars->mbox)->subscribe($this->_vars->sub)
+            : false;
     }
 
     /**

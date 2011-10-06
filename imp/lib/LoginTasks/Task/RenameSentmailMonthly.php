@@ -35,11 +35,9 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
     {
         $success = true;
 
-        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
-
         foreach ($this->_getSentmail() as $sent_folder) {
             /* Display a message to the user and rename the folder.
-               Only do this if sent-mail folder currently exists. */
+             * Only do this if sent-mail folder currently exists. */
             if ($sent_folder->exists) {
                 $old_folder = $this->_renameSentmailMonthly($sent_folder);
                 $GLOBALS['notification']->push(sprintf(_("%s folder being renamed at the start of the month."), $sent_folder->display), 'horde.message');
@@ -48,8 +46,8 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
                     $success = false;
                 } else {
                     $success =
-                        $imp_folder->rename($sent_folder, $old_folder, true) &&
-                        $imp_folder->create($sent_folder, $GLOBALS['prefs']->getValue('subscribe'));
+                        $sent_folder->rename($old_folder, true) &&
+                        $sent_folder->create();
                 }
             }
         }
@@ -89,7 +87,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      *
      * @param string $folder  The name of the sent-mail folder to rename.
      *
-     * @return IMP_Mailbox  New sent-mail folder name.
+     * @return IMP_Mailbox  New sent-mail folder.
      */
     protected function _renameSentmailMonthly($folder)
     {

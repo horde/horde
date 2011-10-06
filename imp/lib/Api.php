@@ -110,11 +110,11 @@ class IMP_Api extends Horde_Registry_Api
     {
         $fname = IMP_Mailbox::get($folder);
         if (empty($options['full'])) {
-            $fname = IMP_Mailbox::get($folder)->namespace_append;
+            $fname = $fname->namespace_append;
         }
 
-        return $GLOBALS['injector']->getInstance('IMP_Folder')->create($fname, $GLOBALS['prefs']->getValue('subscribe'))
-            ? $fname
+        return $fname->create()
+            ? strval($fname)
             : false;
     }
 

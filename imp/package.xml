@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-30</date>
- <time>11:27:44</time>
+ <date>2011-10-06</date>
+ <time>13:30:11</time>
  <version>
   <release>5.0.14</release>
   <api>5.0.0</api>
@@ -52,6 +52,7 @@
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
     <file name="imp-bounce-spam" role="script" />
+    <file name="imp-mailbox-decode" role="script" />
     <file name="imp-query-imap-cache" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
@@ -327,7 +328,6 @@
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
-    <file name="Folder.php" role="horde" />
     <file name="Imap.php" role="horde" />
     <file name="IMP.php" role="horde" />
     <file name="Indices.php" role="horde" />
@@ -787,6 +787,7 @@
         <file name="ItipTest.php" role="test" />
        </dir> <!-- /test/Imp/Unit/Mime/Viewer -->
       </dir> <!-- /test/Imp/Unit/Mime -->
+      <file name="ComposeTest.php" role="test" />
       <file name="QuotaTest.php" role="test" />
      </dir> <!-- /test/Imp/Unit -->
      <file name="AllTests.php" role="test" />
@@ -1425,6 +1426,7 @@
  <phprelease>
   <filelist>
    <install as="imp-bounce-spam" name="bin/imp-bounce-spam" />
+   <install as="imp-mailbox-decode" name="bin/imp-mailbox-decode" />
    <install as="imp-query-imap-cache" name="bin/imp-query-imap-cache" />
    <install as="imp/config/.htaccess" name="config/.htaccess" />
    <install as="imp/config/backends.php" name="config/backends.php" />
@@ -1473,7 +1475,6 @@
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
-   <install as="imp/lib/Folder.php" name="lib/Folder.php" />
    <install as="imp/lib/Imap.php" name="lib/Imap.php" />
    <install as="imp/lib/IMP.php" name="lib/IMP.php" />
    <install as="imp/lib/Indices.php" name="lib/Indices.php" />
@@ -1833,6 +1834,7 @@
    <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
    <install as="Imp/fixtures/maildirsize" name="test/Imp/fixtures/maildirsize" />
    <install as="Imp/Stub/HtmlViewer.php" name="test/Imp/Stub/HtmlViewer.php" />
+   <install as="Imp/Unit/ComposeTest.php" name="test/Imp/Unit/ComposeTest.php" />
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
@@ -2523,9 +2525,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-30</date>
+   <date>2011-10-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix display of encoded subject text on print page (Bug #9755).
 * [mms] Fix setting MDN flag on sent message after compose (Bug #10579).
 * [mms] When expanding a submailbox in dynamic view, honor expanded children status.
 * [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.

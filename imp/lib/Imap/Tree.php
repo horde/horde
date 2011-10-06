@@ -1035,7 +1035,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $changed = false;
-        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
         $this->_initPollList();
 
@@ -1047,7 +1046,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $mbox_str = strval($val);
 
             if (!$this->isSubscribed($this->_tree[$mbox_str])) {
-                $imp_folder->subscribe(array($val));
+                $val->subscribe(true);
             }
             $this->_setPolled($this->_tree[$mbox_str], true);
             if (empty($this->_cache['poll'][$mbox_str])) {
