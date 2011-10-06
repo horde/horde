@@ -1,4 +1,7 @@
 <?php
+
+return;
+
 /**
  * All tests for the Kolab_Resource:: package.
  *
