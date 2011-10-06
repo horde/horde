@@ -3,20 +3,20 @@
  * Mobile (MIMP) compose display page.
  *
  * URL Parameters:
- *   'a' = (string) The action ID.
- *   'action' = (string) TODO
- *   'bcc' => (string) TODO
- *   'bcc_expand_[1-5]' => (string) TODO
- *   'cc' => (string) TODO
- *   'cc_expand_[1-5]' => (string) TODO
- *   'composeCache' = (string) TODO
- *   'from' => (string) TODO
- *   'identity' = (integer) The identity to use for composing.
- *   'message' = (string) TODO
- *   'subject' => (string) TODO
- *   'to' => (string) TODO
- *   'to_expand_[1-5]' => (string) TODO
- *   'u' => (string) Unique ID (cache buster).
+ *   - a: (string) The action ID.
+ *   - action: (string) The action ID (used on redirect page).
+ *   - bcc: (string) BCC address(es).
+ *   - bcc_expand_[1-5]: (string) Expand matches for BCC addresses.
+ *   - cc: (string) CC address(es).
+ *   - cc_expand_[1-5]: (string) Expand matches for BCC addresses.
+ *   - composeCache: (string) Compose object cache ID.
+ *   - from: (string) From address to use.
+ *   - identity: (integer) The identity to use for composing.
+ *   - message: (string) Message text.
+ *   - subject: (string) Message subject.
+ *   - to: (string) To address(es).
+ *   - to_expand_[1-5]: (string) Expand matches for To addresses.
+ *   - u: (string) Unique ID (cache buster).
  *
  * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *

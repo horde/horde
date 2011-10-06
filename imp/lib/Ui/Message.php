@@ -181,7 +181,8 @@ class IMP_Ui_Message
      *
      * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.
      *
-     * @return array  TODO
+     * @return array  Keys are the list header names, values are the
+     *                parsed list header values.
      */
     public function parseAllListHeaders($headers)
     {

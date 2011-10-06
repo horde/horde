@@ -484,7 +484,6 @@ case 'send_message':
             $notification->push(_("Your identity has been switched to the identity associated with the current recipient address. The identity will not be checked again during this compose action."));
         }
 
-        // TODO
         switch ($e->encrypt) {
         case 'pgp_symmetric_passphrase_dialog':
             $imp_ui->passphraseDialog('pgp_symm', $imp_compose->getCacheId());

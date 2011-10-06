@@ -1387,8 +1387,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *   - headers: The headers of the message to use for the reply
      *   - identity: The identity to use for the reply based on the original
      *            message's addresses.
-     *   - reply_list_id: TODO
-     *   - reply_recip: TODO
+     *   - reply_list_id: List ID label.
+     *   - reply_recip: Number of recipients in reply list.
      *   - type: The reply type used (either self::REPLY_ALL,
      *           self::REPLY_LIST, or self::REPLY_SENDER).
      */

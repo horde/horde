@@ -1681,7 +1681,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - redirect_to: (string) The address(es) to redirect to.
      *
      * @return object  An object with the following entries:
-     *   - log: (array) TODO
+     *   - log: (array) See IMP_Dimp::getMsgLogInfo().
      *   - mbox: (string) Mailbox of original message (base64url encoded).
      *   - success: (integer) 1 on success, 0 on failure.
      *   - uid: (string) The UID of the original message.
@@ -1722,7 +1722,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - composeCache: (string) The IMP_Compose cache identifier.
-     *   - from: (string) TODO
+     *   - from: (string) From address to use.
      *   - identity: (integer) The identity to use
      *
      * @return array  An array with the following values:

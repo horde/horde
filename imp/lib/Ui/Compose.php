@@ -122,12 +122,11 @@ class IMP_Ui_Compose
      *
      * @param string $addr  The value of the header string.
      * @param array $opts   Additional options:
-     * <pre>
-     * 'addr_list' - (boolean) Return the list of address components?
-     *               DEFAULT: false
-     * </pre>
+     *   - addr_list: (boolean) Return the list of address components?
+     *                DEFAULT: false
      *
-     * @return mixed  TODO
+     * @return mixed  List of addresses, or a string of addresses if
+     *                'addr_list' is true.
      */
     public function getAddressList($addr, $opts = array())
     {

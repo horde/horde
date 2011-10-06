@@ -20,7 +20,8 @@ class IMP_Ui_Mimp
      *
      * @param string $page  The current page ('compose', 'folders', 'mailbox',
      *                                        'message', 'search').
-     * @param array $items  TODO
+     * @param array $items  Additional menu items to add to the menu. First
+     *                      element is label, second is URL to link to.
      *
      * @return string  The menu.
      */
