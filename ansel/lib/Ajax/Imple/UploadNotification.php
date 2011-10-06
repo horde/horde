@@ -22,7 +22,6 @@ class Ansel_Ajax_Imple_UploadNotification extends Horde_Core_Ajax_Imple
 
     public function handle($args, $post)
     {
-        $images = explode(',', $post['i']);
         $gallery = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
             ->getGallery($post['g']);
