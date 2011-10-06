@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-*
+* [mjr] Fix oauth endpoints to reflect Twitter&apos;s new requirements for https requests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -219,7 +219,7 @@
    <date>2011-09-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-*
+* [mjr] Fix oauth endpoints to reflect Twitter&apos;s new requirements for https requests.
    </notes>
   </release>
  </changelog>
