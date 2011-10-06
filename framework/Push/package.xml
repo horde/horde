@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Push</name>
+ <channel>pear.horde.org</channel>
+ <summary>A package for broadcasting status updates and content to various social network services.</summary>
+ <description>The package provides a simple definition of a content element that can be pushed to a number of social network services. This will not leverage some of the more complex features the supported services provide but instead focus on a simple status and content update. The content element provides a bridge to quickly broadcast content curated within your own account.</description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>wrobel@pardus.de</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-10-04</date>
+ <time>09:12:08</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Push">
+      <file name="COPYING" role="doc" />
+      <file name="TODO" role="doc" />
+     </dir> <!-- /doc/Horde/Push -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Push">
+      <dir name="Recipient">
+       <file name="Mock.php" role="php" />
+       <file name="Twitter.php" role="php" />
+      </dir> <!-- /lib/Horde/Push/Recipient -->
+      <file name="Recipient.php" role="php" />
+     </dir> <!-- /lib/Horde/Push -->
+     <file name="Push.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Push">
+      <dir name="Stub">
+       <file name="Twitter.php" role="test" />
+      </dir> <!-- /test/Horde/Push/Stub -->
+      <dir name="Unit">
+       <dir name="Push">
+        <dir name="Recipient">
+         <file name="TwitterTest.php" role="test" />
+        </dir> <!-- /test/Horde/Push/Unit/Push/Recipient -->
+       </dir> <!-- /test/Horde/Push/Unit/Push -->
+       <file name="PushTest.php" role="test" />
+      </dir> <!-- /test/Horde/Push/Unit -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="TestCase.php" role="test" />
+     </dir> <!-- /test/Horde/Push -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="doc/Horde/Push/COPYING" />
+   <install as="TODO" name="doc/Horde/Push/TODO" />
+   <install as="Horde/Push.php" name="lib/Horde/Push.php" />
+   <install as="Horde/Push/Recipient.php" name="lib/Horde/Push/Recipient.php" />
+   <install as="Horde/Push/Recipient/Mock.php" name="lib/Horde/Push/Recipient/Mock.php" />
+   <install as="Horde/Push/Recipient/Twitter.php" name="lib/Horde/Push/Recipient/Twitter.php" />
+   <install as="Horde/Push/AllTests.php" name="test/Horde/Push/AllTests.php" />
+   <install as="Horde/Push/Autoload.php" name="test/Horde/Push/Autoload.php" />
+   <install as="Horde/Push/phpunit.xml" name="test/Horde/Push/phpunit.xml" />
+   <install as="Horde/Push/TestCase.php" name="test/Horde/Push/TestCase.php" />
+   <install as="Horde/Push/Stub/Twitter.php" name="test/Horde/Push/Stub/Twitter.php" />
+   <install as="Horde/Push/Unit/PushTest.php" name="test/Horde/Push/Unit/PushTest.php" />
+   <install as="Horde/Push/Unit/Push/Recipient/TwitterTest.php" name="test/Horde/Push/Unit/Push/Recipient/TwitterTest.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-10-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
