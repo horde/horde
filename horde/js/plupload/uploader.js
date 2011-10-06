@@ -30,26 +30,16 @@
  */
 var Horde_Uploader = Class.create({
 
+    // Holds files selected by user while they are in the process of being
+    // added to the queue.
+    _queue: [],
+
+    // Default event handlers.
     handlers: {
 
-        filesAdded: function(up, files)
+        filesadded: function(up, files)
         {
-            $(this._params['return_button']).hide();
-            files.each(function(file) {
-                if (file.status == plupload.QUEUED) {
-                    var remove = new Element('div', {'class': 'hordeUploaderRemove'}).update('&nbsp;');
-                    var newdiv = new Element('li',
-                        { 'class': this._params.filelistitem_class,
-                          'id': file.id
-                        })
-                        .insert(new Element('div', { 'class': 'hordeUploaderFilename' }).update(file.name))
-                        .insert(new Element('div', { 'class': 'hordeUploaderFileaction' }).update(remove))
-                        .insert(new Element('div', { 'class': 'hordeUploaderFilestatus' }).update('&nbsp'))
-                        .insert(new Element('div', { 'class': 'hordeUploaderFilesize' }).update(plupload.formatSize(file.size)));
-                    remove.observe('click', function() { var f = up.getFile(newdiv.id); up.removeFile(f); $(newdiv.id).remove(); });
-                    $(this._params['drop_target']).select('.hordeUploaderFileUl').each(function(p) { p.insert(newdiv) });
-                }
-            }.bind(this));
+            this._queue = files;
         },
 
         /**
@@ -119,7 +109,20 @@ var Horde_Uploader = Class.create({
                     alert(this._params.text.type + ' ' + file.name);
                 }
             }
-        }
+        },
+
+        // uploadfile: function(up, file) { console.log('uploadfile'); console.log(file); },
+        queuechanged: function(up) {
+            this.updateList();
+        },
+
+        // Handlers that may be useful for client code. Not used by default.
+        // Override before creating object if needed.
+        uploadfile: function(up, file) {},
+        statechanged: function(up) {},
+        filesremoved: function(up, files) {},
+        chunkuploaded: function(up, file, response) {},
+        uploadcomplete: function(up, files) {}
     },
 
     /**
@@ -129,7 +132,7 @@ var Horde_Uploader = Class.create({
      *                               filelist_class, browse_button, drop_target,
      *                               upload_button, upload_button
      */
-    initialize: function(params)
+    initialize: function(params, handlers)
     {
         this._params = Object.extend({
             browsebutton_class: 'button',
@@ -151,10 +154,10 @@ var Horde_Uploader = Class.create({
             error_class: 'hordeUploaderError',
             footer_class: 'hordeUploaderFooter',
             multipart: false,
-            max_file_size: false,
-            chunk_size: null
+            max_file_size: '1mb',
+            chunk_size: false
         }, params);
-
+        this.handlers = Object.extend(this.handlers, handlers);
         this._build();
         var opts = {
             runtimes: 'html5, flash, silverlight, browserplus',
@@ -172,12 +175,17 @@ var Horde_Uploader = Class.create({
             opts.chunk_size = this._params['chunk_size'];
         }
         this._puploader = new plupload.Uploader(opts);
-
         this._puploader.bind('UploadProgress', this.handlers.progress, this);
         this._puploader.bind('Init', this.handlers.init, this);
-        this._puploader.bind('FilesAdded', this.handlers.filesAdded, this);
+        this._puploader.bind('FilesAdded', this.handlers.filesadded, this);
+        this._puploader.bind('UploadFile', this.handlers.uploadfile, this);
         this._puploader.bind('FileUploaded', this.handlers.fileuploaded, this);
         this._puploader.bind('Error', this.handlers.error, this);
+        this._puploader.bind('StateChanged', this.handlers.statechanged, this);
+        this._puploader.bind('QueueChanged', this.handlers.queuechanged, this);
+        this._puploader.bind('FilesRemoved', this.handlers.filesremoved, this);
+        this._puploader.bind('ChunkUploaded', this.handlers.chunkuploaded, this);
+        this._puploader.bind('UploadComplete', this.handlers.uploadcomplete, this);
     },
 
     init: function()
@@ -194,6 +202,30 @@ var Horde_Uploader = Class.create({
     setReturnTarget: function(path)
     {
         $(this._params['return_button']).href = path;
+    },
+
+    updateList: function()
+    {
+        $(this._params['return_button']).hide();
+        this._queue.each(function(file) {
+            var f = file;
+            if (f.status == plupload.QUEUED) {
+                var remove = new Element('div', {'class': 'hordeUploaderRemove'}).update('&nbsp;');
+                var newdiv = new Element('li',
+                    { 'class': this._params.filelistitem_class,
+                      'id': f.id
+                    })
+                    .insert(new Element('div', { 'class': 'hordeUploaderFilename' }).update(f.name))
+                    .insert(new Element('div', { 'class': 'hordeUploaderFileaction' }).update(remove))
+                    .insert(new Element('div', { 'class': 'hordeUploaderFilestatus' }).update('&nbsp'))
+                    .insert(new Element('div', { 'class': 'hordeUploaderFilesize' }).update(plupload.formatSize(f.size)));
+                remove.observe('click', function() { var f = up.getFile(newdiv.id); up.removeFile(f); $(newdiv.id).remove(); });
+                $(this._params['drop_target']).select('.hordeUploaderFileUl').each(function(p) { p.insert(newdiv) });
+            } else {
+                console.log(f.status);
+            }
+        }.bind(this));
+        this._queue = [];
     },
 
     /**
