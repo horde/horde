@@ -182,6 +182,9 @@ class Horde_LoginTasks
      *   - url: (string) The URL to redirect to when finished.
      *   - user_confirmed: (boolean) If true, indicates that any pending
      *                     actions have been confirmed by the user.
+     *
+     * @return mixed Null in case no redirection took place, the return value
+     *               from the backend redirect() call otherwise.
      */
     public function runTasks(array $opts = array())
     {
@@ -225,13 +228,11 @@ class Horde_LoginTasks
             $this->_tasklist = true;
 
             if ($opts['user_confirmed']) {
-                $this->_backend->redirect($url);
-                exit;
+                return $this->_backend->redirect($url);
             }
         } elseif ((!$processed || $opts['user_confirmed']) &&
             $this->_tasklist->needDisplay()) {
-            $this->_backend->redirect($this->getLoginTasksUrl());
-            exit;
+            return $this->_backend->redirect($this->getLoginTasksUrl());
         }
     }
 
