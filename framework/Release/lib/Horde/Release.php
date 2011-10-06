@@ -5,12 +5,29 @@
  * Copyright 1999 Mike Hardy
  * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
+ * @category Horde
+ * @package  Release
+ * @author   Mike Hardy
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
+ */
+
+/**
+ * Class to make an "official" Horde or application release.
+ *
+ * Copyright 1999 Mike Hardy
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Mike Hardy
- * @author  Jan Schneider <jan@horde.org>
- * @package Release
+ * @category Horde
+ * @package  Release
+ * @author   Mike Hardy
+ * @author   Jan Schneider <jan@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 class Horde_Release
 {

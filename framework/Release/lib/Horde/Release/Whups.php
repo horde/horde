@@ -2,13 +2,28 @@
 /**
  * Class for interfacing with the tickets API.
  *
- * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
+ * PHP version 5
+ *
+ * @category Horde
+ * @package  Release
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
+ */
+
+/**
+ * Glue class for a modular CLI.
+ *
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Release
+ * @category Horde
+ * @package  Release
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 class Horde_Release_Whups
 {

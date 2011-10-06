@@ -10,7 +10,7 @@
  * @author   Jan Schneider <jan@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Release
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 
 /**
@@ -27,7 +27,7 @@
  * @author   Jan Schneider <jan@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Release
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 class Horde_Release_Freshmeat
 {
