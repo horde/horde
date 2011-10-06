@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
  </notes>
  <contents>
@@ -273,6 +274,7 @@
    <date>2011-10-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
    </notes>
   </release>
