@@ -76,28 +76,30 @@ class Horde_Push_Cli
         }
 
         $push_factory = new Horde_Push_Cli_Factory_Push();
-        $push = $push_factory->create($arguments, $options, $conf);
-        if (isset($options['summary'])) {
-            $push->setSummary($options['summary']);
-        }
-
-        $recipient_factory = new Horde_Push_Cli_Factory_Recipients();
-        $recipients = $recipient_factory->create($conf);
-
-        foreach ($recipients as $recipient) {
-            $push->addRecipient($recipient);
-        }
-
-        $results = $push->push(isset($options['pretend']));
-
+        $pushes = $push_factory->create($arguments, $options, $conf);
         $fail = false;
-        $cli = Horde_Cli::init();
-        foreach ($results as $result) {
-            if ($result instanceOf Exception) {
-                $cli->red('ERROR: ' . $result->getMessage());
-                $fail = true;
-            } else {
-                $cli->green('SUCCESS: ' . (string)$result);
+        foreach ($pushes as $push) {
+            if (isset($options['summary'])) {
+                $push->setSummary($options['summary']);
+            }
+
+            $recipient_factory = new Horde_Push_Cli_Factory_Recipients();
+            $recipients = $recipient_factory->create($conf);
+
+            foreach ($recipients as $recipient) {
+                $push->addRecipient($recipient);
+            }
+
+            $results = $push->push(isset($options['pretend']));
+
+            $cli = Horde_Cli::init();
+            foreach ($results as $result) {
+                if ($result instanceOf Exception) {
+                    $cli->red('ERROR: ' . $result->getMessage());
+                    $fail = true;
+                } else {
+                    $cli->green('SUCCESS: ' . (string)$result);
+                }
             }
         }
         if ($fail === true) {

@@ -10,8 +10,8 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-04</date>
- <time>21:03:24</time>
+ <date>2011-10-05</date>
+ <time>13:45:20</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -46,6 +46,7 @@
         <file name="Push.php" role="php" />
         <file name="Recipients.php" role="php" />
        </dir> <!-- /lib/Horde/Push/Cli/Factory -->
+       <file name="Exception.php" role="php" />
        <file name="Translation.php" role="php" />
       </dir> <!-- /lib/Horde/Push/Cli -->
       <file name="Cli.php" role="php" />
@@ -84,12 +85,22 @@
     <exclude>2.0.0</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Yaml</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install as="push" name="bin/push" />
    <install as="COPYING" name="doc/Horde/Push/Cli/COPYING" />
    <install as="Horde/Push/Cli.php" name="lib/Horde/Push/Cli.php" />
+   <install as="Horde/Push/Cli/Exception.php" name="lib/Horde/Push/Cli/Exception.php" />
    <install as="Horde/Push/Cli/Translation.php" name="lib/Horde/Push/Cli/Translation.php" />
    <install as="Horde/Push/Cli/Factory/Push.php" name="lib/Horde/Push/Cli/Factory/Push.php" />
    <install as="Horde/Push/Cli/Factory/Recipients.php" name="lib/Horde/Push/Cli/Factory/Recipients.php" />
@@ -105,7 +116,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-04</date>
+   <date>2011-10-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Initial release.
