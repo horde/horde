@@ -119,6 +119,15 @@ a.button {
     background: #ccc;
 }
 
+/* Uploader */
+.hordeUploaderAdd {
+    background:  url("graphics/plus.png") no-repeat, url("graphics/menu.png") repeat-x 0 -1px !important;
+    padding-left: 16px !important;
+}
+.hordeUploaderStart {
+    background: url("graphics/uploader/up.png") no-repeat, url("graphics/menu.png") repeat-x 0 -1px !important;
+    padding-left: 16px !important;
+}
 /* Various popup and status layers. */
 .notice {
     color: #333;
