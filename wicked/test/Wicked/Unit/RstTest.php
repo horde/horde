@@ -240,5 +240,31 @@ is a list of Horde applications and projects at http://www.horde.org/apps.
         );
     }
 
+    public function testCode()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '::
+ test
+
+',
+            $this->protectAgainstPearError($wiki->transform('
+<code>
+test
+</code>
+', 'Rst'))
+        );
+    }
+
+    public function testBold()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '**bold**
+
+',
+            $this->protectAgainstPearError($wiki->transform("'''bold'''", 'Rst'))
+        );
+    }
 
 }

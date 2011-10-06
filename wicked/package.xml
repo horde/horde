@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-28</date>
- <time>15:16:36</time>
+ <date>2011-10-06</date>
+ <time>21:01:20</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0RC1</api>
@@ -196,6 +196,8 @@
      </dir> <!-- /lib/Text_Wiki/Parse -->
      <dir name="Render">
       <dir name="Rst">
+       <file name="Bold.php" role="horde" />
+       <file name="Code.php" role="horde" />
        <file name="Deflist.php" role="horde" />
        <file name="Freelink.php" role="horde" />
        <file name="Heading.php" role="horde" />
@@ -725,6 +727,8 @@
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wickedblock.php" name="lib/Text_Wiki/Parse/Tiki/Wickedblock.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wikilink2.php" name="lib/Text_Wiki/Parse/Tiki/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst.php" name="lib/Text_Wiki/Render/Rst.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Bold.php" name="lib/Text_Wiki/Render/Rst/Bold.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Code.php" name="lib/Text_Wiki/Render/Rst/Code.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Deflist.php" name="lib/Text_Wiki/Render/Rst/Deflist.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Freelink.php" name="lib/Text_Wiki/Render/Rst/Freelink.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Heading.php" name="lib/Text_Wiki/Render/Rst/Heading.php" />
@@ -862,7 +866,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-09-28</date>
+   <date>2011-10-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
