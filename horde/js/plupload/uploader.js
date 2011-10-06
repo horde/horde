@@ -111,7 +111,6 @@ var Horde_Uploader = Class.create({
             }
         },
 
-        // uploadfile: function(up, file) { console.log('uploadfile'); console.log(file); },
         queuechanged: function(up) {
             this.updateList();
         },
@@ -221,8 +220,6 @@ var Horde_Uploader = Class.create({
                     .insert(new Element('div', { 'class': 'hordeUploaderFilesize' }).update(plupload.formatSize(f.size)));
                 remove.observe('click', function() { var f = up.getFile(newdiv.id); up.removeFile(f); $(newdiv.id).remove(); });
                 $(this._params['drop_target']).select('.hordeUploaderFileUl').each(function(p) { p.insert(newdiv) });
-            } else {
-                console.log(f.status);
             }
         }.bind(this));
         this._queue = [];
