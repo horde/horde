@@ -56,10 +56,15 @@ class Horde_Release_Whups
      */
     public function __construct($params)
     {
+        if (isset($params['client'])) {
+            $this->_http = $params['client'];
+            unset($params['client']);
+        } else {
+            $this->_http = new Horde_Http_Client(
+                array('request.username' => $this->_params['user'],
+                      'request.password' => $this->_params['pass']));
+        }
         $this->_params = $params;
-        $this->_http = new Horde_Http_Client(
-            array('request.username' => $this->_params['user'],
-                  'request.password' => $this->_params['pass']));
     }
 
     /**

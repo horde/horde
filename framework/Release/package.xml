@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-03-16</date>
- <time>22:27:16</time>
+ <date>2011-10-06</date>
+ <time>17:49:40</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -32,6 +32,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Release">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Release -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Release">
@@ -52,6 +59,7 @@
       <dir name="Unit">
        <dir name="Release">
         <file name="SentinelTest.php" role="test" />
+        <file name="WhupsTest.php" role="test" />
        </dir> <!-- /test/Horde/Release/Unit/Release -->
        <file name="ReleaseTest.php" role="test" />
       </dir> <!-- /test/Horde/Release/Unit -->
@@ -125,6 +133,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Release/COPYING" />
    <install as="Horde/Release.php" name="lib/Horde/Release.php" />
    <install as="Horde/Release/Freshmeat.php" name="lib/Horde/Release/Freshmeat.php" />
    <install as="Horde/Release/MailingList.php" name="lib/Horde/Release/MailingList.php" />
@@ -137,6 +146,7 @@
    <install as="Horde/Release/Stub/Release.php" name="test/Horde/Release/Stub/Release.php" />
    <install as="Horde/Release/Unit/ReleaseTest.php" name="test/Horde/Release/Unit/ReleaseTest.php" />
    <install as="Horde/Release/Unit/Release/SentinelTest.php" name="test/Horde/Release/Unit/Release/SentinelTest.php" />
+   <install as="Horde/Release/Unit/Release/WhupsTest.php" name="test/Horde/Release/Unit/Release/WhupsTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -164,7 +174,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-03-16</date>
+   <date>2011-10-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Keep file mode of Application.php (Bug #9697).
