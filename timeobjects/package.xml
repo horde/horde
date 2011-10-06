@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>16:20:46</time>
+ <date>2011-10-06</date>
+ <time>14:39:35</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -33,6 +33,8 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="COPYING" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
    </dir> <!-- /docs -->
    <dir name="lib">
@@ -56,6 +58,12 @@
       <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="timeobjects.mo" role="horde" />
@@ -68,6 +76,12 @@
       <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
     <file name=".htaccess" role="horde" />
     <file name="timeobjects.pot" role="horde" />
    </dir> <!-- /locale -->
@@ -136,6 +150,8 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="COPYING" name="docs/COPYING" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="timeobjects/lib/Api.php" name="lib/Api.php" />
    <install as="timeobjects/lib/Application.php" name="lib/Application.php" />
@@ -149,10 +165,14 @@
    <install as="timeobjects/locale/timeobjects.pot" name="locale/timeobjects.pot" />
    <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.mo" name="locale/de/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/et/LC_MESSAGES/timeobjects.mo" name="locale/et/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/et/LC_MESSAGES/timeobjects.po" name="locale/et/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.mo" name="locale/fi/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.po" name="locale/fi/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.mo" name="locale/ja/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.po" name="locale/ja/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/lv/LC_MESSAGES/timeobjects.mo" name="locale/lv/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/lv/LC_MESSAGES/timeobjects.po" name="locale/lv/LC_MESSAGES/timeobjects.po" />
   </filelist>
  </phprelease>
  <changelog>
@@ -250,7 +270,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-10-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).

@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-19</date>
- <time>11:38:36</time>
+ <date>2011-10-06</date>
+ <time>14:39:32</time>
  <version>
   <release>3.0.3</release>
   <api>3.0.0</api>
@@ -131,6 +131,12 @@
      </dir> <!-- /locale/es/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
       <file name="mnemo.mo" role="horde" />
@@ -628,6 +634,8 @@
    <install as="mnemo/locale/es/help.xml" name="locale/es/help.xml" />
    <install as="mnemo/locale/es/LC_MESSAGES/mnemo.mo" name="locale/es/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/es/LC_MESSAGES/mnemo.po" name="locale/es/LC_MESSAGES/mnemo.po" />
+   <install as="mnemo/locale/et/LC_MESSAGES/mnemo.mo" name="locale/et/LC_MESSAGES/mnemo.mo" />
+   <install as="mnemo/locale/et/LC_MESSAGES/mnemo.po" name="locale/et/LC_MESSAGES/mnemo.po" />
    <install as="mnemo/locale/eu/help.xml" name="locale/eu/help.xml" />
    <install as="mnemo/locale/eu/LC_MESSAGES/mnemo.mo" name="locale/eu/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/eu/LC_MESSAGES/mnemo.po" name="locale/eu/LC_MESSAGES/mnemo.po" />
@@ -874,7 +882,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-19</date>
+   <date>2011-10-06</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
