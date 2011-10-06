@@ -181,8 +181,9 @@ them by starting apache with one of the following commands::
 FreeBSD
 =======
 
-You also need UTF-8 support in FreeBSD.  This is not installed by default, you
-need to install the ``utf8locale-without-swidth-040319`` package or port.
+You also need UTF-8 support in FreeBSD.  This is not installed by default in
+FreeBSD versions before 5.3, you need to install the
+``utf8locale-without-swidth-040319`` package or port in older versions.
 
 
 ------------------
