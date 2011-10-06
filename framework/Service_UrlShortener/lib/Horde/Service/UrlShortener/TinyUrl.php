@@ -35,7 +35,7 @@ class Horde_Service_UrlShortener_TinyUrl extends Horde_Service_UrlShortener_Base
     public function shorten($url)
     {
         $u = new Horde_Url(self::API_URL);
-        $u = $u->add('url', $url);
+        $u = $u->setRaw(true)->add('url', $url);
         try {
             $response = $this->_http->get($u);
         } catch (Horde_Http_Exception $e) {
