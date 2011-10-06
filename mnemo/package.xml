@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
+* [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
 * [mjr] Fix removeUserData implementation.
  </notes>
@@ -876,6 +877,7 @@
    <date>2011-09-19</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
+* [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
 * [mjr] Fix removeUserData implementation.
    </notes>
