@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [gwr] Support rendering bold text and code section in the rst renderer.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -875,7 +875,7 @@
    <date>2011-10-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [gwr] Support rendering bold text and code section in the rst renderer.
    </notes>
   </release>
  </changelog>

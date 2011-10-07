@@ -2,6 +2,7 @@
 v1.0.1-git
 ----------
 
+[gwr] Support rendering bold text and code section in the rst renderer.
 
 
 -----------
