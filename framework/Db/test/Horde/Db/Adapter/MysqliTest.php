@@ -256,18 +256,36 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         // make sure it inserted
         $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
         $this->assertEquals('999', $this->_conn->selectValue($sql));
+
+        // query without transaction and with new connection (see bug #10578).
+        $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (8, 1000)";
+        $this->_conn->insert($sql);
+
+        // make sure it inserted
+        $this->_conn->reconnect();
+        $sql = "SELECT integer_value FROM unit_tests WHERE id='8'";
+        $this->assertEquals('1000', $this->_conn->selectValue($sql));
     }
 
     public function testTransactionRollback()
     {
         $this->_conn->beginDbTransaction();
-         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-         $this->_conn->insert($sql);
-         $this->_conn->rollbackDbTransaction();
+        $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
+        $this->_conn->insert($sql);
+        $this->_conn->rollbackDbTransaction();
 
-         // make sure it inserted
-         $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
-         $this->assertEquals(null, $this->_conn->selectValue($sql));
+        // make sure it inserted
+        $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
+        $this->assertEquals(null, $this->_conn->selectValue($sql));
+
+        // query without transaction and with new connection (see bug #10578).
+        $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
+        $this->_conn->insert($sql);
+
+        // make sure it inserted
+        $this->_conn->reconnect();
+        $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
+        $this->assertEquals(999, $this->_conn->selectValue($sql));
     }
 
 
