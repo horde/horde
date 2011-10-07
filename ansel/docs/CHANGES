@@ -18,13 +18,6 @@ v2.0-git
 [mjr] Exif code removed and placed in Horde_Image_Exif.
 
 
-----------
-v1.1.3-cvs
-----------
-
-[mjr] Fix bug where ownership of a gallery could not be changed (Bug #9391).
-
-
 ------
 v1.1.2
 ------

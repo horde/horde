@@ -10,13 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-
-The Horde Team is pleased to announce the first alpha release of the Ansel Photo
-Management and Web Gallery application version H4 (2.0-ALPHA1).
+The Horde Team is pleased to announce the first alpha release of the Ansel
+Photo Management and Web Gallery application version H4 (2.0-ALPHA1).
 
 Ansel is a full featured photo management application. With it, you can organize
 your photos in any number of galleries and subgalleries, share galleries among
@@ -33,24 +32,24 @@ strings might still change before the final release.
 
 Major changes compared to the Ansel H3 versions are:
     * Updated to work with Horde 4.
-    * Improved geotagging features based on OpenLayers.
-    * Now uses the global Horde Tagging system.
-    * New, improved uploader.
-    * Improved Exif support.
+    * Added a mobile view.
     * Added new thumbnail types and processing options.
-    * Mobile view added.
+    * Now uses the global Horde tagging system.
+    * New, improved uploader.
+    * Improved geotagging features based on OpenLayers.
+    * Improved Exif support.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Updated to work with Horde 4.
-Improved geotagging features based on OpenLayers.
-Now uses the global Horde Tagging system.
-New, improved uploader.
-Improved Exif support.
+Added a mobile view.
 Added new thumbnail types and processing options.
-Mobile view added.
+Now uses the global Horde tagging system.
+New, improved uploader.
+Improved geotagging features based on OpenLayers.
+Improved Exif support.
 Small bugfixes and improvements.
 FM;
 
