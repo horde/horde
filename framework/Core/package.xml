@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix PostgreSQL DSN when using SQL authentication (Bug #10538).
 * [mjr] Add factory for Horde_Service_UrlShortener.
 * [mms] Fix minChars behavior in autocomplete javascript code.
 * [mms] Allow in-page base64 image encoding to be disabled via Horde configuration.
@@ -1594,6 +1595,7 @@
    <date>2011-10-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix PostgreSQL DSN when using SQL authentication (Bug #10538).
 * [mjr] Add factory for Horde_Service_UrlShortener.
 * [mms] Fix minChars behavior in autocomplete javascript code.
 * [mms] Allow in-page base64 image encoding to be disabled via Horde configuration.
