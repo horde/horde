@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2011-10-07 15:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgid_plural "%d photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/View/Upload.php:215
+#: lib/View/Upload.php:233
 #, php-format
 msgid "%d photo was uploaded."
 msgid_plural "%d photos were uploaded."
@@ -111,7 +111,7 @@ msgstr ""
 msgid "%s on %s"
 msgstr ""
 
-#: lib/Ansel.php:539 lib/Ansel.php:544 lib/View/List.php:178
+#: lib/Ansel.php:549 lib/Ansel.php:554 lib/View/List.php:178
 #: lib/View/List.php:183 lib/Widget/OtherGalleries.php:28
 #: templates/group/owner.inc:17 templates/group/owner.inc:22
 #, php-format
@@ -123,7 +123,7 @@ msgstr ""
 msgid "%s: faces %s"
 msgstr ""
 
-#: lib/Image.php:1059
+#: lib/Image.php:1072
 #, php-format
 msgid "(c) %s %s"
 msgstr ""
@@ -158,7 +158,7 @@ msgstr ""
 msgid "Access denied adding tags to this gallery."
 msgstr ""
 
-#: lib/Image.php:1207
+#: lib/Image.php:1220
 msgid "Access denied adding tags to this photo."
 msgstr ""
 
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Access denied downloading full sized photos from \"%s\"."
 msgstr ""
 
-#: gallery.php:40 image.php:694 lib/Image.php:892
+#: gallery.php:40 image.php:694 lib/Image.php:905
 #, php-format
 msgid "Access denied downloading photos from \"%s\"."
 msgstr ""
@@ -244,7 +244,7 @@ msgid "Access denied viewing this gallery."
 msgstr ""
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1169
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1182
 msgid "Access denied viewing this photo."
 msgstr ""
 
@@ -264,11 +264,11 @@ msgstr ""
 msgid "Add Content"
 msgstr ""
 
-#: lib/View/Upload.php:61
+#: lib/View/Upload.php:63
 msgid "Add Images"
 msgstr ""
 
-#: img/upload.php:43
+#: img/upload.php:51
 msgid "Add Photo"
 msgstr ""
 
@@ -276,7 +276,7 @@ msgstr ""
 msgid "Add a custom face range"
 msgstr ""
 
-#: lib/View/Upload.php:64
+#: lib/View/Upload.php:66
 msgid "Add files to the upload queue and click the start button."
 msgstr ""
 
@@ -326,11 +326,11 @@ msgstr ""
 msgid "Allow all ages"
 msgstr ""
 
-#: lib/View/Results.php:237 map_edit.php:23
+#: lib/View/Results.php:237 map_edit.php:25
 msgid "An error has occured retrieving the image. Details have been logged."
 msgstr ""
 
-#: config/prefs.php:196 templates/gallery/properties.html.php:108
+#: config/prefs.php:198 templates/gallery/properties.html.php:108
 msgid "Anyone"
 msgstr ""
 
@@ -347,11 +347,11 @@ msgstr ""
 msgid "Attempt to edit a non-existent share."
 msgstr ""
 
-#: config/prefs.php:197 templates/gallery/properties.html.php:109
+#: config/prefs.php:199 templates/gallery/properties.html.php:109
 msgid "Authenticated users"
 msgstr ""
 
-#: config/prefs.php:189
+#: config/prefs.php:191
 msgid "Automatically watermark photos?"
 msgstr ""
 
@@ -379,7 +379,7 @@ msgstr ""
 msgid "Basic Thumbnails"
 msgstr ""
 
-#: config/prefs.php:168 lib/Form/Watermark.php:49
+#: config/prefs.php:170 lib/Form/Watermark.php:49
 msgid "Bottom"
 msgstr ""
 
@@ -387,7 +387,7 @@ msgstr ""
 msgid "Browse"
 msgstr ""
 
-#: lib/Ansel.php:596
+#: lib/Ansel.php:618
 msgid "Browse Tags"
 msgstr ""
 
@@ -395,14 +395,14 @@ msgstr ""
 msgid "By"
 msgstr ""
 
-#: lib/Ansel.php:432
+#: lib/Ansel.php:436
 #, php-format
 msgid "Can't get unknown file type \"%s\"."
 msgstr ""
 
 #: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
 #: faces/savecustom.php:28 lib/Ajax/Imple/EditCaption.php:45
-#: lib/Form/Upload.php:30 lib/View/Upload.php:216 report.php:43
+#: lib/Form/Upload.php:30 lib/View/Upload.php:234 report.php:43
 #: templates/faces/custom.inc:52 templates/faces/define.inc:38
 #: templates/gallery/delete_confirmation.inc:13
 #: templates/image/crop_image.inc:92 templates/image/edit_image.inc:8
@@ -444,7 +444,7 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: config/prefs.php:156 config/prefs.php:167 lib/Form/Watermark.php:41
+#: config/prefs.php:158 config/prefs.php:169 lib/Form/Watermark.php:41
 #: lib/Form/Watermark.php:48
 msgid "Center"
 msgstr ""
@@ -477,11 +477,11 @@ msgstr ""
 msgid "Changes cancelled."
 msgstr ""
 
-#: lib/Faces.php:152 templates/tile/face.inc:28
+#: lib/Faces.php:159 templates/tile/face.inc:28
 msgid "Claim"
 msgstr ""
 
-#: map_edit.php:77
+#: map_edit.php:90
 msgid "Click on a thumbnail to locate at the same point."
 msgstr ""
 
@@ -530,11 +530,11 @@ msgstr ""
 msgid "Copyright infringement"
 msgstr ""
 
-#: lib/View/Upload.php:382
+#: lib/View/Upload.php:423
 msgid "Could not extract image data from zip archive."
 msgstr ""
 
-#: lib/View/Upload.php:368
+#: lib/View/Upload.php:409
 msgid "Could not open zip archive."
 msgstr ""
 
@@ -587,7 +587,7 @@ msgid ""
 "place of your username when grouping galleries by username."
 msgstr ""
 
-#: config/prefs.php:113 config/prefs.php:148
+#: config/prefs.php:113 config/prefs.php:150
 msgid "Custom watermark to use for photos"
 msgstr ""
 
@@ -622,7 +622,7 @@ msgstr ""
 msgid "Delete face"
 msgstr ""
 
-#: lib/Widget/Geotag.php:76
+#: lib/Widget/Geotag.php:92
 msgid "Delete geotag"
 msgstr ""
 
@@ -646,7 +646,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: lib/Faces.php:152
+#: lib/Faces.php:159
 msgid "Do you know someone in this photo?"
 msgstr ""
 
@@ -683,7 +683,7 @@ msgstr ""
 msgid "Download selected photos"
 msgstr ""
 
-#: lib/Ansel.php:699
+#: lib/Ansel.php:722
 msgid ""
 "Downloading zip files is not enabled. Talk to your server administrator."
 msgstr ""
@@ -808,7 +808,7 @@ msgstr ""
 msgid "Faces"
 msgstr ""
 
-#: map_edit.php:59
+#: map_edit.php:66
 msgid "Fetching location"
 msgstr ""
 
@@ -821,15 +821,23 @@ msgstr ""
 msgid "File not found."
 msgstr ""
 
+#: lib/View/Upload.php:67
+msgid "File size error."
+msgstr ""
+
 #: lib/Form/Upload.php:38 lib/Form/Upload.php:67
 msgid "File to upload"
+msgstr ""
+
+#: lib/View/Upload.php:68
+msgid "File type error."
 msgstr ""
 
 #: templates/faces/gallery.inc:5
 msgid "Filename"
 msgstr ""
 
-#: map_edit.php:58
+#: map_edit.php:65
 msgid "Find"
 msgstr ""
 
@@ -842,7 +850,7 @@ msgstr ""
 msgid "Find other photos this face appears in"
 msgstr ""
 
-#: lib/Faces.php:157 templates/faces/face.inc:14 templates/tile/face.inc:34
+#: lib/Faces.php:164 templates/faces/face.inc:14 templates/tile/face.inc:34
 msgid "Find similar"
 msgstr ""
 
@@ -868,7 +876,7 @@ msgstr ""
 msgid "From: "
 msgstr ""
 
-#: config/prefs.php:61 lib/Ansel.php:593
+#: config/prefs.php:61 lib/Ansel.php:615
 msgid "Galleries"
 msgstr ""
 
@@ -884,7 +892,7 @@ msgstr ""
 msgid "Gallery"
 msgstr ""
 
-#: image.php:58 img/upload.php:18 lib/Storage.php:268
+#: image.php:58 img/upload.php:21 lib/Storage.php:268
 #, php-format
 msgid "Gallery %s not found."
 msgstr ""
@@ -964,7 +972,7 @@ msgstr ""
 msgid "General Preferences"
 msgstr ""
 
-#: config/prefs.php:181 lib/Form/Watermark.php:35
+#: config/prefs.php:183 lib/Form/Watermark.php:35
 msgid "Giant"
 msgstr ""
 
@@ -989,7 +997,7 @@ msgstr ""
 msgid "Height of map (width automatically adjusts to block)"
 msgstr ""
 
-#: config/prefs.php:159 lib/Form/Watermark.php:43
+#: config/prefs.php:161 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
 msgstr ""
 
@@ -1030,7 +1038,7 @@ msgstr ""
 msgid "Landscape"
 msgstr ""
 
-#: config/prefs.php:180 lib/Form/Watermark.php:34
+#: config/prefs.php:182 lib/Form/Watermark.php:34
 msgid "Large"
 msgstr ""
 
@@ -1042,7 +1050,7 @@ msgstr ""
 msgid "Learn how to publish photos directly from Windows."
 msgstr ""
 
-#: config/prefs.php:155 lib/Form/Watermark.php:40
+#: config/prefs.php:157 lib/Form/Watermark.php:40
 msgid "Left"
 msgstr ""
 
@@ -1058,21 +1066,21 @@ msgstr ""
 msgid "Links"
 msgstr ""
 
-#: templates/image/plupload.inc:8
+#: templates/image/plupload.inc:11
 msgid "Loading ..."
 msgstr ""
 
 #: lib/Ajax/Imple/EditFaces.php:25 lib/Ajax/Imple/EditGalleryFaces.php:24
-#: map_edit.php:72 templates/faces/gallery.inc:28
+#: map_edit.php:83 templates/faces/gallery.inc:28
 #: templates/faces/gallery.inc:39
 msgid "Loading..."
 msgstr ""
 
-#: map_edit.php:60
+#: map_edit.php:67
 msgid "Locate image at:"
 msgstr ""
 
-#: lib/Widget/Geotag.php:44
+#: lib/Widget/Geotag.php:47
 msgid "Location"
 msgstr ""
 
@@ -1130,7 +1138,7 @@ msgstr ""
 msgid "Maximum photo size: %s; with a total of: %s"
 msgstr ""
 
-#: config/prefs.php:179 lib/Form/Watermark.php:33
+#: config/prefs.php:181 lib/Form/Watermark.php:33
 msgid "Medium"
 msgstr ""
 
@@ -1178,7 +1186,7 @@ msgstr[1] ""
 msgid "Multiple Photos"
 msgstr ""
 
-#: config/prefs.php:62 lib/Ansel.php:526 lib/Block/MyGalleries.php:19
+#: config/prefs.php:62 lib/Ansel.php:530 lib/Block/MyGalleries.php:19
 #: lib/Block/MyGalleries.php:45 lib/View/List.php:162
 #: templates/group/owner.inc:3 templates/mobile/galleries.html.php:3
 msgid "My Galleries"
@@ -1204,6 +1212,11 @@ msgstr ""
 msgid "New Gallery Title"
 msgstr ""
 
+#: lib/Ajax/Imple/UploadNotification.php:43
+#, php-format
+msgid "New images uploaded to %s. %s"
+msgstr ""
+
 #: templates/mobile/image.html.php:10 templates/view/image.inc:95
 #: templates/view/image.inc:96 templates/view/image.inc:122
 #: templates/view/image.inc:123 templates/view/slideshow.inc:41
@@ -1211,7 +1224,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: faces/image.php:41 faces/search/image.php:71
+#: faces/image.php:42 faces/search/image.php:71
 #: lib/Ajax/Imple/EditFaces.php:66 lib/Ajax/Imple/EditGalleryFaces.php:43
 #: lib/Ajax/Imple/EditGalleryFaces.php:84 lib/Widget/GalleryFaces.php:57
 #: lib/Widget/ImageFaces.php:89 templates/faces/faces.inc:10
@@ -1231,11 +1244,11 @@ msgstr ""
 msgid "No gallery specified"
 msgstr ""
 
-#: lib/Widget/Geotag.php:162
+#: lib/Widget/Geotag.php:201
 msgid "No location data present."
 msgstr ""
 
-#: lib/Widget/Geotag.php:155
+#: lib/Widget/Geotag.php:196
 #, php-format
 msgid ""
 "No location data present. Place using %s map %s or click on image to place "
@@ -1249,18 +1262,18 @@ msgid ""
 "the same location."
 msgstr ""
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:157
+#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:198
 #, php-format
 msgid "No location data present. You may add some %s."
 msgstr ""
 
-#: config/prefs.php:73 config/prefs.php:207 config/prefs.php:228
+#: config/prefs.php:73 config/prefs.php:209 config/prefs.php:230
 #: lib/Application.php:162 templates/view/gallery.inc:136
 #: templates/view/gallerylightbox.inc:150 templates/view/results.inc:79
 msgid "None"
 msgstr ""
 
-#: config/prefs.php:218
+#: config/prefs.php:220
 msgid "None (Owner only)"
 msgstr ""
 
@@ -1268,7 +1281,7 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: map_edit.php:28
+#: map_edit.php:35
 msgid "Not Authorized. Details have been logged for the server administrator."
 msgstr ""
 
@@ -1316,6 +1329,10 @@ msgstr ""
 
 #: lib/Form/Image.php:37 lib/Form/ImageDate.php:27
 msgid "Original Date"
+msgstr ""
+
+#: lib/Widget/Geotag.php:94
+msgid "Other images in this gallery"
 msgstr ""
 
 #: templates/tile/face.inc:25
@@ -1414,7 +1431,7 @@ msgstr ""
 msgid "Photos by %s"
 msgstr ""
 
-#: templates/image/plupload.inc:3
+#: templates/image/plupload.inc:6
 msgid "Photos in this gallery"
 msgstr ""
 
@@ -1511,15 +1528,15 @@ msgstr ""
 msgid "Random photo"
 msgstr ""
 
-#: config/prefs.php:209 config/prefs.php:230
+#: config/prefs.php:211 config/prefs.php:232
 msgid "Read and write"
 msgstr ""
 
-#: config/prefs.php:231
+#: config/prefs.php:233
 msgid "Read, write, and delete"
 msgstr ""
 
-#: config/prefs.php:208 config/prefs.php:219 config/prefs.php:229
+#: config/prefs.php:210 config/prefs.php:221 config/prefs.php:231
 msgid "Read-only"
 msgstr ""
 
@@ -1624,7 +1641,7 @@ msgstr ""
 msgid "Related Tags"
 msgstr ""
 
-#: lib/Widget/Geotag.php:75
+#: lib/Widget/Geotag.php:91
 msgid "Relocate this image"
 msgstr ""
 
@@ -1690,11 +1707,11 @@ msgstr ""
 msgid "Resize"
 msgstr ""
 
-#: map_edit.php:57
+#: map_edit.php:64
 msgid "Return to Image View"
 msgstr ""
 
-#: config/prefs.php:157 lib/Form/Watermark.php:42
+#: config/prefs.php:159 lib/Form/Watermark.php:42
 msgid "Right"
 msgstr ""
 
@@ -1726,7 +1743,7 @@ msgid "Rounded Thumbnails (White Background)"
 msgstr ""
 
 #: lib/Form/Image.php:21 lib/Form/ImageDate.php:21 lib/Form/Watermark.php:21
-#: map_edit.php:56 templates/faces/custom.inc:51
+#: map_edit.php:63 templates/faces/custom.inc:51
 #: templates/image/resize_image.inc:74
 msgid "Save"
 msgstr ""
@@ -1838,7 +1855,7 @@ msgstr ""
 msgid "Shadowed Thumbnails (White Background)"
 msgstr ""
 
-#: config/prefs.php:245
+#: config/prefs.php:247
 msgid ""
 "Should we automatically set the image title on upload if able? If so, choose "
 "the field to obtain the title from."
@@ -1876,7 +1893,7 @@ msgstr ""
 msgid "Slugs allows direct access to this gallery by visiting:"
 msgstr ""
 
-#: config/prefs.php:178 lib/Form/Watermark.php:32
+#: config/prefs.php:180 lib/Form/Watermark.php:32
 msgid "Small"
 msgstr ""
 
@@ -1896,7 +1913,7 @@ msgstr ""
 msgid "Standard Gallery"
 msgstr ""
 
-#: lib/View/Upload.php:60
+#: lib/View/Upload.php:62
 msgid "Start"
 msgstr ""
 
@@ -1924,7 +1941,7 @@ msgstr ""
 msgid "Successfully modified the date on %d photos."
 msgstr ""
 
-#: lib/Ansel.php:524
+#: lib/Ansel.php:528
 msgid "System Galleries"
 msgstr ""
 
@@ -1948,12 +1965,12 @@ msgstr ""
 msgid "Terms and conditions infringement"
 msgstr ""
 
-#: lib/Ansel.php:421
+#: lib/Ansel.php:425
 #, php-format
 msgid "The file \"%s\" doesn't exist."
 msgstr ""
 
-#: image.php:201 lib/Api.php:337 lib/View/Upload.php:177
+#: image.php:201 lib/Api.php:337 lib/View/Upload.php:195
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 
@@ -2001,7 +2018,7 @@ msgstr ""
 msgid "The slug \"%s\" already exists."
 msgstr ""
 
-#: lib/View/Upload.php:153
+#: lib/View/Upload.php:171
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
@@ -2010,7 +2027,7 @@ msgstr ""
 msgid "There are no photo galleries available."
 msgstr ""
 
-#: lib/Ansel.php:717
+#: lib/Ansel.php:740
 #, php-format
 msgid "There are no photos in %s to download."
 msgstr ""
@@ -2030,7 +2047,7 @@ msgstr ""
 msgid "There was a problem deleting photos: %s"
 msgstr ""
 
-#: lib/View/Upload.php:192
+#: lib/View/Upload.php:210
 #, php-format
 msgid "There was a problem saving the photo: %s"
 msgstr ""
@@ -2039,7 +2056,7 @@ msgstr ""
 msgid "There was a problem uploading the photo."
 msgstr ""
 
-#: lib/View/Upload.php:151
+#: lib/View/Upload.php:169
 #, php-format
 msgid "There was a problem uploading the photo: %s"
 msgstr ""
@@ -2062,7 +2079,7 @@ msgstr ""
 msgid "There was an error fetching tags: %s"
 msgstr ""
 
-#: lib/View/Upload.php:289
+#: lib/View/Upload.php:332
 #, php-format
 msgid "There was an error processing the uploaded archive: %s"
 msgstr ""
@@ -2080,6 +2097,10 @@ msgstr ""
 msgid "This gallery is protected by a password. Please enter it below."
 msgstr ""
 
+#: lib/Widget/Geotag.php:93
+msgid "This image"
+msgstr ""
+
 #: lib/ImageGenerator.php:123
 #, php-format
 msgid ""
@@ -2091,11 +2112,11 @@ msgstr ""
 msgid "Thumbnail Style"
 msgstr ""
 
-#: config/prefs.php:177 lib/Form/Watermark.php:31
+#: config/prefs.php:179 lib/Form/Watermark.php:31
 msgid "Tiny"
 msgstr ""
 
-#: config/prefs.php:166 lib/Form/Watermark.php:47
+#: config/prefs.php:168 lib/Form/Watermark.php:47
 msgid "Top"
 msgstr ""
 
@@ -2103,7 +2124,11 @@ msgstr ""
 msgid "Top Level Gallery"
 msgstr ""
 
-#: map_edit.php:61
+#: templates/image/plupload.inc:3
+msgid "Tweet"
+msgstr ""
+
+#: map_edit.php:68
 msgid "Unable to find location. Error code:"
 msgstr ""
 
@@ -2136,7 +2161,7 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
-#: map_edit.php:151
+#: map_edit.php:157
 #, php-format
 msgid "Update position of %s"
 msgstr ""
@@ -2159,11 +2184,11 @@ msgstr ""
 msgid "Upload face photo"
 msgstr ""
 
-#: lib/View/Upload.php:133 lib/Widget/Actions.php:71
+#: lib/View/Upload.php:151 lib/Widget/Actions.php:71
 msgid "Upload photos"
 msgstr ""
 
-#: lib/View/Upload.php:62
+#: lib/View/Upload.php:64
 msgid "Upload to gallery"
 msgstr ""
 
@@ -2188,11 +2213,11 @@ msgstr ""
 msgid "Username or password are incorrect."
 msgstr ""
 
-#: config/prefs.php:198 templates/gallery/properties.html.php:110
+#: config/prefs.php:200 templates/gallery/properties.html.php:110
 msgid "Users with edit permissions"
 msgstr ""
 
-#: config/prefs.php:170 config/prefs.php:183 lib/Form/Watermark.php:50
+#: config/prefs.php:172 config/prefs.php:185 lib/Form/Watermark.php:50
 msgid "Vertical Alignment"
 msgstr ""
 
@@ -2205,7 +2230,7 @@ msgstr ""
 msgid "View All Results"
 msgstr ""
 
-#: lib/View/Upload.php:63
+#: lib/View/Upload.php:65
 msgid "View Gallery"
 msgstr ""
 
@@ -2242,31 +2267,31 @@ msgstr ""
 msgid "Watermark Preferences"
 msgstr ""
 
-#: config/prefs.php:233
+#: config/prefs.php:235
 msgid ""
 "When a new gallery is created, what default permissions should be given to "
 "groups that the user is a member of?"
 msgstr ""
 
-#: config/prefs.php:211
+#: config/prefs.php:213
 msgid ""
 "When a new gallery is created, what permissions should be given to "
 "authenticated users by default?"
 msgstr ""
 
-#: config/prefs.php:221
+#: config/prefs.php:223
 msgid ""
 "When a new gallery is created, what permissions should be given to guests by "
 "default?"
 msgstr ""
 
-#: config/prefs.php:239
+#: config/prefs.php:241
 msgid ""
 "Which metadata fields should we automatically add as image tags during "
 "upload?"
 msgstr ""
 
-#: config/prefs.php:200
+#: config/prefs.php:202
 msgid "Who should be allowed to download original photos"
 msgstr ""
 
@@ -2278,11 +2303,11 @@ msgstr ""
 msgid "You are not allowed to edit these photos."
 msgstr ""
 
-#: img/upload.php:23
+#: img/upload.php:27
 msgid "You are not authorized to upload photos to this gallery."
 msgstr ""
 
-#: lib/View/Upload.php:217
+#: lib/View/Upload.php:235
 msgid "You did not select any photos to upload."
 msgstr ""
 
@@ -2301,6 +2326,13 @@ msgstr ""
 
 #: lib/View/List.php:132
 msgid "You have no photo galleries, add one!"
+msgstr ""
+
+#: lib/Ajax/Imple/UploadNotification.php:60
+#, php-format
+msgid ""
+"You have not properly connected your Twitter account with Horde. You should "
+"check your Twitter settings in your %s."
 msgstr ""
 
 #: templates/view/gallery.inc:43 templates/view/gallery.inc:58
@@ -2379,7 +2411,7 @@ msgstr ""
 msgid "height"
 msgstr ""
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:157
+#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:198
 msgid "here"
 msgstr ""
 
@@ -2402,6 +2434,10 @@ msgstr ""
 
 #: xppublish.php:187
 msgid "photo"
+msgstr ""
+
+#: lib/Ajax/Imple/UploadNotification.php:60
+msgid "preferences"
 msgstr ""
 
 #: templates/faces/define.inc:59 templates/image/crop_image.inc:153
