@@ -51,12 +51,12 @@ abstract class Horde_Core_Ajax_Imple
      * @param array $params
      * @param boolean $full
      *
-     * @return string
+     * @return Horde_Url
      */
     protected function _getUrl($driver, $app = 'horde', $params = array(),
                                $full = false)
     {
-        $qstring = 'imple=' . $driver;
+        $qstring = $driver;
 
         if ($app != 'horde') {
             $qstring .= '/impleApp=' . $app;
@@ -66,7 +66,7 @@ abstract class Horde_Core_Ajax_Imple
             $qstring .= '/' . $key . '=' . rawurlencode($val);
         }
 
-        return Horde::url(Horde::getServiceLink('imple')->url . '?' . $qstring, $full, array('noajax' => true))->setRaw(true);
+        return Horde::url(Horde::getServiceLink('imple')->url, $full, array('noajax' => true))->setRaw(true)->add('imple', $qstring);
     }
 
     /**
