@@ -15,6 +15,7 @@ var Horde_Twitter = Class.create({
    newestMention: null,
    instanceid: null,
    activeTab: 'stream',
+   overlay: null,
 
    /**
     * Const'r
@@ -32,6 +33,7 @@ var Horde_Twitter = Class.create({
     * opts.strings.justnow
     * opts.getmore
     * opts.instanceid
+    * opts.previewid The domid of a preview element.
     */
     initialize: function(opts) {
         this.opts = Object.extend({
@@ -55,7 +57,10 @@ var Horde_Twitter = Class.create({
         }.bind(this));
 
         this.instanceid = opts.instanceid;
-
+        this.overlay = new Element('div', { 'class': 'hordeSmOverlay' }).update('&nbsp;');
+        this.overlay.hide();
+        $(this.instanceid + '_preview').insert({ 'before': this.overlay });
+        $(this.instanceid + '_preview').observe('click', this.hidePreview.bind(this));
         /* Get the first page */
         this.getNewEntries();
    },
@@ -179,6 +184,27 @@ var Horde_Twitter = Class.create({
                 $(this.opts.spinner).toggle();
             }.bind(this)
         });
+    },
+
+    showPreview: function(url)
+    {
+        $(this.instanceid + '_preview').clonePosition($(this.instanceid + '_preview').up());
+        $(this.instanceid + '_preview').hide();
+        $(this.instanceid + '_preview').update();
+        $(this.instanceid + '_preview').appendChild(
+            new Element('img', { 'src': url })
+        );
+        this.overlay.clonePosition($(this.instanceid + '_preview').up());
+        this.overlay.show();
+        Effect.BlindDown(this.instanceid + '_preview');
+
+        return false;
+    },
+
+    hidePreview: function(e) {
+      console.log(e);
+      $(this.instanceid + '_preview').hide();
+      this.overlay.hide();
     },
 
     /**

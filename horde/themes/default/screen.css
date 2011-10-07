@@ -1430,6 +1430,17 @@ div.GrowlerNoticeExit:hover {
 .hordeSmNew {
     color: red;
 }
+.hordeSmPreview {
+    text-align: center;
+    position: absolute;
+    z-index: 10000;
+}
+.hordeSmOverlay {
+    position: absolute;
+    opacity: 0.8;
+    z-index: 9000;
+    background-color: #000000;
+}
 
 /* Uploader */
 .hordeUploaderHeaderContent {

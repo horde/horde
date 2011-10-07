@@ -104,6 +104,9 @@ case 'getPage':
             $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . $link->display_url . '</a>';
             $body = substr($body, 0, $link->indices[0]) . $replace . substr($body, $link->indices[1]);
         }
+        foreach ($tweet->entities->media as $picture) {
+            $body .= '<a href="#" onclick="return Horde[\'twitter' . $instance . '\'].showPreview(\'' . $picture->media_url . ':small\');"><img src="' . Horde_Themes::img('mime/image.png') . '" />';
+        }
         $view->body = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $body);
 
         /* If this is a retweet, use the original author's profile info */
