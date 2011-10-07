@@ -171,6 +171,8 @@ class Horde_Rdo_Query
     /**
      * Makes the query return only distinct (different) values.
      *
+     * @since Horde_Rdo 1.1.0
+     *
      * @param boolean $distinct  Whether to enable a distinct query.
      *
      * @return Horde_Rdo_Query Returns self for fluent method chaining.
