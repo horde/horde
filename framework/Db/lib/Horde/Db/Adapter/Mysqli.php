@@ -350,6 +350,25 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
         $this->_connection->autocommit(false);
     }
 
+    /**
+     * Commits the transaction (and turns on auto-committing).
+     */
+    public function commitDbTransaction()
+    {
+        parent::commitDbTransaction();
+        $this->_connection->autocommit(true);
+    }
+
+    /**
+     * Rolls back the transaction (and turns on auto-committing). Must be
+     * done if the transaction block raises an exception or returns false.
+     */
+    public function rollbackDbTransaction()
+    {
+        parent::rollbackDbTransaction();
+        $this->_connection->autocommit(true);
+    }
+
 
     /*##########################################################################
     # Protected
