@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-30</date>
- <time>11:20:48</time>
+ <date>2011-10-07</date>
+ <time>15:37:53</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0</api>
@@ -35,6 +35,19 @@
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * First alpha release for Horde 4.
+* [mjr] Refactor Geotagging features to use HordeMap.
+* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
+* [jan] Provide default configuration files instead of .dist versions.
+* [mjr] Mobile view added.
+* [mjr] Square image and smart square image generators added.
+* [mjr] Gallery style properties are now directly editable per-gallery by the gallery owner (Request #6003).
+* [mjr] New ajax image uploader added.
+* [mjr] Categories are removed and migrated to tags.
+* [mjr] Move tag handling to Content_Tagger.
+* [mjr] Unsharpmask filtering options added.
+* [mjr] Support for multipage images (Request #6022).
+* [mjr] Remove support for no longer available openCV extension.
+* [mjr] Exif code removed and placed in Horde_Image_Exif.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -119,6 +132,7 @@
     <file name="slugcheck.js" role="horde" />
     <file name="tagactions.js" role="horde" />
     <file name="togglewidget.js" role="horde" />
+    <file name="upload.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
@@ -134,6 +148,7 @@
       <file name="TagActions.php" role="horde" />
       <file name="ToggleGalleryActions.php" role="horde" />
       <file name="ToggleOtherGalleries.php" role="horde" />
+      <file name="UploadNotification.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
@@ -467,6 +482,7 @@
       <file name="success.png" role="horde" />
       <file name="text.png" role="horde" />
       <file name="thumb-error.png" role="horde" />
+      <file name="twitter.png" role="horde" />
       <file name="up.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="cropper.css" role="horde" />
@@ -490,6 +506,7 @@
       <file name="browse.png" role="horde" />
       <file name="galleries.png" role="horde" />
       <file name="image_add.png" role="horde" />
+      <file name="menu.png" role="horde" />
       <file name="mygalleries.png" role="horde" />
       <file name="photomarker-shadow.png" role="horde" />
       <file name="photomarker.png" role="horde" />
@@ -497,6 +514,7 @@
       <file name="slideshow_pause.png" role="horde" />
       <file name="slideshow_play.png" role="horde" />
       <file name="slideshow_prev.png" role="horde" />
+      <file name="twitter.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
@@ -849,6 +867,7 @@
    <install as="ansel/js/slugcheck.js" name="js/slugcheck.js" />
    <install as="ansel/js/tagactions.js" name="js/tagactions.js" />
    <install as="ansel/js/togglewidget.js" name="js/togglewidget.js" />
+   <install as="ansel/js/upload.js" name="js/upload.js" />
    <install as="ansel/js/blocks/geotag.js" name="js/blocks/geotag.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
@@ -880,6 +899,7 @@
    <install as="ansel/lib/Ajax/Imple/TagActions.php" name="lib/Ajax/Imple/TagActions.php" />
    <install as="ansel/lib/Ajax/Imple/ToggleGalleryActions.php" name="lib/Ajax/Imple/ToggleGalleryActions.php" />
    <install as="ansel/lib/Ajax/Imple/ToggleOtherGalleries.php" name="lib/Ajax/Imple/ToggleOtherGalleries.php" />
+   <install as="ansel/lib/Ajax/Imple/UploadNotification.php" name="lib/Ajax/Imple/UploadNotification.php" />
    <install as="ansel/lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
    <install as="ansel/lib/Block/Gallery.php" name="lib/Block/Gallery.php" />
    <install as="ansel/lib/Block/MyGalleries.php" name="lib/Block/MyGalleries.php" />
@@ -1066,6 +1086,7 @@
    <install as="ansel/themes/default/graphics/success.png" name="themes/default/graphics/success.png" />
    <install as="ansel/themes/default/graphics/text.png" name="themes/default/graphics/text.png" />
    <install as="ansel/themes/default/graphics/thumb-error.png" name="themes/default/graphics/thumb-error.png" />
+   <install as="ansel/themes/default/graphics/twitter.png" name="themes/default/graphics/twitter.png" />
    <install as="ansel/themes/default/graphics/up.png" name="themes/default/graphics/up.png" />
    <install as="ansel/themes/default/graphics/carousel/left-disabled.gif" name="themes/default/graphics/carousel/left-disabled.gif" />
    <install as="ansel/themes/default/graphics/carousel/left.gif" name="themes/default/graphics/carousel/left.gif" />
@@ -1083,6 +1104,7 @@
    <install as="ansel/themes/silver/graphics/browse.png" name="themes/silver/graphics/browse.png" />
    <install as="ansel/themes/silver/graphics/galleries.png" name="themes/silver/graphics/galleries.png" />
    <install as="ansel/themes/silver/graphics/image_add.png" name="themes/silver/graphics/image_add.png" />
+   <install as="ansel/themes/silver/graphics/menu.png" name="themes/silver/graphics/menu.png" />
    <install as="ansel/themes/silver/graphics/mygalleries.png" name="themes/silver/graphics/mygalleries.png" />
    <install as="ansel/themes/silver/graphics/photomarker-shadow.png" name="themes/silver/graphics/photomarker-shadow.png" />
    <install as="ansel/themes/silver/graphics/photomarker.png" name="themes/silver/graphics/photomarker.png" />
@@ -1090,6 +1112,7 @@
    <install as="ansel/themes/silver/graphics/slideshow_pause.png" name="themes/silver/graphics/slideshow_pause.png" />
    <install as="ansel/themes/silver/graphics/slideshow_play.png" name="themes/silver/graphics/slideshow_play.png" />
    <install as="ansel/themes/silver/graphics/slideshow_prev.png" name="themes/silver/graphics/slideshow_prev.png" />
+   <install as="ansel/themes/silver/graphics/twitter.png" name="themes/silver/graphics/twitter.png" />
    <install as="ansel/themes/silver/graphics/lightbox/bullet.gif" name="themes/silver/graphics/lightbox/bullet.gif" />
    <install as="ansel/themes/silver/graphics/lightbox/close.gif" name="themes/silver/graphics/lightbox/close.gif" />
    <install as="ansel/themes/silver/graphics/lightbox/closelabel.gif" name="themes/silver/graphics/lightbox/closelabel.gif" />
@@ -1126,10 +1149,23 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-09-30</date>
+   <date>2011-10-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 4.
+* [mjr] Refactor Geotagging features to use HordeMap.
+* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
+* [jan] Provide default configuration files instead of .dist versions.
+* [mjr] Mobile view added.
+* [mjr] Square image and smart square image generators added.
+* [mjr] Gallery style properties are now directly editable per-gallery by the gallery owner (Request #6003).
+* [mjr] New ajax image uploader added.
+* [mjr] Categories are removed and migrated to tags.
+* [mjr] Move tag handling to Content_Tagger.
+* [mjr] Unsharpmask filtering options added.
+* [mjr] Support for multipage images (Request #6022).
+* [mjr] Remove support for no longer available openCV extension.
+* [mjr] Exif code removed and placed in Horde_Image_Exif.
    </notes>
   </release>
  </changelog>
