@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [jan] Fix DISTINCT clause generation on PostgreSQL (Bug #10543).
 * Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
  </notes>
  <contents>
@@ -509,7 +510,8 @@
    <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [jan] Fix DISTINCT clause generation on PostgreSQL (Bug #10543).
+* Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
    </notes>
   </release>
  </changelog>
