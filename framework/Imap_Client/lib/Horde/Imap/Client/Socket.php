@@ -2066,10 +2066,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     }
 
                     foreach ($slice as $num) {
-                        $env = $fetch_res[$num]->getEnvelope();
-                        $sorted[$num] = empty($env->$field)
+                        $tmp = $fetch_res[$num]->getEnvelope()->$field;
+                        $sorted[$num] = empty($tmp)
                             ? null
-                            : $env->$field[0]['personal'];
+                            : $tmp[0]['mailbox'];
                     }
                     asort($sorted, SORT_LOCALE_STRING);
                     break;

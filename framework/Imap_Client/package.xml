@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix client-side Cc/From/To sorting (Bug #10503).
 * [mms] Improved IMAP debug logging.
 * [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).
 * [mms] Add shortcuts to get MIME decoded envelope information.
