@@ -1413,11 +1413,11 @@ table.kronolithView td.kronolithFirstCol {
     border-color: transparent;
     color: silver;
 }
-.kronolithToday, .kronolithMinical .kronolithToday {
-    background-color: #cfc;
-}
 .kronolithWeekend {
     background: #ffc;
+}
+.kronolithToday, .kronolithMinical .kronolithToday {
+    background-color: #cfc;
 }
 #kronolithViewIframe iframe {
     position: absolute;
