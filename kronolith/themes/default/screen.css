@@ -1178,9 +1178,9 @@ table.kronolithView td.kronolithFirstCol {
 #kronolithEventsWeek {
     position: absolute;
     top: 1px;
-    right: 2px;
-    bottom: 3px;
-    left: 20px;
+    right: 0;
+    bottom: 1px;
+    left: 22px;
 }
 .kronolithEventsWeek {
     position: relative;
@@ -1189,7 +1189,7 @@ table.kronolithView td.kronolithFirstCol {
     width: 14.285714%;
 }
 .kronolithEventsWeek div.kronolithEvent {
-    margin-left: 2px;
+    margin: 0 1px;
 }
 
 /* Main view week and day */
@@ -1229,9 +1229,6 @@ table.kronolithView td.kronolithFirstCol {
     left: 0;
     overflow-x: hidden;
     overflow-y: scroll;
-}
-.kronolithViewBody table.kronolithView {
-    margin-top: -2px;
 }
 .kronolithViewBodyContainer {
     position: relative;
