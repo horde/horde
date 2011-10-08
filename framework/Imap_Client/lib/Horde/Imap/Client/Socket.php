@@ -2,79 +2,102 @@
 /**
  * An interface to an IMAP4rev1 server (RFC 3501) using built-in PHP features.
  *
- * This driver implements the following IMAP-related RFCs:
- * <pre>
- *  RFC 2086/4314 - ACL
- *   RFC 2087 - QUOTA
- *   RFC 2088 - LITERAL+
- *   RFC 2195 - AUTH=CRAM-MD5
- *   RFC 2221 - LOGIN-REFERRALS
- *   RFC 2342 - NAMESPACE
- *   RFC 2595/4616 - TLS & AUTH=PLAIN
- *   RFC 2831 - DIGEST-MD5 authentication mechanism (obsoleted by RFC 6331)
- *   RFC 2971 - ID
- *   RFC 3348 - CHILDREN
- *   RFC 3501 - IMAP4rev1 specification
- *   RFC 3502 - MULTIAPPEND
- *   RFC 3516 - BINARY
- *   RFC 3691 - UNSELECT
- *   RFC 4315 - UIDPLUS
- *   RFC 4422 - SASL Authentication (for DIGEST-MD5)
- *   RFC 4466 - Collected extensions (updates RFCs 2088, 3501, 3502, 3516)
- *   RFC 4469/5550 - CATENATE
- *   RFC 4551 - CONDSTORE
- *   RFC 4731 - ESEARCH
- *   RFC 4959 - SASL-IR
- *   RFC 5032 - WITHIN
- *   RFC 5161 - ENABLE
- *   RFC 5162 - QRESYNC
- *   RFC 5182 - SEARCHRES
- *   RFC 5255 - LANGUAGE/I18NLEVEL
- *   RFC 5256 - THREAD/SORT
- *   RFC 5258 - LIST-EXTENDED
- *   RFC 5267 - ESORT; PARTIAL search return option
- *   RFC 5464 - METADATA
- *   RFC 5530 - IMAP Response Codes
- *   RFC 5819 - LIST-STATUS
- *   RFC 5957 - SORT=DISPLAY
- *   RFC 6154 - SPECIAL-USE/CREATE-SPECIAL-USE
- *   RFC 6203 - SEARCH=FUZZY
+ * Implements the following IMAP-related RFCs (see
+ * http://www.iana.org/assignments/imap4-capabilities):
+ *   - RFC 2086/4314: ACL
+ *   - RFC 2087: QUOTA
+ *   - RFC 2088: LITERAL+
+ *   - RFC 2195: AUTH=CRAM-MD5
+ *   - RFC 2221: LOGIN-REFERRALS
+ *   - RFC 2342: NAMESPACE
+ *   - RFC 2595/4616: TLS & AUTH=PLAIN
+ *   - RFC 2831: DIGEST-MD5 authentication mechanism (obsoleted by RFC 6331)
+ *   - RFC 2971: ID
+ *   - RFC 3348: CHILDREN
+ *   - RFC 3501: IMAP4rev1 specification
+ *   - RFC 3502: MULTIAPPEND
+ *   - RFC 3516: BINARY
+ *   - RFC 3691: UNSELECT
+ *   - RFC 4315: UIDPLUS
+ *   - RFC 4422: SASL Authentication (for DIGEST-MD5)
+ *   - RFC 4466: Collected extensions (updates RFCs 2088, 3501, 3502, 3516)
+ *   - RFC 4469/5550: CATENATE
+ *   - RFC 4551: CONDSTORE
+ *   - RFC 4731: ESEARCH
+ *   - RFC 4959: SASL-IR
+ *   - RFC 5032: WITHIN
+ *   - RFC 5161: ENABLE
+ *   - RFC 5162: QRESYNC
+ *   - RFC 5182: SEARCHRES
+ *   - RFC 5255: LANGUAGE/I18NLEVEL
+ *   - RFC 5256: THREAD/SORT
+ *   - RFC 5258: LIST-EXTENDED
+ *   - RFC 5267: ESORT; PARTIAL search return option
+ *   - RFC 5464: METADATA
+ *   - RFC 5530: IMAP Response Codes
+ *   - RFC 5819: LIST-STATUS
+ *   - RFC 5957: SORT=DISPLAY
+ *   - RFC 6154: SPECIAL-USE/CREATE-SPECIAL-USE
+ *   - RFC 6203: SEARCH=FUZZY
  *
- *   draft-ietf-morg-inthread-01 - THREAD=REFS
- *
- *   [NO RFC] - XIMAPPROXY
- *       + Requires imapproxy v1.2.7-rc1 or later
- *       + See http://lists.andrew.cmu.edu/pipermail/imapproxy-info/2008-October/000771.html and
- *         http://lists.andrew.cmu.edu/pipermail/imapproxy-info/2008-October/000772.html
+ * Implements the following non-RFC extensions:
+ * <ul>
+ *  <li>draft-ietf-morg-inthread-01: THREAD=REFS</li>
+ *  <li>XIMAPPROXY
+ *   <ul>
+ *    <li>Requires imapproxy v1.2.7-rc1 or later</li>
+ *    <li>
+ *     See http://lists.andrew.cmu.edu/pipermail/imapproxy-info/2008-October/000771.html and
+ *     http://lists.andrew.cmu.edu/pipermail/imapproxy-info/2008-October/000772.html
+ *    </li>
+ *   </ul>
+ *  </li>
+ * </ul>
  *
  * TODO (or not necessary?):
- *   RFC 2177 - IDLE (probably not necessary due to the limited connection
- *                    time by each HTTP/PHP request)
- *   RFC 2193 - MAILBOX-REFERRALS
- *   RFC 4467/5092/5524/5550/5593 - URLAUTH, URLAUTH=BINARY, URL-PARTIAL
- *   RFC 4978 - COMPRESS=DEFLATE
- *              See: http://bugs.php.net/bug.php?id=48725
- *   RFC 5257 - ANNOTATE (Experimental)
- *   RFC 5259 - CONVERT
- *   RFC 5267 - CONTEXT=SEARCH; CONTEXT=SORT
- *   RFC 5465 - NOTIFY
- *   RFC 5466 - FILTERS
- *   RFC 5738 - UTF8 (Very limited support)
- *   RFC 6237 - MULTISEARCH
- *
- *   draft-ietf-morg-inthread-01 - SEARCH=INTHREAD (Appears to be dead)
- *   draft-krecicki-imap-move-01.txt - MOVE (Appears to be dead)
- *
- * [See: http://www.iana.org/assignments/imap4-capabilities]
- * </pre>
+ * <ul>
+ *  <li>RFC 2177: IDLE
+ *   <ul>
+ *    <li>
+ *     Probably not necessary due to the limited connection time of each
+ *     HTTP/PHP request
+ *    </li>
+ *   </ul>
+ *  <li>RFC 2193: MAILBOX-REFERRALS</li>
+ *  <li>
+ *   RFC 4467/5092/5524/5550/5593: URLAUTH, URLAUTH=BINARY, URL-PARTIAL
+ *  </li>
+ *  <li>RFC 4978: COMPRESS=DEFLATE
+ *   <ul>
+ *    <li>See: http://bugs.php.net/bug.php?id=48725</li>
+ *   </ul>
+ *  </li>
+ *  <li>RFC 5257: ANNOTATE (Experimental)</li>
+ *  <li>RFC 5259: CONVERT</li>
+ *  <li>RFC 5267: CONTEXT=SEARCH; CONTEXT=SORT</li>
+ *  <li>RFC 5465: NOTIFY</li>
+ *  <li>RFC 5466: FILTERS</li>
+ *  <li>RFC 5738: UTF8 (Very limited support currently)</li>
+ *  <li>RFC 6237: MULTISEARCH</li>
+ *  <li>draft-ietf-morg-inthread-01: SEARCH=INTHREAD
+ *   <ul>
+ *    <li>Appears to be dead</li>
+ *   </ul>
+ *  </li>
+ *  <li>draft-krecicki-imap-move-01.txt: MOVE
+ *   <ul>
+ *    <li>Appears to be dead</li>
+ *   </ul>
+ *  </li>
+ * </ul>
  *
  * Originally based on code from:
- *   + auth.php (1.49)
- *   + imap_general.php (1.212)
- *   + imap_messages.php (revision 13038)
- *   + strings.php (1.184.2.35)
- *   from the Squirrelmail project.
- *   Copyright (c) 1999-2007 The SquirrelMail Project Team
+ *   - auth.php (1.49)
+ *   - imap_general.php (1.212)
+ *   - imap_messages.php (revision 13038)
+ *   - strings.php (1.184.2.35)
+ * from the Squirrelmail project.
+ * Copyright (c) 1999-2007 The SquirrelMail Project Team
  *
  * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
