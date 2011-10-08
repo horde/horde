@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-08</date>
- <time>14:35:01</time>
+ <time>14:35:31</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,12 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix client-side Cc/From/To sorting (Bug #10503).
-* [mms] Improved IMAP debug logging.
-* [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).
-* [mms] Improved phpdoc documentation.
-* [mms] Add shortcuts to get MIME decoded envelope information.
-* [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -574,6 +569,19 @@
 * [mms] Improved phpdoc documentation.
 * [mms] Add shortcuts to get MIME decoded envelope information.
 * [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
