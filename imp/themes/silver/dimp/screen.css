@@ -7,6 +7,9 @@
 #sidebar span.exp, #ctx_folderopts_expand span.iconImg, #ctx_container_expand span.iconImg, #ctx_folder_expand span.iconImg {
     background-image: url("../graphics/folders/plus.png");
 }
+span.folderoptsImg {
+    background-image: url("../graphics/folders/options.png");
+}
 
 #attach_list div, span.attachmentImg {
     background-image: url("../graphics/attachment.png");

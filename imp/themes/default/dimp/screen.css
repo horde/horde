@@ -365,7 +365,7 @@ span.iconImgSidebar {
     margin-right: 0;
     width: 20px;
 }
-#ctx_folder_sub span.iconImg, #ctx_folder_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg {
+#ctx_folder_sub span.iconImg, #ctx_folder_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, span.folderoptsImg {
     background-image: url("../graphics/folders/folder.png");
 }
 #sidebar span.col, #ctx_folderopts_collapse span.iconImg, #ctx_container_collapse span.iconImg, #ctx_folder_collapse span.iconImg {
