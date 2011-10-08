@@ -425,7 +425,6 @@ body.kronolithAjax {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    font-weight: bold;
     cursor: pointer;
 }
 #kronolithBar .kronolithDateChoice div {
@@ -455,7 +454,6 @@ body.kronolithAjax {
     background-color: #f0f0f0;
     background-position: 5px center;
     background-repeat: no-repeat;
-    font-weight: bold;
     text-decoration: none;
     color: #202020;
     cursor: pointer;
@@ -536,7 +534,6 @@ body.kronolithAjax {
     border: 1px solid #999;
     border-top-width: 0;
     color: #202020;
-    font-weight: bold;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -729,7 +726,6 @@ a#kronolithNotifications {
 #kronolithAddEvents span {
     /* We need some style here. */
     float: left;
-    font-weight: bold;
     cursor: pointer;
 }
 #kronolithAddEvents span.accessKey {
