@@ -420,12 +420,15 @@ body.kronolithAjax {
 #kronolithBar .kronolithDateChoice {
     float: left;
     margin-right: 1px;
-    background: #d6d6d6;
+    background: #f0f0f0;
     border: 1px solid #999;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     cursor: pointer;
+}
+#kronolithBar .kronolithDateChoice:hover {
+    background: #d6d6d6;
 }
 #kronolithBar .kronolithDateChoice div {
     padding: 0 10px;
@@ -600,7 +603,10 @@ a#kronolithNotifications {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    background: #d9d9d9 url("graphics/alerts/message.png") no-repeat center center;
+    background: #f0f0f0 url("graphics/alerts/message.png") no-repeat center center;
+}
+a#kronolithNotifications:hover {
+    background-color: #d9d9d9;
 }
 #kronolithNotifications.horde-error {
     background-image: url("graphics/alerts/error.png")
@@ -754,8 +760,11 @@ span#kronolithQuickEvent {
     width: 23px;
     height: 23px;
     line-height: 23px;
-    background: #d6d6d6 url("graphics/new.png") no-repeat center center;
+    background: #f0f0f0 url("graphics/new.png") no-repeat center center;
     text-indent: -10000px;
+}
+span#kronolithQuickEvent:hover {
+    background-color: #d6d6d6;
 }
 
 /* Quick edit */
