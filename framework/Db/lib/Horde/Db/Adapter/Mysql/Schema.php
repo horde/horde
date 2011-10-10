@@ -159,7 +159,9 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function _mysqlCharsetName($charset)
     {
-        $charset = strtolower(preg_replace(array('/[^a-zA-Z0-9]/', '/iso8859(\d)/'), array('', 'latin$1'), $charset));
+        $charset = preg_replace(array('/[^a-z0-9]/', '/iso8859(\d)/'),
+                                array('', 'latin$1'),
+                                Horde_String::lower($charset));
         $validCharsets = $this->selectValues('SHOW CHARACTER SET');
         if (!in_array($charset, $validCharsets)) {
             throw new Horde_Db_Exception($charset . ' is not supported by MySQL (' . implode(', ', $validCharsets) . ')');
