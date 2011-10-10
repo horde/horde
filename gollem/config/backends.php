@@ -194,7 +194,7 @@ $backends['sql'] = array(
     'name' => 'SQL Server',
     'driver' => 'sql',
     'preferred' => '',
-    'hordeauth' => false,
+    'hordeauth' => true,
 
     // The default connection details are pulled from the Horde-wide SQL
     // connection configuration.
@@ -233,7 +233,7 @@ $backends['sqlhome'] = array(
     'name' => 'SQL Server with home',
     'driver' => 'sql',
     'preferred' => '',
-    'hordeauth' => false,
+    'hordeauth' => true,
 
     // The default connection details are pulled from the Horde-wide SQL
     // connection configuration.
@@ -275,7 +275,7 @@ $backends['file'] = array(
     'name' => 'Virtual Home Directories',
     'driver' => 'file',
     'preferred' => '',
-    'hordeauth' => false,
+    'hordeauth' => true,
     'params' => array(
         // The base location under which the user home directories live.
         'vfsroot' => '/exampledir/home/',

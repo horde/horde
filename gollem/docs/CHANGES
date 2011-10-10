@@ -2,6 +2,7 @@
 v2.0.1-git
 ----------
 
+[jan] Don't require login for login-less VFS backends.
 
 
 -----------
