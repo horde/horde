@@ -395,13 +395,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function listMailboxes()
     {
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-
         /* This might be a long running operation. */
         if ($this->_vars->initial) {
             $GLOBALS['session']->close();
         }
 
+        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
         $initreload = ($this->_vars->initial || $this->_vars->reload);
         $result = new stdClass;
 
