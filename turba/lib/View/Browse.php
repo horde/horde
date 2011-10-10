@@ -130,17 +130,17 @@ class Turba_View_Browse
                     }
                     if (!$errorCount) {
                         $notification->push(
-                            sprintf(_("Successfully deleted %d contact(s)."),
+                            sprintf(ngettext("Successfully deleted %d contact.", "Successfully deleted %d contacts.", count($keys)),
                                 count($keys)),
                             'horde.success');
                     } elseif (count($keys) == $errorCount) {
                         $notification->push(
-                            sprintf(_("Error deleting %d contact(s)."),
+                            sprintf(ngettext("Error deleting %d contact.", "Error deleting %d contacts.", count($keys)),
                                 count($keys)),
                             'horde.error');
                     } else {
                         $notification->push(
-                            sprintf(_("Error deleting %d of %d requested contacts(s)."),
+                            sprintf(ngettext("Error deleting %d of %d requested contact.", "Error deleting %d of %d requested contacts.", count($keys)),
                                 $errorCount,
                                 count($keys)),
                             'horde.error');
