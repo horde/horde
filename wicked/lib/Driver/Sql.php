@@ -207,8 +207,7 @@ class Wicked_Driver_Sql extends Wicked_Driver
     {
         try {
             $where = $this->_db->buildClause(
-                'page_text', 'LIKE',
-                '%' . $this->_convertToDriver($pagename) . '%');
+                'page_text', 'LIKE', $this->_convertToDriver($pagename));
         } catch (Horde_Db_Exception $e) {
             throw new Wicked_Exception($e);
         }
@@ -248,18 +247,15 @@ class Wicked_Driver_Sql extends Wicked_Driver
             if ($matchType == Wicked_Page::MATCH_ANY) {
                 return $this->_retrieve(
                     $this->_params['table'],
-                    $this->_db->buildClause('LOWER(page_name)', 'LIKE',
-                                            '%' . $searchtext . '%'));
+                    'LOWER(page_name) LIKE %' . $this->_db->quote($searchtext) . '%');
             }
 
             $clauses = array();
             if ($matchType & Wicked_Page::MATCH_LEFT) {
-                $clauses[] = $this->_db->buildClause('LOWER(page_name)', 'LIKE',
-                                                     $searchtext . '%');
+                $clauses[] = 'LOWER(page_name) LIKE ' . $this->_db->quote($searchtext) . '%';
             }
             if ($matchType & Wicked_Page::MATCH_RIGHT) {
-                $clauses[] = $this->_db->buildClause('LOWER(page_name)', 'LIKE',
-                                                     '%' . $searchtext);
+                $clauses[] = 'LOWER(page_name) LIKE %' . $this->_db->quote($searchtext);
             }
         } catch (Horde_Db_Exception $e) {
             throw new Wicked_Exception($e);
