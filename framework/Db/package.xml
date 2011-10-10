@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [jan] Correctly escape binding characters in buildClause() (Bug #10610).
 * [jan] Fix transactions with MySQLi driver (Bug #10578).
 * [jan] Fix DISTINCT clause generation on PostgreSQL (Bug #10543).
 * Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
@@ -511,6 +512,7 @@
    <date>2011-09-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [jan] Correctly escape binding characters in buildClause() (Bug #10610).
 * [jan] Fix transactions with MySQLi driver (Bug #10578).
 * [jan] Fix DISTINCT clause generation on PostgreSQL (Bug #10543).
 * Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).

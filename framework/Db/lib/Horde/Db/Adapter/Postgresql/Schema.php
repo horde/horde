@@ -838,6 +838,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     public function buildClause($lhs, $op, $rhs, $bind = false,
                                 $params = array())
     {
+        $lhs = $this->_escapePrepare($lhs);
         switch ($op) {
         case '|':
         case '&':
@@ -845,11 +846,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
              * greater backwards compatibility. */
             $query = 'CASE WHEN CAST(%s AS VARCHAR) ~ \'^-?[0-9]+$\' THEN (CAST(%s AS INTEGER) %s %s) <> 0 ELSE FALSE END';
             if ($bind) {
-                return array(sprintf($this->_escapePrepare($query),
-                                     $this->_escapePrepare($lhs),
-                                     $this->_escapePrepare($lhs),
-                                     $this->_escapePrepare($op),
-                                     '?'),
+                return array(sprintf($query, $lhs, $lhs, $op, '?'),
                              array((int)$rhs));
             } else {
                 return sprintf($query, $lhs, $lhs, $op, (int)$rhs);
@@ -859,28 +856,23 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             $query = '%s ILIKE %s';
             if ($bind) {
                 if (empty($params['begin'])) {
-                    return array(sprintf($query,
-                                         $this->_escapePrepare($lhs),
-                                         '?'),
+                    return array(sprintf($query, $lhs, '?'),
                                  array('%' . $rhs . '%'));
                 }
                 return array(sprintf('(' . $query . ' OR ' . $query . ')',
-                                     $this->_escapePrepare($lhs),
-                                     '?',
-                                     $this->_escapePrepare($lhs),
-                                     '?'),
+                                     $lhs, '?', $lhs, '?'),
                              array($rhs . '%', '% ' . $rhs . '%'));
             }
             if (empty($params['begin'])) {
                 return sprintf($query,
                                $lhs,
-                               $this->quote('%' . $rhs . '%'));
+                               $this->_escapePrepare($this->quote('%' . $rhs . '%')));
             }
             return sprintf('(' . $query . ' OR ' . $query . ')',
                            $lhs,
-                           $this->quote($rhs . '%'),
+                           $this->_escapePrepare($this->quote($rhs . '%')),
                            $lhs,
-                           $this->quote('% ' . $rhs . '%'));
+                           $this->_escapePrepare($this->quote('% ' . $rhs . '%')));
         }
 
         return parent::buildClause($lhs, $op, $rhs, $bind, $params);

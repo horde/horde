@@ -907,11 +907,12 @@ abstract class Horde_Db_Adapter_Base_Schema
     public function buildClause($lhs, $op, $rhs, $bind = false,
                                 $params = array())
     {
+        $lhs = $this->_escapePrepare($lhs);
         switch ($op) {
         case '|':
         case '&':
             if ($bind) {
-                return array($lhs . ' ' . $this->_escapePrepare($op) . ' ?',
+                return array($lhs . ' ' . $op . ' ?',
                              array((int)$rhs));
             }
             return $lhs . ' ' . $op . ' ' . (int)$rhs;
@@ -949,34 +950,29 @@ abstract class Horde_Db_Adapter_Base_Schema
             $query = 'LOWER(%s) LIKE LOWER(%s)';
             if ($bind) {
                 if (empty($params['begin'])) {
-                    return array(sprintf($query,
-                                         $this->_escapePrepare($lhs),
-                                         '?'),
+                    return array(sprintf($query, $lhs, '?'),
                                  array('%' . $rhs . '%'));
                 }
                 return array(sprintf('(' . $query . ' OR ' . $query . ')',
-                                     $this->_escapePrepare($lhs),
-                                     '?',
-                                     $this->_escapePrepare($lhs),
-                                     '?'),
+                                     $lhs, '?', $lhs, '?'),
                              array($rhs . '%', '% ' . $rhs . '%'));
             }
             if (empty($params['begin'])) {
                 return sprintf($query,
                                $lhs,
-                               $this->quote('%' . $rhs . '%'));
+                               $this->_escapePrepare($this->quote('%' . $rhs . '%')));
             }
             return sprintf('(' . $query . ' OR ' . $query . ')',
                            $lhs,
-                           $this->quote($rhs . '%'),
+                           $this->_escapePrepare($this->quote($rhs . '%')),
                            $lhs,
-                           $this->quote('% ' . $rhs . '%'));
+                           $this->_escapePrepare($this->quote('% ' . $rhs . '%')));
 
         default:
             if ($bind) {
                 return array($lhs . ' ' . $this->_escapePrepare($op) . ' ?', array($rhs));
             }
-            return $lhs . ' ' . $op . ' ' . $this->quote($rhs);
+            return $lhs . ' ' . $this->_escapePrepare($op . ' ' . $this->quote($rhs));
         }
     }
 
