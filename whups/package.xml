@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
+* [jan] Fix using custom SQL configurations.
 * [jan] Fix fatal error when updating address book preferences (Bug #10567).
 * [jan] Don&apos;t access protected properties in the addTicket/updateTicket API methods (Bug #10566).
 * [jan] Fix adding comments as a guest (Bug #10559).
@@ -925,6 +926,7 @@
    <date>2011-09-28</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
+* [jan] Fix using custom SQL configurations.
 * [jan] Fix fatal error when updating address book preferences (Bug #10567).
 * [jan] Don&apos;t access protected properties in the addTicket/updateTicket API methods (Bug #10566).
 * [jan] Fix adding comments as a guest (Bug #10559).
