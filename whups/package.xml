@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
+* [jan] Don&apos;t create stray update and assign permission (Bug #10624).
 * [jan] Add script to convert backends to UTF-8.
 * [jan] Fix executing queries on non-UTF-8 backends.
 * [jan] Add index to whups_attributes table.
@@ -933,6 +934,7 @@
    <date>2011-10-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
+* [jan] Don&apos;t create stray update and assign permission (Bug #10624).
 * [jan] Add script to convert backends to UTF-8.
 * [jan] Fix executing queries on non-UTF-8 backends.
 * [jan] Add index to whups_attributes table.
