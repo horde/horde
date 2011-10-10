@@ -247,15 +247,15 @@ class Wicked_Driver_Sql extends Wicked_Driver
             if ($matchType == Wicked_Page::MATCH_ANY) {
                 return $this->_retrieve(
                     $this->_params['table'],
-                    'LOWER(page_name) LIKE %' . $this->_db->quote($searchtext) . '%');
+                    'LOWER(page_name) LIKE ' . $this->_db->quote('%' . $searchtext . '%'));
             }
 
             $clauses = array();
             if ($matchType & Wicked_Page::MATCH_LEFT) {
-                $clauses[] = 'LOWER(page_name) LIKE ' . $this->_db->quote($searchtext) . '%';
+                $clauses[] = 'LOWER(page_name) LIKE ' . $this->_db->quote($searchtext . '%');
             }
             if ($matchType & Wicked_Page::MATCH_RIGHT) {
-                $clauses[] = 'LOWER(page_name) LIKE %' . $this->_db->quote($searchtext);
+                $clauses[] = 'LOWER(page_name) LIKE ' . $this->_db->quote('%' . $searchtext);
             }
         } catch (Horde_Db_Exception $e) {
             throw new Wicked_Exception($e);
