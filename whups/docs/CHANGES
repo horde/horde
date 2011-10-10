@@ -2,6 +2,7 @@
 v2.0.1-git
 ----------
 
+[jan] Fix executing queries on non-UTF-8 backends.
 [jan] Add index to whups_attributes table.
 [jan] Fix using custom SQL configurations.
 [jan] Fix fatal error when updating address book preferences (Bug #10567).

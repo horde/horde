@@ -669,6 +669,7 @@ class Whups_Driver_Sql extends Whups_Driver
     {
         $func    = '';
         $funcend = '';
+        $value = $this->_toBackend($value);
 
         switch ($operator) {
         case Whups_Query::OPERATOR_GREATER: $op = '>'; break;
