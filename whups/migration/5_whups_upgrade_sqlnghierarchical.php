@@ -28,7 +28,7 @@ class WhupsUpgradeSqlnghierarchical extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->addColumn('whups_sharesng', 'share_parents','text');
+        $this->addColumn('whups_sharesng', 'share_parents', 'text');
     }
 
     /**
