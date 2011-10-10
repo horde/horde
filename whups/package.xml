@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-28</date>
- <time>15:16:26</time>
+ <date>2011-10-10</date>
+ <time>16:11:08</time>
  <version>
   <release>2.0.0RC1</release>
   <api>2.0.0RC1</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
+* [jan] Add script to convert backends to UTF-8.
 * [jan] Fix executing queries on non-UTF-8 backends.
 * [jan] Add index to whups_attributes table.
 * [jan] Fix using custom SQL configurations.
@@ -44,6 +45,7 @@
     <file name="whups-bugzilla-import" role="script" />
     <file name="whups-convert-datatree-shares-to-sql" role="script" />
     <file name="whups-convert-sql-shares-to-sqlng" role="script" />
+    <file name="whups-convert-to-utf8" role="script" />
     <file name="whups-git-hook" role="script" />
     <file name="whups-git-hook-conf.php.dist" role="script" />
     <file name="whups-mail-filter" role="script" />
@@ -360,6 +362,7 @@
     <file name="5_whups_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_whups_upgrade_transactions.php" role="horde" />
     <file name="7_whups_upgrade_autoincrement.php" role="horde" />
+    <file name="8_whups_add_attribute_index.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="query">
     <file name=".htaccess" role="horde" />
@@ -665,6 +668,7 @@
    <install as="whups-bugzilla-import" name="bin/whups-bugzilla-import" />
    <install as="whups-convert-datatree-shares-to-sql" name="bin/whups-convert-datatree-shares-to-sql" />
    <install as="whups-convert-sql-shares-to-sqlng" name="bin/whups-convert-sql-shares-to-sqlng" />
+   <install as="whups-convert-to-utf8" name="bin/whups-convert-to-utf8" />
    <install as="whups-git-hook" name="bin/whups-git-hook" />
    <install as="whups-git-hook-conf.php.dist" name="bin/whups-git-hook-conf.php.dist" />
    <install as="whups-mail-filter" name="bin/whups-mail-filter" />
@@ -841,6 +845,7 @@
    <install as="whups/migration/5_whups_upgrade_sqlnghierarchical.php" name="migration/5_whups_upgrade_sqlnghierarchical.php" />
    <install as="whups/migration/6_whups_upgrade_transactions.php" name="migration/6_whups_upgrade_transactions.php" />
    <install as="whups/migration/7_whups_upgrade_autoincrement.php" name="migration/7_whups_upgrade_autoincrement.php" />
+   <install as="whups/migration/8_whups_add_attribute_index.php" name="migration/8_whups_add_attribute_index.php" />
    <install as="whups/query/.htaccess" name="query/.htaccess" />
    <install as="whups/query/index.php" name="query/index.php" />
    <install as="whups/query/rss.php" name="query/rss.php" />
@@ -925,9 +930,10 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-09-28</date>
+   <date>2011-10-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
+* [jan] Add script to convert backends to UTF-8.
 * [jan] Fix executing queries on non-UTF-8 backends.
 * [jan] Add index to whups_attributes table.
 * [jan] Fix using custom SQL configurations.
