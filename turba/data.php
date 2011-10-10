@@ -444,6 +444,7 @@ if (is_array($next_step)) {
         }
 
         $error = false;
+        $imported = 0;
         foreach ($next_step as $row) {
             if ($row instanceof Horde_Icalendar_Vcard) {
                 $row = $driver->toHash($row);
@@ -476,6 +477,7 @@ if (is_array($next_step)) {
 
                 try {
                     $driver->add($row);
+                    $imported++;
                 } catch (Turba_Exception $e) {
                     $notification->push(sprintf(_("There was an error importing the data: %s"), $e->getMessage()), 'horde.error');
                     $error = true;
@@ -489,7 +491,7 @@ if (is_array($next_step)) {
                 }
             }
         }
-        if (!$error) {
+        if (!$error && $imported) {
             $notification->push(sprintf(_("%s file successfully imported."),
                                         $file_types[$session->get('horde', 'import_data/format')]), 'horde.success');
         }
