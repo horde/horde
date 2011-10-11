@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-11</date>
- <time>13:56:00</time>
+ <time>13:56:35</time>
  <version>
-  <release>1.1.2</release>
+  <release>1.1.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [gwr] Fix installation paths (Bug #10588)
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -285,6 +285,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [gwr] Fix installation paths (Bug #10588)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
