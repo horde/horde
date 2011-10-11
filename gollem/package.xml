@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-11</date>
- <time>15:11:31</time>
+ <time>15:12:24</time>
  <version>
-  <release>2.0.0RC1</release>
+  <release>2.0.1</release>
   <api>2.0.0RC1</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix usage of createhome parameter (Bug #10592).
-* [mms] Fix display of &apos;columnselect&apos; preference (Bug #10628).
-* [jan] Don&apos;t require login for login-less VFS backends.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -665,6 +663,19 @@
 * [jan] Fix usage of createhome parameter (Bug #10592).
 * [mms] Fix display of &apos;columnselect&apos; preference (Bug #10628).
 * [jan] Don&apos;t require login for login-less VFS backends.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0RC1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
