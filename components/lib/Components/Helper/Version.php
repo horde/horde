@@ -110,7 +110,7 @@ class Components_Helper_Version
         $requires = array(
             'alpha' => 'alpha',
             'beta' => 'beta',
-            'RC' => 'stable',
+            'RC' => 'beta',
             'dev' => 'devel'
         );
         foreach ($requires as $m => $s) {
