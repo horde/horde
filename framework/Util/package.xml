@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:56:59</time>
+ <date>2011-10-11</date>
+ <time>14:04:14</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -33,6 +33,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Util">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Util -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Array">
@@ -71,6 +78,8 @@
        <file name="quote3.csv" role="test" />
        <file name="quote4.csv" role="test" />
        <file name="quote5.csv" role="test" />
+       <file name="quote6.csv" role="test" />
+       <file name="quote7.csv" role="test" />
        <file name="simple_cr.csv" role="test" />
        <file name="simple_crlf.csv" role="test" />
        <file name="simple_lf.csv" role="test" />
@@ -134,6 +143,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Util/COPYING" />
    <install as="Horde/Array.php" name="lib/Horde/Array.php" />
    <install as="Horde/Domhtml.php" name="lib/Horde/Domhtml.php" />
    <install as="Horde/String.php" name="lib/Horde/String.php" />
@@ -168,6 +178,8 @@
    <install as="Horde/Util/fixtures/quote3.csv" name="test/Horde/Util/fixtures/quote3.csv" />
    <install as="Horde/Util/fixtures/quote4.csv" name="test/Horde/Util/fixtures/quote4.csv" />
    <install as="Horde/Util/fixtures/quote5.csv" name="test/Horde/Util/fixtures/quote5.csv" />
+   <install as="Horde/Util/fixtures/quote6.csv" name="test/Horde/Util/fixtures/quote6.csv" />
+   <install as="Horde/Util/fixtures/quote7.csv" name="test/Horde/Util/fixtures/quote7.csv" />
    <install as="Horde/Util/fixtures/simple_cr.csv" name="test/Horde/Util/fixtures/simple_cr.csv" />
    <install as="Horde/Util/fixtures/simple_crlf.csv" name="test/Horde/Util/fixtures/simple_crlf.csv" />
    <install as="Horde/Util/fixtures/simple_lf.csv" name="test/Horde/Util/fixtures/simple_lf.csv" />
@@ -405,7 +417,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Speed up Horde_String::substr() (Evert Pot, Request #8627).
