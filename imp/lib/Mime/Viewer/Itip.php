@@ -365,7 +365,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     // Build the reply.
                     $msg_headers = new Horde_Mime_Headers();
                     $vCal = new Horde_Icalendar();
-                    $vCal->setAttribute('PRODID', '-//Horde LLC//' . $msg_headers->getUserAgent() . '//EN');
+                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . $msg_headers->getUserAgent() . '//EN');
                     $vCal->setAttribute('METHOD', 'REPLY');
                     $vCal->addComponent($vfb_reply);
 

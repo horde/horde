@@ -216,7 +216,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('-//Horde LLC//Horde Application Framework 4//EN', $this->_getIcalendar()->getAttribute('PRODID'));
+        $this->assertEquals('-//The Horde Project//Horde Application Framework 4//EN', $this->_getIcalendar()->getAttribute('PRODID'));
     }
 
     public function testResultMessageIndicatesMethodReply()

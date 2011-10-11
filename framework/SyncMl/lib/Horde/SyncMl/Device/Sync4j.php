@@ -219,7 +219,7 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
 
         $iCal = new Horde_Icalendar();
         $iCal->setAttribute('VERSION', '1.1');
-        $iCal->setAttribute('PRODID', '-//Horde LLC//SyncML//EN');
+        $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         $vnote = Horde_Icalendar::newComponent('vnote', $iCal);
@@ -240,7 +240,7 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
 
         $iCal = new Horde_Icalendar();
         $iCal->setAttribute('VERSION', '3.0');
-        $iCal->setAttribute('PRODID', '-//Horde LLC//SyncML//EN');
+        $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         $vcard = Horde_Icalendar::newComponent('vcard', $iCal);
@@ -363,7 +363,7 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
         $a = Horde_SyncMl_Device_sync4j::sif2array($sif);
 
         $iCal = new Horde_Icalendar();
-        $iCal->setAttribute('PRODID', '-//Horde LLC//SyncML//EN');
+        $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         $vEvent = Horde_Icalendar::newComponent('vevent', $iCal);
@@ -540,7 +540,7 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
         $a = Horde_SyncMl_Device_sync4j::sif2array($sif);
 
         $iCal = new Horde_Icalendar();
-        $iCal->setAttribute('PRODID', '-//Horde LLC//SyncML//EN');
+        $iCal->setAttribute('PRODID', '-//The Horde Project//SyncML//EN');
         $iCal->setAttribute('METHOD', 'PUBLISH');
 
         $vtodo = Horde_Icalendar::newComponent('vtodo', $iCal);

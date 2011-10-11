@@ -88,7 +88,7 @@ class Kronolith_FreeBusy
 
         /* Create the new iCalendar. */
         $vCal = new Horde_Icalendar();
-        $vCal->setAttribute('PRODID', '-//Horde LLC//Kronolith ' . $GLOBALS['registry']->getVersion() . '//EN');
+        $vCal->setAttribute('PRODID', '-//The Horde Project//Kronolith ' . $GLOBALS['registry']->getVersion() . '//EN');
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         /* Create new vFreebusy. */

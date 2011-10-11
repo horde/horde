@@ -329,7 +329,7 @@ class IMP_Message
 
                 /* Create a new iCalendar. */
                 $vCal = new Horde_Icalendar();
-                $vCal->setAttribute('PRODID', '-//Horde LLC//IMP ' . $GLOBALS['registry']->getVersion() . '//EN');
+                $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . $GLOBALS['registry']->getVersion() . '//EN');
                 $vCal->setAttribute('METHOD', 'PUBLISH');
 
                 switch ($type) {

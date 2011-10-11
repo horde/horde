@@ -88,6 +88,6 @@ extends Horde_Itip_Response_Options_Base
     public function getProductId()
     {
         $headers = new Horde_Mime_Headers();
-        return '-//Horde LLC//' . $headers->getUserAgent() . '//EN';
+        return '-//The Horde Project//' . $headers->getUserAgent() . '//EN';
     }
 }
