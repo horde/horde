@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>00:23:34</time>
+ <date>2011-10-11</date>
+ <time>17:53:24</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -42,6 +42,7 @@
         <file name="2.txt" role="doc" />
         <file name="diff.php" role="doc" />
        </dir> <!-- /doc/Horde/Text/Diff/examples -->
+       <file name="COPYING" role="doc" />
       </dir> <!-- /doc/Horde/Text/Diff -->
      </dir> <!-- /doc/Horde/Text -->
     </dir> <!-- /doc/Horde -->
@@ -105,6 +106,7 @@
        <file name="Autoload.php" role="test" />
        <file name="EngineTest.php" role="test" />
        <file name="RendererTest.php" role="test" />
+       <file name="ThreeWayTest.php" role="test" />
       </dir> <!-- /test/Horde/Text/Diff -->
      </dir> <!-- /test/Horde/Text -->
     </dir> <!-- /test/Horde -->
@@ -144,6 +146,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Text/Diff/COPYING" />
    <install as="examples/1.txt" name="doc/Horde/Text/Diff/examples/1.txt" />
    <install as="examples/2.txt" name="doc/Horde/Text/Diff/examples/2.txt" />
    <install as="examples/diff.php" name="doc/Horde/Text/Diff/examples/diff.php" />
@@ -171,6 +174,7 @@
    <install as="Horde/Text/Diff/Autoload.php" name="test/Horde/Text/Diff/Autoload.php" />
    <install as="Horde/Text/Diff/EngineTest.php" name="test/Horde/Text/Diff/EngineTest.php" />
    <install as="Horde/Text/Diff/RendererTest.php" name="test/Horde/Text/Diff/RendererTest.php" />
+   <install as="Horde/Text/Diff/ThreeWayTest.php" name="test/Horde/Text/Diff/ThreeWayTest.php" />
    <install as="Horde/Text/Diff/fixtures/1.txt" name="test/Horde/Text/Diff/fixtures/1.txt" />
    <install as="Horde/Text/Diff/fixtures/2.txt" name="test/Horde/Text/Diff/fixtures/2.txt" />
    <install as="Horde/Text/Diff/fixtures/3.txt" name="test/Horde/Text/Diff/fixtures/3.txt" />
@@ -295,7 +299,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
