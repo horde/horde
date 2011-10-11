@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-03</date>
- <time>18:14:49</time>
+ <date>2011-10-11</date>
+ <time>18:53:24</time>
  <version>
   <release>4.0.10</release>
   <api>4.0.0</api>
@@ -1630,6 +1630,7 @@
       </dir> <!-- /themes/default/graphics/tree -->
       <dir name="uploader">
        <file name="backgrounds.gif" role="horde" />
+       <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/uploader -->
       <file name="about.png" role="horde" />
       <file name="add_group.png" role="horde" />
@@ -1923,6 +1924,9 @@
        <file name="leaf.png" role="horde" />
        <file name="rev-leaf.png" role="horde" />
       </dir> <!-- /themes/silver/graphics/tree -->
+      <dir name="uploader">
+       <file name="up.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/uploader -->
       <file name="about.png" role="horde" />
       <file name="add_group.png" role="horde" />
       <file name="add_perm.png" role="horde" />
@@ -3742,6 +3746,7 @@
    <install as="themes/default/graphics/tree/rev-plusonly.png" name="themes/default/graphics/tree/rev-plusonly.png" />
    <install as="themes/default/graphics/tree/rev-plustop.png" name="themes/default/graphics/tree/rev-plustop.png" />
    <install as="themes/default/graphics/uploader/backgrounds.gif" name="themes/default/graphics/uploader/backgrounds.gif" />
+   <install as="themes/default/graphics/uploader/up.png" name="themes/default/graphics/uploader/up.png" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
    <install as="themes/default/sounds/gnid3.wav" name="themes/default/sounds/gnid3.wav" />
    <install as="themes/default/sounds/jetsndb.wav" name="themes/default/sounds/jetsndb.wav" />
@@ -3947,6 +3952,7 @@
    <install as="themes/silver/graphics/tree/folderopen.png" name="themes/silver/graphics/tree/folderopen.png" />
    <install as="themes/silver/graphics/tree/leaf.png" name="themes/silver/graphics/tree/leaf.png" />
    <install as="themes/silver/graphics/tree/rev-leaf.png" name="themes/silver/graphics/tree/rev-leaf.png" />
+   <install as="themes/silver/graphics/uploader/up.png" name="themes/silver/graphics/uploader/up.png" />
    <install as="themes/simplex/info.php" name="themes/simplex/info.php" />
    <install as="themes/simplex/screen.css" name="themes/simplex/screen.css" />
    <install as="themes/simplex/graphics/background.png" name="themes/simplex/graphics/background.png" />
@@ -4299,9 +4305,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-03</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Update javascript map library.
+* [mms] Allow in-page base64 image encoding to be disabled via configuration.
 * [jan] Add administration page to list and clear locks.
    </notes>
   </release>
