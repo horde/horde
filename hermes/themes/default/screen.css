@@ -96,7 +96,6 @@ body.hermesAjax {
     list-style: none;
 }
 #hermesApplications li {
-    margin-bottom: 1px;
     text-align: left;
 }
 #hermesApplications a {
@@ -105,6 +104,7 @@ body.hermesAjax {
     overflow: hidden;
     background-color: #f0f0f0;
     border: 1px solid #999;
+    border-top-width: 0;
     color: #202020;
     font-weight: bold;
     -moz-border-radius: 5px;
@@ -115,6 +115,9 @@ body.hermesAjax {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+}
+#hermesApplications li:first-child a {
+    border-top-width: 1px;
 }
 #hermesApplications:hover li:first-child a {
     -moz-border-radius: 5px 5px 0 0;
