@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-07</date>
- <time>15:37:53</time>
+ <date>2011-10-11</date>
+ <time>19:14:42</time>
  <version>
   <release>2.0.0alpha1</release>
   <api>2.0.0</api>
@@ -1150,11 +1150,11 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-07</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Support for sending twitter notifications after uploading images from within Ansel.
 * First alpha release for Horde 4.
+* [mjr] Support for sending twitter notifications after uploading images.
 * [mjr] Refactor Geotagging features to use HordeMap.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Provide default configuration files instead of .dist versions.

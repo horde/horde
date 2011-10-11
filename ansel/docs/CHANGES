@@ -1,6 +1,6 @@
---------
-v2.0-git
---------
+-----------
+v2.0-ALPHA1
+-----------
 
 [mjr] Support for sending twitter notifications after uploading images.
 [mjr] Refactor Geotagging features to use HordeMap.
