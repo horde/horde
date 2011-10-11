@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-11</date>
- <time>15:12:24</time>
+ <time>14:33:49</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0RC1</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix editing text files.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -54,6 +54,7 @@
    </dir> <!-- /docs -->
    <dir name="js">
     <file name="clipboard.js" role="horde" />
+    <file name="edit.js" role="horde" />
     <file name="manager.js" role="horde" />
     <file name="selectlist.js" role="horde" />
    </dir> <!-- /js -->
@@ -503,6 +504,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="gollem/js/clipboard.js" name="js/clipboard.js" />
+   <install as="gollem/js/edit.js" name="js/edit.js" />
    <install as="gollem/js/manager.js" name="js/manager.js" />
    <install as="gollem/js/selectlist.js" name="js/selectlist.js" />
    <install as="gollem/lib/Api.php" name="lib/Api.php" />
@@ -675,7 +677,7 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix editing text files.
    </notes>
   </release>
  </changelog>
