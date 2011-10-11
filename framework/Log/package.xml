@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-10-01</date>
- <time>21:13:29</time>
+ <date>2011-10-11</date>
+ <time>13:56:00</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -281,7 +281,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-01</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [gwr] Fix installation paths (Bug #10588)
