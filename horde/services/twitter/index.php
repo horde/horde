@@ -97,17 +97,39 @@ case 'getPage':
 
         $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
-         /* links */
-        $links = $tweet->entities->urls;
-        $body = $tweet->text;
-        foreach ($links as $link) {
-            $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . $link->display_url . '</a>';
-            $body = substr($body, 0, $link->indices[0]) . $replace . substr($body, $link->indices[1]);
+        // Links and media
+        $map = array();
+        $previews = array();
+        //var_dump($tweet);
+        foreach ($tweet->entities->urls as $link) {
+            $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
+            $map[$link->indices[0]] = array($link->indices[1], $replace);
         }
         foreach ($tweet->entities->media as $picture) {
-            $body .= '<a href="#" onclick="return Horde[\'twitter' . $instance . '\'].showPreview(\'' . $picture->media_url . ':small\');"><img src="' . Horde_Themes::img('mime/image.png') . '" />';
+            $replace = '<a href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url) . '</a>';
+            $map[$picture->indices[0]] = array($picture->indices[1], $replace);
+            $previews[] = ' <a href="#" onclick="return Horde[\'twitter' . $instance . '\'].showPreview(\'' . $picture->media_url . ':small\');"><img src="' . Horde_Themes::img('mime/image.png') . '" /></a>';
         }
-        $view->body = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $body);
+        foreach ($tweet->entities->user_mentions as $user) {
+            $replace = ' <a title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name) . '</a>';
+            $map[$user->indices[0]] = array($user->indices[1], $replace);
+        }
+        $body = '';
+        $pos = 0;
+        while ($pos <= strlen($tweet->text) -1) {
+            if (!empty($map[$pos])) {
+                $entity = $map[$pos];
+                $body .= $entity[1];
+                $pos = $entity[0];
+            } else {
+                $body .= substr($tweet->text, $pos, 1);
+                ++$pos;
+            }
+        }
+        foreach ($previews as $preview) {
+            $body .= $preview;
+        }
+        $view->body = $body;
 
         /* If this is a retweet, use the original author's profile info */
         if (!empty($tweet->retweeted_status)) {
