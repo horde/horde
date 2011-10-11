@@ -1,6 +1,6 @@
-<form method="post" name="clipboard" enctype="multipart/form-data" action="<tag:manager_url />">
+<form method="post" name="clipboard" id="clipboard" enctype="multipart/form-data" action="<tag:manager_url />">
 <tag:forminput />
-<input type="hidden" name="actionID" value="" />
+<input type="hidden" name="actionID" id="actionID" value="" />
 <input type="hidden" name="dir" value="<tag:dir />" />
 
 <h1 class="header">
@@ -9,19 +9,23 @@
 
 <div class="control leftAlign">
  <gettext>Below is the current contents of your clipboard.</gettext>
- <br />
+</div>
+
+<div class="control leftAlign">
  <gettext>To paste items from the clipboard to the current directory, check the box next to the filename and click on &quot;Paste&quot;.</gettext>
  <br />
  <gettext>To clear items from the clipboard, check the box next to the filename and click on &quot;Clear&quot;.</gettext>
- <br />
- <gettext>Current directory:</gettext> <tt><tag:currdir /></tt>
+</div>
+
+<div class="control leftAlign">
+ <gettext>Current directory:</gettext> <span class="fixed"><tag:currdir /></span>
 </div>
 
 <table class="clipboard striped nowrap" width="100%" cellspacing="0">
 <thead>
  <tr>
   <td>
-   <label><input type="checkbox" class="checkbox" onclick="$$('.clipboard tbody .checkbox').each((function(e) { e.checked = this.checked; }).bind(this));" /> <gettext>Select All/None</gettext></label>
+   <label><input id="selectall" type="checkbox" class="checkbox" /> <span class="selectall"><gettext>Select All</gettext></span></label>
   </td>
    </tr>
 </thead>
@@ -39,9 +43,9 @@
 <tfoot>
  <tr>
   <td>
-   <input class="button" type="button" value="<tag:pastebutton />" onclick="document.clipboard.actionID.value='paste_items';document.clipboard.submit();" />
-   <input class="button" type="button" value="<tag:clearbutton />" onclick="document.clipboard.actionID.value='clear_items';document.clipboard.submit();" />
-   <input class="button" type="button" value="<tag:cancelbutton />" onclick="document.clipboard.submit();" />
+   <input class="button" id="pastebutton" type="button" value="<tag:pastebutton />" />
+   <input class="button" id="clearbutton" type="button" value="<tag:clearbutton />" />
+   <input class="button" id="cancelbutton" type="button" value="<tag:cancelbutton />" />
   </td>
  </tr>
 </tfoot>

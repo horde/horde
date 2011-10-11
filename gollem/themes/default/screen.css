@@ -56,6 +56,9 @@ table.clipboard {
 table.clipboard td {
     padding: 2px;
 }
+.selectall {
+    font-weight: bold;
+}
 
 #filter {
     margin-left: 4px;
