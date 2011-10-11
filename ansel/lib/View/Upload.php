@@ -59,7 +59,7 @@ class Ansel_View_Upload
         Horde::addScriptFile('carousel.js', 'ansel', true);
         Horde::addScriptFile('upload.js', 'ansel');
 
-        $startText = _("Start");
+        $startText = _("Upload");
         $addText = _("Add Images");
         $header = _("Upload to gallery");
         $returnText =_("View Gallery");
