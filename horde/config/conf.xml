@@ -1781,6 +1781,14 @@
     </case>
    </configswitch>
   </configsection>
+  <configheader>Url Shortening</configheader>
+   <configenum name="urlshortener" desc="Should Horde use a URL shortening
+   service? This will be used when submitting URLs to social network providers.">
+    <values>
+      <value desc="None">false</value>
+      <value desc="TinyUrl">TinyUrl</value>
+    </values>
+   </configenum>
  </configtab>
 
  <configtab name="imsp" desc="IMSP Server">
