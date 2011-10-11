@@ -352,7 +352,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      *
      * @param string $path        The parent folder of the item.
      * @param string $name        The name of the item.
-     * @param string $permission  The permission to set.
+     * @param string $permission  The permission to set in octal notation.
      *
      * @throws Horde_Vfs_Exception
      */

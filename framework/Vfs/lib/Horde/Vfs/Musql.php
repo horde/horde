@@ -416,8 +416,9 @@ class Horde_Vfs_Musql extends Horde_Vfs_Sql
     /**
      * Changes permissions for an Item on the VFS.
      *
-     * @param string $path  Holds the path of directory of the Item.
-     * @param string $name  Holds the name of the Item.
+     * @param string $path        The path of directory of the item.
+     * @param string $name        The name of the item.
+     * @param string $permission  The permission to set in octal notation.
      *
      * @throws Horde_Vfs_Exception
      */

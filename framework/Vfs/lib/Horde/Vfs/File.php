@@ -396,7 +396,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      *
      * @param string $path        The path of directory of the item.
      * @param string $name        The name of the item.
-     * @param string $permission  The permission to set.
+     * @param string $permission  The permission to set in octal notation.
      *
      * @throws Horde_Vfs_Exception
      */
