@@ -1,6 +1,6 @@
-----------
-v2.0.1-git
-----------
+--------
+v2.0-RC1
+--------
 
 [jan] Don't create stray update and assign permission (Bug #10624).
 [jan] Add script to convert backends to UTF-8.
