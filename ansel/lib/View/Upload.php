@@ -96,7 +96,9 @@ class Ansel_View_Upload
         {
             'uploadcomplete': function(up, files) {
                 Ansel.uploadedImages = files;
-                $('twitter').toggleClassName('hidden');
+                if (Ansel.conf.havetwitter) {
+                    $('twitter').toggleClassName('hidden');
+                }
             }
         });
         uploader.init();

@@ -867,6 +867,7 @@ class Ansel
             $code['conf']['pixeluri'] = (string)Horde::getServiceLink('pixel', 'ansel');
             $code['conf']['markeruri'] = (string)Horde_Themes::img('photomarker.png');
             $code['conf']['shadowuri'] = (string)Horde_Themes::img('photomarker-shadow.png');
+            $code['conf']['havetwitter'] = !empty($GLOBALS['conf']['twitter']['enabled']);
             $code['ajax'] = new stdClass();
             $code['widgets'] = new stdClass();
             Horde::addInlineJsVars(array(

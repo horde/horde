@@ -12,7 +12,7 @@ AnselUpload = {
                 $('twitter').hide();
             },
             onFailure: function(r) {
-                console.log(r);
+                //console.log(r);
             }
         });
     }
