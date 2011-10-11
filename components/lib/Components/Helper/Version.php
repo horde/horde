@@ -261,9 +261,12 @@ class Components_Helper_Version
      */
     static public function nextVersion($version)
     {
-        if (!preg_match('/^(\d+\.\d+\.)(\d+).*$/', $version, $match)) {
+        if (!preg_match('/^(\d+\.\d+\.)(\d+)(alpha|beta|RC|dev)?\d*$/', $version, $match)) {
             throw new Components_Exception('Invalid version number ' . $version);
         }
-        return $match[1] . ++$match[2] . '-git';
+        if (empty($match[3])) {
+            $match[2]++;
+        }
+        return $match[1] . $match[2] . '-git';
     }
 }
