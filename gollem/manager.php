@@ -41,11 +41,10 @@ $gollem_vfs = $injector->getInstance('Gollem_Vfs');
 /* Run through the action handlers. */
 switch ($vars->actionID) {
 case 'create_folder':
-    if ($edit_perms &&
-        ($new_folder = Horde_Util::getPost('new_folder'))) {
+    if ($edit_perms && isset($vars->new_folder)) {
         try {
-            Gollem::createFolder($old_dir, $new_folder);
-            $notification->push(_("New folder created: ") . $new_folder, 'horde.success');
+            Gollem::createFolder($old_dir, $vars->new_folder);
+            $notification->push(_("New folder created: ") . $vars->new_folder, 'horde.success');
         } catch (Gollem_Exception $e) {
             $notification->push($e, 'horde.error');
         }
@@ -53,10 +52,10 @@ case 'create_folder':
     break;
 
 case 'rename_items':
-    if ($edit_perms) {
-        $new = explode('|', Horde_Util::getPost('new_names'));
-        $old = explode('|', Horde_Util::getPost('old_names'));
-        if (!empty($new) && !empty($old) && (count($new) == count($old))) {
+    if ($edit_perms && isset($vars->new_names) && isset($vars->old_names)) {
+        $new = explode('|', $vars->new_names);
+        $old = explode('|', $vars->old_names);
+        if (count($new) == count($old)) {
             for ($i = 0, $iMax = count($new); $i < $iMax; ++$i) {
                 try {
                     Gollem::renameItem($old_dir, $old[$i], $old_dir, $new[$i]);
@@ -66,44 +65,38 @@ case 'rename_items':
                 }
             }
             Gollem::expireCache($old_dir);
-        } else {
-            $notification->push(_("Incorrect number of items."), 'horde.error');
         }
     }
     break;
 
 case 'chmod_modify':
 case 'delete_items':
-    if ($delete_perms) {
-        $items = Horde_Util::getPost('items');
-        if (is_array($items) && count($items)) {
-            $chmod = Horde_Util::getPost('chmod');
-            foreach ($items as $item) {
-                if (($vars->actionID == 'chmod_modify') && $chmod) {
+    if ($delete_perms && is_array($vars->items) && count($vars->items)) {
+        foreach ($vars->items as $item) {
+            if (($vars->actionID == 'chmod_modify') && $vars->chmod) {
+                try {
+                    Gollem::changePermissions(Gollem::$backend['dir'], $item, $vars->chmod);
+                    Gollem::expireCache($old_dir);
+                    $notification->push(_("Chmod done: ") . $item, 'horde.success');
+                } catch (Gollem_Exception $e) {
+                    $notification->push(sprintf(_("Cannot chmod %s: %s"), $item, $e->getMessage()), 'horde.error');
+                }
+            } elseif ($vars->actionID == 'delete_items') {
+                if ($gollem_vfs->isFolder($old_dir, $item)) {
                     try {
-                        Gollem::changePermissions(Gollem::$backend['dir'], $item, $chmod);
+                        Gollem::deleteFolder($old_dir, $item);
                         Gollem::expireCache($old_dir);
-                        $notification->push(_("Chmod done: ") . $item, 'horde.success');
+                        $notification->push(_("Folder removed: ") . $item, 'horde.success');
                     } catch (Gollem_Exception $e) {
-                        $notification->push(sprintf(_("Cannot chmod %s: %s"), $item, $e->getMessage()), 'horde.error');
+                        $notification->push(sprintf(_("Unable to delete folder %s: %s"), $item, $e->getMessage()), 'horde.error');
                     }
-                } elseif ($vars->actionID == 'delete_items') {
-                    if ($gollem_vfs->isFolder($old_dir, $item)) {
-                        try {
-                            Gollem::deleteFolder($old_dir, $item);
-                            Gollem::expireCache($old_dir);
-                            $notification->push(_("Folder removed: ") . $item, 'horde.success');
-                        } catch (Gollem_Exception $e) {
-                            $notification->push(sprintf(_("Unable to delete folder %s: %s"), $item, $e->getMessage()), 'horde.error');
-                        }
-                    } else {
-                        try {
-                            Gollem::deleteFile($old_dir, $item);
-                            Gollem::expireCache($old_dir);
-                            $notification->push(_("File deleted: ") . $item, 'horde.success');
-                        } catch (Gollem_Exception $e) {
-                            $notification->push(sprintf(_("Unable to delete file %s: %s"), $item, $e->getMessage()), 'horde.error');
-                        }
+                } else {
+                    try {
+                        Gollem::deleteFile($old_dir, $item);
+                        Gollem::expireCache($old_dir);
+                        $notification->push(_("File deleted: ") . $item, 'horde.success');
+                    } catch (Gollem_Exception $e) {
+                        $notification->push(sprintf(_("Unable to delete file %s: %s"), $item, $e->getMessage()), 'horde.error');
                     }
                 }
             }
@@ -137,10 +130,9 @@ case 'copy_items':
 case 'cut_items':
     if ($edit_perms) {
         $action = ($vars->actionID == 'copy_items') ? 'copy' : 'cut';
-        $items = Horde_Util::getPost('items');
 
-        if (is_array($items) && count($items)) {
-            foreach ($items as $item) {
+        if (is_array($vars->items) && count($vars->items)) {
+            foreach ($vars->items as $item) {
                 $file = array(
                     'action' => $action,
                     'backend' => $backkey,
@@ -151,51 +143,46 @@ case 'cut_items':
                 $clipboard[] = $file;
                 $GLOBALS['session']->set('gollem', 'clipboard', $clipboard);
                 if ($action == 'copy') {
-                    $notification->push(sprintf(_("Item copied to clipboard: %s"), $item),'horde.success');
+                    $notification->push(sprintf(_("Item copied to clipboard: %s"), $item), 'horde.success');
                 } else {
                     $notification->push(sprintf(_("Item cut to clipboard: %s"), $item), 'horde.success');
                 }
             }
+        } elseif ($action == 'copy') {
+            $notification->push(_("Cannot copy items onto clipboard."), 'horde.error');
         } else {
-            if ($action == 'copy') {
-                $notification->push(_("Cannot copy items onto clipboard."), 'horde.error');
-            } else {
-                $notification->push(_("Cannot cut items onto clipboard."), 'horde.error');
-            }
+            $notification->push(_("Cannot cut items onto clipboard."), 'horde.error');
         }
     }
     break;
 
 case 'clear_items':
 case 'paste_items':
-    if ($edit_perms) {
-        $items = Horde_Util::getPost('items');
-        if (is_array($items) && count($items)) {
-            foreach ($items as $val) {
-                if (isset($clipboard[$val])) {
-                    $file = $clipboard[$val];
-                    if ($vars->actionID == 'paste_items') {
-                        try {
-                            if ($file['action'] == 'cut') {
-                                Gollem::moveFile($file['backend'], $file['path'], $file['name'], $backkey, $old_dir);
-                            } else {
-                                Gollem::copyFile($file['backend'], $file['path'], $file['name'], $backkey, $old_dir);
-                            }
-
-                            Gollem::expireCache($old_dir);
-                            if ($file['action'] == 'cut') {
-                                Gollem::expireCache($file['path']);
-                            }
-                            $notification->push(sprintf(_("%s was successfully pasted."), $file['name'], $old_dir), 'horde.success');
-                        } catch (Horde_Vfs_Exception $e) {
-                            $notification->push(sprintf(_("Cannot paste \"%s\" (file cleared from clipboard): %s"), $file['name'], $e->getMessage()), 'horde.error');
+    if ($edit_perms && is_array($vars->items) && count($vars->items)) {
+        foreach ($vars->items as $val) {
+            if (isset($clipboard[$val])) {
+                $file = $clipboard[$val];
+                if ($vars->actionID == 'paste_items') {
+                    try {
+                        if ($file['action'] == 'cut') {
+                            Gollem::moveFile($file['backend'], $file['path'], $file['name'], $backkey, $old_dir);
+                        } else {
+                            Gollem::copyFile($file['backend'], $file['path'], $file['name'], $backkey, $old_dir);
                         }
+
+                        Gollem::expireCache($old_dir);
+                        if ($file['action'] == 'cut') {
+                            Gollem::expireCache($file['path']);
+                        }
+                        $notification->push(sprintf(_("%s was successfully pasted."), $file['name'], $old_dir), 'horde.success');
+                    } catch (Horde_Vfs_Exception $e) {
+                        $notification->push(sprintf(_("Cannot paste \"%s\" (file cleared from clipboard): %s"), $file['name'], $e->getMessage()), 'horde.error');
                     }
-                    unset($clipboard[$val]);
                 }
+                unset($clipboard[$val]);
             }
-            $session->set('gollem', 'clipboard', array_values($clipboard));
         }
+        $session->set('gollem', 'clipboard', array_values($clipboard));
     }
     break;
 
@@ -241,18 +228,11 @@ try {
 $numitem = count($list);
 $title = Gollem::$backend['label'];
 
-/* Image links. */
-$edit_img = Horde::img('edit.png', _("Edit"));
-$download_img = Horde::img('download.png', _("Download"));
-$folder_img = Horde::img('folder.png', _("folder"));
-$symlink_img = Horde::img('folder_symlink.png', _("symlink"));
-
 /* Init some form vars. */
-$page = isset($vars->page)
-    ? $vars->page
-    : 0;
 if ($session->get('gollem', 'filter') != $vars->filter) {
     $page = 0;
+} else {
+    $page = $vars->get('page', 0);
 }
 $session->set('gollem', 'filter', strval($vars->filter));
 
@@ -304,13 +284,11 @@ $template->set('action', $refresh_url);
 $template->set('forminput', Horde_Util::formInput());
 $template->set('dir', Gollem::$backend['dir']);
 $template->set('navlink', Gollem::directoryNavLink(Gollem::$backend['dir'], $manager_url));
-$template->set('refresh', Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), Gollem::$backend['label']), '', '', '', '', '', array('id' => 'refreshimg')) . Horde::img('reload.png', sprintf("%s %s", _("Refresh"), htmlspecialchars(Gollem::$backend['label']))) . '</a>');
+$template->set('refresh', Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), Gollem::$backend['label']), '', '', '', '', '', array('id' => 'refreshimg')));
 
 $template->set('hasclipboard', $edit_perms);
-if (!$template->get('hasclipboard') || empty($clipboard)) {
-    $template->set('clipboard', null);
-} else {
-    $template->set('clipboard', Horde::link(Horde::url('clipboard.php')->add('dir', Gollem::$backend['dir']), _("View Clipboard")) . Horde::img('clipboard.png', _("View Clipboard")) . '</a>');
+if ($template->get('hasclipboard') && !empty($clipboard)) {
+    $template->set('clipboard', Horde::link(Horde::url('clipboard.php')->add('dir', Gollem::$backend['dir']), _("View Clipboard")));
 }
 
 if ($edit_perms) {
@@ -319,14 +297,14 @@ if ($edit_perms) {
     $template->set('upload_identifier', session_id());
     $template->set('upload_help', Horde_Help::link('gollem', 'file-upload'));
     $template->set('perms_chmod', in_array('permission', $columns), true);
-    $template->set('create_folder', Horde::link('#', _("Create Folder"), '', '', '', '', '', array('id' => 'createfolder')) . Horde::img('folder_create.png', _("Create Folder")) . '</a>');
+    $template->set('create_folder', Horde::link('#', _("Create Folder"), '', '', '', '', '', array('id' => 'createfolder')));
 } else {
     $template->set('perms_edit', false, true);
     $template->set('perms_chmod', false, true);
 }
 
 if ($read_perms) {
-    $template->set('change_folder', Horde::link('#', _("Change Folder"), '', '', '', '', '', array('id' => 'changefolder')) . Horde::img('folder_goto.png', _("Change Folder")) . '</a>');
+    $template->set('change_folder', Horde::link('#', _("Change Folder"), '', '', '', '', '', array('id' => 'changefolder')));
 }
 
 if ($numitem) {
@@ -391,9 +369,9 @@ if (is_array($list) && $numitem && $read_perms) {
 
         /* Determine graphic to use. */
         if (!empty($val['link'])) {
-            $item['graphic'] = $symlink_img;
+            $item['graphic'] = '<span class="iconImg symlinkImg"></span>';
         } elseif ($val['type'] == '**dir') {
-            $item['graphic'] = $folder_img;
+            $item['graphic'] = '<span class="iconImg folderImg"></span>';
         } else {
             if (empty($icon_cache[$val['type']])) {
                 $icon_cache[$val['type']] = Horde::img($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon(Horde_Mime_Magic::extToMime($val['type'])), '', '', '');
@@ -442,11 +420,11 @@ if (is_array($list) && $numitem && $read_perms) {
                     'dir' => Gollem::$backend['dir'],
                     'driver' => Gollem::$backend['driver']
                 ));
-                $item['edit'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url) . 'return false;') . $edit_img . '</a>';
+                $item['edit'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url));
             }
 
             // We can always download files.
-            $item['dl'] = Horde::link(Horde::downloadUrl($val['name'], array('actionID' => 'download_file', 'dir' => Gollem::$backend['dir'], 'driver' => Gollem::$backend['driver'], 'file' => $val['name'])), sprintf(_("Download %s"), $val['name'])) . $download_img . '</a>';
+            $item['dl'] = Horde::link(Horde::downloadUrl($val['name'], array('actionID' => 'download_file', 'dir' => Gollem::$backend['dir'], 'driver' => Gollem::$backend['driver'], 'file' => $val['name'])), sprintf(_("Download %s"), $val['name']));
 
             // Try a view link.
             $url = $view_url->copy()->add(array(
@@ -456,7 +434,7 @@ if (is_array($list) && $numitem && $read_perms) {
                 'dir' => Gollem::$backend['dir'],
                 'driver' => Gollem::$backend['driver']
             ));
-            $item['link'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url) . 'return false;') . $name . '</a>';
+            $item['link'] = Horde::link('#', '', '', '_blank', Horde::popupJs($url)) . $name . '</a>';
             break;
         }
 
