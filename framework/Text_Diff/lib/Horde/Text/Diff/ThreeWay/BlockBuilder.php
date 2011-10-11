@@ -46,7 +46,7 @@ class Horde_Text_Diff_ThreeWay_BlockBuilder
         if ($this->isEmpty()) {
             return false;
         } else {
-            $edit = new Horde_Text_Diff_ThreeWay_Op($this->orig, $this->final1, $this->final2);
+            $edit = new Horde_Text_Diff_ThreeWay_Op_Base($this->orig, $this->final1, $this->final2);
             $this->_init();
             return $edit;
         }

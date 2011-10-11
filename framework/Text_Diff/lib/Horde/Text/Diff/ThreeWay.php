@@ -29,9 +29,9 @@ class Horde_Text_Diff_ThreeWay extends Horde_Text_Diff
     public function __construct($orig, $final1, $final2)
     {
         if (extension_loaded('xdiff')) {
-            $engine = new Horde_Text_Diff_Engine_xdiff();
+            $engine = new Horde_Text_Diff_Engine_Xdiff();
         } else {
-            $engine = new Horde_Text_Diff_Engine_native();
+            $engine = new Horde_Text_Diff_Engine_Native();
         }
 
         $this->_edits = $this->_diff3($engine->diff($orig, $final1),
