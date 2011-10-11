@@ -29,7 +29,6 @@
  *       + 'permission'
  *       + 'size'
  *       + 'type'
- *   - clipboard: (boolean) If true, allows the user to cut/copy/paste files.
  *   - createhome: (boolean) If this parameter is set to true, and the home
  *                 directory does not exist, attempt to create the home
  *                 directory on login.
@@ -126,7 +125,6 @@ $backends['ftp'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
-    'clipboard' => true,
     'attributes' => array(
         'type',
         'name',
@@ -176,7 +174,6 @@ $backends['hordeftp'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
-    'clipboard' => true,
     'attributes' => array(
         'type',
         'name',
@@ -224,7 +221,6 @@ $backends['sql'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
-    'clipboard' => false,
     'attributes' => array(
         'type',
         'name',
@@ -269,7 +265,6 @@ $backends['sqlhome'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
-    'clipboard' => false,
     'attributes' => array(
         'type',
         'name',
@@ -305,7 +300,6 @@ $backends['file'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
-    'clipboard' => true,
     'attributes' => array(
         'type',
         'name',
@@ -352,7 +346,6 @@ $backends['smb'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
-    'clipboard' => true,
     'attributes' => array(
         'type',
         'name',
@@ -398,7 +391,6 @@ $backends['ssh2'] = array(
     // 'createhome' => false,
     // 'filter' => '^regex$',
     // 'quota' => false,
-    'clipboard' => true,
     'attributes' => array(
         'type',
         'name',

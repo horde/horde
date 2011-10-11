@@ -19,9 +19,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
 $backkey = $session->get('gollem', 'backend_key');
-if (!empty(Gollem::$backend['clipboard'])) {
-    $clipboard = $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY);
-}
+$clipboard = $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY);
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Get permissions. */
@@ -137,7 +135,7 @@ case 'upload_file':
 
 case 'copy_items':
 case 'cut_items':
-    if ($edit_perms && !empty(Gollem::$backend['clipboard'])) {
+    if ($edit_perms) {
         $action = ($vars->actionID == 'copy_items') ? 'copy' : 'cut';
         $items = Horde_Util::getPost('items');
 
@@ -170,7 +168,7 @@ case 'cut_items':
 
 case 'clear_items':
 case 'paste_items':
-    if ($edit_perms && !empty(Gollem::$backend['clipboard'])) {
+    if ($edit_perms) {
         $items = Horde_Util::getPost('items');
         if (is_array($items) && count($items)) {
             foreach ($items as $val) {
@@ -270,11 +268,10 @@ if ($vars->filter) {
 
 /* Get the list of copy/cut files in this directory. */
 $clipboard_files = array();
-if (!empty(Gollem::$backend['clipboard'])) {
-    foreach ($clipboard as $val) {
-        if (($backkey == $val['backend']) && ($val['path'] == Gollem::$backend['dir'])) {
-            $clipboard_files[$val['name']] = 1;
-        }
+foreach ($clipboard as $val) {
+    if (($backkey == $val['backend']) &&
+        ($val['path'] == Gollem::$backend['dir'])) {
+        $clipboard_files[$val['name']] = 1;
     }
 }
 
@@ -309,7 +306,7 @@ $template->set('dir', Gollem::$backend['dir']);
 $template->set('navlink', Gollem::directoryNavLink(Gollem::$backend['dir'], $manager_url));
 $template->set('refresh', Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), Gollem::$backend['label']), '', '', '', '', '', array('id' => 'refreshimg')) . Horde::img('reload.png', sprintf("%s %s", _("Refresh"), htmlspecialchars(Gollem::$backend['label']))) . '</a>');
 
-$template->set('hasclipboard', !$edit_perms || !empty(Gollem::$backend['clipboard']), true);
+$template->set('hasclipboard', $edit_perms);
 if (!$template->get('hasclipboard') || empty($clipboard)) {
     $template->set('clipboard', null);
 } else {
