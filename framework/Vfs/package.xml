@@ -39,6 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix setting permissions with File driver (Bug #10630).
 * [mms] Fix using File driver if vfsroot directory already exists (Bug #10584).
 * [mms] Fix internal reference to QUOTA_METRIC_* constants (Bug #10585).
 * [jan] Fix parsing of directory listings on /dev file systems in the SSH driver.
@@ -894,6 +895,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix setting permissions with File driver (Bug #10630).
 * [mms] Fix using File driver if vfsroot directory already exists (Bug #10584).
 * [mms] Fix internal reference to QUOTA_METRIC_* constants (Bug #10585).
 * [jan] Fix parsing of directory listings on /dev file systems in the SSH driver.

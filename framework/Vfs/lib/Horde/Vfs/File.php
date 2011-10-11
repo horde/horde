@@ -394,15 +394,15 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     /**
      * Changes permissions for an item in the VFS.
      *
-     * @param string $path         The path of directory of the item.
-     * @param string $name         The name of the item.
-     * @param integer $permission  The octal value of the new permission.
+     * @param string $path        The path of directory of the item.
+     * @param string $name        The name of the item.
+     * @param string $permission  The permission to set.
      *
      * @throws Horde_Vfs_Exception
      */
     public function changePermissions($path, $name, $permission)
     {
-        if (!@chmod($this->_getNativePath($path, $name), $permission)) {
+        if (!@chmod($this->_getNativePath($path, $name), base_convert($permission, 8, 10))) {
             throw new Horde_Vfs_Exception(sprintf('Unable to change permission for VFS file %s/%s.', $path, $name));
         }
     }
