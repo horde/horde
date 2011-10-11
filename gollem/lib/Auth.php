@@ -165,7 +165,7 @@ class Gollem_Auth
             $pos = strrpos($backend['home'], '/');
             $cr_dir = substr($backend['home'], 0, $pos);
             $cr_file = substr($backend['home'], $pos + 1);
-            if (!$GLOBALS['injector']->getInstance('Gollem_Vfs')->exists($cr_dir, $cr_file)) {
+            if (!$vfs->exists($cr_dir, $cr_file)) {
                 try {
                     $res = Gollem::createFolder($cr_dir, $cr_file);
                 } catch (Gollem_Exception $e) {
