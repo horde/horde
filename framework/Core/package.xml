@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2011-10-11</date>
- <time>13:46:42</time>
+ <time>13:47:19</time>
  <version>
-  <release>1.6.0</release>
+  <release>1.6.1</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix PostgreSQL DSN when using SQL authentication (Bug #10538).
-* [mjr] Add factory for Horde_Service_UrlShortener.
-* [mms] Fix minChars behavior in autocomplete javascript code.
-* [mms] Allow in-page base64 image encoding to be disabled via Horde configuration.
-* [jan] Allow both application and interface names in &lt;configspecial&gt;.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1600,6 +1596,19 @@
 * [mms] Fix minChars behavior in autocomplete javascript code.
 * [mms] Allow in-page base64 image encoding to be disabled via Horde configuration.
 * [jan] Allow both application and interface names in &lt;configspecial&gt;.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.1</release>
+    <api>1.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
