@@ -1,6 +1,6 @@
-----------
-v2.0.0-git
-----------
+--------
+v2.0-RC1
+--------
 
 [jan] Fix usage of createhome parameter (Bug #10592).
 [mms] Fix display of 'columnselect' preference (Bug #10628).
