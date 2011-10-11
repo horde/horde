@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-11</date>
- <time>18:54:57</time>
+ <time>18:56:59</time>
  <version>
-  <release>4.0.10</release>
+  <release>4.0.11</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Update javascript map library.
-* [mms] Allow in-page base64 image encoding to be disabled via configuration.
-* [jan] Add administration page to list and clear locks.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4311,6 +4309,19 @@
 * [mjr] Update javascript map library.
 * [mms] Allow in-page base64 image encoding to be disabled via configuration.
 * [jan] Add administration page to list and clear locks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.11</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
