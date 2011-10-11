@@ -113,11 +113,11 @@ interface Components_Dependencies
     public function getRunnerDistribute();
 
     /**
-     * Returns the documentation handler for a package.
+     * Returns the website documentation handler for a package.
      *
-     * @return Components_Runner_Document The documentation handler.
+     * @return Components_Runner_Webdocs The documentation handler.
      */
-    public function getRunnerDocument();
+    public function getRunnerWebdocs();
 
     /**
      * Returns the documentation fetch handler for a package.

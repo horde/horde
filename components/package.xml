@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-09-11</date>
- <time>07:30:28</time>
+ <date>2011-10-11</date>
+ <time>08:27:31</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -162,6 +162,7 @@
       <file name="Template.php" role="php" />
       <file name="Templates.php" role="php" />
       <file name="Version.php" role="php" />
+      <file name="Website.php" role="horde" />
      </dir> <!-- /lib/Components/Helper -->
      <dir name="Module">
       <file name="Base.php" role="php" />
@@ -169,13 +170,13 @@
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
-      <file name="Document.php" role="php" />
       <file name="Fetchdocs.php" role="horde" />
       <file name="Help.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="Release.php" role="php" />
       <file name="Snapshot.php" role="php" />
       <file name="Update.php" role="php" />
+      <file name="Webdocs.php" role="horde" />
      </dir> <!-- /lib/Components/Module -->
      <dir name="Pear">
       <file name="Factory.php" role="php" />
@@ -207,12 +208,12 @@
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
-      <file name="Document.php" role="php" />
       <file name="Fetchdocs.php" role="horde" />
       <file name="Installer.php" role="php" />
       <file name="Release.php" role="php" />
       <file name="Snapshot.php" role="php" />
       <file name="Update.php" role="php" />
+      <file name="Webdocs.php" role="horde" />
      </dir> <!-- /lib/Components/Runner -->
      <file name="Component.php" role="php" />
      <file name="Config.php" role="php" />
@@ -586,6 +587,7 @@
    <install as="Components/Helper/Template.php" name="lib/Components/Helper/Template.php" />
    <install as="Components/Helper/Templates.php" name="lib/Components/Helper/Templates.php" />
    <install as="Components/Helper/Version.php" name="lib/Components/Helper/Version.php" />
+   <install as="Components/Helper/Website.php" name="lib/Components/Helper/Website.php" />
    <install as="Components/Helper/Templates/Directory.php" name="lib/Components/Helper/Templates/Directory.php" />
    <install as="Components/Helper/Templates/RecursiveDirectory.php" name="lib/Components/Helper/Templates/RecursiveDirectory.php" />
    <install as="Components/Helper/Templates/Single.php" name="lib/Components/Helper/Templates/Single.php" />
@@ -594,13 +596,13 @@
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
    <install as="Components/Module/Dependencies.php" name="lib/Components/Module/Dependencies.php" />
    <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
-   <install as="Components/Module/Document.php" name="lib/Components/Module/Document.php" />
    <install as="Components/Module/Fetchdocs.php" name="lib/Components/Module/Fetchdocs.php" />
    <install as="Components/Module/Help.php" name="lib/Components/Module/Help.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
    <install as="Components/Module/Release.php" name="lib/Components/Module/Release.php" />
    <install as="Components/Module/Snapshot.php" name="lib/Components/Module/Snapshot.php" />
    <install as="Components/Pear/Factory.php" name="lib/Components/Pear/Factory.php" />
+   <install as="Components/Module/Webdocs.php" name="lib/Components/Module/Webdocs.php" />
    <install as="Components/Pear/Environment.php" name="lib/Components/Pear/Environment.php" />
    <install as="Components/Pear/Package.php" name="lib/Components/Pear/Package.php" />
    <install as="Components/Release/Notes.php" name="lib/Components/Release/Notes.php" />
@@ -623,12 +625,12 @@
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
    <install as="Components/Runner/Dependencies.php" name="lib/Components/Runner/Dependencies.php" />
    <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
-   <install as="Components/Runner/Document.php" name="lib/Components/Runner/Document.php" />
    <install as="Components/Runner/Fetchdocs.php" name="lib/Components/Runner/Fetchdocs.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
    <install as="Components/Runner/Release.php" name="lib/Components/Runner/Release.php" />
    <install as="Components/Runner/Snapshot.php" name="lib/Components/Runner/Snapshot.php" />
    <install as="Components/Runner/Update.php" name="lib/Components/Runner/Update.php" />
+   <install as="Components/Runner/Webdocs.php" name="lib/Components/Runner/Webdocs.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
    <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
    <install as="Components/phpunit.xml" name="test/Components/phpunit.xml" />
@@ -759,7 +761,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-09-11</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
