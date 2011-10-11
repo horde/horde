@@ -114,6 +114,10 @@ case 'getPage':
             $replace = ' <a title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name) . '</a>';
             $map[$user->indices[0]] = array($user->indices[1], $replace);
         }
+        foreach ($tweet->entities->hashtags as $hashtag) {
+            $replace = ' <a href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text) . '</a>';
+            $map[$hashtag->indices[0]] = array($hashtag->indices[1], $replace);
+        }
         $body = '';
         $pos = 0;
         while ($pos <= strlen($tweet->text) -1) {
