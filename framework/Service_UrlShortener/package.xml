@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-06</date>
- <time>12:18:35</time>
+ <date>2011-10-11</date>
+ <time>12:06:44</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -87,7 +87,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-06</date>
+   <date>2011-10-11</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.
