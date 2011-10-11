@@ -105,7 +105,7 @@ class Components_Component_Archive extends Components_Component_Base
      *               archive, optionally [1] an array of error strings, and [2]
      *               PEAR output.
      */
-    public function placeArchive($destination, $options)
+    public function placeArchive($destination, $options = array())
     {
         copy($this->_archive, $destination . '/' . basename($this->_archive));
         return array($destination . '/' . basename($this->_archive));

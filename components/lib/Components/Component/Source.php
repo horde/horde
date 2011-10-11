@@ -434,7 +434,7 @@ class Components_Component_Source extends Components_Component_Base
      *               archive, optionally [1] an array of error strings, and [2]
      *               PEAR output.
      */
-    public function placeArchive($destination, $options)
+    public function placeArchive($destination, $options = array())
     {
         if (!file_exists($this->_getPackageXmlPath())) {
             throw new Components_Exception(

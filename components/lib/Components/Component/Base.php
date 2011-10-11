@@ -99,6 +99,16 @@ abstract class Components_Component_Base implements Components_Component
     }
 
     /**
+     * Return the last release date of the component.
+     *
+     * @return string The date.
+     */
+    public function getDate()
+    {
+        return $this->getPackageXml()->getDate();
+    }
+
+    /**
      * Return the channel of the component.
      *
      * @return string The component channel.
@@ -189,9 +199,18 @@ abstract class Components_Component_Base implements Components_Component
      */
     public function getChangelog($helper)
     {
-        throw new Components_Exception(
-            'Not supported!'
-        );
+        throw new Components_Exception('Not supported!');
+    }
+
+    /**
+     * Return a data array with the most relevant information about this
+     * component.
+     *
+     * @return array Information about this component.
+     */
+    public function getData()
+    {
+        throw new Components_Exception('Not supported!');
     }
 
     /**
