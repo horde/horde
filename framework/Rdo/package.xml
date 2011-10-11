@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-07</date>
- <time>18:34:18</time>
+ <date>2011-10-11</date>
+ <time>14:00:42</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -199,7 +199,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-07</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Horde_Rdo_Query#distinct() (Request #10535).
