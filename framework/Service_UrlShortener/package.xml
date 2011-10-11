@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-11</date>
- <time>12:06:44</time>
+ <time>12:07:21</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.1</release>
   <api>1.0.0alpha1</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="TODO">TODO</license>
  <notes>
-* Initial release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -91,6 +91,19 @@
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0alpha1</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2011-10-11</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
