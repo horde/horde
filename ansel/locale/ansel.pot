@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-10-07 15:39+0200\n"
+"POT-Creation-Date: 2011-10-11 19:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,7 +69,7 @@ msgid_plural "%d photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/View/Upload.php:233
+#: lib/View/Upload.php:235
 #, php-format
 msgid "%d photo was uploaded."
 msgid_plural "%d photos were uploaded."
@@ -402,7 +402,7 @@ msgstr ""
 
 #: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
 #: faces/savecustom.php:28 lib/Ajax/Imple/EditCaption.php:45
-#: lib/Form/Upload.php:30 lib/View/Upload.php:234 report.php:43
+#: lib/Form/Upload.php:30 lib/View/Upload.php:236 report.php:43
 #: templates/faces/custom.inc:52 templates/faces/define.inc:38
 #: templates/gallery/delete_confirmation.inc:13
 #: templates/image/crop_image.inc:92 templates/image/edit_image.inc:8
@@ -530,11 +530,11 @@ msgstr ""
 msgid "Copyright infringement"
 msgstr ""
 
-#: lib/View/Upload.php:423
+#: lib/View/Upload.php:425
 msgid "Could not extract image data from zip archive."
 msgstr ""
 
-#: lib/View/Upload.php:409
+#: lib/View/Upload.php:411
 msgid "Could not open zip archive."
 msgstr ""
 
@@ -1212,7 +1212,7 @@ msgstr ""
 msgid "New Gallery Title"
 msgstr ""
 
-#: lib/Ajax/Imple/UploadNotification.php:43
+#: lib/Ajax/Imple/UploadNotification.php:45
 #, php-format
 msgid "New images uploaded to %s. %s"
 msgstr ""
@@ -1913,10 +1913,6 @@ msgstr ""
 msgid "Standard Gallery"
 msgstr ""
 
-#: lib/View/Upload.php:62
-msgid "Start"
-msgstr ""
-
 #: lib/Widget/Actions.php:66 templates/view/image.inc:90
 #: templates/view/image.inc:117 templates/view/slideshow.inc:37
 msgid "Start Slideshow"
@@ -1970,7 +1966,7 @@ msgstr ""
 msgid "The file \"%s\" doesn't exist."
 msgstr ""
 
-#: image.php:201 lib/Api.php:337 lib/View/Upload.php:195
+#: image.php:201 lib/Api.php:337 lib/View/Upload.php:197
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 
@@ -2018,7 +2014,7 @@ msgstr ""
 msgid "The slug \"%s\" already exists."
 msgstr ""
 
-#: lib/View/Upload.php:171
+#: lib/View/Upload.php:173
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
@@ -2047,7 +2043,7 @@ msgstr ""
 msgid "There was a problem deleting photos: %s"
 msgstr ""
 
-#: lib/View/Upload.php:210
+#: lib/View/Upload.php:212
 #, php-format
 msgid "There was a problem saving the photo: %s"
 msgstr ""
@@ -2056,7 +2052,7 @@ msgstr ""
 msgid "There was a problem uploading the photo."
 msgstr ""
 
-#: lib/View/Upload.php:169
+#: lib/View/Upload.php:171
 #, php-format
 msgid "There was a problem uploading the photo: %s"
 msgstr ""
@@ -2079,7 +2075,7 @@ msgstr ""
 msgid "There was an error fetching tags: %s"
 msgstr ""
 
-#: lib/View/Upload.php:332
+#: lib/View/Upload.php:334
 #, php-format
 msgid "There was an error processing the uploaded archive: %s"
 msgstr ""
@@ -2171,7 +2167,7 @@ msgstr ""
 msgid "Updated %s."
 msgstr ""
 
-#: faces/search/image.php:18 lib/Form/Upload.php:30
+#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:62
 msgid "Upload"
 msgstr ""
 
@@ -2184,7 +2180,7 @@ msgstr ""
 msgid "Upload face photo"
 msgstr ""
 
-#: lib/View/Upload.php:151 lib/Widget/Actions.php:71
+#: lib/View/Upload.php:153 lib/Widget/Actions.php:71
 msgid "Upload photos"
 msgstr ""
 
@@ -2307,7 +2303,7 @@ msgstr ""
 msgid "You are not authorized to upload photos to this gallery."
 msgstr ""
 
-#: lib/View/Upload.php:235
+#: lib/View/Upload.php:237
 msgid "You did not select any photos to upload."
 msgstr ""
 
@@ -2328,7 +2324,7 @@ msgstr ""
 msgid "You have no photo galleries, add one!"
 msgstr ""
 
-#: lib/Ajax/Imple/UploadNotification.php:60
+#: lib/Ajax/Imple/UploadNotification.php:62
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -2436,7 +2432,7 @@ msgstr ""
 msgid "photo"
 msgstr ""
 
-#: lib/Ajax/Imple/UploadNotification.php:60
+#: lib/Ajax/Imple/UploadNotification.php:62
 msgid "preferences"
 msgstr ""
 
