@@ -28,13 +28,6 @@
 class Horde_Release_Whups
 {
     /**
-     * Instance of Horde_Rpc client object.
-     *
-     * @var Horde_Rpc
-     */
-    protected $_client;
-
-    /**
      * Local copy of config params.
      *
      * @var array
