@@ -37,6 +37,13 @@ This is a non-exhaustive, quick explanation of what has changed between a
 Gollem 1.x installation to Gollem 2.x.
 
 
+MIME Viewer Options (mime_drivers.php)
+--------------------------------------
+
+Gollem specific MIME configuration is no longer needed, so this configuration
+file can be removed.
+
+
 Server Options (backends.php)
 -----------------------------
 
