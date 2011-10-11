@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-20</date>
- <time>14:41:06</time>
+ <date>2011-10-11</date>
+ <time>14:40:30</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -51,6 +51,7 @@
         <file name="syncml_server_packet_1.xml" role="doc" />
         <file name="z600_client_0.wbxml" role="doc" />
        </dir> <!-- /doc/Horde/Xml/Wbxml/examples -->
+       <file name="COPYING" role="doc" />
       </dir> <!-- /doc/Horde/Xml/Wbxml -->
      </dir> <!-- /doc/Horde/Xml -->
     </dir> <!-- /doc/Horde -->
@@ -109,6 +110,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Xml/Wbxml/COPYING" />
    <install as="examples/devinf.wbxml" name="doc/Horde/Xml/Wbxml/examples/devinf.wbxml" />
    <install as="examples/k500i_client_0.wbxml" name="doc/Horde/Xml/Wbxml/examples/k500i_client_0.wbxml" />
    <install as="examples/k700i_syncml_client_0.wbxml" name="doc/Horde/Xml/Wbxml/examples/k700i_syncml_client_0.wbxml" />
@@ -233,7 +235,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-20</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Complete fix for incorrect syncml:metinf and syncml:devinf URNs (Bug #10229).
