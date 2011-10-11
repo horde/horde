@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-20</date>
- <time>14:24:18</time>
+ <date>2011-10-11</date>
+ <time>14:19:23</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -47,8 +47,13 @@
     <file name="horde-db-migrate-component" role="script" />
    </dir> <!-- /bin -->
    <dir name="doc">
-    <file name="README.TESTING.txt" role="doc" />
-    <file name="TODO.txt" role="doc" />
+    <dir name="Horde">
+     <dir name="Db">
+      <file name="COPYING" role="doc" />
+      <file name="README.TESTING.txt" role="doc" />
+      <file name="TODO.txt" role="doc" />
+     </dir> <!-- /doc/Horde/Db -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -245,8 +250,9 @@
  <phprelease>
   <filelist>
    <install as="horde-db-migrate-component" name="bin/horde-db-migrate-component" />
-   <install as="README.TESTING.txt" name="doc/README.TESTING.txt" />
-   <install as="TODO.txt" name="doc/TODO.txt" />
+   <install as="COPYING" name="doc/Horde/Db/COPYING" />
+   <install as="README.TESTING.txt" name="doc/Horde/Db/README.TESTING.txt" />
+   <install as="TODO.txt" name="doc/Horde/Db/TODO.txt" />
    <install as="Horde/Db.php" name="lib/Horde/Db.php" />
    <install as="Horde/Db/Adapter.php" name="lib/Horde/Db/Adapter.php" />
    <install as="Horde/Db/Exception.php" name="lib/Horde/Db/Exception.php" />
@@ -510,14 +516,14 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-20</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] More flexible conversion of charset names to native MySQL names.
 * [jan] Correctly escape binding characters in buildClause() (Bug #10610).
 * [jan] Fix transactions with MySQLi driver (Bug #10578).
 * [jan] Fix DISTINCT clause generation on PostgreSQL (Bug #10543).
-* Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
+* [mms] Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
    </notes>
   </release>
  </changelog>
