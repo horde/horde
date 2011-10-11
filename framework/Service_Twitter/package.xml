@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-06</date>
- <time>16:54:59</time>
+ <date>2011-10-11</date>
+ <time>11:16:15</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -229,7 +229,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-06</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mjr] Fix generating OAuth request when multiple URL parameters are passed.
