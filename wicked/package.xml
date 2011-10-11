@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-06</date>
- <time>22:34:26</time>
+ <date>2011-10-11</date>
+ <time>15:09:14</time>
  <version>
   <release>1.0.0RC1</release>
   <api>1.0.0RC1</api>
@@ -872,9 +872,9 @@
     <release>1.0.0RC1</release>
     <api>1.0.0RC1</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2011-10-06</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix rendering attached images with Mediawiki syntax (Bug #10570).
