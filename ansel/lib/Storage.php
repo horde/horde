@@ -1134,8 +1134,8 @@ class Ansel_Storage
             'filter' => array(
                 array(
                     'property' => 'latitude',
-                    'op' => '>',
-                    'value' => '0'))
+                    'op' => '!=',
+                    'value' => "''"))
         );
         if (!empty($gallery)) {
             $params['gallery_id'] = (int)$gallery;
