@@ -37,10 +37,8 @@ This is a non-exhaustive, quick explanation of what has changed between a
 Gollem 1.x installation to Gollem 2.x.
 
 
-Server Options (backends.php; OLD servers.php)
-----------------------------------------------
-
-The format of servers.php has changed and has been renamed to backends.php.
+Server Options (backends.php)
+-----------------------------
 
 The 'clipboard' option has been removed.  The availability of the clipboard
 is now entirely dependent on the user's edit permissions for the application.
