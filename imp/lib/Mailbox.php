@@ -79,8 +79,8 @@
  *                                      with outgoing messages?
  * @property boolean $specialvfolder  Is this a "special" virtual folder?
  * @property boolean $sub  Is this mailbox subscribed to?
- * @property array $subfolders  Returns the list of subfolders (including the
- *                              current mailbox).
+ * @property array $subfolders  Returns the list of subfolders as mailbox
+ *                              objects (including the current mailbox).
  * @property string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                             IMP_Exception on error.
  * @property string $value  The value of this element (i.e. IMAP mailbox
@@ -579,7 +579,7 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Imap_Tree')->isSubscribed($this->_mbox);
 
         case 'subfolders':
-            return array_merge(array($this->_mbox), $injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true)));
+            return $this->get(array_merge(array($this->_mbox), $injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true))));
 
         case 'uidvalid':
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
