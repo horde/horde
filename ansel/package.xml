@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-11</date>
- <time>19:14:42</time>
+ <time>19:15:38</time>
  <version>
-  <release>2.0.0alpha1</release>
+  <release>2.0.0</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,21 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* First alpha release for Horde 4.
-* [mjr] Support for sending twitter notifications after uploading images.
-* [mjr] Refactor Geotagging features to use HordeMap.
-* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
-* [jan] Provide default configuration files instead of .dist versions.
-* [mjr] Mobile view added.
-* [mjr] Square image and smart square image generators added.
-* [mjr] Gallery style properties are now directly editable per-gallery by the gallery owner (Request #6003).
-* [mjr] New ajax image uploader added.
-* [mjr] Categories are removed and migrated to tags.
-* [mjr] Move tag handling to Content_Tagger.
-* [mjr] Unsharpmask filtering options added.
-* [mjr] Support for multipage images (Request #6022).
-* [mjr] Remove support for no longer available openCV extension.
-* [mjr] Exif code removed and placed in Horde_Image_Exif.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1168,6 +1154,19 @@
 * [mjr] Support for multipage images (Request #6022).
 * [mjr] Remove support for no longer available openCV extension.
 * [mjr] Exif code removed and placed in Horde_Image_Exif.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
