@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-11</date>
- <time>15:06:19</time>
+ <time>15:07:19</time>
  <version>
-  <release>2.0.0RC1</release>
+  <release>2.0.1</release>
   <api>2.0.0RC1</api>
  </version>
  <stability>
@@ -28,14 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
-* [jan] Don&apos;t create stray update and assign permission (Bug #10624).
-* [jan] Add script to convert backends to UTF-8.
-* [jan] Fix executing queries on non-UTF-8 backends.
-* [jan] Add index to whups_attributes table.
-* [jan] Fix using custom SQL configurations.
-* [jan] Fix fatal error when updating address book preferences (Bug #10567).
-* [jan] Don&apos;t access protected properties in the addTicket/updateTicket API methods (Bug #10566).
-* [jan] Fix adding comments as a guest (Bug #10559).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -942,6 +935,19 @@
 * [jan] Fix fatal error when updating address book preferences (Bug #10567).
 * [jan] Don&apos;t access protected properties in the addTicket/updateTicket API methods (Bug #10566).
 * [jan] Fix adding comments as a guest (Bug #10559).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0RC1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
