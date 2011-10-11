@@ -2,6 +2,8 @@
 v2.0-git
 --------
 
+[mjr] Support for sending twitter notifications after uploading images from
+      within Ansel.
 [mjr] Refactor Geotagging features to use HordeMap.
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.

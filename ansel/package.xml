@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Support for sending twitter notifications after uploading images from within Ansel.
 * First alpha release for Horde 4.
 * [mjr] Refactor Geotagging features to use HordeMap.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
@@ -1152,6 +1153,7 @@
    <date>2011-10-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Support for sending twitter notifications after uploading images from within Ansel.
 * First alpha release for Horde 4.
 * [mjr] Refactor Geotagging features to use HordeMap.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
