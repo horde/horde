@@ -46,7 +46,7 @@ Horde.popup = function(opts)
 
     if (opts.params) {
         $H(opts.params.toQueryParams()).each(function(a) {
-            params.set(a.key, unescape(a.value));
+            params.set(a.key, decodeURIComponent(a.value));
         });
     }
     params.set('uniq', uniq);
