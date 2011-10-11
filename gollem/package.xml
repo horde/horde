@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-11</date>
- <time>14:33:49</time>
+ <time>16:05:58</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0RC1</api>
@@ -42,7 +42,6 @@
     <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
     <file name="menu.php.dist" role="horde" />
-    <file name="mime_drivers.php" role="horde" />
     <file name="prefs.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
@@ -71,11 +70,6 @@
       <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
-    <dir name="Mime">
-     <dir name="Viewer">
-      <file name="Images.php" role="horde" />
-     </dir> <!-- /lib/Mime/Viewer -->
-    </dir> <!-- /lib/Mime -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
@@ -299,6 +293,8 @@
       <file name="clipboard.png" role="horde" />
       <file name="copy.png" role="horde" />
       <file name="cut.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="folder.png" role="horde" />
       <file name="folder_create.png" role="horde" />
@@ -306,6 +302,7 @@
       <file name="folder_home.png" role="horde" />
       <file name="folder_symlink.png" role="horde" />
       <file name="gollem.png" role="horde" />
+      <file name="reload.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
@@ -318,13 +315,17 @@
       <file name="clipboard.png" role="horde" />
       <file name="copy.png" role="horde" />
       <file name="cut.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="edit.png" role="horde" />
       <file name="folder.png" role="horde" />
       <file name="folder_create.png" role="horde" />
       <file name="folder_goto.png" role="horde" />
       <file name="folder_home.png" role="horde" />
       <file name="folder_symlink.png" role="horde" />
       <file name="gollem.png" role="horde" />
+      <file name="reload.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
+     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
    </dir> <!-- /themes -->
    <file name="clipboard.php" role="horde" />
@@ -496,7 +497,6 @@
    <install as="gollem/config/backends.php" name="config/backends.php" />
    <install as="gollem/config/conf.xml" name="config/conf.xml" />
    <install as="gollem/config/menu.php.dist" name="config/menu.php.dist" />
-   <install as="gollem/config/mime_drivers.php" name="config/mime_drivers.php" />
    <install as="gollem/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CREDITS" name="docs/CREDITS" />
@@ -517,7 +517,6 @@
    <install as="gollem/lib/Factory/Vfs.php" name="lib/Factory/Vfs.php" />
    <install as="gollem/lib/Factory/VfsDefault.php" name="lib/Factory/VfsDefault.php" />
    <install as="gollem/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
-   <install as="gollem/lib/Mime/Viewer/Images.php" name="lib/Mime/Viewer/Images.php" />
    <install as="gollem/locale/.htaccess" name="locale/.htaccess" />
    <install as="gollem/locale/gollem.pot" name="locale/gollem.pot" />
    <install as="gollem/locale/bg/LC_MESSAGES/gollem.mo" name="locale/bg/LC_MESSAGES/gollem.mo" />
@@ -600,6 +599,8 @@
    <install as="gollem/themes/default/graphics/clipboard.png" name="themes/default/graphics/clipboard.png" />
    <install as="gollem/themes/default/graphics/copy.png" name="themes/default/graphics/copy.png" />
    <install as="gollem/themes/default/graphics/cut.png" name="themes/default/graphics/cut.png" />
+   <install as="gollem/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
+   <install as="gollem/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="gollem/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="gollem/themes/default/graphics/folder.png" name="themes/default/graphics/folder.png" />
    <install as="gollem/themes/default/graphics/folder_create.png" name="themes/default/graphics/folder_create.png" />
@@ -607,17 +608,22 @@
    <install as="gollem/themes/default/graphics/folder_home.png" name="themes/default/graphics/folder_home.png" />
    <install as="gollem/themes/default/graphics/folder_symlink.png" name="themes/default/graphics/folder_symlink.png" />
    <install as="gollem/themes/default/graphics/gollem.png" name="themes/default/graphics/gollem.png" />
+   <install as="gollem/themes/default/graphics/reload.png" name="themes/default/graphics/reload.png" />
    <install as="gollem/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
    <install as="gollem/themes/purple/screen.css" name="themes/purple/screen.css" />
+   <install as="gollem/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="gollem/themes/silver/graphics/clipboard.png" name="themes/silver/graphics/clipboard.png" />
    <install as="gollem/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
    <install as="gollem/themes/silver/graphics/cut.png" name="themes/silver/graphics/cut.png" />
+   <install as="gollem/themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
+   <install as="gollem/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
    <install as="gollem/themes/silver/graphics/folder.png" name="themes/silver/graphics/folder.png" />
    <install as="gollem/themes/silver/graphics/folder_create.png" name="themes/silver/graphics/folder_create.png" />
    <install as="gollem/themes/silver/graphics/folder_goto.png" name="themes/silver/graphics/folder_goto.png" />
    <install as="gollem/themes/silver/graphics/folder_home.png" name="themes/silver/graphics/folder_home.png" />
    <install as="gollem/themes/silver/graphics/folder_symlink.png" name="themes/silver/graphics/folder_symlink.png" />
    <install as="gollem/themes/silver/graphics/gollem.png" name="themes/silver/graphics/gollem.png" />
+   <install as="gollem/themes/silver/graphics/reload.png" name="themes/silver/graphics/reload.png" />
   </filelist>
  </phprelease>
  <changelog>
