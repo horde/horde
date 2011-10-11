@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-30</date>
- <time>12:32:28</time>
+ <date>2011-10-11</date>
+ <time>14:05:23</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -892,7 +892,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-30</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix setting permissions with File driver (Bug #10630).
