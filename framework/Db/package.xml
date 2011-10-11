@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-11</date>
- <time>14:20:34</time>
+ <time>14:21:03</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -35,11 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [jan] More flexible conversion of charset names to native MySQL names.
-* [jan] Correctly escape binding characters in buildClause() (Bug #10610).
-* [jan] Fix transactions with MySQLi driver (Bug #10578).
-* [jan] Fix DISTINCT clause generation on PostgreSQL (Bug #10543).
-* [mms] Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -524,6 +520,19 @@
 * [jan] Fix transactions with MySQLi driver (Bug #10578).
 * [jan] Fix DISTINCT clause generation on PostgreSQL (Bug #10543).
 * [mms] Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
