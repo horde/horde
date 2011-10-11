@@ -14,33 +14,25 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Whups
-Ticket Tracking System version H4 (2.0-ALPHA1).
+The Horde Team is pleased to announce the first release candidate of the Whups
+Ticket Tracking System version H4 (2.0-RC1).
 
 Whups is a Horde ticket-tracking application. It is very flexible in design,
 and can be used for help-desk requests, tracking software development, and
 anything else that needs to track a set of requests and their status.
 
-This is a preview version that should not be used on production systems.  This
-version is considered feature complete but there might still be a few bugs.
-You should not use this preview version over existing production data.
+Barring any problems, this code will be released as Whups H4 (2.0).
+Testing is requested and comments are encouraged.
+Updated translations would also be great.
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated and new translations are very welcome, though some
-strings might still change before the final release.
-
-Major changes compared to the Whups H3 versions are:
-    * Updated to work with Horde 4.
-    * Improved mail filter for converting email messages to tickets.
-    * More flexible and extended notification messages.
+Major changes compared to the Whups version H4 (2.0-ALPHA1) are:
+    * Added script to convert backends to UTF-8.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Updated to work with Horde 4.
-Improved mail filter for converting email messages to tickets.
-More flexible and extended notification messages.
+Added script to convert backends to UTF-8.
 Small bugfixes and improvements.
 FM;
 
