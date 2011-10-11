@@ -64,6 +64,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const SHARED_KEY = "shared\0";
     const OTHER_KEY = "other\0";
 
+    /* $_trackdiff constants. */
+    const TRACK_OFF = 0;
+    const TRACK_ON = 1;
+    const TRACK_ON_RENAME = 2;
+
     /**
      * Tree changed flag.  Set when something in the tree has been altered.
      *
@@ -135,11 +140,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     protected $_eltdiff = null;
 
     /**
-     * If set, track element changes.
+     * Track element changes.
      *
-     * @var boolean
+     * @var integer
      */
-    protected $_trackdiff = true;
+    protected $_trackdiff = self::TRACK_ON;
 
     /**
      * Cached data that is not saved across serialization.
@@ -551,7 +556,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $this->changed = true;
 
-        $prev = ($this->_trackdiff && !is_null($this->_eltdiff) && !isset($this->_eltdiff['a'][$elt['p']]))
+        $prev = (($this->_trackdiff == self::TRACK_ON) && !is_null($this->_eltdiff) && !isset($this->_eltdiff['a'][$elt['p']]))
             ? $this->hasChildren($this->_tree[$elt['p']])
             : null;
 
@@ -687,7 +692,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                      * element has changed (it no longer has children) but
                      * we can't catch it via the bitflag (since hasChildren()
                      * is dynamically determined). */
-                    if (!is_null($this->_eltdiff)) {
+                    if (!is_null($this->_eltdiff) &&
+                        ($this->_trackdiff != self::TRACK_ON_RENAME)) {
                         $this->_eltdiff['d'][$parent] = 1;
                     }
                 }
@@ -1247,9 +1253,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         /* If we are switching from subscribed to unsubscribed, we need
          * to add all unsubscribed elements that live in currently
          * discovered items. */
-        $this->_trackdiff = false;
+        $this->_trackdiff = self::TRACK_OFF;
         $this->_insert($this->_getList(true), false);
-        $this->_trackdiff = true;
+        $this->_trackdiff = self::TRACK_ON;
     }
 
     /**
@@ -1425,8 +1431,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
         }
 
+        $this->_trackdiff = self::TRACK_ON_RENAME;
         $this->delete($old_list);
         $this->insert($new_list);
+        $this->_trackdiff = self::TRACK_ON;
+
         $this->addPollList($polled);
     }
 
