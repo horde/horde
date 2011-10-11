@@ -207,10 +207,8 @@ class Gollem_Application extends Horde_Registry_Application
             $backend_key != $GLOBALS['session']->get('gollem', 'backend_key')) {
             Gollem_Auth::changeBackend($backend_key);
         }
-        if (empty(Gollem::$backend['auth'])) {
-            return false;
-        }
-        return true;
+
+        return !empty(Gollem::$backend['auth']);
     }
 
     /**
@@ -296,7 +294,9 @@ class Gollem_Application extends Horde_Registry_Application
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
+        $icon = Horde_Themes::img('gollem.png');
         $url = Horde::url('manager.php');
+
         foreach (Gollem_Auth::getBackend() as $key => $val) {
             $tree->addNode(
                 $parent . $key,
@@ -305,7 +305,7 @@ class Gollem_Application extends Horde_Registry_Application
                 1,
                 false,
                 array(
-                    'icon' => Horde_Themes::img('gollem.png'),
+                    'icon' => $icon,
                     'url' => $url->add(array('backend_key' => $key))
                 )
             );
