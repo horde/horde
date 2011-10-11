@@ -1,7 +1,8 @@
 ----------
-v2.0.1-git
+v2.0.0-git
 ----------
 
+[mms] Fix display of 'columnselect' preference (Bug #10628).
 [jan] Don't require login for login-less VFS backends.
 
 

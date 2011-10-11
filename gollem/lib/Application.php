@@ -219,7 +219,7 @@ class Gollem_Application extends Horde_Registry_Application
     {
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
-            case 'columns':
+            case 'columnselect':
                 Horde_Core_Prefs_Ui_Widgets::sourceInit();
                 break;
             }
@@ -243,9 +243,9 @@ class Gollem_Application extends Horde_Registry_Application
 
                 foreach ($info['attributes'] as $column) {
                     if (isset($selected_list[$column])) {
-                        $selected[] = array($column, $column);
+                        $selected[$column] = $column;
                     } else {
-                        $unselected[] = array($column, $column);
+                        $unselected[$column] = $column;
                     }
                 }
                 $sources[$source] = array(
@@ -255,11 +255,11 @@ class Gollem_Application extends Horde_Registry_Application
             }
 
             return Horde_Core_Prefs_Ui_Widgets::source(array(
-                'mainlabel' => _("Choose which backends to display, and in what order:"),
-                'selectlabel' => _("These backends will display in this order:"),
+                'mainlabel' => _("Choose which columns to display, and in what order:"),
+                'selectlabel' => _("These columns will display in this order:"),
                 'sourcelabel' => _("Select a backend:"),
                 'sources' => $sources,
-                'unselectlabel' => _("Backends that will not be displayed:")
+                'unselectlabel' => _("Columns that will not be displayed:")
             ));
         }
 
