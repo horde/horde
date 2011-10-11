@@ -1,6 +1,6 @@
------------
-v4.0.10-git
------------
+-------
+v4.0.10
+-------
 
 [mjr] Update javascript map library.
 [mms] Allow in-page base64 image encoding to be disabled via configuration.
