@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix usage of createhome parameter (Bug #10592).
 * [mms] Fix display of &apos;columnselect&apos; preference (Bug #10628).
 * [jan] Don&apos;t require login for login-less VFS backends.
  </notes>
@@ -661,6 +662,7 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix usage of createhome parameter (Bug #10592).
 * [mms] Fix display of &apos;columnselect&apos; preference (Bug #10628).
 * [jan] Don&apos;t require login for login-less VFS backends.
    </notes>
