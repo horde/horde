@@ -45,7 +45,12 @@ try {
 /* Run through action handlers. */
 switch ($vars->actionID) {
 case 'download_file':
-    $browser->downloadHeaders($vars->file, null, false, $gollem_vfs->size($vars->dir, $vars->file));
+    try {
+        $size = $gollem_vfs->size($vars->dir, $vars->file);
+    } catch (Horde_Vfs_Exception $e) {
+        $size = null;
+    }
+    $browser->downloadHeaders($vars->file, null, false, $size);
     if (is_resource($stream)) {
         while ($buffer = fread($stream, 8192)) {
             echo $buffer;
@@ -68,9 +73,14 @@ case 'view_file':
     $ret = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
     reset($ret);
     $key = key($ret);
+    try {
+        $size = $gollem_vfs->size($vars->dir, $vars->file);
+    } catch (Horde_Vfs_Exception $e) {
+        $size = null;
+    }
 
     if (empty($ret)) {
-        $browser->downloadHeaders($vars->file, null, false, $gollem_vfs->size($vars->dir, $vars->file));
+        $browser->downloadHeaders($vars->file, null, false, $size);
         if (is_resource($stream)) {
             while ($buffer = fread($stream, 8192)) {
                 echo $buffer;
