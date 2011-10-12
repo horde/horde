@@ -106,6 +106,10 @@ case 'reply_list':
         }
     }
 
+    if (!empty($reply_msg['lang'])) {
+        $fillform_opts['reply_lang'] = array_values($reply_msg['lang']);
+    }
+
     switch ($reply_msg['type']) {
     case IMP_Compose::REPLY_SENDER:
         $title = _("Reply:");

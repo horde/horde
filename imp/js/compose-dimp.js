@@ -577,6 +577,11 @@ var DimpCompose = {
             break;
         }
 
+        if (opts.reply_lang) {
+            $('langnotice').down('SPAN.langNoticeList').setText(opts.reply_lang.join(', '));
+            $('noticerow', 'langnotice').invoke('show');
+        }
+
         this.setBodyText(msg);
         this.resizeMsgArea();
 

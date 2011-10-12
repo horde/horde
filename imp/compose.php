@@ -305,6 +305,11 @@ case 'reply_list':
         $title = _("Reply to List:");
         break;
     }
+
+    if (!empty($reply_msg['lang'])) {
+        $reply_lang = array_values($reply_msg['lang']);
+    }
+
     $title .= ' ' . $header['subject'];
 
     if (!is_null($rtemode)) {
@@ -970,6 +975,10 @@ if ($redirect) {
         if (isset($replyauto_list_id)) {
             $t->set('replyauto_list_id', $replyauto_list_id);
         }
+    }
+
+    if (isset($reply_lang)) {
+        $t->set('reply_lang', implode(',', $reply_lang));
     }
 
     $t->set('message_label', Horde::label('composeMessage', _("Te_xt")));

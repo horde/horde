@@ -354,6 +354,9 @@ span.trashImg {
     vertical-align: top;
 }
 
+#compose span.notices {
+    margin: 0;
+}
 #replyallnotice, #replylistnotice {
     background-color: #fcc;
 }

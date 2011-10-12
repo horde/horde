@@ -1387,6 +1387,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *   - headers: The headers of the message to use for the reply
      *   - identity: The identity to use for the reply based on the original
      *            message's addresses.
+     *   - lang: An array of language code (keys)/language name (values) of
+     *           the original sender's preferred language(s).
      *   - reply_list_id: List ID label.
      *   - reply_recip: Number of recipients in reply list.
      *   - type: The reply type used (either self::REPLY_ALL,
@@ -1569,6 +1571,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     $ret['reply_list_id'] = $addr_ob[0]['personal'];
                 }
                 break;
+            }
+        }
+
+        if ($lang = $h->getValue('accept-language')) {
+            $ret['lang'] = array();
+            foreach (explode(',', $lang) as $val) {
+                if (($name = Horde_Nls::getLanguageISO($val)) !== null) {
+                    $ret['lang'][trim($val)] = $name;
+                }
             }
         }
 
