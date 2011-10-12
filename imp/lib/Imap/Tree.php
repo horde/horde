@@ -64,11 +64,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const SHARED_KEY = "shared\0";
     const OTHER_KEY = "other\0";
 
-    /* $_trackdiff constants. */
-    const TRACK_OFF = 0;
-    const TRACK_ON = 1;
-    const TRACK_ON_RENAME = 2;
-
     /**
      * Tree changed flag.  Set when something in the tree has been altered.
      *
@@ -138,13 +133,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * @var array
      */
     protected $_eltdiff = null;
-
-    /**
-     * Track element changes.
-     *
-     * @var integer
-     */
-    protected $_trackdiff = self::TRACK_ON;
 
     /**
      * Cached data that is not saved across serialization.
@@ -556,9 +544,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         $this->changed = true;
 
-        $prev = (($this->_trackdiff == self::TRACK_ON) && !is_null($this->_eltdiff) && !isset($this->_eltdiff['a'][$elt['p']]))
-            ? $this->hasChildren($this->_tree[$elt['p']])
-            : null;
+        $prev = is_null($this->_eltdiff)
+            ? null
+            : $this->hasChildren($this->_tree[$elt['p']]);
 
         /* Set the parent array to the value in $elt['p']. */
         if (empty($this->_parent[$elt['p']])) {
@@ -568,13 +556,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->_parent[$elt['p']][] = $elt['v'];
         $this->_tree[$elt['v']] = $elt;
 
-        if ($this->_trackdiff && !is_null($this->_eltdiff)) {
-            unset($this->_eltdiff['c'][$elt['v']], $this->_eltdiff['d'][$elt['v']]);
-            $this->_eltdiff['a'][$elt['v']] = 1;
-            if (!is_null($prev) &&
-                ($this->hasChildren($this->_tree[$elt['p']]) != $prev)) {
-                $this->_eltdiff['c'][$elt['p']] = 1;
-            }
+        $this->_addEltDiff($elt, 'a');
+        if (!is_null($prev) &&
+            ($this->hasChildren($this->_tree[$elt['p']]) != $prev)) {
+            $this->_addEltDiff($this->_tree[$elt['p']], 'c');
         }
 
         /* Make sure we are sorted correctly. */
@@ -620,12 +605,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             $parent = $this->_tree[$id]['p'];
+            $this->_addEltDiff($this->_tree[$id], 'd');
             unset($this->_tree[$id]);
-
-            if (!is_null($this->_eltdiff)) {
-                unset($this->_eltdiff['a'][$id], $this->_eltdiff['c'][$id]);
-                $this->_eltdiff['d'][$id] = 1;
-            }
 
             /* Delete the entry from the parent tree. */
             $key = array_search($id, $this->_parent[$parent]);
@@ -667,16 +648,12 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $parent = $elt['p'];
 
         /* Delete the tree entry. */
+        $this->_addEltDiff($elt, 'd');
         unset($this->_tree[$id]);
 
         /* Delete the entry from the parent tree. */
         $key = array_search($id, $this->_parent[$parent]);
         unset($this->_parent[$parent][$key]);
-
-        if (!is_null($this->_eltdiff)) {
-            unset($this->_eltdiff['a'][$id], $this->_eltdiff['c'][$id]);
-            $this->_eltdiff['d'][$id] = 1;
-        }
 
         if (empty($this->_parent[$parent])) {
             /* This folder is now completely empty (no children). */
@@ -688,23 +665,15 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 } else {
                     $this->_modifyExpandedList($parent, 'remove');
                     $this->_setOpen($this->_tree[$parent], false);
-                    /* This is a case where it is possible that the parent
-                     * element has changed (it no longer has children) but
-                     * we can't catch it via the bitflag (since hasChildren()
-                     * is dynamically determined). */
-                    if (!is_null($this->_eltdiff) &&
-                        ($this->_trackdiff != self::TRACK_ON_RENAME)) {
-                        $this->_eltdiff['d'][$parent] = 1;
-                    }
+                    $this->_addEltDiff($this->_tree[$parent], 'c');
                 }
             }
         } else {
             /* Rebuild the parent tree. */
             $this->_parent[$parent] = array_values($this->_parent[$parent]);
 
-            if (!is_null($this->_eltdiff) &&
-                !$this->hasChildren($this->_tree[$parent])) {
-                $this->_eltdiff['c'][$parent] = 1;
+            if (!$this->hasChildren($this->_tree[$parent])) {
+                $this->_addEltDiff($this->_tree[$parent], 'c');
             }
         }
 
@@ -1253,9 +1222,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         /* If we are switching from subscribed to unsubscribed, we need
          * to add all unsubscribed elements that live in currently
          * discovered items. */
-        $this->_trackdiff = self::TRACK_OFF;
+        $old_eltdiff = $this->_eltdiff;
+        $this->_eltdiff = null;
         $this->_insert($this->_getList(true), false);
-        $this->_trackdiff = self::TRACK_ON;
+        $this->_eltdiff = $old_eltdiff;
     }
 
     /**
@@ -1334,8 +1304,50 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->_eltdiff = array(
             'a' => array(),
             'c' => array(),
-            'd' => array()
+            'd' => array(),
+            'o' => array()
         );
+    }
+
+    /**
+     * Mark an element as changed.
+     *
+     * @param array $elt    An element array.
+     * @param string $type  Either 'a', 'c', or 'd'.
+     */
+    protected function _addEltDiff($elt, $type)
+    {
+        if (is_null($this->_eltdiff)) {
+            return;
+        }
+
+        $ed = &$this->_eltdiff;
+        $id = $elt['v'];
+
+        if (isset($ed['o'][$id])) {
+            if ($ed['o'][$id] == $elt) {
+                unset($ed['a'][$id], $ed['c'][$id], $ed['d'][$id], $ed['o'][$id]);
+                return;
+            }
+        } else {
+            $ed['o'][$id] = $elt;
+        }
+
+        switch ($type) {
+        case 'a':
+            unset($ed['c'][$id], $ed['d'][$id]);
+            $ed['a'][$id] = 1;
+            break;
+
+        case 'c':
+            $ed['c'][$id] = 1;
+            break;
+
+        case 'd':
+            unset($ed['a'][$id], $ed['c'][$id]);
+            $ed['d'][$id] = 1;
+            break;
+        }
     }
 
     /**
@@ -1429,10 +1441,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             }
         }
 
-        $this->_trackdiff = self::TRACK_ON_RENAME;
-        $this->delete($old_list);
         $this->insert($new_list);
-        $this->_trackdiff = self::TRACK_ON;
+        $this->delete($old_list);
 
         $this->addPollList($polled);
     }
