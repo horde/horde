@@ -289,11 +289,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @return array  An array with the following keys (we use single letters
      *                to save in session storage space):
-     * <pre>
-     * 'a' - (integer) Attributes mask.
-     * 'c' - (integer) Level count.
-     * 'p' - (string) Parent node.
-     * 'v' - (string) Value.
+     *   - a: (integer) Attributes mask.
+     *   - c: (integer) Level count.
+     *   - p: (string) Parent node.
+     *   - v: (string) Value.
+     *
      * @throws Horde_Exception
      */
     protected function _makeElt($name, $attributes = 0)
@@ -1344,11 +1344,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @return array  Returns false if no changes have occurred, or an array
      *                with the following keys:
-     * <pre>
-     * 'a' => A list of elements that have been added.
-     * 'c' => A list of elements that have been changed.
-     * 'd' => A list of elements that have been deleted.
-     * </pre>
+     *   - a: (array) Elements that have been added.
+     *   - c: (array) Elements that have been changed.
+     *   - d: (array) Elements that have been deleted.
      */
     public function eltDiff()
     {
@@ -1825,21 +1823,41 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * Set the current iterator filter and reset the internal pointer.
      *
      * @param integer $mask  A mask with the following possible elements:
-     * <pre>
-     * IMP_Imap_Tree::FLIST_NOCONTAINER - Don't include container elements.
-     * IMP_Imap_Tree::FLIST_UNSUB - Include unsubscribed elements.
-     * IMP_Imap_Tree::FLIST_VFOLDER - Include Virtual Folders.
-     * IMP_Imap_Tree::FLIST_NOCHILDREN - Don't include child elements.
-     * IMP_Imap_Tree::FLIST_EXPANDED - Only include expanded folders.
-     * IMP_Imap_Tree::FLIST_ASIS - Display the list as is currently cached
-     *                             in this object.
-     * ---
-     * These options require that $base be set:
-     * IMP_Imap_Tree::FLIST_ANCESTORS - Include ancestors of $base.
-     * IMP_Imap_Tree::FLIST_SAMELEVEL - Include all mailboxes at the same
-     *                                  level as $base.
-     * IMP_Imap_Tree::FLIST_NOBASE - Don't include $base in the return.
-     * </pre>
+     * <ul>
+     *  <li>
+     *   IMP_Imap_Tree::FLIST_NOCONTAINER: Don't include container elements.
+     *  </li>
+     *  <li>
+     *   IMP_Imap_Tree::FLIST_UNSUB: Include unsubscribed elements.
+     *  </li>
+     *  <li>
+     *   IMP_Imap_Tree::FLIST_VFOLDER: Include Virtual Folders.
+     *  </li>
+     *  <li>
+     *   IMP_Imap_Tree::FLIST_NOCHILDREN: Don't include child elements.
+     *  </li>
+     *  <li>
+     *   IMP_Imap_Tree::FLIST_EXPANDED: Only include expanded folders.
+     *  </li>
+     *  <li>
+     *   IMP_Imap_Tree::FLIST_ASIS: Display the list as is currently cached
+     *                              in this object.
+     *  </li>
+     *  <li>Options require that $base be set:
+     *   <ul>
+     *    <li>
+     *     IMP_Imap_Tree::FLIST_ANCESTORS: Include ancestors of $base.
+     *    </li>
+     *    <li>
+     *     IMP_Imap_Tree::FLIST_SAMELEVEL: Include all mailboxes at the same
+     *                                     level as $base.
+     *    </li>
+     *    <li>
+     *     IMP_Imap_Tree::FLIST_NOBASE: Don't include $base in the return.
+     *    </li>
+     *   </ul>
+     *  </li>
+     * </ul>
      * @param string $base  Include all mailboxes below this element.
      */
     public function setIteratorFilter($mask = 0, $base = null)
