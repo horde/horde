@@ -14,8 +14,8 @@
  * <code>
  * <?php
  * $backends['ftp']['disabled'] = true;
- * $backends['samba']['disabled'] = false;
- * $backends['samba']['params']['hostspec'] = 'FILESERVER HOST';
+ * $backends['smb']['disabled'] = false;
+ * $backends['smb']['params']['hostspec'] = 'FILESERVER HOST';
  * </code>
  *
  * Properties that can be set for each server:
