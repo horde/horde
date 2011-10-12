@@ -32,16 +32,26 @@ a#kronolithNotifications {
     background-image: url("graphics/alerts/message.png"), url("graphics/menu-active.png");
 }
 #kronolithNotifications.horde-error {
-    background-image: url("graphics/alerts/error.png")
+    background-image: url("graphics/alerts/error.png"), url("graphics/menu.png")
+}
+#kronolithNotifications.horde-error:hover {
+    background-image: url("graphics/alerts/error.png"), url("graphics/menu-active.png")
 }
 #kronolithNotifications.horde-success {
-    background-image: url("graphics/alerts/success.png")
+    background-image: url("graphics/alerts/success.png"), url("graphics/menu.png")
+}
+#kronolithNotifications.horde-success:hover {
+    background-image: url("graphics/alerts/success.png"), url("graphics/menu-active.png")
 }
 #kronolithNotifications.horde-warning {
-    background-image: url("graphics/alerts/warning.png")
+    background-image: url("graphics/alerts/warning.png"), url("graphics/menu.png")
 }
-#kronolithNotifications.kronolithClose {
-    background-image: url("graphics/close.png")
+#kronolithNotifications.horde-warning:hover {
+    background-image: url("graphics/alerts/warning.png"), url("graphics/menu-active.png")
+}
+#kronolithNotifications.kronolithClose,
+#kronolithNotifications.kronolithClose:hover {
+    background-image: url("graphics/close.png"), url("graphics/menu-active.png")
 }
 #kronolithSearchButton {
     background-image: url('graphics/search.png');
