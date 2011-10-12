@@ -1574,13 +1574,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
         }
 
-        if ($lang = $h->getValue('accept-language')) {
-            $ret['lang'] = array();
+        if (($lang = $h->getValue('accept-language')) ||
+            ($lang = $h->getValue('x-accept-language'))) {
+            $langs = array();
             foreach (explode(',', $lang) as $val) {
                 if (($name = Horde_Nls::getLanguageISO($val)) !== null) {
-                    $ret['lang'][trim($val)] = $name;
+                    $langs[trim($val)] = $name;
                 }
             }
+            $ret['lang'] = array_unique($langs);
         }
 
         return array_merge(array(
