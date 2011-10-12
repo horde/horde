@@ -606,6 +606,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
         $headers->addUserAgentHeader();
 
+        /* Add preferred reply language(s). */
+        if ($lang = @unserialize($prefs->getValue('reply_lang'))) {
+            $headers->addHeader('Accept-Language', implode(',', $lang));
+        }
+
         /* Send the messages out now. */
         $sentmail = $injector->getInstance('IMP_Sentmail');
 

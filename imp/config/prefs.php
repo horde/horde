@@ -171,7 +171,8 @@ $prefGroups['compose'] = array(
         'set_priority', 'compose_html', 'compose_html_font_family',
         'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'save_attachments',
-        'delete_attachments_monthly_keep', 'request_mdn'
+        'delete_attachments_monthly_keep', 'request_mdn',
+        'reply_lang'
     )
 );
 
@@ -292,7 +293,6 @@ $_prefs['delete_attachments_monthly_keep'] = array(
     'help' => 'prefs-delete_attachments_monthly_keep'
 );
 
-
 // Disposition Notification Preferences
 $_prefs['request_mdn'] = array(
     'value' => 'ask',
@@ -304,6 +304,17 @@ $_prefs['request_mdn'] = array(
     ),
     'desc' => _("Request read receipts?"),
     'help' => 'prefs-request_mdn'
+);
+
+// The preferred languages for replies to sent messages.
+$_prefs['reply_lang'] = array(
+    // 'value' => serialize(array())
+    'value' => 'a:0:{}',
+    'advanced' => true,
+    'type' => 'multienum',
+    // Language list is automatically generated
+    'enum' => array(),
+    'desc' => _("What language(s) do you prefer replies to your messages to be in? (Hold down the CTRL key when clicking to add multiple languages)")
 );
 
 // The list of buttons to show in CKeditor

@@ -269,6 +269,11 @@ class IMP_Prefs_Ui
                 }
                 break;
 
+            case 'reply_lang':
+                $langs = Horde_Nls::getLanguageISO();
+                $ui->override['reply_lang'] = $langs;
+                break;
+
             case 'send_mdn':
                 if (empty($conf['maillog']['use_maillog'])) {
                     $ui->suppress[] = $val;
