@@ -390,9 +390,8 @@ body.kronolithAjax {
 #kronolithLoadingtasks, #kronolithLoadingagenda {
     display: inline-block;
     position: relative;
-    top: -3px;
+    top: -2px;
     vertical-align: middle;
-    left: 2px;
 }
 #kronolithLoading, #kronolithFBLoading {
     background: transparent url("graphics/loading.gif") no-repeat center;
