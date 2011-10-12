@@ -57,6 +57,21 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     }
 
     /**
+     * Retrieves the size of a file from the VFS.
+     *
+     * @param string $path  The pathname to the file.
+     * @param string $name  The filename to retrieve.
+     *
+     * @return integer  The file size.
+     * @throws Horde_Vfs_Exception
+     */
+    public function size($path, $name)
+    {
+        $file = $this->readFile($path, $name);
+        return filesize($file);
+    }
+
+    /**
      * Retrieves a file from the VFS.
      *
      * @param string $path  The pathname to the file.
