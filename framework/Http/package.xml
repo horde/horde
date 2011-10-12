@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [gwr] Added SOCKS proxy support where available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -272,7 +272,7 @@
    <date>2011-07-21</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [gwr] Added SOCKS proxy support where available.
    </notes>
   </release>
  </changelog>
