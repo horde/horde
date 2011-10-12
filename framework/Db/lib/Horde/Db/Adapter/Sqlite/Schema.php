@@ -1,11 +1,15 @@
 <?php
 /**
+ * Class for SQLite-specific managing of database schemes and handling of SQL
+ * dialects and quoting.
+ *
  * Copyright 2007 Maintainable Software, LLC
  * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
@@ -16,6 +20,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
@@ -28,7 +33,19 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     ##########################################################################*/
 
     /**
-     * Factory for Column objects
+     * Factory for Column objects.
+     *
+     * @param string $name     The column's name, such as "supplier_id" in
+     *                         "supplier_id int(11)".
+     * @param string $default  The type-casted default value, such as "new" in
+     *                         "sales_stage varchar(20) default 'new'".
+     * @param string $sqlType  Used to extract the column's type, length and
+     *                         signed status, if necessary. For example
+     *                         "varchar" and "60" in "company_name varchar(60)"
+     *                         or "unsigned => true" in "int(10) UNSIGNED".
+     * @param boolean $null    Whether this column allows NULL values.
+     *
+     * @return Horde_Db_Adapter_Base_Column  A column object.
      */
     public function makeColumn($name, $default, $sqlType = null, $null = true)
     {
@@ -41,7 +58,11 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     ##########################################################################*/
 
     /**
-     * @return  string
+     * Returns a quoted form of the column name.
+     *
+     * @param string $name  A column name.
+     *
+     * @return string  The quoted column name.
      */
     public function quoteColumnName($name)
     {
@@ -49,7 +70,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * @return  string
+     * Returns a quoted boolean true.
+     *
+     * @return string  The quoted boolean true.
      */
     public function quoteTrue()
     {
@@ -57,7 +80,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * @return  string
+     * Returns a quoted boolean false.
+     *
+     * @return string  The quoted boolean false.
      */
     public function quoteFalse()
     {
@@ -65,7 +90,11 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * @return  string
+     * Returns a quoted binary value.
+     *
+     * @param mixed  A binary value.
+     *
+     * @return string  The quoted binary value.
      */
     public function quoteBinary($value)
     {
@@ -78,9 +107,15 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     ##########################################################################*/
 
     /**
-     * The db column types for this adapter
+     * Returns a hash of mappings from the abstract data types to the native
+     * database types.
      *
-     * @return  array
+     * See TableDefinition::column() for details on the recognized abstract
+     * data types.
+     *
+     * @see TableDefinition::column()
+     *
+     * @return array  A database type map.
      */
     public function nativeDatabaseTypes()
     {
@@ -101,45 +136,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Create the given db
+     * Returns a list of all tables of the current database.
      *
-     * @param   string  $name
-     */
-    public function createDatabase($name)
-    {
-        return new PDO('sqlite:' . $name);
-    }
-
-    /**
-     * Drop the given db
-     *
-     * @param   string  $name
-     */
-    public function dropDatabase($name)
-    {
-        if (! @file_exists($name)) {
-            throw new Horde_Db_Exception('database does not exist');
-        }
-
-        if (! @unlink($name)) {
-            throw new Horde_Db_Exception('could not remove the database file');
-        }
-    }
-
-    /**
-     * Get the name of the current db
-     *
-     * @return  string
-     */
-    public function currentDatabase()
-    {
-        return $this->_config['dbname'];
-    }
-
-    /**
-     * Lists all tables of the current database.
-     *
-     * @return array  List of table names.
+     * @return array  A table list.
      */
     public function tables()
     {
@@ -147,7 +146,12 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Return a table's primary key
+     * Returns a table's primary key.
+     *
+     * @param string $tableName  A table name.
+     * @param string $name       (can be removed?)
+     *
+     * @return Horde_Db_Adapter_Base_Index  The primary key index object.
      */
     public function primaryKey($tableName, $name = null)
     {
@@ -171,10 +175,12 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * List of indexes for the given table
+     * Returns a list of tables indexes.
      *
-     * @param   string  $tableName
-     * @param   string  $name
+     * @param string $tableName  A table name.
+     * @param string $name       (can be removed?)
+     *
+     * @return array  A list of Horde_Db_Adapter_Base_Index objects.
      */
     public function indexes($tableName, $name = null)
     {
@@ -203,8 +209,12 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * @param   string  $tableName
-     * @param   string  $name
+     * Returns a list of table columns.
+     *
+     * @param string $tableName  A table name.
+     * @param string $name       (can be removed?)
+     *
+     * @return array  A list of Horde_Db_Adapter_Base_Column objects.
      */
     public function columns($tableName, $name = null)
     {
@@ -226,8 +236,10 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * @param   string  $name
-     * @param   string  $newName
+     * Renames a table.
+     *
+     * @param string $name     A table name.
+     * @param string $newName  The new table name.
      */
     public function renameTable($name, $newName)
     {
@@ -239,13 +251,14 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Adds a new column to the named table.
-     * See TableDefinition#column for details of the options you can use.
+     * Adds a new column to a table.
      *
-     * @param   string  $tableName
-     * @param   string  $columnName
-     * @param   string  $type
-     * @param   array   $options
+     * @param string $tableName   A table name.
+     * @param string $columnName  A column name.
+     * @param string $type        A data type.
+     * @param array $options      Column options. See
+     *                            Horde_Db_Adapter_Base_TableDefinition#column()
+     *                            for details.
      */
     public function addColumn($tableName, $columnName, $type, $options=array())
     {
@@ -262,26 +275,31 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Removes the column from the table definition.
-     * ===== Examples
-     *  remove_column(:suppliers, :qualification)
+     * Removes a column from a table.
      *
-     * @param   string  $tableName
-     * @param   string  $columnName
+     * @param string $tableName   A table name.
+     * @param string $columnName  A column name.
      */
     public function removeColumn($tableName, $columnName)
     {
         $this->_clearTableCache($tableName);
 
-        return $this->_alterTable($tableName, array(),
-            create_function('$definition', 'unset($definition["' . $columnName . '"]);'));
+        return $this->_alterTable(
+            $tableName,
+            array(),
+            create_function('$definition',
+                            'unset($definition["' . $columnName . '"]);'));
     }
 
     /**
-     * @param   string  $tableName
-     * @param   string  $columnName
-     * @param   string  $type
-     * @param   array   $options
+     * Changes an existing column's definition.
+     *
+     * @param string $tableName   A table name.
+     * @param string $columnName  A column name.
+     * @param string $type        A data type.
+     * @param array $options      Column options. See
+     *                            Horde_Db_Adapter_Base_TableDefinition#column()
+     *                            for details.
      */
     public function changeColumn($tableName, $columnName, $type, $options=array())
     {
@@ -314,34 +332,49 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
             $defs[] = sprintf('$definition["%s"]->setDefault(%s);', $columnName, $default);
         }
 
-        return $this->_alterTable($tableName, array(),
+        return $this->_alterTable(
+            $tableName,
+            array(),
             create_function('$definition', implode("\n", $defs)));
     }
 
     /**
-     * @param   string  $tableName
-     * @param   string  $columnName
-     * @param   string  $default
+     * Sets a new default value for a column.
+     *
+     * If you want to set the default value to NULL, you are out of luck. You
+     * need to execute the apppropriate SQL statement yourself.
+     *
+     * @param string $tableName   A table name.
+     * @param string $columnName  A column name.
+     * @param mixed $default      The new default value.
      */
     public function changeColumnDefault($tableName, $columnName, $default)
     {
         $this->_clearTableCache($tableName);
 
         $default = is_null($default) ? 'null' : '"' . $default . '"';
-        return $this->_alterTable($tableName, array(),
-                                  create_function('$definition', sprintf('$definition["%s"]->setDefault(%s);', $columnName, $default)));
+        return $this->_alterTable(
+            $tableName,
+            array(),
+            create_function('$definition',
+                            sprintf('$definition["%s"]->setDefault(%s);',
+                                    $columnName, $default)));
     }
 
     /**
-     * @param   string  $tableName
-     * @param   string  $columnName
-     * @param   string  $newColumnName
+     * Renames a column.
+     *
+     * @param string $tableName      A table name.
+     * @param string $columnName     A column name.
+     * @param string $newColumnName  The new column name.
      */
     public function renameColumn($tableName, $columnName, $newColumnName)
     {
         $this->_clearTableCache($tableName);
 
-        return $this->_alterTable($tableName, array('rename' => array($columnName => $newColumnName)));
+        return $this->_alterTable(
+            $tableName,
+            array('rename' => array($columnName => $newColumnName)));
     }
 
     /**
@@ -363,7 +396,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         }
         $callback = create_function(
             '$definition',
-            sprintf('$definition->primaryKey(array(%s));', implode(', ', $columns)));
+            sprintf('$definition->primaryKey(array(%s));',
+                    implode(', ', $columns)));
         $this->_alterTable($tableName, array(), $callback);
     }
 
@@ -385,21 +419,14 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Remove the given index from the table.
+     * Removes an index from a table.
      *
-     * Remove the suppliers_name_index in the suppliers table (legacy support, use the second or third forms).
-     *   remove_index :suppliers, :name
-     * Remove the index named accounts_branch_id in the accounts table.
-     *   remove_index :accounts, :column => :branch_id
-     * Remove the index named by_branch_party in the accounts table.
-     *   remove_index :accounts, :name => :by_branch_party
+     * See parent class for examples.
      *
-     * You can remove an index on multiple columns by specifying the first column.
-     *   add_index :accounts, [:username, :password]
-     *   remove_index :accounts, :username
-     *
-     * @param   string  $tableName
-     * @param   array   $options
+     * @param string $tableName      A table name.
+     * @param string|array $options  Either a column name or index options:
+     *                               - name: (string) the index name.
+     *                               - column: (string|array) column name(s).
      */
     public function removeIndex($tableName, $options=array())
     {
@@ -410,11 +437,53 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         return $this->execute($sql);
     }
 
+    /**
+     * Creates a database.
+     *
+     * @param string $name    A database name.
+     * @param array $options  Database options.
+     */
+    public function createDatabase($name, $options = array())
+    {
+        return new PDO('sqlite:' . $name);
+    }
+
+    /**
+     * Drops a database.
+     *
+     * @param string $name  A database name.
+     */
+    public function dropDatabase($name)
+    {
+        if (!@file_exists($name)) {
+            throw new Horde_Db_Exception('database does not exist');
+        }
+
+        if (!@unlink($name)) {
+            throw new Horde_Db_Exception('could not remove the database file');
+        }
+    }
+
+    /**
+     * Returns the name of the currently selected database.
+     *
+     * @return string  The database name.
+     */
+    public function currentDatabase()
+    {
+        return $this->_config['dbname'];
+    }
+
 
     /*##########################################################################
     # Protected
     ##########################################################################*/
 
+    /**
+     * Returns a column type definition to be use for primary keys.
+     *
+     * @return string  Primary key type definition.
+     */
     protected function _defaultPrimaryKeyType()
     {
         if ($this->supportsAutoIncrement()) {
@@ -424,33 +493,84 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         }
     }
 
+    /**
+     * Alters a table.
+     *
+     * This is done by creating a temporary copy, applying changes and callback
+     * methods, and copying the table back.
+     *
+     * @param string $tableName   A table name.
+     * @param array $options      Any options to apply when creating the
+     *                            temporary table. Supports a 'rename' key for
+     *                            the new table name, additionally to the
+     *                            options in createTable().
+     * @param function $callback  A callback function that can manipulate the
+     *                            Horde_Db_Adapter_Base_TableDefinition object
+     *                            available in $definition. See _copyTable().
+     */
     protected function _alterTable($tableName, $options = array(), $callback = null)
     {
         $this->beginDbTransaction();
 
         $alteredTableName = 'altered_' . $tableName;
-        $this->_moveTable($tableName, $alteredTableName, array_merge($options, array('temporary' => true)));
-        $this->_moveTable($alteredTableName, $tableName, array(), $callback);
+        $this->_moveTable($tableName,
+                          $alteredTableName,
+                          array_merge($options, array('temporary' => true)));
+        $this->_moveTable($alteredTableName,
+                          $tableName,
+                          array(),
+                          $callback);
 
         $this->commitDbTransaction();
-
-        return true;
     }
 
-    protected function _moveTable($from, $to, $options = array(), $callback = null)
+    /**
+     * Moves a table.
+     *
+     * This is done by creating a temporary copy, applying changes and callback
+     * methods, and dropping the original table.
+     *
+     * @param string $from        The name of the source table.
+     * @param string $to          The name of the target table.
+     * @param array $options      Any options to apply when creating the
+     *                            temporary table. Supports a 'rename' key for
+     *                            the new table name, additionally to the
+     *                            options in createTable().
+     * @param function $callback  A callback function that can manipulate the
+     *                            Horde_Db_Adapter_Base_TableDefinition object
+     *                            available in $definition. See _copyTable().
+     */
+    protected function _moveTable($from, $to, $options = array(),
+                                  $callback = null)
     {
         $this->_copyTable($from, $to, $options, $callback);
         $this->dropTable($from);
     }
 
-    protected function _copyTable($from, $to, $options = array(), $callback = null)
+    /**
+     * Copies a table.
+     *
+     * Also applies changes and callback methods before creating the new table.
+     *
+     * @param string $from        The name of the source table.
+     * @param string $to          The name of the target table.
+     * @param array $options      Any options to apply when creating the
+     *                            temporary table. Supports a 'rename' key for
+     *                            the new table name, additionally to the
+     *                            options in createTable().
+     * @param function $callback  A callback function that can manipulate the
+     *                            Horde_Db_Adapter_Base_TableDefinition object
+     *                            available in $definition.
+     */
+    protected function _copyTable($from, $to, $options = array(),
+                                  $callback = null)
     {
         $fromColumns = $this->columns($from);
         $pk = $this->primaryKey($from);
         if ($pk && count($pk->columns) == 1) {
             /* A primary key is not necessarily what matches the pseudo type
-             * "autoincrementKey". We need to parse the table definition to find out
-             * if the column is AUTOINCREMENT too. */
+             * "autoincrementKey". We need to parse the table definition to
+             * find out if the column is AUTOINCREMENT too. */
             $tableDefinition = $this->selectValue('SELECT sql FROM sqlite_master WHERE name = ? UNION ALL SELECT sql FROM sqlite_temp_master WHERE name = ?',
                                                   array($from, $from));
             if (strpos($tableDefinition, $this->quoteColumnName($pk->columns[0]) . ' INTEGER PRIMARY KEY AUTOINCREMENT')) {
@@ -492,12 +612,26 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
         $definition->end();
 
-        $this->_copyTableIndexes($from, $to, isset($options['rename']) ? $options['rename'] : array());
-        $this->_copyTableContents($from, $to,
-            array_map(create_function('$c', 'return $c->getName();'), iterator_to_array($definition)),
+        $this->_copyTableIndexes(
+            $from,
+            $to,
+            isset($options['rename']) ? $options['rename'] : array());
+        $this->_copyTableContents(
+            $from,
+            $to,
+            array_map(create_function('$c', 'return $c->getName();'),
+                      iterator_to_array($definition)),
             isset($options['rename']) ? $options['rename'] : array());
     }
 
+    /**
+     * Copies indexes from one table to another.
+     *
+     * @param string $from   The name of the source table.
+     * @param string $to     The name of the target table.
+     * @param array $rename  A hash of columns to rename during the copy, with
+     *                       original names as keys and the new names as values.
+     */
     protected function _copyTableIndexes($from, $to, $rename = array())
     {
         $toColumnNames = array();
@@ -534,7 +668,18 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         }
     }
 
-    protected function _copyTableContents($from, $to, $columns, $rename = array())
+    /**
+     * Copies the content of one table to another.
+     *
+     * @param string $from   The name of the source table.
+     * @param string $to     The name of the target table.
+     * @param array $columns  A list of columns to copy.
+     * @param array $rename   A hash of columns to rename during the copy, with
+     *                        original names as keys and the new names as
+     *                        values.
+     */
+    protected function _copyTableContents($from, $to, $columns,
+                                          $rename = array())
     {
         $columnMappings = array_combine($columns, $columns);
 

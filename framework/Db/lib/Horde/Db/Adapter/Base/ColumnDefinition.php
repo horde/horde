@@ -35,16 +35,17 @@ class Horde_Db_Adapter_Base_ColumnDefinition
     protected $_autoincrement;
 
     /**
-     * Construct
+     * Constructor.
      */
     public function __construct($base, $name, $type, $limit = null,
-        $precision = null, $scale = null, $unsigned = null,
-        $default = null, $null = null, $autoincrement = null)
+                                $precision = null, $scale = null,
+                                $unsigned = null, $default = null,
+                                $null = null, $autoincrement = null)
     {
-        // protected
+        // Protected
         $this->_base      = $base;
 
-        // public
+        // Public
         $this->_name          = $name;
         $this->_type          = $type;
         $this->_limit         = $limit;
