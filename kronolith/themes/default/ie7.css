@@ -1,23 +1,26 @@
 #kronolithBody {
     overflow-x: hidden;
 }
+#kronolithMinical {
+    margin-top: 35px;
+}
 #kronolithViewMonth {
     width: 100%;
     height: expression(kronolithBody.offsetHeight+'px');
 }
 #kronolithViewMonthContainer {
-    top: 45px;
+    top: 41px;
     width: 100%;
     height: expression(kronolithViewMonth.offsetHeight-66+'px');
 }
 #kronolithLoadingmonth {
-    top: 23px;
+    top: 20px;
 }
 table.kronolithView td.kronolithFirstCol {
     width: 22px;
 }
 #kronolithViewMonthHead .kronolithFirstCol {
-    width: 20px;
+    width: 21px;
 }
 .kronolithFirstCol span {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
