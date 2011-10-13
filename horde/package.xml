@@ -38,7 +38,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 *
  </notes>
@@ -89,6 +89,7 @@
     <file name="datatree.php" role="horde" />
     <file name="groups.php" role="horde" />
     <file name="index.html" role="horde" />
+    <file name="locks.php" role="horde" />
     <file name="phpshell.php" role="horde" />
     <file name="sessions.php" role="horde" />
     <file name="signup_confirm.php" role="horde" />
@@ -214,6 +215,7 @@
       <file name="east-mini.png" role="horde" />
       <file name="layer-switcher-maximize.png" role="horde" />
       <file name="layer-switcher-minimize.png" role="horde" />
+      <file name="marker.png" role="horde" />
       <file name="measuring-stick-off.png" role="horde" />
       <file name="measuring-stick-on.png" role="horde" />
       <file name="north-mini.png" role="horde" />
@@ -228,33 +230,37 @@
       <file name="zoombar.png" role="horde" />
      </dir> <!-- /js/map/img -->
      <dir name="lang">
-      <file name="ar_SY.js" role="horde" />
-      <file name="bg_BG.js" role="horde" />
-      <file name="ca_ES.js" role="horde" />
-      <file name="cs_CZ.js" role="horde" />
-      <file name="da_DK.js" role="horde" />
-      <file name="de_DE.js" role="horde" />
-      <file name="el_GR.js" role="horde" />
-      <file name="en_CA.js" role="horde" />
-      <file name="es_ES.js" role="horde" />
-      <file name="fi_FI.js" role="horde" />
-      <file name="fr_FR.js" role="horde" />
-      <file name="gl_ES.js" role="horde" />
-      <file name="hu_HU.js" role="horde" />
-      <file name="id_ID.js" role="horde" />
-      <file name="is_IS.js" role="horde" />
-      <file name="it_IT.js" role="horde" />
-      <file name="ja_JP.js" role="horde" />
-      <file name="km_KH.js" role="horde" />
-      <file name="nl_NL.js" role="horde" />
-      <file name="nn_NO.js" role="horde" />
-      <file name="pt_BR.js" role="horde" />
-      <file name="pt_PT.js" role="horde" />
-      <file name="ru_RU.js" role="horde" />
-      <file name="sk_SK.js" role="horde" />
-      <file name="sv_SE.js" role="horde" />
-      <file name="zh_CN.js" role="horde" />
-      <file name="zh_TW.js" role="horde" />
+      <file name="ar-SY.js" role="horde" />
+      <file name="bg-BG.js" role="horde" />
+      <file name="ca-ES.js" role="horde" />
+      <file name="cs-CZ.js" role="horde" />
+      <file name="da-DK.js" role="horde" />
+      <file name="de-DE.js" role="horde" />
+      <file name="el-GR.js" role="horde" />
+      <file name="en-CA.js" role="horde" />
+      <file name="es-ES.js" role="horde" />
+      <file name="fi-FI.js" role="horde" />
+      <file name="fr-FR.js" role="horde" />
+      <file name="gl-ES.js" role="horde" />
+      <file name="hr-HR.js" role="horde" />
+      <file name="hu-HU.js" role="horde" />
+      <file name="id-ID.js" role="horde" />
+      <file name="is-IS.js" role="horde" />
+      <file name="it-IT.js" role="horde" />
+      <file name="ja-JP.js" role="horde" />
+      <file name="km-KH.js" role="horde" />
+      <file name="nl-NL.js" role="horde" />
+      <file name="nn-NO.js" role="horde" />
+      <file name="no-NO.js" role="horde" />
+      <file name="pt-BR.js" role="horde" />
+      <file name="pt-PT.js" role="horde" />
+      <file name="ru-RU.js" role="horde" />
+      <file name="sk-SK.js" role="horde" />
+      <file name="sv-SE.js" role="horde" />
+      <file name="te-TE.js" role="horde" />
+      <file name="vi-VI.js" role="horde" />
+      <file name="zh-CN.js" role="horde" />
+      <file name="zh-TW.js" role="horde" />
      </dir> <!-- /js/map/lang -->
      <dir name="theme">
       <dir name="default">
@@ -296,30 +302,50 @@
        </dir> <!-- /js/map/theme/default/img -->
        <file name="framedCloud.css" role="horde" />
        <file name="google.css" role="horde" />
+       <file name="google.tidy.css" role="horde" />
        <file name="ie6-style.css" role="horde" />
+       <file name="ie6-style.tidy.css" role="horde" />
        <file name="style.css" role="horde" />
+       <file name="style.tidy.css" role="horde" />
       </dir> <!-- /js/map/theme/default -->
      </dir> <!-- /js/map/theme -->
+     <file name="bing.js" role="horde" />
      <file name="cloudmade.js" role="horde" />
      <file name="google.js" role="horde" />
      <file name="horde.js" role="horde" />
      <file name="map.js" role="horde" />
+     <file name="mapquest.js" role="horde" />
+     <file name="mytopo.js" role="horde" />
      <file name="null.js" role="horde" />
+     <file name="ocm.js" role="horde" />
      <file name="OpenLayers-debug.js" role="horde" />
      <file name="OpenLayers.js" role="horde" />
+     <file name="osm.js" role="horde" />
      <file name="public.js" role="horde" />
+     <file name="tilesathome.js" role="horde" />
      <file name="ve.js" role="horde" />
      <file name="yahoo.js" role="horde" />
     </dir> <!-- /js/map -->
     <dir name="plupload">
      <dir name="i18n">
+      <file name="cs.js" role="horde" />
       <file name="da.js" role="horde" />
+      <file name="de.js" role="horde" />
+      <file name="es.js" role="horde" />
+      <file name="fi.js" role="horde" />
+      <file name="fr.js" role="horde" />
+      <file name="it.js" role="horde" />
+      <file name="ja.js" role="horde" />
+      <file name="lv.js" role="horde" />
+      <file name="nl.js" role="horde" />
+      <file name="pt-br.js" role="horde" />
+      <file name="ru.js" role="horde" />
       <file name="sv.js" role="horde" />
      </dir> <!-- /js/plupload/i18n -->
-     <file name="jquery.plupload.queue.js" role="horde" />
      <file name="plupload.browserplus.js" role="horde" />
      <file name="plupload.flash.js" role="horde" />
      <file name="plupload.flash.swf" role="horde" />
+     <file name="plupload.full.js" role="horde" />
      <file name="plupload.gears.js" role="horde" />
      <file name="plupload.html4.js" role="horde" />
      <file name="plupload.html5.js" role="horde" />
@@ -817,6 +843,9 @@
       <file name="delete.inc" role="horde" />
       <file name="edit.inc" role="horde" />
      </dir> <!-- /templates/admin/groups -->
+     <dir name="locks">
+      <file name="list.html.php" role="horde" />
+     </dir> <!-- /templates/admin/locks -->
      <dir name="user">
       <file name="add.inc" role="horde" />
       <file name="approve.inc" role="horde" />
@@ -911,6 +940,7 @@
      <file name="footer.inc" role="horde" />
      <file name="header.inc" role="horde" />
      <file name="php_version.inc" role="horde" />
+     <file name="test.css" role="horde" />
      <file name="version.inc" role="horde" />
     </dir> <!-- /templates/test -->
     <file name=".htaccess" role="horde" />
@@ -1598,6 +1628,7 @@
       </dir> <!-- /themes/default/graphics/tree -->
       <dir name="uploader">
        <file name="backgrounds.gif" role="horde" />
+       <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/uploader -->
       <file name="about.png" role="horde" />
       <file name="add_group.png" role="horde" />
@@ -1891,6 +1922,9 @@
        <file name="leaf.png" role="horde" />
        <file name="rev-leaf.png" role="horde" />
       </dir> <!-- /themes/silver/graphics/tree -->
+      <dir name="uploader">
+       <file name="up.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/uploader -->
       <file name="about.png" role="horde" />
       <file name="add_group.png" role="horde" />
       <file name="add_perm.png" role="horde" />
@@ -2419,6 +2453,7 @@
    <install as="admin/datatree.php" name="admin/datatree.php" />
    <install as="admin/groups.php" name="admin/groups.php" />
    <install as="admin/index.html" name="admin/index.html" />
+   <install as="admin/locks.php" name="admin/locks.php" />
    <install as="admin/phpshell.php" name="admin/phpshell.php" />
    <install as="admin/sessions.php" name="admin/sessions.php" />
    <install as="admin/signup_confirm.php" name="admin/signup_confirm.php" />
@@ -2581,14 +2616,20 @@
    <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
    <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
    <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
+   <install as="js/map/bing.js" name="js/map/bing.js" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
    <install as="js/map/google.js" name="js/map/google.js" />
    <install as="js/map/horde.js" name="js/map/horde.js" />
    <install as="js/map/map.js" name="js/map/map.js" />
+   <install as="js/map/mapquest.js" name="js/map/mapquest.js" />
+   <install as="js/map/mytopo.js" name="js/map/mytopo.js" />
    <install as="js/map/null.js" name="js/map/null.js" />
+   <install as="js/map/ocm.js" name="js/map/ocm.js" />
    <install as="js/map/OpenLayers-debug.js" name="js/map/OpenLayers-debug.js" />
    <install as="js/map/OpenLayers.js" name="js/map/OpenLayers.js" />
+   <install as="js/map/osm.js" name="js/map/osm.js" />
    <install as="js/map/public.js" name="js/map/public.js" />
+   <install as="js/map/tilesathome.js" name="js/map/tilesathome.js" />
    <install as="js/map/ve.js" name="js/map/ve.js" />
    <install as="js/map/yahoo.js" name="js/map/yahoo.js" />
    <install as="js/map/img/blank.gif" name="js/map/img/blank.gif" />
@@ -2598,6 +2639,7 @@
    <install as="js/map/img/east-mini.png" name="js/map/img/east-mini.png" />
    <install as="js/map/img/layer-switcher-maximize.png" name="js/map/img/layer-switcher-maximize.png" />
    <install as="js/map/img/layer-switcher-minimize.png" name="js/map/img/layer-switcher-minimize.png" />
+   <install as="js/map/img/marker.png" name="js/map/img/marker.png" />
    <install as="js/map/img/measuring-stick-off.png" name="js/map/img/measuring-stick-off.png" />
    <install as="js/map/img/measuring-stick-on.png" name="js/map/img/measuring-stick-on.png" />
    <install as="js/map/img/north-mini.png" name="js/map/img/north-mini.png" />
@@ -2610,37 +2652,44 @@
    <install as="js/map/img/zoom-plus-mini.png" name="js/map/img/zoom-plus-mini.png" />
    <install as="js/map/img/zoom-world-mini.png" name="js/map/img/zoom-world-mini.png" />
    <install as="js/map/img/zoombar.png" name="js/map/img/zoombar.png" />
-   <install as="js/map/lang/ar_SY.js" name="js/map/lang/ar_SY.js" />
-   <install as="js/map/lang/bg_BG.js" name="js/map/lang/bg_BG.js" />
-   <install as="js/map/lang/ca_ES.js" name="js/map/lang/ca_ES.js" />
-   <install as="js/map/lang/cs_CZ.js" name="js/map/lang/cs_CZ.js" />
-   <install as="js/map/lang/da_DK.js" name="js/map/lang/da_DK.js" />
-   <install as="js/map/lang/de_DE.js" name="js/map/lang/de_DE.js" />
-   <install as="js/map/lang/el_GR.js" name="js/map/lang/el_GR.js" />
-   <install as="js/map/lang/en_CA.js" name="js/map/lang/en_CA.js" />
-   <install as="js/map/lang/es_ES.js" name="js/map/lang/es_ES.js" />
-   <install as="js/map/lang/fi_FI.js" name="js/map/lang/fi_FI.js" />
-   <install as="js/map/lang/fr_FR.js" name="js/map/lang/fr_FR.js" />
-   <install as="js/map/lang/gl_ES.js" name="js/map/lang/gl_ES.js" />
-   <install as="js/map/lang/hu_HU.js" name="js/map/lang/hu_HU.js" />
-   <install as="js/map/lang/id_ID.js" name="js/map/lang/id_ID.js" />
-   <install as="js/map/lang/is_IS.js" name="js/map/lang/is_IS.js" />
-   <install as="js/map/lang/it_IT.js" name="js/map/lang/it_IT.js" />
-   <install as="js/map/lang/ja_JP.js" name="js/map/lang/ja_JP.js" />
-   <install as="js/map/lang/km_KH.js" name="js/map/lang/km_KH.js" />
-   <install as="js/map/lang/nl_NL.js" name="js/map/lang/nl_NL.js" />
-   <install as="js/map/lang/nn_NO.js" name="js/map/lang/nn_NO.js" />
-   <install as="js/map/lang/pt_BR.js" name="js/map/lang/pt_BR.js" />
-   <install as="js/map/lang/pt_PT.js" name="js/map/lang/pt_PT.js" />
-   <install as="js/map/lang/ru_RU.js" name="js/map/lang/ru_RU.js" />
-   <install as="js/map/lang/sk_SK.js" name="js/map/lang/sk_SK.js" />
-   <install as="js/map/lang/sv_SE.js" name="js/map/lang/sv_SE.js" />
-   <install as="js/map/lang/zh_CN.js" name="js/map/lang/zh_CN.js" />
-   <install as="js/map/lang/zh_TW.js" name="js/map/lang/zh_TW.js" />
+   <install as="js/map/lang/ar-SY.js" name="js/map/lang/ar-SY.js" />
+   <install as="js/map/lang/bg-BG.js" name="js/map/lang/bg-BG.js" />
+   <install as="js/map/lang/ca-ES.js" name="js/map/lang/ca-ES.js" />
+   <install as="js/map/lang/cs-CZ.js" name="js/map/lang/cs-CZ.js" />
+   <install as="js/map/lang/da-DK.js" name="js/map/lang/da-DK.js" />
+   <install as="js/map/lang/de-DE.js" name="js/map/lang/de-DE.js" />
+   <install as="js/map/lang/el-GR.js" name="js/map/lang/el-GR.js" />
+   <install as="js/map/lang/en-CA.js" name="js/map/lang/en-CA.js" />
+   <install as="js/map/lang/es-ES.js" name="js/map/lang/es-ES.js" />
+   <install as="js/map/lang/fi-FI.js" name="js/map/lang/fi-FI.js" />
+   <install as="js/map/lang/fr-FR.js" name="js/map/lang/fr-FR.js" />
+   <install as="js/map/lang/gl-ES.js" name="js/map/lang/gl-ES.js" />
+   <install as="js/map/lang/hr-HR.js" name="js/map/lang/hr-HR.js" />
+   <install as="js/map/lang/hu-HU.js" name="js/map/lang/hu-HU.js" />
+   <install as="js/map/lang/id-ID.js" name="js/map/lang/id-ID.js" />
+   <install as="js/map/lang/is-IS.js" name="js/map/lang/is-IS.js" />
+   <install as="js/map/lang/it-IT.js" name="js/map/lang/it-IT.js" />
+   <install as="js/map/lang/ja-JP.js" name="js/map/lang/ja-JP.js" />
+   <install as="js/map/lang/km-KH.js" name="js/map/lang/km-KH.js" />
+   <install as="js/map/lang/nl-NL.js" name="js/map/lang/nl-NL.js" />
+   <install as="js/map/lang/nn-NO.js" name="js/map/lang/nn-NO.js" />
+   <install as="js/map/lang/no-NO.js" name="js/map/lang/no-NO.js" />
+   <install as="js/map/lang/pt-BR.js" name="js/map/lang/pt-BR.js" />
+   <install as="js/map/lang/pt-PT.js" name="js/map/lang/pt-PT.js" />
+   <install as="js/map/lang/ru-RU.js" name="js/map/lang/ru-RU.js" />
+   <install as="js/map/lang/sk-SK.js" name="js/map/lang/sk-SK.js" />
+   <install as="js/map/lang/sv-SE.js" name="js/map/lang/sv-SE.js" />
+   <install as="js/map/lang/te-TE.js" name="js/map/lang/te-TE.js" />
+   <install as="js/map/lang/vi-VI.js" name="js/map/lang/vi-VI.js" />
+   <install as="js/map/lang/zh-CN.js" name="js/map/lang/zh-CN.js" />
+   <install as="js/map/lang/zh-TW.js" name="js/map/lang/zh-TW.js" />
    <install as="js/map/theme/default/framedCloud.css" name="js/map/theme/default/framedCloud.css" />
    <install as="js/map/theme/default/google.css" name="js/map/theme/default/google.css" />
+   <install as="js/map/theme/default/google.tidy.css" name="js/map/theme/default/google.tidy.css" />
    <install as="js/map/theme/default/ie6-style.css" name="js/map/theme/default/ie6-style.css" />
+   <install as="js/map/theme/default/ie6-style.tidy.css" name="js/map/theme/default/ie6-style.tidy.css" />
    <install as="js/map/theme/default/style.css" name="js/map/theme/default/style.css" />
+   <install as="js/map/theme/default/style.tidy.css" name="js/map/theme/default/style.tidy.css" />
    <install as="js/map/theme/default/img/add_point_off.png" name="js/map/theme/default/img/add_point_off.png" />
    <install as="js/map/theme/default/img/add_point_on.png" name="js/map/theme/default/img/add_point_on.png" />
    <install as="js/map/theme/default/img/blank.gif" name="js/map/theme/default/img/blank.gif" />
@@ -2675,10 +2724,10 @@
    <install as="js/map/theme/default/img/view_previous_on.png" name="js/map/theme/default/img/view_previous_on.png" />
    <install as="js/map/theme/default/img/zoom-panel-NOALPHA.png" name="js/map/theme/default/img/zoom-panel-NOALPHA.png" />
    <install as="js/map/theme/default/img/zoom-panel.png" name="js/map/theme/default/img/zoom-panel.png" />
-   <install as="js/plupload/jquery.plupload.queue.js" name="js/plupload/jquery.plupload.queue.js" />
    <install as="js/plupload/plupload.browserplus.js" name="js/plupload/plupload.browserplus.js" />
    <install as="js/plupload/plupload.flash.js" name="js/plupload/plupload.flash.js" />
    <install as="js/plupload/plupload.flash.swf" name="js/plupload/plupload.flash.swf" />
+   <install as="js/plupload/plupload.full.js" name="js/plupload/plupload.full.js" />
    <install as="js/plupload/plupload.gears.js" name="js/plupload/plupload.gears.js" />
    <install as="js/plupload/plupload.html4.js" name="js/plupload/plupload.html4.js" />
    <install as="js/plupload/plupload.html5.js" name="js/plupload/plupload.html5.js" />
@@ -2686,7 +2735,18 @@
    <install as="js/plupload/plupload.silverlight.js" name="js/plupload/plupload.silverlight.js" />
    <install as="js/plupload/plupload.silverlight.xap" name="js/plupload/plupload.silverlight.xap" />
    <install as="js/plupload/uploader.js" name="js/plupload/uploader.js" />
+   <install as="js/plupload/i18n/cs.js" name="js/plupload/i18n/cs.js" />
    <install as="js/plupload/i18n/da.js" name="js/plupload/i18n/da.js" />
+   <install as="js/plupload/i18n/de.js" name="js/plupload/i18n/de.js" />
+   <install as="js/plupload/i18n/es.js" name="js/plupload/i18n/es.js" />
+   <install as="js/plupload/i18n/fi.js" name="js/plupload/i18n/fi.js" />
+   <install as="js/plupload/i18n/fr.js" name="js/plupload/i18n/fr.js" />
+   <install as="js/plupload/i18n/it.js" name="js/plupload/i18n/it.js" />
+   <install as="js/plupload/i18n/ja.js" name="js/plupload/i18n/ja.js" />
+   <install as="js/plupload/i18n/lv.js" name="js/plupload/i18n/lv.js" />
+   <install as="js/plupload/i18n/nl.js" name="js/plupload/i18n/nl.js" />
+   <install as="js/plupload/i18n/pt-br.js" name="js/plupload/i18n/pt-br.js" />
+   <install as="js/plupload/i18n/ru.js" name="js/plupload/i18n/ru.js" />
    <install as="js/plupload/i18n/sv.js" name="js/plupload/i18n/sv.js" />
    <install as="lib/.htaccess" name="lib/.htaccess" />
    <install as="lib/Api.php" name="lib/Api.php" />
@@ -2908,6 +2968,7 @@
    <install as="templates/admin/groups/add.inc" name="templates/admin/groups/add.inc" />
    <install as="templates/admin/groups/delete.inc" name="templates/admin/groups/delete.inc" />
    <install as="templates/admin/groups/edit.inc" name="templates/admin/groups/edit.inc" />
+   <install as="templates/admin/locks/list.html.php" name="templates/admin/locks/list.html.php" />
    <install as="templates/admin/user/add.inc" name="templates/admin/user/add.inc" />
    <install as="templates/admin/user/approve.inc" name="templates/admin/user/approve.inc" />
    <install as="templates/admin/user/clear.inc" name="templates/admin/user/clear.inc" />
@@ -2975,6 +3036,7 @@
    <install as="templates/test/footer.inc" name="templates/test/footer.inc" />
    <install as="templates/test/header.inc" name="templates/test/header.inc" />
    <install as="templates/test/php_version.inc" name="templates/test/php_version.inc" />
+   <install as="templates/test/test.css" name="templates/test/test.css" />
    <install as="templates/test/version.inc" name="templates/test/version.inc" />
    <install as="themes/azur/info.php" name="themes/azur/info.php" />
    <install as="themes/azur/screen.css" name="themes/azur/screen.css" />
@@ -3682,6 +3744,7 @@
    <install as="themes/default/graphics/tree/rev-plusonly.png" name="themes/default/graphics/tree/rev-plusonly.png" />
    <install as="themes/default/graphics/tree/rev-plustop.png" name="themes/default/graphics/tree/rev-plustop.png" />
    <install as="themes/default/graphics/uploader/backgrounds.gif" name="themes/default/graphics/uploader/backgrounds.gif" />
+   <install as="themes/default/graphics/uploader/up.png" name="themes/default/graphics/uploader/up.png" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
    <install as="themes/default/sounds/gnid3.wav" name="themes/default/sounds/gnid3.wav" />
    <install as="themes/default/sounds/jetsndb.wav" name="themes/default/sounds/jetsndb.wav" />
@@ -3887,6 +3950,7 @@
    <install as="themes/silver/graphics/tree/folderopen.png" name="themes/silver/graphics/tree/folderopen.png" />
    <install as="themes/silver/graphics/tree/leaf.png" name="themes/silver/graphics/tree/leaf.png" />
    <install as="themes/silver/graphics/tree/rev-leaf.png" name="themes/silver/graphics/tree/rev-leaf.png" />
+   <install as="themes/silver/graphics/uploader/up.png" name="themes/silver/graphics/uploader/up.png" />
    <install as="themes/simplex/info.php" name="themes/simplex/info.php" />
    <install as="themes/simplex/screen.css" name="themes/simplex/screen.css" />
    <install as="themes/simplex/graphics/background.png" name="themes/simplex/graphics/background.png" />
@@ -4011,7 +4075,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -4026,7 +4090,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fix updating schema for individual libraries.
 * Improved control over which application view to load.
@@ -4043,7 +4107,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
 * [gwr] Allow disabling applications for administrators.
@@ -4059,7 +4123,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Rename all scripts in bin/ to be prefixed with horde- and installed in bin_dir (Request #9647).
 * [jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).
@@ -4077,7 +4141,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add pushapp_post hook.
 * [jan] Fix application-specific permission checks (Bug #9786).
@@ -4095,7 +4159,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix LDAP parameters of account portal block (Klaus Steinberger, Bug #9770).
 * [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
@@ -4114,7 +4178,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix authentication failure when TOS is not accepted.
 * [jan] Fix adding categories.
@@ -4129,7 +4193,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix return link after reporting problem (Bug #10069).
 * [jan] Add button to update all configurations with default values at once.
@@ -4146,7 +4210,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix colorpicker on categories preferences screen (Bug #10118).
 * [mjr] Fix Metar portal block.
@@ -4161,7 +4225,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Remove debug code.
    </notes>
@@ -4174,7 +4238,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix extracting of translation strings in a release.
 * [rla] Enable giving users specific admin permissions (Enhancement #9350)
@@ -4190,7 +4254,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t use CSS cache in mobile interfaces because it breaks jQuery Mobile CSS.
 * [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
@@ -4207,7 +4271,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [cjh] Add mobile maintenance screens.
 * [jan] Update Latvian translation.
@@ -4223,7 +4287,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add account locking similar to the former kolab-specific option.
 * [jan] Add missing configuration for LDAP groups write support.
@@ -4239,8 +4303,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-31</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Update javascript map library.
+* [mms] Allow in-page base64 image encoding to be disabled via configuration.
+* [jan] Add administration page to list and clear locks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.11</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 *
    </notes>

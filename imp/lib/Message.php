@@ -6,16 +6,16 @@
  * and other pages.
  *
  * Copyright 2000-2001 Chris Hyde <chris@jeks.net>
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chris Hyde <chris@jeks.net>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Message
@@ -30,16 +30,15 @@ class IMP_Message
      * @param string $action        Either 'copy' or 'move'.
      * @param IMP_Indices $indices  An indices object.
      * @param array $opts           Additional options:
-     * <pre>
-     * 'create' - (boolean) Should the target mailbox be created?
-     *            DEFAULT: false
-     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox object.
-     *               DEFAULT: No update.
-     * </pre>
+     *   - create: (boolean) Should the target mailbox be created?
+     *             DEFAULT: false
+     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox object.
+     *                DEFAULT: No update.
      *
      * @return boolean  True if successful, false if not.
      */
-    public function copy($targetMbox, $action, $indices, array $opts = array())
+    public function copy($targetMbox, $action, IMP_Indices $indices,
+                         array $opts = array())
     {
         global $conf, $notification;
 
@@ -126,20 +125,18 @@ class IMP_Message
      * Handles search and Trash mailboxes.
      *
      * @param IMP_Indices $indices  An indices object.
-     * @param array $options        Additional options:
-     * <pre>
-     * 'keeplog' - (boolean) Should any history information of the message be
-     *             kept?
-     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox object.
-     *               DEFAULT: No update.
-     * 'nuke' - (boolean) Override user preferences and nuke (i.e. permanently
-     *          delete) the messages instead?
-     * </pre>
+     * @param array $opts           Additional options:
+     *   - keeplog: (boolean) Should any history information of the message be
+     *              kept?
+     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox object.
+     *                DEFAULT: No update.
+     *   - nuke: (boolean) Override user preferences and nuke (i.e.
+     *           permanently delete) the messages instead?
      *
      * @return integer|boolean  The number of messages deleted if successful,
      *                          false if not.
      */
-    public function delete($indices, $options = array())
+    public function delete(IMP_Indices $indices, array $opts = array())
     {
         global $conf, $notification, $prefs;
 
@@ -154,7 +151,7 @@ class IMP_Message
             return false;
         }
 
-        $maillog_update = (empty($options['keeplog']) && !empty($conf['maillog']['use_maillog']));
+        $maillog_update = (empty($opts['keeplog']) && !empty($conf['maillog']['use_maillog']));
         $return_value = 0;
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
@@ -162,7 +159,7 @@ class IMP_Message
         /* Check for Trash folder. */
         $no_expunge = $use_trash_folder = $use_vtrash = false;
         if ($use_trash &&
-            empty($options['nuke']) &&
+            empty($opts['nuke']) &&
             $imp_imap->access(IMP_Imap::ACCESS_TRASH)) {
             $use_vtrash = $trash->vtrash;
             $use_trash_folder = !$use_vtrash;
@@ -202,9 +199,9 @@ class IMP_Message
                             'move' => true
                         ));
 
-                        if (!empty($options['mailboxob']) &&
-                            $options['mailboxob']->isBuilt()) {
-                            $options['mailboxob']->removeMsgs($imp_indices);
+                        if (!empty($opts['mailboxob']) &&
+                            $opts['mailboxob']->isBuilt()) {
+                            $opts['mailboxob']->removeMsgs($imp_indices);
                         }
                     } catch (IMP_Imap_Exception $e) {
                         // @todo Check for overquota error.
@@ -231,7 +228,7 @@ class IMP_Message
                 $del_flags = array(Horde_Imap_Client::FLAG_DELETED);
 
                 if (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
-                    !empty($options['nuke']) ||
+                    !empty($opts['nuke']) ||
                     ($use_trash && ($ob->mbox == $trash)) ||
                     $ob->mbox->vtrash) {
                     /* Purge messages immediately. */
@@ -286,7 +283,7 @@ class IMP_Message
      *
      * @return boolean  True if successful, false if not.
      */
-    public function undelete($indices)
+    public function undelete(IMP_Indices $indices)
     {
         return $this->flag(array(Horde_Imap_Client::FLAG_DELETED), $indices, false);
     }
@@ -302,7 +299,8 @@ class IMP_Message
      * @param string $type          The object type to create ('note' or
      *                              'task').
      */
-    protected function _createTasksOrNotes($list, $action, $indices, $type)
+    protected function _createTasksOrNotes($list, $action,
+                                           IMP_Indices $indices, $type)
     {
         global $registry, $notification, $prefs;
 
@@ -315,15 +313,10 @@ class IMP_Message
                 $imp_headers = $imp_contents->getHeaderOb();
                 $subject = $imp_headers->getValue('subject');
 
-                /* Extract the message body. */
-                $mime_message = $imp_contents->getMIMEMessage();
-                $body_id = $imp_contents->findBody();
-                $body_part = $mime_message->getPart($body_id);
-                $body = $body_part->getContents();
-
                 /* Re-flow the message for prettier formatting. */
-                $flowed = new Horde_Text_Flowed($mime_message->replaceEOL($body, "\n"));
-                if ($mime_message->getContentTypeParameter('delsp') == 'yes') {
+                $body_part = $imp_contents->getMIMEPart($imp_contents->findBody());
+                $flowed = new Horde_Text_Flowed($body_part->getContents());
+                if ($body_part->getContentTypeParameter('delsp') == 'yes') {
                     $flowed->setDelSp(true);
                 }
                 $body = $flowed->toFlowed(false);
@@ -445,15 +438,14 @@ class IMP_Message
      * @param string $partid        The MIME ID of the part to strip. All
      *                              parts are stripped if null.
      * @param array $opts           Additional options:
-     * <pre>
-     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox object.
-     *               DEFAULT: No update.
-     * </pre>
+     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox object.
+     *                DEFAULT: No update.
      *
      * @return IMP_Indices  Returns the new indices object.
      * @throws IMP_Exception
      */
-    public function stripPart($indices, $partid = null, array $opts = array())
+    public function stripPart(IMP_Indices $indices, $partid = null,
+                              array $opts = array())
     {
         list($mbox, $uid) = $indices->getSingle();
         if (!$uid) {
@@ -591,7 +583,7 @@ class IMP_Message
      *
      * @return boolean  True if successful, false if not.
      */
-    public function flag($flags, $indices, $action = true)
+    public function flag($flags, IMP_Indices $indices, $action = true)
     {
         if (!count($indices)) {
             return false;
@@ -675,20 +667,18 @@ class IMP_Message
      *                          If the value is not an array, all messages
      *                          flagged as deleted in the mailbox will be
      *                          deleted.
-     * @param array $options    Additional options:
-     * <pre>
-     * 'list' - (boolean) Return a list of messages expunged.
-     *          DEFAULT: false
-     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox object.
-     *               DEFAULT: No update.
-     * </pre>
+     * @param array $opts       Additional options:
+     *   - list: (boolean) Return a list of messages expunged.
+     *           DEFAULT: false
+     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox object.
+     *                DEFAULT: No update.
      *
      * @return IMP_Indices  If 'list' option is true, an indices object
      *                      containing the messages that have been expunged.
      */
-    public function expungeMailbox($mbox_list, array $options = array())
+    public function expungeMailbox($mbox_list, array $opts = array())
     {
-        $msg_list = !empty($options['list']);
+        $msg_list = !empty($opts['list']);
 
         if (empty($mbox_list)) {
             return $msg_list ? new IMP_Indices() : null;

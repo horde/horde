@@ -7,7 +7,7 @@
  * @category Kolab
  * @package  Kolab_Filter
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
@@ -18,12 +18,12 @@
  *
  * See the enclosed file COPYING for license information (LGPL>=2.1). If you
  * did not receive this file,
- * see http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Filter
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Resource_Freebusy_Mock extends Horde_Kolab_Resource_Freebusy

@@ -1,10 +1,9 @@
 <?php
 /**
- * Whups_Driver_sql class - implements a Whups backend for the
- * PEAR::DB abstraction layer.
+ * Whups backend driver for the Horde_Db abstraction layer.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -15,7 +14,6 @@
  */
 class Whups_Driver_Sql extends Whups_Driver
 {
-
     /**
      * The database connection object.
      *
@@ -49,28 +47,28 @@ class Whups_Driver_Sql extends Whups_Driver
      *
      * @var array
      */
-    private $_guestEmailCache = array();
+    protected $_guestEmailCache = array();
 
     /**
      * Local cache of internal queue hashes
      *
      * @var array
      */
-    private $_internalQueueCache = array();
+    protected $_internalQueueCache = array();
 
     /**
      * Local queues internal cache
      *
      * @var array
      */
-     private $_queues = null;
+    protected $_queues = null;
 
     /**
      * Local slug cache
      *
      * @var array
      */
-     private $_slugs = null;
+     protected $_slugs = null;
 
      public function setStorage($storage)
      {
@@ -362,10 +360,6 @@ class Whups_Driver_Sql extends Whups_Driver
     public function addComment($ticket_id, $comment, $creator,
                                $creator_email = null)
     {
-        if (empty($creator) || $creator < 0) {
-            $creator = '-' . $id . '_comment';
-        }
-
         // Add the row.
         try {
             $id = $this->_db->insert(
@@ -375,6 +369,14 @@ class Whups_Driver_Sql extends Whups_Driver
                       $creator,
                       $this->_toBackend($comment),
                       time()));
+
+            if (empty($creator) || $creator < 0) {
+                $creator = '-' . $id . '_comment';
+            }
+            $this->_db->update(
+                'UPDATE whups_comments SET user_id_creator = ?'
+                . ' WHERE comment_id = ?',
+                array($creator, $id));
         } catch (Horde_Db_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -667,6 +669,7 @@ class Whups_Driver_Sql extends Whups_Driver
     {
         $func    = '';
         $funcend = '';
+        $value = $this->_toBackend($value);
 
         switch ($operator) {
         case Whups_Query::OPERATOR_GREATER: $op = '>'; break;

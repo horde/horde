@@ -7,7 +7,7 @@
 * PHP's include path.
 *
 * See the enclosed file COPYING for license information (GPL). If you
-* did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+* did not receive this file, see http://www.horde.org/licenses/gpl.
 *
 * @author Michael J. Rubinsky <mrubinsk@horde.org>
 */
@@ -25,6 +25,7 @@ $parser = new Horde_Argv_Parser(
     array(
         'usage' => "%prog [--options] [command]\n
 Available commands are:\n
+(Note that some command may require sudo access.)\n
   import: Recursively import images from folder specified with -d
   list:   List all galleries or (if used with -g) all images in specified gallery
   create: Create a new gallery. Optionally used with -n to set name and --description
@@ -32,7 +33,9 @@ Available commands are:\n
   add:    Add a new image specified with the -f option to a gallery specified with
           either -g or -s
   reset [thumbs|stacks]:  Reset all generated images, optionally restricting to
-                          either thumbnails or gallery stacks.",
+                          either thumbnails or gallery stacks.
+  exif:   Extract exif data for all images in the specified gallery. This will
+          replace any existing exif data for all images the requested gallery.",
         'optionList' => array(
             new Horde_Argv_Option(
                 '-u',
@@ -161,6 +164,13 @@ case 'import':
         $runner->processDirectory($opts['directory'], null, $opt['gallery'], $opts['slug']);
     } else {
         $parser->parserError('Missing directory parameter');
+    }
+    break;
+case 'exif':
+    if (!empty($opts['gallery'])) {
+        $runner->exif($opts['gallery']);
+    } else {
+        $parser->parserError('Missing gallery parameter');
     }
     break;
 case 'list':
@@ -304,6 +314,7 @@ abstract class Ansel_Cli_Helper_Base
     abstract public function create($name, $desc, $parent_id = null);
     abstract public function reset($type = null);
     abstract public function add($gallery, $slug, $file, $caption);
+    abstract public function exif($gallery);
 
 }
 
@@ -518,6 +529,11 @@ class Ansel_Cli_Helper_Remote extends Ansel_Cli_Helper_Base
     public function reset($type = null)
     {
         $this->_cli->fatal('reset command unavailable for remote servers at this time.');
+    }
+
+    public function exif($gallery)
+    {
+        throw new Horde_Exception('Not supported for remote galleries');
     }
 
 }
@@ -743,6 +759,21 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
             } catch (Ansel_Exception $e) {
                 $this->_cli->message($e->getMessage(), 'cli.error');
             }
+        }
+
+        $this->_cli->message(_("Done."), 'cli.success');
+    }
+
+    public function exif($gallery)
+    {
+
+        $gallery = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getGallery($gallery);
+
+        foreach ($gallery->getImages() as $image) {
+            $this->_cli->message(sprintf(_("Extracting EXIF for image %d"), $image->id));
+            $image->getEXIF(true);
         }
 
         $this->_cli->message(_("Done."), 'cli.success');

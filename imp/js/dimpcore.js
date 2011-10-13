@@ -1,10 +1,10 @@
 /**
  * dimpcore.js - Dimp UI application logic.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 /* DimpCore object. */
@@ -36,22 +36,24 @@ var DimpCore = {
 
     // Convert object to an IMP UID Range string. See IMP::toRangeString()
     // ob = (object) mailbox name as keys, values are array of uids.
-    toRangeString: function(ob)
+    // force = (boolean) Force into parsing in string mode (e.g. POP3 mode)
+    toRangeString: function(ob, force)
     {
         var str = '';
+        force = force || DIMP.conf.pop3;
 
         $H(ob).each(function(o) {
             if (!o.value.size()) {
                 return;
             }
 
-            var u = (DIMP.conf.pop3 ? o.value.clone() : o.value.numericSort()),
+            var u = (force ? o.value.clone() : o.value.numericSort()),
                 first = u.shift(),
                 last = first,
                 out = [];
 
             u.each(function(k) {
-                if (!DIMP.conf.pop3 && (last + 1 == k)) {
+                if (!force && (last + 1 == k)) {
                     last = k;
                 } else {
                     out.push(first + (last == first ? '' : (':' + last)));
@@ -67,11 +69,13 @@ var DimpCore = {
 
     // Parses an IMP UID Range string. See IMP::parseRangeString()
     // str = (string) An IMP UID range string.
-    parseRangeString: function(str)
+    // force = (boolean) Force into parsing in string mode (e.g. POP3 mode)
+    parseRangeString: function(str, force)
     {
         var count, end, i, mbox, uidstr,
             mlist = {},
             uids = [];
+        force = force || DIMP.conf.pop3;
         str = str.strip();
 
         while (!str.blank()) {
@@ -94,7 +98,7 @@ var DimpCore = {
             uidstr.split(',').each(function(e) {
                 var r = e.split(':');
                 if (r.size() == 1) {
-                    uids.push(DIMP.conf.pop3 ? e : Number(e));
+                    uids.push(force ? e : Number(e));
                 } else {
                     // POP3 will never exist in range here.
                     uids = uids.concat($A($R(Number(r[0]), Number(r[1]))));
@@ -145,12 +149,11 @@ var DimpCore = {
             tmp = {};
 
         if (b.getMetaData('search')) {
-            s.get('uid').each(function(r) {
-                var parts = r.split(DIMP.conf.IDX_SEP);
-                if (tmp[parts[0]]) {
-                    tmp[parts[0]].push(parts[1]);
+            s.get('dataob').each(function(r) {
+                if (tmp[r.mbox]) {
+                    tmp[r.mbox].push(r.uid);
                 } else {
-                    tmp[parts[0]] = [ parts[1] ];
+                    tmp[r.mbox] = [ r.uid ];
                 }
             });
         } else {
@@ -345,8 +348,8 @@ var DimpCore = {
             this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
         } else {
             args.uids.get('dataob').each(function(d) {
-                params.mailbox = d.view.base64urlEncode();
-                params.uid = d.imapuid;
+                params.mailbox = d.mbox;
+                params.uid = d.uid;
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
             }, this);
         }
@@ -446,8 +449,12 @@ var DimpCore = {
             offset: elt.up(),
             type: t
         });
+    },
 
-        return elt;
+    addPopdownButton: function(p, t, trigger, d)
+    {
+        this.addPopdown(p, t, trigger, d);
+        $(p).next('SPAN.popdown').insert({ before: new Element('SPAN', { className: 'popdownSep' }) });
     },
 
     addContextMenu: function(p)

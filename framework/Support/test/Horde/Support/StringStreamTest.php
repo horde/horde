@@ -3,8 +3,8 @@
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2008-2009 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @copyright  2008-2009 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/bsd
  */
 
 /**
@@ -17,8 +17,8 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests
- * @copyright  2008-2009 The Horde Project (http://www.horde.org/)
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @copyright  2008-2009 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/bsd
  */
 class Horde_Support_StringStreamTest extends PHPUnit_Framework_TestCase
 {

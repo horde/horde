@@ -81,9 +81,8 @@ class Passwd_Hooks
     /**
      * TODO
      */
-//    function password_changed($user, $oldpassword, $newpassword)
+//    public function password_changed($user, $oldpassword, $newpassword)
 //    {
 //        Horde::logMessage(sprintf('User %s has changed his password.', $user), 'NOTICE');
 //    }
-
 }

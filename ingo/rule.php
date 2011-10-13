@@ -2,7 +2,7 @@
 /**
  * Rules script.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -108,7 +108,12 @@ case 'rule_delete':
     switch ($ingo_storage->getActionInfo($vars->action)->type) {
     case 'folder':
         if ($vars->actionID == 'rule_save') {
-            $rule['action-value'] = Ingo::validateFolder($vars, 'actionvalue');
+            try {
+                $rule['action-value'] = Ingo::validateFolder($vars, 'actionvalue');
+            } catch (Ingo_Exception $e) {
+                $notification->push($e, 'horde.error');
+                $valid = false;
+            }
         } else {
             $rule['action-value'] = $vars->actionvalue;
             if (!$vars->actionvalue && isset($vars->actionvalue_new)) {

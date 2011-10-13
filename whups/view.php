@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -49,21 +49,26 @@ try {
 /* Run through action handlers */
 switch ($actionID) {
 case 'download_file':
-     $browser->downloadHeaders($filename, null, false, strlen($data));
-     echo $data;
-     exit;
+    $browser->downloadHeaders($filename, null, false, strlen($data));
+    echo $data;
+    exit;
 
 case 'view_file':
     $mime_part = new Horde_Mime_Part();
     $mime_part->setType(Horde_Mime_Magic::extToMime($type));
     $mime_part->setContents($data);
     $mime_part->setName($filename);
+    // We don't know better.
+    $mime_part->setCharset('US-ASCII');
 
     $ret = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
     reset($ret);
     $key = key($ret);
 
-    if (strpos($ret[$key]['type'], 'text/html') !== false) {
+    if (empty($ret)) {
+        $browser->downloadHeaders($filename, null, false, strlen($data));
+        echo $data;
+    } elseif (strpos($ret[$key]['type'], 'text/html') !== false) {
         require $registry->get('templates', 'horde') . '/common-header.inc';
         echo $ret[$key]['data'];
         require $registry->get('templates', 'horde') . '/common-footer.inc';

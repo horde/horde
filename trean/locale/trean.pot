@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Accepted"
 msgstr ""
 
-#: lib/Application.php:110 templates/add.html.php:59
+#: lib/Application.php:107 templates/add.html.php:59
 msgid "Add"
 msgstr ""
 
@@ -173,7 +173,7 @@ msgstr ""
 msgid "Bookmarks Feed"
 msgstr ""
 
-#: browse.php:59
+#: browse.php:60
 msgid "Browse"
 msgstr ""
 
@@ -418,11 +418,11 @@ msgstr ""
 msgid "Match"
 msgstr ""
 
-#: lib/Application.php:76
+#: lib/Application.php:73
 msgid "Maximum Number of Bookmarks"
 msgstr ""
 
-#: lib/Application.php:80
+#: lib/Application.php:77
 msgid "Maximum Number of Folders"
 msgstr ""
 
@@ -623,7 +623,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: lib/Application.php:122 lib/Forms/Search.php:20 search.php:19
+#: lib/Application.php:119 lib/Forms/Search.php:20 search.php:19
 msgid "Search"
 msgstr ""
 
@@ -812,7 +812,7 @@ msgstr ""
 msgid "You are not allowed to create more than %d folders."
 msgstr ""
 
-#: browse.php:45
+#: browse.php:46
 msgid "You do not have permission to view this folder."
 msgstr ""
 
@@ -820,7 +820,7 @@ msgstr ""
 msgid "You must select a target folder first"
 msgstr ""
 
-#: lib/Application.php:90
+#: lib/Application.php:87
 msgid "_Browse"
 msgstr ""
 
@@ -832,7 +832,7 @@ msgstr ""
 msgid "_Edit Bookmarks"
 msgstr ""
 
-#: lib/Application.php:96
+#: lib/Application.php:93
 msgid "_Import/Export"
 msgstr ""
 
@@ -840,11 +840,11 @@ msgstr ""
 msgid "_New Bookmark"
 msgstr ""
 
-#: lib/Application.php:92
+#: lib/Application.php:89
 msgid "_Reports"
 msgstr ""
 
-#: lib/Application.php:91
+#: lib/Application.php:88
 msgid "_Search"
 msgstr ""
 

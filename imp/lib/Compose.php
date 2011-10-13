@@ -2,14 +2,14 @@
 /**
  * The IMP_Compose:: class represents an outgoing mail message.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Compose implements ArrayAccess, Countable, Iterator
@@ -36,6 +36,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     const FORWARD_BODY = 9;
     const FORWARD_BOTH = 10;
     const REDIRECT = 11;
+
+    /* The blockquote tag to use to indicate quoted text in HTML data. */
+    const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">';
 
     /**
      * Mark as changed for purposes of storing in the session.
@@ -603,6 +606,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
         $headers->addUserAgentHeader();
 
+        /* Add preferred reply language(s). */
+        if ($lang = @unserialize($prefs->getValue('reply_lang'))) {
+            $headers->addHeader('Accept-Language', implode(',', $lang));
+        }
+
         /* Send the messages out now. */
         $sentmail = $injector->getInstance('IMP_Sentmail');
 
@@ -728,7 +736,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             if ($prefs->getValue('request_mdn') != 'never') {
                 $mdn = new Horde_Mime_Mdn($headers);
                 if ($mdn->getMdnReturnAddr()) {
-                    $flags[] = array(Horde_Imap_Client::FLAG_MDNSENT);
+                    $flags[] = Horde_Imap_Client::FLAG_MDNSENT;
                 }
             }
 
@@ -1086,16 +1094,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Count recipients if necessary. We need to split email groups
          * because the group members count as separate recipients. */
-        if ($exceed) {
-            $recipients = 0;
-            foreach ($addrlist as $recipient) {
-                $recipients += count(explode(',', $recipient));
-            }
-
-            if (!$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_recipients', array('opts' => array('value' => $recipients)))) {
-                Horde::permissionDeniedError('imp', 'max_recipients');
-                throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
-            }
+        if ($exceed &&
+            !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('max_recipients', array('opts' => array('value' => count($addrlist))))) {
+            Horde::permissionDeniedError('imp', 'max_recipients');
+            throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:max_recipients', $GLOBALS['registry']->getAuth())));
         }
 
         return array('list' => $addrlist, 'header' => $header);
@@ -1385,15 +1387,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *                                the automatically determined value.
      *
      * @return array  An array with the following keys:
-     * <pre>
-     * body - The text of the body part
-     * format - The format of the body message
-     * headers - The headers of the message to use for the reply
-     * identity - The identity to use for the reply based on the original
+     *   - body: The text of the body part
+     *   - format: The format of the body message
+     *   - headers: The headers of the message to use for the reply
+     *   - identity: The identity to use for the reply based on the original
      *            message's addresses.
-     * type - The reply type used (either self::REPLY_ALL, self::REPLY_LIST,
-     *        or self::REPLY_SENDER).
-     * </pre>
+     *   - lang: An array of language code (keys)/language name (values) of
+     *           the original sender's preferred language(s).
+     *   - reply_list_id: List ID label.
+     *   - reply_recip: Number of recipients in reply list.
+     *   - type: The reply type used (either self::REPLY_ALL,
+     *           self::REPLY_LIST, or self::REPLY_SENDER).
      */
     public function replyMessage($type, $contents, $to = null)
     {
@@ -1555,6 +1559,37 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
         unset($ret['charset']);
 
+        if ($type == self::REPLY_AUTO) {
+            switch ($reply_type) {
+            case self::REPLY_ALL:
+                try {
+                    $recip_list = $this->recipientList($header);
+                    $ret['reply_recip'] = count($recip_list['list']);
+                } catch (IMP_Compose_Exception $e) {
+                    $ret['reply_recip'] = 0;
+                }
+                break;
+
+            case self::REPLY_LIST:
+                $addr_ob = Horde_Mime_Address::parseAddressList($h->getValue('list-id'));
+                if (isset($addr_ob[0]['personal'])) {
+                    $ret['reply_list_id'] = $addr_ob[0]['personal'];
+                }
+                break;
+            }
+        }
+
+        if (($lang = $h->getValue('accept-language')) ||
+            ($lang = $h->getValue('x-accept-language'))) {
+            $langs = array();
+            foreach (explode(',', $lang) as $val) {
+                if (($name = Horde_Nls::getLanguageISO($val)) !== null) {
+                    $langs[trim($val)] = $name;
+                }
+            }
+            $ret['lang'] = array_unique($langs);
+        }
+
         return array_merge(array(
             'headers' => $header,
             'identity' => $match_identity,
@@ -1621,8 +1656,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if (!empty($msg_text) &&
             (($msg_text['mode'] == 'html') || $force_html)) {
             $msg = '<p>' . $this->text2html(trim($msg_pre)) . '</p>' .
-                   '<blockquote type="cite" style="border-left:2px solid blue;margin-left:8px;padding-left:8px;">' .
-                   (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['text']) : $msg_text['text']) .
+                   self::HTML_BLOCKQUOTE .
+                   (($msg_text['mode'] == 'text') ? $this->text2html($msg_text['flowed'] ? $msg_text['flowed'] : $msg_text['text']) : $msg_text['text']) .
                    '</blockquote><br />' .
                    ($msg_post ? $this->text2html($msg_post) : '') . '<br />';
             $msg_text['mode'] = 'html';
@@ -1858,6 +1893,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         $contents = $this->getContentsOb();
         $headers = $contents->getHeaderOb();
+
+        /* We need to set the Return-Path header to the current user - see RFC
+         * 2821 [4.4]. */
+        $headers->removeHeader('return-path');
+        $headers->addHeader('Return-Path', $from_addr);
 
         /* Generate the 'Resent' headers (RFC 5322 [3.6.6]). These headers are
          * prepended to the message. */
@@ -2530,22 +2570,28 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param array $options          Additional options:
-     * <pre>
-     * html - (boolean) Return text/html part, if available.
-     * imp_msg - (integer) If non-empty, the message data was created by IMP.
-     *           Either self::COMPOSE, self::FORWARD, or self::REPLY.
-     * replylimit - (boolean) Enforce length limits?
-     * toflowed - (boolean) Do flowed conversion?
-     * </pre>
+     * <ul>
+     *  <li>html: (boolean) Return text/html part, if available.</li>
+     *  <li>imp_msg: (integer) If non-empty, the message data was created by
+     *               IMP. Either:
+     *   <ul>
+     *    <li>self::COMPOSE</li>
+     *    <li>self::FORWARD</li>
+     *    <li>self::REPLY</li>
+     *   </ul>
+     *  </li>
+     *  <li>replylimit: (boolean) Enforce length limits?</li>
+     *  <li>toflowed: (boolean) Do flowed conversion?</li>
+     * </ul>
      *
      * @return mixed  Null if bodypart not found, or array with the following
      *                keys:
-     * <pre>
-     * 'charset' - (string) The guessed charset to use.
-     * 'id' - (string) The MIME ID of the bodypart.
-     * 'mode' - (string) Either 'text' or 'html'.
-     * 'text' - (string) The body text.
-     * </pre>
+     *   - charset: (string) The guessed charset to use.
+     *   - flowed: (Horde_Text_Flowed) A flowed object, if the text is flowed.
+     *             Otherwise, null.
+     *   - id: (string) The MIME ID of the bodypart.
+     *   - mode: (string) Either 'text' or 'html'.
+     *   - text: (string) The body text.
      */
     protected function _getMessageText($contents, array $options = array())
     {
@@ -2642,6 +2688,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         return array(
             'charset' => $part_charset,
+            'flowed' => isset($flowed) ? $flowed : null,
             'id' => $body_id,
             'mode' => $mode,
             'text' => $msg
@@ -2763,6 +2810,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     {
         return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
             'always_mailto' => true,
+            'flowed' => self::HTML_BLOCKQUOTE,
             'parselevel' => Horde_Text_Filter_Text2html::MICRO
         ));
     }

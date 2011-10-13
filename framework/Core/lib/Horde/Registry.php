@@ -4,17 +4,17 @@
  * between Horde applications and keeping track of application
  * configuration information.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @author   Anil Madhavapeddy <anil@recoil.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Registry
@@ -335,6 +335,7 @@ class Horde_Registry
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
             'Horde_Template' => 'Horde_Core_Factory_Template',
             'Horde_Token' => 'Horde_Core_Factory_Token',
+            'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_View' => 'Horde_Core_Factory_View',
             'Horde_View_Base' => 'Horde_Core_Factory_View',
             'Net_DNS2_Resolver' => 'Horde_Core_Factory_Dns',
@@ -769,8 +770,8 @@ class Horde_Registry
      *
      * @param array $filter   An array of the statuses that should be
      *                        returned. Defaults to non-hidden.
-     * @param boolean $assoc  Associative array with app names as keys and
-     *                        config parameters as values.
+     * @param boolean $assoc  Return hash with app names as keys and config
+     *                        parameters as values?
      * @param integer $perms  The permission level to check for in the list.
      *                        If null, skips permission check.
      *

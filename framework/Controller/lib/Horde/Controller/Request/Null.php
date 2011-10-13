@@ -7,7 +7,7 @@
  * @category Horde
  * @package  Controller
  * @author   Bob McKee <bob@bluestatedigital.com>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  */
 class Horde_Controller_Request_Null implements Horde_Controller_Request
 {

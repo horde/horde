@@ -37,7 +37,7 @@ class Text_Wiki_Render_Xhtml_Image2 extends Text_Wiki_Render
                         $page = Horde_Util::getFormData('referrer');
                     }
                     if (empty($page)) {
-                        $page = 'WikiHome';
+                        $page = 'Wiki/Home';
                     }
                 }
                 $params = array('page' => $page,

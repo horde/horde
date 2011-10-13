@@ -1,0 +1,30 @@
+----------
+v1.0.3-git
+----------
+
+
+
+------
+v1.0.2
+------
+
+[mjr] Fix broken tag cloud queries due to missing GROUP BY fields (Bug #10419)
+[mjr] Prevent tagging with empty strings.
+
+
+------
+v1.0.1
+------
+
+[mjr] Enforce that object and type names are always taken as a string (Bug
+      #10171).
+[mjr] Updated unit tests to new test structure.
+[mjr] Prevent tagging with empty tags.
+
+
+------
+v1.0.0
+------
+
+[jan] Fix case-insensitive filtering of duplicate tags (Bug #9617).
+[jan] Rename all scripts to be prefixed with content- (Request #9647).

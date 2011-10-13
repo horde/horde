@@ -2,10 +2,10 @@
 /**
  * Wicked SearchAll class.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Ben Chavet <ben@horde.org>
  * @package Wicked
@@ -140,9 +140,9 @@ class Wicked_Page_Search extends Wicked_Page {
         $template->set('hits', false, true);
 
         $template->set('th_page', _("Page"), true);
-        $template->set('th_version', _("Version"), true);
-        $template->set('th_author', _("Author"), true);
-        $template->set('th_created', _("Creation Date"), true);
+        $template->set('th_version', _("Current Version"), true);
+        $template->set('th_author', _("Last Author"), true);
+        $template->set('th_updated', _("Last Update"), true);
 
         // Show search form and page header.
         require WICKED_TEMPLATES . '/pagelist/search.inc';
@@ -174,7 +174,12 @@ class Wicked_Page_Search extends Wicked_Page {
 
     public function getContext($page, $searchtext)
     {
-        if (preg_match('/.{0,100}' . preg_quote($searchtext, '/') . '.{0,100}/i', $page->getText(), $context)) {
+        try {
+            $text = strip_tags($page->displayContents(false));
+        } catch (Wicked_Exception $e) {
+            $text = $page->getText();
+        }
+        if (preg_match('/.{0,100}' . preg_quote($searchtext, '/') . '.{0,100}/i', $text, $context)) {
             return preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">' . htmlspecialchars($searchtext) . '</span>', htmlspecialchars($context[0]));
         }
         return '';

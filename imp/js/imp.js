@@ -2,7 +2,7 @@
  * Provides basic IMP javascript functions.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var IMP_JS = {
@@ -50,14 +50,17 @@ var IMP_JS = {
                 ++this.imgs[iframeid];
                 img.setAttribute('src', src);
                 imgload = true;
-            } else if (img.getAttribute('background')) {
-                img.setAttribute('background', src);
-            } else if (img.style.backgroundImage) {
-                if (img.style.setProperty) {
-                    img.style.setProperty('background-image', 'url(' + src + ')', '');
-                } else {
-                    // IE workaround
-                    img.style.backgroundImage = 'url(' + src + ')';
+            } else {
+                if (img.getAttribute('background')) {
+                    img.setAttribute('background', src);
+                }
+                if (img.style.backgroundImage) {
+                    if (img.style.setProperty) {
+                        img.style.setProperty('background-image', 'url(' + src + ')', '');
+                    } else {
+                        // IE workaround
+                        img.style.backgroundImage = 'url(' + src + ')';
+                    }
                 }
             }
         }, this);

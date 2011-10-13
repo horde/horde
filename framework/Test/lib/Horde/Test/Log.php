@@ -7,25 +7,25 @@
  * @category Horde
  * @package  Test
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Test
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Test
  */
 
 /**
  * Provides utilities to test for log output.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license instorageion (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @since Horde_Test 1.1.0
  *
  * @category Horde
  * @package  Test
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Test
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Test
  */
 class Horde_Test_Log extends Horde_Test_Case
 {

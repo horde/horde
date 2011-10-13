@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @category   Horde
  * @package    Xml_Wbxml
  * @subpackage UnitTests
@@ -22,7 +22,7 @@ class Horde_Xml_Wbxml_DecodeTest extends PHPUnit_Framework_TestCase
 
         $decoder = new Horde_Xml_Wbxml_Decoder();
 
-        foreach (glob(dirname(__FILE__) . '/../../../../doc/examples/*.wbxml') as $file) {
+        foreach (glob(dirname(__FILE__) . '/../../../../doc/Horde/Xml/Wbxml/examples/*.wbxml') as $file) {
             $xml_ref = shell_exec('/usr/bin/wbxml2xml' . ' -m 0 -o - "' . $file . '" 2>/dev/null');
             $xml_ref = preg_replace(
                 array(
@@ -45,7 +45,7 @@ class Horde_Xml_Wbxml_DecodeTest extends PHPUnit_Framework_TestCase
                                    $xml);
             }
 
-            $this->assertEquals(strtolower($xml_ref), strtolower($xml));
+            $this->assertEquals(Horde_String::lower($xml_ref), Horde_String::lower($xml));
         }
     }
 }

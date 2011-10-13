@@ -7,10 +7,10 @@
  * SyncHdr is not really a sync command, but this class takes advantage of the
  * XML parser in Horde_SyncMl_Command.
  *
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @author  Jan Schneider <jan@horde.org>

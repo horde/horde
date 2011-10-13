@@ -2,18 +2,21 @@
 /**
  * Dynamic (dimp) message list logic.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Views_ListMessages
 {
+    /* String used to separate mailboxes/indexes in search mailboxes. */
+    const IDX_SEP = "\0";
+
     /**
      * Does the flags hook exist?
      *
@@ -29,7 +32,8 @@ class IMP_Views_ListMessages
      *   - change: (boolean)
      *   - initial: (boolean)
      *   - mbox: (string) The mailbox of the view.
-     *   - qsearchmbox: (string) The mailbox to do the quicksearch in.
+     *   - qsearchmbox: (string) The mailbox to do the quicksearch in
+     *                  (base64url encoded).
      *   - qsearchfilter
      *
      * @return array  TODO
@@ -44,9 +48,11 @@ class IMP_Views_ListMessages
 
         /* Check for quicksearch request. */
         if (strlen($args['qsearchmbox'])) {
+            $qsearch_mbox = IMP_Mailbox::formFrom($args['qsearchmbox']);
+
             if (strlen($args['qsearchfilter'])) {
                 $imp_search = $injector->getInstance('IMP_Search');
-                $imp_search->applyFilter($args['qsearchfilter'], array($args['qsearchmbox']), $mbox);
+                $imp_search->applyFilter($args['qsearchfilter'], array($qsearch_mbox), $mbox);
                 $is_search = true;
             } else {
                 /* Create the search query. */
@@ -96,7 +102,7 @@ class IMP_Views_ListMessages
                 if ($is_search) {
                     $injector->getInstance('IMP_Search')->createQuery($c_list, array(
                         'id' => $mbox,
-                        'mboxes' => array($args['qsearchmbox']),
+                        'mboxes' => array($qsearch_mbox),
                         'type' => IMP_Search::CREATE_QUERY
                     ));
                 }
@@ -133,8 +139,11 @@ class IMP_Views_ListMessages
 
         /* Mail-specific viewport information. */
         $md = &$result->metadata;
-        if (!$mbox->access_sortthread) {
-            $md->nothread = 1;
+        if (($args['initial'] ||
+             !is_null($args['sortby']) ||
+             !is_null($args['sortdir'])) &&
+            $mbox->hideDeletedMsgs(true)) {
+            $md->delhide = 1;
         }
         if ($args['initial'] || !is_null($args['sortby'])) {
             $md->sortby = intval($sortpref['by']);
@@ -145,6 +154,9 @@ class IMP_Views_ListMessages
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
+            if (!$mbox->access_sortthread) {
+                $md->nothread = 1;
+            }
             if ($mbox->special_outgoing) {
                 $md->special = 1;
                 if ($mbox == IMP_Mailbox::getPref('drafts_folder')) {
@@ -206,6 +218,11 @@ class IMP_Views_ListMessages
                 $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $mbox->label), 'horde.error');
             }
 
+            if (!empty($args['change'])) {
+                unset($result->data, $result->rowlist, $result->totalrows);
+                $result->data_reset = $result->rowlist_reset = 1;
+            }
+
             return $result;
         }
 
@@ -213,8 +230,7 @@ class IMP_Views_ListMessages
 
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
-         * purge the cached items on the browser (send 'reset' param to
-         * ViewPort). */
+         * purge the cached items on the browser. */
         if (!$is_search &&
             !empty($args['cacheid']) &&
             !empty($args['cache'])) {
@@ -229,15 +245,15 @@ class IMP_Views_ListMessages
 
             if ($uid_expire) {
                 $args['cache'] = array();
-                $result->reset = $result->resetmd = 1;
+                $result->data_reset = $result->metadata_reset = 1;
             }
         }
 
         /* TODO: This can potentially be optimized for arrival time sort - if
          * the cache ID changes, we know the changes must occur at end of
          * mailbox. */
-        if (!isset($result->reset) && !empty($args['change'])) {
-            $result->update = 1;
+        if (!isset($result->data_reset) && !empty($args['change'])) {
+            $result->rowlist_reset = 1;
         }
 
         /* Get the cached list. */
@@ -299,7 +315,7 @@ class IMP_Views_ListMessages
         for ($i = 1, $end = count($sorted_list['s']); $i <= $end; ++$i) {
             $uid = $sorted_list['s'][$i];
             if (isset($sorted_list['m'][$i])) {
-                $uid = $sorted_list['m'][$i] . IMP_Dimp::IDX_SEP . $uid;
+                $uid = $this->searchUid($sorted_list['m'][$i], $uid);
             }
             $uidlist[] = $uid;
         }
@@ -307,7 +323,7 @@ class IMP_Views_ListMessages
         /* If we are updating the rowlist on the browser, and we have cached
          * browser data information, we need to send a list of messages that
          * have 'disappeared'. */
-        if (isset($result->update)) {
+        if (isset($result->rowlist_reset)) {
             $disappear = array();
             foreach (array_diff(array_keys($cached), $uidlist) as $uid) {
                 $disappear[] = $uid;
@@ -362,7 +378,7 @@ class IMP_Views_ListMessages
         if ($args['rangeslice']) {
             $slice = new stdClass;
             $slice->rangelist = array_keys($rowlist);
-            $slice->view = strval($mbox);
+            $slice->view = $mbox->form_to;
 
             return $slice;
         }
@@ -417,8 +433,8 @@ class IMP_Views_ListMessages
             /* Initialize the header fields. */
             $msg = array(
                 'flag' => array(),
-                'imapuid' => ($pop3 ? $ob['uid'] : intval($ob['uid'])),
-                'view' => $ob['mailbox']
+                'mbox' => IMP_Mailbox::formTo($ob['mailbox']),
+                'uid' => ($pop3 ? $ob['uid'] : intval($ob['uid']))
             );
 
             /* Get all the flag information. */
@@ -466,7 +482,7 @@ class IMP_Views_ListMessages
             /* Need both mailbox and UID to create a unique ID string if
              * using a search mailbox.  Otherwise, use only the UID. */
             if ($search) {
-                $msgs[$ob['mailbox'] . IMP_Dimp::IDX_SEP . $ob['uid']] = $msg;
+                $msgs[$this->searchUid($ob['mailbox'], $ob['uid'])] = $msg;
             } else {
                 $msgs[$ob['uid']] = $msg;
             }
@@ -496,9 +512,22 @@ class IMP_Views_ListMessages
         $ob->metadata = new stdClass;
         $ob->rowlist = array();
         $ob->totalrows = 0;
-        $ob->view = strval($mbox);
+        $ob->view = $mbox->form_to;
 
         return $ob;
+    }
+
+    /**
+     * Generate the ViewPort UID to use for search mailboxes.
+     *
+     * @param string $mbox  Message mailbox.
+     * @param string $uid   Message UID.
+     *
+     * @return string  ViewPort UID.
+     */
+    static public function searchUid($mbox, $uid)
+    {
+        return IMP::base64urlEncode(strval($mbox) . self::IDX_SEP . $uid);
     }
 
 }

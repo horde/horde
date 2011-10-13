@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
@@ -11,24 +11,31 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ansel');
 
-/* Script includes */
-Horde::addScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel', array('external' => true));
-Horde::addScriptFile('googlemap.js', 'ansel');
-Horde::addScriptFile('googlemap_edit.js', 'ansel');
+// Init the map
+Ansel::initJSVariables();
+Ansel::initHordeMap();
+Horde::addScriptFile('map_edit.js');
 
+// Get the image id to (re)locate.
 $image_id = Horde_Util::getFormData('image');
 
-/* Sanity checks, perms etc... */
+// Sanity checks, perms etc...
 if (empty($image_id)) {
-    throw new Ansel_Exception(_("An error has occured retrieving the image. Details have been logged."));
+    throw new Ansel_Exception(
+        _("An error has occured retrieving the image. Details have been logged."));
 }
-$image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
-$gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($image->gallery);
+$image = $injector
+    ->getInstance('Ansel_Storage')
+    ->getImage($image_id);
+$gallery = $injector->
+    getInstance('Ansel_Storage')
+    ->getGallery($image->gallery);
 if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-    throw new Horde_Exception_PermissionDenied(_("Not Authorized. Details have been logged for the server administrator."));
+    throw new Horde_Exception_PermissionDenied(
+        _("Not Authorized. Details have been logged for the server administrator."));
 }
 
-/* Determine if we already have a geotag or are we tagging it for the 1st time */
+// Determine if we already have a geotag or are we tagging it for the 1st time
 if (empty($image->lat)) {
     $geodata = array('image_id' => $image->id,
                      'image_latitude' => "20",
@@ -49,7 +56,7 @@ if (empty($image->lat)) {
     $isNew = 0;
 }
 
-/* JSON representation of the image's geotag */
+// JSON representation of the image's geotag
 $json = Horde_Serialize::serialize(array($geodata), Horde_Serialize::JSON);
 
 /* Gettext strings */
@@ -60,27 +67,34 @@ $fetchingText = _("Fetching location");
 $locateText = _("Locate image at:");
 $errorText = _("Unable to find location. Error code:");
 
-/* Links, img src etc...  */
-$returnLink = Ansel::getUrlFor('view', array('view' => 'Image',
-                                             'image' => $image_id,
-                                             'gallery' => $gallery->id));
+// Links, img src
+$returnLink = Ansel::getUrlFor(
+    'view', array(
+        'view' => 'Image',
+        'image' => $image_id,
+        'gallery' => $gallery->id));
 $image_tag = '<img src="' . Ansel::getImageUrl($image_id, 'thumb', true) . '" alt="[thumbnail]" />';
-/* Url for geotag ajax helper */
-$gt = $injector->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'ImageSaveGeotag'));
+
+// Url for geotag ajax helper
+$gt = $injector->getInstance('Horde_Core_Factory_Imple')
+    ->create(array('ansel', 'ImageSaveGeotag'));
 $gtUrl = $gt->getUrl();
 
 $loadingImg = Horde::img('loading.gif', _("Loading..."));
 
-/* Obtain other geotagged images to possibly locate this image at */
-$imgs = $GLOBALS['injector']->getInstance('Ansel_Storage')->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
+// Obtain other geotagged images to possibly locate this image at
+$imgs = $injector->getInstance('Ansel_Storage')
+    ->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
 if (count($imgs) > 0) {
-    $other_images = '<div class="ansel_location_sameas">' . _("Click on a thumbnail to locate at the same point.") . '<br />';
+    $other_images = '<div class="ansel_location_sameas">'
+        . _("Click on a thumbnail to locate at the same point.") . '<br />';
     foreach ($imgs as $id => $data) {
         if ($id != $image_id) {
             if (!empty($data['image_location'])) {
                 $title = $data['image_location'];
             } else {
-                $title = _point2Deg($data['image_latitude'], true) . ' ' . _point2Deg($data['image_longitude']);
+                $title = _point2Deg($data['image_latitude'], true)
+                    . ' ' . _point2Deg($data['image_longitude']);
             }
             $tempurl = new Horde_Url('#');
             $other_images .= $tempurl->link(array('title' => $title, 'onclick' => "mapEdit.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "', '" . $data['image_location'] . "');return false")) . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[thumbnail]" /></a>';
@@ -121,32 +135,24 @@ $html = <<<EOT
  <input class="button" id="saveButton" type="submit" value="{$save}" /><input class="button" type="submit" onclick="window.close();" value="{$returnText}" />
 </div>
 <script type="text/javascript">
-    var mapEdit;
-    Event.observe(document, "dom:loaded", function() {
-        var options = {
-            mainMap:  'ansel_map',
-            xurl: '{$gtUrl}',
-            image_id: {$image_id},
-            gettext: {fetching: '{$fetchingText}', errortext: '{$errorText}'},
-            points:  {$json},
-            isNew: {$isNew},
-            saveId: 'saveButton'
-        };
-
-        mapEdit = new Ansel_MapEdit(options);
-        $('locationInput').focus();
-    });
+    var mapEdit = new AnselMapEdit({$json}, {
+        'geocoder': Ansel.conf.maps.geocoder,
+        'image_id': {$image_id},
+        'ajaxuri': '{$gtUrl}' });
+    $('saveButton').observe('click', mapEdit.save.bind(mapEdit));
+    $('locationAction').observe('click', function(e) { mapEdit.geocode($('locationInput').value); e.stop(); });
 </script>
 EOT;
-/* Autocompleter for locations we already have in our DB */
-$injector->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'LocationAutoCompleter'), array(
-    'map' => 'mapEdit',
-    'resultsId' => 'locationInput_results',
-    'triggerId' => 'locationInput'
-));
+
+// Autocompleter for locations we already have in our DB
+// $injector->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'LocationAutoCompleter'), array(
+//     'map' => 'mapEdit',
+//     'resultsId' => 'locationInput_results',
+//     'triggerId' => 'locationInput'
+//));
 //$html .= Horde_Util::bufferOutput(array($ac, 'attach'));
 
-/* Start the output */
+// Start the output
 include $registry->get('templates', 'horde') . '/common-header.inc';
 echo '<div class="header">' . sprintf(_("Update position of %s"), $image->filename) . '</div>';
 echo $html;

@@ -19,17 +19,29 @@ HordeMap.Google = Class.create(
 
             'sat':     new OpenLayers.Layer.Google(
                 'Google Satellite',
-                { 'type': google.maps.MapTypeId.SATELLITE }
+                {
+                    'type': google.maps.MapTypeId.SATELLITE,
+                    'minZoomLevel': 0
+                }
             ),
 
             'hybrid':  new OpenLayers.Layer.Google(
                 'Google Hybrid',
-                { 'type': google.maps.MapTypeId.HYBRID }
+                {
+                    'type': google.maps.MapTypeId.HYBRID,
+                    'minZoomLevel': 0
+                }
             ),
 
             'terrain': new OpenLayers.Layer.Google(
                 'Google Physical',
-                { 'type': google.maps.MapTypeId.TERRAIN})}
+                {
+                    'type': google.maps.MapTypeId.TERRAIN,
+                    'numZoomLevels': 16,
+                    'minZoomLevel': 0
+                }
+            )
+        }
     }
 });
 
@@ -75,6 +87,12 @@ HordeMap.Geocoder.Google = Class.create(
         this._userCallback(results);
     },
 
+    /**
+     * precision:
+     *  0 - none
+     *  1 - location
+     *  2 - street address
+     */
     _reverseCallback: function(r, s)
     {
         if (s != google.maps.GeocoderStatus.OK) {
@@ -87,7 +105,8 @@ HordeMap.Geocoder.Google = Class.create(
             var ll = {
                 lon: entry.geometry.location.lng(),
                 lat: entry.geometry.location.lat(),
-                address: entry.formatted_address
+                address: entry.formatted_address,
+                precision: (entry.types[0] == 'street_address') ? 2 : 1
             };
             results.push(ll);
         });
@@ -110,7 +129,6 @@ HordeMap.Geocoder.Google = Class.create(
         );
     }
 });
-
 /* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
@@ -907,7 +925,6 @@ OpenLayers.Layer.Google.v2 = {
     }
 
 };
-
 /* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for
  * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
@@ -1113,7 +1130,7 @@ OpenLayers.Layer.Google.v3 = {
      */
     setGMapVisibility: function(visible) {
         var cache = OpenLayers.Layer.Google.cache[this.map.id];
-        if (cache && !cache.resized) {
+        if (cache) {
             var type = this.type;
             var layers = this.map.layers;
             var layer;
@@ -1358,3 +1375,5 @@ OpenLayers.Layer.Google.v3 = {
     }
 
 };
+
+

@@ -4,10 +4,10 @@
  * configuration of Horde applications, writing conf.php files from
  * conf.xml source files, generating user interfaces, etc.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
@@ -1492,7 +1492,8 @@ class Horde_Config
                     if ($value->nodeType == XML_ELEMENT_NODE) {
                         if ($value->tagName == 'configspecial') {
                             return $this->_handleSpecials($value);
-                        } elseif ($value->tagName == 'value') {
+                        }
+                        if ($value->tagName == 'value') {
                             $text = $value->textContent;
                             $desc = $value->getAttribute('desc');
                             $values[$text] = empty($desc) ? $text : $desc;
@@ -1549,7 +1550,10 @@ class Horde_Config
      */
     protected function _handleSpecials($node)
     {
-        $app = $GLOBALS['registry']->hasInterface($node->getAttribute('application'));
+        $app = $node->getAttribute('application');
+        if (!in_array($app, $GLOBALS['registry']->listApps())) {
+            $app = $GLOBALS['registry']->hasInterface($app);
+        }
         if (!$app) {
             return array();
         }

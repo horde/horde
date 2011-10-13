@@ -6,14 +6,14 @@
  * 'preauthenticate' hook should return LDAP connection information in the
  * 'ldap' credentials key.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ * not receive this file, http://www.horde.org/licenses/lgpl21
  *
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
- * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Ldap extends Horde_Auth_Base
@@ -65,7 +65,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             }
         }
 
-        if ($this->_params['ad']) {
+        if (!empty($this->_params['ad'])) {
             $this->_capabilities['resetpassword'] = false;
         }
 
@@ -126,7 +126,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         $info = reset($result);
 
         // TODO: 'ad'?
-        if ($this->_params['ad']) {
+        if (!empty($this->_params['ad'])) {
             if (isset($info['pwdlastset'][0])) {
                 /* Active Directory handles timestamps a bit differently.
                  * Convert the timestamp to a UNIX timestamp. */
@@ -240,7 +240,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
-        if ($this->_params['ad']) {
+        if (!empty($this->_params['ad'])) {
             throw new Horde_Auth_Exception(__CLASS__ . ': Adding users is not supported for Active Directory.');
         }
 
@@ -290,7 +290,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     public function removeUser($userId, $dn = null)
     {
-        if ($this->_params['ad']) {
+        if (!empty($this->_params['ad'])) {
             throw new Horde_Auth_Exception(__CLASS__ . ': Removing users is not supported for Active Directory');
         }
 
@@ -326,7 +326,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     public function updateUser($oldID, $newID, $credentials, $olddn = null,
                                $newdn = null)
     {
-        if ($this->_params['ad']) {
+        if (!empty($this->_params['ad'])) {
             throw new Horde_Auth_Exception(__CLASS__ . ': Updating users is not supported for Active Directory.');
         }
 
@@ -388,7 +388,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     public function resetPassword($userId)
     {
-        if ($this->_params['ad']) {
+        if (!empty($this->_params['ad'])) {
             throw new Horde_Auth_Exception(__CLASS__ . ': Updating users is not supported for Active Directory.');
         }
 

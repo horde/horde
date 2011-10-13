@@ -2,32 +2,27 @@
 /**
  * DIMP Base Class - provides dynamic view functions.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Dimp
 {
-    /* String used to separate indexes. */
-    const IDX_SEP = "\0";
-
     /**
      * Output a dimp-style action (menubar) link.
      *
-     * @param array $params  A list of parameters.
-     * <pre>
-     * 'app' - The application to load the icon from.
-     * 'class' - The CSS classname to use for the link.
-     * 'icon' - The icon CSS classname.
-     * 'id' - The DOM ID of the link.
-     * 'title' - The title string.
-     * </pre>
+     * @param array $params  A list of parameters:
+     *   - app: (string) The application to load the icon from.
+     *   - class: (string) The CSS classname to use for the link.
+     *   - icon: (string) The icon CSS classname.
+     *   - id: (string) The DOM ID of the link.
+     *   - title: (string) The title string.
      *
      * @return string  An HTML link to $url.
      */
@@ -91,12 +86,10 @@ class IMP_Dimp
      * @param IMP_Compose $imp_compose  An IMP_Compose object.
      *
      * @return array  An array of arrays with the following keys:
-     * <pre>
-     * 'num' - The current attachment number
-     * 'name' - The HTML encoded attachment name
-     * 'type' - The MIME type of the attachment
-     * 'size' - The size of the attachment in KB (string)
-     * </pre>
+     *   - num: (integer) The current attachment number
+     *   - name: (string) The HTML encoded attachment name
+     *   - type: (string) The MIME type of the attachment
+     *   - size: (string) The size of the attachment in KB
      */
     static public function getAttachmentInfo($imp_compose)
     {
@@ -139,19 +132,6 @@ class IMP_Dimp
         }
 
         return $ret;
-    }
-
-    /**
-     * Return to main dimp mailbox page from within IFRAME.
-     *
-     * @var string $mailbox  The mailbox to load.
-     */
-    static public function returnToDimp($mailbox = '')
-    {
-        print '<html><head>' .
-            Horde::wrapInlineScript(array('window.parent.DimpBase.go(\'mbox\', ' . Horde_Serialize::serialize(strval($mailbox), Horde_Serialize::JSON, 'UTF-8') . ')')) .
-            '</head></html>';
-        exit;
     }
 
 }

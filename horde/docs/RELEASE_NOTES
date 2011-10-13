@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 4.0.9.
+Application Framework version 4.0.10.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -30,17 +30,16 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 4.0.8 are:
-
-    * Added account locking and tracking of failed logins.
-    * Fixed write support for LDAP groups.
+The major changes compared to the Horde version 4.0.9 are:
+    * Added administration page to list and clear locks.
+    * Allow to be disable in-page base64 image encoding.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added account locking and tracking of failed logins.
-Fixed write support for LDAP groups.
+Added administration page to list and clear locks.
+Allow to be disable in-page base64 image encoding.
 Small bugfixes and improvements.
 FM;
 

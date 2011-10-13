@@ -2,10 +2,10 @@
 /**
  * Ansel Base Class.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
@@ -306,11 +306,13 @@ class Ansel
 
             case 'mygalleries':
             default:
-               $url = Ansel::getUrlFor('view',
-                                       array('view' => 'List',
-                                             'owner' => $GLOBALS['registry']->getAuth(),
-                                             'groupby' => 'owner'),
-                                       true);
+               $url = Ansel::getUrlFor(
+                   'view',
+                   array(
+                        'view' => 'List',
+                        'owner' => $GLOBALS['registry']->getAuth(),
+                        'groupby' => 'owner'),
+                   true);
                break;
             }
 
@@ -351,7 +353,9 @@ class Ansel
             // We have to make sure the image exists first, since we won't
             // be going through img/*.php to auto-create it.
             try {
-                $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($imageId);
+                $image = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->getImage($imageId);
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
@@ -525,13 +529,19 @@ class Ansel
             } elseif ($owner == $GLOBALS['registry']->getAuth()) {
                 $owner_title = _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-                $uprefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('ansel', array(
-                    'cache' => false,
-                    'user' => $owner
-                ));
+                $uprefs = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Prefs')
+                    ->create(
+                        'ansel',
+                        array(
+                            'cache' => false,
+                            'user' => $owner)
+                );
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($owner);
+                    $identity = $GLOBALS['injector']
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
                         $fullname = $owner;
@@ -555,7 +565,8 @@ class Ansel
 
         // Check for an active image
         if (!empty($image_id)) {
-            $text = '<span class="thiscrumb" id="PhotoName">' . htmlspecialchars($image->filename) . '</span>';
+            $text = '<span class="thiscrumb" id="PhotoName">'
+                . htmlspecialchars($image->filename) . '</span>';
             $nav = $separator . $text . $nav;
             $levels++;
         }
@@ -572,9 +583,12 @@ class Ansel
                     } else {
                         $urlParameters = $urlFlags;
                     }
-                    $nav = $separator . Ansel::getUrlFor('view', array_merge($navdata, $urlParameters))->link() . $title . '</a>' . $nav;
+                    $nav = $separator
+                        . Ansel::getUrlFor('view', array_merge($navdata, $urlParameters))->link()
+                        . $title . '</a>' . $nav;
                 } else {
-                    $nav = $separator . '<span class="thiscrumb">' . $title . '</span>' . $nav;
+                    $nav = $separator . '<span class="thiscrumb">' . $title
+                        . '</span>' . $nav;
                 }
             }
         }
@@ -583,7 +597,15 @@ class Ansel
             $owner_title = htmlspecialchars($owner_title);
             $levels++;
             if ($gallery) {
-                $nav = $separator . Ansel::getUrlFor('view', array('view' => 'List', 'groupby' => 'owner', 'owner' => $owner, 'havesearch' => $haveSearch))->link() . $owner_title . '</a>' . $nav;
+                $nav = $separator
+                    . Ansel::getUrlFor(
+                        'view',
+                        array(
+                            'view' => 'List',
+                            'groupby' => 'owner',
+                            'owner' => $owner,
+                            'havesearch' => $haveSearch))->link()
+                    . $owner_title . '</a>' . $nav;
             } else {
                 $nav = $separator . $owner_title . $nav;
             }
@@ -633,7 +655,8 @@ class Ansel
 
         $html = '<select id="' . $element_name . '" name="' . $element_name . '">';
         foreach ($options as $key => $option) {
-            $html .= '  <option value="' . $key . '"' . (($selected == $key) ? 'selected="selected"' : '') . '>' . $option . '</option>';
+            $html .= '  <option value="' . $key . '"' . (($selected == $key) ? 'selected="selected"' : '') . '>'
+                . $option . '</option>';
         }
 
         return $html .= '</select>';
@@ -831,16 +854,90 @@ class Ansel
     static public function initJSVariables()
     {
         if (!$GLOBALS['browser']->isMobile()) {
-            $config = array(
+            $code['conf'] = array(
                 'BASE_URI' => (string)Horde::url(
                     '',
                     true,
                     array(
                         'app' => 'ansel',
                         'append_session' => -1)));
-            Horde::addInlineJsVars(
-                array('var Ansel' => array('ajax' => new stdClass, 'widgets' => new stdClass, 'conf' => $config)));
+
+            // IF
+            $code['conf']['maps'] = $GLOBALS['conf']['maps'];
+            $code['conf']['pixeluri'] = (string)Horde::getServiceLink('pixel', 'ansel');
+            $code['conf']['markeruri'] = (string)Horde_Themes::img('photomarker.png');
+            $code['conf']['shadowuri'] = (string)Horde_Themes::img('photomarker-shadow.png');
+            $code['conf']['havetwitter'] = !empty($GLOBALS['conf']['twitter']['enabled']);
+            $code['ajax'] = new stdClass();
+            $code['widgets'] = new stdClass();
+            Horde::addInlineJsVars(array(
+                'var Ansel' => $code));
         }
+    }
+
+   /**
+     * Initialize the map.
+     *
+     * @TODO: Horde 5 - move this to a method in either Core or a new Horde_Map
+     *        framework pacakge.
+     * @param array $params Parameters to pass the the map
+     *
+     * @return void
+     */
+    static public function initHordeMap($params = array())
+    {
+        if (empty($params['providers'])) {
+            $params['providers'] = $GLOBALS['conf']['maps']['providers'];
+        }
+        if (empty($params['geocoder'])) {
+            $params['geocoder'] = $GLOBALS['conf']['maps']['geocoder'];
+        }
+        // Language specific file needed?
+        $language = str_replace('_', '-', $GLOBALS['language']);
+        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
+            $language = 'en-US';
+        }
+        $params['conf'] = array(
+            'language' => $language
+        );
+        $params['driver'] = 'Horde';
+        foreach ($params['providers'] as $layer) {
+            switch ($layer) {
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                break;
+            case 'Cloudmade':
+                $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
+                break;
+            case 'Mytopo':
+                $params['conf']['apikeys']['mytopo'] = $GLOBALS['conf']['api']['mytopo'];
+                break;
+            case 'Bing':
+                $params['conf']['apikeys']['bing'] = $GLOBALS['conf']['api']['bing'];
+            }
+        }
+
+        if (!empty($params['geocoder'])) {
+            switch ($params['geocoder']) {
+            case 'Google':
+                $params['conf']['apikeys']['google'] = $GLOBALS['conf']['api']['googlemaps'];
+                break;
+            case 'Yahoo':
+                $params['conf']['apikeys']['yahoo'] = $GLOBALS['conf']['api']['yahoomaps'];
+                break;
+            case 'Cloudmade':
+                $params['conf']['apikeys']['cloudmade'] = $GLOBALS['conf']['api']['cloudmade'];
+                break;
+            }
+        }
+        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
+        Horde::addScriptFile('map/map.js', 'horde');
+        Horde::addScriptFile('map.js');
+        $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
+        Horde::addinlineScript($js);
     }
 
 }

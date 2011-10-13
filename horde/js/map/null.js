@@ -17,7 +17,7 @@ HordeMap.Geocoder.Null = Class.create({
 
     reverseGeocode: function(lonlat, completeCallback, errorCallback)
     {
-        var ll = { lon: lonlat.lon, lat: lonlat.lat, address: lonlat.lat + ' ' + lonlat.lon };
+        var ll = { lon: lonlat.lon, lat: lonlat.lat, address: lonlat.lat + ' ' + lonlat.lon, precision: 0 };
         return completeCallback([ll]);
     }
 });

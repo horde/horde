@@ -3,14 +3,14 @@
  * The IMP_Ui_Compose:: class is designed to provide a place to store common
  * code shared among IMP's various UI views for the compose page.
  *
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Ui_Compose
@@ -91,7 +91,7 @@ class IMP_Ui_Compose
     public function attachSpellChecker()
     {
         $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-        $spell_img = Horde::img('spellcheck.png');
+        $spell_img = '<span class="iconImg spellcheckImg"></span>';
 
         if (IMP::getViewMode() == 'imp') {
             $br = '<br />';
@@ -122,12 +122,11 @@ class IMP_Ui_Compose
      *
      * @param string $addr  The value of the header string.
      * @param array $opts   Additional options:
-     * <pre>
-     * 'addr_list' - (boolean) Return the list of address components?
-     *               DEFAULT: false
-     * </pre>
+     *   - addr_list: (boolean) Return the list of address components?
+     *                DEFAULT: false
      *
-     * @return mixed  TODO
+     * @return mixed  List of addresses, or a string of addresses if
+     *                'addr_list' is true.
      */
     public function getAddressList($addr, $opts = array())
     {
@@ -162,7 +161,7 @@ class IMP_Ui_Compose
         if (is_null($vars) || !isset($vars->uids)) {
             $indices = IMP::$thismailbox->getIndicesOb(IMP::$uid);
         } else {
-            $indices = new IMP_Indices($vars->uids);
+            $indices = new IMP_Indices_Form($vars->uids);
         }
 
         if (!is_null($indices)) {
@@ -274,7 +273,7 @@ class IMP_Ui_Compose
                 // Signature location
                 'sig_loc' => (bool)$identity->getValue('sig_first', $ident),
                 // Sent mail folder name
-                'smf_name' => strval($smf),
+                'smf_name' => $smf ? $smf->form_to : '',
                 // Save in sent mail folder by default?
                 'smf_save' => (bool)$identity->saveSentmail($ident),
                 // Sent mail display name
@@ -285,7 +284,7 @@ class IMP_Ui_Compose
         }
 
         return Horde::addInlineJsVars(array(
-            'IMP_Compose_Base.identities' => $identities
+            'ImpComposeBase.identities' => $identities
         ), array('ret_vars' => true));
     }
 

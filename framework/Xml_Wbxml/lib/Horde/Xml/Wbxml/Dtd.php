@@ -3,10 +3,10 @@
  * From Binary XML Content Format Specification Version 1.3, 25 July 2001
  * found at http://www.wapforum.org
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Anthony Mills <amills@pyramid6.com>
  * @package Xml_Wbxml
@@ -113,14 +113,10 @@ class Horde_Xml_Wbxml_Dtd
 
     public function toCodePageURI($uri)
     {
-        $uri = strtolower($uri);
-        if (!isset($this->strCodePagesURI[$uri])) {
-            die("unable to find codepage for $uri!\n");
-        }
-
-        $ret = isset($this->strCodePagesURI[$uri]) ? $this->strCodePagesURI[$uri] : false;
-
-        return $ret;
+        $uri = Horde_String::lower($uri);
+        return isset($this->strCodePagesURI[$uri])
+            ? $this->strCodePagesURI[$uri]
+            : false;
     }
 
     /**

@@ -19,7 +19,7 @@
  * $backends['pspasswd'] = array(
  *   'name' => 'Sample pspasswd backend',
  *   'preferred' => 'localhost',
- *   'password policy' => array(
+ *   'policy' => array(
  *       'minLength' => 8,
  *       'maxLength' => 14
  *   ),
@@ -48,49 +48,60 @@
  * Special thanks to Mark Russinovich (mark@sysinternals.com) for the
  * tool and helping me solve some questions about it.
  *
- * WARNING: This driver has only formally been converted to Horde 4.  No
- *          testing has been done. If this doesn't work, please file bugs at
- *          bugs.horde.org.  If you really need this to work reliably, think
- *          about sponsoring development. Please let the Horde developers know
- *          if you can verify this driver to work.
- *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
  * @author  Luiz R Malheiros (malheiros@gmail.com)
- * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_Pspasswd extends Passwd_Driver {
-
-    function changePassword($user_name, $old_password, $new_password)
+class Passwd_Driver_Pspasswd extends Passwd_Driver
+{
+    /**
+     * Constructor.
+     *
+     * @param array $params  A hash containing connection parameters.
+     *
+     * @throws Passwd_Exception
+     */
+    public function __construct($params = array())
     {
-        $server = isset($this->_params['server']) ? $this->_params['server'] : '';
-        $bin = isset($this->_params['bin']) ? $this->_params['bin'] : '';
-        $admusr = isset($this->_params['admusr']) ? $this->_params['admusr'] : '';
-        $admpwd = isset($this->_params['admpwd']) ? $this->_params['admpwd'] : '';
-        $domain = isset($this->_params['domain']) ? $this->_params['domain'] : '';
-
-        if ($server == '' || $bin == '' || $admusr == '' || $admpwd == '') {
+        if (empty($params['server']) || empty($params['bin']) ||
+            empty($params['admusr']) || empty($params['admpwd'])) {
             throw new Passwd_Exception(_("Password module is missing required parameters."));
-        } elseif (file_exists($bin) == false) {
+        }
+        if (!file_exists($params['bin'])) {
             throw new Passwd_Exception(_("Password module can't find the supplied bin."));
         }
 
-        if ($domain != '') {
-            $chpwd_adm = $domain . "\\" . $admusr;
-            $chpwd_usr = $domain . "\\" . $user_name;
-        } else {
-            $chpwd_adm = $admusr;
-            $chpwd_usr = $user_name;
+        parent::__construct($params);
+    }
+
+    /**
+     * Changes the user's password.
+     *
+     * @param string $user_name     The user for which to change the password.
+     * @param string $old_password  The old (current) user password.
+     * @param string $new_password  The new user password to set.
+     *
+     * @throws Passwd_Exception
+     */
+    public function changePassword($user_name, $old_password, $new_password)
+    {
+        $server = $this->_params['server'];
+        $chpwd_adm = $this->_params['admusr'];
+        $chpwd_usr = $user_name;
+
+        if (!empty($this->_params['domain'])) {
+            $chpwd_adm = $this->_params['domain'] . "\\" . $chpwd_adm;
+            $chpwd_usr = $this->_params['domain'] . "\\" . $chpwd_usr_name;
         }
 
         exec('NET USE \\\\' . $server . '\\IPC$ /D >NUL 2>NUL');
 
-        $cmdline = 'NET USE \\\\' . $server . '\\IPC$ "' . $old_password . '" /USER:' . $chpwd_usr;
-
+        $cmdline = 'NET USE \\\\' . $server . '\\IPC$ "' . $old_password
+            . '" /USER:' . $chpwd_usr;
         exec($cmdline, $cmdreply, $retval);
 
         if (strpos(implode(' ', $cmdreply), 'The command completed successfully.') === false) {
@@ -99,17 +110,12 @@ class Passwd_Driver_Pspasswd extends Passwd_Driver {
 
         exec('NET USE \\\\' . $server . '\\IPC$ /D >NUL 2>NUL');
 
-        $cmdline = $bin . ' \\\\' . $server . ' -u ' . $chpwd_adm . ' -p ' . $admpwd . ' ' . $user_name . ' ' . $new_password;
-
+        $cmdline = $this->_params['bin'] . ' \\\\' . $server . ' -u ' . $chpwd_adm . ' -p ' . $this->_params['admpwd'] . ' ' . $user_name . ' ' . $new_password;
         exec($cmdline, $cmdreply, $retval);
-
         exec('NET USE \\\\' . $server . '\\IPC$ /D >NUL 2>NUL');
 
         if (strpos(implode(' ', $cmdreply), 'Password for ' . $server . '\\' . $user_name . ' successfully changed.') === false) {
             throw new Passwd_Exception(_("Access Denied."));
         }
-
-        return true;
     }
-
 }

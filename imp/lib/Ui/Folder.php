@@ -3,14 +3,14 @@
  * This class provides a place to store common code shared among IMP's various
  * UI views for folder manipulation.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Ui_Folder
@@ -27,7 +27,7 @@ class IMP_Ui_Folder
     {
         global $browser, $injector;
 
-        $mbox = $injector->getInstance('IMP_Folder')->generateMbox($flist);
+        $mbox = $this->generateMbox($flist);
 
         if ($zip) {
             $horde_compress = Horde_Compress::factory('zip');
@@ -64,6 +64,108 @@ class IMP_Ui_Folder
     }
 
     /**
+     * Generates a string that can be saved out to an mbox format mailbox file
+     * for a folder or set of folders, optionally including all subfolders of
+     * the selected folders as well. All folders will be put into the same
+     * string.
+     *
+     * @author Didi Rieder <adrieder@sbox.tugraz.at>
+     *
+     * @param array $folder_list  A list of folder names to generate a mbox
+     *                            file for (UTF7-IMAP).
+     *
+     * @return resource  A stream resource containing the text of a mbox
+     *                   format mailbox file.
+     */
+    public function generateMbox($folder_list)
+    {
+        $body = fopen('php://temp', 'r+');
+
+        if (empty($folder_list)) {
+            return $body;
+        }
+
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+
+        foreach ($folder_list as $folder) {
+            try {
+                $status = $imp_imap->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
+            } catch (IMP_Imap_Exception $e) {
+                continue;
+            }
+
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->size();
+
+            try {
+                $size = $imp_imap->fetch($folder, $query, array(
+                    'ids' => new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true)
+                ));
+            } catch (IMP_Imap_Exception $e) {
+                continue;
+            }
+
+            $curr_size = 0;
+            $start = 1;
+            $slices = array();
+
+            /* Handle 5 MB chunks of data at a time. */
+            for ($i = 1; $i <= $status['messages']; ++$i) {
+                $curr_size += $size[$i]->getSize();
+                if ($curr_size > 5242880) {
+                    $slices[] = new Horde_Imap_Client_Ids(range($start, $i), true);
+                    $curr_size = 0;
+                    $start = $i + 1;
+                }
+            }
+
+            if ($start <= $status['messages']) {
+                $slices[] = new Horde_Imap_Client_Ids(range($start, $status['messages']), true);
+            }
+
+            unset($size);
+
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->envelope();
+            $query->imapDate();
+            $query->fullText(array(
+                'peek' => true
+            ));
+
+            foreach ($slices as $slice) {
+                try {
+                    $res = $imp_imap->fetch($folder, $query, array(
+                        'ids' => $slice
+                    ));
+                } catch (IMP_Imap_Exception $e) {
+                    continue;
+                }
+
+                reset($res);
+                while (list(,$ptr) = each($res)) {
+                    $from = '<>';
+                    if ($from_env = $ptr->getEnvelope()->from) {
+                        $ptr2 = reset($from_env);
+                        if (!empty($ptr2['mailbox']) && !empty($ptr2['host'])) {
+                            $from = $ptr2['mailbox']. '@' . $ptr2['host'];
+                        }
+                    }
+
+                    /* We need this long command since some MUAs (e.g. pine)
+                     * require a space in front of single digit days. */
+                    $imap_date = $ptr->getImapDate();
+                    $date = sprintf('%s %2s %s', $imap_date->format('D M'), $imap_date->format('j'), $imap_date->format('H:i:s Y'));
+                    fwrite($body, 'From ' . $from . ' ' . $date . "\r\n");
+                    stream_copy_to_stream($ptr->getFullMsg(true), $body);
+                    fwrite($body, "\r\n");
+                }
+            }
+        }
+
+        return $body;
+    }
+
+    /**
      * Import a MBOX file into a mailbox.
      *
      * @param string $mbox       The mailbox name to import into.
@@ -75,14 +177,10 @@ class IMP_Ui_Folder
      */
     public function importMbox($mbox, $form_name)
     {
-        global $browser, $injector;
+        $GLOBALS['browser']->wasFileUploaded($form_name, _("mailbox file"));
 
-        $browser->wasFileUploaded($form_name, _("mailbox file"));
-        $res = $injector
-            ->getInstance('IMP_Folder')
-            ->importMbox(Horde_String::convertCharset($mbox, 'UTF-8', 'UTF7-IMAP'),
-                         $_FILES[$form_name]['tmp_name'],
-                         $_FILES[$form_name]['type']);
+        $mbox = IMP_Mailbox::get(Horde_String::convertCharset($mbox, 'UTF-8', 'UTF7-IMAP'));
+        $res = $mbox->importMbox($_FILES[$form_name]['tmp_name'], $_FILES[$form_name]['type']);
         $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES[$form_name]['name']));
 
         if ($res === false) {

@@ -2,16 +2,16 @@
 /**
  * Folders display for traditional (IMP) view.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Anil Madhavapeddy <avsm@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -42,9 +42,6 @@ $folders_url = Horde::selfUrl();
 Horde::addInlineJsVars(array(
     'ImpFolders.folders_url' => strval($folders_url)
 ));
-
-/* Initialize the IMP_Folder object. */
-$imp_folder = $injector->getInstance('IMP_Folder');
 
 /* Initialize the IMP_Imap_Tree object. */
 $imaptree = $injector->getInstance('IMP_Imap_Tree');
@@ -98,8 +95,8 @@ case 'expunge_folder':
     break;
 
 case 'delete_folder':
-    if (!empty($folder_list)) {
-        $imp_folder->delete($folder_list);
+    foreach ($folder_list as $val) {
+        $val->delete();
     }
     break;
 
@@ -162,21 +159,19 @@ case 'rename_folder':
                 $new = $old_ns['name'] . $new;
             }
 
-            $imp_folder->rename($old_name, Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP'));
+            $old_name->rename(Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP'));
         }
     }
     break;
 
 case 'subscribe_folder':
 case 'unsubscribe_folder':
-    if (!empty($folder_list)) {
-        if ($vars->actionID == 'subscribe_folder') {
-            $imp_folder->subscribe($folder_list);
-        } else {
-            $imp_folder->unsubscribe($folder_list);
-        }
-    } else {
+    if (empty($folder_list)) {
         $notification->push(_("No folders were specified"), 'horde.message');
+    } else {
+        foreach ($folder_list as $val) {
+            $val->subscribe($vars->actionID == 'subscribe_folder');
+        }
     }
     break;
 

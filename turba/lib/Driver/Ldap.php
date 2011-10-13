@@ -2,7 +2,7 @@
 /**
  * Turba directory driver implementation for PHP's LDAP extension.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -389,6 +389,10 @@ class Turba_Driver_Ldap extends Turba_Driver
                     throw new Turba_Exception(sprintf(_("Modify failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
                 }
                 unset($attributes[$key]);
+            } elseif (isset($attributes[$key]) &&
+                      $var[0] == $attributes[$key]) {
+                /* Drop unchanged elements from list of attributes to write. */
+                unset($attributes[$key]);
             }
         }
 
@@ -396,11 +400,17 @@ class Turba_Driver_Ldap extends Turba_Driver
         $this->_encodeAttributes($attributes);
         $attributes = array_filter($attributes, array($this, '_emptyAttributeFilter'));
 
-        /* Modify objectclass if old one is outdated. */
+        /* Modify objectclasses only if they really changed. */
+        $oldClasses = array_map(array('Horde_String', 'lower'), $info['objectclass']);
+        array_shift($oldClasses);
         $attributes['objectclass'] = array_unique(array_map('strtolower', array_merge($info['objectclass'], $this->_params['objectclass'])));
         unset($attributes['objectclass']['count']);
         $attributes['objectclass'] = array_values($attributes['objectclass']);
 
+        /* Do not handle object classes unless they have changed. */
+        if ((!array_diff($oldClasses, $attributes['objectclass']))) {
+            unset($attributes['objectclass']);
+        }
         if (!@ldap_modify($this->_ds, Horde_String::convertCharset($object_id, 'UTF-8', $this->_params['charset']), $attributes)) {
             throw new Turba_Exception(sprintf(_("Modify failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }

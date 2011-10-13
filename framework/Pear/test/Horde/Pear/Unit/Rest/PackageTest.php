@@ -8,7 +8,7 @@
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the package information parser.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Unit_Rest_PackageTest
@@ -47,7 +47,7 @@ extends Horde_Pear_TestCase
 
     public function testLicense()
     {
-        $this->assertEquals('LGPL', $this->_getPackage()->getLicense());
+        $this->assertEquals('LGPL-2.1', $this->_getPackage()->getLicense());
     }
 
     public function testSummary()
@@ -79,7 +79,7 @@ extends Horde_Pear_TestCase
 <n>Horde_Core</n>
 <c>pear.horde.org</c>
 <ca xlink:href="/rest/c/Default">Default</ca>
-<l>LGPL</l>
+<l>LGPL-2.1</l>
 <s>Horde Core Framework libraries</s>
 <d>These classes provide the core functionality of the Horde Application Framework.</d>
 <r xlink:href="/rest/r/horde_core" />

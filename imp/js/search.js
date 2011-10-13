@@ -2,7 +2,7 @@
  * Provides the javascript for the search.php script (advanced view).
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var ImpSearch = {
@@ -623,17 +623,17 @@ var ImpSearch = {
 
         if (this.i_recent) {
             this.updateRecentSearches(this.i_recent);
-            this.i_recent = null;
+            delete this.i_recent;
         }
 
         if (this.i_criteria) {
             this.updateCriteria(this.i_criteria);
-            this.i_criteria = null;
+            delete this.i_criteria;
         }
 
         if (this.i_folders) {
             this.updateFolders(this.i_folders);
-            this.i_folders = null;
+            delete this.i_folders;
         }
     }
 

@@ -8,7 +8,7 @@
  * @package    IMP
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the itip response handling.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category   Horde
  * @package    IMP
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  */
 class Imp_Unit_Mime_Viewer_ItipTest
@@ -38,10 +38,14 @@ extends PHPUnit_Framework_TestCase
     private $_identity;
     private $_identityId = 'default';
     private $_mail;
+    private $_oldtz;
     private $_registryCharset = 'UTF-8';
 
     public function setUp()
     {
+        $this->_oldtz = date_default_timezone_get();
+        date_default_timezone_set('UTC');
+
         $browser = $this->getMock('Horde_Browser');
         $browser->expects($this->any())
             ->method('hasQuirk')
@@ -75,6 +79,11 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['server']['name'] = 'localhost';
         $_GET['identity'] = 'test';
         $_SERVER['REMOTE_ADDR'] = 'localhost';
+    }
+
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_oldtz);
     }
 
     public function _injectorGetInstance($interface)
@@ -284,7 +293,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('1222419600', $this->_getVevent()->getAttribute('DTSTART'));
+        $this->assertEquals('1222426800', $this->_getVevent()->getAttribute('DTSTART'));
     }
 
     public function testResultMessageContainsCopiedStartDateParameters()
@@ -301,7 +310,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertEquals('1222423200', $this->_getVevent()->getAttribute('DTEND'));
+        $this->assertEquals('1222430400', $this->_getVevent()->getAttribute('DTEND'));
     }
 
     public function testResultMessageContainsCopiedEndDateParameters()

@@ -2,14 +2,14 @@
 /**
  * Logint tasks module that deletes old sent-mail folders.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
@@ -36,7 +36,6 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
            old sent-mail folders. Then sort this array according to
            the date. */
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
         $sent_mail_folders = $identity->getAllSentmailFolders();
 
         $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
@@ -53,18 +52,22 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
         }
         arsort($folder_array, SORT_NUMERIC);
 
+        $return_val = false;
+
         /* See if any folders need to be purged. */
         $purge_folders = array_slice(array_keys($folder_array), $GLOBALS['prefs']->getValue('delete_sentmail_monthly_keep'));
         if (count($purge_folders)) {
             $GLOBALS['notification']->push(_("Old sent-mail folders being purged."), 'horde.message');
 
             /* Delete the old folders now. */
-            if ($imp_folder->delete($purge_folders, true)) {
-                return true;
+            foreach (IMP_Mailbox::get($purge_folders) as $val) {
+                if ($val->delete(true)) {
+                    $return_val = true;
+                }
             }
         }
 
-        return false;
+        return $return_val;
     }
 
     /**

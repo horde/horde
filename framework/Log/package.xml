@@ -17,22 +17,29 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-08-17</date>
- <time>14:56:40</time>
+ <date>2011-10-11</date>
+ <time>13:56:35</time>
  <version>
-  <release>1.1.2</release>
+  <release>1.1.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
 * 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Log">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Log -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Log">
@@ -129,12 +136,14 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Log/COPYING" />
    <install as="Horde/Log.php" name="lib/Horde/Log.php" />
    <install as="Horde/Log/Exception.php" name="lib/Horde/Log/Exception.php" />
    <install as="Horde/Log/Filter.php" name="lib/Horde/Log/Filter.php" />
    <install as="Horde/Log/Formatter.php" name="lib/Horde/Log/Formatter.php" />
    <install as="Horde/Log/Logger.php" name="lib/Horde/Log/Logger.php" />
    <install as="Horde/Log/Filter/Constraint.php" name="lib/Horde/Log/Filter/Constraint.php" />
+   <install as="Horde/Log/Filter/ExactLevel.php" name="lib/Horde/Log/Filter/ExactLevel.php" />
    <install as="Horde/Log/Filter/Level.php" name="lib/Horde/Log/Filter/Level.php" />
    <install as="Horde/Log/Filter/Message.php" name="lib/Horde/Log/Filter/Message.php" />
    <install as="Horde/Log/Filter/Suppress.php" name="lib/Horde/Log/Filter/Suppress.php" />
@@ -151,6 +160,7 @@
    <install as="Horde/Log/LogTest.php" name="test/Horde/Log/LogTest.php" />
    <install as="Horde/Log/Filter/ChainingTest.php" name="test/Horde/Log/Filter/ChainingTest.php" />
    <install as="Horde/Log/Filter/ConstraintTest.php" name="test/Horde/Log/Filter/ConstraintTest.php" />
+   <install as="Horde/Log/Filter/ExactLevelTest.php" name="test/Horde/Log/Filter/ExactLevelTest.php" />
    <install as="Horde/Log/Filter/LevelTest.php" name="test/Horde/Log/Filter/LevelTest.php" />
    <install as="Horde/Log/Filter/MessageTest.php" name="test/Horde/Log/Filter/MessageTest.php" />
    <install as="Horde/Log/Filter/SuppressTest.php" name="test/Horde/Log/Filter/SuppressTest.php" />
@@ -172,7 +182,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First alpha release for Horde 4.
 * Added Horde_Log_Filter_Constraint, for flexible filtering per-field by the Horde_Constraint package.
@@ -188,7 +198,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -203,7 +213,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -218,7 +228,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -233,7 +243,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -246,7 +256,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-27</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [cjh] New log filter for exact level matching (Bryan Alves &lt;bryanalves@gmail.com&gt;)
    </notes>
@@ -259,7 +269,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-17</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Add &apos;ident&apos; option to all handlers (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
    </notes>
@@ -271,8 +281,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-17</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [gwr] Fix installation paths (Bug #10588)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * 
    </notes>

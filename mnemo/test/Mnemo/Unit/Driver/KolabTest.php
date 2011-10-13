@@ -4,12 +4,12 @@
  *
  * PHP version 5
  *
- * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Mnemo
  * @package    Mnemo
  * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 
 /**
@@ -20,17 +20,17 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the Kolab driver.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
- * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Mnemo
  * @package    Mnemo
  * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
 {
@@ -85,7 +85,8 @@ class Mnemo_Unit_Driver_KolabTest extends Mnemo_TestCase
         $driver->move($id, $this->other_share->getName());
         $driver->retrieve();
         $this->assertEquals(0, count($driver->listMemos()));
-        $other_driver = $this->factory->create($this->other_share->getName());
+        $other_driver = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')
+            ->create($this->other_share->getName());
         $other_driver->retrieve();
         $this->assertEquals(
             1,

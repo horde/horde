@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Jason Felice <jason.m.felice@gmail.com>
  */
@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('wicked');
 
-$page = Horde_Util::getFormData('page', 'WikiHome');
+$page = Horde_Util::getFormData('page', 'Wiki/Home');
 $file = Horde_Util::getFormData('file');
 $mime = Horde_Util::getFormData('mime');
 
@@ -35,8 +35,7 @@ if (empty($version)) {
 
     foreach ($attachments as $attachment) {
         if ($attachment['attachment_name'] == $file) {
-            $version = $attachment['attachment_majorversion'] . '.' .
-                       $attachment['attachment_minorversion'];
+            $version = $attachment['attachment_version'];
         }
     }
 
@@ -50,11 +49,12 @@ if (empty($version)) {
 
 try {
     $data = $wicked->getAttachmentContents($page_id, $file, $version);
+    $wicked->logAttachmentDownload($page_id, $file);
 } catch (Wicked_Exception $e) {
     // If we redirect here, we cause an infinite loop with inline
     // attachments.
     header('HTTP/1.1 404 Not Found');
-    echo $data->getMessage();
+    echo $e->getMessage();
     exit;
 }
 

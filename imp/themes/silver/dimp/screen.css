@@ -7,6 +7,9 @@
 #sidebar span.exp, #ctx_folderopts_expand span.iconImg, #ctx_container_expand span.iconImg, #ctx_folder_expand span.iconImg {
     background-image: url("../graphics/folders/plus.png");
 }
+span.folderoptsImg {
+    background-image: url("../graphics/folders/options.png");
+}
 
 #attach_list div, span.attachmentImg {
     background-image: url("../graphics/attachment.png");
@@ -28,9 +31,6 @@
 span.infoIcon {
     background-image: url("../graphics/info_icon.png");
 }
-span.filtersIcon {
-    background-image: url("../graphics/filters.png");
-}
 span.prefsIcon {
     background-image: url("../graphics/prefs.png");
 }
@@ -46,6 +46,7 @@ span.dimpactionForward {
 }
 span.dimpactionSpam {
     background-image: url("../graphics/spam.png");
+    width: 16px;
 }
 span.dimpactionHam {
     background-image: url("../graphics/ham.png");
@@ -64,9 +65,6 @@ span.dimpactionDelete {
 }
 span.dimpactionOther {
     background-image: url("../graphics/plus.png");
-}
-span.dimpactionSpellcheck {
-    background-image: url("../graphics/spellcheck.png");
 }
 span.dimpactionDrafts {
     background-image: url("../graphics/drafts.png");
@@ -166,10 +164,6 @@ span.dimpactionResume {
     background-image: url("../graphics/newwin.png");
 }
 
-#qsearch_icon {
-    background-image: url("../graphics/search.png");
-}
-
 #th_expand span.iconImg, #partlist_col, #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
 }
@@ -179,9 +173,6 @@ span.dimpactionResume {
 
 span.popdownImg, span.spellcheckPopdownImg {
     background-image: url("../graphics/popdown.png");
-}
-span.readonlyImg {
-    background-image: url("../graphics/locked.png");
 }
 
 #Growler div.imp-reply {

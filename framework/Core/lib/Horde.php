@@ -3,10 +3,10 @@
  * The Horde:: class provides the functionality shared by all Horde
  * applications.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
@@ -499,6 +499,7 @@ HTML;
      * 'login'
      * 'logintasks'
      * 'logout'
+     * 'pixel'
      * 'portal'
      * 'problem'
      * 'sidebar'
@@ -551,6 +552,9 @@ HTML;
 
         case 'logout':
             return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
+
+        case 'pixel':
+            return self::url('services/images/pixel.php', false, $opts);
 
         case 'prefs':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
@@ -1055,10 +1059,17 @@ HTML;
 
         if (isset($puri['path']) &&
             (substr($puri['path'], 0, 1) == '/') &&
-            !preg_match($schemeRegexp, $webroot)) {
+            (!preg_match($schemeRegexp, $webroot) ||
+             (preg_match($schemeRegexp, $webroot) && isset($puri['scheme'])))) {
             $url .= $puri['path'];
         } elseif (isset($puri['path']) && preg_match($schemeRegexp, $webroot)) {
-            $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];
+            if (substr($puri['path'], 0, 1) == '/') {
+                $pwebroot = parse_url($webroot);
+                $url = $pwebroot['scheme'] . '://' . $pwebroot['host']
+                    . $puri['path'];
+            } else {
+                $url = $webroot . '/' . $puri['path'];
+            }
         } else {
             $url .= '/' . ($webroot ? $webroot . '/' : '') . (isset($puri['path']) ? $puri['path'] : '');
         }
@@ -1399,7 +1410,7 @@ HTML;
         }
 
         /* Return the closed image tag. */
-        return $img . ' src="' . self::base64ImgData($src) . '" />';
+        return $img . ' src="' . (empty($GLOBALS['conf']['nobase64_img']) ? self::base64ImgData($src) : $src) . '" />';
     }
 
     /**
@@ -1422,7 +1433,9 @@ HTML;
         }
 
         /* If we can send as data, no need to get the full path */
-        $src = self::base64ImgData($src);
+        if (!empty($GLOBALS['conf']['nobase64_img'])) {
+            $src = self::base64ImgData($src);
+        }
         if (substr($src, 0, 10) != 'data:image') {
             $src = self::url($src, true, array('append_session' => -1));
         }

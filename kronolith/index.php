@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * not receive such a file, see also http://www.fsf.org/copyleft/gpl.html.
+ * not receive such a file, see also http://www.horde.org/licenses/gpl.
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';

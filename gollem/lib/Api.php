@@ -5,16 +5,16 @@
  * This file defines Gollem's external API interface. Other applications
  * can interact with Gollem through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Amith Varghese <amith@xalan.com>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Ben Klang <bklang@alkaloid.net>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Gollem
  */
 class Gollem_Api extends Horde_Registry_Api

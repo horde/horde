@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Components_Release_Task_Package:: prepares and uploads a release package.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Release_Task_Package
@@ -52,14 +52,23 @@ extends Components_Release_Task_Base
     {
         $errors = array();
         $remote = new Horde_Pear_Remote();
-        if ($remote->releaseExists($this->getComponent()->getName(), $this->getComponent()->getVersion())) {
-            $errors[] = sprintf(
-                'The remote server already has version "%s" for component "%s".',
-                $this->getComponent()->getVersion(),
-                $this->getComponent()->getName()
+        try {
+            $exists = $remote->releaseExists(
+                $this->getComponent()->getName(),
+                $this->getComponent()->getVersion()
             );
+            if ($exists) {
+                $errors[] = sprintf(
+                    'The remote server already has version "%s" for component "%s".',
+                    $this->getComponent()->getVersion(),
+                    $this->getComponent()->getName()
+                );
+            }
+        } catch (Horde_Http_Exception $e) {
+                $errors[] = 'Failed accessing the remote PEAR server.';
         }
-        if ($this->getComponent()->getState('api') != $this->getComponent()->getState('release')) {
+        if ($this->getComponent()->getState('api') != $this->getComponent()->getState('release') &&
+            !preg_match('/^(\d+\.\d+\.\d+)RC\d+$/', $this->getComponent()->getVersion())) {
             $errors[] = sprintf(
                 'The release stability "%s" does not match the api stability "%s".',
                 $this->getComponent()->getState('api'),

@@ -6,10 +6,11 @@ require_once dirname(__FILE__) . '/TestBase.php';
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Turba
  */
-class Turba_BrowsePageTest extends Turba_TestBase {
+class Turba_Todo_BrowsePageTest extends Turba_TestBase {
 
     function setUp()
     {
+        $this->markTestIncomplete('Convert to use Horde_Test.');
         parent::setUp();
         require_once TURBA_BASE . '/lib/BrowsePage.php';
         $this->setUpDatabase();

@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,15 +16,15 @@
  * The Components_Dependencies:: interface is a central broker for
  * providing the dependencies to the different application parts.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 interface Components_Dependencies
@@ -113,11 +113,18 @@ interface Components_Dependencies
     public function getRunnerDistribute();
 
     /**
-     * Returns the documentation handler for a package.
+     * Returns the website documentation handler for a package.
      *
-     * @return Components_Runner_Document The distribution handler.
+     * @return Components_Runner_Webdocs The documentation handler.
      */
-    public function getRunnerDocument();
+    public function getRunnerWebdocs();
+
+    /**
+     * Returns the documentation fetch handler for a package.
+     *
+     * @return Components_Runner_Fetchdocs The fetch handler.
+     */
+    public function getRunnerFetchdocs();
 
     /**
      * Returns the installer for a package.

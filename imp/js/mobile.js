@@ -1,10 +1,10 @@
 /**
  * jQuery Mobile UI application logic.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 var ImpMobile = {
 
@@ -103,7 +103,7 @@ var ImpMobile = {
                     });
                 }
                 list.prepend(
-                    $('<li class="' + c + '" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
+                    $('<li class="' + c + '" data-imp-mailbox="' + data.mbox + '" data-imp-uid="' + data.uid + '">').append(
                         $('<h3>').append(
                             $('<a href="#">').html(data.subject))).append(
                         $('<div class="ui-grid-a">').append(
@@ -169,7 +169,7 @@ var ImpMobile = {
         if (!newuid || !ImpMobile.data[newuid]) {
             return;
         }
-        ImpMobile.toMessage(ImpMobile.data[newuid].view, newuid);
+        ImpMobile.toMessage(ImpMobile.data[newuid].mbox, newuid);
     },
 
     /**

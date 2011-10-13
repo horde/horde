@@ -1,6 +1,6 @@
-----
-v1.0
-----
+--------
+v1.0-git
+--------
 
 [jan] Convert to PHP 5/Horde 4.
 [jan] Add Italian translation (Marco Favero <falon@csi.it>).
@@ -79,12 +79,6 @@ v1.0
       some changes made by Chuck.
 [crb] Added deleteWhiteList($option) function to clear out a current list of
       white-listed email addresses.
-
-
-------
-v0.0.2
-------
-
 [cjh] Lots of code and UI cleanup.
 [crb] Made several modifications to the storage retrieval system to
       accommodate more options.
@@ -112,12 +106,6 @@ v0.0.2
       the prefix of an email address. I've added a column called horde_id
       which will store the horde username and the actual username column
       will store the stripped prefix so that SpamAssassin will work correctly.
-
-
-------
-v0.0.1
-------
-
 [jan] Add Norwegian Nynorsk translation (Per-Stian Vatne <psv@orsta.org>).
 [jan] Add French translation (Thierry Thomas <thierry@pompo.net>).
 [cjh] Fix spelling of SpamAssassin (one word).

@@ -65,3 +65,11 @@
  - Allow to lazy load permissions in
    Horde_Perms_Permission_Kolab_Storage so that only myRights() gets
    called if required and getAcl() called when required
+
+ - Allow to size restrict loading objects and attachments to avoid
+   memory issues
+
+ - Allow indication of broken objects in the frontend (it is irritating if
+   the object is in the backend but is missing from the frontend). Would
+   help if the maximal amount of information gets displayed to the user
+   to get the issue fixed.

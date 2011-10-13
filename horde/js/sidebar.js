@@ -2,7 +2,7 @@
  * Horde sidebar javascript.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
 
 var HordeSidebar = {
@@ -76,7 +76,7 @@ var HordeSidebar = {
         var hb = $('horde_body'),
             margin = expanded
             ? this.width
-            : $('hiddenSidebar').down().getWidth();
+            : $('hiddenSidebar').getLayout().get('margin-box-width');
 
         switch ($(document.body).getStyle('direction')) {
         case 'ltr':

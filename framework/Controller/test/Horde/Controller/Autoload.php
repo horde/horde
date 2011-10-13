@@ -8,7 +8,7 @@
  * @package    Controller
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  */
 
 require_once 'Horde/Test/Autoload.php';

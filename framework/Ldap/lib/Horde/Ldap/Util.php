@@ -9,9 +9,9 @@
  * @package   Ldap
  * @author    Benedikt Hallinger <beni@php.net>
  * @author    Jan Schneider <jan@horde.org>
- * @copyright 2010-2011 The Horde Project
+ * @copyright 2010-2011 Horde LLC
  * @copyright 2009 Benedikt Hallinger
- * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @license   http://www.gnu.org/licenses/lgpl-3.0.html LGPL-3.0
  */
 class Horde_Ldap_Util
 {

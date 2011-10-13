@@ -3,16 +3,16 @@
  * The IMP_Mime_Viewer_Html class renders out HTML text with an effort
  * to remove potentially malicious code.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Anil Madhavapeddy <anil@recoil.org>
  * @author   Jon Parise <jon@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
@@ -332,7 +332,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         /* See Bug #8695: internal anchors are broken in
                          * Mozilla. */
                         $node->removeAttribute('href');
-                    } elseif (!$node->hasAttribute('target')) {
+                    } elseif (!$node->hasAttribute('target') ||
+                              Horde_String::lower($node->getAttribute('target')) == '_self') {
                         $node->setAttribute('target', $this->_imptmp['target']);
                     }
                 }

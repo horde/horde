@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Represents base functionality for a component.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 abstract class Components_Component_Base implements Components_Component
@@ -96,6 +96,16 @@ abstract class Components_Component_Base implements Components_Component
     public function getVersion()
     {
         return $this->getPackageXml()->getVersion();
+    }
+
+    /**
+     * Return the last release date of the component.
+     *
+     * @return string The date.
+     */
+    public function getDate()
+    {
+        return $this->getPackageXml()->getDate();
     }
 
     /**
@@ -189,9 +199,18 @@ abstract class Components_Component_Base implements Components_Component
      */
     public function getChangelog($helper)
     {
-        throw new Components_Exception(
-            'Not supported!'
-        );
+        throw new Components_Exception('Not supported!');
+    }
+
+    /**
+     * Return a data array with the most relevant information about this
+     * component.
+     *
+     * @return array Information about this component.
+     */
+    public function getData()
+    {
+        throw new Components_Exception('Not supported!');
     }
 
     /**
@@ -212,6 +231,15 @@ abstract class Components_Component_Base implements Components_Component
     public function getDependencyList()
     {
         return $this->_factory->createDependencyList($this);
+    }
+
+    /**
+     * Return the path to a DOCS_ORIGIN file within the component.
+     *
+     * @return string|NULL The path name or NULL if there is no DOCS_ORIGIN file.
+     */
+    public function getDocumentOrigin()
+    {
     }
 
     /**

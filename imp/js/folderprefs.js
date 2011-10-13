@@ -2,7 +2,7 @@
  * Provides the javascript for managing folders.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var ImpFolderPrefs = {
@@ -41,7 +41,7 @@ var ImpFolderPrefs = {
             if (this.origtext) {
                 $('sent_mail_folder_new').remove();
                 $('sent_mail_folder').down('.flistCreate').update(this.origtext);
-                this.origtext = null;
+                delete this.origtext;
             }
             break;
         }

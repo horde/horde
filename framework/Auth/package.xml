@@ -23,24 +23,30 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-31</date>
- <time>18:07:12</time>
+ <date>2011-10-04</date>
+ <time>10:26:24</time>
  <version>
-  <release>1.3.0</release>
-  <api>1.3.0</api>
+  <release>1.4.3</release>
+  <api>1.4.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix updating users in LDAP while using preauthenticate hooks.
-* [jan] Add support for resetting passwords to LDAP driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="lib">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Auth">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Auth -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+    <dir name="lib">
     <dir name="Horde">
      <dir name="Auth">
       <dir name="Http">
@@ -68,10 +74,22 @@
       <file name="Smb.php" role="php" />
       <file name="Smbclient.php" role="php" />
       <file name="Sql.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Auth -->
      <file name="Auth.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <file name="Horde_Auth.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="migration">
     <dir name="Horde">
      <dir name="Auth">
@@ -86,6 +104,14 @@
        <file name="test.passwd" role="test" />
       </dir> <!-- /test/Horde/Auth/fixtures -->
       <dir name="Unit">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteLockTest.php" role="test" />
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Horde/Auth/Unit/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+        <file name="Locks.php" role="test" />
+       </dir> <!-- /test/Horde/Auth/Unit/Sql -->
        <file name="AuthTest.php" role="test" />
        <file name="KolabTest.php" role="test" />
        <file name="PasswdTest.php" role="test" />
@@ -191,12 +217,16 @@
     <channel>pecl.php.net</channel>
    </package>
    <extension>
+    <name>ctype</name>
+   </extension>
+   <extension>
     <name>ftp</name>
    </extension>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Auth/COPYING" />
    <install as="Horde/Auth.php" name="lib/Horde/Auth.php" />
    <install as="Horde/Auth/Auto.php" name="lib/Horde/Auth/Auto.php" />
    <install as="Horde/Auth/Base.php" name="lib/Horde/Auth/Base.php" />
@@ -220,7 +250,11 @@
    <install as="Horde/Auth/Smb.php" name="lib/Horde/Auth/Smb.php" />
    <install as="Horde/Auth/Smbclient.php" name="lib/Horde/Auth/Smbclient.php" />
    <install as="Horde/Auth/Sql.php" name="lib/Horde/Auth/Sql.php" />
+   <install as="Horde/Auth/Translation.php" name="lib/Horde/Auth/Translation.php" />
    <install as="Horde/Auth/Http/Remote.php" name="lib/Horde/Auth/Http/Remote.php" />
+   <install as="locale/Horde_Auth.pot" name="locale/Horde_Auth.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Auth.mo" name="locale/de/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Auth.po" name="locale/de/LC_MESSAGES/Horde_Auth.po" />
    <install as="migration/1_horde_auth_base_tables.php" name="migration/Horde/Auth/1_horde_auth_base_tables.php" />
    <install as="Horde/Auth/AllTests.php" name="test/Horde/Auth/AllTests.php" />
    <install as="Horde/Auth/Autoload.php" name="test/Horde/Auth/Autoload.php" />
@@ -230,6 +264,10 @@
    <install as="Horde/Auth/Unit/AuthTest.php" name="test/Horde/Auth/Unit/AuthTest.php" />
    <install as="Horde/Auth/Unit/KolabTest.php" name="test/Horde/Auth/Unit/KolabTest.php" />
    <install as="Horde/Auth/Unit/PasswdTest.php" name="test/Horde/Auth/Unit/PasswdTest.php" />
+   <install as="Horde/Auth/Unit/Sql/Base.php" name="test/Horde/Auth/Unit/Sql/Base.php" />
+   <install as="Horde/Auth/Unit/Sql/Locks.php" name="test/Horde/Auth/Unit/Sql/Locks.php" />
+   <install as="Horde/Auth/Unit/Sql/Pdo/SqliteLockTest.php" name="test/Horde/Auth/Unit/Sql/Pdo/SqliteLockTest.php" />
+   <install as="Horde/Auth/Unit/Sql/Pdo/SqliteTest.php" name="test/Horde/Auth/Unit/Sql/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -243,7 +281,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fixed error handling when removing user data.
 * Retrieve password where necessary for salt calculations in the custom SQL driver (Bug #3739).
@@ -282,7 +320,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Imap driver now uses Horde_Imap_Client library.
 * Add signup drivers to package.xml (Bug #7345).
@@ -302,7 +340,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Remove dependency on horde/Core.
@@ -322,7 +360,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -337,7 +375,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -352,7 +390,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
 * Remove Cyrus driver.
@@ -369,7 +407,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Fix Cyrsql driver (Vilius Sumskas &lt;vilius@lnk.lt&gt;, Bug #9781).
@@ -386,7 +424,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-20</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix default userhierarchy for Cyrsql driver (Bug #9895).
 * [cjh] Add crypt-sha256 and crypt-sha512 password hashes (patrickdk@patrickdk.com, Request #6991).
@@ -401,7 +439,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix listing users in Customsql driver (Bug #9963).
    </notes>
@@ -414,7 +452,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Cyrsql driver doesn&apos;t support resetting passwords currently (Bug #10060).
    </notes>
@@ -427,7 +465,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-08</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] SECURITY: Fix propagating failed login in composite driver (Bug #10211).
    </notes>
@@ -440,7 +478,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add sort parameter to listUsers() method.
 * [mms] Fix addUser() for Cyrsql driver (vilius@lnk.lt, Bug #10239).
@@ -454,7 +492,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add bad login blocking and account locking to the base driver.
 * [rla] Fix SQL driver when using soft_expiration and hard_expiration features.
@@ -468,11 +506,64 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-31</date>
-   <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Dynamically disable capabilities of Customsql authentication driver if queries are empty (Michael Gröne, Request #10510).
 * [jan] Fix updating users in LDAP while using preauthenticate hooks.
 * [jan] Add support for resetting passwords to LDAP driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add checkPasswordPolicy() and checkPasswordSimilarity() methods.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add missing locale directory (Bug #10589).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.2</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix detecting locale directory from PEAR installation (Bug #10589).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.3</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -2,10 +2,10 @@
 /**
  * Class to describe a single Ansel image.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
@@ -210,6 +210,7 @@ class Ansel_Image Implements Iterator
 
         $this->_image = Ansel::getImageObject();
         $this->_image->reset();
+        $this->id = !empty($image['image_id']) ? $image['image_id'] : null;
     }
 
     /**
@@ -293,35 +294,45 @@ class Ansel_Image Implements Iterator
             $this->_image->loadString($this->_data['full']);
             $this->_loaded['full'] = true;
             return;
-        }
+        } elseif ($view == 'full') {
+            try {
+                $data = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('images')
+                    ->read($this->getVFSPath('full'), $this->getVFSName('full'));
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ansel_Exception($e);
+            }
+            $viewHash = 'full';
+        } else {
+            $viewHash = $this->getViewHash($view, $style);
 
-        $viewHash = $this->getViewHash($view, $style);
+            // If we've already loaded the data, just return now.
+            if (!empty($this->_loaded[$viewHash])) {
+                return;
+            }
+            $this->createView($view, $style);
 
-        // If we've already loaded the data, just return now.
-        if (!empty($this->_loaded[$viewHash])) {
-            return;
-        }
+            // If createView() had to resize the full image, we've already
+            // loaded the data, so return now.
+            if (!empty($this->_loaded[$viewHash])) {
+                return;
+            }
 
-        $this->createView($view, $style);
+            // Get the VFS info.
+            $vfspath = $this->getVFSPath($view, $style);
 
-        // If createView() had to resize the full image, we've already
-        // loaded the data, so return now.
-        if (!empty($this->_loaded[$viewHash])) {
-            return;
-        }
-
-        // Get the VFS info.
-        $vfspath = $this->getVFSPath($view, $style);
-
-        // Read in the requested view.
-        try {
-            $data = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Vfs')
-                ->create('images')
-                ->read($vfspath, $this->getVFSName($view));
-        } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            throw new Ansel_Exception($e);
+            // Read in the requested view.
+            try {
+                $data = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('images')
+                    ->read($vfspath, $this->getVFSName($view));
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ansel_Exception($e);
+            }
         }
 
         /* We've definitely successfully loaded the image now. */
@@ -381,8 +392,10 @@ class Ansel_Image Implements Iterator
     {
         // Default to the gallery's style
         if (empty($style)) {
-            $style = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                ->getGallery($this->gallery)->getStyle();
+            $style = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getGallery($this->gallery)
+                ->getStyle();
         }
 
         // Get the VFS info.
@@ -390,7 +403,6 @@ class Ansel_Image Implements Iterator
         if ($GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
             ->create('images')
             ->exists($vfspath, $this->getVFSName($view))) {
-
             return;
         }
         try {
@@ -566,7 +578,7 @@ class Ansel_Image Implements Iterator
 
         // Get the EXIF data if we are not a gallery key image.
         if ($this->gallery > 0) {
-            $needUpdate = $this->_getEXIF();
+            $needUpdate = $this->getEXIF();
         }
 
         // Create tags from exif data if desired
@@ -614,7 +626,7 @@ class Ansel_Image Implements Iterator
             ->clearImageAttributes($this->id);
 
         // Load the new image data
-        $this->_getEXIF();
+        $this->getEXIF();
         $this->updateData($imageData);
     }
 
@@ -650,10 +662,12 @@ class Ansel_Image Implements Iterator
      * storage. Also populates any local properties that come from the EXIF
      * data.
      *
+     * @param boolean $replacing  Set to true if we are replacing the exif data.
+     *
      * @return boolean  True if any local properties were modified, False if not.
      * @throws Ansel_Exception
      */
-    protected function _getEXIF()
+    public function getEXIF($replacing = false)
     {
         /* Clear the local copy */
         $this->_exif = array();
@@ -711,8 +725,15 @@ class Ansel_Image Implements Iterator
         $this->_autoRotate();
 
         // Save attributes.
+        if ($replacing) {
+            $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->clearImageAttributes($this->id);
+        }
+
         foreach ($exif_fields as $name => $value) {
-            $GLOBALS['injector']->getInstance('Ansel_Storage')
+            $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
                 ->saveImageAttribute($this->id, $name, $value);
             $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
         }
@@ -836,7 +857,9 @@ class Ansel_Image Implements Iterator
     public function raw($view = 'full')
     {
         if ($this->_dirty) {
-            return $this->_image->raw();
+            $data = $this->_image->raw();
+            $this->reset();
+            return $data;
         } else {
             $this->load($view);
             return $this->_data[$view];

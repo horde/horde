@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Represents a source component.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Component_Source extends Components_Component_Base
@@ -111,6 +111,25 @@ class Components_Component_Source extends Components_Component_Base
             return $this->_directory . '/doc/RELEASE_NOTES';
         }
         return false;
+    }
+
+    /**
+     * Return the path to a DOCS_ORIGIN file within the component.
+     *
+     * @return array|NULL An array containing the path name and the component
+     *                    base directory or NULL if there is no DOCS_ORIGIN
+     *                    file.
+     */
+    public function getDocumentOrigin()
+    {
+        foreach (array('doc', 'docs') as $doc_dir) {
+            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_directory . '/' . $doc_dir)) as $file) {
+                if ($file->isFile() &&
+                    $file->getFilename() == 'DOCS_ORIGIN') {
+                    return array($file->getPathname(), $this->_directory);
+                }
+            }
+        }
     }
 
     /**
@@ -415,7 +434,7 @@ class Components_Component_Source extends Components_Component_Base
      *               archive, optionally [1] an array of error strings, and [2]
      *               PEAR output.
      */
-    public function placeArchive($destination, $options)
+    public function placeArchive($destination, $options = array())
     {
         if (!file_exists($this->_getPackageXmlPath())) {
             throw new Components_Exception(

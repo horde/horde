@@ -2,16 +2,16 @@
 /**
  * Gollem base library.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Max Kalika <max@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Gollem
  */
 class Gollem
@@ -399,7 +399,7 @@ class Gollem
     static public function writeFile($dir, $name, $filename)
     {
         $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
-        $gollem_vfs->write($dir, $name, $filename);
+        $gollem_vfs->write($dir, $name, $filename, true);
         if (!empty(self::$backend['params']['permissions'])) {
             $gollem_vfs->changePermissions($dir, $name, self::$backend['params']['permissions']);
         }
@@ -539,7 +539,7 @@ class Gollem
         $label = array();
         $root_dir_name = self::$backend['name'];
 
-        if ($currdir == $root_dir) {
+        if ($currdir == $root_dir_name) {
             $label[] = '[' . $root_dir_name . ']';
         } else {
             $parts = explode('/', $currdir);

@@ -17,20 +17,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>00:23:48</time>
+ <date>2011-10-11</date>
+ <time>14:41:04</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix incorrect syncml:metinf and syncml:devinf URNs (Bug #10229).
-* [jan] Mark Xml_Wbxml:: methods as static.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,6 +51,7 @@
         <file name="syncml_server_packet_1.xml" role="doc" />
         <file name="z600_client_0.wbxml" role="doc" />
        </dir> <!-- /doc/Horde/Xml/Wbxml/examples -->
+       <file name="COPYING" role="doc" />
       </dir> <!-- /doc/Horde/Xml/Wbxml -->
      </dir> <!-- /doc/Horde/Xml -->
     </dir> <!-- /doc/Horde -->
@@ -110,6 +110,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Xml/Wbxml/COPYING" />
    <install as="examples/devinf.wbxml" name="doc/Horde/Xml/Wbxml/examples/devinf.wbxml" />
    <install as="examples/k500i_client_0.wbxml" name="doc/Horde/Xml/Wbxml/examples/k500i_client_0.wbxml" />
    <install as="examples/k700i_syncml_client_0.wbxml" name="doc/Horde/Xml/Wbxml/examples/k700i_syncml_client_0.wbxml" />
@@ -150,7 +151,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -165,7 +166,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -180,7 +181,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -195,7 +196,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -208,7 +209,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t set codepage multiple times (Bug #9964).
    </notes>
@@ -220,11 +221,37 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix incorrect syncml:metinf and syncml:devinf URNs (Bug #10229).
 * [jan] Mark Xml_Wbxml:: methods as static.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Complete fix for incorrect syncml:metinf and syncml:devinf URNs (Bug #10229).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -4,17 +4,17 @@
  * common methods for handling language data, timezones, and hostname->country
  * lookups.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jon Parise <jon@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Nls
  */
 class Horde_Nls
@@ -205,19 +205,47 @@ class Horde_Nls
      */
     static public function getCountryISO($code = null)
     {
-        if (!isset(self::$_cache['iso'])) {
+        if (!isset(self::$_cache['iso3166'])) {
             include dirname(__FILE__) . '/Nls/Countries.php';
-            self::$_cache['iso'] = $countries;
+            self::$_cache['iso3166'] = $countries;
         }
 
         if (empty($code)) {
-            return self::$_cache['iso'];
+            return self::$_cache['iso3166'];
         }
 
         $code = Horde_String::upper($code);
 
-        return isset(self::$_cache['iso'][$code])
-            ? self::$_cache['iso'][$code]
+        return isset(self::$_cache['iso3166'][$code])
+            ? self::$_cache['iso3166'][$code]
+            : null;
+    }
+
+    /**
+     * Returns either a specific or all ISO-639 language names.
+     *
+     * @param string $code  The ISO 639 language code.
+     *
+     * @return mixed  If a language code has been requested will return the
+     *                corresponding language name. If empty will return an
+     *                array of all the language codes (keys) and their names
+     *                (values).
+     */
+    static public function getLanguageISO($code = null)
+    {
+        if (!isset(self::$_cache['iso639'])) {
+            include dirname(__FILE__) . '/Nls/Languages.php';
+            self::$_cache['iso639'] = $languages;
+        }
+
+        if (empty($code)) {
+            return self::$_cache['iso639'];
+        }
+
+        $code = substr(Horde_String::lower(trim($code)), 0, 2);
+
+        return isset(self::$_cache['iso639'][$code])
+            ? self::$_cache['iso639'][$code]
             : null;
     }
 

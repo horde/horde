@@ -4,7 +4,7 @@
  * Provides the javascript to open popup windows.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
 
 window.Horde = window.Horde || {};
@@ -46,7 +46,7 @@ Horde.popup = function(opts)
 
     if (opts.params) {
         $H(opts.params.toQueryParams()).each(function(a) {
-            params.set(a.key, unescape(a.value));
+            params.set(a.key, decodeURIComponent(a.value));
         });
     }
     params.set('uniq', uniq);

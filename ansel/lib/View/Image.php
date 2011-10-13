@@ -3,7 +3,7 @@
  * The Ansel_View_Image:: class wraps display of individual images.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
@@ -362,9 +362,8 @@ class Ansel_View_Image extends Ansel_View_Ansel
 
             /* In line caption editing */
             if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                $geometry = $this->resource->getDimensions();
                 $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'EditCaption'), array(
-                    'width' => $geometry['width'],
+                    'width' => $this->_geometry['width'],
                     'domid' => "Caption",
                     'id' => $this->resource->id
                 ));

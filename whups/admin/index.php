@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -336,18 +336,6 @@ case 'whups_form_admin_editqueuesteptwo':
                 $vars->get('default'));
             $notification->push(
                 _("The queue has been modified."), 'horde.success');
-            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-            $corePerms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
-            if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':update')) {
-                $p = $corePerms->newPermission('whups:queues:'
-                    . $vars->get('queue') . ':update');
-                $perms->addPermission($p);
-            }
-            if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':assign')) {
-                $p = $corePerms->newPermission('whups:queues:'
-                    . $vars->get('queue') . ':assign');
-                $perms->addPermission($p);
-            }
             _open();
             $form->renderInactive($renderer, $vars);
         } catch (Whups_Exception $e) {

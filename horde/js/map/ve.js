@@ -1,12 +1,14 @@
 /**
  * Default Virtual Earth / Bing Layers.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @deprecated This driver is deprecated in favor of the (much more effecient)
+ *             Bing driver.
  */
 HordeMap.Ve = Class.create(
 {
@@ -111,8 +113,9 @@ HordeMap.Geocoder.Ve = Class.create(
             this._completeCallback(results);
         }
 });
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
 
@@ -120,10 +123,15 @@ HordeMap.Geocoder.Ve = Class.create(
  * @requires OpenLayers/Layer/SphericalMercator.js
  * @requires OpenLayers/Layer/EventPane.js
  * @requires OpenLayers/Layer/FixedZoomLevels.js
+ * @requires OpenLayers/Lang.js
  */
 
 /**
  * Class: OpenLayers.Layer.VirtualEarth
+ * Instances of OpenLayers.Layer.VirtualEarth are used to display the data from
+ *     the Bing Maps AJAX Control (see e.g.
+ *     http://msdn.microsoft.com/library/bb429619.aspx). Create a VirtualEarth
+ *     layer with the <OpenLayers.Layer.VirtualEarth> constructor.
  *
  * Inherits from:
  *  - <OpenLayers.Layer.EventPane>
@@ -179,6 +187,14 @@ OpenLayers.Layer.VirtualEarth = OpenLayers.Class(
     type: null,
 
     /**
+     * APIProperty: wrapDateLine
+     * {Boolean} Allow user to pan forever east/west.  Default is true.
+     *     Setting this to false only restricts panning if
+     *     <sphericalMercator> is true.
+     */
+    wrapDateLine: true,
+
+    /**
      * APIProperty: sphericalMercator
      * {Boolean} Should the map act as a mercator-projected map? This will
      *     cause all interactions with the map to be in the actual map
@@ -197,6 +213,22 @@ OpenLayers.Layer.VirtualEarth = OpenLayers.Class(
 
     /**
      * Constructor: OpenLayers.Layer.VirtualEarth
+     * Creates a new instance of a OpenLayers.Layer.VirtualEarth. If you use an
+     *     instance of OpenLayers.Layer.VirtualEarth in you map, you should set
+     *     the <OpenLayers.Map> option restrictedExtent to a meaningful value,
+     *     e.g.:
+     * (code)
+     * var map = new OpenLayers.Map( 'map', {
+     *     // other map options
+     *     restrictedExtent : OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508)
+     * } );
+     *
+     * var veLayer = new OpenLayers.Layer.VirtualEarth (
+     *     "Virtual Earth Layer"
+     * );
+     *
+     * map.addLayer( veLayer );
+     * (end)
      *
      * Parameters:
      * name - {String}

@@ -1,5 +1,5 @@
 # German translation for Mnemo.
-# Copyright 2002-2011 The Horde Project
+# Copyright 2002-2011 Horde LLC
 # This file is distributed under the same license as the Mnemo package.
 # Jan Schneider <jan@horde.org>, 2001-2011.
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
-"PO-Revision-Date: 2011-04-04 10:33+0200\n"
+"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"PO-Revision-Date: 2011-10-07 15:26+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -249,7 +249,7 @@ msgstr "Änderungsdatum"
 msgid "More Options..."
 msgstr "Weitere Optionen..."
 
-#: lib/Api.php:378
+#: lib/Api.php:346
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "Mehrere iCalendar-Komponenten gefunden; nur ein vNote wird unterstützt."
@@ -274,7 +274,7 @@ msgstr "Neue Notiz"
 msgid "Next"
 msgstr "Weiter"
 
-#: lib/Api.php:222 lib/Api.php:371
+#: lib/Api.php:190 lib/Api.php:339
 msgid "No iCalendar data was found."
 msgstr "Es wurden keine iCalendar-Daten gefunden."
 
@@ -335,7 +335,7 @@ msgstr "Notizblock"
 msgid "Notepad List"
 msgstr "Notizblockübersicht"
 
-#: lib/Mnemo.php:568
+#: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
 msgstr "Notizblock von %s"
@@ -343,6 +343,10 @@ msgstr "Notizblock von %s"
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "Notizblöcke"
+
+#: lib/Notepads/Kolab.php:38
+msgid "Notes"
+msgstr "Notizen"
 
 #: lib/Block/Summary.php:12
 msgid "Notes Summary"
@@ -352,8 +356,8 @@ msgstr "Notizen-Zusammenfassung"
 msgid "Ok"
 msgstr "Ok"
 
-#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
-#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
+#: lib/Api.php:73 lib/Api.php:106 lib/Api.php:138 lib/Api.php:169
+#: lib/Api.php:254 lib/Api.php:299 lib/Api.php:322
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
@@ -494,11 +498,11 @@ msgstr "Die Passwörter stimmen nicht überein."
 msgid "There was an error importing the data: %s"
 msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 
-#: lib/Api.php:216 lib/Api.php:365
+#: lib/Api.php:184 lib/Api.php:333
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
-#: lib/Api.php:53 lib/Api.php:65
+#: lib/Application.php:202
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
@@ -545,7 +549,7 @@ msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 "Diese Notiz wurde verschlüsselt, bitte geben Sie unten das Passwort ein"
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
+#: lib/Api.php:248 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Diese Notiz wurde verschlüsselt."
 
@@ -555,7 +559,7 @@ msgstr "Diese Notiz wurde verschlüsselt."
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
 
-#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
+#: lib/Api.php:217 lib/Api.php:273 lib/Api.php:356
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützter Inhaltstyp: %s"

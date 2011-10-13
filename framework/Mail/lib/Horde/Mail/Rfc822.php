@@ -37,7 +37,7 @@
  * @author      Richard Heyes <richard@phpguru.org>
  * @author      Chuck Hagenbuch <chuck@horde.org
  * @copyright   2001-2010 Richard Heyes
- * @license     http://opensource.org/licenses/bsd-license.php New BSD License
+ * @license     http://www.horde.org/licenses/bsd New BSD License
  */
 
 /**
@@ -225,6 +225,11 @@ class Horde_Mail_Rfc822
 
             // We must have a group at this point, so increase the counter:
             ++$this->num_groups;
+        }
+
+        $string = trim($string);
+        if (!strlen($string)) {
+            return '';
         }
 
         // $string now contains the first full address/group.

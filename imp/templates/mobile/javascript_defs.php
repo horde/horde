@@ -2,10 +2,10 @@
 /**
  * IMP Mobile base JS file.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 $code = $flags = array();
@@ -36,7 +36,6 @@ $code['conf'] = array_filter(array(
     'URI_SEARCH' => strval(Horde::url('search.php')),
     'URI_VIEW' => strval(Horde::url('view.php')),
 
-    'IDX_SEP' => IMP_Dimp::IDX_SEP,
     'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables

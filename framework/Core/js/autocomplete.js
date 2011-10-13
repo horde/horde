@@ -16,10 +16,10 @@
  * TODO: options = autoSelect, frequency, minChars, onSelect, onShow, onType,
  *                 paramName, tokens
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Core
@@ -156,9 +156,9 @@ Autocompleter.Base = Class.create({
 
         var entry = this.getToken();
 
-        if (entry.length >= this.opts.minChars) {
-            entry = this.opts.onType(entry);
-        }
+        entry = (entry.length >= this.opts.minChars)
+            ? this.opts.onType(entry)
+            : '';
 
         if (entry.length) {
             if (this.opts.indicator) {

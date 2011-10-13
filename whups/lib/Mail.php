@@ -2,7 +2,7 @@
 /**
  * Whups mail processing library.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -58,7 +58,10 @@ class Whups_Mail
         }
 
         // Use the message subject as the ticket summary.
-        $info['summary'] = $headers->getValue('subject');
+        $info['summary'] = trim($headers->getValue('subject'));
+        if (empty($info['summary'])) {
+            $info['summary'] = _("[No Subject]");
+        }
         $from = $headers->getValue('from');
 
         // Format the message into a comment.

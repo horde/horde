@@ -5,10 +5,10 @@
  * This file defines Wicked's external API interface. Other applications
  * can interact with Wicked through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Wicked
  */
@@ -48,8 +48,7 @@ class Wicked_Api extends Horde_Registry_Api
     {
         $page = Wicked_Page::getPage($pagename);
         return array(
-            'page_majorversion' => $page->_page['page_majorversion'],
-            'page_minorversion' => $page->_page['page_minorversion'],
+            'page_version' => $page->_page['page_version'],
             'page_checksum' => md5($page->getText()),
             'version_created' => $page->_page['version_created'],
             'change_author' => $page->_page['change_author'],
@@ -78,8 +77,7 @@ class Wicked_Api extends Horde_Registry_Api
         foreach ($pagenames as $pagename) {
             $page = Wicked_Page::getPage($pagename);
             $info[$pagename] = array(
-                'page_majorversion' => $page->_page['page_majorversion'],
-                'page_minorversion' => $page->_page['page_minorversion'],
+                'page_version' => $page->_page['page_version'],
                 'page_checksum' => md5($page->getText()),
                 'version_created' => $page->_page['version_created'],
                 'change_author' => $page->_page['change_author'],
@@ -162,12 +160,10 @@ class Wicked_Api extends Horde_Registry_Api
      * @param string $pagename Page to edit
      * @param string $text Page content
      * @param string $changelog Description of the change
-     * @param boolean $minorchange True if this is a minor change
      *
      * @throws Wicked_Exception
      */
-    public function edit($pagename, $text, $changelog = '',
-                         $minorchange = false)
+    public function edit($pagename, $text, $changelog = '')
     {
         $page = Wicked_Page::getPage($pagename);
         if (!$page->allows(Wicked::MODE_EDIT)) {
@@ -192,7 +188,7 @@ class Wicked_Api extends Horde_Registry_Api
             throw new Wicked_Exception(_("No changes made"));
         }
 
-        $page->updateText($text, $changelog, $minorchange);
+        $page->updateText($text, $changelog);
     }
 
     /**
@@ -284,8 +280,7 @@ class Wicked_Api extends Horde_Registry_Api
         $info = array();
         foreach ($GLOBALS['wicked']->getRecentChanges($days) as $page) {
             $info[$page['page_name']] = array(
-                'page_majorversion' => $page['page_majorversion'],
-                'page_minorversion' => $page['page_minorversion'],
+                'page_version' => $page['page_version'],
                 'page_checksum' => md5($page['page_text']),
                 'version_created' => $page['version_created'],
                 'change_author' => $page['change_author'],
@@ -295,5 +290,4 @@ class Wicked_Api extends Horde_Registry_Api
 
         return $info;
     }
-
 }

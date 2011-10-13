@@ -5,13 +5,12 @@
  * This file defines Horde's application interface. Other Horde libraries
  * and applications can interact with Beatnik through this API.
  *
- * Copyright 2006-2010 Alkaloid Networks, LLC (http://projects.alkaloid.net/)
+ * Copyright 2006-2010 Horde LLC (http://horde.org)
  *
- * See the enclosed file LICENSE for license information (BSD). If you did not
- * did not receive this file, see
- * http://www.opensource.org/licenses/bsd-license.html.
+ * See the enclosed file LICENSE for license information (GPL). If you did not
+ * did not receive this file, see http://www.horde.org/licenses/gpl
  *
- * @author  Ben Klang <ben@alkaloid.net>
+ * @author  Ben Klang <bklang@horde.org>
  * @package Beatnik
  */
 

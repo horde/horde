@@ -3,14 +3,14 @@
  * The IMP_Mime_Viewer_Images class allows display of images attached
  * to a message.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
@@ -26,6 +26,17 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         'inline' => true,
         'raw' => true
     );
+
+    /**
+     */
+    public function canRender($mode)
+    {
+        /* For mimp - allow rendering of attachments inline (on the view
+         * parts page). */
+        return (($mode == 'inline') && (IMP::getViewMode() == 'mimp'))
+            ? true
+            : parent::canRender($mode);
+    }
 
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
@@ -77,7 +88,9 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 $imgview = new IMP_Ui_Imageview();
                 $showimg = $imgview->showInlineImage($this->getConfigParam('imp_contents'));
             } else {
-                $showimg = false;
+                /* For mimp - allow rendering of attachments inline (on the
+                 * view parts page). */
+                $showimg = (IMP::getViewMode() == 'mimp');
             }
 
             if (!$showimg) {

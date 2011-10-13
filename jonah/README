@@ -1,38 +1,82 @@
-Jonah
+================
+ What is Jonah?
+================
 
-What is Jonah?
---------------
+:Contact: horde@lists.horde.org
 
-Jonah is a portal system for displaying news and other data from
-various sources, written in PHP and utilizing the Horde Application
-Framework.
+.. contents:: Contents
+.. section-numbering::
 
-This software is OSI Certified Open Source Software.
-OSI Certified is a certification mark of the Open Source Initiative.
+Jonah is a portal system for displaying news and other data from various
+sources, written in PHP and utilizing the Horde Application Framework.
 
+This software is OSI Certified Open Source Software. OSI Certified is a
+certification mark of the `Open Source Initiative`_.
 
-Jonah Documentation
--------------------
-
-LICENSE       - Jonah's license
-README        - This file
-docs/CHANGES  - A list of changes by release
-docs/CREDITS  - Who developed this
-docs/HELP     - How you can help
-docs/INSTALL  - Installation instructions and notes
+.. _`Open Source Initiative`: http://www.opensource.org/
 
 
-Now what?
----------
+Obtaining Jonah
+===============
 
-All installation documentation is located in the docs/ subdirectory
+Further information on Jonah and the latest version can be obtained at
 
-You MUST have the Horde framework installed on your system before you
-install Jonah.
+  http://www.horde.org/apps/jonah
 
-Read the docs/INSTALL file. It contains everything you need to know in
-order to install Jonah on your system. (if it doesn't, it should, so yell at
-us!)
 
-Enjoy,
-The Jonah Team
+Documentation
+=============
+
+The following documentation is available in the Jonah distribution:
+
+:README_:            This file
+:LICENSE_:           Copyright and license information
+:`docs/CHANGES`_:    Changes by release
+:`docs/CREDITS`_:    Project developers
+:`docs/INSTALL`_:    Installation instructions and notes
+
+
+Installation
+============
+
+Instructions for installing Jonah can be found in the file INSTALL_ in the
+``docs/`` directory of the Jonah distribution.
+
+
+Assistance
+==========
+
+If you encounter problems with Jonah, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
+
+  http://wiki.horde.org/FAQ
+
+Horde LLC runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/community/mail
+
+Lastly, Horde developers, contributors and users also make occasional
+appearances on IRC, on the channel #horde on the Freenode Network
+(irc.freenode.net).
+
+
+Licensing
+=========
+
+For licensing and copyright information, please see the file LICENSE_ in the
+Jonah distribution.
+
+Thanks,
+
+The Jonah team
+
+
+.. _README: README
+.. _LICENSE: http://www.horde.org/licenses/apache
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
+.. _INSTALL:
+.. _docs/INSTALL: INSTALL

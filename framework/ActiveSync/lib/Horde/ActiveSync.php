@@ -3,7 +3,7 @@
  * ActiveSync Server - ported from ZPush
  *
  * Refactoring and other changes are
- * Copyright 2009 - 2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
@@ -22,8 +22,8 @@
  * Created   :   01.10.2007
  *
  * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL v2.
- * Consult LICENSE file for details
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
  */
 
 // POOMMAIL

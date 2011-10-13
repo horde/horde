@@ -14,7 +14,7 @@
 /**
  * Generates test group services.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -34,7 +34,7 @@ class Horde_Test_Factory_Group
      *
      * @return Horde_Group_Mock The mock service.
      */
-    public function createMock()
+    public function create()
     {
         if (!class_exists('Horde_Group_Mock')) {
             throw new Horde_Test_Exception('The "Horde_Group_Mock" class is unavailable!');

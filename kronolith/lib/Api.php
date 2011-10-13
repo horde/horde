@@ -1326,4 +1326,73 @@ class Kronolith_Api extends Horde_Registry_Api
         return (unserialize($GLOBALS['prefs']->getValue('fb_cals')));
     }
 
+    /**
+     * Retrieve the list of used tag_names, tag_ids and the total number
+     * of resources that are linked to that tag.
+     *
+     * @param array $tags  An optional array of tag_ids. If omitted, all tags
+     *                     will be included.
+     *
+     * @return array  An array containing tag_name, and total
+     */
+    public function listTagInfo($tags = null)
+    {
+        return $GLOBALS['injector']
+            ->getInstance('Kronolith_Tagger')->getTagInfo($tags);
+    }
+
+    /**
+     * SearchTags API:
+     * Returns an application-agnostic array (useful for when doing a tag search
+     * across multiple applications)
+     *
+     * The 'raw' results array can be returned instead by setting $raw = true.
+     *
+     * @param array $names           An array of tag_names to search for.
+     * @param integer $max           The maximum number of resources to return.
+     * @param integer $from          The number of the resource to start with.
+     * @param string $resource_type  The resource type [event, calendar, '']
+     * @param string $user           Restrict results to resources owned by $user.
+     * @param boolean $raw           Return the raw data?
+     *
+     * @return array An array of results:
+     * <pre>
+     *  'title'    - The title for this resource.
+     *  'desc'     - A terse description of this resource.
+     *  'view_url' - The URL to view this resource.
+     *  'app'      - The Horde application this resource belongs to.
+     * </pre>
+     */
+    public function searchTags($names, $max = 10, $from = 0,
+                               $resource_type = '', $user = null, $raw = false)
+    {
+        $results = $GLOBALS['injector']
+            ->getInstance('Kronolith_Tagger')
+            ->search(
+                $names,
+                array('type' => 'event', 'user' => $user));
+
+        // Check for error or if we requested the raw data array.
+        if ($raw) {
+            return $results;
+        }
+
+        $return = array();
+        if (!empty($results['events'])) {
+            foreach ($results['events'] as $event_id) {
+                $driver = Kronolith::getDriver();
+                $event = $driver->getByUid($event_id);
+                $view_url = $event->getViewUrl();
+                $return[] = array(
+                    'title' => $event->title,
+                    'desc'=> $event->start->strftime($GLOBALS['prefs']->getValue('date_format_mini')) . ' ' . $event->start->strftime($GLOBALS['prefs']->getValue('time_format')),
+                    'view_url' => $view_url,
+                    'app' => 'kronolith'
+                );
+            }
+        }
+
+        return $return;
+    }
+
 }

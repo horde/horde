@@ -1,0 +1,4 @@
+= Creating New Pages =
+You don't have to specifically create nodes.  You can just type away and make up a new node name (a string with an initial capital letter, some lower case letters and at least one other capital letter, enclosed in double square brackets).  When you view the page again it will be a link.  The first time you click on that link, the wiki will automatically create the page and you can edit it.
+
+See [[Wiki/TextFormat]] for information on how to format pages in this wiki.

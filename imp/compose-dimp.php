@@ -4,27 +4,28 @@
  *
  * List of URL parameters:
  * -----------------------
- *   - bcc: TODO
- *   - cc: TODO
- *   - identity: TODO
- *   - subject: TODO
+ *   - bcc: BCC addresses.
+ *   - body: Message body text.
+ *   - cc: CC addresses.
+ *   - identity: Force message to use this identity by default.
+ *   - subject: Subject to use.
  *   - type: redirect, reply, reply_auto, reply_all, reply_list,
  *           forward_attach, forward_auto, forward_body, forward_both,
  *           forward_redirect, resume, new, editasnew
- *   - to: The e-mail address to send to.
+ *   - to: Address to send to.
  *   - toname: If set, will be used as personal part of e-mail address
  *             (requires 'to' parameter also).
- *   - uids: TODO
+ *   - uids: UIDs of message to forward (only used when forwarding a message).
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -38,8 +39,11 @@ $vars = Horde_Variables::getDefaultVariables();
 
 /* The headers of the message. */
 $header = array();
-foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
-    $header[$v] = strval($vars->$v);
+$args = IMP::getComposeArgs();
+foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
+    if (isset($args[$val])) {
+        $header[$val] = $args[$val];
+    }
 }
 
 /* Check for personal information for 'to' address. */
@@ -51,7 +55,7 @@ if (isset($header['to']) &&
 
 $fillform_opts = array('noupdate' => 1);
 $get_sig = true;
-$msg = '';
+$msg = $vars->body;
 
 $js = array();
 
@@ -86,12 +90,24 @@ case 'reply_list':
         'reply_list' => IMP_Compose::REPLY_LIST
     );
 
-    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->type], $contents, $header['to']);
+    $reply_msg = $imp_compose->replyMessage($reply_map[$vars->type], $contents, isset($header['to']) ? $header['to'] : null);
 
     $msg = $reply_msg['body'];
     $header = $reply_msg['headers'];
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
+
+        if (isset($reply_msg['reply_recip'])) {
+            $fillform_opts['reply_recip'] = $reply_msg['reply_recip'];
+        }
+
+        if (isset($reply_msg['reply_list_id'])) {
+            $fillform_opts['reply_list_id'] = $reply_msg['reply_list_id'];
+        }
+    }
+
+    if (!empty($reply_msg['lang'])) {
+        $fillform_opts['reply_lang'] = array_values($reply_msg['lang']);
     }
 
     switch ($reply_msg['type']) {
@@ -126,7 +142,7 @@ case 'forward_auto':
 case 'forward_body':
 case 'forward_both':
     $indices = $vars->uids
-        ? new IMP_Indices($vars->uids)
+        ? new IMP_Indices_Form($vars->uids)
         : null;
 
     if ($indices && (count($indices) > 1)) {
@@ -136,7 +152,7 @@ case 'forward_both':
 
         try {
             $header = array(
-                'subject' => $imp_compose->attachImapMessage(new IMP_Indices($vars->uids))
+                'subject' => $imp_compose->attachImapMessage($indices)
             );
         } catch (IMP_Compose_Exception $e) {
             $notification->push($e, 'horde.error');
@@ -260,14 +276,16 @@ $t->set('compose_html', $compose_result['html']);
 Horde::addInlineJsVars($js);
 Horde::addInlineScript($compose_result['js']);
 
-$fillform_opts['focus'] = in_array($vars->type, array('forward', 'new', 'redirect', 'editasnew')) ? 'to' : 'composeMessage';
+$fillform_opts['focus'] = (($vars->type == 'new') && isset($args['to']))
+    ? 'composeMessage'
+    : (in_array($vars->type, array('forward', 'new', 'redirect', 'editasnew')) ? 'to' : 'composeMessage');
+
 if ($vars->type != 'redirect') {
     $compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
 }
 Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
 $scripts = array(
-    array('base64url.js', 'imp'),
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),

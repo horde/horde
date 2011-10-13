@@ -4,8 +4,8 @@
  * @category   Horde
  * @package    Group
  * @subpackage UnitTests
- * @copyright  2011 The Horde Project (http://www.horde.org/)
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @copyright  2011 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Group_Stub_Api
 {

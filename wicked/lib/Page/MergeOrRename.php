@@ -2,10 +2,10 @@
 /**
  * Special page for merging or renaming pages.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jason M. Felice <eraserhd@speakeasy.net>
  * @package Wicked
@@ -192,7 +192,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
             // Merge the two pages.
             $newText = $destPage->getText() . "\n----\n" . $sourcePage->getText();
             $changelog = sprintf(_("Merged from %s"), $referrer);
-            $wicked->updateText($new_name, $newText, $changelog, true);
+            $wicked->updateText($new_name, $newText, $changelog);
             $wicked->removeAllVersions($referrer);
 
             $notification->push(sprintf(_("Merged \"%s\" into \"%s\"."), $referrer, $new_name), 'horde.success');
@@ -255,7 +255,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
             }
 
             $newText = preg_replace($from, $to, $refPage['page_text']);
-            $wicked->updateText($page_name, $newText, $changelog, true);
+            $wicked->updateText($page_name, $newText, $changelog);
         }
 
         Wicked::url($new_name, true)->redirect();

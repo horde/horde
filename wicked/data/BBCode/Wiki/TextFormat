@@ -1,0 +1,269 @@
+[b][size=24]Sample Page for Wiki Markup[/size][/b]
+
+
+[b][size=18]General Notes[/size][/b]
+
+The markup uses the BBCode style.
+
+This is a very limited markup syntax that is not really well suited for wikis.
+
+Just hit "return" twice to make a paragraph break.  If you want \
+to keep the same logical line but have to split it across \
+two physical lines (such as when your editor only shows a certain number \
+of characters per line), end the line with a backslash \ and hit \
+return once.  This will cause the two lines to be joined on display, and the \
+backslash will not show.  (If you end a line with a backslash and a tab \
+or space, it will [i]not[/i] be joined with the next line, and the backslash \
+will be printed.)
+
+
+[b][size=18]Inline Formatting[/size][/b]
+
+[code]
+[i]italic text[/i]
+[b]bold text[/b]
+[i][b]italic and bold[/b][/i]
+[u]underline text[/u]
+[sub]subscript[/sub] text
+[sup]superscript[/sup] text
+[color=red]red text[/color]
+[color=FFFF00]yellow text[/color]
+[/code]
+
+[i]italic text[/i]
+[b]bold text[/b]
+[i][b]italic and bold[/b][/i]
+[u]underline text[/u]
+[sub]subscript[/sub] text
+[sup]superscript[/sup] text
+[color=red]red text[/color]
+[color=FFFF00]yellow text[/color]
+
+
+[b][size=18]Headings[/size][/b]
+
+You can emulate various levels of heading by using "size" and "b" tags:
+
+[code]
+[b][size=14]Level 3 Heading[/size][/b]
+[b][size=12]Level 4 Heading[/size][/b]
+[b][size=10]Level 5 Heading[/size][/b]
+[b][size=8]Level 6 Heading[/size][/b]
+[/code]
+
+[b][size=14]Level 3 Heading[/size][/b]
+[b][size=12]Level 4 Heading[/size][/b]
+[b][size=10]Level 5 Heading[/size][/b]
+[b][size=8]Level 6 Heading[/size][/b]
+
+
+[b][size=18]Lists[/size][/b]
+
+
+[b][size=14]Bullet Lists[/size][/b]
+
+You can create bullet lists by using "list" tags.
+
+[code]
+[list]
+[*]Bullet one
+ [list]
+ [*] Sub-bullet
+ [/list]
+[/list]
+[/code]
+
+[list]
+[*]Bullet one
+ [list]
+ [*] Sub-bullet
+ [/list]
+[/list]
+
+
+[b][size=14]Numbered Lists[/size][/b]
+
+Similarly, you can create numbered lists.
+
+[code]
+[list=1]
+[*] Numero uno
+[*] Number two
+ [list=1]
+ [*] Sub-item
+ [/list]
+[/list]
+[/code]
+
+[list=1]
+[*] Numero uno
+[*] Number two
+ [list=1]
+ [*] Sub-item
+ [/list]
+[/list]
+
+
+[b][size=14]Mixing Bullet and Number List Items[/size][/b]
+
+You can mix and match bullet and number lists:
+
+[code]
+[list=1]
+[*] Number one
+ [list]
+ [*] Bullet
+ [*] Bullet
+ [/list]
+[*] Number two
+ [list]
+ [*] Bullet
+ [*] Bullet
+  [list]
+  [*] Sub-bullet
+   [list=1]
+   [*] Sub-sub-number
+   [*] Sub-sub-number
+   [/list]
+  [/list]
+ [/list]
+[*] Number three
+ [list]
+ [*] Bullet
+ [*] Bullet
+ [/list]
+[/list]
+[/code]
+
+[list=1]
+[*] Number one
+ [list]
+ [*] Bullet
+ [*] Bullet
+ [/list]
+[*] Number two
+ [list]
+ [*] Bullet
+ [*] Bullet
+  [list]
+  [*] Sub-bullet
+   [list=1]
+   [*] Sub-sub-number
+   [*] Sub-sub-number
+   [/list]
+  [/list]
+ [/list]
+[*] Number three
+ [list]
+ [*] Bullet
+ [*] Bullet
+ [/list]
+[/list]
+
+
+[b][size=18]Block Quotes[/size][/b]
+
+You can mark a blockquote using "quote" tags.
+
+[code]
+This is normal text here.
+
+  [quote]Indent me! The quick brown fox jumps over the lazy dog. \
+  Now this the time for all good men to come to the aid of \
+  their country. Notice how we can continue the block-quote \
+  in the same "paragraph" by using a backslash at the end of \
+  the line.
+  [/quote]
+
+  [quote]Another block, leading to...
+    [quote]Second level of indenting.  This second is indented even \
+    more than the previous one.
+    [/quote]
+  [/quote]
+
+Back to normal text.
+[/code]
+
+This is normal text here.
+
+  [quote]Indent me! The quick brown fox jumps over the lazy dog. \
+  Now this the time for all good men to come to the aid of \
+  their country. Notice how we can continue the block-quote \
+  in the same "paragraph" by using a backslash at the end of \
+  the line.
+  [/quote]
+
+  [quote]Another block, leading to...
+    [quote]Second level of indenting.  This second is indented even \
+    more than the previous one.
+    [/quote]
+  [/quote]
+
+Back to normal text.
+
+
+[b][size=18]Links[/size][/b]
+
+
+[b][size=14]Wiki Links[/size][/b]
+
+You cannot create wiki links. You have to specify full URLs.
+
+
+[b][size=14]URLs[/size][/b]
+
+Create a remote link simply by typing its URL: http://www.horde.org.
+
+If you like, enclose it in "url" tags:
+[code]
+[url]http://www.horde.org/[/url]
+[/code]
+becomes [url]http://www.horde.org/[/url].
+
+Or you can have a described-reference instead:
+[code]
+[url=http://www.horde.org/]Horde[/url]
+[/code]
+[url=http://www.horde.org/]Horde[/url]
+
+[i]Rendering of URLs using "url" tags is broken as of Text_Wiki 1.2.1, usage is discouraged.[/i]
+
+
+[b][size=18]Application Content[/size][/b]
+
+[b][size=14]Application Blocks[/size][/b]
+
+Content from other Horde applications provided by portal blocks can be embedded into a page using [[block]] tags.
+
+To include Horde's moon phases block for example:
+
+[code]
+[[block horde/Moon phase=next hemisphere=northern]]
+[/code]
+
+[[block horde/Moon phase=next hemisphere=northern]]
+
+[b][size=14]Application Links[/size][/b]
+
+Links to other Horde applications is supported if those applications support API links. The Wiki itself supports such an API to link to individual wiki pages:
+
+[code]
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
+[/code]
+
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
+
+
+[b][size=18]Code Blocks[/size][/b]
+
+Create code blocks by using "code" tags (each on its own line).
+
+[code]
+[code]
+This is an example code block!
+[/code]
+[/code]
+
+[code]
+This is an example code block!
+[/code]

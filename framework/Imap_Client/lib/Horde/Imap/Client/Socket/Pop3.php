@@ -50,14 +50,14 @@
  *
  * ---------------------------------------------------------------------------
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  */
 class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
@@ -261,11 +261,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         stream_set_timeout($this->_stream, $this->_params['timeout']);
-
-        // Add separator to make it easier to read debug log.
-        if ($this->_debug) {
-            fwrite($this->_debug, str_repeat('-', 30) . "\n");
-        }
 
         $line = $this->_getLine();
 
@@ -1000,9 +995,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _sendLine($query, $options = array())
     {
-        if ($this->_debug) {
-            fwrite($this->_debug, 'C (' . microtime(true) . '): ' . (empty($options['debug']) ? $query : $options['debug']) . "\n");
-        }
+        $this->_writeDebug((empty($options['debug']) ? $query : $options['debug']) . "\n", 'client');
 
         fwrite($this->_stream, $query . "\r\n");
 
@@ -1032,9 +1025,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             return;
         }
 
-        if ($this->_debug) {
-            fwrite($this->_debug, 'S (' . microtime(true) . '): ' . $read . "\n");
-        }
+        $this->_writeDebug($read . "\n", 'server');
 
         $orig_read = $read;
         $read = explode(' ', $read, 2);

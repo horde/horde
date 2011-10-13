@@ -3,7 +3,7 @@
  * The Turba_View_Browse class provides the logic for browsing lists
  * of contacts.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -130,17 +130,17 @@ class Turba_View_Browse
                     }
                     if (!$errorCount) {
                         $notification->push(
-                            sprintf(_("Successfully deleted %d contact(s)."),
+                            sprintf(ngettext("Successfully deleted %d contact.", "Successfully deleted %d contacts.", count($keys)),
                                 count($keys)),
                             'horde.success');
                     } elseif (count($keys) == $errorCount) {
                         $notification->push(
-                            sprintf(_("Error deleting %d contact(s)."),
+                            sprintf(ngettext("Error deleting %d contact.", "Error deleting %d contacts.", count($keys)),
                                 count($keys)),
                             'horde.error');
                     } else {
                         $notification->push(
-                            sprintf(_("Error deleting %d of %d requested contacts(s)."),
+                            sprintf(ngettext("Error deleting %d of %d requested contact.", "Error deleting %d of %d requested contacts.", count($keys)),
                                 $errorCount,
                                 count($keys)),
                             'horde.error');

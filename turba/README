@@ -1,5 +1,6 @@
-What is Turba?
-==============
+================
+ What is Turba?
+================
 
 :Contact: turba@lists.horde.org
 
@@ -11,14 +12,14 @@ with other Horde applications to provide a unified interface to contact
 management throughout the Horde suite. It supports SQL, LDAP, Kolab, and IMSP
 address books.
 
-This software is OSI Certified Open Source Software.  OSI Certified is a
+This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
 .. _`Open Source Initiative`: http://www.opensource.org/
 
 
 Obtaining Turba
----------------
+===============
 
 Further information on Turba and the latest version can be obtained at
 
@@ -26,7 +27,7 @@ Further information on Turba and the latest version can be obtained at
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Turba distribution:
 
@@ -40,14 +41,14 @@ The following documentation is available in the Turba distribution:
 
 
 Installation
-------------
+============
 
 Instructions for installing Turba can be found in the file INSTALL_ in the
 ``docs/`` directory of the Turba distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Turba, help is available!
 
@@ -55,19 +56,19 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
-and for issues relating to the project as a whole.  Information, archives, and
+Horde LLC runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
   http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
-appearances on IRC, on the channel #horde on the freenode Network
+appearances on IRC, on the channel #horde on the Freenode Network
 (irc.freenode.net).
 
 
 Licensing
----------
+=========
 
 For licensing and copyright information, please see the file LICENSE_ in the
 Turba distribution.

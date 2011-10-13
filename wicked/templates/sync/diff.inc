@@ -30,7 +30,7 @@ $remote = $this->getRemotePageInfo($this->_pageName);
 <tbody>
 <tr>
 <td><?php echo _("Local") ?></td>
-<td><?php echo $local['page_majorversion'] . '.' . $local['page_minorversion'] ?></td>
+<td><?php echo $local['page_version'] ?></td>
 <td><?php echo _format_date($local['version_created']) ?></td>
 <td><?php echo $local['change_author'] ?></td>
 <td><?php echo $local['change_log'] ?></td>
@@ -38,7 +38,7 @@ $remote = $this->getRemotePageInfo($this->_pageName);
 </tr>
 <tr>
 <td><?php echo _("Remote") ?></td>
-<td><?php echo $remote['page_majorversion'] . '.' . $remote['page_minorversion'] ?></td>
+<td><?php echo $remote['page_version'] ?></td>
 <td><?php echo _format_date($remote['version_created']) ?></td>
 <td><?php echo $remote['change_author'] ?></td>
 <td><?php echo $remote['change_log'] ?></td>
@@ -66,7 +66,7 @@ if ($match) {
 <tbody>
 <tr>
 <td><?php echo _("Local") ?></td>
-<td><?php echo $match['local']['page_majorversion'] . '.' . $match['local']['page_minorversion'] ?></td>
+<td><?php echo $match['local']['page_version'] ?></td>
 <td><?php echo _format_date($match['local']['version_created']) ?></td>
 <td><?php echo $match['local']['change_author'] ?></td>
 <td><?php echo $match['local']['change_log'] ?></td>
@@ -74,7 +74,7 @@ if ($match) {
 </tr>
 <tr>
 <td><?php echo _("Remote") ?></td>
-<td><?php echo $match['remote']['page_majorversion'] . '.' . $match['remote']['page_minorversion'] ?></td>
+<td><?php echo $match['remote']['page_version'] ?></td>
 <td><?php echo _format_date($match['remote']['version_created']) ?></td>
 <td><?php echo $match['remote']['change_author'] ?></td>
 <td><?php echo $match['remote']['change_log'] ?></td>

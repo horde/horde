@@ -10,15 +10,15 @@
  *   'sd' = (integer) change sort: dir
  *   'search' = (sring) The search string
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -102,8 +102,8 @@ case 's':
     echo $t->fetch(IMP_TEMPLATES . '/mimp/mailbox/search.html');
     exit;
 
-// 'rs' = run search
-case 'rs':
+// 'ds' = do search
+case 'ds':
     if (!empty($vars->search) && $imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
         /* Create the search query and reset the global mailbox variable. */
         $q_ob = $imp_search->createQuery(array(new IMP_Search_Element_Text($vars->search, false)), array(

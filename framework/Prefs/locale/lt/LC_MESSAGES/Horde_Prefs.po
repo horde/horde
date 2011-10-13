@@ -1,5 +1,5 @@
 # Lithuanian translations for Horde_Prefs module.
-# Copyright 2010-2011 The Horde Project
+# Copyright 2010-2011 Horde LLC
 # This file is distributed under the same license as the Horde_Prefs module.
 # Vilius Šumskas <vilius@lnk.lt>, 2011.
 #

@@ -2,7 +2,7 @@
  * Javascript code for making the TOC collapsible.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 document.observe('dom:loaded', function() {

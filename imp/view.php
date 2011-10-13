@@ -24,15 +24,15 @@
  * pmode - (string) The print mode of this request ('content', 'headers').
  * zip - (boolean) Download in .zip format?
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -267,9 +267,10 @@ case 'print_attach':
     }
 
     $t = $injector->createInstance('Horde_Template');
-    $t->set('headers', Horde_String::convertCharset($headers, 'UTF-8', $d_param['params']['charset']));
+    $t->set('headers', $headers);
 
-    $elt = DOMDocument::loadHTML($t->fetch(IMP_TEMPLATES . '/print/headers.html'))->getElementById('headerblock');
+    $header_dom = new Horde_Domhtml(Horde_String::convertCharset($t->fetch(IMP_TEMPLATES . '/print/headers.html'), 'UTF-8', $d_param['params']['charset']), $d_param['params']['charset']);
+    $elt = $header_dom->dom->getElementById('headerblock');
     $elt->removeAttribute('id');
 
     if ($elt->hasAttribute('class')) {

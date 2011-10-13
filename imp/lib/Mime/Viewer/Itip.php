@@ -4,16 +4,16 @@
  * and provides an option to import the data into a calendar source,
  * if one is available.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
@@ -68,10 +68,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
-     * <pre>
-     * 'identity' - (integer) TODO
-     * 'itip_action' - (array) TODO
-     * </pre>
+     *   - ajax: (boolean) Is this an AJAX request?
+     *   - identity: (integer) Identity to use.
+     *   - itip_action: (array) List of actions.
      *
      * @return array  See parent::render().
      */
@@ -113,8 +112,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         $msgs = array();
 
         // Handle the action requests.
-        $actions = Horde_Util::getFormData('itip_action', array());
-        foreach ($actions as $key => $action) {
+        $vars = Horde_Variables::getDefaultVariables();
+        foreach ($vars->get('itip_action', array()) as $key => $action) {
             switch ($action) {
             case 'delete':
                 // vEvent cancellation.
@@ -268,7 +267,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     $resource = new Horde_Itip_Resource_Identity(
                         $GLOBALS['injector']->getInstance('IMP_Identity'),
                         $vEvent->getAttribute('ATTENDEE'),
-                        Horde_Util::getFormData('identity')
+                        $vars->identity
                     );
 
                     switch ($action) {
@@ -394,7 +393,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     $msg_headers->addHeader('From', $email);
                     $msg_headers->addHeader('To', $organizerEmail);
 
-                    $identity->setDefault(Horde_Util::getFormData('identity'));
+                    $identity->setDefault($vars->identity);
                     $replyto = $identity->getValue('replyto_addr');
                     if (!empty($replyto) && ($replyto != $email)) {
                         $msg_headers->addHeader('Reply-to', $replyto);
@@ -420,7 +419,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 break;
             }
         }
-        if (Horde_Util::getFormData('ajax')) {
+        if ($vars->ajax) {
             foreach ($msgs as $msg) {
                 $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0], isset($msg[2]) ? $msg[2] : array());
             }

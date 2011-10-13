@@ -31,16 +31,16 @@
  *          DEFAULT: '_blank'
  * </pre>
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Tyler Colbert <tyler@colberts.us>
  * @author   Jan Schneider <jan@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Text_Filter
  */
 class Horde_Text_Filter_Linkurls extends Horde_Text_Filter_Base
@@ -63,34 +63,45 @@ class Horde_Text_Filter_Linkurls extends Horde_Text_Filter_Base
         'target' => '_blank',
     );
 
+    /**
+     * Return the regex used to search for links.
+     *
+     * @return string  The regex string.
+     */
     public static function getRegex()
     {
-        if (!self::$regex) { self::initializeRegex(); }
+        if (!self::$regex) {
+            self::initializeRegex();
+        }
+
         return self::$regex;
     }
 
+    /**
+     * Initialize the regex for this instance.
+     */
     public static function initializeRegex()
     {
         self::$regex = <<<END_OF_REGEX
 (?xi)
 (?:\b|^)
-(                           # Capture 1: entire matched URL
+(  # Capture 1: entire matched URL
   (
-   (?:[a-z][\w-+]{0,19})?:/{1,3}         # URL protocol and colon followed by 1-3 slashes, or just colon and slashes (://)
-    |                           #   or
-    www\d{0,3}[.]               # "www.", "www1.", "www2." … "www999."
-    |                           #   or
-    [a-z0-9.\-]+[.][a-z]{2,4}/  # looks like domain name followed by a slash
+   (?:[a-z][\w-+]{0,19})?:/{1,3}  # URL protocol and colon followed by 1-3 slashes, or just colon and slashes (://)
+    |                             #   or
+    www\d{0,3}[.]                 # "www.", "www1.", "www2." … "www999."
+    |                             #   or
+    [a-z0-9.\-]+[.][a-z]{2,4}/    # looks like domain name followed by a slash
   )
   (?:                           # One or more:
-    [^\s()<>]+                      # Run of non-space, non-()<>
-    |                               #   or
+    [^\s()<>\[\]]+                      # Run of non-space, non-()<>
+    |                                   #   or
     \(([^\s()<>]+|(\([^\s()<>]+\)))*\)  # balanced parens, up to 2 levels
   )+
   (?:                           # End with:
     \(([^\s()<>]+|(\([^\s()<>]+\)))*\)  # balanced parens, up to 2 levels
     |                                   #   or
-    [^\s`!()\[\]{};:\'".,<>?«»“”‘’]        # not a space or one of these punct chars
+    [^\s`!()\[\]{};:\'".,<>?«»“”‘’]     # not a space or one of these punct chars
   )
 )
 END_OF_REGEX;
@@ -103,9 +114,13 @@ END_OF_REGEX;
      */
     public function getPatterns()
     {
-        return array('regexp_callback' => array('@' . self::getRegex() . '@' => array($this, 'callback')));
+        return array(
+            'regexp_callback' => array('@' . self::getRegex() . '@' => array($this, 'callback'))
+        );
     }
 
+    /**
+     */
     public function callback($match)
     {
         $href = $match[0];
@@ -153,4 +168,5 @@ END_OF_REGEX;
     {
         return preg_replace('/\00\00\00([\w=+\/]*)\00\00\00/e', 'base64_decode(\'$1\')', $text);
     }
+
 }

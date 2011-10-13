@@ -1,12 +1,9 @@
-==================================
-|| Wicked Development TODO List ||
-==================================
+==============================
+ Wicked Development TODO List
+==============================
 
-- When creating a page, take the user directly to the EditPage form.
-
-- Notifications of changed/added content ("commit" messages). Allow
-  for daily summaries, and figure out some way to categorize changes in
-  a structure for sanity with large sites.
+- Allow for daily summaries of changed/added content, and figure out some way
+  to categorize changes in a structure for sanity with large sites.
 
 - Lots of ideas/references: http://c2.com/cgi/wiki,
   http://twistedmatrix.com/users/jh.twistd/moin/moin.cgi/FrontPage
@@ -30,9 +27,6 @@
 - Help pages (any page that starts with Help).
 
 - Find a way to keep old versions of deleted pages?
-
-- Ability to embed Horde_Block instances so that we can show ansel images,
-  kronolith calendars, etc.
 
 - Export pages to PDF.
 

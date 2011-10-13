@@ -2,14 +2,14 @@
 /**
  * Dynamic (dimp) message display logic.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Views_ShowMessage
@@ -69,7 +69,7 @@ class IMP_Views_ShowMessage
      * 'from' - The From addresses
      * 'js' - Javascript code to run on display
      * 'log' - Log information
-     * 'mailbox' - The IMAP mailbox
+     * 'mbox' - The IMAP mailbox (base64url encoded)
      * 'msgtext' - The text of the message
      * 'save_as' - The save link
      * 'subject' - The subject
@@ -97,7 +97,7 @@ class IMP_Views_ShowMessage
 
         $result = array(
             'js' => array(),
-            'mailbox' => strval($mailbox),
+            'mbox' => $mailbox->form_to,
             'uid' => $uid
         );
 
@@ -183,16 +183,15 @@ class IMP_Views_ShowMessage
         }
 
         if (empty($result['reply-to']) ||
-            ($result['from'] == $result['reply-to'])) {
+            (Horde_Mime_Address::bareAddress($result['from']) == Horde_Mime_Address::bareAddress($result['reply-to']))) {
             unset($result['reply-to'], $headers['reply-to']);
         }
 
         /* JS requires camelized name for reply-to. */
         if (!$preview && isset($headers['reply-to'])) {
-            $head = 'replyTo';
             $result['replyTo'] = $result['reply-to'];
+            $headers['reply-to']['id'] = 'ReplyTo';
             unset($result['reply-to']);
-            $headers['reply-to']['id'] = Horde_String::ucfirst($head);
         }
 
         /* Grab maillog information. */
@@ -284,7 +283,7 @@ class IMP_Views_ShowMessage
             $result['atc_label'] = ($show_parts == 'all')
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", count($inlineout['atc_parts'])), count($inlineout['atc_parts']));
-            if (count($inlineout['display_ids']) > 2) {
+            if (count($inlineout['atc_parts']) > 2) {
                 $result['atc_download'] = Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>';
             }
         }

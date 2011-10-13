@@ -8,6 +8,10 @@ v2.1-git
 v2.0.6-git
 ----------
 
+[mms] Fix displaying From address in notification when filtering with IMAP
+      driver.
+[jan] Catch if files don't exist while deleting with VFS transport
+      (michael-dev@fami-braun.de, Bug #10494).
 [mms] Additional fixes when creating new mailboxes (Bug #10282).
 
 

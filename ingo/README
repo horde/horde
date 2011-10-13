@@ -1,24 +1,24 @@
-What is Ingo?
-==============
+===============
+ What is Ingo?
+===============
 
 :Contact: ingo@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
 
-Ingo is an email filter rules manager.  It can generate Sieve and procmail
-scripts and upload them to the server (using a timsieved or VFS FTP driver,
-respectively).  It can also create and execute IMAP commands to run filter
-rules.
+Ingo is an email-filter management application. It is fully internationalized,
+integrated with Horde and the IMP Webmail client, and supports both server-side
+(Sieve, Procmail, Maildrop) and client-side (IMAP) message filtering.
 
-This software is OSI Certified Open Source Software.  OSI Certified is a
+This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
 .. _`Open Source Initiative`: http://www.opensource.org/
 
 
 Obtaining Ingo
---------------
+==============
 
 Further information on Ingo and the latest version can be obtained at
 
@@ -26,7 +26,7 @@ Further information on Ingo and the latest version can be obtained at
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Ingo distribution:
 
@@ -40,14 +40,14 @@ The following documentation is available in the Ingo distribution:
 
 
 Installation
-------------
+============
 
 Instructions for installing Ingo can be found in the file INSTALL_ in the
 ``docs/`` directory of the Ingo distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Ingo, help is available!
 
@@ -55,8 +55,8 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
-and for issues relating to the project as a whole.  Information, archives, and
+Horde LLC runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
   http://www.horde.org/community/mail
@@ -67,10 +67,10 @@ appearances on IRC, on the channel #horde on the Freenode Network
 
 
 Licensing
----------
+=========
 
-For licensing and copyright information, please see the file LICENSE_
-in the Ingo distribution.
+For licensing and copyright information, please see the file LICENSE_ in the
+Ingo distribution.
 
 Thanks,
 

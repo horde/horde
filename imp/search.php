@@ -23,15 +23,15 @@
  *   - subfolder: (boolean) If set, search mailbox will default to subfolder
  *                search.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -339,7 +339,9 @@ if ($vars->criteria_form) {
     /* Redirect to the mailbox page. */
     if ($redirect_target) {
         if ($dimp_view && $redirect_dimp) {
-            IMP_Dimp::returnToDimp(strval($q_ob));
+            print '<html><head>' .
+                Horde::wrapInlineScript(array('window.parent.DimpBase.go("mbox", "' . $q_ob->mbox_ob->form_to . '")')) .
+                '</head></html>';
             exit;
         }
 

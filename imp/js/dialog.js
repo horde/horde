@@ -38,10 +38,10 @@
  * IMPDialog:success
  *   params: type parameter
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Michael Slusarz <slusarz@horde.org>
  */
@@ -77,7 +77,7 @@ var IMPDialog = {
                     new Element('P').insert(data.text)
                 );
 
-        RedBox.onDisplay = null;
+        delete RedBox.onDisplay;
 
         n.addClassName('RB_confirm');
         if (data.form) {

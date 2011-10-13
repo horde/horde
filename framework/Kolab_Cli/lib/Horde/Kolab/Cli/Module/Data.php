@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Kolab_Cli
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Cli
  */
 
 /**
  * The Horde_Kolab_Cli_Module_Data:: class handles Kolab data.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Kolab_Cli
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Cli
  */
 class Horde_Kolab_Cli_Module_Data
@@ -37,15 +37,17 @@ implements Horde_Kolab_Cli_Module
     {
         return Horde_Kolab_Cli_Translation::t("  data - Handle Kolab data (the default action is \"info\"). PATH refers to the path of the folder that holds the data and the optional TYPE argument indicates which data type should be read. This is usually already defined by the folder setting.
 
-  - info      PATH              : Display general information.
-  - stamp     PATH              : Display the folder status information.
-  - ids       PATH TYPE         : Display all object ids in the folder PATH of
-                                  type TYPE.
-  - complete  PATH BACKENDID    : Return the complete message from folder PATH
-                                  for the given BACKENDID.
-  - backendid PATH TYPE OBJECTID: Return the backend ID for the object with ID
-                                  OBJECTID.
-  - delete    PATH TYPE ID,ID,..: Delete the given object id's.
+  - info      PATH               : Display general information.
+  - stamp     PATH               : Display the folder status information.
+  - ids       PATH TYPE          : Display all object ids in the folder PATH of
+                                   type TYPE.
+  - complete  PATH BACKENDID     : Return the complete message from folder PATH
+                                   for the given BACKENDID.
+  - create    PATH TYPE yaml PATH: Create an object as defined in the specified
+                                   YAML data
+  - backendid PATH TYPE OBJECTID : Return the backend ID for the object with ID
+                                   OBJECTID.
+  - delete    PATH TYPE ID,ID,.. : Delete the given object id's.
 
 ");
     }
@@ -206,6 +208,7 @@ implements Horde_Kolab_Cli_Module
                 }
             }
             $data->create($object);
+            $cli->writeln($object['uid']);
             break;
         case 'move':
             $data = $world['storage']->getData($folder_name, $arguments[3]);

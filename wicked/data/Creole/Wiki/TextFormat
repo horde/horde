@@ -1,0 +1,247 @@
+= Sample Page for Wiki Markup =
+
+
+== General Notes ==
+
+The markup uses the Creole ([[http://www.wikicreole.org]]) style.
+
+All text is entered as plain text, and will be converted to HTML entities as
+necessary.  This means that {{{<}}}, {{{>}}}, {{{&}}}, and so on are converted
+for you (except in special situations where the characters are Wiki markup; the
+Wiki is generally smart enough to know when to convert and when not to).
+
+To add a single line break, insert a double backslash {{{\\}}}.\\
+Just hit "return" twice to make a paragraph break.
+
+
+== Inline Formatting ==
+
+| {{{//emphasis text//}}}                    | //emphasis text// |
+| {{{**strong text**}}}                      | **strong text** |
+| {{{//**emphasis and strong**//}}}          | //**emphasis and strong**// |
+| {{{__underline text__}}}                   | __underline text__ |
+| {{{{{{teletype text}}}}}}                  | {{{teletype text}}} |
+| {{{,,subscript,, text}}}                   | ,,subscript,, text |
+| {{{^^superscript^^ text}}}                 | ^^superscript^^ text |
+
+
+== Literal Text ==
+
+If you don't want the wiki to parse some text, enclose it in triple curly
+braces, or prefix the markup with a tilde.
+
+{{{
+This //text// gets **parsed**.
+
+{{{This //text// does not get **parsed**.}}}
+
+This ~//text// does not get ~**parsed**.
+}}}
+
+This //text// gets **parsed**.
+
+{{{This //text// does not get **parsed**.}}}
+
+This ~//text// does not get ~**parsed**.
+
+
+== Headings ==
+
+You can make various levels of heading by putting plus-signs before the text
+(all on its own line):
+
+{{{
+=== Level 3 Heading ===
+==== Level 4 Heading ====
+===== Level 5 Heading =====
+====== Level 6 Heading ======
+}}}
+
+=== Level 3 Heading ===
+==== Level 4 Heading ====
+===== Level 5 Heading =====
+====== Level 6 Heading ======
+
+
+== Text Alignment ==
+
+You can center align paragraphs by starting it with an equal sign.
+
+{{{
+! Center aligned text
+}}}
+
+! Center aligned text
+
+
+== Horizontal Rules ==
+
+Use four dashes ({{{----}}}) to create a horizontal rule.
+
+----
+
+
+== Lists ==
+
+
+=== Bullet Lists ===
+
+You can create bullet lists by starting a paragraph with one or more asterisks.
+
+{{{
+* Bullet one
+* Bullet two
+}}}
+
+* Bullet one
+* Bullet two
+
+
+=== Numbered Lists ===
+
+Similarly, you can create numbered lists by starting a paragraph with one or
+more hashes.
+
+{{{
+# Numero uno
+# Number two
+}}}
+
+# Numero uno
+# Number two
+
+
+=== Definition Lists ===
+
+You can create a definition (description) list with the following syntax:
+
+{{{
+: Item 1 : Something
+: Item 2 : Something else
+}}}
+
+: Item 1 : Something
+: Item 2 : Something else
+
+
+== Block Quotes ==
+
+You can mark a blockquote by starting a line with one or more '>' characters,
+followed by a space and the text to be quoted.
+
+{{{
+This is normal text here.
+
+> Indent me! The quick brown fox jumps over the lazy dog. Now this the time for all good men to come to the aid of their country. Notice how we can continue the block-quote in the same "paragraph" by using a backslash at the end of the line.
+>
+> Another block, leading to...
+>> Second level of indenting.  This second is indented even more than the previous one.
+
+Back to normal text.
+}}}
+
+This is normal text here.
+
+> Indent me! The quick brown fox jumps over the lazy dog. Now this the time for all good men to come to the aid of their country. Notice how we can continue the block-quote in the same "paragraph" by using a backslash at the end of the line.
+>
+> Another block, leading to...
+>> Second level of indenting.  This second is indented even more than the previous one.
+
+Back to normal text.
+
+
+== Links and Images ==
+
+
+=== Wiki Links ===
+
+You can create page links by putting the name in brackets.
+
+{{{
+[[Wiki/Page]]
+}}}
+
+[[Wiki/Page]]
+
+You can also use this format to create a "described" or "labeled" link or to
+add an anchor target.
+
+{{{
+[[Wiki/Page#anchor|Descriptive text for the link.]]
+}}}
+
+[[Wiki/Page#anchor|Descriptive text for the link.]]
+
+
+=== URLs ===
+
+Create a remote link simply by typing its URL: http://www.horde.org/.
+
+You can have a described-reference:
+{{{
+[[http://www.horde.org|Horde]]
+}}}
+[[http://www.horde.org|Horde]]
+
+//Rendering of described URLs is broken as of Text_Wiki 1.2.1.//
+
+
+=== Images ===
+
+You can put a picture in a page with {{{{{foo.jpg}}}}}. You can use any file
+type, but most browsers only support GIF, JPEG, and PNG formats. The filename
+can either be a relative reference (in which case the wiki looks for a file
+attached to the current page - or a different wiki page if the file name is
+prefixed with a page name, e.g. {{{{{SomePage:foo.jpg}}}}}), an absolute
+reference which begins with a slash (in which case the wiki uses it to retrieve
+a file relative to the web server's root), or a full, external URL.
+
+An "alt" attribute can follow the image filename or URL like so: {{{{{foo.jpg|A
+Foo JPEG"}}}}}.
+
+
+== Application Content ==
+
+=== Application Blocks ===
+
+Content from other Horde applications provided by portal blocks can be embedded
+into a page using {{{[[block]]}}} tags.
+
+To include Horde's moon phases block for example:
+
+{{{
+[[block horde/Moon phase=next hemisphere=northern]]
+}}}
+
+[[block horde/Moon phase=next hemisphere=northern]]
+
+=== Application Links ===
+
+Links to other Horde applications is supported if those applications support
+API links. The Wiki itself supports such an API to link to individual wiki
+pages:
+
+{{{
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
+}}}
+
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
+
+
+== Tables ==
+
+You can create tables using vertical bars:
+
+{{{
+|= Heading one |= Heading two |
+| cell one | cell two |
+| big ol' | line |
+| cell four | cell five |
+| cell six | here's a very long cell |
+}}}
+
+|= Heading one |= Heading two |
+| cell one | cell two |
+| big ol' | line |
+| cell four | cell five |
+| cell six | here's a very long cell |

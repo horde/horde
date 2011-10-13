@@ -2,10 +2,10 @@
 /**
  * The Ansel_View_Upload:: class provides a view for handling image uploads.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -48,6 +48,7 @@ class Ansel_View_Upload
         $this->_handleFileUpload();
 
         // TODO: Configure which runtimes to allow?
+        Ansel::initJSVariables();
         Horde::addScriptFile('plupload/plupload.js', 'horde');
         Horde::addScriptFile('plupload/plupload.flash.js', 'horde');
         Horde::addScriptFile('plupload/plupload.silverlight.js', 'horde');
@@ -56,18 +57,24 @@ class Ansel_View_Upload
         Horde::addScriptFile('plupload/uploader.js', 'horde');
         Horde::addScriptFile('effects.js', 'horde', true);
         Horde::addScriptFile('carousel.js', 'ansel', true);
+        Horde::addScriptFile('upload.js', 'ansel');
 
-        $startText = _("Start");
+        $startText = _("Upload");
         $addText = _("Add Images");
         $header = _("Upload to gallery");
         $returnText =_("View Gallery");
         $subText = _("Add files to the upload queue and click the start button.");
+        $sizeError = _("File size error.");
+        $typeError = _("File type error.");
         $previewUrl = Horde::url('img/upload_preview.php')->add('gallery', $this->_gallery->id);
-
+        $imple = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Imple')
+            ->create(array('ansel', 'UploadNotification'));
+        $notificationUrl = (string)$imple->getUrl();
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
-
         $jsuri = $GLOBALS['registry']->get('jsuri', 'horde');
         $js = <<< EOT
+        Ansel.ajax.uploadNotificationUrl = '{$notificationUrl}';
         var uploader = new Horde_Uploader({
             'target': "{$this->_params['target']}",
             drop_target: "{$this->_params['drop_target']}",
@@ -78,11 +85,21 @@ class Ansel_View_Upload
                     add: '{$addText}',
                     header: '{$header}',
                     returnButton: '{$returnText}',
-                    subheader: '{$subText}'
+                    subheader: '{$subText}',
+                    size: '{$sizeError}',
+                    type: '{$typeError}'
             },
             header_class: 'hordeUploaderHeader',
             container_class: 'uploaderContainer',
             return_target: '{$this->_params['return_target']}'
+        },
+        {
+            'uploadcomplete': function(up, files) {
+                Ansel.uploadedImages = files;
+                if (Ansel.conf.havetwitter) {
+                    $('twitter').toggleClassName('hidden');
+                }
+            }
         });
         uploader.init();
 
@@ -114,6 +131,9 @@ class Ansel_View_Upload
             $("horizontal_carousel").style.width = dim.width + "px";
             $$("#horizontal_carousel .container").first().style.width =  (dim.width - 50) + "px";
         }
+        $('twitter').observe('click', function() {
+            AnselUpload.doUploadNotification('twitter', '{$this->_gallery->id}');
+        });
         Event.observe(window, 'resize', resized);
         carousel = null;
         runCarousel();
@@ -241,7 +261,6 @@ EOT;
     protected function _handleFileUpload()
     {
         if ($filename = Horde_Util::getFormData('name')) {
-            /* First, figure out the content type */
             if (isset($_SERVER["HTTP_CONTENT_TYPE"])) {
                 $type = $_SERVER["HTTP_CONTENT_TYPE"];
             } elseif (isset($_SERVER["CONTENT_TYPE"])) {
@@ -261,40 +280,65 @@ EOT;
                     } else {
                         fclose($out);
                         header('Content-Type: application/json');
-                        echo('{"status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open input stream." } }');
+                        echo('{ "status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open input stream." } }');
                         exit;
                     }
+                } else {
+                    header('Content-Type: application/json');
+                    echo('{ "status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open output stream." } }');
+                    exit;
                 }
 
                 // Don't know type. Try to deduce it.
                 if (!($type = Horde_Mime_Magic::analyzeFile($temp, isset($GLOBALS['conf']['mime']['magic_db']) ? $GLOBALS['conf']['mime']['magic_db'] : null))) {
                     $type = Horde_Mime_Magic::filenameToMime($filename);
                 }
-
             } elseif (strpos($type, "multipart") !== false) {
-                // TODO:
+                // Handle mulitpart uploads
+                $temp = Horde_Util::getTempFile('', true);
+                $out = fopen($temp, 'wb');
+                if ($out) {
+                    $in = fopen($_FILES['file']['tmp_name'], 'rb');
+                    if ($in) {
+                        while ($buff = fread($in, 4096)) {
+                            fwrite($out, $buff);
+                        }
+                    } else {
+                        fclose($out);
+                        header('Content-Type: application/json');
+                        echo('{ "status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open input stream." } }');
+                        exit;
+                    }
+                } else {
+                    header('Content-Type: application/json');
+                    echo('{ "status" : "500", "file": "' . $temp. '", error" : { "message": "Failed to open output stream." } }');
+                    exit;
+                }
             }
 
-            /* Figure out what to do with the file */
-            if (in_array($type, array('x-extension/zip',
-                                      'application/x-compressed',
-                                      'application/x-zip-compressed',
-                                      'application/zip')) ||
+            // Figure out what to do with the file
+            if (in_array(
+                    $type,
+                    array(
+                        'x-extension/zip',
+                        'application/x-compressed',
+                        'application/x-zip-compressed',
+                        'application/zip')) ||
                 Horde_Mime_Magic::filenameToMime($temp) == 'application/zip') {
 
-                /* handle zip files */
+                // ZIP file
                 try {
                     $image_ids = $this->_handleZip($temp);
                 } catch (Ansel_Exception $e) {
-                    $notification->push(sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
+                    $notification->push(
+                        sprintf(_("There was an error processing the uploaded archive: %s"), $e->getMessage()), 'horde.error');
                 }
 
                 header('Content-Type: application/json');
                 echo('{ "status" : "200", "error" : {} }');
                 exit;
             } else {
-                /* Try and make sure the image is in a recognizeable
-                 * format. */
+                // Try and make sure the image is in a recognizeable format.
                 $data = file_get_contents($temp);
                 if (getimagesize($temp) === false) {
                     header('Content-Type: application/json');
@@ -302,12 +346,11 @@ EOT;
                     exit;
                 }
 
-                /* Add the image to the gallery */
-                $image_data = array('image_filename' => $filename,
-                                    //'image_caption' => $vars->get('image' . $i . '_desc'),
-                                    'image_type' => $type,
-                                    'data' => $data,
-                                    );
+                // Add the image to the gallery
+                $image_data = array(
+                    'image_filename' => $filename,
+                    'image_type' => $type,
+                    'data' => $data);
 
                 try {
                     $image_id = $this->_gallery->addImage($image_data);

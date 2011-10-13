@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-08-29</date>
- <time>22:59:49</time>
+ <date>2011-09-15</date>
+ <time>23:11:20</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -20,7 +20,7 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).
@@ -29,6 +29,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Pear">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Pear -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Pear">
@@ -241,7 +248,6 @@
      </dir> <!-- /test/Horde/Pear -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <file name="COPYING" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -272,7 +278,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="COPYING" name="COPYING" />
+   <install as="COPYING" name="doc/Horde/Pear/COPYING" />
    <install as="Horde/Pear/Exception.php" name="lib/Horde/Pear/Exception.php" />
    <install as="Horde/Pear/Registry.php" name="lib/Horde/Pear/Registry.php" />
    <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
@@ -389,8 +395,8 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-08-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-09-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).

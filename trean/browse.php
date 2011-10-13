@@ -2,17 +2,18 @@
 /**
  * $Horde: trean/browse.php,v 1.73 2009-11-29 15:51:42 chuck Exp $
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2009 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
-
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('trean');
-
+if ($GLOBALS['prefs']->getValue('show_folder_actions')) {
+    $GLOBALS['bodyClass'] = 'folderActions';
+}
 require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 
 /* Get bookmarks to display. */

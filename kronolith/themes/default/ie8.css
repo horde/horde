@@ -1,3 +1,13 @@
-.kronolithFirstCol span {
+.kronolithFirstCol span, .kronolithViewBody .kronolithFirstCol span {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    height: 20px;
+    width: 40px;
+    margin-bottom: 20px;
+}
+.kronolithAllDay .kronolithFirstCol span {
+    width: 80px;
+    margin-bottom: 60px;
+}
+#kronolithLoadingyear {
+    left: -26px;
 }

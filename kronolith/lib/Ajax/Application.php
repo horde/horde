@@ -2,10 +2,10 @@
 /**
  * Defines the AJAX interface for Kronolith.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @author  Jan Schneider <jan@horde.org>
@@ -985,7 +985,11 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             $rend = new Horde_Date($attributes->rend);
         } else {
             $rstart = new Horde_Date($attributes->rday);
+            $rstart->hour = $event->start->hour;
+            $rstart->min = $event->start->min;
             $rend = $rstart->add($event->getDuration);
+            $rend->hour = $event->end->hour;
+            $rend->min = $event->end->min;
         }
 
         $event->recurrence->addException($rstart->year, $rstart->month, $rstart->mday);

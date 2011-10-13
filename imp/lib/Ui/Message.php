@@ -3,14 +3,14 @@
  * The IMP_Ui_Message:: class is designed to provide a place to store common
  * code shared among IMP's various UI views for the message page.
  *
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Ui_Message
@@ -181,7 +181,8 @@ class IMP_Ui_Message
      *
      * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.
      *
-     * @return array  TODO
+     * @return array  Keys are the list header names, values are the
+     *                parsed list header values.
      */
     public function parseAllListHeaders($headers)
     {
@@ -347,7 +348,7 @@ class IMP_Ui_Message
                     if ($add_link) {
                         $curr_link = $add_link->copy()->add(array('name' => $ad['personal'], 'address' => $ad['inner']));
                         $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad['inner'])) .
-                            Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ad['inner'])) . '</a>';
+                            '<span class="iconImg addrbookaddImg"></span></a>';
                     }
 
                     $group_array[] = $ret;
@@ -375,7 +376,7 @@ class IMP_Ui_Message
                     if ($add_link) {
                         $curr_link = $add_link->copy()->add(array('name' => $ob['personal'], 'address' => $ob['inner']));
                         $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ob['inner'])) .
-                            Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ob['inner'])) . '</a>';
+                            '<span class="iconImg addrbookaddImg"></span></a>';
                     }
                 }
 

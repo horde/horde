@@ -3,14 +3,14 @@
  * The IMP_Flags class provides an interface to deal with display of
  * flags/keywords/labels on messages.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Flags implements ArrayAccess, Serializable
@@ -85,14 +85,12 @@ class IMP_Flags implements ArrayAccess, Serializable
      * Return the raw list of flags.
      *
      * @param array $opts  Additional options:
-     * <pre>
-     * 'imap' - (boolean) If true, only return IMAP flags that can be set by
-     *          the user.
-     *          DEFAULT: false
-     * 'mailbox' - (string) A real (not virtual) IMAP mailbox. If set, will
-     *             determine what flags are available in the mailbox.
-     *             DEFAULT: '' (no mailbox check)
-     * </pre>
+     *   - imap: (boolean) If true, only return IMAP flags that can be set by
+     *           the user.
+     *            DEFAULT: false
+     *   - mailbox: (string) A real (not virtual) IMAP mailbox. If set, will
+     *              determine what flags are available in the mailbox.
+     *              DEFAULT: '' (no mailbox check)
      *
      * @return array  An array of IMP_Flag_Base elements.
      */
@@ -183,10 +181,10 @@ class IMP_Flags implements ArrayAccess, Serializable
      */
     public function updateFlag($key, $type, $data)
     {
-        if (isset($this->_flags[$key])) {
-            $ob = $this->_flags[$key];
-        } elseif (isset($this->_userflags[$key])) {
-            $ob = $this->_userflags[$key];
+        if (isset($this->_userflags[$key])) {
+            $ob = clone $this->_userflags[$key];
+        } elseif (isset($this->_flags[$key])) {
+            $ob = clone $this->_flags[$key];
         } else {
             return;
         }
@@ -194,30 +192,26 @@ class IMP_Flags implements ArrayAccess, Serializable
         $ob->$type = $data;
 
         if (isset($this->_flags[$key]) && ($this->_flags[$key] == $ob)) {
-            if (isset($this->_userflags[$key])) {
-                unset($this->_userflags[$key]);
-                $this->_save();
-            }
+            unset($this->_userflags[$key]);
         } else {
             $this->_userflags[$key] = $ob;
-            $this->_save();
         }
+
+        $this->_save();
     }
 
     /**
      * Parse a list of flag information.
      *
      * @param array $opts  Options:
-     * <pre>
-     * 'flags' - (array) IMAP flag info. A lowercase list of flags returned
-     *           by the IMAP server.
-     * 'headers' - (Horde_Mime_Headers) Determines message information
-     *             from a headers object.
-     * 'personal' - (mixed) Personal message info. Either an array of To
-     *              addresses as returned by
-     *              Horde_Mime_Address::getAddressesFromObject() or the
-     *              identity that matched the address list.
-     * </pre>
+     *   - flags: (array) IMAP flag info. A lowercase list of flags returned
+     *            by the IMAP server.
+     *   - headers: (Horde_Mime_Headers) Determines message information
+     *              from a headers object.
+     *   - personal: (mixed) Personal message info. Either an array of To
+     *               addresses as returned by
+     *               Horde_Mime_Address::getAddressesFromObject() or the
+     *               identity that matched the address list.
      *
      * @return array  A list of IMP_Flag_Base objects.
      */
@@ -260,10 +254,8 @@ class IMP_Flags implements ArrayAccess, Serializable
      * @param string $id  The ID from form data.
      *
      * @return array  Two element array:
-     * <pre>
-     * 'flag' - (string) The flag name.
-     * 'set' - (boolean) Whether the flag should be set or not.
-     * </pre>
+     *   - flag: (string) The flag name.
+     *   - set: (boolean) Whether the flag should be set or not.
      */
     public function parseFormId($id)
     {
@@ -331,7 +323,7 @@ class IMP_Flags implements ArrayAccess, Serializable
     {
         if (isset($this->_flags[$offset])) {
             return $this->_flags[$offset];
-        } elseif ($this->_userflags[$offset]) {
+        } elseif (isset($this->_userflags[$offset])) {
             return $this->_userflags[$offset];
         }
 

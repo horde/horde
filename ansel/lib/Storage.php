@@ -2,10 +2,10 @@
 /**
  * Class for interfacing with back end data storage.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -588,7 +588,7 @@ class Ansel_Storage
     public function clearImageAttributes($image_id)
     {
         try {
-            $this->_db->delete('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$this->id);
+            $this->_db->delete('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image_id);
         } catch (Horde_Db_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -1134,8 +1134,8 @@ class Ansel_Storage
             'filter' => array(
                 array(
                     'property' => 'latitude',
-                    'op' => '>',
-                    'value' => '0'))
+                    'op' => '!=',
+                    'value' => "''"))
         );
         if (!empty($gallery)) {
             $params['gallery_id'] = (int)$gallery;
@@ -1193,8 +1193,8 @@ class Ansel_Storage
             'filter' => array(
                 array(
                     'property' => 'latitude',
-                    'op' => '>',
-                    'value' => '0')
+                    'op' => '!=',
+                    'value' => "''")
                 ),
             'sort' => 'image_geotag_date DESC');
 

@@ -3,14 +3,14 @@
  * The IMP_Contents:: class contains all functions related to handling the
  * content and output of mail messages in IMP.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Contents
@@ -207,18 +207,20 @@ class IMP_Contents
                 : $ob->getContents();
         }
 
-        $bodypart_params = array(
-            'decode' => !empty($options['decode']),
-            'peek' => true
-        );
-
-        if (!empty($options['length'])) {
-            $bodypart_params['start'] = 0;
-            $bodypart_params['length'] = $options['length'];
-        }
-
         $query = new Horde_Imap_Client_Fetch_Query();
-        $query->bodyPart($id, $bodypart_params);
+        if (!isset($options['length']) || !empty($options['length'])) {
+            $bodypart_params = array(
+                'decode' => !empty($options['decode']),
+                'peek' => true
+            );
+
+            if (isset($options['length'])) {
+                $bodypart_params['start'] = 0;
+                $bodypart_params['length'] = $options['length'];
+            }
+
+            $query->bodyPart($id, $bodypart_params);
+        }
 
         if (!empty($options['mimeheaders'])) {
             $query->mimeHeader($id, array(
@@ -649,7 +651,7 @@ class IMP_Contents
         if (($mask & self::SUMMARY_BYTES) ||
             $download_zip ||
             ($mask & self::SUMMARY_SIZE)) {
-            $part['bytes'] = $size = $mime_part->getBytes();
+            $part['bytes'] = $size = $mime_part->getBytes(true);
             $part['size'] = ($size > 1048576)
                 ? sprintf(_("%s MB"), number_format($size / 1048576, 1))
                 : sprintf(_("%s KB"), max(round($size / 1024), 1));
@@ -1382,6 +1384,15 @@ class IMP_Contents
 
         foreach ($display as $val) {
             if (isset($summary[$val])) {
+                switch ($val) {
+                case 'description':
+                    $summary[$val] = '<span class="mimePartInfoDescrip">' . $summary[$val] . '</span>';
+                    break;
+
+                case 'size':
+                    $summary[$val] = '<span class="mimePartInfoSize">(' . $summary[$val] . ')</span>';
+                    break;
+                }
                 $tmp_summary[] = $summary[$val];
             }
         }

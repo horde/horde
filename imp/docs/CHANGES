@@ -4,9 +4,57 @@ v5.1-git
 
 
 -----------
-v5.0.12-git
+v5.0.14-git
 -----------
 
+[mms] Add preference to indicate preferred language for return replies on
+      outgoing messages.
+[mms] For reply, indicate original sender's language preference.
+[mms] Fix/improve monthly sent-mail rename login task (Bug #10613).
+[mms] Fix display of encoded subject text on print page (Bug #9755).
+[mms] Fix setting MDN flag on sent message after compose (Bug #10579).
+[mms] When expanding a submailbox in dynamic view, honor expanded children
+      status.
+[mms] Re-add 'msgs_shown' parameter to Newmail block.
+[mms] Allow multiple messages to be sent via quickreply in dynamic view.
+[mms] Allow image attachments to be displayed without download in mobile view.
+[mms] Fix reporting spam/innocent on mailbox page in mobile view.
+[mms] Fix viewing next message after deleting message in mobile view.
+[mms] Fix composing messages in mobile view.
+[mms] Optimize deletion of messages in dynamic view.
+[mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
+[mms] Fix altering background color of system message flags (Bug #10544).
+[jan] Fix sending notifications after download of linked attachments (Bug
+      #10539).
+
+
+-------
+v5.0.13
+-------
+
+[jan] Fix broken dependency on Text_Flowed.
+
+
+-------
+v5.0.12
+-------
+
+[mms] Fix UI artifacts when renaming mailboxes in dynamic view (Bug #10533).
+[jan] Don't open certain links in HTML messages in the message pane.
+[mms] Add ability to toggle hide deleted messages in dynamic view (Request
+      #10256).
+[mms] Add auto-generated message filter (see RFC 3834).
+[mms] Remove non-existent parent mailbox when removing last child mailbox in
+      dynamic view (Bug #10495).
+[mms] Provide content duration information for audio & video data if that
+      information is available (RFC 3803).
+[jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
+[mms] Add List-ID information, if available, to auto-reply notification.
+[mms] Display information on reply method in standard view, and allow for
+      easy method switching, when automatically choosing the reply type.
+[mms] Fix generation of Save All attachments link.
+[mms] More intelligent quoting of flowed text messages sent in HTML format.
+[mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
 [mms] Always show image thumbnail previews, if an image conversion utility is
       present on the system.
 [mms] More workarounds for broken suhosin extension (Bug #10462).

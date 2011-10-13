@@ -2,15 +2,15 @@
 /**
  * Dynamic display (DIMP) base page.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -37,7 +37,6 @@ IMP_Dimp::header('', array(
     array('slider2.js', 'horde'),
     array('form_ghost.js', 'horde'),
     array('toggle_quotes.js', 'horde'),
-    array('base64url.js', 'imp')
 ));
 
 echo "<body>\n";

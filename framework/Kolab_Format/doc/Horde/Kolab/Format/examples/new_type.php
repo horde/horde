@@ -7,27 +7,27 @@
  * @category Kolab
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
 /**
  * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Autoloader.php';
+require_once 'Horde/Autoloader/Default.php';
 
 /**
  * Kolab XML handler for a string value
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Format_Xml_String extends Horde_Kolab_Format_Xml
@@ -38,12 +38,12 @@ class Horde_Kolab_Format_Xml_String extends Horde_Kolab_Format_Xml
      *
      * @var Kolab
      */
-    var $_fields_specific;
+    protected $_fields_specific;
 
     /**
      * Constructor
      */
-    function __construct()
+    public function __construct($parser, $params = array())
     {
         $this->_root_name = 'string';
 
@@ -56,12 +56,15 @@ class Horde_Kolab_Format_Xml_String extends Horde_Kolab_Format_Xml
             ),
         );
 
-        parent::__construct();
+        parent::__construct($parser, $params);
     }
 }
 
+/** Create the factory */
+$factory = new Horde_Kolab_Format_Factory();
+
 /** Generate the format handler */
-$format = Horde_Kolab_Format::factory('Xml', 'String');
+$format = $factory->create('Xml', 'String');
 
 /** Prepare a test object */
 $object = array(

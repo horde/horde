@@ -3,10 +3,10 @@
  * The Agora_Tree_Flat:: class extends the Horde_Tree_Base class to provide
  * agora flat threded view.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Ben Chavet <ben@horde.org>
  * @author Duck <duck@obala.net>

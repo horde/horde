@@ -2,15 +2,15 @@
 /**
  * View a message in Traditional (imp) mode.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -484,19 +484,18 @@ if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
 
 $n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"), $h_page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $h_page_label), true));
 
-$rtl = $registry->nlsconfig->curr_rtl;
 if (Horde_Util::nonInputVar('prev_url')) {
     $n_template->set('prev', Horde::link($prev_url, _("Previous Message")));
-    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right.png' : 'nav/left.png', $rtl ? '>' : '<'));
+    $n_template->set('prev_img', 'navleftImg');
 } else {
-    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png'));
+    $n_template->set('prev_img', 'navleftgreyImg');
 }
 
 if (Horde_Util::nonInputVar('next_url')) {
     $n_template->set('next', Horde::link($next_url, _("Next Message")));
-    $n_template->set('next_img', Horde::img($rtl ? 'nav/left.png' : 'nav/right.png', $rtl ? '<' : '>'));
+    $n_template->set('next_img', 'navrightImg');
 } else {
-    $n_template->set('next_img', Horde::img($rtl ? 'nav/left-grey.png' : 'nav/right-grey.png'));
+    $n_template->set('next_img', 'navrightgreyImg');
 }
 
 /* Prepare the navbar actions template. */
@@ -666,7 +665,7 @@ if ($show_parts == 'atc') {
     $show_atc = true;
 }
 
-if (count($inlineout['display_ids']) > 2) {
+if (count($inlineout['atc_parts']) > 2) {
     $a_template->set('download_all', Horde::widget($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all'), _("Download All Attachments (in .zip file)"), 'widget', '', '', _("Download All Attachments (in .zip file)"), true));
     if ($strip_atc) {
         $a_template->set('strip_all', Horde::widget(Horde::selfUrl(true)->remove(array('actionID'))->add(array('actionID' => 'strip_all', 'message_token' => $message_token)), _("Strip All Attachments"), 'widget stripAllAtc', '', '', _("Strip All Attachments"), true));

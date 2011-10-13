@@ -3,14 +3,14 @@
  * The IMP_Imap:: class provides common functions for interaction with
  * IMAP/POP3 servers via the Horde_Imap_Client:: library.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  *
  * @property boolean $changed  If true, this object has changed.
@@ -426,7 +426,6 @@ class IMP_Imap implements Serializable
                 }
 
                 $this->_changed = $this->_login = true;
-                $this->updateFetchIgnore();
             }
             break;
         }
@@ -447,14 +446,22 @@ class IMP_Imap implements Serializable
      */
     protected function _search($mailbox, $query, $opts)
     {
-        /* If doing a from/to search, use display sorting if possible.
-         * Although there is a fallback to a PHP-based display sort, for
-         * performance reasons only do a display sort if it is supported
-         * on the server. */
-        if (!empty($opts['sort']) && IMP_Mailbox::get($mailbox)->access_sort) {
-            $sort_cap = $this->queryCapability('SORT');
+        $imap_charset = null;
 
-            if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
+        if (!empty($opts['sort'])) {
+            /* SORT (RFC 5256) requires UTF-8 support. So if we are sorting
+             * via the server, we know that we can search in UTF-8. */
+            if ($sort_cap = $this->queryCapability('SORT')) {
+                $imap_charset = 'UTF-8';
+            }
+
+            /* If doing a from/to search, use display sorting if possible.
+             * Although there is a fallback to a PHP-based display sort, for
+             * performance reasons only do a display sort if it is supported
+             * on the server. */
+            if (is_array($sort_cap) &&
+                in_array('DISPLAY', $sort_cap) &&
+                IMP_Mailbox::get($mailbox)->access_sort) {
                 $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
                 if ($pos !== false) {
                     $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;
@@ -470,9 +477,11 @@ class IMP_Imap implements Serializable
         /* Make sure we search in the proper charset. */
         if ($query) {
             $query = clone $query;
-            $imap_charset = $this->validSearchCharset('UTF-8')
-                ? 'UTF-8'
-                : 'US-ASCII';
+            if (is_null($imap_charset)) {
+                $imap_charset = $this->validSearchCharset('UTF-8')
+                    ? 'UTF-8'
+                    : 'US-ASCII';
+            }
             $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
         }
 

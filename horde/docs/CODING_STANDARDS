@@ -243,16 +243,16 @@ Example for `LGPL`_'ed Horde code::
      * The Horde_Foo class provides an API for various foo
      * techniques that can be used by Horde applications.
      *
-     * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+     * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (LGPL). If you
-     * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+     * did not receive this file, see http://www.horde.org/licenses/lgpl21.
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
      * @category Horde
      * @package  Package
-     * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+     * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
      * @since    Horde 4.0.1 [only if needed]
      */
 
@@ -264,16 +264,16 @@ Example for `GPL`_'ed application code::
      * The App_Bar class contains all functions related to handling
      * bars in App.
      *
-     * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+     * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (GPL). If you
-     * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+     * did not receive this file, see http://www.horde.org/licenses/gpl.
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
      * @category Horde
      * @package  App
-     * @license  http://www.fsf.org/copyleft/gpl.html GPL
+     * @license  http://www.horde.org/licenses/gpl GPL
      * @since    App 1.0.1 [only if needed]
      */
 

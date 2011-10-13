@@ -3,7 +3,7 @@
  * The LDAP class attempts to change a user's password stored in an LDAP
  * directory service.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See http://www.horde.org/licenses/gpl.php for license information (GPL).
  *
@@ -73,13 +73,27 @@ class Passwd_Driver_Ldap extends Passwd_Driver
     }
 
     /**
+     * Compares a plaintext password with an encrypted password.
+     *
+     * @param string $encrypted  An encrypted password.
+     * @param string $plaintext  An unencrypted password.
+     *
+     * @throws Passwd_Exception if passwords don't match.
+     */
+    protected function _comparePasswords($encrypted, $plaintext)
+    {
+        $encrypted = preg_replace('/^{MD5}(.*)/i', '{MD5-BASE64}$1', $encrypted);
+        return parent::_comparePasswords($encrypted, $plaintext);
+    }
+
+    /**
      * Changes the user's password.
      *
      * @param string $username      The user for which to change the password.
      * @param string $old_password  The old (current) user password.
      * @param string $new_password  The new user password to set.
      *
-     * @throws Passwd_Exception if changing the password failed.
+     * @throws Passwd_Exception
      */
     public function changePassword($username, $old_password, $new_password)
     {
@@ -98,17 +112,24 @@ class Passwd_Driver_Ldap extends Passwd_Driver
             $this->_userdn = $this->_params['uid'] . '=' . $username . ',' . $this->_params['basedn'];
         }
 
-        // Check the old password by binding as the userdn.
-        $this->_ldap->bind($this->_userdn, $old_password);
+        try {
+            // Check the old password by binding as the userdn.
+            $this->_ldap->bind($this->_userdn, $old_password);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Passwd_Exception($e);
+        }
 
         // Rebind with admin credentials.
         if (!empty($this->_params['admindn'])) {
-            $this->_ldap->bind();
+            try {
+                $this->_ldap->bind();
+            } catch (Horde_Ldap_Exception $e) {
+                throw new Passwd_Exception($e);
+            }
         }
 
         // Get existing user information.
-        $entry = $this->_ldap->search($this->_userdn, $this->_params['filter'])
-            ->shiftEntry();
+        $entry = $this->_getUserEntry();
         if (!$entry) {
              throw new Passwd_Exception(_("User not found."));
         }
@@ -135,7 +156,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver
 
         // Change the user's password and update lastchange.
         try {
-            $entry->replace(array($this->_params['attribute'] => $this->encryptPassword($new_password)), true);
+            $entry->replace(array($this->_params['attribute'] => $this->_encryptPassword($new_password)), true);
 
             if (!empty($this->_params['shadowlastchange']) &&
                 $lookupshadow['shadowlastchange']) {
@@ -143,6 +164,22 @@ class Passwd_Driver_Ldap extends Passwd_Driver
             }
 
             $entry->update();
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Passwd_Exception($e);
+        }
+    }
+
+    /**
+     * Returns the LDAP entry for the user.
+     *
+     * @return Horde_Ldap_Entry  The user's LDAP entry if it exists.
+     * @throws Passwd_Exception
+     */
+    protected function _getUserEntry()
+    {
+        try {
+            return $this->_ldap->search($this->_userdn, $this->_params['filter'])
+                ->shiftEntry();
         } catch (Horde_Ldap_Exception $e) {
             throw new Passwd_Exception($e);
         }

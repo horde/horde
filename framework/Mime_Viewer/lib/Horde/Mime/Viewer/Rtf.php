@@ -8,11 +8,11 @@
  * Copyright 2007 Duck <duck@obala.net>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Duck <duck@obala.net>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Mime_Viewer
  */
 class Horde_Mime_Viewer_Rtf extends Horde_Mime_Viewer_Base

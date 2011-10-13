@@ -26,7 +26,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 *
  </notes>
@@ -385,10 +385,6 @@
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Nag">
-     <dir name="Stub">
-      <file name="DbFactory.php" role="test" />
-      <file name="Registry.php" role="test" />
-     </dir> <!-- /test/Nag/Stub -->
      <dir name="Unit">
       <dir name="Driver">
        <dir name="Sql">
@@ -403,6 +399,18 @@
       <dir name="Factory">
        <file name="TasklistsTest.php" role="test" />
       </dir> <!-- /test/Nag/Unit/Factory -->
+      <dir name="Form">
+       <dir name="Task">
+        <dir name="Sql">
+         <dir name="Pdo">
+          <file name="SqliteTest.php" role="test" />
+         </dir> <!-- /test/Nag/Unit/Form/Task/Sql/Pdo -->
+         <file name="Base.php" role="test" />
+        </dir> <!-- /test/Nag/Unit/Form/Task/Sql -->
+        <file name="Base.php" role="test" />
+        <file name="KolabTest.php" role="test" />
+       </dir> <!-- /test/Nag/Unit/Form/Task -->
+      </dir> <!-- /test/Nag/Unit/Form -->
       <dir name="Nag">
        <dir name="Sql">
         <dir name="Pdo">
@@ -839,13 +847,15 @@
    <install as="Nag/Autoload.php" name="test/Nag/Autoload.php" />
    <install as="Nag/phpunit.xml" name="test/Nag/phpunit.xml" />
    <install as="Nag/TestCase.php" name="test/Nag/TestCase.php" />
-   <install as="Nag/Stub/DbFactory.php" name="test/Nag/Stub/DbFactory.php" />
-   <install as="Nag/Stub/Registry.php" name="test/Nag/Stub/Registry.php" />
    <install as="Nag/Unit/Driver/Base.php" name="test/Nag/Unit/Driver/Base.php" />
    <install as="Nag/Unit/Driver/KolabTest.php" name="test/Nag/Unit/Driver/KolabTest.php" />
    <install as="Nag/Unit/Driver/Sql/Base.php" name="test/Nag/Unit/Driver/Sql/Base.php" />
    <install as="Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Driver/Sql/Pdo/SqliteTest.php" />
    <install as="Nag/Unit/Factory/TasklistsTest.php" name="test/Nag/Unit/Factory/TasklistsTest.php" />
+   <install as="Nag/Unit/Form/Task/Base.php" name="test/Nag/Unit/Form/Task/Base.php" />
+   <install as="Nag/Unit/Form/Task/KolabTest.php" name="test/Nag/Unit/Form/Task/KolabTest.php" />
+   <install as="Nag/Unit/Form/Task/Sql/Base.php" name="test/Nag/Unit/Form/Task/Sql/Base.php" />
+   <install as="Nag/Unit/Form/Task/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Form/Task/Sql/Pdo/SqliteTest.php" />
    <install as="Nag/Unit/Nag/Base.php" name="test/Nag/Unit/Nag/Base.php" />
    <install as="Nag/Unit/Nag/KolabTest.php" name="test/Nag/Unit/Nag/KolabTest.php" />
    <install as="Nag/Unit/Nag/Sql/Base.php" name="test/Nag/Unit/Nag/Sql/Base.php" />
@@ -918,7 +928,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -933,7 +943,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Fix saving tasks via PUT method.
 * Fix deleting task lists.
@@ -950,7 +960,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First release candidate for Horde 4.
 * [gwr] Adapted the Kolab driver to Horde 4.
@@ -966,7 +976,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-30</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -981,7 +991,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Fix application-specific permission checks (Bug #9786).
@@ -998,7 +1008,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix reversed logic of displaying sub-task tree icons depending on the text direction (Bug #10033).
 * [jan] Fix encoding of non-ascii characters in parent task drop-down.
@@ -1013,7 +1023,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add Ukrainian translation (Andriy Kopystyansky &lt;anri@polynet.lviv.ua&gt;).
    </notes>
@@ -1026,7 +1036,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t load all shares with requested permissions from the backend if $conf[&apos;share&apos;][&apos;hidden&apos;] is enabled.
    </notes>
@@ -1038,29 +1048,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-01</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+   <date>2011-09-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-<<<<<<< HEAD
-*
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>3.1.0</release>
-    <api>3.1.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2011-04-21</date>
-   <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
-   <notes>
-*
-=======
+* [jan] Add missing parameters when PUTing tasks (Bug #10545).
 * [mjr] Fix removeUserData implementation.
 * [gwr] Fix Kolab object attribute handling for tasks.
 * [gwr] Avoid including the owner name into the default share.
->>>>>>> master
    </notes>
   </release>
  </changelog>

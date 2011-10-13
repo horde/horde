@@ -3,7 +3,7 @@
  * Horde_Service_Twitter class abstracts communication with Twitter's
  * rest interface.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @property-read Horde_Service_Twitter_Account $account
  *                The twitter account object for calling account methods.
@@ -21,7 +21,7 @@
  *                The default cache lifetime.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package Service_Twitter
  */
@@ -29,8 +29,8 @@ class Horde_Service_Twitter
 {
     /* Constants */
     const REQUEST_TOKEN_URL = 'http://twitter.com/oauth/request_token';
-    const USER_AUTHORIZE_URL = 'http://twitter.com/oauth/authorize';
-    const ACCESS_TOKEN_URL = 'http://twitter.com/oauth/access_token';
+    const USER_AUTHORIZE_URL = 'https://twitter.com/oauth/authorize';
+    const ACCESS_TOKEN_URL = 'https://twitter.com/oauth/access_token';
 
     /**
      * Cache for the various objects we lazy load in __get()
@@ -102,14 +102,14 @@ class Horde_Service_Twitter
      *
      * @param array $params  Configuration parameters, with the following keys:
      *                       - 'oauth' (required):
-     *                         - 'consumer_key' (required): The application's
-     *                           consumer key
-     *                         - 'consumer_secret' (required): The application's
-     *                           consumer secret
-     *                         - 'access_token' (optional): The user's access
-     *                           token
-     *                         - 'access_token_secret' (optional): The user's
-     *                           access token secret.
+     *                       - 'consumer_key' (required): The application's
+     *                         consumer key
+     *                       - 'consumer_secret' (required): The application's
+     *                         consumer secret
+     *                       - 'access_token' (optional): The user's access
+     *                         token
+     *                       - 'access_token_secret' (optional): The user's
+     *                         access token secret.
      *                       - 'http' (optional): any configuration parameters
      *                         for Horde_Http_Client, e.g. proxy settings.
      *

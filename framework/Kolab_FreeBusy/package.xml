@@ -17,8 +17,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>07:10:38</time>
+ <date>2011-09-15</date>
+ <time>23:12:44</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -27,12 +27,21 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [jan] Update Latvian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="FreeBusy">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Kolab/FreeBusy -->
+     </dir> <!-- /doc/Horde/Kolab -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
@@ -529,7 +538,6 @@
      </dir> <!-- /www/Horde/Kolab -->
     </dir> <!-- /www/Horde -->
    </dir> <!-- /www -->
-   <file name="COPYING" role="doc" />
    <file name="TODO" role="php" />
   </dir> <!-- / -->
  </contents>
@@ -588,6 +596,7 @@
  <phprelease>
   <filelist>
    <install as="" name="TODO" />
+   <install as="COPYING" name="doc/Horde/Kolab/FreeBusy/COPYING" />
    <install as="Horde/Kolab/FreeBusy.php" name="lib/Horde/Kolab/FreeBusy.php" />
    <install as="Horde/Kolab/FreeBusy/Cache.php" name="lib/Horde/Kolab/FreeBusy/Cache.php" />
    <install as="Horde/Kolab/FreeBusy/Exception.php" name="lib/Horde/Kolab/FreeBusy/Exception.php" />
@@ -787,7 +796,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.
    </notes>
@@ -802,7 +811,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fixed handling of extended free/busy information.
 * Fixed storing acl values when the folder is triggered by a foreign user 
@@ -822,7 +831,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fixed copyright information.
    </notes>
@@ -837,7 +846,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * SERVER_NAME undefined in freebusy/regenerate.php (kolab/issue3446,
   https://www.intevation.de/roundup/kolab/issue3446)
@@ -858,7 +867,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * kolab/issue3450 (freebusy/user@example.com.ifb returns extended
   free/busy information)
@@ -876,7 +885,7 @@
     <api>alpha</api>
    </stability>
    <date>2010-10-22</date>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Adapted the package to the changes in Kolab_Server.
 * kolab/issue3537 (Allowing xfb access to groups does not work)
@@ -893,10 +902,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-07-27</date>
-   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <date>2011-09-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [jan] Update Latvian translation.
    </notes>
   </release>
  </changelog>

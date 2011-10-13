@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -558,17 +558,10 @@ class Mnemo
         }
 
         /* If the user doesn't own a notepad, create one. */
-        if (!empty($GLOBALS['conf']['share']['auto_create']) &&
-            $GLOBALS['registry']->getAuth() &&
-            !count(self::listNotepads(true))) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $share = $GLOBALS['mnemo_shares']->newShare(
-                $GLOBALS['registry']->getAuth(),
-                strval(new Horde_Support_Randomid()),
-                sprintf(_("Notepad of %s"), $identity->getName())
-            );
-            $GLOBALS['mnemo_shares']->addShare($share);
-            $GLOBALS['display_notepads'][] = $share->getName();
+        $notepads = $GLOBALS['injector']->getInstance('Mnemo_Factory_Notepads')
+            ->create();
+        if (($new_default = $notepads->ensureDefaultShare()) !== null) {
+            $GLOBALS['display_notepads'][] = $new_default;
         }
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));

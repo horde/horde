@@ -2,10 +2,10 @@
 /**
  * Callback page for Twitter integration.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Michael J. Rubinsky <mrubinsk.horde.org>
  * @package @horde
@@ -39,15 +39,23 @@ case 'updateStatus':
     } else {
         $params = array();
     }
-    $result = $twitter->statuses->update(Horde_Util::getPost('statusText'), $params);
-    header('Content-Type: application/json');
-    echo $result;
+    try {
+        $result = $twitter->statuses->update(Horde_Util::getPost('statusText'), $params);
+        header('Content-Type: application/json');
+        echo $result;
+    } catch (Horde_Service_Twitter_Exception $e) {
+        header('HTTP/1.1: 500');
+    }
     exit;
 
 case 'retweet':
-    $result = $twitter->statuses->retweet(Horde_Util::getPost('tweetId'));
-    header('Content-Type: application/json');
-    echo $result;
+    try {
+        $result = $twitter->statuses->retweet(Horde_Util::getPost('tweetId'));
+        header('Content-Type: application/json');
+        echo $result;
+    } catch (Horde_Service_Twitter_Exception $e) {
+        header('HTTP/1.1: 500');
+    }
     exit;
 
 case 'getPage':
@@ -62,9 +70,11 @@ case 'getPage':
         if (Horde_Util::getPost('mentions', null)) {
             $stream = Horde_Serialize::unserialize($twitter->statuses->mentions($params), Horde_Serialize::JSON);
         } else {
+            $params['include_entities'] = 1;
             $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
         }
     } catch (Horde_Service_Twitter_Exception $e) {
+        //header('HTTP/1.1: 500');
         echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
         exit;
     }
@@ -87,9 +97,43 @@ case 'getPage':
 
         $filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
-         /* links */
-        $body = $filter->filter($tweet->text, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
-        $view->body = preg_replace("/[@]+([A-Za-z0-9-_]+)/", "<a href=\"http://twitter.com/\\1\" target=\"_blank\">\\0</a>", $body);
+        // Links and media
+        $map = array();
+        $previews = array();
+        //var_dump($tweet);
+        foreach ($tweet->entities->urls as $link) {
+            $replace = '<a href="' . $link->url . '" title="' . $link->expanded_url . '">' . htmlspecialchars($link->display_url) . '</a>';
+            $map[$link->indices[0]] = array($link->indices[1], $replace);
+        }
+        foreach ($tweet->entities->media as $picture) {
+            $replace = '<a href="' . $picture->url . '" title="' . $picture->expanded_url . '">' . htmlentities($picture->display_url) . '</a>';
+            $map[$picture->indices[0]] = array($picture->indices[1], $replace);
+            $previews[] = ' <a href="#" onclick="return Horde[\'twitter' . $instance . '\'].showPreview(\'' . $picture->media_url . ':small\');"><img src="' . Horde_Themes::img('mime/image.png') . '" /></a>';
+        }
+        foreach ($tweet->entities->user_mentions as $user) {
+            $replace = ' <a title="' . $user->name . '" href="http://twitter.com/' . $user->screen_name . '">@' . htmlentities($user->screen_name) . '</a>';
+            $map[$user->indices[0]] = array($user->indices[1], $replace);
+        }
+        foreach ($tweet->entities->hashtags as $hashtag) {
+            $replace = ' <a href="http://twitter.com/search?q=#' . urlencode($hashtag->text) . '">#' . htmlentities($hashtag->text) . '</a>';
+            $map[$hashtag->indices[0]] = array($hashtag->indices[1], $replace);
+        }
+        $body = '';
+        $pos = 0;
+        while ($pos <= strlen($tweet->text) -1) {
+            if (!empty($map[$pos])) {
+                $entity = $map[$pos];
+                $body .= $entity[1];
+                $pos = $entity[0];
+            } else {
+                $body .= substr($tweet->text, $pos, 1);
+                ++$pos;
+            }
+        }
+        foreach ($previews as $preview) {
+            $body .= $preview;
+        }
+        $view->body = $body;
 
         /* If this is a retweet, use the original author's profile info */
         if (!empty($tweet->retweeted_status)) {

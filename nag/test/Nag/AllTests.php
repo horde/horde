@@ -9,7 +9,7 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/nag
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Horde/Test/AllTests.php';
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/nag
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 class Nag_AllTests extends Horde_Test_AllTests
 {

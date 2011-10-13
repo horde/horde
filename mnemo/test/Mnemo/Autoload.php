@@ -8,8 +8,8 @@
  * @package    Mnemo
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Mnemo
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 
 $mappings = array('Mnemo' => dirname(__FILE__) . '/../../lib/');
@@ -20,3 +20,5 @@ error_reporting(E_ALL | E_STRICT);
 
 /** Load the basic test definition */
 require_once dirname(__FILE__) . '/TestCase.php';
+require_once dirname(__FILE__) . '/Unit/Mnemo/Base.php';
+require_once dirname(__FILE__) . '/Unit/Mnemo/Sql/Base.php';

@@ -20,7 +20,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * Initial release.
  </notes>

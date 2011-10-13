@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Kronolith
  */
@@ -1204,9 +1204,8 @@ class Kronolith
             this block since horde driver *must* contain a provider array */
 
             // Language specific file needed?
-            //$language = str_replace('_', '-', $GLOBALS['language']);
-            $language = $GLOBALS['language'];
-            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/' . $language . '.js')) {
+            $language = str_replace('_', '-', $GLOBALS['language']);
+            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/lang/' . $language . '.js')) {
                 $language = 'en-US';
             }
             $params['conf'] = array(

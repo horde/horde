@@ -2,7 +2,7 @@
 /**
  * Horde Turba driver for the Kolab IMAP Server.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -139,7 +139,12 @@ class Turba_Driver_Kolab extends Turba_Driver
                     $contact['phototype'] = $contact['_attachments'][$name]['type'];
                 }
             }
-
+            if (isset($contact['name'])) {
+                foreach ($contact['name'] as $detail => $value) {
+                    $contact[$detail] = $value;
+                }
+                unset($contact['name']);
+            }
             $contacts[$id] = $contact;
         }
 
@@ -366,7 +371,6 @@ class Turba_Driver_Kolab extends Turba_Driver
             if (in_array($id, array_keys($this->_contacts_cache))) {
                 $object = $this->_contacts_cache[$id];
 
-                $object_type = $this->_contacts_cache[$id]['__type'];
                 if (!isset($object['__type']) || $object['__type'] == 'Object') {
                     if ($count) {
                         $result = array();
@@ -445,6 +449,10 @@ class Turba_Driver_Kolab extends Turba_Driver
         if (isset($attributes['given-name'])) {
             $attributes['full-name'] = $attributes['given-name'] . ' ' . $attributes['full-name'];
         }
+
+        $attributes['name'] = array(
+            'last-name' => $attributes['last-name'],
+        );
 
         $this->_store($attributes);
     }
@@ -634,11 +642,9 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     public function createShare($share_name, array $params)
     {
-        if (isset($params['params']['default']) &&
-            ($params['params']['default'] === true)) {
-            $share_name = $GLOBALS['registry']->getAuth();
+        if (!isset($params['name'])) {
+            $params['name'] = _('Contacts');
         }
-
         return Turba::createShare($share_name, $params);
     }
 
@@ -657,5 +663,4 @@ class Turba_Driver_Kolab extends Turba_Driver
             ? $params['default']
             : false;
     }
-
 }

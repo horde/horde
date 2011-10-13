@@ -1,0 +1,33 @@
+
+#category-select {
+    margin: 1em 0 1em 5px;
+}
+
+/* Tables. */
+table.stock {
+    width: 99%;
+    margin: 0 0 8px 5px;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+table.stock th {
+    padding: 3px;
+    background: #e9e9e9;
+    border-right: 1px solid #ccc;
+    text-align: left;
+    white-space: nowrap;
+}
+table.stock td {
+    padding: 3px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+table.stock th.sortup {
+    background: #bbcbff url("graphics/za.png") center left no-repeat;
+    padding-left: 10px;
+}
+table.stock th.sortdown {
+    background: #bbcbff url("graphics/az.png") center left no-repeat;
+    padding-left: 10px;
+}

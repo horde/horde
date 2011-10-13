@@ -10,7 +10,7 @@
      <br />
      <img src="<?php echo $faces->getFaceUrl($face['image_id'], $face_id) ?>" style="padding: 5px;" alt="<?php echo $facename?>" /><br />
      <?php echo sprintf(ngettext("%d photo", "%d photos", count($results)), count($results)); ?><br />
-     <?php echo Horde::url('faces/report.php')->add(array('face', $face_id))->link(
+     <?php echo Horde::url('faces/report.php')->add('face', $face_id)->link(
              array('class' => 'small',
                    'title' => _("Report abuse or submit a removal request"))) . _("Report") . '</a>'?>
    <?php else: ?>

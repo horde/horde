@@ -2,10 +2,10 @@
 /**
  * Patchsets script.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
@@ -53,8 +53,8 @@ $diff_img = Horde::img('diff.png', _("Diff"));
 
 reset($patchsets);
 while (list($id, $patchset) = each($patchsets)) {
-    $patchset_link = Chora::url('patchsets', $where, array('ps' => $id))
-        ->link(array('title' => sprintf("Commits to %s", $id)))
+    $patchset_link = Chora::url('commit', $where, array('commit' => $id))
+        ->link(array('title' => $id))
         . htmlspecialchars($VC->abbrev($id)) . '</a>';
 
     $commitDate = Chora::formatDate($patchset['log']->queryDate());

@@ -1,0 +1,61 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script quickly allows conversion between a base64url encoded mailbox
+ * name (as used on the webpages) and the IMAP mailbox name (as used on the
+ * server).
+ *
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  IMP
+ */
+
+$baseFile = dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/imp/lib/Application.php';
+}
+Horde_Registry::appInit('imp', array(
+    'authentication' => false,
+    'cli' => true
+));
+
+$opts = array(
+    1 => 'Decode base64url string => IMAP mailbox',
+    2 => 'Encode IMAP mailbox => base64url string'
+);
+
+switch ($cli->prompt('Action:', $opts)) {
+case 1:
+    $encoded = trim($cli->prompt('Base64url encoded mailbox:'));
+    $cli->writeln();
+
+    if (strpos($encoded, '{') === 0) {
+        $cli->message($cli->red('IMAP mailbox with UID information detected.'));
+        $cli->writeln();
+
+        $indices = new IMP_Indices_Form($encoded);
+        foreach ($indices as $val) {
+            $cli->message($cli->red('IMAP mailbox: ') . strval($val->mbox));
+            $cli->message($cli->red('UIDs: ') . implode(',', $val->uids));
+        }
+    } else {
+        $cli->message($cli->red('IMAP mailbox: ') . IMP_Mailbox::formFrom($encoded));
+    }
+    break;
+
+case 2:
+    $decoded = trim($cli->prompt('IMAP mailbox:'));
+    $cli->writeln();
+    $cli->message($cli->red('Base64url encoded mailbox: ') . IMP_Mailbox::formTo($decoded));
+    break;
+}

@@ -9,36 +9,27 @@
  * process are read and combined with the exit status value and returned to
  * the caller if the status code is not 0.
  *
- * WARNING: This driver has only formally been converted to Horde 4.  No
- *          testing has been done. If this doesn't work, please file bugs at
- *          bugs.horde.org.  If you really need this to work reliably, think
- *          about sponsoring development. Please let the Horde developers know
- *          if you can verify this driver to work.
- *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
  * @author  Samuel Nicolary <sam@nicolary.org>
- * @since   Passwd 3.0
  * @package Passwd
  */
-class Passwd_Driver_Procopen extends Passwd_Driver {
-
+class Passwd_Driver_Procopen extends Passwd_Driver
+{
     /**
-     * Change the user's password by executing a user supplied command.
+     * Changes the user's password.
      *
-     * @param string $user     User ID.
-     * @param string $oldpass  Old password.
-     * @param string $newpass  New password.
+     * @param string $user     The user for which to change the password.
+     * @param string $oldpass  The old (current) user password.
+     * @param string $newpass  The new user password to set.
      *
-     * @return boolean  True on success, false or throw Passwd_Error message on error.
+     * @throws Passwd_Exception
      */
-    function changePassword($user, $oldpass, $newpass)
+    public function changePassword($user, $oldpass, $newpass)
     {
-        global $conf;
-
         $descriptorspec = array(
             0 => array('pipe', 'r'),
             1 => array('pipe', 'w'),
@@ -62,21 +53,13 @@ class Passwd_Driver_Procopen extends Passwd_Driver {
             fclose($pipes[2]);
             $return_value = proc_close($process);
         } else {
-            $output = '';
             $return_value = -1;
         }
 
         $output .= " (Exit Status: $return_value)";
 
         if ($return_value != 0) {
-            if ($output) {
-                throw new Passwd_Exception($output);
-            } else {
-                return false;
-            }
-        } else {
-            return true;
+            throw new Passwd_Exception($output);
         }
     }
-
 }

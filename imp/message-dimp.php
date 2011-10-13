@@ -2,15 +2,15 @@
 /**
  * Single message display for the dynamic view (dimp).
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -63,11 +63,10 @@ $scripts = array(
     array('textarearesize.js', 'horde'),
     array('toggle_quotes.js', 'horde'),
     array('message-dimp.js', 'imp'),
-    array('imp.js', 'imp'),
-    array('base64url.js', 'imp'),
+    array('imp.js', 'imp')
 );
 
-foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as $val) {
+foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mbox') as $val) {
     if (!empty($show_msg_result[$val])) {
         $js_vars['DimpMessage.' . $val] = $show_msg_result[$val];
     }

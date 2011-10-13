@@ -2,10 +2,10 @@
 /**
  * This class implements the Horde_Image:: API for ImageMagick.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
@@ -19,16 +19,17 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @var array
      */
-    protected $_capabilities = array('resize',
-                                     'crop',
-                                     'rotate',
-                                     'grayscale',
-                                     'flip',
-                                     'mirror',
-                                     'sepia',
-                                     'canvas',
-                                     'multipage',
-                                     'pdf');
+    protected $_capabilities = array(
+        'resize',
+        'crop',
+        'rotate',
+        'grayscale',
+        'flip',
+        'mirror',
+        'sepia',
+        'canvas',
+        'multipage',
+        'pdf');
 
     /**
      * Operations to be performed before the source filename is specified on the
@@ -111,8 +112,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Publically visible raw method. Hides the extra parameters from client
-     * code.
+     * Publically visible raw method.
      *
      * @see self::_raw
      */

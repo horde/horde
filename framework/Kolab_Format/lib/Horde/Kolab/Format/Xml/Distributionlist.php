@@ -8,7 +8,7 @@
  * @package  Kolab_Format
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
@@ -19,47 +19,42 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Format
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Format_Xml_Distributionlist extends Horde_Kolab_Format_Xml
 {
     /**
+     * The name of the root element.
+     *
+     * @var string
+     */
+    protected $_root_name = 'distribution-list';
+
+    /**
      * Specific data fields for the contact object
      *
      * @var array
      */
-    protected $_fields_specific;
-
-    /**
-     * Constructor
-     */
-    public function __construct($parser, $params = array())
-    {
-        $this->_root_name = "distribution-list";
-
-        /** Specific task fields, in kolab format specification order
-         */
-        $this->_fields_specific = array(
-                'display-name' => array(
-                    'type'    => self::TYPE_STRING,
-                    'value'   => self::VALUE_NOT_EMPTY
-                ),
-                'member' => array(
-                    'type'    => self::TYPE_MULTIPLE,
-                    'value'   => self::VALUE_MAYBE_MISSING,
-                    'array'   => $this->_fields_simple_person,
-                )
-            );
-
-        parent::__construct($parser, $params);
-    }
+    protected $_fields_specific = array(
+        'display-name' => array(
+            'type'    => self::TYPE_STRING,
+            'value'   => self::VALUE_NOT_EMPTY
+        ),
+        'member' => array(
+            'type'    => self::TYPE_MULTIPLE,
+            'value'   => self::VALUE_MAYBE_MISSING,
+            'array'   => array(
+                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'
+            ),
+        )
+    );
 
     /**
      * Load the groupware object based on the specifc XML values.

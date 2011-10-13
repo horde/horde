@@ -2,7 +2,7 @@
 /**
  * $Horde: trean/edit.php,v 1.59 2009/07/08 18:29:56 slusarz Exp $
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2009 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

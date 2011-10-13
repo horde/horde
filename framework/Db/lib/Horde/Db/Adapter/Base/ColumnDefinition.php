@@ -1,12 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -16,7 +16,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -35,16 +35,17 @@ class Horde_Db_Adapter_Base_ColumnDefinition
     protected $_autoincrement;
 
     /**
-     * Construct
+     * Constructor.
      */
     public function __construct($base, $name, $type, $limit = null,
-        $precision = null, $scale = null, $unsigned = null,
-        $default = null, $null = null, $autoincrement = null)
+                                $precision = null, $scale = null,
+                                $unsigned = null, $default = null,
+                                $null = null, $autoincrement = null)
     {
-        // protected
+        // Protected
         $this->_base      = $base;
 
-        // public
+        // Public
         $this->_name          = $name;
         $this->_type          = $type;
         $this->_limit         = $limit;

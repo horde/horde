@@ -6,12 +6,12 @@ require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @category   Horde
  * @package    Text_Diff
  * @subpackage UnitTests
  */
-class Horde_Text_Diff_RendererTest extends PHPUnit_Framework_TestCase
+class Horde_Text_Diff_RendererTest extends Horde_Test_Case
 {
     protected $_lines = array();
 

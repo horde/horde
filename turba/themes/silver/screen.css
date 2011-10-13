@@ -4,3 +4,17 @@ table#addressbook-list th.sortup {
 table#addressbook-list th.sortdown {
     background: #ccc url("graphics/az.png") center left no-repeat;
 }
+
+/* Images */
+.editImg {
+    background-image: url("graphics/edit.png");
+}
+.groupImg {
+    background-image: url("graphics/group.png");
+}
+.searchImg {
+    background-image: url("graphics/search.png");
+}
+.vcardImg {
+    background-image: url("graphics/mime/vcard.png");
+}

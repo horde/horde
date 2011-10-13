@@ -2,10 +2,10 @@
 /**
  * This class provides the Turba configuration for the test script.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Turba
@@ -75,7 +75,7 @@ class Turba_Test extends Horde_Test
         if (!empty($params['server']) &&
             !empty($params['basedn']) &&
             !empty($params['filter'])) {
-            $ret .= $this->_doConnectionTest();
+            $ret .= $this->_doConnectionTest($params);
         }
 
         $self_url = Horde::selfUrl()->add('app', 'turba');

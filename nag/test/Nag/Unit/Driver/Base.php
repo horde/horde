@@ -9,26 +9,33 @@
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/nag
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
 /**
  * Driver test base.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If you did not
- * receive this file, see http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * receive this file, see http://www.horde.org/licenses/gpl
  *
  * @category   Horde
  * @package    Nag
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @link       http://www.horde.org/apps/nag
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License, version 2
+ * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 class Nag_Unit_Driver_Base extends Nag_TestCase
 {
+    /**
+     * The test setup.
+     *
+     * @var Horde_Test_Setup
+     */
+    static $setup;
+
     /**
      * @static Nag_Driver
      */
@@ -39,6 +46,27 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
      */
     private $_added = array();
 
+    public static function setUpBeforeClass()
+    {
+        self::$setup = new Horde_Test_Setup();
+        self::createBasicNagSetup(self::$setup);
+        parent::setUpBeforeClass();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        self::$driver = null;
+        parent::tearDownAfterClass();
+    }
+
+    public function setUp()
+    {
+        $error = self::$setup->getError();
+        if (!empty($error)) {
+            $this->markTestSkipped($error);
+        }
+    }
+
     public function tearDown()
     {
         parent::tearDown();
@@ -48,12 +76,6 @@ class Nag_Unit_Driver_Base extends Nag_TestCase
             } catch (Horde_Exception_NotFound $e) {
             }
         }
-    }
-
-    public static function tearDownAfterClass()
-    {
-        self::$driver = null;
-        parent::tearDownAfterClass();
     }
 
     private function _add($name, $desc, $start = 0, $due = 0, $priority = 0,

@@ -68,12 +68,18 @@
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
+     <file name="Notepads.php" role="horde" />
     </dir> <!-- /lib/Factory -->
     <dir name="Form">
      <file name="CreateNotepad.php" role="horde" />
      <file name="DeleteNotepad.php" role="horde" />
      <file name="EditNotepad.php" role="horde" />
     </dir> <!-- /lib/Form -->
+    <dir name="Notepads">
+     <file name="Base.php" role="horde" />
+     <file name="Default.php" role="horde" />
+     <file name="Kolab.php" role="horde" />
+    </dir> <!-- /lib/Notepads -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -123,6 +129,12 @@
      </dir> <!-- /locale/es/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="mnemo.mo" role="horde" />
+      <file name="mnemo.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
       <file name="mnemo.mo" role="horde" />
@@ -326,6 +338,16 @@
       <dir name="Factory">
        <file name="DriverTest.php" role="test" />
       </dir> <!-- /test/Mnemo/Unit/Factory -->
+      <dir name="Mnemo">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Mnemo/Unit/Mnemo/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Mnemo/Unit/Mnemo/Sql -->
+       <file name="Base.php" role="test" />
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Mnemo/Unit/Mnemo -->
      </dir> <!-- /test/Mnemo/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -544,6 +566,13 @@
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>1.2.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </optional>
  </dependencies>
  <usesrole>
@@ -578,9 +607,13 @@
    <install as="mnemo/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="mnemo/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="mnemo/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
+   <install as="mnemo/lib/Factory/Notepads.php" name="lib/Factory/Notepads.php" />
    <install as="mnemo/lib/Form/CreateNotepad.php" name="lib/Form/CreateNotepad.php" />
    <install as="mnemo/lib/Form/DeleteNotepad.php" name="lib/Form/DeleteNotepad.php" />
    <install as="mnemo/lib/Form/EditNotepad.php" name="lib/Form/EditNotepad.php" />
+   <install as="mnemo/lib/Notepads/Base.php" name="lib/Notepads/Base.php" />
+   <install as="mnemo/lib/Notepads/Default.php" name="lib/Notepads/Default.php" />
+   <install as="mnemo/lib/Notepads/Kolab.php" name="lib/Notepads/Kolab.php" />
    <install as="mnemo/locale/.htaccess" name="locale/.htaccess" />
    <install as="mnemo/locale/mnemo.pot" name="locale/mnemo.pot" />
    <install as="mnemo/locale/bg/LC_MESSAGES/mnemo.mo" name="locale/bg/LC_MESSAGES/mnemo.mo" />
@@ -599,6 +632,8 @@
    <install as="mnemo/locale/es/help.xml" name="locale/es/help.xml" />
    <install as="mnemo/locale/es/LC_MESSAGES/mnemo.mo" name="locale/es/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/es/LC_MESSAGES/mnemo.po" name="locale/es/LC_MESSAGES/mnemo.po" />
+   <install as="mnemo/locale/et/LC_MESSAGES/mnemo.mo" name="locale/et/LC_MESSAGES/mnemo.mo" />
+   <install as="mnemo/locale/et/LC_MESSAGES/mnemo.po" name="locale/et/LC_MESSAGES/mnemo.po" />
    <install as="mnemo/locale/eu/help.xml" name="locale/eu/help.xml" />
    <install as="mnemo/locale/eu/LC_MESSAGES/mnemo.mo" name="locale/eu/LC_MESSAGES/mnemo.mo" />
    <install as="mnemo/locale/eu/LC_MESSAGES/mnemo.po" name="locale/eu/LC_MESSAGES/mnemo.po" />
@@ -684,6 +719,10 @@
    <install as="Mnemo/TestCase.php" name="test/Mnemo/TestCase.php" />
    <install as="Mnemo/Unit/Driver/KolabTest.php" name="test/Mnemo/Unit/Driver/KolabTest.php" />
    <install as="Mnemo/Unit/Factory/DriverTest.php" name="test/Mnemo/Unit/Factory/DriverTest.php" />
+   <install as="Mnemo/Unit/Mnemo/Base.php" name="test/Mnemo/Unit/Mnemo/Base.php" />
+   <install as="Mnemo/Unit/Mnemo/KolabTest.php" name="test/Mnemo/Unit/Mnemo/KolabTest.php" />
+   <install as="Mnemo/Unit/Mnemo/Sql/Base.php" name="test/Mnemo/Unit/Mnemo/Sql/Base.php" />
+   <install as="Mnemo/Unit/Mnemo/Sql/Pdo/SqliteTest.php" name="test/Mnemo/Unit/Mnemo/Sql/Pdo/SqliteTest.php" />
    <install as="mnemo/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="mnemo/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="mnemo/themes/default/screen.css" name="themes/default/screen.css" />
@@ -841,27 +880,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-10-06</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
-<<<<<<< HEAD
-*
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>3.1.0</release>
-    <api>3.1.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2011-04-21</date>
-   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
-   <notes>
-*
-=======
+* [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
+* [gwr] Avoid including the owner name into the default share (Kolab backend).
 * [mjr] Fix removeUserData implementation.
->>>>>>> master
    </notes>
   </release>
  </changelog>

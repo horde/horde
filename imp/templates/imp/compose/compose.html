@@ -148,6 +148,47 @@
  </tr>
 </if:compose_html>
 
+<if:replyauto_all>
+ <tr>
+  <td></td>
+  <td class="item">
+   <span class="notices">
+    <li id="replyallnotice">
+     <gettext>You are</gettext> <span class="replyAllNoticeUnderline"><gettext>replying to ALL</gettext></span> (<tag:replyauto_all /> <gettext>recipients</gettext>).
+     <input name="btn_replyall_revert" type="submit" class="button" value="<gettext>Reply To Sender instead</gettext>" />
+    </li>
+   </span>
+  </td>
+ </tr>
+</if:replyauto_all>
+
+<if:replyauto_list>
+ <tr>
+  <td></td>
+  <td class="item">
+   <span class="notices">
+    <li id="replylistnotice">
+     <gettext>You are replying to a mailing list</gettext><if:replyauto_list_id> (<tag:replyauto_list_id />)</if:replyauto_list_id>.
+     <input name="btn_replylist_revert" type="submit" class="button" value="<gettext>Reply To Sender instead</gettext>" />
+    </li>
+   </span>
+  </td>
+ </tr>
+</if:replyauto_list>
+
+<if:reply_lang>
+ <tr>
+  <td></td>
+  <td class="item">
+   <span class="notices">
+    <li id="langnotice">
+     <gettext>The recipient has indicated that they prefer replies in these languages:</gettext> <tag:reply_lang />.
+    </li>
+   </span>
+  </td>
+ </tr>
+</if:replyauto_list>
+
  <tr>
   <td class="light rightAlign"><strong><tag:message_label /></strong></td>
   <td class="item" id="composeMessageParent">

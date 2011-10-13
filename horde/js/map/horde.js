@@ -3,10 +3,10 @@
  * inline "slippy" maps. You must also include the file for the specific
  * provider support you want included.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
@@ -18,14 +18,26 @@
  * specific to any commercial mapping providers, such as google/yahoo etc...
  *
  * var options = {};
- * // opts.elt - dom node
- * // opts.layers - An Array of OpenLayers.Layer objects
- * // opts.delayed - don't bind the map to the dom until display() is called.
- * // opts.markerDragEnd - callback to handle when a marker is dragged.
- * // opts.mapClick - callback to handle a click on the map
- * // opts.markerImage
- * // opts.markerBackground
- * // opts.useMarkerLayer
+ * // opts.defaultBase      - Id of the baselayer to enable by default.
+ * // opts.delayed          - Don't bind the map to the dom until display() is
+ * //                         called.
+ * // opts.elt              - DOM Node to place map in
+ * // opts.onhover          - Event handler to run on feature hover (hightlight)
+ * // opts.layers           - An Array of OpenLayers.Layer objects
+ * // opts.mapClick         - Callback to handle a click on the map
+ * // opts.markerBackground - Custom marker background image to use by default.
+ * // opts.markerDragEnd    - Callback to handle when a marker is dragged.
+ * // opts.markerImage      - Custom marker image to use by default.
+ * // opts.onClick          - Callback for handling click events on features.
+ * // opts.onHover          - Callback for handling hover events on features.
+ * // opts.panzoom          - Use the larger PanZoomBar control. If false, will
+ * //                         use the smaller ZoomPanel control.
+ * //                       - Callback
+ * // opts.useMarkerLayer   - Add a vector layer to be used to place markers.
+ * // opts.hide             - Don't show markerlayer in LayerSwitcher
+ * // opts.onBaseLayerChange - Callback fired when baselayer is changed.
+ * // opts.zoomworldicon    - Show the worldzoomicon on the PanZoomBar control
+ * //                         that resets/centers map.
  * var map = new HordeMap.OpenLayers(options);
  *
  */
@@ -38,13 +50,40 @@ HordeMap.Map.Horde = Class.create({
 
     initialize: function(opts)
     {
+        // @TODO: BC Break
+        if (HordeMap.conf.markerImage) {
+            opts.markerImage = HordeMap.conf.markerImage;
+            opts.markerBackground = HordeMap.conf.markerBackground;
+        }
+
         // defaults
         var o = {
+            useMarkerLayer: false,
+            draggableFeatures: true,
             showLayerSwitcher: true,
+            markerLayerTitle: 'Markers',
             delayed: false,
-            layers: []
+            panzoom: true,
+            zoomworldicon: false,
+            layers: [],
+            onHover: false,
+            onClick: false,
+            hide: true,
+            onBaseLayerChange: false,
+            defaultBaseLayer: false,
+            // default stylemap
+            styleMap: new OpenLayers.StyleMap({
+                'default': {
+                    externalGraphic: opts.markerImage,
+                    backgroundGraphic: opts.markerBackground,
+                    backgroundXOffset: 0,
+                    backgroundYOffset: -7,
+                    backgroundGraphicZIndex: 10,
+                    pointRadius: (opts.pointRadius) ? opts.pointRadius : 10,
+                }
+            })
         };
-        this.opts = Object.extend(o, opts);
+        this.opts = Object.extend(o, opts || {});
 
         // Generate the base map object. Always use EPSG:4326 (WGS84) for display
         // and EPSG:900913 (spherical mercator) for projection for compatibility
@@ -53,50 +92,31 @@ HordeMap.Map.Horde = Class.create({
             projection: new OpenLayers.Projection("EPSG:900913"),
             displayProjection: new OpenLayers.Projection("EPSG:4326"),
             units: "m",
-            numZoomLevels:18,
+            numZoomLevels: 18,
             maxResolution: 156543.0339,
             maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
-
-            // @TODO: configurable (allow smaller zoom control etc...
-            // @TODO: custom LayerSwitcher control?
-            controls: [new OpenLayers.Control.PanZoomBar({ 'zoomWorldIcon': true }),
-                       new OpenLayers.Control.Navigation(),
-                       new OpenLayers.Control.Attribution()],
-
-           fallThrough: false
+            controls: [
+                new OpenLayers.Control.Navigation(),
+                new OpenLayers.Control.Attribution()
+            ],
+            styleMap: this.opts.styleMap
         };
-
-        // Set the language to use
+        if (this.opts.panzoom) {
+            options.controls.push(new OpenLayers.Control.PanZoomBar({ 'zoomWorldIcon': this.opts.zoomworldicon }));
+        } else {
+            options.controls.push(new OpenLayers.Control.ZoomPanel());
+        }
+        // Set the language
         OpenLayers.Lang.setCode(HordeMap.conf.language);
         this.map = new OpenLayers.Map((this.opts.delayed ? null : this.opts.elt), options);
 
         // Create the vector layer for markers if requested.
         // @TODO H5 BC break - useMarkerLayer should be permap, not per page
-        if (HordeMap.conf.markerImage) {
-            this.opts.markerImage = HordeMap.conf.markerImage;
-            this.opts.markerBackground = HordeMap.conf.markerBackground;
-        }
         if (this.opts.useMarkerLayer || HordeMap.conf.useMarkerLayer) {
-            var styleMap = new OpenLayers.StyleMap({
-                externalGraphic: this.opts.markerImage,
-                backgroundGraphic: this.opts.markerBackground,
-                backgroundXOffset: 0,
-                backgroundYOffset: -7,
-                graphicZIndex: 11,
-                backgroundGraphicZIndex: 10,
-                pointRadius: 10
-            });
-            this.markerLayer = new OpenLayers.Layer.Vector("Markers",
-                {
-                    'styleMap': styleMap,
-                    'rendererOptions': {yOrdering: true}
-                });
-
-            var dragControl = new OpenLayers.Control.DragFeature(this.markerLayer, { onComplete: this.opts.markerDragEnd });
-            this.map.addControl(dragControl);
-            dragControl.activate();
+            this.markerLayer = this.createVectorLayer(this.opts);
             this.opts.layers.push(this.markerLayer);
         }
+
         this.map.addLayers(this.opts.layers);
         if (this.opts.showLayerSwitcher) {
             this._layerSwitcher = new OpenLayers.Control.LayerSwitcher();
@@ -105,14 +125,127 @@ HordeMap.Map.Horde = Class.create({
 
         // Create a click control to handle click events on the map
         if (this.opts.mapClick) {
-            var click = new OpenLayers.Control.Click({ onClick: this._onMapClick.bind(this) });
+            var click = new OpenLayers.Control.Click({
+                onClick: this._onMapClick.bind(this)
+            });
             this.map.addControl(click);
             click.activate();
         }
 
         // Used for converting between internal and display projections.
         this._proj = new OpenLayers.Projection("EPSG:4326");
+        if (this.opts.defaultBaseLayer) {
+           this.map.setBaseLayer(this.map.getLayersByName(this.opts.defaultBaseLayer).pop());
+        }
         this.map.zoomToMaxExtent();
+        if (this.opts.onBaseLayerChange) {
+            this.map.events.register('changebaselayer', null, this.opts.onBaseLayerChange);
+        }
+    },
+
+    /**
+     * Create a vector layer and attach to map. Can pass hover and click
+     * handlers if this is the *only* layer to use them. Otherwise, use
+     * addHighlightControl/addClickControl methods after all layers are
+     * created.
+     *
+     * opts
+     *   markerLayerTitle  - The title to show in the LayerSwitcher
+     *   hide              - Do not show layer in LayerSwitcher
+     *   onHover           - Hover handler
+     *   onClick           - Click handler
+     */
+    createVectorLayer: function(opts)
+    {
+        var styleMap = opts.styleMap || this.styleMap;
+        var layer = new OpenLayers.Layer.Vector(
+            opts.markerLayerTitle,
+            {
+                'styleMap': styleMap,
+                'rendererOptions': { zIndexing: true },
+            }
+        );
+        if (opts.hide) {
+            layer.displayInLayerSwitcher = false;
+        }
+        if (opts.draggableFeatures) {
+            var dragControl = new OpenLayers.Control.DragFeature(
+                layer,
+                { onComplete: opts.markerDragEnd });
+
+            this.map.addControl(dragControl);
+            dragControl.activate();
+        }
+
+        if (opts.onHover) {
+            this.addHighlightControl({
+                'onHover': opts.onHover,
+                'layers': layer
+            });
+        }
+
+        if (opts.onClick) {
+            this.addClickControl({
+                'layers': layer,
+                'onClick': opts.onClick
+            });
+        }
+
+        return layer;
+    },
+
+    addHighlightControl: function(opts)
+    {
+        var selectControl = new OpenLayers.Control.SelectFeature(
+            opts.layers, {
+                hover: true,
+                highlightOnly: true,
+                renderIntent: 'temporary',
+                eventListeners: {
+                     beforefeaturehighlighted: opts.onHover,
+                     featurehighlighted: opts.onHover,
+                     featureunhighlighted: opts.onHover
+                }
+            }
+        );
+        this.map.addControl(selectControl);
+        selectControl.activate();
+
+        return selectControl;
+    },
+
+    /**
+     * Add a click control to the map. HordeMap only supports one selectFeature
+     * control for click handlers per map, though it may contain several layers.
+     *
+     * @param object opts
+     *    'layers': [] All layers that should be included in the control layer.
+     *              Note that any layers on top of layers that should handle
+     *              clicks *must* be included in the array.
+     *              This is an OL requirement.
+     *    'active': [] Layers that should actually respond to the click request.
+     */
+    addClickControl: function(opts)
+    {
+        var clickControl = new OpenLayers.Control.SelectFeature(
+            opts.layers, {
+                'hover': false,
+                'clickout': false,
+                'toggle': true,
+                'hover': false,
+                'multiple': false,
+                'renderIntent': 'temporary'
+            }
+        );
+        opts.active.each(function(l) {
+            l.events.on({
+                'featureselected': opts.onClick
+            });
+       });
+        this.map.addControl(clickControl);
+        clickControl.activate();
+
+        return clickControl;
     },
 
     /**
@@ -180,21 +313,44 @@ HordeMap.Map.Horde = Class.create({
         this.map.setCenter(ll, z);
     },
 
+    zoomTo: function(z)
+    {
+        this.map.zoomTo(z);
+    },
+
     /**
+     * Adds a simple marker to the map. Will use the markerImage property
+     * optionally passed into the map options. To add a feature with varying
+     * markerImage, pass a stylecallback method that returns a suitable style
+     * object.
+     *
+     * @param lonlat p    { 'lon': x, 'lat': y }
+     * @para object opts  Options
+     *    'styleCallback': callback to provide a custom styleobject for marker
+     *    'layer': use this layer instead of this.markerLayer to place marker
      */
     addMarker: function(p, opts)
     {
+        opts = Object.extend({ 'styleCallback': Prototype.K }, opts);
         var ll = new OpenLayers.Geometry.Point(p.lon, p.lat);
         ll.transform(this._proj, this.map.getProjectionObject());
+        s = opts.styleCallback(this.markerLayer.style);
         var m = new OpenLayers.Feature.Vector(ll);
-        this.markerLayer.addFeatures([m]);
-
+        if (opts.layer) {
+            opts.layer.addFeatures([m]);
+        } else {
+            this.markerLayer.addFeatures([m]);
+        }
         return m;
     },
 
-    removeMarker: function(m)
+    removeMarker: function(m, opts)
     {
-        this.markerLayer.destroyFeatures([m]);
+        if (opts.layer) {
+            opts.layer.destroyFeatures([m]);
+        } else {
+            this.markerLayer.destroyFeatures([m]);
+        }
     },
 
     /**
@@ -215,11 +371,15 @@ HordeMap.Map.Horde = Class.create({
     /**
      * Zoom map to the best fit while containing all markers
      *
-     * @param integer max  Highest zoom level (@TODO)
      */
-    zoomToFit: function(max)
+    zoomToFit: function(layer)
     {
-        this.map.zoomToExtent(this.markerLayer.getDataExtent());
+        if (!layer) {
+            layer = this.markerLayer;
+        }
+        if (layer.getDataExtent()) {
+            this.map.zoomToExtent(layer.getDataExtent());
+        }
     },
 
     getMap: function()
@@ -249,31 +409,31 @@ HordeMap.Map.Horde = Class.create({
 
 });
 
-    // Extension to OpenLayers to allow better abstraction:
-    OpenLayers.Feature.Vector.prototype.getLonLat = function() {
-        var ll = new OpenLayers.LonLat(this.geometry.x, this.geometry.y);
-        ll.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
-        return ll;
-    };
+// Extension to OpenLayers to allow better abstraction:
+OpenLayers.Feature.Vector.prototype.getLonLat = function() {
+    var ll = new OpenLayers.LonLat(this.geometry.x, this.geometry.y);
+    ll.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
+    return ll;
+};
 
-    // Custom OL click handler - doesn't propagate a click event when performing
-    // a double click
-    OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
-        defaultHandlerOptions: {
-            'single': true,
-            'double': false,
-            'pixelTolerance': 0,
-            'stopSingle': false,
-            'stopDouble': false
-        },
+// Custom OL click handler - doesn't propagate a click event when performing
+// a double click
+OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+    defaultHandlerOptions: {
+        'single': true,
+        'double': false,
+        'pixelTolerance': 0,
+        'stopSingle': false,
+        'stopDouble': false
+    },
 
-        initialize: function(options) {
-            this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
-            OpenLayers.Control.prototype.initialize.apply(this, arguments);
-            this.handler = new OpenLayers.Handler.Click(
-                this, { 'click': options.onClick }, this.handlerOptions);
-        }
-    });
+    initialize: function(options) {
+        this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
+        OpenLayers.Control.prototype.initialize.apply(this, arguments);
+        this.handler = new OpenLayers.Handler.Click(
+            this, { 'click': options.onClick }, this.handlerOptions);
+    }
+});
 
 
 HordeMap.Geocoder.Horde = Class.create({});

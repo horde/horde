@@ -2,10 +2,10 @@
 /**
  * Dynamic view (dimp) index template.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 $use_sub = $prefs->getValue('subscribe');
@@ -67,7 +67,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php if (empty($GLOBALS['conf']['menu']['apps_iframe'])): $ak = Horde::getAccessKey(_("_Portal"), true); ?>
     <li class="servicelink" id="portallink">
      <span class="iconImgSidebar hordeIcon"></span>
-     <a href="<?php echo Horde::getServiceLink('portal') ?>"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
+     <a href="<?php echo Horde::getServiceLink('portal')->remove('ajaxui') ?>"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
     </li>
 <?php endif; ?>
 <?php endif; ?>
@@ -92,7 +92,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     <div class="sepfull"></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
-      <span class="iconImgSidebar folderImg"></span>
+      <span class="iconImgSidebar folderoptsImg"></span>
       <a id="folderopts_link" title="<?php echo _("Folder Options") ?>"><?php echo _("Folder Options") ?></a>
      </li>
      <li class="folder" id="dropbase" style="display:none">
@@ -119,7 +119,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      <div class="dimpActions">
 <?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
       <div id="qsearch">
-       <span class="iconImg" id="qsearch_icon"></span>
+       <span id="qsearch_icon">
+        <span class="iconImg searchImg"></span>
+        <span class="iconImg popdownImg"></span>
+       </span>
        <form action="#" method="post">
         <input autocomplete="off" id="qsearch_input" type="text" />
        </form>
@@ -128,16 +131,16 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?></div>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Forward', 'id' => 'button_forward', 'title' => _("Forward"))) ?></div>
 <?php if (!empty($conf['spam']['reporting'])): ?>
-      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?></div>
+      <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?></div>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
-      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?></div>
+      <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?></div>
 <?php endif; ?>
-      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?></div>
+      <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?></div>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Delete', 'id' => 'button_deleted', 'title' => _("Delete"))) ?></div>
       <div id="button_compose"><?php echo IMP_Dimp::actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?></div>
       <div id="button_checkmail"><?php echo IMP_Dimp::actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?></div>
-      <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other Actions"))) ?></div>
+      <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other"))) ?></div>
      </div>
 
      <div id="searchbar" style="display:none">
@@ -430,6 +433,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
   <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
   <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
  </div>
+<?php if (!$prefs->isLocked('delhide')): ?>
+ <a id="oa_show_deleted"><span class="iconImg"></span><?php echo _("Show Deleted") ?></a>
+ <a id="oa_hide_deleted"><span class="iconImg"></span><?php echo _("Hide Deleted") ?></a>
+<?php endif; ?>
 <?php endif; ?>
  <div class="sep"></div>
  <a id="oa_help"><span class="iconImg"></span><?php echo _("Help") ?></a>

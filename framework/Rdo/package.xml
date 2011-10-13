@@ -11,17 +11,17 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:38:37</time>
+ <date>2011-10-11</date>
+ <time>14:01:13</time>
  <version>
-  <release>1.0.2</release>
-  <api>1.0.0</api>
+  <release>1.1.1</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -44,6 +44,7 @@
        <file name="users.pgsql.sql" role="doc" />
        <file name="users.sqlite.sql" role="doc" />
       </dir> <!-- /doc/Horde/Rdo/examples -->
+      <file name="COPYING" role="doc" />
       <file name="TODO.txt" role="doc" />
      </dir> <!-- /doc/Horde/Rdo -->
     </dir> <!-- /doc/Horde -->
@@ -92,6 +93,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Rdo/COPYING" />
    <install as="TODO.txt" name="doc/Horde/Rdo/TODO.txt" />
    <install as="examples/clotho.data.php" name="doc/Horde/Rdo/examples/clotho.data.php" />
    <install as="examples/clotho.mysql.sql" name="doc/Horde/Rdo/examples/clotho.mysql.sql" />
@@ -127,7 +129,7 @@
     <api>beta</api>
    </stability>
    <date>2008-03-15</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Major improvements including inflection, eager or lazy loading of relationships and fields, and more.
    </notes>
@@ -142,7 +144,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -157,7 +159,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -172,7 +174,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -185,20 +187,33 @@ Major improvements including inflection, eager or lazy loading of relationships 
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add missing dependency on Horde_Db.
    </notes>
   </release>
   <release>
    <version>
-    <release>1.0.2</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Rdo_Query#distinct() (Request #10535).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

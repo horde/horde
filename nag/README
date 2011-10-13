@@ -1,23 +1,25 @@
-What is Nag?
-============
+==============
+ What is Nag?
+==============
 
-:Contact:       nag@lists.horde.org
+:Contact: nag@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
 
-Nag is the Horde task list application.  It stores todo items, things due
-later this week, etc.  It is very similar in functionality to the Palm ToDo
-application.
+Nag is a web-based application built upon the Horde Application Framework which
+provides a simple, clean interface for managing online task lists (i.e., todo
+lists). It also includes strong integration with the other Horde applications
+and allows users to share task lists or enable light-weight project management.
 
-This software is OSI Certified Open Source Software.  OSI Certified is a
+This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
 .. _`Open Source Initiative`: http://www.opensource.org/
 
 
 Obtaining Nag
--------------
+=============
 
 Further information on Nag and the latest version can be obtained at
 
@@ -25,7 +27,7 @@ Further information on Nag and the latest version can be obtained at
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Nag distribution:
 
@@ -39,14 +41,14 @@ The following documentation is available in the Nag distribution:
 
 
 Installation
-------------
+============
 
 Instructions for installing Nag can be found in the file INSTALL_ in the
 ``docs/`` directory of the Nag distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Nag, help is available!
 
@@ -54,19 +56,19 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
-and for issues relating to the project as a whole.  Information, archives, and
+Horde LLC runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
   http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
-appearances on IRC, on the channel #horde on the freenode Network
+appearances on IRC, on the channel #horde on the Freenode Network
 (irc.freenode.net).
 
 
 Licensing
----------
+=========
 
 For licensing and copyright information, please see the file COPYING_ in the
 Nag distribution.

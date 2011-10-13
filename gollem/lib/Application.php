@@ -5,17 +5,17 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Ben Klang <bklang@horde.org>
  * @author   Amith Varghese <amith@xalan.com>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Gollem
  */
 
@@ -50,7 +50,7 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (2.0-git)';
+    public $version = 'H4 (2.0.1-git)';
 
     /**
      * Cached values to add to the session after authentication.
@@ -88,8 +88,7 @@ class Gollem_Application extends Horde_Registry_Application
         );
 
         // Run through every backend.
-        require GOLLEM_BASE . '/config/backends.php';
-        foreach ($backends as $key => $val) {
+        foreach (Gollem_Auth::getBackend() as $key => $val) {
             $perms['backends:' . $key] = array(
                 'title' => $val['name']
             );
@@ -208,10 +207,8 @@ class Gollem_Application extends Horde_Registry_Application
             $backend_key != $GLOBALS['session']->get('gollem', 'backend_key')) {
             Gollem_Auth::changeBackend($backend_key);
         }
-        if (empty(Gollem::$backend['auth'])) {
-            return false;
-        }
-        return true;
+
+        return !empty(Gollem::$backend['auth']);
     }
 
     /**
@@ -220,7 +217,7 @@ class Gollem_Application extends Horde_Registry_Application
     {
         foreach ($ui->getChangeablePrefs() as $val) {
             switch ($val) {
-            case 'columns':
+            case 'columnselect':
                 Horde_Core_Prefs_Ui_Widgets::sourceInit();
                 break;
             }
@@ -244,9 +241,9 @@ class Gollem_Application extends Horde_Registry_Application
 
                 foreach ($info['attributes'] as $column) {
                     if (isset($selected_list[$column])) {
-                        $selected[] = array($column, $column);
+                        $selected[$column] = $column;
                     } else {
-                        $unselected[] = array($column, $column);
+                        $unselected[$column] = $column;
                     }
                 }
                 $sources[$source] = array(
@@ -256,11 +253,11 @@ class Gollem_Application extends Horde_Registry_Application
             }
 
             return Horde_Core_Prefs_Ui_Widgets::source(array(
-                'mainlabel' => _("Choose which backends to display, and in what order:"),
-                'selectlabel' => _("These backends will display in this order:"),
+                'mainlabel' => _("Choose which columns to display, and in what order:"),
+                'selectlabel' => _("These columns will display in this order:"),
                 'sourcelabel' => _("Select a backend:"),
                 'sources' => $sources,
-                'unselectlabel' => _("Backends that will not be displayed:")
+                'unselectlabel' => _("Columns that will not be displayed:")
             ));
         }
 
@@ -297,7 +294,9 @@ class Gollem_Application extends Horde_Registry_Application
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
+        $icon = Horde_Themes::img('gollem.png');
         $url = Horde::url('manager.php');
+
         foreach (Gollem_Auth::getBackend() as $key => $val) {
             $tree->addNode(
                 $parent . $key,
@@ -306,7 +305,7 @@ class Gollem_Application extends Horde_Registry_Application
                 1,
                 false,
                 array(
-                    'icon' => Horde_Themes::img('gollem.png'),
+                    'icon' => $icon,
                     'url' => $url->add(array('backend_key' => $key))
                 )
             );

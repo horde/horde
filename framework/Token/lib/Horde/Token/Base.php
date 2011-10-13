@@ -3,10 +3,10 @@
  * The Horde_Token_Base:: class provides a common abstracted interface for
  * a token implementation.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Max Kalika <max@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>

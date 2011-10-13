@@ -1,11 +1,19 @@
-===================
-Wicked, Version 0.1
-===================
+=================
+ What is Wicked?
+=================
 
-What is Wicked?
-===============
+:Contact: horde@lists.horde.org
 
-This module is a wiki application for Horde.
+.. contents:: Contents
+.. section-numbering::
+
+Wicked is a wiki application for Horde.
+
+This software is OSI Certified Open Source Software. OSI Certified is a
+certification mark of the `Open Source Initiative`_.
+
+.. _`Open Source Initiative`: http://www.opensource.org/
+
 
 Goals
 =====
@@ -21,11 +29,11 @@ possible.
 
 Here are some technological impediments we should be mindful of:
 
-* Requiring complete documents or validatation which prevents saving.
-* Requiring lots of information related to pages (categories, etc.)
-* Complicated markup which has to be learned
+- Requiring complete documents or validatation which prevents saving.
+- Requiring lots of information related to pages (categories, etc.).
+- Complicated markup which has to be learned.
 
-We should be mindful that not all impediments are strictly technological--
+We should be mindful that not all impediments are strictly technological -
 there are psychological impediments as well.  As a simple example, different
 fonts and ways of rendering a page may make it appear more "professional" or
 "perfect", and this might discourage a user from adding his thoughts somewhere
@@ -44,8 +52,8 @@ that user is more likely to contribute.
 The value of a large knowledge base isn't solely in the amount of information
 it contains.  There are many large knowledge bases which are difficult to
 navigate, and seem to prevent you from finding things that you know must be in
-there.  One of the ways to avoid this is by facilitating the inter-
-connectedness of knowledge-- if we make linking between pages easy, don't
+there.  One of the ways to avoid this is by facilitating the
+inter-connectedness of knowledge - if we make linking between pages easy, don't
 prevent (and even encourage) "dangling" and "accidental" links, and provide
 mechanisms so that synonymous terms can refer to the same page, knowledge in
 the knowledge base will be much more accessible.
@@ -85,11 +93,9 @@ providing accountability.
 Once the collaboration on some piece of knowledge is done, Wicked should
 support printing it in a "final form" useful for consumption.
 
+
 Features
 ========
-
-[These features may not be fully implemented just yet; they are the targeted
-featurs for the Wicked 1.0 release. -JMF]
 
 1. Change Tracking and Revision History
 ---------------------------------------
@@ -100,8 +106,84 @@ featurs for the Wicked 1.0 release. -JMF]
 3. Support for Multiple Content Types
 -------------------------------------
 
+Not implemented yet.
+
 4. Page and Site Subscriptions and Invitations
 ----------------------------------------------
 
+Not implemented yet.
+
 5. Typesetting to PDF
 ---------------------
+
+Not implemented yet. Exporting wiki pages to Latex is already possible
+though. It is still planned to export complete wikis or "books" (sets of wiki
+pages).
+
+
+Obtaining Wicked
+================
+
+Further information on Wicked and the latest version can be obtained at
+
+  http://www.horde.org/apps/wicked
+
+
+Documentation
+=============
+
+The following documentation is available in the Wicked distribution:
+
+:README_:            This file
+:COPYING_:           Copyright and license information
+:`docs/CHANGES`_:    Changes by release
+:`docs/CREDITS`_:    Project developers
+:`docs/INSTALL`_:    Installation instructions and notes
+:`docs/TODO`_:       Development TODO list
+
+
+Installation
+============
+
+Instructions for installing Wicked can be found in the file INSTALL_ in the
+``docs/`` directory of the Wicked distribution.
+
+
+Assistance
+==========
+
+If you encounter problems with Wicked, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
+
+  http://wiki.horde.org/FAQ
+
+Horde LLC runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/community/mail
+
+Lastly, Horde developers, contributors and users also make occasional
+appearances on IRC, on the channel #horde on the Freenode Network
+(irc.freenode.net).
+
+
+Licensing
+=========
+
+For licensing and copyright information, please see the file COPYING_ in the
+Wicked distribution.
+
+Thanks,
+
+The Wicked team
+
+
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
+.. _INSTALL:
+.. _docs/INSTALL: INSTALL
+.. _docs/TODO: TODO

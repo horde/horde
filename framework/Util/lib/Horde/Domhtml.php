@@ -2,8 +2,8 @@
 /**
  * @category   Horde
  * @package    Util
- * @copyright  2010 The Horde Project (http://www.horde.org/)
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @copyright  2010 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 
 /**
@@ -12,8 +12,8 @@
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @package    Util
- * @copyright  2010 The Horde Project (http://www.horde.org/)
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @copyright  2010 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Domhtml
 {

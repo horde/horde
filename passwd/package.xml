@@ -2,38 +2,33 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>passwd</name>
  <channel>pear.horde.org</channel>
- <summary>Horde 4 Passwords Application</summary>
+ <summary> Horde password changing application</summary>
  <description>An application to change any user passwords stored in various backends like SQL, LDAP, Kolab, passwd files etc...</description>
- <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
-  <active>yes</active>
- </lead>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-06-28</date>
- <time>17:33:07</time>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-09-28</date>
+ <time>21:46:07</time>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>4.0.0RC1</release>
+  <api>4.0.0RC1</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="TODO">TODO</license>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
-* [jan] Provide default configuration files instead of .dist versions.
-* [jan] Fix creating temporary files with open_basedir restrictions.
-* [rla] Added new driver &apos;horde&apos; which uses the update() function of horde&apos;s current auth driver
-* [rla] Formal conversion of all drivers to Horde 4 Exceptions. Some may need more changes to actually work
-* Initial release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -51,6 +46,9 @@
     <file name="TODO" role="doc" />
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
+   <dir name="js">
+    <file name="passwd.js" role="horde" />
+   </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Driver">
      <file name="Adsi.php" role="horde" />
@@ -201,6 +199,13 @@
       <file name="passwd.po" role="horde" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
     </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="passwd.mo" role="horde" />
+      <file name="passwd.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
       <file name="passwd.mo" role="horde" />
@@ -286,15 +291,28 @@
    </dir> <!-- /locale -->
    <dir name="scripts">
     <file name=".htaccess" role="horde" />
-    <file name="kpasswd_expect" role="horde" />
-    <file name="passwd_expect" role="horde" />
+    <file name="passwd-expect" role="horde" />
+    <file name="passwd-expect-kerberos" role="horde" />
    </dir> <!-- /scripts -->
    <dir name="templates">
-    <dir name="main">
-     <file name="main.inc" role="horde" />
-    </dir> <!-- /templates/main -->
     <file name=".htaccess" role="horde" />
+    <file name="index.html.php" role="horde" />
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Passwd">
+     <dir name="Unit">
+      <dir name="Driver">
+       <file name="SqlTest.php" role="test" />
+      </dir> <!-- /test/Passwd/Unit/Driver -->
+      <dir name="Factory">
+       <file name="DriverTest.php" role="test" />
+      </dir> <!-- /test/Passwd/Unit/Factory -->
+     </dir> <!-- /test/Passwd/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Passwd -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
@@ -323,7 +341,95 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.4.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.3.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Injector</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_View</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Ldap</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Vfs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Crypt_CHAP</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>com</name>
+   </extension>
+   <extension>
+    <name>ldap</name>
+   </extension>
+   <extension>
+    <name>soap</name>
+   </extension>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -340,6 +446,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="passwd/js/passwd.js" name="js/passwd.js" />
    <install as="passwd/lib/.htaccess" name="lib/.htaccess" />
    <install as="passwd/lib/Application.php" name="lib/Application.php" />
    <install as="passwd/lib/Driver.php" name="lib/Driver.php" />
@@ -411,6 +518,9 @@
    <install as="passwd/locale/ja/LC_MESSAGES/passwd.po" name="locale/ja/LC_MESSAGES/passwd.po" />
    <install as="passwd/locale/lt/LC_MESSAGES/passwd.mo" name="locale/lt/LC_MESSAGES/passwd.mo" />
    <install as="passwd/locale/lt/LC_MESSAGES/passwd.po" name="locale/lt/LC_MESSAGES/passwd.po" />
+   <install as="passwd/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="passwd/locale/lv/LC_MESSAGES/passwd.mo" name="locale/lv/LC_MESSAGES/passwd.mo" />
+   <install as="passwd/locale/lv/LC_MESSAGES/passwd.po" name="locale/lv/LC_MESSAGES/passwd.po" />
    <install as="passwd/locale/nl/help.xml" name="locale/nl/help.xml" />
    <install as="passwd/locale/nl/LC_MESSAGES/passwd.mo" name="locale/nl/LC_MESSAGES/passwd.mo" />
    <install as="passwd/locale/nl/LC_MESSAGES/passwd.po" name="locale/nl/LC_MESSAGES/passwd.po" />
@@ -440,10 +550,15 @@
    <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.mo" name="locale/zh_TW/LC_MESSAGES/passwd.mo" />
    <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.po" name="locale/zh_TW/LC_MESSAGES/passwd.po" />
    <install as="passwd/scripts/.htaccess" name="scripts/.htaccess" />
-   <install as="passwd/scripts/kpasswd_expect" name="scripts/kpasswd_expect" />
-   <install as="passwd/scripts/passwd_expect" name="scripts/passwd_expect" />
+   <install as="passwd/scripts/passwd-expect" name="scripts/passwd-expect" />
+   <install as="passwd/scripts/passwd-expect-kerberos" name="scripts/passwd-expect-kerberos" />
    <install as="passwd/templates/.htaccess" name="templates/.htaccess" />
-   <install as="passwd/templates/main/main.inc" name="templates/main/main.inc" />
+   <install as="passwd/templates/index.html.php" name="templates/index.html.php" />
+   <install as="Passwd/AllTests.php" name="test/Passwd/AllTests.php" />
+   <install as="Passwd/Autoload.php" name="test/Passwd/Autoload.php" />
+   <install as="Passwd/TestCase.php" name="test/Passwd/TestCase.php" />
+   <install as="Passwd/Unit/Driver/SqlTest.php" name="test/Passwd/Unit/Driver/SqlTest.php" />
+   <install as="Passwd/Unit/Factory/DriverTest.php" name="test/Passwd/Unit/Factory/DriverTest.php" />
    <install as="passwd/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="passwd/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="passwd/themes/default/graphics/passwd.png" name="themes/default/graphics/passwd.png" />
@@ -454,21 +569,34 @@
  <changelog>
   <release>
    <version>
-    <release>1.0.0alpha1</release>
-    <api>1.0.0alpha1</api>
+    <release>4.0.0alpha1</release>
+    <api>4.0.0alpha1</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-06-28</date>
-   <license uri="TODO">TODO</license>
+   <date>2011-09-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* First alpha release for Horde 4.
+* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
+* [rla] Added new driver &apos;horde&apos; which uses the update() function of horde&apos;s authentication driver.
 * [jan] Provide default configuration files instead of .dist versions.
 * [jan] Fix creating temporary files with open_basedir restrictions.
-* [rla] Added new driver &apos;horde&apos; which uses the update() function of horde&apos;s current auth driver
-* [rla] Formal conversion of all drivers to Horde 4 Exceptions. Some may need more changes to actually work
-* Initial release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC1</release>
+    <api>4.0.0RC1</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2011-09-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

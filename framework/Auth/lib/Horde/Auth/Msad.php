@@ -3,16 +3,16 @@
  * The Horde_Auth_Msad class provides an experimental MSAD extension of the
  * LDAP implementation of the Horde authentication system.
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ * not receive this file, http://www.horde.org/licenses/lgpl21
  *
  * @todo Use Horde_Ldap
  *
  * @author   Francois Helly <fhelly@bebop-design.net>
  * @category Horde
- * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Msad extends Horde_Auth_Ldap

@@ -526,13 +526,13 @@
         socket"></configstring>
        </case>
        <case name="tcp" desc="TCP/IP">
+        <configstring name="hostspec" desc="What hostname is the database server
+        running on, or what is the name of the system DSN to use?">
+        localhost</configstring>
         <configinteger name="port" required="false" desc="Port the DB is
-        running on, if non-standard">5432</configinteger>
+        running on, if non-standard"/>
        </case>
       </configswitch>
-      <configstring name="hostspec" desc="What hostname is the database server
-      running on, or what is the name of the system DSN to use?">
-      localhost</configstring>
       <configstring name="username" desc="What username do we authenticate to
       the database server as?">horde</configstring>
       <configstring name="password" required="false" desc="What password do we
@@ -549,14 +549,14 @@
        Eg: "SELECT * FROM users WHERE uid = \L AND passwd = \P AND billing =
        'paid'"
       </configdescription>
-      <configstring name="query_auth" desc="Authenticate the user"/>
-      <configstring name="query_add" desc="Add user"/>
-      <configstring name="query_getpw" desc="Get a user's password"/>
-      <configstring name="query_update" desc="Update user"/>
-      <configstring name="query_resetpassword" desc="Reset a user's password"/>
-      <configstring name="query_remove" desc="Remove user"/>
-      <configstring name="query_list" desc="List users"/>
-      <configstring name="query_exists" desc="Check if an account exists"/>
+      <configstring name="query_auth" required="false" desc="Authenticate the user"/>
+      <configstring name="query_add" required="false" desc="Add user"/>
+      <configstring name="query_getpw" required="false" desc="Get a user's password"/>
+      <configstring name="query_update" required="false" desc="Update user"/>
+      <configstring name="query_resetpassword" required="false" desc="Reset a user's password"/>
+      <configstring name="query_remove" required="false" desc="Remove user"/>
+      <configstring name="query_list" required="false" desc="List users"/>
+      <configstring name="query_exists" required="false" desc="Check if an account exists"/>
       <configenum name="encryption" desc="The password hashing algorithm to use">ssha
        <values>
         <value>aprmd5</value>
@@ -704,6 +704,15 @@
    users to accept certain terms before they can use the system, enter the
    path of the agreement file to display here."/>
   </configsection>
+ </configtab>
+
+ <configtab name="themes" desc="Themes">
+  <configheader>Theme Settings</configheader>
+  <configboolean name="nobase64_img" required="false" desc="Always send full
+  URLs for image data? By default, Horde will send image data within the page
+  itself if the browser supports it. This eliminates the need for additional
+  server connections to grab the image data, at the expense of slightly
+  larger page sizes.">false</configboolean>
  </configtab>
 
  <configtab name="signup" desc="Sign Up">
@@ -1772,6 +1781,14 @@
     </case>
    </configswitch>
   </configsection>
+  <configheader>Url Shortening</configheader>
+   <configenum name="urlshortener" desc="Should Horde use a URL shortening
+   service? This will be used when submitting URLs to social network providers.">
+    <values>
+      <value desc="None">false</value>
+      <value desc="TinyUrl">TinyUrl</value>
+    </values>
+   </configenum>
  </configtab>
 
  <configtab name="imsp" desc="IMSP Server">

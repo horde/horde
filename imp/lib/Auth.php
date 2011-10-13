@@ -1,43 +1,42 @@
 <?php
 /**
- * The IMP_Auth:: class provides authentication for IMP.
+ * THis class provides authentication for IMP.
  *
- * The following is the list of session variables in the imp namespace:
- * <pre>
- * compose_cache - (array) TODO
- * file_upload - (integer) If file uploads are allowed, the max size.
- * filteravail - (boolean) Can we apply filters manually?
- * imap_acl - (boolean) TODO
- * imap_admin - (array) TODO [params]
- * imap_namespace - (array) TODO
- * imap_ob/* - (Horde_Imap_Client_Base) The IMAP client objects. Stored by
- *             server key.
- * imap_quota - (array) TODO [driver, hide_when_unlimited, params]
- * imap_thread - (string) TODO
- * maildomain - (string) See config/backends.php.
- * notepadavail - (boolean) Is listing of notepads available?
- * pgp - (array) TODO
- * rteavail - (boolean) Is the HTML editor available?
- * search - (IMP_Search) The IMP_Search object.
- * server_key - (string) Server used to login.
- * smime - (array) Settings related to the S/MIME viewer.
- * smtp - (array) SMTP options ('host' and 'port')
- * showunsub - (boolean) Show unsusubscribed mailboxes on the folders
- *             screen.
- * tasklistavail - (boolean) Is listing of tasklists available?
- * view - (string) Either 'dimp', 'imp', 'mimp', or 'mobile'.
- * </pre>
+ * The following is the list of IMP session variables:
+ *   - compose_cache: (array) List of compose objects that have not yet been
+ *                    garbage collected.
+ *   - file_upload: (integer) If file uploads are allowed, the max size.
+ *   - filteravail: (boolean) Can we apply filters manually?
+ *   - imap_acl: (boolean) See 'acl' entry in config/backends.php.
+ *   - imap_admin: (array) See 'admin' entry in config/backends.php.
+ *   - imap_namespace: (array) See 'namespace' entry in config/backends.php
+ *   - imap_ob/*: (Horde_Imap_Client_Base) The IMAP client objects. Stored by
+ *                server key.
+ *   - imap_quota: (array) See 'quota' entry in config/backends.php.
+ *   - imap_thread: (string) The trheading algorithm supported by the server.
+ *   - maildomain: (string) See 'maildomain' entry in config/backends.php.
+ *   - notepadavail: (boolean) Is listing of notepads available?
+ *   - pgp: (array) Cached PGP passhprase values.
+ *   - rteavail: (boolean) Is the HTML editor available?
+ *   - search: (IMP_Search) The IMP_Search object.
+ *   - server_key: (string) Server used to login.
+ *   - smime: (array) Settings related to the S/MIME viewer.
+ *   - smtp: (array) SMTP options ('host' and 'port')
+ *   - showunsub: (boolean) Show unsusubscribed mailboxes on the folders
+ *                screen.
+ *   - tasklistavail: (boolean) Is listing of tasklists available?
+ *   - view: (string) Either 'dimp', 'imp', 'mimp', or 'mobile'.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Auth
@@ -47,11 +46,9 @@ class IMP_Auth
      *
      * @param array $credentials  An array of login credentials. If empty,
      *                            attempts to login to the cached session.
-     * <pre>
-     * 'password' - (string) The user password.
-     * 'server' - (string) The server key to use (from backends.php).
-     * 'userId' - (string) The username.
-     * </pre>
+     *   - password: (string) The user password.
+     *   - server: (string) The server key to use (from backends.php).
+     *   - userId: (string) The username.
      *
      * @return mixed  If authentication was successful, and no session
      *                exists, an array of data to add to the session.
@@ -365,6 +362,10 @@ class IMP_Auth
 
         /* Store some basic IMAP server information. */
         if ($imp_imap->imap) {
+            /* Can't call this until now, since we need prefs to be properly
+             * loaded to grab the special mailboxes information. */
+            $imp_imap->updateFetchIgnore();
+
             foreach (array('acl', 'admin', 'namespace', 'quota') as $val) {
                 if (!empty($ptr[$val])) {
                     $tmp = $ptr[$val];

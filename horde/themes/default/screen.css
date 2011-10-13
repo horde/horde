@@ -281,9 +281,9 @@ small, .small {
 }
 form[action^="https://"] input[type="submit"] {
     background-image: url("graphics/locked.png");
-    background-position: 95% center;
+    background-position: right center;
     background-repeat: no-repeat;
-    padding-right: 10%;
+    padding-right: 18px;
 }
 input[disabled], input[disabled]:hover, textarea[disabled] {
     background-color: #e9e9e9;
@@ -570,6 +570,7 @@ div.modal-form input, div.modal-form select {
     margin-bottom: .5em;
 }
 div.modal-form .submit-button {
+    display: block;
     margin: .5em auto;
     text-align: center;
     width: auto;
@@ -630,11 +631,15 @@ div.logintasks-item input {
     overflow: hidden;
 }
 #expandedSidebar #expandButton {
+    background-image: url("graphics/hide_panel.png");
+    cursor: pointer;
+    margin-right: 0.5em;
     float: right;
 }
-
-#hiddenSidebar img {
-    padding-right: 2px;
+#hiddenSidebar {
+    background-image: url("graphics/show_panel.png");
+    cursor: pointer;
+    margin-right: 2px;
 }
 
 /* Main body. */
@@ -1425,6 +1430,17 @@ div.GrowlerNoticeExit:hover {
 .hordeSmNew {
     color: red;
 }
+.hordeSmPreview {
+    text-align: center;
+    position: absolute;
+    z-index: 10000;
+}
+.hordeSmOverlay {
+    position: absolute;
+    opacity: 0.8;
+    z-index: 9000;
+    background-color: #000000;
+}
 
 /* Uploader */
 .hordeUploaderHeaderContent {
@@ -1455,7 +1471,14 @@ div.GrowlerNoticeExit:hover {
   color: #42454A;
   padding: 8px;
 }
-
+.hordeUploaderAdd {
+    background: url("graphics/plus.png") no-repeat !important;
+    padding-left: 16px !important;
+}
+.hordeUploaderStart {
+     background: url("graphics/uploader/up.png") no-repeat !important;
+    padding-left: 16px !important;
+}
 .hordeUploaderFilelist {
     height: 350px;
     overflow: auto;

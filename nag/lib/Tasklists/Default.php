@@ -3,7 +3,7 @@
  * The default tasklists handler.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Nag
@@ -25,7 +25,7 @@ extends Nag_Tasklists_Base
      * @param string           $user   The current user.
      * @param array            $params Additional parameters.
      */
-    public function __construct(Horde_Share_Base $shares, $user, $params)
+    public function __construct($shares, $user, $params)
     {
         if (!isset($params['identity'])) {
             throw new Nag_Exception('This tasklist handler needs an "identity" parameter!');

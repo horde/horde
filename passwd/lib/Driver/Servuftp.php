@@ -3,13 +3,7 @@
  * The serv-u ftp class attempts to change a user's password via the SITE PSWD
  * command used by Serv-u ftpd for windows.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
- *
- * WARNING: This driver has only formally been converted to Horde 4.  No
- *          testing has been done. If this doesn't work, please file bugs at
- *          bugs.horde.org.  If you really need this to work reliably, think
- *          about sponsoring development. Please let the Horde developers know
- *          if you can verify this driver to work.
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -17,110 +11,91 @@
  * @author  Lucas Nelan (screen@brainkrash.com)
  * @package Passwd
  */
+class Passwd_Driver_Servuftp extends Passwd_Driver
+{
+    const CONNECTED   = '220';
+    const GOODBYE     = '221';
+    const PASSWORDOK  = '230';
+    const USERNAMEOK  = '331';
+    const PASSWORDBAD = '530';
 
-//TODO: This never throws exceptions or a PEAR_Error: Is this sane?
+    protected $_fp;
 
-class Passwd_Driver_Servuftp extends Passwd_Driver {
-
-    protected $fp;
-    protected $ftpd_connected   = '220';
-    protected $ftpd_goodbye     = '221';
-    protected $ftpd_passwordok  = '230';
-    protected $ftpd_usernameok  = '331';
-    protected $ftpd_passwordbad = '530';
-
-    function connect($server, $port, $timeout = 30)
+    /**
+     * Constructor.
+     *
+     * @param array $params  A hash containing connection parameters.
+     *
+     * @throws Passwd_Exception
+     */
+    public function __construct($params = array())
     {
-        $this->fp = fsockopen($server, $port, $errno, $errstr, $timeout);
+        if (empty($params['host']) || empty($params['port'])) {
+            throw new Passwd_Exception(_("Password module is missing required parameters."));
+        }
+        parent::__construct(array_merge(array('timeout' => 30), $params));
+    }
 
-        if (!$this->fp) {
-            $this->_errorstr = $errstr;
-            return false;
-        } else {
-            return $this->getPrompt();
+    /**
+     * Changes the user's password.
+     *
+     * @param string $user_name     The user for which to change the password.
+     * @param string $old_password  The old (current) user password.
+     * @param string $new_password  The new user password to set.
+     *
+     * @throws Passwd_Exception
+     */
+    protected function changePassword($user_name, $old_password, $new_password)
+    {
+        if ($this->_connect() != self::CONNECTED) {
+            throw new Passwd_Exception(_("Connection failed"));
+        }
+        if ($this->_sendCommand('user', $user_name) != self::USERNAMEOK) {
+            $this->_disconnect();
+            throw new Passwd_Exception(_("Unknown user"));
+        }
+        if ($this->_sendCommand('pass', $old_password) != self::PASSWORDOK) {
+            $this->_disconnect();
+            throw new Passwd_Exception(_("Incorrect password"));
+        }
+        if ($this->_sendCommand('site pswd', '"' . $old_password . '" "' . $new_password . '"') != self::PASSWORDOK) {
+            $this->_disconnect();
+            throw new Passwd_Exception(_("Cannot change password"));
+        }
+        $this->_disconnect();
+    }
+
+    protected function _connect()
+    {
+        $this->_fp = fsockopen($this->_params['host'], $this->_params['port'],
+                               $errno, $errstr, $this->_params['timeout']);
+        if (!$this->_fp) {
+            throw new Passwd_Exception($errstr);
+        }
+        return $this->_getPrompt();
+    }
+
+    protected function _disconnect()
+    {
+        if ($this->_fp) {
+            fputs($this->_fp, "quit\n");
+            fclose($this->_fp);
         }
     }
 
-    function _disconnect()    {
-        if ($this->fp) {
-            fputs($this->fp, "quit\n");
-            fclose($this->fp);
-        }
-    }
-
-    function getPrompt()
+    protected function _getPrompt()
     {
-        $prompt = fgets($this->fp, 4096);
-        $return = '';
+        $prompt = fgets($this->_fp, 4096);
 
         if (preg_match('/^[1-5][0-9][0-9]/', $prompt, $res)) {
-            $return = $res[1];
+            return $res[1];
         }
-
-        return $return;
     }
 
-    function sendCommand($cmd, $arg)
+    protected function _sendCommand($cmd, $arg)
     {
         $line = $cmd . ' ' . $arg . "\r\n";
-        fputs($this->fp, $line);
-        return $this->getPrompt();
+        fputs($this->_fp, $line);
+        return $this->_getPrompt();
     }
-
-    function changePassword($user_name, $old_password, $new_password)
-    {
-        $server = isset($this->_params['host']) ? $this->_params['host'] : '';
-        $port = isset($this->_params['port']) ? $this->_params['port'] : '';
-        $timeout = isset($this->_params['timeout']) ? $this->_params['timeout'] : '';
-
-        if ($server == '' || $port == '') {
-            $this->_errorstr = _("Password module is not properly configured");
-            return false;
-        }
-
-        $return_value = false;
-        if ($this->connect($server, $port, $timeout) == $this->ftpd_connected) {
-            if ($this->sendCommand('user', $user_name) == $this->ftpd_usernameok) {
-                if ($this->sendCommand('pass', $old_password) == $this->ftpd_passwordok) {
-                    if ($this->sendCommand('site pswd', '"'.$old_password.'" "'.$new_password.'"') == $this->ftpd_passwordok) {
-                        $return_value = true;
-                    }
-                }
-            }
-
-            $this->_disconnect();
-        }
-
-        return $return_value;
-    }
-
-    function checkPassword($user_name, $user_password)
-    {
-        $server = isset($this->_params['host']) ? $this->_params['host'] : '';
-        $port = isset($this->_params['port']) ? $this->_params['port'] : '';
-        $timeout = isset($this->_params['timeout']) ? $this->_params['timeout'] : '';
-
-        if ($server == '' || $port == '') {
-            $this->_errorstr = _("Password module is not properly configured.");
-            return false;
-        }
-
-        $return_value = false;
-
-        if ($this->connect($server, $port, $timeout) == $this->ftpd_connected) {
-            if ($this->sendCommand('user', $user_name) == $this->ftpd_usernameok) {
-                if ($this->sendCommand('pass', $user_password) == $this->ftpd_passwordok) {
-                    $return_value = true;
-                }
-            }
-
-            $this->_disconnect();
-        } else {
-            // Cannot connect.
-            $return_value = -1;
-        }
-
-        return $return_value;
-    }
-
 }

@@ -3,14 +3,14 @@
  * The Horde_String:: class provides static methods for charset and locale
  * safe string manipulation.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Util
  */
 class Horde_String
@@ -310,22 +310,22 @@ class Horde_String
             return '';
         }
 
-        /* Try iconv. */
-        if (Horde_Util::extensionExists('iconv')) {
-            $ret = @iconv_substr($string, $start, $length, $charset);
-
-            /* iconv_substr() returns false on failure. */
-            if ($ret !== false) {
-                return $ret;
-            }
-        }
-
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
             $ret = @mb_substr($string, $start, $length, self::_mbstringCharset($charset));
 
             /* mb_substr() returns empty string on failure. */
             if (strlen($ret)) {
+                return $ret;
+            }
+        }
+
+        /* Try iconv. */
+        if (Horde_Util::extensionExists('iconv')) {
+            $ret = @iconv_substr($string, $start, $length, $charset);
+
+            /* iconv_substr() returns false on failure. */
+            if ($ret !== false) {
                 return $ret;
             }
         }

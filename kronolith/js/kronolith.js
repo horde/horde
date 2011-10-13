@@ -1,10 +1,10 @@
 /**
  * kronolith.js - Base application logic.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Jan Schneider <jan@horde.org>
  */
@@ -873,11 +873,11 @@ KronolithCore = {
             row = $('kronolithAgendaTemplate').clone(true);
 
         // Fill week number and day cells.
-        row.store('date', date)
-            .down()
+        row.down()
             .setText(this.parseDate(date).toString('D'))
             .next()
-            .writeAttribute('id', 'kronolithAgendaDay' + date);
+            .writeAttribute('id', 'kronolithAgendaDay' + date)
+            .store('date', date);
         row.removeAttribute('id');
 
         // Insert row.
@@ -950,10 +950,10 @@ KronolithCore = {
 
         // FIXME: spacing is hardcoded for IE 7 because it doesn't know about
         // border-spacing, but still uses it. WTF?
-        spacing = (spacing ? parseInt($w(spacing)[1], 10) : 2) || 2;
+        spacing = spacing ? parseInt($w(spacing)[1], 10) : 2;
         this[storage] = {};
         this[storage].height = layout.get('margin-box-height') + spacing;
-        this[storage].spacing = this[storage].height - layout.get('padding-box-height');
+        this[storage].spacing = this[storage].height - layout.get('padding-box-height') - layout.get('border-bottom');
     },
 
     /**
@@ -1794,7 +1794,7 @@ KronolithCore = {
         case 'week':
             var storage = view + 'Sizes',
                 div = _createElement(event),
-                margin = view == 'day' ? 5 : 10,
+                margin = view == 'day' ? 1 : 3,
                 style = { backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                           color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg };
 
@@ -2868,6 +2868,12 @@ KronolithCore = {
                 if (r.response.chunk) {
                     this.redBoxLoading = true;
                     RedBox.showHtml(r.response.chunk);
+                    ['internal', 'tasklists'].each(function(type) {
+                        $('kronolithC' + type + 'PGList').observe('change', function() {
+                            $('kronolithC' + type + 'PG').setValue(1);
+                            this.permsClickHandler(type, 'G');
+                        }.bind(this));
+                    }, this);
                     this.editCalendarCallback(calendar);
                 } else {
                     this.closeRedBox();
@@ -3522,6 +3528,8 @@ KronolithCore = {
         }
         if (r.response.saved) {
             if ($F('kronolithCalendarinternalImport')) {
+                this.loading++;
+                $('kronolithLoading').show();
                 var name = 'kronolithIframe' + Math.round(Math.random() * 1000),
                     iframe = new Element('iframe', { src: 'about:blank', name: name, id: name }).setStyle({ display: 'none' });
                 document.body.insert(iframe);
@@ -5215,6 +5223,9 @@ KronolithCore = {
 
         var t = new Element('div');
         r.response.tags.each(function(tag) {
+            if (tag == null) {
+                return;
+            }
             t.insert(new Element('span', { className: tagclass }).update(tag.escapeHTML()));
         });
         $(update).update(t);

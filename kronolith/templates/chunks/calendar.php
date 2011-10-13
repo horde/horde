@@ -92,6 +92,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
       <label for="kronolithCalendarinternalEmbedUrl"><?php echo _("Embed Script") ?></label>
       <span class="kronolithSeparator">&mdash; <?php echo _("Embed calendar on external website") ?></span><br />
       <input type="text" id="kronolithCalendarinternalEmbedUrl" class="kronolithLongField" onfocus="this.select()" /><br />
+      <?php echo Horde_Help::link('kronolith', 'embed') . ' ' . _("Learn how to embed other calendar views.") ?><br />
     </div>
   </div>
 </div>

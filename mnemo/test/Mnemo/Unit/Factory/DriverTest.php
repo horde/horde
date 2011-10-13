@@ -4,12 +4,12 @@
  *
  * PHP version 5
  *
- * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Mnemo
  * @package    Mnemo
  * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 
 /**
@@ -20,17 +20,17 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the Mnemo library.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
- * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link       http://pear.horde.org/index.php?package=Mnemo
  * @package    Mnemo
  * @subpackage UnitTests
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @license    http://www.horde.org/licenses/asl.php
+ * @link       http://www.horde.org/apps/mnemo
  */
 class Mnemo_Unit_Factory_DriverTest extends Mnemo_TestCase
 {
@@ -47,15 +47,25 @@ class Mnemo_Unit_Factory_DriverTest extends Mnemo_TestCase
 
     public function testCreateKolab()
     {
-        $factory = $this->getKolabFactory();
+        self::createKolabSetup();
+        list($share, $other_share) = self::_createDefaultShares();
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $this->assertInstanceOf('Mnemo_Driver_Kolab', $factory->create($this->share->getName()));
+        $this->assertInstanceOf(
+            'Mnemo_Driver_Kolab',
+            $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create(
+                $share->getName()
+            )
+        );
     }
 
     public function testCreateKolabEmpty()
     {
-        $factory = $this->getKolabFactory();
+        self::createKolabSetup();
+        list($share, $other_share) = self::_createDefaultShares();
         $GLOBALS['conf']['storage']['driver'] = 'kolab';
-        $this->assertInstanceOf('Mnemo_Driver_Kolab', $factory->create(''));
+        $this->assertInstanceOf(
+            'Mnemo_Driver_Kolab',
+            $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create('')
+        );
     }
 }

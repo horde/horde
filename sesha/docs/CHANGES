@@ -1,0 +1,22 @@
+--------
+v1.0-cvs
+--------
+
+[cjh] Add sort priorities to categories.
+[cjh] Add a preference for showing properties on the Stock List.
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[cjh] Separate permission to add stock from general admin permissions
+      (Manilal K M <manilal.krishnapillai@ejyothi.com>).
+[jan] Add configuration for address book field used for the client listings.
+      (Request #3816).
+[jan] Remove default categories (vilius@lnk.lt, Request #3430).
+[ben] Better support for MS-SQL.
+[jan] Add support for dynamic re-sorting of the stock inventory, including
+      saving the sort preferences on any changes.
+[jan] Allow set local administrators through permission interface
+      (rbreiddal@presinet.com, Request #2523).
+[jan] Provide queues (categories) and versions (stock items) for Whups.
+[jan] Add interface to set any additional parameters that some data types need.
+[mas] Change any output of <b> and <i> tags to <strong> and <em> for better
+      accessibility support.
+[jan] Add Lithuanian translation (Vilius Sumskas <vilius@lnk.lt>).

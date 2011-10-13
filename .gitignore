@@ -64,7 +64,6 @@ content/test/Content/conf.php
 */config/*.local.php
 */config/*-*.php
 /chora/config/backends.php
-/gollem/config/backends.php
 /luxor/config/backends.php
 framework/bin/*.conf
 !/horde/admin/config/

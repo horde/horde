@@ -31,3 +31,6 @@
 .selected-control {
     border-bottom: 1 px solid #fff;
 }
+.messageList tr {
+    background-color: #fff;
+}

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>beatnik</name>
+ <channel>pear.horde.org</channel>
+ <summary>TODO</summary>
+ <description>TODO</description>
+ <lead>
+  <name>Ben Klang</name>
+  <user>bklang</user>
+  <email>bklang@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-10-05</date>
+ <time>17:15:14</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/gpl">GPL</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name="autogenerate.php.dist" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="prefs.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="TODO" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="js">
+    <dir name="src">
+     <file name="beatnik.js" role="horde" />
+    </dir> <!-- /js/src -->
+    <file name="beatnik.js" role="horde" />
+   </dir> <!-- /js -->
+   <dir name="lib">
+    <dir name="Driver">
+     <file name="ldap2dns.php" role="horde" />
+     <file name="pdnsgsql.php" role="horde" />
+     <file name="sql.php" role="horde" />
+    </dir> <!-- /lib/Driver -->
+    <dir name="Forms">
+     <file name="Autogenerate.php" role="horde" />
+     <file name="DeleteRecord.php" role="horde" />
+     <file name="EditRecord.php" role="horde" />
+    </dir> <!-- /lib/Forms -->
+    <file name="Application.php" role="horde" />
+    <file name="Beatnik.php" role="horde" />
+    <file name="Driver.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="beatnik.mo" role="horde" />
+      <file name="beatnik.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="beatnik.mo" role="horde" />
+      <file name="beatnik.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <file name=".htaccess" role="horde" />
+    <file name="beatnik.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="scripts">
+    <dir name="sql">
+     <file name="beatnik.mysql.sql" role="horde" />
+    </dir> <!-- /scripts/sql -->
+    <file name="export_config.php" role="horde" />
+   </dir> <!-- /scripts -->
+   <dir name="templates">
+    <dir name="listzones">
+     <file name="footer.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="row.inc" role="horde" />
+    </dir> <!-- /templates/listzones -->
+    <dir name="view">
+     <file name="footer.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="record.inc" role="horde" />
+    </dir> <!-- /templates/view -->
+    <file name="menu.inc" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="default">
+     <dir name="graphics">
+      <file name="beatnik.png" role="horde" />
+      <file name="commit-all.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+   </dir> <!-- /themes -->
+   <file name="autogenerate.php" role="horde" />
+   <file name="commit.php" role="horde" />
+   <file name="delete.php" role="horde" />
+   <file name="editrec.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="listzones.php" role="horde" />
+   <file name="viewzone.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="beatnik/autogenerate.php" name="autogenerate.php" />
+   <install as="beatnik/commit.php" name="commit.php" />
+   <install as="beatnik/delete.php" name="delete.php" />
+   <install as="beatnik/editrec.php" name="editrec.php" />
+   <install as="beatnik/index.php" name="index.php" />
+   <install as="beatnik/listzones.php" name="listzones.php" />
+   <install as="beatnik/viewzone.php" name="viewzone.php" />
+   <install as="beatnik/config/autogenerate.php.dist" name="config/autogenerate.php.dist" />
+   <install as="beatnik/config/conf.xml" name="config/conf.xml" />
+   <install as="beatnik/config/prefs.php" name="config/prefs.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="TODO" name="docs/TODO" />
+   <install as="beatnik/js/beatnik.js" name="js/beatnik.js" />
+   <install as="beatnik/js/src/beatnik.js" name="js/src/beatnik.js" />
+   <install as="beatnik/lib/Application.php" name="lib/Application.php" />
+   <install as="beatnik/lib/Beatnik.php" name="lib/Beatnik.php" />
+   <install as="beatnik/lib/Driver.php" name="lib/Driver.php" />
+   <install as="beatnik/lib/Exception.php" name="lib/Exception.php" />
+   <install as="beatnik/lib/Driver/ldap2dns.php" name="lib/Driver/ldap2dns.php" />
+   <install as="beatnik/lib/Driver/pdnsgsql.php" name="lib/Driver/pdnsgsql.php" />
+   <install as="beatnik/lib/Driver/sql.php" name="lib/Driver/sql.php" />
+   <install as="beatnik/lib/Forms/Autogenerate.php" name="lib/Forms/Autogenerate.php" />
+   <install as="beatnik/lib/Forms/DeleteRecord.php" name="lib/Forms/DeleteRecord.php" />
+   <install as="beatnik/lib/Forms/EditRecord.php" name="lib/Forms/EditRecord.php" />
+   <install as="beatnik/locale/.htaccess" name="locale/.htaccess" />
+   <install as="beatnik/locale/beatnik.pot" name="locale/beatnik.pot" />
+   <install as="beatnik/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="beatnik/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="beatnik/locale/lv/LC_MESSAGES/beatnik.mo" name="locale/lv/LC_MESSAGES/beatnik.mo" />
+   <install as="beatnik/locale/lv/LC_MESSAGES/beatnik.po" name="locale/lv/LC_MESSAGES/beatnik.po" />
+   <install as="beatnik/locale/sl/LC_MESSAGES/beatnik.mo" name="locale/sl/LC_MESSAGES/beatnik.mo" />
+   <install as="beatnik/locale/sl/LC_MESSAGES/beatnik.po" name="locale/sl/LC_MESSAGES/beatnik.po" />
+   <install as="beatnik/scripts/export_config.php" name="scripts/export_config.php" />
+   <install as="beatnik/scripts/sql/beatnik.mysql.sql" name="scripts/sql/beatnik.mysql.sql" />
+   <install as="beatnik/templates/menu.inc" name="templates/menu.inc" />
+   <install as="beatnik/templates/listzones/footer.inc" name="templates/listzones/footer.inc" />
+   <install as="beatnik/templates/listzones/header.inc" name="templates/listzones/header.inc" />
+   <install as="beatnik/templates/listzones/row.inc" name="templates/listzones/row.inc" />
+   <install as="beatnik/templates/view/footer.inc" name="templates/view/footer.inc" />
+   <install as="beatnik/templates/view/header.inc" name="templates/view/header.inc" />
+   <install as="beatnik/templates/view/record.inc" name="templates/view/record.inc" />
+   <install as="beatnik/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="beatnik/themes/default/graphics/beatnik.png" name="themes/default/graphics/beatnik.png" />
+   <install as="beatnik/themes/default/graphics/commit-all.png" name="themes/default/graphics/commit-all.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-10-05</date>
+   <license uri="TODO">TODO</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>

@@ -2,14 +2,14 @@
 /**
  * Class to attach PHP actions to javascript elements.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 abstract class Horde_Core_Ajax_Imple
@@ -51,12 +51,12 @@ abstract class Horde_Core_Ajax_Imple
      * @param array $params
      * @param boolean $full
      *
-     * @return string
+     * @return Horde_Url
      */
     protected function _getUrl($driver, $app = 'horde', $params = array(),
                                $full = false)
     {
-        $qstring = 'imple=' . $driver;
+        $qstring = $driver;
 
         if ($app != 'horde') {
             $qstring .= '/impleApp=' . $app;
@@ -66,7 +66,7 @@ abstract class Horde_Core_Ajax_Imple
             $qstring .= '/' . $key . '=' . rawurlencode($val);
         }
 
-        return Horde::url(Horde::getServiceLink('imple')->url . '?' . $qstring, $full, array('noajax' => true))->setRaw(true);
+        return Horde::url(Horde::getServiceLink('imple')->url, $full, array('noajax' => true))->setRaw(true)->add('imple', $qstring);
     }
 
     /**
