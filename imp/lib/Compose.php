@@ -1588,6 +1588,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 }
             }
             $ret['lang'] = array_unique($langs);
+
+            /* Don't show display if original recipient is asking for reply in
+             * the user's native language. */
+            if ((count($ret['lang']) == 1) &&
+                reset($ret['lang']) &&
+                (substr(key($ret['lang']), 0, 2) == substr($GLOBALS['language'], 0, 2))) {
+                unset($ret['lang']);
+            }
         }
 
         return array_merge(array(
