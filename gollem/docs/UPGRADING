@@ -1,0 +1,54 @@
+==================
+ Upgrading Gollem
+==================
+
+:Contact: gollem@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+General instructions
+====================
+
+These are instructions to upgrade from earlier Gollem versions. Please backup
+your existing data before running any of the steps described below. You can't
+use the updated data with your old Gollem version anymore.
+
+Upgrading Gollem is as easy as running::
+
+   pear upgrade -a -B horde/gollem
+
+If you want to upgrade from an Gollem version prior to 2.0, please follow
+the instructions in INSTALL_ to install the most recent Gollem version
+using the PEAR installer.
+
+After updating to a newer Gollem version, you **always** need to update
+configurations and database schemes. Log in as an administrator, go to
+Administration => Configuration and update anything that's highlighted as
+outdated.
+
+
+
+Upgrading Gollem From 1.x To 2.x
+================================
+
+This is a non-exhaustive, quick explanation of what has changed between a
+Gollem 1.x installation to Gollem 2.x.
+
+
+MIME Viewer Options (mime_drivers.php)
+--------------------------------------
+
+Gollem specific MIME configuration is no longer needed, so this configuration
+file can be removed.
+
+
+Server Options (backends.php)
+-----------------------------
+
+The 'clipboard' option has been removed.  The availability of the clipboard
+is now entirely dependent on the user's edit permissions for the application.
+
+
+.. _INSTALL: INSTALL

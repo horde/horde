@@ -3,13 +3,13 @@
  * Horde_Form for editing resources.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Kronolith
  */
 
 /**
- * The Kronolith_EditResourceForm class provides the form for editing a
+ * The Kronolith_Form_EditResource class provides the form for editing a
  * resource.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>

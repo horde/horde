@@ -51,18 +51,15 @@
  *                return: NONE
  * onAjaxRequest: (function) Callback function that allows additional
  *                parameters to be added to the outgoing AJAX request.
- *                params: (string) The current view.
- *                return: (Hash) Parameters to add to the outgoing request.
+ *                params: (Hash) The params list (the current view can be
+ *                        obtained via the view property).
+ *                return: NONE
  * onAjaxResponse: (function) Callback function that allows user-defined code
  *                 to additionally process the AJAX return data.
  *                params: (XMLHttpRequest object)
  *                        (mixed) Result of evaluating the X-JSON response
  *                        header, if any (can be null).
  *                return: NONE
- * onCachedList: (function) Callback function that allows the cache ID string
- *               to be dynamically generated.
- *               params: (string) The current view.
- *               return: (string) The cache ID string to use.
  * onContentOffset: (function) Callback function that alters the starting
  *                  offset of the content about to be rendered.
  *                  params: (integer) The current offset.
@@ -96,10 +93,6 @@
  *   Fired when a row has been added to the screen.
  *   params: (Element) The viewport row being added.
  *
- * ViewPort:cacheUpdate
- *   Fired when the internal cached data of a view is changed.
- *   params: (string) View which is being updated.
- *
  * ViewPort:clear
  *   Fired when a row is being removed from the screen.
  *   params: (Element) The viewport row being removed.
@@ -120,6 +113,10 @@
  * ViewPort:fetch
  *   Fired when a non-background AJAX response is sent.
  *   params: (string) Current view.
+ *
+ * ViewPort:remove
+ *   Fired when rows are removed from the buffer.
+ *   params: (ViewPort_Selection) The removed rows.
  *
  * ViewPort:select
  *   Fired when rows are selected.
@@ -169,36 +166,30 @@
  *          In the format: [first_row]:[last_row]
  *
  *
- * Incoming AJAX response has the following params:
- * ------------------------------------------------
+ * Incoming AJAX response has the following parameters:
+ * ----------------------------------------------------
  * cacheid: (string) A unique string that changes whenever the viewport
  *          list changes.
- * data: (object) Data for each entry that is passed to the template to create
- *       the viewable rows. Keys are a unique ID (see also the 'rowlist'
- *       entry). Values are the data objects. Internal keys for these data
- *       objects must NOT begin with the string 'VP_'.
- * disappear: (array) If update is set, this is the list of unique IDs that
- *            have been cached by the browser but no longer appear on the
- *            server.
- * label: (string) [REQUIRED when initial is true] The label to use for the
+ * data: (object) Data for each entry. Keys are a unique ID (see also the
+ *       'rowlist' entry). Values are the data objects. Internal keys for
+ *       these data objects must NOT begin with the string 'VP_' (reserved
+ *       keys). THese values update current cached values.
+ * data_reset: (integer) If set, purge all browser cached data objects.
+ * disappear: (array) The list of unique IDs that are browser cached but no
+ *            longer exist on the server.
+ * label: (string) [REQUIRED on initial response] The label to use for the
  *        view.
- * metadata [optional]: (object) Metadata for the view. Entries in buffer are
- *                      updated with these entries (unless resetmd is set).
- * rangelist [optional]: (object) The list of unique IDs -> rownumbers that
- *                       correspond the the given request. Only returned for
- *                       a rangeslice request.
- * requestid: (string) The request ID sent in the outgoing AJAX request.
- * reset [optional]: (integer) If set, purges all cached data.
- * resetmd [optional]: (integer) If set, purges all user metadata.
+ * metadata: (object) Metadata for the view. Entries in buffer are updated
+ *           with these entries.
+ * metadata_reset: (integer) If set, purges all browser cached metadata.
+ * rangelist: (object) The list of unique IDs -> rownumbers that correspond
+ *            to the given request. Only returned for a rangeslice request.
+ * requestid: (string) The request ID from the outgoing AJAX request.
  * rowlist: (object) A mapping of unique IDs (keys) to the row numbers
  *          (values). Row numbers start at 1.
- * rownum [optional]: (integer) The row number to position screen on.
+ * rowlist_reset: (integer) If set, purges the browser cached rowlist.
+ * rownum: (integer) The row number to position screen on.
  * totalrows: (integer) Total number of rows in the view.
- * update [optional]: (integer) If set, update the rowlist instead of
- *                    overwriting it.
- * updatecacheid [optional]: (string) If set, simply update the cacheid with
- *                           the new value. Indicates that the browser
- *                           contains the up-to-date version of the cache.
  * view: (string) The view ID of the request.
  *
  *
@@ -222,10 +213,10 @@
  * Requires prototypejs 1.6+, scriptaculous 1.8+ (effects.js only), and
  * Horde's dragdrop2.js and slider2.js.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var ViewPort = Class.create({
@@ -319,7 +310,7 @@ var ViewPort = Class.create({
             if (!this.view) {
                 this.onResize(true);
             } else if (this.view != view) {
-                this.active_req = null;
+                delete this.active_req;
             }
             this.view = view;
         }
@@ -412,54 +403,35 @@ var ViewPort = Class.create({
     },
 
     // vs = (ViewPort_Selection) A ViewPort_Selection object.
-    // opts = (object) TODO [noupdate, view]
-    remove: function(vs, opts)
+    remove: function(vs)
     {
-        if (!vs.size()) {
-            return;
-        }
-
-        if (this.isbusy) {
-            this.remove.bind(this, vs, opts).defer();
-            return;
-        }
-
-        this.isbusy = true;
-        opts = opts || {};
-
-        var args = { duration: 0.2, to: 0.01 },
-            visible = vs.get('div');
-
-        this.deselect(vs);
-
-        // If we have visible elements to remove, only call refresh after
-        // the last effect has finished.
-        if (visible.size()) {
-            // Set 'to' to a value slightly above 0 to prevent fade()
-            // from auto hiding.  Hiding is unnecessary, since we will be
-            // removing from the document shortly.
-            visible.slice(0, -1).invoke('fade', args);
-            args.afterFinish = this._removeids.bind(this, vs, opts);
-            visible.last().fade(args);
-        } else {
-            this._removeids(vs, opts);
+        if (vs.size()) {
+            if (this.isbusy) {
+                this._remove.bind(this, vs).defer();
+            } else {
+                this.isbusy = true;
+                this._remove(vs);
+                if (vs.getBuffer().getView() == this.view) {
+                    this.requestContentRefresh(this.currentOffset());
+                }
+                this.isbusy = false;
+            }
         }
     },
 
     // vs = (ViewPort_Selection) A ViewPort_Selection object.
-    // opts = (object) TODO [noupdate, view]
-    _removeids: function(vs, opts)
+    _remove: function(vs)
     {
-        this._getBuffer(opts.view).setMetaData({ total_rows: this.getMetaData('total_rows', opts.view) - vs.size() }, true);
+        var buffer = vs.getBuffer();
 
-        this._getBuffer().remove(vs.get('rownum'));
-        this.opts.container.fire('ViewPort:cacheUpdate', opts.view || this.view);
-
-        if (!opts.noupdate) {
-            this.requestContentRefresh(this.currentOffset());
+        if (buffer.getView() == this.view) {
+            this.deselect(vs);
         }
 
-        this.isbusy = false;
+        buffer.remove(vs.get('rownum'));
+        buffer.setMetaData({ total_rows: buffer.getMetaData('total_rows') - vs.size() }, true);
+
+        this.opts.container.fire('ViewPort:remove', vs);
     },
 
     // nowait = (boolean) If true, don't delay before resizing.
@@ -548,7 +520,8 @@ var ViewPort = Class.create({
                     sp.horiz.loc = this.page_size;
                 }
                 [ this.opts.pane_data, sp.currbar ].invoke('hide');
-                sp.curr = sp.currbar = null;
+                delete sp.curr;
+                delete sp.currbar;
             }
 
             if (!size) {
@@ -570,10 +543,12 @@ var ViewPort = Class.create({
         }
     },
 
-    // offset = (integer) TODO
+    // offset = (integer) Offset of row to display
     // opts = (object) See _updateContent()
     requestContentRefresh: function(offset, opts)
     {
+        offset = Math.max(0, offset);
+
         if (!this._updateContent(offset, opts)) {
             return false;
         }
@@ -771,11 +746,8 @@ var ViewPort = Class.create({
     {
         opts = opts || {};
         var cid = this.getMetaData('cacheid', opts.view),
-            cached, params, rowlist;
-
-        params = this.opts.onAjaxRequest
-            ? this.opts.onAjaxRequest(opts.view || this.view)
-            : $H();
+            params = $H(),
+            cached, rowlist;
 
         params.update({ view: opts.view || this.view });
 
@@ -788,20 +760,18 @@ var ViewPort = Class.create({
             params.update({ slice: rowlist.start + ':' + rowlist.end });
         }
 
-        if (this.opts.onCachedList) {
-            cached = this.opts.onCachedList(opts.view || this.view);
-        } else {
-            cached = this._getBuffer(opts.view).getAllUIDs();
-            cached = cached.size()
-                ? Object.toJSON(cached)
-                : '';
+        cached = this._getBuffer(opts.view).getAllUIDs();
+        if (cached.size()) {
+            params.update({ cache: Object.toJSON(cached) });
         }
 
-        if (cached.length) {
-            params.update({ cache: cached });
+        params.update(args);
+
+        if (this.opts.onAjaxRequest) {
+            this.opts.onAjaxRequest(params);
         }
 
-        return params.merge(args);
+        return params;
     },
 
     // params - (object) A list of parameters to send to server
@@ -838,9 +808,7 @@ var ViewPort = Class.create({
             this.opts.container.fire('ViewPort:endFetch', r.view);
         }
 
-        if (!Object.isUndefined(r.updatecacheid)) {
-            this._getBuffer(r.view).setMetaData({ cacheid: r.updatecacheid }, true);
-        } else if (!Object.isUndefined(r.cacheid)) {
+        if (!Object.isUndefined(r.cacheid)) {
             this._ajaxResponse(r);
         }
     },
@@ -860,32 +828,35 @@ var ViewPort = Class.create({
             buffer = this._getBuffer(r.view),
             llist = buffer.getMetaData('llist') || $H();
 
-        buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, { reset: r.reset, resetmd: r.resetmd, update: r.update });
-
-        if (r.reset) {
+        if (r.data_reset) {
             this.deselect(this.getSelected());
-        } else if (r.update && r.disappear && r.disappear.size()) {
-            this.deselect(this.createSelection('uid', r.disappear, r.view));
-            buffer.removeData(r.disappear);
+        } else if (r.disappear && r.disappear.size()) {
+            this._remove(this.createSelection('uid', r.disappear, r.view));
         }
+
+        buffer.update(Object.isArray(r.data) ? {} : r.data, Object.isArray(r.rowlist) ? {} : r.rowlist, r.metadata || {}, {
+            datareset: r.data_reset,
+            mdreset: r.metadata_reset,
+            rowreset: r.rowlist_reset
+        });
 
         llist.unset(r.requestid);
 
         tmp = {
             cacheid: r.cacheid,
-            llist: llist,
-            total_rows: r.totalrows
+            llist: llist
         };
         if (r.label) {
             tmp.label = r.label;
         }
+        if (r.totalrows) {
+            tmp.total_rows = r.totalrows;
+        }
         buffer.setMetaData(tmp, true);
-
-        this.opts.container.fire('ViewPort:cacheUpdate', r.view);
 
         if (r.requestid &&
             r.requestid == this.active_req) {
-            this.active_req = null;
+            delete this.active_req;
             callback = buffer.getMetaData('callback');
             offset = buffer.getMetaData('req_offset');
 
@@ -900,7 +871,7 @@ var ViewPort = Class.create({
         }
 
         if (this.view == r.view) {
-            this._updateContent(Object.isUndefined(r.rownum) ? (Object.isUndefined(offset) ? this.currentOffset() : offset) : Number(r.rownum) - 1, { updated: r.update });
+            this._updateContent(Object.isUndefined(r.rownum) ? (Object.isUndefined(offset) ? this.currentOffset() : offset) : Number(r.rownum) - 1, { updated: r.rowlist_reset });
         } else if (r.rownum) {
             // We loaded in the background. If rownumber information was
             // provided, we need to save this or else we will position the
@@ -911,10 +882,11 @@ var ViewPort = Class.create({
         this.isbusy = false;
     },
 
-    // offset = (integer) TODO
+    // offset = (integer) Offset of row to display
     // opts = (object) TODO [background, updated, view]
     _updateContent: function(offset, opts)
     {
+        offset = Math.max(0, offset);
         opts = opts || {};
 
         if (!this._getBuffer(opts.view).sliceLoaded(offset)) {
@@ -1019,7 +991,7 @@ var ViewPort = Class.create({
     {
         if (this.waitHandler) {
             clearTimeout(this.waitHandler);
-            this.waitHandler = null;
+            delete this.waitHandler;
         }
     },
 
@@ -1122,6 +1094,15 @@ var ViewPort = Class.create({
     {
         this.pane_mode = mode;
         this.onResize(true);
+    },
+
+    // Return the vertical width of the row listing if splitbar is enabled
+    // and is in vertical mode.
+    getVertWidth: function()
+    {
+        return (this.pane_mode == 'vert')
+            ? this.opts.content.getWidth()
+            : 0;
     },
 
     _initSplitBar: function()
@@ -1479,20 +1460,20 @@ ViewPort_Buffer = Class.create({
     // d = (object) Data
     // l = (object) Rowlist
     // md = (object) User defined metadata
-    // opts = (object) TODO [reset, resetmd, update]
+    // opts = (object) TODO [datareset, mdreset, rowreset]
     update: function(d, l, md, opts)
     {
         d = $H(d);
         l = $H(l);
         opts = opts || {};
 
-        if (!opts.reset && this.data.size()) {
+        if (!opts.datareset) {
             this.data.update(d);
         } else {
             this.data = d;
         }
 
-        if (opts.update || opts.reset) {
+        if (opts.rowreset || opts.datareset) {
             this.resetRowlist();
         }
 
@@ -1501,7 +1482,7 @@ ViewPort_Buffer = Class.create({
             this.rowlist.set(o.value, o.key);
         }, this);
 
-        if (opts.resetmd) {
+        if (opts.mdreset) {
             this.usermdata = $H(md);
         } else {
             $H(md).each(function(pair) {
@@ -1674,6 +1655,7 @@ ViewPort_Buffer = Class.create({
     resetRowlist: function()
     {
         this.rowlist = $H();
+        this.setMetaData({ total_rows: 0 }, true);
     },
 
     clear: function()

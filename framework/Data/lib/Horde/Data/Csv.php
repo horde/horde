@@ -7,10 +7,10 @@
 /**
  * Horde_Data implementation for comma-separated data (CSV).
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -159,7 +159,7 @@ class Horde_Data_Csv extends Horde_Data_Base
                     if (isset($export_mapping[$key])) {
                         $key = $export_mapping[$key];
                     }
-                    $export .= '"' . $key . '"';
+                    $export .= '"' . str_replace('"', '\\"', $key) . '"';
                 }
                 $export .= ',';
             }
@@ -170,7 +170,7 @@ class Horde_Data_Csv extends Horde_Data_Base
             foreach ($head as $key) {
                 $cell = $row[$key];
                 if (!empty($cell) || $cell === 0) {
-                    $export .= '"' . $cell . '"';
+                    $export .= '"' . str_replace('"', '\\"', $cell) . '"';
                 }
                 $export .= ',';
             }
@@ -237,15 +237,27 @@ class Horde_Data_Csv extends Horde_Data_Base
             /* Read the file's first two lines to show them to the user. */
             $first_lines = '';
             if ($fp = @fopen($file_name, 'r')) {
-                $line_no = 1;
-                while ($line_no < 3 && $line = fgets($fp)) {
+                for ($line_no = 1, $line = fgets($fp);
+                     $line_no <= 3 && $line;
+                     $line_no++, $line = fgets($fp)) {
                     $line = Horde_String::convertCharset($line, $this->_vars->charset, $this->_charset);
-                    $newline = Horde_String::length($line) > 100 ? "\n" : '';
-                    $first_lines .= substr($line, 0, 100) . $newline;
-                    ++$line_no;
+                    $first_lines .= Horde_String::truncate($line);
+                    if (Horde_String::length($line) > 100) {
+                        $first_lines .= "\n";
+                    }
                 }
             }
             $session->set('horde', 'import_data/first_lines', $first_lines);
+
+            /* Import the first line to guess the number of fields. */
+            if ($first_lines) {
+                rewind($fp);
+                $line = Horde_Util::getCsv($fp);
+                if ($line) {
+                    $session->set('horde', 'import_data/fields', count($line));
+                }
+            }
+
             return Horde_Data::IMPORT_CSV;
 
         case Horde_Data::IMPORT_CSV:

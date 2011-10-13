@@ -35,7 +35,6 @@
   be used?">Default
    <values>
     <value desc="Default">Default</value>
-    <value desc="BBCode">BBCode</value>
     <value desc="Creole">Creole</value>
     <value desc="Mediawiki">Mediawiki</value>
     <value desc="Tiki">Tiki</value>
@@ -53,17 +52,17 @@
   </configheader>
 
   <configmultienum name="pages" desc="What standard pages would you like to
-  show up as links in Wicked's menu?">WikiHome
+  show up as links in Wicked's menu?">Wiki/Home
    <values>
-    <value desc="Home">WikiHome</value>
-    <value desc="Usage">HowToUseWiki</value>
+    <value desc="Home">Wiki/Home</value>
+    <value desc="Usage">Wiki/Usage</value>
     <value desc="Recent Changes">RecentChanges</value>
     <value desc="All Pages">AllPages</value>
    </values>
   </configmultienum>
 
   <configmultienum name="apps" desc="Select any applications that should be
-  linked in Wicked's menu">
+  linked in Wicked's menu" required="false">
    <values>
     <configspecial application="horde" name="apps" />
    </values>

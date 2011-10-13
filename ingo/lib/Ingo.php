@@ -67,7 +67,9 @@ class Ingo
         $session->set('ingo', 'script_generate', $ingo_script->generateAvailable());
 
         /* Disable categories as specified in preferences */
-        $categories = array_merge($ingo_script->availableActions(), $ingo_script->availableCategories());
+        $categories = array_flip(
+            array_merge($ingo_script->availableActions(),
+                        $ingo_script->availableCategories()));
         if ($prefs->isLocked('blacklist')) {
             unset($categories[Ingo_Storage::ACTION_BLACKLIST]);
         }
@@ -83,6 +85,7 @@ class Ingo
         if ($prefs->isLocked('spam')) {
             unset($categories[Ingo_Storage::ACTION_SPAM]);
         }
+        $categories = array_flip($categories);
 
         /* Set the list of categories this driver supports. */
         $session->set('ingo', 'script_categories', $categories);
@@ -97,41 +100,26 @@ class Ingo
      * @param string $value    The current value for the field.
      * @param string $form     The form name for the newFolderName() call.
      * @param string $tagname  The label for the select tag.
-     * @param string $onchange Javascript code to execute onchange.
      *
      * @return string  The HTML to render the field.
      */
     static public function flistSelect($value = null, $form = null,
-                                       $tagname = 'actionvalue',
-                                       $onchange = null)
+                                       $tagname = 'actionvalue')
     {
         global $conf, $registry;
 
         if ($registry->hasMethod('mail/folderlist')) {
             $createfolder = $registry->hasMethod('mail/createFolder');
-
             try {
                 $mailboxes = $registry->call('mail/folderlist');
 
-                $text = '<select id="' . $tagname . '" name="' . $tagname . '"';
-                if ($createfolder || $onchange) {
-                    $text .= ' onchange="';
-                    if ($onchange) {
-                        $text .= $onchange . ';';
-                    }
-                    if ($createfolder) {
-                        $text .= 'IngoNewFolder.newFolderName(\'' . $form . '\', \'' .
-                            $tagname . '\');';
-                    }
-                    $text .= '"';
-                }
-
-                $text .= '<option value="">' . _("Select target folder:") . '</option>' .
-                    '<option value="" disabled="disabled">- - - - - - - - - -</option>';
+                $text = '<select class="flistSelect" id="' . $tagname . '" name="' . $tagname . '">' .
+                    '<option value="">' . _("Select target folder:") . '</option>' .
+                    '<option disabled="disabled">- - - - - - - - - -</option>';
 
                 if ($createfolder) {
-                    $text .= '<option value="">' . _("Create new folder") . '</option>' .
-                        '<option value="" disabled="disabled">- - - - - - - - - -</option>';
+                    $text .= '<option class="flistCreate" value="">' . _("Create new folder") . '</option>' .
+                        '<option disabled="disabled">- - - - - - - - - -</option>';
                 }
 
                 foreach ($mailboxes as $key => $val) {
@@ -143,6 +131,11 @@ class Ingo
                     );
                 }
 
+                Horde::addScriptFile('new_folder.js', 'ingo');
+                Horde::addInlineJsVars(array(
+                    'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")
+                ));
+
                 return $text . '</select>';
             } catch (Horde_Exception $e) {}
         }
@@ -151,18 +144,27 @@ class Ingo
     }
 
     /**
-     * Creates a new IMAP folder via an api call.
+     * Validates an IMAP mailbox provided by user input.
      *
-     * @param string $folder  The name of the folder to create.
+     * @param Horde_Variables $vars  An variables object.
+     * @param string $name           The form name of the folder input.
      *
-     * @return boolean  True on success, false if not created.
+     * @return string  The IMAP mailbox name.
      * @throws Horde_Exception
      */
-    static public function createFolder($folder)
+    static public function validateFolder(Horde_Variables $vars, $name)
     {
-        return $GLOBALS['registry']->hasMethod('mail/createFolder')
-            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, 'UTF-8', 'UTF7-IMAP')))
-            : false;
+        $new_id = $name . '_new';
+        if (isset($vars->$new_id)) {
+            if ($GLOBALS['registry']->hasMethod('mail/createFolder') &&
+                $GLOBALS['registry']->call('mail/createFolder', array(Horde_String::convertCharset($vars->$new_id, 'UTF-8', 'UTF7-IMAP')))) {
+                return $vars->$new_id;
+            }
+        } elseif (isset($vars->$name) && strlen($vars->$name)) {
+            return $vars->$name;
+        }
+
+        throw new Ingo_Exception(_("Could not validate IMAP mailbox."));
     }
 
     /**
@@ -458,19 +460,6 @@ class Ingo
     static public function status()
     {
         $GLOBALS['notification']->notify(array('listeners' => array('status', 'audio')));
-    }
-
-    /**
-     * Add new_folder.js to the list of output javascript files.
-     */
-    static public function addNewFolderJs()
-    {
-        if ($GLOBALS['registry']->hasMethod('mail/createFolder')) {
-            Horde::addScriptFile('new_folder.js', 'ingo');
-            Horde::addInlineJsVars(array(
-                'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")
-            ));
-        }
     }
 
 }

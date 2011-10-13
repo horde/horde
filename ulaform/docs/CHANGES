@@ -1,0 +1,29 @@
+--------
+v1.0-git
+--------
+
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
+[jan] Store "set" fields results as comma separated list (Vilius Šumskas
+      <vilius@lnk.lt>, Request #5739).
+[jan] Create TEXT columns for form fields with long data (Request #5510).
+[cjh] Add API methods and per-form permissions (duck@obala.net, Request #5331).
+[ben] Better support for MS-SQL.
+[jan] Use bind variables in the SQL drivers (selsky@columbia.edu,
+      Bugs #1682).
+[cjh] Do charset conversion on way in/out of database (Bug #332).
+[jan] Support file uploads with SQL driver.
+[jmf] Support file uploads.
+[jan] Show form name in a title above the form (Ben Chavet <ben@chavet.net>).
+[jan] Add Traditional Chinese translation (David Chang <david@tmv.gov.tw>).
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[jan] Add Lithuanian translation (Vilius Šumskas <vilius@lnk.lt>).
+[jan] Add German translation.
+[jan] Add Finnish translation (Petteri Karttunen <pkarttun@siba.fi>).
+[mdj] Create a driver structure for actions, new actions for forms can be
+      created in the /lib/Action directory.
+[mdj] Ulaform can now be included in any html page.
+[mdj] Extra parameters can now be set for the more complex Horde_Form field
+      types (enum, longtext, monthdayyear...).
+[mdj] Horde_Block is now supported - forms can be used in other Horde apps.
+[mdj] Major rewrite of Ulaform to use Horde_Form.
+[cjh] Reorganize towards a modern Horde app.

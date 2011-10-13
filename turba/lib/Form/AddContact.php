@@ -2,7 +2,7 @@
 /**
  * @package Turba
  */
-class Turba_Form_AddContact extends Turba_Form_Contact
+class Turba_Form_AddContact extends Turba_Form_ContactBase
 {
     protected $_contact = null;
 
@@ -11,7 +11,7 @@ class Turba_Form_AddContact extends Turba_Form_Contact
         // @TODO: $addSources should be injected
         global $addSources, $notification;
 
-        Horde_Form::__construct($vars, $contact, true);
+        parent::__construct($vars, '', 'turba_form_addcontact');
         $this->_contact = $contact;
 
         $this->setButtons(_("Add"));

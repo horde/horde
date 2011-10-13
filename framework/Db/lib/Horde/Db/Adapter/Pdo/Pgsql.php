@@ -1,12 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -18,7 +18,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -104,40 +104,25 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
 
 
     /*##########################################################################
-    # Quoting
-    ##########################################################################*/
-
-    /**
-     * @return  string
-     */
-    public function quotedStringPrefix()
-    {
-        // Use escape string syntax if available. We cannot do this lazily when encountering
-        // the first string, because that could then break any transactions in progress.
-        // See: http://www.postgresql.org/docs/current/static/runtime-config-compatible.html
-        // If PostgreSQL doesn't know the standard_conforming_strings parameter then it doesn't
-        // support escape string syntax. Don't override the inherited quotedStringPrefix.
-        if ($this->supportsStandardConformingStrings()) {
-            return 'E';
-        }
-
-        return '';
-    }
-
-
-    /*##########################################################################
     # Database Statements
     ##########################################################################*/
 
     /**
-     * Returns the last auto-generated ID from the affected table.
+     * Inserts a row into a table.
      *
-     * @param   string  $sql
-     * @param   mixed   $arg1  Either an array of bound parameters or a query name.
-     * @param   string  $arg2  If $arg1 contains bound parameters, the query name.
-     * @param   string  $pk
-     * @param   int     $idValue
-     * @param   string  $sequenceName
+     * @param string $sql           SQL statement.
+     * @param array|string $arg1    Either an array of bound parameters or a
+     *                              query name.
+     * @param string $arg2          If $arg1 contains bound parameters, the
+     *                              query name.
+     * @param string $pk            The primary key column.
+     * @param integer $idValue      The primary key value. This parameter is
+     *                              required if the primary key is inserted
+     *                              manually.
+     * @param string $sequenceName  The sequence name.
+     *
+     * @return integer  Last inserted ID.
+     * @throws Horde_Db_Exception
      */
     public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
                            $idValue = null, $sequenceName = null)
@@ -148,16 +133,14 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
 
         // Try an insert with 'returning id' if available (PG >= 8.2)
         if ($this->supportsInsertWithReturning()) {
-            if (!$pk) list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
+            if (!$pk) {
+                list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
+            }
             if ($pk) {
-                $id = $this->selectValue($sql.' RETURNING '.$this->quoteColumnName($pk), $arg1, $arg2);
+                $id = $this->selectValue($sql . ' RETURNING ' . $this->quoteColumnName($pk), $arg1, $arg2);
+                $this->resetPkSequence($table, $pk, $sequenceName);
                 return $id;
             }
-        }
-
-        // Otherwise, insert then grab last_insert_id.
-        if ($insertId = parent::insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName)) {
-            return $insertId;
         }
 
         // If neither pk nor sequence name is given, look them up.
@@ -165,9 +148,18 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
             list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
         }
 
+        // Otherwise, insert then grab last_insert_id.
+        if ($insertId = parent::insert($sql, $arg1, $arg2, $pk, $idValue, $sequenceName)) {
+            $this->resetPkSequence($table, $pk, $sequenceName);
+            return $insertId;
+        }
+
         // If a pk is given, fallback to default sequence name.
         // Don't fetch last insert id for a table without a pk.
-        if ($pk && ($sequenceName || $sequenceName = $this->defaultSequenceName($table, $pk))) {
+        if ($pk &&
+            ($sequenceName ||
+             $sequenceName = $this->defaultSequenceName($table, $pk))) {
+            $this->resetPkSequence($table, $pk, $sequenceName);
             return $this->_lastInsertId($table, $sequenceName);
         }
     }
@@ -205,6 +197,14 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     protected function _parseConfig()
     {
         $this->_config['adapter'] = 'pgsql';
+
+        // PDO for PostgreSQL does not accept a socket argument
+        // in the connection string; the location can be set via the
+        // "host" argument instead.
+        if (!empty($this->_config['socket'])) {
+            $this->_config['host'] = $this->_config['socket'];
+            unset($this->_config['socket']);
+        }
 
         return parent::_parseConfig();
     }

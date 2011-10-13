@@ -15,12 +15,20 @@
   </configswitch>
  </configsection>
 
+ <configsection name="tasklists">
+  <configheader>Tasklist Handler Settings</configheader>
+  <configswitch name="driver" desc="What type of tasklist handler should we use?">default
+   <case name="default" desc="Default" />
+   <case name="kolab" desc="Kolab" />
+  </configswitch>
+ </configsection>
+
  <configsection name="menu">
   <configheader>Menu settings</configheader>
   <configboolean name="import_export" desc="Should we display an Import/Export
   link in the Horde application menus?">true</configboolean>
   <configmultienum name="apps" desc="Select any applications
-  that should be linked in Nag's menu">
+  that should be linked in Nag's menu" required="false">
    <values>
     <configspecial application="horde" name="apps" />
    </values>

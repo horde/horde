@@ -3,10 +3,10 @@
  * Need to load this after Yahoo's JS is loaded so the YAHOO_* constants are
  * defined.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  *
@@ -35,7 +35,7 @@ HordeMap.Geocoder.Yahoo = Class.create(
     {
         // Try to find an existing Yahoo layer and reuse it. Otherwise, we can
         // get away with just creating an unattached node.
-        if (map) {
+        if (map.layers) {
             var layers = map.layers;
             for (var i = 0; i < layers.length; i++) {
                 if (layers[i].CLASS_NAME == 'OpenLayers.Layer.Yahoo') {
@@ -45,6 +45,7 @@ HordeMap.Geocoder.Yahoo = Class.create(
             }
         }
         if (!this._map) {
+            console.log(this);
             this._map = new YMap(new Element('div'));
         }
     },
@@ -70,10 +71,7 @@ HordeMap.Geocoder.Yahoo = Class.create(
     {
         this._completeCallback = completeCallback || function() {};
         this._errorCallback = errorCallback || function() {};
-        this._reverseCallback([]);
-        //YEvent.Capture(this._map, EventsList.onEndLocalSearch, this._reverseCallback.bind(this));
-        //this._map.searchLocal(new YGeoPoint(latlon.lat, latlon.lon), 'address');
-        //return [];
+        this._reverseCallback([{ 'lon': latlon.lon, 'lat': latlon.lat, 'address': '', 'precision': 0 }]);
     },
 
     _callback: function(p)
@@ -91,8 +89,9 @@ HordeMap.Geocoder.Yahoo = Class.create(
     }
 
 });
-/* Copyright (c) 2006-2008 MetaCarta, Inc., published under the Clear BSD
- * license.  See http://svn.openlayers.org/trunk/openlayers/license.txt for the
+/* Copyright (c) 2006-2011 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
+ * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
 
@@ -100,6 +99,7 @@ HordeMap.Geocoder.Yahoo = Class.create(
  * @requires OpenLayers/Layer/SphericalMercator.js
  * @requires OpenLayers/Layer/EventPane.js
  * @requires OpenLayers/Layer/FixedZoomLevels.js
+ * @requires OpenLayers/Lang.js
  */
 
 /**
@@ -155,6 +155,14 @@ OpenLayers.Layer.Yahoo = OpenLayers.Class(
      * {YahooMapType}
      */
     type: null,
+
+    /**
+     * APIProperty: wrapDateLine
+     * {Boolean} Allow user to pan forever east/west.  Default is true.
+     *     Setting this to false only restricts panning if
+     *     <sphericalMercator> is true.
+     */
+    wrapDateLine: true,
 
     /**
      * APIProperty: sphericalMercator
@@ -512,3 +520,5 @@ OpenLayers.Layer.Yahoo = OpenLayers.Class(
 
     CLASS_NAME: "OpenLayers.Layer.Yahoo"
 });
+
+

@@ -1,0 +1,417 @@
+= Sample Page for Wiki Markup =
+
+[[toc]]
+
+
+== General Notes ==
+
+The markup uses the [http://www.mediawiki.org/ Mediawiki] style.
+
+All text is entered as plain text, and will be converted to HTML entities as \
+necessary.  This means that <tt><</tt>, <tt>></tt>, <tt>&</tt>, and so on are converted for \
+you (except in special situations where the characters are Wiki markup; \
+the Wiki is generally smart enough to know when to convert and when not to).
+
+Just hit "return" twice to make a paragraph break.  If you want \
+to keep the same logical line but have to split it across \
+two physical lines (such as when your editor only shows a certain number \
+of characters per line), end the line with a backslash <tt>\</tt> and hit \
+return once.  This will cause the two lines to be joined on display, and the \
+backslash will not show.  (If you end a line with a backslash and a tab \
+or space, it will ''not'' be joined with the next line, and the backslash \
+will be printed.)
+
+
+== Inline Formatting ==
+
+{|
+| <tt><nowiki>''emphasis text''</nowiki></tt>
+| ''emphasis text''
+|-
+| <tt><nowiki>'''strong text'''</nowiki></tt>
+| '''strong text'''
+|-
+| <tt><nowiki>'''''emphasis and strong'''''</nowiki></tt>
+| '''''emphasis and strong'''''
+|-
+| <tt><nowiki><tt>teletype text</tt></nowiki></tt>
+| <tt>teletype text</tt>
+|-
+| <tt><nowiki><sub>subscript</sub> text</nowiki></tt>
+| <sub>subscript</sub> text
+|-
+| <tt><nowiki><sup>superscript</sup> text</nowiki></tt>
+| <sup>superscript</sup> text
+|}
+
+== Literal Text ==
+
+If you don't want the wiki to parse some text, enclose it in <tt><nowiki><nowiki>...</nowiki></nowiki></tt> tags.
+
+<code>
+This ''text'' gets '''parsed'''.
+
+<nowiki>This ''text'' does not get '''parsed'''.</nowiki>
+</code>
+
+This ''text'' gets '''parsed'''.
+
+<nowiki>This ''text'' does not get '''parsed'''.</nowiki>
+
+
+== Comments ==
+
+You can add comments to the page source code using the following markup. These comments won't be rendered in the page's output.
+
+<code>
+<!-- Some comment -->
+</code>
+
+<!-- Some comment -->
+
+
+== Headings ==
+
+You can make various levels of heading by putting \
+plus-signs before the text (all on its own line):
+
+<code>
+=== Level 3 Heading ===
+==== Level 4 Heading ====
+===== Level 5 Heading =====
+====== Level 6 Heading ======
+</code>
+
+=== Level 3 Heading ===
+==== Level 4 Heading ====
+===== Level 5 Heading =====
+====== Level 6 Heading ======
+
+
+== Table of Contents ==
+
+To create a list of every heading, with a link to that heading, put a table of contents tag on its own line.
+
+<code>
+[[toc]]
+</code>
+
+
+== Horizontal Rules ==
+
+Use four dashes (<tt><nowiki>----</nowiki></tt>) to create a horizontal rule.
+
+----
+
+
+== Lists ==
+
+
+=== Bullet Lists ===
+
+You can create bullet lists by starting a paragraph with one or \
+more asterisks.
+
+<code>
+* Bullet one
+** Sub-bullet
+</code>
+
+* Bullet one
+** Sub-bullet
+
+
+=== Numbered Lists ===
+
+Similarly, you can create numbered lists by starting a paragraph \
+with one or more hashes.
+
+<code>
+# Numero uno
+# Number two
+## Sub-item
+</code>
+
+# Numero uno
+# Number two
+## Sub-item
+
+
+=== Mixing Bullet and Number List Items ===
+
+You can mix and match bullet and number lists:
+
+<code>
+# Number one
+** Bullet
+** Bullet
+# Number two
+** Bullet
+** Bullet
+*** Sub-bullet
+#### Sub-sub-number
+#### Sub-sub-number
+# Number three
+** Bullet
+** Bullet
+</code>
+
+# Number one
+** Bullet
+** Bullet
+# Number two
+** Bullet
+** Bullet
+*** Sub-bullet
+#### Sub-sub-number
+#### Sub-sub-number
+# Number three
+** Bullet
+** Bullet
+
+
+=== Definition Lists ===
+
+You can create a definition (description) list with the following syntax:
+
+<code>
+;Item 1
+:Something
+;Item 2
+:Something else
+</code>
+
+;Item 1
+:Something
+;Item 2
+:Something else
+
+
+== Block Quotes ==
+
+You can mark a blockquote by starting a line with one or more '>' \
+characters, followed by a space and the text to be quoted.
+
+<code>
+This is normal text here.
+
+: Indent me! The quick brown fox jumps over the lazy dog. \
+Now this the time for all good men to come to the aid of \
+their country. Notice how we can continue the block-quote \
+in the same "paragraph" by using a backslash at the end of \
+the line.
+
+: Another block, leading to...
+:: Second level of indenting.  This second is indented even \
+more than the previous one.
+
+Back to normal text.
+</code>
+
+This is normal text here.
+
+: Indent me! The quick brown fox jumps over the lazy dog. \
+Now this the time for all good men to come to the aid of \
+their country. Notice how we can continue the block-quote \
+in the same "paragraph" by using a backslash at the end of \
+the line.
+
+: Another block, leading to...
+:: Second level of indenting.  This second is indented even \
+more than the previous one.
+
+Back to normal text.
+
+
+== Links and Images ==
+
+
+=== Wiki Links ===
+
+You can create page links by putting the name in brackets.
+
+<code>
+[[Wiki/Page]]
+</code>
+
+[[Wiki/Page]]
+
+You can also use this format to create a "described" or "labeled" link or to add an anchor target.
+
+<code>
+[[Wiki/Page#anchor|Descriptive text for the link.]]
+</code>
+
+[[Wiki/Page#anchor|Descriptive text for the link.]]
+
+
+=== URLs ===
+
+Create a remote link simply by typing its URL: http://www.horde.org.
+
+If you like, enclose it in brackets to create a numbered reference \
+and avoid cluttering the page; <tt><nowiki>[http://www.horde.org/]</nowiki></tt> becomes [http://www.horde.org/].
+
+''Rendering of URLs as numbers is broken as of Text_Wiki 1.2.1.''
+
+Or you can have a described-reference instead of a numbered reference:
+
+<code>
+[http://www.horde.org Horde]
+</code>
+
+[http://www.horde.org Horde]
+
+
+=== Images ===
+
+You can put a picture in a page with <tt><nowiki>[[Image:foo.jpg]]</nowiki></tt>. You can use any file type, but most browsers only support GIF, JPEG, and PNG formats. The filename can either be a relative reference (in which case the wiki looks for a file attached to the current page - or a different wiki page if the file name is prefixed with a page name, e.g. <tt><nowiki>[[Image:SomePage:foo.jpg]]</nowiki></tt>), an absolute reference which begins with a slash (in which case the wiki uses it to retrieve a file relative to the web server's root), or a full, external URL.
+
+Additional "alt", "width", and "height" attributes can follow the image filename or URL like so: <tt><nowiki>[[Image:foo.jpg|A Foo JPEG|WIDTHxHEIGHTpx]]</nowiki></tt>.
+
+
+== Application Content ==
+
+=== Application Blocks ===
+
+Content from other Horde applications provided by portal blocks can be embedded into a page using <tt><nowiki>[[block]]</nowiki></tt> tags.
+
+To include Horde's moon phases block for example:
+
+<code>
+[[block horde/Moon phase=next hemisphere=northern]]
+</code>
+
+[[block horde/Moon phase=next hemisphere=northern]]
+
+=== Application Links ===
+
+Links to other Horde applications is supported if those applications support API links. The Wiki itself supports such an API to link to individual wiki pages:
+
+<code>
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
+</code>
+
+[[link Link to some other wiki page|wiki/show page=Wiki/Page]]
+
+
+== Code Blocks ==
+
+Create code blocks by using <tt>code</tt> tags (each on its own line).
+
+<code>
+This is an example code block!
+</code>
+
+To create PHP blocks that get automatically colorized when you use PHP tags, simply surround the code with <tt>code type="php"</tt> tags (the tags themselves should each be on their own lines, and no need for the <tt><?php ... ?></tt> tags).
+
+<code>
+ <code type="php">
+ // Set up the wiki options
+ $options = array();
+ $options['view_url'] = "index.php?page=";
+
+ // load the text for the requested page
+ $text = implode('', file($page . '.wiki.txt'));
+
+ // create a Wiki objext with the loaded options
+ $wiki = new Text_Wiki($options);
+
+ // transform the wiki text.
+ echo $wiki->transform($text);
+ </code>
+</code>
+
+<code type="php">
+// Set up the wiki options
+$options = array();
+$options['view_url'] = "index.php?page=";
+
+// load the text for the requested page
+$text = implode('', file($page . '.wiki.txt'));
+
+// create a Wiki objext with the loaded options
+$wiki = new Text_Wiki($options);
+
+// transform the wiki text.
+echo $wiki->transform($text);
+</code>
+
+API references can be generated using <tt><function></tt> tags.
+
+<code>
+<function>
+name:listUsers
+access:public
+param:string,Filter users by this string.,'USER'
+returns:array
+throws:Exception,if user backend not available.
+</function>
+</code>
+
+''Rendering of this rule is broken as of Text_Wiki 1.2.1, usage is discouraged.''
+
+
+== Tables ==
+
+You can create tables using pairs of vertical bars:
+
+<code>
+{|
+! Heading one !! Heading two
+|-
+| cell one || cell two
+|-
+| colspan="2" | big ol' line
+|-
+| cell four || cell five
+|-
+| cell six || here's a very long cell
+|}
+</code>
+
+{|
+! Heading one !! Heading two
+|-
+| cell one || cell two
+|-
+| colspan="2" | big ol' line
+|-
+| cell four || cell five
+|-
+| cell six || here's a very long cell
+|}
+
+<code>
+{|
+| lines must start || with a vertical bar || and a dash
+|-
+| cells are separated by || double vertical bars || nothing
+|-
+| or by starting the new
+| cell on a new line
+| with a vertical bar
+|-
+| colspan="2" | you can span multiple columns by || starting the cell
+|-
+| with a colspan || colspan="2" |  attribute
+|-
+| colspan="3" | but perhaps an example is the easiest way to see
+|}
+</code>
+
+{|
+| lines must start || with a vertical bar || and a dash
+|-
+| cells are separated by || double vertical bars || nothing
+|-
+| or by starting the new
+| cell on a new line
+| with a vertical bar
+|-
+| colspan="2" | you can span multiple columns by || starting the cell
+|-
+| with a colspan || colspan="2" |  attribute
+|-
+| colspan="3" | but perhaps an example is the easiest way to see
+|}

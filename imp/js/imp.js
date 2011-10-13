@@ -2,17 +2,16 @@
  * Provides basic IMP javascript functions.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-document.observe('dom:loaded', function() {
-    if (!window.IMP) {
-        window.IMP = {};
-    }
+var IMP_JS = {
 
-    IMP.imgs = {};
+    imgs: {},
 
-    IMP.menuFolderSubmit = function(clear)
+    keydownhandler: null,
+
+    menuFolderSubmit: function(clear)
     {
         var mf = $('menuform');
 
@@ -21,12 +20,12 @@ document.observe('dom:loaded', function() {
             this.menufolder_load = true;
             mf.submit();
         }
-    };
+    },
 
     /**
      * Use DOM manipulation to un-block images.
      */
-    IMP.unblockImages = function(e)
+    unblockImages: function(e)
     {
         var callback,
             elt = e.element().up('.mimeStatusMessageTable').up(),
@@ -48,34 +47,37 @@ document.observe('dom:loaded', function() {
             var src = img.getAttribute('htmlimgblocked');
             if (img.getAttribute('src')) {
                 img.onload = callback;
-                ++IMP.imgs[iframeid];
+                ++this.imgs[iframeid];
                 img.setAttribute('src', src);
                 imgload = true;
-            } else if (img.getAttribute('background')) {
-                img.setAttribute('background', src);
-            } else if (img.style.backgroundImage) {
-                if (img.style.setProperty) {
-                    img.style.setProperty('background-image', 'url(' + src + ')', '');
-                } else {
-                    // IE workaround
-                    img.style.backgroundImage = 'url(' + src + ')';
+            } else {
+                if (img.getAttribute('background')) {
+                    img.setAttribute('background', src);
+                }
+                if (img.style.backgroundImage) {
+                    if (img.style.setProperty) {
+                        img.style.setProperty('background-image', 'url(' + src + ')', '');
+                    } else {
+                        // IE workaround
+                        img.style.backgroundImage = 'url(' + src + ')';
+                    }
                 }
             }
-        });
+        }, this);
 
         if (!imgload) {
             this.iframeResize(iframeid);
         }
-    };
+    },
 
-    IMP.imgOnload = function(id)
+    imgOnload: function(id)
     {
-        if (!(--IMP.imgs[id])) {
+        if (!(--this.imgs[id])) {
             this.iframeResize(id);
         }
-    };
+    },
 
-    IMP.iframeInject = function(id, data)
+    iframeInject: function(id, data)
     {
         if (!(id = $(id))) {
             return;
@@ -85,19 +87,31 @@ document.observe('dom:loaded', function() {
 
         id.observe('load', function(i) {
             i.stopObserving('load');
-            this.iframeResize.bind(IMP, i).defer(0.3);
+            this.iframeResize.bind(this, i).defer(0.3);
         }.bind(this, id));
 
         d.open();
         d.write(data);
         d.close();
 
+        if (this.keydownhandler) {
+            var responder = function(e) {
+                return this.keydownhandler(e);
+            }.bindAsEventListener(this)
+
+            if (d.addEventListener) {
+                d.addEventListener('keydown', responder, false);
+            } else {
+                d.attachEvent('onkeydown', responder);
+            }
+        }
+
         id.show().previous().remove();
 
         this.iframeResize(id);
-    };
+    },
 
-    IMP.iframeResize = function(id)
+    iframeResize: function(id)
     {
         if (!(id = $(id))) {
             return;
@@ -116,10 +130,11 @@ document.observe('dom:loaded', function() {
                 // Finally, brute force if it still isn't working.
                 id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
             }
+            lc.style.setProperty('overflow-x', 'hidden', '');
         }
-    };
+    },
 
-    IMP.printWindow = function(win)
+    printWindow: function(win)
     {
         /* Prototypejs not available in this window. */
         var fs = win.document.getElementById('frameset');
@@ -128,13 +143,19 @@ document.observe('dom:loaded', function() {
         }
         win.print();
         win.close();
-    };
+    },
 
-    // If menu is present, attach event handlers to folder switcher.
-    var tmp = $('openfoldericon');
-    if (tmp) {
-        // Observe actual element since IE does not bubble change events.
-        $('menu').down('[name=mailbox]').observe('change', IMP.menuFolderSubmit.bind(IMP));
-        tmp.down().observe('click', IMP.menuFolderSubmit.bind(IMP, true));
+    onDomLoad: function()
+    {
+        // If menu is present, attach event handlers to folder switcher.
+        var tmp = $('openfoldericon');
+        if (tmp) {
+            // Observe actual element since IE does not bubble change events.
+            $('menu').down('[name=mailbox]').observe('change', this.menuFolderSubmit.bind(this));
+            tmp.down().observe('click', this.menuFolderSubmit.bind(this, true));
+        }
     }
-});
+
+};
+
+document.observe('dom:loaded', IMP_JS.onDomLoad.bind(IMP_JS));

@@ -8,7 +8,7 @@
  * @package    Kolab_Storage
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the data cache.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Kolab
  * @package    Kolab_Storage
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_Cache_DataTest
@@ -259,17 +259,28 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    /**
-     * @expectedException Horde_Kolab_Storage_Exception
-     */
-    public function testExceptionOnDuplicate()
+    public function testDuplicates()
     {
-        $this->_getSyncedCacheWithMoreData()
-            ->store(
-                array('3' => array('uid' => 'test')),
-                new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
-                '1'
-            );
+        $cache = $this->_getSyncedCacheWithMoreData();
+        $cache->store(
+            array('3' => array('uid' => 'test')),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(
+            array('test' => array(1, 3)), $cache->getDuplicates()
+        );
+    }
+
+    public function testErrors()
+    {
+        $cache = $this->_getSyncedCacheWithMoreData();
+        $cache->store(
+            array('3' => false),
+            new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
+            '1'
+        );
+        $this->assertEquals(array(3), $cache->getErrors());
     }
 
     /**
@@ -418,6 +429,7 @@ extends Horde_Kolab_Storage_TestCase
             array(
                 'host' => 'localhost',
                 'port' => '143',
+                'prefix' => 'INBOX',
                 'folder' => 'test',
                 'type' => 'event',
                 'owner' => 'someuser',
@@ -450,7 +462,7 @@ extends Horde_Kolab_Storage_TestCase
             array(),
             new Horde_Kolab_Storage_Folder_Stamp_Uids('c', 'd'),
             '2',
-            array('100')
+            array('100' => 'test')
         );
         $this->assertFalse(
             $cache->getAttachment('100', '1')
@@ -504,6 +516,28 @@ extends Horde_Kolab_Storage_TestCase
     {
         $this->_getSyncedCacheWithAttachment('Y')
             ->getAttachmentByType('200', 'application/x-vnd.kolab.event');
+    }
+
+    /**
+     * @expectedException Horde_Kolab_Storage_Exception
+     */
+    public function testMissingQuery()
+    {
+        $this->getMockDataCache()->getQuery('x');
+    }
+
+    public function testHasQuery()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->setQuery('x', 'something');
+        $this->assertTrue($cache->hasQuery('x'));
+    }
+
+    public function testGetSetQuery()
+    {
+        $cache = $this->getMockDataCache();
+        $cache->setQuery('x', 'something');
+        $this->assertEquals('something', $cache->getQuery('x'));
     }
 
     private function _getSyncedCache()
@@ -586,7 +620,7 @@ extends Horde_Kolab_Storage_TestCase
             array(),
             new Horde_Kolab_Storage_Folder_Stamp_Uids('a', 'b'),
             '1',
-            array('1000')
+            array('1000' => 'OBJECTID')
         );
         return $cache;
     }

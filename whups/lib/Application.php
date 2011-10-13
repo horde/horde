@@ -5,10 +5,10 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Whups through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Whups
  */
@@ -36,7 +36,7 @@ class Whups_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (2.0-git)';
+    public $version = 'H4 (2.0.1-git)';
 
     /**
      * Global variables defined:
@@ -45,10 +45,11 @@ class Whups_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $GLOBALS['whups_driver'] = Whups_Driver::factory();
-        $GLOBALS['whups_driver']->initialise();
-
+        $GLOBALS['whups_driver'] = $GLOBALS['injector']->getInstance('Whups_Factory_Driver')->create();
         $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');
+
+        /* Set the timezone variable, if available. */
+        $GLOBALS['registry']->setTimeZone();
     }
 
     /**
@@ -106,6 +107,22 @@ class Whups_Application extends Horde_Registry_Application
 
     /**
      */
+    public function menu($menu)
+    {
+        $menu->add(Horde::url('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'search' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('ticket/create.php'), _("_New Ticket"), 'create.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'ticket/create' && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('query/index.php'), _("_Query Builder"), 'query.png');
+        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
+
+        /* Administration. */
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin'))) {
+            $menu->add(Horde::url('admin/'), _("_Admin"), 'admin.png');
+        }
+    }
+
+    /**
+     */
     public function prefsInit($ui)
     {
         if (!$GLOBALS['registry']->hasMethod('contacts/sources')) {
@@ -153,12 +170,12 @@ class Whups_Application extends Horde_Registry_Application
             $data = Horde_Core_Prefs_Ui_Widgets::addressbooksUpdate($ui);
 
             if (isset($data['sources'])) {
-                $prefs->setValue('search_sources', $data['sources']);
+                $GLOBALS['prefs']->setValue('search_sources', $data['sources']);
                 $updated = true;
             }
 
             if (isset($data['fields'])) {
-                $prefs->setValue('search_fields', $data['fields']);
+                $GLOBALS['prefs']->setValue('search_fields', $data['fields']);
                 $updated = true;
             }
             break;

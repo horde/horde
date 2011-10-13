@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -17,7 +17,7 @@ $url = Horde::url('', true);
 $name = $registry->get('name', 'whups') . ' (' . $url . ')';
 
 // Icon.
-$icon = base64_encode(file_get_contents($registry->get('themesfs', 'whups') . '/graphics/whups.png'));
+$icon = base64_encode(file_get_contents($registry->get('themesfs', 'whups') . '/default/graphics/whups.png'));
 
 // Charset.
 header('Content-Type: text/xml; charset=UTF-8');
@@ -31,7 +31,7 @@ echo <<<PAYLOAD
     <Param name="id" value="{searchTerms}"/>
   </Url>
   <Image height="16" width="16">data:image/png;base64,$icon</Image>
-  <InputEncoding>$charset</InputEncoding>
+  <InputEncoding>UTF-8</InputEncoding>
 
 </OpenSearchDescription>
 PAYLOAD;

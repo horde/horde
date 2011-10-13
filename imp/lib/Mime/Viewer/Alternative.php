@@ -3,14 +3,14 @@
  * The IMP_Mime_Viewer_Alternative class renders out messages from
  * multipart/alternative content types (RFC 2046 [5.1.4]).
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
@@ -25,17 +25,6 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         'info' => false,
         'inline' => true,
         'raw' => false
-    );
-
-    /**
-     * Metadata for the current viewer/data.
-     *
-     * @var array
-     */
-    protected $_metadata = array(
-        'compressed' => false,
-        'embedded' => false,
-        'forceinline' => false
     );
 
     /**
@@ -132,7 +121,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         /* At this point, $ret contains stubs for all parts living in the base
          * alternative part.
          * Go through all subparts of displayable part and make sure all parts
-         * are rendered.  Parts not rendered will be markes as not being
+         * are rendered.  Parts not rendered will be marked as not being
          * handled by this viewer (Bug #9365). */
         $render_part = $this->_mimepart->getPart($disp_id);
         $need_render = $subparts = $render_part->contentTypeMap();

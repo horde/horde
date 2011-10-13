@@ -2,10 +2,10 @@
 /**
  * The Agora:: class provides basic Agora functionality.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Marko Djukic <marko@oblo.com>
  * @package Agora
@@ -99,11 +99,14 @@ class Agora {
      */
     function formatCategoryTree($forums)
     {
-        foreach ($forums as $id => $forum) {
-            $levels = explode(':', $forum);
-            $forums[$id] = str_repeat('.. ', count($levels) - 1) . array_pop($levels);
+        /* TODO this doesn't work, as forun_name doesn't contain ":".
+         * Should use forum_parent_id instead. */
+        $forums_list = array();
+        foreach (array_values($forums) as $forum) {
+            $levels = explode(':', $forum['forum_name']);
+            $forums_list[$forum['forum_id']] = str_repeat('.. ', count($levels) - 1) . array_pop($levels);
         }
-        return $forums;
+        return $forums_list;
     }
 
     /**
@@ -348,7 +351,7 @@ class Agora {
     {
         global $conf;
 
-        $storage = Agora_Messages::singleton();
+        $storage = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create();
         $message = $storage->getMessage($message_id);
         $forum = $storage->getForum($message['forum_id']);
 
@@ -356,21 +359,13 @@ class Agora {
             return;
         }
 
-        $msg_headers = new Horde_Mime_Headers();
-        $msg_headers->addMessageIdHeader();
-        $msg_headers->addAgentHeader();
-        $msg_headers->addHeader('Date', date('r'));
-        $msg_headers->addHeader('X-Horde-Agora-Post', $message_id);
+        $mail = new Horde_Mime_Mail();
+        $mail->addHeader('X-Horde-Agora-Post', $message_id);
+        $mail->addHeader('From', strpos($message['message_author'], '@') ? $message['message_author'] : $forum['forum_distribution_address']);
+        $mail->addHeader('Subject', '[' . $forum['forum_name'] . '] ' . $message['message_subject']);
+        $mail->addHeader('To', $forum['forum_distribution_address']);
+        $mail->setBody($message['body']);
 
-        $msg_headers->addHeader('To', $forum['forum_distribution_address']);
-        $msg_headers->addHeader('From', $message['message_author']);
-        $msg_headers->addHeader('Subject', '[' . $forum['forum_name'] . '] ' . $message['message_subject']);
-
-        $body = new Horde_Mime_Part();
-        $body->setType('text/plain');
-        $body->setCharset('UTF-8');
-        $body->setContents($message['body']);
-
-        $body->send($forum['forum_distribution_address'], $msg_headers, $conf['mailer']['type'], $conf['mailer']['params']);
+        $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
     }
 }

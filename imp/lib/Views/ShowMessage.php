@@ -2,14 +2,14 @@
 /**
  * Dynamic (dimp) message display logic.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Views_ShowMessage
@@ -50,14 +50,12 @@ class IMP_Views_ShowMessage
     /**
      * Create the object used to display the message.
      *
-     * @param array $args  Configuration parameters.
-     * <pre>
-     * 'headers' - (array) The headers desired in the returned headers array
-     *             (only used with non-preview view)
-     * 'mailbox' - (IMP_Mailbox) The mailbox name
-     * 'preview' - (boolean) Is this the preview view?
-     * 'uid' - (integer) The UID of the message
-     * </pre>
+     * @param array $args  Configuration parameters:
+     *   - headers: (array) The headers desired in the returned headers array
+     *              (only used with non-preview view).
+     *   - mailbox: (IMP_Mailbox) The mailbox of the message.
+     *   - preview: (boolean) Is this the preview view?
+     *   - uid: (integer) The UID of the message.
      *
      * @return array  Array with the following keys:
      * <pre>
@@ -71,8 +69,9 @@ class IMP_Views_ShowMessage
      * 'from' - The From addresses
      * 'js' - Javascript code to run on display
      * 'log' - Log information
-     * 'mailbox' - The IMAP mailbox
+     * 'mbox' - The IMAP mailbox (base64url encoded)
      * 'msgtext' - The text of the message
+     * 'save_as' - The save link
      * 'subject' - The subject
      * 'to' - The To addresses
      * 'uid' - The IMAP UID
@@ -86,7 +85,6 @@ class IMP_Views_ShowMessage
      * 'list_info' - List information.
      * 'priority' - The priority of the message ('low', 'high', 'normal')
      * 'replyTo' - The Reply-to addresses
-     * 'save_as' - The save link
      * 'title' - The title of the page
      * </pre>
      */
@@ -99,7 +97,7 @@ class IMP_Views_ShowMessage
 
         $result = array(
             'js' => array(),
-            'mailbox' => strval($mailbox),
+            'mbox' => $mailbox->form_to,
             'uid' => $uid
         );
 
@@ -116,12 +114,12 @@ class IMP_Views_ShowMessage
                 'peek' => false
             ));
 
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mailbox, $query, array('ids' => new Horde_Imap_Client_Ids($uid)));
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $fetch_ret = $imp_imap->fetch($mailbox, $query, array('ids' => new Horde_Imap_Client_Ids($uid)));
 
             /* Parse MIME info and create the body of the message. */
-            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mailbox, $uid));
-        } catch (Horde_Imap_Client_Exception $e) {
-        } catch (IMP_Exception $e) {}
+            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
+        } catch (Exception $e) {}
 
         if (is_null($imp_contents)) {
             $result['error'] = $error_msg;
@@ -185,16 +183,15 @@ class IMP_Views_ShowMessage
         }
 
         if (empty($result['reply-to']) ||
-            ($result['from'] == $result['reply-to'])) {
+            (Horde_Mime_Address::bareAddress($result['from']) == Horde_Mime_Address::bareAddress($result['reply-to']))) {
             unset($result['reply-to'], $headers['reply-to']);
         }
 
         /* JS requires camelized name for reply-to. */
         if (!$preview && isset($headers['reply-to'])) {
-            $head = 'replyTo';
             $result['replyTo'] = $result['reply-to'];
+            $headers['reply-to']['id'] = 'ReplyTo';
             unset($result['reply-to']);
-            $headers['reply-to']['id'] = Horde_String::ucfirst($head);
         }
 
         /* Grab maillog information. */
@@ -248,12 +245,17 @@ class IMP_Views_ShowMessage
             IMP_Contents::SUMMARY_DESCRIP_LINK |
             IMP_Contents::SUMMARY_DOWNLOAD |
             IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
-            IMP_Contents::SUMMARY_PRINT_STUB |
-            IMP_Contents::SUMMARY_STRIP_STUB;
+            IMP_Contents::SUMMARY_PRINT_STUB;
 
         $part_info = $part_info_display = array('icon', 'description', 'size', 'download', 'download_zip');
         $part_info_display[] = 'print';
-        $part_info_display[] = 'strip';
+
+        /* Allow stripping of attachments? */
+        if ($GLOBALS['prefs']->getValue('strip_attachments')) {
+            $contents_mask |= IMP_Contents::SUMMARY_STRIP_STUB;
+            $part_info[] = 'strip';
+            $part_info_display[] = 'strip';
+        }
 
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {
@@ -281,7 +283,7 @@ class IMP_Views_ShowMessage
             $result['atc_label'] = ($show_parts == 'all')
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", count($inlineout['atc_parts'])), count($inlineout['atc_parts']));
-            if (count($inlineout['display_ids']) > 2) {
+            if (count($inlineout['atc_parts']) > 2) {
                 $result['atc_download'] = Horde::link($imp_contents->urlView($imp_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>';
             }
         }
@@ -298,13 +300,17 @@ class IMP_Views_ShowMessage
                 $summary = $imp_contents->getSummary($id, $contents_mask);
                 $tmp .= '<tr>';
                 foreach ($part_info as $val) {
-                    $tmp .= '<td>' . $summary[$val] . '</td>';
+                    $tmp .= '<td' .
+                        (strlen($summary[$val]) ? '' : ' class="partlistempty"') .
+                        '>' . $summary[$val] . '</td>';
                 }
                 $tmp .= '</tr>';
             }
 
             $result['atc_list'] = $tmp;
         }
+
+        $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $mailbox->urlParams($uid)));
 
         if ($preview) {
             try {
@@ -321,19 +327,29 @@ class IMP_Views_ShowMessage
             if ($js_inline = Horde::endBuffer()) {
                 $result['js'][] = $js_inline;
             }
+
+            $result['save_as'] = strval($result['save_as']->setRaw(true));
         } else {
             try {
                 $result = Horde::callHook('dimp_messageview', array($result), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
 
             $result['list_info'] = $imp_ui->getListInformation($mime_headers);
-            $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), IMP::getIMPMboxParameters($mailbox, $uid, $mailbox)));
         }
 
         if (empty($result['js'])) {
             unset($result['js']);
         }
 
+        /* Add changed flag information. */
+        if ($imp_imap->imap) {
+            $status = $imp_imap->status($mailbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+            if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
+                $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $mailbox->getIndicesOb($uid));
+            }
+        }
+
         return $result;
     }
+
 }

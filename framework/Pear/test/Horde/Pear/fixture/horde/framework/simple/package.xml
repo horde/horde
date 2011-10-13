@@ -20,11 +20,21 @@
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPLv2.1</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPLv2.1</license>
  <notes>
 * Fixed bug #1
 * Initial release
  </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <file name="Old.php" role="php" />
+    <file name="Stays.php" role="php">
+      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    </file>
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
  <dependencies>
   <required>
    <php>
@@ -52,7 +62,7 @@
     <api>alpha</api>
    </stability>
    <date>2010-08-21</date>
-   <license uri="http://www.gnu.org/licenses/licenses/lgpl.html">LGPL</license>
+   <license uri="http://www.gnu.org/licenses/licenses/lgpl.html">LGPL-2.1</license>
    <notes>
 * Initial release
    </notes>

@@ -6,7 +6,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
@@ -14,19 +14,21 @@
 /**
  * A Horde_Injector:: based IMP_Mailbox_List:: factory.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
 class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
 {
+    const STORAGE_KEY = 'mboxlist/';
+
     /**
      * Instances.
      *
@@ -70,7 +72,7 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
             case 'imp':
             case 'mimp':
                 try {
-                    $ob = $GLOBALS['session']->get('imp', 'imp_mailbox/' . $mailbox);
+                    $ob = $GLOBALS['session']->get('imp', self::STORAGE_KEY . $mailbox);
                 } catch (Exception $e) {
                     $ob = null;
                 }
@@ -111,10 +113,19 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
              * unseen flag). */
             foreach ($this->_instances as $key => $val) {
                 if ($val->changed) {
-                    $GLOBALS['session']->set('imp', 'imp_mailbox/' . $key, $val);
+                    $GLOBALS['session']->set('imp', self::STORAGE_KEY . $key, $val);
                 }
             }
         }
+    }
+
+    /**
+     * Expires cached entries.
+     */
+    public function expireAll()
+    {
+        $GLOBALS['session']->remove('imp', self::STORAGE_KEY);
+        $this->_instances = array();
     }
 
 }

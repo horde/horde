@@ -26,6 +26,7 @@
   </ul>
  </div>
  <div class="clear">&nbsp;</div>
+ <div class="hordeSmPreview" id="<?php echo $this->instance?>_preview"></div>
  <div style="height:<?php echo $this->bodyHeight ?>px; overflow-y:auto; overflow-x:hidden" id="<?php echo $this->instance ?>_twitter_body">
    <div id="<?php echo $this->instance ?>_stream"></div>
    <div id="<?php echo $this->instance ?>_mentions"></div>

@@ -2,7 +2,7 @@
 /**
  * Horde_Service_Facebook_Request:: encapsulate a request to the Facebook API.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -65,7 +65,15 @@ class Horde_Service_Facebook_Request
         case Horde_Service_Facebook::DATA_FORMAT_JSON:
             return $data;
         case Horde_Service_Facebook::DATA_FORMAT_ARRAY:
-            $result = json_decode($data, true);
+            if (defined('JSON_BIGINT_AS_STRING')) {
+                $result = json_decode($data, true, constant('JSON_BIGINT_AS_STRING'));
+            } else {
+                if (is_numeric($data)) {
+                    $result = $data;
+                } else {
+                    $result = json_decode($data, true);
+                }
+            }
         }
         if (is_array($result) && isset($result['error_code'])) {
             throw new Horde_Service_Facebook_Exception($result['error_msg'], $result['error_code']);
@@ -90,7 +98,8 @@ class Horde_Service_Facebook_Request
             $url = new Horde_Url(Horde_Service_Facebook::REST_SERVER_ADDR . $method);
             $result = $this->_http->request('POST', $url->toString(), $this->_createPostString($params));
         } catch (Exception $e) {
-            throw new Horde_Service_Facebook_Exception(Horde_Service_Facebook_Translation::t("Service is unavailable. Please try again later."));
+            $this->_facebook->logger->err($e->getMessage());
+            throw new Horde_Service_Facebook_Exception(Horde_Service_Facebook_Translation::t("Facebook service is unavailable. Please try again later."));
         }
 
         return $result->getBody();

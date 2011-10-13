@@ -3,14 +3,14 @@
  * This class provides an interface to handling CSS stylesheets for Horde
  * applications.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Themes_Css
@@ -66,6 +66,8 @@ class Horde_Themes_Css
      * 'app' - (string) The current application.
      * 'nobase' - (boolean) If true, don't load base stylesheets.
      * 'nohorde' - (boolean) If true, don't load files from Horde.
+     * 'nocache' - (boolean) If true, don't load files from Cache.
+     *             @since Horde_Core 1.3.0
      * 'sub' - (string) A subdirectory containing additional CSS files to
      *         load as an overlay to the base CSS files.
      * 'subonly' - (boolean) If true, only load the files in 'sub', not
@@ -87,8 +89,11 @@ class Horde_Themes_Css
             ? $opts['theme']
             : $prefs->getValue('theme');
         $css = $this->getStylesheets($theme, $opts);
+        if (!count($css)) {
+            return array();
+        }
 
-        $cache_type = empty($conf['cachecss'])
+        $cache_type = !empty($opts['nocache']) || empty($conf['cachecss'])
             ? 'none'
             : $conf['cachecssparams']['driver'];
 

@@ -5,10 +5,10 @@
  *
  * Possible driver parameters:
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
@@ -78,7 +78,11 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
         $endDate->hour = 23;
         $endDate->min = $endDate->sec = 59;
 
-        $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
+        try {
+            $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
+        } catch (Horde_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
 
         $results = array();
         foreach ($eventsList as $eventsListItem) {
@@ -114,13 +118,13 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
      * @return string  The event id.
      * @throws Kronolith_Exception
      */
-    protected function _updateEvent($event)
+    protected function _updateEvent(Kronolith_Event $event)
     {
         if (!isset($this->api)) {
             list($this->api, $category) = explode('/', $this->calendar, 2);
         }
         try {
-            $this->_params['registry']->call($this->api . '/saveTimeObject', array($event->timeobject));
+            $this->_params['registry']->call($this->api . '/saveTimeObject', array($event->toTimeobject()));
         } catch (Horde_Exception $e) {
             throw new Kronolith_Exception($e);
         }

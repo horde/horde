@@ -2,10 +2,10 @@
 /**
  * The Agora script to split thread in two parts.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
@@ -13,7 +13,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
-$messages = &Agora_Messages::singleton($scope, $forum_id);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -37,6 +37,8 @@ if (!$messages->hasPermission(Horde_Perms::DELETE)) {
 /* Get the form object. */
 $vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, sprintf(_("Split \"%s\""), $message['message_subject']));
+
+// TODO Cancel button doesn't work currently, because it has no condition set
 $form->setButtons(array(_("Split"), _("Cancel")));
 $form->addHidden('', 'agora', 'text', false);
 $form->addHidden('', 'scope', 'text', false);
@@ -67,8 +69,8 @@ $view->formbox = Horde::endBuffer();
 
 $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
-$view->message_body = Agora_Messages::formatBody($message['body']);
+$view->message_body = Agora_Driver::formatBody($message['body']);
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('messages/edit.html.php');
+echo $view->render('messages/edit');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

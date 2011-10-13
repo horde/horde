@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Components_Release_Task_Freshmeat:: adds the new release to freshmeat.net.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Release_Task_Freshmeat
@@ -39,6 +39,9 @@ extends Components_Release_Task_Base
     public function validate($options)
     {
         $errors = array();
+        if (!$this->getNotes()->hasFreshmeat()) {
+            $errors[] = 'No freshmeat.net information available. The new version will not be added there!';
+        }
         if (empty($options['fm_token'])) {
             $errors[] = 'The "fm_token" option has no value. Who is updating freshmeat.net?';
         }
@@ -69,11 +72,11 @@ extends Components_Release_Task_Base
     /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
         if (!$this->getNotes()->hasFreshmeat()) {
             $this->getOutput()->warn(
@@ -83,7 +86,7 @@ extends Components_Release_Task_Base
         }
 
         $version = Components_Helper_Version::pearToHordeWithBranch(
-            $this->getPackage()->getVersion(),
+            $this->getComponent()->getVersion(),
             $this->getNotes()->getBranch()
         );
 
@@ -94,10 +97,13 @@ extends Components_Release_Task_Base
         );
 
         $link_data = array();
-        if ($this->getNotes()->getChangelog() !== '') {
+        $cl = $this->getComponent()->getChangelog(
+            new Components_Helper_ChangeLog($this->getOutput())
+        );
+        if ($cl !== '') {
             $link_data[] = array(
                 'label' => 'Changelog',
-                'location' => $this->getNotes()->getChangelog()
+                'location' => $cl
             );
         }
 

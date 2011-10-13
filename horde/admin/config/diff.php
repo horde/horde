@@ -3,14 +3,19 @@
  * Script to show the differences between the currently saved and the newly
  * generated configuration.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-Horde_Registry::appInit('horde', array('admin' => true));
+$permission = 'configuration';
+Horde_Registry::appInit('horde');
+if (!$registry->isAdmin() && 
+    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
+    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
+}
 
 /* Set up the diff renderer. */
 $render_type = Horde_Util::getFormData('render', 'inline');

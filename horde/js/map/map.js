@@ -23,7 +23,7 @@ HordeMap = {
      * Initialize hordemap javascript
      *
      * @param object opts  Hash containing:
-     *      'driver':    HordeMap driver to use (Horde | SAPO)
+     *      'driver':    HordeMap driver to use (Horde)
      *      'geocoder':  Geocoder driver to use
      *      'providers': Default provider layers to add (Google, Yahoo etc...)
      *      'jsuri':     The uri to the hordemap directory
@@ -33,10 +33,10 @@ HordeMap = {
      *          'apikeys': An object containing any api keys needed by the mapping
      *                     provider(s). {'google': 'xxxxx', ...}
      *          'useMarkerLayer': whether or not to use the 'built-in' marker
-     *                            layer (only applies to the Horde driver).
-     *
+     *                            layer.
      *          'markerImage':  Path to a marker icon.
      *          'markerBackground':  Path to a marker icon background.
+     *          ''
      */
     initialize: function(opts)
     {
@@ -51,10 +51,10 @@ HordeMap = {
         if (this._opts.driver == 'Horde') {
             this._addScript(path + 'OpenLayers.js');
             if (this._opts.conf.language != 'en-US') {
-                this._addScript(path + '/lang' + this._opts.conf.language + '.js');
+                this._addScript(path + '/lang/' + this._opts.conf.language + '.js');
             }
         }
-        
+
         this._addScript(path + this._opts.driver.toLowerCase() + '.js');
 
         if (this._opts.geocoder) {
@@ -129,7 +129,7 @@ HordeMap = {
     {
         switch (p) {
         case 'Google':
-            return 'http://maps.google.com/maps?file=api&v=2&sensor=false&key=' + this.conf['apikeys']['google'];
+           return  'http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false';
         case 'Yahoo':
             return 'http://api.maps.yahoo.com/ajaxymap?v=3.8&appid=' + this.conf['apikeys']['yahoo'];
         case 'Ve':

@@ -17,17 +17,17 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:11:01</time>
+ <date>2011-08-30</date>
+ <time>11:17:50</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -47,11 +47,13 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="migration">
-    <dir name="Horde_Group">
-     <file name="1_horde_group_base_tables.php" role="data" />
-     <file name="2_horde_group_upgrade_autoincrement.php" role="data" />
-    </dir> <!-- /migration/Horde_Group -->
-   </dir> <!-- /migration -->
+    <dir name="Horde">
+     <dir name="Group">
+      <file name="1_horde_group_base_tables.php" role="data" />
+      <file name="2_horde_group_upgrade_autoincrement.php" role="data" />
+     </dir> <!-- /migration/Horde/Group -->
+    </dir> <!-- /migration/Horde -->
+    </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Group">
@@ -129,8 +131,8 @@
    <install as="Horde/Group/Ldap.php" name="lib/Horde/Group/Ldap.php" />
    <install as="Horde/Group/Mock.php" name="lib/Horde/Group/Mock.php" />
    <install as="Horde/Group/Sql.php" name="lib/Horde/Group/Sql.php" />
-   <install as="migration/1_horde_group_base_tables.php" name="migration/Horde_Group/1_horde_group_base_tables.php" />
-   <install as="migration/2_horde_group_upgrade_autoincrement.php" name="migration/Horde_Group/2_horde_group_upgrade_autoincrement.php" />
+   <install as="migration/1_horde_group_base_tables.php" name="migration/Horde/Group/1_horde_group_base_tables.php" />
+   <install as="migration/2_horde_group_upgrade_autoincrement.php" name="migration/Horde/Group/2_horde_group_upgrade_autoincrement.php" />
    <install as="Horde/Group/AllTests.php" name="test/Horde/Group/AllTests.php" />
    <install as="Horde/Group/Autoload.php" name="test/Horde/Group/Autoload.php" />
    <install as="Horde/Group/Base.php" name="test/Horde/Group/Base.php" />
@@ -158,7 +160,7 @@
     <api>alpha</api>
    </stability>
    <date>2003-07-05</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial release as a PEAR package
    </notes>
@@ -174,7 +176,7 @@ Initial release as a PEAR package
    </stability>
    <date>2006-05-08</date>
    <time>21:51:02</time>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Added ldap driver.
 * Converted to package.xml 2.0 for pear.horde.org.
@@ -190,7 +192,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Added a mock driver for installations that don&apos;t need groups (Request #6157).
 * Added a beta SQL Group driver (Request #6175).
@@ -218,7 +220,7 @@ Initial release as a PEAR package
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Throw exceptions, not PEAR_Errors.
@@ -234,7 +236,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fix error in Mock driver when listing groups (Bug #9642).
    </notes>
@@ -249,7 +251,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -264,7 +266,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Fix incorrect lowercasing of objectClasses in LDAP driver.
@@ -281,7 +283,7 @@ Initial release as a PEAR package
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Add parameter to listAll() to only return groups that a user is member of.
@@ -294,8 +296,47 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add support for the attrisdn configuration setting (Bug #9762).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix undefined method when using attrisdn in LDAP driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix bind for modifying existing LDAP groups.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

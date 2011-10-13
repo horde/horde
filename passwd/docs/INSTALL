@@ -2,9 +2,7 @@
  Installing Passwd 4.0
 =======================
 
-:Last update:   $Date: 2009/06/10 08:20:39 $
-:Revision:      $Revision: 1.31.2.4 $
-:Contact:       sork@lists.horde.org
+:Contact: sork@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -36,7 +34,7 @@ To function properly, Passwd **requires** the following:
                   Horde prerequisites. Additionally, many of Passwd's optional
                   features are configured via the Horde install.
 
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
+   .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
 2. The following PHP capabilities, depending on the drivers you want use:
 
@@ -46,9 +44,9 @@ To function properly, Passwd **requires** the following:
 
       LDAP support is required for the kolab, ldap, and smbldap drivers.
 
-   c. Mhash support ``--with-mhash`` [OPTIONAL]
+   c. Hash support [OPTIONAL]
 
-      Mhash support is necessary for the smbldap driver.  See `LDAP
+      Hash support is necessary for the smbldap driver.  See `LDAP
       Implementation Information`_ for details.
 
    d. Mcrypt support ``--with-mcrypt`` [OPTIONAL]
@@ -106,23 +104,22 @@ First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Passwd through PEAR now, the installer will automatically
-install any dependencies of Passwd too. By default, only the required
-dependencies will be installed::
+install any dependencies of Passwd too. If you want to install Passwd with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
 
-   pear install horde/passwd
+   pear install -a -B horde/passwd-alpha
 
-If you want to install Passwd even with all optional dependencies, you need to
-specify the ``-a`` flag. Please note that this might also try to install PHP
+By default, only the required dependencies will be installed::
+
+   pear install horde/passwd-alpha
+
+If you want to install Passwd even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/passwd
-
-If you want to install Passwd with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/passwd
+   pear install -a horde/passwd-alpha
 
 
 Installing from Release Tarballs
@@ -134,7 +131,7 @@ Installing from Release Tarballs
 
 Passwd can be obtained from the Horde website and FTP server, at
 
-   http://www.horde.org/passwd/
+   http://www.horde.org/apps/passwd
 
    ftp://ftp.horde.org/pub/passwd/
 
@@ -178,10 +175,6 @@ Configuring Passwd
    the file.  In this case, go back to ``Configuration`` and choose one of the
    other methods to create the configuration file ``passwd/config/conf.php``.
 
-   To configure Passwd, change to the ``config/`` directory of the installed
-   distribution, and copy the ``backends.php.dist`` configuration file to
-   ``backends.php`` and edit it to your needs.
-
    Documentation on the format and purpose of the other configuration files in
    the ``config/`` directory can be found in each file. You may create
    ``*.local.php`` versions of these files if you wish to customize Passwd's
@@ -196,7 +189,7 @@ Configuring Passwd
    scripts.  If you installed Passwd as described above, the URL to the test
    page would be::
 
-      http://your-server/horde/passwd/test.php
+      http://your-server/horde/test.php?app=passwd
 
 
 Security considerations
@@ -246,10 +239,9 @@ d. Crypt encrypted passwords
 e. MD5 encrypted passwords (using base64 encoding - md5-base64)
 f. SMD5 encrypted passwords
 
-The smbldap extension require the php mhash and mcrypt extensions.  To
-enable these you must compile php with the ``--with-mhash[=DIR]`` and
-``--with-mcrypt[=DIR]`` parameters. ``DIR`` is the mhash or mcrypt
-install directory.
+The smbldap extension require the php hash and mcrypt extensions.  To enable
+these you must compile php with ``--with-mcrypt[=DIR]`` and **without** the
+``--disable-hash`` parameters. ``DIR`` is the mcrypt install directory.
 
 Crypt cannot handle passwords longer than eight characters (it accepts them
 but truncates them at 8 characters).  If you want to use longer passwords, you
@@ -308,7 +300,7 @@ Expect Script Information
 
 This code allows users to change their passwords via an expect script.  The
 module requires the expect program and a telnet or ssh program.  You may need
-to change some of the expect patterns in ``scripts/passwd_expect`` such as the
+to change some of the expect patterns in ``passwd-expect`` such as the
 ``badpassword_string`` or ``success_string`` (as only two examples).
 
 For security reasons, it is generally suggested to use ssh rather than telnet
@@ -331,13 +323,13 @@ If you encounter problems with Passwd, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
+Horde LLC runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -345,14 +337,13 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Passwd is free software written by volunteers.  For
 information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Passwd!
 
 The Passwd team
 
 
-.. _README: ?f=README.html
-.. _`horde/docs/HACKING`: ../../horde/docs/?f=HACKING.html
-.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
+.. _README: README
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS

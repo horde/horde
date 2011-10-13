@@ -1,10 +1,162 @@
-----------
-v4.0.1-git
-----------
+-----------
+v4.0.11-git
+-----------
 
+
+
+-------
+v4.0.10
+-------
+
+[mjr] Update javascript map library.
+[mms] Allow in-page base64 image encoding to be disabled via configuration.
+[jan] Add administration page to list and clear locks.
+
+
+------
+v4.0.9
+------
+
+[rla] Add account locking similar to the former kolab-specific option.
+[jan] Add missing configuration for LDAP groups write support.
+[rla] Show a warning when resetting password and no security question is set
+      (Request #10430).
+[mjr] Update jQuery Mobile to version 1.0 Beta 2.
+[jan] Update hordeweb theme to match new website layout.
+
+
+------
+v4.0.8
+------
+
+[mjr] Add remove button to image fields (Request #9870).
+[mjr] Fix sending unnecessary FOLDERSYNC changes.
+[mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to
+      PING and SYNC the same collection an unlimited number of times.
+[mjr] Use FQL to obtain event list and add rsvp_status.
+[cjh] Add mobile maintenance screens.
+[jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
+[cjh] New log filter for exact level matching (Bryan Alves
+      <bryanalves@gmail.com>).
+[jan] Don't set optional integer fields to 0 when automatically updating
+      configuration.
+[mjr] ActiveSync policykey is now per user, not per device.
+[mjr] Fix recurring event exception handling for ActiveSync.
+[mjr] Use AS in column aliases to make PostgreSQL happy (Bug #10346).
+[jan] Don't show mobile login page if users are forced to traditional or
+      dynamic views (Request #10358).
+[mjr] Improve calendar PING for iOS devices.
+[mjr] Prevent an ActiveSync sync loop in some fringe cases.
+[jan] Update PGP key server list and add SKS pool.
+
+
+------
+v4.0.7
+------
+
+[mjr] Fix returning shares in the proper order when fetching multiple shares
+      by id.
+[jan] Don't use CSS cache in mobile interfaces because it breaks jQuery Mobile
+      CSS.
+[mjr] Fix race conditions caused by broken clients sending an inappropriate
+      PING request.
+[jan] Fix duplication of objects during synchronization (joniw@t-online.de, Bug
+      #10081).
+[jan] Don't allow to click disabled login button (Bug #10267).
+[jan] Allow configuration of split read databases for PostgreSQL (Request
+      #7025).
+[mjr] Honor initial_application setting for mobile view (Bug #10264).
+[mjr] Fix issue with initial Android ActiveSync pairing.
+[gwr] Support restricting the HTML tidy post processing by the message size
+      (Request #10266).
+[gwr] Disabled the timeout on the logout token.
+[mjr] Fix integer overflow issue in Facebook code (Bug #9889).
+[mms] Fix adding users with Cyrsql driver (vilius@lnk.lt, Bug #10239).
+
+
+------
+v4.0.6
+------
+
+[jan] Fix extracting of translation strings in a release.
+[rla] Add user-specific admin permissions (Request #9350).
+[jan] Don't strip domain from user name in account block.
+[jan] Fix account block with empty configuration parameters.
+
+
+------
+v4.0.5
+------
+
+[jan] Remove debug code.
+
+
+------
+v4.0.4
+------
+
+[gwr] Added a script for exporting/importing preferences from/to a backend.
+[mms] Fix regression with UTF7-IMAP encoding of non-ascii folder names (Bug
+      #10093).
+[mms] Allow numbers to be zero in certain preferences (Bug #10120).
+[mms] Fix running Horde login tasks (Bug #9767).
+[mms] Fix authenticating as several users in the same request (Bug #10027).
+[mms] Fix colorpicker on categories preferences screen (Bug #10118).
+[jan] Update Spanish translation.
+[jan] Update Slovak translation.
+[mjr] Fix Metar portal block.
+[gwr] Add support for the Kolab IMAP based preferences backend.
+[mms] Complete fix for issue causing slow syncs only (Bug #10008).
+
+
+------
+v4.0.3
+------
+
+[mjr] Fix usage of countOwners() and listOwners() in the Sqlng driver.
+[mms] Fix return link after reporting problem (Bug #10069).
+[jan] Add button to update all configurations with default values at once.
+[jan] Update DataTree conversion scripts for Horde 4.
+[jan] Fix rendering of DataTree browse tree.
+[mjr] Fix issue with deleting identities (Bug #9997).
+[mjr] Fix issue causing credentials to be lost when accessing the API during
+      ActiveSync requests (Bug #9733).
+[jan] Store preferences for guests in the session.
+
+
+------
+v4.0.2
+------
+
+[jan] SECURITY: Fix permission checks of guest users on system shares.
+[mms] SECURITY: Fix deletion of unwanted HTML nodes in XSS filter.
+[mms] Fix authentication failure when TOS is not accepted.
+[jan] Don't show IMP compose link if user doesn't have permissions to IMP (Bug
+      #10016).
+[mms] Fix issue causing slow syncs only in SyncML (Bug #10008).
+[jan] Fix adding categories.
+[jan] Fix listing users in Customsql driver (Bug #9963).
+[jan] Fix calculation of last password change in LDAP account portal block (Bug
+      #9770).
+[jan] Don't check for outdated DB schemas if database support is disabled (Bug
+      #9986).
+[mjr] Fix editing settings of fixed portal blocks (Bug #9910).
+
+
+------
+v4.0.1
+------
+
+[mjr] Fix the blockTitle and blockContent API methods.
+[jan] Fix creating folders with SQL VFS driver (Bug #9894).
+[jan] Fix LDAP parameters of account portal block (Klaus Steinberger, Bug
+      #9770).
+[jan] Fix migration detection on Windows.
+[mjr] Correctly sanitize DSN when using custom cyrus auth driver (Bug #9879).
 [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
 [mms] Don't load sidebar content if not expanded.
 [jan] Fix deleting groups.
+
 [jan] Fix adding new groups (Bug #9881).
 [jan] Fix displaying the Facebook preference group.
 [mms] Add appinitialized hook.
@@ -143,6 +295,18 @@ v4.0-ALPHA1
 [cjh] Add a Horde_Routes dispatcher for Rampage applications.
 [mjr] Fix a possible infinite loop with certain recurring events in Horde_Date.
 [jan] Use DateTime internally in Horde_Date.
+
+
+-------
+v3.3.12
+-------
+
+[jan] Convert charset of group names in SQL driver (Bug #9611).
+[jan] Fix deleting of SyncML anchors if PHP short_open_tag is off (Bug #9349).
+[jan] Add an experimental new Share SQL driver with better performance.
+[jan] Fix integer overflow in ASN.1 parser for S/MIME messages.
+[jan] Fix splitread database usage in VFS (Bug #9467).
+[jan] Fix invalidating permission cache in SQL driver (Bug #9392).
 
 
 -------

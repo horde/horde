@@ -8,7 +8,7 @@
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the core content list handler for package.xml files.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Unit_Package_Contents_ListTest
@@ -46,11 +46,11 @@ extends Horde_Pear_TestCase
             array(
                 '/lib/Old.php' => array(
                     'role' => 'php',
-                    'as' => 'lib/Old.php'
+                    'as' => 'Old.php'
                 ),
                 '/lib/Stays.php' => array(
                     'role' => 'php',
-                    'as' => 'lib/Stays.php'
+                    'as' => 'Stays.php'
                 ),
             ),
             $this->_getList()->getContents()
@@ -67,7 +67,7 @@ extends Horde_Pear_TestCase
     private function _getList($root = null)
     {
         if ($root === null) {
-            $root = dirname(__FILE__) . '/../../../fixture/simple';
+            $root = dirname(__FILE__) . '/../../../fixture/horde/framework/simple';
         }
         return new Horde_Pear_Package_Contents_List(
             new Horde_Pear_Package_Type_Horde($root)

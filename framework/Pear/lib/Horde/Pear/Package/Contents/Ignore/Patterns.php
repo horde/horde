@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Pear
  */
 
@@ -16,15 +16,15 @@
  * Horde_Pear_Package_Contents_Ignore_Patterns:: ignores files based on a
  * pattern list.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Package_Contents_Ignore_Patterns
@@ -38,12 +38,22 @@ implements Horde_Pear_Package_Contents_Ignore
     private $_ignore = array();
 
     /**
+     * The root position of the repository.
+     *
+     * @var string
+     */
+    private $_root;
+
+    /**
      * Constructor.
      *
      * @param array $patterns The ignore patterns.
+     * @param string $root    The root position for the files that should be
+     *                        checked.
      */
-    public function __construct($patterns)
+    public function __construct($patterns, $root)
     {
+        $this->_root = $root;
         $this->_prepare($patterns);
     }
 
@@ -73,7 +83,10 @@ implements Horde_Pear_Package_Contents_Ignore
      */
     public function isIgnored(SplFileInfo $element)
     {
-        return $this->_matches($this->_ignore, $element->getPathname());
+        return $this->_matches(
+            $this->_ignore,
+            substr($element->getPathname(), strlen($this->_root))
+        );
     }
 
     /**

@@ -23,10 +23,8 @@ if ($ob->hasValue('__key')) {
         'source' => $ob->getSource(),
         'key' => $ob->getValue('__key')
     ));
-    $vcard_url = Horde::link(Horde::url($vcard_url),
-                             _("Download vCard"))
-        . Horde::img('mime/vcard.png', _("Download vCard"))
-        . '</a>';
+    $vcard_url = Horde::link(Horde::url($vcard_url), _("Download vCard"))
+        . '<span class="iconImg vcardImg"></span></a>';
 
     $cell = Horde::link($ob->url()) . $link_text . '</a>';
     if ($ob->hasPermission(Horde_Perms::EDIT)) {
@@ -37,8 +35,7 @@ if ($ob->hasValue('__key')) {
             'url' => Horde::selfUrl(true, false, true)
         ));
         $edit_url = Horde::link(Horde::url($edit_url), _("Edit"))
-            . Horde::img('edit.png', _("Edit"))
-            . '</a>';
+            . '<span class="iconImg editImg"></span></a>';
     }
 } else {
     $cell = $link_text;
@@ -56,7 +53,7 @@ if ($ob->hasValue('__key')) {
   <td class="turba-browse-icon"><?php echo $vcard_url ?></td>
 <?php endif; ?>
 <?php if ($this->showGroup): ?>
-  <td class="turba-browse-icon"><?php echo $ob->isGroup() ? Horde::img('group.png', _("Group")) : $own_icon ?></td>
+  <td class="turba-browse-icon"><?php echo $ob->isGroup() ? '<span class="iconImg groupImg" title="' . htmlspecialchars(_("Group")) . '"></span>' : $own_icon ?></td>
 <?php endif; ?>
   <td<?php if ($this->showSort && $this->isSortColumn(0)) echo ' class="linedRowSelectedCol"' ?>><?php
 echo $cell;

@@ -3,10 +3,10 @@
  * The Kronolith_Driver_Sql class implements the Kronolith_Driver API for a
  * SQL backend.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Luc Saillard <luc.saillard@fr.alcove.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
@@ -175,8 +175,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             $cond = substr($cond, 0, strlen($cond) - 5) . '))';
         }
 
-        $eventIds = $this->_listEventsConditional($query->start,
-                                                  $query->end,
+        $eventIds = $this->_listEventsConditional(empty($query->start) ? null : $query->start,
+                                                  empty($query->end) ? null : $query->end,
                                                   $cond,
                                                   $values);
         $events = array();
@@ -214,7 +214,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
 
-        return !$empty ? $event : false;
+        return !empty($event) ? $event : false;
     }
 
     /**
@@ -445,9 +445,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      *
      * @param string $uid       The UID to match
      * @param array $calendars  A restricted array of calendar ids to search
-     * @param boolean $getAll   Return all matching events? If this is false,
-     *                          an error will be returned if more than one event
-     *                          is found.
+     * @param boolean $getAll   Return all matching events?
      *
      * @return Kronolith_Event
      * @throws Kronolith_Exception
@@ -464,7 +462,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_exceptions, event_creator_id, event_resources, event_baseid,' .
             ' event_exceptionoriginaldate FROM ' . $this->_params['table'] .
             ' WHERE event_uid = ?';
-        $values = array($uid);
+        $values = array((string)$uid);
 
         /* Optionally filter by calendar */
         if (!is_null($calendars)) {
@@ -926,52 +924,6 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     public function convertToDriver($value)
     {
         return Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
-    }
-
-    /**
-     * Remove all events owned by the specified user in all calendars.
-     *
-     * @todo Refactor: move to Kronolith:: and catch exceptions instead of relying on boolean return value.
-     *
-     * @param string $user  The user name to delete events for.
-     *
-     * @return boolean
-     * @throws Kronolith_Exception
-     * @throws Horde_Exception_NotFound
-     * @throws Horde_Exception_PermissionDenied
-     */
-    public function removeUserData($user)
-    {
-        throw new Kronolith_Exception('to be refactored');
-
-        if (!$GLOBALS['registry']->isAdmin()) {
-            throw new Horde_Exception_PermissionDenied();
-        }
-
-        try {
-            $shares = $GLOBALS['kronolith_shares']->listShares($user, array('perm' => Horde_Perms::EDIT));
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($shares, 'ERR');
-            throw new Kronolith_Exception($shares);
-        }
-
-        foreach (array_keys($shares) as $calendar) {
-            $driver = Kronolith::getDriver(null, $calendar);
-            $events = $driver->listEvents(null, null, false, false, false);
-            $uids = array();
-            foreach ($events as $dayevents) {
-                foreach ($dayevents as $event) {
-                    $uids[] = $event->uid;
-                }
-            }
-
-            foreach ($uids as $uid) {
-                $event = $this->getByUID($uid);
-                $this->deleteEvent($event->id);
-            }
-        }
-
-        return true;
     }
 
 }

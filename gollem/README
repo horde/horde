@@ -1,31 +1,32 @@
-What is Gollem?
-===============
+=================
+ What is Gollem?
+=================
 
 :Contact: gollem@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
 
-Gollem is a web-based file manager, providing the ability to fully
-manage a hierarchical file system stored in a variety of backends such as a
-SQL database, as part of a real filesystem, or on an FTP server.
+Gollem is a web-based file manager, providing the ability to fully manage a
+hierarchical file system stored in a variety of backends such as a SQL
+database, as part of a real filesystem, or on FTP, Samba or SSH servers.
 
-This software is OSI Certified Open Source Software.  OSI Certified is a
+This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
 .. _`Open Source Initiative`: http://www.opensource.org/
 
 
 Obtaining Gollem
-----------------
+================
 
 Further information on Gollem and the latest version can be obtained at:
 
-  http://www.horde.org/gollem/
+  http://www.horde.org/apps/gollem
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Gollem distribution:
 
@@ -38,34 +39,34 @@ The following documentation is available in the Gollem distribution:
 
 
 Installation
-------------
+============
 
 Instructions for installing Gollem can be found in the file INSTALL_ in the
 ``docs/`` directory of the Gollem distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Gollem, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
-and for issues relating to the project as a whole.  Information, archives, and
+Horde LLC runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
-appearances on IRC, on the channel #horde on the freenode Network
+appearances on IRC, on the channel #horde on the Freenode Network
 (irc.freenode.net).
 
 
 Licensing
----------
+=========
 
 For licensing and copyright information, please see the file COPYING_ in the
 Gollem distribution.
@@ -74,10 +75,11 @@ Thanks,
 
 The Gollem Team
 
-.. _README: ?f=README.html
-.. _COPYING: http://www.horde.org/licenses/gpl.php
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CREDITS: ?f=CREDITS.html
+
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/TODO: ?f=TODO.html
+.. _docs/INSTALL: INSTALL
+.. _docs/TODO: TODO

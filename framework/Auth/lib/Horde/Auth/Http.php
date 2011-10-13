@@ -3,14 +3,14 @@
  * The Horde_Auth_Http class transparently logs users in to Horde using
  * already present HTTP authentication headers.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ * not receive this file, http://www.horde.org/licenses/lgpl21
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Http extends Horde_Auth_Base
@@ -59,9 +59,6 @@ class Horde_Auth_Http extends Horde_Auth_Base
                 // Enable the list users capability.
                 $this->_capabilities['list'] = true;
 
-                // Put users into alphabetical order.
-                sort($users);
-
                 foreach ($users as $line) {
                     list($user, $pass) = explode(':', $line, 2);
                     $this->_users[trim($user)] = trim($pass);
@@ -99,9 +96,11 @@ class Horde_Auth_Http extends Horde_Auth_Base
      *
      * @return array  The array of userIds.
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
-        return array_keys($this->_users);
+        // this driver sorts by default
+        $users = array_keys($this->_users);
+        return $this->_sort($users, $sort);
     }
 
     /**

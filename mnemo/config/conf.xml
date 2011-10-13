@@ -18,15 +18,21 @@
   </configswitch>
  </configsection>
  
+ <configsection name="notepads">
+  <configheader>Notepad Handler Settings</configheader>
+  <configswitch name="driver" desc="What type of notepad handler should we use?">default
+   <case name="default" desc="Default" />
+   <case name="kolab" desc="Kolab" />
+  </configswitch>
+ </configsection>
+
  <configsection name="menu">
   <configheader>Menu settings</configheader>
-  <configboolean name="print" desc="Should we display a Print link in the
-  Horde application menus?">true</configboolean>
   <configboolean name="import_export" desc="Should we display an Import/Export
   link in the Mnemo application menus?">true
   </configboolean>
   <configmultienum name="apps" desc="Select any applications
-  that should be linked in Mnemo's menu">
+  that should be linked in Mnemo's menu" required="false">
    <values>
     <configspecial application="horde" name="apps" />
    </values>

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Wicked
  */
@@ -67,7 +67,7 @@ class Wicked_Page_DeletePage extends Wicked_Page {
         $version = Horde_Util::getFormData('version');
         $page = Wicked_Page::getPage($this->referrer(), $version);
         if (!$page->isValid()) {
-            Wicked::url('WikiHome', true)->redirect();
+            Wicked::url('Wiki/Home', true)->redirect();
         }
 
         if (empty($version)) {
@@ -85,7 +85,7 @@ class Wicked_Page_DeletePage extends Wicked_Page {
 <input type="hidden" name="referrer" value="<?php echo htmlspecialchars($page->pageName()) ?>" />
 
 <h1 class="header">
- <?php echo _("Delete Page") . ': ' . Horde::link($page->pageUrl()) . htmlspecialchars($page->pageName()) . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
+ <?php echo _("Delete Page") . ': ' . Horde::link($page->pageUrl()) . htmlspecialchars($page->pageName()) . '</a> '; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
 </h1>
 
 <div class="headerbox" style="padding:4px">
@@ -126,7 +126,7 @@ class Wicked_Page_DeletePage extends Wicked_Page {
                 $GLOBALS['notification']->push(sprintf(_("Successfully deleted \"%s\"."), $pagename), 'horde.success');
                 Wicked::mail("Deleted page: $pagename\n",
                              array('Subject' => '[' . $GLOBALS['registry']->get('name') . '] deleted: ' . $pagename));
-                Wicked::url('WikiHome', true)->redirect();
+                Wicked::url('Wiki/Home', true)->redirect();
             }
             $GLOBALS['wicked']->removeVersion($pagename, $version);
             $GLOBALS['notification']->push(sprintf(_("Deleted version %s of \"%s\"."), $version, $pagename), 'horde.success');

@@ -2,10 +2,10 @@
 /**
  * Commit view
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
@@ -48,5 +48,8 @@ Horde::addScriptFile('tables.js', 'horde');
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
+
+$commit_page = 1;
 require CHORA_TEMPLATES . '/patchsets/ps_single.inc';
+
 require $registry->get('templates', 'horde') . '/common-footer.inc';

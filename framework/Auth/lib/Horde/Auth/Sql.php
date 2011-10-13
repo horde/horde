@@ -6,14 +6,14 @@
  * The table structure for the Auth system is in
  * horde/scripts/sql/horde_users.sql.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ * not receive this file, http://www.horde.org/licenses/lgpl21
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Sql extends Horde_Auth_Base
@@ -87,13 +87,26 @@ class Horde_Auth_Sql extends Horde_Auth_Base
             'password_field' => 'user_pass',
             'show_encryption' => false,
             'table' => 'horde_users',
-            'username_field' => 'user_uid'
+            'username_field' => 'user_uid',
+            'soft_expiration_field' => null,
+            'soft_expiration_window' => null,
+            'hard_expiration_field' => null,
+            'hard_expiration_window' => null
         ), $params);
 
-        $params['password_field'] = Horde_String::lower($params['password_field']);
-        $params['username_field'] = Horde_String::lower($params['username_field']);
-
         parent::__construct($params);
+
+        /* Only allow limits when there is a storage configured */
+        if ((empty($params['soft_expiration_field'])) &&
+            ($params['soft_expiration_window'] > 0)) {
+            throw new InvalidArgumentException('You cannot set [soft_expiration_window] without [soft_expiration_field].');
+        }
+
+        if (($params['hard_expiration_field'] == '') &&
+            ($params['hard_expiration_window'] > 0)) {
+            throw new InvalidArgumentException('You cannot set [hard_expiration_window] without [hard_expiration_field].');
+        }
+
     }
 
     /**
@@ -149,15 +162,27 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     public function addUser($userId, $credentials)
     {
         /* Build the SQL query. */
-        $query = sprintf('INSERT INTO %s (%s, %s) VALUES (?, ?)',
+        $query = sprintf('INSERT INTO %s (%s, %s',
                          $this->_params['table'],
                          $this->_params['username_field'],
                          $this->_params['password_field']);
+        $query_values_part = ' VALUES (?, ?';
         $values = array($userId,
                         Horde_Auth::getCryptedPassword($credentials['password'],
                                                   '',
                                                   $this->_params['encryption'],
                                                   $this->_params['show_encryption']));
+        if (!empty($this->_params['soft_expiration_field'])) {
+            $query .= sprintf(', %s', $this->_params['soft_expiration_field']);
+            $query_values_part .= ', ?';
+            $values[] = $this->_calc_expiration('soft');
+        }
+        if (!empty($this->_params['hard_expiration_field'])) {
+            $query .= sprintf(', %s', $this->_params['hard_expiration_field']);
+            $query_values_part .= ', ?';
+            $values[] = $this->_calc_expiration('hard');
+        }
+        $query .= ')' . $query_values_part . ')';
 
         try {
             $this->_db->insert($query, $values);
@@ -186,31 +211,13 @@ class Horde_Auth_Sql extends Horde_Auth_Base
 
         $query .= ', ' . $this->_params['password_field'] . ' = ?';
         $values[] = Horde_Auth::getCryptedPassword($credentials['password'], '', $this->_params['encryption'], $this->_params['show_encryption']);
-
-        if (empty($this->_params['soft_expiration_window'])) {
-            if (!empty($this->_params['soft_expiration_field'])) {
+        if (!empty($this->_params['soft_expiration_field'])) {
                 $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
-                $values[] = null;
-            }
-        } else {
-            $datea = localtime(time(), true);
-            $date = mktime($datea['tm_hour'], $datea['tm_min'],
-                           $datea['tm_sec'], $datea['tm_mon'] + 1,
-                           $datea['tm_mday'] + $this->_params['soft_expiration_window'],
-                           $datea['tm_year']);
-
-            $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
-            $values[] = $date;
-
-            if (empty($this->_params['hard_expiration_window'])) {
-                $values[] = null;
-            } else {
-                $datea = localtime($date, true);
-                $values[] = mktime($datea['tm_hour'], $datea['tm_min'],
-                            $datea['tm_sec'], $datea['tm_mon'] + 1,
-                            $datea['tm_mday'] + $this->_params['soft_expiration_window'],
-                            $datea['tm_year']);
-             }
+                $values[] =  $this->_calc_expiration('soft');
+        }
+        if (!empty($this->_params['hard_expiration_field'])) {
+                $query .= ', ' . $this->_params['hard_expiration_field'] . ' = ?';
+                $values[] =  $this->_calc_expiration('hard');
         }
 
         $query .= sprintf(' WHERE %s = ?', $this->_params['username_field']);
@@ -238,16 +245,23 @@ class Horde_Auth_Sql extends Horde_Auth_Base
         $password = Horde_Auth::genRandomPassword();
 
         /* Build the SQL query. */
-        $query = sprintf('UPDATE %s SET %s = ? WHERE %s = ?',
+        $query = sprintf('UPDATE %s SET %s = ?',
                          $this->_params['table'],
-                         $this->_params['password_field'],
-                         $this->_params['username_field']);
+                         $this->_params['password_field']);
         $values = array(Horde_Auth::getCryptedPassword($password,
                                                   '',
                                                   $this->_params['encryption'],
-                                                  $this->_params['show_encryption']),
-                        $userId);
-
+                                                  $this->_params['show_encryption']));
+        if (!empty($this->_params['soft_expiration_field'])) {
+                $query .= ', ' . $this->_params['soft_expiration_field'] . ' = ?';
+                $values[] =  $this->_calc_expiration('soft');
+        }
+        if (!empty($this->_params['hard_expiration_field'])) {
+                $query .= ', ' . $this->_params['hard_expiration_field'] . ' = ?';
+                $values[] =  $this->_calc_expiration('hard');
+        }
+        $query .= sprintf(' WHERE %s = ?', $this->_params['username_field']);
+        $values[] = $userId;
         try {
             $this->_db->update($query, $values);
         } catch (Horde_Db_Exception $e) {
@@ -285,13 +299,16 @@ class Horde_Auth_Sql extends Horde_Auth_Base
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         /* Build the SQL query. */
         $query = sprintf('SELECT %s FROM %s',
                          $this->_params['username_field'],
                          $this->_params['table']);
-
+        if ($sort) {
+            $query .= sprintf(' ORDER BY %s ASC',
+                               $this->_params['username_field']);
+        }
         try {
             return $this->_db->selectValues($query);
         } catch (Horde_Db_Exception $e) {
@@ -336,4 +353,20 @@ class Horde_Auth_Sql extends Horde_Auth_Base
                                                        $this->_params['show_encryption']);
     }
 
+    /**
+     * Calculate a timestamp and return it along with the field name
+     *
+     * @param string $type The timestamp parameter.
+     *
+     * @return integer 'timestamp' intended field value or null
+     */
+    private function _calc_expiration($type)
+    {
+        if (empty($this->_params[$type . '_expiration_window'])) {
+            return null;
+        } else {
+            $now = new Horde_Date(time());
+            return $now->add(array('mday' => $this->_params[$type.'_expiration_window']))->timestamp();
+        }
+    }
 }

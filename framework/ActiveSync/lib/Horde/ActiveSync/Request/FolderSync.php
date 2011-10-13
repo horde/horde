@@ -2,21 +2,21 @@
 /**
  * ActiveSync Handler for FOLDERSYNC requests
  *
- * Copyright 2009 - 2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
 /**
  * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL v2.
- * Consult LICENSE file for details
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
  */
 class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 {
     /* SYNC Status response codes */
     const STATUS_SUCCESS = 1;
-    const STATUS_SERVERERROR = 6;  // Should probably return to synckey 0?
+    const STATUS_SERVERERROR = 6;
     const STATUS_TIMEOUT = 8;
     const STATUS_KEYMISM = 9;
     const STATUS_PROTOERR = 10;
@@ -30,19 +30,19 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
     {
         parent::handle();
 
-        /* Be optimistic */
+        // Be optimistic
         $this->_statusCode = self::STATUS_SUCCESS;
         $this->_logger->info('[Horde_ActiveSync::handleFolderSync] Beginning FOLDERSYNC');
 
-        /* Check policy */
+        // Check policy
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
             return false;
         }
 
-        /* Maps serverid -> clientid for items that are received from the PIM */
+        // Maps serverid -> clientid for items that are received from the PIM
         $map = array();
 
-        /* Start parsing input */
+        // Start parsing input
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_FOLDERSYNC)) {
             $this->_logger->err('[Horde_ActiveSync::handleFolderSync] No input to parse');
             $this->_statusCode = self::STATUS_PROTOERR;
@@ -50,7 +50,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             exit;
         }
 
-        /* Get the current synckey from PIM */
+        // Get the current synckey from PIM
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY)) {
             $this->_logger->err('[Horde_ActiveSync::handleFolderSync] No input to parse');
             $this->_statusCode = self::STATUS_PROTOERR;
@@ -66,26 +66,18 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] syncKey: ' . $synckey);
 
-        /* Initialize state engine */
-        $this->_state->init(array('synckey' => $synckey));
         try {
-            /* Get folders that we know about already */
             $this->_state->loadState($synckey, 'foldersync');
-
-            /* Get new synckey to send back */
-            $newsynckey = $this->_state->getNewSyncKey($synckey);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError();
             exit;
         }
-        $seenfolders = $this->_state->getKnownFolders();
-        $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] newSyncKey: ' . $newsynckey);
 
-        /* Track if we have changes or not */
+        // Track if we have changes or not
         $changes = false;
 
-        /* Deal with folder hierarchy changes */
+        // Deal with folder hierarchy changes
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_CHANGES)) {
             // Ignore <Count> if present
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_COUNT)) {
@@ -97,7 +89,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            /* Process the incoming changes to folders */
+            // Process the incoming changes to folders
             $element = $this->_decoder->getElement();
             if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
                 $this->_statusCode = self::STATUS_PROTOERR;
@@ -105,7 +97,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 exit;
             }
 
-            /* Configure importer with last state */
+            // Configure importer with last state
             $importer = $this->_driver->getImporter();
             $importer->init($this->_state, false);
 
@@ -119,7 +111,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                 case SYNC_ADD:
                 case SYNC_MODIFY:
                     $serverid = $importer->importFolderChange($folder);
-                $changes = true;
+                    $changes = true;
                     break;
                 case SYNC_REMOVE:
                     $serverid = $importer->importFolderDeletion($folder);
@@ -147,16 +139,19 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             exit;
         }
 
-        /* Start sending server -> PIM changes */
+        // Start sending server -> PIM changes
         $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] Preparing to send changes to PIM');
+        $newsynckey = $this->_state->getNewSyncKey($synckey);
+        $seenfolders = $this->_state->getKnownFolders();
+        $this->_logger->debug('[Horde_ActiveSync::handleFolderSync] newSyncKey: ' . $newsynckey);
 
         // The $exporter just caches all folder changes in-memory, so we can
         // count before sending the actual data.
         $exporter = new Horde_ActiveSync_Connector_Exporter();
-        $sync = $this->_driver->GetSyncObject();
+        $sync = $this->_driver->getSyncObject();
         $sync->init($this->_state, $exporter, array('synckey' => $synckey));
 
-        /* Perform the actual sync operation */
+        // Perform the actual sync operation
         while(is_array($sync->syncronize()));
 
         // Output our WBXML reply now
@@ -203,9 +198,20 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
         $this->_encoder->endTag();
 
-        /* Save the state as well as the known folder cache */
-        $this->_state->setNewSyncKey($newsynckey);
-        $this->_state->save();
+        // Save the state as well as the known folder cache if we had any
+        // changes.
+        if ($exporter->count || $changed) {
+            $this->_state->setNewSyncKey($newsynckey);
+            $this->_state->save();
+        }
+
+        // Android sends a bogus device id of 'validate' during initial
+        // handshake. This data is never used again, and the resulting
+        // FOLDERSYNC response is ignored by the client. Remove the entry,
+        // to avoid having 2 device entries for every android client.
+        if ($this->_device->id == 'validate') {
+            $this->_state->removeState(null, 'validate');
+        }
 
         return true;
     }

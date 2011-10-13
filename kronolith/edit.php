@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
@@ -70,6 +70,7 @@ do {
                 $event->recurrence->deleteException($year, $month, $day);
                 _save($event);
             }
+            $notification->push(_("The exception has been removed."), 'horde.success');
         } catch (Exception $e) {
             $notification->push(sprintf(_("There was an error accessing the calendar: %s"), $e->getMessage()), 'horde.error');
         }

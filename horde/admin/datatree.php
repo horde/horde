@@ -2,10 +2,10 @@
 /**
  * Horde_DataTree browser.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
@@ -27,7 +27,12 @@ function _addTree($parent, $parent_id, $datatree, $tree, $indent = 1)
 }
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('admin' => true));
+$permission = 'datatree';
+Horde_Registry::appInit('horde');
+if (!$registry->isAdmin() && 
+    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
+    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
+}
 
 $tree = $injector->getInstance('Horde_Core_Factory_Tree')->create('datatree', 'Javascript', array(
     'alternate' => true

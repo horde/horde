@@ -2,16 +2,16 @@
 /**
  * This class provides an API to the blocks (applets) framework.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Core_Block_Collection implements Serializable
@@ -99,7 +99,7 @@ class Horde_Core_Block_Collection implements Serializable
      * Gets a block object.
      *
      * @param string $app    Application name.
-     * @param string $name   Block name.
+     * @param string $name   The Block's classname.
      * @param array $params  Parameters.  If null, the stored parameters will
      *                       be used.
      *
@@ -196,7 +196,7 @@ class Horde_Core_Block_Collection implements Serializable
     public function getBlocksWidget($cur_app = null, $cur_block = null,
                                     $onchange = false, $readonly = false)
     {
-        $widget = '<select name="app"';
+        $widget = '<select name=' . (!$readonly ? '"app"' : '"roapp"');
 
         if ($onchange) {
             $widget .= ' onchange="document.blockform.action.value=\'save-resume\';document.blockform.submit()"';
@@ -216,8 +216,12 @@ class Horde_Core_Block_Collection implements Serializable
                 $name
             );
         }
+        $widget .= "</select>\n";
+        if ($readonly) {
+            $widget .= '<input type="hidden" name="app" value="' . $cur_app . ':' . $cur_block . '" />' . "\n";
+        }
 
-        return $widget . "</select>\n";
+        return $widget;
     }
 
     /**

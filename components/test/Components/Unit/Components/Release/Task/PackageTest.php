@@ -8,7 +8,7 @@
  * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Components
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
 /**
  * Test the package release task.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Components
  */
 class Components_Unit_Components_Release_Task_PackageTest
@@ -69,7 +69,7 @@ extends Components_TestCase
     {
         $package = $this->_getPackage();
         $package->expects($this->once())
-            ->method('generateRelease');
+            ->method('placeArchive');
         $this->getReleaseTasks()->run(
             array('Package'),
             $package,
@@ -105,7 +105,13 @@ extends Components_TestCase
 
     private function _getPackage()
     {
-        $package = $this->getMock('Components_Pear_Package', array(), array(), '', false, false);
+        $package = $this->getMock('Components_Component', array(), array(), '', false, false);
+        $package->expects($this->any())
+            ->method('getState')
+            ->will($this->returnValue('stable'));
+        $package->expects($this->any())
+            ->method('getVersion')
+            ->will($this->returnValue('1.0.0'));
         return $package;
     }
 }

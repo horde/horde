@@ -3,13 +3,13 @@
  * Horde_Form for deleting resources.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Kronolith
  */
 
 /**
- * The Kronolith_DeleteResourceForm class provides the form for deleting a
+ * The Kronolith_Form_DeleteResource class provides the form for deleting a
  * resource.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>

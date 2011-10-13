@@ -39,11 +39,6 @@ class Nag_Block_Summary extends Horde_Core_Block
 
         $tasklists = array();
         foreach (Nag::listTasklists() as $id => $tasklist) {
-            if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-                !empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-                continue;
-            }
             $tasklists[$id] = $tasklist->get('name');
         }
 
@@ -261,8 +256,8 @@ class Nag_Block_Summary extends Horde_Core_Block
             $html .= '</td>';
 
             if (!empty($this->_params['show_category'])) {
-                $html .= '<td width="1%" class="category'
-                    . md5($task->category) . '">'
+                $html .= '<td class="base-category" width="1%" style="'
+                    . $task->getCssStyle() . '">'
                     . htmlspecialchars($task->category
                                        ? $task->category : _("Unfiled"))
                     . '</td>';
@@ -273,8 +268,6 @@ class Nag_Block_Summary extends Horde_Core_Block
         if (empty($html)) {
             return '<em>' . _("No tasks to display") . '</em>';
         }
-
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
 
         return '<table cellspacing="0" width="100%" class="linedRow">'
             . $html . '</table>';

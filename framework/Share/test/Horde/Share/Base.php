@@ -9,8 +9,8 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @category   Horde
  * @package    Share
  * @subpackage UnitTests
- * @copyright  2010 The Horde Project (http://www.horde.org/)
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @copyright  2010 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Share_Test_Base extends Horde_Test_Case
 {
@@ -68,6 +68,8 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertTrue($share->hasPermission('john', Horde_Perms::READ));
         $this->assertFalse($share->hasPermission('john', Horde_Perms::EDIT));
         $this->assertFalse($share->hasPermission('john', Horde_Perms::DELETE));
+        $this->assertTrue($share->hasPermission(false, Horde_Perms::SHOW));
+        $this->assertFalse($share->hasPermission(false, Horde_Perms::EDIT));
     }
 
     protected function permissionsChildShare()
@@ -208,7 +210,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals('行事曆', $myshare->get('desc'));
 
         $this->switchAuth('jane');
-        $janeshare = self::$share->getShareById(self::$shares['janeshare']->getId());
+        $janeshare = self::$share->getShareById(self::$shares['jane']['janeshare']->getId());
         $janeshare->getPermission();
         $this->assertInstanceOf('Horde_Share_Object', $janeshare);
         $this->assertEquals(self::$shares['jane']['janeshare'], $janeshare);
@@ -220,7 +222,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertEquals('Jane\'s Share', $janeshare->get('name'));
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
 
-        $groupshare = self::$share->getShareById(self::$shares['groupshare']->getId());
+        $groupshare = self::$share->getShareById(self::$shares['jane']['groupshare']->getId());
         $groupshare->getPermission();
         $this->assertInstanceOf('Horde_Share_Object', $groupshare);
         $this->assertEquals(self::$shares['jane']['groupshare'], $groupshare);
@@ -604,4 +606,5 @@ class Horde_Share_Test_Base extends Horde_Test_Case
     protected function switchAuth($user)
     {
     }
+
 }

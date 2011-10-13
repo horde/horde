@@ -1,12 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Migration
@@ -16,7 +16,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Migration
@@ -232,7 +232,7 @@ class Horde_Db_Migration_Migrator
                             $this->_migrationsPath
                         )
                     ),
-                    '/\/\d+_.*\.php$/',
+                    '/' . preg_quote(DIRECTORY_SEPARATOR, '/') . '\d+_.*\.php$/',
                     RecursiveRegexIterator::MATCH,
                     RegexIterator::USE_KEY
                 )

@@ -4,17 +4,17 @@
  * the seen flag (RFC 3501 [2.3.2]) is NOT set; thus, it can not be handled
  * in the seen flag object.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Flag_System_Unseen extends IMP_Flag_System
+class IMP_Flag_System_Unseen extends IMP_Flag_System_Match_Flag
 {
     /**
      */
@@ -53,9 +53,8 @@ class IMP_Flag_System_Unseen extends IMP_Flag_System
     }
 
     /**
-     * @param array $data  List of IMAP flags.
      */
-    public function match($data)
+    public function match(array $data)
     {
         return !in_array(Horde_Imap_Client::FLAG_SEEN, $data);
     }

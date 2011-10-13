@@ -2,14 +2,14 @@
 /**
  * The Horde_Core_Ui_VarRenderer_html:: class renders variables to HTML.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jason M. Felice <jason.m.felice@gmail.com>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
@@ -82,7 +82,7 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
                        htmlspecialchars($var->getValue($vars)),
                        $var->isDisabled() ? ' disabled="disabled" ' : '',
                        empty($maxlength) ? '' : ' maxlength="' . $maxlength . '"',
-                       $this->_getActionScripts($form, $var)    
+                       $this->_getActionScripts($form, $var)
                );
     }
 
@@ -192,6 +192,11 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         }
 
         if (!empty($image['img'])) {
+            $html .= '&nbsp;';
+            $html .= sprintf('<input class="button" name="%s" id="%S" type="submit" value="%s" /> ',
+                             'remove_' . htmlspecialchars($var->getVarName()),
+                             'remove_' . $this->_genID($var->getVarName(), false),
+                             Horde_Core_Translation::t("Remove"));
             /* Image information stored, show preview, add buttons for image
              * manipulation. */
             $html .= '<br />';
@@ -577,11 +582,11 @@ class Horde_Core_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer
         Horde::addScriptFile('sorter.js', 'horde');
 
         return '<input type="hidden" name="' . htmlspecialchars($var->getVarName()) .
-            '[array]" value="" ' . $this->_genID($varname . '_array') . '/>' .
+            '[array]" value="" ' . $this->_genID($var->getVarName() . '_array') . '/>' .
             '<select class="leftFloat" multiple="multiple" size="' .
             (int)$var->type->getSize() . '" name="' . htmlspecialchars($var->getVarName()) .
             '[list]" onchange="' . $instance . '.deselectHeader();" ' .
-            $this->_genID($varname . '_list') . '>' .
+            $this->_genID($var->getVarName() . '_list') . '>' .
             $var->type->getOptions($var->getValue($vars)) . '</select><div class="leftFloat">' .
             Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnUp(); return false;') . Horde::img('nav/up.png', Horde_Core_Translation::t("Move up")) . '</a><br />' .
             Horde::link('#', Horde_Core_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;') . Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")) . '</a></div>' .

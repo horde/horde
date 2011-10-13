@@ -2,7 +2,7 @@
 /**
  * Rules script.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -44,7 +44,6 @@ $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 /* Run through action handlers. */
 $vars = Horde_Variables::getDefaultVariables();
 switch ($vars->actionID) {
-case 'create_folder':
 case 'rule_save':
 case 'rule_update':
 case 'rule_delete':
@@ -104,11 +103,32 @@ case 'rule_delete':
         }
     }
 
-    $rule['action-value'] = ($vars->actionID == 'create_folder')
-        ? Ingo::createFolder($vars->new_folder_name)
-        : $vars->actionvalue;
-
     $rule['action'] = $vars->action;
+
+    switch ($ingo_storage->getActionInfo($vars->action)->type) {
+    case 'folder':
+        if ($vars->actionID == 'rule_save') {
+            try {
+                $rule['action-value'] = Ingo::validateFolder($vars, 'actionvalue');
+            } catch (Ingo_Exception $e) {
+                $notification->push($e, 'horde.error');
+                $valid = false;
+            }
+        } else {
+            $rule['action-value'] = $vars->actionvalue;
+            if (!$vars->actionvalue && isset($vars->actionvalue_new)) {
+                Horde::addInlineScript(array(
+                    'IngoNewFolder.setNewFolder("actionvalue", ' . Horde_Serialize::serialize($vars->actionvalue_new, Horde_Serialize::JSON) . ')'
+                ), 'dom');
+            }
+        }
+        break;
+
+    default:
+        $rule['action-value'] = $vars->actionvalue;
+        break;
+    }
+
     $rule['stop'] = $vars->stop;
 
     $rule['flags'] = 0;
@@ -150,7 +170,7 @@ case 'rule_delete':
             exit;
         }
         if (isset($vars->conditionnumber)) {
-            unset($rule['conditions'][$vars->conditionnumner]);
+            unset($rule['conditions'][intval($vars->conditionnumber)]);
             $rule['conditions'] = array_values($rule['conditions']);
         }
     }
@@ -189,7 +209,6 @@ if (!$rule) {
 $title = $rule['name'];
 Horde::addScriptFile('rule.js', 'ingo');
 $menu = Ingo::menu();
-Ingo::addNewFolderJs();
 require $registry->get('templates', 'horde') . '/common-header.inc';
 echo $menu;
 Ingo::status();

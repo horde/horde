@@ -2,11 +2,11 @@
 /**
  * Tests for the Horde_Mime_Part class.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */
@@ -17,9 +17,9 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
- * @author     Michael Slusarz <slusarz@curecanti.org>
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */
@@ -175,6 +175,88 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType(
             'resource',
             $part1->getContents(array('stream' => true))
+        );
+
+        $this->assertEquals(
+            'Test',
+            $part->getContents()
+        );
+    }
+
+    // Bug #10324
+    public function testQuotedPrintableNewlines()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setContents("A\r\nBā\r\nC");
+
+        $this->assertEquals(
+            "A=0D\nB=C4=81=0D\nC",
+            $part->toString()
+        );
+
+        $part->setEOL("\r\n");
+
+        $this->assertEquals(
+            "A\r\nB=C4=81\r\nC",
+            $part->toString()
+        );
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('multipart/mixed');
+        $part2->addPart($part);
+
+        $this->assertStringMatchesFormat(
+            "This message is in MIME format.
+
+--=_%s
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+A
+B=C4=81
+C
+--=_%s--",
+            $part2->toString()
+        );
+
+        $part->setEOL("\n");
+
+        $this->assertStringMatchesFormat(
+            "This message is in MIME format.
+
+--=_%s
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+A=0D
+B=C4=81=0D
+C
+--=_%s--",
+            $part2->toString()
+        );
+    }
+
+    public function testFindBody()
+    {
+        $part = $this->_getTestPart();
+        $part31 = $part->getPart('3.1');
+        $part31->setType('text/html');
+
+        $this->assertEquals(
+            '1',
+            $part->findBody()
+        );
+
+        $this->assertEquals(
+            '3.1',
+            $part->findBody('html')
+        );
+
+        // Bug #10458
+        $part31->setDisposition('attachment');
+        $this->assertNull(
+            $part->findBody('html')
         );
     }
 

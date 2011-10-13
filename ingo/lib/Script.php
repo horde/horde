@@ -123,7 +123,7 @@ class Ingo_Script
         if (!isset($params['spam_header'])) {
             $params['spam_header'] = $GLOBALS['conf']['spam']['header'];
         }
-        if (!isset($params['spam_char'])) {
+        if (!isset($params['spam_char']) && $params['spam_compare'] == 'string') {
             $params['spam_char'] = $GLOBALS['conf']['spam']['char'];
         }
         if ($script == 'Sieve') {

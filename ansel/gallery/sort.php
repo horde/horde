@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
@@ -58,11 +58,9 @@ case 'Sort':
 }
 
 Horde::addInlineScript(array(
-    'Sortable.create("sortContainer", { tag: "div", overlap: "horizontal", constraint: false })'
+    'jQuery("#sortContainer").sortable()',
+    'jQuery("#sortContainer").disableSelection()',
 ), 'dom');
-
-Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('dragdrop.js', 'horde');
 
 $title = sprintf(_("%s :: Sort"), $gallery->get('name'));
 require $registry->get('templates', 'horde') . '/common-header.inc';
@@ -81,7 +79,7 @@ $notification->notify(array('listeners' => 'status'));
   <input type="hidden" name="day" value="<?php echo $date['day'] ?>" />
   <p>
    <?php echo _("Drag photos to the desired sort position.") ?>
-   <input type="submit" onclick="$('order').value = Sortable.serialize('sortContainer', { name: 'order' });" class="button" value="<?php echo _("Done") ?>" />
+   <input type="submit" onclick="jQuery('#order').val(jQuery('#sortContainer').sortable('serialize', { key: 'order[]' }));" class="button" value="<?php echo _("Done") ?>" />
   </p>
  </form>
 </div>
@@ -98,4 +96,9 @@ foreach ($images as $image) {
         . '</a></div>';
 }
 echo '</div>';
+?>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+<script>jQuery.noConflict();</script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js" type="text/javascript"></script>
+<?php
 require $registry->get('templates', 'horde') . '/common-footer.inc';

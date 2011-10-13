@@ -2,14 +2,14 @@
 /**
  * Selectlist handler.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Gollem
  */
 
@@ -18,31 +18,26 @@ Horde_Registry::appInit('gollem', array(
     'authentication' => 'selectlist'
 ));
 
+$vars = Horde_Variables::getDefaultVariables();
+
 /* Set directory. */
 try {
     Gollem::changeDir();
 } catch (Gollem_Exception $e) {
     $notification->push($e);
 }
-$currdir = Gollem::getDir();
 
 /* Create a new cache ID if one does not already exist. */
-$cacheid = Horde_Util::getFormData('cacheid');
-if (empty($cacheid)) {
-    $cacheid = strval(new Horde_Support_Randomid());
-}
+$cacheid = $vars->get('cacheid', strval(new Horde_Support_Randomid()));
+
 $selectlist = $session->get('gollem', 'selectlist/' . $cacheid, Horde_Session::TYPE_ARRAY);
 
-/* Get the formid for the return. */
-$formid = Horde_Util::getFormData('formid');
-
 /* Run through the action handlers. */
-switch (Horde_Util::getFormData('actionID')) {
+switch ($vars->actionID) {
 case 'select':
-    $items = Horde_Util::getPost('items');
-    if (is_array($items) && count($items)) {
-        foreach ($items as $item) {
-            $item_value = $currdir . '|' . $item;
+    if (is_array($vars->items) && count($vars->items)) {
+        foreach ($vars->items as $item) {
+            $item_value = Gollem::$backend['dir'] . '|' . $item;
             if (empty($selectlist['files'])) {
                 $selectlist['files'] = array($item_value);
             } else {
@@ -64,26 +59,17 @@ case 'select':
 }
 
 try {
-    $info = array(
-        'list' => Gollem::listFolder($currdir)
-    );
+    $info = array('list' => Gollem::listFolder(Gollem::$backend['dir']));
 } catch (Gollem_Exception $e) {
     /* If that didn't work, fall back to the parent or the home directory. */
-    $notification->push(sprintf(_("Permission denied to %s: %s"), $currdir, $e->getMessage()), 'horde.error');
+    $notification->push(sprintf(_("Permission denied to %s: %s"), Gollem::$backend['dir'], $e->getMessage()), 'horde.error');
 
-    $loc = strrpos($currdir, '/');
-    Gollem::setDir(($loc !== false) ? substr($currdir, 0, $loc) : Gollem::getHome());
-    $currdir = Gollem::getDir();
-    $info = array(
-        'list' => Gollem::listFolder($currdir)
-    );
+    $loc = strrpos(Gollem::$backend['dir'], '/');
+    Gollem::setDir(($loc !== false) ? substr(Gollem::$backend['dir'], 0, $loc) : Gollem::$backend['home']);
+    $info = array('list' => Gollem::listFolder(Gollem::$backend['dir']));
 }
 
-$info['title'] = htmlspecialchars($GLOBALS['gollem_be']['label']);
-
-/* Image links. */
-$folder_img = Horde::img('folder.png', _("folder"));
-$symlink_img = Horde::img('folder_symlink.png', _("symlink"));
+$info['title'] = htmlspecialchars(Gollem::$backend['label']);
 
 /* Commonly used URLs. */
 $self_url = Horde::url('selectlist.php');
@@ -96,12 +82,12 @@ $t->set('cancelbutton', _("Cancel"));
 $t->set('self_url', $self_url);
 $t->set('forminput', Horde_Util::formInput());
 $t->set('cacheid', htmlspecialchars($cacheid));
-$t->set('currdir', htmlspecialchars($currdir));
-$t->set('formid', htmlspecialchars($formid));
-$t->set('navlink', Gollem::directoryNavLink($currdir, $self_url->copy()->add(array('cacheid' => $cacheid, 'formid' => $formid))));
+$t->set('currdir', htmlspecialchars(Gollem::$backend['dir']));
+$t->set('formid', htmlspecialchars($vars->formid));
+$t->set('navlink', Gollem::directoryNavLink(Gollem::$backend['dir'], $self_url->copy()->add(array('cacheid' => $cacheid, 'formid' => $vars->formid))));
 if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
     // TODO
-    //$t->set('changeserver', Horde::link(htmlspecialchars(Horde_Auth::addLogoutParameters(Horde_Util::addParameter(Horde::url('login.php'), array('url' => Horde_Util::addParameter(Horde::url('selectlist.php'), array('formid' => $formid)))), Horde_Auth::REASON_LOGOUT)), _("Change Server")) . Horde::img('logout.png', _("Change Server")) . '</a>', true);
+    //$t->set('changeserver', Horde::link(htmlspecialchars(Horde_Auth::addLogoutParameters(Horde_Util::addParameter(Horde::url('login.php'), array('url' => Horde_Util::addParameter(Horde::url('selectlist.php'), array('formid' => $vars->formid)))), Horde_Auth::REASON_LOGOUT)), _("Change Server")) . Horde::img('logout.png', _("Change Server")) . '</a>', true);
 } else {
     $t->set('changeserver', '', true);
 }
@@ -125,9 +111,9 @@ if (is_array($info['list']) &&
 
         /* Determine graphic to use. */
         if (!empty($val['link'])) {
-            $item['graphic'] = $symlink_img;
+            $item['graphic'] = '<span class="iconImg symlinkImg"></span>';
         } elseif ($val['type'] == '**dir') {
-            $item['graphic'] = $folder_img;
+            $item['graphic'] = '<span class="iconImg folderImg"></span>';
         } else {
             if (empty($icon_cache[$val['type']])) {
                 $icon_cache[$val['type']] = $injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($val['type']);
@@ -140,8 +126,8 @@ if (is_array($info['list']) &&
         case '**dir':
             $url = $self_url->copy()->add(array(
                 'cacheid' => $cacheid,
-                'dir' => Gollem::subdirectory($currdir, $val['name']),
-                'formid' => $formid
+                'dir' => Gollem::subdirectory(Gollem::$backend['dir'], $val['name']),
+                'formid' => $vars->formid
             ));
             $item['link'] = $url->link() . '<strong>' . $name . '</strong></a>';
             $item['dir'] = true;
@@ -155,13 +141,13 @@ if (is_array($info['list']) &&
                     $dir = implode('/', $parts);
                 } else {
                     $name = $val['link'];
-                    $dir = $currdir;
+                    $dir = Gollem::$backend['dir'];
                 }
 
                 $url = $self_url->copy()->add(array(
                     'cacheid' => $cacheid,
-                    'dir' => Gollem::subdirectory($currdir, $val['name']),
-                    'formid' => $formid
+                    'dir' => Gollem::subdirectory(Gollem::$backend['dir'], $val['name']),
+                    'formid' => $vars->formid
                 ));
                 $item['link'] = $item['name'] . ' -> <strong>' . $url->link() . $val['link'] . '</a></strong>';
             } else {
@@ -175,7 +161,7 @@ if (is_array($info['list']) &&
         }
 
         if (!empty($selectlist['files']) &&
-            in_array($currdir . '|' . $val['name'], $selectlist['files'])) {
+            in_array(Gollem::$backend['dir'] . '|' . $val['name'], $selectlist['files'])) {
             $item['selected'] = true;
         }
 
@@ -194,7 +180,7 @@ $title = $info['title'];
 Horde::addScriptFile('selectlist.js', 'gollem');
 Horde::addInlineJsVars(array(
     'cacheid' => $cacheid,
-    'formid' => $formid
+    'formid' => $vars->formid
 ));
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require GOLLEM_TEMPLATES . '/javascript_defs.php';

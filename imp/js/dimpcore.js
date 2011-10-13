@@ -1,10 +1,10 @@
 /**
  * dimpcore.js - Dimp UI application logic.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 /* DimpCore object. */
@@ -36,22 +36,24 @@ var DimpCore = {
 
     // Convert object to an IMP UID Range string. See IMP::toRangeString()
     // ob = (object) mailbox name as keys, values are array of uids.
-    toRangeString: function(ob)
+    // force = (boolean) Force into parsing in string mode (e.g. POP3 mode)
+    toRangeString: function(ob, force)
     {
         var str = '';
+        force = force || DIMP.conf.pop3;
 
         $H(ob).each(function(o) {
             if (!o.value.size()) {
                 return;
             }
 
-            var u = (DIMP.conf.pop3 ? o.value.clone() : o.value.numericSort()),
+            var u = (force ? o.value.clone() : o.value.numericSort()),
                 first = u.shift(),
                 last = first,
                 out = [];
 
             u.each(function(k) {
-                if (!DIMP.conf.pop3 && (last + 1 == k)) {
+                if (!force && (last + 1 == k)) {
                     last = k;
                 } else {
                     out.push(first + (last == first ? '' : (':' + last)));
@@ -67,11 +69,13 @@ var DimpCore = {
 
     // Parses an IMP UID Range string. See IMP::parseRangeString()
     // str = (string) An IMP UID range string.
-    parseRangeString: function(str)
+    // force = (boolean) Force into parsing in string mode (e.g. POP3 mode)
+    parseRangeString: function(str, force)
     {
         var count, end, i, mbox, uidstr,
             mlist = {},
             uids = [];
+        force = force || DIMP.conf.pop3;
         str = str.strip();
 
         while (!str.blank()) {
@@ -94,7 +98,7 @@ var DimpCore = {
             uidstr.split(',').each(function(e) {
                 var r = e.split(':');
                 if (r.size() == 1) {
-                    uids.push(DIMP.conf.pop3 ? e : Number(e));
+                    uids.push(force ? e : Number(e));
                 } else {
                     // POP3 will never exist in range here.
                     uids = uids.concat($A($R(Number(r[0]), Number(r[1]))));
@@ -110,7 +114,7 @@ var DimpCore = {
     // 'opts' -> ajaxopts, callback, uids
     doAction: function(action, params, opts)
     {
-        params = $H(params);
+        params = $H(params).clone();
         opts = opts || {};
 
         var ajaxopts = Object.extend(Object.clone(this.doActionOpts), opts.ajaxopts || {});
@@ -122,7 +126,9 @@ var DimpCore = {
             params.set('uid', this.toRangeString(opts.uids));
         }
 
-        ajaxopts.parameters = this.addRequestParams(params);
+        this.addRequestParams(params);
+        ajaxopts.parameters = params;
+
         ajaxopts.onComplete = function(t, o) { this.doActionComplete(t, opts.callback); }.bind(this);
 
         new Ajax.Request(DIMP.conf.URI_AJAX + action, ajaxopts);
@@ -143,12 +149,11 @@ var DimpCore = {
             tmp = {};
 
         if (b.getMetaData('search')) {
-            s.get('uid').each(function(r) {
-                var parts = r.split(DIMP.conf.IDX_SEP);
-                if (tmp[parts[0]]) {
-                    tmp[parts[0]].push(parts[1]);
+            s.get('dataob').each(function(r) {
+                if (tmp[r.mbox]) {
+                    tmp[r.mbox].push(r.uid);
                 } else {
-                    tmp[parts[0]] = [ parts[1] ];
+                    tmp[r.mbox] = [ r.uid ];
                 }
             });
         } else {
@@ -158,16 +163,12 @@ var DimpCore = {
         return tmp;
     },
 
-    // params - (Hash)
+    // params: (Hash)
     addRequestParams: function(params)
     {
-        var p = params.clone();
-
         if (DIMP.conf.SESSION_ID) {
-            p.update(DIMP.conf.SESSION_ID.toQueryParams());
+            params.update(DIMP.conf.SESSION_ID.toQueryParams());
         }
-
-        return p;
     },
 
     doActionComplete: function(request, callback)
@@ -336,14 +337,19 @@ var DimpCore = {
         if (type.startsWith('forward') || !args || !args.uids) {
             if (type.startsWith('forward')) {
                 params.uids = this.toRangeString(this.selectionToRange(args.uids));
-            } else if (args && args.to) {
-                params.to = args.to;
+            } else if (args) {
+                if (args.to) {
+                    params.to = args.to;
+                }
+                if (args.toname) {
+                    params.toname = args.toname;
+                }
             }
             this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
         } else {
             args.uids.get('dataob').each(function(d) {
-                params.folder = d.view;
-                params.uid = d.imapuid;
+                params.mailbox = d.mbox;
+                params.uid = d.uid;
                 this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
             }, this);
         }
@@ -443,8 +449,12 @@ var DimpCore = {
             offset: elt.up(),
             type: t
         });
+    },
 
-        return elt;
+    addPopdownButton: function(p, t, trigger, d)
+    {
+        this.addPopdown(p, t, trigger, d);
+        $(p).next('SPAN.popdown').insert({ before: new Element('SPAN', { className: 'popdownSep' }) });
     },
 
     addContextMenu: function(p)
@@ -475,7 +485,7 @@ var DimpCore = {
             if (o.raw) {
                 a = o.raw;
             } else {
-                a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner, address: (o.personal ? (o.personal + ' <' + o.inner + '>') : o.inner) });
+                a = new Element('A', { className: 'address' }).store({ personal: o.personal, email: o.inner });
                 if (o.personal) {
                     a.writeAttribute({ title: o.inner }).insert(o.personal.escapeHTML());
                 } else if (o.inner) {
@@ -560,7 +570,7 @@ var DimpCore = {
             default:
                 // CSS class based matching
                 if (elt.hasClassName('unblockImageLink')) {
-                    IMP.unblockImages(e);
+                    IMP_JS.unblockImages(e);
                 } else if (elt.hasClassName('pgpVerifyMsg')) {
                     elt.replace(DIMP.text.verify);
                     DimpCore.reloadMessage({ pgp_verify_msg: 1 });
@@ -606,7 +616,7 @@ var DimpCore = {
 
         switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_contacts_new':
-            this.compose('new', { to: baseelt.retrieve('address') });
+            this.compose('new', { to: baseelt.retrieve('email'), toname: baseelt.retrieve('personal') });
             break;
 
         case 'ctx_contacts_add':

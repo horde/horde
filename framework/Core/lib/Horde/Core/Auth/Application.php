@@ -3,7 +3,7 @@
  * The Horde_Core_Auth_Application class provides application-specific
  * authentication built on top of the horde/Auth API.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
@@ -54,7 +54,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      *
      * @var string
      */
-    protected $_mode;
+    protected $_mode = 'auto';
 
     /**
      * Available capabilities.
@@ -69,7 +69,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         'remove',
         'resetpassword',
         'transparent',
-        'update'
+        'update',
+        'validate'
     );
 
     /**
@@ -79,7 +80,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * <pre>
      * 'app' - (string) The application which is providing authentication.
      * 'base' - (Horde_Auth_Base) The base Horde_Auth driver. Only needed if
-                'app' is 'horde'.
+     *          'app' is 'horde'.
      * </pre>
      *
      * @throws InvalidArgumentException
@@ -168,8 +169,12 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     public function validateAuth()
     {
-        return $this->_base
-            ? $this->_base->validateAuth()
+        if ($this->_base) {
+            return $this->_base->validateAuth();
+        }
+
+        return $this->hasCapability('validate')
+            ? $GLOBALS['registry']->callAppMethod($this->_app, 'authValidate', array('noperms' => true))
             : parent::validateAuth();
     }
 
@@ -194,7 +199,70 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             parent::addUser($userId, $credentials);
         }
     }
+    /**
+     * Locks a user indefinitely or for a specified time
+     *
+     * @param string $userId      The userId to lock.
+     * @param integer $time       The duration in seconds, 0 = permanent
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function lockUser($userId, $time = 0)
+    {
+        if ($this->_base) {
+            $this->_base->lockUser($userId, $time);
+            return;
+        }
 
+        if ($this->hasCapability('lock')) {
+            $GLOBALS['registry']->callAppMethod($this->_app, 'authLockUser', array('args' => array($userId, $time)));
+        } else {
+            parent::lockUser($userId, $time);
+        }
+    }
+
+    /**
+     * Unlocks a user and optionally resets bad login count
+     *
+     * @param string  $userId          The userId to unlock.
+     * @param boolean $resetBadLogins  Reset bad login counter, default no.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function unlockUser($userId, $resetBadLogins = false)
+    {
+        if ($this->_base) {
+            $this->_base->unlockUser($userId, $resetBadLogins);
+            return;
+        }
+
+        if ($this->hasCapability('lock')) {
+            $GLOBALS['registry']->callAppMethod($this->_app, 'authUnlockUser', array('args' => array($userId, $resetBadLogins)));
+        } else {
+            parent::unlockUser($userId, $resetBadLogins);
+        }
+    }
+
+    /**
+     * Checks if $userId is currently locked.
+     *
+     * @param string  $userId      The userId to check.
+     * @param boolean $show_details     Toggle array format with timeout.
+     *
+     * @throws Horde_Auth_Exception
+     */
+    public function isLocked($userId, $show_details = false)
+    {
+        if ($this->_base) {
+            return $this->_base->isLocked($userId, $show_details);
+        }
+
+        if ($this->hasCapability('lock')) {
+            return $GLOBALS['registry']->callAppMethod($this->_app, 'authIsLocked', array('args' => array($userId, $show_details)));
+        } else {
+            return parent::isLocked($userId, $show_details);
+        }
+    }
     /**
      * Update a set of authentication credentials.
      *
@@ -283,10 +351,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     {
         global $registry;
 
-        $is_auth = $registry->getAuth();
-
         if (!($userId = $this->getCredential('userId'))) {
-            $userId = $is_auth;
+            $userId = $registry->getAuth();
         }
         if (!($credentials = $this->getCredential('credentials'))) {
             $credentials = $registry->getAuthCredential();
@@ -560,11 +626,11 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         /* Destroy any existing session on login and make sure to use a
          * new session ID, to avoid session fixation issues. */
-        if (!$registry->getAuth()) {
+        if (($userId = $registry->getAuth()) === false) {
             $registry->getCleanSession();
+            $userId = $this->getCredential('userId');
         }
 
-        $userId = $this->getCredential('userId');
         $credentials = $this->getCredential('credentials');
 
         try {
@@ -610,9 +676,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
                 // THIS IS A HACK. DO PROPER SMARTPHONE DETECTION.
                 if ($browser->isMobile()) {
                     $this->_mode = $browser->getBrowser() == 'webkit' ? 'smartmobile' : 'mobile';
-                } else {
-                    // App prefs will decide
-                    $this->_mode = 'auto';
                 }
             } else {
                 setcookie('default_horde_view', $this->_mode, time() + 30 * 86400, $conf['cookie']['path'], $conf['cookie']['domain']);

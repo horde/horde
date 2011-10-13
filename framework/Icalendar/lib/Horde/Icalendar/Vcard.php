@@ -2,14 +2,14 @@
 /**
  * Class representing vCard entries.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Karsten Fourmont <karsten@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Icalendar
  */
 class Horde_Icalendar_Vcard extends Horde_Icalendar
@@ -60,8 +60,8 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
      */
     public function setVersion($version)
     {
-        $this->oldFormat = $version < 3;
-        $this->version = $version;
+        $this->_oldFormat = $version < 3;
+        $this->_version = $version;
     }
 
     /**
@@ -72,9 +72,9 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
      */
     public function exportvCalendar()
     {
-        $requiredAttributes['VERSION'] = $this->version;
+        $requiredAttributes['VERSION'] = $this->_version;
         $requiredAttributes['N'] = ';;;;;;';
-        if ($this->version == '3.0') {
+        if ($this->_version == '3.0') {
             $requiredAttributes['FN'] = '';
         }
 

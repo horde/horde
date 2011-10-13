@@ -2,7 +2,7 @@
 /**
  * Whups RSS feed.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -14,9 +14,7 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Query.php';
-
-$qManager = new Whups_QueryManager();
+$qManager = new Whups_Query_Manager();
 $vars = new Horde_Variables();
 
 // See if we were passed a slug or id. Slug is tried first.
@@ -29,14 +27,13 @@ if ($slug) {
 }
 
 if (!isset($whups_query) ||
-    is_a($whups_query, 'PEAR_Error') ||
     $whups_query->parameters ||
     !$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     exit;
 }
 
 $tickets = $whups_driver->executeQuery($whups_query, $vars);
-if (is_a($tickets, 'PEAR_Error') || !count($tickets)) {
+if (!count($tickets)) {
     exit;
 }
 

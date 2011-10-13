@@ -1,15 +1,15 @@
 /**
  * mobile.js - Base mobile application logic.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Kronolith
  */
  var KronolithMobile = {
@@ -32,6 +32,7 @@
     cacheEnd: null,
 
     deferHash: {},
+    viewRan: false,
 
     /**
      * The currently displayed view
@@ -62,6 +63,7 @@
         // Clear out the loaded cal cache
         KronolithMobile.loadedCalendars = [];
         KronolithMobile.clearView(view);
+        KronolithMobile.viewRan = false;
         $.each(KronolithMobile.calendars, function(key, cal) {
             var startDay = dates[0].clone(), endDay = dates[1].clone(),
             cals = KronolithMobile.ecache[cal[0]], c;
@@ -175,28 +177,30 @@
                 KronolithMobile.deferHash[key] = false;
             }
         }
-
+        KronolithMobile.running = true;
         switch (view) {
             case 'day':
-                date = d[0].dateString();
-                events = KronolithMobile.getCacheForDate(date);
-                events = KronolithMobile.sortEvents(events);
-                list = $('<ul>').attr({'data-role': 'listview'});
-                $.each(events, function(index, event) {
-                    list.append(KronolithMobile.buildDayEvent(event));
-                });
-                if (!list.children().length) {
-                    list.append($('<li>').text(Kronolith.text.noevents));
+                if (!KronolithMobile.viewRan) {
+                    KronolithMobile.viewRan = true;
+                    date = d[0].dateString();
+                    events = KronolithMobile.getCacheForDate(date);
+                    events = KronolithMobile.sortEvents(events);
+                    list = $('<ul>').attr({'data-role': 'listview'});
+                    $.each(events, function(index, event) {
+                        list.append(KronolithMobile.buildDayEvent(event));
+                    });
+                    if (!list.children().length) {
+                        list.append($('<li>').text(Kronolith.text.noevents));
+                    }
+                    $('#dayview [data-role=content]').append(list).trigger('create');
                 }
-                list.listview();
-                $('#dayview [data-role=content]').append(list);
                 break;
 
             case 'month':
                 day = d[0].clone();
                 while (!day.isAfter(d[1])) {
                     date = day.dateString();
-                    events = KronolithMobile.getCacheForDate(date, cal);
+                    events = KronolithMobile.getCacheForDate(date);
                     $.each(events, function(key, event) {
                         $('#kronolithMonth' + date).addClass('kronolithContainsEvents');
                     });
@@ -223,10 +227,10 @@
                     haveEvent = false;
                     day.next().day();
                 }
-                list.listview();
-                $('#overview [data-role=content]').append(list);
+                $('#overview [data-role=content]').append(list).trigger('create');
                 break;
         }
+        KronolithMobile.running = false;
     },
 
     /**
@@ -301,7 +305,7 @@
 
          var event = data.event;
          var ul = KronolithMobile.buildEventView(event);
-         $('#eventview [data-role=content]').append(ul);
+         $('#eventview [data-role=content]').append(ul).trigger('create');
     },
 
     /**
@@ -385,8 +389,6 @@
            list.append($('<li>').append($('<a>').attr({'rel': 'external', 'href': e.u}).text(e.u)));
          }
 
-         list.listview();
-
          return list;
     },
 
@@ -429,7 +431,7 @@
     {
         $('.kronolithDayDate').text(date.toString('ddd') + ' ' + date.toString('d'));
         KronolithMobile.date = date.clone();
-        KronolithMobile.loadEvents(date, date, 'day');
+        KronolithMobile.loadEvents(KronolithMobile.date, KronolithMobile.date, 'day');
     },
 
     /**
@@ -471,9 +473,8 @@
      */
     selectMonthDay: function(date)
     {
-        var ul = $('<ul>').attr({ 'data-role': 'listview '}),
-        d = KronolithMobile.parseDate(date), today = new Date(),
-        text;
+        var ul = $('<ul>').attr({ 'data-role': 'listview'}),
+        d = KronolithMobile.parseDate(date), today = new Date(), text;
         $('.kronolithDayDetail ul').detach();
         if (today.dateString() == d.dateString()) {
           text = Kronolith.text.today;
@@ -494,8 +495,7 @@
                 ul.append(KronolithMobile.buildDayEvent(e));
             });
         }
-        ul.listview();
-        $('.kronolithDayDetail').append(ul);
+        $('.kronolithDayDetail').append(ul).trigger('create');
         KronolithMobile.moveToDay(d);
     },
 
@@ -767,7 +767,7 @@
         });
 
         // Bind click and swipe events
-        $(document).click(KronolithMobile.clickHandler);
+        $(document).bind('vclick', KronolithMobile.clickHandler);
         $('body').bind('swipeleft', KronolithMobile.handleSwipe);
         $('body').bind('swiperight', KronolithMobile.handleSwipe);
     }

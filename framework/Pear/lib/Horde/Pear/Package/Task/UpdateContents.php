@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Pear
  */
 
 /**
  * Updates the content listings of a package.xml file.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Package_Task_UpdateContents
@@ -61,7 +61,8 @@ implements Horde_Pear_Package_Task
         Horde_Pear_Package_Xml $xml,
         Horde_Pear_Package_Contents $content = null,
         $options = array()
-    ) {
+    )
+    {
         $this->_xml = $xml;
         $this->_options = $options;
         if ($content === null) {
@@ -137,7 +138,10 @@ implements Horde_Pear_Package_Task
 
         $current = $this->_xml->createContents($this->_xml, $contents, $filelist);
         $current->update($this->_content);
-        $this->_xml->timestamp();
+        if (empty($this->_options['no_timestamp'])) {
+            $this->_xml->timestamp();
+        }
+        $this->_xml->syncCurrentVersion();
     }
 
 }

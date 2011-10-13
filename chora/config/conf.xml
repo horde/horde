@@ -49,7 +49,7 @@
    #?(\d+)|i'&lt;/code&gt;"/>
    <configstring name="replacement" required="false" desc="Replacement
    string. Example: &lt;code class=&quot;nowrap&quot;&gt;'&amp;lt;a
-   href=&quot;http://bugs.example.com/show_bug.cgi?id=\1&quot;&amp;gt;\0&amp;lt;/a&amp;gt;'&lt;/code&gt;"/>
+   href=&quot;http://bugs.example.com/show_bug.cgi?id=\1&quot;&gt;\0&amp;lt;/a&amp;gt;'&lt;/code&gt;"/>
   </configsection>
  </configtab>
 
@@ -115,7 +115,7 @@
   <configsection name="menu">
    <configheader>Menu Settings</configheader>
    <configmultienum name="apps" desc="Select any applications that should be
-   linked in Chora's menu">
+   linked in Chora's menu" required="false">
     <values>
      <configspecial application="horde" name="apps" />
     </values>

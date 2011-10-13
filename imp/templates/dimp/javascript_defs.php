@@ -2,15 +2,17 @@
 /**
  * DIMP base JS file.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 $code = $filters = $flags = array();
 
-$compose_page = in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-dimp.php'));
+$script_file = basename($_SERVER['PHP_SELF']);
+$compose_page = ($script_file == 'message-dimp.php') ||
+                (strpos($script_file, 'compose') === 0);
 
 /* Generate filter array. */
 $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
@@ -46,14 +48,15 @@ $code['conf'] = array_filter(array(
     'URI_COMPOSE' => strval(Horde::url('compose-dimp.php')->setRaw(true)->add('ajaxui', 1)),
     'URI_DIMP' => strval(Horde::url('index-dimp.php')),
     'URI_MESSAGE' => strval(Horde::url('message-dimp.php')->setRaw(true)->add('ajaxui', 1)),
+    'URI_PORTAL' => strval(Horde::getServiceLink('portal')->setRaw(true)->add('ajaxui', 1)),
     'URI_PREFS_IMP' => strval(Horde::getServiceLink('prefs', 'imp')->setRaw(true)->add('ajaxui', 1)),
     'URI_SEARCH' => strval(Horde::url('search.php')),
     'URI_VIEW' => strval(Horde::url('view.php')),
 
     'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
+    'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
     'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
 
-    'IDX_SEP' => IMP_Dimp::IDX_SEP,
     'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables
@@ -69,26 +72,28 @@ $code['conf'] = array_filter(array(
     'flags' => $flags,
     /* Needed to maintain flag ordering. */
     'flags_o' => array_keys($flags),
-    'fsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH,
+    'fsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH),
     'ham_spammbox' => intval(!empty($GLOBALS['conf']['notspam']['spamfolder'])),
-    'initial_page' => strval(IMP_Auth::getInitialPage()->mbox),
+    'initial_page' => IMP_Auth::getInitialPage()->mbox->form_to,
     'mbox_expand' => intval($GLOBALS['prefs']->getValue('nav_expanded') == 2),
     'name' => $GLOBALS['registry']->get('name', 'imp'),
+    'poll_alter' => intval(!$GLOBALS['prefs']->isLocked('nav_poll') && !$GLOBALS['prefs']->getValue('nav_poll_all')),
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
     'popup_height' => 610,
     'popup_width' => 820,
     'preview_pref' => $GLOBALS['prefs']->getValue('dimp_show_preview'),
-    'qsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH,
+    'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
-    'searchprefix' => IMP_Search::MBOX_PREFIX,
     'sidebar_width' => max(intval($GLOBALS['prefs']->getValue('sidebar_width')), 150) . 'px',
-    'snooze' => array('0' => _("select..."),
-                      '5' => _("5 minutes"),
-                      '15' => _("15 minutes"),
-                      '60' => _("1 hour"),
-                      '360' => _("6 hours"),
-                      '1440' => _("1 day")),
+    'snooze' => array(
+        '0' => _("select..."),
+        '5' => _("5 minutes"),
+        '15' => _("15 minutes"),
+        '60' => _("1 hour"),
+        '360' => _("6 hours"),
+        '1440' => _("1 day")
+    ),
     'sort' => array(
         'sequence' => array(
             't' => '',
@@ -120,8 +125,8 @@ $code['conf'] = array_filter(array(
         )
     ),
     'spam_spammbox' => intval(!empty($GLOBALS['conf']['spam']['spamfolder'])),
-    'splitbar_pos' => intval($GLOBALS['prefs']->getValue('dimp_splitbar')),
-
+    'splitbar_horiz' => intval($GLOBALS['prefs']->getValue('dimp_splitbar')),
+    'splitbar_vert' => intval($GLOBALS['prefs']->getValue('dimp_splitbar_vert')),
     'toggle_pref' => intval($GLOBALS['prefs']->getValue('dimp_toggle_headers')),
     'viewport_wait' => intval($GLOBALS['conf']['dimp']['viewport']['viewport_wait']),
 ));
@@ -138,10 +143,10 @@ $code['text'] = array(
     'check' => _("Checking..."),
     'copyto' => _("Copy %s to %s"),
     'create_prompt' => _("Create folder:"),
-    'createsub_prompt' => _("Create subfolder:"),
+    'createsub_prompt' => _("Create subfolder of %s:"),
     'delete_folder' => _("Permanently delete %s?"),
     'download_folder' => _("All messages in this mailbox will be downloaded into one MBOX file. This may take some time. Are you sure you want to continue?"),
-    'empty_folder' => _("Permanently delete all messages in %s?"),
+    'empty_folder' => _("Permanently delete all %d messages in %s?"),
     'growlerinfo' => _("This is the notification log"),
     'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),
     'import_mbox' => _("Mbox or .eml file:"),
@@ -157,8 +162,9 @@ $code['text'] = array(
     'ok' => _("Ok"),
     'onlogout' => _("Logging Out..."),
     'popup_block' => _("A popup window could not be opened. Your browser may be blocking popups."),
+    'portal' => _("Portal"),
     'prefs' => _("User Options"),
-    'rename_prompt' => _("Rename folder to:"),
+    'rename_prompt' => _("Rename %s to:"),
     'search' => _("Search"),
     'selected' => _("selected"),
     'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
@@ -188,6 +194,7 @@ if ($compose_page) {
         'cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
         'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
         'remove' => _("Remove"),
+        'replyall' => _("%d recipients"),
         'spell_noerror' => _("No spelling errors found."),
         'toggle_html' => _("Really discard all formatting information? This operation cannot be undone."),
         'uploading' => _("Uploading..."),

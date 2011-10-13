@@ -1,16 +1,16 @@
 <?php
 /**
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Http
  */
@@ -75,6 +75,13 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
                 $httpOptions['proxyauth'] = $this->proxyUsername . ':' . $this->proxyPassword;
                 $httpOptions['proxyauthtype'] = $this->_httpAuthScheme($this->proxyAuthenticationScheme);
             }
+            if ($this->proxyType == Horde_Http::PROXY_SOCKS4) {
+                $httpOptions['proxytype'] = HTTP_PROXY_SOCKS4;
+            } else if ($this->proxyType == Horde_Http::PROXY_SOCKS5) {
+                $httpOptions['proxytype'] = HTTP_PROXY_SOCKS5;
+            } else if ($this->proxyType != Horde_Http::PROXY_HTTP) {
+                throw new Horde_Http_Exception(sprintf('Proxy type %s not supported by this request type!', $this->proxyType));
+            }
         }
 
         // Authentication settings
@@ -85,6 +92,9 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
 
         // Headers
         $httpOptions['headers'] = $this->headers;
+
+        // Redirects
+        $httpOptions['redirect'] = (int)$this->redirects;
 
         // Set options
         $httpRequest->setOptions($httpOptions);

@@ -2,10 +2,10 @@
 /**
  * Dynamic view (dimp) index template.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 $use_sub = $prefs->getValue('subscribe');
@@ -65,12 +65,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <ul id="serviceActions">
 <?php if (($registry->get('status', 'horde') != 'hidden') && ($registry->get('status', 'horde') != 'notoolbar')): ?>
 <?php if (empty($GLOBALS['conf']['menu']['apps_iframe'])): $ak = Horde::getAccessKey(_("_Portal"), true); ?>
-    <li class="servicelink"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>>
+    <li class="servicelink" id="portallink">
      <span class="iconImgSidebar hordeIcon"></span>
-     <a href="<?php echo Horde::getServiceLink('portal') ?>"><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
+     <a href="<?php echo Horde::getServiceLink('portal')->remove('ajaxui') ?>"<?php if (strlen($ak)) echo ' accesskey="' . $ak . '"'?>><?php echo Horde::highlightAccessKey(_("_Portal"), $ak) ?></a>
     </li>
-<?php else: ?>
-    <?php echo _simpleButton('appportal', _("_Portal"), 'hordeIcon') ?>
 <?php endif; ?>
 <?php endif; ?>
 <?php if (Horde_Menu::showService('prefs')): ?>
@@ -90,11 +88,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      <?php echo $render_sidebar ?>
     </ul>
 <?php endif; ?>
-<?php if ($imp_imap->imap): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
     <div class="sepfull"></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
-      <span class="iconImgSidebar folderImg"></span>
+      <span class="iconImgSidebar folderoptsImg"></span>
       <a id="folderopts_link" title="<?php echo _("Folder Options") ?>"><?php echo _("Folder Options") ?></a>
      </li>
      <li class="folder" id="dropbase" style="display:none">
@@ -119,9 +117,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      </div>
 
      <div class="dimpActions">
-<?php if ($imp_imap->imap): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
       <div id="qsearch">
-       <span class="iconImg" id="qsearch_icon"></span>
+       <span id="qsearch_icon">
+        <span class="iconImg searchImg"></span>
+        <span class="iconImg popdownImg"></span>
+       </span>
        <form action="#" method="post">
         <input autocomplete="off" id="qsearch_input" type="text" />
        </form>
@@ -130,23 +131,23 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?></div>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Forward', 'id' => 'button_forward', 'title' => _("Forward"))) ?></div>
 <?php if (!empty($conf['spam']['reporting'])): ?>
-      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?></div>
+      <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Spam', 'id' => 'button_spam', 'title' => _("Spam"))) ?></div>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
-      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?></div>
+      <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?></div>
 <?php endif; ?>
-      <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?></div>
+      <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?></div>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Delete', 'id' => 'button_deleted', 'title' => _("Delete"))) ?></div>
       <div id="button_compose"><?php echo IMP_Dimp::actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?></div>
       <div id="button_checkmail"><?php echo IMP_Dimp::actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?></div>
-      <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other Actions"))) ?></div>
+      <div><?php echo IMP_Dimp::actionButton(array('icon' => 'Other', 'id' => 'button_other', 'title' => _("Other"))) ?></div>
      </div>
 
      <div id="searchbar" style="display:none">
-      <span id="search_label"></span>
       <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
       <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
       <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
+      <div id="search_label"></div>
      </div>
     </div>
 
@@ -185,6 +186,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
           </span>
          </div>
 <?php endif; ?>
+         <div>
+          <span id="msg_save">
+           <span class="iconImg"></span>
+           <a><?php echo _("Save") ?></a>
+          </span>
+         </div>
          <div style="display:none">
           <span id="msg_resume_draft">
            <span class="iconImg"></span>
@@ -287,13 +294,13 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_folder_flag" style="display:none">
- <a id="ctx_folder_seen"><span class="iconImg"></span><?php echo _("Read") ?></a>
+ <a id="ctx_folder_seen"><span class="iconImg"></span><?php echo _("Seen") ?></a>
  <a id="ctx_folder_unseen"><span class="iconImg"></span><?php echo _("Unseen") ?></a>
 </div>
 
 <div class="context" id="ctx_folder_export_opts" style="display:none">
  <a id="ctx_folder_export_mbox"><?php echo _("Uncompressed") ?></a>
- <a id="ctx_folder_export_zip"><?php echo _("Compressed [.zip file]") ?></a>
+ <a id="ctx_folder_export_zip"><?php echo _("Compressed (.zip file)") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
@@ -309,12 +316,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_container_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
 </div>
 
-<?php if ($imp_imap->allowFolders()): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)): ?>
 <div class="context" id="ctx_folderopts" style="display:none">
  <a id="ctx_folderopts_new"><span class="iconImg"></span><?php echo _("New Folder") ?></a>
 <?php if ($use_sub): ?>
  <a id="ctx_folderopts_sub" style="display:none"><span class="iconImg"></span><?php echo _("Hide Unsubscribed") ?></a>
- <a id="ctx_folderopts_unsub"><span class="iconImg"></span><?php echo _("Show Unsubscribed") ?></a>
+ <a id="ctx_folderopts_unsub"><span class="iconImg"></span><?php echo _("Show All Folders") ?></a>
 <?php endif; ?>
  <a id="ctx_folderopts_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
  <a id="ctx_folderopts_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
@@ -351,6 +358,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  </div>
  <a id="ctx_message_reply"><span class="iconImg"></span><?php echo _("Reply") ?></a>
  <a id="ctx_message_forward"><span class="iconImg"></span><?php echo _("Forward") ?></a>
+ <a id="ctx_message_editasnew"><span class="iconImg"></span><?php echo _("Edit as New") ?></a>
  <div style="display:none">
   <div class="sep"></div>
   <a id="ctx_message_setflag"><span class="iconImg"></span><?php echo _("Mark as") ?>...</a>
@@ -420,9 +428,15 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php endif; ?>
 <?php endif; ?>
 <?php if (!$use_trash): ?>
- <div class="sep"></div>
- <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
- <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
+ <div id="oa_purge_options">
+  <div class="sep"></div>
+  <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
+  <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
+ </div>
+<?php if (!$prefs->isLocked('delhide')): ?>
+ <a id="oa_show_deleted"><span class="iconImg"></span><?php echo _("Show Deleted") ?></a>
+ <a id="oa_hide_deleted"><span class="iconImg"></span><?php echo _("Hide Deleted") ?></a>
+<?php endif; ?>
 <?php endif; ?>
  <div class="sep"></div>
  <a id="oa_help"><span class="iconImg"></span><?php echo _("Help") ?></a>
@@ -452,9 +466,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 
 <div class="context" id="ctx_mboxsort" style="display:none">
  <a id="ctx_mboxsort_none"><?php echo _("Clear Sort") ?></a>
+ <a id="ctx_mboxsort_none_toggle"><?php echo _("Toggle Sort Direction") ?></a>
 </div>
 
-<?php if ($imp_imap->imap): ?>
+<?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by"><?php echo _("Search By") ?></a>
  <div class="sep"></div>
@@ -522,7 +537,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div id="msglistHeaderContainer">
  <div class="item msglistHeader" id="msglistHeaderHoriz" style="display:none">
   <div class="iconImg msgStatus">
-   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
   </div>
   <div class="msgFrom sep"></div>
   <div class="msgSubject sep"></div>
@@ -531,7 +546,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  </div>
  <div class="item msglistHeader" id="msglistHeaderVert" style="display:none">
   <div class="iconImg msgStatus">
-   <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
   </div>
   <div class="msgSort">
    <a class="widget" id="vertical_sort">Sort</a>

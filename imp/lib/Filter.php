@@ -13,14 +13,14 @@
  *   mail/whitelistFrom
  *   mail/showWhitelist
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Filter
@@ -118,7 +118,7 @@ class IMP_Filter
 
             foreach ($ob->uids as $idx) {
                 /* Get the list of from addresses. */
-                $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($ob->mbox, $idx));
+                $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx));
                 $hdr = $contents->getHeaderOb();
                 $addr[] = Horde_Mime_Address::bareAddress($hdr->getValue('from'));
             }

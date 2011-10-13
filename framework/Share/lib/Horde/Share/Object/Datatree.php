@@ -77,7 +77,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
      * @return mixed  True if setting the attribute did succeed, a PEAR_Error
      *                otherwise.
      */
-    public function set($attribute, $value)
+    public function set($attribute, $value, $update = false)
     {
         Horde_Exception_Pear::catchError($this->datatreeObject->set($attribute, $value));
     }

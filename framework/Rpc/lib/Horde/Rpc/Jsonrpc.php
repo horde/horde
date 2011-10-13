@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Joey Hewitt <joey@joeyhewitt.com>
  * @author   Jan Schneider <jan@horde.org>
@@ -152,7 +152,7 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
             throw new Horde_Rpc_Exception($e->getMessage());
         }
         if ($result->code == 500) {
-            $response = Horde_Serialize::unserialize($reult->getBody(), Horde_Serialize::JSON);
+            $response = Horde_Serialize::unserialize($result->getBody(), Horde_Serialize::JSON);
             if (is_a($response, 'stdClass') &&
                 isset($response->error) &&
                 is_a($response->error, 'stdClass') &&

@@ -8,15 +8,15 @@
  * Session variables set (stored in 'horde_prefs'):
  * 'advanced' - (boolean) If true, display advanced prefs.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Core_Prefs_Ui
@@ -333,7 +333,7 @@ class Horde_Core_Prefs_Ui
                 $num = $this->vars->$pref;
                 if ((string)(double)$num !== $num) {
                     $this->_errors[$pref] = Horde_Core_Translation::t("This value must be a number.");
-                } elseif (empty($num)) {
+                } elseif (empty($num) && empty($this->prefs[$pref]['zero'])) {
                     $this->_errors[$pref] = Horde_Core_Translation::t("This value must be non-zero.");
                 } else {
                     $updated |= $save->setValue($pref, $num);
@@ -557,7 +557,7 @@ class Horde_Core_Prefs_Ui
                     break;
 
                 case 'rawhtml':
-                    $t->set('html', $this->prefs[$pref]['value']);
+                    $t->set('html', $prefs->getValue($pref));
                     break;
                 }
 
@@ -610,7 +610,6 @@ class Horde_Core_Prefs_Ui
             ? ''
             : Horde::menu(array(
                   'app' => $this->app,
-                  'mask' => Horde_Menu::MASK_HELP | Horde_Menu::MASK_LOGIN | Horde_Menu::MASK_PROBLEM
               ));
 
         /* Get list of accessible applications. */
@@ -873,7 +872,7 @@ class Horde_Core_Prefs_Ui
         $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create(null, $this->app);
 
         if ($this->vars->delete_identity) {
-            $id = intval($this->vars->id);
+            $id = intval($this->vars->identity);
             $deleted_identity = $identity->delete($id);
             $this->_loadPrefs($this->app);
             $notification->push(sprintf(Horde_Core_Translation::t("The identity \"%s\" has been deleted."), $deleted_identity[0]['id']), 'horde.success');

@@ -2,15 +2,15 @@
 /**
  * Base class for handling ActiveSync requests
  *
- * Copyright 2009 - 2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
 /**
  * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL v2.
- * Consult LICENSE file for details
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
  */
 abstract class Horde_ActiveSync_Request_Base
 {
@@ -149,6 +149,9 @@ abstract class Horde_ActiveSync_Request_Base
          * header - which is against the specification. Check the user agent
          * for Android (maybe need version sniffing in the future) and set the
          * policykey to null for those devices. */
+         $this->_logger->debug('[' . $this->_device->id . '] Checking policykey for device '
+            . ' Key: ' . $sentKey
+            . ' User: ' . $this->_driver->getUser());
          $this->_device = $this->_state->loadDeviceInfo($this->_device->id, $this->_driver->getUser());
          if (strpos($this->_device->userAgent, 'Android') !== false) {
              $sentKey = null;
@@ -158,6 +161,8 @@ abstract class Horde_ActiveSync_Request_Base
         if ($this->_provisioning !== false) {
             $state = $this->_driver->getStateObject();
             $storedKey = $state->getPolicyKey($this->_device->id);
+            $this->_logger->debug('[' . $this->_device->id . '] Stored key: ' . $storedKey);
+
             /* Loose provsioning should allow a blank key */
             if ((empty($storedKey) || $storedKey != $sentKey) &&
                ($this->_provisioning !== 'loose' ||
@@ -186,7 +191,7 @@ abstract class Horde_ActiveSync_Request_Base
     public function handle()
     {
         $this->_version = $this->_activeSync->getProtocolVersion();
-        $this->_logger->info('Request received from device: ' . $this->_device->id . ' Supporting protocol version: ' . $this->_version);
+        $this->_logger->info('Request being handled for device: ' . $this->_device->id . ' Supporting protocol version: ' . $this->_version);
     }
 
 }

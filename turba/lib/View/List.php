@@ -392,7 +392,12 @@ class Turba_View_List implements Countable
     {
         ob_start();
         $width = floor(90 / (count($this->columns) + 1));
-        @list($own_source, $own_id) = explode(';', $GLOBALS['prefs']->getValue('own_contact'));
+        $own = $GLOBALS['prefs']->getValue('own_contact');
+        if (strpos($own, ';')) {
+            list($own_source, $own_id) = explode(';', $own);
+        } else {
+            $own_source = $own_id = null;
+        }
 
         include TURBA_TEMPLATES . '/browse/column_headers.inc';
 
@@ -479,5 +484,3 @@ class Turba_View_List implements Countable
     }
 
 }
-
-

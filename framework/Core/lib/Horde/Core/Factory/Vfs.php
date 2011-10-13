@@ -4,21 +4,21 @@
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 
 /**
  * A Horde_Injector based Horde_Vfs factory.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
@@ -46,7 +46,13 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             if (!$params) {
                 $params = $this->getConfig($scope);
             }
-            $this->_instances[$scope] = Horde_Vfs::factory($params['type'], $params['params']);
+
+            $class = 'Horde_Vfs_' . basename(Horde_String::ucfirst($params['type']));
+            if (!class_exists($class)) {
+                throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+            }
+
+            $this->_instances[$scope] = new $class($params['params']);
         }
 
         return $this->_instances[$scope];
@@ -80,9 +86,11 @@ class Horde_Core_Factory_Vfs extends Horde_Core_Factory_Base
             if ($name == 'horde' || $conf[$name]['type'] == 'horde') {
                 $vfs['params']['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
             } else {
+                $config = Horde::getDriverConfig('vfs', 'sql');
+                unset($config['umask'], $config['vfsroot']);
                 $vfs['params']['db'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Db')
-                    ->create('horde', 'vfs');
+                    ->create('horde', $config);
             }
             break;
         }

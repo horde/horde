@@ -1,18 +1,43 @@
+----------
+v2.0.1-git
+----------
+
+[jan] Add missing default value for whups_priorities.priority_default column
+      (Bug #10631).
+
+
 --------
-v2.0-cvs
+v2.0-RC1
 --------
 
+[jan] Don't create stray update and assign permission (Bug #10624).
+[jan] Add script to convert backends to UTF-8.
+[jan] Fix executing queries on non-UTF-8 backends.
+[jan] Add index to whups_attributes table.
+[jan] Fix using custom SQL configurations.
+[jan] Fix fatal error when updating address book preferences (Bug #10567).
+[jan] Don't access protected properties in the addTicket/updateTicket API
+      methods (Bug #10566).
+[jan] Fix adding comments as a guest (Bug #10559).
+
+
+-----------
+v2.0-ALPHA1
+-----------
+
+[jan] Fix automatic linking of bug numbers inside URLs (Bug #7081).
+[jan] Don't search for all states if no states have been selected.
+[jan] Add templates for delete and reminder notifications.
+[jan] Add message template variable for recipient role.
+[jan] Convert notification message templates to Horde_View.
+[jan] Send notification when deleting tickets.
+[jan] Fix determining whether to send updates without comments.
+[jan] Send uploaded attachments with notification messages (Request #7615).
+[mjr] Correctly set ticket version when changing queues (Bug #9645).
+[jan] Add listSlugs API method.
+[jan] Convert HTML messages to plain text when processing mail messages.
 [jan] Fix creating temporary files with open_basedir restrictions.
 [jan] Provide default configuration files instead of .dist versions.
-
-
-----------
-v1.0.2-cvs
-----------
-
-[jan] Add upgrade scripts for next-generation SQL share driver.
-[jan] Add Hungarian translation (Andras Galos <galosa@netinform.hu>).
-[jan] Add option to delete individual ticket history entries.
 
 
 ------

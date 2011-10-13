@@ -1,0 +1,6 @@
+<?php echo $name; ?> (<?php echo $version; ?>-1) unstable; urgency=low
+
+  * Horde <?php echo $component->getName(); ?> package.
+
+ -- Gunnar Wrobel <wrobel@horde.org>  <?php echo date('D, d M Y H:i:s O'); ?>
+

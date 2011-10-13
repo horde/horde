@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Text/Wiki/Parse/Creole/Image.php';
+require_once 'Text/Wiki/Parse/Mediawiki/Image.php';
 
 /**
  * Placeholder class as a complement to the Image2 renderer.

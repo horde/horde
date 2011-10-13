@@ -111,6 +111,7 @@ $sql = 'INSERT INTO agora_messages  '
 // $b_agora->query('TRUNCATE TABLE agora_messages');
 // $db_agora->query('TRUNCATE TABLE agora_messages_seq');
 
+// IMPORTANT: when porting to Horde_Db use $idValue parameter of insert().
 /* Start inserting */
 foreach ($messages as $message) {
     $params = array();
@@ -138,7 +139,7 @@ $max = $db_agora->getOne('SELECT MAX(message_id) FROM agora_messages');
 $db_agora->query('UPDATE agora_messages_seq SET ID = ?' , array($max));
 
 /* Clean cache */
-$forums = Agora_Messages::singleton('agora');
+$forums = $injector->getInstance('Agora_Factory_Driver')->create('agora');
 @$forums->cleanCache($agora_id);
 
 echo "done\n";

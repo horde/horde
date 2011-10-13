@@ -6,7 +6,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
@@ -14,14 +14,14 @@
 /**
  * A Horde_Injector:: based IMP_Imap:: factory.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @link     http://pear.horde.org/index.php?package=IMP
  * @package  IMP
  */
@@ -98,9 +98,11 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
      */
     public function shutdown()
     {
-        foreach (array_unique($this->_save) as $id) {
-            if ($this->_instances[$id]->ob->changed) {
-                $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
+        if ($GLOBALS['registry']->getAuth() !== false) {
+            foreach (array_unique($this->_save) as $id) {
+                if ($this->_instances[$id]->changed) {
+                    $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
+                }
             }
         }
     }

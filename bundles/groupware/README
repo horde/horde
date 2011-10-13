@@ -1,0 +1,95 @@
+What is Horde Groupware?
+========================
+
+:Contact: horde@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+Horde Groupware is a free, enterprise ready, browser based collaboration
+suite. Users can manage and share calendars, contacts, tasks and notes with
+the standards compliant components from the `Horde Project`_. Horde Groupware
+bundles the separately available applications Kronolith, Turba, Nag and Mnemo.
+
+It can be extended with any of the released `Horde applications`_ or the
+`Horde modules`_ that are still in development, like a file manager, a
+bookmark manager, a forum or a wiki.
+
+This software is OSI Certified Open Source Software.  OSI Certified is a
+certification mark of the `Open Source Initiative`_.
+
+.. _`Horde Project`: http://www.horde.org/
+.. _`Horde applications`: http://www.horde.org/apps
+.. _`Horde modules`: http://www.horde.org/development/modules
+.. _`Open Source Initiative`: http://www.opensource.org/
+
+
+Obtaining Horde Groupware
+-------------------------
+
+Further information on Horde Groupware and the latest version can be obtained
+at
+
+  http://www.horde.org/apps/groupware
+
+
+Documentation
+-------------
+
+The following documentation is available in the Horde Groupware distribution:
+
+:README_:            This file
+:`docs/CHANGES`_:    Changes by release
+:`docs/INSTALL`_:    Installation instructions and notes
+:`docs/UPGRADING`_:  Pointers on upgrading from previous Horde Groupware
+                     versions
+
+
+Installation
+------------
+
+Instructions for installing Horde Groupware can be found in the file INSTALL_
+in the ``docs/`` directory of the Horde Groupware distribution.
+
+
+Assistance
+----------
+
+If you encounter problems with Horde Groupware, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the web at
+
+  http://wiki.horde.org/FAQ
+
+The Horde Project runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole.  Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/community/mail
+
+There is no separate mailing list for Horde Groupware, please contact the
+mailing list of the component you have problems with, or the Horde mailing
+list for general problems and questions.
+
+Lastly, Horde developers, contributors and users also make occasional
+appearances on IRC, on the channel #horde on the freenode Network
+(irc.freenode.net).
+
+
+Licensing
+---------
+
+For licensing and copyright information, please see the file COPYING in the
+Horde Groupware distribution and the COPYING and LICENSE files in the
+`kronolith`, `turba`, `nag` and `mnemo` subdirectories.
+
+Thanks,
+
+The Horde Groupware team
+
+
+.. _README: README
+.. _docs/CHANGES: CHANGES
+.. _INSTALL:
+.. _docs/INSTALL: INSTALL
+.. _docs/UPGRADING: UPGRADING

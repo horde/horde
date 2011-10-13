@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,15 +16,15 @@
  * Components_Config_Cli:: class provides central options for the command line
  * configuration of the components tool.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Config_Cli
@@ -46,6 +46,20 @@ extends Components_Config_Base
     ) {
         $this->_parser = $parser;
 
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '-c',
+                '--config',
+                array(
+                    'action' => 'store',
+                    'help'   => sprintf(
+                        'the path to the configuration file for the components script (default : %s).',
+                        Components_Constants::getConfigFile()
+                    ),
+                    'default' => Components_Constants::getConfigFile()
+                )
+            )
+        );
         $parser->addOption(
             new Horde_Argv_Option(
                 '-q',
@@ -72,7 +86,7 @@ extends Components_Config_Base
                 '--pretend',
                 array(
                     'action' => 'store_true',
-                    'help'   => 'Just pretend and indicate what would be done rather than performing the action (This option is not yet supported by all modules - "install", "change", and "release" so far).',
+                    'help'   => 'Just pretend and indicate what would be done rather than performing the action.',
                 )
             )
         );
@@ -98,6 +112,16 @@ extends Components_Config_Base
         );
         $parser->addOption(
             new Horde_Argv_Option(
+                '-D',
+                '--destination',
+                array(
+                    'action' => 'store',
+                    'help'   => 'Path to an (existing) destination directory where any output files will be placed.'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
                 '-R',
                 '--pearrc',
                 array(
@@ -106,7 +130,34 @@ extends Components_Config_Base
                 )
             )
         );
-
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '--allow-remote',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'allow horde-components to access the remote http://pear.horde.org for dealing with stable releases. This option is not required in case you work locally in your git checkout and will only work for some actions that are able to operate on stable release packages.'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '-G',
+                '--commit',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Commit any changes during the selected action to git.'
+                )
+            )
+        );
+        $parser->addOption(
+            new Horde_Argv_Option(
+                '--horde-root',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The root of the Horde git repository.'
+                )
+            )
+        );
         list($this->_options, $this->_arguments) = $this->_parser->parseArgs();
     }
 }

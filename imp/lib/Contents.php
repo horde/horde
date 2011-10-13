@@ -3,14 +3,14 @@
  * The IMP_Contents:: class contains all functions related to handling the
  * content and output of mail messages in IMP.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Contents
@@ -207,18 +207,20 @@ class IMP_Contents
                 : $ob->getContents();
         }
 
-        $bodypart_params = array(
-            'decode' => !empty($options['decode']),
-            'peek' => true
-        );
-
-        if (!empty($options['length'])) {
-            $bodypart_params['start'] = 0;
-            $bodypart_params['length'] = $options['length'];
-        }
-
         $query = new Horde_Imap_Client_Fetch_Query();
-        $query->bodyPart($id, $bodypart_params);
+        if (!isset($options['length']) || !empty($options['length'])) {
+            $bodypart_params = array(
+                'decode' => !empty($options['decode']),
+                'peek' => true
+            );
+
+            if (isset($options['length'])) {
+                $bodypart_params['start'] = 0;
+                $bodypart_params['length'] = $options['length'];
+            }
+
+            $query->bodyPart($id, $bodypart_params);
+        }
 
         if (!empty($options['mimeheaders'])) {
             $query->mimeHeader($id, array(
@@ -495,24 +497,6 @@ class IMP_Contents
                     )
                 );
             }
-        } elseif (!in_array($textmode, array('full', 'raw')) &&
-                  ($mime_part->getPrimaryType() == 'text')) {
-            /* If this is a text/* part, AND the browser does not support
-             * UTF-8, give the user a link to open the part in a new window
-             * with the correct character set. */
-            $default_charset = Horde_String::upper('UTF-8');
-            if ($default_charset !== 'UTF-8') {
-                $charset_upper = Horde_String::upper($mime_part->getCharset());
-                if (($charset_upper != 'US-ASCII') &&
-                    ($charset_upper != $default_charset)) {
-                    $ret[$mime_id]['status'][] = array(
-                        'text' => array(
-                            sprintf(_("This message was written in a character set (%s) other than your own."), htmlspecialchars($charset_upper)),
-                            sprintf(_("If it is not displayed correctly, %s to open it in a new window."), $this->linkViewJS($mime_part, 'view_attach', _("click here")))
-                        )
-                    );
-                }
-            }
         }
 
         return $ret;
@@ -667,7 +651,7 @@ class IMP_Contents
         if (($mask & self::SUMMARY_BYTES) ||
             $download_zip ||
             ($mask & self::SUMMARY_SIZE)) {
-            $part['bytes'] = $size = $mime_part->getBytes();
+            $part['bytes'] = $size = $mime_part->getBytes(true);
             $part['size'] = ($size > 1048576)
                 ? sprintf(_("%s MB"), number_format($size / 1048576, 1))
                 : sprintf(_("%s KB"), max(round($size / 1024), 1));
@@ -706,7 +690,7 @@ class IMP_Contents
             ($part['bytes'] > 204800)) {
             $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, $this, $mime_type);
             if (!$viewer->getMetadata('compressed')) {
-                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'iconImg downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
+                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'iconImg downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $description), 'params' => array('zip' => 1)));
             }
         }
 
@@ -723,7 +707,7 @@ class IMP_Contents
              ($mask & self::SUMMARY_PRINT_STUB)) &&
             $this->canDisplay($id, self::RENDER_FULL)) {
             $part['print'] = ($mask & self::SUMMARY_PRINT)
-                ? $this->linkViewJS($mime_part, 'print_attach', '', array('css' => 'iconImg printAtc', 'jstext' => _("Print"), 'onload' => 'IMP.printWindow', 'params' => $param_array))
+                ? $this->linkViewJS($mime_part, 'print_attach', '', array('css' => 'iconImg printAtc', 'jstext' => _("Print"), 'onload' => 'IMP_JS.printWindow', 'params' => $param_array))
                 : Horde::link('#', _("Print"), 'iconImg printAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
         }
 
@@ -788,7 +772,7 @@ class IMP_Contents
 
         if ($this->_mailbox) {
             $params['uid'] = $this->_uid;
-            $params['mailbox'] = $this->_mailbox;
+            $params['mailbox'] = $this->_mailbox->form_to;
         }
 
         return $params;
@@ -1000,6 +984,51 @@ class IMP_Contents
     }
 
     /**
+     * Returns the MIME part tree of the message.
+     *
+     * @param string $renderer  Either the tree renderer driver or a full
+     *                          class name to use.
+     *
+     * @return Horde_Tree  A tree instance representing the MIME part tree.
+     * @throws Horde_Tree_Exception
+     */
+    public function getTree($renderer = 'Horde_Core_Tree_Html')
+    {
+        $tree = Horde_Tree::factory('mime-' . $this->_uid, $renderer);
+        $this->_addTreeNodes($tree, $this->_message);
+        return $tree;
+    }
+
+    /**
+     * Adds MIME parts to the tree instance.
+     *
+     * @param Horde_Tree tree        A tree instance.
+     * @param Horde_Mime_Part $part  The MIME part to add to the tree,
+     *                               including its sub-parts.
+     * @param string $parent         The parent part's MIME id.
+     */
+    protected function _addTreeNodes($tree, $part, $parent = null)
+    {
+        $viewer = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_MimeViewer');
+        $mimeid = $part->getMimeId();
+
+        $line = $mimeid;
+        if ($description = $part->getDescription(true)) {
+            $line .= ' ' . $description;
+        }
+        $line .= ' [' . $part->getType(true) . ']';
+        $tree->addNode($mimeid, $parent, $line);
+        $tree->addNodeParams(
+            $mimeid,
+            array('icon' => $viewer->getIcon($part->getType())));
+
+        foreach ($part->getParts() as $part) {
+            $this->_addTreeNodes($tree, $part, $mimeid);
+        }
+    }
+
+    /**
      * Get download all list.
      *
      * @return array  An array of downloadable parts.
@@ -1118,10 +1147,10 @@ class IMP_Contents
             /* Fall-through. */
 
         case 'application':
-            return Horde_String::ucfirst($part->getSubType()) . ' ' . _("part");
+            return sprintf(_("%s part"), ucfirst($part->getSubType()));
 
         default:
-            return Horde_String::ucfirst($ptype) . ' ' . _("part");
+            return sprintf(_("%s part"), ucfirst($ptype));
         }
     }
 
@@ -1355,6 +1384,15 @@ class IMP_Contents
 
         foreach ($display as $val) {
             if (isset($summary[$val])) {
+                switch ($val) {
+                case 'description':
+                    $summary[$val] = '<span class="mimePartInfoDescrip">' . $summary[$val] . '</span>';
+                    break;
+
+                case 'size':
+                    $summary[$val] = '<span class="mimePartInfoSize">(' . $summary[$val] . ')</span>';
+                    break;
+                }
                 $tmp_summary[] = $summary[$val];
             }
         }

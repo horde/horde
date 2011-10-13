@@ -3,7 +3,7 @@
  <name>Horde_Nls</name>
  <channel>pear.horde.org</channel>
  <extends>Horde_NLS</extends>
- <summary>This package provides Native Language Support (NLS).</summary>
+ <summary>This package provides Native Language Support (NLS)</summary>
  <description>Provide common methods for handling language data, timezones, and hostname-&gt;country lookups.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -17,22 +17,29 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:16:05</time>
+ <date>2011-10-12</date>
+ <time>08:18:05</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Added ISO 639 language code lookup.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Nls">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Nls -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Nls">
@@ -40,6 +47,7 @@
       <file name="Coordinates.php" role="php" />
       <file name="Countries.php" role="php" />
       <file name="Geoip.php" role="php" />
+      <file name="Languages.php" role="php" />
       <file name="Tld.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -339,18 +347,21 @@
     <name>Net_DNS2</name>
     <channel>pear.php.net</channel>
    </package>
-   <extension>
+   <package>
     <name>geoip</name>
-   </extension>
+    <channel>pecl.php.net</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Nls/COPYING" />
    <install as="Horde/Nls.php" name="lib/Horde/Nls.php" />
    <install as="Horde/Nls/Carsigns.php" name="lib/Horde/Nls/Carsigns.php" />
    <install as="Horde/Nls/Coordinates.php" name="lib/Horde/Nls/Coordinates.php" />
    <install as="Horde/Nls/Countries.php" name="lib/Horde/Nls/Countries.php" />
    <install as="Horde/Nls/Geoip.php" name="lib/Horde/Nls/Geoip.php" />
+   <install as="Horde/Nls/Languages.php" name="lib/Horde/Nls/Languages.php" />
    <install as="Horde/Nls/Tld.php" name="lib/Horde/Nls/Tld.php" />
    <install as="Horde/Nls/Translation.php" name="lib/Horde/Nls/Translation.php" />
    <install as="locale/Horde_Nls.pot" name="locale/Horde_Nls.pot" />
@@ -453,7 +464,7 @@
     <api>alpha</api>
    </stability>
    <date>2004-02-11</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial packaging
    </notes>
@@ -469,7 +480,7 @@ Initial packaging
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Converted to package.xml 2.0 for pear.horde.org
    </notes>
@@ -484,7 +495,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Eliminate dependency on horde/Browser and horde/Core.
@@ -500,7 +511,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -515,7 +526,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -530,7 +541,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -545,7 +556,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -557,10 +568,36 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-05-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Latvian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Added ISO 639 language code lookup.
    </notes>
   </release>
  </changelog>

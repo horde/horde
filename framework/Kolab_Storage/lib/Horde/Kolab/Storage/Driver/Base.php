@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * The base driver definition for accessing Kolab storage drivers.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 abstract class Horde_Kolab_Storage_Driver_Base
@@ -365,7 +365,7 @@ implements Horde_Kolab_Storage_Driver
      * Retrieves the messages for the given message ids.
      *
      * @param string $mailbox The mailbox to fetch the messages from.
-     * @param array  $uids                The message UIDs.
+     * @param array  $uids    The message UIDs.
      *
      * @return Horde_Mime_Part The message structure parsed into a
      *                         Horde_Mime_Part instance.
@@ -379,8 +379,8 @@ implements Horde_Kolab_Storage_Driver
      * Retrieves a bodypart for the given message ID and mime part ID.
      *
      * @param string $mailbox The mailbox to fetch the messages from.
-     * @param array  $uid                 The message UID.
-     * @param array  $id                  The mime part ID.
+     * @param array  $uid     The message UID.
+     * @param array  $id      The mime part ID.
      *
      * @return resource  The body part, in a stream resource.
      */
@@ -389,6 +389,19 @@ implements Horde_Kolab_Storage_Driver
         throw new Horde_Kolab_Storage_Exception('"fetchBodypart() not supported by this driver!');
     }
 
+    /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid)
+    {
+        throw new Horde_Kolab_Storage_Exception('"fetchComplete() not supported by this driver!');
+    }
     /**
      * Split a name for the METADATA extension into the correct syntax for the
      * older ANNOTATEMORE version.

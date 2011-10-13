@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
@@ -26,7 +26,7 @@ if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
     $notification->push(_("You are not allowed to change this task list."), 'horde.error');
     Horde::url('tasklists/', true)->redirect();
 }
-$form = new Nag_EditTaskListForm($vars, $tasklist);
+$form = new Nag_Form_EditTaskList($vars, $tasklist);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {

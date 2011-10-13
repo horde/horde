@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/vilma/LICENSE.
@@ -496,7 +496,7 @@ class Vilma_Driver_Sql extends Vilma_Driver
         try {
             $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'vilma', 'storage');
         } catch (Exception $e) {
-            throw Vilma_Exception($e);
+            throw new Vilma_Exception($e);
         }
 
         /* Use default table names if these are not set. */

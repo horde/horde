@@ -3,7 +3,7 @@
  * Nag Base Class.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jon Parise <jon@horde.org>
  * @author  Chuck Hagenbuch <chuck@horde.org>
@@ -280,8 +280,7 @@ class Nag
     {
         if ($tasklist === null) {
             $tasklist = self::getDefaultTasklist(Horde_Perms::EDIT);
-        }
-        if (!array_key_exists($tasklist, self::listTasklists(false, Horde_Perms::EDIT))) {
+        } elseif (!self::hasPermission($tasklist, Horde_Perms::EDIT)) {
             return PEAR::raiseError(_("Permission Denied"));
         }
 
@@ -357,6 +356,12 @@ class Nag
     /**
      * Lists all task lists a user has access to.
      *
+     * This method takes the $conf['share']['hidden'] setting into account. If
+     * this setting is enabled, even if requesting permissions different than
+     * SHOW, it will only return calendars that the user owns or has SHOW
+     * permissions for. For checking individual calendar's permissions, use
+     * hasPermission() instead.
+     *
      * @param boolean $owneronly  Only return tasklists that this user owns?
      *                            Defaults to false.
      * @param integer $permission The permission to filter tasklists by.
@@ -369,15 +374,44 @@ class Nag
         if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
-        try {
-            $tasklists = $GLOBALS['nag_shares']->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => $permission,
-                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
-                      'sort_by' => 'name'));
-        } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage(), 'ERR');
-            return array();
+
+        if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
+            try {
+                $tasklists = $GLOBALS['nag_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                return array();
+            }
+        } else {
+            try {
+                $tasklists = $GLOBALS['nag_shares']->listShares(
+                    $GLOBALS['registry']->getAuth(),
+                    array('perm' => $permission,
+                          'attributes' => $GLOBALS['registry']->getAuth(),
+                          'sort_by' => 'name'));
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e);
+                return array();
+            }
+            $display_tasklists = @unserialize($GLOBALS['prefs']->getValue('display_tasklists'));
+            if (is_array($display_tasklists)) {
+                foreach ($display_tasklists as $id) {
+                    try {
+                        $tasklist = $GLOBALS['nag_shares']->getShare($id);
+                        if ($tasklist->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
+                            $tasklists[$id] = $tasklist;
+                        }
+                    } catch (Horde_Exception_NotFound $e) {
+                    } catch (Horde_Share_Exception $e) {
+                        Horde::logMessage($e);
+                        return array();
+                    }
+                }
+            }
         }
 
         return $tasklists;
@@ -412,6 +446,29 @@ class Nag
     }
 
     /**
+     * Returns whether the current user has certain permissions on a tasklist.
+     *
+     * @since Nag 3.0.3
+     *
+     * @param string $tasklist  A tasklist id.
+     * @param integer $perm     A Horde_Perms permission mask.
+     *
+     * @return boolean  True if the current user has the requested permissions.
+     */
+    static public function hasPermission($tasklist, $perm)
+    {
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($tasklist);
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
+                throw new Horde_Exception_NotFound();
+            }
+        } catch (Horde_Exception_NotFound $e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Returns the default tasklist for the current user at the specified
      * permissions level.
      *
@@ -441,7 +498,7 @@ class Nag
     /**
      * Creates a new share.
      *
-     * @param array $info  Hash with calendar information.
+     * @param array $info  Hash with tasklist information.
      *
      * @return Horde_Share  The new share.
      */
@@ -722,18 +779,10 @@ class Nag
             $GLOBALS['display_tasklists'] = array_keys($GLOBALS['all_tasklists']);
         }
 
-        /* If the user doesn't own a task list, create one. */
-        if (!empty($GLOBALS['conf']['share']['auto_create']) &&
-            $GLOBALS['registry']->getAuth() &&
-            !count(self::listTasklists(true))) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $share = $GLOBALS['nag_shares']->newShare(
-                $GLOBALS['registry']->getAuth(),
-                strval(new Horde_Support_Randomid()),
-                sprintf(_("Task list of %s"), $identity->getName())
-            );
-            $GLOBALS['nag_shares']->addShare($share);
-            $GLOBALS['display_tasklists'][] = $share->getName();
+        $tasklists = $GLOBALS['injector']->getInstance('Nag_Factory_Tasklists')
+            ->create();
+        if (($new_default = $tasklists->ensureDefaultShare()) !== null) {
+            $GLOBALS['display_tasklists'][] = $new_default;
         }
 
         $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));

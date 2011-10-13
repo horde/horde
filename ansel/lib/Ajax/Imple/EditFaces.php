@@ -3,7 +3,7 @@
  * Ansel_Ajax_Imple_EditFaces:: class for performing Ajax discovery and editing
  * of image faces
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author Duck <duck@obala.net>
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
@@ -45,15 +45,15 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Core_Ajax_Imple
                 // process - detects all faces in the image.
                 $name = '';
                 $autocreate = true;
-                $result = $faces->getImageFacesData($image_id);
+                $results = $faces->getImageFacesData($image_id);
                 // Attempt to get faces from the picture if we don't already have results,
                 // or if we were asked to explicitly try again.
-                if (($reload || empty($result))) {
+                if (($reload || empty($results))) {
                     $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
                     $image->createView('screen');
-                    $result = $faces->getFromPicture($image_id, $autocreate);
+                    $results = $faces->getFromPicture($image_id, $autocreate);
                 }
-                if (!empty($result)) {
+                if (!empty($results)) {
                     $customurl = Horde::url('faces/custom.php');
                     $url = (!empty($args['url']) ? urldecode($args['url']) : '');
                     Horde::startBuffer();

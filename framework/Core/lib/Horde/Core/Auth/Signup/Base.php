@@ -3,13 +3,13 @@
  * This class defines the abstract driver implementation for
  * Horde_Core_Auth_Signup.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
  * @author   Marko Djukic <marko@oblo.com>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
  * @package  Core

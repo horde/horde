@@ -1,7 +1,11 @@
 <h1>PHP Version</h1>
 <ul>
- <li><a href="<?php echo $php_info->phpinfo ?>">View phpinfo() screen</a></li>
- <li><a href="<?php echo $php_info->extensions ?>">View loaded extensions</a></li>
+ <li>
+  <a href="<?php echo $php_info->phpinfo ?>">View phpinfo() screen</a>
+ </li>
+ <li>
+  <a href="<?php echo $php_info->extensions ?>">View loaded extensions</a>
+ </li>
  <li>PHP Version: <?php echo $php_info->version ?></li>
  <li>PHP Major Version: <?php echo $php_info->major ?></li>
 <?php if (isset($php_info->minor)): ?>

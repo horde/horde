@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @category   Horde
  * @package    Util
  * @subpackage UnitTests
@@ -60,6 +60,18 @@ EOT;
 
         $this->assertEquals(
             Horde_String::convertCharset($expected, 'UTF-8', 'iso-8859-15'),
+            trim($dom->returnBody())
+        );
+    }
+
+    public function testBug9992()
+    {
+        $text = base64_decode('dGVzdDogtbno6bvtu+nt/eHpu7797Txicj4K');
+        $expected = '<p>test: ľščéťíťéíýáéťžýí<br/></p>';
+
+        $dom = new Horde_Domhtml($text, 'iso-8859-2');
+        $this->assertEquals(
+            Horde_String::convertCharset($expected, 'UTF-8', 'iso-8859-2'),
             trim($dom->returnBody())
         );
     }

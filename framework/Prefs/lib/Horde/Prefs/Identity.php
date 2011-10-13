@@ -2,14 +2,14 @@
 /**
  * This class provides an interface to all identities a user might have.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Prefs
  */
 class Horde_Prefs_Identity
@@ -114,16 +114,6 @@ class Horde_Prefs_Identity
 
             $this->_identities = array($identity);
             $this->verify(0);
-        }
-
-        if ($this->_prefs->isLocked($this->_prefnames['default_identity'])) {
-            foreach ($this->_prefnames['properties'] as $key) {
-                $value = $this->getValue($key);
-                if (is_array($value)) {
-                    $value = implode("\n", $value);
-                }
-                $this->_prefs->setValue($key, $value, array('nosave' => true));
-            }
         }
     }
 

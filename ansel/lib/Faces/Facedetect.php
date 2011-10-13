@@ -63,25 +63,15 @@ class Ansel_Faces_Facedetect extends Ansel_Faces_Base
         return false;
     }
 
-    protected function _getParamsArray($face_id, $image, $rect)
-    {
-        return array($face_id,
-                     $image->id,
-                     $image->gallery,
-                     $rect['x'],
-                     $rect['y'],
-                     $rect['x'] + $rect['w'],
-                     $rect['y'] + $rect['h']);
-    }
-
     protected function _createView($face_id, $image, $rect)
     {
-        return $this->createView($face_id,
-                                $image,
-                                $rect['x'],
-                                $rect['y'],
-                                $rect['x'] + $rect['w'],
-                                $rect['y'] + $rect['h']);
+        return $this->createView(
+            $face_id,
+            $image,
+            $rect['x'],
+            $rect['y'],
+            $rect['x'] + $rect['w'],
+            $rect['y'] + $rect['h']);
     }
 
 }

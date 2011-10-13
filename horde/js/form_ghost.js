@@ -33,7 +33,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -89,6 +89,13 @@ var FormGhost = Class.create({
         if (!this.hasinput && this.isghost) {
             this.elt.setValue(this.elt.readAttribute('title'));
         }
+    },
+
+    reset: function()
+    {
+        this.elt.clear();
+        this.isghost = false;
+        this.ghost();
     }
 
 });

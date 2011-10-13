@@ -3,10 +3,10 @@
 /**
  * This script parses MIME messages and deactivates users with returned emails.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Duck <duck@obala.net>
  * @package Folks
@@ -156,7 +156,7 @@ $title = _("Email problem");
 $body = _("Dear %s, we tried to send you an email, but if turns out that the mail is usable any more. Maybe you run over quota. If your mail is discontinued, please update your profile with the email you are using now at %s.");
 
 // Horde Auto login to send messages with
-Horde_Auth::setAuth($opts_hash['--username'], array('transparent' => 1));
+$registry->setAuth($opts_hash['--username'], array('transparent' => 1));
 
 // Send messages
 foreach ($users as $user) {

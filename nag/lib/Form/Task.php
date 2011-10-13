@@ -3,7 +3,7 @@
  * This file contains all Horde_Form extensions required for editing tasks.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Nag
  */
@@ -22,14 +22,8 @@ class Nag_Form_Task extends Horde_Form
     {
         parent::__construct($vars, $title);
         $this->delete = $delete;
-        $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
         $tasklist_enums = array();
-        foreach ($tasklists as $tl_id => $tl) {
-            if ($tl->get('owner') != $GLOBALS['registry']->getAuth() &&
-                !empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($tl->getName(), $GLOBALS['display_tasklists'])) {
-                continue;
-            }
+        foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $tl_id => $tl) {
             $tasklist_enums[$tl_id] = $tl->get('name');
         }
         $tasklist = $vars->get('tasklist_id');
@@ -44,7 +38,7 @@ class Nag_Form_Task extends Horde_Form
             if ($vars->get('task_id') == $task->id) {
                 continue;
             }
-            $task_enums[htmlspecialchars($task->id)] = str_repeat('&nbsp;', $task->indent * 4) . htmlentities($task->name);
+            $task_enums[htmlspecialchars($task->id)] = str_repeat('&nbsp;', $task->indent * 4) . htmlspecialchars($task->name);
         }
         $users = array();
         $share = $GLOBALS['nag_shares']->getShare($tasklist);

@@ -1,0 +1,30 @@
+<?php
+/**
+ * Horde Components Configuration File
+ *
+ * This file contains the configuration settings for the Horde components
+ * helper.
+ *
+ * Strings should be enclosed in 'quotes'.
+ * Integers should be given literally (without quotes).
+ * Boolean values may be true or false (never quotes).
+ */
+
+/* PEAR server name. Only change for testing purposes. */
+$conf['releaseserver'] = 'pear.horde.org';
+
+/* PEAR server directory. Only change for testing purposes. */
+$conf['releasedir'] = '/horde/web/pear.horde.org';
+
+/* Username for horde.org.
+ * Make sure you belong to the "horde" group there. */
+$conf['horde_user'] = '';
+
+/* Needed to update the Whups versions */
+$conf['horde_pass'] = '';
+
+/* From: address for announcements. */
+$conf['from'] = 'Full name <user@horde.org>';
+
+/* This should be set to the developer's API token */
+$conf['fm_token'] = '';

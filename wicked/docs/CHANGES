@@ -1,7 +1,29 @@
+----------
+v1.0.1-git
+----------
+
+
+
 --------
-v1.0-cvs
+v1.0-RC1
 --------
 
+[jan] Fix rendering attached images with Mediawiki syntax (Bug #10570).
+[jan] Fix links to add new pages on pages with non-ascii names (Bug #10612).
+[gwr] Support rendering bold text and code section in the rst renderer.
+
+
+-----------
+v1.0-ALPHA1
+-----------
+
+[jan] Move all default pages into the Wiki/ namespace (Request #7021).
+[jan] Support Unicode wiki page names.
+[gwr] Added support for reStructuredText export.
+[jan] Add embedding of Horde blocks.
+[jan] Log attachment downloads.
+[jan] Replace major and minor versions with single versions (Request #7210).
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.
 [jan] Require delete permissions for merging/renaming pages.
 [jan] Don't use WikiWords in menus (Request #7021).

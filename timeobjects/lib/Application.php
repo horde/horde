@@ -4,7 +4,7 @@
  * can interact with Content through this API.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package TimeObjects
  */
@@ -29,5 +29,5 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Timeobjects_Application extends Horde_Registry_Application
 {
-    public $version = '1.0.1-git';
+    public $version = '1.0.4-git';
 }

@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Components_Runner_Snapshot:: packages a snapshot.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Runner_Snapshot
@@ -70,34 +70,24 @@ class Components_Runner_Snapshot
     public function run()
     {
         $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
-
-        if (!isset($options['pearrc'])) {
-            $package = $this->_factory->createPackageForDefaultLocation(
-                $this->_config->getComponentPackageXml()
-            );
-        } else {
-            $package = $this->_factory->createPackageForInstallLocation(
-                $this->_config->getComponentPackageXml(), $options['pearrc']
-            );
-        }
-
-        if ($options['archivedir']) {
-            $archivedir = $options['archivedir'];
+        if (!empty($options['destination'])) {
+            $archivedir = $options['destination'];
         } else {
             $archivedir = getcwd();
         }
-
-        if (empty($options['keep_version'])) {
-            $version = preg_replace(
-                '/([.0-9]+).*/',
-                '\1dev' . strftime('%Y%m%d%H%M'),
-                $package->getVersion()
+        $options['logger'] = $this->_output;
+        $result = $this->_config->getComponent()->placeArchive(
+            $archivedir, $options
+        );
+        if (isset($result[2])) {
+            $this->_output->pear($result[2]);
+        }
+        if (!empty($result[1])) {
+            $this->_output->fail(
+                'Generating snapshot failed with:'. "\n\n" . join("\n", $result[1])
             );
         } else {
-            $version = $package->getVersion();
+            $this->_output->ok('Generated snapshot ' . $result[0]);
         }
-
-        $package->generateSnapshot($version, $archivedir);
     }
 }

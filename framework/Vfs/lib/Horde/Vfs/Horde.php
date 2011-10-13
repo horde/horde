@@ -9,10 +9,10 @@
  *   'user'      A valid Horde user name.
  *   'password'  The user's password.</pre>
  *
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Vfs
@@ -53,7 +53,7 @@ class Horde_Vfs_Horde extends Horde_Vfs_Base
     {
         if (!empty($this->_params['user']) &&
             !empty($this->_params['password'])) {
-            Horde_Auth::setAuth($this->_params['user'], array('password' => $this->_params['password']));
+            $GLOBALS['registry']->setAuth($this->_params['user'], array('password' => $this->_params['password']));
         }
     }
 

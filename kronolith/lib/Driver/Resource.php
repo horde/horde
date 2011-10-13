@@ -3,10 +3,10 @@
  * The Kronolith_Driver_Resource class implements the Kronolith_Driver API for
  * storing resource calendars in a SQL backend.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Luc Saillard <luc.saillard@fr.alcove.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
@@ -80,7 +80,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                             $resource->getId());
 
             try {
-                $result = $this->_db->update($query, $values);
+                $this->_db->update($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Kronolith_Exception($e);
             }
@@ -98,7 +98,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                             serialize($resource->get('members')),
                             $resource->get('email'));
             try {
-                $result = $this->_db->insert($query, $values);
+                $id = $this->_db->insert($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Kronolith_Exception($e);
             }
@@ -193,13 +193,14 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * Right now, all users have Horde_Perms::READ, but only system admins have
      * Horde_Perms::EDIT | Horde_Perms::DELETE
      *
-     * @param integer $perms  A Horde_Perms::* constant.
-     * @param array $filter   A hash of field/values to filter on.
+     * @param integer $perms   A Horde_Perms::* constant.
+     * @param array $filter    A hash of field/values to filter on.
+     * @param string $orderby  Field to order results by. Null for no ordering.
      *
      * @return an array of Kronolith_Resource objects.
      * @throws Kronolith_Exception
      */
-    public function listResources($perms = Horde_Perms::READ, $filter = array())
+    public function listResources($perms = Horde_Perms::READ, $filter = array(), $orderby = null)
     {
         if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
             !$GLOBALS['registry']->isAdmin()) {
@@ -215,6 +216,10 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                 $clause .= 'resource_' . $field . ' = ?' . (($i++ < ($c - 1)) ? ' AND ' : '');
             }
             $query .= $clause;
+        }
+
+        if (!empty($orderby)) {
+            $query .= ' ORDER BY resource_' . $orderby;
         }
 
         try {

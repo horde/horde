@@ -7,12 +7,13 @@
  </tr><tr class="item">
 <?php
 foreach ($stats as $stat => $label):
-    $time = $reporter->getTime($stat, 'type_name');
-    if (is_a($time, 'PEAR_Error')):
+    try {
+        $time = $reporter->getTime($stat, 'type_name');
+    } catch (Whups_Exception $e) {
 ?>
-   <td><?php echo $time->getMessage() ?></td>
-<?php else: ?>
+   <td><?php echo $e->getMessage() ?></td>
+<?php } ?>
    <td><?php foreach ($time as $type => $type_time)  echo $type . ': ' . sprintf(_("%s days"), $type_time) . '<br />' ?></td>
-<?php endif; endforeach; ?>
+<?php endforeach; ?>
  </tr>
 </table>

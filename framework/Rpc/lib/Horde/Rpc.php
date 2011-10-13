@@ -16,10 +16,10 @@
  *                                      array('name', 'email')));
  * </code>
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Rpc
@@ -85,7 +85,7 @@ class Horde_Rpc
 
         $this->_params = $params;
         $this->_request = $request;
-        
+
         if (isset($params['requireAuthorization'])) {
             $this->_requireAuthorization = $params['requireAuthorization'];
         }
@@ -116,10 +116,10 @@ class Horde_Rpc
         // @TODO: inject this
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         $serverVars = $this->_request->getServerVars();
-        if ($serverVars['PHP_AUTH_USER']) {
+        if (!empty($serverVars['PHP_AUTH_USER'])) {
             $user = $serverVars['PHP_AUTH_USER'];
             $pass = $serverVars['PHP_AUTH_PW'];
-        } elseif ($serverVars['Authorization']) {
+        } elseif (!empty($serverVars['Authorization'])) {
             $hash = str_replace('Basic ', '', $serverVars['Authorization']);
             $hash = base64_decode($hash);
             if (strpos($hash, ':') !== false) {

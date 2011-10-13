@@ -1,0 +1,13 @@
+.ansel_geolocation {
+    background: url('graphics/photomarker.png') center left no-repeat;
+    margin:10px 0 6px;
+    padding:0 0 6px 30px;
+    min-height: 37px;
+}
+#ansel_locationtext, #ansel_latlng, #ansel_relocate, #ansel_deleteGeotag {
+    margin-left: 10px;
+}
+.twitterbutton {
+  padding-left: 16px !important;
+  background: url('graphics/twitter.png') center left no-repeat, url("graphics/menu.png") repeat-x scroll 0 -1px #D7D7D7;
+}

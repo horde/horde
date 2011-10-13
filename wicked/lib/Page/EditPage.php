@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Wicked
 
@@ -163,11 +163,10 @@ class Wicked_Page_EditPage extends Wicked_Page {
                 ), 'dom');
                 return;
             }
-            $minorchange = Horde_Util::getFormData('minor');
             if (trim($text) == trim($page->getText())) {
                 $notification->push(_("No changes made"), 'horde.warning');
             } else {
-                $page->updateText($text, $changelog, $minorchange);
+                $page->updateText($text, $changelog);
                 $notification->push(_("Page Saved"), 'horde.success');
             }
 

@@ -4,7 +4,7 @@
  * such as a Contact or Appointment. Encoding/Decoding logic taken from the
  * Z-Push library. Original file header and copyright notice appear below.
  *
- * @copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * @copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
@@ -24,8 +24,8 @@
 * Created   :   01.10.2007
 *
 * � Zarafa Deutschland GmbH, www.zarafaserver.de
-* This file is distributed under GPL v2.
-* Consult LICENSE file for details
+* This file is distributed under GPL-2.0.
+* Consult COPYING file for details
 ************************************************/
 class Horde_ActiveSync_Message_Base
 {
@@ -80,12 +80,11 @@ class Horde_ActiveSync_Message_Base
     /**
      * Const'r
      *
-     * @param array $mapping  A mapping array from constants -> property names
      * @param array $options  Any addition options the message may require
      *
      * @return Horde_ActiveSync_Message_Base
      */
-    public function __construct($options)
+    public function __construct(array $options)
     {
         if (!empty($options['logger'])) {
             $this->_logger = $options['logger'];
@@ -103,6 +102,8 @@ class Horde_ActiveSync_Message_Base
 
         if (!empty($this->_properties[$property])) {
             return $this->_properties[$property];
+        } elseif ($this->_properties[$property] === 0) {
+            return 0;
         } else {
             return '';
         }
@@ -210,7 +211,7 @@ class Horde_ActiveSync_Message_Base
 
                 /* Found start tag */
                 if (!isset($this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]])) {
-                    $this->_logDebug('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
+                    $this->_logger->debug('Tag ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ' unexpected in type XML type ' . get_class($this));
                     throw new Horde_ActiveSync_Exception('Unexpected tag');
                 } else {
                     $map = $this->_mapping[$entity[Horde_ActiveSync_Wbxml::EN_TAG]];
@@ -264,7 +265,7 @@ class Horde_ActiveSync_Message_Base
 
                                 $decoded = $subdecoder;
                                 if (!$decoder->getElementEndTag()) {
-                                    $this->_logError('No end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
+                                    $this->_logger->err('No end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                                     throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                                 }
                             }
@@ -272,12 +273,12 @@ class Horde_ActiveSync_Message_Base
                             /* Simple type, just get content */
                             $decoded = $decoder->getElementContent();
                             if ($decoded === false) {
-                                $this->_logError('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
+                                $this->_logger->err('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                                 //throw new Horde_ActiveSync_Exception('Unknown parsing error.');
                             }
 
                             if (!$decoder->getElementEndTag()) {
-                                $this->_logError('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
+                                $this->_loger->err('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                             }
                         }
@@ -289,7 +290,7 @@ class Horde_ActiveSync_Message_Base
                 $decoder->_ungetElement($entity);
                 break;
             } else {
-                $this->_logError('Unexpected content in type');
+                $this->_logger->err('Unexpected content in type');
                 break;
             }
         }
@@ -340,7 +341,7 @@ class Horde_ActiveSync_Message_Base
                     if (strlen($this->$map[self::KEY_ATTRIBUTE]) == 0) {
                           // Do not output empty items except for the following:
                           if ($this->_checkSendEmpty($tag)) {
-                              $encoder->startTag($tag, false, true);
+                              $encoder->startTag($tag, $this->$map[self::KEY_ATTRIBUTE], true);
                           } else {
                             continue;
                           }
@@ -373,30 +374,6 @@ class Horde_ActiveSync_Message_Base
     protected function _checkSendEmpty($tag)
     {
         return false;
-    }
-
-    /**
-     *
-     * @param $message
-     * @return unknown_type
-     */
-    protected function _logDebug($message)
-    {
-        if (!empty($this->_logger)) {
-            $this->_logger->debug($message);
-        }
-    }
-
-    /**
-     *
-     * @param $message
-     * @return unknown_type
-     */
-    protected function _logError($message)
-    {
-        if (!empty($this->_logger)) {
-            $this->_logger->err($message);
-        }
     }
 
     /**

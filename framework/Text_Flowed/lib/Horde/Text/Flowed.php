@@ -8,14 +8,14 @@
  * license, which is compatible with the LGPL.
  *
  * Copyright 2002-2003 Philip Mak
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Text_Flowed
  */
 class Horde_Text_Flowed
@@ -78,7 +78,7 @@ class Horde_Text_Flowed
      * @param string $text     The text to process.
      * @param string $charset  The character set of $text.
      */
-    public function __construct($text, $charset = null)
+    public function __construct($text, $charset = 'UTF-8')
     {
         $this->_text = $text;
         $this->_charset = $charset;

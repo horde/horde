@@ -2,7 +2,7 @@
 /**
  * Turba browse.php.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -16,7 +16,7 @@ Horde_Registry::appInit('turba');
 
 /* If default source is not browsable, try one from the addressbooks pref */
 if (empty($cfgSources[$default_source]['browse'])) {
-    $addressbooks = Horde_Serialize::unserialize($prefs->getValue('addressbooks'), Horde_Serialize::JSON);
+    $addressbooks = Turba::getAddressBooks();
     foreach ($addressbooks as $source) {
         if (!empty($cfgSources[$source]['browse'])) {
             $default_source = $source;

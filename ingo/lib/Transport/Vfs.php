@@ -2,7 +2,7 @@
 /**
  * Ingo_Transport_Vfs implements an Ingo storage driver using Horde VFS.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -47,15 +47,15 @@ class Ingo_Transport_Vfs extends Ingo_Transport
         $this->_connect();
 
         try {
-            if (empty($script)) {
-                $this->_vfs->deleteFile($this->_params['vfs_path'], $this->_params['filename']);
-            } else {
+            if (!empty($script)) {
                 $this->_vfs->writeData($this->_params['vfs_path'], $this->_params['filename'], $script, true);
+            } elseif ($this->_vfs->exists($this->_params['vfs_path'], $this->_params['filename'])) {
+                $this->_vfs->deleteFile($this->_params['vfs_path'], $this->_params['filename']);
             }
             foreach ($additional as $filename => $content) {
                 if (strlen($content)) {
                     $this->_vfs->writeData($this->_params['vfs_path'], $filename, $content, true);
-                } else {
+                } elseif ($this->_vfs->exists($this->_params['vfs_path'], $filename)) {
                     $this->_vfs->deleteFile($this->_params['vfs_path'], $filename);
                 }
             }

@@ -1,9 +1,9 @@
 /**
  * TURAnselGallery.m
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
- * @license http://opensource.org/licenses/bsd-license.php
+ * @license http://www.horde.org/licenses/bsd
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
 #import <Foundation/Foundation.h>
@@ -124,9 +124,17 @@
         NSArray *params;
         NSArray *order;
 
-        //if ([[anselController valueForKey:@"version"] intValue] == 2) {
-            // listImages hasn't been refactored yet in version 2 API
-        //} else {
+        if ([[anselController valueForKey:@"version"] intValue] == 2) {
+            params = [NSArray arrayWithObjects: 
+                      [NSNumber numberWithInt: _galleryId],
+                      [NSDictionary dictionaryWithObjectsAndKeys:
+                       [NSNumber numberWithBool: YES], @"full",
+                       @"ansel_default", @"style", nil],
+                      nil];
+            order = [NSArray arrayWithObjects: kTURAnselAPIParamGalleryId,
+                                               kTURAnselAPIParamSingleParameter,
+                                               nil];
+        } else {
             params = [NSArray arrayWithObjects:
                                @"ansel",                                //Scope
                                [NSNumber numberWithInt: _galleryId],    //Gallery Id
@@ -139,7 +147,7 @@
                                                kTURAnselAPIParamPerms,
                                                kTURAnselAPIParamThumbnailStyle,
                                                kTURAnselAPIParamFullPath, nil];
-        //}
+        }
         NSDictionary *response = [anselController callRPCMethod: @"images.listImages"
                                                      withParams: params
                                                       withOrder: order];

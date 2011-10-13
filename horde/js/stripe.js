@@ -6,7 +6,7 @@
  * @author Matt Warden <mwarden@gmail.com>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
 
 window.Horde = window.Horde || {};
@@ -25,11 +25,15 @@ Horde.stripeElement = function(elt)
     if (elt.tagName == 'TABLE') {
         // Tables can have more than one tbody element; get all child
         // tbody tags and interate through them.
-        e.each(this.stripeElement.bind(this));
+        e.each(function(child) {
+            child.childElements().each(function(c) {
+                c.removeClassName(classes[i % 2]).addClassName(classes[++i % 2]);
+            });
+        });
     } else {
         // Toggle the classname of any child node that is an element.
         e.each(function(c) {
-            c.removeClassName(classes[i]).addClassName(classes[++i % 2]);
+            c.removeClassName(classes[i % 2]).addClassName(classes[++i % 2]);
         });
     }
 };

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Beatnik H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgstr ""
 msgid "DNS Service Record Weight"
 msgstr ""
 
-#: config/prefs.php:43
+#: config/prefs.php:44
 msgid "Default Time-To-Live for new records."
 msgstr ""
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "Display Preferences"
 msgstr ""
 
@@ -230,7 +230,7 @@ msgstr ""
 msgid "Hostname of Mail eXchanger"
 msgstr ""
 
-#: config/prefs.php:36
+#: config/prefs.php:37
 msgid "How many domain to display per page."
 msgstr ""
 
@@ -314,7 +314,7 @@ msgstr ""
 msgid "Preference"
 msgstr ""
 
-#: config/prefs.php:11 config/prefs.php:18
+#: config/prefs.php:12 config/prefs.php:19
 msgid "Preferences"
 msgstr ""
 
@@ -326,7 +326,7 @@ msgstr ""
 msgid "Primary nameserver for this zone"
 msgstr ""
 
-#: config/prefs.php:19
+#: config/prefs.php:20
 msgid "Record Defaults"
 msgstr ""
 
@@ -387,11 +387,11 @@ msgstr ""
 msgid "Serial"
 msgstr ""
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set default display parameters."
 msgstr ""
 
-#: config/prefs.php:20
+#: config/prefs.php:21
 msgid "Set default record parameters."
 msgstr ""
 

@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Pear
  */
 
 /**
  * Handles a directory in the contents list.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Package_Xml_Directory
@@ -65,7 +65,8 @@ class Horde_Pear_Package_Xml_Directory
     public function __construct(
         Horde_Pear_Package_Xml_Element_Directory $dir,
         $parent
-    ) {
+    )
+    {
         $this->_element = $dir;
         $this->_parent = $parent;
         $subdirectories = $this->_element->getSubdirectories();
@@ -140,7 +141,8 @@ class Horde_Pear_Package_Xml_Directory
     private function _create(
         Horde_Pear_Package_Xml_Element_Directory $element,
         Horde_Pear_Package_Xml_Directory $parent
-    ) {
+    )
+    {
         return $this->_getRoot()->createDirectory($element, $parent);
     }
 

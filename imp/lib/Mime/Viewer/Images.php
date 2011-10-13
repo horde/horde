@@ -3,14 +3,14 @@
  * The IMP_Mime_Viewer_Images class allows display of images attached
  * to a message.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
@@ -26,6 +26,17 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         'inline' => true,
         'raw' => true
     );
+
+    /**
+     */
+    public function canRender($mode)
+    {
+        /* For mimp - allow rendering of attachments inline (on the view
+         * parts page). */
+        return (($mode == 'inline') && (IMP::getViewMode() == 'mimp'))
+            ? true
+            : parent::canRender($mode);
+    }
 
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
@@ -77,7 +88,9 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 $imgview = new IMP_Ui_Imageview();
                 $showimg = $imgview->showInlineImage($this->getConfigParam('imp_contents'));
             } else {
-                $showimg = false;
+                /* For mimp - allow rendering of attachments inline (on the
+                 * view parts page). */
+                $showimg = (IMP::getViewMode() == 'mimp');
             }
 
             if (!$showimg) {
@@ -129,16 +142,12 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _renderInfo()
     {
-        /* Display the thumbnail link only if we show thumbs for all images or
-         * if image is over 50 KB. Also, check to see if convert utility is
-         * available. */
-        if ((!$this->getConfigParam('allthumbs') &&
-             ($this->_mimepart->getBytes() < 51200)) ||
-            !$this->_getHordeImageOb(false)) {
+        /* Check to see if convert utility is available. */
+        if (!$this->_getHordeImageOb(false)) {
             return array();
         }
 
-        $status = array(_("This is a thumbnail of an image attached to this message."));
+        $status = array(_("This is a thumbnail of an image attachment."));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
             $status[] = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null);
@@ -189,7 +198,9 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 }
             }
             $type = $img->getContentType();
-            $data = $img->raw(true);
+            try {
+                $data = $img->raw(true);
+            } catch (Exception $e) {}
         }
 
         if (!$img || !$data) {
@@ -216,29 +227,16 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _getHordeImageOb($load)
     {
-        if (empty($GLOBALS['conf']['image']['driver'])) {
-            return false;
-        }
-
         try {
-            $img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create();
-        } catch (Horde_Exception $e) {
-            return false;
-        }
-
-        if (!$img) {
-            return false;
-        }
-
-        if ($load) {
-            try {
-                $ret = $img->loadString($this->_mimepart->getContents());
-            } catch (Horde_Image_Exception $e) {
-                return false;
+            if (($img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create()) && $load) {
+                $img->loadString($this->_mimepart->getContents());
             }
+            return $img;
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e, 'DEBUG');
         }
 
-        return $img;
+        return false;
     }
 
     /**

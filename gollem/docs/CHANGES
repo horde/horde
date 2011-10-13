@@ -1,16 +1,37 @@
+----------
+v2.0.0-git
+----------
+
+[jan] Catch if VFS backend doesn't support size() (Bug #10637).
+[mms] Fix editing text files.
+
+
 --------
-v2.0-git
+v2.0-RC1
 --------
 
+[jan] Fix usage of createhome parameter (Bug #10592).
+[mms] Fix display of 'columnselect' preference (Bug #10628).
+[jan] Don't require login for login-less VFS backends.
+
+
+-----------
+v2.0-ALPHA2
+-----------
+
+[jan] Fix file viewing.
+[jan] Add missing backends configuration.
+[jan] Add missing sort icons.
+[jan] Fix broken dependency.
+
+
+-----------
+v2.0-ALPHA1
+-----------
+
+[jan] Convert authentication infrastructure to H4.
 [jan] Provide default configuration files instead of .dist versions.
 [mms] Convert to use H4.
-
-
-----------
-v1.1.3-cvs
-----------
-
-
 
 
 ------

@@ -2,10 +2,10 @@
 /**
  * The Agora script merge two threads.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
@@ -13,7 +13,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
-$messages = &Agora_Messages::singleton($scope, $forum_id);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -43,18 +43,19 @@ $form->addHidden('', 'scope', 'text', false);
 
 $action_submit = Horde_Form_Action::factory('submit');
 $threads_list = array();
-foreach ($messages->getThreads(0, false, 'message_subject', 0) as $id => $thread) {
-    $threads_list[$id] = $thread['message_subject'];
+foreach ($messages->getThreads(0, false, 'message_subject', 0) as $thread) {
+    $threads_list[$thread['message_id']] = $thread['message_subject'];
 }
 
 $v = &$form->addVariable(_("With Thread: "), 'new_thread_id', 'enum', true, false, null, array($threads_list));
 $v->setAction($action_submit);
 $v->setOption('trackchange', true);
 
+// TODO: show message list on first page load too.
 if ($vars->get('new_thread_id')) {
     $message_list = array();
-    foreach ($messages->getThreads($vars->get('new_thread_id'), true, 'message_timestamp') as $id => $thread) {
-        $message_list[$id] = $thread['message_subject'] . ' (' . $thread['message_author'] . ' ' . $thread['message_date'] . ')';
+    foreach ($messages->getThreads($vars->get('new_thread_id'), true) as $thread) {
+        $message_list[$thread['message_id']] = $thread['message_subject'] . ' (' . $thread['message_author'] . ' ' . $thread['message_date'] . ')';
     }
     $form->addVariable(_("After Message: "), 'after_message_id', 'enum', true, false, null, array($message_list));
 }
@@ -85,8 +86,8 @@ $view->main = Horde::endBuffer();
 
 $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
-$view->message_body = Agora_Messages::formatBody($message['body']);
+$view->message_body = Agora_Driver::formatBody($message['body']);
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('main.html.php');
+echo $view->render('main');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

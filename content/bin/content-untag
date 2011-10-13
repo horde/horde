@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 require $CONTENT_DIR . 'lib/Tagger.php';

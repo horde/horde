@@ -1,10 +1,16 @@
 <!-- <h3><?php /*echo date('Y-m-d', $logMessage->queryDate()) */?></h3> -->
 <div class="commit-summary">
+<?php if (empty($hide_diff)): ?>
  <div class="commit-info">
   <ul>
    <li>
-    <a href="<?php echo Chora::url('co', $GLOBALS['where'], array('r' => $logMessage->queryRevision())) ?>" title="<?php echo _("View commit") ?>"><?php echo $this->escape($logMessage->queryRevision()) ?></a>
-    <span class="diffadd">+<?php echo $this->escape($logMessage->getAddedLines()) ?></span>, <span class="diffdel">-<?php echo $this->escape($logMessage->getDeletedLines()) ?></span>
+    <a href="<?php echo Chora::url('commit', '', array('commit' => $logMessage->queryRevision())) ?>" title="<?php echo _("View commit") ?>"><?php echo $this->escape($logMessage->queryRevision()) ?></a>
+    <div>
+     <span class="diffadd">+<?php echo $this->escape($logMessage->getAddedLines()) ?></span>, <span class="diffdel">-<?php echo $this->escape($logMessage->getDeletedLines()) ?></span>
+<?php if (empty($diff_page)): ?>
+     <span class="difflink">[<a href="<?php echo Chora::url('diff', $GLOBALS['where'], array('r1' => $logMessage->queryRevision())) ?>"><?php echo _("Diff") ?></a>]</span>
+<?php endif; ?>
+    </div>
    </li>
   </ul>
   <ul>
@@ -29,6 +35,7 @@
   </ul>
   <?php endif; ?>
  </div>
+<?php endif; ?>
 
  <div class="commit-message"><?php echo Chora::formatLogMessage($logMessage->queryLog()) ?></div>
 

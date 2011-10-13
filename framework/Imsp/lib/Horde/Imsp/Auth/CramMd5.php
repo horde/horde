@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Imsp_Auth_cram_md5 class for IMSP authentication.
+ * IMSP authentication class for CRAM-MD5 authentication.
  *
  * Required parameters:<pre>
  *   'username'  Username to logon to IMSP server as.
@@ -8,10 +8,10 @@
  *   'server'    The hostname of the IMSP server.
  *   'port'      The port of the IMSP server.</pre>
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Imsp

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2009 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  *
@@ -44,11 +44,11 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      * @param array $config  A hash containing any additional configuration or
      *                       connection parameters this class might need.
      */
-    public function __construct(Horde_Controller_Request_Http $request, $params = array())
+    public function __construct(Horde_Controller_Request_Http $request, array $params = array())
     {
         parent::__construct($request, $params);
 
-        /* Check for requirements */
+        // Check for requirements
         $this->_get = $request->getGetVars();
         if ($request->getMethod() == 'POST' &&
             (empty($this->_get['Cmd']) || empty($this->_get['DeviceId']) || empty($this->_get['DeviceType']))) {
@@ -75,10 +75,8 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             }
         }
 
-        /* Set our server and backend objects */
         $this->_backend = $params['backend'];
         $this->_server = $params['server'];
-        /* provisioning can be false, true, or 'loose' */
         $this->_server->setProvisioning(empty($params['provisioning']) ? false : $params['provisioning']);
     }
 
@@ -117,22 +115,27 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $serverVars = $this->_request->getServerVars();
         switch ($serverVars['REQUEST_METHOD']) {
         case 'OPTIONS':
+        case 'GET':
+            if ($serverVars['REQUEST_METHOD'] == 'GET' &&
+                $this->_get['Cmd'] != 'OPTIONS') {
+                throw new Horde_Rpc_Exception('Trying to access the ActiveSync endpoint from a browser. Not Supported.');
+            }
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for OPTIONS');
-            $this->_server->handleRequest('Options', null, null);
+            try {
+                $this->_server->handleRequest('Options', null, null);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_handleError($e);
+            }
             break;
 
         case 'POST':
             Horde_ActiveSync::activeSyncHeader();
-
-            // Do the actual request
             $this->_logger->debug('Horde_Rpc_ActiveSync::getResponse() starting for ' . $this->_get['Cmd']);
-            $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
-
-            break;
-
-        case 'GET':
-            /* Someone trying to access the activesync url from a browser */
-            throw new Horde_Rpc_Exception('Trying to access the ActiveSync endpoint from a browser. Not Supported.');
+            try {
+                $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_handleError($e);
+            }
             break;
         }
     }
@@ -217,6 +220,25 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         $this->_logger->debug('Horde_Rpc_ActiveSync::authorize() exiting');
 
         return true;
+    }
+
+    /**
+     * Output exception information to the logger.
+     *
+     * @param Exception $e  The exception
+     *
+     * @throws Horde_Rpc_Exception $e
+     */
+    protected function _handleError($e)
+    {
+        $trace = $e->getTraceAsString();
+        $m = $e->getMessage();
+        $buffer = ob_get_clean();
+
+        $this->_logger->err('Error in communicating with ActiveSync server: ' . $m);
+        $this->_logger->err($trace);
+        $this->_logger->err('Buffer contents: ' . $buffer);
+        throw new Horde_Rpc_Exception($e);
     }
 
 }

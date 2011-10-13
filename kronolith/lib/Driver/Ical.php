@@ -9,12 +9,10 @@
  * - user:     The user name for HTTP Basic Authentication.
  * - password: The password for HTTP Basic Authentication.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * @todo Replace session cache
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
@@ -349,7 +347,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     public function getEvent($eventId = null)
     {
         if (!$eventId) {
-            return new Kronolith_Event_Ical($this);
+            $event = new Kronolith_Event_Ical($this);
+            $event->permission = $this->getPermission();
+            return $event;
         }
 
         if ($this->isCalDAV()) {
@@ -433,8 +433,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $response = $this->_saveEvent($event);
         if (!in_array($response->code, array(200, 201, 204))) {
-            Horde::logMessage(sprintf('Failed to create event on remote calendar: url = "%s", status = %s',
-                                      $url, $response->code), 'INFO');
+            Horde::logMessage(sprintf('Failed to create event on remote calendar: status = %s',
+                                      $response->code), 'INFO');
             throw new Kronolith_Exception(_("The event could not be added to the remote server."));
         }
         return $event->id;
@@ -500,9 +500,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     }
 
     /**
-     * Fetches a remote calendar into the session and return the data.
+     * Fetches a remote calendar into the cache and return the data.
      *
-     * @param boolean $cache  Whether to return data from the session cache.
+     * @param boolean $cache  Whether to return data from the cache.
      *
      * @return Horde_Icalendar  The calendar data.
      * @throws Kronolith_Exception
@@ -606,7 +606,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             }
             $this->_davSupport = preg_split('/,\s*/', $dav);
             if (!in_array('3', $this->_davSupport)) {
-                throw new Kronolith_Exception(_("This remote server only supports an outdated WebDAV protocol."));
+                Horde::logMessage(sprintf('The remote server at %s doesn\'t support an WebDAV protocol version 3.', $url), 'WARN');
             }
             if (!in_array('calendar-access', $this->_davSupport)) {
                 return false;

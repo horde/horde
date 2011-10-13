@@ -1,5 +1,5 @@
 # Spanish translations for Horde_Browser package.
-# Copyright (C) 2011 Horde Project
+# Copyright (C) 2011 Horde LLC
 # This file is distributed under the same license as the Horde_Browser package.
 # Automatically generated, 2011.
 #
@@ -29,6 +29,8 @@ msgstr "No se ha cargado ningún archivo"
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
+"Parece que el archivo cargado está vacío. Puede que no existe en su "
+"ordenador."
 
 #: lib/Horde/Browser.php:1050
 #, php-format

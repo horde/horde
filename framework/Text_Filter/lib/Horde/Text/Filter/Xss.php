@@ -26,15 +26,15 @@
  *
  * @todo http://blog.astrumfutura.com/archives/430-html-Sanitisation-Benchmarking-With-Wibble-ZF-Proposal.html
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Text_Filter
  */
 class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
@@ -133,7 +133,13 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
     protected function _node($doc, $node)
     {
         if ($node->hasChildNodes()) {
-            foreach ($node->childNodes as $child) {
+            /* Iterate in the reverse direction through the node list. This
+             * allows us to alter the original list without breaking things
+             * (foreach() w/removeChild() may exit iteration after the removal
+             * is completed). */
+            for ($i = $node->childNodes->length; $i-- > 0;) {
+                $child = $node->childNodes->item($i);
+
                 if ($child instanceof DOMElement) {
                     switch (strtolower($child->tagName)) {
                     case 'a':

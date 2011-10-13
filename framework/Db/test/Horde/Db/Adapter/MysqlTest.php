@@ -1,12 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage UnitTests
@@ -16,7 +16,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @group      horde_db
  * @category   Horde
  * @package    Db
@@ -290,6 +290,18 @@ class Horde_Db_Adapter_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('0', $this->_conn->quote(false));
     }
 
+    public function testQuoteInteger()
+    {
+        $this->assertEquals('42', $this->_conn->quote(42));
+    }
+
+    public function testQuoteFloat()
+    {
+        $this->assertEquals('42.2', $this->_conn->quote(42.2));
+        setlocale(LC_NUMERIC, 'de_DE.UTF-8');
+        $this->assertEquals('42.2', $this->_conn->quote(42.2));
+    }
+
     public function testQuoteString()
     {
         $this->assertEquals("'my string'", $this->_conn->quote('my string'));
@@ -440,6 +452,25 @@ class Horde_Db_Adapter_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('id', (string)$pk);
         $this->assertEquals(1, count($pk->columns));
         $this->assertEquals('id', $pk->columns[0]);
+
+        $table = $this->_conn->createTable('pk_tests', array('autoincrementKey' => false));
+        $table->column('foo', 'string');
+        $table->column('bar', 'string');
+        $table->end();
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEmpty((string)$pk);
+        $this->assertEquals(0, count($pk->columns));
+        $this->_conn->addPrimaryKey('pk_tests', 'foo');
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEquals('foo', (string)$pk);
+        $this->assertEquals(1, count($pk->columns));
+        $this->_conn->removePrimaryKey('pk_tests');
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEmpty((string)$pk);
+        $this->assertEquals(0, count($pk->columns));
+        $this->_conn->addPrimaryKey('pk_tests', array('foo', 'bar'));
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEquals('foo,bar', (string)$pk);
     }
 
     public function testIndexes()
@@ -744,53 +775,76 @@ class Horde_Db_Adapter_MysqlTest extends PHPUnit_Framework_TestCase
 
         $found = false;
         foreach ($oldColumns as $c) {
-            if ($c->getName() == 'age' && $c->getType() == 'integer') { $found = true; }
+            if ($c->getName() == 'age' && $c->getType() == 'integer') {
+                $found = true;
+            }
         }
         $this->assertTrue($found);
 
         $this->_conn->changeColumn('users', 'age', 'string');
-
         $newColumns = $this->_conn->columns('users', "User Columns");
 
         $found = false;
         foreach ($newColumns as $c) {
-            if ($c->getName() == 'age' && $c->getType() == 'integer') { $found = true; }
+            if ($c->getName() == 'age' && $c->getType() == 'integer') {
+                $found = true;
+            }
         }
         $this->assertFalse($found);
+
         $found = false;
         foreach ($newColumns as $c) {
-            if ($c->getName() == 'age' && $c->getType() == 'string') { $found = true; }
+            if ($c->getName() == 'age' && $c->getType() == 'string') {
+                $found = true;
+            }
         }
         $this->assertTrue($found);
 
         $found = false;
         foreach ($oldColumns as $c) {
-            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
-                $c->getDefault() == true) { $found = true; }
+            if ($c->getName() == 'approved' &&
+                $c->getType() == 'boolean' &&
+                $c->getDefault() == true) {
+                $found = true;
+            }
         }
         $this->assertTrue($found);
 
         // changeColumn() throws exception on error
         $this->_conn->changeColumn('users', 'approved', 'boolean', array('default' => false));
-
         $newColumns = $this->_conn->columns('users', "User Columns");
 
         $found = false;
         foreach ($newColumns as $c) {
-            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
-                $c->getDefault() == true) { $found = true; }
+            if ($c->getName() == 'approved' &&
+                $c->getType() == 'boolean' &&
+                $c->getDefault() == true) {
+                $found = true;
+            }
         }
         $this->assertFalse($found);
 
         $found = false;
         foreach ($newColumns as $c) {
-            if ($c->getName() == 'approved' && $c->getType() == 'boolean' &&
-                $c->getDefault() == false) { $found = true; }
+            if ($c->getName() == 'approved' &&
+                $c->getType() == 'boolean' &&
+                $c->getDefault() == false) {
+                $found = true;
+            }
         }
         $this->assertTrue($found);
 
         // changeColumn() throws exception on error
         $this->_conn->changeColumn('users', 'approved', 'boolean', array('default' => true));
+
+        // Test converting to autoincrementKey
+        $this->_conn->changeColumn('users', 'id', 'integer');
+        $this->_conn->changeColumn('users', 'id', 'autoincrementKey');
+
+        // Test with non-existant primary key
+        $this->_conn->changeColumn('users', 'id', 'integer');
+        $this->_conn->execute('ALTER TABLE users DROP PRIMARY KEY');
+        $this->_conn->changeColumn('users', 'id', 'autoincrementKey');
     }
 
     public function testChangeColumnDefault()
@@ -1219,6 +1273,62 @@ class Horde_Db_Adapter_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("SELECT * FROM documents ORDER BY name DESC", $result);
     }
 
+    public function testBuildClause()
+    {
+        $this->assertEquals(
+            'bitmap & 2',
+            $this->_conn->buildClause('bitmap', '&', 2));
+        $this->assertEquals(
+            array('bitmap & ?', array(2)),
+            $this->_conn->buildClause('bitmap', '&', 2, true));
+
+        $this->assertEquals(
+            'bitmap | 2',
+            $this->_conn->buildClause('bitmap', '|', 2));
+        $this->assertEquals(
+            array('bitmap | ?', array(2)),
+            $this->_conn->buildClause('bitmap', '|', 2, true));
+
+        $this->assertEquals(
+            "LOWER(name) LIKE LOWER('%search%')",
+            $this->_conn->buildClause('name', 'LIKE', "search"));
+        $this->assertEquals(
+            array("LOWER(name) LIKE LOWER(?)", array('%search%')),
+            $this->_conn->buildClause('name', 'LIKE', "search", true));
+        $this->assertEquals(
+            "LOWER(name) LIKE LOWER('%search\&replace\?%')",
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?"));
+        $this->assertEquals(
+            array("LOWER(name) LIKE LOWER(?)", array('%search&replace?%')),
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true));
+        $this->assertEquals(
+            "(LOWER(name) LIKE LOWER('search\&replace\?%') OR LOWER(name) LIKE LOWER('% search\&replace\?%'))",
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", false, array('begin' => true)));
+        $this->assertEquals(
+            array("(LOWER(name) LIKE LOWER(?) OR LOWER(name) LIKE LOWER(?))",
+                  array('search&replace?%', '% search&replace?%')),
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true, array('begin' => true)));
+
+        $this->assertEquals(
+            'value = 2',
+            $this->_conn->buildClause('value', '=', 2));
+        $this->assertEquals(
+            array('value = ?', array(2)),
+            $this->_conn->buildClause('value', '=', 2, true));
+        $this->assertEquals(
+            "value = 'foo'",
+            $this->_conn->buildClause('value', '=', 'foo'));
+        $this->assertEquals(
+            array('value = ?', array('foo')),
+            $this->_conn->buildClause('value', '=', 'foo', true));
+        $this->assertEquals(
+            "value = 'foo\?bar'",
+            $this->_conn->buildClause('value', '=', 'foo?bar'));
+        $this->assertEquals(
+            array('value = ?', array('foo?bar')),
+            $this->_conn->buildClause('value', '=', 'foo?bar', true));
+    }
+
     public function testInsertAndReadInCp1257()
     {
         list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'cp1257'));
@@ -1326,6 +1436,7 @@ class Horde_Db_Adapter_MysqlTest extends PHPUnit_Framework_TestCase
             'charset_utf8',
             'my_sports',
             'octopi',
+            'pk_tests',
             'schema_info',
             'sports',
             'testings',

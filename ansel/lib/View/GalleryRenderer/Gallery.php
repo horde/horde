@@ -3,10 +3,10 @@
  * Ansel_View_GalleryRenderer_Gallery:: Class wraps display of the traditional
  * Gallery View.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -53,11 +53,11 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 
             $option_move = ($option_delete && $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
-                ->countGalleries(Horde_Perms::EDIT));
+                ->countGalleries($GLOBALS['registry']->getAUth(), array('perm' => Horde_Perms::EDIT)));
 
             $option_copy = ($option_edit && $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
-                ->countGalleries(Horde_Perms::EDIT));
+                ->countGalleries($GLOBALS['registry']->getAUth(), array('perm' => Horde_Perms::EDIT)));
 
             // See if we requested a show_actions change
             if (Horde_Util::getFormData('actionID', '') == 'show_actions') {

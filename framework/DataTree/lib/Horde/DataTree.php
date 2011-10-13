@@ -34,10 +34,10 @@ define('DATATREE_BUILD_VALUES_COUNT', 3);
  * Required values for $params:<pre>
  *   'group' -- Define each group of objects we want to build.</pre>
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Stephane Huther <shuther1@free.fr>
  * @author  Chuck Hagenbuch <chuck@horde.org>

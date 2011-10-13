@@ -303,13 +303,6 @@
 
     <case name="kolab" desc="Kolab authentication">
      <configsection name="params">
-      <configboolean name="login_block" desc="Should the login be
-      blocked after a given number of failed logins?">
-      false</configboolean>
-      <configinteger name="login_block_count" desc="After how many
-      failed logins the login should be blocked?">3</configinteger>
-      <configinteger name="login_block_time" desc="How many minutes
-      the login should be blocked?">5</configinteger>
      </configsection>
     </case>
 
@@ -533,13 +526,13 @@
         socket"></configstring>
        </case>
        <case name="tcp" desc="TCP/IP">
+        <configstring name="hostspec" desc="What hostname is the database server
+        running on, or what is the name of the system DSN to use?">
+        localhost</configstring>
         <configinteger name="port" required="false" desc="Port the DB is
-        running on, if non-standard">5432</configinteger>
+        running on, if non-standard"/>
        </case>
       </configswitch>
-      <configstring name="hostspec" desc="What hostname is the database server
-      running on, or what is the name of the system DSN to use?">
-      localhost</configstring>
       <configstring name="username" desc="What username do we authenticate to
       the database server as?">horde</configstring>
       <configstring name="password" required="false" desc="What password do we
@@ -556,14 +549,14 @@
        Eg: "SELECT * FROM users WHERE uid = \L AND passwd = \P AND billing =
        'paid'"
       </configdescription>
-      <configstring name="query_auth" desc="Authenticate the user"/>
-      <configstring name="query_add" desc="Add user"/>
-      <configstring name="query_getpw" desc="Get a user's password"/>
-      <configstring name="query_update" desc="Update user"/>
-      <configstring name="query_resetpassword" desc="Reset a user's password"/>
-      <configstring name="query_remove" desc="Remove user"/>
-      <configstring name="query_list" desc="List users"/>
-      <configstring name="query_exists" desc="Check if an account exists"/>
+      <configstring name="query_auth" required="false" desc="Authenticate the user"/>
+      <configstring name="query_add" required="false" desc="Add user"/>
+      <configstring name="query_getpw" required="false" desc="Get a user's password"/>
+      <configstring name="query_update" required="false" desc="Update user"/>
+      <configstring name="query_resetpassword" required="false" desc="Reset a user's password"/>
+      <configstring name="query_remove" required="false" desc="Remove user"/>
+      <configstring name="query_list" required="false" desc="List users"/>
+      <configstring name="query_exists" required="false" desc="Check if an account exists"/>
       <configenum name="encryption" desc="The password hashing algorithm to use">ssha
        <values>
         <value>aprmd5</value>
@@ -663,9 +656,8 @@
       create under username"/>
       <configinteger name="quota" required="false" desc="The quota (in
       kilobytes) to grant on the mailbox"/>
-      <configboolean name="unixhier" desc="The value of imapd.conf's
-      unixhierarchysep setting. Check this if the value is true in
-      imapd.conf.">false</configboolean>
+      <configstring name="userhierarchy" required="false" desc="The user
+      hierarchy prefix."/>
       <configlist name="hidden_accounts" required="false" desc="A list of accounts to
       hide from the user interface">cyrus</configlist>
      </configsection>
@@ -690,6 +682,20 @@
      </configsection>
     </case>
    </configswitch>
+   <configsection name="params">
+    <configboolean name="count_bad_logins" required="false" desc="Should Horde
+    count the number of bad logins? Requires Horde_Auth 1.2.0 or
+    higher">false</configboolean>
+    <configboolean name="login_block" required="false" desc="Allow to block
+    logins for certain users? Requires Horde_Auth 1.2.0 or
+    higher">false</configboolean>
+    <configinteger name="login_block_count" required="false" desc="After how
+    many failed logins the login should be blocked? Setting 0 disables the
+    feature">5</configinteger>
+    <configinteger name="login_block_time" required="false" desc="How many
+    minutes should the login be blocked? Setting 0 means permanent
+    blocking">5</configinteger>
+   </configsection>
   </configsection>
 
   <configsection name="tos">
@@ -698,6 +704,15 @@
    users to accept certain terms before they can use the system, enter the
    path of the agreement file to display here."/>
   </configsection>
+ </configtab>
+
+ <configtab name="themes" desc="Themes">
+  <configheader>Theme Settings</configheader>
+  <configboolean name="nobase64_img" required="false" desc="Always send full
+  URLs for image data? By default, Horde will send image data within the page
+  itself if the browser supports it. This eliminates the need for additional
+  server connections to grab the image data, at the expense of slightly
+  larger page sizes.">false</configboolean>
  </configtab>
 
  <configtab name="signup" desc="Sign Up">
@@ -913,6 +928,10 @@
        a new group be member of? These objectclasses should cover the mail and
        gidnumber attributes as well as the group search key">
        posixGroup,hordeGroup</configlist>
+       <configstring name="writedn" desc="DN used to bind for creating and
+       editing LDAP groups." required="false"/>
+       <configstring name="writepw" desc="Password for bind DN."
+       required="false"/>
        <configsection name="search">
         <configswitch name="filter_type" desc="How to specify a filter for the
         group lists">objectclass
@@ -1423,10 +1442,11 @@
    feature will be disabled. Additional command line arguments, if needed
    locally (e.g. extensions), can be added at the end of this entry."/>
    <configmultienum name="keyserver" required="false" desc="The address
-   of the public PGP keyserver(s) to use.">pgp.mit.edu
+   of the public PGP keyserver(s) to use.">pool.sks-keyservers.net
     <values>
+     <value>pool.sks-keyservers.net</value>
+     <value>subkeys.pgp.net</value>
      <value>pgp.mit.edu</value>
-     <value>keyserver.noreply.org</value>
     </values>
    </configmultienum>
    <configinteger name="timeout" required="false" desc="The timeout for
@@ -1653,7 +1673,7 @@
   <configsection name="accounts">
    <configswitch name="driver" desc="What driver should we use?">null
     <case name="null" desc="None"/>
-    <case name="localhost" desc="localhost">
+    <case name="localhost" desc="Localhost">
      <configsection name="params">
       <configstring name="quota_path" desc="Path to the quota program">
       /usr/bin/quota</configstring>
@@ -1670,16 +1690,18 @@
       <configstring name="finger_path" desc="Path to the finger
       program">/usr/bin/finger</configstring>
       <configstring name="host" desc="Host to request finger information
-      from">localhost</configstring>
+      from" required="false"/>
      </configsection>
     </case>
     <case name="ldap" desc="LDAP">
-     <configldap switchname="driverconfig">
-      <configstring name="attr" desc="LDAP attribute to search on">
-      uid</configstring>
-      <configboolean name="strip" desc="Strip domain from user
-      name?">false</configboolean>
-     </configldap>
+     <configsection name="params">
+      <configldap switchname="driverconfig">
+       <configstring name="attr" desc="LDAP attribute to search on">
+       uid</configstring>
+       <configboolean name="strip" desc="Strip domain from user
+       name?">false</configboolean>
+      </configldap>
+     </configsection>
     </case>
     <case name="kolab" desc="Kolab (LDAP)">
      <configsection name="params">
@@ -1733,6 +1755,7 @@
    required="false"/>
    <configstring name="yahoomaps" desc="Yahoo Maps API Key" required="false" />
    <configstring name="cloudmade" desc="Cloudmade API Key" required="false" />
+   <configstring name="mytopo" desc="Mytopo Maps API Key" required="false" />
   </configsection>
   <configsection name="facebook">
    <configheader>Facebook Integration Settings</configheader>
@@ -1752,10 +1775,10 @@
   <configsection name="twitter">
    <configheader>Twitter Integration Settings</configheader>
    <configdescription>If you want to allow your users to interact with their
-   Twitter account, enable this section. If you've obtained an OAuth secret and
-   key from Twitter, Horde can use OAuth to authenticate to Twitter, otherwise,
-   users can still access Twitter services, but must use the (insecure) Http
-   Basic Authentication method.</configdescription>
+   Twitter account, enable this section. You must setup an application on
+   Twitter and obtain the OAuth secret and key from Twitter. See
+   http://wiki.horde.org/Doc/Admin/Config/Horde/Twitter for details.
+  </configdescription>
    <configswitch name="enabled">false
     <case name="false" desc="Disabled" />
     <case name="true" desc="Enabled">
@@ -1764,6 +1787,14 @@
     </case>
    </configswitch>
   </configsection>
+  <configheader>Url Shortening</configheader>
+   <configenum name="urlshortener" desc="Should Horde use a URL shortening
+   service? This will be used when submitting URLs to social network providers.">
+    <values>
+      <value desc="None">false</value>
+      <value desc="TinyUrl">TinyUrl</value>
+    </values>
+   </configenum>
  </configtab>
 
  <configtab name="imsp" desc="IMSP Server">
@@ -1980,11 +2011,11 @@
      </configsection>
      <configsection name="securitypolicies">
      <configheader>Security Policies</configheader>
-      <configswitch name="provisioning" quote="false" desc="How should device
-      provisioning be handled? Set to DISABLE to ignore provisioning. Set to
-      ALLOW to force devices that CAN be provisioned to use provisioning, but
-      allow older devices with no support for provisioning to still be used. Set
-      to FORCE to only allow devices that are provisioned to connect to your
+      <configswitch name="provisioning" desc="How should device provisioning be
+      handled? Set to DISABLE to ignore provisioning. Set to ALLOW to force
+      devices that CAN be provisioned to use provisioning, but allow older
+      devices with no support for provisioning to still be used. Set to FORCE
+      to only allow devices that are provisioned to connect to your
       server.">false
        <case name="false" desc="Disable" />
        <case name="loose" desc="Allow">

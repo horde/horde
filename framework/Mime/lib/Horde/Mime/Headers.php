@@ -3,14 +3,14 @@
  * The Horde_Mime_Headers:: class contains generic functions related to
  * handling the headers of mail messages.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Mime
  */
 class Horde_Mime_Headers implements Serializable
@@ -69,7 +69,8 @@ class Horde_Mime_Headers implements Serializable
      *
      * @param array $options  Optional parameters:
      * <pre>
-     * 'charset' => (string) Encodes the headers using this charset.
+     * 'charset' => (string) Encodes the headers using this charset. If empty,
+     *              encodes using internal charset (UTF-8).
      *              DEFAULT: No encoding.
      * 'defserver' => (string) The default domain to append to mailboxes.
      *              DEFAULT: No default name.
@@ -81,9 +82,9 @@ class Horde_Mime_Headers implements Serializable
      */
     public function toArray($options = array())
     {
-        $charset = empty($options['charset'])
-            ? null
-            : $options['charset'];
+        $charset = array_key_exists('charset', $options)
+            ? (empty($options['charset']) ? 'UTF-8' : $options['charset'])
+            : null;
         $address_keys = $this->addressFields();
         $mime = $this->mimeParamFields();
         $ret = array();
@@ -683,7 +684,7 @@ class Horde_Mime_Headers implements Serializable
         if (!is_array($data) ||
             !isset($data[0]) ||
             ($data[0] != self::VERSION)) {
-            throw new Exception('Cache version change');
+            throw new Horde_Mime_Exception('Cache version change');
         }
 
         $this->_headers = $data[1];

@@ -1,5 +1,6 @@
 <?php
 
+Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 
 $info_img = Horde::img('info_icon.png', _("Task List Information"), array('class' => 'tasklist-info'));
@@ -11,10 +12,6 @@ foreach (Nag::listTasklists() as $id => $tl) {
     if ($tl->get('owner') && $tl->get('owner') == $current_user) {
         $my_tasklists[$id] = $tl;
     } else {
-        if (!empty($conf['share']['hidden']) &&
-            !in_array($tl->getName(), $display_tasklists)) {
-            continue;
-        }
         $shared_tasklists[$id] = $tl;
     }
 }

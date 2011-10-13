@@ -27,7 +27,7 @@
  * Patrice Levesque or dev@lists.horde.org.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Paul Gareau <paul@xhawk.net>
  * @author  Patrice Levesque <wayne@ptaff.ca>
@@ -54,6 +54,21 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
         } catch (Horde_Vfs_Exception $e) {
             throw new Horde_Vfs_Exception('Authentication to the SMB server failed.');
         }
+    }
+
+    /**
+     * Retrieves the size of a file from the VFS.
+     *
+     * @param string $path  The pathname to the file.
+     * @param string $name  The filename to retrieve.
+     *
+     * @return integer  The file size.
+     * @throws Horde_Vfs_Exception
+     */
+    public function size($path, $name)
+    {
+        $file = $this->readFile($path, $name);
+        return filesize($file);
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Jon Parise <jon@horde.org>
  * @author Jan Schneider <jan@horde.org>
@@ -242,8 +242,18 @@ default:
     Horde::url('list.php', true)->redirect();
 }
 
+$datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
+if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
+    $datejs = 'en-US.js';
+}
+Horde::addScriptFile('date/' . $datejs, 'horde');
+Horde::addScriptFile('date/date.js', 'horde');
+Horde::addScriptFile('keynavlist.js', 'horde');
+Horde::addScriptFile('task.js', 'nag');
+
 $title = $form->getTitle();
 require $registry->get('templates', 'horde') . '/common-header.inc';
+require NAG_TEMPLATES . '/javascript_defs.php';
 echo Nag::menu();
 Nag::status();
 $form->renderActive();

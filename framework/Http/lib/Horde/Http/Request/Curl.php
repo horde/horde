@@ -1,16 +1,16 @@
 <?php
 /**
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Http
  */
@@ -59,6 +59,18 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $this->method);
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
 
+        // User-Agent
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+
+        // Redirects
+        if ($this->redirects) {
+            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($curl, CURLOPT_MAXREDIRS, $this->redirects);
+        } else {
+            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+            curl_setopt($curl, CURLOPT_MAXREDIRS, 0);
+        }
+
         $data = $this->data;
         if (is_array($data)) {
             // If we don't set POSTFIELDS to a string, and the first value
@@ -79,6 +91,11 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
             if ($this->proxyUsername && $this->proxyPassword) {
                 curl_setopt($curl, CURLOPT_PROXYUSERPWD, $this->proxyUsername . ':' . $this->proxyPassword);
                 curl_setopt($curl, CURLOPT_PROXYAUTH, $this->_httpAuthScheme($this->proxyAuthenticationScheme));
+            }
+            if ($this->proxyType == Horde_Http::PROXY_SOCKS5) {
+                curl_setopt($curl, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            } else if ($this->proxyType != Horde_Http::PROXY_HTTP) {
+                throw new Horde_Http_Exception(sprintf('Proxy type %s not supported by this request type!', $this->proxyType));
             }
         }
 

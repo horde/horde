@@ -3,7 +3,7 @@
  * Turba directory driver implementation for Horde Preferences - very simple,
  * lightweight container.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -57,11 +57,14 @@ class Turba_Driver_Prefs extends Turba_Driver
     }
 
     /**
-     * Adds the specified object to the preferences.
+     * Adds the specified contact to the addressbook.
      *
-     * @param array $attributes  TODO
+     * @param array $attributes  The attribute values of the contact.
+     * @param array $blob_fields TODO
+     *
+     * @throws Turba_Exception
      */
-    protected function _add(array $attributes)
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         $book = $this->_getAddressBook();
         $book[$attributes['id']] = $attributes;

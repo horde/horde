@@ -66,12 +66,6 @@
 .pagebody hr {
     margin: .5em 0;
 }
-.pagebody div {
-    margin-left: 1em;
-}
-.pagebody div strong {
-    margin-left: -1em;
-}
 .pagebody ol, .pagebody ul, .pagebody li {
     margin-left: 20px;
 }
@@ -80,6 +74,9 @@
 }
 .pagebody blockquote {
     margin-left: 40px;
+}
+.pagebody .center {
+    text-align: center;
 }
 
 /* Page footer */
@@ -136,8 +133,10 @@ table.pagelist th.sortdown {
 
 /* Table of Contents block. */
 #toc {
+    position: relative;
     float: right;
     clear: right;
+    z-index: 1;
     margin: 0 0 10px 10px;
     padding: 5px;
     width: 200px;

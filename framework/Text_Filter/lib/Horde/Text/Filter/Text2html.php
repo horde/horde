@@ -3,39 +3,16 @@
  * Turn text into HTML with varying levels of parsing.  For no html
  * whatsoever, use htmlspecialchars() instead.
  *
- * Parameters:
- * <pre>
- * charset - (string) The charset to use for htmlspecialchars() calls.
- * class - (string) See Horde_Text_Filter_Linkurls::.
- * emails - (array)
- * linkurls - (array)
- * parselevel - (integer) The parselevel of the output (see below).
- * space2html - (array)
- * </pre>
- *
- * <pre>
- * List of valid constants for the parse level:
- * --------------------------------------------
- * PASSTHRU        =  No action. Pass-through. Included for completeness.
- * SYNTAX          =  Allow full html, also do line-breaks, in-lining,
- *                    syntax-parsing.
- * MICRO           =  Micro html (only line-breaks, in-line linking).
- * MICRO_LINKURL   =  Micro html (only line-breaks, in-line linking of URLS;
- *                    no email addresses are linked).
- * NOHTML          =  No html (all stripped, only line-breaks)
- * NOHTML_NOBREAK  =  No html whatsoever, no line breaks added.
- *                    Included for completeness.
- * </pre>
- *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Text_Filter
  */
 class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
@@ -56,6 +33,7 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
         'charset' => 'ISO-8859-1',
         'class' => 'fixed',
         'emails' => false,
+        'flowed' => '<blockquote>',
         'linkurls' => false,
         'text2html' => false,
         'parselevel' => 0,
@@ -65,7 +43,31 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
     /**
      * Constructor.
      *
-     * @param array $params  Any parameters that the filter instance needs.
+     * @param array $params  Parameters specific to this driver:
+     * <ul>
+     *  <li>charset: (string) The charset to use for htmlspecialchars()
+     *               calls.</li>
+     *  <li>class: (string) See Horde_Text_Filter_Linkurls::.</li>
+     *  <li>emails: (array) TODO</li>
+     *  <li>flowed: (string) For flowed text, the HTML blockquote tag to
+     *              insert before each level.
+     *  <li>linkurls: (array) TODO</li>
+     *  <li>parselevel: (integer) The parselevel of the output.
+     *   <ul>
+     *    <li>PASSTHRU: No action. Pass-through. Included for
+     *                  completeness.</li>
+     *    <li>SYNTAX: Allow full html, also do line-breaks, in-lining,
+     *                syntax-parsing.</li>
+     *    <li>MICRO: Micro html (only line-breaks, in-line linking).</li>
+     *    <li>MICRO_LINKURL: Micro html (only line-breaks, in-line linking of
+     *                       URLS; no email addresses are linked).</li>
+     *    <li>NOHTML: No html (all stripped, only line-breaks).</li>
+     *    <li>NOHTML_NOBREAK: No html whatsoever, no line breaks added.
+     *                        Included for completeness.</li>
+     *   </ul>
+     *  </li>
+     *  <li>space2html: (array) TODO</li>
+     * </ul>
      */
     public function __construct($params = array())
     {
@@ -80,12 +82,51 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
     /**
      * Executes any code necessary before applying the filter patterns.
      *
-     * @param string $text  The text before the filtering.
+     * @param mixed $text  The text before the filtering. Either a string or
+     *                     a Horde_Text_Flowed object (since 1.1.0).
      *
      * @return string  The modified text.
      */
     public function preProcess($text)
     {
+        if ($text instanceof Horde_Text_Flowed) {
+            $text->setMaxLength(0);
+            $lines = $text->toFixedArray();
+            $level = 0;
+            $out = $txt = '';
+
+            foreach ($lines as $key => $val) {
+                $line = ltrim($val['text'], '>');
+
+                if (!isset($lines[$key + 1])) {
+                    $out .= $this->preProcess(ltrim($txt) . $line);
+                    while (--$level > 0) {
+                        $out .= '</blockquote>';
+                    }
+                } elseif ($val['level'] > $level) {
+                    $out .= $this->preProcess(ltrim($txt));
+                    do {
+                        $out .= $this->_params['flowed'];
+                    } while (++$level != $val['level']);
+                    $txt = $line;
+                } elseif ($val['level'] < $level) {
+                    $out .= $this->preProcess(ltrim($txt));
+                    do {
+                        $out .= '</blockquote>';
+                    } while (--$level != $val['level']);
+                    $txt = $line;
+                } else {
+                    $txt .= "\n" . $line;
+                }
+            }
+
+            return $out;
+        }
+
+        if (!strlen($text)) {
+            return '';
+        }
+
         /* Abort out on simple cases. */
         if ($this->_params['parselevel'] == self::PASSTHRU) {
             return $text;

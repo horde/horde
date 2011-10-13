@@ -1,10 +1,10 @@
 <?php
 /**
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Rubinsky <mrubinsk@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Horde_Content
  */
@@ -12,7 +12,7 @@
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Rubinsky <mrubinsk@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Horde_Content
  */
@@ -41,10 +41,11 @@ class Content_Types_Manager
      * Ensure that an array of types exist in storage. Create any that don't,
      * return type_ids for all.
      *
-     * @param array $types  An array of types. Values typed as an integer
-     *                        are assumed to already be an type_id.
+     * @param mixed $types  An array of types or single type value. Values typed
+     *                      as an integer are assumed to already be an type_id.
      *
      * @return array  An array of type_ids.
+     * @throws Content_Exception
      */
     public function ensureTypes($types)
     {
@@ -67,7 +68,11 @@ class Content_Types_Manager
         try {
             // Get the ids for any types that already exist.
             if (count($typeName)) {
-                foreach ($this->_db->selectAssoc('SELECT type_id, type_name FROM ' . $this->_t('types') . ' WHERE type_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($typeName))).')') as $id => $type) {
+                $rows = $this->_db->selectAssoc('SELECT type_id, type_name FROM '
+                    . $this->_t('types') . ' WHERE type_name IN ('
+                    . implode(',', array_map(array($this->_db, 'quoteString'), array_keys($typeName)))
+                    . ')');
+                foreach ($rows as $id => $type) {
                     $typeIndex = $typeName[$type];
                     unset($typeName[$type]);
                     $typeIds[$typeIndex] = (int)$id;
@@ -76,7 +81,10 @@ class Content_Types_Manager
 
             // Create any types that didn't already exist
             foreach ($typeName as $type => $typeIndex) {
-                $typeIds[$typeIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('types') . ' (type_name) VALUES (' . $this->_db->quote($type) . ')');
+                $typeIds[$typeIndex] = $this->_db->insert(
+                    'INSERT INTO ' . $this->_t('types')
+                        . ' (type_name) VALUES ('
+                        . $this->_db->quoteString($type) . ')');
             }
         } catch (Horde_Db_Exception $e) {
             throw new Content_Exception($e);

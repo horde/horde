@@ -3,7 +3,7 @@
  * Horde_ActiveSync_Message_Appointment class represents a single ActiveSync
  * Appointment object. Responsible for mapping all fields to and from wbxml.
  *
- * @copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * @copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
@@ -90,6 +90,16 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     public $categories = array();
     public $bodytruncated = 0;
 
+    protected $_dayOfWeekMap = array(
+        Horde_Date::DATE_SUNDAY => Horde_Date::MASK_SUNDAY,
+        Horde_Date::DATE_MONDAY => Horde_Date::MASK_MONDAY,
+        Horde_Date::DATE_TUESDAY => Horde_Date::MASK_TUESDAY,
+        Horde_Date::DATE_WEDNESDAY => Horde_Date::MASK_WEDNESDAY,
+        Horde_Date::DATE_THURSDAY => Horde_Date::MASK_THURSDAY,
+        Horde_Date::DATE_FRIDAY => Horde_Date::MASK_FRIDAY,
+        Horde_Date::DATE_SATURDAY => Horde_Date::MASK_SATURDAY,
+    );
+
     /**
      * Constructor
      *
@@ -97,7 +107,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *
      * @return Horde_ActiveSync_Message_Appointment
      */
-    public function __construct($params = array()) {
+    public function __construct(array $params = array()) {
         $this->_mapping = array(
             self::POOMCAL_TIMEZONE => array (self::KEY_ATTRIBUTE => 'timezone'),
             self::POOMCAL_DTSTAMP => array (self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
@@ -150,14 +160,19 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Set the timezone
      *
-     * @param mixed $date     Either a Horde_Date or timezone descriptor such as
-     *                        America/New_York etc...
+     * @param mixed $date  Either a Horde_Date or timezone descriptor such as
+     *                     America/New_York etc...
      *
+     * @throws InvalidArgumentException
      */
     public function setTimezone($date)
     {
         if (!($date instanceof Horde_Date)) {
-            $timezone = new Horde_Date(time(), $date);
+            if (!is_string($date)) {
+                throw new InvalidArgumentException(
+                    '$date must be an instance of Horde_Date or a valid timezone descriptor');
+            }
+            $date = new Horde_Date(time(), $date);
         }
         $offsets = Horde_ActiveSync_Timezone::getOffsetsFromDate($date);
         $tz = Horde_ActiveSync_Timezone::getSyncTZFromOffsets($offsets);
@@ -180,6 +195,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Get the appointment's dtimestamp
      *
+     * @return integer  timestamp
      */
     public function getDTStamp()
     {
@@ -190,10 +206,12 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      * Set the appointment time/duration.
      *
      * @param array $timestamp 'start', 'end' or 'duration' (in seconds) or 'allday'
+     *
+     * @throws InvalidArgumentException
      */
-    public function setDatetime($datetime = array())
+    public function setDatetime(array $datetime = array())
     {
-        /* Start date is always required */
+        // Start date is always required
         if (empty($datetime['start'])) {
             throw new InvalidArgumentException('Missing the required start parameter');
         }
@@ -209,7 +227,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $end = clone($start);
         }
 
-        /*Is this an all day event? */
+        // Is this an all day event?
         if ($start->hour == 0 &&
             $start->min == 0 &&
             $start->sec == 0 &&
@@ -220,8 +238,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                 array('year'  => (int)$end->year,
                       'month' => (int)$end->month,
                       'mday'  => (int)$end->mday + 1));
-
             $this->_properties['alldayevent'] = self::IS_ALL_DAY;
+
         } elseif (!empty($datetime['allday'])) {
             $this->_properties['alldayevent'] = self::IS_ALL_DAY;
             $end = new Horde_Date(
@@ -257,6 +275,11 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         $this->_properties['subject'] = $subject;
     }
 
+    /**
+     * Get the subject
+     *
+     * @return string  The UTF-8 subject string
+     */
     public function getSubject()
     {
         return $this->_getAttribute('subject');
@@ -293,7 +316,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function setServerUID($uid)
     {
-        $this->_getAttribute('serveruid');
+        $this->_properties['serveruid'] = $uid;
     }
 
     /**
@@ -311,7 +334,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *
      * @param array  'name' and 'email' for this appointment organizer.
      */
-    public function setOrganizer($organizer)
+    public function setOrganizer(array $organizer)
     {
         $this->_properties['organizername'] = !empty($organizer['name'])
                                                 ? $organizer['name']
@@ -366,7 +389,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         switch ($recurrence->recurType) {
         case Horde_Date_Recurrence::RECUR_DAILY:
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_DAILY;
-            $r->dayofweek = Horde_Date::MASK_ALLDAYS;
             break;
         case Horde_Date_Recurrence::RECUR_WEEKLY;
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_WEEKLY;
@@ -377,14 +399,17 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             break;
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY;
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY_NTH;
-            $r->dayofweek = $recurrence->getRecurOnDays();
+            $r->weekofmonth = ceil($recurrence->start->mday / 7);
+            $r->dayofweek = $this->_dayOfWeekMap[$recurrence->start->dayOfWeek()];
             break;
         case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_YEARLY;
             break;
         case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_YEARLYNTH;
-            $r->dayofweek = $recurrence->getRecurOnDays();
+            $r->dayofweek = $this->_dayOfWeekMap[$recurrence->start->dayOfWeek()];
+            $r->weekofmonth = ceil($recurrence->start->mday / 7);
+            $r->monthofyear = $recurrence->start->month;
             break;
         }
         if (!empty($recurrence->recurInterval)) {

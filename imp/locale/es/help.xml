@@ -47,7 +47,7 @@
 	</para>
 </entry>
 
-<entry id="compose-identity" md5="6b2272c5440c753e783d000db88fea07" state="uptodate">
+<entry id="compose-identity" md5="9841f0cde4bf109a8f637c3e5a2cf8cf" state="uptodate">
 	<title>Redacción del mensaje: Identidad</title>
 	<heading>Identidad</heading>
 	<para>
@@ -135,133 +135,56 @@
 	</warn>
 </entry>
 
-<entry id="compose-attachments" md5="b0d28bb946919a0c13c45721aa5d3f67" state="changed">
-	<title>Redacción del mensaje: Adjuntos</title>
-	<heading>Adjuntos</heading>
+<entry id="compose-attachments" md5="c61d86cfad0842f122278366bb2804b0" state="uptodate">
+	<title>Redacción del mensaje: Adición de adjuntos</title>
+	<heading>Adición de adjuntos</heading>
 	<para>
-		Esta sección muestra un listado de archivos ya adjuntados al mensaje.
+		Puede adjuntar archivos a su mensaje si su navegador soporta la carga de archivos. Se puede cargar más de un archivo a la vez.
 	</para>
-	<heading>Eliminar archivo(s) adjunto(s)</heading>
-	<para>
-		Para borrar archivo(s) adjunto(s):
-	</para>
-	<para>
-		Paso 1: Active la(s) casilla(s) "¿Eliminar?" del/los archivo(s) adjunto(s) que desea eliminar.
-	</para>
-	<para>
-		Paso 2: Pulse "Actualizar" para ver inmediatamente los cambios, o éstos se ejecutarán automáticamente cuando se envíe el mensaje.
-	</para>
-	<heading>Cambiar la disposición de los adjuntos</heading>
-	<para>
-		Para cambiar la disposición de los adjuntos:
-	</para>
-	<para>
-		Paso 1: Cambie la disposición de cada adjunto al valor deseado: "En línea" o "Adjunto".
-	</para>
-	<para>
-		Paso 2: Pulse "Actualizar" para ver inmediatamente los cambios, o éstos se ejecutarán automáticamente cuando se envíe el mensaje.
-	</para>
-	<heading>Cambiar la descripción de los adjuntos</heading>
-	<para>
-		Para cambiar la descripción de los adjuntos (el texto que verá el destinatario describiendo el adjunto):
-	</para>
-	<para>
-		Paso 1: Introduzca una descripción en el campo de Descripción.
-	</para>
-	<para>
-		Paso 2: Pulse "Actualizar" para ver inmediatamente los cambios, o éstos se ejecutarán automáticamente cuando se envíe el mensaje.
-	</para>
-<!-- English entry:
-<entry id="compose-attachments">
-    <title>Message Composition: Adding Attachments</title>
-    <heading>Adding Attachments</heading>
-    <para>
-    You may attach files to your message if your browser supports uploading of files. More than 1 file can be uploaded at once.
-    </para>
-    <para>Step 1: Either type the path and name of a file that you want attached to this message or click the "Browse" button and select the file to be attached. The path and name of that file now appears in the Attachment box. If your browser supports JavaScript, you will see an additional upload input now as well, for uploading other files at the same time.
-    </para>
-    <para>Step 2: Decide whether you want the file to be viewed as an attachment or inline with the rest of the message. The recipient's mail reading software must be able to handle the inline display of the file type, otherwise this part will be viewed as an attachment instead.
-    </para>
-    <para>
-    Unless you want to change an attachment's description or specify that it should be shown to the recipient inline, you are done. The attachments will be uploaded when you send your message. If you want to change the description or the attachment disposition, however, you can click the "Update" button to upload your attachments immediately and save any other changes you've made to existing attachments.
-    </para>
+	<para>Paso1: Escriba la ruta y nombre del archivo que quiere adjuntar al mensaje o pulse el botón "Examinar" y seleccione el archivo a adjuntar. La ruta y nombre del archivo aparecerán entonces en el recuadro de adjunto. Si su navegador soporta JavaScript, verá también un campo adicional de carga para cargar otros archivos simultáneamente.</para>
+	<para>Paso2: Decida si quiere que el archivo se vea como un adjunto o directamente en línea con el resto del mensaje. El cliente de correo del destinatario deberá ser capaz de gestionar la visualización en línea de ese tipo de archivo o esa parte del mensaje se verá simplemente como un archivo adjunto.
+</para>
+	<para>A menos que quiera cambiar la descripción de un adjunto o indicar que debería mostrársele al destinatario en línea, ya ha terminado. Los adjuntos se cargarán cuando envíe el mensaje. Si quiere cambiar la descripción o la disposición del adjunto, no obstante, puede pulsar en el botón "Actualizar" para cargar inmediatamente sus adjuntos y guardar cualquier otro cambio que haya hecho en los adjuntos existentes.
+</para>
+	<tip>Observe que en el caso de archivos grandes y/o conexiones de Internet lentas, el proceso de carga y adjuntado de archivos al mensaje puede tardar un rato. Tenga paciencia y no pulse ningún otro vínculo o botón mientras esté esperando la carga de un archivo.
+</tip>
+</entry>
 
-    <tip>
-    Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the email may take a while. Please be patient and do not click other links or buttons while you are waiting for a file to upload.
-    </tip>
-</entry>--><!-- English entry:
-<entry id="compose-attachments">
-    <title>Message Composition: Adding Attachments</title>
-    <heading>Adding Attachments</heading>
+<entry id="compose-current-attachments" state="uptodate" md5="1dac09e0dba4d062ec6a4f82718956b7">
+    <title>Redacción del mensaje: Adjuntos actualies</title>
+    <heading>Adjuntos actuales</heading>
     <para>
-    You may attach files to your message if your browser supports uploading of files. More than 1 file can be uploaded at once.
+    Esta sección muestra una lista de archivos que ya se han adjuntado a su mensaje.
     </para>
-    <para>Step 1: Either type the path and name of a file that you want attached to this message or click the "Browse" button and select the file to be attached. The path and name of that file now appears in the Attachment box. If your browser supports JavaScript, you will see an additional upload input now as well, for uploading other files at the same time.
-    </para>
-    <para>Step 2: Decide whether you want the file to be viewed as an attachment or inline with the rest of the message. The recipient's mail reading software must be able to handle the inline display of the file type, otherwise this part will be viewed as an attachment instead.
+    <heading>Eliminar archivo(s) adjunto(s)</heading>
+    <para>
+	Para borrar archivo(s) adjunto(s):
     </para>
     <para>
-    Unless you want to change an attachment's description or specify that it should be shown to the recipient inline, you are done. The attachments will be uploaded when you send your message. If you want to change the description or the attachment disposition, however, you can click the "Update" button to upload your attachments immediately and save any other changes you've made to existing attachments.
-    </para>
-
-    <tip>
-    Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the email may take a while. Please be patient and do not click other links or buttons while you are waiting for a file to upload.
-    </tip>
-</entry>--><!-- English entry (2010-08-16):
-<entry id="compose-attachments">
-    <title>Message Composition: Adding Attachments</title>
-    <heading>Adding Attachments</heading>
-    <para>
-    You may attach files to your message if your browser supports uploading of files. More than 1 file can be uploaded at once.
-    </para>
-    <para>Step 1: Either type the path and name of a file that you want attached to this message or click the "Browse" button and select the file to be attached. The path and name of that file now appears in the Attachment box. If your browser supports JavaScript, you will see an additional upload input now as well, for uploading other files at the same time.
-    </para>
-    <para>Step 2: Decide whether you want the file to be viewed as an attachment or inline with the rest of the message. The recipient's mail reading software must be able to handle the inline display of the file type, otherwise this part will be viewed as an attachment instead.
+	Paso 1: Active la(s) casilla(s) "¿Eliminar?" del/los archivo(s) adjunto(s) que desea eliminar.
     </para>
     <para>
-    Unless you want to change an attachment's description or specify that it should be shown to the recipient inline, you are done. The attachments will be uploaded when you send your message. If you want to change the description or the attachment disposition, however, you can click the "Update" button to upload your attachments immediately and save any other changes you've made to existing attachments.
+	Paso 2: Pulse "Actualizar" para ver inmediatamente los cambios, o éstos se ejecutarán automáticamente cuando se envíe el mensaje.
     </para>
-
-    <tip>
-    Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the email may take a while. Please be patient and do not click other links or buttons while you are waiting for a file to upload.
-    </tip>
-</entry>--></entry>
-
-<entry id="compose-current-attachments" state="new">
-    <title>Message Composition: Current Attachments</title>
-    <heading>Current Attachments</heading>
+    <heading>Cambiar la disposición de los adjuntos</heading>
     <para>
-    This section displays a list of files already attached to your message.
-    </para>
-    <heading>Delete attached file(s)</heading>
-    <para>
-    To delete an attached file(s):
+	Para cambiar la disposición de los adjuntos:
     </para>
     <para>
-    Step 1: Activate the check-button next to the attached filename(s) you want to delete.
+	Paso 1: Cambie la disposición de cada adjunto al valor deseado: "En línea" o "Adjunto".
     </para>
     <para>
-    Step 2: Either click the "Update" button above the Current Attachments section to immediately view changes or the changes will automatically be performed when the message is sent.
+	Paso 2: Pulse "Actualizar" para ver inmediatamente los cambios, o éstos se ejecutarán automáticamente cuando se envíe el mensaje.
     </para>
-    <heading>Change Attachment Disposition</heading>
+    <heading>Cambiar la descripción de los adjuntos</heading>
     <para>
-    To change the disposition for your attachments:
-    </para>
-    <para>
-    Step 1: Change each attachment's disposition - either "inline" or "attachment" - to the desired value.
+	Para cambiar la descripción de los adjuntos (el texto que verá el destinatario describiendo el adjunto):
     </para>
     <para>
-    Step 2: Either click the "Update" button above the Current Attachments section to immediately view changes or the changes will automatically be performed when the message is sent.
-    </para>
-    <heading>Change Attachment Description</heading>
-    <para>
-    To change the description for your attachments (the text the recipient will see that describes the attachment):
+	Paso 1: Introduzca una descripción en el campo de Descripción.
     </para>
     <para>
-    Step 1: Enter a description into the Description field.
-    </para>
-    <para>
-    Step 2: Either click the "Update" button above the Current Attachments section to immediately view changes or the changes will automatically be performed when the message is sent.
+	Paso 2: Pulse "Actualizar" para ver inmediatamente los cambios, o éstos se ejecutarán automáticamente cuando se envíe el mensaje.
     </para>
 </entry>
 
@@ -273,7 +196,7 @@
 	</para>
 </entry>
 
-<entry id="compose-save-attachments" md5="db89972c4ebb0b41ab691b6a7744a81d" state="uptodate">
+<entry id="compose-save-attachments" md5="eee31308484dc59cb84d8b7de3e8465a" state="uptodate">
 	<title>Redacción del mensaje: Guardar adjuntos</title>
 	<para>
 		Determina si los adjuntos del mensaje se guardarán con el mismo en la carpeta de correo enviado. Si se selecciona "Sí", se guardarán los datos de los adjuntos. Si se selecciona "No", los datos de los adjuntos se eliminarán del mensaje tras enviarlo a los destinatarios. Seleccionar "No" le ayudará a conservar el espacio de disco al eliminar la información de los adjuntos (potencialmente grande) de los mensajes almacenados.
@@ -350,9 +273,9 @@
 	<para>
 		Expande todas las entradas de carpetas.
 	</para>
-	<heading>Collapsar todas</heading>
+	<heading>Colapsar todas</heading>
 	<para>
-		Collapsa todas las entradas de carpetas.
+		Colapsa todas las entradas de carpetas.
 	</para>
 </entry>
 
@@ -412,7 +335,7 @@
 	</para>
 </entry>
 
-<entry id="pgp-compose-attach-pubkey" md5="97446dbbb27616b4fa39be801e10df2d" state="uptodate">
+<entry id="pgp-compose-attach-pubkey" md5="2550f39bd071650d6e4ebeba1af76e25" state="uptodate">
 	<title>PGP: Adjuntar clave pública</title>
 	<heading>Adjuntar clave pública</heading>
 	<para>
@@ -428,7 +351,7 @@
 	</para>
 </entry>
 
-<entry id="pgp-option-reply-pubkey" state="new">
+<entry id="pgp-option-reply-pubkey" state="uptodate" md5="9eeec8178d39bd61ecbd74d175179587">
     <title>PGP: Validate PGP Public Keys When Replying</title>
     <heading>Validate PGP Public Keys When Replying</heading>
     <para>
@@ -708,113 +631,71 @@
 	</para>
 </entry>
 
-<entry id="alternative-msg" md5="4978073f76977b6af6b69810e4d22a65" state="uptodate">
-	<title>Mensajes Multipart/Alternative</title>
-	<para>
-		Los remitentes envían en ocasiones mensajes de tipo "multipart/alternative". Estos mensajes tienen varias partes, todas mostrando EL MISMO CONTENIDO pero en FORMATOS DISTINTOS. El agente de correo mostrará la última parte de la lista que pueda visualizarse correctamente en línea en el navegador, si la hay. El resto de los formatos aparecerán bajo el epígrafe "Partes alternativas de esta sección" y se podrán visualizar o descargar de forma separada. Es importante tener en cuenta que todas las partes alternativas tienen EL MISMO CONTENIDO que la parte mostrada - simplemente están en formatos distintos (p.e. texto frente a HTML).
-	</para>
-</entry>
-
-<entry id="prefs-rename_sentmail_monthly" md5="530fa20e0afbc25ffd40877948832899" state="uptodate">
-	<title>Preferencias: Mantenimiento: Renombrar la carpeta sent-mail mensualmente</title>
+<entry id="prefs-rename_sentmail_monthly" md5="767b05efbb4370c32783ea4dc1808f91" state="uptodate">
+	<title>Opciones: Renombrar la carpeta sent-mail mensualmente</title>
 	<para>
 		Active esta opción si quiere renombrar la carpeta sent-mail al comienzo de cada mes. La carpeta se renombrará (con un nombre que contenga el mes y el año) y se creará una nueva carpeta sent-mail.
 	</para>
 </entry>
 
-<entry id="prefs-delete_sentmail_monthly" md5="0beed16dfd68e2f25e0c66871fd546df" state="uptodate">
-	<title>Preferencias: Mantenimiento: Eliminar carpetas sent-mail mensualmente</title>
+<entry id="prefs-delete_sentmail_monthly_keep" md5="041cf1a5b14058dbfd680f5af2c0fd52" state="uptodate">
+	<title>Opciones: Eliminar carpetas sent-mail mensualmente</title>
 	<para>
-		Active esta opción si quiere eliminar las carpetas sent-mail antiguas al comienzo de cada mes. Puede ser de utilidad, por ejemplo, si tiene un límite de espacio de disco asignado.
+                Esta opción eliminará las carpetas de correo enviado antiguas tras un número determinado de meses. Cualquier carpeta más antigua que este valor se eliminará. Puede ser de utilidad si hay fijada una quota, por ejemplo.
 	</para>
 </entry>
 
-<entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="uptodate">
-	<title>Preferencias: Mantenimiento: Eliminar carpetas sent-mail mensualmente - # carpetas conservadas</title>
+<entry id="prefs-purge_sentmail_interval" md5="6b8d80249b439bb08dbc1a31d00a7286" state="uptodate">
+	<title>Opciones: Frecuencia de vaciado</title>
 	<para>
-		Si está borrando mensualmente las carpetas sent-mail antiguas, ¿cuántos meses de correo antiguo quiere conservar? Cualquier carpeta más antigua que este número de meses se eliminará.
+		¿Cuán a menudo deberían vaciarse las carpetas de correo enviado?
 	</para>
 </entry>
 
-<entry id="prefs-purge_sentmail" md5="7b37c534aaaec6b43589f15845cf0273" state="uptodate">
-	<title>Preferencias: Mantenimiento: Vaciar sent-mail</title>
+<entry id="prefs-purge_sentmail_keep" md5="07df30a1ca8ef9ff46ca1c7407eb9004" state="uptodate">
+	<title>Opciones: Antigüedad de los mensajes enviados a eliminar</title>
 	<para>
-		Indique si quiere eliminar de la(s) carpeta(s) sent-mail los mensajes antiguos.
+		Si desea eliminar de la(s) carpeta(s) de mensajes enviados los mensajes antiguos, ¿cuál debería ser la antigüedad mínima de los mensajes a eliminar?
 	</para>
 </entry>
 
-<entry id="prefs-purge_sentmail_interval" md5="423f3c1b0645cee1bc58e6e22a6d8b68" state="uptodate">
-	<title>Preferencias: Mantenimiento: Frecuencia de vaciado</title>
+<entry id="prefs-delete_attachments_monthly_keep" md5="79d70b75d5a282bc06366b80311b115b" state="uptodate">
+	<title>Opciones: Eliminar adjuntos vinculados mensualmente</title>
 	<para>
-		Si desea eliminar de la(s) carpeta(s) sent-mail los mensajes antiguos, ¿cuán a menudo deberían vaciarse?
+                Si su cuenta local está configurara para permitir el envío de adjuntos vinculados en la redacción de mensajes salientes, esta opción purgará  los adjuntos vinculados anticuados trar un número determinado de meses. Cualquier adjunto más antiguo que este valor se eliminará. Puede ser de utilidad si hay fijada una quotam por ejemplo.
 	</para>
 </entry>
 
-<entry id="prefs-purge_sentmail_keep" md5="fcba2b7e5da61a7fdda7970f926f8d8a" state="uptodate">
-	<title>Preferencias: Mantenimiento: Antigüedad de los mensajes enviados a eliminar</title>
-	<para>
-		Si desea eliminar de la(s) carpeta(s) sent-mail los mensajes antiguos, ¿cuál debería ser la antigüedad mínima de los mensajes a eliminar?
-	</para>
-</entry>
-
-<entry id="prefs-delete_attachments_monthly" md5="373ea02ede6df5fc345caf632e19a75f" state="uptodate">
-	<title>Preferencias: Mantenimiento: Eliminar adjuntos vinculados mensualmente</title>
-	<para>
-		Active esta opción si desea eliminar adjuntos vinculados antiguos al comienzo de cada mes. Puede ser de utilidad, por ejemplo, si tiene un límite de espacio de disco asignado.
-	</para>
-</entry>
-
-<entry id="prefs-delete_attachments_monthly_keep" md5="1b340a60214dffd04aec02cc1127df5d" state="uptodate">
-	<title>Preferencias: Mantenimiento: Eliminar adjuntos vinculados mensualmente - # meses conservados</title>
-	<para>
-		Si está eliminando mensualmente los adjuntos vinculados antiguos, ¿cuántos meses de adjuntos antiguos desea conservar? Cualquier adjunto más antiguo que este número de meses se eliminará.
-	</para>
-</entry>
-
-<entry id="prefs-purge_trash" md5="dc71871146be3e46ade0087a8cf18273" state="uptodate">
-	<title>Preferencias: Mantenimiento: Vaciar papelera</title>
-	<para>
-		Desea vaciar la papelera a menudo.
-	</para>
-</entry>
-
-<entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="uptodate">
-	<title>Preferencias: Mantenimiento: Frecuencia de vaciado de la papelera</title>
+<entry id="prefs-purge_trash_interval" md5="e805e6311aeae336cfa1cca10bdcfa35" state="uptodate">
+	<title>Opciones: Mantenimiento: Frecuencia de vaciado de la papelera</title>
 	<para>
 		Si está vaciando la papelera, ¿con qué frecuencia hacerlo?
 	</para>
 </entry>
 
 <entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
-	<title>Preferencias: Mantenimiento: Antigüedad de los mensajes borrados a eliminar</title>
+	<title>Opciones: Mantenimiento: Antigüedad de los mensajes borrados a eliminar</title>
 	<para>
 		Si está vaciando la papelera, ¿antigüedad mínima de los mensajes a eliminar?
 	</para>
 </entry>
 
-<entry id="prefs-purge_spam" md5="9cabaf3500d3316054db045cf5339f5e" state="uptodate">
-	<title>Preferencias: Mantenimiento: Vaciar Spam</title>
-	<para>
-		Desea vaciar la carpeta de spam a menudo.
-	</para>
-</entry>
-
-<entry id="prefs-purge_spam_interval" md5="fe0f7289693d19bd386638e25beeb276" state="uptodate">
-	<title>Preferencias: Mantenimiento: Frecuencia de vaciado de Spam</title>
+<entry id="prefs-purge_spam_interval" md5="dacc3d8a1d90ff928fdb72db9ceb76e1" state="uptodate">
+	<title>Opciones: Mantenimiento: Frecuencia de vaciado de Spam</title>
 	<para>
 		Si está vaciando la carpeta de spam, ¿con qué frecuencia hacerlo?
 	</para>
 </entry>
 
 <entry id="prefs-purge_spam_keep" md5="f4748aba20cf4a9b6ce92822bd185de6" state="uptodate">
-	<title>Preferencias: Mantenimiento: Antigüedad del Spam a eliminar</title>
+	<title>Opciones: Mantenimiento: Antigüedad del Spam a eliminar</title>
 	<para>
 		Si está vaciando la carpeta de spam, ¿antigüedad mínima de los mensajes a eliminar?
 	</para>
 </entry>
 
 <entry id="prefs-attrib_text" md5="721a09d7ca028c97e3bd2b38c597fff7" state="uptodate">
-	<title>Preferencias: Redacción del mensaje: Texto de cita</title>
+	<title>Opciones: Redacción del mensaje: Texto de cita</title>
 	<para>
 		Aquí se puede introducir la frase que quiere que aparezca antes de cualquier texto citado en la respuesta que envíe.
 	</para>
@@ -835,41 +716,28 @@
 </entry>
 
 <entry id="prefs-default_msg_charset" md5="4ef4fb2090e703f6f8e03f39ab96e717" state="uptodate">
-	<title>Preferencias: Juego de caracteres por omisión del mensaje</title>
+	<title>Opciones: Juego de caracteres por omisión del mensaje</title>
 	<para>
 		Define el juego de caracteres por omisión utilizado para las partes de texto del mensaje que no contengan información explícita del juego de caracteres. Según la RFC 2045 los mensajes sin dicho parámetro se mostrarán mediante el juego de caracteres 'US-ASCII'. Sin embargo algunos agentes de correo ciertamente defectuosos pueden enviar mensajes de texto en juegos de caracteres distintos sin definir los parámetros apropiados en la cabecera del mensaje. Defina este parámetro con la cadena de juego de caracteres por omisión que se usará de forma local. Seleccione "Por omisión" para usar los valores MIME por omisión.
 	</para>
 </entry>
 
-<entry id="prefs-disposition_request_read" md5="89e92c4d68224b2345b59959878a7174" state="uptodate">
-	<title>Preferencias: Solicitar acuses de recibo</title>
-	<para>
-		"Solicitar acuses de recibo" envía a los destinatarios del mensaje la petición de que le informen cuando abran el mensaje. No todos los clientes soportan / tienen en cuenta ésto.
-	</para>
-</entry>
-
-<entry id="prefs-disposition_send_mdn" md5="1fe04e5dc3de68d172da284895973ea9" state="changed">
-	<title>Preferencias: Enviar NCM</title>
-	<para>
-		"Enviar NCM si lo solicita el remitente" envía una Notificación de Consulta del Mensaje (también conocida como una confirmación de lectura) cuando lea un mensaje en el que el usuario ha solicitado recibir una notificación de que lo ha leído. En la mayoría de los casos ésto se realizará de forma automática sin preguntarle. En algunos casos aislados puede tener que decidir enviar la notificación pulsando un vínculo.
-	</para>
-<!-- English entry (2010-08-16):
-<entry id="prefs-disposition_send_mdn">
-    <title>Preferences: Send Read Receipt</title>
+<entry id="prefs-request_mdn" state="uptodate" md5="d1848b54921777465fd46758a2f59ddc">
+    <title>Opciones: Solicitudes de acuse de recibo</title>
     <para>
-    "Send a MDN" sends a read receipt (also known as a Message Disposition Notification) when you view a message in which the user has requested that they receive notification that you have read the message. By default, you will be prompted to send the notification. Other options include never sending these receipts or sending these receipts automatically without prompt if possible.
+	"Solicitar un acuse de recibo" envía una solicitud de acuse de recibo (también conocida como notificación de consulta de mensaje) a los destinatarios de un mensaje para poder recibir una notificación cuando el mensaje sea leido por ellos. No todos los clientes de correo soportan/hacen caso de esto.
     </para>
-</entry>--></entry>
-
-<entry id="prefs-disposition_request_delivery" md5="26598e29af05a07de5e13644669be712" state="uptodate">
-	<title>Preferencias: Solicitar confirmación del envío</title>
-	<para>
-		"Solicitar confirmación del envío" envía una solicitud al servidor del destinatario de que le informe cuando haya distribuido el mensaje al buzón de destino. No significa que el mensaje haya sido leído, simplemente que ha llegado a un buzón en alguna parte. No todos los servidores de correo soportan ésto.
-	</para>
 </entry>
 
-<entry id="prefs-delete_spam_after_report" md5="cefa8b52e09b0ada90e0889a3959efea" state="changed">
-	<title>Preferencias: Eliminar Spam tras comunicarlo</title>
+<entry id="prefs-send_mdn" state="uptodate" md5="13244cac1f471ef717e8e380e6aed4ab">
+    <title>Opciones: Enviar acuse de recibo</title>
+    <para>
+	"Enviar acuse de recibo" envía un acuse de recibo (también conocido como notificación de consulta de mensaje) cuando lea el mensaje en el que el usuario ha solicitado recibir notificaciones de que ha leido su mensaje. Por omisión se le preguntará antes de enviar la notificación.
+    </para>
+</entry>
+
+<entry id="prefs-delete_spam_after_report" md5="8d1eb1fb6f3c10802d20630a5f5ad132" state="uptodate">
+	<title>Opciones: Eliminar Spam tras comunicarlo</title>
 	<para>
 		Puede optar por hacer un de estas tres cosas tras comunicar un mensaje como spam o como inofensivo.
 	</para>
@@ -877,64 +745,49 @@
 		En primer lugar, puede decidir no hacer nada - el mensaje se comunicará como spam o como inofensivo pero se mantendrá sin cambios en su buzón.
 	</para>
 	<para>
-		En segundo lugar, si se comunica un mensaje como spam, puede optar por eliminarlo inmediatamente. Esta opción carece de efectos al comunicar un mensaje como inofensivo.
+		En segundo lugar, si se comunica un mensaje como spam, puede optar por eliminarlo inmediatamente.
 	</para>
 	<para>
-		En tercer lugar, tras comunicar un mensaje como spam, el mensaje se eliminará de la carpeta actual y se trasladará a la carpeta de spam. De forma alternativa, si se comunica un mensaje como inofensivo, se eliminará de la carpeta actual y se trasladará al buzón de entrada.
-	</para>
-<!-- English entry (2010-08-16):
-<entry id="prefs-delete_spam_after_report">
-    <title>Preferences: Delete Spam After Reporting</title>
-    <para>
-    You may elect to do one of three items after reporting a message as spam.
-    </para>
-    <para>
-    First, you can decide to do nothing - the message will be reported as spam but will otherwise remain unchanged in your mailbox.
-    </para>
-    <para>
-    Second, if reporting a message as spam, you can instead have the message be immediately deleted.
-    </para>
-    <para>
-    Third, after reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.
-    </para>
-</entry>--></entry>
-
-<entry id="prefs-move_ham_after_report" state="new">
-    <title>Preferences: Move Spam After Reporting As Innocent</title>
-    <para>
-    You may elect to do one of two items after reporting a message previously maked as spam as innocent.
-    </para>
-    <para>
-    First, you can decide to do nothing - the message will be reported as innocent but will otherwise remain unchanged in your mailbox.
-    </para>
-    <para>
-    Second, if reporting a message as innocent the message will be deleted from the current mailbox and moved to your Inbox.
-    </para>
-</entry>
-
-<entry id="prefs-html_image_replacement" md5="28e1cf08e328345a8e7274c853492d4f" state="uptodate">
-	<title>Preferencias: Sustitución de imágenes HTML</title>
-	<para>
-		En el caso de mensajes HTML mostrados en línea, ¿habría que bloquear todas las etiquetas de imágenes hasta que decida explícitamente verlas? Tenga en cuenta que si está visualizando un adjunto HTML las imágenes se verán siempre.
+		En tercer lugar, tras comunicar un mensaje como spam, el mensaje se eliminará de la carpeta actual y se trasladará a la carpeta de spam.
 	</para>
 </entry>
 
-<entry id="prefs-html_image_addrbook" md5="759fa3df24e0a3cd89f320102252f91a" state="uptodate">
-	<title>Preferencias: Sustitución de imágenes HTML/Mostrar si en Direcciones</title>
-	<para>
-		Si se están bloqueando las imágenes de los mensajes HTML en línea, ¿habría que mostrarlas automáticamente si el remitente aparece en la libreta de direcciones?
-	</para>
+<entry id="prefs-move_ham_after_report" state="uptodate" md5="4b971b84ed993e6a6fff8d45a50d03c5">
+    <title>Opciones: Trasladar Spam trar notificarlo como inofensivo</title>
+    <para>
+    Tiene dos opciones tras notificar como inofensivo un mensaje previamente marcado como spam.
+    </para>
+    <para>
+    En primer lugar, puede decidir no hacer nada - el mensaje se notificará como inofensivo pero mantendrá sin cambios en su buzón.
+    </para>
+    <para>
+    En segundo lugar, si se comunica como inofensivo un mensaje  se eliminará del buzón actual y se trasladará a su buzón de Entrada.
+    </para>
+</entry>
+
+<entry id="prefs-image_replacement" state="uptodate" md5="f518db9fb16b91e44b4a39b8d3bdcb8a">
+    <title>Opciones: Sustitución de imágenes</title>
+    <para>
+    En mensajes mostrados en línea, ¿se deberían bloquear las etiquetas de imágenes a menos que específicamente indique que quiere verlas? Observe que si está visualizando como adjuntos las imágenes no se mostrarán nunca.
+    </para>
+</entry>
+
+<entry id="prefs-image_addrbook" state="uptodate" md5="0110ec5a179c32ae36cbda1d10000c5f">
+    <title>Opciones: Sustitución de imágenes/Mostrar si en libreta de direcciones</title>
+    <para>
+    Si se están bloqueando las imágenes de mensajes en línea, ¿se deberían mostrar de forma automática si el remitente aparece en la libreta de direcciones?
+    </para>
 </entry>
 
 <entry id="prefs-mailbox_start" md5="62fcc38a15f54dae7eb8bdafa93ed341" state="uptodate">
-	<title>Preferencias: Página de inicio del buzón</title>
+	<title>Opciones: Página de inicio del buzón</title>
 	<para>
 		Decide qué página del listado del buzón se mostrará cuando acceda a un buzón por primera vez.
 	</para>
 </entry>
 
-<entry id="prefs-save_attachments" md5="35b46334cdcc7fa416b9f9fca5874e80" state="uptodate">
-	<title>Preferencias: Guardar adjuntos de mensajes enviados</title>
+<entry id="prefs-save_attachments" md5="d61dfb1fd20829a48af8d04402f857cb" state="uptodate">
+	<title>Opciones: Guardar adjuntos de mensajes enviados</title>
 	<para>
 		Si se está guardando un mensaje en una carpeta sent-mail, decide si se guardan todos los datos de adjuntos. Se dispone de las opciones siguientes:
 	</para>

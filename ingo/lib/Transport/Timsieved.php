@@ -3,7 +3,7 @@
  * Ingo_Transport_Timsieved implements the Sieve_Driver api to allow scripts
  * to be installed and set active via a Cyrus timsieved server.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -34,7 +34,8 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
             'port'       => 4190,
             'scriptname' => 'ingo',
             'admin'      => '',
-            'usetls'     => true
+            'usetls'     => true,
+            'debug'      => false
         );
 
         parent::__construct(array_merge($default_params, $params));
@@ -65,7 +66,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
                                       false,
                                       $this->_params['usetls'],
                                       null,
-                                      array($this, '_debug'));
+                                      array($this, 'debug'));
 
         $res = $this->_sieve->getError();
         if ($res instanceof PEAR_Error) {
@@ -76,7 +77,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
         /* BC for older Net_Sieve versions that don't allow specify the debug
          * handler in the constructor. */
         if (!empty($this->_params['debug'])) {
-            Ingo_Exception_Pear::catchError($this->_sieve->setDebug(true, array($this, '_debug')));
+            Ingo_Exception_Pear::catchError($this->_sieve->setDebug(true, array($this, 'debug')));
         }
     }
 
@@ -86,7 +87,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
      * @param Net_Sieve $sieve  A Net_Sieve object.
      * @param string $message   The tracked Sieve communication.
      */
-    protected function _debug($sieve, $message)
+    public function debug($sieve, $message)
     {
         Horde::logMessage($message, 'DEBUG');
     }
@@ -105,13 +106,13 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
 
         if (!strlen($script)) {
             Ingo_Exception_Pear::catchError($this->_sieve->setActive(''));
-            $this->_uploadAdditional($addtional);
+            $this->_uploadAdditional($additional);
             return;
         }
 
         Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($this->_params['scriptname'], strlen($script)));
         Ingo_Exception_Pear::catchError($this->_sieve->installScript($this->_params['scriptname'], $script, true));
-        $this->_uploadAdditional($addtional);
+        $this->_uploadAdditional($additional);
     }
 
     /**

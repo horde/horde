@@ -8,7 +8,7 @@
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the directory handler.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Unit_Package_Xml_DirectoryTest
@@ -43,7 +43,7 @@ extends Horde_Pear_TestCase
                 '/lib/Stays.php',
                 '/test.php'
             ),
-            $this->_getList(dirname(__FILE__) . '/../../../fixture/directory')->getFiles()
+            $this->_getList(dirname(__FILE__) . '/../../../fixture/horde/framework/directory')->getFiles()
         );
     }
 
@@ -57,6 +57,6 @@ extends Horde_Pear_TestCase
         $element->setDirectoryNode(
             $xml->findNode('/p:package/p:contents/p:dir')
         );
-        return new Horde_Pear_Package_Xml_Directory($element);
+        return new Horde_Pear_Package_Xml_Directory($element, $xml);
     }
 }

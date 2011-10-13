@@ -1,26 +1,25 @@
 <?php
 /**
- * Traditional (imp) contacts display page.
+ * Contacts selection page.
  *
  * URL parameters:
- * 'formfield' - (string) Overrides the form field to fill on closing the
- *               window.
- * 'formname' - (string) Name of the calling form (defaults to 'compose').
- * 'sa' - TODO
- * 'search' - (string) Search term (defaults to '' which should list
- *            everyone).
- * 'searched' - TODO
- * 'source' - TODO
- * 'to_only' - (boolean) Are we limiting to only the 'To:' field?
+ *   - formfield: (string) Overrides the form field to fill on closing the
+ *                window.
+ *   - formname: (string) Name of the calling form (defaults to 'compose').
+ *   - sa: (string) List of selected addresses.
+ *   - search: (string) Search term (defaults to '' which lists everyone).
+ *   - searched: (boolean) Indicates we have already searched at least once.
+ *   - source: (string) The addressbook source to use.
+ *   - to_only: (boolean) Are we limiting to only the 'To:' field?
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -106,13 +105,13 @@ $template->set('cc', intval(!$vars->to_only));
 $template->set('sa', $selected_addresses);
 
 $js = array(
-    'ImpContacts.formname = "' . $vars->formname . '"',
-    'ImpContacts.to_only = ' . intval($vars->to_only)
+    'ImpContacts.formname' => $vars->formname,
+    'ImpContacts.to_only' => intval($vars->to_only)
 );
 if (isset($vars->formfield)) {
-    $js[] = 'ImpContacts.formfield = "' . $vars->formfield . '"';
+    $js['ImpContacts.formfield'] = $vars->formfield;
 }
-Horde::addInlineScript($js);
+Horde::addInlineJsVars($js);
 
 /* Display the form. */
 $title = _("Address Book");

@@ -18,5 +18,16 @@ class Text_Wiki_Render_Xhtml_Wickedblock extends Text_Wiki_Render
      */
     public function token($options)
     {
+        try {
+            return $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_BlockCollection')
+                ->create()
+                ->getBlock($options['app'],
+                           $options['app'] . '_Block_' . $options['block'],
+                           $options['args'])
+                ->getContent();
+        } catch (Horde_Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

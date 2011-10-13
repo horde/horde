@@ -242,7 +242,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				ORGANIZATIONNAME = "The Horde Project";
+				ORGANIZATIONNAME = "Horde LLC";
 			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "ApertureToAnselExportPlugin" */;
 			compatibilityVersion = "Xcode 3.1";

@@ -1,0 +1,91 @@
+# SAM Norwegian Nynorsk translation
+# Copyright 2002 Per-Stian Vatne
+# This file is distributed under the same license as the SAM package.
+# Per-Stian Vatne <psv@orsta.org>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: SpamAssasin\n"
+"POT-Creation-Date: 2002-06-09 00:30+0200\n"
+"PO-Revision-Date: 2011-08-30 18:23+0200\n"
+"Last-Translator: Per-Stian Vatne <psv@orsta.org>\n"
+"Language-Team: Norwegian Nynorsk <psv@orsta.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "General SpamAssassin Options"
+msgstr "Generelle alternativ for SpamAssasin"
+
+msgid "Help"
+msgstr "Hjelp"
+
+msgid "Language"
+msgstr "Språk"
+
+msgid "No configuration information specified for SQL Tasks."
+msgstr "Ingen konfigurasjonsinformasjon spesifisert for SQL-oppgåver."
+
+msgid "Non-numeric value for Required Hits"
+msgstr "Ikkje-numeriske verdiar for nødvendige treff"
+
+msgid "Options"
+msgstr "Alternativ"
+
+msgid "Problem?"
+msgstr "Problem?"
+
+msgid "Required 'database' not specified in SpamAssassin configuration."
+msgstr "Nødvendig 'database' ikkje spesifisert i konfigurasjon for SpamAssasin."
+
+msgid "Required 'hostspec' not specified in SpamAssassin configuration."
+msgstr "Nødvendig 'hostspec' ikkje spesifisert i konfigurasjon for SpamAssasin."
+
+msgid "Required 'password' not specified in SpamAssassin configuration."
+msgstr "Nødvendig 'password' ikkje spesifisert i konfigurasjon for SpamAssasin."
+
+msgid "Required 'phptype' not specified in SpamAssassin configuration."
+msgstr "Nødvendig 'phptype' ikkje spesifisert i konfigurasjon for SpamAssasin."
+
+msgid "Required 'table' not specified in SpamAssassin configuration."
+msgstr "Nødvendig 'table' ikkje spesifisert i konfigurasjon for SpamAssasin."
+
+msgid "Required 'username' not specified in SpamAssassin configuration."
+msgstr "Nødvendig 'username' ikkje spesifisert i konfigurasjon for SpamAssasin."
+
+msgid "Required Hits: "
+msgstr "Nødvendige treff:"
+
+msgid "SAM is not properly configured"
+msgstr "SAM er ikkje ordentleg konfigurert"
+
+msgid "Save Changes"
+msgstr "Lagre endringar"
+
+msgid "Select your preferred language:"
+msgstr "Vel ønska språk:"
+
+msgid "Set the your preferred display language."
+msgstr "Vel ønska språk for vising."
+
+msgid "Some of SAM's configuration files are missing:"
+msgstr "Nokre av SAM sine konfigurasjonsfiler manglar:"
+
+msgid "Spam Rules"
+msgstr "Søppelpostreglar"
+
+msgid "This is the main SAM configuration file. It contains options for all SAM scripts."
+msgstr "Dette er "
+
+msgid "Undo Changes"
+msgstr "Angre endringar"
+
+msgid "Updated SpamAssassin Options"
+msgstr "Oppdaterte alternativ for SpamAssasin"
+
+msgid "User Options"
+msgstr "Brukarval"
+
+msgid "Your Information"
+msgstr "Din informasjon"
+

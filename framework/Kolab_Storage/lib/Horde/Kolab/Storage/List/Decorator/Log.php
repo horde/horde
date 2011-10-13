@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * The log decorator for folder lists from Kolab storage.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Decorator_Log
@@ -47,7 +47,8 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      *
      * @param Horde_Kolab_Storage_List $list   The original list handler.
      * @param mixed                    $logger The log handler. This instance
-     *                                         must provide the info() method.
+     *                                         must provide the debug()
+     *                                         and info() methods.
      */
     public function __construct(
         Horde_Kolab_Storage_List $list,
@@ -168,14 +169,14 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function listFolders()
     {
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Listing folders for %s.',
                 $this->getId()
             )
         );
         $result = $this->_list->listFolders();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'List for %s contained %s folders.',
                 $this->getId(),
@@ -193,14 +194,14 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      */
     public function listFolderTypes()
     {
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Listing folder type annotations for %s.',
                 $this->getId()
             )
         );
         $result = $this->_list->listFolderTypes();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'List for %s contained %s folders and annotations.',
                 $this->getId(),
@@ -233,12 +234,14 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
     /**
      * Synchronize the list information with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
         $this->_list->synchronize();
-        $this->_logger->info(
+        $this->_logger->debug(
             sprintf(
                 'Synchronized folder list for %s.',
                 $this->getId()

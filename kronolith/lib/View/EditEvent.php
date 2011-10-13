@@ -68,7 +68,7 @@ class Kronolith_View_EditEvent
         }
         if (!$this->_event->hasPermission(Horde_Perms::EDIT)) {
             try {
-                $calendar_id .= ':' . $this->_event->getShare()->get('owner');
+                $calendar_id .= '\\' . $this->_event->getShare()->get('owner');
             } catch (Exception $e) {
             }
         }

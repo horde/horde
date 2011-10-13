@@ -3,7 +3,7 @@
  * Turba directory driver implementation for the Horde_Db database abstraction
  * layer.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -93,6 +93,23 @@ class Turba_Driver_Sql extends Turba_Driver
      * @param array $criteria      Array containing the search criteria.
      * @param array $fields        List of fields to return.
      * @param array $blobFields    TODO
+     *
+     * @return array  Hash containing the search results.
+     * @throws Turba_Exception
+     */
+    protected function _search(array $criteria, array $fields, array $blobFields = array())
+    {
+        return $this->_internalSearch($criteria, $fields, $blobFields);
+    }
+
+    /**
+     * Searches the SQL database with the given criteria and returns a
+     * filtered list of results. If the criteria parameter is an empty array,
+     * all records will be returned.
+     *
+     * @param array $criteria      Array containing the search criteria.
+     * @param array $fields        List of fields to return.
+     * @param array $blobFields    TODO
      * @param array $appendWhere   An additional where clause to append.
      *                             Array should contain 'sql' and 'params'
      *                             params are used as bind parameters.
@@ -100,7 +117,7 @@ class Turba_Driver_Sql extends Turba_Driver
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
-    protected function _search($criteria, $fields, $blobFields = array(), $appendWhere = array())
+    protected function _internalSearch(array $criteria, array $fields, $blobFields = array(), $appendWhere = array())
     {
         /* Build the WHERE clause. */
         $where = '';
@@ -264,8 +281,9 @@ class Turba_Driver_Sql extends Turba_Driver
         $duplicates = array();
         for ($i = 0; $i < count($joins); $i++) {
             /* Build up the full query. */
-            $query = sprintf('SELECT DISTINCT a1.%s FROM %s a1 JOIN %s a2 ON %s AND a1.%s <> a2.%s WHERE a1.%s = ? AND a2.%s = ? AND %s ORDER BY %s',
+            $query = sprintf('SELECT DISTINCT a1.%s,%s FROM %s a1 JOIN %s a2 ON %s AND a1.%s <> a2.%s WHERE a1.%s = ? AND a2.%s = ? AND %s ORDER BY %s',
                              $this->map['__key'],
+                             $order[$i],
                              $this->_params['table'],
                              $this->_params['table'],
                              $joins[$i],
@@ -369,7 +387,7 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @throws Turba_Exception
      */
-    protected function _add($attributes, $blob_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields);
         $query  = 'INSERT INTO ' . $this->_params['table']
@@ -642,7 +660,7 @@ class Turba_Driver_Sql extends Turba_Driver
      * @return Turba_List  Object list.
      * @throws Turba_Exception
      */
-    protected function _getTimeObjectTurbaList($start, $end, $field)
+    public function getTimeObjectTurbaList(Horde_Date $start, Horde_Date $end, $field)
     {
         $t_object = $this->toDriver($field);
         $criteria = $this->makesearch(
@@ -702,7 +720,7 @@ class Turba_Driver_Sql extends Turba_Driver
             }
         }
 
-        return $this->_toTurbaObjects($this->_search($criteria, $fields, array(), $where));
+        return $this->_toTurbaObjects($this->_internalSearch($criteria, $fields, array(), $where));
     }
 
 }

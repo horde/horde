@@ -4,14 +4,14 @@
  * various preferences storage mediums.  It also includes all of the
  * functions for retrieving, storing, and checking preference values.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Prefs
  */
 class Horde_Prefs implements ArrayAccess
@@ -141,11 +141,18 @@ class Horde_Prefs implements ArrayAccess
     /**
      * Removes a preference entry from the $prefs hash.
      *
-     * @param string $pref  The name of the preference to remove.
+     * @param string $pref  The name of the preference to remove.  If null,
+     *                      removes all prefs.
      */
-    public function remove($pref)
+    public function remove($pref = null)
     {
-        if ($scope = $this->_getScope($pref)) {
+        if (is_null($pref)) {
+            foreach ($this->_scopes as $val) {
+                foreach (array_keys(iterator_to_array($val)) as $prefname) {
+                    $val->remove($prefname);
+                }
+            }
+        } elseif ($scope = $this->_getScope($pref)) {
             $this->_scopes[$scope]->remove($pref);
         }
     }

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Feed
  */
@@ -16,7 +16,7 @@
  * OPML.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Feed
  */
@@ -48,7 +48,7 @@ class Horde_Feed_Blogroll extends Horde_Feed_Base
     {
         $entries = array();
         foreach ($this->_element->getElementsByTagName('outline') as $child) {
-            if ($child->attributes->getNamedItem('xmlUrl')) {
+            if ($child->attributes->getNamedItem('xmlurl')) {
                 $entries[] = $child;
             }
         }

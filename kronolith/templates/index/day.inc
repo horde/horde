@@ -18,7 +18,7 @@
   <thead>
     <tr>
       <td class="kronolithFirstCol">&nbsp;</td>
-      <td><span><?php echo _("Events for this day") ?></span></td>
+      <td class="kronolithColHead"><span><?php echo _("Events for this day") ?></span></td>
     </tr>
   </thead>
   <tbody>

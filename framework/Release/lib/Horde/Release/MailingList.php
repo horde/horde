@@ -9,25 +9,25 @@
  * @author   Mike Hardy
  * @author   Jan Schneider <jan@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Release
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 
 /**
  * Announce releases on the mailing lists.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Release
  * @author   Mike Hardy
  * @author   Jan Schneider <jan@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Release
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 class Horde_Release_MailingList
 {
@@ -102,7 +102,8 @@ class Horde_Release_MailingList
      */
     public function __construct(
         $component, $name, $branch, $from, $list, $version, $tag_list
-    ) {
+    )
+    {
         $this->_component = $component;
         $this->_name = $name;
         $this->_branch = $branch;

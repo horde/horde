@@ -2,7 +2,7 @@
 /**
  * Jonah_FeedParser.
  *
- * Copyright 2000-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2009 Horde LLC (http://www.horde.org/)
  *
  * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of

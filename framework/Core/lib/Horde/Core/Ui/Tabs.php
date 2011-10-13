@@ -3,14 +3,14 @@
  * The Horde_Core_Ui_Tabs:: class manages and renders a tab-like interface.
  *
  * Copyright 2001-2003 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jason M. Felice <jason.m.felice@gmail.com>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
@@ -25,11 +25,11 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
     /**
      * Adds a tab to the interface.
      *
-     * @param string $title  The text which appears on the tab.
-     * @param string $link   The target page.
-     * @param mixed $params  Either a string value to set the tab variable to,
-     *                       or a hash of parameters. If an array, the tab
-     *                       variable can be set by the 'tabname' key.
+     * @param string $title    The text which appears on the tab.
+     * @param Horde_Url $link  The target page.
+     * @param mixed $params    Either a string value to set the tab variable to,
+     *                         or a hash of parameters. If an array, the tab
+     *                         variable can be set by the 'tabname' key.
      */
     public function addTab($title, $link, $params = array())
     {
@@ -38,7 +38,7 @@ class Horde_Core_Ui_Tabs extends Horde_Core_Ui_Widget
         }
 
         $this->_tabs[] = array_merge(array('title' => $title,
-                                           'link' => $link,
+                                           'link' => $link->copy(),
                                            'tabname' => null),
                                      $params);
     }

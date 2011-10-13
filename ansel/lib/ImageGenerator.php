@@ -17,10 +17,10 @@
  *      {type}ThumbStack.php
  *
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -114,9 +114,6 @@ class Ansel_ImageGenerator
     {
         $type = basename($type);
         $class = 'Ansel_ImageGenerator_' . $type;
-        if (!class_exists($class)) {
-            include dirname(__FILE__) . '/ImageGenerator/' . $type . '.php';
-        }
         if (class_exists($class)) {
             $view = new $class($params);
             // Check that the image object supports what we need for the effect.
@@ -141,11 +138,11 @@ class Ansel_ImageGenerator
      *
      * @return Ansel_Gallery  Gallery that has images, or the original $parent
      */
-    protected function _getGalleryWithImages($parent)
+    protected function _getGalleryWithImages(Ansel_Gallery $parent)
     {
         $galleries = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
-            ->listGalleries(array('parent' => $parent, 'all_levels' => false));
+            ->listGalleries(array('parent' => $parent->id, 'all_levels' => false));
 
         foreach ($galleries as $gallery) {
             if ($gallery->countImages()) {

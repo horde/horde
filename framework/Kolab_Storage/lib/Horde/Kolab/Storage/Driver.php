@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * The driver definition for accessing Kolab storage.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 interface Horde_Kolab_Storage_Driver
@@ -291,6 +291,19 @@ interface Horde_Kolab_Storage_Driver
      * @return resource|string The body part, as a stream resource or string.
      */
     public function fetchBodypart($folder, $uid, $id);
+
+    /**
+     * Retrieves a complete message.
+     *
+     * @param string $folder The folder to fetch the messages from.
+     * @param array  $uid    The message UID.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The message encapsuled as an array that contains a
+     *               Horde_Mime_Headers and a Horde_Mime_Part object.
+     */
+    public function fetchComplete($folder, $uid);
 
     /**
      * Appends a message to the given folder.

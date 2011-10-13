@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Meilof Veeningen <meilof@gmail.com>
  */
@@ -58,8 +58,7 @@ if ($search_mode == 'basic') {
      * a default end date. */
     $event->initialized = true;
 
-    $q_title = Horde_Util::getFormData('title');
-    if (strlen($q_title)) {
+    if (Horde_Util::getFormData('actionID') == 'search_calendar') {
         $event->readForm();
         if (Horde_Util::getFormData('status') == Kronolith::STATUS_NONE) {
             $event->status = null;
@@ -75,10 +74,6 @@ if ($search_mode == 'basic') {
         if ($cal->get('owner') && $cal->get('owner') == $current_user) {
             $calendars[_("My Calendars:")]['|' . $id] = $cal->get('name');
         } else {
-            if (!empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($cal->getName(), $GLOBALS['display_calendars'])) {
-                continue;
-            }
             $calendars[_("Shared Calendars:")]['|' . $id] = $cal->get('name');
         }
     }
@@ -106,7 +101,7 @@ if ($search_mode == 'basic') {
     Horde::addInlineScript(array(
         '$("title").focus()'
     ), 'dom');
-    Horde_Core_Ui_JsCalendar::init();
+    Horde_Core_Ui_JsCalendar::init(array('full_weekdays' => true));
     Horde::addScriptFile('edit.js', 'kronolith');
 }
 

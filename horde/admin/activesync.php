@@ -2,19 +2,24 @@
 /**
  * Administrative management of ActiveSync devices.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Horde
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('admin' => true));
+$permission = 'activesync';
+Horde_Registry::appInit('horde');
+if (!$registry->isAdmin() &&
+    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
+    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
+}
 
 if (empty($conf['activesync']['enabled'])) {
     throw new Horde_Exception_PermissionDenied(_("ActiveSync not activated."));
@@ -55,7 +60,8 @@ $js = array();
 foreach ($devices as $key => $val) {
     $js[$key] = array(
         'id' => $val['device_id'],
-        'user' => $val['device_user']
+        'user' => $val['device_user'],
+        'policykey' => $val['device_policykey']
     );
 }
 
@@ -182,7 +188,7 @@ foreach ($devices as $key => $device) {
 
     /* Add it */
     $tree->addNode(
-        $device['device_id'],
+        $device['device_id'] . $device['device_user'],
         $device['device_user'],
         $device['device_type']. ' | ' . $device['device_agent'],
         0,

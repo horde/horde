@@ -3,7 +3,7 @@
 $view = $injector->createInstance('Horde_View');
 $view->addHelper('Chora_Diff_Helper');
 
-echo $view->renderPartial('app/views/logMessage', array('collection' => array($patchset['log'])));
+echo $view->renderPartial('app/views/logMessage', array('collection' => array($patchset['log']), 'locals' => array('hide_diff' => Horde_Util::nonInputVar('commit_page'))));
 
 echo '<ul class="commit-filelist">';
 $i = 0;

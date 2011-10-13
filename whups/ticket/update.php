@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -9,8 +9,6 @@
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
-
-require_once WHUPS_BASE . '/lib/Forms/EditTicket.php';
 
 $ticket = Whups::getCurrentTicket();
 $linkTags[] = $ticket->feedLink();
@@ -25,6 +23,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 foreach ($ticket->getDetails() as $varname => $value) {
     if ($varname == 'owners') {
+        $owners = $gowners = array();
         foreach ($value as $owner) {
             if (strpos($owner, 'user:') !== false) {
                 $owners[] = $owner;
@@ -46,23 +45,23 @@ if ($tid = $vars->get('transaction')) {
         // the reply.
         foreach ($history[$tid]['changes'] as $change) {
             if (!empty($change['private'])) {
-                $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission('whups:comments:' . $change['value']);
-                if (!is_a($permission, 'PEAR_Error')) {
-                    $group_id = array_shift(array_keys($permission->getGroupPermissions()));
-                    $vars->set('group', $group_id);
-                }
+                $permission = $GLOBALS['injector']
+                    ->getInstance('Horde_Perms')
+                    ->getPermission('whups:comments:' . $change['value']);
+                $group_id = array_shift(array_keys($permission->getGroupPermissions()));
+                $vars->set('group', $group_id);
                 break;
             }
         }
 
-        $flowed = new Horde_Text_Flowed(preg_replace("/\s*\n/U", "\n", $history[$tid]['comment']));
+        $flowed = new Horde_Text_Flowed(preg_replace("/\s*\n/U", "\n", $history[$tid]['comment']), 'UTF-8');
         $vars->set('newcomment', $flowed->toFlowed(true));
     }
 }
 
 // Edit action.
-if ($vars->get('formname') == 'editticketform') {
-    $editform = new EditTicketForm($vars, $ticket);
+if ($vars->get('formname') == 'whups_form_ticket_edit') {
+    $editform = new Whups_Form_Ticket_Edit($vars, $ticket);
     if ($editform->validate($vars)) {
         $editform->getInfo($vars, $info);
 
@@ -97,13 +96,12 @@ if ($vars->get('formname') == 'editticketform') {
         if (!empty($info['group'])) {
             $ticket->change('comment-perms', $info['group']);
         }
-
-        $result = $ticket->commit();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } else {
+        try {
+            $ticket->commit();
             $notification->push(_("Ticket Updated"), 'horde.success');
             $ticket->show();
+        } catch (Whups_Exception $e) {
+            $notification->push($e, 'horde.error');
         }
     }
 }
@@ -116,11 +114,11 @@ require WHUPS_TEMPLATES . '/prevnext.inc';
 $tabs = Whups::getTicketTabs($vars, $id);
 echo $tabs->render('update');
 
-$form = new EditTicketForm($vars, $ticket, sprintf(_("Update %s"), $title));
+$form = new Whups_Form_Ticket_Edit($vars, $ticket, sprintf(_("Update %s"), $title));
 $form->renderActive($form->getRenderer(), $vars, 'update.php', 'post');
 echo '<br class="spacer" />';
 
-$form = new TicketDetailsForm($vars, $ticket, $title);
+$form = new Whups_Form_TicketDetails($vars, $ticket, $title);
 $ticket->setDetails($vars);
 $form->renderInactive($form->getRenderer(), $vars);
 

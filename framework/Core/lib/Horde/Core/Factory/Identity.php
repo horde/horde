@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Core
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
  */
 
 /**
  * A Horde_Injector:: based Horde_Identity:: factory.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Core
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
  */
 class Horde_Core_Factory_Identity extends Horde_Core_Factory_Base
@@ -48,9 +48,24 @@ class Horde_Core_Factory_Identity extends Horde_Core_Factory_Base
     {
         global $prefs, $registry;
 
-        $class = empty($driver)
-            ? 'Horde_Core_Prefs_Identity'
-            : Horde_String::ucfirst($driver) . '_Prefs_Identity';
+        $class = 'Horde_Core_Prefs_Identity';
+        switch ($driver) {
+        case 'horde':
+            // Bug #9936: There is a conflict between the horde/Prefs
+            // Identity base driver and the application-specific Identity
+            // driver for Horde.
+            $temp_class = 'Horde_Prefs_HordeIdentity';
+            if (class_exists($temp_class)) {
+                $class = $temp_class;
+            }
+            break;
+
+        default:
+            if (!empty($driver)) {
+                $class = Horde_String::ucfirst($driver) . '_Prefs_Identity';
+            }
+            break;
+        }
         $key = $class . '|' . $user;
 
         if (!isset($this->_instances[$key])) {

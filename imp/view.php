@@ -19,22 +19,20 @@
  * ctype - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
  * id - (string) The MIME part ID to display.
- * mailbox - (string) The mailbox of the message.
  * mode - (integer) The view mode to use.
  *          DEFAULT: IMP_Contents::RENDER_FULL
  * pmode - (string) The print mode of this request ('content', 'headers').
- * uid - (string) The UID of the message.
  * zip - (boolean) Download in .zip format?
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -49,7 +47,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 $vars = Horde_Variables::getDefaultVariables();
 Horde_Registry::appInit('imp', array(
     'nocompress' => (($vars->actionID == 'download_all') || $vars->zip),
-    'session_control' => 'readonly'
+    'session_control' => (Horde_Util::getFormData('ajax') ? null : 'readonly')
 ));
 
 switch ($vars->actionID) {
@@ -67,20 +65,20 @@ case 'compose_attach_preview':
     break;
 
 case 'download_mbox':
-    if (!isset($vars->mailbox)) {
+    if (empty(IMP::$thismailbox)) {
         exit;
     }
 
     // Exception will be displayed as fatal error.
-    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array($vars->mailbox), $vars->zip);
+    $injector->getInstance('IMP_Ui_Folder')->downloadMbox(array(strval(IMP::$thismailbox)), $vars->zip);
     break;
 
 default:
-    if (!$vars->uid || !isset($vars->mailbox)) {
+    if (empty(IMP::$thismailbox) || empty(IMP::$uid)) {
         exit;
     }
 
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mailbox, $vars->uid));
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create(IMP::$thismailbox->getIndicesOb(IMP::$uid));
     break;
 }
 
@@ -175,6 +173,7 @@ case 'view_attach':
         ? IMP_Contents::RENDER_RAW_FALLBACK
         : (isset($vars->mode) ? $vars->mode : IMP_Contents::RENDER_FULL);
     $render = $contents->renderMIMEPart($vars->id, $render_mode, array('type' => $vars->ctype));
+
     if (!empty($render)) {
         reset($render);
         $key = key($render);
@@ -230,6 +229,12 @@ case 'print_attach':
     reset($render);
     $render_key = key($render);
 
+    if (stripos($render[$render_key]['type'], 'text/html') !== 0) {
+        header('Content-Type: ' . $render[$render_key]['type']);
+        echo $render[$render_key]['data'];
+        exit;
+    }
+
     $imp_ui = new IMP_Ui_Message();
     $basic_headers = $imp_ui->basicHeaders();
     unset($basic_headers['bcc'], $basic_headers['reply-to']);
@@ -248,7 +253,7 @@ case 'print_attach':
 
             $headers[] = array(
                 'header' => htmlspecialchars($val),
-                'value' => htmlspecialchars(Horde_String::convertCharset($hdr_val, null, $d_param['params']['charset']))
+                'value' => htmlspecialchars($hdr_val)
             );
         }
     }
@@ -264,7 +269,8 @@ case 'print_attach':
     $t = $injector->createInstance('Horde_Template');
     $t->set('headers', $headers);
 
-    $elt = DOMDocument::loadHTML($t->fetch(IMP_TEMPLATES . '/print/headers.html'))->getElementById('headerblock');
+    $header_dom = new Horde_Domhtml(Horde_String::convertCharset($t->fetch(IMP_TEMPLATES . '/print/headers.html'), 'UTF-8', $d_param['params']['charset']), $d_param['params']['charset']);
+    $elt = $header_dom->dom->getElementById('headerblock');
     $elt->removeAttribute('id');
 
     if ($elt->hasAttribute('class')) {
@@ -276,9 +282,12 @@ case 'print_attach':
         }
 
         $css = $injector->getInstance('Horde_Themes_Css');
-        if ($style = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($css->loadCssFiles($css->getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
-            $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
-        }
+        // Csstidy filter may not be available.
+        try {
+            if ($style = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($css->loadCssFiles($css->getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
+                $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
+            }
+        } catch (Horde_Exception $e) {}
     }
 
     $elt->removeAttribute('class');

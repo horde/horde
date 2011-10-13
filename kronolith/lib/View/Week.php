@@ -77,9 +77,9 @@ class Kronolith_View_Week
         }
         for ($i = $this->startDay; $i <= $this->endDay; ++$i) {
             $date_stamp = $this->days[$i]->dateString();
-            $this->days[$i]->setEvents(isset($allevents[$date_stamp])
-                                       ? $allevents[$date_stamp]
-                                       : array());
+            $this->days[$i]->events = isset($allevents[$date_stamp])
+                ? $allevents[$date_stamp]
+                : array();
         }
         $this->sidebyside = $this->days[$this->startDay]->sidebyside;
         $this->_currentCalendars = $this->days[$this->startDay]->currentCalendars;

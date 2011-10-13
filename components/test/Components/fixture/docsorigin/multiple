@@ -1,0 +1,13 @@
+ABC
+
+:`doc/TEST`_:
+:`doc/ONE`_: ONE
+:`doc/TWO`_: 2
+:`doc/THREE`_: X
+
+JOJO
+
+.. _doc/TEST: http://example.com/TEST
+.. _doc/ONE: http://example.com/ONE
+.. _doc/TWO: http://example.com/TWO
+.. _doc/THREE: http://example.com/THREE

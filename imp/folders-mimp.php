@@ -5,16 +5,16 @@
  * URL Parameters:
  *   'ts' = (integer) Toggle subscribe view.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Anil Madhavapeddy <avsm@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -22,7 +22,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mimp'));
 
 /* Redirect back to the mailbox if folder use is not allowed. */
-if (!$injector->getInstance('IMP_Factory_Imap')->create()->allowFolders()) {
+if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
     $notification->push(_("Folder use is not enabled."), 'horde.error');
     Horde::url('mailbox-mimp.php', true)->redirect();
 }

@@ -2,10 +2,10 @@
 /**
  * Process an single image
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Duck <duck@obala.net>
  */
@@ -34,7 +34,7 @@ if ($x2 - $x1 < 50 || $y2 - $y1 < 50) {
 /* Create Horde_Image driver. */
 $img = Ansel::getImageObject();
 try {
-    $result = $img->loadFile($path);
+    $img->loadFile($path);
 } catch (Horde_Image_Exception $e) {
     $notification->push($e->getMessage());
     Horde::url('faces/search/image.php')->redirect();
@@ -43,7 +43,7 @@ try {
 
 /* Crop image. */
 try {
-    $result = $img->crop($x1, $y1, $x2, $y2);
+    $img->crop($x1, $y1, $x2, $y2);
 } catch (Horde_Image_Exception $e) {
     $notification->push($e->getMessage());
     Horde::url('faces/search/image.php')->redirect();

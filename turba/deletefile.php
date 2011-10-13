@@ -2,7 +2,7 @@
 /**
  * Turba deletefile.php.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -12,10 +12,6 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('turba');
-
-if ($conf['documents']['type'] == 'none') {
-    exit;
-}
 
 $source = Horde_Util::getPost('source');
 if ($source === null || !isset($cfgSources[$source])) {

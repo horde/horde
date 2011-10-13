@@ -1,12 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -18,7 +18,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -350,6 +350,25 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
         $this->_connection->autocommit(false);
     }
 
+    /**
+     * Commits the transaction (and turns on auto-committing).
+     */
+    public function commitDbTransaction()
+    {
+        parent::commitDbTransaction();
+        $this->_connection->autocommit(true);
+    }
+
+    /**
+     * Rolls back the transaction (and turns on auto-committing). Must be
+     * done if the transaction block raises an exception or returns false.
+     */
+    public function rollbackDbTransaction()
+    {
+        parent::rollbackDbTransaction();
+        $this->_connection->autocommit(true);
+    }
+
 
     /*##########################################################################
     # Protected
@@ -376,13 +395,8 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     protected function _parseConfig()
     {
-        // check required config keys are present
-        $required = array('username');
-        $diff = array_diff_key(array_flip($required), $this->_config);
-        if (! empty($diff)) {
-            $msg = 'Required config missing: ' . implode(', ', array_keys($diff));
-            throw new Horde_Db_Exception($msg);
-        }
+        $this->_checkRequiredConfig(array('username'));
+
         $rails2mysqli = array('database' => 'dbname');
         foreach ($rails2mysqli as $from => $to) {
             if (isset($this->_config[$from])) {
@@ -390,21 +404,26 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
                 unset($this->_config[$from]);
             }
         }
+
+        if (!empty($this->_config['host']) &&
+            $this->_config['host'] == 'localhost') {
+            $this->_config['host'] = '127.0.0.1';
+        }
+
         if (isset($this->_config['port'])) {
             if (empty($this->_config['host'])) {
-                $msg = 'host is required if port is specified';
-                throw new Horde_Db_Exception($msg);
+                throw new Horde_Db_Exception('Host is required if port is specified');
             }
         }
 
         $config = $this->_config;
 
-        if (!isset($config['host']))      $config['host'] = null;
-        if (!isset($config['username']))  $config['username'] = null;
-        if (!isset($config['password']))  $config['password'] = null;
-        if (!isset($config['dbname']))    $config['dbname'] = null;
-        if (!isset($config['port']))      $config['port'] = null;
-        if (!isset($config['socket']))    $config['socket'] = null;
+        if (!isset($config['host']))     $config['host'] = null;
+        if (!isset($config['username'])) $config['username'] = null;
+        if (!isset($config['password'])) $config['password'] = null;
+        if (!isset($config['dbname']))   $config['dbname'] = null;
+        if (!isset($config['port']))     $config['port'] = null;
+        if (!isset($config['socket']))   $config['socket'] = null;
 
         return $config;
     }

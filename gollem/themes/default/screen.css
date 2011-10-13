@@ -56,10 +56,17 @@ table.clipboard {
 table.clipboard td {
     padding: 2px;
 }
+.selectall {
+    font-weight: bold;
+}
 
 #filter {
     margin-left: 4px;
     margin-right: 2px;
+}
+
+#editcontent {
+    width: 99%;
 }
 
 .header a:hover {
@@ -68,4 +75,30 @@ table.clipboard td {
 
 #refreshimg {
     margin-left: 7px;
+}
+
+/* Images. */
+.clipboardImg {
+    background-image: url("graphics/clipboard.png");
+}
+.downloadImg {
+    background-image: url("graphics/download.png");
+}
+.editImg {
+    background-image: url("graphics/edit.png");
+}
+.folderImg {
+    background-image: url("graphics/folder.png");
+}
+.foldercreateImg {
+    background-image: url("graphics/folder_create.png");
+}
+.foldergotoImg {
+    background-image: url("graphics/folder_goto.png");
+}
+.reloadImg {
+    background-image: url("graphics/reload.png");
+}
+.symlinkImg {
+    background-image: url("graphics/folder_symlink.png");
 }

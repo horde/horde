@@ -2,10 +2,10 @@
 /**
  * A block to display a Wiki page.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Jason Felice <jason.m.felice@gmail.com>
  */
@@ -44,7 +44,7 @@ class Wicked_Block_Page extends Horde_Core_Block
             'page' => array(
                 'type' => 'text',
                 'name' => _("Name of wiki page to display"),
-                'default' => 'WikiHome'
+                'default' => 'Wiki/Home'
             )
         );
     }

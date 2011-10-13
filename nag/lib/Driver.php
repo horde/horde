@@ -3,7 +3,7 @@
  * Nag_Driver:: defines an API for implementing storage backends for Nag.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jon Parise <jon@horde.org>
  * @author  Jan Schneider <jan@horde.org>
@@ -160,7 +160,7 @@ class Nag_Driver
 
         $signature = serialize(array($tasklist, $driver, $params));
         if (!isset($instances[$signature])) {
-            $instances[$signature] =& Nag_Driver::factory($tasklist, $driver, $params);
+            $instances[$signature] = Nag_Driver::factory($tasklist, $driver, $params);
         }
 
         return $instances[$signature];
@@ -188,9 +188,10 @@ class Nag_Driver
      * @return array  array(ID,UID) of new task
      */
     public function add($name, $desc, $start = 0, $due = 0, $priority = 0,
-                 $estimate = 0.0, $completed = 0, $category = '', $alarm = 0,
-                 array $methods = null, $uid = null, $parent = '', $private = false,
-                 $owner = null, $assignee = null)
+                        $estimate = 0.0, $completed = 0, $category = '',
+                        $alarm = 0, array $methods = null, $uid = null,
+                        $parent = '', $private = false, $owner = null,
+                        $assignee = null)
     {
         if (is_null($uid)) {
             $uid = strval(new Horde_Support_Guid());
@@ -260,11 +261,12 @@ class Nag_Driver
      *
      * @throws Nag_Exception
      */
-    public function modify($taskId, $name, $desc, $start = 0, $due = 0, $priority = 0,
-                    $estimate = 0.0, $completed = 0, $category = '',
-                    $alarm = 0, array $methods = null, $parent = '', $private = false,
-                    $owner = null, $assignee = null, $completed_date = null,
-                    $tasklist = null)
+    public function modify($taskId, $name, $desc, $start = 0, $due = 0,
+                           $priority = 0, $estimate = 0.0, $completed = 0,
+                           $category = '', $alarm = 0, array $methods = null,
+                           $parent = '', $private = false, $owner = null,
+                           $assignee = null, $completed_date = null,
+                           $tasklist = null)
     {
         /* Retrieve unmodified task. */
         $task = $this->get($taskId);

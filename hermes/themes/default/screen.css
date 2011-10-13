@@ -40,8 +40,6 @@ html, body {
     height: 100%;
 }
 body.hermesAjax {
-    /*font-family: "American Typewriter","Constantia","Verdana",monospace;*/
-   /* overflow: hidden;*/
 }
 /* Main views */
 #hermesBody {
@@ -50,9 +48,6 @@ body.hermesAjax {
     left: 175px;
     right: 10px;
     bottom: 10px;
-    /*overflow: auto;
-    overflow-x: hidden;
-    overflow-y: hidden;*/
     width: auto;
 }
 
@@ -101,7 +96,6 @@ body.hermesAjax {
     list-style: none;
 }
 #hermesApplications li {
-    margin-bottom: 1px;
     text-align: left;
 }
 #hermesApplications a {
@@ -110,6 +104,7 @@ body.hermesAjax {
     overflow: hidden;
     background-color: #f0f0f0;
     border: 1px solid #999;
+    border-top-width: 0;
     color: #202020;
     font-weight: bold;
     -moz-border-radius: 5px;
@@ -120,6 +115,9 @@ body.hermesAjax {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+}
+#hermesApplications li:first-child a {
+    border-top-width: 1px;
 }
 #hermesApplications:hover li:first-child a {
     -moz-border-radius: 5px 5px 0 0;
@@ -219,7 +217,7 @@ body.hermesAjax {
 #hermesNav a {
     display: block;
     float: left;
-    margin: 0 1px 0 0;
+    margin: 0;
     padding: 0 5px 0 25px;
     background-color: #f0f0f0;
     background-position: 5px center;
@@ -228,9 +226,12 @@ body.hermesAjax {
     text-decoration: none;
     color: #202020;
     cursor: pointer;
-    border: 1px solid #999;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    border-right: 1px solid #999;
 }
 #hermesNav li:first-child a {
+    border-left: 1px solid #999;
     -moz-border-radius: 5px 0 0 5px;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
@@ -428,6 +429,14 @@ a.rounded {
     font-weight: bold;
 }
 
+.hermesStopTimer:hover, .hermesPauseTimer:hover {
+    cursor: pointer;
+}
+.hermesTimerControls {
+    display: block;
+    float: right;
+    cursor: pointer;
+}
 /* Timelist submission controls */
 .hermesTimeListControls {
     padding: 7px;
@@ -493,6 +502,9 @@ a.rounded {
   padding: 6px 5px 4px;
   width: 98%;
 
+}
+.hermesLongField {
+    width: 98%;
 }
 #hermesSearchFormClient {
     width: 180px;
@@ -593,8 +605,6 @@ a.rounded {
   top: 46px;
   width: 100%;
 }
-.hermesTimerOn {
-}
 .hermesMenuRecent {
     margin-bottom: 7px;
 }
@@ -602,9 +612,25 @@ a.rounded {
     margin-left: 7px;
     font-style: italic;
 }
-.hermesTimerStop {
-    float: right;
-    line-height: 16px;
+#hermesTimerDialog {
+    position: absolute;
+    z-index: 110;
+    left: 163px;
+    top: 370px;
+    width: 350px;
+    height: auto;
+    background: transparent url("graphics/back_quick.png") no-repeat left top;
+}
+#hermesTimerDialog form {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #999;
+}
+.hermesTimer {
+    min-height: 24px;
+}
+.hermesTimerLabel {
+    padding: 2px 2px 2px 2px;
 }
 #hermesMenu h3 {
   border-bottom: 1px dotted #999999;
@@ -637,7 +663,52 @@ a.rounded {
     margin: 6px;
     float: left;
 }
- /* Mini calendar */
+
+/* Dialogs */
+.hermesDialog {
+    width: 700px;
+    padding: 10px 20px;
+    background: #efefef;
+    border: 1px #999 solid;
+}
+.hermesDialog div {
+    margin-bottom: 5px;
+}
+.hermesDialog td {
+    padding-right: 10px;
+    vertical-align: top;
+}
+.hermesDialog label {
+    font-weight: bold;
+}
+.hermesDialog .tabset {
+    float: none;
+    width: auto;
+    background: none;
+    margin: 15px 0;
+}
+.hermesDialog .tabset ul {
+    float: left;
+    padding-left: 0;
+    margin: 0;
+}
+.hermesDialog .tabset .hermesSeparator {
+    float: left;
+}
+.hermesDialog hr {
+   margin: 5px 0;
+   height: 0;
+   line-height: 0;
+   border-width: 1px 0;
+   border-color: #ccc transparent #fff;
+   border-style: solid none;
+}
+.hermesDialogInfo {
+    background: transparent url('graphics/alerts/message.png') 0 0 no-repeat;
+    padding-left: 20px;
+    font-style: italic;
+}
+/* Mini calendar */
 .hermesMinical {
     position: relative;
 }
@@ -646,7 +717,8 @@ a.rounded {
 }
 .hermesMinical table {
     width: 100%;
-    border-spacing: 1px;
+    border-spacing: 0;
+    border-collapse: collapse;
 }
 .hermesMinical caption, #hermesBody .hermesMinical caption {
     position: relative;
@@ -685,7 +757,7 @@ a.rounded {
     height: 16px;
     line-height: 16px;
     text-align: center;
-    background-color: #d9d9d9;
+    background-color: #d6d6d6;
     color: #202020;
     border: 1px #999 solid !important;
 }
@@ -701,12 +773,12 @@ a.rounded {
 }
 .hermesMinical .hermesMinicalEmpty {
     background: none;
-    border-color: #e2e2e2;
     color: silver;
 }
 .hermesMinical .hermesSelected {
     background-color: #ffc;
 }
+
 #hermesTimeFormCollapse {
     float: right;
     padding-right:10px;

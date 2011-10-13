@@ -10,34 +10,37 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:10:30</time>
+ <date>2011-07-21</date>
+ <time>10:27:17</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.1</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
 * 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="examples">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Feed">
-      <file name="blogroll.php" role="php" />
-      <file name="delete.php" role="php" />
-      <file name="edit.php" role="php" />
-      <file name="post.php" role="php" />
-      <file name="read.php" role="php" />
-      <file name="reader.php" role="php" />
-     </dir> <!-- /examples/Horde/Feed -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+      <dir name="examples">
+       <file name="blogger.php" role="doc" />
+       <file name="blogroll.php" role="doc" />
+       <file name="delete.php" role="doc" />
+       <file name="edit.php" role="doc" />
+       <file name="post.php" role="doc" />
+       <file name="read.php" role="doc" />
+       <file name="reader.php" role="doc" />
+      </dir> <!-- /doc/Horde/Feed/examples -->
+     </dir> <!-- /doc/Horde/Feed -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Feed">
@@ -252,12 +255,13 @@
       <file name="AllTests.php" role="test" />
       <file name="AtomEntryOnlyTest.php" role="test" />
       <file name="AtomPublishingTest.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="BlogrollTest.php" role="test" />
       <file name="CountTest.php" role="test" />
       <file name="IteratorTest.php" role="test" />
       <file name="LexiconTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="ReadTest.php" role="test" />
-      <file name="TestCase.php" role="test" />
      </dir> <!-- /test/Horde/Feed -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -296,15 +300,25 @@
     <name>dom</name>
    </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/Horde/Feed/blogroll.php" name="examples/Horde/Feed/blogroll.php" />
-   <install as="examples/Horde/Feed/delete.php" name="examples/Horde/Feed/delete.php" />
-   <install as="examples/Horde/Feed/edit.php" name="examples/Horde/Feed/edit.php" />
-   <install as="examples/Horde/Feed/post.php" name="examples/Horde/Feed/post.php" />
-   <install as="examples/Horde/Feed/read.php" name="examples/Horde/Feed/read.php" />
-   <install as="examples/Horde/Feed/reader.php" name="examples/Horde/Feed/reader.php" />
+   <install as="examples/blogger.php" name="doc/Horde/Feed/examples/blogger.php" />
+   <install as="examples/blogroll.php" name="doc/Horde/Feed/examples/blogroll.php" />
+   <install as="examples/delete.php" name="doc/Horde/Feed/examples/delete.php" />
+   <install as="examples/edit.php" name="doc/Horde/Feed/examples/edit.php" />
+   <install as="examples/post.php" name="doc/Horde/Feed/examples/post.php" />
+   <install as="examples/read.php" name="doc/Horde/Feed/examples/read.php" />
+   <install as="examples/reader.php" name="doc/Horde/Feed/examples/reader.php" />
    <install as="Horde/Feed.php" name="lib/Horde/Feed.php" />
    <install as="Horde/Feed/Atom.php" name="lib/Horde/Feed/Atom.php" />
    <install as="Horde/Feed/Base.php" name="lib/Horde/Feed/Base.php" />
@@ -318,12 +332,13 @@
    <install as="Horde/Feed/AllTests.php" name="test/Horde/Feed/AllTests.php" />
    <install as="Horde/Feed/AtomEntryOnlyTest.php" name="test/Horde/Feed/AtomEntryOnlyTest.php" />
    <install as="Horde/Feed/AtomPublishingTest.php" name="test/Horde/Feed/AtomPublishingTest.php" />
+   <install as="Horde/Feed/Autoload.php" name="test/Horde/Feed/Autoload.php" />
    <install as="Horde/Feed/BlogrollTest.php" name="test/Horde/Feed/BlogrollTest.php" />
    <install as="Horde/Feed/CountTest.php" name="test/Horde/Feed/CountTest.php" />
    <install as="Horde/Feed/IteratorTest.php" name="test/Horde/Feed/IteratorTest.php" />
    <install as="Horde/Feed/LexiconTest.php" name="test/Horde/Feed/LexiconTest.php" />
+   <install as="Horde/Feed/phpunit.xml" name="test/Horde/Feed/phpunit.xml" />
    <install as="Horde/Feed/ReadTest.php" name="test/Horde/Feed/ReadTest.php" />
-   <install as="Horde/Feed/TestCase.php" name="test/Horde/Feed/TestCase.php" />
    <install as="Horde/Feed/fixtures/AtomPublishingTest-before-update.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-before-update.xml" />
    <install as="Horde/Feed/fixtures/AtomPublishingTest-created-entry.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-created-entry.xml" />
    <install as="Horde/Feed/fixtures/AtomPublishingTest-expected-update.xml" name="test/Horde/Feed/fixtures/AtomPublishingTest-expected-update.xml" />
@@ -523,7 +538,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First alpha release for Horde 4.
 * More robust parsing (recover from XML errors, fall back to HTML parsing)
@@ -543,7 +558,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -558,7 +573,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -573,7 +588,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Fix loading of local files with non-URI characters in the file name.
@@ -590,20 +605,34 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [gwr] Added an example on how to post to blogger.com.
+* [gwr] Support additional request headers when updating Atom entries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-21</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * 
    </notes>

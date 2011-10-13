@@ -8,23 +8,23 @@
  * @package  Kolab_Storage
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * A cache backend for Kolab storage data handlers.
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Cache_Data
@@ -37,6 +37,12 @@ class Horde_Kolab_Storage_Cache_Data
 
     /** Key for the objects. */
     const OBJECTS = 'O';
+
+    /** Key for recording duplicate objects. */
+    const DUPLICATES = 'U';
+
+    /** Key for recording error objects. */
+    const ERRORS = 'E';
 
     /** Key for the stamp. */
     const STAMP = 'P';
@@ -55,6 +61,9 @@ class Horde_Kolab_Storage_Cache_Data
 
     /** Holds the version number of the cache format. */
     const FORMAT_VERSION = '1';
+
+    /** Holds query results. */
+    const QUERIES = 'Q';
 
     /**
      * The core cache driver.
@@ -240,6 +249,30 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
+     * Retrieve the list of object duplicates.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of duplicates.
+     */
+    public function getDuplicates()
+    {
+        return $this->_fetchCacheEntry(self::DUPLICATES);
+    }
+
+    /**
+     * Retrieve the list of object errors.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of errors.
+     */
+    public function getErrors()
+    {
+        return $this->_fetchCacheEntry(self::ERRORS);
+    }
+
+    /**
      * Retrieve an attachment.
      *
      * @param string $obid          Object backend id.
@@ -313,6 +346,70 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
+     * Return the timestamp of the last synchronization.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return int Timestamp of the last sync.
+     */
+    public function getLastSync()
+    {
+        $this->_load();
+        return isset($this->_data[self::SYNC]) ? $this->_data[self::SYNC] : false;
+    }
+
+    /**
+     * Is the specified query data available in the cache?
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $key The query key.
+     *
+     * @return boolean True in case cached data is available.
+     */
+    public function hasQuery($key)
+    {
+        $this->_load();
+        return isset($this->_data[self::QUERIES][$key]);
+    }
+
+    /**
+     * Return query information.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $key The query key.
+     *
+     * @return mixed The query data.
+     */
+    public function getQuery($key)
+    {
+        if ($this->hasQuery($key)) {
+            return $this->_data[self::QUERIES][$key];
+        } else {
+            throw new Horde_Kolab_Storage_Exception(
+                sprintf('Missing query cache data (Key: %s). Synchronize first!', $key)
+            );
+        }
+    }
+
+    /**
+     * Set query information.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $key  The query key.
+     * @param mixed  $data The query data.
+     *
+     * @return NULL
+     */
+    public function setQuery($key, $data)
+    {
+        $this->_load();
+        $this->_data[self::QUERIES][$key] = $data;
+    }
+
+    /**
      * Fetch the specified cache entry in case it is present. Returns an empty
      * array otherwise.
      *
@@ -350,13 +447,35 @@ class Horde_Kolab_Storage_Cache_Data
     }
 
     /**
+     * Map backend IDs to object ids.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param array $backend_ids The list of backend IDs
+     *
+     * @return array A list that associates object IDs (values) to backend IDs
+     *               (keys).
+     */
+    public function backendMap($backend_ids)
+    {
+        if (empty($backend_ids)) {
+            return array();
+        }
+        $map = array();
+        foreach ($backend_ids as $item) {
+            $map[$item] = $this->_data[self::B2O][$item];
+        }
+        return $map;
+    }
+
+    /**
      * Store the objects list in the cache.
      *
      * @param array                            $object  The object data to store.
      * @param Horde_Kolab_Storage_Folder_Stamp $stamp   The current stamp.
      * @param string                           $version The format version of
      *                                                  the provided data.
-     * @param array                            $delete  Object IDs that were removed.
+     * @param array                            $delete  Backend IDs that were removed.
      *
      * @return NULL
      */
@@ -368,31 +487,27 @@ class Horde_Kolab_Storage_Cache_Data
     ) {
         $this->_load();
         if (!empty($delete)) {
-            foreach ($delete as $item) {
-                $object_id = $this->_data[self::B2O][$item];
+            foreach ($delete as $obid => $object_id) {
                 $object = $this->_data[self::OBJECTS][$object_id];
                 if (isset($object['_attachments'])) {
                     foreach ($object['_attachments']['id'] as $id) {
                         $this->_cache->deleteAttachment(
-                            $this->getDataId(), $item, $id
+                            $this->getDataId(), $obid, $id
                         );
                     }
                 }
                 unset($this->_data[self::O2B][$object_id]);
                 unset($this->_data[self::OBJECTS][$object_id]);
-                unset($this->_data[self::B2O][$item]);
+                unset($this->_data[self::B2O][$obid]);
             }
         }
         foreach ($objects as $obid => $object) {
             if (!empty($object) && isset($object['uid'])) {
                 if (isset($this->_data[self::O2B][$object['uid']])) {
-                    throw new Horde_Kolab_Storage_Exception(
-                        sprintf(
-                            'Duplicate object %s [data cache id: %s]!',
-                            $object['uid'],
-                            $this->getDataId()
-                        )
-                    );
+                    if (!isset($this->_data[self::DUPLICATES][$object['uid']])) {
+                        $this->_data[self::DUPLICATES][$object['uid']][] = $this->_data[self::O2B][$object['uid']];
+                    }
+                    $this->_data[self::DUPLICATES][$object['uid']][] = $obid;
                 }
                 $this->_data[self::B2O][$obid] = $object['uid'];
                 $this->_data[self::O2B][$object['uid']] = $obid;
@@ -413,8 +528,10 @@ class Horde_Kolab_Storage_Cache_Data
                 $this->_data[self::OBJECTS][$object['uid']] = $object;
             } else {
                 $this->_data[self::B2O][$obid] = false;
+                $this->_data[self::ERRORS][] = $obid;
             }
         }
+        $this->_data[self::QUERIES] = array();
         $this->_data[self::STAMP] = serialize($stamp);
         $this->_data[self::DATA_VERSION] = $version;
         $this->_data[self::VERSION] = self::FORMAT_VERSION;

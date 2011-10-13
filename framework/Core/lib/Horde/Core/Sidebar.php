@@ -2,14 +2,14 @@
 /**
  * This class provides the code needed to generate the Horde sidebar.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Core_Sidebar
@@ -55,7 +55,7 @@ class Horde_Core_Sidebar
     }
 
     /**
-     * Generate the sidebar tree object.
+     * Generates the sidebar tree object.
      *
      * @return Horde_Tree_Base  The sidebar tree object.
      */
@@ -64,19 +64,19 @@ class Horde_Core_Sidebar
         global $registry;
 
         $isAdmin = $registry->isAdmin();
-        $menu = $parents = array();
+        $menu = $children = array();
 
         foreach ($registry->listApps(array('active', 'admin', 'noadmin', 'heading', 'notoolbar', 'sidebar'), true, null) as $app => $params) {
-            /* Check if the current user has permisson to see this
-             * application, and if the application is active. Headings are
-             * visible to everyone (but get filtered out later if they
-             * have no children). Administrators always see all
-             * applications except those marked 'inactive'. */
+            /* Check if the current user has permisson to see this application,
+             * and if the application is active. Headings are visible to
+             * everyone (but get filtered out later if they have no
+             * children). Administrators always see all applications except
+             * those marked 'inactive'. */
             if (($isAdmin &&
                  $params['status'] != 'noadmin') ||
-                ($params['status'] == 'heading') ||
+                 $params['status'] == 'heading' ||
                 (in_array($params['status'], array('active', 'noadmin', 'sidebar')) &&
-                 $registry->hasPermission($app, Horde_Perms::SHOW))) {
+                 $registry->hasPermission((!empty($params['app']) ? $params['app'] : $app), Horde_Perms::SHOW))) {
                 $menu[$app] = $params;
 
                 if (isset($params['menu_parent'])) {
@@ -92,16 +92,15 @@ class Horde_Core_Sidebar
             }
         }
 
-        // Add the administration menu if the user is an admin.
-        if ($isAdmin) {
-            $menu['administration'] = array(
-                'name' => Horde_Core_Translation::t("Administration"),
-                'icon' => Horde_Themes::img('administration.png'),
-                'status' => 'heading'
-            );
-
-            try {
-                foreach ($registry->callByPackage('horde', 'admin_list') as $method => $val) {
+        /* Add the administration menu if the user is an admin or has any admin
+         * permissions. */
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $admin_item_count = 0;
+        try {
+            foreach ($registry->callByPackage('horde', 'admin_list') as $method => $val) {
+                if ($isAdmin ||
+                    $perms->hasPermission('horde:administration:' . $method, $registry->getAuth(), Horde_Perms::SHOW)) {
+                    $admin_item_count++;
                     $menu['administration_' . $method] = array(
                         'icon' => $val['icon'],
                         'menu_parent' => 'administration',
@@ -110,7 +109,16 @@ class Horde_Core_Sidebar
                         'url' => Horde::url($registry->applicationWebPath($val['link'], 'horde')),
                     );
                 }
-            } catch (Horde_Exception $e) {}
+            }
+        } catch (Horde_Exception $e) {
+        }
+
+        if ($admin_item_count) {
+            $menu['administration'] = array(
+                'name' => Horde_Core_Translation::t("Administration"),
+                'icon' => Horde_Themes::img('administration.png'),
+                'status' => 'heading'
+            );
         }
 
         if (Horde_Menu::showService('prefs') &&

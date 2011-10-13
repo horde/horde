@@ -14,8 +14,8 @@
  * Created   :   01.10.2007
  *
  * � Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL v2.
- * Consult LICENSE file for details
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
  */
 class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 {
@@ -74,7 +74,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     {
         $this->_logger = $logger;
     }
-    
+
     /**
      * Returns either start, content or end, and auto-concatenates successive content
      */
@@ -131,7 +131,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 
             return $element;
         } else {
-            $this->_logger->debug('Unmatched tag' .  $tag . ':');
+            //$this->_logger->debug('Unmatched tag' .  $tag . ':');
             $this->_ungetElement($element);
         }
 

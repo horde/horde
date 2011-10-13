@@ -17,9 +17,7 @@ class Whups_Block_Query extends Horde_Core_Block
      */
     protected function _params()
     {
-        require_once WHUPS_BASE . '/lib/Query.php';
-
-        $qManager = new Whups_QueryManager();
+        $qManager = new Whups_Query_Manager();
         $qDefault = null;
         $qParams = $qManager->listQueries($GLOBALS['registry']->getAuth());
         if (count($qParams)) {
@@ -63,10 +61,6 @@ class Whups_Block_Query extends Horde_Core_Block
 
         $vars = Horde_Variables::getDefaultVariables();
         $tickets = $whups_driver->executeQuery($query, $vars);
-        if ($tickets instanceof PEAR_Error) {
-            return $tickets;
-        }
-
         $html = '<thead><tr>';
         $sortby = $prefs->getValue('sortby');
         $sortdirclass = ' class="' . ($prefs->getValue('sortdir') ? 'sortup' : 'sortdown') . '"';
@@ -97,11 +91,10 @@ class Whups_Block_Query extends Horde_Core_Block
             return false;
         }
 
-        require_once WHUPS_BASE . '/lib/Query.php';
-
-        $qManager = new Whups_QueryManager();
-        $query = $qManager->getQuery($this->_params['query']);
-        if ($query instanceof PEAR_Error) {
+        $qManager = new Whups_Query_Manager();
+        try {
+            $query = $qManager->getQuery($this->_params['query']);
+        } catch (Whups_Exception $e) {
             return false;
         }
         if (!$query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {

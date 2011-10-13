@@ -5,14 +5,14 @@
  * This file defines IMP's external API interface. Other applications
  * can interact with IMP through this API.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Api extends Horde_Registry_Api
@@ -96,16 +96,25 @@ class IMP_Api extends Horde_Registry_Api
      * Creates a new folder.
      *
      * @param string $folder  The name of the folder to create (UTF7-IMAP).
+     * @param array $options  Additional options:
+     *   - full: (boolean) If true, $folder is a full mailbox name. If false,
+     *           $folder will be created in the default namespace.
+     *           Available since IMP 5.0.11
+     *           DEFAULT: false
      *
      * @return string  The full folder name created or false on failure.
+     *
      * @throws IMP_Exception
      */
-    public function createFolder($folder)
+    public function createFolder($folder, array $options = array())
     {
-        $fname = IMP_Mailbox::get($folder)->namespace_append;
+        $fname = IMP_Mailbox::get($folder);
+        if (empty($options['full'])) {
+            $fname = $fname->namespace_append;
+        }
 
-        return $GLOBALS['injector']->getInstance('IMP_Folder')->create($fname, $GLOBALS['prefs']->getValue('subscribe'))
-            ? $fname
+        return $fname->create()
+            ? strval($fname)
             : false;
     }
 
@@ -194,7 +203,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function searchMailbox($mailbox, $query)
     {
-        $results = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $mailbox);
+        $results = IMP_Mailbox::get($mailbox)->runSearchQuery($query);
         return isset($results[$mailbox])
             ? $results[$mailbox]
             : array();
@@ -290,7 +299,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagList($mailbox = null)
     {
-        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
             return array();
         }
 

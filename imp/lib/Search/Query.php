@@ -2,16 +2,17 @@
 /**
  * This class provides a data structure for a search query.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  *
+ * @property boolean $all  Does this query search all mailboxes?
  * @property boolean $canEdit  Can this query be edited?
  * @property string $id  The query ID.
  * @property string $label  The query label.
@@ -19,6 +20,7 @@
  *                          automatically expands subfolder searches.
  * @property array $mbox_list  The list of individual mailboxes to query (no
  *                             subfolder mailboxes).
+ * @property IMP_Mailbox $mbox_ob  The IMP_Mailbox object for this query.
  * @property string $mid  The query ID with the search mailbox prefix.
  * @property array $query  The list of IMAP queries that comprise this search.
  *                         Keys are mailbox names, values are
@@ -35,6 +37,9 @@ class IMP_Search_Query implements Serializable
 
     /* Prefix indicating subfolder search. */
     const SUBFOLDER = "sub\0";
+
+    /* Mailbox value indicating a search all mailboxes search. */
+    const ALLSEARCH = "all\0";
 
     /**
      * Is this query enabled?
@@ -96,21 +101,23 @@ class IMP_Search_Query implements Serializable
      * Constructor.
      *
      * @var array $opts  Options:
-     * <pre>
-     * add - (array) A list of criteria to add (Horde_Search_Element objects).
-     *       DEFAULT: No criteria explicitly added.
-     * disable - (boolean) Disable this query?
-     *           DEFAULT: false
-     * id - (string) Use this ID.
-     *      DEFAULT: ID automatically generated.
-     * label - (string) The label for this query.
-     *         DEFAULT: Search Results
-     * mboxes - (array) The list of mailboxes to search.
-     *          DEFAULT: None
-     * subfolders - (array) The list of mailboxes to do subfolder searches
-     *              for.
-     *              DEFAULT: None
-     * </pre>
+     *   - add: (array) A list of criteria to add (Horde_Search_Element
+     *          objects).
+     *          DEFAULT: No criteria explicitly added.
+     *   - all: (boolean) Search all mailboxes? If set, ignores 'mboxes' and
+     *          'subfolders' options.
+     *          DEFAULT: false
+     *   - disable: (boolean) Disable this query?
+     *              DEFAULT: false
+     *   - id: (string) Use this ID.
+     *         DEFAULT: ID automatically generated.
+     *   - label: (string) The label for this query.
+     *            DEFAULT: Search Results
+     *   - mboxes: (array) The list of mailboxes to search.
+     *             DEFAULT: None
+     *   - subfolders: (array) The list of mailboxes to do subfolder searches
+     *                 for.
+     *                 DEFAULT: None
      */
     public function __construct(array $opts = array())
     {
@@ -129,17 +136,21 @@ class IMP_Search_Query implements Serializable
             ? $opts['label']
             : _("Search Results");
 
-        if (isset($opts['mboxes'])) {
-            $this->_mboxes = $opts['mboxes'];
-        }
-
-        if (isset($opts['subfolders'])) {
-            foreach ($opts['subfolders'] as $val) {
-                $this->_mboxes[] = self::SUBFOLDER . $val;
+        if (!empty($opts['all'])) {
+            $this->_mboxes = array(self::ALLSEARCH);
+        } else {
+            if (isset($opts['mboxes'])) {
+                $this->_mboxes = $opts['mboxes'];
             }
-        }
 
-        natsort($this->_mboxes);
+            if (isset($opts['subfolders'])) {
+                foreach ($opts['subfolders'] as $val) {
+                    $this->_mboxes[] = self::SUBFOLDER . $val;
+                }
+            }
+
+            natsort($this->_mboxes);
+        }
     }
 
     /**
@@ -147,6 +158,9 @@ class IMP_Search_Query implements Serializable
     public function __get($name)
     {
         switch ($name) {
+        case 'all':
+            return in_array(self::ALLSEARCH, $this->_mboxes);
+
         case 'canEdit':
             return $this->_canEdit;
 
@@ -170,7 +184,8 @@ class IMP_Search_Query implements Serializable
             if (!isset($this->_cache['mboxes'])) {
                 $out = $this->mbox_list;
 
-                if ($s_list = $this->subfolder_list) {
+                if (!$this->all &&
+                    ($s_list = $this->subfolder_list)) {
                     foreach ($s_list as $val) {
                         $out = array_merge($out, $val->subfolders);
                     }
@@ -187,11 +202,17 @@ class IMP_Search_Query implements Serializable
             if (!isset($this->_cache['mbox_list'])) {
                 $mbox = $subfolder = array();
 
-                foreach ($this->_mboxes as $val) {
-                    if (strpos($val, self::SUBFOLDER) === 0) {
-                        $subfolder[] = IMP_Mailbox::get(substr($val, strlen(self::SUBFOLDER)));
-                    } else {
-                        $mbox[] = IMP_Mailbox::get($val);
+                if ($this->all) {
+                    $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+                    $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
+                    $mbox = iterator_to_array($imaptree);
+                } else {
+                    foreach ($this->_mboxes as $val) {
+                        if (strpos($val, self::SUBFOLDER) === 0) {
+                            $subfolder[] = IMP_Mailbox::get(substr($val, strlen(self::SUBFOLDER)));
+                        } else {
+                            $mbox[] = IMP_Mailbox::get($val);
+                        }
                     }
                 }
 
@@ -200,6 +221,9 @@ class IMP_Search_Query implements Serializable
             }
 
             return $this->_cache[$name];
+
+        case 'mbox_ob':
+            return IMP_Mailbox::get($this->mid);
 
         case 'mid':
             return IMP_Search::MBOX_PREFIX . $this->_id;
@@ -221,16 +245,24 @@ class IMP_Search_Query implements Serializable
             $text = array(_("Search"));
 
             foreach ($this->_criteria as $elt) {
-                $text[] = $elt->queryText();
-                if (!($elt instanceof IMP_Search_Element_Or)) {
+                if ($elt instanceof IMP_Search_Element_Or) {
+                    array_pop($text);
+                    $text[] = $elt->queryText();
+                } else {
+                    $text[] = $elt->queryText();
                     $text[] = _("and");
                 }
             }
             array_pop($text);
 
             $mbox_display = array();
-            foreach ($this->mboxes as $val) {
-                $mbox_display[] = $val->display;
+
+            if ($this->all) {
+                $mbox_display[] = _("All Mailboxes");
+            } else {
+                foreach ($this->mboxes as $val) {
+                    $mbox_display[] = $val->display;
+                }
             }
 
             return implode(' ', $text) . ' ' . _("in") . ' [' . implode(', ', $mbox_display) . ']';

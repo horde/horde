@@ -29,8 +29,8 @@
   <td align="center" width="25%"><input name="all[]" type="checkbox" value="1" <if:all_execute>disabled="disabled" </if:all_execute>/></td>
  </tr>
  <tr class="control">
-  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Save" value="<tag:save />" onclick="Gollem.chmodSave();" /></td>
-  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Cancel" value="<tag:cancel />" onclick="Gollem.chmodCancel()" /></td>
+  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Save" id="chmodsave" value="<tag:save />" /></td>
+  <td align="center" width="50%" colspan="2"><input class="button" type="button" name="Cancel" id="chmodcancel" value="<tag:cancel />" /></td>
  </tr>
 </table>
 </form>
@@ -44,9 +44,9 @@
 <h1 class="header"><gettext>Rename</gettext></h1>
 <div class="control nowrap" style="padding:3px">
  <gettext>Name:</gettext>
- <input class="input" type="text" id="renamefrm_newname" name="newname" value="" onkeypress="return Gollem.renameKeyCheck(event);" />
- <input class="button" type="button" value="<tag:ok />" onclick="Gollem.renameOK();" />
- <input class="button" type="button" value="<tag:cancel />" onclick="Gollem.renameCancel()" />
+ <input class="input" type="text" id="renamefrm_newname" name="newname" value="" />
+ <input class="button" type="button" id="renamesave" value="<tag:ok />" />
+ <input class="button" type="button" id="renamecancel" value="<tag:cancel />" />
 </div>
 </form>
 </div>
@@ -54,25 +54,25 @@
 </if:list_count>
 
 <div id="createFolder" class="managerpopup" style="display:none;">
-<form id="createfrm" onsubmit="return false;" action="<tag:action />">
+<form id="createfrm" action="<tag:action />">
 <h1 class="header"><gettext>Create Folder</gettext></h1>
 <div class="control nowrap" style="padding:3px">
  <gettext>Name:</gettext>
- <input class="input" type="text" id="createfrm_fname" name="foldername" value="" onkeypress="return Gollem.createFolderKeyCheck(event);" />
- <input class="button" type="button" value="<tag:ok />" onclick="Gollem.createFolderOK();" />
- <input class="button" type="button" value="<tag:cancel />" onclick="Gollem.createFolderCancel()" />
+ <input class="input" type="text" id="createfrm_fname" name="foldername" value="" />
+ <input class="button" type="button" id="createok" value="<tag:ok />" />
+ <input class="button" type="button" id="createcancel" value="<tag:cancel />" />
 </div>
 </form>
 </div>
 
 <div id="changeDirectory" class="managerpopup" style="display:none;">
-<form id="cdfrm" onsubmit="return false;" action="<tag:action />">
+<form id="cdfrm" action="<tag:action />">
 <h1 class="header"><gettext>Change Folder</gettext></h1>
 <div class="control nowrap" style="padding:3px">
  <gettext>Go to:</gettext>
- <input class="input" type="text" id="cdfrm_fname" name="foldername" value="" onkeypress="return Gollem.changeDirectoryKeyCheck(event);" />
- <input class="button" type="button" value="<tag:ok />" onclick="Gollem.changeDirectoryOK();" />
- <input class="button" type="button" value="<tag:cancel />" onclick="Gollem.changeDirectoryCancel()" />
+ <input class="input" type="text" id="cdfrm_fname" name="foldername" value="" />
+ <input class="button" type="button" id="cdfrmok" value="<tag:ok />" />
+ <input class="button" type="button" id="cdfrmcancel" value="<tag:cancel />" />
 </div>
 </form>
 </div>
@@ -90,13 +90,15 @@
 <div class="header">
  <strong style="float:right"><tag:itemcount /></strong>
  <tag:navlink />
- <tag:refresh />
- <tag:clipboard />
+ <tag:refresh /><span class="iconImg reloadImg"></span></a>
+<if:clipboard>
+ <tag:clipboard /><span class="iconImg clipboardImg"></span></a>
+</if:clipboard>
 <if:create_folder>
- <tag:create_folder />
+ <tag:create_folder /><span class="iconImg foldercreateImg"></span></a>
 </if:create_folder>
 <if:change_folder>
- <tag:change_folder />
+ <tag:change_folder /><span class="iconImg foldergotoImg"></span></a>
 </if:change_folder>
 </div>
 
@@ -104,7 +106,7 @@
 <table id="filelist_actions" cellspacing="0">
  <tr class="control">
   <td class="leftAlign">
-   <select id="action1" name="action1" onchange="Gollem.chooseAction(1);$('action1').selectedIndex=0;">
+   <select id="action1" name="action1">
     <option selected="selected"><gettext>Actions:</gettext></option>
 <if:perms_chmod>
     <option value="chmod_modify"><gettext>Change Permissions</gettext></option>
@@ -124,9 +126,9 @@
   </td>
   <td class="rightAlign">
    <strong><gettext>Filter:</gettext></strong><input id="filter" name="filter" type="text" size="25" value="<tag:filter_val />" />
-   <input type="button" class="button" onclick="Gollem.applyFilter()" value="<gettext>Filter</gettext>" />
+   <input type="button" id="filterapply" class="button" value="<gettext>Filter</gettext>" />
 <if:filter_val>
-   <input type="button" class="button" onclick="Gollem.clearFilter()" value="<gettext>Clear</gettext>" />
+   <input type="button" id="filterclear" class="button" value="<gettext>Clear</gettext>" />
 </if:filter_val>
   </td>
  </tr>
@@ -141,7 +143,7 @@
 <table id="filelist" class="striped sortable" cellspacing="0">
 <thead>
  <tr>
-  <th class="nosort" style="text-align:center" width="1%"><input type="checkbox" class="checkbox" name="checkAll" onclick="Gollem.toggleSelection()" <tag:checkall /> /></th>
+  <th class="nosort" style="text-align:center" width="1%"><input type="checkbox" class="checkbox" id="checkall" name="checkAll" <tag:checkall /> /></th>
 <loop:headers>
   <th<if:headers.id> id="<tag:headers.id />"</if:headers.id><if:headers.class> class="<tag:headers.class />"</if:headers.class> style="text-align:<tag:headers.align />" width="<tag:headers.width />"><tag:headers.sort /><tag:headers.label /></th>
 </loop:headers>
@@ -158,10 +160,14 @@
   <td><tag:entry.link /></td>
 </if:columns_name>
 <if:columns_edit>
-  <td><if:entry.edit><tag:entry.edit /><else:entry.edit>&nbsp;</else:entry.edit></if:entry.edit>&nbsp;</td>
+  <td>
+   <if:entry.edit><tag:entry.edit /><span class="iconImg editImg"></span></a></if:entry.edit>
+  </td>
 </if:columns_edit>
 <if:columns_download>
-  <td><if:entry.dl><tag:entry.dl /><else:entry.dl>&nbsp;</else:entry.dl></if:entry.dl>&nbsp;</td>
+  <td>
+   <if:entry.dl><tag:entry.dl /><span class="iconImg downloadImg"></span></a></if:entry.dl>
+  </td>
 </if:columns_download>
 <if:columns_modified>
   <td sortval="<tag:entry.date_sort />"><tag:entry.date /></td>
@@ -192,11 +198,11 @@
  <tr>
   <td class="leftAlign">
    <div id="upload_row_1">
-    <strong><gettext>File</gettext> 1:</strong>&nbsp;<input id="file_upload_1" name="file_upload_1" type="file" onchange="Gollem.uploadChanged()" size="25" />
+    <strong><gettext>File</gettext> 1:</strong>&nbsp;<input id="file_upload_1" name="file_upload_1" type="file" size="25" />
    </div>
   </td>
   <td class="leftAlign">
-   &nbsp;<input type="button" class="button" onclick="Gollem.uploadFile()" value="<tag:upload_file />" />&nbsp;<tag:upload_help />
+   <input type="button" class="button" id="uploadfile" value="<tag:upload_file />" /> <tag:upload_help />
   </td>
  </tr>
 </table>

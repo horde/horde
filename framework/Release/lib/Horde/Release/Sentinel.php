@@ -9,25 +9,25 @@
  * @author   Mike Hardy
  * @author   Jan Schneider <jan@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Release
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 
 /**
  * Update the sentinel in CHANGES.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Release
  * @author   Mike Hardy
  * @author   Jan Schneider <jan@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Release
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Release
  */
 class Horde_Release_Sentinel
 {
@@ -36,6 +36,9 @@ class Horde_Release_Sentinel
 
     /** Path to the Application.php file. */
     const APPLICATION = '/lib/Application.php';
+
+    /** Path to the Bundle.php file. */
+    const BUNDLE = '/lib/Bundle.php';
 
     /**
      * Base component path.
@@ -124,7 +127,7 @@ class Horde_Release_Sentinel
     }
 
     /**
-     * Update the Application.php file in case it exists.
+     * Update the Application.php or Bundle.php file in case it exists.
      *
      * @param string $new_version Version string that should be added.
      *
@@ -135,6 +138,7 @@ class Horde_Release_Sentinel
         if ($application = $this->applicationFileExists()) {
             $tmp = Horde_Util::getTempFile();
 
+            $oldmode = fileperms($application);
             $oldfp = fopen($application, 'r');
             $newfp = fopen($tmp, 'w');
             while ($line = fgets($oldfp)) {
@@ -147,8 +151,28 @@ class Horde_Release_Sentinel
             }
             fclose($oldfp);
             fclose($newfp);
+            chmod($tmp, $oldmode);
 
             system("mv -f $tmp $application");
+        } elseif ($bundle = $this->bundleFileExists()) {
+            $tmp = Horde_Util::getTempFile();
+
+            $oldmode = fileperms($bundle);
+            $oldfp = fopen($bundle, 'r');
+            $newfp = fopen($tmp, 'w');
+            while ($line = fgets($oldfp)) {
+                $line = preg_replace(
+                    '/const VERSION = \'[^\']*\';/',
+                    'const VERSION = \'' . $version . '\';',
+                    $line
+                );
+                fwrite($newfp, $line);
+            }
+            fclose($oldfp);
+            fclose($newfp);
+            chmod($tmp, $oldmode);
+
+            system("mv -f $tmp $bundle");
         }
     }
 
@@ -180,5 +204,47 @@ class Horde_Release_Sentinel
             return $application;
         }
         return false;
+    }
+
+    /**
+     * Indicates if there is a Bundle.php file for this component.
+     *
+     * @return string|boolean The path to the Bundle.php file if it exists,
+     *                        false otherwise.
+     */
+    public function bundleFileExists()
+    {
+        $bundle = $this->_component . self::BUNDLE;
+        if (file_exists($bundle)) {
+            return $bundle;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the current version from Application.php or Bundle.php.
+     *
+     * @return string Version string.
+     */
+    public function getVersion()
+    {
+        if ($application = $this->applicationFileExists()) {
+            $oldfp = fopen($application, 'r');
+            while ($line = fgets($oldfp)) {
+                if (preg_match('/public \$version = \'([^\']*)\';/', $line, $match)) {
+                    return $match[1];
+                }
+            }
+            fclose($oldfp);
+        }
+        if ($bundle = $this->bundleFileExists()) {
+            $oldfp = fopen($bundle, 'r');
+            while ($line = fgets($oldfp)) {
+                if (preg_match('/const VERSION = \'([^\']*)\';/', $line, $match)) {
+                    return $match[1];
+                }
+            }
+            fclose($oldfp);
+        }
     }
 }

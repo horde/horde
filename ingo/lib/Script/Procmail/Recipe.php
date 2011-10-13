@@ -2,7 +2,7 @@
 /**
  * The Ingo_Script_Procmail_Recipe:: class represents a Procmail recipe.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -399,7 +399,7 @@ class Ingo_Script_Procmail_Recipe
         if (isset($this->_params) &&
             ($this->_params['path_style'] == 'maildir')) {
             if (empty($folder) || ($folder == 'INBOX')) {
-                return '$DEFAULT';
+                return '$DEFAULT/';
             }
             if (substr($folder, 0, 6) == 'INBOX.') {
                 $folder = substr($folder, 6);

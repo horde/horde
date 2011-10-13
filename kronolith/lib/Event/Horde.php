@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
@@ -81,13 +81,6 @@ class Kronolith_Event_Horde extends Kronolith_Event
     protected $_variableLength;
 
     /**
-     * Time object hash.
-     *
-     * @array
-     */
-    public $timeobject;
-
-    /**
      * Constructor.
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -115,11 +108,31 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $this->icon = !empty($event['icon']) ? $event['icon'] : null;
         $this->title = $event['title'];
         $this->description = isset($event['description']) ? $event['description'] : '';
+        if (isset($event['location'])) {
+            $this->location = $event['location'];
+        }
         $this->start = $eventStart;
         $this->end = $eventEnd;
-        $this->status = Kronolith::STATUS_FREE;
+        if (isset($event['status'])) {
+            switch ($event['status']) {
+            case 'confirmed':
+                $this->status = Kronolith::STATUS_CONFIRMED;
+                break;
+            case 'tentative':
+                $this->status = Kronolith::STATUS_TENTATIVE;
+                break;
+            default:
+                $this->status = Kronolith::STATUS_FREE;
+            }
+        } else {
+            $this->status = Kronolith::STATUS_FREE;
+        }
+        if (isset($event['private'])) {
+            $this->private = $event['private'];
+        }
         $this->_params = $event['params'];
         $this->_link = !empty($event['link']) ? $event['link'] : null;
+        $this->url = !empty($event['url']) ? (string)$event['url'] : null;
         $this->_editLink = !empty($event['edit_link']) ? $event['edit_link'] : null;
         $this->_deleteLink = !empty($event['delete_link']) ? $event['delete_link'] : null;
         $this->_ajaxLink = !empty($event['ajax_link']) ? $event['ajax_link'] : null;
@@ -167,13 +180,14 @@ class Kronolith_Event_Horde extends Kronolith_Event
     /**
      * Prepares this event to be saved to the backend.
      */
-    public function toDriver()
+    public function toTimeobject()
     {
-        $this->timeobject = array(
+        $timeobject = array(
             'id' => substr($this->id, strlen($this->_api) + 1),
             'icon' => $this->icon,
             'title' => $this->title,
             'description' => $this->description,
+            'location' => $this->location,
             'start' => $this->start->format('Y-m-d\TH:i:s'),
             'end' => $this->end->format('Y-m-d\TH:i:s'),
             'params' => $this->_params,
@@ -181,27 +195,30 @@ class Kronolith_Event_Horde extends Kronolith_Event
             'ajax_link' => $this->_ajaxLink,
             'permissions' => $this->_permissions,
             'variable_length' => $this->_variableLength);
+
         if ($this->recurs()) {
-            $this->timeobject['recurrence'] = array('type' => $this->recurrence->getRecurType());
+            $timeobject['recurrence'] = array('type' => $this->recurrence->getRecurType());
             if ($end = $this->recurrence->getRecurEnd()) {
-                $this->timeobject['recurrence']['end'] = $end->format('Y-m-d\TH:i:s');
+                $timeobject['recurrence']['end'] = $end->format('Y-m-d\TH:i:s');
             }
             if ($interval = $this->recurrence->getRecurInterval()) {
-                $this->timeobject['recurrence']['interval'] = $interval;
+                $timeobject['recurrence']['interval'] = $interval;
             }
             if ($count = $this->recurrence->getRecurCount()) {
-                $this->timeobject['recurrence']['count'] = $count;
+                $timeobject['recurrence']['count'] = $count;
             }
             if ($days = $this->recurrence->getRecurOnDays()) {
-                $this->timeobject['recurrence']['days'] = $days;
+                $timeobject['recurrence']['days'] = $days;
             }
             if ($count = $this->recurrence->getRecurCount()) {
-                $this->timeobject['recurrence']['count'] = $count;
+                $timeobject['recurrence']['count'] = $count;
             }
             if ($exceptions = $this->recurrence->getExceptions()) {
-                $this->timeobject['recurrence']['exceptions'] = $exceptions;
+                $timeobject['recurrence']['exceptions'] = $exceptions;
             }
         }
+
+        return $timeobject;
     }
 
     /**
@@ -312,8 +329,8 @@ class Kronolith_Event_Horde extends Kronolith_Event
         $json = parent::toJson($allDay, $full, $time_format);
         if ($this->_ajaxLink) {
             $json->aj = $this->_ajaxLink;
-        } else {
-            $json->ln = (string)$this->getViewUrl(array(), true, false);
+        } elseif ($link = (string)$this->getViewUrl(array(), true, false)) {
+            $json->ln = $link;
         }
         if (isset($this->_variableLength)) {
             $json->vl = $this->_variableLength;

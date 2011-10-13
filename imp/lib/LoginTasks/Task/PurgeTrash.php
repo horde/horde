@@ -2,14 +2,14 @@
 /**
  * Login tasks module that purges old messages in the Trash folder.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
@@ -52,7 +52,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         /* Get the list of messages older than 'purge_trash_keep' days. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-        $msg_ids = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $trash_folder);
+        $msg_ids = $trash_folder->runSearchQuery($query);
 
         /* Go through the message list and delete the messages. */
         if (!$injector->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {

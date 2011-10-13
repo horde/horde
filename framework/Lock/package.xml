@@ -10,22 +10,29 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:14:20</time>
+ <date>2011-10-11</date>
+ <time>13:55:39</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Lock">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Lock -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Lock">
@@ -41,6 +48,7 @@
      <dir name="Lock">
       <file name="1_horde_lock_base_tables.php" role="data" />
       <file name="2_horde_lock_upgrade_column_types.php" role="data" />
+      <file name="3_horde_lock_fix_owner_width.php" role="data" />
      </dir> <!-- /migration/Horde/Lock -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -88,12 +96,14 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Lock/COPYING" />
    <install as="Horde/Lock.php" name="lib/Horde/Lock.php" />
    <install as="Horde/Lock/Exception.php" name="lib/Horde/Lock/Exception.php" />
    <install as="Horde/Lock/Null.php" name="lib/Horde/Lock/Null.php" />
    <install as="Horde/Lock/Sql.php" name="lib/Horde/Lock/Sql.php" />
    <install as="migration/1_horde_lock_base_tables.php" name="migration/Horde/Lock/1_horde_lock_base_tables.php" />
    <install as="migration/2_horde_lock_upgrade_column_types.php" name="migration/Horde/Lock/2_horde_lock_upgrade_column_types.php" />
+   <install as="migration/3_horde_lock_fix_owner_width.php" name="migration/Horde/Lock/3_horde_lock_fix_owner_width.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -107,7 +117,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Add Null driver.
@@ -123,7 +133,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -138,7 +148,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -153,7 +163,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -168,7 +178,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -180,8 +190,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Expand width of lock_owner column (Bug #10608).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

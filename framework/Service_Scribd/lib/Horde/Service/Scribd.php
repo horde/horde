@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * http://www.scribd.com/platform/documentation/api?method_name=Authentication
  * http://www.scribd.com/platform/account
  * http://github.com/richid/services_scribd/tree/master
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Service_Scribd
  */
@@ -16,7 +16,7 @@
  * Scribd client class
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Service_Scribd
  */

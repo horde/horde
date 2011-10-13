@@ -3,7 +3,7 @@
  * Horde_Widget_GalleryFaces:: class to display a widget containing mini
  * thumbnails of faces in the gallery.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author Duck <duck@obala.net>
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
@@ -77,13 +77,13 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
 
         // Iterate over all the found faces and build the tiles.
         shuffle($images);
-        foreach ($images as $face_id => $face) {
+        foreach ($images as $face) {
             // Get the tile for this face
             $html .= Ansel_Faces::getFaceTile($face);
         }
 
         // Close up the nodes
-        $html .= '</div></div>';
+        $html .= '</div></div></div></div>';
 
         return $html;
     }

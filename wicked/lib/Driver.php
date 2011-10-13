@@ -1,22 +1,17 @@
 <?php
 /**
- * @package Wicked
- */
-
-/**
- * Wicked_Driver:: defines an API for implementing storage backends for
- * Wicked.
+ * Wicked_Driver defines an API for implementing storage backends for Wicked.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-abstract class Wicked_Driver {
-
+abstract class Wicked_Driver
+{
     /**
      * Hash containing connection parameters.
      *
@@ -32,7 +27,7 @@ abstract class Wicked_Driver {
     protected $_vfs;
 
     /**
-     * Constructs a new Wicked driver object.
+     * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
      */
@@ -94,7 +89,7 @@ abstract class Wicked_Driver {
      */
     abstract function newPage($pagename, $text);
 
-    abstract function updateText($pagename, $text, $changelog, $minorchange);
+    abstract function updateText($pagename, $text, $changelog);
 
     abstract function renamePage($pagename, $newname);
 
@@ -221,8 +216,6 @@ abstract class Wicked_Driver {
      *   'page_id' =>          This is the id of the page to which we would
      *                         like to attach the file.
      *   'attachment_name' =>  This is the filename of the attachment.
-     *   'minor' =>            This is a boolean which indicates whether this
-     *                         is a minor version update.
      *   'change_log' =>       A change log entry for this attach or update
      *                         operation.  (Optional)
      *   'change_author' =>    The user uploading this file.  If not present,
@@ -241,7 +234,7 @@ abstract class Wicked_Driver {
 
         /* We encode the path quoted printable so we won't get any nasty
          * characters the filesystem might reject. */
-        $path = WICKED_VFS_ATTACH_PATH . '/' . $file['page_id'];
+        $path = Wicked::VFS_ATTACH_PATH . '/' . $file['page_id'];
         try {
             $vfs->writeData($path, $file['attachment_name'] . ';' . $result, $data, true);
         } catch (Horde_Vfs_Exception $e) {
@@ -263,11 +256,11 @@ abstract class Wicked_Driver {
     public function removeAttachment($pageId, $attachment, $version = null)
     {
         $vfs = $this->getVFS();
-        $path = WICKED_VFS_ATTACH_PATH . '/' . $pageId;
+        $path = Wicked::VFS_ATTACH_PATH . '/' . $pageId;
 
         $fileList = $this->getAttachedFiles($pageId, true);
         foreach ($fileList as $file) {
-            $fileversion = $file['attachment_majorversion'] . '.' . $file['attachment_minorversion'];
+            $fileversion = $file['attachment_version'];
             if ($file['attachment_name'] == $attachment &&
                 (is_null($version) || $fileversion == $version)) {
                 /* Skip any attachments that don't exist so they can
@@ -294,12 +287,12 @@ abstract class Wicked_Driver {
     public function removeAllAttachments($pageId)
     {
         $vfs = $this->getVFS();
-        if (!$vfs->isFolder(WICKED_VFS_ATTACH_PATH, $pageId)) {
+        if (!$vfs->isFolder(Wicked::VFS_ATTACH_PATH, $pageId)) {
             return;
         }
 
         try {
-            $vfs->deleteFolder(WICKED_VFS_ATTACH_PATH, $pageId, true);
+            $vfs->deleteFolder(Wicked::VFS_ATTACH_PATH, $pageId, true);
         } catch (Horde_Vfs_Exception $e) {
             throw new Wicked_Exception($e);
         }
@@ -336,7 +329,7 @@ abstract class Wicked_Driver {
     public function getAttachmentContents($pageId, $filename, $version)
     {
         $vfs = $this->getVFS();
-        $path = WICKED_VFS_ATTACH_PATH . '/' . $pageId;
+        $path = Wicked::VFS_ATTACH_PATH . '/' . $pageId;
 
         try {
             return $vfs->read($path, $filename . ';' . $version);
@@ -364,37 +357,4 @@ abstract class Wicked_Driver {
     {
         return 'UTF-8';
     }
-
-    /**
-     * Attempts to return a concrete Wicked_Driver instance based on $driver.
-     *
-     * @param string $driver  The type of the concrete Wicked_Driver subclass
-     *                        to return.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
-     *
-     * @return Wicked_Driver  The newly created concrete Wicked_Driver instance.
-     * @throws Wicked_Exception
-     */
-    public function factory($driver = null, $params = null)
-    {
-        if ($driver === null) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
-        }
-        $driver = Horde_String::ucfirst(basename($driver));
-
-        if ($params === null) {
-            $params = Horde::getDriverConfig('storage', $driver);
-        }
-
-        $class = 'Wicked_Driver_' . $driver;
-        if (!class_exists($class)) {
-            throw new Wicked_Exception('Definition of ' . $class . ' not found.');
-        }
-
-        $wicked = new $class($params);
-        $result = $wicked->connect();
-        return $wicked;
-    }
-
 }

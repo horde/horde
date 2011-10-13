@@ -2,14 +2,14 @@
 /**
  * Storage driver for the preferences system.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Prefs
  */
 abstract class Horde_Prefs_Storage_Base
@@ -81,8 +81,20 @@ abstract class Horde_Prefs_Storage_Base
      * @param string $pref   The pref to clear. If null, clears the entire
      *                       scope.
      *
-     * @throws Horde_Db_Exception
+     * @throws Horde_Prefs_Exception
      */
     abstract public function remove($scope = null, $pref = null);
+
+    /**
+     * Lists all available scopes.
+     *
+     * @since Horde_Prefs 1.1.0
+     *
+     * @return array The list of scopes stored in the backend.
+     */
+    public function listScopes()
+    {
+        throw new Horde_Prefs_Exception('Not implemented!');
+    }
 
 }

@@ -1,21 +1,24 @@
 <?php
 /**
- * The Horde_Mime_Part:: class provides a wrapper around MIME parts and
- * methods for dealing with them.
+ * This class provides an object-oriented representation of a MIME part
+ * (defined by RFC 2045).
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Mime
  */
-class Horde_Mime_Part implements ArrayAccess, Countable
+class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
     /* The character(s) used internally for EOLs. */
     const EOL = "\n";
 
@@ -196,6 +199,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     protected $_contentid = null;
 
     /**
+     * The duration of this part's media data (RFC 3803).
+     *
+     * @var integer
+     */
+    protected $_duration;
+
+    /**
      * Do we need to reindex the current part?
      *
      * @var boolean
@@ -217,28 +227,31 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     protected $_hdrCharset = null;
 
     /**
-     * Function to run on serialize().
+     * The list of member variables to serialize.
+     *
+     * @var array
      */
-    public function __sleep()
-    {
-        if (!empty($this->_contents)) {
-            $this->_contents = $this->_readStream($this->_contents, true);
-        }
-
-        return array_diff(array_keys(get_class_vars(__CLASS__)), array('defaultCharset', 'memoryLimit', 'encodingTypes', 'mimeTypes'));
-    }
-
-    /**
-     * Function to run on unserialize().
-     */
-    public function __wakeup()
-    {
-        if (!empty($this->_contents)) {
-            $contents = $this->_contents;
-            $this->_contents = null;
-            $this->setContents($contents);
-        }
-    }
+    protected $_serializedVars = array(
+        '_type',
+        '_subtype',
+        '_transferEncoding',
+        '_language',
+        '_description',
+        '_disposition',
+        '_dispParams',
+        '_contentTypeParams',
+        '_parts',
+        '_mimeid',
+        '_eol',
+        '_metadata',
+        '_boundary',
+        '_bytes',
+        '_contentid',
+        '_duration',
+        '_reindex',
+        '_basepart',
+        '_hdrCharset'
+    );
 
     /**
      * Function to run on clone.
@@ -719,6 +732,36 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     }
 
     /**
+     * Set the content duration of the data contained in this part (see RFC
+     * 3803).
+     *
+     * @param integer $duration  The duration of the data, in seconds. If
+     *                           null, clears the duration information.
+     */
+    public function setDuration($duration)
+    {
+        if (is_null($duration)) {
+            unset($this->_duration);
+        } else {
+            $this->_duration = intval($duration);
+        }
+    }
+
+    /**
+     * Get the content duration of the data contained in this part (see RFC
+     * 3803).
+     *
+     * @return integer  The duration of the data, in seconds. Returns null if
+     *                  there is no duration information.
+     */
+    public function getDuration()
+    {
+        return isset($this->_duration)
+            ? $this->_duration
+            : null;
+    }
+
+    /**
      * Set the description of this part.
      *
      * @param string $description  The description of this part.
@@ -1003,6 +1046,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable
             $headers->replaceHeader('Content-Description', $descrip);
         }
 
+        /* Set the duration, if it exists. (RFC 3803) */
+        if (($duration = $this->getDuration()) !== null) {
+            $headers->replaceHeader('Content-Duration', $duration);
+        }
+
         /* Per RFC 2046 [4], this MUST appear in the base message headers. */
         if ($this->_basepart) {
             $headers->replaceHeader('MIME-Version', '1.0');
@@ -1173,14 +1221,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable
                     reset($this->_parts);
                     while (list(,$part) = each($this->_parts)) {
                         $parts[] = $eol . '--' . $boundary . $eol;
-                        $oldEOL = $part->getEOL();
-                        $part->setEOL($eol);
                         $tmp = $part->toString($options);
+                        if ($part->getEOL() != $eol) {
+                            $tmp = $this->replaceEOL($tmp, $eol, !empty($options['stream']));
+                        }
                         if (!empty($options['stream'])) {
                             $parts_close[] = $tmp;
                         }
                         $parts[] = $tmp;
-                        $part->setEOL($oldEOL);
                     }
                     $parts[] = $eol . '--' . $boundary . '--' . $eol;
                 }
@@ -1347,21 +1395,38 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     /**
      * Determine the size of this MIME part and its child members.
      *
+     * @param boolean $approx  If true, determines an approximate size for
+     *                         parts consisting of base64 encoded data (since
+     *                         1.1.0).
+     *
      * @return integer  Size of the part, in bytes.
      */
-    public function getBytes()
+    public function getBytes($approx = false)
     {
+        $bytes = 0;
+
         if (isset($this->_bytes)) {
             $bytes = $this->_bytes;
+
+            /* Base64 transfer encoding is approx. 33% larger than original
+             * data size (RFC 2045 [6.8]). */
+            if ($approx && ($this->_transferEncoding == 'base64')) {
+                $bytes *= 0.75;
+            }
         } elseif ($this->getPrimaryType() == 'multipart') {
-            $bytes = 0;
             reset($this->_parts);
             while (list(,$part) = each($this->_parts)) {
-                $bytes += $part->getBytes();
+                $bytes += $part->getBytes($approx);
             }
-        } else {
+        } elseif ($this->_contents) {
             fseek($this->_contents, 0, SEEK_END);
             $bytes = ftell($this->_contents);
+
+            /* Base64 transfer encoding is approx. 33% larger than original
+             * data size (RFC 2045 [6.8]). */
+            if ($approx && ($this->_transferEncoding == 'base64')) {
+                $bytes *= 0.75;
+            }
         }
 
         return $bytes;
@@ -1385,13 +1450,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     /**
      * Output the size of this MIME part in KB.
      *
+     * @param boolean $approx  If true, determines an approximate size for
+     *                         parts consisting of base64 encoded data (since
+     *                         1.1.0).
+     *
      * @return string  Size of the part, in string format.
      */
-    public function getSize()
+    public function getSize($approx = false)
     {
-        $bytes = $this->getBytes();
-        if (empty($bytes)) {
-            return $bytes;
+        if (!($bytes = $this->getBytes($approx))) {
+            return 0;
         }
 
         $localeinfo = Horde_Nls::getLocaleInfo();
@@ -1654,11 +1722,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function findBody($subtype = null)
     {
         $initial_id = $this->getMimeId();
+        $this->buildMimeIds();
 
         foreach ($this->contentTypeMap() as $mime_id => $mime_type) {
             if ((strpos($mime_type, 'text/') === 0) &&
                 (!$initial_id || (intval($mime_id) == 1)) &&
-                (is_null($subtype) || (substr($mime_type, 5) == $subtype))) {
+                (is_null($subtype) || (substr($mime_type, 5) == $subtype)) &&
+                ($part = $this->getPart($mime_id)) &&
+                ($part->getDisposition() != 'attachment')) {
                 return $mime_id;
             }
         }
@@ -1714,7 +1785,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable
             while (list(,$d) = each($data)) {
                 if (is_resource($d)) {
                     rewind($d);
-                    @stream_copy_to_stream($d, $fp);
+                    while (!feof($d)) {
+                        fwrite($fp, fread($d, 8192));
+                    }
                 } else {
                     $len = strlen($d);
                     $i = 0;
@@ -1774,8 +1847,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         }
 
         rewind($fp);
-        while ($tmp = fread($fp, 8192)) {
-            $out .= $tmp;
+        while (!feof($fp)) {
+            $out .= fread($fp, 8192);
         }
 
         if ($close) {
@@ -1797,7 +1870,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     protected function _scanStream($fp, $type, $data = null)
     {
         rewind($fp);
-        while ($line = fread($fp, 8192)) {
+        while (is_resource($fp) && !feof($fp)) {
+            $line = fread($fp, 8192);
             switch ($type) {
             case '8bit':
                 if (Horde_Mime::is8bit($line)) {
@@ -1911,6 +1985,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable
             foreach ($hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_PARAMS) as $key => $val) {
                 $ob->setDispositionParameter($key, $val);
             }
+        }
+
+        /* Content-Duration */
+        if ($tmp = $hdrs->getValue('content-duration')) {
+            $ob->setDuration($tmp);
         }
 
         /* Content-ID. */
@@ -2115,6 +2194,57 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function count()
     {
         return count($this->_parts);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     * Serialization.
+     *
+     * @return string  Serialized data.
+     */
+    public function serialize()
+    {
+        $data = array(
+            // Serialized data ID.
+            self::VERSION
+        );
+
+        foreach ($this->_serializedVars as $val) {
+            $data[] = $this->$val;
+        }
+
+        if (!empty($this->_contents)) {
+            $data[] = $this->_readStream($this->_contents);
+        }
+
+        return serialize($data);
+    }
+
+    /**
+     * Unserialization.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            (array_shift($data) != self::VERSION)) {
+            throw new Horde_Mime_Exception('Cache version change');
+        }
+
+        foreach ($this->_serializedVars as $key => $val) {
+            $this->$val = $data[$key];
+        }
+
+        // $key now contains the last index of _serializedVars.
+        if (isset($data[++$key])) {
+            $this->setContents($data[$key]);
+        }
     }
 
 }

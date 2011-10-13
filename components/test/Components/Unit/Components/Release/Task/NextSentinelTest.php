@@ -8,7 +8,7 @@
  * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Components
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
 /**
  * Test the next sentinel release task.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Components
  */
 class Components_Unit_Components_Release_Task_NextSentinelTest
@@ -39,10 +39,7 @@ extends Components_TestCase
     {
         $tmp_dir = $this->_prepareApplicationDirectory();
         $tasks = $this->getReleaseTasks();
-        $package = $this->_getPackage();
-        $package->expects($this->any())
-            ->method('getComponentDirectory')
-            ->will($this->returnValue($tmp_dir));
+        $package = $this->getComponent($tmp_dir);
         $tasks->run(array('NextSentinel'), $package, array('next_version' => '5.0.0-git'));
         $this->assertEquals(
             '--------
@@ -70,33 +67,60 @@ public $version = \'5.0-git\';
     {
         $tmp_dir = $this->_prepareApplicationDirectory();
         $tasks = $this->getReleaseTasks();
-        $package = $this->_getPackage();
-        $package->expects($this->any())
-            ->method('getComponentDirectory')
-            ->will($this->returnValue($tmp_dir));
-        $package->expects($this->any())
-            ->method('getName')
-            ->will($this->returnValue('Horde'));
-        $package->expects($this->any())
-            ->method('getVersion')
-            ->will($this->returnValue('4.0.1rc1'));
-        $tasks->run(array('NextSentinel', 'CommitPostRelease'), $package, array('next_version' => '5.0.0-git', 'pretend' => true));
+        $package = $this->getComponent($tmp_dir);
+        $tasks->run(
+            array('NextSentinel', 'CommitPostRelease'),
+            $package,
+            array(
+                'next_version' => '5.0.0-git',
+                'pretend' => true,
+                'commit' => new Components_Helper_Commit(
+                    $this->output,
+                    array('pretend' => true)
+                )
+            )
+        );
         $this->assertEquals(
             array(
-                sprintf('Would extend %s/docs/CHANGES with "5.0-git" now.', $tmp_dir),
-                sprintf('Would replace %s/lib/Application.php with "5.0-git" now.', $tmp_dir),
+                sprintf('Would extend sentinel in %s/docs/CHANGES with "5.0-git" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/lib/Application.php with "5.0-git" now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
-                'Would run "git commit -m "Development mode for Horde-5.0.0-git"" now.'
+                'Would run "git commit -m "Development mode for Horde-5.0.0"" now.'
             ),
             $this->output->getOutput()
         );
     }
 
-    private function _getPackage()
+    public function testPretendWithoutVersion()
     {
-        $package = $this->getMock('Components_Pear_Package', array(), array(), '', false, false);
-        return $package;
+        $tmp_dir = $this->_prepareApplicationDirectory();
+        $tasks = $this->getReleaseTasks();
+        $package = $this->getComponent($tmp_dir);
+        $tasks->run(
+            array('NextVersion', 'NextSentinel', 'CommitPostRelease'),
+            $package,
+            array(
+                'next_note' => '',
+                'pretend' => true,
+                'commit' => new Components_Helper_Commit(
+                    $this->output,
+                    array('pretend' => true)
+                )
+            )
+        );
+        $this->assertEquals(
+            array(
+                sprintf('Would add next version "5.0.1" with the initial note "" to %s/package.xml now.', $tmp_dir),
+                sprintf('Would extend sentinel in %s/docs/CHANGES with "5.0.1-git" now.', $tmp_dir),
+                sprintf('Would replace sentinel in %s/lib/Application.php with "5.0.1-git" now.', $tmp_dir),
+                sprintf('Would run "git add %s/package.xml" now.', $tmp_dir),
+                sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
+                sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
+                'Would run "git commit -m "Development mode for Horde-5.0.1"" now.'
+            ),
+            $this->output->getOutput()
+        );
     }
 
     private function _prepareApplicationDirectory()
@@ -105,7 +129,18 @@ public $version = \'5.0-git\';
         mkdir($tmp_dir . '/docs');
         file_put_contents($tmp_dir . '/docs/CHANGES', "---\nOLD\n---\nTEST");
         mkdir($tmp_dir . '/lib');
-        file_put_contents($tmp_dir . '/lib/Application.php', "class Application {\npublic \$version = '0.0.0';\n}\n");
+        file_put_contents($tmp_dir . '/lib/Application.php', "class Application {\npublic \$version = '5.0.0';\n}\n");
+        file_put_contents(
+            $tmp_dir . '/package.xml',
+            '<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0">
+ <name>Horde</name>
+ <version>
+  <release>5.0.0</release>
+  <api>5.0.0</api>
+ </version>
+</package>'
+        );
         return $tmp_dir;
     }
 }

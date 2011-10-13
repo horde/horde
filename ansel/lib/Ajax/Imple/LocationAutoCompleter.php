@@ -2,10 +2,10 @@
 /**
  * Autocompleter for textual location data.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -27,11 +27,11 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoC
 
         /* Use ajax? */
         if (!$GLOBALS['session']->exists('ansel', 'ajax_locationac')) {
-            $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->searchLocations();
-            if ($results instanceof PEAR_Error) {
-                Horde::logMessage($results, 'ERR');
-            } else {
+            try {
+                $results = $GLOBALS['injector']->getInstance('Ansel_Storage')->searchLocations();
                 $GLOBALS['session']->set('ansel', 'ajax_locationac', (count($results) > 50));
+            } catch (Ansel_Exception $e) {
+                Horde::logMessage($e, 'ERR');
             }
         }
 

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
@@ -35,7 +35,7 @@ try {
     $page = Wicked_Page::getPage(Horde_Util::getFormData('page'), $v2);
 } catch (Wicked_Exception $e) {
     $notification->push(sprintf(_("Internal error viewing requested page: %s"), $e->getMessage()), 'horde.error');
-    Wicked::url('WikiHome', true)->redirect();
+    Wicked::url('Wiki/Home', true)->redirect();
 }
 
 if ($v1 == '?') {

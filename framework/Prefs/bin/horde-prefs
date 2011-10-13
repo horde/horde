@@ -1,0 +1,169 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Horde Preferences toolkit.
+ *
+ * Usage: horde-prefs CONFIG USER (list|print|export|import) [[SCOPE] [FILE]]
+ *
+ * The CONFIG file needs to provide the complete configuration for the
+ * preferences storage backend.
+ *
+ * This is an example for the file based storage backend:
+ *
+ * <pre>
+ *   $conf['driver'] = 'File';
+ *   $conf['params']['directory'] = '/var/www/data/horde/prefs';
+ * </pre>
+ *
+ * Configuring for the Kolab storage backend is more complex:
+ *
+ * <pre>
+ *   $conf['driver'] = 'KolabImap';
+ *   $factory = new Horde_Kolab_Storage_Factory(
+ *       array(
+ *           'driver' => 'horde',
+ *           'params' => array(
+ *               'host' => 'example.org',
+ *               'username' => 'user@example.org',
+ *               'password' => 'test',
+ *               'port'     => 993,
+ *               'secure'   => true
+ *           ),
+ *           'queryset' => array(
+ *               'list' => array('queryset' => 'horde'),
+ *               'data' => array('queryset' => 'horde'),
+ *           ),
+ *           'cache' => new Horde_Cache(new Horde_Cache_Storage_Mock()),
+ *           //'logger' => new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT)),
+ *       )
+ *   );
+ *   $conf['params']['kolab'] = $factory->create();
+ * </pre>
+ *
+ *
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author Gunnar Wrobel <wrobel@horde.org>
+ */
+
+if (strpos('@php_dir@', '@php_dir') === 0) {
+    set_include_path(dirname(__FILE__) . '/../../../lib' . PATH_SEPARATOR . get_include_path());
+}
+
+@include 'Horde/Autoloader/Default.php';
+if (!class_exists('Horde_Autoloader_Default')) {
+   die('The "Horde_Autoloader" PEAR package is unavailable. Install it with "pear install Horde_Autoloader" first!' . "\n");
+}
+
+$args = $_SERVER['argv'];
+array_shift($args);
+
+if (empty($args) || empty($args[0])) {
+   die('You must specify a path to the configuration file as the first argument!' . "\n");
+}
+
+@include realpath($args[0]);
+if (empty($conf)) {
+    die(sprintf('%s did not provide the expected "$conf" configuration array!', $args[0]) . "\n");
+}
+
+if (!isset($conf['driver'])) {
+    die(sprintf('%s did not provide the expected driver configuration ($conf[\'driver\'])!', $args[0]) . "\n");
+}
+$storage_class = 'Horde_Prefs_Storage_' . ucfirst($conf['driver']);
+
+if (empty($args[1])) {
+   die('You must specify a the id of the user you want to work with as second argument!' . "\n");
+}
+$storage = new $storage_class($args[1], $conf['params']);
+
+if (empty($args[2])) {
+   die('You must specify the action to perform as third argument (one of list, print, export, write)!' . "\n");
+}
+
+class ScopeExporter
+{
+    public $scope;
+
+    public $data;
+
+    public function __construct($scope)
+    {
+        $this->scope = $scope;
+    }
+
+    public function set($name, $val)
+    {
+        $this->data[$name] = $val;
+    }
+}
+
+class ScopeImporter
+{
+    public $scope;
+
+    public $data;
+
+    public function __construct($scope, $data)
+    {
+        $this->scope = $scope;
+        $this->data = $data;
+    }
+
+    public function getDirty()
+    {
+        return array_keys($this->data);
+    }
+
+    public function get($name)
+    {
+        return $this->data[$name];
+    }
+}
+
+switch ($args[2]) {
+case 'list':
+    foreach ($storage->listScopes() as $scope) {
+        print $scope . "\n";
+    }
+    break;
+case 'print':
+    if (empty($args[3])) {
+        die('You must specify the scope to act upon as fourth argument!' . "\n");
+    }
+    $scope = new ScopeExporter($args[3]);
+    $storage->get($scope);
+    foreach ($scope->data as $name => $val) {
+        print $name . ": " . $val . "\n";
+    }
+    break;
+case 'export':
+    if (empty($args[3])) {
+        die('You must specify the scope to act upon as fourth argument!' . "\n");
+    }
+    $scope = new ScopeExporter($args[3]);
+    $storage->get($scope);
+    if (empty($args[4])) {
+        die('You must specify the file to export to as fifth argument!' . "\n");
+    }
+    file_put_contents($args[4], serialize($scope->data));
+    break;
+case 'import':
+    if (empty($args[3])) {
+        die('You must specify the scope to act upon as fourth argument!' . "\n");
+    }
+    if (empty($args[4])) {
+        die('You must specify the file to import to as fifth argument!' . "\n");
+    }
+    $data = unserialize(file_get_contents($args[4]));
+    if ($data) {
+        $scope = new ScopeImporter($args[3], $data);
+        $storage->store($scope);
+    } else {
+        die(sprintf('Failed importing preference data from %s!', $args[4]) . "\n");
+    }
+    break;
+}

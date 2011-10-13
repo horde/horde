@@ -17,29 +17,31 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:11:26</time>
+ <date>2011-07-21</date>
+ <time>10:28:02</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [gwr] Added SOCKS proxy support where available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <dir name="examples">
+   <dir name="doc">
     <dir name="Horde">
      <dir name="Http">
-      <file name="get-example-dot-com.php" role="php" />
-     </dir> <!-- /examples/Horde/Http -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+      <dir name="examples">
+       <file name="get-example-dot-com.php" role="doc" />
+      </dir> <!-- /doc/Horde/Http/examples -->
+     </dir> <!-- /doc/Horde/Http -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Http">
@@ -68,7 +70,12 @@
     <dir name="Horde">
      <dir name="Http">
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="ClientTest.php" role="test" />
+      <file name="conf.php.dist" role="test" />
+      <file name="CurlTest.php" role="test" />
       <file name="FopenTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Http -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -98,6 +105,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
    <extension>
     <name>curl</name>
    </extension>
@@ -108,7 +122,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/Horde/Http/get-example-dot-com.php" name="examples/Horde/Http/get-example-dot-com.php" />
+   <install as="examples/get-example-dot-com.php" name="doc/Horde/Http/examples/get-example-dot-com.php" />
    <install as="Horde/Http.php" name="lib/Horde/Http.php" />
    <install as="Horde/Http/Client.php" name="lib/Horde/Http/Client.php" />
    <install as="Horde/Http/Exception.php" name="lib/Horde/Http/Exception.php" />
@@ -124,7 +138,12 @@
    <install as="Horde/Http/Response/Mock.php" name="lib/Horde/Http/Response/Mock.php" />
    <install as="Horde/Http/Response/Peclhttp.php" name="lib/Horde/Http/Response/Peclhttp.php" />
    <install as="Horde/Http/AllTests.php" name="test/Horde/Http/AllTests.php" />
+   <install as="Horde/Http/Autoload.php" name="test/Horde/Http/Autoload.php" />
+   <install as="Horde/Http/ClientTest.php" name="test/Horde/Http/ClientTest.php" />
+   <install as="Horde/Http/conf.php.dist" name="test/Horde/Http/conf.php.dist" />
+   <install as="Horde/Http/CurlTest.php" name="test/Horde/Http/CurlTest.php" />
    <install as="Horde/Http/FopenTest.php" name="test/Horde/Http/FopenTest.php" />
+   <install as="Horde/Http/phpunit.xml" name="test/Horde/Http/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -138,7 +157,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First alpha release for Horde 4.
 * Refactor to support multiple request transports, including Curl and the PECL http extension.
@@ -154,7 +173,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -169,7 +188,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -184,7 +203,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -199,7 +218,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -211,10 +230,49 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [cjh] Consistently implement configurable following of redirects (Bug #9898).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Fix regression with HTTP authentication.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [gwr] Allow setting request parameters on the existing client instance.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-21</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [gwr] Added SOCKS proxy support where available.
    </notes>
   </release>
  </changelog>

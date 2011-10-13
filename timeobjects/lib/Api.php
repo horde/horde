@@ -3,7 +3,7 @@
  * API methods for exposing various bits of data via the listTimeObjects API
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package TimeObjects
  */
@@ -33,14 +33,20 @@ class Timeobjects_Api extends Horde_Registry_Api
         //        a $conf[] setting to explicitly disable certain drivers?
         $drivers = array();
 
-        $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('Weatherdotcom');
-        if ($drv->ensure()) {
-            $drivers['Weatherdotcom'] = _("Weather");
+        try {
+            $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('Weatherdotcom');
+            if ($drv->ensure()) {
+               $drivers['Weatherdotcom'] = _("Weather");
+            }
+        } catch (Timeobjects_Exception $e) {
         }
 
-        $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('FacebookEvents');
-        if ($drv->ensure()) {
-            $drivers['FacebookEvents'] = _("Facebook Events");
+        try {
+            $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('FacebookEvents');
+            if ($drv->ensure()) {
+                $drivers['FacebookEvents'] = _("Facebook Events");
+            }
+        } catch (Timeobjects_Exception $e) {
         }
 
         return $drivers;

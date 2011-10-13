@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<help>
+
+<entry id="tag_level" md5="bb25cb5169bcf158ee711ce15ed74185" state="uptodate">
+    <title>Opciones generales: Umbral de etiquetado</title>
+    <heading>Umbral de etiquetado</heading>
+    <para>
+        Especifica la puntuaci&#xF3;n m&#xED;nima necesaria para a&#xF1;adir una cabecera <b>X-Span-Status:</b> al mensaje. Esta cabecera no significa necesariamente que el mensaje sea spam, sino que mostrar&#xE1; la puntuaci&#xF3;n obtenida por el mensaje y las pruebas que haya fallado.
+    </para>
+    <para>
+        Cuanto m&#xE1;s baja sea la puntuaci&#xF3;n, m&#xE1;s agresivo ser&#xE1; el etiquetado. Por ejemplo, una puntuaci&#xF3;n de 2.0 a&#xF1;adir&#xE1; la cabecera a los mensajes con 2.0 en adelante y es una configuraci&#xF3;n muy agresiva.
+    </para>
+</entry>
+
+<entry id="hit_level">
+    <title>Opciones generales: Umbral de impacto</title>
+    <heading>Umbral de impacto</heading>
+    <para>
+        Especifica la puntuaci&#xF3;n m&#xED;nima necesaria para a&#xF1;adir una cabecera <b>X-SPAM: Yes</b> a los mensajes que se identifiquen como SPAM. Esta cabecera se puede usar para la creaci&#xF3;n de reglas de filtrado.
+    </para>
+    <para>
+	    Cuanto m&#xE1;s baja sea la puntuaci&#xF3;n, m&#xE1;s agresivo ser&#xE1; el filtrado marcando mensajes como spam. Por ejemplo, una puntuaci&#xF3;n de 2.0 marcar&#xE1; cualquier mensaje con 2.0 en adelante como spam. Es una configuraci&#xF3;n muy agresiva. Esta opci&#xF3;n normalmente deber&#xED;a ser mayor que la opci&#xF3;n <i>Umbral de etiquetado</i> (si est&#xE1; activada). La opci&#xF3;n por omisi&#xF3;n es un umbral de impacto de 5.0.
+    </para>
+</entry>
+
+<entry id="kill_level" md5="14433be630faa1b64e4dcedbd4029664" state="uptodate">
+    <title>Opciones generales: Umbral de eliminaci&#xF3;n</title>
+    <heading>Umbral de eliminaci&#xF3;n</heading>
+    <para>
+        Especifica la puntuaci&#xF3;n m&#xED;nima necesaria para ejecutar acciones evasivas contra los mensajes identificados como SPAM. Las acciones dependen del sistema y pueden incluir filtrado a otro buz&#xF3;n o descartado silencioso.
+    </para>
+    <para>
+        Cuanto m&#xE1;s baja sea la puntuaci&#xF3;n, m&#xE1;s agresivo ser&#xE1; el etiquetado. Por ejemplo, una puntuaci&#xF3;n de 2.0 a&#xF1;adir&#xE1; la cabecera a los mensajes con 2.0 en adelante y es una configuraci&#xF3;n muy agresiva. Esta opci&#xF3;n normalmente deber&#xED;a ser igual o menor que la opci&#xF3;n <i>Umbral de impacto</i> (si est&#xE1; activada).
+    </para>
+</entry>
+
+<entry id="subject_tag" md5="22aed979aa4a007c19ac8465775fe6a2" state="uptodate">
+    <title>Opciones generales: Etiqueta del asunto</title>
+    <heading>Etiqueta del asunto</heading>
+    <para>
+        Es el texto a&#xF1;adido a la l&#xED;nea de asunto de los mensajes considerados SPAM, si la opci&#xF3;n <i>reescribir asunto</i> est&#xE1; activa.
+    </para>
+    <para>
+        Si el motor de an&#xE1;lisis lo soporta, la palabra <b>_HITS_</b> de la etiqueta se sustituir&#xE1; por la puntuaci&#xF3;n calculada para este mensaje y la palabra <b>_REQD_</b> por el umbral necesario, que es el valor de la opci&#xF3;n <b>Umbral de impacto</b>.
+    </para>
+</entry>
+
+<entry id="rewrite_sub">
+    <title>Opciones generales: Reescribir asunto</title>
+    <heading>Reescribir asunto</heading>
+    <para>
+        Elije si etiquetar o no la l&#xED;nea Asunto: del mensaje si se ha considerado SPAM.
+    </para>
+</entry>
+
+<entry id="spam_quarantine">
+	<title>Opciones general: Direcci&#xF3;n de cuarentena de SPAM</title>
+	<heading>Direcci&#xF3;n de cuarentena de SPAM</heading>
+    <para>
+        Introduzca una direcci&#xF3;n a la que enviar los mensajes identificados como SPAM.
+    </para>
+</entry>
+
+<entry id="report_safe">
+    <title>Opciones generales: Informe de seguridad</title>
+    <heading>Informe de seguridad</heading>
+    <para>
+        Selecciona el nivel de protecci&#xF3;n/modificaci&#xF3;n asignado a los mensajes marcados como spam. En el nivel 0 s&#xF3;lo se a&#xF1;adir&#xE1; a los mensajes las cabeceras X-Spam-*.
+    </para>
+    <para>
+        En el nivel 1, el mensaje original se adjuntar&#xE1; al informe como una parte message/rfc822, conservando su contenido original pero dificultando su apertura accidental.
+    </para>
+    <para>
+        En el nivel 2, el mensaje original se adjuntar&#xE1; al informe en formato de texto. &#xC9;sto ofrece seguridad adicional a los clientes de correo defectuosos que abren los adjuntos sin consultar al usuario, pero puede dificultar el acceso al mensaje original.
+    </para>
+</entry>
+
+<entry id="skip_rbl" md5="ef5f7b4350b65c21883795539c589ae9" state="uptodate">
+    <title>Opciones generales: Omitir comprobaciones RBL</title>
+    <heading>Omitir comprobaciones RBL</heading>
+    <para>
+        Selecciona si se comprobar&#xE1; o no la presencia del remitente del mensaje en Listas Negras en l&#xED;nea (Realtime BlackLists). Dichas listas no siempre son precisas y utilizar estas comprobaciones puede ralentizar la distribuci&#xF3;n del correo. Si su proveedor de acceso ya lo hace o usted no desea utilizarlas, desactive esta opci&#xF3;n.
+    </para>
+</entry>
+
+<entry id="skip_virus" md5="d1b15a4a4ff4c3fad8019040d1c5cf87" state="uptodate">
+    <title>Opciones generales: Omitir comprobaciones de virus</title>
+    <heading>Omitir comprobaciones de virus</heading>
+    <para>
+        Selecciona si omitir o no las comprobaciones conjuntas de virus si lo permiten las pol&#xED;ticas del sistema.
+    </para>
+</entry>
+
+<entry id="skip_spam" md5="4ba6e58b7a95d40f29754a08d0e34ce0" state="uptodate">
+    <title>Opciones generales: Omitir comprobaciones de SPAM</title>
+    <heading>Omitir comprobaciones de SPAM</heading>
+    <para>
+        Selecciona si omitir o no las comprobaciones conjuntas de SPAM, si lo permiten las pol&#xED;ticas del sistema.
+    </para>
+</entry>
+
+<entry id="skip_banned" md5="f670d0bf2afc56f414a0c36047c7ccf2" state="uptodate">
+    <title>Opciones generales: Omitir comprobaciones de archivos prohibidos</title>
+    <heading>Omitir comprobaciones de archivos prohibidos</heading>
+    <para>
+        Selecciona si omitir o no las comprobaciones conjuntas de adjuntos con extensiones de archivos prohibidos, si lo permiten las pol&#xED;ticas del sistema.
+    </para>
+</entry>
+
+<entry id="skip_header" md5="8a5c019e9cb61f7d8f368172e4059952" state="uptodate">
+    <title>Opciones generales: Omitir comprobaciones de cabeceras err&#xF3;neas</title>
+    <heading>Omitir comprobaciones de cabeceras err&#xF3;neas</heading>
+    <para>
+        Selecciona si omitir o no las comprobaciones conjuntas de cabeceras err&#xF3;neas o ilegales en el mensaje, si lo permiten las pol&#xED;ticas del sistema.
+    </para>
+</entry>
+
+<entry id="allow_virus" md5="e484a8ec9ec46712b81ebe82db0a5896" state="uptodate">
+    <title>Opciones generales: Recibir virus</title>
+    <heading>Recibir virus</heading>
+    <para>
+        Selecciona si permitir o no la distribuci&#xF3;n de un mensaje en el que se hayan detectado virus. Esta opci&#xF3;n puede no estar disponible debido a las pol&#xED;ticas de configuraci&#xF3;n del sistema.
+    </para>
+</entry>
+
+<entry id="allow_spam" md5="e6e3522bcb48402ce8cdd29b2568482e" state="uptodate">
+    <title>Opciones generales: Recibir SPAM</title>
+    <heading>Recibir SPAM</heading>
+    <para>
+        Selecciona si permitir o no la distribuci&#xF3;n de un mensaje en el que se haya detectado SPAM. Esta opci&#xF3;n puede no estar disponible debido a las pol&#xED;ticas de configuraci&#xF3;n del sistema.
+    </para>
+</entry>
+
+<entry id="allow_banned" md5="a2b96a0b1cbab9d35c8261d4f4c50338" state="uptodate">
+    <title>Opciones generales: Recibir archivos prohibidos</title>
+    <heading>Recibir archivos prohibidos</heading>
+    <para>
+        Selecciona si permitir o no la distribuci&#xF3;n de un mensaje en el que se hayan detectado archivos prohibidos. Esta opci&#xF3;n puede no estar disponible debido a las pol&#xED;ticas de configuraci&#xF3;n del sistema.
+    </para>
+</entry>
+
+<entry id="allow_header">
+    <title>Opciones generales: Recibir cabeceras err&#xF3;neas</title>
+    <heading>Recibir cabeceras err&#xF3;neas</heading>
+    <para>
+        Selecciona si permitir o no la distribuci&#xF3;n de un mensaje en el que se hayan detectado cabeceras err&#xF3;neas o ilegales. Esta opci&#xF3;n puede no estar disponible debido a las pol&#xED;ticas de configuraci&#xF3;n del sistema.
+    </para>
+</entry>
+
+<entry id="spam_extension" md5="83e97d05935f8fbdc677c9c2bcb4896a" state="uptodate">
+    <title>Opciones generales: Carpeta de SPAM</title>
+    <heading>Carpeta de SPAM</heading>
+    <para>
+        Permite seleccionar una carpeta en la que archivar los mensajes SPAM.
+    </para>
+</entry>
+
+<entry id="virus_extension" md5="3598aa3db4e7b7868af37c871f2b289d" state="uptodate">
+    <title>Opciones generales: Carpeta de virus</title>
+    <heading>Carpeta de virus</heading>
+    <para>
+        Permite seleccionar una carpeta en la que archivar las notificaciones de virus.
+    </para>
+</entry>
+
+<entry id="banned_extension" md5="8b354b1af281bbc8e1ff0ec29156fde5" state="uptodate">
+    <title>Opciones generales: Carpeta de archivos prohibidos</title>
+    <heading>Carpeta de archivos prohibidos</heading>
+    <para>
+        Permite seleccionar una carpeta en la que archivar las notificaciones de archivos prohibidos.
+    </para>
+</entry>
+
+<entry id="whitelist_from" md5="4a7c7b432c5f4ebd74a8a6d4c2937379" state="uptodate">
+    <title>Opciones de lista blanca: Incluir remitente en lista blanca</title>
+    <heading>Incluir remitente en lista blanca</heading>
+    <para>
+        Introduzca un listado de direcciones de remitentes cuyos mensajes nunca se identificar&#xE1;n como SPAM. Ponga cada direcci&#xF3;n en una l&#xED;nea distinta.
+    </para>
+</entry>
+
+<entry id="whitelist_to" md5="ae102144304eebeb6dc4b770e2bed580" state="uptodate">
+    <title>Opciones de lista blanca: Incluir destinatario en lista blanca</title>
+    <heading>Incluir destinatario en lista blanca</heading>
+    <para>
+        Introduzca un listado de direcciones de destinatarios cuyos mensajes nunca se identificar&#xE1;n como SPAM. Ponga cada direcci&#xF3;n en una l&#xED;nea distinta.
+    </para>
+</entry>
+
+<entry id="blacklist_from" md5="b52f5d38e5291a6fb96c9438133e2699" state="uptodate">
+    <title>Opciones de lista negra: Incluir remitente en lista negra</title>
+    <heading>Incluir remitente en lista negra</heading>
+    <para>
+        Introduzca un listado de direcciones de remitentes cuyos mensajes se identificar&#xE1;n siempre como SPAM. Ponga cada direcci&#xF3;n en una l&#xED;nea distinta.
+    </para>
+</entry>
+
+<entry id="blacklist_to" md5="35957ccfdaeda67b5b790e02e58da978" state="uptodate">
+    <title>Opciones de lista negra: Incluir destinatario en lista negra</title>
+    <heading>Incluir destinatario en lista negra</heading>
+    <para>
+        Introduzca un listado de direcciones de destinatarios cuyos mensajes se identificar&#xE1;n siempre como SPAM. Ponga cada direcci&#xF3;n en una l&#xED;nea distinta.
+    </para>
+</entry>
+
+<entry id="global_defaults" md5="c2149f1eb8af5c51212155d200f8ec44" state="uptodate">
+    <title>Opciones del administrador: Extender las opciones globalmente</title>
+    <heading>Extender las opciones globalmente</heading>
+    <para>
+        Si el sistema lo soporta, el administrador podr&#xE1; configurar las opciones mostradas como opciones globales por omisi&#xF3;n para toda la sede. Los usuarios podr&#xE1;n de todas formas configurar sus propias opciones modificando las opciones por omisi&#xF3;n, pero si no configuran una opci&#xF3;n, se considerar&#xE1; la global. Elija si aplicar o no de forma global las opciones mostradas.
+    </para>
+</entry>
+
+</help>

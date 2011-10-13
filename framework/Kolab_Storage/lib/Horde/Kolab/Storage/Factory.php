@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * A generic factory for the various Kolab_Storage classes.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Factory
@@ -96,6 +96,9 @@ class Horde_Kolab_Storage_Factory
         } else {
             $sparams = array();
         }
+        if (!empty($this->_params['logger'])) {
+            $sparams['logger'] = $this->_params['logger'];
+        }
         if (!empty($this->_params['cache'])) {
             $cache = $this->createCache();
             $storage = new Horde_Kolab_Storage_Cached(
@@ -111,11 +114,6 @@ class Horde_Kolab_Storage_Factory
                 new Horde_Kolab_Storage_QuerySet_Uncached($this, $queryset),
                 $this,
                 $sparams
-            );
-        }
-        if (!empty($this->_params['logger'])) {
-            $storage = new Horde_Kolab_Storage_Decorator_Log(
-                $storage, $this->_params['logger']
             );
         }
         $storage = new Horde_Kolab_Storage_Decorator_Synchronization(
@@ -198,6 +196,9 @@ class Horde_Kolab_Storage_Factory
                 $driver, $params['logger']
             );
             $parser->setLogger($params['logger']);
+        }
+        if (!empty($params['ignore_parse_errors'])) {
+            $parser->setLogger(false);
         }
         if (!empty($params['timelog'])) {
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Timer(
@@ -287,6 +288,22 @@ class Horde_Kolab_Storage_Factory
         return new Horde_Kolab_Storage_Cache(
             $cache
         );
+    }
+
+    /**
+     * Create the history handler.
+     *
+     * @param string $user The current user.
+     *
+     * @return Horde_History The history handler.
+     */
+    public function createHistory($user)
+    {
+        if (isset($this->_params['history']) &&
+            $this->_params['history'] instanceOf Horde_History) {
+            return $this->_params['history'];
+        }
+        return new Horde_History_Mock($user);
     }
 
     /**

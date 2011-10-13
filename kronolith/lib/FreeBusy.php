@@ -72,7 +72,11 @@ class Kronolith_FreeBusy
         /* Fetch events. */
         $busy = array();
         foreach ($calendars as $calendar) {
-            @list($type, $calendar) = explode('_', $calendar, 2);
+            if (strpos($calendar, '_')) {
+                @list($type, $calendar) = explode('_', $calendar, 2);
+            } else {
+                $type = 'internal';
+            }
             try {
                 $driver = Kronolith::getDriver($type, $calendar);
                 $events = $driver->listEvents(new Horde_Date($startstamp),
@@ -277,7 +281,11 @@ class Kronolith_FreeBusy
             $end = new Horde_Date($end);
             $json->e = $end->dateString();
         }
-        $json->b = $fb->getBusyPeriods();
+        $b = $fb->getBusyPeriods();
+        if (empty($b)) {
+            $b = new StdClass();
+        }
+        $json->b = $b;
         return $json;
     }
 

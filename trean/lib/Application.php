@@ -2,7 +2,7 @@
 /**
  * Trean application API
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -62,9 +62,6 @@ class Trean_Application extends Horde_Registry_Application
             $rss->add('f', Horde_Util::getFormData('f'));
         }
         $GLOBALS['linkTags'] = array('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars(_("Bookmarks Feed")) . '" href="' . $rss . '" />');
-        if ($GLOBALS['prefs']->getValue('show_folder_actions')) {
-            $GLOBALS['bodyClass'] = 'folderActions';
-        }
     }
 
     /**

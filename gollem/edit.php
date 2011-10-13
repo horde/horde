@@ -2,14 +2,14 @@
 /**
  * Gollem edit script.
  *
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Gollem
  */
 
@@ -18,7 +18,7 @@ Horde_Registry::appInit('gollem');
 
 $vars = Horde_Variables::getDefaultVariables();
 
-if ($vars->driver != $GLOBALS['gollem_be']['driver']) {
+if ($vars->driver != Gollem::$backend['driver']) {
     echo Horde::wrapInlineScript(array('window.close();'));
     exit;
 }
@@ -27,22 +27,26 @@ if ($vars->driver != $GLOBALS['gollem_be']['driver']) {
 switch ($vars->actionID) {
 case 'save_file':
     try {
-        $gollem_vfs->writeData($vars->filedir, $vars->filename, $vars->content);
-        $message = sprintf(_("%s successfully saved."), $vars->filename);
+        $injector
+            ->getInstance('Gollem_Vfs')
+            ->writeData($vars->dir, $vars->file, $vars->content);
+        $message = sprintf(_("%s successfully saved."), $vars->file);
     } catch (Horde_Vfs_Exception $e) {
-        $message = sprintf(_("Access denied to %s"), $vars->filename);
+        $message = sprintf(_("Access denied to %s"), $vars->file);
     }
     echo Horde::wrapInlineScript(array(
-        'alert("' . addslashes($message) . '")'
+        'alert(' . Horde_Serialize::serialize($message, Horde_Serialize::JSON) . ')'
     ));
     break;
 
 case 'edit_file':
     try {
-        $data = $gollem_vfs->read($vars->filedir, $vars->filename);
+        $data = $injector
+            ->getInstance('Gollem_Vfs')
+            ->read($vars->dir, $vars->file);
     } catch (Horde_Vfs_Exception $e) {
         echo Horde::wrapInlineScript(array(
-            'alert("' . addslashes(sprintf(_("Access denied to %s"), $vars->filename)) . '")'
+            'alert(' . Horde_Serialize::serialize(sprintf(_("Access denied to %s"), $vars->file), Horde_Serialize::JSON) . ')'
         ));
         break;
     }
@@ -55,8 +59,11 @@ case 'edit_file':
     if ($mime_type == 'text/html') {
         $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
     }
+
+    Horde::addScriptFile('edit.js', 'gollem');
+
     require $registry->get('templates', 'horde') . '/common-header.inc';
-require GOLLEM_TEMPLATES . '/javascript_defs.php';
+    require GOLLEM_TEMPLATES . '/javascript_defs.php';
     Gollem::status();
     require GOLLEM_TEMPLATES . '/edit/edit.inc';
     require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @author Jan Schneider <jan@horde.org>
@@ -29,19 +29,23 @@ $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
-    try {
-        $share = $shares->getShareById(Horde_Util::getFormData('cid', 0));
-        $perm = $share->getPermission();
-    } catch (Horde_Exception_NotFound $e) {
-        if (($category = Horde_Util::getFormData('share')) !== null) {
-            try {
-                $share = $shares->getShare($category);
-                $perm = $share->getPermission();
-            } catch (Exception $e) {
-                $notification->push($e, 'horde.error');
-            }
+    if ($cid = Horde_Util::getFormData('cid') !== null) {
+        try {
+            $share = $shares->getShareById(Horde_Util::getFormData('cid', 0));
             $perm = $share->getPermission();
+        } catch (Horde_Exception_NotFound $e) {
+            $notification->push($e, 'horde.error');
         }
+    } elseif (($category = Horde_Util::getFormData('share')) !== null) {
+        try {
+            $share = $shares->getShare($category);
+            $perm = $share->getPermission();
+        } catch (Exception $e) {
+            $notification->push($e, 'horde.error');
+        }
+        $perm = $share->getPermission();
+    } else {
+        throw new Horde_Exception('No share identifier provided.');
     }
 
     if (!$GLOBALS['registry']->getAuth() ||

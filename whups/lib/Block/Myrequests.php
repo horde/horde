@@ -25,10 +25,6 @@ class Whups_Block_Myrequests extends Horde_Core_Block
                       'nores' => true,
                       'queue' => $queue_ids);
         $requests = $whups_driver->getTicketsByProperties($info);
-        if ($requests instanceof PEAR_Error) {
-            return $requests;
-        }
-
         if (!$requests) {
             return '<p><em>' . _("You have no open requests.") . '</em></p>';
         }

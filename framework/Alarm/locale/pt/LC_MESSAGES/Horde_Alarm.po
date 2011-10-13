@@ -1,5 +1,5 @@
 # Portuguese translations for Horde_Alarm module.
-# Copyright (C) 2010 Horde Project
+# Copyright 2010-2011 Horde LLC
 # This file is distributed under the same license as the Horde_Alarm module.
 # Automatically generated, 2010.
 #

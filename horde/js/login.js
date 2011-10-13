@@ -2,7 +2,7 @@
  * Provides the javascript for the login.php script.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var HordeLogin = {
@@ -95,7 +95,9 @@ var HordeLogin = {
         while (Object.isElement(elt)) {
             switch (elt.readAttribute('id')) {
             case 'login-button':
-                this.submit();
+                if (!elt.readAttribute('disabled')) {
+                    this.submit();
+                }
                 e.stop();
                 break;
             }

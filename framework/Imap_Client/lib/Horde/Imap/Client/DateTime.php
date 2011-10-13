@@ -1,17 +1,18 @@
 <?php
 /**
- * Horde_Imap_Client_DateTime:: is a wrapper around PHP's native DateTime
- * class that works around the PHP 5.2.x issue that does not allow DateTime
- * objects to be serialized.  See http://bugs.php.net/bug.php?id=41334
+ * A wrapper around PHP's native DateTime class that works around a PHP 5.2.x
+ * issue that does not allow DateTime objects to be serialized.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * See: http://bugs.php.net/bug.php?id=41334
+ *
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  */
 class Horde_Imap_Client_DateTime implements Serializable

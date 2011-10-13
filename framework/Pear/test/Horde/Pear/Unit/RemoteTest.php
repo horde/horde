@@ -8,7 +8,7 @@
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the package contents.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Unit_RemoteTest
@@ -39,12 +39,155 @@ extends Horde_Pear_TestCase
     {
         $this->assertType(
             'array',
-            $this->_getRemote()->listPackages()
+            $this->getRemoteList()->listPackages()
         );
     }
 
-    private function _getRemote()
+    public function testListPackagesContainsComponents()
     {
-        return new Horde_Pear_Remote();
+        $this->assertEquals(
+            array('A', 'B'),
+            $this->getRemoteList()->listPackages()
+        );
+    }
+
+    public function testLatest()
+    {
+        $this->assertEquals(
+            '1.0.0',
+            $this->_getLatestRemote()->getLatestRelease('A')
+        );
+    }
+
+    public function testLatestUri()
+    {
+        $this->assertEquals(
+            'http://pear.horde.org/get/A-1.0.0.tgz',
+            $this->_getLatestRemote()->getLatestDownloadUri('A')
+        );
+    }
+
+    /**
+     * @expectedException Horde_Pear_Exception
+     */
+    public function testLatestUriExceptionForNoRelease()
+    {
+        $this->_getLatestRemote()->getLatestDownloadUri('A', 'dev');
+    }
+
+    public function testNoDetails()
+    {
+        $this->assertFalse(
+            $this->_getNoLatest()->getLatestDetails('X')
+        );
+    }
+
+    public function testLatestDetails()
+    {
+        $this->assertEquals(
+            '1.0.0',
+            $this->_getLatest()->getLatestDetails('A')->getVersion()
+        );
+    }
+
+    public function testDependencies()
+    {
+        $this->assertEquals(
+            array(array('name' => 'test', 'type' => 'pkg', 'optional' => 'no')),
+            $this->_getRemoteDependencies()->getDependencies('A', '1.0.0')
+        );
+    }
+
+    public function testChannel()
+    {
+        $this->assertEquals(
+            'a:1:{s:8:"required";a:1:{s:7:"package";a:1:{s:4:"name";s:4:"test";}}}',
+            $this->_getRemoteDependencies()->getChannel()
+        );
+    }
+
+    private function _getRemoteDependencies()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $string = serialize(array('required' => array('package' => array('name' => 'test'))));
+        $body = new Horde_Support_StringStream($string);
+        $response = new Horde_Http_Response_Mock('', $body->fopen());
+        $response->code = 200;
+        $request = new Horde_Http_Request_Mock();
+        $request->setResponse($response);
+        return $this->createRemote($request);
+    }
+
+    private function _getLatestRemote()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $request = new Horde_Pear_Stub_Request();
+        $request->setResponses(
+            array(
+                array(
+                    'body' => '1.0.0',
+                    'code' => 200,
+                ),
+                array(
+                    'body' => '',
+                    'code' => 404,
+                ),
+                array(
+                    'body' => '',
+                    'code' => 404,
+                ),
+                array(
+                    'body' => '',
+                    'code' => 404,
+                ),
+                array(
+                    'body' => $this->_getRelease(),
+                    'code' => 200,
+                ),
+            )
+        );
+        return $this->createRemote($request);
+    }
+
+    private function _getNoLatest()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $request = new Horde_Pear_Stub_Request();
+        $request->setResponses(
+            array(
+                array(
+                    'body' => '',
+                    'code' => 404,
+                ),
+            )
+        );
+        return $this->createRemote($request);
+    }
+
+    private function _getLatest()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $request = new Horde_Pear_Stub_Request();
+        $request->setResponses(
+            array(
+                array(
+                    'body' => '1.0.0',
+                    'code' => 200,
+                ),
+                array(
+                    'body' => $this->_getRelease(),
+                    'code' => 200,
+                ),
+            )
+        );
+        return $this->createRemote($request);
     }
 }

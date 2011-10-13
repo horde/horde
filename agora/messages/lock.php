@@ -2,10 +2,10 @@
 /**
  * The Agora script to lock a message and prevent further posts to this thread.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Marko Djukic <marko@oblo.com>
  */
@@ -15,7 +15,7 @@ Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
-$messages = &Agora_Messages::singleton($scope, $forum_id);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -78,8 +78,8 @@ $view->notify = Horde::endBuffer();
 $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
 $view->message_date = strftime($prefs->getValue('date_format'), $message['message_timestamp']);
-$view->message_body = Agora_Messages::formatBody($message['body']);
+$view->message_body = Agora_Driver::formatBody($message['body']);
 
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('messages/form.html.php');
+echo $view->render('messages/form');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

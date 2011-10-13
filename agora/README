@@ -1,54 +1,61 @@
-What is Agora?
---------------
+================
+ What is Agora?
+================
+
+:Contact: horde@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
 
 Agora is a Horde-based forum program.
 
-This software is OSI Certified Open Source Software.
-OSI Certified is a certification mark of the Open Source Initiative.
+This software is OSI Certified Open Source Software. OSI Certified is a
+certification mark of the `Open Source Initiative`_.
+
+.. _`Open Source Initiative`: http://www.opensource.org/
 
 
 Obtaining Agora
----------------
+===============
 
 Further information on Agora and the latest version can be obtained at
 
-  http://www.horde.org/agora/
+  http://www.horde.org/apps/agora
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Agora distribution:
 
-README        - This file
-COPYING       - Copyright and license information
-docs/CHANGES  - List of changes by release
-docs/CREDITS  - Who developed this
-docs/INSTALL  - Installation instructions
+:README_:            This file
+:COPYING_:           Copyright and license information
+:`docs/CHANGES`_:    Changes by release
+:`docs/CREDITS`_:    Project developers
+:`docs/INSTALL`_:    Installation instructions and notes
 
 
 Installation
-------------
+============
 
-Instructions for installing Agora can be found in the file INSTALL
-in the docs/ directory of the Agora distribution.
+Instructions for installing Agora can be found in the file INSTALL_ in the
+``docs/`` directory of the Agora distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Agora, help is available!
 
-The Horde Frequently Asked Questions List (FAQ), available on the Web
-at
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual
-applications and for issues relating to the project as a whole.
-Information, archives, and subscription information can be found at
+Horde LLC runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
+subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
 appearances on IRC, on the channel #horde on the Freenode Network
@@ -56,10 +63,19 @@ appearances on IRC, on the channel #horde on the Freenode Network
 
 
 Licensing
----------
+=========
 
-For licensing and copyright information, please see the file COPYING
-in the Agora distribution.
+For licensing and copyright information, please see the file COPYING_ in the
+Agora distribution.
 
 Thanks,
+
 The Agora team
+
+
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
+.. _INSTALL:
+.. _docs/INSTALL: INSTALL

@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * Data storage for the mock driver.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Driver_Mock_Data
@@ -48,11 +48,79 @@ implements ArrayAccess
     /**
      * Constructor.
      *
-     * @param array $data The initial data.
+     * @param array $data This may be match the internal format used by this
+     *                    class to represent the IMAP mock data or it can be an
+     *                    abbreviated format (@see
+     *                    Horde_Kolab_Storage_Driver_Mock_Data::_setupBrief).
      */
     public function __construct($data)
     {
+        if (isset($data['format'])) {
+            $format = $data['format'];
+            unset($data['format']);
+            switch ($format) {
+            case 'brief':
+                $data = $this->_convertBrief($data);
+                break;
+            default:
+                break;
+            }
+        }
         $this->_data = $data;
+    }
+
+    /**
+     * Generate the internal mock data representation from an abbreviated mock
+     * data format.
+     *
+     * @todo Document the format
+     *
+     * @param array $data The abbreviated data format.
+     */
+    private function _convertBrief(array $data)
+    {
+        $result = array();
+        foreach ($data as $path => $element) {
+            if (!isset($element['p'])) {
+                $folder = array('permissions' => array('anyone' => 'alrid'));
+            } else {
+                $folder = array('permissions' => $element['p']);
+            }
+            if (isset($element['a'])) {
+                $folder['annotations'] = $element['a'];
+            }
+            if (isset($element['t'])) {
+                $folder['annotations'] = array(
+                    '/shared/vendor/kolab/folder-type' => $element['t'],
+                );
+            }
+            if (isset($element['m'])) {
+                $folder['mails'] = $element['m'];
+                foreach ($element['m'] as $uid => $mail) {
+                    if (isset($mail['structure'])) {
+                        $folder['mails'][$uid]['structure'] = unserialize(
+                            base64_decode(file_get_contents($mail['structure']))
+                        );
+                    }
+                    if (isset($mail['parts'])) {
+                        $folder['mails'][$uid]['structure']['parts'] = $mail['parts'];
+                    }
+                    if (isset($mail['file'])) {
+                        $folder['mails'][$uid]['stream'] = fopen($mail['file'], 'r');
+                    }
+                }
+            }
+            if (isset($element['s'])) {
+                $folder['status'] = $element['s'];
+            } else {
+                $folder['status'] = array(
+                    'uidvalidity' => time(),
+                    'uidnext' => !empty($folder['mails']) ? max(array_keys($folder['mails'])) + 1 : 1
+                );
+            }
+            $result[$path] = $folder;
+        }
+        return $result;
     }
 
     /**
@@ -322,7 +390,11 @@ implements ArrayAccess
     {
         $this->select($folder);
         foreach ($uids as $uid) {
-            $this->_selected['mails'][$uid]['flags'] |= self::FLAG_DELETED;
+            if (isset($this->_selected['mails'][$uid]['flags'])) {
+                $this->_selected['mails'][$uid]['flags'] |= self::FLAG_DELETED;
+            } else {
+                $this->_selected['mails'][$uid]['flags'] = self::FLAG_DELETED;
+            }
         }
     }
 
@@ -343,7 +415,8 @@ implements ArrayAccess
         $this->select($folder);
         $delete = array();
         foreach ($this->_selected['mails'] as $uid => $mail) {
-            if ($mail['flags'] & self::FLAG_DELETED) {
+            if (isset($mail['flags']) &&
+                ($mail['flags'] & self::FLAG_DELETED)) {
                 $delete[] = $uid;
             }
         }

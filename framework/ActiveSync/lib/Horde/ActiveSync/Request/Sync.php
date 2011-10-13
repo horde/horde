@@ -2,15 +2,15 @@
 /**
  * ActiveSync Handler for SYNC requests
  *
- * Copyright 2009 - 2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
 /**
  * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL v2.
- * Consult LICENSE file for details
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
  */
 class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 {
@@ -20,6 +20,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     const STATUS_KEYMISM = 3;
     const STATUS_PROTERROR = 4;
     const STATUS_SERVERERROR = 5;
+
+    /* Maximum window size */
+    const MAX_WINDOW_SIZE = 512;
 
     /**
      * Handle the sync request
@@ -32,18 +35,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         parent::handle();
         $this->_logger->info('[' . $this->_device->id . '] Handling SYNC command.');
 
-        /* Check policy */
+        // Check policy
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
             return false;
         }
 
-        /* Be optimistic */
+        // Be optimistic
         $this->_statusCode = self::STATUS_SUCCESS;
 
-        /* Contains all containers requested */
+        // Contains all containers requested
         $collections = array();
 
-        /* Start decoding request */
+        // Start decoding request
         // FIXME: Need to figure out the proper response structure for errors
         // that occur this early
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
@@ -56,7 +59,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         while ($this->_statusCode == self::STATUS_SUCCESS &&
                $this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDER)) {
 
-            /* Defaults */
+            // Defaults
             $collection = array();
             $collection['truncation'] = Horde_ActiveSync::TRUNCATION_ALL;
             $collection['clientids'] = array();
@@ -89,11 +92,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            /* SYNC_SUPPORTED */
+            // SYNC_SUPPORTED
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SUPPORTED)) {
                 // Only allowed on initial sync request
                 if ($collection['synckey'] != 0) {
-                    $this->_statusCode = Horde_ActiveSync::SYNC_STATUS_PROTERROR;
+                    $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
                     exit;
                 }
@@ -122,10 +125,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     exit;
                 }
 
-                /* Specs state max = 512 and should be used when requested size is out of bounds */
-                if ($collection['windowsize'] < 1 || $collection['windowsize'] > 512) {
+                // Ensure appropriate window size
+                if ($collection['windowsize'] < 1 || $collection['windowsize'] > self::MAX_WINDOW_SIZE) {
                     $this->_logger->debug('[' . $this->_device->id . '] Bad windowsize sent, defaulting to 512');
-                    $collection['windowsize'] = 512;
+                    $collection['windowsize'] = self::MAX_WINDOW_SIZE;
                 }
             }
 
@@ -191,38 +194,48 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if ($this->_statusCode == self::STATUS_SUCCESS) {
-                /* Initialize the state */
+                // Initialize the state
                 $this->_state->init($collection);
                 if (!empty($collection['supported'])) {
-                    /* Initial sync and we have SUPPORTED data - save it */
+                    // Initial sync and we have SUPPORTED data - save it
                     if (empty($this->_device->supported)) {
                         $this->_device->supported = array();
                     }
                     $this->_device->supported[$collection['class']] = $collection['supported'];
                     $this->_state->setDeviceInfo($this->_device);
                 }
+
+                // compatibility mode - get folderid from the state directory
+                if (!isset($collection['id'])) {
+                    $collection['id'] = $this->_state->getFolderData($this->_device->id, $collection['class']);
+                }
+
+                // compatibility mode - set default conflict behavior if no
+                // conflict resolution algorithm is set
+                if (!isset($collection['conflict'])) {
+                    $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
+                }
+
                 try {
-                    $this->_state->loadState($collection['synckey'], 'sync');
+                    $this->_state->loadState($collection['synckey'], 'sync', $collection['id']);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_KEYMISM;
                     $this->_handleError($collection);
                     exit;
                 }
-
-                /* compatibility mode - get folderid from the state directory */
-                if (!isset($collection['id'])) {
-                    $collection['id'] = $this->_state->getFolderData($this->_device->id, $collection['class']);
-                }
-
-                /* compatibility mode - set default conflict behavior if no
-                 * conflict resolution algorithm is set */
-                if (!isset($collection['conflict'])) {
-                    $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
-                }
             }
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_COMMANDS)) {
-                /* Configure importer with last state */
+                // Some broken clients send SYNC_COMMANDS with a synckey of 0.
+                // This is a violation of the spec, and could lead to all kinds
+                // of data integrity issues.
+                if (empty($collection['synckey'])) {
+                    $this->_statusCode = self::STATUS_PROTERROR;
+                    $this->_handleError($collection);
+                    exit;
+                }
+
+                // Configure importer with last state
                 $importer = $this->_driver->getImporter();
                 $importer->init($this->_state, $collection['id'], $collection['conflict']);
                 $nchanges = 0;
@@ -260,7 +273,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $clientid = false;
                     }
 
-                    /* Create Streamer object from messages passed from PIM */
+                    // Create Message object from messages passed from PIM
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
                         switch ($collection['class']) {
                         case 'Email':
@@ -317,7 +330,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     case Horde_ActiveSync::SYNC_REMOVE:
                         if (isset($collection['deletesasmoves'])) {
                             $folderid = $this->_driver->getWasteBasket();
-
                             if ($folderid) {
                                 $importer->importMessageMove($serverid, $folderid);
                                 $collection['importedchanges'] = true;
@@ -371,13 +383,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             return false;
         }
 
-        /* Start output to PIM */
+        // Start output to PIM
         $this->_logger->info('[' . $this->_device->id . '] Beginning SYNC Response.');
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
         foreach ($collections as $collection) {
-            /* Get new synckey if needed */
             $changecount = 0;
             if (isset($collection['getchanges'])) {
                 $filtertype = isset($collection['filtertype']) ? $collection['filtertype'] : false;
@@ -387,12 +398,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $changecount = $sync->getChangeCount();
             }
 
-            /* Get new synckey if needed */
+            // Get new synckey if needed
             if (isset($collection['importedchanges']) ||
                 $changecount > 0 ||
                 $collection['synckey'] == '0') {
                 try {
+                    $this->_logger->debug('Generating new synckey. Old synckey: ' . $collection['synckey']);
                     $collection['newsynckey'] = $this->_state->getNewSyncKey($collection['synckey']);
+                    $this->_logger->debug('New synckey generated: ' . $collection['newsynckey']);
                 } catch (Horde_ActiveSync_Exception $e) {
                     $this->_statusCode = self::STATUS_KEYMISM;
                 }
@@ -419,10 +432,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_encoder->content($this->_statusCode);
             $this->_encoder->endTag();
 
-            /* Check the mimesupport because we need it for advanced emails */
+            // Check the mimesupport because we need it for advanced emails
             $mimesupport = isset($collection['mimesupport']) ? $collection['mimesupport'] : 0;
 
-            /* Output server IDs for new items we received and added from PIM */
+            // Output server IDs for new items we received and added from PIM
             if (isset($collection['clientids']) || count($collection['fetchids']) > 0) {
                 $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
                 foreach ($collection['clientids'] as $clientid => $serverid) {
@@ -439,7 +452,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_encoder->endTag();
                 }
 
-                /* Output any FETCH requests */
+                // Output any FETCH requests
                 foreach ($collection['fetchids'] as $id) {
                     $data = $this->_driver->fetch($collection['id'], $id, $mimesupport);
                     if ($data !== false) {
@@ -461,14 +474,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_encoder->endTag();
             }
 
-            /* Send server changes to PIM */
+            // Send server changes to PIM
             if (isset($collection['getchanges'])) {
-                /* Changecount and exporter initialized above */
+                // Changecount and exporter initialized above
                 if (!empty($collection['windowsize']) && $changecount > $collection['windowsize']) {
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                 }
 
-                /* Output message changes per folder */
+                // Output message changes per folder
                 $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
 
                 // Stream the changes to the PDA
@@ -490,7 +503,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             $this->_encoder->endTag();
 
-            /* Save the sync state for the next time */
+            // Save the sync state for the next time
             if (isset($collection['newsynckey'])) {
                 if (!empty($sync) || !empty($importer) || !empty($exporter) || $collection['synckey'] == 0)  {
                     $this->_state->setNewSyncKey($collection['newsynckey']);
@@ -520,7 +533,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
 
-        /* Get new synckey if needed */
+        // Get new synckey if needed
         if ($this->_statusCode == self::STATUS_KEYMISM ||
             isset($collection['importedchanges']) ||
             isset($collection['getchanges']) ||

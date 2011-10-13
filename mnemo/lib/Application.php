@@ -5,10 +5,10 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Mnemo through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file LICENSE for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @package Mnemo
  */
@@ -36,7 +36,7 @@ class Mnemo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0.1-git)';
+    public $version = 'H4 (3.0.3-git)';
 
     /**
      * Global variables defined:
@@ -45,7 +45,6 @@ class Mnemo_Application extends Horde_Registry_Application
     protected function _init()
     {
         Mnemo::initialize();
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
     }
 
     /**
@@ -64,7 +63,7 @@ class Mnemo_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        global $conf, $injector, $print_link;
+        global $conf, $injector;
 
         $menu->add(Horde::url('list.php'), _("_List Notes"), 'mnemo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
@@ -80,11 +79,6 @@ class Mnemo_Application extends Horde_Registry_Application
         /* Import/Export */
         if ($conf['menu']['import_export']) {
             $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
-        }
-
-        /* Print */
-        if ($conf['menu']['print'] && isset($print_link)) {
-            $menu->add(Horde::url($print_link), _("_Print"), 'print.png', null, '_blank', 'popup(this.href); return false;');
         }
     }
 
@@ -141,13 +135,6 @@ class Mnemo_Application extends Horde_Registry_Application
         );
 
         foreach (Mnemo::listNotepads() as $name => $notepad) {
-            if ($notepad->get('owner') != $GLOBALS['registry']->getAuth() &&
-                !empty($GLOBALS['conf']['share']['hidden']) &&
-                !in_array($notepad->getName(), $GLOBALS['display_notepads'])) {
-
-                continue;
-            }
-
             $tree->addNode(
                 $parent . $name . '__new',
                 $parent . '__new',
@@ -172,6 +159,48 @@ class Mnemo_Application extends Horde_Registry_Application
                 'url' => Horde::url('search.php')
             )
         );
+    }
+
+    /**
+     */
+    public function removeUserData($user)
+    {
+        $error = false;
+        $notepads = $GLOBALS['mnemo_shares']->listShares(
+            $user, array('attribtues' => $user));
+        foreach ($notepads as $notepad => $share) {
+            $driver = $GLOBALS['injector']
+                ->getInstance('Mnemo_Factory_Driver')
+                ->create($notepad);
+            try {
+                $driver->deleteAll();
+            } catch (Mnemo_Exception $e) {
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
+            }
+
+            try {
+                $GLOBALS['mnemo_shares']->removeShare($share);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
+            }
+        }
+
+        // Get a list of all shares this user has perms to and remove the perms.
+        try {
+            $shares = $GLOBALS['mnemo_shares']->listShares($user);
+            foreach ($shares as $share) {
+                $share->removeUser($user);
+            }
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+        }
+
+        if ($error) {
+            throw new Mnemo_Exception(sprintf(_("There was an error removing notes for %s. Details have been logged."), $user));
+        }
     }
 
 }

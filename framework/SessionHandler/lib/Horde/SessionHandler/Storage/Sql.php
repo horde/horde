@@ -17,14 +17,14 @@
  * CREATE INDEX session_lastmodified_idx ON horde_sessionhandler (session_lastmodified);
  * </pre>
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  SessionHandler
  */
 class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
@@ -107,34 +107,47 @@ class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
      */
     public function write($id, $session_data)
     {
-        if (!$this->_db->isActive()) { $this->_db->reconnect(); }
+        if (!$this->_db->isActive()) {
+            $this->_db->reconnect();
+        }
 
-        /* Build the SQL query. */
-        $query = sprintf('SELECT session_id FROM %s WHERE session_id = ?',
-                         $this->_params['table']);
-        $values = array($id);
-
-        /* Execute the query. */
+        /* Check if session exists. */
         try {
-            $result = $this->_db->selectValue($query, $values);
+            $exists = $this->_db->selectValue(
+                sprintf('SELECT 1 FROM %s WHERE session_id = ?',
+                        $this->_params['table']),
+                array($id));
         } catch (Horde_Db_Exception $e) {
             return false;
         }
 
-        /* Build the replace SQL query. */
-        $query = sprintf('REPLACE INTO %s ' .
-                         '(session_id, session_data, session_lastmodified) ' .
-                         'VALUES (?, ?, ?)',
-                         $this->_params['table']);
-        $values = array(
-            $id,
-            $session_data,
-            time()
-        );
-
-        /* Execute the replace query. */
+        /* Update or insert session data. */
         try {
-            $this->_db->update($query, $values);
+            if ($exists) {
+                $query = sprintf(
+                    'UPDATE %s '
+                    . 'SET session_data = ?, session_lastmodified = ? '
+                    . 'WHERE session_id = ?',
+                    $this->_params['table']);
+                $values = array(
+                    $session_data,
+                    time(),
+                    $id
+                );
+                $this->_db->update($query, $values);
+            } else {
+                $query = sprintf(
+                    'INSERT INTO %s '
+                    . '(session_id, session_data, session_lastmodified) '
+                    . 'VALUES (?, ?, ?)',
+                    $this->_params['table']);
+                $values = array(
+                    $id,
+                    $session_data,
+                    time()
+                );
+                $this->_db->insert($query, $values);
+            }
             $this->_db->commitDbTransaction();
         } catch (Horde_Db_Exception $e) {
             try {

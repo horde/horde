@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -11,18 +11,13 @@
 require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-require_once WHUPS_BASE . '/lib/Forms/Search.php';
-
 $vars = Horde_Variables::getDefaultVariables();
 $limit = (int)$vars->get('limit');
-$form = new SearchForm($vars);
+$form = new Whups_Form_Search($vars);
 
 if ($form->validate($vars, true)) {
     $form->getInfo($vars, $info);
     $tickets = $whups_driver->getTicketsByProperties($info);
-    if ($tickets instanceof PEAR_Error) {
-        throw new Horde_Exception($tickets);
-    }
     Whups::sortTickets($tickets, 'date_updated', 'desc');
 } else {
     throw new Horde_Exception(_("Invalid search"));

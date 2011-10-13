@@ -31,4 +31,5 @@ class Kronolith_Hooks
 //
 //        throw new Horde_Exception('Unknown action');
 //     }
+
 }

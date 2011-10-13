@@ -4,15 +4,15 @@
  * user might have. Its methods take care of any site-specific
  * restrictions configured in prefs.php and conf.php.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
@@ -517,9 +517,16 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     public function getValue($key, $identity = null)
     {
         $val = parent::getValue($key, $identity);
-        return (($key == 'sent_mail_folder') && strlen($val))
-            ? IMP_Mailbox::get(IMP_Mailbox::prefFrom($val))
-            : $val;
+
+        switch ($key) {
+        case 'sent_mail_folder':
+            return (is_string($val) && strlen($val))
+                ? IMP_Mailbox::get(IMP_Mailbox::prefFrom($val))
+                : null;
+
+        default:
+            return $val;
+        }
     }
 
     /**
@@ -530,6 +537,11 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
     public function setValue($key, $val, $identity = null)
     {
         if ($key == 'sent_mail_folder') {
+            if ($val) {
+                $val->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+            } else {
+                IMP_Mailbox::get('INBOX')->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
+            }
             $val = IMP_Mailbox::prefTo($val);
         }
         return parent::setValue($key, $val, $identity);
@@ -563,7 +575,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     public function saveSentmail($ident = null)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->allowFolders()
+        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)
             ? $this->getValue('save_sent_mail', $ident)
             : false;
     }

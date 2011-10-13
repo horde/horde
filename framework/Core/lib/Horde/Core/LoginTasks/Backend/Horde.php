@@ -3,10 +3,10 @@
  * This class provides the Horde specific implementation of the LoginTasks
  * backend.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -15,13 +15,6 @@
  */
 class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
 {
-    /**
-     * Have Horde tasks been added to an app's tasklist?
-     *
-     * @var boolean
-     */
-    static private $_addHorde = false;
-
     /**
      * The Horde application that is currently active.
      *
@@ -69,33 +62,10 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getTasks()
     {
-        global $session;
-
-        $app_list = array($this->_app);
         $tasks = array();
 
-        switch ($this->_app) {
-        case 'horde':
-            if (self::$_addHorde ||
-                $session->exists('horde', 'logintasks/horde')) {
-                return $tasks;
-            }
-            break;
-
-        default:
-            if (!self::$_addHorde &&
-                !$session->exists('horde', 'logintasks/horde')) {
-                array_unshift($app_list, 'horde');
-            }
-            break;
-        }
-
-        self::$_addHorde = true;
-
-        foreach ($app_list as $app) {
-            foreach (array_merge($GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_SystemTask'), $GLOBALS['registry']->getAppDrivers($app, 'LoginTasks_Task')) as $val) {
-                $tasks[$val] = $app;
-            }
+        foreach (array_merge($GLOBALS['registry']->getAppDrivers($this->_app, 'LoginTasks_SystemTask'), $GLOBALS['registry']->getAppDrivers($this->_app, 'LoginTasks_Task')) as $val) {
+            $tasks[$val] = $this->_app;
         }
 
         return $tasks;
@@ -134,15 +104,8 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function markLastRun()
     {
-        global $session;
-
         $lasttasks = $this->getLastRun();
         $lasttasks[$this->_app] = time();
-        if (($this->_app != 'horde') &&
-            !$session->exists('horde', 'logintasks/horde')) {
-            $lasttasks['horde'] = time();
-            $session->set('horde', 'logintasks/horde', true);
-        }
         $this->setLastRun($lasttasks);
     }
 

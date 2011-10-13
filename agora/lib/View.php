@@ -1,14 +1,14 @@
 <?php
 /**
- * Video General View Class
+ * Agora General View Class
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Duck <duck@obala.net>
- * @package Video
+ * @package Agora
  */
 class Agora_View extends Horde_View {
 
@@ -18,8 +18,7 @@ class Agora_View extends Horde_View {
     public function __construct()
     {
         /* Set default data. */
-        parent::__construct(array('templatePath' => AGORA_TEMPLATES . '/',
-                                  'encoding' => 'UTF-8'));
+        parent::__construct(array('templatePath' => AGORA_TEMPLATES));
     }
 
 }

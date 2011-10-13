@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -10,9 +10,6 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('hermes', array('admin' => true));
-
-// @TODO
-require_once HERMES_BASE . '/lib/Admin.php';
 
 $r = new Horde_Form_Renderer();
 $vars = Horde_Variables::getDefaultVariables();
@@ -29,7 +26,8 @@ function _open()
         $beendone = true;
         $title = _("Administration");
         require $registry->get('templates', 'horde') . '/common-header.inc';
-        require HERMES_TEMPLATES . '/menu.inc';
+        echo Horde::menu();
+        $notification->notify(array('listeners' => 'status'));
     }
 }
 
@@ -43,8 +41,8 @@ $driver = $GLOBALS['injector']->getInstance('Hermes_Driver');
 $formname = $vars->get('formname');
 if (!empty($formname)) {
     switch ($formname) {
-    case 'addjobtypeform':
-        $form = new AddJobTypeForm($vars);
+    case 'hermes_form_admin_addjobtype':
+        $form = new Hermes_Form_Admin_AddJobType($vars);
         $form->validate($vars);
 
         if ($form->isValid()) {
@@ -67,8 +65,8 @@ if (!empty($formname)) {
         }
         break;
 
-    case 'editjobtypestep1form':
-        $form1 = new EditJobTypeStep1Form($vars);
+    case 'hermes_form_admin_editjobtypestepone':
+        $form1 = new Hermes_Form_Admin_EditJobTypeStepOne($vars);
         $form1->validate($vars);
 
         _open();
@@ -76,7 +74,7 @@ if (!empty($formname)) {
         if ($form1->isValid()) {
             switch ($vars->get('submitbutton')) {
             case _("Edit Job Type"):
-                $form2 = new EditJobTypeStep2Form($vars);
+                $form2 = new Hermes_Form_Admin_EditJobTypeStepTwo($vars);
                 $form2->open($r, $vars, 'admin.php', 'post');
 
                 // render the second stage form
@@ -89,7 +87,7 @@ if (!empty($formname)) {
                 break;
 
             case _("Delete Job Type"):
-                $form2 = new DeleteJobTypeForm($vars);
+                $form2 = new Hermes_Form_Admin_DeleteJobType($vars);
                 $form2->open($r, $vars, 'admin.php', 'post');
 
                 // render the deletion form
@@ -111,14 +109,14 @@ if (!empty($formname)) {
         }
         break;
 
-    case 'editclientstep1form':
-        $form1 = new EditClientStep1Form($vars);
+    case 'hermes_form_admin_editclientstepone':
+        $form1 = new Hermes_Form_Admin_EditClientStepOne($vars);
         $form1->validate($vars);
 
         _open();
 
         if ($form1->isValid()) {
-            $form2 = new EditClientStep2Form($vars);
+            $form2 = new Hermes_Form_Admin_EditClientStepTwo($vars);
             $form2->open($r, $vars, 'admin.php', 'post');
 
             // render the second stage form
@@ -138,8 +136,8 @@ if (!empty($formname)) {
         }
         break;
 
-    case 'editjobtypestep2form':
-        $form1 = new EditJobTypeStep2Form($vars);
+    case 'hermes_form_admin_editjobtypesteptwo':
+        $form1 = new Hermes_Form_Admin_EditJobTypeStepTwo($vars);
         $form1->validate($vars);
 
         if ($form1->isValid()) {
@@ -164,15 +162,16 @@ if (!empty($formname)) {
         }
         break;
 
-    case 'editclientstep2form':
-        $form = new EditClientStep2Form($vars);
+    case 'hermes_form_admin_editclientsteptwo':
+        $form = new Hermes_Form_Admin_EditClientStepTwo($vars);
         $form->validate($vars);
 
         if ($form->isValid()) {
             try {
-                $result = $driver->updateClientSettings($vars->get('client'),
-                                                        $vars->get('enterdescription') ? 1 : 0,
-                                                        $vars->get('exportid'));
+                $result = $driver->updateClientSettings(
+                    $vars->get('client'),
+                    $vars->get('enterdescription') ? 1 : 0,
+                    $vars->get('exportid'));
                  $notification->push(_("The client settings have been modified."), 'horde.success');
             } catch (Exception $e) {
                 $notification->push(sprintf(_("There was an error editing the client settings: %s."), $e->getMessage()), 'horde.error');
@@ -189,8 +188,8 @@ if (!empty($formname)) {
         }
         break;
 
-    case 'deletejobtypeform':
-        $form = new DeleteJobTypeForm($vars);
+    case 'hermes_form_admin_deletejobtype':
+        $form = new Hermes_Form_Admin_DeleteJob($vars);
         $form->validate($vars);
 
         if ($form->isValid()) {
@@ -220,9 +219,9 @@ if (!empty($formname)) {
 
 if (!$beendone) {
     $vars = new Horde_Variables();
-    $form1 = new EditJobTypeStep1Form($vars); $edit1 = _("Edit Job Type"); $edit2 = _("Delete Job Type");
-    $form2 = new AddJobTypeForm($vars); $add = _("Add Job Type");
-    $form3 = new EditClientStep1Form($vars); $edit3 = _("Edit Client Settings");
+    $form1 = new Hermes_Form_Admin_EditJobTypeStepOne($vars); $edit1 = _("Edit Job Type"); $edit2 = _("Delete Job Type");
+    $form2 = new Hermes_Form_Admin_AddJobType($vars); $add = _("Add Job Type");
+    $form3 = new Hermes_Form_Admin_EditClientStepOne($vars); $edit3 = _("Edit Client Settings");
 
     _open();
 

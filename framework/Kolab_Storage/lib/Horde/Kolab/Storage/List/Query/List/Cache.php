@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * The cached list query.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Query_List_Cache
@@ -83,6 +83,20 @@ implements Horde_Kolab_Storage_List_Query_List
     }
 
     /**
+     * Ensure we have the query data.
+     *
+     * @param string $query The query data required.
+     *
+     * @return NULL
+     */
+    private function _init($query)
+    {
+        if (!$this->_list_cache->hasQuery($query)) {
+            $this->synchronize();
+        }
+    }
+
+    /**
      * Returns the folder types as associative array.
      *
      * @return array The list folder types with the folder names as key and the
@@ -90,6 +104,7 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function listTypes()
     {
+        $this->_init(self::TYPES);
         return $this->_list_cache->getQuery(self::TYPES);
     }
 
@@ -101,6 +116,9 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function listFolderTypeAnnotations()
     {
+        if (!$this->_list_cache->hasFolderTypes()) {
+            $this->synchronize();
+        }
         $result = array();
         $list = $this->_list_cache->getFolderTypes();
         foreach ($list as $folder => $annotation) {
@@ -118,6 +136,7 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function listByType($type)
     {
+        $this->_init(self::BY_TYPE);
         $by_type = $this->_list_cache->getQuery(self::BY_TYPE);
         if (isset($by_type[$type])) {
             return array_keys($by_type[$type]);
@@ -135,6 +154,7 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function dataByType($type)
     {
+        $this->_init(self::BY_TYPE);
         $data_by_type = $this->_list_cache->getQuery(self::BY_TYPE);
         if (isset($data_by_type[$type])) {
             return $data_by_type[$type];
@@ -152,6 +172,7 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function folderData($folder)
     {
+        $this->_init(self::FOLDERS);
         $folders = $this->_list_cache->getQuery(self::FOLDERS);
         if (isset($folders[$folder])) {
             return $folders[$folder];
@@ -170,6 +191,7 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function listOwners()
     {
+        $this->_init(self::OWNERS);
         return $this->_list_cache->getQuery(self::OWNERS);
     }
 
@@ -181,6 +203,7 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function listPersonalDefaults()
     {
+        $this->_init(self::PERSONAL_DEFAULTS);
         return $this->_list_cache->getQuery(self::PERSONAL_DEFAULTS);
     }
 
@@ -193,6 +216,7 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function listDefaults()
     {
+        $this->_init(self::DEFAULTS);
         return $this->_list_cache->getQuery(self::DEFAULTS);
     }
 
@@ -205,6 +229,7 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function getDefault($type)
     {
+        $this->_init(self::PERSONAL_DEFAULTS);
         $defaults = $this->_list_cache->getQuery(self::PERSONAL_DEFAULTS);
         if (isset($defaults[$type])) {
             return $defaults[$type];
@@ -223,6 +248,7 @@ implements Horde_Kolab_Storage_List_Query_List
      */
     public function getForeignDefault($owner, $type)
     {
+        $this->_init(self::DEFAULTS);
         $defaults = $this->_list_cache->getQuery(self::DEFAULTS);
         if (isset($defaults[$owner][$type])) {
             return $defaults[$owner][$type];
@@ -282,9 +308,11 @@ implements Horde_Kolab_Storage_List_Query_List
     /**
      * Synchronize the query data with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
         $namespace = $this->_list->getNamespace();
         $annotations = $this->listFolderTypeAnnotations();
@@ -311,10 +339,12 @@ implements Horde_Kolab_Storage_List_Query_List
                 'type' => $folder_type,
                 'default' => $type->isDefault(),
                 'namespace' => $namespace->matchNamespace($folder)->getType(),
+                'prefix' => $namespace->matchNamespace($folder)->getName(),
                 'owner' => $owner,
                 'name' => $namespace->getTitle($folder),
                 'subpath' => $namespace->getSubpath($folder),
                 'parent' => $namespace->getParent($folder),
+                'delimiter' => $namespace->matchNamespace($folder)->getDelimiter(),
             );
 
             $types[$folder] = $folders[$folder]['type'];
@@ -322,7 +352,10 @@ implements Horde_Kolab_Storage_List_Query_List
                 'default' => $folders[$folder]['parent'],
                 'owner' => $folders[$folder]['owner'],
                 'name' => $folders[$folder]['name'],
+                'prefix' => $folders[$folder]['prefix'],
                 'parent' => $folders[$folder]['parent'],
+                'delimiter' => $folders[$folder]['delimiter'],
+                'subpath' => $folders[$folder]['subpath'],
                 'folder' => $folder,
             );
 

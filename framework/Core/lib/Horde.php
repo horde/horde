@@ -3,10 +3,10 @@
  * The Horde:: class provides the functionality shared by all Horde
  * applications.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
@@ -113,18 +113,23 @@ class Horde
         } catch (Exception $e) {
             return;
         }
+
         $html_ini = ini_set('html_errors', 'Off');
         self::startBuffer();
-        echo "Variable information:\n";
-        var_dump($event);
-
-        if (is_resource($event)) {
-            echo "\nStream contents:\n";
-            rewind($event);
-            fpassthru($event);
+        if (!is_null($event)) {
+            echo "Variable information:\n";
+            var_dump($event);
+            echo "\n";
         }
 
-        echo "\nBacktrace:\n";
+        if (is_resource($event)) {
+            echo "Stream contents:\n";
+            rewind($event);
+            fpassthru($event);
+            echo "\n";
+        }
+
+        echo "Backtrace:\n";
         echo strval(new Horde_Support_Backtrace());
 
         $logger->log(self::endBuffer(), Horde_Log::DEBUG);
@@ -312,30 +317,12 @@ HTML;
                 : $conf['cachejsparams']['lifetime'];
         }
 
-        switch ($conf['cachejsparams']['compress']) {
-        case 'closure':
-            $jsmin_params = array(
-                'closure' => $conf['cachejsparams']['closurepath'],
-                'java' => $conf['cachejsparams']['javapath']
-            );
-            break;
-
-        case 'yui':
-            $jsmin_params = array(
-                'java' => $conf['cachejsparams']['javapath'],
-                'yui' => $conf['cachejsparams']['yuipath']
-            );
-            break;
-
-        default:
-            $jsmin_params = array();
-            break;
-        }
-
         /* Output prototype.js separately from the other files. */
-        $js['force'][] = $s_list['horde'][0]['p'] . $s_list['horde'][0]['f'];
-        $mtime['force'][] = filemtime($s_list['horde'][0]['p'] . $s_list['horde'][0]['f']);
-        unset($s_list['horde'][0]);
+        if ($s_list['horde'][0]['f'] == 'prototype.js') {
+            $js['force'][] = $s_list['horde'][0]['p'] . $s_list['horde'][0]['f'];
+            $mtime['force'][] = filemtime($s_list['horde'][0]['p'] . $s_list['horde'][0]['f']);
+            unset($s_list['horde'][0]);
+        }
 
         foreach ($s_list as $files) {
             foreach ($files as $file) {
@@ -351,6 +338,7 @@ HTML;
             }
         }
 
+        $jsmin_params = null;
         foreach ($js as $key => $files) {
             if (!count($files)) {
                 continue;
@@ -390,6 +378,24 @@ HTML;
                     if ($conf['cachejsparams']['compress'] == 'none') {
                         $out .= $js_text . "\n";
                     } else {
+                        if (is_null($jsmin_params)) {
+                            switch ($conf['cachejsparams']['compress']) {
+                            case 'closure':
+                                $jsmin_params = array(
+                                    'closure' => $conf['cachejsparams']['closurepath'],
+                                    'java' => $conf['cachejsparams']['javapath']
+                                );
+                            break;
+
+                            case 'yui':
+                                $jsmin_params = array(
+                                    'java' => $conf['cachejsparams']['javapath'],
+                                    'yui' => $conf['cachejsparams']['yuipath']
+                                );
+                                break;
+                            }
+                        }
+
                         /* Separate JS files with a newline since some
                          * compressors may strip trailing terminators. */
                         try {
@@ -493,6 +499,7 @@ HTML;
      * 'login'
      * 'logintasks'
      * 'logout'
+     * 'pixel'
      * 'portal'
      * 'problem'
      * 'sidebar'
@@ -546,6 +553,9 @@ HTML;
         case 'logout':
             return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
 
+        case 'pixel':
+            return self::url('services/images/pixel.php', false, $opts);
+
         case 'prefs':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
                 $url = self::url('services/prefs.php', false, $opts);
@@ -566,7 +576,7 @@ HTML;
 
         case 'problem':
             return self::url('services/problem.php', false, $opts)
-                ->add('return_url', urlencode(self::selfUrl(true, true, true)));
+                ->add('return_url', self::selfUrl(true, true, true));
 
         case 'sidebar':
             return self::url('services/sidebar.php', false, $opts);
@@ -1006,7 +1016,7 @@ HTML;
             !preg_match($schemeRegexp, $webroot) ) {
             /* Store connection parameters in local variables. */
             $server_name = $GLOBALS['conf']['server']['name'];
-            $server_port = $GLOBALS['conf']['server']['port'];
+            $server_port = isset($GLOBALS['conf']['server']['port']) ? $GLOBALS['conf']['server']['port'] : '';
 
             $protocol = 'http';
             switch ($GLOBALS['conf']['use_ssl']) {
@@ -1049,10 +1059,17 @@ HTML;
 
         if (isset($puri['path']) &&
             (substr($puri['path'], 0, 1) == '/') &&
-            !preg_match($schemeRegexp, $webroot)) {
+            (!preg_match($schemeRegexp, $webroot) ||
+             (preg_match($schemeRegexp, $webroot) && isset($puri['scheme'])))) {
             $url .= $puri['path'];
         } elseif (isset($puri['path']) && preg_match($schemeRegexp, $webroot)) {
-            $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];
+            if (substr($puri['path'], 0, 1) == '/') {
+                $pwebroot = parse_url($webroot);
+                $url = $pwebroot['scheme'] . '://' . $pwebroot['host']
+                    . $puri['path'];
+            } else {
+                $url = $webroot . '/' . $puri['path'];
+            }
         } else {
             $url .= '/' . ($webroot ? $webroot . '/' : '') . (isset($puri['path']) ? $puri['path'] : '');
         }
@@ -1393,7 +1410,7 @@ HTML;
         }
 
         /* Return the closed image tag. */
-        return $img . ' src="' . self::base64ImgData($src) . '" />';
+        return $img . ' src="' . (empty($GLOBALS['conf']['nobase64_img']) ? self::base64ImgData($src) : $src) . '" />';
     }
 
     /**
@@ -1416,7 +1433,9 @@ HTML;
         }
 
         /* If we can send as data, no need to get the full path */
-        $src = self::base64ImgData($src);
+        if (!empty($GLOBALS['conf']['nobase64_img'])) {
+            $src = self::base64ImgData($src);
+        }
         if (substr($src, 0, 10) != 'data:image') {
             $src = self::url($src, true, array('append_session' => -1));
         }
@@ -1453,7 +1472,7 @@ HTML;
      *                 the image data if the browser supports, or the URI
      *                 if not.
      */
-    public function base64ImgData($in, $limit = null)
+    static public function base64ImgData($in, $limit = null)
     {
         $dataurl = $GLOBALS['browser']->hasFeature('dataurl');
         if (!$dataurl) {
@@ -1478,7 +1497,7 @@ HTML;
          * base64 encoded size. */
         return (($dataurl === true) ||
                 (filesize($in->fs) <= (($dataurl * 0.75) - 50)))
-            ? 'data:image/' . substr($in->uri, strrpos($in->uri, '.') + 1) . ';base64,' . base64_encode(file_get_contents($in->fs))
+            ? 'data:' . Horde_Mime_Magic::extToMime(substr($in->uri, strrpos($in->uri, '.') + 1)) . ';base64,' . base64_encode(file_get_contents($in->fs))
             : $in->uri;
     }
 
@@ -2079,7 +2098,8 @@ HTML;
             $params->onload = $options['onload'];
         }
         if (!empty($options['params'])) {
-            $params->params = http_build_query(array_map('rawurlencode', $options['params']));
+            // Bug #9903: 3rd parameter must explicitly be '&'
+            $params->params = http_build_query(array_map('rawurlencode', $options['params']), '', '&');
         }
         if (!empty($options['width'])) {
             $params->width = $options['width'];

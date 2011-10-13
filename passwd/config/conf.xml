@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<!-- $Horde: passwd/config/conf.xml,v 1.12.2.1 2008/10/09 17:12:03 jan Exp $ -->
+<!-- $Id$ -->
 <configuration>
  <configsection name="menu" desc="Menu settings">
   <configheader>Menu settings</configheader>
   <configmultienum name="apps" desc="Select any applications that should be
-  linked in Passwd's menu">
+  linked in Passwd's menu" required="false">
    <values>
     <configspecial application="horde" name="apps" />
    </values>
@@ -28,7 +28,7 @@
 
  <configsection name="user">
   <configboolean name="change" desc="Should we allow the user to specify the
-  username?">true</configboolean>
+  username?" required="false">true</configboolean>
   <configlist name="refused" required="false" desc="Define usernames for which
   we will refuse to change passwords.">
   root,bin,daemon,adm,lp,shutdown,halt,uucp,ftp,anonymous,nobody,httpd,operator,guest,diginext,bind,cyrus,courier,games,kmem,mailnull,man,mysql,news,postfix,sshd,tty,www
@@ -37,6 +37,6 @@
 
  <configsection name="password">
   <configboolean name="strengthtests" desc="Should strength tests be done on
-  the new password">false</configboolean>
+  the new password" required="false">true</configboolean>
  </configsection>
 </configuration>

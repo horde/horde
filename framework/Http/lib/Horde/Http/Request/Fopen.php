@@ -1,19 +1,19 @@
 <?php
 /**
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * Resources:
  * http://wezfurlong.org/blog/2006/nov/http-post-from-php-without-curl
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Http
  */
 
 /**
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Http
  */
@@ -62,6 +62,9 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
                 // @TODO check $this->proxyAuthenticationScheme
                 $headers['Proxy-Authorization'] = 'Basic ' . base64_encode($this->proxyUsername . ':' . $this->proxyPassword);
             }
+            if ($this->proxyType != Horde_Http::PROXY_HTTP) {
+                throw new Horde_Http_Exception(sprintf('Proxy type %s not supported by this request type!', $this->proxyType));
+            }
         }
 
         // Authentication settings
@@ -88,6 +91,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         $opts['http']['header'] = implode("\n", $hdr);
         $opts['http']['content'] = $data;
         $opts['http']['timeout'] = $this->timeout;
+        $opts['http']['max_redirects'] = $this->redirects;
 
         $context = stream_context_create($opts);
         $stream = @fopen($uri, 'rb', false, $context);
@@ -106,5 +110,4 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
 
         return new Horde_Http_Response_Fopen($uri, $stream, $headers);
     }
-
 }

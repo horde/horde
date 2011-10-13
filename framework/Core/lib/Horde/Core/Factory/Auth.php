@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Core
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
  */
 
 /**
  * A Horde_Injector:: based Horde_Auth:: factory.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Core
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
  */
 class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
@@ -97,7 +97,7 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
         } elseif (strcasecmp($driver, 'imsp') === 0) {
             $driver = 'Horde_Core_Auth_Imsp';
         } else {
-            $driver = Horde_String::ucfirst(Horde_String::lower(basename($driver)));
+            $driver = implode('_', array_map('Horde_String::ucwords', explode('_', Horde_String::lower(basename($driver)))));
         }
 
         $params = is_null($orig_params)
@@ -178,20 +178,6 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
                 $params['db'] = $this->_injector
                     ->getInstance('Horde_Db_Adapter');
             } else {
-                if (!is_null($orig_params)) {
-                    // Clean the connection params
-                    $dsn = array(
-                        'phptype' => 1,
-                        'socket' => 1,
-                        'port' => 1,
-                        'protocol' => 1,
-                        'hostspec' => 1,
-                        'username' => 1,
-                        'password' => 1,
-                        'database' => 1,
-                    );
-                    $orig_params = array_intersect_key($orig_params, $dsn);
-                }
                 $params['db'] = $this->_injector
                     ->getInstance('Horde_Core_Factory_Db')
                     ->create('horde', is_null($orig_params) ? 'auth' : $orig_params);
@@ -201,6 +187,12 @@ class Horde_Core_Factory_Auth extends Horde_Core_Factory_Base
 
         $params['default_user'] = $GLOBALS['registry']->getAuth();
         $params['logger'] = $this->_injector->getInstance('Horde_Log_Logger');
+        if (!empty($params['count_bad_logins'])) {
+            $params['history_api'] = $this->_injector->getInstance('Horde_History');
+        }
+        if (!empty($params['login_block'])) {
+            $params['lock_api'] = $this->_injector->getInstance('Horde_Lock');
+        }
 
         $auth_ob = Horde_Auth::factory($driver, $params);
         if ($driver == 'Horde_Core_Auth_Application') {

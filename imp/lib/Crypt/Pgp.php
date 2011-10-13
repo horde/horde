@@ -3,14 +3,14 @@
  * The IMP_Crypt_Pgp:: class contains all functions related to handling
  * PGP messages within IMP.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
@@ -356,7 +356,8 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @return stdClass  See Horde_Crypt_Pgp::decrypt().
      * @throws Horde_Crypt_Exception
      */
-    public function verifySignature($text, $address, $signature = '')
+    public function verifySignature($text, $address, $signature = '',
+                                    $charset = null)
     {
         if (!empty($signature)) {
             $packet_info = $this->pgpPacketInformation($signature);
@@ -378,6 +379,10 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $options = array('type' => 'detached-signature', 'signature' => $signature);
         }
         $options['pubkey'] = $public_key;
+
+        if (!empty($charset)) {
+            $options['charset'] = $charset;
+        }
 
         return $this->decrypt($text, $options);
     }
@@ -670,6 +675,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     {
         $title = _("Import PGP Key");
         require IMP_TEMPLATES . '/common-header.inc';
+
+        /* Need to use regular status notification - AJAX notifications won't
+         * show in popup windows. */
+        if (IMP::getViewMode() == 'dimp') {
+            $GLOBALS['notification']->detach('status');
+            $GLOBALS['notification']->attach('status');
+        }
         IMP::status();
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
