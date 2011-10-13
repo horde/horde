@@ -943,7 +943,7 @@ class Nag_Api extends Horde_Registry_Api
             !empty($task['completed']),
             isset($task['category']) ? $task['category'] : '',
             isset($task['alarm']) ? $task['alarm'] : 0,
-            isset($task['methods']) ? $task['alarm'] : null,
+            isset($task['methods']) ? $task['methods'] : null,
             isset($task['uid']) ? $task['uid'] : null,
             isset($task['parent_id']) ? $task['parent_id'] : '',
             !empty($task['private']),
