@@ -2,17 +2,17 @@
 /**
  * This class provides the storage for a preference scope.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Prefs
  */
-class Horde_Prefs_Scope implements Serializable
+class Horde_Prefs_Scope implements Iterator, Serializable
 {
     /**
      * Is the object being initialized?
@@ -248,6 +248,34 @@ class Horde_Prefs_Scope implements Serializable
             unset($this->_dirty[$pref]);
         }
     }
+
+    /* Iterator methods. */
+
+    public function current()
+    {
+        return current($this->_prefs);
+    }
+
+    public function key()
+    {
+        return key($this->_prefs);
+    }
+
+    public function next()
+    {
+        next($this->_prefs);
+    }
+
+    public function rewind()
+    {
+        reset($this->_prefs);
+    }
+
+    public function valid()
+    {
+        return (key($this->_prefs) !== null);
+    }
+
 
     /* Serializable methods. */
 

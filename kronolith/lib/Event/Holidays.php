@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @see     http://pear.php.net/packages/Date_Holidays
  * @author  Stephan Hohmann <webmaster@dasourcerer.net>
@@ -43,7 +43,7 @@ class Kronolith_Event_Holidays extends Kronolith_Event
         $this->stored = true;
         $this->initialized = true;
         $this->title = $dhEvent->getTitle();
-        $this->start = new Horde_Date($dhEvent->_date->getTime());
+        $this->start = new Horde_Date($dhEvent->getDate()->getDate());
         $this->end = new Horde_Date($this->start);
         $this->end->mday++;
         $this->id = $dhEvent->getInternalName() . '-' . $this->start->dateString();

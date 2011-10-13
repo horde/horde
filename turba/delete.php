@@ -2,7 +2,7 @@
 /**
  * Turba delete.php.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -20,14 +20,12 @@ $source = Horde_Util::getFormData('source');
 $key = Horde_Util::getFormData('key');
 $driver = $injector->getInstance('Turba_Factory_Driver')->create($source);
 
-if ($conf['documents']['type'] != 'none') {
-    try {
-        $object = $driver->getObject($key);
-        $object->deleteFiles();
-    } catch (Turba_Exception $e) {
-        $notification->push($e, 'horde.error');
-        Horde::url($prefs->getValue('initial_page'), true)->redirect();
-    }
+try {
+    $object = $driver->getObject($key);
+    $object->deleteFiles();
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
+    Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
 try {

@@ -16,17 +16,17 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:06:25</time>
+ <date>2011-07-20</date>
+ <time>23:43:57</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -57,10 +57,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="migration">
-    <dir name="Horde_Cache">
-     <file name="1_horde_cache_base_tables.php" role="data" />
-    </dir> <!-- /migration/Horde_Cache -->
-   </dir> <!-- /migration -->
+    <dir name="Horde">
+     <dir name="Cache">
+      <file name="1_horde_cache_base_tables.php" role="data" />
+     </dir> <!-- /migration/Horde/Cache -->
+    </dir> <!-- /migration/Horde -->
+    </dir> <!-- /migration -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -112,14 +114,15 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>APC</name>
+    <channel>pecl.php.net</channel>
+    <min>3.1.1</min>
+   </package>
+   <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
    </package>
-   <extension>
-    <name>apc</name>
-    <min>2.0.0</min>
-   </extension>
    <extension>
     <name>eaccelerator</name>
     <min>0.9.5</min>
@@ -142,8 +145,8 @@
    <install as="Horde/Cache/Storage/Sql.php" name="lib/Horde/Cache/Storage/Sql.php" />
    <install as="Horde/Cache/Storage/Stack.php" name="lib/Horde/Cache/Storage/Stack.php" />
    <install as="Horde/Cache/Storage/Xcache.php" name="lib/Horde/Cache/Storage/Xcache.php" />
-   <install as="migration/1_horde_cache_base_tables.php" name="migration/Horde_Cache/1_horde_cache_base_tables.php" />
-  </filelist>
+   <install as="migration/1_horde_cache_base_tables.php" name="migration/Horde/Cache/1_horde_cache_base_tables.php" />
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -156,7 +159,7 @@
     <api>alpha</api>
    </stability>
    <date>2004-01-01</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial packaging.
    </notes>
@@ -171,7 +174,7 @@ Initial packaging.
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Add SQL backend.
@@ -196,7 +199,7 @@ Initial packaging.
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -211,7 +214,7 @@ Initial packaging.
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -226,7 +229,7 @@ Initial packaging.
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -241,7 +244,7 @@ Initial packaging.
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -253,8 +256,60 @@ Initial packaging.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-04-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Relax required lzf extension version.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix expiring entries in sub-storages of Stack driver (Bug #9949).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix memcache duplicate keys (Bug #10072; goncalo.queiros@portugalmail.net).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

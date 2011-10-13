@@ -2,14 +2,16 @@
 /**
  * Browse view (for files).
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Chora
+ * @author   Anil Madhavapeddy <anil@recoil.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Chora
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
@@ -53,10 +55,11 @@ require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
 require CHORA_TEMPLATES . '/log/header.inc';
 
-reset($logs);
 $view = $injector->createInstance('Horde_View');
 $currentDay = null;
 echo '<div class="commit-list">';
+
+reset($logs);
 foreach ($logs as $log) {
     $day = date('Y-m-d', $log->queryDate());
     if ($day != $currentDay) {
@@ -65,5 +68,6 @@ foreach ($logs as $log) {
     }
     echo $view->renderPartial('app/views/logMessage', array('object' => $log));
 }
+
 echo '</div>';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

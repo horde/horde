@@ -10,29 +10,24 @@ class Whups_Block_Myqueries extends Horde_Core_Block
     {
         parent::__construct($app, $params);
 
-        $this->_name = _("My Queries");
+        $this->_name = _("Saved Queries");
     }
 
     /**
      */
     protected function _content()
     {
-        require_once WHUPS_BASE . '/lib/Query.php';
-
-        $qManager = new Whups_QueryManager();
+        $qManager = new Whups_Query_Manager();
         $queries = $qManager->listQueries($GLOBALS['registry']->getAuth(), true);
-        if ($queries instanceof PEAR_Error) {
-            return $queries;
-        }
-        $myqueries = Whups_View::factory('SavedQueries',
-                                         array('results' => $queries));
-
+        $myqueries = new Whups_View_SavedQueries(
+            array('results' => $queries));
         Horde::startBuffer();
         $myqueries->html(false);
         $html = Horde::endBuffer();
         if ($html) {
             return $html;
         }
+
         return '<p><em>' . _("No queries have been saved.") . '</em></p>';
     }
 

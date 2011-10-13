@@ -1,7 +1,8 @@
-What is Skeleton?
-=================
+===================
+ What is Skeleton?
+===================
 
-:Contact: foo@example.com
+:Contact: horde@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -15,15 +16,15 @@ certification mark of the `Open Source Initiative`_.
 
 
 Obtaining Skeleton
-------------------
+==================
 
 Further information on Skeleton and the latest version can be obtained at
 
-  http://www.horde.org/skeleton/
+  http://www.horde.org/apps/skeleton
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Skeleton distribution:
 
@@ -38,34 +39,34 @@ The following documentation is available in the Skeleton distribution:
 
 
 Installation
-------------
+============
 
 Instructions for installing Skeleton can be found in the file INSTALL_ in the
 ``docs/`` directory of the Skeleton distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Skeleton, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
+Horde LLC runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
-appearances on IRC, on the channel #horde on the freenode Network
+appearances on IRC, on the channel #horde on the Freenode Network
 (irc.freenode.net).
 
 
 Licensing
----------
+=========
 
 For licensing and copyright information, please see the file COPYING_/LICENSE_
 [pick one] in the Skeleton distribution.
@@ -75,12 +76,13 @@ Thanks,
 The Skeleton team
 
 
-.. _README: ?f=README.html
-.. _COPYING: http://www.horde.org/licenses/gpl.php
-.. _LICENSE: http://www.horde.org/licenses/asl.php
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CREDITS: ?f=CREDITS.html
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _LICENSE: http://www.horde.org/licenses/apache
+.. _LICENSE: http://www.horde.org/licenses/bsd
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/TODO: ?f=TODO.html
-.. _docs/UPGRADING: ?f=UPGRADING.html
+.. _docs/INSTALL: INSTALL
+.. _docs/TODO: TODO
+.. _docs/UPGRADING: UPGRADING

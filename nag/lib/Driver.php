@@ -3,7 +3,7 @@
  * Nag_Driver:: defines an API for implementing storage backends for Nag.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jon Parise <jon@horde.org>
  * @author  Jan Schneider <jan@horde.org>
@@ -160,7 +160,7 @@ class Nag_Driver
 
         $signature = serialize(array($tasklist, $driver, $params));
         if (!isset($instances[$signature])) {
-            $instances[$signature] =& Nag_Driver::factory($tasklist, $driver, $params);
+            $instances[$signature] = Nag_Driver::factory($tasklist, $driver, $params);
         }
 
         return $instances[$signature];

@@ -2,7 +2,7 @@
 /**
  * Filters script.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -82,11 +82,11 @@ case 'rule_enable':
         break;
 
     case 'rule_up':
-        $filters->ruleUp($vars->rulenumber, $vars->steps || 1);
+        $filters->ruleUp($vars->rulenumber, $vars->get('steps', 1));
         break;
 
     case 'rule_down':
-        $filters->ruleDown($vars->rulenumber, $vars->steps || 1);
+        $filters->ruleDown($vars->rulenumber, $vars->get('steps', 1));
         break;
 
     case 'rule_disable':

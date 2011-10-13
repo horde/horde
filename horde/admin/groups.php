@@ -1,20 +1,25 @@
 <?php
 /**
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('admin' => true));
+$permission = 'groups';
+Horde_Registry::appInit('horde');
+if (!$registry->isAdmin() && 
+    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
+    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
+}
 
 $groups = $injector->getInstance('Horde_Group');
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
-$form = 'add.inc';
+$form = $groups->readOnly() ? null : 'add.inc';
 $actionID = Horde_Util::getFormData('actionID');
 $gid = Horde_Util::getFormData('gid');
 

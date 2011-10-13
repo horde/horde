@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Server
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 
 /**
  * The name of a person in "firstname lastname" format.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Server
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Object_Attribute_Firstnamelastname
@@ -52,7 +52,7 @@ extends Horde_Kolab_Server_Object_Attribute_Value
     public function value()
     {
         $values = $this->attribute->value();
-        return sprintf('%s %s', $values[0], $values[1]);
+        return sprintf('%s %s', $values['givenName'][0], $values['sn'][0]);
     }
 
 }

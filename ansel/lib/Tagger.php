@@ -3,14 +3,14 @@
  * The Ansel_Tagger:: class wraps Ansel's interaction with the Content/Tagger
  * system.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Ansel
  */
 class Ansel_Tagger
@@ -37,21 +37,24 @@ class Ansel_Tagger
      */
     public function __construct(Content_Tagger $tagger)
     {
-        /* Remember the types to avoid having Content query them again. */
+        // Remember the types to avoid having Content query them again.
         $key = 'ansel.tagger.type_ids';
         $ids = $GLOBALS['injector']->getInstance('Horde_Cache')->get($key, 360);
         if ($ids) {
             $this->_type_ids = unserialize($ids);
         } else {
-            $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
+            $type_mgr = $GLOBALS['injector']
+                ->getInstance('Content_Types_Manager');
             try {
                 $types = $type_mgr->ensureTypes(array('gallery', 'image'));
             } catch (Content_Exception $e) {
                 throw new Ansel_Exception($e);
             }
-            $this->_type_ids = array('gallery' => (int)$types[0],
-                                     'image' => (int)$types[1]);
-            $GLOBALS['injector']->getInstance('Horde_Cache')->set($key, serialize($this->_type_ids));
+            $this->_type_ids = array(
+                'gallery' => (int)$types[0],
+                'image' => (int)$types[1]);
+            $GLOBALS['injector']->getInstance('Horde_Cache')
+                ->set($key, serialize($this->_type_ids));
         }
 
         $this->_tagger = $tagger;
@@ -83,10 +86,11 @@ class Ansel_Tagger
 
         try {
             $this->_tagger->tag(
-                    $owner,
-                    array('object' => $localId,
-                          'type' => $this->_type_ids[$content_type]),
-                    $tags);
+                $owner,
+                array(
+                    'object' => $localId,
+                    'type' => $this->_type_ids[$content_type]),
+                $tags);
         } catch (Content_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -106,10 +110,20 @@ class Ansel_Tagger
     {
         try {
             if (is_array($localId)) {
+                foreach ($localId as &$lid) {
+                    $lid = (string)$lid;
+                }
                 return $this->_tagger->getTagsByObjects($localId, $type);
             }
 
-            return $this->_tagger->getTags(array('objectId' => array('object' => $localId, 'type' => $this->_type_ids[$type])));
+            return $this->_tagger->getTags(
+                array(
+                    'objectId' => array(
+                        'object' => (string)$localId,
+                        'type' => $this->_type_ids[$type]
+                    )
+                )
+            );
         } catch (Content_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -289,7 +303,7 @@ class Ansel_Tagger
      * @return array  An array of hashes, tag_id, tag_name, and count.
      * @throws Ansel_Exception
      */
-    public function getTagInfo($tags, $limit = 500, $type = null)
+    public function getTagInfo($tags = null, $limit = 500, $type = null)
     {
         $filter = array('typeId' => empty($type) ? array_values($this->_type_ids) : $this->_type_ids[$type],
                         'tagIds' => $tags,
@@ -311,8 +325,7 @@ class Ansel_Tagger
      *                       - user (array) - only include objects owned by
      *                         these users.
      *
-     * @return  A hash of 'calendars' and 'events' that each contain an array
-     *          of calendar_ids and event_uids respectively.
+     * @return  A hash of 'gallery' and 'image' ids.
      * @throws Ansel_Exception
      */
     public function search($tags, $filter = array())
@@ -320,12 +333,12 @@ class Ansel_Tagger
         $args = array();
 
         /* These filters are mutually exclusive */
-        if (array_key_exists('user', $filter)) {
+        if (!empty($filter['user'])) {
             $args['userId'] = $filter['user'];
         } elseif (!empty($filter['gallery'])) {
-            // Only events located in specific calendar(s)
+            // Only events located in specific galleries
             if (!is_array($filter['gallery'])) {
-                $filter['gallry'] = array($filter['gallery']);
+                $filter['gallery'] = array($filter['gallery']);
             }
             $args['gallery'] = $filter['gallery'];
         }

@@ -3,10 +3,10 @@
  * Kronolith_Driver defines an API for implementing storage backends for
  * Kronolith.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
@@ -149,7 +149,9 @@ class Kronolith_Driver
          * ability. */
         $results = array();
 
-        $events = $this->listEvents($query->start, $query->end);
+        $events = $this->listEvents(
+            (!empty($query->start) ? $query->start : null),
+            (!empty($query->end) ? $query->end : null));
         foreach ($events as $day => $day_events) {
             foreach ($day_events as $event) {
                 if ((((!isset($query->start) ||
@@ -305,7 +307,7 @@ class Kronolith_Driver
      *
      * @throws Kronolith_Exception
      */
-    public function exists()
+    public function exists($uid, $calendar_id = null)
     {
         throw new Kronolith_Exception('Not supported');
     }
@@ -376,10 +378,12 @@ class Kronolith_Driver
     /**
      * Stub for child class to override if it can implement.
      *
+     * @todo Remove in Kronolith 4.0
+     * @deprecated  Now lives in Kronolith::
      * @throws Kronolith_Exception
      */
     public function removeUserData($user)
     {
-        throw new Kronolith_Exception(_("Removing user data is not supported with the current calendar storage backend."));
+        throw new Kronolith_Exception('Deprecated.');
     }
 }

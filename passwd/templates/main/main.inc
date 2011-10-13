@@ -50,7 +50,7 @@ $item = 1;
 <?php require HORDE_BASE . '/services/sidebar.php'; ?>
 <?php $notification->notify(array('listeners' => 'status')) ?>
 
-<form method="post" action="<?php echo Horde::url('main.php', false, -1, true) ?>" name="passwd">
+<form method="post" action="<?php echo Horde::url('index.php', false, -1, true) ?>" name="passwd">
 <?php echo Horde_Util::formInput() ?>
 <?php if ($conf['backend']['backend_list'] == 'hidden'): ?>
 <input type="hidden" name="backend" value="<?php echo htmlspecialchars($backend_key) ?>" />

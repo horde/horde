@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script finishes the installation of Horde Groupware Webmail Edition.
+ */
+
+// Enable error reporting.
+$error_level = E_ALL & ~E_STRICT;
+if (defined('E_DEPRECATED')) {
+    $error_level &= ~E_DEPRECATED;
+}
+ini_set('error_reporting', $error_level);
+ini_set('display_errors', 1);
+
+require_once 'PEAR/Config.php';
+require_once PEAR_Config::singleton()
+    ->get('horde_dir', null, 'pear.horde.org') . '/lib/Application.php';
+
+// Load the CLI environment.
+$cli = new Horde_Core_Cli();
+if (!$cli->runningFromCLI()) {
+    $cli->fatal('This script must be run from the command line.');
+}
+
+// Start.
+$cli->writeln();
+$cli->writeln($cli->yellow($cli->bold('Installing Horde Groupware Webmail Edition')));
+
+$bundle = new Horde_Bundle($cli);
+$bundle->init();
+$bundle->configDb();
+$bundle->migrateDb();
+$bundle->writeAllConfigs();
+$bundle->configAuth();
+
+// Finished.
+$cli->writeln();
+$cli->writeln($cli->yellow($cli->bold('Thank you for using Horde Groupware Webmail Edition!')));
+$cli->writeln();

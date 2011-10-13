@@ -1,7 +1,7 @@
 <?php
 /**
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @category   Horde
  * @package    Util
  * @subpackage UnitTests
@@ -948,6 +948,25 @@ twelve',
                                               0 => 'six',
                                               1 => 'seven ',
                                               2 => 'eight',
+                                              ),
+                                       ),
+                                $this->readCsv('quote' . $i . '.csv'));
+        }
+
+        for ($i = 6; $i <= 7; $i++) {
+            $this->assertEquals(array (
+                                       0 =>
+                                       array (
+                                              0 => 'one',
+                                              1 => 'two',
+                                              2 => 'three',
+                                              ),
+                                       1 =>
+                                       array (
+                                              0 => 'four',
+                                              1 => 'five"six',
+                                              2 => 'seven
+"eight"',
                                               ),
                                        ),
                                 $this->readCsv('quote' . $i . '.csv'));

@@ -1,44 +1,38 @@
-<div id="menu"><h1><tag:header /></h1></div>
+<div class="modal-form">
 
 <form method="post" action="<tag:logintasks_url />" id="logintasks_confirm" name="logintasks_confirm">
+
+<div class="form">
+<div class="form-header"><tag:header /></div>
+
 <input type="hidden" name="logintasks_page" value="1" />
 <tag:maint_postdata />
 
-<table width="100%" cellspacing="2">
- <tr>
-  <td><tag:notify /></td>
- </tr>
-
 <loop:tasks>
- <tr>
-  <td class="light">
+<div class="logintasks-item">
 <if:confirm>
-   <input type="checkbox" class="checkbox" name="logintasks_confirm_<tag:tasks.key />"<if:tasks.checked> checked="checked"</if:tasks.checked> />
+   <input type="checkbox" class="checkbox" name="logintasks_confirm_<tag:tasks.key />" id="logintasks_confirm_<tag:tasks.key />"<if:tasks.checked> checked="checked"</if:tasks.checked> />
 </if:confirm>
    <if:confirm><label for="logintasks_confirm_<tag:tasks.key />"></if:confirm><tag:tasks.descrip /><if:confirm></label></if:confirm>
-  </td>
- </tr>
+</div>
 </loop:tasks>
 
- <tr>
-  <td></td>
- </tr>
-
- <tr>
-  <td>
+<div>
 <if:confirm>
-   <input name="ok" type="submit" class="button" value="<gettext>Perform Login Tasks</gettext>" />
-   <input id="logintasks_skip" style="display:none" type="button" class="button" value="<gettext>Skip Login Tasks</gettext>" />
+   <input name="ok" type="submit" class="button submit-button" value="<gettext>Perform Login Tasks</gettext>" />
+   <input id="logintasks_skip" style="display:none" type="button" class="button submit-button" value="<gettext>Skip Login Tasks</gettext>" />
 </if:confirm>
 <if:agree>
    <input name="ok" type="submit" name="agree" class="button" value="<gettext>Yes, I Agree</gettext>" />
-   <input type="submit" name="not_agree" class="button" value="<gettext>NO, I Do NOT Agree</gettext>" />
+   <input type="submit" name="not_agree" class="button submit-button" value="<gettext>NO, I Do NOT Agree</gettext>" />
 </if:agree>
 <if:notice>
-   <input name="ok" type="submit" class="button" value="<gettext>Click to Continue</gettext>" />
+   <input name="ok" type="submit" class="button submit-button" value="<gettext>Click to Continue</gettext>" />
 </if:notice>
-  </td>
- </tr>
-</table>
+</div>
+
+</div>
 
 </form>
+
+</div>

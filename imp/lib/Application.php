@@ -5,14 +5,14 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with IMP through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@curecanti.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -57,7 +57,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (5.0.1-git)';
+    public $version = 'H4 (5.0.14-git)';
 
     /**
      * Cached values to add to the session after authentication.
@@ -266,46 +266,45 @@ class IMP_Application extends Horde_Registry_Application
         $menu->addArray(array(
             'icon' => 'folders/inbox.png',
             'text' => _("_Inbox"),
-            'url' => IMP::generateIMPUrl($menu_mailbox_url, 'INBOX')
+            'url' => IMP_Mailbox::get('INBOX')->url($menu_mailbox_url)
         ));
 
-        if ($imp_imap->imap) {
-            if ($prefs->getValue('use_trash') &&
-                $prefs->getValue('empty_trash_menu') &&
-                ($trash_folder = IMP_Mailbox::getPref('trash_folder')) &&
-                ($trash_folder->vtrash || !$trash_folder->readonly)) {
-                $menu->addArray(array(
-                    'class' => '__noselection',
-                    'icon' => 'empty_trash.png',
-                    'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
-                    'text' => _("Empty _Trash"),
-                    'url' => IMP::generateIMPUrl($menu_mailbox_url, $trash_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
-                ));
-            }
+        if ($imp_imap->access(IMP_Imap::ACCESS_TRASH) &&
+            $prefs->getValue('use_trash') &&
+            $prefs->getValue('empty_trash_menu') &&
+            ($trash_folder = IMP_Mailbox::getPref('trash_folder')) &&
+            ($trash_folder->vtrash || $trash_folder->access_expunge)) {
+            $menu->addArray(array(
+                'class' => '__noselection',
+                'icon' => 'empty_trash.png',
+                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'text' => _("Empty _Trash"),
+                'url' => $trash_folder->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+            ));
+        }
 
-            $spam_folder = $prefs->getValue('spam_folder');
-            if ($prefs->getValue('empty_spam_menu') &&
-                ($spam_folder = IMP_Mailbox::getPref('spam_folder')) &&
-                !$spam_folder->readonly) {
-                $menu->addArray(array(
-                    'class' => '__noselection',
-                    'icon' =>  'empty_spam.png',
-                    'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
-                    'text' => _("Empty _Spam"),
-                    'url' => IMP::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
-                ));
-            }
+        if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
+            $prefs->getValue('empty_spam_menu') &&
+            ($spam_folder = IMP_Mailbox::getPref('spam_folder')) &&
+            $spam_folder->access_expunge) {
+            $menu->addArray(array(
+                'class' => '__noselection',
+                'icon' =>  'empty_spam.png',
+                'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                'text' => _("Empty _Spam"),
+                'url' => $spam_folder->url($menu_mailbox_url)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox')))
+            ));
         }
 
         if (IMP::canCompose()) {
             $menu->addArray(array(
                 'icon' => 'compose.png',
                 'text' => _("_New Message"),
-                'url' => IMP::composeLink(array('mailbox' => IMP::$mailbox))
+                'url' => IMP::composeLink()
             ));
         }
 
-        if ($imp_imap->allowFolders()) {
+        if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $menu->addArray(array(
                 'icon' => 'folders/folder.png',
                 'text' => _("_Folders"),
@@ -313,7 +312,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        if ($imp_imap->imap) {
+        if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $menu->addArray(array(
                 'icon' => 'search.png',
                 'text' =>_("_Search"),
@@ -519,39 +518,40 @@ class IMP_Application extends Horde_Registry_Application
     public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
                                   array $params = array())
     {
-        global $injector, $prefs, $registry;
+        global $injector, $registry;
 
-        /* Run filters now */
-        if ($prefs->getValue('filter_on_display')) {
-            $injector->getInstance('IMP_Filter')->filter('INBOX');
+        IMP_Mailbox::get('INBOX')->filterOnDisplay();
+
+        if (IMP::canCompose()) {
+            $tree->addNode(
+                strval($parent) . 'compose',
+                $parent,
+                _("New Message"),
+                0,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('compose.png'),
+                    'url' => IMP::composeLink()
+                )
+            );
         }
 
-        $tree->addNode(
-            strval($parent) . 'compose',
-            $parent,
-            _("New Message"),
-            0,
-            false,
-            array(
-                'icon' => Horde_Themes::img('compose.png'),
-                'url' => IMP::composeLink()
-            )
-        );
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+            $tree->addNode(
+                strval($parent) . 'search',
+                $parent,
+                _("Search"),
+                0,
+                false,
+                array(
+                    'icon' => Horde_Themes::img('search.png'),
+                    'url' => Horde::url('search.php')
+                )
+            );
+        }
 
-        /* Add link to the search page. */
-        $tree->addNode(
-            strval($parent) . 'search',
-            $parent,
-            _("Search"),
-            0,
-            false,
-            array(
-                'icon' => Horde_Themes::img('search.png'),
-                'url' => Horde::url('search.php')
-            )
-        );
-
-        if ($injector->getInstance('IMP_Factory_Imap')->create()->pop3) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             return;
         }
 
@@ -561,6 +561,7 @@ class IMP_Application extends Horde_Registry_Application
         $imaptree = $injector->getInstance('IMP_Imap_Tree');
         $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
         $imaptree->createTree($tree, array(
+            'open' => false,
             'parent' => $parent,
             'poll_info' => true
         ));
@@ -624,6 +625,7 @@ class IMP_Application extends Horde_Registry_Application
         /* Inline script. */
         Horde::addInlineScript(
           '$(window.document).bind("mobileinit", function() {
+              $.mobile.page.prototype.options.addBackBtn = true;
               $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
               $.mobile.loadingMessage = "' . _("loading") . '";
            });'

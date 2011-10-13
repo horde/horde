@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Core
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
  */
 
 /**
  * A Horde_Injector:: based factory for creating Horde_Db_Adapter objects.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Core
  * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Core
  */
 class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
@@ -35,19 +35,20 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
     private $_instances = array();
 
     /**
-     * Return the DB instance.
+     * Returns the DB instance.
      *
-     * @param string $app  The application.
-     * @param mixed $type  The type. If this is an array, this is used as
-     *                     the configuration array.
+     * @param string $app            The application.
+     * @param string|array $backend  The backend, see Horde::getDriverConfig().
+     *                               If this is an array, this is used as the
+     *                               configuration array.
      *
      * @return Horde_Db_Adapter  The singleton instance.
      * @throws Horde_Exception
      * @throws Horde_Db_Exception
      */
-    public function create($app = 'horde', $type = null)
+    public function create($app = 'horde', $backend = null)
     {
-        $sig = hash('md5', serialize(array($app, $type)));
+        $sig = hash('md5', serialize(array($app, $backend)));
 
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];
@@ -57,9 +58,9 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             ? false
             : $GLOBALS['registry']->pushApp($app);
 
-        $config = is_array($type)
-            ? $type
-            : $this->getConfig($type);
+        $config = is_array($backend)
+            ? $backend
+            : $this->getConfig($backend);
 
         /* Determine if we are using the base SQL config. */
         if (isset($config['driverconfig']) &&
@@ -68,9 +69,13 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             return $this->_instances[$sig];
         }
 
-        // Prevent DSN from getting polluted
-        if (!is_array($type) && $type == 'auth') {
-            unset($config['query_auth'],
+        // Prevent DSN from getting polluted (this only applies to
+        // non-custom auth type connections. All other custom sql
+        // configurations MUST be cleansed prior to passing to the
+        // factory (at least until Horde 5).
+        if (!is_array($backend) && $backend == 'auth') {
+            unset($config['driverconfig'],
+                  $config['query_auth'],
                   $config['query_add'],
                   $config['query_getpw'],
                   $config['query_update'],
@@ -79,7 +84,10 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                   $config['query_list'],
                   $config['query_exists'],
                   $config['encryption'],
-                  $config['show_encryption']);
+                  $config['show_encryption'],
+                  $config['username_field'],
+                  $config['password_field'],
+                  $config['table']);
         }
         unset($config['umask']);
 
@@ -101,9 +109,9 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
     /**
      */
-    public function getConfig($type)
+    public function getConfig($backend)
     {
-        return Horde::getDriverConfig($type, 'sql');
+        return Horde::getDriverConfig($backend, 'sql');
     }
 
     /**

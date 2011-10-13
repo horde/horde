@@ -74,7 +74,9 @@ div#quota {
 
 /* SpellChecker styles. */
 #spellcheck {
+    border-right: 1px solid silver;
     color: #000;
+    font-size: 100%;
 }
 .spellcheckChecking, .spellcheckIncorrect {
     color: red;
@@ -85,6 +87,10 @@ div#quota {
 .spellcheckIncorrect, .spellcheckCorrected {
     text-decoration: underline;
     cursor: pointer;
+}
+#spellcheck img {
+    padding-right: 2px;
+    vertical-align: top;
 }
 
 /* Splitbar styles. */
@@ -248,6 +254,7 @@ div.contextMenu div.msCheck, div.contextMenu div.msCheckOn {
 /* Rows (vertical mode) */
 div.vpRowVert {
     height: auto;
+    border-bottom: 1px solid silver;
 }
 div.vpRowVert div {
     font-size: 100%;
@@ -259,7 +266,6 @@ div.vpRowVert div.msgStatus {
     width: 15%;
 }
 div.vpRowVert div.msgFrom {
-    font-weight: bold;
     width: auto;
 }
 div.vpRowVert div.msgDate {
@@ -269,17 +275,13 @@ div.vpRowVert div.msgDate {
     width: auto;
 }
 div.vpRowVert div.msgSubject {
+    color: darkgray;
     float: none;
-    font-style: italic;
     margin-right: 2px;
     width: auto;
 }
 div.vpRowVert div.msgSubject span.flagUser {
     font-style: normal;
-}
-
-div.vpRowVert.flagUnseen {
-    font-weight: normal;
 }
 
 /* ViewPort - scroller */
@@ -426,66 +428,68 @@ span.iconImgSidebar {
 
 /* Actions */
 .dimpActions {
-    background: #efefef;
-    padding: 4px 2px;
-    border: 1px silver solid;
     background: transparent url("../graphics/backhead_s2.png") repeat-x;
-    height: 16px;
+    border: 1px silver solid;
+    height: 20px;
+    padding: 4px 2px;
 }
 .dimpActions div {
-    cursor: pointer;
+    border: 1px solid silver;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
     float: left;
-    padding-right: 6px;
+    margin-right: 5px;
+    overflow: hidden;
+    padding: 1px 0;
 }
-.dimpActions a, .dimpActions a:visited, .dimpActions label {
+.dimpActions a, .dimpActions a:visited {
     color: #000;
-    font-size: 90%;
+    cursor: pointer;
     font-weight: bold;
-    white-space: nowrap;
     padding: 2px 4px 4px 4px;
+    white-space: nowrap;
 }
-.dimpActions a img {
-    margin-right: 4px;
-    vertical-align: top;
+.dimpActions a, .dimpActions a:visited, .dimpActions div.disabled a:hover {
+    filter: alpha(opacity=60);
+    -moz-opacity: .6;
+    opacity: .6;
 }
 .dimpActions .iconImg {
     vertical-align: top;
-}
-.dimpActions a:hover {
-    background-color: #e3e3e3;
-    text-decoration: none;
 }
 .dimpActions span.popdown, .dimpActions span.spellcheckPopdownImg, span.popdownImg {
     filter: alpha(opacity=50);
     -moz-opacity: .5;
     opacity: .5;
 }
-.dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover, span.popdownImg:hover {
+.dimpActions span.popdown, .dimpActions span.spellcheckPopdownImg {
+    margin: -1px 0;
+    padding: 1px 0;
+}
+.dimpActions span.popdownSep {
+    border-left: 1px solid silver;
+    padding: 2px 0 20px;
+}
+.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover, span.popdownImg:hover {
     filter: alpha(opacity=100);
     -moz-opacity: 1;
     opacity: 1;
 }
-.dimpActions span.spellcheckPopdownImg:hover, span.popdownImg {
-    border: 0;
-    margin: 0;
-}
-.dimpActions .disabled a:hover {
-    background-color: transparent;
-}
-.dimpactions .disabled, .dimpActions .disabled a, .dimpActions .disabled a:visited, .dimpActions .disabled a:active, .dimpActions .disabled a:hover {
-    color: silver !important;
-    cursor: default;
+.dimpActions a:hover, .dimpActions span.popdown:hover, .dimpActions span.spellcheckPopdownImg:hover {
+    background-color: lightgrey;
     text-decoration: none;
 }
-.dimpActions .disabled span.iconImg, .dimpActions .disabled span.spellcheckPopdownImg, .dimpActions .disabled img {
+.dimpactions div.disabled, .dimpActions div.disabled a, .dimpActions div.disabled a:visited, .dimpActions div.disabled .popdownImg {
+    background-color: transparent !important;
+    color: silver !important;
+    cursor: default !important;
+    text-decoration: none;
+}
+.dimpActions div.disabled span.iconImg, .dimpActions div.disabled span.spellcheckPopdownImg, .dimpActions div.disabled img {
     filter: alpha(opacity=25);
     -moz-opacity: .25;
     opacity: .25;
-}
-.dimpActions .disabled span.popdown:hover, .dimpActions .disabled span.spellcheckPopdownImg {
-    border: 0;
-    cursor: default;
-    margin: 0;
 }
 
 #button_compose, #button_checkmail {
@@ -562,6 +566,9 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 #partlist td {
     padding-bottom: 2px;
     padding-right: 3px;
+}
+#partlist td.partlistempty {
+    display: none;
 }
 
 #partlist_toggle span.attachmentImg {
@@ -661,7 +668,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgwrite .dimpOptions div {
     padding-bottom: 0;
 }
-.msgwrite .dimpOptions label, #replyallnotice, #replylistnotice {
+.msgwrite .dimpOptions label {
     cursor: pointer;
 }
 #noticerow li span.closeImg {
@@ -675,25 +682,37 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgwrite td {
     font-size: 90%;
 }
+.msgwrite td .button {
+    font-size: 100%;
+}
 .msgwrite td.label {
     white-space: nowrap;
     text-align: right;
     padding: 4px 4px 0 4px;
 }
 .msgwrite span.loadingImg {
-    display: -moz-inline-stack;
-    display: inline-block;
     padding: 1px;
-    position: relative;
-    right: 28px;
+    position: absolute;
+    right: 10px;
+    top: 4px;
     filter: alpha(opacity=75);
     -moz-opacity: .75;
     opacity: .75;
 }
 
+.msgwrite .sendtextarea {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
 #noticerow .notices li {
     display: -moz-inline-stack;
     display: inline-block;
+    padding: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 #composeMessageParent {
@@ -729,7 +748,7 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     max-height: 125px;
     overflow-x: hidden;
     overflow-y: auto;
-    padding-left: 15px;
+    padding: 0 0 2px 15px;
     width: 500px;
 }
 #attach_list li {
@@ -749,6 +768,9 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 }
 #attach_list span.attachName:hover, #attach_list span.remove:hover {
     color: red;
+}
+#attach_list span.attachNameFwdmsg {
+    font-weight: bold;
 }
 
 #upload_wait {
@@ -817,7 +839,7 @@ a.address:hover img {
     border: 1px solid #999;
     cursor: default;
     float: right;
-    margin-top: -2px;
+    margin: -1px 2px 0 0;
     padding-left: 1px;
     padding-right: 1px;
     -moz-border-radius: 4px;
@@ -827,11 +849,20 @@ a.address:hover img {
 #qsearch form {
     display: inline;
 }
-#qsearch_icon {
+#qsearch span.searchImg {
     background: url("../graphics/search.png") center no-repeat;
     cursor: pointer;
     margin-right: 0;
     padding-top: 2px;
+}
+#qsearch span.popdownImg {
+    cursor: pointer;
+    margin: 0 -4px 0 -8px;
+}
+#qsearch_icon:hover span.popdownImg {
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    opacity: 1;
 }
 #qsearch_input {
     background-color: #fff;
@@ -893,7 +924,7 @@ a.address:hover img {
 }
 
 /* Images */
-span.iconImg, span.spellcheckPopdownImg {
+span.iconImg {
     margin-right: 4px;
 }
 
@@ -1013,7 +1044,7 @@ span.dimpactionResume {
 #ctx_folder_delete span.iconImg, #ctx_vfolder_delete span.iconImg {
     background-image: url("../graphics/folders/delete.png");
 }
-#ctx_folder_export span.iconImg, #ctx_folder_import span.iconImg {
+#ctx_folder_export span.iconImg, #ctx_folder_import span.iconImg, #msg_save span.iconImg {
     background-image: url("../graphics/download.png");
 }
 #ctx_message_spam span.iconImg {
@@ -1028,7 +1059,7 @@ span.dimpactionResume {
 #ctx_message_whitelist span.iconImg, #oa_whitelist span.iconImg {
     background-image: url("../graphics/whitelist.png");
 }
-#ctx_contacts_new span.iconImg {
+#ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg {
     background-image: url("../graphics/compose.png");
 }
 #ctx_contacts_add span.iconImg {

@@ -2,11 +2,6 @@
  * CSS corrections for Webkit.
  */
 
-.treeRow {
-    overflow: visible;
-    height: 20px;
-}
-
 .iconImg, .treeRow img {
     vertical-align: middle;
 }

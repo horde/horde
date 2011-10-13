@@ -1,12 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -16,7 +16,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -273,10 +273,17 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function endTable($name, $options = array())
     {
-        if (empty($options['charset'])) {
-            $options['charset'] = $this->getCharset();
+        if ($name instanceof Horde_Db_Adapter_Base_TableDefinition) {
+            $options = array_merge($name->getOptions(), $options);
         }
-        $opts = 'ENGINE=InnoDB DEFAULT CHARSET=' . $options['charset'];
+        if (isset($options['options'])) {
+            $opts = $options['options'];
+        } else {
+            if (empty($options['charset'])) {
+                $options['charset'] = $this->getCharset();
+            }
+            $opts = 'ENGINE=InnoDB DEFAULT CHARSET=' . $options['charset'];
+        }
         return parent::endTable($name, array_merge(array('options' => $opts), $options));
     }
 
@@ -327,18 +334,18 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
      * @param   string  $type
      * @param   array   $options
      */
-    public function changeColumn($tableName, $columnName, $type, $options=array())
+    public function changeColumn($tableName, $columnName, $type, $options = array())
     {
         $this->_clearTableCache($tableName);
 
         $quotedTableName = $this->quoteTableName($tableName);
         $quotedColumnName = $this->quoteColumnName($columnName);
 
+        $sql = sprintf('SHOW COLUMNS FROM %s LIKE %s',
+                       $quotedTableName,
+                       $this->quoteString($columnName));
+        $row = $this->selectOne($sql);
         if (!array_key_exists('default', $options)) {
-            $sql = sprintf('SHOW COLUMNS FROM %s LIKE %s',
-                           $quotedTableName,
-                           $this->quoteString($columnName));
-            $row = $this->selectOne($sql);
             $options['default'] = $row['Default'];
             $options['column'] = $this->makeColumn($columnName, $row['Default'], $row['Type'], $row['Null'] == 'YES');
         }
@@ -349,7 +356,9 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
         $unsigned  = !empty($options['unsigned'])  ? $options['unsigned']  : null;
 
         $typeSql = $this->typeToSql($type, $limit, $precision, $scale, $unsigned);
-        $dropPk = $type == 'autoincrementKey' ? 'DROP PRIMARY KEY,' : '';
+        $dropPk = ($type == 'autoincrementKey' && $row['Key'] == 'PRI')
+            ? 'DROP PRIMARY KEY,'
+            : '';
 
         $sql = sprintf('ALTER TABLE %s %s CHANGE %s %s %s',
                        $quotedTableName,
@@ -387,6 +396,23 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
                        $quotedColumnName,
                        $this->quoteColumnName($newColumnName),
                        $currentType);
+        return $this->execute($sql);
+    }
+
+    /**
+     * Removes a primary key from a table.
+     *
+     * @since Horde_Db 1.1.0
+     *
+     * @param string $tableName  A table name.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function removePrimaryKey($tableName)
+    {
+        $this->_clearTableCache($tableName);
+        $sql = sprintf('ALTER TABLE %s DROP PRIMARY KEY',
+                       $this->quoteTableName($tableName));
         return $this->execute($sql);
     }
 

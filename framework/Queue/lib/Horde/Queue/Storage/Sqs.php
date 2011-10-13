@@ -1,4 +1,5 @@
 <?php
+// TEST THIS AGAINST LOCAL https://github.com/iriscouch/cqs
 /**
  * Stores queue tasks in Amazon's SQS.
  */

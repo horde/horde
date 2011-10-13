@@ -8,7 +8,7 @@
  * @package    Kolab_FreeBusy
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_FreeBusy
  */
 
@@ -30,11 +30,6 @@ require_once 'Horde/Test/AllTests.php';
  */
 class Horde_Kolab_FreeBusy_AllTests extends Horde_Test_AllTests
 {
-    public static function suite()
-    {
-        // Return empty for now
-        return new PHPUnit_Framework_TestSuite();
-    }
 }
 
 Horde_Kolab_FreeBusy_AllTests::init('Horde_Kolab_FreeBusy', __FILE__);

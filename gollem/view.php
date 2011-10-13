@@ -2,15 +2,15 @@
 /**
  * Gollem view script.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Max Kalika <max@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Gollem
  */
 
@@ -21,14 +21,14 @@ Horde_Registry::appInit('imp', array(
 
 $vars = Horde_Variables::getDefaultVariables();
 
-if ($vars->driver != $gollem_be['driver']) {
+if ($vars->driver != Gollem::$backend['driver']) {
     Horde::url('login.php')->add(array(
         'backend_key' => $vars->driver,
-        'change_backend' => 1,
-        'url' => Horde::selfURL(true)
+        'url' => Horde::selfUrl(true)
     ))->redirect();
 }
 
+$gollem_vfs = $injector->getInstance('Gollem_Vfs');
 $stream = null;
 $data = '';
 try {

@@ -2,10 +2,10 @@
 /**
  * Horde exception class that converts PEAR errors to exceptions.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Exception
@@ -20,26 +20,14 @@ class Horde_Exception_Pear extends Horde_Exception
     static protected $_class = __CLASS__;
 
     /**
-     * The original PEAR error.
-     *
-     * @var PEAR_Error
-     */
-    private $_error;
-
-    /**
      * Exception constructor.
      *
      * @param PEAR_Error $error The PEAR error.
      */
     public function __construct(PEAR_Error $error)
     {
-        parent::__construct(
-            $error->getMessage() . $this->_getPearTrace($error),
-            $error->getCode()
-        );
-        if ($details = $error->getUserInfo()) {
-            $this->details = $details;
-        }
+        parent::__construct($error->getMessage(), $error->getCode());
+        $this->details = $this->_getPearTrace($error);
     }
 
     /**
@@ -51,21 +39,29 @@ class Horde_Exception_Pear extends Horde_Exception
      */
     private function _getPearTrace(PEAR_Error $error)
     {
+        $pear_error = '';
         $backtrace = $error->getBacktrace();
         if (!empty($backtrace)) {
-            $pear_error = "\n\n" . 'PEAR Error:' . "\n";
+            $pear_error .= 'PEAR backtrace:' . "\n\n";
             foreach ($backtrace as $frame) {
-                $pear_error .= '    '
-                    . (isset($frame['class']) ? $frame['class'] : '')
+                $pear_error .=
+                      (isset($frame['class']) ? $frame['class'] : '')
                     . (isset($frame['type']) ? $frame['type'] : '')
                     . (isset($frame['function']) ? $frame['function'] : 'unkown') . ' '
                     . (isset($frame['file']) ? $frame['file'] : 'unkown') . ':'
                     . (isset($frame['line']) ? $frame['line'] : 'unkown') . "\n";
             }
-            $pear_error .= "\n";
-            return $pear_error;
         }
-        return '';
+        $userinfo = $error->getUserInfo();
+        if (!empty($userinfo)) {
+            $pear_error .= "\n" . 'PEAR user info:' . "\n\n";
+            if (is_string($userinfo)) {
+                $pear_error .= $userinfo;
+            } else {
+                $pear_error .= print_r($userinfo, true);
+            }
+        }
+        return $pear_error;
     }
 
     /**

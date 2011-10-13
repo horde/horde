@@ -4,7 +4,10 @@
   <ul>
    <li>
     <a href="<?php echo Chora::url('co', $GLOBALS['where'], array('r' => $logMessage->queryRevision())) ?>" title="<?php echo _("View commit") ?>"><?php echo $this->escape($logMessage->queryRevision()) ?></a>
-    <span class="diffadd">+<?php echo $this->escape($logMessage->getAddedLines()) ?></span>, <span class="diffdel">-<?php echo $this->escape($logMessage->getDeletedLines()) ?></span>
+    <div>
+     <span class="diffadd">+<?php echo $this->escape($logMessage->getAddedLines()) ?></span>, <span class="diffdel">-<?php echo $this->escape($logMessage->getDeletedLines()) ?></span>
+     <span class="difflink">[<a href="<?php echo Chora::url('diff', $GLOBALS['where'], array('r1' => $logMessage->queryRevision())) ?>"><?php echo _("Diff") ?></a>]</span>
+    </div>
    </li>
   </ul>
   <ul>

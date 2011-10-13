@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Folks H4 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Activity"
 msgstr ""
 
-#: config/prefs.php:26
+#: config/prefs.php:27
 msgid "Activity log"
 msgstr ""
 
@@ -192,13 +192,13 @@ msgstr ""
 msgid "Application"
 msgstr ""
 
-#: config/prefs.php:118
+#: config/prefs.php:119
 msgid ""
 "Application you would like NOT to log activitiy when you post a new PUBLIC "
 "COMMENT"
 msgstr ""
 
-#: config/prefs.php:104
+#: config/prefs.php:105
 msgid ""
 "Application you would like NOT to log your activitiy when you post a new "
 "PUBLIC CONTENT."
@@ -216,7 +216,7 @@ msgstr ""
 msgid "Aries"
 msgstr ""
 
-#: config/prefs.php:44
+#: config/prefs.php:45
 msgid "Ascesending"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgstr ""
 msgid "Delete picture"
 msgstr ""
 
-#: config/prefs.php:43
+#: config/prefs.php:44
 msgid "Descesending"
 msgstr ""
 
@@ -571,7 +571,7 @@ msgstr ""
 msgid "Homepage"
 msgstr ""
 
-#: config/prefs.php:12
+#: config/prefs.php:13
 msgid "How to preview users"
 msgstr ""
 
@@ -627,11 +627,11 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: config/prefs.php:88
+#: config/prefs.php:89
 msgid "Log account changes?"
 msgstr ""
 
-#: config/prefs.php:79
+#: config/prefs.php:80
 msgid "Log when we comment a user?"
 msgstr ""
 
@@ -687,7 +687,7 @@ msgstr ""
 msgid "Moderate comments - I will approve every single comment"
 msgstr ""
 
-#: config/prefs.php:19
+#: config/prefs.php:20
 msgid "Modify account preferences"
 msgstr ""
 
@@ -728,8 +728,8 @@ msgstr ""
 msgid "New users"
 msgstr ""
 
-#: config/prefs.php:59 config/prefs.php:68 config/prefs.php:77
-#: config/prefs.php:86 edit/privacy.php:46 templates/list/list.php:77
+#: config/prefs.php:60 config/prefs.php:69 config/prefs.php:78
+#: config/prefs.php:87 edit/privacy.php:46 templates/list/list.php:77
 #: templates/list/list.php:78 templates/list/list.php:79
 #: templates/list/list.php:80
 msgid "No"
@@ -760,7 +760,7 @@ msgstr ""
 msgid "Notification driver %s does not exists."
 msgstr ""
 
-#: config/prefs.php:61
+#: config/prefs.php:62
 msgid "Notify friends that I loged in"
 msgstr ""
 
@@ -776,7 +776,7 @@ msgstr ""
 msgid "Number of comments to display"
 msgstr ""
 
-#: config/prefs.php:52
+#: config/prefs.php:53
 msgid "Number of users perpage"
 msgstr ""
 
@@ -878,7 +878,7 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
-#: config/prefs.php:11 templates/user/user.php:146 templates/user/user.php:171
+#: config/prefs.php:12 templates/user/user.php:146 templates/user/user.php:171
 #: templates/user/user.php:196 templates/user/user.php:223
 #: templates/user/user.php:249 templates/user/user.php:277
 #: templates/user/user.php:303 templates/user/user.php:336
@@ -955,7 +955,7 @@ msgstr ""
 msgid "Report user"
 msgstr ""
 
-#: config/prefs.php:70
+#: config/prefs.php:71
 msgid ""
 "Require my confirmation if someone would like to add me to his freidn list."
 msgstr ""
@@ -1037,19 +1037,19 @@ msgstr ""
 msgid "Services"
 msgstr ""
 
-#: config/prefs.php:20
+#: config/prefs.php:21
 msgid "Set account action details"
 msgstr ""
 
-#: config/prefs.php:27
+#: config/prefs.php:28
 msgid "Set activity preferences"
 msgstr ""
 
-#: config/prefs.php:13
+#: config/prefs.php:14
 msgid "Set users preview paramaters"
 msgstr ""
 
-#: config/prefs.php:18 config/prefs.php:25
+#: config/prefs.php:19 config/prefs.php:26
 msgid "Settings"
 msgstr ""
 
@@ -1065,7 +1065,7 @@ msgstr ""
 msgid "Sort Direction"
 msgstr ""
 
-#: config/prefs.php:36 config/prefs.php:45
+#: config/prefs.php:37 config/prefs.php:46
 msgid "Sort by"
 msgstr ""
 
@@ -1343,7 +1343,7 @@ msgstr ""
 msgid "User was reported."
 msgstr ""
 
-#: account/resetpassword.php:46 config/prefs.php:35 lib/Forms/AddFriend.php:16
+#: account/resetpassword.php:46 config/prefs.php:36 lib/Forms/AddFriend.php:16
 #: lib/Forms/Login.php:20 templates/edit/friends.php:14
 #: templates/list/list.php:24
 msgid "Username"
@@ -1418,8 +1418,8 @@ msgstr ""
 msgid "Word"
 msgstr ""
 
-#: config/prefs.php:60 config/prefs.php:69 config/prefs.php:78
-#: config/prefs.php:87 edit/privacy.php:46 templates/list/list.php:77
+#: config/prefs.php:61 config/prefs.php:70 config/prefs.php:79
+#: config/prefs.php:88 edit/privacy.php:46 templates/list/list.php:77
 #: templates/list/list.php:78 templates/list/list.php:79
 #: templates/list/list.php:80
 msgid "Yes"

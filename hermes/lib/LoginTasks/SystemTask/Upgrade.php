@@ -2,7 +2,7 @@
 /**
  * Login system task for automated upgrade tasks.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -31,6 +31,7 @@ class Hermes_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemT
         switch ($version) {
         case '2.0':
             $this->_upgradeTimersStorage();
+            $this->_upgradePausedTimers();
         }
     }
 
@@ -42,6 +43,27 @@ class Hermes_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemT
         );
 
         $GLOBALS['injector']->getInstance('Horde_Core_Prefs_Storage_Upgrade')->upgradeSerialized($GLOBALS['prefs'], $upgrade_prefs);
+    }
+
+    /**
+     * Add new fields to support pausing timers to any timers that are currently
+     * running.
+     */
+    protected function _upgradePausedTimers()
+    {
+        $timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'));
+        if (!empty($timers)) {
+            $timers = @unserialize($timers);
+        } else {
+            $timers = array();
+        };
+
+        foreach ($timers as &$timer) {
+            $timer['paused'] = false;
+            $timer['elapsed'] = 0;
+        }
+
+        $GLOBALS['prefs']->setValue('running_timers', serialize($timers));
     }
 
 }

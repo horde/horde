@@ -3,7 +3,7 @@
  * File based state management. Some code based on the Z-Push project's
  * diff backend, original copyright notice appears below.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
@@ -44,8 +44,8 @@
  * Created   :   01.10.2007
  *
  * � Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL v2.
- * Consult LICENSE file for details
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
  */
 class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
 {
@@ -175,7 +175,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
      *
      * @return void
      */
-    public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA, $user = null)
+    public function updateState($type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA, $user = null)
     {
         if (empty($this->_stateCache)) {
             $this->_stateCache = array();
@@ -264,7 +264,7 @@ class Horde_ActiveSync_State_File extends Horde_ActiveSync_State_Base
 
         }
         if (!file_put_contents($this->_stateDir . '/' . $this->_backend->getUser() . '/compat-' . $devId, serialize($unique_folders))) {
-            $this->_logError('_saveFolderData: Data could not be saved!');
+            $this->_logger->err('_saveFolderData: Data could not be saved!');
             throw new Horde_ActiveSync_Exception('Folder data could not be saved');
         }
     }

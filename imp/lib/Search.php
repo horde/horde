@@ -3,14 +3,14 @@
  * The IMP_Search:: class contains all code related to mailbox searching
  * in IMP.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Search implements ArrayAccess, Iterator, Serializable
@@ -88,7 +88,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      * @param string $id  The search query id.
      *
      * @return IMP_Indices  An indices object.
-     * @throws Horde_Imap_Client_Exception
+     * @throws IMP_Imap_Exception
      */
     public function runSearch($ob, $id)
     {
@@ -106,11 +106,15 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             $sortpref['by'] = $GLOBALS['prefs']->getValue('sortdate');
         }
 
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+
         foreach ($query_list as $mbox => $query) {
             if (!empty($ob)) {
                 $query->andSearch(array($ob));
             }
-            $results = $this->imapSearch($mbox, $query, array('sort' => array($sortpref['by'])));
+            $results = $imp_imap->search($mbox, $query, array(
+                'sort' => array($sortpref['by'])
+            ));
             if ($sortpref['dir']) {
                 $results['match']->reverse();
             }
@@ -121,92 +125,18 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     }
 
     /**
-     * Run a search query not stored in the current session.  Allows custom
-     * queries with custom sorts to be used without affecting cached
-     * mailboxes.
-     *
-     * @param object $query     The search query object
-     *                          (Horde_Imap_Client_Search_Query).
-     * @param string $mailbox   The mailbox to search.
-     * @param integer $sortby   The sort criteria.
-     * @param integer $sortdir  The sort directory.
-     *
-     * @return IMP_Indices  An indices object.
-     */
-    public function runQuery($query, $mailbox, $sortby = null,
-                             $sortdir = null)
-    {
-        try {
-            $results = $this->imapSearch($mailbox, $query, array('sort' => is_null($sortby) ? null : array($sortby)));
-            if ($sortdir) {
-                $results['match']->reverse();
-            }
-            return new IMP_Indices($mailbox, $results['match']);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return new IMP_Indices();
-        }
-    }
-
-    /**
-     * Performs the IMAP search query on the server. Use this function,
-     * instead of directly calling Horde_Imap_Client's search() function,
-     * because certain configuration parameters may need to be dynamically
-     * altered.
-     *
-     * @param IMP_Mailbox $mailbox                   The mailbox to search.
-     * @param Horde_Imap_Client_Search_Query $query  The search query object.
-     * @param array $opts                            Additional options.
-     *
-     * @return array  Search results.
-     */
-    public function imapSearch($mailbox, $query, $opts = array())
-    {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-
-        /* If doing a from/to search, use display sorting if possible.
-         * Although there is a fallback to a PHP-based display sort, for
-         * performance reasons only do a display sort if it is supported
-         * on the server. */
-        if ($imp_imap->imap && !empty($opts['sort'])) {
-            $sort_cap = $imp_imap->queryCapability('SORT');
-
-            if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
-                $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
-                if ($pos !== false) {
-                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;
-                }
-
-                $pos = array_search(Horde_Imap_Client::SORT_TO, $opts['sort']);
-                if ($pos !== false) {
-                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYTO;
-                }
-            }
-        }
-
-        /* Make sure we search in the proper charset. */
-        if ($query) {
-            $query = clone $query;
-            $imap_charset = $imp_imap->validSearchCharset('UTF-8')
-                ? 'UTF-8'
-                : 'US-ASCII';
-            $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
-        }
-
-        return $imp_imap->search($mailbox, $query, $opts);
-    }
-
-    /**
      * Creates the IMAP search query in the IMP session.
      *
      * @param array $criteria  The search criteria array.
      * @param array $opts      Additional options:
-     * <pre>
-     * id - (string) Use as the mailbox ID.
-     * label - (string) The label to use for the search results.
-     * mboxes - (array) The list of mailboxes to directly search.
-     * subfolders - (array) The list of mailboxes to do subfolder searches on.
-     * type - (integer) Query type.
-     * </pre>
+     *   - id: (string) Use as the mailbox ID.
+     *   - label: (string) The label to use for the search results.
+     *   - mboxes: (array) The list of mailboxes to directly search. If this
+     *             contains the IMP_Search_Query::ALLSEARCH constant, all
+     *             mailboxes will be searched.
+     *   - subfolders: (array) The list of mailboxes to do subfolder searches
+     *                 on.
+     *   - type: (integer) Query type.
      *
      * @return IMP_Search_Query  Returns the query object.
      * @throws InvalidArgumentException
@@ -220,6 +150,10 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             'subfolders' => array(),
             'type' => self::CREATE_QUERY
         ), $opts);
+
+        /* Make sure mailbox names are not IMP_Mailbox objects. */
+        $opts['mboxes'] = array_map('strval', $opts['mboxes']);
+        $opts['subfolders'] = array_map('strval', $opts['subfolders']);
 
         switch ($opts['type']) {
         case self::CREATE_FILTER:
@@ -243,6 +177,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         $ob = new $cname(array_filter(array(
             'add' => $criteria,
+            'all' => in_array(IMP_Search_Query::ALLSEARCH, $opts['mboxes']),
             'id' => $this->_strip($opts['id']),
             'label' => $opts['label'],
             'mboxes' => $opts['mboxes'],
@@ -480,7 +415,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function editUrl($id)
     {
-        return Horde::url('search.php')->add(array('edit_query' => $this->createSearchId($id)));
+        return IMP_Mailbox::get($this->createSearchId($id))->url('search.php')->add(array('edit_query' => 1));
     }
 
     /**

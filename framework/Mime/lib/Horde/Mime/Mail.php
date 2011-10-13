@@ -6,14 +6,14 @@
  * All content has to be passed UTF-8 encoded. The charset parameters is used
  * for the generated message only.
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Mime
  */
 class Horde_Mime_Mail
@@ -321,6 +321,17 @@ class Horde_Mime_Mail
     }
 
     /**
+     * Removes all (additional) message parts but leaves the body parts
+     * untouched.
+     *
+     * @since Horde_Mime 1.2.0
+     */
+    public function clearParts()
+    {
+        $this->_parts = array();
+    }
+
+    /**
      * Adds message recipients.
      *
      * Recipients specified by To:, Cc:, or Bcc: headers are added
@@ -479,9 +490,11 @@ class Horde_Mime_Mail
             $recipients = array_merge($recipients, $this->_buildRecipients(Horde_Mime::encodeAddress($this->_bcc, $this->_charset)));
         }
 
+        /* Trick Horde_Mime_Part into re-generating the message headers. */
+        $this->_headers->removeHeader('MIME-Version');
+
         /* Send message. */
-        return $basepart->send(implode(', ', $recipients),
-                               $this->_headers, $mailer);
+        $basepart->send(implode(', ', $recipients), $this->_headers, $mailer);
     }
 
 }

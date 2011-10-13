@@ -2,10 +2,10 @@
 /**
  * Display most recent image comments for galleries.
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  */
@@ -45,10 +45,12 @@ class Ansel_Block_RecentComments extends Horde_Core_Block
         );
         $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
         if (empty($GLOBALS['conf']['gallery']['listlimit']) ||
-            ($storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::READ) < $GLOBALS['conf']['gallery']['listlimit'])) {
+            ($storage->countGalleries(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => Horde_Perms::READ)) < $GLOBALS['conf']['gallery']['listlimit'])) {
 
             foreach ($storage->listGalleries(array('perm' => Horde_Perms::READ)) as $gal) {
-                $params['gallery']['values'][$gal->getId()] = $gal->get('name');
+                $params['gallery']['values'][$gal->id] = $gal->get('name');
             }
         }
 

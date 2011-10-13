@@ -1,51 +1,62 @@
-What is Vilma?
---------------
+================
+ What is Vilma?
+================
+
+:Contact: horde@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
 
 Vilma is a tool for administrators who need to handle various aspects
 of domain administration.
 
+This software is OSI Certified Open Source Software. OSI Certified is a
+certification mark of the `Open Source Initiative`_.
+
+.. _`Open Source Initiative`: http://www.opensource.org/
+
 
 Obtaining Vilma
----------------
+===============
 
 Further information on Vilma and the latest version can be obtained at:
 
-  http://www.horde.org/vilma/
+  http://www.horde.org/apps/vilma
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Vilma distribution:
 
-README        - This file
-LICENSE       - Copyright and license information
-docs/CHANGES  - List of changes by release
-docs/CREDITS  - Who developed this
-docs/INSTALL  - Installation instructions
+:README_:            This file
+:LICENSE_:           Copyright and license information
+:`docs/CHANGES`_:    Changes by release
+:`docs/CREDITS`_:    Project developers
+:`docs/INSTALL`_:    Installation instructions and notes
 
 
 Installation
-------------
+============
 
-Instructions for installing Vilma can be found in the file INSTALL in the
-docs/ directory of the Vilma distribution.
+Instructions for installing Vilma can be found in the file INSTALL_ in the
+``docs/`` directory of the Vilma distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Vilma, help is available!
 
-The Horde Frequently Asked Questions List (FAQ), available on the Web at:
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
+Horde LLC runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
-subscription information can be found at:
+subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
 appearances on IRC, on the channel #horde on the Freenode Network
@@ -53,7 +64,7 @@ appearances on IRC, on the channel #horde on the Freenode Network
 
 
 Licensing
----------
+=========
 
 For licensing and copyright information, please see the file LICENSE in the
 Vilma distribution.
@@ -61,3 +72,11 @@ Vilma distribution.
 Thanks,
 
 The Vilma team
+
+
+.. _README: README
+.. _LICENSE: http://www.horde.org/licenses/bsd
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
+.. _INSTALL:
+.. _docs/INSTALL: INSTALL

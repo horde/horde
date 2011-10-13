@@ -3,10 +3,10 @@
  * A Horde_Form:: form that implements a user interface for the config
  * system.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
@@ -38,18 +38,33 @@ class Horde_Config_Form extends Horde_Form
     protected $_vars;
 
     /**
+     * Whether to fill $this->_vars with values from the existing
+     * configuration.
+     *
+     * @var boolean
+     */
+    protected $_fillvars;
+
+    /**
      * Constructor.
      *
      * @param Horde_Variables &$vars  The variables object of this form.
      * @param string $app             The name of the application that this
      *                                configuration form is for.
+     * @param boolean $fillvars       Whether to fill the $vars object with
+     *                                values from the existing configuration.
+     *                                @since Horde_Core 1.1.
      */
-    public function __construct(&$vars, $app)
+    public function __construct(&$vars, $app, $fillvars = false)
     {
         parent::__construct($vars);
 
         $this->_xmlConfig = new Horde_Config($app);
         $this->_vars = &$vars;
+        $this->_fillvars = $fillvars;
+        if ($fillvars) {
+            $vars->app = $app;
+        }
         $config = $this->_xmlConfig->readXMLConfig();
         $this->addHidden('', 'app', 'text', true);
         $this->_buildVariables($config);
@@ -99,6 +114,9 @@ class Horde_Config_Form extends Horde_Form
                 $v = &$this->addVariable($name, $varname, 'enum', true, false, $desc, array($var_params, $select_option));
                 if (array_key_exists('default', $configitem)) {
                     $v->setDefault($configitem['default']);
+                    if ($this->_fillvars) {
+                        $this->_vars->set($varname, $configitem['default']);
+                    }
                 }
                 if (!empty($configitem['is_default'])) {
                     $v->_new = true;
@@ -135,6 +153,21 @@ class Horde_Config_Form extends Horde_Form
                 $v = &$this->addVariable($name, $varname, $type, $required, false, $desc, $var_params);
                 if (isset($configitem['default'])) {
                     $v->setDefault($configitem['default']);
+                    if ($this->_fillvars) {
+                        switch ($type) {
+                        case 'boolean':
+                            if ($configitem['default']) {
+                                $this->_vars->set($varname, 'on');
+                            }
+                            break;
+                        case 'int':
+                            $this->_vars->set($varname, (string)$configitem['default']);
+                            break;
+                        default:
+                            $this->_vars->set($varname, $configitem['default']);
+                            break;
+                        }
+                    }
                 }
                 if (!empty($configitem['is_default'])) {
                     $v->_new = true;

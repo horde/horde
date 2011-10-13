@@ -8,7 +8,7 @@
  * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Components
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 /**
  * Test the CI setup module.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Components
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Components
  */
 class Components_Integration_Components_Module_CiSetupTest
@@ -42,7 +42,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
-            ->then('the help will contain the option', '-c\s*CISETUP,\s*--cisetup=CISETUP');
+            ->then('the help will contain the option', '--cisetup=CISETUP');
     }
 
     /**
@@ -52,7 +52,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
-            ->then('the help will contain the option', '-C\s*CIPREBUILD,\s*--ciprebuild=CIPREBUILD');
+            ->then('the help will contain the option', '--ciprebuild=CIPREBUILD');
     }
 
     /**

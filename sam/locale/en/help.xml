@@ -1,0 +1,266 @@
+<?xml version='1.0'?>
+<help>
+
+<entry id="tag_level">
+    <title>General Options: Tag Level</title>
+    <heading>Tag Level</heading>
+    <para>
+        Specify the minimum score required to add a <b>X-Spam-Status:</b>
+        header to the message. This header does not necessarily means that
+        the message is spam, but will display the score this message received
+        and which tests it failed.
+    </para>
+    <para>
+        The lower the score, the more aggressive tagging becomes. For example,
+        a score of 2.0 will add the header to messages of 2.0 and above, and
+        is a very aggressive setting.
+    </para>
+</entry>
+
+<entry id="hit_level">
+    <title>General Options: Hit Level</title>
+    <heading>Hit Level</heading>
+    <para>
+        Specify the minimum score required to add a <b>X-Spam-Flag: YES</b>
+        header for messages identified as SPAM. This header can be used for
+        filtering rule creation.
+    </para>
+    <para>
+        The lower the Hit Level, the more aggressive the filter will be when
+        marking messages as spam. For example, a Hit Level of 2.0 will mark
+        any message with a score of 2.0 and higher as spam. This is a very
+        aggressive setting. The Hit Level should generally be higher than the
+        <i>Tag Level</i> setting (if enabled). A Hit Level of 5.0 is the
+        default setting.
+    </para>
+</entry>
+
+<entry id="kill_level">
+    <title>General Options: Kill Level</title>
+    <heading>Kill Level</heading>
+    <para>
+        Specify the minimum score required to take evasive action against
+        identified SPAM messages. Actions are system-specific and may include
+        filtering into another mailbox or silently discarding.
+    </para>
+    <para>
+        The lower the score, the more aggressive tagging becomes.  For example,
+        a score of 2.0 will add the header to messages of 2.0 and above, and
+        is a very aggressive setting. This setting should generally be equal
+        to or lower than the <i>Hit Level</i> setting (if enabled).
+    </para>
+</entry>
+
+<entry id="subject_tag">
+    <title>General Options: Subject Tag</title>
+    <heading>Subject Tag</heading>
+    <para>
+        Text prepended to the Subject: line of messages that are considered
+        SPAM, if <i>Rewrite Subject</i> setting is turned on.
+    </para>
+    <para>
+        If the scanning engine supports it, the word <b>_HITS_</b> in the tag
+        will be replaced with the calculated score for this message and the
+        word <b>_REQD_</b> will be replaced with the threshold required, which
+        is value of the <i>Hit Level</i> setting.
+    </para>
+</entry>
+
+<entry id="rewrite_sub">
+    <title>General Options: Rewrite Subject</title>
+    <heading>Rewrite Subject</heading>
+    <para>
+        Choose whether or not to tag the Subject: line of the message if it is
+        considered SPAM.
+    </para>
+</entry>
+
+<entry id="spam_quarantine">
+    <title>General Options: SPAM Quarantine Address</title>
+    <heading>SPAM Quarantine Address</heading>
+    <para>
+        Enter an address to send messages identified as SPAM.
+    </para>
+</entry>
+
+<entry id="report_safe">
+    <title>General Options: Report Safety</title>
+    <heading>Report Safety</heading>
+    <para>
+        Choose the level of protection/modification done to messages
+        marked as spam. At level 0, only the X-Spam-* headers will be
+        added to the message.
+    </para>
+    <para>
+        At level 1, the original message will be attached to the report as
+        a message/rfc822 part, preserving the original message exactly while
+        making it harder to open accidentally.
+    </para>
+    <para>
+        At level 2, the original message will be attached to the report as
+        plain text. This provides additional safety for broken email clients
+        that open attachments without asking the user, but may make it more
+        difficult to access the original message.
+    </para>
+</entry>
+
+<entry id="skip_rbl">
+    <title>General Options: Skip RBL Checks</title>
+    <heading>Skip RBL Checks</heading>
+    <para>
+        Choose whether or not to check if the sender of the message appears in
+        Realtime BlackLists. These lists are not always accurate, and using
+        these checks may slow down mail delivery. If your ISP already does
+        this, or you do not want to use the RBL, turn this option off.
+    </para>
+</entry>
+
+<entry id="skip_virus">
+    <title>General Options: Skip Virus Checks</title>
+    <heading>Skip Virus Checks</heading>
+    <para>
+        Choose whether or not to skip virus checks altogether, if allowed by
+        system policy.
+    </para>
+</entry>
+
+<entry id="skip_spam">
+    <title>General Options: Skip SPAM Checks</title>
+    <heading>Skip SPAM Checks</heading>
+    <para>
+        Choose whether or not to skip SPAM checks altogether, if allowed by
+        system policy.
+    </para>
+</entry>
+
+<entry id="skip_banned">
+    <title>General Options: Skip Banned Files Checks</title>
+    <heading>Skip Banned Files Checks</heading>
+    <para>
+        Choose whether or not to skip checking for attachments for banned file
+        extensions altogether, if allowed by system policy.
+    </para>
+</entry>
+
+<entry id="skip_header">
+    <title>General Options: Skip Bad Header Checks</title>
+    <heading>Skip Banned Files Checks</heading>
+    <para>
+        Choose whether or not to skip checking for bad or illegal headers in
+        the message, if allowed by system policy.
+    </para>
+</entry>
+
+<entry id="allow_virus">
+    <title>General Options: Receive Viruses</title>
+    <heading>Receive Viruses</heading>
+    <para>
+        Choose whether or not to allow a message with detected viruses to be
+        delivered anyway. This option may not be available due to system
+        policy configuration.
+    </para>
+</entry>
+
+<entry id="allow_spam">
+    <title>General Options: Receive SPAM</title>
+    <heading>Receive SPAM</heading>
+    <para>
+        Choose whether or not to allow a message with detected SPAM to be
+        delivered anyway. This option may not be available due to system
+        policy configuration.
+    </para>
+</entry>
+
+<entry id="allow_banned">
+    <title>General Options: Receive Banned Files</title>
+    <heading>Receive Banned Files</heading>
+    <para>
+        Choose whether or not to allow a message with detected banned files
+        attached to be delivered anyway. This option may not be available due
+        to system policy configuration.
+    </para>
+</entry>
+
+<entry id="allow_header">
+    <title>General Options: Receive Bad Headers</title>
+    <heading>Receive Bad Headers</heading>
+    <para>
+        Choose whether or not to allow a message with detected bad or illegal
+        headers to be delivered anyway. This option may not be available due
+        to system policy configuration.
+    </para>
+</entry>
+
+<entry id="spam_extension">
+    <title>General Options: SPAM Folder</title>
+    <heading>SPAM Folder</heading>
+    <para>
+        Choose a folder to file SPAM into.
+    </para>
+</entry>
+
+<entry id="virus_extension">
+    <title>General Options: Virus Folder</title>
+    <heading>Virus Folder</heading>
+    <para>
+        Choose a folder to file virus notifications into.
+    </para>
+</entry>
+
+<entry id="banned_extension">
+    <title>General Options: Banned Files Folder</title>
+    <heading>Banned Files Folder</heading>
+    <para>
+        Choose a folder to file banned files notifications into.
+    </para>
+</entry>
+
+<entry id="whitelist_from">
+    <title>Whitelist Options: Whitelist From</title>
+    <heading>Whitelist From</heading>
+    <para>
+        Enter a list of sender email addresses from which messages should
+        never be identified as SPAM. Put each address on its own line.
+    </para>
+</entry>
+
+<entry id="whitelist_to">
+    <title>Whitelist Options: Whitelist To</title>
+    <heading>Whitelist To</heading>
+    <para>
+        Enter a list of recipient email addresses to which messages should
+        never be identified as SPAM. Put each address on its own line.
+    </para>
+</entry>
+
+<entry id="blacklist_from">
+    <title>Blacklist Options: Blacklist From</title>
+    <heading>Blacklist From</heading>
+    <para>
+        Enter a list of sender email addresses from which messages should
+        always be identified as SPAM. Put each address on its own line.
+    </para>
+</entry>
+
+<entry id="blacklist_to">
+    <title>Blacklist Options: Blacklist To</title>
+    <heading>Blacklist To</heading>
+    <para>
+        Enter a list of recipient email addresses to which messages should
+        always be identified as SPAM. Put each address on its own line.
+    </para>
+</entry>
+
+<entry id="global_defaults">
+    <title>Administrator Options: Make Settings Global</title>
+    <heading>Make Settings Global</heading>
+    <para>
+        If the backend supports it, the administrator can set the options shown
+        as site-wide global defaults. Users can still override the global
+        defaults with their own settings, but if a user setting is not set,
+        the global takes effect. Choose whether or not the displayed settings
+        should be applied as the site-wide global defaults.
+    </para>
+</entry>
+
+</help>

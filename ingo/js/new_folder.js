@@ -1,26 +1,49 @@
 /**
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var IngoNewFolder = {
 
-    newFolderName: function(name, tagname)
+    // Set in PHP code: folderprompt
+
+    changeHandler: function(e)
     {
-        var form = document.getElementsByName(name);
-        var selector = form[0].elements.namedItem(tagname);
+        var folder,
+            elt = e.element(),
+            id = elt.identify() + '_new',
+            newfolder = $(id),
+            sel = $(elt[elt.selectedIndex]);
 
-        if (selector.selectedIndex == 1){
-            var folder = window.prompt(this.folderprompt + '\n', '');
-
-            if ((folder != null) && (folder != '')) {
-                form[0].actionID.value = 'create_folder';
-                form[0].new_folder_name.value = folder;
-                form[0].submit();
-            }
+        if (!newfolder &&
+            sel.hasClassName('flistCreate') &&
+            (folder = window.prompt(this.folderprompt + '\n', ''))  &&
+            !folder.empty()) {
+            this.setNewFolder(elt, folder);
         }
+    },
 
-        return true;
+    setNewFolder: function(elt, folder)
+    {
+        elt = $(elt);
+
+        var sel,
+            id = elt.identify() + '_new';
+
+        elt.selectedIndex = elt.down('.flistCreate').index;
+        sel = $(elt[elt.selectedIndex]);
+
+        elt.insert({
+            after: new Element('INPUT', { id: id, name: id, type: 'hidden' }).setValue(folder)
+        });
+        sel.update(sel.text + ' [' + folder.escapeHTML() + ']');
+    },
+
+    onDomLoad: function()
+    {
+        $$('.flistSelect').invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
     }
 
 };
+
+document.observe('dom:loaded', IngoNewFolder.onDomLoad.bind(IngoNewFolder));

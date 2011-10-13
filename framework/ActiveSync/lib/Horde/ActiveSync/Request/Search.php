@@ -2,15 +2,15 @@
 /**
  * ActiveSync Handler for Search requests
  *
- * Copyright 2009 - 2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
 /**
  * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL v2.
- * Consult LICENSE file for details
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
  */
 class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
 {
@@ -162,6 +162,18 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $this->_encoder->content($u[Horde_ActiveSync::GAL_PHONE]);
             $this->_encoder->endTag();
 
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_OFFICE);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_OFFICE]);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_TITLE);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_TITLE]);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_COMPANY);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_COMPANY]);
+            $this->_encoder->endTag();
+
             $this->_encoder->startTag(Horde_ActiveSync::GAL_ALIAS);
             $this->_encoder->content($u[Horde_ActiveSync::GAL_ALIAS]);
             $this->_encoder->endTag();
@@ -174,16 +186,16 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $this->_encoder->content($u[Horde_ActiveSync::GAL_LASTNAME]);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(Horde_ActiveSync::GAL_EMAILADDRESS);
-            $this->_encoder->content($u[Horde_ActiveSync::GAL_EMAILADDRESS]);
-            $this->_encoder->endTag();
-
             $this->_encoder->startTag(Horde_ActiveSync::GAL_HOMEPHONE);
             $this->_encoder->content($u[Horde_ActiveSync::GAL_HOMEPHONE]);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(Horde_ActiveSync::GAL_COMPANY);
-            $this->_encoder->content($u[Horde_ActiveSync::GAL_COMPANY]);
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_MOBILEPHONE);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_MOBILEPHONE]);
+            $this->_encoder->endTag();
+
+            $this->_encoder->startTag(Horde_ActiveSync::GAL_EMAILADDRESS);
+            $this->_encoder->content($u[Horde_ActiveSync::GAL_EMAILADDRESS]);
             $this->_encoder->endTag();
 
             $this->_encoder->endTag();//result

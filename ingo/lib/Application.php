@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Ingo through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -40,7 +40,7 @@ class Ingo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (2.0.1-git)';
+    public $version = 'H4 (2.0.6-git)';
 
     /**
      * Global variables defined:
@@ -212,8 +212,7 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function prefsInit($ui)
     {
-        if (!$GLOBALS['session']->exists('ingo', 'script_generate') ||
-            $GLOBALS['session']->get('ingo', 'script_generate')) {
+        if (!$GLOBALS['session']->get('ingo', 'script_generate')) {
             $ui->suppressGroups[] = 'script';
         }
     }

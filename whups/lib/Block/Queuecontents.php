@@ -63,10 +63,6 @@ class Whups_Block_Queuecontents extends Horde_Core_Block
         $info = array('queue' => $this->_params['queue'],
                       'nores' => true);
         $tickets = $whups_driver->getTicketsByProperties($info);
-        if (is_a($tickets, 'PEAR_Error')) {
-            return $tickets;
-        }
-
         if (!$tickets) {
             return '<p><em>' . _("No tickets in queue.") . '</em></p>';
         }
@@ -105,11 +101,12 @@ class Whups_Block_Queuecontents extends Horde_Core_Block
         if (!Whups::permissionsFilter(array($this->_params['queue'] => true), 'queue', Horde_Perms::READ)) {
             return false;
         }
-        $queue = $whups_driver->getQueue($this->_params['queue']);
 
-        return ($queue instanceof PEAR_Error)
-            ? false
-            : $queue;
+        try {
+            return $whups_driver->getQueue($this->_params['queue']);
+        } catch (Whups_Exception $e) {
+            return false;
+        }
     }
 
 }

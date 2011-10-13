@@ -6,7 +6,7 @@
  * For now, only provide methods for authenticating that make sense from
  * within a Horde context.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -85,6 +85,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
      *                          during the final steps in the OAuth2 process.
      *
      * @return string  The access_token
+     * @throws Horde_Service_Facebook_Exception
      */
     public function getSessionKey($code = null, $callback = '')
     {
@@ -93,7 +94,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 $result = $this->_http->request(
                     'GET', $this->getAuthTokenUrl($code, $callback));
             } catch (Horde_Http_Exception $e) {
-                throw Horde_Service_Facebook_Exception($e);
+                throw new Horde_Service_Facebook_Exception($e);
             }
 
             if ($result->code !== 200) {
@@ -141,7 +142,7 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
      * Returns the user corresponding to the current session object.
      *
      * @throws Horde_Service_Facebook_Exception
-     * @return integer  User id
+     * @return string User id
      */
     public function &getLoggedInUser()
     {
@@ -151,9 +152,11 @@ class Horde_Service_Facebook_Auth extends Horde_Service_Facebook_Base
                 Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY);
         }
 
-        return $this->_facebook->callMethod(
+        $user = (string)$this->_facebook->callMethod(
             'facebook.users.getLoggedInUser',
             array('session_key' => $this->_sessionKey));
+
+        return $user;
     }
 
 }

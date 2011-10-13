@@ -8,7 +8,7 @@
  * @package    Kolab_Storage
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
 /**
  * Test the cached list query.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Kolab
  * @package    Kolab_Storage
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_List_Query_List_CacheTest
@@ -367,77 +367,76 @@ extends Horde_Kolab_Storage_TestCase
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'test@example.com',
-            $data['owner']
-        );
+        $this->assertEquals('test@example.com', $data['owner']);
     }
 
     public function testFolderDataHasTitle()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'Calendar',
-            $data['name']
-        );
+        $this->assertEquals('Calendar', $data['name']);
     }
 
     public function testFolderDataHasType()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'event',
-            $data['type']
-        );
+        $this->assertEquals('event', $data['type']);
     }
 
     public function testFolderDataHasDefault()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertTrue(
-            $data['default']
-        );
+        $this->assertTrue($data['default']);
     }
 
     public function testMailFolderDataType()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX');
-        $this->assertEquals(
-            'mail',
-            $data['type']
-        );
+        $this->assertEquals('mail', $data['type']);
     }
 
     public function testMailFolderDataNoDefault()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX');
-        $this->assertFalse(
-            $data['default']
-        );
+        $this->assertFalse($data['default']);
     }
 
     public function testFolderDataHasNamespace()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'personal',
-            $data['namespace']
-        );
+        $this->assertEquals('personal', $data['namespace']);
+    }
+
+    public function testFolderDataHasNamespacePrefix()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertEquals('INBOX', $data['prefix']);
+    }
+
+    public function testFolderDataHasNamespacePrefixUser()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getNamespaceList($factory), $factory)->folderData('user/example/Calendar');
+        $this->assertEquals('user', $data['prefix']);
     }
 
     public function testFolderDataHasSubpath()
     {
         $factory = new Horde_Kolab_Storage_Factory();
         $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
-        $this->assertEquals(
-            'Calendar',
-            $data['subpath']
-        );
+        $this->assertEquals('Calendar', $data['subpath']);
+    }
+
+    public function testFolderDataHasDelimiter()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $data = $this->getCachedQueryForList($this->getAnnotatedList($factory), $factory)->folderData('INBOX/Calendar');
+        $this->assertEquals('/', $data['delimiter']);
     }
 }

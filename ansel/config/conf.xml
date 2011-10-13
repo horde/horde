@@ -36,7 +36,7 @@
    <configboolean name="print" desc="Should we display a Print link in Ansel's
    menu?">true</configboolean>
    <configmultienum name="apps" desc="Select any applications that should be
-   linked in Ansel's menu">
+   linked in Ansel's menu" required="false">
     <values>
      <configspecial application="horde" name="apps" />
     </values>

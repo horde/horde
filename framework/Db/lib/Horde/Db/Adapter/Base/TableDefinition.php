@@ -1,12 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -16,7 +16,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -175,13 +175,13 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     public function __call($method, $arguments)
     {
         if (!in_array($method, $this->_columntypes)) {
-            throw new BadMethodCallException('Call to undeclared method "'.$method.'"');
-        } elseif (count($arguments) > 0 && count($arguments) < 3) {
+            throw new BadMethodCallException('Call to undeclared method "' . $method . '"');
+        }
+        if (count($arguments) > 0 && count($arguments) < 3) {
             return $this->column($arguments[0], $method,
                                  isset($arguments[1]) ? $arguments[1] : array());
-        } else {
-            throw new BadMethodCallException('Method "'.$method.'" takes two arguments');
         }
+        throw new BadMethodCallException('Method "'.$method.'" takes two arguments');
     }
 
     /**

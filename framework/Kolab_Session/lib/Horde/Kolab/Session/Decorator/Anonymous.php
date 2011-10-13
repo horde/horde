@@ -8,7 +8,7 @@
  * @category Kolab
  * @package  Kolab_Session
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 
@@ -16,15 +16,15 @@
  * The Horde_Kolab_Session_Anonymous class allows anonymous access to the Kolab
  * system.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Session
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Decorator_Anonymous
@@ -52,11 +52,8 @@ extends Horde_Kolab_Session_Decorator_Base
      * @param string              $user    ID of the anonymous user.
      * @param string              $pass    Password of the anonymous user.
      */
-    public function __construct(
-        Horde_Kolab_Session $session,
-        $user,
-        $pass
-    ) {
+    public function __construct(Horde_Kolab_Session $session, $user, $pass)
+    {
         parent::__construct($session);
         $this->_anonymous_id   = $user;
         $this->_anonymous_pass = $pass;

@@ -5,10 +5,10 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Kronolith through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Kronolith
  */
@@ -44,7 +44,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (3.0.1-git)';
+    public $version = 'H4 (3.0.11-git)';
 
     /**
      * Global variables defined:
@@ -127,7 +127,8 @@ class Kronolith_Application extends Horde_Registry_Application
         $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
 
         /* Import/Export. */
-        if ($conf['menu']['import_export']) {
+        if ($conf['menu']['import_export'] &&
+            !Kronolith::showAjaxView()) {
             $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
         }
     }
@@ -184,7 +185,19 @@ class Kronolith_Application extends Horde_Registry_Application
                     $ui->override['default_share'][$id] = $calendar->get('name');
                 }
                 break;
-
+            case 'sync_calendars':
+                $sync = @unserialize($prefs->getValue('sync_calendars'));
+                if (empty($sync)) {
+                    $prefs->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
+                }
+                $out = array();
+                foreach (Kronolith::listInternalCalendars(true, Horde_Perms::EDIT) as $key => $cal) {
+                    if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
+                        $out[$key] = $cal->get('name');
+                    }
+                }
+                $ui->override['sync_calendars'] = $out;
+                break;
             case 'event_alarms_select':
                 if (empty($conf['alarms']['driver']) ||
                     $prefs->isLocked('event_alarms_select')) {
@@ -279,6 +292,37 @@ class Kronolith_Application extends Horde_Registry_Application
                     }
                 }
             } catch (Exception $e) {}
+        }
+
+        // Ensure that the current default_share is included in sync_calendars
+        if ($GLOBALS['prefs']->isDirty('sync_calendars') || $GLOBALS['prefs']->isDirty('default_share')) {
+            $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
+            $haveDefault = false;
+            $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+            foreach ($sync as $cid) {
+                if ($cid == $default) {
+                    $haveDefault = true;
+                    break;
+                }
+            }
+            if (!$haveDefault) {
+                $sync[] = $default;
+                $GLOBALS['prefs']->setValue('sync_calendars', serialize($sync));
+            }
+        }
+
+        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_calendars')) {
+            try {
+                $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
+            }
         }
     }
 
@@ -405,16 +449,22 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        /* Remove all events owned by the user in all calendars. */
-        $result = Kronolith::getDriver()->removeUserData($user);
+        $error = false;
 
-        /* Get the user's default share */
+        // Remove all events owned by the user in all calendars.
+        Kronolith::removeUserEvents($user);
+
+        // Get the shares owned by the user being deleted.
         try {
-            $share = $GLOBALS['kronolith_shares']->getShare($user);
-            $result = $GLOBALS['kronolith_shares']->removeShare($share);
+            $shares = $GLOBALS['kronolith_shares']->listShares(
+                $user,
+                array('attributes' => $user));
+            foreach ($shares as $share) {
+                $GLOBALS['kronolith_shares']->removeShare($share);
+            }
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            throw $e;
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
         }
 
         /* Get a list of all shares this user has perms to and remove the
@@ -425,8 +475,12 @@ class Kronolith_Application extends Horde_Registry_Application
                 $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            throw $e;
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+        }
+
+        if ($error) {
+            throw new Kronolith_Exception(sprintf(_("There was an error removing calendars for %s. Details have been logged."), $user));
         }
     }
 
@@ -463,7 +517,7 @@ class Kronolith_Application extends Horde_Registry_Application
                         false,
                         array(
                             'icon' => $alarmImg,
-                            'url' => $event->getViewUrl()
+                            'url' => $event->getViewUrl(array(), false, false)
                         )
                     );
                 }
@@ -543,6 +597,7 @@ class Kronolith_Application extends Horde_Registry_Application
         /* Inline script. */
         Horde::addInlineScript(
           '$(window.document).bind("mobileinit", function() {
+              $.mobile.page.prototype.options.addBackBtn = true;
               $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
               $.mobile.loadingMessage = "' . _("loading") . '";
 

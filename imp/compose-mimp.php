@@ -18,15 +18,15 @@
  *   'to_expand_[1-5]' => (string) TODO
  *   'u' => (string) Unique ID (cache buster).
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -103,9 +103,11 @@ if ($session->get('imp', 'file_upload') &&
 /* Run through the action handlers. */
 switch ($vars->a) {
 // 'd' = draft
+// 'en' = edit as new
 case 'd':
+case 'en':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices(IMP::$thismailbox, IMP::$uid));
+        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid), ($vars->a == 'd'));
 
         $msg = $result['msg'];
         $header = array_merge($header, $result['header']);
@@ -331,7 +333,7 @@ if ($vars->a == 'rc') {
 } else {
     $t->set('compose_enable', !$compose_disable);
     $t->set('msg', htmlspecialchars($msg));
-    $t->set('save_draft', $injector->getInstance('IMP_Factory_Imap')->create()->allowFolders() && !$readonly_drafts);
+    $t->set('save_draft', $injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts);
     $t->set('subject', htmlspecialchars($header['subject']));
 
     if (!$prefs->isLocked('default_identity')) {

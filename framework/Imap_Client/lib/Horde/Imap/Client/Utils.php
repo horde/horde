@@ -1,20 +1,19 @@
 <?php
 /**
- * Horde_Imap_Client_Utils provides utility functions for the Horde IMAP
- * client.
+ * Utility functions for the Horde IMAP client.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * getBaseSubject() code adapted from imap-base-subject.c (Dovecot 1.2)
- *   Original code released under the LGPL v2.1
+ *   Original code released under the LGPL-2.0.1
  *   Copyright (c) 2002-2008 Timo Sirainen <tss@iki.fi>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  */
 class Horde_Imap_Client_Utils
@@ -22,23 +21,20 @@ class Horde_Imap_Client_Utils
     /**
      * Create an IMAP message sequence string from a list of indices.
      *
-     * <pre>
      * Index Format: range_start:range_end,uid,uid2,...
+     *
      * Mailbox Format: {mbox_length}[mailbox]range_start:range_end,uid,uid2,...
-     * </pre>
      *
      * @param mixed $in       An array of indices (or a single index). See
      *                        'mailbox' below.
      * @param array $options  Additional options:
-     * <pre>
-     * 'mailbox' - (boolean) If true, store mailbox information with the
-     *             ID list.  $ids should be an array of arrays, with keys as
-     *             mailbox names and values as IDs.
+     *   - mailbox: (boolean) If true, store mailbox information with the
+     *              ID list.  $ids should be an array of arrays, with keys as
+     *              mailbox names and values as IDs.
+     *              DEFAULT: false
+     *   - nosort: (boolean) Do not numerically sort the IDs before creating
+     *             the range?
      *             DEFAULT: false
-     * 'nosort' - (boolean) Do not numerically sort the IDs before creating
-     *            the range?
-     *            DEFAULT: false
-     * </pre>
      *
      * @return string  The IMAP message sequence string.
      */
@@ -101,9 +97,9 @@ class Horde_Imap_Client_Utils
 
     /**
      * Parse an IMAP message sequence string into a list of indices.
-     * See Horde_Imap_Client_Utils::toSequenceString() for allowed formats.
+     * See toSequenceString() for allowed formats.
      *
-     * @see self::toSequenceString()
+     * @see toSequenceString()
      *
      * @param string $str  The IMAP message sequence string.
      *
@@ -210,10 +206,8 @@ class Horde_Imap_Client_Utils
      *
      * @param string $str     The original subject string.
      * @param array $options  Additional options:
-     * <pre>
-     * 'keepblob' - (boolean) Don't remove any "blob" information (i.e. text
-     *              leading text between square brackets) from string.
-     * </pre>
+     *   - keepblob: (boolean) Don't remove any "blob" information (i.e. text
+     *               leading text between square brackets) from string.
      *
      * @return string  The cleaned up subject string.
      */
@@ -223,9 +217,9 @@ class Horde_Imap_Client_Utils
         $str = Horde_Mime::decode($str, 'UTF-8');
 
         // Rule 1b: Remove superfluous whitespace.
-        $str = preg_replace("/\b\s+\b/", ' ', $str);
+        $str = preg_replace("/[\t\r\n ]+/", ' ', $str);
 
-        if (!$str) {
+        if (!strlen($str)) {
             return '';
         }
 
@@ -260,37 +254,32 @@ class Horde_Imap_Client_Utils
      * Parse a POP3 (RFC 2384) or IMAP (RFC 5092/5593) URL.
      *
      * Absolute IMAP URLs takes one of the following forms:
-     * <pre>
-     * imap://<iserver>[/]
-     * imap://<iserver>/<enc-mailbox>[<uidvalidity>][?<enc-search>]
-     * imap://<iserver>/<enc-mailbox>[<uidvalidity>]<iuid>
-     *  [<isection>][<ipartial>][<iurlauth>]
-     * </pre>
+     *   - imap://<iserver>[/]
+     *   - imap://<iserver>/<enc-mailbox>[<uidvalidity>][?<enc-search>]
+     *   - imap://<iserver>/<enc-mailbox>[<uidvalidity>]<iuid>[<isection>][<ipartial>][<iurlauth>]
      *
      * POP URLs take one of the following forms:
-     * pop://<user>;auth=<auth>@<host>:<port>
+     *   - pop://<user>;auth=<auth>@<host>:<port>
      *
      * @param string $url  A URL string.
      *
      * @return mixed  False if the URL is invalid.  If valid, an array with
      *                the following fields:
-     * <pre>
-     * 'auth' - (string) The authentication method to use.
-     * 'hostspec' - (string) The remote server. (Not present for relative
-     *              URLs).
-     * 'mailbox' - (string) The IMAP mailbox.
-     * 'partial' - (string) A byte range for use with IMAP FETCH.
-     * 'port' - (integer) The remote port. (Not present for relative URLs).
-     * 'relative' - (boolean) True if this is a relative URL.
-     * 'search' - (string) A search query to be run with IMAP SEARCH.
-     * 'section' - (string) A MIME part ID.
-     * 'type' - (string) Either 'imap' or 'pop'. (Not present for relative
-     *          URLs).
-     * 'username' - (string) The username to use on the remote server.
-     * 'uid' - (string) The IMAP UID.
-     * 'uidvalidity' - (integer) The IMAP UIDVALIDITY for the given mailbox.
-     * 'urlauth' - (string) URLAUTH info (not parsed).
-     * </pre>
+     *   - auth: (string) The authentication method to use.
+     *   - hostspec: (string) The remote server. (Not present for relative
+     *               URLs).
+     *   - mailbox: (string) The IMAP mailbox.
+     *   - partial: (string) A byte range for use with IMAP FETCH.
+     *   - port: (integer) The remote port. (Not present for relative URLs).
+     *   - relative: (boolean) True if this is a relative URL.
+     *   - search: (string) A search query to be run with IMAP SEARCH.
+     *   - section: (string) A MIME part ID.
+     *   - type: (string) Either 'imap' or 'pop'. (Not present for relative
+     *           URLs).
+     *   - username: (string) The username to use on the remote server.
+     *   - uid: (string) The IMAP UID.
+     *   - uidvalidity: (integer) The IMAP UIDVALIDITY for the given mailbox.
+     *   - urlauth: (string) URLAUTH info (not parsed).
      */
     public function parseUrl($url)
     {
@@ -316,7 +305,7 @@ class Horde_Imap_Client_Utils
 
         /* Check for username/auth information. */
         if (isset($data['user'])) {
-            if (($pos = stripos($url, ';AUTH=')) !== false) {
+            if (($pos = stripos($data['user'], ';AUTH=')) !== false) {
                 $auth = substr($data['user'], $pos + 6);
                 if ($auth != '*') {
                     $ret_array['auth'] = $auth;
@@ -324,7 +313,9 @@ class Horde_Imap_Client_Utils
                 $data['user'] = substr($data['user'], 0, $pos);
             }
 
-            $ret_array['username'] = $data['user'];
+            if (strlen($data['user'])) {
+                $ret_array['username'] = $data['user'];
+            }
         }
 
         /* IMAP-only information. */
@@ -338,7 +329,7 @@ class Horde_Imap_Client_Utils
                     $ret_array['uidvalidity'] = substr($mbox, $pos + 13);
                     $mbox = substr($mbox, 0, $pos);
                 }
-                $ret_array['mailbox'] = $mbox;
+                $ret_array['mailbox'] = urldecode($mbox);
 
             }
 

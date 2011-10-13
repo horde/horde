@@ -3,10 +3,10 @@
  * From Binary XML Content Format Specification Version 1.3, 25 July 2001
  * found at http://www.wapforum.org
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Anthony Mills <amills@pyramid6.com>
  * @package Xml_Wbxml
@@ -44,34 +44,20 @@ class Horde_Xml_Wbxml_DtdManager
      */
     public function getInstance($publicIdentifier)
     {
-        $publicIdentifier = strtolower($publicIdentifier);
+        $publicIdentifier = Horde_String::lower($publicIdentifier);
         if (isset($this->_strDTD[$publicIdentifier])) {
             return $this->_strDTD[$publicIdentifier];
         }
-        return null;
     }
 
     /**
      */
     public function getInstanceURI($uri)
     {
-        $uri = strtolower($uri);
-
-        // some manual hacks:
-        if ($uri == 'syncml:syncml') {
-            $uri = 'syncml:syncml1.0';
-        }
-        if ($uri == 'syncml:metinf') {
-            $uri = 'syncml:metinf1.0';
-        }
-        if ($uri == 'syncml:devinf') {
-            $uri = 'syncml:devinf1.0';
-        }
-
+        $uri = Horde_String::lower($uri);
         if (isset($this->_strDTDURI[$uri])) {
             return $this->_strDTDURI[$uri];
         }
-        return null;
     }
 
     /**
@@ -80,9 +66,9 @@ class Horde_Xml_Wbxml_DtdManager
     {
         $dtd->setDPI($publicIdentifier);
 
-        $publicIdentifier = strtolower($publicIdentifier);
+        $publicIdentifier = Horde_String::lower($publicIdentifier);
 
         $this->_strDTD[$publicIdentifier] = $dtd;
-        $this->_strDTDURI[strtolower($uri)] = $dtd;
+        $this->_strDTDURI[Horde_String::lower($uri)] = $dtd;
     }
 }

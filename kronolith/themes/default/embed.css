@@ -84,6 +84,10 @@
     border: medium none;
 }
 
+.kronolith_embedded .kronolithEventCancelled {
+    text-decoration: line-through;
+}
+
 .kronolith_embedded td, .kronolith_embedded th {
     padding: 1px;
 }

@@ -5,7 +5,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @category   Horde
- * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @license    http://www.horde.org/licenses/bsd BSD
  * @package    Log
  * @subpackage Handlers
  */
@@ -14,7 +14,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @category   Horde
- * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @license    http://www.horde.org/licenses/bsd BSD
  * @package    Log
  * @subpackage Handlers
  */
@@ -41,7 +41,8 @@ class Horde_Log_Handler_Scribe extends Horde_Log_Handler_Base
      */
     protected $_options = array(
         'addNewline' => false,
-        'category'   => 'default'
+        'category'   => 'default',
+        'ident' => ''
     );
 
     /**
@@ -68,6 +69,10 @@ class Horde_Log_Handler_Scribe extends Horde_Log_Handler_Base
      */
     public function write($event)
     {
+        if (!empty($this->_options['ident'])) {
+            $event['message'] = $this->_options['ident'] . ' ' . $event['message'];
+        }
+
         $category = isset($event['category'])
             ? $event['category']
             : $this->_options['category'];

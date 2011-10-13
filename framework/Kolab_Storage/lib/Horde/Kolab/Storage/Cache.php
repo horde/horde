@@ -7,7 +7,7 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
@@ -22,15 +22,15 @@
  * This class does not offer a lot of safeties and is primarily intended to be
  * used within the Horde_Kolab_Storage_Data class.
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Cache
@@ -108,7 +108,7 @@ class Horde_Kolab_Storage_Cache
      */
     public function storeData($data_id, $data)
     {
-        $this->horde_cache->set($data_id, $data);
+        $this->horde_cache->set($data_id, $data, 0);
     }
 
     /**
@@ -142,7 +142,8 @@ class Horde_Kolab_Storage_Cache
     {
         $this->horde_cache->set(
             $this->_getAttachmentId($data_id, $obid, $attachment_id),
-            $data
+            $data,
+            0
         );
     }
 
@@ -204,7 +205,7 @@ class Horde_Kolab_Storage_Cache
      */
     public function storeList($list_id, $data)
     {
-        $this->horde_cache->set($list_id, $data);
+        $this->horde_cache->set($list_id, $data, 0);
     }
 
     /**
@@ -234,7 +235,7 @@ class Horde_Kolab_Storage_Cache
      */
     private function _getDataId($data_params)
     {
-        foreach (array('host', 'port', 'folder', 'type', 'owner') as $key) {
+        foreach (array('host', 'port', 'prefix', 'folder', 'type', 'owner') as $key) {
             $this->_requireParameter($data_params, 'data', $key);
         }
         ksort($data_params);

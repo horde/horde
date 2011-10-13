@@ -33,10 +33,10 @@ HordeMap = {
      *          'apikeys': An object containing any api keys needed by the mapping
      *                     provider(s). {'google': 'xxxxx', ...}
      *          'useMarkerLayer': whether or not to use the 'built-in' marker
-     *                            layer (only applies to the Horde driver).
-     *
+     *                            layer.
      *          'markerImage':  Path to a marker icon.
      *          'markerBackground':  Path to a marker icon background.
+     *          ''
      */
     initialize: function(opts)
     {
@@ -51,10 +51,10 @@ HordeMap = {
         if (this._opts.driver == 'Horde') {
             this._addScript(path + 'OpenLayers.js');
             if (this._opts.conf.language != 'en-US') {
-                this._addScript(path + '/lang' + this._opts.conf.language + '.js');
+                this._addScript(path + '/lang/' + this._opts.conf.language + '.js');
             }
         }
-        
+
         this._addScript(path + this._opts.driver.toLowerCase() + '.js');
 
         if (this._opts.geocoder) {

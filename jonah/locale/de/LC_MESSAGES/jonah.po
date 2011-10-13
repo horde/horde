@@ -1,5 +1,5 @@
 # German translations for Jonah.
-# Copyright 2002-2011 The Horde Project
+# Copyright 2002-2011 Horde LLC
 # This file is distributed under the same license as the Jonah package.
 # Jan Schneider, 2002-2010.
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-05-18 12:23+0200\n"
 "PO-Revision-Date: 2011-02-02 17:34+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -76,7 +76,7 @@ msgstr "Administrator"
 msgid "An error occurred fetching channels: %s"
 msgstr "Beim Empfangen dieses Kanals ist ein Fehler aufgetreten: %s"
 
-#: lib/Driver/Sql.php:577
+#: lib/Driver/Sql.php:579
 #, php-format
 msgid "Channel \"%s\" not found."
 msgstr "Kanal \"%s\" nicht gefunden."
@@ -124,15 +124,15 @@ msgstr "Suche beenden"
 msgid "Comments"
 msgstr "Kommentare"
 
-#: config/templates.php:44
+#: config/templates.php:45
 msgid "Compact"
 msgstr "Kompakt"
 
-#: lib/Jonah.php:223
+#: lib/Jonah.php:213
 msgid "Composite Feed"
 msgstr "Zusammengefasster Feed"
 
-#: lib/Jonah.php:61 lib/Jonah.php:64
+#: lib/Jonah.php:51 lib/Jonah.php:54
 #, php-format
 msgid "Could not open %s: %s"
 msgstr "%s konnte nicht gelesen werden: %s"
@@ -259,7 +259,7 @@ msgstr "Einfügen"
 msgid "Include full story content in syndicated feeds?"
 msgstr "Den vollständigen Beitragstext in den veröffentlichten Feed verwenden?"
 
-#: config/templates.php:33
+#: config/templates.php:34
 msgid "Internal"
 msgstr "Intern"
 
@@ -284,7 +284,7 @@ msgstr "Letzte Aktualisierung"
 msgid "Latest News"
 msgstr "Neueste Beiträge"
 
-#: lib/Jonah.php:84 lib/Jonah.php:220
+#: lib/Jonah.php:74 lib/Jonah.php:210
 msgid "Local Feed"
 msgstr "Lokaler Feed"
 
@@ -296,7 +296,7 @@ msgstr "Feeds verwalten"
 msgid "Maximum Stories"
 msgstr "Maximale Beiträge"
 
-#: config/templates.php:22
+#: config/templates.php:23
 msgid "Media"
 msgstr "Multimedia"
 
@@ -438,7 +438,7 @@ msgstr "Diesen Nachrichtenbeitrag wirklich löschen?"
 msgid "Results URL"
 msgstr "Ergebnis-URL"
 
-#: lib/Jonah.php:174
+#: lib/Jonah.php:164
 msgid "Rich Text"
 msgstr "Formatierter Text"
 
@@ -483,7 +483,7 @@ msgstr ""
 "Kurznamen ermöglichen den direkten Zugriff auf diesen Feed über: %s.<br /"
 ">Kurznamen dürfen Buchstaben, Zahlen und Unterstriche enthalten."
 
-#: config/templates.php:11
+#: config/templates.php:12
 msgid "Standard"
 msgstr "Standard"
 
@@ -531,7 +531,7 @@ msgstr "Bearbeiten des Beitrags fehlgeschlagen: %s"
 msgid "Story has not been deleted."
 msgstr "Der Beitrag wurde nicht gelöscht."
 
-#: lib/Driver/Sql.php:525
+#: lib/Driver/Sql.php:527
 #, php-format
 msgid "Story id \"%s\" not found."
 msgstr "Beitrags-ID \"%s\" nicht gefunden."
@@ -561,7 +561,7 @@ msgstr "Tags:"
 msgid "Tags: "
 msgstr "Tags: "
 
-#: lib/Jonah.php:181
+#: lib/Jonah.php:171
 msgid "Text"
 msgstr "Text"
 
@@ -619,7 +619,7 @@ msgstr "An"
 msgid "Type"
 msgstr "Typ"
 
-#: config/templates.php:55
+#: config/templates.php:56
 msgid "Ultracompact"
 msgstr "Sehr kompakt"
 

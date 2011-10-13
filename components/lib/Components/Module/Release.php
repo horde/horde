@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Components_Module_Release:: generates a release.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Module_Release
@@ -76,7 +76,8 @@ extends Components_Module_Base
                 '--next_note',
                 array(
                     'action' => 'store',
-                    'help'   => 'Initial change log note for the next version of the component.'
+                    'default' => '',
+                    'help'   => 'Initial change log note for the next version of the component [default: empty entry].'
                 )
             ),
             new Horde_Argv_Option(
@@ -154,19 +155,11 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'Action "release"
+        return 'Releases the component. This handles a number of automated steps usually required when releasing a package to pear.horde.org. In the most simple situation it will be sufficient to move to the directory of the component you wish to release and run
 
-Releases the component. This handles a number of automated steps usually
-required when releasing a package to pear.horde.org. In the most simple
-situation it will be sufficient to move to the directory of the component
-you with to release and run
+  horde-components release
 
- horde-components release
-
-This should perform all required actions. Sometimes it might be necessary
-to avoid some of the steps that are part of the release process. This can
-be done by adding additional arguments after the "release" keyword. Each
-argument indicates that the corresponding task should be run.
+This should perform all required actions. Sometimes it might be necessary to avoid some of the steps that are part of the release process. This can be done by adding additional arguments after the "release" keyword. Each argument indicates that the corresponding task should be run.
 
 The available tasks are:
 
@@ -182,14 +175,34 @@ The available tasks are:
  - next        : Update package.xml with the next version.
  - nextsentinel: Update the sentinels for the next version as well.
 
-The indentation indicates task that depend on a parent task. Activating them
-without activating the parent has no effect.
+The indentation indicates task that depend on a parent task. Activating them without activating the parent has no effect.
 
-The following example would generate the package and add the release tag to
-git without any other release task being performed:
+The following example would generate the package and add the release tag to git without any other release task being performed:
 
- horde-components release package tag
-';
+  horde-components release package tag';
+    }
+
+    /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array(
+            '--pretend' => '',
+            '--config' => '',
+            '--releaseserver' => '',
+            '--releasedir' => '',
+            '--next_note' => '',
+            '--next_version' => '',
+            '--next_relstate' => '',
+            '--next_apistate' => '',
+            '--from' => '',
+            '--horde_user' => '',
+            '--horde_pass' => '',
+            '--fm_token' => '',
+        );
     }
 
     /**
@@ -206,7 +219,6 @@ git without any other release task being performed:
         $arguments = $config->getArguments();
         if (!empty($options['release'])
             || (isset($arguments[0]) && $arguments[0] == 'release')) {
-            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerRelease()->run();
             return true;
         }

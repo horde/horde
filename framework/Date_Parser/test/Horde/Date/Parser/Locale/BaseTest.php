@@ -702,6 +702,12 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
         $this->assertEquals($this->now, $this->parser->parse("meeting today at 2pm"));
     }
 
+    public function testParseTextWithSlashes()
+    {
+        $time = $this->parser->parse("tomorrow 5pm empty dishwasher / load dishwasher");
+        $this->assertEquals(new Horde_Date(2006, 8, 17, 17), $time);
+    }
+
     public function testArgumentValidation()
     {
         try {
@@ -720,5 +726,4 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
             $this->fail("Should throw InvalidArgumentException, threw " . get_class($e));
         }
     }
-
 }

@@ -4,16 +4,16 @@
  * and provides an option to import the data into a calendar source,
  * if one is available.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
@@ -60,6 +60,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
             $ret[key($ret)]['data'] = Horde::endBuffer();
         }
+
         return $ret;
     }
 
@@ -365,7 +366,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     // Build the reply.
                     $msg_headers = new Horde_Mime_Headers();
                     $vCal = new Horde_Icalendar();
-                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . $msg_headers->getUserAgent() . '//EN');
+                    $vCal->setAttribute('PRODID', '-//Horde LLC//' . $msg_headers->getUserAgent() . '//EN');
                     $vCal->setAttribute('METHOD', 'REPLY');
                     $vCal->addComponent($vfb_reply);
 
@@ -421,8 +422,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
         if (Horde_Util::getFormData('ajax')) {
             foreach ($msgs as $msg) {
-                $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0], isset($msg[2]) ? $msg[2] : null);
+                $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0], isset($msg[2]) ? $msg[2] : array());
             }
+
             return array(
                 $mime_id => array(
                     'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => $this->getConfigParam('charset'))), $this->getConfigParam('charset'), 'UTF-8'),
@@ -693,7 +695,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             } else {
                 $html .= '<p><strong>' . _("Start:") . '</strong> ' . strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start) . '</p>';
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+            $start = null;
+        }
 
         try {
             $end = $vevent->getAttribute('DTEND');
@@ -702,7 +706,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             } else {
                 $html .= '<p><strong>' . _("End:") . '</strong> ' . strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end) . '</p>';
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+            $end = null;
+        }
 
         try {
             $sum = $vevent->getAttribute('SUMMARY');
@@ -765,7 +771,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $html .= '</tbody></table>';
         }
 
-        if (($method == 'PUBLISH' || $method == 'REQUEST' || $method == 'ADD') &&
+        if ($start && $end &&
+            ($method == 'PUBLISH' || $method == 'REQUEST' || $method == 'ADD') &&
             $registry->hasMethod('calendar/getFbCalendars') &&
             $registry->hasMethod('calendar/listEvents')) {
             try {
@@ -791,6 +798,10 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                     // TODO: Check if there are too many events to show.
                     foreach ($events as $calendar) {
                         foreach ($calendar as $event) {
+                            if ($event->status == Kronolith::STATUS_CANCELLED ||
+                                $event->status == Kronolith::STATUS_FREE) {
+                                continue;
+                            }
                             if ($vevent_allDay || $event->isAllDay()) {
                                 $html .= '<tr class="itipcollision">';
                             } else {

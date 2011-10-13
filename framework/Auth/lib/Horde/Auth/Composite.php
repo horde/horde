@@ -3,14 +3,14 @@
  * The Horde_Auth_Composite class provides a way to combine two separate
  * drivers for admin vs. authentication purposes.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ * not receive this file, http://www.horde.org/licenses/lgpl21
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Composite extends Horde_Auth_Base
@@ -47,7 +47,9 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        return $this->_params['auth_driver']->authenticate($userId, $credentials);
+        if (!$this->_params['auth_driver']->authenticate($userId, $credentials)) {
+            throw new Horde_Auth_Exception($this->_params['auth_driver']->getError(true), $this->_params['auth_driver']->getError());
+        }
     }
 
     /**
@@ -141,9 +143,9 @@ class Horde_Auth_Composite extends Horde_Auth_Base
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
-        return $this->_params['admin_driver']->listUsers();
+        return $this->_params['admin_driver']->listUsers($sort);
     }
 
     /**

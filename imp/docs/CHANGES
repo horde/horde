@@ -1,7 +1,210 @@
-----------
-v5.0.1-git
-----------
+-----------
+v5.0.14-git
+-----------
 
+[jan] Fix sending notifications after download of linked attachments (Bug
+      #10539).
+
+
+-------
+v5.0.13
+-------
+
+[jan] Fix broken dependency on Text_Flowed.
+
+
+-------
+v5.0.12
+-------
+
+[mms] Fix UI artifacts when renaming mailboxes in dynamic view (Bug #10533).
+[jan] Don't open certain links in HTML messages in the message pane.
+[mms] Add ability to toggle hide deleted messages in dynamic view (Request
+      #10256).
+[mms] Add auto-generated message filter (see RFC 3834).
+[mms] Remove non-existent parent mailbox when removing last child mailbox in
+      dynamic view (Bug #10495).
+[mms] Provide content duration information for audio & video data if that
+      information is available (RFC 3803).
+[jan] Fix setting sender when redirecting messages via SMTP (Bug #10488).
+[mms] Add List-ID information, if available, to auto-reply notification.
+[mms] Display information on reply method in standard view, and allow for
+      easy method switching, when automatically choosing the reply type.
+[mms] Fix generation of Save All attachments link.
+[mms] More intelligent quoting of flowed text messages sent in HTML format.
+[mms] Browser mailto-handler respects current IMP view mode (Bug #10475).
+[mms] Always show image thumbnail previews, if an image conversion utility is
+      present on the system.
+[mms] More workarounds for broken suhosin extension (Bug #10462).
+
+
+-------
+v5.0.11
+-------
+
+[mms] Automatically track rownumber updates when selecting messages; fixes
+      SHIFT-DEL behavior in the dynamic view.
+[mms] Fix contents of sent message when directly sending from spellcheck in
+      standard view (Bug #10464).
+[mms] Fix namespace auto-detection for non-sane namespace configs (Bug #10447).
+[mms] Fix POP3 regression (Bug #10450).
+[mms] Forwarded messages no longer treated as an attachment in the UI (Request
+      #9754).
+[mms] Correctly display submailboxes in dynamic view when new submailbox is
+      created before parent mailbox is expanded (Bug #10429).
+
+
+-------
+v5.0.10
+-------
+
+[mms] Display flag to indicate a mailing list message.
+[mms] Immediately update mailbox list when message is deleted and the mailbox
+      does not support flags (e.g. POP3) (Bug #10424).
+[mjr] Fix notifications not showing while accepting iTips
+[mms] Correctly determine page with first/last unseen messages when using
+      descending sequence sorting (Bug #9882).
+[mms] Deletion works correctly from popup message view if base window is no
+      longer available (Bug #9761).
+[mms] Fix explicitly applying filters in INBOX in dynamic view (Bug #10291).
+[mms] Add 'Edit as New' action for messages (Request #10206).
+[mms] Remove 'allow_resume_all' configuration option (Request #10206).
+[mms] Add personal contacts search filter.
+[mms] Add ability to search all mailboxes (Request #10204).
+
+
+------
+v5.0.9
+------
+
+[mms] Fix to allow search filters to be saved.
+[mjr] Fix mouse click handling on mobile view (Bug #10355).
+[mms] Ensure correct message charset is use if forward/reply headers contain
+      non US-ASCII characters (Bug #10148).
+[mms] Select all checkbox in dynamic view can now be toggled (Request #10067).
+[mms] Remember vertical splitbar size in dynamic view.
+[mms] Workaround IE quirks for compose autocomplete box (Bug #10250).
+[mms] Fix resuming HTML drafts for non-reply messages (Bug #10298).
+[jan] Fix verifying of inline signed PGP messages (requires Horde_Crypt 1.0.4).
+[mms] Fix Shift-N shortcut in dynamic view (Bug #10352).
+[mms] Add save message link to dynamic view preview window.
+[mms] Correctly quote e-mail names when composing from compose links in the
+      dynamic view (Bug #10292).
+
+
+------
+v5.0.8
+------
+
+[jan] Don't attempt to delete linked attachments monthly if they have been
+      disabled (Bug #10166).
+[jan] Don't show basic headers twice when showing all headers (Bug #10276).
+[jan] Add IMP_Contents#getTree() to return a tree representation of a message's
+      MIME parts.
+[mms] Fix regression in parsing list reply address (Bug #10258).
+[jan] Tick sent-mail checkbox off when selecting sent-mail folder in dynamic
+      view.
+[jan] Keep key navigation active after clicking into a HTML message (Request
+      #9720).
+[mms] Fix additional regression when flagging all messages in a mailbox
+      (Bug #10243).
+[mms] Fix "Don't Show" filtering in traditional mailbox view (Bug #10244).
+
+
+------
+v5.0.7
+------
+
+[mms] Don't strip HTML part of compose message when stripping attachments
+      from saved sent-mail message (Bug #10234).
+[mms] Fix regression when copying/moving messages into a new mailbox in
+      traditional view (Bug #10232).
+[mms] Fix regression when flagging all messages in a mailbox (Bug #10224).
+[jan] Fix folder links in virtual folders (Bug #10221).
+[mms] Show translated name for special mailboxes in sent mail lists (Bug
+      #10220).
+[mms] Fix regression in filtering mailbox in traditional view (Bug #10213).
+
+
+------
+v5.0.6
+------
+
+[mms] Fix regression in renaming mailboxes in dynamic view (Bug #10207).
+[mms] Fix selecting sent-mail mailbox for not empty namespaces (Bug #10090).
+[mms] Fix saving expand/collapse state in traditional folders view.
+[mms] Update all flag changes in dynamic mode (Bug #10146).
+[mms] Fix editing saved searches in dynamic mode (Bug #10189).
+[mms] Fix regression in saving sent mail in traditional view (Bug #10193).
+[mms] Fix regression in deleting mailboxes in traditional view (Bug #10170).
+[mms] Fix currently selected mailbox in folder lists (Bug #10163).
+[jan] Don't show button to strip attachments if turned off in the preferences
+      (Bug #10154).
+[jan] Fix printing from message popup (Bug #10188).
+[jan] Fix viewing messages source from message popup (Bug #10190).
+[jan] Fix editing saved searches in traditional view (Bug #10184).
+
+
+------
+v5.0.5
+------
+
+[jan] Fix loading message previews from search results (Bug #10152).
+[mms] Fix sending messages with linked attachments (Bug #10125).
+[mms] Handle response codes/errors returned from POP3 servers.
+[mms] Fix POP3 regressions.
+[mms] Workaround broken suhosin extension to allow search mailboxes (Request
+      #9842).
+
+
+------
+v5.0.4
+------
+
+[mms] Fix filter links in the preferences UI (Bug #10117).
+[mms] Fix print icon for non text/html displayable attachments (Bug #10112).
+[mms] Support $Junk/$NotJunk keywords when marking spam/ham.
+[jan] Fix link to send PGP key to keyserver (Bug #10070).
+[mms] Fix resizing compose window in dynamic view for IE 7/8 (Bug #10075).
+[mms] Fix setting/unsetting passphrases in preferences (Bug #10096).
+[mms] Base64url encode breacdrumb hash information in dynamic view.
+[mms] Add login task to autocreate special mailboxes.
+[mms] Workaround broken messages by allow viewing multipart/related parts that
+      are not referenced in the base part (Request #9827).
+[mms] Use ACLs to determine when to hide various UI options (Request #9537).
+[mms] Cache various calculated mailbox information in the session.
+[mms] Fix adding flags in advanced search (Bug #10049).
+[mms] Fix display of subfolders in mobile view (Bug #10043).
+[mms] Improved determination of available flags in a mailbox.
+[mms] Fix adding to whitelist from dynamic view (rui.carneiro@portugalmail.net,
+      Bug #10036).
+
+
+------
+v5.0.3
+------
+
+[jan] Add missing files to package.
+
+
+------
+v5.0.2
+------
+
+[mms] Add quick flag filtering to traditional view.
+[mms] Fix viewing linked attachments (Bug #9972).
+[mms] Add support for the content-id access type of message/external-body.
+[mms] Consolidate IMAP error handling code in IMP_Imap_Exception.
+[mms] Use translated namespace name if available.
+
+
+------
+v5.0.1
+------
+
+[mms] Fix resuming reply drafts in HTML mode (Bug #9928).
+[mms] Fix updating flags/logs on original messages after resuming from draft.
+[mms] Fix flagging messages in search mailboxes in dynamic view.
 [mms] Don't attempt to poll non-IMAP mailboxes (Bug #9896).
 [mms] Fix deleting attachments from compose message in dynamic view (Bug
       #9899).
@@ -311,6 +514,14 @@ v5.0-ALPHA1
 [mms] Added readonly mailbox and disable compose hooks.
 [mms] Saving draft on session expiration now handled via VFS.
 [mms] Add preference to delete draft on resume & send.
+
+
+-------
+v4.3.10
+-------
+
+[jan] Don't submit the action form when reloading messages with iTip
+      attachments (Bug #9502).
 
 
 ------

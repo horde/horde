@@ -16,17 +16,17 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:08:01</time>
+ <date>2011-08-17</date>
+ <time>14:54:02</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -322,7 +322,6 @@
        <file name="smime_subjectAltName.pem" role="test" />
       </dir> <!-- /test/Horde/Crypt/fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="PgpKeyserverTest.php" role="test" />
       <file name="PgpTest.php" role="test" />
       <file name="SmimeTest.php" role="test" />
@@ -482,7 +481,6 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" />
    <install as="Horde/Crypt/AllTests.php" name="test/Horde/Crypt/AllTests.php" />
-   <install as="Horde/Crypt/Autoload.php" name="test/Horde/Crypt/Autoload.php" />
    <install as="Horde/Crypt/PgpKeyserverTest.php" name="test/Horde/Crypt/PgpKeyserverTest.php" />
    <install as="Horde/Crypt/PgpTest.php" name="test/Horde/Crypt/PgpTest.php" />
    <install as="Horde/Crypt/SmimeTest.php" name="test/Horde/Crypt/SmimeTest.php" />
@@ -509,7 +507,7 @@
     <api>alpha</api>
    </stability>
    <date>2003-07-03</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial release as a PEAR package
    </notes>
@@ -524,7 +522,7 @@ Initial release as a PEAR package
     <api>alpha</api>
    </stability>
    <date>2006-05-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Converted to package.xml 2.0 for pear.horde.org
 * Added support for email addresses in subjectAltName of S/MIME certs (Bug #5986)
@@ -541,7 +539,7 @@ Initial release as a PEAR package
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Add Horde_Crypt_Exception.
@@ -558,7 +556,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -573,7 +571,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -588,7 +586,7 @@ Initial release as a PEAR package
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -603,7 +601,7 @@ Initial release as a PEAR package
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -615,8 +613,77 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-04-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix package.xml syntax.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Updated Spanish translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Updated Slovak translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Latvian translation.
+* [jan] Allow to specify body charset when verifying PGP signed messages.
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
+* [mms] Use strongest cipher possible when encrypting S/MIME data (Request #10246).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Encrypted data is already base64 encoded (Bug #10285).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

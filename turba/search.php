@@ -2,7 +2,7 @@
 /**
  * Turba search.php.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -181,7 +181,7 @@ if ($driver) {
                     $notification->push(_("Failed to search the address book"), 'horde.error');
                 }
             } catch (Turba_Exception $e) {
-                $notification->push($results, 'horde.error');
+                $notification->push($e, 'horde.error');
             }
         }
     }
@@ -223,6 +223,7 @@ $searchView->shareSources = $shareSources;
 $searchView->attributes = $GLOBALS['attributes'];
 $searchView->allCriteria = $allCriteria;
 $searchView->map = $map;
+$searchView->blobs = $driver->getBlobs();
 $searchView->source = $source;
 $searchView->criteria = $criteria;
 $searchView->value = $val;

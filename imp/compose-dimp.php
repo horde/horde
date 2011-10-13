@@ -2,29 +2,30 @@
 /**
  * Dynamic (dimp) compose display page.
  *
- * <pre>
  * List of URL parameters:
  * -----------------------
- * 'bcc' - TODO
- * 'cc' - TODO
- * 'folder'
- * 'identity' - TODO
- * 'subject' - TODO
- * 'type' - TODO
- * 'to' - TODO
- * 'uid' - TODO
- * 'uids' - TODO
- * </pre>
+ *   - bcc: BCC addresses.
+ *   - body: Message body text.
+ *   - cc: CC addresses.
+ *   - identity: Force message to use this identity by default.
+ *   - subject: Subject to use.
+ *   - type: redirect, reply, reply_auto, reply_all, reply_list,
+ *           forward_attach, forward_auto, forward_body, forward_both,
+ *           forward_redirect, resume, new, editasnew
+ *   - to: Address to send to.
+ *   - toname: If set, will be used as personal part of e-mail address
+ *             (requires 'to' parameter also).
+ *   - uids: UIDs of message to forward (only used when forwarding a message).
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -36,18 +37,25 @@ Horde_Registry::appInit('imp', array(
 
 $vars = Horde_Variables::getDefaultVariables();
 
-/* Determine if compose mode is disabled. */
-$compose_disable = !IMP::canCompose();
-
 /* The headers of the message. */
 $header = array();
-foreach (array('to', 'cc', 'bcc', 'subject') as $v) {
-    $header[$v] = strval($vars->$v);
+$args = IMP::getComposeArgs();
+foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
+    if (isset($args[$val])) {
+        $header[$val] = $args[$val];
+    }
+}
+
+/* Check for personal information for 'to' address. */
+if (isset($header['to']) &&
+    isset($vars->toname) &&
+    ($tmp = Horde_Mime_Address::parseAddressList($header['to']))) {
+    $header['to'] = Horde_Mime_Address::writeAddress($tmp[0]['mailbox'], $tmp[0]['host'], $vars->toname);
 }
 
 $fillform_opts = array('noupdate' => 1);
 $get_sig = true;
-$msg = '';
+$msg = $vars->body;
 
 $js = array();
 
@@ -88,6 +96,25 @@ case 'reply_list':
     $header = $reply_msg['headers'];
     if ($vars->type == 'reply_auto') {
         $fillform_opts['auto'] = array_search($reply_msg['type'], $reply_map);
+
+        switch ($fillform_opts['auto']) {
+        case 'reply_all':
+            try {
+                $recip_list = $imp_compose->recipientList($header);
+                $fillform_opts['reply_recip'] = count($recip_list['list']);
+            } catch (IMP_Compose_Exception $e) {
+                $fillform_opts['reply_recip'] = 0;
+            }
+            break;
+
+        case 'reply_list':
+            $hdr_ob = $contents->getHeaderOb();
+            $addr_ob = Horde_Mime_Address::parseAddressList($hdr_ob->getValue('list-id'));
+            if (isset($addr_ob[0]['personal'])) {
+                $fillform_opts['reply_list_id'] = $addr_ob[0]['personal'];
+            }
+            break;
+        }
     }
 
     switch ($reply_msg['type']) {
@@ -187,9 +214,10 @@ case 'forward_redirect':
     }
     break;
 
+case 'editasnew':
 case 'resume':
     try {
-        $result = $imp_compose->resumeDraft(new IMP_Indices($vars->folder, $vars->uid));
+        $result = $imp_compose->resumeDraft(IMP::$mailbox->getIndicesOb(IMP::$uid), ($vars->type == 'resume'));
 
         if ($result['mode'] == 'html') {
             $show_editor = true;
@@ -245,6 +273,7 @@ $t->set('title', $title);
 
 $compose_result = IMP_Views_Compose::showCompose(array(
     'composeCache' => $imp_compose->getCacheId(),
+    'fwdattach' => (isset($fwd_msg) && ($fwd_msg['type'] != IMP_Compose::FORWARD_BODY)),
     'redirect' => ($vars->type == 'redirect'),
     'show_editor' => $show_editor
 ));
@@ -254,13 +283,17 @@ $t->set('compose_html', $compose_result['html']);
 Horde::addInlineJsVars($js);
 Horde::addInlineScript($compose_result['js']);
 
-$fillform_opts['focus'] = in_array($vars->type, array('forward', 'new', 'redirect')) ? 'to' : 'composeMessage';
+$fillform_opts['focus'] = (($vars->type == 'new') && isset($args['to']))
+    ? 'composeMessage'
+    : (in_array($vars->type, array('forward', 'new', 'redirect', 'editasnew')) ? 'to' : 'composeMessage');
+
 if ($vars->type != 'redirect') {
     $compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';
 }
 Horde::addInlineScript($compose_result['jsonload'], 'dom');
 
 $scripts = array(
+    array('base64url.js', 'imp'),
     array('compose-base.js', 'imp'),
     array('compose-dimp.js', 'imp'),
     array('md5.js', 'horde'),
@@ -274,7 +307,10 @@ if (!($prefs->isLocked('default_encrypt')) &&
     $scripts[] = array('redbox.js', 'horde');
 }
 
+Horde::startBuffer();
 IMP::status();
+$t->set('status', Horde::endBuffer());
+
 IMP_Dimp::header($title, $scripts);
 echo $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose-base.html');
 Horde::includeScriptFiles();

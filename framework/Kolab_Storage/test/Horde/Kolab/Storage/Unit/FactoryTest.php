@@ -8,7 +8,7 @@
  * @package    Kolab_Storage
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 /**
  * Test the factory.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Kolab
  * @package    Kolab_Storage
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_FactoryTest
@@ -184,6 +184,25 @@ extends Horde_Kolab_Storage_TestCase
         $factory = new Horde_Kolab_Storage_Factory();
         $this->assertInstanceOf(
             'Horde_Kolab_Storage_Cache', $factory->createCache(array())
+        );
+    }
+
+    public function testHistory()
+    {
+        $factory = new Horde_Kolab_Storage_Factory();
+        $this->assertInstanceOf(
+            'Horde_History', $factory->createHistory('test')
+        );
+    }
+
+    public function testHistoryInject()
+    {
+        $history = new Horde_History_Mock('test');
+        $factory = new Horde_Kolab_Storage_Factory(
+            array('history' => $history)
+        );
+        $this->assertSame(
+            $history, $factory->createHistory('test')
         );
     }
 

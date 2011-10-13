@@ -3,14 +3,14 @@
  * The Horde_Mime_Viewer_Deb class renders out lists of files in Debian
  * packages by using the dpkg tool to query the package.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Anil Madhavapeddy <anil@recoil.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Mime_Viewer
  */
 class Horde_Mime_Viewer_Deb extends Horde_Mime_Viewer_Base

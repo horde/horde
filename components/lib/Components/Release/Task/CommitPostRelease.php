@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,49 +16,39 @@
  * Components_Release_Task_CommitPostRelease:: commits any changes after to the
  * release.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Release_Task_CommitPostRelease
 extends Components_Release_Task_Base
 {
     /**
-     * Validate the preconditions required for this release task.
-     *
-     * @param array $options Additional options.
-     *
-     * @return array An empty array if all preconditions are met and a list of
-     *               error messages otherwise.
-     */
-    public function validate($options)
-    {
-        if (empty($options['next_version'])) {
-            return array('The "next_version" option has no value! What should the next version number be?');
-        }
-        return array();
-    }
-
-    /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
-        $this->systemInDirectory(
-            'git commit -m "Development mode for ' . $this->getPackage()->getName()
-            . '-' . $options['next_version'] . '"',
-            $this->getPackage()->getComponentDirectory()
-        );
+        if (empty($options['next_version'])) {
+            $options['next_version'] = Components_Helper_Version::validatePear(
+                $this->getComponent()->getVersion()
+            );
+        }
+        if (isset($options['commit'])) {
+            $options['commit']->commit(
+                'Development mode for ' . $this->getComponent()->getName()
+                . '-' . Components_Helper_Version::validatePear($options['next_version'])
+            );
+        }
     }
 }

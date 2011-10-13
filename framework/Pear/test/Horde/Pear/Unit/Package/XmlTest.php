@@ -8,7 +8,7 @@
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 
@@ -20,16 +20,16 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the core package XML handler.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
  * @package    Pear
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Pear
  */
 class Horde_Pear_Unit_Package_XmlTest
@@ -39,6 +39,93 @@ extends Horde_Pear_TestCase
     {
         $xml = $this->_getFixture();
         $this->assertEquals('Fixture', $xml->getName());
+    }
+
+    public function testGetChannel()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('pear.php.net', $xml->getChannel());
+    }
+
+    public function testGetVersion()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('0.0.1', $xml->getVersion());
+    }
+
+    public function testGetSummary()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('Test fixture.', $xml->getSummary());
+    }
+
+    public function testGetDescription()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            'A dummy package.xml used for testing the Components package.',
+            $xml->getDescription()
+        );
+    }
+
+    public function testReleaseState()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('beta', $xml->getState('release'));
+    }
+
+    public function testApiState()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals('beta', $xml->getState('api'));
+    }
+
+    public function testGetLeads()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            array(
+                array(
+                    'name' => 'Gunnar Wrobel',
+                    'user' => 'wrobel',
+                    'email' => 'p@rdus.de',
+                    'active' => 'yes',
+                )
+            ),
+            $xml->getLeads()
+        );
+    }
+
+    public function testGetDependencies()
+    {
+        $xml = $this->_getFixture();
+        $this->assertEquals(
+            array(
+                array(
+                    'type' => 'php',
+                    'optional' => 'no',
+                    'rel' => 'ge',
+                    'version' => '5.0.0',
+                ),
+                array(
+                    'type' => 'pkg',
+                    'name' => 'PEAR',
+                    'channel' => 'pear.php.net',
+                    'optional' => 'no',
+                    'rel' => 'ge',
+                    'version' => '1.7.0',
+                )
+            ),
+            $xml->getDependencies()
+        );
+    }
+
+    public function testGetNotes()
+    {
+        $this->assertEquals('
+* Fixed bug #1
+* Initial release
+ ', $this->_getFixture()->getNotes());
     }
 
     public function testTimestamp()
@@ -119,21 +206,44 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testSetReleaseVersion()
+    {
+        $xml = $this->_getFixture();
+        $xml->setVersion('6.0.0');
+        $this->assertEquals(
+            '6.0.0',
+            $xml->findNode('/p:package/p:version/p:release')->textContent
+        );
+    }
+
+    public function testSetApiVersion()
+    {
+        $xml = $this->_getFixture();
+        $xml->setVersion(null, '6.0.0');
+        $this->assertEquals(
+            '6.0.0',
+            $xml->findNode('/p:package/p:version/p:api')->textContent
+        );
+    }
+
     public function testGetLicense()
     {
         $xml = $this->_getFixture();
+        $this->assertEquals('LGPLv2.1', $xml->getLicense());
+    }
+
+    public function testGetLicenseLocation()
+    {
+        $xml = $this->_getFixture();
         $this->assertEquals(
-            array(
-                'name' => 'LGPLv2.1',
-                'uri' => 'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html'
-            ),
-            $xml->getLicense()
+            'http://www.horde.org/licenses/lgpl21',
+            $xml->getLicenseLocation()
         );
     }
 
     public function testEquality()
     {
-        $orig = file_get_contents(dirname(__FILE__) . '/../../fixture/simple/package.xml');
+        $orig = file_get_contents(dirname(__FILE__) . '/../../fixture/horde/framework/simple/package.xml');
         $xml = $this->_getFixture();
         $this->assertEquals($orig, (string) $xml);
     }
@@ -187,7 +297,7 @@ extends Horde_Pear_TestCase
     {
         $xml = $this->_getSyncedFixture();
         $this->assertEquals(
-            'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html', 
+            'http://www.horde.org/licenses/lgpl21', 
             $xml->findNode('/p:package/p:changelog/p:release')
             ->getElementsByTagNameNS(Horde_Pear_Package_Xml::XMLNAMESPACE, 'license')
             ->item(0)
@@ -210,7 +320,7 @@ extends Horde_Pear_TestCase
     public function testCreateContents()
     {
         $this->_assertNodeExists(
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/empty'),
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/empty'),
             '/p:package/p:contents'
         );
     }
@@ -218,7 +328,7 @@ extends Horde_Pear_TestCase
     public function testCreateContentsDir()
     {
         $this->_assertNodeExists(
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/empty'),
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/empty'),
             '/p:package/p:contents/p:dir'
         );
     }
@@ -227,7 +337,7 @@ extends Horde_Pear_TestCase
     {
         $this->_assertContentsContain(
             'File.php',
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/empty')
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/empty')
         );
     }
 
@@ -235,7 +345,7 @@ extends Horde_Pear_TestCase
     {
         $this->_assertContentsContain(
             'lib/Stays.php',
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple-empty')
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/simple-empty')
         );
     }
 
@@ -243,7 +353,7 @@ extends Horde_Pear_TestCase
     {
         $this->_assertContentsContain(
             'test/Horde/a.php',
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/tree')
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/tree')
         );
     }
 
@@ -251,7 +361,7 @@ extends Horde_Pear_TestCase
     {
         $this->_assertContentsNotContain(
             'lib/Old.php',
-            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/remove')
+            $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/remove')
         );
     }
 
@@ -260,7 +370,7 @@ extends Horde_Pear_TestCase
         $this->assertContains(
             '<dir name="lib">
     <dir name="b">',
-            (string) $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/remove')
+            (string) $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/remove')
         );
     }
 
@@ -283,13 +393,13 @@ extends Horde_Pear_TestCase
       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
     </file>
     <file name="Z.php" role="php" />',
-            (string) $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/order')
+            (string) $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/order')
         );
     }
 
     public function testRole()
     {
-        $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple-empty');
+        $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/simple-empty');
         $file = $this->_getContentsFile('lib/Stays.php', $xml);
         $this->assertEquals('php', $file->getAttribute('role'));
     }
@@ -299,7 +409,7 @@ extends Horde_Pear_TestCase
      */
     public function testUndefined()
     {
-        $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/simple');
+        $xml = $this->_getUpdatedContents(dirname(__FILE__) . '/../../fixture/horde/framework/simple');
         $xml->noSuchTaskHasBeenDefined();
     }
 
@@ -437,14 +547,14 @@ extends Horde_Pear_TestCase
     private function _getFixture()
     {
         return new Horde_Pear_Package_Xml(
-            fopen(dirname(__FILE__) . '/../../fixture/simple/package.xml', 'r')
+            fopen(dirname(__FILE__) . '/../../fixture/horde/framework/simple/package.xml', 'r')
         );
     }
 
     private function _getEmptyNotesFixture()
     {
         return new Horde_Pear_Package_Xml(
-            fopen(dirname(__FILE__) . '/../../fixture/notes/package.xml', 'r')
+            fopen(dirname(__FILE__) . '/../../fixture/horde/framework/notes/package.xml', 'r')
         );
     }
 }

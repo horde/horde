@@ -2,10 +2,10 @@
 /**
  * Kronolith_Calendar_External_Tasks defines an API for single task lists.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
@@ -48,7 +48,7 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
         $hash = parent::toHash();
         $hash['name']  = $this->_share->get('name')
           . ($owner || !$this->_share->get('owner') ? '' : ' [' . $GLOBALS['registry']->convertUsername($this->_share->get('owner'), false) . ']');
-        $hash['desc']  = $this->_share->get('desc');
+        $hash['desc'] = (string)$this->_share->get('desc');
         $hash['owner'] = $owner;
         $hash['fg']    = Kronolith::foregroundColor($this->_share);
         $hash['bg']    = Kronolith::backgroundColor($this->_share);

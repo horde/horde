@@ -2,7 +2,7 @@
 /**
  * Horde Signup Form.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
@@ -46,7 +46,7 @@ class Horde_Core_Auth_Signup_Form extends Horde_Form
                 }
             }
             if (!isset($extra['password'])) {
-                $this->addVariable(Horde_Core_Translation::t("Choose a password"), 'password', 'passwordconfirm', true, false, Horde_Core_Translation::t("type your password twice to confirm"));
+                $this->addVariable(Horde_Core_Translation::t("Choose a password"), 'password', 'passwordconfirm', true, false, Horde_Core_Translation::t("Type your password twice to confirm"));
             }
             foreach ($extra as $field_name => $field) {
                 $readonly = isset($field['readonly']) ? $field['readonly'] : null;

@@ -2,10 +2,10 @@
 /**
  * Default class for the Horde Application API.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
@@ -233,6 +233,18 @@ class Horde_Registry_Application
      */
     public function authAuthenticateCallback()
     {
+    }
+
+    /**
+     * Validates an existing authentication.
+     *
+     * @since Horde_Core 1.4.0
+     *
+     * @return boolean  Whether the authentication is still valid.
+     */
+    public function authValidate()
+    {
+        return false;
     }
 
     /**

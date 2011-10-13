@@ -5,7 +5,7 @@ require_once dirname(__FILE__) . '/TestBase.php';
 /**
  * API tests for Whups.
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael J. Rubinsky <mrubinsk@horde.org>
  * @package    Whups
@@ -22,9 +22,6 @@ class Whups_ApiTest Extends Whups_TestBase {
     {
         $GLOBALS['perms'] = new Whups_Test_Perms();
         $result = _whups_listQueues();
-
-        // Make sure it's not a PEAR_Error
-        $this->assertOk($result);
 
         // Validate the results
         $this->assertEquals('queue one', $result[1]);

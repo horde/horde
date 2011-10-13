@@ -1,7 +1,89 @@
-----------
-v3.0.1-git
-----------
+-----------
+v3.0.10-git
+-----------
 
+[gwr] Avoid including the owner name into the default share (Kolab backend).
+
+
+------
+v3.0.9
+------
+
+[rla] Turba LDAP Driver now only rewrites changed attributes (Bug #9343).
+share (Kolab backend).
+[mjr] Run attribute values through decode_attribute hook when exporting.
+[mjr] Ensure encode_attribute hook is called on imported objects
+[mjr] Improve handling of removeUserData.
+[mjr] Honor auto_create configuration setting (Bug #10452,
+      qoole.horde@lillimoth.com)
+[jan] Don't allow to search binary fields.
+
+
+------
+v3.0.8
+------
+
+[jan] Fix attribute name for assistant phone (Bug #10449).
+
+
+------
+v3.0.7
+------
+
+[jan] Add missing migration script (Bug #10436).
+
+
+------
+v3.0.6
+------
+
+[mjr] Fix issue with synchronizing deleted contacts (Bug #10422).
+[jan] Fix searching for duplicates on some databases (Bug #10383).
+[mjr] Add and support more attributes by default.
+
+
+------
+v3.0.5
+------
+
+[mjr] Fix obtaining default share via Turba's API (vilius@lnk.lt, Bug #10393).
+[mjr] Force ActiveSync device reset after sync_books pref is changed
+      (Request #10342).
+
+------
+v3.0.4
+------
+
+[jan] Pass contact object to decode_attribute hook (kd@tu-cottbus.de, Bug
+      #10287).
+[jan] Complete fix for importing LDIF files (Bug #10139).
+
+
+------
+v3.0.3
+------
+
+[rla] Support multiple address books in search portal block (Request #8786).
+[mjr] Fix importing LDIF files (Bug #10139).
+[mjr] Fix issue introduced in 3.0.1 that caused contact images to not display
+      (Bug #10050).
+[jan] Fix editing of multiple contacts at once (Bug #10085).
+[jan] Enable homeAdress and workAdress composite fields by default.
+
+
+------
+v3.0.2
+------
+
+[jan] Fix exporting department attribute over ActiveSync.
+[mjr] Fix adding contacts with a category selected.
+
+
+------
+v3.0.1
+------
+
+[jan] Fix LDAP schema checking (Bug #9826).
 [jan] Fix creating temporary files with open_basedir restrictions.
 [mjr] Fix importing objects with categories (Bug #9841).
 [mjr] Fix merging duplicate contacts (Bug #9828).
@@ -61,6 +143,27 @@ v3.0-ALPHA1
 [mjr] The listTimeObjects API now returns categories for each source
       individually instead of returning only the categories available
       (Request #8504).
+
+
+------
+v2.3.6
+------
+
+[mjr] Fix issue that caused erroneous file listings for objects in sources
+      without a __uid value.
+[jan] Allow to export photo/logo fields to vCard without MIME type.
+[jan] Support X-EPOCSECONDNAME fields of Nokia phones.
+[jan] Add upgrade scripts for next-generation SQL share driver.
+[jan] Fix splitting up names when exporting to N properties of vCards.
+[jan] Only set the encoding parameter for binary data in vCards, if data is not
+      empty (Bug #9413).
+[jan] Fix searching for fields matching an email address if using 'emails'
+      attribute instead of 'email' (Bug #9472).
+[jan] Use personal address books first if determining the default one (Valentin
+      Vidic, Request #9367).
+[jan] Use name format preference not only for paging, but for sorting too
+      (Request #8806).
+[jan] Fix photo corruption when exporting to vCard 3.0 (Bug #9100).
 
 
 ------

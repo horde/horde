@@ -10,7 +10,7 @@
  * @author    Ben Klang <ben@alkaloid.net>
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Jan Schneider <jan@horde.org>
- * @copyright 2009-2011 The Horde Project
+ * @copyright 2009-2011 Horde LLC
  * @copyright 2003-2007 Tarjej Huse, Jan Wagner, Del Elson, Benedikt Hallinger
  * @license   http://www.gnu.org/licenses/lgpl-3.0.txt LGPLv3
  */
@@ -493,7 +493,7 @@ class Horde_Ldap
         try {
             $rootDSE = $this->rootDSE();
         } catch (Exception $e) {
-            throw new Horde_Ldap_Exception('Unable to fetch rootDSE entry to see if TLS is supoported: ' . $e->getMessage(), $e->getCode());
+            throw new Horde_Ldap_Exception('Unable to fetch rootDSE entry to see if TLS is supported: ' . $e->getMessage(), $e->getCode());
         }
 
         try {
@@ -732,7 +732,7 @@ class Horde_Ldap
      * case its DN will be used.
      *
      * $params may contain:
-     * - scope: The scope which will be used for searching:
+     * - scope: The scope which will be used for searching, defaults to 'sub':
      *          - base: Just one entry
      *          - sub: The whole tree
      *          - one: Immediately below $base
@@ -866,7 +866,7 @@ class Horde_Ldap
             $filter,
             array('attributes' => array($this->_config['user']['uid'])));
         if (!$search->count()) {
-            throw new Horde_Exception_NotFound();
+            throw new Horde_Exception_NotFound('DN for user ' . $user . ' not found');
         }
         $entry = $search->shiftEntry();
         return $entry->currentDN();

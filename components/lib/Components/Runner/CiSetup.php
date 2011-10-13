@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,15 +16,15 @@
  * Components_Runner_CiSetup:: prepares a continuous integration setup for a
  * component.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Runner_CiSetup
@@ -73,7 +73,6 @@ class Components_Runner_CiSetup
     public function run()
     {
         $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
 
         if (!isset($options['toolsdir'])) {
             throw new Components_Exception(
@@ -86,11 +85,14 @@ class Components_Runner_CiSetup
             );
         }
 
-        if (basename(dirname($this->_config->getComponentDirectory())) == 'framework') {
-            $origin = 'framework/' . basename($this->_config->getComponentDirectory());
-        } else {
-            $origin = basename($this->_config->getComponentDirectory());
-        }
+        //@todo FIXME
+        /* $directory = $this->_config->getComponent()->getPath(); */
+        /* if (basename(dirname($directory)) == 'framework') { */
+        /*     $origin = 'framework/' . basename($directory); */
+        /* } else { */
+        /*     $origin = basename($directory); */
+        /* } */
+        $origin = '';
 
         $config_template = new Components_Helper_Templates_Single(
             $this->_config_application->getTemplateDirectory(),
@@ -103,10 +105,8 @@ class Components_Runner_CiSetup
                 'sourcepath' => $origin,
                 'sourcejob' => 'horde',
                 'toolsdir' => $options['toolsdir'],
-                'description' => $this->_factory->createPackageForInstallLocation(
-                    $this->_config->getComponentPackageXml(),
-                    $options['pearrc']
-                )->getDescription()
+                'description' => $this->_config->getComponent()
+                ->getDescription()
             )
         );
     }

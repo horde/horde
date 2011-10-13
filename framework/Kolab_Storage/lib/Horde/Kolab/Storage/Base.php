@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * The basis for Kolab storage access.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 abstract class Horde_Kolab_Storage_Base
@@ -141,6 +141,11 @@ implements Horde_Kolab_Storage
         }
         if (!isset($this->_lists[$driver->getId()])) {
             $list = $this->_createList($driver, $this->_factory);
+            if (isset($this->_params['logger'])) {
+                $list = new Horde_Kolab_Storage_List_Decorator_Log(
+                    $list, $this->_params['logger']
+                );
+            }
             $this->_query_set->addListQuerySet($list);
             $this->_lists[$driver->getId()] = $list;
         }
@@ -211,6 +216,12 @@ implements Horde_Kolab_Storage
                 $object_type,
                 $data_version
             );
+            if (isset($this->_params['logger'])) {
+                $this->_data[$key] = new Horde_Kolab_Storage_Data_Decorator_Log(
+                    $this->_data[$key], $this->_params['logger']
+                );
+            }
+            $this->_query_set->addDataQuerySet($this->_data[$key]);
         }
         return $this->_data[$key];
     }

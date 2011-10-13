@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Share
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Share
  */
 
@@ -16,15 +16,15 @@
  * Extension of the Horde_Share_Object class for handling Kolab share
  * information.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Share
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Share
  */
 class Horde_Share_Object_Kolab
@@ -149,11 +149,9 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
     public function getPermissionId()
     {
         if ($this->_id === null) {
-            /**
-             * We only get here if permissions are being set before the name has
-been set. For the Kolab permission instance it should not matter if the name is
-a random string.
-            */
+            /* We only get here if permissions are being set before the name has
+             * been set. For the Kolab permission instance it should not matter if the name is
+             * a random string. */
             return md5(pack('I', mt_rand()));
         }
         return $this->_id;
@@ -202,28 +200,49 @@ a random string.
      *
      * @param string $attribute  The attribute to set.
      * @param mixed $value       The value for $attribute.
+     * @param boolean $update    Update *only* this change immediately.
      *
      * @return NULL
      */
-    public function set($attribute, $value)
+    public function set($attribute, $value, $update = false)
     {
-        if ($attribute == 'owner') {
-            $this->_id = $this->getShareOb()->constructId(
-                $value, $this->get('name')
-            );
+        if (in_array($attribute, array('owner', 'name', 'prefix'))) {
+            $owner  = $this->get('owner');
+            $name   = $this->get('name');
+            $prefix = $this->get('prefix');
+            switch ($attribute) {
+            case 'name':
+                $name = $value;
+                break;
+            case 'owner':
+                $owner = $value;
+                break;
+            case 'prefix':
+                $prefix = $value;
+                break;
+            }
+            $subpath = $name;
+            $parent = $this->getParent();
+            if ($parent !== null) {
+                $subpath = $parent->get('subpath') . $parent->get('delimiter') .
+                    $subpath;
+            }
             $this->_data['folder'] = $this->getShareOb()->constructFolderName(
-                $value, $this->get('name')
+                $owner, $subpath, $prefix
             );
-        }
-        if ($attribute == 'name') {
+            list($this->_data['prefix'], $this->_data['delimiter'], $this->_data['subpath']) = $this->getShareOb()->getFolderNameElements(
+                $this->_data['folder']
+            );
             $this->_id = $this->getShareOb()->constructId(
-                $this->get('owner'), $value
-            );
-            $this->_data['folder'] = $this->getShareOb()->constructFolderName(
-                $this->get('owner'), $value
+                $owner, $subpath, $this->_data['prefix']
             );
         }
         $this->_data[$attribute] = $value;
+
+        //@TODO: Not sure how to update a single attribute in kolab.
+        if ($update) {
+            $this->_save();
+        }
     }
 
     /**
@@ -307,7 +326,9 @@ a random string.
         if (!$parent instanceof Horde_Share_Object) {
             $parent = $this->getShareOb()->getShareById($parent);
         }
-        $this->set('name', $parent->get('name') . ':' . $this->get('name'));
+        $this->_data['parent'] = $parent->getId();
+        $this->_data['prefix'] = $parent->get('prefix');
+        $this->set('owner', $parent->get('owner'));
     }
 
     /**

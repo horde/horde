@@ -6,7 +6,7 @@
  * can interact with Horde through this API.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Nag
  */
@@ -34,7 +34,7 @@ class Nag_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (3.0.1-git)';
+    public $version = 'H4 (3.0.4-git)';
 
     /**
      */
@@ -53,8 +53,6 @@ class Nag_Application extends Horde_Registry_Application
         $GLOBALS['nag_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         Nag::initialize();
-
-        $GLOBALS['injector']->getInstance('Horde_Themes_Css')->addThemeStylesheet('categoryCSS.php');
     }
 
     /**
@@ -82,7 +80,8 @@ class Nag_Application extends Horde_Registry_Application
              $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
             $menu->add(Horde::url('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {
-                Horde::addScriptFile('redbox.js', 'horde', true);
+                Horde::addScriptFile('effects.js', 'horde');
+                Horde::addScriptFile('redbox.js', 'horde');
                 $menu->add(new Horde_Url(''), _("_Quick Add"), 'add.png', null, null, 'RedBox.showInline(\'quickAddInfoPanel\'); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
             }
         }
@@ -144,20 +143,8 @@ class Nag_Application extends Horde_Registry_Application
                 break;
 
             case 'default_tasklist':
-                $all_tasklists = Nag::listTasklists();
-                $tasklists = array();
-
-                foreach ($all_tasklists as $id => $tasklist) {
-                    if (!empty($conf['share']['hidden']) &&
-                        ($tasklist->get('owner') != $registry->getAuth()) &&
-                        !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-                        continue;
-                    }
-                    $tasklists[$id] = $tasklist;
-                }
-
                 $vals = array();
-                foreach ($tasklists as $id => $tasklist) {
+                foreach (Nag::listTasklists() as $id => $tasklist) {
                     $vals[htmlspecialchars($id)] = htmlspecialchars($tasklist->get('name'));
                 }
                 $ui->override['default_tasklist'] = $vals;
@@ -221,34 +208,23 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function removeUserData($user)
     {
-        /* Get the share for later deletion */
+        /* Get the shares for later deletion */
         try {
-            $share = $GLOBALS['nag_shares']->getShare($user);
+            $shares = $GLOBALS['nag_shares']->listShares($user, array('attributes' => $user));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
+            throw new Nag_Exception($e);
         }
 
-        /* Get the list of all tasks */
-        $tasks = Nag::listTasks(null, null, null, $user, 1);
-        $uids = array();
-        $tasks->reset();
-        while ($task = $tasks->each()) {
-            $uids[] = $task->uid;
-        }
-
-        /* ... and delete them. */
-        foreach ($uids as $uid) {
-            $this->delete($uid);
-        }
-
-
-        /* ...and finally, delete the actual share */
-        if (!empty($share)) {
+        $error = false;
+        foreach ($shares as $share) {
+            $storage = Nag_Driver::singleton($share->getName());
+            $result = $storage->deleteAll();
             try {
                 $GLOBALS['nag_shares']->removeShare($share);
             } catch (Horde_Share_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-                throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
             }
         }
 
@@ -259,7 +235,11 @@ class Nag_Application extends Horde_Registry_Application
                $share->removeUser($user);
             }
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+        }
+
+        if ($error) {
             throw new Nag_Exception(sprintf(_("There was an error removing tasks for %s. Details have been logged."), $user));
         }
     }
@@ -402,12 +382,6 @@ class Nag_Application extends Horde_Registry_Application
             );
 
             foreach (Nag::listTasklists() as $name => $tasklist) {
-                if ($tasklist->get('owner') != $registry->getAuth() &&
-                    !empty($GLOBALS['conf']['share']['hidden']) &&
-                    !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-                    continue;
-                }
-
                 $tree->addNode(
                     $parent . $name . '__new',
                     $parent . '__new',

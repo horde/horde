@@ -3,15 +3,15 @@
  * Horde_Crypt_Smime:: provides a framework for Horde applications to
  * interact with the OpenSSL library and implement S/MIME.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Crypt
  */
 class Horde_Crypt_Smime extends Horde_Crypt
@@ -280,11 +280,12 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         $msg = new Horde_Mime_Part();
         $msg->setCharset($this->_params['email_charset']);
-        $msg->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("S/MIME Encrypted Message"), 'UTF-8', $this->_params['email_charset']));
+        $msg->setHeaderCharset('UTF-8');
+        $msg->setDescription(Horde_Crypt_Translation::t("S/MIME Encrypted Message"));
         $msg->setDisposition('inline');
         $msg->setType('application/pkcs7-mime');
         $msg->setContentTypeParameter('smime-type', 'enveloped-data');
-        $msg->setContents(substr($message, strpos($message, "\n\n") + 2));
+        $msg->setContents(substr($message, strpos($message, "\n\n") + 2), array('encoding' => 'base64'));
 
         return $msg;
     }
@@ -320,10 +321,20 @@ class Horde_Crypt_Smime extends Horde_Crypt
         unset($text);
 
         /* Encrypt the document. */
-        if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array())) {
-            $result = file_get_contents($output);
-            if (!empty($result)) {
-                return $this->_fixContentType($result, 'encrypt');
+        $ciphers = array(
+            OPENSSL_CIPHER_3DES,
+            OPENSSL_CIPHER_DES,
+            OPENSSL_CIPHER_RC2_128,
+            OPENSSL_CIPHER_RC2_64,
+            OPENSSL_CIPHER_RC2_40
+        );
+
+        foreach ($ciphers as $val) {
+            if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array(), 0, $val)) {
+                $result = file_get_contents($output);
+                if (!empty($result)) {
+                    return $this->_fixContentType($result, 'encrypt');
+                }
             }
         }
 

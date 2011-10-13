@@ -11,43 +11,43 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:17:28</time>
+ <date>2011-07-21</date>
+ <time>10:38:37</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <file name="TODO.txt" role="doc" />
-   </dir> <!-- /doc -->
-   <dir name="examples">
     <dir name="Horde">
      <dir name="Rdo">
-      <file name="clotho.data.php" role="php" />
-      <file name="clotho.mysql.sql" role="data" />
-      <file name="Clotho.php" role="php" />
-      <file name="conf.php.dist" role="data" />
-      <file name="CountTest.php" role="php" />
-      <file name="DumpXmlTest.php" role="php" />
-      <file name="RelationshipTest.php" role="php" />
-      <file name="Task.php" role="php" />
-      <file name="User.php" role="php" />
-      <file name="users.mysql.sql" role="data" />
-      <file name="users.pgsql.sql" role="data" />
-      <file name="users.sqlite.sql" role="data" />
-     </dir> <!-- /examples/Horde/Rdo -->
-    </dir> <!-- /examples/Horde -->
-   </dir> <!-- /examples -->
+      <dir name="examples">
+       <file name="clotho.data.php" role="doc" />
+       <file name="clotho.mysql.sql" role="doc" />
+       <file name="Clotho.php" role="doc" />
+       <file name="conf.php.dist" role="doc" />
+       <file name="CountTest.php" role="doc" />
+       <file name="DumpXmlTest.php" role="doc" />
+       <file name="RelationshipTest.php" role="doc" />
+       <file name="Task.php" role="doc" />
+       <file name="User.php" role="doc" />
+       <file name="users.mysql.sql" role="doc" />
+       <file name="users.pgsql.sql" role="doc" />
+       <file name="users.sqlite.sql" role="doc" />
+      </dir> <!-- /doc/Horde/Rdo/examples -->
+      <file name="TODO.txt" role="doc" />
+     </dir> <!-- /doc/Horde/Rdo -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Rdo">
@@ -81,23 +81,30 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="TODO.txt" name="doc/TODO.txt" />
-   <install as="examples/Horde/Rdo/clotho.data.php" name="examples/Horde/Rdo/clotho.data.php" />
-   <install as="examples/Horde/Rdo/clotho.mysql.sql" name="examples/Horde/Rdo/clotho.mysql.sql" />
-   <install as="examples/Horde/Rdo/Clotho.php" name="examples/Horde/Rdo/Clotho.php" />
-   <install as="examples/Horde/Rdo/conf.php.dist" name="examples/Horde/Rdo/conf.php.dist" />
-   <install as="examples/Horde/Rdo/CountTest.php" name="examples/Horde/Rdo/CountTest.php" />
-   <install as="examples/Horde/Rdo/DumpXmlTest.php" name="examples/Horde/Rdo/DumpXmlTest.php" />
-   <install as="examples/Horde/Rdo/RelationshipTest.php" name="examples/Horde/Rdo/RelationshipTest.php" />
-   <install as="examples/Horde/Rdo/Task.php" name="examples/Horde/Rdo/Task.php" />
-   <install as="examples/Horde/Rdo/User.php" name="examples/Horde/Rdo/User.php" />
-   <install as="examples/Horde/Rdo/users.mysql.sql" name="examples/Horde/Rdo/users.mysql.sql" />
-   <install as="examples/Horde/Rdo/users.pgsql.sql" name="examples/Horde/Rdo/users.pgsql.sql" />
-   <install as="examples/Horde/Rdo/users.sqlite.sql" name="examples/Horde/Rdo/users.sqlite.sql" />
+   <install as="TODO.txt" name="doc/Horde/Rdo/TODO.txt" />
+   <install as="examples/clotho.data.php" name="doc/Horde/Rdo/examples/clotho.data.php" />
+   <install as="examples/clotho.mysql.sql" name="doc/Horde/Rdo/examples/clotho.mysql.sql" />
+   <install as="examples/Clotho.php" name="doc/Horde/Rdo/examples/Clotho.php" />
+   <install as="examples/conf.php.dist" name="doc/Horde/Rdo/examples/conf.php.dist" />
+   <install as="examples/CountTest.php" name="doc/Horde/Rdo/examples/CountTest.php" />
+   <install as="examples/DumpXmlTest.php" name="doc/Horde/Rdo/examples/DumpXmlTest.php" />
+   <install as="examples/RelationshipTest.php" name="doc/Horde/Rdo/examples/RelationshipTest.php" />
+   <install as="examples/Task.php" name="doc/Horde/Rdo/examples/Task.php" />
+   <install as="examples/User.php" name="doc/Horde/Rdo/examples/User.php" />
+   <install as="examples/users.mysql.sql" name="doc/Horde/Rdo/examples/users.mysql.sql" />
+   <install as="examples/users.pgsql.sql" name="doc/Horde/Rdo/examples/users.pgsql.sql" />
+   <install as="examples/users.sqlite.sql" name="doc/Horde/Rdo/examples/users.sqlite.sql" />
    <install as="Horde/Rdo.php" name="lib/Horde/Rdo.php" />
    <install as="Horde/Rdo/Base.php" name="lib/Horde/Rdo/Base.php" />
    <install as="Horde/Rdo/Exception.php" name="lib/Horde/Rdo/Exception.php" />
@@ -120,7 +127,7 @@
     <api>beta</api>
    </stability>
    <date>2008-03-15</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Major improvements including inflection, eager or lazy loading of relationships and fields, and more.
    </notes>
@@ -135,7 +142,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -150,7 +157,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -165,7 +172,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -177,8 +184,21 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add missing dependency on Horde_Db.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

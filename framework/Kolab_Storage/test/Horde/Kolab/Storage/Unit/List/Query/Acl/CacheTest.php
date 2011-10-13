@@ -7,7 +7,7 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
@@ -19,15 +19,15 @@ require_once dirname(__FILE__) . '/../../../../Autoload.php';
 /**
  * Test the cached handling of ACL.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_List_Query_Acl_CacheTest
@@ -49,8 +49,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl();
         $this->driver->expects($this->once())
-            ->method('getNamespace')
-            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
+            ->method('getMyAcl')
+            ->with('INBOX')
+            ->will($this->returnValue('lra'));
         $this->driver->expects($this->once())
             ->method('getAcl')
             ->with('INBOX')
@@ -62,8 +63,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl();
         $this->driver->expects($this->once())
-            ->method('getNamespace')
-            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
+            ->method('getMyAcl')
+            ->with('INBOX')
+            ->will($this->returnValue('lra'));
         $this->driver->expects($this->once())
             ->method('getAcl')
             ->with('INBOX')
@@ -76,8 +78,9 @@ extends Horde_Kolab_Storage_TestCase
     {
         $acl = $this->_getAcl();
         $this->driver->expects($this->exactly(2))
-            ->method('getNamespace')
-            ->will($this->returnValue(new Horde_Kolab_Storage_Folder_Namespace_Fixed('test')));
+            ->method('getMyAcl')
+            ->with('INBOX')
+            ->will($this->returnValue('lra'));
         $this->driver->expects($this->exactly(2))
             ->method('getAcl')
             ->with('INBOX')
@@ -95,6 +98,62 @@ extends Horde_Kolab_Storage_TestCase
             ->with('INBOX')
             ->will($this->returnValue('lra'));
         $this->assertEquals('lra', $acl->getMyAcl('INBOX'));
+    }
+
+    public function testCachedGetMyAcl()
+    {
+        $acl = $this->_getAcl();
+        $this->driver->expects($this->once())
+            ->method('getMyAcl')
+            ->with('INBOX')
+            ->will($this->returnValue('lra'));
+        $acl->getMyAcl('INBOX');
+        $this->assertEquals('lra', $acl->getMyAcl('INBOX'));
+    }
+
+    public function testPurgMyAcl()
+    {
+        $acl = $this->_getAcl();
+        $this->driver->expects($this->exactly(2))
+            ->method('getMyAcl')
+            ->with('INBOX')
+            ->will($this->returnValue('lra'));
+        $acl->getMyAcl('INBOX');
+        $acl->deleteAcl('INBOX', 'user');
+        $this->assertEquals('lra', $acl->getMyAcl('INBOX'));
+    }
+
+    public function testGetAllAcl()
+    {
+        $acl = $this->_getAcl();
+        $this->driver->expects($this->once())
+            ->method('getAcl')
+            ->with('INBOX')
+            ->will($this->returnValue(array('user' => 'lra')));
+        $this->assertEquals(array('user' => 'lra'), $acl->getAllAcl('INBOX'));
+    }
+
+    public function testCachedGetAllAcl()
+    {
+        $acl = $this->_getAcl();
+        $this->driver->expects($this->once())
+            ->method('getAcl')
+            ->with('INBOX')
+            ->will($this->returnValue(array('user' => 'lra')));
+        $acl->getAllAcl('INBOX');
+        $this->assertEquals(array('user' => 'lra'), $acl->getAllAcl('INBOX'));
+    }
+
+    public function testPurgAllAcl()
+    {
+        $acl = $this->_getAcl();
+        $this->driver->expects($this->exactly(2))
+            ->method('getAcl')
+            ->with('INBOX')
+            ->will($this->returnValue(array('user' => 'lra')));
+        $acl->getAllAcl('INBOX');
+        $acl->deleteAcl('INBOX', 'user');
+        $this->assertEquals(array('user' => 'lra'), $acl->getAllAcl('INBOX'));
     }
 
     private function _getAcl($has_support = true)

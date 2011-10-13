@@ -9,24 +9,24 @@
  * @author   Stuart Binge <omicron@mighty.co.za>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * The interface describing a Kolab folder.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Stuart Binge <omicron@mighty.co.za>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 interface Horde_Kolab_Storage_Folder
@@ -46,11 +46,20 @@ interface Horde_Kolab_Storage_Folder
     public function getTitle();
 
     /**
-     * Return the namespace of the folder.
+     * Return the namespace type of the folder.
      *
-     * @return string The namespace of the folder.
+     * @return string The namespace type of the folder.
      */
     public function getNamespace();
+
+    /**
+     * Return the namespace prefix of the folder.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The namespace prefix of the folder.
+     */
+    public function getPrefix();
 
     /**
      * Returns the owner of the folder.

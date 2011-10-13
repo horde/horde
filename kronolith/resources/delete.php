@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
@@ -32,7 +32,7 @@ try {
     Horde::url('resources/', true)->redirect();
 }
 
-$form = new Kronolith_DeleteResourceForm($vars, $resource);
+$form = new Kronolith_Form_DeleteResource($vars, $resource);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {

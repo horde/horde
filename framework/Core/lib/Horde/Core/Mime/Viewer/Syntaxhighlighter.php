@@ -3,14 +3,14 @@
  * The Horde_Mime_Viewer_Syntaxhighlighter class renders source code appropriate
  * for highlighting with http://alexgorbatchev.com/SyntaxHighlighter/.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Core_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Syntaxhighlighter
@@ -51,7 +51,7 @@ class Horde_Core_Mime_Viewer_Syntaxhighlighter extends Horde_Mime_Viewer_Syntaxh
             self::$_shBrushes[$brush] = true;
         }
 
-        $results = '<pre class="brush: ' . $language . '; toolbar: false;">' . htmlspecialchars($this->_mimepart->getContents(), ENT_QUOTES, $this->getConfigParam('charset')) . '</pre>';
+        $results = '<pre class="brush: ' . $language . '; toolbar: false;">' . htmlspecialchars(Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset(), $this->getConfigParam('charset')), ENT_QUOTES, $this->getConfigParam('charset')) . '</pre>';
         return $this->_renderReturn(
             $results,
             'text/html; charset=' . $this->getConfigParam('charset')

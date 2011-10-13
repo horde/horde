@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * The basic handler for data objects in a Kolab storage folder.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Data_Base
@@ -97,6 +97,30 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Return the folder path for this data handler.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The folder path.
+     */
+    public function getPath()
+    {
+        return $this->_folder->getPath();
+    }
+
+    /**
+     * Return the ID of the current user.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The current user.
+     */
+    public function getAuth()
+    {
+        return $this->_driver->getAuth();
+    }
+
+    /**
      * Return the ID of this data handler.
      *
      * @return string The ID.
@@ -106,6 +130,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $id = $this->_driver->getParameters();
         unset($id['user']);
         $id['owner'] = $this->_folder->getOwner();
+        $id['prefix'] = $this->_folder->getPrefix();
         $id['folder'] = $this->_folder->getSubpath();
         $id['type'] = $this->getType();
         ksort($id);
@@ -122,6 +147,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $id = $this->_driver->getParameters();
         unset($id['user']);
         $id['owner'] = $this->_folder->getOwner();
+        $id['prefix'] = $this->_folder->getPrefix();
         $id['folder'] = $this->_folder->getSubpath();
         $id['type'] = $this->getType();
         return $id;
@@ -164,9 +190,9 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Create a new object.
      *
-     * @param array   $object The array that holds the object data.
-     * @param boolean $raw    True if the data to be stored has been provided in
-     *                        raw format.
+     * @param array   &$object The array that holds the object data.
+     * @param boolean $raw     True if the data to be stored has been provided in
+     *                         raw format.
      *
      * @return string The ID of the new object or true in case the backend does
      *                not support this return value.
@@ -174,12 +200,12 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @throws Horde_Kolab_Storage_Exception In case an error occured while
      *                                       saving the data.
      */
-    public function create($object, $raw = false)
+    public function create(&$object, $raw = false)
     {
         if (!isset($object['uid'])) {
             $object['uid'] = $this->generateUid();
         }
-        return $this->_driver->getParser()
+        $result = $this->_driver->getParser()
             ->create(
                 $this->_folder->getPath(),
                 $object,
@@ -189,6 +215,20 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                     'raw' => $raw
                 )
             );
+        if ($result === true) {
+            $params = array();
+        } else {
+            $params = array(
+                'changes' => array(
+                    Horde_Kolab_Storage_Folder_Stamp::ADDED => array(
+                        $result => $object
+                    ),
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array()
+                )
+            );
+        }
+        $this->synchronize($params);
+        return $result;
     }
 
     /**
@@ -225,7 +265,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                 )
             );
         }
-        return $this->_driver->getParser()
+        $result = $this->_driver->getParser()
             ->modify(
                 $this->_folder->getPath(),
                 $object,
@@ -236,6 +276,20 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                     'raw' => $raw
                 )
             );
+        if ($result === true) {
+            $params = array();
+        } else {
+            $params = array(
+                'changes' => array(
+                    Horde_Kolab_Storage_Folder_Stamp::ADDED => array(
+                        $result => $object
+                    ),
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array()
+                )
+            );
+        }
+        $this->synchronize($params);
+        return $result;
     }
 
     /**
@@ -248,14 +302,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function fetchComplete($uid)
     {
-        if (!method_exists($this->_driver, 'fetchComplete')) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The backend does not support the "fetchComplete" method!'
-            );
-        }
-        return $this->_driver->fetchComplete(
-            $this->_folder->getPath(), $uid
-        );
+        return $this->_driver->fetchComplete($this->_folder->getPath(), $uid);
     }
 
     /**
@@ -268,11 +315,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function fetchPart($uid, $id)
     {
-        if (!method_exists($this->_driver, 'fetchBodypart')) {
-            throw new Horde_Kolab_Storage_Exception(
-                'The backend does not support the "fetchBodypart" method!'
-            );
-        }
         return $this->_driver->fetchBodypart(
             $this->_folder->getPath(), $uid, $id
         );
@@ -405,6 +447,94 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
+     * Retrieve all objects in the current folder by backend id.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array An array of all objects.
+     */
+    public function getObjectsByBackendId()
+    {
+        return $this->fetch($this->getStamp()->ids());
+    }
+
+    /**
+     * Retrieve an object in the current folder by backend id.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $uid Backend id of the object to be returned.
+     *
+     * @return array An array of all objects.
+     */
+    public function getObjectByBackendId($uid)
+    {
+        $fetched = $this->fetch(array($uid));
+        return array_pop($fetched);
+    }
+
+    /**
+     * Return the mapping of object IDs to backend IDs.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The object to backend mapping.
+     */
+    public function getObjectToBackend()
+    {
+        $bid  = array();
+        $by_obid = $this->fetch($this->getStamp()->ids());
+        foreach ($by_obid as $obid => $object) {
+            $bid[$object['uid']] = $obid;
+        }
+        return $bid;
+    }
+
+    /**
+     * Retrieve the list of object duplicates.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of duplicates.
+     */
+    public function getDuplicates()
+    {
+        $existing = array();
+        $duplicates = array();
+        $by_obid = $this->fetch($this->getStamp()->ids());
+        foreach ($by_obid as $obid => $object) {
+            if (isset($existing[$object['uid']])) {
+                if (!isset($duplicates[$object['uid']])) {
+                    $duplicates[$object['uid']][] = $existing[$object['uid']];
+                }
+                $duplicates[$object['uid']][] = $obid;
+            } else {
+                $existing[$object['uid']] = $obid;
+            }
+        }
+        return $duplicates;
+    }
+
+    /**
+     * Retrieve the list of object errors.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return array The list of errors.
+     */
+    public function getErrors()
+    {
+        $errors = array();
+        $by_obid = $this->fetch($this->getStamp()->ids());
+        foreach ($by_obid as $obid => $object) {
+            if ($object === false) {
+                $errors[] = $obid;
+            }
+        }
+        return $errors;
+    }
+
+    /**
      * Move the specified message from the current folder into a new
      * folder.
      *
@@ -428,9 +558,9 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     }
 
     /**
-     * Delete the specified messages from this folder.
+     * Delete the specified objects from this data set.
      *
-     * @param array|string $object_ids Id(s) of the message to be deleted.
+     * @param array|string $object_ids Id(s) of the object to be deleted.
      *
      * @return NULL
      */
@@ -443,26 +573,50 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $uids = array();
         foreach ($object_ids as $id) {
             if ($this->objectIdExists($id)) {
-                $uids[] = $this->getBackendId($id);
+                $uids[$this->getBackendId($id)] = $id;
             } else {
                 throw new Horde_Kolab_Storage_Exception(
                     sprintf('No such object %s!', $id)
                 );
             }
         }
-
-        $this->_driver->deleteMessages($this->_folder->getPath(), $uids);
-        $this->_driver->expunge($this->_folder->getPath());
+        $this->deleteBackendIds(array_keys($uids));
+        $this->synchronize(
+            array(
+                'changes' => array(
+                    Horde_Kolab_Storage_Folder_Stamp::ADDED => array(),
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => $uids
+                )
+            )
+        );
     }
 
     /**
-     * Delete all messages from the current data set.
+     * Delete all objects from this data set.
      *
      * @return NULL
      */
     public function deleteAll()
     {
         $this->delete($this->getObjectIds());
+    }
+
+    /**
+     * Delete the specified messages from this folder.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param array|string $uids Backend id(s) of the message to be deleted.
+     *
+     * @return NULL
+     */
+    public function deleteBackendIds($uids)
+    {
+        if (!is_array($uids)) {
+            $uids = array($uids);
+        }
+        $this->_driver->deleteMessages($this->_folder->getPath(), $uids);
+        $this->_driver->expunge($this->_folder->getPath());
     }
 
     /**
@@ -486,12 +640,14 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Synchronize the data information with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
         foreach ($this->_queries as $name => $query) {
-            $query->synchronize();
+            $query->synchronize($params);
         }
     }
 
@@ -507,9 +663,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function getQuery($name = null)
     {
-        if ($name === null) {
-            $name = self::QUERY_BASE;
-        }
         if (isset($this->_queries[$name])) {
             return $this->_queries[$name];
         } else {

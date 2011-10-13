@@ -2,10 +2,10 @@
 /**
  * Wicked Page class for most pages.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
@@ -55,7 +55,9 @@ class Wicked_Page_StandardPage extends Wicked_Page {
             $page = $GLOBALS['wicked']->retrieveByName($pagename);
         } catch (Wicked_Exception $e) {
             // If we can't load $pagename, see if there's default data for it.
-            $pagefile = WICKED_BASE . '/scripts/data/' . basename($pagename);
+            $pagefile = WICKED_BASE . '/data/'
+                . $GLOBALS['conf']['wicked']['format'] . '/'
+                . basename($pagename);
             if ($pagename == basename($pagename) &&
                 substr($pagename, 0, 1) != '.' &&
                 file_exists($pagefile)) {
@@ -286,11 +288,11 @@ class Wicked_Page_StandardPage extends Wicked_Page {
     /**
      * @throws Wicked_Exception
      */
-    public function updateText($newtext, $changelog, $minorchange)
+    public function updateText($newtext, $changelog)
     {
         $version = $this->version();
         $result = $GLOBALS['wicked']->updateText($this->pageName(), $newtext,
-                                                 $changelog, $minorchange);
+                                                 $changelog);
 
         $url = Wicked::url($this->pageName(), true, -1);
         $new_page = $this->getPage($this->pageName());
@@ -347,10 +349,8 @@ class Wicked_Page_StandardPage extends Wicked_Page {
 
     public function version()
     {
-        if (isset($this->_page['page_majorversion']) &&
-            isset($this->_page['page_minorversion'])) {
-            return $this->_page['page_majorversion'] . '.' .
-                $this->_page['page_minorversion'];
+        if (isset($this->_page['page_version'])) {
+            return $this->_page['page_version'];
         } else {
             return '';
         }

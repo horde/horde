@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * Handles a cached list of folder acls.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Query_Acl_Cache
@@ -34,8 +34,11 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     /** The ACL query data */
     const ACL = 'ACL';
 
-    /** The ACL query data */
+    /** The user specific rights */
     const MYRIGHTS = 'MYRIGHTS';
+
+    /** All rights */
+    const ALLRIGHTS = 'ALLRIGHTS';
 
     /**
      * The list cache.
@@ -57,6 +60,13 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
      * @var array
      */
     private $_my_rights;
+
+    /**
+     * The cached rights.
+     *
+     * @var array
+     */
+    private $_all_rights;
 
     /**
      * Constructor.
@@ -127,10 +137,29 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     {
         if (!isset($this->_my_rights[$folder])) {
             $this->_my_rights[$folder] = parent::getMyAcl($folder);
-            $this->_list_cache->setQuery(self::MYRIGHTS, $this->_acl);
+            $this->_list_cache->setQuery(self::MYRIGHTS, $this->_my_rights);
             $this->_list_cache->save();
         }
         return $this->_my_rights[$folder];
+    }
+
+    /**
+     * Retrieve the all access rights on a folder.
+     *
+     * @param string $folder The folder to retrieve the ACL for.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return string The folder rights.
+     */
+    public function getAllAcl($folder)
+    {
+        if (!isset($this->_all_rights[$folder])) {
+            $this->_all_rights[$folder] = parent::getAllAcl($folder);
+            $this->_list_cache->setQuery(self::ALLRIGHTS, $this->_all_rights);
+            $this->_list_cache->save();
+        }
+        return $this->_all_rights[$folder];
     }
 
     /**
@@ -212,12 +241,15 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     /**
      * Synchronize the ACL information with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
         $this->_acl = array();
         $this->_my_rights = array();
+        $this->_all_rights = array();
     }
 
     /**
@@ -231,8 +263,10 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
     {
         unset($this->_acl[$folder]);
         unset($this->_my_rights[$folder]);
+        unset($this->_all_rights[$folder]);
         $this->_list_cache->setQuery(self::ACL, $this->_acl);
-        $this->_list_cache->setQuery(self::MYRIGHTS, $this->_acl);
+        $this->_list_cache->setQuery(self::MYRIGHTS, $this->_my_rights);
+        $this->_list_cache->setQuery(self::MYRIGHTS, $this->_all_rights);
         $this->_list_cache->save();
     }
 }

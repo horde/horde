@@ -3,16 +3,16 @@
  * The IMP_Mime_Viewer_Html class renders out HTML text with an effort
  * to remove potentially malicious code.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Anil Madhavapeddy <anil@recoil.org>
  * @author   Jon Parise <jon@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
@@ -83,7 +83,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             Horde::addScriptFile('imp.js', 'imp');
 
-            $data['js'] = array('IMP.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
+            $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
             $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
             $data['type'] = 'text/html; charset=UTF-8';
         }
@@ -150,6 +150,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $this->_imptmp = array(
                 'blockimg' => null,
                 'cid' => null,
+                'cid_used' => array(),
                 'img' => $blockimg,
                 'imgblock' => false,
                 'inline' => $inline,
@@ -163,10 +164,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             /* Search for inlined images that we can display
              * (multipart/related parts) - see RFC 2392. */
-            if ($related_part = $this->getConfigParam('imp_contents')->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) {
+            $this->_imptmp['cid'] = array();
+            if (($related_part = $this->getConfigParam('imp_contents')->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) &&
+                ($related_cids = $related_part->getMetadata('related_cids'))) {
                 $cid_replace = array();
 
-                foreach ($related_part->getMetadata('related_cids') as $mime_id => $cid) {
+                foreach ($related_cids as $mime_id => $cid) {
                     if ($cid = trim($cid, '<>')) {
                         $cid_replace['cid:' . $cid] = $mime_id;
                     }
@@ -214,7 +217,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $status[] = array(
                 'icon' => Horde::img('mime/image.png'),
                 'text' => array(
-                    _("Images have been blocked to protect your privacy."),
+                    _("Images have been blocked in this message part."),
                     Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
                 )
             );
@@ -239,6 +242,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Filter bad language. */
         $data = IMP::filterText($data);
+
+        /* Add unused cid information. */
+        if (!empty($this->_imptmp['cid']) &&
+            $unused = array_diff($this->_imptmp['cid'], array($this->_mimepart->getMimeId()), $this->_imptmp['cid_used'])) {
+            $related_part->setMetadata('related_cids_unused', array_values($unused));
+        }
 
         return array(
             'data' => $data,
@@ -323,7 +332,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         /* See Bug #8695: internal anchors are broken in
                          * Mozilla. */
                         $node->removeAttribute('href');
-                    } elseif (!$node->hasAttribute('target')) {
+                    } elseif (!$node->hasAttribute('target') ||
+                              Horde_String::lower($node->getAttribute('target')) == '_self') {
                         $node->setAttribute('target', $this->_imptmp['target']);
                     }
                 }
@@ -337,6 +347,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     /* Multipart/related. */
                     if (($tag == 'img') &&
                         isset($this->_imptmp['cid'][$val])) {
+                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
                             'id' => $this->_imptmp['cid'][$val],
                             'imp_img_view' => 'data'
@@ -373,6 +384,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
                     /* Multipart/related. */
                     if (isset($this->_imptmp['cid'][$val])) {
+                        $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$val];
                         $val = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
                             'id' => $this->_imptmp['cid'][$val],
                             'imp_img_view' => 'data'
@@ -432,6 +444,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'id' => $this->_imptmp['cid'][$matches[2]],
                 'imp_img_view' => 'data'
             )));
+            $this->_imptmp['cid_used'][] = $this->_imptmp['cid'][$matches[2]];
         } else {
             $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
             $this->_imptmp['imgblock'] = true;

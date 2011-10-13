@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Session
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 
 /**
  * A logger for Horde_Kolab_Session_Valid validators.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Session
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
 class Horde_Kolab_Session_Valid_Decorator_Logged
@@ -51,10 +51,8 @@ implements Horde_Kolab_Session_Valid
      * @param Horde_Kolab_Session_Valid_Interface $valid  The validator.
      * @param mixed                               $logger The logger instance.
      */
-    public function __construct(
-        Horde_Kolab_Session_Valid $valid,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Session_Valid $valid, $logger)
+    {
         $this->_valid  = $valid;
         $this->_logger = $logger;
     }
@@ -73,8 +71,7 @@ implements Horde_Kolab_Session_Valid
     {
         $this->_logger->info(
             sprintf(
-                "Validating Kolab session for current user \"%s\", requested"
-                . " user \"%s\", and stored user \"%s\".",
+                "Validating Kolab session for current user \"%s\", requested user \"%s\", and stored user \"%s\".",
                 $this->_valid->getAuth(),
                 $user,
                 $this->_valid->getSession()->getMail()
@@ -84,8 +81,7 @@ implements Horde_Kolab_Session_Valid
         if ($result === false) {
             $this->_logger->info(
                 sprintf(
-                    "Invalid Kolab session for current user \"%s\" and requested"
-                    . " user \"%s\".",
+                    "Invalid Kolab session for current user \"%s\" and requested user \"%s\".",
                     $this->_valid->getAuth(),
                     $user
                 )

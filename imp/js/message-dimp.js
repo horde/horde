@@ -1,8 +1,8 @@
 /**
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var DimpMessage = {
@@ -113,8 +113,25 @@ var DimpMessage = {
                     } else {
                         DimpCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mailbox });
                     }
-                    window.close();
+                } else {
+                    tmp = {};
+                    tmp[this.mailbox] = [ this.uid ];
+                    if (id == 'button_deleted') {
+                        DimpCore.doAction('deleteMessages', {
+                            view: this.mailbox
+                        }, {
+                            uids: tmp
+                        });
+                    } else {
+                        DimpCore.doAction('reportSpam', {
+                            spam: Number(id == 'button_spam'),
+                            view: this.mailbox
+                        }, {
+                            uids: tmp
+                        });
+                    }
                 }
+                window.close();
                 e.stop();
                 return;
 
@@ -140,7 +157,7 @@ var DimpMessage = {
                 break;
 
             case 'msg_view_source':
-                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox, actionID: 'view_source', id: 0 }, true), this.uid + '|' + this.mailbox);
+                DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox.base64urlEncode(), actionID: 'view_source', id: 0 }, true), this.uid + '|' + this.mailbox);
                 break;
 
             case 'qreply':
@@ -166,7 +183,7 @@ var DimpMessage = {
 
             default:
                 if (elt.hasClassName('printAtc')) {
-                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mailbox + '|print', IMP.printWindow);
+                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox.base64urlEncode(), actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mailbox + '|print', IMP_JS.printWindow);
                     e.stop();
                     return;
                 } else if (elt.hasClassName('stripAtc')) {
@@ -225,10 +242,10 @@ var DimpMessage = {
         DimpCore.init();
 
         if (DIMP.conf.disable_compose) {
-            tmp = $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
+            $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
-            DimpCore.addPopdown('reply_link', 'replypopdown');
-            DimpCore.addPopdown('forward_link', 'forwardpopdown');
+            DimpCore.addPopdownButton('reply_link', 'replypopdown');
+            DimpCore.addPopdownButton('forward_link', 'forwardpopdown');
         }
 
         /* Set up address linking. */

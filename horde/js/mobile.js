@@ -1,15 +1,15 @@
 /**
  * Base logic for all jQuery Mobile applications.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Horde
  */
  var HordeMobile = {
@@ -40,7 +40,7 @@
      */
     doAction: function(action, params, callback)
     {
-        $.mobile.pageLoading();
+        $.mobile.showPageLoadingMsg();
         var options = {
             'url': HordeMobile.urls.ajax + action,
             'data': params,
@@ -53,6 +53,7 @@
 
     doActionComplete: function(d, callback)
     {
+        HordeMobile.inAjaxCallback = true;
         var r = d.response;
         if (r && $.isFunction(callback)) {
             try {
@@ -65,7 +66,7 @@
         HordeMobile.server_error = 0;
         HordeMobile.showNotifications(d.msgs || []);
         HordeMobile.inAjaxCallback = false;
-        $.mobile.pageLoading(true);
+        $.mobile.hidePageLoadingMsg(true);
     },
 
     showNotifications: function(msgs)
@@ -99,8 +100,7 @@
             }
         });
         if (list.html()) {
-            $.mobile.changePage('notification', 'pop');
-            list.listview('refresh');
+            $.mobile.changePage($('#notification'), { transition: 'pop' });
         }
     },
 

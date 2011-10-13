@@ -2,9 +2,9 @@
  *  TURAnselConstants.m
  *  ApertureToAnselExportPlugin
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
- * @license http://opensource.org/licenses/bsd-license.php
+ * @license http://www.horde.org/licenses/bsd
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
@@ -33,8 +33,8 @@ NSString * const kTURAnselAPIParamView              = @"view";
 NSString * const kTURAnselAPIParamFull              = @"full";
 
 // Ansel gallery attribtues.
-NSString * const kTURAnselGalleryKeyId              = @"share_id";
-NSString * const kTURAnselGalleryKeyName            = @"attribute_name";
-NSString * const kTURAnselGalleryKeyDescription     = @"attribute_desc";
-NSString * const kTURAnselGalleryKeyImages          = @"attribute_images";
-NSString * const kTURAnselGalleryKeyDefaultImage    = @"attribute_default";
+NSString * const kTURAnselGalleryKeyId              = @"id";
+NSString * const kTURAnselGalleryKeyName            = @"name";
+NSString * const kTURAnselGalleryKeyDescription     = @"desc";
+NSString * const kTURAnselGalleryKeyImages          = @"images";
+NSString * const kTURAnselGalleryKeyDefaultImage    = @"default";

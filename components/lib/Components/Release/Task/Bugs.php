@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Components_Release_Task_Bugs:: adds the new release to the issue tracker.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Release_Task_Bugs
@@ -57,11 +57,14 @@ extends Components_Release_Task_Base
         }
         try {
             $this->_qid = $this->_getBugs($options)
-                ->getQueueId($this->getPackage()->getName());
+                ->getQueueId($this->getComponent()->getName());
         } catch (Horde_Exception $e) {
             $errors[] = sprintf(
                 'Failed accessing bugs.horde.org: %s', $e->getMessage()
             );
+        }
+        if (!$this->_qid) {
+            $errors[] = 'No queue on bugs.horde.org available. The new version will not be added to the bug tracker!';
         }
         return $errors;
     }
@@ -90,11 +93,11 @@ extends Components_Release_Task_Base
     /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
         if (!$this->_qid) {
             $this->getOutput()->warn(
@@ -104,11 +107,11 @@ extends Components_Release_Task_Base
         }
 
         $ticket_version = Components_Helper_Version::pearToHorde(
-            $this->getPackage()->getVersion()
+            $this->getComponent()->getVersion()
         );
 
         $ticket_description = Components_Helper_Version::pearToTicketDescription(
-            $this->getPackage()->getVersion()
+            $this->getComponent()->getVersion()
         );
         $branch = $this->getNotes()->getBranch();
         if (!empty($branch)) {
@@ -119,7 +122,7 @@ extends Components_Release_Task_Base
 
         if (!$this->getTasks()->pretend()) {
             $this->_getBugs($options)->addNewVersion(
-                $this->getPackage()->getName(),
+                $this->getComponent()->getName(),
                 $ticket_version,
                 $ticket_description
             );
@@ -129,7 +132,7 @@ extends Components_Release_Task_Base
                     'Would add new version "%s: %s" to queue "%s".',
                     $ticket_version,
                     $ticket_description,
-                    $this->getPackage()->getName()
+                    $this->getComponent()->getName()
                 )
             );
         }

@@ -2,15 +2,15 @@
 /**
  * Horde_Variables:: class. Provides OO-way to access form variables.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Robert E. Coyle <robertecoyle@hotmail.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Util
  */
 class Horde_Variables implements Countable, Iterator
@@ -57,7 +57,8 @@ class Horde_Variables implements Countable, Iterator
     public function __construct($vars = array(), $sanitize = false)
     {
         if (is_null($vars)) {
-            $vars = Horde_Util::dispelMagicQuotes($_REQUEST);
+            $request_copy = $_REQUEST;
+            $vars = Horde_Util::dispelMagicQuotes($request_copy);
         }
 
         if (isset($vars['_formvars'])) {

@@ -34,7 +34,7 @@ To function properly, Whups **requires** the following:
                   Horde prerequisites. Additionally, many of Whups's optional
                   features are configured via the Horde install.
 
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
+   .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
 2. The following PHP capabilities:
 
@@ -60,23 +60,22 @@ First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Whups through PEAR now, the installer will automatically
-install any dependencies of Whups too. By default, only the required
-dependencies will be installed::
+install any dependencies of Whups too. If you want to install Whups with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/whups
+
+By default, only the required dependencies will be installed::
 
    pear install horde/whups
 
-If you want to install Whups even with all optional dependencies, you need to
-specify the ``-a`` flag. Please note that this might also try to install PHP
+If you want to install Whups even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/whups
-
-If you want to install Whups with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/whups
 
 
 Installing from Release Tarballs
@@ -88,7 +87,7 @@ Installing from Release Tarballs
 
 Whups can be obtained from the Horde website and FTP server, at
 
-   http://www.horde.org/whups/
+   http://www.horde.org/apps/whups
 
    ftp://ftp.horde.org/pub/whups/
 
@@ -140,25 +139,9 @@ Configuring Whups
    automatically sent out reminders about open tickets) the defaults will be
    correct for most sites.
 
-   The ``create_email.txt`` and ``notify_email.txt`` files define how outgoing
-   email notifications about new respectively updated tickets look like. If
-   using non-ascii character in these files, they have to saved with UTF-8
-   encoding. The following placeholders are available:
-
-      :@@ticket_url@@: The link to the ticket page.
-      :@@table@@:      The ticket summary table.
-      :@@comment@@:    The last user comment if any, including leading
-                       linebreaks.
-      :@@dont_reply@@: The message telling users to not reply, if enabled in
-                       the configuration, including trailing line breaks.
-      :@@date@@:       The current date.
-      :@@full_name@@:  The full name of the notification recipient.
-      :@@auth_name@@:  The full name of the user that updated the ticket.
-
-   You can also specify queue-specific notification messages by creating
-   seperate files with the following naming convention: ``create_email_X.txt``
-   will be used for ticket creation emails for queue "X";
-   ``notify_email_Y.txt`` will be used for notification emails for queue "Y".
+   The ``create_email.plain.php`` and ``notify_email.plain.php`` files define
+   how outgoing email notifications about new respectively updated tickets look
+   like. See the comments in these files for details.
 
    You must login to Horde as a Horde Administrator to finish the
    configuration of Whups. Use the Horde ``Administration`` menu item to get
@@ -275,13 +258,13 @@ If you encounter problems with Whups, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
+Horde LLC runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -289,14 +272,13 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Whups is free software written by volunteers.
 For information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Whups!
 
 The Whups team
 
 
-.. _README: ?f=README.html
-.. _`horde/docs/HACKING`: ../../horde/docs/?f=HACKING.html
-.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
+.. _README: README
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS

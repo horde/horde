@@ -8,7 +8,7 @@
  * Input can be either a single squirrelmail .abook file, or a directory
  * containing multiple .abook files.
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -58,7 +58,7 @@ foreach($files as $file) {
 
     // Set current user
     $user = substr(basename($file), 0, -6);
-    Horde_Auth::setAuth($user, array());
+    $registry->setAuth($user, array());
     $cli->message('Importing ' . $user . '\'s address book');
 
     // Reset user prefs

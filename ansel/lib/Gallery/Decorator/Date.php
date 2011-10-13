@@ -3,10 +3,10 @@
  * A decorator around an Ansel_Gallery to allow multiple date groupings
  * to access the same Ansel_Gallery instance.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -108,7 +108,7 @@ class Ansel_Gallery_Decorator_Date
      *
      * @param integer $limit  The maximum number of images to return.
      *
-     * @return mixed  An array of Ansel_Image objects | PEAR_Error
+     * @return array  An array of Ansel_Image objects
      */
     public function getRecentImages($limit = 10)
     {
@@ -165,7 +165,7 @@ class Ansel_Gallery_Decorator_Date
      * @param integer $perm       A Horde_Perms::* constant
      * @param boolean $allLevels  Count grandchildren or just children
      *
-     * @return mixed  The number of child shares || PEAR_Error
+     * @return integer  The number of child shares
      */
     public function countChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
@@ -175,11 +175,11 @@ class Ansel_Gallery_Decorator_Date
     /**
      * Returns a child's direct parent
      *
-     * @return mixed  The direct parent Horde_Share_Object or PEAR_Error
+     * @return Ansel_Gallery  The direct parent Horde_Share_Object
      */
     public function getParent()
     {
-        return $this->_gallery->getShareOb()->getParent($this);
+        return $this->_gallery->getParent($this);
     }
 
     /**

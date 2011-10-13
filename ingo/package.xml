@@ -3,7 +3,7 @@
  <name>ingo</name>
  <channel>pear.horde.org</channel>
  <summary>An email filter rules manager</summary>
- <description>Ingo is an email-filter management application. It is fully internationalized, integrated with Horde and the IMP Webmail client, and supports both server-side (Sieve, procmail) and client-side (IMAP) message filtering.</description>
+ <description>Ingo is an email-filter management application. It is fully internationalized, integrated with Horde and the IMP Webmail client, and supports both server-side (Sieve, Procmail, Maildrop) and client-side (IMAP) message filtering.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
@@ -22,19 +22,20 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-11</date>
- <time>00:35:47</time>
+ <date>2011-09-01</date>
+ <time>14:59:38</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.6</release>
   <api>2.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mms] Fix imap filtering using envelope data (Bug #9859).
+* [jan] Catch if files don&apos;t exist while deleting with VFS transport (michael-dev@fami-braun.de, Bug #10494).
+* [mms] Additional fixes when creating new mailboxes (Bug #10282).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -61,6 +62,7 @@
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
+    <file name="blacklist.js" role="horde" />
     <file name="filters.js" role="horde" />
     <file name="new_folder.js" role="horde" />
     <file name="rule.js" role="horde" />
@@ -462,8 +464,8 @@
    <file name="filters.php" role="horde" />
    <file name="forward.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="LICENSE" role="data" />
-   <file name="README" role="data" />
+   <file name="LICENSE" role="doc" />
+   <file name="README" role="doc" />
    <file name="rule.php" role="horde" />
    <file name="script.php" role="horde" />
    <file name="spam.php" role="horde" />
@@ -489,7 +491,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -578,6 +580,7 @@
    <package>
     <name>Net_Sieve</name>
     <channel>pear.php.net</channel>
+    <min>1.3.1</min>
    </package>
    <package>
     <name>Net_Socket</name>
@@ -608,6 +611,7 @@
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
    <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="ingo/js/blacklist.js" name="js/blacklist.js" />
    <install as="ingo/js/filters.js" name="js/filters.js" />
    <install as="ingo/js/new_folder.js" name="js/new_folder.js" />
    <install as="ingo/js/rule.js" name="js/rule.js" />
@@ -832,7 +836,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -847,7 +851,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Fix creating new rules with PostgreSQL (Bug #9638).
    </notes>
@@ -862,7 +866,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First release candidate for Horde 4.
 * [jan] Fix instantiation of VFS transport driver (Bug #9605).
@@ -879,7 +883,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Fix updating forward rules in SQL driver (Bug #9699).
@@ -895,7 +899,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Fix application-specific permission checks (Bug #9786).
@@ -916,10 +920,83 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-11</date>
-   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <date>2011-04-20</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mms] Fix folder selection (Bug #9907).
+* [mms] Fix IMAP filtering using envelope data (Bug #9859).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-14</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Fix moving rules to an explicit position (Bug #10172).
+* [mms] Fix storage backend conversion script.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Add -N parameter to mailbot calls by default (Request #10147).
+* [jan] Fix notice when using numeric comparisons for spam headers (Bug #10222).
+* [jan] Respect excluded mail addresses in Maildrop vacation driver (Request #10077).
+* [jan] Fix access to debug handler in Timsieved driver.
+* [jan] Fix deleting single conditions from a rule (Bug #10253).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-02</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [mms] Fix creating new mailboxes (Bug #10282).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Fix disabling of actions by locking preferences (Bug #10455).
+* [jan] Sort blacklist and whitelist for display instead of for storage.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-01</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Catch if files don&apos;t exist while deleting with VFS transport (michael-dev@fami-braun.de, Bug #10494).
+* [mms] Additional fixes when creating new mailboxes (Bug #10282).
    </notes>
   </release>
  </changelog>

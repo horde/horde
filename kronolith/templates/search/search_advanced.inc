@@ -1,4 +1,4 @@
-<form method="post" name="eventform" action="search.php">
+<form method="post" name="eventform" id="eventform" action="search.php">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="search_calendar" />
 <input type="hidden" name="search_mode" value="advanced" />

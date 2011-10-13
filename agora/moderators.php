@@ -2,10 +2,10 @@
 /**
  * The Agora script to display a list of forums.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Jan Schneider <jan@horde.org>
  * @author Marko Djukic <marko@oblo.com>
@@ -20,7 +20,7 @@ if (!$registry->isAdmin()) {
 
 /* Set up the messages object. */
 $scope = Horde_Util::getFormData('scope', 'agora');
-$messages = &Agora_Messages::singleton($scope);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
     Horde::url('forums.php', true)->redirect();
@@ -48,14 +48,14 @@ if ($forums_list instanceof PEAR_Error) {
 
 /* Add delete links to moderators */
 $url = Horde_Util::addParameter(Horde::url('moderators.php'), 'action', 'delete');
-foreach ($forums_list as $forum_id => $forum) {
+foreach ($forums_list as $key => $forum) {
     if (!isset($forum['moderators'])) {
-        unset($forums_list[$forum_id]);
+        unset($forums_list[$key]);
         continue;
     }
     foreach ($forum['moderators'] as $id => $moderator) {
-        $delete = Horde_Util::addParameter($url, array('moderator' => $moderator, 'forum_id' => $forum_id));
-        $forums_list[$forum_id]['moderators'][$id] = Horde::link($delete, _("Delete")) . $moderator . '</a>';
+        $delete = Horde_Util::addParameter($url, array('moderator' => $moderator, 'forum_id' => $forum['forum_id']));
+        $forums_list[$key]['moderators'][$id] = Horde::link($delete, _("Delete")) . $moderator . '</a>';
     }
 }
 
@@ -69,7 +69,7 @@ $form->addVariable(_("Moderator"), 'moderator', 'text', true);
 if ($messages->countForums() > 50) {
     $form->addVariable(_("Forum"), 'forum_id', 'int', true);
 } else {
-    $forums_enum = $messages->getForums(0, false, 'forum_name', 0, !$registry->isAdmin());
+    $forums_enum = Agora::formatCategoryTree($messages->getForums(0, false, 'forum_name', 0, !$registry->isAdmin()));
     $form->addVariable(_("Forum"), 'forum_id', 'enum', true, false, false, array($forums_enum));
 }
 
@@ -87,7 +87,6 @@ $view->notify = Horde::endBuffer();
 
 $view->forums = $forums_list;
 
-Horde::addScriptFile('stripe.js', 'horde', true);
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('moderators.html.php');
+echo $view->render('moderators');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

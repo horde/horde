@@ -1,0 +1,424 @@
+# ULAFORM Traditional Chinese Translation
+# Copyright 2004 David Chang.張良文,台灣
+# This file is distributed under the same license as the PACKAGE package.
+# David Chang <david@tmv.gov.tw>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ulaform 0.1-CVS\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-01-25 15:10+0800\n"
+"PO-Revision-Date: 2011-08-02 15:58+0200\n"
+"Last-Translator: David Chang <david@tmv.gov.tw>\n"
+"Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: edit.php:83
+msgid "-- default configured --"
+msgstr "-- 預設 --"
+
+#: edit.php:63
+msgid "-- select --"
+msgstr "-- 選擇 --"
+
+#: delete.php:33 edit.php:63 forms.php:33
+msgid "Action"
+msgstr "作用方式"
+
+#: forms.php:32
+msgid "Available Forms"
+msgstr "可用的表單"
+
+#: lib/Action/mailto.php:123
+msgid "Bcc"
+msgstr "秘件副本"
+
+#: lib/Action/mailto.php:119
+msgid "Cc"
+msgstr "副本"
+
+#: edit.php:46
+msgid "Changed action driver."
+msgstr "作用驅動程式已變更."
+
+#: genhtml.php:38
+msgid "Changed embed type."
+msgstr "嵌入型態已變更."
+
+#: config/fields.php.dist:49
+msgid "Characters"
+msgstr "字元"
+
+#: config/fields.php.dist:40 config/fields.php.dist:47
+msgid "Columns"
+msgstr "欄位"
+
+#: display.php:31
+msgid "Could not fetch form ID \"%s\". %s"
+msgstr "無法讀取表單識別號碼(form ID) \"%s\". %s"
+
+#: edit.php:57
+msgid "Create"
+msgstr "建立"
+
+#: edit.php:83
+msgid "Default language"
+msgstr "預設語言"
+
+#: delete.php:34 delete.php:37 deletefield.php:44 deletefield.php:50
+msgid "Delete"
+msgstr "刪除"
+
+#: deletefield.php:43 fields.php:132
+msgid "Delete Field"
+msgstr "刪除欄位"
+
+#: forms.php:27
+msgid "Delete Form"
+msgstr "刪除表單"
+
+#: deletefield.php:48
+msgid "Delete this field?"
+msgstr "刪除這個欄位?"
+
+#: delete.php:31
+msgid "Delete this form?"
+msgstr "刪除這個表單?"
+
+#: fields.php:58 fields.php:130
+msgid "Description"
+msgstr "描述"
+
+#: delete.php:34 deletefield.php:44 deletefield.php:68
+msgid "Do not delete"
+msgstr "不要刪除"
+
+#: fields.php:133
+msgid "Edit Field"
+msgstr "編輯欄位"
+
+#: forms.php:28
+msgid "Edit Form"
+msgstr "編輯表單"
+
+#: edit.php:116
+msgid "Edit Forms"
+msgstr "編輯表單"
+
+#: config/fields.php.dist:121 config/fields.php.dist:129
+msgid "End year"
+msgstr "結束年份"
+
+#: config/fields.php.dist:64 config/fields.php.dist:84
+#: config/fields.php.dist:92 config/fields.php.dist:100
+#: config/fields.php.dist:108 config/fields.php.dist:147
+msgid "Enter a comma separated list of values."
+msgstr "輸入一串以逗點為分隔的資料."
+
+#: deletefield.php:58
+#, php-format
+msgid "Error deleting field. %s."
+msgstr "刪除欄位時發生錯誤. %s."
+
+#: delete.php:45
+#, php-format
+msgid "Error deleting form. %s."
+msgstr "刪除表單時發生錯誤. %s."
+
+#: fields.php:89
+#, php-format
+msgid "Error saving field. %s."
+msgstr "儲存欄位時發生錯誤. %s."
+
+#: sortfields.php:47
+#, php-format
+msgid "Error saving fields. %s."
+msgstr "刪除欄位時發生錯誤. %s."
+
+#: edit.php:101
+#, php-format
+msgid "Error saving form. %s."
+msgstr "刪除表單時發生錯誤. %s."
+
+#: display.php:65 lib/Block/form.php:88
+#, php-format
+msgid "Error submitting form. %s."
+msgstr "送出表單資料時發生錯誤. %s."
+
+#: deletefield.php:60
+msgid "Field \"%s\" deleted."
+msgstr "欄位 \"%s\" 已刪除."
+
+#: fields.php:41
+msgid "Field Details"
+msgstr "欄位細節"
+
+#: deletefield.php:69
+msgid "Field not deleted."
+msgstr "欄位未刪除."
+
+#: fields.php:91
+msgid "Field saved."
+msgstr "欄位已儲存."
+
+#: sortfields.php:49
+msgid "Field sort order saved."
+msgstr "欄位排列方向已儲存"
+
+#: templates/fields/fields.html:17
+msgid "Fields"
+msgstr "欄位"
+
+#: lib/Block/form.php:31
+msgid "Form"
+msgstr "表單"
+
+#: delete.php:30 edit.php:56
+msgid "Form Details"
+msgstr "表單細節"
+
+#: fields.php:141
+msgid "Form Fields"
+msgstr "表單欄位"
+
+#: forms.php:33
+msgid "Form Name"
+msgstr "表單名稱"
+
+#: delete.php:47
+msgid "Form deleted."
+msgstr "表單已刪除."
+
+#: edit.php:103
+msgid "Form details saved."
+msgstr "表單細節已儲存."
+
+#: delete.php:54
+msgid "Form has not been deleted."
+msgstr "表單沒有被刪除."
+
+#: display.php:67 lib/Block/form.php:90
+msgid "Form submitted successfully."
+msgstr "表單資料已送出完成."
+
+#: config/fields.php.dist:135
+msgid "Format used to display"
+msgstr "顯示格式"
+
+#: config/fields.php.dist:133
+msgid "Format used to submit"
+msgstr "傳送格式"
+
+#: forms.php:39
+msgid "Forms List"
+msgstr "所有表單"
+
+#: lib/Action/mailto.php:115
+msgid "From"
+msgstr "寄件人"
+
+#: fields.php:134 forms.php:30 genhtml.php:49
+msgid "Generate HTML"
+msgstr "產生 HTML"
+
+#: genhtml.php:43
+msgid "HTML Generation for \"%s\""
+msgstr "產生 \"%s\" 的 HTML 語法"
+
+#: genhtml.php:63
+msgid "Height"
+msgstr "高度"
+
+#: fields.php:48
+msgid "Internal name"
+msgstr "內部名稱"
+
+#: fields.php:47 fields.php:130
+msgid "Label"
+msgstr "標籤"
+
+#: lib/Action/mailto.php:99
+msgid "Mailto"
+msgstr "Mailto (電子郵件遞送)"
+
+#: lib/Driver/sql.php:80 lib/Driver/sql.php:160
+msgid "Missing form"
+msgstr "遺失表單"
+
+#: edit.php:57
+msgid "Modify"
+msgstr "修改"
+
+#: delete.php:32 edit.php:60 fields.php:130 genhtml.php:62
+msgid "Name"
+msgstr "名稱"
+
+#: lib/Driver.php:120 lib/Driver.php:121
+msgid "No"
+msgstr "否"
+
+#: fields.php:109
+msgid "No available fields."
+msgstr "無可用的欄位."
+
+#: forms.php:24
+msgid "No available forms."
+msgstr "無可用的表單."
+
+#: deletefield.php:33
+msgid "No field specified."
+msgstr "未指定欄位."
+
+#: lib/Action.php:84
+msgid "No such action \"%s\" found"
+msgstr "找不到作用方式 \"%s\""
+
+#: lib/Driver.php:174
+#, php-format
+msgid "No such backend \"%s\" found"
+msgstr "無此伺服端 \"%s\""
+
+#: display.php:33
+msgid "No such form ID \"%s\"."
+msgstr "無此表單識別號碼(form ID) \"%s\"."
+
+#: edit.php:87
+msgid "On submit"
+msgstr "點選送出的同時執行 (On submit)"
+
+#: genhtml.php:53
+msgid "PHP using PEAR classes"
+msgstr "PHP 使用 PEAR 類別"
+
+#: fields.php:135
+msgid "Preview"
+msgstr "預覽"
+
+#: forms.php:29
+msgid "Preview Form"
+msgstr "預覽表單"
+
+#: fields.php:57 fields.php:130
+msgid "Read only"
+msgstr "唯讀"
+
+#: lib/Driver.php:76 lib/Driver.php:101
+msgid "Requested form does not exist."
+msgstr "所需要的表單不存在."
+
+#: fields.php:56 fields.php:130
+msgid "Required"
+msgstr "必須要"
+
+#: config/fields.php.dist:38 config/fields.php.dist:45
+msgid "Rows"
+msgstr "列"
+
+#: lib/Action/sql.php:84
+msgid "SQL"
+msgstr "SQL (結構性查詢語言)"
+
+#: sortfields.php:35
+msgid "Save"
+msgstr "儲存"
+
+#: fields.php:42
+msgid "Save Field"
+msgstr "儲存欄位"
+
+#: genhtml.php:54
+msgid "Select how you wish to embed the form"
+msgstr "選擇如何崁入表單"
+
+#: sortfields.php:36
+msgid "Select the sort order of the fields"
+msgstr "選擇欄位排列方向"
+
+#: fields.php:48
+msgid ""
+"Set this name if you have a particular reason to override the automatic "
+"internal naming of fields."
+msgstr "如果你想要自訂內部名稱,請在此設定. 否則自動命定."
+
+#: lib/Block/form.php:3
+msgid "Show Form"
+msgstr "顯示表單"
+
+#: config/fields.php.dist:131
+msgid "Show the date picker"
+msgstr "顯示日期點選器"
+
+#: sortfields.php:32
+msgid "Sort Fields"
+msgstr "排列欄位"
+
+#: fields.php:136
+msgid "Sort fields"
+msgstr "排列欄位"
+
+#: config/fields.php.dist:119 config/fields.php.dist:127
+msgid "Start year"
+msgstr "啟始年份"
+
+#: lib/Action/mailto.php:114
+msgid "Subject"
+msgstr "主旨"
+
+#: lib/Action/sql.php:99
+msgid "Table"
+msgstr "表單"
+
+#: forms.php:21
+#, php-format
+msgid "There was an error listing forms: %s."
+msgstr "列出表單: %s 時發生一個錯誤."
+
+#: lib/Action/mailto.php:100
+msgid ""
+"This driver allows the sending of form results via email to one or more "
+"recipients."
+msgstr "此驅動程式允許以電子郵件,將表單結果寄發給一位以上的收件對象."
+
+#: lib/Action/sql.php:85
+msgid "This driver allows to insertion of form results into a database."
+msgstr "此驅動程式允許將表單結果寫入資料庫."
+
+#: fields.php:66
+msgid "This field type has extra parameters."
+msgstr "此欄位類型需要額外的參數."
+
+#: lib/Action/mailto.php:116
+msgid "To"
+msgstr "收件人"
+
+#: fields.php:52 fields.php:130
+msgid "Type"
+msgstr "型態"
+
+#: config/fields.php.dist:61 config/fields.php.dist:81
+#: config/fields.php.dist:89 config/fields.php.dist:97
+#: config/fields.php.dist:105 config/fields.php.dist:144
+msgid "Values"
+msgstr "值"
+
+#: genhtml.php:64
+msgid "Width"
+msgstr "寬度"
+
+#: lib/Driver.php:120 lib/Driver.php:121
+msgid "Yes"
+msgstr "是"
+
+#: lib/Ulaform.php:139
+msgid "_List Forms"
+msgstr "列出表單_L"
+
+#: lib/Ulaform.php:140
+msgid "_New Form"
+msgstr "新增表單_N"
+
+#: genhtml.php:53
+msgid "iframe"
+msgstr "框架(iframe)"

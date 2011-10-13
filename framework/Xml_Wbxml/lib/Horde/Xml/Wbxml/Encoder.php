@@ -3,10 +3,10 @@
  * From Binary XML Content Format Specification Version 1.3, 25 July 2001
  * found at http://www.wapforum.org
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Anthony Mills <amills@pyramid6.com>
  * @package Xml_Wbxml
@@ -96,8 +96,7 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
     {
         $this->_dtd = $this->_dtdManager->getInstanceURI($uri);
         if (!$this->_dtd) {
-            // TODO: proper error handling
-            die('Unable to find dtd for ' . $uri);
+            throw new Horde_Xml_Wbxml_Exception('Unable to find dtd for ' . $uri);
         }
         $dpiString = $this->_dtd->getDPI();
 
@@ -228,6 +227,7 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
             }
             if ($this->_currentURI != $uri) {
                 $this->changecodepage($uri);
+                $this->_currentURI = $uri;
             }
             if ($this->_subParser == null) {
                 $this->writeTag($name, $attributes, true, $this->_charset);
@@ -243,7 +243,9 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
     protected function _startElement($parser, $tag, $attributes)
     {
         list($uri, $name) = $this->_splitURI($tag);
-
+        if (in_array(Horde_String::lower($uri), array('syncml:metinf', 'syncml:devinf'))) {
+            $uri .= '1.' . $this->getVersion();
+        }
         $this->startElement($uri, $name, $attributes);
     }
 
@@ -403,11 +405,11 @@ class Horde_Xml_Wbxml_Encoder extends Horde_Xml_Wbxml_ContentHandler
         $cp = $this->_dtd->toCodePageURI($uri);
         if (strlen($cp)) {
             $this->_dtd = $this->_dtdManager->getInstanceURI($uri);
-
+            if (!$this->_dtd) {
+                throw new Horde_Xml_Wbxml_Exception('Unable to find dtd for ' . $uri);
+            }
             $this->_output .= chr(Horde_Xml_Wbxml::GLOBAL_TOKEN_SWITCH_PAGE);
             $this->_output .= chr($cp);
-            $this->_currentURI = $uri;
-
         } else {
             $this->_subParser = new Horde_Xml_Wbxml_Encoder(true);
             $this->_subParserStack = 1;

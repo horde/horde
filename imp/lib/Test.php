@@ -2,14 +2,14 @@
 /**
  * The IMP_Test:: class provides the IMP configuration for the test script.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Test extends Horde_Test
@@ -43,11 +43,7 @@ class IMP_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_pearList = array(
-        'Auth_SASL' => array(
-            'error' => 'If your IMAP server uses CRAM-MD5 or DIGEST-MD5 authentication, this module is required.'
-        )
-    );
+    protected $_pearList = array();
 
     /**
      * Required configuration files.
@@ -139,7 +135,7 @@ class IMP_Test extends Horde_Test
         $ret .= '<span style="color:green">SUCCESS</span><p />';
 
         if ($driver == 'Socket') {
-            $ret .= '<strong>The following IMAP server information was discovered from the remote server:</strong>' .
+            $ret .= '<strong>The following IMAP server information was discovered from the server:</strong>' .
                 '<blockquote><em>Namespace Information</em><blockquote><pre>';
 
             try {
@@ -184,7 +180,16 @@ class IMP_Test extends Horde_Test
                 $this->_errorMsg($e);
             }
 
-            $ret .= '</pre></blockquote></blockquote>';
+            $ret .= '</pre></blockquote></blockquote>' .
+                '<blockquote><em>Does IMAP server support UTF-8 in search queries?</em> ';
+
+            if ($imap_client->validSearchCharset('UTF-8')) {
+                $ret .= '<span style="color:green">YES</span>';
+            } else {
+                $ret .= '<span style="color:red">NO</span>';
+            }
+
+            $ret .= '</blockquote>';
 
             try {
                 $id_info = $imap_client->getID();
@@ -196,7 +201,7 @@ class IMP_Test extends Horde_Test
                     $ret .= '</pre></blockquote></blockquote>';
                 }
             } catch (Horde_Imap_Client_Exception $e) {
-                // Ignore a lack of the ID capability.
+                // Ignore lack of ID capability.
             }
 
             // @todo IMAP Charset Search Support

@@ -3,14 +3,14 @@
  * The Horde_Session:: class provides a set of methods for handling the
  * administration and contents of the Horde session variable.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
 class Horde_Session
@@ -19,10 +19,12 @@ class Horde_Session
     const DATA = '_d';
     const MODIFIED = '_m';
     const PRUNE = '_p';
-    const SERIALIZED = '_s';
 
     const TYPE_ARRAY = 1;
     const TYPE_OBJECT = 2;
+
+    const NOT_SERIALIZED = 0;
+    const IS_SERIALIZED = 1;
 
     /**
      * Maximum size of the pruneable data store.
@@ -39,6 +41,13 @@ class Horde_Session
     public $sessionHandler = null;
 
     /**
+     * Indicates that the session is active (read/write).
+     *
+     * @var boolean
+     */
+    private $_active = false;
+
+    /**
      * Indicate that a new session ID has been generated for this page load.
      *
      * @var boolean
@@ -53,6 +62,20 @@ class Horde_Session
      * @var boolean
      */
     private $_lzf = false;
+
+    /**
+     * Indicates that session data is read-only.
+     *
+     * @var boolean
+     */
+    private $_readonly = false;
+
+    /**
+     * On re-login, indicate whether we were previously authenticated.
+     *
+     * @var integer
+     */
+    private $_relogin = null;
 
     /**
      * Constructor.
@@ -91,8 +114,12 @@ class Horde_Session
             }
         }
 
+        if (!empty($conf['session']['timeout'])) {
+            ini_set('session.gc_maxlifetime', $conf['session']['timeout']);
+        }
+
         session_set_cookie_params(
-            $conf['session']['timeout'],
+            0,
             $conf['cookie']['path'],
             $conf['cookie']['domain'],
             $conf['use_ssl'] == 1 ? 1 : 0
@@ -108,8 +135,28 @@ class Horde_Session
         $this->sessionHandler = $GLOBALS['injector']->createInstance('Horde_SessionHandler');
 
         if ($start) {
-            session_start();
+            $this->start();
             $this->_start();
+        }
+    }
+
+    /**
+     * Starts the session.
+     *
+     * @since 1.4.0
+     */
+    public function start()
+    {
+        session_start();
+        $this->_active = true;
+
+        /* We have reopened a session. Check to make sure that authentication
+         * status has not changed in the meantime. */
+        if (!$this->_readonly &&
+            !is_null($this->_relogin) &&
+            (($GLOBALS['registry']->getAuth() !== false) !== $this->_relogin)) {
+            Horde::logMessage('Previous session attempted to be reopened after authentication status change. All session modifications will be ignored.', 'DEBUG');
+            $this->_readonly = true;
         }
     }
 
@@ -124,9 +171,6 @@ class Horde_Session
              * This will cause the check below to always return true
              * (time() >= 0) and will set the initial value. */
             $_SESSION[self::MODIFIED] = 0;
-
-            /* Is this key serialized? */
-            $_SESSION[self::SERIALIZED] = array();
         }
 
         /* Determine if we need to force write the session to avoid a
@@ -174,6 +218,8 @@ class Horde_Session
      */
     public function close()
     {
+        $this->_active = false;
+        $this->_relogin = ($GLOBALS['registry']->getAuth() !== false);
         session_write_close();
     }
 
@@ -184,6 +230,18 @@ class Horde_Session
     {
         session_destroy();
         $this->_cleansession = true;
+    }
+
+    /**
+     * Is the current session active (read/write)?
+     *
+     * @since 1.4.0
+     *
+     * @return boolean  True if the current session is active.
+     */
+    public function isActive()
+    {
+        return $this->_active;
     }
 
     /* Session variable access. */
@@ -198,7 +256,8 @@ class Horde_Session
      */
     public function exists($app, $name)
     {
-        return isset($_SESSION[$app][$name]);
+        return isset($_SESSION[$app][self::NOT_SERIALIZED . $name]) ||
+               isset($_SESSION[$app][self::IS_SERIALIZED . $name]);
     }
 
     /**
@@ -216,45 +275,41 @@ class Horde_Session
      */
     public function get($app, $name, $mask = 0)
     {
-        if (!$this->exists($app, $name)) {
-            if ($subkeys = $this->_subkeys($app, $name)) {
-                $ret = array();
-                foreach ($subkeys as $k => $v) {
-                    $ret[$k] = $this->get($app, $v, $mask);
-                }
-                return $ret;
+        if (isset($_SESSION[$app][self::NOT_SERIALIZED . $name])) {
+            return $_SESSION[$app][self::NOT_SERIALIZED . $name];
+        } elseif (isset($_SESSION[$app][self::IS_SERIALIZED . $name])) {
+            $data = $_SESSION[$app][self::IS_SERIALIZED . $name];
+
+            if ($this->_lzf &&
+                (($data = @lzf_decompress($data)) === false)) {
+                $this->remove($app, $name);
+                return $this->get($app, $name);
             }
 
-            if (strpos($name, self::DATA) === 0) {
-                return $this->retrieve($name);
+            return @unserialize($data);
+        }
+
+        if ($subkeys = $this->_subkeys($app, $name)) {
+            $ret = array();
+            foreach ($subkeys as $k => $v) {
+                $ret[$k] = $this->get($app, $v, $mask);
             }
-
-            switch ($mask) {
-            case self::TYPE_ARRAY:
-                return array();
-
-            case self::TYPE_OBJECT:
-                return new stdClass;
-
-            default:
-                return null;
-            }
+            return $ret;
         }
 
-        $data = $_SESSION[$app][$name];
-        $key = $this->_getKey($app, $name);
-
-        if (!isset($_SESSION[self::SERIALIZED][$key])) {
-            return $data;
+        if (strpos($name, self::DATA) === 0) {
+            return $this->retrieve($name);
         }
 
-        if ($this->_lzf &&
-            (($data = @lzf_decompress($data)) === false)) {
-            $this->remove($app, $name);
-            return $this->get($app, $name);
+        switch ($mask) {
+        case self::TYPE_ARRAY:
+            return array();
+
+        case self::TYPE_OBJECT:
+            return new stdClass;
         }
 
-        return @unserialize($data);
+        return null;
     }
 
     /**
@@ -270,7 +325,9 @@ class Horde_Session
      */
     public function set($app, $name, $value, $mask = 0)
     {
-        $key = $this->_getKey($app, $name);
+        if ($this->_readonly) {
+            return;
+        }
 
         /* Each particular piece of session data is generally not used on any
          * given page load.  Thus, for arrays and objects, it is beneficial to
@@ -282,12 +339,13 @@ class Horde_Session
             if ($this->_lzf) {
                 $value = lzf_compress($value);
             }
-            $_SESSION[self::SERIALIZED][$key] = true;
+            $_SESSION[$app][self::IS_SERIALIZED . $name] = $value;
+            unset($_SESSION[$app][self::NOT_SERIALIZED . $name]);
         } else {
-            unset($_SESSION[self::SERIALIZED][$key]);
+            $_SESSION[$app][self::NOT_SERIALIZED . $name] = $value;
+            unset($_SESSION[$app][self::IS_SERIALIZED . $name]);
         }
 
-        $_SESSION[$app][$name] = $value;
         $this->sessionHandler->changed = true;
     }
 
@@ -299,21 +357,21 @@ class Horde_Session
      */
     public function remove($app, $name = null)
     {
+        if ($this->_readonly) {
+            return;
+        }
+
         if (!isset($_SESSION[$app])) {
             return;
         }
 
         if (is_null($name)) {
-            foreach (array_keys($_SESSION[$app]) as $key) {
-                unset($_SESSION[self::SERIALIZED][$key]);
-            }
             unset($_SESSION[$app]);
-        } elseif (isset($_SESSION[$app][$name])) {
-            $key = $this->_getKey($app, $name);
+        } elseif ($this->exists($app, $name)) {
             unset(
-                $_SESSION[$app][$name],
-                $_SESSION[self::PRUNE][$key],
-                $_SESSION[self::SERIALIZED][$key]
+                $_SESSION[$app][self::NOT_SERIALIZED . $name],
+                $_SESSION[$app][self::IS_SERIALIZED . $name],
+                $_SESSION[self::PRUNE][$this->_getKey($app, $name)]
             );
         } else {
             foreach ($this->_subkeys($app, $name) as $val) {
@@ -325,8 +383,8 @@ class Horde_Session
     /**
      * Generates the unique storage key.
      *
-     * @param string $app    Application name.
-     * @param string $name   Session variable name.
+     * @param string $app   Application name.
+     * @param string $name  Session variable name.
      *
      * @return string  The unique storage key.
      */
@@ -338,8 +396,8 @@ class Horde_Session
     /**
      * Return the list of subkeys for a master key.
      *
-     * @param string $app    Application name.
-     * @param string $name   Session variable name.
+     * @param string $app   Application name.
+     * @param string $name  Session variable name.
      *
      * @return array  Subkeyname (keys) and session variable name (values).
      */
@@ -351,8 +409,8 @@ class Horde_Session
             isset($_SESSION[$app]) &&
             ($name[strlen($name) - 1] == '/')) {
             foreach (array_keys($_SESSION[$app]) as $k) {
-                if (strpos($k, $name) === 0) {
-                    $ret[substr($k, strlen($name))] = $k;
+                if (strpos($k, $name) === 1) {
+                    $ret[substr($k, strlen($name) + 1)] = substr($k, 1);
                 }
             }
         }

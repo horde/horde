@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * A cache backend for Kolab storage list handlers.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Cache_List
@@ -203,6 +203,22 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
+     * Returns if the folder type annotation is stored in the cache.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @return boolean True if the type annotation is available.
+     */
+    public function hasFolderTypes()
+    {
+        $this->_load();
+        if (isset($this->_data[self::TYPES])) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns the folder type annotation from the cache.
      *
      * @return array The list folder types with the folder names as key and the
@@ -210,8 +226,7 @@ class Horde_Kolab_Storage_Cache_List
      */
     public function getFolderTypes()
     {
-        $this->_load();
-        if (isset($this->_data[self::TYPES])) {
+        if ($this->hasFolderTypes()) {
             return $this->_data[self::TYPES];
         } else {
             throw new Horde_Kolab_Storage_Exception(
@@ -221,9 +236,9 @@ class Horde_Kolab_Storage_Cache_List
     }
 
     /**
-     * Return namespace information.
+     * Returns if the namespace information is available.
      *
-     * @return mixed The namespace data.
+     * @return boolean True if the information exists in the cache.
      */
     public function hasNamespace()
     {

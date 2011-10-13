@@ -2,10 +2,10 @@
 /**
  * The Agora search page.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jason Felice <jason.m.felice@gmail.com>
  */
@@ -13,13 +13,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('agora');
 
-require_once AGORA_BASE . '/lib/Forms/Search.php';
-
 /* Set up the forums object. */
 $scope = Horde_Util::getGet('scope', 'agora');
-$messages = &Agora_Messages::singleton($scope);
+$messages = $injector->getInstance('Agora_Factory_Driver')->create($scope);
 $vars = Horde_Variables::getDefaultVariables();
-$form = new SearchForm($vars, $scope);
+$form = new Agora_Form_Search($vars, $scope);
 $thread_page = Horde_Util::getFormData('thread_page');
 
 $view = new Agora_View();
@@ -72,5 +70,5 @@ $view->searchForm = Horde::endBuffer();
 
 $title = _("Search Forums");
 require $registry->get('templates', 'horde') . '/common-header.inc';
-echo $view->render('search.html.php');
+echo $view->render('search');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

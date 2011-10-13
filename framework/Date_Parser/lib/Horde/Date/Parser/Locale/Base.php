@@ -225,6 +225,17 @@ class Horde_Date_Parser_Locale_Base
             array_shift($tokens);
         }
 
+        // Second rule: if the last token is a separator, remove it from the
+        // list of tokens we consider in tokensToSpan().
+        $last = clone($tokens[count($tokens) - 1]);
+        $last->untag('separator_at');
+        $last->untag('separator_comma');
+        $last->untag('separator_in');
+        $last->untag('separator_slash_or_dash');
+        if (!$last->tagged()) {
+            array_pop($tokens);
+        }
+
         return $tokens;
     }
 
@@ -672,5 +683,4 @@ class Horde_Date_Parser_Locale_Base
 
         return $tokens;
     }
-
 }

@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Components_Runner_Release:: releases a new version for a package.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Runner_Release
@@ -33,13 +33,6 @@ class Components_Runner_Release
      * @var Components_Config
      */
     private $_config;
-
-    /**
-     * The factory for PEAR dependencies.
-     *
-     * @var Components_Pear_Factory
-     */
-    private $_factory;
 
     /**
      * The output handler.
@@ -60,19 +53,15 @@ class Components_Runner_Release
      *
      * @param Components_Config       $config  The configuration for the current
      *                                         job.
-     * @param Components_Pear_Factory $factory The factory for PEAR
-     *                                         dependencies.
      * @param Component_Output        $output  The output handler.
      * @param Component_Release_Tasks $release The tasks handler.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory,
         Components_Output $output,
         Components_Release_Tasks $release
     ) {
         $this->_config = $config;
-        $this->_factory = $factory;
         $this->_output = $output;
         $this->_release = $release;
     }
@@ -80,18 +69,6 @@ class Components_Runner_Release
     public function run()
     {
         $options = $this->_config->getOptions();
-
-        $package_xml = $this->_config->getComponentPackageXml();
-        if (!isset($options['pearrc'])) {
-            $package = $this->_factory->createPackageForDefaultLocation(
-                $package_xml
-            );
-        } else {
-            $package = $this->_factory->createPackageForInstallLocation(
-                $package_xml,
-                $options['pearrc']
-            );
-        }
 
         $sequence = array();
 
@@ -111,7 +88,12 @@ class Components_Runner_Release
             $sequence[] = 'Package';
             if ($this->_doTask('upload')) {
                 $options['upload'] = true;
+            } else {
+                $this->_output->warn('Are you certain you don\'t want to upload the package? Add the "upload" option in case you want to correct your selection. Waiting 5 seconds ...');
+                sleep(5);
             }
+        } else if ($this->_doTask('upload')) {
+            throw new Components_Exception('Selecting "upload" without "package" is not possible! Please add the "package" task if you want to upload the package!');
         }
 
         if ($this->_doTask('commit') && $pre_commit) {
@@ -136,16 +118,30 @@ class Components_Runner_Release
 
         if ($this->_doTask('next')) {
             $sequence[] = 'NextVersion';
-            if ($this->_doTask('nextsentinel')) {
-                $sequence[] = 'NextSentinel';
-            }
-            if ($this->_doTask('commit')) {
-                $sequence[] = 'CommitPostRelease';
-            }
+        }
+        if ($this->_doTask('nextsentinel')) {
+            $sequence[] = 'NextSentinel';
+        }
+        if (($this->_doTask('next') || $this->_doTask('nextsentinel')) &&
+            $this->_doTask('commit')) {
+            $sequence[] = 'CommitPostRelease';
         }
 
+        if (in_array('CommitPreRelease', $sequence) ||
+            in_array('CommitPostRelease', $sequence)) {
+            $options['commit'] = new Components_Helper_Commit(
+                $this->_output, $options
+            );
+        }
+
+        $options['skip_invalid'] = $this->_doTask('release');
+
         if (!empty($sequence)) {
-            $this->_release->run($sequence, $package, $options);
+            $this->_release->run(
+                $sequence,
+                $this->_config->getComponent(),
+                $options
+            );
         } else {
             $this->_output->warn('Huh?! No tasks selected... All done!');
         }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -80,7 +80,7 @@ foreach ($stories as &$story) {
     $story['permalink'] = htmlspecialchars($story['permalink']);
     $story['storylink'] = htmlspecialchars($driver->getStoryLink($channel, $story));
     $story['published'] = htmlspecialchars(date('r', $story['published']));
-    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($story['owner']);
+    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($story['author']);
     if ($name = $identity->getValue('fullname')) {
         $story['author'] = htmlspecialchars($name);
     } else {

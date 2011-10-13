@@ -3,7 +3,7 @@
  * The Ansel_View_Gallery:: class wraps display of individual images.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
@@ -94,7 +94,6 @@ class Ansel_View_Gallery extends Ansel_View_Ansel
         } else {
             $style = $this->gallery->getStyle();
         }
-
         if (!empty($this->_params['gallery_view'])) {
             $renderer = $this->_params['gallery_view'];
         } else {

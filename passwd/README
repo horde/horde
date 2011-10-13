@@ -1,9 +1,8 @@
-What is Passwd?
-===============
+=================
+ What is Passwd?
+=================
 
-:Last update:   $Date: 2008/10/09 17:12:03 $
-:Revision:      $Revision: 1.5.2.2 $
-:Contact:       sork@lists.horde.org
+:Contact: sork@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -13,22 +12,22 @@ fairly complete support for changing passwords via Poppassd, LDAP, Unix expect
 scripts, the Unix smbpasswd command for SMB/CIFS passwords, Kolab, ADSI, Pine,
 Serv-U FTP, VMailMgr, vpopmail, and SQL passwords.
 
-This software is OSI Certified Open Source Software.  OSI Certified is a
+This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
 .. _`Open Source Initiative`: http://www.opensource.org/
 
 
 Obtaining Passwd
-------------------
+================
 
 Further information on Passwd and the latest version can be obtained at
 
-  http://www.horde.org/passwd/
+  http://www.horde.org/apps/passwd
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Passwd distribution:
 
@@ -41,47 +40,47 @@ The following documentation is available in the Passwd distribution:
 
 
 Installation
-------------
+============
 
 Instructions for installing Passwd can be found in the file INSTALL_ in the
 ``docs/`` directory of the Passwd distribution.
 
 
 Assistance
-----------
+==========
 
-If you encounter problems with Passwd, help is available! 
+If you encounter problems with Passwd, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
- 
-  http://www.horde.org/faq/
 
-The Horde Project runs a number of mailing lists, for individual applications
-and for issues relating to the project as a whole.  Information, archives, and
+  http://wiki.horde.org/FAQ
+
+Horde LLC runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
-appearances on IRC, on the channel #horde on the freenode Network
+appearances on IRC, on the channel #horde on the Freenode Network
 (irc.freenode.net).
 
 
 Licensing
----------
+=========
 
-For licensing and copyright information, please see the file COPYING_ in the
-Passwd distribution.
+For licensing and copyright information, please see the file COPYING_/LICENSE_
+[pick one] in the Passwd distribution.
 
 Thanks,
 
-The Sork team
+The Passwd team
 
 
-.. _README: ?f=README.html
-.. _COPYING: http://www.horde.org/licenses/gpl.php
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CREDITS: ?f=CREDITS.html
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/TODO: ?f=TODO.html
+.. _docs/INSTALL: INSTALL
+.. _docs/TODO: TODO

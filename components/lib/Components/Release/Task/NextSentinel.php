@@ -1,81 +1,64 @@
 <?php
 /**
  * Components_Release_Task_NextSentinel:: updates the CHANGES and the
- * Application.php files with the next package version.
+ * Application.php/Bundle.php files with the next package version.
  *
  * PHP version 5
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Components_Release_Task_CurrentSentinel:: updates the CHANGES and the
- * Application.php files with the current package version.
+ * Application.php/Bundle.php files with the current package version.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Release_Task_NextSentinel
 extends Components_Release_Task_Sentinel
 {
     /**
-     * Validate the preconditions required for this release task.
-     *
-     * @param array $options Additional options.
-     *
-     * @return array An empty array if all preconditions are met and a list of
-     *               error messages otherwise.
-     */
-    public function validate($options)
-    {
-        $errors = parent::validate($options);
-        if (empty($options['next_version'])) {
-            $errors[] = 'The "next_version" option has no value! What should the next version number be?';
-        }
-        return $errors;
-    }
-
-    /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
-        $sentinel = new Horde_Release_Sentinel(
-            $this->getPackage()->getComponentDirectory()
-        );
+        if (empty($options['next_version'])) {
+            $options['next_version'] = Components_Helper_Version::nextVersion($this->getComponent()->getVersion());
+        }
         $changes_version = Components_Helper_Version::pearToHorde(
             $options['next_version']
         );
         $application_version = Components_Helper_Version::pearToHordeWithBranch(
             $options['next_version'], $this->getNotes()->getBranch()
         );
+        $result = $this->getComponent()->nextSentinel(
+            $changes_version, $application_version, $options
+        );
         if (!$this->getTasks()->pretend()) {
-            $sentinel->updateChanges($changes_version);
-            $sentinel->updateApplication($application_version);
-        } else {
-            if ($changes = $sentinel->changesFileExists()) {
-                $this->_updateInfo('extend', $changes, $changes_version);
+            foreach ($result as $message) {
+                $this->getOutput()->ok($message);
             }
-            if ($application = $sentinel->applicationFileExists()) {
-                $this->_updateInfo('replace', $application, $application_version);
+        } else {
+            foreach ($result as $message) {
+                $this->getOutput()->info($message);
             }
         }
-        $this->_commit($sentinel, 'CommitPostRelease');
     }
 }

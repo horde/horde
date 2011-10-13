@@ -8,7 +8,10 @@ header('Vary: Accept-Language');
 <html>
 <head>
   <title><?php echo htmlspecialchars(Horde_Util::nonInputVar('title')) ?></title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 <?php
+
+Horde::includeFavicon();
 
 /* CSS Files. */
 $horde_css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
@@ -18,7 +21,8 @@ $horde_css->addStylesheet(
 );
 $horde_css->addThemeStylesheet('mobile.css');
 Horde::includeStylesheetFiles(array(
-    'nobase' => true
+    'nobase' => true,
+    'nocache' => true,
 ));
 
 /* JS Files. */

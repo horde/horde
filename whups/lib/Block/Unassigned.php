@@ -24,10 +24,6 @@ class Whups_Block_Unassigned extends Horde_Core_Block
                       'nores' => true,
                       'queue' => $queue_ids);
         $unassigned = $whups_driver->getTicketsByProperties($info);
-        if ($unassigned instanceof PEAR_Error) {
-            return $unassigned;
-        }
-
         if (!$unassigned) {
             return '<p><em>' . _("No tickets are unassigned!") . '</em></p>';
         }

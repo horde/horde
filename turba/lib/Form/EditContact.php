@@ -30,9 +30,7 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
 
         parent::_addFields($this->_contact);
 
-        if ($conf['documents']['type'] != 'none') {
-            $this->addVariable(_("Add file"), 'vfs', 'file', false);
-        }
+        $this->addVariable(_("Add file"), 'vfs', 'file', false);
 
         $object_values = $vars->get('object');
         $object_keys = array_keys($contact->attributes);
@@ -78,7 +76,7 @@ class Turba_Form_EditContact extends Turba_Form_ContactBase
             throw $e;
         }
 
-        if ($conf['documents']['type'] != 'none' && isset($info['vfs'])) {
+        if (isset($info['vfs'])) {
             try {
                 $this->_contact->addFile($info['vfs']);
                 $notification->push(sprintf(_("\"%s\" updated."), $this->_contact->getValue('name')), 'horde.success');

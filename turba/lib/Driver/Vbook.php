@@ -2,7 +2,7 @@
 /**
  * Turba directory driver implementation for virtual address books.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -99,12 +99,14 @@ class Turba_Driver_Vbook extends Turba_Driver
     }
 
     /**
-     * Not supported for virtual address books.
+     * Adds the specified contact to the addressbook.
      *
-     * @see Turba_Driver::_add
+     * @param array $attributes  The attribute values of the contact.
+     * @param array $blob_fields TODO
+     *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes)
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         throw new Turba_Exception(_("You cannot add new contacts to a virtual address book"));
     }

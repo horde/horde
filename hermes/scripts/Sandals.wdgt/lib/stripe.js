@@ -2,13 +2,13 @@
  * Javascript code for finding all tables with classname "striped" and
  * dynamically striping their row colors.
  *
- * Copyright 2006-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2009 Horde LLC (http://www.horde.org/)
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @author Matt Warden <mwarden@gmail.com>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
 
 /* We do everything onload so that the entire document is present

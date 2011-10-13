@@ -8,7 +8,7 @@
  * @package    IMP
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  */
 
@@ -21,10 +21,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 
 /**
  * Prepare the test setup.
- *
- * @todo: fix autoloading
  */
-require_once dirname(__FILE__) . '/Autoload.php';
 require_once 'Horde/Test/AllTests.php';
 
 /**
@@ -34,7 +31,7 @@ require_once 'Horde/Test/AllTests.php';
  * @package    IMP
  * @subpackage UnitTests
  * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.fsf.org/copyleft/gpl.html GPL
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @link       http://pear.horde.org/index.php?package=Imp
  */
 class Imp_AllTests extends Horde_Test_AllTests

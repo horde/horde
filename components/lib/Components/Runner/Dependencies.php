@@ -7,22 +7,22 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
 /**
  * Components_Runner_Dependencies:: lists a tree of dependencies.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Runner_Dependencies
@@ -35,47 +35,32 @@ class Components_Runner_Dependencies
     private $_config;
 
     /**
-     * The factory for PEAR dependencies.
+     * The list helper.
      *
-     * @var Components_Pear_Factory
+     * @var Components_Helper_Dependencies
      */
-    private $_factory;
-
-    /**
-     * The output handler.
-     *
-     * @param Component_Output
-     */
-    private $_output;
+    private $_dependencies;
 
     /**
      * Constructor.
      *
-     * @param Components_Config       $config  The configuration for the current
-     *                                         job.
-     * @param Components_Pear_Factory $factory The factory for PEAR
-     *                                         dependencies.
-     * @param Component_Output        $output  The output handler.
+     * @param Components_Config              $config       The configuration
+     *                                                     for the current job.
+     * @param Components_Helper_Dependencies $dependencies The list helper.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory,
-        Components_Output $output
+        Components_Helper_Dependencies $dependencies
     ) {
-        $this->_config = $config;
-        $this->_factory = $factory;
-        $this->_output = $output;
+        $this->_config       = $config;
+        $this->_dependencies = $dependencies;
     }
 
     public function run()
     {
-        $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
-        $this->_factory
-            ->createSimpleTreeHelper($this->_config->getComponentDirectory())
-            ->listDependencyTree(
-                $this->_config->getComponentPackageXml(),
-                $this->_output
-            );
+        $this->_dependencies->listTree(
+            $this->_config->getComponent(),
+            $this->_config->getOptions()
+        );
     }
 }

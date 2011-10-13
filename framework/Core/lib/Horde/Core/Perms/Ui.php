@@ -3,10 +3,10 @@
  * The Horde_Core_Perms_Ui class provides UI methods for the Horde permissions
  * system.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
@@ -112,7 +112,7 @@ class Horde_Core_Perms_Ui
                 $perms_extra = array();
                 $parents = explode(':', $node);
 
-                if (!in_array($parents[0], $GLOBALS['registry']->listApps())) {
+                if (!in_array($parents[0], $GLOBALS['registry']->listApps(array('notoolbar', 'active', 'hidden')))) {
                     // This backend has permissions for an application that is
                     // not installed.  Perhaps the application has been removed
                     // or the backend is shared with other Horde installations.

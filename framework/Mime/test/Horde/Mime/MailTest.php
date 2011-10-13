@@ -2,11 +2,11 @@
 /**
  * Tests for the Horde_Mime_Mail class.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */
@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
 /**
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */
@@ -212,12 +212,13 @@ bHRlciBEZWljaC4K
         );
     }
 
-    public function addHtmlTest()
+    public function testAddHtml()
     {
         $mail = new Horde_Mime_Mail(array(
             'Subject' => 'My Subject',
             'To' => 'recipient@example.com',
-            'From' => 'sender@example.com'
+            'From' => 'sender@example.com',
+            'charset' => 'iso-8859-1'
         ));
         $mail->setBody("This is\nthe plain text body.");
 
@@ -237,7 +238,7 @@ MIME-Version: 1.0',
         );
 
         $this->assertEquals(
-            "This is\nthe plain text body.",
+            "This is\nthe plain text body.\n",
             $dummy->sentMessages[0]['body']
         );
 
@@ -273,7 +274,7 @@ MIME-Version: 1.0',
         );
 
         $this->assertEquals(
-            "<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>",
+            "<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>\n",
             $dummy->sentMessages[0]['body']
         );
 
@@ -285,7 +286,8 @@ MIME-Version: 1.0',
         $mail = new Horde_Mime_Mail(array(
             'Subject' => 'My Subject',
             'To' => 'recipient@example.com',
-            'From' => 'sender@example.com'
+            'From' => 'sender@example.com',
+            'charset' => 'iso-8859-1'
         ));
         $mail->setHTMLBody("<h1>Header Title</h1>\n<p>This is<br />the html text body.</p>");
 

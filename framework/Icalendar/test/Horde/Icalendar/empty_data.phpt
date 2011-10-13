@@ -8,7 +8,7 @@ $ical = new Horde_Icalendar();
 
 $data = 'BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//The Horde Project//Horde iCalendar Library//EN
+PRODID:-//Horde LLC//Horde iCalendar Library//EN
 END:VCALENDAR';
 
 var_export($ical->parseVCalendar($data));

@@ -2,7 +2,7 @@
 /**
  * Turba data.php.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -324,7 +324,7 @@ case 'export':
 
     case 'ldif':
         $ldif = new Turba_Data_Ldif(
-            array('browser' => $this->_injector->getInstance('Horde_Browser'),
+            array('browser' => $injector->getInstance('Horde_Browser'),
                   'vars' => Horde_Variables::getDefaultVariables(),
                   'cleanup' => '_cleanupData'));
         $ldif->exportFile(_("contacts.ldif"), $data, true);
@@ -380,7 +380,7 @@ if (!$error && !empty($import_format)) {
     try {
         if ($import_format == 'ldif') {
             $data = new Turba_Data_Ldif(array(
-                'browser' => $this->_injector->getInstance('Horde_Browser'),
+                'browser' => $injector->getInstance('Horde_Browser'),
                 'vars' => Horde_Variables::getDefaultVariables(),
                 'cleanup' => '_cleanupData'
             ));

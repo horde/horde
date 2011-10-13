@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * @author   Gunnar Wrobel <p@rdus.de>
- * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+ * @license  http://www.horde.org/licenses/lgpl21
  * @category Kolab
  * @package  Koward
  */

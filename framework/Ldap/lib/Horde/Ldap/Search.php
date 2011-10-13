@@ -8,8 +8,8 @@
  * @author    Benedikt Hallinger <beni@php.net>
  * @author    Jan Schneider <jan@horde.org>
  * @copyright 2009 Jan Wagner, Benedikt Hallinger
- * @copyright 2010-2011 The Horde Project
- * @license   http://www.gnu.org/copyleft/lesser.html LGPL
+ * @copyright 2010-2011 Horde LLC
+ * @license   http://www.gnu.org/licenses/lgpl-3.0.html LGPL-3.0
  */
 class Horde_Ldap_Search implements Iterator
 {
@@ -145,12 +145,10 @@ class Horde_Ldap_Search implements Iterator
      */
     public function shiftEntry()
     {
-        if (!$this->count()) {
-            return false;
-        }
-
         if (is_null($this->_entry)) {
-            $this->_entry = @ldap_first_entry($this->_link, $this->_search);
+            if (!$this->_entry = @ldap_first_entry($this->_link, $this->_search)) {
+                return false;
+            }
             $entry = Horde_Ldap_Entry::createConnected($this->_ldap, $this->_entry);
         } else {
             if (!$this->_entry = @ldap_next_entry($this->_link, $this->_entry)) {

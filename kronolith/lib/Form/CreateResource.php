@@ -3,13 +3,13 @@
  * Horde_Form for creating resources.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Kronolith
  */
 
 /**
- * The Kronolith_CreateResourceForm class provides the form for creating a
+ * The Kronolith_Form_CreateResource class provides the form for creating a
  * resource.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>

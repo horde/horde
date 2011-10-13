@@ -2,7 +2,7 @@
 /**
  * Deletes a history entry from the ticket.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -19,11 +19,11 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) 
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$result = $whups_driver->deleteHistory($vars->get('transaction'));
-if (is_a($result, 'PEAR_Error')) {
-    $notification->push($result, 'horde.error');
-} else {
+try {
+    $whups_driver->deleteHistory($vars->get('transaction'));
     $notification->push(_("Entry deleted."), 'horde.success');
+} catch (Whups_Exception $e) {
+    $notification->push($e, 'horde.error');
 }
 
 if ($url = Horde_Util::getFormData('url')) {

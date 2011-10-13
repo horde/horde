@@ -1,5 +1,6 @@
-What is Chora?
-==============
+================
+ What is Chora?
+================
 
 :Contact: chora@lists.horde.org
 
@@ -9,29 +10,28 @@ What is Chora?
 Chora is a web interface to viewing files, revisions, diffs, etc. from a VCS
 repository, written in PHP and utilizing the `Horde Application Framework`_.
 
-This software is OSI Certified Open Source Software.  OSI Certified is a
+This software is OSI Certified Open Source Software. OSI Certified is a
 certification mark of the `Open Source Initiative`_.
 
-.. _`Horde Application Framework`: http://www.horde.org/horde/
+.. _`Horde Application Framework`: http://www.horde.org/apps/horde
 .. _`Open Source Initiative`: http://www.opensource.org/
 
 
 Obtaining Chora
----------------
+===============
 
 Further information on Chora and the latest version can be obtained at
 
-  http://www.horde.org/chora/
+  http://www.horde.org/apps/chora
 
 
 Documentation
--------------
+=============
 
 The following documentation is available in the Chora distribution:
 
 :README_:          This file
 :COPYING_:         Copyright and license information
-:`docs/BUGS`_:     Known bugs
 :`docs/CHANGES`_:  Changes by release
 :`docs/CREDITS`_:  Project developers
 :`docs/INSTALL`_:  Installation instructions and notes
@@ -39,34 +39,34 @@ The following documentation is available in the Chora distribution:
 
 
 Installation
-------------
+============
 
 Instructions for installing Chora can be found in the file INSTALL_ in the
 ``docs/`` directory of the Chora distribution.
 
 
 Assistance
-----------
+==========
 
 If you encounter problems with Chora, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
-and for issues relating to the project as a whole.  Information, archives, and
+Horde LLC runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users also make occasional
-appearances on IRC, on the channel #horde on the freenode Network
+appearances on IRC, on the channel #horde on the Freenode Network
 (irc.freenode.net).
 
 
 Licensing
----------
+=========
 
 For licensing and copyright information, please see the file COPYING_ in the
 Chora distribution.
@@ -76,11 +76,10 @@ Thanks,
 The Chora team
 
 
-.. _README: ?f=README.html
-.. _COPYING: http://www.horde.org/licenses/gpl.php
-.. _docs/BUGS: ?f=BUGS.html
-.. _docs/CHANGES: ?f=CHANGES.html
-.. _docs/CREDITS: ?f=CREDITS.html
+.. _README: README
+.. _COPYING: http://www.horde.org/licenses/gpl
+.. _docs/CHANGES: CHANGES
+.. _docs/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: ?f=INSTALL.html
-.. _docs/TODO: ?f=TODO.html
+.. _docs/INSTALL: INSTALL
+.. _docs/TODO: TODO

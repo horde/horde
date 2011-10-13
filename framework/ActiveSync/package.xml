@@ -5,22 +5,22 @@
  <summary>Horde ActiveSync Server Library</summary>
  <description>This package provides libraries for implementing an ActiveSync server.</description>
  <lead>
-  <name>Michael J. Rubinsky</name>
+  <name>Michael J Rubinsky</name>
   <user>mrubinsk</user>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:03:54</time>
+ <date>2011-09-15</date>
+ <time>23:05:54</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.1.6</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * 
  </notes>
@@ -36,6 +36,10 @@
       <dir name="Driver">
        <file name="Base.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Driver -->
+      <dir name="Exception">
+       <file name="InvalidRequest.php" role="php" />
+       <file name="StateGone.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Exception -->
       <dir name="Message">
        <file name="Appointment.php" role="php" />
        <file name="Attendee.php" role="php" />
@@ -85,6 +89,7 @@
     <dir name="Horde">
      <dir name="ActiveSync">
       <file name="1_horde_activesync_base_tables.php" role="data" />
+      <file name="2_horde_activesync_peruserpolicykey.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -170,6 +175,8 @@
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
+   <install as="Horde/ActiveSync/Exception/InvalidRequest.php" name="lib/Horde/ActiveSync/Exception/InvalidRequest.php" />
+   <install as="Horde/ActiveSync/Exception/StateGone.php" name="lib/Horde/ActiveSync/Exception/StateGone.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
    <install as="Horde/ActiveSync/Message/Base.php" name="lib/Horde/ActiveSync/Message/Base.php" />
@@ -200,6 +207,7 @@
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
    <install as="Horde/ActiveSync/Wbxml/Encoder.php" name="lib/Horde/ActiveSync/Wbxml/Encoder.php" />
    <install as="migration/1_horde_activesync_base_tables.php" name="migration/Horde/ActiveSync/1_horde_activesync_base_tables.php" />
+   <install as="migration/2_horde_activesync_peruserpolicykey.php" name="migration/Horde/ActiveSync/2_horde_activesync_peruserpolicykey.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/FileStateTest.php" name="test/Horde/ActiveSync/FileStateTest.php" />
@@ -221,7 +229,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -236,7 +244,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -251,7 +259,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -266,7 +274,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -281,7 +289,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First stable release for Horde 4.
 * [jan] Use Horde_Support_Uuid to generate UUIDs.
@@ -294,8 +302,108 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
+   <date>2011-07-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix race conditions caused by broken clients sending an inappropriate PING request.
+* [mjr] Fix issue with initial Android pairing
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Policykey is now per user, not per device
+* [mjr] use AS in column aliases to make postgres happy (Bug #10346).
+* [mjr] Prevent a sync loop in some fringe cases.
+* [mjr] Improve calendar syncing for iOS devices.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Add missing migration file to package.xml
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix sending unnecessary FOLDERSYNC changes.
+* [mjr] Fix issue with FOLDERSYNC requests that was causing Android clients to PING and SYNC the same collection an unlimited number of times.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix bug with certain recurrence types due to erroneously outputting a zero as an empty tag (Bug# 10416).
+* [mjr] Support POOMCONTACTS2 schema in AS 2.5 clients also.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix sending MONTHLY_NTH and YEARLY_NTH recurrence types (Bug# 10416).
+* [mjr] Fix synchronization loop due to messages being deleted on server then attempting a change from the client.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-15</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix syncing daily recurrence types.
+* [mjr] Support additional GAL fields (Bug #10504).
+* [mjr] Prevent broken clients from sending incoming changes with initial SYNC request (Bug #10461).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.6</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-15</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
    </notes>

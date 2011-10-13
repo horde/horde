@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,15 +16,15 @@
  * Components_Configs:: class represents configuration for the
  * Horde component tool.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Configs
@@ -65,6 +65,20 @@ extends Components_Config_Base
     }
 
     /**
+     * Store a configuration type at the start of the configuration stack. Any
+     * options provided by the new configuration can/will be overridden by
+     * configurations already present.
+     *
+     * @param Components_Config $type The configuration type.
+     *
+     * @return NULL
+     */
+    public function unshiftConfigurationType(Components_Config $type)
+    {
+        array_unshift($this->_configs, $type);
+    }
+
+    /**
      * Provide each configuration handler with the list of supported modules.
      *
      * @param Components_Modules $modules A list of modules.
@@ -89,7 +103,9 @@ extends Components_Config_Base
             if (count($config->getOptions()) !== 0) {
                 $config_options = array();
                 foreach ($config->getOptions() as $name => $option) {
-                    $config_options[$name] = $option;
+                    if ($option !== null) {
+                        $config_options[$name] = $option;
+                    }
                 }
                 $options = array_merge($options, $config_options);
             }

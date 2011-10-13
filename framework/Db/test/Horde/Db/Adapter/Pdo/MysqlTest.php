@@ -1,12 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage UnitTests
@@ -16,7 +16,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @group      horde_db
  * @category   Horde
  * @package    Db
@@ -460,6 +460,25 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('id', (string)$pk);
         $this->assertEquals(1, count($pk->columns));
         $this->assertEquals('id', $pk->columns[0]);
+
+        $table = $this->_conn->createTable('pk_tests', array('autoincrementKey' => false));
+        $table->column('foo', 'string');
+        $table->column('bar', 'string');
+        $table->end();
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEmpty((string)$pk);
+        $this->assertEquals(0, count($pk->columns));
+        $this->_conn->addPrimaryKey('pk_tests', 'foo');
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEquals('foo', (string)$pk);
+        $this->assertEquals(1, count($pk->columns));
+        $this->_conn->removePrimaryKey('pk_tests');
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEmpty((string)$pk);
+        $this->assertEquals(0, count($pk->columns));
+        $this->_conn->addPrimaryKey('pk_tests', array('foo', 'bar'));
+        $pk = $this->_conn->primaryKey('pk_tests');
+        $this->assertEquals('foo,bar', (string)$pk);
     }
 
     public function testIndexes()
@@ -1346,6 +1365,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
             'charset_utf8',
             'my_sports',
             'octopi',
+            'pk_tests',
             'schema_info',
             'sports',
             'testings',

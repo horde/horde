@@ -3,10 +3,10 @@
  * From Binary XML Content Format Specification Version 1.3, 25 July 2001
  * found at http://www.wapforum.org
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Anthony Mills <amills@pyramid6.com>
  * @package Xml_Wbxml
@@ -322,9 +322,7 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
 
         case Horde_Xml_Wbxml::GLOBAL_TOKEN_PI:
             // Section 5.8.4.4
-            // throw new IOException
-            // die("WBXML global token processing instruction(PI, " + token + ") is unsupported!\n");
-            break;
+            throw new Horde_Xml_Wbxml_Exception('WBXML global token processing instruction is unsupported');
 
         case Horde_Xml_Wbxml::GLOBAL_TOKEN_LITERAL:
             // Section 5.8.4.5
@@ -581,11 +579,23 @@ class Horde_Xml_Wbxml_Decoder extends Horde_Xml_Wbxml_ContentHandler
 
     public function getCurrentURI()
     {
-        if ($this->_isAttribute) {
-            return $this->_tagDTD->getURI();
-        } else {
-            return $this->_attributeDTD->getURI();
-        }
+        $uri = $this->_isAttribute
+            ? $this->_tagDTD->getURI()
+            : $this->_attributeDTD->getURI();
+        return str_replace(
+            array('syncml:metinf1.0',
+                  'syncml:metinf1.1',
+                  'syncml:metinf1.2',
+                  'syncml:devinf1.0',
+                  'syncml:devinf1.1',
+                  'syncml:devinf1.2'),
+            array('syncml:metinf',
+                  'syncml:metinf',
+                  'syncml:metinf',
+                  'syncml:devinf',
+                  'syncml:devinf',
+                  'syncml:devinf'),
+            $uri);
     }
 
     public function writeString($str)

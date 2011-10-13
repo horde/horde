@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,15 +16,15 @@
  * Components_Module_Base:: provides core functionality for the
  * different modules.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 abstract class Components_Module_Base
@@ -89,6 +89,16 @@ implements Components_Module
     }
 
     /**
+     * Return the options that should be explained in the context help.
+     *
+     * @return array A list of option help texts.
+     */
+    public function getContextOptionHelp()
+    {
+        return array();
+    }
+
+    /**
      * Return the help text for the specified action.
      *
      * @param string $action The action.
@@ -98,19 +108,5 @@ implements Components_Module
     public function getHelp($action)
     {
         return '';
-    }
-
-    /**
-     * Validate that there is a package.xml file in the provided directory.
-     *
-     * @param string $directory The package directory.
-     *
-     * @return NULL
-     */
-    protected function requirePackageXml($directory)
-    {
-        if (!file_exists($directory . '/package.xml')) {
-            throw new Components_Exception(sprintf('There is no package.xml at %s!', $directory));
-        }
     }
 }

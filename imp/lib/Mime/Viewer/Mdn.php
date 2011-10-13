@@ -3,14 +3,14 @@
  * The IMP_Mime_Viewer_Mdn class handles multipart/report messages that
  * that refer to message disposition notification (MDN) messages (RFC 3798).
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
@@ -81,15 +81,17 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         if ($part) {
             $status[0]['text'][] = sprintf(_("Technical details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/plain', 'mode' => IMP_Contents::RENDER_FULL))));
         }
+        $ret[$part2_id] = null;
 
         /* Display a link to the sent message. */
         $part3_id = Horde_Mime::mimeIdArithmetic($part2_id, 'next');
         $part = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
         if ($part) {
             $status[0]['text'][] = sprintf(_("The text of the sent message can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("The text of the sent message"), 'params' => array('ctype' => 'message/rfc822', 'mode' => IMP_Contents::RENDER_FULL))));
+            foreach ($part->contentTypeMap() as $key => $val) {
+                $ret[$key] = null;
+            }
         }
-
-        $ret = array_combine(array($part2_id, $part3_id), array(null, null));
 
         $ret[$mdn_id] = array(
             'data' => '',

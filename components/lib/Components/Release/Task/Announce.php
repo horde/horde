@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,15 +16,15 @@
  * Components_Release_Task_Announce:: announces new releases to the mailing
  * lists.
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Release_Task_Announce
@@ -41,6 +41,9 @@ extends Components_Release_Task_Base
     public function validate($options)
     {
         $errors = array();
+        if (!$this->getNotes()->hasNotes()) {
+            $errors[] = 'No release announcements available! No information will be sent to the mailing lists.';
+        }
         if (empty($options['from'])) {
             $errors[] = 'The "from" option has no value. Who is sending the announcements?';
         }
@@ -53,11 +56,11 @@ extends Components_Release_Task_Base
     /**
      * Run the task.
      *
-     * @param array $options Additional options.
+     * @param array &$options Additional options.
      *
      * @return NULL
      */
-    public function run($options)
+    public function run(&$options)
     {
         if (!$this->getNotes()->hasNotes()) {
             $this->getOutput()->warn(
@@ -67,15 +70,26 @@ extends Components_Release_Task_Base
         }
 
         $mailer = new Horde_Release_MailingList(
-            $this->getPackage()->getName(),
+            $this->getComponent()->getName(),
             $this->getNotes()->getName(),
             $this->getNotes()->getBranch(),
             $options['from'],
             $this->getNotes()->getList(),
-            Components_Helper_Version::pearToHorde($this->getPackage()->getVersion()),
+            Components_Helper_Version::pearToHorde($this->getComponent()->getVersion()),
             $this->getNotes()->getFocusList()
         );
         $mailer->append($this->getNotes()->getAnnouncement());
+        $mailer->append("\n\n" .
+            'The full list of changes can be viewed here:' .
+            "\n\n" .
+            $this->getComponent()->getChangelog(
+                new Components_Helper_ChangeLog($this->getOutput())
+            ) .
+            "\n\n" .
+            'Have fun!' .
+            "\n\n" .
+            'The Horde Team.'
+        );
 
         if (!$this->getTasks()->pretend()) {
             try {

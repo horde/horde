@@ -480,7 +480,7 @@ class Horde_Date
     public function add($factor)
     {
         $d = clone($this);
-        if (is_array($factor)) {
+        if (is_array($factor) || is_object($factor)) {
             foreach ($factor as $property => $value) {
                 $d->$property += $value;
             }

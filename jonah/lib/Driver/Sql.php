@@ -5,7 +5,7 @@
  * The table structure can be created by the scripts/db/jonah_news.sql
  * script. The needed tables are jonah_channels and jonah_stories.
  *
- * Copyright 2002-2009 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2009 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -392,12 +392,14 @@ class Jonah_Driver_Sql extends Jonah_Driver
             $sql .= ' AND (';
             $multiple = false;
             foreach ($criteria['tags'] as $tag) {
-                if ($multiple) {
-                    $sql .= ' OR ';
+                if (!empty($criteria['tagIDs'][$tag])) {
+                    if ($multiple) {
+                        $sql .= ' OR ';
+                    }
+                    $sql .= 'tags.tag_id = ?';
+                    $values[] = $criteria['tagIDs'][$tag];
+                    $multiple = true;
                 }
-                $sql .= 'tags.tag_id = ?';
-                $values[] = $criteria['tagIDs'][$tag];
-                $multiple = true;
             }
             $sql .= ')';
         }

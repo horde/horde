@@ -2,27 +2,42 @@
 /**
  * Envelope data as returned by the IMAP FETCH command (RFC 3501 [7.4.2]).
  *
- * Copyright 2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  *
  * @property array $bcc                        Bcc address(es).
+ * @property array $bcc_decoded                Bcc address(es) (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property array $cc                         Cc address(es).
+ * @property array $cc_decoded                 Cc address(es) (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property Horde_Imap_Client_DateTime $date  IMAP internal date.
  * @property array $from                       From address(es).
+ * @property array $from_decoded               From address(es) (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property string $in_reply_to               Message-ID of the message
  *                                             replied to.
  * @property string $message_id                Message-ID of the message.
  * @property array $reply_to                   Reply-to address(es).
+ * @property array $reply_to_decoded           Reply-to address(es) (MIME
+ *                                             decoded).
+ *                                             (Since 1.1.0)
  * @property array $sender                     Sender address.
+ * @property array $sender_decoded             Sender address (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property string $subject                   Subject.
+ * @property string $subject_decoded           Subject (MIME decoded).
+ *                                             (Since 1.1.0)
  * @property array $to                         To address(es).
+ * @property array $to_decoded                 To address(es) (MIME decoded).
+ *                                             (Since 1.1.0)
  *
  * For array properties, the value will be an array of arrays. Each of the
  * the underlying arrays corresponds to a single address and contains
@@ -55,7 +70,9 @@ class Horde_Imap_Client_Data_Envelope
     public function __get($name)
     {
         if (isset($this->_data[$name])) {
-            return $this->_data[$name];
+            return is_object($this->_data[$name])
+                ? clone $this->_data[$name]
+                : $this->_data[$name];
         }
 
         switch ($name) {
@@ -74,6 +91,21 @@ class Horde_Imap_Client_Data_Envelope
 
         case 'date':
             return new Horde_Imap_Client_DateTime();
+
+        case 'subject_decoded':
+            return Horde_Mime::decode($this->subject, 'UTF-8');
+
+        case 'bcc_decoded':
+        case 'cc_decoded':
+        case 'from_decoded':
+        case 'reply_to_decoded':
+        case 'sender_decoded':
+        case 'to_decoded':
+            $tmp = $this->__get(substr($name, 0, strrpos($name, '_')));
+            foreach (array_keys($tmp) as $key) {
+                $tmp[$key]['personal'] = Horde_Mime::decode($tmp[$key]['personal'], 'UTF-8');
+            }
+            return $tmp;
 
         case 'in_reply_to':
         case 'message_id':

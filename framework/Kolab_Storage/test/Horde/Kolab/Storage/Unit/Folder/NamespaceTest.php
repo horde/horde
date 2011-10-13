@@ -8,7 +8,7 @@
  * @package  Kolab_Storage
  * @subpackage UnitTests
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
@@ -20,15 +20,15 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 /**
  * Test the handling of namespaces.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_Unit_Folder_NamespaceTest
@@ -36,6 +36,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function setUp()
     {
+        parent::setUp();
         $this->_storage = $this->getMock('Horde_Kolab_Storage', array(), array(), '', false, false);
         $this->_connection = $this->getMock('Horde_Kolab_Storage_Driver');
     }
@@ -68,7 +69,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('INBOX/test/sub', $namespace);
-            $this->assertEquals('test:sub', $folder->getTitle());
+            $this->assertEquals('sub', $folder->getTitle());
         }
     }
 
@@ -108,7 +109,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $folder = $this->_getFolder('shared.test', $namespace);
-            $this->assertNull($folder->getOwner());
+            $this->assertFalse($folder->getOwner());
         }
     }
 
@@ -218,6 +219,41 @@ extends Horde_Kolab_Storage_TestCase
     {
         foreach ($this->_getNamespaces() as $namespace) {
             $this->assertEquals('shared.c', $namespace->constructFolderName(null, 'c'));
+        }
+    }
+
+    public function testConstructFolderPathPersonal()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $this->assertEquals('INBOX/b', $namespace->constructFolderName('test', 'b', 'INBOX'));
+        }
+    }
+
+    public function testConstructFolderPathOther()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $this->assertEquals('user/other/c', $namespace->constructFolderName('other', 'c', 'user'));
+        }
+    }
+
+    public function testConstructFolderPathOtherWithDomain()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $this->assertEquals('user/other/c@domain.de', $namespace->constructFolderName('other@domain.de', 'c', 'user'));
+        }
+    }
+
+    public function testConstructFolderPathOtherWithoutDomain()
+    {
+        foreach ($this->_getNamespaces('test@domain.de') as $namespace) {
+            $this->assertEquals('user/other/c', $namespace->constructFolderName('other@domain.de', 'c', 'user'));
+        }
+    }
+
+    public function testConstructFolderPathShared()
+    {
+        foreach ($this->_getNamespaces() as $namespace) {
+            $this->assertEquals('shared.c', $namespace->constructFolderName(false, 'c', ''));
         }
     }
 

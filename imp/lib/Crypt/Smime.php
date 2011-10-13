@@ -3,14 +3,14 @@
  * The IMP_Crypt_Smime:: class contains all functions related to handling
  * S/MIME messages within IMP.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Crypt_Smime extends Horde_Crypt_Smime
@@ -294,7 +294,12 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function decryptMessage($text)
     {
-        return $this->decrypt($text, array('type' => 'message', 'pubkey' => $this->getPersonalPublicKey(), 'privkey' => $this->getPersonalPrivateKey(), 'passphrase' => $this->getPassphrase()));
+        return $this->decrypt($text, array(
+            'type' => 'message',
+            'pubkey' => $this->getPersonalPublicKey(),
+            'privkey' => $this->getPersonalPrivateKey(),
+            'passphrase' => $this->getPassphrase()
+        ));
     }
 
     /**
@@ -507,6 +512,13 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     {
         $title = _("Import S/MIME Key");
         require IMP_TEMPLATES . '/common-header.inc';
+
+        /* Need to use regular status notification - AJAX notifications won't
+         * show in popup windows. */
+        if (IMP::getViewMode() == 'dimp') {
+            $GLOBALS['notification']->detach('status');
+            $GLOBALS['notification']->attach('status');
+        }
         IMP::status();
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');

@@ -5,10 +5,10 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @package Horde
  */
@@ -21,18 +21,29 @@ class Horde_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '4.0.1-git';
+    public $version = '4.0.10-git';
 
     /**
      */
     public function perms()
     {
-        return array(
+        $permissions = array(
             'max_blocks' => array(
                 'title' => _("Maximum Number of Portal Blocks"),
                 'type' => 'int'
+            ),
+            'administration' => array(
+                'title' => _("Administration"),
             )
         );
+
+        try {
+            foreach ($GLOBALS['registry']->callByPackage('horde', 'admin_list') as $perm_key => $perm_details) {
+                $permissions['administration:' . $perm_key] = array('title' => Horde::stripAccessKey($perm_details['name']));
+            }
+        } catch (Horde_Exception $e) {/*what to do if this fails?*/}
+
+        return $permissions;
     }
 
     /**
@@ -53,7 +64,7 @@ class Horde_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), Horde_Core_Translation::t("_Home"), 'horde.png');
+        $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), _("_Home"), 'horde.png');
     }
 
     /**
@@ -108,4 +119,53 @@ class Horde_Application extends Horde_Registry_Application
             return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlocksList();
         }
     }
+
+    /**
+     */
+    public function removeUserData($user)
+    {
+        $error = false;
+
+        /* Remove user from all groups */
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+        try {
+            $allGroups = $groups->listGroups($user);
+            foreach (array_keys($allGroups) as $id) {
+                $groups->removeUser($id, $user);
+            }
+        } catch (Horde_Group_Exception $e) {
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+        }
+
+        /* Remove the user from all application permissions */
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        try {
+            $tree = $perms->getTree();
+        } catch (Horde_Perms_Exception $e) {
+            Horde::logMessage($e, 'NOTICE');
+            $error = true;
+            $tree = array();
+        }
+
+        foreach (array_keys($tree) as $id) {
+            try {
+                $perm = $perms->getPermissionById($id);
+                if ($perms->getPermissions($perm, $user)) {
+                    // The Horde_Perms::ALL is used if this is a matrix perm,
+                    // otherwise it's ignored in the method and the entry is
+                    // totally removed.
+                    $perm->removeUserPermission($user, Horde_Perms::ALL, true);
+                }
+            } catch (Horde_Perms_Exception $e) {
+                Horde::logMessage($e, 'NOTICE');
+                $error = true;
+            }
+        }
+
+        if ($error) {
+            throw new Horde_Exception(sprintf(_("There was an error removing global data for %s. Details have been logged."), $user));
+        }
+    }
+
 }

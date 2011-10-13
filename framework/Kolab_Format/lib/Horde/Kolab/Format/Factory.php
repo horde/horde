@@ -7,24 +7,24 @@
  * @category Kolab
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
  * A factory for generating Kolab format handlers.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Format
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Factory
 {
@@ -34,6 +34,13 @@ class Horde_Kolab_Format_Factory
      * @var array
      */
     private $_params;
+
+    /**
+     * Collect xml type instances already created.
+     *
+     * @var array
+     */
+    private $_xml_type_instances;
 
     /**
      * Constructor.
@@ -78,13 +85,7 @@ class Horde_Kolab_Format_Factory
         if (class_exists($class)) {
             switch ($parser) {
             case 'Xml':
-                $instance = new $class(
-                    new Horde_Kolab_Format_Xml_Parser(
-                        new DOMDocument('1.0', 'UTF-8')
-                    ),
-                    $this,
-                    $params
-                );
+                $instance = new $class($this->createXmlParser(), $this, $params);
                 break;
             default:
                 throw new Horde_Kolab_Format_Exception(
@@ -126,29 +127,64 @@ class Horde_Kolab_Format_Factory
     }
 
     /**
+     * Generates a XML parser.
+     *
+     * @since Horde_Kolab_Format 1.1.0
+     *
+     * @return Horde_Kolab_Format_Xml_Parser The parser.
+     */
+    public function createXmlParser()
+    {
+        return new Horde_Kolab_Format_Xml_Parser(
+            new DOMDocument('1.0', 'UTF-8')
+        );
+    }
+
+    /**
+     * Generates a XML helper instance.
+     *
+     * @since Horde_Kolab_Format 1.1.0
+     *
+     * @param DOMDocument $xmldoc The XML document the helper works with.
+     *
+     * @return Horde_Kolab_Format_Xml_Helper The helper utility.
+     */
+    public function createXmlHelper(DOMDocument $xmldoc)
+    {
+        return new Horde_Kolab_Format_Xml_Helper($xmldoc);
+    }
+
+    /**
      * Generates a XML type that deals with XML data modifications.
      *
+     * @since Horde_Kolab_Format 1.1.0
+     *
      * @param string      $type   The value type.
-     * @param DOMDocument $xmldoc The XML document the type should operate on.
-     * @param array       $params Additional parameters. See each time for
-     *                            available options.
+     * @param array       $params Additional parameters.
      *
      * @return Horde_Kolab_Format_Xml_Type The type.
      *
      * @throws Horde_Kolab_Format_Exception If the specified type does not
      *                                      exist.
      */
-    public function createXmlType($type, $xmldoc, array $params = array())
+    public function createXmlType($type, $params = array())
     {
-        switch ($type) {
-        case Horde_Kolab_Format_Xml::TYPE_XML:
-            return new Horde_Kolab_Format_Xml_Type_XmlAppend(
-                $xmldoc
-            );
-        default:
-            throw new Horde_Kolab_Format_Exception(
-                sprintf('XML type %s not supported!')
-            );
+        if (isset($params['api-version'])) {
+            $class = $type . '_V' . $params['api-version'];
+        } else {
+            $class = $type;
         }
+        if (!isset($this->_xml_type_instances[$class])) {
+            if (class_exists($class)) {
+                $this->_xml_type_instances[$class] = new $class($this);
+            } else if (class_exists($type)) {
+                $this->_xml_type_instances[$class] = new $type($this);
+            } else {
+                throw new Horde_Kolab_Format_Exception(
+                    sprintf('XML type %s not supported!', $type)
+                );
+            }
+        }
+        return $this->_xml_type_instances[$class];
     }
 }

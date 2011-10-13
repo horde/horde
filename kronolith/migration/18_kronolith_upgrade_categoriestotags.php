@@ -3,14 +3,14 @@
  * Move tags from Kronolith to content storage. This migration ONLY migrates
  * categories from the Horde_Share_Sql backend.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package Kronolith
  */
 class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
@@ -39,7 +39,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         foreach ($rows as $row) {
             $this->_tagger->tag(
                 $row['event_creator_id'],
-                array('object' => $row['event_uid'], 'type' => $this->_type_ids['event']),
+                array('object' => (string)$row['event_uid'], 'type' => $this->_type_ids['event']),
                 Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
             );
 
@@ -49,7 +49,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                 if ($cal->get('owner') != $row['event_creator_id']) {
                     $this->_tagger->tag(
                         $cal->get('owner'),
-                        array('object' => $row['event_uid'], 'type' => $this->_type_ids['event']),
+                        array('object' => (string)$row['event_uid'], 'type' => $this->_type_ids['event']),
                         Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
                     );
                 }
@@ -72,8 +72,8 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             if (!count($tags) || !count($tags[$row['event_uid']])) {
                 continue;
             }
-            $this->update($sql, array(reset($tags[$row['event_uid']]), $row['event_uid']));
-       }
+            $this->update($sql, array(reset($tags[$row['event_uid']]), (string)$row['event_uid']));
+        }
         $this->announce('Event tags successfully migrated.');
     }
 }

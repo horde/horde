@@ -2,10 +2,10 @@
 /**
  * Nag data script.
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author Jan Schneider <jan@horde.org>
  */
@@ -117,7 +117,7 @@ case 'export':
                 $iCal = new Horde_Icalendar();
                 $iCal->setAttribute(
                     'PRODID',
-                    '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
+                    '-//Horde LLC//Nag ' . $registry->getVersion() . '//EN');
                 while ($task = $tasks->each()) {
                     $iCal->addComponent($task->toiCalendar($iCal));
                 }
@@ -228,25 +228,9 @@ if (is_array($next_step)) {
 
 $import_tasklists = $export_tasklists = array();
 if ($GLOBALS['registry']->getAuth()) {
-    $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
-    foreach ($tasklists as $id => $tasklist) {
-        if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-            !empty($GLOBALS['conf']['share']['hidden']) &&
-            !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-            continue;
-        }
-        $import_tasklists[$id] = $tasklist;
-    }
+    $import_tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
 }
-$tasklists = Nag::listTasklists(false, Horde_Perms::READ);
-foreach ($tasklists as $id => $tasklist) {
-    if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
-        !empty($GLOBALS['conf']['share']['hidden']) &&
-        !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
-        continue;
-    }
-    $export_tasklists[$id] = $tasklist;
-}
+$export_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
 
 $title = _("Import/Export Tasks");
 require $registry->get('templates', 'horde') . '/common-header.inc';

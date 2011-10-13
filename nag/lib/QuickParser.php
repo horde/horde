@@ -53,5 +53,4 @@ class Nag_QuickParser
 
         return $tasks;
     }
-
 }

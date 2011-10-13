@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,15 +16,15 @@
  * Components_Config:: interface represents a configuration type for the Horde
  * component tool.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 interface Components_Config
@@ -72,18 +72,15 @@ interface Components_Config
     /**
      * Set the path to the component directory.
      *
-     * @param string  $path  The path to the component directory.
-     * @param boolean $shift Was the first argument used to indicate the
-     *                       component path and should be shifted away?
-     *
+     * @param Components_Component $component The path to the component directory.
      * @return NULL
      */
-    public function setComponentDirectory($path, $shift = false);
+    public function setComponent(Components_Component $component);
 
     /**
-     * Return the path to the selected component directory.
+     * Return the selected component.
      *
-     * @return string The component directory.
+     * @return Components_Component The selected component.
      */
-    public function getComponentDirectory();
+    public function getComponent();
 }

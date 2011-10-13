@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * The Horde_Kolab_Storage_Folder_Namespace_Element:: class represents a namespace type.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 abstract class Horde_Kolab_Storage_Folder_Namespace_Element
@@ -109,7 +109,7 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
      *
      * @param string $name The name of the folder.
      *
-     * @return string The owner of the folder.
+     * @return string|boolean The owner of the folder.
      */
     abstract public function getOwner($name);
 
@@ -122,7 +122,12 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
      */
     public function getTitle($name)
     {
-        return join($this->_subpath($name), ':');
+        $subpath = $this->_subpath($name);
+        if (!empty($subpath)) {
+            return array_pop($subpath);
+        } else {
+            return '';
+        }
     }
 
     /**
@@ -181,6 +186,21 @@ abstract class Horde_Kolab_Storage_Folder_Namespace_Element
             array_unshift($path, $this->_name);
         }
         return join($path, $this->_delimiter);
+    }
+
+    /**
+     * Generate a folder path for the given subpath and owner.
+     *
+     * @since Horde_Kolab_Storage 1.1.0
+     *
+     * @param string $subpath The subpath of the folder.
+     * @param string $owner   The folder owner.
+     *
+     * @return string The name of the folder.
+     */
+    public function generatePath($subpath, $owner)
+    {
+        return empty($this->_name) ?  $subpath : $this->_name . $this->_delimiter . $subpath;
     }
 
     /**

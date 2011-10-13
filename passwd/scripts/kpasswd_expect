@@ -1,4 +1,3 @@
-# $Horde: passwd/scripts/kpasswd_expect,v 1.2.2.2 2008/10/09 17:12:24 jan Exp $
 #
 # The following expect script enables the password change over kerberos
 # kpasswd.

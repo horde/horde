@@ -1,8 +1,8 @@
 <?php
 /**
  * TimeEntryForm Class.
-
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ *
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -70,10 +70,11 @@ class Hermes_Form_Time_Entry extends Hermes_Form_Time
             $this->addVariable(_("Billable?"), 'billable', 'enum', true, false, null, array($yesno));
         }
 
-        if ($vars->exists('client')) {
+        if ($vars->exists('client') && $vars->get('client')) {
             try {
                 $info = $GLOBALS['injector']->getInstance('Hermes_Driver')->getClientSettings($vars->get('client'));
-            } catch (Horde_Exception $e) {}
+            } catch (Horde_Exception_NotFound $e) {
+            }
             if (!$info['enterdescription']) {
                 $vars->set('description', _("See Attached Timesheet"));
             }

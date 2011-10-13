@@ -2,8 +2,13 @@
 v4.0-git
 --------
 
-[jan] Fix creating temporary files with open_basedir restrictions.
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
+[rla] Added new driver 'horde' which uses the update() function of horde's
+      current auth driver
+[rla] Formal conversion of all drivers to Horde 4 Exceptions. Some may need
+      more changes to actually work
 [jan] Provide default configuration files instead of .dist versions.
+[jan] Fix creating temporary files with open_basedir restrictions.
 
 
 ----------

@@ -3,14 +3,14 @@
  * The IMP_Flags class provides an interface to deal with display of
  * flags/keywords/labels on messages.
  *
- * Copyright 2009-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Flags implements ArrayAccess, Serializable
@@ -98,9 +98,7 @@ class IMP_Flags implements ArrayAccess, Serializable
      */
     public function getList(array $opts = array())
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-
-        if ($imp_imap->pop3) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
             return array();
         }
 
@@ -114,28 +112,21 @@ class IMP_Flags implements ArrayAccess, Serializable
             }
         }
 
-        if (!isset($opts['mailbox']) || !strlen($opts['mailbox'])) {
+        if (!isset($opts['mailbox']) ||
+            !strlen($opts['mailbox']) ||
+            IMP_Mailbox::get($opts['mailbox'])->search) {
             return array_values($ret);
         }
 
-        /* Alter the list of flags for a mailbox depending on the return
-         * from the PERMANENTFLAGS IMAP response. */
-        try {
-            /* Make sure we are in R/W mailbox mode (SELECT). No flags are
-             * allowed in EXAMINE mode. */
-            $imp_imap->openMailbox($opts['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
-            $status = $imp_imap->status($opts['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
-        } catch (Horde_Imap_Client_Exception $e) {
-            return array_values($ret);
-        }
+        /* Alter the list of flags for a mailbox depending on the mailbox's
+         * PERMANENTFLAGS status. */
+        $permflags = IMP_Mailbox::get($opts['mailbox'])->permflags;
 
         /* Limited flags allowed in mailbox. */
-        if (array_search('\\*', $status['permflags']) === false) {
-            foreach ($ret as $key => $val) {
-                if (($val instanceof IMP_Flag_Imap) &&
-                    !in_array($val->imapflag, $status['permflags'])) {
-                    unset($ret[$key]);
-                }
+        foreach ($ret as $key => $val) {
+            if (($val instanceof IMP_Flag_Imap) &&
+                !$permflags->allowed($val->imapflag)) {
+                unset($ret[$key]);
             }
         }
 
@@ -149,10 +140,9 @@ class IMP_Flags implements ArrayAccess, Serializable
                 }
             }
 
-            foreach ($status['permflags'] as $val) {
-                if (($val != '\\*') && !in_array($val, $imapflags)) {
-                    $ob = new IMP_Flag_User(Horde_String::convertCharset($val, 'UTF7-IMAP', 'UTF-8'), $val);
-                    $ret[] = $ob;
+            foreach ($permflags as $val) {
+                if (!in_array($val, $imapflags)) {
+                    $ret[] = new IMP_Flag_User(Horde_String::convertCharset($val, 'UTF7-IMAP', 'UTF-8'), $val);
                 }
             }
         }
@@ -221,8 +211,8 @@ class IMP_Flags implements ArrayAccess, Serializable
      * <pre>
      * 'flags' - (array) IMAP flag info. A lowercase list of flags returned
      *           by the IMAP server.
-     * 'headers' - (Horde_Mime_Headers) Determines attachment and priority
-     *             information from a headers object.
+     * 'headers' - (Horde_Mime_Headers) Determines message information
+     *             from a headers object.
      * 'personal' - (mixed) Personal message info. Either an array of To
      *              addresses as returned by
      *              Horde_Mime_Address::getAddressesFromObject() or the
@@ -243,31 +233,21 @@ class IMP_Flags implements ArrayAccess, Serializable
         $ret = array();
 
         foreach (array_merge($this->_flags, $this->_userflags) as $val) {
-            switch (get_class($val)) {
-            case 'IMP_Flag_System_Attachment':
-            case 'IMP_Flag_System_Encrypted':
-            case 'IMP_Flag_System_HighPriority':
-            case 'IMP_Flag_System_LowPriority':
-            case 'IMP_Flag_System_Signed':
-                if (!is_null($opts['headers']) &&
-                    $val->match($opts['headers'])) {
-                    $ret[] = $val;
-                }
-                break;
-
-            case 'IMP_Flag_System_Personal':
+            if ($val instanceof IMP_Flag_System_Match_Address) {
                 if (!is_null($opts['personal']) &&
                     $val->match($opts['personal'])) {
                     $ret[] = $val;
                 }
-                break;
-
-            case 'IMP_Flag_System_Unseen':
-            default:
+            } elseif (($val instanceof IMP_Flag_Imap) ||
+                      ($val instanceof IMP_Flag_System_Match_Flag)) {
                 if ($imap && $val->match($opts['flags'])) {
                     $ret[] = $val;
                 }
-                break;
+            } elseif ($val instanceof IMP_Flag_System_Match_Header) {
+                if (!is_null($opts['headers']) &&
+                    $val->match($opts['headers'])) {
+                    $ret[] = $val;
+                }
             }
         }
 
@@ -311,7 +291,9 @@ class IMP_Flags implements ArrayAccess, Serializable
 
         $obs = array();
         foreach ($flags as $val) {
-            $obs[] = $this[$val];
+            if ($tmp = $this[$val]) {
+                $obs[] = $tmp;
+            }
         }
 
         if ($add) {

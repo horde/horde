@@ -5,13 +5,13 @@
  * This file sets up any necessary include path variables and includes
  * the minimum required Horde libraries.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Horde
  */
 
@@ -22,8 +22,10 @@ ini_set('magic_quotes_sybase', 0);
 ini_set('tidy.clean_output', 0);
 ini_set('zend.ze1_compatibility_mode', 0);
 
-/* Exit immediately if register_globals is active. */
-if (ini_get('register_globals')) {
+/* Exit immediately if register_globals is active.
+ * register_globals may return 'Off' on some systems. See Bug #10062. */
+if (($rg = ini_get('register_globals')) &&
+    (strcasecmp($rg, 'off') !== 0)) {
     exit('Register globals is enabled. Exiting.');
 }
 

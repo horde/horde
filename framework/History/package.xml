@@ -2,7 +2,7 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_History</name>
  <channel>pear.horde.org</channel>
- <summary>API for tracking the history of an object.</summary>
+ <summary>API for tracking the history of an object</summary>
  <description>The Horde_History API provides a way to track changes on arbitrary pieces of data in Horde applications.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:11:13</time>
+ <date>2011-07-20</date>
+ <time>23:44:10</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -20,7 +20,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -38,11 +38,13 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="migration">
-    <dir name="Horde_History">
-     <file name="1_horde_history_base_tables.php" role="data" />
-     <file name="2_horde_history_upgrade_autoincrement.php" role="data" />
-    </dir> <!-- /migration/Horde_History -->
-   </dir> <!-- /migration -->
+    <dir name="Horde">
+     <dir name="History">
+      <file name="1_horde_history_base_tables.php" role="data" />
+      <file name="2_horde_history_upgrade_autoincrement.php" role="data" />
+     </dir> <!-- /migration/Horde/History -->
+    </dir> <!-- /migration/Horde -->
+    </dir> <!-- /migration -->
    <dir name="test">
     <dir name="Horde">
      <dir name="History">
@@ -86,8 +88,8 @@
    <install as="Horde/History/Log.php" name="lib/Horde/History/Log.php" />
    <install as="Horde/History/Mock.php" name="lib/Horde/History/Mock.php" />
    <install as="Horde/History/Sql.php" name="lib/Horde/History/Sql.php" />
-   <install as="migration/1_horde_history_base_tables.php" name="migration/Horde_History/1_horde_history_base_tables.php" />
-   <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde_History/2_horde_history_upgrade_autoincrement.php" />
+   <install as="migration/1_horde_history_base_tables.php" name="migration/Horde/History/1_horde_history_base_tables.php" />
+   <install as="migration/2_horde_history_upgrade_autoincrement.php" name="migration/Horde/History/2_horde_history_upgrade_autoincrement.php" />
    <install as="Horde/History/AllTests.php" name="test/Horde/History/AllTests.php" />
    <install as="Horde/History/Autoload.php" name="test/Horde/History/Autoload.php" />
    <install as="Horde/History/InterfaceTest.php" name="test/Horde/History/InterfaceTest.php" />
@@ -105,7 +107,7 @@
     <api>alpha</api>
    </stability>
    <date>2004-01-25</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Initial release as a PEAR package
    </notes>
@@ -121,7 +123,7 @@ Initial release as a PEAR package
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Converted to package.xml 2.0 for pear.horde.org
    </notes>
@@ -136,7 +138,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -151,7 +153,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -166,7 +168,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -181,7 +183,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -196,7 +198,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -208,8 +210,8 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-07-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

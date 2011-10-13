@@ -4,16 +4,16 @@
  * authentication system with the possibility to set custom-made queries.
  *
  * Copyright 2002 Ronnie Garcia <ronnie@mk2.net>
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ * not receive this file, http://www.horde.org/licenses/lgpl21
  *
  * @author   Ronnie Garcia <ronnie@mk2.net>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Joel Vandal <joel@scopserv.com>
  * @category Horde
- * @license  http://opensource.org/licenses/lgpl-2.1.php
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Customsql extends Horde_Auth_Sql
@@ -44,29 +44,44 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      *
      * Eg: "SELECT * FROM users WHERE uid = \L
      *                          AND passwd = \P
-     *                          AND billing = 'paid'
+     *                          AND billing = 'paid'"
      *
      * @param array $params  Configuration parameters:
-     * <pre>
-     * 'query_auth' - (string) Authenticate the user. ('\L' & '\P')
-     * 'query_add' - (string) Add user. ('\L' & '\P')
-     * 'query_getpw' - (string) Get one user's password. ('\L')
-     * 'query_update' - (string) Update user. ('\O', '\L' & '\P')
-     * 'query_resetpassword' - (string) Reset password. ('\L', & '\P')
-     * 'query_remove' - (string) Remove user. ('\L')
-     * 'query_list' - (string) List user.
-     * 'query_exists' - (string) Check for existance of user. ('\L')
-     * </pre>
-     *
-     * @throws InvalidArgumentException
+     *   - query_auth:          (string) Authenticate the user. ('\L' & '\P')
+     *   - query_add:           (string) Add user. ('\L' & '\P')
+     *   - query_getpw:         (string) Get one user's password. ('\L')
+     *   - query_update:        (string) Update user. ('\O', '\L' & '\P')
+     *   - query_resetpassword: (string) Reset password. ('\L', & '\P')
+     *   - query_remove:        (string) Remove user. ('\L')
+     *   - query_list:          (string) List user.
+     *   - query_exists:        (string) Check for existance of user. ('\L')
      */
     public function __construct(array $params = array())
     {
-        foreach (array('query_auth', 'query_add', 'query_getpw',
+        foreach (array('query_auth', 'query_add',
                        'query_update', 'query_resetpassword', 'query_remove',
-                       'query_list', 'query_exists') as $val) {
-            if (!isset($params[$val])) {
-                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+                       'query_list') as $val) {
+            if (empty($params[$val])) {
+                switch($val) {
+                case 'query_auth':
+                   $this->_capabilities['authenticate'] = false;
+                   break;
+                case 'query_add':
+                   $this->_capabilities['add'] = false;
+                   break;
+                case 'query_update':
+                   $this->_capabilities['update'] = false;
+                   break;
+                case 'query_resetpassword':
+                   $this->_capabilities['resetpassword'] = false;
+                   break;
+                case 'query_remove':
+                   $this->_capabilities['remove'] = false;
+                   break;
+                case 'query_list':
+                   $this->_capabilities['list'] = false;
+                   break;
+                }
             }
         }
 
@@ -221,7 +236,7 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
-    public function listUsers()
+    public function listUsers($sort = false)
     {
         /* Build a custom query, based on the config file. */
         $query = str_replace(
@@ -231,18 +246,12 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
         );
 
         try {
-            $result = $this->_db->selectAll($query);
+            $users = $this->_db->selectValues($query);
+            // Find a way to sort in database with portable SQL
+            return $this->_sort($users, $sort);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
-
-        /* Loop through and build return array. */
-        $users = array();
-        foreach ($result as $ar) {
-            $users[] = $ar[0];
-        }
-
-        return $users;
     }
 
     /**
@@ -252,6 +261,10 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      */
     public function exists($userId)
     {
+        if (empty($this->_params['query_exists'])) {
+            return parent::exists($userId);
+        }
+
         /* Build a custom query, based on the config file. */
         $query = str_replace(
             '\L',

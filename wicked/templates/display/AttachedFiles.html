@@ -22,7 +22,7 @@
      <input type="hidden" name="actionID" value="special" />
      <input type="hidden" name="referrer" value="<tag:referrer />" />
      <input type="hidden" name="filename" value="<tag:attachments.attachment_name />" />
-     <input type="hidden" name="version" value="<tag:attachments.attachment_majorversion />.<tag:attachments.attachment_minorversion />" />
+     <input type="hidden" name="version" value="<tag:attachments.attachment_version />" />
      <input type="image" class="img" src="<tag:deleteButton />" />
     </form>
     <else:attachments.delete_form>
@@ -30,7 +30,7 @@
     </else:attachments.delete_form>
    </if:attachments.delete_form>
   </td>
-  <td><tag:attachments.attachment_majorversion />.<tag:attachments.attachment_minorversion /></td>
+  <td><tag:attachments.attachment_version /></td>
   <td><tag:attachments.change_author /></td>
   <td><tag:attachments.date /></td>
   <td><tag:attachments.change_log /></td>
@@ -125,15 +125,6 @@
            <option value="<tag:files />"><tag:files /></option>
           </loop:files>
         </select>
-      </td>
-     </tr>
-     <tr>
-      <td width="20%" align="right">
-       <span class="form-error"></span>
-       <gettext>Is this a minor update?</gettext>
-      </td>
-      <td width="80%">
-        <input type="checkbox" name="minor_change" checked="checked" />
       </td>
      </tr>
      <tr>

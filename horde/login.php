@@ -11,15 +11,15 @@
  *                   constant).
  * 'url' - The url to redirect to after auth.
  *
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Horde
  */
 
@@ -102,7 +102,7 @@ if (!$is_auth && !$prefs->isLocked('language') && $vars->new_lang) {
 if ($logout_reason) {
     if ($is_auth) {
         try {
-            $injector->getInstance('Horde_Token')->validate($vars->horde_logout_token, 'horde.logout');
+            $injector->getInstance('Horde_Token')->validate($vars->horde_logout_token, 'horde.logout', -1);
         } catch (Horde_Exception $e) {
             $notification->push($e, 'horde.error');
             require HORDE_BASE . '/index.php';
@@ -332,6 +332,10 @@ case Horde_Auth::REASON_EXPIRED:
     $reason = _("Your login has expired.");
     break;
 
+case Horde_Auth::REASON_LOCKED:
+    $reason = _("Your login has been locked.");
+    break;
+
 case Horde_Auth::REASON_MESSAGE:
     if (!($reason = $auth->getError(true))) {
         $reason = $vars->logout_msg;
@@ -342,7 +346,10 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
-if ($browser->isMobile()) {
+if ($browser->isMobile() &&
+    (!isset($conf['user']['force_view']) ||
+     ($conf['user']['force_view'] != 'traditional' &&
+      $conf['user']['force_view'] != 'dynamic'))) {
     /* Build the <select> widget containing the available languages. */
     if (!$is_auth && !$prefs->isLocked('language')) {
         $tmp = array();

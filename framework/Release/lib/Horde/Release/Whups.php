@@ -2,10 +2,10 @@
 /**
  * Class for interfacing with the tickets API.
  *
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Release
@@ -81,14 +81,10 @@ class Horde_Release_Whups
      */
     function getQueueId($module)
     {
-        if ($module == 'horde') {
-            $module = 'horde base';
-        }
-
         $queues = $this->_listQueues();
 
         foreach ($queues as $id => $queue) {
-            if (strtolower($queue) == $module) {
+            if ($queue == $module) {
                 return $id;
             }
         }
@@ -106,7 +102,7 @@ class Horde_Release_Whups
     {
         return Horde_Rpc::request('jsonrpc',
                                   $this->_params['url'],
-                                  'tickets.listQueues',
+                                  'tickets.listSlugs',
                                   $this->_http,
                                   null)->result;
     }

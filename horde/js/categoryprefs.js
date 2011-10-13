@@ -2,7 +2,7 @@
  * Provides the javascript for managing categories.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
 
 var HordeCategoryPrefs = {
@@ -13,7 +13,7 @@ var HordeCategoryPrefs = {
     {
         var p = $('prefs');
         $(p.cAction).setValue('remove');
-        $(p.category).setValue(e.element().readAttribute('category'));
+        $(p.category).setValue(e.element().up().readAttribute('category'));
         p.submit();
     },
 
@@ -40,7 +40,7 @@ var HordeCategoryPrefs = {
     colorPicker: function(e)
     {
         var elt = e.element(),
-            input = e.element().previous();
+            input = e.element().up().previous('INPUT');
 
         new ColorPicker({
             color: $F(input),

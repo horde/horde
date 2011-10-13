@@ -3,7 +3,7 @@
  * @category Horde
  * @package  Controller
  * @author   James Pepin <james@bluestatedigital.com>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  */
 class Horde_Controller_ResponseWriter_Web implements Horde_Controller_ResponseWriter
 {
@@ -14,6 +14,11 @@ class Horde_Controller_ResponseWriter_Web implements Horde_Controller_ResponseWr
         foreach ($response->getHeaders() as $key => $value) {
             header("$key: $value");
         }
-        echo $response->getBody();
+        $body = $response->getBody();
+        if (is_resource($body)) {
+            stream_copy_to_stream($body, fopen('php://output', 'a'));
+        } else {
+            echo $body;
+        }
     }
 }

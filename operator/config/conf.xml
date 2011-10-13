@@ -10,7 +10,7 @@
    <configboolean name="export" desc="Should we display an Export
    link in Operator's menu?">true</configboolean>
    <configmultienum name="apps" desc="Select any applications that should be
-   linked in Operator's menu">
+   linked in Operator's menu" required="false">
     <values>
      <configspecial application="horde" name="apps" />
     </values>

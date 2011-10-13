@@ -3,12 +3,12 @@
 /**
  * Database migration script.
  *
- * Usage: horde-db-migrate [(application|directory) [(up|down|version) [debug]]]
+ * Usage: horde-db-migrate [--options] [(application|directory) [(up|down|version)]]
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @author Jan Schneider <jan@horde.org>
@@ -30,7 +30,7 @@ Horde_Registry::appInit('horde', array(
 // Parse command line arguments.
 $parser = new Horde_Argv_Parser(
     array(
-        'usage' => '%prog [(application|directory) [(up|down|version) [debug]]]',
+        'usage' => '%prog [--options] [(application|directory) [(up|down|version)]]',
         'optionList' => array(
             new Horde_Argv_Option(
                 '-c',
@@ -67,7 +67,22 @@ if (empty($args[0])) {
         $dir = $app;
         $app = $migration->apps[$key];
     } else {
-        $cli->fatal("$app is neither a configured Horde application nor a migration directory");
+        $cli->fatal(
+            sprintf(
+                '%s is neither a configured Horde application nor a migration directory
+
+Supported applications:
+
+%s
+
+Supported directories:
+
+%s',
+                $app,
+                join("\n  ", $migration->apps),
+                join("\n  ", $migration->dirs)
+            )
+        );
     }
     $dirs = array($dir);
     $apps = array($app);
@@ -134,7 +149,7 @@ foreach ($apps as $app) {
         }
     } catch (Exception $e) {
         echo $e->getMessage() . "\n";
-        exit(1);
+        continue;
     }
 
     $cli->message("Ending $app schema version: " . $migrator->getCurrentVersion());

@@ -24,7 +24,7 @@ The following IMAP extensions/features are supported:
 :RFC 2221:          LOGIN-REFERRALS
 :RFC 2342:          NAMESPACE
 :RFC 2595/RFC 4616: TLS & AUTH=PLAIN
-:RFC 2831:          DIGEST-MD5 authentication mechanism.
+:RFC 2831:          DIGEST-MD5 authentication mechanism (obsoleted by RFC 6331)
 :RFC 2971:          ID
 :RFC 3348:          CHILDREN
 :RFC 3502:          MULTIAPPEND
@@ -67,6 +67,7 @@ The following POP3 extensions/features are supported
 :RFC 2195:          CRAM-MD5 authentication
 :RFC 2449:          POP3 extension mechanism
 :RFC 2595/RFC 4616: PLAIN authentication
+:RFC 3206:          The SYS and AUTH POP Response Codes
 
 
 Mail Messages
@@ -85,15 +86,16 @@ SMTP
 ====
 
 :RFC 821/RFC 2821/RFC 5321: Simple Mail Transfer Protocol
-:RFC 1652:                  SMTP Service Extension for 8bit-MIMEtransport
+:RFC 1652/RFC 6152:         SMTP Service Extension for 8bit MIME Transport
 
 
 MIME
 ====
 
+:RFC 1740: MIME Encapsulation of Macintosh files - MacMIME
 :RFC 1847: Security Multiparts for MIME: Multipart/Signed and
            Multipart/Encrypted
-:RFC 1740: MIME Encapsulation of Macintosh files - MacMIME
+:RFC 1873: Message/External-Body Content-ID Access Type
 :RFC 1896: The text/enriched MIME Content-type
 :RFC 2045: MIME Part One: Format of Internet Message Bodies
 :RFC 2046: MIME Part Two: Media Types
@@ -108,6 +110,8 @@ MIME
 :RFC 3156: MIME Security with OpenPGP
 :RFC 3282: Content Language Headers
 :RFC 3464: An Extensible Message Format for Delivery Status Notifications
+:RFC 3803: Content Duration MIME Header Definition
+:RFC 3834: Recommendations for Automatic Responses to Electronic Mail
 
 
 Non-RFC Features

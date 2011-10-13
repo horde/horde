@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -18,9 +18,6 @@ if (!$ticket) {
 
 // Get the ticket details first.
 $details = $whups_driver->getTicketDetails($ticket);
-if (is_a($details, 'PEAR_Error')) {
-    exit;
-}
 
 // Check permissions on this ticket.
 if (!count(Whups::permissionsFilter(array($details['queue'] => ''), 'queue', Horde_Perms::READ))) {

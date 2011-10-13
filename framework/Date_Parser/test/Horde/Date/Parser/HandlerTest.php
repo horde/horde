@@ -129,5 +129,4 @@ class Horde_Date_Parser_HandlerTest extends Horde_Test_Case
     assert handler.match(tokens, Chronic.definitions)
         */
     }
-
 }

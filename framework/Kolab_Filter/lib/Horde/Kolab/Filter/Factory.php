@@ -7,7 +7,7 @@
  * @category Kolab
  * @package  Kolab_Filter
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Filter
  */
 
@@ -18,12 +18,12 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Filter
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Filter
  */
 class Horde_Kolab_Filter_Factory
@@ -71,6 +71,10 @@ class Horde_Kolab_Filter_Factory
                 $handler = new Horde_Log_Handler_Stream($conf['log']['name'], $append, $formatter);
             } catch (Horde_Log_Exception $e) {
                 return new Horde_Log_Logger(new Horde_Log_Handler_Null());
+            }
+            try {
+                $handler->setOption('ident', $conf['log']['ident']);
+            } catch (Horde_Log_Exception $e) {
             }
             break;
         case 'syslog':

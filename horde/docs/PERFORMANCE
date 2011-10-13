@@ -151,32 +151,6 @@ Sending Mail
   switching to a faster format if needed.
 
 
-IMAP tuning
-===========
-
-* Consider an IMAP proxy for more persistent connections.  Some IMAP proxies
-  are up-imapproxy_ and Perdition_.  To make sense, the proxy
-  should be installed on the server running Horde, and this server needs
-  enough CPU power to handle the additional load.  If using up-imapproxy,
-  make sure SELECT caching is turned off.
-
-  up-imapproxy is HIGHLY RECOMMENDED - especially versions 1.2.7rc1 and
-  greater which contains features used internally by Horde to speed up
-  access to the remote server.
-
-* Some IMAP servers (or IMAP mailbox store formats) perform better than
-  others.  Consider switching to a faster format if needed.
-
-* Follow the IMAP servers' performance hints:
-
-  - Cyrus: http://www.cyrusimap.org/docs/cyrus-imapd/2.4.2/install-perf.php
-  - Cyrus: http://git.cyrusimap.org/cyrus-imapd/tree/doc/install-perf.html
-  - Dovecot: http://wiki.dovecot.org/PerformanceTuning
-
-.. _up-imapproxy: http://www.imapproxy.org/
-.. _Perdition: http://www.vergenet.net/linux/perdition/
-
-
 PostgreSQL tuning
 =================
 

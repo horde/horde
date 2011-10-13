@@ -2,7 +2,7 @@
 /**
  * Horde_Pdf test suite
  *
- * @license    http://opensource.org/licenses/lgpl-license.php
+ * @license    http://www.horde.org/licenses/lgpl21
  * @category   Horde
  * @package    Pdf
  * @subpackage UnitTests
@@ -220,6 +220,15 @@ class Horde_Pdf_WriterTest extends PHPUnit_Framework_TestCase
 
         $expected = $this->fixture('links');
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * PEAR Bug #12310
+     */
+    public function testCourierStyle()
+    {
+        $pdf = new Horde_Pdf_Writer();
+        $pdf->setFont('courier', 'B', 10);
     }
 
     // Test Helpers

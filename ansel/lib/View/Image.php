@@ -3,7 +3,7 @@
  * The Ansel_View_Image:: class wraps display of individual images.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
@@ -236,12 +236,11 @@ class Ansel_View_Image extends Ansel_View_Ansel
                     urldecode($this->_params['comment_url']));
             }
             $url = empty($this->_params['comment_url']) ? null : $this->_params['comment_url'];
-            $comments = $registry->call('forums/doComments',
-                                        array('ansel', $this->resource->id,
-                                              'commentCallback', true, null,
-                                              $url));
-            if ($comments instanceof PEAR_Error) {
-                Horde::logMessage($comments, 'DEBUG');
+            try {
+                $comments = $registry->forums->doComments(
+                  'ansel', $this->resource->id, 'commentCallback', true, null, $url);
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'DEBUG');
                 $comments = array();
             }
         } else {

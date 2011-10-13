@@ -3,8 +3,8 @@
  * @category   Horde
  * @package    Ingo
  * @subpackage UnitTests
- * @copyright  2009 The Horde Project (http://www.horde.org/)
- * @license    http://www.fsf.org/copyleft/lgpl.html
+ * @copyright  2009 Horde LLC (http://www.horde.org/)
+ * @license    http://www.horde.org/licenses/lgpl21
  */
 
 /**

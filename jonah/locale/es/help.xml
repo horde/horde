@@ -1,14 +1,14 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- $Horde: jonah/locale/es_ES/help.xml,v 1.1 2008/03/21 00:28:28 jan Exp $ -->
 <help>
 
-<entry id="Overview">
+<entry id="Overview" md5="54ee98f8dbd02ccb30a2591bf2547def" state="uptodate">
     <title>Introducción</title>
     <heading>Introducción</heading>
     <para>Ésta es una aplicación para mostrar noticias y otros datos desde varios orígenes. Puede suscribirse a la información en la que esté interesado de forma que sólo vea lo que quiera ver.</para>
 </entry>
 
-<entry id="feed-type">
+<entry id="feed-type" md5="34a529ffaf205720a7c874300a3f9a14" state="uptodate">
     <title>Tipos de suscripciones</title>
     <heading>Suscripciones internas</heading>
     <para>Suscripciones gestionadas y proporcionadas por este sistema.</para>

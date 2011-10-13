@@ -2,11 +2,11 @@
 /**
  * Tests for the Horde_Mime class.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */
@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
 /**
  * @author     Michael Slusarz <slusarz@curecanti.org>
  * @category   Horde
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */
@@ -129,6 +129,12 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             ' François Xavier. XXXXXX  <foo@example.com>',
             Horde_Mime::decode('=?utf-8?Q?_Fran=C3=A7ois_Xavier=2E_XXXXXX_?= <foo@example.com>', 'UTF-8')
+        );
+
+        /* Not MIME encoded. */
+        $this->assertEquals(
+            '=? required=?',
+            Horde_Mime::decode('=? required=?', 'UTF-8')
         );
     }
 

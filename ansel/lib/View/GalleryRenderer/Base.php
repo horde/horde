@@ -2,10 +2,10 @@
 /**
  * Ansel_View_GalleryRenderer::  Base class for all gallery renderers.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -161,6 +161,8 @@ abstract class Ansel_View_GalleryRenderer_Base
                     (($conf['report_content']['allow'] == 'authenticated' &&
                       $GLOBALS['registry']->isAuthenticated()) ||
                      $conf['report_content']['allow'] == 'all')) {
+
+                    $this->view->addWidget(Ansel_Widget::factory('Actions'));
                 }
                 unset($this->style->widgets['Actions']);
             }

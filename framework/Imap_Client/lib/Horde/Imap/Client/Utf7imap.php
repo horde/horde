@@ -1,9 +1,9 @@
 <?php
 /**
- * Horde_Imap_Client_Utf7imap:: provides code to convert between UTF-8 and
- * UTF7-IMAP (RFC 3501 [5.1.3]).
+ * Allows conversions between UTF-8 and UTF7-IMAP (RFC 3501 [5.1.3]).
  *
  * Originally based on code:
+ *
  *  Copyright (C) 2000 Edmund Grimley Evans <edmundo@rano.org>
  *  Released under the GPL (version 2)
  *
@@ -12,14 +12,14 @@
  *    SVN revision 1757
  *  The RoundCube project is released under the GPL (version 2)
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Imap_Client
  */
 class Horde_Imap_Client_Utf7imap
@@ -168,8 +168,10 @@ class Horde_Imap_Client_Utf7imap
     {
         $str = strval($str);
 
-        /* No need to do conversion if all chars are in US-ASCII range. */
-        if (!preg_match('/[\x80-\xff]/', $str)) {
+        /* No need to do conversion if all chars are in US-ASCII range or if
+         * no ampersand is present. But will assume that an already encoded
+         * ampersand means string is in UTF7-IMAP already. */
+        if (!preg_match('/[\x80-\xff]|&$|&(?![,+A-Za-z0-9]*-)/', $str)) {
             return $str;
         }
 
@@ -282,4 +284,5 @@ class Horde_Imap_Client_Utf7imap
 
         return $p;
     }
+
 }

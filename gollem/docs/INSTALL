@@ -34,7 +34,7 @@ To function properly, Gollem **REQUIRES** the following:
                   Horde prerequisites. Additionally, many of Gollem's optional
                   features are configured via the Horde install.
 
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
+   .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
 
 2. The following PHP capabilities:
@@ -76,23 +76,22 @@ First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Gollem through PEAR now, the installer will automatically
-install any dependencies of Gollem too. By default, only the required
-dependencies will be installed::
+install any dependencies of Gollem too. If you want to install Gollem with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/gollem
+
+By default, only the required dependencies will be installed::
 
    pear install horde/gollem
 
-If you want to install Gollem even with all optional dependencies, you need to
-specify the ``-a`` flag. Please note that this might also try to install PHP
+If you want to install Gollem even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/gollem
-
-If you want to install Gollem with all optional dependencies, but without the
-binary PECL packages that need to be compiled, specify both the ``-a`` and the
-``-B`` flag::
-
-   pear install -a -B horde/gollem
 
 
 Installing from Release Tarballs
@@ -104,7 +103,7 @@ Installing from Release Tarballs
 
 Gollem can be obtained from the Horde website and FTP server, at
 
-   http://www.horde.org/gollem/
+   http://www.horde.org/apps/gollem
 
    ftp://ftp.horde.org/gollem/
 
@@ -167,13 +166,13 @@ If you encounter problems with Gollem, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
+Horde LLC runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -181,16 +180,15 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Gollem is free software written by volunteers.
 For information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Gollem!
 
 The Gollem Team
 
 
-.. _README: ?f=README.html
-.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/HACKING`: ../../horde/docs/?f=HACKING.html
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
-.. _`horde/docs/SECURITY`: ../../horde/docs/?f=SECURITY.html
-.. _`horde/docs/PERFORMANCE`: ../../horde/docs/?f=PERFORMANCE.html
+.. _README: README
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS
+.. _`horde/docs/SECURITY`: ../../horde/docs/SECURITY
+.. _`horde/docs/PERFORMANCE`: ../../horde/docs/PERFORMANCE

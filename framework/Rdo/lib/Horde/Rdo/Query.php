@@ -122,42 +122,40 @@ class Horde_Rdo_Query
         // Fetch all non-lazy-loaded fields for the mapper.
         $this->setFields($mapper->fields, $mapper->table . '.');
 
-        if (!is_null($mapper)) {
-            // Add all non-lazy relationships.
-            foreach ($mapper->relationships as $relationship => $rel) {
-                if (isset($rel['mapper'])) {
-                    // @TODO - should be getting this instance from somewhere
-                    // else external, and not passing the adapter along
-                    // automatically.
-                    $m = new $rel['mapper']($this->mapper->adapter);
+        // Add all non-lazy relationships.
+        foreach ($mapper->relationships as $relationship => $rel) {
+            if (isset($rel['mapper'])) {
+                // @TODO - should be getting this instance from somewhere
+                // else external, and not passing the adapter along
+                // automatically.
+                $m = new $rel['mapper']($this->mapper->adapter);
+            } else {
+                $m = $this->mapper->tableToMapper($relationship);
+                if (is_null($m)) {
+                    throw new Horde_Rdo_Exception('Unable to find a Mapper class for eager-loading relationship ' . $relationship);
+                }
+            }
+
+            // Add the fields for this relationship to the query.
+            $m->tableAlias = $this->_alias($m->table);
+            $this->addFields($m->fields, $m->tableAlias . '.@');
+
+            switch ($rel['type']) {
+            case Horde_Rdo::ONE_TO_ONE:
+            case Horde_Rdo::MANY_TO_ONE:
+                if (isset($rel['query'])) {
+                    $query = $this->_fillJoinPlaceholders($m, $mapper, $rel['query']);
                 } else {
-                    $m = $this->mapper->tableToMapper($relationship);
-                    if (is_null($m)) {
-                        throw new Horde_Rdo_Exception('Unable to find a Mapper class for eager-loading relationship ' . $relationship);
-                    }
+                    $query = array($mapper->table . '.' . $rel['foreignKey'] => new Horde_Rdo_Query_Literal($m->table . '.' . $m->tableDefinition->getPrimaryKey()));
                 }
+                $this->addRelationship($relationship, array('mapper' => $m,
+                                                            'type' => $rel['type'],
+                                                            'query' => $query));
+                break;
 
-                // Add the fields for this relationship to the query.
-                $m->tableAlias = $this->_alias($m->table);
-                $this->addFields($m->fields, $m->tableAlias . '.@');
-
-                switch ($rel['type']) {
-                case Horde_Rdo::ONE_TO_ONE:
-                case Horde_Rdo::MANY_TO_ONE:
-                    if (isset($rel['query'])) {
-                        $query = $this->_fillJoinPlaceholders($m, $mapper, $rel['query']);
-                    } else {
-                        $query = array($mapper->table . '.' . $rel['foreignKey'] => new Horde_Rdo_Query_Literal($m->table . '.' . $m->tableDefinition->getPrimaryKey()));
-                    }
-                    $this->addRelationship($relationship, array('mapper' => $m,
-                                                                'type' => $rel['type'],
-                                                                'query' => $query));
-                    break;
-
-                case Horde_Rdo::ONE_TO_MANY:
-                case Horde_Rdo::MANY_TO_MANY:
-                    //@TODO
-                }
+            case Horde_Rdo::ONE_TO_MANY:
+            case Horde_Rdo::MANY_TO_MANY:
+                //@TODO
             }
         }
 

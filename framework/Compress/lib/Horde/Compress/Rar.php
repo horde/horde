@@ -2,19 +2,21 @@
 /**
  * This class allows rar files to be read.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Cochrane <mike@graftonhall.co.nz>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
  */
 class Horde_Compress_Rar extends Horde_Compress_Base
 {
+    const BLOCK_START = "\x52\x61\x72\x21\x1a\x07\x00";
+
     /**
      */
     public $canDecompress = true;
@@ -50,7 +52,7 @@ class Horde_Compress_Rar extends Horde_Compress_Base
      */
     public function decompress($data, array $params = array())
     {
-        $blockStart = strpos($data, "\x52\x61\x72\x21\x1a\x07\x00");
+        $blockStart = strpos($data, self::BLOCK_START);
         if ($blockStart === false) {
             throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
         }
@@ -60,6 +62,9 @@ class Horde_Compress_Rar extends Horde_Compress_Base
         $return_array = array();
 
         while ($position < $data_len) {
+            if ($position + 7 > $data_len) {
+                throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
+            }
             $head_crc = substr($data, $position + 0, 2);
             $head_type = ord(substr($data, $position + 2, 1));
             $head_flags = unpack('vFlags', substr($data, $position + 3, 2));
@@ -102,10 +107,12 @@ class Horde_Compress_Rar extends Horde_Compress_Base
                 break;
 
             default:
-                $position += $head_size;
-                if (isset($add_size)) {
-                    $position += $add_size;
+                if ($head_size == -7) {
+                    /* We've already added 7 bytes above. If we remove those
+                     * same 7 bytes, we will enter an infinite loop. */
+                    throw new Horde_Compress_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
                 }
+                $position += $head_size;
                 break;
             }
         }

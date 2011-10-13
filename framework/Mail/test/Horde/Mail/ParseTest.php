@@ -1,7 +1,7 @@
 <?php
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @license    http://www.horde.org/licenses/bsd BSD
  * @category   Horde
  * @package    Mail
  * @subpackage UnitTests
@@ -216,6 +216,17 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         } catch (Horde_Mail_Exception $e) {
             $this->fail('Unexpected Exception.');
         }
+    }
+
+    public function testBug10534()
+    {
+        $parser = new Horde_Mail_Rfc822();
+        $ob = $parser->parseAddressList('');
+
+        $this->assertEquals(
+            0,
+            count($ob)
+        );
     }
 
 }

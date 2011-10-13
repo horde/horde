@@ -3,10 +3,10 @@
  * Kronolith_Calendar_Remote defines an API for single external WebDAV or
  * CalDAV calendars.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Kronolith
@@ -127,7 +127,7 @@ class Kronolith_Calendar_Remote extends Kronolith_Calendar
      */
     public function hasPermission($permission, $user = null, $creator = null)
     {
-        return Kronolith::getDriver('Ical', $this->_url)->getPermission() & $permission;
+        return (boolean)(Kronolith::getDriver('Ical', $this->_url)->getPermission() & $permission);
     }
 
     /**
@@ -172,7 +172,8 @@ class Kronolith_Calendar_Remote extends Kronolith_Calendar
     {
         return array_merge(
             parent::toHash(),
-            array('show' => in_array($this->_url, $GLOBALS['display_remote_calendars'])),
+            array('show' => in_array($this->_url, $GLOBALS['display_remote_calendars']),
+                  'edit' => $this->hasPermission(Horde_Perms::EDIT)),
             $this->credentials()
         );
     }

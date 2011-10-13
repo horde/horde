@@ -22,22 +22,25 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-04-12</date>
- <time>11:46:40</time>
+ <developer>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
+  <active>yes</active>
+ </developer>
+ <date>2011-09-20</date>
+ <time>13:51:17</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0</api>
+  <release>1.5.1</release>
+  <api>1.5.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Reinitialize language after loading prefs before authentication (Bug #9822).
-* [cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not clash with Horde_Db parameters (Bug #9864).
-* [cjh] Fix signups, and update style on signup and reset password pages to match the login page (Bug #9856, partially from Ian Roth &lt;iron_hat@hotmail.com&gt;).
-* [cjh] Show an unknown app icon rather than a broken image if an application doesn&apos;t have an icon (Bug #9867).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -155,6 +158,7 @@
        <file name="LoginTasks.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Mapper.php" role="php" />
+       <file name="Matcher.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="MimeViewer.php" role="php" />
        <file name="Notification.php" role="php" />
@@ -265,6 +269,9 @@
       </dir> <!-- /lib/Horde/Core/Ui -->
       <file name="Block.php" role="php" />
       <file name="Browser.php" role="php" />
+      <file name="Bundle.php" role="php" />
+      <file name="Cli.php" role="php" />
+      <file name="LoginTasks.php" role="php" />
       <file name="Perms.php" role="php" />
       <file name="Sidebar.php" role="php" />
       <file name="Translation.php" role="php">
@@ -597,7 +604,7 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.4</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -777,13 +784,6 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Translation</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
     <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -798,7 +798,14 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Template</name>
+    <name>Horde_Text_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Filter_Csstidy</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -942,7 +949,7 @@
    <package>
     <name>Horde_Routes</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -955,13 +962,6 @@
    </package>
    <package>
     <name>Horde_SpellChecker</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -996,7 +996,7 @@
    <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
-    <recommended>1.5.2</recommended>
+    <min>1.5.2</min>
    </package>
    <extension>
     <name>dom</name>
@@ -1044,6 +1044,9 @@
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Block.php" name="lib/Horde/Core/Block.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
+   <install as="Horde/Core/Bundle.php" name="lib/Horde/Core/Bundle.php" />
+   <install as="Horde/Core/Cli.php" name="lib/Horde/Core/Cli.php" />
+   <install as="Horde/Core/LoginTasks.php" name="lib/Horde/Core/LoginTasks.php" />
    <install as="Horde/Core/Perms.php" name="lib/Horde/Core/Perms.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
@@ -1114,6 +1117,7 @@
    <install as="Horde/Core/Factory/LoginTasks.php" name="lib/Horde/Core/Factory/LoginTasks.php" />
    <install as="Horde/Core/Factory/Mail.php" name="lib/Horde/Core/Factory/Mail.php" />
    <install as="Horde/Core/Factory/Mapper.php" name="lib/Horde/Core/Factory/Mapper.php" />
+   <install as="Horde/Core/Factory/Matcher.php" name="lib/Horde/Core/Factory/Matcher.php" />
    <install as="Horde/Core/Factory/Memcache.php" name="lib/Horde/Core/Factory/Memcache.php" />
    <install as="Horde/Core/Factory/MimeViewer.php" name="lib/Horde/Core/Factory/MimeViewer.php" />
    <install as="Horde/Core/Factory/Notification.php" name="lib/Horde/Core/Factory/Notification.php" />
@@ -1279,7 +1283,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Add cache support for themes.
@@ -1315,7 +1319,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Catch fatal errors about missing tables during initial configuration.
 * Added LoginTasks upgrade framework.
@@ -1334,7 +1338,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
 * [jan] Fix converting identities with non-ascii characters to new format.
@@ -1353,7 +1357,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
 * [jan] Fix loading of Horde&apos;s vhost conf.php file (Bug #9704).
@@ -1372,7 +1376,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
 * [mms] Add Horde_Core_Notification_Handler_Decorator_Base.
@@ -1389,8 +1393,193 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-12</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-04-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix loading correct identities driver for the Horde application (Bug #9936).
+* [mms] Don&apos;t setup notification handlers in applications that are not yet authenticated (Bug #9733).
+* [mms] Allow Horde_Menu to accept string url values (Bug #9917).
+* [mjr] Correctly sanitize DSN when using custom cyrus auth driver (Bug #9879).
+* [mms] Reinitialize language after loading prefs before authentication (Bug #9822).
+* [cjh] Fix cyrsql configuration, rename cyrus host and port parameters to not clash with Horde_Db parameters (Bug #9864).
+* [cjh] Fix signups, and update style on signup and reset password pages to match the login page (Bug #9856, partially from Ian Roth &lt;iron_hat@hotmail.com&gt;).
+* [cjh] Show an unknown app icon rather than a broken image if an application doesn&apos;t have an icon (Bug #9867).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Don&apos;t show IMP compose link if user doesn&apos;t have permissions to IMP (Bug #10016).
+* [mjr] Fix editing settings of fixed portal blocks (Bug #9910).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Config#configFile() and Horde_Config#writePHPConfiguration().
+* [mjr] Fix issue with deleting identities (Bug #9997).
+* [jan] Store preferences for guests in the session.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-05-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Updated German translation.
+* [mms] Optimize session storage.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Horde_Config::configSQL() method.
+* [jan] Add Horde_Core_Cli and Horde_Core_Bundle classes.
+* [jan] Updated Slovak translation.
+* [mms] Allow numbers to be zero in certain preferences (Bug #10120).
+* [mms] Fix running Horde login tasks (Bug #9767).
+* [mms] Fix authenticating as several users in the same request (Bug #10027).
+* [gwr] Added support for the Kolab IMAP based preferences backend.
+* [jan] Updated Spanish translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-06-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Only list sidebar apps in listApps() if parent app is active (Bug #10017).
+* [mms] Fix autocomplete javascript when contents of DOM element is dynamically altered.
+* [mms] Fix duplicate node IDs in javascript tree rendering code (Bug #10173).
+* [rla] Show specific admin privileges a user has permission to (Enhancement #9350).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Lithuanian translation.
+* [jan] Update Brazilian Portuguese translation.
+* [jan] Fix generating database DSN for VFS if the global VFS configuration doesn&apos;t use SQL (Bug #10199).
+* [jan] Add option to Horde_Themes_Css#getStylesheetUrls() to never use CSS cache.
+* [jan] Add Horde_Menu#setMask() (Vilius Sumskas, Request #10078).
+* [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
+* [mms] Make sure appinitialized hook gets full application environment.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Latvian translation.
+* [jan] Don&apos;t set optional integer fields to 0 when automatically updating configuration.
+* [mjr] Fix recurring event exception handling for ActiveSync.
+* [mms] Fix removing user data from applications (Bug #10241).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [rla] Display permissions of hidden apps too
+* [gwr] Do not fail when no basedn is set for the Horde_Kolab_Server configuration.
+* [mms] When reopening sessions, ensure that we don&apos;t alter session information if the authentication status changed (Bug #10403).
+* [jan] Use &apos;ident&apos; option of Horde_Log handlers to prefix log messages (Gonçalo Queirós &lt;goncalo.queiros@portugalmail.net&gt;, Request #9322).
+* [jan] Check applications&apos; authValidate() method if present.
+* [mms] Add Horde_Session::isActive().
+* [mjr] Add remove button to image fields (Request #9870).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-08-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [rla] Add locking routines to Horde_Core_Auth_Application.
+* [rla] Add support for Horde_Auth&apos;s new locking feature.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.0</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix generating of URLs if both the webroot and the original URL are full URLs.
+* [mjr] Support additional GAL fields (Bug #10504).
+* [jan] Allow to pass a configuration array to the LDAP factory.
+* [mms] Revamp and fix Horde_Registry#removeUserData(); this method should now be the sole access point to delete user data for any/all apps (Bug #10241).
+* [mms] Correctly apply value of $conf[&apos;session&apos;][&apos;timeout&apos;] to PHP environment.
+* [mms] Fix cookie timeouts.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.1</release>
+    <api>1.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-09-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>

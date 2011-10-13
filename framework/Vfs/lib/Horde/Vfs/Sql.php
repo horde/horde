@@ -12,15 +12,15 @@
  * The table structure for the VFS can be created with the horde-db-migrate
  * script from the Horde_Db package.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  VFS
  */
 class Horde_Vfs_Sql extends Horde_Vfs_Base
@@ -75,7 +75,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             throw new Horde_Vfs_Exception($e);
         }
 
-        if (is_null($size)) {
+        if ($size === false) {
             throw new Horde_Vfs_Exception(sprintf('Unable to check file size of "%s/%s".', $path, $name));
         }
 
@@ -107,7 +107,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             throw new Horde_Vfs_Exception($e);
         }
 
-        return is_null($size) ? $size : 0;
+        return (int)$size;
     }
 
     /**
@@ -333,7 +333,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
     public function createFolder($path, $name)
     {
         $sql = 'INSERT INTO ' . $this->_params['table']
-            . ' (vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner) VALUES (?, ?, ?, ?, ?, ?)';
+            . ' (vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner) VALUES (?, ?, ?, ?, ?)';
         $values = array(self::FOLDER, $this->_convertPath($path), $name, time(), $this->_params['user']);
 
         try {
@@ -572,7 +572,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         );
 
         try {
-            $this->_db->query($sql, $values);
+            $this->_db->delete($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
@@ -596,7 +596,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
         $values = array(self::FOLDER, $this->_getNativePath($oldpath, $oldname));
 
         try {
-            $folderList = $this->_db->selectValues($sql, 0, $values);
+            $folderList = $this->_db->selectValues($sql, $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Vfs_Exception($e);
         }
@@ -673,7 +673,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
             throw new Horde_Vfs_Exception($e);
         }
 
-        if (is_null($result)) {
+        if ($result === false) {
             throw new Horde_Vfs_Exception('Unable to load SQL data.');
         }
 

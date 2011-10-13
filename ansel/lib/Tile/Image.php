@@ -5,7 +5,7 @@
  *
  * @author Michael Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Ansel
  */
 class Ansel_Tile_Image
@@ -118,16 +118,18 @@ class Ansel_Tile_Image
         // In-line caption editing if we have Horde_Perms::EDIT
         if ($option_edit) {
             // @TODO: passing thumbstyle here doesn't look right to me.
-            $geometry = $image->getDimensions($thumbstyle);
-            $GLOBALS['injector']->createInstance('Horde_Core_Factory_Imple')->create(
-                array('ansel', 'EditCaption'),
-                array('domid' => $image->id . 'caption',
-                      'id' => $image->id,
-                      'width' => $geometry['width']));
+            try {
+                $geometry = $image->getDimensions($thumbstyle);
+                $GLOBALS['injector']->createInstance('Horde_Core_Factory_Imple')->create(
+                    array('ansel', 'EditCaption'),
+                    array('domid' => $image->id . 'caption',
+                          'id' => $image->id,
+                          'width' => $geometry['width']));
+            } catch (Ansel_Exception $e) {
+            }
         }
         include ANSEL_BASE . '/templates/tile/image.inc';
 
         return Horde::endBuffer();
     }
-
 }

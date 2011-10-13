@@ -3,14 +3,14 @@
  * Login tasks module that presents a TOS Agreement page to user.
  * If user does not accept terms, user is not allowed to login.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Horde
  */
 class Horde_LoginTasks_Task_TosAgreement extends Horde_LoginTasks_Task
@@ -61,8 +61,7 @@ class Horde_LoginTasks_Task_TosAgreement extends Horde_LoginTasks_Task
     public function execute()
     {
         if (Horde_Util::getFormData('not_agree')) {
-            Horde_Auth::setAuthError(Horde_Auth::REASON_MESSAGE, _("You did not agree to the Terms of Service agreement, so you were not allowed to login."));
-            $GLOBALS['registry']->authenticateFailure('horde');
+            $GLOBALS['registry']->authenticateFailure('horde', new Horde_Exception(_("You did not agree to the Terms of Service agreement, so you were not allowed to login."), Horde_Registry::PERMISSION_DENIED));
         }
     }
 

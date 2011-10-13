@@ -1,0 +1,23 @@
+Source: <?php echo $name . "\n"; ?>
+Section: php
+Priority: extra
+Maintainer: Gunnar Wrobel <wrobel@horde.org>
+Build-Depends: debhelper (>= 8.0.0), pkg-php-tools, pear-horde-channel
+Standards-Version: 3.9.2
+Homepage: http://${phppear:channel}/
+
+Package: <?php echo $name . "\n"; ?>
+Architecture: all
+<?php
+if (in_array($component->getName(), $applications) && in_array($component->getName(), $bundles)) {
+print "Provides: horde-bundle, ".$component->getName()."\nConflicts: horde-bundle\nReplaces: horde-bundle\n";
+} elseif (in_array($component->getName(), $applications)) {
+print "Provides: ".$component->getName()."\n";
+} elseif (in_array($component->getName(), $bundles)) {
+print "Provides: horde-bundle\nConflicts: horde-bundle\nReplaces: horde-bundle\n";
+} ?>
+Depends: ${misc:Depends}, ${phppear:Debian-Depends}
+Recommends: ${phppear:Debian-Recommends}
+Breaks: ${phppear:Debian-Breaks}
+Description: ${phppear:summary}
+ ${phppear:description}

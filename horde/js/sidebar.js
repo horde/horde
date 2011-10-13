@@ -2,7 +2,7 @@
  * Horde sidebar javascript.
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
 
 var HordeSidebar = {
@@ -65,6 +65,9 @@ var HordeSidebar = {
 
             r = response.responseJSON.response;
             this.tree.renderTree(r.nodes, r.root_nodes, r.is_static);
+            r.files.each(function(file) {
+                $$('head')[0].insert(new Element('script', { src: file }));
+            });
         }
     },
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
 /**
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
@@ -109,7 +109,7 @@ function send_agendas()
         case 'read':
             $calendars = $GLOBALS['kronolith_shares']->listShares(
                 $user,
-                array('perm' => Horde_Perms::SHOW));
+                array('perm' => Horde_Perms::READ));
             $calendars = array_keys($calendars);
             break;
 
@@ -138,7 +138,7 @@ function send_agendas()
                     if ($event->start->compareDate($runtime)) {
                         continue;
                     }
-                    $eventlist[$event->start->strftime('%Y%m%d%H%M%S')] = $event;
+                    $eventlist[] = $event;
                 }
             }
         }
@@ -148,7 +148,7 @@ function send_agendas()
         }
 
         // If there are any events, generate and send the email.
-        ksort($eventlist);
+        usort($eventlist, 'sort_events');
         $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
         $twentyFour = $prefs->getValue('twentyFour');
 
@@ -177,4 +177,21 @@ function send_agendas()
             die($e);
         }
     }
+}
+
+function sort_events ($a, $b)
+{
+    if ($a->allday && $b->allday) {
+        return 0;
+    }
+
+    if ($a->allday || $b->allday) {
+        return ($a->allday) ? -1 : 1;
+    }
+
+    if ($a->start == $b->start) {
+        return 0;
+    }
+
+    return ($a->start < $b->start) ? -1 : 1;
 }

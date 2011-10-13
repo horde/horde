@@ -2,7 +2,7 @@
  * Provides the javascript for managing folders.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var ImpFolderPrefs = {
@@ -54,10 +54,9 @@ var ImpFolderPrefs = {
         this.folders.keys().each(function(f) {
             $(f).observe('change', this.newFolderName.bindAsEventListener(this));
         }, this);
-
-        document.observe('HordeIdentitySelect:change', this.changeIdentity.bindAsEventListener(this));
     }
 
 };
 
 document.observe('dom:loaded', ImpFolderPrefs.onDomLoad.bind(ImpFolderPrefs));
+document.observe('HordeIdentitySelect:change', ImpFolderPrefs.changeIdentity.bindAsEventListener(ImpFolderPrefs));

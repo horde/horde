@@ -1,10 +1,10 @@
 /**
  * compose.js - Javascript code used in the DIMP compose view.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var DimpCompose = {
@@ -22,9 +22,8 @@ var DimpCompose = {
             sbd = $('send_button_redirect');
 
         if (window.confirm(DIMP.text_compose.cancel)) {
-            if (this.is_popup &&
-                DimpCore.base &&
-                !DIMP.conf_compose.qreply) {
+            if (!DIMP.conf_compose.qreply &&
+                this.baseAvailable()) {
                 DimpCore.base.focus();
             }
 
@@ -40,9 +39,7 @@ var DimpCompose = {
 
     updateDraftsMailbox: function()
     {
-        if (this.is_popup &&
-            DimpCore.base &&
-            DimpCore.base.DimpBase &&
+        if (this.baseAvailable() &&
             DimpCore.base.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
             DimpCore.base.DimpBase.poll();
         }
@@ -145,11 +142,16 @@ var DimpCompose = {
                 : l.l;
         }
 
+        if (id == 'sm') {
+            s = s.base64urlEncode();
+        }
+
         $(k.opts.input).setValue(s);
         $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
         if (id == 'sm') {
             k.knl.setSelected(s);
+            this.setSaveSentMail(true);
         }
     },
 
@@ -252,10 +254,8 @@ var DimpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (this.is_popup &&
-                        DimpCore.base &&
-                        DimpCore.base.DimpCore &&
-                        !DIMP.conf_compose.qreply) {
+                    if (!DIMP.conf_compose.qreply &&
+                        this.baseAvailable()) {
                         DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
                     }
@@ -266,9 +266,7 @@ var DimpCompose = {
                 break;
 
             case 'sendMessage':
-                if (this.is_popup &&
-                    DimpCore.base &&
-                    DimpCore.base.DimpBase) {
+                if (this.baseAvailable()) {
                     if (d.flag) {
                         DimpCore.base.DimpBase.flagCallback(d);
                     }
@@ -293,9 +291,7 @@ var DimpCompose = {
                 return this.closeCompose();
 
             case 'redirectMessage':
-                if (this.is_popup &&
-                    DimpCore.base &&
-                    DimpCore.base.DimpBase) {
+                if (this.baseAvailable()) {
                     if (d.log) {
                         DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
                     }
@@ -310,12 +306,7 @@ var DimpCompose = {
             case 'addAttachment':
                 this.uploading = false;
                 if (d.success) {
-                    this.addAttach({
-                        name: d.atc.name,
-                        num: d.atc.num,
-                        size: d.atc.size,
-                        type: d.atc.type
-                    });
+                    this.addAttach(d.atc);
                 }
 
                 $('upload_wait').hide();
@@ -329,6 +320,7 @@ var DimpCompose = {
                 $('identity').setValue(d.identity);
                 this.changeIdentity();
                 $('noticerow', 'identitychecknotice').invoke('show');
+                this.resizeMsgArea();
             }
 
             if (!Object.isUndefined(d.encryptjs)) {
@@ -401,7 +393,7 @@ var DimpCompose = {
                 callback: this.setMessageText.bind(this, false)
             });
 
-            this.rte.destroy();
+            this.rte.destroy(true);
             delete this.rte;
         } else {
             this.RTELoading('show');
@@ -533,24 +525,24 @@ var DimpCompose = {
 
         $('to').setValue(header.to);
         if (DIMP.conf_compose.cc && header.cc) {
-            $('cc').setValue(header.cc);
             this.toggleCC('cc');
+            $('cc').setValue(header.cc);
         }
         this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
         this.setSaveSentMail(identity.id.smf_save);
         if (DIMP.conf_compose.bcc) {
-            if (header.bcc) {
-                $('bcc').setValue(header.bcc);
-            }
+            bcc_add = header.bcc
+                ? header.bcc
+                : $F('bcc');
             if (identity.id.bcc) {
-                bcc_add = $F('bcc');
-                if (bcc_add) {
+                if (!bcc_add.empty()) {
                     bcc_add += ', ';
                 }
-                $('bcc').setValue(bcc_add + identity.id.bcc);
+                bcc_add += identity.id.bcc;
             }
-            if ($F('bcc')) {
+            if (!bcc_add.empty()) {
                 this.toggleCC('bcc');
+                $('bcc').setValue(bcc_add);
             }
         }
         $('subject').setValue(header.subject);
@@ -576,10 +568,12 @@ var DimpCompose = {
             break
 
         case 'reply_all':
+            $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(DIMP.text_compose.replyall.sub('%d', opts.reply_recip));
             $('noticerow', 'replyallnotice').invoke('show');
             break
 
         case 'reply_list':
+            $('replylistnotice').down('SPAN.replyListNoticeId').setText(opts.reply_list_id ? (' (' + opts.reply_list_id + ')') : '');
             $('noticerow', 'replylistnotice').invoke('show');
             break;
         }
@@ -670,14 +664,7 @@ var DimpCompose = {
     processFwdList: function(f)
     {
         if (f && f.size()) {
-            f.each(function(ptr) {
-                this.addAttach({
-                    name: ptr.name,
-                    num: ptr.num,
-                    size: ptr.size,
-                    type: ptr.type
-                });
-            }, this);
+            f.each(this.addAttach.bind(this));
         }
     },
 
@@ -685,6 +672,14 @@ var DimpCompose = {
     {
         if (r.response.header) {
             $('to').setValue(r.response.header.to);
+            [ 'cc', 'bcc' ].each(function(t) {
+                if (r.response.header[t] || $(t).visible()) {
+                    if (!$(t).visible()) {
+                        this.toggleCC(t);
+                    }
+                    $(t).setValue(r.response.header.cc);
+                }
+            }, this);
         }
         $('to_loading_img').hide();
     },
@@ -698,6 +693,7 @@ var DimpCompose = {
                 break;
 
             case 'forward_body':
+                this.removeAttach([ $('attach_list').down() ]);
                 this.setBodyText(r.response.body);
                 break;
             }
@@ -714,21 +710,25 @@ var DimpCompose = {
     },
 
     // opts = (Object)
-    //   'name' - (string) Attachment name
-    //   'num' - (integer) Attachment number
-    //   'size' - (integer) Size, in KB
-    //   'type' - (string) MIME type
+    //   fwdattach: (integer) Attachment is forwarded message
+    //   name: (string) Attachment name
+    //   num: (integer) Attachment number
+    //   size: (integer) Size, in KB
+    //   type: (string) MIME type
     addAttach: function(opts)
     {
         var span = new Element('SPAN').insert(opts.name),
-            li = new Element('LI').insert(span).insert(' [' + opts.type + '] (' + opts.size + ' KB) '),
-            input = new Element('SPAN', { className: 'button remove' }).insert(DIMP.text_compose.remove).store('atc_id', opts.num);
-        li.insert(input);
-        $('attach_list').insert(li).show();
-
-        if (opts.type != 'application/octet-stream') {
-            span.addClassName('attachName');
+            li = new Element('LI').insert(span).store('atc_id', opts.num);
+        if (opts.fwdattach) {
+            li.insert(' (' + opts.size + ' KB)');
+            span.addClassName('attachNameFwdmsg');
+        } else {
+            li.insert(' [' + opts.type + '] (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DIMP.text_compose.remove));
+            if (opts.type != 'application/octet-stream') {
+                span.addClassName('attachName');
+            }
         }
+        $('attach_list').insert(li).show();
 
         this.resizeMsgArea();
     },
@@ -738,7 +738,7 @@ var DimpCompose = {
         var ids = [];
         e.each(function(n) {
             n = $(n);
-            ids.push(n.down('SPAN.remove').retrieve('atc_id'));
+            ids.push(n.retrieve('atc_id'));
             n.fade({
                 afterFinish: function() {
                     n.remove();
@@ -779,13 +779,8 @@ var DimpCompose = {
         }
     },
 
-    resizeMsgArea: function()
+    resizeMsgArea: function(e)
     {
-        var lh, mah, msg, msg_h, rows,
-            cmp = $('composeMessageParent'),
-            de = document.documentElement,
-            pad = 0;
-
         if (this.resizing) {
             return;
         }
@@ -794,6 +789,17 @@ var DimpCompose = {
             this.resizeMsgArea.bind(this).defer();
             return;
         }
+
+        // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug #10075)
+        if (e && Prototype.Browser.IE) {
+            this.resizeMsgArea.bind(this).delay(0.1);
+            return;
+        }
+
+        var lh, mah, msg, msg_h, rows,
+            cmp = $('composeMessageParent'),
+            de = document.documentElement,
+            pad = 0;
 
         /* Needed because IE 8 will trigger resize events when we change
          * the rows attribute, which will cause an infinite loop. */
@@ -822,8 +828,7 @@ var DimpCompose = {
             if (!isNaN(rows)) {
                 /* Due to the funky (broken) way some browsers (FF) count
                  * rows, we need to overshoot row estimate and decrement
-                 * downward until textarea size does not cause window
-                 * scrolling. */
+                 * until textarea size does not cause window scrolling. */
                 ++rows;
                 do {
                     msg.writeAttribute({ rows: rows--, disabled: false });
@@ -858,6 +863,8 @@ var DimpCompose = {
         var t = $('toggle' + type),
             s = t.siblings().first();
 
+        new TextareaResize(type);
+
         $('send' + type).show();
         if (s && s.visible()) {
             t.hide();
@@ -878,6 +885,14 @@ var DimpCompose = {
         }
 
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
+    },
+
+    baseAvailable: function()
+    {
+        return (this.is_popup &&
+                DimpCore.base &&
+                !Object.isUndefined(DimpCore.base.DimpBase) &&
+                !DimpCore.base.closed);
     },
 
     /* Click observe handler. */
@@ -954,7 +969,7 @@ var DimpCompose = {
                 if (orig.match('SPAN.remove')) {
                     this.removeAttach([ orig.up() ]);
                 } else if (orig.match('SPAN.attachName')) {
-                    atc_num = orig.next().retrieve('atc_id');
+                    atc_num = orig.up('LI').retrieve('atc_id');
                     DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { composeCache: $F('composeCache'), actionID: 'compose_attach_preview', id: atc_num }), $F('composeCache') + '|' + atc_num);
                 }
                 break;
@@ -965,22 +980,24 @@ var DimpCompose = {
 
             case 'fwdattachnotice':
             case 'fwdbodynotice':
-            case 'identitychecknotice':
-            case 'replyallnotice':
-            case 'replylistnotice':
                 this.fadeNotice(elt);
-                if (!orig.match('SPAN.closeImg')) {
-                    if (id.startsWith('reply')) {
-                        $('to_loading_img').show();
-                        DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
-                    } else if (id.startsWith('fwd')) {
-                        DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
-                        $('composeMessage').stopObserving('keydown');
-                    } else if (id == 'identitychecknotice') {
-                        $('identity').setValue(this.old_identity);
-                        this.changeIdentity();
-                    }
-                }
+                DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
+                $('composeMessage').stopObserving('keydown');
+                e.stop();
+                return;
+
+            case 'identitychecknotice':
+                this.fadeNotice(elt);
+                $('identity').setValue(this.old_identity);
+                this.changeIdentity();
+                e.stop();
+                return;
+
+            case 'replyall_revert':
+            case 'replylist_revert':
+                this.fadeNotice(elt.up('LI'));
+                $('to_loading_img').show();
+                DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
                 e.stop();
                 return;
             }
@@ -1014,15 +1031,13 @@ var DimpCompose = {
 
         this.is_popup = !Object.isUndefined(DimpCore.base);
 
-        /* Initialize redirect elements (always needed). */
-        $('redirect').observe('submit', Event.stop);
-        new TextareaResize('redirect_to');
-        if (DIMP.conf_compose.URI_ABOOK) {
-            $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
-        }
-
-        /* Nothing more to do if this is strictly a redirect window. */
+        /* Initialize redirect elements. */
         if (DIMP.conf_compose.redirect) {
+            $('redirect').observe('submit', Event.stop);
+            new TextareaResize('redirect_to');
+            if (DIMP.conf_compose.URI_ABOOK) {
+                $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
+            }
             $('dimpLoading').hide();
             $('redirect', 'pageContainer').invoke('show');
             return;
@@ -1035,7 +1050,7 @@ var DimpCompose = {
         } else {
             document.observe('change', this.changeHandler.bindAsEventListener(this));
         }
-        Event.observe(window, 'resize', this.resizeMsgArea.bind(this));
+        Event.observe(window, 'resize', this.resizeMsgArea.bindAsEventListener(this));
         $('compose').observe('submit', Event.stop);
         $('submit_frame').observe('load', this.attachmentComplete.bind(this));
 
@@ -1080,14 +1095,7 @@ var DimpCompose = {
             this.setPopdownLabel('e', $F('encrypt'));
         }
 
-        // Automatically resize compose address fields.
         new TextareaResize('to');
-        if (DIMP.conf_compose.cc) {
-            new TextareaResize('cc');
-        }
-        if (DIMP.conf_compose.bcc) {
-            new TextareaResize('bcc');
-        }
 
         /* Add addressbook link formatting. */
         if (DIMP.conf_compose.URI_ABOOK) {

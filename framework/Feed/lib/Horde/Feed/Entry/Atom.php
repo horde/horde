@@ -1,7 +1,7 @@
 <?php
 /**
  * Portions Copyright 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * Copyright 2007-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2007-2011 Horde LLC (http://www.horde.org/)
  *
  * @category Horde
  * @package  Feed
@@ -88,13 +88,17 @@ class Horde_Feed_Entry_Atom extends Horde_Feed_Entry_Base
      * link rel="edit".
      *
      * @param string $postUri Location to POST for creating new entries.
+     * @param array  $headers Additional headers to transmit while posting.
      *
      * @throws Horde_Feed_Exception If an error occurs, a Horde_Feed_Exception
      * will be thrown.
      */
-    public function save($postUri = null)
+    public function save($postUri = null, $headers = array())
     {
-        $headers = array('Content-Type' => 'application/atom+xml');
+        $headers = array_merge(
+            array('Content-Type' => 'application/atom+xml'),
+            $headers
+        );
 
         if ($this->id()) {
             // If id is set, look for link rel="edit" in the

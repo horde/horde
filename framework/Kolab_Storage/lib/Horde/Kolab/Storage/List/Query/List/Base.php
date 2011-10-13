@@ -7,22 +7,22 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
  * The basic list query.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 class Horde_Kolab_Storage_List_Query_List_Base
@@ -121,7 +121,10 @@ implements Horde_Kolab_Storage_List_Query_List
                     'default' => $folder_type->isDefault(),
                     'owner' => $namespace->getOwner($folder),
                     'name' => $namespace->getTitle($folder),
+                    'subpath' => $namespace->getSubpath($folder),
+                    'prefix' => $namespace->matchNamespace($folder)->getName(),
                     'parent' => $namespace->getParent($folder),
+                    'delimiter' => $namespace->matchNamespace($folder)->getDelimiter(),
                     'folder' => $folder,
                 );
             }
@@ -155,10 +158,12 @@ implements Horde_Kolab_Storage_List_Query_List
             'type' => $type->getType(),
             'default' => $type->isDefault(),
             'namespace' => $namespace->matchNamespace($folder)->getType(),
+            'prefix' => $namespace->matchNamespace($folder)->getName(),
             'owner' => $namespace->getOwner($folder),
             'name' => $namespace->getTitle($folder),
             'subpath' => $namespace->getSubpath($folder),
             'parent' => $namespace->getParent($folder),
+            'delimiter' => $namespace->matchNamespace($folder)->getDelimiter(),
         );
     }
 
@@ -339,9 +344,11 @@ implements Horde_Kolab_Storage_List_Query_List
     /**
      * Synchronize the query data with the information from the backend.
      *
+     * @param array $params Additional parameters.
+     *
      * @return NULL
      */
-    public function synchronize()
+    public function synchronize($params = array())
     {
     }
 }

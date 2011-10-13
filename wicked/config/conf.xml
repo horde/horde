@@ -63,7 +63,7 @@
   </configmultienum>
 
   <configmultienum name="apps" desc="Select any applications that should be
-  linked in Wicked's menu">
+  linked in Wicked's menu" required="false">
    <values>
     <configspecial application="horde" name="apps" />
    </values>

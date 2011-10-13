@@ -4,219 +4,451 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Kronolith H3 (2.2-cvs)\n"
+"Project-Id-Version: Kronolith (3.0.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2007-06-18 13:25+0300\n"
-"PO-Revision-Date: 2007-06-19 12:00+0200\n"
-"Last-Translator: Andriy Kopystyansky <webmaster@polynet.lviv.ua>\n"
+"POT-Creation-Date: 2011-05-31 10:23+0300\n"
+"PO-Revision-Date: 2011-06-15 13:00+0200\n"
+"Last-Translator: Andriy Kopystyansky <anri@polynet.lviv.ua>\n"
 "Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: feed/index.php:124
+msgid " to "
+msgstr " до "
+
+#: templates/edit/edit.inc:275
+#, php-format
+msgid " until %s"
+msgstr " до %s"
+
+#: templates/edit/edit.inc:275
+msgid " without end"
+msgstr ""
+
+#: templates/edit/edit.inc:165
+#, php-format
+msgid "%d %s before the event starts"
+msgstr "%d %s перед початком події"
+
+#: lib/Event.php:1693
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d день"
+msgstr[1] "%d дні"
+msgstr[2] "%d днів"
 
 #: templates/search/header.inc:4
 #, php-format
 msgid "%d events"
 msgstr "%d подій"
 
-#: templates/view/view.inc:124
+#: lib/Event.php:1696
+#, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d година"
+msgstr[1] "%d години"
+msgstr[2] "%d годин"
+
+#: lib/Event.php:1699
+#, php-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d хвилина"
+msgstr[1] "%d хвилини"
+msgstr[2] "%d хвилин"
+
+#: templates/view/view.inc:129
 #, php-format
 msgid "%d times"
 msgstr "%d разів"
 
-#: templates/edit/edit_timespan.inc:120
+#: lib/Event.php:1690
+#, php-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "%d тиждень"
+msgstr[1] "%d тижні"
+msgstr[2] "%d тижнів"
+
+#: templates/chunks/permissions.inc:26
+#, php-format
+msgid "%s %sShare with the %s %sgroup%s and %sallow them to%s %s"
+msgstr ""
+
+#: templates/chunks/permissions.inc:48
+#, php-format
+msgid "%s %sShare with the users:%s %s and %sallow them to%s %s"
+msgstr "%s %sРоздати користувачам:%s %s і %sдозволити їм%s %s"
+
+#: templates/edit/edit_timespan.inc:110
 #, php-format
 msgid "%s Day(s) %s Hour(s) %s Minutes"
 msgstr "%s День(ів) %s Годин(и) %s Хвилин(и)"
 
-#: lib/Driver.php:2177
+#: templates/index/edit.inc:116
 #, php-format
-msgid "%s attendees"
-msgstr "%s учасники"
+msgid ""
+"%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly "
+"%s"
+msgstr ""
+"%s Не повторювати %s або повторювати %s щоденно, %s щотижня, %s щомісяця %s "
+"або %s щорічно %s"
 
-#: data.php:304
+#: templates/index/edit.inc:94
+#, php-format
+msgid "%s Don't set %s or %s set %s before the event %s"
+msgstr ""
+
+#: templates/index/edit.inc:64
+#, php-format
+msgid "%s Private %s &mdash; hides details if calendar is public %s"
+msgstr ""
+
+#: lib/Event.php:1707
+#, php-format
+msgid "%s at %s"
+msgstr "%s в %s"
+
+#: templates/index/task.inc:59
+#, php-format
+msgid "%s don't set %s or %s set %s before due date %s"
+msgstr ""
+
+#: data.php:328
 #, php-format
 msgid "%s file successfully imported"
 msgstr "Файл %s успішно імпортовано"
 
-#: calendars.php:108 lib/api.php:212 lib/Kronolith.php:283
+#: templates/share/notification.plain.php:5
 #, php-format
-msgid "%s's Calendar"
-msgstr "%s: Календар"
+msgid "%s has assigned the ownership of the calendar \"%s\" to you."
+msgstr "%s встановив Вас власником календара \"%s\"."
 
-#: templates/contacts/contacts.inc:177
+#: templates/share/notification.html.php:13
+#, php-format
+msgid "%s has assigned the ownership of the calendar %s to you."
+msgstr "%s встановив Вас власником календара %s."
+
+#: lib/Kronolith.php:2250
+#, php-format
+msgid "%s has cancelled \"%s\"."
+msgstr "%s скасував \"%s\"."
+
+#: lib/Kronolith.php:2252
+#, php-format
+msgid "%s has cancelled an instance of the recurring \"%s\"."
+msgstr ""
+
+#: lib/Kronolith.php:254
+#, php-format
+msgid "%s notifications"
+msgstr "%s нагадування"
+
+#: lib/Kronolith.php:2268
+#, php-format
+msgid "%s wants to notify you about changes of \"%s\"."
+msgstr "%s повідомляє Вас про зміни \"%s\"."
+
+#: templates/share/notification.plain.php:7
+#, php-format
+msgid ""
+"%s wants to share the calendar \"%s\" with you to grant you access to all "
+"events in this calendar."
+msgstr ""
+"%s хоче поділитися календарем \"%s\" з Вами і надати доступ до всіх подій в "
+"цьому календарі."
+
+#: templates/share/notification.html.php:15
+#, php-format
+msgid ""
+"%s wants to share the calendar %s with you to grant you access to all events "
+"in this calendar."
+msgstr ""
+"%s хоче поділитися календарем %s з Вами і надати доступ до всіх подій в "
+"цьому календарі."
+
+#: lib/Kronolith.php:2263
+#, php-format
+msgid "%s wishes to make you aware of \"%s\"."
+msgstr "%s повідомляє про \"%s\"."
+
+#: templates/chunks/permissions.inc:61
+#, php-format
+msgid "%sAdvanced sharing.%s You can also return to the %sstandard settings%s."
+msgstr ""
+
+#: templates/chunks/permissions.inc:17
+#, php-format
+msgid ""
+"%sShare with everyone%s (public) and %s %smake it searchable%s by everyone "
+"too"
+msgstr ""
+
+#: templates/chunks/permissions.inc:10
+#, php-format
+msgid "%sStandard sharing.%s You can also set %sadvanced sharing%s options."
+msgstr ""
+
+#: templates/chunks/calendar.php:113
+#, php-format
+msgid "%sWarning:%s also %sdeletes all events%s currently in the calendar."
+msgstr ""
+
+#: templates/contacts/contacts.inc:178
 msgid "* Add these by clicking Add *"
 msgstr "* Нажміть Додати, щоб додати ці контакти *"
 
-#: templates/contacts/contacts.inc:162
+#: templates/contacts/contacts.inc:163
 msgid "* Please select address(es) *"
 msgstr "* Прошу вибрати адресу(и) *"
 
-#: lib/Driver.php:2176
-msgid "1 attendee"
-msgstr "1 учасник"
+#: templates/edit/edit.inc:275
+#, php-format
+msgid ", %d times"
+msgstr ", %d разів"
+
+#: lib/Kronolith.php:179 templates/mobile/javascript_defs.php:53
+msgid "1 day"
+msgstr "1 день"
 
 #: templates/search/header.inc:4
 msgid "1 event"
 msgstr "1 подія"
 
-#: config/prefs.php.dist:179
+#: config/prefs.php:154 lib/Kronolith.php:177
+#: templates/mobile/javascript_defs.php:51
 msgid "1 hour"
 msgstr "1 година"
 
-#: config/prefs.php.dist:176
+#: config/prefs.php:151 lib/Kronolith.php:176
+#: templates/mobile/javascript_defs.php:50
 msgid "15 minutes"
 msgstr "15 хвилин"
 
-#: config/prefs.php.dist:177
+#: config/prefs.php:152
 msgid "20 minutes"
 msgstr "20 хвилин"
 
-#: config/prefs.php.dist:178
+#: config/prefs.php:153
 msgid "30 minutes"
 msgstr "30 хвилин"
+
+#: lib/Kronolith.php:175 templates/mobile/javascript_defs.php:49
+msgid "5 minutes"
+msgstr "5 хвилин"
+
+#: lib/Kronolith.php:178 templates/mobile/javascript_defs.php:52
+msgid "6 hours"
+msgstr "6 годин"
 
 #: templates/data/export.inc:118 templates/data/export.inc:203
 msgid "AM"
 msgstr "АМ"
 
-#: lib/Kronolith.php:1047
+#: lib/Kronolith.php:1375
 msgid "Accepted"
 msgstr "Прийнято"
 
-#: templates/search/search.inc:11
+#: lib/Kronolith.php:1860
+msgid "Access permissions"
+msgstr "Права доступу"
+
+#: templates/search/search.inc:9
 msgid "Ad_vanced Search"
 msgstr "Розширений пошук"
 
-#: templates/contacts/contacts.inc:171
+#: templates/chunks/permissions.inc:211 templates/chunks/permissions.inc:258
+#: templates/contacts/contacts.inc:172
 msgid "Add"
 msgstr "Додати"
 
-#: templates/edit/edit.inc:23
+#: templates/edit/edit.inc:27
 msgid "Add Event"
 msgstr "Додати подію"
 
-#: templates/prefs/remote_cal_management.inc:43
-msgid "Add a new Remote Calendar"
-msgstr "Додати новий віддалений календар"
+#: templates/index/index.inc:151
+msgid "Add Holidays"
+msgstr "Додати свята"
 
-#: new.php:65
+#: templates/index/index.inc:142
+msgid "Add Remote Calendar"
+msgstr "Додати Віддалений календар"
+
+#: templates/index/tasks.inc:19
+msgid "Add Task"
+msgstr "Додати Завдання"
+
+#: new.php:75
 msgid "Add a new event"
 msgstr "Додати нову подію"
 
-#: templates/attendees/attendees.inc:78
+#: templates/attendees/attendees.inc:124
 msgid "Add attendees"
-msgstr "Додати учасника"
+msgstr "Додати учасників"
 
-#: templates/prefs/sourceselect.inc:298
-msgid "Add source"
-msgstr "Додати джерело"
+#: templates/index/edit.inc:179
+msgid "Add attendees e-mail addresses"
+msgstr "Додати адреси учасників"
 
-#: templates/contacts/contacts.inc:197
+#: templates/index/edit.inc:61
+msgid "Add event to"
+msgstr "Додати подію до"
+
+#: templates/panel.inc:78
+msgid "Add new tags"
+msgstr "Додати нові ярлики"
+
+#: templates/attendees/attendees.inc:134
+msgid "Add resource"
+msgstr "Додати ресурс"
+
+#: templates/index/index.inc:191 templates/index/task.inc:32
+msgid "Add to"
+msgstr "Додати до"
+
+#: templates/contacts/contacts.inc:198
 msgid "Add to attendees"
 msgstr "ДОдати до учасників"
 
-#: contacts.php:76 templates/contacts/contacts.inc:138
-#: templates/attendees/attendees.inc:85
+#: lib/Ajax/Application.php:668
+msgid "Added task list not found."
+msgstr "Доданий список завдань не знайдено."
+
+#: contacts.php:74 templates/attendees/attendees.inc:130
+#: templates/contacts/contacts.inc:139
 msgid "Address Book"
 msgstr "Адресник"
 
-#: config/prefs.php.dist:94
+#: config/prefs.php:66
 msgid "Address Books"
 msgstr "Адресники"
 
-#: templates/search/search.inc:11 templates/search/search_advanced.inc:8
+#: templates/search/search.inc:9 templates/search/search_advanced.inc:11
 msgid "Advanced Search"
 msgstr "Розширений пошук"
 
-#: templates/view/view.inc:47
+#: lib/Kronolith.php:257 templates/index/index.inc:51
+msgid "Agenda"
+msgstr "Порядок денний"
+
+#: templates/edit/edit.inc:171 templates/view/view.inc:49
 msgid "Alarm"
-msgstr "Нагадування"
+msgstr "Дзвоник"
 
-#: lib/Driver.php:2143
+#: lib/Event.php:2636
 #, php-format
-msgid "Alarm %d days before"
-msgstr "Нагадати за %d днів"
+msgid "Alarm %d day before"
+msgid_plural "Alarm %d days before"
+msgstr[0] "Нагадати за %d день"
+msgstr[1] "Нагадати за %d дні"
+msgstr[2] "Нагадати за %d днів"
 
-#: lib/Driver.php:2148
+#: lib/Event.php:2639
 #, php-format
-msgid "Alarm %d hours before"
-msgstr "Нагадати за %d годин"
+msgid "Alarm %d hour before"
+msgid_plural "Alarm %d hours before"
+msgstr[0] "Нагадати за %d годину"
+msgstr[1] "Нагадати за %d години"
+msgstr[2] "Нагадати за %d годин"
 
-#: lib/Driver.php:2153
+#: lib/Event.php:2642
 #, php-format
-msgid "Alarm %d minutes before"
-msgstr "Нагадати за %d хвилин"
+msgid "Alarm %d minute before"
+msgid_plural "Alarm %d minutes before"
+msgstr[0] "Нагадати за %d хвилину"
+msgstr[1] "Нагадати за %d хвилини"
+msgstr[2] "Нагадати за %d хвилин"
 
-#: lib/Driver.php:2138
+#: lib/Event.php:2633
 #, php-format
-msgid "Alarm %d weeks before"
-msgstr "Нагадати за %d тижднів"
+msgid "Alarm %d week before"
+msgid_plural "Alarm %d weeks before"
+msgstr[0] "Нагадати за %d тиждень"
+msgstr[1] "Нагадати за %d тижні"
+msgstr[2] "Нагадати за %d тижнів"
 
-#: lib/Driver.php:2142
-msgid "Alarm 1 day before"
-msgstr "Нагадати за 1 день"
-
-#: lib/Driver.php:2147
-msgid "Alarm 1 hour before"
-msgstr "Нагадати за 1 годину"
-
-#: lib/Driver.php:2152
-msgid "Alarm 1 minute before"
-msgstr "Нагадати за 1 хвилину"
-
-#: lib/Driver.php:2137
-msgid "Alarm 1 week before"
-msgstr "Нагадати за 1 тиждень"
-
-#: data.php:61
+#: data.php:66
 msgid "Alarm Date"
 msgstr "Дата Нагадування"
 
-#: data.php:60
+#: data.php:65
 msgid "Alarm Span (minutes)"
 msgstr "Проміжок нагадування (хвилини)"
 
-#: data.php:62
+#: data.php:67
 msgid "Alarm Time"
 msgstr "Час Нагадування"
 
-#: templates/delete/delete.inc:26 templates/edit/edit.inc:39
+#: templates/edit/edit.inc:183 templates/prefs/defaultalarm.html:8
+msgid "Alarm Unit"
+msgstr ""
+
+#: templates/edit/edit.inc:181 templates/prefs/defaultalarm.html:6
+msgid "Alarm Value"
+msgstr ""
+
+#: templates/edit/edit.inc:176
+msgid "Alarm enabled"
+msgstr "Дзвоник дозволений"
+
+#: lib/Kronolith.php:251
+msgid "Alarm:"
+msgstr "Дзвоник:"
+
+#: templates/index/edit.inc:107 templates/index/task.inc:72
+#, php-format
+msgid "Alert me %s as default %s or %s using:"
+msgstr ""
+
+#: templates/delete/delete.inc:27 templates/edit/edit.inc:42
+#: templates/index/agenda.inc:13 templates/index/tasks.inc:8
 msgid "All"
 msgstr "Всі"
 
-#: lib/FBView.php:128 lib/FBView.php:131 lib/FBView.php:134
+#: lib/FreeBusy/View.php:201 lib/FreeBusy/View.php:204
+#: lib/FreeBusy/View.php:207
 msgid "All Attendees"
 msgstr "Всі Учасники"
 
-#: templates/perms/perms.inc:84
+#: templates/chunks/permissions.inc:104 templates/perms/perms.inc:50
 msgid "All Authenticated Users"
 msgstr "Всі аутентифіковані користувачі"
 
-#: lib/Block/month.php:42
+#: lib/Block/Month.php:44
 msgid "All Calendars"
 msgstr "Всі Календарі"
 
-#: templates/search/search.inc:59
+#: templates/search/search.inc:57
 msgid "All Future"
 msgstr "Всі майбутні"
 
-#: templates/search/search.inc:53
+#: templates/search/search.inc:51
 msgid "All Past"
 msgstr "Всі минулі"
 
-#: lib/Block/month.php:24 lib/Block/monthlist.php:30
-#: lib/Block/prevmonthlist.php:27 lib/Block/summary.php:28
+#: lib/Block/Month.php:32 lib/Block/Monthlist.php:40
+#: lib/Block/Prevmonthlist.php:38 lib/Block/Summary.php:59
 msgid "All Visible"
 msgstr "Всі видимі"
 
-#: templates/edit/edit_timespan.inc:119 lib/Driver.php:2220
-#: lib/Views/Day.php:96 lib/Views/Day.php:99 lib/Views/Week.php:142
-#: lib/Views/Week.php:149
+#: lib/Block/Month.php:181 lib/Block/Summary.php:179 lib/Event.php:2747
+#: lib/Kronolith.php:259 lib/View/Day.php:97 lib/View/Day.php:102
+#: lib/View/Week.php:123 lib/View/Week.php:128 lib/View/Year.php:139
+#: templates/agenda/notification.html.php:24
+#: templates/agenda/notification.plain.php:6
+#: templates/edit/edit_timespan.inc:109 templates/index/day.inc:26
+#: templates/index/week.inc:29 templates/mobile/javascript_defs.php:156
 msgid "All day"
 msgstr "Весь день"
 
-#: lib/Block/summary.php:177
+#: templates/view/view.inc:36
 msgid "All day event"
 msgstr "Подія на весь день"
 
@@ -224,20 +456,46 @@ msgstr "Подія на весь день"
 msgid "All events"
 msgstr "Всі події"
 
-#: lib/api.php:608
+#: lib/LoginTasks/Task/PurgeEvents.php:91
+#, php-format
+msgid "All of your events older than %d days will be permanently deleted."
+msgstr "Всі Ваші події, старші ніж %d діб, будуть назавжди витерті."
+
+#: templates/index/edit.inc:38
+msgid "All-day event"
+msgstr "Подія на весь день"
+
+#: lib/Api.php:710 lib/Api.php:721
 msgid "Already Exists"
 msgstr "Вже існує"
 
-#: templates/javascript/goto.js:71
-msgid "April"
-msgstr "Квітень"
+#: lib/Form/CreateResource.php:28 lib/Form/EditResource.php:36
+msgid "Always Accept"
+msgstr "Завжди приймати"
 
-#: templates/edit/edit_timespan.inc:36 templates/edit/edit_timespan.inc:90
+#: lib/Form/CreateResource.php:29 lib/Form/EditResource.php:37
+msgid "Always Decline"
+msgstr "Завжди відхилити"
+
+#: lib/Kronolith.php:1469 templates/search/search_advanced.inc:36
+msgid "Any"
+msgstr "Будь-який"
+
+#: lib/Kronolith.php:267
+msgid "Are you sure you want to delete this calendar and all the events in it?"
+msgstr "Впевнені, що хочете витерти цей календар і всі події в ньому?"
+
+#: lib/Kronolith.php:268
+msgid "Are you sure you want to delete this task list and all the tasks in it?"
+msgstr "Впевнені, що хочете витерти цей список завдань і всі завдання в ньому?"
+
 #: templates/data/export.inc:85 templates/data/export.inc:176
+#: templates/edit/edit_timespan.inc:32 templates/edit/edit_timespan.inc:80
 msgid "At"
-msgstr "В"
+msgstr "в"
 
-#: lib/Kronolith.php:1307
+#: templates/itip/notification.html.php:74
+#: templates/itip/notification.plain.php:22
 msgid ""
 "Attached is an iCalendar file with more information about the event. If your "
 "mail client supports iTip requests you can use this file to easily update "
@@ -247,101 +505,162 @@ msgstr ""
 "клієнт підтримує iTip запити Ви можете використати ці файли для полегшеного "
 "оновлення Вашої локальної копії подій."
 
-#: perms.php:45
+#: perms.php:79
 msgid "Attempt to edit a non-existent share."
 msgstr "Спроба редагувати неіснуючу пісочницю."
 
-#: templates/view/view.inc:171 templates/attendees/attendees.inc:47
+#: templates/attendees/attendees.inc:49 templates/attendees/attendees.inc:61
+#: templates/attendees/attendees.inc:85 templates/attendees/attendees.inc:97
+#: templates/view/view.inc:170 templates/view/view.inc:186
+msgid "Attendance"
+msgstr "Присутність"
+
+#: templates/attendees/attendees.inc:48 templates/view/view.inc:169
 msgid "Attendee"
 msgstr "Учасник"
 
-#: templates/edit/edit.inc:193 templates/view/view.inc:168
+#: templates/index/edit.inc:73 templates/view/view.inc:166
 msgid "Attendees"
 msgstr "Учасники"
 
-#: templates/javascript/goto.js:75
-msgid "August"
-msgstr "Серпень"
+#: templates/edit/edit.inc:255
+msgid "Attendees and Resources"
+msgstr "Учасники і Ресурси"
 
-#: templates/prefs/sourceselect.inc:291 templates/prefs/sourceselect.inc:293
-msgid "Available Address books:"
-msgstr "Доступні Адресники:"
+#: templates/alarm/mail.html.php:32 templates/itip/notification.html.php:42
+#: templates/itip/notification.plain.php:10
+msgid "Attendees:"
+msgstr "Учасники:"
 
-#: templates/search/search.inc:8 templates/search/search_advanced.inc:11
+#: lib/Form/CreateResource.php:30 lib/Form/EditResource.php:38
+msgid "Automatically"
+msgstr "Автоматично"
+
+#: templates/index/edit.inc:190
+msgid "Availability"
+msgstr "Доступність"
+
+#: lib/Application.php:546
+msgid "Back"
+msgstr "Назад"
+
+#: templates/search/search.inc:11 templates/search/search_advanced.inc:9
 msgid "Basic Search"
 msgstr "Простий пошук"
 
-#: config/keywords.php.dist:17
-msgid "Birthday"
-msgstr "День народження"
-
-#: lib/FBView.php:90 lib/FBView.php:111
+#: lib/FreeBusy/View.php:134 lib/FreeBusy/View.php:155
+#: lib/FreeBusy/View.php:177 lib/FreeBusy/View.php:185
+#: templates/fbview/legend.html:9
 msgid "Busy"
 msgstr "Зайнятий"
 
-#: templates/search/search_advanced.inc:42
+#: templates/search/search_advanced.inc:32
 msgid "C_alendar"
 msgstr "Календар"
 
-#: templates/edit/edit.inc:67
+#: templates/edit/edit.inc:70
 msgid "Cal_endar"
 msgstr "Календар"
 
-#: templates/calendars/calendars.inc:90 lib/Block/month.php:21
-#: lib/Block/monthlist.php:21 lib/Block/prevmonthlist.php:21
-#: lib/Block/summary.php:22
+#: lib/Block/Month.php:26 lib/Block/Monthlist.php:22
+#: lib/Block/Prevmonthlist.php:22 lib/Block/Summary.php:26
+#: templates/calendar_list.php:24
 msgid "Calendar"
 msgstr "Календар"
 
-#: lib/Block/summary.php:3
-msgid "Calendar Summary"
-msgstr "Резюме календаря"
+#: templates/chunks/calendar.php:121
+msgid "Calendar ICS file"
+msgstr ""
 
-#: data.php:248
+#: templates/panel.inc:15
+msgid "Calendar Information"
+msgstr "Інформація про Календар"
+
+#: templates/calendar_list.php:21
+msgid "Calendar List"
+msgstr "Список Календарів"
+
+#: lib/Block/Summary.php:17
+msgid "Calendar Summary"
+msgstr "Резюме календара"
+
+#: lib/Block/Month.php:52 lib/Block/Month.php:71 lib/Block/Monthlist.php:80
+#: lib/Block/Prevmonthlist.php:79 lib/Block/Summary.php:97
+msgid "Calendar not found"
+msgstr "Календар не знайдено"
+
+#: lib/Kronolith.php:1144
+#, php-format
+msgid "Calendar of %s"
+msgstr "Календар %s"
+
+#: templates/chunks/permissions.inc:69
+msgid "Calendar owner"
+msgstr "Власник Календара"
+
+#: data.php:252
 msgid "Calendar successfully purged."
 msgstr "Календар успішно почищено."
 
-#: templates/panel.inc:42 templates/panel.inc:43 config/prefs.php.dist:45
-#: config/prefs.php.dist:53 config/prefs.php.dist:61 config/prefs.php.dist:85
+#: templates/chunks/calendar.php:33
+msgid "Calendar title"
+msgstr "Назва Календара"
+
+#: config/prefs.php:25 config/prefs.php:58 templates/panel.inc:45
+#: templates/panel.inc:46
 msgid "Calendars"
 msgstr "Календарі"
 
-#: calendars.php:27
-msgid "Calendars must have a name."
-msgstr "Календар має мати назву."
+#: templates/calendar_titles.inc:16
+msgid "Calendars Printed: "
+msgstr ""
 
-#: data.php:264
+#: data.php:272
 msgid "Can't create a new event."
 msgstr "Не можу створити нову подію."
 
-#: templates/delete/delete.inc:27 templates/delete/one.inc:25
-#: templates/edit/edit.inc:51 templates/edit/edit.inc:379
+#: lib/Form/DeleteCalendar.php:33 lib/Form/DeleteCalendar.php:42
+#: lib/Form/DeleteResource.php:36 lib/Form/DeleteResource.php:45
+#: lib/Form/DeleteResourceGroup.php:37 lib/Form/DeleteResourceGroup.php:46
+#: lib/Form/UnsubscribeRemoteCalendar.php:27
+#: lib/Form/UnsubscribeRemoteCalendar.php:36 templates/chunks/calendar.php:130
+#: templates/chunks/calendar.php:205 templates/chunks/calendar.php:232
+#: templates/chunks/calendar.php:253 templates/chunks/calendar.php:273
+#: templates/chunks/calendar.php:297 templates/delete/delete.inc:28
+#: templates/delete/one.inc:25 templates/edit/edit.inc:54
+#: templates/edit/edit.inc:435 templates/index/edit.inc:230
+#: templates/index/index.inc:197 templates/index/task.inc:86
 msgid "Cancel"
 msgstr "Відмінити"
 
-#: lib/Kronolith.php:1023
+#: lib/Kronolith.php:1351 templates/index/edit.inc:48
 msgid "Cancelled"
 msgstr "Скасовано"
 
-#: lib/Kronolith.php:1281
+#: lib/Kronolith.php:2248
 #, php-format
 msgid "Cancelled: %s"
 msgstr "Скасовано: %s"
 
-#: lib/Driver/kolab.php:1253
+#: lib/Driver/Kolab.php:504
 #, php-format
 msgid "Cannot delete event: %s"
 msgstr "Не можу витерти подію: %s"
 
-#: templates/edit/edit.inc:94 templates/search/search_advanced.inc:63
-msgid "Categor_y"
-msgstr "Категорія"
+#: lib/Driver/Ical.php:487
+msgid "Cannot delete exceptions (yet)."
+msgstr "Не можу витерти винятки (наразі)."
 
-#: data.php:64 templates/search/event_headers.inc:4 templates/view/view.inc:6
-msgid "Category"
-msgstr "Категорія"
+#: lib/Kronolith.php:872
+#, php-format
+msgid "Cannot parse event description \"%s\""
+msgstr ""
 
-#: config/prefs.php.dist:77
+#: calendars/index.php:72 templates/calendar_list.php:52
+msgid "Change Permissions"
+msgstr "Змінити Права"
+
+#: config/prefs.php:50
 msgid ""
 "Choose how you want to be notified about event changes, event alarms and "
 "upcoming events."
@@ -349,293 +668,524 @@ msgstr ""
 "Виберіть, як Вас повідомляти про зміни подій, дзвоники подій і найближчі "
 "події."
 
-#: config/prefs.php.dist:377
+#: lib/Application.php:224
 msgid "Choose how you want to receive reminders for events with alarms:"
 msgstr "Виберіть, як Ви хочете отримувати нагадування про події з дзвониками:"
 
-#: config/prefs.php.dist:342
+#: config/prefs.php:258
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted events by "
 "email:"
 msgstr ""
 "Виберіть, чи повідомляти Вас про нові, редаговані і видалені події е-поштою:"
 
-#: config/prefs.php.dist:368
+#: config/prefs.php:271
+msgid "Choose if you want to receive daily agenda email reminders:"
+msgstr ""
+"Виберіть, чи хочете Ви отримувати е-поштою нагадування про порядок денний:"
+
+#: config/prefs.php:290
 msgid "Choose if you want to receive reminders for events with alarms:"
 msgstr "Виберіть, чи хочете Ви отримувати нагадування для подій з дзвониками:"
 
-#: templates/prefs/fb_cals_select.inc:16
-msgid "Choose the calendars to include in your free/busy information:"
-msgstr "Важіть календарі для включення Ваших даних вільний/занятий:"
+#: config/prefs.php:354
+msgid "Choose the calendars to include in the above Free/Busy URL:"
+msgstr "Вкажіть календарі для опрацювання при створенні URL вільний/занятий:"
 
-#: config/prefs.php.dist:434
-msgid "Choose the calendars to include when generating free/busy URLs:"
-msgstr "Важіть календарі для включення при створенні URL вільний/занятий:"
+#: config/prefs.php:184
+msgid "Choose the views to show event locations in:"
+msgstr "Оберіть вигляди, в яких показувати місце події:"
 
-#: templates/prefs/sourceselect.inc:287
-msgid "Choose the order of address books to search when expanding addresses."
-msgstr "Вкажіть послідовність адресників для пошуку при розкритті адрес."
+#: config/prefs.php:173
+msgid "Choose the views to show event start and end times in:"
+msgstr "Оберіть вигляди, в яких показувати час початку і кінця події:"
 
-#: config/prefs.php.dist:47
+#: config/prefs.php:27
 msgid "Choose your default calendar."
 msgstr "Виберіть Ваш основний календар."
 
-#: templates/attendees/attendees.inc:95
-msgid "Clear all attendees"
-msgstr "Очистити всіх учасників"
+#: templates/attendees/attendees.inc:150
+msgid "Clear all"
+msgstr "Очистити все"
 
-#: templates/prefs/sourceselect.inc:317
-msgid ""
-"Click on one of your selected address books and then select all fields to "
-"search."
-msgstr ""
-"Клацніть на одному з вибраних адресників, а потім виберіть всі поля для "
-"пошуку."
+#: resources/index.php:75 templates/calendar_list.php:38
+#: templates/calendar_list.php:39 templates/calendar_list.php:48
+#: templates/calendar_list.php:49
+msgid "Click or copy this URL to display this calendar"
+msgstr "Клацніть або скопіюйте цей URL щоб відобразити цей календар"
+
+#: templates/javascript_defs.php:19
+msgid "Close"
+msgstr "Закрити"
 
 #: templates/perms/perms.inc:9
 msgid "Close Window"
 msgstr "Закрити вікно"
 
-#: templates/contacts/contacts.inc:198
+#: templates/contacts/contacts.inc:199
 msgid "Close window"
 msgstr "Закрити вікно"
 
-#: data.php:30 templates/data/import.inc:13
+#: lib/Form/CreateCalendar.php:25 lib/Form/EditCalendar.php:32
+#: lib/Form/EditRemoteCalendar.php:30 lib/Form/SubscribeRemoteCalendar.php:25
+#: templates/chunks/calendar.php:39 templates/chunks/calendar.php:148
+#: templates/chunks/calendar.php:223
+msgid "Color"
+msgstr "Колір"
+
+#: templates/chunks/calendar.php:41 templates/chunks/calendar.php:150
+#: templates/chunks/calendar.php:225
+msgid "Color Picker"
+msgstr "Піпетка кольору"
+
+#: data.php:33 templates/data/import.inc:13
 msgid "Comma separated values"
 msgstr "Значення, розділені комою"
 
-#: config/prefs.php.dist:106
+#: templates/index/tasks.inc:9
+msgid "Completed"
+msgstr "Завершено"
+
+#: config/prefs.php:82
 msgid "Confirm deletion of events?"
 msgstr "Підтвердити видалення подій?"
 
-#: lib/Kronolith.php:1020
+#: lib/Kronolith.php:1348 templates/index/edit.inc:47
 msgid "Confirmed"
 msgstr "Підтверджено"
 
-#: lib/Kronolith.php:375
+#: templates/chunks/calendar.php:230 templates/chunks/calendar.php:252
+msgid "Continue"
+msgstr "Продовжити"
+
+#: config/prefs.php:346
+msgid "Copy this URL for use wherever you need your Free/Busy URL:"
+msgstr "Використовуйте цей URL в якості Вашого URL Вільний/Зайнятий:"
+
+#: lib/Driver/Ical.php:542
 #, php-format
 msgid "Could not open %s."
 msgstr "Не можу відкрити %s."
 
-#: templates/calendars/calendars.inc:69
+#: lib/Form/CreateCalendar.php:32 lib/Form/CreateResource.php:49
+#: lib/Form/CreateResourceGroup.php:36
 msgid "Create"
 msgstr "Створити"
 
-#: templates/calendars/calendars.inc:55
+#: lib/Form/CreateCalendar.php:22
 msgid "Create Calendar"
 msgstr "Створити Календар"
 
-#: templates/week/head.inc:29 lib/Views/Day.php:96 lib/Views/Day.php:248
-#: lib/Views/Month.php:170
+#: lib/Form/CreateResource.php:26 lib/Form/CreateResourceGroup.php:26
+msgid "Create Resource"
+msgstr "Створити Ресурс"
+
+#: lib/View/Day.php:95 lib/View/Day.php:262 lib/View/Month.php:189
+#: templates/week/head.inc:27
 msgid "Create a New Event"
 msgstr "Створити нову подію"
 
-#: templates/view/view.inc:74
+#: templates/calendar_list.php:11
+msgid "Create a new Local Calendar"
+msgstr "Створити новий Локальний Календар"
+
+#: resources/index.php:52
+msgid "Create a new Resource"
+msgstr "Створити новий Ресурс"
+
+#: resources/groups/index.php:49
+msgid "Create a new Resource Group"
+msgstr "Створити нову Групу Ресурсів"
+
+#: templates/view/view.inc:76
 msgid "Created"
 msgstr "Створено"
 
-#: templates/delete/delete.inc:24 templates/edit/edit.inc:37
+#: templates/delete/delete.inc:25 templates/edit/edit.inc:40
 msgid "Current"
 msgstr "Поточний"
 
-#: lib/Recurrence.php:192
-msgid "Daily"
-msgstr "Щодня"
+#: config/prefs.php:41
+#, php-format
+msgid "Customize tasks to run upon logon to %s."
+msgstr "Налаштуйте завдання, які виконуються при вході в %s."
 
-#: attendees.php:151 lib/Kronolith.php:1609 lib/Block/tree_menu.php:21
-#: config/prefs.php.dist:115
+#: templates/edit/edit.inc:294 templates/view/view.inc:100
+msgid "Daily: Recurs every"
+msgstr ""
+
+#: templates/alarm/mail.html.php:13
+msgid "Date and time:"
+msgstr "Дата і час:"
+
+#: templates/alarm/mail.plain.php:10
+msgid "Date:"
+msgstr "Дата:"
+
+#: attendees.php:183 config/prefs.php:90 lib/Application.php:502
+#: lib/Kronolith.php:2678 templates/index/index.inc:44
+#: templates/mobile/day.html.php:3 templates/mobile/day.html.php:10
+#: templates/mobile/month.html.php:10 templates/mobile/summary.html.php:10
 msgid "Day"
 msgstr "День"
 
-#: templates/edit/edit.inc:170 templates/prefs/default_alarm_management.inc:28
-#: templates/view/view.inc:56
+#: templates/edit/edit.inc:144 templates/edit/edit.inc:187
+#: templates/view/view.inc:58 templates/prefs/defaultalarm.html:12
 msgid "Day(s)"
 msgstr "День(ів)"
 
-#: lib/Kronolith.php:1651
+#: lib/Kronolith.php:2731
 msgid "De_lete"
 msgstr "Витерти"
 
-#: templates/javascript/goto.js:79
-msgid "December"
-msgstr "Грудень"
-
-#: lib/Kronolith.php:1050
+#: lib/Kronolith.php:1378
 msgid "Declined"
 msgstr "Відхилено"
 
-#: config/prefs.php.dist:46
+#: templates/prefs/defaultalarm.html:2
+msgid "Default Alarm Setting:"
+msgstr "Типові налаштування дзвоника:"
+
+#: config/prefs.php:26
 msgid "Default Calendar"
 msgstr "Основний Календар"
 
-#: templates/delete/one.inc:24 templates/perms/perms.inc:33
-#: templates/perms/perms.inc:69 templates/perms/perms.inc:89
-#: templates/perms/perms.inc:110 templates/perms/perms.inc:130
-#: templates/perms/perms.inc:151 templates/perms/perms.inc:171
-#: templates/perms/perms.inc:192 templates/perms/perms.inc:212
-#: templates/perms/perms.inc:233 templates/perms/perms.inc:274
-#: templates/perms/perms.inc:294 templates/perms/perms.inc:315
-#: templates/perms/perms.inc:349 templates/calendars/calendars.inc:145
-#: templates/prefs/remote_cal_management.inc:30 lib/Driver.php:1155
-#: lib/Driver.php:2203
+#: templates/chunks/permissions.inc:95
+msgid "Default users"
+msgstr "Типові користувачі"
+
+#: templates/chunks/permissions.inc:124 templates/chunks/permissions.inc:151
+#: templates/chunks/permissions.inc:179 templates/chunks/permissions.inc:232
+#: templates/chunks/permissions.inc:279 templates/perms/perms.inc:56
+#: templates/perms/perms.inc:80 templates/perms/perms.inc:97
+#: templates/perms/perms.inc:121 templates/perms/perms.inc:139
+#: templates/perms/perms.inc:163 templates/perms/perms.inc:180
+#: templates/perms/perms.inc:208 templates/perms/perms.inc:248
+#: templates/perms/perms.inc:279 templates/perms/perms.inc:297
+#: templates/perms/perms.inc:321 templates/perms/perms.inc:355
+msgid "Delegate"
+msgstr "Делегувати"
+
+#: calendars/index.php:73 lib/Event.php:1872 lib/Event.php:2692
+#: lib/Form/DeleteCalendar.php:33 lib/Form/DeleteResource.php:36
+#: lib/Form/DeleteResourceGroup.php:37 resources/groups/index.php:29
+#: resources/groups/index.php:66 resources/index.php:32 resources/index.php:69
+#: templates/calendar_list.php:54 templates/chunks/calendar.php:127
+#: templates/chunks/calendar.php:202 templates/chunks/calendar.php:231
+#: templates/chunks/calendar.php:272 templates/chunks/calendar.php:296
+#: templates/chunks/permissions.inc:119 templates/chunks/permissions.inc:146
+#: templates/chunks/permissions.inc:174 templates/chunks/permissions.inc:227
+#: templates/chunks/permissions.inc:274 templates/delete/one.inc:24
+#: templates/index/edit.inc:229 templates/index/task.inc:85
+#: templates/perms/perms.inc:55 templates/perms/perms.inc:76
+#: templates/perms/perms.inc:96 templates/perms/perms.inc:117
+#: templates/perms/perms.inc:138 templates/perms/perms.inc:159
+#: templates/perms/perms.inc:179 templates/perms/perms.inc:204
+#: templates/perms/perms.inc:244 templates/perms/perms.inc:275
+#: templates/perms/perms.inc:296 templates/perms/perms.inc:317
+#: templates/perms/perms.inc:351
 msgid "Delete"
 msgstr "Витерти"
 
-#: lib/Driver.php:2202 lib/Views/DeleteEvent.php:29
+#: lib/Event.php:2689 lib/Form/DeleteCalendar.php:28
+#: lib/Form/DeleteResource.php:31 lib/Form/DeleteResourceGroup.php:31
+#: lib/View/DeleteEvent.php:42
 #, php-format
 msgid "Delete %s"
 msgstr "Витерти %s"
 
-#: templates/delete/delete.inc:22
-msgid ""
-"Delete the current event only, this occurrence and all future occurences, or "
-"all occurences?"
-msgstr "Витерти тільки цю подію, цей випадок і всі майбутні чи всі випадки?"
+#: lib/Event.php:1871
+#, php-format
+msgid "Delete exception on %s"
+msgstr "Витерти виняток на %s"
 
-#: templates/edit/edit.inc:180 templates/search/search_advanced.inc:103
+#: lib/LoginTasks/Task/PurgeEvents.php:80
+#, php-format
+msgid "Deleted %d event older than %d days."
+msgid_plural "Deleted %d events older than %d days."
+msgstr[0] "Витерто %d подію, що старша ніж %d днів."
+msgstr[1] "Витерто %d події, що старші ніж %d днів."
+msgstr[2] "Витерто %d подій, що старші ніж %d днів."
+
+#: lib/Driver/Ical.php:483
+msgid "Deleting events is not supported with this remote calendar."
+msgstr "Видалення дподій не підтримується цим віддаленим календарем."
+
+#: templates/edit/edit.inc:224 templates/search/search.inc:26
+#: templates/search/search_advanced.inc:75
 msgid "Descri_ption"
 msgstr "Опис"
 
-#: templates/search/search.inc:28
-msgid "Descri_ption:"
-msgstr "Опис:"
-
-#: data.php:63 templates/calendars/calendars.inc:119
-#: templates/view/view.inc:155
+#: data.php:68 lib/Form/CreateCalendar.php:26 lib/Form/CreateResource.php:44
+#: lib/Form/CreateResourceGroup.php:34 lib/Form/EditCalendar.php:33
+#: lib/Form/EditRemoteCalendar.php:31 lib/Form/EditResource.php:54
+#: lib/Form/EditResourceGroup.php:44 lib/Form/SubscribeRemoteCalendar.php:27
+#: resources/groups/index.php:58 templates/chunks/calendar.php:47
+#: templates/chunks/calendar.php:156 templates/chunks/calendar.php:265
+#: templates/index/edit.inc:69 templates/index/task.inc:46
+#: templates/view/view.inc:153
 msgid "Description"
 msgstr "Опис"
 
-#: templates/contacts/contacts.inc:186
+#: templates/alarm/mail.html.php:52 templates/itip/notification.html.php:62
+msgid "Description:"
+msgstr "Опис:"
+
+#: templates/contacts/contacts.inc:187
 msgid "Display"
 msgstr "Показати"
 
-#: config/prefs.php.dist:9 config/prefs.php.dist:20 config/prefs.php.dist:37
-msgid "Display Options"
+#: config/prefs.php:12
+msgid "Display Preferences"
 msgstr "Опції відображення"
 
-#: templates/perms/perms.inc:32 templates/perms/perms.inc:65
-#: templates/perms/perms.inc:88 templates/perms/perms.inc:106
-#: templates/perms/perms.inc:129 templates/perms/perms.inc:147
-#: templates/perms/perms.inc:170 templates/perms/perms.inc:188
-#: templates/perms/perms.inc:211 templates/perms/perms.inc:229
-#: templates/perms/perms.inc:270 templates/perms/perms.inc:293
-#: templates/perms/perms.inc:311 templates/perms/perms.inc:345
-#: templates/calendars/calendars.inc:114
-#: templates/prefs/remote_cal_management.inc:31 lib/Driver.php:2196
+#: resources/index.php:61 templates/calendar_list.php:26
+msgid "Display URL"
+msgstr "Показати URL"
+
+#: lib/Kronolith.php:1316
+msgid "Does not recur"
+msgstr "Не повтрорюється"
+
+#: config/prefs.php:277
+msgid ""
+"Don't send me a notification if I've added, changed or deleted the event?"
+msgstr ""
+"Не слати мені увідомлень, якщо подія була додана, змінена, витерта мною."
+
+#: templates/chunks/permissions.inc:13
+msgid "Don't share this calendar"
+msgstr "Не ділитися цим календарем"
+
+#: templates/chunks/permissions.inc:13
+msgid "Don't share this task list"
+msgstr "Не ділитися цим списком завдань"
+
+#: templates/index/task.inc:22
+msgid "Due date"
+msgstr "Термін"
+
+#: templates/edit/edit_timespan.inc:102
+msgid "Duration"
+msgstr "Тривалість"
+
+#: lib/Event.php:2460
+msgid "Duration Day"
+msgstr "День тривання"
+
+#: lib/Event.php:2471
+msgid "Duration Hour"
+msgstr "Година тривання"
+
+#: lib/Event.php:2481
+msgid "Duration Minute"
+msgstr "Хвилина тривання"
+
+#: calendars/index.php:71 lib/Event.php:2680 resources/groups/index.php:24
+#: resources/groups/index.php:67 resources/index.php:28 resources/index.php:70
+#: templates/calendar_list.php:40 templates/calendar_list.php:50
+#: templates/chunks/permissions.inc:115 templates/chunks/permissions.inc:142
+#: templates/chunks/permissions.inc:170 templates/chunks/permissions.inc:223
+#: templates/chunks/permissions.inc:270 templates/perms/perms.inc:54
+#: templates/perms/perms.inc:72 templates/perms/perms.inc:95
+#: templates/perms/perms.inc:113 templates/perms/perms.inc:137
+#: templates/perms/perms.inc:155 templates/perms/perms.inc:178
+#: templates/perms/perms.inc:200 templates/perms/perms.inc:240
+#: templates/perms/perms.inc:271 templates/perms/perms.inc:295
+#: templates/perms/perms.inc:313 templates/perms/perms.inc:347
 msgid "Edit"
 msgstr "Редагувати"
 
-#: templates/attendees/attendees.inc:57 lib/Driver.php:2195
-#: lib/Views/EditEvent.php:29
+#: lib/Event.php:2677 lib/Form/EditCalendar.php:28
+#: lib/Form/EditRemoteCalendar.php:22 lib/Form/EditResource.php:34
+#: lib/Form/EditResourceGroup.php:34 lib/View/EditEvent.php:43
+#: templates/attendees/attendees.inc:58
 #, php-format
 msgid "Edit %s"
 msgstr "Редагувати %s"
 
-#: templates/edit/edit.inc:211
-msgid "Edit Attendees"
-msgstr "Редагувати учасників"
+#: templates/edit/edit.inc:264
+msgid "Edit Attendees and Resources"
+msgstr "Редагувати Учасників і Ресурси"
 
-#: templates/calendars/calendars.inc:84
-msgid "Edit Calendars"
-msgstr "Редагувати Календарі"
-
-#: perms.php:260
+#: perms.php:86
 msgid "Edit Permissions"
 msgstr "Редагувати Права"
 
-#: perms.php:262
+#: perms.php:88
 #, php-format
 msgid "Edit Permissions for %s"
 msgstr "Редагувати права для %s"
 
-#: templates/attendees/attendees.inc:78
+#: templates/attendees/attendees.inc:124
 msgid "Edit attendee"
 msgstr "Редагувати учасника"
 
-#: attendees.php:208
+#: attendees.php:267
 msgid "Edit attendees"
 msgstr "Редагувати учасників"
-
-#: templates/category_legend.inc:20
-msgid "Edit categories and colors"
-msgstr "Редагувати Категорії і Позначення"
 
 #: templates/perms/perms.inc:11
 #, php-format
 msgid "Edit permissions for %s"
 msgstr "Редагувати права для %s"
 
-#: templates/contacts/contacts.inc:189
+#: resources/index.php:20
+msgid "Edit resources"
+msgstr "Редагувати ресурси"
+
+#: lib/Form/CreateResource.php:45 lib/Form/EditResource.php:53
+msgid "Email"
+msgstr "Е-пошта"
+
+#: templates/contacts/contacts.inc:190
 msgid "Email Address"
 msgstr "Адреса е-пошти"
 
-#: templates/edit/edit_timespan.inc:57
+#: templates/chunks/calendar.php:92
+msgid "Embed Script"
+msgstr "Вбудувати Скрипт"
+
+#: templates/chunks/calendar.php:93
+msgid "Embed calendar on external website"
+msgstr "Вмонтувати колендар у зовнішій веб-сайт"
+
+#: templates/edit/edit_timespan.inc:53
 msgid "En_d"
 msgstr "Кінець"
 
-#: data.php:58
+#: data.php:63
 msgid "End Date"
 msgstr "Дата кінця"
 
-#: templates/data/export.inc:125 templates/search/event_headers.inc:8
-#: templates/view/view.inc:41
+#: lib/Event.php:2433 templates/data/export.inc:161
+msgid "End Day"
+msgstr "День кінця"
+
+#: lib/Event.php:2445 templates/data/export.inc:178
+msgid "End Hour"
+msgstr "Година кінця"
+
+#: lib/Event.php:2455 templates/data/export.inc:190
+msgid "End Minute"
+msgstr "Хвилина кінця"
+
+#: lib/Event.php:2425 templates/data/export.inc:148
+msgid "End Month"
+msgstr "Місяць кінця"
+
+#: templates/data/export.inc:125 templates/search/event_headers.inc:7
+#: templates/view/view.inc:42
 msgid "End On"
 msgstr "Кінець в"
 
-#: data.php:59
+#: data.php:64
 msgid "End Time"
 msgstr "Час кінця"
 
-#: attendees.php:197
+#: lib/Event.php:2415 templates/data/export.inc:134
+msgid "End Year"
+msgstr "Рік кінця"
+
+#: templates/itip/notification.html.php:23
+msgid "End:"
+msgstr "Кінець:"
+
+#: attendees.php:231 attendees.php:251
 #, php-format
 msgid "Error retrieving free/busy information for %s: %s"
 msgstr "Помилка отримання даних вільний/занятий для %s: %s"
 
-#: attendees.php:177
+#: attendees.php:209
 #, php-format
 msgid "Error retrieving your free/busy information: %s"
 msgstr "Помилка отримання даних вільний/занятий: %s"
 
-#: lib/Kronolith.php:1460
+#: lib/Kronolith.php:248 templates/mobile/javascript_defs.php:155
+msgid "Error when communicating with the server."
+msgstr "Помилка з'єднання з сервером."
+
+#: templates/mobile/event.html.php:2
+msgid "Event"
+msgstr "Подія"
+
+#: config/prefs.php:33
+msgid "Event Defaults"
+msgstr "Типова подія"
+
+#: templates/index/edit.inc:223
+msgid "Event ICS file"
+msgstr ""
+
+#: feed/index.php:141
+msgid "Event Status:"
+msgstr "Статус події:"
+
+#: lib/Kronolith.php:2421
 msgid "Event added:"
 msgstr "Подія додана:"
 
-#: lib/Kronolith.php:1470
+#: lib/Kronolith.php:2431
 msgid "Event deleted:"
 msgstr "Подія витерта:"
 
-#: lib/Kronolith.php:1465
+#: lib/Kronolith.php:2426
 msgid "Event edited:"
 msgstr "Подія редагована:"
 
-#: lib/Driver.php:1263
-#, php-format
-msgid "Event from %s to %s"
-msgstr "Подія з %s по %s"
-
-#: lib/Driver/sql.php:387
+#: lib/Driver/Horde.php:152 lib/Driver/Ical.php:376 lib/Driver/Ical.php:395
+#: lib/Driver/Sql.php:440 lib/View/DeleteEvent.php:53
+#: lib/View/EditEvent.php:54 lib/View/Event.php:53 lib/View/ExportEvent.php:17
 msgid "Event not found"
 msgstr "Подію не знайдено"
 
-#: lib/Driver/kolab.php:433 lib/Driver/kolab.php:1127
-#: lib/Driver/kolab.php:1154 lib/Driver/kolab.php:1235
+#: lib/Driver/Kolab.php:293 lib/Driver/Kolab.php:334 lib/Driver/Kolab.php:481
 #, php-format
 msgid "Event not found: %s"
 msgstr "Подію не знайдено: %s"
 
-#: config/prefs.php.dist:68 config/prefs.php.dist:75
+#: templates/index/edit.inc:11
+msgid "Event title"
+msgstr "Назва події"
+
+#: config/prefs.php:32 config/prefs.php:39 config/prefs.php:48
 msgid "Events"
 msgstr "Події"
 
-#: lib/Driver.php:940
-msgid "Events must have a start date."
-msgstr "Подія має мати датц початку."
+#: templates/index/day.inc:21
+msgid "Events for this day"
+msgstr "Події цього дня"
 
-#: lib/Driver.php:902
+#: lib/Api.php:138
+#, php-format
+msgid "Events from %s"
+msgstr "Події від %s"
+
+#: lib/Kronolith.php:258
+#, php-format
+msgid "Events matching \"%s\""
+msgstr "Події, що відповідають \"%s\""
+
+#: lib/Event.php:1446
+msgid "Events must have a start date."
+msgstr "Подія має мати дату початку."
+
+#: lib/Event.php:1416
 msgid "Events must have a title."
 msgstr "Події маєть мати заголовок."
 
-#: templates/data/export.inc:209
+#: lib/Event.php:1844 lib/Event.php:2651 lib/Kronolith.php:291
+#: templates/mobile/javascript_defs.php:188
+msgid "Exception"
+msgstr "Виняток"
+
+#: templates/edit/edit.inc:387 templates/view/view.inc:135
+msgid "Exceptions"
+msgstr "Винятки"
+
+#: lib/Kronolith.php:2738 templates/chunks/calendar.php:63
+#: templates/chunks/calendar.php:170 templates/data/export.inc:209
+#: templates/index/edit.inc:82
 msgid "Export"
 msgstr "Експорт"
 
@@ -643,141 +1193,211 @@ msgstr "Експорт"
 msgid "Export Calendar"
 msgstr "Експортувати Календар"
 
-#: templates/javascript/goto.js:69
-msgid "February"
-msgstr "Лютий"
+#: templates/chunks/calendar.php:120 templates/chunks/calendar.php:195
+#: templates/index/edit.inc:222
+msgid "Export ICS file"
+msgstr "Експорт файлу ICS"
 
-#: templates/prefs/sourceselect.inc:327
-msgid "Fields to search"
-msgstr "Поля для пошуку"
+#: templates/panel.inc:134
+msgid "External Events:"
+msgstr "Зовнішні Події:"
 
-#: templates/contacts/contacts.inc:143
+#: templates/chunks/calendar.php:87
+msgid "Feed URL"
+msgstr "URL потоку"
+
+#: templates/contacts/contacts.inc:144
 msgid "Find"
 msgstr "Пошук"
 
-#: templates/javascript/goto.js:63 templates/edit/edit.inc:248
-#: lib/Views/Year.php:81 lib/Block/month.php:107
+#: templates/index/edit.inc:55
+msgid "Find in Maps"
+msgstr ""
+
+#: lib/Block/Month.php:116 lib/View/Year.php:66 templates/edit/edit.inc:307
 msgid "Fr"
 msgstr "Пт"
 
-#: lib/Kronolith.php:1026
+#: lib/Kronolith.php:1354 templates/index/edit.inc:45
 msgid "Free"
 msgstr "Вільний"
 
-#: config/prefs.php.dist:86
+#: config/prefs.php:59
 msgid "Free/Busy Information"
 msgstr "Інформація вільний/занятий"
 
-#: templates/month/head.inc:21 templates/edit/javascript.inc:71
-#: templates/view/view.inc:103
+#: templates/index/edit.inc:138 templates/month/head.inc:21
+#: templates/view/view.inc:107
 msgid "Friday"
 msgstr "П'ятниця"
 
-#: templates/delete/delete.inc:25 templates/edit/edit.inc:38
+#: templates/index/edit.inc:18
+msgid "From"
+msgstr "Від"
+
+#: lib/Event.php:1582
+#, php-format
+msgid "From %s at %s to %s at %s"
+msgstr "Від %s в %s до %s в %s"
+
+#: lib/Event.php:1579
+#, php-format
+msgid "From %s to %s"
+msgstr "Від %s по %s"
+
+#: templates/delete/delete.inc:26 templates/edit/edit.inc:41
+#: templates/index/agenda.inc:15 templates/index/tasks.inc:11
 msgid "Future"
-msgstr "Майбутнє"
+msgstr "Майбутні"
 
-#: config/keywords.php.dist:17
-msgid "Game"
-msgstr "Гра"
-
-#: templates/search/search_advanced.inc:23
+#: templates/search/search_advanced.inc:18
 msgid "General"
-msgstr "Головний"
+msgstr "Загальне"
 
-#: lib/Block/summary.php:153
+#: templates/index/index.inc:93
+msgid "Go"
+msgstr "Далі"
+
+#: lib/Block/Summary.php:169
 #, php-format
 msgid "Goto %s"
-msgstr "Йти до %s"
+msgstr "Перейти до %s"
 
-#: templates/perms/perms.inc:289
+#: lib/Form/CreateResource.php:48 lib/Form/EditResource.php:56
+#: templates/chunks/permissions.inc:244 templates/perms/perms.inc:291
 msgid "Groups"
 msgstr "Групи"
 
-#: templates/perms/perms.inc:125
+#: templates/chunks/permissions.inc:131 templates/perms/perms.inc:91
 msgid "Guest Permissions"
 msgstr "Права гостя"
 
-#: templates/edit/javascript.inc:256
+#: index.php:35
+msgid "Help"
+msgstr "Довідка"
+
+#: templates/edit/edit.inc:4
 msgid "Hide"
 msgstr "Сховати"
 
-#: templates/edit/edit.inc:169 templates/prefs/default_alarm_management.inc:27
-#: templates/view/view.inc:59
+#: lib/Kronolith.php:255
+msgid "Hide Notifications"
+msgstr "Сховати увідомлення"
+
+#: templates/index/task.inc:15
+msgid "High"
+msgstr "Високий"
+
+#: templates/index/task.inc:15
+msgid "Highest"
+msgstr "Найвищий"
+
+#: templates/chunks/calendar.php:288 templates/index/index.inc:152
+msgid "Holidays"
+msgstr "Свята"
+
+#: lib/Kronolith.php:2814
+msgid "Holidays are disabled"
+msgstr "Свята заборонені"
+
+#: search.php:96 templates/panel.inc:157
+msgid "Holidays:"
+msgstr "Свята:"
+
+#: templates/edit/edit.inc:148 templates/edit/edit.inc:186
+#: templates/view/view.inc:61 templates/prefs/defaultalarm.html:11
 msgid "Hour(s)"
 msgstr "Година(и)"
 
-#: config/prefs.php.dist:175
+#: config/prefs.php:149
 msgid "How long should the time slots on the day and week views be?"
 msgstr "Як довго мають бути часові проміжки в день і тиждень?"
 
-#: config/prefs.php.dist:386
-msgid "How many days of free/busy information should we generate?"
-msgstr "Скільки днів ми маємо створювати інформації вільний/занятий?"
+#: config/prefs.php:306
+msgid "How many days of Free/Busy information should be generated?"
+msgstr "На скільки днів створювати інформацію вільний/занятий?"
 
-#: lib/Kronolith.php:1311
-#, php-format
+#: config/prefs.php:101
+msgid ""
+"How many events should be displayed per day in the month view? Set to 0 to "
+"always show all events."
+msgstr ""
+"Скільки подій на день показати у місячному огляді? Встановіть 0 щоб завжди "
+"показувати всі події."
+
+#: templates/index/index.inc:190
+msgid "I.e. Dinner with John tomorrow 8pm"
+msgstr "Напр. Кава з Олесею завтра о 8-ій"
+
+#: templates/itip/notification.plain.php:25
 msgid ""
 "If your email client doesn't support iTip requests you can use one of the "
-"following links to accept or decline the event.\n"
-"\n"
-"To accept the event:\n"
-"%s\n"
-"\n"
-"To accept the event tentatively:\n"
-"%s\n"
-"\n"
-"To decline the event:\n"
-"%s\n"
+"following links to accept or decline the event."
 msgstr ""
-"Якщо Ваш почтовий клієнт не підтримує запити iTip можете використати один з "
-"наступних лінків, щоб прийняти або відхилити подію.\n"
-"\n"
-"Щоб прийняти подію:\n"
-"%s\n"
-"\n"
-"Щоб прийняти подію попередньо:\n"
-"%s\n"
-"\n"
-"Щоб відхилити подію:\n"
-"%s\n"
+"Якщо Ваш поштовий клієнт не підтримує запити iTip, Ви можете використати "
+"один з наступних лінків, щоб прийняти або відхилити подію."
+
+#: templates/itip/notification.html.php:76
+#, php-format
+msgid ""
+"If your email client doesn't support iTip requests you can use the following "
+"links to: %saccept%s, %saccept tentatively%s or %sdecline%s the event."
+msgstr ""
+"Якщо Ваш поштовий клієнт не підтримує запити iTip, можете використати один з "
+"наступних лінків, щоб: %sприйняти%s, %sприйняти попередньо%s or %sвідхилити"
+"%s the event."
+
+#: templates/chunks/calendar.php:62
+msgid "Import"
+msgstr "Імпорт"
 
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Calendar, Step %d"
-msgstr "Імпортування Календаря, Крок %d"
+msgstr "Імпорт Календара, Крок %d"
 
-#: data.php:310
+#: templates/chunks/calendar.php:106
+msgid "Import ICS file"
+msgstr "Імпортувати файл ICS"
+
+#: data.php:353
 msgid "Import/Export Calendar"
 msgstr "Імпортувтаи/Експортувати Календар"
 
-#: templates/perms/perms.inc:207
+#: templates/chunks/calendar.php:110
+#, php-format
+msgid "Importing should %s %sreplace this calendar%s."
+msgstr ""
+
+#: templates/index/tasks.inc:10
+msgid "Incomplete"
+msgstr "Незавершені"
+
+#: templates/perms/perms.inc:174
 msgid "Individual Users"
 msgstr "Індивідуальні користувачі"
 
-#: templates/javascript/goto.js:68
-msgid "January"
-msgstr "Січень"
+#: templates/share/notification.plain.php:1
+#, php-format
+msgid "Invitation from %s to the calendar \"%s\""
+msgstr "Запрошення від %s до календара \"%s\""
 
-#: templates/javascript/goto.js:74
-msgid "July"
-msgstr "Липень"
+#: templates/share/notification.html.php:1
+#, php-format
+msgid "Invitation from %s to the calendar %s"
+msgstr "Запрошення від %s до календара %s"
 
-#: templates/javascript/goto.js:73
-msgid "June"
-msgstr "Червень"
+#: templates/calendar_list.php:25
+msgid "Kind"
+msgstr "Тип"
 
-#: data.php:66 templates/edit/edit.inc:345 templates/view/view.inc:138
-msgid "Keywords"
-msgstr "Ключові слова"
-
-#: templates/search/search.inc:55
+#: templates/search/search.inc:53
 msgid "Last 24 hours"
 msgstr "Останні 24 години"
 
-#: templates/view/view.inc:81
+#: templates/view/view.inc:83
 msgid "Last Modified"
-msgstr "Останні зміни:"
+msgstr "Востаннє змінено"
 
 #: templates/month/head.inc:5 templates/month/head_side_by_side.inc:5
 msgid "Last Month"
@@ -787,15 +1407,19 @@ msgstr "Останній Місяць"
 msgid "Last Year"
 msgstr "Останній рік"
 
-#: templates/search/search.inc:54 templates/week/head.inc:6
+#: templates/search/search.inc:52 templates/week/head.inc:6
 msgid "Last week"
 msgstr "Останній тиждень"
+
+#: templates/calendar_info.php:38
+msgid "Learn how to embed other calendar views."
+msgstr ""
 
 #: templates/data/export.inc:29
 msgid "Limit the time span to export:"
 msgstr "Обмежити проміжок часу на експорт:"
 
-#: config/prefs.php.dist:397
+#: config/prefs.php:315
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
@@ -803,146 +1427,211 @@ msgstr ""
 "Показати всі контакти при завантаженні екрану контактів? (якщо вимкнуто, Ви "
 "тільки побачите контакти які Ви шукали явно)"
 
-#: templates/edit/edit.inc:101 templates/search/search_advanced.inc:85
+#: templates/edit/edit.inc:106 templates/search/search_advanced.inc:55
 msgid "Lo_cation"
-msgstr "Місце перебування"
+msgstr "Місце"
 
-#: kronolith.js.php:43
+#: templates/javascript_defs.php:21
 msgid "Loading ..."
 msgstr "Завантаження ..."
 
-#: templates/attendees/attendees.inc:81
+#: templates/attendees/attendees.inc:127 templates/chunks/calendar.php:75
+#: templates/edit/edit.inc:414 templates/index/edit.inc:55
+#: templates/index/edit.inc:181 templates/index/edit.inc:212
+#: templates/panel.inc:104
 msgid "Loading..."
 msgstr "Завантажую..."
 
-#: data.php:65 templates/prefs/remote_cal_management.inc:25
-#: templates/prefs/remote_cal_management.inc:60
-#: templates/search/event_headers.inc:5 templates/view/view.inc:14
-#: lib/Driver.php:2242
+#: templates/calendar_list.php:47
+msgid "Local"
+msgstr "Локальний"
+
+#: templates/calendar_info.php:18
+#, php-format
+msgid "Local calendar owned by %s."
+msgstr "Локальний календар належить %s."
+
+#: data.php:69 lib/Event.php:2729 templates/index/edit.inc:51
+#: templates/search/event_headers.inc:4 templates/view/view.inc:6
 msgid "Location"
-msgstr "Місце перебування"
+msgstr "Місце"
 
-#: config/prefs.php.dist:63
-msgid "Manage remote calendars."
-msgstr "Керувати Віддаленими Календарями"
+#: templates/alarm/mail.html.php:22 templates/alarm/mail.plain.php:7
+#: templates/itip/notification.html.php:32
+#: templates/itip/notification.plain.php:5
+msgid "Location:"
+msgstr "Місце:"
 
-#: templates/javascript/goto.js:70
-msgid "March"
-msgstr "Березень"
+#: templates/mobile/day.html.php:6 templates/mobile/month.html.php:6
+#: templates/mobile/summary.html.php:6
+msgid "Log out"
+msgstr "Вийти"
 
-#: lib/api.php:128
+#: config/prefs.php:40
+msgid "Login Tasks"
+msgstr "Завдання Входу"
+
+#: feed/index.php:57
+#, php-format
+msgid "Login required for the requested feed (%s)."
+msgstr ""
+
+#: templates/index/task.inc:15
+msgid "Low"
+msgstr "Низький"
+
+#: templates/index/task.inc:15
+msgid "Lowest"
+msgstr "Найнижчий"
+
+#: calendars/index.php:76 templates/calendar_list.php:4
+msgid "Manage Calendars"
+msgstr "Управління Календарами"
+
+#: resources/index.php:53
+msgid "Manage Resource Groups"
+msgstr "Управління групами Ресурсів"
+
+#: lib/Form/CreateResource.php:31 lib/Form/EditResource.php:39
+msgid "Manual"
+msgstr ""
+
+#: templates/index/edit.inc:76
+msgid "Map"
+msgstr "Карта"
+
+#: templates/index/task.inc:39
+msgid "Mark task as"
+msgstr "Помітити завдання як"
+
+#: lib/Application.php:86
 msgid "Maximum Number of Events"
 msgstr "Максимальна кількість подій"
 
-#: lib/Block/monthlist.php:27 lib/Block/summary.php:25
+#: lib/Block/Monthlist.php:30 lib/Block/Summary.php:48
 msgid "Maximum number of events to display (0 = no limit)"
 msgstr "Максимальну кількість подій для показу (0 = без обмеежнь)"
 
-#: templates/javascript/goto.js:72
-msgid "May"
-msgstr "Травень"
+#: lib/Event.php:2725
+msgid "Me"
+msgstr ""
 
-#: config/keywords.php.dist:17
+#: lib/Event.php:2661
 msgid "Meeting"
 msgstr "Зустріч"
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Список меню"
-
-#: templates/edit/edit.inc:168 templates/prefs/default_alarm_management.inc:26
-#: templates/view/view.inc:62
+#: templates/edit/edit.inc:152 templates/edit/edit.inc:185
+#: templates/view/view.inc:64 templates/prefs/defaultalarm.html:10
 msgid "Minute(s)"
 msgstr "Хвилин(а)"
 
-#: templates/javascript/goto.js:59 templates/edit/edit.inc:244
-#: lib/Views/Year.php:77 lib/Block/month.php:107
+#: lib/Block/Month.php:116 lib/View/Year.php:62 templates/edit/edit.inc:303
 msgid "Mo"
 msgstr "Пн"
 
-#: templates/month/head.inc:17 templates/edit/javascript.inc:67
-#: templates/view/view.inc:99 config/prefs.php.dist:139
+#: config/prefs.php:118 templates/index/edit.inc:134
+#: templates/month/head.inc:17 templates/view/view.inc:103
 msgid "Monday"
 msgstr "Понеділок"
 
-#: attendees.php:154 lib/Kronolith.php:1615 lib/Block/tree_menu.php:24
-#: config/prefs.php.dist:118
+#: attendees.php:186 config/prefs.php:93 lib/Application.php:505
+#: lib/Kronolith.php:2684 templates/index/index.inc:46
+#: templates/mobile/day.html.php:11 templates/mobile/month.html.php:3
+#: templates/mobile/month.html.php:11 templates/mobile/summary.html.php:11
 msgid "Month"
 msgstr "Місяць"
 
-#: lib/Recurrence.php:195
-msgid "Monthly"
-msgstr "Щомісяця"
+#: config/prefs.php:170 config/prefs.php:181
+msgid "Month, Week, and Day Views"
+msgstr "Покази Місяця, Тижня і Дня"
 
-#: lib/Block/monthlist.php:24
+#: templates/edit/edit.inc:314 templates/edit/edit.inc:320
+#: templates/view/view.inc:112 templates/view/view.inc:114
+msgid "Monthly: Recurs every"
+msgstr ""
+
+#: lib/Block/Monthlist.php:26
 msgid "Months Ahead"
 msgstr "Місяць наперед"
 
-#: lib/Block/prevmonthlist.php:24
+#: lib/Block/Prevmonthlist.php:27
 msgid "Months Before"
 msgstr "Місяць назад"
 
-#: templates/prefs/sourceselect.inc:312
-msgid "Move down"
-msgstr "Донизу"
-
-#: templates/prefs/sourceselect.inc:310
-msgid "Move up"
-msgstr "Догори"
-
-#: lib/api.php:859
+#: lib/Api.php:969
 msgid "Multiple iCalendar components found; only one vEvent is supported."
 msgstr "Знайдено кілька компонентів iCalendar; підтримується тільки vEvent."
 
-#: calendars.php:128
+#: mobile.php:18
+msgid "My Calendar"
+msgstr "Мій Календар"
+
+#: templates/index/index.inc:101
 msgid "My Calendars"
 msgstr "Мої Календарі"
 
-#: templates/panel.inc:54
+#: search.php:75 templates/panel.inc:72
 msgid "My Calendars:"
 msgstr "Мої календарі:"
 
-#: templates/calendars/calendars.inc:154
+#: config/prefs.php:346
 msgid "My Free/Busy URL"
 msgstr "Мій URL вільний/занятий"
 
-#: templates/contacts/contacts.inc:188 templates/calendars/calendars.inc:60
-#: templates/calendars/calendars.inc:103
-#: templates/prefs/remote_cal_management.inc:24
-#: templates/prefs/remote_cal_management.inc:52
+#: templates/index/index.inc:112
+msgid "My Task Lists"
+msgstr "Мій Список завдань"
+
+#: lib/Form/CreateCalendar.php:24 lib/Form/CreateResource.php:43
+#: lib/Form/CreateResourceGroup.php:33 lib/Form/EditCalendar.php:31
+#: lib/Form/EditRemoteCalendar.php:25 lib/Form/EditResource.php:52
+#: lib/Form/EditResourceGroup.php:43 lib/Form/SubscribeRemoteCalendar.php:24
+#: resources/groups/index.php:57 resources/index.php:60
+#: templates/chunks/calendar.php:142 templates/chunks/calendar.php:259
+#: templates/contacts/contacts.inc:189
 msgid "Name"
 msgstr "Ім'я"
 
-#: lib/Block/tree_menu.php:20
+#: templates/index/index.inc:99
+msgid "New Calendar"
+msgstr "Новий Календар"
+
+#: lib/Application.php:501
 msgid "New Event"
 msgstr "Нова подія"
 
-#: lib/Kronolith.php:317
+#: templates/index/index.inc:110
+msgid "New Task List"
+msgstr "Новий Список завдань"
+
+#: lib/Kronolith.php:1176
 #, php-format
 msgid ""
-"New calendar created and automatically shared with the following group(s): %"
-"s."
-msgstr ""
-"Новий календар створено а авотматично розмножено серед таких груп(и): %s."
+"New calendar created and automatically shared with the following group(s): "
+"%s."
+msgstr "Новий календар створено і автоматично роздано серед таких груп(и): %s."
 
-#: templates/data/import.inc:33
+#: templates/data/import.inc:33 templates/index/agenda.inc:10
+#: templates/index/day.inc:10 templates/index/month.inc:8
+#: templates/index/week.inc:9 templates/index/year.inc:9
+#: templates/mobile/day.html.php:18
 msgid "Next"
 msgstr "Наступний"
 
-#: templates/search/search.inc:57
+#: templates/search/search.inc:55
 msgid "Next 24 hours"
 msgstr "Наступні 24 години"
 
-#: lib/FBView/day.php:29
+#: lib/FreeBusy/View/Day.php:29
 msgid "Next Day"
 msgstr "Наступний день"
 
-#: templates/month/head.inc:7 templates/month/head_side_by_side.inc:7
-#: lib/FBView/month.php:32
+#: lib/FreeBusy/View/Month.php:42 templates/month/head.inc:7
+#: templates/month/head_side_by_side.inc:7
 msgid "Next Month"
 msgstr "Наступний місяць"
 
-#: lib/FBView/week.php:32
+#: lib/FreeBusy/View/Week.php:44
 msgid "Next Week"
 msgstr "Наступний тиждень"
 
@@ -950,240 +1639,544 @@ msgstr "Наступний тиждень"
 msgid "Next Year"
 msgstr "Наступний рік"
 
-#: templates/day/head.inc:5
+#: templates/day/head.inc:7
 msgid "Next day"
 msgstr "Наступний день"
 
-#: templates/search/search.inc:58 templates/week/head.inc:8
+#: templates/index/index.inc:74 templates/mobile/month.html.php:18
+msgid "Next month"
+msgstr "Наступний місяць"
+
+#: templates/search/search.inc:56 templates/week/head.inc:8
 msgid "Next week"
 msgstr "Наступний тиждень"
 
-#: config/prefs.php.dist:338 config/prefs.php.dist:351
-#: config/prefs.php.dist:364
+#: config/prefs.php:253 config/prefs.php:266 config/prefs.php:285
 msgid "No"
 msgstr "Ні"
 
-#: templates/edit/edit.inc:163 templates/view/view.inc:67
+#: templates/fbview/legend.html:13
+msgid "No Information"
+msgstr "Нема інформації"
+
+#: lib/Kronolith.php:253
+msgid "No Notifications"
+msgstr "Без оповіщень"
+
+#: index.php:76 index.php:78
+msgid "No Sound"
+msgstr "Без звуку"
+
+#: templates/edit/edit.inc:180 templates/view/view.inc:69
 msgid "No alarm"
 msgstr "Без дзвоника"
 
-#: templates/attendees/attendees.inc:54
+#: templates/attendees/attendees.inc:55 templates/attendees/attendees.inc:91
 msgid "No attendees"
 msgstr "Без учасників"
 
-#: lib/Kronolith.php:1768
+#: templates/index/edit.inc:201
+msgid "No attendees defined"
+msgstr "Не вказано учасників"
+
+#: lib/Api.php:1097
+msgid ""
+"No attendees have been updated because none of the provided email addresses "
+"have been found in the event's attendees list."
+msgstr ""
+
+#: lib/Application.php:101
 msgid "No calendars are available to guests."
-msgstr "Немає календарів щоб шукати"
+msgstr "Для гостей нема доступних календарів."
 
-#: templates/edit/edit.inc:293 templates/view/view.inc:124
+#: lib/Driver/Sql.php:472
+msgid "No calendars to search"
+msgstr "Нема календарів для пошуку"
+
+#: templates/edit/edit.inc:352 templates/view/view.inc:129
 msgid "No end date"
-msgstr "Нема дати кінця"
+msgstr ""
 
-#: lib/Block/monthlist.php:175 lib/Block/prevmonthlist.php:166
-#: lib/Block/summary.php:208
+#: lib/Block/Monthlist.php:173 lib/Block/Prevmonthlist.php:167
+#: lib/Block/Summary.php:204 templates/mobile/javascript_defs.php:157
 msgid "No events to display"
 msgstr "Нема подій для показу"
 
-#: lib/Storage/kolab.php:67
+#: lib/FreeBusy.php:219
 #, php-format
-msgid "No free/busy information is available for %s"
-msgstr "Інформація вільний/занятий не доступна для %s"
+msgid "No free/busy information found at the free/busy url of %s."
+msgstr "Інформації вільний/занятий не знайдено за URL вільний/зайнятий %s."
 
-#: lib/api.php:397 lib/api.php:590 lib/api.php:621 lib/api.php:866
+#: lib/FreeBusy.php:221
+#, php-format
+msgid "No free/busy url found for %s."
+msgstr "Не знайдено URL вільний/зайнятий для %s."
+
+#: lib/Api.php:651 lib/Api.php:671 lib/Api.php:976
 msgid "No iCalendar data was found."
 msgstr "Даних в iCalendar не знайдено."
 
-#: lib/FreeBusy.php:166
+#: templates/index/agenda.inc:28 templates/index/tasks.inc:29
+msgid "No items"
+msgstr "Нема елементів"
+
+#: templates/index/index.inc:124 templates/index/index.inc:134
+#: templates/index/index.inc:146
+msgid "No items to display"
+msgstr "Немає елементів для показу"
+
+#: lib/Event.php:1842 templates/edit/edit.inc:289
+msgid "No recurrence"
+msgstr "Без повторень"
+
+#: lib/FreeBusy.php:162
 msgid "No valid email address found"
 msgstr "Не знайдено жодної дійсної адреси e-пошти"
 
-#: templates/prefs/sourceselect.inc:35 lib/Kronolith.php:1057
-#: lib/Kronolith.php:1078
+#: lib/Form/CreateResource.php:32 lib/Form/EditResource.php:40
+#: lib/Kronolith.php:1385 lib/Kronolith.php:1406
 msgid "None"
 msgstr "Жоден"
 
-#: lib/Views/DeleteEvent.php:27 lib/Views/EditEvent.php:27
-#: lib/Views/Event.php:26
+#: templates/index/task.inc:15
+msgid "Normal"
+msgstr "Звичайний"
+
+#: lib/View/DeleteEvent.php:37 lib/View/EditEvent.php:38 lib/View/Event.php:37
 msgid "Not Found"
 msgstr "Не знайдено"
 
-#: lib/Storage/sql.php:155
-msgid "Not found"
-msgstr "Не знайдено"
+#: templates/mobile/notice.html.php:3
+msgid "Notice"
+msgstr "Нотатка"
 
-#: config/prefs.php.dist:76
+#: templates/edit/edit.inc:195
+msgid "Notification"
+msgstr "Оповіщення"
+
+#: config/prefs.php:49
 msgid "Notifications"
-msgstr "Нагадуванян"
+msgstr "Оповіщення"
 
-#: templates/javascript/goto.js:78
-msgid "November"
-msgstr "Листопад"
-
-#: templates/search/search.inc:56
+#: templates/search/search.inc:54
 msgid "Now"
 msgstr "Зараз"
 
-#: templates/perms/perms.inc:166
+#: templates/chunks/permissions.inc:159 templates/perms/perms.inc:133
 msgid "Object Creator"
 msgstr "Створювач об'єкту"
 
-#: templates/javascript/goto.js:77
-msgid "October"
-msgstr "Жовтень"
+#: templates/edit/edit_timespan.inc:13 templates/edit/edit_timespan.inc:58
+msgid "On"
+msgstr "В"
 
-#: perms.php:57
+#: lib/Event.php:1577
+#, php-format
+msgid "On %s"
+msgstr "в %s"
+
+#: config/prefs.php:256 config/prefs.php:269 config/prefs.php:288
+msgid "On all calendars I have read access to"
+msgstr ""
+
+#: config/prefs.php:255 config/prefs.php:268 config/prefs.php:287
+msgid "On all shown calendars"
+msgstr "у всіх показаних календарах"
+
+#: config/prefs.php:254 config/prefs.php:267 config/prefs.php:286
+msgid "On my calendars only"
+msgstr "тільки у моїх календарах"
+
+#: lib/Kronolith.php:1737
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
 "Тільки власник або адміністратор може змінити права власності на пісочницю"
 
-#: lib/Kronolith.php:1075
+#: lib/Kronolith.php:1403
 msgid "Optional"
-msgstr "Опційний"
+msgstr "Опціонально"
 
-#: lib/FBView.php:119
+#: lib/FreeBusy/View.php:163
 msgid "Optional Attendees"
 msgstr "Необов'язкові Учасники"
 
-#: config/prefs.php.dist:93
-msgid "Other Options"
-msgstr "Інші опції"
+#: templates/index/index.inc:33
+msgid "Options"
+msgstr "Опції"
 
-#: lib/FBView.php:154
+#: templates/perms/perms.inc:256
+msgid "Or enter a user name:"
+msgstr "Або вкажіть назву користувача:"
+
+#: config/prefs.php:65
+msgid "Other Preferences"
+msgstr "Інші Налаштування"
+
+#: lib/Kronolith.php:263
+msgid "Other events"
+msgstr "Інші події"
+
+#: lib/FreeBusy/View.php:238
 msgid "Overview"
 msgstr "Загальний огляд"
 
-#: templates/view/view.inc:28
+#: templates/perms/perms.inc:22 templates/view/view.inc:28
 msgid "Owner"
 msgstr "Власник"
 
-#: templates/perms/perms.inc:28
-msgid "Owner Permissions"
-msgstr "Права Власника"
-
-#: templates/perms/perms.inc:40 templates/perms/perms.inc:51
+#: templates/perms/perms.inc:28 templates/perms/perms.inc:37
 msgid "Owner:"
 msgstr "Власник:"
 
-#: lib/Driver.php:2237
+#: lib/Event.php:2724
 #, php-format
 msgid "Owner: %s"
 msgstr "Власник: %s"
+
+#: lib/Kronolith.php:1750
+msgid "Ownership assignment"
+msgstr "Призначення власника"
 
 #: templates/data/export.inc:119 templates/data/export.inc:204
 msgid "PM"
 msgstr "РМ"
 
-#: templates/prefs/remote_cal_management.inc:76
+#: lib/Form/EditRemoteCalendar.php:29 lib/Form/SubscribeRemoteCalendar.php:29
+#: templates/chunks/calendar.php:246
 msgid "Password"
 msgstr "Пароль"
 
-#: templates/edit/edit.inc:225 templates/view/view.inc:93
+#: templates/index/agenda.inc:14
+msgid "Past"
+msgstr "Минула"
+
+#: templates/edit/edit.inc:284 templates/view/view.inc:95
 msgid "Pattern"
-msgstr "Трафарет"
+msgstr "Шаблон"
 
 #: templates/delete/one.inc:22
 msgid "Permanently delete this event?"
 msgstr "Вдалити цю подію назавжди?"
 
-#: lib/api.php:569 lib/api.php:662 lib/api.php:715 lib/api.php:803
-#: lib/api.php:836 lib/api.php:928 lib/api.php:984 lib/Driver/sql.php:776
+#: lib/Ajax/Application.php:882 lib/Block/Month.php:74
+#: lib/Block/Monthlist.php:83 lib/Block/Prevmonthlist.php:82
+#: lib/Block/Summary.php:100 lib/Kronolith.php:2905 lib/Kronolith.php:2913
+#: lib/Kronolith.php:2919 lib/Kronolith.php:2925
 msgid "Permission Denied"
 msgstr "Доступ заборонений"
 
-#: templates/calendars/calendars.inc:111
+#: lib/Form/DeleteResource.php:50 lib/Form/DeleteResourceGroup.php:51
+msgid "Permission denied"
+msgstr "В доступі відмовлено"
+
+#: feed/index.php:38
+#, php-format
+msgid "Permission denied for the requested feed (%s)."
+msgstr "Доступ до вказаного потоку заборонений (%s)."
+
+#: templates/chunks/permissions.inc:96 templates/chunks/permissions.inc:192
+#: templates/chunks/permissions.inc:245
 msgid "Permissions"
 msgstr "Права"
 
-#: lib/Imple/ContactAutoCompleter.php:224
-msgid "Please resolve ambiguous or invalid addresses."
-msgstr "Будь-ласка, уточніть або виправте некоректні адреси."
+#: lib/Kronolith.php:273
+msgid "Please enter correct values in the form first."
+msgstr "Будь-ласка, спершу введіть коректні значення у форму."
 
-#: config/prefs.php.dist:21
-msgid "Portal Options"
-msgstr "Опції Порталу"
+#: templates/mobile/day.html.php:4 templates/mobile/month.html.php:4
+#: templates/mobile/summary.html.php:4
+msgid "Portal"
+msgstr "Портал"
 
-#: lib/FBView/day.php:25
+#: templates/fbview/legend.html:11
+msgid "Possible Meeting Time"
+msgstr "Можливий час зустрічі"
+
+#: lib/Kronolith.php:261
+msgid "Preferences"
+msgstr "Опції"
+
+#: templates/index/agenda.inc:8 templates/index/day.inc:8
+#: templates/index/month.inc:6 templates/index/week.inc:7
+#: templates/index/year.inc:7 templates/mobile/day.html.php:16
+msgid "Previous"
+msgstr "Попередня"
+
+#: lib/FreeBusy/View/Day.php:25
 msgid "Previous Day"
 msgstr "Попередній день"
 
-#: lib/FBView/month.php:26
+#: lib/FreeBusy/View/Month.php:38
 msgid "Previous Month"
 msgstr "Попередній місяць"
 
-#: lib/FBView/week.php:26
+#: lib/FreeBusy/View/Week.php:39
 msgid "Previous Week"
 msgstr "Попередній тиждень"
 
-#: templates/day/head.inc:3
+#: templates/day/head.inc:5
 msgid "Previous day"
 msgstr "Попередній день"
 
-#: lib/Driver.php:1259
-#, php-format
-msgid "Private Event from %s to %s"
-msgstr "Приватна подія від %s до %s"
+#: templates/index/index.inc:73 templates/mobile/month.html.php:16
+msgid "Previous month"
+msgstr "Попередній місяць"
 
-#: lib/Driver.php:2168 lib/Driver.php:2169
+#: templates/index/edit.inc:211
+msgid "Previously used tags"
+msgstr "Використані раніше ярлики"
+
+#: templates/index/agenda.inc:17 templates/index/day.inc:11
+#: templates/index/month.inc:9 templates/index/tasks.inc:13
+#: templates/index/week.inc:10 templates/index/year.inc:10
+msgid "Print"
+msgstr "Друк"
+
+#: config/prefs.php:171 config/prefs.php:182
+msgid "Print Views"
+msgstr "Вигляди друку"
+
+#: lib/Block/Prevmonthlist.php:13
+msgid "Prior Events"
+msgstr "Попередні Події"
+
+#: templates/index/task.inc:13
+msgid "Priority"
+msgstr "Пріоритет"
+
+#: lib/Event.php:2656
 msgid "Private event"
 msgstr "Приватна подія"
 
-#: templates/edit/edit.inc:120
+#: templates/edit/edit.inc:125
 msgid "Private?"
-msgstr "Приватне?"
+msgstr "Приватна?"
 
-#: templates/perms/perms.inc:31 templates/perms/perms.inc:61
-#: templates/perms/perms.inc:87 templates/perms/perms.inc:102
-#: templates/perms/perms.inc:128 templates/perms/perms.inc:143
-#: templates/perms/perms.inc:169 templates/perms/perms.inc:184
-#: templates/perms/perms.inc:210 templates/perms/perms.inc:225
-#: templates/perms/perms.inc:266 templates/perms/perms.inc:292
-#: templates/perms/perms.inc:307 templates/perms/perms.inc:341
+#: config/prefs.php:362
+msgid "Purge old events from your calendar?"
+msgstr "Витерти старі події з Вашого календара?"
+
+#: config/prefs.php:369
+msgid "Purge old events how often:"
+msgstr "Як часто вичищати старі події:"
+
+#: config/prefs.php:375
+msgid "Purge old events older than this amount of days."
+msgstr "Вичистити старі події, що старші за таку кількість днів."
+
+#: templates/index/index.inc:67
+msgid "Quick _insert"
+msgstr "Швидка вставка"
+
+#: templates/chunks/permissions.inc:111 templates/chunks/permissions.inc:138
+#: templates/chunks/permissions.inc:166 templates/chunks/permissions.inc:219
+#: templates/chunks/permissions.inc:266 templates/perms/perms.inc:53
+#: templates/perms/perms.inc:68 templates/perms/perms.inc:94
+#: templates/perms/perms.inc:109 templates/perms/perms.inc:136
+#: templates/perms/perms.inc:151 templates/perms/perms.inc:177
+#: templates/perms/perms.inc:196 templates/perms/perms.inc:236
+#: templates/perms/perms.inc:267 templates/perms/perms.inc:294
+#: templates/perms/perms.inc:309 templates/perms/perms.inc:343
 msgid "Read"
 msgstr "Читати"
 
-#: lib/Scheduler/kronolith.php:261
+#: lib/Form/DeleteCalendar.php:31
 #, php-format
-msgid "Reminder: %s"
-msgstr "Нагадувач: %s"
+msgid ""
+"Really delete the calendar \"%s\"? This cannot be undone and all data on "
+"this calendar will be permanently removed."
+msgstr ""
+"Справді витерти календар \"%s\"? Це незворотня операція і всі дані з цього "
+"календара будуть назавжди витерті."
 
-#: config/prefs.php.dist:62
+#: lib/Form/DeleteResource.php:34 lib/Form/DeleteResourceGroup.php:35
+#, php-format
+msgid ""
+"Really delete the resource \"%s\"? This cannot be undone and all data on "
+"this resource will be permanently removed."
+msgstr ""
+"Справді витерти ресурс \"%s\"? Це незворотня операція і всі дані з цього "
+"ресурсу будуть назавжди витерті."
+
+#: lib/Form/UnsubscribeRemoteCalendar.php:25
+#, php-format
+msgid "Really unsubscribe from the calendar \"%s\" (%s)?"
+msgstr "Справді відписатися від календара \"%s\" (%s)?"
+
+#: templates/edit/edit.inc:349 templates/view/view.inc:128
+msgid "Recur Until"
+msgstr "Повторюється до"
+
+#: templates/edit/edit.inc:274 templates/view/view.inc:92
+msgid "Recurrence"
+msgstr "Повторення"
+
+#: data.php:73
+msgid "Recurrence Data"
+msgstr "Дані Повторення"
+
+#: data.php:71
+msgid "Recurrence End Date"
+msgstr "Дата кінця повторення"
+
+#: lib/Event.php:2522
+msgid "Recurrence End Day"
+msgstr "День кінця повторення"
+
+#: lib/Event.php:2508
+msgid "Recurrence End Month"
+msgstr "Місяць кінця повторення"
+
+#: lib/Event.php:2492
+msgid "Recurrence End Year"
+msgstr "Рік кінця повторення"
+
+#: data.php:72
+msgid "Recurrence Interval"
+msgstr "Інтервал повторення"
+
+#: data.php:70
+msgid "Recurrence Type"
+msgstr "Тип повторення"
+
+#: lib/Kronolith.php:1319
+msgid "Recurs daily"
+msgstr "Повторюється щодня"
+
+#: templates/mobile/javascript_defs.php:180
+#, php-format
+msgid "Recurs every %s months on the %s"
+msgstr "Повторювати кожні %s місяців в %s"
+
+#: templates/mobile/javascript_defs.php:182
+#, php-format
+msgid "Recurs every %s months on the same weekday"
+msgstr "Повторювати кожні %s місяців в той самий день тижня"
+
+#: templates/mobile/javascript_defs.php:178
+#, php-format
+msgid "Recurs every %s weeks on %s"
+msgstr ""
+
+#: templates/mobile/javascript_defs.php:184
+#, php-format
+msgid "Recurs every %s years on %s"
+msgstr ""
+
+#: templates/mobile/javascript_defs.php:186
+#, php-format
+msgid "Recurs every %s years on the same day"
+msgstr ""
+
+#: templates/mobile/javascript_defs.php:181
+msgid "Recurs every month on the same weekday"
+msgstr "Повторювати щомісяця в той самий день тижня"
+
+#: lib/Kronolith.php:1326
+msgid "Recurs monthly"
+msgstr "Повторюється щомісячно"
+
+#: templates/mobile/javascript_defs.php:179
+#, php-format
+msgid "Recurs on the %s of every month"
+msgstr "Повторюється в %s щомісяця"
+
+#: templates/mobile/javascript_defs.php:183
+#, php-format
+msgid "Recurs once a year, on %s"
+msgstr "Повторюється раз на рік, в %s"
+
+#: templates/mobile/javascript_defs.php:185
+msgid "Recurs once a year, on the same day"
+msgstr "Повторюється раз на рік, в той самий день"
+
+#: lib/Kronolith.php:1322
+msgid "Recurs weekly"
+msgstr "Повторюється щотижня"
+
+#: templates/mobile/javascript_defs.php:177
+#, php-format
+msgid "Recurs weekly on every %s"
+msgstr "Повторюється щотижня в кожен %s"
+
+#: lib/Kronolith.php:1331
+msgid "Recurs yearly"
+msgstr "Повторюється щорічно"
+
+#: templates/index/edit.inc:70 templates/index/task.inc:47
+msgid "Reminder"
+msgstr "Нагадування"
+
+#: templates/calendar_list.php:37
+msgid "Remote"
+msgstr "Віддалений"
+
+#: templates/calendar_info.php:5
+msgid "Remote Calendar from: "
+msgstr "Віддалений календар від:"
+
+#: templates/index/index.inc:143
 msgid "Remote Calendars"
 msgstr "Віддалені Календарі"
 
-#: templates/panel.inc:72
+#: search.php:93 templates/panel.inc:148
 msgid "Remote Calendars:"
 msgstr "Віддалені календарі:"
 
-#: templates/calendars/calendars.inc:135
-msgid "Remote Subscription URL"
-msgstr "Віддалений URL підписки"
-
-#: templates/contacts/contacts.inc:172
+#: templates/contacts/contacts.inc:173
 msgid "Remove"
 msgstr "Видалити"
 
-#: templates/attendees/attendees.inc:57
+#: templates/attendees/attendees.inc:58 templates/attendees/attendees.inc:94
 #, php-format
 msgid "Remove %s"
 msgstr "Видалити %s"
 
-#: attendees.php:145
+#: attendees.php:177
 msgid "Remove Attendee"
-msgstr "Видалити Учасники"
+msgstr "Видалити Учасника"
 
-#: templates/prefs/sourceselect.inc:300
-msgid "Remove source"
-msgstr "Видалити джерело"
+#: lib/Ajax/Imple/TagActions.php:112 templates/panel.inc:88
+msgid "Remove Tag"
+msgstr "Видалити ярлик"
 
-#: lib/Driver.php:255
+#: lib/Driver.php:383
 msgid ""
 "Removing user data is not supported with the current calendar storage "
 "backend."
 msgstr ""
 "Видалення даних користувача не підтримується поточною підсистемою зберігання "
 "календара."
+
+#: templates/index/edit.inc:71
+msgid "Repeat"
+msgstr ""
+
+#: templates/index/edit.inc:124
+#, php-format
+msgid "Repeat %s every day %s or %s every %s days %s"
+msgstr ""
+
+#: templates/index/edit.inc:143
+#, php-format
+msgid ""
+"Repeat %s every month %s or %s every %s months, %s on the same %s date %s or "
+"%s weekday %s"
+msgstr ""
+
+#: templates/index/edit.inc:130
+#, php-format
+msgid "Repeat %s every week %s or %s every %s weeks %s On %s"
+msgstr ""
+
+#: templates/index/edit.inc:151
+#, php-format
+msgid ""
+"Repeat %s every year %s or %s every %s years %s on the same %s date %s day "
+"of the year %s month and weekday %s"
+msgstr ""
 
 #: templates/data/import.inc:31
 msgid ""
@@ -1193,61 +2186,115 @@ msgstr ""
 "Замінити існуючий календар імпортованим? <strong>Увага: Це видалить всі "
 "елементи Вашого поточного календаря. </strong>"
 
-#: lib/Kronolith.php:1082
+#: lib/Kronolith.php:1410
 msgid "Required"
 msgstr "Необхідний"
 
-#: lib/FBView.php:98 lib/FBView.php:139 lib/FBView.php:142 lib/FBView.php:145
+#: lib/FreeBusy/View.php:142 lib/FreeBusy/View.php:212
+#: lib/FreeBusy/View.php:215 lib/FreeBusy/View.php:218
 msgid "Required Attendees"
 msgstr "Необхідні Учасники"
 
-#: templates/edit/edit.inc:52 templates/edit/edit.inc:380
+#: lib/FreeBusy/View.php:192
+msgid "Required Resources"
+msgstr "Необхідні Ресурси"
+
+#: templates/edit/edit.inc:55 templates/edit/edit.inc:436
 msgid "Reset to Defaults"
 msgstr "Очистити до типових"
 
-#: templates/view/view.inc:173 templates/attendees/attendees.inc:49
+#: templates/attendees/attendees.inc:84 templates/view/view.inc:185
+msgid "Resource"
+msgstr "Ресурс"
+
+#: resources/groups/index.php:53
+msgid "Resource Group List"
+msgstr "Список груп Ресурсів"
+
+#: resources/groups/index.php:16
+msgid "Resource Groups"
+msgstr "Групи Ресурсів"
+
+#: resources/index.php:56
+msgid "Resource List"
+msgstr "Список Ресурсів"
+
+#: lib/Driver/Resource.php:122
+msgid "Resource not valid."
+msgstr "Некоректний ресурс."
+
+#: lib/Form/CreateResourceGroup.php:35 lib/Form/EditResourceGroup.php:45
+#: resources/groups/index.php:44 resources/index.php:47
+#: templates/view/view.inc:182
+msgid "Resources"
+msgstr "Ресурси"
+
+#: templates/attendees/attendees.inc:50 templates/attendees/attendees.inc:86
+#: templates/view/view.inc:171 templates/view/view.inc:187
 msgid "Response"
 msgstr "Відповідь"
 
-#: templates/javascript/goto.js:64 templates/edit/edit.inc:249
-#: lib/Views/Year.php:82 lib/Block/month.php:107
+#: lib/Form/CreateResource.php:46 lib/Form/EditResource.php:55
+msgid "Response type"
+msgstr "Тип відповіді"
+
+#: config/prefs.php:142
+msgid ""
+"Restrict day and week views to these time slots, even if there <strong>are</"
+"strong> earlier or later events?"
+msgstr ""
+
+#: resources/groups/index.php:50
+msgid "Return to Single Resources"
+msgstr "Назад до окремих ресурсів"
+
+#: templates/panel.inc:48
+msgid "Return to calendars"
+msgstr "Назад до календарів"
+
+#: templates/panel.inc:48
+msgid "Return to my calendars"
+msgstr "Назад до моїх календарів"
+
+#: lib/Block/Month.php:116 lib/View/Year.php:67 templates/edit/edit.inc:308
 msgid "Sa"
 msgstr "Сб"
 
-#: templates/month/head.inc:22 templates/edit/javascript.inc:72
-#: templates/view/view.inc:104
+#: templates/index/edit.inc:139 templates/month/head.inc:22
+#: templates/view/view.inc:108
 msgid "Saturday"
 msgstr "Субота"
 
-#: templates/panel.inc:82 templates/calendars/calendars.inc:144
+#: lib/Form/EditCalendar.php:39 lib/Form/EditRemoteCalendar.php:33
+#: lib/Form/EditResource.php:57 lib/Form/EditResourceGroup.php:46
+#: templates/chunks/calendar.php:126 templates/chunks/calendar.php:201
+#: templates/chunks/calendar.php:271 templates/chunks/calendar.php:295
+#: templates/index/edit.inc:227 templates/index/index.inc:195
+#: templates/index/task.inc:84 templates/panel.inc:167
 msgid "Save"
 msgstr "Зберегти"
 
-#: templates/perms/perms.inc:364
+#: templates/perms/perms.inc:366
 #, php-format
 msgid "Save %s"
 msgstr "Зберегти %s"
 
-#: templates/edit/edit.inc:40 lib/Kronolith.php:1646
-#: lib/Views/EditEvent.php:78 lib/Views/EditEvent.php:88
+#: lib/Kronolith.php:2723 lib/View/EditEvent.php:97 lib/View/EditEvent.php:106
+#: templates/edit/edit.inc:43 templates/index/edit.inc:228
 msgid "Save As New"
-msgstr "Зберегти як Новий"
+msgstr "Зберегти як Нову"
 
-#: templates/attendees/attendees.inc:93
-msgid "Save Attendees"
-msgstr "Зберегти Учасників"
-
-#: new.php:56 lib/Views/EditEvent.php:81
+#: lib/View/EditEvent.php:100 new.php:61
 msgid "Save Event"
 msgstr "Зберегти подію"
 
-#: templates/attendees/attendees.inc:94
+#: templates/attendees/attendees.inc:149 templates/perms/perms.inc:367
 msgid "Save and Finish"
 msgstr "Зберегти і Закінчити"
 
-#: search.php:89 templates/contacts/contacts.inc:155
-#: templates/search/search.inc:67 templates/search/search_advanced.inc:114
-#: lib/Block/tree_menu.php:26
+#: lib/Application.php:507 search.php:113 templates/contacts/contacts.inc:156
+#: templates/index/index.inc:92 templates/search/search.inc:65
+#: templates/search/search_advanced.inc:87
 msgid "Search"
 msgstr "Пошук"
 
@@ -1255,46 +2302,57 @@ msgstr "Пошук"
 msgid "Search Results"
 msgstr "Результати пошуку"
 
-#: templates/contacts/contacts.inc:160
+#: templates/panel.inc:59
+msgid "Search for Calendars:"
+msgstr "Пошук Календарів:"
+
+#: templates/contacts/contacts.inc:161
 msgid "Search results"
 msgstr "Результати пошуку"
 
-#: lib/Storage.php:135
-msgid "Searching free/busy is not available."
-msgstr "Пошук вільний/зайнятий не доступний."
+#: lib/Geo/Sql.php:116
+msgid "Searching requires a GIS enabled database."
+msgstr ""
 
-#: templates/calendars/calendars.inc:94
-msgid "Select a calendar to edit"
-msgstr "Виберіть календар для редагування"
+#: templates/chunks/permissions.inc:253
+msgid "Select a group"
+msgstr "Виберіть групу"
 
-#: templates/edit/edit.inc:311 templates/edit/edit_timespan.inc:29
-#: templates/edit/edit_timespan.inc:79
-msgid "Select a date"
-msgstr "Виберіть дату"
-
-#: templates/perms/perms.inc:329
+#: templates/perms/perms.inc:331
 msgid "Select a group to add"
 msgstr "Виберіть групу для додавання"
 
-#: templates/perms/perms.inc:327
+#: templates/chunks/permissions.inc:251 templates/perms/perms.inc:329
 msgid "Select a group to add:"
 msgstr "Виберіть групу для додавання:"
 
-#: templates/perms/perms.inc:42
+#: templates/chunks/permissions.inc:77 templates/perms/perms.inc:30
 msgid "Select a new owner:"
 msgstr "Виберіть нового власника:"
 
-#: templates/perms/perms.inc:246 templates/perms/perms.inc:248
+#: templates/chunks/permissions.inc:201
+msgid "Select a user"
+msgstr "Виберіть користувача"
+
+#: templates/perms/perms.inc:218 templates/perms/perms.inc:220
 msgid "Select a user to add:"
 msgstr "Виберіть, якого користувача додати:"
 
-#: config/prefs.php.dist:95
+#: config/prefs.php:67
 msgid "Select address book sources for adding and searching for addresses."
 msgstr "Вкажіть джерела адресника для пошуку і додавання адрес."
 
-#: templates/prefs/sourceselect.inc:319
-msgid "Select all fields to search when expanding addresses."
-msgstr "Виберіть всі поля для пошуку при розкритті адрес."
+#: config/prefs.php:14
+msgid ""
+"Select confirmation preferences, how to display the different views and "
+"choose default view."
+msgstr ""
+"Вкажіть опції підтвердження, параметри відображення різних виглядів і "
+"вкажіть типовий вигляд."
+
+#: templates/attendees/attendees.inc:137
+msgid "Select resource"
+msgstr "Виберіть ресурс"
 
 #: templates/data/import.inc:18
 msgid "Select the calendar to import to:"
@@ -1312,7 +2370,7 @@ msgstr "Виберіть формати експорту:"
 msgid "Select the file to import:"
 msgstr "Виберіть файл для імпорту:"
 
-#: config/prefs.php.dist:137
+#: config/prefs.php:115
 msgid "Select the first weekday:"
 msgstr "Виберіть перший день тижня:"
 
@@ -1320,474 +2378,1011 @@ msgstr "Виберіть перший день тижня:"
 msgid "Select the format of the source file:"
 msgstr "Виберіть формат вихідного файлу:"
 
-#: config/prefs.php.dist:236
-msgid "Select the time span to show:"
-msgstr "Виберіть проміжок часу для показу:"
-
-#: config/prefs.php.dist:119
+#: config/prefs.php:95
 msgid "Select the view to display on startup:"
 msgstr "Виберіть вид сторінки при вході:"
 
-#: config/prefs.php.dist:22
-msgid "Select which events to show in the portal."
-msgstr "Виберіть які події показувати в порталі."
-
-#: config/prefs.php.dist:265
-msgid "Select which external events you would like to display"
-msgstr "Виберіть, які зовнішні події показувати"
-
-#: templates/prefs/sourceselect.inc:303 templates/prefs/sourceselect.inc:305
-msgid "Selected Address books:"
-msgstr "Вибрані адресники:"
-
-#: templates/contacts/contacts.inc:175
+#: templates/contacts/contacts.inc:176
 msgid "Selected addresses"
 msgstr "Вибрані адреси"
 
-#: templates/delete/delete.inc:19 templates/delete/one.inc:19
-msgid "Send a cancel notification to all attendees when deleting this event"
+#: templates/delete/delete.inc:21 templates/delete/one.inc:19
+msgid "Send a cancel notification to all attendees when deleting this event?"
 msgstr ""
-"Надіслати повідомлення про відміну всім учасникам при видаленні цієї події"
+"Надіслати увідомлення про відміну всім учасникам при видаленні цієї події?"
 
-#: templates/view/view.inc:177
+#: templates/view/view.inc:175
 #, php-format
 msgid "Send an email to %s"
 msgstr "Надіслати листа до %s"
 
-#: templates/javascript/goto.js:76
-msgid "September"
-msgstr "Вересень"
+#: templates/edit/edit.inc:428
+msgid "Send invitations to all attendees?"
+msgstr "Надіслати запрошення всім учасникам?"
 
-#: templates/edit/edit_timespan.inc:79
+#: templates/index/edit.inc:185
+#, php-format
+msgid "Send invites%s to all attendees"
+msgstr "Надіслати запрошення%s всім учасникам"
+
+#: templates/edit/edit.inc:428
+msgid "Send updates to all attendees?"
+msgstr "Надіслати оновлення всім учасникам?"
+
+#: config/prefs.php:34
+msgid "Set default values for new events."
+msgstr "Встановіть типові значення для нової події."
+
+#: templates/index/task.inc:24
+msgid "Set due date"
+msgstr "Встановіть термін"
+
+#: templates/edit/edit_timespan.inc:70 templates/index/edit.inc:29
+#: templates/index/edit.inc:164
 msgid "Set end date"
 msgstr "Встановіть дату кінця"
 
-#: calendars.php:80
-#, php-format
-msgid "Share not found: %s"
-msgstr "Пісочниця не знайдена: %s"
+#: templates/edit/edit.inc:367
+msgid "Set recurrence end date"
+msgstr "Встановіть дату кінця повторення"
 
-#: templates/panel.inc:64
+#: templates/edit/edit_timespan.inc:24 templates/index/edit.inc:20
+msgid "Set start date"
+msgstr "Встановіть дату початку"
+
+#: config/prefs.php:60
+msgid ""
+"Set your Free/Busy calendars and your own and other users' Free/Busy "
+"preferences."
+msgstr ""
+"Налаштуйте опції щодо Вашого, а також інших осіб, клендара з інформацією "
+"Вільний/Зайнятий."
+
+#: lib/Kronolith.php:262
+msgid "Shared"
+msgstr "Спільний"
+
+#: templates/index/index.inc:121
+msgid "Shared Calendars"
+msgstr "Спільні Календарі"
+
+#: search.php:81 templates/panel.inc:125
 msgid "Shared Calendars:"
 msgstr "Спільні Календарі:"
 
-#: templates/edit/javascript.inc:262 templates/perms/perms.inc:30
-#: templates/perms/perms.inc:57 templates/perms/perms.inc:86
-#: templates/perms/perms.inc:98 templates/perms/perms.inc:127
-#: templates/perms/perms.inc:139 templates/perms/perms.inc:168
-#: templates/perms/perms.inc:180 templates/perms/perms.inc:209
-#: templates/perms/perms.inc:221 templates/perms/perms.inc:262
-#: templates/perms/perms.inc:291 templates/perms/perms.inc:303
-#: templates/perms/perms.inc:337
+#: templates/index/index.inc:131
+msgid "Shared Task Lists"
+msgstr "Спільні Списки завдань"
+
+#: templates/chunks/calendar.php:53 templates/chunks/calendar.php:161
+msgid "Sharing"
+msgstr "Роздача"
+
+#: templates/chunks/permissions.inc:107 templates/chunks/permissions.inc:134
+#: templates/chunks/permissions.inc:162 templates/chunks/permissions.inc:215
+#: templates/chunks/permissions.inc:262 templates/edit/edit.inc:3
+#: templates/perms/perms.inc:52 templates/perms/perms.inc:64
+#: templates/perms/perms.inc:93 templates/perms/perms.inc:105
+#: templates/perms/perms.inc:135 templates/perms/perms.inc:147
+#: templates/perms/perms.inc:176 templates/perms/perms.inc:192
+#: templates/perms/perms.inc:232 templates/perms/perms.inc:263
+#: templates/perms/perms.inc:293 templates/perms/perms.inc:305
+#: templates/perms/perms.inc:339
 msgid "Show"
 msgstr "Показати"
 
-#: config/prefs.php.dist:208
-msgid "Show calendar options panel?"
-msgstr "Показати панель опцій календара?"
-
-#: config/prefs.php.dist:198
-msgid "Show category legend?"
-msgstr "Показати позначення категорій?"
-
-#: config/prefs.php.dist:218
-msgid "Show free/busy legend?"
+#: config/prefs.php:198
+msgid "Show Free/Busy legend?"
 msgstr "Показати позначення вільний/занятий?"
 
-#: config/prefs.php.dist:255
+#: config/prefs.php:162
+msgid "Show delete, alarm, and recurrence icons in calendar views?"
+msgstr ""
+
+#: lib/Block/Monthlist.php:34 lib/Block/Prevmonthlist.php:32
+#: lib/Block/Summary.php:53
 msgid "Show only events that have an alarm set?"
 msgstr "Показувати тільки події з встановленим нагадуванням?"
 
-#: config/prefs.php.dist:227
+#: config/prefs.php:205
 msgid "Show shared calendars side-by-side?"
 msgstr "Показати спільні календарі поряд?"
+
+#: config/prefs.php:75
+msgid "Show the dynamic view by default, if the browser supports it?"
+msgstr "Використовувати як типовий Динамічний режим, якщо браузер дозволяє це?"
+
+#: config/prefs.php:108
+msgid "Show time of day between each day in week views?"
+msgstr ""
+
+#: templates/panel.inc:52
+msgid "Showing calendar:"
+msgid_plural "Showing calendars:"
+msgstr[0] "Показую Календар:"
+msgstr[1] "Показую Календарі:"
+msgstr[2] "Показую Календарі:"
 
 #: templates/edit/edit_timespan.inc:11
 msgid "Sta_rt"
 msgstr "Старт"
 
-#: data.php:56
+#: data.php:61
 msgid "Start Date"
 msgstr "Початкова дата"
 
-#: templates/edit/edit.inc:110 templates/search/search_advanced.inc:94
+#: lib/Event.php:2392 templates/data/export.inc:68
+msgid "Start Day"
+msgstr "День початку"
+
+#: lib/Event.php:2402 templates/data/export.inc:87
+msgid "Start Hour"
+msgstr "Година початку"
+
+#: lib/Event.php:2411 templates/data/export.inc:102
+msgid "Start Minute"
+msgstr "Хвилина початку"
+
+#: lib/Event.php:2384 templates/data/export.inc:54
+msgid "Start Month"
+msgstr "Місяць початку"
+
+#: templates/data/export.inc:37 templates/search/event_headers.inc:6
+#: templates/view/view.inc:35
+msgid "Start On"
+msgstr "Початок в"
+
+#: data.php:62
+msgid "Start Time"
+msgstr "Час початку"
+
+#: lib/Event.php:2374 templates/data/export.inc:39
+msgid "Start Year"
+msgstr "Рік початку"
+
+#: templates/itip/notification.html.php:16
+msgid "Start:"
+msgstr "Старт:"
+
+#: templates/edit/edit.inc:115 templates/search/search_advanced.inc:65
 msgid "Stat_us"
 msgstr "Статус"
 
-#: templates/search/event_headers.inc:6 templates/view/view.inc:21
+#: templates/index/edit.inc:43 templates/search/event_headers.inc:5
+#: templates/view/view.inc:21
 msgid "Status"
 msgstr "Статус"
 
-#: templates/javascript/goto.js:65 templates/edit/edit.inc:250
-#: lib/Views/Year.php:75 lib/Views/Year.php:84 lib/Block/month.php:109
-#: lib/Block/month.php:111
+#: templates/index/edit.inc:160
+#, php-format
+msgid "Stop %s never%s, %s at %s or %s after %s recurrences %s"
+msgstr ""
+
+#: lib/Block/Month.php:118 lib/Block/Month.php:120 lib/View/Year.php:60
+#: lib/View/Year.php:69 templates/edit/edit.inc:309
 msgid "Su"
 msgstr "Нд"
 
+#: lib/Form/SubscribeRemoteCalendar.php:31 templates/chunks/calendar.php:128
+#: templates/chunks/calendar.php:203
+msgid "Subscribe"
+msgstr "Замовити"
+
+#: templates/chunks/calendar.php:88
+msgid "Subscribe from a feed reader"
+msgstr ""
+
+#: templates/chunks/calendar.php:83 templates/chunks/calendar.php:183
+msgid "Subscribe from another calendar program"
+msgstr ""
+
+#: lib/Form/SubscribeRemoteCalendar.php:22 templates/calendar_list.php:17
+msgid "Subscribe to a Remote Calendar"
+msgstr "Підписатись на віддалений календар"
+
+#: templates/chunks/calendar.php:59 templates/chunks/calendar.php:167
+msgid "Subscription"
+msgstr "Підписка"
+
+#: templates/calendar_list.php:27 templates/chunks/calendar.php:82
+#: templates/chunks/calendar.php:182
+msgid "Subscription URL"
+msgstr "URL підписки"
+
+#: templates/mobile/day.html.php:12 templates/mobile/month.html.php:12
+#: templates/mobile/summary.html.php:3 templates/mobile/summary.html.php:12
+msgid "Summary"
+msgstr "Резюме"
+
+#: config/prefs.php:117 templates/index/edit.inc:140
 #: templates/month/head.inc:15 templates/month/head.inc:24
-#: templates/edit/javascript.inc:66 templates/view/view.inc:105
-#: config/prefs.php.dist:138
+#: templates/view/view.inc:109
 msgid "Sunday"
 msgstr "Неділя"
 
-#: lib/Kronolith.php:1030 lib/Kronolith.php:1053
+#: templates/calendar_list.php:47
+msgid "System"
+msgstr "Системний"
+
+#: lib/Form/CreateCalendar.php:29 lib/Form/EditCalendar.php:36
+msgid "System Calendar"
+msgstr "Системний Календар"
+
+#: templates/calendar_info.php:18
+msgid "System calendar."
+msgstr "Системний календар."
+
+#: lib/Form/CreateCalendar.php:29 lib/Form/EditCalendar.php:36
+msgid ""
+"System calendars don't have an owner. Only administrators can change the "
+"calendar settings and permissions."
+msgstr ""
+"Системні календарі не мають власника. Тільки адміністратор може змінити "
+"налаштування і права на календар."
+
+#: lib/Form/CreateCalendar.php:27 lib/Form/EditCalendar.php:34
+#: templates/chunks/calendar.php:48 templates/edit/edit.inc:404
+#: templates/edit/edit.inc:410 templates/index/edit.inc:74
+#: templates/panel.inc:79 templates/view/view.inc:143
+msgid "Tags"
+msgstr "Ярлики"
+
+#: templates/chunks/calendar.php:196
+msgid "Task list ICS file"
+msgstr ""
+
+#: templates/chunks/permissions.inc:69
+msgid "Task list owner"
+msgstr "Власник Списку завдань"
+
+#: templates/index/task.inc:7
+msgid "Task title"
+msgstr "Назва завдання"
+
+#: templates/index/index.inc:49 templates/index/tasks.inc:5
+msgid "Tasks"
+msgstr "Завдання"
+
+#: lib/Kronolith.php:1358 lib/Kronolith.php:1381 templates/index/edit.inc:46
 msgid "Tentative"
 msgstr "Попередньо"
 
-#: templates/javascript/goto.js:62 templates/edit/edit.inc:247
-#: lib/Views/Year.php:80 lib/Block/month.php:107
+#: lib/Block/Month.php:116 lib/View/Year.php:65 templates/edit/edit.inc:306
 msgid "Th"
 msgstr "Чт"
 
-#: data.php:238
+#: data.php:244
 #, php-format
 msgid "The %s file didn't contain any events."
 msgstr "Файл %s не містить жодних подій."
+
+#: lib/Driver.php:65
+msgid "The Calendar backend is not currently available."
+msgstr "Підсистема Календара зараз недоступна."
+
+#: lib/Factory/Driver.php:36
+#, php-format
+msgid "The Calendar backend is not currently available: %s"
+msgstr "Підсистема Календара зараз недоступна: %s"
 
 #: templates/contacts/contacts.inc:72
 msgid "The Edit Attendees screen is no longer present. Exiting."
 msgstr "Вікна редагування учасників більше немає. Виходжу."
 
-#: calendars.php:73
-#, php-format
-msgid "The calendar \"%s\" cannot be deleted."
-msgstr "Календар \"%s\" не може бути витертий."
+#: lib/Api.php:1107
+msgid ""
+"The attendee hasn't been updated because the update was not sent from the "
+"attendee."
+msgstr ""
 
-#: calendars.php:40
+#: lib/Kronolith.php:269
+msgid "The authentication information you specified wasn't accepted."
+msgstr "Вказані Вами дані автентикації не були прийняті."
+
+#: calendars/create.php:31 lib/Ajax/Application.php:620
+#: resources/create.php:30 resources/groups/create.php:26
 #, php-format
 msgid "The calendar \"%s\" has been created."
-msgstr "Календар \"%s\" був створений."
+msgstr "Календар \"%s\" створено."
 
-#: calendars.php:91
+#: calendars/delete.php:43 lib/Ajax/Application.php:771
 #, php-format
 msgid "The calendar \"%s\" has been deleted."
-msgstr "Реєстр \"%s\" був витертий."
+msgstr "Календар \"%s\" витерто."
 
-#: calendars.php:54
+#: calendars/edit.php:44 lib/Ajax/Application.php:646
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
 msgstr "Календар \"%s\" перейменовано на \"%s\"."
 
-#: calendars.php:56
+#: calendars/edit.php:46 calendars/remote_edit.php:45
+#: lib/Ajax/Application.php:648 lib/Ajax/Application.php:735
 #, php-format
 msgid "The calendar \"%s\" has been saved."
 msgstr "Календар \"%s\" збережено."
 
-#: data.php:246
+#: lib/Kronolith.php:1555
+#, php-format
+msgid "The calendar %s returned the error: %s"
+msgstr "Календар %s повідомив про помилку: %s"
+
+#: data.php:254
 #, php-format
 msgid "The calendar could not be purged: %s"
 msgstr "Календар не може бути очищений: %s"
 
-#: templates/edit/javascript.inc:156
-msgid "The end date must be later than the start date."
-msgstr "Дата кінця повинна бути пізніше ніж початку."
+#: lib/Kronolith.php:265
+msgid "The calendar title must not be empty."
+msgstr "Назва календара не може бути порожньою."
 
-#: lib/Kronolith.php:1461
+#: lib/Kronolith.php:250
+msgid "The connection to the server has been restored."
+msgstr "З'єднання з сервером відновлено."
+
+#: templates/javascript_defs.php:20
+msgid "The end date must be later than the start date."
+msgstr "Дата кінця повинна бути пізніше дати початку."
+
+#: lib/Kronolith.php:2422
 #, php-format
 msgid ""
 "The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
 msgstr "Подія \"%s\" внесена у \"%s\" календар, який є на %s в %s."
 
-#: lib/Kronolith.php:1471
+#: lib/Kronolith.php:2432
 #, php-format
 msgid ""
-"The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
-"s."
+"The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at "
+"%s."
 msgstr "Подія \"%s\" видалена з \"%s\" календаря, який є на %s в %s."
 
-#: lib/Kronolith.php:1466
+#: lib/Kronolith.php:2427
 #, php-format
 msgid ""
 "The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
 msgstr "Подія \"%s\" була редагована у \"%s\" календарі, який є на %s в %s."
 
-#: lib/Kronolith.php:1351
+#: lib/Driver/Ical.php:440
+msgid "The event could not be added to the remote server."
+msgstr "Подія не може бути додана на віддалений сервер."
+
+#: lib/Driver/Ical.php:500
+msgid "The event could not be deleted from the remote server."
+msgstr "Подія не може бути витерта з віддаленого сервера."
+
+#: lib/Driver/Ical.php:413
+msgid "The event could not be updated on the remote server."
+msgstr "Подія не може бути оновлена на віддаленому сервері."
+
+#: lib/Kronolith.php:2327
 #, php-format
 msgid "The event notification to %s was successfully sent."
-msgstr "Повідомлення про подію %s успішно послано."
+msgstr "Повідомлення про подію до %s успішно послано."
 
-#: lib/Kronolith.php:1305
+#: templates/itip/notification.plain.php:15
 msgid "The following is a more detailed description of the event:"
 msgstr "Наступне є більш детальним описом події:"
+
+#: lib/Kronolith.php:2489
+#, php-format
+msgid "The following resource has accepted your request: %s"
+msgid_plural "The following resources have accepted your request: %s"
+msgstr[0] "Цей ресурс прийняв Ваш запит: %s"
+msgstr[1] "Ці ресурси прийняли Ваш запит: %s"
+msgstr[2] "Ці ресурси прийняли Ваш запит: %s"
+
+#: lib/Kronolith.php:2482
+#, php-format
+msgid "The following resource has declined your request: %s"
+msgid_plural "The following resources have declined your request: %s"
+msgstr[0] "Цей ресурс відхилив Ваш запит: %s"
+msgstr[1] "Ці ресурси відхилили Ваш запит: %s"
+msgstr[2] "Ці ресурси відхилили Ваш запит: %s"
+
+#: lib/FreeBusy.php:176
+#, php-format
+msgid "The free/busy url for %s cannot be retrieved."
+msgstr "URL вільно/зайнято для %s не може бути отриманий."
+
+#: calendars/remote_edit.php:36 calendars/remote_unsubscribe.php:37
+#: lib/Kronolith.php:2037
+msgid "The remote calendar was not found."
+msgstr "Віддалений календар не знайдено."
+
+#: lib/Driver/Ical.php:630
+msgid "The remote server URL does not point to a CalDAV directory."
+msgstr ""
 
 #: attend.php:43
 msgid ""
 "The request was incomplete. Some parameters that are necessary to accept or "
 "decline an event are missing."
 msgstr ""
-"Запит не завершено. Деякі параметри, що є обов'язковими для прийняття або "
-"відхилення події втрачено."
+"Запит був не повним. Відсутні деякі параметри, що є обов'язковими для "
+"прийняття або відхилення події."
 
-#: lib/Views/DeleteEvent.php:40 lib/Views/EditEvent.php:43
-#: lib/Views/Event.php:41
+#: lib/Ajax/Application.php:82 lib/Ajax/Application.php:152
+#: lib/Ajax/Application.php:214 lib/Ajax/Application.php:289
 msgid "The requested event was not found."
 msgstr "Вказану подію не знайдено."
+
+#: feed/index.php:32
+#, php-format
+msgid "The requested feed (%s) was not found on this server."
+msgstr "Вказаний потік (%s) не знайдено на цьому сервері."
+
+#: lib/Ajax/Application.php:400
+msgid "The requested task was not found."
+msgstr "Вказаного завдання не знайдено."
+
+#: resources/delete.php:41
+#, php-format
+msgid "The resource \"%s\" has been deleted."
+msgstr "Ресурс \"%s\" витерто."
+
+#: resources/edit.php:42
+#, php-format
+msgid "The resource \"%s\" has been renamed to \"%s\"."
+msgstr "Ресурс \"%s\" перейменовано на \"%s\"."
+
+#: resources/edit.php:44
+#, php-format
+msgid "The resource \"%s\" has been saved."
+msgstr "Ресурс \"%s\" збережено."
+
+#: lib/Event.php:475
+#, php-format
+msgid "The resource \"%s\" was locked. Please try again."
+msgstr "Ресурс \"%s\" було замкнено. Спробуйте пізніше."
+
+#: resources/groups/delete.php:37
+#, php-format
+msgid "The resource group \"%s\" has been deleted."
+msgstr "Групу ресурсів \"%s\" витерто."
+
+#: resources/groups/edit.php:38
+#, php-format
+msgid "The resource group \"%s\" has been renamed to \"%s\"."
+msgstr "Групу ресурсів \"%s\" перейменовано на \"%s\"."
+
+#: resources/groups/edit.php:40
+#, php-format
+msgid "The resource group \"%s\" has been saved."
+msgstr "Групу ресурсів \"%s\" збережено."
+
+#: lib/Ajax/Application.php:692
+#, php-format
+msgid "The task list \"%s\" has been created."
+msgstr "Список завдань \"%s\" був створений."
+
+#: lib/Ajax/Application.php:787
+#, php-format
+msgid "The task list \"%s\" has been deleted."
+msgstr "Список завдань \"%s\" витерто."
+
+#: lib/Ajax/Application.php:717
+#, php-format
+msgid "The task list \"%s\" has been renamed to \"%s\"."
+msgstr "Список завдань \"%s\" перейменовано на \"%s\"."
+
+#: lib/Ajax/Application.php:719
+#, php-format
+msgid "The task list \"%s\" has been saved."
+msgstr "Список завдань \"%s\" збережено."
+
+#: lib/Kronolith.php:266
+msgid "The task list title must not be empty."
+msgstr "Назва Списку завдань не може бути порожньою."
+
+#: lib/Block/Summary.php:31
+msgid "The time span to show"
+msgstr "Проміжок часу для показу"
+
+#: lib/Kronolith.php:1739 lib/Kronolith.php:1873
+#, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "Користувача \"%s\" не існує."
 
 #: templates/search/empty.inc:3
 msgid "There are no events matching the current criteria."
 msgstr "Немає подій, що відповідають цим критеріям."
 
-#: add.php:24 edit.php:46 edit.php:68
+#: lib/Kronolith.php:249
+msgid ""
+"There has been no contact with the server for several minutes. The server "
+"may be temporarily unavailable or network problems may be interrupting your "
+"session. You will not see any updates until the connection is restored."
+msgstr ""
+
+#: add.php:79 edit.php:74 edit.php:228
 #, php-format
 msgid "There was an error accessing the calendar: %s"
-msgstr "Трапилась помилка при доступі до календаря: %s"
+msgstr "Трапилась помилка при доступі до календара: %s"
 
-#: add.php:44
+#: add.php:76
 #, php-format
 msgid "There was an error adding the event: %s"
 msgstr "Трапилась помилка при доданні події: %s"
 
-#: edit.php:17
+#: edit.php:20
 #, php-format
 msgid "There was an error editing the event: %s"
 msgstr "Трапилась помилка при редагуванні події: %s"
 
-#: lib/api.php:389 lib/api.php:582 lib/api.php:851
+#: lib/Api.php:309 lib/Api.php:643 lib/Api.php:961
 msgid "There was an error importing the iCalendar data."
 msgstr "Трапилась помилка імпорту даних з iCalendar"
 
-#: edit.php:142
+#: edit.php:212 lib/Ajax/Application.php:141
 #, php-format
 msgid "There was an error moving the event: %s"
 msgstr "Трапилась помилка при переміщення події: %s"
 
-#: lib/Kronolith.php:1356
+#: lib/Kronolith.php:2332
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
 msgstr "Трапилась помилка при надсиланні повідомлення про подію %s: %s"
 
-#: data.php:109
+#: data.php:120
 msgid "There were no events to export."
 msgstr "Немає жодних подій для експорту."
 
-#: lib/Block/month.php:3
+#: lib/Block/Month.php:17
 msgid "This Month"
 msgstr "Цей Місяць"
 
-#: data.php:194
+#: templates/chunks/calendar.php:237
+msgid "This calendar requires to specify a user name and password."
+msgstr "Цей календар вимагає вказати користувача і пароль."
+
+#: data.php:226
 msgid "This file format is not supported."
 msgstr "Цей формат файлу не підтримується."
 
-#: data.php:266
+#: templates/delete/delete.inc:18
+msgid ""
+"This is a recurring event. Delete the current event only, this<br /"
+">occurrence and all future occurences, or all occurences?"
+msgstr ""
+"Це повторювана подія. Витерти тільки цю подію, цей випадок і всі майбутні, "
+"чи всі випадки?"
+
+#: templates/edit/edit.inc:39
+msgid ""
+"This is a recurring event. Edit the current event only, this occurrence<br /"
+">and all future occurences, all occurences, or save this event as new?"
+msgstr ""
+"Це повторювана подія. Редагувати тільки цю подію, цей випадок<br />і всі "
+"майбутні, всі випадки, чи записати цю подію як нову?"
+
+#: templates/index/edit.inc:170
+#, php-format
+msgid "This is an exception to a recurring event originally scheduled on %s"
+msgstr "Це є виключення повторюваної події, спочатку запланованої на %s"
+
+#: templates/edit/edit.inc:282 templates/view/view.inc:98
+#, php-format
+msgid ""
+"This is an exception to a recurring event originally scheduled on %s at %s"
+msgstr "Це є виключення повторюваної події, спочатку запланованої на %s в %s"
+
+#: lib/Kronolith.php:256
+msgid "This is the notification backlog"
+msgstr ""
+
+#: lib/Driver/Ical.php:545
+msgid "This is what the server said:"
+msgstr "Ось що сказав сервер:"
+
+#: data.php:273
 #, php-format
 msgid "This is what the server said: %s"
 msgstr "Ось що сказав сервер: %s"
 
-#: templates/month/head.inc:20 templates/edit/javascript.inc:70
-#: templates/view/view.inc:102
+#: lib/Driver/Ical.php:611
+msgid "This remote server only supports an outdated WebDAV protocol."
+msgstr ""
+
+#: templates/index/edit.inc:137 templates/month/head.inc:20
+#: templates/view/view.inc:106
 msgid "Thursday"
-msgstr "Сьогодні"
+msgstr "Четвер"
+
+#: templates/search/search.inc:35
+msgid "Time Sp_an"
+msgstr "Проміжок Часу"
 
 #: templates/edit/edit_timespan.inc:4
 msgid "Time span"
-msgstr "Часовий проміжок"
+msgstr "Проміжок часу"
 
-#: templates/edit/edit.inc:58 templates/search/search_advanced.inc:34
+#: templates/alarm/mail.plain.php:12
+msgid "Time:"
+msgstr "Час:"
+
+#: templates/edit/edit.inc:61 templates/search/search_advanced.inc:23
 msgid "Tit_le"
 msgstr "Назва"
 
-#: data.php:55 templates/search/event_headers.inc:3
+#: data.php:60 templates/search/event_headers.inc:3
+#: templates/search/search.inc:18
 msgid "Title"
 msgstr "Назва"
 
-#: templates/prefs/sourceselect.inc:322
-msgid ""
-"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
-"clicking."
-msgstr ""
-"Для вибору кількох полів утримуйте натисненою клавішу Control (PC) або "
-"Command  (Mac)."
+#: templates/itip/notification.plain.php:33
+msgid "To accept the event tentatively:"
+msgstr "Щоб прийняти подію попередньо:"
 
-#: lib/Block/monthlist.php:132 lib/Block/prevmonthlist.php:125
-#: lib/Block/summary.php:140
+#: templates/itip/notification.plain.php:28
+msgid "To accept the event:"
+msgstr "Щоб прийняти подію:"
+
+#: templates/itip/notification.plain.php:38
+msgid "To decline the event:"
+msgstr "Щоб відхилити подію:"
+
+#: templates/calendar_info.php:32
+msgid "To embed this calendar in another website, use this code:"
+msgstr "Щоб вставити цей календар у віддалений веб-сайт, використайте цей код:"
+
+#: templates/index/edit.inc:209
+msgid ""
+"To make it easier to find, you can enter comma separated tags related to the "
+"event subject."
+msgstr ""
+
+#: templates/calendar_info.php:25
+msgid "To subscribe to this calendar from a feed reader, use this URL:"
+msgstr ""
+
+#: templates/calendar_info.php:19
+msgid ""
+"To subscribe to this calendar from another calendar program, use this URL:"
+msgstr ""
+
+#: templates/share/notification.html.php:17
+#: templates/share/notification.plain.php:9
+msgid "To subscribe to this calendar, you need to click the following link:"
+msgstr "Щоб підписатись на цей календар, клацніть цей лінк:"
+
+#: lib/Block/Monthlist.php:138 lib/Block/Prevmonthlist.php:134
+#: lib/Block/Summary.php:154 templates/mobile/javascript_defs.php:159
 msgid "Today"
 msgstr "Сьогодні"
 
-#: lib/Block/monthlist.php:134 lib/Block/prevmonthlist.php:127
-#: lib/Block/summary.php:142
+#: lib/Block/Monthlist.php:140 lib/Block/Prevmonthlist.php:136
+#: lib/Block/Summary.php:156 templates/mobile/javascript_defs.php:160
 msgid "Tomorrow"
 msgstr "Завтра"
 
-#: templates/javascript/goto.js:60 templates/edit/edit.inc:245
-#: lib/Views/Year.php:78 lib/Block/month.php:107
+#: lib/Block/Month.php:116 lib/View/Year.php:63 templates/edit/edit.inc:304
 msgid "Tu"
 msgstr "Вт"
 
-#: templates/month/head.inc:18 templates/edit/javascript.inc:68
-#: templates/view/view.inc:100
+#: templates/index/edit.inc:135 templates/month/head.inc:18
+#: templates/view/view.inc:104
 msgid "Tuesday"
 msgstr "Вівторок"
 
-#: config/keywords.php.dist:17
-msgid "Type"
-msgstr "Тип"
-
-#: templates/calendars/calendars.inc:127
+#: lib/Form/EditRemoteCalendar.php:26 lib/Form/SubscribeRemoteCalendar.php:26
+#: templates/chunks/calendar.php:217 templates/edit/edit.inc:239
+#: templates/edit/edit.inc:244 templates/index/edit.inc:72
+#: templates/index/task.inc:48 templates/view/view.inc:14
 msgid "URL"
 msgstr "URL"
 
-#: lib/Storage/sql.php:75
-msgid "Unable to connect to SQL server."
-msgstr "Не можу з'єднатися з SQL сервером."
-
-#: calendars.php:87
+#: lib/Ajax/Application.php:768 lib/Ajax/Application.php:784
+#: lib/Form/DeleteResource.php:57 lib/Form/DeleteResourceGroup.php:58
+#: lib/Kronolith.php:1691
 #, php-format
 msgid "Unable to delete \"%s\": %s"
 msgstr "Не можу витерти \"%s\": %s"
 
-#: lib/Driver.php:203 lib/Storage.php:58
+#: lib/Api.php:416
+#, php-format
+msgid "Unable to delete calendar \"%s\": %s"
+msgstr "Не можу витерти календар \"%s\": %s"
+
+#: lib/Api.php:918
+msgid ""
+"Unable to delete event. An exception date was provided but the event does "
+"not seem to be recurring."
+msgstr ""
+
+#: lib/Factory/Driver.php:39 lib/Factory/Storage.php:51
 #, php-format
 msgid "Unable to load the definition of %s."
 msgstr "Не можу завантажити визначення %s."
 
-#: calendars.php:51
-#, php-format
-msgid "Unable to rename \"%s\": %s"
-msgstr "Не можу перейменувати \"%s\": %s"
+#: lib/Kronolith.php:270
+msgid "Unable to locate requested address"
+msgstr "Не можу знайти вказану адресу"
 
-#: lib/Storage/kolab.php:57
-#, php-format
-msgid "Unable to retrieve free/busy information for %s"
-msgstr "Не можу отримати інформацію вільний/занятий для %s"
+#: lib/Event.php:769
+msgid "Unable to parse event."
+msgstr "Не можу обробити подію."
 
-#: calendars.php:61
+#: lib/Kronolith.php:2125
+#, php-format
+msgid "Unable to recognize \"%s\" as an email address."
+msgstr "Не можу розпізнати \"%s\" як адресу e-пошти."
+
+#: lib/Kronolith.php:1665
 #, php-format
 msgid "Unable to save calendar \"%s\": %s"
 msgstr "Не можу зберегти календар \"%s\": %s"
 
-#: templates/view/view.inc:8
-msgid "Unfiled"
-msgstr "Незаповнений"
+#: lib/Form/EditResource.php:109 lib/Form/EditResourceGroup.php:63
+#, php-format
+msgid "Unable to save resource \"%s\": %s"
+msgstr "Не можу зберегти ресурс \"%s\": %s"
 
-#: lib/api.php:453 lib/api.php:628 lib/api.php:686 lib/api.php:746
-#: lib/api.php:871
+#: lib/Driver/Ical.php:702
+msgid "Unexpected response from remote server."
+msgstr "Неочікувана відповідь з віддаленого сервера."
+
+#: lib/Api.php:1185 lib/Api.php:1202
+msgid "Unknown calendar protocol"
+msgstr "Невідомий протокол календара"
+
+#: lib/Form/UnsubscribeRemoteCalendar.php:27 templates/calendar_list.php:44
+#: templates/chunks/calendar.php:129 templates/chunks/calendar.php:204
+msgid "Unsubscribe"
+msgstr "Відмовитись"
+
+#: lib/Form/UnsubscribeRemoteCalendar.php:22
+#, php-format
+msgid "Unsubscribe from %s"
+msgstr "Відмовитись від %s"
+
+#: lib/Api.php:367 lib/Api.php:690 lib/Api.php:799 lib/Api.php:852
+#: lib/Api.php:982
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Тип вмісту не підтримується: %s"
 
-#: lib/Block/monthlist.php:3 lib/Block/monthlist.php:46
+#: lib/Block/Monthlist.php:13 lib/Block/Monthlist.php:57
 msgid "Upcoming Events"
 msgstr "Найближчі події"
 
-#: perms.php:254
+#: templates/attendees/attendees.inc:148
+msgid "Update"
+msgstr "Оновити"
+
+#: perms.php:73
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "Оновлено \"%s\"."
 
-#: lib/Kronolith.php:1295
+#: lib/Kronolith.php:2267
 #, php-format
 msgid "Updated: %s."
-msgstr "Оновлення: %s."
+msgstr "Оновлено: %s."
 
-#: config/prefs.php.dist:10
+#: templates/edit/edit.inc:204
+msgid "Use custom notification method"
+msgstr "Використовувати свій метод оповіщення"
+
+#: templates/edit/edit.inc:203
+msgid "Use default notification method"
+msgstr "Використовувати типовий метод оповіщення"
+
+#: config/prefs.php:13
 msgid "User Interface"
 msgstr "Інтерфейс користувача"
 
-#: templates/prefs/remote_cal_management.inc:68
-msgid "User Name"
-msgstr "Назва користувача"
+#: templates/chunks/permissions.inc:198
+msgid "User to add"
+msgstr "Користувач, щоб додати"
 
-#: templates/perms/perms.inc:256
+#: templates/perms/perms.inc:258
 msgid "User to add:"
 msgstr "Додати користувача:"
 
-#: lib/Views/Year.php:156 lib/Views/Year.php:162 lib/Block/month.php:164
-#: lib/Block/month.php:167
+#: lib/Form/EditRemoteCalendar.php:28 lib/Form/SubscribeRemoteCalendar.php:28
+#: templates/chunks/calendar.php:240
+msgid "Username"
+msgstr "Назва користувача"
+
+#: templates/chunks/permissions.inc:191
+msgid "Users"
+msgstr "Користувачі"
+
+#: lib/Block/Month.php:174 lib/Block/Month.php:189 lib/View/Year.php:148
+#: lib/View/Year.php:151
 msgid "View Day"
 msgstr "Перегляд Дня"
 
-#: templates/javascript/goto.js:61 templates/edit/edit.inc:246
-#: lib/Views/Year.php:79 lib/Block/month.php:107
+#: lib/Block/Month.php:116 lib/View/Year.php:64 templates/edit/edit.inc:305
 msgid "We"
 msgstr "Ср"
 
-#: templates/month/head.inc:19 templates/edit/javascript.inc:69
-#: templates/view/view.inc:101
+#: templates/alarm/mail.plain.php:1
+msgid "We would like to remind you of this upcoming event."
+msgstr ""
+
+#: templates/index/edit.inc:136 templates/month/head.inc:19
+#: templates/view/view.inc:105
 msgid "Wednesday"
 msgstr "Середа"
 
-#: attendees.php:153 lib/Kronolith.php:1613 lib/Block/tree_menu.php:23
-#: config/prefs.php.dist:116
+#: attendees.php:185 config/prefs.php:91 lib/Application.php:504
+#: lib/Kronolith.php:2682 templates/index/index.inc:45
 msgid "Week"
 msgstr "Тиждень"
 
-#: week.php:17 workweek.php:15 lib/Views/Month.php:183
+#: lib/View/Month.php:197 week.php:20 workweek.php:21
 #, php-format
 msgid "Week %d"
 msgstr "Тиждень %d"
 
-#: templates/edit/edit.inc:171 templates/prefs/default_alarm_management.inc:29
-#: templates/view/view.inc:53
+#: templates/edit/edit.inc:140 templates/edit/edit.inc:188
+#: templates/view/view.inc:55 templates/prefs/defaultalarm.html:13
 msgid "Week(s)"
 msgstr "Тиждень(і)"
 
-#: lib/Recurrence.php:193
-msgid "Weekly"
-msgstr "Щотижня"
+#: templates/edit/edit.inc:300 templates/view/view.inc:110
+msgid "Weekly: Recurs every"
+msgstr ""
 
-#: attendees.php:152 lib/Kronolith.php:1611 lib/Block/tree_menu.php:22
-#: config/prefs.php.dist:117
+#: config/prefs.php:135
+msgid ""
+"What time should day and week views end, when there are no later events?"
+msgstr ""
+
+#: config/prefs.php:127
+msgid ""
+"What time should day and week views start, when there are no earlier events?"
+msgstr ""
+
+#: feed/index.php:124
+msgid "When:"
+msgstr "Коли:"
+
+#: feed/index.php:139
+msgid "Where:"
+msgstr "Де:"
+
+#: feed/index.php:136
+msgid "Who:"
+msgstr "Хто:"
+
+#: attendees.php:184 config/prefs.php:92 lib/Application.php:503
+#: lib/Kronolith.php:2680
 msgid "Work Week"
 msgstr "Робочий тиждень"
 
-#: lib/Kronolith.php:1617 lib/Block/tree_menu.php:25
+#: lib/Application.php:506 lib/Kronolith.php:2686 templates/index/index.inc:47
 msgid "Year"
 msgstr "Рік"
 
-#: lib/Recurrence.php:198
-msgid "Yearly"
-msgstr "Щорічно"
+#: templates/edit/edit.inc:326 templates/edit/edit.inc:332
+#: templates/edit/edit.inc:338 templates/view/view.inc:116
+#: templates/view/view.inc:118 templates/view/view.inc:120
+msgid "Yearly: Recurs every"
+msgstr ""
 
-#: data.php:41 data.php:255 edit.php:27 new.php:19
+#: templates/mobile/javascript_defs.php:158
+msgid "Yesterday"
+msgstr "Вчора"
+
+#: calendars/edit.php:33 lib/Kronolith.php:1653
+msgid "You are not allowed to change this calendar."
+msgstr "Вам не можна змінювати цей календар."
+
+#: resources/edit.php:27 resources/groups/edit.php:23
+msgid "You are not allowed to change this resource."
+msgstr "Вам не можна змінювати цей ресурс."
+
+#: add.php:57 data.php:49 data.php:265 edit.php:34
+#: lib/Ajax/Application.php:111 new.php:29
 #, php-format
 msgid "You are not allowed to create more than %d events."
 msgstr "Вам не дозволено створювати більше, ніж %d подій."
 
-#: attend.php:51
+#: calendars/delete.php:34 lib/Kronolith.php:1684
+msgid "You are not allowed to delete this calendar."
+msgstr "Вам не можна витирати цей календар."
+
+#: resources/groups/delete.php:23
+msgid "You are not allowed to delete this resource group."
+msgstr "Вам не можна витирати цю групу ресурсів."
+
+#: resources/delete.php:27
+msgid "You are not allowed to delete this resource."
+msgstr "Вам не можна витирати цей ресурс."
+
+#: lib/Ajax/Application.php:778
+msgid "You are not allowed to delete this task list."
+msgstr "Вам не можна витирати цей список завдань."
+
+#: lib/Ajax/Application.php:813
+msgid "You are not allowed to view this calendar."
+msgstr "Вам не дозволено переглядати цей календар."
+
+#: attend.php:53
 msgid "You are not an attendee of the specified event."
 msgstr "Ви не учасник вказаної події."
+
+#: templates/index/edit.inc:93 templates/index/task.inc:58
+#, php-format
+msgid "You can change the default settings in the %sNotification options%s"
+msgstr ""
 
 #: templates/contacts/contacts.inc:78
 msgid "You can only use this form from the Edit Attendees screen."
 msgstr ""
 "Ви можете використовувати цю форму тільки з вікна Редагування Учасників."
 
-#: lib/Kronolith.php:1244
+#: lib/Kronolith.php:252
+#, php-format
+msgid "You can snooze it for %s or %s dismiss %s it entirely"
+msgstr ""
+
+#: lib/Kronolith.php:2217
 #, php-format
 msgid ""
 "You do not have an email address configured in your Personal Information "
-"Options. You must set one %shere%s before event notifications can be sent."
+"Preferences. You must set one %shere%s before event notifications can be "
+"sent."
 msgstr ""
-"У Ваших Особистих Даних не вказана Ваша е-пошта. Вам слід вказати %sтут%s "
-"для надсилання повідомлень про подію."
+"У Ваших Особистих Даних не вказана Ваша е-пошта. Вам слід вказати її %sтут%s "
+"для надсилання оповіщень про подію."
 
-#: add.php:30
+#: add.php:43
 #, php-format
 msgid "You do not have permission to add events to %s."
 msgstr "У Вас немає права додавати подію до %s"
 
-#: data.php:203
+#: data.php:206
 msgid "You do not have permission to add events to the selected calendar."
 msgstr "У Вас немає права додавати подію до вибраного календаря."
 
-#: add.php:27 edit.php:159
+#: add.php:48 edit.php:180
 #, php-format
 msgid "You do not have permission to delegate events to %s."
 msgstr "У Вас немає права делегувати події до %s."
 
-#: delete.php:28
+#: delete.php:44 delete.php:51 lib/Ajax/Application.php:277
 msgid "You do not have permission to delete this event."
 msgstr "У Вас немає права витирати цю подію."
 
-#: edit.php:162
+#: edit.php:65 edit.php:111 edit.php:175 lib/Ajax/Application.php:161
+#: lib/Ajax/Application.php:217
 msgid "You do not have permission to edit this event."
 msgstr "У Вас немає права редагувати цю подію."
 
-#: edit.php:156
+#: edit.php:202
 msgid "You do not have permission to move this event."
 msgstr "У Вас немає права перенести цю подію."
 
-#: data.php:200
+#: templates/agenda/notification.html.php:41
+#, php-format
+msgid ""
+"You get this message because your calendar is configured to send you a daily "
+"agenda. You can change this if you %slogin to the calendar%s and change your "
+"preferences."
+msgstr ""
+
+#: templates/alarm/mail.html.php:64
+#, php-format
+msgid ""
+"You get this message because your calendar is configured to send you "
+"reminders of events with alarms. You can change this if you %slogin to the "
+"calendar%s and change your preferences."
+msgstr ""
+
+#: calendars/remote_subscribe.php:33 lib/Ajax/Application.php:737
+#, php-format
+msgid "You have been subscribed to \"%s\" (%s)."
+msgstr "Ви підписалися на \"%s\" (%s)."
+
+#: calendars/remote_unsubscribe.php:46 lib/Ajax/Application.php:797
+#, php-format
+msgid "You have been unsubscribed from \"%s\" (%s)."
+msgstr "Ви відмовились від \"%s\" (%s)."
+
+#: data.php:212
 msgid "You have specified an invalid calendar."
 msgstr "Ви вказали невірний календар."
 
@@ -1801,134 +3396,292 @@ msgstr "Ви успішно відхили відвідування до ціє�
 
 #: attend.php:33
 msgid "You have tentatively accepted attendence to this event."
-msgstr "Ви тимчасово прийняли відвідування цієї події"
-
-#: calendars.php:94
-msgid "You must select a calendar to be deleted."
-msgstr "Вам слід вибрати календар щоб стерти."
+msgstr "Ви попередньо погодились на участь у цій події."
 
 #: templates/contacts/contacts.inc:54
 msgid "You must select an address first."
 msgstr "Спершу слід вказати адресу."
 
-#: templates/calendars/calendars.inc:114
-msgid "You need to select a calendar first"
-msgstr "Спершу слід вказати календар."
+#: lib/Kronolith.php:264
+msgid "You must specify a URL."
+msgstr "Ви повинні вказати URL."
 
-#: lib/Kronolith.php:1461
+#: lib/Kronolith.php:1983
+msgid "You must specify a name and a URL."
+msgstr "Вам слід вказати назву і URL."
+
+#: lib/Kronolith.php:2422
 msgid "You requested to be notified when events are added to your calendars."
 msgstr "Ви запросили повідомлення коли події додаються до Ваших календарів."
 
-#: lib/Kronolith.php:1471
+#: lib/Kronolith.php:2432
 msgid ""
 "You requested to be notified when events are deleted from your calendars."
 msgstr "Ви запросили повідомлення коли події видаляються з Ваших календарів."
 
-#: lib/Kronolith.php:1466
+#: lib/Kronolith.php:2427
 msgid "You requested to be notified when events are edited in your calendars."
 msgstr "Ви запросили повідомлення коли події редагуються уо Ваших календарях."
 
-#: templates/prefs/shareselect.inc:10
-msgid "Your default calendar"
-msgstr "Ваш основний календар"
+#: lib/Kronolith.php:271
+#, php-format
+msgid ""
+"You used an unknown date format \"%s\". Please try something like \"%s\"."
+msgstr ""
 
-#: lib/Driver.php:1245 lib/Driver.php:1261
+#: lib/Kronolith.php:272
+#, php-format
+msgid ""
+"You used an unknown time format \"%s\". Please try something like \"%s\"."
+msgstr ""
+"Ви використали невідомий формат часу \"%s\". Спробуйте щось з такого \"%s\"."
+
+#: index.php:24
+msgid ""
+"Your browser is too old to display the dynamic mode. Using traditional mode "
+"instead."
+msgstr ""
+
+#: templates/agenda/notification.html.php:1
+msgid "Your daily agenda"
+msgstr "Ваш порядок денний"
+
+#: templates/agenda/notification.plain.php:1
+#, php-format
+msgid "Your daily agenda for %s"
+msgstr "Ваш порядок денний для %s"
+
+#: config/prefs.php:213
+msgid "Your default calendar:"
+msgstr "Ваш основний календар:"
+
+#: templates/panel.inc:66
+msgid "[Manage Calendars]"
+msgstr "[Керування Календарами]"
+
+#: templates/panel.inc:67
+msgid "[Manage Resource Calendars]"
+msgstr "[Керування Віддаленими Календарами]"
+
+#: templates/panel.inc:67
+msgid "[Resource Calendars]"
+msgstr "[Календарі Ресурсів]"
+
+#: lib/Event.php:1911 lib/Event/Horde.php:244 lib/Event/Ical.php:66
 msgid "[Unnamed event]"
-msgstr "[Неназвана подія]"
+msgstr "[Безіменна подія]"
 
-#: templates/edit/edit.inc:132
+#: templates/edit/edit.inc:164
 msgid "_Alarm"
 msgstr "Дзвоник"
 
-#: templates/search/search_advanced.inc:11
+#: templates/search/search_advanced.inc:9
 msgid "_Basic Search"
 msgstr "Простий Пошук"
 
-#: lib/Kronolith.php:1646
+#: lib/Kronolith.php:2723
 msgid "_Edit"
 msgstr "Редагувати"
 
-#: lib/Kronolith.php:1783
+#: lib/Application.php:125
 msgid "_Goto"
 msgstr "Перейти"
 
-#: lib/Kronolith.php:1789
+#: lib/Application.php:131
 msgid "_Import/Export"
 msgstr "Імпорт/Експорт"
 
-#: lib/Kronolith.php:1779
+#: templates/index/index.inc:33
+msgid "_Logout"
+msgstr "Вийти"
+
+#: lib/Application.php:108
 msgid "_New Event"
 msgstr "Нова подія"
 
-#: lib/Kronolith.php:1794
-msgid "_Print"
-msgstr "Друк"
+#: templates/index/index.inc:66
+msgid "_New event"
+msgstr "Нова подія"
 
-#: lib/Kronolith.php:1785
+#: lib/Application.php:127
 msgid "_Search"
 msgstr "Пошук"
 
-#: lib/Kronolith.php:1774
+#: lib/Application.php:104 templates/index/agenda.inc:9
+#: templates/index/day.inc:9 templates/index/index.inc:39
+#: templates/index/month.inc:7 templates/index/week.inc:8
+#: templates/index/year.inc:8
 msgid "_Today"
 msgstr "Сьогодні"
 
-#: templates/edit/edit.inc:77
+#: templates/edit/edit.inc:89
 #, php-format
 msgid "as %s"
 msgstr "як %s"
 
-#: templates/edit/edit.inc:173
+#: templates/index/edit.inc:23 templates/index/edit.inc:32
+#: templates/index/task.inc:27
+msgid "at"
+msgstr "в"
+
+#: templates/edit/edit.inc:190
 msgid "before the event starts"
 msgstr "перед початком події"
 
-#: config/prefs.php.dist:237
+#: templates/prefs/defaultalarm.html:15
+msgid "before the event starts. A value of \"0\" means no default alarms."
+msgstr ""
+
+#: lib/Event.php:1909 lib/Event.php:1913
+msgid "busy"
+msgstr "зайнятий"
+
+#: lib/View/Event.php:76 lib/View/Event.php:85
+#, php-format
+msgid "by %s"
+msgstr "по %s"
+
+#: lib/View/Event.php:78 lib/View/Event.php:87
+msgid "by me"
+msgstr "мною"
+
+#: templates/index/task.inc:41
+msgid "completed"
+msgstr "завершено"
+
+#: lib/Block/Summary.php:35
 msgid "day"
 msgstr "день"
 
-#: templates/edit/edit.inc:236 templates/view/view.inc:96
+#: templates/edit/edit.inc:295 templates/view/view.inc:100
 msgid "day(s)"
-msgstr "День(і)"
+msgstr "день(і)"
 
-#: config/prefs.php.dist:238 config/prefs.php.dist:239
-#: config/prefs.php.dist:240 config/prefs.php.dist:241
-#: config/prefs.php.dist:242
+#: lib/Block/Summary.php:36 lib/Block/Summary.php:37 lib/Block/Summary.php:38
+#: lib/Block/Summary.php:39 lib/Block/Summary.php:40
+#: templates/index/edit.inc:101 templates/index/task.inc:66
 msgid "days"
-msgstr "Дні"
+msgstr "дні"
 
-#: data.php:155 templates/data/export.inc:1
+#: data.php:161 templates/data/export.inc:1
 msgid "events.csv"
 msgstr "events.csv"
 
-#: data.php:179
+#: data.php:185
 msgid "events.ics"
 msgstr "events.ics"
 
-#: templates/contacts/contacts.inc:146
+#: templates/index/edit.inc:100 templates/index/task.inc:65
+msgid "hours"
+msgstr "годин"
+
+#: templates/chunks/calendar.php:104 templates/chunks/calendar.php:118
+#: templates/chunks/calendar.php:193 templates/index/edit.inc:221
+msgid ""
+"iCalendar is a computer file format which allows internet users to send "
+"meeting requests and tasks to other internet users, via email, or sharing "
+"files with an extension of .ics."
+msgstr ""
+
+#: templates/contacts/contacts.inc:147
 msgid "in"
 msgstr "в"
 
-#: templates/edit/edit.inc:256 templates/edit/edit.inc:262
-#: templates/view/view.inc:108 templates/view/view.inc:110
+#: lib/Application.php:547
+msgid "loading"
+msgstr "завантажую"
+
+#: templates/index/edit.inc:99 templates/index/task.inc:64
+msgid "minutes"
+msgstr "хвилин"
+
+#: templates/edit/edit.inc:315 templates/edit/edit.inc:321
+#: templates/view/view.inc:112 templates/view/view.inc:114
 msgid "month(s)"
 msgstr "місяць(і)"
 
-#: templates/edit/edit.inc:256 templates/view/view.inc:108
+#: lib/Kronolith.php:260
+msgid "more..."
+msgstr "ще..."
+
+#: templates/itip/notification.plain.php:1
+#, php-format
+msgid "on %s at %s"
+msgstr "на %s в %s"
+
+#: templates/edit/edit.inc:315 templates/view/view.inc:112
 msgid "on the same date"
 msgstr "в ту саму дату"
 
-#: templates/edit/edit.inc:262 templates/view/view.inc:110
+#: templates/edit/edit.inc:321 templates/view/view.inc:114
 msgid "on the same weekday"
 msgstr "в той самий тиждень"
 
-#: data.php:31 templates/data/import.inc:14
+#: templates/chunks/calendar.php:130 templates/chunks/calendar.php:205
+#: templates/chunks/calendar.php:232 templates/chunks/calendar.php:253
+#: templates/chunks/calendar.php:273 templates/chunks/calendar.php:297
+#: templates/index/edit.inc:230 templates/index/index.inc:196
+#: templates/index/task.inc:86
+msgid "or"
+msgstr "або"
+
+#: templates/chunks/permissions.inc:41 templates/chunks/permissions.inc:55
+msgid "read and edit the events"
+msgstr "читати і редагувати події"
+
+#: templates/chunks/permissions.inc:41 templates/chunks/permissions.inc:55
+msgid "read and edit the tasks"
+msgstr "читати і редагувати завдання"
+
+#: templates/chunks/permissions.inc:40 templates/chunks/permissions.inc:54
+msgid "read the events"
+msgstr "читати події"
+
+#: templates/chunks/permissions.inc:40 templates/chunks/permissions.inc:54
+msgid "read the tasks"
+msgstr "читати завдання"
+
+#: templates/edit/edit.inc:376
+msgid "recurrences"
+msgstr "повторення"
+
+#: lib/Kronolith.php:174 templates/mobile/javascript_defs.php:48
+msgid "select..."
+msgstr "виберіть..."
+
+#: templates/index/edit.inc:179
+msgid "separate e-mail addresses with a comma"
+msgstr "розділяйте адреси е-пошти комами"
+
+#: templates/index/edit.inc:27
+msgid "to"
+msgstr "до"
+
+#: data.php:34 templates/data/import.inc:14
 msgid "vCalendar/iCalendar"
 msgstr "vCalendar/iCalendar"
 
-#: config/prefs.php.dist:243
+#: lib/Block/Summary.php:41
 msgid "week"
 msgstr "тиждень"
 
-#: config/prefs.php.dist:244 config/prefs.php.dist:245
-#: config/prefs.php.dist:246
+#: templates/edit/edit.inc:302 templates/view/view.inc:110
+msgid "week(s) on:"
+msgstr "тиждень(ів) в:"
+
+#: lib/Block/Summary.php:42 lib/Block/Summary.php:43 lib/Block/Summary.php:44
+#: templates/index/edit.inc:102 templates/index/task.inc:67
 msgid "weeks"
-msgstr "тиждні"
+msgstr "тижні"
+
+#: templates/edit/edit.inc:327 templates/view/view.inc:116
+msgid "year(s) on the same date"
+msgstr "рік(ів) в ту саму дату"
+
+#: templates/edit/edit.inc:333 templates/view/view.inc:118
+msgid "year(s) on the same day of the year"
+msgstr "рік(ів) в той самий день року"
+
+#: templates/edit/edit.inc:339 templates/view/view.inc:120
+msgid "year(s) on the same weekday and month of the year"
+msgstr "рік(ів) в той самий день тижня і місяць"

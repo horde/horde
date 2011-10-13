@@ -8,7 +8,7 @@
  * @package  Injector
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   James Pepin <james@jamespepin.com>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @link     http://pear.horde.org/index.php?package=Injector
  */
 
@@ -19,7 +19,7 @@
  * @package  Injector
  * @author   Bob Mckee <bmckee@bywires.com>
  * @author   James Pepin <james@jamespepin.com>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @link     http://pear.horde.org/index.php?package=Injector
  */
 interface Horde_Injector_Binder

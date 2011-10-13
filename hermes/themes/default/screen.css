@@ -428,6 +428,14 @@ a.rounded {
     font-weight: bold;
 }
 
+.hermesStopTimer:hover, .hermesPauseTimer:hover {
+    cursor: pointer;
+}
+.hermesTimerControls {
+    display: block;
+    float: right;
+    cursor: pointer;
+}
 /* Timelist submission controls */
 .hermesTimeListControls {
     padding: 7px;
@@ -493,6 +501,9 @@ a.rounded {
   padding: 6px 5px 4px;
   width: 98%;
 
+}
+.hermesLongField {
+    width: 98%;
 }
 #hermesSearchFormClient {
     width: 180px;
@@ -593,8 +604,6 @@ a.rounded {
   top: 46px;
   width: 100%;
 }
-.hermesTimerOn {
-}
 .hermesMenuRecent {
     margin-bottom: 7px;
 }
@@ -602,9 +611,25 @@ a.rounded {
     margin-left: 7px;
     font-style: italic;
 }
-.hermesTimerStop {
-    float: right;
-    line-height: 16px;
+#hermesTimerDialog {
+    position: absolute;
+    z-index: 110;
+    left: 163px;
+    top: 370px;
+    width: 350px;
+    height: auto;
+    background: transparent url("graphics/back_quick.png") no-repeat left top;
+}
+#hermesTimerDialog form {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #999;
+}
+.hermesTimer {
+    min-height: 24px;
+}
+.hermesTimerLabel {
+    padding: 2px 2px 2px 2px;
 }
 #hermesMenu h3 {
   border-bottom: 1px dotted #999999;
@@ -636,6 +661,51 @@ a.rounded {
 .QuickFinderWrapper {
     margin: 6px;
     float: left;
+}
+
+/* Dialogs */
+.hermesDialog {
+    width: 700px;
+    padding: 10px 20px;
+    background: #efefef;
+    border: 1px #999 solid;
+}
+.hermesDialog div {
+    margin-bottom: 5px;
+}
+.hermesDialog td {
+    padding-right: 10px;
+    vertical-align: top;
+}
+.hermesDialog label {
+    font-weight: bold;
+}
+.hermesDialog .tabset {
+    float: none;
+    width: auto;
+    background: none;
+    margin: 15px 0;
+}
+.hermesDialog .tabset ul {
+    float: left;
+    padding-left: 0;
+    margin: 0;
+}
+.hermesDialog .tabset .hermesSeparator {
+    float: left;
+}
+.hermesDialog hr {
+   margin: 5px 0;
+   height: 0;
+   line-height: 0;
+   border-width: 1px 0;
+   border-color: #ccc transparent #fff;
+   border-style: solid none;
+}
+.hermesDialogInfo {
+    background: transparent url('graphics/alerts/message.png') 0 0 no-repeat;
+    padding-left: 20px;
+    font-style: italic;
 }
  /* Mini calendar */
 .hermesMinical {

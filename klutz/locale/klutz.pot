@@ -1,0 +1,294 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the Klutz package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Klutz H4 (2.0.0-git)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: comics.php:301 templates/comics/comic.inc:5 templates/comics/comic.inc:8
+#: templates/comics/main.inc:45 templates/comics/missing.inc:5
+#: templates/comics/missing.inc:8
+#, php-format
+msgid "%s by %s"
+msgstr ""
+
+#: lib/Application.php:56
+msgid "Administration"
+msgstr ""
+
+#: backend.php:116
+msgid "All Comics"
+msgstr ""
+
+#: backend.php:91
+msgid "All Dates"
+msgstr ""
+
+#: backend.php:256
+#, php-format
+msgid "An error occurred removing %s for %s<br />\n"
+msgstr ""
+
+#: templates/savecomic.html.php:29
+msgid "Cancel"
+msgstr ""
+
+#: config/prefs.php:9
+msgid ""
+"Change display options such as what comics you see, and how comics are "
+"sorted."
+msgstr ""
+
+#: templates/prefs/comic_select.inc:51
+msgid "Choose the comics you wish to view."
+msgstr ""
+
+#: lib/Block/Comics.php:3
+msgid "Comics"
+msgstr ""
+
+#: backend.php:127 backend.php:137
+msgid "Comics Update"
+msgstr ""
+
+#: backend.php:255
+#, php-format
+msgid "Could not find %s for %s<br />\n"
+msgstr ""
+
+#: lib/Block/Comics.php:69
+msgid "Could not find any comics to display."
+msgstr ""
+
+#: config/prefs.php:51
+msgid "Default gallery to use when saving comics:"
+msgstr ""
+
+#: templates/backend.html.php:27
+msgid "Delete"
+msgstr ""
+
+#: templates/backend.html.php:35
+msgid "Delete Comics"
+msgstr ""
+
+#: templates/savecomic.html.php:19
+msgid "Description"
+msgstr ""
+
+#: config/prefs.php:8
+msgid "Display Options"
+msgstr ""
+
+#: templates/backend.html.php:20
+msgid "Don't check for uniqueness"
+msgstr ""
+
+#: backend.php:225
+msgid "Done"
+msgstr ""
+
+#: templates/savecomic.html.php:18
+msgid "Enter a description for this comic"
+msgstr ""
+
+#: templates/savecomic.html.php:23
+msgid "Enter any tags for this image"
+msgstr ""
+
+#: backend.php:231
+msgid "Error storing the image"
+msgstr ""
+
+#: templates/backend.html.php:13
+msgid "Fetch"
+msgstr ""
+
+#: templates/backend.html.php:21
+msgid "Fetch Comics"
+msgstr ""
+
+#: backend.php:209
+#, php-format
+msgid "Fetching %s for date %s..."
+msgstr ""
+
+#: backend.php:227
+#, php-format
+msgid "Fetching %s for date %s...Done"
+msgstr ""
+
+#: templates/savecomic.html.php:12
+msgid "Gallery"
+msgstr ""
+
+#: templates/savecomic.html.php:7
+msgid "Image"
+msgstr ""
+
+#: templates/backend.html.php:4
+msgid "Klutz Backend"
+msgstr ""
+
+#: comics.php:110
+msgid "Main Listing"
+msgstr ""
+
+#: templates/backend.html.php:38
+msgid "Maintenance Functions"
+msgstr ""
+
+#: config/prefs.php:7
+msgid "Other Options"
+msgstr ""
+
+#: templates/backend.html.php:18
+msgid "Overwrite comics if they exist?"
+msgstr ""
+
+#: templates/backend.html.php:42
+msgid "Rebuild Unique Identifiers file."
+msgstr ""
+
+#: comics.php:216 comics.php:218 comics.php:313 comics.php:315
+msgid "Save Comic to Gallery"
+msgstr ""
+
+#: savecomic.php:63
+msgid "Save Image"
+msgstr ""
+
+#: templates/prefs/comic_select.inc:65
+msgid "Select All"
+msgstr ""
+
+#: templates/prefs/comic_select.inc:64
+msgid "Select None"
+msgstr ""
+
+#: templates/savecomic.html.php:8
+msgid "Select the gallery to save the comic to."
+msgstr ""
+
+#: config/prefs.php:44
+msgid "Show all of your selected comics on the summary page?"
+msgstr ""
+
+#: config/prefs.php:36
+msgid "Show comics you haven't selected on the browse page?"
+msgstr ""
+
+#: backend.php:234
+#, php-format
+msgid "Skipping %s for %s"
+msgstr ""
+
+#: backend.php:206
+#, php-format
+msgid "Skipping %s for %s - no historical fetching"
+msgstr ""
+
+#: templates/savecomic.html.php:28
+msgid "Submit"
+msgstr ""
+
+#: backend.php:254
+#, php-format
+msgid "Successfully removed %s for %s<br />\n"
+msgstr ""
+
+#: templates/savecomic.html.php:24
+msgid "Tags"
+msgstr ""
+
+#: backend.php:216 backend.php:218
+msgid "The image doesn't exist or can't be retrieved"
+msgstr ""
+
+#: backend.php:85
+msgid "The unique identifiers table has been rebuilt."
+msgstr ""
+
+#: savecomic.php:35
+msgid "There was an error retrieving the comic."
+msgstr ""
+
+#: comics.php:242
+msgid "This comic doesn't exist or is disabled."
+msgstr ""
+
+#: backend.php:222
+#, php-format
+msgid "This image appears to be a repeat (%s)"
+msgstr ""
+
+#: templates/comics/missing.inc:13
+msgid "This image is not currently available."
+msgstr ""
+
+#: templates/prefs/comic_select.inc:52
+msgid ""
+"To select multiple comics, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+
+#: comics.php:22
+msgid "Today's Comics"
+msgstr ""
+
+#: templates/comics/missing.inc:22
+msgid "Try to fetch this comic"
+msgstr ""
+
+#: templates/comics/main.inc:32
+msgid "View by comic"
+msgstr ""
+
+#: templates/comics/main.inc:9
+#, php-format
+msgid "View comics for %s"
+msgstr ""
+
+#: backend.php:43 backend.php:46
+msgid "You must define a storage backend to use the administrative interface."
+msgstr ""
+
+#: lib/Application.php:74
+msgid "_Browse"
+msgstr ""
+
+#: lib/Application.php:77
+msgid "_Today"
+msgstr ""
+
+#: lib/Application.php:81
+msgid "_Update"
+msgstr ""
+
+#: backend.php:275 backend.php:277
+msgid "all comics"
+msgstr ""
+
+#: backend.php:271
+msgid "any comics"
+msgstr ""
+
+#: backend.php:271
+msgid "any dates"
+msgstr ""
+
+#: templates/backend.html.php:15
+msgid "for"
+msgstr ""

@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,15 +16,15 @@
  * Components_Runner_CiPrebuild:: prepares a continuous integration setup for a
  * component.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Runner_CiPrebuild
@@ -73,7 +73,6 @@ class Components_Runner_CiPrebuild
     public function run()
     {
         $options = $this->_config->getOptions();
-        $arguments = $this->_config->getArguments();
 
         if (!isset($options['toolsdir'])) {
             throw new Components_Exception(
@@ -95,12 +94,14 @@ class Components_Runner_CiPrebuild
             'hudson-component-phpunit.xml',
             'phpunit.xml'
         );
+        //@todo FIXME
+        //$directory = $this->_config->getComponent()->getPath();
+        $directory = '';
+
         $phpunit_template->write(
             array(
-                'testclass' => basename($this->_config->getComponentDirectory()),
-                'testpath' => strtr(
-                    basename($this->_config->getComponentDirectory()), '_', '/'
-                )
+                'testclass' => basename($directory),
+                'testpath' => strtr(basename($directory), '_', '/')
             )
         );
     }

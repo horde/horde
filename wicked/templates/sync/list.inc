@@ -28,7 +28,7 @@ if (empty($new_remote)) {
     foreach ($new_remote as $pageName => $info) {
         echo  '<tr>'
             . '<td>' . $pageName . '</td>'
-            . '<td>' . $info['page_majorversion'] . '.' . $info['page_minorversion'] . '</td>'
+            . '<td>' . $info['page_version'] . '</td>'
             . '<td>' . _format_date($info['version_created']) . '</td>'
             . '<td>' . $info['change_author'] . '</td>'
             .  '<td>' . $this->_viewLink($pageName, false)
@@ -54,7 +54,7 @@ if (empty($new_local)) {
     foreach ($new_local as $pageName => $info) {
         echo  '<tr>'
             . '<td>' . $pageName . '</td>'
-            . '<td>' . $info['page_majorversion'] . '.' . $info['page_minorversion'] . '</td>'
+            . '<td>' . $info['page_version'] . '</td>'
             . '<td>' . _format_date($info['version_created']) . '</td>'
             . '<td>' . $info['change_author'] . '</td>'
             .  '<td>' . $this->_viewLink($pageName)

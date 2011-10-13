@@ -3,10 +3,10 @@
  * Horde exception class that can wrap and set its details from PEAR_Error,
  * Exception, and other objects with similar interfaces.
  *
- * Copyright 2008-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Exception
@@ -27,7 +27,7 @@ class Horde_Exception_Wrapped extends Horde_Exception
             method_exists($message, 'getMessage')) {
             if (empty($code) &&
                 method_exists($message, 'getCode')) {
-                $code = $message->getCode();
+                $code = (int)$message->getCode();
             }
             if ($message instanceof Exception) {
                 $previous = $message;
@@ -36,7 +36,7 @@ class Horde_Exception_Wrapped extends Horde_Exception
                 $details = $message->getUserinfo()) {
                 $this->details = $details;
             }
-            $message = $message->getMessage();
+            $message = (string)$message->getMessage();
         }
 
         parent::__construct($message, $code, $previous);

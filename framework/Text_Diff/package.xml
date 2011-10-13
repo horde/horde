@@ -17,28 +17,34 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:21:33</time>
+ <date>2011-07-21</date>
+ <time>00:23:34</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix creating temporary files with open_basedir restrictions.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
-    <dir name="examples">
-     <file name="1.txt" role="doc" />
-     <file name="2.txt" role="doc" />
-     <file name="diff.php" role="doc" />
-    </dir> <!-- /doc/examples -->
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Diff">
+       <dir name="examples">
+        <file name="1.txt" role="doc" />
+        <file name="2.txt" role="doc" />
+        <file name="diff.php" role="doc" />
+       </dir> <!-- /doc/Horde/Text/Diff/examples -->
+      </dir> <!-- /doc/Horde/Text/Diff -->
+     </dir> <!-- /doc/Horde/Text -->
+    </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
@@ -138,9 +144,9 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="examples/1.txt" name="doc/examples/1.txt" />
-   <install as="examples/2.txt" name="doc/examples/2.txt" />
-   <install as="examples/diff.php" name="doc/examples/diff.php" />
+   <install as="examples/1.txt" name="doc/Horde/Text/Diff/examples/1.txt" />
+   <install as="examples/2.txt" name="doc/Horde/Text/Diff/examples/2.txt" />
+   <install as="examples/diff.php" name="doc/Horde/Text/Diff/examples/diff.php" />
    <install as="Horde/Text/Diff.php" name="lib/Horde/Text/Diff.php" />
    <install as="Horde/Text/Diff/Exception.php" name="lib/Horde/Text/Diff/Exception.php" />
    <install as="Horde/Text/Diff/Mapped.php" name="lib/Horde/Text/Diff/Mapped.php" />
@@ -189,7 +195,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -204,7 +210,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Fix package layout.
    </notes>
@@ -219,7 +225,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Convert to PHP 5 and Horde 4 package layout.
    </notes>
@@ -234,7 +240,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -249,7 +255,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -264,7 +270,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -276,10 +282,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
-   <license uri="http://opensource.org/licenses/lgpl-license.php">LGPL</license>
+   <date>2011-04-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix creating temporary files with open_basedir restrictions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-07-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -2,16 +2,16 @@
 /**
  * Folders display for traditional (IMP) view.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Anil Madhavapeddy <avsm@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 
@@ -24,7 +24,7 @@ Horde::addScriptFile('folders.js', 'imp');
 
 /* Redirect back to the mailbox if folder use is not allowed. */
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-if (!$imp_imap->allowFolders()) {
+if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
     $notification->push(_("Folder use is not enabled."), 'horde.error');
     Horde::url('mailbox.php', true)->redirect();
 }
@@ -52,7 +52,7 @@ $imaptree = $injector->getInstance('IMP_Imap_Tree');
 /* $folder_list is already encoded in UTF7-IMAP, but entries are
  * urlencoded. */
 $folder_list = isset($vars->folder_list)
-    ? array_map(array('IMP_Mailbox', 'formFrom'), $vars->folder_list)
+    ? IMP_Mailbox::formFrom($vars->folder_list)
     : array();
 
 /* Token to use in requests */
@@ -93,7 +93,7 @@ case 'rebuild_tree':
 
 case 'expunge_folder':
     if (!empty($folder_list)) {
-        $injector->getInstance('IMP_Message')->expungeMailbox($folder_list->indices());
+        $injector->getInstance('IMP_Message')->expungeMailbox(array_fill_keys($folder_list, null));
     }
     break;
 
@@ -209,7 +209,7 @@ case 'folders_empty_mailbox':
 case 'mark_folder_seen':
 case 'mark_folder_unseen':
     if (!empty($folder_list)) {
-        $injector->getInstance('IMP_Message')->flagAllInMailbox(array('seen'), $folder_list, ($vars->actionID == 'mark_folder_seen'));
+        $injector->getInstance('IMP_Message')->flagAllInMailbox(array('\\seen'), $folder_list, ($vars->actionID == 'mark_folder_seen'));
     }
     break;
 
@@ -219,14 +219,25 @@ case 'folders_empty_mailbox_confirm':
         $loop = array();
         $rowct = 0;
         foreach ($folder_list as $val) {
-            if (($vars->actionID == 'delete_folder_confirm') && $val->fixed) {
-                $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $val->display), 'horde.error');
-                continue;
+            switch ($vars->actionID) {
+            case 'delete_folder_confirm':
+                if ($val->fixed || !$val->access_deletembox) {
+                    $notification->push(sprintf(_("The folder \"%s\" may not be deleted."), $val->display), 'horde.error');
+                    continue 2;
+                }
+                break;
+
+            case 'folders_empty_mailbox_confirm':
+                if (!$val->access_deletemsgs || !$val->access_expunge) {
+                    $notification->push(sprintf(_("The folder \"%s\" may not be emptied."), $val->display), 'horde.error');
+                    continue 2;
+                }
+                break;
             }
 
             try {
                 $elt_info = $imp_imap->status($val, Horde_Imap_Client::STATUS_MESSAGES);
-            } catch (Horde_Imap_Client_Exception $e) {
+            } catch (IMP_Imap_Exception $e) {
                 $elt_info = null;
             }
 
@@ -234,7 +245,7 @@ case 'folders_empty_mailbox_confirm':
                 'class' => 'item' . (++$rowct % 2),
                 'name' => htmlspecialchars($val->display),
                 'msgs' => $elt_info ? $elt_info['messages'] : 0,
-                'val' => htmlspecialchars($val)
+                'val' => $val->form_to
             );
             $loop[] = $data;
         }
@@ -306,7 +317,7 @@ case 'search':
     if (!empty($folder_list)) {
         $url = new Horde_Url(Horde::url('search.php'));
         $url->add('subfolder', 1)
-            ->add('search_mailbox', $folder_list)
+            ->add('mailbox_list', IMP_Mailbox::formTo($folder_list))
             ->redirect();
     }
     break;
@@ -369,7 +380,7 @@ if ($a_template->get('javascript')) {
 $a_template->set('create_folder', $injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'));
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);
-    $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show Unsubscribed");
+    $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show All Folders");
     $a_template->set('toggle_subscribe', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'toggle_subscribed_view', 'folders_token' => $folders_token)), $subToggleText, 'widget', '', '', $subToggleText, true));
 }
 $a_template->set('nav_poll', !$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all'));

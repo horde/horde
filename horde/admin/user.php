@@ -1,15 +1,20 @@
 <?php
 /**
- * Copyright 1999-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 1999-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('admin' => true));
+$permission = 'users';
+Horde_Registry::appInit('horde');
+if (!$registry->isAdmin() && 
+    !$injector->getInstance('Horde_Perms')->hasPermission('horde:administration:'.$permission, $registry->getAuth(), Horde_Perms::SHOW)) {
+    $registry->authenticateFailure('horde', new Horde_Exception(sprintf("Not an admin and no %s permission", $permission)));
+}
 
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
@@ -116,7 +121,7 @@ case 'remove':
         try {
             $registry->removeUser($f_user_name);
             $notification->push(sprintf(_("Successfully removed \"%s\" from the system."), $f_user_name), 'horde.success');
-        } catch (Horde_Auth_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("There was a problem removing \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
         }
     }
@@ -136,7 +141,7 @@ case 'clear':
         try {
             $registry->removeUserData($f_user_name);
             $notification->push(sprintf(_("Successfully cleared data for user \"%s\" from the system."), $f_user_name), 'horde.success');
-        } catch (Horde_Auth_Exception $e) {
+        } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("There was a problem clearing data for user \"%s\" from the system: ") . $e->getMessage(), $f_user_name), 'horde.error');
         }
     }
@@ -175,7 +180,15 @@ case 'update':
             }
         }
     }
-
+    if ($auth->hasCapability('lock')) {
+        $user_locked = Horde_Util::getPost('user_locked');
+        /* only execute lock/unlock if it would result in a change */
+        if (($auth->isLocked($user_name_2)) && (!$user_locked)) {
+            $auth->unlockUser($user_name_2);
+        } elseif ((!$auth->isLocked($user_name_2)) && ($user_locked)) {
+            $auth->lockUser($user_name_2);
+        }
+    }
     $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($user_name_1);
     $identity->setValue('fullname', $fullname);
     $identity->setValue('from_addr', $email);

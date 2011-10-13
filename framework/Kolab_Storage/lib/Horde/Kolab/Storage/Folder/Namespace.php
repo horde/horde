@@ -8,7 +8,7 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
@@ -16,15 +16,15 @@
  * The Horde_Kolab_Storage_Folder_Namespace:: class handles IMAP namespaces and allows
  * to derive folder information from folder names.
  *
- * Copyright 2004-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 abstract class Horde_Kolab_Storage_Folder_Namespace
@@ -169,19 +169,23 @@ implements Iterator, Serializable
      * Construct the Kolab storage folder name based on the folder
      * title and the owner.
      *
-     * @param string $name  The folder title.
-     * @param string $owner The owner of the share.
+     * @param string $owner   The owner of the folder.
+     * @param string $subpath The folder subpath.
+     * @param string $prefix  The namespace prefix.
      *
      * @return string The folder name for the backend.
      */
-    public function constructFolderName($owner, $name)
+    public function constructFolderName($owner, $subpath, $prefix = null)
     {
         if (empty($owner)) {
-            return $this->setTitleInShared($name);
+            return $this->_getNamespace(self::SHARED, $prefix)
+                ->generatePath($subpath, $owner);
         } else if ($owner == $this->user) {
-            return $this->setTitle($name);
+            return $this->_getNamespace(self::PERSONAL, $prefix)
+                ->generatePath($subpath, $owner);
         } else {
-            return $this->setTitleInOther($name, $owner);
+            return $this->_getNamespace(self::OTHER, $prefix)
+                ->generatePath($subpath, $owner);
         }
     }
 
@@ -194,7 +198,8 @@ implements Iterator, Serializable
      */
     public function setTitle($title)
     {
-        return $this->_setTitle(self::PERSONAL, explode(':', $title));
+        return $this->_getNamespace(self::PERSONAL)
+            ->generateName(explode(':', $title));
     }
 
     /**
@@ -209,7 +214,7 @@ implements Iterator, Serializable
     {
         $path = explode(':', $title);
         array_unshift($path, $owner);
-        return $this->_setTitle(self::OTHER, $path);
+        return $this->_getNamespace(self::OTHER)->generateName($path);
     }
 
     /**
@@ -221,40 +226,42 @@ implements Iterator, Serializable
      */
     public function setTitleInShared($title)
     {
-        return $this->_setTitle(self::SHARED, explode(':', $title));
+        return $this->_getNamespace(self::SHARED)
+            ->generateName(explode(':', $title));
     }
 
     /**
-     * Generate an IMAP folder name in the specified namespace.
+     * Get the namespace matching the given type and (optional) prefix.
      *
-     * @param string $type     The namespace type.
-     * @param array  $elements The new path elements.
+     * @param string $type   The namespace type.
+     * @param string $prefix The namespace prefix
      *
-     * @return string The IMAP folder name.
+     * @return Horde_Kolab_Storage_Folder_Namespace_Element The namespace.
      */
-    private function _setTitle($type, array $elements)
+    private function _getNamespace($type, $prefix = null)
     {
         $matching = array();
         foreach ($this->_namespaces as $namespace) {
-            if ($namespace->getType() == $type) {
+            if ($namespace->getType() == $type &&
+                ($prefix === null || $namespace->getName() === $prefix)) {
                 $matching[] = $namespace;
             }
         }
         if (count($matching) == 1) {
-            $selection = $matching[0];
+            return $matching[0];
         } else if (count($matching) > 1) {
             throw new Horde_Kolab_Storage_Exception(
-                'Specifying the folder path via title is not supported with multiple namespaces of the same type!'
+                'Multiple namespaces of the same type!'
             );
         } else {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(
-                    'No namespace of the type %s!',
-                    $type
+                    'No namespace of the type %s%s!',
+                    $type,
+                    ($prefix !== null) ? ' with prefix \"' . $prefix . '\"' : ''
                 )
             );
         }
-        return $selection->generateName($elements);
     }
 
     /**

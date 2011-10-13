@@ -2,7 +2,7 @@
 /**
  * Jonah Base Class.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -18,16 +18,6 @@ class Jonah
      * Internal Jonah channel.
      */
     const INTERNAL_CHANNEL = 0;
-
-    /**
-     * External channel.
-     */
-    const EXTERNAL_CHANNEL = 1;
-
-    /**
-     * Aggregated channel.
-     */
-    const AGGREGATED_CHANNEL = 2;
 
     /**
      * Composite channel.

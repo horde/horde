@@ -3,7 +3,7 @@
  * Base class for Whups' storage backend.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -15,23 +15,32 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Whups
  */
-class Whups_Driver {
-
+abstract class Whups_Driver
+{
     /**
      * @var array
      */
-    var $_params;
+    protected $_params;
 
     /**
+     * Constructor
+     *
+     * @param array $params  Parameter array.
+     *
+     * @return Whups_Driver_Base
      */
-    function Whups_Driver($params)
+    public function __construct(array $params)
     {
         $this->_params = $params;
     }
 
     /**
+     * Set ticket attributes
+     *
+     * @param array $info           Attributes to set
+     * @param Whups_Ticket $ticket  The ticket which attributes to set.
      */
-    function setAttributes($info, &$ticket)
+    public function setAttributes(array $info, Whups_Ticket &$ticket)
     {
         $ticket_id = $ticket->getId();
 
@@ -47,15 +56,15 @@ class Whups_Driver {
     }
 
     /**
-     * @param integer $ticket_id
+     * Fetch ticket history
+     *
+     * @param integer $ticket_id  The ticket to fetch history for.
+     *
+     * @return array
      */
-    function getHistory($ticket_id)
+    public function getHistory($ticket_id)
     {
         $rows = $this->_getHistory($ticket_id);
-        if (is_a($rows, 'PEAR_Error')) {
-            return $rows;
-        }
-
         $attributes = array();
         foreach ($rows as $row) {
             if ($row['log_type'] == 'attribute' &&
@@ -138,7 +147,7 @@ class Whups_Driver {
 
     /**
      */
-    function getQueue($queueId)
+    public function getQueue($queueId)
     {
         return $GLOBALS['registry']->call('tickets/getQueueDetails',
                                           array($queueId));
@@ -146,14 +155,14 @@ class Whups_Driver {
 
     /**
      */
-    function getQueues()
+    public function getQueues()
     {
         return $GLOBALS['registry']->call('tickets/listQueues');
     }
 
     /**
      */
-    function getVersionInfo($queue)
+    public function getVersionInfo($queue)
     {
         return $GLOBALS['registry']->call('tickets/listVersions',
                                           array($queue));
@@ -162,17 +171,13 @@ class Whups_Driver {
     /**
      * Returns a hash of versions suitable for select lists.
      */
-    function getVersions($queue, $all = false)
+    public function getVersions($queue, $all = false)
     {
         if (empty($queue)) {
             return array();
         }
 
         $versioninfo = $this->getVersionInfo($queue);
-        if (is_a($versioninfo, 'PEAR_Error')) {
-            return $versioninfo;
-        }
-
         $versions = array();
         $old_versions = false;
         foreach ($versioninfo as $vinfo) {
@@ -198,7 +203,7 @@ class Whups_Driver {
 
     /**
      */
-    function getVersion($version)
+    public function getVersion($version)
     {
         return $GLOBALS['registry']->call('tickets/getVersionDetails',
                                           array($version));
@@ -206,7 +211,7 @@ class Whups_Driver {
 
     /**
      */
-    function getCategories()
+    public function getCategories()
     {
         return array('unconfirmed' => _("Unconfirmed"),
                      'new' => _("New"),
@@ -215,22 +220,15 @@ class Whups_Driver {
     }
 
     /**
-     * Returns the attributes for a specific ticket type.
+     * Returns the attributes for a ticket type.
      *
-     * This method will check if external attributes need to be fetched from
-     * hooks or whether to use the standard ones defined within Whups.
+     * @params integer $type  A ticket type ID.
      *
-     * @params integer $type  The ticket type.
-     *
-     * @return array  List of attributes.
+     * @return array  A list of attributes.
      */
-    function getAttributesForType($type = null)
+    public function getAttributesForType($type = null)
     {
         $attributes = $this->_getAttributesForType($type);
-        if (is_a($attributes, 'PEAR_Error')) {
-            return $attributes;
-        }
-
         foreach ($attributes as $id => $attribute) {
             $attributes[$id] = array(
                 'human_name' => $attribute['attribute_name'],
@@ -253,12 +251,9 @@ class Whups_Driver {
      *
      * @return array  List of attributes.
      */
-    function getAllTicketAttributesWithNames($ticket_id)
+    public function getAllTicketAttributesWithNames($ticket_id)
     {
         $ta = $this->_getAllTicketAttributesWithNames($ticket_id);
-        if (is_a($ta, 'PEAR_Error')) {
-            return $ta;
-        }
 
         $attributes = array();
         foreach ($ta as $id => $attribute) {
@@ -283,7 +278,7 @@ class Whups_Driver {
      *
      * @param integer $queueId  The id of the queue being deleted.
      */
-    function deleteQueue($queueId)
+    public function deleteQueue($queueId)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         try {
@@ -302,7 +297,7 @@ class Whups_Driver {
      *
      * @param integer $reply  The id of the form reply being deleted.
      */
-    function deleteReply($reply)
+    public function deleteReply($reply)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         try {
@@ -315,7 +310,7 @@ class Whups_Driver {
 
     /**
      */
-    function filterTicketsByState($tickets, $state_category = array())
+    public function filterTicketsByState($tickets, $state_category = array())
     {
         /* Take a list of tickets and return only those of the specified
          * state_category. */
@@ -337,72 +332,70 @@ class Whups_Driver {
      * We do some ugly work in here to make sure that no one gets comments
      * mailed to them that they shouldn't see (because of group permissions).
      *
-     * @param integer $ticket_id  The ticket id.
-     * @param array $recipients   The list of recipients.
-     * @param string $subject     The email subject.
-     * @param string $message     The email message text.
-     * @param string $from        The email sender.
-     * @param boolean $reminder   Whether this is reminder email (no ticket
-     *                            changes).
-     * @param integer $queue_id   The queue id.
-     * @param boolean $is_new     Whether a ticket has been created, if
-     *                            notifying about a ticket.
+     * @param array $opts  Option hash with notification information.
+     *                     Possible values:
+     *                     - ticket:     (Whups_Ticket) A ticket. If not set,
+     *                                   this is assumed to be a reminder
+     *                                   message.
+     *                     - recipients: (array|string) The list of recipients,
+     *                                   with user names as keys and user roles
+     *                                   as values.
+     *                     - subject:    (string) The email subject.
+     *                     - view:       (Horde_View) The view object for the
+     *                                   message text.
+     *                     - template:   (string) The template file for the
+     *                                   message text.
+     *                     - from:       (string) The email sender.
+     *                     - new:        (boolean, optional) Whether the passed
+     *                                   ticket was just created.
      */
-    function mail($ticket_id, $recipients, $subject, $message, $from,
-                  $reminder, $queue_id = null, $is_new = false)
+    public function mail(array $opts)
     {
         global $conf, $registry, $prefs;
 
-        /* Set up recipients and message headers. */
-        if (!is_array($recipients)) {
-            $recipients = array($recipients);
-        }
+        $opts = array_merge(array('ticket' => false, 'new' => false), $opts);
 
+        /* Set up recipients and message headers. */
         $mail = new Horde_Mime_Mail(array(
             'X-Whups-Generated' => 1,
             'User-Agent' => 'Whups ' . $registry->getVersion(),
             'Precedence' => 'bulk',
-            'Auto-Submitted' => $reminder ? 'auto-generated' : 'auto-replied'));
+            'Auto-Submitted' => $opts['ticket'] ? 'auto-replied' : 'auto-generated'));
 
         $mail_always = null;
-        if (!$reminder && !empty($conf['mail']['always_copy'])) {
+        if ($opts['ticket'] && !empty($conf['mail']['always_copy'])) {
             $mail_always = $conf['mail']['always_copy'];
             if (strpos($mail_always, '<@>') !== false) {
-                $ticket = Whups_Ticket::makeTicket($ticket_id);
-                if (!is_a($ticket, 'PEAR_Error')) {
-                    $mail_always = str_replace('<@>', $ticket->get('queue_name'), $mail_always);
-                } else {
+                try {
+                    $mail_always = str_replace('<@>', $opts['ticket']->get('queue_name'), $mail_always);
+                } catch (Whups_Exception $e) {
                     $mail_always = null;
                 }
             }
-            if ($mail_always) {
-                $recipients[] = $mail_always;
+            if ($mail_always && !isset($opts['recipients'][$mail_always])) {
+                $opts['recipients'][$mail_always] = 'always';
             }
         }
 
-        if ($queue_id) {
-            $queue = $this->getQueue($queue_id);
-        } else {
-            $queue = null;
-        }
-
-        if ($queue && !empty($queue['email'])) {
+        if ($opts['ticket'] &&
+            ($queue = $this->getQueue($opts['ticket']->get('queue'))) &&
+             !empty($queue['email'])) {
             $mail->addHeader('From', $queue['email']);
         } elseif (!empty($conf['mail']['from_addr'])) {
             $mail->addHeader('From', $conf['mail']['from_addr']);
         } else {
-            $mail->addHeader('From', Whups::formatUser($from));
+            $mail->addHeader('From', Whups::formatUser($opts['from']));
         }
 
-        $subject = (is_null($ticket_id)
-                    ? ''
-                    : '[' . $registry->get('name') . ' #' . $ticket_id . '] ')
-            . $subject;
-        $mail->addHeader('Subject', $subject);
+        if ($opts['ticket']) {
+            $opts['subject'] = '[' . $registry->get('name') . ' #'
+                . $opts['ticket']->getId() . '] ' . $opts['subject'];
+        }
+        $mail->addHeader('Subject', $opts['subject']);
 
         /* Get our array of comments, sorted in the appropriate order. */
-        if (!is_null($ticket_id)) {
-            $comments = $this->getHistory($ticket_id);
+        if ($opts['ticket']) {
+            $comments = $this->getHistory($opts['ticket']->getId());
             if ($conf['mail']['commenthistory'] == 'new' && count($comments)) {
                 $comments = array_pop($comments);
                 $comments = array($comments);
@@ -416,8 +409,22 @@ class Whups_Driver {
         /* Don't notify any email address more than once. */
         $seen_email_addresses = array();
 
-        foreach ($recipients as $user) {
-            if ($user == $from && $user == $GLOBALS['registry']->getAuth() &&
+        /* Get VFS handle for attachments. */
+        if ($opts['ticket']) {
+            $vfs = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create();
+            try {
+                $attachments = Whups::getAttachments($opts['ticket']->getId());
+            } catch (Whups_Exception $e) {
+                $attachments = array();
+                Horde::logMessage($e);
+            }
+        }
+
+        foreach ($opts['recipients'] as $user => $role) {
+            if ($user == $opts['from'] &&
+                $user == $GLOBALS['registry']->getAuth() &&
                 $prefs->getValue('email_others_only')) {
                 continue;
             }
@@ -426,6 +433,7 @@ class Whups_Driver {
              * address, and as the recipient for all others. */
             $to = $full_name = '';
             if (!empty($mail_always) && $user == $mail_always) {
+                $details = null;
                 $mycomments = Whups::permissionsFilter(
                     $comments, 'comment', Horde_Perms::READ, '');
                 $to = $mail_always;
@@ -445,9 +453,49 @@ class Whups_Driver {
                 continue;
             }
 
-            $formattedComment = $this->formatComments($mycomments);
-            if (empty($formattedComment) && $prefs->getValue('email_comments_only')) {
-                continue;
+            if ($opts['ticket']) {
+                /* Add attachments. */
+                $attachmentAdded = false;
+                if (empty($GLOBALS['conf']['mail']['link_attach'])) {
+                    /* We need to remove all attachments because the attachment
+                     * list is potentially limited by permissions. */
+                    $mail->clearParts();
+                    foreach ($mycomments as $comment) {
+                        foreach ($comment['changes'] as $change) {
+                            if ($change['type'] == 'attachment') {
+                                foreach ($attachments as $attachment) {
+                                    if ($attachment['name'] == $change['value']) {
+                                        if (!isset($attachment['part'])) {
+                                            $attachment['part'] = new Horde_Mime_Part();
+                                            $attachment['part']->setType(Horde_Mime_Magic::filenameToMime($change['value'], false));
+                                            $attachment['part']->setDisposition('attachment');
+                                            $attachment['part']->setContents($vfs->read(Whups::VFS_ATTACH_PATH . '/' . $opts['ticket']->getId(), $change['value']));
+                                            $attachment['part']->setName($change['value']);
+                                        }
+                                        $mail->addMimePart($attachment['part']);
+                                        $attachmentAdded = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $formattedComment = $this->formatComments($mycomments, $opts['ticket']->getId());
+
+                if (isset($details['type']) && $details['type'] == 'user') {
+                    $user_prefs = $GLOBALS['injector']
+                        ->getInstance('Horde_Core_Factory_Prefs')
+                        ->create('whups', array('user' => $details['user']));
+                    if (!$attachmentAdded &&
+                        empty($formattedComment) &&
+                        $user_prefs->getValue('email_comments_only')) {
+                        continue;
+                    }
+                }
+
+                $opts['view']->comment = $formattedComment;
             }
 
             try {
@@ -470,16 +518,15 @@ class Whups_Driver {
                 $full_name = $to;
             }
 
-            $body = str_replace(
-                array('@@comment@@', '@@full_name@@'),
-                array("\n\n" . $formattedComment, $full_name),
-                $message);
-            $mail->setBody($body);
+            $opts['view']->full_name = $full_name;
+            $opts['view']->role = $role;
+            $mail->setBody($opts['view']->render($opts['template']));
 
             $mail->addHeader('Message-ID', Horde_Mime::generateMessageId());
-            if ($ticket_id) {
-                $message_id = '<whups-' . $ticket_id . '-' . md5($user) . '@' . $conf['server']['name'] . '>';
-                if ($is_new) {
+            if ($opts['ticket']) {
+                $message_id = '<whups-' . $opts['ticket']->getId() . '-'
+                    . md5($user) . '@' . $conf['server']['name'] . '>';
+                if ($opts['new']) {
                     $mail->addHeader('Message-ID', $message_id);
                 } else {
                     $mail->addHeader('In-Reply-To', $message_id);
@@ -506,55 +553,45 @@ class Whups_Driver {
      * Converts a changeset array to a plain text comment snippet.
      *
      * @param array $comments  A changeset list.
+     * @param integer $ticket  A ticket ID.
      *
      * @return string  The formatted comment text, if any.
      */
-    function formatComments($comments)
+    public function formatComments($comments, $ticket)
     {
         $text = '';
         foreach ($comments as $comment) {
-            if (empty($comment['comment_text'])) {
+            if (!empty($comment['comment_text'])) {
+                $text .= "\n"
+                    . sprintf(_("%s (%s) wrote:"),
+                              Whups::formatUser($comment['user_id']),
+                              strftime('%Y-%m-%d %H:%M', $comment['timestamp']))
+                    . "\n\n" . $comment['comment_text'] . "\n\n\n";
+            }
+
+            /* Add attachment links. */
+            if (empty($GLOBALS['conf']['mail']['link_attach'])) {
                 continue;
             }
-            $text .= "\n"
-                . sprintf(_("%s (%s) wrote:"),
-                          Whups::formatUser($comment['user_id']),
-                          Horde_Form_Type_date::getFormattedTime(
-                              $comment['timestamp'], '%Y-%m-%d %H:%M', false))
-                . "\n\n" . $comment['comment_text'] . "\n\n\n";
+            foreach ($comment['changes'] as $change) {
+                if ($change['type'] != 'attachment') {
+                    continue;
+                }
+                $url_params = array('actionID' => 'download_file',
+                                    'file' => $change['value'],
+                                    'ticket' => $ticket);
+                $text .= "\n"
+                    . sprintf(_("%s (%s) uploaded: %s"),
+                              Whups::formatUser($comment['user_id']),
+                              strftime('%Y-%m-%d %H:%M', $comment['timestamp']),
+                              $change['value'])
+                    . "\n\n"
+                    . Horde::url(Horde::downloadUrl($change['value'], $url_params), true)
+                    . "\n\n\n";
+            }
         }
 
         return $text;
-    }
-
-    /**
-     * Attempts to return a concrete Whups_Driver instance based on $driver.
-     *
-     * @param string $driver The type of concrete Driver subclass to return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Whups_Driver  The newly created concrete Whups_Driver instance.
-     */
-    function factory($driver = null, $params = null)
-    {
-        if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['tickets']['driver'];
-        }
-
-        $driver = basename($driver);
-        $class = 'Whups_Driver_' . $driver;
-        if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        }
-        if (class_exists($class)) {
-            if (is_null($params)) {
-                $params = Horde::getDriverConfig('tickets', $driver);
-            }
-            return new $class($params);
-        } else {
-            throw new Whups_Exception(sprintf('No such backend "%s" found', $driver));
-        }
     }
 
 }

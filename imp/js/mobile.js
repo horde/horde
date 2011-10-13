@@ -1,10 +1,10 @@
 /**
  * jQuery Mobile UI application logic.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 var ImpMobile = {
 
@@ -103,7 +103,7 @@ var ImpMobile = {
                     });
                 }
                 list.prepend(
-                    $('<li class="' + c + '" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.imapuid + '">').append(
+                    $('<li class="' + c + '" data-imp-mailbox="' + data.view + '" data-imp-uid="' + data.uid + '">').append(
                         $('<h3>').append(
                             $('<a href="#">').html(data.subject))).append(
                         $('<div class="ui-grid-a">').append(
@@ -255,45 +255,7 @@ var ImpMobile = {
     {
         // Set up HordeMobile.
         HordeMobile.urls.ajax = IMP.conf.URI_AJAX;
-
-        IMP.iframeInject = function(id, data)
-        {
-            id = $('#' + id);
-            var d = id.get(0).contentWindow.document;
-
-            d.open();
-            d.write(data);
-            d.close();
-
-            id.show().prev().remove();
-            IMP.iframeResize(id);
-        };
-
-        IMP.iframeResize = function(id)
-        {
-            id.css('height', id.get(0).contentWindow.document.lastChild.scrollHeight + 'px' );
-
-            // For whatever reason, browsers will report different heights
-            // after the initial height setting.
-            window.setTimeout(function() { IMP.iframeResize2(id); }, 300);
-        };
-
-        IMP.iframeResize2 = function(id)
-        {
-            var lc = id.get(0).contentWindow.document.lastChild;
-
-            // Try expanding IFRAME if we detect a scroll.
-            if (lc.clientHeight != lc.scrollHeight ||
-                id.get(0).clientHeight != lc.clientHeight) {
-                id.css('height', lc.scrollHeight + 'px' );
-                if (lc.clientHeight != lc.scrollHeight) {
-                    // Finally, brute force if it still isn't working.
-                    id.css('height', (lc.scrollHeight + 25) + 'px');
-                }
-            }
-        };
-
-        $(document).click(ImpMobile.clickHandler);
+        $(document).bind('vclick', ImpMobile.clickHandler);
         $(document).bind('swipeleft', ImpMobile.navigateMessage);
         $(document).bind('swiperight', ImpMobile.navigateMessage);
     }
@@ -302,3 +264,45 @@ var ImpMobile = {
 
 // JQuery Mobile setup
 $(ImpMobile.onDocumentReady);
+
+
+var IMP_JS = {
+
+    iframeInject: function(id, data)
+    {
+        id = $('#' + id);
+        var d = id.get(0).contentWindow.document;
+
+        d.open();
+        d.write(data);
+        d.close();
+
+        id.show().prev().remove();
+        this.iframeResize(id);
+    },
+
+    iframeResize: function(id)
+    {
+        id.css('height', id.get(0).contentWindow.document.lastChild.scrollHeight + 'px' );
+
+        // For whatever reason, browsers will report different heights
+        // after the initial height setting.
+        window.setTimeout(function() { this.iframeResize2(id); }.bind(this), 300);
+    },
+
+    iframeResize2: function(id)
+    {
+        var lc = id.get(0).contentWindow.document.lastChild;
+
+        // Try expanding IFRAME if we detect a scroll.
+        if (lc.clientHeight != lc.scrollHeight ||
+            id.get(0).clientHeight != lc.clientHeight) {
+            id.css('height', lc.scrollHeight + 'px' );
+            if (lc.clientHeight != lc.scrollHeight) {
+                // Finally, brute force if it still isn't working.
+                id.css('height', (lc.scrollHeight + 25) + 'px');
+            }
+        }
+    }
+
+};

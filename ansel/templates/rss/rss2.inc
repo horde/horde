@@ -2,7 +2,7 @@
 
 <?php echo '<?xml-stylesheet href="' . $xsl . '" type="text/xsl"?>' ?>
 
-<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:georss="http://www.georss.org/georss">
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
  <channel>
   <title><?php echo $stream_name ?></title>
   <description><?php echo $stream_desc ?></description>
@@ -29,7 +29,11 @@
    <media:title type="plain"><?php echo $image['filename'] ?></media:title>
    <media:description type="html"><?php echo $image['caption'] ?></media:description>
    <?php if(!empty($image['latitude'])):?>
-   <georss:point><?php echo $image['latitude'] . ' ' . $image['longitude']?></georss:point>
+   <georss:point><?php echo $image['latitude'] ?> <?php echo $image['longitude']?></georss:point>
+   <geo:point>
+     <geo:lat><?php echo $image['latitude'] ?></geo:lat>
+     <geo:long> $image['longitude']</geo:long>
+   </geo:point>
    <?php endif;?>
   </item>
   <?php endforeach; ?>

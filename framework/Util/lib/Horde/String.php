@@ -3,14 +3,14 @@
  * The Horde_String:: class provides static methods for charset and locale
  * safe string manipulation.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Util
  */
 class Horde_String
@@ -172,8 +172,7 @@ class Horde_String
      * @param boolean $locale  If true the string will be converted based on
      *                         a given charset, locale independent else.
      * @param string $charset  If $locale is true, the charset to use when
-     *                         converting. If not provided the current
-     *                         charset.
+     *                         converting.
      *
      * @return string  The string with lowercase characters.
      */
@@ -497,14 +496,15 @@ class Horde_String
             $line = self::substr($string, 0, $width, 'UTF-8');
             $string = self::substr($string, self::length($line, 'UTF-8'), null, 'UTF-8');
 
-            // Make sure didn't cut a word, unless we want hard breaks anyway.
+            // Make sure we didn't cut a word, unless we want hard breaks
+            // anyway.
             if (!$cut && preg_match('/^(.+?)((\s|\r?\n).*)/us', $string, $match)) {
                 $line .= $match[1];
                 $string = $match[2];
             }
 
             // Wrap at existing line breaks.
-            if (preg_match('/^(.*?)(\r?\n)(.*)$/u', $line, $match)) {
+            if (preg_match('/^(.*?)(\r?\n)(.*)$/su', $line, $match)) {
                 $wrapped .= $match[1] . $match[2];
                 $string = $match[3] . $string;
                 continue;

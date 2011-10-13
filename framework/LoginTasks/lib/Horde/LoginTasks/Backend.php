@@ -4,15 +4,15 @@
  * the dependencies of the LoginTasks system (e.g. preferences, session storage,
  * redirection facilites, shutdown management etc.)
  *
- * Copyright 2001-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  LoginTasks
  */
 abstract class Horde_LoginTasks_Backend

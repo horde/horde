@@ -5,7 +5,7 @@
  * Copyright 2002-2007 Jon Wood <jon@jellybob.co.uk>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Jon Wood <jon@jellybob.co.uk>
  * @package Vfs

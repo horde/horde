@@ -10,7 +10,7 @@
  * @package  Log
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  */
 
 /**

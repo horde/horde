@@ -5,7 +5,7 @@
  * The table structure can be created by the scripts/sql/nag.sql script.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Jon Parise <jon@horde.org>
  * @package Nag
@@ -86,7 +86,7 @@ class Nag_Driver_Sql extends Nag_Driver
             throw new Nag_Exception($e->getMessage());
         }
         if (!$row) {
-            throw new Horde_Exception_NotFound(_("Task UID not found"));
+            throw new Horde_Exception_NotFound(sprintf(_("Task UID %s not found"), $uid));
         }
         $this->_tasklist = $row['task_owner'];
 

@@ -168,7 +168,7 @@ class Ingo_Storage
      *
      * @throws Ingo_Exception
      */
-    public function store(&$ob, $cache = true)
+    public function store($ob, $cache = true)
     {
         $type = $ob->obType();
         if (in_array($type, array(self::ACTION_BLACKLIST,
@@ -215,7 +215,7 @@ class Ingo_Storage
      *
      * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
      */
-    protected function _store(&$ob)
+    protected function _store($ob)
     {
     }
 

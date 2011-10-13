@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
 
 /**
  * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @category   Horde
  * @package    Util
  * @subpackage UnitTests
@@ -338,6 +338,17 @@ EOT
 Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm
 söllicitüdin
 fäücibüs mäüris ämet.
+EOT
+,
+            Horde_String::wordwrap($string));
+        $string = "Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm söllicitüdin fäücibüs mäüris ämet.\nLörem ipsüm dölör sit ämet.\nLörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm söllicitüdin fäücibüs mäüris ämet.";
+        $this->assertEquals(
+<<<EOT
+Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm
+söllicitüdin fäücibüs mäüris ämet.
+Lörem ipsüm dölör sit ämet.
+Lörem ipsüm dölör sit ämet, cönsectetüer ädipiscing elit. Aliqüäm
+söllicitüdin fäücibüs mäüris ämet.
 EOT
 ,
             Horde_String::wordwrap($string));

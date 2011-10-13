@@ -1,12 +1,12 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2006-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2006-2011 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -16,7 +16,7 @@
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @license    http://opensource.org/licenses/bsd-license.php
+ * @license    http://www.horde.org/licenses/bsd
  * @category   Horde
  * @package    Db
  * @subpackage Adapter
@@ -170,26 +170,12 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     # Protected
     ##########################################################################*/
 
-    protected function _checkRequiredConfig()
-    {
-        // check required config keys are present
-        $required = array('adapter', 'username');
-        $diff = array_diff_key(array_flip($required), $this->_config);
-        if (! empty($diff)) {
-            $msg = 'Required config missing: ' . implode(', ', array_keys($diff));
-            throw new Horde_Db_Exception($msg);
-        }
-
-        // try an empty password if it's not set.
-        if (!isset($this->_config['password'])) {
-            $this->_config['password'] = '';
-        }
-    }
-
     protected function _normalizeConfig($params)
     {
-        // normalize config parameters to what PDO expects
-        $normalize = array('database' => 'dbname', 'socket' => 'unix_socket', 'hostspec' => 'host');
+        // Normalize config parameters to what PDO expects.
+        $normalize = array('database' => 'dbname',
+                           'hostspec' => 'host');
+
         foreach ($normalize as $from => $to) {
             if (isset($params[$from])) {
                 $params[$to] = $params[$from];
@@ -204,7 +190,9 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     {
         $dsn = $this->_config['adapter'] . ':';
         foreach ($params as $k => $v) {
-            $dsn .= "$k=$v;";
+            if (strlen($v)) {
+                $dsn .= "$k=$v;";
+            }
         }
         return rtrim($dsn, ';');
     }
@@ -217,7 +205,12 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     protected function _parseConfig()
     {
-        $this->_checkRequiredConfig();
+        $this->_checkRequiredConfig(array('adapter', 'username'));
+
+        // try an empty password if it's not set.
+        if (!isset($this->_config['password'])) {
+            $this->_config['password'] = '';
+        }
 
         // collect options to build PDO Data Source Name (DSN) string
         $dsnOpts = $this->_config;
@@ -228,7 +221,8 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             $dsnOpts['protocol'],
             $dsnOpts['persistent'],
             $dsnOpts['charset'],
-            $dsnOpts['phptype']
+            $dsnOpts['phptype'],
+            $dsnOpts['socket']
         );
 
         // return DSN and user/pass for connection

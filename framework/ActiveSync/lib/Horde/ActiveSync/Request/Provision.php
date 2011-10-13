@@ -4,15 +4,15 @@
  *
  * Logic adapted from Z-Push, original copyright notices below.
  *
- * Copyright 2009 - 2010 The Horde Project (http://www.horde.org)
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
  */
 /**
  * Zarafa Deutschland GmbH, www.zarafaserver.de
- * This file is distributed under GPL v2.
- * Consult LICENSE file for details
+ * This file is distributed under GPL-2.0.
+ * Consult COPYING file for details
  */
 class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 {
@@ -51,10 +51,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
     public function handle()
     {
         parent::handle();
-
-        /* Get the policy key if it was sent */
-        $policykey = $this->_activeSync->getPolicyKey();
-        $this->_logger->debug('[' . $this->_device->id . '] PIM PolicyKey: ' . $policykey);
 
         /* Be optimistic */
         $status = self::STATUS_SUCCESS;

@@ -1,23 +1,9 @@
 <?php
 /**
  * Horde backend. Provides the communication between horde data and
- * ActiveSync server.  Some code based on an implementation found on Z-Push's
- * fourm.
+ * ActiveSync server.
  *
- * Original header:
- *
- * File      :   horde.php
- * Project   :   Z-Push
- * Descr     :   Horde backend
- * Created   :   09.03.2009
- *
- * (c) Holger de Carne holger@carne.de
- * This file is distributed under GPL v2.
- * Consult LICENSE file for details
- *
- * All other changes are:
- *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -196,7 +182,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Stat folder
+     * Stat folder. Note that since the only thing that can ever change for a
+     * folder is the name, we use that as the 'mod' value.
      *
      * @param $id
      *
@@ -413,7 +400,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $message = $this->_connector->calendar_export($id);
                 // Nokia MfE requires the optional UID element.
                 if (!$message->getUid()) {
-                    $message->setUid(pack("H*", md5($id)));
+                    $message->setUid(pack("H*", $id));
                 }
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -664,14 +651,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $rows = array_pop($rows);
         foreach ($rows as $row) {
             $return['rows'][] = array(
-                Horde_ActiveSync::GAL_ALIAS => $row['alias'],
+                Horde_ActiveSync::GAL_ALIAS => !empty($row['alias']) ? $row['alias'] : '',
                 Horde_ActiveSync::GAL_DISPLAYNAME => $row['name'],
-                Horde_ActiveSync::GAL_EMAILADDRESS => $row['email'],
+                Horde_ActiveSync::GAL_EMAILADDRESS => !empty($row['email']) ? $row['email'] : '',
                 Horde_ActiveSync::GAL_FIRSTNAME => $row['firstname'],
                 Horde_ActiveSync::GAL_LASTNAME => $row['lastname'],
-                Horde_ActiveSync::GAL_COMPANY => $row['company'],
-                Horde_ActiveSync::GAL_HOMEPHONE => $row['homePhone'],
-                Horde_ActiveSync::GAL_PHONE => $row['workPhone']
+                Horde_ActiveSync::GAL_COMPANY => !empty($row['company']) ? $row['company'] : '',
+                Horde_ActiveSync::GAL_HOMEPHONE => !empty($row['homePhone']) ? $row['homePhone'] : '',
+                Horde_ActiveSync::GAL_PHONE => !empty($row['workPhone']) ? $row['workPhone'] : '',
+                Horde_ActiveSync::GAL_MOBILEPHONE => !empty($row['cellPhone']) ? $row['cellPhone'] : '',
+                Horde_ActiveSync::GAL_TITLE => !empty($row['title']) ? $row['title'] : '',
             );
         }
 

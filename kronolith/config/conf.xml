@@ -10,8 +10,10 @@
       <configstring name="table" desc="Database
        table">kronolith_events</configstring>
      </configsql>
-     <configboolean name="utc" desc="Store the dates in UTC
-     format?">true</configboolean>
+     <configboolean name="utc" desc="Store the dates in UTC format?
+     &lt;strong&gt;WARNING: if you are upgrading from Kronolith before version
+     3, you must convert the old events to UTC before activating this. See the
+     documentation in UPGRADING.&lt;/strong&gt;">true</configboolean>
     </configsection>
    </case>
    <case name="kolab" desc="Kolab" />

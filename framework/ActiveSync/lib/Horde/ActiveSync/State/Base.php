@@ -6,7 +6,7 @@
  *     Generating delta between server and PIM
  *     Caching PING related state (hearbeat interval, folder list etc...)
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package ActiveSync
@@ -128,6 +128,11 @@ abstract class Horde_ActiveSync_State_Base
         }
     }
 
+    public function __destruct()
+    {
+        unset ($this->_backend);
+    }
+
     /**
      * Update the $oldKey syncState to $newKey.
      *
@@ -240,6 +245,7 @@ abstract class Horde_ActiveSync_State_Base
      */
     public function resetPingState()
     {
+        $this->_logger->debug('Resetting PING state');
         $this->_pingState = array(
             'lifetime' => 0,
             'collections' => array());
@@ -473,7 +479,9 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @return void
      */
-    abstract public function updateState($type, $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA, $user = null);
+    abstract public function updateState($type, array $change,
+                                         $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
+                                         $user = null);
 
     /**
      * Save folder data for a specific device. This is needed for BC with older

@@ -8,6 +8,7 @@ function toggleTags(domid)
 </script>
 <?php
 Horde::addScriptFile('quickfinder.js', 'horde');
+Horde::addScriptFile('effects.js', 'horde');
 Horde::addScriptFile('redbox.js', 'horde');
 Horde::addScriptFile('calendar-panel.js', 'kronolith');
 
@@ -20,10 +21,6 @@ foreach (Kronolith::listInternalCalendars() as $id => $cal) {
     if ($cal->get('owner') && $cal->get('owner') == $current_user) {
         $my_calendars[$id] = $cal;
     } else {
-        if (!empty($conf['share']['hidden']) &&
-            !in_array($cal->getName(), $display_calendars)) {
-            continue;
-        }
         $shared_calendars[$id] = $cal;
     }
 }

@@ -165,10 +165,10 @@
  *    to create a clean (empty) enviroment for the test user "syncmltest".  See
  *    the Horde_SyncMl_Backend_Sql implementation for details.
  *
- * Copyright 2005-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2005-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @package SyncMl
@@ -794,28 +794,28 @@ class Horde_SyncMl_Backend
         // Internal logging to logtext
         if (is_string($this->_logtext)) {
             switch ($priority) {
-            case 'EMERG':
+            case Horde_Log::EMERG:
                 $this->_logtext .= 'EMERG:  ';
                 break;
-            case 'ALERT':
+            case Horde_Log::ALERT:
                 $this->_logtext .= 'ALERT:  ';
                 break;
-            case 'CRIT':
-                $this->_logtext .= 'CIRT:   ';
+            case Horde_Log::CRIT:
+                $this->_logtext .= 'CRIT:   ';
                 break;
-            case 'ERR':
+            case Horde_Log::ERR:
                 $this->_logtext .= 'ERR:    ';
                 break;
-            case 'WARNING':
+            case Horde_Log::WARN:
                 $this->_logtext .= 'WARNING:';
                 break;
-            case 'NOTICE':
+            case Horde_Log::NOTICE:
                 $this->_logtext .= 'NOTICE: ';
                 break;
-            case 'INFO':
+            case Horde_Log::INFO:
                 $this->_logtext .= 'INFO:   ';
                 break;
-            case 'DEBUG':
+            case Horde_Log::DEBUG:
                 $this->_logtext .= 'DEBUG:  ';
                 break;
             default:

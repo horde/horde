@@ -4,7 +4,7 @@
  * various directory search drivers.  It includes functions for searching,
  * adding, removing, and modifying directory entries.
  *
- * Copyright 2000-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
@@ -184,8 +184,8 @@ class Turba_Driver implements Countable
                 $cManager = new Horde_Prefs_CategoryManager();
                 $cManager->add($hash['category']['value']);
                 $hash['category'] = $hash['category']['value'];
-            } else {
-                $hash['category'] = $hash['category'];
+            } elseif (is_array($hash['category'])) {
+                $hash['category'] = $hash['category']['value'];
             }
         }
 
@@ -229,7 +229,7 @@ class Turba_Driver implements Countable
                             ? $hash[$mapfields]
                             : '';
                     }
-                    $fields[$this->map[$key]['attribute']] = preg_replace('/\s+/', ' ', trim(vsprintf($this->map[$key]['format'], $fieldarray), " \t\n\r\0\x0B,"));
+                    $fields[$this->map[$key]['attribute']] = Turba::formatCompositeField($this->map[$key]['format'], $fieldarray);
                 } else {
                     // If 'parse' is not specified, use 'format' and 'fields'.
                     if (!isset($this->map[$key]['parse'])) {
@@ -285,117 +285,125 @@ class Turba_Driver implements Countable
         $search = $search_terms = $subsearch = $strict_search = array();
         $glue = $temp = '';
         $lastChar = '\"';
+        $blobs = $this->getBlobs();
 
         foreach ($criteria as $key => $val) {
-            if (isset($this->map[$key])) {
-                if (is_array($this->map[$key])) {
-                    /* Composite field, break out the search terms. */
-                    $parts = explode(' ', $val);
-                    if (count($parts) > 1) {
-                        /* Only parse if there was more than 1 search term and
-                         * 'AND' the cumulative subsearches. */
-                        for ($i = 0; $i < count($parts); ++$i) {
-                            $term = $parts[$i];
-                            $firstChar = substr($term, 0, 1);
-                            if ($firstChar == '"') {
-                                $temp = substr($term, 1, strlen($term) - 1);
-                                $done = false;
-                                while (!$done && $i < count($parts) - 1) {
-                                    $lastChar = substr($parts[$i + 1], -1);
-                                    if ($lastChar == '"') {
-                                        $temp .= ' ' . substr($parts[$i + 1], 0, -1);
-                                        $done = true;
-                                    } else {
-                                        $temp .= ' ' . $parts[$i + 1];
-                                    }
-                                    ++$i;
+            if (!isset($this->map[$key])) {
+                continue;
+            }
+            if (is_array($this->map[$key])) {
+                /* Composite field, break out the search terms. */
+                $parts = explode(' ', $val);
+                if (count($parts) > 1) {
+                    /* Only parse if there was more than 1 search term and
+                     * 'AND' the cumulative subsearches. */
+                    for ($i = 0; $i < count($parts); ++$i) {
+                        $term = $parts[$i];
+                        $firstChar = substr($term, 0, 1);
+                        if ($firstChar == '"') {
+                            $temp = substr($term, 1, strlen($term) - 1);
+                            $done = false;
+                            while (!$done && $i < count($parts) - 1) {
+                                $lastChar = substr($parts[$i + 1], -1);
+                                if ($lastChar == '"') {
+                                    $temp .= ' ' . substr($parts[$i + 1], 0, -1);
+                                    $done = true;
+                                } else {
+                                    $temp .= ' ' . $parts[$i + 1];
                                 }
-                                $search_terms[] = $temp;
-                            } else {
-                                $search_terms[] = $term;
+                                ++$i;
                             }
-                        }
-                        $glue = 'AND';
-                    } else {
-                        /* If only one search term, use original input and
-                           'OR' the searces since we're only looking for 1
-                           term in any of the composite fields. */
-                        $search_terms[0] = $val;
-                        $glue = 'OR';
-                    }
-
-                    foreach ($this->map[$key]['fields'] as $field) {
-                        $field = $this->toDriver($field);
-                        if (!empty($strict[$field])) {
-                            /* For strict matches, use the original search
-                             * vals. */
-                            $strict_search[] = array(
-                                'field' => $field,
-                                'op' => '=',
-                                'test' => $val,
-                            );
+                            $search_terms[] = $temp;
                         } else {
-                            /* Create a subsearch for each individual search
-                             * term. */
-                            if (count($search_terms) > 1) {
-                                /* Build the 'OR' search for each search term
-                                 * on this field. */
-                                $atomsearch = array();
-                                for ($i = 0; $i < count($search_terms); ++$i) {
-                                    $atomsearch[] = array(
-                                        'field' => $field,
-                                        'op' => 'LIKE',
-                                        'test' => $search_terms[$i],
-                                        'begin' => $match_begin,
-                                        'approximate' => !empty($this->approximate[$field]),
-                                    );
-                                }
-                                $atomsearch[] = array(
-                                    'field' => $field,
-                                    'op' => '=',
-                                    'test' => '',
-                                    'begin' => $match_begin,
-                                    'approximate' => !empty($this->approximate[$field])
-                                );
-
-                                $subsearch[] = array('OR' => $atomsearch);
-                                unset($atomsearch);
-                                $glue = 'AND';
-                            } else {
-                                /* $parts may have more than one element, but
-                                 * if they are all quoted we will only have 1
-                                 * $subsearch. */
-                                $subsearch[] = array(
-                                    'field' => $field,
-                                    'op' => 'LIKE',
-                                    'test' => $search_terms[0],
-                                    'begin' => $match_begin,
-                                    'approximate' => !empty($this->approximate[$field]),
-                                );
-                                $glue = 'OR';
-                            }
+                            $search_terms[] = $term;
                         }
                     }
-                    if (count($subsearch)) {
-                        $search[] = array($glue => $subsearch);
-                    }
+                    $glue = 'AND';
                 } else {
-                    /* Not a composite field. */
-                    if (!empty($strict[$this->map[$key]])) {
+                    /* If only one search term, use original input and
+                       'OR' the searces since we're only looking for 1
+                       term in any of the composite fields. */
+                    $search_terms[0] = $val;
+                    $glue = 'OR';
+                }
+
+                foreach ($this->map[$key]['fields'] as $field) {
+                    if (!empty($blobs[$field])) {
+                        continue;
+                    }
+                    $field = $this->toDriver($field);
+                    if (!empty($strict[$field])) {
+                        /* For strict matches, use the original search
+                         * vals. */
                         $strict_search[] = array(
-                            'field' => $this->map[$key],
+                            'field' => $field,
                             'op' => '=',
                             'test' => $val,
                         );
                     } else {
-                        $search[] = array(
-                            'field' => $this->map[$key],
-                            'op' => 'LIKE',
-                            'test' => $val,
-                            'begin' => $match_begin,
-                            'approximate' => !empty($this->approximate[$this->map[$key]]),
-                        );
+                        /* Create a subsearch for each individual search
+                         * term. */
+                        if (count($search_terms) > 1) {
+                            /* Build the 'OR' search for each search term
+                             * on this field. */
+                            $atomsearch = array();
+                            for ($i = 0; $i < count($search_terms); ++$i) {
+                                $atomsearch[] = array(
+                                    'field' => $field,
+                                    'op' => 'LIKE',
+                                    'test' => $search_terms[$i],
+                                    'begin' => $match_begin,
+                                    'approximate' => !empty($this->approximate[$field]),
+                                );
+                            }
+                            $atomsearch[] = array(
+                                'field' => $field,
+                                'op' => '=',
+                                'test' => '',
+                                'begin' => $match_begin,
+                                'approximate' => !empty($this->approximate[$field])
+                            );
+
+                            $subsearch[] = array('OR' => $atomsearch);
+                            unset($atomsearch);
+                            $glue = 'AND';
+                        } else {
+                            /* $parts may have more than one element, but
+                             * if they are all quoted we will only have 1
+                             * $subsearch. */
+                            $subsearch[] = array(
+                                'field' => $field,
+                                'op' => 'LIKE',
+                                'test' => $search_terms[0],
+                                'begin' => $match_begin,
+                                'approximate' => !empty($this->approximate[$field]),
+                            );
+                            $glue = 'OR';
+                        }
                     }
+                }
+                if (count($subsearch)) {
+                    $search[] = array($glue => $subsearch);
+                }
+            } else {
+                /* Not a composite field. */
+                if (!empty($blobs[$key])) {
+                    continue;
+                }
+                if (!empty($strict[$this->map[$key]])) {
+                    $strict_search[] = array(
+                        'field' => $this->map[$key],
+                        'op' => '=',
+                        'test' => $val,
+                    );
+                } else {
+                    $search[] = array(
+                        'field' => $this->map[$key],
+                        'op' => 'LIKE',
+                        'test' => $val,
+                        'begin' => $match_begin,
+                        'approximate' => !empty($this->approximate[$this->map[$key]]),
+                    );
                 }
             }
         }
@@ -793,7 +801,7 @@ class Turba_Driver implements Countable
         }
 
         if (!isset($attributes['__uid'])) {
-            $attributes['__uid'] = strval(new Horde_Support_Guid());
+            $attributes['__uid'] = $this->_makeUid();
         }
 
         $key = $attributes['__key'] = $this->_makeKey($this->toDriverKeys($attributes));
@@ -972,11 +980,19 @@ class Turba_Driver implements Countable
             ? array('CHARSET' => 'UTF-8')
             : array();
 
+        $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba');
         foreach ($hash as $key => $val) {
             if ($skipEmpty && !strlen($val)) {
                 continue;
             }
-
+            if ($haveDecodeHook) {
+                try {
+                    $val = Horde::callHook(
+                        'decode_attribute',
+                        array($attribute, $this->attributes[$attribute], $this),
+                        'turba');
+                } catch (Turba_Exception $e) {}
+            }
             switch ($key) {
             case 'name':
                 if ($fields && !isset($fields['FN'])) {
@@ -1397,7 +1413,17 @@ class Turba_Driver implements Countable
                 if ($fields && !isset($fields['EMAIL'])) {
                     break;
                 }
-                $vcard->setAttribute('EMAIL', Horde_Icalendar_Vcard::getBareEmail($val));
+                if ($version == '2.1') {
+                    $vcard->setAttribute(
+                        'EMAIL',
+                        Horde_Icalendar_Vcard::getBareEmail($val),
+                        array('INTERNET' => null));
+                } else {
+                    $vcard->setAttribute(
+                        'EMAIL',
+                        Horde_Icalendar_Vcard::getBareEmail($val),
+                        array('TYPE' => 'INTERNET'));
+                }
                 break;
 
             case 'homeEmail':
@@ -2251,8 +2277,7 @@ class Turba_Driver implements Countable
                     $fieldarray[] = isset($hash[$mapfields]) ?
                         $hash[$mapfields] : '';
                 }
-                $hash['name'] = trim(vsprintf($this->map['name']['format'], $fieldarray),
-                                     " \t\n\r\0\x0B,");
+                $hash['name'] = Turba::formatCompositeField($this->map['name']['format'], $fieldarray);
             } else {
                 $hash['name'] = isset($hash['firstname']) ? $hash['firstname'] : '';
                 if (!empty($hash['lastname'])) {
@@ -2276,7 +2301,18 @@ class Turba_Driver implements Countable
     {
         $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
         $hash = $object->getAttributes();
+        $haveDecodeHook = Horde::hookExists('decode_attribute', 'turba');
         foreach ($hash as $field => $value) {
+            if ($haveDecodeHook) {
+                try {
+                    $value = Horde::callHook(
+                        'decode_attribute',
+                        array($attribute, $this->attributes[$attribute], $this),
+                        'turba');
+                } catch (Turba_Exception $e) {
+                    Horde::logMessage($e);
+                }
+            }
             switch ($field) {
             case 'name':
                 $message->fileas = $value;
@@ -2296,6 +2332,14 @@ class Turba_Driver implements Countable
 
             case 'namePrefix':
                 $message->title = $value;
+                break;
+
+            case 'alias':
+            case 'nickname':
+                try {
+                    $message->nickname = $value;
+                } catch (InvalidArgumentException $e) {
+                }
                 break;
 
             case 'nameSuffix':
@@ -2328,6 +2372,26 @@ class Turba_Driver implements Countable
                 $message->homecountry = !empty($hash['homeCountry']) ? Horde_Nls::getCountryISO($hash['homeCountry']) : null;
                 break;
 
+            case 'otherStreet':
+                $message->otherstreet = $hash['otherStreet'];
+                break;
+
+            case 'otherCity':
+                $message->othercity = $hash['otherCity'];
+                break;
+
+            case 'otherProvince':
+                $message->otherstate = $hash['otherProvince'];
+                break;
+
+            case 'otherPostalCode':
+                $message->otherpostalcode = $hash['otherPostalCode'];
+                break;
+
+            case 'otherCountry':
+                $message->othercountry = !empty($hash['otherCountry']) ? Horde_Nls::getCountryISO($hash['otherCountry']) : null;
+                break;
+
             case 'workStreet':
                 $message->businessstreet = $hash['workStreet'];
                 break;
@@ -2352,15 +2416,44 @@ class Turba_Driver implements Countable
                 $message->homephonenumber = $hash['homePhone'];
                 break;
 
+            case 'homePhone2':
+                $message->home2phonenumber = $hash['homePhone2'];
+                break;
+
             case 'cellPhone':
                 $message->mobilephonenumber = $hash['cellPhone'];
                 break;
+
+            case 'carPhone':
+                $message->carphonenumber = $hash['carPhone'];
+                break;
+
             case 'fax':
                 $message->businessfaxnumber = $hash['fax'];
                 break;
 
+            case 'homeFax':
+                $message->homefaxnumber = $hash['homeFax'];
+                break;
+
             case 'workPhone':
                 $message->businessphonenumber = $hash['workPhone'];
+                break;
+
+            case 'workPhone2':
+                $message->business2phonenumber = $hash['workPhone2'];
+                break;
+
+            case 'assistPhone':
+                $message->assistnamephonenumber = $hash['assistPhone'];
+                break;
+
+            case 'companyPhone':
+                $message->companymainphone = $hash['companyPhone'];
+                break;
+
+            case 'radioPhone':
+                $message->radiophonenumber = $hash['radioPhone'];
                 break;
 
             case 'pager':
@@ -2371,6 +2464,36 @@ class Turba_Driver implements Countable
                 $message->email1address = Horde_Icalendar_Vcard::getBareEmail($value);
                 break;
 
+            case 'homeEmail':
+                $message->email2address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
+            case 'workEmail':
+                $message->email3address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
+            case 'imaddress':
+                try {
+                    $message->imaddress = $value;
+                } catch (InvalidArgumentException $e) {
+                }
+                break;
+
+            case 'imaddress2':
+                try {
+                    $message->imaddress2 = $value;
+                } catch (InvalidArgumentException $e) {
+
+                }
+                break;
+
+            case 'imaddress3':
+                try {
+                    $message->imaddress3 = $value;
+                } catch (InvalidArgumentException $e) {
+                }
+                break;
+
             case 'title':
                 $message->jobtitle = $value;
                 break;
@@ -2379,7 +2502,7 @@ class Turba_Driver implements Countable
                 $message->companyname = $value;
                 break;
 
-            case 'departnemt':
+            case 'department':
                 $message->department = $value;
                 break;
 
@@ -2405,8 +2528,12 @@ class Turba_Driver implements Countable
             case 'birthday':
             case 'anniversary':
                 if (!empty($value)) {
-                    $date = new Horde_Date($value);
-                    $message->{$field} = $date;
+                    try {
+                        $date = new Horde_Date($value);
+                        $message->{$field} = $date;
+                    } catch (Horde_Date_Exception $e) {
+                        $message->$field = null;
+                    }
                 } else {
                     $message->$field = null;
                 }
@@ -2440,12 +2567,17 @@ class Turba_Driver implements Countable
             'lastname' => 'lastname',
             'firstname' => 'firstname',
             'middlename' => 'middlenames',
+            'nickname' => 'nickname',
             'title' => 'namePrefix',
             'suffix' => 'nameSuffix',
             'homestreet' => 'homeStreet',
             'homecity' => 'homeCity',
             'homestate' => 'homeProvince',
             'homepostalcode' => 'homePostalCode',
+            'otherstreet' => 'otherStreet',
+            'othercity' => 'otherCity',
+            'otherstate' => 'otherProvince',
+            'otherpostalcode' => 'otherPostalCode',
             'businessstreet' => 'workStreet',
             'businesscity' => 'workCity',
             'businessstate' => 'workProvince',
@@ -2456,24 +2588,40 @@ class Turba_Driver implements Countable
             'spouse' => 'spouse',
             'body' => 'notes',
             'webpage' => 'website',
-            'assistantname' => 'assistant'
+            'assistantname' => 'assistant',
+            'imaddress' => 'imaddress',
+            'imaddress2' => 'imaddress2',
+            'imaddress3' => 'imaddress3'
         );
         foreach ($textMap as $asField => $turbaField) {
             if (!$message->isGhosted($asField)) {
-                $hash[$turbaField] = $message->{$asField};
+                try {
+                    $hash[$turbaField] = $message->{$asField};
+                } catch (InvalidArgumentException $e) {
+                }
             }
         }
 
         $nonTextMap = array(
             'homephonenumber' => 'homePhone',
+            'home2phonenumber' => 'homePhone2',
             'businessphonenumber' => 'workPhone',
+            'business2phonenumber' => 'workPhone2',
             'businessfaxnumber' => 'fax',
+            'homefaxnumber' => 'homeFax',
             'pagernumber' => 'pager',
-            'mobilephonenumber' => 'cellPhone'
+            'mobilephonenumber' => 'cellPhone',
+            'carphonenumber' => 'carPhone',
+            'assistnamephonenumber' => 'assistPhone',
+            'companymainphone' => 'companyPhone',
+            'radiophonenumber' => 'radioPhone'
         );
         foreach ($nonTextMap as $asField => $turbaField) {
             if (!$message->isGhosted($asField)) {
-                $hash[$turbaField] = $message->{$asField};
+                try {
+                    $hash[$turbaField] = $message->{$asField};
+                } catch (InvalidArgumentException $e) {
+                }
             }
         }
 
@@ -2488,7 +2636,12 @@ class Turba_Driver implements Countable
         if (!$message->isGhosted('email1address')) {
             $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
         }
-
+        if (!$message->isGhosted('email2address')) {
+            $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email2address);
+        }
+        if (!$message->isGhosted('email3address')) {
+            $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($message->email3address);
+        }
         /* Categories */
         if (count($message->categories)) {
             $hash['category'] = implode('|', $message->categories);
@@ -2530,6 +2683,16 @@ class Turba_Driver implements Countable
             $hash['workCountry'] = $country;
         } elseif (!$message->isGhosted('businesscountry')) {
             $hash['workCountry'] = null;
+        }
+
+        if (!empty($message->othercountry)) {
+            $country = array_search($message->othercountry, $countries);
+            if ($country === false) {
+                $country = $message->othercountry;
+            }
+            $hash['otherCountry'] = $country;
+        } elseif (!$message->isGhosted('othercountry')) {
+            $hash['otherCountry'] = null;
         }
 
         return $hash;
@@ -2640,6 +2803,16 @@ class Turba_Driver implements Countable
     }
 
     /**
+     * Creates an object UID for a new object.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeUid()
+    {
+        return strval(new Horde_Support_Guid());
+    }
+
+    /**
      * Initialize the driver.
      *
      * @throws Turba_Exception
@@ -2683,19 +2856,20 @@ class Turba_Driver implements Countable
     }
 
     /**
-     * Adds the specified contact to the SQL database.
+     * Adds the specified contact to the addressbook.
      *
-     * @param array $attributes  TODO
+     * @param array $attributes  The attribute values of the contact.
+     * @param array $blob_fields TODO
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes)
+    protected function _add(array $attributes, array $blob_fields = array())
     {
         throw new Turba_Exception(_("Adding contacts is not available."));
     }
 
     /**
-     * Deletes the specified contact from the SQL database.
+     * Deletes the specified contact from the addressbook.
      *
      * @param string $object_key TODO
      * @param string $object_id  TODO
@@ -2729,7 +2903,7 @@ class Turba_Driver implements Countable
      */
     public function removeUserData($user)
     {
-        throw new Turba_Exception(_("Removing user data is not supported in the current address book storage driver."));
+        throw new Turba_Exception_NotSupported(_("Removing user data is not supported in the current address book storage driver."));
     }
 
     /**

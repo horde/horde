@@ -2,10 +2,10 @@
 /**
  * Wicked Base Class.
  *
- * Copyright 2003-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
@@ -61,7 +61,7 @@ class Wicked
     const REGEXP_WIKIWORD = "(!?[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe]*[a-z0-9\xdf-\xfe]+[A-Z\xc0-\xde][A-Za-z0-9\xc0-\xfe]*)((\#[A-Za-z0-9\xc0-\xfe]([-_A-Za-z0-9\xc0-\xfe:.]*[-_A-Za-z0-9\xc0-\xfe])?)?)";
 
     /** Where we store our attachments in VFS. */
-    const WICKED_VFS_ATTACH_PATH = '.horde/wicked/attachments';
+    const VFS_ATTACH_PATH = '.horde/wicked/attachments';
 
     /**
      * Puts together the URL to a Wicked page. Uses mod_rewrite or GET

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="form-action">
+    <title>Creación de formularios: Acción</title>
+    <heading>Acción</heading>
+    <para>Puede seleccionar qué tipo de acción disparará el formulario al enviarlo. Las acciones instaladas actualmente se listan en el menú desplegable.</para>
+</entry>
+
+<entry id="on-submit">
+	<title>Creación de formularios: Envío</title>
+    <heading>Envío</heading>
+    <para>Puede incluir cualquier javascript válido que se ejecutará cuando se envíe el formulario.</para>
+</entry>
+
+</help>

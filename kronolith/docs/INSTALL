@@ -34,7 +34,7 @@ To function properly, Kronolith requires the following:
                   also Horde prerequisites. Additionally, many of Kronolith's
                   optional features are configured via the Horde install.
 
-   .. _`Horde Application Framework`: http://www.horde.org/horde/
+   .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
 2. SQL support in PHP, or Kolab support in Horde
 
@@ -95,60 +95,22 @@ First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Kronolith through PEAR now, the installer will automatically
-install any dependencies of Kronolith too. By default, only the required
-dependencies will be installed::
+install any dependencies of Kronolith too. If you want to install Kronolith
+with all optional dependencies, but without the binary PECL packages that need
+to be compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/kronolith
+
+By default, only the required dependencies will be installed::
 
    pear install horde/kronolith
 
-If you want to install Kronolith even with all optional dependencies, you need
-to specify the ``-a`` flag. Please note that this might also try to install PHP
+If you want to install Kronolith even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/kronolith
-
-If you want to install Kronolith with all optional dependencies, but without
-the binary PECL packages that need to be compiled, specify both the ``-a`` and
-the ``-B`` flag::
-
-   pear install -a -B horde/kronolith
-
-
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. Important:: As of today, there are no tarballs released for Kronolith 3
-               yet. Please use the `Installing with PEAR`_ method to install
-               Kronolith 3.
-
-Kronolith can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/kronolith/
-
-   ftp://ftp.horde.org/pub/kronolith/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Kronolith is written in PHP, and must be installed in a web-accessible
-directory.  The precise location of this directory will differ from system to
-system.  Conventionally, Kronolith is installed directly underneath Horde in
-the webserver's document tree.
-
-Since Kronolith is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the URL.  For
-example, with the Apache webserver's default document root of
-``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/kronolith-x.y.z.tar.gz
-   mv kronolith-x.y.z kronolith
-
-and would then find Kronolith at the URL
-
-   http://your-server/horde/kronolith/
 
 
 Configuring Kronolith
@@ -237,13 +199,13 @@ If you encounter problems with Kronolith, help is available!
 
 The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
-  http://www.horde.org/faq/
+  http://wiki.horde.org/FAQ
 
-The Horde Project runs a number of mailing lists, for individual applications
+Horde LLC runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 
-  http://www.horde.org/mail/
+  http://www.horde.org/community/mail
 
 Lastly, Horde developers, contributors and users may also be found on IRC,
 on the channel #horde on the Freenode Network (irc.freenode.net).
@@ -251,14 +213,13 @@ on the channel #horde on the Freenode Network (irc.freenode.net).
 Please keep in mind that Kronolith is free software written by volunteers.
 For information on reasonable support expectations, please read
 
-  http://www.horde.org/support.php
+  http://www.horde.org/community/support
 
 Thanks for using Kronolith!
 
 The Horde team
 
 
-.. _README: ?f=README.html
-.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
-.. _`horde/docs/HACKING`: ../../horde/docs/?f=HACKING.html
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html
+.. _README: README
+.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS

@@ -9,7 +9,7 @@
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Log
  */
 
@@ -17,7 +17,7 @@
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Log
  */
 class Horde_Log_Formatter_XmlTest extends PHPUnit_Framework_TestCase

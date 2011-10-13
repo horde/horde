@@ -2,11 +2,14 @@
 /**
  * Horde base test suite
  *
- * @author     Jan Schneider <jan@horde.org>
- * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
- * @category   Horde
- * @package    Test
- * @subpackage UnitTests
+ * PHP version 5
+ *
+ * @category Horde
+ * @package  Test
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Test
  */
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
@@ -16,8 +19,19 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'PHPUnit/Autoload.php';
 
 /**
- * @package    Test
- * @subpackage UnitTests
+ * Horde base test suite
+ *
+ * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category Horde
+ * @package  Test
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @link     http://www.horde.org/components/Horde_Test
  */
 class Horde_Test_AllTests
 {
@@ -60,21 +74,17 @@ class Horde_Test_AllTests
      */
     public static function suite()
     {
-        // Catch strict standards
-        error_reporting(E_ALL | E_STRICT);
-
-        // Set up autoload
-        $basedir = dirname(self::$_file);
-        set_include_path($basedir . '/../../../lib' . PATH_SEPARATOR . get_include_path());
-        require_once 'Horde/Test/Autoload.php';
+        self::setup();
 
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - ' . self::$_package);
+
+        $basedir = dirname(self::$_file);
         $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
             if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
                 $pathname = $file->getPathname();
-                if (require $pathname) {
+                if (include $pathname) {
                     $class = str_replace(DIRECTORY_SEPARATOR, '_',
                                          preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
                     try {
@@ -96,4 +106,46 @@ class Horde_Test_AllTests
         return $suite;
     }
 
+    /**
+     * Basic test suite setup. This includes error checking and autoloading.
+     *
+     * In the default situation this will set the error reporting to E_ALL |
+     * E_STRICT and pull in Horde/Test/Autoload.php as autoloading
+     * definition. If there is an Autoload.php alongside the AllTests.php
+     * represented by self::$_file, then only this file will be used.
+     *
+     * In addition the setup() call will attempt to detect the "lib" directory
+     * of the component currently under test and add it to the
+     * include_path. This ensures that the component code from the checkout is
+     * preferred over whatever else might be available in the default
+     * include_path.
+     *
+     * @return NULL
+     */
+    public static function setup()
+    {
+        // Detect component root and add "lib" to the include path.
+        for ($dirname = self::$_file, $i = 0;
+             $dirname != '/', $i < 5;
+             $dirname = dirname($dirname), $i++) {
+            if (basename($dirname) == 'test' &&
+                file_exists(dirname($dirname) . '/lib')) {
+                set_include_path(
+                    dirname($dirname) . '/lib' . PATH_SEPARATOR . get_include_path()
+                );
+                break;
+            }
+        }
+
+        $autoload = dirname(self::$_file) . '/Autoload.php';
+        if (!file_exists($autoload)) {
+            // Catch strict standards
+            error_reporting(E_ALL | E_STRICT);
+
+            // Set up autoload
+            require_once 'Horde/Test/Autoload.php';
+        } else {
+            require_once $autoload;
+        }
+    }
 }

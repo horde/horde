@@ -7,24 +7,24 @@
  * @category Horde
  * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
 
 /**
  * A wrapper for vEvent iCalender data.
  *
- * Copyright 2002-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * {@link http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL}.
+ * {@link http://www.horde.org/licenses/lgpl21 LGPL}.
  *
  * @category Horde
  * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  *
  * @todo Clean this class up. Accessing private methods for copying the object

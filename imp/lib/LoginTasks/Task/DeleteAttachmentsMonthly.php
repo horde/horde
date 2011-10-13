@@ -3,11 +3,11 @@
  * Login tasks module that deletes old linked attachments.
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Andrew Coleman <mercury@appisolutions.net>
  * @category Horde
- * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
@@ -17,7 +17,9 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        if (($this->active = (bool)$GLOBALS['prefs']->getValue('delete_attachments_monthly_keep')) &&
+        $this->active = !empty($conf['compose']['link_attachments']) &&
+            $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep');
+        if ($this->active &&
             $GLOBALS['prefs']->isLocked('delete_attachments_monthly_keep')) {
             $this->display = Horde_LoginTasks::DISPLAY_NONE;
         }

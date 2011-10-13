@@ -23,7 +23,7 @@
  <configsection name="menu">
   <configheader>Menu Settings</configheader>
   <configmultienum name="apps" desc="Select any applications that should be
-  linked in Pastie's menu">
+  linked in Pastie's menu" required="false">
    <values>
     <configspecial application="horde" name="apps" />
    </values>

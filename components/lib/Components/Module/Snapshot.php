@@ -8,7 +8,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
@@ -16,30 +16,45 @@
  * Components_Module_DevPackage:: generates a development snapshot for the
  * specified package.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Module_Snapshot
 extends Components_Module_Base
 {
+    /**
+     * Return the title for the option group representing this module.
+     *
+     * @return string The group title.
+     */
     public function getOptionGroupTitle()
     {
         return 'Package snapshot';
     }
 
+    /**
+     * Return the description for the option group representing this module.
+     *
+     * @return string The group description.
+     */
     public function getOptionGroupDescription()
     {
         return 'This module generates a development snapshot for the specified package';
     }
 
+    /**
+     * Return the options for this module.
+     *
+     * @return array The group options.
+     */
     public function getOptionGroupOptions()
     {
         return array(
@@ -49,14 +64,6 @@ extends Components_Module_Base
                 array(
                     'action' => 'store_true',
                     'help'   => 'Generate a development snapshot'
-                )
-            ),
-            new Horde_Argv_Option(
-                '-Z',
-                '--archivedir',
-                array(
-                    'action' => 'store',
-                    'help'   => 'The path to the directory where any resulting source archives will be placed.'
                 )
             ),
             new Horde_Argv_Option(
@@ -99,8 +106,7 @@ extends Components_Module_Base
      */
     public function getHelp($action)
     {
-        return 'This module generates a COMPONENT-1.0.0devYYYYMMDD.tgz snapshot of the selected component.
-';
+        return 'This module generates a COMPONENT-1.0.0devYYYYMMDD.tgz snapshot of the selected component.';
     }
 
     /**
@@ -111,7 +117,7 @@ extends Components_Module_Base
     public function getContextOptionHelp()
     {
         return array(
-            '--archivedir' => '',
+            '--destination' => '',
             '--keep-version' => ''
         );
     }
@@ -130,7 +136,6 @@ extends Components_Module_Base
         $arguments = $config->getArguments();
         if (!empty($options['snapshot'])
             || (isset($arguments[0]) && $arguments[0] == 'snapshot')) {
-            $this->requirePackageXml($config->getComponentDirectory());
             $this->_dependencies->getRunnerSnapshot()->run();
             return true;
         }

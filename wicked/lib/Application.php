@@ -5,10 +5,10 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Wicked through this API.
  *
- * Copyright 2010-2011 The Horde Project (http://www.horde.org/)
+ * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @package Wicked
  */
@@ -36,7 +36,7 @@ class Wicked_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H4 (2.0-git)';
+    public $version = 'H4 (1.0-git)';
 
     /**
      * Global variables defined:
@@ -45,7 +45,8 @@ class Wicked_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $GLOBALS['wicked'] = Wicked_Driver::factory();
+        $GLOBALS['injector']->bindFactory('Wicked_Driver', 'Wicked_Factory_Driver', 'create');
+        $GLOBALS['wicked'] = $GLOBALS['injector']->getInstance('Wicked_Driver');
         $GLOBALS['linkTags'] = array('<link href="' . Horde::url('opensearch.php', true, -1) . '" rel="search" type="application/opensearchdescription+xml" title="' . $GLOBALS['registry']->get('name') . ' (' . Horde::url('', true) . ')" />');
     }
 
