@@ -615,7 +615,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      * Callback, called from common-template-mobile.inc that sets up the jquery
-     * mobile init hanler.
+     * mobile init handler.
      */
     public function mobileInitCallback()
     {
