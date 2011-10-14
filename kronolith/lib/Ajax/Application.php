@@ -461,6 +461,10 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         }
         unset($task['alarm_methods']);
 
+        if (!isset($task['completed'])) {
+            $task['completed'] = false;
+        }
+
         try {
             $ids = ($id && $list)
                 ? $GLOBALS['registry']->tasks->updateTask($list, $id, $task)
