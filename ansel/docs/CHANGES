@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
 [jan] Fix link to report faces (Bug #10636).
 
 
