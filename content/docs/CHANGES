@@ -1,6 +1,6 @@
-----------
-v1.0.3-git
-----------
+------
+v1.0.3
+------
 
 [mjr] Honor the limit and radius parameters.
 [mjr] Fix getObjects method when passing object_id (Bug# 10439).
