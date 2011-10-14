@@ -42,6 +42,9 @@ class Horde_Push_Cli_Factory_Recipients
             case 'twitter':
                 $result[] = $this->_createTwitter($conf);
                 break;
+            case 'blogger':
+                $result[] = $this->_createBlogger($conf);
+                break;
             }
         }
         return $result;
@@ -76,6 +79,21 @@ class Horde_Push_Cli_Factory_Recipients
         $twitter->auth->setToken($auth_token);
 
         return new Horde_Push_Recipient_Twitter($twitter);
+    }
+
+    /**
+     * Create the blogger recipient.
+     *
+     * @param array $conf The configuration.
+     *
+     * @return Horde_Push_Recipient_Blogger The blogger recipient.
+     */
+    private function _createBlogger($conf)
+    {
+        return new Horde_Push_Recipient_Blogger(
+            $this->_createHttpClient($conf),
+            $conf['blogger']
+        );
     }
 
     /**

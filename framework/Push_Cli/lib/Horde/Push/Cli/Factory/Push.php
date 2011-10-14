@@ -162,6 +162,9 @@ class Horde_Push_Cli_Factory_Push
         }
         $push = new Horde_Push();
         $push->setSummary($data['summary']);
+        if (isset($data['body'])) {
+            $push->addContent($data['body']);
+        }
         return $push;
     }
 
