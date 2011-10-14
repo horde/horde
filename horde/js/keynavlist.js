@@ -127,6 +127,7 @@ var KeyNavList = Class.create({
         if (!Object.isUndefined(list)) {
             this.update(list);
         } else if (this.div.visible()) {
+            this.hide();
             return;
         }
 
