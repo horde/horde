@@ -10,8 +10,8 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-04</date>
- <time>09:12:08</time>
+ <date>2011-10-14</date>
+ <time>08:26:41</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -38,6 +38,8 @@
     <dir name="Horde">
      <dir name="Push">
       <dir name="Recipient">
+       <file name="Blogger.php" role="php" />
+       <file name="Mail.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="Twitter.php" role="php" />
       </dir> <!-- /lib/Horde/Push/Recipient -->
@@ -49,12 +51,16 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Push">
+      <dir name="fixtures">
+       <file name="text.txt" role="test" />
+      </dir> <!-- /test/Horde/Push/fixtures -->
       <dir name="Stub">
        <file name="Twitter.php" role="test" />
       </dir> <!-- /test/Horde/Push/Stub -->
       <dir name="Unit">
        <dir name="Push">
         <dir name="Recipient">
+         <file name="MailTest.php" role="test" />
          <file name="TwitterTest.php" role="test" />
         </dir> <!-- /test/Horde/Push/Unit/Push/Recipient -->
        </dir> <!-- /test/Horde/Push/Unit/Push -->
@@ -78,6 +84,50 @@
     <min>1.7.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Argv</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Cli</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Service_Twitter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Yaml</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -85,14 +135,22 @@
    <install as="TODO" name="doc/Horde/Push/TODO" />
    <install as="Horde/Push.php" name="lib/Horde/Push.php" />
    <install as="Horde/Push/Recipient.php" name="lib/Horde/Push/Recipient.php" />
+   <install as="Horde/Push/Cli/Exception.php" name="lib/Horde/Push/Cli/Exception.php" />
+   <install as="Horde/Push/Cli/Translation.php" name="lib/Horde/Push/Cli/Translation.php" />
+   <install as="Horde/Push/Cli/Factory/Push.php" name="lib/Horde/Push/Cli/Factory/Push.php" />
+   <install as="Horde/Push/Cli/Factory/Recipients.php" name="lib/Horde/Push/Cli/Factory/Recipients.php" />
+   <install as="Horde/Push/Recipient/Blogger.php" name="lib/Horde/Push/Recipient/Blogger.php" />
+   <install as="Horde/Push/Recipient/Mail.php" name="lib/Horde/Push/Recipient/Mail.php" />
    <install as="Horde/Push/Recipient/Mock.php" name="lib/Horde/Push/Recipient/Mock.php" />
    <install as="Horde/Push/Recipient/Twitter.php" name="lib/Horde/Push/Recipient/Twitter.php" />
    <install as="Horde/Push/AllTests.php" name="test/Horde/Push/AllTests.php" />
    <install as="Horde/Push/Autoload.php" name="test/Horde/Push/Autoload.php" />
    <install as="Horde/Push/phpunit.xml" name="test/Horde/Push/phpunit.xml" />
    <install as="Horde/Push/TestCase.php" name="test/Horde/Push/TestCase.php" />
+   <install as="Horde/Push/fixtures/text.txt" name="test/Horde/Push/fixtures/text.txt" />
    <install as="Horde/Push/Stub/Twitter.php" name="test/Horde/Push/Stub/Twitter.php" />
    <install as="Horde/Push/Unit/PushTest.php" name="test/Horde/Push/Unit/PushTest.php" />
+   <install as="Horde/Push/Unit/Push/Recipient/MailTest.php" name="test/Horde/Push/Unit/Push/Recipient/MailTest.php" />
    <install as="Horde/Push/Unit/Push/Recipient/TwitterTest.php" name="test/Horde/Push/Unit/Push/Recipient/TwitterTest.php" />
   </filelist>
  </phprelease>
@@ -106,7 +164,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-04</date>
+   <date>2011-10-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.
