@@ -27,7 +27,7 @@ if (!$opts->object_id) {
     throw new InvalidArgumentException('object_id is required');
 }
 
-$m = new Content_ObjectMapper;
+$m = new Content_ObjectMapper($injector->getInstance('Horde_Db_Adapter'));
 if ($m->delete($opts->object_id)) {
     echo 'Deleted object with id ' . $opts->object_id . ".\n";
     exit(0);

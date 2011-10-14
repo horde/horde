@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [jan] Fix commandline scripts (Bug #10656).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -365,7 +365,7 @@
    <date>2011-08-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [jan] Fix commandline scripts (Bug #10656).
    </notes>
   </release>
  </changelog>

@@ -31,7 +31,7 @@ if (!$opts->id || !$opts->type_id) {
 require CONTENT_BASE . '/lib/Objects/Object.php';
 require CONTENT_BASE . '/lib/Objects/ObjectMapper.php';
 
-$m = new Content_ObjectMapper;
+$m = new Content_ObjectMapper($injector->getInstance('Horde_Db_Adapter'));
 $i = $m->create(array('object_name' => $opts->id,
                       'type_id' => $opts->type_id,
                ));

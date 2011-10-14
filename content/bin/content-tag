@@ -31,6 +31,6 @@ if (!count($tags)) {
 }
 
 /* @TODO Switch to using the TagController */
-$tagger = new Content_Tagger();
-$tagger->tag($opts->user_id, $opts->object_id, $tags);
+$injector->getInstance('Content_Tagger')
+    ->tag($opts->user_id, $opts->object_id, $tags);
 exit(0);

@@ -26,7 +26,7 @@ if (!count($tags)) {
 require CONTENT_BASE . '/lib/Tags/Tag.php';
 require CONTENT_BASE . '/lib/Tags/TagMapper.php';
 
-$m = new Content_TagMapper;
+$m = new Content_TagMapper($injector->getInstance('Horde_Db_Adapter'));
 foreach ($tags as $tag) {
     $t = $m->findOne(array('tag_name' => $tag));
     if (!$t) {

@@ -1,4 +1,5 @@
 #!/usr/bin/env php
+<?php
 /**
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -25,7 +26,7 @@ if (!count($tags)) {
 require CONTENT_BASE . '/lib/Tags/Tag.php';
 require CONTENT_BASE . '/lib/Tags/TagMapper.php';
 
-$m = new Content_TagMapper;
+$m = new Content_TagMapper($injector->getInstance('Horde_Db_Adapter'));
 foreach ($tags as $tag) {
     $t = $m->create(array('tag_name' => $tag));
     echo 'Created new tag with id ' . $t->tag_id . ' and name "' . $t->tag_name . "\".\n";
