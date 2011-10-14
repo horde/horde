@@ -621,14 +621,16 @@ class IMP_Application extends Horde_Registry_Application
     {
         Horde::addScriptFile('mobile.js');
         require IMP_TEMPLATES . '/mobile/javascript_defs.php';
+        $response = Horde::prepareResponse(null, true);
 
         /* Inline script. */
         Horde::addInlineScript(
-          '$(window.document).bind("mobileinit", function() {
-              $.mobile.page.prototype.options.addBackBtn = true;
-              $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
-              $.mobile.loadingMessage = "' . _("loading") . '";
-           });'
+'$(window.document).bind("mobileinit", function() {
+    $.mobile.page.prototype.options.addBackBtn = true;
+    $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
+    $.mobile.loadingMessage = "' . _("loading") . '";
+});
+$("#folders").live("pagecreate", function() { HordeMobile.showNotifications(' . Horde_Serialize::serialize($response->msgs ? $response->msgs : array(), Horde_Serialize::JSON) . ') });'
         );
     }
 
