@@ -1,6 +1,42 @@
 pre, code, .fixed, table.lineNumbered * {
     font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
 }
+
+/* Styles for email-like messages. */
+.signature {
+    color: #ccc;
+}
+.signature .fixed {
+    color: #ccc;
+}
+.citation {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left-width: 1px;
+    border-left-style: solid;
+    min-height: 1em;
+}
+.quoted1 {
+    color: #606;
+    border-color: #606;
+}
+.quoted2 {
+    color: #077;
+    border-color: #077;
+}
+.quoted3 {
+    color: #900;
+    border-color: #900;
+}
+.quoted4 {
+    color: #009;
+    border-color: #009;
+}
+.quoted5 {
+    color: #b60;
+    border-color: #b60;
+}
+
 .horde-message, .horde-success, .horde-warning, .horde-error {
     padding-left: 40px !important;
     background-position: 14px center !important;
