@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-14</date>
- <time>10:20:40</time>
+ <time>10:30:27</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -27,7 +27,7 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="push" role="script" />
+    <file name="horde-push" role="script" />
    </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
@@ -143,7 +143,7 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="push" name="bin/push" />
+   <install as="horde-push" name="bin/horde-push" />
    <install as="COPYING" name="doc/Horde/Push/COPYING" />
    <install as="TODO" name="doc/Horde/Push/TODO" />
    <install as="Horde/Push.php" name="lib/Horde/Push.php" />
