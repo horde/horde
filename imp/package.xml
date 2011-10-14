@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [jan] Add compose functionality to smartphone view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2541,7 +2541,7 @@
    <date>2011-04-21</date>
    <license uri="http://www.gnu.org/licenses/gpl.html">GPL</license>
    <notes>
-*
+* [jan] Add compose functionality to smartphone view.
    </notes>
   </release>
  </changelog>

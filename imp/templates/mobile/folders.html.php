@@ -11,4 +11,7 @@
       <?php echo $this->tree ?>
     </ul>
   </div>
+  <div data-role="footer" class="ui-bar" data-position="fixed">
+    <a href="#" class="imp-compose" data-role="button" data-icon="plus"><?php echo _("New Message") ?></a>
+  </div>
 </div>

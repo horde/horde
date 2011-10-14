@@ -78,6 +78,8 @@ $code['conf'] = array_filter(array(
 /* Gettext strings used in core javascript files. */
 $code['text'] = array(
     'more_messages' => _("%d more messages..."),
+    'new_message' => _("New Message"),
+    'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
 );
 
 Horde::addInlineJsVars(array(

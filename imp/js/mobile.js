@@ -9,10 +9,21 @@
 var ImpMobile = {
 
     // Vars used and defaulting to null/false:
+    //
     // /**
     //  * UID of the currently displayed message.
     //  */
     // uid,
+    //
+    // /**
+    //  * Whether the compose form is currently disable, e.g. being submitted.
+    //  */
+    // disabled,
+    //
+    // /**
+    //  * Whether attachments are currently being uploaded.
+    //  */
+    // uploading,
 
     /**
      * The currently loaded list of message data, keys are UIDs, values are
@@ -205,6 +216,190 @@ var ImpMobile = {
     },
 
     /**
+     * Switches to the compose view and loads a message if replying or
+     * forwarding.
+     *
+     * @param string mailbox  A mailbox name.
+     * @param string uid      A message UID.
+     */
+    compose: function(mailbox, uid)
+    {
+        var o = {};
+        o[mailbox] = [ uid ];
+        $('#imp-compose-title').html(IMP.text.new_message);
+        /*
+        $('#imp-message-subject').text('');
+        $('#imp-message-from').text('');
+        $('#imp-message-body').text('');
+        $('#imp-message-date').text('');
+        $('#imp-message-more').parent().show();
+        $('#imp-message-less').parent().hide();
+        */
+        if ($.mobile.activePage.attr('id') != 'compse') {
+            $.mobile.changePage('#compose', 'slide', false, true);
+        }
+        /*
+        HordeMobile.doAction(
+            'showMessage',
+            {
+                uid: ImpMobile.toRangeString(o),
+                view: mailbox,
+            },
+            ImpMobile.messageLoaded);
+        */
+    },
+
+    uniqueSubmit: function(action)
+    {
+        var form = (action == 'redirectMessage')
+            ? $('#imp-redirect-form')
+            : $('#imp-compose-form');
+
+        if (action == 'sendMessage' || action == 'saveDraft') {
+            switch (action) {
+            case 'sendMessage':
+                if (($('#imp-compose-subject').val() == '') &&
+                    !window.confirm(IMP.text.nosubject)) {
+                    return;
+                }
+                break;
+            }
+
+            // Don't send/save until uploading is completed.
+            if (ImpMobile.uploading) {
+                window.setTimeout(function() { if (ImpMobile.disabled) { ImpMobile.uniqueSubmit(action); } }, 250);
+                return;
+            }
+        }
+
+        if (action == 'addAttachment') {
+            // We need a submit action here because browser security models
+            // won't let us access files on user's filesystem otherwise.
+            ImpMobile.uploading = true;
+            form.submit();
+        } else {
+            // Use an AJAX submit here so that we can do javascript-y stuff
+            // before having to close the window on success.
+            HordeMobile.doAction(action,
+                                 form.serializeArray(true),
+                                 ImpMobile.uniqueSubmitCallback);
+
+            // Can't disable until we send the message - or else nothing
+            // will get POST'ed.
+            if (action != 'autoSaveDraft') {
+                ImpMobile.setDisabled(true);
+            }
+        }
+    },
+
+    uniqueSubmitCallback: function(d)
+    {
+        if (!d) {
+            return;
+        }
+
+        if (d.imp_compose) {
+            $('#imp-compose-cache').setValue(d.imp_compose);
+        }
+
+        if (d.success || d.action == 'addAttachment') {
+            switch (d.action) {
+            case 'autoSaveDraft':
+            case 'saveDraft':
+                break;
+                //TODO
+                ImpMobile.updateDraftsMailbox();
+
+                if (d.action == 'saveDraft') {
+                    if (!DIMP.conf_compose.qreply &&
+                        ImpMobile.baseAvailable()) {
+                        DimpCore.base.DimpCore.showNotifications(r.msgs);
+                        r.msgs = [];
+                    }
+                    if (DIMP.conf_compose.close_draft) {
+                        return ImpMobile.closeCompose();
+                    }
+                }
+                break;
+
+            case 'sendMessage':
+                if (d.flag) {
+                    //DimpCore.base.DimpBase.flagCallback(d);
+                }
+
+                if (d.mailbox) {
+                    //DimpCore.base.DimpBase.mailboxCallback(r);
+                }
+
+                if (d.draft_delete) {
+                    //DimpCore.base.DimpBase.poll();
+                }
+
+                if (d.log) {
+                    //DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                }
+
+                return ImpMobile.closeCompose();
+
+            case 'redirectMessage':
+                if (d.log) {
+                    //DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                }
+                return ImpMobile.closeCompose();
+
+            case 'addAttachment':
+                break;
+                //TODO
+                ImpMobile.uploading = false;
+                if (d.success) {
+                    ImpMobile.addAttach(d.atc);
+                }
+
+                $('upload_wait').hide();
+                ImpMobile.initAttachList();
+                ImpMobile.resizeMsgArea();
+                break;
+            }
+        } else {
+            /*
+            if (!Object.isUndefined(d.identity)) {
+                ImpMobile.old_identity = $F('identity');
+                $('identity').setValue(d.identity);
+                ImpMobile.changeIdentity();
+                $('noticerow', 'identitychecknotice').invoke('show');
+                ImpMobile.resizeMsgArea();
+            }
+
+            if (!Object.isUndefined(d.encryptjs)) {
+                ImpMobile.old_action = d.action;
+                eval(d.encryptjs.join(';'));
+            }
+            */
+        }
+
+        ImpMobile.setDisabled(false);
+    },
+
+    setDisabled: function(disable)
+    {
+        var redirect = $('#imp-redirect-form').filter(':visible');
+
+        ImpMobile.disabled = disable;
+
+        if (disable) {
+            $.mobile.showPageLoadingMsg();
+        } else {
+            $.mobile.hidePageLoadingMsg();
+        }
+
+        if (redirect) {
+            redirect.css({ cursor: disable ? 'wait': null });
+        } else {
+            $('#imp-compose-form').css({ cursor: disable ? 'wait' : null });
+        }
+    },
+
+    /**
      * Catch-all event handler for the click event.
      *
      * @param object e  An event object.
@@ -231,6 +426,12 @@ var ImpMobile = {
             case 'imp-message-next':
                 ImpMobile.navigateMessage(id == 'imp-message-prev' ? -1 : 1);
                 return;
+
+            case 'imp-compose-submit':
+                if (!ImpMobile.disabled) {
+                    ImpMobile.uniqueSubmit('sendMessage');
+                }
+                return;
             }
 
             if (elt.hasClass('imp-folder')) {
@@ -240,6 +441,9 @@ var ImpMobile = {
 
             } else if (elt.hasClass('imp-message')) {
                 ImpMobile.toMessage(elt.attr('data-imp-mailbox'), elt.attr('data-imp-uid'));
+                return;
+            } else if (elt.hasClass('imp-compose')) {
+                ImpMobile.compose(elt.attr('data-imp-mailbox'), elt.attr('data-imp-uid'));
                 return;
             }
 
