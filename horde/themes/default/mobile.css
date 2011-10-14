@@ -1,3 +1,6 @@
+pre, code, .fixed, table.lineNumbered * {
+    font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
+}
 .horde-message, .horde-success, .horde-warning, .horde-error {
     padding-left: 40px !important;
     background-position: 14px center !important;
