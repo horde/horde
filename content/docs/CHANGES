@@ -2,6 +2,9 @@
 v1.0.3-git
 ----------
 
+[mjr] Honor the limit and radius parameters.
+[mjr] Fix getObjects method when passing object_id (Bug# 10439).
+[mjr] Fix including all non-aggregate fields in GROUP BY clause (Bug# 10419).
 [jan] Fix commandline scripts (Bug #10656).
 
 

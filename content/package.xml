@@ -16,8 +16,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-11</date>
- <time>01:15:49</time>
+ <date>2011-10-14</date>
+ <time>14:28:20</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -28,6 +28,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mjr] Honor the limit and radius parameters.
+* [mjr] Fix getObjects method when passing object_id (Bug# 10439).
+* [mjr] Fix including all non-aggregate fields in GROUP BY clause (Bug# 10419).
 * [jan] Fix commandline scripts (Bug #10656).
  </notes>
  <contents>
@@ -56,6 +59,7 @@
     <file name="routes.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
+    <file name="CHANGES" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
     <file name="TODO.txt" role="doc" />
    </dir> <!-- /docs -->
@@ -215,6 +219,7 @@
    <install as="content-tag-delete" name="bin/content-tag-delete" />
    <install as="content-untag" name="bin/content-untag" />
    <install as="content/config/routes.php" name="config/routes.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
    <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO.txt" name="docs/TODO.txt" />
    <install as="content/lib/Application.php" name="lib/Application.php" />
@@ -362,9 +367,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-11</date>
+   <date>2011-10-14</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mjr] Honor the limit and radius parameters.
+* [mjr] Fix getObjects method when passing object_id (Bug# 10439).
+* [mjr] Fix including all non-aggregate fields in GROUP BY clause (Bug# 10419).
 * [jan] Fix commandline scripts (Bug #10656).
    </notes>
   </release>
