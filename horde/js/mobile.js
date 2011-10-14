@@ -66,7 +66,7 @@
         HordeMobile.server_error = 0;
         HordeMobile.showNotifications(d.msgs || []);
         HordeMobile.inAjaxCallback = false;
-        $.mobile.hidePageLoadingMsg(true);
+        $.mobile.hidePageLoadingMsg();
     },
 
     showNotifications: function(msgs)
