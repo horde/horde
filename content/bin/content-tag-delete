@@ -28,7 +28,7 @@ require CONTENT_BASE . '/lib/Tags/TagMapper.php';
 
 $m = new Content_TagMapper;
 foreach ($tags as $tag) {
-    $t = $m->find(Horde_Rdo::FIND_FIRST, array('tag_name' => $tag));
+    $t = $m->findOne(array('tag_name' => $tag));
     if (!$t) {
         echo "$tag doesn't seem to exist, skipping it.\n";
         continue;
