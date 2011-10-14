@@ -89,6 +89,23 @@ class Horde_Push
     }
 
     /**
+     * Return the content at the given index as a string.
+     *
+     * @param int $index Index of the content part.
+     *
+     * @return string The content.
+     */
+    public function getStringContent($index)
+    {
+        if (is_resource($this->_content[$index]['content'])) {
+            rewind($this->_content[$index]['content']);
+            return stream_get_contents($this->_content[$index]['content']);
+        } else {
+            return $this->_content[$index]['content'];
+        }
+    }
+
+    /**
      * Return the contents by MIME type for this element.
      *
      * @return array The content list ordered by MIME type.

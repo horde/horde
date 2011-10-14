@@ -90,6 +90,22 @@ extends Horde_Push_TestCase
         );
     }
 
+    public function testGetStringContentFromResource()
+    {
+        $push = new Horde_Push();
+        $push->addContent(
+            fopen(dirname(__FILE__) . '/../fixtures/text.txt', 'r')
+        );
+        $this->assertEquals("TEST TEXT\n", $push->getStringContent(0));
+    }
+
+    public function testGetStringContentFromString()
+    {
+        $push = new Horde_Push();
+        $push->addContent('TEST TEXT');
+        $this->assertEquals('TEST TEXT', $push->getStringContent(0));
+    }
+
     public function testFluidAddContent()
     {
         $push = new Horde_Push();
