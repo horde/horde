@@ -42,6 +42,13 @@ class Horde_Push
     private $_content = array();
 
     /**
+     * Content types.
+     *
+     * @var array
+     */
+    private $_types = array();
+
+    /**
      * The recipients that will receive the content.
      *
      * @var array
@@ -82,16 +89,36 @@ class Horde_Push
     }
 
     /**
+     * Return the contents by MIME type for this element.
+     *
+     * @return array The content list ordered by MIME type.
+     */
+    public function getMimeTypes()
+    {
+        return $this->_types;
+    }
+
+    /**
      * Add content to this element.
      *
-     * @param string|resource $content The UTF-8 encoded content.
-     * @param array           $params  Content specific parameters.
+     * @param string|resource $content   The UTF-8 encoded content.
+     * @param string          $mime_type The MIME type of the content.
+     * @param array           $params    Content specific parameters.
      *
      * @return Horde_Push This content element.
      */
-    public function addContent($content, $params = array())
+    public function addContent(
+        $content,
+        $mime_type = 'text/plain',
+        $params = array()
+    )
     {
-        $this->_content[] = array('content' => $content, 'params' => $params);
+        $this->_types[$mime_type][] = count($this->_content);
+        $this->_content[] = array(
+            'content' => $content,
+            'mime_type' => $mime_type,
+            'params' => $params
+        );
         return $this;
     }
 
