@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-14</date>
- <time>08:26:41</time>
+ <time>10:20:40</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -26,6 +26,9 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="push" role="script" />
+   </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Push">
@@ -37,12 +40,21 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Push">
+      <dir name="Cli">
+       <dir name="Factory">
+        <file name="Push.php" role="php" />
+        <file name="Recipients.php" role="php" />
+       </dir> <!-- /lib/Horde/Push/Cli/Factory -->
+       <file name="Exception.php" role="php" />
+       <file name="Translation.php" role="php" />
+      </dir> <!-- /lib/Horde/Push/Cli -->
       <dir name="Recipient">
        <file name="Blogger.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="Twitter.php" role="php" />
       </dir> <!-- /lib/Horde/Push/Recipient -->
+      <file name="Cli.php" role="php" />
       <file name="Recipient.php" role="php" />
      </dir> <!-- /lib/Horde/Push -->
      <file name="Push.php" role="php" />
@@ -131,9 +143,11 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="push" name="bin/push" />
    <install as="COPYING" name="doc/Horde/Push/COPYING" />
    <install as="TODO" name="doc/Horde/Push/TODO" />
    <install as="Horde/Push.php" name="lib/Horde/Push.php" />
+   <install as="Horde/Push/Cli.php" name="lib/Horde/Push/Cli.php" />
    <install as="Horde/Push/Recipient.php" name="lib/Horde/Push/Recipient.php" />
    <install as="Horde/Push/Cli/Exception.php" name="lib/Horde/Push/Cli/Exception.php" />
    <install as="Horde/Push/Cli/Translation.php" name="lib/Horde/Push/Cli/Translation.php" />
