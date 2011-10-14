@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-14</date>
- <time>19:46:57</time>
+ <time>19:47:34</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,10 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mjr] Honor the limit and radius parameters.
-* [mjr] Fix getObjects method when passing object_id (Bug# 10439).
-* [mjr] Fix including all non-aggregate fields in GROUP BY clause (Bug# 10419).
-* [jan] Fix commandline scripts (Bug #10656).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -374,6 +371,19 @@
 * [mjr] Fix getObjects method when passing object_id (Bug# 10439).
 * [mjr] Fix including all non-aggregate fields in GROUP BY clause (Bug# 10419).
 * [jan] Fix commandline scripts (Bug #10656).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-14</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
