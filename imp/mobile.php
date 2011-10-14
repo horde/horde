@@ -16,9 +16,6 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
 
-$title = _("Mobile Mail");
-require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
-
 $view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));
 new Horde_View_Helper_Text($view);
 
@@ -50,6 +47,8 @@ $view->composeLink = Horde::getServiceLink('ajax', 'imp');
 $view->composeLink->pathInfo = 'addAttachment';
 $view->composeCache = $imp_compose->getCacheId();
 
+$title = _("Mobile Mail");
+require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 echo $view->render('head.html.php');
 echo $view->render('folders.html.php');
 echo $view->render('mailbox.html.php');
