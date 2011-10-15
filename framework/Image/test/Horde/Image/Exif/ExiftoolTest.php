@@ -25,4 +25,15 @@ class Horde_Image_Exif_ExiftoolTest extends Horde_Image_Test_Exif_Base
             parent::setUpBeforeClass();
         }
     }
+
+    protected function _testKeywordIsString()
+    {
+        $this->assertInternalType('string', self::$_data['Keywords']);
+    }
+
+    protected function _testKeywords()
+    {
+        $this->assertEquals('bunbun,cadillac mountain,maine', self::$_data['Keywords']);
+    }
+
 }
