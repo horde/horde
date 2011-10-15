@@ -23,8 +23,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-14</date>
- <time>23:03:10</time>
+ <date>2011-10-15</date>
+ <time>14:47:59</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -35,6 +35,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Added support for Lens and LensID EXIF fields)
+* [mjr] Ensure string values are parsed as strings (Bug #10646).
 * [mjr] Add basic unit tests for EXIF data
  </notes>
  <contents>
@@ -777,9 +779,11 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-14</date>
+   <date>2011-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Added support for Lens and LensID EXIF fields)
+* [mjr] Ensure string values are parsed as strings (Bug #10646).
 * [mjr] Add basic unit tests for EXIF data
    </notes>
   </release>
