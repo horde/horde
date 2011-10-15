@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix uploading large files (Bug #10641).
 * [mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
 * [mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
 * [jan] Fix link to report faces (Bug #10636).
@@ -1168,6 +1169,7 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix uploading large files (Bug #10641).
 * [mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
 * [mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
 * [jan] Fix link to report faces (Bug #10636).
