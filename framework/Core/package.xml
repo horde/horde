@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t use Xcache in CLI scripts (Bug #10288).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1608,7 +1608,7 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t use Xcache in CLI scripts (Bug #10288).
    </notes>
   </release>
  </changelog>
