@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[mjr] Fix migrations to not rely on Ansel being available.
 [mjr] Fix hook calls (Bug #10659).
 [mjr] Add script to convert from sql to sqlng shares after migrations have
       already run.
