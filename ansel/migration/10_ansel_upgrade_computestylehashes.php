@@ -62,17 +62,10 @@ class AnselUpgradeComputestylehashes extends Horde_Db_Migration_Base
     protected function _ensureHash($hash)
     {
         $query = 'SELECT COUNT(*) FROM ansel_hashes WHERE style_hash = ?';
-        try {
-            $results = $this->_connection->selectValue($query, array($hash));
-        } catch (Horde_Db_Exception $e) {
-            throw new Ansel_Exception($e);
-        }
+        $results = $this->_connection->selectValue($query, array($hash));
+
         if (!$results) {
-            try {
-                $this->_connection->insert('INSERT INTO ansel_hashes (style_hash) VALUES(?)', array($hash));
-            } catch (Horde_Db_Exception $e) {
-                throw new Ansel_Exception($e);
-            }
+            $this->_connection->insert('INSERT INTO ansel_hashes (style_hash) VALUES(?)', array($hash));
         }
     }
 }
