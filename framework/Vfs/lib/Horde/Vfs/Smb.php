@@ -553,14 +553,24 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
     protected function _execute($cmd)
     {
         $cmd = str_replace('"-U%"', '-N', $cmd);
-        exec($cmd, $out, $ret);
+        $proc = proc_open(
+            $cmd,
+            array(1 => array('pipe', 'w'), 2 => array('pipe', 'w')),
+            $pipes);
+        if (!is_resource($proc)) {
+            // This should never happen.
+            throw new Horde_Vfs_Exception('Failed to call proc_open().');
+        }
+        $out   = explode("\n", stream_get_contents($pipes[1]));
+        $error = explode("\n", stream_get_contents($pipes[2]));
+        $ret = proc_close($proc);
 
         // In some cases, (like trying to delete a nonexistant file),
         // smbclient will return success (at least on 2.2.7 version I'm
         // testing on). So try to match error strings, even after success.
         if ($ret != 0) {
             $err = '';
-            foreach ($out as $line) {
+            foreach ($error as $line) {
                 if (strpos($line, 'Usage:') === 0) {
                     $err = 'Command syntax incorrect';
                     break;
