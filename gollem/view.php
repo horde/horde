@@ -54,8 +54,6 @@ case 'download_file':
     if (is_resource($stream)) {
         while ($buffer = fread($stream, 8192)) {
             echo $buffer;
-            ob_flush();
-            flush();
         }
     } else {
         echo $data;

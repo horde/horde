@@ -2,6 +2,7 @@
 v2.0.0-git
 ----------
 
+[jan] Fix corruption of downloaded files (Bug #8481).
 [jan] Catch if VFS backend doesn't support size() (Bug #10637).
 [mms] Fix editing text files.
 

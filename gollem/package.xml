@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix corruption of downloaded files (Bug #8481).
 * [jan] Catch if VFS backend doesn&apos;t support size() (Bug #10637).
 * [mms] Fix editing text files.
  </notes>
@@ -684,6 +685,7 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix corruption of downloaded files (Bug #8481).
 * [jan] Catch if VFS backend doesn&apos;t support size() (Bug #10637).
 * [mms] Fix editing text files.
    </notes>
