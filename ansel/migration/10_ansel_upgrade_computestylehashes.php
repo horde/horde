@@ -19,16 +19,16 @@ class AnselUpgradeComputestylehashes extends Horde_Db_Migration_Base
         $GLOBALS['registry']->pushApp('ansel');
 
         // Migrate existing data for share
-        $sql = 'SELECT attribute_style FROM ansel_shares';
+        $sql = 'SELECT attribute_style, share_id FROM ansel_shares';
         $this->announce('Computing style hashes from ansel_shares.', 'cli.message');
-        $styles = $this->_connection->selectValues($sql);
-        $this->_ensureHashes($styles);
+        $rows = $this->_connection->selectAll($sql);
+        $this->_ensureHashes($rows);
 
          // Migrate existing data for shareng
-        $sql = 'SELECT attribute_style FROM ansel_sharesng';
+        $sql = 'SELECT attribute_style, share_id FROM ansel_sharesng';
         $this->announce('Computing style hashes from ansel_sharesng.', 'cli.message');
-        $styles = $this->_connection->selectValues($sql);
-        $this->_ensureHashes($styles);
+        $rows = $this->_connection->selectAll($sql);
+        $this->_ensureHashes($rows);
     }
 
     /**
@@ -40,10 +40,14 @@ class AnselUpgradeComputestylehashes extends Horde_Db_Migration_Base
         // noop
     }
 
-    protected function _ensureHashes($styles)
+    protected function _ensureHashes($rows)
     {
-        foreach ($styles as $style) {
-            $style = unserialize($style);
+        foreach ($rows as $row) {
+            $style = unserialize($row['attribute_style']);
+            if (!$style instanceof Ansel_Style) {
+                $this->announce('ERROR: Not a valid Ansel_Style object for gallery_id: ' . $row['share_id'] . ': ' . print_r($style, true));
+                continue;
+            }
             try {
                 $GLOBALS['injector']
                     ->getInstance('Ansel_Storage')
