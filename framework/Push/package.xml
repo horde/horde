@@ -10,8 +10,8 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-14</date>
- <time>10:30:27</time>
+ <date>2011-10-17</date>
+ <time>21:00:44</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -71,6 +71,9 @@
       </dir> <!-- /test/Horde/Push/Stub -->
       <dir name="Unit">
        <dir name="Push">
+        <dir name="Factory">
+         <file name="RecipientTest.php" role="test" />
+        </dir> <!-- /test/Horde/Push/Unit/Push/Factory -->
         <dir name="Recipient">
          <file name="MailTest.php" role="test" />
          <file name="TwitterTest.php" role="test" />
@@ -164,6 +167,7 @@
    <install as="Horde/Push/fixtures/text.txt" name="test/Horde/Push/fixtures/text.txt" />
    <install as="Horde/Push/Stub/Twitter.php" name="test/Horde/Push/Stub/Twitter.php" />
    <install as="Horde/Push/Unit/PushTest.php" name="test/Horde/Push/Unit/PushTest.php" />
+   <install as="Horde/Push/Unit/Push/Factory/RecipientTest.php" name="test/Horde/Push/Unit/Push/Factory/RecipientTest.php" />
    <install as="Horde/Push/Unit/Push/Recipient/MailTest.php" name="test/Horde/Push/Unit/Push/Recipient/MailTest.php" />
    <install as="Horde/Push/Unit/Push/Recipient/TwitterTest.php" name="test/Horde/Push/Unit/Push/Recipient/TwitterTest.php" />
   </filelist>
@@ -178,7 +182,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-14</date>
+   <date>2011-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.

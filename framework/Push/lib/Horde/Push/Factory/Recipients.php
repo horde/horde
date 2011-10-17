@@ -5,10 +5,10 @@
  * PHP version 5
  *
  * @category Horde
- * @package  Push_Cli
+ * @package  Push
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/gpl GPL-2.0
- * @link     http://www.horde.org/components/Horde_Push_Cli
+ * @link     http://www.horde.org/components/Horde_Push
  */
 
 /**
@@ -20,21 +20,22 @@
  * not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category Horde
- * @package  Push_Cli
+ * @package  Push
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/gpl GPL-2.0
- * @link     http://www.horde.org/components/Horde_Push_Cli
+ * @link     http://www.horde.org/components/Horde_Push
  */
-class Horde_Push_Cli_Factory_Recipients
+class Horde_Push_Factory_Recipients
 {
     /**
      * Create the recipient list.
      *
-     * @param array $conf The configuration.
+     * @param array $options Command line options.
+     * @param array $conf    The configuration.
      *
      * @return array The list of recipients.
      */
-    public function create($conf)
+    public function create($options, $conf)
     {
         $result = array();
         foreach ($conf['recipients'] as $recipient) {
