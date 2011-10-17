@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
+* [jan] Allow to create private comments during ticket creation (Request #8312).
 * [jan] Fix addTicket API method.
 * [jan] Add missing default value for whups_priorities.priority_default column (Bug #10631).
  </notes>
@@ -948,6 +949,7 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
+* [jan] Allow to create private comments during ticket creation (Request #8312).
 * [jan] Fix addTicket API method.
 * [jan] Add missing default value for whups_priorities.priority_default column (Bug #10631).
    </notes>

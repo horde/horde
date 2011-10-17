@@ -306,6 +306,11 @@ class Whups_Driver_Sql extends Whups_Driver
             $ticket_id, $comment, $requester,
             isset($info['user_email']) ? $info['user_email'] : null);
 
+        // If permissions were specified, set them.
+        if (!empty($info['group'])) {
+            Whups_Ticket::addCommentPerms($commentId, $info['group']);
+        }
+
         $transaction = $this->updateLog($ticket_id,
                                         $requester,
                                         array('state' => $state,

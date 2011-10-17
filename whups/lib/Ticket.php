@@ -593,7 +593,7 @@ class Whups_Ticket
      *
      * @return integer  The permission id.
      */
-    public function addCommentPerms($commentId, $group)
+    static public function addCommentPerms($commentId, $group)
     {
         if (!empty($group)) {
             $perm = $GLOBALS['injector']
