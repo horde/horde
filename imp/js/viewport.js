@@ -407,7 +407,7 @@ var ViewPort = Class.create({
     {
         if (vs.size()) {
             if (this.isbusy) {
-                this._remove.bind(this, vs).defer();
+                this.remove.bind(this, vs).defer();
             } else {
                 this.isbusy = true;
                 this._remove(vs);
@@ -428,10 +428,10 @@ var ViewPort = Class.create({
             this.deselect(vs);
         }
 
+        this.opts.container.fire('ViewPort:remove', vs);
+
         buffer.remove(vs.get('rownum'));
         buffer.setMetaData({ total_rows: buffer.getMetaData('total_rows') - vs.size() }, true);
-
-        this.opts.container.fire('ViewPort:remove', vs);
     },
 
     // nowait = (boolean) If true, don't delay before resizing.
