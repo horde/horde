@@ -462,7 +462,7 @@ case 'resize':
                 $image->rotate('full', $angle);
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
-                $notification->push($e->getMessage(), 'horde.error')
+                $notification->push($e->getMessage(), 'horde.error');
                 $error = true;
             }
             break;
