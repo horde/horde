@@ -747,12 +747,17 @@ var DimpBase = {
         container.observe('ViewPort:fetch', this.loadingImg.bind(this, 'viewport', true));
 
         container.observe('ViewPort:remove', function(e) {
-            if (this.view == e.memo.getBuffer().getView()) {
+            var v = e.memo.getBuffer().getView();
+
+            if (this.view == v) {
                 this.loadingImg('viewport', false);
             }
 
             e.memo.get('dataob').each(function(d) {
                 this._expirePPCache([ this._getPPId(d.uid, d.mbox) ]);
+                if (this.isSearch(v)) {
+                    this.viewport.remove(this.viewport.createSelectionBuffer(d.mbox).search({ uid: { equal: [ d.uid ] }, mbox: { equal: [ d.mbox ] } }));
+                }
             }, this);
         }.bindAsEventListener(this));
 
@@ -1853,9 +1858,9 @@ var DimpBase = {
     },
 
     /* Search functions. */
-    isSearch: function()
+    isSearch: function(id)
     {
-        return this.viewport.getMetaData('search');
+        return this.viewport.getMetaData('search', id);
     },
 
     isFSearch: function(id)
