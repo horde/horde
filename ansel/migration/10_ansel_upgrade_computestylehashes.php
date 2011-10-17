@@ -16,8 +16,6 @@ class AnselUpgradeComputestylehashes extends Horde_Db_Migration_Base
 {
     public function up()
     {
-        $GLOBALS['registry']->pushApp('ansel');
-
         // Migrate existing data for share
         $sql = 'SELECT attribute_style, share_id FROM ansel_shares';
         $this->announce('Computing style hashes from ansel_shares.', 'cli.message');
@@ -49,11 +47,31 @@ class AnselUpgradeComputestylehashes extends Horde_Db_Migration_Base
                 continue;
             }
             try {
-                $GLOBALS['injector']
-                    ->getInstance('Ansel_Storage')
-                    ->ensureHash($style->getHash());
+                $this->_ensureHash($style->getHash());
             } catch (Exception $e) {
                 $this->announce('ERROR: ' . $e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Ensure the style hash is recorded in the database.
+     *
+     * @param string $hash  The hash to record.
+     */
+    protected function _ensureHash($hash)
+    {
+        $query = 'SELECT COUNT(*) FROM ansel_hashes WHERE style_hash = ?';
+        try {
+            $results = $this->_connection->selectValue($query, array($hash));
+        } catch (Horde_Db_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+        if (!$results) {
+            try {
+                $this->_connection->insert('INSERT INTO ansel_hashes (style_hash) VALUES(?)', array($hash));
+            } catch (Horde_Db_Exception $e) {
+                throw new Ansel_Exception($e);
             }
         }
     }

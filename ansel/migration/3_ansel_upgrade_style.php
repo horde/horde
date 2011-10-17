@@ -16,7 +16,6 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
 {
     public function up()
     {
-        $GLOBALS['registry']->pushApp('ansel');
         $this->changeColumn('ansel_shares', 'attribute_style', 'text');
 
         // Create: ansel_hashes
@@ -27,21 +26,21 @@ class AnselUpgradeStyle extends Horde_Db_Migration_Base
         $t->primaryKey(array('style_hash'));
         $t->end();
         $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
-        
+
         // Migrate existing data
         $sql = 'SELECT share_id, attribute_style FROM ansel_shares';
         $this->announce('Migrating gallery styles.', 'cli.message');
         $defaults = array(
-                    'thumbstyle' => 'Thumb',
-                    'background' => 'none',
-                    'gallery_view' => 'Gallery',
-                    'widgets' => array(
-                         'Tags' => array('view' => 'gallery'),
-                         'OtherGalleries' => array(),
-                         'Geotag' => array(),
-                         'Links' => array(),
-                         'GalleryFaces' => array(),
-                         'OwnerFaces' => array()));
+            'thumbstyle' => 'Thumb',
+            'background' => 'none',
+            'gallery_view' => 'Gallery',
+            'widgets' => array(
+                 'Tags' => array('view' => 'gallery'),
+                 'OtherGalleries' => array(),
+                 'Geotag' => array(),
+                 'Links' => array(),
+                 'GalleryFaces' => array(),
+                 'OwnerFaces' => array()));
 
         $rows = $this->_connection->selectAll($sql);
         $update = 'UPDATE ansel_shares SET attribute_style = ? WHERE share_id = ?;';
