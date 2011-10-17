@@ -180,8 +180,9 @@ class Ansel_Gallery implements Serializable
                 $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
 
         case 'hook':
-            // @TODO: FIX HOOK NAME
-            return Horde::callHook('_ansel_hook_can_download', array($this->id));
+            try {
+                return Horde::callHook('can_download', array($this->id));
+            } catch (Horde_Exception_HookNotSet $e) {}
 
         default:
             return false;
@@ -960,8 +961,9 @@ class Ansel_Gallery implements Serializable
         // Can we hook user's age?
         if ($GLOBALS['conf']['ages']['hook'] &&
             $GLOBALS['registry']->isAuthenticated()) {
-            //@TODO: FIX HOOK CALL
-            $result = Horde::callHook('_ansel_hook_user_age');
+            try {
+                $result = Horde::callHook('user_age', array(), 'ansel');
+            } catch (Horde_Exception_HookNotSet $e) {}
             if (is_int($result)) {
                 $session->set('ansel', 'user_age', $result);
                 $user_age = $result;
