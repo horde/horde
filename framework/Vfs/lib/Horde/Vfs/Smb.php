@@ -115,6 +115,8 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
             throw new Horde_Vfs_Exception(sprintf('Unable to open VFS file "%s".', $this->_getPath($path, $name)));
         }
 
+        clearstatcache();
+
         return $localFile;
     }
 

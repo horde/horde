@@ -39,6 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix reading file sizes from Samba backends.
 * [jan] Catch output from smbclient during error conditions (Bug #10638).
 * [jan] Implement size() method in Samba driver.
  </notes>
@@ -909,6 +910,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix reading file sizes from Samba backends.
 * [jan] Catch output from smbclient during error conditions (Bug #10638).
 * [jan] Implement size() method in Samba driver.
    </notes>
