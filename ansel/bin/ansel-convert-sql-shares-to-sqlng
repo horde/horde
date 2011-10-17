@@ -20,7 +20,7 @@ if (file_exists(dirname(__FILE__) . '/../../ansel/lib/Application.php')) {
 require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('ansel', array('cli' => true));
 
-require_once $baseDir . 'migration/9_ansel_upgrade_sqlng';
+require_once $baseDir . 'migration/9_ansel_upgrade_sqlng.php';
 
 $db = $injector->getInstance('Horde_Db_Adapter');
 $migration = new AnselUpgradeSqlng($db);
