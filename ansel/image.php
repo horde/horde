@@ -458,19 +458,43 @@ case 'resize':
         case 'rotate180':
         case 'rotate270':
             $angle = intval(substr($actionID, 6));
-            $image->rotate('full', $angle);
+            try {
+                $image->rotate('full', $angle);
+            } catch (Ansel_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                $notification->push($e->getMessage(), 'horde.error')
+                $error = true;
+            }
             break;
 
         case 'flip':
-            $image->flip('full');
+            try {
+                $image->flip('full');
+            } catch (Ansel_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                $notification->push($e->getMessage(), 'horde.error')
+                $error = true;
+            }
             break;
 
         case 'mirror':
-            $image->mirror('full');
+            try {
+                $image->mirror('full');
+            } catch (Ansel_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                $notification->push($e->getMessage(), 'horde.error')
+                $error = true;
+            }
             break;
 
         case 'grayscale':
-            $image->grayscale('full');
+            try {
+                $image->grayscale('full');
+            } catch (Ansel_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                $notification->push($e->getMessage(), 'horde.error')
+                $error = true;
+            }
             break;
 
         case 'crop':
@@ -489,7 +513,13 @@ case 'resize':
             $image->load('full');
             $width = Horde_Util::getFormData('width');
             $height = Horde_Util::getFormData('height');
-            $image->resize($width, $height, true);
+            try {
+                $image->resize($width, $height, true);
+            } catch (Ansel_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                $notification->push($e->getMessage(), 'horde.error')
+                $error = true;
+            }
             break;
         }
         if (empty($error)) {
