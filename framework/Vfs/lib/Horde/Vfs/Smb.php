@@ -107,7 +107,6 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
         if (!($localFile = Horde_Util::getTempFile('vfs'))) {
             throw new Horde_Vfs_Exception('Unable to create temporary file.');
         }
-        register_shutdown_function(create_function('', '@unlink(\'' . addslashes($localFile) . '\');'));
 
         list($path, $name) = $this->_escapeShellCommand($path, $name);
         $cmd = array('get \"' . $name . '\" ' . $localFile);
