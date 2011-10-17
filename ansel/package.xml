@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>19:15:38</time>
+ <date>2011-10-16</date>
+ <time>20:18:01</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add script to convert from sql to sqlng shares after migrations have already run.
+* [mjr] Add migration to ensure style hashes are computed for migrated galleries.
 * [mjr] Fix uploading large files (Bug #10641).
 * [mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
 * [mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
@@ -43,6 +45,7 @@
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
     <file name="ansel" role="script" />
+    <file name="ansel-convert-sql-shares-to-sqlng" role="script" />
     <file name="ansel-exif-to-tags" role="script" />
     <file name="ansel-garbage-collection" role="script" />
     <file name="AnselPublish.scpt" role="script" />
@@ -353,6 +356,7 @@
     <file name="7_ansel_upgrade_stylefix.php" role="horde" />
     <file name="8_ansel_upgrade_sqlhierarchical.php" role="horde" />
     <file name="9_ansel_upgrade_sqlng.php" role="horde" />
+    <file name="10_ansel_upgrade_computestylehashes.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="captions">
@@ -798,6 +802,7 @@
    <install as="ansel/view.php" name="view.php" />
    <install as="ansel/xppublish.php" name="xppublish.php" />
    <install as="ansel" name="bin/ansel" />
+   <install as="ansel-convert-sql-shares-to-sqlng" name="bin/ansel-convert-sql-shares-to-sqlng" />
    <install as="ansel-exif-to-tags" name="bin/ansel-exif-to-tags" />
    <install as="ansel-garbage-collection" name="bin/ansel-garbage-collection" />
    <install as="AnselPublish.scpt" name="bin/AnselPublish.scpt" />
@@ -996,6 +1001,7 @@
    <install as="ansel/migration/7_ansel_upgrade_stylefix.php" name="migration/7_ansel_upgrade_stylefix.php" />
    <install as="ansel/migration/8_ansel_upgrade_sqlhierarchical.php" name="migration/8_ansel_upgrade_sqlhierarchical.php" />
    <install as="ansel/migration/9_ansel_upgrade_sqlng.php" name="migration/9_ansel_upgrade_sqlng.php" />
+   <install as="ansel/migration/10_ansel_upgrade_computestylehashes.php" name="migration/10_ansel_upgrade_computestylehashes.php" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
    <install as="ansel/templates/faces/custom.inc" name="templates/faces/custom.inc" />
    <install as="ansel/templates/faces/define.inc" name="templates/faces/define.inc" />
@@ -1166,9 +1172,11 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-10-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add script to convert from sql to sqlng shares after migrations have already run.
+* [mjr] Add migration to ensure style hashes are computed for migrated galleries.
 * [mjr] Fix uploading large files (Bug #10641).
 * [mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
 * [mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).

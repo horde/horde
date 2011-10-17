@@ -2,6 +2,9 @@
 v2.0-git
 --------
 
+[mjr] Add script to convert from sql to sqlng shares after migrations have
+      already run.
+[mjr] Add migration to ensure style hashes are computed for migrated galleries.
 [mjr] Fix uploading large files (Bug #10641).
 [mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
 [mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
