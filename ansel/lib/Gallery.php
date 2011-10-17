@@ -719,9 +719,8 @@ class Ansel_Gallery implements Serializable
             $thumbstyle = $style->keyimage_type;
             $styleHash = $style->getHash($thumbstyle);
 
-            /* First check for the existence of a key image in the specified style */
+            // First check for the existence of a key image in the specified style
             if ($this->get('default_prettythumb')) {
-                // @TODO: unserialize in the get() method
                 $thumbs = @unserialize($this->get('default_prettythumb'));
             }
             if (!isset($thumbs) || !is_array($thumbs)) {
@@ -731,19 +730,19 @@ class Ansel_Gallery implements Serializable
                 return $thumbs[$styleHash];
             }
 
-            /* Don't already have one, must generate it. */
-            //@TODO: Look at passing style both in params and the property...
+            // Don't already have one, must generate it.
             $params = array('gallery' => $this, 'style' => $style);
             try {
                 $iview = Ansel_ImageGenerator::factory($style->keyimage_type, $params);
                 $img = $iview->create();
 
                 // Note the gallery_id is negative for generated stacks
-                $iparams = array('image_filename' => $this->get('name'),
-                                 'image_caption' => $this->get('name'),
-                                 'data' => $img->raw(),
-                                 'image_sort' => 0,
-                                 'gallery_id' => -$this->id);
+                $iparams = array(
+                    'image_filename' => $this->get('name'),
+                    'image_caption' => $this->get('name'),
+                    'data' => $img->raw(),
+                    'image_sort' => 0,
+                    'gallery_id' => -$this->id);
                 $newImg = new Ansel_Image($iparams);
                 $newImg->save();
                 $prettyData = serialize(
@@ -752,7 +751,8 @@ class Ansel_Gallery implements Serializable
 
                 // Make sure the hash is saved since it might be different then
                 // the gallery's
-                $GLOBALS['injector']->getInstance('Ansel_Storage')
+                $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
                     ->ensureHash($styleHash);
 
                 return $newImg->id;
@@ -765,7 +765,7 @@ class Ansel_Gallery implements Serializable
                 }
             }
         } else {
-            /* We are just using an image thumbnail. */
+            // We are just using an image thumbnail.
             if ($this->countImages()) {
                 if ($default = $this->get('default')) {
                     return $default;
@@ -778,7 +778,7 @@ class Ansel_Gallery implements Serializable
             }
 
             if ($this->hasSubGalleries()) {
-                /* Fall through to a key image of a sub gallery. */
+                // Fall through to a key image of a sub gallery.
                 try {
                     $galleries = $GLOBALS['injector']
                         ->getInstance('Ansel_Storage')
@@ -795,7 +795,7 @@ class Ansel_Gallery implements Serializable
             }
         }
 
-        /* Could not find a key image */
+        // Could not find a key image
         return false;
     }
 
