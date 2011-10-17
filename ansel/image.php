@@ -472,7 +472,7 @@ case 'resize':
                 $image->flip('full');
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
-                $notification->push($e->getMessage(), 'horde.error')
+                $notification->push($e->getMessage(), 'horde.error');
                 $error = true;
             }
             break;
@@ -482,7 +482,7 @@ case 'resize':
                 $image->mirror('full');
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
-                $notification->push($e->getMessage(), 'horde.error')
+                $notification->push($e->getMessage(), 'horde.error');
                 $error = true;
             }
             break;
@@ -492,7 +492,7 @@ case 'resize':
                 $image->grayscale('full');
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
-                $notification->push($e->getMessage(), 'horde.error')
+                $notification->push($e->getMessage(), 'horde.error');
                 $error = true;
             }
             break;
@@ -517,7 +517,7 @@ case 'resize':
                 $image->resize($width, $height, true);
             } catch (Ansel_Exception $e) {
                 Horde::logMessage($e->getMessage(), 'ERR');
-                $notification->push($e->getMessage(), 'horde.error')
+                $notification->push($e->getMessage(), 'horde.error');
                 $error = true;
             }
             break;
