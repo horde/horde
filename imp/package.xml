@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-18</date>
- <time>13:27:11</time>
+ <time>13:29:14</time>
  <version>
-  <release>5.0.14</release>
+  <release>5.0.15</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,23 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Workaround broken number_format() for PHP &lt; 5.4.0 (Bug #10618).
-* [mms] Add preference to indicate preferred language for return replies on outgoing messages.
-* [mms] For reply, indicate original sender&apos;s language preference.
-* [mms] Fix/improve monthly sent-mail rename login task (Bug #10613).
-* [mms] Fix display of encoded subject text on print page (Bug #9755).
-* [mms] Fix setting MDN flag on sent message after compose (Bug #10579).
-* [mms] When expanding a submailbox in dynamic view, honor expanded children status.
-* [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
-* [mms] Allow multiple messages to be sent via quickreply in dynamic view.
-* [mms] Allow image attachments to be displayed without download in mobile view.
-* [mms] Fix reporting spam/innocent on mailbox page in mobile view.
-* [mms] Fix viewing next message after deleting message in mobile view.
-* [mms] Fix composing messages in mobile view.
-* [mms] Optimize deletion of messages in dynamic view.
-* [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
-* [mms] Fix altering background color of system message flags (Bug #10544).
-* [jan] Fix sending notifications after download of linked attachments (Bug #10539).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2551,6 +2535,19 @@
 * [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
 * [mms] Fix altering background color of system message flags (Bug #10544).
 * [jan] Fix sending notifications after download of linked attachments (Bug #10539).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.15</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
