@@ -26,6 +26,15 @@ foreach ($registry->listApps() as $app) {
     }
 }
 
+/* Show notifications. */
+$response = Horde::prepareResponse(null, true);
+if (!empty($response->msgs)) {
+    Horde::addInlineScript(
+        'window.setTimeout(function(){HordeMobile.showNotifications('
+        . Horde_Serialize::serialize($response->msgs, Horde_Serialize::JSON)
+        . ');},0);');
+}
+
 $title = _("Welcome");
 
 require HORDE_TEMPLATES . '/common-header-mobile.inc';
