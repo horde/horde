@@ -49,12 +49,20 @@ implements Horde_Push_Recipient
      * Push content to the recipient.
      *
      * @param Horde_Push $content The content element.
+     * @param array      $options Additional options.
      *
-     * @return NULL
+     * @return string The result description.
      */
-    public function push(Horde_Push $content)
+    public function push(Horde_Push $content, $options = array())
     {
-        //@todo This is the trivial implementation. There may be no summary, it may be too long, etc.
-        $this->_twitter->statuses->update($content->getSummary());
+        if (empty($options['pretend'])) {
+            //@todo This is the trivial implementation. There may be no summary, it may be too long, etc.
+            $this->_twitter->statuses->update($content->getSummary());
+            return 'Pushed tweet to twitter.';
+        } else {
+            return sprintf(
+                'Would push tweet "%s" to twitter.', $content->getSummary()
+            );
+        }
     }
 }
