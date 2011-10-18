@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-18</date>
- <time>13:45:38</time>
+ <time>13:46:09</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [gwr] Added SOCKS proxy support where available.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -275,6 +275,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [gwr] Added SOCKS proxy support where available.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
