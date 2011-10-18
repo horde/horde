@@ -106,6 +106,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
     /**
      */
+    public function getIdsOb($ids = null, $sequence = false)
+    {
+        return new Horde_Imap_Client_Ids_Pop3($ids, $sequence);
+    }
+
+    /**
+     */
     protected function _capability()
     {
         $this->_connect();
@@ -563,7 +570,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
-                $ret['match'] = new Horde_Imap_Client_Ids($res);
+                $ret['match'] = $this->getIdsOb($res);
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MAX:
@@ -900,7 +907,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
         }
 
-        return new Horde_Imap_Client_Ids();
+        return $this->getIdsOb();
     }
 
     /**

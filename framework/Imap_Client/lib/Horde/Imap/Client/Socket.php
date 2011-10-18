@@ -1319,7 +1319,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         // Check for MULTIAPPEND extension (RFC 3502)
         if ((count($data) > 1) && !$this->queryCapability('MULTIAPPEND')) {
-            $result = new Horde_Imap_Client_Ids();
+            $result = $this->getIdsOb();
             foreach (array_keys($data) as $key) {
                 $res = $this->_append($mailbox, array($data[$key]), $options);
                 if (($res === true) || ($result === true)) {
@@ -1409,7 +1409,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * UIDPLUS (RFC 4315) has done the dirty work for us. */
         return empty($t['appenduid'])
             ? true
-            : new Horde_Imap_Client_Ids($t['appenduid']);
+            : $this->getIdsOb($t['appenduid']);
     }
 
     /**
@@ -1514,7 +1514,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (is_null($s_res) && ($list_msgs || $use_cache)) {
             $s_res = $uidplus
                 ? $this->_getSeqUidLookup($options['ids'], true)
-                : $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true));
+                : $this->_getSeqUidLookup($this->getIdsOb(Horde_Imap_Client_Ids::ALL, true));
         }
 
         /* Always use UID EXPUNGE if available. */
@@ -1598,7 +1598,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         return $list_msgs
-            ? new Horde_Imap_Client_Ids($expunged, $options['ids']->sequence)
+            ? $this->getIdsOb($expunged, $options['ids']->sequence)
             : null;
     }
 
@@ -1761,7 +1761,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $results = array_diff($results, array('ALL'));
 
                     $results[] = 'PARTIAL';
-                    $results[] = strval(new Horde_Imap_Client_Ids($options['partial']));
+                    $results[] = strval($this->getIdsOb($options['partial']));
                 }
             }
 
@@ -1809,7 +1809,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $results = array_diff($results, array('ALL'));
 
                     $results[] = 'PARTIAL';
-                    $results[] = strval(new Horde_Imap_Client_Ids($options['partial']));
+                    $results[] = strval($this->getIdsOb($options['partial']));
                 }
             }
 
@@ -1871,7 +1871,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
-                $ret['match'] = new Horde_Imap_Client_Ids($sr, !empty($options['sequence']));
+                $ret['match'] = $this->getIdsOb($sr, !empty($options['sequence']));
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MAX:
@@ -2012,7 +2012,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             /* Get the FETCH results now. */
             if (count($query)) {
                 $fetch_res = $this->fetch($this->_selected, $query, array(
-                    'ids' => new Horde_Imap_Client_Ids($res, !empty($opts['sequence']))
+                    'ids' => $this->getIdsOb($res, !empty($opts['sequence']))
                 ));
             }
         } else {
@@ -2232,7 +2232,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             switch ($tsort) {
             case 'ORDEREDSUBJECT':
                 if (empty($options['search'])) {
-                    $ids = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, !empty($options['sequence']));
+                    $ids = $this->getIdsOb(Horde_Imap_Client_Ids::ALL, !empty($options['sequence']));
                 } else {
                     $search_res = $this->search($this->_selected, $options['search'], array('sequence' => !empty($options['sequence'])));
                     $ids = $search_res['match'];
@@ -3022,7 +3022,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              $this->_exception('Mailbox does not support mod-sequences.', 'MBOXNOMODSEQ');
         }
 
-        $this->_temp['modified'] = new Horde_Imap_Client_Ids();
+        $this->_temp['modified'] = $this->getIdsOb();
 
         if (!empty($options['replace'])) {
             $cmd[] = 'FLAGS' . ($this->_debug ? '' : '.SILENT');
@@ -3067,7 +3067,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (empty($fr->uid)) {
             $res = $fr->seq;
-            $seq_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(array_keys($res), true));
+            $seq_res = $this->_getSeqUidLookup($this->getIdsOb(array_keys($res), true));
         } else {
             $res = $fr->uid;
             $seq_res = null;
@@ -3531,13 +3531,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $ob = array(
             'lookup' => array(),
-            'uids' => new Horde_Imap_Client_Ids()
+            'uids' => $this->getIdsOb()
         );
 
         if (!empty($this->_temp['mailbox']['lookup']) &&
             count($ids) &&
             ($ids->sequence || $reverse)) {
-            $need = new Horde_Imap_Client_Ids(null, $ids->sequence);
+            $need = $this->getIdsOb(null, $ids->sequence);
             $t = $this->_temp['mailbox']['lookup'];
 
             foreach ($ids as $val) {
