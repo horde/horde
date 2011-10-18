@@ -38,7 +38,7 @@ echo '<br class="spacer" />';
 $comment = new Whups_Form_Renderer_Comment();
 $comment->begin(_("History"));
 $history = Whups::permissionsFilter(
-    $whups_driver->getHistory($ticket->getId()),
+    $whups_driver->getHistory($ticket->getId(), $form),
     'comment',
     Horde_Perms::READ);
 $chtml = array();

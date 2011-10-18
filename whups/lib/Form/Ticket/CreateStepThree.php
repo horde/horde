@@ -11,6 +11,7 @@
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @package Whups
  */
+
 /**
  * @package Whups
  */
@@ -74,13 +75,14 @@ class Whups_Form_Ticket_CreateStepThree extends Horde_Form
         $this->addVariable(_("Attachment"), 'newattachment', 'file', false);
         $this->addVariable(_("Description"), 'comment', 'longtext', true);
         foreach ($attributes as $attribute_id => $attribute_value) {
-            $this->addVariable($attribute_value['human_name'],
-                               'attributes[' . $attribute_id . ']',
-                               $attribute_value['type'],
-                               $attribute_value['required'],
-                               $attribute_value['readonly'],
-                               $attribute_value['desc'],
-                               $attribute_value['params']);
+            $this->addVariable(
+                $attribute_value['human_name'],
+                'attributes[' . $attribute_id . ']',
+                $attribute_value['type'],
+                $attribute_value['required'],
+                $attribute_value['readonly'],
+                $attribute_value['desc'],
+                $attribute_value['params']);
         }
 
         /* Comment permissions. */
