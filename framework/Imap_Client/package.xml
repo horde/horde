@@ -13,8 +13,8 @@
  <date>2011-10-08</date>
  <time>14:35:31</time>
  <version>
-  <release>1.1.1</release>
-  <api>1.1.0</api>
+  <release>1.2.0</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Added a required parameter ('baseob') to Horde_Imap_Client_Cache constructor.
+* [mms] Added Horde_Imap_Client_Base::writeDebug().
+* [mms] Added Horde_Imap_Client_Base::getIdsOb().
+* [mms] Deprecate Horde_Imap_Client_Cache::singleton().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -573,8 +576,8 @@
   </release>
   <release>
    <version>
-    <release>1.1.1</release>
-    <api>1.1.0</api></version>
+    <release>1.2.0</release>
+    <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
