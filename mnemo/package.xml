@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-18</date>
- <time>15:04:20</time>
+ <time>15:05:38</time>
  <version>
-  <release>3.0.3</release>
+  <release>3.0.4</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
  <notes>
-* [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
-* [gwr] Avoid including the owner name into the default share (Kolab backend).
-* [mjr] Fix removeUserData implementation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -888,6 +886,19 @@
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
 * [mjr] Fix removeUserData implementation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
