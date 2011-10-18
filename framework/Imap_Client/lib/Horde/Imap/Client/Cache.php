@@ -26,25 +26,11 @@ class Horde_Imap_Client_Cache
     static protected $_instances = array();
 
     /**
-     * The configuration params.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
-     * The Horde_Cache object.
+     * The cache object.
      *
      * @var Horde_Cache
      */
     protected $_cache;
-
-    /**
-     * The list of items to save on shutdown.
-     *
-     * @var array
-     */
-    protected $_save = array();
 
     /**
      * The working data for the current pageload.  All changes take place to
@@ -62,6 +48,13 @@ class Horde_Imap_Client_Cache
     protected $_loaded = array();
 
     /**
+     * The configuration params.
+     *
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
      * The mapping of UIDs to slices.
      *
      * @var array
@@ -69,7 +62,15 @@ class Horde_Imap_Client_Cache
     protected $_slicemap = array();
 
     /**
-     * Return a reference to a concrete Horde_Imap_Client_Cache instance.
+     * The list of items to save on shutdown.
+     *
+     * @var array
+     */
+    protected $_save = array();
+
+
+    /**
+     * Return a reference to a concrete cache instance.
      *
      * @deprecated  As of 1.2.0
      *
@@ -92,19 +93,43 @@ class Horde_Imap_Client_Cache
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     *   - REQUIRED Parameters:
-     *     - cacheob: (Horde_Cache) The cache object to use.
-     *     - hostspec: (string) The IMAP hostspec.
-     *     - port: (string) The IMAP port.
-     *     - username: (string) The IMAP username.
-     *   - Optional Parameters:
-     *     - debug: (resource) If set, will output debug information to the
-     *              given stream.
-     *              DEFAULT: No debug output
-     *     - lifetime: (integer) The lifetime of the cache data (in seconds).
-     *                 DEFAULT: 1 week (604800 seconds)
-     *     - slicesize: (integer) The slicesize to use.
-     *                  DEFAULT: 50
+     * <ul>
+     *  <li>
+     *   REQUIRED Parameters:
+     *   <ul>
+     *    <li>
+     *     cacheob: (Horde_Cache) The cache object to use.
+     *    </li>
+     *    <li>
+     *     hostspec: (string) The IMAP hostspec.
+     *    </li>
+     *    <li>
+     *     port: (string) The IMAP port.
+     *    </li>
+     *    <li>
+     *     username: (string) The IMAP username.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Optional Parameters:
+     *   <ul>
+     *    <li>
+     *     debug: (resource) If set, will output debug information to the
+     *            given stream.
+     *            DEFAULT: No debug output
+     *    </li>
+     *    <li>
+     *     lifetime: (integer) The lifetime of the cache data (in seconds).
+     *               DEFAULT: 1 week (604800 seconds)
+     *    </li>
+     *    <li>
+     *     slicesize: (integer) The slicesize to use.
+     *                DEFAULT: 50
+     *    </li>
+     *   </ul>
+     *  </li>
+     * </ul>
      *
      * @throws InvalidArgumentException
      */
