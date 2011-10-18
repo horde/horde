@@ -22,11 +22,11 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>16:05:58</time>
+ <date>2011-10-18</date>
+ <time>15:08:42</time>
  <version>
-  <release>2.0.1</release>
-  <api>2.0.0RC1</api>
+  <release>2.0.0RC2</release>
+  <api>2.0.0RC2</api>
  </version>
  <stability>
   <release>beta</release>
@@ -677,12 +677,12 @@
   </release>
   <release>
    <version>
-    <release>2.0.1</release>
-    <api>2.0.0RC1</api></version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0RC2</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix corruption of downloaded files (Bug #8481).
