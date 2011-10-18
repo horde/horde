@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:28:02</time>
+ <date>2011-10-18</date>
+ <time>13:45:38</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -39,6 +39,7 @@
       <dir name="examples">
        <file name="get-example-dot-com.php" role="doc" />
       </dir> <!-- /doc/Horde/Http/examples -->
+      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Http -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -122,6 +123,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Http/COPYING" />
    <install as="examples/get-example-dot-com.php" name="doc/Horde/Http/examples/get-example-dot-com.php" />
    <install as="Horde/Http.php" name="lib/Horde/Http.php" />
    <install as="Horde/Http/Client.php" name="lib/Horde/Http/Client.php" />
@@ -269,7 +271,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [gwr] Added SOCKS proxy support where available.
