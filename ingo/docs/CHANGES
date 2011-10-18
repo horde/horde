@@ -1,6 +1,6 @@
-----------
-v2.0.6-git
-----------
+------
+v2.0.6
+------
 
 [mms] Fix displaying From address in notification when filtering with IMAP
       driver.
