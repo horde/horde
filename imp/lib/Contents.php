@@ -102,8 +102,9 @@ class IMP_Contents
             $query->structure();
 
             try {
-                $ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
-                    'ids' => new Horde_Imap_Client_Ids($this->_uid)
+                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+                $ret = $imp_imap->fetch($this->_mailbox, $query, array(
+                    'ids' => $imp_imap->getIdsOb($this->_uid)
                 ));
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new IMP_Exception('Error displaying message.');
@@ -160,8 +161,9 @@ class IMP_Contents
         ));
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
-                'ids' => new Horde_Imap_Client_Ids($this->_uid)
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $res = $imp_imap->fetch($this->_mailbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($this->_uid)
             ));
             return $res[$this->_uid]->getBodyText(0, !empty($options['stream']));
         } catch (Horde_Imap_Client_Exception $e) {
@@ -229,8 +231,9 @@ class IMP_Contents
         }
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
-                'ids' => new Horde_Imap_Client_Ids($this->_uid)
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $res = $imp_imap->fetch($this->_mailbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($this->_uid)
             ));
 
             if (empty($options['mimeheaders'])) {
@@ -276,8 +279,9 @@ class IMP_Contents
         ));
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
-                'ids' => new Horde_Imap_Client_Ids($this->_uid)
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $res = $imp_imap->fetch($this->_mailbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($this->_uid)
             ));
 
             if (empty($options['stream'])) {
@@ -314,8 +318,9 @@ class IMP_Contents
         ));
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($this->_mailbox, $query, array(
-                'ids' => new Horde_Imap_Client_Ids($this->_uid)
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $res = $imp_imap->fetch($this->_mailbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($this->_uid)
             ));
             return $res[$this->_uid]->getHeaderText(0, $parse ? Horde_Imap_Client_Data_Fetch::HEADER_PARSE : 0);
         } catch (Horde_Imap_Client_Exception $e) {

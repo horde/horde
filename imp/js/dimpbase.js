@@ -210,7 +210,7 @@ var DimpBase = {
 
         if (type == 'msg') {
             type = 'mbox';
-            msg = DimpCore.parseRangeString(data, true);
+            msg = DimpCore.parseUIDString(data);
             data = Object.keys(msg).first();
             this.uid = msg[data].first();
             // Fall through to the 'mbox' check below.
@@ -311,7 +311,7 @@ var DimpBase = {
             } else {
                 msg = DimpCore.selectionToRange(vs);
             }
-            this.setHash('msg', DimpCore.toRangeString(msg, this.isSearch()));
+            this.setHash('msg', DimpCore.toUIDString(msg, { raw: this.isSearch() }));
         } else {
             this.setHash('mbox', view);
         }
@@ -565,7 +565,7 @@ var DimpBase = {
                 }
 
                 if (tmp) {
-                    params.set('cache', DimpCore.toRangeString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
+                    params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
                 }
                 params.set('view', view);
 
@@ -2479,7 +2479,7 @@ var DimpBase = {
                 tmp = {};
                 tmp[this.pp.mbox] = [ this.pp.uid ];
                 DimpCore.doAction('sendMDN', {
-                    uid: DimpCore.toRangeString(tmp)
+                    uid: DimpCore.toUIDString(tmp)
                 }, {
                     callback: this._sendMdnCallback.bind(this)
                 });
@@ -2663,7 +2663,7 @@ var DimpBase = {
         }
 
         r.flag.each(function(entry) {
-            $H(DimpCore.parseRangeString(entry.uids)).each(function(m) {
+            $H(DimpCore.parseUIDString(entry.uids)).each(function(m) {
                 var s = this.viewport.createSelectionBuffer(m.key).search({
                     uid: { equal: m.value },
                     mbox: { equal: [ m.key ] }

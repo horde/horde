@@ -355,7 +355,7 @@ class IMP_Views_ListMessages
                     try {
                         $changed = $imp_imap->fetch($mbox, $query, array(
                             'changedsince' => $parsed['highestmodseq'],
-                            'ids' => new Horde_Imap_Client_Ids(array_keys($cached))
+                            'ids' => $imp_imap->getIdsOb(array_keys($cached))
                         ));
                     } catch (IMP_Imap_Exception $e) {}
                 }

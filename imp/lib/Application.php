@@ -614,12 +614,13 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Callback, called from common-template-mobile.inc that sets up the jquery
-     * mobile init hanler.
+     * Callback, called from common-template-mobile.inc that sets up the
+     * jquery mobile init hanler.
      */
     public function mobileInitCallback()
     {
         Horde::addScriptFile('mobile.js');
+        Horde::addScriptFile('indices.js');
         require IMP_TEMPLATES . '/mobile/javascript_defs.php';
 
         /* Inline script. */

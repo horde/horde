@@ -115,7 +115,9 @@ class IMP_Views_ShowMessage
             ));
 
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            $fetch_ret = $imp_imap->fetch($mailbox, $query, array('ids' => new Horde_Imap_Client_Ids($uid)));
+            $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($uid)
+            ));
 
             /* Parse MIME info and create the body of the message. */
             $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
