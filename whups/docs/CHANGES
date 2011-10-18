@@ -1,6 +1,6 @@
-----------
-v2.0.1-git
-----------
+--------
+v2.0-RC2
+--------
 
 [jan] Support more complex attributes types (Bug #9947).
 [jan] Fix displaying form errors from updating tickets.
