@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-18</date>
- <time>14:59:45</time>
+ <time>15:01:38</time>
  <version>
-  <release>2.0.6</release>
+  <release>2.0.7</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mms] Fix displaying From address in notification when filtering with IMAP driver.
-* [jan] Catch if files don&apos;t exist while deleting with VFS transport (michael-dev@fami-braun.de, Bug #10494).
-* [mms] Additional fixes when creating new mailboxes (Bug #10282).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -999,6 +997,19 @@
 * [mms] Fix displaying From address in notification when filtering with IMAP driver.
 * [jan] Catch if files don&apos;t exist while deleting with VFS transport (michael-dev@fami-braun.de, Bug #10494).
 * [mms] Additional fixes when creating new mailboxes (Bug #10282).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
