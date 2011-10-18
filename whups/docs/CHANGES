@@ -2,6 +2,7 @@
 v2.0.1-git
 ----------
 
+[jan] Fix displaying form errors from updating tickets.
 [jan] Allow to create private comments during ticket creation (Request #8312).
 [jan] Fix addTicket API method.
 [jan] Add missing default value for whups_priorities.priority_default column
