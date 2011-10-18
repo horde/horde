@@ -595,4 +595,23 @@ class IMP
         return base64_decode(strtr($in, '-_', '+/'));
     }
 
+    /**
+     * Workaround broken number_format() prior to PHP 5.4.0.
+     *
+     * @param integer $number    Number to format.
+     * @param integer $decimals  Number of decimals to display.
+     *
+     * @return string  See number_format().
+     */
+    static public function numberFormat($number, $decimals)
+    {
+        $localeinfo = Horde_Nls::getLocaleInfo();
+
+        return str_replace(
+            array('X', 'Y'),
+            array($localeinfo['decimal_point'], $localeinfo['thousands_sep']),
+            number_format($number, $decimals, 'X', 'Y')
+        );
+    }
+
 }
