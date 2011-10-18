@@ -630,7 +630,7 @@ class IMP_Application extends Horde_Registry_Application
     $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
     $.mobile.loadingMessage = "' . _("loading") . '";
 });
-$("#folders").live("pagecreate", function() { HordeMobile.showNotifications(' . Horde_Serialize::serialize($response->msgs ? $response->msgs : array(), Horde_Serialize::JSON) . ') });'
+window.setTimeout(function(){HordeMobile.showNotifications(' . Horde_Serialize::serialize($response->msgs ? $response->msgs : array(), Horde_Serialize::JSON) . ') }, 0);'
         );
     }
 
