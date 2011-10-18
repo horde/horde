@@ -2144,7 +2144,7 @@ class Horde_Registry
 
         if (!$session->exists('horde', 'auth_app/' . $app)) {
             return ($base_app != $app)
-                ? $this->_getAuthCredentials($app)
+                ? $this->_getAuthCredentials($base_app)
                 : false;
         }
 
