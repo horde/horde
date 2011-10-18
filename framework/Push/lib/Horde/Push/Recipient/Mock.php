@@ -39,10 +39,11 @@ implements Horde_Push_Recipient
      * Push content to the recipient.
      *
      * @param Horde_Push $content The content element.
+     * @param array      $options Additional options.
      *
      * @return NULL
      */
-    public function push(Horde_Push $content)
+    public function push(Horde_Push $content, $options = array())
     {
         $this->pushed[] = $content;
     }
