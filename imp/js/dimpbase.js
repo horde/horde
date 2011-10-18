@@ -3376,7 +3376,7 @@ var DimpBase = {
         DIMP.text.showalog = $('alertsloglink').down('A').innerHTML;
 
         /* Initialize the starting page. */
-        tmp = location.hash;
+        tmp = decodeURIComponent(location.hash);
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? "" : tmp.substring(1);
         }
