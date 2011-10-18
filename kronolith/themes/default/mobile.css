@@ -1,4 +1,6 @@
-
+.kronolithEvent {
+    text-shadow: none;
+}
 .kronolithEventTentative {
     font-style: italic;
 }
@@ -53,10 +55,15 @@
 .kronolithEndTime {
   font-size: 80%;
 }
-.kronolithDayLocation {
+.kronolithDayLocationfff, .kronolithDayLocation000 {
   padding-left: 6px;
   font-style: italic;
+}
+.kronolithDayLocation000 {
   color: gray;
+}
+.kronolithDayLocationfff {
+  color: lightgray;
 }
 .kronolithDayDetail {
 }
