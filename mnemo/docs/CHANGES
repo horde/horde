@@ -1,6 +1,6 @@
-----------
-v3.0.3-git
-----------
+------
+v3.0.3
+------
 
 [jan] Add Estonian translation (Alar Sing <alar.sing@err.ee>).
 [gwr] Avoid including the owner name into the default share (Kolab backend).

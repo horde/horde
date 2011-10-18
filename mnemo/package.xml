@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-06</date>
- <time>14:39:32</time>
+ <date>2011-10-18</date>
+ <time>15:04:20</time>
  <version>
   <release>3.0.3</release>
   <api>3.0.0</api>
@@ -882,7 +882,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-06</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
