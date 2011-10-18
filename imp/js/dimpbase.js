@@ -2662,13 +2662,11 @@ var DimpBase = {
             return;
         }
 
-        var sb = this.viewport.createSelectionBuffer();
-
         r.flag.each(function(entry) {
             $H(DimpCore.parseRangeString(entry.uids)).each(function(m) {
-                var s = sb.search({
+                var s = this.viewport.createSelectionBuffer(m.key).search({
                     uid: { equal: m.value },
-                    mbox: { equal: m.key }
+                    mbox: { equal: [ m.key ] }
                 });
 
                 if (entry.add) {

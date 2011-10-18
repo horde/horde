@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
 * [mms] Fix some dynamic view links on IE (Bug #10664).
  </notes>
  <contents>

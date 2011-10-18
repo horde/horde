@@ -2,6 +2,8 @@
 v5.0.15-git
 -----------
 
+[mms] Fix updating flags in non-selected mailbox if IMAP server does not
+      support CONDSTORE/QRESYNC (Bug #10627).
 [mms] Fix some dynamic view links on IE (Bug #10664).
 
 
