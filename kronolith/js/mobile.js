@@ -248,8 +248,7 @@
         }
 
         var cal = event.calendar, type = cal.split('|')[0], c = cal.split('|')[1],
-        d = $('<div>').attr({'style': 'color:' + Kronolith.conf.calendars[type][c].bg}),
-        item = $('<li>'), a;
+        d = $('<div>'), item = $('<li>'), a;
 
         // Time
         var timeWrapper = $('<div>').addClass('kronolithTimeWrapper');
@@ -264,14 +263,19 @@
         }
 
         e = $('<h2>').text(event.t);
-        l = $('<p>').addClass('kronolithDayLocation').text(event.l);
+        l = $('<p>').addClass('kronolithDayLocation' + Kronolith.conf.calendars[type][c].fg.substring(1)).text(event.l);
         d.append(timeWrapper).append(e).append(l);
 
         // Add the link to view the event detail.
-        a = $('<a>').attr({'href': '#eventview'}).click(function(ev) {
-            $('#eventview [data-role=content] ul').detach();
-            KronolithMobile.loadEvent(cal, event.id, Date.parse(event.e));
-        }).append(d);
+        a = $('<a>')
+            .css({ color:           Kronolith.conf.calendars[type][c].fg,
+                   backgroundColor: Kronolith.conf.calendars[type][c].bg })
+            .attr({ href: '#eventview', 'class': 'kronolithEvent' })
+            .click(function(ev) {
+                $('#eventview [data-role=content] ul').detach();
+                KronolithMobile.loadEvent(cal, event.id, Date.parse(event.e));
+            })
+            .append(d);
 
         return item.append(a);
     },
