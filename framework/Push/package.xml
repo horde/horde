@@ -10,8 +10,8 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-17</date>
- <time>21:00:44</time>
+ <date>2011-10-18</date>
+ <time>04:35:26</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -40,14 +40,10 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Push">
-      <dir name="Cli">
-       <dir name="Factory">
-        <file name="Push.php" role="php" />
-        <file name="Recipients.php" role="php" />
-       </dir> <!-- /lib/Horde/Push/Cli/Factory -->
-       <file name="Exception.php" role="php" />
-       <file name="Translation.php" role="php" />
-      </dir> <!-- /lib/Horde/Push/Cli -->
+      <dir name="Factory">
+       <file name="Push.php" role="php" />
+       <file name="Recipients.php" role="php" />
+      </dir> <!-- /lib/Horde/Push/Factory -->
       <dir name="Recipient">
        <file name="Blogger.php" role="php" />
        <file name="Mail.php" role="php" />
@@ -55,7 +51,9 @@
        <file name="Twitter.php" role="php" />
       </dir> <!-- /lib/Horde/Push/Recipient -->
       <file name="Cli.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Recipient.php" role="php" />
+      <file name="Translation.php" role="php" />
      </dir> <!-- /lib/Horde/Push -->
      <file name="Push.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -151,11 +149,11 @@
    <install as="TODO" name="doc/Horde/Push/TODO" />
    <install as="Horde/Push.php" name="lib/Horde/Push.php" />
    <install as="Horde/Push/Cli.php" name="lib/Horde/Push/Cli.php" />
+   <install as="Horde/Push/Exception.php" name="lib/Horde/Push/Exception.php" />
    <install as="Horde/Push/Recipient.php" name="lib/Horde/Push/Recipient.php" />
-   <install as="Horde/Push/Cli/Exception.php" name="lib/Horde/Push/Cli/Exception.php" />
-   <install as="Horde/Push/Cli/Translation.php" name="lib/Horde/Push/Cli/Translation.php" />
-   <install as="Horde/Push/Cli/Factory/Push.php" name="lib/Horde/Push/Cli/Factory/Push.php" />
-   <install as="Horde/Push/Cli/Factory/Recipients.php" name="lib/Horde/Push/Cli/Factory/Recipients.php" />
+   <install as="Horde/Push/Translation.php" name="lib/Horde/Push/Translation.php" />
+   <install as="Horde/Push/Factory/Push.php" name="lib/Horde/Push/Factory/Push.php" />
+   <install as="Horde/Push/Factory/Recipients.php" name="lib/Horde/Push/Factory/Recipients.php" />
    <install as="Horde/Push/Recipient/Blogger.php" name="lib/Horde/Push/Recipient/Blogger.php" />
    <install as="Horde/Push/Recipient/Mail.php" name="lib/Horde/Push/Recipient/Mail.php" />
    <install as="Horde/Push/Recipient/Mock.php" name="lib/Horde/Push/Recipient/Mock.php" />
@@ -182,7 +180,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-17</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.

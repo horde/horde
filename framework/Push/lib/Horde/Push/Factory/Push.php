@@ -5,10 +5,10 @@
  * PHP version 5
  *
  * @category Horde
- * @package  Push_Cli
+ * @package  Push
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/gpl GPL-2.0
- * @link     http://www.horde.org/components/Horde_Push_Cli
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/components/Horde_Push
  */
 
 /**
@@ -16,16 +16,16 @@
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL-2.0). If you did
- * not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
- * @package  Push_Cli
+ * @package  Push
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/gpl GPL-2.0
- * @link     http://www.horde.org/components/Horde_Push_Cli
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/components/Horde_Push
  */
-class Horde_Push_Cli_Factory_Push
+class Horde_Push_Factory_Push
 {
     /**
      * Create the Horde_Push content element.
@@ -62,7 +62,7 @@ class Horde_Push_Cli_Factory_Push
         if (isset($elements[0])) {
             $argument = substr($argument, strlen($elements[0]) + 3);
             if (empty($argument)) {
-                throw new Horde_Push_Cli_Exception('Missing file path!');
+                throw new Horde_Push_Exception('Missing file path!');
             }
             switch ($elements[0]) {
             case 'kolab':
@@ -73,7 +73,7 @@ class Horde_Push_Cli_Factory_Push
                 return $this->_parseYaml($argument, $conf);
             }
         }
-        throw new Horde_Push_Cli_Exception(
+        throw new Horde_Push_Exception(
             sprintf('Invalid command line arguments: %s!', $argument)
         );
     }
@@ -88,9 +88,9 @@ class Horde_Push_Cli_Factory_Push
      */
     private function _parseKolab($argument, $conf)
     {
-        if (!file_exists($argument)) {
-            throw new Horde_Push_Cli_Exception(
-                sprintf('Invalid file path: "%s"!', $argument)
+        if (!interface_exists('Horde_Kolab_Storage')) {
+            throw new Horde_Push_Exception(
+                'The Horde_Kolab_Storage package is missing!'
             );
         }
         $elements = explode('/', $argument);
@@ -113,7 +113,7 @@ class Horde_Push_Cli_Factory_Push
     private function _parsePhp($argument, $conf)
     {
         if (!file_exists($argument)) {
-            throw new Horde_Push_Cli_Exception(
+            throw new Horde_Push_Exception(
                 sprintf('Invalid file path: "%s"!', $argument)
             );
         }
@@ -134,12 +134,12 @@ class Horde_Push_Cli_Factory_Push
     private function _parseYaml($argument, $conf)
     {
         if (!class_exists('Horde_Yaml')) {
-            throw new Horde_Push_Cli_Exception(
+            throw new Horde_Push_Exception(
                 'The Horde_Yaml package is missing!'
             );
         }
         if (!file_exists($argument)) {
-            throw new Horde_Push_Cli_Exception(
+            throw new Horde_Push_Exception(
                 sprintf('Invalid file path: "%s"!', $argument)
             );
         }
@@ -156,7 +156,7 @@ class Horde_Push_Cli_Factory_Push
     private function _createFromData($data)
     {
         if (!isset($data['summary'])) {
-            throw new Horde_Push_Cli_Exception(
+            throw new Horde_Push_Exception(
                 'Data is lacking a summary element!'
             );
         }

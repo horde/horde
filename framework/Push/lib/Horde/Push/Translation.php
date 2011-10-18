@@ -1,33 +1,31 @@
 <?php
 /**
- * Horde_Push_Cli_Translation is the translation wrapper class for Horde_Push_Cli.
+ * Horde_Push_Translation is the translation wrapper class for Horde_Push.
  *
  * PHP version 5
  *
  * @category Horde
- * @package  Push_Cli
- * @author   Jan Schneider <jan@horde.org>
+ * @package  Push
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/gpl GPL-2.0
- * @link     http://www.horde.org/components/Horde_Push_Cli
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/components/Horde_Push
  */
 
 /**
- * Horde_Push_Cli_Translation is the translation wrapper class for Horde_Push_Cli.
+ * Horde_Push_Translation is the translation wrapper class for Horde_Push.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL-2.0). If you did
- * not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
- * @package  Push_Cli
- * @author   Jan Schneider <jan@horde.org>
+ * @package  Push
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/gpl GPL-2.0
- * @link     http://www.horde.org/components/Horde_Push_Cli
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/components/Horde_Push
  */
-class Horde_Push_Cli_Translation extends Horde_Translation
+class Horde_Push_Translation extends Horde_Translation
 {
     /**
      * Returns the translation of a message.
@@ -39,8 +37,8 @@ class Horde_Push_Cli_Translation extends Horde_Translation
      */
     static public function t($message)
     {
-        self::$_domain = 'Horde_Push_Cli';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../../locale' : '@data_dir@/Horde_Push_Cli/locale';
+        self::$_domain = 'Horde_Push';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_Push/locale';
         return parent::t($message);
     }
 
@@ -56,8 +54,8 @@ class Horde_Push_Cli_Translation extends Horde_Translation
      */
     static public function ngettext($singular, $plural, $number)
     {
-        self::$_domain = 'Horde_Push_Cli';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../../locale' : '@data_dir@/Horde_Push_Cli/locale';
+        self::$_domain = 'Horde_Push';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_Push/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }
