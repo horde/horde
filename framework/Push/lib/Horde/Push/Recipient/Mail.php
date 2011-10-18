@@ -43,25 +43,35 @@ implements Horde_Push_Recipient
     private $_recipients;
 
     /**
+     * The mail sender.
+     *
+     * @var string
+     */
+    private $_from;
+
+    /**
      * Constructor.
      *
      * @param Horde_Mail_Transport $mail       The mail transport.
      * @param array                $recipients The mail recipients.
+     * @param array                $from       The mail sender.
      */
-    public function __construct(Horde_Mail_Transport $mail, $recipients)
+    public function __construct(Horde_Mail_Transport $mail, $recipients, $from)
     {
         $this->_mail = $mail;
         $this->_recipients = $recipients;
+        $this->_from = $from;
     }
 
     /**
      * Push content to the recipient.
      *
      * @param Horde_Push $content The content element.
+     * @param array      $options Additional options.
      *
      * @return NULL
      */
-    public function push(Horde_Push $content)
+    public function push(Horde_Push $content, $options = array())
     {
         $contents = $content->getContent();
         $types = $content->getMimeTypes();
@@ -86,7 +96,24 @@ implements Horde_Push_Recipient
             );
         }
         $mail->addRecipients($this->_recipients);
-        $mail->addHeader('summary', $content->getSummary());
+        $mail->addHeader('subject', $content->getSummary());
+        $mail->addHeader('from', $this->_from);
+        $mail->addHeader('to', join(',', $this->_recipients));
+
+        if (!empty($options['pretend'])) {
+            $mock = new Horde_Mail_Transport_Mock();
+            $mail->send($mock);
+            return sprintf(
+                "Would push mail \n\n%s\n\n%s\n to %s.",
+                $mock->sentMessages[0]['header_text'],
+                $mock->sentMessages[0]['body'],
+                join(',', $this->_recipients)
+            );
+        }
+
         $mail->send($this->_mail);
+        return sprintf(
+            'Pushed mail to %s.', join(',', $this->_recipients)
+        );
     }
 }
