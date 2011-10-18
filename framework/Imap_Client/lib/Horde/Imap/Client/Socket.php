@@ -3681,16 +3681,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (is_resource($data)) {
                 if (empty($this->_params['debug_literal'])) {
                     fseek($data, 0, SEEK_END);
-                    $this->_writeDebug('[LITERAL DATA - ' . ftell($data) . ' bytes]' . "\n", 'client');
+                    $this->writeDebug('[LITERAL DATA - ' . ftell($data) . ' bytes]' . "\n", Horde_Imap_Client::DEBUG_CLIENT);
                 } else {
                     rewind($data);
-                    $this->_writeDebug('', 'client');
+                    $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
                     while (!feof($data)) {
-                        $this->_writeDebug(fread($data, 8192));
+                        $this->writeDebug(fread($data, 8192));
                     }
                 }
             } else {
-                $this->_writeDebug((empty($options['debug']) ? $out : $options['debug']) . "\n", 'client');
+                $this->writeDebug((empty($options['debug']) ? $out : $options['debug']) . "\n", Horde_Imap_Client::DEBUG_CLIENT);
             }
         }
 
@@ -3896,7 +3896,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (feof($this->_stream)) {
             $this->_temp['logout'] = true;
             $this->logout();
-            $this->_writeDebug("ERROR: IMAP server closed the connection.\n", 'info');
+            $this->writeDebug("ERROR: IMAP server closed the connection.\n", Horde_Imap_Client::DEBUG_INFO);
             $this->_exception('IMAP server closed the connection unexpectedly.', 'DISCONNECT');
         }
 
@@ -3948,22 +3948,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if (!$got_data) {
-            $this->_writeDebug("ERROR: IMAP read/timeout error.\n", 'info');
+            $this->writeDebug("ERROR: IMAP read/timeout error.\n", Horde_Imap_Client::DEBUG_INFO);
             $this->logout();
             $this->_exception('IMAP read error or IMAP connection timed out.', 'SERVER_READERROR');
         }
 
         if ($this->_debug) {
             if ($binary) {
-                $this->_writeDebug('[BINARY DATA - ' . $old_len . ' bytes]' . "\n", 'server');
+                $this->writeDebug('[BINARY DATA - ' . $old_len . ' bytes]' . "\n", Horde_Imap_Client::DEBUG_SERVER);
             } elseif (!is_null($len) &&
                       empty($this->_params['debug_literal'])) {
-                $this->_writeDebug('[LITERAL DATA - ' . $old_len . ' bytes]' . "\n", 'server');
+                $this->writeDebug('[LITERAL DATA - ' . $old_len . ' bytes]' . "\n", Horde_Imap_Client::DEBUG_SERVER);
             } elseif ($stream) {
                 rewind($data);
-                $this->_writeDebug(rtrim(stream_get_contents($data)) . "\n", 'server');
+                $this->writeDebug(rtrim(stream_get_contents($data)) . "\n", Horde_Imap_Client::DEBUG_SERVER);
             } else {
-                $this->_writeDebug(rtrim($data) . "\n", 'server');
+                $this->writeDebug(rtrim($data) . "\n", Horde_Imap_Client::DEBUG_SERVER);
             }
         }
 
@@ -4511,7 +4511,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'CLIENTBUG':
         case 'CANNOT':
             // Defined by RFC 5530 [3]
-            $this->_writeDebug("ERROR: IMAP server explicitly reporting an error.\n", 'info');
+            $this->writeDebug("ERROR: IMAP server explicitly reporting an error.\n", Horde_Imap_Client::DEBUG_INFO);
             break;
 
         case 'LIMIT':
