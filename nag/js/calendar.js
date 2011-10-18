@@ -32,7 +32,10 @@ var NagCalendar =
             return;
         }
 
-        $(prefix + '_date').setValue(e.memo.toString(Nag.conf.date_format));
+        $(prefix + '_year').setValue(e.memo.getFullYear());
+        $(prefix + '_month').setValue(e.memo.getMonth() + 1);
+        $(prefix + '_day').setValue(e.memo.getDate());
+
         $(radio).setValue(1);
 
         this.updateWday(prefix);
@@ -45,7 +48,7 @@ var NagCalendar =
 
     getFormDate: function(p)
     {
-        return new Date($F(p + '_date'));
+        return new Date($F(p + '_year'), $F(p + '_month') - 1, $F(p + '_day'));
     },
 
     clickHandler: function(e)
@@ -76,19 +79,25 @@ var NagCalendar =
     changeHandler: function(e)
     {
         switch (e.element().readAttribute('id')) {
-        case 'due_date':
+        case 'due_day':
+        case 'due_month':
+        case 'due_year':
             this.updateWday('due');
             // Fall-through
 
-        case 'due_time':
+        case 'due_hour':
+        case 'due_minute':
             $('due_type_specified').setValue(1);
             break;
 
-        case 'start_date':
+        case 'start_day':
+        case 'start_month':
+        case 'start_year':
             this.updateWday('start');
             // Fall-through
 
-        case 'start_time':
+        case 'start_hour':
+        case 'start_minute':
             $('start_date_specified').setValue(1);
             break;
 
