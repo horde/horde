@@ -14,4 +14,8 @@
  */
 class Horde_Imap_Client_Ids_Pop3 extends Horde_Imap_Client_Ids
 {
+    /**
+     */
+    protected $_utilsClass = 'Horde_Imap_Client_Utils_Pop3';
+
 }

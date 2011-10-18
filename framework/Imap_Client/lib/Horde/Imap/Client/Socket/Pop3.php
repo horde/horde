@@ -85,6 +85,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
     /**
      */
+    protected $_utilsClass = 'Horde_Imap_Client_Utils_Pop3';
+
+    /**
+     */
     public function __construct(array $params = array())
     {
         if (empty($params['port'])) {
