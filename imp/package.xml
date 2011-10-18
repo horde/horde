@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-17</date>
- <time>23:18:18</time>
+ <date>2011-10-18</date>
+ <time>13:27:11</time>
  <version>
   <release>5.0.14</release>
   <api>5.0.0</api>
@@ -2531,7 +2531,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-17</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Workaround broken number_format() for PHP &lt; 5.4.0 (Bug #10618).

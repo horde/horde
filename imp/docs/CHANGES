@@ -1,6 +1,6 @@
------------
-v5.0.14-git
------------
+-------
+v5.0.14
+-------
 
 [mms] Workaround broken number_format() for PHP < 5.4.0 (Bug #10618).
 [mms] Add preference to indicate preferred language for return replies on
