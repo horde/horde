@@ -35,3 +35,4 @@ $GLOBALS['registry']->callAppMethod($GLOBALS['registry']->getApp(), 'mobileInitC
 
 Horde::addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
 Horde::includeScriptFiles();
+Horde::outputInlineScript();

@@ -1,6 +1,6 @@
 </head>
 <body>
-<div data-role="page">
+<div id="portal-page" data-role="page">
   <div data-role="header">
     <h1><?php echo sprintf(_("Welcome, %s"), $fullname) ?></h1>
     <?php if (Horde::getServiceLink('logout')): ?>
@@ -12,6 +12,15 @@
       <?php foreach ($links as $key => $val): ?>
       <li class="extlink"><?php echo $val[0]->link(array('rel' => 'external')) ?><img class="ui-li-icon" src="<?php echo $val[1] ?>"><?php echo $key ?></a></li>
       <?php endforeach; ?>
+    </ul>
+  </div>
+</div>
+<div id="notification" data-role="dialog">
+  <div data-role="header">
+    <h1><?php echo _("Notice")?></h1>
+  </div>
+  <div data-role="content" class="ui-body">
+    <ul id="horde-notification" data-role="listview">
     </ul>
   </div>
 </div>

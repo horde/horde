@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-21</date>
- <time>18:54:26</time>
+ <date>2011-10-18</date>
+ <time>21:46:05</time>
  <version>
   <release>4.1.0</release>
   <api>4.1.0</api>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [jan] Show notifications directly after logging into Smartphone mode.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1569,6 +1569,13 @@
        <file name="xml.png" role="horde" />
       </dir> <!-- /themes/default/graphics/mime -->
       <dir name="mobile">
+       <dir name="alerts">
+        <file name="alarm.png" role="horde" />
+        <file name="error.png" role="horde" />
+        <file name="message.png" role="horde" />
+        <file name="success.png" role="horde" />
+        <file name="warning.png" role="horde" />
+       </dir> <!-- /themes/default/graphics/mobile/alerts -->
        <file name="bottom.jpg" role="horde" />
        <file name="display.jpg" role="horde" />
        <file name="left.jpg" role="horde" />
@@ -3696,6 +3703,11 @@
    <install as="themes/default/graphics/mobile/left.jpg" name="themes/default/graphics/mobile/left.jpg" />
    <install as="themes/default/graphics/mobile/right.jpg" name="themes/default/graphics/mobile/right.jpg" />
    <install as="themes/default/graphics/mobile/top.jpg" name="themes/default/graphics/mobile/top.jpg" />
+   <install as="themes/default/graphics/mobile/alerts/alarm.png" name="themes/default/graphics/mobile/alerts/alarm.png" />
+   <install as="themes/default/graphics/mobile/alerts/error.png" name="themes/default/graphics/mobile/alerts/error.png" />
+   <install as="themes/default/graphics/mobile/alerts/message.png" name="themes/default/graphics/mobile/alerts/message.png" />
+   <install as="themes/default/graphics/mobile/alerts/success.png" name="themes/default/graphics/mobile/alerts/success.png" />
+   <install as="themes/default/graphics/mobile/alerts/warning.png" name="themes/default/graphics/mobile/alerts/warning.png" />
    <install as="themes/default/graphics/nav/bottom-grey.png" name="themes/default/graphics/nav/bottom-grey.png" />
    <install as="themes/default/graphics/nav/bottom.png" name="themes/default/graphics/nav/bottom.png" />
    <install as="themes/default/graphics/nav/down-grey.png" name="themes/default/graphics/nav/down-grey.png" />
@@ -4331,10 +4343,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-21</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [jan] Show notifications directly after logging into Smartphone mode.
    </notes>
   </release>
  </changelog>
