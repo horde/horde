@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-08</date>
- <time>14:35:31</time>
+ <date>2011-10-19</date>
+ <time>00:20:47</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added a required parameter ('baseob') to Horde_Imap_Client_Cache constructor.
+* [mms] Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
 * [mms] Added Horde_Imap_Client_Base::writeDebug().
 * [mms] Added Horde_Imap_Client_Base::getIdsOb().
 * [mms] Deprecate Horde_Imap_Client_Cache::singleton().
@@ -63,12 +63,18 @@
        <dir name="Fetch">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Fetch -->
+       <dir name="Ids">
+        <file name="Pop3.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Ids -->
        <dir name="Search">
         <file name="Query.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Search -->
        <dir name="Socket">
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
+       <dir name="Utils">
+        <file name="Pop3.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Utils -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Cclient.php" role="php" />
@@ -103,6 +109,7 @@
        <file name="AuthTest.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
+       <file name="IdsParseTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
@@ -208,13 +215,16 @@
    <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
    <install as="Horde/Imap/Client/Data/Fetch/Pop3.php" name="lib/Horde/Imap/Client/Data/Fetch/Pop3.php" />
    <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
+   <install as="Horde/Imap/Client/Ids/Pop3.php" name="lib/Horde/Imap/Client/Ids/Pop3.php" />
    <install as="Horde/Imap/Client/Search/Query.php" name="lib/Horde/Imap/Client/Search/Query.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
+   <install as="Horde/Imap/Client/Utils/Pop3.php" name="lib/Horde/Imap/Client/Utils/Pop3.php" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
    <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
+   <install as="Horde/Imap/Client/IdsParseTest.php" name="test/Horde/Imap/Client/IdsParseTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
@@ -581,10 +591,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-08</date>
+   <date>2011-10-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
+* [mms] Added Horde_Imap_Client_Base::writeDebug().
+* [mms] Added Horde_Imap_Client_Base::getIdsOb().
+* [mms] Deprecate Horde_Imap_Client_Cache::singleton().
    </notes>
   </release>
  </changelog>
