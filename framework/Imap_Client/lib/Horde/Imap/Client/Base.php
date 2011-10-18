@@ -344,13 +344,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (is_null($this->cache)) {
-            $p = $this->_params;
             try {
-                $this->cache = new Horde_Imap_Client_Cache(array_merge($p['cache'], array(
-                    'debug' => $this->_debug,
-                    'hostspec' => $p['hostspec'],
-                    'port' => $p['port'],
-                    'username' => $p['username']
+                $this->cache = new Horde_Imap_Client_Cache(array_merge($this->getParam('cache'), array(
+                    'baseob' => $this,
+                    'debug' => (bool)$this->_debug
                 )));
             } catch (InvalidArgumentException $e) {
                 return false;
