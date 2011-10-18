@@ -19,6 +19,8 @@ class Horde_Imap_Client_Cache
     /**
      * Singleton instances.
      *
+     * @deprecated
+     *
      * @var array
      */
     static protected $_instances = array();
@@ -68,6 +70,8 @@ class Horde_Imap_Client_Cache
 
     /**
      * Return a reference to a concrete Horde_Imap_Client_Cache instance.
+     *
+     * @deprecated  As of 1.2.0
      *
      * @param array $params  The configuration parameters.
      *

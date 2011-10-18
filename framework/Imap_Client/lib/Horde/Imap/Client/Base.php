@@ -346,7 +346,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (is_null($this->cache)) {
             $p = $this->_params;
             try {
-                $this->cache = Horde_Imap_Client_Cache::singleton(array_merge($p['cache'], array(
+                $this->cache = new Horde_Imap_Client_Cache(array_merge($p['cache'], array(
                     'debug' => $this->_debug,
                     'hostspec' => $p['hostspec'],
                     'port' => $p['port'],
