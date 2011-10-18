@@ -20,7 +20,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="TODO">TODO</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * 
  </notes>
@@ -88,9 +88,9 @@
     <api>alpha</api>
    </stability>
    <date>2011-10-11</date>
-   <license uri="TODO">TODO</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* Initial release.
+* First alpha release.
    </notes>
   </release>
   <release>
@@ -101,7 +101,7 @@
     <release>alpha</release>
     <api>alpha</api></stability>
    <date>2011-10-11</date>
-   <license uri="TODO">TODO</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
    </notes>
