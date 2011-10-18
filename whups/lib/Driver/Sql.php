@@ -2988,7 +2988,7 @@ class Whups_Driver_Sql extends Whups_Driver
                     . 'AND attribute_id = ?',
                  array($ticket_id, $attribute_id));
 
-            if (!empty($attribute_value)) {
+            if (strlen($attribute_value)) {
                 $this->_db->insert(
                     'INSERT INTO whups_attributes (ticket_id, attribute_id, attribute_value) VALUES (?, ?, ?)',
                     array($ticket_id, $attribute_id, $db_attribute_value));
