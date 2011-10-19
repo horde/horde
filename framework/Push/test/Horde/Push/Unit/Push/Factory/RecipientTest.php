@@ -265,4 +265,9 @@ extends Horde_Push_TestCase
         $this->assertContains('to: recipient@example.com', $result[0]);
     }
 
+    public function testEmpty()
+    {
+        $factory = new Horde_Push_Factory_Recipients();
+        $this->assertEquals(array(), $factory->create(array(),array()));
+    }
 }
