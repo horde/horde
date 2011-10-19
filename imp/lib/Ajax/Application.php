@@ -988,6 +988,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result = $this->_checkUidvalidity($result);
             } else {
                 $result->message->view = $this->_vars->view;
+                $result->message->save_as = strval($result->message->save_as->setRaw(true));
             }
         } catch (IMP_Imap_Exception $e) {
             $result->message = new stdClass;
