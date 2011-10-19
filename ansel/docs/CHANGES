@@ -1,5 +1,5 @@
 --------
-v2.0-git
+v2.0-RC1
 --------
 
 [mjr] Fix migrations to not rely on Ansel being available.
