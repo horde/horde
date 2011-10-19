@@ -498,26 +498,26 @@ var IMP_JS = {
         id = $('#' + id);
         var d = id.get(0).contentWindow.document;
 
+        id.bind('load', function() {
+            id.unbind('load');
+            window.setTimeout(function() { IMP_JS.iframeResize(id); }, 300);
+        });
+
         d.open();
         d.write(data);
         d.close();
 
         id.show().prev().remove();
-        this.iframeResize(id);
+
+        IMP_JS.iframeResize(id);
     },
 
     iframeResize: function(id)
     {
-        id.css('height', id.get(0).contentWindow.document.lastChild.scrollHeight + 'px' );
+        var lc = id.get(0).contentWindow.document.lastChild,
+            body = id.get(0).contentWindow.document.body;
 
-        // For whatever reason, browsers will report different heights
-        // after the initial height setting.
-        window.setTimeout(function() { this.iframeResize2(id); }.bind(this), 300);
-    },
-
-    iframeResize2: function(id)
-    {
-        var lc = id.get(0).contentWindow.document.lastChild;
+        lc = (lc.scrollHeight > body.scrollHeight) ? lc : body;
 
         // Try expanding IFRAME if we detect a scroll.
         if (lc.clientHeight != lc.scrollHeight ||
@@ -527,6 +527,7 @@ var IMP_JS = {
                 // Finally, brute force if it still isn't working.
                 id.css('height', (lc.scrollHeight + 25) + 'px');
             }
+            lc.style.setProperty('overflow-x', 'hidden', '');
         }
     }
 
