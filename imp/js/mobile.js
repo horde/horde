@@ -128,6 +128,7 @@ var ImpMobile = {
                 list.append('<li id="imp-mailbox-more">' + IMP.text.more_messages.replace('%d', r.ViewPort.totalrows - l) + '</li>');
             }
             list.listview('refresh');
+            $.mobile.fixedToolbars.show();
         }
     },
 
