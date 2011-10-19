@@ -23,10 +23,11 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Fixed setting data for several POP3 fetch results.
-* [mms] Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
-* [mms] Added Horde_Imap_Client_Base::writeDebug().
-* [mms] Added Horde_Imap_Client_Base::getIdsOb().
-* [mms] Deprecate Horde_Imap_Client_Cache::singleton().
+* [mms] Parsing/generating sequence strings for POP3 servers has been fixed.
+* [mms] API CHANGE: Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::getIdsOb().
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Cache::singleton().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -581,7 +582,7 @@
 * [mms] Improved IMAP debug logging.
 * [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).
 * [mms] Improved phpdoc documentation.
-* [mms] Add shortcuts to get MIME decoded envelope information.
+* [mms] API CHANGE: Add shortcuts to get MIME decoded envelope information.
 * [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
    </notes>
   </release>
