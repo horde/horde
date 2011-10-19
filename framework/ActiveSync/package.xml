@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-15</date>
- <time>17:40:37</time>
+ <date>2011-10-19</date>
+ <time>10:44:37</time>
  <version>
   <release>1.1.6</release>
   <api>1.1.0</api>
@@ -412,7 +412,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-15</date>
+   <date>2011-10-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Prevent duplicate incoming message additions (Bug #10644).
