@@ -620,7 +620,6 @@ class IMP_Application extends Horde_Registry_Application
     public function mobileInitCallback()
     {
         Horde::addScriptFile('mobile.js');
-        Horde::addScriptFile('indices.js');
         require IMP_TEMPLATES . '/mobile/javascript_defs.php';
 
         /* Inline script. */
