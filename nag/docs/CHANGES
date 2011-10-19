@@ -2,6 +2,7 @@
 v3.0.5-git
 ----------
 
+[mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
 
 
 ------
