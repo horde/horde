@@ -20,7 +20,8 @@ class Horde_Imap_Client_Utils_Pop3 extends Horde_Imap_Client_Utils
      * Index Format: {P[length]}UID1{P[length]}UID2...
      *
      * @param mixed $in       An array of UIDs (or a single UID).
-     * @param array $options  NOT USED.
+     * @param array $options  Additional options. 'nosort' is not used in
+     *                        this class.
      *
      * @return string  The POP3 message sequence string.
      */
@@ -31,6 +32,12 @@ class Horde_Imap_Client_Utils_Pop3 extends Horde_Imap_Client_Utils
                 return '';
             }
             $in = array($in);
+        } elseif (!empty($options['mailbox'])) {
+            $tmp = $in;
+            $in = array();
+            foreach ($tmp as $val) {
+                $in = array_merge($in, $val);
+            }
         }
 
         $str = '';
