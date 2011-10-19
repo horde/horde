@@ -2,6 +2,7 @@
 v2.0-git
 --------
 
+[jan] Add Slovak translation (Martin Matuška <martin@matuska.org>).
 [mjr] Fix issue with style migration when upgrading from Ansel 1.x.
 
 
