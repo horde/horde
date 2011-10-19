@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__FILE__) . '/../lib/Style.php';
+
 /**
  * Upgrade to Ansel 2 style schema
  *
