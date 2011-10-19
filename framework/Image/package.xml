@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix parsing GPS values for locales that do not use the decimal separator (Bug #10643).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -795,7 +795,7 @@ Initial release as a PEAR package
    <date>2011-10-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix parsing GPS values for locales that do not use the decimal separator (Bug #10643).
    </notes>
   </release>
  </changelog>
