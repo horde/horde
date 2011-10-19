@@ -267,7 +267,11 @@ var ImpMobile = {
 
             // Don't send/save until uploading is completed.
             if (ImpMobile.uploading) {
-                window.setTimeout(function() { if (ImpMobile.disabled) { ImpMobile.uniqueSubmit(action); } }, 250);
+                window.setTimeout(function() {
+                    if (ImpMobile.disabled) {
+                        ImpMobile.uniqueSubmit(action);
+                    }
+                }, 250);
                 return;
             }
         }
@@ -382,6 +386,8 @@ var ImpMobile = {
 
     closeCompose: function()
     {
+        ImpMobile.setDisabled(false);
+        $('#imp-compose-form')[0].reset();
         window.setTimeout(function () {
             if ($.mobile.activePage.attr('id') == 'compose') {
                 window.history.back();
