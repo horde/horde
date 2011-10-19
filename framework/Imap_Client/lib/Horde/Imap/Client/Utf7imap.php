@@ -63,8 +63,8 @@ class Horde_Imap_Client_Utf7imap
     /**
      * Convert a string from UTF7-IMAP to UTF-8.
      *
-     * @param mixed  The UTF7-IMAP string (or an object with a __toString()
-     *               method).
+     * @param mixed $str  The UTF7-IMAP string (or an object with a
+     *                    __toString() method).
      *
      * @return string  The converted UTF-8 string.
      * @throws Horde_Imap_Client_Exception
@@ -158,20 +158,23 @@ class Horde_Imap_Client_Utf7imap
     /**
      * Convert a string from UTF-8 to UTF7-IMAP.
      *
-     * @param mixed  The UTF-8 string (or an object with a __toString()
-     *               method).
+     * @param mixed $str      The UTF-8 string (or an object with a
+     *                        __toString() method).
+     * @param boolean $force  Assume $str is UTF-8 (no-autodetection)?
+     *                        (Since 1.2.0)
      *
      * @return string  The converted UTF7-IMAP string.
      * @throws Horde_Imap_Client_Exception
      */
-    public static function Utf8ToUtf7Imap($str)
+    public static function Utf8ToUtf7Imap($str, $force = false)
     {
         $str = strval($str);
 
         /* No need to do conversion if all chars are in US-ASCII range or if
          * no ampersand is present. But will assume that an already encoded
          * ampersand means string is in UTF7-IMAP already. */
-        if (!preg_match('/[\x80-\xff]|&$|&(?![,+A-Za-z0-9]*-)/', $str)) {
+        if (!$force &&
+            !preg_match('/[\x80-\xff]|&$|&(?![,+A-Za-z0-9]*-)/', $str)) {
             return $str;
         }
 

@@ -46,11 +46,20 @@ Method Parameter Changes
     through 'baseob'. The old usage - passing in a resource - is IMMEDIATELY
     deprecated and will be ignored.
 
+  - Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap()
+
+    Added the $force parameter.
+
 New Methods
 -----------
 
   - Horde_Imap_Client_Base#getIdsOb()
   - Horde_Imap_Client_Base#writeDebug()
+
+New Objects
+-----------
+
+  - Horde_Imap_Client_Mailbox
 
 
 

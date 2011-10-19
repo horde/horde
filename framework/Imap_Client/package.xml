@@ -25,6 +25,7 @@
 * [mms] Fixed setting data for several POP3 fetch results.
 * [mms] Parsing/generating sequence strings for POP3 servers has been fixed.
 * [mms] Removed unmaintained Mock driver.
+* [mms] API CHANGE: Added Horde_Imap_Client_Mailbox to provide way to accurately switch between UTF7-IMAP and UTF-8 mailbox representations.
 * [mms] API CHANGE: Deprecate Horde_Imap_Client_Base::parseCommandArray() - use Horde_Imap_Client_Utils::parseCommandArray() instead.
 * [mms] API CHANGE: Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
 * [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
@@ -86,6 +87,7 @@
        <file name="DateTime.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Ids.php" role="php" />
+       <file name="Mailbox.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
        <file name="Utf7imap.php" role="php" />
@@ -115,6 +117,7 @@
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsParseTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
+       <file name="MailboxTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
        <file name="SubjectParseTest.php" role="test" />
@@ -204,6 +207,7 @@
    <install as="Horde/Imap/Client/DateTime.php" name="lib/Horde/Imap/Client/DateTime.php" />
    <install as="Horde/Imap/Client/Exception.php" name="lib/Horde/Imap/Client/Exception.php" />
    <install as="Horde/Imap/Client/Ids.php" name="lib/Horde/Imap/Client/Ids.php" />
+   <install as="Horde/Imap/Client/Mailbox.php" name="lib/Horde/Imap/Client/Mailbox.php" />
    <install as="Horde/Imap/Client/Socket.php" name="lib/Horde/Imap/Client/Socket.php" />
    <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
@@ -230,6 +234,7 @@
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsParseTest.php" name="test/Horde/Imap/Client/IdsParseTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
+   <install as="Horde/Imap/Client/MailboxTest.php" name="test/Horde/Imap/Client/MailboxTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
@@ -601,6 +606,7 @@
 * [mms] Fixed setting data for several POP3 fetch results.
 * [mms] Parsing/generating sequence strings for POP3 servers has been fixed.
 * [mms] Removed unmaintained Mock driver.
+* [mms] API CHANGE: Added Horde_Imap_Client_Mailbox to provide way to accurately switch between UTF7-IMAP and UTF-8 mailbox representations.
 * [mms] API CHANGE: Deprecate Horde_Imap_Client_Base::parseCommandArray() - use Horde_Imap_Client_Utils::parseCommandArray() instead.
 * [mms] API CHANGE: Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
 * [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
