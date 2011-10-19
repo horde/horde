@@ -27,41 +27,6 @@ var ImpMobile = {
     messages: {},
 
     /**
-     * Converts an object to an IMP UID Range string.
-     * See IMP::toRangeString().
-     *
-     * @param object ob  Mailbox name as keys, values are array of uids.
-     */
-    toRangeString: function(ob)
-    {
-        var str = '';
-
-        $.each(ob, function(key, value) {
-            if (!value.length) {
-                return;
-            }
-
-            var u = (IMP.conf.pop3 ? value : value.numericSort()),
-                first = u.shift(),
-                last = first,
-                out = [];
-
-            $.each(u, function(n, k) {
-                if (!IMP.conf.pop3 && (last + 1 == k)) {
-                    last = k;
-                } else {
-                    out.push(first + (last == first ? '' : (':' + last)));
-                    first = last = k;
-                }
-            });
-            out.push(first + (last == first ? '' : (':' + last)));
-            str += '{' + key.length + '}' + key + out.join(',');
-        });
-
-        return str;
-    },
-
-    /**
      * Switches to the mailbox view and loads a mailbox.
      *
      * @param string mailbox  A mailbox name.
@@ -143,7 +108,7 @@ var ImpMobile = {
         HordeMobile.doAction(
             'showMessage',
             {
-                uid: ImpMobile.toRangeString(o),
+                uid: this.toUIDString(o),
                 view: mailbox,
             },
             ImpMobile.messageLoaded);
@@ -202,6 +167,48 @@ var ImpMobile = {
                 });
             }
         }
+    },
+
+    /**
+     * Converts an object to an IMP UID range string.
+     *
+     * @param object ob  Mailbox name as keys, values are array of uids.
+     *
+     * @return string  The UID range string.
+     */
+    toUIDString: function(ob)
+    {
+        var str = '';
+
+        $.each(ob, function(key, value) {
+            if (!value.length) {
+                return;
+            }
+
+            if (IMP.conf.pop3) {
+                $.each(value, function(pk, pv) {
+                    str += '{P' + pv.length + '}' + pv;
+                });
+            } else {
+                var u = value.numericSort(),
+                    first = u.shift(),
+                    last = first,
+                    out = [];
+
+                $.each(u, function(n, k) {
+                    if (last + 1 == k) {
+                        last = k;
+                    } else {
+                        out.push(first + (last == first ? '' : (':' + last)));
+                        first = last = k;
+                    }
+                });
+                out.push(first + (last == first ? '' : (':' + last)));
+                str += '{' + key.length + '}' + key + out.join(',');
+            }
+        });
+
+        return str;
     },
 
     /**

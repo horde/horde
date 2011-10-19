@@ -34,7 +34,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Improve gallery property editing when jpg image format is configured.
 * [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
+* [mjr] Allow filtering listTagInfo results by user.
 * [mjr] Fix issue with style migration when upgrading from Ansel 1.x.
  </notes>
  <contents>
@@ -1191,7 +1193,9 @@
    <date>2011-10-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Improve gallery property editing when jpg image format is configured.
 * [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
+* [mjr] Allow filtering listTagInfo results by user.
 * [mjr] Fix issue with style migration when upgrading from Ansel 1.x.
    </notes>
   </release>

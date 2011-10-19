@@ -4333,7 +4333,7 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [mjr] Do not show results in the tag cloud block owned by other users.
    </notes>
   </release>
   <release>

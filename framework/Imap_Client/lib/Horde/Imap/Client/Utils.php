@@ -29,7 +29,7 @@ class Horde_Imap_Client_Utils
      *                        'mailbox' below.
      * @param array $options  Additional options:
      *   - mailbox: (boolean) If true, store mailbox information with the
-     *              ID list.  $ids should be an array of arrays, with keys as
+     *              ID list.  $in should be an array of arrays, with keys as
      *              mailbox names and values as IDs.
      *              DEFAULT: false
      *   - nosort: (boolean) Do not numerically sort the IDs before creating

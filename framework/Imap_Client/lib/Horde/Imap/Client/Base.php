@@ -121,11 +121,18 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected $_temp = array();
 
     /**
-     * The Horde_Imap_Client_Utils object
+     * The Horde_Imap_Client_Utils object.
      *
      * @var Horde_Imap_Client_Utils
      */
     protected $_utils;
+
+    /**
+     * The utils class to use.
+     *
+     * @var string
+     */
+    protected $_utilsClass = 'Horde_Imap_Client_Utils';
 
     /**
      * Constructs a new Horde_Imap_Client_Base object.
@@ -292,7 +299,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         switch ($name) {
         case 'utils':
             if (!isset($this->_utils)) {
-                $this->_utils = new Horde_Imap_Client_Utils();
+                $this->_utils = new $this->_utilsClass();
             }
             return $this->_utils;
         }

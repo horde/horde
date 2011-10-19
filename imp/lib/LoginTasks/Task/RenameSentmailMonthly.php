@@ -69,7 +69,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
                 foreach ($res as $val) {
                     $date_string = $val->getImapDate()->format($date_format);
                     if (!isset($msgs[$date_string])) {
-                        $msgs[$date_string] = new Horde_Imap_Client_Ids();
+                        $msgs[$date_string] = $imp_imap->getIdsOb();
                     }
                     $msgs[$date_string]->add($val->getUid());
                 }

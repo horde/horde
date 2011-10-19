@@ -8,6 +8,7 @@ v3.1-git
 v3.0.11-git
 -----------
 
+[mjr] Allow filtering listTagInfo results by user.
 [jan] Fix uncompleting tasks in dynamic view (Carlos Timóteo, Bug #10653).
 [cjh/jan] Improve design.
 [mjr] Fix displaying resources when no attendees are present (Bug #10507).
