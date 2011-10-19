@@ -380,6 +380,17 @@ var ImpMobile = {
         ImpMobile.setDisabled(false);
     },
 
+    closeCompose: function()
+    {
+        window.setTimeout(function () {
+            if ($.mobile.activePage.attr('id') == 'compose') {
+                window.history.back();
+            } else if ($.mobile.activePage.attr('id') == 'notification') {
+                $.mobile.activePage.bind('pagehide', function () { window.history.back(); });
+            }
+        }, 0);
+    },
+
     setDisabled: function(disable)
     {
         var redirect = $('#imp-redirect-form').filter(':visible');
