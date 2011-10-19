@@ -20,8 +20,8 @@
  <date>2011-10-18</date>
  <time>13:46:09</time>
  <version>
-  <release>1.0.5</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -280,8 +280,8 @@
   </release>
   <release>
    <version>
-    <release>1.0.5</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
