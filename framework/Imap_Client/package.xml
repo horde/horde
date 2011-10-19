@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fixed setting data for several POP3 fetch results.
 * [mms] Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
 * [mms] Added Horde_Imap_Client_Base::writeDebug().
 * [mms] Added Horde_Imap_Client_Base::getIdsOb().
