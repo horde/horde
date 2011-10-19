@@ -106,8 +106,28 @@ class Ansel_View_GalleryProperties
         $view->url = $this->_params['url'];
         $view->availableThumbs = $this->_thumbStyles();
         $view->galleryViews = $this->_galleryViewStyles();
-
-        Horde::addInlineScript(array('$("gallery_name").focus()'), 'dom');
+        $js = array('$("gallery_name").focus()');
+        if ($GLOBALS['conf']['image']['type'] != 'png') {
+            $js[] = 'function checkStyleSelection()
+                {
+                    var s, bg = $F("background_color");
+                    $A($("thumbnail_style").options).each(function(o) {
+                        if (o.value == "Thumb" && o.selected == "1") {
+                           s = true;
+                        }
+                    });
+                    if (bg == "none" && !s) {
+                        alert("' . _("Your server does not support thumbnails with transparent backgrounds.  Either select a background color or use the 'Basic Thumbnail' type. Please contact your server administrator for more information.") . '");
+                        $A($("thumbnail_style").options).each(function(o) {
+                            if (o.value == "Thumb") {
+                                o.selected = "1";
+                            }
+                        })
+                    }
+                }';
+            $js[] = '$("background_color").observe("change", checkStyleSelection); $("thumbnail_style").observe("change", checkStyleSelection);';
+        }
+        Horde::addInlineScript($js, 'dom');
         Horde::addScriptFile('stripe.js', 'horde');
         Horde::addScriptFile('popup.js', 'horde');
 
