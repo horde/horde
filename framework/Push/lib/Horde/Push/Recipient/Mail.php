@@ -26,7 +26,7 @@
  * @link     http://www.horde.org/libraries/Horde_Push
  */
 class Horde_Push_Recipient_Mail
-implements Horde_Push_Recipient
+extends Horde_Push_Recipient_Base
 {
     /**
      * The mail transport.
@@ -36,31 +36,22 @@ implements Horde_Push_Recipient
     private $_mail;
 
     /**
-     * The mail recipients.
+     * Mail parameters.
      *
      * @var array
      */
-    private $_recipients;
-
-    /**
-     * The mail sender.
-     *
-     * @var string
-     */
-    private $_from;
+    private $_params;
 
     /**
      * Constructor.
      *
-     * @param Horde_Mail_Transport $mail       The mail transport.
-     * @param array                $recipients The mail recipients.
-     * @param array                $from       The mail sender.
+     * @param Horde_Mail_Transport $mail   The mail transport.
+     * @param array                $params Parameters for the mail transport.
      */
-    public function __construct(Horde_Mail_Transport $mail, $recipients, $from)
+    public function __construct(Horde_Mail_Transport $mail, $params = array())
     {
         $this->_mail = $mail;
-        $this->_recipients = $recipients;
-        $this->_from = $from;
+        $this->_params = $params;
     }
 
     /**
@@ -95,10 +86,12 @@ implements Horde_Push_Recipient
                 'UTF-8'
             );
         }
-        $mail->addRecipients($this->_recipients);
+        $mail->addRecipients(explode(',', $this->getAcl()));
         $mail->addHeader('subject', $content->getSummary());
-        $mail->addHeader('from', $this->_from);
-        $mail->addHeader('to', join(',', $this->_recipients));
+        if (!empty($this->_params['from'])) {
+            $mail->addHeader('from', $this->_params['from']);
+        }
+        $mail->addHeader('to', $this->getAcl());
 
         if (!empty($options['pretend'])) {
             $mock = new Horde_Mail_Transport_Mock();
@@ -107,13 +100,13 @@ implements Horde_Push_Recipient
                 "Would push mail \n\n%s\n\n%s\n to %s.",
                 $mock->sentMessages[0]['header_text'],
                 $mock->sentMessages[0]['body'],
-                join(',', $this->_recipients)
+                $this->getAcl()
             );
         }
 
         $mail->send($this->_mail);
         return sprintf(
-            'Pushed mail to %s.', join(',', $this->_recipients)
+            'Pushed mail to %s.', $this->getAcl()
         );
     }
 }

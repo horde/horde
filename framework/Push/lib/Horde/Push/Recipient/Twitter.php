@@ -26,7 +26,7 @@
  * @link     http://www.horde.org/libraries/Horde_Push
  */
 class Horde_Push_Recipient_Twitter
-implements Horde_Push_Recipient
+extends Horde_Push_Recipient_Base
 {
     /**
      * The twitter client.

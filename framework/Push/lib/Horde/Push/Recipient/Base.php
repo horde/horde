@@ -1,6 +1,6 @@
 <?php
 /**
- * A mock recipient.
+ * The base recipient implementation.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * A mock recipient.
+ * The base recipient implementation.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -25,31 +25,35 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://www.horde.org/libraries/Horde_Push
  */
-class Horde_Push_Recipient_Mock
-extends Horde_Push_Recipient_Base
+abstract class Horde_Push_Recipient_Base
+implements Horde_Push_Recipient
 {
     /**
-     * Pushed content elements.
+     * The ACL for this recipient.
      *
-     * @var array
+     * @var string
      */
-    public $pushed = array();
+    private $_acl;
 
     /**
-     * Push content to the recipient.
+     * Set the ACL for this recipient.
      *
-     * @param Horde_Push $content The content element.
-     * @param array      $options Additional options.
+     * @param string $acl The ACL.
      *
      * @return NULL
      */
-    public function push(Horde_Push $content, $options = array())
+    public function setAcl($acl)
     {
-        $this->pushed[] = $content;
-        if (empty($options['pretend'])) {
-            return sprintf('Pushed "%s".', $content->getSummary());
-        } else {
-            return sprintf('Would push "%s".', $content->getSummary());
-        }
+        $this->_acl = $acl;
+    }
+
+    /**
+     * Retrieve the ACL setting for this recipient.
+     *
+     * @return string The ACL.
+     */
+    protected function getAcl()
+    {
+        return $this->_acl;
     }
 }

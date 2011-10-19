@@ -106,7 +106,8 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $mx = new Horde_Mail_Transport_Mock();
-        $recipient = new Horde_Push_Recipient_Mail($mx, array('test@example.com'), 'from@example.com');
+        $recipient = new Horde_Push_Recipient_Mail($mx, array('from' => 'from@example.com'));
+        $recipient->setAcl('test@example.com');
         $push->addRecipient($recipient)
             ->setSummary('E-MAIL')
             ->push();
@@ -120,7 +121,8 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $mx = new Horde_Mail_Transport_Mock();
-        $recipient = new Horde_Push_Recipient_Mail($mx, array('test@example.com'), 'from@example.com');
+        $recipient = new Horde_Push_Recipient_Mail($mx, array('from' => 'from@example.com'));
+        $recipient->setAcl('test@example.com');
         $push->addRecipient($recipient)
             ->setSummary('E-MAIL')
             ->push();
@@ -134,7 +136,8 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $mx = new Horde_Mail_Transport_Mock();
-        $recipient = new Horde_Push_Recipient_Mail($mx, array('test@example.com'), 'from@example.com');
+        $recipient = new Horde_Push_Recipient_Mail($mx, array('from' => 'from@example.com'));
+        $recipient->setAcl('test@example.com');
         $return = $push->addRecipient($recipient)
             ->setSummary('E-MAIL')
             ->push();
@@ -145,7 +148,8 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $mx = new Horde_Mail_Transport_Mock();
-        $recipient = new Horde_Push_Recipient_Mail($mx, array('test@example.com'), 'from@example.com');
+        $recipient = new Horde_Push_Recipient_Mail($mx, array('from' => 'from@example.com'));
+        $recipient->setAcl('test@example.com');
         $return = $push->addRecipient($recipient)
             ->setSummary('E-MAIL')
             ->push(array('pretend' => true));
