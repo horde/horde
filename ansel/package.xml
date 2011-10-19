@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue with style migration when upgrading from Ansel 1.x.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1190,7 +1190,7 @@
    <date>2011-10-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue with style migration when upgrading from Ansel 1.x.
    </notes>
   </release>
  </changelog>
