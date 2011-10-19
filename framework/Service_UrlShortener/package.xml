@@ -10,19 +10,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>18:09:55</time>
+ <date>2011-10-19</date>
+ <time>10:49:48</time>
  <version>
-  <release>1.0.0</release>
-  <api>1.0.0</api>
+  <release>1.0.0RC1</release>
+  <api>1.0.0RC1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -62,7 +62,7 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Http_Client</name>
+    <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -95,15 +95,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.0</release>
-    <api>1.0.0</api></version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0RC1</api></version>
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-10-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix dependency.
    </notes>
   </release>
  </changelog>
