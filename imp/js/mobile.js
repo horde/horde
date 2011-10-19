@@ -392,7 +392,10 @@ var ImpMobile = {
             if ($.mobile.activePage.attr('id') == 'compose') {
                 window.history.back();
             } else if ($.mobile.activePage.attr('id') == 'notification') {
-                $.mobile.activePage.bind('pagehide', function () { window.history.back(); });
+                $.mobile.activePage.bind('pagehide', function (e) {
+                    $(e.currentTarget).unbind(e);
+                    window.history.back();
+                });
             }
         }, 0);
     },
