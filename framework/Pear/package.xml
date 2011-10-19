@@ -10,18 +10,19 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-09-15</date>
- <time>23:11:20</time>
+ <date>2011-10-19</date>
+ <time>21:07:33</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* Initial Horde 4 package.
 * [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).
 * [gwr] Imported the .gitignore handling for content lists from the components tool.
@@ -90,7 +91,6 @@
        <file name="Xml.php" role="php" />
       </dir> <!-- /lib/Horde/Pear/Package -->
       <dir name="Rest">
-       <file name="Access.php" role="php" />
        <file name="Dependencies.php" role="php" />
        <file name="Package.php" role="php" />
        <file name="PackageList.php" role="php" />
@@ -195,6 +195,11 @@
         </dir> <!-- /test/Horde/Pear/fixture/horde/imp -->
         <file name=".gitignore" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/horde -->
+       <dir name="rest">
+        <file name="dependencies" role="test" />
+        <file name="package.xml" role="test" />
+        <file name="releases.xml" role="test" />
+       </dir> <!-- /test/Horde/Pear/fixture/rest -->
        </dir> <!-- /test/Horde/Pear/fixture -->
       <dir name="Server">
        <file name="conf.php.dist" role="test" />
@@ -232,6 +237,7 @@
        </dir> <!-- /test/Horde/Pear/Unit/Package -->
        <dir name="Rest">
         <file name="AccessTest.php" role="test" />
+        <file name="DependenciesTest.php" role="test" />
         <file name="PackageListTest.php" role="test" />
         <file name="PackageTest.php" role="test" />
         <file name="ReleasesTest.php" role="test" />
@@ -258,6 +264,13 @@
    <pearinstaller>
     <min>1.9.0</min>
    </pearinstaller>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
    <package>
     <name>Horde_Xml_Element</name>
     <channel>pear.horde.org</channel>
@@ -313,7 +326,6 @@
    <install as="Horde/Pear/Package/Xml/Factory.php" name="lib/Horde/Pear/Package/Xml/Factory.php" />
    <install as="Horde/Pear/Package/Xml/Element/Directory.php" name="lib/Horde/Pear/Package/Xml/Element/Directory.php" />
    <install as="Horde/Pear/Package/Xml/Element/File.php" name="lib/Horde/Pear/Package/Xml/Element/File.php" />
-   <install as="Horde/Pear/Rest/Access.php" name="lib/Horde/Pear/Rest/Access.php" />
    <install as="Horde/Pear/Rest/Dependencies.php" name="lib/Horde/Pear/Rest/Dependencies.php" />
    <install as="Horde/Pear/Rest/Package.php" name="lib/Horde/Pear/Rest/Package.php" />
    <install as="Horde/Pear/Rest/PackageList.php" name="lib/Horde/Pear/Rest/PackageList.php" />
@@ -358,6 +370,9 @@
    <install as="Horde/Pear/fixture/horde/framework/tree/test/Horde/a.php" name="test/Horde/Pear/fixture/horde/framework/tree/test/Horde/a.php" />
    <install as="Horde/Pear/fixture/horde/horde/package.xml" name="test/Horde/Pear/fixture/horde/horde/package.xml" />
    <install as="Horde/Pear/fixture/horde/imp/package.xml" name="test/Horde/Pear/fixture/horde/imp/package.xml" />
+   <install as="Horde/Pear/fixture/rest/dependencies" name="test/Horde/Pear/fixture/rest/dependencies" />
+   <install as="Horde/Pear/fixture/rest/package.xml" name="test/Horde/Pear/fixture/rest/package.xml" />
+   <install as="Horde/Pear/fixture/rest/releases.xml" name="test/Horde/Pear/fixture/rest/releases.xml" />
    <install as="Horde/Pear/Server/conf.php.dist" name="test/Horde/Pear/Server/conf.php.dist" />
    <install as="Horde/Pear/Server/RegistryTest.php" name="test/Horde/Pear/Server/RegistryTest.php" />
    <install as="Horde/Pear/Server/RemoteTest.php" name="test/Horde/Pear/Server/RemoteTest.php" />
@@ -379,6 +394,7 @@
    <install as="Horde/Pear/Unit/Package/Type/HordeTest.php" name="test/Horde/Pear/Unit/Package/Type/HordeTest.php" />
    <install as="Horde/Pear/Unit/Package/Xml/DirectoryTest.php" name="test/Horde/Pear/Unit/Package/Xml/DirectoryTest.php" />
    <install as="Horde/Pear/Unit/Rest/AccessTest.php" name="test/Horde/Pear/Unit/Rest/AccessTest.php" />
+   <install as="Horde/Pear/Unit/Rest/DependenciesTest.php" name="test/Horde/Pear/Unit/Rest/DependenciesTest.php" />
    <install as="Horde/Pear/Unit/Rest/PackageListTest.php" name="test/Horde/Pear/Unit/Rest/PackageListTest.php" />
    <install as="Horde/Pear/Unit/Rest/PackageTest.php" name="test/Horde/Pear/Unit/Rest/PackageTest.php" />
    <install as="Horde/Pear/Unit/Rest/ReleasesTest.php" name="test/Horde/Pear/Unit/Rest/ReleasesTest.php" />
@@ -388,16 +404,17 @@
  <changelog>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2011-09-15</date>
+   <date>2011-10-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* Initial Horde 4 package.
 * [gwr] Added support for fetching package dependencies from the remote server.
 * [jan] Update changelog when updating content (Bug #9935).
 * [gwr] Imported the .gitignore handling for content lists from the components tool.

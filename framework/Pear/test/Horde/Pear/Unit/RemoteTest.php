@@ -78,7 +78,7 @@ extends Horde_Pear_TestCase
     public function testNoDetails()
     {
         $this->assertFalse(
-            $this->_getNoLatest()->getLatestDetails('X')
+            $this->_getNoLatest()->getLatestDetails('X', null)
         );
     }
 
@@ -86,7 +86,7 @@ extends Horde_Pear_TestCase
     {
         $this->assertEquals(
             '1.0.0',
-            $this->_getLatest()->getLatestDetails('A')->getVersion()
+            $this->_getLatest()->getLatestDetails('A', null)->getVersion()
         );
     }
 
