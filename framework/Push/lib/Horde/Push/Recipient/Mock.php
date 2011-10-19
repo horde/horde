@@ -46,5 +46,10 @@ implements Horde_Push_Recipient
     public function push(Horde_Push $content, $options = array())
     {
         $this->pushed[] = $content;
+        if (empty($options['pretend'])) {
+            return sprintf('Pushed "%s".', $content->getSummary());
+        } else {
+            return sprintf('Would push "%s".', $content->getSummary());
+        }
     }
 }
