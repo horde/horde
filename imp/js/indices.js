@@ -1,6 +1,8 @@
 /**
  * indices.js - Code to generate/parse UID strings.
  *
+ * Requires prototype.js.
+ *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -11,11 +13,16 @@ var ImpIndices = {
 
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
 
-    // Convert object to an IMP UID range string.
-    // - ob: (object) mailbox name as keys, values are array of uids.
-    // - opts: (object) Additional options:
-    //   - pop3: (boolean) Output POP3 string?
-    //   - raw: (boolean) Force into parsing in raw mode
+    /**
+     * Convert object to an IMP UID range string.
+     *
+     * @param object ob    Mailbox name as keys, values are array of uids.
+     * @param object opts  Additional options:
+     *   - pop3: (boolean) Output POP3 string?
+     *   - raw: (boolean) Force into parsing in raw mode
+     *
+     * @return string  UID range string.
+     */
     toUIDString: function(ob, opts)
     {
         var str = '';
@@ -52,10 +59,15 @@ var ImpIndices = {
         return str;
     },
 
-    // Parses an IMP UID range string.
-    // - str: (string) An IMP UID range string.
-    // - opts: (object) Additional options:
-    //   - pop3: (boolean) Output POP3 string?
+    /**
+     * Parses an IMP UID range string.
+     *
+     * @param string str   An IMP UID range string.
+     * @param object opts  Additional options:
+     *   - pop3: (boolean) Output POP3 string?
+     *
+     * @return object  Properties are mailbox names, values are lists of UIDs.
+     */
     parseUIDString: function(str, opts)
     {
         var end, i, initial, mbox, size, uidstr,
