@@ -5,10 +5,10 @@
  * PHP version 5
  *
  * @category Horde
- * @package  Push_Cli
+ * @package  Push
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/gpl GPL-2.0
- * @link     http://www.horde.org/components/Horde_Push_Cli
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/components/Horde_Push
  */
 
 /**
@@ -16,14 +16,14 @@
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL-2.0). If you did
- * not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
- * @package  Push_Cli
+ * @package  Push
  * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/gpl GPL-2.0
- * @link     http://www.horde.org/components/Horde_Push_Cli
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.horde.org/components/Horde_Push
  */
 class Horde_Push_Cli
 {
@@ -44,7 +44,7 @@ class Horde_Push_Cli
                     '--config',
                     array(
                         'action' => 'store',
-                        'help'   => Horde_Push_Cli_Translation::t('Path to the configuration file.'),
+                        'help'   => Horde_Push_Translation::t('Path to the configuration file.'),
                     )
                 ),
                 new Horde_Argv_Option(
@@ -52,7 +52,15 @@ class Horde_Push_Cli
                     '--summary',
                     array(
                         'action' => 'store',
-                        'help'   => Horde_Push_Cli_Translation::t('A summary replacing the value provided by the source.'),
+                        'help'   => Horde_Push_Translation::t('A summary replacing the value provided by the source.'),
+                    )
+                ),
+                new Horde_Argv_Option(
+                    '-R',
+                    '--recipients',
+                    array(
+                        'action' => 'store',
+                        'help'   => Horde_Push_Translation::t('A comma delimited list of recipients.'),
                     )
                 ),
                 new Horde_Argv_Option(
@@ -60,7 +68,7 @@ class Horde_Push_Cli
                     '--pretend',
                     array(
                         'action' => 'store_true',
-                        'help'   => Horde_Push_Cli_Translation::t('Do not push the content but display what would be done.'),
+                        'help'   => Horde_Push_Translation::t('Do not push the content but display what would be done.'),
                     )
                 ),
             )
@@ -69,13 +77,24 @@ class Horde_Push_Cli
 
         global $conf;
 
-        if (isset($options['config']) && file_exists($options['config'])) {
+        if (isset($options['config'])) {
+            if (!file_exists($options['config'])) {
+                throw new Horde_Push_Exception(
+                    sprintf(
+                        'The specified config file %s does not exist!',
+                        $options['config']
+                    )
+                );
+            }
             include $options['config'];
         } else {
-            $conf = array('recipients' => array('cli' => true));
+            $conf = array('recipients' => array('mock'));
         }
 
-        $push_factory = new Horde_Push_Cli_Factory_Push();
+        if (empty($arguments)) {
+            $arguments = explode(' ', trim(file_get_contents('php://stdin')));
+        }
+        $push_factory = new Horde_Push_Factory_Push();
         $pushes = $push_factory->create($arguments, $options, $conf);
         $fail = false;
         foreach ($pushes as $push) {
@@ -83,29 +102,34 @@ class Horde_Push_Cli
                 $push->setSummary($options['summary']);
             }
 
-            $recipient_factory = new Horde_Push_Cli_Factory_Recipients();
-            $recipients = $recipient_factory->create($conf);
+            $recipient_factory = new Horde_Push_Factory_Recipients();
+            $recipients = $recipient_factory->create($options, $conf);
 
             foreach ($recipients as $recipient) {
                 $push->addRecipient($recipient);
             }
 
-            $results = $push->push(isset($options['pretend']));
+            $results = $push->push(array('pretend' => !empty($options['pretend'])));
 
             $cli = Horde_Cli::init();
             foreach ($results as $result) {
                 if ($result instanceOf Exception) {
-                    $cli->red('ERROR: ' . $result->getMessage());
+                    $cli->message($result->getMessage(), 'cli.error');
                     $fail = true;
                 } else {
-                    $cli->green('SUCCESS: ' . (string)$result);
+                    $cli->message((string)$result, 'cli.success');
                 }
             }
         }
         if ($fail === true) {
-            exit(1);
+            $status = 1;
         } else {
-            exit(0);
+            $status = 0;
+        }
+        if (empty($parameters['no_exit'])) {
+            exit($status);
+        } else {
+            return $status;
         }
     }
 }
