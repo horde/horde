@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-19</date>
- <time>10:15:19</time>
+ <time>10:16:58</time>
  <version>
-  <release>2.0.0RC1</release>
+  <release>2.0.0</release>
   <api>2.0.0RC1</api>
  </version>
  <stability>
@@ -34,14 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix migrations to not rely on Ansel being available.
-* [mjr] Fix hook calls (Bug #10659).
-* [mjr] Add script to convert from sql to sqlng shares after migrations have already run.
-* [mjr] Add migration to ensure style hashes are computed for migrated galleries.
-* [mjr] Fix uploading large files (Bug #10641).
-* [mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
-* [mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
-* [jan] Fix link to report faces (Bug #10636).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1185,6 +1178,19 @@
 * [mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
 * [mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
 * [jan] Fix link to report faces (Bug #10636).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0RC1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
