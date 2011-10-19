@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-19</date>
- <time>11:23:51</time>
+ <time>11:24:24</time>
  <version>
-  <release>1.0.0RC1</release>
+  <release>1.0.0</release>
   <api>1.0.0RC1</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix dependency.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -104,6 +104,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0RC1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
