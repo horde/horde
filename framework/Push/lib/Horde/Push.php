@@ -157,13 +157,16 @@ class Horde_Push
     /**
      * Push the content to the recipients.
      *
+     * @param array $options Additional options.
+     *
      * @return Horde_Push This content element.
      */
-    public function push()
+    public function push($options = array())
     {
+        $results = array();
         foreach ($this->_recipients as $recipient) {
-            $recipient->push($this);
+            $results[] = $recipient->push($this, $options);
         }
-        return $this;
+        return $results;
     }
 }
