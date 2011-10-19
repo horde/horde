@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [gwr] Support multiple mock responses with the mock request.
 * [gwr] Fixed setting response headers for the mock response.
  </notes>
  <contents>
@@ -287,6 +288,7 @@
    <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [gwr] Support multiple mock responses with the mock request.
 * [gwr] Fixed setting response headers for the mock response.
    </notes>
   </release>
