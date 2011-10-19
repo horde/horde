@@ -1,8 +1,9 @@
 <div id="mailbox" data-role="page">
   <div data-role="header">
+    <a href="#folders" data-icon="arrow-l" data-direction="reverse"><?php echo _("Back") ?></a>
     <h1 id="imp-mailbox-header">&nbsp;</h1>
     <?php if ($this->logout): ?>
-    <a href="<?php echo $this->logout ?>" rel="external" data-theme="e" data-icon="delete" class="ui-btn-right"><?php echo _("Log out") ?></a>
+    <a href="<?php echo $this->logout ?>" rel="external" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
     <?php endif ?>
   </div>
   <div data-role="content">

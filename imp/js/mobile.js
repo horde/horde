@@ -73,16 +73,44 @@ var ImpMobile = {
     },
 
     /**
+     * Event handler for the pagebeforechange event that implements loading of
+     * deep-linked pages.
+     *
+     * @param object e     Event object.
+     * @param object data  Event data.
+     */
+    toPage: function(e, data)
+    {
+        if (typeof data.toPage != 'string') {
+            return;
+        }
+
+        var url = $.mobile.path.parseUrl(data.toPage),
+            match = /^#(mailbox)/.exec(url.hash);
+
+        if (match) {
+            switch (match[1]) {
+            case 'mailbox':
+                ImpMobile.toMailbox(url, data.options);
+                break;
+            }
+            e.preventDefault();
+        }
+    },
+
+    /**
      * Switches to the mailbox view and loads a mailbox.
      *
-     * @param string mailbox  A mailbox name.
-     * @param string label    A mailbox label.
+     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object options  Page change options.
      */
-    toMailbox: function(mailbox, label)
+    toMailbox: function(url, options)
     {
-        $('#imp-mailbox-header').text(label);
+        var mailbox = url.hash.replace(/^#mailbox\?mbox=/, '');
+        $('#imp-mailbox-header').text($('#imp-mailbox-' + mailbox).text());
         $('#imp-mailbox-list').empty();
-        $.mobile.changePage('#mailbox', 'slide', false, true);
+        options.dataUrl = url.href;
+        $.mobile.changePage($('#mailbox'), options);
         HordeMobile.doAction(
             'viewPort',
             {
@@ -455,12 +483,7 @@ var ImpMobile = {
                 return;
             }
 
-            if (elt.hasClass('imp-folder')) {
-                var link = elt.find('a[mailbox]');
-                ImpMobile.toMailbox(link.attr('mailbox'), link.text());
-                return;
-
-            } else if (elt.hasClass('imp-message')) {
+            if (elt.hasClass('imp-message')) {
                 ImpMobile.toMessage(elt.attr('data-imp-mailbox'), elt.attr('data-imp-uid'));
                 return;
             } else if (elt.hasClass('imp-compose')) {
@@ -483,6 +506,7 @@ var ImpMobile = {
         $(document).bind('vclick', ImpMobile.clickHandler);
         $(document).bind('swipeleft', ImpMobile.navigateMessage);
         $(document).bind('swiperight', ImpMobile.navigateMessage);
+        $(document).bind('pagebeforechange', ImpMobile.toPage);
     }
 
 };
