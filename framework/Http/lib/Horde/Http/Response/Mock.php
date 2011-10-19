@@ -23,7 +23,7 @@ class Horde_Http_Response_Mock extends Horde_Http_Response_Base
     {
         $this->uri = $uri;
         $this->_stream = $stream;
-        $this->headers = $this->_parseHeaders($headers);
+        $this->_parseHeaders($headers);
     }
 
     public function getBody()
