@@ -12,8 +12,8 @@
    <td align="right" valign="top"><strong><?php echo _("Background Color"); ?></strong></td>
    <td>
     <select name="background_color">
-      <option value="none" selected="selected">None</option>
-      <option value="white">White</option>
+      <option value="none" <?php echo ($this->properties['style']->background == 'none') ? 'selected="selected"' : '' ?>>None</option>
+      <option value="white" <?php echo ($this->properties['style']->background == 'white') ? 'selected="selected"' : '' ?>>White</option>
     </select>
    </td>
   </tr>
