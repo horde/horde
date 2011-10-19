@@ -79,10 +79,10 @@ class Whups
         case 'queue':
             if ($rewrite) {
                 if (is_array($data)) {
-                    if (isset($data['slug'])) {
-                        $slug = $data['slug'];
+                    if (empty($data['slug'])) {
+                        $slug = (int)$data['id'];
                     } else {
-                        $slug = $data['id'];
+                        $slug = $data['slug'];
                     }
                 } else {
                     $slug = (int)$data;

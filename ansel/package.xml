@@ -22,24 +22,26 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>19:15:38</time>
+ <date>2011-10-19</date>
+ <time>10:16:58</time>
  <version>
   <release>2.0.0</release>
-  <api>2.0.0</api>
+  <api>2.0.0RC1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix link to report faces (Bug #10636).
+* [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
+* [mjr] Fix issue with style migration when upgrading from Ansel 1.x.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
     <file name="ansel" role="script" />
+    <file name="ansel-convert-sql-shares-to-sqlng" role="script" />
     <file name="ansel-exif-to-tags" role="script" />
     <file name="ansel-garbage-collection" role="script" />
     <file name="AnselPublish.scpt" role="script" />
@@ -350,6 +352,7 @@
     <file name="7_ansel_upgrade_stylefix.php" role="horde" />
     <file name="8_ansel_upgrade_sqlhierarchical.php" role="horde" />
     <file name="9_ansel_upgrade_sqlng.php" role="horde" />
+    <file name="10_ansel_upgrade_computestylehashes.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="captions">
@@ -795,6 +798,7 @@
    <install as="ansel/view.php" name="view.php" />
    <install as="ansel/xppublish.php" name="xppublish.php" />
    <install as="ansel" name="bin/ansel" />
+   <install as="ansel-convert-sql-shares-to-sqlng" name="bin/ansel-convert-sql-shares-to-sqlng" />
    <install as="ansel-exif-to-tags" name="bin/ansel-exif-to-tags" />
    <install as="ansel-garbage-collection" name="bin/ansel-garbage-collection" />
    <install as="AnselPublish.scpt" name="bin/AnselPublish.scpt" />
@@ -993,6 +997,7 @@
    <install as="ansel/migration/7_ansel_upgrade_stylefix.php" name="migration/7_ansel_upgrade_stylefix.php" />
    <install as="ansel/migration/8_ansel_upgrade_sqlhierarchical.php" name="migration/8_ansel_upgrade_sqlhierarchical.php" />
    <install as="ansel/migration/9_ansel_upgrade_sqlng.php" name="migration/9_ansel_upgrade_sqlng.php" />
+   <install as="ansel/migration/10_ansel_upgrade_computestylehashes.php" name="migration/10_ansel_upgrade_computestylehashes.php" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
    <install as="ansel/templates/faces/custom.inc" name="templates/faces/custom.inc" />
    <install as="ansel/templates/faces/define.inc" name="templates/faces/define.inc" />
@@ -1158,15 +1163,36 @@
   </release>
   <release>
    <version>
-    <release>2.0.0</release>
-    <api>2.0.0</api></version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0RC1</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2011-10-11</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix migrations to not rely on Ansel being available.
+* [mjr] Fix hook calls (Bug #10659).
+* [mjr] Add script to convert from sql to sqlng shares after migrations have already run.
+* [mjr] Add migration to ensure style hashes are computed for migrated galleries.
+* [mjr] Fix uploading large files (Bug #10641).
+* [mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
+* [mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
 * [jan] Fix link to report faces (Bug #10636).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0RC1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
+* [mjr] Fix issue with style migration when upgrading from Ansel 1.x.
    </notes>
   </release>
  </changelog>

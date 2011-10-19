@@ -702,7 +702,7 @@ Configuring Horde
       if your webserver runs as ``www.www``, do as follows::
 
          chown root.www config/*
-         chmod 0440 config/*
+         find config/ -type f -exec chmod 0440 '{}' \;
 
    b. Sessions
 

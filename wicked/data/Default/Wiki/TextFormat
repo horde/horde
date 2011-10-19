@@ -250,14 +250,6 @@ You can also use this format to create a "described" or "labeled" link or to add
 
 ((Wiki/Page|Descriptive text for the link.#anchor))
 
-You can alternatively create a "described" or "labeled" link to a wiki page by putting the page name in brackets, followed by some text.
-
-<code>
-[Wiki/Page Descriptive text for the link.]
-</code>
-
-[Wiki/Page Descriptive text for the link.]
-
 
 +++ Interwiki Links
 

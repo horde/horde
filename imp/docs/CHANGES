@@ -4,9 +4,19 @@ v5.1-git
 
 
 -----------
-v5.0.14-git
+v5.0.15-git
 -----------
 
+[mms] Fix updating flags in non-selected mailbox if IMAP server does not
+      support CONDSTORE/QRESYNC (Bug #10627).
+[mms] Fix some dynamic view links on IE (Bug #10664).
+
+
+-------
+v5.0.14
+-------
+
+[mms] Workaround broken number_format() for PHP < 5.4.0 (Bug #10618).
 [mms] Add preference to indicate preferred language for return replies on
       outgoing messages.
 [mms] For reply, indicate original sender's language preference.

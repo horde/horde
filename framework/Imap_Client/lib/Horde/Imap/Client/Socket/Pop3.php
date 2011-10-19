@@ -106,6 +106,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
     /**
      */
+    public function getIdsOb($ids = null, $sequence = false)
+    {
+        return new Horde_Imap_Client_Ids_Pop3($ids, $sequence);
+    }
+
+    /**
+     */
     protected function _capability()
     {
         $this->_connect();
@@ -563,7 +570,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
-                $ret['match'] = new Horde_Imap_Client_Ids($res);
+                $ret['match'] = $this->getIdsOb($res);
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MAX:
@@ -654,27 +661,35 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::FETCH_BODYTEXT:
-                foreach ($seq_ids as $id) {
-                    try {
-                        $results[$lookup[$id]]->setBodyText($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'body', $key), $c_val));
-                    } catch (Horde_Mime_Exception $e) {}
+                // Ignore 'peek' option
+                foreach ($c_val as $key => $val) {
+                    foreach ($seq_ids as $id) {
+                        try {
+                            $results[$lookup[$id]]->setBodyText($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'body', $key), $val));
+                        } catch (Horde_Mime_Exception $e) {}
+                    }
                 }
                 break;
 
             case Horde_Imap_Client::FETCH_MIMEHEADER:
-                foreach ($seq_ids as $id) {
-                    try {
-                        $results[$lookup[$id]]->setMimeHeader($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'header', $key), $c_val));
-                    } catch (Horde_Mime_Exception $e) {}
+                // Ignore 'peek' option
+                foreach ($c_val as $key => $val) {
+                    foreach ($seq_ids as $id) {
+                        try {
+                            $results[$lookup[$id]]->setMimeHeader($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'header', $key), $val));
+                        } catch (Horde_Mime_Exception $e) {}
+                    }
                 }
                 break;
 
             case Horde_Imap_Client::FETCH_BODYPART:
-                // Ignore 'decode'
-                foreach ($seq_ids as $id) {
-                    try {
-                        $results[$lookup[$id]]->setBodyPart($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'body', $key), $c_val));
-                    } catch (Horde_Mime_Exception $e) {}
+                // Ignore 'decode', 'peek'
+                foreach ($c_val as $key => $val) {
+                    foreach ($seq_ids as $id) {
+                        try {
+                            $results[$lookup[$id]]->setBodyPart($key, $this->_processString(Horde_Mime_Part::getRawPartText(stream_get_contents($this->_pop3Cache('msg', $id)), 'body', $key), $val));
+                        } catch (Horde_Mime_Exception $e) {}
+                    }
                 }
                 break;
 
@@ -900,7 +915,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
         }
 
-        return new Horde_Imap_Client_Ids();
+        return $this->getIdsOb();
     }
 
     /**
@@ -995,7 +1010,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _sendLine($query, $options = array())
     {
-        $this->_writeDebug((empty($options['debug']) ? $query : $options['debug']) . "\n", 'client');
+        $this->writeDebug((empty($options['debug']) ? $query : $options['debug']) . "\n", Horde_Imap_Client::DEBUG_CLIENT);
 
         fwrite($this->_stream, $query . "\r\n");
 
@@ -1025,7 +1040,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->_writeDebug($read . "\n", 'server');
+        $this->writeDebug($read . "\n", Horde_Imap_Client::DEBUG_SERVER);
 
         $orig_read = $read;
         $read = explode(' ', $read, 2);

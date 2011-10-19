@@ -271,6 +271,7 @@ class IMP_Prefs_Ui
 
             case 'reply_lang':
                 $langs = Horde_Nls::getLanguageISO();
+                asort($langs);
                 $ui->override['reply_lang'] = $langs;
                 break;
 

@@ -68,11 +68,42 @@ extends Horde_Push_TestCase
             array(
                 array(
                     'content' => 'CONTENT',
+                    'mime_type' => 'text/plain',
                     'params' => array(),
                 )
             ),
             $push->getContent()
         );
+    }
+
+    public function testMimeTypes()
+    {
+        $push = new Horde_Push();
+        $push->addContent('IMAGE', 'image/jpeg');
+        $push->addContent('CONTENT');
+        $this->assertEquals(
+            array(
+                'image/jpeg' => array(0),
+                'text/plain' => array(1)
+            ),
+            $push->getMimeTypes()
+        );
+    }
+
+    public function testGetStringContentFromResource()
+    {
+        $push = new Horde_Push();
+        $push->addContent(
+            fopen(dirname(__FILE__) . '/../fixtures/text.txt', 'r')
+        );
+        $this->assertEquals("TEST TEXT\n", $push->getStringContent(0));
+    }
+
+    public function testGetStringContentFromString()
+    {
+        $push = new Horde_Push();
+        $push->addContent('TEST TEXT');
+        $this->assertEquals('TEST TEXT', $push->getStringContent(0));
     }
 
     public function testFluidAddContent()

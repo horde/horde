@@ -19,30 +19,25 @@ class Horde_Imap_Client_Cache
     /**
      * Singleton instances.
      *
+     * @deprecated
+     *
      * @var array
      */
     static protected $_instances = array();
 
     /**
-     * The configuration params.
+     * The base driver object.
      *
-     * @var array
+     * @var Horde_Imap_Client_Base
      */
-    protected $_params = array();
+    protected $_base;
 
     /**
-     * The Horde_Cache object.
+     * The cache object.
      *
      * @var Horde_Cache
      */
     protected $_cache;
-
-    /**
-     * The list of items to save on shutdown.
-     *
-     * @var array
-     */
-    protected $_save = array();
 
     /**
      * The working data for the current pageload.  All changes take place to
@@ -60,6 +55,13 @@ class Horde_Imap_Client_Cache
     protected $_loaded = array();
 
     /**
+     * The configuration params.
+     *
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
      * The mapping of UIDs to slices.
      *
      * @var array
@@ -67,7 +69,16 @@ class Horde_Imap_Client_Cache
     protected $_slicemap = array();
 
     /**
-     * Return a reference to a concrete Horde_Imap_Client_Cache instance.
+     * The list of items to save on shutdown.
+     *
+     * @var array
+     */
+    protected $_save = array();
+
+    /**
+     * Return a reference to a concrete cache instance.
+     *
+     * @deprecated  As of 1.2.0
      *
      * @param array $params  The configuration parameters.
      *
@@ -88,29 +99,46 @@ class Horde_Imap_Client_Cache
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     *   - REQUIRED Parameters:
-     *     - cacheob: (Horde_Cache) The cache object to use.
-     *     - hostspec: (string) The IMAP hostspec.
-     *     - port: (string) The IMAP port.
-     *     - username: (string) The IMAP username.
-     *   - Optional Parameters:
-     *     - debug: (resource) If set, will output debug information to the
-     *              given stream.
-     *              DEFAULT: No debug output
-     *     - lifetime: (integer) The lifetime of the cache data (in seconds).
-     *                 DEFAULT: 1 week (604800 seconds)
-     *     - slicesize: (integer) The slicesize to use.
-     *                  DEFAULT: 50
+     * <ul>
+     *  <li>
+     *   REQUIRED Parameters:
+     *   <ul>
+     *    <li>
+     *     baseob: (Horde_Imap_Client_Base) The driver object (@since 1.2.0).
+     *    </li>
+     *    <li>
+     *     cacheob: (Horde_Cache) The cache object to use.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Optional Parameters:
+     *   <ul>
+     *    <li>
+     *     debug: (boolean) If true, will output debug information.
+     *            DEFAULT: No debug output
+     *    </li>
+     *    <li>
+     *     lifetime: (integer) The lifetime of the cache data (in seconds).
+     *               DEFAULT: 1 week (604800 seconds)
+     *    </li>
+     *    <li>
+     *     slicesize: (integer) The slicesize to use.
+     *                DEFAULT: 50
+     *    </li>
+     *   </ul>
+     *  </li>
+     * </ul>
      *
      * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
-        if (empty($params['cacheob']) ||
-            empty($params['hostspec']) ||
-            empty($params['port']) ||
-            empty($params['username'])) {
-            throw new InvalidArgumentException('Missing required parameters to Horde_Imap_Client_Cache.');
+        $required = array('baseob', 'cacheob');
+        foreach ($required as $val) {
+            if (empty($params[$val])) {
+                throw new InvalidArgumentException('Missing required parameter for ' . __CLASS__ . ': ' . $val);
+            }
         }
 
         // Default parameters.
@@ -120,15 +148,15 @@ class Horde_Imap_Client_Cache
             'slicesize' => 50
         ), array_filter($params));
 
+        $this->_base = $params['baseob'];
         $this->_cache = $params['cacheob'];
 
         $this->_params = array(
-            'debug' => $params['debug'],
-            'hostspec' => $params['hostspec'],
+            'hostspec' => $this->_base->getParam('hostspec'),
             'lifetime' => intval($params['lifetime']),
-            'port' => $params['port'],
+            'port' => $this->_base->getParam('port'),
             'slicesize' => intval($params['slicesize']),
-            'username' => $params['username']
+            'username' => $this->_base->getParam('username')
         );
     }
 
@@ -226,8 +254,8 @@ class Horde_Imap_Client_Cache
             }
 
             if ($this->_params['debug'] && !empty($ret_array)) {
-                $ids = new Horde_Imap_Client_Ids(array_keys($ret_array));
-                fwrite($this->_params['debug'], '>>> Retrieved from cache (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n");
+                $ids = $this->_base->getIdsOb(array_keys($ret_array));
+                $this->_base->writeDebug('CACHE: Retrieved messages (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n", Horde_Imap_Client::INFO);
             }
         }
 
@@ -275,8 +303,8 @@ class Horde_Imap_Client_Cache
             $slices = $this->_getCacheSlices($mailbox, $save, true);
 
             if ($this->_params['debug']) {
-                $ids = new Horde_Imap_Client_Ids($save);
-                fwrite($this->_params['debug'], '>>> Stored in cache (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n");
+                $ids = $this->_base->getIdsOb($save);
+                $this->_base->writeDebug('CACHE: Stored messages (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n", Horde_Imap_Client::DEBUG_INFO);
             }
         }
     }
@@ -362,8 +390,8 @@ class Horde_Imap_Client_Cache
 
         if (!empty($save)) {
             if ($this->_params['debug']) {
-                $ids = new Horde_Imap_Client_Ids($save);
-                fwrite($this->_params['debug'], '>>> Deleted messages from cache (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n");
+                $ids = $this->_base->getIdsOb($save);
+                $this->_base->writeDebug('CACHE: Deleted messages (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n", Horde_Imap_Client::INFO);
             }
 
             $this->_save[$mailbox] = isset($this->_save[$mailbox]) ? array_merge($this->_save[$mailbox], $save) : $save;
@@ -387,7 +415,7 @@ class Horde_Imap_Client_Cache
         unset($this->_data[$mbox], $this->_loaded[$mbox], $this->_save[$mbox], $this->_slicemap[$mbox]);
 
         if ($this->_params['debug']) {
-            fwrite($this->_params['debug'], '>>> Deleted mailbox from cache (mailbox: ' . $mbox . ")\n");
+            $this->_base->writeDebug('CACHE: Deleted mailbox (mailbox: ' . $mbox . ")\n", Horde_Imap_Client::INFO);
         }
     }
 
@@ -445,8 +473,8 @@ class Horde_Imap_Client_Cache
         if (isset($ptr['delete'][$slice])) {
             $data = array_diff_key($data, $ptr['delete'][$slice]);
             if ($this->_params['debug']) {
-                $ids = new Horde_Imap_Client_Ids($ptr['delete'][$slice]);
-                fwrite($this->_params['debug'], '>>> Deleted messages from cache (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n");
+                $ids = $this->_base->getIdsOb($ptr['delete'][$slice]);
+                $this->_base->writeDebug('CACHE: Deleted messages (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n", Horde_Imap_Client::DEBUG_INFO);
             }
             unset($ptr['delete'][$slice]);
 

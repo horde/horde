@@ -192,7 +192,7 @@ class Whups_Form_Ticket_Edit extends Horde_Form
                         substr($field, 0, 10) == 'attribute_' &&
                         isset($attributes[substr($field, 10)])) {
                         $attribute = $attributes[substr($field, 10)];
-                        $var = &$this->addVariable(
+                        $var = $this->addVariable(
                             $attribute['human_name'],
                             'attribute_' . $attribute['id'],
                             $attribute['type'],

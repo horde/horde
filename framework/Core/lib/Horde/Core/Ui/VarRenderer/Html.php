@@ -1092,6 +1092,23 @@ EOT;
         }
     }
 
+    protected function _renderVarDisplay_keyval_multienum($form, &$var, &$vars)
+    {
+        $values = $var->getValues();
+        $on = $var->getValue($vars);
+        if (!count($values) || !count($on)) {
+            return Horde_Core_Translation::t("No values");
+        } else {
+            $display = array();
+            foreach ($values as $name) {
+                if (in_array($name, $on)) {
+                    $display[] = $name;
+                }
+            }
+            return htmlspecialchars(implode(', ', $display));
+        }
+    }
+
     protected function _renderVarDisplay_set($form, &$var, &$vars)
     {
         $values = $var->getValues();

@@ -2119,6 +2119,10 @@ class Horde_Registry
             $entry = true;
         }
 
+        if (is_null($app)) {
+            $app = $base_app;
+        }
+
         $session->set('horde', 'auth_app/' . $app, $entry);
     }
 
@@ -2144,7 +2148,7 @@ class Horde_Registry
 
         if (!$session->exists('horde', 'auth_app/' . $app)) {
             return ($base_app != $app)
-                ? $this->_getAuthCredentials($app)
+                ? $this->_getAuthCredentials($base_app)
                 : false;
         }
 

@@ -14,8 +14,8 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Whups
-Ticket Tracking System version H4 (2.0-RC1).
+The Horde Team is pleased to announce the second release candidate of the Whups
+Ticket Tracking System version H4 (2.0-RC2).
 
 Whups is a Horde ticket-tracking application. It is very flexible in design,
 and can be used for help-desk requests, tracking software development, and
@@ -25,14 +25,16 @@ Barring any problems, this code will be released as Whups H4 (2.0).
 Testing is requested and comments are encouraged.
 Updated translations would also be great.
 
-Major changes compared to the Whups version H4 (2.0-ALPHA1) are:
-    * Added script to convert backends to UTF-8.
+Major changes compared to the Whups version H4 (2.0-RC1) are:
+    * Support complex attributes types.
+    * Allow to create private comments during ticket creation.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added script to convert backends to UTF-8.
+Support complex attributes types.
+Allow to create private comments during ticket creation.
 Small bugfixes and improvements.
 FM;
 

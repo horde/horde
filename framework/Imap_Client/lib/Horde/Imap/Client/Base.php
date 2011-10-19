@@ -314,7 +314,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 if (!empty($this->_params['capability_ignore'])) {
                     if ($this->_debug &&
                         ($ignored = array_intersect_key($val, array_flip($this->_params['capability_ignore'])))) {
-                        $this->_writeDebug(sprintf("IGNORING these IMAP capabilities: %s\n", implode(', ', array_keys($ignored))), 'info');
+                        $this->writeDebug(sprintf("IGNORING these IMAP capabilities: %s\n", implode(', ', array_keys($ignored))), Horde_Imap_Client::DEBUG_INFO);
                     }
                     $val = array_diff_key($val, array_flip($this->_params['capability_ignore']));
                 }
@@ -344,13 +344,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (is_null($this->cache)) {
-            $p = $this->_params;
             try {
-                $this->cache = Horde_Imap_Client_Cache::singleton(array_merge($p['cache'], array(
-                    'debug' => $this->_debug,
-                    'hostspec' => $p['hostspec'],
-                    'port' => $p['port'],
-                    'username' => $p['username']
+                $this->cache = new Horde_Imap_Client_Cache(array_merge($this->getParam('cache'), array(
+                    'baseob' => $this,
+                    'debug' => (bool)$this->_debug
                 )));
             } catch (InvalidArgumentException $e) {
                 return false;
@@ -411,6 +408,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         $this->_initCache();
         return $this->cache;
+    }
+
+    /**
+     * Returns the correct IDs object for use with this driver.
+     *
+     * @param mixed $ids         See self::add().
+     * @param boolean $sequence  Are $ids message sequence numbers?
+     *
+     * @return Horde_Imap_Client_Ids  The IDs object.
+     */
+    public function getIdsOb($ids = null, $sequence = false)
+    {
+        return new Horde_Imap_Client_Ids($ids, $sequence);
     }
 
     /**
@@ -1575,7 +1585,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return $ret;
         }
 
-        $uids = new Horde_Imap_Client_Ids();
+        $uids = $this->getIdsOb();
 
         while (list(,$val) = each($data)) {
             if (is_string($data['data'])) {
@@ -1713,7 +1723,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_READWRITE);
 
         if (empty($options['ids'])) {
-            $options['ids'] = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
+            $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
         } elseif ($options['ids']->isEmpty()) {
             return array();
         }
@@ -1892,7 +1902,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $cache = $this->_getSearchCache('search', $this->_selected, $options);
             if (is_array($cache)) {
                 if (isset($cache['data']['match'])) {
-                    $cache['data']['match'] = new Horde_Imap_Client_Ids($cache['data']['match']);
+                    $cache['data']['match'] = $this->getIdsOb($cache['data']['match']);
                 }
                 return $cache['data'];
             }
@@ -1911,7 +1921,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             foreach ($options['results'] as $val) {
                 switch ($val) {
                 case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
-                    $ret['match'] = new Horde_Imap_Client_Ids();
+                    $ret['match'] = $this->getIdsOb();
                     break;
 
                 case Horde_Imap_Client::SEARCH_RESULTS_MAX:
@@ -2169,7 +2179,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $res_seq = null;
 
         if (empty($options['ids'])) {
-            $options['ids'] = new Horde_Imap_Client_Ids(empty($options['fetch_res']) ? Horde_Imap_Client_Ids::ALL : array_keys($options['fetch_res']));
+            $options['ids'] = $this->getIdsOb(empty($options['fetch_res']) ? Horde_Imap_Client_Ids::ALL : array_keys($options['fetch_res']));
             if ($options['ids']->isEmpty()) {
                 return array();
             }
@@ -2240,7 +2250,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                                 /* Update flags in cache. */
                                 $this->_fetch($flag_query, array(), array(
                                     'changedsince' => $metadata[self::CACHE_MODSEQ],
-                                    'ids' => new Horde_Imap_Client_Ids($uids)
+                                    'ids' => $this->getIdsOb($uids)
                                 ));
                             }
                             $this->_updateMetaData($this->_selected, array(self::CACHE_MODSEQ => $status_res['highestmodseq']), $status_res['uidvalidity']);
@@ -2306,7 +2316,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 return $ret;
             }
 
-            $options['ids'] = new Horde_Imap_Client_Ids(array_keys($ret), $options['ids']->sequence);
+            $options['ids'] = $this->getIdsOb(array_keys($ret), $options['ids']->sequence);
         }
 
         /* If nothing is cacheable, we can do a straight search. */
@@ -2401,7 +2411,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 } else {
                     $new_query[$sig] = array(
                         'c' => $crit,
-                        'i' => new Horde_Imap_Client_Ids($val, $options['ids']->sequence)
+                        'i' => $this->getIdsOb($val, $options['ids']->sequence)
                     );
                 }
             }
@@ -2469,9 +2479,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* SEARCHRES requires server support. */
         if (empty($options['ids'])) {
-            $options['ids'] = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
+            $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
         } elseif ($options['ids']->isEmpty()) {
-            return new Horde_Imap_Client_Ids();
+            return $this->getIdsOb();
         } elseif ($options['ids']->search_res &&
                   !$this->queryCapability('SEARCHRES')) {
             $this->_exception('Server does not support saved searches.');
@@ -2528,7 +2538,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* SEARCHRES requires server support. */
         if (empty($options['ids'])) {
-            $options['ids'] = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
+            $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
         } elseif ($options['ids']->isEmpty()) {
             return array();
         } elseif ($options['ids']->search_res &&
@@ -2975,7 +2985,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     $status['uidnext'] = 0;
                 } else {
                     $this->_temp['nocache'] = true;
-                    $search_res = $this->_getSeqUidLookup(new Horde_Imap_Client_Ids($status['messages'], true));
+                    $search_res = $this->_getSeqUidLookup($this->getIdsOb($status['messages'], true));
                     unset($this->_temp['nocache']);
                     $uids = $search_res['uids']->ids;
                     $status['uidnext'] = intval(end($uids)) + 1;
@@ -3156,7 +3166,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function fetchFromSectionString($mailbox, $uid, $section = null)
     {
-        $ids_ob = new Horde_Imap_Client_Ids($uid);
+        $ids_ob = $this->getIdsOb($uid);
         $section = trim($section);
 
         // BODY[]
@@ -3276,7 +3286,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (is_null($support)) {
                 $query = new Horde_Imap_Client_Search_Query();
                 $query->charset($charset);
-                $query->ids(new Horde_Imap_Client_Ids(1, true));
+                $query->ids($this->getIdsOb(1, true));
                 $query->text('a');
                 try {
                     $this->search('INBOX', $query, array(
@@ -3296,6 +3306,57 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         return $this->_init['enabled']['s_charset'][$charset];
+    }
+
+    /**
+     * Output debug information.
+     *
+     * @param string $msg    Debug line.
+     * @param string $type   The message type. One of the following:
+     *   - Horde_Imap_Client::DEBUG_RAW: None (output raw message)
+     *   - Horde_Imap_Client::DEBUG_CLIENT: Client command
+     *   - Horde_Imap_Client::DEBUG_INFO: Informational message
+     *   - Horde_Imap_Client::DEBUG_SERVER: Server command
+     */
+    public function writeDebug($msg, $type = Horde_Imap_Client::DEBUG_RAW)
+    {
+        if (!$this->_debug) {
+            return;
+        }
+
+        $pre = '';
+
+        if ($type) {
+            $new_time = microtime(true);
+            if (isset($this->_temp['debug_time'])) {
+                if (($diff = ($new_time - $this->_temp['debug_time'])) > Horde_Imap_Client::SLOW_COMMAND) {
+                    fwrite($this->_debug, '>>> Slow IMAP Command: ' . round($diff, 3) . " seconds\n");
+                }
+            } else {
+                fwrite($this->_debug,
+                    str_repeat('-', 30) . "\n" .
+                    '>>> Timestamp: ' . date('r') . "\n"
+                );
+            }
+
+            $this->_temp['debug_time'] = $new_time;
+
+            switch ($type) {
+            case Horde_Imap_Client::DEBUG_CLIENT:
+                $pre .= 'C: ';
+                break;
+
+            case Horde_Imap_Client::DEBUG_INFO:
+                $pre .= '>>> ';
+                break;
+
+            case Horde_Imap_Client::DEBUG_SERVER:
+                $pre .= 'S: ';
+                break;
+            }
+        }
+
+        fwrite($this->_debug, $pre . $msg);
     }
 
     /* Private utility functions. */
@@ -3381,13 +3442,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (in_array($mailbox, $this->_params['cache']['fetch_ignore'])) {
-            $this->_writeDebug(sprintf("IGNORING cached FETCH data (mailbox: %s)\n", $mailbox), 'info');
+            $this->writeDebug(sprintf("IGNORING cached FETCH data (mailbox: %s)\n", $mailbox), Horde_Imap_Client::DEBUG_INFO);
             return;
         }
 
         $seq_res = empty($options['seq'])
             ? null
-            : $this->_getSeqUidLookup(new Horde_Imap_Client_Ids(array_keys($data), true));
+            : $this->_getSeqUidLookup($this->getIdsOb(array_keys($data), true));
 
         $cf = empty($options['fields'])
             ? $this->_params['cache']['fields']
@@ -3505,7 +3566,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (in_array($to, $this->_params['cache']['fetch_ignore'])) {
-            $this->_writeDebug(sprintf("IGNORING moving cached FETCH data (%s => %s)\n", $from, $to), 'info');
+            $this->writeDebug(sprintf("IGNORING moving cached FETCH data (%s => %s)\n", $from, $to), Horde_Imap_Client::DEBUG_INFO);
             return;
         }
 
@@ -3568,11 +3629,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $metadata[self::CACHE_SEARCH] = array();
             if ($this->_debug &&
                 !isset($this->_temp['searchcacheexpire'][$mailbox])) {
-                $this->_writeDebug(sprintf("Expired search results from cache (mailbox: %s)\n", $mailbox), 'info');
+                $this->writeDebug(sprintf("Expired search results from cache (mailbox: %s)\n", $mailbox), Horde_Imap_Client::DEBUG_INFO);
                 $this->_temp['searchcacheexpire'][$mailbox] = true;
             }
         } elseif (isset($metadata[self::CACHE_SEARCH][$cache])) {
-            $this->_writeDebug(sprintf("Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache), 'info');
+            $this->writeDebug(sprintf("Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $mailbox, $cache), Horde_Imap_Client::DEBUG_INFO);
 
             return array(
                 'data' => unserialize($metadata[self::CACHE_SEARCH][$cache]),
@@ -3606,7 +3667,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_updateMetaData($cache['mailbox'], $cache['metadata']);
 
         if ($this->_debug) {
-            $this->_writeDebug(sprintf("Saved %s results to cache (mailbox: %s; id: %s)\n", $cache['type'], $cache['mailbox'], $cache['id']), 'info');
+            $this->writeDebug(sprintf("Saved %s results to cache (mailbox: %s; id: %s)\n", $cache['type'], $cache['mailbox'], $cache['id']), Horde_Imap_Client::DEBUG_INFO);
             unset($this->_temp['searchcacheexpire'][$cache['mailbox']]);
         }
     }
@@ -3742,57 +3803,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         return $ret;
-    }
-
-    /**
-     * Output debug information.
-     *
-     * @param string $msg    Debug line.
-     * @param string $type   The message type. One of the following:
-     *                       - null: None (output raw message)
-     *                       - 'client': Client command
-     *                       - 'info': Informational message
-     *                       - 'server': Server command
-     */
-    protected function _writeDebug($msg, $type = null)
-    {
-        if (!$this->_debug) {
-            return;
-        }
-
-        $pre = '';
-
-        if ($type) {
-            $new_time = microtime(true);
-            if (isset($this->_temp['debug_time'])) {
-                if (($diff = ($new_time - $this->_temp['debug_time'])) > Horde_Imap_Client::SLOW_COMMAND) {
-                    fwrite($this->_debug, '>>> Slow IMAP Command: ' . round($diff, 3) . " seconds\n");
-                }
-            } else {
-                fwrite($this->_debug,
-                    str_repeat('-', 30) . "\n" .
-                    '>>> Timestamp: ' . date('r') . "\n"
-                );
-            }
-
-            $this->_temp['debug_time'] = $new_time;
-
-            switch ($type) {
-            case 'client':
-                $pre .= 'C: ';
-                break;
-
-            case 'info':
-                $pre .= '>>> ';
-                break;
-
-            case 'server':
-                $pre .= 'S: ';
-                break;
-            }
-        }
-
-        fwrite($this->_debug, $pre . $msg);
     }
 
 }

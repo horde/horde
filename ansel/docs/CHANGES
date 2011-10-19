@@ -2,6 +2,22 @@
 v2.0-git
 --------
 
+[jan] Add Slovak translation (Martin Matuška <martin@matuska.org>).
+[mjr] Fix issue with style migration when upgrading from Ansel 1.x.
+
+
+--------
+v2.0-RC1
+--------
+
+[mjr] Fix migrations to not rely on Ansel being available.
+[mjr] Fix hook calls (Bug #10659).
+[mjr] Add script to convert from sql to sqlng shares after migrations have
+      already run.
+[mjr] Add migration to ensure style hashes are computed for migrated galleries.
+[mjr] Fix uploading large files (Bug #10641).
+[mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
+[mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
 [jan] Fix link to report faces (Bug #10636).
 
 
