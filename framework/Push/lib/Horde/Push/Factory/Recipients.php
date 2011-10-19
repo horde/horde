@@ -73,6 +73,9 @@ class Horde_Push_Factory_Recipients
             case 'mail':
                 $r = $this->_createMail($recipient_conf);
                 break;
+            case 'mock':
+                $r = new Horde_Push_Recipient_Mock();
+                break;
             default:
                 throw new Horde_Push_Exception(
                     sprintf('Unknown recipient type "%s"!', $type)
