@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-19</date>
- <time>19:59:20</time>
+ <time>21:00:21</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -41,7 +41,6 @@
     <dir name="Horde">
      <dir name="Push">
       <dir name="Factory">
-       <file name="#Recipients.php#" role="php" />
        <file name="Push.php" role="php" />
        <file name="Recipients.php" role="php" />
       </dir> <!-- /lib/Horde/Push/Factory -->
@@ -85,6 +84,7 @@
          <file name="MailTest.php" role="test" />
          <file name="TwitterTest.php" role="test" />
         </dir> <!-- /test/Horde/Push/Unit/Push/Recipient -->
+        <file name="CliTest.php" role="test" />
        </dir> <!-- /test/Horde/Push/Unit/Push -->
        <file name="PushTest.php" role="test" />
       </dir> <!-- /test/Horde/Push/Unit -->
@@ -168,7 +168,6 @@
    <install as="Horde/Push/Exception.php" name="lib/Horde/Push/Exception.php" />
    <install as="Horde/Push/Recipient.php" name="lib/Horde/Push/Recipient.php" />
    <install as="Horde/Push/Translation.php" name="lib/Horde/Push/Translation.php" />
-   <install as="Horde/Push/Factory/#Recipients.php#" name="lib/Horde/Push/Factory/#Recipients.php#" />
    <install as="Horde/Push/Factory/Push.php" name="lib/Horde/Push/Factory/Push.php" />
    <install as="Horde/Push/Factory/Recipients.php" name="lib/Horde/Push/Factory/Recipients.php" />
    <install as="Horde/Push/Recipient/Base.php" name="lib/Horde/Push/Recipient/Base.php" />
@@ -188,6 +187,7 @@
    <install as="Horde/Push/fixtures/text.txt" name="test/Horde/Push/fixtures/text.txt" />
    <install as="Horde/Push/Stub/Twitter.php" name="test/Horde/Push/Stub/Twitter.php" />
    <install as="Horde/Push/Unit/PushTest.php" name="test/Horde/Push/Unit/PushTest.php" />
+   <install as="Horde/Push/Unit/Push/CliTest.php" name="test/Horde/Push/Unit/Push/CliTest.php" />
    <install as="Horde/Push/Unit/Push/Factory/PushTest.php" name="test/Horde/Push/Unit/Push/Factory/PushTest.php" />
    <install as="Horde/Push/Unit/Push/Factory/RecipientTest.php" name="test/Horde/Push/Unit/Push/Factory/RecipientTest.php" />
    <install as="Horde/Push/Unit/Push/Recipient/BloggerTest.php" name="test/Horde/Push/Unit/Push/Recipient/BloggerTest.php" />
