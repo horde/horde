@@ -78,12 +78,100 @@ body.hermesAjax {
     height: 16px;
     border: 1px #999 solid;
 }
+/* Navigation bar */
+#hermesBar {
+    position: absolute;
+    left: 175px;
+    top: 10px;
+}
+/*#hermesBar form {
+    float: left;
+    margin: 0;
+#hermesBar .hermesDateChoice {
+    float: left;
+    margin-right: 1px;
+    background: #d6d6d6;
+    border: 1px solid #999;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#hermesBar .hermesDateChoice div {
+    padding: 0 10px;
+    height: 23px;
+    line-height: 23px;
+}*/
+#hermesNav {
+    float: left;
+    margin-left: 5px;
+    height: 23px;
+    line-height: 23px;
+}
+#hermesHeader ul {
+    float: left;
+    list-style: none;
+}
+#hermesHeader li {
+    float: left;
+}
+#hermesHeader a {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0 5px 0 25px;
+    background-color: #f0f0f0;
+    background-position: 5px center;
+    background-repeat: no-repeat;
+    /*font-weight: bold;*/
+    text-decoration: none;
+    color: #202020;
+    cursor: pointer;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    border-right: 1px solid #999;
+}
+#hermesHeader li:first-child a {
+    border-left: 1px solid #999;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-radius: 5px 0 0 5px;
+}
+#hermesHeader li:last-child a {
+    -moz-border-radius: 0 5px 5px 0;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-radius: 0 5px 5px 0;
+}
+#hermesHeader a:hover, #hermesHeader a.on {
+    background-color: #d9d9d9;
+}
+
+#hermesNavTime {
+    background: url("graphics/hermes.png");
+}
+
+#hermesNavCostObjects {
+    background: url("graphics/hermes.png");
+}
+
+#hermesNavClients {
+    background: url("graphics/hermes.png");
+}
+
+#hermesNavTypes {
+    background: url("graphics/hermes.png");
+}
+#hermesNavSearch {
+    background: url("graphics/search.png");
+}
 /* User data and options */
 #hermesApplications {
     display: inline;
     position: relative;
     z-index: 99;
-    float: left;
     height: 25px;
     line-height: 23px;
     margin-right: 10px;
@@ -93,20 +181,22 @@ body.hermesAjax {
     overflow: visible;
 }
 #hermesApplications ul {
-    list-style: none;
+    float: none;
 }
 #hermesApplications li {
+    float: none;
     text-align: left;
 }
 #hermesApplications a {
     display: block;
     padding: 0 4px;
     overflow: hidden;
+    float: none;
     background-color: #f0f0f0;
     border: 1px solid #999;
     border-top-width: 0;
     color: #202020;
-    font-weight: bold;
+   /* font-weight: bold; */
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -115,9 +205,14 @@ body.hermesAjax {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+    height: 23px;
+    line-height: 23px;
 }
 #hermesApplications li:first-child a {
     border-top-width: 1px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
 #hermesApplications:hover li:first-child a {
     -moz-border-radius: 5px 5px 0 0;
@@ -143,9 +238,11 @@ body.hermesAjax {
 }
 
 #hermesServices {
+    height: 23px;
+    line-height: 23px;
     position: absolute;
-    top: 10px;
     right: 10px;
+    top: 10px;
     white-space: nowrap;
 }
 #hermesServices div {
@@ -154,16 +251,19 @@ body.hermesAjax {
 .hermesNotifications {
     background-color: #d9d9d9
 }
-#hermesNotifications {
-    float: left;
+a#hermesNotifications {
     width: 23px;
     height: 23px;
+    padding: 0;
     line-height: 23px;
     border: 1px solid #999;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    background: #d9d9d9 url("graphics/alerts/message.png") no-repeat center center;
+    background: #f0f0f0 url("graphics/alerts/message.png") no-repeat center center;
+}
+a#hermesNotifications:hover {
+    background-color: #d9d9d9;
 }
 #hermesNotifications.horde-error {
     background-image: url("graphics/alerts/error.png")
@@ -183,87 +283,6 @@ body.hermesAjax {
     clear: both;
     padding-top: 5px;
     /*height: 100%;*/
-}
-
-/* Navigation bar */
-#hermesBar {
-    position: absolute;
-    left: 175px;
-    top: 10px;
-}
-#hermesBar form {
-    float: left;
-    margin: 0;
-}
-#hermesBar .hermesDateChoice div {
-    padding: 0 10px;
-    height: 23px;
-    line-height: 23px;
-}
-
-#hermesNav {
-    float: left;
-    margin-left: 5px;
-    height: 23px;
-    line-height: 23px;
-}
-#hermesNav ul {
-    float: left;
-    list-style: none;
-}
-#hermesNav li {
-    float: left;
-}
-#hermesNav a {
-    display: block;
-    float: left;
-    margin: 0;
-    padding: 0 5px 0 25px;
-    background-color: #f0f0f0;
-    background-position: 5px center;
-    background-repeat: no-repeat;
-    font-weight: bold;
-    text-decoration: none;
-    color: #202020;
-    cursor: pointer;
-    border-top: 1px solid #999;
-    border-bottom: 1px solid #999;
-    border-right: 1px solid #999;
-}
-#hermesNav li:first-child a {
-    border-left: 1px solid #999;
-    -moz-border-radius: 5px 0 0 5px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    border-radius: 5px 0 0 5px;
-}
-#hermesNav li:last-child a {
-    -moz-border-radius: 0 5px 5px 0;
-    -webkit-border-top-right-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    border-radius: 0 5px 5px 0;
-}
-#hermesNav a:hover, #hermesNav a.on {
-    background-color: #d9d9d9;
-}
-
-#hermesNavTime {
-    background: url("graphics/hermes.png");
-}
-
-#hermesNavCostObjects {
-    background: url("graphics/hermes.png");
-}
-
-#hermesNavClients {
-    background: url("graphics/hermes.png");
-}
-
-#hermesNavTypes {
-    background: url("graphics/hermes.png");
-}
-#hermesNavSearch {
-    background: url("graphics/search.png");
 }
 
 /* Main view time */

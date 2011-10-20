@@ -1415,8 +1415,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         ));
 
         try {
-            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, $query, array(
-                'ids' => new Horde_Imap_Client_Ids($uid)
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $fetch_ret = $imp_imap->fetch($mbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($uid)
             ));
         } catch (IMP_Imap_Exception $e) {
             $e->notify(_("The Message Disposition Notification was not sent. This is what the server said") . ': ' . $e->getMessage());

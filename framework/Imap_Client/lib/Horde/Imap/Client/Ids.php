@@ -41,6 +41,13 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     protected $_sequence = false;
 
     /**
+     * The utility class to use to parse a sequence string.
+     *
+     * @var string
+     */
+    protected $_utilsClass = 'Horde_Imap_Client_Utils';
+
+    /**
      * Constructor.
      *
      * @param mixed $ids         See self::add().
@@ -73,7 +80,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 
         case 'tostring':
         case 'tostring_sort':
-            $utils = new Horde_Imap_Client_Utils();
+            $utils = new $this->_utilsClass();
             return strval($utils->toSequenceString($this->_ids, array(
                 'nosort' => ($name == 'tostring')
             )));
@@ -111,7 +118,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
                 if (is_numeric($ids)) {
                     $add = array($ids);
                 } else {
-                    $utils = new Horde_Imap_Client_Utils();
+                    $utils = new $this->_utilsClass();
                     $add = $utils->fromSequenceString($ids);
                 }
             }

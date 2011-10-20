@@ -19,7 +19,7 @@ class WickedRenamePages extends Horde_Db_Migration_Base
                               'SandBox'        => 'Wiki/SandBox',
                               'WikiHome'       => 'Wiki/Home',
                               'WikiPage'       => 'Wiki/Page',
-                              'WikiTextFormat' => 'Wiki/TextFormat');
+                              'WickedTextFormat' => 'Wiki/TextFormat');
 
     /**
      * Upgrade.

@@ -90,7 +90,7 @@ $query->envelope();
 
 foreach ($imp_indices as $ob) {
     $fetch_res = $imp_imap->fetch($ob->mbox, $query, array(
-        'ids' => new Horde_Imap_Client_Ids($ob->uids)
+        'ids' => $imp_imap->getIdsOb($ob->uids)
     ));
 
     foreach ($ob->uids as $idx) {

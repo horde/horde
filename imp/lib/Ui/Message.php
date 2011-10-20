@@ -98,7 +98,7 @@ class IMP_Ui_Message
 
             try {
                 $res = $imp_imap->fetch($mailbox, $query, array(
-                    'ids' => new Horde_Imap_Client_Ids($uid)
+                    'ids' => $imp_imap->getIdsOb($uid)
                 ));
                 $mdn_sent = in_array('$mdnsent', $res[$uid]->getFlags());
             } catch (IMP_Imap_Exception $e) {}

@@ -1330,15 +1330,16 @@ class Kronolith_Api extends Horde_Registry_Api
      * Retrieve the list of used tag_names, tag_ids and the total number
      * of resources that are linked to that tag.
      *
-     * @param array $tags  An optional array of tag_ids. If omitted, all tags
-     *                     will be included.
+     * @param array $tags   An optional array of tag_ids. If omitted, all tags
+     *                      will be included.
+     * @param string $user  Restrict result to those tagged by $user.
      *
      * @return array  An array containing tag_name, and total
      */
-    public function listTagInfo($tags = null)
+    public function listTagInfo($tags = null, $user = null)
     {
         return $GLOBALS['injector']
-            ->getInstance('Kronolith_Tagger')->getTagInfo($tags);
+            ->getInstance('Kronolith_Tagger')->getTagInfo($tags, 500, null, $user);
     }
 
     /**

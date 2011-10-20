@@ -200,6 +200,8 @@ class Jonah_Api extends Horde_Registry_Api
      *      'view_url' - The URL to view this resource.
      *      'app'      - The Horde application this resource belongs to.
      *    </pre>
+     *
+     * @TODO Refactor to match the other application's searchTags API signature.
      */
     public function searchTags($names, $filter = array(), $raw = false)
     {

@@ -550,7 +550,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             if (!$options['ids']->all && count($ids['match'])) {
                 $unflag = array_diff($ids['match']->ids, $options['ids']->ids);
                 if (!empty($unflag)) {
-                    $unflag = new Horde_Imap_Client_Ids($unflag, $options['ids']->sequence);
+                    $unflag = $this->getIdsOb($unflag, $options['ids']->sequence);
                     $this->store($this->_selected, array(
                         'ids' => $unflag,
                         'remove' => array(Horde_Imap_Client::FLAG_DELETED)
@@ -638,7 +638,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MATCH:
-                $ret['match'] = new Horde_Imap_Client_Ids($res, !empty($options['sequence']));
+                $ret['match'] = $this->getIdsOb($res, !empty($options['sequence']));
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_MAX:
@@ -1129,7 +1129,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             $this->_exception('Error when flagging messages: ' . imap_last_error());
         }
 
-        return new Horde_Imap_Client_Ids();
+        return $this->getIdsOb();
     }
 
     /**

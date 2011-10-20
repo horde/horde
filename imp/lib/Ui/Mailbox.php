@@ -143,15 +143,9 @@ class IMP_Ui_Mailbox
      */
     public function getSize($size)
     {
-        if (!isset($this->_cache['localeinfo'])) {
-            $this->_cache['localeinfo'] = Horde_Nls::getLocaleInfo();
-        }
-
-        $size = $size / 1024;
-
-        return ($size > 1024)
-            ? sprintf(_("%s MB"), number_format($size / 1024, 1, $this->_cache['localeinfo']['decimal_point'], $this->_cache['localeinfo']['thousands_sep']))
-            : sprintf(_("%s KB"), number_format($size, 0, $this->_cache['localeinfo']['decimal_point'], $this->_cache['localeinfo']['thousands_sep']));
+        return ($size >= 1048576)
+            ? sprintf(_("%s MB"), IMP::numberFormat($size / 1048576, 1))
+            : sprintf(_("%s KB"), IMP::numberFormat($size / 1024, 0));
     }
 
     /**

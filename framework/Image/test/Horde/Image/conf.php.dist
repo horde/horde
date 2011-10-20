@@ -1,0 +1,2 @@
+<?php
+$conf['image']['exiftool'] = '/usr/bin/exiftool';

@@ -23,11 +23,12 @@
 class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
 {
     /**
-     * This object returns POP3 Fetch data objects.
-     *
-     * @var string
      */
     protected $_fetchDataClass = 'Horde_Imap_Client_Data_Fetch_Pop3';
+
+    /**
+     */
+    protected $_utilsClass = 'Horde_Imap_Client_Utils';
 
     /**
      */
@@ -53,6 +54,13 @@ class Horde_Imap_Client_Cclient_Pop3 extends Horde_Imap_Client_Cclient
 
         // Disable caching.
         $this->_params['cache'] = array('fields' => array());
+    }
+
+    /**
+     */
+    public function getIdsOb($ids = null, $sequence = false)
+    {
+        return new Horde_Imap_Client_Ids_Pop3($ids, $sequence);
     }
 
     /**

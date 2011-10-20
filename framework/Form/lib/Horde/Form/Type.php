@@ -2383,6 +2383,15 @@ class Horde_Form_Type_keyval_multienum extends Horde_Form_Type_multienum {
         }
     }
 
+    /**
+     * Return info about field type.
+     */
+    function about()
+    {
+        $about = parent::about();
+        $about['name'] = Horde_Form_Translation::t("Multiple selection, preserving keys");
+    }
+
 }
 
 class Horde_Form_Type_radio extends Horde_Form_Type_enum {

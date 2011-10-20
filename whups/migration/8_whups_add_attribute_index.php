@@ -6,10 +6,8 @@
  * @package  Whups
  */
 
-require_once dirname(__FILE__) . '/../lib/Whups.php';
-
 /**
- * Add hierarchcal related columns to the legacy sql share driver
+ * Adds a primary key to the whups_attributes table.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *

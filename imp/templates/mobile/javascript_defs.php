@@ -42,6 +42,7 @@ $code['conf'] = array_filter(array(
     'flags' => $flags,
     /* Needed to maintain flag ordering. */
     'flags_o' => array_keys($flags),
+    'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'sort' => array(
         'sequence' => array(

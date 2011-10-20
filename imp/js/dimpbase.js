@@ -210,7 +210,7 @@ var DimpBase = {
 
         if (type == 'msg') {
             type = 'mbox';
-            msg = DimpCore.parseRangeString(data, true);
+            msg = DimpCore.parseUIDString(data);
             data = Object.keys(msg).first();
             this.uid = msg[data].first();
             // Fall through to the 'mbox' check below.
@@ -311,7 +311,7 @@ var DimpBase = {
             } else {
                 msg = DimpCore.selectionToRange(vs);
             }
-            this.setHash('msg', DimpCore.toRangeString(msg, this.isSearch()));
+            this.setHash('msg', DimpCore.toUIDString(msg, { raw: this.isSearch() }));
         } else {
             this.setHash('mbox', view);
         }
@@ -565,7 +565,7 @@ var DimpBase = {
                 }
 
                 if (tmp) {
-                    params.set('cache', DimpCore.toRangeString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
+                    params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
                 }
                 params.set('view', view);
 
@@ -747,12 +747,17 @@ var DimpBase = {
         container.observe('ViewPort:fetch', this.loadingImg.bind(this, 'viewport', true));
 
         container.observe('ViewPort:remove', function(e) {
-            if (this.view == e.memo.getBuffer().getView()) {
+            var v = e.memo.getBuffer().getView();
+
+            if (this.view == v) {
                 this.loadingImg('viewport', false);
             }
 
             e.memo.get('dataob').each(function(d) {
                 this._expirePPCache([ this._getPPId(d.uid, d.mbox) ]);
+                if (this.isSearch(v)) {
+                    this.viewport.remove(this.viewport.createSelectionBuffer(d.mbox).search({ uid: { equal: [ d.uid ] }, mbox: { equal: [ d.mbox ] } }));
+                }
             }, this);
         }.bindAsEventListener(this));
 
@@ -1853,9 +1858,9 @@ var DimpBase = {
     },
 
     /* Search functions. */
-    isSearch: function()
+    isSearch: function(id)
     {
-        return this.viewport.getMetaData('search');
+        return this.viewport.getMetaData('search', id);
     },
 
     isFSearch: function(id)
@@ -2474,7 +2479,7 @@ var DimpBase = {
                 tmp = {};
                 tmp[this.pp.mbox] = [ this.pp.uid ];
                 DimpCore.doAction('sendMDN', {
-                    uid: DimpCore.toRangeString(tmp)
+                    uid: DimpCore.toUIDString(tmp)
                 }, {
                     callback: this._sendMdnCallback.bind(this)
                 });
@@ -2657,13 +2662,11 @@ var DimpBase = {
             return;
         }
 
-        var sb = this.viewport.createSelectionBuffer();
-
         r.flag.each(function(entry) {
-            $H(DimpCore.parseRangeString(entry.uids)).each(function(m) {
-                var s = sb.search({
+            $H(DimpCore.parseUIDString(entry.uids)).each(function(m) {
+                var s = this.viewport.createSelectionBuffer(m.key).search({
                     uid: { equal: m.value },
-                    mbox: { equal: m.key }
+                    mbox: { equal: [ m.key ] }
                 });
 
                 if (entry.add) {
@@ -3216,7 +3219,7 @@ var DimpBase = {
         /* If this is a search mailbox, also need to update flag in base view,
          * if it is in the buffer. */
         $H(s).each(function(m) {
-            var tmp = this.viewport.createSelectionBuffer(m.key).search({ uid: { equal: m.value }, mbox: { equal: m.key } });
+            var tmp = this.viewport.createSelectionBuffer(m.key).search({ uid: { equal: m.value }, mbox: { equal: [ m.key ] } });
             if (tmp.size()) {
                 this._updateFlag(tmp.get('dataob').first(), flag, add);
             }
@@ -3371,7 +3374,7 @@ var DimpBase = {
         DIMP.text.showalog = $('alertsloglink').down('A').innerHTML;
 
         /* Initialize the starting page. */
-        tmp = location.hash;
+        tmp = decodeURIComponent(location.hash);
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? "" : tmp.substring(1);
         }

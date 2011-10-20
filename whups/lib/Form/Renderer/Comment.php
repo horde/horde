@@ -10,12 +10,6 @@
  */
 class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
 {
-    public $queue = null;
-    public $type = null;
-    public $state = null;
-    public $priority = null;
-    public $due = null;
-
     /**
      * Intermediate storage for links during comment formatting.
      *
@@ -138,7 +132,7 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
                 $changes[] = sprintf(
                     _("%s &rArr; %s"),
                     htmlspecialchars($change['label']),
-                    htmlspecialchars($change['value']));
+                    htmlspecialchars($change['human']));
                 break;
 
             case 'due':

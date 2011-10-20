@@ -27,10 +27,10 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>14:05:51</time>
+ <date>2011-10-18</date>
+ <time>14:01:34</time>
  <version>
-  <release>1.0.7</release>
+  <release>1.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Implement size() method in Samba driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -905,10 +905,25 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix reading file sizes from Samba backends.
+* [jan] Catch output from smbclient during error conditions (Bug #10638).
 * [jan] Implement size() method in Samba driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
