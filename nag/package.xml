@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add ability to choose which tasklists to synchronize.
 * [mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
  </notes>
  <contents>
@@ -1067,6 +1068,7 @@
    <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add ability to choose which tasklists to synchronize.
 * [mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
    </notes>
   </release>
