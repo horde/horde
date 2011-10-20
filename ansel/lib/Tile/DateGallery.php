@@ -3,7 +3,7 @@
  * Ansel_Tile_DateGallery:: class wraps display of thumbnail tile for the
  * DateGallery psuedo gallery.
  *
- * @author   Michael Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/gpl GPL
  * @category Horde
  * @package  Ansel
@@ -29,10 +29,8 @@ class Ansel_Tile_DateGallery
      */
     public function getTile($dgallery, $style = null, $mini = false, $params = array())
     {
-        /* User's preferred date format */
+        // User's preferred date format
         $date_format = $GLOBALS['prefs']->getValue('date_format');
-
-        /* Easier to work with a Horde_Date object */
         $date_array = $dgallery->getDate();
         if (empty($date_array['month'])) {
             $date_array['month'] = 1;
@@ -40,32 +38,32 @@ class Ansel_Tile_DateGallery
         if (empty($date_array['day'])) {
             $date_array['day'] = 1;
         }
-
         $full_date = new Horde_Date($date_array);
 
-        /* Need the unaltered date part array */
+        // Need the unaltered date part array
         $date_array = $dgallery->getDate();
 
-        /* Figure out the needed link for the next drill down level. We *must*
-         * have at least a year since we are in a date tile. */
+        // Figure out the needed link for the next drill down level. We *must*
+        // have at least a year since we are in a date tile.
         if (empty($date_array['month'])) {
             // unit == year
-            $caption = $full_date->format('Y');
+            $caption = $full_date->strftime('%Y');
             $next_date = array('year' => (int)$caption);
         } elseif (empty($date_array['day'])) {
             // unit == month
-            $caption = $full_date->format('F Y');
-            $next_date = array('year' => date('Y', $full_date->timestamp()),
-                               'month' => date('n', $full_date->timestamp()));
+            $caption = $full_date->strftime('%B %Y');
+            $next_date = array(
+                'year' => date('Y', $full_date->timestamp()),
+                'month' => date('n', $full_date->timestamp()));
         } else {
-            // unit == day ... hopefully ;)
+            // unit == day
             $caption = $full_date->strftime($date_format);
             $next_date = array('year' => date('Y', $full_date->timestamp()),
                                'month' => date('n', $full_date->timestamp()),
                                'day' => date('j', $full_date->timestamp()));
         }
 
-        /* Check permissions on the gallery and get appropriate tile image */
+        // Check permissions on the gallery and get appropriate tile image
         if ($dgallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             if (is_null($style)) {
                 $style = $dgallery->getStyle();
