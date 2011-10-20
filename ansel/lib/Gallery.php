@@ -1164,6 +1164,11 @@ class Ansel_Gallery implements Serializable
      */
     public function toJson($full = false)
     {
+        // @TODO: Support date grouped galleries
+        $vMode = $this->get('view_mode');
+        if ($vMode != 'Normal') {
+            $this->_setModeHelper('Normal');
+        }
         $style = Ansel::getStyleDefinition('ansel_mobile');
 
         $json = new StdClass();
@@ -1211,6 +1216,9 @@ class Ansel_Gallery implements Serializable
             }
         }
 
+        if ($vMode != 'Normal') {
+            $this->_setModeHelper($vMode);
+        }
         return $json;
     }
 
