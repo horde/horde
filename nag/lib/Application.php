@@ -150,6 +150,20 @@ class Nag_Application extends Horde_Registry_Application
                 $ui->override['default_tasklist'] = $vals;
                 break;
 
+            case 'sync_lists':
+                $sync = @unserialize($prefs->getValue('sync_lists'));
+                if (empty($sync)) {
+                    $prefs->setValue('sync_lists', serialize(array(Nag::getDefaultTasklist())));
+                }
+                $out = array();
+                foreach (Nag::listTasklists(true, Horde_Perms::EDIT) as $key => $list) {
+                    if ($list->getName() != Nag::getDefaultTasklist(Horde_Perms::EDIT)) {
+                        $out[$key] = $list->get('name');
+                    }
+                }
+                $ui->override['sync_lists'] = $out;
+                break;
+
             case 'show_external':
                 if ($registry->hasMethod('getListTypes', 'whups')) {
                     $ui->override['show_external'] = array(
@@ -202,6 +216,42 @@ class Nag_Application extends Horde_Registry_Application
         }
 
         return false;
+    }
+
+    /**
+     */
+    public function prefsCallback($ui)
+    {
+        // Ensure that the current default_share is included in sync_calendars
+        if ($GLOBALS['prefs']->isDirty('sync_lists') || $GLOBALS['prefs']->isDirty('default_tasklist')) {
+            $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
+            $haveDefault = false;
+            $default = Nag::getDefaultTasklist(Horde_Perms::EDIT);
+            foreach ($sync as $cid) {
+                if ($cid == $default) {
+                    $haveDefault = true;
+                    break;
+                }
+            }
+            if (!$haveDefault) {
+                $sync[] = $default;
+                $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
+            }
+        }
+
+        if ($GLOBALS['conf']['activesync']['enabled'] && $GLOBALS['prefs']->isDirty('sync_lists')) {
+            try {
+                $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
+                $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
+                $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
+                foreach ($devices as $device) {
+                    $stateMachine->removeState(null, $device['device_id'], $GLOBALS['registry']->getAuth());
+                }
+                $GLOBALS['notification']->push(_("All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."));
+            } catch (Horde_ActiveSync_Exception $e) {
+                $GLOBALS['notification']->push(_("There was an error communicating with the ActiveSync server: %s"), $e->getMessage(), 'horde.err');
+            }
+        }
     }
 
     /**

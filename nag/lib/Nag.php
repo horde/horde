@@ -1572,4 +1572,35 @@ class Nag
         }
     }
 
+    /**
+     * Returns the calendars that should be used for syncing.
+     *
+     * @return array  An array of calendar ids
+     */
+    static public function getSyncLists()
+    {
+        $cs = unserialize($GLOBALS['prefs']->getValue('sync_lists'));
+        if (!empty($cs)) {
+            // Have a pref, make sure it's still available
+            $lists = self::listTasklists(true, Horde_Perms::EDIT);
+            $cscopy = array_flip($cs);
+            foreach ($cs as $c) {
+                if (empty($lists[$c])) {
+                    unset($cscopy[$c]);
+                }
+            }
+
+            // Have at least one
+            if (count($cscopy)) {
+                return array_flip($cscopy);
+            }
+        }
+
+        if ($cs = self::getDefaultTasklist(Horde_Perms::EDIT)) {
+            return array($cs);
+        }
+
+        return array();
+    }
+
 }
