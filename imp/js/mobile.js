@@ -255,7 +255,7 @@ var ImpMobile = {
         if (r && r.message && !r.message.error) {
             var data = r.message,
                 headers = $('#imp-message-headers tbody');
-            ImpMobile.uid = r.message.uid;
+            ImpMobile.uid = data.uid;
             $('#imp-message-title').html(data.title);
             $('#imp-message-subject').html(data.subject);
             $('#imp-message-from').text(data.from[0].personal);
@@ -272,6 +272,10 @@ var ImpMobile = {
                     $('#imp-message-date').text(header.value);
                 }
             });
+
+            $('#imp-message-back').attr('href', '#mailbox?mbox=' + data.mbox);
+            $('#imp-message-back .ui-btn-text')
+                .text($('#imp-mailbox-' + data.mbox).text());
 
             if (ImpMobile.nextMessage(-1)) {
                 $('#imp-message-prev')
