@@ -24,6 +24,7 @@ var ImpMobile = {
     //  * Whether attachments are currently being uploaded.
     //  */
     // uploading,
+    // mailboxCallback,
 
     /**
      * The currently loaded list of message data, keys are UIDs, values are
@@ -161,7 +162,11 @@ var ImpMobile = {
             }
             list.listview('refresh');
             $.mobile.fixedToolbars.show();
+            if (ImpMobile.mailboxCallback) {
+                ImpMobile.mailboxCallback.apply();
+            }
         }
+        delete ImpMobile.mailboxCallback;
     },
 
     /**
@@ -186,10 +191,10 @@ var ImpMobile = {
             // Deep-linked message page. Load mailbox first to allow navigation
             // between messages.
             $.mobile.changePage('#mailbox?mbox=' + match[1]);
-            window.setTimeout(function() {
+            ImpMobile.mailboxCallback = function() {
                 options.changeHash = true;
                 ImpMobile.toMessage(url, options);
-            }, 0);
+            };
             return;
         }
         if ($.mobile.activePage.attr('id') != 'message') {
@@ -206,11 +211,13 @@ var ImpMobile = {
     },
 
     /**
-     * Navigates to the next or previous message.
+     * Returns the mailbox and uid of the next or previous message.
      *
      * @param integer|object dir  A swipe event or a jump length.
+     *
+     * @return array  The mailbox and uid of the next message, if it exists.
      */
-    navigateMessage: function(dir)
+    nextMessage: function(dir)
     {
         if (typeof dir == 'object') {
             dir = dir.type == 'swipeleft' ? 1 : -1;
@@ -219,13 +226,26 @@ var ImpMobile = {
         $.each(ImpMobile.messages, function(uid, messagepos) {
             if (messagepos == pos) {
                 newuid = uid;
-                return false;
+                return;
             }
         });
         if (!newuid || !ImpMobile.data[newuid]) {
             return;
         }
-        $.mobile.changePage('#message?view=' + ImpMobile.data[newuid].mbox + '&uid=' + newuid);
+        return [ ImpMobile.data[newuid].mbox, newuid ];
+    },
+
+    /**
+     * Navigates to the next or previous message.
+     *
+     * @param integer|object dir  A swipe event or a jump length.
+     */
+    navigateMessage: function(dir)
+    {
+        var next = ImpMobile.nextMessage(dir);
+        if (next) {
+            $.mobile.changePage('#message?view=' + next[0] + '&uid=' + next[1]);
+        }
     },
 
     /**
@@ -252,6 +272,26 @@ var ImpMobile = {
                     $('#imp-message-date').text(header.value);
                 }
             });
+
+            if (ImpMobile.nextMessage(-1)) {
+                $('#imp-message-prev')
+                    .removeClass('ui-disabled')
+                    .attr('aria-disabled', false);
+            } else {
+                $('#imp-message-prev')
+                    .addClass('ui-disabled')
+                    .attr('aria-disabled', true);
+            }
+            if (ImpMobile.nextMessage(1)) {
+                $('#imp-message-next')
+                    .removeClass('ui-disabled')
+                    .attr('aria-disabled', false);
+            } else {
+                $('#imp-message-next')
+                    .addClass('ui-disabled')
+                    .attr('aria-disabled', true);
+            }
+
             if (data.js) {
                 $.each(data.js, function(k, js) {
                     $.globalEval(js);
@@ -531,7 +571,9 @@ var ImpMobile = {
 
             case 'imp-message-prev':
             case 'imp-message-next':
-                ImpMobile.navigateMessage(id == 'imp-message-prev' ? -1 : 1);
+                if (!elt.hasClass('ui-disabled')) {
+                    ImpMobile.navigateMessage(id == 'imp-message-prev' ? -1 : 1);
+                }
                 return;
 
             case 'imp-compose-submit':
