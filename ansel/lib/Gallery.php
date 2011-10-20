@@ -89,7 +89,9 @@ class Ansel_Gallery implements Serializable
     {
         $p = $this->_share->getParents();
         if (!empty($p)) {
-            return $GLOBALS['injector']->getInstance('Ansel_Storage')->buildGalleries($this->_share->getParents());
+            return $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->buildGalleries($this->_share->getParents());
         } else {
             return array();
         }
@@ -103,7 +105,9 @@ class Ansel_Gallery implements Serializable
     {
         $p = $this->_share->getParent();
         if (!empty($p)) {
-            return $GLOBALS['injector']->getInstance('Ansel_Storage')->buildGallery($this->_share->getParent());
+            return $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->buildGallery($this->_share->getParent());
         } else {
             return null;
         }
@@ -1172,14 +1176,14 @@ class Ansel_Gallery implements Serializable
         $json->imgs = array();
 
         // Parent
-        $parents = $this->get('parents');
+        $parents = $this->getParents();
         if (empty($parents)) {
             $json->p = null;
             $json->pn = null;
         } else {
-            $parents = explode(':', $parents);
-            $json->p = array_pop($parents);
-            $json->pn = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($json->p)->get('name');
+            $p = array_pop($parents);
+            $json->p =$p->id;
+            $json->pn = $p->get('name');
         }
 
         if ($full) {
@@ -1187,7 +1191,10 @@ class Ansel_Gallery implements Serializable
                            ($GLOBALS['conf']['vfs']['src'] == 'direct' || $this->_share->hasPermission('', Horde_Perms::READ)));
             $json->sg = array();
             if ($this->hasSubGalleries()) {
-                $sgs = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('parent' => $this->id, 'all_levels' => false));
+                $sgs = $this->getChildren(
+                    $GLOBALS['registry']->getAuth(),
+                    Horde_Perms::READ,
+                    false);//GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('parent' => $this->id, 'all_levels' => false));
                 foreach ($sgs as $g) {
                     $json->sg[] = $g->toJson();
                 }
