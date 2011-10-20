@@ -264,7 +264,7 @@ var ImpMobile = {
             ImpMobile.uid = data.uid;
             $('#imp-message-title').html(data.title);
             $('#imp-message-subject').html(data.subject);
-            $('#imp-message-from').text(data.from[0].personal);
+            $('#imp-message-from').text(data.from[0].personal || data.from[0].inner);
             $('#imp-message-body').html(data.msgtext);
             $('#imp-message-date').text('');
             $('#imp-message-more').parent().show();
