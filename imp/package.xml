@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Implement reply and forward in the Smartphone view.
 * [jan] Add compose functionality to smartphone view.
  </notes>
  <contents>

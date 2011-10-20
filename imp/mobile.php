@@ -33,6 +33,7 @@ $view->logout = Horde::getServiceLink('logout')->setRaw(false);
 
 /* Setting up identities. */
 $identity = $injector->getInstance('IMP_Identity');
+$view->defaultIdentity = $identity->getDefault();
 $view->identities = array();
 foreach ($identity->getSelectList() as $id => $from) {
     $view->identities[] = array(

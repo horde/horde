@@ -91,7 +91,12 @@ var ImpMobile = {
         }
 
         var url = $.mobile.path.parseUrl(data.toPage),
-            match = /^#(mailbox|message)/.exec(url.hash);
+            match = /^#(mailbox|message|compose)/.exec(url.hash);
+
+        if (url.hash == ImpMobile.lastHash) {
+            ImpMobile.lastHash = url.hash;
+            return;
+        }
 
         if (match) {
             switch (match[1]) {
@@ -102,9 +107,15 @@ var ImpMobile = {
             case 'message':
                 ImpMobile.toMessage(url, data.options);
                 break;
+
+            case 'compose':
+                ImpMobile.compose(url, data.options);
+                break;
             }
             e.preventDefault();
         }
+
+        ImpMobile.lastHash = url.hash;
     },
 
     /**
@@ -282,6 +293,12 @@ var ImpMobile = {
             $('#imp-message-back').attr('href', '#mailbox?mbox=' + data.mbox);
             $('#imp-message-back .ui-btn-text')
                 .text($('#imp-mailbox-' + data.mbox).text());
+            $('#imp-message-reply').attr(
+                'href',
+                '#compose?type=reply_auto&mbox=' + data.mbox + '&uid=' + data.uid);
+            $('#imp-message-forward').attr(
+                'href',
+                '#compose?type=forward_auto&mbox=' + data.mbox + '&uid=' + data.uid);
 
             if (ImpMobile.nextMessage(-1)) {
                 $('#imp-message-prev')
@@ -314,34 +331,100 @@ var ImpMobile = {
      * Switches to the compose view and loads a message if replying or
      * forwarding.
      *
-     * @param string mailbox  A mailbox name.
-     * @param string uid      A message UID.
+     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object options  Page change options.
      */
-    compose: function(mailbox, uid)
+    compose: function(url, options)
     {
-        var o = {};
-        o[mailbox] = [ uid ];
+        var match = /\?type=(.*?)&mbox=(.*?)&uid=(.*)/.exec(url.hash);
+
         $('#imp-compose-title').html(IMP.text.new_message);
-        /*
-        $('#imp-message-subject').text('');
-        $('#imp-message-from').text('');
-        $('#imp-message-body').text('');
-        $('#imp-message-date').text('');
-        $('#imp-message-more').parent().show();
-        $('#imp-message-less').parent().hide();
-        */
-        if ($.mobile.activePage.attr('id') != 'compse') {
-            $.mobile.changePage('#compose', 'slide', false, true);
+
+        if (!match) {
+            $.mobile.changePage($('#compose'));
+            return;
         }
-        /*
+
+        var type = match[1], mailbox = match[2], uid = match[3],
+            func, o = {};
+        o[mailbox] = [ uid ];
+
+        switch (type) {
+        case 'reply':
+        case 'reply_all':
+        case 'reply_auto':
+        case 'reply_list':
+            func = 'getReplyData';
+            break;
+
+        case 'forward_auto':
+        case 'forward_attach':
+        case 'forward_body':
+        case 'forward_both':
+            func = 'getForwardData';
+            break;
+
+        case 'forward_redirect':
+            /*
+            $('compose').hide();
+            $('redirect').show();
+            func = 'getRedirectData';
+            break;
+            */
+        }
+
+        options.dataUrl = url.href;
         HordeMobile.doAction(
-            'showMessage',
+            func,
             {
-                uid: ImpMobile.toRangeString(o),
-                view: mailbox,
+                type: type,
+                imp_compose: $('#imp-compose-cache').val(),
+                uid: ImpMobile.toRangeString(o)
             },
-            ImpMobile.messageLoaded);
-        */
+            function(r) { ImpMobile.composeLoaded(r, options); });
+    },
+
+    /**
+     * Callback method after the compose content has been loaded.
+     *
+     * @param object r        The Ajax response object.
+     * @param object options  Page change options from compose().
+     */
+    composeLoaded: function(r, options)
+    {
+        if (r.imp_compose) {
+            $('#imp-compose-cache').val(r.imp_compose);
+        }
+
+        if (r.type != 'forward_redirect') {
+            if (!r.opts) {
+                r.opts = {};
+            }
+            r.opts.noupdate = true;
+
+            var id = (r.identity === null)
+                ? $('#imp-compose-identity').val()
+                : r.identity;
+            //i = ImpComposeBase.getIdentity(id, r.opts.show_editor);
+
+            $('#imp-compose-identity').val(id);
+            // The first selectmenu() call is necessary to actually create the
+            // selectmenu if the compose window is opened for the first time,
+            // the second call to update the menu in case the selected index
+            // changed.
+            $('#imp-compose-identity').selectmenu();
+            $('#imp-compose-identity').selectmenu('refresh', true);
+            $('#imp-compose-last-identity').val(id);
+
+            //DimpCompose.fillForm(i.id[2] ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
+            $('#imp-compose-to').val(r.header.to);
+            $('#imp-compose-subject').val(r.header.subject);
+            $('#imp-compose-message').val(r.body);
+
+            $('#imp-compose-' + (r.opts.focus || 'to').replace(/composeMessage/, 'message'))[0].focus();
+            //this.fillFormHash();
+        }
+        $.mobile.changePage($('#compose'), options);
     },
 
     uniqueSubmit: function(action)
@@ -398,7 +481,7 @@ var ImpMobile = {
         }
 
         if (d.imp_compose) {
-            $('#imp-compose-cache').setValue(d.imp_compose);
+            $('#imp-compose-cache').val(d.imp_compose);
         }
 
         if (d.success || d.action == 'addAttachment') {
@@ -483,16 +566,19 @@ var ImpMobile = {
     {
         ImpMobile.setDisabled(false);
         $('#imp-compose-form')[0].reset();
-        window.setTimeout(function () {
-            if ($.mobile.activePage.attr('id') == 'compose') {
-                window.history.back();
-            } else if ($.mobile.activePage.attr('id') == 'notification') {
-                $.mobile.activePage.bind('pagehide', function (e) {
-                    $(e.currentTarget).unbind(e);
-                    window.history.back();
-                });
-            }
-        }, 0);
+        window.setTimeout(ImpMobile.delayedCloseCompose, 0);
+    },
+
+    delayedCloseCompose: function()
+    {
+        if ($.mobile.activePage.attr('id') == 'compose') {
+            window.history.back();
+        } else if ($.mobile.activePage.attr('id') == 'notification') {
+            $.mobile.activePage.bind('pagehide', function (e) {
+                $(e.currentTarget).unbind(e);
+                window.setTimeout(ImpMobile.delayedCloseCompose, 0);
+            });
+        }
     },
 
     setDisabled: function(disable)
@@ -593,11 +679,6 @@ var ImpMobile = {
                 return;
             }
 
-            if (elt.hasClass('imp-compose')) {
-                ImpMobile.compose(elt.attr('data-imp-mailbox'), elt.attr('data-imp-uid'));
-                return;
-            }
-
             elt = elt.parent();
         }
     },
@@ -614,6 +695,7 @@ var ImpMobile = {
         $(document).bind('swipeleft', ImpMobile.navigateMessage);
         $(document).bind('swiperight', ImpMobile.navigateMessage);
         $(document).bind('pagebeforechange', ImpMobile.toPage);
+        $('#compose').live('pagehide', function() { $('#imp-compose-cache').val(''); });
     }
 
 };
