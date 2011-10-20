@@ -1582,7 +1582,7 @@ class Nag
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_lists'));
         if (!empty($cs)) {
             // Have a pref, make sure it's still available
-            $lists = self::listTasklists(true, Horde_Perms::EDIT);
+            $lists = self::listTasklists(false, Horde_Perms::EDIT);
             $cscopy = array_flip($cs);
             foreach ($cs as $c) {
                 if (empty($lists[$c])) {

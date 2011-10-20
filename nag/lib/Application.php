@@ -156,7 +156,7 @@ class Nag_Application extends Horde_Registry_Application
                     $prefs->setValue('sync_lists', serialize(array(Nag::getDefaultTasklist())));
                 }
                 $out = array();
-                foreach (Nag::listTasklists(true, Horde_Perms::EDIT) as $key => $list) {
+                foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $key => $list) {
                     if ($list->getName() != Nag::getDefaultTasklist(Horde_Perms::EDIT)) {
                         $out[$key] = $list->get('name');
                     }
