@@ -13,7 +13,7 @@
     <a id="imp-message-more" href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext"><?php echo _("Show more") ?></a>
     <?php echo _("From:") ?> <span id="imp-message-from"></span>
   </div>
-  <div class="ui-body ui-body-c">
+  <div class="ui-body ui-body-c" style="display:hidden">
     <a id="imp-message-less" href="#" data-role="button" data-icon="arrow-u" data-iconpos="notext"><?php echo _("Show less") ?></a>
     <table id="imp-message-headers"><tbody></tbody></table>
   </div>

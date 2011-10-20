@@ -24,6 +24,10 @@ var ImpMobile = {
     //  * Whether attachments are currently being uploaded.
     //  */
     // uploading,
+    //
+    // /**
+    //  * One-time callback after the mailbox has been loaded.
+    //  */
     // mailboxCallback,
 
     /**
@@ -180,13 +184,6 @@ var ImpMobile = {
         var match = /\?view=(.*?)&uid=(.*)/.exec(url.hash);
         var o = {};
         o[match[1]] = [ match[2] ];
-        $('#imp-message-title').html('&nbsp;');
-        $('#imp-message-subject').text('');
-        $('#imp-message-from').text('');
-        $('#imp-message-body').text('');
-        $('#imp-message-date').text('');
-        $('#imp-message-more').parent().show();
-        $('#imp-message-less').parent().hide();
         if (!$.mobile.activePage) {
             // Deep-linked message page. Load mailbox first to allow navigation
             // between messages.
@@ -263,6 +260,9 @@ var ImpMobile = {
             $('#imp-message-subject').html(data.subject);
             $('#imp-message-from').text(data.from[0].personal);
             $('#imp-message-body').html(data.msgtext);
+            $('#imp-message-date').text('');
+            $('#imp-message-more').parent().show();
+            $('#imp-message-less').parent().hide();
             headers.text('');
             $.each(data.headers, function(k, header) {
                 if (header.value) {
