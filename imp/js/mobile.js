@@ -86,12 +86,16 @@ var ImpMobile = {
         }
 
         var url = $.mobile.path.parseUrl(data.toPage),
-            match = /^#(mailbox)/.exec(url.hash);
+            match = /^#(mailbox|message)/.exec(url.hash);
 
         if (match) {
             switch (match[1]) {
             case 'mailbox':
                 ImpMobile.toMailbox(url, data.options);
+                break;
+
+            case 'message':
+                ImpMobile.toMessage(url, data.options);
                 break;
             }
             e.preventDefault();
@@ -142,9 +146,9 @@ var ImpMobile = {
                     });
                 }
                 list.prepend(
-                    $('<li class="' + c + '" data-imp-mailbox="' + data.mbox + '" data-imp-uid="' + data.uid + '">').append(
+                    $('<li class="' + c + '">').append(
                         $('<h3>').append(
-                            $('<a href="#">').html(data.subject))).append(
+                            $('<a href="#message?view=' + data.mbox + '&uid=' + data.uid + '">').html(data.subject))).append(
                         $('<div class="ui-grid-a">').append(
                             $('<div class="ui-block-a">').append(
                                 $('<p>').text(data.from))).append(
@@ -163,13 +167,14 @@ var ImpMobile = {
     /**
      * Switches to the message view and loads a message.
      *
-     * @param string mailbox  A mailbox name.
-     * @param string uid      A message UID.
+     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object options  Page change options.
      */
-    toMessage: function(mailbox, uid)
+    toMessage: function(url, options)
     {
+        var match = /\?view=(.*?)&uid=(.*)/.exec(url.hash);
         var o = {};
-        o[mailbox] = [ uid ];
+        o[match[1]] = [ match[2] ];
         $('#imp-message-title').html('&nbsp;');
         $('#imp-message-subject').text('');
         $('#imp-message-from').text('');
@@ -177,14 +182,25 @@ var ImpMobile = {
         $('#imp-message-date').text('');
         $('#imp-message-more').parent().show();
         $('#imp-message-less').parent().hide();
+        if (!$.mobile.activePage) {
+            // Deep-linked message page. Load mailbox first to allow navigation
+            // between messages.
+            $.mobile.changePage('#mailbox?mbox=' + match[1]);
+            window.setTimeout(function() {
+                options.changeHash = true;
+                ImpMobile.toMessage(url, options);
+            }, 0);
+            return;
+        }
         if ($.mobile.activePage.attr('id') != 'message') {
-            $.mobile.changePage('#message', 'slide', false, true);
+            options.dataUrl = url.href;
+            $.mobile.changePage($('#message'), options);
         }
         HordeMobile.doAction(
             'showMessage',
             {
                 uid: this.toUIDString(o),
-                view: mailbox,
+                view: match[1],
             },
             ImpMobile.messageLoaded);
     },
@@ -209,7 +225,7 @@ var ImpMobile = {
         if (!newuid || !ImpMobile.data[newuid]) {
             return;
         }
-        ImpMobile.toMessage(ImpMobile.data[newuid].mbox, newuid);
+        $.mobile.changePage('#message?view=' + ImpMobile.data[newuid].mbox + '&uid=' + newuid);
     },
 
     /**
@@ -525,10 +541,7 @@ var ImpMobile = {
                 return;
             }
 
-            if (elt.hasClass('imp-message')) {
-                ImpMobile.toMessage(elt.attr('data-imp-mailbox'), elt.attr('data-imp-uid'));
-                return;
-            } else if (elt.hasClass('imp-compose')) {
+            if (elt.hasClass('imp-compose')) {
                 ImpMobile.compose(elt.attr('data-imp-mailbox'), elt.attr('data-imp-uid'));
                 return;
             }
