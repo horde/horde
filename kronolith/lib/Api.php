@@ -452,7 +452,6 @@ class Kronolith_Api extends Horde_Registry_Api
             $calendars = array($calendars);
         }
 
-        $allowed = Kronolith::listInternalCalendars(false, Horde_Perms::READ);
         $driver = Kronolith::getDriver();
         $results = array();
         foreach ($calendars as $calendar) {
