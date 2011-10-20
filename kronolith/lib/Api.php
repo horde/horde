@@ -503,15 +503,10 @@ class Kronolith_Api extends Horde_Registry_Api
     {
         if (empty($calendar)) {
             $cs = Kronolith::getSyncCalendars();
-            $calendars = Kronolith::listInternalCalendars(false, Horde_Perms::READ);
             $results = array();
             foreach ($cs as $c) {
-                if (!isset($calendars[$c])) {
-                    throw new Horde_Exception_PermissionDenied();
-                }
                 $results = array_merge($results, $this->listBy($action, $timestamp, $c, $end));
             }
-
             return $results;
         }
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
@@ -542,17 +537,12 @@ class Kronolith_Api extends Horde_Registry_Api
     {
         // Only get the calendar once
         $cs = Kronolith::getSyncCalendars();
-        $calendars = Kronolith::listInternalCalendars(false, Horde_Perms::READ);
         $changes = array(
             'add' => array(),
             'modify' => array(),
             'delete' => array());
 
         foreach ($cs as $c) {
-            if (!isset($calendars[$c])) {
-                throw new Horde_Exception_PermissionDenied();
-            }
-
              // New events
             $uids = $this->listBy('add', $start, $c, $end);
             if ($ignoreExceptions) {
