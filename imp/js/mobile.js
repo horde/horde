@@ -194,7 +194,13 @@ var ImpMobile = {
             };
             return;
         }
-        if ($.mobile.activePage.attr('id') != 'message') {
+        if ($.mobile.activePage.attr('id') == 'message') {
+            // Need to update history manually, because jqm exits too early
+            // if calling changePage() with the same page but different hash
+            // parameters.
+            $.mobile.urlHistory.ignoreNextHashChange = true;
+            $.mobile.path.set(url.hash);
+        } else {
             options.dataUrl = url.href;
             $.mobile.changePage($('#message'), options);
         }
