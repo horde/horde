@@ -40,7 +40,7 @@ $return_url = Ansel::getUrlFor(
 $view = new Ansel_View_Upload(
     array(
         'browse_button' => 'pickfiles',
-        'target' => Horde::selfUrl()->setRaw(true),
+        'target' => Horde::selfUrl(),
         'drop_target' => 'filelist',
         'upload_button' => 'uploadfiles',
         'gallery' => $gallery,
