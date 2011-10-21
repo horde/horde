@@ -37,7 +37,6 @@ class Horde_Release_Whups
     /**
      * Http client
      *
-     * @TODO: inject this
      * @var Horde_Http_Client
      */
     protected $_http;
