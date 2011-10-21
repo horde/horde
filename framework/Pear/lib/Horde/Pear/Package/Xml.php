@@ -192,7 +192,7 @@ class Horde_Pear_Package_Xml
     /**
      * Return the package dependencies.
      *
-     * @return string The package dependencies.
+     * @return array The package dependencies.
      */
     public function getDependencies()
     {
