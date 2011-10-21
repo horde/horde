@@ -79,7 +79,7 @@ class Horde_Release_Whups
         $method = 'tickets.addVersion';
         $params = array($id, $version, $desc);
         try {
-            $res = Horde_Rpc::request('jsonrpc', $this->_params['url'], $method, $this->_http, $params);
+            Horde_Rpc::request('jsonrpc', $this->_params['url'], $method, $this->_http, $params);
         } catch (Horde_Http_Client_Exception $e) {
             throw new Horde_Exception_Wrapped($e);
         }
