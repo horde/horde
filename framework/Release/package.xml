@@ -19,15 +19,16 @@
  <date>2011-10-06</date>
  <time>17:49:40</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0alpha1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* First alpha release for Horde 4.
 * [jan] Keep file mode of Application.php (Bug #9697).
  </notes>
  <contents>
@@ -163,20 +164,6 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.0.0beta1</release>
-    <api>1.0.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2011-10-06</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
-   <notes>
 * [jan] Keep file mode of Application.php (Bug #9697).
    </notes>
   </release>
