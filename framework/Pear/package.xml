@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-21</date>
- <time>08:06:56</time>
+ <time>08:08:08</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0beta1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,11 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* Initial Horde 4 package.
-* [gwr] Added support for fetching package dependencies from the remote server.
-* [jan] Update changelog when updating content (Bug #9935).
-* [gwr] Imported the .gitignore handling for content lists from the components tool.
-* [gwr] Consume empty notes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -419,6 +415,19 @@
 * [jan] Update changelog when updating content (Bug #9935).
 * [gwr] Imported the .gitignore handling for content lists from the components tool.
 * [gwr] Consume empty notes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
