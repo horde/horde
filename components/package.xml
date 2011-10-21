@@ -45,59 +45,59 @@
      <dir name="debian">
       <dir name="templates">
        <dir name="source">
-        <file name="format" role="horde" />
+        <file name="format" role="data" />
        </dir> <!-- /data/distribute/debian/templates/source -->
        <file name="changelog" role="data" />
        <file name="compat" role="data" />
        <file name="control" role="data" />
        <file name="pearrc" role="data" />
        <file name="rules" role="data" />
-       <file name="watch" role="horde" />
+       <file name="watch" role="data" />
       </dir> <!-- /data/distribute/debian/templates -->
       <dir name="templates-php-horde">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde -->
       <dir name="templates-php-horde-content">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-content -->
       <dir name="templates-php-horde-groupware">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-groupware -->
       <dir name="templates-php-horde-imp">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-imp -->
       <dir name="templates-php-horde-ingo">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-ingo -->
       <dir name="templates-php-horde-jonah">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-jonah -->
       <dir name="templates-php-horde-kolab-webmail">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-kolab-webmail -->
       <dir name="templates-php-horde-kronolith">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-kronolith -->
       <dir name="templates-php-horde-mnemo">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-mnemo -->
       <dir name="templates-php-horde-nag">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-nag -->
       <dir name="templates-php-horde-passwd">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-passwd -->
       <dir name="templates-php-horde-turba">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-turba -->
       <dir name="templates-php-horde-ulaform">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-ulaform -->
       <dir name="templates-php-horde-webmail">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-webmail -->
       <dir name="templates-php-horde-wicked">
-       <file name="rules" role="horde" />
+       <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-wicked -->
       <file name="components.php" role="data" />
      </dir> <!-- /data/distribute/debian -->
@@ -106,9 +106,9 @@
      </dir> <!-- /data/distribute/openpkg -->
      <dir name="openSUSE">
       <dir name="templates">
-       <file name="package.spec" role="horde" />
+       <file name="package.spec" role="data" />
       </dir> <!-- /data/distribute/openSUSE/templates -->
-      <file name="components.php" role="horde" />
+      <file name="components.php" role="data" />
      </dir> <!-- /data/distribute/openSUSE -->
     </dir> <!-- /data/distribute -->
     <dir name="html">
@@ -122,15 +122,15 @@
    <dir name="lib">
     <dir name="Components">
      <dir name="Component">
-      <file name="Archive.php" role="horde" />
+      <file name="Archive.php" role="php" />
       <file name="Base.php" role="php" />
-      <file name="Dependency.php" role="horde" />
-      <file name="DependencyList.php" role="horde" />
+      <file name="Dependency.php" role="php" />
+      <file name="DependencyList.php" role="php" />
       <file name="Factory.php" role="php" />
       <file name="Identify.php" role="php" />
-      <file name="Match.php" role="horde" />
+      <file name="Match.php" role="php" />
       <file name="Remote.php" role="php" />
-      <file name="Resolver.php" role="horde" />
+      <file name="Resolver.php" role="php" />
       <file name="Source.php" role="php" />
      </dir> <!-- /lib/Components/Component -->
      <dir name="Config">
@@ -150,19 +150,19 @@
      <dir name="Helper">
       <dir name="Templates">
        <file name="Directory.php" role="php" />
-       <file name="RecursiveDirectory.php" role="horde" />
+       <file name="RecursiveDirectory.php" role="php" />
        <file name="Single.php" role="php" />
       </dir> <!-- /lib/Components/Helper/Templates -->
-      <file name="ChangeLog.php" role="horde" />
-      <file name="Commit.php" role="horde" />
-      <file name="Dependencies.php" role="horde" />
-      <file name="DocsOrigin.php" role="horde" />
-      <file name="Installer.php" role="horde" />
+      <file name="ChangeLog.php" role="php" />
+      <file name="Commit.php" role="php" />
+      <file name="Dependencies.php" role="php" />
+      <file name="DocsOrigin.php" role="php" />
+      <file name="Installer.php" role="php" />
       <file name="Root.php" role="php" />
       <file name="Template.php" role="php" />
       <file name="Templates.php" role="php" />
       <file name="Version.php" role="php" />
-      <file name="Website.php" role="horde" />
+      <file name="Website.php" role="php" />
      </dir> <!-- /lib/Components/Helper -->
      <dir name="Module">
       <file name="Base.php" role="php" />
@@ -170,13 +170,13 @@
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
-      <file name="Fetchdocs.php" role="horde" />
+      <file name="Fetchdocs.php" role="php" />
       <file name="Help.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="Release.php" role="php" />
       <file name="Snapshot.php" role="php" />
       <file name="Update.php" role="php" />
-      <file name="Webdocs.php" role="horde" />
+      <file name="Webdocs.php" role="php" />
      </dir> <!-- /lib/Components/Module -->
      <dir name="Pear">
       <file name="Factory.php" role="php" />
@@ -208,12 +208,12 @@
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
-      <file name="Fetchdocs.php" role="horde" />
+      <file name="Fetchdocs.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="Release.php" role="php" />
       <file name="Snapshot.php" role="php" />
       <file name="Update.php" role="php" />
-      <file name="Webdocs.php" role="horde" />
+      <file name="Webdocs.php" role="php" />
      </dir> <!-- /lib/Components/Runner -->
      <file name="Component.php" role="php" />
      <file name="Config.php" role="php" />
