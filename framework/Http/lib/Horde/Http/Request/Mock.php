@@ -29,14 +29,17 @@ class Horde_Http_Request_Mock extends Horde_Http_Request_Base
      * Send this HTTP request
      *
      * @return Horde_Http_Response_Mock|NULL A response object or NULL in case
-     *                                       no more responses are available.
+     *                                       no responses has been set.
      */
     public function send()
     {
         if (empty($this->_responses)) {
             return;
+        } elseif (count($this->_responses) > 1) {
+            return array_shift($this->_responses);
+        } else {
+            return $this->_responses[0];
         }
-        return array_shift($this->_responses);
     }
 
     /**
