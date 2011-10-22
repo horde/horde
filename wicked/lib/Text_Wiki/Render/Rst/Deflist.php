@@ -74,8 +74,14 @@ class Text_Wiki_Render_Rst_Deflist extends Text_Wiki_Render
         $result = '';
         foreach ($list as $term => $info) {
             $lead = Horde_String::pad($term . ': ', $term_length + 2);
-            $result .= ':' . Horde_String::wordwrap($lead . $info) . "\n";
+            $definition = Horde_String::wordwrap(
+                $lead . $info,
+                max(80, $term_length + 30),
+                "\n" . str_repeat(' ', $term_length + 3)
+            );
+            $result .= ':' . $definition . "\n";
         }
+        $result .= "\n";
         return $result;
     }
 }

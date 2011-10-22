@@ -161,6 +161,26 @@ class Components_Component_Remote extends Components_Component_Base
     }
 
     /**
+     * Return a data array with the most relevant information about this
+     * component.
+     *
+     * @return array Information about this component.
+     */
+    public function getData()
+    {
+        $data = new stdClass;
+        $release = $this->_remote->getLatestDetails($this->_name);
+        $data->name = $this->_name;
+        $data->summary = $release->getSummary();
+        $data->description = $release->getDescription();
+        $data->version = $release->getVersion();
+        $data->releaseDate = (string)$release->da;
+        $data->download = $release->getDownloadUri();
+        $data->hasCi = $this->_hasCi();
+        return $data;
+    }
+
+    /**
      * Place the component source archive at the specified location.
      *
      * @param string $destination The path to write the archive to.
@@ -170,7 +190,7 @@ class Components_Component_Remote extends Components_Component_Base
      *               archive, optionally [1] an array of error strings, and [2]
      *               PEAR output.
      */
-    public function placeArchive($destination, $options)
+    public function placeArchive($destination, $options = array())
     {
         $this->createDestination($destination);
         $this->_client->{'request.timeout'} = 60;
@@ -257,4 +277,22 @@ class Components_Component_Remote extends Components_Component_Base
         return $this->_package;
     }
 
+    /**
+     * Check if the library has a CI job.
+     *
+     * @return boolean True if a CI job is defined.
+     */
+    private function _hasCi()
+    {
+        if ($this->_channel != 'pear.horde.org') {
+            return false;
+        }
+        $client = new Horde_Http_Client(array('request.timeout' => 15));
+        try {
+            $response = $client->get('http://ci.horde.org/job/' . str_replace('Horde_', '', $this->_name . '/api/json'));
+        } catch (Horde_Http_Exception $e) {
+            return false;
+        }
+        return $response->code != 404;
+    }
 }

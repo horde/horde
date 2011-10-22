@@ -56,6 +56,13 @@ interface Components_Component
     public function getVersion();
 
     /**
+     * Return the last release date of the component.
+     *
+     * @return string The date.
+     */
+    public function getDate();
+
+    /**
      * Return the channel of the component.
      *
      * @return string The component channel.
@@ -128,6 +135,14 @@ interface Components_Component
      * @return Components_Component_DependencyList The dependency list.
      */
     public function getDependencyList();
+
+    /**
+     * Return a data array with the most relevant information about this
+     * component.
+     *
+     * @return array Information about this component.
+     */
+    public function getData();
 
     /**
      * Return the path to a DOCS_ORIGIN file within the component.
@@ -231,7 +246,7 @@ interface Components_Component
      *               archive, optionally [1] an array of error strings, and [2]
      *               PEAR output.
      */
-    public function placeArchive($destination, $options);
+    public function placeArchive($destination, $options = array());
 
     /**
      * Identify the repository root.

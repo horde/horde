@@ -95,8 +95,6 @@ function downloadSelected()
     }
 
 }
-
-
 </script>
 <?php endif; ?>
 <div id="galleryHeader" class="header">

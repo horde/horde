@@ -80,18 +80,18 @@ install any dependencies of Gollem too. If you want to install Gollem with all
 optional dependencies, but without the binary PECL packages that need to be
 compiled, specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/gollem
+   pear install -a -B horde/gollem-beta
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/gollem
+   pear install horde/gollem-beta
 
 If you want to install Gollem even with all binary dependencies, you need to
 remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/gollem
+   pear install -a horde/gollem-beta
 
 
 Installing from Release Tarballs
@@ -146,11 +146,6 @@ Configuring Gollem
    write the file.  In this case, go back to ``Configuration`` and choose one
    of the other methods to create the configuration file
    ``gollem/config/conf.php``.
-
-   To configure Gollem, change to the ``config/`` directory of the installed
-   distribution, and copy the ``backends.php.dist`` configuration file to
-   ``backends.php`` and edit it to your needs. You must be sure to configure an
-   appropriate backend in ``backends.php``.
 
    Documentation on the format and purpose of the other configuration files in
    the ``config/`` directory can be found in each file. You may create

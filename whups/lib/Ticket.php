@@ -369,6 +369,11 @@ class Whups_Ticket
                 $updates['queue'] = $value;
 
             default:
+                if (strpos($detail, 'attribute_') === 0 &&
+                    !is_string($value)) {
+                    $value = Horde_Serialize::Serialize($value,
+                                                        Horde_Serialize::JSON);
+                }
                 $updates[$detail] = $value;
             }
         }
@@ -593,7 +598,7 @@ class Whups_Ticket
      *
      * @return integer  The permission id.
      */
-    public function addCommentPerms($commentId, $group)
+    static public function addCommentPerms($commentId, $group)
     {
         if (!empty($group)) {
             $perm = $GLOBALS['injector']

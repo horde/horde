@@ -101,6 +101,15 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
             $GLOBALS['registry']->getAuth(),
             Horde_Perms::EDIT);
 
+        // URL for updating selected layer
+        $imple =  $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Imple')
+            ->create(array('ansel', 'MapLayerSelect'));
+        $layerImpleUrl = $imple->getUrl();
+
+        // And the current defaultLayer, if any.
+        $defaultLayer = $GLOBALS['prefs']->getValue('current_maplayer');
+
         // Add extra information to the JSON data to be sent:
         foreach ($geodata as $id => $data) {
             $geodata[$id]['icon'] = (string)Ansel::getImageUrl(
@@ -216,9 +225,11 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                 relocateText: '{$rtext}',
                 markerLayerTitle: '{$thisTitleText}',
                 imageLayerTitle: '{$otherTitleText}',
+                defaultBaseLayer: '{$defaultLayer}',
                 deleteGeotagText: '{$dtext}',
                 hasEdit: {$permsEdit},
                 updateEndpoint: '{$impleUrl}',
+                layerUpdateEndpoint: '{$layerImpleUrl}',
                 geocoder: "{$GLOBALS['conf']['maps']['geocoder']}"
             }
         );

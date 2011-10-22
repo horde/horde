@@ -167,7 +167,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
      *
      * @param Horde_Date $date  The date in local tz.
      */
-    public function setDateCompleted($date)
+    public function setDateCompleted(Horde_Date $date)
     {
         $this->_properties['datecompleted'] = $date;
     }
@@ -187,9 +187,9 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
      * we still pass a Horde_Date in the user's timezone since the dates are
      * transformed to UTC during encoding. Yay consistency...
      *
-     *
+     * @param Horde_Date $date  The date.
      */
-    public function setDueDate($date)
+    public function setDueDate(Horde_Date $date)
     {
         $this->_properties['utcduedate'] = $date;
     }
@@ -233,7 +233,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
      *
      * @param Horde_Date $datetime  The time to trigger the alarm in local tz.
      */
-    public function setReminder($datetime)
+    public function setReminder(Horde_Date $datetime)
     {
         $this->_properties['remindertime'] = $datetime;
         $this->_properties['reminderset'] = self::REMINDER_SET_TRUE;
@@ -258,7 +258,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
      *
      * @param Horde_Date $date  Date in local tz
      */
-    public function setStartDate($date)
+    public function setStartDate(Horde_Date $date)
     {
         $this->_properties['utcstartdate'] = $date;
     }

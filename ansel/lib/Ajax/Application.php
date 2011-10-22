@@ -30,7 +30,10 @@ class Ansel_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $id = $this->_vars->id;
         try {
-            return $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($id)->toJson(true);
+            return $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getGallery($id)
+                ->toJson(true);
         } catch (Exception $e) {
             Horde::logMessage($e, 'ERR');
             return false;

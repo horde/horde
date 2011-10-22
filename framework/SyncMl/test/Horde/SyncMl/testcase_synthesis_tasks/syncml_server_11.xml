@@ -1,6 +1,6 @@
 <?xml version="1.0"?><!DOCTYPE SyncML PUBLIC "-//SYNCML//DTD SyncML 1.1//EN" "http://www.syncml.org/docs/syncml_represent_v11_20020213.dtd"><SyncML xmlns="syncml:SYNCML1.1"><SyncHdr><VerDTD>1.1</VerDTD><VerProto>SyncML/1.1</VerProto><SessionID>10</SessionID><MsgID>2</MsgID><Target><LocURI>SERIALNUMBER</LocURI><LocName>syncmltest</LocName></Target><Source><LocURI>http://voltaire.local/horde/rpc.php</LocURI></Source><Meta><MaxMsgSize xmlns="syncml:metinf">1000000</MaxMsgSize><MaxObjSize xmlns="syncml:metinf">31000</MaxObjSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>2</MsgRef><CmdRef>0</CmdRef><Cmd>SyncHdr</Cmd><TargetRef>http://voltaire.local/horde/rpc.php</TargetRef><SourceRef>SERIALNUMBER</SourceRef><Data>200</Data></Status><Status><CmdID>2</CmdID><MsgRef>2</MsgRef><CmdRef>4</CmdRef><Cmd>Sync</Cmd><TargetRef>tasks</TargetRef><SourceRef>./tasks</SourceRef><Data>200</Data></Status><Status><CmdID>3</CmdID><MsgRef>2</MsgRef><CmdRef>5</CmdRef><Cmd>Replace</Cmd><SourceRef>1798145</SourceRef><Data>201</Data></Status><Sync><CmdID>4</CmdID><Target><LocURI>./tasks</LocURI></Target><Source><LocURI>tasks</LocURI></Source><NumberOfChanges>1</NumberOfChanges><Add><CmdID>5</CmdID><Meta><Type xmlns="syncml:metinf">text/x-vcalendar</Type></Meta><Item><Source><LocURI>20060722134917.76iotty9niww@voltaire.local</LocURI></Source><Data><![CDATA[BEGIN:VCALENDAR
 VERSION:1.0
-PRODID:-//Horde LLC//Nag H3 (2.2-cvs)//EN
+PRODID:-//The Horde Project//Nag H3 (2.2-cvs)//EN
 METHOD:PUBLISH
 BEGIN:VTODO
 ORGANIZER:syncmltest

@@ -164,7 +164,7 @@ var DimpBase = {
                 this.viewport.select(row, { delay: 0.3 });
             }
         } else if (curr) {
-            this.rownum = [ curr ];
+            this.rownum = curr;
             this.viewport.requestContentRefresh(curr - 1);
         }
     },
@@ -210,9 +210,9 @@ var DimpBase = {
 
         if (type == 'msg') {
             type = 'mbox';
-            msg = DimpCore.parseRangeString(data);
+            msg = DimpCore.parseUIDString(data);
             data = Object.keys(msg).first();
-            this.uid = msg[data];
+            this.uid = msg[data].first();
             // Fall through to the 'mbox' check below.
         }
 
@@ -300,19 +300,26 @@ var DimpBase = {
 
     setMsgHash: function()
     {
-        var vs = this.viewport.getSelection(),
+        var msg,
+            vs = this.viewport.getSelection(),
             view = vs.getBuffer().getView();
 
         if (vs.size()) {
-            this.setHash('msg', DimpCore.toRangeString(DimpCore.selectionToRange(vs)));
+            if (this.isSearch()) {
+                msg = {};
+                msg[this.view] = vs.get('uid');
+            } else {
+                msg = DimpCore.selectionToRange(vs);
+            }
+            this.setHash('msg', DimpCore.toUIDString(msg, { raw: this.isSearch() }));
         } else {
             this.setHash('mbox', view);
         }
     },
 
-    setTitle: function(title)
+    setTitle: function(title, unread)
     {
-        document.title = DIMP.conf.name + ' :: ' + title;
+        document.title = (unread ? '(' + unread + ') ' : '') + DIMP.conf.name + ' :: ' + title;
     },
 
     highlightSidebar: function(id)
@@ -378,7 +385,7 @@ var DimpBase = {
 
     loadMailbox: function(f, opts)
     {
-        var need_delete;
+        var is_search, need_delete;
         opts = opts || {};
 
         if (!this.viewport) {
@@ -404,7 +411,7 @@ var DimpBase = {
             }
         }
 
-        this.viewport.loadView(f, { search: (this.uid ? { uid: this.uid.first() } : null), background: opts.background});
+        this.viewport.loadView(f, { search: (this.uid ? { uid: this.uid } : null), background: opts.background});
 
         if (need_delete) {
             this.viewport.deleteView(need_delete);
@@ -558,7 +565,7 @@ var DimpBase = {
                 }
 
                 if (tmp) {
-                    params.set('cache', DimpCore.toRangeString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
+                    params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
                 }
                 params.set('view', view);
 
@@ -569,15 +576,13 @@ var DimpBase = {
             },
             onContentOffset: function(offset) {
                 if (this.uid) {
-                    var row = this.viewport.createSelectionBuffer().search({ uid: { equal: this.uid }, mbox: { equal: [ this.view ] } });
-                    if (row.size()) {
-                        this.rownum = row.get('rownum');
-                    }
-                    this.uid = null;
+                    // UID here is the ViewPort UID, not the message UID
+                    this.rownum = this.viewport.createSelectionBuffer().search({ VP_id: { equal: [ this.uid ] } }).get('rownum').first();
+                    delete this.uid;
                 }
 
                 if (this.rownum) {
-                    this.viewport.scrollTo(this.rownum.first(), { noupdate: true, top: true });
+                    this.viewport.scrollTo(this.rownum, { noupdate: true, top: true });
                     offset = this.viewport.currentOffset();
                 }
 
@@ -634,8 +639,8 @@ var DimpBase = {
             }
 
             if (this.rownum) {
-                this.viewport.select(this.rownum);
-                this.rownum = null;
+                this.viewport.select([ this.rownum ]);
+                delete this.rownum;
             }
 
             this.updateTitle(true);
@@ -742,12 +747,17 @@ var DimpBase = {
         container.observe('ViewPort:fetch', this.loadingImg.bind(this, 'viewport', true));
 
         container.observe('ViewPort:remove', function(e) {
-            if (this.view == e.memo.getBuffer().getView()) {
+            var v = e.memo.getBuffer().getView();
+
+            if (this.view == v) {
                 this.loadingImg('viewport', false);
             }
 
             e.memo.get('dataob').each(function(d) {
                 this._expirePPCache([ this._getPPId(d.uid, d.mbox) ]);
+                if (this.isSearch(v)) {
+                    this.viewport.remove(this.viewport.createSelectionBuffer(d.mbox).search({ uid: { equal: [ d.uid ] }, mbox: { equal: [ d.mbox ] } }));
+                }
             }, this);
         }.bindAsEventListener(this));
 
@@ -1314,7 +1324,7 @@ var DimpBase = {
 
     updateTitle: function(foldername)
     {
-        var elt, flabel, unseen,
+        var elt, unseen,
             label = this.viewport.getMetaData('label');
 
         // 'label' will not be set if there has been an error
@@ -1329,16 +1339,12 @@ var DimpBase = {
             }
         } else if (elt = $(this.getMboxId(this.view))) {
             unseen = elt.retrieve('u');
-            if (unseen > 0) {
-                flabel = label;
-                label += ' (' + unseen + ')';
-            }
         }
 
         // Label is HTML encoded - but this is not HTML code so unescape.
-        this.setTitle(label.unescapeHTML());
+        this.setTitle(label.unescapeHTML(), unseen);
         if (foldername) {
-            $('folderName').update(flabel ? flabel : label);
+            $('folderName').update(label);
         }
     },
 
@@ -1479,8 +1485,7 @@ var DimpBase = {
             t = $('msgHeadersContent').down('THEAD');
 
         bg = (this.pp &&
-              (this.view != r.view ||
-               this.pp.uid != r.uid ||
+              (this.pp.uid != r.uid ||
                this.pp.mbox != r.mbox));
 
         if (r.error || this.viewport.getSelected().size() != 1) {
@@ -1574,7 +1579,7 @@ var DimpBase = {
         // cause the preview pane to be cleared.
         if (DimpCore.inAjaxCallback) {
             this.preview_replace = true;
-            this.uid = [ r.response.newuid ];
+            this.uid = r.response.newuid;
             this._stripAttachmentCallback.bind(this, r).defer();
             return;
         }
@@ -1660,7 +1665,7 @@ var DimpBase = {
         }
         $('previewInfo').update(txt + ' ' + DIMP.text.selected + '.').show();
 
-        this.pp = null;
+        delete this.pp;
     },
 
     _toggleHeaders: function(elt, update)
@@ -1853,9 +1858,9 @@ var DimpBase = {
     },
 
     /* Search functions. */
-    isSearch: function()
+    isSearch: function(id)
     {
-        return this.viewport.getMetaData('search');
+        return this.viewport.getMetaData('search', id);
     },
 
     isFSearch: function(id)
@@ -1876,7 +1881,9 @@ var DimpBase = {
             /* Search text has changed. */
             if (this.search.query != q) {
                 this.viewswitch = true;
+                this.search.query = q;
             }
+            this.resetSelected();
             this.viewport.reload();
         } else {
             this.search = {
@@ -1900,13 +1907,11 @@ var DimpBase = {
         }
 
         if (this.isSearch()) {
-            this.resetSelected();
             $(qs, 'qsearch_icon', 'qsearch_input').invoke('show');
             if (!noload) {
                 this.go('mbox', (this.search ? this.search.mbox : this.INBOX));
             }
-            this.viewport.deleteView(f);
-            this.search = null;
+            delete this.search;
 
             $('qsearch_input').clear();
             if (this.qsearch_ghost) {
@@ -2474,7 +2479,7 @@ var DimpBase = {
                 tmp = {};
                 tmp[this.pp.mbox] = [ this.pp.uid ];
                 DimpCore.doAction('sendMDN', {
-                    uid: DimpCore.toRangeString(tmp)
+                    uid: DimpCore.toUIDString(tmp)
                 }, {
                     callback: this._sendMdnCallback.bind(this)
                 });
@@ -2657,13 +2662,11 @@ var DimpBase = {
             return;
         }
 
-        var sb = this.viewport.createSelectionBuffer();
-
         r.flag.each(function(entry) {
-            $H(DimpCore.parseRangeString(entry.uids)).each(function(m) {
-                var s = sb.search({
+            $H(DimpCore.parseUIDString(entry.uids)).each(function(m) {
+                var s = this.viewport.createSelectionBuffer(m.key).search({
                     uid: { equal: m.value },
-                    mbox: { equal: m.key }
+                    mbox: { equal: [ m.key ] }
                 });
 
                 if (entry.add) {
@@ -2692,7 +2695,7 @@ var DimpBase = {
         this.expandmbox = false;
 
         if (base) {
-            this._toggleSubFolder(base, 'tog');
+            this._toggleSubFolder(base, 'tog', false, true);
         }
 
         if (this.view) {
@@ -2924,16 +2927,17 @@ var DimpBase = {
             /* Virtual folders are sorted on the server. */
             if (!ob.v) {
                 if (ob.s) {
-                    f_node = (mbox == this.INBOX)
-                        ? parent_e.down()
-                        : null;
+                    tmp2 = (mbox == this.INBOX)
+                        ? []
+                        : parent_e.down().siblings();
                 } else {
-                    ll = label.toLowerCase();
-                    f_node = parent_e.childElements().find(function(node) {
-                        var l = node.retrieve('l');
-                        return (l && (ll < l.toLowerCase()));
-                    });
+                    tmp2 = parent_e.childElements();
                 }
+                ll = label.toLowerCase();
+                f_node = tmp2.find(function(node) {
+                    var l = node.retrieve('l');
+                    return (l && (ll < l.toLowerCase()));
+                });
             }
 
             if (f_node) {
@@ -3051,7 +3055,7 @@ var DimpBase = {
         [ DragDrop.Drags.getDrag(fid), DragDrop.Drops.getDrop(fid) ].compact().invoke('destroy');
         this._removeMouseEvents(f);
         if (this.viewport) {
-            this.viewport.deleteView(fid);
+            this.viewport.deleteView(f.retrieve('mbox'));
         }
         f.remove();
     },
@@ -3215,7 +3219,7 @@ var DimpBase = {
         /* If this is a search mailbox, also need to update flag in base view,
          * if it is in the buffer. */
         $H(s).each(function(m) {
-            var tmp = this.viewport.createSelectionBuffer(m.key).search({ uid: { equal: m.value }, mbox: { equal: m.key } });
+            var tmp = this.viewport.createSelectionBuffer(m.key).search({ uid: { equal: m.value }, mbox: { equal: [ m.key ] } });
             if (tmp.size()) {
                 this._updateFlag(tmp.get('dataob').first(), flag, add);
             }
@@ -3224,15 +3228,21 @@ var DimpBase = {
 
     _updateFlag: function(ob, flag, add)
     {
-        ob.flag = ob.flag
-            ? ob.flag.without(flag)
-            : [];
+        var hasflag;
 
-        if (add) {
-            ob.flag.push(flag);
+        if (!ob.flag) {
+            ob.flag = [];
+        } else {
+            hasflag = ob.flag.include(flag);
         }
 
-        this.viewport.updateRow(ob);
+        if (add && !hasflag) {
+            ob.flag.push(flag);
+            this.viewport.updateRow(ob);
+        } else if (!add && hasflag) {
+            ob.flag = ob.flag.without(flag);
+            this.viewport.updateRow(ob);
+        }
     },
 
     isDraft: function(vs)
@@ -3364,7 +3374,7 @@ var DimpBase = {
         DIMP.text.showalog = $('alertsloglink').down('A').innerHTML;
 
         /* Initialize the starting page. */
-        tmp = location.hash;
+        tmp = decodeURIComponent(location.hash);
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? "" : tmp.substring(1);
         }

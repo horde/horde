@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-22</date>
- <time>06:39:28</time>
+ <date>2011-09-30</date>
+ <time>08:51:29</time>
  <version>
   <release>3.0.10</release>
   <api>3.0.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Fix LDAP connection test (Bug #10554).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
  </notes>
  <contents>
@@ -528,9 +529,13 @@
        <file name="browse.png" role="horde" />
        <file name="new.png" role="horde" />
       </dir> <!-- /themes/default/graphics/menu -->
+      <dir name="mime">
+       <file name="vcard.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/mime -->
       <file name="az.png" role="horde" />
       <file name="az_secondary.png" role="horde" />
       <file name="contact.png" role="horde" />
+      <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="group.png" role="horde" />
       <file name="new.png" role="horde" />
@@ -552,12 +557,17 @@
        <file name="browse.png" role="horde" />
        <file name="new.png" role="horde" />
       </dir> <!-- /themes/silver/graphics/menu -->
+      <dir name="mime">
+       <file name="vcard.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/mime -->
       <file name="az.png" role="horde" />
       <file name="az_secondary.png" role="horde" />
       <file name="contact.png" role="horde" />
+      <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="group.png" role="horde" />
       <file name="new.png" role="horde" />
+      <file name="search.png" role="horde" />
       <file name="turba.png" role="horde" />
       <file name="za.png" role="horde" />
       <file name="za_secondary.png" role="horde" />
@@ -1052,6 +1062,7 @@
    <install as="turba/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="turba/themes/default/graphics/az_secondary.png" name="themes/default/graphics/az_secondary.png" />
    <install as="turba/themes/default/graphics/contact.png" name="themes/default/graphics/contact.png" />
+   <install as="turba/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="turba/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="turba/themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
    <install as="turba/themes/default/graphics/new.png" name="themes/default/graphics/new.png" />
@@ -1061,19 +1072,23 @@
    <install as="turba/themes/default/graphics/za_secondary.png" name="themes/default/graphics/za_secondary.png" />
    <install as="turba/themes/default/graphics/menu/browse.png" name="themes/default/graphics/menu/browse.png" />
    <install as="turba/themes/default/graphics/menu/new.png" name="themes/default/graphics/menu/new.png" />
+   <install as="turba/themes/default/graphics/mime/vcard.png" name="themes/default/graphics/mime/vcard.png" />
    <install as="turba/themes/ideas/screen.css" name="themes/ideas/screen.css" />
    <install as="turba/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="turba/themes/silver/graphics/az.png" name="themes/silver/graphics/az.png" />
    <install as="turba/themes/silver/graphics/az_secondary.png" name="themes/silver/graphics/az_secondary.png" />
    <install as="turba/themes/silver/graphics/contact.png" name="themes/silver/graphics/contact.png" />
+   <install as="turba/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
    <install as="turba/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
    <install as="turba/themes/silver/graphics/group.png" name="themes/silver/graphics/group.png" />
    <install as="turba/themes/silver/graphics/new.png" name="themes/silver/graphics/new.png" />
+   <install as="turba/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
    <install as="turba/themes/silver/graphics/turba.png" name="themes/silver/graphics/turba.png" />
    <install as="turba/themes/silver/graphics/za.png" name="themes/silver/graphics/za.png" />
    <install as="turba/themes/silver/graphics/za_secondary.png" name="themes/silver/graphics/za_secondary.png" />
    <install as="turba/themes/silver/graphics/menu/browse.png" name="themes/silver/graphics/menu/browse.png" />
    <install as="turba/themes/silver/graphics/menu/new.png" name="themes/silver/graphics/menu/new.png" />
+   <install as="turba/themes/silver/graphics/mime/vcard.png" name="themes/silver/graphics/mime/vcard.png" />
    <install as="turba/themes/tango-blue/graphics/az_secondary.png" name="themes/tango-blue/graphics/az_secondary.png" />
    <install as="turba/themes/tango-blue/graphics/contact.png" name="themes/tango-blue/graphics/contact.png" />
    <install as="turba/themes/tango-blue/graphics/favicon.ico" name="themes/tango-blue/graphics/favicon.ico" />
@@ -1329,9 +1344,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-21</date>
+   <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Fix LDAP connection test (Bug #10554).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
    </notes>
   </release>

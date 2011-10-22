@@ -92,6 +92,11 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
                 curl_setopt($curl, CURLOPT_PROXYUSERPWD, $this->proxyUsername . ':' . $this->proxyPassword);
                 curl_setopt($curl, CURLOPT_PROXYAUTH, $this->_httpAuthScheme($this->proxyAuthenticationScheme));
             }
+            if ($this->proxyType == Horde_Http::PROXY_SOCKS5) {
+                curl_setopt($curl, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            } else if ($this->proxyType != Horde_Http::PROXY_HTTP) {
+                throw new Horde_Http_Exception(sprintf('Proxy type %s not supported by this request type!', $this->proxyType));
+            }
         }
 
         // Authentication settings

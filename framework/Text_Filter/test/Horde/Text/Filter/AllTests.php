@@ -6,7 +6,7 @@
  *
  * @category Horde
  * @package  Text_Filter
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Text_Filter
  */

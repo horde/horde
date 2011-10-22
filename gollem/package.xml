@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>gollem</name>
+ <channel>pear.horde.org</channel>
+ <summary>Web-based file manager</summary>
+ <description>Gollem is a web-based file manager, providing the ability to fully manage a hierarchical file system stored in a variety of backends such as a SQL database, as part of a real filesystem, or on FTP, Samba or SSH servers.</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-10-18</date>
+ <time>15:09:53</time>
+ <version>
+  <release>2.0.0</release>
+  <api>2.0.0RC2</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+ <notes>
+* 
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="config">
+    <file name="backends.php" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="menu.php.dist" role="horde" />
+    <file name="prefs.php" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="UPGRADING" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="js">
+    <file name="clipboard.js" role="horde" />
+    <file name="edit.js" role="horde" />
+    <file name="manager.js" role="horde" />
+    <file name="selectlist.js" role="horde" />
+   </dir> <!-- /js -->
+   <dir name="lib">
+    <dir name="Ajax">
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
+    <dir name="Factory">
+     <file name="Vfs.php" role="horde" />
+     <file name="VfsDefault.php" role="horde" />
+    </dir> <!-- /lib/Factory -->
+    <dir name="LoginTasks">
+     <dir name="SystemTask">
+      <file name="Upgrade.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/SystemTask -->
+    </dir> <!-- /lib/LoginTasks -->
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="Auth.php" role="horde" />
+    <file name="Exception.php" role="horde" />
+    <file name="Gollem.php" role="horde" />
+    <file name="Test.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/de -->
+    <dir name="en">
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/eu -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/hu -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="gollem.mo" role="horde" />
+      <file name="gollem.po" role="horde" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/zh_TW -->
+    <file name=".htaccess" role="horde" />
+    <file name="gollem.pot" role="horde" />
+   </dir> <!-- /locale -->
+   <dir name="templates">
+    <dir name="clipboard">
+     <file name="clipboard.html" role="horde" />
+    </dir> <!-- /templates/clipboard -->
+    <dir name="edit">
+     <file name="edit.inc" role="horde" />
+    </dir> <!-- /templates/edit -->
+    <dir name="login">
+     <file name="login.html" role="horde" />
+    </dir> <!-- /templates/login -->
+    <dir name="manager">
+     <file name="manager.html" role="horde" />
+    </dir> <!-- /templates/manager -->
+    <dir name="quota">
+     <file name="quota.html" role="horde" />
+    </dir> <!-- /templates/quota -->
+    <dir name="selectlist">
+     <file name="selectlist.html" role="horde" />
+    </dir> <!-- /templates/selectlist -->
+    <file name="javascript_defs.php" role="horde" />
+    <file name="menu.html" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="brown">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/brown -->
+    <dir name="default">
+     <dir name="graphics">
+      <file name="az.png" role="horde" />
+      <file name="clipboard.png" role="horde" />
+      <file name="copy.png" role="horde" />
+      <file name="cut.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="edit.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="folder.png" role="horde" />
+      <file name="folder_create.png" role="horde" />
+      <file name="folder_goto.png" role="horde" />
+      <file name="folder_home.png" role="horde" />
+      <file name="folder_symlink.png" role="horde" />
+      <file name="gollem.png" role="horde" />
+      <file name="reload.png" role="horde" />
+      <file name="za.png" role="horde" />
+     </dir> <!-- /themes/default/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/default -->
+    <dir name="purple">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/purple -->
+    <dir name="silver">
+     <dir name="graphics">
+      <file name="clipboard.png" role="horde" />
+      <file name="copy.png" role="horde" />
+      <file name="cut.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="edit.png" role="horde" />
+      <file name="folder.png" role="horde" />
+      <file name="folder_create.png" role="horde" />
+      <file name="folder_goto.png" role="horde" />
+      <file name="folder_home.png" role="horde" />
+      <file name="folder_symlink.png" role="horde" />
+      <file name="gollem.png" role="horde" />
+      <file name="reload.png" role="horde" />
+     </dir> <!-- /themes/silver/graphics -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/silver -->
+   </dir> <!-- /themes -->
+   <file name="clipboard.php" role="horde" />
+   <file name="COPYING" role="doc" />
+   <file name="edit.php" role="horde" />
+   <file name="index.php" role="horde" />
+   <file name="manager.php" role="horde" />
+   <file name="permissions.php" role="horde" />
+   <file name="quota.php" role="horde" />
+   <file name="README" role="doc" />
+   <file name="selectlist.php" role="horde" />
+   <file name="view.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Auth</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.4</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Browser</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Cache</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Db</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Editor</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime_Viewer</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Notification</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Perms</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Secret</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Serialize</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Url</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Vfs</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
+   <extension>
+    <name>json</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="gollem/clipboard.php" name="clipboard.php" />
+   <install as="COPYING" name="COPYING" />
+   <install as="gollem/edit.php" name="edit.php" />
+   <install as="gollem/index.php" name="index.php" />
+   <install as="gollem/manager.php" name="manager.php" />
+   <install as="gollem/permissions.php" name="permissions.php" />
+   <install as="gollem/quota.php" name="quota.php" />
+   <install as="README" name="README" />
+   <install as="gollem/selectlist.php" name="selectlist.php" />
+   <install as="gollem/view.php" name="view.php" />
+   <install as="gollem/config/backends.php" name="config/backends.php" />
+   <install as="gollem/config/conf.xml" name="config/conf.xml" />
+   <install as="gollem/config/menu.php.dist" name="config/menu.php.dist" />
+   <install as="gollem/config/prefs.php" name="config/prefs.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
+   <install as="gollem/js/clipboard.js" name="js/clipboard.js" />
+   <install as="gollem/js/edit.js" name="js/edit.js" />
+   <install as="gollem/js/manager.js" name="js/manager.js" />
+   <install as="gollem/js/selectlist.js" name="js/selectlist.js" />
+   <install as="gollem/lib/Api.php" name="lib/Api.php" />
+   <install as="gollem/lib/Application.php" name="lib/Application.php" />
+   <install as="gollem/lib/Auth.php" name="lib/Auth.php" />
+   <install as="gollem/lib/Exception.php" name="lib/Exception.php" />
+   <install as="gollem/lib/Gollem.php" name="lib/Gollem.php" />
+   <install as="gollem/lib/Test.php" name="lib/Test.php" />
+   <install as="gollem/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="gollem/lib/Factory/Vfs.php" name="lib/Factory/Vfs.php" />
+   <install as="gollem/lib/Factory/VfsDefault.php" name="lib/Factory/VfsDefault.php" />
+   <install as="gollem/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="gollem/locale/.htaccess" name="locale/.htaccess" />
+   <install as="gollem/locale/gollem.pot" name="locale/gollem.pot" />
+   <install as="gollem/locale/bg/LC_MESSAGES/gollem.mo" name="locale/bg/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/bg/LC_MESSAGES/gollem.po" name="locale/bg/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/ca/help.xml" name="locale/ca/help.xml" />
+   <install as="gollem/locale/ca/LC_MESSAGES/gollem.mo" name="locale/ca/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/ca/LC_MESSAGES/gollem.po" name="locale/ca/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/cs/LC_MESSAGES/gollem.mo" name="locale/cs/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/cs/LC_MESSAGES/gollem.po" name="locale/cs/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/da/LC_MESSAGES/gollem.mo" name="locale/da/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/da/LC_MESSAGES/gollem.po" name="locale/da/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/de/help.xml" name="locale/de/help.xml" />
+   <install as="gollem/locale/de/LC_MESSAGES/gollem.mo" name="locale/de/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/de/LC_MESSAGES/gollem.po" name="locale/de/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="gollem/locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="gollem/locale/es/LC_MESSAGES/gollem.mo" name="locale/es/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/es/LC_MESSAGES/gollem.po" name="locale/es/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/et/LC_MESSAGES/gollem.mo" name="locale/et/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/et/LC_MESSAGES/gollem.po" name="locale/et/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/eu/help.xml" name="locale/eu/help.xml" />
+   <install as="gollem/locale/eu/LC_MESSAGES/gollem.mo" name="locale/eu/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/eu/LC_MESSAGES/gollem.po" name="locale/eu/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="gollem/locale/fi/LC_MESSAGES/gollem.mo" name="locale/fi/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/fi/LC_MESSAGES/gollem.po" name="locale/fi/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/fr/LC_MESSAGES/gollem.mo" name="locale/fr/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/fr/LC_MESSAGES/gollem.po" name="locale/fr/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/hr/help.xml" name="locale/hr/help.xml" />
+   <install as="gollem/locale/hr/LC_MESSAGES/gollem.mo" name="locale/hr/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/hr/LC_MESSAGES/gollem.po" name="locale/hr/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/hu/help.xml" name="locale/hu/help.xml" />
+   <install as="gollem/locale/hu/LC_MESSAGES/gollem.mo" name="locale/hu/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/hu/LC_MESSAGES/gollem.po" name="locale/hu/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/it/LC_MESSAGES/gollem.mo" name="locale/it/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/it/LC_MESSAGES/gollem.po" name="locale/it/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/ja/LC_MESSAGES/gollem.mo" name="locale/ja/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/ja/LC_MESSAGES/gollem.po" name="locale/ja/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/ko/LC_MESSAGES/gollem.mo" name="locale/ko/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/ko/LC_MESSAGES/gollem.po" name="locale/ko/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="gollem/locale/lv/LC_MESSAGES/gollem.mo" name="locale/lv/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/lv/LC_MESSAGES/gollem.po" name="locale/lv/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/nl/LC_MESSAGES/gollem.mo" name="locale/nl/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/nl/LC_MESSAGES/gollem.po" name="locale/nl/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/nn/LC_MESSAGES/gollem.mo" name="locale/nn/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/nn/LC_MESSAGES/gollem.po" name="locale/nn/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/pl/LC_MESSAGES/gollem.mo" name="locale/pl/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/pl/LC_MESSAGES/gollem.po" name="locale/pl/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/pt_BR/LC_MESSAGES/gollem.mo" name="locale/pt_BR/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/pt_BR/LC_MESSAGES/gollem.po" name="locale/pt_BR/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/ro/LC_MESSAGES/gollem.mo" name="locale/ro/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/ro/LC_MESSAGES/gollem.po" name="locale/ro/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/ru/LC_MESSAGES/gollem.mo" name="locale/ru/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/ru/LC_MESSAGES/gollem.po" name="locale/ru/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/sk/LC_MESSAGES/gollem.mo" name="locale/sk/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/sk/LC_MESSAGES/gollem.po" name="locale/sk/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/sl/LC_MESSAGES/gollem.mo" name="locale/sl/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/sl/LC_MESSAGES/gollem.po" name="locale/sl/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/sv/LC_MESSAGES/gollem.mo" name="locale/sv/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/sv/LC_MESSAGES/gollem.po" name="locale/sv/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/tr/LC_MESSAGES/gollem.mo" name="locale/tr/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/tr/LC_MESSAGES/gollem.po" name="locale/tr/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/uk/LC_MESSAGES/gollem.mo" name="locale/uk/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/uk/LC_MESSAGES/gollem.po" name="locale/uk/LC_MESSAGES/gollem.po" />
+   <install as="gollem/locale/zh_TW/help.xml" name="locale/zh_TW/help.xml" />
+   <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.mo" name="locale/zh_TW/LC_MESSAGES/gollem.mo" />
+   <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.po" name="locale/zh_TW/LC_MESSAGES/gollem.po" />
+   <install as="gollem/templates/javascript_defs.php" name="templates/javascript_defs.php" />
+   <install as="gollem/templates/menu.html" name="templates/menu.html" />
+   <install as="gollem/templates/clipboard/clipboard.html" name="templates/clipboard/clipboard.html" />
+   <install as="gollem/templates/edit/edit.inc" name="templates/edit/edit.inc" />
+   <install as="gollem/templates/login/login.html" name="templates/login/login.html" />
+   <install as="gollem/templates/manager/manager.html" name="templates/manager/manager.html" />
+   <install as="gollem/templates/quota/quota.html" name="templates/quota/quota.html" />
+   <install as="gollem/templates/selectlist/selectlist.html" name="templates/selectlist/selectlist.html" />
+   <install as="gollem/themes/brown/screen.css" name="themes/brown/screen.css" />
+   <install as="gollem/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="gollem/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
+   <install as="gollem/themes/default/graphics/clipboard.png" name="themes/default/graphics/clipboard.png" />
+   <install as="gollem/themes/default/graphics/copy.png" name="themes/default/graphics/copy.png" />
+   <install as="gollem/themes/default/graphics/cut.png" name="themes/default/graphics/cut.png" />
+   <install as="gollem/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
+   <install as="gollem/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
+   <install as="gollem/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="gollem/themes/default/graphics/folder.png" name="themes/default/graphics/folder.png" />
+   <install as="gollem/themes/default/graphics/folder_create.png" name="themes/default/graphics/folder_create.png" />
+   <install as="gollem/themes/default/graphics/folder_goto.png" name="themes/default/graphics/folder_goto.png" />
+   <install as="gollem/themes/default/graphics/folder_home.png" name="themes/default/graphics/folder_home.png" />
+   <install as="gollem/themes/default/graphics/folder_symlink.png" name="themes/default/graphics/folder_symlink.png" />
+   <install as="gollem/themes/default/graphics/gollem.png" name="themes/default/graphics/gollem.png" />
+   <install as="gollem/themes/default/graphics/reload.png" name="themes/default/graphics/reload.png" />
+   <install as="gollem/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
+   <install as="gollem/themes/purple/screen.css" name="themes/purple/screen.css" />
+   <install as="gollem/themes/silver/screen.css" name="themes/silver/screen.css" />
+   <install as="gollem/themes/silver/graphics/clipboard.png" name="themes/silver/graphics/clipboard.png" />
+   <install as="gollem/themes/silver/graphics/copy.png" name="themes/silver/graphics/copy.png" />
+   <install as="gollem/themes/silver/graphics/cut.png" name="themes/silver/graphics/cut.png" />
+   <install as="gollem/themes/silver/graphics/download.png" name="themes/silver/graphics/download.png" />
+   <install as="gollem/themes/silver/graphics/edit.png" name="themes/silver/graphics/edit.png" />
+   <install as="gollem/themes/silver/graphics/folder.png" name="themes/silver/graphics/folder.png" />
+   <install as="gollem/themes/silver/graphics/folder_create.png" name="themes/silver/graphics/folder_create.png" />
+   <install as="gollem/themes/silver/graphics/folder_goto.png" name="themes/silver/graphics/folder_goto.png" />
+   <install as="gollem/themes/silver/graphics/folder_home.png" name="themes/silver/graphics/folder_home.png" />
+   <install as="gollem/themes/silver/graphics/folder_symlink.png" name="themes/silver/graphics/folder_symlink.png" />
+   <install as="gollem/themes/silver/graphics/gollem.png" name="themes/silver/graphics/gollem.png" />
+   <install as="gollem/themes/silver/graphics/reload.png" name="themes/silver/graphics/reload.png" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>2.0.0alpha1</release>
+    <api>2.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-09-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* First alpha release for Horde 4.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0alpha2</release>
+    <api>2.0.0alpha2</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2011-09-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix file viewing.
+* [jan] Add missing backends configuration.
+* [jan] Add missing sort icons.
+* [jan] Fix broken dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0RC1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix usage of createhome parameter (Bug #10592).
+* [mms] Fix display of &apos;columnselect&apos; preference (Bug #10628).
+* [jan] Don&apos;t require login for login-less VFS backends.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0RC2</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix corruption of downloaded files (Bug #8481).
+* [jan] Catch if VFS backend doesn&apos;t support size() (Bug #10637).
+* [mms] Fix editing text files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0RC2</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
+   </notes>
+  </release>
+ </changelog>
+</package>

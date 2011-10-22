@@ -950,10 +950,10 @@ KronolithCore = {
 
         // FIXME: spacing is hardcoded for IE 7 because it doesn't know about
         // border-spacing, but still uses it. WTF?
-        spacing = (spacing ? parseInt($w(spacing)[1], 10) : 2) || 2;
+        spacing = spacing ? parseInt($w(spacing)[1], 10) : 2;
         this[storage] = {};
         this[storage].height = layout.get('margin-box-height') + spacing;
-        this[storage].spacing = this[storage].height - layout.get('padding-box-height');
+        this[storage].spacing = this[storage].height - layout.get('padding-box-height') - layout.get('border-bottom');
     },
 
     /**
@@ -1794,7 +1794,7 @@ KronolithCore = {
         case 'week':
             var storage = view + 'Sizes',
                 div = _createElement(event),
-                margin = view == 'day' ? 5 : 10,
+                margin = view == 'day' ? 1 : 3,
                 style = { backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
                           color: Kronolith.conf.calendars[calendar[0]][calendar[1]].fg };
 

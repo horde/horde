@@ -221,7 +221,7 @@ try {
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
     $flags_ret = $imp_imap->fetch($mailbox, $query, array(
-        'ids' => new Horde_Imap_Client_Ids($uid)
+        'ids' => $imp_imap->getIdsOb($uid)
     ));
 
     $query = new Horde_Imap_Client_Fetch_Query();
@@ -230,7 +230,7 @@ try {
         'peek' => $peek
     ));
     $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
-        'ids' => new Horde_Imap_Client_Ids($uid)
+        'ids' => $imp_imap->getIdsOb($uid)
     ));
 } catch (IMP_Imap_Exception $e) {
     _returnToMailbox(null, 'message_missing');
@@ -484,19 +484,18 @@ if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
 
 $n_template->set('back_to', Horde::widget($mailbox_url, sprintf(_("Back to %s"), $h_page_label), 'widget', '', '', sprintf(_("Bac_k to %s"), $h_page_label), true));
 
-$rtl = $registry->nlsconfig->curr_rtl;
 if (Horde_Util::nonInputVar('prev_url')) {
     $n_template->set('prev', Horde::link($prev_url, _("Previous Message")));
-    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right.png' : 'nav/left.png', $rtl ? '>' : '<'));
+    $n_template->set('prev_img', 'navleftImg');
 } else {
-    $n_template->set('prev_img', Horde::img($rtl ? 'nav/right-grey.png' : 'nav/left-grey.png'));
+    $n_template->set('prev_img', 'navleftgreyImg');
 }
 
 if (Horde_Util::nonInputVar('next_url')) {
     $n_template->set('next', Horde::link($next_url, _("Next Message")));
-    $n_template->set('next_img', Horde::img($rtl ? 'nav/left.png' : 'nav/right.png', $rtl ? '<' : '>'));
+    $n_template->set('next_img', 'navrightImg');
 } else {
-    $n_template->set('next_img', Horde::img($rtl ? 'nav/left-grey.png' : 'nav/right-grey.png'));
+    $n_template->set('next_img', 'navrightgreyImg');
 }
 
 /* Prepare the navbar actions template. */

@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-09-27</date>
- <time>12:45:55</time>
+ <date>2011-10-11</date>
+ <time>13:47:19</time>
  <version>
-  <release>1.5.1</release>
-  <api>1.5.0</api>
+  <release>1.6.1</release>
+  <api>1.6.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,8 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Allow in-page base64 image encoding to be disabled via Horde configuration.
-* [jan] Allow both application and interface names in &lt;configspecial&gt;.
+* [jan] Correctly render keyval_multienum form field contents.
+* [jan] Don&apos;t use Xcache in CLI scripts (Bug #10288).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -184,6 +184,7 @@
        <file name="Token.php" role="php" />
        <file name="Tree.php" role="php" />
        <file name="Twitter.php" role="php" />
+       <file name="UrlShortener.php" role="php" />
        <file name="Vfs.php" role="php" />
        <file name="View.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
@@ -1144,6 +1145,7 @@
    <install as="Horde/Core/Factory/Token.php" name="lib/Horde/Core/Factory/Token.php" />
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
    <install as="Horde/Core/Factory/Twitter.php" name="lib/Horde/Core/Factory/Twitter.php" />
+   <install as="Horde/Core/Factory/UrlShortener.php" name="lib/Horde/Core/Factory/UrlShortener.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
@@ -1582,16 +1584,33 @@
   </release>
   <release>
    <version>
-    <release>1.5.1</release>
-    <api>1.5.0</api></version>
+    <release>1.6.0</release>
+    <api>1.6.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-27</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix PostgreSQL DSN when using SQL authentication (Bug #10538).
+* [mjr] Add factory for Horde_Service_UrlShortener.
+* [mms] Fix minChars behavior in autocomplete javascript code.
 * [mms] Allow in-page base64 image encoding to be disabled via Horde configuration.
 * [jan] Allow both application and interface names in &lt;configspecial&gt;.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.1</release>
+    <api>1.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Correctly render keyval_multienum form field contents.
+* [jan] Don&apos;t use Xcache in CLI scripts (Bug #10288).
    </notes>
   </release>
  </changelog>

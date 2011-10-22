@@ -310,22 +310,22 @@ class Horde_String
             return '';
         }
 
-        /* Try iconv. */
-        if (Horde_Util::extensionExists('iconv')) {
-            $ret = @iconv_substr($string, $start, $length, $charset);
-
-            /* iconv_substr() returns false on failure. */
-            if ($ret !== false) {
-                return $ret;
-            }
-        }
-
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
             $ret = @mb_substr($string, $start, $length, self::_mbstringCharset($charset));
 
             /* mb_substr() returns empty string on failure. */
             if (strlen($ret)) {
+                return $ret;
+            }
+        }
+
+        /* Try iconv. */
+        if (Horde_Util::extensionExists('iconv')) {
+            $ret = @iconv_substr($string, $start, $length, $charset);
+
+            /* iconv_substr() returns false on failure. */
+            if ($ret !== false) {
                 return $ret;
             }
         }

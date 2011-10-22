@@ -297,9 +297,6 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['use_ssl'] = 1;
 
         $this->assertEquals(
-            'http://www.example.com/hordeurl/foo?PHPSESSID',
-            (string)Horde::url('foo'));
-        $this->assertEquals(
             'http://www.example.com/hordeurl/foo',
             (string)Horde::url('foo', true, array('append_session' => -1)));
         $this->assertEquals(

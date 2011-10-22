@@ -104,8 +104,8 @@
    <configenum name="type" desc="What format should photos be generated in?
    Make sure that your server supports whichever format you choose!">
     <values>
+     <value desc="PNG (Highly recommended)">png</value>
      <value desc="JPEG">jpeg</value>
-     <value desc="PNG">png</value>
     </values>
    </configenum>
    <configstring name="autogen" desc="Should Ansel automatically generate the

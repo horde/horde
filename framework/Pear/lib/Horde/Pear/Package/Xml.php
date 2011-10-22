@@ -155,6 +155,16 @@ class Horde_Pear_Package_Xml
     }
 
     /**
+     * Return the release date.
+     *
+     * @return string The date for the current release.
+     */
+    public function getDate()
+    {
+        return $this->getNodeText('/p:package/p:date');
+    }
+
+    /**
      * Return the package notes.
      *
      * @return string The notes for the current release.
@@ -182,7 +192,7 @@ class Horde_Pear_Package_Xml
     /**
      * Return the package dependencies.
      *
-     * @return string The package dependencies.
+     * @return array The package dependencies.
      */
     public function getDependencies()
     {

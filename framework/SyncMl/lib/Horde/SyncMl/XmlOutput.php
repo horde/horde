@@ -327,7 +327,7 @@ class Horde_SyncMl_XmlOutput
         $devinfoutput->characters($state->getVerDTD());
         $devinfoutput->endElement($uriDevInf , 'VerDTD');
         $devinfoutput->startElement($uriDevInf , 'Man');
-        $devinfoutput->characters('Horde LLC (http://www.horde.org/)');
+        $devinfoutput->characters('The Horde Project (http://www.horde.org/)');
         $devinfoutput->endElement($uriDevInf , 'Man');
         $devinfoutput->startElement($uriDevInf , 'DevID');
         $devinfoutput->characters(isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost');

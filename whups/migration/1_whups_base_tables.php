@@ -190,7 +190,7 @@ class WhupsBaseTables extends Horde_Db_Migration_Base
             $t->column('type_id', 'integer', array('null' => false));
             $t->column('priority_name', 'string', array('limit' => 64));
             $t->column('priority_description', 'string', array('limit' => 255));
-            $t->column('priority_default', 'smallint', array('defalut' => 0, 'null' => false));
+            $t->column('priority_default', 'smallint', array('default' => 0, 'null' => false));
             $t->primaryKey(array('priority_id'));
             $t->end();
 

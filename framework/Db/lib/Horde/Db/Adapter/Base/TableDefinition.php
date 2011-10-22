@@ -33,13 +33,13 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
         'datetime', 'timestamp', 'time', 'date', 'binary', 'boolean');
 
     /**
-     * Class Constructor
+     * Constructor.
      *
-     * @param  string  $name
-     * @param  Horde_Db_Adapter_Base_Schema  $base
-     * @param  array   $options
+     * @param string $name
+     * @param Horde_Db_Adapter_Base_Schema $base
+     * @param array $options
      */
-    public function __construct($name, $base, $options=array())
+    public function __construct($name, $base, $options = array())
     {
         $this->_name    = $name;
         $this->_base    = $base;
@@ -77,61 +77,69 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     }
 
     /**
-     * Instantiates a new column for the table.
-     * The +type+ parameter must be one of the following values:
-     * <tt>:primary_key</tt>, <tt>:string</tt>, <tt>:text</tt>,
-     * <tt>:integer</tt>, <tt>:float</tt>, <tt>:datetime</tt>,
-     * <tt>:timestamp</tt>, <tt>:time</tt>, <tt>:date</tt>,
-     * <tt>:binary</tt>, <tt>:boolean</tt>.
+     * Adds a new column to the table definition.
      *
-     * Available options are (none of these exists by default):
-     * * <tt>:limit</tt>:
-     *   Requests a maximum column length (<tt>:string</tt>, <tt>:text</tt>,
-     *   <tt>:binary</tt> or <tt>:integer</tt> columns only)
-     * * <tt>:default</tt>:
-     *   The column's default value.  You cannot explicitly set the default
-     *   value to +NULL+.  Simply leave off this option if you want a +NULL+
-     *   default value.
-     * * <tt>:null</tt>:
-     *   Allows or disallows +NULL+ values in the column.  This option could
-     *   have been named <tt>:null_allowed</tt>.
-     * * <tt>:precision</tt>
-     *   TODO
-     * * <tt>:scale</tt>
-     *   TODO
-     * * <tt>:unsigned</tt>
-     *   TODO
-     * * <tt>:autoincrement</tt>
-     *   TODO
+     * Examples:
+     * <code>
+     * // Assuming $def is an instance of Horde_Db_Adapter_Base_TableDefinition
      *
-     * This method returns <tt>self</tt>.
+     * $def->column('granted', 'boolean');
+     * // => granted BOOLEAN
      *
-     * ===== Examples
-     *  # Assuming def is an instance of TableDefinition
-     *  def.column(:granted, :boolean)
-     *    #=> granted BOOLEAN
+     * $def->column('picture', 'binary', 'limit' => 4096);
+     * // => picture BLOB(4096)
      *
-     *  def.column(:picture, :binary, :limit => 2.megabytes)
-     *    #=> picture BLOB(2097152)
+     * $def->column('sales_stage', 'string', array('limit' => 20, 'default' => 'new', 'null' => false));
+     * // => sales_stage VARCHAR(20) DEFAULT 'new' NOT NULL
+     * </code>
      *
-     *  def.column(:sales_stage, :string, :limit => 20, :default => 'new', :null => false)
-     *    #=> sales_stage VARCHAR(20) DEFAULT 'new' NOT NULL
+     * @param string $type    Column type, one of:
+     *                        autoincrementKey, string, text, integer, float,
+     *                        datetime, timestamp, time, date, binary, boolean.
+     * @param array $options  Column options:
+     *                        - limit: (integer) Maximum column length (string,
+     *                          text, binary or integer columns only)
+     *                        - default: (mixed) The column's default value.
+     *                          You cannot explicitly set the default value to
+     *                          NULL. Simply leave off this option if you want
+     *                          a NULL default value.
+     *                        - null: (boolean) Whether NULL values are allowed
+     *                          in the column.
+     *                        - precision: (integer) The number precision
+     *                          (float columns only).
+     *                        - scale: (integer) The number scaling (float
+     *                          columns only).
+     *                        - unsigned: (boolean) Whether the column is an
+     *                          unsigned number (integer columns only).
+     *                        - autoincrement: (boolean) Whether the column is
+     *                          an autoincrement column. Restrictions are
+     *                          RDMS specific.
      *
-     * @return  TableDefinition
+     * @return Horde_Db_Adapter_Base_TableDefinition  This object.
      */
     public function column($name, $type, $options = array())
     {
-        $column = $this->_base->makeColumnDefinition($this->_base, $name, $type);
+        $options = array_merge(
+            array('limit'         => null,
+                  'precision'     => null,
+                  'scale'         => null,
+                  'unsigned'      => null,
+                  'default'       => null,
+                  'null'          => null,
+                  'autoincrement' => null),
+            $options);
 
-        $column->setLimit(isset($options['limit'])         ? $options['limit']     : null);
-        $column->setPrecision(isset($options['precision']) ? $options['precision'] : null);
-        $column->setScale(isset($options['scale'])         ? $options['scale']     : null);
-        $column->setUnsigned(isset($options['unsigned'])   ? $options['unsigned']  : null);
-        $column->setDefault(isset($options['default'])     ? $options['default']   : null);
-        $column->setNull(isset($options['null'])           ? $options['null']      : null);
-        $column->setAutoIncrement(isset($options['autoincrement']) ? $options['autoincrement'] : null);
+        $column = $this->_base->makeColumnDefinition($this->_base, $name, $type);
+        $column->setLimit($options['limit']);
+        $column->setPrecision($options['precision']);
+        $column->setScale($options['scale']);
+        $column->setUnsigned($options['unsigned']);
+        $column->setDefault($options['default']);
+        $column->setNull($options['null']);
+        $column->setAutoIncrement($options['autoincrement']);
 
         $this[$name] ? $this[$name] = $column : $this->_columns[] = $column;
+
         return $this;
     }
 
@@ -147,7 +155,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     /**
      * Add one or several references to foreign keys
      *
-     * This method returns <tt>self</tt>.
+     * This method returns self.
      */
     public function belongsTo($columns)
     {
@@ -162,7 +170,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     /**
      * Alias for the belongsTo() method
      *
-     * This method returns <tt>self</tt>.
+     * This method returns self.
      */
     public function references($columns)
     {

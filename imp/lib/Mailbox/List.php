@@ -166,7 +166,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         foreach ($to_process as $mbox => $ids) {
             try {
                 $fetch_res = $imp_imap->fetch($mbox, $fetch_query, array(
-                    'ids' => new Horde_Imap_Client_Ids(array_keys($ids))
+                    'ids' => $imp_imap->getIdsOb(array_keys($ids))
                 ));
 
                 if ($options['preview']) {

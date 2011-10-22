@@ -310,7 +310,7 @@ var ViewPort = Class.create({
             if (!this.view) {
                 this.onResize(true);
             } else if (this.view != view) {
-                this.active_req = null;
+                delete this.active_req;
             }
             this.view = view;
         }
@@ -407,7 +407,7 @@ var ViewPort = Class.create({
     {
         if (vs.size()) {
             if (this.isbusy) {
-                this._remove.bind(this, vs).defer();
+                this.remove.bind(this, vs).defer();
             } else {
                 this.isbusy = true;
                 this._remove(vs);
@@ -428,10 +428,10 @@ var ViewPort = Class.create({
             this.deselect(vs);
         }
 
+        this.opts.container.fire('ViewPort:remove', vs);
+
         buffer.remove(vs.get('rownum'));
         buffer.setMetaData({ total_rows: buffer.getMetaData('total_rows') - vs.size() }, true);
-
-        this.opts.container.fire('ViewPort:remove', vs);
     },
 
     // nowait = (boolean) If true, don't delay before resizing.
@@ -520,7 +520,8 @@ var ViewPort = Class.create({
                     sp.horiz.loc = this.page_size;
                 }
                 [ this.opts.pane_data, sp.currbar ].invoke('hide');
-                sp.curr = sp.currbar = null;
+                delete sp.curr;
+                delete sp.currbar;
             }
 
             if (!size) {
@@ -855,7 +856,7 @@ var ViewPort = Class.create({
 
         if (r.requestid &&
             r.requestid == this.active_req) {
-            this.active_req = null;
+            delete this.active_req;
             callback = buffer.getMetaData('callback');
             offset = buffer.getMetaData('req_offset');
 
@@ -990,7 +991,7 @@ var ViewPort = Class.create({
     {
         if (this.waitHandler) {
             clearTimeout(this.waitHandler);
-            this.waitHandler = null;
+            delete this.waitHandler;
         }
     },
 

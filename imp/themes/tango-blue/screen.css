@@ -16,3 +16,9 @@
 .reloadImg {
     background-image: url("graphics/reload.png");
 }
+.spellcheckImg {
+    background-image: url("graphics/spellcheck.png");
+}
+.emptytrashImg {
+    background-image: url("graphics/empty_trash.png");
+}

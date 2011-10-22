@@ -77,7 +77,7 @@ var IMPDialog = {
                     new Element('P').insert(data.text)
                 );
 
-        RedBox.onDisplay = null;
+        delete RedBox.onDisplay;
 
         n.addClassName('RB_confirm');
         if (data.form) {

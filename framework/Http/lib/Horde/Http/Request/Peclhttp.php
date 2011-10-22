@@ -75,6 +75,13 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
                 $httpOptions['proxyauth'] = $this->proxyUsername . ':' . $this->proxyPassword;
                 $httpOptions['proxyauthtype'] = $this->_httpAuthScheme($this->proxyAuthenticationScheme);
             }
+            if ($this->proxyType == Horde_Http::PROXY_SOCKS4) {
+                $httpOptions['proxytype'] = HTTP_PROXY_SOCKS4;
+            } else if ($this->proxyType == Horde_Http::PROXY_SOCKS5) {
+                $httpOptions['proxytype'] = HTTP_PROXY_SOCKS5;
+            } else if ($this->proxyType != Horde_Http::PROXY_HTTP) {
+                throw new Horde_Http_Exception(sprintf('Proxy type %s not supported by this request type!', $this->proxyType));
+            }
         }
 
         // Authentication settings

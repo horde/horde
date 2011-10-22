@@ -4,8 +4,8 @@
  *
  * Copyright 2006-2008 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file LICENSE for license information (BSD). If you
- * did not receive this file, see http://cvs.horde.org/co.php/merk/LICENSE.
+ * See the enclosed file LICENSE for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl
  *
  * @author Duck <duck@obala.net>
  */

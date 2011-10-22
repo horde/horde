@@ -155,4 +155,19 @@ extends Components_TestCase
         );
     }
 
+    public function testNextVersion()
+    {
+        $this->assertEquals(
+            '5.0.1-git',
+            Components_Helper_Version::nextVersion('5.0.0')
+        );
+        $this->assertEquals(
+            '5.0.0-git',
+            Components_Helper_Version::nextVersion('5.0.0RC1')
+        );
+        $this->assertEquals(
+            '5.0.0-git',
+            Components_Helper_Version::nextVersion('5.0.0alpha1')
+        );
+    }
 }

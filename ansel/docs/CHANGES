@@ -2,6 +2,35 @@
 v2.0-git
 --------
 
+[mjr] Fix issue causing uploads to fail in certain cases on IE.
+[mjr] Display localized date strings when grouping galleries by date (Bug
+      #10669).
+[mjr] Improve gallery property editing when jpg image format is configured.
+[jan] Add Slovak translation (Martin Matuška <martin@matuska.org>).
+[mjr] Allow filtering listTagInfo results by user.
+[mjr] Fix issue with style migration when upgrading from Ansel 1.x.
+
+
+--------
+v2.0-RC1
+--------
+
+[mjr] Fix migrations to not rely on Ansel being available.
+[mjr] Fix hook calls (Bug #10659).
+[mjr] Add script to convert from sql to sqlng shares after migrations have
+      already run.
+[mjr] Add migration to ensure style hashes are computed for migrated galleries.
+[mjr] Fix uploading large files (Bug #10641).
+[mjr] Fix thumbnail generation on bulk caption setting page (Bug #10642).
+[mjr] Fix GROUP BY fields when searching for similar faces (Bug #10635).
+[jan] Fix link to report faces (Bug #10636).
+
+
+-----------
+v2.0-ALPHA1
+-----------
+
+[mjr] Support for sending twitter notifications after uploading images.
 [mjr] Refactor Geotagging features to use HordeMap.
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Provide default configuration files instead of .dist versions.
@@ -16,13 +45,6 @@ v2.0-git
 [mjr] Support for multipage images (Request #6022).
 [mjr] Remove support for no longer available openCV extension.
 [mjr] Exif code removed and placed in Horde_Image_Exif.
-
-
-----------
-v1.1.3-cvs
-----------
-
-[mjr] Fix bug where ownership of a gallery could not be changed (Bug #9391).
 
 
 ------

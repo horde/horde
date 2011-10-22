@@ -47,7 +47,7 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            155,
+            9,
             count($sorted)
         );
     }

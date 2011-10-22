@@ -544,18 +544,13 @@ class Horde_Prefs_Ui
                 $results = $twitter->auth->getRequestToken();
             } catch (Horde_Service_Twitter_Exception $e) {
                 $t->set('error', sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()), true);
-                //echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
-                //echo '</form>';
-                //require HORDE_TEMPLATES . '/common-footer.inc';
                 exit;
             }
             $GLOBALS['session']->store($results->secret, false, 'twitter_request_secret');
-
             $t->set('appname', $registry->get('name'));
             $t->set('link', Horde::link(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), '', 'button', '', 'openTwitterWindow(); return false;') . 'Twitter</a>');
             $t->set('popupjs', Horde::popupJs(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), array('urlencode' => true)));
         } else {
-            /* We know we have a good Twitter token here, so check for any actions... */
             $t->set('haveSession', true, true);
             $t->set('profile_image_url', $profile->profile_image_url);
             $t->set('profile_screenname', htmlspecialchars($profile->screen_name));

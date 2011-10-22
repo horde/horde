@@ -1,7 +1,33 @@
-----------
-v2.0.1-git
-----------
+--------
+v2.0-git
+--------
 
+
+
+--------
+v2.0-RC2
+--------
+
+[jan] Support more complex attributes types (Bug #9947).
+[jan] Fix displaying form errors from updating tickets.
+[jan] Allow to create private comments during ticket creation (Request #8312).
+[jan] Fix addTicket API method.
+[jan] Add missing default value for whups_priorities.priority_default column
+      (Bug #10631).
+
+
+--------
+v2.0-RC1
+--------
+
+[jan] Don't create stray update and assign permission (Bug #10624).
+[jan] Add script to convert backends to UTF-8.
+[jan] Fix executing queries on non-UTF-8 backends.
+[jan] Add index to whups_attributes table.
+[jan] Fix using custom SQL configurations.
+[jan] Fix fatal error when updating address book preferences (Bug #10567).
+[jan] Don't access protected properties in the addTicket/updateTicket API
+      methods (Bug #10566).
 [jan] Fix adding comments as a guest (Bug #10559).
 
 

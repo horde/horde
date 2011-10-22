@@ -23,6 +23,11 @@
  */
 class Horde_Db_Adapter_Base_Table implements ArrayAccess, IteratorAggregate
 {
+    /**
+     * The table's name.
+     *
+     * @var string
+     */
     protected $_name;
     protected $_primaryKey;
     protected $_columns;
@@ -34,9 +39,9 @@ class Horde_Db_Adapter_Base_Table implements ArrayAccess, IteratorAggregate
     ##########################################################################*/
 
     /**
-     * Construct
+     * Constructor.
      *
-     * @param   string  $name     The table's name, such as <tt>supplier_id</tt> in <tt>supplier_id int(11)</tt>.
+     * @param string $name  The table's name.
      */
     public function __construct($name, $primaryKey, $columns, $indexes)
     {

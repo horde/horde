@@ -1,6 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Horde LLC//Horde iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20070315T121020Z

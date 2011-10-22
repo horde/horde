@@ -242,7 +242,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     {
         $this->_conn->beginDbTransaction();
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-        $this->_conn->insert($sql);
+        $this->_conn->insert($sql, null, null, 'id', 7);
         $this->_conn->commitDbTransaction();
 
         // make sure it inserted
@@ -254,10 +254,10 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     {
         $this->_conn->beginDbTransaction();
         $sql = "INSERT INTO unit_tests (id, integer_value) VALUES (7, 999)";
-        $this->_conn->insert($sql);
+        $this->_conn->insert($sql, null, null, 'id', 7);
         $this->_conn->rollbackDbTransaction();
 
-        // make sure it inserted
+        // make sure it not inserted
         $sql = "SELECT integer_value FROM unit_tests WHERE id='7'";
         $this->assertEquals(null, $this->_conn->selectValue($sql));
     }
@@ -671,7 +671,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->_conn->renameTable('octopuses', 'octopi');
 
         $sql = "INSERT INTO octopi (id, url) VALUES (1, 'http://www.foreverflying.com/octopus-black7.jpg')";
-        $this->_conn->insert($sql);
+        $this->_conn->insert($sql, null, null, 'id', 1);
 
         $this->assertEquals('http://www.foreverflying.com/octopus-black7.jpg',
                 $this->_conn->selectValue("SELECT url FROM octopi WHERE id=1"));
@@ -1129,7 +1129,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
             $table->column('foo', 'string');
         $table->end();
 
-        $this->_conn->insert("INSERT INTO testings (id, foo) VALUES ('1', 'hello')");
+        $this->_conn->insert("INSERT INTO testings (id, foo) VALUES ('1', 'hello')", null, null, 'id', 1);
 
         $this->_conn->addColumn('testings', 'bar', 'string', array('null' => false, 'default' => 'default'));
 
@@ -1178,6 +1178,62 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $result = $this->_conn->addOrderByForAssocLimiting("SELECT * FROM documents ",
                                 array('order' => 'name DESC'));
         $this->assertEquals("SELECT * FROM documents ORDER BY name DESC", $result);
+    }
+
+    public function testBuildClause()
+    {
+        $this->assertEquals(
+            "CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) & 2) <> 0 ELSE FALSE END",
+            $this->_conn->buildClause('bitmap', '&', 2));
+        $this->assertEquals(
+            array("CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) & ?) <> 0 ELSE FALSE END", array(2)),
+            $this->_conn->buildClause('bitmap', '&', 2, true));
+
+        $this->assertEquals(
+            "CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) | 2) <> 0 ELSE FALSE END",
+            $this->_conn->buildClause('bitmap', '|', 2));
+        $this->assertEquals(
+            array("CASE WHEN CAST(bitmap AS VARCHAR) ~ '^-?[0-9]+$' THEN (CAST(bitmap AS INTEGER) | ?) <> 0 ELSE FALSE END", array(2)),
+            $this->_conn->buildClause('bitmap', '|', 2, true));
+
+        $this->assertEquals(
+            "name ILIKE '%search%'",
+            $this->_conn->buildClause('name', 'LIKE', "search"));
+        $this->assertEquals(
+            array("name ILIKE ?", array('%search%')),
+            $this->_conn->buildClause('name', 'LIKE', "search", true));
+        $this->assertEquals(
+            "name ILIKE '%search\&replace\?%'",
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?"));
+        $this->assertEquals(
+            array("name ILIKE ?", array('%search&replace?%')),
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true));
+        $this->assertEquals(
+            "(name ILIKE 'search\&replace\?%' OR name ILIKE '% search\&replace\?%')",
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", false, array('begin' => true)));
+        $this->assertEquals(
+            array("(name ILIKE ? OR name ILIKE ?)",
+                  array('search&replace?%', '% search&replace?%')),
+            $this->_conn->buildClause('name', 'LIKE', "search&replace?", true, array('begin' => true)));
+
+        $this->assertEquals(
+            'value = 2',
+            $this->_conn->buildClause('value', '=', 2));
+        $this->assertEquals(
+            array('value = ?', array(2)),
+            $this->_conn->buildClause('value', '=', 2, true));
+        $this->assertEquals(
+            "value = 'foo'",
+            $this->_conn->buildClause('value', '=', 'foo'));
+        $this->assertEquals(
+            array('value = ?', array('foo')),
+            $this->_conn->buildClause('value', '=', 'foo', true));
+        $this->assertEquals(
+            "value = 'foo\?bar'",
+            $this->_conn->buildClause('value', '=', 'foo?bar'));
+        $this->assertEquals(
+            array('value = ?', array('foo?bar')),
+            $this->_conn->buildClause('value', '=', 'foo?bar', true));
     }
 
 

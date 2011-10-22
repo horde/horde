@@ -72,7 +72,7 @@ class Components_Runner_Fetchdocs
             $this->_output->fail('The component does not offer a DOCS_ORIGIN file with instructions what should be fetched!');
             return;
         } else {
-            $this->_output->info(sprintf('Reading instructions from %s!', $docs_origin[0]));
+            $this->_output->info(sprintf('Reading instructions from %s', $docs_origin[0]));
             $options = $this->_config->getOptions();
             $helper = new Components_Helper_DocsOrigin(
                 $docs_origin, $this->_client

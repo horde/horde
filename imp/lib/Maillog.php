@@ -1,7 +1,7 @@
 <?php
 /**
- * The IMP_Maillog:: class contains all functions related to handling
- * logging of responses to individual e-mail messages.
+ * This class contains all functions related to handling logging of responses
+ * to individual e-mail messages.
  *
  * Copyright 2003-2011 Horde LLC (http://www.horde.org/)
  *
@@ -15,7 +15,13 @@
  */
 class IMP_Maillog
 {
+    /* Log Actions. */
+    const FORWARD = 'forward';
     const MDN = 'mdn';
+    const REDIRECT = 'redirect';
+    const REPLY = 'reply';
+    const REPLY_ALL = 'reply_all';
+    const REPLY_LIST = 'reply_list';
 
     /**
      * Create a log entry.
@@ -24,9 +30,9 @@ class IMP_Maillog
      *                        IMP_Maillog:: constant.
      * @param mixed $msg_ids  Either a single Message-ID or an array of
      *                        Message-IDs to log.
-     * @param string $data    Any additional data to store. For 'forward' and
-     *                        'redirect' this is the list of recipients the
-     *                        message was sent to. For 'mdn' this is the
+     * @param string $data    Any additional data to store. For forward and
+     *                        redirect this is the list of recipients the
+     *                        message was sent to. For mdn this is the
      *                        MDN-type of the message that was sent.
      */
     static public function log($type, $msg_ids, $data = null)
@@ -43,28 +49,43 @@ class IMP_Maillog
             case IMP_Compose::FORWARD_ATTACH:
             case IMP_Compose::FORWARD_BODY:
             case IMP_Compose::FORWARD_BOTH:
-                $params = array('recipients' => $data, 'action' => 'forward');
+                $params = array(
+                    'action' => self::FORWARD,
+                    'recipients' => $data
+                );
                 break;
 
             case self::MDN:
-                $params = array('type' => $data, 'action' => 'mdn');
+                $params = array(
+                    'action' => self::MDN,
+                    'type' => $data
+                );
                 break;
 
             case IMP_Compose::REDIRECT:
-                $params = array('recipients' => $data, 'action' => 'redirect');
+                $params = array(
+                    'action' => self::REDIRECT,
+                    'recipients' => $data
+                );
                 break;
 
             case IMP_Compose::REPLY:
             case IMP_Compose::REPLY_SENDER:
-                $params = array('action' => 'reply');
+                $params = array(
+                    'action' => self::REPLY
+                );
                 break;
 
             case IMP_Compose::REPLY_ALL:
-                $params = array('action' => 'reply_all');
+                $params = array(
+                    'action' => self::REPLY_ALL
+                );
                 break;
 
             case IMP_Compose::REPLY_LIST:
-                $params = array('action' => 'reply_list');
+                $params = array(
+                    'action' => self::REPLY_LIST
+                );
                 break;
 
             default:
@@ -143,7 +164,14 @@ class IMP_Maillog
     }
 
     /**
-     * TODO
+     * Returns log information for a message.
+     *
+     * @param string $msg_id  The Message-ID of the message.
+     *
+     * @return array  List of log information. Each element is an array with
+     *                the following keys:
+     *   - action: (string) The log action.
+     *   - msg: (string) The log message.
      */
     static public function parseLog($msg_id)
     {
@@ -166,27 +194,27 @@ class IMP_Maillog
                 $msg = $entry['desc'];
             } else {
                 switch ($entry['action']) {
-                case 'forward':
+                case self::FORWARD:
                     $msg = sprintf(_("You forwarded this message on %%s to: %s."), $entry['recipients']);
                     break;
 
-                case 'mdn':
+                case self::MDN:
                     /* We don't display 'mdn' log entries. */
                     break;
 
-                case 'redirect':
+                case self::REDIRECT:
                     $msg = sprintf(_("You redirected this message to %s on %%s."), $entry['recipients']);
                     break;
 
-                case 'reply':
+                case self::REPLY:
                     $msg = _("You replied to this message on %s.");
                     break;
 
-                case 'reply_all':
+                case self::REPLY_ALL:
                     $msg = _("You replied to all recipients of this message on %s.");
                     break;
 
-                case 'reply_list':
+                case self::REPLY_LIST:
                     $msg = _("You replied to this message via the mailing list on %s.");
                     break;
                 }

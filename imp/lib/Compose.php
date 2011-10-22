@@ -606,6 +606,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
         $headers->addUserAgentHeader();
 
+        /* Add preferred reply language(s). */
+        if ($lang = @unserialize($prefs->getValue('reply_lang'))) {
+            $headers->addHeader('Accept-Language', implode(',', $lang));
+        }
+
         /* Send the messages out now. */
         $sentmail = $injector->getInstance('IMP_Sentmail');
 
@@ -731,7 +736,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             if ($prefs->getValue('request_mdn') != 'never') {
                 $mdn = new Horde_Mime_Mdn($headers);
                 if ($mdn->getMdnReturnAddr()) {
-                    $flags[] = array(Horde_Imap_Client::FLAG_MDNSENT);
+                    $flags[] = Horde_Imap_Client::FLAG_MDNSENT;
                 }
             }
 
@@ -1387,8 +1392,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *   - headers: The headers of the message to use for the reply
      *   - identity: The identity to use for the reply based on the original
      *            message's addresses.
-     *   - reply_list_id: TODO
-     *   - reply_recip: TODO
+     *   - lang: An array of language code (keys)/language name (values) of
+     *           the original sender's preferred language(s).
+     *   - reply_list_id: List ID label.
+     *   - reply_recip: Number of recipients in reply list.
      *   - type: The reply type used (either self::REPLY_ALL,
      *           self::REPLY_LIST, or self::REPLY_SENDER).
      */
@@ -1569,6 +1576,25 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     $ret['reply_list_id'] = $addr_ob[0]['personal'];
                 }
                 break;
+            }
+        }
+
+        if (($lang = $h->getValue('accept-language')) ||
+            ($lang = $h->getValue('x-accept-language'))) {
+            $langs = array();
+            foreach (explode(',', $lang) as $val) {
+                if (($name = Horde_Nls::getLanguageISO($val)) !== null) {
+                    $langs[trim($val)] = $name;
+                }
+            }
+            $ret['lang'] = array_unique($langs);
+
+            /* Don't show display if original recipient is asking for reply in
+             * the user's native language. */
+            if ((count($ret['lang']) == 1) &&
+                reset($ret['lang']) &&
+                (substr(key($ret['lang']), 0, 2) == substr($GLOBALS['language'], 0, 2))) {
+                unset($ret['lang']);
             }
         }
 

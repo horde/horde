@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-19</date>
- <time>10:55:41</time>
+ <date>2011-10-11</date>
+ <time>14:39:00</time>
  <version>
-  <release>1.2.0</release>
+  <release>1.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [gwr] Added Horde_Test_Stub_Factory as a simple factory stub.
-* [gwr] Add Horde_Test_Setup for complex test suite setups.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -270,11 +269,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-19</date>
+   <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Added Horde_Test_Stub_Factory as a simple factory stub.
 * [gwr] Add Horde_Test_Setup for complex test suite setups.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

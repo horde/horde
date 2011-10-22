@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Base for story based package testing.

@@ -256,15 +256,20 @@ class Kronolith_Tagger
      *
      * @param array $tags     An array of either tag names or ids.
      * @param integer $limit  Limit results to this many.
+     * @param string $type    The type of resource (event, calendar, null).
+     * @param string $user    Restrict results to those tagged by $user.
      *
      * @return array  An array of hashes, tag_id, tag_name, and count.
      * @throws Ansel_Exception
      */
-    public function getTagInfo($tags = null, $limit = 500, $type = null)
+    public function getTagInfo($tags = null, $limit = 500, $type = null, $user = null)
     {
-        $filter = array('typeId' => empty($type) ? array_values($this->_type_ids) : $this->_type_ids[$type],
-                        'tagIds' => $tags,
-                        'limit' => $limit);
+        $filter = array(
+            'typeId' => empty($type) ? array_values($this->_type_ids) : $this->_type_ids[$type],
+            'tagIds' => $tags,
+            'limit' => $limit,
+            'userId' => $user
+        );
 
         try {
             return $GLOBALS['injector']

@@ -336,18 +336,6 @@ case 'whups_form_admin_editqueuesteptwo':
                 $vars->get('default'));
             $notification->push(
                 _("The queue has been modified."), 'horde.success');
-            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-            $corePerms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
-            if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':update')) {
-                $p = $corePerms->newPermission('whups:queues:'
-                    . $vars->get('queue') . ':update');
-                $perms->addPermission($p);
-            }
-            if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':assign')) {
-                $p = $corePerms->newPermission('whups:queues:'
-                    . $vars->get('queue') . ':assign');
-                $perms->addPermission($p);
-            }
             _open();
             $form->renderInactive($renderer, $vars);
         } catch (Whups_Exception $e) {

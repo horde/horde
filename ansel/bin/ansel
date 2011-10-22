@@ -766,7 +766,6 @@ class Ansel_Cli_Helper_Local extends Ansel_Cli_Helper_Base
 
     public function exif($gallery)
     {
-
         $gallery = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
             ->getGallery($gallery);

@@ -335,6 +335,7 @@ class Horde_Registry
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
             'Horde_Template' => 'Horde_Core_Factory_Template',
             'Horde_Token' => 'Horde_Core_Factory_Token',
+            'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_View' => 'Horde_Core_Factory_View',
             'Horde_View_Base' => 'Horde_Core_Factory_View',
             'Net_DNS2_Resolver' => 'Horde_Core_Factory_Dns',
@@ -2118,6 +2119,10 @@ class Horde_Registry
             $entry = true;
         }
 
+        if (is_null($app)) {
+            $app = $base_app;
+        }
+
         $session->set('horde', 'auth_app/' . $app, $entry);
     }
 
@@ -2143,7 +2148,7 @@ class Horde_Registry
 
         if (!$session->exists('horde', 'auth_app/' . $app)) {
             return ($base_app != $app)
-                ? $this->_getAuthCredentials($app)
+                ? $this->_getAuthCredentials($base_app)
                 : false;
         }
 

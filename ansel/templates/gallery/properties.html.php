@@ -30,9 +30,11 @@
  <td>
   <select name="gallery_parent" id="gallery_parent">
    <option value=""><?php echo _("Top Level Gallery") ?></option>
-   <?php echo Ansel::selectGalleries(array('selected' => $this->properties['parent'],
-                                           'perm' => Horde_Perms::EDIT,
-                                           'ignore' => $this->properties['id']))?>
+   <?php echo Ansel::selectGalleries(
+     array(
+       'selected' => $this->properties['parent'],
+       'perm' => Horde_Perms::EDIT,
+       'ignore' => $this->properties['id']))?>
   </select>
  </td>
 </tr>
@@ -122,7 +124,7 @@
 <?php endif; ?>
 
 <!-- Gallery Style -->
-<?php if ($GLOBALS['conf']['image']['prettythumbs']) {echo $this->renderPartial('styles'); }?>
+<?php if ($GLOBALS['conf']['image']['prettythumbs']) { echo $this->renderPartial('styles'); }?>
 
 <!-- Submission -->
 <tr>

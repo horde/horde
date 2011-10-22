@@ -65,12 +65,13 @@ class Ansel_Faces_Facedetect extends Ansel_Faces_Base
 
     protected function _createView($face_id, $image, $rect)
     {
-        return $this->createView($face_id,
-                                $image,
-                                $rect['x'],
-                                $rect['y'],
-                                $rect['x'] + $rect['w'],
-                                $rect['y'] + $rect['h']);
+        return $this->createView(
+            $face_id,
+            $image,
+            $rect['x'],
+            $rect['y'],
+            $rect['x'] + $rect['w'],
+            $rect['y'] + $rect['h']);
     }
 
 }

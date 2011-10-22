@@ -48,11 +48,30 @@ abstract class Whups_Driver
             if (substr($name, 0, 10) == 'attribute_' &&
                 $ticket->get($name) != $value) {
                 $attribute_id = (int)substr($name, 10);
+                $serialized = $this->_serializeAttribute($value);
                 $ticket->change($name, $value);
-                $this->_setAttributeValue($ticket_id, $attribute_id, $value);
-                $this->updateLog($ticket_id, $GLOBALS['registry']->getAuth(), array('attribute' => $attribute_id . ':' . $value));
+                $this->_setAttributeValue(
+                    $ticket_id,
+                    $attribute_id,
+                    $serialized);
+                $this->updateLog($ticket_id, $GLOBALS['registry']->getAuth(), array('attribute' => $attribute_id . ':' . $serialized));
             }
         }
+    }
+
+    /**
+     * Returns a serialized value, if necessary.
+     *
+     * @param mixed  The original value.
+     *
+     * @return string  The JSON encoded value if not already a string.
+     */
+    protected function _serializeAttribute($value)
+    {
+        if (!is_string($value)) {
+            return Horde_Serialize::serialize($value, Horde_Serialize::JSON);
+        }
+        return $value;
     }
 
     /**
@@ -62,7 +81,7 @@ abstract class Whups_Driver
      *
      * @return array
      */
-    public function getHistory($ticket_id)
+    public function getHistory($ticket_id, Horde_Form $form = null)
     {
         $rows = $this->_getHistory($ticket_id);
         $attributes = array();
@@ -73,21 +92,23 @@ abstract class Whups_Driver
             }
         }
 
+        $renderer = new Horde_Core_Ui_VarRenderer_Html();
         $history = array();
         foreach ($rows as $row) {
             $label = null;
-            $value = $row['log_value'];
+            $human = $value = $row['log_value'];
+            $type = $row['log_type'];
             $transaction = $row['transaction_id'];
 
             $history[$transaction]['timestamp'] = $row['timestamp'];
             $history[$transaction]['user_id'] = $row['user_id'];
             $history[$transaction]['ticket_id'] = $row['ticket_id'];
 
-            switch ($row['log_type']) {
+            switch ($type) {
             case 'comment':
                 $history[$transaction]['comment'] = $row['comment_text'];
                 $history[$transaction]['changes'][] = array(
-                    'type' => $row['log_type'],
+                    'type' => 'comment',
                     'value' => $row['log_value'],
                     'comment' => $row['comment_text']);
                 continue 2;
@@ -120,25 +141,33 @@ abstract class Whups_Driver
                 break;
 
             default:
-                if (strpos($row['log_type'], 'attribute_') === 0) {
-                    $attribute = substr($row['log_type'], 10);
+                if (strpos($type, 'attribute_') === 0) {
+                    try {
+                        $value = Horde_Serialize::unserialize(
+                            $value, Horde_Serialize::JSON);
+                    } catch (Horde_Serialize_Exception $e) {
+                    }
+                    $attribute = substr($type, 10);
                     if (isset($attributes[$attribute])) {
                         $label = $attributes[$attribute];
+                        if ($form) {
+                            $human = $renderer->render(
+                                $form,
+                                $form->attributes[$attribute],
+                                new Horde_Variables(array($type => $value)));
+                        }
+                        $type = 'attribute';
                     } else {
                         $label = sprintf(_("Attribute %d"), $attribute);
                     }
-                    $history[$transaction]['changes'][] = array(
-                        'type' => 'attribute',
-                        'value' => $value,
-                        'label' => $label);
-                    continue 2;
                 }
                 break;
             }
 
             $history[$transaction]['changes'][] = array(
-                'type' => $row['log_type'],
+                'type' => $type,
                 'value' => $value,
+                'human' => $human,
                 'label' => $label);
         }
 
@@ -257,6 +286,13 @@ abstract class Whups_Driver
 
         $attributes = array();
         foreach ($ta as $id => $attribute) {
+            try {
+                $value = Horde_Serialize::unserialize(
+                    $attribute['attribute_value'],
+                    Horde_Serialize::JSON);
+            } catch (Horde_Serialize_Exception $e) {
+                $value = $attribute['attribute_value'];
+            }
             $attributes[$attribute['attribute_id']] = array(
                 'id'         => $attribute['attribute_id'],
                 'human_name' => $attribute['attribute_name'],
@@ -265,7 +301,7 @@ abstract class Whups_Driver
                 'readonly'   => false,
                 'desc'       => $attribute['attribute_description'],
                 'params'     => $attribute['attribute_params'],
-                'value'      => $attribute['attribute_value']);
+                'value'      => $value);
         }
         return $attributes;
     }

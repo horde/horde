@@ -80,7 +80,7 @@ echo $ical->exportVCalendar();
 --EXPECT--
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Horde LLC//Horde iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:XXX
@@ -94,7 +94,7 @@ END:VCALENDAR
 
 BEGIN:VCALENDAR
 VERSION:1.0
-PRODID:-//Horde LLC//Horde iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:XXX
@@ -107,7 +107,7 @@ END:VCALENDAR
 
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Horde LLC//Horde iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:XXX
@@ -121,7 +121,7 @@ END:VCALENDAR
 
 BEGIN:VCALENDAR
 VERSION:1.0
-PRODID:-//Horde LLC//Horde iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:XXX
@@ -136,7 +136,7 @@ END:VCALENDAR
 
 BEGIN:VCALENDAR
 VERSION:1.0
-PRODID:-//Horde LLC//Horde iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:XXX
@@ -153,7 +153,7 @@ END:VCALENDAR
 
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Horde LLC//Horde iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:XXX

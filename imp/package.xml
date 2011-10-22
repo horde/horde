@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-27</date>
- <time>13:17:59</time>
+ <date>2011-10-19</date>
+ <time>00:20:16</time>
  <version>
-  <release>5.0.14</release>
+  <release>5.0.15</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,22 +34,15 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] When expanding a submailbox in dynamic view, honor expanded children status.
-* [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
-* [mms] Allow multiple messages to be sent via quickreply in dynamic view.
-* [mms] Allow image attachments to be displayed without download in mobile view.
-* [mms] Fix reporting spam/innocent on mailbox page in mobile view.
-* [mms] Fix viewing next message after deleting message in mobile view.
-* [mms] Fix composing messages in mobile view.
-* [mms] Optimize deletion of messages in dynamic view.
-* [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
-* [mms] Fix altering background color of system message flags (Bug #10544).
-* [jan] Fix sending notifications after download of linked attachments (Bug #10539).
+* [mms] Fix accessing POP3 servers that use commas in their UIDs.
+* [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
+* [mms] Fix some dynamic view links on IE (Bug #10664).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
     <file name="imp-bounce-spam" role="script" />
+    <file name="imp-mailbox-decode" role="script" />
     <file name="imp-query-imap-cache" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
@@ -84,6 +77,7 @@
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
     <file name="imp.js" role="horde" />
+    <file name="indices.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox-dimp.js" role="horde" />
     <file name="mailbox.js" role="horde" />
@@ -325,7 +319,6 @@
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
-    <file name="Folder.php" role="horde" />
     <file name="Imap.php" role="horde" />
     <file name="IMP.php" role="horde" />
     <file name="Indices.php" role="horde" />
@@ -785,6 +778,7 @@
         <file name="ItipTest.php" role="test" />
        </dir> <!-- /test/Imp/Unit/Mime/Viewer -->
       </dir> <!-- /test/Imp/Unit/Mime -->
+      <file name="ComposeTest.php" role="test" />
       <file name="QuotaTest.php" role="test" />
      </dir> <!-- /test/Imp/Unit -->
      <file name="AllTests.php" role="test" />
@@ -839,6 +833,16 @@
        <file name="compressed.png" role="horde" />
        <file name="itip.png" role="horde" />
       </dir> <!-- /themes/default/graphics/mime -->
+      <dir name="nav">
+       <file name="first-grey.png" role="horde" />
+       <file name="first.png" role="horde" />
+       <file name="last-grey.png" role="horde" />
+       <file name="last.png" role="horde" />
+       <file name="left-grey.png" role="horde" />
+       <file name="left.png" role="horde" />
+       <file name="right-grey.png" role="horde" />
+       <file name="right.png" role="horde" />
+      </dir> <!-- /themes/default/graphics/nav -->
       <file name="addressbook_add.png" role="horde" />
       <file name="addressbook_browse.png" role="horde" />
       <file name="add_contact.png" role="horde" />
@@ -988,6 +992,7 @@
        <file name="inbox.png" role="horde" />
        <file name="minus.png" role="horde" />
        <file name="open.png" role="horde" />
+       <file name="options.png" role="horde" />
        <file name="plus.png" role="horde" />
        <file name="sent.png" role="horde" />
        <file name="spam.png" role="horde" />
@@ -997,6 +1002,16 @@
        <file name="compressed.png" role="horde" />
        <file name="itip.php" role="horde" />
       </dir> <!-- /themes/silver/graphics/mime -->
+      <dir name="nav">
+       <file name="first-grey.png" role="horde" />
+       <file name="first.png" role="horde" />
+       <file name="last-grey.png" role="horde" />
+       <file name="last.png" role="horde" />
+       <file name="left-grey.png" role="horde" />
+       <file name="left.png" role="horde" />
+       <file name="right-grey.png" role="horde" />
+       <file name="right.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/nav -->
       <file name="addressbook_add.png" role="horde" />
       <file name="addressbook_browse.png" role="horde" />
       <file name="add_contact.png" role="horde" />
@@ -1061,6 +1076,7 @@
       <file name="warning.png" role="horde" />
       <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/silver/graphics -->
+     <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
     <dir name="simplex">
@@ -1231,7 +1247,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.15</min>
+    <min>1.2.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1273,7 +1289,7 @@
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1402,6 +1418,7 @@
  <phprelease>
   <filelist>
    <install as="imp-bounce-spam" name="bin/imp-bounce-spam" />
+   <install as="imp-mailbox-decode" name="bin/imp-mailbox-decode" />
    <install as="imp-query-imap-cache" name="bin/imp-query-imap-cache" />
    <install as="imp/config/.htaccess" name="config/.htaccess" />
    <install as="imp/config/backends.php" name="config/backends.php" />
@@ -1430,6 +1447,7 @@
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
+   <install as="imp/js/indices.js" name="js/indices.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox-dimp.js" name="js/mailbox-dimp.js" />
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
@@ -1450,7 +1468,6 @@
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
-   <install as="imp/lib/Folder.php" name="lib/Folder.php" />
    <install as="imp/lib/Imap.php" name="lib/Imap.php" />
    <install as="imp/lib/IMP.php" name="lib/IMP.php" />
    <install as="imp/lib/Indices.php" name="lib/Indices.php" />
@@ -1810,6 +1827,7 @@
    <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
    <install as="Imp/fixtures/maildirsize" name="test/Imp/fixtures/maildirsize" />
    <install as="Imp/Stub/HtmlViewer.php" name="test/Imp/Stub/HtmlViewer.php" />
+   <install as="Imp/Unit/ComposeTest.php" name="test/Imp/Unit/ComposeTest.php" />
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
@@ -1930,6 +1948,14 @@
    <install as="imp/themes/default/graphics/mime/apple.png" name="themes/default/graphics/mime/apple.png" />
    <install as="imp/themes/default/graphics/mime/compressed.png" name="themes/default/graphics/mime/compressed.png" />
    <install as="imp/themes/default/graphics/mime/itip.png" name="themes/default/graphics/mime/itip.png" />
+   <install as="imp/themes/default/graphics/nav/first-grey.png" name="themes/default/graphics/nav/first-grey.png" />
+   <install as="imp/themes/default/graphics/nav/first.png" name="themes/default/graphics/nav/first.png" />
+   <install as="imp/themes/default/graphics/nav/last-grey.png" name="themes/default/graphics/nav/last-grey.png" />
+   <install as="imp/themes/default/graphics/nav/last.png" name="themes/default/graphics/nav/last.png" />
+   <install as="imp/themes/default/graphics/nav/left-grey.png" name="themes/default/graphics/nav/left-grey.png" />
+   <install as="imp/themes/default/graphics/nav/left.png" name="themes/default/graphics/nav/left.png" />
+   <install as="imp/themes/default/graphics/nav/right-grey.png" name="themes/default/graphics/nav/right-grey.png" />
+   <install as="imp/themes/default/graphics/nav/right.png" name="themes/default/graphics/nav/right.png" />
    <install as="imp/themes/default/mimp/screen.css" name="themes/default/mimp/screen.css" />
    <install as="imp/themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
    <install as="imp/themes/gennevilliers/screen.css" name="themes/gennevilliers/screen.css" />
@@ -1943,6 +1969,7 @@
    <install as="imp/themes/postnuke/screen.css" name="themes/postnuke/screen.css" />
    <install as="imp/themes/purple/screen.css" name="themes/purple/screen.css" />
    <install as="imp/themes/purple/dimp/screen.css" name="themes/purple/dimp/screen.css" />
+   <install as="imp/themes/silver/rtl.css" name="themes/silver/rtl.css" />
    <install as="imp/themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="imp/themes/silver/dimp/screen.css" name="themes/silver/dimp/screen.css" />
    <install as="imp/themes/silver/graphics/addressbook_add.png" name="themes/silver/graphics/addressbook_add.png" />
@@ -2017,12 +2044,21 @@
    <install as="imp/themes/silver/graphics/folders/inbox.png" name="themes/silver/graphics/folders/inbox.png" />
    <install as="imp/themes/silver/graphics/folders/minus.png" name="themes/silver/graphics/folders/minus.png" />
    <install as="imp/themes/silver/graphics/folders/open.png" name="themes/silver/graphics/folders/open.png" />
+   <install as="imp/themes/silver/graphics/folders/options.png" name="themes/silver/graphics/folders/options.png" />
    <install as="imp/themes/silver/graphics/folders/plus.png" name="themes/silver/graphics/folders/plus.png" />
    <install as="imp/themes/silver/graphics/folders/sent.png" name="themes/silver/graphics/folders/sent.png" />
    <install as="imp/themes/silver/graphics/folders/spam.png" name="themes/silver/graphics/folders/spam.png" />
    <install as="imp/themes/silver/graphics/folders/trash.png" name="themes/silver/graphics/folders/trash.png" />
    <install as="imp/themes/silver/graphics/mime/compressed.png" name="themes/silver/graphics/mime/compressed.png" />
    <install as="imp/themes/silver/graphics/mime/itip.php" name="themes/silver/graphics/mime/itip.php" />
+   <install as="imp/themes/silver/graphics/nav/first-grey.png" name="themes/silver/graphics/nav/first-grey.png" />
+   <install as="imp/themes/silver/graphics/nav/first.png" name="themes/silver/graphics/nav/first.png" />
+   <install as="imp/themes/silver/graphics/nav/last-grey.png" name="themes/silver/graphics/nav/last-grey.png" />
+   <install as="imp/themes/silver/graphics/nav/last.png" name="themes/silver/graphics/nav/last.png" />
+   <install as="imp/themes/silver/graphics/nav/left-grey.png" name="themes/silver/graphics/nav/left-grey.png" />
+   <install as="imp/themes/silver/graphics/nav/left.png" name="themes/silver/graphics/nav/left.png" />
+   <install as="imp/themes/silver/graphics/nav/right-grey.png" name="themes/silver/graphics/nav/right-grey.png" />
+   <install as="imp/themes/silver/graphics/nav/right.png" name="themes/silver/graphics/nav/right.png" />
    <install as="imp/themes/simplex/screen.css" name="themes/simplex/screen.css" />
    <install as="imp/themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
    <install as="imp/themes/tango-blue/dimp/screen.css" name="themes/tango-blue/dimp/screen.css" />
@@ -2483,9 +2519,15 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-27</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Workaround broken number_format() for PHP &lt; 5.4.0 (Bug #10618).
+* [mms] Add preference to indicate preferred language for return replies on outgoing messages.
+* [mms] For reply, indicate original sender&apos;s language preference.
+* [mms] Fix/improve monthly sent-mail rename login task (Bug #10613).
+* [mms] Fix display of encoded subject text on print page (Bug #9755).
+* [mms] Fix setting MDN flag on sent message after compose (Bug #10579).
 * [mms] When expanding a submailbox in dynamic view, honor expanded children status.
 * [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
 * [mms] Allow multiple messages to be sent via quickreply in dynamic view.
@@ -2497,6 +2539,20 @@
 * [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
 * [mms] Fix altering background color of system message flags (Bug #10544).
 * [jan] Fix sending notifications after download of linked attachments (Bug #10539).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.15</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
+* [mms] Fix some dynamic view links on IE (Bug #10664).
    </notes>
   </release>
  </changelog>

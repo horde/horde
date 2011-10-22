@@ -105,7 +105,7 @@ try {
     $query = new Horde_Imap_Client_Fetch_Query();
     $query->flags();
     $flags_ret = $imp_imap->fetch($mailbox, $query, array(
-        'ids' => new Horde_Imap_Client_Ids($uid)
+        'ids' => $imp_imap->getIdsOb($uid)
     ));
 
     $query = new Horde_Imap_Client_Fetch_Query();
@@ -114,7 +114,7 @@ try {
         'peek' => $readonly
     ));
     $fetch_ret = $imp_imap->fetch($mailbox, $query, array(
-        'ids' => new Horde_Imap_Client_Ids($uid)
+        'ids' => $imp_imap->getIdsOb($uid)
     ));
 } catch (IMP_Imap_Exception $e) {
     $mailbox->url('mailbox-mimp.php')->add('a', 'm')->redirect();

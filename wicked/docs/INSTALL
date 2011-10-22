@@ -75,18 +75,18 @@ install any dependencies of Wicked too. If you want to install Wicked with all
 optional dependencies, but without the binary PECL packages that need to be
 compiled, specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/wicked-alpha
+   pear install -a -B horde/wicked-beta
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/wicked-alpha
+   pear install horde/wicked-beta
 
 If you want to install Wicked even with all binary dependencies, you need to
 remove the ``-B`` flag. Please note that this might also try to install PHP
 extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
-   pear install -a horde/wicked-alpha
+   pear install -a horde/wicked-beta
 
 
 Installing from Release Tarballs

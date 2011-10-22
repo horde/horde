@@ -365,7 +365,7 @@ span.iconImgSidebar {
     margin-right: 0;
     width: 20px;
 }
-#ctx_folder_sub span.iconImg, #ctx_folder_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg {
+#ctx_folder_sub span.iconImg, #ctx_folder_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg, span.folderoptsImg {
     background-image: url("../graphics/folders/folder.png");
 }
 #sidebar span.col, #ctx_folderopts_collapse span.iconImg, #ctx_container_collapse span.iconImg, #ctx_folder_collapse span.iconImg {
@@ -850,7 +850,6 @@ a.address:hover img {
     display: inline;
 }
 #qsearch span.searchImg {
-    background: url("../graphics/search.png") center no-repeat;
     cursor: pointer;
     margin-right: 0;
     padding-top: 2px;
@@ -932,9 +931,6 @@ span.iconImg {
 span.infoIcon {
     background-image: url("../graphics/info_icon.png");
 }
-span.filtersIcon {
-    background-image: url("../graphics/filters.png");
-}
 span.prefsIcon {
     background-image: url("../graphics/prefs.png");
 }
@@ -951,6 +947,7 @@ span.dimpactionForward {
 }
 span.dimpactionSpam {
     background-image: url("../graphics/spam.png");
+    width: 18px;
 }
 span.dimpactionHam {
     background-image: url("../graphics/ham.png");
@@ -972,9 +969,6 @@ span.dimpactionOther {
 }
 span.dimpactionSort {
     background-image: url("../graphics/plus.png");
-}
-span.dimpactionSpellcheck {
-    background-image: url("../graphics/spellcheck.png");
 }
 span.dimpactionDrafts {
     background-image: url("../graphics/drafts.png");
@@ -1124,7 +1118,6 @@ span.keydownImg {
     background-image: url("../graphics/key_down.png");
 }
 span.readonlyImg {
-    background-image: url("../graphics/locked.png");
     vertical-align: sub;
 }
 

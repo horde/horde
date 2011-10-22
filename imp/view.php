@@ -267,9 +267,10 @@ case 'print_attach':
     }
 
     $t = $injector->createInstance('Horde_Template');
-    $t->set('headers', Horde_String::convertCharset($headers, 'UTF-8', $d_param['params']['charset']));
+    $t->set('headers', $headers);
 
-    $elt = DOMDocument::loadHTML($t->fetch(IMP_TEMPLATES . '/print/headers.html'))->getElementById('headerblock');
+    $header_dom = new Horde_Domhtml(Horde_String::convertCharset($t->fetch(IMP_TEMPLATES . '/print/headers.html'), 'UTF-8', $d_param['params']['charset']), $d_param['params']['charset']);
+    $elt = $header_dom->dom->getElementById('headerblock');
     $elt->removeAttribute('id');
 
     if ($elt->hasAttribute('class')) {

@@ -91,7 +91,7 @@ class IMP_Ui_Compose
     public function attachSpellChecker()
     {
         $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-        $spell_img = Horde::img('spellcheck.png');
+        $spell_img = '<span class="iconImg spellcheckImg"></span>';
 
         if (IMP::getViewMode() == 'imp') {
             $br = '<br />';
@@ -122,12 +122,11 @@ class IMP_Ui_Compose
      *
      * @param string $addr  The value of the header string.
      * @param array $opts   Additional options:
-     * <pre>
-     * 'addr_list' - (boolean) Return the list of address components?
-     *               DEFAULT: false
-     * </pre>
+     *   - addr_list: (boolean) Return the list of address components?
+     *                DEFAULT: false
      *
-     * @return mixed  TODO
+     * @return mixed  List of addresses, or a string of addresses if
+     *                'addr_list' is true.
      */
     public function getAddressList($addr, $opts = array())
     {
@@ -285,7 +284,7 @@ class IMP_Ui_Compose
         }
 
         return Horde::addInlineJsVars(array(
-            'IMP_Compose_Base.identities' => $identities
+            'ImpComposeBase.identities' => $identities
         ), array('ret_vars' => true));
     }
 

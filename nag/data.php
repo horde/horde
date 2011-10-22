@@ -117,7 +117,7 @@ case 'export':
                 $iCal = new Horde_Icalendar();
                 $iCal->setAttribute(
                     'PRODID',
-                    '-//Horde LLC//Nag ' . $registry->getVersion() . '//EN');
+                    '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
                 while ($task = $tasks->each()) {
                     $iCal->addComponent($task->toiCalendar($iCal));
                 }

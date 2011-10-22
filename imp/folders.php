@@ -43,9 +43,6 @@ Horde::addInlineJsVars(array(
     'ImpFolders.folders_url' => strval($folders_url)
 ));
 
-/* Initialize the IMP_Folder object. */
-$imp_folder = $injector->getInstance('IMP_Folder');
-
 /* Initialize the IMP_Imap_Tree object. */
 $imaptree = $injector->getInstance('IMP_Imap_Tree');
 
@@ -98,8 +95,8 @@ case 'expunge_folder':
     break;
 
 case 'delete_folder':
-    if (!empty($folder_list)) {
-        $imp_folder->delete($folder_list);
+    foreach ($folder_list as $val) {
+        $val->delete();
     }
     break;
 
@@ -162,21 +159,19 @@ case 'rename_folder':
                 $new = $old_ns['name'] . $new;
             }
 
-            $imp_folder->rename($old_name, Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP'));
+            $old_name->rename(Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP'));
         }
     }
     break;
 
 case 'subscribe_folder':
 case 'unsubscribe_folder':
-    if (!empty($folder_list)) {
-        if ($vars->actionID == 'subscribe_folder') {
-            $imp_folder->subscribe($folder_list);
-        } else {
-            $imp_folder->unsubscribe($folder_list);
-        }
-    } else {
+    if (empty($folder_list)) {
         $notification->push(_("No folders were specified"), 'horde.message');
+    } else {
+        foreach ($folder_list as $val) {
+            $val->subscribe($vars->actionID == 'subscribe_folder');
+        }
     }
     break;
 

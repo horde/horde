@@ -10,7 +10,6 @@
         <?php foreach ($menu->getSiteLinks() as $key => $menu_item): ?>
         <?php if ($menu_item == 'separator'): ?>
       </ul>
-      <span class="kronolithSeparator">|</span>
       <ul>
         <?php else: ?>
         <li><a href="<?php echo $menu_item['url'] ?>" title="<?php echo $menu_item['text'] ?>" id="kronolithMenu-<?php echo $key ?>"><img src="<?php echo $menu_item['icon_path'] . '/' . $menu_item['icon'] ?>" alt="<?php echo $menu_item['text'] ?>" /> <?php echo $menu_item['text'] ?></a></li>
@@ -18,19 +17,26 @@
         <?php endforeach; ?>
         <?php foreach ($GLOBALS['conf']['menu']['apps'] as $app): ?>
         <?php  if ($app == 'horde'): ?>
-          <li><a href="<?php echo Horde::getServiceLink('portal');?>" id="kronolithApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+          <li><a href="<?php echo Horde::getServiceLink('portal');?>" id="kronolithApplication-<?php echo $app ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
         <?php elseif (empty($GLOBALS['conf']['menu']['apps_iframe']) || $GLOBALS['registry']->hasAjaxView($app)): ?>
-        <li><a href="<?php echo $GLOBALS['registry']->get('webroot', $app) ?>" id="kronolithApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+        <li><a href="<?php echo $GLOBALS['registry']->get('webroot', $app) ?>" id="kronolithApplication-<?php echo $app ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
         <?php else: ?>
-        <li><a href="#" onclick="KronolithCore.go('app:<?php echo $app ?>')" id="kronolithApplication-<?php echo $app ?>" title="<?php echo $GLOBALS['registry']->get('name', $app) ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+        <li><a href="#" onclick="KronolithCore.go('app:<?php echo $app ?>')" id="kronolithApplication-<?php echo $app ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
         <?php endif; ?>
         <?php endforeach; ?>
       </ul>
     </div>
     <?php endif; ?>
-    <a href="#" id="kronolithNotifications" class="kronolithNotifications" title="<?php echo ("0 notifications") ?>"></a>
-    <span class="kronolithSeparator">|</span>
-    <a href="#" id="kronolithOptions"><?php echo _("Options") ?></a><?php if ($help_link) echo ' <span class="kronolithSeparator">|</span> ' . $help_link; if (Horde_Menu::showService('logout')) { $ak = Horde::getAccessKey(_("_Logout")); echo ' <span class="kronolithSeparator">|</span> <a href="#" accesskey="' . $ak . '" id="kronolithLogout">' . Horde::highlightAccessKey(_("_Logout"), $ak) . '</a>'; } ?>
+    <ul>
+      <li><a href="#" id="kronolithNotifications" class="kronolithNotifications" title="<?php echo ("0 notifications") ?>"></a></li>
+      <li><a href="#" id="kronolithOptions"><?php echo _("Options") ?></a></li>
+      <?php if ($help_link): ?>
+      <li><?php echo $help_link ?></li>
+      <?php endif ?>
+      <?php if (Horde_Menu::showService('logout')): $ak = Horde::getAccessKey(_("_Logout")); ?>
+      <li><a href="#" accesskey="<?php echo $ak ?>" id="kronolithLogout"><?php echo Horde::highlightAccessKey(_("_Logout"), $ak) ?></a></li>
+      <?php endif ?>
+    </ul>
   </div>
   <!-- end services -->
 

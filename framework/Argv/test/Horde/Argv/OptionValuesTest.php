@@ -1,4 +1,4 @@
-y<?php
+<?php
 
 require_once dirname(__FILE__) . '/TestCase.php';
 

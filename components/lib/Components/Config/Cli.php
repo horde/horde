@@ -86,7 +86,7 @@ extends Components_Config_Base
                 '--pretend',
                 array(
                     'action' => 'store_true',
-                    'help'   => 'Just pretend and indicate what would be done rather than performing the action (This option is not yet supported by all modules - "install", "change", and "release" so far).',
+                    'help'   => 'Just pretend and indicate what would be done rather than performing the action.',
                 )
             )
         );

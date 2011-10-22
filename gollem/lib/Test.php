@@ -52,7 +52,6 @@ class Gollem_Test extends Horde_Test
      * @var array
      */
     protected $_fileList = array(
-        'config/backends.php' => null,
         'config/conf.php' => null,
     );
 

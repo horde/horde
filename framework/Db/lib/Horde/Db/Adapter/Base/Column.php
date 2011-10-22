@@ -41,12 +41,17 @@ class Horde_Db_Adapter_Base_Column
     ##########################################################################*/
 
     /**
-     * Construct
+     * Constructor.
      *
-     * @param   string  $name     The column's name, such as <tt>supplier_id</tt> in <tt>supplier_id int(11)</tt>.
-     * @param   string  $default  The type-casted default value, such as +new+ in <tt>sales_stage varchar(20) default 'new'</tt>.
-     * @param   string  $sqlType  Used to extract the column's length and signed status, if necessary. For example +60+ in <tt>company_name varchar(60)</tt>, or +unsigned => true+ in <tt>int(10) UNSIGNED</tt>.
-     * @param   boolean $null     Determines if this column allows +NULL+ values.
+     * @param string $name     The column's name, such as "supplier_id" in
+     *                         "supplier_id int(11)".
+     * @param string $default  The type-casted default value, such as "new" in
+     *                         "sales_stage varchar(20) default 'new'".
+     * @param string $sqlType  Used to extract the column's type, length and
+     *                         signed status, if necessary. For example
+     *                         "varchar" and "60" in "company_name varchar(60)"
+     *                         or "unsigned => true" in "int(10) UNSIGNED".
+     * @param boolean $null    Whether this column allows NULL values.
      */
     public function __construct($name, $default, $sqlType = null, $null = true)
     {

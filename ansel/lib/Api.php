@@ -959,9 +959,9 @@ class Ansel_Api extends Horde_Registry_Api
      *
      * @return array  An array containing tag_name, and total
      */
-    public function listTagInfo($tags = null)
+    public function listTagInfo($tags = null, $user = null)
     {
-        return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTagInfo($tags);
+        return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTagInfo($tags, 500, null, $user);
     }
 
     /**

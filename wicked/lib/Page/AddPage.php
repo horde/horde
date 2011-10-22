@@ -29,6 +29,7 @@ class Wicked_Page_AddPage extends Wicked_Page {
 
     /**
      * Cached search results.
+     *
      * @var array
      */
     protected $_results;

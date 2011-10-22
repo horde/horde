@@ -60,6 +60,7 @@ class IMP_Dimp
             array('sound.js', 'horde'),
             array('horde.js', 'horde'),
             array('dimpcore.js', 'imp'),
+            array('indices.js', 'imp'),
             array('growler.js', 'horde')
         );
         foreach (array_merge($core_scripts, $scripts) as $val) {
@@ -132,19 +133,6 @@ class IMP_Dimp
         }
 
         return $ret;
-    }
-
-    /**
-     * Return to main dimp mailbox page from within IFRAME.
-     *
-     * @var string $mailbox  The mailbox to load.
-     */
-    static public function returnToDimp($mailbox = '')
-    {
-        print '<html><head>' .
-            Horde::wrapInlineScript(array('window.parent.DimpBase.go(\'mbox\', ' . Horde_Serialize::serialize(strval($mailbox), Horde_Serialize::JSON, 'UTF-8') . ')')) .
-            '</head></html>';
-        exit;
     }
 
 }

@@ -4,6 +4,8 @@
  */
 class Whups_Form_TicketDetails extends Horde_Form
 {
+    public $attributes = array();
+
     /**
      */
     public function __construct(&$vars, &$ticket, $title = '')
@@ -144,13 +146,13 @@ class Whups_Form_TicketDetails extends Horde_Form
                         if (!$attribute['params']) {
                             $attribute['params'] = array();
                         }
-                        $var = &$this->addVariable(
+                        $this->attributes[$attribute['id']] = $this->addVariable(
                             $attribute['human_name'],
                             'attribute_' . $attribute['id'],
                             $attribute['type'], $attribute['required'],
                             $attribute['readonly'], $attribute['desc'],
                             $attribute['params']);
-                        $var->setDefault($attribute['value']);
+                        $this->attributes[$attribute['id']]->setDefault($attribute['value']);
                     }
                     break;
                 }

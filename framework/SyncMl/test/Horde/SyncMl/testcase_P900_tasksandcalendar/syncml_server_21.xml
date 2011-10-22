@@ -1,7 +1,7 @@
 <SyncML><SyncHdr><VerDTD>1.0</VerDTD><VerProto>SyncML/1.0</VerProto><SessionID>288553580</SessionID><MsgID>2</MsgID><Target><LocURI>351965-00-340413-3</LocURI><LocName>syncmltest</LocName></Target><Source><LocURI>http://example.com/rpc.php</LocURI></Source><Meta><MaxMsgSize xmlns="syncml:metinf">1000000</MaxMsgSize></Meta></SyncHdr><SyncBody><Status><CmdID>1</CmdID><MsgRef>2</MsgRef><CmdRef>0</CmdRef><Cmd>SyncHdr</Cmd><TargetRef>http://example.com/rpc.php</TargetRef><SourceRef>351965-00-340413-3</SourceRef><Data>200</Data></Status><Status><CmdID>2</CmdID><MsgRef>2</MsgRef><CmdRef>4</CmdRef><Cmd>Sync</Cmd><TargetRef>calendar</TargetRef><SourceRef>c:\Documents\agenda\agenda</SourceRef><Data>200</Data></Status><Sync><CmdID>3</CmdID><Target><LocURI>c:\Documents\agenda\agenda</LocURI></Target><Source><LocURI>calendar</LocURI></Source><Replace><CmdID>4</CmdID><Meta><Type xmlns="syncml:metinf">text/x-vcalendar</Type></Meta><Item><Target><LocURI>667</LocURI></Target><Data><![CDATA[BEGIN:VCALENDAR
 VERSION:1.0
 X-WR-CALNAME:syncmltest's Calendar
-PRODID:-//Horde LLC//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20061222T110000Z
@@ -18,7 +18,7 @@ END:VCALENDAR
 ]]></Data></Item></Replace><Replace><CmdID>5</CmdID><Meta><Type xmlns="syncml:metinf">text/x-vcalendar</Type></Meta><Item><Target><LocURI>678</LocURI></Target><Data><![CDATA[BEGIN:VCALENDAR
 VERSION:1.0
 X-WR-CALNAME:syncmltest's Calendar
-PRODID:-//Horde LLC//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 X-EPOCAGENDAENTRYTYPE:EVENT
@@ -36,7 +36,7 @@ END:VEVENT
 END:VCALENDAR
 ]]></Data></Item></Replace><Replace><CmdID>6</CmdID><Meta><Type xmlns="syncml:metinf">text/x-vcalendar</Type></Meta><Item><Target><LocURI>679</LocURI></Target><Data><![CDATA[BEGIN:VCALENDAR
 VERSION:1.0
-PRODID:-//Horde LLC//Nag H3 (2.2-cvs)//EN
+PRODID:-//The Horde Project//Nag H3 (2.2-cvs)//EN
 METHOD:PUBLISH
 BEGIN:VTODO
 ORGANIZER:syncmltest

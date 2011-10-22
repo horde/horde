@@ -37,7 +37,8 @@ AnselGeoTagWidget = Class.create({
             mainMap:  'ansel_map',
             geocoder: 'None',
             calculateMaxZoom: true,
-            deleteGeotagCallback: this.deleteLocation.bind(this)
+            deleteGeotagCallback: this.deleteLocation.bind(this),
+            defaultBaseLayer: false
         };
         this._images = imgs;
         this.opts = Object.extend(o, opts || {});
@@ -92,6 +93,20 @@ AnselGeoTagWidget = Class.create({
         });
     },
 
+    updateBaseLayer: function(l)
+    {
+        var params = { 'values': 'name=' + l.layer.name };
+        new Ajax.Request(this.opts.layerUpdateEndpoint + '/post=values', {
+            method: 'post',
+            parameters: params,
+            onComplete: function(transport) {
+                 if (typeof Horde_ToolTips != 'undefined') {
+                     Horde_ToolTips.out();
+                 }
+             }.bind(this)
+        });
+    },
+
     doMap: function()
     {
         // Create map and geocoder objects
@@ -122,10 +137,11 @@ AnselGeoTagWidget = Class.create({
                 var uri = f.feature.attributes.image_link;
                 location.href = uri;
             }.bind(this),
-
+            'onBaseLayerChange': this.updateBaseLayer.bind(this),
             'imageLayer': (this.opts.viewType == 'Image') ? true : false,
             'imageLayerText': this.opts.imageLayerTitle,
             'markerLayerText': (this.opts.viewType == 'Image') ? this.opts.markerLayerTitle : this.opts.imageLayerTitle,
+            'defaultBaseLayer': this.opts.defaultBaseLayer
         });
         this._smallMap = AnselMap.initMiniMap('ansel_map_small', {});
         this.geocoder = new HordeMap.Geocoder[this.opts.geocoder](this._bigMap.map, 'ansel_map');
@@ -134,6 +150,7 @@ AnselGeoTagWidget = Class.create({
         var centerImage;
         this._images.each(function(img) {
             if (img.markerOnly) {
+                // Only here in ImageView and for the current image
                 AnselMap.placeMapMarker(
                     'ansel_map_small',
                     {

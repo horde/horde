@@ -4,6 +4,15 @@ v1.0.1-git
 
 
 
+--------
+v1.0-RC1
+--------
+
+[jan] Fix rendering attached images with Mediawiki syntax (Bug #10570).
+[jan] Fix links to add new pages on pages with non-ascii names (Bug #10612).
+[gwr] Support rendering bold text and code section in the rst renderer.
+
+
 -----------
 v1.0-ALPHA1
 -----------

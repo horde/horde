@@ -41,7 +41,7 @@ var ImpFolderPrefs = {
             if (this.origtext) {
                 $('sent_mail_folder_new').remove();
                 $('sent_mail_folder').down('.flistCreate').update(this.origtext);
-                this.origtext = null;
+                delete this.origtext;
             }
             break;
         }

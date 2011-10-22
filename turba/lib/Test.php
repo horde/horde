@@ -75,7 +75,7 @@ class Turba_Test extends Horde_Test
         if (!empty($params['server']) &&
             !empty($params['basedn']) &&
             !empty($params['filter'])) {
-            $ret .= $this->_doConnectionTest();
+            $ret .= $this->_doConnectionTest($params);
         }
 
         $self_url = Horde::selfUrl()->add('app', 'turba');

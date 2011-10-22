@@ -306,6 +306,11 @@ class Whups_Driver_Sql extends Whups_Driver
             $ticket_id, $comment, $requester,
             isset($info['user_email']) ? $info['user_email'] : null);
 
+        // If permissions were specified, set them.
+        if (!empty($info['group'])) {
+            Whups_Ticket::addCommentPerms($commentId, $info['group']);
+        }
+
         $transaction = $this->updateLog($ticket_id,
                                         $requester,
                                         array('state' => $state,
@@ -333,6 +338,7 @@ class Whups_Driver_Sql extends Whups_Driver
 
         // Add any supplied attributes for this ticket.
         foreach ($attributes as $attribute_id => $attribute_value) {
+            $attribute_value = $this->_serializeAttribute($attribute_value);
             $this->_setAttributeValue(
                 $ticket_id, $attribute_id, $attribute_value);
 
@@ -669,6 +675,7 @@ class Whups_Driver_Sql extends Whups_Driver
     {
         $func    = '';
         $funcend = '';
+        $value = $this->_toBackend($value);
 
         switch ($operator) {
         case Whups_Query::OPERATOR_GREATER: $op = '>'; break;
@@ -1106,7 +1113,13 @@ class Whups_Driver_Sql extends Whups_Driver
         $attributes = $this->getTicketAttributesWithNames(array_keys($tickets));
         foreach ($attributes as $row) {
             $attribute_id = 'attribute_' . $row['attribute_id'];
-            $tickets[$row['id']][$attribute_id] = $row['attribute_value'];
+            try {
+                $tickets[$row['id']][$attribute_id] =
+                    Horde_Serialize::unserialize($row['attribute_value'],
+                                                 Horde_Serialize::JSON);
+            } catch (Horde_Serialize_Exception $e) {
+                $tickets[$row['id']][$attribute_id] = $row['attribute_value'];
+            }
             $tickets[$row['id']][$attribute_id . '_name'] = $row['attribute_name'];
         }
 
@@ -2964,16 +2977,16 @@ class Whups_Driver_Sql extends Whups_Driver
     /**
      * Save an attribute value.
      *
-     * @param integer $ticket_id      A ticket ID.
-     * @param integer $attribute_id   An attribute ID.
-     * @param mixed $attribute_value  An attribute value.
+     * @param integer $ticket_id       A ticket ID.
+     * @param integer $attribute_id    An attribute ID.
+     * @param string $attribute_value  An attribute value.
      *
      * @throws Whups_Exception
      */
     protected function _setAttributeValue($ticket_id, $attribute_id,
                                           $attribute_value)
     {
-        $db_attribute_value = $this->_toBackend((string)$attribute_value);
+        $db_attribute_value = $this->_toBackend($attribute_value);
 
         $this->_db->beginDbTransaction();
         try {
@@ -2982,7 +2995,7 @@ class Whups_Driver_Sql extends Whups_Driver
                     . 'AND attribute_id = ?',
                  array($ticket_id, $attribute_id));
 
-            if (!empty($attribute_value)) {
+            if (strlen($attribute_value)) {
                 $this->_db->insert(
                     'INSERT INTO whups_attributes (ticket_id, attribute_id, attribute_value) VALUES (?, ?, ?)',
                     array($ticket_id, $attribute_id, $db_attribute_value));
@@ -3034,7 +3047,17 @@ class Whups_Driver_Sql extends Whups_Driver
             }
         }
 
-        return $this->_fromBackend($attributes);
+        $attributes = $this->_fromBackend($attributes);
+        foreach ($attributes as &$attribute) {
+            try {
+                $attribute = Horde_Serialize::unserialize(
+                    $attribute,
+                    Horde_Serialize::JSON);
+            } catch (Horde_Serialize_Exception $e) {
+            }
+        }
+
+        return $attributes;
     }
 
     /**
@@ -3084,7 +3107,17 @@ class Whups_Driver_Sql extends Whups_Driver
             }
         }
 
-        return $this->_fromBackend($attributes);
+        $attributes = $this->_fromBackend($attributes);
+        foreach ($attributes as &$attribute) {
+            try {
+                $attribute = Horde_Serialize::unserialize(
+                    $attribute,
+                    Horde_Serialize::JSON);
+            } catch (Horde_Serialize_Exception $e) {
+            }
+        }
+
+        return $attributes;
     }
 
     /**
@@ -3126,6 +3159,12 @@ class Whups_Driver_Sql extends Whups_Driver
                 $this->_fromBackend(@unserialize($attribute['attribute_params']));
             $attribute['attribute_required'] =
                 (bool)$attribute['attribute_required'];
+            try {
+                $attribute['attribute_value'] = Horde_Serialize::unserialize(
+                    $attribute['attribute_value'],
+                    Horde_Serialize::JSON);
+            } catch (Horde_Serialize_Exception $e) {
+            }
         }
 
         return $attributes;

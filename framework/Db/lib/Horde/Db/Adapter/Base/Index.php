@@ -23,10 +23,37 @@
  */
 class Horde_Db_Adapter_Base_Index
 {
+    /**
+     * The table the index is on.
+     *
+     * @var string
+     */
     public $table;
+
+    /**
+     * The index's name.
+     *
+     * @var string
+     */
     public $name;
+
+    /**
+     *
+     */
     public $unique;
+
+    /**
+     * Is this a primary key?
+     *
+     * @var boolean
+     */
     public $primary;
+
+    /**
+     * The columns this index covers.
+     *
+     * @var array
+     */
     public $columns;
 
 
@@ -35,13 +62,13 @@ class Horde_Db_Adapter_Base_Index
     ##########################################################################*/
 
     /**
-     * Construct
+     * Constructor.
      *
-     * @param   string  $table    The table the index is on
-     * @param   string  $name     The index's name
-     * @param   boolean $primary  Is this a primary key?
-     * @param   boolean $unique   Is this a unique index?
-     * @param   array   $columns  The columns this index covers
+     * @param string  $table    The table the index is on.
+     * @param string  $name     The index's name.
+     * @param boolean $primary  Is this a primary key?
+     * @param boolean $unique   Is this a unique index?
+     * @param array   $columns  The columns this index covers.
      */
     public function __construct($table, $name, $primary, $unique, $columns)
     {

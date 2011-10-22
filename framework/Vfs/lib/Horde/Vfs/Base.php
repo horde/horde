@@ -669,18 +669,18 @@ abstract class Horde_Vfs_Base
      * @param integer $quota   The limit to apply.
      * @param integer $metric  The metric to multiply the quota into.
      */
-    public function setQuota($quota, $metric = self::QUOTA_METRIC_BYTE)
+    public function setQuota($quota, $metric = Horde_Vfs::QUOTA_METRIC_BYTE)
     {
         switch ($metric) {
-        case self::QUOTA_METRIC_KB:
+        case Horde_Vfs::QUOTA_METRIC_KB:
             $quota *= pow(2, 10);
             break;
 
-        case self::QUOTA_METRIC_MB:
+        case Horde_Vfs::QUOTA_METRIC_MB:
             $quota *= pow(2, 20);
             break;
 
-        case self::QUOTA_METRIC_GB:
+        case Horde_Vfs::QUOTA_METRIC_GB:
             $quota *= pow(2, 30);
             break;
         }

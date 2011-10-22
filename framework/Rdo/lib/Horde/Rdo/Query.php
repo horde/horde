@@ -1,6 +1,7 @@
 <?php
 /**
- * Represent a single query or a tree of many query elements uniformly to clients.
+ * Represent a single query or a tree of many query elements uniformly to
+ * clients.
  *
  * @category Horde
  * @package  Rdo
@@ -26,6 +27,11 @@ class Horde_Rdo_Query
      * @var array
      */
     public $fields = array('*');
+
+    /**
+     * @var boolean
+     */
+    public $distinct = false;
 
     /**
      * @var array
@@ -159,6 +165,21 @@ class Horde_Rdo_Query
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * Makes the query return only distinct (different) values.
+     *
+     * @since Horde_Rdo 1.1.0
+     *
+     * @param boolean $distinct  Whether to enable a distinct query.
+     *
+     * @return Horde_Rdo_Query Returns self for fluent method chaining.
+     */
+    public function distinct($distinct)
+    {
+        $this->distinct = $distinct;
         return $this;
     }
 
@@ -338,7 +359,11 @@ class Horde_Rdo_Query
             }
         }
 
-        $sql = 'SELECT ' . implode(', ', $fields);
+        if ($this->distinct) {
+            $sql = 'SELECT ' . $this->mapper->adapter->distinct(implode(', ', $fields), implode(', ', $this->sortby));
+        } else {
+            $sql = 'SELECT ' . implode(', ', $fields);
+        }
     }
 
     /**

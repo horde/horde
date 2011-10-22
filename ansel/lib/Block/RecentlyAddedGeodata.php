@@ -76,12 +76,24 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
             $images[$key]['link'] = (string)$url;
             $images[$key]['markerOnly'] = false;
         }
+        // URL for updating selected layer
+        $imple =  $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Imple')
+            ->create(array('ansel', 'MapLayerSelect'));
+        $layerImpleUrl = $imple->getUrl();
+
+        // And the current defaultLayer, if any.
+        $defaultLayer = $GLOBALS['prefs']->getValue('current_maplayer');
 
         $json = Horde_Serialize::serialize(array_values($images), Horde_Serialize::JSON);
         $html = '<div id="ansel_map" style="height:' . $this->_params['height'] . 'px;"></div>';
         $html .= <<<EOT
         <script type="text/javascript">
-            document.observe('dom:loaded', function() { new AnselBlockGeoTag({$json}); });
+            var opts = {
+                'layerUpdateEndpoint': '{$layerImpleUrl}',
+                'defaultBaseLayer': '{$defaultLayer}'
+            }
+            document.observe('dom:loaded', function() { new AnselBlockGeoTag({$json}, opts); });
         </script>
 EOT;
         return $html;

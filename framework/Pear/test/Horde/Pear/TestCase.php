@@ -94,14 +94,12 @@ extends Horde_Test_Case
 
     protected function createRemote($request)
     {
-        $access = new Horde_Pear_Rest_Access();
-        $access->setRest(
-            'http://test',
+        return new Horde_Pear_Remote(
+            'test', 
             new Horde_Pear_Rest(
                 new Horde_Http_Client(array('request' => $request)),
                 'http://test'
             )
         );
-        return new Horde_Pear_Remote('test', $access);
     }
 }

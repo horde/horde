@@ -305,6 +305,11 @@ case 'reply_list':
         $title = _("Reply to List:");
         break;
     }
+
+    if (!empty($reply_msg['lang'])) {
+        $reply_lang = array_values($reply_msg['lang']);
+    }
+
     $title .= ' ' . $header['subject'];
 
     if (!is_null($rtemode)) {
@@ -484,7 +489,6 @@ case 'send_message':
             $notification->push(_("Your identity has been switched to the identity associated with the current recipient address. The identity will not be checked again during this compose action."));
         }
 
-        // TODO
         switch ($e->encrypt) {
         case 'pgp_symmetric_passphrase_dialog':
             $imp_ui->passphraseDialog('pgp_symm', $imp_compose->getCacheId());
@@ -707,7 +711,7 @@ if ($prefs->getValue('use_pgp') &&
 
 /* Define some variables used in the javascript code. */
 $js_vars = array(
-    'IMP_Compose_Base.editor_on' => intval($rtemode),
+    'ImpComposeBase.editor_on' => intval($rtemode),
     'ImpCompose.auto_save' => intval($prefs->getValue('auto_save_drafts')),
     'ImpCompose.cancel_url' => $cancel_url,
     'ImpCompose.cursor_pos' => ($rtemode ? null : $prefs->getValue('compose_cursor')),
@@ -973,6 +977,10 @@ if ($redirect) {
         }
     }
 
+    if (isset($reply_lang)) {
+        $t->set('reply_lang', implode(',', $reply_lang));
+    }
+
     $t->set('message_label', Horde::label('composeMessage', _("Te_xt")));
     $t->set('message_tabindex', ++$tabindex);
     $t->set('message', htmlspecialchars($msg));
@@ -998,7 +1006,6 @@ if ($redirect) {
         $t->set('attach_vcard', $vars->vcard);
     }
     if ($session->get('imp', 'file_upload')) {
-        $localeinfo = Horde_Nls::getLocaleInfo();
         try {
             $t->set('selectlistlink', $registry->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true)));
         } catch (Horde_Exception $e) {
@@ -1011,7 +1018,7 @@ if ($redirect) {
                 $t->set('file_tabindex', ++$tabindex);
             }
         }
-        $t->set('attach_size', number_format($imp_compose->maxAttachmentSize(), 0, $localeinfo['decimal_point'], $localeinfo['thousands_sep']));
+        $t->set('attach_size', IMP::numberFormat($imp_compose->maxAttachmentSize(), 0));
         $t->set('help-attachments', Horde_Help::link('imp', 'compose-attachments'));
 
         $save_attach = $prefs->getValue('save_attachments');
@@ -1066,10 +1073,10 @@ if ($redirect) {
                 $atc[] = $entry;
             }
             $t->set('atc', $atc);
-            $t->set('total_attach_size', number_format($imp_compose->sizeOfAttachments() / 1024, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep']));
+            $t->set('total_attach_size', IMP::numberFormat($imp_compose->sizeOfAttachments() / 1024, 2));
             $t->set('perc_attach', ((!empty($conf['compose']['attach_size_limit'])) && ($conf['compose']['attach_size_limit'] > 0)));
             if ($t->get('perc_attach')) {
-                $t->set('perc_attach', sprintf(_("%s%% of allowed size"), number_format($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep'])));
+                $t->set('perc_attach', sprintf(_("%s%% of allowed size"), IMP::numberFormat($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2)));
             }
             $t->set('help-current-attachments', Horde_Help::link('imp', 'compose-current-attachments'));
         }

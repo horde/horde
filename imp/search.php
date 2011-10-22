@@ -339,7 +339,9 @@ if ($vars->criteria_form) {
     /* Redirect to the mailbox page. */
     if ($redirect_target) {
         if ($dimp_view && $redirect_dimp) {
-            IMP_Dimp::returnToDimp(strval($q_ob));
+            print '<html><head>' .
+                Horde::wrapInlineScript(array('window.parent.DimpBase.go("mbox", "' . $q_ob->mbox_ob->form_to . '")')) .
+                '</head></html>';
             exit;
         }
 

@@ -388,6 +388,14 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     border: solid 1px #999999;
     margin: 3px;
 }
+.uploadnotification {
+  min-height: 20px;
+  padding-left: 8px;
+}
+.twitterbutton {
+  background: url('graphics/twitter.png') none-repeat;
+  padding-left: 16px !important;
+}
 
 /* Horizontal Carousel */
 #horizontal_carousel {

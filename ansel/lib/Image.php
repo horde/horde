@@ -294,35 +294,45 @@ class Ansel_Image Implements Iterator
             $this->_image->loadString($this->_data['full']);
             $this->_loaded['full'] = true;
             return;
-        }
+        } elseif ($view == 'full') {
+            try {
+                $data = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('images')
+                    ->read($this->getVFSPath('full'), $this->getVFSName('full'));
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ansel_Exception($e);
+            }
+            $viewHash = 'full';
+        } else {
+            $viewHash = $this->getViewHash($view, $style);
 
-        $viewHash = $this->getViewHash($view, $style);
+            // If we've already loaded the data, just return now.
+            if (!empty($this->_loaded[$viewHash])) {
+                return;
+            }
+            $this->createView($view, $style);
 
-        // If we've already loaded the data, just return now.
-        if (!empty($this->_loaded[$viewHash])) {
-            return;
-        }
+            // If createView() had to resize the full image, we've already
+            // loaded the data, so return now.
+            if (!empty($this->_loaded[$viewHash])) {
+                return;
+            }
 
-        $this->createView($view, $style);
+            // Get the VFS info.
+            $vfspath = $this->getVFSPath($view, $style);
 
-        // If createView() had to resize the full image, we've already
-        // loaded the data, so return now.
-        if (!empty($this->_loaded[$viewHash])) {
-            return;
-        }
-
-        // Get the VFS info.
-        $vfspath = $this->getVFSPath($view, $style);
-
-        // Read in the requested view.
-        try {
-            $data = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Vfs')
-                ->create('images')
-                ->read($vfspath, $this->getVFSName($view));
-        } catch (Horde_Vfs_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            throw new Ansel_Exception($e);
+            // Read in the requested view.
+            try {
+                $data = $GLOBALS['injector']
+                    ->getInstance('Horde_Core_Factory_Vfs')
+                    ->create('images')
+                    ->read($vfspath, $this->getVFSName($view));
+            } catch (Horde_Vfs_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ansel_Exception($e);
+            }
         }
 
         /* We've definitely successfully loaded the image now. */
@@ -382,8 +392,10 @@ class Ansel_Image Implements Iterator
     {
         // Default to the gallery's style
         if (empty($style)) {
-            $style = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                ->getGallery($this->gallery)->getStyle();
+            $style = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getGallery($this->gallery)
+                ->getStyle();
         }
 
         // Get the VFS info.
@@ -391,7 +403,6 @@ class Ansel_Image Implements Iterator
         if ($GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
             ->create('images')
             ->exists($vfspath, $this->getVFSName($view))) {
-
             return;
         }
         try {
@@ -721,10 +732,12 @@ class Ansel_Image Implements Iterator
         }
 
         foreach ($exif_fields as $name => $value) {
-            $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->saveImageAttribute($this->id, $name, $value);
-            $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
+            if (!empty($value)) {
+                $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->saveImageAttribute($this->id, $name, $value);
+                $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
+            }
         }
 
         return $needUpdate;
@@ -846,7 +859,9 @@ class Ansel_Image Implements Iterator
     public function raw($view = 'full')
     {
         if ($this->_dirty) {
-            return $this->_image->raw();
+            $data = $this->_image->raw();
+            $this->reset();
+            return $data;
         } else {
             $this->load($view);
             return $this->_data[$view];

@@ -157,6 +157,14 @@ class Horde_Imap_Client
     const SPECIALUSE_SENT = '\\Sent';
     const SPECIALUSE_TRASH = '\\Trash';
 
+    /* Debugging constants. */
+    const DEBUG_RAW = 0;
+    const DEBUG_CLIENT = 1;
+    const DEBUG_INFO = 2;
+    const DEBUG_SERVER = 3;
+    // Time, in seconds, for a slow command.
+    const SLOW_COMMAND = 1;
+
     /**
      * Attempts to return a concrete Horde_Imap_Client instance based on
      * $driver.

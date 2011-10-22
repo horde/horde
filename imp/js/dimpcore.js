@@ -34,77 +34,19 @@ var DimpCore = {
         }
     },
 
-    // Convert object to an IMP UID Range string. See IMP::toRangeString()
-    // ob = (object) mailbox name as keys, values are array of uids.
-    toRangeString: function(ob)
+    toUIDString: function(ob, opts)
     {
-        var str = '';
-
-        $H(ob).each(function(o) {
-            if (!o.value.size()) {
-                return;
-            }
-
-            var u = (DIMP.conf.pop3 ? o.value.clone() : o.value.numericSort()),
-                first = u.shift(),
-                last = first,
-                out = [];
-
-            u.each(function(k) {
-                if (!DIMP.conf.pop3 && (last + 1 == k)) {
-                    last = k;
-                } else {
-                    out.push(first + (last == first ? '' : (':' + last)));
-                    first = last = k;
-                }
-            });
-            out.push(first + (last == first ? '' : (':' + last)));
-            str += '{' + o.key.length + '}' + o.key + out.join(',');
-        });
-
-        return str;
-    },
-
-    // Parses an IMP UID Range string. See IMP::parseRangeString()
-    // str = (string) An IMP UID range string.
-    parseRangeString: function(str)
-    {
-        var count, end, i, mbox, uidstr,
-            mlist = {},
-            uids = [];
-        str = str.strip();
-
-        while (!str.blank()) {
-            if (!str.startsWith('{')) {
-                break;
-            }
-            i = str.indexOf('}');
-            count = Number(str.substr(1, i - 1));
-            mbox = str.substr(i + 1, count);
-            i += count + 1;
-            end = str.indexOf('{', i);
-            if (end == -1) {
-                uidstr = str.substr(i);
-                str = '';
-            } else {
-                uidstr = str.substr(i, end - i);
-                str = str.substr(end);
-            }
-
-            uidstr.split(',').each(function(e) {
-                var r = e.split(':');
-                if (r.size() == 1) {
-                    uids.push(DIMP.conf.pop3 ? e : Number(e));
-                } else {
-                    // POP3 will never exist in range here.
-                    uids = uids.concat($A($R(Number(r[0]), Number(r[1]))));
-                }
-            });
-
-            mlist[mbox] = uids;
+        if (DIMP.conf.pop3) {
+            opts = opts || {};
+            opts.pop3 = 1;
         }
 
-        return mlist;
+        return ImpIndices.toUIDString(ob, opts);
+    },
+
+    parseUIDString: function(str)
+    {
+        return ImpIndices.parseUIDString(str, DIMP.conf.pop3 ? { pop3: 1 } : {});
     },
 
     // 'opts' -> ajaxopts, callback, uids
@@ -119,7 +61,7 @@ var DimpCore = {
             if (opts.uids.viewport_selection) {
                 opts.uids = this.selectionToRange(opts.uids);
             }
-            params.set('uid', this.toRangeString(opts.uids));
+            params.set('uid', this.toUIDString(opts.uids));
         }
 
         this.addRequestParams(params);
@@ -332,7 +274,7 @@ var DimpCore = {
 
         if (type.startsWith('forward') || !args || !args.uids) {
             if (type.startsWith('forward')) {
-                params.uids = this.toRangeString(this.selectionToRange(args.uids));
+                params.uids = this.toUIDString(this.selectionToRange(args.uids));
             } else if (args) {
                 if (args.to) {
                     params.to = args.to;

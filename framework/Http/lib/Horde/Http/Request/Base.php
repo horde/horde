@@ -51,6 +51,7 @@ abstract class Horde_Http_Request_Base
             'authenticationScheme' => Horde_Http::AUTH_ANY,
             'proxyServer' => null,
             'proxyPort' => null,
+            'proxyType' => Horde_Http::PROXY_HTTP,
             'proxyUsername' => null,
             'proxyPassword' => null,
             'proxyAuthenticationScheme' => Horde_Http::AUTH_BASIC,

@@ -152,7 +152,7 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
             throw new Horde_Rpc_Exception($e->getMessage());
         }
         if ($result->code == 500) {
-            $response = Horde_Serialize::unserialize($reult->getBody(), Horde_Serialize::JSON);
+            $response = Horde_Serialize::unserialize($result->getBody(), Horde_Serialize::JSON);
             if (is_a($response, 'stdClass') &&
                 isset($response->error) &&
                 is_a($response->error, 'stdClass') &&

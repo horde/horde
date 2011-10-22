@@ -17,7 +17,7 @@ $data = <<<EVENT
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:cdillon's Calendar
-PRODID:-//Horde LLC//Horde iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20080630T110000Z
@@ -48,7 +48,7 @@ $data = <<<EVENT
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:cdillon's Calendar
-PRODID:-//Horde LLC//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde_iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART;VALUE=DATE:20080630
@@ -79,7 +79,7 @@ $data = <<<EVENT
 BEGIN:VCALENDAR
 VERSION:2.0
 X-WR-CALNAME:Agenda de Pruebas
-PRODID:-//Horde LLC//Horde_iCalendar Library\, Horde 3.3.8//EN
+PRODID:-//The Horde Project//Horde_iCalendar Library\, Horde 3.3.8//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20101101T090000Z

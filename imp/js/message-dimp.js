@@ -71,7 +71,7 @@ var DimpMessage = {
             r.opts.show_editor = (r.format == 'html');
 
             id = (r.identity === null) ? $F('identity') : r.identity;
-            i = IMP_Compose_Base.getIdentity(id, r.opts.show_editor);
+            i = ImpComposeBase.getIdentity(id, r.opts.show_editor);
 
             $('identity', 'last_identity').invoke('setValue', id);
 
@@ -170,7 +170,7 @@ var DimpMessage = {
                 tmp = {};
                 tmp[this.mbox] = [ this.uid ];
                 DimpCore.doAction('sendMDN', {
-                    uid: DimpCore.toRangeString(tmp)
+                    uid: DimpCore.toUIDString(tmp)
                 }, {
                     callback: function(r) {
                         if (r.response) {

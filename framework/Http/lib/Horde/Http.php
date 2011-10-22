@@ -26,4 +26,11 @@ class Horde_Http
     const AUTH_DIGEST = 'DIGEST';
     const AUTH_NTLM = 'NTLM';
     const AUTH_GSSNEGOTIATE = 'GSSNEGOTIATE';
+
+    /**
+     * Proxy types
+     */
+    const PROXY_HTTP = 0;
+    const PROXY_SOCKS4 = 1;
+    const PROXY_SOCKS5 = 2;
 }

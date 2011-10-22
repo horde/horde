@@ -86,7 +86,7 @@ abstract class Horde_LoginTasks_Task
     }
 
     /**
-     * Does the task require to be displayed?
+     * Does the task need to be displayed?
      *
      * @return boolean  True if the task should be displayed.
      */

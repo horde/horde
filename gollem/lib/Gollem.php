@@ -539,7 +539,7 @@ class Gollem
         $label = array();
         $root_dir_name = self::$backend['name'];
 
-        if ($currdir == $root_dir) {
+        if ($currdir == $root_dir_name) {
             $label[] = '[' . $root_dir_name . ']';
         } else {
             $parts = explode('/', $currdir);

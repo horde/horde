@@ -659,7 +659,9 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function rollbackDbTransaction()
     {
-        if (! $this->_transactionStarted) { return; }
+        if (!$this->_transactionStarted) {
+            return;
+        }
 
         $this->_connection->rollBack();
         $this->_transactionStarted = false;

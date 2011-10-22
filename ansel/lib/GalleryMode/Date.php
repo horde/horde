@@ -69,53 +69,58 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         $day = !empty($this->_date['day']) ? $this->_date['day'] : 0;
         $trail = array();
 
-        /* Do we have any date parts? */
+        // Do we have any date parts?
         if (!empty($year)) {
             if (!empty($day)) {
                 $date = new Horde_Date($this->_date);
-                $text = $date->format('jS');
+                $text = $date->strftime('%e');
 
-                $navdata =  array('view' => 'Gallery',
-                                  'gallery' => $this->_gallery->id,
-                                  'slug' => $this->_gallery->get('slug'),
-                                  'year' => $year,
-                                  'month' => $month,
-                                  'day' => $day);
-
+                $navdata =  array(
+                    'view' => 'Gallery',
+                    'gallery' => $this->_gallery->id,
+                    'slug' => $this->_gallery->get('slug'),
+                    'year' => $year,
+                    'month' => $month,
+                    'day' => $day);
                 $trail[] = array('title' => $text, 'navdata' => $navdata);
             }
 
             if (!empty($month)) {
-                $date = new Horde_Date(array('year' => $year,
-                                             'month' => $month,
-                                             'day' => 1));
-                $text = $date->format('F');
-                $navdata = array('view' => 'Gallery',
-                                 'gallery' => $this->_gallery->id,
-                                 'slug' => $this->_gallery->get('slug'),
-                                 'year' => $year,
-                                 'month' => $month);
+                $date = new Horde_Date(
+                    array(
+                        'year' => $year,
+                        'month' => $month,
+                        'day' => 1));
+                $text = $date->strftime('%B');
+                $navdata = array(
+                    'view' => 'Gallery',
+                    'gallery' => $this->_gallery->id,
+                    'slug' => $this->_gallery->get('slug'),
+                    'year' => $year,
+                    'month' => $month);
                 $trail[] = array('title' => $text, 'navdata' => $navdata);
             }
 
-            $navdata = array('view' => 'Gallery',
-                             'gallery' => $this->_gallery->id,
-                             'slug' => $this->_gallery->get('slug'),
-                             'year' => $year);
+            $navdata = array(
+                'view' => 'Gallery',
+                'gallery' => $this->_gallery->id,
+                'slug' => $this->_gallery->get('slug'),
+                'year' => $year);
             $trail[] = array('title' => $year, 'navdata' => $navdata);
         } else {
             // This is the first level of a date mode gallery.
-            $navdata = array('view' => 'Gallery',
-                             'gallery' => $this->_gallery->id,
-                             'slug' => $this->_gallery->get('slug'));
+            $navdata = array(
+                'view' => 'Gallery',
+                'gallery' => $this->_gallery->id,
+                'slug' => $this->_gallery->get('slug'));
             $trail[] = array('title' => _("All dates"), 'navdata' => $navdata);
         }
 
         $text = htmlspecialchars($this->_gallery->get('name'));
-        $navdata = array('view' => 'Gallery',
-                         'gallery' => $this->_gallery->id,
-                         'slug' => $this->_gallery->get('slug'));
-
+        $navdata = array(
+            'view' => 'Gallery',
+            'gallery' => $this->_gallery->id,
+            'slug' => $this->_gallery->get('slug'));
         $trail[] = array('title' => $text, 'navdata' => $navdata);
 
         return $trail;
@@ -153,8 +158,8 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      * @return array A mixed array of Ansel_Gallery_Decorator_Date and
      *               Ansel_Image objects.
      */
-    public function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0,
-                                       $to = 0, $noauto = false)
+    public function getGalleryChildren(
+        $perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
     {
         // Cache the results
         static $children = array();

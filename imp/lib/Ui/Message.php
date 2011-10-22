@@ -98,7 +98,7 @@ class IMP_Ui_Message
 
             try {
                 $res = $imp_imap->fetch($mailbox, $query, array(
-                    'ids' => new Horde_Imap_Client_Ids($uid)
+                    'ids' => $imp_imap->getIdsOb($uid)
                 ));
                 $mdn_sent = in_array('$mdnsent', $res[$uid]->getFlags());
             } catch (IMP_Imap_Exception $e) {}
@@ -181,7 +181,8 @@ class IMP_Ui_Message
      *
      * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.
      *
-     * @return array  TODO
+     * @return array  Keys are the list header names, values are the
+     *                parsed list header values.
      */
     public function parseAllListHeaders($headers)
     {
@@ -347,7 +348,7 @@ class IMP_Ui_Message
                     if ($add_link) {
                         $curr_link = $add_link->copy()->add(array('name' => $ad['personal'], 'address' => $ad['inner']));
                         $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad['inner'])) .
-                            Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ad['inner'])) . '</a>';
+                            '<span class="iconImg addrbookaddImg"></span></a>';
                     }
 
                     $group_array[] = $ret;
@@ -375,7 +376,7 @@ class IMP_Ui_Message
                     if ($add_link) {
                         $curr_link = $add_link->copy()->add(array('name' => $ob['personal'], 'address' => $ob['inner']));
                         $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ob['inner'])) .
-                            Horde::img('addressbook_add.png', sprintf(_("Add %s to my Address Book"), $ob['inner'])) . '</a>';
+                            '<span class="iconImg addrbookaddImg"></span></a>';
                     }
                 }
 

@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-19</date>
- <time>11:04:46</time>
+ <date>2011-10-18</date>
+ <time>15:27:59</time>
  <version>
-  <release>3.0.4</release>
+  <release>3.0.5</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -28,10 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add missing parameters when PUTing tasks (Bug #10545).
-* [mjr] Fix removeUserData implementation.
-* [gwr] Fix Kolab object attribute handling for tasks.
-* [gwr] Avoid including the owner name into the default share.
+* [mjr] Add ability to choose which tasklists to synchronize.
+* [mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1051,13 +1049,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-19</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add missing parameters when PUTing tasks (Bug #10545).
 * [mjr] Fix removeUserData implementation.
 * [gwr] Fix Kolab object attribute handling for tasks.
 * [gwr] Avoid including the owner name into the default share.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Add ability to choose which tasklists to synchronize.
+* [mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
    </notes>
   </release>
  </changelog>
