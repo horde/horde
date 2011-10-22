@@ -2,9 +2,9 @@
 /**
  * Date
  */
-class Horde_Form_Type_Date extends Horde_Form_Type {
-
-    var $_format = '%a %d %B';
+class Horde_Core_Form_Type_Date extends Horde_Core_Form_Type
+{
+    protected $_format = '%a %d %B';
 
     public function isValid($var, $vars, $value, &$message)
     {
@@ -66,5 +66,4 @@ class Horde_Form_Type_Date extends Horde_Form_Type {
             return '';
         }
     }
-
 }

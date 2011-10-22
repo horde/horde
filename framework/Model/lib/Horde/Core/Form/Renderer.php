@@ -4,8 +4,8 @@
  */
 
 /**
- * The Horde_Form_Renderer class provides HTML and other renderings of
- * forms for the Horde_Form:: package.
+ * The Horde_Core_Form_Renderer class provides HTML and other renderings of
+ * forms for the Horde_Core_Form package.
  *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2005-2007 Matt Warden <mwarden@gmail.com>
@@ -17,15 +17,14 @@
  * @author  Matt Warden <mwarden@gmail.com>
  * @package Form
  */
-abstract class Horde_Form_Renderer {
-
+abstract class Horde_Core_Form_Renderer
+{
     var $_name;
     var $_requiredLegend = false;
     var $_helpMarker = '?';
     var $_onLoadJS = array();
     var $_showHeader = true;
     var $_cols = 2;
-    var $_varRenderer = null;
     var $_firstField = null;
     var $_stripedRows = true;
 
@@ -53,8 +52,6 @@ abstract class Horde_Form_Renderer {
         if (isset($params['encode_title'])) {
             $this->encodeTitle($params['encode_title']);
         }
-
-        $this->_varRenderer = new Horde_Form_VarRenderer_Xhtml;
     }
 
     abstract public function renderActive($form, $action, $method = 'get', $enctype = null, $focus = true);
@@ -110,5 +107,4 @@ abstract class Horde_Form_Renderer {
         }
         return $this->_encodeTitle = $encode;
     }
-
 }

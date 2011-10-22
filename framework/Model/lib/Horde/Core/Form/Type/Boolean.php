@@ -2,8 +2,8 @@
 /**
  * An on/off value
  */
-class Horde_Form_Type_Boolean extends Horde_Form_Type {
-
+class Horde_Core_Form_Type_Boolean extends Horde_Core_Form_Type
+{
     public function isValid($var, $vars, $value, &$message)
     {
         return true;
@@ -13,5 +13,4 @@ class Horde_Form_Type_Boolean extends Horde_Form_Type {
     {
         $info = Horde_String::lower($vars->get($var->name)) == 'on';
     }
-
 }

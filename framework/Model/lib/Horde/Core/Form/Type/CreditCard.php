@@ -2,9 +2,9 @@
 /**
  * Credit card number
  */
-class Horde_Form_Type_creditcard extends Horde_Form_Type {
-
-    function isValid($var, $vars, $value, &$message)
+class Horde_Core_Form_Type_CreditCard extends Horde_Core_Form_Type
+{
+    public function isValid($var, $vars, $value, &$message)
     {
         if (empty($value) && $var->required) {
             $message = Horde_Model_Translation::t("This field is required.");
@@ -23,7 +23,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
         return true;
     }
 
-    function getChecksum($ccnum)
+    public function getChecksum($ccnum)
     {
         $len = strlen($ccnum);
         if (!is_long($len / 2)) {
@@ -53,7 +53,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
         return $checksum;
     }
 
-    function getCardType($ccnum)
+    public function getCardType($ccnum)
     {
         $sum = $this->getChecksum($ccnum);
         $l = strlen($ccnum);
@@ -93,5 +93,4 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
         // If we got this far, then no card matched.
         return 'unknown';
     }
-
 }

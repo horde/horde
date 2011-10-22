@@ -1,11 +1,11 @@
 <?php
 /**
- * Horde_Form_Type Class
+ * Horde_Core_Form_Type Class
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @package Form
  */
-abstract class Horde_Form_Type
+abstract class Horde_Core_Form_Type
 {
     protected $_properties = array();
 
@@ -102,5 +102,4 @@ abstract class Horde_Form_Type
         $prop = '_' . $property;
         unset($this->$prop);
     }
-
 }

@@ -1,11 +1,11 @@
 <?php
 /**
  */
-class Horde_Form_Renderer_Xhtml extends Horde_Form_Renderer {
-
+class Horde_Core_Form_Renderer_Html extends Horde_Core_Form_Renderer
+{
     protected $_enctype = 'multipart/form-data';
 
-    function _renderSectionTabs($form)
+    protected function _renderSectionTabs($form)
     {
         /* If javascript is not available, do not render tabs. */
         if (!$GLOBALS['browser']->hasFeature('javascript')) {
@@ -59,7 +59,7 @@ if (document.getElementById(%1$s)){
         echo '    });}</script>' . "\n";
     }
 
-    function _renderSectionBegin($form, $section)
+    protected function _renderSectionBegin($form, $section)
     {
         // Stripe alternate rows if that option is turned on.
         if ($this->_stripedRows) {
@@ -82,12 +82,12 @@ if (document.getElementById(%1$s)){
                $class);
     }
 
-    function _renderSectionEnd()
+    protected function _renderSectionEnd()
     {
         echo '</fieldset>';
     }
 
-    function preserveVarByPost($vars, $varname, $alt_varname = '')
+    public function preserveVarByPost($vars, $varname, $alt_varname = '')
     {
         $value = $vars->getExists($varname, $wasset);
 
@@ -219,15 +219,15 @@ try {
             $this->_renderSectionBegin($form, $section_id);
             foreach ($section as $var) {
                 switch (get_class($var->type)) {
-                case 'Horde_Form_Type_header':
+                case 'Horde_Form_Type_Header':
                     $this->_renderHeader($var->getHumanName(), $form->getError($var->getVarName()));
                     break;
 
-                case 'Horde_Form_Type_description':
+                case 'Horde_Form_Type_Description':
                     $this->_renderDescription($var->getHumanName());
                     break;
 
-                case 'Horde_Form_Type_spacer':
+                case 'Horde_Form_Type_Spacer':
                     $this->_renderSpacer();
                     break;
 
@@ -238,7 +238,7 @@ try {
                     $end = "_renderVar${format}End";
 
                     $this->$begin($form, $var);
-                    echo $this->_varRenderer->render($form, $var, $vars, $isInput);
+                    echo $this->_varRender($form, $var, $vars, $isInput);
                     $this->$end($form, $var);
 
                     /* Print any javascript if actions present. */
@@ -270,7 +270,7 @@ try {
                 "\n</script>\n";
         }
 
-        echo '</fieldset>' . $this->_varRenderer->renderEnd();
+        echo '</fieldset>' . $this->_varRenderEnd();
     }
 
     function submit($submit = null, $reset = false)
@@ -450,5 +450,4 @@ try {
             echo '</legend>'."\n";
         }
     }
-
 }

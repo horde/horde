@@ -2,8 +2,8 @@
 /**
  * String
  */
-class Horde_Form_Type_String extends Horde_Form_Type {
-
+class Horde_Core_Form_Type_String extends Horde_Core_Form_Type
+{
     /**
      * Validation regex
      *
@@ -39,5 +39,4 @@ class Horde_Form_Type_String extends Horde_Form_Type {
 
         return $valid;
     }
-
 }

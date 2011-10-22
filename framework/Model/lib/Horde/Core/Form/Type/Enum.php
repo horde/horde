@@ -2,8 +2,8 @@
 /**
  * Choose one from a list of values
  */
-class Horde_Form_Type_Enum extends Horde_Form_Type {
-
+class Horde_Core_Form_Type_Enum extends Horde_Core_Form_Type
+{
     /**
      * List of values to choose from
      *
@@ -37,5 +37,4 @@ class Horde_Form_Type_Enum extends Horde_Form_Type {
         $message = Horde_Model_Translation::t("Invalid data.");
         return false;
     }
-
 }
