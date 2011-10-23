@@ -254,7 +254,8 @@ div.contextMenu div.msCheck, div.contextMenu div.msCheckOn {
 /* Rows (vertical mode) */
 div.vpRowVert {
     height: auto;
-    border-bottom: 1px solid silver;
+    padding-top: .25em;
+    border-bottom: thin solid gainsboro;
 }
 div.vpRowVert div {
     font-size: 100%;
@@ -275,7 +276,7 @@ div.vpRowVert div.msgDate {
     width: auto;
 }
 div.vpRowVert div.msgSubject {
-    color: darkgray;
+    color: gray;
     float: none;
     margin-right: 2px;
     width: auto;
