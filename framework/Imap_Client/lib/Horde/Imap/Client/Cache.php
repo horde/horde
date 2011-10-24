@@ -152,6 +152,7 @@ class Horde_Imap_Client_Cache
         $this->_cache = $params['cacheob'];
 
         $this->_params = array(
+            'debug' => (bool)$params['debug'],
             'hostspec' => $this->_base->getParam('hostspec'),
             'lifetime' => intval($params['lifetime']),
             'port' => $this->_base->getParam('port'),
