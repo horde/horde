@@ -256,7 +256,7 @@ class Horde_Imap_Client_Cache
 
             if ($this->_params['debug'] && !empty($ret_array)) {
                 $ids = $this->_base->getIdsOb(array_keys($ret_array));
-                $this->_base->writeDebug('CACHE: Retrieved messages (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n", Horde_Imap_Client::INFO);
+                $this->_base->writeDebug('CACHE: Retrieved messages (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n", Horde_Imap_Client::DEBUG_INFO);
             }
         }
 
@@ -392,7 +392,7 @@ class Horde_Imap_Client_Cache
         if (!empty($save)) {
             if ($this->_params['debug']) {
                 $ids = $this->_base->getIdsOb($save);
-                $this->_base->writeDebug('CACHE: Deleted messages (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n", Horde_Imap_Client::INFO);
+                $this->_base->writeDebug('CACHE: Deleted messages (mailbox: ' . $mailbox . '; UIDs: ' . $ids->tostring_sort . ")\n", Horde_Imap_Client::DEBUG_INFO);
             }
 
             $this->_save[$mailbox] = isset($this->_save[$mailbox]) ? array_merge($this->_save[$mailbox], $save) : $save;
