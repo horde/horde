@@ -2,6 +2,7 @@
 v3.0.10-git
 -----------
 
+[jan] Fix importing contacts with composite fields.
 [jan] Fix LDAP connection test (Bug #10554).
 [gwr] Avoid including the owner name into the default share (Kolab backend).
 

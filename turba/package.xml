@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Fix importing contacts with composite fields.
 * [jan] Fix LDAP connection test (Bug #10554).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
  </notes>
@@ -1347,6 +1348,7 @@
    <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Fix importing contacts with composite fields.
 * [jan] Fix LDAP connection test (Bug #10554).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
    </notes>
