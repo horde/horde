@@ -11,6 +11,11 @@ var ImpMobile = {
     // Vars used and defaulting to null/false:
     //
     // /**
+    //  * Whether the current mailbox is read-only.
+    //  */
+    // readOnly,
+    //
+    // /**
     //  * UID of the currently displayed message.
     //  */
     // uid,
@@ -163,6 +168,7 @@ var ImpMobile = {
         if (r && r.ViewPort) {
             ImpMobile.data = r.ViewPort.data;
             ImpMobile.messages = r.ViewPort.rowlist;
+            ImpMobile.readOnly = r.ViewPort.metadata.readonly;
             $.each(r.ViewPort.data, function(key, data) {
                 c = 'imp-message';
                 if (data.flag) {
@@ -335,9 +341,14 @@ var ImpMobile = {
                     '#compose?type=forward_auto&mbox=' + data.mbox + '&uid=' + data.uid);
             }
 
-            $('#imp-message-delete').attr(
-                'href',
-                '#confirm?action=delete&mbox=' + data.mbox + '&uid=' + data.uid);
+            if (ImpMobile.readOnly) {
+                $('#imp-message-delete').hide();
+            } else {
+                $('#imp-message-delete').show();
+                $('#imp-message-delete').attr(
+                    'href',
+                    '#confirm?action=delete&mbox=' + data.mbox + '&uid=' + data.uid);
+            }
 
             if (data.js) {
                 $.each(data.js, function(k, js) {
