@@ -628,9 +628,10 @@ class IMP_Application extends Horde_Registry_Application
 '$(window.document).bind("mobileinit", function() {
     $.mobile.page.prototype.options.addBackBtn = true;
     $.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";
+    $.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";
     $.mobile.loadingMessage = "' . _("loading") . '";
 });
-window.setTimeout(function(){HordeMobile.showNotifications(' . Horde_Serialize::serialize($response->msgs ? $response->msgs : array(), Horde_Serialize::JSON) . ') }, 0);'
+window.setTimeout(function(){HordeMobile.showNotifications(' . Horde_Serialize::serialize(isset($response->msgs) ? $response->msgs : array(), Horde_Serialize::JSON) . ') }, 0);'
         );
     }
 

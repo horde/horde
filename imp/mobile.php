@@ -56,4 +56,5 @@ echo $view->render('mailbox.html.php');
 echo $view->render('message.html.php');
 echo $view->render('compose.html.php');
 echo $view->render('notice.html.php');
+echo $view->render('confirm.html.php');
 require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';

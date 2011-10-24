@@ -91,7 +91,7 @@ var ImpMobile = {
         }
 
         var url = $.mobile.path.parseUrl(data.toPage),
-            match = /^#(mailbox|message|compose)/.exec(url.hash);
+            match = /^#(mailbox|message|compose|confirm(ed)?)/.exec(url.hash);
 
         if (url.hash == ImpMobile.lastHash) {
             return;
@@ -111,6 +111,14 @@ var ImpMobile = {
 
             case 'compose':
                 ImpMobile.compose(url, data.options);
+                break;
+
+            case 'confirm':
+                ImpMobile.confirm(url, data.options);
+                break;
+
+            case 'confirmed':
+                ImpMobile.confirmed(url, data.options);
                 break;
             }
             e.preventDefault();
@@ -191,9 +199,9 @@ var ImpMobile = {
      */
     toMessage: function(url, options)
     {
-        var match = /\?view=(.*?)&uid=(.*)/.exec(url.hash);
-        var o = {};
-        o[match[1]] = [ match[2] ];
+        var match = /\?view=(.*?)&uid=(.*)/.exec(url.hash),
+            o = {};
+
         if (!$.mobile.activePage) {
             // Deep-linked message page. Load mailbox first to allow navigation
             // between messages.
@@ -205,6 +213,7 @@ var ImpMobile = {
             $.mobile.changePage('#mailbox?mbox=' + match[1]);
             return;
         }
+
         if ($.mobile.activePage.attr('id') == 'message') {
             // Need to update history manually, because jqm exits too early
             // if calling changePage() with the same page but different hash
@@ -215,6 +224,8 @@ var ImpMobile = {
             options.dataUrl = url.href;
             $.mobile.changePage($('#message'), options);
         }
+
+        o[match[1]] = [ match[2] ];
         HordeMobile.doAction(
             'showMessage',
             {
@@ -293,12 +304,6 @@ var ImpMobile = {
             $('#imp-message-back').attr('href', '#mailbox?mbox=' + data.mbox);
             $('#imp-message-back .ui-btn-text')
                 .text($('#imp-mailbox-' + data.mbox).text());
-            $('#imp-message-reply').attr(
-                'href',
-                '#compose?type=reply_auto&mbox=' + data.mbox + '&uid=' + data.uid);
-            $('#imp-message-forward').attr(
-                'href',
-                '#compose?type=forward_auto&mbox=' + data.mbox + '&uid=' + data.uid);
 
             if (ImpMobile.nextMessage(-1)) {
                 $('#imp-message-prev')
@@ -318,6 +323,17 @@ var ImpMobile = {
                     .addClass('ui-disabled')
                     .attr('aria-disabled', true);
             }
+
+            $('#imp-message-reply').attr(
+                'href',
+                '#compose?type=reply_auto&mbox=' + data.mbox + '&uid=' + data.uid);
+            $('#imp-message-forward').attr(
+                'href',
+                '#compose?type=forward_auto&mbox=' + data.mbox + '&uid=' + data.uid);
+
+            $('#imp-message-delete').attr(
+                'href',
+                '#confirm?action=delete&mbox=' + data.mbox + '&uid=' + data.uid);
 
             if (data.js) {
                 $.each(data.js, function(k, js) {
@@ -598,6 +614,63 @@ var ImpMobile = {
         } else {
             $('#imp-compose-form').css({ cursor: disable ? 'wait' : null });
         }
+    },
+
+    /**
+     * Opens a confirmation dialog.
+     *
+     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object options  Page change options.
+     */
+    confirm: function(url, options)
+    {
+        var match = /\?action=(.*?)&(.*)/.exec(url.hash);
+
+        $.mobile.changePage($('#confirm'), options);
+
+        $('#imp-confirm-text').html(IMP.text.confirm.text[match[1]]);
+        $('#imp-confirm-action')
+            .attr('href', url.hash.replace(/confirm/, 'confirmed'));
+        $('#imp-confirm-action .ui-btn-text')
+            .text(IMP.text.confirm.action[match[1]]);
+    },
+
+    /**
+     * Executes confirmed actions.
+     *
+     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object options  Page change options.
+     */
+    confirmed: function(url, options)
+    {
+        var match, mailbox, uid, o = {};
+
+        match = /\?action=(.*?)&(?:(?:view|mbox)=(.*?)&uid=(.*)|(.*))/
+            .exec(url.hash);
+
+        if (match[2]) {
+            mailbox = match[2];
+            uid = match[3];
+            o[mailbox] = [ uid ];
+        }
+
+        switch (match[1]) {
+        case 'delete':
+            HordeMobile.doAction(
+                'deleteMessages',
+                {
+                    uid: this.toUIDString(o),
+                    view: mailbox,
+                },
+                function() {
+                    ImpMobile.toMailbox(
+                        $.mobile.path.parseUrl('#mailbox?mbox=' + mailbox),
+                        {});
+                });
+            break;
+        }
+
+        $('#confirm').dialog('close');
     },
 
     /**
