@@ -93,7 +93,6 @@ class IMP_Views_ShowMessage
         $preview = !empty($args['preview']);
         $mailbox = $args['mailbox'];
         $uid = $args['uid'];
-        $error_msg = _("Requested message not found.");
 
         $result = array(
             'js' => array(),
@@ -106,7 +105,6 @@ class IMP_Views_ShowMessage
 
         /* Get envelope/header information. We don't use flags in this
          * view. */
-        $imp_contents = null;
         try {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
@@ -119,12 +117,18 @@ class IMP_Views_ShowMessage
                 'ids' => $imp_imap->getIdsOb($uid)
             ));
 
+            if (!isset($fetch_ret[$uid])) {
+                throw new Exception();
+            }
+
             /* Parse MIME info and create the body of the message. */
             $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+            $imp_contents = null;
+        }
 
         if (is_null($imp_contents)) {
-            $result['error'] = $error_msg;
+            $result['error'] = _("Requested message not found.");
             $result['errortype'] = 'horde.error';
             return $result;
         }
