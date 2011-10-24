@@ -112,6 +112,20 @@ class Horde_Imap_Client_Cache
      *   </ul>
      *  </li>
      *  <li>
+     *   DEPRECATED Parameters (as of 1.2.0; replaced by 'baseob'):
+     *   <ul>
+     *    <li>
+     *     hostspec: (string) The IMAP hostspec.
+     *    </li>
+     *    <li>
+     *     port: (string) The IMAP port.
+     *    </li>
+     *    <li>
+     *     username: (string) The IMAP username.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
      *   Optional Parameters:
      *   <ul>
      *    <li>
@@ -134,7 +148,8 @@ class Horde_Imap_Client_Cache
      */
     public function __construct(array $params = array())
     {
-        $required = array('baseob', 'cacheob');
+        // Don't mark 'baseob' as required yet.
+        $required = array('cacheob');
         foreach ($required as $val) {
             if (empty($params[$val])) {
                 throw new InvalidArgumentException('Missing required parameter for ' . __CLASS__ . ': ' . $val);
@@ -148,17 +163,27 @@ class Horde_Imap_Client_Cache
             'slicesize' => 50
         ), array_filter($params));
 
-        $this->_base = $params['baseob'];
+        if (isset($params['baseob'])) {
+            $this->_base = $params['baseob'];
+            $this->_params = array(
+                'hostspec' => $this->_base->getParam('hostspec'),
+                'port' => $this->_base->getParam('port'),
+                'username' => $this->_base->getParam('username')
+            );
+        } else {
+            $this->_params = array(
+                'hostspec' => $params['hostspec'],
+                'port' => $params['port'],
+                'username' => $params['username']
+            );
+            $params['debug'] = false;
+        }
+
         $this->_cache = $params['cacheob'];
 
-        $this->_params = array(
-            'debug' => (bool)$params['debug'],
-            'hostspec' => $this->_base->getParam('hostspec'),
-            'lifetime' => intval($params['lifetime']),
-            'port' => $this->_base->getParam('port'),
-            'slicesize' => intval($params['slicesize']),
-            'username' => $this->_base->getParam('username')
-        );
+        $this->_params['debug'] = (bool)$params['debug'];
+        $this->_params['lifetime'] = intval($params['lifetime']);
+        $this->_params['slicesize'] = intval($params['slicesize']);
     }
 
     /**
