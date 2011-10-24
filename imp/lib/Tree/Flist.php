@@ -82,6 +82,7 @@ class IMP_Tree_Flist extends Horde_Tree_Select
         $filter = $injector->createInstance('Horde_Text_Filter');
         $t = $injector->createInstance('Horde_Template');
         $t->setOption('gettext', true);
+        $t->set('optgroup', $this->getOption('optgroup'));
 
         /* Custom HTML. */
         if ($customhtml = $this->getOption('customhtml')) {
