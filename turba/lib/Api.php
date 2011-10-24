@@ -1072,7 +1072,7 @@ class Turba_Api extends Horde_Registry_Api
                         $object->setValue($attribute, $value);
                     }
                 }
-
+                return $object->store();
                 break;
 
             default:
