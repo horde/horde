@@ -94,17 +94,18 @@ var ImpMobile = {
             match = /^#(mailbox|message|compose)/.exec(url.hash);
 
         if (url.hash == ImpMobile.lastHash) {
-            ImpMobile.lastHash = url.hash;
             return;
         }
 
         if (match) {
             switch (match[1]) {
             case 'mailbox':
+                ImpMobile.lastHash = url.hash;
                 ImpMobile.toMailbox(url, data.options);
                 break;
 
             case 'message':
+                ImpMobile.lastHash = url.hash;
                 ImpMobile.toMessage(url, data.options);
                 break;
 
@@ -114,8 +115,6 @@ var ImpMobile = {
             }
             e.preventDefault();
         }
-
-        ImpMobile.lastHash = url.hash;
     },
 
     /**
@@ -198,11 +197,12 @@ var ImpMobile = {
         if (!$.mobile.activePage) {
             // Deep-linked message page. Load mailbox first to allow navigation
             // between messages.
-            $.mobile.changePage('#mailbox?mbox=' + match[1]);
             ImpMobile.mailboxCallback = function() {
+                ImpMobile.lastHash = url.hash;
                 options.changeHash = true;
                 ImpMobile.toMessage(url, options);
             };
+            $.mobile.changePage('#mailbox?mbox=' + match[1]);
             return;
         }
         if ($.mobile.activePage.attr('id') == 'message') {
