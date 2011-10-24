@@ -106,6 +106,10 @@ class IMP_Contents
                 $ret = $imp_imap->fetch($this->_mailbox, $query, array(
                     'ids' => $imp_imap->getIdsOb($this->_uid)
                 ));
+
+                if (!isset($ret[$this->_uid])) {
+                    throw new IMP_Exception('Error displaying message.');
+                }
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new IMP_Exception('Error displaying message.');
             }
