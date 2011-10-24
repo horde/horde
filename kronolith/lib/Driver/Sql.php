@@ -95,8 +95,8 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                                                     'hour' => $event->end->hour,
                                                     'min' => $event->end->min,
                                                     'sec' => $event->end->sec));
-
-                        if ($date->compareDateTime($end) <= -1) {
+                        if ($start->compareDateTime($date) <= 0 &&
+                            $date->compareDateTime($end) <= -1) {
                             if ($fullevent) {
                                 $event->start = $start;
                                 $event->end = $end;
