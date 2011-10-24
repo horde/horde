@@ -2,6 +2,7 @@
 v3.0.11-git
 -----------
 
+[mjr] Fix alarms for recurring events (Bug #10678).
 [mjr] Allow filtering listTagInfo results by user.
 [jan] Fix uncompleting tasks in dynamic view (Carlos Timóteo, Bug #10653).
 [cjh/jan] Improve design.

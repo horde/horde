@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix alarms for recurring events (Bug #10678).
 * [mjr] Allow filtering listTagInfo results by user.
 * [jan] Fix uncompleting tasks in dynamic view (Carlos Timóteo, Bug #10653).
 * [cjh/jan] Improve design.
@@ -1903,6 +1904,7 @@
    <date>2011-09-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix alarms for recurring events (Bug #10678).
 * [mjr] Allow filtering listTagInfo results by user.
 * [jan] Fix uncompleting tasks in dynamic view (Carlos Timóteo, Bug #10653).
 * [cjh/jan] Improve design.
