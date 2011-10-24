@@ -101,6 +101,7 @@
         });
         if (list.html()) {
             $.mobile.changePage($('#notification'), { transition: 'pop' });
+            list.listview('refresh');
         }
     },
 
