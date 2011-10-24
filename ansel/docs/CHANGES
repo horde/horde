@@ -2,6 +2,8 @@
 v2.0-git
 --------
 
+[jan] Fix page output of popup for updating dates of multiple images (Bug
+      #10676).
 [jan] Fix initialization of editor for creating ecards (Bug #10675).
 [mjr] Fix issue causing uploads to fail in certain cases on IE.
 [mjr] Display localized date strings when grouping galleries by date (Bug
