@@ -2328,7 +2328,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* If nothing is cacheable, we can do a straight search. */
         if (empty($cache_array)) {
-            return $this->_fetch($query, $ret, $options);
+            $ret = $this->_fetch($query, $ret, $options);
+            foreach ($ret as $key => $val) {
+                if ($val->isDefault()) {
+                    unset($ret[$key]);
+                }
+            }
+            return $ret;
         }
 
         /* Need Seq -> UID lookup if we haven't already grabbed it. */
@@ -2339,19 +2345,18 @@ abstract class Horde_Imap_Client_Base implements Serializable
         /* Get the cached values. */
         $data = $this->cache->get($this->_selected, $res_seq['uids']->ids, array_values($cache_array), $status_res['uidvalidity']);
 
-        // Build a list of what we still need.
+        /* Build a list of what we still need. */
         foreach (array_keys($ret) as $val) {
             $crit = clone $query;
 
             if ($options['ids']->sequence) {
                 $uid = $res_seq['lookup'][$val];
-                $ret[$val]->setSeq($val);
                 unset($crit[Horde_Imap_Client::FETCH_SEQ]);
             } else {
                 $uid = $val;
             }
 
-            $ret[$val]->setUid($uid);
+            /* UID will be added into the results object below. */
             unset($crit[Horde_Imap_Client::FETCH_UID]);
 
             foreach ($cache_array as $key => $cid) {
@@ -2428,6 +2433,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $ret = $this->_fetch($val['c'], $ret, array_merge($options, array(
                 'ids' => $val['i']
             )));
+        }
+
+        foreach ($ret as $key => $val) {
+            if ($val->isDefault() && !empty($new_query)) {
+                /* If $new_query is empty, this means that the fetch requested
+                 * was for UIDs only. Need to add that info below. */
+                unset($ret[$key]);
+            } elseif ($options['ids']->sequence) {
+                $ret[$key]->setSeq($key);
+                $ret[$key]->setUid($res_seq['lookup'][$key]);
+            } else {
+                $ret[$key]->setUid($key);
+            }
         }
 
         return $ret;
