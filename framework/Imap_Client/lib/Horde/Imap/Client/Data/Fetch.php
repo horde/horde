@@ -439,6 +439,18 @@ class Horde_Imap_Client_Data_Fetch
     }
 
     /**
+     * Does this object contain only default values for all fields?
+     *
+     * @since 1.2.0
+     *
+     * @return boolean  True if object contains default data.
+     */
+    public function isDefault()
+    {
+        return empty($this->_data);
+    }
+
+    /**
      * Return text representation of a field.
      *
      * @param boolean $stream  Return as a stream?
