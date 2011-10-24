@@ -649,24 +649,60 @@ class Kronolith
                         $eventEnd = $endDate;
                     }
                 } else {
+                    /* Need to perform some magic if this is a single instance
+                     * of a recurring event since $event->end would be the
+                     * original end date, not the recurrence's end date. */
+                    if ($event->recurs()) {
+
+                        $diff = array($event->end->year - $event->start->year,
+                                      $event->end->month - $event->start->month,
+                                      $event->end->mday - $event->start->mday,
+                                      $event->end->hour - $event->start->hour,
+                                      $event->end->min - $event->start->min);
+                        while ($diff[4] < 0) {
+                            --$diff[3];
+                            $diff[4] += 60;
+                        }
+                        while ($diff[3] < 0) {
+                            --$diff[2];
+                            $diff[3] += 24;
+                        }
+                        while ($diff[2] < 0) {
+                            --$diff[1];
+                            $diff[2] += Horde_Date_Utils::daysInMonth($event->start->month, $event->start->year);
+                        }
+                        while ($diff[1] < 0) {
+                            --$diff[0];
+                            $diff[1] += 12;
+                        }
+                        $theEnd = $event->recurrence->nextRecurrence($eventStart);
+                        $theEnd->year  += $diff[0];
+                        $theEnd->month += $diff[1];
+                        $theEnd->mday  += $diff[2];
+                        $theEnd->hour  += $diff[3];
+                        $theEnd->min   += $diff[4];
+                    } else {
+                        $theEnd = clone $event->end;
+                    }
+
                     /* If the event doesn't end at 12am set the end date to
                      * the current end date. If it ends at 12am and does not
                      * end at the same time that it starts (0 duration), set
                      * the end date to the previous day's end date. */
-                    if ($event->end->hour != 0 ||
-                        $event->end->min != 0 ||
-                        $event->end->sec != 0 ||
-                        $event->start->compareDateTime($event->end) == 0 ||
+                    if ($theEnd->hour != 0 ||
+                        $theEnd->min != 0 ||
+                        $theEnd->sec != 0 ||
+                        $event->start->compareDateTime($theEnd) == 0 ||
                         $allDay) {
-                        $eventEnd = clone $event->end;
+                        $eventEnd = clone $theEnd;
                     } else {
                         $eventEnd = new Horde_Date(
                             array('hour' =>  23,
                                   'min' =>   59,
                                   'sec' =>   59,
-                                  'month' => $event->end->month,
-                                  'mday' =>  $event->end->mday - 1,
-                                  'year' =>  $event->end->year));
+                                  'month' => $theEnd->month,
+                                  'mday' =>  $theEnd->mday - 1,
+                                  'year' =>  $theEnd->year));
                     }
                 }
 
