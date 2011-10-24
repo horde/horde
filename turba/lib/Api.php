@@ -1065,8 +1065,14 @@ class Turba_Api extends Horde_Registry_Api
                 break;
 
             case 'activesync':
-                /* Must check for ghosted properties for activesync requests */
                 $content = $driver->fromASContact($content);
+                /* Must check for ghosted properties for activesync requests */
+                foreach ($content as $attribute => $value) {
+                    if ($attribute != '__key') {
+                        $object->setValue($attribute, $value);
+                    }
+                }
+
                 break;
 
             default:
