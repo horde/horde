@@ -74,7 +74,15 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                         $events[] = $fullevent ? $event : $event->id;
                     }
                 } else {
-                    if ($next = $event->recurrence->nextRecurrence($date)) {
+                    // Need to start at the beginning of the day to catch the
+                    // case where we might be within the event's timespan
+                    // when we call this, hence nextRecurrence() would miss the
+                    // current event.
+                    $start = clone $date;
+                    $start->min = 0;
+                    $start->hour = 0;
+                    $start->sec = 0;
+                    if ($next = $event->recurrence->nextRecurrence($start)) {
                         if ($event->recurrence->hasException($next->year, $next->month, $next->mday)) {
                             continue;
                         }
