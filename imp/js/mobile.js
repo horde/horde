@@ -110,7 +110,9 @@ var ImpMobile = {
                 break;
 
             case 'compose':
-                ImpMobile.compose(url, data.options);
+                if (!IMP.conf.disable_compose) {
+                    ImpMobile.compose(url, data.options);
+                }
                 break;
 
             case 'confirm':
@@ -324,12 +326,14 @@ var ImpMobile = {
                     .attr('aria-disabled', true);
             }
 
-            $('#imp-message-reply').attr(
-                'href',
-                '#compose?type=reply_auto&mbox=' + data.mbox + '&uid=' + data.uid);
-            $('#imp-message-forward').attr(
-                'href',
-                '#compose?type=forward_auto&mbox=' + data.mbox + '&uid=' + data.uid);
+            if (!IMP.conf.disable_compose) {
+                $('#imp-message-reply').attr(
+                    'href',
+                    '#compose?type=reply_auto&mbox=' + data.mbox + '&uid=' + data.uid);
+                $('#imp-message-forward').attr(
+                    'href',
+                    '#compose?type=forward_auto&mbox=' + data.mbox + '&uid=' + data.uid);
+            }
 
             $('#imp-message-delete').attr(
                 'href',
@@ -768,7 +772,9 @@ var ImpMobile = {
         $(document).bind('swipeleft', ImpMobile.navigateMessage);
         $(document).bind('swiperight', ImpMobile.navigateMessage);
         $(document).bind('pagebeforechange', ImpMobile.toPage);
-        $('#compose').live('pagehide', function() { $('#imp-compose-cache').val(''); });
+        if (!IMP.conf.disable_compose) {
+            $('#compose').live('pagehide', function() { $('#imp-compose-cache').val(''); });
+        }
     }
 
 };

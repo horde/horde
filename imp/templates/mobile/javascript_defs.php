@@ -39,6 +39,7 @@ $code['conf'] = array_filter(array(
     'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables
+    'disable_compose' => !IMP::canCompose(),
     'flags' => $flags,
     /* Needed to maintain flag ordering. */
     'flags_o' => array_keys($flags),

@@ -24,10 +24,12 @@
       <a href="#" id="imp-message-prev" data-role="button" data-icon="arrow-l"><?php echo _("Previous") ?></a>
       <a href="#" id="imp-message-next" data-role="button" data-icon="arrow-r"><?php echo _("Next") ?></a>
     </div>
+    <?php if ($this->canCompose): ?>
     <div data-role="controlgroup" data-type="horizontal">
       <a href="#" id="imp-message-reply" data-role="button" data-icon="back"><?php echo _("Reply") ?></a>
       <a href="#" id="imp-message-forward" data-role="button" data-icon="forward"><?php echo _("Forward") ?></a>
     </div>
+    <?php endif ?>
     <div data-role="controlgroup" data-type="horizontal">
       <a href="#" id="imp-message-delete" data-role="button" data-rel="dialog" data-icon="delete"><?php echo _("Delete") ?></a>
     </div>
