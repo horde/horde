@@ -701,10 +701,7 @@ class Turba_Api extends Horde_Registry_Api
                             if (count($result)) {
                                 continue;
                             }
-                            foreach ($content as $attribute => $value) {
-                                $object->setValue($attribute, $value);
-                            }
-                            $content = $object->attributes;
+
                             $result = $driver->add($content);
                             if (!empty($content['category']) &&
                                 !in_array($content['category'], $categories)) {
@@ -731,11 +728,6 @@ class Turba_Api extends Horde_Registry_Api
         if ($content instanceof Horde_Icalendar_Vcard) {
             $content = $driver->toHash($content);
         }
-
-        foreach ($content as $attribute => $value) {
-            $object->setValue($attribute, $value);
-        }
-        $content = $object->attributes;
 
         // Check if the entry already exists in the data source:
         $result = $driver->search($content);
@@ -1074,6 +1066,13 @@ class Turba_Api extends Horde_Registry_Api
 
             case 'activesync':
                 $content = $driver->fromASContact($content);
+                /* Must check for ghosted properties for activesync requests */
+                foreach ($content as $attribute => $value) {
+                    if ($attribute != '__key') {
+                        $object->setValue($attribute, $value);
+                    }
+                }
+
                 break;
 
             default:
