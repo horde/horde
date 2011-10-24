@@ -1,9 +1,6 @@
 body, input, select, textarea, .inProgress {
-    font-family: "Helvetica Neue",Helvetica,Verdana,Geneva,"DejaVu Sans",Arial,sans-serif;
+    font-family: Verdana,Geneva,"DejaVu Sans",Arial,sans-serif;
     color: #333;
-}
-body {
-    font-size: 80%;
 }
 .solidbox {
     border: 1px solid #999;
@@ -193,7 +190,7 @@ a.button {
 }
 #sidebarPanel span, #sidebarPanel a {
     color: #333;
-    font-family: "Helvetica Neue",Helvetica,Verdana,sans-serif;
+    font-family: Verdana,sans-serif;
 }
 #sidebarPanel a:hover {
     color: #333;
