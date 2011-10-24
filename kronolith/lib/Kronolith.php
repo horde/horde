@@ -551,22 +551,6 @@ class Kronolith
                           $event->end->mday - $event->start->mday,
                           $event->end->hour - $event->start->hour,
                           $event->end->min - $event->start->min);
-            while ($diff[4] < 0) {
-                --$diff[3];
-                $diff[4] += 60;
-            }
-            while ($diff[3] < 0) {
-                --$diff[2];
-                $diff[3] += 24;
-            }
-            while ($diff[2] < 0) {
-                --$diff[1];
-                $diff[2] += Horde_Date_Utils::daysInMonth($event->start->month, $event->start->year);
-            }
-            while ($diff[1] < 0) {
-                --$diff[0];
-                $diff[1] += 12;
-            }
 
             if ($event->start->compareDateTime($startDate) < 0) {
                 /* The first time the event happens was before the period
@@ -659,22 +643,7 @@ class Kronolith
                                       $event->end->mday - $event->start->mday,
                                       $event->end->hour - $event->start->hour,
                                       $event->end->min - $event->start->min);
-                        while ($diff[4] < 0) {
-                            --$diff[3];
-                            $diff[4] += 60;
-                        }
-                        while ($diff[3] < 0) {
-                            --$diff[2];
-                            $diff[3] += 24;
-                        }
-                        while ($diff[2] < 0) {
-                            --$diff[1];
-                            $diff[2] += Horde_Date_Utils::daysInMonth($event->start->month, $event->start->year);
-                        }
-                        while ($diff[1] < 0) {
-                            --$diff[0];
-                            $diff[1] += 12;
-                        }
+
                         $theEnd = $event->recurrence->nextRecurrence($eventStart);
                         $theEnd->year  += $diff[0];
                         $theEnd->month += $diff[1];
