@@ -88,21 +88,25 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                         }
                         $start = new Horde_Date($next);
                         $start->min -= $event->alarm;
-                        $diff = Date_Calc::dateDiff($event->start->mday,
-                                                    $event->start->month,
-                                                    $event->start->year,
-                                                    $event->end->mday,
-                                                    $event->end->month,
-                                                    $event->end->year);
+                        $diff = Date_Calc::dateDiff(
+                            $event->start->mday,
+                            $event->start->month,
+                            $event->start->year,
+                            $event->end->mday,
+                            $event->end->month,
+                            $event->end->year
+                        );
                         if ($diff == -1) {
                             $diff = 0;
                         }
-                        $end = new Horde_Date(array('year' => $next->year,
-                                                    'month' => $next->month,
-                                                    'mday' => $next->mday + $diff,
-                                                    'hour' => $event->end->hour,
-                                                    'min' => $event->end->min,
-                                                    'sec' => $event->end->sec));
+                        $end = new Horde_Date(array(
+                            'year' => $next->year,
+                            'month' => $next->month,
+                            'mday' => $next->mday + $diff,
+                            'hour' => $event->end->hour,
+                            'min' => $event->end->min,
+                            'sec' => $event->end->sec)
+                        );
                         if ($start->compareDateTime($date) <= 0 &&
                             $date->compareDateTime($end) <= -1) {
                             if ($fullevent) {
