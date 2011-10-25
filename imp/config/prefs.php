@@ -701,8 +701,8 @@ $prefGroups['delmove'] = array(
     'label' => _("Deleting and Moving Messages"),
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array(
-        'mailbox_return', 'use_trash', 'trashselect', 'empty_trash_menu',
-        'purge_trash_interval', 'purge_trash_keep'
+        'mailbox_return', 'delete_mark_seen', 'use_trash', 'trashselect',
+        'empty_trash_menu', 'purge_trash_interval', 'purge_trash_keep'
     )
 );
 
@@ -711,6 +711,14 @@ $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?")
+);
+
+// should messages be marked as 'Seen' when deleted?
+$_prefs['delete_mark_seen'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Mark messages as Seen when deleting?")
 );
 
 // should we move messages to a trash folder instead of just marking

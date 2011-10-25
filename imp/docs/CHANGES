@@ -2,6 +2,7 @@
 v5.0.15-git
 -----------
 
+[mms] Add 'delete_mark_seen' preference.
 [mms] Fix accessing POP3 servers that use commas in their UIDs.
 [mms] Fix updating flags in non-selected mailbox if IMAP server does not
       support CONDSTORE/QRESYNC (Bug #10627).
