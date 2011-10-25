@@ -736,6 +736,16 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("Already Exists"));
         }
 
+        // We can't use $object->setValue() here since that cannot be used with
+        // composite fields.
+        if (Horde::hookExists('encode_attribute', 'turba')) {
+            foreach ($content as $attribute => &$value) {
+                try {
+                    $value = Horde::callHook('encode_attribute', array($attribute, $value, null, null), 'turba');
+                } catch (Turba_Exception $e) {}
+            }
+        }
+        var_dump($content);
         $result = $driver->add($content);
 
         if (!empty($content['category']) &&
