@@ -193,11 +193,7 @@ class IMP_Views_ShowMessage
             $result['log'] = $tmp;
         }
 
-        if ($preview) {
-            /* Get minidate. */
-            $imp_mailbox_ui = new IMP_Ui_Mailbox();
-            $result['localdate'] = htmlspecialchars($imp_mailbox_ui->getDate($envelope->date));
-        } else {
+        if (!$preview) {
             /* Display the user-specified headers for the current identity. */
             $user_hdrs = $imp_ui->getUserHeaders();
             foreach ($user_hdrs as $user_hdr) {
