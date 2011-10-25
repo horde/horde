@@ -110,7 +110,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                         if ($start->compareDateTime($date) <= 0 &&
                             $date->compareDateTime($end) <= -1) {
                             if ($fullevent) {
-                                $event->start = $start;
+                                $event->start = $next;
                                 $event->end = $end;
                                 $events[] = $event;
                             } else {
