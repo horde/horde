@@ -57,9 +57,9 @@ class Horde_Alarm_Sql extends Horde_Alarm
     /**
      * Returns a list of alarms from the backend.
      *
-     * @param Horde_Date $time  The time when the alarms should be active.
      * @param string $user      Return alarms for this user, all users if
      *                          null, or global alarms if empty.
+     * @param Horde_Date $time  The time when the alarms should be active.
      *
      * @return array  A list of alarm hashes.
      * @throws Horde_Alarm_Exception
