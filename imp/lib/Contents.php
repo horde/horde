@@ -142,10 +142,8 @@ class IMP_Contents
      * Returns the entire body of the message.
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'stream' - (boolean) If true, return a stream.
-     *            DEFAULT: No
-     * </pre>
+     *   - stream: (boolean) If true, return a stream.
+     *             DEFAULT: No
      *
      * @return mixed  The text of the part, or a stream resource if 'stream'
      *                is true.
@@ -180,19 +178,17 @@ class IMP_Contents
      *
      * @param integer $id     The ID of the MIME part.
      * @param array $options  Additional options:
-     * <pre>
-     * 'decode' - (boolean) Attempt to decode the bodypart on the remote
-     *            server. If successful, sets self::$lastBodyPartDecode to
-     *            the content-type of the decoded data.
-     *            DEFAULT: No
-     * 'length' - (integer) If set, only download this many bytes of the
-     *            bodypart from the server.
-     *            DEFAULT: All data is retrieved.
-     * 'mimeheaders' - (boolean) Include the MIME headers also?
-     *                 DEFAULT: No
-     * 'stream' - (boolean) If true, return a stream.
-     *            DEFAULT: No
-     * </pre>
+     *   - decode: (boolean) Attempt to decode the bodypart on the remote
+     *             server. If successful, sets self::$lastBodyPartDecode to
+     *             the content-type of the decoded data.
+     *             DEFAULT: No
+     *   - length: (integer) If set, only download this many bytes of the
+     *             bodypart from the server.
+     *             DEFAULT: All data is retrieved.
+     *   - mimeheaders: (boolean) Include the MIME headers also?
+     *                  DEFAULT: No
+     *   - stream: (boolean) If true, return a stream.
+     *             DEFAULT: No
      *
      * @return mixed  The text of the part or a stream resource if 'stream'
      *                is true.
@@ -260,10 +256,8 @@ class IMP_Contents
      * Returns the full message text.
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'stream' - (boolean) If true, return a stream for bodytext.
-     *            DEFAULT: No
-     * </pre>
+     *   - stream: (boolean) If true, return a stream for bodytext.
+     *             DEFAULT: No
      *
      * @return mixed  The full message text or a stream resource if 'stream'
      *                is true.
@@ -349,13 +343,11 @@ class IMP_Contents
      *
      * @param integer $id     The MIME index of the part requested.
      * @param array $options  Additional options:
-     * <pre>
-     * 'length' - (integer) If set, only download this many bytes of the
-     *            bodypart from the server.
-     *            DEFAULT: All data is retrieved.
-     * 'nocontents' - (boolean) If true, don't add the contents to the part
-     *                DEFAULT: Contents are added to the part
-     * </pre>
+     *   - length: (integer) If set, only download this many bytes of the
+     *             bodypart from the server.
+     *             DEFAULT: All data is retrieved.
+     *   - nocontents: (boolean) If true, don't add the contents to the part
+     *                 DEFAULT: Contents are added to the part
      *
      * @return Horde_Mime_Part  The raw MIME part asked for (reference).
      */
@@ -396,23 +388,19 @@ class IMP_Contents
      * @param string $mime_id  The MIME ID to render.
      * @param integer $mode    One of the RENDER_ constants.
      * @param array $options   Additional options:
-     * <pre>
-     * 'mime_part' - (Horde_Mime_Part) The MIME part to render.
-     * 'type' - (string) Use this MIME type instead of the MIME type
-     *          identified in the MIME part.
-     * </pre>
+     *   - mime_part: (Horde_Mime_Part) The MIME part to render.
+     *   - type: (string) Use this MIME type instead of the MIME type
+     *           identified in the MIME part.
      *
      * @return array  See Horde_Mime_Viewer_Base::render(). The following
      *                fields may also be present in addition to the fields
      *                defined in Horde_Mime_Viewer_Base:
-     *                'attach' - (boolean) Force display of this part as an
-     *                           attachment.
-     *                'js' - (array) A list of javascript commands to run
-     *                       after the content is displayed on screen.
-     *                'name' - (string) Contains the MIME name information.
-     *                'wrap' - (string) If present, indicates that this
-     *                         part, and all child parts, will be wrapped
-     *                         in a DIV with the given class name.
+     *   - attach: (boolean) Force display of this part as an attachment.
+     *   - js: (array) A list of javascript commands to run after the content
+     *         is displayed on screen.
+     *   - name: (string) Contains the MIME name information.
+     *   - wrap: (string) If present, indicates that this part, and all child
+     *           parts, will be wrapped in a DIV with the given class name.
      */
     public function renderMIMEPart($mime_id, $mode, $options = array())
     {
@@ -529,10 +517,8 @@ class IMP_Contents
      * Generate the preview text.
      *
      * @return array  Array with the following keys:
-     * <pre>
-     * 'cut' - (boolean) Was the preview text cut?
-     * 'text' - (string) The preview text.
-     * </pre>
+     *   - cut: (boolean) Was the preview text cut?
+     *   - text: (string) The preview text.
      */
     public function generatePreview()
     {
@@ -744,11 +730,9 @@ class IMP_Contents
      * @param Horde_Mime_Part $mime_part  The MIME part to view.
      * @param integer $actionID           The actionID to perform.
      * @param array $options              Additional options:
-     * <pre>
-     * 'dload' - (boolean) Should we generate a download link?
-     * 'params' - (array) A list of any additional parameters that need to be
-     *            passed to view.php (key => name).
-     * </pre>
+     *   - dload: (boolean) Should we generate a download link?
+     *   - params: (array) A list of any additional parameters that need to be
+     *             passed to view.php (key => name).
      *
      * @return string  The URL to view.php.
      */
@@ -794,13 +778,11 @@ class IMP_Contents
      * @param integer $actionID           The actionID value.
      * @param string $text                The ESCAPED (!) link text.
      * @param array $options              Additional parameters:
-     * <pre>
-     * 'class' - (string) The CSS class to use.
-     * 'dload' - (boolean) Should we generate a download link?
-     * 'jstext' - (string) The JS text to use.
-     * 'params' - (array) A list of any additional parameters that need to be
-     *            passed to view.php.
-     * </pre>
+     *   - class: (string) The CSS class to use.
+     *   - dload: (boolean) Should we generate a download link?
+     *   - jstext: (string) The JS text to use.
+     *   - params: (array) A list of any additional parameters that need to be
+     *             passed to view.php.
      *
      * @return string  A HTML href link to view.php.
      */
@@ -822,16 +804,14 @@ class IMP_Contents
      * @param string $actionID            The actionID to perform.
      * @param string $text                The ESCAPED (!) link text.
      * @param array $options              Additional options:
-     * <pre>
-     * 'css' - (string) The CSS class to use.
-     * 'jstext' - (string) The javascript link text.
-     * 'onload' - (string) A JS function to run when popup window is
-     *            fully loaded.
-     * 'params' - (array) A list of any additional parameters that need to be
-     *            passed to view.php. (key = name)
-     * 'widget' - (boolean) If true use Horde::widget() to generate,
-     *            Horde::link() otherwise.
-     * </pre>
+     *   - css: (string) The CSS class to use.
+     *   - jstext: (string) The javascript link text.
+     *   - onload: (string) A JS function to run when popup window is
+     *             fully loaded.
+     *   - params: (array) A list of any additional parameters that need to be
+     *             passed to view.php. (key = name)
+     *   - widget: (boolean) If true use Horde::widget() to generate,
+     *             Horde::link() otherwise.
      *
      * @return string  A HTML href link to view.php.
      */
