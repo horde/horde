@@ -105,7 +105,6 @@
         });
         if (list.html()) {
             $.mobile.changePage($('#notification'), { transition: 'pop' });
-            list.listview('refresh');
         }
     },
 
@@ -131,6 +130,7 @@
                 return data.replace(filter, "$1");
             }
         });
+        $('#notification').live('pagechange', function() { $('#horde-notification').listview('refresh'); });
     }
 };
 $(HordeMobile.onDocumentReady);
