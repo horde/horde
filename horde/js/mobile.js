@@ -34,20 +34,24 @@
     /**
      * Perform an Ajax action
      *
-     * @param string action      The AJAX request
-     * @param object params      The parameter hash
-     * @param function callback  The callback function
+     * @param string action      The AJAX request method.
+     * @param object params      The parameter hash for the AJAX request.
+     * @param function callback  A callback function for successful request.
+     * @param object opts        Additional options for jQuery.ajax() (since
+     *                           Horde 4.1).
      */
-    doAction: function(action, params, callback)
+    doAction: function(action, params, callback, opts)
     {
         $.mobile.showPageLoadingMsg();
-        var options = {
-            'url': HordeMobile.urls.ajax + action,
-            'data': params,
-            'error': HordeMobile.errorCallback,
-            'success': function(d, t, x) { HordeMobile.doActionComplete(d, callback); },
-            'type': 'post'
-        };
+        var options = $.extend(
+            {
+                'url': HordeMobile.urls.ajax + action,
+                'data': params,
+                'error': HordeMobile.errorCallback,
+                'success': function(d, t, x) { HordeMobile.doActionComplete(d, callback); },
+                'type': 'post'
+            },
+            opts || {});
         $.ajax(options);
     },
 
