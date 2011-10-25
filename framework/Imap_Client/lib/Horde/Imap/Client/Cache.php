@@ -441,7 +441,7 @@ class Horde_Imap_Client_Cache
         unset($this->_data[$mbox], $this->_loaded[$mbox], $this->_save[$mbox], $this->_slicemap[$mbox]);
 
         if ($this->_params['debug']) {
-            $this->_base->writeDebug('CACHE: Deleted mailbox (mailbox: ' . $mbox . ")\n", Horde_Imap_Client::INFO);
+            $this->_base->writeDebug('CACHE: Deleted mailbox (mailbox: ' . $mbox . ")\n", Horde_Imap_Client::DEBUG_INFO);
         }
     }
 
