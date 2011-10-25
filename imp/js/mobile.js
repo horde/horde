@@ -258,7 +258,15 @@ var ImpMobile = {
                 uid: this.toUIDString(o),
                 view: match[1],
             },
-            ImpMobile.messageLoaded);
+            ImpMobile.messageLoaded,
+            {
+                success: function(d) {
+                    HordeMobile.doActionComplete(d, ImpMobile.messageLoaded);
+                    if (!d.response) {
+                        ImpMobile.changePage('#mailbox?mbox=' + match[1]);
+                    }
+                }
+            });
     },
 
     /**
