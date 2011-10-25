@@ -213,7 +213,7 @@ class IMP_Message
                         }
 
                         $imp_imap->copy($ob->mbox, $trash, array(
-                            'ids' => $ids,
+                            'ids' => $ids_ob,
                             'move' => true
                         ));
 
@@ -236,7 +236,7 @@ class IMP_Message
 
                     try {
                         $fetch = $imp_imap->fetch($ob->mbox, $query, array(
-                            'ids' => $ids
+                            'ids' => $ids_ob
                         ));
                     } catch (IMP_Imap_Exception $e) {}
                 }
@@ -258,7 +258,7 @@ class IMP_Message
                 try {
                     $imp_imap->store($ob->mbox, array(
                         'add' => $del_flags,
-                        'ids' => $ids
+                        'ids' => $ids_ob
                     ));
                     if ($expunge_now) {
                         $this->expungeMailbox(
