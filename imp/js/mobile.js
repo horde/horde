@@ -83,6 +83,24 @@ var ImpMobile = {
     },
 
     /**
+     * Safe wrapper around $.mobile.changePage() that makes sure that no dialog
+     * is still open before changing to the new page.
+     *
+     * @param string|object page  The page to navigate to.
+     */
+    changePage: function(page)
+    {
+        if ($.mobile.activePage.jqmData('role') == 'dialog') {
+            $.mobile.activePage.bind('pagehide', function(e) {
+                $.mobile.activePage.unbind(e);
+                window.setTimeout(function () { ImpMobile.changePage(page); }, 0);
+            });
+            return;
+        }
+        $.mobile.changePage(page);
+    },
+
+    /**
      * Event handler for the pagebeforechange event that implements loading of
      * deep-linked pages.
      *
@@ -455,7 +473,7 @@ var ImpMobile = {
             $('#imp-compose-' + (r.opts.focus || 'to').replace(/composeMessage/, 'message'))[0].focus();
             //this.fillFormHash();
         }
-        $.mobile.changePage($('#compose'), options);
+        ImpMobile.changePage($('#compose'), options);
     },
 
     uniqueSubmit: function(action)
