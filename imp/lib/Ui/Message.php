@@ -169,7 +169,7 @@ class IMP_Ui_Message
             (date('d') != $date->format('d'))) {
             /* Not today, use the date. */
             $date_str = strftime($GLOBALS['prefs']->getValue('date_format'), strval($date));
-            return sprintf('%s %s %s', $date_str, $time_str, $tz);
+            return sprintf('%s (%s %s)', $date_str, $time_str, $tz);
         }
 
         /* Else, it's today, use the time only. */
