@@ -745,7 +745,6 @@ class Turba_Api extends Horde_Registry_Api
                 } catch (Turba_Exception $e) {}
             }
         }
-        var_dump($content);
         $result = $driver->add($content);
 
         if (!empty($content['category']) &&
