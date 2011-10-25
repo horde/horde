@@ -1470,11 +1470,14 @@ var DimpBase = {
                 this.flag('\\seen', true, { mailbox: data.mbox, uid: data.uid });
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
+
+            params = {};
         }
 
+        params.preview = 1;
         this.loadingImg('msg', true);
 
-        DimpCore.doAction('showPreview', this.viewport.addRequestParams(params || {}), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
+        DimpCore.doAction('showMessage', this.viewport.addRequestParams(params), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
     },
 
     _loadPreviewCallback: function(resp)
