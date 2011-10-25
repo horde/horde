@@ -388,6 +388,7 @@ class IMP_Contents
      * @param string $mime_id  The MIME ID to render.
      * @param integer $mode    One of the RENDER_ constants.
      * @param array $options   Additional options:
+     *   - autodetect: (boolean) Attempt to auto-detect MIME type?
      *   - mime_part: (Horde_Mime_Part) The MIME part to render.
      *   - type: (string) Use this MIME type instead of the MIME type
      *           identified in the MIME part.
@@ -409,6 +410,20 @@ class IMP_Contents
         $mime_part = empty($options['mime_part'])
             ? $this->getMIMEPart($mime_id)
             : $options['mime_part'];
+
+        if (!empty($options['autodetect']) &&
+            ($tempfile = Horde::getTempFile()) &&
+            ($fp = fopen($tempfile, 'w'))) {
+            $contents = $mime_part->getContents(array('stream' => true));
+            rewind($contents);
+            while (!feof($contents)) {
+                fwrite($fp, fread($contents, 8192));
+            }
+            fclose($fp);
+
+            $options['type'] = Horde_Mime_Magic::analyzeFile($tempfile, empty($GLOBALS['conf']['mime']['magic_db']) ? null : $GLOBALS['conf']['mime']['magic_db']);
+        }
+
         $type = empty($options['type'])
             ? null
             : $options['type'];
@@ -609,6 +624,7 @@ class IMP_Contents
      */
     public function getSummary($id, $mask = 0)
     {
+        $autodetect_link = false;
         $download_zip = (($mask & self::SUMMARY_DOWNLOAD_ZIP) && Horde_Util::extensionExists('zlib'));
         $param_array = array();
 
@@ -631,11 +647,13 @@ class IMP_Contents
          * if we can guess a rendering type. */
         if (in_array($mime_type, array('application/octet-stream', 'application/base64'))) {
             $mime_type = Horde_Mime_Magic::filenameToMIME($mime_part->getName());
-            if ($mime_type != $mime_part->getType()) {
+            if ($mime_type == $mime_part->getType()) {
+                $autodetect_link = true;
+            } else {
                 $mime_part = clone $mime_part;
                 $mime_part->setType($mime_type);
+                $param_array['ctype'] = $mime_type;
             }
-            $param_array['ctype'] = $mime_type;
         }
         $part['type'] = $mime_type;
 
@@ -659,9 +677,14 @@ class IMP_Contents
         $description = $this->getPartName($mime_part, true);
 
         if ($mask & self::SUMMARY_DESCRIP_LINK) {
-            $part['description'] = $this->canDisplay($mime_part, self::RENDER_FULL)
-                ? $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s"), $description), 'params' => $param_array))
-                : htmlspecialchars($description);
+            if (($can_d = $this->canDisplay($mime_part, self::RENDER_FULL)) ||
+                $autodetect_link) {
+                $part['description'] = $this->linkViewJS($mime_part, 'view_attach', htmlspecialchars($description), array('jstext' => sprintf(_("View %s"), $description), 'params' => array_filter(array_merge($param_array, array(
+                    'autodetect' => !$can_d
+                )))));
+            } else {
+                $part['description'] = htmlspecialchars($description);
+            }
         } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK) {
             $part['description'] = htmlspecialchars($description);
         } elseif ($mask & self::SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS) {
