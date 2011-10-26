@@ -55,12 +55,9 @@ class Horde_Imap_Client_Search_Query implements Serializable
      */
     public function __toString()
     {
-        $ob = Horde_Imap_Client::factory('Mock', array(
-            'password' => '',
-            'username' => ''
-        ));
+        $utils = new Horde_Imap_Client_Utils();
         $res = $this->build(null);
-        return trim($ob->parseCommandArray($res['query']));
+        return trim($utils->parseCommandArray($res['query']));
     }
 
     /**

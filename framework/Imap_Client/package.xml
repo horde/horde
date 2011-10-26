@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-19</date>
- <time>00:20:47</time>
+ <date>2011-10-26</date>
+ <time>14:33:51</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -24,6 +24,8 @@
  <notes>
 * [mms] Fixed setting data for several POP3 fetch results.
 * [mms] Parsing/generating sequence strings for POP3 servers has been fixed.
+* [mms] Removed unmaintained Mock driver.
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Base::parseCommandArray() - use Horde_Imap_Client_Utils::parseCommandArray() instead.
 * [mms] API CHANGE: Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
 * [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
 * [mms] API CHANGE: Added Horde_Imap_Client_Base::getIdsOb().
@@ -83,7 +85,6 @@
        <file name="DateTime.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Ids.php" role="php" />
-       <file name="Mock.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
        <file name="Utf7imap.php" role="php" />
@@ -201,7 +202,6 @@
    <install as="Horde/Imap/Client/DateTime.php" name="lib/Horde/Imap/Client/DateTime.php" />
    <install as="Horde/Imap/Client/Exception.php" name="lib/Horde/Imap/Client/Exception.php" />
    <install as="Horde/Imap/Client/Ids.php" name="lib/Horde/Imap/Client/Ids.php" />
-   <install as="Horde/Imap/Client/Mock.php" name="lib/Horde/Imap/Client/Mock.php" />
    <install as="Horde/Imap/Client/Socket.php" name="lib/Horde/Imap/Client/Socket.php" />
    <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
@@ -593,13 +593,17 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-19</date>
+   <date>2011-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
-* [mms] Added Horde_Imap_Client_Base::writeDebug().
-* [mms] Added Horde_Imap_Client_Base::getIdsOb().
-* [mms] Deprecate Horde_Imap_Client_Cache::singleton().
+* [mms] Fixed setting data for several POP3 fetch results.
+* [mms] Parsing/generating sequence strings for POP3 servers has been fixed.
+* [mms] Removed unmaintained Mock driver.
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Base::parseCommandArray() - use Horde_Imap_Client_Utils::parseCommandArray() instead.
+* [mms] API CHANGE: Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::getIdsOb().
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Cache::singleton().
    </notes>
   </release>
  </changelog>
