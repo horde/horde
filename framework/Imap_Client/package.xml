@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-26</date>
- <time>14:33:51</time>
+ <time>14:34:56</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -38,6 +38,7 @@
      <dir name="Imap">
       <dir name="Client">
        <file name="COPYING" role="doc" />
+       <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Imap/Client -->
      </dir> <!-- /doc/Horde/Imap -->
     </dir> <!-- /doc/Horde -->
@@ -195,6 +196,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Imap/Client/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Imap/Client/UPGRADING" />
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
    <install as="Horde/Imap/Client/Cache.php" name="lib/Horde/Imap/Client/Cache.php" />

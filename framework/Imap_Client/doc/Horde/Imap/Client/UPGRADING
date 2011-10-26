@@ -1,0 +1,67 @@
+=============================
+ Upgrading Horde_Imap_Client
+=============================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between minor releases of the package.
+
+
+Upgrading From 1.1 To 1.2
+=========================
+
+Deprecated Methods
+------------------
+
+The following methods are deprecated and will be removed in 1.3:
+
+  - Horde_Imap_Client_Cache::singleton()
+
+    Use Horde_Imap_Client_Cache::factory() instead.
+
+  - Horde_Imap_Client_Base#parseCommandArray()
+
+    Use Horde_Imap_Client_Utils#parseCommandArray() instead.
+
+Drivers
+-------
+
+The unmaintained Mock driver has been removed.
+
+Method Parameter Changes
+------------------------
+
+  - Horde_Imap_Client_Cache#__construct()
+
+    A new required parameter 'baseob' has been added. This replaces the
+    'hostspec', 'port', and 'username' parameters, which are deprecated and
+    will be removed in 1.3.
+
+    The 'debug' parameter is now a boolean indicating whether debugging is
+    desired; debug output is now controlled via the Base object passed in
+    through 'baseob'. The old usage - passing in a resource - is IMMEDIATELY
+    deprecated and will be ignored.
+
+New Methods
+-----------
+
+  - Horde_Imap_Client_Base#getIdsOb()
+  - Horde_Imap_Client_Base#writeDebug()
+
+
+
+Upgrading From 1.0 To 1.1
+=========================
+
+New Object Properties
+---------------------
+
+  - Horde_Imap_Client_Data_Envelope
+
+    Added properties to obtain MIME decoded envelope information. New
+    properties: 'bcc_decoded', 'cc_decoded', 'from_decoded',
+    'reply_to_decoded', 'sender_decoded', 'subject_decoded', 'to_decoded'
