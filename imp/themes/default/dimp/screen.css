@@ -516,9 +516,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgHeaders {
     background: transparent url("../graphics/backhead_r.png") repeat-x;
     border-bottom: 1px #b9b9b3 solid;
-    padding: 2px 0 1px;
     font-size: 90%;
-    overflow: hidden;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 2px 0 1px;
 }
 .msgfullread .msgHeaders {
     cursor: default;
