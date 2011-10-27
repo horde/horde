@@ -16,15 +16,15 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>15:10:05</time>
+ <date>2011-10-27</date>
+ <time>23:19:55</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.0RC1</api>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -882,12 +882,12 @@
   </release>
   <release>
    <version>
-    <release>1.0.1</release>
-    <api>1.0.0RC1</api></version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-10-11</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix links to existing pages with non-ascii or special characters (Bug #10672).
