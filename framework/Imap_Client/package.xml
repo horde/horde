@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-26</date>
- <time>14:34:56</time>
+ <date>2011-10-28</date>
+ <time>18:10:32</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -39,6 +39,7 @@
      <dir name="Imap">
       <dir name="Client">
        <file name="COPYING" role="doc" />
+       <file name="TODO" role="doc" />
        <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Imap/Client -->
      </dir> <!-- /doc/Horde/Imap -->
@@ -199,6 +200,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Imap/Client/COPYING" />
+   <install as="TODO" name="doc/Horde/Imap/Client/TODO" />
    <install as="UPGRADING" name="doc/Horde/Imap/Client/UPGRADING" />
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
@@ -600,7 +602,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-26</date>
+   <date>2011-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fixed setting data for several POP3 fetch results.
