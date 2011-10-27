@@ -2687,18 +2687,21 @@ var DimpBase = {
         }, this);
     },
 
-    _folderLoadCallback: function(base, r)
+    // params: (object)
+    //   - all
+    //   - base
+    _folderLoadCallback: function(params, r)
     {
         var nf = $('normalfolders');
 
         if (r.response.expand) {
-            this.expandmbox = base ? base : true;
+            this.expandmbox = params.base ? params.base : true;
         }
         this.mailboxCallback(r);
         this.expandmbox = false;
 
-        if (base) {
-            this._toggleSubFolder(base, 'tog', false, true);
+        if (params.base) {
+            this._toggleSubFolder(params.base, params.all ? 'expall' : 'tog', false, true);
         }
 
         if (this.view) {
@@ -2843,7 +2846,7 @@ var DimpBase = {
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
-        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params.base) });
+        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params) });
     },
 
     // Folder actions.

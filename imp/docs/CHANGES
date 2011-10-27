@@ -2,6 +2,7 @@
 v5.0.15-git
 -----------
 
+[mms] Fix expand all mailboxes in dynamic view (Bug #10682).
 [mms] Re-add auto-detection of MIME types for message parts that lack this
       information.
 [mms] Add 'delete_mark_seen' preference.
