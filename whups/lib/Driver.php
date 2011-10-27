@@ -84,11 +84,14 @@ abstract class Whups_Driver
     public function getHistory($ticket_id, Horde_Form $form = null)
     {
         $rows = $this->_getHistory($ticket_id);
-        $attributes = array();
+        $attributes = $attributeDetails = array();
         foreach ($rows as $row) {
             if ($row['log_type'] == 'attribute' &&
                 strpos($row['log_value'], ':')) {
                 $attributes[(int)$row['log_value']] = $row['attribute_name'];
+            }
+            if ($row['log_type'] == 'type') {
+                $attributeDetails += $this->getAttributesForType($row['log_value']);
             }
         }
 
@@ -151,9 +154,26 @@ abstract class Whups_Driver
                     if (isset($attributes[$attribute])) {
                         $label = $attributes[$attribute];
                         if ($form) {
+                            if (isset($form->attributes[$attribute])) {
+                                /* Attribute is part of the current type, so we
+                                 * have the form field in the current form. */
+                                $field = $form->attributes[$attribute];
+                            } else {
+                                /* Attribute is from a different type, create
+                                 * the form field manually. */
+                                $detail = $attributeDetails[$attribute];
+                                $field = new Horde_Form_Variable(
+                                    $detail['human_name'],
+                                    $type,
+                                    $form->getType($detail['type'],
+                                                   $detail['params']),
+                                    $detail['required'],
+                                    $detail['readonly'],
+                                    $detail['desc']);
+                            }
                             $human = $renderer->render(
                                 $form,
-                                $form->attributes[$attribute],
+                                $field,
                                 new Horde_Variables(array($type => $value)));
                         }
                         $type = 'attribute';
