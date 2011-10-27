@@ -185,7 +185,7 @@ var ImpMobile = {
                 slice: '1:25',
                 requestid: 1,
                 sortby: IMP.conf.sort.date.v,
-                sortdir: 1,
+                sortdir: 1
             },
             ImpMobile.mailboxLoaded);
     },
@@ -270,8 +270,8 @@ var ImpMobile = {
         HordeMobile.doAction(
             'showMessage',
             {
-                uid: this.toUIDString(o),
-                view: match[1],
+                uid: ImpMobile.toUIDString(o),
+                view: match[1]
             },
             ImpMobile.messageLoaded,
             {
@@ -715,8 +715,8 @@ var ImpMobile = {
             HordeMobile.doAction(
                 'deleteMessages',
                 {
-                    uid: this.toUIDString(o),
-                    view: mailbox,
+                    uid: ImpMobile.toUIDString(o),
+                    view: mailbox
                 },
                 function() {
                     ImpMobile.toMailbox(
@@ -727,6 +727,70 @@ var ImpMobile = {
         }
 
         $('#confirm').dialog('close');
+    },
+
+    /**
+     * Opens a target folder dialog.
+     *
+     * @param object url      Page URL from $.mobile.path.parseUrl().
+     * @param object options  Page change options.
+     */
+    target: function(url, options)
+    {
+        var match = /\?action=(.*?)&mbox=(.*?)&uid=(.*)/.exec(url.hash);
+        $.mobile.changePage($('#target'), options);
+        $('#imp-target-header').text(IMP.text[match[1]]);
+        $('#imp-target-mbox').val(match[2]);
+        $('#imp-target-uid').val(match[3]);
+    },
+
+    /**
+     * Moves or copies a message to a selected target.
+     *
+     * @param object e  An event object.
+     */
+    targetSelected: function(e)
+    {
+        var source = $('#imp-target-mbox').val(),
+            target = $(e.currentTarget).attr('id') == 'imp-target-list'
+                ? $('#imp-target-list')
+                : $('#imp-target-new'),
+            value = target.val(),
+            func, o = {};
+
+        if (value === '') {
+            $('#imp-target-newdiv').show();
+            return;
+        }
+
+        if ($('#imp-target-header').text() == IMP.text.copy) {
+            func = 'copyMessages';
+        } else {
+            func = 'moveMessages';
+        }
+        o[source] = [ $('#imp-target-uid').val() ];
+        HordeMobile.doAction(
+            func,
+            {
+                uid: ImpMobile.toUIDString(o),
+                mboxto: value,
+                view: source
+            },
+            null,
+            {
+                success: function(d) {
+                    HordeMobile.doActionComplete(d);
+                    if (d.response) {
+                        ImpMobile.onDialogClose(function() {
+                            $('#target').dialog('close');
+                            if (IMP.conf.mailbox_return) {
+                                ImpMobile.changePage('#mailbox?mbox=' + source);
+                            }
+                        },
+                        [ 'target' ]);
+                    }
+                }
+            });
     },
 
     /**
@@ -826,6 +890,15 @@ var ImpMobile = {
         $(document).bind('pagebeforechange', ImpMobile.toPage);
         if (!IMP.conf.disable_compose) {
             $('#compose').live('pagehide', function() { $('#imp-compose-cache').val(''); });
+        }
+        if (IMP.conf.allow_folders) {
+            $('#imp-target-list').live('change', ImpMobile.targetSelected);
+            $('#imp-target-new-submit').live('click', ImpMobile.targetSelected);
+            $('#target').live('pagebeforeshow', function() {
+                $('#imp-target')[0].reset();
+                $('#imp-target-list').selectmenu('refresh', true);
+                $('#imp-target-newdiv').hide();
+            });
         }
     }
 
