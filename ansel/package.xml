@@ -22,11 +22,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-19</date>
- <time>10:16:58</time>
+ <date>2011-10-27</date>
+ <time>23:59:27</time>
  <version>
-  <release>2.0.0</release>
-  <api>2.0.0RC1</api>
+  <release>2.0.0RC2</release>
+  <api>2.0.0RC2</api>
  </version>
  <stability>
   <release>beta</release>
@@ -321,6 +321,12 @@
       <file name="ansel.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
     </dir> <!-- /locale/lv -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="ansel.mo" role="horde" />
+      <file name="ansel.po" role="horde" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
     <dir name="sl">
      <dir name="LC_MESSAGES">
       <file name="ansel.mo" role="horde" />
@@ -435,6 +441,31 @@
      <file name="new.inc" role="horde" />
     </dir> <!-- /templates/xppublish -->
    </dir> <!-- /templates -->
+   <dir name="test">
+    <dir name="Ansel">
+     <dir name="fixtures">
+      <dir name="vfs">
+       <dir name=".horde">
+        <dir name="ansel">
+         <dir name="00">
+          <dir name="full">
+           <file name="4200.jpg" role="test" />
+          </dir> <!-- /test/Ansel/fixtures/vfs/.horde/ansel/00/full -->
+         </dir> <!-- /test/Ansel/fixtures/vfs/.horde/ansel/00 -->
+        </dir> <!-- /test/Ansel/fixtures/vfs/.horde/ansel -->
+       </dir> <!-- /test/Ansel/fixtures/vfs/.horde -->
+      </dir> <!-- /test/Ansel/fixtures/vfs -->
+     </dir> <!-- /test/Ansel/fixtures -->
+     <dir name="Unit">
+      <file name="Base.php" role="test" />
+      <file name="ImageTest.php" role="test" />
+     </dir> <!-- /test/Ansel/Unit -->
+     <file name="AllTests.php" role="test" />
+     <file name="Autoload.php" role="test" />
+     <file name="phpunit.xml" role="test" />
+     <file name="TestCase.php" role="test" />
+    </dir> <!-- /test/Ansel -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
@@ -986,6 +1017,8 @@
    <install as="ansel/locale/lt/LC_MESSAGES/ansel.po" name="locale/lt/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/lv/LC_MESSAGES/ansel.mo" name="locale/lv/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/lv/LC_MESSAGES/ansel.po" name="locale/lv/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/sk/LC_MESSAGES/ansel.mo" name="locale/sk/LC_MESSAGES/ansel.mo" />
+   <install as="ansel/locale/sk/LC_MESSAGES/ansel.po" name="locale/sk/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/sl/LC_MESSAGES/ansel.mo" name="locale/sl/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/sl/LC_MESSAGES/ansel.po" name="locale/sl/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/sv/LC_MESSAGES/ansel.mo" name="locale/sv/LC_MESSAGES/ansel.mo" />
@@ -1053,6 +1086,13 @@
    <install as="ansel/templates/xppublish/list.inc" name="templates/xppublish/list.inc" />
    <install as="ansel/templates/xppublish/login.inc" name="templates/xppublish/login.inc" />
    <install as="ansel/templates/xppublish/new.inc" name="templates/xppublish/new.inc" />
+   <install as="Ansel/AllTests.php" name="test/Ansel/AllTests.php" />
+   <install as="Ansel/Autoload.php" name="test/Ansel/Autoload.php" />
+   <install as="Ansel/phpunit.xml" name="test/Ansel/phpunit.xml" />
+   <install as="Ansel/TestCase.php" name="test/Ansel/TestCase.php" />
+   <install as="Ansel/fixtures/vfs/.horde/ansel/00/full/4200.jpg" name="test/Ansel/fixtures/vfs/.horde/ansel/00/full/4200.jpg" />
+   <install as="Ansel/Unit/Base.php" name="test/Ansel/Unit/Base.php" />
+   <install as="Ansel/Unit/ImageTest.php" name="test/Ansel/Unit/ImageTest.php" />
    <install as="ansel/themes/default/cropper.css" name="themes/default/cropper.css" />
    <install as="ansel/themes/default/embed.css" name="themes/default/embed.css" />
    <install as="ansel/themes/default/lightbox.css" name="themes/default/lightbox.css" />
@@ -1189,12 +1229,12 @@
   </release>
   <release>
    <version>
-    <release>2.0.0</release>
-    <api>2.0.0RC1</api></version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0RC2</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-10-19</date>
+   <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix page output of popup for updating dates of multiple images (Bug #10676).
