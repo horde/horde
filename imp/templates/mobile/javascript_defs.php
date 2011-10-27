@@ -39,10 +39,12 @@ $code['conf'] = array_filter(array(
     'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables
+    'allow_folders' => $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS),
     'disable_compose' => !IMP::canCompose(),
     'flags' => $flags,
     /* Needed to maintain flag ordering. */
     'flags_o' => array_keys($flags),
+    'mailbox_return' => $GLOBALS['prefs']->getValue('mailbox_return'),
     'pop3' => intval($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->pop3),
     'refresh_time' => intval($GLOBALS['prefs']->getValue('refresh_time')),
     'sort' => array(
@@ -79,7 +81,9 @@ $code['conf'] = array_filter(array(
 
 /* Gettext strings used in core javascript files. */
 $code['text'] = array(
+    'copy' => _("Copy"),
     'more_messages' => _("%d more messages..."),
+    'move' => _("Move"),
     'new_message' => _("New Message"),
     'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
     'confirm' => array(

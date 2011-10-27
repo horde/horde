@@ -129,7 +129,7 @@ var ImpMobile = {
         }
 
         var url = $.mobile.path.parseUrl(data.toPage),
-            match = /^#(mailbox|message|compose|confirm(ed)?)/.exec(url.hash);
+            match = /^#(mailbox|message|compose|confirm(ed)?|target)/.exec(url.hash);
 
         if (url.hash == ImpMobile.lastHash) {
             return;
@@ -159,6 +159,12 @@ var ImpMobile = {
 
             case 'confirmed':
                 ImpMobile.confirmed(url, data.options);
+                break;
+
+            case 'target':
+                if (IMP.conf.allow_folders) {
+                    ImpMobile.target(url, data.options);
+                }
                 break;
             }
             e.preventDefault();
@@ -331,7 +337,9 @@ var ImpMobile = {
     {
         if (r && r.message && !r.message.error) {
             var data = r.message,
-                headers = $('#imp-message-headers tbody');
+                headers = $('#imp-message-headers tbody'),
+                args = '&mbox=' + data.mbox + '&uid=' + data.uid;
+
             ImpMobile.uid = data.uid;
             $('#imp-message-title').html(data.title);
             $('#imp-message-subject').html(data.subject);
@@ -376,19 +384,29 @@ var ImpMobile = {
             if (!IMP.conf.disable_compose) {
                 $('#imp-message-reply').attr(
                     'href',
-                    '#compose?type=reply_auto&mbox=' + data.mbox + '&uid=' + data.uid);
+                    '#compose?type=reply_auto' + args);
                 $('#imp-message-forward').attr(
                     'href',
-                    '#compose?type=forward_auto&mbox=' + data.mbox + '&uid=' + data.uid);
+                    '#compose?type=forward_auto' + args);
             }
 
             if (ImpMobile.readOnly) {
-                $('#imp-message-delete').hide();
+                $('#imp-message-delete,#imp-message-move').hide();
             } else {
-                $('#imp-message-delete').show();
+                $('#imp-message-delete,#imp-message-move').show();
                 $('#imp-message-delete').attr(
                     'href',
-                    '#confirm?action=delete&mbox=' + data.mbox + '&uid=' + data.uid);
+                    '#confirm?action=delete' + args);
+                if (IMP.conf.allow_folders) {
+                    $('#imp-message-move').attr(
+                        'href',
+                        '#target?action=move' + args);
+                }
+            }
+            if (IMP.conf.allow_folders) {
+                $('#imp-message-copy').attr(
+                    'href',
+                    '#target?action=copy' + args);
             }
 
             if (data.js) {
@@ -774,6 +792,7 @@ var ImpMobile = {
             {
                 uid: ImpMobile.toUIDString(o),
                 mboxto: value,
+                newmbox: $('#imp-target-new').val(),
                 view: source
             },
             null,

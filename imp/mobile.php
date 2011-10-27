@@ -19,6 +19,8 @@ Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
 $view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));
 new Horde_View_Helper_Text($view);
 
+$imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
 /* Initialize the IMP_Imap_Tree object. */
 $imptree = $injector->getInstance('IMP_Imap_Tree');
 $imptree->setIteratorFilter();
@@ -27,6 +29,17 @@ $tree = $imptree->createTree('mobile_folders', array(
     'render_type' => 'IMP_Tree_Jquerymobile'
 ));
 $view->tree = $tree->getTree(true);
+
+$view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
+if ($view->allowFolders) {
+    $view->options = IMP::flistSelect(array(
+        'heading' => _("This message to"),
+        'optgroup' => true,
+        'inc_tasklists' => true,
+        'inc_notepads' => true,
+        'new_folder' => true
+    ));
+}
 
 $view->portal = Horde::getServiceLink('portal', 'horde')->setRaw(false);
 $view->logout = Horde::getServiceLink('logout')->setRaw(false);
@@ -62,4 +75,7 @@ if (IMP::canCompose()) {
 }
 echo $view->render('notice.html.php');
 echo $view->render('confirm.html.php');
+if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
+    echo $view->render('target.html.php');
+}
 require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';

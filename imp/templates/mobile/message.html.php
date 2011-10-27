@@ -32,6 +32,10 @@
     <?php endif ?>
     <div data-role="controlgroup" data-type="horizontal">
       <a href="#" id="imp-message-delete" data-role="button" data-rel="dialog" data-icon="delete"><?php echo _("Delete") ?></a>
+      <?php if ($this->allowFolders): ?>
+      <a href="#" id="imp-message-copy" data-role="button" data-rel="dialog" data-icon="plus"><?php echo _("Copy") ?></a>
+      <a href="#" id="imp-message-move" data-role="button" data-rel="dialog" data-icon="minus"><?php echo _("Move") ?></a>
+      <?php endif ?>
     </div>
   </div>
 </div>
