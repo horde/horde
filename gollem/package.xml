@@ -22,19 +22,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-18</date>
- <time>15:09:53</time>
+ <date>2011-10-27</date>
+ <time>23:37:49</time>
  <version>
   <release>2.0.0</release>
-  <api>2.0.0RC2</api>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Update Slovak translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -691,11 +691,11 @@
   <release>
    <version>
     <release>2.0.0</release>
-    <api>2.0.0RC2</api></version>
+    <api>2.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-10-18</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
