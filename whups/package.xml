@@ -16,15 +16,15 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-18</date>
- <time>15:12:36</time>
+ <date>2011-10-27</date>
+ <time>23:12:50</time>
  <version>
   <release>2.0.0</release>
-  <api>2.0.0RC2</api>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
@@ -957,11 +957,11 @@
   <release>
    <version>
     <release>2.0.0</release>
-    <api>2.0.0RC2</api></version>
+    <api>2.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-10-18</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
 * [jan] Fix rendering of attributes if a ticket&apos;s type has changed.
