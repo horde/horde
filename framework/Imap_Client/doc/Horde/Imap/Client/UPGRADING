@@ -11,13 +11,13 @@
 This lists the API changes between minor releases of the package.
 
 
-Upgrading From 1.1 To 1.2
-=========================
+Upgrading To 1.2.0
+==================
 
 Deprecated Methods
 ------------------
 
-The following methods are deprecated and will be removed in 1.3:
+The following methods are deprecated and will be removed in 2.0.0:
 
   - Horde_Imap_Client_Cache::singleton()
 
@@ -39,7 +39,7 @@ Method Parameter Changes
 
     A new required parameter 'baseob' has been added. This replaces the
     'hostspec', 'port', and 'username' parameters, which are deprecated and
-    will be removed in 1.3.
+    will be removed in 2.0.0.
 
     The 'debug' parameter is now a boolean indicating whether debugging is
     desired; debug output is now controlled via the Base object passed in
@@ -63,8 +63,8 @@ New Objects
 
 
 
-Upgrading From 1.0 To 1.1
-=========================
+Upgrading To 1.1.0
+==================
 
 New Object Properties
 ---------------------
