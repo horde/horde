@@ -98,7 +98,7 @@ class Nag
      *
      * @return string
      */
-    public static function secondsToString($seconds)
+    static public function secondsToString($seconds)
     {
         $hours = floor($seconds / 3600);
         $minutes = ($seconds / 60) % 60;
@@ -128,6 +128,55 @@ class Nag
                 return sprintf(_("%d minutes"), $minutes);
             }
         }
+    }
+
+    /**
+     * Parses a complete date-time string into a Horde_Date object.
+     *
+     * @param string $date       The date-time string to parse.
+     * @param boolean $withtime  Whether time is included in the string.
+     *
+     * @return Horde_Date  The parsed date.
+     * @throws Horde_Date_Exception
+     */
+    static public function parseDate($date, $withtime = true)
+    {
+        // strptime() is not available on Windows.
+        if (!function_exists('strptime')) {
+            return new Horde_Date($date);
+        }
+
+        // strptime() is locale dependent, i.e. %p is not always matching
+        // AM/PM. Set the locale to C to workaround this, but grab the
+        // locale's D_FMT before that.
+        $format = Horde_Nls::getLangInfo(D_FMT);
+        if ($withtime) {
+            $format .= ' '
+                . ($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p');
+        }
+        $old_locale = setlocale(LC_TIME, 0);
+        setlocale(LC_TIME, 'C');
+
+        // Try exact format match first.
+        $date_arr = strptime($date, $format);
+        setlocale(LC_TIME, $old_locale);
+
+        if (!$date_arr) {
+            // Try with locale dependent parsing next.
+            $date_arr = strptime($date, $format);
+            if (!$date_arr) {
+                // Try throwing at Horde_Date finally.
+                return new Horde_Date($date);
+            }
+        }
+
+        return new Horde_Date(
+            array('year'  => $date_arr['tm_year'] + 1900,
+                  'month' => $date_arr['tm_mon'] + 1,
+                  'mday'  => $date_arr['tm_mday'],
+                  'hour'  => $date_arr['tm_hour'],
+                  'min'   => $date_arr['tm_min'],
+                  'sec'   => $date_arr['tm_sec']));
     }
 
     /**
