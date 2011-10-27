@@ -1,6 +1,6 @@
-----------
-v1.0.1-git
-----------
+----
+v1.0
+----
 
 [jan] Fix links to existing pages with non-ascii or special characters (Bug
       #10672).
