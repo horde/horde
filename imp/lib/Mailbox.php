@@ -891,7 +891,7 @@ class IMP_Mailbox implements Serializable
 
         $ob = array(
             'by' => isset($entry['b']) ? $entry['b'] : $sortby,
-            'dir' => isset($entry[self::CACHE_DISPLAY]) ? $entry[self::CACHE_DISPLAY] : $prefs->getValue('sortdir'),
+            'dir' => isset($entry['d']) ? $entry['d'] : $prefs->getValue('sortdir'),
         );
 
         /* Restrict to sequence sorting only. */
