@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
-* 
+* [jan] Fix rendering of attributes if a ticket&apos;s type has changed.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -964,7 +964,7 @@
    <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
-* 
+* [jan] Fix rendering of attributes if a ticket&apos;s type has changed.
    </notes>
   </release>
  </changelog>
