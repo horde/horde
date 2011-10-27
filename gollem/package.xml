@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-27</date>
- <time>23:44:28</time>
+ <time>23:47:05</time>
  <version>
-  <release>2.0.0</release>
+  <release>2.0.1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update Slovak translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -699,6 +699,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update Slovak translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
