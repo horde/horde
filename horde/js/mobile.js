@@ -130,7 +130,7 @@
                 return data.replace(filter, "$1");
             }
         });
-        $('#notification').live('pagechange', function() { $('#horde-notification').listview('refresh'); });
+        $('#notification').live('pagebeforeshow', function() { $('#horde-notification').listview('refresh'); });
     }
 };
 $(HordeMobile.onDocumentReady);
