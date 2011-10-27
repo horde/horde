@@ -68,7 +68,7 @@ $code['conf'] = array_filter(array(
     'filters_o' => array_keys($filters),
     'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
         ? array()
-        : array_map(array('IMP_Mailbox', 'prefFrom'), $GLOBALS['conf']['server']['fixed_folders']),
+        : array_map(array('IMP_Mailbox', 'formTo'), array_map(array('IMP_Mailbox', 'prefFrom'), $GLOBALS['conf']['server']['fixed_folders'])),
     'flags' => $flags,
     /* Needed to maintain flag ordering. */
     'flags_o' => array_keys($flags),
