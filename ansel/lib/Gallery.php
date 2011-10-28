@@ -515,7 +515,8 @@ class Ansel_Gallery implements Serializable
      */
     public function setImageOrder($imageId, $pos)
     {
-        $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->setImageSortOrder($imageId, $pos);
     }
 
@@ -539,7 +540,9 @@ class Ansel_Gallery implements Serializable
      */
     public function getIdentity()
     {
-        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($this->get('owner'));
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->get('owner'));
     }
 
     /**

@@ -523,7 +523,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     {
         /* Make sure $image is an Ansel_Image; if not, try loading it. */
         if (!($image instanceof Ansel_Image)) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image);
+            $image = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getImage($image);
         }
 
         /* Make sure the image is in this gallery. */
