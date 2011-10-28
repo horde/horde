@@ -521,23 +521,23 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      */
     public function removeImage($image, $isStack)
     {
-        /* Make sure $image is an Ansel_Image; if not, try loading it. */
+        // Make sure $image is an Ansel_Image; if not, try loading it.
         if (!($image instanceof Ansel_Image)) {
             $image = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
                 ->getImage($image);
         }
 
-        /* Make sure the image is in this gallery. */
-        if ($image->gallery != $this->_gallery->id) {
+        // If image is a stack image, $gallery will be negative.
+        $image_gallery = abs($image->gallery);
+
+        // Make sure the image is in this gallery.
+        if ($image_gallery != $this->_gallery->id) {
             $this->_loadSubGalleries();
-            if (!in_array($image->gallery, $this->_subGalleries)) {
+            if (!in_array($image_gallery, $this->_subGalleries)) {
                 throw new Horde_Exception_NotFound(_("Image not found in gallery."));
             }
         }
-
-        /* Save this for later */
-        $image_gallery = $image->gallery;
 
         /* Change gallery info. */
         if ($this->_gallery->get('default') == $image->id) {
