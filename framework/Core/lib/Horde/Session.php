@@ -228,11 +228,6 @@ class Horde_Session
      */
     public function destroy()
     {
-        // Destroy any session-only tmp files.
-        foreach ($GLOBALS['session']->retrieve('gc_files') as $file) {
-            Horde::debug('Removing ' . $file);
-            @unlink($file);
-        }
         session_destroy();
         $this->_cleansession = true;
     }
@@ -271,10 +266,8 @@ class Horde_Session
      * @param string $app    Application name.
      * @param string $name   Session variable name.
      * @param integer $mask  One of:
-     * <pre>
-     * self::TYPE_ARRAY - Return an array value.
-     * self::TYPE_OBJECT - Return an object value.
-     * </pre>
+     *   - self::TYPE_ARRAY - Return an array value.
+     *   - self::TYPE_OBJECT - Return an object value.
      *
      * @return mixed  The value or null if the value doesn't exist.
      */
@@ -323,10 +316,9 @@ class Horde_Session
      * @param string $app    Application name.
      * @param string $name   Session variable name.
      * @param mixed $value   Session variable value.
-     * <pre>
-     * self::TYPE_ARRAY - Force save as an array value.
-     * self::TYPE_OBJECT - Force save as an object value.
-     * </pre>
+     * @param integer $mask  One of:
+     *   - self::TYPE_ARRAY - Force save as an array value.
+     *   - self::TYPE_OBJECT - Force save as an object value.
      */
     public function set($app, $name, $value, $mask = 0)
     {
