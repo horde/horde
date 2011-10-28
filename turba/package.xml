@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Add the ability to specify the fields to return from contacts/search.
 * [jan] Fix importing contacts with composite fields.
 * [jan] Fix LDAP connection test (Bug #10554).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
@@ -1348,6 +1349,7 @@
    <date>2011-09-30</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Add the ability to specify the fields to return from contacts/search.
 * [jan] Fix importing contacts with composite fields.
 * [jan] Fix LDAP connection test (Bug #10554).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).

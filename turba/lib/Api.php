@@ -1110,13 +1110,15 @@ class Turba_Api extends Horde_Registry_Api
      * @param boolean $forceSource  Whether to use the specified sources, even
      *                              if they have been disabled in the
      *                              preferences?
+     * @param array $returnFields   Only return these fields. Returns all fields
+     *                              if empty.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     public function search($names = array(), $sources = array(),
                            $fields = array(), $matchBegin = false,
-                           $forceSource = false)
+                           $forceSource = false, $returnFields = array())
     {
         global $cfgSources, $attributes, $prefs;
 
@@ -1160,7 +1162,9 @@ class Turba_Api extends Horde_Registry_Api
                     continue;
                 }
 
-            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']
+                ->getInstance('Turba_Factory_Driver')
+                ->create($source);
 
             // Determine the name of the column to sort by.
             $columns = isset($sort_columns[$source])
@@ -1180,7 +1184,8 @@ class Turba_Api extends Horde_Registry_Api
                     }
                 }
 
-                $search = $driver->search($criteria, Turba::getPreferredSortOrder(), 'OR', array(), array(), $matchBegin);
+                $search = $driver->search(
+                    $criteria, Turba::getPreferredSortOrder(), 'OR', $returnFields, array(), $matchBegin);
                 if (!($search instanceof Turba_List)) {
                     continue;
                 }
