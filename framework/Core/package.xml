@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix resetting authentication credentials (Bug #10228).
 * [jan] Correctly render keyval_multienum form field contents.
 * [jan] Don&apos;t use Xcache in CLI scripts (Bug #10288).
  </notes>
@@ -1609,6 +1610,7 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix resetting authentication credentials (Bug #10228).
 * [jan] Correctly render keyval_multienum form field contents.
 * [jan] Don&apos;t use Xcache in CLI scripts (Bug #10288).
    </notes>
