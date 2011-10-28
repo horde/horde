@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-10-11</date>
- <time>13:47:19</time>
+ <date>2011-10-28</date>
+ <time>15:31:20</time>
  <version>
   <release>1.6.1</release>
   <api>1.6.0</api>
@@ -1607,7 +1607,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix resetting authentication credentials (Bug #10228).
