@@ -228,6 +228,11 @@ class Horde_Session
      */
     public function destroy()
     {
+        // Destroy any session-only tmp files.
+        foreach ($GLOBALS['session']->retrieve('gc_files') as $file) {
+            Horde::debug('Removing ' . $file);
+            @unlink($file);
+        }
         session_destroy();
         $this->_cleansession = true;
     }

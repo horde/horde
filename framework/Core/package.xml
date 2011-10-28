@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Add ability to remove temporary files at session shutdown.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1623,7 +1623,7 @@
    <date>2011-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Add ability to remove temporary files at session shutdown.
    </notes>
   </release>
  </changelog>

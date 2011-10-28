@@ -1571,18 +1571,29 @@ HTML;
      * @param string $dir      Directory to create the temporary file in.
      * @param boolean $secure  If deleting file, should we securely delete the
      *                         file?
+     * @param boolean $session_remove  Delete this file when session is shutdown.
      *
      * @return string   Returns the full path-name to the temporary file or
      *                  false if a temporary file could not be created.
      */
     static public function getTempFile($prefix = 'Horde', $delete = true,
-                                       $dir = '', $secure = false)
+                                       $dir = '', $secure = false,
+                                       $session_remove = false)
     {
         if (empty($dir) || !is_dir($dir)) {
             $dir = self::getTempDir();
         }
+        $tmpfile = Horde_Util::getTempFile($prefix, $delete, $dir, $secure);
+        if ($session_remove) {
+            $gcfiles = $GLOBALS['session']->retrieve('gc_files');
+            if (empty($gcfiles)) {
+                $gcfiles = array();
+            }
+            $gcfiles[] = $tmpfile;
+            $GLOBALS['session']->store($gcfiles, false, 'gc_files');
+        }
 
-        return Horde_Util::getTempFile($prefix, $delete, $dir, $secure);
+        return $tmpfile;
     }
 
     /**
