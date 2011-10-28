@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-10-28</date>
- <time>17:21:18</time>
+ <time>17:22:18</time>
  <version>
-  <release>4.0.0RC1</release>
+  <release>4.0.0</release>
   <api>4.0.0RC1</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [bak] Fix lookup of user entry in LDAP driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -597,6 +597,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [bak] Fix lookup of user entry in LDAP driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0RC1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
