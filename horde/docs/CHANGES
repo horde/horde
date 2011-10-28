@@ -2,6 +2,7 @@
 v4.0.11-git
 -----------
 
+[mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
 [mjr] Do not show results in the tag cloud block owned by other users.
 
 
