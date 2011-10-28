@@ -517,25 +517,27 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      * @param boolean $isStack  Image is a stack image (doesn't update count).
      *
      * @return boolean
-     * @throws Horde_Exception_NotFound
+     * @throws Horde_Exception_NotFound, Ansel_Exception
      */
     public function removeImage($image, $isStack)
     {
-        /* Make sure $image is an Ansel_Image; if not, try loading it. */
+        // Make sure $image is an Ansel_Image; if not, try loading it.
         if (!($image instanceof Ansel_Image)) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image);
+            $image = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getImage($image);
         }
 
-        /* Make sure the image is in this gallery. */
-        if ($image->gallery != $this->_gallery->id) {
+        // If image is a stack image, $gallery will be negative.
+        $image_gallery = abs($image->gallery);
+
+        // Make sure the image is in this gallery.
+        if ($image_gallery != $this->_gallery->id) {
             $this->_loadSubGalleries();
-            if (!in_array($image->gallery, $this->_subGalleries)) {
+            if (!in_array($image_gallery, $this->_subGalleries)) {
                 throw new Horde_Exception_NotFound(_("Image not found in gallery."));
             }
         }
-
-        /* Save this for later */
-        $image_gallery = $image->gallery;
 
         /* Change gallery info. */
         if ($this->_gallery->get('default') == $image->id) {
@@ -658,13 +660,14 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     /**
      * Get this gallery's subgalleries. Populates the private member
      *  _subGalleries
-     *
-     * @return void
      */
     protected function _loadSubGalleries()
     {
+        // Note: We set $this->_subGalleries to null by default so we don't
+        // have to perform this check again, even if the gallery contains no
+        // subgalleries (and thus _subGalleries would be an empty array).
         if (!is_array($this->_subGalleries)) {
-            /* Get a list of all the subgalleries */
+            $this->_subGalleries = array();
             $subs = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
                 ->listGalleries(array('parent' => $this->_gallery->id));
