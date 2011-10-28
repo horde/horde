@@ -112,7 +112,7 @@ class Turba_Object
                 : array(
                       'load' => array(
                           'data' => $this->attributes[$attribute],
-                          'file' => basename(Horde::getTempFile('horde_form_', false))
+                          'file' => basename(Horde::getTempFile('horde_form_', false, '', false, true))
                       )
                   );
         }
