@@ -517,7 +517,7 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      * @param boolean $isStack  Image is a stack image (doesn't update count).
      *
      * @return boolean
-     * @throws Horde_Exception_NotFound
+     * @throws Horde_Exception_NotFound, Ansel_Exception
      */
     public function removeImage($image, $isStack)
     {
