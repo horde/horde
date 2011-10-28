@@ -14,8 +14,8 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Ansel
-Photo Management and Web Gallery application version H4 (2.0-RC1).
+The Horde Team is pleased to announce the second release candidate of the Ansel
+Photo Management and Web Gallery application version H4 (2.0-RC2).
 
 Ansel is a full featured photo management application. With it, you can organize
 your photos in any number of galleries and subgalleries, share galleries among
@@ -26,12 +26,14 @@ Barring any problems, this code will be released as Ansel H4 (2.0).
 Testing is requested and comments are encouraged.
 Updated translations would also be great.
 
-Major changes compared to the Ansel version H4 (2.0-ALPHA1) are:
+Major changes compared to the Ansel version H4 (2.0-RC1) are:
+    * Added Slovak translation.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Added Slovak translation.
 Small bugfixes and improvements.
 FM;
 
