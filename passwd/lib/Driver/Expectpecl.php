@@ -9,7 +9,6 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
  * @author  Duck <duck@obala.net>
- * @since   Passwd 3.1
  * @package Passwd
  */
 class Passwd_Driver_Expectpecl extends Passwd_Driver

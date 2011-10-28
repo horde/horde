@@ -4,7 +4,6 @@
 # telnet or rlogin.
 
 # @author  Gaudenz Steinlin <gaudenz@soziologie.ch>
-# @since   Passwd 2.2
 
 # For sudo support alter sudoers (using visudo) so that it contains the
 # following information (replace 'apache' if your webserver runs under another
