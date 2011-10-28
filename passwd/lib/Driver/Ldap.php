@@ -178,7 +178,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver
     protected function _getUserEntry()
     {
         try {
-            return $this->_ldap->search($this->_userdn, '(objectClass=*)', array('scope' => 'base'))->shiftEntry();
+            return $this->_ldap->getEntry($this->_userdn);
         } catch (Horde_Ldap_Exception $e) {
             throw new Passwd_Exception($e);
         }
