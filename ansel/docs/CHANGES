@@ -2,10 +2,8 @@
 v2.0-git
 --------
 
-[mjr] Fix issue with deleting galleries in date mode with key images.
-[mjr] Fix issue with removing gallery key images.
-
-
+[mjr] Fix issue with deleting galleries in date mode with key images (Bug
+      #10671).
 --------
 v2.0-RC2
 --------

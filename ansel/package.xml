@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue with deleting galleries in date mode with key images (Bug #10671).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1250,7 +1250,7 @@
    <date>2011-10-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue with deleting galleries in date mode with key images (Bug #10671).
    </notes>
   </release>
  </changelog>
