@@ -660,13 +660,14 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     /**
      * Get this gallery's subgalleries. Populates the private member
      *  _subGalleries
-     *
-     * @return void
      */
     protected function _loadSubGalleries()
     {
+        // Note: We set $this->_subGalleries to null by default so we don't
+        // have to perform this check again, even if the gallery contains no
+        // subgalleries (and thus _subGalleries would be an empty array).
         if (!is_array($this->_subGalleries)) {
-            /* Get a list of all the subgalleries */
+            $this->_subGalleries = array();
             $subs = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
                 ->listGalleries(array('parent' => $this->_gallery->id));
