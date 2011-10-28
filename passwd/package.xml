@@ -16,15 +16,15 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-28</date>
- <time>21:46:07</time>
+ <date>2011-10-28</date>
+ <time>16:58:46</time>
  <version>
   <release>4.0.0RC1</release>
   <api>4.0.0RC1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -591,9 +591,9 @@
     <release>4.0.0RC1</release>
     <api>4.0.0RC1</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2011-09-28</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-10-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [bak] Fix lookup of user entry in LDAP driver.
