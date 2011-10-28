@@ -2,6 +2,7 @@
 v4.0.1-git
 ----------
 
+[bak] Fix lookup of user entry in LDAP driver.
 
 
 -----------
