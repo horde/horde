@@ -3037,7 +3037,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     {
         $sparams = IMP::getAddressbookSearchParams();
         try {
-            $res = $GLOBALS['registry']->call('contacts/search', array($search, $sparams['sources'], $sparams['fields'], false));
+            $res = $GLOBALS['registry']->call(
+                'contacts/search', array($search, $sparams['sources'], $sparams['fields'], false, false, array('name', 'email')));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
