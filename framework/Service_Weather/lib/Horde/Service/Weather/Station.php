@@ -18,7 +18,27 @@
  * @category Horde
  * @package  Service_Weather
  */
- class Horde_Service_Weather_Station
- {
+class Horde_Service_Weather_Station
+{
+    protected $_properties = array();
 
- }
+    public function __construct($properties = array())
+    {
+        $this->_properties = $properties;
+    }
+
+    public function __get($property)
+    {
+        if (isset($this->_properties[$property])) {
+            return $this->_properties[$property];
+        }
+
+        throw new Horde_Service_Weather_Exception_InvalidProperty('This station does not support that property');
+    }
+
+    public function __set($property, $value)
+    {
+        $this->_properties[$property] = $value;
+    }
+
+}

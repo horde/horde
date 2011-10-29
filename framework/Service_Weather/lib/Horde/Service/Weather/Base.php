@@ -26,10 +26,18 @@
     protected $_location;
 
     /**
+     * @var Horde_Cache
+     */
+    protected $_cache;
+
+    /**
      * Constructor
      *
      * @param Horde_Service_Weather_Location_Base $location  The location object.
      * @param array $params                                  Parameters.
+     *<pre>
+     * 'cache' optional Horde_Cache object
+     *</pre>
      *
      * @return Horde_Service_Weather_Base
      */
@@ -39,6 +47,10 @@
     {
         $this->_location = $location;
         $this->_params = $params;
+        if (!empty($params['cache'])) {
+            $this->_cache = $params['cache'];
+            unset($params['cache']);
+        }
     }
 
     /**
