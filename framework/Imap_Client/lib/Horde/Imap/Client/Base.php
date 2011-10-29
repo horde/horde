@@ -829,12 +829,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $mailbox = Horde_Imap_Client_Mailbox::get($mailbox, null);
 
         if ($mode == Horde_Imap_Client::OPEN_AUTO) {
-            if (is_null($this->_selected) || ($this->_selected != $mailbox)) {
+            if (is_null($this->_selected) ||
+                !$mailbox->equals($this->_selected)) {
                 $mode = Horde_Imap_Client::OPEN_READONLY;
                 $change = true;
             }
         } elseif (is_null($this->_selected) ||
-                  ($this->_selected != $mailbox) ||
+                  !$mailbox->equals($this->_selected) ||
                   ($mode != $this->_mode)) {
             $change = true;
         }
@@ -1452,7 +1453,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $ret = array_merge($ret, $this->_status($mailbox, $flags));
 
-        if ($this->_selected != $mailbox) {
+        if (!$mailbox->equals($this->_selected)) {
             if (!isset($this->_temp['statuscache'])) {
                 $this->_temp['statuscache'] = array();
             }
@@ -1522,7 +1523,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
          * in that mailbox, we should just do a straight STATUS call. */
         if ($this->queryCapability('LIST-STATUS') &&
             ((count($mailboxes) != 1) ||
-            Horde_Imap_Client_Mailbox::get(reset($mailboxes), null) != $this->_selected)) {
+            !Horde_Imap_Client_Mailbox::get(reset($mailboxes), null)->equals($this->_selected))) {
             try {
                 $ret = array();
                 foreach ($this->listMailboxes($mailboxes, Horde_Imap_Client::MBOX_ALL, array_merge($opts, array('status' => $flags, 'utf8' => true))) as $val) {
