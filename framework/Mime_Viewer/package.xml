@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* Fix iteration through child HTML nodes in the HTML viewer so that extended viewers can do things like remove nodes outright.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
