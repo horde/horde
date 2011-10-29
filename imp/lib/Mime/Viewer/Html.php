@@ -17,6 +17,8 @@
  */
 class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
+    const CSS_BG_PREG = '/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i';
+
     /**
      * Temp array for storing data when parsing the HTML document.
      *
@@ -163,8 +165,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 $this->_imptmp['blockimg'] = Horde::url(Horde_Themes::img('spacer_red.png'), true, array('append_session' => -1));
             }
 
-            /* Search for inlined images that we can display
-             * (multipart/related parts) - see RFC 2392. */
+            /* Search for inlined data that we can display (multipart/related
+             * parts) - see RFC 2392. */
             $this->_imptmp['cid'] = array();
             if (($related_part = $this->getConfigParam('imp_contents')->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) &&
                 ($related_cids = $related_part->getMetadata('related_cids'))) {
@@ -386,10 +388,21 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     switch (Horde_String::lower($node->getAttribute('type'))) {
                     case 'text/css':
                         if ($this->_imptmp && $node->hasAttribute('href')) {
-                            $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
-                            $node->removeAttribute('href');
-                            $this->_imptmp['cssblock'] = true;
-                            $delete_link = false;
+                            $tmp = $node->getAttribute('href');
+
+                            if (isset($this->_imptmp['cid'][$tmp])) {
+                                $css_data = $this->getConfigParam('imp_contents')->getMIMEPart($this->_imptmp['cid'][$tmp])->getContents();
+
+                                $style_elt = $node->ownerDocument->createElement('style', $css_data);
+                                $style_elt->setAttribute('type', 'text/css');
+
+                                $node->parentNode->insertBefore($style_elt, $node->nextSibling);
+                            } else {
+                                $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
+                                $node->removeAttribute('href');
+                                $this->_imptmp['cssblock'] = true;
+                                $delete_link = false;
+                            }
                         }
                         break;
                     }
@@ -461,7 +474,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         $node->removeAttribute('style');
                     } elseif ($this->_imptmp['img'] || $this->_imptmp['cid']) {
                         $this->_imptmp['node'] = $node;
-                        $style = preg_replace_callback('/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
+                        $style = preg_replace_callback(self::CSS_BG_PREG, array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
                         if ($matches) {
                             $node->setAttribute('style', $style);
                         }

@@ -2,6 +2,8 @@
 v5.0.15-git
 -----------
 
+[mms] Correctly reference CSS stylesheets contained within a multipart/related
+      part.
 [mms] Sanitize LINK tags contained in HTML messages.
 [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 [mjr] Only request the field values we actually need when searching the
