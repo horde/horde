@@ -26,6 +26,13 @@ class Ansel_View_Upload
     protected $_gallery;
 
     /**
+     * Force the older, non-javascript uploader view.
+     *
+     * @var Boolean
+     */
+    protected $_forceNoScript = false;
+
+    /**
      * Initialize the view. Needs the following parameters:
      * <pre>
      *   'browse_button' - Dom id of button to open file system browser.
@@ -40,6 +47,9 @@ class Ansel_View_Upload
     {
         $this->_params = $params;
         $this->_gallery = $this->_params['gallery'];
+        if (!empty($params['forceNoScript'])) {
+            $this->_forceNoScript = true;
+        }
     }
 
     public function run()
@@ -258,7 +268,8 @@ EOT;
 
         Horde::startBuffer();
         include ANSEL_TEMPLATES . '/image/upload.inc';
-        return '<noscript>' . Horde::endBuffer() . '</noscript>';
+
+        return ($this->_forceNoScript ? '' : '<noscript>') . Horde::endBuffer() . ($this->_forceNoScript ? '' : '</noscript>');
     }
 
     /**

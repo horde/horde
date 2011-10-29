@@ -14,7 +14,8 @@ $prefGroups['display'] = array(
     'members' => array(
         'grouptitle', 'defaultview', 'tilesperrow', 'tilesperpage',
         'facesperpage', 'groupby', 'groupsperpage',
-        'default_gallerystyle_select', 'default_category_select'
+        'default_gallerystyle_select', 'default_category_select',
+        'force_old_uploader'
     )
 );
 
@@ -245,4 +246,10 @@ $_prefs['exif_title'] = array(
     'value' => '',
     'type' => 'enum',
     'desc' => _("Should we automatically set the image title on upload if able? If so, choose the field to obtain the title from.")
+);
+
+$_prefs['force_old_uploader'] = array(
+    'value' => false,
+    'type' => 'checkbox',
+    'desc' => _("Do not use the ajax-enabled uploader? Select this if your browser is having trouble uploading images with the ajax uploader.")
 );
