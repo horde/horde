@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-29</date>
- <time>01:37:11</time>
+ <time>15:25:02</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -30,15 +30,22 @@
     <dir name="Horde">
      <dir name="Service">
       <dir name="Weather">
+       <dir name="Current">
+        <file name="WeatherUnderground.php" role="php" />
+       </dir> <!-- /lib/Horde/Service/Weather/Current -->
+       <dir name="Exception">
+        <file name="InvalidProperty.php" role="php" />
+       </dir> <!-- /lib/Horde/Service/Weather/Exception -->
        <dir name="Location">
         <file name="Base.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Weather/Location -->
        <file name="Base.php" role="php" />
        <file name="Current.php" role="php" />
+       <file name="Exception.php" role="php" />
        <file name="Forecast.php" role="php" />
        <file name="Period.php" role="php" />
        <file name="Station.php" role="php" />
-       <file name="WeatherUnderGround.php" role="php" />
+       <file name="WeatherUnderground.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Weather -->
       <file name="Weather.php" role="php" />
      </dir> <!-- /lib/Horde/Service -->
@@ -82,10 +89,13 @@
    <install as="Horde/Service/Weather.php" name="lib/Horde/Service/Weather.php" />
    <install as="Horde/Service/Weather/Base.php" name="lib/Horde/Service/Weather/Base.php" />
    <install as="Horde/Service/Weather/Current.php" name="lib/Horde/Service/Weather/Current.php" />
+   <install as="Horde/Service/Weather/Exception.php" name="lib/Horde/Service/Weather/Exception.php" />
    <install as="Horde/Service/Weather/Forecast.php" name="lib/Horde/Service/Weather/Forecast.php" />
    <install as="Horde/Service/Weather/Period.php" name="lib/Horde/Service/Weather/Period.php" />
    <install as="Horde/Service/Weather/Station.php" name="lib/Horde/Service/Weather/Station.php" />
-   <install as="Horde/Service/Weather/WeatherUnderGround.php" name="lib/Horde/Service/Weather/WeatherUnderGround.php" />
+   <install as="Horde/Service/Weather/WeatherUnderground.php" name="lib/Horde/Service/Weather/WeatherUnderground.php" />
+   <install as="Horde/Service/Weather/Current/WeatherUnderground.php" name="lib/Horde/Service/Weather/Current/WeatherUnderground.php" />
+   <install as="Horde/Service/Weather/Exception/InvalidProperty.php" name="lib/Horde/Service/Weather/Exception/InvalidProperty.php" />
    <install as="Horde/Service/Weather/Location/Base.php" name="lib/Horde/Service/Weather/Location/Base.php" />
   </filelist>
  </phprelease>

@@ -24,4 +24,9 @@ class Horde_Service_Weather
      const FORECAST_3DAY = 1;
      const FORECAST_5DAY = 2;
      const FORECAST_7DAY = 3;
+
+    const UNITS_STANDARD = 1;
+    const UNITS_METRIC = 2;
+
+    const CONVERSION_MPH_TO_KNOTS = 0.868976242;
  }
