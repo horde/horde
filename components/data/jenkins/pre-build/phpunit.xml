@@ -1,11 +1,16 @@
-<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
+<?php
+$directory = $config->getPath();
+$testclass = basename($directory);
+$testpath  = strtr(basename($directory), '_', '/');
+?>
+<?php echo '<?xml version=\'1.0\' encoding=\'UTF-8\'?>' . "\n"; ?>
 
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
          syntaxCheck="false">
   <testsuites>
-    <testsuite name="Horde_%1$s_AllTests">
-      <directory suffix="AllTests.php">test/Horde/%2$s</directory>
+    <testsuite name="Horde_<?php echo $testclass; ?>_AllTests">
+      <directory suffix="AllTests.php">test/Horde/<?php echo $testpath; ?></directory>
     </testsuite>
   </testsuites>
 
