@@ -73,36 +73,10 @@ class Components_Runner_CiPrebuild
     public function run()
     {
         $options = $this->_config->getOptions();
-
-        if (!isset($options['toolsdir'])) {
-            throw new Components_Exception(
-                'You are required to set the path to a PEAR tool environment.'
-            );
-        }
-
-        $build_template = new Components_Helper_Templates_Single(
+        $templates = new Components_Helper_Templates_RecursiveDirectory(
             $this->_config_application->getTemplateDirectory(),
-            $options['ciprebuild'],
-            'hudson-component-build.xml',
-            'build.xml'
+            $options['ciprebuild']
         );
-        $build_template->write(array('toolsdir' => $options['toolsdir']));
-
-        $phpunit_template = new Components_Helper_Templates_Single(
-            $this->_config_application->getTemplateDirectory(),
-            $options['ciprebuild'],
-            'hudson-component-phpunit.xml',
-            'phpunit.xml'
-        );
-        //@todo FIXME
-        //$directory = $this->_config->getComponent()->getPath();
-        $directory = '';
-
-        $phpunit_template->write(
-            array(
-                'testclass' => basename($directory),
-                'testpath' => strtr(basename($directory), '_', '/')
-            )
-        );
+        $templates->write(array('config' => $this->_config));
     }
 }
