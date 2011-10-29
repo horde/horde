@@ -1394,12 +1394,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $mailbox = Horde_Imap_Client_Mailbox::get($mailbox, null);
-        $curr_mbox = ($this->_selected == $mailbox);
         $ret = array();
 
         /* Check for cached information. */
-        if (!$curr_mbox &&
-            !empty($this->_params['statuscache']) &&
+        if ($mailbox->equals($this->_selected) &&
             isset($this->_temp['statuscache'][strval($mailbox)])) {
             $ptr = &$this->_temp['statuscache'][strval($mailbox)];
 

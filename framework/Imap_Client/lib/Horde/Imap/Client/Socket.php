@@ -802,7 +802,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Don't sync mailbox if we are reopening R/W - we would catch any
          * mailbox changes from an untagged request. */
-        $reopen = ($this->_selected == $mailbox);
+        $reopen = $mailbox->equals($this->_selected);
 
         /* Let the 'CLOSE' response code handle mailbox switching if QRESYNC
          * is active. */
@@ -905,7 +905,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         // Some IMAP servers will not allow a delete of a currently open
         // mailbox.
-        if ($this->_selected == $mailbox) {
+        if ($mailbox->equals($this->_selected)) {
             $this->close();
         }
 
@@ -1246,7 +1246,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         foreach ($items as $key => $val) {
             if ($key & $flags) {
-                if ($mailbox == $this->_selected) {
+                if ($mailbox->equals($this->_selected)) {
                     if (isset($this->_temp['mailbox'][$val])) {
                         $data[$val] = $this->_temp['mailbox'][$val];
                     } elseif ($key == Horde_Imap_Client::STATUS_UIDNEXT) {
@@ -4353,7 +4353,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // COPYUID: [0] = UIDVALIDITY, [1] = UIDFROM, [2] = UIDTO
             $parts = explode(' ', $response->data);
 
-            if (($this->_selected == $this->_temp['uidplusmbox']) &&
+            if ($this->_temp['uidplusmbox']->equals($this->_selected) &&
                 ($this->_temp['mailbox']['uidvalidity'] != $parts[0])) {
                 $this->_temp['mailbox'] = array('uidvalidity' => $parts[0]);
                 $this->_temp['searchnotsaved'] = true;

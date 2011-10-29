@@ -109,6 +109,16 @@ class Horde_Imap_Client_Mailbox implements Serializable
         return $this->utf8;
     }
 
+    /**
+     * Compares this mailbox to another mailbox string.
+     *
+     * @return boolean  True if the items are equal.
+     */
+    public function equals($mbox)
+    {
+        return $this->utf8 == $mbox;
+    }
+
     /* Serializable methods. */
 
     /**
