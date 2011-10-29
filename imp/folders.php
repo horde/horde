@@ -46,8 +46,7 @@ Horde::addInlineJsVars(array(
 /* Initialize the IMP_Imap_Tree object. */
 $imaptree = $injector->getInstance('IMP_Imap_Tree');
 
-/* $folder_list is already encoded in UTF7-IMAP, but entries are
- * urlencoded. */
+/* $folder_list entries are urlencoded. */
 $folder_list = isset($vars->folder_list)
     ? IMP_Mailbox::formFrom($vars->folder_list)
     : array();
@@ -129,7 +128,7 @@ case 'create_folder':
         try {
             $imaptree->createMailboxName(
                 $folder_list[0],
-                Horde_String::convertCharset($vars->new_mailbox, 'UTF-8', 'UTF7-IMAP')
+                $vars->new_mailbox
             )->create();
         } catch (Horde_Exception $e) {
             $notification->push($e);
@@ -138,7 +137,7 @@ case 'create_folder':
     break;
 
 case 'rename_folder':
-    // $old_names already in UTF7-IMAP, but may be URL encoded.
+    // $old_names may be URL encoded.
     $old_names = array_map('trim', explode("\n", $vars->old_names));
     $new_names = array_map('trim', explode("\n", $vars->new_names));
 
@@ -159,7 +158,7 @@ case 'rename_folder':
                 $new = $old_ns['name'] . $new;
             }
 
-            $old_name->rename(Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP'));
+            $old_name->rename($new);
         }
     }
     break;
@@ -334,8 +333,7 @@ if ($session->get('imp', 'file_upload') &&
     $i_template = $injector->createInstance('Horde_Template');
     $i_template->setOption('gettext', true);
     $i_template->set('folders_url', $folders_url_ob);
-    $i_template->set('import_folder', $folder_list[0]);
-    $i_template->set('folder_name', htmlspecialchars(Horde_String::convertCharset($folder_list[0], 'UTF7-IMAP', 'UTF-8')));
+    $i_template->set('import_folder', htmlspecialchars($folder_list[0]));
     $i_template->set('folders_token', $folders_token);
     echo $i_template->fetch(IMP_TEMPLATES . '/imp/folders/import.html');
     require $registry->get('templates', 'horde') . '/common-footer.inc';

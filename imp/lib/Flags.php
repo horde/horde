@@ -140,7 +140,7 @@ class IMP_Flags implements ArrayAccess, Serializable
 
             foreach ($permflags as $val) {
                 if (!in_array($val, $imapflags)) {
-                    $ret[] = new IMP_Flag_User(Horde_String::convertCharset($val, 'UTF7-IMAP', 'UTF-8'), $val);
+                    $ret[] = new IMP_Flag_User($val);
                 }
             }
         }

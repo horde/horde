@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 * [mms] Size of sidebar now saved in dynamic view
 * [mms] Browser-specific UI elements in dynamic view now saved in browser storage (Ticket #10723).
  </notes>

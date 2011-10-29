@@ -26,7 +26,7 @@ class IMP_Message
      * Also handles moves to the tasklist and/or notepad applications.
      *
      * @param string $targetMbox    The mailbox to move/copy messages to
-     *                              (UTF7-IMAP).
+     *                              (UTF-8).
      * @param string $action        Either 'copy' or 'move'.
      * @param IMP_Indices $indices  An indices object.
      * @param array $opts           Additional options:

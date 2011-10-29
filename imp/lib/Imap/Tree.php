@@ -1469,8 +1469,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Determines the mailbox name to create given a parent and the new name.
      *
-     * @param string $parent  The parent name (UTF7-IMAP).
-     * @param string $parent  The new mailbox name (UTF7-IMAP).
+     * @param string $parent  The parent name (UTF-8).
+     * @param string $parent  The new mailbox name (UTF-8).
      *
      * @return IMP_Mailbox  The new mailbox.
      * @throws IMP_Exception
