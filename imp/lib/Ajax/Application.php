@@ -145,7 +145,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $result = $imptree->createMailboxName(
                 isset($this->_vars->parent) ? IMP_Mailbox::formFrom($this->_vars->parent) : '',
-                Horde_String::convertCharset($this->_vars->mbox, 'UTF-8', 'UTF7-IMAP')
+                $this->_vars->mbox
             )->create();
 
             if ($result) {
@@ -241,8 +241,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - new_name: (string) New mailbox name (child node) (UTF-8).
-     *   - new_parent: (string) New parent name (UTF7-IMAP) (base64url
-     *                 encoded).
+     *   - new_parent: (string) New parent name (UTF-8; base64url encoded).
      *   - old_name: (string) Full name of old mailbox (base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
@@ -267,7 +266,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $new_name = $imptree->createMailboxName(
                 isset($this->_vars->new_parent) ? IMP_Mailbox::formFrom($this->_vars->new_parent) : '',
-                Horde_String::convertCharset($this->_vars->new_name, 'UTF-8', 'UTF7-IMAP')
+                $this->_vars->new_name
             );
 
             $old_name = IMP_Mailbox::formFrom($this->_vars->old_name);

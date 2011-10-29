@@ -39,16 +39,19 @@
  * @property boolean $exists  Does this mailbox exist on the IMAP server?
  * @property boolean $fixed  Is this mailbox fixed (i.e. unchangable)?
  * @property string $form_to  Converts this mailbox to a form representation.
- * @property boolean $is_open  Is this level expanded?
- * @property boolean $is_trash  Is this a trash folder?
  * @property object $icon  Icon information for the mailbox. Properties:
  *   - alt: (string) The alt text for the icon.
  *   - class: (string) The CSS class name.
  *   - icon: (Horde_Themes_Image) The icon graphic to use.
  *   - iconopen: (Horde_Themes_Image) The openicon to use.
  *   - user_icon: (boolean) Use a user defined icon?
- * @property boolean $inbox)  Is this the INBOX?
+ * @property Horde_Imap_Client_Mailbox $imap_mbox_ob  Convert this object to
+ *                                                    an Imap_Client mailbox
+ *                                                    obejct.
+ * @property boolean $inbox  Is this the INBOX?
  * @property boolean $invisible  Is this mailbox invisible?
+ * @property boolean $is_open  Is this level expanded?
+ * @property boolean $is_trash  Is this a trash folder?
  * @property string $label  The mailbox label. Essentially is $display that
  *                          can be modified by user hook.
  * @property integer $level  The child level of this element.
@@ -83,8 +86,9 @@
  *                              objects (including the current mailbox).
  * @property string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                             IMP_Exception on error.
- * @property string $value  The value of this element (i.e. IMAP mailbox
- *                          name). In UTF7-IMAP.
+ * @property string $utf7imap  The UTF7-IMAP representation of this object.
+ * @property string $value  The value of this element (IMAP mailbox name;
+ *                          UTF-8).
  * @property boolean $vfolder  Is this a virtual folder?
  * @property boolean $vfolder_container  Is this the virtual folder container?
  * @property boolean $vinbox  Is this the virtual inbox?
@@ -154,7 +158,7 @@ class IMP_Mailbox implements Serializable
     static protected $_temp = array();
 
     /**
-     * The full IMAP mailbox name.
+     * The IMAP mailbox name (UTF-8).
      *
      * @var string
      */
@@ -180,6 +184,23 @@ class IMP_Mailbox implements Serializable
         } catch (IMP_Exception $e) {
             return null;
         }
+    }
+
+    /**
+     * Shortcut to obtaining Horde_Imap_Client_Mailbox object(s).
+     *
+     * @param mixed $mbox  The full IMAP mailbox name(s).
+     *
+     * @return mixed  The Horde_Imap_Client_Mailbox object(s).
+     */
+    static public function getImapMboxOb($mbox)
+    {
+        if (is_array($mbox)) {
+            return array_filter(array_map(array(__CLASS__, 'getImapMboxOb'), $mbox));
+        }
+
+        // Mailbox names are always UTF-8 within IMP.
+        return Horde_Imap_Client_Mailbox::get(strval($mbox));
     }
 
     /**
@@ -298,11 +319,9 @@ class IMP_Mailbox implements Serializable
                 return $this->label;
             }
 
-            $basename = (($pos = strrpos($this->_mbox, $this->namespace_delimiter)) === false)
+            return (($pos = strrpos($this->_mbox, $this->namespace_delimiter)) === false)
                 ? $this->_mbox
                 : substr($this->_mbox, $pos + 1);
-
-            return Horde_String::convertCharset($basename, 'UTF7-IMAP', 'UTF-8');
 
         case 'cacheid':
             return $this->_getCacheID();
@@ -344,7 +363,7 @@ class IMP_Mailbox implements Serializable
             }
 
             try {
-                return (bool)$injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox, array('flat' => true));
+                return (bool)$injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox, null, array('flat' => true));
             } catch (IMP_Imap_Exception $e) {
                 return false;
             }
@@ -356,20 +375,23 @@ class IMP_Mailbox implements Serializable
         case 'form_to':
             return $this->formTo($this->_mbox);
 
-        case 'is_open':
-            return $injector->getInstance('IMP_Imap_Tree')->isOpen($this->_mbox);
-
-        case 'is_trash':
-            return (self::getPref('trash_folder') == $this) || $this->vtrash;
-
         case 'icon':
             return $this->_getIcon();
+
+        case 'imap_mbox_ob':
+            return self::getImapMboxOb($this->_mbox);
 
         case 'inbox':
             return (strcasecmp($this->_mbox, 'INBOX') === 0);
 
         case 'invisible':
             return $injector->getInstance('IMP_Imap_Tree')->isInvisible($this->_mbox);
+
+        case 'is_open':
+            return $injector->getInstance('IMP_Imap_Tree')->isOpen($this->_mbox);
+
+        case 'is_trash':
+            return (self::getPref('trash_folder') == $this) || $this->vtrash;
 
         case 'label':
             /* Returns the plain text label that is displayed for the current
@@ -602,6 +624,9 @@ class IMP_Mailbox implements Serializable
 
             return $this->cache[self::CACHE_UIDVALIDITY];
 
+        case 'utf7imap':
+            return Horde_String::convertCharset($this->_mbox, 'UTF-8', 'UTF7-IMAP');
+
         case 'value':
             return $this->_mbox;
 
@@ -725,7 +750,7 @@ class IMP_Mailbox implements Serializable
      * Rename this mailbox on the server. The subscription status remains the
      * same.  All subfolders will also be renamed.
      *
-     * @param string $new     The new mailbox name (UTF7-IMAP).
+     * @param string $new     The new mailbox name (UTF-8).
      * @param boolean $force  Rename mailbox even if it is fixed?
      *
      * @return boolean  True on success
@@ -1385,7 +1410,7 @@ class IMP_Mailbox implements Serializable
      *
      * @param string $mbox  The mailbox name as stored in a preference.
      *
-     * @return string  The full IMAP mailbox name (UTF7-IMAP).
+     * @return string  The full IMAP mailbox name (UTF-8).
      */
     static public function prefFrom($mbox)
     {
@@ -1408,7 +1433,7 @@ class IMP_Mailbox implements Serializable
     /**
      * Converts a mailbox name to a value to be stored in a preference.
      *
-     * @param string $mbox  The full IMAP mailbox name (UTF7-IMAP).
+     * @param string $mbox  The full IMAP mailbox name (UTF-8).
      *
      * @return string  The value to store in a preference.
      */
@@ -1474,9 +1499,7 @@ class IMP_Mailbox implements Serializable
     protected function _getDisplay($notranslate = false)
     {
         if (!$notranslate && isset($this->cache[self::CACHE_DISPLAY])) {
-            return is_bool($this->cache[self::CACHE_DISPLAY])
-                ? Horde_String::convertCharset($this->_mbox, 'UTF7-IMAP', 'UTF-8')
-                : $this->cache[self::CACHE_DISPLAY];
+            return $this->cache[self::CACHE_DISPLAY];
         }
 
         /* Handle special container mailboxes. */
@@ -1496,11 +1519,8 @@ class IMP_Mailbox implements Serializable
 
         if (!is_null($ns_info)) {
             /* Return translated namespace information. */
-            if (!empty($ns_info['translate']) && $this->namespace) {
-                $d = Horde_String::convertCharset($ns_info['translate'], 'UTF7-IMAP', 'UTF-8');
-                $this->_cache[self::CACHE_DISPLAY] = ($ns_info['translate'] == $this->_mbox)
-                    ? true
-                    : $d;
+            if (!empty($ns_info['translation']) && $this->namespace) {
+                $this->_cache[self::CACHE_DISPLAY] = $ns_info['translation'];
                 $this->changed = self::CHANGED_YES;
                 return $d;
             }
@@ -1560,32 +1580,27 @@ class IMP_Mailbox implements Serializable
                 strpos($this->_mbox, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($this->_mbox) == $len) || ($this->_mbox[$len] == (is_null($ns_info) ? '' : $ns_info['delimiter']))) {
-                    $out = substr_replace($out, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($out, $val, 0, $len);
                     break;
                 }
             }
         }
 
-        $d = Horde_String::convertCharset($out, 'UTF7-IMAP', 'UTF-8');
-        $this->cache[self::CACHE_DISPLAY] = ($out == $this->_mbox)
-            ? true
-            : $d;
+        $this->cache[self::CACHE_DISPLAY] = $out;
         $this->changed = self::CHANGED_YES;
 
-        return $d;
+        return $out;
     }
 
     /**
      * Return icon information.
      *
      * @return object  Object with the following properties:
-     * <pre>
-     * 'alt'
-     * 'class'
-     * 'icon'
-     * 'iconopen'
-     * 'user_icon'
-     * </pre>
+     *   - alt
+     *   - class
+     *   - icon
+     *   - iconopen
+     *   - user_icon
      */
     protected function _getIcon()
     {

@@ -32,10 +32,25 @@ outdated.
 Upgrading IMP From 5.0.x To 5.0.15
 ==================================
 
+Server Options (backends.php)
+-----------------------------
+
+The 'namespace' option now requires the namespaces to be in the UTF-8 charset,
+not UTF7-IMAP.
+
+Configuration Options (conf.php)
+--------------------------------
+
+The 'fixed_folders' option now requires the mailboxes to be in the UTF-8
+charset, not UTF7-IMAP.
+
 Preferences (prefs.php)
 -----------------------
 
 The 'delete_mark_seen' preference has been added.
+
+The default values for 'drafts_folder', 'sent_mail_folder', 'spam_folder',
+and 'trash_folder' have been changed.
 
 
 

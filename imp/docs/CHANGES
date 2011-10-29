@@ -2,6 +2,7 @@
 v5.0.15-git
 -----------
 
+[mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 [mjr] Only request the field values we actually need when searching the
       contacts API.
 [mms] Fix expand all mailboxes in dynamic view (Bug #10682).

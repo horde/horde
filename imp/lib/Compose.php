@@ -533,7 +533,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *   save_sent: (boolean) Save sent mail?
      *  </li>
      *  <li>
-     *   sent_folder: (IMP_Mailbox) The sent-mail folder (UTF7-IMAP).
+     *   sent_folder: (IMP_Mailbox) The sent-mail folder (UTF-8).
      *  </li>
      *  <li>
      *   save_attachments: (bool) Save attachments with the message?
