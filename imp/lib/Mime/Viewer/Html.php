@@ -256,10 +256,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* Filter bad language. */
         $data = IMP::filterText($data);
 
-        /* Add unused cid information. */
-        if (!empty($this->_imptmp['cid']) &&
-            $unused = array_diff($this->_imptmp['cid'], array($this->_mimepart->getMimeId()), $this->_imptmp['cid_used'])) {
-            $related_part->setMetadata('related_cids_unused', array_values($unused));
+        /* Add used CID information. */
+        if (!empty($this->_imptmp['cid'])) {
+            $related_part->setMetadata('related_cids_used', $this->_imptmp['cid_used']);
         }
 
         return array(
