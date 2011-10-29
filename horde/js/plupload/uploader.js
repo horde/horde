@@ -5,7 +5,7 @@
  * Uses the pluploader lower level API to sort-of duplicate the idea behind the
  * jquery widget.
  *
- * Requires: puploader.js (v1.2.3+) as well as the runtime files for the desired
+ * Requires: puploader.js (v1.5.1+) as well as the runtime files for the desired
  *           runtimes, e.g. puploader.html5.js.
  *
  * Usage:
