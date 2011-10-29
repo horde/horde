@@ -108,10 +108,51 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
                 )
             )
         );
+        $cachekey = md5('hordeweather' . $url);
+        //if (!empty($this->_cache) && !$results = $this->_cache->get($key)) {
+            $results = $this->_makeRequest($url);
 
-        $results = $this->_makeRequest($url);
+            if ($results->code !== '200') {
+                // @TODO: Parse response code and determine if we have an API error.
+            }
+
+            if (!empty($this->_cache)) {
+               $this->_cache->set($results, $cachekey);
+            }
+        //}
 
         // @TODO: parse results, break into forecast/current/location objects
+        $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
+        $station = $this->_parseStation($results->location);
+        $forecast = $this->_parseForecast($results->forecast);
+
+        var_dump($results);
+    }
+
+    /**
+     * Parses the JSON response for a location request into a station object.
+     *
+     * @param  StdClass $station  The response from a Location request.
+     *
+     * @return Horde_Service_Weather_Station
+     */
+    protected function _parseStation($station)
+    {
+        // @TODO: Create a subclass of Station for wunderground, parse the
+        //  "close stations" and "pws" properties - allow for things like
+        //  displaying other, nearby weather station conditions etc...
+        $properties = array(
+            'city' => $station->city,
+            'state' => $station->state,
+            'country' => $station->country_iso3166,
+            'country_name' => $station->country_name,
+            'tz' => $station->tz_long,
+            'lat' => $station->lat,
+            'lon' => $station->lon,
+            'zip' => $station->zip
+        );
+
+        return new Horde_Service_Weather_Station($properties);
     }
 
     protected function _makeRequest($url)
