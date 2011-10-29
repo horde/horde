@@ -32,7 +32,8 @@ var IMP_JS = {
             iframe = elt.up().next().down('.htmlMsgData'),
             iframeid = iframe.readAttribute('id'),
             imgload = false,
-            s = new Selector('[htmlimgblocked]');
+            s = new Selector('[htmlimgblocked]'),
+            s2 = new Selector('[htmlcssblocked]');
 
         e.stop();
 
@@ -63,6 +64,10 @@ var IMP_JS = {
                     }
                 }
             }
+        }, this);
+
+        s2.findElements(iframe.contentWindow.document).each(function(link) {
+            link.setAttribute('href', link.getAttribute('htmlcssblocked'));
         }, this);
 
         if (!imgload) {

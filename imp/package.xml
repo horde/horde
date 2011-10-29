@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Sanitize LINK tags contained in HTML messages.
 * [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 * [mjr] Only request the field values we actually need when searching the contacts API.
 * [mms] Fix expand all mailboxes in dynamic view (Bug #10682).
@@ -1287,7 +1288,7 @@
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.7</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>

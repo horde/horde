@@ -151,6 +151,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'blockimg' => null,
                 'cid' => null,
                 'cid_used' => array(),
+                'cssblock' => false,
                 'img' => $blockimg,
                 'imgblock' => false,
                 'inline' => $inline,
@@ -219,6 +220,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'text' => array(
                     _("Images have been blocked in this message part."),
                     Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
+                )
+            );
+        } elseif ($this->_imptmp['cssblock']) {
+            /* This is a bit less intuitive for end users, so hide within
+             * image blocking if possible. */
+            $status[] = array(
+                'icon' => Horde::img('mime/image.png'),
+                'text' => array(
+                    _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
+                    Horde::link('#', '', 'unblockImageLink') . _("Load Styling?") . '</a>'
                 )
             );
         }
@@ -361,6 +372,33 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         $node->setAttribute('src', $this->_imptmp['blockimg']);
                         $this->_imptmp['imgblock'] = true;
                     }
+                }
+                break;
+
+            case 'link':
+                /* Block all link tags that reference foreign URLs, other than
+                 * CSS. There's no inherently wrong with linking to a foreign
+                 * CSS file other than privacy concerns. Therefore, block
+                 * linking until requested by the user. */
+                $delete_link = true;
+
+                if ($node->hasAttribute('type')) {
+                    switch (Horde_String::lower($node->getAttribute('type'))) {
+                    case 'text/css':
+                        if ($this->_imptmp && $node->hasAttribute('href')) {
+                            $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
+                            $node->removeAttribute('href');
+                            $this->_imptmp['cssblock'] = true;
+                            $delete_link = false;
+                        }
+                        break;
+                    }
+                }
+
+                if ($delete_link &&
+                    $node->hasAttribute('href') &&
+                    $node->parentNode) {
+                    $node->parentNode->removeChild($node);
                 }
                 break;
 
