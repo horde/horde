@@ -173,8 +173,8 @@ class Components_Helper_Installer
                         throw new Components_Exception(
                             sprintf(
                                 'Failed resolving component %s/%s!',
-                                $component->getChannel(),
-                                $component->getName()
+                                $dependency->getChannel(),
+                                $dependency->getName()
                             )
                         );
                     } else {
