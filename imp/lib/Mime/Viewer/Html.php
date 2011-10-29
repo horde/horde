@@ -417,12 +417,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     $node->removeAttribute($val);
                 }
 
-                if ($node->hasAttribute('style') &&
-                    ($this->_imptmp['img'] || $this->_imptmp['cid'])) {
-                    $this->_imptmp['node'] = $node;
-                    $style = preg_replace_callback('/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
-                    if ($matches) {
-                        $node->setAttribute('style', $style);
+                if ($node->hasAttribute('style')) {
+                    if (strpos($node->getAttribute('style'), 'content:') !== false) {
+                        // TODO: Figure out way to unblock?
+                        $node->removeAttribute('style');
+                    } elseif ($this->_imptmp['img'] || $this->_imptmp['cid']) {
+                        $this->_imptmp['node'] = $node;
+                        $style = preg_replace_callback('/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
+                        if ($matches) {
+                            $node->setAttribute('style', $style);
+                        }
                     }
                 }
             }
