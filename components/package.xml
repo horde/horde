@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>08:27:31</time>
+ <date>2011-10-24</date>
+ <time>08:42:04</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -115,9 +115,15 @@
      <file name="index.html" role="data" />
      <file name="install.html" role="data" />
     </dir> <!-- /data/html -->
-    <file name="hudson-component-build.xml.template" role="data" />
-    <file name="hudson-component-config.xml.template" role="data" />
-    <file name="hudson-component-phpunit.xml.template" role="data" />
+    <dir name="jenkins">
+     <dir name="config">
+      <file name="config.xml" role="data" />
+     </dir> <!-- /data/jenkins/config -->
+     <dir name="pre-build">
+      <file name="build.xml" role="data" />
+      <file name="phpunit.xml" role="data" />
+     </dir> <!-- /data/jenkins/pre-build -->
+    </dir> <!-- /data/jenkins -->
    </dir> <!-- /data -->
    <dir name="lib">
     <dir name="Components">
@@ -519,9 +525,6 @@
    <install as="horde-bootstrap" name="bin/horde-bootstrap" />
    <install as="horde-components" name="bin/horde-components" />
    <install as="conf.php.dist" name="config/conf.php.dist" />
-   <install as="hudson-component-build.xml.template" name="data/hudson-component-build.xml.template" />
-   <install as="hudson-component-config.xml.template" name="data/hudson-component-config.xml.template" />
-   <install as="hudson-component-phpunit.xml.template" name="data/hudson-component-phpunit.xml.template" />
    <install as="distribute/debian/components.php" name="data/distribute/debian/components.php" />
    <install as="distribute/debian/templates/changelog" name="data/distribute/debian/templates/changelog" />
    <install as="distribute/debian/templates/compat" name="data/distribute/debian/templates/compat" />
@@ -550,6 +553,9 @@
    <install as="distribute/openSUSE/templates/package.spec" name="data/distribute/openSUSE/templates/package.spec" />
    <install as="html/index.html" name="data/html/index.html" />
    <install as="html/install.html" name="data/html/install.html" />
+   <install as="jenkins/config/config.xml" name="data/jenkins/config/config.xml" />
+   <install as="jenkins/pre-build/build.xml" name="data/jenkins/pre-build/build.xml" />
+   <install as="jenkins/pre-build/phpunit.xml" name="data/jenkins/pre-build/phpunit.xml" />
    <install as="Components.php" name="lib/Components.php" />
    <install as="Components/Component.php" name="lib/Components/Component.php" />
    <install as="Components/Config.php" name="lib/Components/Config.php" />
@@ -761,7 +767,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-10-11</date>
+   <date>2011-10-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.
