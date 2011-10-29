@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix invalid image type errors when uploading in older versions of mozilla.
 * [mjr] Fix issue with deleting galleries in date mode with key images (Bug #10671).
  </notes>
  <contents>
@@ -1250,6 +1251,7 @@
    <date>2011-10-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix invalid image type errors when uploading in older versions of mozilla.
 * [mjr] Fix issue with deleting galleries in date mode with key images (Bug #10671).
    </notes>
   </release>
