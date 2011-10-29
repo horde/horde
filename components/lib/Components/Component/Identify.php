@@ -77,8 +77,9 @@ class Components_Component_Identify
     public function setComponentInConfiguration()
     {
         $arguments = $this->_config->getArguments();
-        if ($component = $this->_determineComponent($arguments)) {
+        if (list($component, $path) = $this->_determineComponent($arguments)) {
             $this->_config->setComponent($component);
+            $this->_config->setPath($path);
         }
     }
 
@@ -87,7 +88,9 @@ class Components_Component_Identify
      *
      * @param array $arguments The arguments.
      *
-     * @return Components_Component The selected component.
+     * @return array Two elements: The selected component as
+     *               Components_Component instance and optionally a string
+     *               representing the path to the specified source component.
      */
     private function _determineComponent($arguments)
     {
@@ -98,17 +101,23 @@ class Components_Component_Identify
 
             if ($this->_isPackageXml($arguments[0])) {
                 $this->_config->shiftArgument();
-                return $this->_dependencies
+                return array(
+                    $this->_dependencies
                     ->getComponentFactory()
-                    ->createSource(dirname($arguments[0]));
+                    ->createSource(dirname($arguments[0])),
+                    dirname($arguments[0])
+                );
             }
 
             if (!in_array($arguments[0], $this->_actions['list'])) {
                 if ($this->_isDirectory($arguments[0])) {
                     $this->_config->shiftArgument();
-                    return $this->_dependencies
+                    return array(
+                        $this->_dependencies
                         ->getComponentFactory()
-                        ->createSource($arguments[0]);
+                        ->createSource($arguments[0]),
+                        $arguments[0]
+                    );
                 }
 
                 $options = $this->_config->getOptions();
@@ -123,7 +132,7 @@ class Components_Component_Identify
                         );
                     if ($result !== false) {
                         $this->_config->shiftArgument();
-                        return $result;
+                        return array($result, '');
                     }
                 }
                 
@@ -135,9 +144,12 @@ class Components_Component_Identify
 
         $cwd = getcwd();
         if ($this->_isDirectory($cwd) && $this->_containsPackageXml($cwd)) {
-            return $this->_dependencies
+            return array(
+                $this->_dependencies
                 ->getComponentFactory()
-                ->createSource($cwd);
+                ->createSource($cwd),
+                $cwd
+            );
         }
 
         throw new Components_Exception(Components::ERROR_NO_COMPONENT);
