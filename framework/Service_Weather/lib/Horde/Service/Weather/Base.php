@@ -21,11 +21,23 @@
  abstract class Horde_Service_Weather_Base
  {
 
+    /**
+     * Parameters
+     *
+     * @var array
+     */
     protected $_params;
 
+    /**
+     * Location object
+     *
+     * @var Horde_Service_Weather_Location_Base
+     */
     protected $_location;
 
     /**
+     * Cache object
+     *
      * @var Horde_Cache
      */
     protected $_cache;
