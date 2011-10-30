@@ -1599,6 +1599,9 @@ if (!$libs_found) {
 }
 $c->writeln();
 
+/* Ensure E_STRICT is off as we are calling PEAR */
+$old_error_reporting = error_reporting(E_ALL & ~E_STRICT);
+
 /* Commandline parameters */
 $args    = Console_Getopt::readPHPArgv();
 $options = Console_Getopt::getopt($args, 'b:dht', array('base=', 'debug', 'help', 'test'));
@@ -1614,6 +1617,10 @@ if (PEAR::isError($options)) {
     $script->usage();
     $script->footer();
 }
+
+/* Back to old error reporting */
+error_reporting($old_error_reporting);
+
 if (empty($options[0][0]) && empty($options[1][0])) {
     $c->message('No command specified.', 'cli.error');
     $c->writeln();
