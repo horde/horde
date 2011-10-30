@@ -37,8 +37,7 @@ extends Horde_Push_TestCase
 {
     public function tearDown()
     {
-        global $push;
-        unset($push);
+        $GLOBALS['push'] = null;
     }
 
     public function testEmpty()
