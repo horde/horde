@@ -61,8 +61,21 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+    <name>Horde_Date</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
    <package>
     <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -76,12 +89,6 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Horde_Http</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
-   </package>
   </required>
  </dependencies>
  <phprelease>
