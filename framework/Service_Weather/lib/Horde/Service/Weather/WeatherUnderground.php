@@ -99,6 +99,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     {
         return $this->_station;
     }
+
     /**
      * Weather Underground allows requesting multiple features per request,
      * and only counts it as a single request against your API key. So we trade
@@ -137,6 +138,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
         $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
         $station = $this->_parseStation($results->location);
+
         // @TODO
         //$astronomy = $this->_parseAstronomy($results->moon_phase);
         $astronomy = $results->moon_phase;
@@ -153,7 +155,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $current = $this->_parseCurrent($results->current_observation);
         $forecast = $this->_parseForecast($results->forecast);
 
-        $this->_parseStation = $station;
+        // Cache the data in the object
+        $this->_station = $station;
         $this->_current = $current;
         $this->_forecast = $forecast;
     }
@@ -205,7 +208,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     }
 
     /**
-     * Parse the current_conditions response
+     * Parse the current_conditions response.
      *
      * @param  stdClass $current  The current_condition request response object
      *
@@ -213,6 +216,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     protected function _parseCurrent($current)
     {
+        // The Current object takes care of the parsing/mapping.
         return new Horde_Service_Weather_Current_WeatherUnderground((array)$current);
     }
 
