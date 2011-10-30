@@ -26,7 +26,9 @@
         'wind_direction' => 'wind_dir',
         'wind_degrees' => 'wind_degrees',
         'pressure' => 'pressure_in',
-        'pressure_trend' => 'pressure_trend'
+        'pressure_trend' => 'pressure_trend',
+        'icon' => 'icon',
+        'icon_url' => 'icon_url'
     );
 
     public function __construct($properties)
@@ -73,6 +75,24 @@
                 return $this->_properties['dewpoint_f'];
             }
             return $this->_properties['dewpoint_c'];
+
+        case 'heat_index':
+            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['heat_index_f'];
+            }
+            return $this->_properties['heat_index_c'];
+
+        case 'wind_chill':
+            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['wind_chill_f'];
+            }
+            return $this->_properties['wind_chill_c'];
+
+        case 'visibility':
+            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['visibility_mi'];
+            }
+            return $this->_properties['visibility_km'];
 
         default:
             if (empty($this->_map[$property])) {
