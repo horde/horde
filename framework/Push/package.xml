@@ -10,8 +10,8 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-19</date>
- <time>21:00:21</time>
+ <date>2011-10-30</date>
+ <time>08:30:09</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -59,6 +59,15 @@
      <file name="Push.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <file name="Horde_Push.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Push">
@@ -136,6 +145,13 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Kolab_Storage</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -182,6 +198,9 @@
    <install as="Horde/Push/Recipient/Mail.php" name="lib/Horde/Push/Recipient/Mail.php" />
    <install as="Horde/Push/Recipient/Mock.php" name="lib/Horde/Push/Recipient/Mock.php" />
    <install as="Horde/Push/Recipient/Twitter.php" name="lib/Horde/Push/Recipient/Twitter.php" />
+   <install as="locale/Horde_Push.pot" name="locale/Horde_Push.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Push.mo" name="locale/de/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Push.po" name="locale/de/LC_MESSAGES/Horde_Push.po" />
    <install as="Horde/Push/AllTests.php" name="test/Horde/Push/AllTests.php" />
    <install as="Horde/Push/Autoload.php" name="test/Horde/Push/Autoload.php" />
    <install as="Horde/Push/phpunit.xml" name="test/Horde/Push/phpunit.xml" />
@@ -212,7 +231,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-19</date>
+   <date>2011-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.
