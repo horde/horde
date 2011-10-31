@@ -38,7 +38,7 @@ extends Horde_Kolab_Format_TestCase
     public function testBug6388()
     {
         $xml   = $this->getFactory()->create('XML', 'event');
-        $recur = file_get_contents(dirname(__FILE__) . '/fixtures/recur_fail.xml');
+        $recur = file_get_contents(dirname(__FILE__) . '/../fixtures/recur_fail.xml');
         // Check that the xml fails because of a missing interval value
         try {
             $xml->load($recur);
@@ -156,7 +156,7 @@ extends Horde_Kolab_Format_TestCase
     private function _loadExclusions()
     {
         return $this->getFactory()->create('XML', 'event')->load(
-            file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml')
+            file_get_contents(dirname(__FILE__) . '/../fixtures/recur.xml')
         );
     }
 
@@ -164,7 +164,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $parser = $this->getFactory()->create('XML', 'event');
         $object = $parser->load(
-            file_get_contents(dirname(__FILE__) . '/fixtures/recur.xml')
+            file_get_contents(dirname(__FILE__) . '/../fixtures/recur.xml')
         );
         $xml = $parser->save($object);
         return $parser->load($xml);

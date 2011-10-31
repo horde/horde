@@ -45,8 +45,9 @@ extends Horde_Kolab_Format_TestCase
         $xml = $this->getFactory()->create('XML', 'event');
 
         // Load XML
-        $event  = file_get_contents(dirname(__FILE__)
-                                    . '/fixtures/event_umlaut.xml');
+        $event  = file_get_contents(
+            dirname(__FILE__) . '/../fixtures/event_umlaut.xml'
+        );
         $result = $xml->load($event);
 
         // Check that the xml loads fine
@@ -55,8 +56,9 @@ extends Horde_Kolab_Format_TestCase
         $xml = $this->getFactory()->create('XML', 'event');
 
         // Load XML
-        $event  = file_get_contents(dirname(__FILE__)
-                                    . '/fixtures/event_umlaut_broken.xml');
+        $event  = file_get_contents(
+            dirname(__FILE__) . '/../fixtures/event_umlaut_broken.xml'
+        );
         $result = $xml->load($event);
 
         $this->assertEquals('...übbe...', $result['body']);
