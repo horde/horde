@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-07-14 00:58-0300\n"
+"POT-Creation-Date: 2011-10-30 20:30-0200\n"
 "PO-Revision-Date: 2011-06-13 00:04-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -252,7 +252,7 @@ msgstr "Data de Modificação"
 msgid "More Options..."
 msgstr "Mais Opções..."
 
-#: lib/Api.php:378
+#: lib/Api.php:346
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "Múltiplos componentes iCalendar encontrados; somente um vNote é suportado."
@@ -261,7 +261,7 @@ msgstr ""
 msgid "My Notepads:"
 msgstr "Meus Blocos de Anotações:"
 
-#: list.php:29 stickies.php:29
+#: list.php:29
 msgid "My Notes"
 msgstr "Minhas Anotações"
 
@@ -269,7 +269,7 @@ msgstr "Minhas Anotações"
 msgid "Name"
 msgstr "Nome"
 
-#: lib/Application.php:133 memo.php:92 memo.php:138
+#: lib/Application.php:128 memo.php:92 memo.php:138
 msgid "New Note"
 msgstr "Nova Anotação"
 
@@ -277,7 +277,7 @@ msgstr "Nova Anotação"
 msgid "Next"
 msgstr "Próxima"
 
-#: lib/Api.php:222 lib/Api.php:371
+#: lib/Api.php:190 lib/Api.php:339
 msgid "No iCalendar data was found."
 msgstr "Nenhum dado iCalendar foi encontrado."
 
@@ -338,7 +338,7 @@ msgstr "Bloco de Anotações"
 msgid "Notepad List"
 msgstr "Lista de Bloco de Anotações"
 
-#: lib/Mnemo.php:533
+#: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
 msgstr "Anotações de %s"
@@ -346,6 +346,10 @@ msgstr "Anotações de %s"
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "Blocos de Anotações"
+
+#: lib/Notepads/Kolab.php:38
+msgid "Notes"
+msgstr "Anotações"
 
 #: lib/Block/Summary.php:12
 msgid "Notes Summary"
@@ -355,8 +359,8 @@ msgstr "Resumo das Anotações"
 msgid "Ok"
 msgstr "Ok"
 
-#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
-#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
+#: lib/Api.php:73 lib/Api.php:106 lib/Api.php:138 lib/Api.php:169
+#: lib/Api.php:254 lib/Api.php:299 lib/Api.php:322
 msgid "Permission Denied"
 msgstr "Permissão Negada"
 
@@ -386,12 +390,12 @@ msgstr "Gravar"
 msgid "Save as PDF"
 msgstr "Gravar como PDF"
 
-#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
+#: lib/Application.php:154 search.php:22 templates/list/header.inc:4
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Pesquisar"
 
-#: list.php:52 notes/index.php:38 stickies.php:52
+#: list.php:52 notes/index.php:38
 msgid "Search Results"
 msgstr "Resultados da Pesquisa"
 
@@ -496,11 +500,11 @@ msgstr "As senhas não correspondem."
 msgid "There was an error importing the data: %s"
 msgstr "Houve um erro ao importar os dados: %s"
 
-#: lib/Api.php:216 lib/Api.php:365
+#: lib/Api.php:184 lib/Api.php:333
 msgid "There was an error importing the iCalendar data."
 msgstr "Houve um erro ao importar os dados do iCalendar."
 
-#: lib/Api.php:53 lib/Api.php:65
+#: lib/Application.php:202
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
@@ -546,17 +550,17 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Esta anotação foi criptografada, por favor forneça a senha abaixo"
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
+#: lib/Api.php:248 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Esta anotação foi criptografada."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:275 lib/Mnemo.php:276
-#: lib/Mnemo.php:290 lib/Mnemo.php:291 templates/list/memo_summaries.inc:20
+#: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
+#: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
 #: templates/view/memo.inc:27
 msgid "Unfiled"
 msgstr "Normal"
 
-#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
+#: lib/Api.php:217 lib/Api.php:273 lib/Api.php:356
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Tipo de Conteúdo não suportado: %s"
@@ -647,10 +651,6 @@ msgstr "_Senha"
 msgid "_Password:"
 msgstr "_Senha:"
 
-#: lib/Application.php:86
-msgid "_Print"
-msgstr "_Imprimir"
-
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
 msgstr "_Repete:"
@@ -672,7 +672,7 @@ msgstr "por %s"
 msgid "by me"
 msgstr "por mim"
 
-#: lib/Application.php:153
+#: lib/Application.php:141
 #, php-format
 msgid "in %s"
 msgstr "em %s"
