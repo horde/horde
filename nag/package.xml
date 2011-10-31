@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [cjh] Nicer date/time input with fewer input fields and helper javascript.
 * [mjr] Add ability to choose which tasklists to synchronize.
 * [mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
  </notes>
@@ -1068,6 +1069,7 @@
    <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [cjh] Nicer date/time input with fewer input fields and helper javascript.
 * [mjr] Add ability to choose which tasklists to synchronize.
 * [mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
    </notes>
