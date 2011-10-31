@@ -25,6 +25,6 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
-class Horde_Kolab_Format_Exception extends Horde_Exception_Wrapped
+class Horde_Kolab_Format_Exception extends Exception
 {
 }
