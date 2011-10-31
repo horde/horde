@@ -167,7 +167,7 @@ class Gollem_Auth
             $cr_file = substr($backend['home'], $pos + 1);
             if (!$vfs->exists($cr_dir, $cr_file)) {
                 try {
-                    $res = Gollem::createFolder($cr_dir, $cr_file);
+                    $res = Gollem::createFolder($cr_dir, $cr_file, $vfs);
                 } catch (Gollem_Exception $e) {
                     throw new Horde_Auth_Exception('Backend Configuration Error: Could not create home directory ' . $backend['home'] . ': ' . $e->getMessage(), Horde_Auth::REASON_MESSAGE);
                 }
