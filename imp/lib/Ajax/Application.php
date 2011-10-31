@@ -1397,7 +1397,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - uid: (string) Index of the messages to preview (IMAP sequence
      *          string; bsae64url encoded) - must be single index.
      *
-     * @return mixed  False on failure, the return from showPreview() on
+     * @return mixed  False on failure, the return from showMessage() on
      *                success along with these properties:
      *   - newuid: (integer) UID of new message.
      *   - oldmbox: (string) Mailbox of old message (base64url encoded).
@@ -1425,9 +1425,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $GLOBALS['notification']->push(_("Attachment successfully stripped."), 'horde.success');
 
+        $this->_vars->preview = 1;
         $this->_vars->uid = $new_indices->formTo();
+        $result = $this->showMessage();
 
-        $result = $this->showPreview();
         $new_indices_list = $new_indices->getSingle();
         $result->newuid = $new_indices_list[1];
         $old_indices_list = $indices->getSingle();

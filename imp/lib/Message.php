@@ -546,8 +546,10 @@ class IMP_Message
             $res = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb($uid)
             ));
-            $res = reset($res);
-            $flags = $res->getFlags();
+            if (!isset($res[$uid])) {
+                throw new IMP_Imap_Exception();
+            }
+            $flags = $res[$uid]->getFlags();
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
              * appears again in the mailbox list. */
@@ -559,7 +561,7 @@ class IMP_Message
                 array(
                     'data' => $parts,
                     'flags' => $flags,
-                    'internaldate' => $res->getImapDate()
+                    'internaldate' => $res[$uid]->getImapDate()
                 )
             ));
             $new_uid = reset($new_uid->ids);
