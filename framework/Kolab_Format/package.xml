@@ -12,7 +12,7 @@
   <active>yes</active>
  </lead>
  <date>2011-10-31</date>
- <time>06:24:47</time>
+ <time>06:33:20</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -171,6 +171,7 @@
         <file name="preferences_read_old.xml" role="test" />
         <file name="preferences_write_old.xml" role="test" />
         <file name="recur.xml" role="test" />
+        <file name="recur_complete.xml" role="test" />
         <file name="recur_fail.xml" role="test" />
         <file name="task.xml" role="test" />
        </dir> <!-- /test/Horde/Kolab/Format/fixtures -->
@@ -369,6 +370,7 @@
    <install as="Horde/Kolab/Format/fixtures/preferences_read_old.xml" name="test/Horde/Kolab/Format/fixtures/preferences_read_old.xml" />
    <install as="Horde/Kolab/Format/fixtures/preferences_write_old.xml" name="test/Horde/Kolab/Format/fixtures/preferences_write_old.xml" />
    <install as="Horde/Kolab/Format/fixtures/recur.xml" name="test/Horde/Kolab/Format/fixtures/recur.xml" />
+   <install as="Horde/Kolab/Format/fixtures/recur_complete.xml" name="test/Horde/Kolab/Format/fixtures/recur_complete.xml" />
    <install as="Horde/Kolab/Format/fixtures/recur_fail.xml" name="test/Horde/Kolab/Format/fixtures/recur_fail.xml" />
    <install as="Horde/Kolab/Format/fixtures/task.xml" name="test/Horde/Kolab/Format/fixtures/task.xml" />
    <install as="Horde/Kolab/Format/Integration/ContactTest.php" name="test/Horde/Kolab/Format/Integration/ContactTest.php" />

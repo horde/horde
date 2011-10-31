@@ -58,7 +58,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $object = $this->_loadExclusions();
         $this->assertTrue(
-            $this->_hasException(
+            $this->_hasDate(
                 $object['recurrence']['exclusion'], '2006-08-16'
             )
         );
@@ -68,7 +68,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $object = $this->_loadExclusions();
         $this->assertTrue(
-            $this->_hasException(
+            $this->_hasDate(
                 $object['recurrence']['exclusion'], '2006-10-18'
             )
         );
@@ -84,7 +84,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $object = $this->_reloadExclusions();
         $this->assertTrue(
-            $this->_hasException(
+            $this->_hasDate(
                 $object['recurrence']['exclusion'], '2006-08-16'
             )
         );
@@ -94,59 +94,57 @@ extends Horde_Kolab_Format_TestCase
     {
         $object = $this->_reloadExclusions();
         $this->assertTrue(
-            $this->_hasException(
+            $this->_hasDate(
                 $object['recurrence']['exclusion'], '2006-10-18'
             )
         );
     }
 
-    /**
-     * Test completion handling.
-     *
-     * @return NULL
-     */
-    public function testCompletions()
+    public function testComplete()
     {
-        $this->markTestIncomplete('TODO');
-        $xml = $this->getFactory()->create('XML', 'event');
-
-        $r = new Horde_Date_Recurrence(0);
-        $r->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
-        $r->addException(1970, 1, 1);
-        $r->addCompletion(1970, 1, 2);
-        $r->addException(1970, 1, 3);
-        $r->addCompletion(1970, 1, 4);
-        $r->setRecurEnd(new Horde_Date(86400*3));
-
-        $object               = array('uid' => 0, 'start-date' => 0,
-                                      'end-date' => 60);
-        $object['recurrence'] = $r->toHash();
-        $recur                = $xml->save($object);
-        $object               = $xml->load($recur);
-
-        $s = new Horde_Date_Recurrence(0);
-        $s->fromHash($object['recurrence']);
-
-        $this->assertTrue($s->hasRecurEnd());
-        $this->assertTrue($s->hasException(1970, 1, 1));
-        $this->assertTrue($s->hasCompletion(1970, 1, 2));
-        $this->assertTrue($s->hasException(1970, 1, 3));
-        $this->assertTrue($s->hasCompletion(1970, 1, 4));
-        $this->assertEquals(2, count($s->getCompletions()));
-        $this->assertEquals(2, count($s->getExceptions()));
-        $this->assertFalse($s->hasActiveRecurrence());
-
-        $s->deleteCompletion(1970, 1, 2);
-        $this->assertEquals(1, count($s->getCompletions()));
-        $s->deleteCompletion(1970, 1, 4);
-        $this->assertEquals(0, count($s->getCompletions()));
+        $object = $this->_loadComplete();
+        $this->assertTrue(
+            $this->_hasDate(
+                $object['recurrence']['complete'], '2006-04-05'
+            )
+        );
     }
 
-    private function _hasException($exclusions, $date)
+    public function testComplete2()
     {
-        foreach ($exclusions as $exclusion) {
+        $object = $this->_loadComplete();
+        $this->assertTrue(
+            $this->_hasDate(
+                $object['recurrence']['complete'], '2006-07-26'
+            )
+        );
+    }
+
+    public function testReloadedComplete()
+    {
+        $object = $this->_reloadComplete();
+        $this->assertTrue(
+            $this->_hasDate(
+                $object['recurrence']['complete'], '2006-04-05'
+            )
+        );
+    }
+
+    public function testReloadedComplete2()
+    {
+        $object = $this->_reloadComplete();
+        $this->assertTrue(
+            $this->_hasDate(
+                $object['recurrence']['complete'], '2006-07-26'
+            )
+        );
+    }
+
+    private function _hasDate($dates, $date)
+    {
+        foreach ($dates as $value) {
             
-            if ($exclusion->format('Y-m-d') == $date) {
+            if ($value->format('Y-m-d') == $date) {
                 return true;
             }
         }
@@ -170,4 +168,20 @@ extends Horde_Kolab_Format_TestCase
         return $parser->load($xml);
     }
 
+    private function _loadComplete()
+    {
+        return $this->getFactory()->create('XML', 'event')->load(
+            file_get_contents(dirname(__FILE__) . '/../fixtures/recur_complete.xml')
+        );
+    }
+
+    private function _reloadComplete()
+    {
+        $parser = $this->getFactory()->create('XML', 'event');
+        $object = $parser->load(
+            file_get_contents(dirname(__FILE__) . '/../fixtures/recur_complete.xml')
+        );
+        $xml = $parser->save($object);
+        return $parser->load($xml);
+    }
 }
