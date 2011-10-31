@@ -586,7 +586,7 @@ class Horde_SyncMl_XmlOutput
                     if ($device->useCdataTag()) {
                         /* Enclose data in CDATA if possible to avoid */
                         /* problems with &,< and >. */
-                        $this->output->characters('<![CDATA[' . $content . ']]>');
+                        $this->output->opaque('<![CDATA[' . $content . ']]>');
                     } else {
                         $this->output->characters($content);
                     }
