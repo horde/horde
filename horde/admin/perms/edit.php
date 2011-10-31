@@ -39,10 +39,9 @@ if ($category !== null) {
                 $copyFrom = null;
             }
 
-            $parent = $vars->get('parent');
             $permission = $corePerms->newPermission($category);
             try {
-                $result = $perms->addPermission($permission, $parent);
+                $result = $perms->addPermission($permission);
                 $form = 'edit.inc';
                 $perm_id = $perms->getPermissionId($permission);
             } catch (Exception $e) {
