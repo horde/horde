@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -903,7 +903,7 @@
    <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
    </notes>
   </release>
  </changelog>
