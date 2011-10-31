@@ -465,7 +465,7 @@ var Gollem = {
             tmp.observe('change', function() {
                 this.chooseAction(1);
                 $('action1').selectedIndex = 0;
-            }, this);
+            }.bind(this));
         }
 
         if (tmp = $('file_upload_1')) {
