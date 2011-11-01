@@ -67,8 +67,8 @@ extends Horde_Kolab_FreeBusy_TestCase
         ob_start();
         $e->dispatch();
         $output = ob_get_clean();
-        $this->assertEquals(
-            '<div><strong>Headers:</strong><pre></pre></div>',
+        $this->assertContains(
+            '<div><strong>Headers:',
             $output
         );
     }
