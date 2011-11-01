@@ -23,8 +23,8 @@ of the mailbox.
 All other non-mailbox strings that previously could be passed in as either
 UTF7-IMAP or UTF-8 are now REQUIRED to be passed in as UTF-8.
 
-Auto-detection will still work, but is deprecated, will be removed in 2.0, and
-is not guaranteed to produce proper results for all mailbox names.
+Auto-detection will still work, but is deprecated, will be removed in 2.0.0,
+and is not guaranteed to produce proper results for all mailbox names.
 
 
 Changed Return Values
@@ -80,7 +80,7 @@ Deprecated Parameters
   - Horde_Imap_Client_Base#currentMailbox()
 
     The 'utf8' parameter has been deprecated. The 'mailbox' return value will
-    exclusively return a Horde_Imap_Client_Mailbox object in 2.0.
+    exclusively return a Horde_Imap_Client_Mailbox object in 2.0.0.
 
 Drivers
 -------
@@ -119,31 +119,31 @@ Method Parameter Changes
     These methods now require the mailbox parameter(s) to be passed in as
     either a Horde_Imap_Client_Mailbox object (RECOMMENDED) or a UTF-8
     string. Passing in a UTF7-IMAP string is DEPRECATED and will be removed
-    in 2.0. (The limitation of allowing UTF7-IMAP strings to be continued
+    in 2.0.0. (The limitation of allowing UTF7-IMAP strings to be continued
     to be passed in for now is that auto-detection remains necessary. Passing
     in UTF-8 strings will thus break for certain mailbox names - the only
-    way to guarantee proper mailbox handling for 1.2+ is to pass in Mailbox
+    way to guarantee proper mailbox handling for 1.2.0+ is to pass in Mailbox
     objects.)
 
   - Horde_Imap_Client_Base#getMetadata()
 
     The $entries parameter now requires the entries to be passed in as
     UTF-8 strings ONLY (UTF7-IMAP no longer allowed). Auto-detection will be
-    removed in 2.0. To ensure proper mailbox handling in 1.2+, you can pass
+    removed in 2.0.0. To ensure proper mailbox handling in 1.2.0+, you can pass
     the entries as Horde_Imap_Client_Mailbox objects.
 
   - Horde_Imap_Client_Base#getNamespaces()
 
-    The $addtional parameter now requires the namespaces to be passed in as
+    The $additional parameter now requires the namespaces to be passed in as
     UTF-8 strings ONLY (UTF7-IMAP no longer allowed). Auto-detection will be
-    removed in 2.0. To ensure proper mailbox handling in 1.2+, you can pass
+    removed in 2.0.0. To ensure proper mailbox handling in 1.2.0+, you can pass
     the namespace names as Horde_Imap_Client_Mailbox objects.
 
   - Horde_Imap_Client_Base#listMailboxes()
 
     The $pattern parameter now requires the patterns to be passed in as
     UTF-8 strings ONLY (UTF7-IMAP no longer allowed). Auto-detection will be
-    removed in 2.0. To ensure proper mailbox handling in 1.2+, you can pass
+    removed in 2.0.0. To ensure proper mailbox handling in 1.2.0+, you can pass
     the patterns as Horde_Imap_Client_Mailbox objects.
 
     The 'utf8' parameter has been removed.
@@ -153,7 +153,7 @@ Method Parameter Changes
 
     The $identifier parameter now requires the identifiers to be passed in as
     UTF-8 strings ONLY (UTF7-IMAP no longer allowed). Auto-detection will be
-    removed in 1.3. To ensure proper mailbox handling in 1.2+, you can pass
+    removed in 1.3. To ensure proper mailbox handling in 1.2.0+, you can pass
     the identifiers as Horde_Imap_Client_Mailbox objects.
 
   - Horde_Imap_Client_Cache#__construct()
