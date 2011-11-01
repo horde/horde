@@ -246,6 +246,12 @@ Choices are:
         if (empty($options['driver'])) {
             return;
         }
+        if ($options['driver'] == 'mock') {
+            $options['data'] = array(
+                'format' => 'brief',
+                'user/test' => null
+            );
+        }        
         $params = array(
             'driver' => $options['driver'],
             'params' => $options,
