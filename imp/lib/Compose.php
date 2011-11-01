@@ -56,6 +56,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     public $charset;
 
     /**
+     * Whether the user's vCard should be attached to outgoing messages.
+     *
+     * @var string
+     */
+    protected $_attachVCard = false;
+
+    /**
      * The cached attachment data.
      *
      * @var array
@@ -68,13 +75,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @var array
      */
     protected $_metadata = array();
-
-    /**
-     * The aggregate size of all attachments (in bytes).
-     *
-     * @var integer
-     */
-    protected $_size = 0;
 
     /**
      * Whether the user's PGP public key should be attached to outgoing
@@ -92,11 +92,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     protected $_replytype = self::COMPOSE;
 
     /**
-     * Whether the user's vCard should be attached to outgoing messages.
+     * The aggregate size of all attachments (in bytes).
      *
-     * @var boolean
+     * @var integer
      */
-    protected $_attachVCard = false;
+    protected $_size = 0;
 
     /**
      * Whether attachments should be linked.
@@ -1255,7 +1255,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 !empty($GLOBALS['conf']['compose']['link_all_attachments'])) {
                 $base = $this->linkAttachments($textpart);
 
-                if ($this->_pgpAttachPubkey || $this->_attachVCard) {
+                if ($this->_pgpAttachPubkey ||
+                    ($this->_attachVCard !== false)) {
                     $new_body = new Horde_Mime_Part();
                     $new_body->setType('multipart/mixed');
                     $new_body->addPart($base);
@@ -1271,7 +1272,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     $base->addPart($this->buildAttachment($id));
                 }
             }
-        } elseif ($this->_pgpAttachPubkey || $this->_attachVCard) {
+        } elseif ($this->_pgpAttachPubkey ||
+                  ($this->_attachVCard !== false)) {
             $base = new Horde_Mime_Part();
             $base->setType('multipart/mixed');
             $base->addPart($textpart);
@@ -1286,8 +1288,18 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $base->addPart($imp_pgp->publicKeyMIMEPart());
             }
 
-            if ($this->_attachVCard) {
-                $base->addPart($this->_attachVCard);
+            if ($this->_attachVCard !== false) {
+                try {
+                    $vcard = $GLOBALS['registry']->call('contacts/ownVCard');
+
+                    $vpart = new Horde_Mime_Part();
+                    $vpart->setType('text/x-vcard');
+                    $vpart->setCharset('UTF-8');
+                    $vpart->setContents($vcard);
+                    $vpart->setName($this->_attachVCard);
+
+                    $base->addPart($vpart);
+                } catch (Horde_Exception $e) {}
             }
         }
 
@@ -2749,29 +2761,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     /**
      * Attach the user's vCard to every message sent by buildAndSendMessage().
      *
-     * @param boolean $attach  True if vCard should be attached.
-     * @param string $name     The user's name.
+     * @param mixed $name  The user's name. If false, will not attach
+     *                     vCard to message.
      *
      * @throws IMP_Compose_Exception
      */
-    public function attachVCard($attach, $name)
+    public function attachVCard($name)
     {
-        if (!$attach) {
-            return;
-        }
-
-        try {
-            $vcard = $GLOBALS['registry']->call('contacts/ownVCard');
-        } catch (Horde_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
-
-        $part = new Horde_Mime_Part();
-        $part->setType('text/x-vcard');
-        $part->setCharset('UTF-8');
-        $part->setContents($vcard);
-        $part->setName((strlen($name) ? $name : 'vcard') . '.vcf');
-        $this->_attachVCard = $part;
+        $this->_attachVCard = ($name === false)
+            ? false
+            : ((strlen($name) ? $name : 'vcard') . '.vcf');
     }
 
     /**
