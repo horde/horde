@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* Add some more questionable tags/attributes to strip in the XSS filter.
+* [mms] Add some more questionable tags/attributes to strip in the XSS filter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
