@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Detect @import tags in CSS and add to compressed data.
 * [mjr] Add ability to remove temporary files at session shutdown.
  </notes>
  <contents>
