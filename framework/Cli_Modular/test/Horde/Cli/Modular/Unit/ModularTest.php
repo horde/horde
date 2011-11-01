@@ -27,6 +27,16 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Cli_Modular_Unit_ModularTest
 extends Horde_Cli_Modular_TestCase
 {
+    public function setUp()
+    {
+        $_SERVER['argv'] = array('test');
+    }
+
+    public function tearDown()
+    {
+        unset($_SERVER);
+    }
+
     public function testParser()
     {
         $modular = new Horde_Cli_Modular(
