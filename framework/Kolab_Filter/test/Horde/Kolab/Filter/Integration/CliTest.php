@@ -42,7 +42,7 @@ extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        unset($_SERVER);
+        unset($_SERVER['argv']);
     }
 
     /**

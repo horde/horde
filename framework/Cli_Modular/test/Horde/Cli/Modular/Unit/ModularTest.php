@@ -34,7 +34,7 @@ extends Horde_Cli_Modular_TestCase
 
     public function tearDown()
     {
-        unset($_SERVER);
+        unset($_SERVER['argv']);
     }
 
     public function testParser()
