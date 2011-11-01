@@ -1389,7 +1389,8 @@ class IMP_Mailbox implements Serializable
      * @return array  A list of folders, with the self::SPECIAL_* constants as
      *                keys and values containing the IMP_Mailbox objects or
      *                null if the mailbox doesn't exist (self::SPECIAL_SENT
-     *                contains an array of objects).
+     *                contains an array of objects). These mailboxes are
+     *                sorted in a logical order (see Ticket #10683).
      */
     static public function getSpecialMailboxes()
     {

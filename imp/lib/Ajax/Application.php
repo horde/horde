@@ -447,8 +447,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Add special folders explicitly to the initial folder list, since
-         * they are ALWAYS displayed and may appear outside of the folder
-         * slice requested. */
+         * they are ALWAYS displayed, may appear outside of the folder
+         * slice requested, and need to be sorted logically. */
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
                 if (!is_array($val)) {
@@ -456,8 +456,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 }
 
                 foreach (array_map('strval', $val) as $val2) {
-                    if (!isset($folder_list[$val2]) &&
-                        ($tmp = $imptree[$val2])) {
+                    if ($tmp = $imptree[$val2]) {
+                        unset($folder_list[$val2]);
                         $folder_list[$val2] = $tmp;
                     }
                 }

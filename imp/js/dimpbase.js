@@ -2918,17 +2918,11 @@ var DimpBase = {
                     : $('normalfolders');
             }
 
-            /* Virtual folders are sorted on the server. */
-            if (!ob.v) {
-                if (ob.s) {
-                    tmp2 = (mbox == this.INBOX)
-                        ? []
-                        : parent_e.down().siblings();
-                } else {
-                    tmp2 = parent_e.childElements();
-                }
+            /* Virtual folders and special mailboxes are sorted on the
+             * server. */
+            if (!ob.v && !ob.s) {
                 ll = label.toLowerCase();
-                f_node = tmp2.find(function(node) {
+                f_node = parent_e.childElements().find(function(node) {
                     var l = node.retrieve('l');
                     return (l && (ll < l.toLowerCase()));
                 });
