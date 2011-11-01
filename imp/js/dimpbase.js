@@ -9,9 +9,8 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandmbox, pollPE, pp, preview_replace, qsearch_ghost, resize,
-    //   rownum, search, splitbar, template, uid, view, viewaction, viewport,
-    //   viewswitch
+    //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
+    //   splitbar, template, uid, view, viewaction, viewport, viewswitch
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
 
@@ -731,9 +730,7 @@ var DimpBase = {
 
             this.toggleButtons();
             if (e.memo.opts.right || !count) {
-                if (!this.preview_replace) {
-                    this.clearPreviewPane();
-                }
+                this.clearPreviewPane();
             } else if ((count == 1) && DIMP.conf.preview_pref) {
                 this.loadPreview(sel.get('dataob').first());
             }
@@ -1576,18 +1573,9 @@ var DimpBase = {
 
     _stripAttachmentCallback: function(r)
     {
-        // Let the normal viewport refresh code and preview display code
-        // handle replacing the current preview. Set preview_replace to
-        // prevent a refresh flicker, since viewport refreshing would normally
-        // cause the preview pane to be cleared.
-        if (DimpCore.inAjaxCallback) {
-            this.preview_replace = true;
-            this.uid = r.response.newuid;
-            this._stripAttachmentCallback.bind(this, r).defer();
-            return;
-        }
+        this.uid = r.response.newuid;
 
-        this.preview_replace = false;
+        this._loadPreviewCallback(r);
 
         // Remove old cache value.
         this._expirePPCache([ this._getPPId(r.olduid, r.oldmbox) ]);
