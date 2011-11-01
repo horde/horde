@@ -1484,9 +1484,9 @@ var DimpBase = {
             r = resp.response.preview,
             t = $('msgHeadersContent').down('THEAD');
 
-        bg = (this.pp &&
-              (this.pp.uid != r.uid ||
-               this.pp.mbox != r.mbox));
+        bg = (!this.pp ||
+              this.pp.uid != r.uid ||
+              this.pp.mbox != r.mbox);
 
         if (r.error || this.viewport.getSelected().size() != 1) {
             if (!bg) {
