@@ -79,7 +79,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         $data = $this->_IMPrender(true);
 
-        /* Catch case where using mimp on a javascript browser. */
+        /* Catches case where using mimp on a javascript browser. */
         if (IMP::getViewMode() != 'mimp') {
             $uid = strval(new Horde_Support_Randomid());
 
@@ -157,6 +157,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'img' => $blockimg,
                 'imgblock' => false,
                 'inline' => $inline,
+                'style' => array(),
                 'target' => strval(new Horde_Support_Randomid())
             );
 
@@ -311,6 +312,75 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     }
 
     /**
+     */
+    protected function _node($doc, $node)
+    {
+        parent::_node($doc, $node);
+
+        if ($doc == $node) {
+            /* Sanitize and optimize style tags. */
+            if ($this->_imptmp && !empty($this->_imptmp['style'])) {
+                // Csstidy may not be available.
+                try {
+                    $style = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(implode("\n", $this->_imptmp['style']), 'csstidy', array(
+                        'ob' => true,
+                        'preserve_css' => false
+                    ));
+
+                    $blocked = array();
+                    foreach ($style->import as $val) {
+                        $blocked[] = '@import "' . $val . '";';
+                    }
+                    $style->import = array();
+
+                    foreach ($style->css as $key => $val) {
+                        foreach ($val as $key2 => $val2) {
+                            foreach ($val2 as $key3 => $val3) {
+                                foreach ($val3['p'] as $key4 => $val4) {
+                                    if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
+                                        $blocked[] = $key2 . '{' . $key3 . ':' . $val4 . ';}';
+                                        unset($style->css[$key][$key2][$key3]['p'][$key4]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    $css_text = $style->print->plain();
+
+                    if ($css_text || !empty($blocked)) {
+                        // Gets the HEAD element or creates one if it doesn't
+                        // exist.
+                        $head = $doc->getElementsByTagName('head');
+                        if ($head->length) {
+                            $headelt = $head->item(0);
+                        } else {
+                            $headelt = $doc->createElement('head');
+                            $doc->appendChild($headelt);
+                        }
+                    }
+
+                    if ($css_text) {
+                        $style_elt = $doc->createElement('style', $css_text);
+                        $style_elt->setAttribute('type', 'text/css');
+                        $headelt->appendChild($style_elt);
+                    }
+
+                    /* Store all the blocked CSS in a bogus style element in
+                     * the HTML output - then we simply need to change the
+                     * type attribute to text/css, and the browser should
+                     * load the definitions on-demand. */
+                    if (!empty($blocked)) {
+                        $block_elt = $doc->createElement('style', implode('', $blocked));
+                        $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
+                        $headelt->appendChild($block_elt);
+                    }
+                } catch (Horde_Exception $e) {}
+            }
+        }
+    }
+
+    /**
      * Process DOM node (callback).
      *
      * @param DOMDocument $doc  Document node.
@@ -383,34 +453,38 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                  * linking until requested by the user. */
                 $delete_link = true;
 
-                if ($node->hasAttribute('type')) {
-                    switch (Horde_String::lower($node->getAttribute('type'))) {
-                    case 'text/css':
-                        if ($this->_imptmp && $node->hasAttribute('href')) {
-                            $tmp = $node->getAttribute('href');
+                switch (Horde_String::lower($node->getAttribute('type'))) {
+                case 'text/css':
+                    if ($this->_imptmp && $node->hasAttribute('href')) {
+                        $tmp = $node->getAttribute('href');
 
-                            if (isset($this->_imptmp['cid'][$tmp])) {
-                                $css_data = $this->getConfigParam('imp_contents')->getMIMEPart($this->_imptmp['cid'][$tmp])->getContents();
-
-                                $style_elt = $node->ownerDocument->createElement('style', $css_data);
-                                $style_elt->setAttribute('type', 'text/css');
-
-                                $node->parentNode->insertBefore($style_elt, $node->nextSibling);
-                            } else {
-                                $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
-                                $node->removeAttribute('href');
-                                $this->_imptmp['cssblock'] = true;
-                                $delete_link = false;
-                            }
+                        if (isset($this->_imptmp['cid'][$tmp])) {
+                            $this->_imptmp['style'][] = $this->getConfigParam('imp_contents')->getMIMEPart($this->_imptmp['cid'][$tmp])->getContents();
+                        } else {
+                            $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
+                            $node->removeAttribute('href');
+                            $this->_imptmp['cssblock'] = true;
+                            $delete_link = false;
                         }
-                        break;
                     }
+                    break;
                 }
 
                 if ($delete_link &&
                     $node->hasAttribute('href') &&
                     $node->parentNode) {
                     $node->parentNode->removeChild($node);
+                }
+                break;
+
+            case 'style':
+                switch (Horde_String::lower($node->getAttribute('type'))) {
+                case 'text/css':
+                    if ($this->_imptmp) {
+                        $this->_imptmp['style'][] = $node->nodeValue;
+                    }
+                    $node->parentNode->removeChild($node);
+                    break;
                 }
                 break;
 
