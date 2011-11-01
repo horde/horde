@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don't allow to create sub permissions of non-existant parent permissions (Bug #10688).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
