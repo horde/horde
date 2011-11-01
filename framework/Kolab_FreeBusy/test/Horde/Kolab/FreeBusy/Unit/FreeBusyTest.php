@@ -55,8 +55,22 @@ extends Horde_Kolab_FreeBusy_TestCase
 
     public function testDispatch()
     {
-        $e = new Horde_Kolab_FreeBusy('Freebusy', 'Kolab');
+        $e = new Horde_Kolab_FreeBusy(
+            'Freebusy',
+            'Kolab',
+            array(
+                'writer' => array(
+                    'class' => 'Horde_Controller_ResponseWriter_WebDebug'
+                )
+            )
+        );
+        ob_start();
         $e->dispatch();
+        $output = ob_get_clean();
+        $this->assertEquals(
+            '<div><strong>Headers:</strong><pre></pre></div>',
+            $output
+        );
     }
 
     public function testDispatchError()
