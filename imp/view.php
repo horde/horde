@@ -58,7 +58,9 @@ case 'compose_attach_preview':
      * mail message data. Rather, we must use the IMP_Compose object to get
      * the necessary data for Horde_Mime_Part. */
     $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
-    $mime = $imp_compose->buildAttachment($vars->id);
+    if (!$mime = $imp_compose->buildAttachment($vars->id)) {
+        throw new IMP_Compose(_("Could not display attachment data."));
+    }
     $mime->setMimeId($vars->id);
 
     /* Create a dummy IMP_Contents() object so we can use the view code below.
