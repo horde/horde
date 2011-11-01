@@ -23,8 +23,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>11:23:11</time>
+ <date>2011-11-01</date>
+ <time>06:23:57</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -39,11 +39,21 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Pdf">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Pdf -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Pdf">
       <dir name="Font">
        <file name="Courier.php" role="php" />
+       <file name="Courierb.php" role="php" />
+       <file name="Courierbi.php" role="php" />
+       <file name="Courieri.php" role="php" />
        <file name="Helvetica.php" role="php" />
        <file name="Helveticab.php" role="php" />
        <file name="Helveticabi.php" role="php" />
@@ -102,9 +112,13 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Pdf/COPYING" />
    <install as="Horde/Pdf/Exception.php" name="lib/Horde/Pdf/Exception.php" />
    <install as="Horde/Pdf/Writer.php" name="lib/Horde/Pdf/Writer.php" />
    <install as="Horde/Pdf/Font/Courier.php" name="lib/Horde/Pdf/Font/Courier.php" />
+   <install as="Horde/Pdf/Font/Courierb.php" name="lib/Horde/Pdf/Font/Courierb.php" />
+   <install as="Horde/Pdf/Font/Courierbi.php" name="lib/Horde/Pdf/Font/Courierbi.php" />
+   <install as="Horde/Pdf/Font/Courieri.php" name="lib/Horde/Pdf/Font/Courieri.php" />
    <install as="Horde/Pdf/Font/Helvetica.php" name="lib/Horde/Pdf/Font/Helvetica.php" />
    <install as="Horde/Pdf/Font/Helveticab.php" name="lib/Horde/Pdf/Font/Helveticab.php" />
    <install as="Horde/Pdf/Font/Helveticabi.php" name="lib/Horde/Pdf/Font/Helveticabi.php" />
@@ -226,7 +240,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-11-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
