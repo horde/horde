@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
-"PO-Revision-Date: 2011-09-20 14:03+0200\n"
+"POT-Creation-Date: 2011-11-01 12:42+0100\n"
+"PO-Revision-Date: 2011-11-01 12:43+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -188,12 +188,23 @@ msgstr ""
 "Eine Geräte-Löschung wurde gestartet. Das Gerät wird während der nächsten "
 "Synchronisation gelöscht."
 
+#: config/hooks.php:80
+#, php-format
+msgid ""
+"A message has been sent to \"%s\" to verify that this is really your "
+"address. The new email address is activated as soon as you confirm this "
+"message."
+msgstr ""
+"Eine Nachricht wurde an \"%s\" verschickt, um zu überprüfen, ob es sich "
+"dabei wirklich um Ihre Adresse handelt. Die neue E-Mail-Adresse wird "
+"aktiviert, sobald Sie diese Nachricht bestätigen."
+
 #: admin/config/index.php:147 admin/config/index.php:185
 #, php-format
 msgid "A newer version (%s) exists."
 msgstr "Eine neuere Version (%s) existiert."
 
-#: lib/Prefs/Ui.php:713
+#: lib/Prefs/Ui.php:708
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -344,7 +355,7 @@ msgstr "Adresse"
 msgid "Address Book"
 msgstr "Adressbuch"
 
-#: lib/Application.php:36
+#: lib/Application.php:46
 msgid "Administration"
 msgstr "Administration"
 
@@ -384,7 +395,7 @@ msgstr "Angemeldete Benutzer"
 msgid "All policy keys successfully reset."
 msgstr "Alle Richtlinien-Schlüssel wurden zurückgesetzt."
 
-#: lib/Prefs/Ui.php:723
+#: lib/Prefs/Ui.php:718
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -392,7 +403,7 @@ msgstr ""
 "Der Status Ihrer ActiveSync-Geräte wurde zurückgesetzt. Bei der nächsten "
 "Verbindung mit dem Server werden sie neu synchronisiert."
 
-#: lib/Prefs/Ui.php:693
+#: lib/Prefs/Ui.php:688
 msgid "All synchronization sessions deleted."
 msgstr "Alle Synchronisationssitzungen gelöscht."
 
@@ -759,10 +770,6 @@ msgstr "Bewölkt"
 msgid "Collapse"
 msgstr "Schließen"
 
-#: templates/sidebar/sidebar.inc:3
-msgid "Collapse Sidebar"
-msgstr "Menü einfahren"
-
 #: lib/Prefs/Ui.php:213
 msgid "Color Picker"
 msgstr "Farbauswahl"
@@ -824,6 +831,10 @@ msgstr "%s konfigurieren"
 #: templates/admin/user/update.inc:28
 msgid "Confirm Password"
 msgstr "Passwort bestätigen"
+
+#: config/hooks.php:59
+msgid "Confirm new email address"
+msgstr "Bestätigung der neuen E-Mail-Adresse"
 
 #: services/changepassword.php:25 services/resetpassword.php:25
 msgid "Continue"
@@ -1074,7 +1085,7 @@ msgstr "Gruppe löschen"
 msgid "Deleted configuration upgrade script \"%s\"."
 msgstr "Das Aktualisierungsskript \"%s\" wurde gelöscht."
 
-#: lib/Prefs/Ui.php:685
+#: lib/Prefs/Ui.php:680
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr ""
@@ -1242,8 +1253,8 @@ msgstr ""
 "Passwort zurücksetzen möchten, z. B. \"Wie lautet der Name Ihres Haustiers?"
 "\":"
 
-#: lib/Prefs/Ui.php:546 services/twitter/index.php:132
-#: services/twitter/index.php:155
+#: lib/Prefs/Ui.php:546 services/twitter/index.php:176
+#: services/twitter/index.php:199
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
@@ -1252,11 +1263,11 @@ msgstr ""
 "Fehler bei der Verbindung mit Twitter: %s Details wurden für den "
 "Administrator mitgeloggt."
 
-#: lib/Prefs/Ui.php:687
+#: lib/Prefs/Ui.php:682
 msgid "Error deleting synchronization session:"
 msgstr "Fehler beim Löschen der Synchronisationssitzung:"
 
-#: lib/Prefs/Ui.php:695
+#: lib/Prefs/Ui.php:690
 msgid "Error deleting synchronization sessions:"
 msgstr "Fehler beim Löschen der Synchronisationssitzungen:"
 
@@ -1479,7 +1490,7 @@ msgstr "%s-Konfiguration erzeugen"
 msgid "Generated Code"
 msgstr "Erzeugter Code"
 
-#: lib/Block/FbStream.php:170 templates/block/twitter-layout.html.php:34
+#: lib/Block/FbStream.php:170 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Mehr holen"
 
@@ -1583,6 +1594,10 @@ msgstr "Erweiterte Einstellungen ausblenden"
 #: services/portal/cloud_search.php:37
 msgid "Hide Results"
 msgstr "Ergebnisse ausblenden"
+
+#: templates/sidebar/sidebar.inc:3
+msgid "Hide Sidebar"
+msgstr "Menü verbergen"
 
 #: lib/Block/WeatherdotcomStrings.php:100
 msgid "High"
@@ -1812,17 +1827,17 @@ msgstr "Letzte Synchronisation"
 msgid "Last Updated:"
 msgstr "Letzte Aktualisierung:"
 
-#: lib/LoginTasks/Task/LastLogin.php:46
+#: lib/LoginTasks/Task/LastLogin.php:49
 #, php-format
 msgid "Last login: %s"
 msgstr "Letzte Anmeldung: %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:48
+#: lib/LoginTasks/Task/LastLogin.php:51
 #, php-format
 msgid "Last login: %s from %s"
 msgstr "Letzte Anmeldung: %s von %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:44
+#: lib/LoginTasks/Task/LastLogin.php:47
 msgid "Last login: Never"
 msgstr "Letzte Anmeldung: Noch nie"
 
@@ -2033,7 +2048,7 @@ msgstr "Höchsttemperatur der letzten 24 Stunden: "
 msgid "Max temp last 6 hours: "
 msgstr "Höchsttemperatur der letzten 6 Stunden: "
 
-#: lib/Application.php:32
+#: lib/Application.php:42
 msgid "Maximum Number of Portal Blocks"
 msgstr "Maximale Anzahl an Portalblöcken"
 
@@ -3034,6 +3049,10 @@ msgstr "Zeigen"
 msgid "Show Advanced Preferences"
 msgstr "Erweiterte Einstellungen anzeigen"
 
+#: templates/sidebar/sidebar.inc:10
+msgid "Show Sidebar"
+msgstr "Menü anzeigen"
+
 #: admin/config/index.php:300
 msgid ""
 "Show differences between currently saved and the newly generated "
@@ -3321,7 +3340,7 @@ msgstr "Anfangs Gewitter"
 msgid "T-Storms Late"
 msgstr "Später Gewitter"
 
-#: lib/Block/Cloud.php:14
+#: lib/Block/Cloud.php:13
 msgid "Tag Cloud"
 msgstr "Tagwolke"
 
@@ -3378,7 +3397,7 @@ msgstr "Nur Text"
 msgid "Thai (TIS-620)"
 msgstr "Thailändisch (TIS-620)"
 
-#: lib/Prefs/Ui.php:717
+#: lib/Prefs/Ui.php:712
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr ""
@@ -3430,12 +3449,12 @@ msgstr ""
 msgid "The provided country code is invalid."
 msgstr "Der angegebene Ländercode ist ungültig"
 
-#: lib/Prefs/Ui.php:650
+#: lib/Prefs/Ui.php:645
 #, php-format
 msgid "The server \"%s\" has been deleted."
 msgstr "Der Server \"%s\" wurde entfernt."
 
-#: lib/Prefs/Ui.php:645
+#: lib/Prefs/Ui.php:640
 #, php-format
 msgid "The server \"%s\" has been saved."
 msgstr "Der Server \"%s\" wurde gespeichert."
@@ -3460,7 +3479,7 @@ msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Die Registrierungsanfrage von \"%s\" wurde entfernt."
 
-#: lib/Prefs/Ui.php:726
+#: lib/Prefs/Ui.php:721
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -3514,7 +3533,7 @@ msgstr "Beim Löschen von \"%s\" aus dem System ist ein Problem aufgetreten: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Beim Aktualisieren von \"%s\" ist ein Problem aufgetreten: %s"
 
-#: lib/Prefs/Ui.php:729
+#: lib/Prefs/Ui.php:724
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
@@ -3546,7 +3565,7 @@ msgstr ""
 "Bei der Facebook-Anmeldung ist ein Fehler aufgetreten. Bitte versuchen Sie "
 "es später noch einmal."
 
-#: lib/Application.php:167
+#: lib/Application.php:177
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
@@ -3660,7 +3679,7 @@ msgstr "UV-Index: "
 msgid "URL"
 msgstr "Homepage"
 
-#: services/twitter/index.php:68
+#: services/twitter/index.php:78
 #, php-format
 msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
 msgstr ""
@@ -4060,7 +4079,7 @@ msgstr ""
 "Sie haben Ihr Facebook-Konto nicht richtig mit Horde verbunden. Sie sollten "
 "Ihre Facebook-Einstellungen in Ihren %s überprüfen."
 
-#: lib/Block/TwitterTimeline.php:168
+#: lib/Block/TwitterTimeline.php:169
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -4068,6 +4087,26 @@ msgid ""
 msgstr ""
 "Sie haben Ihr Twitter-Konto nicht richtig mit Horde verbunden. Sie sollten "
 "Ihre Twitter-Einstellungen in Ihren %s überprüfen."
+
+#: config/hooks.php:45
+#, php-format
+msgid ""
+"You have requested to add the email address \"%s\" to the list of your "
+"personal email addresses.\n"
+"\n"
+"Go to the following link to confirm that this is really your address:\n"
+"%s\n"
+"\n"
+"If you don't know what this message means, you can delete it."
+msgstr ""
+"Sie möchten die E-Mail-Adresse \"%s\" zu der Liste Ihrer persönlichen "
+"Adressen hinzufügen.\n"
+"\n"
+"Gehen Sie zu dem folgenden Link, um zu bestätigen, dass dies wirklich Ihre "
+"Adresse ist:\n"
+"%s\n"
+"\n"
+"Wenn Sie mit diese Nachricht nichts anfangen können, bitte löschen."
 
 #: services/facebook/index.php:120 services/facebook/index.php:160
 #: services/facebook/index.php:168
@@ -4078,7 +4117,7 @@ msgstr "Ihnen gefällt das"
 msgid "You must describe the problem before you can send the problem report."
 msgstr "Sie müssen das Problem beschreiben, um den Bericht abzuschicken."
 
-#: lib/Prefs/Ui.php:648
+#: lib/Prefs/Ui.php:643
 msgid "You must select an server to be deleted."
 msgstr "Sie müssen erst den zu entfernenden Server auswählen."
 
@@ -4239,7 +4278,7 @@ msgstr "_DataTree"
 msgid "_Groups"
 msgstr "_Gruppen"
 
-#: lib/Application.php:67
+#: lib/Application.php:77
 msgid "_Home"
 msgstr "_Startseite"
 
@@ -4282,7 +4321,7 @@ msgid "inline"
 msgstr "Inline"
 
 #: lib/Block/FbStream.php:97 lib/Block/FbStream.php:136
-#: lib/Block/FbStream.php:162 lib/Block/TwitterTimeline.php:168
+#: lib/Block/FbStream.php:162 lib/Block/TwitterTimeline.php:169
 #: services/facebook/index.php:63 services/facebook/index.php:80
 msgid "preferences"
 msgstr "Benutzereinstellungen"
