@@ -106,7 +106,6 @@ class Horde_Serialize_JsonTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '"Note: To play video messages sent to email, QuickTime\u00ae 6.5 or higher is required.\n"',
             Horde_Serialize::serialize(file_get_contents(dirname(__FILE__) . '/fixtures/badutf8.txt'), Horde_Serialize::JSON)
-	   
         );
         error_reporting($old_error_reporting);
     }
