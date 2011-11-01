@@ -24,7 +24,7 @@
   <active>yes</active>
  </lead>
  <date>2011-11-01</date>
- <time>06:23:57</time>
+ <time>10:21:40</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -243,7 +243,7 @@
    <date>2011-11-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [gwr] Add missing font files.
    </notes>
   </release>
  </changelog>
