@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
-class IMP_Compose implements ArrayAccess, Countable, Iterator
+class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 {
     /* The virtual path to use for VFS data. */
     const VFS_ATTACH_PATH = '.horde/imp/compose';
@@ -70,6 +70,20 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     protected $_cache = array();
 
     /**
+     * The cache ID used to store object in session.
+     *
+     * @var string
+     */
+    protected $_cacheid;
+
+    /**
+     * Whether attachments should be linked.
+     *
+     * @var boolean
+     */
+    protected $_linkAttach = false;
+
+    /**
      * Various metadata for this message.
      *
      * @var array
@@ -97,20 +111,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @var integer
      */
     protected $_size = 0;
-
-    /**
-     * Whether attachments should be linked.
-     *
-     * @var boolean
-     */
-    protected $_linkAttach = false;
-
-    /**
-     * The cache ID used to store object in session.
-     *
-     * @var string
-     */
-    protected $_cacheid;
 
     /**
      * Constructor.
@@ -2755,7 +2755,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function pgpAttachPubkey($attach)
     {
-        $this->_pgpAttachPubkey = $attach;
+        $this->_pgpAttachPubkey = (bool)$attach;
     }
 
     /**
@@ -2781,7 +2781,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      */
     public function userLinkAttachments($attach)
     {
-        $this->_linkAttach = $attach;
+        $this->_linkAttach = (bool)$attach;
     }
 
     /**
@@ -3169,6 +3169,50 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
     public function valid()
     {
         return (key($this->_cache) !== null);
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        /* Make sure we don't have data in the Mime Part parts. */
+        $atc = array();
+        foreach ($this->_cache as $key => $val) {
+            $val['part'] = clone($val['part']);
+            $val['part']->clearContents();
+            $atc[$key] = $val;
+        }
+
+        return serialize(array(
+            $this->charset,
+            $this->_attachVCard,
+            $atc,
+            $this->_cacheid,
+            $this->_linkAttach,
+            $this->_metadata,
+            $this->_pgpAttachPubkey,
+            $this->_replytype,
+            $this->_size
+        ));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        list(
+            $this->charset,
+            $this->_attachVCard,
+            $this->_cache,
+            $this->_cacheid,
+            $this->_linkAttach,
+            $this->_metadata,
+            $this->_pgpAttachPubkey,
+            $this->_replytype,
+            $this->_size
+        ) = unserialize($data);
     }
 
 }

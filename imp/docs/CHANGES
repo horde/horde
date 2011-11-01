@@ -2,6 +2,7 @@
 v5.0.15-git
 -----------
 
+[mms] Fix intermittent attachment loss when composing messages.
 [mms] Correctly reference CSS stylesheets contained within a multipart/related
       part.
 [mms] Sanitize LINK tags contained in HTML messages.
