@@ -35,6 +35,16 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 class Horde_Kolab_Filter_Integration_CliTest
 extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $_SERVER['argv'] = array('test');
+    }
+
+    public function tearDown()
+    {
+        unset($_SERVER);
+    }
+
     /**
      * Test incorrect usage of the Filter.
      */
