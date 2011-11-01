@@ -2010,23 +2010,28 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                 $part->setCharset('UTF-8');
                 $part->setType('message/rfc822');
                 $part->setName(_("Forwarded Message"));
-                $part->setContents($contents->fullMessageText(array('stream' => true)));
+                $part->setContents($contents->fullMessageText(array(
+                    'stream' => true
+                )), array(
+                    'usestream' => true
+                ));
 
                 // Throws IMP_Compose_Exception.
                 $this->addMimePartAttachment($part);
             }
         }
 
-        if ($attached == 1) {
-            if (!($name = $headerob->getValue('subject'))) {
-                $name = _("[No Subject]");
-            } else {
-                $name = Horde_String::truncate($name, 80);
-            }
-            return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($name, array('keepblob' => true));
+        if ($attached > 1) {
+            return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
         }
 
-        return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
+        if ($name = $headerob->getValue('subject')) {
+            $name = Horde_String::truncate($name, 80);
+        } else {
+            $name = _("[No Subject]");
+        }
+
+        return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($name, array('keepblob' => true));
     }
 
     /**
