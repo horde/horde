@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-02</date>
- <time>13:22:09</time>
+ <time>13:23:31</time>
  <version>
-  <release>3.0.11</release>
+  <release>3.0.12</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix alarms for recurring events (Bug #10678).
-* [mjr] Allow filtering listTagInfo results by user.
-* [jan] Fix uncompleting tasks in dynamic view (Carlos Timóteo, Bug #10653).
-* [cjh/jan] Improve design.
-* [mjr] Fix displaying resources when no attendees are present (Bug #10507).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1923,6 +1919,19 @@
 * [jan] Fix uncompleting tasks in dynamic view (Carlos Timóteo, Bug #10653).
 * [cjh/jan] Improve design.
 * [mjr] Fix displaying resources when no attendees are present (Bug #10507).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.12</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
