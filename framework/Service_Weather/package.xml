@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-11-02</date>
- <time>13:04:58</time>
+ <time>14:05:49</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -43,11 +43,13 @@
        <dir name="Location">
         <file name="Base.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Weather/Location -->
+       <dir name="Period">
+        <file name="Base.php" role="php" />
+        <file name="WeatherUnderground.php" role="php" />
+       </dir> <!-- /lib/Horde/Service/Weather/Period -->
        <file name="Base.php" role="php" />
        <file name="Current.php" role="php" />
        <file name="Exception.php" role="php" />
-       <file name="Forecast.php" role="php" />
-       <file name="Period.php" role="php" />
        <file name="Station.php" role="php" />
        <file name="WeatherUnderground.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Weather -->
@@ -101,8 +103,6 @@
    <install as="Horde/Service/Weather/Base.php" name="lib/Horde/Service/Weather/Base.php" />
    <install as="Horde/Service/Weather/Current.php" name="lib/Horde/Service/Weather/Current.php" />
    <install as="Horde/Service/Weather/Exception.php" name="lib/Horde/Service/Weather/Exception.php" />
-   <install as="Horde/Service/Weather/Forecast.php" name="lib/Horde/Service/Weather/Forecast.php" />
-   <install as="Horde/Service/Weather/Period.php" name="lib/Horde/Service/Weather/Period.php" />
    <install as="Horde/Service/Weather/Station.php" name="lib/Horde/Service/Weather/Station.php" />
    <install as="Horde/Service/Weather/WeatherUnderground.php" name="lib/Horde/Service/Weather/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/Current/WeatherUnderground.php" name="lib/Horde/Service/Weather/Current/WeatherUnderground.php" />
@@ -110,6 +110,8 @@
    <install as="Horde/Service/Weather/Forecast/Base.php" name="lib/Horde/Service/Weather/Forecast/Base.php" />
    <install as="Horde/Service/Weather/Forecast/WeatherUnderground.php" name="lib/Horde/Service/Weather/Forecast/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/Location/Base.php" name="lib/Horde/Service/Weather/Location/Base.php" />
+   <install as="Horde/Service/Weather/Period/Base.php" name="lib/Horde/Service/Weather/Period/Base.php" />
+   <install as="Horde/Service/Weather/Period/WeatherUnderground.php" name="lib/Horde/Service/Weather/Period/WeatherUnderground.php" />
   </filelist>
  </phprelease>
  <changelog>
