@@ -2,6 +2,7 @@
 v3.0.12-git
 -----------
 
+[mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
 
 
 -------

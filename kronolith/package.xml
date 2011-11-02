@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1931,7 +1931,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
    </notes>
   </release>
  </changelog>
