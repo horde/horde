@@ -201,12 +201,53 @@ class IMP_Contents
             return '';
         }
 
-        if (!$this->_mailbox) {
-            // TODO: Include MIME headers?
-            $ob = $this->getMIMEPart($id, array('nocontents' => true));
-            return is_null($ob)
-                ? ''
-                : $ob->getContents();
+        if (!$this->_mailbox || $this->isEmbedded($id)) {
+            if (empty($options['mimeheaders']) ||
+                in_array($id, $this->_embedded)) {
+                $ob = $this->getMIMEPart($id, array('nocontents' => true));
+
+                if (empty($options['stream'])) {
+                    return is_null($ob)
+                        ? ''
+                        : $ob->getContents();
+                }
+
+                return is_null($ob)
+                    ? fopen('php://temp', 'r+')
+                    : $ob->getContents(array('stream' => true));
+            }
+
+            $base_id = $id;
+            while (!in_array($base_id, $this->_embedded, true)) {
+                $base_id = Horde_Mime::mimeIdArithmetic($base_id, 'up');
+                if (is_null($base_id)) {
+                    return '';
+                }
+            }
+
+            $part = $this->getMIMEPart($base_id, array('nocontents' => true));
+            $txt = $part->addMimeHeaders()->toString() .
+                "\n" .
+                $part->getContents();
+
+            try {
+                $body = Horde_Mime_Part::getRawPartText($txt, 'header', '1') .
+                    "\n\n" .
+                    Horde_Mime_Part::getRawPartText($txt, 'body', '1');
+            } catch (Horde_Mime_Exception $e) {
+                $body = '';
+            }
+
+            if (empty($options['stream'])) {
+                return $body;
+            }
+
+            $fp = fopen('php://temp', 'r+');
+            if (strlen($body)) {
+                fwrite($fp, $body);
+                fseek($fp, 0);
+            }
+            return $fp;
         }
 
         $query = new Horde_Imap_Client_Fetch_Query();
