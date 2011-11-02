@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-02</date>
- <time>11:04:57</time>
+ <time>11:05:33</time>
  <version>
-  <release>1.0.7</release>
+  <release>1.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix iteration through child HTML nodes in the HTML viewer so that extended viewers can do things like remove nodes outright.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -821,6 +821,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix iteration through child HTML nodes in the HTML viewer so that extended viewers can do things like remove nodes outright.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
