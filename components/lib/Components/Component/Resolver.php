@@ -113,11 +113,13 @@ class Components_Component_Resolver
                     );
                 }
             }
-            $remote = $this->_getRemote($channel);
-            if ($remote->getLatestRelease($name, $attempt)) {
-                return $this->_factory->createRemote(
-                    $name, $attempt, $channel, $remote
-                );
+            if (!empty($options['allow_remote'])) {
+                $remote = $this->_getRemote($channel);
+                if ($remote->getLatestRelease($name, $attempt)) {
+                    return $this->_factory->createRemote(
+                        $name, $attempt, $channel, $remote
+                    );
+                }
             }
         }
         return false;

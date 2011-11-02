@@ -58,6 +58,7 @@
    </dir> <!-- /docs -->
    <dir name="js">
     <file name="calendar.js" role="horde" />
+    <file name="task.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
@@ -377,6 +378,7 @@
     <dir name="view">
      <file name="task.inc" role="horde" />
     </dir> <!-- /templates/view -->
+    <file name="javascript_defs.php" role="horde" />
     <file name="list.html.php" role="horde" />
     <file name="panel.inc" role="horde" />
     <file name="quick.inc" role="horde" />
@@ -703,6 +705,7 @@
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="vtodo/todo.ics" name="docs/vtodo/todo.ics" />
    <install as="nag/js/calendar.js" name="js/calendar.js" />
+   <install as="nag/js/task.js" name="js/task.js" />
    <install as="nag/lib/.htaccess" name="lib/.htaccess" />
    <install as="nag/lib/Api.php" name="lib/Api.php" />
    <install as="nag/lib/Application.php" name="lib/Application.php" />
@@ -827,6 +830,7 @@
    <install as="nag/tasklists/index.php" name="tasklists/index.php" />
    <install as="nag/tasklists/info.php" name="tasklists/info.php" />
    <install as="nag/tasks/index.php" name="tasks/index.php" />
+   <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
    <install as="nag/templates/panel.inc" name="templates/panel.inc" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
@@ -1064,10 +1068,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-18</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [cjh] Nicer date/time input with fewer input fields and helper javascript.
+* [mjr] Add ability to choose which tasklists to synchronize.
 * [mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

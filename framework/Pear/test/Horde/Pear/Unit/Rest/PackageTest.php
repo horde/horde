@@ -66,23 +66,32 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testDescriptionFromStream()
+    {
+        $this->assertEquals(
+            'These classes provide the core functionality of the Horde Application Framework.',
+            $this->_getStreamPackage()->getDescription()
+        );
+    }
+
     private function _getPackage()
     {
         return new Horde_Pear_Rest_Package(
             $this->_getInformation()
         );
     }
+
+    private function _getStreamPackage()
+    {
+        return new Horde_Pear_Rest_Package(
+            fopen(dirname(__FILE__) . '/../../fixture/rest/package.xml', 'r')
+        );
+    }
+
     private function _getInformation()
     {
-        return '<?xml version="1.0" encoding="UTF-8" ?>
-<p xmlns="http://pear.php.net/dtd/rest.package" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://pear.php.net/dtd/rest.package    http://pear.php.net/dtd/rest.package.xsd">
-<n>Horde_Core</n>
-<c>pear.horde.org</c>
-<ca xlink:href="/rest/c/Default">Default</ca>
-<l>LGPL-2.1</l>
-<s>Horde Core Framework libraries</s>
-<d>These classes provide the core functionality of the Horde Application Framework.</d>
-<r xlink:href="/rest/r/horde_core" />
-</p>';
+        return file_get_contents(
+            dirname(__FILE__) . '/../../fixture/rest/package.xml'
+        );
     }
 }

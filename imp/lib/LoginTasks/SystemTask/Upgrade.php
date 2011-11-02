@@ -21,7 +21,8 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     /**
      */
     protected $_versions = array(
-        '5.0'
+        '5.0',
+        '5.0.15'
     );
 
     /**
@@ -44,6 +45,10 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeSortPrefs();
             $this->_upgradeStationery();
             $this->_upgradeVirtualFolders();
+            break;
+
+        case '5.0.15':
+            $this->_upgradeMailboxPrefs();
             break;
         }
     }
@@ -502,6 +507,37 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
         }
 
         $GLOBALS['injector']->getInstance('IMP_Search')->setVFolders($new_vfolders);
+    }
+
+    /**
+     * As of 5.0.15, special mailboxes are stored in UTF-8, not UTF7-IMAP.
+     */
+    protected function _upgradeMailboxPrefs()
+    {
+        global $injector, $prefs;
+
+        $special_mboxes = array(
+            'drafts_folder',
+            'spam_folder',
+            'trash_folder'
+        );
+
+        foreach ($special_mboxes as $val) {
+            if (!$prefs->isDefault($val)) {
+                $old_pref = IMP_Mailbox::prefFrom($val);
+                $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($old_pref), 'UTF7-IMAP', 'UTF-8'));
+                $prefs->setValue($val, $mbox->pref_to);
+            }
+        }
+
+        $imp_identity = $injector->getInstance('IMP_Identity');
+
+        foreach ($imp_identity->getAll('sent_mail_folder') as $key => $val) {
+            if (!is_null($val)) {
+                $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($val), 'UTF7-IMAP', 'UTF-8'));
+                $imp_identity->setValue('sent_mail_folder', $mbox, $key);
+            }
+        }
     }
 
 }

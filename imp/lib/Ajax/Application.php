@@ -145,7 +145,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $result = $imptree->createMailboxName(
                 isset($this->_vars->parent) ? IMP_Mailbox::formFrom($this->_vars->parent) : '',
-                Horde_String::convertCharset($this->_vars->mbox, 'UTF-8', 'UTF7-IMAP')
+                $this->_vars->mbox
             )->create();
 
             if ($result) {
@@ -241,8 +241,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - new_name: (string) New mailbox name (child node) (UTF-8).
-     *   - new_parent: (string) New parent name (UTF7-IMAP) (base64url
-     *                 encoded).
+     *   - new_parent: (string) New parent name (UTF-8; base64url encoded).
      *   - old_name: (string) Full name of old mailbox (base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
@@ -267,7 +266,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $new_name = $imptree->createMailboxName(
                 isset($this->_vars->new_parent) ? IMP_Mailbox::formFrom($this->_vars->new_parent) : '',
-                Horde_String::convertCharset($this->_vars->new_name, 'UTF-8', 'UTF7-IMAP')
+                $this->_vars->new_name
             );
 
             $old_name = IMP_Mailbox::formFrom($this->_vars->old_name);
@@ -448,17 +447,24 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Add special folders explicitly to the initial folder list, since
-         * they are ALWAYS displayed and may appear outside of the folder
-         * slice requested. */
+         * they are ALWAYS displayed, may appear outside of the folder
+         * slice requested, and need to be sorted logically. */
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
-                if (!is_array($val)) {
-                    $val = array($val);
+                if (is_array($val)) {
+                    $tmp = array();
+                    foreach ($val as $val2) {
+                        $tmp[strval($val2)] = $val2->label;
+                    }
+                    asort($tmp, SORT_LOCALE_STRING);
+                    $mboxes = array_keys($tmp);
+                } else {
+                    $mboxes = array(strval($val));
                 }
 
-                foreach (array_map('strval', $val) as $val2) {
-                    if (!isset($folder_list[$val2]) &&
-                        ($tmp = $imptree[$val2])) {
+                foreach ($mboxes as $val2) {
+                    if ($tmp = $imptree[$val2]) {
+                        unset($folder_list[$val2]);
                         $folder_list[$val2] = $tmp;
                     }
                 }
@@ -951,99 +957,48 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
-     * AJAX action: Generate data necessary to display a complete message.
+     * AJAX action: Generate data necessary to display a message.
      *
      * See the list of variables needed for _changed() and
      * _checkUidvalidity().  Additional variables used:
-     *   - uid: (string) Index of the messages to preview (IMAP sequence
+     *   - preview: (integer) If set, return preview data. Otherwise, return
+     *              full data.
+     *   - uid: (string) Index of the messages to display (IMAP sequence
      *          string; mailbox is base64url encoded) - must be single index.
      *
-     * @return mixed  False on failure, or an object with the following
-     *                entries:
+     * @return mixed  If viewing full message, on error will return null.
+     *                Otherwise an object with the following entries:
      *   - message: (object) Return from IMP_Views_ShowMessage::showMessage().
+     *              If viewing preview, on error this object will contain
+     *              error and errortype properties.
      */
     public function showMessage()
     {
         $indices = new IMP_Indices_Form($this->_vars->uid);
         list($mbox, $idx) = $indices->getSingle();
-        if (!$idx) {
-            return false;
-        }
 
-        $change = $this->_changed(false);
-        if (is_null($change)) {
-            return false;
-        }
-
-        $args = array(
-            'mailbox' => $mbox,
-            'uid' => $idx
-        );
         $result = new stdClass;
 
         try {
-            $show_msg = new IMP_Views_ShowMessage();
-            $result->message = (object)$show_msg->showMessage($args);
-            if (isset($result->message->error)) {
-                $result = $this->_checkUidvalidity($result);
-            } else {
-                $result->message->view = $this->_vars->view;
+            if (!$idx) {
+                throw new IMP_Exception(_("Requested message not found."));
             }
-        } catch (IMP_Imap_Exception $e) {
-            $result->message = new stdClass;
-            $result->message->error = $e->getMessage();
-            $result->message->errortype = 'horde.error';
-            $result->message->mailbox = $args['mailbox'];
-            $result->message->uid = $args['uid'];
-            $result->message->view = $this->_vars->view;
-        }
 
-        return $result;
-    }
+            $change = $this->_changed(false);
+            if (is_null($change)) {
+                throw new IMP_Exception(_("Could not open mailbox."));
+            }
 
-    /**
-     * AJAX action: Generate data necessary to display preview message.
-     *
-     * See the list of variables needed for _changed() and
-     * _checkUidvalidity().  Additional variables used:
-     *   - uid: (string) Index of the messages to preview (IMAP sequence
-     *          string; mailbox is base64url encoded) - must be single index.
-     *
-     * @return mixed  False on failure, or an object with the following
-     *                entries:
-     *   - preview: (object) Return from IMP_Views_ShowMessage::showMessage().
-     *   - ViewPort: (object) See _viewPortData(). (Only updated cacheid
-     *                        entry; don't do mailbox poll here).
-     */
-    public function showPreview()
-    {
-        $indices = new IMP_Indices_Form($this->_vars->uid);
-        list($mbox, $idx) = $indices->getSingle();
-        if (!$idx) {
-            return false;
-        }
-
-        $change = $this->_changed(false);
-        if (is_null($change)) {
-            return false;
-        }
-
-        $args = array(
-            'mailbox' => $mbox,
-            'preview' => true,
-            'uid' => $idx
-        );
-        $result = new stdClass;
-        $result->preview = new stdClass;
-
-        try {
             $show_msg = new IMP_Views_ShowMessage();
-            $result->preview = (object)$show_msg->showMessage($args);
-            if (isset($result->preview->error)) {
-                $result = $this->_checkUidvalidity($result);
-            } else {
-                $result->preview->view = $this->_vars->view;
+            $msg = (object)$show_msg->showMessage(array(
+                'mailbox' => $mbox,
+                'preview' => $this->_vars->preview,
+                'uid' => $idx
+            ));
+            $msg->view = $this->_vars->view;
 
+            if ($this->_vars->preview) {
+                $result->preview = $msg;
                 if ($change) {
                     $result = $this->_viewPortData(true, $result);
                 } elseif ($this->_mbox->cacheid != $this->_vars->cacheid) {
@@ -1053,12 +1008,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 }
 
                 $this->_queue->poll($mbox);
+            } else {
+                $result->message = $msg;
             }
-        } catch (IMP_Imap_Exception $e) {
+        } catch (Exception $e) {
+            if (!$this->_vars->preview) {
+                throw $e;
+            }
+
             $result->preview->error = $e->getMessage();
             $result->preview->errortype = 'horde.error';
-            $result->preview->mailbox = $args['mailbox'];
-            $result->preview->uid = $args['uid'];
+            $result->preview->mbox = $mbox->form_to;
+            $result->preview->uid = $idx;
             $result->preview->view = $this->_vars->view;
         }
 
@@ -1443,7 +1404,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - uid: (string) Index of the messages to preview (IMAP sequence
      *          string; bsae64url encoded) - must be single index.
      *
-     * @return mixed  False on failure, the return from showPreview() on
+     * @return mixed  False on failure, the return from showMessage() on
      *                success along with these properties:
      *   - newuid: (integer) UID of new message.
      *   - oldmbox: (string) Mailbox of old message (base64url encoded).
@@ -1471,9 +1432,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $GLOBALS['notification']->push(_("Attachment successfully stripped."), 'horde.success');
 
+        $this->_vars->preview = 1;
         $this->_vars->uid = $new_indices->formTo();
+        $result = $this->showMessage();
 
-        $result = $this->showPreview();
         $new_indices_list = $new_indices->getSingle();
         $result->newuid = $new_indices_list[1];
         $old_indices_list = $indices->getSingle();

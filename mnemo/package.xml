@@ -409,7 +409,6 @@
    <file name="memo.php" role="horde" />
    <file name="README" role="doc" />
    <file name="search.php" role="horde" />
-   <file name="stickies.php" role="horde" />
    <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
@@ -759,7 +758,6 @@
    <install as="mnemo/memo.php" name="memo.php" />
    <install as="README" name="README" />
    <install as="mnemo/search.php" name="search.php" />
-   <install as="mnemo/stickies.php" name="stickies.php" />
    <install as="mnemo/view.php" name="view.php" />
   </filelist>
  </phprelease>
@@ -895,7 +893,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-18</date>
+   <date>2011-10-22</date>
    <license uri="http://www.horde.org/licenses/asl.php">ASL</license>
    <notes>
 * 

@@ -4,13 +4,13 @@
  * formatted messages.  This class implements RFC 3156.
  *
  * This class handles the following MIME types:
- *   application/pgp-encrypted (in multipart/encrypted part)
- *   application/pgp-keys
- *   application/pgp-signature (in multipart/signed part)
+ *   - application/pgp-encrypted (in multipart/encrypted part)
+ *   - application/pgp-keys
+ *   - application/pgp-signature (in multipart/signed part)
  *
  * This driver may add the following parameters to the URL:
- *   'pgp_verify_msg' - (boolean) Do verification of PGP signed data.
- *   'rawpgpkey' - (boolean) Display the PGP Public Key in raw, text format?
+ *   - pgp_verify_msg: (boolean) Do verification of PGP signed data.
+ *   - rawpgpkey: (boolean) Display the PGP Public Key in raw, text format?
  *
  * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
@@ -125,15 +125,20 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return $this->_outputPGPSigned();
 
         case 'multipart/encrypted':
-            if (isset(self::$_cache[$id])) {
+            if (!isset($headers)) {
+                $headers = $this->getConfigParam('imp_contents')->getHeaderOb();
+            }
+
+            $mid = $headers->getValue('message-id');
+            if (isset(self::$_cache[$mid][$id])) {
                 return array_merge(array(
                     $id => array(
                         'data' => null,
-                        'status' => self::$_cache[$id]['status'],
+                        'status' => self::$_cache[$mid][$id]['status'],
                         'type' => 'text/plain; charset=' . $this->getConfigParam('charset'),
-                        'wrap' => self::$_cache[$id]['wrap']
+                        'wrap' => self::$_cache[$mid][$id]['wrap']
                     )
-                ), self::$_cache[$id]['other']);
+                ), self::$_cache[$mid][$id]['other']);
             }
             // Fall-through
 
@@ -157,12 +162,14 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return null;
         }
 
+        $mid = $this->getConfigParam('imp_contents')->getHeaderOb()->getValue('message-id');
+
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $version_id = next($partlist);
         $data_id = Horde_Mime::mimeIdArithmetic($version_id, 'next');
 
-        self::$_cache[$base_id] = array(
+        self::$_cache[$mid][$base_id] = array(
             'status' => array(
                 array(
                     'icon' => Horde::img('mime/encryption.png', 'PGP'),
@@ -175,7 +182,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             ),
             'wrap' => ''
         );
-        $status = &self::$_cache[$base_id]['status'][0]['text'];
+        $status = &self::$_cache[$mid][$base_id]['status'][0]['text'];
 
         /* Is PGP active? */
         if (empty($GLOBALS['conf']['gnupg']['path']) ||
@@ -272,7 +279,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        self::$_cache[$base_id]['wrap'] = 'mimePartWrapValid';
+        self::$_cache[$mid][$base_id]['wrap'] = 'mimePartWrapValid';
 
         return Horde_Mime_Part::parseMessage($decrypted_data->message, array('forcemime' => true));
     }

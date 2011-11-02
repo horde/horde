@@ -141,17 +141,23 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
                 $child = $node->childNodes->item($i);
 
                 if ($child instanceof DOMElement) {
+                    $remove = $this->_params['strip_style_attributes']
+                        ? array('style')
+                        : array();
+
                     switch (strtolower($child->tagName)) {
                     case 'a':
                         /* Strip out data URLs living in an A HREF element
                          * (Bug #8715). */
                         if ($child->hasAttribute('href') &&
                             preg_match("/\s*data:/i", $child->getAttribute('href'))) {
-                            $child->removeAttribute('href');
+                            $remove[] = 'href';
                         }
                         break;
 
                     case 'applet':
+                    case 'audio':
+                    case 'bgsound':
                     case 'embed':
                     case 'iframe':
                     case 'import':
@@ -160,6 +166,7 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
                     case 'meta':
                     case 'object':
                     case 'script':
+                    case 'video':
                     case 'xml':
                         /* Remove all tags that might cause trouble. */
                         $node->removeChild($child);
@@ -178,6 +185,12 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
                         }
                         break;
 
+                    case 'html':
+                        if ($child->hasAttribute('manifest')) {
+                            $remove[] = 'manifest';
+                        }
+                        break;
+
                     case 'set':
                         /* I believe this attack only works on old browsers.
                          * But makes no sense allowing HTML to try to set
@@ -188,10 +201,6 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
                             continue 2;
                         }
                     }
-
-                    $remove = $this->_params['strip_style_attributes']
-                        ? array('style')
-                        : array();
 
                     foreach ($child->attributes as $val) {
                         /* Never allow on<foo>="bar()",

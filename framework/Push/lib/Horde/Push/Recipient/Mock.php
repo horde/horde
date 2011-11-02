@@ -26,7 +26,7 @@
  * @link     http://www.horde.org/libraries/Horde_Push
  */
 class Horde_Push_Recipient_Mock
-implements Horde_Push_Recipient
+extends Horde_Push_Recipient_Base
 {
     /**
      * Pushed content elements.
@@ -39,11 +39,17 @@ implements Horde_Push_Recipient
      * Push content to the recipient.
      *
      * @param Horde_Push $content The content element.
+     * @param array      $options Additional options.
      *
      * @return NULL
      */
-    public function push(Horde_Push $content)
+    public function push(Horde_Push $content, $options = array())
     {
         $this->pushed[] = $content;
+        if (empty($options['pretend'])) {
+            return sprintf('Pushed "%s".', $content->getSummary());
+        } else {
+            return sprintf('Would push "%s".', $content->getSummary());
+        }
     }
 }

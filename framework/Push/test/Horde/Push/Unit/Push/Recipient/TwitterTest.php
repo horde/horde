@@ -51,4 +51,30 @@ extends Horde_Push_TestCase
             ),
             $stub->calls);
     }
+
+    public function testTwitterReturn()
+    {
+        $push = new Horde_Push();
+        $stub = new Horde_Push_Stub_Twitter();
+        $result = $push->addRecipient(new Horde_Push_Recipient_Twitter($stub))
+            ->setSummary('TWEET')
+            ->push();
+        $this->assertEquals(
+            array('Pushed tweet to twitter.'),
+            $result
+        );
+    }
+
+    public function testTwitterPretend()
+    {
+        $push = new Horde_Push();
+        $stub = new Horde_Push_Stub_Twitter();
+        $result = $push->addRecipient(new Horde_Push_Recipient_Twitter($stub))
+            ->setSummary('TWEET')
+            ->push(array('pretend' => true));
+        $this->assertEquals(
+            array('Would push tweet "TWEET" to twitter.'),
+            $result
+        );
+    }
 }

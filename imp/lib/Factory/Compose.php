@@ -79,7 +79,6 @@ class IMP_Factory_Compose extends Horde_Core_Factory_Base
         foreach ($this->_instances as $key => $val) {
             switch ($val->changed) {
             case 'changed':
-                $val->changed = '';
                 $session->store($val, false, $key);
                 $cache[$key] = 1;
                 $changed = true;

@@ -26,7 +26,7 @@
  * @link     http://www.horde.org/libraries/Horde_Push
  */
 class Horde_Push_Recipient_Mail
-implements Horde_Push_Recipient
+extends Horde_Push_Recipient_Base
 {
     /**
      * The mail transport.
@@ -36,32 +36,33 @@ implements Horde_Push_Recipient
     private $_mail;
 
     /**
-     * The mail recipients.
+     * Mail parameters.
      *
      * @var array
      */
-    private $_recipients;
+    private $_params;
 
     /**
      * Constructor.
      *
-     * @param Horde_Mail_Transport $mail       The mail transport.
-     * @param array                $recipients The mail recipients.
+     * @param Horde_Mail_Transport $mail   The mail transport.
+     * @param array                $params Parameters for the mail transport.
      */
-    public function __construct(Horde_Mail_Transport $mail, $recipients)
+    public function __construct(Horde_Mail_Transport $mail, $params = array())
     {
         $this->_mail = $mail;
-        $this->_recipients = $recipients;
+        $this->_params = $params;
     }
 
     /**
      * Push content to the recipient.
      *
      * @param Horde_Push $content The content element.
+     * @param array      $options Additional options.
      *
      * @return NULL
      */
-    public function push(Horde_Push $content)
+    public function push(Horde_Push $content, $options = array())
     {
         $contents = $content->getContent();
         $types = $content->getMimeTypes();
@@ -85,8 +86,27 @@ implements Horde_Push_Recipient
                 'UTF-8'
             );
         }
-        $mail->addRecipients($this->_recipients);
-        $mail->addHeader('summary', $content->getSummary());
+        $mail->addRecipients(explode(',', $this->getAcl()));
+        $mail->addHeader('subject', $content->getSummary());
+        if (!empty($this->_params['from'])) {
+            $mail->addHeader('from', $this->_params['from']);
+        }
+        $mail->addHeader('to', $this->getAcl());
+
+        if (!empty($options['pretend'])) {
+            $mock = new Horde_Mail_Transport_Mock();
+            $mail->send($mock);
+            return sprintf(
+                "Would push mail \n\n%s\n\n%s\n to %s.",
+                $mock->sentMessages[0]['header_text'],
+                $mock->sentMessages[0]['body'],
+                $this->getAcl()
+            );
+        }
+
         $mail->send($this->_mail);
+        return sprintf(
+            'Pushed mail to %s.', $this->getAcl()
+        );
     }
 }

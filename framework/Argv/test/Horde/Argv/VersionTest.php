@@ -13,6 +13,18 @@ require_once dirname(__FILE__) . '/TestCase.php';
 
 class Horde_Argv_VersionTest extends Horde_Argv_TestCase
 {
+    public function setUp()
+    {
+        if (!isset($_SERVER['argv'])) {
+            $_SERVER['argv'] = array('test');
+        }
+    }
+
+    public function tearDown()
+    {
+        unset($_SERVER['argv']);
+    }
+
     public function testVersion()
     {
         $this->parser = new Horde_Argv_InterceptingParser(array(

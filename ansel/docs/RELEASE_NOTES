@@ -10,28 +10,46 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Ansel
-Photo Management and Web Gallery application version H4 (2.0-RC1).
+The Horde Team is pleased to announce the final release of the Ansel Photo
+Management and Web Gallery application version H4 (2.0).
 
 Ansel is a full featured photo management application. With it, you can organize
 your photos in any number of galleries and subgalleries, share galleries among
 other Horde users or make them public. Ansel supports a wide range of
-features. See http://horde.org/ansel for more information.
+features. See http://www.horde.org/ansel for more information.
 
-Barring any problems, this code will be released as Ansel H4 (2.0).
-Testing is requested and comments are encouraged.
-Updated translations would also be great.
+Major changes compared to the Ansel version H4 (2.0-RC2) are:
+    * Added preference for the new uploader.
+    * Small bugfixes.
 
-Major changes compared to the Ansel version H4 (2.0-ALPHA1) are:
+Major changes compared to the Ansel version H3 are:
+    * Updated to work with Horde 4.
+    * Added a mobile view.
+    * Added new thumbnail types and processing options.
+    * Added Twitter notifications after uploading images.
+    * Now uses the global Horde tagging system.
+    * New, improved uploader.
+    * Improved geotagging features based on OpenLayers.
+    * Improved Exif support.
+    * Added Slovak translation.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Updated to work with Horde 4.
+Added a mobile view.
+Added new thumbnail types and processing options.
+Added Twitter notifications after uploading images.
+Now uses the global Horde tagging system.
+New, improved uploader.
+Improved geotagging features based on OpenLayers.
+Improved Exif support.
+Added Slovak translation.
 Small bugfixes and improvements.
 FM;
 

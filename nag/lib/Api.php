@@ -683,7 +683,7 @@ class Nag_Api extends Horde_Registry_Api
      * Returns an array of UIDs for all tasks that the current user is authorized
      * to see.
      *
-     * @param mixed $tasklist  The tasklist or an array of taskslists to list.
+     * @param mixed $tasklists  The tasklist or an array of taskslists to list.
      *
      * @return array             An array of UIDs for all tasks
      *                           the user can access.
@@ -691,17 +691,26 @@ class Nag_Api extends Horde_Registry_Api
      * @throws Horde_Exception_PermissionDenied
      * @throws Nag_Exception
      */
-    public function listUids($tasklist = null)
+    public function listUids($tasklists = null)
     {
         if (!isset($GLOBALS['conf']['storage']['driver'])) {
             throw new Nag_Exception(_("Not configured"));
         }
-        if ($tasklist === null) {
-            $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
-        } elseif (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+
+        if (empty($tasklists)) {
+            $tasklists = Nag::getSyncLists();
+        } else {
+            if (!is_array($tasklists)) {
+                $tasklists = array($tasklists);
+            }
+            foreach ($tasklists as $list) {
+                if (!Nag::hasPermission($list, Horde_Perms::READ)) {
+                    throw new Horde_Exception_PermissionDenied();
+                }
+            }
         }
-        $tasks = Nag::listTasks(null, null, null, array($tasklist), 1);
+
+        $tasks = Nag::listTasks(null, null, null, $tasklists, 1);
         $uids = array();
         $tasks->reset();
         while ($task = $tasks->each()) {
@@ -717,7 +726,7 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @param string  $action     The action to check for - add, modify, or delete.
      * @param integer $timestamp  The time to start the search.
-     * @param string  $tasklist   The tasklist to be used. If 'null', the
+     * @param mixed   $tasklists  The tasklists to be used. If 'null', the
      *                            user's default tasklist will be used.
      * @param integer $end        The optional ending timestamp.
      *
@@ -728,10 +737,13 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function listBy($action, $timestamp, $tasklist = null, $end = null)
     {
-        if ($tasklist === null) {
-            $tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
-        } elseif (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
-           throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+        if (empty($tasklist)) {
+            $tasklist = Nag::getSyncLists();
+            $results = array();
+            foreach ($tasklist as $list) {
+                $results = array_merge($results, $this->listBy($action, $timestamp, $list, $end));
+            }
+            return $results;
         }
 
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
@@ -758,9 +770,10 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function getChanges($start, $end)
     {
-        return array('add' => $this->listBy('add', $start, null, $end),
-                     'modify' => $this->listBy('modify', $start, null, $end),
-                     'delete' => $this->listBy('delete', $start, null, $end));
+        return array(
+            'add' => $this->listBy('add', $start, null, $end),
+            'modify' => $this->listBy('modify', $start, null, $end),
+            'delete' => $this->listBy('delete', $start, null, $end));
     }
 
     /**

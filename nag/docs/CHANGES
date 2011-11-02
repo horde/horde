@@ -5,9 +5,17 @@ v3.1-git
 
 
 ----------
-v3.0.5-git
+v3.0.6-git
 ----------
 
+
+
+------
+v3.0.5
+------
+
+[cjh] Nicer date/time input with fewer input fields and helper javascript.
+[mjr] Add ability to choose which tasklists to synchronize.
 [mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
 
 

@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-19</date>
- <time>00:20:47</time>
+ <date>2011-10-28</date>
+ <time>18:10:32</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -23,10 +23,14 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Fixed setting data for several POP3 fetch results.
-* [mms] Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
-* [mms] Added Horde_Imap_Client_Base::writeDebug().
-* [mms] Added Horde_Imap_Client_Base::getIdsOb().
-* [mms] Deprecate Horde_Imap_Client_Cache::singleton().
+* [mms] Parsing/generating sequence strings for POP3 servers has been fixed.
+* [mms] Removed unmaintained Mock driver.
+* [mms] API CHANGE: Added Horde_Imap_Client_Mailbox to provide way to accurately switch between UTF7-IMAP and UTF-8 mailbox representations.
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Base::parseCommandArray() - use Horde_Imap_Client_Utils::parseCommandArray() instead.
+* [mms] API CHANGE: Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::getIdsOb().
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Cache::singleton().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -35,6 +39,8 @@
      <dir name="Imap">
       <dir name="Client">
        <file name="COPYING" role="doc" />
+       <file name="TODO" role="doc" />
+       <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Imap/Client -->
      </dir> <!-- /doc/Horde/Imap -->
     </dir> <!-- /doc/Horde -->
@@ -82,7 +88,7 @@
        <file name="DateTime.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Ids.php" role="php" />
-       <file name="Mock.php" role="php" />
+       <file name="Mailbox.php" role="php" />
        <file name="Socket.php" role="php" />
        <file name="Sort.php" role="php" />
        <file name="Utf7imap.php" role="php" />
@@ -112,6 +118,7 @@
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsParseTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
+       <file name="MailboxTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
        <file name="SubjectParseTest.php" role="test" />
@@ -193,6 +200,8 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Imap/Client/COPYING" />
+   <install as="TODO" name="doc/Horde/Imap/Client/TODO" />
+   <install as="UPGRADING" name="doc/Horde/Imap/Client/UPGRADING" />
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
    <install as="Horde/Imap/Client/Cache.php" name="lib/Horde/Imap/Client/Cache.php" />
@@ -200,7 +209,7 @@
    <install as="Horde/Imap/Client/DateTime.php" name="lib/Horde/Imap/Client/DateTime.php" />
    <install as="Horde/Imap/Client/Exception.php" name="lib/Horde/Imap/Client/Exception.php" />
    <install as="Horde/Imap/Client/Ids.php" name="lib/Horde/Imap/Client/Ids.php" />
-   <install as="Horde/Imap/Client/Mock.php" name="lib/Horde/Imap/Client/Mock.php" />
+   <install as="Horde/Imap/Client/Mailbox.php" name="lib/Horde/Imap/Client/Mailbox.php" />
    <install as="Horde/Imap/Client/Socket.php" name="lib/Horde/Imap/Client/Socket.php" />
    <install as="Horde/Imap/Client/Sort.php" name="lib/Horde/Imap/Client/Sort.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
@@ -227,6 +236,7 @@
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsParseTest.php" name="test/Horde/Imap/Client/IdsParseTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
+   <install as="Horde/Imap/Client/MailboxTest.php" name="test/Horde/Imap/Client/MailboxTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
@@ -581,7 +591,7 @@
 * [mms] Improved IMAP debug logging.
 * [mms] Fix search charset determination for servers that support SORT &amp; ESORT (Bug #10479).
 * [mms] Improved phpdoc documentation.
-* [mms] Add shortcuts to get MIME decoded envelope information.
+* [mms] API CHANGE: Add shortcuts to get MIME decoded envelope information.
 * [mms] Automatically authenticate to server when using a command that requires an authenticated/selected state (Bug #10473).
    </notes>
   </release>
@@ -592,13 +602,18 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-19</date>
+   <date>2011-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
-* [mms] Added Horde_Imap_Client_Base::writeDebug().
-* [mms] Added Horde_Imap_Client_Base::getIdsOb().
-* [mms] Deprecate Horde_Imap_Client_Cache::singleton().
+* [mms] Fixed setting data for several POP3 fetch results.
+* [mms] Parsing/generating sequence strings for POP3 servers has been fixed.
+* [mms] Removed unmaintained Mock driver.
+* [mms] API CHANGE: Added Horde_Imap_Client_Mailbox to provide way to accurately switch between UTF7-IMAP and UTF-8 mailbox representations.
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Base::parseCommandArray() - use Horde_Imap_Client_Utils::parseCommandArray() instead.
+* [mms] API CHANGE: Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
+* [mms] API CHANGE: Added Horde_Imap_Client_Base::getIdsOb().
+* [mms] API CHANGE: Deprecate Horde_Imap_Client_Cache::singleton().
    </notes>
   </release>
  </changelog>

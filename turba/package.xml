@@ -1328,11 +1328,11 @@
    <date>2011-09-22</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* [rla] #9343 Turba LDAP Driver now only rewrites changed attributes
+* [rla] Turba LDAP Driver now only rewrites changed attributes (Bug #9343).
 * [mjr] Run attribute values through decode_attribute hook when exporting.
-* [mjr] Ensure encode_attribute hook is called on imported objects
+* [mjr] Ensure encode_attribute hook is called on imported objects.
 * [mjr] Improve handling of removeUserData.
-* [mjr] Honor auto_create configuration setting (Bug #10452, qoole.horde@lillimoth.com)
+* [mjr] Honor auto_create configuration setting (qoole.horde@lillimoth.com, Bug #10452)
 * [jan] Don&apos;t allow to search binary fields.
    </notes>
   </release>
@@ -1343,24 +1343,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-30</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Add the ability to specify the fields to return from contacts/search.
+* [jan] Fix importing contacts with composite fields.
 * [jan] Fix LDAP connection test (Bug #10554).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
    </notes>
   </release>
   <release>
    <version>
-    <release>3.1.0</release>
-    <api>3.1.0</api></version>
+    <release>3.0.11</release>
+    <api>3.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-21</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-*
+* 
    </notes>
   </release>
  </changelog>

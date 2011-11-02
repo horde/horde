@@ -1,6 +1,11 @@
 <?php
 /**
  * Allow searching of address books from the portal.
+ *
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
 class Turba_Block_Minisearch extends Horde_Core_Block
 {
@@ -9,6 +14,8 @@ class Turba_Block_Minisearch extends Horde_Core_Block
      */
     protected $_options = array();
 
+    /**
+     */
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
@@ -27,9 +34,6 @@ class Turba_Block_Minisearch extends Horde_Core_Block
     }
 
     /**
-     * Select the address books where to search
-     *
-     * @var string
      */
     protected function _params()
     {
@@ -42,7 +46,6 @@ class Turba_Block_Minisearch extends Horde_Core_Block
         );
     }
     /**
-     * return the content
      */
     protected function _content()
     {

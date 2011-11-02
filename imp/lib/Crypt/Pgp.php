@@ -352,6 +352,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @param string $text       The text to verify.
      * @param string $address    E-mail address of public key.
      * @param string $signature  A PGP signature block.
+     * @param string $charset    Charset to use.
      *
      * @return stdClass  See Horde_Crypt_Pgp::decrypt().
      * @throws Horde_Crypt_Exception

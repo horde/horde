@@ -49,8 +49,9 @@ $args = array(
 );
 
 $show_msg = new IMP_Views_ShowMessage();
-$show_msg_result = $show_msg->showMessage($args);
-if (isset($show_msg_result['error'])) {
+try {
+    $show_msg_result = $show_msg->showMessage($args);
+} catch (IMP_Exception $e) {
     IMP::status();
     echo Horde::wrapInlineScript(array(
         'parent.close()'

@@ -34,6 +34,8 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 {
     public function setUp()
     {
+        $this->skipIfNoLdap();
+
         $this->ldap_read  = $this->getMock('Horde_Ldap');
         $this->ldap_write = $this->getMock('Horde_Ldap');
         $connection = new Horde_Kolab_Server_Connection_Splittedldap(

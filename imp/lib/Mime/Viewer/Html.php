@@ -17,6 +17,8 @@
  */
 class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 {
+    const CSS_BG_PREG = '/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i';
+
     /**
      * Temp array for storing data when parsing the HTML document.
      *
@@ -77,7 +79,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         $data = $this->_IMPrender(true);
 
-        /* Catch case where using mimp on a javascript browser. */
+        /* Catches case where using mimp on a javascript browser. */
         if (IMP::getViewMode() != 'mimp') {
             $uid = strval(new Horde_Support_Randomid());
 
@@ -151,9 +153,11 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'blockimg' => null,
                 'cid' => null,
                 'cid_used' => array(),
+                'cssblock' => false,
                 'img' => $blockimg,
                 'imgblock' => false,
                 'inline' => $inline,
+                'style' => array(),
                 'target' => strval(new Horde_Support_Randomid())
             );
 
@@ -162,8 +166,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 $this->_imptmp['blockimg'] = Horde::url(Horde_Themes::img('spacer_red.png'), true, array('append_session' => -1));
             }
 
-            /* Search for inlined images that we can display
-             * (multipart/related parts) - see RFC 2392. */
+            /* Search for inlined data that we can display (multipart/related
+             * parts) - see RFC 2392. */
             $this->_imptmp['cid'] = array();
             if (($related_part = $this->getConfigParam('imp_contents')->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) &&
                 ($related_cids = $related_part->getMetadata('related_cids'))) {
@@ -221,6 +225,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     Horde::link('#', '', 'unblockImageLink') . _("Show Images?") . '</a>'
                 )
             );
+        } elseif ($this->_imptmp['cssblock']) {
+            /* This is a bit less intuitive for end users, so hide within
+             * image blocking if possible. */
+            $status[] = array(
+                'icon' => Horde::img('mime/image.png'),
+                'text' => array(
+                    _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
+                    Horde::link('#', '', 'unblockImageLink') . _("Load Styling?") . '</a>'
+                )
+            );
         }
 
         $filters = array();
@@ -243,10 +257,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         /* Filter bad language. */
         $data = IMP::filterText($data);
 
-        /* Add unused cid information. */
-        if (!empty($this->_imptmp['cid']) &&
-            $unused = array_diff($this->_imptmp['cid'], array($this->_mimepart->getMimeId()), $this->_imptmp['cid_used'])) {
-            $related_part->setMetadata('related_cids_unused', array_values($unused));
+        /* Add used CID information. */
+        if (!empty($this->_imptmp['cid'])) {
+            $related_part->setMetadata('related_cids_used', $this->_imptmp['cid_used']);
         }
 
         return array(
@@ -296,6 +309,75 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     public function emailsCallback($args, $extra)
     {
         return IMP::composeLink($args, $extra, true);
+    }
+
+    /**
+     */
+    protected function _node($doc, $node)
+    {
+        parent::_node($doc, $node);
+
+        if ($doc == $node) {
+            /* Sanitize and optimize style tags. */
+            if ($this->_imptmp && !empty($this->_imptmp['style'])) {
+                // Csstidy may not be available.
+                try {
+                    $style = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(implode("\n", $this->_imptmp['style']), 'csstidy', array(
+                        'ob' => true,
+                        'preserve_css' => false
+                    ));
+
+                    $blocked = array();
+                    foreach ($style->import as $val) {
+                        $blocked[] = '@import "' . $val . '";';
+                    }
+                    $style->import = array();
+
+                    foreach ($style->css as $key => $val) {
+                        foreach ($val as $key2 => $val2) {
+                            foreach ($val2 as $key3 => $val3) {
+                                foreach ($val3['p'] as $key4 => $val4) {
+                                    if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
+                                        $blocked[] = $key2 . '{' . $key3 . ':' . $val4 . ';}';
+                                        unset($style->css[$key][$key2][$key3]['p'][$key4]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    $css_text = $style->print->plain();
+
+                    if ($css_text || !empty($blocked)) {
+                        // Gets the HEAD element or creates one if it doesn't
+                        // exist.
+                        $head = $doc->getElementsByTagName('head');
+                        if ($head->length) {
+                            $headelt = $head->item(0);
+                        } else {
+                            $headelt = $doc->createElement('head');
+                            $doc->appendChild($headelt);
+                        }
+                    }
+
+                    if ($css_text) {
+                        $style_elt = $doc->createElement('style', $css_text);
+                        $style_elt->setAttribute('type', 'text/css');
+                        $headelt->appendChild($style_elt);
+                    }
+
+                    /* Store all the blocked CSS in a bogus style element in
+                     * the HTML output - then we simply need to change the
+                     * type attribute to text/css, and the browser should
+                     * load the definitions on-demand. */
+                    if (!empty($blocked)) {
+                        $block_elt = $doc->createElement('style', implode('', $blocked));
+                        $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
+                        $headelt->appendChild($block_elt);
+                    }
+                } catch (Horde_Exception $e) {}
+            }
+        }
     }
 
     /**
@@ -364,6 +446,48 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 }
                 break;
 
+            case 'link':
+                /* Block all link tags that reference foreign URLs, other than
+                 * CSS. There's no inherently wrong with linking to a foreign
+                 * CSS file other than privacy concerns. Therefore, block
+                 * linking until requested by the user. */
+                $delete_link = true;
+
+                switch (Horde_String::lower($node->getAttribute('type'))) {
+                case 'text/css':
+                    if ($this->_imptmp && $node->hasAttribute('href')) {
+                        $tmp = $node->getAttribute('href');
+
+                        if (isset($this->_imptmp['cid'][$tmp])) {
+                            $this->_imptmp['style'][] = $this->getConfigParam('imp_contents')->getMIMEPart($this->_imptmp['cid'][$tmp])->getContents();
+                        } else {
+                            $node->setAttribute('htmlcssblocked', $node->getAttribute('href'));
+                            $node->removeAttribute('href');
+                            $this->_imptmp['cssblock'] = true;
+                            $delete_link = false;
+                        }
+                    }
+                    break;
+                }
+
+                if ($delete_link &&
+                    $node->hasAttribute('href') &&
+                    $node->parentNode) {
+                    $node->parentNode->removeChild($node);
+                }
+                break;
+
+            case 'style':
+                switch (Horde_String::lower($node->getAttribute('type'))) {
+                case 'text/css':
+                    if ($this->_imptmp) {
+                        $this->_imptmp['style'][] = $node->nodeValue;
+                    }
+                    $node->parentNode->removeChild($node);
+                    break;
+                }
+                break;
+
             case 'table':
                 /* If displaying inline (in IFRAME), tables with 100%
                  * height seems to confuse many browsers re: the
@@ -417,12 +541,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     $node->removeAttribute($val);
                 }
 
-                if ($node->hasAttribute('style') &&
-                    ($this->_imptmp['img'] || $this->_imptmp['cid'])) {
-                    $this->_imptmp['node'] = $node;
-                    $style = preg_replace_callback('/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
-                    if ($matches) {
-                        $node->setAttribute('style', $style);
+                if ($node->hasAttribute('style')) {
+                    if (strpos($node->getAttribute('style'), 'content:') !== false) {
+                        // TODO: Figure out way to unblock?
+                        $node->removeAttribute('style');
+                    } elseif ($this->_imptmp['img'] || $this->_imptmp['cid']) {
+                        $this->_imptmp['node'] = $node;
+                        $style = preg_replace_callback(self::CSS_BG_PREG, array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
+                        if ($matches) {
+                            $node->setAttribute('style', $style);
+                        }
                     }
                 }
             }

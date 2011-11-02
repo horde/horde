@@ -5,9 +5,17 @@ v3.1-git
 
 
 -----------
-v3.0.10-git
+v3.0.11-git
 -----------
 
+
+
+-------
+v3.0.10
+-------
+
+[mjr] Add the ability to specify the fields to return from contacts/search.
+[jan] Fix importing contacts with composite fields.
 [jan] Fix LDAP connection test (Bug #10554).
 [gwr] Avoid including the owner name into the default share (Kolab backend).
 
@@ -17,12 +25,11 @@ v3.0.9
 ------
 
 [rla] Turba LDAP Driver now only rewrites changed attributes (Bug #9343).
-share (Kolab backend).
 [mjr] Run attribute values through decode_attribute hook when exporting.
-[mjr] Ensure encode_attribute hook is called on imported objects
+[mjr] Ensure encode_attribute hook is called on imported objects.
 [mjr] Improve handling of removeUserData.
-[mjr] Honor auto_create configuration setting (Bug #10452,
-      qoole.horde@lillimoth.com)
+[mjr] Honor auto_create configuration setting (qoole.horde@lillimoth.com, Bug
+      #10452)
 [jan] Don't allow to search binary fields.
 
 

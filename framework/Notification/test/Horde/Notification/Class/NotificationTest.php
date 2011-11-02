@@ -31,6 +31,11 @@ require_once dirname(__FILE__) . '/../Autoload.php';
 
 class Horde_Notification_Class_NotificationTest extends PHPUnit_Framework_TestCase
 {
+    public function tearDown()
+    {
+        unset($_SESSION);
+    }
+
     public function testMethodSingletonReturnsAlwaysTheSameInstanceForTheSameStackName()
     {
         $notification1 = Horde_Notification::singleton('test');

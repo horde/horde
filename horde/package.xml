@@ -1762,6 +1762,157 @@
      <file name="info.php" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/hi-contrast -->
+    <dir name="hordevetica">
+     <dir name="graphics">
+      <dir name="alerts">
+       <file name="alarm.png" role="horde" />
+       <file name="error.png" role="horde" />
+       <file name="message.png" role="horde" />
+       <file name="success.png" role="horde" />
+       <file name="warning.png" role="horde" />
+      </dir> <!-- /themes/hordevetica/graphics/alerts -->
+      <dir name="block">
+       <file name="large_up.png" role="horde" />
+      </dir> <!-- /themes/hordevetica/graphics/block -->
+      <dir name="image">
+       <file name="crop.png" role="horde" />
+      </dir> <!-- /themes/hordevetica/graphics/image -->
+      <dir name="map">
+       <file name="marker-blue.png" role="horde" />
+       <file name="marker-gold.png" role="horde" />
+       <file name="marker-green.png" role="horde" />
+       <file name="marker-shadow.png" role="horde" />
+       <file name="marker.png" role="horde" />
+      </dir> <!-- /themes/hordevetica/graphics/map -->
+      <dir name="mime">
+       <file name="audio.png" role="horde" />
+       <file name="binary.png" role="horde" />
+       <file name="compressed.png" role="horde" />
+       <file name="deb.png" role="horde" />
+       <file name="encryption.png" role="horde" />
+       <file name="html.png" role="horde" />
+       <file name="icalendar.png" role="horde" />
+       <file name="image.png" role="horde" />
+       <file name="mail.png" role="horde" />
+       <file name="msexcel.png" role="horde" />
+       <file name="mspowerpoint.png" role="horde" />
+       <file name="msword.png" role="horde" />
+       <file name="ooo_calc.png" role="horde" />
+       <file name="ooo_draw.png" role="horde" />
+       <file name="ooo_impress.png" role="horde" />
+       <file name="ooo_math.png" role="horde" />
+       <file name="ooo_writer.png" role="horde" />
+       <file name="pdf.png" role="horde" />
+       <file name="php.png" role="horde" />
+       <file name="rpm.png" role="horde" />
+       <file name="script-js.png" role="horde" />
+       <file name="source-c.png" role="horde" />
+       <file name="source-cpp.png" role="horde" />
+       <file name="source-h.png" role="horde" />
+       <file name="source-java.png" role="horde" />
+       <file name="source-python.png" role="horde" />
+       <file name="text.png" role="horde" />
+       <file name="vcard.png" role="horde" />
+       <file name="video.png" role="horde" />
+       <file name="xml.png" role="horde" />
+      </dir> <!-- /themes/hordevetica/graphics/mime -->
+      <dir name="nav">
+       <file name="bottom-grey.png" role="horde" />
+       <file name="bottom.png" role="horde" />
+       <file name="down-grey.png" role="horde" />
+       <file name="down.png" role="horde" />
+       <file name="first-grey.png" role="horde" />
+       <file name="first.png" role="horde" />
+       <file name="last-grey.png" role="horde" />
+       <file name="last.png" role="horde" />
+       <file name="left-grey.png" role="horde" />
+       <file name="left.png" role="horde" />
+       <file name="right-grey.png" role="horde" />
+       <file name="right.png" role="horde" />
+       <file name="top-grey.png" role="horde" />
+       <file name="top.png" role="horde" />
+       <file name="up-grey.png" role="horde" />
+       <file name="up.png" role="horde" />
+      </dir> <!-- /themes/hordevetica/graphics/nav -->
+      <dir name="tree">
+       <file name="folder.png" role="horde" />
+       <file name="folderopen.png" role="horde" />
+       <file name="leaf.png" role="horde" />
+       <file name="rev-leaf.png" role="horde" />
+      </dir> <!-- /themes/hordevetica/graphics/tree -->
+      <dir name="uploader">
+       <file name="up.png" role="horde" />
+      </dir> <!-- /themes/hordevetica/graphics/uploader -->
+      <file name="about.png" role="horde" />
+      <file name="add_group.png" role="horde" />
+      <file name="add_perm.png" role="horde" />
+      <file name="administration.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="block.png" role="horde" />
+      <file name="calendar.png" role="horde" />
+      <file name="close.png" role="horde" />
+      <file name="colorpicker.png" role="horde" />
+      <file name="config.png" role="horde" />
+      <file name="currentTab_left.png" role="horde" />
+      <file name="currentTab_right.png" role="horde" />
+      <file name="data.png" role="horde" />
+      <file name="datatree.png" role="horde" />
+      <file name="delete-small.png" role="horde" />
+      <file name="delete.png" role="horde" />
+      <file name="devel.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="edit-small.png" role="horde" />
+      <file name="edit.png" role="horde" />
+      <file name="external.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="feed.png" role="horde" />
+      <file name="group.png" role="horde" />
+      <file name="help.png" role="horde" />
+      <file name="help_index.png" role="horde" />
+      <file name="hide_panel.png" role="horde" />
+      <file name="horde.png" role="horde" />
+      <file name="info.png" role="horde" />
+      <file name="info_icon.png" role="horde" />
+      <file name="keyboard.png" role="horde" />
+      <file name="layout.png" role="horde" />
+      <file name="lhand.png" role="horde" />
+      <file name="locked.png" role="horde" />
+      <file name="login.png" role="horde" />
+      <file name="logout.png" role="horde" />
+      <file name="map.png" role="horde" />
+      <file name="map_eu.png" role="horde" />
+      <file name="menu-active.png" role="horde" />
+      <file name="menu.png" role="horde" />
+      <file name="minus.png" role="horde" />
+      <file name="mobile.png" role="horde" />
+      <file name="myaccount.png" role="horde" />
+      <file name="office.png" role="horde" />
+      <file name="organizing.png" role="horde" />
+      <file name="perms.png" role="horde" />
+      <file name="phone.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="popright.png" role="horde" />
+      <file name="prefs.png" role="horde" />
+      <file name="print.png" role="horde" />
+      <file name="problem.png" role="horde" />
+      <file name="reload.png" role="horde" />
+      <file name="required.png" role="horde" />
+      <file name="rhand.png" role="horde" />
+      <file name="save.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="shell.png" role="horde" />
+      <file name="show_panel.png" role="horde" />
+      <file name="sql.png" role="horde" />
+      <file name="tab_left.png" role="horde" />
+      <file name="tab_right.png" role="horde" />
+      <file name="unlocked.png" role="horde" />
+      <file name="user.png" role="horde" />
+      <file name="website.png" role="horde" />
+      <file name="za.png" role="horde" />
+     </dir> <!-- /themes/hordevetica/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/hordevetica -->
     <dir name="hordeweb">
      <dir name="graphics">
       <file name="background.jpg" role="horde" />
@@ -3781,6 +3932,137 @@
    <install as="themes/grey/screen.css" name="themes/grey/screen.css" />
    <install as="themes/hi-contrast/info.php" name="themes/hi-contrast/info.php" />
    <install as="themes/hi-contrast/screen.css" name="themes/hi-contrast/screen.css" />
+   <install as="themes/hordevetica/info.php" name="themes/hordevetica/info.php" />
+   <install as="themes/hordevetica/screen.css" name="themes/hordevetica/screen.css" />
+   <install as="themes/hordevetica/graphics/about.png" name="themes/hordevetica/graphics/about.png" />
+   <install as="themes/hordevetica/graphics/add_group.png" name="themes/hordevetica/graphics/add_group.png" />
+   <install as="themes/hordevetica/graphics/add_perm.png" name="themes/hordevetica/graphics/add_perm.png" />
+   <install as="themes/hordevetica/graphics/administration.png" name="themes/hordevetica/graphics/administration.png" />
+   <install as="themes/hordevetica/graphics/az.png" name="themes/hordevetica/graphics/az.png" />
+   <install as="themes/hordevetica/graphics/block.png" name="themes/hordevetica/graphics/block.png" />
+   <install as="themes/hordevetica/graphics/calendar.png" name="themes/hordevetica/graphics/calendar.png" />
+   <install as="themes/hordevetica/graphics/close.png" name="themes/hordevetica/graphics/close.png" />
+   <install as="themes/hordevetica/graphics/colorpicker.png" name="themes/hordevetica/graphics/colorpicker.png" />
+   <install as="themes/hordevetica/graphics/config.png" name="themes/hordevetica/graphics/config.png" />
+   <install as="themes/hordevetica/graphics/currentTab_left.png" name="themes/hordevetica/graphics/currentTab_left.png" />
+   <install as="themes/hordevetica/graphics/currentTab_right.png" name="themes/hordevetica/graphics/currentTab_right.png" />
+   <install as="themes/hordevetica/graphics/data.png" name="themes/hordevetica/graphics/data.png" />
+   <install as="themes/hordevetica/graphics/datatree.png" name="themes/hordevetica/graphics/datatree.png" />
+   <install as="themes/hordevetica/graphics/delete-small.png" name="themes/hordevetica/graphics/delete-small.png" />
+   <install as="themes/hordevetica/graphics/delete.png" name="themes/hordevetica/graphics/delete.png" />
+   <install as="themes/hordevetica/graphics/devel.png" name="themes/hordevetica/graphics/devel.png" />
+   <install as="themes/hordevetica/graphics/download.png" name="themes/hordevetica/graphics/download.png" />
+   <install as="themes/hordevetica/graphics/edit-small.png" name="themes/hordevetica/graphics/edit-small.png" />
+   <install as="themes/hordevetica/graphics/edit.png" name="themes/hordevetica/graphics/edit.png" />
+   <install as="themes/hordevetica/graphics/external.png" name="themes/hordevetica/graphics/external.png" />
+   <install as="themes/hordevetica/graphics/favicon.ico" name="themes/hordevetica/graphics/favicon.ico" />
+   <install as="themes/hordevetica/graphics/feed.png" name="themes/hordevetica/graphics/feed.png" />
+   <install as="themes/hordevetica/graphics/group.png" name="themes/hordevetica/graphics/group.png" />
+   <install as="themes/hordevetica/graphics/help.png" name="themes/hordevetica/graphics/help.png" />
+   <install as="themes/hordevetica/graphics/help_index.png" name="themes/hordevetica/graphics/help_index.png" />
+   <install as="themes/hordevetica/graphics/hide_panel.png" name="themes/hordevetica/graphics/hide_panel.png" />
+   <install as="themes/hordevetica/graphics/horde.png" name="themes/hordevetica/graphics/horde.png" />
+   <install as="themes/hordevetica/graphics/info.png" name="themes/hordevetica/graphics/info.png" />
+   <install as="themes/hordevetica/graphics/info_icon.png" name="themes/hordevetica/graphics/info_icon.png" />
+   <install as="themes/hordevetica/graphics/keyboard.png" name="themes/hordevetica/graphics/keyboard.png" />
+   <install as="themes/hordevetica/graphics/layout.png" name="themes/hordevetica/graphics/layout.png" />
+   <install as="themes/hordevetica/graphics/lhand.png" name="themes/hordevetica/graphics/lhand.png" />
+   <install as="themes/hordevetica/graphics/locked.png" name="themes/hordevetica/graphics/locked.png" />
+   <install as="themes/hordevetica/graphics/login.png" name="themes/hordevetica/graphics/login.png" />
+   <install as="themes/hordevetica/graphics/logout.png" name="themes/hordevetica/graphics/logout.png" />
+   <install as="themes/hordevetica/graphics/map.png" name="themes/hordevetica/graphics/map.png" />
+   <install as="themes/hordevetica/graphics/map_eu.png" name="themes/hordevetica/graphics/map_eu.png" />
+   <install as="themes/hordevetica/graphics/menu-active.png" name="themes/hordevetica/graphics/menu-active.png" />
+   <install as="themes/hordevetica/graphics/menu.png" name="themes/hordevetica/graphics/menu.png" />
+   <install as="themes/hordevetica/graphics/minus.png" name="themes/hordevetica/graphics/minus.png" />
+   <install as="themes/hordevetica/graphics/mobile.png" name="themes/hordevetica/graphics/mobile.png" />
+   <install as="themes/hordevetica/graphics/myaccount.png" name="themes/hordevetica/graphics/myaccount.png" />
+   <install as="themes/hordevetica/graphics/office.png" name="themes/hordevetica/graphics/office.png" />
+   <install as="themes/hordevetica/graphics/organizing.png" name="themes/hordevetica/graphics/organizing.png" />
+   <install as="themes/hordevetica/graphics/perms.png" name="themes/hordevetica/graphics/perms.png" />
+   <install as="themes/hordevetica/graphics/phone.png" name="themes/hordevetica/graphics/phone.png" />
+   <install as="themes/hordevetica/graphics/plus.png" name="themes/hordevetica/graphics/plus.png" />
+   <install as="themes/hordevetica/graphics/popright.png" name="themes/hordevetica/graphics/popright.png" />
+   <install as="themes/hordevetica/graphics/prefs.png" name="themes/hordevetica/graphics/prefs.png" />
+   <install as="themes/hordevetica/graphics/print.png" name="themes/hordevetica/graphics/print.png" />
+   <install as="themes/hordevetica/graphics/problem.png" name="themes/hordevetica/graphics/problem.png" />
+   <install as="themes/hordevetica/graphics/reload.png" name="themes/hordevetica/graphics/reload.png" />
+   <install as="themes/hordevetica/graphics/required.png" name="themes/hordevetica/graphics/required.png" />
+   <install as="themes/hordevetica/graphics/rhand.png" name="themes/hordevetica/graphics/rhand.png" />
+   <install as="themes/hordevetica/graphics/save.png" name="themes/hordevetica/graphics/save.png" />
+   <install as="themes/hordevetica/graphics/search.png" name="themes/hordevetica/graphics/search.png" />
+   <install as="themes/hordevetica/graphics/shell.png" name="themes/hordevetica/graphics/shell.png" />
+   <install as="themes/hordevetica/graphics/show_panel.png" name="themes/hordevetica/graphics/show_panel.png" />
+   <install as="themes/hordevetica/graphics/sql.png" name="themes/hordevetica/graphics/sql.png" />
+   <install as="themes/hordevetica/graphics/tab_left.png" name="themes/hordevetica/graphics/tab_left.png" />
+   <install as="themes/hordevetica/graphics/tab_right.png" name="themes/hordevetica/graphics/tab_right.png" />
+   <install as="themes/hordevetica/graphics/unlocked.png" name="themes/hordevetica/graphics/unlocked.png" />
+   <install as="themes/hordevetica/graphics/user.png" name="themes/hordevetica/graphics/user.png" />
+   <install as="themes/hordevetica/graphics/website.png" name="themes/hordevetica/graphics/website.png" />
+   <install as="themes/hordevetica/graphics/za.png" name="themes/hordevetica/graphics/za.png" />
+   <install as="themes/hordevetica/graphics/alerts/alarm.png" name="themes/hordevetica/graphics/alerts/alarm.png" />
+   <install as="themes/hordevetica/graphics/alerts/error.png" name="themes/hordevetica/graphics/alerts/error.png" />
+   <install as="themes/hordevetica/graphics/alerts/message.png" name="themes/hordevetica/graphics/alerts/message.png" />
+   <install as="themes/hordevetica/graphics/alerts/success.png" name="themes/hordevetica/graphics/alerts/success.png" />
+   <install as="themes/hordevetica/graphics/alerts/warning.png" name="themes/hordevetica/graphics/alerts/warning.png" />
+   <install as="themes/hordevetica/graphics/block/large_up.png" name="themes/hordevetica/graphics/block/large_up.png" />
+   <install as="themes/hordevetica/graphics/image/crop.png" name="themes/hordevetica/graphics/image/crop.png" />
+   <install as="themes/hordevetica/graphics/map/marker-blue.png" name="themes/hordevetica/graphics/map/marker-blue.png" />
+   <install as="themes/hordevetica/graphics/map/marker-gold.png" name="themes/hordevetica/graphics/map/marker-gold.png" />
+   <install as="themes/hordevetica/graphics/map/marker-green.png" name="themes/hordevetica/graphics/map/marker-green.png" />
+   <install as="themes/hordevetica/graphics/map/marker-shadow.png" name="themes/hordevetica/graphics/map/marker-shadow.png" />
+   <install as="themes/hordevetica/graphics/map/marker.png" name="themes/hordevetica/graphics/map/marker.png" />
+   <install as="themes/hordevetica/graphics/mime/audio.png" name="themes/hordevetica/graphics/mime/audio.png" />
+   <install as="themes/hordevetica/graphics/mime/binary.png" name="themes/hordevetica/graphics/mime/binary.png" />
+   <install as="themes/hordevetica/graphics/mime/compressed.png" name="themes/hordevetica/graphics/mime/compressed.png" />
+   <install as="themes/hordevetica/graphics/mime/deb.png" name="themes/hordevetica/graphics/mime/deb.png" />
+   <install as="themes/hordevetica/graphics/mime/encryption.png" name="themes/hordevetica/graphics/mime/encryption.png" />
+   <install as="themes/hordevetica/graphics/mime/html.png" name="themes/hordevetica/graphics/mime/html.png" />
+   <install as="themes/hordevetica/graphics/mime/icalendar.png" name="themes/hordevetica/graphics/mime/icalendar.png" />
+   <install as="themes/hordevetica/graphics/mime/image.png" name="themes/hordevetica/graphics/mime/image.png" />
+   <install as="themes/hordevetica/graphics/mime/mail.png" name="themes/hordevetica/graphics/mime/mail.png" />
+   <install as="themes/hordevetica/graphics/mime/msexcel.png" name="themes/hordevetica/graphics/mime/msexcel.png" />
+   <install as="themes/hordevetica/graphics/mime/mspowerpoint.png" name="themes/hordevetica/graphics/mime/mspowerpoint.png" />
+   <install as="themes/hordevetica/graphics/mime/msword.png" name="themes/hordevetica/graphics/mime/msword.png" />
+   <install as="themes/hordevetica/graphics/mime/ooo_calc.png" name="themes/hordevetica/graphics/mime/ooo_calc.png" />
+   <install as="themes/hordevetica/graphics/mime/ooo_draw.png" name="themes/hordevetica/graphics/mime/ooo_draw.png" />
+   <install as="themes/hordevetica/graphics/mime/ooo_impress.png" name="themes/hordevetica/graphics/mime/ooo_impress.png" />
+   <install as="themes/hordevetica/graphics/mime/ooo_math.png" name="themes/hordevetica/graphics/mime/ooo_math.png" />
+   <install as="themes/hordevetica/graphics/mime/ooo_writer.png" name="themes/hordevetica/graphics/mime/ooo_writer.png" />
+   <install as="themes/hordevetica/graphics/mime/pdf.png" name="themes/hordevetica/graphics/mime/pdf.png" />
+   <install as="themes/hordevetica/graphics/mime/php.png" name="themes/hordevetica/graphics/mime/php.png" />
+   <install as="themes/hordevetica/graphics/mime/rpm.png" name="themes/hordevetica/graphics/mime/rpm.png" />
+   <install as="themes/hordevetica/graphics/mime/script-js.png" name="themes/hordevetica/graphics/mime/script-js.png" />
+   <install as="themes/hordevetica/graphics/mime/source-c.png" name="themes/hordevetica/graphics/mime/source-c.png" />
+   <install as="themes/hordevetica/graphics/mime/source-cpp.png" name="themes/hordevetica/graphics/mime/source-cpp.png" />
+   <install as="themes/hordevetica/graphics/mime/source-h.png" name="themes/hordevetica/graphics/mime/source-h.png" />
+   <install as="themes/hordevetica/graphics/mime/source-java.png" name="themes/hordevetica/graphics/mime/source-java.png" />
+   <install as="themes/hordevetica/graphics/mime/source-python.png" name="themes/hordevetica/graphics/mime/source-python.png" />
+   <install as="themes/hordevetica/graphics/mime/text.png" name="themes/hordevetica/graphics/mime/text.png" />
+   <install as="themes/hordevetica/graphics/mime/vcard.png" name="themes/hordevetica/graphics/mime/vcard.png" />
+   <install as="themes/hordevetica/graphics/mime/video.png" name="themes/hordevetica/graphics/mime/video.png" />
+   <install as="themes/hordevetica/graphics/mime/xml.png" name="themes/hordevetica/graphics/mime/xml.png" />
+   <install as="themes/hordevetica/graphics/nav/bottom-grey.png" name="themes/hordevetica/graphics/nav/bottom-grey.png" />
+   <install as="themes/hordevetica/graphics/nav/bottom.png" name="themes/hordevetica/graphics/nav/bottom.png" />
+   <install as="themes/hordevetica/graphics/nav/down-grey.png" name="themes/hordevetica/graphics/nav/down-grey.png" />
+   <install as="themes/hordevetica/graphics/nav/down.png" name="themes/hordevetica/graphics/nav/down.png" />
+   <install as="themes/hordevetica/graphics/nav/first-grey.png" name="themes/hordevetica/graphics/nav/first-grey.png" />
+   <install as="themes/hordevetica/graphics/nav/first.png" name="themes/hordevetica/graphics/nav/first.png" />
+   <install as="themes/hordevetica/graphics/nav/last-grey.png" name="themes/hordevetica/graphics/nav/last-grey.png" />
+   <install as="themes/hordevetica/graphics/nav/last.png" name="themes/hordevetica/graphics/nav/last.png" />
+   <install as="themes/hordevetica/graphics/nav/left-grey.png" name="themes/hordevetica/graphics/nav/left-grey.png" />
+   <install as="themes/hordevetica/graphics/nav/left.png" name="themes/hordevetica/graphics/nav/left.png" />
+   <install as="themes/hordevetica/graphics/nav/right-grey.png" name="themes/hordevetica/graphics/nav/right-grey.png" />
+   <install as="themes/hordevetica/graphics/nav/right.png" name="themes/hordevetica/graphics/nav/right.png" />
+   <install as="themes/hordevetica/graphics/nav/top-grey.png" name="themes/hordevetica/graphics/nav/top-grey.png" />
+   <install as="themes/hordevetica/graphics/nav/top.png" name="themes/hordevetica/graphics/nav/top.png" />
+   <install as="themes/hordevetica/graphics/nav/up-grey.png" name="themes/hordevetica/graphics/nav/up-grey.png" />
+   <install as="themes/hordevetica/graphics/nav/up.png" name="themes/hordevetica/graphics/nav/up.png" />
+   <install as="themes/hordevetica/graphics/tree/folder.png" name="themes/hordevetica/graphics/tree/folder.png" />
+   <install as="themes/hordevetica/graphics/tree/folderopen.png" name="themes/hordevetica/graphics/tree/folderopen.png" />
+   <install as="themes/hordevetica/graphics/tree/leaf.png" name="themes/hordevetica/graphics/tree/leaf.png" />
+   <install as="themes/hordevetica/graphics/tree/rev-leaf.png" name="themes/hordevetica/graphics/tree/rev-leaf.png" />
+   <install as="themes/hordevetica/graphics/uploader/up.png" name="themes/hordevetica/graphics/uploader/up.png" />
    <install as="themes/hordeweb/info.php" name="themes/hordeweb/info.php" />
    <install as="themes/hordeweb/screen.css" name="themes/hordeweb/screen.css" />
    <install as="themes/hordeweb/webkit.css" name="themes/hordeweb/webkit.css" />
@@ -4330,23 +4612,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [cjh] Add Hordevetica theme.
+* [mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
 * [mjr] Do not show results in the tag cloud block owned by other users.
    </notes>
   </release>
   <release>
    <version>
-    <release>4.1.0</release>
-    <api>4.1.0</api></version>
+    <release>4.0.12</release>
+    <api>4.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-18</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Show notifications directly after logging into Smartphone mode.
+* [jan] Add configuration option to disable password resets (Request #10640).
    </notes>
   </release>
  </changelog>

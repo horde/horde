@@ -94,6 +94,10 @@ abstract class Horde_Core_LoginTasks_SystemTask_Upgrade extends Horde_LoginTasks
     /**
      * Perform upgrade tasks for a given version.
      *
+     * For those running a git checkout, the system task for a given version
+     * will run continuously until that version is released. Code should
+     * be added to not convert already converted values.
+     *
      * @param string $version  A version string.
      */
     abstract protected function _upgrade($version);

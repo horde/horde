@@ -5,9 +5,18 @@ v4.1-git
 [jan] Show notifications directly after logging into Smartphone mode.
 
 -----------
-v4.0.11-git
+v4.0.12-git
 -----------
 
+[jan] Add configuration option to disable password resets (Request #10640).
+
+
+-------
+v4.0.11
+-------
+
+[cjh] Add Hordevetica theme.
+[mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
 [mjr] Do not show results in the tag cloud block owned by other users.
 
 

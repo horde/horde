@@ -26,7 +26,7 @@
  * @link     http://www.horde.org/libraries/Horde_Push
  */
 class Horde_Push_Recipient_Blogger
-implements Horde_Push_Recipient
+extends Horde_Push_Recipient_Base
 {
     /**
      * The HTTP client.
@@ -45,7 +45,9 @@ implements Horde_Push_Recipient
     /**
      * Constructor.
      *
-     * @param array $params The connection details for blogger.com.
+     * @param Horde_Http_Client $client The HTTP handler for connecting to 
+     *                                  blogger.com.
+     * @param array $params             The connection details for blogger.com.
      */
     public function __construct($client, $params)
     {
@@ -57,11 +59,37 @@ implements Horde_Push_Recipient
      * Push content to the recipient.
      *
      * @param Horde_Push $content The content element.
+     * @param array      $options Additional options.
      *
      * @return NULL
      */
-    public function push(Horde_Push $content)
+    public function push(Horde_Push $content, $options = array())
     {
+        $entry = new Horde_Feed_Entry_Atom(null, $this->_client);
+
+        $types = $content->getMimeTypes();
+        if (isset($types['text/html'])) {
+            $body = $content->getStringContent($types['text/html'][0]);
+        } else if (isset($types['text/plain'])) {
+            $body = $content->getStringContent($types['text/plain'][0]);
+        } else {
+            $body = '';
+        }
+
+        /* Give the entry its initial values. */
+        $entry->{'atom:title'} = $content->getSummary();
+        $entry->{'atom:title'}['type'] = 'text';
+        $entry->{'atom:content'} = $body;
+        $entry->{'atom:content'}['type'] = 'text';
+        
+        if (!empty($options['pretend'])) {
+            return sprintf(
+                "Would push \n\n%s\n\n to %s.",
+                (string) $entry,
+                $this->_params['url']
+            );
+        }
+
         /* Authenticate. */
         $response = $this->_client->post(
             'https://www.google.com/accounts/ClientLogin',
@@ -85,22 +113,6 @@ implements Horde_Push_Recipient
             );
         }
         
-        $entry = new Horde_Feed_Entry_Atom(null, $this->_client);
-
-        if (isset($types['text/html'])) {
-            $body = $content->getStringContent($types['text/html'][0]);
-        } else if (isset($types['text/plain'])) {
-            $body = $content->getStringContent($types['text/plain'][0]);
-        } else {
-            $body = '';
-        }
-
-        /* Give the entry its initial values. */
-        $entry->{'atom:title'} = $content->getSummary();
-        $entry->{'atom:title'}['type'] = 'text';
-        $entry->{'atom:content'} = $body;
-        $entry->{'atom:content'}['type'] = 'text';
-        
         /* Do the initial post. */
         try {
             $entry->save(
@@ -110,5 +122,9 @@ implements Horde_Push_Recipient
         } catch (Horde_Exception $e) {
             throw new Horde_Push_Exception($e);
         }
+
+        return sprintf(
+            'Pushed blog entry to %s.', $this->_params['url']
+        );
     }
 }

@@ -10,25 +10,29 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Nag Task List
-Manager version H4 (3.0.4).
+Manager version H4 (3.0.5).
 
 Nag is a web-based application built upon the Horde Application Framework which
 provides a simple, clean interface for managing online task lists (i.e., todo
 lists). It also includes strong integration with the other Horde applications
 and allows users to share task lists or enable light-weight project management.
 
-The major changes compared to the Nag version H4 (3.0.3) are:
-    * Small bugfixes and improvements.
+The major changes compared to the Nag version H4 (3.0.4) are:
+    * Improved date and time fields.
+    * Added option to choose which tasklists to synchronize.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Small bugfixes and improvements.
+Improved date and time fields.
+Added option to choose which tasklists to synchronize.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Nag';

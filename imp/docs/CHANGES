@@ -7,6 +7,20 @@ v5.1-git
 v5.0.15-git
 -----------
 
+[mms] Fix verifying a PGP signed part within a PGP encrypted part.
+[mms] HTML viewer passes Email Privacy Tester
+      (http://grepular.com/email_privacy_tester/).
+[mms] Fix intermittent attachment loss when composing messages.
+[mms] Correctly reference CSS stylesheets contained within a multipart/related
+      part.
+[mms] Sanitize LINK tags contained in HTML messages.
+[mms] Fix accessing mailboxes containing ampersands (Bug #10093).
+[mjr] Only request the field values we actually need when searching the
+      contacts API.
+[mms] Fix expand all mailboxes in dynamic view (Bug #10682).
+[mms] Re-add auto-detection of MIME types for message parts that lack this
+      information.
+[mms] Add 'delete_mark_seen' preference.
 [mms] Fix accessing POP3 servers that use commas in their UIDs.
 [mms] Fix updating flags in non-selected mailbox if IMAP server does not
       support CONDSTORE/QRESYNC (Bug #10627).

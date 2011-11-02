@@ -306,7 +306,23 @@ class Horde_Themes_Css
             if ($dataurl) {
                 $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_stylesheetCallback'), $tmp);
             }
-            $out .= $tmp;
+
+            /* Scan to grab any @import tags within the CSS file. */
+            $match = array();
+            if (preg_match_all('/@import\s+url\(["\']?(.*?)["\']?\)/i', $tmp, $match)) {
+                $import = array();
+                foreach ($match[1] as $v) {
+                    $import[] = array(
+                        'fs' => realpath(dirname($file['fs']) . '/' . $v),
+                        'uri' => dirname($file['uri']) . '/' . $v
+                    );
+                }
+
+                $out .= preg_replace('/@import\s+url\([^\)]+\);?/i', '', $tmp) .
+                        $this->loadCssFiles($import);
+            } else {
+                $out .= $tmp;
+            }
         }
 
         return $out;
@@ -325,6 +341,5 @@ class Horde_Themes_Css
         /* Limit data to 16 KB in stylesheets. */
         return $matches[1] . Horde::base64ImgData($matches[2], 16384) . $matches[3];
     }
-
 
 }

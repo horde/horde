@@ -17,22 +17,28 @@ $galleryId = Horde_Util::getPost('gallery');
 
 if ($galleryId) {
     try {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
+        $gallery = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getGallery($galleryId);
     } catch (Ansel_Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
-        // Return to the default view.
         Ansel::getUrlFor('default_view', array())->redirect();
         exit;
     }
     switch ($actionID) {
     case 'delete':
         if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
-            $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
-                                        $gallery->get('name')), 'horde.error');
+            $notification->push(
+                sprintf(_("Access denied deleting gallery \"%s\"."),
+                        $gallery->get('name')), 'horde.error');
         } else {
             try {
-                $GLOBALS['injector']->getInstance('Ansel_Storage')->removeGallery($gallery);
-                $notification->push(sprintf(_("Successfully deleted %s."), $gallery->get('name')), 'horde.success');
+                $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->removeGallery($gallery);
+                $notification->push(
+                    sprintf(_("Successfully deleted %s."),
+                            $gallery->get('name')), 'horde.success');
             } catch (Ansel_Exception $e) {
                 $notification->push(sprintf(
                     _("There was a problem deleting %s: %s"),
@@ -45,7 +51,9 @@ if ($galleryId) {
 
         // Clear the OtherGalleries widget cache
         if ($conf['ansel_cache']['usecache']) {
-            $injector->getInstance('Horde_Cache')->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
+            $injector
+                ->getInstance('Horde_Cache')
+                ->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
         }
 
         // Return to the default view.
@@ -54,18 +62,24 @@ if ($galleryId) {
 
     case 'empty':
         if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
-            $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
-                                        $gallery->get('name')),
-                                'horde.error');
+            $notification->push(
+                sprintf(_("Access denied deleting gallery \"%s\"."),
+                        $gallery->get('name')),
+                'horde.error');
         } else {
-            $GLOBALS['injector']->getInstance('Ansel_Storage')->emptyGallery($gallery);
-            $notification->push(sprintf(_("Successfully emptied \"%s\""), $gallery->get('name')));
+            $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->emptyGallery($gallery);
+            $notification->push(
+                sprintf(_("Successfully emptied \"%s\""), $gallery->get('name')));
         }
-        Ansel::getUrlFor('view',
-                         array('view' => 'Gallery',
-                               'gallery' => $galleryId,
-                               'slug' => $gallery->get('slug')),
-                         true)->redirect();
+        Ansel::getUrlFor(
+            'view',
+            array(
+                'view' => 'Gallery',
+                'gallery' => $galleryId,
+                'slug' => $gallery->get('slug')),
+            true)->redirect();
         exit;
     }
 }

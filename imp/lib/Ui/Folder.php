@@ -71,25 +71,25 @@ class IMP_Ui_Folder
      *
      * @author Didi Rieder <adrieder@sbox.tugraz.at>
      *
-     * @param array $folder_list  A list of folder names to generate a mbox
-     *                            file for (UTF7-IMAP).
+     * @param array $mboxes  A list of mailbox names (UTF-8) to generate a
+     *                       mbox file for.
      *
      * @return resource  A stream resource containing the text of a mbox
      *                   format mailbox file.
      */
-    public function generateMbox($folder_list)
+    public function generateMbox($mboxes)
     {
         $body = fopen('php://temp', 'r+');
 
-        if (empty($folder_list)) {
+        if (empty($mboxes)) {
             return $body;
         }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
-        foreach ($folder_list as $folder) {
+        foreach ($mboxes as $val) {
             try {
-                $status = $imp_imap->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $imp_imap->status($val, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (IMP_Imap_Exception $e) {
                 continue;
             }
@@ -98,7 +98,7 @@ class IMP_Ui_Folder
             $query->size();
 
             try {
-                $size = $imp_imap->fetch($folder, $query, array(
+                $size = $imp_imap->fetch($val, $query, array(
                     'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
                 ));
             } catch (IMP_Imap_Exception $e) {
@@ -134,7 +134,7 @@ class IMP_Ui_Folder
 
             foreach ($slices as $slice) {
                 try {
-                    $res = $imp_imap->fetch($folder, $query, array(
+                    $res = $imp_imap->fetch($val, $query, array(
                         'ids' => $slice
                     ));
                 } catch (IMP_Imap_Exception $e) {
@@ -168,7 +168,7 @@ class IMP_Ui_Folder
     /**
      * Import a MBOX file into a mailbox.
      *
-     * @param string $mbox       The mailbox name to import into.
+     * @param string $mbox       The mailbox name to import into (UTF-8).
      * @param string $form_name  The form field name that contains the MBOX
      *                           data.
      *
@@ -179,8 +179,7 @@ class IMP_Ui_Folder
     {
         $GLOBALS['browser']->wasFileUploaded($form_name, _("mailbox file"));
 
-        $mbox = IMP_Mailbox::get(Horde_String::convertCharset($mbox, 'UTF-8', 'UTF7-IMAP'));
-        $res = $mbox->importMbox($_FILES[$form_name]['tmp_name'], $_FILES[$form_name]['type']);
+        $res = IMP_Mailbox::get($mbox)->importMbox($_FILES[$form_name]['tmp_name'], $_FILES[$form_name]['type']);
         $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES[$form_name]['name']));
 
         if ($res === false) {

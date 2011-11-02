@@ -9,9 +9,8 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandmbox, pollPE, pp, preview_replace, qsearch_ghost, resize,
-    //   rownum, search, splitbar, template, uid, view, viewaction, viewport,
-    //   viewswitch
+    //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
+    //   splitbar, template, uid, view, viewaction, viewport, viewswitch
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
 
@@ -731,9 +730,7 @@ var DimpBase = {
 
             this.toggleButtons();
             if (e.memo.opts.right || !count) {
-                if (!this.preview_replace) {
-                    this.clearPreviewPane();
-                }
+                this.clearPreviewPane();
             } else if ((count == 1) && DIMP.conf.preview_pref) {
                 this.loadPreview(sel.get('dataob').first());
             }
@@ -1470,11 +1467,14 @@ var DimpBase = {
                 this.flag('\\seen', true, { mailbox: data.mbox, uid: data.uid });
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
+
+            params = {};
         }
 
+        params.preview = 1;
         this.loadingImg('msg', true);
 
-        DimpCore.doAction('showPreview', this.viewport.addRequestParams(params || {}), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
+        DimpCore.doAction('showMessage', this.viewport.addRequestParams(params), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
     },
 
     _loadPreviewCallback: function(resp)
@@ -1484,9 +1484,9 @@ var DimpBase = {
             r = resp.response.preview,
             t = $('msgHeadersContent').down('THEAD');
 
-        bg = (this.pp &&
-              (this.pp.uid != r.uid ||
-               this.pp.mbox != r.mbox));
+        bg = (!this.pp ||
+              this.pp.uid != r.uid ||
+              this.pp.mbox != r.mbox);
 
         if (r.error || this.viewport.getSelected().size() != 1) {
             if (!bg) {
@@ -1573,18 +1573,9 @@ var DimpBase = {
 
     _stripAttachmentCallback: function(r)
     {
-        // Let the normal viewport refresh code and preview display code
-        // handle replacing the current preview. Set preview_replace to
-        // prevent a refresh flicker, since viewport refreshing would normally
-        // cause the preview pane to be cleared.
-        if (DimpCore.inAjaxCallback) {
-            this.preview_replace = true;
-            this.uid = r.response.newuid;
-            this._stripAttachmentCallback.bind(this, r).defer();
-            return;
-        }
+        this.uid = r.response.newuid;
 
-        this.preview_replace = false;
+        this._loadPreviewCallback(r);
 
         // Remove old cache value.
         this._expirePPCache([ this._getPPId(r.olduid, r.oldmbox) ]);
@@ -2684,18 +2675,21 @@ var DimpBase = {
         }, this);
     },
 
-    _folderLoadCallback: function(base, r)
+    // params: (object)
+    //   - all
+    //   - base
+    _folderLoadCallback: function(params, r)
     {
         var nf = $('normalfolders');
 
         if (r.response.expand) {
-            this.expandmbox = base ? base : true;
+            this.expandmbox = params.base ? params.base : true;
         }
         this.mailboxCallback(r);
         this.expandmbox = false;
 
-        if (base) {
-            this._toggleSubFolder(base, 'tog', false, true);
+        if (params.base) {
+            this._toggleSubFolder(params.base, params.all ? 'expall' : 'tog', false, true);
         }
 
         if (this.view) {
@@ -2840,7 +2834,7 @@ var DimpBase = {
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
-        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params.base) });
+        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params) });
     },
 
     // Folder actions.
@@ -2924,17 +2918,11 @@ var DimpBase = {
                     : $('normalfolders');
             }
 
-            /* Virtual folders are sorted on the server. */
-            if (!ob.v) {
-                if (ob.s) {
-                    tmp2 = (mbox == this.INBOX)
-                        ? []
-                        : parent_e.down().siblings();
-                } else {
-                    tmp2 = parent_e.childElements();
-                }
+            /* Virtual folders and special mailboxes are sorted on the
+             * server. */
+            if (!ob.v && !ob.s) {
                 ll = label.toLowerCase();
-                f_node = tmp2.find(function(node) {
+                f_node = parent_e.childElements().find(function(node) {
                     var l = node.retrieve('l');
                     return (l && (ll < l.toLowerCase()));
                 });

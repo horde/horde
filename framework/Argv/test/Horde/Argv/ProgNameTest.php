@@ -13,6 +13,18 @@ require_once dirname(__FILE__) . '/TestCase.php';
 
 class Horde_Argv_ProgNameTest extends Horde_Argv_TestCase
 {
+    public function setUp()
+    {
+        if (!isset($_SERVER['argv'])) {
+            $_SERVER['argv'] = array('test');
+        }
+    }
+
+    public function tearDown()
+    {
+        unset($_SERVER['argv']);
+    }
+
     public function assertUsage($parser, $expectedUsage)
     {
         $this->assertEquals($parser->getUsage(), $expectedUsage);

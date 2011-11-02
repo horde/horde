@@ -89,12 +89,12 @@ class Horde_LoginTasks_Tasklist
      */
     public function ready($advance = false)
     {
-        $tmp = array();
+        $stasks = $tasks = array();
 
         /* Always loop through system tasks first. */
         foreach ($this->_stasks as $key => $val) {
             if (!$val->skip()) {
-                $tmp[] = $val;
+                $stasks[] = $val;
                 unset($this->_stasks[$key]);
             }
         }
@@ -104,15 +104,15 @@ class Horde_LoginTasks_Tasklist
             if ($v->needsDisplay() && ($k >= $this->_ptr)) {
                 break;
             }
-            $tmp[] = $v;
+            $tasks[] = $v;
         }
 
         if ($advance) {
-            $this->_tasks = array_slice($this->_tasks, count($tmp));
+            $this->_tasks = array_slice($this->_tasks, count($tasks));
             $this->_ptr = 0;
         }
 
-        return $tmp;
+        return array_merge($stasks, $tasks);
     }
 
     /**

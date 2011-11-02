@@ -74,31 +74,43 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                         $events[] = $fullevent ? $event : $event->id;
                     }
                 } else {
-                    if ($next = $event->recurrence->nextRecurrence($date)) {
+                    // Need to start at the beginning of the day to catch the
+                    // case where we might be within the event's timespan
+                    // when we call this, hence nextRecurrence() would miss the
+                    // current event.
+                    $start = clone $date;
+                    $start->min = 0;
+                    $start->hour = 0;
+                    $start->sec = 0;
+                    if ($next = $event->recurrence->nextRecurrence($start)) {
                         if ($event->recurrence->hasException($next->year, $next->month, $next->mday)) {
                             continue;
                         }
                         $start = new Horde_Date($next);
                         $start->min -= $event->alarm;
-                        $diff = Date_Calc::dateDiff($event->start->mday,
-                                                    $event->start->month,
-                                                    $event->start->year,
-                                                    $event->end->mday,
-                                                    $event->end->month,
-                                                    $event->end->year);
+                        $diff = Date_Calc::dateDiff(
+                            $event->start->mday,
+                            $event->start->month,
+                            $event->start->year,
+                            $event->end->mday,
+                            $event->end->month,
+                            $event->end->year
+                        );
                         if ($diff == -1) {
                             $diff = 0;
                         }
-                        $end = new Horde_Date(array('year' => $next->year,
-                                                    'month' => $next->month,
-                                                    'mday' => $next->mday + $diff,
-                                                    'hour' => $event->end->hour,
-                                                    'min' => $event->end->min,
-                                                    'sec' => $event->end->sec));
+                        $end = new Horde_Date(array(
+                            'year' => $next->year,
+                            'month' => $next->month,
+                            'mday' => $next->mday + $diff,
+                            'hour' => $event->end->hour,
+                            'min' => $event->end->min,
+                            'sec' => $event->end->sec)
+                        );
                         if ($start->compareDateTime($date) <= 0 &&
                             $date->compareDateTime($end) <= -1) {
                             if ($fullevent) {
-                                $event->start = $start;
+                                $event->start = $next;
                                 $event->end = $end;
                                 $events[] = $event;
                             } else {

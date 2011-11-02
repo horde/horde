@@ -11,8 +11,8 @@
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Form
  */
-class Horde_Form_VarRenderer {
-
+class Horde_Form_VarRenderer
+{
     /**
      * Renders a variable.
      *
@@ -43,5 +43,4 @@ class Horde_Form_VarRenderer {
     {
         return '';
     }
-
 }

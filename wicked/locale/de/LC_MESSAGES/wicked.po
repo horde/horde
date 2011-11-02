@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
-"PO-Revision-Date: 2011-09-20 13:53+0200\n"
+"POT-Creation-Date: 2011-11-01 12:58+0100\n"
+"PO-Revision-Date: 2011-11-01 12:59+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Page/StandardPage.php:285
+#: lib/Page/StandardPage.php:287
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -55,7 +55,7 @@ msgstr "(Keine)"
 msgid "Actions"
 msgstr "Aktionen"
 
-#: lib/Page/AddPage.php:101
+#: lib/Page/AddPage.php:102
 #, php-format
 msgid "Add Page: %s"
 msgstr "Seite anlegen: %s"
@@ -114,11 +114,10 @@ msgstr "Anhänge"
 msgid "Attachments with spaces can't be embedded into a page."
 msgstr "Anhänge mit Leerzeichen können nicht in eine Seite eingebettet werden."
 
-#: lib/Page/Search.php:144 templates/edit/create.inc:19
-#: templates/history/header.inc:23 templates/pagelist/header.inc:7
-#: templates/sync/diff.inc:25 templates/sync/diff.inc:61
-#: templates/sync/list.inc:24 templates/sync/list.inc:50
-#: templates/display/AttachedFiles.html:10
+#: templates/edit/create.inc:19 templates/history/header.inc:23
+#: templates/pagelist/header.inc:7 templates/sync/diff.inc:25
+#: templates/sync/diff.inc:61 templates/sync/list.inc:24
+#: templates/sync/list.inc:50 templates/display/AttachedFiles.html:10
 msgid "Author"
 msgstr "Autor"
 
@@ -139,7 +138,7 @@ msgstr "Rückverweise"
 msgid "Backlinks: %s"
 msgstr "Rückverweise: %s"
 
-#: lib/Page/SyncPages.php:232 lib/Page/SyncPages.php:235
+#: lib/Page/SyncPages.php:229 lib/Page/SyncPages.php:232
 msgid "By default, your login data will be used"
 msgstr "Standardmäßig werden Ihre Anmeldedaten verwendet"
 
@@ -217,12 +216,15 @@ msgstr "Erstellen fehlgeschlagen: %s"
 msgid "Created"
 msgstr "Erstellt"
 
-#: lib/Page/Search.php:145 templates/edit/create.inc:20
-#: templates/pagelist/header.inc:8
+#: templates/edit/create.inc:20 templates/pagelist/header.inc:8
 msgid "Creation Date"
 msgstr "Erstelldatum"
 
-#: lib/Page/SyncPages.php:217
+#: lib/Page/Search.php:143
+msgid "Current Version"
+msgstr "Aktuelle Version"
+
+#: lib/Page/SyncPages.php:214
 msgid "Custom"
 msgstr "Angepasst"
 
@@ -270,7 +272,7 @@ msgstr "Unterschiede zu"
 msgid "Diff for %s between %s and %s"
 msgstr "Unterschiede in %s zwischen %s und %s"
 
-#: lib/Page/SyncPages.php:237
+#: lib/Page/SyncPages.php:234
 msgid "Display"
 msgstr "Anzeige"
 
@@ -292,7 +294,7 @@ msgstr "Herunterladen"
 msgid "Download this page as:"
 msgstr "Diese Seite herunterladen als: "
 
-#: lib/Page/SyncPages.php:352
+#: lib/Page/SyncPages.php:349
 msgid "Downloaded from remote server"
 msgstr "Vom externen Server heruntergeladen"
 
@@ -300,11 +302,11 @@ msgstr "Vom externen Server heruntergeladen"
 msgid "Downloads"
 msgstr "Downloads"
 
-#: lib/Page/SyncPages.php:223
+#: lib/Page/SyncPages.php:220
 msgid "Driver"
 msgstr "Treiber"
 
-#: lib/Page/SyncPages.php:240
+#: lib/Page/SyncPages.php:237
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -350,7 +352,7 @@ msgstr "Fehler beim Lesen von %s: %s"
 msgid "Error retrieving attachments: %s"
 msgstr "Fehler beim Lesen der Anhänge: %s"
 
-#: lib/Page/AddPage.php:63
+#: lib/Page/AddPage.php:64
 #, php-format
 msgid "Error retrieving templates: %s"
 msgstr "Fehler beim Laden der Vorlage: %s"
@@ -359,7 +361,7 @@ msgstr "Fehler beim Laden der Vorlage: %s"
 msgid "Exact Match"
 msgstr "Genaue Treffer"
 
-#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:257
+#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:254
 msgid "Fetch page list"
 msgstr "Seitenliste herunterladen"
 
@@ -410,10 +412,18 @@ msgstr "Interner Fehler beim Anzeigen dieser Seite: %s"
 msgid "Invalid page requested."
 msgstr "Ungültige Seite angefordert."
 
+#: lib/Page/Search.php:144
+msgid "Last Author"
+msgstr "Letzter Autor"
+
 #: templates/display/title.inc:6 templates/edit/standard.inc:20
 #, php-format
 msgid "Last Modified %s by %s"
 msgstr "Letzte Änderung am %s durch %s"
+
+#: lib/Page/Search.php:145
+msgid "Last Update"
+msgstr "Letzte Aktualisierung"
 
 #: templates/display/standard.inc:142
 msgid "Latex"
@@ -508,7 +518,7 @@ msgstr "Neue Seiten auf dem lokalen Server"
 msgid "New pages on remote server"
 msgstr "Neue Seiten auf dem externen Server"
 
-#: lib/Api.php:188 lib/Page/EditPage.php:167 lib/Page/SyncPages.php:349
+#: lib/Api.php:188 lib/Page/EditPage.php:167 lib/Page/SyncPages.php:346
 msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
@@ -531,13 +541,13 @@ msgstr "Seite"
 msgid "Page \"%s\" already exists."
 msgstr "Die Seite \"%s\" existiert bereits."
 
-#: lib/Page/SyncPages.php:375
+#: lib/Page/SyncPages.php:372
 #, php-format
 msgid "Page \"%s\" was sucessfully uploaded from local to remote wiki."
 msgstr ""
 "Die Seite \"%s\" wurde erfolgreich vom lokalen zum externen Wiki hochgeladen."
 
-#: lib/Page/SyncPages.php:361
+#: lib/Page/SyncPages.php:358
 #, php-format
 msgid "Page \"%s\" was sucessfuly downloaded from remote to local wiki."
 msgstr ""
@@ -578,7 +588,7 @@ msgstr "Fehler beim Sperren der Seite: %s"
 msgid "Page failed to unlock: %s"
 msgstr "Fehler beim Freigeben der Seite: %s"
 
-#: lib/Driver/Sql.php:559 lib/Page/AddPage.php:48 lib/Page/NewPage.php:65
+#: lib/Driver/Sql.php:555 lib/Page/AddPage.php:49 lib/Page/NewPage.php:65
 msgid "Page name must not be empty"
 msgstr "Der Seitenname darf nicht leer sein."
 
@@ -598,7 +608,7 @@ msgstr "Seiten dürfen nicht leer sein."
 msgid "Pages to sync"
 msgstr "Zu synchronsierende Seiten"
 
-#: lib/Page/SyncPages.php:235
+#: lib/Page/SyncPages.php:232
 msgid "Password"
 msgstr "Passwort"
 
@@ -614,7 +624,7 @@ msgstr "Zugriff verweigert."
 msgid "Plain Text"
 msgstr "Einfacher Text"
 
-#: lib/Page/SyncPages.php:226
+#: lib/Page/SyncPages.php:223
 msgid "Prefix"
 msgstr "Präfix"
 
@@ -653,7 +663,7 @@ msgstr "Seite aktualisieren"
 msgid "Remote"
 msgstr "Extern"
 
-#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:282
+#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:279
 msgid "Remove login info"
 msgstr "Anmeldedaten entfernen"
 
@@ -667,7 +677,7 @@ msgstr "\"%s\" nach \"%s\" umbenannt."
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr "\"%s\" nach \"%s\" umbenannt. Neue Seite: %s\n"
 
-#: lib/Driver/Sql.php:627
+#: lib/Driver/Sql.php:623
 #, php-format
 msgid "Renamed page from %s"
 msgstr "Seite umbenannt von %s"
@@ -698,7 +708,7 @@ msgstr "Version %s wiederherstellen"
 msgid "Reverted to version %s of \"%s\"."
 msgstr "Version %s von \"%s\" wiederhergestellt."
 
-#: lib/Driver/Sql.php:563
+#: lib/Driver/Sql.php:559
 msgid "Robots are not allowed to create pages"
 msgstr "Roboter dürfen keine Seiten erstellen"
 
@@ -710,11 +720,11 @@ msgstr "Ähnl_iche Seiten"
 msgid "Save"
 msgstr "Speichern"
 
-#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:271
+#: lib/Page/SyncPages.php:179 lib/Page/SyncPages.php:268
 msgid "Save login info"
 msgstr "Anmeldedaten speichern"
 
-#: lib/Page/Search.php:190 templates/menu.inc:17
+#: lib/Page/Search.php:195 templates/menu.inc:17
 msgid "Search"
 msgstr "Suche"
 
@@ -767,7 +777,7 @@ msgstr "Spamschutz - Geben sie die Buchstaben unten ein:"
 msgid "Stop and don't do anything"
 msgstr "abbrechen und nichts ändern"
 
-#: lib/Page/SyncPages.php:217
+#: lib/Page/SyncPages.php:214
 msgid "Stored"
 msgstr "Gespeichert"
 
@@ -797,11 +807,11 @@ msgstr "Synchronisations-Seiten"
 msgid "Sync data"
 msgstr "Daten synchronisieren"
 
-#: lib/Page/SyncPages.php:287
+#: lib/Page/SyncPages.php:284
 msgid "Sync login info was removed."
 msgstr "Anmeldedaten wurden entfernt."
 
-#: lib/Page/SyncPages.php:278
+#: lib/Page/SyncPages.php:275
 msgid "Sync login info was stored"
 msgstr "Die Anmeldedaten für die Synchronisation wurden gespeichert"
 
@@ -809,11 +819,11 @@ msgstr "Die Anmeldedaten für die Synchronisation wurden gespeichert"
 msgid "Synchronization is disabled"
 msgstr "Synchronisation ist deaktiviert"
 
-#: lib/Page.php:459
+#: lib/Page.php:461
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
 
-#: lib/Page/StandardPage.php:253
+#: lib/Page/StandardPage.php:255
 msgid "The page is already locked."
 msgstr "Die Seite ist bereits gesperrt."
 
@@ -844,15 +854,15 @@ msgstr "Auf diese Seite wird von %d anderen Seite(n) verwiesen."
 msgid "Un_lock"
 msgstr "_Freigeben"
 
-#: lib/Page/StandardPage.php:70
+#: lib/Page/StandardPage.php:72
 #, php-format
 msgid "Unable to create %s"
 msgstr "%s kann nicht erstellt werden"
 
-#: lib/Page/StandardPage.php:80
-msgid "Unable to create WikiHome. The wiki is not configured."
+#: lib/Page/StandardPage.php:82
+msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr ""
-"WikiHome kann nicht erstellt werden. Das Wiki wurde nicht konfiguriert."
+"Wiki/Home kann nicht erstellt werden. Das Wiki wurde nicht konfiguriert."
 
 #: templates/display/standard.inc:34
 #, php-format
@@ -860,9 +870,9 @@ msgid "Unlock %s"
 msgstr "%s freigeben"
 
 #: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
-#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:499
-#: lib/Page.php:510 lib/Page.php:515 lib/Page.php:520 lib/Page.php:525
-#: lib/Page.php:565
+#: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:501
+#: lib/Page.php:512 lib/Page.php:517 lib/Page.php:522 lib/Page.php:527
+#: lib/Page.php:567
 msgid "Unsupported"
 msgstr "Nicht unterstützt"
 
@@ -883,23 +893,22 @@ msgstr "Anhang \"%s\" von Seite \"%s\" aktualisiert."
 msgid "Upload"
 msgstr "Hochladen"
 
-#: lib/Page/SyncPages.php:374
+#: lib/Page/SyncPages.php:371
 msgid "Uploaded from remote server"
 msgstr "Hochgeladen vom externen Server"
 
-#: lib/Page/SyncPages.php:229
+#: lib/Page/SyncPages.php:226
 msgid "Url"
 msgstr "Url"
 
-#: lib/Page/SyncPages.php:232
+#: lib/Page/SyncPages.php:229
 msgid "User"
 msgstr "Benutzer"
 
-#: lib/Page/Search.php:143 templates/edit/create.inc:18
-#: templates/history/header.inc:13 templates/pagelist/header.inc:6
-#: templates/sync/diff.inc:23 templates/sync/diff.inc:59
-#: templates/sync/list.inc:22 templates/sync/list.inc:48
-#: templates/display/AttachedFiles.html:9
+#: templates/edit/create.inc:18 templates/history/header.inc:13
+#: templates/pagelist/header.inc:6 templates/sync/diff.inc:23
+#: templates/sync/diff.inc:59 templates/sync/list.inc:22
+#: templates/sync/list.inc:48 templates/display/AttachedFiles.html:9
 msgid "Version"
 msgstr "Version"
 
@@ -953,7 +962,7 @@ msgid "You don't have permission to delete \"%s\"."
 msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu löschen."
 
 #: lib/Api.php:170 lib/Page/EditPage.php:149 lib/Page/RevertPage.php:122
-#: lib/Page/SyncPages.php:343
+#: lib/Page/SyncPages.php:340
 #, php-format
 msgid "You don't have permission to edit \"%s\"."
 msgstr "Sie haben nicht genügend Rechte, um \"%s\" zu bearbeiten."
@@ -970,7 +979,7 @@ msgstr "Sie müssen einen Änderungseintrag eingeben, um diese Datei anzuhängen
 msgid "You must provide a change log."
 msgstr "Sie müssen einen Änderungseintrag angeben."
 
-#: lib/Wicked.php:105
+#: lib/Wicked.php:106
 msgid "_All Pages"
 msgstr "_Alle Seiten"
 
@@ -986,7 +995,7 @@ msgstr "Lös_chen"
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
-#: lib/Wicked.php:102
+#: lib/Wicked.php:103
 msgid "_Home"
 msgstr "_Startseite"
 
@@ -998,15 +1007,15 @@ msgstr "S_perren"
 msgid "_Merge/Rename"
 msgstr "_Umbenennen"
 
-#: lib/Wicked.php:104
+#: lib/Wicked.php:105
 msgid "_Recent Changes"
 msgstr "_Letzte Änderungen"
 
-#: lib/Wicked.php:103
+#: lib/Wicked.php:104
 msgid "_Usage"
 msgstr "Anleitung"
 
-#: lib/Page/StandardPage.php:279
+#: lib/Page/StandardPage.php:281
 msgid "a guest"
 msgstr "einem Gast"
 

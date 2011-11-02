@@ -25,6 +25,13 @@ class Horde_Image_Test_Exif_Base extends Horde_Test_Case
      */
     protected static $_data;
 
+    public function setUp()
+    {
+        if (self::$_exif === null) {
+            $this->markTestSkipped('Setup is missing!');
+        }
+    }
+
     /**
      * Tests ability to extract EXIF data without errors. Does not test
      * data for validity.

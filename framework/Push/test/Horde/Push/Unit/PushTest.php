@@ -129,4 +129,23 @@ extends Horde_Push_TestCase
         $this->assertInstanceOf('Horde_Push', $push->addRecipient($mock));
     }
 
+    public function testReturn()
+    {
+        $push = new Horde_Push();
+        $mock = new Horde_Push_Recipient_Mock();
+        $result = $push->addRecipient($mock)
+            ->setSummary('Test')
+            ->push();
+        $this->assertEquals(array('Pushed "Test".'), $result);
+    }
+
+    public function testPretend()
+    {
+        $push = new Horde_Push();
+        $mock = new Horde_Push_Recipient_Mock();
+        $result = $push->addRecipient($mock)
+            ->setSummary('Test')
+            ->push(array('pretend' => true));
+        $this->assertEquals(array('Would push "Test".'), $result);
+    }
 }

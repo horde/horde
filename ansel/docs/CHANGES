@@ -1,7 +1,29 @@
+----------
+v2.0.1-git
+----------
+
+
+
+----
+v2.0
+----
+
+[mjr] Add pref to allow explicitly turning off the new ajax uploader.
+[mjr] Fix invalid image type errors when uploading in older versions of
+      mozilla.
+[mjr] Fix issue with deleting galleries in date mode with key images (Bug
+      #10671).
+
 --------
-v2.0-git
+v2.0-RC2
 --------
 
+[jan] Fix page output of popup for updating dates of multiple images (Bug
+      #10676).
+[jan] Fix initialization of editor for creating ecards (Bug #10675).
+[mjr] Fix issue causing uploads to fail in certain cases on IE.
+[mjr] Display localized date strings when grouping galleries by date (Bug
+      #10669).
 [mjr] Improve gallery property editing when jpg image format is configured.
 [jan] Add Slovak translation (Martin Matuška <martin@matuska.org>).
 [mjr] Allow filtering listTagInfo results by user.

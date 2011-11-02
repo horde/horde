@@ -292,10 +292,8 @@
  *       effect. By default, IMAP messages are output in the IMAP server
  *       default language. (IMAP only)
  *
- * namespace: (array) The list of namespaces that exist on the server. The
- *            entries must be encoded in the UTF7-IMAP charset. Example:
- *
- *              array('#shared/', '#news/', '#public/')
+ * namespace: (array) The list of namespaces that exist on the server.
+ *            Example:  array('#shared/', '#news/', '#public/')
  *
  *            This parameter should only be used if you want to allow access
  *            to namespaces that may not be publicly advertised by the IMAP

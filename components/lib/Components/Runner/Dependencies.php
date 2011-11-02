@@ -58,9 +58,15 @@ class Components_Runner_Dependencies
 
     public function run()
     {
-        $this->_dependencies->listTree(
-            $this->_config->getComponent(),
-            $this->_config->getOptions()
-        );
+        $options = $this->_config->getOptions();
+        if (!empty($options['no_tree'])) {
+            print Horde_Yaml::dump(
+                $this->_config->getComponent()->getDependencies()
+            );
+        } else {
+            $this->_dependencies->listTree(
+                $this->_config->getComponent(), $options
+            );
+        }
     }
 }

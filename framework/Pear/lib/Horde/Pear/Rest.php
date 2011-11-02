@@ -59,10 +59,22 @@ class Horde_Pear_Rest
      * @param Horde_Http_Client $client The HTTP client.
      * @param string            $url    The URL for the remote PEAR server.
      */
-    public function __construct(Horde_Http_Client $client, $url)
+    public function __construct($client, $url)
     {
         $this->_client = $client;
         $this->_url = $url;
+    }
+
+    /**
+     * Set the server name.
+     *
+     * @params string $server The server name.
+     *
+     * @return NULL
+     */
+    public function setServer($server)
+    {
+        $this->_url = 'http://' . $server;
     }
 
     /**

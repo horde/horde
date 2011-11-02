@@ -133,7 +133,8 @@
    an average sized mobile image. Note also that if you are using localhost or
    something similar as the server name, this will fail.">false</configboolean>
    <configstring name="num_uploads" desc="How many photos should a user be
-   allowed to upload at once?">5</configstring>
+   allowed to upload at once? This setting only applies to the non-javascript
+   uploader.">5</configstring>
    <configstring name="font" required="false" desc="What font would you like
    to use when watermarking photos? If you leave this blank, the default for
    the particular photo manipulation functions will be used. Make sure you

@@ -242,8 +242,18 @@ default:
     Horde::url('list.php', true)->redirect();
 }
 
+$datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
+if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
+    $datejs = 'en-US.js';
+}
+Horde::addScriptFile('date/' . $datejs, 'horde');
+Horde::addScriptFile('date/date.js', 'horde');
+Horde::addScriptFile('keynavlist.js', 'horde');
+Horde::addScriptFile('task.js', 'nag');
+
 $title = $form->getTitle();
 require $registry->get('templates', 'horde') . '/common-header.inc';
+require NAG_TEMPLATES . '/javascript_defs.php';
 echo Nag::menu();
 Nag::status();
 $form->renderActive();

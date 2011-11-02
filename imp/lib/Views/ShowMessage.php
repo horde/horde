@@ -58,42 +58,34 @@ class IMP_Views_ShowMessage
      *   - uid: (integer) The UID of the message.
      *
      * @return array  Array with the following keys:
-     * <pre>
-     * FOR BOTH MODES:
-     * 'atc_download' - The download all link
-     * 'atc_label' - The label to use for Attachments
-     * 'atc_list' - The list (HTML code) of attachments
-     * 'cc' - The CC addresses
-     * 'error' - Contains an error message (only on error)
-     * 'errortype' - Contains the error type (only on error)
-     * 'from' - The From addresses
-     * 'js' - Javascript code to run on display
-     * 'log' - Log information
-     * 'mbox' - The IMAP mailbox (base64url encoded)
-     * 'msgtext' - The text of the message
-     * 'save_as' - The save link
-     * 'subject' - The subject
-     * 'to' - The To addresses
-     * 'uid' - The IMAP UID
+     *   - atc_download: The download all link
+     *   - atc_label: The label to use for Attachments
+     *   - atc_list: The list (HTML code) of attachments
+     *   - bcc (FULL): The Bcc addresses
+     *   - cc: The CC addresses
+     *   - from: The From addresses
+     *   - headers (FULL): An array of headers (not including basic headers)
+     *   - js: Javascript code to run on display
+     *   - list_info (FULL): List information.
+     *   - localdate (PREVIEW): The date formatted to the user's timezone
+     *   - log: Log information
+     *   - mbox: The mailbox (base64url encoded)
+     *   - msgtext: The text of the message
+     *   - priority (FULL): The priority of the message (low, high, normal)
+     *   - replyTo (FULL): The Reply-to addresses
+     *   - save_as: The save link
+     *   - subject: The subject
+     *   - title (FULL): The title of the page
+     *   - to: The To addresses
+     *   - uid: The message UID
      *
-     * FOR PREVIEW MODE:
-     * 'localdate' - The date formatted to the user's timezone
-     *
-     * FOR NON-PREVIEW MODE:
-     * 'bcc' - The Bcc addresses
-     * 'headers' - An array of headers (not including basic headers)
-     * 'list_info' - List information.
-     * 'priority' - The priority of the message ('low', 'high', 'normal')
-     * 'replyTo' - The Reply-to addresses
-     * 'title' - The title of the page
-     * </pre>
+     * @throws IMP_Exception
      */
     public function showMessage($args)
     {
         $preview = !empty($args['preview']);
         $mailbox = $args['mailbox'];
         $uid = $args['uid'];
-        $error_msg = _("Requested message not found.");
 
         $result = array(
             'js' => array(),
@@ -106,7 +98,6 @@ class IMP_Views_ShowMessage
 
         /* Get envelope/header information. We don't use flags in this
          * view. */
-        $imp_contents = null;
         try {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
@@ -119,14 +110,14 @@ class IMP_Views_ShowMessage
                 'ids' => $imp_imap->getIdsOb($uid)
             ));
 
+            if (!isset($fetch_ret[$uid])) {
+                throw new Exception();
+            }
+
             /* Parse MIME info and create the body of the message. */
             $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
-        } catch (Exception $e) {}
-
-        if (is_null($imp_contents)) {
-            $result['error'] = $error_msg;
-            $result['errortype'] = 'horde.error';
-            return $result;
+        } catch (Exception $e) {
+            throw new IMP_Exception(_("Requested message not found."));
         }
 
         $envelope = $fetch_ret[$uid]->getEnvelope();
@@ -185,7 +176,7 @@ class IMP_Views_ShowMessage
         }
 
         if (empty($result['reply-to']) ||
-            (Horde_Mime_Address::bareAddress($result['from']) == Horde_Mime_Address::bareAddress($result['reply-to']))) {
+            (Horde_Mime_Address::bareAddress($result['from'][0]) == Horde_Mime_Address::bareAddress($result['reply-to'][0]))) {
             unset($result['reply-to'], $headers['reply-to']);
         }
 
@@ -202,11 +193,7 @@ class IMP_Views_ShowMessage
             $result['log'] = $tmp;
         }
 
-        if ($preview) {
-            /* Get minidate. */
-            $imp_mailbox_ui = new IMP_Ui_Mailbox();
-            $result['localdate'] = htmlspecialchars($imp_mailbox_ui->getDate($envelope->date));
-        } else {
+        if (!$preview) {
             /* Display the user-specified headers for the current identity. */
             $user_hdrs = $imp_ui->getUserHeaders();
             foreach ($user_hdrs as $user_hdr) {

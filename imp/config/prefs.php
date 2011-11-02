@@ -93,10 +93,7 @@ $_prefs['sent_mail_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
-    // will do the necessary conversion.
-    'value' => Horde_String::convertCharset('Sent', 'UTF-8', 'UTF7-IMAP')
+    'value' => 'Sent'
     // Exchange servers use this default value instead.
     // 'value' => 'Sent Items'
 );
@@ -451,10 +448,7 @@ $_prefs['drafts_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
-    // will do the necessary conversion.
-    'value' => Horde_String::convertCharset('Drafts', 'UTF-8', 'UTF7-IMAP')
+    'value' => 'Drafts'
 );
 
 // closing window after saving a draft?
@@ -701,8 +695,8 @@ $prefGroups['delmove'] = array(
     'label' => _("Deleting and Moving Messages"),
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array(
-        'mailbox_return', 'use_trash', 'trashselect', 'empty_trash_menu',
-        'purge_trash_interval', 'purge_trash_keep'
+        'mailbox_return', 'delete_mark_seen', 'use_trash', 'trashselect',
+        'empty_trash_menu', 'purge_trash_interval', 'purge_trash_keep'
     )
 );
 
@@ -711,6 +705,14 @@ $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?")
+);
+
+// should messages be marked as 'Seen' when deleted?
+$_prefs['delete_mark_seen'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Mark messages as Seen when deleting?")
 );
 
 // should we move messages to a trash folder instead of just marking
@@ -731,10 +733,7 @@ $_prefs['trash_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
-    // will do the necessary conversion.
-    'value' => Horde_String::convertCharset('Trash', 'UTF-8', 'UTF7-IMAP')
+    'value' => 'Trash'
     // Exchange servers use this default value instead.
     // 'value' => 'Deleted Items'
 );
@@ -793,10 +792,7 @@ $_prefs['spam_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
     // automatically. This entry only needs to be changed if the mailbox name
     // on the IMAP server is different than this value.
-    // If the mailbox value contains non-ASCII characters, it must be encoded
-    // in the UTF7-IMAP charset (RFC 3501 [5.1.3]). This convertCharset() call
-    // will do the necessary conversion.
-    'value' => Horde_String::convertCharset('Spam', 'UTF-8', 'UTF7-IMAP')
+    'value' => 'Spam'
 );
 
 // What should we do with spam messages after reporting them?
