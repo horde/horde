@@ -31,11 +31,13 @@ For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
 The major changes compared to the Horde version 4.0.10 are:
+    * Added Hordevetica theme.
     * Small bugfixes.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Added Hordevetica theme.
 Small bugfixes.
 FM;
 

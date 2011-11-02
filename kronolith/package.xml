@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-21</date>
- <time>11:36:14</time>
+ <date>2011-11-02</date>
+ <time>13:03:46</time>
  <version>
   <release>3.0.11</release>
   <api>3.0.0</api>
@@ -664,9 +664,11 @@
       <file name="exception-fff.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="goto.png" role="horde" />
+      <file name="help.png" role="horde" />
       <file name="kronolith.png" role="horde" />
       <file name="left.png" role="horde" />
       <file name="loading.gif" role="horde" />
+      <file name="logout.png" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="monthview.png" role="horde" />
       <file name="new.png" role="horde" />
@@ -676,6 +678,7 @@
       <file name="new_task.png" role="horde" />
       <file name="picker.png" role="horde" />
       <file name="plus.png" role="horde" />
+      <file name="prefs.png" role="horde" />
       <file name="print.png" role="horde" />
       <file name="private-000.png" role="horde" />
       <file name="private-fff.png" role="horde" />
@@ -696,6 +699,7 @@
      <file name="mobile.css" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="screen.css" role="horde" />
+     <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
     <dir name="fadetogreen">
      <dir name="graphics">
@@ -738,9 +742,11 @@
       <file name="exception-fff.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="goto.png" role="horde" />
+      <file name="help.png" role="horde" />
       <file name="kronolith.png" role="horde" />
       <file name="left.png" role="horde" />
       <file name="loading.gif" role="horde" />
+      <file name="logout.png" role="horde" />
       <file name="menu-active.png" role="horde" />
       <file name="menu.png" role="horde" />
       <file name="minus.png" role="horde" />
@@ -751,6 +757,7 @@
       <file name="new_task.png" role="horde" />
       <file name="picker.png" role="horde" />
       <file name="plus.png" role="horde" />
+      <file name="prefs.png" role="horde" />
       <file name="print.png" role="horde" />
       <file name="private-000.png" role="horde" />
       <file name="private-fff.png" role="horde" />
@@ -1437,6 +1444,7 @@
    <install as="kronolith/themes/default/mobile.css" name="themes/default/mobile.css" />
    <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
    <install as="kronolith/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="kronolith/themes/default/webkit.css" name="themes/default/webkit.css" />
    <install as="kronolith/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="kronolith/themes/default/graphics/agenda.png" name="themes/default/graphics/agenda.png" />
    <install as="kronolith/themes/default/graphics/alarm-000.png" name="themes/default/graphics/alarm-000.png" />
@@ -1469,9 +1477,11 @@
    <install as="kronolith/themes/default/graphics/exception-fff.png" name="themes/default/graphics/exception-fff.png" />
    <install as="kronolith/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="kronolith/themes/default/graphics/goto.png" name="themes/default/graphics/goto.png" />
+   <install as="kronolith/themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
    <install as="kronolith/themes/default/graphics/kronolith.png" name="themes/default/graphics/kronolith.png" />
    <install as="kronolith/themes/default/graphics/left.png" name="themes/default/graphics/left.png" />
    <install as="kronolith/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
+   <install as="kronolith/themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />
    <install as="kronolith/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
    <install as="kronolith/themes/default/graphics/monthview.png" name="themes/default/graphics/monthview.png" />
    <install as="kronolith/themes/default/graphics/new.png" name="themes/default/graphics/new.png" />
@@ -1481,6 +1491,7 @@
    <install as="kronolith/themes/default/graphics/new_task.png" name="themes/default/graphics/new_task.png" />
    <install as="kronolith/themes/default/graphics/picker.png" name="themes/default/graphics/picker.png" />
    <install as="kronolith/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
+   <install as="kronolith/themes/default/graphics/prefs.png" name="themes/default/graphics/prefs.png" />
    <install as="kronolith/themes/default/graphics/print.png" name="themes/default/graphics/print.png" />
    <install as="kronolith/themes/default/graphics/private-000.png" name="themes/default/graphics/private-000.png" />
    <install as="kronolith/themes/default/graphics/private-fff.png" name="themes/default/graphics/private-fff.png" />
@@ -1528,9 +1539,11 @@
    <install as="kronolith/themes/silver/graphics/exception-fff.png" name="themes/silver/graphics/exception-fff.png" />
    <install as="kronolith/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
    <install as="kronolith/themes/silver/graphics/goto.png" name="themes/silver/graphics/goto.png" />
+   <install as="kronolith/themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
    <install as="kronolith/themes/silver/graphics/kronolith.png" name="themes/silver/graphics/kronolith.png" />
    <install as="kronolith/themes/silver/graphics/left.png" name="themes/silver/graphics/left.png" />
    <install as="kronolith/themes/silver/graphics/loading.gif" name="themes/silver/graphics/loading.gif" />
+   <install as="kronolith/themes/silver/graphics/logout.png" name="themes/silver/graphics/logout.png" />
    <install as="kronolith/themes/silver/graphics/menu-active.png" name="themes/silver/graphics/menu-active.png" />
    <install as="kronolith/themes/silver/graphics/menu.png" name="themes/silver/graphics/menu.png" />
    <install as="kronolith/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
@@ -1541,6 +1554,7 @@
    <install as="kronolith/themes/silver/graphics/new_task.png" name="themes/silver/graphics/new_task.png" />
    <install as="kronolith/themes/silver/graphics/picker.png" name="themes/silver/graphics/picker.png" />
    <install as="kronolith/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
+   <install as="kronolith/themes/silver/graphics/prefs.png" name="themes/silver/graphics/prefs.png" />
    <install as="kronolith/themes/silver/graphics/print.png" name="themes/silver/graphics/print.png" />
    <install as="kronolith/themes/silver/graphics/private-000.png" name="themes/silver/graphics/private-000.png" />
    <install as="kronolith/themes/silver/graphics/private-fff.png" name="themes/silver/graphics/private-fff.png" />
@@ -1901,7 +1915,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-21</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix alarms for recurring events (Bug #10678).
