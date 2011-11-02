@@ -22,15 +22,15 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-28</date>
- <time>00:05:01</time>
+ <date>2011-11-02</date>
+ <time>14:42:58</time>
  <version>
   <release>2.0.0</release>
-  <api>2.0.0RC2</api>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -1245,11 +1245,11 @@
   <release>
    <version>
     <release>2.0.0</release>
-    <api>2.0.0RC2</api></version>
+    <api>2.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-10-28</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add pref to allow explicitly turning off the new ajax uploader.
