@@ -924,9 +924,9 @@ class IMP_Contents
                 $viewer->setMIMEPart($mime_part);
                 $new_part = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_part)) {
-                    $this->_embedded[] = $id;
                     $mime_part->addPart($new_part);
                     $mime_part->buildMimeIds($id);
+                    $this->_embedded[] = $new_part->getMimeId();
                     $to_process = array_merge($to_process, array_keys($new_part->contentTypeMap()));
                     $last_id = $id;
                 }
