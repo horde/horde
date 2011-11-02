@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-02</date>
- <time>10:34:32</time>
+ <time>10:35:16</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix advancing tasks pointer if system tasks also exist for an application (Bug #9767).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -568,6 +568,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix advancing tasks pointer if system tasks also exist for an application (Bug #9767).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
