@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-02</date>
- <time>13:19:34</time>
+ <time>13:21:21</time>
  <version>
-  <release>4.0.11</release>
+  <release>4.0.12</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [cjh] Add Hordevetica theme.
-* [mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
-* [mjr] Do not show results in the tag cloud block owned by other users.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4608,6 +4606,19 @@
 * [cjh] Add Hordevetica theme.
 * [mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
 * [mjr] Do not show results in the tag cloud block owned by other users.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.12</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
