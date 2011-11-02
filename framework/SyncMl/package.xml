@@ -11,8 +11,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-09</date>
- <time>14:35:16</time>
+ <date>2011-11-02</date>
+ <time>11:11:13</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -1183,7 +1183,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-09</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix encoding of CDATA (horde@chk.cksf.de, Bug #10692).
