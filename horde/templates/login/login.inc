@@ -44,8 +44,8 @@
 </div>
 
 <?php
-    $add_user = (!empty($conf['signup']['allow']) && $auth->hasCapability('add'));
-    $reset_passwd = $auth->hasCapability('resetpassword');
+$add_user = (!empty($conf['signup']['allow']) && $auth->hasCapability('add'));
+$reset_passwd = !empty($conf['auth']['resetpassword']) && $auth->hasCapability('resetpassword');
 ?>
 
 <?php if ($add_user || $reset_passwd): ?>

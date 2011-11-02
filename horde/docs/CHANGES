@@ -2,6 +2,7 @@
 v4.0.12-git
 -----------
 
+[jan] Add configuration option to disable password resets (Request #10640).
 
 
 -------
