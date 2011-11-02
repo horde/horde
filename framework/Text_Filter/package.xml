@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-09-21</date>
- <time>12:53:25</time>
+ <date>2011-11-02</date>
+ <time>11:13:38</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -38,6 +38,15 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Text">
+      <dir name="Filter">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Text/Filter -->
+     </dir> <!-- /doc/Horde/Text -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Text">
@@ -394,6 +403,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Text/Filter/COPYING" />
    <install as="Horde/Text/Filter.php" name="lib/Horde/Text/Filter.php" />
    <install as="Horde/Text/Filter/Base.php" name="lib/Horde/Text/Filter/Base.php" />
    <install as="Horde/Text/Filter/Bbcode.php" name="lib/Horde/Text/Filter/Bbcode.php" />
@@ -712,10 +722,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-21</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add some more questionable tags/attributes to strip in the XSS filter.
    </notes>
   </release>
  </changelog>
