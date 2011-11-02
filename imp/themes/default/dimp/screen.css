@@ -501,6 +501,10 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     border-bottom: 1px solid #999;
 }
 
+div.dimpActionsMsg #windowclose {
+    border: 0;
+}
+
 /* Preview pane styles. */
 #previewPane {
     overflow: auto;
