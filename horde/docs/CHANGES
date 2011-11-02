@@ -2,7 +2,10 @@
 v4.1-git
 --------
 
+[mms] Portal blocks can now load just the CSS necessary to display an
+      application's blocks.
 [jan] Show notifications directly after logging into Smartphone mode.
+
 
 -----------
 v4.0.12-git
