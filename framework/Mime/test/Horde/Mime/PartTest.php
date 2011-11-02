@@ -75,7 +75,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            "Test text.\n\n",
+            "Test text.\n",
             Horde_Mime_Part::getRawPartText($msg, 'body', '2.1')
         );
 
