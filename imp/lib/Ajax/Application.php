@@ -451,11 +451,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * slice requested, and need to be sorted logically. */
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
-                if (!is_array($val)) {
-                    $val = array($val);
+                if (is_array($val)) {
+                    $tmp = array();
+                    foreach ($val as $val2) {
+                        $tmp[strval($val2)] = $val2->label;
+                    }
+                    asort($tmp, SORT_LOCALE_STRING);
+                    $mboxes = array_keys($tmp);
+                } else {
+                    $mboxes = array(strval($val));
                 }
 
-                foreach (array_map('strval', $val) as $val2) {
+                foreach ($mboxes as $val2) {
                     if ($tmp = $imptree[$val2]) {
                         unset($folder_list[$val2]);
                         $folder_list[$val2] = $tmp;
