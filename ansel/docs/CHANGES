@@ -1,6 +1,6 @@
---------
-v2.0-git
---------
+----
+v2.0
+----
 
 [mjr] Add pref to allow explicitly turning off the new ajax uploader.
 [mjr] Fix invalid image type errors when uploading in older versions of
