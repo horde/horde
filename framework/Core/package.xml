@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-10-28</date>
- <time>15:32:20</time>
+ <date>2011-11-02</date>
+ <time>10:37:26</time>
  <version>
   <release>1.7.0</release>
   <api>1.7.0</api>
@@ -1621,9 +1621,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-28</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Detect @import tags in CSS and add to compressed data.
 * [mjr] Add ability to remove temporary files at session shutdown.
    </notes>
   </release>
