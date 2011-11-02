@@ -55,6 +55,9 @@ $reset_passwd = !empty($conf['auth']['resetpassword']) && $auth->hasCapability('
 <?php endif; ?>
 
 <?php if ($reset_passwd): ?>
+<?php if ($add_user): ?>
+ <br />
+<?php endif; ?>
  <?php echo Horde::link(Horde::url('services/resetpassword.php', false, array('app' => 'horde'))->add('url', $vars->url), _("Forgot your password?"), 'light') . _("Forgot your password?") ?></a>
 <?php endif; ?>
 </div>
