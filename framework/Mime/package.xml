@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Horde_Mime_Part::getRawPartText() was incorrectly returning a trailing EOL for body data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
