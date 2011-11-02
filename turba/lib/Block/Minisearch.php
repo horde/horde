@@ -49,17 +49,19 @@ class Turba_Block_Minisearch extends Horde_Core_Block
      */
     protected function _content()
     {
-        if ($GLOBALS['browser']->hasFeature('iframes')) {
-            if (!empty($this->_params['addressbooks'])) {
-                $imploded_calendars = implode(';', $this->_params['addressbooks']);
-            } else {
-                $imploded_calendars = implode(';', array_keys($this->_options));
-            }
-            Horde::startBuffer();
-            include TURBA_TEMPLATES . '/block/minisearch.inc';
-            return Horde::endBuffer();
+        if (!$GLOBALS['browser']->hasFeature('iframes')) {
+            return '<em>' . _("A browser that supports iframes is required") . '</em>';
         }
-        return '<em>' . _("A browser that supports iframes is required") . '</em>';
+
+        $calendars = empty($this->_params['addressbooks'])
+            ? implode(';', array_keys($this->_options))
+            : implode(';', $this->_params['addressbooks']);
+
+        Horde::addScriptFile('minisearch.js', 'turba');
+
+        Horde::startBuffer();
+        include TURBA_TEMPLATES . '/block/minisearch.inc';
+        return Horde::endBuffer();
     }
 
 }

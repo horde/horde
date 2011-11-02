@@ -1,0 +1,8 @@
+#turba_minisearch_searching {
+    background-image: url("../graphics/loading.gif");
+}
+
+#turba_minisearch_iframe {
+    border: none;
+    width:100%;
+}
