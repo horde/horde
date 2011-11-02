@@ -1,6 +1,6 @@
------------
-v4.0.11-git
------------
+-------
+v4.0.11
+-------
 
 [cjh] Add Hordevetica theme.
 [mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
