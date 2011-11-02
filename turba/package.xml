@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-02</date>
- <time>13:25:43</time>
+ <time>13:27:06</time>
  <version>
-  <release>3.0.10</release>
+  <release>3.0.11</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [mjr] Add the ability to specify the fields to return from contacts/search.
-* [jan] Fix importing contacts with composite fields.
-* [jan] Fix LDAP connection test (Bug #10554).
-* [gwr] Avoid including the owner name into the default share (Kolab backend).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1353,6 +1350,19 @@
 * [jan] Fix importing contacts with composite fields.
 * [jan] Fix LDAP connection test (Bug #10554).
 * [gwr] Avoid including the owner name into the default share (Kolab backend).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.11</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
