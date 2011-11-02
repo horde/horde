@@ -3287,12 +3287,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $new_time = microtime(true);
             if (isset($this->_temp['debug_time'])) {
                 if (($diff = ($new_time - $this->_temp['debug_time'])) > Horde_Imap_Client::SLOW_COMMAND) {
-                    fwrite($this->_debug, '>>> Slow IMAP Command: ' . round($diff, 3) . " seconds\n");
+                    fwrite($this->_debug, '>> Slow IMAP Command: ' . round($diff, 3) . " seconds\n");
                 }
             } else {
                 fwrite($this->_debug,
                     str_repeat('-', 30) . "\n" .
-                    '>>> Timestamp: ' . date('r') . "\n"
+                    '>> Timestamp: ' . date('r') . "\n"
                 );
             }
 
@@ -3304,7 +3304,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 break;
 
             case Horde_Imap_Client::DEBUG_INFO:
-                $pre .= '>>> ';
+                $pre .= '>> ';
                 break;
 
             case Horde_Imap_Client::DEBUG_SERVER:
