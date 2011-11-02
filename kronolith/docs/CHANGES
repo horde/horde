@@ -1,6 +1,6 @@
------------
-v3.0.11-git
------------
+-------
+v3.0.11
+-------
 
 [mjr] Fix alarms for recurring events (Bug #10678).
 [mjr] Allow filtering listTagInfo results by user.
