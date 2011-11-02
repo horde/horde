@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-18</date>
- <time>13:26:20</time>
+ <date>2011-11-02</date>
+ <time>10:32:11</time>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Updated German translation.
 * [jan] Updated Brazilian Portuguese translation.
  </notes>
  <contents>
@@ -607,10 +608,11 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-18</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Updated German translation.
+* [jan] Updated Brazilian Portuguese translation.
    </notes>
   </release>
  </changelog>
