@@ -1,7 +1,7 @@
 <?php
 /**
  * This file contains the Horde_Service_Weather_Current class for abstracting
- * access to current observations.
+ * access to current observations from Wunderground.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -12,13 +12,13 @@
  */
 
 /**
- * Horde_Service_Weather_Current class
+ * Horde_Service_Weather_Current_WeatherUnderground class
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
  */
- class Horde_Service_Weather_Current_WeatherUnderground extends Horde_Service_Weather_Current
+ class Horde_Service_Weather_Current_WeatherUnderground extends Horde_Service_Weather_Current_Base
  {
     protected $_map = array(
         'condition' => 'weather',

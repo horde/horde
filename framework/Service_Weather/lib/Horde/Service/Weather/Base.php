@@ -68,7 +68,7 @@
     /**
      * Obtain the current observations.
      *
-     * @return Horde_Service_Weather_Current
+     * @return Horde_Service_Weather_Current_Base
      */
     abstract public function getCurrentConditions();
 
@@ -78,7 +78,7 @@
      * @param integer $type  The type of forecast to return. A
      *                       Horde_Service_Weather constant.
      *
-     * @return Horde_Service_Weather_Forecast
+     * @return Horde_Service_Weather_Forecast_Base
      */
     abstract public function getForecast($type);
  }
