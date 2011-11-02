@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-03</date>
- <time>17:58:48</time>
+ <date>2011-11-02</date>
+ <time>10:34:32</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -26,6 +26,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="LoginTasks">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/LoginTasks -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="LoginTasks">
@@ -342,6 +349,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/LoginTasks/COPYING" />
    <install as="Horde/LoginTasks.php" name="lib/Horde/LoginTasks.php" />
    <install as="Horde/LoginTasks/Backend.php" name="lib/Horde/LoginTasks/Backend.php" />
    <install as="Horde/LoginTasks/SystemTask.php" name="lib/Horde/LoginTasks/SystemTask.php" />
@@ -556,10 +564,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-03</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix advancing tasks pointer if system tasks also exist for an application (Bug #9767).
    </notes>
   </release>
  </changelog>
