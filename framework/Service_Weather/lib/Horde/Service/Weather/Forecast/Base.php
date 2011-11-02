@@ -38,7 +38,7 @@
 
     protected $_type;
 
-    public function __construct(array $properties, $type = Horde_Services_Weather::FORECAST_TYPE_STANDARD)
+    public function __construct(array $properties, $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
         $this->_properties = $properties;
         $this->_type = $type;
