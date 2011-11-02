@@ -1,0 +1,25 @@
+/* Block styles. */
+table.ingoBlockSummary th, table.ingoBlockSummary td {
+    padding: 0 8px;
+    text-align: center;
+}
+table.ingoBlockSummary tr > th:first-child, table.ingoBlockSummary tr > td:first-child {
+    padding: 0;
+    text-align: left;
+}
+
+.blacklistImg {
+    background-image: url("../graphics/blacklist.png");
+}
+.forwardImg {
+    background-image: url("../graphics/forward.png");
+}
+.spamImg {
+    background-image: url("../graphics/spam.png");
+}
+.vacationImg {
+    background-image: url("../graphics/vacation.png");
+}
+.whitelistImg {
+    background-image: url("../graphics/whitelist.png");
+}
