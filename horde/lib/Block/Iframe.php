@@ -68,14 +68,13 @@ class Horde_Block_Iframe extends Horde_Core_Block
         }
 
         if (empty($this->_params['height'])) {
-            if ($browser->isBrowser('msie') || $browser->isBrowser('webkit')) {
-                $height = '';
-            } else {
-                $height = ' height="100%"';
-            }
+            $height = ($browser->isBrowser('msie') || $browser->isBrowser('webkit'))
+                ? ''
+                : ' height="100%"';
         } else {
             $height = ' height="' . htmlspecialchars($this->_params['height']) . '"';
         }
+
         return '<iframe src="' . htmlspecialchars($this->_params['iframe']) . '" width="100%"' . $height . ' marginheight="0" scrolling="auto" frameborder="0"></iframe>';
     }
 
