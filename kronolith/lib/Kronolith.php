@@ -695,9 +695,8 @@ class Kronolith
                         if ($loopDate->compareDate($eventStart) == 0) {
                             $addEvent->start = $eventStart;
                         } else {
-                            $addEvent->start = new Horde_Date(array(
-                                'hour' => 0, 'min' => 0, 'sec' => 0,
-                                'month' => $loopDate->month, 'mday' => $loopDate->mday, 'year' => $loopDate->year));
+                            $addEvent->start = clone $loopDate;
+                            $addEvent->start->hour = $addEvent->start->min = $addEvent->start->sec = 0;
                             $addEvent->first = false;
                         }
 
@@ -706,9 +705,9 @@ class Kronolith
                         if ($loopDate->compareDate($eventEnd) == 0) {
                             $addEvent->end = $eventEnd;
                         } else {
-                            $addEvent->end = new Horde_Date(array(
-                                'hour' => 23, 'min' => 59, 'sec' => 59,
-                                'month' => $loopDate->month, 'mday' => $loopDate->mday, 'year' => $loopDate->year));
+                            $addEvent->end = clone $loopDate;
+                            $addEvent->end->hour = 23;
+                            $addEvent->end->min = $addEvent->end->sec = 59;
                             $addEvent->last = false;
                         }
 
