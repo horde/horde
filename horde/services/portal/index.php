@@ -31,9 +31,9 @@ $view = new Horde_Core_Block_Layout_View(
 );
 $layout_html = $view->toHtml();
 
-$css = $injector->getInstance('Horde_Themes_Css');
-foreach ($view->getApplications() as $app) {
-    foreach ($css->getStylesheets('', array('app' => $app, 'nohorde' => true)) as $val) {
+if ($app_css = $view->getStylesheets()) {
+    $css = $injector->getInstance('Horde_Themes_Css');
+    foreach ($app_css as $val) {
         $css->addStylesheet($val['fs'], $val['uri']);
     }
 }

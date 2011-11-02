@@ -172,4 +172,35 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
         return array_keys($this->_applications);
     }
 
+    /**
+     * @return array  List of stylesheet information.
+     */
+    public function getStylesheets()
+    {
+        $css = $GLOBALS['injector']->getInstance('Horde_Themes_Css');
+        $stylesheets = array();
+
+        foreach ($this->getApplications() as $app) {
+            $app_css = $css->getStylesheets('', array(
+                'app' => $app,
+                'nohorde' => true,
+                'sub' => 'block',
+                'subonly' => true
+            ));
+
+            // TODO: BC - fallback to loading full app stylesheets if the
+            // 'block' subdirectory is not found.
+            if (empty($app_css)) {
+                $app_css = $css->getStylesheets('', array(
+                    'app' => $app,
+                    'nohorde' => true
+                ));
+            }
+
+            $stylesheets = array_merge($stylesheets, $app_css);
+        }
+
+        return $stylesheets;
+    }
+
 }

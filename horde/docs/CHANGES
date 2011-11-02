@@ -1,3 +1,11 @@
+--------
+v4.1-git
+--------
+
+[mms] Portal blocks can now load just the CSS necessary to display an
+      application's blocks.
+
+
 -----------
 v4.0.12-git
 -----------
