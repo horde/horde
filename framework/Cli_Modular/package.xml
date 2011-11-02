@@ -10,19 +10,19 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-17</date>
- <time>06:43:32</time>
+ <date>2011-11-02</date>
+ <time>10:29:09</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
  <notes>
-* 
+* First stable release for Horde 4.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -166,12 +166,12 @@
     <release>1.0.0</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-10-17</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
    <notes>
-* 
+* First stable release for Horde 4.
    </notes>
   </release>
  </changelog>
