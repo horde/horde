@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-30</date>
- <time>08:51:29</time>
+ <date>2011-11-02</date>
+ <time>13:25:43</time>
  <version>
   <release>3.0.10</release>
   <api>3.0.0</api>
@@ -1346,7 +1346,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-30</date>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [mjr] Add the ability to specify the fields to return from contacts/search.

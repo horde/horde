@@ -1,6 +1,6 @@
------------
-v3.0.10-git
------------
+-------
+v3.0.10
+-------
 
 [mjr] Add the ability to specify the fields to return from contacts/search.
 [jan] Fix importing contacts with composite fields.
