@@ -1623,14 +1623,6 @@
     </configenum>
    </configsection>
   </configsection>
-
-  <configsection name="logo">
-   <configstring name="image" required="false" desc="The URL of an image for
-   the top of the Horde menu. The image should be no larger than 140 pixels
-   wide by 40 pixels high to prevent the frame from scrolling."/>
-   <configstring name="link" required="false" desc="If a logo is displayed in
-   the Horde menu, what URL (if any) should it link to?"/>
-  </configsection>
  </configtab>
 
  <configtab name="block" desc="Portal Blocks">
