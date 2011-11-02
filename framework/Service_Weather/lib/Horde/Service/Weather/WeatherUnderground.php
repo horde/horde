@@ -187,9 +187,16 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         return new Horde_Service_Weather_Station($properties);
     }
 
+    /**
+     * Parses the forecast data.
+     *
+     * @param stdClass $forecast The result of the forecast request.
+     *
+     * @return Horde_Service_Weather_Forecast_WeatherUnderground  The forecast.
+     */
     protected function _parseForecast($forecast)
     {
-
+        return new Horde_Service_Weather_Forecast_WeatherUnderground((array)$forecast);
     }
 
     /**
