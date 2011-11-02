@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix advancing tasks pointer if system tasks also exist for an application (Bug #9767).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
