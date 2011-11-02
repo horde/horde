@@ -1,7 +1,7 @@
 <?php
 /**
- * This file contains the Horde_Service_Weather_Current class for abstracting
- * access to current observations.
+ * This file contains the Horde_Service_Weather_Current_Base class for
+ * abstracting access to current observations.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -12,13 +12,13 @@
  */
 
 /**
- * Horde_Service_Weather_Current class
+ * Horde_Service_Weather_Current_Base class
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
  */
- class Horde_Service_Weather_Current
+ class Horde_Service_Weather_Current_Base
  {
     /**
      * Local properties cache.
@@ -41,7 +41,7 @@
      *
      * @param  array $properties  Current properties, in driver keys.
      *
-     * @return Horde_Service_Weather_Current
+     * @return Horde_Service_Weather_Current_Base
      */
     public function __construct(array $properties = array())
     {
