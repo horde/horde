@@ -75,10 +75,33 @@
     /**
      * Obtain the forecast for the current location.
      *
-     * @param integer $type  The type of forecast to return. A
-     *                       Horde_Service_Weather constant.
+     * @param integer $length  The forecast length.
+     * @param integer $type    The type of forecast to return.
      *
      * @return Horde_Service_Weather_Forecast_Base
      */
-    abstract public function getForecast($type);
+    abstract public function getForecast(
+        $length = Horde_Service_Weather::FORECAST_3DAY,
+        $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD);
+
+    /**
+     * Obtain a mapping of units for each UNIT type.
+     *
+     */
+    public function getUnits($type = Horde_Service_Weather::UNITS_STANDARD)
+    {
+        if ($type == Horde_Service_Weather::UNITS_STANDARD) {
+            return array(
+                'temp' => Horde_Service_Weather_Translation::t('F'),
+                'wind' => Horde_Service_Weather_Translation::t('mph')
+            );
+        }
+
+        return array(
+            'temp' => Horde_Service_Weather_Translation::t('C'),
+            'wind' => Horde_Service_Weather_Translation::t('kts')
+        );
+
+    }
+
  }

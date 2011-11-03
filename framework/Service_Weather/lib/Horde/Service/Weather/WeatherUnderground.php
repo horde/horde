@@ -87,9 +87,11 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     /**
      * Obtain the forecast for the current location.
      *
-     * @return Horde_Service_Weather_Forecast
+     * @see Horde_Service_Weather_Base#getForecast
      */
-    public function getForecast($type)
+    public function getForecast(
+        $length = Horde_Service_Weather::FORECAST_3DAY,
+        $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
         $this->_getCommonElements();
         return $this->_forecast;
@@ -142,18 +144,23 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         // @TODO
         //$astronomy = $this->_parseAstronomy($results->moon_phase);
         $astronomy = $results->moon_phase;
+
+        // Sunrise/Sunset
         $date = new Horde_Date(time(), $station->tz);
-        $date->hour = 9;
-        $date->min = 32;
+        $date->hour = $astronomy->sunrise->hour;
+        $date->min = $astronomy->sunrise->minute;
         $date->sec = 0;
         $station->sunrise = $date;
         $station->sunset = clone $date;
-        $station->sunset->hour = 18;
-        $station->sunset->min = 14;
-        //$station->moon stuff
+        $station->sunset->hour = $astronomy->sunset->hour;
+        $station->sunset->min = $astronomy->sunset->minute;
 
         $current = $this->_parseCurrent($results->current_observation);
         $forecast = $this->_parseForecast($results->forecast);
+
+        // Station information doesn't include any type of name string, so
+        // get it from the currentConditions request.
+        $station->name = $current->location->location;
 
         // Cache the data in the object
         $this->_station = $station;
