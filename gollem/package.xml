@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
 * [jan] Fix autocreating of home folders (Bug #10690).
 * [jan] Fix JavaScript for Actions drop down list (Bug #10695).
  </notes>
@@ -712,6 +713,7 @@
    <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
 * [jan] Fix autocreating of home folders (Bug #10690).
 * [jan] Fix JavaScript for Actions drop down list (Bug #10695).
    </notes>
