@@ -58,10 +58,12 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
     <ul>
       <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkUrls"><?php echo _("Subscription") ?></a></li>
     </ul>
+    <?php if (!empty($GLOBALS['conf']['menu']['import_export'])): ?>
     <ul>
       <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkImport"><?php echo _("Import") ?></a></li>
       <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkExport"><?php echo _("Export") ?></a></li>
     </ul>
+    <?php endif ?>
   </span>
 </div>
 <br class="clear" />

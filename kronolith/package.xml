@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Don&apos;t show import/export tabs in dynamic view if disabled (Bug #10705).
 * [jan] Don&apos;t show option to share with everyone in basic permissions if disabled (piper@hrz.uni-marburg.de, Bug #10706).
 * [mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
  </notes>
@@ -1932,6 +1933,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t show import/export tabs in dynamic view if disabled (Bug #10705).
 * [jan] Don&apos;t show option to share with everyone in basic permissions if disabled (piper@hrz.uni-marburg.de, Bug #10706).
 * [mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
    </notes>
