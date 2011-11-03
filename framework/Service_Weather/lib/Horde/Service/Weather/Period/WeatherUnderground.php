@@ -32,7 +32,7 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
      */
     protected $_map = array(
         'conditions' => 'conditions',
-        'icon' => 'skyicon',
+        'icon' => 'icon',
         'icon_url' => 'icon_url',
         'precipitation_percent' => 'pop',
         'period' => 'period'
