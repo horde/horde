@@ -1783,6 +1783,19 @@
       <value desc="TinyUrl">TinyUrl</value>
     </values>
    </configenum>
+  <configsection name="weather">
+   <configheader>Weather Services</configheader>
+   <configdescription>If you want to provide weather information to your users
+   you must select a provider and provide your API keys.</configdescription>
+   <configswitch name="provider">false
+    <case name="false" desc="None" />
+    <case name="WeatherUnderground" desc="Weather Underground">
+      <configsection name="params">
+       <configstring name="key" desc="API Key"></configstring>
+      </configsection>
+    </case>
+   </configswitch>
+  </configsection>
  </configtab>
 
  <configtab name="imsp" desc="IMSP Server">
