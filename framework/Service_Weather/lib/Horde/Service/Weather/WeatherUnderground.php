@@ -47,7 +47,53 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      * Local cache of station data
      * @var Horde_Service_Weather_Station
      */
-     protected $_station;
+    protected $_station;
+
+
+    /**
+     * Icon map for wunderground. Not some are returned as
+     * "sky" conditions and some as "condition" icons. Public
+     * so it can be overridded in client code if desired.
+     */
+    public $iconMap = array(
+        'chanceflurries' => '15.png',
+        'chancerain' => '11.png',
+        'chancesleet' => '8.png',
+        'chancesnow' => '14.png',
+        'chancetstorms' => '3.png',
+        'clear' => '32.png',
+        'cloudy' => '26.png',
+        'flurries' => '14.png',
+        'fog' => '20.png',
+        'hazy' => '21.png',
+        'mostlycloudy' => '28.png',
+        'mostlysunny' => '34.png',
+        'partlycloudy' => '30.png',
+        'partlysunny' => '30.png',
+        'sleet' => '10.png',
+        'rain' => '12.png',
+        'snow' => '16.png',
+        'sunny' => '32.png',
+        'tstorms' => '3.png',
+
+        // Nighttime
+        'nt_chanceflurries' => '46.png',
+        'nt_chancerain' => '45.png',
+        'nt_chancesleet' => '10.png',
+        'nt_chancesnow' => '46.png',
+        'nt_chancetstorms' => '45.png',
+        'nt_clear' => '31.png',
+        'nt_cloudy' => '26.png',
+        'nt_flurries' => '46.png',
+        'nt_fog' => '20.png',
+        'nt_hazy' => '21.png',
+        'nt_mostlycloudy' => '45.png',
+        'nt_partlycloudy' => '29.png',
+        'nt_sleet' => '10.png',
+        'nt_rain' => '45.png',
+        'nt_snow' => '46.png',
+        'nt_tstorms' => '47.png'
+    );
 
     /**
      * Constructor
