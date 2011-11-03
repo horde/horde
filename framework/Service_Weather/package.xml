@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-11-02</date>
- <time>21:30:11</time>
+ <time>21:43:17</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -58,6 +58,14 @@
      </dir> <!-- /lib/Horde/Service -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="en_US">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Service_Weather.po" role="data" />
+     </dir> <!-- /locale/en_US/LC_MESSAGES -->
+    </dir> <!-- /locale/en_US -->
+    <file name="Horde_Service_Weather.pot" role="data" />
+   </dir> <!-- /locale -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -114,6 +122,8 @@
    <install as="Horde/Service/Weather/Location/Base.php" name="lib/Horde/Service/Weather/Location/Base.php" />
    <install as="Horde/Service/Weather/Period/Base.php" name="lib/Horde/Service/Weather/Period/Base.php" />
    <install as="Horde/Service/Weather/Period/WeatherUnderground.php" name="lib/Horde/Service/Weather/Period/WeatherUnderground.php" />
+   <install as="locale/Horde_Service_Weather.pot" name="locale/Horde_Service_Weather.pot" />
+   <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" />
   </filelist>
  </phprelease>
  <changelog>
