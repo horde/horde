@@ -24,8 +24,7 @@ if (Kronolith::showAjaxView() && !(Horde_Util::getPost('import_ajax')) &&
 }
 
 if (!$conf['menu']['import_export']) {
-    require KRONOLITH_BASE . '/index.php';
-    exit;
+    Horde::url('', true)->redirect();
 }
 
 /* Importable file types. */
