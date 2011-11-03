@@ -34,7 +34,8 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
         'conditions' => 'conditions',
         'icon' => 'skyicon',
         'icon_url' => 'icon_url',
-        'precipitation_percent' => 'pop'
+        'precipitation_percent' => 'pop',
+        'period' => 'period'
     );
 
     /**
