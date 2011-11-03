@@ -50,6 +50,26 @@ class Kronolith_Event_Holidays extends Kronolith_Event
     }
 
     /**
+     * Encapsulates permissions checking.
+     *
+     * @param integer $permission  The permission to check for.
+     * @param string $user         The user to check permissions for.
+     *
+     * @return boolean
+     */
+    public function hasPermission($permission, $user = null)
+    {
+        switch ($permission) {
+        case Horde_Perms::SHOW:
+        case Horde_Perms::READ:
+            return true;
+
+        default:
+            return false;
+        }
+    }
+
+    /**
      * Return this events title.
      *
      * @return string The title of this event

@@ -2,6 +2,7 @@
 v3.0.12-git
 -----------
 
+[jan] Allow to view and create copies of holiday events (Bug #10650).
 [jan] Don't show import/export tabs in dynamic view if disabled (Bug #10705).
 [jan] Don't show option to share with everyone in basic permissions if disabled
       (piper@hrz.uni-marburg.de, Bug #10706).
