@@ -83,18 +83,20 @@ To function properly, Ansel **requires** the following:
 
       .. _ `libpuzzle library`: http://libpuzzle.pureftpd.org/project/libpuzzle
 
-6. The _`ImageMagick` software.
+5. The _`ImageMagick` software.
 
    If using the `ImageMagick software`_ you need to set the path to the
    ``convert`` utility in Horde's configuration screen
    (``Administration/Configuration/Horde/Image Manipulation``). You can
    alternatively use the GD_ extension or the imagick_ extension, but one of
    these is **required**. If using ImageMagick software, version 6.5.7 or better
-   is recommended.
+   is recommended. Earlier versions *may* work, but some effects may produce
+   errors. The absolute minimum version that will work at all with Ansel is
+   6.2.9.
 
    .. _`ImageMagick software`: http://www.imagemagick.org/
 
-7. _`Agora`, the Horde forums application.
+6. _`Agora`, the Horde forums application.
 
    `Agora`_ provides the ability for comments to be added to photos via the
    forums API. If you want your users to be able to comment on photos, an
