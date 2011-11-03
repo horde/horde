@@ -63,7 +63,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     {
         // Check required api key parameters here...
         if (empty($params['http_client']) || empty($params['apikey'])) {
-            throw InvalidArgumentException('Missing required http_client parameter.');
+            throw new InvalidArgumentException('Missing required http_client parameter.');
         }
         $this->_http = $params['http_client'];
         unset($params['http_client']);
