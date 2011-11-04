@@ -100,7 +100,6 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     /**
      * Constructor
      *
-     * @param Horde_Service_Weather_Location_Base $location  The location object.
      * @param array $params                                  Parameters.
      *<pre>
      *  'http_client'  - Required http client object

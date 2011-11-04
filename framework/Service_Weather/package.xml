@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-03</date>
- <time>16:55:24</time>
+ <date>2011-11-04</date>
+ <time>00:14:01</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -41,10 +41,6 @@
         <file name="Base.php" role="php" />
         <file name="WeatherUnderground.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Weather/Forecast -->
-       <dir name="Location">
-        <file name="Base.php" role="php" />
-        <file name="WeatherUnderground.php" role="php" />
-       </dir> <!-- /lib/Horde/Service/Weather/Location -->
        <dir name="Period">
         <file name="Base.php" role="php" />
         <file name="WeatherUnderground.php" role="php" />
@@ -236,8 +232,6 @@
    <install as="Horde/Service/Weather/Exception/InvalidProperty.php" name="lib/Horde/Service/Weather/Exception/InvalidProperty.php" />
    <install as="Horde/Service/Weather/Forecast/Base.php" name="lib/Horde/Service/Weather/Forecast/Base.php" />
    <install as="Horde/Service/Weather/Forecast/WeatherUnderground.php" name="lib/Horde/Service/Weather/Forecast/WeatherUnderground.php" />
-   <install as="Horde/Service/Weather/Location/Base.php" name="lib/Horde/Service/Weather/Location/Base.php" />
-   <install as="Horde/Service/Weather/Location/WeatherUnderground.php" name="lib/Horde/Service/Weather/Location/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/Period/Base.php" name="lib/Horde/Service/Weather/Period/Base.php" />
    <install as="Horde/Service/Weather/Period/WeatherUnderground.php" name="lib/Horde/Service/Weather/Period/WeatherUnderground.php" />
    <install as="locale/Horde_Service_Weather.pot" name="locale/Horde_Service_Weather.pot" />
@@ -352,7 +346,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-03</date>
+   <date>2011-11-04</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.

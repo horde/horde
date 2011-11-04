@@ -40,7 +40,6 @@
     /**
      * Constructor
      *
-     * @param Horde_Service_Weather_Location_Base $location  The location object.
      * @param array $params                                  Parameters.
      *<pre>
      * 'cache'          - optional Horde_Cache object
