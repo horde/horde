@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-04</date>
- <time>14:48:46</time>
+ <time>14:49:37</time>
  <version>
-  <release>1.2.0</release>
+  <release>1.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -22,15 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fixed setting data for several POP3 fetch results.
-* [mms] Parsing/generating sequence strings for POP3 servers has been fixed.
-* [mms] Removed unmaintained Mock driver.
-* [mms] API CHANGE: Added Horde_Imap_Client_Mailbox to provide way to accurately switch between UTF7-IMAP and UTF-8 mailbox representations.
-* [mms] API CHANGE: Deprecate Horde_Imap_Client_Base::parseCommandArray() - use Horde_Imap_Client_Utils::parseCommandArray() instead.
-* [mms] API CHANGE: Added a required parameter (&apos;baseob&apos;) to Horde_Imap_Client_Cache constructor.
-* [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
-* [mms] API CHANGE: Added Horde_Imap_Client_Base::getIdsOb().
-* [mms] API CHANGE: Deprecate Horde_Imap_Client_Cache::singleton().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -614,6 +606,19 @@
 * [mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
 * [mms] API CHANGE: Added Horde_Imap_Client_Base::getIdsOb().
 * [mms] API CHANGE: Deprecate Horde_Imap_Client_Cache::singleton().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
