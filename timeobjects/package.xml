@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-06</date>
- <time>14:39:35</time>
+ <date>2011-11-04</date>
+ <time>00:22:54</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mjr] Add support for Horde_Service_Weather.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
  </notes>
@@ -42,6 +43,7 @@
     <dir name="Driver">
      <file name="Base.php" role="horde" />
      <file name="FacebookEvents.php" role="horde" />
+     <file name="Weather.php" role="horde" />
      <file name="Weatherdotcom.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
@@ -160,6 +162,7 @@
    <install as="timeobjects/lib/Exception.php" name="lib/Exception.php" />
    <install as="timeobjects/lib/Driver/Base.php" name="lib/Driver/Base.php" />
    <install as="timeobjects/lib/Driver/FacebookEvents.php" name="lib/Driver/FacebookEvents.php" />
+   <install as="timeobjects/lib/Driver/Weather.php" name="lib/Driver/Weather.php" />
    <install as="timeobjects/lib/Driver/Weatherdotcom.php" name="lib/Driver/Weatherdotcom.php" />
    <install as="timeobjects/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="timeobjects/locale/.htaccess" name="locale/.htaccess" />
@@ -271,9 +274,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-06</date>
+   <date>2011-11-04</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mjr] Add support for Horde_Service_Weather.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
    </notes>

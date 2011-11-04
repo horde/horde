@@ -33,12 +33,24 @@ class Timeobjects_Api extends Horde_Registry_Api
         //        a $conf[] setting to explicitly disable certain drivers?
         $drivers = array();
 
+        // Try the "Weather" driver which uses Horde_Service_Weather. If we
+        // can't create a driver, use the deprecated weatherdotcom driver if
+        // configured and hope for the best...
         try {
-            $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('Weatherdotcom');
+            $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('Weather');
             if ($drv->ensure()) {
-               $drivers['Weatherdotcom'] = _("Weather");
+               $drivers['Weather'] = _("Weather");
             }
         } catch (Timeobjects_Exception $e) {
+        }
+        if (empty($drivers['Weather'])) {
+            try {
+                $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('Weatherdotcom');
+                if ($drv->ensure()) {
+                   $drivers['Weatherdotcom'] = _("Weather");
+                }
+            } catch (Timeobjects_Exception $e) {
+            }
         }
 
         try {
