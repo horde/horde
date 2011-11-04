@@ -5925,7 +5925,7 @@ KronolithCore = {
         $('kronolithEventLocationLon').value = null;
         $('kronolithEventMapZoom').value = null;
         if (this.mapMarker) {
-            this.map.removeMarker(this.mapMarker);
+            this.map.removeMarker(this.mapMarker, {});
             this.mapMarker = null;
         }
         if (this.map) {
@@ -6031,7 +6031,7 @@ KronolithCore = {
     removeMapMarker: function()
     {
         if (this.mapMarker) {
-            this.map.removeMarker(this.mapMarker);
+            this.map.removeMarker(this.mapMarker, {});
             $('kronolithEventLocationLon').value = null;
             $('kronolithEventLocationLat').value = null;
         }
