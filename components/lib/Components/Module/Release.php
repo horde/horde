@@ -119,7 +119,7 @@ extends Components_Module_Base
                 '--fm_token',
                 array(
                     'action' => 'store',
-                    'help'   => 'The token for accessing freshmeat.net.'
+                    'help'   => 'The token for accessing freecode.com.'
                 )
             ),
         );
@@ -171,7 +171,7 @@ The available tasks are:
  - tag         : Add a git release tag.
  - announce    : Announce the release on the mailing lists.
  - bugs        : Add the new release on bugs.horde.org
- - freshmeat   : Add the new release on freshmeat.net
+ - freecode    : Add the new release on freecode.com
  - next        : Update package.xml with the next version.
  - nextsentinel: Update the sentinels for the next version as well.
 

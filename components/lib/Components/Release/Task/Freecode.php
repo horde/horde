@@ -1,6 +1,6 @@
 <?php
 /**
- * Components_Release_Task_Freshmeat:: adds the new release to freshmeat.net.
+ * Components_Release_Task_Freecode:: adds the new release to freecode.com.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Components_Release_Task_Freshmeat:: adds the new release to freshmeat.net.
+ * Components_Release_Task_Freecode:: adds the new release to freecode.com.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -25,7 +25,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Release_Task_Freshmeat
+class Components_Release_Task_Freecode
 extends Components_Release_Task_Base
 {
     /**
@@ -39,14 +39,14 @@ extends Components_Release_Task_Base
     public function validate($options)
     {
         $errors = array();
-        if (!$this->getNotes()->hasFreshmeat()) {
-            $errors[] = 'No freshmeat.net information available. The new version will not be added there!';
+        if (!$this->getNotes()->hasFreecode()) {
+            $errors[] = 'No freecode.com information available. The new version will not be added there!';
         }
         if (empty($options['fm_token'])) {
-            $errors[] = 'The "fm_token" option has no value. Who is updating freshmeat.net?';
+            $errors[] = 'The "fm_token" option has no value. Who is updating freecode.com?';
         }
-        if (!class_exists('Horde_Release_Freshmeat')) {
-            $errors[] = 'The Horde_Release package is missing (specifically the class Horde_Release_Freshmeat)!';
+        if (!class_exists('Horde_Release_Freecode')) {
+            $errors[] = 'The Horde_Release package is missing (specifically the class Horde_Release_Freecode)!';
         }
         return $errors;
     }
@@ -58,12 +58,12 @@ extends Components_Release_Task_Base
      *
      * @return NULL
      */
-    public function _getFreshmeat($options)
+    public function _getFreecode($options)
     {
         if (!isset($options['fm_token'])) {
             throw new Components_Exception('Missing credentials!');
         }
-        return new Horde_Release_Freshmeat(
+        return new Horde_Release_Freecode(
             $options['fm_token'],
             $this->getNotes()->getFmProject()
         );
@@ -78,9 +78,9 @@ extends Components_Release_Task_Base
      */
     public function run(&$options)
     {
-        if (!$this->getNotes()->hasFreshmeat()) {
+        if (!$this->getNotes()->hasFreecode()) {
             $this->getOutput()->warn(
-                'No freshmeat.net information available. The new version will not be added there!'
+                'No freecode.com information available. The new version will not be added there!'
             );
             return;
         }
@@ -108,11 +108,11 @@ extends Components_Release_Task_Base
         }
 
         if (!$this->getTasks()->pretend()) {
-            $fm = $this->_getFreshmeat($options);
+            $fm = $this->_getFreecode($options);
             $fm->publish($publish_data);
             $fm->updateLinks($link_data);
         } else {
-            $info = 'FRESHMEAT
+            $info = 'FREECODE
 
 Release data
 ------------

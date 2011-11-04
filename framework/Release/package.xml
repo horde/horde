@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-10-21</date>
- <time>07:31:47</time>
+ <date>2011-11-04</date>
+ <time>13:09:19</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -42,7 +42,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Release">
-      <file name="Freshmeat.php" role="php" />
+      <file name="Freecode.php" role="php" />
       <file name="MailingList.php" role="php" />
       <file name="Sentinel.php" role="php" />
       <file name="Whups.php" role="php" />
@@ -135,7 +135,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Release/COPYING" />
    <install as="Horde/Release.php" name="lib/Horde/Release.php" />
-   <install as="Horde/Release/Freshmeat.php" name="lib/Horde/Release/Freshmeat.php" />
+   <install as="Horde/Release/Freecode.php" name="lib/Horde/Release/Freecode.php" />
    <install as="Horde/Release/MailingList.php" name="lib/Horde/Release/MailingList.php" />
    <install as="Horde/Release/Sentinel.php" name="lib/Horde/Release/Sentinel.php" />
    <install as="Horde/Release/Whups.php" name="lib/Horde/Release/Whups.php" />
@@ -171,9 +171,9 @@
     <release>1.0.0beta1</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-10-21</date>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2011-11-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

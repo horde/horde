@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-24</date>
- <time>08:42:04</time>
+ <date>2011-11-04</date>
+ <time>13:06:53</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -197,7 +197,7 @@
        <file name="CommitPostRelease.php" role="php" />
        <file name="CommitPreRelease.php" role="php" />
        <file name="CurrentSentinel.php" role="php" />
-       <file name="Freshmeat.php" role="php" />
+       <file name="Freecode.php" role="horde" />
        <file name="NextSentinel.php" role="php" />
        <file name="NextVersion.php" role="php" />
        <file name="Package.php" role="php" />
@@ -413,6 +413,21 @@
       <file name="Config.php" role="test" />
       <file name="Output.php" role="test" />
      </dir> <!-- /test/Components/Stub -->
+     <dir name="test">
+      <dir name="distribute">
+       <dir name="debian">
+        <dir name="templates">
+         <file name="rules" role="test" />
+        </dir> <!-- /test/Components/test/distribute/debian/templates -->
+        <dir name="templates-php-horde">
+         <file name="rules" role="test" />
+        </dir> <!-- /test/Components/test/distribute/debian/templates-php-horde -->
+        <dir name="templates-php-horde-content">
+         <file name="rules" role="test" />
+        </dir> <!-- /test/Components/test/distribute/debian/templates-php-horde-content -->
+       </dir> <!-- /test/Components/test/distribute/debian -->
+      </dir> <!-- /test/Components/test/distribute -->
+     </dir> <!-- /test/Components/test -->
      <dir name="Unit">
       <dir name="Components">
        <dir name="Component">
@@ -619,7 +634,7 @@
    <install as="Components/Release/Task/CommitPostRelease.php" name="lib/Components/Release/Task/CommitPostRelease.php" />
    <install as="Components/Release/Task/CommitPreRelease.php" name="lib/Components/Release/Task/CommitPreRelease.php" />
    <install as="Components/Release/Task/CurrentSentinel.php" name="lib/Components/Release/Task/CurrentSentinel.php" />
-   <install as="Components/Release/Task/Freshmeat.php" name="lib/Components/Release/Task/Freshmeat.php" />
+   <install as="Components/Release/Task/Freecode.php" name="lib/Components/Release/Task/Freecode.php" />
    <install as="Components/Release/Task/NextSentinel.php" name="lib/Components/Release/Task/NextSentinel.php" />
    <install as="Components/Release/Task/NextVersion.php" name="lib/Components/Release/Task/NextVersion.php" />
    <install as="Components/Release/Task/Package.php" name="lib/Components/Release/Task/Package.php" />
@@ -718,6 +733,9 @@
    <install as="Components/Integration/Components/Module/ReleaseTest.php" name="test/Components/Integration/Components/Module/ReleaseTest.php" />
    <install as="Components/Stub/Config.php" name="test/Components/Stub/Config.php" />
    <install as="Components/Stub/Output.php" name="test/Components/Stub/Output.php" />
+   <install as="Components/test/distribute/debian/templates/rules" name="test/Components/test/distribute/debian/templates/rules" />
+   <install as="Components/test/distribute/debian/templates-php-horde/rules" name="test/Components/test/distribute/debian/templates-php-horde/rules" />
+   <install as="Components/test/distribute/debian/templates-php-horde-content/rules" name="test/Components/test/distribute/debian/templates-php-horde-content/rules" />
    <install as="Components/Unit/ComponentsTest.php" name="test/Components/Unit/ComponentsTest.php" />
    <install as="Components/Unit/Components/ConfigsTest.php" name="test/Components/Unit/Components/ConfigsTest.php" />
    <install as="Components/Unit/Components/Component/DependencyListTest.php" name="test/Components/Unit/Components/Component/DependencyListTest.php" />
@@ -767,7 +785,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-10-24</date>
+   <date>2011-11-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.

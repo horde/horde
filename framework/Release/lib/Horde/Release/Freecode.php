@@ -1,6 +1,6 @@
 <?php
 /**
- * Update the freshmeat information.
+ * Update the freecode information.
  *
  * PHP version 5
  *
@@ -14,7 +14,7 @@
  */
 
 /**
- * Update the freshmeat information.
+ * Update the freecode information.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -29,17 +29,17 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://www.horde.org/libraries/Horde_Release
  */
-class Horde_Release_Freshmeat
+class Horde_Release_Freecode
 {
     /**
-     * Freshmeat auth token.
+     * Freecode auth token.
      *
      * @var string
      */
     private $_token;
 
     /**
-     * Freshmeat project name.
+     * Freecode project name.
      *
      * @var string
      */
@@ -48,8 +48,8 @@ class Horde_Release_Freshmeat
     /**
      * Constructor.
      *
-     * @param string $token  Freshmeat auth token.
-     * @param string $proect Freshmeat project name.
+     * @param string $token  Freecode auth token.
+     * @param string $proect Freecode project name.
      */
     public function __construct($token, $project)
     {
@@ -71,7 +71,7 @@ class Horde_Release_Freshmeat
                            'release' => $params);
         $http = new Horde_Http_Client();
         try {
-            $response = $http->post('http://freshmeat.net/projects/' . $this->_project . '/releases.json',
+            $response = $http->post('http://freecode.com/projects/' . $this->_project . '/releases.json',
                                     Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
                                     array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Exception $e) {
@@ -95,7 +95,7 @@ class Horde_Release_Freshmeat
         // to update.
         $http = new Horde_Http_Client();
         try {
-            $response = $http->get('http://freshmeat.net/projects/' . $this->_project . '/urls.json?auth_code=' . $this->_token);
+            $response = $http->get('http://freecode.com/projects/' . $this->_project . '/urls.json?auth_code=' . $this->_token);
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Exception_Wrapped($e);
         }
@@ -124,7 +124,7 @@ class Horde_Release_Freshmeat
             if (empty($permalink)) {
                 // No link found to update...create it.
                 try {
-                    $response = $http->post('http://freshmeat.net/projects/' . $this->_project . '/urls.json',
+                    $response = $http->post('http://freecode.com/projects/' . $this->_project . '/urls.json',
                                             Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                             array('Content-Type' => 'application/json'));
                     $response = $response->getBody();
@@ -138,7 +138,7 @@ class Horde_Release_Freshmeat
             } else {
                 // Found the link to update...update it.
                 try {
-                    $response = $http->put('http://freshmeat.net/projects/' . $this->_project . '/urls/' . $permalink . '.json',
+                    $response = $http->put('http://freecode.com/projects/' . $this->_project . '/urls/' . $permalink . '.json',
                                            Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                            array('Content-Type' => 'application/json'));
                     $response = $response->getBody();
