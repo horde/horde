@@ -1,37 +1,40 @@
-======================================
-|| Sam Version 0.1 Development Team ||
-======================================
+======================
+ Sam Development Team
+======================
 
-===============
+
 Core Developers
 ===============
 
 Chris Bowlby <excalibur@hub.org>
+
 - Main programmer, designer.
+
 Max Kalika <max@horde.org>
+
 - Horde_Form rewrite, amavisd-new sql driver.
 
 
-===================
 Interface Designers
 ===================
 
 Marc Fournier <scrappy@hub.org>
+
 - Main interface designer.
 
 
-=====================
 Database Contributors
 =====================
 
 Devin Drown <drown@banzai.org>
+
 - MySQL Database Schema
 
 
-============
 Localization
 ============
 
+======================  ===============================================
 Chinese Traditional     David Chang <david@tmv.gov.tw>
 Czech                   T. Macek <maca02@atlas.cz>
 Estonian                Alar Sing <alar.sing@err.ee>
@@ -39,9 +42,8 @@ Finnish                 Petteri Karttunen <pkarttun@siba.fi>
 French                  Thierry Thomas <thierry@pompo.net>
 German                  Jan Schneider <jan@horde.org>
 Italian                 Marco Favero <falon@csi.it>
+Latvian                 Jānis Eisaks <jancs@dv.lv>
 Norwegian Nynorsk       Per-Stian Vatne <psv@orsta.org>
 Romanian                Eugen Hoanca <eugenh@urban-grafx.ro>
 Spanish                 Manuel Perez Ayala <mperaya@alcazaba.unex.es>
-
-
-$Horde: sam/docs/CREDITS,v 1.17 2009/05/21 12:07:04 jan Exp $
+======================  ===============================================
