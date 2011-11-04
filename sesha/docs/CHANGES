@@ -1,7 +1,8 @@
 --------
-v1.0-cvs
+v1.0-git
 --------
 
+[jan] Add Latvian translation (Jānis Eisaks).
 [cjh] Add sort priorities to categories.
 [cjh] Add a preference for showing properties on the Stock List.
 [jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
