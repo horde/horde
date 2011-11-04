@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Jonah H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-07-21 15:55+0300\n"
+"PO-Revision-Date: 2011-10-16 15:22+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -85,20 +85,8 @@ msgid "Channel \"%s\" not found."
 msgstr "Kanāls \"%s\" nav atrasts."
 
 #: lib/Form/Feed.php:44
-#, fuzzy
 msgid "Channel Slug"
-msgstr "%s kanāla kopija"
-
-#: lib/Form/Feed.php:51
-msgid ""
-"Channel URL for further pages, if not the default one. %c gets replaced by "
-"the feed ID, %n by the story offset."
-msgstr ""
-
-#: lib/Form/Feed.php:50
-#, php-format
-msgid "Channel URL if not the default one. %c gets replaced by the feed ID."
-msgstr ""
+msgstr "Kanāļa rinda"
 
 #: lib/View/ChannelDelete.php:70
 msgid "Channel has not been deleted."
@@ -137,10 +125,6 @@ msgstr "Salikta plūsma"
 #, php-format
 msgid "Could not open %s: %s"
 msgstr "Nevar atvērt %s: %s"
-
-#: lib/Block/Latest.php:47
-msgid "Count reads of the latest story when this block is displayed"
-msgstr ""
 
 #: lib/Block/Story.php:49
 msgid "Count reads of this story when this block is displayed"
@@ -243,13 +227,6 @@ msgstr "HTML sūtījums \"%s\""
 msgid "HTML Version of Story"
 msgstr "Raksta HTML versija"
 
-#: lib/Form/Story.php:80
-msgid ""
-"If you enter a URL without a full story text, clicking on the story will "
-"send the reader straight to the URL, otherwise it will be shown at the end "
-"of the full story."
-msgstr ""
-
 #: stories/share.php:90
 msgid "Include"
 msgstr "Iekļaut"
@@ -293,9 +270,8 @@ msgid "Manage Feeds"
 msgstr "Organizēt plūsmas"
 
 #: lib/Block/News.php:46 lib/Block/NewsPopular.php:49
-#, fuzzy
 msgid "Maximum Stories"
-msgstr "Maksimālā vērtība"
+msgstr "Maksimālais rakstu skaits"
 
 #: config/templates.php:23
 msgid "Media"
@@ -370,9 +346,9 @@ msgid "No story is selected."
 msgstr "Nav izvēlēts neviens raksts."
 
 #: lib/Factory/Driver.php:48
-#, fuzzy, php-format
+#, php-format
 msgid "No such backend \"%s\" found"
-msgstr "\"%s\" elements nav atrasts palīgmoduļa konfigurācijā ."
+msgstr "Pamatmodulis \"%s\" nav atrasts"
 
 #: stories/results.php:20
 msgid "No tag requested."
@@ -399,13 +375,8 @@ msgid "PDF version"
 msgstr "PDF versija"
 
 #: scripts/feed_tester.php:27
-#, fuzzy
 msgid "Parse failed:"
-msgstr " Autentificēšana neizdevās"
-
-#: scripts/feed_tester.php:30
-msgid "Parse succeeded, structure is:"
-msgstr ""
+msgstr "Neizdevās izanalizēt: "
 
 #: lib/Driver.php:415
 msgid "Plaintext Version of Story"
@@ -481,13 +452,6 @@ msgstr "Izplatīt šo rakstu"
 msgid "Short Description"
 msgstr "Īss apraksts"
 
-#: lib/Form/Feed.php:45
-#, php-format
-msgid ""
-"Slugs allows direct access to this channel's content by visiting: %s. <br /> "
-"Slug names may contain only letters, numbers or the _ (underscore) character."
-msgstr ""
-
 #: config/templates.php:12
 msgid "Standard"
 msgstr "Standarta"
@@ -514,13 +478,6 @@ msgstr "Virsraksts"
 msgid "Story URL"
 msgstr "Raksta URL"
 
-#: lib/Form/Feed.php:52
-#, php-format
-msgid ""
-"Story URL if not the default one. %c gets replaced by the feed ID, %s by the "
-"story ID."
-msgstr ""
-
 #: lib/Form/Story.php:59
 msgid "Story body type"
 msgstr "Raksta ķermeņa tips"
@@ -546,11 +503,6 @@ msgstr "Temats"
 #: lib/Block/Cloud.php:20
 msgid "Tag Cloud"
 msgstr "Tag Cloud"
-
-#: lib/Driver.php:448 lib/Driver.php:453 lib/Driver.php:458 lib/Driver.php:464
-#: lib/Driver.php:469
-msgid "Tag support not enabled in backend."
-msgstr ""
 
 #: lib/Form/Story.php:77
 msgid "Tags"

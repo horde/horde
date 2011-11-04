@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Timeobjects 1.0.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-21 10:58+0200\n"
+"POT-Creation-Date: 2011-08-02 15:24+0200\n"
 "PO-Revision-Date: 2011-07-07 11:57+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: Latvian <i18n@lists.horde.org>\n"
@@ -62,7 +62,7 @@ msgstr ""
 "Gaisa mitrums: %d%%\n"
 "Vēji: no %s uz %d%s"
 
-#: lib/Api.php:43
+#: lib/Api.php:47
 msgid "Facebook Events"
 msgstr "Facebook notikumi"
 
@@ -133,6 +133,6 @@ msgstr "Servera dati ir nepareizi vai arī nepieejami."
 msgid "Unknown location provided."
 msgstr "Norādīta nezināma atrašanās vieta."
 
-#: lib/Api.php:38
+#: lib/Api.php:39
 msgid "Weather"
 msgstr "Laika apstākļi"

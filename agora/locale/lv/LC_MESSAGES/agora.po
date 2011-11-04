@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Agora H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-07-22 15:53+0300\n"
+"PO-Revision-Date: 2011-10-16 15:21+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -31,31 +31,10 @@ msgstr "\"%s\" nav radīts: %s."
 msgid "%d messages was deleted."
 msgstr "Piezīme izdzēsta."
 
-#: scripts/phorum2agora.php:182
-msgid "-a, --agora_id[=aid]         Agora forum id to save message to"
-msgstr ""
-
-#: scripts/phorum2agora.php:185
-msgid "-c, --count[=messages]       Number of messages to move at once"
-msgstr ""
-
-#: scripts/phorum2agora.php:184
-msgid ""
-"-f, --from[=offset]          Offset from where to start to read messages"
-msgstr ""
-
 #: scripts/phorum2agora.php:180
 #, fuzzy
 msgid "-h, --help                   Show this help"
 msgstr "Rādīt šo piezīmi"
-
-#: scripts/phorum2agora.php:181
-msgid "-p, --phorum_id[=pid]        Phorum forum id to read message from"
-msgstr ""
-
-#: scripts/phorum2agora.php:183
-msgid "-t, --phorum_table[=table]   Phorum messages tablename"
-msgstr ""
 
 #: lib/Api.php:683
 #, fuzzy
@@ -80,10 +59,6 @@ msgstr "Visi forumi"
 msgid "Allow attachments in this forum?"
 msgstr "Saglabāt pielikumus nosūtīto vēstuļu mapē"
 
-#: messages/lock.php:44
-msgid "Allow replies in this thread"
-msgstr ""
-
 #: moderate.php:29 moderate.php:64
 msgid "Approve"
 msgstr "Apstiprināt"
@@ -105,12 +80,6 @@ msgstr "Autors"
 msgid "Avatar"
 msgstr "Avatārs"
 
-#: config/prefs.php:73
-#, php-format
-msgid ""
-"Avatars must be smaller than %s by %s pixels and less than %sKb in size."
-msgstr ""
-
 #: ban.php:51 lib/Messages.php:1525
 msgid "Ban"
 msgstr "Bans"
@@ -128,10 +97,6 @@ msgstr "Ķermenis"
 #: messages/move.php:40 messages/split.php:40
 msgid "Cancel"
 msgstr "Atcelt"
-
-#: lib/Messages.php:1944
-msgid "Cannot create a forum with an empty name."
-msgstr ""
 
 #: lib/Api.php:312 lib/Comments.php:52
 msgid "Comments"
@@ -282,14 +247,6 @@ msgstr "Apraksts"
 msgid "Display Preferences"
 msgstr "Attēlošanas iestatījumi"
 
-#: config/prefs.php:251
-msgid "Display full message bodies in the comments view?"
-msgstr ""
-
-#: config/prefs.php:199
-msgid "Display full message bodies in the thread list view?"
-msgstr ""
-
 #: config/prefs.php:222
 #, fuzzy
 msgid "Display graphical emoticons?"
@@ -339,10 +296,6 @@ msgstr "rediģēt joslu"
 #, fuzzy
 msgid "Edit message"
 msgstr "TNEF ziņa"
-
-#: lib/Form/Forum.php:35
-msgid "Enter a brief description of this forum"
-msgstr ""
 
 #: config/prefs.php:248 lib/Comments.php:58 messages/index.php:160
 msgid "Flat"
@@ -420,15 +373,6 @@ msgstr "Slēpt priekšskatu"
 msgid "Hot thread"
 msgstr "Dzēst pavedienu"
 
-#: lib/Form/Forum.php:39
-msgid "If selected users will be able to attach files to their messages."
-msgstr ""
-
-#: messages/edit.php:110
-msgid ""
-"Invalid parent message, you will be posting this message as a new thread."
-msgstr ""
-
 #: lib/Form/Forum.php:36
 #, fuzzy
 msgid "Is this a moderated forum?"
@@ -484,20 +428,10 @@ msgstr "Izkropļota galvene: '%s'"
 msgid "Malformed database entry."
 msgstr "Jauna karstā saraksta ieraksts"
 
-#: scripts/phorum2agora.php:178
-msgid ""
-"Mandatory arguments to long options are mandatory for short options too."
-msgstr ""
-
 #: lib/Messages.php:967 messages/merge.php:40 messages/merge.php:66
 #, fuzzy
 msgid "Merge"
 msgstr "_Apvienot"
-
-#: messages/merge.php:39
-#, php-format
-msgid "Merge \"%s\" with another thread"
-msgstr ""
 
 #: lib/Messages.php:1569
 #, fuzzy
@@ -614,14 +548,6 @@ msgstr "Radīts kalendārs \"%s\"."
 msgid "No graphical emoticons"
 msgstr "Neviens logs nav atvērts"
 
-#: moderate.php:49
-msgid "No messages are waiting for moderation."
-msgstr ""
-
-#: messages/abuse.php:32
-msgid "No moderators are associated with this forum."
-msgstr ""
-
 #: templates/moderators.html.php:27
 #, fuzzy
 msgid "No moderators have been created."
@@ -631,10 +557,6 @@ msgstr "Radīts kalendārs \"%s\"."
 #, fuzzy
 msgid "No threads"
 msgstr "-  < Nav tulkojuma >"
-
-#: messages/lock.php:44
-msgid "No, do not allow replies"
-msgstr ""
 
 #: config/prefs.php:119
 #, fuzzy
@@ -650,22 +572,6 @@ msgstr "Rādāmo rakstu skaits"
 #, fuzzy
 msgid "Number of messages to display on each page"
 msgstr "Rādāmo rakstu skaits"
-
-#: config/prefs.php:151
-msgid "Number of views in 24hrs to trigger a 'hot-thread':"
-msgstr ""
-
-#: lib/Block/Forums.php:38
-msgid "Only display this many forums (0 to display all forums)"
-msgstr ""
-
-#: lib/Block/Threads.php:49
-msgid "Only display this many threads (0 to display all threads)"
-msgstr ""
-
-#: lib/Form/Forum.php:37
-msgid "Optional email address to recieve a copy of each posted message"
-msgstr ""
 
 #: templates/forums.html.php:34
 msgid "Options"
@@ -786,16 +692,6 @@ msgstr "Meklēt atkārtojumus:"
 msgid "Search in these forums"
 msgstr "Meklēt rakstzīmju _detaļās"
 
-#: config/prefs.php:15
-msgid "Set the avatar image that is shown with your posts."
-msgstr ""
-
-#: lib/Form/Forum.php:36
-msgid ""
-"Set this if you want all messages to be checked by a moderator before they "
-"are posted."
-msgstr ""
-
 #: config/prefs.php:23
 #, fuzzy
 msgid "Set your preferences for the forums view."
@@ -911,20 +807,11 @@ msgstr "Šajā pastkastē vēstuļu nav."
 msgid "This thread has been locked."
 msgstr "Piezīme ir nošifrēta."
 
-#: deleteforum.php:42
-msgid "This will delete the forum, any subforums and all relative messages."
-msgstr ""
-
 #: config/prefs.php:128 config/prefs.php:173 config/prefs.php:249
 #: lib/Block/Thread.php:32 lib/Block/Thread.php:78 lib/Comments.php:59
 #: messages/index.php:139 messages/index.php:151
 msgid "Thread"
 msgstr "Pavediens"
-
-#: messages/merge.php:71
-#, php-format
-msgid "Thread %s merged with thread %s after message %s."
-msgstr ""
 
 #: messages/move.php:57
 #, fuzzy, php-format
@@ -985,14 +872,6 @@ msgstr "Grepoju iekš %s"
 msgid "Unable to fetch selected thread."
 msgstr "Nevar uzstādīt patikšanu."
 
-#: lib/Block/Threads.php:94
-msgid "Unable to fetch threads for selected forum."
-msgstr ""
-
-#: lib/Messages.php:956
-msgid "Unlock"
-msgstr ""
-
 #: messages/index.php:119
 #, fuzzy
 msgid "Unlock thread"
@@ -1040,10 +919,6 @@ msgstr "Jā"
 msgid "Yes, allow replies"
 msgstr "_Atļaut Auto-Palaišanu"
 
-#: config/prefs.php:197
-msgid "Yes, and don't thread them"
-msgstr ""
-
 #: lib/Messages.php:1719
 #, fuzzy, php-format
 msgid "You don't have permission to access messages in forum %s."
@@ -1086,12 +961,6 @@ msgstr "Jums nav tiesību deleģēt notikumus %s."
 #, fuzzy, php-format
 msgid "You don't have permissions to edit forum %s"
 msgstr "Jums nav tiesību labot filtru likumus."
-
-#: messages/edit.php:80
-msgid ""
-"Your message has been enqueued and is awaiting moderation.  It will become "
-"visible after moderator approval."
-msgstr ""
 
 #: lib/Application.php:82
 msgid "_Forums"
