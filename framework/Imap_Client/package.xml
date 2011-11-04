@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-28</date>
- <time>18:10:32</time>
+ <date>2011-11-04</date>
+ <time>14:48:46</time>
  <version>
   <release>1.2.0</release>
   <api>1.2.0</api>
@@ -602,7 +602,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-28</date>
+   <date>2011-11-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fixed setting data for several POP3 fetch results.
