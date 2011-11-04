@@ -1,6 +1,6 @@
 <?php
 /**
- * All tests for the Kolab_Format:: package.
+ * All tests for the Horde_Kolab_Format:: package.
  *
  * PHP version 5
  *
