@@ -165,7 +165,7 @@ class Components_Helper_ChangeLog
     {
         if (empty($options['pretend'])) {
             //@todo Error handling
-            return system($call);
+            return exec($call);
         } else {
             $this->_output->info(sprintf('Would run "%s" now.', $call));
         }

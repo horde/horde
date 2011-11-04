@@ -907,10 +907,14 @@ class Nag_Task
         }
 
         /* Due Date */
-        $message->setDueDate(new Horde_Date($this->due));
+        if (!empty($this->due)) {
+            $message->setDueDate(new Horde_Date($this->due));
+        }
 
         /* Start Date */
-        $message->setStartDate(new Horde_Date($this->start));
+        if (!empty($this->start)) {
+            $message->setStartDate(new Horde_Date($this->start));
+        }
 
         /* Priority */
         switch ($this->priority) {
@@ -931,7 +935,7 @@ class Nag_Task
         $message->setImportance($priority);
 
         /* Reminders */
-        if ($this->due && $this->alarm) {
+            if ($this->due && $this->alarm) {
             $message->setReminder(new Horde_Date($this->due - $this->alarm));
         }
 

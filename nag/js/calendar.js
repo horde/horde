@@ -45,7 +45,7 @@ var NagCalendar =
 
     getFormDate: function(p)
     {
-        return new Date($F(p + '_date'));
+        return Date.parseExact($F(p + '_date'), Nag.conf.date_format);
     },
 
     clickHandler: function(e)

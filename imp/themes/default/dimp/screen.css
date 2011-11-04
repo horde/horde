@@ -254,7 +254,8 @@ div.contextMenu div.msCheck, div.contextMenu div.msCheckOn {
 /* Rows (vertical mode) */
 div.vpRowVert {
     height: auto;
-    border-bottom: 1px solid silver;
+    padding-top: .25em;
+    border-bottom: thin solid gainsboro;
 }
 div.vpRowVert div {
     font-size: 100%;
@@ -275,7 +276,7 @@ div.vpRowVert div.msgDate {
     width: auto;
 }
 div.vpRowVert div.msgSubject {
-    color: darkgray;
+    color: gray;
     float: none;
     margin-right: 2px;
     width: auto;
@@ -500,6 +501,10 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     border-bottom: 1px solid #999;
 }
 
+div.dimpActionsMsg #windowclose {
+    border: 0;
+}
+
 /* Preview pane styles. */
 #previewPane {
     overflow: auto;
@@ -515,9 +520,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgHeaders {
     background: transparent url("../graphics/backhead_r.png") repeat-x;
     border-bottom: 1px #b9b9b3 solid;
-    padding: 2px 0 1px;
     font-size: 90%;
-    overflow: hidden;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 2px 0 1px;
 }
 .msgfullread .msgHeaders {
     cursor: default;

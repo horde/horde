@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-06</date>
- <time>13:30:11</time>
+ <date>2011-10-19</date>
+ <time>00:20:16</time>
  <version>
-  <release>5.0.14</release>
+  <release>5.0.15</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,22 +34,19 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Add preference to indicate preferred language for return replies on outgoing messages.
-* [mms] For reply, indicate original sender's language preference.
-* [mms] Fix/improve monthly sent-mail rename login task (Bug #10613).
-* [mms] Fix display of encoded subject text on print page (Bug #9755).
-* [mms] Fix setting MDN flag on sent message after compose (Bug #10579).
-* [mms] When expanding a submailbox in dynamic view, honor expanded children status.
-* [mms] Re-add &apos;msgs_shown&apos; parameter to Newmail block.
-* [mms] Allow multiple messages to be sent via quickreply in dynamic view.
-* [mms] Allow image attachments to be displayed without download in mobile view.
-* [mms] Fix reporting spam/innocent on mailbox page in mobile view.
-* [mms] Fix viewing next message after deleting message in mobile view.
-* [mms] Fix composing messages in mobile view.
-* [mms] Optimize deletion of messages in dynamic view.
-* [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
-* [mms] Fix altering background color of system message flags (Bug #10544).
-* [jan] Fix sending notifications after download of linked attachments (Bug #10539).
+* [mms] Fix verifying a PGP signed part within a PGP encrypted part.
+* [mms] HTML viewer passes Email Privacy Tester (http://grepular.com/email_privacy_tester/).
+* [mms] Fix intermittent attachment loss when composing messages.
+* [mms] Correctly reference CSS stylesheets contained within a multipart/related part.
+* [mms] Sanitize LINK tags contained in HTML messages.
+* [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
+* [mjr] Only request the field values we actually need when searching the contacts API.
+* [mms] Fix expand all mailboxes in dynamic view (Bug #10682).
+* [mms] Re-add auto-detection of MIME types for message parts that lack this information.
+* [mms] Add &apos;delete_mark_seen&apos; preference.
+* [mms] Fix accessing POP3 servers that use commas in their UIDs.
+* [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
+* [mms] Fix some dynamic view links on IE (Bug #10664).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -90,6 +87,7 @@
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
     <file name="imp.js" role="horde" />
+    <file name="indices.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox-dimp.js" role="horde" />
     <file name="mailbox.js" role="horde" />
@@ -1004,6 +1002,7 @@
        <file name="inbox.png" role="horde" />
        <file name="minus.png" role="horde" />
        <file name="open.png" role="horde" />
+       <file name="options.png" role="horde" />
        <file name="plus.png" role="horde" />
        <file name="sent.png" role="horde" />
        <file name="spam.png" role="horde" />
@@ -1258,7 +1257,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.15</min>
+    <min>1.2.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1293,7 +1292,7 @@
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.7</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1458,6 +1457,7 @@
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
+   <install as="imp/js/indices.js" name="js/indices.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox-dimp.js" name="js/mailbox-dimp.js" />
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
@@ -2054,6 +2054,7 @@
    <install as="imp/themes/silver/graphics/folders/inbox.png" name="themes/silver/graphics/folders/inbox.png" />
    <install as="imp/themes/silver/graphics/folders/minus.png" name="themes/silver/graphics/folders/minus.png" />
    <install as="imp/themes/silver/graphics/folders/open.png" name="themes/silver/graphics/folders/open.png" />
+   <install as="imp/themes/silver/graphics/folders/options.png" name="themes/silver/graphics/folders/options.png" />
    <install as="imp/themes/silver/graphics/folders/plus.png" name="themes/silver/graphics/folders/plus.png" />
    <install as="imp/themes/silver/graphics/folders/sent.png" name="themes/silver/graphics/folders/sent.png" />
    <install as="imp/themes/silver/graphics/folders/spam.png" name="themes/silver/graphics/folders/spam.png" />
@@ -2528,9 +2529,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-06</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Workaround broken number_format() for PHP &lt; 5.4.0 (Bug #10618).
+* [mms] Add preference to indicate preferred language for return replies on outgoing messages.
+* [mms] For reply, indicate original sender&apos;s language preference.
+* [mms] Fix/improve monthly sent-mail rename login task (Bug #10613).
 * [mms] Fix display of encoded subject text on print page (Bug #9755).
 * [mms] Fix setting MDN flag on sent message after compose (Bug #10579).
 * [mms] When expanding a submailbox in dynamic view, honor expanded children status.
@@ -2544,6 +2549,25 @@
 * [mms] Fix accessing search mailboxes in dynamic view on IE 9 (Bug #10462).
 * [mms] Fix altering background color of system message flags (Bug #10544).
 * [jan] Fix sending notifications after download of linked attachments (Bug #10539).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.15</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Only request the field values we actually need when searching the contacts API.
+* [mms] Fix expand all mailboxes in dynamic view (Bug #10682).
+* [mms] Re-add auto-detection of MIME types for message parts that lack this information.
+* [mms] Add &apos;delete_mark_seen&apos; preference.
+* [mms] Fix accessing POP3 servers that use commas in their UIDs.
+* [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
+* [mms] Fix some dynamic view links on IE (Bug #10664).
    </notes>
   </release>
  </changelog>

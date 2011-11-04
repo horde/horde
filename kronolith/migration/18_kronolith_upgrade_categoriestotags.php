@@ -40,7 +40,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             $this->_tagger->tag(
                 $row['event_creator_id'],
                 array('object' => (string)$row['event_uid'], 'type' => $this->_type_ids['event']),
-                Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
+                $row['event_category']
             );
 
             // Do we need to tag the event again, but as the share owner?
@@ -50,7 +50,7 @@ class KronolithUpgradeCategoriesToTags extends Horde_Db_Migration_Base
                     $this->_tagger->tag(
                         $cal->get('owner'),
                         array('object' => (string)$row['event_uid'], 'type' => $this->_type_ids['event']),
-                        Horde_String::convertCharset($row['event_category'], $this->getOption('charset'), 'UTF-8')
+                        $row['event_category']
                     );
                 }
             } catch (Exception $e) {

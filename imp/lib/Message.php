@@ -26,7 +26,7 @@ class IMP_Message
      * Also handles moves to the tasklist and/or notepad applications.
      *
      * @param string $targetMbox    The mailbox to move/copy messages to
-     *                              (UTF7-IMAP).
+     *                              (UTF-8).
      * @param string $action        Either 'copy' or 'move'.
      * @param IMP_Indices $indices  An indices object.
      * @param array $opts           Additional options:
@@ -96,7 +96,7 @@ class IMP_Message
 
                 /* Attempt to copy/move messages to new mailbox. */
                 $imp_imap->copy($ob->mbox, $targetMbox, array(
-                    'ids' => new Horde_Imap_Client_Ids($ob->uids),
+                    'ids' => $imp_imap->getIdsOb($ob->uids),
                     'move' => $imap_move
                 ));
 
@@ -138,7 +138,7 @@ class IMP_Message
      */
     public function delete(IMP_Indices $indices, array $opts = array())
     {
-        global $conf, $notification, $prefs;
+        global $conf, $injector, $notification, $prefs;
 
         if (!count($indices)) {
             return false;
@@ -154,7 +154,7 @@ class IMP_Message
         $maillog_update = (empty($opts['keeplog']) && !empty($conf['maillog']['use_maillog']));
         $return_value = 0;
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Check for Trash folder. */
         $no_expunge = $use_trash_folder = $use_vtrash = false;
@@ -164,6 +164,13 @@ class IMP_Message
             $use_vtrash = $trash->vtrash;
             $use_trash_folder = !$use_vtrash;
         }
+
+        /* Check whether we are marking messages as seen.
+         * If using virtual trash, we must mark the message as seen or else it
+         * will appear as an 'unseen' message for purposes of new message
+         * counts. */
+        $mark_seen = empty($opts['nuke']) &&
+                     ($use_vtrash || $prefs->getValue('delete_mark_seen'));
 
         if ($use_trash_folder && !$trash->create()) {
             /* If trash folder could not be created, just mark message as
@@ -190,12 +197,23 @@ class IMP_Message
                 $return_value += count($ob->uids);
             }
 
+            $ids_ob = $imp_imap->getIdsOb($ob->uids);
+
             /* Trash is only valid for IMAP mailboxes. */
             if ($use_trash_folder && ($ob->mbox != $trash)) {
                 if ($ob->mbox->access_expunge) {
                     try {
+                        if ($mark_seen) {
+                            $imp_imap->store($ob->mbox, array(
+                                'add' => array(
+                                    Horde_Imap_Client::FLAG_SEEN
+                                ),
+                                'ids' => $ids_ob
+                            ));
+                        }
+
                         $imp_imap->copy($ob->mbox, $trash, array(
-                            'ids' => new Horde_Imap_Client_Ids($ob->uids),
+                            'ids' => $ids_ob,
                             'move' => true
                         ));
 
@@ -218,7 +236,7 @@ class IMP_Message
 
                     try {
                         $fetch = $imp_imap->fetch($ob->mbox, $query, array(
-                            'ids' => new Horde_Imap_Client_Ids($ob->uids)
+                            'ids' => $ids_ob
                         ));
                     } catch (IMP_Imap_Exception $e) {}
                 }
@@ -233,17 +251,14 @@ class IMP_Message
                     $ob->mbox->vtrash) {
                     /* Purge messages immediately. */
                     $expunge_now = !$no_expunge;
-                } elseif ($use_vtrash) {
-                    /* If we are using virtual trash, we must mark the message
-                     * as seen or else it will appear as an 'unseen' message
-                     * for purposes of new message counts. */
+                } elseif ($mark_seen) {
                     $del_flags[] = Horde_Imap_Client::FLAG_SEEN;
                 }
 
                 try {
                     $imp_imap->store($ob->mbox, array(
                         'add' => $del_flags,
-                        'ids' => new Horde_Imap_Client_Ids($ob->uids)
+                        'ids' => $ids_ob
                     ));
                     if ($expunge_now) {
                         $this->expungeMailbox(
@@ -529,10 +544,12 @@ class IMP_Message
 
         try {
             $res = $imp_imap->fetch($mbox, $query, array(
-                'ids' => new Horde_Imap_Client_Ids($uid)
+                'ids' => $imp_imap->getIdsOb($uid)
             ));
-            $res = reset($res);
-            $flags = $res->getFlags();
+            if (!isset($res[$uid])) {
+                throw new IMP_Imap_Exception();
+            }
+            $flags = $res[$uid]->getFlags();
 
             /* If in Virtual Inbox, we need to reset flag to unseen so that it
              * appears again in the mailbox list. */
@@ -544,7 +561,7 @@ class IMP_Message
                 array(
                     'data' => $parts,
                     'flags' => $flags,
-                    'internaldate' => $res->getImapDate()
+                    'internaldate' => $res[$uid]->getImapDate()
                 )
             ));
             $new_uid = reset($new_uid->ids);
@@ -606,7 +623,7 @@ class IMP_Message
 
                 /* Flag/unflag the messages now. */
                 $imp_imap->store($ob->mbox, array_merge($action_array, array(
-                    'ids' => new Horde_Imap_Client_Ids($ob->uids)
+                    'ids' => $imp_imap->getIdsOb($ob->uids)
                 )));
 
                 $ajax_queue->flag(reset($action_array), $action, $ob->mbox->getIndicesOb($ob->uids));
@@ -691,7 +708,7 @@ class IMP_Message
             $key = IMP_Mailbox::get($key);
 
             if ($key->access_expunge) {
-                $ids = new Horde_Imap_Client_Ids(is_array($val) ? $val : Horde_Imap_Client_Ids::ALL);
+                $ids = $imp_imap->getIdsOb(is_array($val) ? $val : Horde_Imap_Client_Ids::ALL);
 
                 if ($key->search) {
                     foreach ($key->getSearchOb()->mboxes as $skey) {
@@ -796,8 +813,9 @@ class IMP_Message
         $query->size();
 
         try {
-            $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->fetch($mbox, $query, array(
-                'ids' => new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL, true)
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $res = $imp_imap->fetch($mbox, $query, array(
+                'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
             ));
 
             $size = 0;

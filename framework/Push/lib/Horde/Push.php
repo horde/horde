@@ -42,6 +42,13 @@ class Horde_Push
     private $_content = array();
 
     /**
+     * Content types.
+     *
+     * @var array
+     */
+    private $_types = array();
+
+    /**
      * The recipients that will receive the content.
      *
      * @var array
@@ -82,16 +89,53 @@ class Horde_Push
     }
 
     /**
+     * Return the content at the given index as a string.
+     *
+     * @param int $index Index of the content part.
+     *
+     * @return string The content.
+     */
+    public function getStringContent($index)
+    {
+        if (is_resource($this->_content[$index]['content'])) {
+            rewind($this->_content[$index]['content']);
+            return stream_get_contents($this->_content[$index]['content']);
+        } else {
+            return $this->_content[$index]['content'];
+        }
+    }
+
+    /**
+     * Return the contents by MIME type for this element.
+     *
+     * @return array The content list ordered by MIME type.
+     */
+    public function getMimeTypes()
+    {
+        return $this->_types;
+    }
+
+    /**
      * Add content to this element.
      *
-     * @param string|resource $content The UTF-8 encoded content.
-     * @param array           $params  Content specific parameters.
+     * @param string|resource $content   The UTF-8 encoded content.
+     * @param string          $mime_type The MIME type of the content.
+     * @param array           $params    Content specific parameters.
      *
      * @return Horde_Push This content element.
      */
-    public function addContent($content, $params = array())
+    public function addContent(
+        $content,
+        $mime_type = 'text/plain',
+        $params = array()
+    )
     {
-        $this->_content[] = array('content' => $content, 'params' => $params);
+        $this->_types[$mime_type][] = count($this->_content);
+        $this->_content[] = array(
+            'content' => $content,
+            'mime_type' => $mime_type,
+            'params' => $params
+        );
         return $this;
     }
 
@@ -113,13 +157,16 @@ class Horde_Push
     /**
      * Push the content to the recipients.
      *
+     * @param array $options Additional options.
+     *
      * @return Horde_Push This content element.
      */
-    public function push()
+    public function push($options = array())
     {
+        $results = array();
         foreach ($this->_recipients as $recipient) {
-            $recipient->push($this);
+            $results[] = $recipient->push($this, $options);
         }
-        return $this;
+        return $results;
     }
 }

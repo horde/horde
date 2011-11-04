@@ -21,7 +21,17 @@ class Horde_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '4.0.11-git';
+    public $version = '4.0.12-git';
+
+    /**
+     */
+    public function logout()
+    {
+        // Destroy any session-only temp files (since Horde_Core 1.7.0).
+        foreach ($GLOBALS['session']->get('horde', 'gc_tempfiles', Horde_Session::TYPE_ARRAY) as $file) {
+            @unlink($file);
+        }
+    }
 
     /**
      */

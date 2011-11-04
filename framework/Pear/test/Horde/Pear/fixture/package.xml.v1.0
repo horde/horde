@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.9.1">
+ <name>PEAR</name>
+ <summary>PEAR Base System</summary>
+ <description>The PEAR package contains:
+ * the PEAR installer, for creating, distributing
+   and installing packages
+ * the PEAR_Exception PHP5 error handling mechanism
+ * the PEAR_ErrorStack advanced error handling mechanism
+ * the PEAR_Error error handling mechanism
+ * the OS_Guess class for retrieving info about the OS
+   where PHP is running on
+ * the System class for quick handling of common operations
+   with files and directories
+ * the PEAR base class
+
+  Features in a nutshell:
+  * full support for channels
+  * pre-download dependency validation
+  * new package.xml 2.0 format allows tremendous flexibility while maintaining BC
+  * support for optional dependency groups and limited support for sub-packaging
+  * robust dependency support
+  * full dependency validation on uninstall
+  * remote install for hosts with only ftp access - no more problems with
+    restricted host installation
+  * full support for mirroring
+  * support for bundling several packages into a single tarball
+  * support for static dependencies on a url-based package
+  * support for custom file roles and installation tasks
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>cellog</user>
+   <name>Greg Beaver</name>
+   <email>cellog@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>pajoye</user>
+   <name>Pierre-Alain Joye</name>
+   <email>pierre@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>ssb</user>
+   <name>Stig Bakken</name>
+   <email>stig@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>cox</user>
+   <name>Tomas V.V.Cox</name>
+   <email>cox@idecnet.com</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>dufuz</user>
+   <name>Helgi Thormar</name>
+   <email>dufuz@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>tias</user>
+   <name>Tias Guns</name>
+   <email>tias@php.net</email>
+   <role>developer</role>
+  </maintainer>
+  <maintainer>
+   <user>timj</user>
+   <name>Tim Jackson</name>
+   <email>timj@php.net</email>
+   <role>helper</role>
+  </maintainer>
+  <maintainer>
+   <user>toggg</user>
+   <name>Bertrand Gugger</name>
+   <email>toggg@php.net</email>
+   <role>helper</role>
+  </maintainer>
+  <maintainer>
+   <user>mj</user>
+   <name>Martin Jansen</name>
+   <email>mj@php.net</email>
+   <role>helper</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.9.1</version>
+  <date>2010-05-26</date>
+  <license>New BSD License</license>
+  <state>stable</state>
+  <notes>* svntag improvements, tag package files passed into the command and better directory checks [dufuz]
+* rely on Structures_Graph minimum version instead of recommended version [saltybeagle]
+* Fix Bug #12613: running go-pear.phar from C:\ fails [dufuz]
+* Fix Bug #14841: Installing pear into directory with space fails [dufuz]
+* Fix Bug #16644: pear.bat returns syntax error when parenthesis are in install path. [dufuz] [patch by bwaters (Bryan Waters)]
+* Fix Bug #16767: Use of Depreciated HTML Attributes in the Exception class [dufuz] [patch by fuhrysteve (Stephen J. Fuhry)]
+* Fix Bug #16864: &quot;pear list-upgrades -i&quot; issues E_WARNINGS [dufuz] [patch by rquadling (Richard Quadling)]
+* Fix Bug #17220: command `pear help` outputs to stderr instead of stdout [dufuz]
+* Fix Bug #17234: channel-discover adds port to HTTP Host header [dufuz]
+* Fix Bug #17292: Code Coverage in PEAR_RunTest does not work with namespaces [sebastian]
+* Fix Bug #17359: loadExtension() fails over missing dl() when used in multithread env [dufuz]
+* Fix Bug #17378: pear info $package fails if directory with that name exists [dufuz]
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.4.0"/>
+   <dep type="pkg" rel="ge" version="1.3.3">PEAR</dep>
+   <dep type="pkg" rel="ge" version="1.3.7">Archive_Tar</dep>
+   <dep type="pkg" rel="ge" version="1.2">Console_Getopt</dep>
+   <dep type="pkg" rel="ge" version="1.0.2">Structures_Graph</dep>
+   <dep type="pkg" rel="ge" version="0.5.0" optional="yes">PEAR_Frontend_Web</dep>
+   <dep type="pkg" rel="ge" version="0.4.0" optional="yes">PEAR_Frontend_Gtk</dep>
+   <dep type="ext" rel="has">xml</dep>
+   <dep type="ext" rel="has">pcre</dep>
+  </deps>
+  <provides type="class" name="OS_Guess" />
+  <provides type="class" name="System" />
+  <filelist>
+   <file role="php" name="OS/Guess.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/ChannelFile/Parser.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Auth.xml"/>
+   <file role="php" name="PEAR/Command/Auth.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Build.xml"/>
+   <file role="php" name="PEAR/Command/Build.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Channels.xml"/>
+   <file role="php" name="PEAR/Command/Channels.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Common.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Config.xml"/>
+   <file role="php" name="PEAR/Command/Config.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Install.xml"/>
+   <file role="php" name="PEAR/Command/Install.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Package.xml"/>
+   <file role="php" name="PEAR/Command/Package.php">
+    <replace from="@DATA-DIR@" to="data_dir" type="pear-config"/>
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Pickle.xml"/>
+   <file role="php" name="PEAR/Command/Pickle.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Registry.xml"/>
+   <file role="php" name="PEAR/Command/Registry.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Remote.xml"/>
+   <file role="php" name="PEAR/Command/Remote.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Mirror.xml"/>
+   <file role="php" name="PEAR/Command/Mirror.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command/Test.xml"/>
+   <file role="php" name="PEAR/Command/Test.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Downloader/Package.php">
+    <replace from="@PEAR-VER@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Frontend/CLI.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Common.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Cfg.xml"/>
+   <file role="php" name="PEAR/Installer/Role/Cfg.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Data.xml"/>
+   <file role="php" name="PEAR/Installer/Role/Data.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Doc.xml"/>
+   <file role="php" name="PEAR/Installer/Role/Doc.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Ext.xml"/>
+   <file role="php" name="PEAR/Installer/Role/Ext.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Php.xml"/>
+   <file role="php" name="PEAR/Installer/Role/Php.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Script.xml"/>
+   <file role="php" name="PEAR/Installer/Role/Script.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Src.xml"/>
+   <file role="php" name="PEAR/Installer/Role/Src.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Test.xml"/>
+   <file role="php" name="PEAR/Installer/Role/Test.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role/Www.xml"/>
+   <file role="php" name="PEAR/Installer/Role/Www.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer/Role.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/PackageFile/Generator/v1.php">
+    <replace from="@PEAR-VER@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/PackageFile/Generator/v2.php">
+    <replace from="@PEAR-VER@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/PackageFile/Parser/v1.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/PackageFile/Parser/v2.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/PackageFile/v2/rw.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/PackageFile/v2/Validator.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/PackageFile/v1.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/PackageFile/v2.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/REST/10.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/REST/11.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/REST/13.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Task/Postinstallscript/rw.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Task/Replace/rw.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Task/Unixeol/rw.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Task/Windowseol/rw.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Task/Common.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Task/Postinstallscript.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Task/Replace.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Task/Unixeol.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Task/Windowseol.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Validator/PECL.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Autoloader.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Builder.php">
+    <replace from="@PEAR-VER@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/ChannelFile.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Command.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Common.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Config.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/DependencyDB.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Dependency2.php">
+    <replace from="@PEAR-VER@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Downloader.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/ErrorStack.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Exception.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/FixPHP5PEARWarnings.php"/>
+   <file role="php" name="PEAR/Frontend.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Installer.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Packager.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/PackageFile.php">
+    <replace from="@PEAR-VER@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Registry.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/REST.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/RunTest.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/Validate.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" name="PEAR/XMLParser.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="script" baseinstalldir="/" platform="!windows" install-as="pear" name="scripts/pear.sh">
+    <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+    <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+    <replace from="@pear_version@" to="version" type="package-info"/>
+    <replace from="@include_path@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="script" baseinstalldir="/" platform="!windows" install-as="peardev" name="scripts/peardev.sh">
+    <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+    <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+    <replace from="@pear_version@" to="version" type="package-info"/>
+    <replace from="@include_path@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="script" baseinstalldir="/" platform="!windows" install-as="pecl" name="scripts/pecl.sh">
+    <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+    <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+    <replace from="@pear_version@" to="version" type="package-info"/>
+    <replace from="@include_path@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="script" baseinstalldir="/" platform="windows" install-as="peardev.bat" name="scripts/peardev.bat">
+    <replace from="@bin_dir@" to="bin_dir" type="pear-config"/>
+    <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+    <replace from="@include_path@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="script" baseinstalldir="/" platform="windows" install-as="pear.bat" name="scripts/pear.bat">
+    <replace from="@bin_dir@" to="bin_dir" type="pear-config"/>
+    <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+    <replace from="@include_path@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="script" baseinstalldir="/" platform="windows" install-as="pecl.bat" name="scripts/pecl.bat">
+    <replace from="@bin_dir@" to="bin_dir" type="pear-config"/>
+    <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+    <replace from="@include_path@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="php" baseinstalldir="/" install-as="pearcmd.php" name="scripts/pearcmd.php">
+    <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+    <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+    <replace from="@pear_version@" to="version" type="package-info"/>
+    <replace from="@include_path@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="php" baseinstalldir="/" install-as="peclcmd.php" name="scripts/peclcmd.php">
+    <replace from="@php_bin@" to="php_bin" type="pear-config"/>
+    <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+    <replace from="@pear_version@" to="version" type="package-info"/>
+    <replace from="@include_path@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="doc" baseinstalldir="/" name="LICENSE"/>
+   <file role="doc" baseinstalldir="/" name="INSTALL"/>
+   <file role="data" baseinstalldir="/" name="package.dtd"/>
+   <file role="data" baseinstalldir="/" name="template.spec"/>
+   <file role="php" baseinstalldir="/" name="PEAR.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="/" name="PEAR5.php"/>
+   <file role="doc" baseinstalldir="/" name="README"/>
+   <file role="php" baseinstalldir="/" name="System.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.8.0alpha1</version>
+    <date>2009-03-09</date>
+    <license>New BSD License</license>
+    <state>alpha</state>
+    <notes>* Implement Request #10373: if pref_state=stable and installed package=beta, allow up to latest beta version [dufuz]
+* Implement Request #10581: login / logout should map to channel-login / channel-logout [dufuz]
+* Implement Request #10825: Only display the &quot;invalid or missing package file&quot;-error if it makes sense [dufuz]
+* Implement Request #11170: script to generate Command/[command].xml [dufuz]
+* Implement Request #11176: improve channel ... has updated its protocols message [dufuz]
+* Implement Request #12706: pear list -a hard to read [dufuz]
+* Implement Request #11353: upgrade-all and upgrade commands to upgrade within the same stability level [dufuz]
+* Implement Request #13015: Add https discovery for channel.xml [dufuz / initial patch by Martin Roos]
+* Implement Request #13927: install-pear.php should have option to set www_dir [timj]
+* Implement Request #14324: Make the pear install command behave similar to apt-get [dufuz]
+* Implement Request #14325: make pear upgrade with no params behave like pear upgrade-all [dufuz]
+  - upgrade-all can be considered deprecated in favor of calling upgrade with no parameters to replicate
+    better what other package managers are doing. upgrade-all will still work as intended.
+* Implement Request #14504: add a channel parameter support to the upgrade function [dufuz]
+  - Options -c ezc and --channel=ezc got added to upgrade and upgrade-all to allow for
+    channel specific upgrades
+* Implement Request #14556: install-pear-nozlib.phar should get download_dir config and other options [cweiske]
+* Implement Request #15566: Add doc.php.net as a default channel [dufuz / saltybeagle]
+* Fix PHP Bug #43857: --program-suffix not always reflected everywhere [cellog]
+* Fix PHP Bug #47323: strotime warnings in make install [dufuz]
+* Fix Bug #13908: pear info command and maintainers inactive not mentioned [dufuz]
+* Fix Bug #13926: install-pear.php does not set cfg_dir if -d option set with no -c option [timj]
+* Fix Bug #13943: tests fail when php.exe path contains spaces [dufuz / jorrit]
+* Fix Bug #13953: config-set/config-show with channel alias fail [cellog]
+* Fix Bug #13958: When a phpt tests exit() or die() xdebug coverage is not generated, patch by izi (David Jean Louis) [izi / dufuz]
+* Fix Bug #14041: Unpredictable unit test processing sequence [dufuz]
+* Fix Bug #14140: Strict warning not suppressed in the shutdown function [dufuz]
+* Fix Bug #14210: pear list -ia brings warnings [dufuz]
+* Fix Bug #14274: PEAR packager mangles package.xml encoding, then complains about it [dufuz]
+* Fix Bug #14287: cannot upgrade from stable to beta via -beta when config is set to stable [dufuz]
+* Fix Bug #14300: Package files themselves can not be served over https [dufuz / initial patch by Martin Roos]
+* Fix Bug #14437: openbasedir warning when loading config [dufuz]
+* Fix Bug #14558: PackageFile.php creates tmp directory outside configured temp_dir [cweiske]
+* Fix Bug #14947: downloadHttp() is missing Host part of the HTTP Request when using Proxy [ifeghali]
+* Fix Bug #14977: PEAR/Frontend.php doesn&apos;t require_once PEAR.php [dufuz]
+* Fix Bug #15750: Unreachable code in PEAR_Downloader [dufuz]
+* Fix Bug #15979: Package files incorrectly removed when splitting a package into multiple pkgs [dufuz]
+* Fix Bug #15914: pear upgrade installs different version if desired version not found [dufuz]
+NOTE!
+Functions that have been deprecated for 3+ years in PEAR_Common, please take a moment
+to migrate over to one of the alternatives that have ben provided:
+* PEAR_Common-&gt;downloadHttp (use PEAR_Downloader-&gt;downloadHttp instead)
+* PEAR_Common-&gt;infoFromTgzFile (use PEAR_PackageFile-&gt;fromTgzFile instead)
+* PEAR_Common-&gt;infoFromDescriptionFile (use PEAR_PackageFile-&gt;fromPackageFile instead)
+* PEAR_Common-&gt;infoFromString (use PEAR_PackageFile-&gt;fromXmlstring instead)
+* PEAR_Common-&gt;infoFromArray (use PEAR_PackageFile-&gt;fromAnyFile instead)
+* PEAR_Common-&gt;xmlFromInfo (use a PEAR_PackageFile_v* object&apos;s generator instead)
+* PEAR_Common-&gt;validatePackageInfo (use the validation of PEAR_PackageFile objects)
+* PEAR_Common-&gt;analyzeSourceCode (use a PEAR_PackageFile_v* object instead)
+* PEAR_Common-&gt;detectDependencies (use PEAR_Downloader_Package-&gt;detectDependencies instead)
+* PEAR_Common-&gt;buildProvidesArray (use PEAR_PackageFile_v1-&gt;_buildProvidesArray or
+  PEAR_PackageFile_v2_Validator-&gt;_buildProvidesArray)
+PHP 4.4 and 5.1.6 are now the minimum PHP requirements, for brave souls
+pear upgrade -f PEAR will allow people with lower versions
+to upgrade to this release but no guarantees will be made that it will work properly.
+Support for XML RPC channels has been dropped - The only ones that used it
+(pear.php.net and pecl.php.net) have used the REST interface for years now.
+SOAP support also removed as it was only proof of concept.
+Move codebase from the PHP License to New BSD 2 clause license
+    </notes>
+   </release>
+   <release>
+    <version>1.8.0RC1</version>
+    <date>2009-03-27</date>
+    <license>New BSD License</license>
+    <state>beta</state>
+    <notes>* Fix Bug #14331: pear cvstag only works from inside the package directory [dufuz]
+* Fix Bug #16045: E_Notice: Undefined index: channel in PEAR/DependencyDB.php [dufuz]
+* Implemented Request #11230: better error message when mirror not in channel.xml file [dufuz]
+* Implemented Request #13150: Add support for following HTTP 302 redirects [dufuz]
+    </notes>
+   </release>
+   <release>
+   </release>
+   <release>
+    <license>New BSD License</license>
+    <notes>Changes since RC1:
+  * Fix Bug #14792: Bad md5sum for files with replaced content [dufuz]
+  * Fix Bug #16057:-r is limited to 4 directories in depth [dufuz]
+  * Fix Bug #16077: PEAR5::getStaticProperty does not return a reference to the property [dufuz]
+
+  Remove custom XML_Util class in favor of using upstream XML_Util package as dependency
+
+RC1 Release Notes:
+  * Fix Bug #14331: pear cvstag only works from inside the package directory [dufuz]
+  * Fix Bug #16045: E_Notice: Undefined index: channel in PEAR/DependencyDB.php [dufuz]
+
+  * Implemented Request #11230: better error message when mirror not in channel.xml file [dufuz]
+  * Implemented Request #13150: Add support for following HTTP 302 redirects [dufuz]
+
+Alpha1 Release Notes:
+  * Implement Request #10373: if pref_state=stable and installed package=beta, allow up to latest beta version [dufuz]
+  * Implement Request #10581: login / logout should map to channel-login / channel-logout [dufuz]
+  * Implement Request #10825: Only display the &quot;invalid or missing package file&quot;-error if it makes sense [dufuz]
+  * Implement Request #11170: script to generate Command/[command].xml [dufuz]
+  * Implement Request #11176: improve channel ... has updated its protocols message [dufuz]
+  * Implement Request #12706: pear list -a hard to read [dufuz]
+  * Implement Request #11353: upgrade-all and upgrade commands to upgrade within the same stability level [dufuz]
+  * Implement Request #13015: Add https discovery for channel.xml [dufuz / initial patch by Martin Roos]
+  * Implement Request #13927: install-pear.php should have option to set www_dir [timj]
+  * Implement Request #14324: Make the pear install command behave similar to apt-get [dufuz]
+  * Implement Request #14325: make pear upgrade with no params behave like pear upgrade-all [dufuz]
+    - upgrade-all can be considered deprecated in favor of calling upgrade with no parameters to replicate
+      better what other package managers are doing. upgrade-all will still work as intended.
+  * Implement Request #14504: add a channel parameter support to the upgrade function [dufuz]
+    - Options -c ezc and --channel=ezc got added to upgrade and upgrade-all to allow for
+      channel specific upgrades
+  * Implement Request #14556: install-pear-nozlib.phar should get download_dir config and other options [cweiske]
+  * Implement Request #15566: Add doc.php.net as a default channel [dufuz / saltybeagle]
+
+  * Fix PHP Bug #43857: --program-suffix not always reflected everywhere [cellog]
+  * Fix PHP Bug #47323: strotime warnings in make install [dufuz]
+
+  * Fix Bug #13908: pear info command and maintainers inactive not mentioned [dufuz]
+  * Fix Bug #13926: install-pear.php does not set cfg_dir if -d option set with no -c option [timj]
+  * Fix Bug #13943: tests fail when php.exe path contains spaces [dufuz / jorrit]
+  * Fix Bug #13953: config-set/config-show with channel alias fail [cellog]
+  * Fix Bug #13958: When a phpt tests exit() or die() xdebug coverage is not generated, patch by izi (David Jean Louis) [izi / dufuz]
+  * Fix Bug #14041: Unpredictable unit test processing sequence [dufuz]
+  * Fix Bug #14140: Strict warning not suppressed in the shutdown function [dufuz]
+  * Fix Bug #14210: pear list -ia brings warnings [dufuz]
+  * Fix Bug #14274: PEAR packager mangles package.xml encoding, then complains about it [dufuz]
+  * Fix Bug #14287: cannot upgrade from stable to beta via -beta when config is set to stable [dufuz]
+  * Fix Bug #14300: Package files themselves can not be served over https [dufuz / initial patch by Martin Roos]
+  * Fix Bug #14437: openbasedir warning when loading config [dufuz]
+  * Fix Bug #14558: PackageFile.php creates tmp directory outside configured temp_dir [cweiske]
+  * Fix Bug #14947: downloadHttp() is missing Host part of the HTTP Request when using Proxy [ifeghali]
+  * Fix Bug #14977: PEAR/Frontend.php doesn&apos;t require_once PEAR.php [dufuz]
+  * Fix Bug #15750: Unreachable code in PEAR_Downloader [dufuz]
+  * Fix Bug #15979: Package files incorrectly removed when splitting a package into multiple pkgs [dufuz]
+  * Fix Bug #15914: pear upgrade installs different version if desired version not found [dufuz]
+
+  NOTE!
+  Functions that have been deprecated for 3+ years in PEAR_Common, please take a moment
+  to migrate over to one of the alternatives that have ben provided:
+  * PEAR_Common-&gt;downloadHttp (use PEAR_Downloader-&gt;downloadHttp instead)
+  * PEAR_Common-&gt;infoFromTgzFile (use PEAR_PackageFile-&gt;fromTgzFile instead)
+  * PEAR_Common-&gt;infoFromDescriptionFile (use PEAR_PackageFile-&gt;fromPackageFile instead)
+  * PEAR_Common-&gt;infoFromString (use PEAR_PackageFile-&gt;fromXmlstring instead)
+  * PEAR_Common-&gt;infoFromArray (use PEAR_PackageFile-&gt;fromAnyFile instead)
+  * PEAR_Common-&gt;xmlFromInfo (use a PEAR_PackageFile_v* object&apos;s generator instead)
+  * PEAR_Common-&gt;validatePackageInfo (use the validation of PEAR_PackageFile objects)
+  * PEAR_Common-&gt;analyzeSourceCode (use a PEAR_PackageFile_v* object instead)
+  * PEAR_Common-&gt;detectDependencies (use PEAR_Downloader_Package-&gt;detectDependencies instead)
+  * PEAR_Common-&gt;buildProvidesArray (use PEAR_PackageFile_v1-&gt;_buildProvidesArray or
+    PEAR_PackageFile_v2_Validator-&gt;_buildProvidesArray)
+
+  PHP 4.4 and 5.1.6 are now the minimum PHP requirements, for brave souls
+  pear upgrade -f PEAR will allow people with lower versions
+  to upgrade to this release but no guarantees will be made that it will work properly.
+
+  Support for XML RPC channels has been dropped - The only ones that used it
+  (pear.php.net and pecl.php.net) have used the REST interface for years now.
+  SOAP support also removed as it was only proof of concept.
+
+  Move codebase from the PHP License to New BSD 2 clause license
+    </notes>
+   </release>
+   <release>
+    <version>1.8.1</version>
+    <date>2009-04-15</date>
+    <license>New BSD License</license>
+    <state>stable</state>
+    <notes>* Fix Bug #16099 	PEAR crash on PHP4 (parse error) [dufuz]
+    </notes>
+   </release>
+   <release>
+    <version>1.9.0RC1</version>
+    <date>2009-08-18</date>
+    <license>New BSD License</license>
+    <state>beta</state>
+    <notes>* Implement Request #16213: add alias to list-channels output [dufuz]
+* Implement Request #16378: pear svntag [dufuz]
+* Implement Request #16386: PEAR_Config::remove() does not support specifying a channel [timj]
+* Implement Request #16396: package-dependencies should allow package names [dufuz]
+* Fix Bug #11181: pear requests channel.xml from main server instead from mirror [dufuz]
+* Fix Bug #14493: pear install --offline doesn&apos;t print out errors [dufuz]
+* Fix Bug #11348: pear package-dependencies isn&apos;t well explained [dufuz]
+* Fix Bug #16108: PEAR_PackageFile_Generator_v2 PHP4 parse error when running upgrade-all [dufuz]
+* Fix Bug #16113: Installing certain packages fails due incorrect encoding handling [dufuz]
+* Fix Bug #16122: PEAR RunTest failed to run as expected [dufuz]
+* Fix Bug #16366: compiling 5.2.10 leads to non-functioning pear [dufuz]
+* Fix Bug #16387: channel-logout does not support logging out from a non-default channel [timj]
+* Fix Bug #16444: Setting preferred mirror fails [dufuz]
+* Fix the shutdown functions where a index might not exist and thus raise a notice [derick]
+    </notes>
+   </release>
+   <release>
+    <version>1.9.0RC2</version>
+    <date>2009-08-20</date>
+    <license>New BSD License</license>
+    <state>beta</state>
+    <notes>* REST 1.4 file was occasionally being included but REST 1.4 is not intended for this release cycle [dufuz]
+    </notes>
+   </release>
+   <release>
+    <version>1.9.0RC3</version>
+    <date>2009-08-21</date>
+    <license>New BSD License</license>
+    <state>beta</state>
+    <notes>* Improved svntag support to handle packages like PEAR it self [dufuz]
+    </notes>
+   </release>
+   <release>
+    <version>1.9.0RC4</version>
+    <date>2009-08-23</date>
+    <license>New BSD License</license>
+    <state>beta</state>
+    <notes>* Fixed a problem where the original channel could not be set as a preferred_mirror again [dufuz]
+* Make sure channel aliases can&apos;t be made to start with - [dufuz]
+* Output issues with pear search [dufuz]
+* Fixed couple of stray notices [dufuz]
+    </notes>
+   </release>
+   <release>
+    <version>1.9.0</version>
+    <date>2009-09-03</date>
+    <license>New BSD License</license>
+    <state>stable</state>
+    <notes>* Fix  Bug #16547: The phar for PEAR installer uses ereg() which is deprecated [dufuz]
+    </notes>
+   </release>
+   <release>
+    <version>1.9.1</version>
+    <date>2009-09-XX</date>
+    <license>New BSD License</license>
+    <state>stable</state>
+    <notes>* svntag improvements, tag package files passed into the command and better directory checks [dufuz]
+    </notes>
+   </release>
+ </changelog>
+</package>

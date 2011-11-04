@@ -1,8 +1,10 @@
 /**
  * Provides the javascript for managing columns.
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
 
 var TurbaColumnPrefs = {

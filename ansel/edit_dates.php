@@ -92,7 +92,8 @@ $vars->set('image_list', $html);
 $vars->set('image_originalDate', $image->originalDate);
 $renderer = new Horde_Form_Renderer();
 $count = count($images);
-include ANSEL_TEMPLATES . '/common-header.inc';
+
+require $registry->get('templates', 'horde') . '/common-header.inc';
 $form->renderActive($renderer, $vars, null, 'post');
 // Needed to ensure the body element is large enough to hold the pop up calendar
 echo '<br /><br /><br />';

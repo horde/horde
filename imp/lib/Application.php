@@ -57,7 +57,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (5.0.14-git)';
+    public $version = 'H4 (5.0.15-git)';
 
     /**
      * Cached values to add to the session after authentication.
@@ -614,8 +614,8 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Callback, called from common-template-mobile.inc that sets up the jquery
-     * mobile init hanler.
+     * Callback, called from common-template-mobile.inc that sets up the
+     * jquery mobile init hanler.
      */
     public function mobileInitCallback()
     {

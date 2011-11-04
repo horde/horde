@@ -76,7 +76,7 @@ abstract class Horde_Core_Ajax_Imple
      */
     protected function _randomid()
     {
-        return 'imple_' . uniqid(mt_rand());
+        return strval(new Horde_Support_Randomid());
     }
 
 }

@@ -1,0 +1,146 @@
+<?php
+$options = $config->getOptions();
+if (!isset($options['toolsdir'])) {
+    throw new Components_Exception(
+        'You are required to set the path to a PEAR tool environment.'
+    );
+}
+$toolsdir = $options['toolsdir'];
+?>
+<project name="Kolab_Config" default="build" basedir=".">
+ <property name="tooldir" location="<?php echo $toolsdir; ?>"/>
+ <property name="incdirs" location="${basedir}/lib:${basedir}/deps/pear/php:${tooldir}/php"/>
+ <property environment="env"/>
+ <property name="job_name" value="${env.JOB_NAME}"/>
+
+ <target name="clean">
+  <!-- Clean up -->
+  <delete dir="build"/>
+
+  <!-- Create build directories -->
+  <mkdir dir="${basedir}/build/api"/>
+  <mkdir dir="${basedir}/build/code-browser"/>
+  <mkdir dir="${basedir}/build/coverage"/>
+  <mkdir dir="${basedir}/build/logs"/>
+  <mkdir dir="${basedir}/build/pdepend"/>
+ </target>
+
+ <!-- Run unit tests and generate junit.xml and clover.xml -->
+ <target name="phpunit">
+  <exec executable="php" failonerror="true">
+    <env key="DB_ADAPTER_MYSQL_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="DB_ADAPTER_MYSQLI_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="DB_ADAPTER_PDO_MYSQL_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="DB_ADAPTER_PDO_MYSQLI_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="DB_ADAPTER_PDO_PGSQL_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="SHARE_SQL_MYSQL_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="SHARE_SQL_MYSQLI_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="SHARE_SQL_PDO_MYSQL_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="SHARE_SQL_PDO_MYSQLI_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="SHARE_SQL_PDO_PGSQL_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="GROUP_SQL_MYSQL_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="GROUP_SQL_MYSQLI_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="GROUP_SQL_PDO_MYSQL_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="GROUP_SQL_PDO_MYSQLI_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="GROUP_SQL_PDO_PGSQL_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <env key="GROUP_LDAP_TEST_CONFIG" value="${basedir}/../conf.php"/>
+    <arg line="-d include_path=${incdirs} ${tooldir}/phpunit" />
+  </exec>
+ </target>
+
+ <!-- Run pdepend, phpmd, phpcpd, phpcs, phpdoc and phploc in parallel -->
+ <target name="parallelTasks">
+  <parallel>
+   <antcall target="pdepend"/>
+   <antcall target="phpmd"/>
+   <antcall target="phpcpd"/>
+   <antcall target="phpcs"/>
+   <antcall target="phpdoc"/>
+   <antcall target="phploc"/>
+  </parallel>
+ </target>
+
+ <target name="make-deps">
+  <mkdir dir="${basedir}/deps"/>
+
+  <exec executable="php">
+   <arg line="-d include_path=${incdirs} ${tooldir}/horde-components
+              --install=${basedir}/deps/.pearrc
+              --channelxmlpath=${basedir}/../../horde-pear-dependencies/workspace/channels
+              --sourcepath=${basedir}/../../horde-pear-dependencies/workspace/packages
+              --exclude=pear.php.net/PEAR_Frontend_Web,pear.php.net/PEAR_Frontend_Gtk,channel:pecl.php.net,Horde_Test
+              -N
+              ${basedir}/../../horde-git/${job_name}" />
+  </exec>
+ </target>
+
+ <!-- Generate jdepend.xml and software metrics charts -->
+ <target name="pdepend">
+  <exec executable="php">
+   <arg line="-d include_path=${incdirs} ${tooldir}/pdepend
+              --jdepend-xml=${basedir}/build/logs/jdepend.xml
+              --jdepend-chart=${basedir}/build/pdepend/dependencies.svg
+              --overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg
+              lib" />
+  </exec>
+ </target>
+
+ <!-- Generate pmd.xml -->
+ <target name="phpmd">
+  <exec executable="php">
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpmd
+              lib xml codesize,unusedcode --reportfile ${basedir}/build/logs/pmd.xml" />
+  </exec>
+ </target>
+
+ <!-- Generate pmd-cpd.xml -->
+ <target name="phpcpd">
+  <exec executable="php">
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpcpd
+              --log-pmd ${basedir}/build/logs/pmd-cpd.xml lib" />
+  </exec>
+ </target>
+
+ <!-- Generate phploc.csv -->
+ <target name="phploc">
+  <exec executable="php">
+   <arg line="-d include_path=${incdirs} ${tooldir}/phploc
+              --log-csv ${basedir}/build/logs/phploc.csv lib" />
+  </exec>
+ </target>
+
+ <!-- Generate checkstyle.xml -->
+ <target name="phpcs">
+  <exec executable="php" output="/dev/null">
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpcs
+              --report=checkstyle
+              --report-file=${basedir}/build/logs/checkstyle.xml
+              --standard=Horde
+              lib" />
+  </exec>
+ </target>
+
+ <!-- Generate API documentation -->
+ <target name="phpdoc">
+  <exec executable="php">
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpdoc --
+              -d lib -t build/api" />
+  </exec>
+ </target>
+
+ <target name="phpcb">
+  <exec executable="php">
+   <arg line="-d include_path=${incdirs} ${tooldir}/phpcb
+              --log=${basedir}/build/logs
+              --source=${basedir}/lib
+              --output=${basedir}/build/code-browser" />
+  </exec>
+ </target>
+
+ <target name="clean-deps">
+  <!-- Remove the deps directory. -->
+  <delete dir="deps"/>
+ </target>
+
+ <target name="build" depends="make-deps,clean,pdepend,phpcpd,phpcs,phploc,phpdoc,phpmd,phpunit,phpcb,clean-deps"/>
+</project>

@@ -17,6 +17,11 @@
 class IMP_Indices_Form extends IMP_Indices
 {
     /**
+     * Default name is base64url encoded version of INBOX.
+     */
+    protected $_default = 'SU5CT1g';
+
+    /**
      */
     public function __construct()
     {

@@ -96,8 +96,9 @@ $vars->set('image_desc', strlen($image->caption) ? $image->caption : $image->fil
 $form = new Ansel_Form_Ecard($vars, $title);
 $renderer = new Horde_Form_Renderer();
 
-$editor = $injector->getInstance('Horde_Editor')->initialize(array('id' => 'ecard_comments'));
+$editor = $injector->getInstance('Horde_Editor');
 if ($editor->supportedByBrowser()) {
+    $editor->initialize(array('id' => 'ecard_comments'));
     $vars->set('rtemode', 1);
     $form->addHidden('', 'rtemode', 'text', false);
 }

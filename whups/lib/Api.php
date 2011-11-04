@@ -171,7 +171,7 @@ class Whups_Api extends Horde_Registry_Api
         if ($GLOBALS['registry']->getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
             $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
         }
-        if (Auth::getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
+        if ($GLOBALS['registry']->getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
             $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
             $form4->useToken(false);
             if (!$form4->validate($vars, true)) {

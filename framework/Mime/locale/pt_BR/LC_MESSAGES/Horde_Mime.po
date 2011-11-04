@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-18 12:23+0200\n"
+"POT-Creation-Date: 2011-10-30 20:30-0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Disposition Notification"
 msgstr "Notificação de Disposição"
 
-#: lib/Horde/Mime/Mail.php:446
+#: lib/Horde/Mime/Mail.php:457
 msgid "HTML Version of Message"
 msgstr "Versão HTML da Mensagem"
 
-#: lib/Horde/Mime/Mail.php:390
+#: lib/Horde/Mime/Mail.php:401
 #, php-format
 msgid "Invalid character in e-mail address: %s."
 msgstr "Caracter inválido no endereço de e-mail: %s."
@@ -58,11 +58,11 @@ msgstr "List-Subscribe"
 msgid "List-Unsubscribe"
 msgstr "List-Unsubscribe"
 
-#: lib/Horde/Mime/Mail.php:444
+#: lib/Horde/Mime/Mail.php:455
 msgid "Plaintext Version of Message"
 msgstr "Versão da Mensagem em Texto Puro"
 
-#: lib/Horde/Mime/Mdn.php:202
+#: lib/Horde/Mime/Mdn.php:203
 #, php-format
 msgid ""
 "The message sent on %s to %s with subject \"%s\" has been displayed.\n"

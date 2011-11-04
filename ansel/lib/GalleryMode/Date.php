@@ -69,53 +69,58 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
         $day = !empty($this->_date['day']) ? $this->_date['day'] : 0;
         $trail = array();
 
-        /* Do we have any date parts? */
+        // Do we have any date parts?
         if (!empty($year)) {
             if (!empty($day)) {
                 $date = new Horde_Date($this->_date);
-                $text = $date->format('jS');
+                $text = $date->strftime('%e');
 
-                $navdata =  array('view' => 'Gallery',
-                                  'gallery' => $this->_gallery->id,
-                                  'slug' => $this->_gallery->get('slug'),
-                                  'year' => $year,
-                                  'month' => $month,
-                                  'day' => $day);
-
+                $navdata =  array(
+                    'view' => 'Gallery',
+                    'gallery' => $this->_gallery->id,
+                    'slug' => $this->_gallery->get('slug'),
+                    'year' => $year,
+                    'month' => $month,
+                    'day' => $day);
                 $trail[] = array('title' => $text, 'navdata' => $navdata);
             }
 
             if (!empty($month)) {
-                $date = new Horde_Date(array('year' => $year,
-                                             'month' => $month,
-                                             'day' => 1));
-                $text = $date->format('F');
-                $navdata = array('view' => 'Gallery',
-                                 'gallery' => $this->_gallery->id,
-                                 'slug' => $this->_gallery->get('slug'),
-                                 'year' => $year,
-                                 'month' => $month);
+                $date = new Horde_Date(
+                    array(
+                        'year' => $year,
+                        'month' => $month,
+                        'day' => 1));
+                $text = $date->strftime('%B');
+                $navdata = array(
+                    'view' => 'Gallery',
+                    'gallery' => $this->_gallery->id,
+                    'slug' => $this->_gallery->get('slug'),
+                    'year' => $year,
+                    'month' => $month);
                 $trail[] = array('title' => $text, 'navdata' => $navdata);
             }
 
-            $navdata = array('view' => 'Gallery',
-                             'gallery' => $this->_gallery->id,
-                             'slug' => $this->_gallery->get('slug'),
-                             'year' => $year);
+            $navdata = array(
+                'view' => 'Gallery',
+                'gallery' => $this->_gallery->id,
+                'slug' => $this->_gallery->get('slug'),
+                'year' => $year);
             $trail[] = array('title' => $year, 'navdata' => $navdata);
         } else {
             // This is the first level of a date mode gallery.
-            $navdata = array('view' => 'Gallery',
-                             'gallery' => $this->_gallery->id,
-                             'slug' => $this->_gallery->get('slug'));
+            $navdata = array(
+                'view' => 'Gallery',
+                'gallery' => $this->_gallery->id,
+                'slug' => $this->_gallery->get('slug'));
             $trail[] = array('title' => _("All dates"), 'navdata' => $navdata);
         }
 
         $text = htmlspecialchars($this->_gallery->get('name'));
-        $navdata = array('view' => 'Gallery',
-                         'gallery' => $this->_gallery->id,
-                         'slug' => $this->_gallery->get('slug'));
-
+        $navdata = array(
+            'view' => 'Gallery',
+            'gallery' => $this->_gallery->id,
+            'slug' => $this->_gallery->get('slug'));
         $trail[] = array('title' => $text, 'navdata' => $navdata);
 
         return $trail;
@@ -153,8 +158,8 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      * @return array A mixed array of Ansel_Gallery_Decorator_Date and
      *               Ansel_Image objects.
      */
-    public function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0,
-                                       $to = 0, $noauto = false)
+    public function getGalleryChildren(
+        $perm = Horde_Perms::SHOW, $from = 0, $to = 0, $noauto = false)
     {
         // Cache the results
         static $children = array();
@@ -512,25 +517,27 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
      * @param boolean $isStack  Image is a stack image (doesn't update count).
      *
      * @return boolean
-     * @throws Horde_Exception_NotFound
+     * @throws Horde_Exception_NotFound, Ansel_Exception
      */
     public function removeImage($image, $isStack)
     {
-        /* Make sure $image is an Ansel_Image; if not, try loading it. */
+        // Make sure $image is an Ansel_Image; if not, try loading it.
         if (!($image instanceof Ansel_Image)) {
-            $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image);
+            $image = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getImage($image);
         }
 
-        /* Make sure the image is in this gallery. */
-        if ($image->gallery != $this->_gallery->id) {
+        // If image is a stack image, $gallery will be negative.
+        $image_gallery = abs($image->gallery);
+
+        // Make sure the image is in this gallery.
+        if ($image_gallery != $this->_gallery->id) {
             $this->_loadSubGalleries();
-            if (!in_array($image->gallery, $this->_subGalleries)) {
+            if (!in_array($image_gallery, $this->_subGalleries)) {
                 throw new Horde_Exception_NotFound(_("Image not found in gallery."));
             }
         }
-
-        /* Save this for later */
-        $image_gallery = $image->gallery;
 
         /* Change gallery info. */
         if ($this->_gallery->get('default') == $image->id) {
@@ -653,13 +660,14 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     /**
      * Get this gallery's subgalleries. Populates the private member
      *  _subGalleries
-     *
-     * @return void
      */
     protected function _loadSubGalleries()
     {
+        // Note: We set $this->_subGalleries to null by default so we don't
+        // have to perform this check again, even if the gallery contains no
+        // subgalleries (and thus _subGalleries would be an empty array).
         if (!is_array($this->_subGalleries)) {
-            /* Get a list of all the subgalleries */
+            $this->_subGalleries = array();
             $subs = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
                 ->listGalleries(array('parent' => $this->_gallery->id));

@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Kronolith
-Calendar Application version H4 (3.0.10).
+Calendar Application version H4 (3.0.11).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -25,15 +25,14 @@ events, and a sophisticated day/week view which handles arbitrary numbers of
 overlapping events. For more information on Kronolith, visit
 http://www.horde.org/apps/kronolith.
 
-The major changes compared to the Kronolith version H4 (3.0.9) are:
-
-    * Always synchronize the default calendar.
+The major changes compared to the Kronolith version H4 (3.0.10) are:
+    * Many design improvements.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Always synchronize the default calendar.
+Many design improvements.
 Small bugfixes and improvements.
 FM;
 

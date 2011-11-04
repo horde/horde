@@ -1,7 +1,17 @@
 ----------
-v2.0.0-git
+v2.0.1-git
 ----------
 
+[jan] Fix downloading of file types without a MIME viewer (Bug #10709).
+[jan] Fix autocreating of home folders (Bug #10690).
+[jan] Fix JavaScript for Actions drop down list (Bug #10695).
+
+
+----
+v2.0
+----
+
+[jan] Fix corruption of downloaded files (Bug #8481).
 [jan] Catch if VFS backend doesn't support size() (Bug #10637).
 [mms] Fix editing text files.
 

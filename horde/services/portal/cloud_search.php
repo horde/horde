@@ -23,7 +23,7 @@ foreach ($GLOBALS['registry']->listAPIs() as $api) {
     if ($GLOBALS['registry']->hasMethod($api . '/listTagInfo')) {
         try {
             $results = array_merge(
-                $results, $registry->{$api}->searchTags(array($tag)));
+                $results, $registry->{$api}->searchTags(array($tag), 10, 0, '', $registry->getAuth()));
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
         }

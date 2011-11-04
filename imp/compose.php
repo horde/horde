@@ -122,11 +122,8 @@ if ($readonly_sentmail = ($sent_mail_folder && $sent_mail_folder->readonly)) {
 $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
 $imp_compose->pgpAttachPubkey((bool) $vars->pgp_attach_pubkey);
 $imp_compose->userLinkAttachments((bool) $vars->link_attachments);
-
-try {
-    $imp_compose->attachVCard((bool) $vars->vcard, $identity->getValue('fullname'));
-} catch (IMP_Compose_Exception $e) {
-    $notification->push($e);
+if ($vars->vcard) {
+    $imp_compose->attachVCard($identity->getValue('fullname'));
 }
 
 /* Init objects. */
@@ -1006,7 +1003,6 @@ if ($redirect) {
         $t->set('attach_vcard', $vars->vcard);
     }
     if ($session->get('imp', 'file_upload')) {
-        $localeinfo = Horde_Nls::getLocaleInfo();
         try {
             $t->set('selectlistlink', $registry->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true)));
         } catch (Horde_Exception $e) {
@@ -1019,7 +1015,7 @@ if ($redirect) {
                 $t->set('file_tabindex', ++$tabindex);
             }
         }
-        $t->set('attach_size', number_format($imp_compose->maxAttachmentSize(), 0, $localeinfo['decimal_point'], $localeinfo['thousands_sep']));
+        $t->set('attach_size', IMP::numberFormat($imp_compose->maxAttachmentSize(), 0));
         $t->set('help-attachments', Horde_Help::link('imp', 'compose-attachments'));
 
         $save_attach = $prefs->getValue('save_attachments');
@@ -1074,10 +1070,10 @@ if ($redirect) {
                 $atc[] = $entry;
             }
             $t->set('atc', $atc);
-            $t->set('total_attach_size', number_format($imp_compose->sizeOfAttachments() / 1024, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep']));
+            $t->set('total_attach_size', IMP::numberFormat($imp_compose->sizeOfAttachments() / 1024, 2));
             $t->set('perc_attach', ((!empty($conf['compose']['attach_size_limit'])) && ($conf['compose']['attach_size_limit'] > 0)));
             if ($t->get('perc_attach')) {
-                $t->set('perc_attach', sprintf(_("%s%% of allowed size"), number_format($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep'])));
+                $t->set('perc_attach', sprintf(_("%s%% of allowed size"), IMP::numberFormat($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2)));
             }
             $t->set('help-current-attachments', Horde_Help::link('imp', 'compose-current-attachments'));
         }

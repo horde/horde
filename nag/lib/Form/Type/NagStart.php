@@ -13,8 +13,13 @@ class Nag_Form_Type_NagStart extends Horde_Form_Type
         $start_type = $vars->get('start_date');
         $start = $vars->get('start');
         if (is_array($start)) {
-            $start_date = !empty($start['date']) ? $start['date'] : null;
-            $start = (int)strtotime($start_date);
+            if (empty($start['date'])) {
+                $start = null;
+            } else {
+                $start_array = Nag::parseDate($start['date'], false);
+                $start_dt = new Horde_Date($start_array);
+                $start = $start_dt->timestamp();
+            }
         }
 
         $info = strcasecmp($start_type, 'none') ? $start : 0;

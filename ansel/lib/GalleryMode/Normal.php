@@ -196,12 +196,12 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
      */
     public function removeImage($image, $isStack)
     {
-        /* Make sure $image is an Ansel_Image; if not, try loading it. */
+        // Make sure $image is an Ansel_Image; if not, try loading it.
         if (!($image instanceof Ansel_Image)) {
             $image = $this->_gallery->getImage($image);
         } else {
-            /* Make sure the image is in this gallery. */
-            if ($image->gallery != $this->_gallery->id) {
+            // Make sure the image is in this gallery.
+            if (abs($image->gallery) != $this->_gallery->id) {
                 throw new Horde_Exception_NotFound(_("Image not found in gallery."));
             }
         }

@@ -313,14 +313,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             if (isset($appdata->read)) {
                                 $importer->importMessageReadFlag($serverid, $appdata->read);
                             } else {
-                                $importer->importMessageChange($serverid, $appdata, $this->_device);
+                                $importer->importMessageChange($serverid, $appdata, $this->_device, false);
                             }
                             $collection['importedchanges'] = true;
                         }
                         break;
                     case Horde_ActiveSync::SYNC_ADD:
                         if (isset($appdata)) {
-                            $id = $importer->importMessageChange(false, $appdata, $this->_device);
+                            $id = $importer->importMessageChange(false, $appdata, $this->_device, $clientid);
                             if ($clientid && $id) {
                                 $collection['clientids'][$clientid] = $id;
                                 $collection['importedchanges'] = true;

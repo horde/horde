@@ -2087,7 +2087,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
-        return self::getRawPartText(substr($text, $b_find[$base_pos]['start'], $b_find[$base_pos]['length']), $type, $id);
+        return self::getRawPartText(substr($text, $b_find[$base_pos]['start'], $b_find[$base_pos]['length'] - 1), $type, $id);
     }
 
     /**

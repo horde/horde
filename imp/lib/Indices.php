@@ -16,6 +16,13 @@
 class IMP_Indices implements ArrayAccess, Countable, Iterator
 {
     /**
+     * Default mailbox name.
+     *
+     * @var array
+     */
+    protected $_default = 'INBOX';
+
+    /**
      * The indices list.
      *
      * @var array
@@ -82,7 +89,11 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                     }
                 }
             } elseif (is_string($data)) {
-                $indices = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->fromSequenceString($data);
+                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+                $indices = $imp_imap->getUtils()->fromSequenceString($data);
+                if ($imp_imap->pop3) {
+                    $indices = array($this->_default => $indices);
+                }
             } elseif ($data instanceof IMP_Compose) {
                 $indices = array(
                     strval($data->getMetadata('mailbox')) => array($data->getMetadata('uid'))

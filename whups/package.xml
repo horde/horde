@@ -16,19 +16,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>15:07:19</time>
+ <date>2011-10-27</date>
+ <time>23:17:23</time>
  <version>
   <release>2.0.1</release>
-  <api>2.0.0RC1</api>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
-* [jan] Add missing default value for whups_priorities.priority_default column (Bug #10631).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -939,15 +939,45 @@
   </release>
   <release>
    <version>
-    <release>2.0.1</release>
-    <api>2.0.0RC1</api></version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0RC2</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
+* [jan] Support more complex attributes types (Bug #9947).
+* [jan] Fix displaying form errors from updating tickets.
+* [jan] Allow to create private comments during ticket creation (Request #8312).
+* [jan] Fix addTicket API method.
 * [jan] Add missing default value for whups_priorities.priority_default column (Bug #10631).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-27</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <notes>
+* [jan] Fix rendering of attributes if a ticket&apos;s type has changed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-27</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -2,6 +2,23 @@
 v2.0.1-git
 ----------
 
+
+
+----
+v2.0
+----
+
+[jan] Fix rendering of attributes if a ticket's type has changed.
+
+
+--------
+v2.0-RC2
+--------
+
+[jan] Support more complex attributes types (Bug #9947).
+[jan] Fix displaying form errors from updating tickets.
+[jan] Allow to create private comments during ticket creation (Request #8312).
+[jan] Fix addTicket API method.
 [jan] Add missing default value for whups_priorities.priority_default column
       (Bug #10631).
 

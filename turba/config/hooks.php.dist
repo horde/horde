@@ -28,7 +28,7 @@ class Turba_Hooks
 //         switch ($attribute) {
 //         case 'password':
 //             /* Passwords should be MD5 encoded, but not displayed. */
-//             return (is_null($new) || ($new == '') || ($new == '[Not Displayed']))
+//             return (is_null($new) || ($new == '') || ($new == '[Not Displayed]'))
 //                 ? $old
 //                 : hash('md5', $new);
 //         }

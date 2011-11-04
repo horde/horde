@@ -1,0 +1,30 @@
+<?php
+$directory = $config->getPath();
+$testclass = basename($directory);
+$testpath  = strtr(basename($directory), '_', '/');
+?>
+<?php echo '<?xml version=\'1.0\' encoding=\'UTF-8\'?>' . "\n"; ?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         syntaxCheck="false">
+  <testsuites>
+    <testsuite name="Horde_<?php echo $testclass; ?>_AllTests">
+      <directory suffix="AllTests.php">test/Horde/<?php echo $testpath; ?></directory>
+    </testsuite>
+  </testsuites>
+
+  <logging>
+    <log type="coverage-html" target="build/coverage" title="%1$s"
+         charset="UTF-8" yui="true" highlight="true"
+         lowUpperBound="35" highLowerBound="80"/>
+    <log type="coverage-clover" target="build/logs/clover.xml"/>
+    <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+  </logging>
+
+  <filter>
+    <whitelist addUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">lib</directory>
+    </whitelist>
+  </filter>
+</phpunit>

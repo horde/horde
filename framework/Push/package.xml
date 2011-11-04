@@ -10,8 +10,8 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-04</date>
- <time>09:12:08</time>
+ <date>2011-10-30</date>
+ <time>08:30:09</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -26,6 +26,9 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="horde-push" role="script" />
+   </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Push">
@@ -37,26 +40,60 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Push">
+      <dir name="Factory">
+       <file name="Push.php" role="php" />
+       <file name="Recipients.php" role="php" />
+      </dir> <!-- /lib/Horde/Push/Factory -->
       <dir name="Recipient">
+       <file name="Base.php" role="php" />
+       <file name="Blogger.php" role="php" />
+       <file name="Mail.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="Twitter.php" role="php" />
       </dir> <!-- /lib/Horde/Push/Recipient -->
+      <file name="Cli.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Recipient.php" role="php" />
+      <file name="Translation.php" role="php" />
      </dir> <!-- /lib/Horde/Push -->
      <file name="Push.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <file name="Horde_Push.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Push">
+      <dir name="fixtures">
+       <file name="empty.php" role="test" />
+       <file name="note.struct" role="test" />
+       <file name="note.xml.qp" role="test" />
+       <file name="push.php" role="test" />
+       <file name="push.yaml" role="test" />
+       <file name="text.txt" role="test" />
+      </dir> <!-- /test/Horde/Push/fixtures -->
       <dir name="Stub">
        <file name="Twitter.php" role="test" />
       </dir> <!-- /test/Horde/Push/Stub -->
       <dir name="Unit">
        <dir name="Push">
+        <dir name="Factory">
+         <file name="PushTest.php" role="test" />
+         <file name="RecipientTest.php" role="test" />
+        </dir> <!-- /test/Horde/Push/Unit/Push/Factory -->
         <dir name="Recipient">
+         <file name="BloggerTest.php" role="test" />
+         <file name="MailTest.php" role="test" />
          <file name="TwitterTest.php" role="test" />
         </dir> <!-- /test/Horde/Push/Unit/Push/Recipient -->
+        <file name="CliTest.php" role="test" />
        </dir> <!-- /test/Horde/Push/Unit/Push -->
        <file name="PushTest.php" role="test" />
       </dir> <!-- /test/Horde/Push/Unit -->
@@ -78,21 +115,109 @@
     <min>1.7.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Argv</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Cli</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Feed</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>1.1.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Kolab_Storage</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Service_Twitter</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Yaml</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde-push" name="bin/horde-push" />
    <install as="COPYING" name="doc/Horde/Push/COPYING" />
    <install as="TODO" name="doc/Horde/Push/TODO" />
    <install as="Horde/Push.php" name="lib/Horde/Push.php" />
+   <install as="Horde/Push/Cli.php" name="lib/Horde/Push/Cli.php" />
+   <install as="Horde/Push/Exception.php" name="lib/Horde/Push/Exception.php" />
    <install as="Horde/Push/Recipient.php" name="lib/Horde/Push/Recipient.php" />
+   <install as="Horde/Push/Translation.php" name="lib/Horde/Push/Translation.php" />
+   <install as="Horde/Push/Factory/Push.php" name="lib/Horde/Push/Factory/Push.php" />
+   <install as="Horde/Push/Factory/Recipients.php" name="lib/Horde/Push/Factory/Recipients.php" />
+   <install as="Horde/Push/Recipient/Base.php" name="lib/Horde/Push/Recipient/Base.php" />
+   <install as="Horde/Push/Recipient/Blogger.php" name="lib/Horde/Push/Recipient/Blogger.php" />
+   <install as="Horde/Push/Recipient/Mail.php" name="lib/Horde/Push/Recipient/Mail.php" />
    <install as="Horde/Push/Recipient/Mock.php" name="lib/Horde/Push/Recipient/Mock.php" />
    <install as="Horde/Push/Recipient/Twitter.php" name="lib/Horde/Push/Recipient/Twitter.php" />
+   <install as="locale/Horde_Push.pot" name="locale/Horde_Push.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Push.mo" name="locale/de/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Push.po" name="locale/de/LC_MESSAGES/Horde_Push.po" />
    <install as="Horde/Push/AllTests.php" name="test/Horde/Push/AllTests.php" />
    <install as="Horde/Push/Autoload.php" name="test/Horde/Push/Autoload.php" />
    <install as="Horde/Push/phpunit.xml" name="test/Horde/Push/phpunit.xml" />
    <install as="Horde/Push/TestCase.php" name="test/Horde/Push/TestCase.php" />
+   <install as="Horde/Push/fixtures/empty.php" name="test/Horde/Push/fixtures/empty.php" />
+   <install as="Horde/Push/fixtures/note.struct" name="test/Horde/Push/fixtures/note.struct" />
+   <install as="Horde/Push/fixtures/note.xml.qp" name="test/Horde/Push/fixtures/note.xml.qp" />
+   <install as="Horde/Push/fixtures/push.php" name="test/Horde/Push/fixtures/push.php" />
+   <install as="Horde/Push/fixtures/push.yaml" name="test/Horde/Push/fixtures/push.yaml" />
+   <install as="Horde/Push/fixtures/text.txt" name="test/Horde/Push/fixtures/text.txt" />
    <install as="Horde/Push/Stub/Twitter.php" name="test/Horde/Push/Stub/Twitter.php" />
    <install as="Horde/Push/Unit/PushTest.php" name="test/Horde/Push/Unit/PushTest.php" />
+   <install as="Horde/Push/Unit/Push/CliTest.php" name="test/Horde/Push/Unit/Push/CliTest.php" />
+   <install as="Horde/Push/Unit/Push/Factory/PushTest.php" name="test/Horde/Push/Unit/Push/Factory/PushTest.php" />
+   <install as="Horde/Push/Unit/Push/Factory/RecipientTest.php" name="test/Horde/Push/Unit/Push/Factory/RecipientTest.php" />
+   <install as="Horde/Push/Unit/Push/Recipient/BloggerTest.php" name="test/Horde/Push/Unit/Push/Recipient/BloggerTest.php" />
+   <install as="Horde/Push/Unit/Push/Recipient/MailTest.php" name="test/Horde/Push/Unit/Push/Recipient/MailTest.php" />
    <install as="Horde/Push/Unit/Push/Recipient/TwitterTest.php" name="test/Horde/Push/Unit/Push/Recipient/TwitterTest.php" />
   </filelist>
  </phprelease>
@@ -106,7 +231,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-10-04</date>
+   <date>2011-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.

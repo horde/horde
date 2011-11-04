@@ -52,6 +52,13 @@ class Horde_Pear_Package_Xml
     private $_xpath;
 
     /**
+     * The XPath namespace prefix (if necessary).
+     *
+     * @var string
+     */
+    private $_namespace_prefix = '';
+
+    /**
      * The factory for required instances.
      *
      * @var Horde_Pear_Package_Xml_Factory
@@ -73,8 +80,12 @@ class Horde_Pear_Package_Xml
         }
         $this->_xml = new DOMDocument('1.0', 'UTF-8');
         $this->_xml->loadXML(stream_get_contents($xml));
+        $rootNamespace = $this->_xml->lookupNamespaceUri($this->_xml->namespaceURI);
         $this->_xpath = new DOMXpath($this->_xml);
-        $this->_xpath->registerNamespace('p', self::XMLNAMESPACE);
+        if ($rootNamespace !== null) {
+            $this->_xpath->registerNamespace('p', $rootNamespace);
+            $this->_namespace_prefix = 'p:';
+        }
         if ($factory === null) {
             $this->_factory = new Horde_Pear_Package_Xml_Factory();
         } else {
@@ -83,9 +94,9 @@ class Horde_Pear_Package_Xml
     }
 
     /**
-     * Return the path to the package.xml file.
+     * Return the list of contents.
      *
-     * @return string The path to the package.xml.
+     * @return Horde_Pear_Package_Contents_List The contents.
      */
     public function getContent($type = 'horde', $path = null)
     {
@@ -192,7 +203,7 @@ class Horde_Pear_Package_Xml
     /**
      * Return the package dependencies.
      *
-     * @return string The package dependencies.
+     * @return array The package dependencies.
      */
     public function getDependencies()
     {
@@ -273,10 +284,11 @@ class Horde_Pear_Package_Xml
      */
     public function getLicenseLocation()
     {
-        return $this->findNode('/p:package')
-            ->getElementsByTagNameNS(self::XMLNAMESPACE, 'license')
-            ->item(0)
-            ->getAttribute('uri');
+        $node = $this->findNode('/p:package/p:license');
+        if (empty($node)) {
+            return '';
+        }
+        return $node->getAttribute('uri');
     }
 
     /**
@@ -649,6 +661,7 @@ class Horde_Pear_Package_Xml
      */
     public function findNodes($query)
     {
+        $query = preg_replace('#/p:#', '/' . $this->_namespace_prefix, $query);
         return $this->_xpath->query($query);
     }
 
@@ -661,6 +674,7 @@ class Horde_Pear_Package_Xml
      */
     public function findNodesRelativeTo($query, $context)
     {
+        $query = preg_replace('#/p:#', '/' . $this->_namespace_prefix, $query);
         return $this->_xpath->query($query, $context);
     }
 

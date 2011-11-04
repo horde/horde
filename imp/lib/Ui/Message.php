@@ -98,7 +98,7 @@ class IMP_Ui_Message
 
             try {
                 $res = $imp_imap->fetch($mailbox, $query, array(
-                    'ids' => new Horde_Imap_Client_Ids($uid)
+                    'ids' => $imp_imap->getIdsOb($uid)
                 ));
                 $mdn_sent = in_array('$mdnsent', $res[$uid]->getFlags());
             } catch (IMP_Imap_Exception $e) {}
@@ -169,7 +169,7 @@ class IMP_Ui_Message
             (date('d') != $date->format('d'))) {
             /* Not today, use the date. */
             $date_str = strftime($GLOBALS['prefs']->getValue('date_format'), strval($date));
-            return sprintf('%s %s %s', $date_str, $time_str, $tz);
+            return sprintf('%s (%s %s)', $date_str, $time_str, $tz);
         }
 
         /* Else, it's today, use the time only. */

@@ -170,7 +170,7 @@ var DimpMessage = {
                 tmp = {};
                 tmp[this.mbox] = [ this.uid ];
                 DimpCore.doAction('sendMDN', {
-                    uid: DimpCore.toRangeString(tmp)
+                    uid: DimpCore.toUIDString(tmp)
                 }, {
                     callback: function(r) {
                         if (r.response) {

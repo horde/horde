@@ -9,9 +9,8 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandmbox, pollPE, pp, preview_replace, qsearch_ghost, resize,
-    //   rownum, search, splitbar, template, uid, view, viewaction, viewport,
-    //   viewswitch
+    //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
+    //   splitbar, template, uid, view, viewaction, viewport, viewswitch
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
 
@@ -210,7 +209,7 @@ var DimpBase = {
 
         if (type == 'msg') {
             type = 'mbox';
-            msg = DimpCore.parseRangeString(data, true);
+            msg = DimpCore.parseUIDString(data);
             data = Object.keys(msg).first();
             this.uid = msg[data].first();
             // Fall through to the 'mbox' check below.
@@ -311,7 +310,7 @@ var DimpBase = {
             } else {
                 msg = DimpCore.selectionToRange(vs);
             }
-            this.setHash('msg', DimpCore.toRangeString(msg, this.isSearch()));
+            this.setHash('msg', DimpCore.toUIDString(msg, { raw: this.isSearch() }));
         } else {
             this.setHash('mbox', view);
         }
@@ -565,7 +564,7 @@ var DimpBase = {
                 }
 
                 if (tmp) {
-                    params.set('cache', DimpCore.toRangeString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
+                    params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
                 }
                 params.set('view', view);
 
@@ -731,9 +730,7 @@ var DimpBase = {
 
             this.toggleButtons();
             if (e.memo.opts.right || !count) {
-                if (!this.preview_replace) {
-                    this.clearPreviewPane();
-                }
+                this.clearPreviewPane();
             } else if ((count == 1) && DIMP.conf.preview_pref) {
                 this.loadPreview(sel.get('dataob').first());
             }
@@ -747,12 +744,17 @@ var DimpBase = {
         container.observe('ViewPort:fetch', this.loadingImg.bind(this, 'viewport', true));
 
         container.observe('ViewPort:remove', function(e) {
-            if (this.view == e.memo.getBuffer().getView()) {
+            var v = e.memo.getBuffer().getView();
+
+            if (this.view == v) {
                 this.loadingImg('viewport', false);
             }
 
             e.memo.get('dataob').each(function(d) {
                 this._expirePPCache([ this._getPPId(d.uid, d.mbox) ]);
+                if (this.isSearch(v)) {
+                    this.viewport.remove(this.viewport.createSelectionBuffer(d.mbox).search({ uid: { equal: [ d.uid ] }, mbox: { equal: [ d.mbox ] } }));
+                }
             }, this);
         }.bindAsEventListener(this));
 
@@ -1465,11 +1467,14 @@ var DimpBase = {
                 this.flag('\\seen', true, { mailbox: data.mbox, uid: data.uid });
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
+
+            params = {};
         }
 
+        params.preview = 1;
         this.loadingImg('msg', true);
 
-        DimpCore.doAction('showPreview', this.viewport.addRequestParams(params || {}), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
+        DimpCore.doAction('showMessage', this.viewport.addRequestParams(params), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
     },
 
     _loadPreviewCallback: function(resp)
@@ -1479,9 +1484,9 @@ var DimpBase = {
             r = resp.response.preview,
             t = $('msgHeadersContent').down('THEAD');
 
-        bg = (this.pp &&
-              (this.pp.uid != r.uid ||
-               this.pp.mbox != r.mbox));
+        bg = (!this.pp ||
+              this.pp.uid != r.uid ||
+              this.pp.mbox != r.mbox);
 
         if (r.error || this.viewport.getSelected().size() != 1) {
             if (!bg) {
@@ -1568,18 +1573,9 @@ var DimpBase = {
 
     _stripAttachmentCallback: function(r)
     {
-        // Let the normal viewport refresh code and preview display code
-        // handle replacing the current preview. Set preview_replace to
-        // prevent a refresh flicker, since viewport refreshing would normally
-        // cause the preview pane to be cleared.
-        if (DimpCore.inAjaxCallback) {
-            this.preview_replace = true;
-            this.uid = r.response.newuid;
-            this._stripAttachmentCallback.bind(this, r).defer();
-            return;
-        }
+        this.uid = r.response.newuid;
 
-        this.preview_replace = false;
+        this._loadPreviewCallback(r);
 
         // Remove old cache value.
         this._expirePPCache([ this._getPPId(r.olduid, r.oldmbox) ]);
@@ -1853,9 +1849,9 @@ var DimpBase = {
     },
 
     /* Search functions. */
-    isSearch: function()
+    isSearch: function(id)
     {
-        return this.viewport.getMetaData('search');
+        return this.viewport.getMetaData('search', id);
     },
 
     isFSearch: function(id)
@@ -2474,7 +2470,7 @@ var DimpBase = {
                 tmp = {};
                 tmp[this.pp.mbox] = [ this.pp.uid ];
                 DimpCore.doAction('sendMDN', {
-                    uid: DimpCore.toRangeString(tmp)
+                    uid: DimpCore.toUIDString(tmp)
                 }, {
                     callback: this._sendMdnCallback.bind(this)
                 });
@@ -2657,13 +2653,11 @@ var DimpBase = {
             return;
         }
 
-        var sb = this.viewport.createSelectionBuffer();
-
         r.flag.each(function(entry) {
-            $H(DimpCore.parseRangeString(entry.uids)).each(function(m) {
-                var s = sb.search({
+            $H(DimpCore.parseUIDString(entry.uids)).each(function(m) {
+                var s = this.viewport.createSelectionBuffer(m.key).search({
                     uid: { equal: m.value },
-                    mbox: { equal: m.key }
+                    mbox: { equal: [ m.key ] }
                 });
 
                 if (entry.add) {
@@ -2681,18 +2675,21 @@ var DimpBase = {
         }, this);
     },
 
-    _folderLoadCallback: function(base, r)
+    // params: (object)
+    //   - all
+    //   - base
+    _folderLoadCallback: function(params, r)
     {
         var nf = $('normalfolders');
 
         if (r.response.expand) {
-            this.expandmbox = base ? base : true;
+            this.expandmbox = params.base ? params.base : true;
         }
         this.mailboxCallback(r);
         this.expandmbox = false;
 
-        if (base) {
-            this._toggleSubFolder(base, 'tog', false, true);
+        if (params.base) {
+            this._toggleSubFolder(params.base, params.all ? 'expall' : 'tog', false, true);
         }
 
         if (this.view) {
@@ -2837,7 +2834,7 @@ var DimpBase = {
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
-        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params.base) });
+        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params) });
     },
 
     // Folder actions.
@@ -2921,17 +2918,11 @@ var DimpBase = {
                     : $('normalfolders');
             }
 
-            /* Virtual folders are sorted on the server. */
-            if (!ob.v) {
-                if (ob.s) {
-                    tmp2 = (mbox == this.INBOX)
-                        ? []
-                        : parent_e.down().siblings();
-                } else {
-                    tmp2 = parent_e.childElements();
-                }
+            /* Virtual folders and special mailboxes are sorted on the
+             * server. */
+            if (!ob.v && !ob.s) {
                 ll = label.toLowerCase();
-                f_node = tmp2.find(function(node) {
+                f_node = parent_e.childElements().find(function(node) {
                     var l = node.retrieve('l');
                     return (l && (ll < l.toLowerCase()));
                 });
@@ -3216,7 +3207,7 @@ var DimpBase = {
         /* If this is a search mailbox, also need to update flag in base view,
          * if it is in the buffer. */
         $H(s).each(function(m) {
-            var tmp = this.viewport.createSelectionBuffer(m.key).search({ uid: { equal: m.value }, mbox: { equal: m.key } });
+            var tmp = this.viewport.createSelectionBuffer(m.key).search({ uid: { equal: m.value }, mbox: { equal: [ m.key ] } });
             if (tmp.size()) {
                 this._updateFlag(tmp.get('dataob').first(), flag, add);
             }
@@ -3371,7 +3362,7 @@ var DimpBase = {
         DIMP.text.showalog = $('alertsloglink').down('A').innerHTML;
 
         /* Initialize the starting page. */
-        tmp = location.hash;
+        tmp = decodeURIComponent(location.hash);
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? "" : tmp.substring(1);
         }

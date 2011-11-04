@@ -89,7 +89,9 @@ class Ansel_Gallery implements Serializable
     {
         $p = $this->_share->getParents();
         if (!empty($p)) {
-            return $GLOBALS['injector']->getInstance('Ansel_Storage')->buildGalleries($this->_share->getParents());
+            return $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->buildGalleries($this->_share->getParents());
         } else {
             return array();
         }
@@ -103,7 +105,9 @@ class Ansel_Gallery implements Serializable
     {
         $p = $this->_share->getParent();
         if (!empty($p)) {
-            return $GLOBALS['injector']->getInstance('Ansel_Storage')->buildGallery($this->_share->getParent());
+            return $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->buildGallery($this->_share->getParent());
         } else {
             return null;
         }
@@ -180,8 +184,9 @@ class Ansel_Gallery implements Serializable
                 $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
 
         case 'hook':
-            // @TODO: FIX HOOK NAME
-            return Horde::callHook('_ansel_hook_can_download', array($this->id));
+            try {
+                return Horde::callHook('can_download', array($this->id));
+            } catch (Horde_Exception_HookNotSet $e) {}
 
         default:
             return false;
@@ -378,13 +383,19 @@ class Ansel_Gallery implements Serializable
     /**
      * Clear all of this gallery's key image stacks from the VFS and the
      * gallery's data store.
+     *
+     * @throws Ansel_Exception
      */
     public function clearStacks()
     {
         $ids = @unserialize($this->get('default_prettythumb'));
         if (is_array($ids)) {
-            foreach ($ids as $imageId) {
-                $this->removeImage($imageId, true);
+            try {
+                foreach ($ids as $imageId) {
+                    $this->removeImage($imageId, true);
+                }
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Ansel_Exception($e);
             }
         }
 
@@ -510,7 +521,8 @@ class Ansel_Gallery implements Serializable
      */
     public function setImageOrder($imageId, $pos)
     {
-        $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->setImageSortOrder($imageId, $pos);
     }
 
@@ -521,6 +533,7 @@ class Ansel_Gallery implements Serializable
      *                       or an image ID.
      *
      * @param boolean $isStack  Indicates if this image represents a stack image.
+     * @throws Horde_Exception_NotFound, Ansel_Exception
      */
     public function removeImage($image, $isStack = false)
     {
@@ -534,7 +547,9 @@ class Ansel_Gallery implements Serializable
      */
     public function getIdentity()
     {
-        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($this->get('owner'));
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->get('owner'));
     }
 
     /**
@@ -719,9 +734,8 @@ class Ansel_Gallery implements Serializable
             $thumbstyle = $style->keyimage_type;
             $styleHash = $style->getHash($thumbstyle);
 
-            /* First check for the existence of a key image in the specified style */
+            // First check for the existence of a key image in the specified style
             if ($this->get('default_prettythumb')) {
-                // @TODO: unserialize in the get() method
                 $thumbs = @unserialize($this->get('default_prettythumb'));
             }
             if (!isset($thumbs) || !is_array($thumbs)) {
@@ -731,19 +745,19 @@ class Ansel_Gallery implements Serializable
                 return $thumbs[$styleHash];
             }
 
-            /* Don't already have one, must generate it. */
-            //@TODO: Look at passing style both in params and the property...
+            // Don't already have one, must generate it.
             $params = array('gallery' => $this, 'style' => $style);
             try {
                 $iview = Ansel_ImageGenerator::factory($style->keyimage_type, $params);
                 $img = $iview->create();
 
                 // Note the gallery_id is negative for generated stacks
-                $iparams = array('image_filename' => $this->get('name'),
-                                 'image_caption' => $this->get('name'),
-                                 'data' => $img->raw(),
-                                 'image_sort' => 0,
-                                 'gallery_id' => -$this->id);
+                $iparams = array(
+                    'image_filename' => $this->get('name'),
+                    'image_caption' => $this->get('name'),
+                    'data' => $img->raw(),
+                    'image_sort' => 0,
+                    'gallery_id' => -$this->id);
                 $newImg = new Ansel_Image($iparams);
                 $newImg->save();
                 $prettyData = serialize(
@@ -752,7 +766,8 @@ class Ansel_Gallery implements Serializable
 
                 // Make sure the hash is saved since it might be different then
                 // the gallery's
-                $GLOBALS['injector']->getInstance('Ansel_Storage')
+                $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
                     ->ensureHash($styleHash);
 
                 return $newImg->id;
@@ -765,7 +780,7 @@ class Ansel_Gallery implements Serializable
                 }
             }
         } else {
-            /* We are just using an image thumbnail. */
+            // We are just using an image thumbnail.
             if ($this->countImages()) {
                 if ($default = $this->get('default')) {
                     return $default;
@@ -778,7 +793,7 @@ class Ansel_Gallery implements Serializable
             }
 
             if ($this->hasSubGalleries()) {
-                /* Fall through to a key image of a sub gallery. */
+                // Fall through to a key image of a sub gallery.
                 try {
                     $galleries = $GLOBALS['injector']
                         ->getInstance('Ansel_Storage')
@@ -795,7 +810,7 @@ class Ansel_Gallery implements Serializable
             }
         }
 
-        /* Could not find a key image */
+        // Could not find a key image
         return false;
     }
 
@@ -960,8 +975,9 @@ class Ansel_Gallery implements Serializable
         // Can we hook user's age?
         if ($GLOBALS['conf']['ages']['hook'] &&
             $GLOBALS['registry']->isAuthenticated()) {
-            //@TODO: FIX HOOK CALL
-            $result = Horde::callHook('_ansel_hook_user_age');
+            try {
+                $result = Horde::callHook('user_age', array(), 'ansel');
+            } catch (Horde_Exception_HookNotSet $e) {}
             if (is_int($result)) {
                 $session->set('ansel', 'user_age', $result);
                 $user_age = $result;
@@ -1158,6 +1174,11 @@ class Ansel_Gallery implements Serializable
      */
     public function toJson($full = false)
     {
+        // @TODO: Support date grouped galleries
+        $vMode = $this->get('view_mode');
+        if ($vMode != 'Normal') {
+            $this->_setModeHelper('Normal');
+        }
         $style = Ansel::getStyleDefinition('ansel_mobile');
 
         $json = new StdClass();
@@ -1170,14 +1191,14 @@ class Ansel_Gallery implements Serializable
         $json->imgs = array();
 
         // Parent
-        $parents = $this->get('parents');
+        $parents = $this->getParents();
         if (empty($parents)) {
             $json->p = null;
             $json->pn = null;
         } else {
-            $parents = explode(':', $parents);
-            $json->p = array_pop($parents);
-            $json->pn = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($json->p)->get('name');
+            $p = array_pop($parents);
+            $json->p =$p->id;
+            $json->pn = $p->get('name');
         }
 
         if ($full) {
@@ -1185,7 +1206,10 @@ class Ansel_Gallery implements Serializable
                            ($GLOBALS['conf']['vfs']['src'] == 'direct' || $this->_share->hasPermission('', Horde_Perms::READ)));
             $json->sg = array();
             if ($this->hasSubGalleries()) {
-                $sgs = $GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('parent' => $this->id, 'all_levels' => false));
+                $sgs = $this->getChildren(
+                    $GLOBALS['registry']->getAuth(),
+                    Horde_Perms::READ,
+                    false);//GLOBALS['injector']->getInstance('Ansel_Storage')->listGalleries(array('parent' => $this->id, 'all_levels' => false));
                 foreach ($sgs as $g) {
                     $json->sg[] = $g->toJson();
                 }
@@ -1202,6 +1226,9 @@ class Ansel_Gallery implements Serializable
             }
         }
 
+        if ($vMode != 'Normal') {
+            $this->_setModeHelper($vMode);
+        }
         return $json;
     }
 

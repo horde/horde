@@ -5,7 +5,7 @@
  * Uses the pluploader lower level API to sort-of duplicate the idea behind the
  * jquery widget.
  *
- * Requires: puploader.js (v1.2.3+) as well as the runtime files for the desired
+ * Requires: puploader.js (v1.5.1+) as well as the runtime files for the desired
  *           runtimes, e.g. puploader.html5.js.
  *
  * Usage:
@@ -153,7 +153,7 @@ var Horde_Uploader = Class.create({
             error_class: 'hordeUploaderError',
             footer_class: 'hordeUploaderFooter',
             multipart: false,
-            max_file_size: '1mb',
+            max_file_size: false,
             chunk_size: false
         }, params);
         this.handlers = Object.extend(this.handlers, handlers);

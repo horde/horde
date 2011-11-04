@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_LoginTasks\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-10-30 20:30-0200\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/Horde/LoginTasks.php:271
+#: lib/Horde/LoginTasks.php:277
 msgid "Daily"
 msgstr "Diariamente"
 
-#: lib/Horde/LoginTasks.php:272
+#: lib/Horde/LoginTasks.php:278
 msgid "Every Login"
 msgstr "Cada Conexão"
 
-#: lib/Horde/LoginTasks.php:269
+#: lib/Horde/LoginTasks.php:275
 msgid "Monthly"
 msgstr "Mensalmente"
 
-#: lib/Horde/LoginTasks.php:270
+#: lib/Horde/LoginTasks.php:276
 msgid "Weekly"
 msgstr "Semanalmente"
 
-#: lib/Horde/LoginTasks.php:268
+#: lib/Horde/LoginTasks.php:274
 msgid "Yearly"
 msgstr "Anualmente"

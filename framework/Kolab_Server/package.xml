@@ -12,8 +12,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-08-31</date>
- <time>12:27:52</time>
+ <date>2011-10-31</date>
+ <time>08:20:22</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -35,6 +35,7 @@
        <dir name="examples">
         <file name="server.php" role="doc" />
        </dir> <!-- /doc/Horde/Kolab/Server/examples -->
+       <file name="COPYING" role="doc" />
        <file name="TODO" role="doc" />
        <file name="usage.txt" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/Server -->
@@ -284,7 +285,7 @@
         <file name="AddingObjectsTest.php" role="test" />
         <file name="AdminTest.php" role="test" />
         <file name="DistListHandlingTest.php" role="test" />
-        <file name="GroupHandlingTest.php" role="test" />
+        <file name="GroupHandlingTestTodo.php" role="test" />
         <file name="GroupTest.php" role="test" />
         <file name="InetorgpersonTest.php" role="test" />
         <file name="KolabgermanbankarrangementTest.php" role="test" />
@@ -298,7 +299,7 @@
         <file name="Scenario.php" role="test" />
         <file name="SearchguidforuidormailTest.php" role="test" />
         <file name="SearchTest.php" role="test" />
-        <file name="UserHandlingTest.php" role="test" />
+        <file name="UserHandlingTestTodo.php" role="test" />
         <file name="UserTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Server/Integration -->
        <file name="AllTests.php" role="test" />
@@ -360,6 +361,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Kolab/Server/COPYING" />
    <install as="TODO" name="doc/Horde/Kolab/Server/TODO" />
    <install as="usage.txt" name="doc/Horde/Kolab/Server/usage.txt" />
    <install as="examples/server.php" name="doc/Horde/Kolab/Server/examples/server.php" />
@@ -526,7 +528,7 @@
    <install as="Horde/Kolab/Server/Integration/AddingObjectsTest.php" name="test/Horde/Kolab/Server/Integration/AddingObjectsTest.php" />
    <install as="Horde/Kolab/Server/Integration/AdminTest.php" name="test/Horde/Kolab/Server/Integration/AdminTest.php" />
    <install as="Horde/Kolab/Server/Integration/DistListHandlingTest.php" name="test/Horde/Kolab/Server/Integration/DistListHandlingTest.php" />
-   <install as="Horde/Kolab/Server/Integration/GroupHandlingTest.php" name="test/Horde/Kolab/Server/Integration/GroupHandlingTest.php" />
+   <install as="Horde/Kolab/Server/Integration/GroupHandlingTestTodo.php" name="test/Horde/Kolab/Server/Integration/GroupHandlingTestTodo.php" />
    <install as="Horde/Kolab/Server/Integration/GroupTest.php" name="test/Horde/Kolab/Server/Integration/GroupTest.php" />
    <install as="Horde/Kolab/Server/Integration/InetorgpersonTest.php" name="test/Horde/Kolab/Server/Integration/InetorgpersonTest.php" />
    <install as="Horde/Kolab/Server/Integration/KolabgermanbankarrangementTest.php" name="test/Horde/Kolab/Server/Integration/KolabgermanbankarrangementTest.php" />
@@ -540,7 +542,7 @@
    <install as="Horde/Kolab/Server/Integration/Scenario.php" name="test/Horde/Kolab/Server/Integration/Scenario.php" />
    <install as="Horde/Kolab/Server/Integration/SearchguidforuidormailTest.php" name="test/Horde/Kolab/Server/Integration/SearchguidforuidormailTest.php" />
    <install as="Horde/Kolab/Server/Integration/SearchTest.php" name="test/Horde/Kolab/Server/Integration/SearchTest.php" />
-   <install as="Horde/Kolab/Server/Integration/UserHandlingTest.php" name="test/Horde/Kolab/Server/Integration/UserHandlingTest.php" />
+   <install as="Horde/Kolab/Server/Integration/UserHandlingTestTodo.php" name="test/Horde/Kolab/Server/Integration/UserHandlingTestTodo.php" />
    <install as="Horde/Kolab/Server/Integration/UserTest.php" name="test/Horde/Kolab/Server/Integration/UserTest.php" />
   </filelist>
  </phprelease>
@@ -767,7 +769,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-31</date>
+   <date>2011-10-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

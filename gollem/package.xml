@@ -22,20 +22,21 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>16:05:58</time>
+ <date>2011-10-27</date>
+ <time>23:47:05</time>
  <version>
   <release>2.0.1</release>
-  <api>2.0.0RC1</api>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Catch if VFS backend doesn&apos;t support size() (Bug #10637).
-* [mms] Fix editing text files.
+* [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
+* [jan] Fix autocreating of home folders (Bug #10690).
+* [jan] Fix JavaScript for Actions drop down list (Bug #10695).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -676,16 +677,45 @@
   </release>
   <release>
    <version>
-    <release>2.0.1</release>
-    <api>2.0.0RC1</api></version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0RC2</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix corruption of downloaded files (Bug #8481).
 * [jan] Catch if VFS backend doesn&apos;t support size() (Bug #10637).
 * [mms] Fix editing text files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Slovak translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-10-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
+* [jan] Fix autocreating of home folders (Bug #10690).
+* [jan] Fix JavaScript for Actions drop down list (Bug #10695).
    </notes>
   </release>
  </changelog>

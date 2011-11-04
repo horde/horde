@@ -2,8 +2,8 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>beatnik</name>
  <channel>pear.horde.org</channel>
- <summary>TODO</summary>
- <description>TODO</description>
+ <summary>DNS record management for Horde</summary>
+ <description>Manage your DNS zones and records within your Horde install.</description>
  <lead>
   <name>Ben Klang</name>
   <user>bklang</user>
@@ -124,8 +124,20 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>4.0.0</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </package>
   </required>
  </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
  <phprelease>
   <filelist>
    <install as="beatnik/autogenerate.php" name="autogenerate.php" />

@@ -77,29 +77,28 @@ extends Horde_Release_TestCase
     {
         $response = new stdClass;
         $response->result = array('kronolith', 'horde');
-        $whups = $this->_createWhups($response);
+        $whups = $this->_createWhups(array($response, 'OK'));
         $this->assertNull($whups->addNewVersion('horde', '1.0.1'));
     }
 
-    private function _createWhups($response)
+    private function _createWhups($responses)
     {
+        if (!is_array($responses)) {
+            $responses = array($responses);
+        }
+        $r = array_map('json_encode', $responses);
         return new Horde_Release_Whups(
             array(
                 'url' => '',
-                'client' => $this->_getClient(
-                    json_encode($response)
-                )
+                'client' => $this->_getClient($r)
             )
         );
     }
 
-    private function _getClient($string, $code = 200)
+    private function _getClient($responses)
     {
-        $body = new Horde_Support_StringStream($string);
-        $response = new Horde_Http_Response_Mock('', $body->fopen());
-        $response->code = $code;
         $request = new Horde_Http_Request_Mock();
-        $request->setResponse($response);
+        $request->addResponses($responses);
         return new Horde_Http_Client(array('request' => $request));
     }
 }

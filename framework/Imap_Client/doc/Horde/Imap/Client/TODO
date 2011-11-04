@@ -1,0 +1,23 @@
+TODO for 2.0
+============
+
+  - Horde_Imap_Client_Base#currentMailbox()
+
+      The 'mailbox' return value should always be returned as a
+      Horde_Imap_Client_Mailbox object.
+
+  - Horde_Imap_Client_Base#getNamespaces()
+
+      The array keys, 'name' key, and 'translation' key in the return array
+      should return a UTF-8 string, not UTF7-IMAP.
+
+  - Horde_Imap_Client_Base#listMailboxes()
+
+      Return array keys should be UTF-8 strings, not UTF7-IMAP.
+
+      The 'mailbox' return value should always be returned as a
+      Horde_Imap_Client_Mailbox object.
+
+  - Horde_Imap_Client_Base#statusMultiple()
+
+      The return array keys should be returned in UTF-8, not UTF7-IMAP.

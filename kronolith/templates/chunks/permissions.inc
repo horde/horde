@@ -4,6 +4,7 @@
       <input type="radio" id="kronolithC<?php echo $type ?>PNone" name="basic_perms" checked="checked" />
       <label for="kronolithC<?php echo $type ?>PNone"><?php echo $type == 'internal' ? _("Don't share this calendar") : _("Don't share this task list") ?></label><br />
     </div>
+    <?php if ($GLOBALS['registry']->isAdmin() || !empty($GLOBALS['conf']['share']['world'])): ?>
     <div>
       <input type="radio" id="kronolithC<?php echo $type ?>PAll" name="basic_perms" />
       <?php printf(_("%sShare with everyone%s (public) and %s %smake it searchable%s by everyone too"),
@@ -13,6 +14,7 @@
       ?>
       <br />
     </div>
+    <?php endif; ?>
     <div>
       <span<?php if (!count($groups)) echo ' style="display:none"' ?>>
         <?php printf(_("%s %sShare with the %s %sgroup%s and %sallow them to%s %s"),

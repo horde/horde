@@ -15,6 +15,8 @@
  *   view_attach
  *   view_face
  *   view_source
+ * autodetect - (integer) If set, tries to autodetect MIME type when viewing
+ *              based on data.
  * composeCache - (string) Cache ID for compose object.
  * ctype - (string) The content-type to use instead of the content-type
  *           found in the original Horde_Mime_Part object.
@@ -56,7 +58,9 @@ case 'compose_attach_preview':
      * mail message data. Rather, we must use the IMP_Compose object to get
      * the necessary data for Horde_Mime_Part. */
     $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
-    $mime = $imp_compose->buildAttachment($vars->id);
+    if (!$mime = $imp_compose->buildAttachment($vars->id)) {
+        throw new IMP_Compose(_("Could not display attachment data."));
+    }
     $mime->setMimeId($vars->id);
 
     /* Create a dummy IMP_Contents() object so we can use the view code below.
@@ -172,13 +176,18 @@ case 'view_attach':
     $render_mode = ($vars->actionID == 'compose_attach_preview')
         ? IMP_Contents::RENDER_RAW_FALLBACK
         : (isset($vars->mode) ? $vars->mode : IMP_Contents::RENDER_FULL);
-    $render = $contents->renderMIMEPart($vars->id, $render_mode, array('type' => $vars->ctype));
+    $render = $contents->renderMIMEPart($vars->id, $render_mode, array(
+        'autodetect' => $vars->autodetect,
+        'type' => $vars->ctype
+    ));
 
     if (!empty($render)) {
         reset($render);
         $key = key($render);
         $browser->downloadHeaders($render[$key]['name'], $render[$key]['type'], true, strlen($render[$key]['data']));
         echo $render[$key]['data'];
+    } elseif ($vars->autodetect) {
+        echo _("Could not auto-determine data type.");
     }
     break;
 

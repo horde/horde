@@ -512,7 +512,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                         }
                     }
 
-                    if (in_array('\noselect', $val['attributes'])) {
+                    if (($i != $p_count) ||
+                        in_array('\noselect', $val['attributes'])) {
                         $attributes |= self::ELT_NOSELECT;
                     }
 
@@ -1324,13 +1325,15 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $ed = &$this->_eltdiff;
         $id = $elt['v'];
 
-        if (isset($ed['o'][$id])) {
+        if (array_key_exists($id, $ed['o'])) {
             if ($ed['o'][$id] == $elt) {
                 unset($ed['a'][$id], $ed['c'][$id], $ed['d'][$id], $ed['o'][$id]);
                 return;
             }
         } else {
-            $ed['o'][$id] = $elt;
+            $ed['o'][$id] = ($type == 'a')
+                ? null
+                : $elt;
         }
 
         switch ($type) {
@@ -1340,7 +1343,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             break;
 
         case 'c':
-            $ed['c'][$id] = 1;
+            if (!isset($ed['a'][$id])) {
+                $ed['c'][$id] = 1;
+            }
             break;
 
         case 'd':
@@ -1464,8 +1469,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Determines the mailbox name to create given a parent and the new name.
      *
-     * @param string $parent  The parent name (UTF7-IMAP).
-     * @param string $parent  The new mailbox name (UTF7-IMAP).
+     * @param string $parent  The parent name (UTF-8).
+     * @param string $parent  The new mailbox name (UTF-8).
      *
      * @return IMP_Mailbox  The new mailbox.
      * @throws IMP_Exception

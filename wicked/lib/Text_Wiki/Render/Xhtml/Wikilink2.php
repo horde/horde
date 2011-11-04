@@ -54,7 +54,7 @@ class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink
 
         // Does the page exist?
         if ($exists) {
-            $href = sprintf($this->getConf('view_url'), $GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? htmlspecialchars($page) : $this->urlEncode($page)) . $anchor;
+            $href = sprintf(preg_replace('/%(?!s)/', '%%', $this->getConf('view_url')), $GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? htmlspecialchars($page) : $this->urlEncode($page)) . $anchor;
 
             // get the CSS class and generate output
             $css = ' class="'.$this->textEncode($this->getConf('css')).'"';

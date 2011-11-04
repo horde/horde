@@ -29,8 +29,11 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
     }
 
     /**
+     * Get the image's EXIF data.
      *
-     * @return unknown_type
+     * @param string $image  The path to an image.
+     *
+     * @return array  The exif data.
      */
     public function getData($image)
     {

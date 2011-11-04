@@ -14,12 +14,29 @@
  */
 class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
 {
+
+    public function __construct(Horde_Db_Adapter $connection, $version = null)
+    {
+        parent::__construct($connection, $version);
+
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        if (!class_exists('Content_Tagger')) {
+            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
+        }
+        $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
+        $types = $type_mgr->ensureTypes(array('gallery', 'image'));
+        $this->_type_ids = array(
+            'gallery' => (int)$types[0],
+            'image' => (int)$types[1]);
+        $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
+        $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('ansel');
+
+    }
+
     public function up()
     {
         $tableList = $this->tables();
         if (in_array('ansel_galleries_tags', $tableList)) {
-            $GLOBALS['registry']->pushApp('ansel');
-
             /* Gallery tags */
             $sql = 'SELECT gallery_id, tag_name, share_owner FROM ansel_shares RIGHT JOIN '
                 . 'ansel_galleries_tags ON ansel_shares.share_id = ansel_galleries_tags.gallery_id '
@@ -31,7 +48,10 @@ class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
             $this->announce('Migrating gallery tags. This may take a while.');
             $rows = $this->_connection->selectAll($sql);
             foreach ($rows as $row) {
-                $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($row['gallery_id'], $row['tag_name'], $row['share_owner'], 'gallery');
+                $this->_tagger->tag(
+                    $row['share_owner'],
+                    array('object' => (string)$row['gallery_id'], 'type' => $this->_type_ids['gallery']),
+                    $row['tag_name']);
             }
             $this->announce('Gallery tags finished.');
             $sql = 'SELECT ansel_images.image_id AS iid, tag_name, share_owner FROM ansel_images '
@@ -41,7 +61,10 @@ class AnselUpgradeTagsToContent extends Horde_Db_Migration_Base
             $this->announce('Migrating image tags. This may take even longer...');
             $rows = $this->_connection->selectAll($sql);
             foreach ($rows as $row) {
-                $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($row['iid'], $row['tag_name'], $row['share_owner'], 'image');
+                $this->_tagger->tag(
+                    $row['share_owner'],
+                    array('object' => (string)$row['gallery_id'], 'type' => $this->_type_ids['image']),
+                    $row['tag_name']);
             }
             $this->announce('Image tags finished.');
 

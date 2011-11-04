@@ -1,3 +1,6 @@
+a#hermesNotifications, #hermesNotifications:hover {
+    background-image: url("graphics/alerts/message.png");
+}
 #hermesApplications a {
     background-image: none;
 }

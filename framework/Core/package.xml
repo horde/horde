@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-10-11</date>
- <time>13:47:19</time>
+ <date>2011-11-02</date>
+ <time>10:38:09</time>
  <version>
-  <release>1.6.1</release>
-  <api>1.6.0</api>
+  <release>1.7.1</release>
+  <api>1.7.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -1605,7 +1605,36 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-10-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix resetting authentication credentials (Bug #10228).
+* [jan] Correctly render keyval_multienum form field contents.
+* [jan] Don&apos;t use Xcache in CLI scripts (Bug #10288).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.7.0</release>
+    <api>1.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Detect @import tags in CSS and add to compressed data.
+* [mjr] Add ability to remove temporary files at session shutdown.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.7.1</release>
+    <api>1.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -250,9 +250,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function tasks_listUids()
     {
-        $app = $this->horde_hasInterface('tasks');
-        $tasklist = $this->horde_getPref($app, 'default_tasklist');
-        return $this->_registry->tasks->listUids($tasklist);
+        return $this->_registry->tasks->listUids();
     }
 
     public function tasks_listTaskLists()

@@ -36,6 +36,13 @@ $prefGroups['share'] = array(
     'members' => array('default_tasklist'),
 );
 
+$prefGroups['sync'] = array(
+    'column' => _("Task List and Share Preferences"),
+    'label' => _("Synchronization Preferences"),
+    'desc' => _("Choose the task lists to use for synchronization with external devices."),
+    'members' => array('sync_lists'),
+);
+
 $prefGroups['notification'] = array(
     'column' => _("Task List and Share Preferences"),
     'label' => _("Notifications"),
@@ -213,4 +220,11 @@ $_prefs['default_tasklist'] = array(
 // store the task lists to diplay
 $_prefs['display_tasklists'] = array(
     'value' => 'a:0:{}'
+);
+
+// Calendars use for synchronization
+$_prefs['sync_lists'] = array(
+    'value' => 'a:0:{}',
+    'type' => 'multienum',
+    'desc' => _("Select the tasklists that, in addition to the default, should be used for synchronization with external devices:"),
 );

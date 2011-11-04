@@ -15,7 +15,9 @@ class Nag_Form_Type_NagDue extends Horde_Form_Type
         if (is_array($due)) {
             $due_date = !empty($due['date']) ? $due['date'] : null;
             $due_time = !empty($due['time']) ? $due['time'] : null;
-            $due = (int)strtotime("$due_date $due_time");
+            $due_array = Nag::parseDate("$due_date $due_time");
+            $due_dt = new Horde_Date($due_array);
+            $due = $due_dt->timestamp();
         }
 
         $info = strcasecmp($due_type, 'none') ? $due : 0;

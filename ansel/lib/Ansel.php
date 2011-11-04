@@ -484,6 +484,9 @@ class Ansel
      * Generate a list of breadcrumbs showing where we are in the gallery
      * tree.
      *
+     * @param Ansel_Gallery $gallery  The gallery the bread crumbs are for.
+     * @param stirng $separator       The separator text to use between crumbs.
+     *
      * @return string
      */
     static public function getBreadCrumbs($gallery = null, $separator = ' &raquo; ')
@@ -560,8 +563,9 @@ class Ansel
         // the last element (the current page) specially.
         $levels = 0;
         $nav = '</span>';
-        $urlFlags = array('havesearch' => $haveSearch,
-                          'force_grouping' => true);
+        $urlFlags = array(
+            'havesearch' => $haveSearch,
+            'force_grouping' => true);
 
         // Check for an active image
         if (!empty($image_id)) {

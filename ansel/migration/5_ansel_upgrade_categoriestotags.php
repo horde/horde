@@ -14,10 +14,26 @@
  */
 class AnselUpgradeCategoriesToTags extends Horde_Db_Migration_Base
 {
+
+    public function __construct(Horde_Db_Adapter $connection, $version = null)
+    {
+        parent::__construct($connection, $version);
+
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        if (!class_exists('Content_Tagger')) {
+            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
+        }
+        $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
+        $types = $type_mgr->ensureTypes(array('gallery', 'image'));
+        $this->_type_ids = array(
+            'gallery' => (int)$types[0],
+            'image' => (int)$types[1]);
+        $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
+        $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('ansel');
+    }
+
     public function up()
     {
-        $GLOBALS['registry']->pushApp('ansel');
-
         /* Gallery tags */
         $t = $this->_connection->table('ansel_shares');
         $cols = $t->getColumns();
@@ -26,7 +42,10 @@ class AnselUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             $this->announce('Migrating gallery categories.');
             $rows = $this->_connection->selectAll($sql);
             foreach ($rows as $row) {
-                $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($row['share_id'], $row['attribute_category'], $row['share_owner'], 'gallery');
+                $this->_tagger->tag(
+                    $row['share_owner'],
+                    array('object' => (string)$row['share_id'], 'type' => $this->_type_ids['gallery']),
+                    $row['attribute_category']);
             }
             $this->announce('Gallery categories successfully migrated.');
             $this->removeColumn('ansel_shares', 'attribute_category');
