@@ -50,6 +50,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected $_station;
 
 
+    protected $_lastLocation;
+
     /**
      * Icon map for wunderground. Not some are returned as
      * "sky" conditions and some as "condition" icons. Public
@@ -100,12 +102,14 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      *
      * @param Horde_Service_Weather_Location_Base $location  The location object.
      * @param array $params                                  Parameters.
+     *<pre>
+     *  'http_client'  - Required http client object
+     *  'apikey'       - Required API key for wunderground.
+     *</pre>
      *
      * @return Horde_Service_Weather_Base
      */
-    public function __construct(
-        Horde_Service_Weather_Location_Base $location,
-        array $params = array())
+    public function __construct(array $params = array())
     {
         // Check required api key parameters here...
         if (empty($params['http_client']) || empty($params['apikey'])) {
@@ -115,8 +119,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         unset($params['http_client']);
         $this->_apiKey = $params['apikey'];
         unset($params['apikey']);
-
-        parent::__construct($location, $params);
+        parent::__construct($params);
     }
 
     /**
@@ -124,9 +127,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      *
      * @return Horde_Service_Weather_Current
      */
-    public function getCurrentConditions()
+    public function getCurrentConditions($location)
     {
-        $this->_getCommonElements();
+        $this->_getCommonElements(urlencode($location));
         return $this->_current;
     }
 
@@ -136,10 +139,11 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      * @see Horde_Service_Weather_Base#getForecast
      */
     public function getForecast(
+        $location,
         $length = Horde_Service_Weather::FORECAST_3DAY,
         $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
-        $this->_getCommonElements();
+        $this->_getCommonElements(urlencode($location));
         return $this->_forecast;
     }
 
@@ -148,18 +152,60 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         return $this->_station;
     }
 
+    public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
+    {
+        $location = urlencode($location);
+        switch ($type) {
+        case Horde_Service_Weather::SEARCHTYPE_STANDARD:
+            return $this->_parseSearchLocations($this->_searchLocations($location));
+            break;
+
+        case Horde_Service_Weather::SEARCHTYPE_IP;
+            // IP search always returns a single location.
+            return $this->_parseSearchLocations($this->_getLocationByIp($location));
+        }
+    }
+
+    protected function _getLocationByIp($ip)
+    {
+        $url = $this->_addJsonFormat(
+            $this->_addAutoLookupQuery(
+                $this->_addGeoLookupFeature(
+                    $this->_addApiKey(self::API_URL)
+                )
+            )
+        );
+
+        return $this->_makeRequest($url);
+    }
+
+    protected function _searchLocations($location)
+    {
+        $url = $this->_addJsonFormat(
+            $this->_addLocation(
+                $this->_addGeoLookupFeature(
+                    $this->_addApiKey(self::API_URL)
+                ),
+                $location
+            )
+        );
+
+        return $this->_makeRequest($url);
+    }
+
     /**
      * Weather Underground allows requesting multiple features per request,
      * and only counts it as a single request against your API key. So we trade
      * a bit of request time/traffic for a smaller number of requests to obtain
      * information for e.g., a typical weather portal display.
      */
-    protected function _getCommonElements()
+    protected function _getCommonElements($location)
     {
-        if (!empty($this->_current)) {
+        if (!empty($this->_current) && $location == $this->_lastLocation) {
             return;
         }
 
+        $this->_lastLocation = $location;
         $url = $this->_addJsonFormat(
             $this->_addLocation(
                 $this->_addAstronomyFeature(
@@ -168,23 +214,12 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
                             $this->_addGeoLookupFeature($this->_addApiKey(self::API_URL))
                         )
                     )
-                )
+                ),
+                $location
             )
         );
-        $cachekey = md5('hordeweather' . $url);
-        if (!empty($this->_cache) && !$results = $this->_cache->get($key)) {
-            $results = $this->_makeRequest($url);
 
-            if ($results->code !== '200') {
-                // @TODO: Parse response code and determine if we have an API error.
-            }
-
-            if (!empty($this->_cache)) {
-               $this->_cache->set($results, $cachekey);
-            }
-        }
-
-        $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
+        $results = $this->_makeRequest($url);
         $station = $this->_parseStation($results->location);
 
         // @TODO
@@ -234,7 +269,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             'tz' => $station->tz_long,
             'lat' => $station->lat,
             'lon' => $station->lon,
-            'zip' => $station->zip
+            'zip' => $station->zip,
+            'code' => str_replace('/q/', '', $station->l)
         );
 
         return new Horde_Service_Weather_Station($properties);
@@ -280,21 +316,46 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         return new Horde_Service_Weather_Current_WeatherUnderground((array)$current);
     }
 
-    protected function _makeRequest($url)
+    protected function _parseSearchLocations($response)
     {
-        $url = new Horde_Url($url);
-        $response = $this->_http->get($url);
-        if (!$response->code == '200') {
-            // @todo parse exception etc..
-            throw new Horde_Service_Weather_Exception($response->code);
+        if (!empty($response->response->results)) {
+            $results = array();
+            foreach ($response->response->results as $location) {
+                $results[] = $this->_parseStation($location);
+            }
+            return $results;
+        } else {
+            return $this->_parseStation($response->location);
         }
-
-        return $response->getBody();
     }
 
-    protected function _addLocation($url)
+    protected function _makeRequest($url)
     {
-        return $url . '/q/' . $this->_location->getLocationCode();
+        $cachekey = md5('hordeweather' . $url);
+        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+            $url = new Horde_Url($url);
+            $response = $this->_http->get($url);
+            if (!$response->code == '200') {
+                // @todo parse exception etc..
+                throw new Horde_Service_Weather_Exception($response->code);
+            }
+            $results = $response->getBody();
+            if (!empty($this->_cache)) {
+               $this->_cache->set($cachekey, $results);
+            }
+        }
+
+        return Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
+    }
+
+    protected function _addLocation($url, $location)
+    {
+        return $url . '/q/' . $location;
+    }
+
+    protected function _addAutoLookupQuery($url)
+    {
+        return $url . '/q/autoip';
     }
 
     protected function _addApiKey($url)
@@ -325,6 +386,11 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected function _addJsonFormat($url)
     {
         return $url . '.json';
+    }
+
+    protected function _autoLookupQuery($url)
+    {
+        return $url . '/q/autoip';
     }
 
  }

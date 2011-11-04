@@ -34,6 +34,7 @@ class Horde_Service_Weather_Location_Base
      */
     public function __construct($location, array $params = array())
     {
+        $this->_params = $params;
         $this->_location = $location;
     }
 

@@ -41,4 +41,11 @@ class Horde_Service_Weather
 
     /** Conversion constants **/
     const CONVERSION_MPH_TO_KNOTS = 0.868976242;
+
+    /** Location search types **/
+    const SEARCHTYPE_STANDARD = 1;
+    const SEARCHTYPE_IP = 2;
+    const SEARCHTYPE_ZIP = 3;
+    const SEARCHTYPE_CITYSTATE = 4;
+
 }

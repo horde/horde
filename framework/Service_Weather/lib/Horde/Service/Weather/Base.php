@@ -29,18 +29,13 @@
     protected $_params;
 
     /**
-     * Location object
-     *
-     * @var Horde_Service_Weather_Location_Base
-     */
-    protected $_location;
-
-    /**
      * Cache object
      *
      * @var Horde_Cache
      */
     protected $_cache;
+
+    protected $_cache_lifetime = 216000;
 
     /**
      * Constructor
@@ -48,41 +43,56 @@
      * @param Horde_Service_Weather_Location_Base $location  The location object.
      * @param array $params                                  Parameters.
      *<pre>
-     * 'cache' optional Horde_Cache object
+     * 'cache'          - optional Horde_Cache object
+     * 'cache_lifetime' - Lifetime of cached results.
      *</pre>
      *
      * @return Horde_Service_Weather_Base
      */
-    public function __construct(
-        Horde_Service_Weather_Location_Base $location,
-        array $params = array())
+    public function __construct(array $params = array())
     {
-        $this->_location = $location;
-        $this->_params = $params;
         if (!empty($params['cache'])) {
             $this->_cache = $params['cache'];
             unset($params['cache']);
+            if (!empty($params['cache_lifetime'])) {
+                $this->_cache_lifetime = $params['cache_lifetime'];
+                unset($params['cache_lifetime']);
+            }
         }
+
+        $this->_params = $params;
     }
 
     /**
      * Obtain the current observations.
      *
+     * @param string $location  The location string.
+     *
      * @return Horde_Service_Weather_Current_Base
      */
-    abstract public function getCurrentConditions();
+    abstract public function getCurrentConditions($location);
 
     /**
      * Obtain the forecast for the current location.
      *
+     * @param string  $location The location code.
      * @param integer $length  The forecast length.
      * @param integer $type    The type of forecast to return.
      *
      * @return Horde_Service_Weather_Forecast_Base
      */
     abstract public function getForecast(
+        $location,
         $length = Horde_Service_Weather::FORECAST_3DAY,
         $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD);
+
+    /**
+     * Search locations
+     *
+     * @param string $location  The location string to search.
+     * @param integer $type     The type of search to perform.
+     */
+    abstract public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD);
 
     /**
      * Obtain a mapping of units for each UNIT type.
