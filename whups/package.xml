@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
-* 
+* [jan] Add Latvian translation (Jānis Eisaks).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -977,7 +977,7 @@
    <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
-* 
+* [jan] Add Latvian translation (Jānis Eisaks).
    </notes>
   </release>
  </changelog>
