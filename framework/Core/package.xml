@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix importing CSS data in cache files.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
