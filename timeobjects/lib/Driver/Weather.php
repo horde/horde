@@ -65,7 +65,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
                 }
             } else {
                 try {
-                    $location = $driver->searchLocations($_SERVER['SERVER_ADDR'], Horde_Service_Weather::SEARCHTYPE_IP);
+                    $location = $driver->searchLocations($GLOBALS['browser']->getIPAddress(), Horde_Service_Weather::SEARCHTYPE_IP);
                 } catch (Horde_Service_Weather_Exception $e) {
                     // This is last straw, so rethrow
                     throw new Timeobjects_Exception($e);
