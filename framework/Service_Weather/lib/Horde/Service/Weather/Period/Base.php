@@ -44,7 +44,7 @@ class Horde_Service_Weather_Period_Base
      *
      * @var integer
      */
-    public $detail = Horde_Service_Weather::FORECAST_TYPE_STANDARD
+    public $detail = Horde_Service_Weather::FORECAST_TYPE_STANDARD;
 
     /**
      * Const'r
