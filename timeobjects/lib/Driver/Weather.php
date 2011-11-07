@@ -73,7 +73,6 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         $forecast_end = clone $forecast_start;
 
         // Today is day 1, so subtract a day
-        $forecast_end->mday += $this->_params['days'] - 1;
         if ($end->before($forecast_start) || $start->after($forecast_end)) {
             return array();
         }
