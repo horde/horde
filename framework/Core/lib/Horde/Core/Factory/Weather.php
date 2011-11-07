@@ -19,6 +19,8 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
 
         if (!empty($conf['weather']['provider'])) {
             $driver = $conf['weather']['provider'];
+        } else {
+            throw new Horde_Exception('No Weather configuration found.');
         }
 
         switch ($driver) {
