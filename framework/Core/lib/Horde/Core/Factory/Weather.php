@@ -29,7 +29,8 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
             break;
 
         case 'Google':
-            $params['language'] = $GLOBALS['language'];
+            $l = explode('_', $GLOBALS['language']);
+            $params['language'] = $l[0];
             break;
         }
 
