@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-11-02</date>
- <time>10:38:09</time>
+ <date>2011-11-07</date>
+ <time>14:16:14</time>
  <version>
   <release>1.7.1</release>
   <api>1.7.0</api>
@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* update
+* [mjr] Add Horde_Service_Weather factory.
 * [mms] Fix importing CSS data in cache files.
  </notes>
  <contents>
@@ -186,6 +188,7 @@
        <file name="UrlShortener.php" role="php" />
        <file name="Vfs.php" role="php" />
        <file name="View.php" role="php" />
+       <file name="Weather.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
       <dir name="Group">
        <file name="Ldap.php" role="php" />
@@ -1147,6 +1150,7 @@
    <install as="Horde/Core/Factory/UrlShortener.php" name="lib/Horde/Core/Factory/UrlShortener.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
+   <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
@@ -1634,10 +1638,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-11-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* update
+* [mjr] Add Horde_Service_Weather factory.
+* [mms] Fix importing CSS data in cache files.
    </notes>
   </release>
  </changelog>
