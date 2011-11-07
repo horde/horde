@@ -1794,6 +1794,7 @@
        <configstring name="key" desc="API Key"></configstring>
       </configsection>
     </case>
+    <case name="Google" desc="Google Weather API" />
    </configswitch>
   </configsection>
  </configtab>
