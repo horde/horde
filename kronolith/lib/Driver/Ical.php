@@ -541,7 +541,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $body = $response->getBody();
             if ($body) {
                 $error .= ' ' . _("This is what the server said:")
-                    . ' ' . Horde_String::truncate($body);
+                    . ' ' . Horde_String::truncate(strip_tags($body));
             }
             if ($cache) {
                 $cacheOb->set($signature, serialize($error));
