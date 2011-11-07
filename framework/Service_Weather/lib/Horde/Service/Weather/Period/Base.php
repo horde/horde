@@ -35,6 +35,18 @@ class Horde_Service_Weather_Period_Base
     public $units = Horde_Service_Weather::UNITS_STANDARD;
 
     /**
+     * Advertise how detailed the forecast period is.
+     *<pre>
+     * FORECAST_TYPE_STANDARD - Each Period represents a full day
+     * FORECAST_TYPE_DETAILED - Each period represents either day or night.
+     * FORECAST_TYPE_HOURLY   - Each period represents a single hour.
+     *</pre>
+     *
+     * @var integer
+     */
+    public $detail = Horde_Service_Weather::FORECAST_TYPE_STANDARD
+
+    /**
      * Const'r
      *
      * @param  array $properties  Current properties, in driver keys.

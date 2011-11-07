@@ -49,6 +49,8 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
     public function __get($property)
     {
         switch ($property) {
+        case 'is_pm' => false, // Wunderground only supports standard
+        case 'hour' => false,
         case 'date':
             $date = new Horde_Date(array(
                 'year' => $this->_properties['date']->year,
