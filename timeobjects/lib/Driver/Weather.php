@@ -77,6 +77,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         if ($end->before($forecast_start) || $start->after($forecast_end)) {
             return array();
         }
+
         $weather = $this->_create();
         $units = $weather->getUnits($this->_units);
         $forecast = $weather->getForecast($this->_location, Horde_Service_Weather::FORECAST_7DAY);
@@ -167,7 +168,11 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         }
 
         // Ensure we have a valid location code for the location.
-        $driver = $this->_create();
+        try {
+            $driver = $this->_create();
+        } catch (Exception $e) {
+            return;
+        }
         if (!empty($location)) {
             try {
                 $location = $driver->searchLocations($location);
