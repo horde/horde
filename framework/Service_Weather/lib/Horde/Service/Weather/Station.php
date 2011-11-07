@@ -33,8 +33,6 @@ class Horde_Service_Weather_Station
             return $this->_properties[$property];
         }
         return '';
-        throw new Horde_Service_Weather_Exception_InvalidProperty(
-            'This station does not support the ' . $property . ' property');
     }
 
     public function __set($property, $value)

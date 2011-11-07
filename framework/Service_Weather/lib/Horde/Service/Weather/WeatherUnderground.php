@@ -45,6 +45,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
     /**
      * Local cache of station data
+     *
      * @var Horde_Service_Weather_Station
      */
     protected $_station;
