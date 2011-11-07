@@ -2,6 +2,7 @@
 v1.0.3-git
 ----------
 
+[mjr] Remove support for the now non-existent weatherdotcom API.
 [mjr] Add support for Horde_Service_Weather.
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Add Estonian translation (Alar Sing <alar.sing@err.ee>).
