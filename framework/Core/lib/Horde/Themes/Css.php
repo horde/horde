@@ -348,7 +348,7 @@ class Horde_Themes_Css
     protected function _importCallback($matches)
     {
         return $this->loadCssFiles(array(array(
-            'fs' => realpath(dirname($this->_temp['fs']) . '/' . basename($matches[1])),
+            'fs' => realpath(dirname($this->_temp['fs']) . '/' . ltrim($matches[1], '/')),
             'uri' => $matches[1]
         )));
     }
