@@ -30,9 +30,6 @@ class Timeobjects_Api extends Horde_Registry_Api
     {
         $drivers = array();
 
-        // Try the "Weather" driver which uses Horde_Service_Weather. If we
-        // can't create a driver, use the deprecated weatherdotcom driver if
-        // configured and hope for the best...
         try {
             $drv = $GLOBALS['injector']
                 ->getInstance('TimeObjects_Factory_Driver')
@@ -41,15 +38,6 @@ class Timeobjects_Api extends Horde_Registry_Api
                $drivers['Weather'] = _("Weather");
             }
         } catch (Timeobjects_Exception $e) {
-        }
-        if (empty($drivers['Weather'])) {
-            try {
-                $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('Weatherdotcom');
-                if ($drv->ensure()) {
-                   $drivers['Weatherdotcom'] = _("Weather");
-                }
-            } catch (Timeobjects_Exception $e) {
-            }
         }
 
         try {
