@@ -146,11 +146,25 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         return $this->_forecast;
     }
 
+    /**
+     * Get the station information.
+     *
+     * @return Horde_Service_Weather_Station
+     */
     public function getStation()
     {
         return $this->_station;
     }
 
+    /**
+     * Search for a valid location code.
+     *
+     * @param  string $location  A location search string like e.g., Boston,MA
+     * @param  integer $type     The type of search being performed.
+     *
+     * @return string  The search location suitable to use directly in a
+     *                 weather request.
+     */
     public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
     {
         $location = urlencode($location);
@@ -160,36 +174,35 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             break;
 
         case Horde_Service_Weather::SEARCHTYPE_IP;
-            // IP search always returns a single location.
             return $this->_parseSearchLocations($this->_getLocationByIp($location));
         }
     }
 
+    /**
+     * Perform an IP location search.
+     *
+     * @param  string $ip  The IP address to use.
+     *
+     * @return string  The location code.
+     */
     protected function _getLocationByIp($ip)
     {
-        $url = $this->_addJsonFormat(
-            $this->_addAutoLookupQuery(
-                $this->_addGeoLookupFeature(
-                    $this->_addApiKey(self::API_URL)
-                )
-            )
-        );
-
-        return $this->_makeRequest($url);
+        return $this->_makeRequest(
+            self::API_URL . '/api/' . $this->_apiKey
+                . '/geolookup/q/autoip.json');
     }
 
+    /**
+     * Execute a location search.
+     *
+     * @param  string $location The location text to search.
+     *
+     * @return string  The location code result(s).
+     */
     protected function _searchLocations($location)
     {
-        $url = $this->_addJsonFormat(
-            $this->_addLocation(
-                $this->_addGeoLookupFeature(
-                    $this->_addApiKey(self::API_URL)
-                ),
-                $location
-            )
-        );
-
-        return $this->_makeRequest($url);
+        return $this->_makeRequest(self::API_URL . '/api/' . $this->_apiKey
+            . '/geolookup/q/' . $location . '.json');
     }
 
     /**
@@ -205,19 +218,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         }
 
         $this->_lastLocation = $location;
-        $url = $this->_addJsonFormat(
-            $this->_addLocation(
-                $this->_addAstronomyFeature(
-                    $this->_addForecastFeature(
-                        $this->_addConditionFeature(
-                            $this->_addGeoLookupFeature($this->_addApiKey(self::API_URL))
-                        )
-                    )
-                ),
-                $location
-            )
-        );
 
+        $url = self::API_URL . '/api/' . $this->_apiKey
+            . '/geolookup/conditions/forecast/astronomy/q/' . $location . '.json';
         $results = $this->_makeRequest($url);
         $station = $this->_parseStation($results->location);
 
@@ -345,51 +348,6 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         }
 
         return Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
-    }
-
-    protected function _addLocation($url, $location)
-    {
-        return $url . '/q/' . $location;
-    }
-
-    protected function _addAutoLookupQuery($url)
-    {
-        return $url . '/q/autoip';
-    }
-
-    protected function _addApiKey($url)
-    {
-        return $url . '/api/' . $this->_apiKey;
-    }
-
-    protected function _addGeoLookupFeature($url)
-    {
-        return $url . '/geolookup';
-    }
-
-    protected function _addConditionFeature($url)
-    {
-        return $url . '/conditions';
-    }
-
-    protected function _addAstronomyFeature($url)
-    {
-         return $url . '/astronomy';
-    }
-
-    protected function _addForecastFeature($url)
-    {
-        return $url . '/forecast';
-    }
-
-    protected function _addJsonFormat($url)
-    {
-        return $url . '.json';
-    }
-
-    protected function _autoLookupQuery($url)
-    {
-        return $url . '/q/autoip';
     }
 
  }
