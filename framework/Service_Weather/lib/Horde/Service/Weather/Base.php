@@ -37,6 +37,8 @@
 
     protected $_cache_lifetime = 216000;
 
+    public $units = Horde_Service_Weather::UNITS_STANDARD;
+
     /**
      * Constructor
      *

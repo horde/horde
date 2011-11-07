@@ -14,6 +14,18 @@
 /**
  * Horde_Service_Weather_Period_WeatherUnderground
  *
+ * Provides information for the following properties:
+ *<pre>
+ *  conditions             Condition description.
+ *  icon_url               URL to an appropriate icon provided by the provider.
+ *  icon                   Name of a Horde_Services_Weather icon.
+ *  precipitation_percent  Percent chance of precipitation.
+ *  period                 The period number.
+ *  high                   High temperature.
+ *  low                    Low  temperature.
+ *  date                   Period date.
+ *</pre>
+ *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
@@ -32,7 +44,6 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
      */
     protected $_map = array(
         'conditions' => 'conditions',
-        'icon' => 'icon',
         'icon_url' => 'icon_url',
         'precipitation_percent' => 'pop',
         'period' => 'period'
@@ -78,12 +89,15 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
             }
             return $this->_properties['low']->celcius;
 
+        case 'icon':
+            return $this->_forecast->weather->iconMap[$this->_properties['icon']];
+
         default:
             if (!empty($this->_map[$property])) {
                 return $this->_properties[$this->_map[$property]];
             }
 
-            throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support that property');
+            throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support the "' . $property . '" property');
         }
     }
 

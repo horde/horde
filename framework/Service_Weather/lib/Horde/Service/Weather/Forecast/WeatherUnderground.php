@@ -20,9 +20,12 @@
  */
  class Horde_Service_Weather_Forecast_WeatherUnderground extends Horde_Service_Weather_Forecast_Base
  {
-    public function __construct(array $properties, $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
+    public function __construct(
+        $properties,
+        Horde_Service_Weather_Base $weather,
+        $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
-        parent::__construct($properties);
+        parent::__construct($properties, $weather, $type);
         switch ($type) {
         case Horde_Service_Weather::FORECAST_TYPE_STANDARD:
             $this->_parseStd();
@@ -44,7 +47,7 @@
         }
 
         foreach ($this->_properties['simpleforecast']->forecastday as $period => $values) {
-            $this->_periods[] = new Horde_Service_Weather_Period_WeatherUnderground((array)$values);
+            $this->_periods[] = new Horde_Service_Weather_Period_WeatherUnderground((array)$values, $this);
         }
     }
 

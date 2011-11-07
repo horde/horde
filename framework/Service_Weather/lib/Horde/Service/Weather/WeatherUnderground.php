@@ -237,18 +237,12 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $station->sunset = clone $date;
         $station->sunset->hour = $astronomy->sunset->hour;
         $station->sunset->min = $astronomy->sunset->minute;
-
-        $current = $this->_parseCurrent($results->current_observation);
-        $forecast = $this->_parseForecast($results->forecast);
-
         // Station information doesn't include any type of name string, so
         // get it from the currentConditions request.
-        $station->name = $current->location->location;
-
-        // Cache the data in the object
+        $this->_current = $this->_parseCurrent($results->current_observation);
+        $station->name = $this->_current->location->location;
         $this->_station = $station;
-        $this->_current = $current;
-        $this->_forecast = $forecast;
+        $this->_forecast = $this->_parseForecast($results->forecast);
     }
 
     /**
@@ -287,7 +281,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     protected function _parseForecast($forecast)
     {
-        return new Horde_Service_Weather_Forecast_WeatherUnderground((array)$forecast);
+        return new Horde_Service_Weather_Forecast_WeatherUnderground(
+            (array)$forecast, $this);
     }
 
     /**

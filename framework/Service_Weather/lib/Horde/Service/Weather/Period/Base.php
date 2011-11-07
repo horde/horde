@@ -23,7 +23,7 @@ class Horde_Service_Weather_Period_Base
     /**
      * Properties for this single peridd, as returned from the forecast request.
      *
-     * @var array
+     * @var mixed
      */
     protected $_properties;
 
@@ -47,14 +47,23 @@ class Horde_Service_Weather_Period_Base
     public $detail = Horde_Service_Weather::FORECAST_TYPE_STANDARD;
 
     /**
+     * Reference to parent forecast object.
+     *
+     * @var Horde_Service_Weather_Forecast_Base;
+     */
+    protected $_forecast;
+
+    /**
      * Const'r
      *
-     * @param  array $properties  Current properties, in driver keys.
+     * @param mixed $properties                      Current properties.
+     * @param Horde_Service_Forecast_Base $forecast  The parent forecast.
      *
      * @return Horde_Service_Weather_Current
      */
-    public function __construct(array $properties = array())
+    public function __construct($properties, Horde_Service_Weather_Forecast_Base $forecast)
     {
+        $this->_forecast = $forecast;
         $this->_properties = $properties;
     }
 

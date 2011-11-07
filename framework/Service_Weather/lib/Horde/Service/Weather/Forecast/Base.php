@@ -36,11 +36,41 @@
      */
     protected $_periods = array();
 
+    /**
+     * Parent Weather driver.
+     *
+     * @var Horde_Service_Weather_Base
+     */
+    public $weather;
+
+    /**
+     * Forecast type
+     *
+     * @var integer  A Horde_Service_Weather::FORECAST_TYPE_* constant.
+     */
     protected $_type;
 
-    public function __construct(array $properties, $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
+    /**
+     * Units
+     *
+     * @var Integer  Horde_Service_Weather::UNITS_* constant.
+     */
+    public $units = Horde_Service_Weather::UNITS_STANDARD;
+
+    /**
+     * Const'r
+     *
+     * @param array $properties                    Forecast properties.
+     * @param Horde_Service_Weather_base $weather  The base driver.
+     * @param integer $type                        The forecast type.
+     */
+    public function __construct(
+        $properties,
+        Horde_Service_Weather_Base $weather,
+        $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
         $this->_properties = $properties;
+        $this->weather = $weather;
         $this->_type = $type;
     }
 
