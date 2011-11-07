@@ -28,16 +28,15 @@ class Timeobjects_Api extends Horde_Registry_Api
      */
     public function listTimeObjectCategories()
     {
-        // @TODO: Probably want to iterate the driver directory
-        //        and dynamically build this list and/or maybe provide
-        //        a $conf[] setting to explicitly disable certain drivers?
         $drivers = array();
 
         // Try the "Weather" driver which uses Horde_Service_Weather. If we
         // can't create a driver, use the deprecated weatherdotcom driver if
         // configured and hope for the best...
         try {
-            $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('Weather');
+            $drv = $GLOBALS['injector']
+                ->getInstance('TimeObjects_Factory_Driver')
+                ->create('Weather');
             if ($drv->ensure()) {
                $drivers['Weather'] = _("Weather");
             }
