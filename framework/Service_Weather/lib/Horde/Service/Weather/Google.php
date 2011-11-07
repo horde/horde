@@ -117,7 +117,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     public function getCurrentConditions($location)
     {
-        $this->_getCommonElements(urlencode($location));
+        $this->_getCommonElements($location);
         return $this->_current;
     }
 
@@ -156,40 +156,15 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
     {
-        // //$location = urlencode($location);
-        // switch ($type) {
-        // case Horde_Service_Weather::SEARCHTYPE_STANDARD:
-        //     return $this->_parseSearchLocations($this->_searchLocations($location));
-        //     break;
+        // Google doesn't support any location searching via the weather api.
+        // Just return the passed in value and hope for the best.
+        if ($type == Horde_Service_Weather::SEARCHTYPE_IP) {
+            throw new Horde_Service_Weather_Exception('Location by IP is not supported by this driver.');
+        }
+        $l = new StdClass();
+        $l->code = $location;
 
-        // case Horde_Service_Weather::SEARCHTYPE_IP;
-        //     return $this->_parseSearchLocations($this->_getLocationByIp($location));
-        // }
-    }
-
-    /**
-     * Perform an IP location search.
-     *
-     * @param  string $ip  The IP address to use.
-     *
-     * @return string  The location code.
-     */
-    protected function _getLocationByIp($ip)
-    {
-        throw new Horde_Service_Weather_Exception('Getting weather by IP is not yet supported by this driver.');
-    }
-
-    /**
-     * Execute a location search.
-     *
-     * @param  string $location The location text to search.
-     *
-     * @return string  The location code result(s).
-     */
-    protected function _searchLocations($location)
-    {
-        // return $this->_makeRequest(self::API_URL . '/api/' . $this->_apiKey
-        //     . '/geolookup/q/' . $location . '.json');
+        return $l;
     }
 
     /**
@@ -200,18 +175,18 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     protected function _getCommonElements($location)
     {
-        // if (!empty($this->_current) && $location == $this->_lastLocation) {
-        //     return;
-        // }
+        if (!empty($this->_current) && $location == $this->_lastLocation) {
+            return;
+        }
 
         $this->_lastLocation = $location;
         $units = $this->units == Horde_Service_Weather::UNITS_STANDARD ? 'F' : 'C';
         $url = new Horde_Url(self::API_URL);
         $url = $url->add(array(
-            'weather' => $location,
+            'weather' => urlencode($location),
             'unit' => $units,
             'language' => 'en'
-        ))->setRaw(true);
+        ));
 
         $results = $this->_makeRequest($url);
         $this->_station = $this->_parseStation($results->weather->forecast_information);
@@ -233,15 +208,16 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         //  displaying other, nearby weather station conditions etc...
         $properties = array(
             // @TODO: can we parse cith/state from results?
-            'city' => $station->city,
-            'state' => $station->city,
+            'name' => urldecode((string)$station->city['data']),
+            'city' => urldecode((string)$station->city['data']),
+            'state' => urldecode((string)$station->city['data']),
             'country' => '',
             'country_name' => '',
             'tz' => '', // Not provided, can we assume it's the location's local?
             'lat' => '',
             'lon' => '',
             'zip' => '',
-            'code' => $station->postal_code
+            'code' => (string)$station->postal_code['data']
         );
 
         return new Horde_Service_Weather_Station($properties);
@@ -269,6 +245,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     protected function _parseCurrent($current)
     {
+        return true;
         // The Current object takes care of the parsing/mapping.
         $current = new Horde_Service_Weather_Current_Google($current);
         $current->units = $this->units;
