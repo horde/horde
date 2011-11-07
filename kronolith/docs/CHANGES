@@ -2,6 +2,8 @@
 v3.0.12-git
 -----------
 
+[jan] Support CalDAV servers that don't use DAV: as the default namespace
+      (christof@buergi.lugs.ch, Bug #10716).
 [jan] Allow to view and create copies of holiday events (Bug #10650).
 [jan] Don't show import/export tabs in dynamic view if disabled (Bug #10705).
 [jan] Don't show option to share with everyone in basic permissions if disabled

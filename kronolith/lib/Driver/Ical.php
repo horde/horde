@@ -233,7 +233,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $url = $this->_getUrl();
         list($response, $events) = $this->_request('REPORT', $url, $xml,
                                           array('Depth' => 1));
-        if (!$events->response) {
+        if (!$events->children('DAV:')->response) {
             return array();
         }
         if (!($path = $response->getHeader('content-location'))) {
@@ -242,10 +242,10 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         $results = array();
-        foreach ($events->response as $response) {
+        foreach ($events->children('DAV:')->response as $response) {
             $ical = new Horde_Icalendar();
             try {
-                $result = $ical->parsevCalendar($response->propstat->prop->children('urn:ietf:params:xml:ns:caldav')->{'calendar-data'});
+                $result = $ical->parsevCalendar($response->children('DAV:')->propstat->prop->children('urn:ietf:params:xml:ns:caldav')->{'calendar-data'});
             } catch (Horde_Icalendar_Exception $e) {
                 throw new Kronolith_Exception($e);
             }
@@ -624,13 +624,13 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $xml->endDocument();
             list(, $properties) = $this->_request('PROPFIND', $url, $xml,
                                                   array('Depth' => 0));
-            if (!$properties->response->propstat->prop->resourcetype->collection) {
+            if (!$properties->children('DAV:')->response->propstat->prop->resourcetype->collection) {
                 throw new Kronolith_Exception(_("The remote server URL does not point to a CalDAV directory."));
             }
 
             /* Read ACLs. */
-            if ($properties->response->propstat->prop->{'current-user-privilege-set'}) {
-                foreach ($properties->response->propstat->prop->{'current-user-privilege-set'}->privilege as $privilege) {
+            if ($properties->children('DAV:')->response->propstat->prop->{'current-user-privilege-set'}) {
+                foreach ($properties->children('DAV:')->response->propstat->prop->{'current-user-privilege-set'}->privilege as $privilege) {
                     if ($privilege->all) {
                         $this->_permission = Horde_Perms::ALL;
                         break;
