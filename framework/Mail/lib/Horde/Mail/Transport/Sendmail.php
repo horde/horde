@@ -87,13 +87,6 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
         if (isset($params['sendmail_path'])) {
             $this->_sendmailPath = $params['sendmail_path'];
         }
-
-        /* Because we need to pass message headers to the sendmail program on
-         * the commandline, we can't guarantee the use of the standard "\r\n"
-         * separator.  Instead, we use the system's native line separator. */
-        $this->sep = defined('PHP_EOL')
-            ? PHP_EOL
-            : (strpos(PHP_OS, 'WIN') === false) ? "\n" : "\r\n";
     }
 
     /**
@@ -145,7 +138,7 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
             throw new Horde_Mail_Exception('From address specified with dangerous characters.');
         }
 
-        $mail = @popen($this->_sendmailPath . (empty($this->_sendmailArgs) ? '' : ' ' . $this->_sendmailArgs) . ' -f' . escapeshellarg($from) . ' -- ' . $recipients, 'w');
+        $mail = @popen($this->_sendmailPath . (empty($this->_sendmailArgs) ? '' : ' ' . $this->_sendmailArgs) . ' -f ' . escapeshellarg($from) . ' -- ' . $recipients, 'w');
         if (!$mail) {
             throw new Horde_Mail_Exception('Failed to open sendmail [' . $this->_sendmailPath . '] for execution.');
         }
