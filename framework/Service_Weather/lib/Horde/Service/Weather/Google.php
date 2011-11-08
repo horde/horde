@@ -265,9 +265,14 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
                 // @todo parse exception etc..
                 throw new Horde_Service_Weather_Exception($response->code);
             }
+            $ct = $response->getHeader('content-type');
             $results = $response->getBody();
+            $matches = array();
+            if (preg_match("@charset=([^;\"'/>]+)@i", $ct, $matches)) {
+                $results = Horde_String::convertCharset($results, $matches[1], 'utf-8');
+            }
             if (!empty($this->_cache)) {
-               //$this->_cache->set($cachekey, $results);
+               $this->_cache->set($cachekey, $results);
             }
         }
 
