@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported, and there are both obje
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [gwr] Make unit tests timezone independent.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -923,7 +923,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [gwr] Make unit tests timezone independent.
    </notes>
   </release>
  </changelog>
