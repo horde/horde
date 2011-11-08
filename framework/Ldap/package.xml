@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>11:38:15</time>
+ <date>2011-11-08</date>
+ <time>21:16:46</time>
  <version>
   <release>1.1.4</release>
   <api>1.1.0</api>
@@ -29,10 +29,17 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* 
+* [jan] Add missing test autoloader.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Ldap">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Ldap -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Ldap">
@@ -63,6 +70,7 @@
        <file name="unsorted_w50_WIN.ldif" role="test" />
       </dir> <!-- /test/Horde/Ldap/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="EntryTest.php" role="test" />
       <file name="FilterTest.php" role="test" />
@@ -105,6 +113,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Ldap/COPYING" />
    <install as="Horde/Ldap.php" name="lib/Horde/Ldap.php" />
    <install as="Horde/Ldap/Entry.php" name="lib/Horde/Ldap/Entry.php" />
    <install as="Horde/Ldap/Exception.php" name="lib/Horde/Ldap/Exception.php" />
@@ -115,6 +124,7 @@
    <install as="Horde/Ldap/Search.php" name="lib/Horde/Ldap/Search.php" />
    <install as="Horde/Ldap/Util.php" name="lib/Horde/Ldap/Util.php" />
    <install as="Horde/Ldap/AllTests.php" name="test/Horde/Ldap/AllTests.php" />
+   <install as="Horde/Ldap/Autoload.php" name="test/Horde/Ldap/Autoload.php" />
    <install as="Horde/Ldap/conf.php.dist" name="test/Horde/Ldap/conf.php.dist" />
    <install as="Horde/Ldap/EntryTest.php" name="test/Horde/Ldap/EntryTest.php" />
    <install as="Horde/Ldap/FilterTest.php" name="test/Horde/Ldap/FilterTest.php" />
@@ -274,10 +284,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
-   <license uri="http://www.gnu.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <date>2011-11-08</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
-* 
+* [jan] Add missing test autoloader.
    </notes>
   </release>
  </changelog>
