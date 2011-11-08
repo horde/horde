@@ -1791,7 +1791,9 @@
     <case name="false" desc="None" />
     <case name="WeatherUnderground" desc="Weather Underground">
       <configsection name="params">
-       <configstring name="key" desc="API Key"></configstring>
+       <configstring name="key" desc="API Key. For information on registration and obtaining an API
+       key for this driver, see http://www.wunderground.com/weather/api/
+       for more information."></configstring>
       </configsection>
     </case>
     <case name="Google" desc="Google Weather API" />
