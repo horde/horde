@@ -216,8 +216,7 @@ class Horde_Date
             $this->_initializeFromObject($date);
         } elseif (is_array($date)) {
             $this->_initializeFromArray($date);
-        } elseif (preg_match('/(\d{4})-?(\d{2})-?(\d{2})T? ?(\d{2}):?(\d{2}):?(\d{2})(?:\.\d+)?(Z?)/', $date, $parts) &&
-                  empty($parts[7])) {
+        } elseif (preg_match('/^(\d{4})-?(\d{2})-?(\d{2})T? ?(\d{2}):?(\d{2}):?(\d{2})(?:\.\d+)?(Z?)$/', $date, $parts)) {
             $this->_year  = (int)$parts[1];
             $this->_month = (int)$parts[2];
             $this->_mday  = (int)$parts[3];
