@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [gwr] Only remove the "_controller" suffix if it exists.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -213,7 +213,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [gwr] Only remove the "_controller" suffix if it exists.
    </notes>
   </release>
  </changelog>
