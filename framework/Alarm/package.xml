@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>12:05:23</time>
+ <date>2011-11-08</date>
+ <time>22:53:09</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -26,6 +26,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Alarm">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Alarm -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Alarm">
@@ -412,6 +419,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Alarm/COPYING" />
    <install as="Horde/Alarm.php" name="lib/Horde/Alarm.php" />
    <install as="Horde/Alarm/Exception.php" name="lib/Horde/Alarm/Exception.php" />
    <install as="Horde/Alarm/Handler.php" name="lib/Horde/Alarm/Handler.php" />
@@ -656,7 +664,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Croatian translation.
