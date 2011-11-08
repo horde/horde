@@ -23,8 +23,8 @@ owns or has access to.</description>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-20</date>
- <time>14:36:44</time>
+ <date>2011-11-08</date>
+ <time>23:36:24</time>
  <version>
   <release>1.2.2</release>
   <api>1.2.0</api>
@@ -39,6 +39,13 @@ owns or has access to.</description>
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Share">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Share -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Share">
@@ -454,6 +461,7 @@ owns or has access to.</description>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Share/COPYING" />
    <install as="Horde/Share/Base.php" name="lib/Horde/Share/Base.php" />
    <install as="Horde/Share/Datatree.php" name="lib/Horde/Share/Datatree.php" />
    <install as="Horde/Share/Exception.php" name="lib/Horde/Share/Exception.php" />
@@ -801,7 +809,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-20</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Skip Kolab test if Horde_Kolab_Storage is not installed.
