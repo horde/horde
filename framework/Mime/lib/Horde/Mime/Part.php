@@ -1679,8 +1679,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         /* Make sure the message has a trailing newline. */
         fseek($msg, -1, SEEK_END);
-        if (fgetc($msg) != "\n") {
+        switch (fgetc($msg)) {
+        case "\r":
+            if (fgetc($msg) != "\n") {
+                fputs($msg, "\n");
+            }
+            break;
+
+        default:
             fputs($msg, "\r\n");
+            break;
         }
         rewind($msg);
 
