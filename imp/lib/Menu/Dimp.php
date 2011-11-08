@@ -23,9 +23,8 @@ class IMP_Menu_Dimp extends Horde_Menu
     protected $_renderCalled = false;
 
     /**
-     * @param string $type  Either 'sidebar' or 'tabs'.
      */
-    public function render($type)
+    public function render()
     {
         if (!$this->_renderCalled) {
             parent::render();
@@ -42,29 +41,17 @@ class IMP_Menu_Dimp extends Horde_Menu
         $out = '';
 
         foreach ($this->_menu as $k => $m) {
-            switch ($type) {
-            case 'sidebar':
-                // FIXME: solve the ajax view detection properly.
-                if (empty($GLOBALS['conf']['menu']['apps_iframe']) ||
-                    $GLOBALS['registry']->hasAjaxView($m['icon']->app)) {
-                    $href = ' href="' . htmlspecialchars($m['url']) . '"';
-                } else {
-                    $href = '';
-                }
-                $out .= '<li class="custom">' .
-                    Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path'])
-                    . '<a id="sidebarapp_' . htmlspecialchars($k) . '"'
-                    . $href . '>' . htmlspecialchars($m['text']) . '</a></li>';
-                break;
-
-            case 'tabs':
-                $out .= '<li>' .
-                    '<a class="applicationtab" id="apptab_' . htmlspecialchars($k) . '">' .
-                    Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path']) .
-                    htmlspecialchars($m['text']) .
-                    '</a></li>';
-                break;
+            // FIXME: solve the ajax view detection properly.
+            if (empty($GLOBALS['conf']['menu']['apps_iframe']) ||
+                $GLOBALS['registry']->hasAjaxView($m['icon']->app)) {
+                $href = ' href="' . htmlspecialchars($m['url']) . '"';
+            } else {
+                $href = '';
             }
+            $out .= '<li class="custom">' .
+                Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path'])
+                . '<a id="sidebarapp_' . htmlspecialchars($k) . '"'
+                . $href . '>' . htmlspecialchars($m['text']) . '</a></li>';
         }
 
         return $out;
