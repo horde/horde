@@ -55,7 +55,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      *
      * @var string
      */
-    protected $_langage = 'en';
+    protected $_language = 'en';
 
     /**
      * Cache of last requested location.
@@ -101,7 +101,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      * @param array $params                                  Parameters.
      *<pre>
      *  'http_client'  - Required http client object
-     *  'units'        -
+     *  'language'     - Language code for returned strings.
      *</pre>
      *
      * @return Horde_Service_Weather_Base
