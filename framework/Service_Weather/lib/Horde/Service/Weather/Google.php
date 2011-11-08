@@ -184,10 +184,13 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         $url = new Horde_Url(self::API_URL);
         $url = $url->add(array(
             'weather' => urlencode($location),
-            'unit' => $units,
             'hl' => $this->_language
         ))->setRaw(true);
         $results = $this->_makeRequest($url);
+        $this->units =
+            $results->weather->forecast_information->unit_sytem == 'US' ?
+                Horde_Service_Weather::UNITS_STANDARD :
+                Horde_Service_Weather::UNITS_METRIC;
         $this->_station = $this->_parseStation($results->weather->forecast_information);
         $this->_forecast = $this->_parseForecast($results->weather);
         $this->_current = $this->_parseCurrent($results->weather->current_conditions);
