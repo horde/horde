@@ -194,10 +194,14 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         $units = $this->units == Horde_Service_Weather::UNITS_STANDARD ? 'F' : 'C';
         $url = new Horde_Url(self::API_URL);
         $url = $url->add(array(
-            'weather' => urlencode($location),
+            'weather' => $location,
             'hl' => $this->_language
         ))->setRaw(true);
         $results = $this->_makeRequest($url);
+        if ($results->weather->problem_cause) {
+            throw new Horde_Service_Weather_Exception(
+                Horde_Service_Weather_Translation::t("There was a problem with the weather request. Maybe an invalid location?"));
+        }
         $this->units =
             $results->weather->forecast_information->unit_sytem == 'US' ?
                 Horde_Service_Weather::UNITS_STANDARD :
