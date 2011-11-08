@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>11:29:34</time>
+ <date>2011-11-08</date>
+ <time>23:26:12</time>
  <version>
   <release>1.1.5</release>
   <api>1.1.0</api>
@@ -41,6 +41,13 @@
    <dir name="bin">
     <file name="horde-prefs" role="script" />
    </dir> <!-- /bin -->
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Prefs">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Prefs -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Prefs">
@@ -442,6 +449,7 @@
  <phprelease>
   <filelist>
    <install as="horde-prefs" name="bin/horde-prefs" />
+   <install as="COPYING" name="doc/Horde/Prefs/COPYING" />
    <install as="Horde/Prefs.php" name="lib/Horde/Prefs.php" />
    <install as="Horde/Prefs/CategoryManager.php" name="lib/Horde/Prefs/CategoryManager.php" />
    <install as="Horde/Prefs/Exception.php" name="lib/Horde/Prefs/Exception.php" />
@@ -765,7 +773,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Skip Kolab test if Horde_Kolab_Storage is not installed.
