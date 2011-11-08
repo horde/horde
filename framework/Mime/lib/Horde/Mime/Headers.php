@@ -66,6 +66,8 @@ class Horde_Mime_Headers implements Serializable
      * Returns the internal header array in array format.
      *
      * @param array $options  Optional parameters:
+     *   - canonical: (boolean) Use canonical (RFC 822/2045) line endings?
+     *                DEFAULT: Uses $this->_eol
      *   - charset: (string) Encodes the headers using this charset. If empty,
      *              encodes using internal charset (UTF-8).
      *              DEFAULT: No encoding.
@@ -76,12 +78,15 @@ class Horde_Mime_Headers implements Serializable
      *
      * @return array  The headers in array format.
      */
-    public function toArray($options = array())
+    public function toArray(array $options = array())
     {
+        $address_keys = $this->addressFields();
         $charset = array_key_exists('charset', $options)
             ? (empty($options['charset']) ? 'UTF-8' : $options['charset'])
             : null;
-        $address_keys = $this->addressFields();
+        $eol = empty($options['canonical'])
+            ? $this->_eol
+            : "\r\n";
         $mime = $this->mimeParamFields();
         $ret = array();
 
@@ -113,7 +118,7 @@ class Horde_Mime_Headers implements Serializable
                 if (empty($options['nowrap'])) {
                     /* Remove any existing linebreaks and wrap the line. */
                     $header_text = $ob['h'] . ': ';
-                    $text = ltrim(substr(wordwrap($header_text . strtr(trim($text), array("\r" => '', "\n" => '')), 76, $this->_eol . ' '), strlen($header_text)));
+                    $text = ltrim(substr(wordwrap($header_text . strtr(trim($text), array("\r" => '', "\n" => '')), 76, $eol . ' '), strlen($header_text)));
                 }
 
                 $val[$key] = $text;
@@ -129,6 +134,8 @@ class Horde_Mime_Headers implements Serializable
      * Returns the internal header array in string format.
      *
      * @param array $options  Optional parameters:
+     *   - canonical: (boolean) Use canonical (RFC 822/2045) line endings?
+     *                DEFAULT: Uses $this->_eol
      *   - charset: (string) Encodes the headers using this charset.
      *              DEFAULT: No encoding.
      *   - defserver: (string) The default domain to append to mailboxes.
@@ -138,8 +145,11 @@ class Horde_Mime_Headers implements Serializable
      *
      * @return string  The headers in string format.
      */
-    public function toString($options = array())
+    public function toString(array $options = array())
     {
+        $eol = empty($options['canonical'])
+            ? $this->_eol
+            : "\r\n";
         $text = '';
 
         foreach ($this->toArray($options) as $key => $val) {
@@ -147,11 +157,11 @@ class Horde_Mime_Headers implements Serializable
                 $val = array($val);
             }
             foreach ($val as $entry) {
-                $text .= $key . ': ' . $entry . $this->_eol;
+                $text .= $key . ': ' . $entry . $eol;
             }
         }
 
-        return $text . $this->_eol;
+        return $text . $eol;
     }
 
     /**
