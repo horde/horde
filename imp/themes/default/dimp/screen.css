@@ -154,7 +154,6 @@ div.msgDate {
 }
 div.msgSize {
     float: left;
-    width: 6%;
     margin-right: -4px;
 }
 
@@ -189,10 +188,10 @@ div.msgSize {
     border-left: 1px solid #ddd;
 }
 
-#msglistHeaderVert div.msgSort {
+div.msgSort {
     float: right;
 }
-#msglistHeaderVert div.msgSort span.iconImg {
+div.msgSort span.iconImg {
     margin-bottom: -2px;
 }
 

@@ -442,12 +442,18 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="oa_help"><span class="iconImg"></span><?php echo _("Help") ?></a>
 </div>
 
+<div class="context" id="ctx_horizopts" style="display:none;">
+ <a id="ctx_horizopts_sort"><?php echo _("Sort Options") ?></a>
+</div>
+
 <div class="context" id="ctx_sortopts" style="display:none;">
  <a id="oa_sort_from"><span class="iconImg"></span><?php echo _("From") ?></a>
  <a id="oa_sort_subject"><span class="iconImg"></span><?php echo _("Subject") ?></a>
  <a id="oa_sort_thread"><span class="iconImg"></span><?php echo _("Thread") ?></a>
  <a id="oa_sort_date"><span class="iconImg"></span><?php echo _("Date") ?></a>
  <a id="oa_sort_size"><span class="iconImg"></span><?php echo _("Size") ?></a>
+ <div class="sep"></div>
+ <a id="oa_sort_sequence"><span class="iconImg"></span><?php echo _("Arrival (No Sort)") ?></a>
 </div>
 
 <div class="context" id="ctx_filter" style="display:none">
@@ -462,11 +468,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div class="context" id="ctx_contacts" style="display:none">
  <a id="ctx_contacts_new"><span class="iconImg"></span><?php echo _("New Message") ?></a>
  <a id="ctx_contacts_add"><span class="iconImg"></span><?php echo _("Add to Address Book") ?></a>
-</div>
-
-<div class="context" id="ctx_mboxsort" style="display:none">
- <a id="ctx_mboxsort_none"><?php echo _("Clear Sort") ?></a>
- <a id="ctx_mboxsort_none_toggle"><?php echo _("Toggle Sort Direction") ?></a>
 </div>
 
 <?php if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)): ?>
@@ -537,7 +538,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div id="msglistHeaderContainer">
  <div class="item msglistHeader" id="msglistHeaderHoriz" style="display:none">
   <div class="iconImg msgStatus">
-   <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
+   <div class="iconImg msCheckAll msCheck" id="horiz_opts" title="<?php echo _("Select All") ?>"></div>
   </div>
   <div class="msgFrom sep"></div>
   <div class="msgSubject sep"></div>

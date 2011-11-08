@@ -1043,12 +1043,13 @@ var DimpBase = {
             this.toggleHelp();
             break;
 
-        case 'oa_sort_from':
         case 'oa_sort_date':
+        case 'oa_sort_from':
+        case 'oa_sort_sequence':
         case 'oa_sort_size':
         case 'oa_sort_subject':
         case 'oa_sort_thread':
-            this.sort(DIMP.conf.sort.get(id.substring(8)).v);
+            this.sort($H(DIMP.conf.sort).get(id.substring(8)).v);
             break;
 
         case 'ctx_vfolder_edit':
@@ -1074,11 +1075,6 @@ var DimpBase = {
             DIMP.conf.qsearchfield = id.substring(14);
             this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
             this._setQsearchText();
-            break;
-
-        case 'ctx_mboxsort_none':
-        case 'ctx_mboxsort_none_toggle':
-            this.sort($H(DIMP.conf.sort).get('sequence').v);
             break;
 
         default:
@@ -1274,12 +1270,6 @@ var DimpBase = {
                     elt.down('DIV').removeClassName(r).addClassName(a).show();
                 }
             });
-            break;
-
-        case 'ctx_mboxsort':
-            tmp = ($H(DIMP.conf.sort).get('sequence').v == this.viewport.getMetaData('sortby'));
-            [ $('ctx_mboxsort_none') ].invoke(tmp ? 'hide' : 'show');
-            [ $('ctx_mboxsort_none_toggle') ].invoke(tmp ? 'show' : 'hide');
             break;
 
         default:
@@ -3385,6 +3375,9 @@ var DimpBase = {
         DimpCore.addPopdown('folderopts_link', 'folderopts', true);
         DimpCore.addPopdown('vertical_sort', 'sortopts', true);
 
+        DimpCore.addPopdown('horiz_opts', 'horizopts', true);
+        DM.addSubMenu('ctx_horizopts_sort', 'ctx_sortopts');
+
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');
         [ 'ctx_message_', 'oa_' ].each(function(i) {
@@ -3412,11 +3405,6 @@ var DimpBase = {
             DimpCore.addPopdownButton('button_reply', 'reply', false, true);
             DimpCore.addPopdownButton('button_forward', 'forward', false, true);
         }
-
-        DimpCore.addContextMenu({
-            id: 'msglistHeaderHoriz',
-            type: 'mboxsort'
-        });
 
         new Drop('dropbase', this._folderDropConfig);
 
