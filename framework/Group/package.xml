@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>11:17:50</time>
+ <date>2011-11-08</date>
+ <time>22:33:24</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -33,6 +33,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Group">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Group -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Group">
@@ -124,6 +131,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Group/COPYING" />
    <install as="Horde/Group/Base.php" name="lib/Horde/Group/Base.php" />
    <install as="Horde/Group/Contactlists.php" name="lib/Horde/Group/Contactlists.php" />
    <install as="Horde/Group/Exception.php" name="lib/Horde/Group/Exception.php" />
@@ -335,7 +343,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Allow to run unit tests from installed package.
