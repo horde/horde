@@ -231,8 +231,8 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
             'country' => '',
             'country_name' => '',
             'tz' => '', // Not provided, can we assume it's the location's local?
-            'lat' => '',
-            'lon' => '',
+            'lat' => $station->latitude_e6['data'],
+            'lon' => $station->longitude_e6['data'],
             'zip' => '',
             'code' => (string)$station->postal_code['data']
         );
