@@ -262,7 +262,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     protected function _parseCurrent($current)
     {
-        return true;
         // The Current object takes care of the parsing/mapping.
         $current = new Horde_Service_Weather_Current_Google($current);
         $current->units = $this->units;
@@ -280,7 +279,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
-                // @todo parse exception etc..
                 throw new Horde_Service_Weather_Exception($response->code);
             }
             $ct = $response->getHeader('content-type');
