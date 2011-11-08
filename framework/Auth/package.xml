@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-18</date>
- <time>13:42:16</time>
+ <date>2011-11-08</date>
+ <time>22:35:42</time>
  <version>
   <release>1.4.4</release>
   <api>1.4.0</api>
@@ -573,7 +573,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-18</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Allow to run unit tests from installed package.
