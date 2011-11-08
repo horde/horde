@@ -186,8 +186,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
             'weather' => urlencode($location),
             'unit' => $units,
             'hl' => $this->_language
-        ));
-
+        ))->setRaw(true);
         $results = $this->_makeRequest($url);
         $this->_station = $this->_parseStation($results->weather->forecast_information);
         $this->_forecast = $this->_parseForecast($results->weather);
