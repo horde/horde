@@ -19,6 +19,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 /**
  * Prepare the test setup.
  */
+require_once 'Autoload.php';
 require_once 'Horde/Test/AllTests.php';
 
 /**
