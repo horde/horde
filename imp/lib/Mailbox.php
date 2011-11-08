@@ -1555,7 +1555,7 @@ class IMP_Mailbox implements Serializable
                 if (count($val) == 1) {
                     $sub[strval(reset($val))] = _("Sent");
                 } else {
-                    $sent = $GLOBALS['injector']->getInstance('IMP_Identity')->getValue('sent_mail_folder');
+                    $sent = self::getPref('sent_mail_folder');
                     foreach ($val as $mbox) {
                         if ($mbox == $sent) {
                             $sub[strval($mbox)] = _("Sent");
