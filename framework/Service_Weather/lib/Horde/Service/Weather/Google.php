@@ -45,12 +45,23 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
 
     /**
      * Local cache of station data
+     *
      * @var Horde_Service_Weather_Station
      */
     protected $_station;
 
+    /**
+     * Language to request strings from Google in.
+     *
+     * @var string
+     */
     protected $_langage = 'en';
 
+    /**
+     * Cache of last requested location.
+     *
+     * @var string
+     */
     protected $_lastLocation;
 
     /**
