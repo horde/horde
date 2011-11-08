@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix creating new Drafts mailbox from Drafts preference page.
 * [mms] Fix verifying a PGP signed part within a PGP encrypted part.
 * [mms] HTML viewer passes Email Privacy Tester (http://grepular.com/email_privacy_tester/).
 * [mms] Fix intermittent attachment loss when composing messages.
