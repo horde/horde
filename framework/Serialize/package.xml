@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-03</date>
- <time>14:14:04</time>
+ <date>2011-11-08</date>
+ <time>22:41:49</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -38,6 +38,7 @@
       <dir name="examples">
        <file name="json.php" role="doc" />
       </dir> <!-- /doc/Horde/Serialize/examples -->
+      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Serialize -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -122,6 +123,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Serialize/COPYING" />
    <install as="Horde/Serialize/examples/json.php" name="doc/Horde/Serialize/examples/json.php" />
    <install as="Horde/Serialize.php" name="lib/Horde/Serialize.php" />
    <install as="Horde/Serialize/Exception.php" name="lib/Horde/Serialize/Exception.php" />
@@ -261,7 +263,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-03</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix unit tests.
