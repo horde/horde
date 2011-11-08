@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>14:39:00</time>
+ <date>2011-11-08</date>
+ <time>12:03:55</time>
  <version>
   <release>1.2.1</release>
   <api>1.2.0</api>
@@ -285,7 +285,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Require PHPUnit 3.5 due to BC breaking changes in 3.6.
