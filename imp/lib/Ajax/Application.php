@@ -454,7 +454,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 if (is_array($val)) {
                     $tmp = array();
                     foreach ($val as $val2) {
-                        $tmp[strval($val2)] = $val2->label;
+                        $tmp[strval($val2)] = $val2->abbrev_label;
                     }
                     asort($tmp, SORT_LOCALE_STRING);
                     $mboxes = array_keys($tmp);
