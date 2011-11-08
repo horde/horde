@@ -321,8 +321,7 @@ extends PHPUnit_Framework_TestCase
             new Horde_Itip_Response_Options_Kolab(),
             $this->_transport
         );
-        $mail = '';
-        $mail .= $this->_transport->sentMessages[0]['header_text'] . "\n\n";
+        $mail = $this->_transport->sentMessages[0]['header_text'] . "\r\n\r\n";
         $mail .= $this->_transport->sentMessages[0]['body'];
         $part = Horde_Mime_Part::parseMessage($mail);
         $this->assertEquals(2, count($part->getParts()));
