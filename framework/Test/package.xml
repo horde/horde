@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-08</date>
- <time>12:03:55</time>
+ <time>12:04:34</time>
  <version>
-  <release>1.2.1</release>
+  <release>1.2.2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Require PHPUnit 3.5 due to BC breaking changes in 3.6.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -289,6 +289,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Require PHPUnit 3.5 due to BC breaking changes in 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
