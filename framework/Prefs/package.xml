@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-08</date>
- <time>23:26:12</time>
+ <time>23:26:58</time>
  <version>
-  <release>1.1.5</release>
+  <release>1.1.6</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Skip Kolab test if Horde_Kolab_Storage is not installed.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -777,6 +777,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Skip Kolab test if Horde_Kolab_Storage is not installed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.6</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
