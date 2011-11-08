@@ -39,7 +39,7 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date((array)$date));
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date(array('year' => 2001, 'month' => 2, 'day' => 3, 'hour' => 4, 'minute' => 5, 'sec' => 6)));
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date('20010203040506'));
-        $this->assertEquals('2001-02-03 05:05:06', (string)new Horde_Date('20010203T040506Z'));
+        $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date('20010203T040506Z'));
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date('2001-02-03 04:05:06'));
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date(981169506));
     }
