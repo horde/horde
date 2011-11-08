@@ -42,7 +42,16 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date('20010203T040506Z'));
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date('2001-02-03 04:05:06'));
         $this->assertEquals('2001-02-03 04:05:06', (string)new Horde_Date(981169506));
-        $this->assertEquals('2011-11-08 15:54:00', (string)new Horde_Date('2011-11-08 14:54:00 +0000'));
+        $date = new Horde_Date('2011-11-08 14:54:00 +0000');
+        $date->setTimezone('UTC');
+        $this->assertEquals('2011-11-08 14:54:00', (string)$date);
+
+        $date = new Horde_Date('20010203T040506Z');
+        $date->setTimezone('America/New_York');
+        $newDate = new Horde_Date($date);
+        $this->assertEquals('America/New_York', $newDate->timezone);
+        $newDate->setTimezone('UTC');
+        $this->assertEquals('2001-02-03 04:05:06', (string)$newDate);
     }
 
     public function testDateCorrection()
