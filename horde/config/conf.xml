@@ -1280,7 +1280,7 @@
       binary">-oi</configstring>
      </configsection>
     </case>
-    <case name="smtp" desc="Use a SMTP server">
+    <case name="smtp" desc="Use a SMTP server (RECOMMENDED)">
      <configsection name="params">
       <configstring name="host" required="false" desc="The server to connect
       to [localhost]"/>
