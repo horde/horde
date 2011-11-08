@@ -43,7 +43,15 @@ class Horde_Token_Unit_SqlTest extends Horde_Token_BackendTestCase
         }
         self::$_db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:', 'charset' => 'utf-8'));
 
-        require_once dirname(__FILE__) . '/../../../../migration/Horde/Token/1_horde_token_base_tables.php';
+        $dir = dirname(__FILE__) . '/../../../../migration/Horde/Token';
+        if (!is_dir($dir)) {
+            error_reporting(E_ALL & ~E_DEPRECATED);
+            $dir = PEAR_Config::singleton()
+                ->get('data_dir', null, 'pear.horde.org')
+                . '/Horde_Token/migration';
+            error_reporting(E_ALL | E_STRICT);
+        }
+        require_once $dir . '/1_horde_token_base_tables.php';
         self::$_migration = new HordeTokenBaseTables(self::$_db);
         self::$_migration->up();
     }

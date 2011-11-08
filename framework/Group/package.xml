@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Allow to run unit tests from installed package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -338,7 +338,7 @@ Initial release as a PEAR package
    <date>2011-08-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Allow to run unit tests from installed package.
    </notes>
   </release>
  </changelog>
