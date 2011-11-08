@@ -28,6 +28,8 @@
         'icon_url' => 'icon'
     );
 
+    public $time;
+
     public function __construct($properties)
     {
         parent::__construct($properties);
@@ -45,8 +47,6 @@
         // for now, just as easy to manually check for these exceptions.
         switch ($property) {
         case 'logo_url':
-            return null;
-        case 'time':
             return null;
         case 'temp':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {

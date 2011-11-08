@@ -208,6 +208,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         $this->_station = $this->_parseStation($results->weather->forecast_information);
         $this->_forecast = $this->_parseForecast($results->weather);
         $this->_current = $this->_parseCurrent($results->weather->current_conditions);
+        $this->_current->time = new Horde_Date((string)$results->weather->forecast_information->current_date_time['data']);
     }
 
     /**
