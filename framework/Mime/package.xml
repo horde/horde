@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Make unit tests locale independent.
 * [mms] Added &apos;canonical&apos; parameter to Horde_Mime_Headers#toArray() and Horde_Mime_Headers#toString() (Bug #10696).
  </notes>
  <contents>
@@ -779,6 +780,7 @@
    <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Make unit tests locale independent.
 * [mms] Added &apos;canonical&apos; parameter to Horde_Mime_Headers#toArray() and Horde_Mime_Headers#toString() (Bug #10696).
    </notes>
   </release>

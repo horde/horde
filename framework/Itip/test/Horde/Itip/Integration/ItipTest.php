@@ -39,6 +39,7 @@ extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->_transport = new Horde_Mail_Transport_Mock();
+        setlocale(LC_ALL, 'C');
     }
 
     public function testMinimalItipHandlingSteps()
