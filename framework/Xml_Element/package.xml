@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-05-09</date>
- <time>10:54:29</time>
+ <date>2011-11-08</date>
+ <time>13:28:42</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -26,6 +26,15 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Xml">
+      <dir name="Element">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Xml/Element -->
+     </dir> <!-- /doc/Horde/Xml -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Xml">
@@ -78,6 +87,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Xml/Element/COPYING" />
    <install as="Horde/Xml/Element.php" name="lib/Horde/Xml/Element.php" />
    <install as="Horde/Xml/Element/Exception.php" name="lib/Horde/Xml/Element/Exception.php" />
    <install as="Horde/Xml/Element/List.php" name="lib/Horde/Xml/Element/List.php" />
@@ -188,7 +198,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-05-09</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * 
