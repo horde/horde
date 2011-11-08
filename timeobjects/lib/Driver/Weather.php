@@ -71,7 +71,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         // range.
         $forecast_start = new Horde_Date(time());
         $forecast_end = clone $forecast_start;
-
+        $forecast_end->mday += 7;
         // Today is day 1, so subtract a day
         if ($end->before($forecast_start) || $start->after($forecast_end)) {
             return array();
@@ -82,7 +82,6 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         $forecast = $weather->getForecast($this->_location, Horde_Service_Weather::FORECAST_7DAY);
         $current = $weather->getCurrentConditions($this->_location);
 
-        //$day = new Horde_Date($forecast['update']);
         $objects = array();
         foreach ($forecast as $data) {
             $day = $data->date;
