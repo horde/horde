@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-08</date>
- <time>22:28:52</time>
+ <time>22:29:37</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Croatian translation.
-* [jan] Allow to run unit tests from installed package.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -700,6 +699,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * [jan] Update Croatian translation.
 * [jan] Allow to run unit tests from installed package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
