@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-08</date>
- <time>23:43:57</time>
+ <time>23:44:37</time>
  <version>
-  <release>1.1.2</release>
+  <release>1.1.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix skipping tests if PDO driver is not available.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -712,6 +712,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix skipping tests if PDO driver is not available.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
