@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-08</date>
- <time>22:25:45</time>
+ <time>22:26:31</time>
  <version>
-  <release>1.1.7</release>
+  <release>1.1.8</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Allow to run unit tests from installed package.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -429,6 +429,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Allow to run unit tests from installed package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.8</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
