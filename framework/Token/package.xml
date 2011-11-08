@@ -16,8 +16,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>16:52:36</time>
+ <date>2011-11-08</date>
+ <time>22:28:52</time>
  <version>
   <release>1.1.1</release>
   <api>1.0.0</api>
@@ -33,6 +33,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Token">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Token -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Token">
@@ -389,6 +396,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Token/COPYING" />
    <install as="Horde/Token.php" name="lib/Horde/Token.php" />
    <install as="Horde/Token/Base.php" name="lib/Horde/Token/Base.php" />
    <install as="Horde/Token/Exception.php" name="lib/Horde/Token/Exception.php" />
@@ -687,7 +695,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Croatian translation.
