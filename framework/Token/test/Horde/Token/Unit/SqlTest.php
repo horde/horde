@@ -39,7 +39,7 @@ class Horde_Token_Unit_SqlTest extends Horde_Token_BackendTestCase
     {
         if (!extension_loaded('pdo') ||
             !in_array('sqlite', PDO::getAvailableDrivers())) {
-            $this->markTestSkipped('No sqlite extension or no sqlite PDO driver.');
+            return;
         }
         self::$_db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:', 'charset' => 'utf-8'));
 
@@ -64,6 +64,14 @@ class Horde_Token_Unit_SqlTest extends Horde_Token_BackendTestCase
                 self::$_migration = null;
             }
             self::$_db = null;
+        }
+    }
+
+    public function setUp()
+    {
+        if (!extension_loaded('pdo') ||
+            !in_array('sqlite', PDO::getAvailableDrivers())) {
+            $this->markTestSkipped('No sqlite extension or no sqlite PDO driver.');
         }
     }
 

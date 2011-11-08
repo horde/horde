@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix skipping tests if PDO driver is not available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -711,7 +711,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix skipping tests if PDO driver is not available.
    </notes>
   </release>
  </changelog>
