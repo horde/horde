@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Require PHPUnit 3.5 due to BC breaking changes in 3.6.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -288,7 +288,7 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Require PHPUnit 3.5 due to BC breaking changes in 3.6.
    </notes>
   </release>
  </changelog>
