@@ -53,8 +53,18 @@ $user_identity = $injector->getInstance('IMP_Identity');
 /* Run through action handlers. */
 $vars = Horde_Variables::getDefaultVariables();
 if ($vars->actionID) {
+    switch ($vars->actionID) {
+    case 'strip_attachment':
+        $token_name = 'imp.impcontents';
+        break;
+
+    default:
+        $token_name = 'imp.message';
+        break;
+    }
+
     try {
-        $injector->getInstance('Horde_Token')->validate($vars->message_token, 'imp.message');
+        $injector->getInstance('Horde_Token')->validate($vars->message_token, $token_name);
     } catch (Horde_Token_Exception $e) {
         $notification->push($e);
         $vars->actionID = null;
