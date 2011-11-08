@@ -172,10 +172,9 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         if ($type == Horde_Service_Weather::SEARCHTYPE_IP) {
             throw new Horde_Service_Weather_Exception('Location by IP is not supported by this driver.');
         }
-        $l = new StdClass();
-        $l->code = $location;
 
-        return $l;
+        $this->_getCommonElements($location);
+        return $this->_station;
     }
 
     /**
