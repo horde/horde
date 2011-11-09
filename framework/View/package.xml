@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Make unit tests Windows compatible.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -334,7 +334,7 @@
    <date>2011-07-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Make unit tests Windows compatible.
    </notes>
   </release>
  </changelog>
