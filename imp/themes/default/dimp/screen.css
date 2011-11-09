@@ -387,7 +387,7 @@ span.iconImgSidebar {
 }
 
 #folderopts a {
-    color: FireBrick;
+    color: FireBrick !important;
     display: inline !important;
     padding-right: 1px;
 }
