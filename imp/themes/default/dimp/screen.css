@@ -316,6 +316,9 @@ div.vpRowVert div.msgSubject span.flagUser {
     margin: 5px 0;
     background: silver;
 }
+#sidebar .sepfulllight {
+    background: lightgrey;
+}
 #sidebar .count {
     color: silver;
 }
@@ -386,12 +389,11 @@ span.iconImgSidebar {
     overflow-y: auto;
 }
 
-#folderopts a {
-    color: FireBrick !important;
+#folderopts a, #dropbase a {
     display: inline !important;
     padding-right: 1px;
 }
-#folderopts:hover {
+#folderopts:hover, #dropbase:hover {
     font-weight: normal !important;
 }
 

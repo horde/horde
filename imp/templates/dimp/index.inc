@@ -99,6 +99,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <span class="iconImgSidebar folderImg"></span>
       <a title="<?php echo _("Move to Base Level") ?>"><?php echo _("Move to Base Level") ?></a>
      </li>
+     <div class="sepfull sepfulllight"></div>
     </ul>
 <?php endif; ?>
    </div>
