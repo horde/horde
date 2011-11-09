@@ -37,13 +37,6 @@ class Horde_Themes_Css
     protected $_cssThemeFiles = array();
 
     /**
-     * Temp array for loadCssFiles().
-     *
-     * @var array
-     */
-    protected $_temp = array();
-
-    /**
      * Adds an external stylesheet to the output.
      *
      * @param string $file  The CSS filepath.
@@ -315,7 +308,6 @@ class Horde_Themes_Css
             }
 
             /* Scan to grab any @import tags within the CSS file. */
-            $this->_temp = $file;
             $tmp = preg_replace_callback('/@import\s+url\(["\']?(.*?)["\']?\)/i', array($this, '_importCallback'), $tmp);
 
             $out .= $tmp;
@@ -347,9 +339,11 @@ class Horde_Themes_Css
      */
     protected function _importCallback($matches)
     {
+        $ob = Horde_Themes_Element::fromUri($matches[1]);
+
         return $this->loadCssFiles(array(array(
-            'fs' => realpath(dirname($this->_temp['fs']) . '/' . ltrim($matches[1], '/')),
-            'uri' => $matches[1]
+            'fs' => $ob->fs,
+            'uri' => $ob->uri
         )));
     }
 
