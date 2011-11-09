@@ -165,7 +165,11 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 
         $date = new Horde_Date('2001-02-03 16:05:06');
 
-        $format = '%b%n%B%n%p%n%r%n%x%n%X';
+        if (strpos(PHP_OS, 'WIN') === false) {
+            $format = '%b%n%B%n%p%n%r%n%x%n%X';
+        } else {
+            $format = "%b\n%B\n%p\n%x\n%X";
+        }
         $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
     }
 
