@@ -100,7 +100,8 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *                     available.
      *
      * @return array  An array with these elements:
-     *   - charset: (string) The charset of the search string.
+     *   - charset: (string) The charset of the search string. If null, no
+     *              text strings appear in query.
      *   - exts: (array) The list of IMAP extensions used to create the
      *           string.
      *   - imap4: (boolean) True if the search uses IMAP4 criteria (as opposed
@@ -118,6 +119,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
             'imap4' => false
         );
         $cmds = &$this->_temp['cmds'];
+        $charset = null;
         $exts_used = &$this->_temp['exts_used'];
         $imap4 = &$this->_temp['imap4'];
         $ptr = &$this->_search;
@@ -189,6 +191,9 @@ class Horde_Imap_Client_Search_Query implements Serializable
                     $imap4 = true;
                 }
                 $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val['text']);
+                $charset = is_null($this->_charset)
+                    ? 'US-ASCII'
+                    : $this->_charset;
             }
         }
 
@@ -203,6 +208,11 @@ class Horde_Imap_Client_Search_Query implements Serializable
                 }
                 $cmds[] = $val['type'];
                 $cmds[] = array('t' => Horde_Imap_Client::DATA_ASTRING, 'v' => $val['text']);
+                if (is_null($charset)) {
+                    $charset = is_null($this->_charset)
+                        ? 'US-ASCII'
+                        : $this->_charset;
+                }
             }
         }
 
@@ -357,7 +367,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
 
         return array(
-            'charset' => (is_null($this->_charset) ? 'US-ASCII' : $this->_charset),
+            'charset' => $charset,
             'exts' => array_keys(array_flip($exts_used)),
             'imap4' => $imap4,
             'query' => $cmds

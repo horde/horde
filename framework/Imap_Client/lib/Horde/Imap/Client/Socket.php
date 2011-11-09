@@ -1790,7 +1790,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $cmd[] = $tmp;
 
             // Charset is mandatory for SORT (RFC 5256 [3]).
-            $cmd[] = $options['_query']['charset'];
+            $cmd[] = is_null($options['_query']['charset'])
+                ? 'US-ASCII'
+                : $options['_query']['charset'];
         } else {
             $esearch = false;
             $results = array();
@@ -1832,7 +1834,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             // Charset is optional for SEARCH (RFC 3501 [6.4.4]).
-            if ($options['_query']['charset'] != 'US-ASCII') {
+            if (!is_null($options['_query']['charset']) &&
+                ($options['_query']['charset'] != 'US-ASCII')) {
                 $cmd[] = 'CHARSET';
                 $cmd[] = $options['_query']['charset'];
             }
@@ -1852,6 +1855,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         } catch (Horde_Imap_Client_Exception $e) {
             /* Bug #9842: Workaround broken Cyrus servers (as of 2.4.7). */
             if ($esearch &&
+                !is_null($options['_query']['charset']) &&
                 ($options['_query']['charset'] != 'US-ASCII')) {
                 $cap = $this->capability();
                 unset($cap['ESEARCH']);
@@ -2265,12 +2269,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        $charset = 'US-ASCII';
         if (empty($options['search'])) {
-            $charset = 'US-ASCII';
             $search = array('ALL');
         } else {
             $search_query = $options['search']->build();
-            $charset = $search_query['charset'];
+            if (!is_null($search_query['charset'])) {
+                $charset = $search_query['charset'];
+            }
             $search = $search_query['query'];
         }
 
