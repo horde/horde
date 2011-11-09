@@ -119,31 +119,42 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         setlocale(LC_TIME, 'en_US.UTF-8');
 
         $date = new Horde_Date('2001-02-03 16:05:06');
-        $format = '%C%n%d%n%D%n%e%n%H%n%I%n%m%n%M%n%R%n%S%n%t%n%T%n%y%n%Y%n%%';
+        if (strpos(PHP_OS, 'WIN') === false) {
+            $format = '%C%n%d%n%D%n%e%n%H%n%I%n%m%n%M%n%R%n%S%n%t%n%T%n%y%n%Y%n%%';
+        } else {
+            $format = '%d%n%H%n%I%n%m%n%M%n%S%n%y%n%Y%n%%';
+        }
         $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
 
-        $format = '%b%n%B%n%p%n%r%n%x%n%X';
+        if (strpos(PHP_OS, 'WIN') === false) {
+            $format = '%b%n%B%n%p%n%r%n%x%n%X';
+        } else {
+            $format = '%b%n%B%n%p%n%x%n%X';
+        }
         $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
 
         $date->year = 1899;
         $expected = array(
-            '18',
             '03',
-            '02/03/99',
-            ' 3',
             '16',
             '04',
             '02',
             '05',
-            '16:05',
             '06',
-            "\t",
-            '16:05:06',
             '99',
             '1899',
             '%',
         );
-        $format = '%C%n%d%n%D%n%e%n%H%n%I%n%m%n%M%n%R%n%S%n%t%n%T%n%y%n%Y%n%%';
+        $format = '%d%n%H%n%I%n%m%n%M%n%S%n%y%n%Y%n%%';
+        if (strpos(PHP_OS, 'WIN') === false) {
+            $expected[] = '18';
+            $expected[] = '02/03/99';
+            $expected[] = ' 3';
+            $expected[] = '16:05';
+            $expected[] = "\t";
+            $expected[] = '16:05:06';
+            $format .= '%n%C%n%D%n%e%n%R%n%t%n%T';
+        }
         $this->assertEquals($expected, explode("\n", $date->strftime($format)));
     }
 
