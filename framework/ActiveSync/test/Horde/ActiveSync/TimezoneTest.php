@@ -57,7 +57,7 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
         // timezone that we are interested in.
         $date = new Horde_Date(time(), 'America/Los_Angeles');
         $tz = Horde_ActiveSync_Timezone::getOffsetsFromDate($date);
-        
+
         /* We don't set the name here */
         $expected = array(
             'bias' => 480,
@@ -66,7 +66,7 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
             'stdmonth' => 11,
             'stdday' => 0,
             'stdweek' => 1,
-            'stdhour' => 2,
+            'stdhour' => -3,
             'stdminute' => 0,
             'stdsecond' => 0,
             'stdmillis' => 0,
@@ -76,7 +76,7 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
             'dstmonth' => 3,
             'dstday' => 0,
             'dstweek' => 2,
-            'dsthour' => 2,
+            'dsthour' => -2,
             'dstminute' => 0,
             'dstsecond' => 0,
             'dstmillis' => 0,
