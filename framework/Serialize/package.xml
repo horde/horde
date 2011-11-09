@@ -3,7 +3,7 @@
  <name>Horde_Serialize</name>
  <channel>pear.horde.org</channel>
  <summary>Data Encapulation API</summary>
- <description>The Horde_Serialize library provides various methods of encapsulating data.</description>
+ <description>An interface to various methods of encapsulating data.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

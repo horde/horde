@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>File_PDF</extends>
  <summary>Horde PDF library</summary>
- <description>This package provides PDF generation using only PHP, without requiring any external libraries.</description>
+ <description>PDF generation using only PHP, without requiring any external libraries.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>

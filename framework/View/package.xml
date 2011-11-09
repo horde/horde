@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>View</extends>
  <summary>Horde View API</summary>
- <description>The Horde_View library provides a simple View pattern implementation.</description>
+ <description>A simple View pattern implementation.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

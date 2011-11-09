@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Yaml</extends>
  <summary>Horde YAML parsing and dumping routines</summary>
- <description>This package provides classes for parsing YAML files into PHP arrays, and dumping PHP arrays into YAML encoding.</description>
+ <description>Classes for parsing YAML files into PHP arrays, and dumping PHP arrays into YAML encoding.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

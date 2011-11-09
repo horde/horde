@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Horde_LDAP</extends>
  <summary>Horde LDAP libraries</summary>
- <description>This package provides a set of classes for connecting to LDAP servers and working with directory objects.</description>
+ <description>A set of classes for connecting to LDAP servers and working with directory objects.</description>
  <lead>
   <name>Ben Klang</name>
   <user>bklang</user>

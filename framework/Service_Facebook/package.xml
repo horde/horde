@@ -3,7 +3,7 @@
  <name>Horde_Service_Facebook</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Facebook client</summary>
- <description>This package provides client libraries for the Facebook REST API.</description>
+ <description>Client libraries for the Facebook REST API.</description>
  <lead>
   <name>Michael J Rubinsky</name>
   <user>mrubinsk</user>

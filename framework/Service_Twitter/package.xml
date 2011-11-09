@@ -3,7 +3,7 @@
  <name>Horde_Service_Twitter</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Twitter client</summary>
- <description>This package provides client libraries for the Twitter REST API.</description>
+ <description>Client libraries for the Twitter REST API.</description>
  <lead>
   <name>Michael J Rubinsky</name>
   <user>mrubinsk</user>

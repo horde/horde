@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>VFS</extends>
  <summary>Virtual File System API</summary>
- <description>This package provides a Virtual File System API, with backends for:
+ <description>A Virtual File System API, with backends for:
 
 * SQL
 * FTP

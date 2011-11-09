@@ -3,7 +3,7 @@
  <name>Horde_Image</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Image API</summary>
- <description>This package provides an Image utility API, with backends for:
+ <description>An Image utility API, with backends for:
 * GD
 * GIF
 * PNG

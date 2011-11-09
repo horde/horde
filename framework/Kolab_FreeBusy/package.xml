@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Kolab_FreeBusy</extends>
  <summary>A package for providing free/busy information</summary>
- <description>This package provides free/busy information for the
+ <description>Free/busy information for the
  users of a Kolab server. A Kolab client changing calendar data in an
  IMAP folder is required to call the triggering script provided within
  this package via HTTP. This will refresh the cache maintained by this
