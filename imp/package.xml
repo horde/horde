@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Virtual Trash fixes.
 * [mms] Improve UI access to advanced sorting options in dynamic view.
 * [mms] Fix stripping attachments in traditional view (Bug #10722).
 * [mms] Fix creating new Drafts mailbox from Drafts preference page.

@@ -504,6 +504,11 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         foreach (array_keys($this->_search) as $key) {
             if (isset($this->_search[$key][$id])) {
                 $this->_search[$key][$id] = $value;
+                $this->changed = true;
+
+                if ($key == 'vfolders') {
+                    $this->setVFolders($this->_search['vfolders']);
+                }
                 return;
             }
         }
