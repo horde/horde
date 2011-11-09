@@ -387,6 +387,7 @@ span.iconImgSidebar {
 }
 
 #folderopts a {
+    color: FireBrick;
     display: inline !important;
     padding-right: 1px;
 }
@@ -852,6 +853,7 @@ a.address:hover img {
 }
 #qsearch span.searchImg {
     cursor: pointer;
+    margin-left: 1px;
     margin-right: 0;
     padding-top: 2px;
 }
