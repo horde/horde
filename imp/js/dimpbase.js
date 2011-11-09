@@ -646,9 +646,13 @@ var DimpBase = {
                 this.viewswitch = false;
 
                 if (!this.isSearch()) {
+                    $('filter').show();
                     $('searchbar').hide();
-                } else if (!this.search || !this.search.qsearch) {
-                    $('qsearch').hide();
+                } else {
+                    $('filter').hide();
+                    if (!this.search || !this.search.qsearch) {
+                        $('qsearch').hide();
+                    }
                 }
 
                 tmp = $('applyfilterlink');
