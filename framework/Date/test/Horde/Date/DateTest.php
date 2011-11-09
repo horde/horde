@@ -122,14 +122,14 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         if (strpos(PHP_OS, 'WIN') === false) {
             $format = '%C%n%d%n%D%n%e%n%H%n%I%n%m%n%M%n%R%n%S%n%t%n%T%n%y%n%Y%n%%';
         } else {
-            $format = '%d%n%H%n%I%n%m%n%M%n%S%n%y%n%Y%n%%';
+            $format = "%d\n%H\n%I\n%m\n%M\n%S\n%y\n%Y\n%%";
         }
         $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
 
         if (strpos(PHP_OS, 'WIN') === false) {
             $format = '%b%n%B%n%p%n%r%n%x%n%X';
         } else {
-            $format = '%b%n%B%n%p%n%x%n%X';
+            $format = "%b\n%B\n%p\n%x\n%X";
         }
         $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
 
@@ -154,6 +154,7 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
             $expected[] = "\t";
             $expected[] = '16:05:06';
             $format .= '%n%C%n%D%n%e%n%R%n%t%n%T';
+            $format = str_replace('%n', "\n", $format);
         }
         $this->assertEquals($expected, explode("\n", $date->strftime($format)));
     }
