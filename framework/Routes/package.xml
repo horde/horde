@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [jan] Make Horde_Routes_Utils::controllerScan() Windows compatible.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -87,6 +87,13 @@
    </pearinstaller>
    <package>
     <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
+    <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0</max>
@@ -228,7 +235,7 @@
    <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [jan] Make Horde_Routes_Utils::controllerScan() Windows compatible.
    </notes>
   </release>
  </changelog>

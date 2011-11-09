@@ -283,27 +283,32 @@ class Horde_Routes_Utils
 
         foreach (new RecursiveIteratorIterator(
                  new RecursiveDirectoryIterator($dirname)) as $entry) {
-
-            if ($entry->isFile()) {
-                // match .php files that don't start with an underscore
-                if (preg_match('/^[^_]{1,1}.*\.php$/', basename($entry->getFilename())) != 0) {
-                    // strip off base path: dirname/admin/users.php -> admin/users.php
-                    $controller = preg_replace("/^$baseregexp(.*)\.php/", '\\1', $entry->getPathname());
-
-                    // PrepareController -> prepare_controller -> prepare
-                    $controller = strtolower(preg_replace('/([a-z])([A-Z])/', "\${1}_\${2}", $controller));
-                    if (preg_match('/_controller$/', $controller)) {
-                        $controller = substr($controller, 0, -(strlen('_controller')));
-                    }
-
-                    // add to controller list
-                    $controllers[] = $prefix . $controller;
-                }
+            if (!$entry->isFile()) {
+                continue;
             }
+            // Match .php files that don't start with an underscore
+            if (preg_match('/^[^_]{1,1}.*\.php$/', basename($entry->getFilename())) == 0) {
+                continue;
+            }
+            // Strip off base path: dirname/admin/users.php -> admin/users.php
+            $controller = preg_replace("/^$baseregexp(.*)\.php/", '\\1', $entry->getPathname());
+
+            // PrepareController -> prepare_controller -> prepare
+            $controller = Horde_String::lower(
+                preg_replace('/([a-z])([A-Z])/',
+                             "\${1}_\${2}", $controller));
+            if (preg_match('/_controller$/', $controller)) {
+                $controller = substr($controller, 0, -(strlen('_controller')));
+            }
+
+            // Normalize directory separators.
+            $controller = str_replace(DIRECTORY_SEPARATOR, '/', $controller);
+
+            // Add to controller list.
+            $controllers[] = $prefix . $controller;
         }
 
-        $callback = array('Horde_Routes_Utils', 'longestFirst');
-        usort($controllers, $callback);
+        usort($controllers, array('Horde_Routes_Utils', 'longestFirst'));
 
         return $controllers;
     }
