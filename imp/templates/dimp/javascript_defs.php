@@ -176,6 +176,7 @@ $code['text'] = array(
     'verify' => _("Verifying..."),
     'vfolder' => _("Virtual Folder: %s"),
     'vp_empty' => _("There are no messages in this mailbox."),
+    'vp_empty_search' => _("No messages matched the search query."),
 );
 
 if ($compose_page) {

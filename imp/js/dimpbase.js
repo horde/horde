@@ -525,7 +525,7 @@ var DimpBase = {
             // Optional config
             ajax_opts: Object.clone(DimpCore.doActionOpts),
             buffer_pages: DIMP.conf.buffer_pages,
-            empty_msg: DIMP.text.vp_empty,
+            empty_msg: this.emptyMsg.bind(this),
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
             page_size: DIMP.conf.splitbar_horiz,
@@ -793,6 +793,13 @@ var DimpBase = {
                 DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
             }
         });
+    },
+
+    emptyMsg: function()
+    {
+        return (this.isQSearch() || this.isFSearch())
+            ? DIMP.text.vp_empty_search
+            : DIMP.text.vp_empty;
     },
 
     _removeMouseEvents: function(elt)
