@@ -96,8 +96,6 @@
     <name>PHPUnit</name>
     <channel>pear.phpunit.de</channel>
     <min>3.5.0</min>
-    <max>3.6.0</max>
-    <exclude>3.6.0</exclude>
    </package>
   </required>
   <optional>
