@@ -1741,6 +1741,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        $charset = is_null($options['_query']['charset'])
+            ? 'US-ASCII'
+            : $options['_query']['charset'];
+
         if ($server_sort) {
             $cmd[] = 'SORT';
             $results = array();
@@ -1790,9 +1794,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $cmd[] = $tmp;
 
             // Charset is mandatory for SORT (RFC 5256 [3]).
-            $cmd[] = is_null($options['_query']['charset'])
-                ? 'US-ASCII'
-                : $options['_query']['charset'];
+            $cmd[] = $charset;
         } else {
             $esearch = false;
             $results = array();
@@ -1834,8 +1836,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             // Charset is optional for SEARCH (RFC 3501 [6.4.4]).
-            if (!is_null($options['_query']['charset']) &&
-                ($options['_query']['charset'] != 'US-ASCII')) {
+            if ($charset != 'US-ASCII') {
                 $cmd[] = 'CHARSET';
                 $cmd[] = $options['_query']['charset'];
             }
@@ -1853,15 +1854,35 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         try {
             $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception $e) {
-            /* Bug #9842: Workaround broken Cyrus servers (as of 2.4.7). */
-            if ($esearch &&
-                !is_null($options['_query']['charset']) &&
-                ($options['_query']['charset'] != 'US-ASCII')) {
-                $cap = $this->capability();
-                unset($cap['ESEARCH']);
-                $this->_setInit('capability', $cap);
-                $this->_setInit('noesearch', true);
-                return $this->_search($query, $options);
+            if (empty($this->_temp['search_retry'])) {
+                $this->_temp['search_retry'] = true;
+
+                /* Bug #9842: Workaround broken Cyrus servers (as of
+                 * 2.4.7). */
+                if ($esearch && ($charset != 'US-ASCII')) {
+                    $cap = $this->capability();
+                    unset($cap['ESEARCH']);
+                    $this->_setInit('capability', $cap);
+                    $this->_setInit('noesearch', true);
+
+                    try {
+                        return $this->_search($query, $options);
+                    } catch (Horde_Imap_Client_Exception $e) {}
+                }
+
+                /* Try to convert charset. */
+                foreach ($this->_init['s_charset'] as $key => $val) {
+                    $this->_temp['search_retry'] = 1;
+                    if ($val && ($key != $charset)) {
+                        $new_query = clone($query);
+                        $options['_query'] = $new_query->build($this->capability());
+                        try {
+                            return $this->_search($new_query, $options);
+                        } catch (Horde_Imap_Client_Exception $e) {}
+                    }
+                }
+
+                unset($this->_temp['search_retry']);
             }
 
             throw $e;
@@ -1911,6 +1932,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (!empty($er['modseq'])) {
             $ret['modseq'] = $er['modseq'];
         }
+
+        unset($this->_temp['search_retry']);
 
         return $ret;
     }
@@ -4288,8 +4311,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'BADCHARSET':
-            /* TODO: Store the list of search charsets supported by the server
-             * (this is a MAY response, not a MUST response) */
+            $this->_tokenizeData($response->data);
+
+            /* Store valid search charsets if returned by server. */
+            if (!empty($this->_temp['token']->out)) {
+                $s_charset = $this->_init['s_charset'];
+                foreach ($this->_temp['token']->out as $val) {
+                    $s_charset[$val] = true;
+                }
+                $this->_setInit('s_charset', $s_charset);
+            }
+
             $this->_temp['parsestatuserr'] = array(
                 'BADCHARSET',
                 $response->text

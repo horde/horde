@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Workaround missing search charset support in the Socket driver (Bug #10726).
 * [mms] Only add CHARSET data to SEARCH queries if necessary (Bug #10726).
 * [mms] Fix deletion of cached message entries.
  </notes>
@@ -619,6 +620,7 @@
    <date>2011-11-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Workaround missing search charset support in the Socket driver (Bug #10726).
 * [mms] Only add CHARSET data to SEARCH queries if necessary (Bug #10726).
 * [mms] Fix deletion of cached message entries.
    </notes>
