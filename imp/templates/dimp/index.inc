@@ -442,10 +442,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="oa_help"><span class="iconImg"></span><?php echo _("Help") ?></a>
 </div>
 
-<div class="context" id="ctx_horizopts" style="display:none;">
- <a id="ctx_horizopts_sort"><?php echo _("Sort Options") ?></a>
-</div>
-
 <div class="context" id="ctx_sortopts" style="display:none;">
  <a id="oa_sort_from"><span class="iconImg"></span><?php echo _("From") ?></a>
  <a id="oa_sort_subject"><span class="iconImg"></span><?php echo _("Subject") ?></a>
@@ -454,6 +450,15 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="oa_sort_size"><span class="iconImg"></span><?php echo _("Size") ?></a>
  <div class="sep"></div>
  <a id="oa_sort_sequence"><span class="iconImg"></span><?php echo _("Arrival (No Sort)") ?></a>
+</div>
+
+<div class="context" id="ctx_subjectsort" style="display:none;">
+ <a id="ctx_subjectsort_thread"><div class="iconImg"></div><?php echo _("Thread Sort") ?></a>
+</div>
+
+<div class="context" id="ctx_datesort" style="display:none;">
+ <a id="ctx_datesort_sequence"><?php echo _("Arrival Time") ?></a>
+ <a id="ctx_datesort_date"><?php echo _("Message Date") ?></a>
 </div>
 
 <div class="context" id="ctx_filter" style="display:none">

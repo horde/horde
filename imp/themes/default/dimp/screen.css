@@ -166,11 +166,7 @@ div.msgSize {
 }
 .msglistHeader a {
     cursor: pointer;
-}
-.msglistHeader a.smallSort {
-    font-size: 75%;
-    font-weight: normal;
-    padding-left: 4px !important;
+    vertical-align: top;
 }
 .msglistHeader div {
     padding-top: 1px;
@@ -179,7 +175,6 @@ div.msgSize {
 }
 .msglistHeader div.sortup, .msglistHeader div.sortdown {
     padding-left: 0;
-    background-position: 2px;
 }
 .msglistHeader div.sortup a, .msglistHeader div.sortdown a {
     padding-left: 14px;
