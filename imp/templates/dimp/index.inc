@@ -127,6 +127,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
         <input autocomplete="off" id="qsearch_input" type="text" />
        </form>
       </div>
+      <div id="filter"><?php echo IMP_Dimp::actionButton(array('icon' => 'Filter', 'id' => 'button_filter', 'title' => _("Filter"))) ?></div>
 <?php endif; ?>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Reply', 'id' => 'button_reply', 'title' => _("Reply"))) ?></div>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Forward', 'id' => 'button_forward', 'title' => _("Forward"))) ?></div>
@@ -479,10 +480,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div class="context" id="ctx_qsearchopts" style="display:none">
  <a id="ctx_qsearchopts_by"><?php echo _("Search By") ?></a>
  <div class="sep"></div>
- <a id="ctx_qsearchopts_filter"><?php echo _("Filter By") ?></a>
- <a id="ctx_qsearchopts_flag"><?php echo _("Show Only") ?></a>
- <a id="ctx_qsearchopts_flagnot"><?php echo _("Don't Show") ?></a>
- <div class="sep"></div>
  <a id="ctx_qsearchopts_advanced"><?php echo _("Advanced Search...") ?></a>
 </div>
 
@@ -492,6 +489,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_qsearchby_from"><?php echo _("From") ?></a>
  <a id="ctx_qsearchby_recip"><?php echo _("Recipients (To/Cc/Bcc)") ?></a>
  <a id="ctx_qsearchby_subject"><?php echo _("Subject") ?></a>
+</div>
+
+<div class="context" id="ctx_filteropts" style="display:none">
+ <a id="ctx_filteropts_filter"><?php echo _("Filter By") ?></a>
+ <a id="ctx_filteropts_flag"><?php echo _("Show Only") ?></a>
+ <a id="ctx_filteropts_flagnot"><?php echo _("Don't Show") ?></a>
 </div>
 <?php endif; ?>
 

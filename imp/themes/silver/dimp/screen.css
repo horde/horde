@@ -75,6 +75,9 @@ span.dimpactionEditsearch {
 span.dimpactionResume {
     background-image: url("../graphics/mail_draft.png");
 }
+span.dimpactionFilter {
+    background-image: url("../graphics/filters.png");
+}
 
 /* Context menu images */
 #ctx_message_reply span.iconImg {

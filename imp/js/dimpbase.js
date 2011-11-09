@@ -1087,7 +1087,7 @@ var DimpBase = {
             break;
 
         default:
-            if (menu == 'ctx_qsearchopts_filter') {
+            if (menu == 'ctx_filteropts_filter') {
                 this.search = {
                     filter: elt.retrieve('filter'),
                     label: this.viewport.getMetaData('label'),
@@ -3354,9 +3354,13 @@ var DimpBase = {
                 type: 'qsearchopts'
             });
             DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
-            DM.addSubMenu('ctx_qsearchopts_filter', 'ctx_filter');
-            DM.addSubMenu('ctx_qsearchopts_flag', 'ctx_flag_search');
-            DM.addSubMenu('ctx_qsearchopts_flagnot', 'ctx_flag_search');
+
+            DimpCore.addPopdownButton('button_filter', 'filteropts', {
+                trigger: true
+            });
+            DM.addSubMenu('ctx_filteropts_filter', 'ctx_filter');
+            DM.addSubMenu('ctx_filteropts_flag', 'ctx_flag_search');
+            DM.addSubMenu('ctx_filteropts_flagnot', 'ctx_flag_search');
 
             /* Create flag entries. */
             DIMP.conf.filters_o.each(function(f) {

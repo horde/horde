@@ -876,6 +876,10 @@ a.address:hover img {
     text-decoration: underline;
 }
 
+#filter {
+    float: right;
+}
+
 #searchbar {
     background-color: #ffa;
     border: 1px solid gray;
@@ -979,6 +983,9 @@ span.dimpactionEditsearch {
 }
 span.dimpactionResume {
     background-image: url("../graphics/mail_draft.png");
+}
+span.dimpactionFilter {
+    background-image: url("../graphics/filters.png");
 }
 
 /* Context menu images */
