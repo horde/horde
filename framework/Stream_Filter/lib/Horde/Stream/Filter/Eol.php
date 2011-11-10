@@ -4,13 +4,13 @@
  *
  * Usage:
  *   stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
- *   stream_filter_[app|pre]pend($stream, 'horde_eol', $params);
+ *   stream_filter_[app|pre]pend($stream, 'horde_eol',
+ *                               [ STREAM_FILTER_[READ|WRITE|ALL] ],
+ *                               [ $params ]);
  *
- * $params can contain the following:
- * <pre>
- * 'eol' - The EOL string to use.
- *         DEFAULT: <CR><LF> ("\r\n")
- * </pre>
+ * $params is an arrat that can contain the following:
+ *   - eol: (string) The EOL string to use.
+ *          DEFAULT: <CR><LF> ("\r\n")
  *
  * Copyright 2009-2011 Horde LLC (http://www.horde.org/)
  *
@@ -18,6 +18,8 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package Stream_Filter
  */
 class Horde_Stream_Filter_Eol extends php_user_filter
