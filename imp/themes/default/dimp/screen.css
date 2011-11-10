@@ -429,6 +429,7 @@ span.iconImgSidebar {
     background: transparent url("../graphics/backhead_s2.png") repeat-x;
     border: 1px silver solid;
     height: 20px;
+    overflow: hidden;
     padding: 4px 2px;
 }
 .dimpActions div {
