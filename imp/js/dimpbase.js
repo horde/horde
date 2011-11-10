@@ -2923,7 +2923,7 @@ var DimpBase = {
 
                 /* Create a dummy container element in 'normalfolders'
                  * section. */
-                if (ob.ch) {
+                if (ob.ch & !ob.sup) {
                     div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
 
                     tmp = Object.clone(ob);
