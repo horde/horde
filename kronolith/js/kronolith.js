@@ -2132,7 +2132,12 @@ KronolithCore = {
         case 'month':
             dates.each(function(date) {
                 var day = this.monthDays['kronolithMonthDay' + date];
-                day.select('.kronolithEvent').invoke('remove');
+                day.select('.kronolithEvent').each(function(event) {
+                    if (event.retrieve('calendar').startsWith('holiday')) {
+                        delete this.holidays[event.retrieve('eventid')];
+                    }
+                    event.remove();
+                });
                 day.select('.kronolithMore').invoke('remove');
                 date = this.parseDate(date);
                 this.loadEvents(date, date, 'month');

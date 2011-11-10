@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix holidays disappearing from month view if deleting another event.
 * [jan] Fix resetting attendee response status when saving events in dynamic view.
 * [jan] Support CalDAV servers that don&apos;t use DAV: as the default namespace (christof@buergi.lugs.ch, Bug #10716).
 * [jan] Allow to view and create copies of holiday events (Bug #10650).
@@ -1936,6 +1937,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix holidays disappearing from month view if deleting another event.
 * [jan] Fix resetting attendee response status when saving events in dynamic view.
 * [jan] Support CalDAV servers that don&apos;t use DAV: as the default namespace (christof@buergi.lugs.ch, Bug #10716).
 * [jan] Allow to view and create copies of holiday events (Bug #10650).

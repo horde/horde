@@ -2,6 +2,7 @@
 v3.0.12-git
 -----------
 
+[jan] Fix holidays disappearing from month view if deleting another event.
 [jan] Fix resetting attendee response status when saving events in dynamic
       view.
 [jan] Support CalDAV servers that don't use DAV: as the default namespace
