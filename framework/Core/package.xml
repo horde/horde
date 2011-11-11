@@ -41,6 +41,8 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Add Horde_Core_Block_Layout_View::getStylesheets().
+* [mjr] Add Horde_Service_Weather factory.
+* [mms] Fix importing CSS data in cache files.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1639,7 +1641,6 @@
    <date>2011-11-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* update
 * [mjr] Add Horde_Service_Weather factory.
 * [mms] Fix importing CSS data in cache files.
    </notes>
