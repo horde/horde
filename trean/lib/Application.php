@@ -58,7 +58,7 @@ class Trean_Application extends Horde_Registry_Application
         // Create db and gateway instances.
         $GLOBALS['trean_db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('trean');
         try {
-        $GLOBALS['trean_gateway'] = $GLOBALS['injector']->getInstance('Trean_Bookmarks');
+            $GLOBALS['trean_gateway'] = $GLOBALS['injector']->getInstance('Trean_Bookmarks');
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -88,11 +88,6 @@ class Trean_Application extends Horde_Registry_Application
     {
         $menu->add(Horde::url('browse.php'), _("_Browse"), 'trean.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
-
-        /* Import/Export. */
-        if ($GLOBALS['conf']['menu']['import_export']) {
-            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png');
-        }
     }
 
     /* Sidebar method. */
