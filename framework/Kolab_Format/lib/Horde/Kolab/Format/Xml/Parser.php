@@ -82,6 +82,9 @@ class Horde_Kolab_Format_Xml_Parser
         try {
             return $this->_parseXml($input, $options);
         } catch (Horde_Kolab_Format_Exception_ParseError $e) {
+            if (!function_exists('mb_detect_encoding')) {
+                throw $e;
+            }
             /**
              * If the first call does not return successfully this might mean we
              * got an attachment with broken encoding. There are some Kolab

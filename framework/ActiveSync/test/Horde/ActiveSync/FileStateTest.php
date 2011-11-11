@@ -6,8 +6,6 @@
  * @category Horde
  * @package ActiveSync
  */
-//FIXME: This can be removed once all the constants are class-constants
-require_once dirname(__FILE__) . '/../../../lib/Horde/ActiveSync.php';
 class Horde_ActiveSync_FileStateTest extends Horde_Test_Case
 {
     /**

@@ -42,6 +42,10 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
 
     public static function setUpBeforeClass()
     {
+        if (!class_exists('Horde_Kolab_Storage_Driver_Mock_Data')) {
+            return;
+        }
+
         self::$_data = new Horde_Kolab_Storage_Driver_Mock_Data(
             array(
                 '' => array('permissions' => array('anyone' => 'alrid')),

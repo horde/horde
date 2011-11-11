@@ -1858,7 +1858,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      *   IMP_Imap_Tree::FLIST_ASIS: Display the list as is currently cached
      *                              in this object.
      *  </li>
-     *  <li>Options require that $base be set:
+     *  <li>Options that require $base to be set:
      *   <ul>
      *    <li>
      *     IMP_Imap_Tree::FLIST_ANCESTORS: Include ancestors of $base.

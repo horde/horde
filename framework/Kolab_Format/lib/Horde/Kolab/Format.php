@@ -43,7 +43,7 @@ interface Horde_Kolab_Format
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function load($xml);
+    public function load($xml, $options = array());
 
     /**
      * Convert the data to a XML stream. Strings contained in the data array may
@@ -55,5 +55,5 @@ interface Horde_Kolab_Format
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function save($object);
+    public function save($object, $options = array());
 }

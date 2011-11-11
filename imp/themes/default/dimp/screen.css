@@ -154,7 +154,6 @@ div.msgDate {
 }
 div.msgSize {
     float: left;
-    width: 6%;
     margin-right: -4px;
 }
 
@@ -167,11 +166,7 @@ div.msgSize {
 }
 .msglistHeader a {
     cursor: pointer;
-}
-.msglistHeader a.smallSort {
-    font-size: 75%;
-    font-weight: normal;
-    padding-left: 4px !important;
+    vertical-align: top;
 }
 .msglistHeader div {
     padding-top: 1px;
@@ -180,7 +175,6 @@ div.msgSize {
 }
 .msglistHeader div.sortup, .msglistHeader div.sortdown {
     padding-left: 0;
-    background-position: 2px;
 }
 .msglistHeader div.sortup a, .msglistHeader div.sortdown a {
     padding-left: 14px;
@@ -189,10 +183,10 @@ div.msgSize {
     border-left: 1px solid #ddd;
 }
 
-#msglistHeaderVert div.msgSort {
+div.msgSort {
     float: right;
 }
-#msglistHeaderVert div.msgSort span.iconImg {
+div.msgSort span.iconImg {
     margin-bottom: -2px;
 }
 
@@ -322,6 +316,9 @@ div.vpRowVert div.msgSubject span.flagUser {
     margin: 5px 0;
     background: silver;
 }
+#sidebar .sepfulllight {
+    background: lightgrey;
+}
 #sidebar .count {
     color: silver;
 }
@@ -392,11 +389,11 @@ span.iconImgSidebar {
     overflow-y: auto;
 }
 
-#folderopts a {
+#folderopts a, #dropbase a {
     display: inline !important;
     padding-right: 1px;
 }
-#folderopts:hover {
+#folderopts:hover, #dropbase:hover {
     font-weight: normal !important;
 }
 
@@ -432,6 +429,7 @@ span.iconImgSidebar {
     background: transparent url("../graphics/backhead_s2.png") repeat-x;
     border: 1px silver solid;
     height: 20px;
+    overflow: hidden;
     padding: 4px 2px;
 }
 .dimpActions div {
@@ -858,6 +856,7 @@ a.address:hover img {
 }
 #qsearch span.searchImg {
     cursor: pointer;
+    margin-left: 1px;
     margin-right: 0;
     padding-top: 2px;
 }
@@ -880,6 +879,10 @@ a.address:hover img {
 .qsearchMatch {
     font-weight: bold;
     text-decoration: underline;
+}
+
+#filter {
+    float: right;
 }
 
 #searchbar {
@@ -985,6 +988,9 @@ span.dimpactionEditsearch {
 }
 span.dimpactionResume {
     background-image: url("../graphics/mail_draft.png");
+}
+span.dimpactionFilter {
+    background-image: url("../graphics/filters.png");
 }
 
 /* Context menu images */

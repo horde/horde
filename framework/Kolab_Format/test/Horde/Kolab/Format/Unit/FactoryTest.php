@@ -98,6 +98,15 @@ extends PHPUnit_Framework_TestCase
         $factory->create('UNKNOWN', 'contact');
     }
 
+    /**
+     * @expectedException Horde_Kolab_Format_Exception
+     */
+    public function testUnknownFormatException()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $factory->create('Exception', 'InvalidRoot');
+    }
+
     public function testTimeLog()
     {
         if (!class_exists('Horde_Support_Timer')) {

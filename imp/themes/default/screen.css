@@ -39,10 +39,15 @@ table.mboxactions {
     font-weight: bold;
 }
 
+.sortup {
+    background-image: url("graphics/arrow_down.png");
+}
+.sortdown {
+    background-image: url("graphics/arrow_up.png");
+}
+
 table.messageList .sortup, table.messageList .sortdown {
-    background-position: 2px;
     padding-left: 0;
-    width: 12px;
 }
 
 /* Message list table styles. */

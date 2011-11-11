@@ -3,7 +3,7 @@
  <name>Horde_LoginTasks</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Login Tasks System</summary>
- <description>The Horde_LoginTasks library provides a set of methods for dealing with tasks run upon login to Horde applications.</description>
+ <description>An API for dealing with tasks run upon login to Horde applications.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>

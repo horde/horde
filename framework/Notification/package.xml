@@ -3,7 +3,7 @@
  <name>Horde_Notification</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Notification System</summary>
- <description>The Horde_Notification library provides a subject-observer pattern for raising and showing messages of different types and to different listeners.</description>
+ <description>A library implementing a subject-observer pattern for raising and showing messages of different types and to different listeners.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>

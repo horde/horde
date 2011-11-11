@@ -334,7 +334,8 @@ class Nag
         }
 
         $storage = Nag_Driver::singleton($tasklist);
-        $dateParser = Horde_Date_Parser::factory();
+        $dateParser = Horde_Date_Parser::factory(
+            array('locale' => $GLOBALS['prefs']->getValue('language')) );
 
         $quickParser = new Nag_QuickParser();
         $tasks = $quickParser->parse($text);

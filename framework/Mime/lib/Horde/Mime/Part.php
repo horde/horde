@@ -1671,6 +1671,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         $msg = $this->toString(array(
+            'canonical' => true,
             'encode' => $encode,
             'headers' => false,
             'stream' => true
@@ -1678,8 +1679,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         /* Make sure the message has a trailing newline. */
         fseek($msg, -1, SEEK_END);
-        if (fgetc($msg) != "\n") {
-            fputs($msg, "\n");
+        switch (fgetc($msg)) {
+        case "\r":
+            if (fgetc($msg) != "\n") {
+                fputs($msg, "\n");
+            }
+            break;
+
+        default:
+            fputs($msg, "\r\n");
+            break;
         }
         rewind($msg);
 
@@ -1704,7 +1713,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $this->_basepart = $old_basepart;
 
         try {
-            $mailer->send(Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array('charset' => $this->getHeaderCharset())), $msg);
+            $mailer->send(Horde_Mime::encodeAddress($email, $this->getCharset()), $headers->toArray(array(
+                'canonical' => true,
+                'charset' => $this->getHeaderCharset()
+            )), $msg);
         } catch (Horde_Mail_Exception $e) {
             throw new Horde_Mime_Exception($e);
         }

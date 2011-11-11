@@ -2,6 +2,7 @@
 v2.0.1-git
 ----------
 
+[jan] Fix downloading of file types without a MIME viewer (Bug #10709).
 [jan] Fix autocreating of home folders (Bug #10690).
 [jan] Fix JavaScript for Actions drop down list (Bug #10695).
 

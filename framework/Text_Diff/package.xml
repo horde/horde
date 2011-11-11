@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Text_Diff</extends>
  <summary>Engine for performing and rendering text diffs</summary>
- <description>This package provides a text-based diff engine and renderers for multiple diff output formats.</description>
+ <description>A text-based diff engine and renderers for multiple diff output formats.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

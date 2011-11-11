@@ -112,8 +112,8 @@ class Components_Runner_Release
             $sequence[] = 'Bugs';
         }
 
-        if ($this->_doTask('freshmeat')) {
-            $sequence[] = 'Freshmeat';
+        if ($this->_doTask('freecode')) {
+            $sequence[] = 'Freecode';
         }
 
         if ($this->_doTask('next')) {

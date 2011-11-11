@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Luxor H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-07-21 15:58+0300\n"
+"PO-Revision-Date: 2011-11-03 15:44+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -22,9 +22,9 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: symbol.php:75
-#, fuzzy, php-format
+#, php-format
 msgid "%s :: Symbol \"%s\""
-msgstr "Simbols, valūta"
+msgstr "%s :: Simbols \"%s\""
 
 #: lib/Tagger.php:38 lib/Tagger.php:85
 #, php-format
@@ -47,14 +47,13 @@ msgid "Can't open file %s."
 msgstr "Nevar atvērt failu %s."
 
 #: lib/Lang/Generic.php:73
-#, fuzzy
 msgid "Can't run ectags."
-msgstr "nevar palaist %s"
+msgstr "Nevar palaist ec-tagus."
 
 #: source.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "Could not markup file %s."
-msgstr "Nevar izvēlēties failu"
+msgstr "Nevar marķēt failu %s."
 
 #: templates/directory.html.php:6
 msgid "Date (GMT)"
@@ -97,9 +96,9 @@ msgid "Location:"
 msgstr "Vieta:"
 
 #: source.php:134
-#, fuzzy, php-format
+#, php-format
 msgid "Markup of %s"
-msgstr "Marķēt"
+msgstr "%s marķējums"
 
 #: templates/directory.html.php:4
 msgid "Name"
@@ -114,9 +113,8 @@ msgid "Parent Directory"
 msgstr "Galvenā mape"
 
 #: templates/symbol.html.php:20
-#, fuzzy
 msgid "Referenced in"
-msgstr "Grepoju iekš %s"
+msgstr "Atsauce"
 
 #: templates/directory.html.php:5
 msgid "Size"
@@ -142,9 +140,8 @@ msgid "The file %s can't be opened or doesn't exist."
 msgstr "Fails %s nav atverams vai nepastāv."
 
 #: templates/headerbar.inc:10
-#, fuzzy
 msgid "Tracking Branch"
-msgstr "Laika uzskaite"
+msgstr "Sekošana atzaram"
 
 #: lib/Luxor.php:151
 msgid "Up to parent"

@@ -3,7 +3,7 @@
  <name>Horde_Compress</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Compression API</summary>
- <description>This package provides an API for various compression techniques.</description>
+ <description>An API for various compression techniques.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

@@ -3,7 +3,7 @@
  <name>Horde_Service_Vimeo</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Vimeo client</summary>
- <description>This package provides client libraries for the Vimeo API.</description>
+ <description>Client libraries for the Vimeo API.</description>
  <lead>
   <name>Michael J. Rubinsky</name>
   <user>mrubinsk</user>

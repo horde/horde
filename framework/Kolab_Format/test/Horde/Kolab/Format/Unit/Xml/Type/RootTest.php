@@ -206,16 +206,24 @@ extends Horde_Kolab_Format_TestCase
         if ($previous !== null) {
             $doc->loadXML($previous);
         }
-        $type = $factory->createXmlType($type);
         $helper = $factory->createXmlHelper($doc);
-        $params = array(
-            'helper' => $helper,
-            'expected-version' => '1.0',
-            'api-version' => 2,
-            'element' => 'kolab'
-        );
-        return array($params, $doc, $type);
+        $type = $factory->createXmlType($type);
+        return array($helper, $doc, $type);
     }
+
+    protected function getTestType($previous, &$params)
+    {
+        list($params, $root_node, $type, $helper) = parent::getTestType($previous, $params);
+        if (!isset($params['expected-version'])) {
+            $params['expected-version'] = '1.0';
+        }
+        if (!isset($params['api-version'])) {
+            $params['api-version'] = 2;
+        }
+        $params['element'] = 'kolab';
+        return array($params, $root_node, $type, $helper);
+    }
+
 
     protected function getTypeClass()
     {

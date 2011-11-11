@@ -3,7 +3,7 @@
  <name>Horde_Text_Filter</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Text Filter API</summary>
- <description>The Horde_Text_Filter library provides common methods for fitering and converting text.</description>
+ <description>Common methods for fitering and converting text.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

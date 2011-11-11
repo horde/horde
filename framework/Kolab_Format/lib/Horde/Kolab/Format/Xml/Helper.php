@@ -18,7 +18,7 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @since Horde_Kolab_Format 1.1.0
  *
@@ -180,7 +180,11 @@ class Horde_Kolab_Format_Xml_Helper
      */
     public function findNode($query)
     {
-        return $this->_findSingleNode($this->findNodes($query));
+        $result = $this->_xpath->query($query);
+        if ($result->length) {
+            return $result->item(0);
+        }
+        return false;
     }
 
     /**
@@ -194,20 +198,7 @@ class Horde_Kolab_Format_Xml_Helper
      */
     public function findNodeRelativeTo($query, DOMNode $context)
     {
-        return $this->_findSingleNode(
-            $this->findNodesRelativeTo($query, $context)
-        );
-    }
-
-    /**
-     * Return a single node for the result set.
-     *
-     * @param DOMNodeList $result The query result.
-     *
-     * @return DOMNode|false The DOMNode or empty if no node was found.
-     */
-    private function _findSingleNode($result)
-    {
+        $result = $this->_xpath->query($query, $context);
         if ($result->length) {
             return $result->item(0);
         }

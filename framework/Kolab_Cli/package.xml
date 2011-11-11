@@ -3,7 +3,7 @@
  <name>Horde_Kolab_Cli</name>
  <channel>pear.horde.org</channel>
  <summary>A command line interface to the Kolab storage system</summary>
- <description>This package provides a set of utilities to deal with the various aspects of a Kolab server as backend. The primary focus is dealing with the data stored in IMAP.</description>
+ <description>A set of utilities to deal with the various aspects of a Kolab server as backend. The primary focus is dealing with the data stored in IMAP.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>

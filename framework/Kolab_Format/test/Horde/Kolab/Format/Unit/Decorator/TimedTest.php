@@ -47,7 +47,7 @@ extends Horde_Kolab_Format_TestCase
         $timed = $this->_getTimedMock();
         $a = '';
         $timed->load($a);
-        $this->assertType(
+        $this->assertInternalType(
             'float',
             $timed->timeSpent()
         );

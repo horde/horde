@@ -1839,8 +1839,8 @@ abstract class Kronolith_Event
             if ($this->attendees) {
                 $attendees = array();
                 foreach ($this->attendees as $email => $info) {
-                    $attendee = array('a' => $info['attendance'],
-                                      'r' => $info['response'],
+                    $attendee = array('a' => (int)$info['attendance'],
+                                      'r' => (int)$info['response'],
                                       'l' => empty($info['name']) ? $email : Horde_Mime_Address::trimAddress($info['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>')));
                     if (strpos($email, '@') !== false) {
                         $attendee['e'] = $email;
@@ -2193,10 +2193,19 @@ abstract class Kronolith_Event
         $this->status = Horde_Util::getFormData('status', $this->status);
 
         // Attendees.
-        if ($attendees = Horde_Util::getFormData('attendees')) {
-            $attendees = Kronolith::parseAttendees(trim($attendees));
-        } else {
-            $attendees = $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
+        $attendees = $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
+        if (!is_null($newattendees = Horde_Util::getFormData('attendees'))) {
+            $newattendees = Kronolith::parseAttendees(trim($newattendees));
+            foreach ($newattendees as $email => $attendee) {
+                if (!isset($attendees[$email])) {
+                    $attendees[$email] = $attendee;
+                }
+            }
+            foreach (array_keys($attendees) as $email) {
+                if (!isset($newattendees[$email])) {
+                    unset($attendees[$email]);
+                }
+            }
         }
         $this->attendees = $attendees;
 

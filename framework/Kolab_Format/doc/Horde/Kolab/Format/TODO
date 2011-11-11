@@ -2,20 +2,24 @@
  Kolab_Format Development TODO List
 ====================================
 
- - Test new Horde_Kolab_Format_Date functions.
+ - Check kolab/issue4672 (Kolab_Format has encoding problems)
 
- - AllDay events
+ - Check kolab/issue4700 (Kolab_Format problems in e-mails fetching process)
 
- - Recurrence start handling
+ - Developer documentation
 
- - Handle distribution list
+ - Test coverage
 
- - Extract Xml_* subtypes to Xml_Type_Composite_* types
+ - PHPdoc check
 
- - performance check
+ - Additional KEPs
 
- - cleanup handlers.
+   - ...
+
+ - Do not overwrite multiple entries
+
+ - Extract Xml_* subtypes to Xml_Type_Composite_* types?
+
+ - Improved error handling? Logging strict errors?
 
  - Think about storing the data in iCal format.
-
- - Check kolab/issue4672 (Kolab_Format has encoding problems)

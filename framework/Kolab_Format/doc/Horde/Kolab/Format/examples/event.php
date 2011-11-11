@@ -8,7 +8,7 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -22,12 +22,17 @@ $factory = new Horde_Kolab_Format_Factory();
 /** Generate the format handler */
 $format = $factory->create('Xml', 'Event');
 
+$now = new DateTime();
 /** Prepare a test object */
 $object = array(
     'uid' => 1,
     'summary' => 'test event',
-    'start-date' => time(),
-    'end-date' => time() + 24 * 60 * 60,
+    'start-date' => array(
+        'date' => $now,
+    ),
+    'end-date' => array(
+        'date' => $now,
+    )
 );
 
 /** Save this test data array in Kolab XML format */

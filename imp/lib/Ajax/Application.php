@@ -36,6 +36,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected $_queue;
 
     /**
+     * Suppress these mailboxes when creating mailbox response.
+     *
+     * @var array
+     */
+    protected $_suppress;
+
+    /**
      * The list of actions that require readonly access to the session.
      *
      * @var array
@@ -446,26 +453,45 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        /* Add special folders explicitly to the initial folder list, since
+        /* Add special mailboxes explicitly to the initial folder list, since
          * they are ALWAYS displayed, may appear outside of the folder
          * slice requested, and need to be sorted logically. */
+        $this->_suppress = array();
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
                 if (is_array($val)) {
                     $tmp = array();
                     foreach ($val as $val2) {
-                        $tmp[strval($val2)] = $val2->label;
+                        $tmp[strval($val2)] = $val2->abbrev_label;
                     }
                     asort($tmp, SORT_LOCALE_STRING);
-                    $mboxes = array_keys($tmp);
+                    $mboxes = IMP_Mailbox::get(array_keys($tmp));
                 } else {
-                    $mboxes = array(strval($val));
+                    $mboxes = array($val);
                 }
 
                 foreach ($mboxes as $val2) {
-                    if ($tmp = $imptree[$val2]) {
-                        unset($folder_list[$val2]);
-                        $folder_list[$val2] = $tmp;
+                    if ($tmp = $imptree[strval($val2)]) {
+                        unset($folder_list[strval($val2)]);
+                        $folder_list[strval($val2)] = $tmp;
+
+                        /* Hack: We need to NOT send a container element if
+                         * all child elements are special mailboxes. */
+                        if ($val2->level &&
+                            ($parent = $val2->parent) &&
+                            isset($folder_list[strval($parent)])) {
+                            $not_special = false;
+                            foreach ($parent->subfolders_only as $val3) {
+                                if (!$val3->special) {
+                                    $not_special = true;
+                                    break;
+                                }
+                            }
+
+                            if (!$not_special) {
+                                $this->_suppress[] = strval($parent);
+                            }
+                        }
                     }
                 }
             }
@@ -478,6 +504,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         ));
 
         $this->_queue->quota();
+        $this->_suppress = array();
 
         if ($this->_vars->initial) {
             $GLOBALS['session']->start();
@@ -2024,6 +2051,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *         DEFAULT: no
      *   - s: (boolean) [special] Is this a "special" element?
      *        DEFAULT: no
+     *   - sup: (boolean) [suppress] Suppress display of this element?
+     *          DEFAULT: no
      *   - t: (string) [title] Mailbox title.
      *        DEFAULT: 'm' val
      *   - un: (boolean) [unsubscribed] Is this mailbox unsubscribed?
@@ -2087,6 +2116,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $ob->i = strval($icon->icon);
         } else {
             $ob->cl = $icon->class;
+        }
+
+        if (!empty($this->_suppress) &&
+            in_array($elt->value, $this->_suppress)) {
+            $ob->sup = true;
         }
 
         return $ob;

@@ -104,7 +104,7 @@ Likums ir Jūsu pasta filtru uzbūves stūrakmens. Tas sastāv no viena vai vair
     </para>
     <heading>Un</heading>
     <para>
-    Ja izvēlēsieties UN, ienākošai vēstulei ir jāatbilst visiem norādītajiem nosacījumiem, lai izpildītos Jūsu norādītās darbības.
+    Ja izvēlēsieties UN, ienākošai vēstulei ir jāatbilst visiem norādītajiem nosacījumiem, lai izpildītos Jūsu norādītās darbības. 
     </para>
     <heading>Vai</heading>
     <para>
@@ -193,7 +193,7 @@ Likums ir Jūsu pasta filtru uzbūves stūrakmens. Tas sastāv no viena vai vair
     <heading>Lielāks</heading>
     <para>
     Šī pārbaude ļauj salīdzināt Jūsu norādīto skaitlisko lielumu ar vērtību vēstules galvenes laukā.
-    </para>
+    </para> 
   </entry>
   <entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
     <title>Filtra likums: Nosaukums</title>
@@ -204,14 +204,14 @@ Likums ir Jūsu pasta filtru uzbūves stūrakmens. Tas sastāv no viena vai vair
   <entry id="rule-stop" md5="677c920effca959123b7d539b3b0d864" state="uptodate">
     <title>Filtra likums: Beigt pārbaudi</title>
     <para>
-    Ja ir atzīmēta šī opcija un vēstule atbilst šim likumam, pārējie filtri netiks pielietoti.
+    Ja ir atzīmēta šī opcija un vēstule atbilst šim likumam, pārējie filtri netiks pielietoti. 
     </para>
   </entry>
   <entry id="vacation" md5="2c9e12973d36fe94aeb73b32db9a64e6" state="uptodate">
     <title>Brīvdienas</title>
     <heading>Brīvdienas</heading>
     <para>
-    Paziņojums par brīvdienām ir automātiski nosūtītas atbildes cilvēkiem, kas ir rakstījuši Jums. Tās parasti lieto, ja atrodaties ilgstošā prombūtnē.
+    Paziņojums par brīvdienām ir automātiski nosūtītas atbildes cilvēkiem, kas ir rakstījuši Jums. Tās parasti lieto, ja atrodaties ilgstošā prombūtnē. 
     </para>
   </entry>
   <entry id="vacation-period" md5="531accb93b707d39b2986a779b260dbf" state="uptodate">

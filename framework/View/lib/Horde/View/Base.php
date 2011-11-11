@@ -118,10 +118,9 @@ abstract class Horde_View_Base
     public function addTemplatePath($path)
     {
         foreach ((array)$path as $dir) {
-            // Attempt to strip any possible separator and append the
-            // system directory separator.
-            $dir = rtrim($dir, '\\/' . DIRECTORY_SEPARATOR)
-                . DIRECTORY_SEPARATOR;
+            // Attempt to strip any possible separator and append a
+            // directory separator.
+            $dir = rtrim($dir, '\\/' . DIRECTORY_SEPARATOR) . '/';
 
             // Add to the top of the stack.
             array_unshift($this->_templatePath, $dir);

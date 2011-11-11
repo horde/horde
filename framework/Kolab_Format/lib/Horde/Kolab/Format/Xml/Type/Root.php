@@ -18,7 +18,7 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @since Horde_Kolab_Format 1.1.0
  *
@@ -32,9 +32,18 @@ class Horde_Kolab_Format_Xml_Type_Root
 extends Horde_Kolab_Format_Xml_Type_Composite
 {
     /**
-     * The parameters required for the parsing operation.
+     * Indicate which value type is expected.
+     *
+     * @var int
      */
-    protected $_required_parameters = array('expected-version');
+    protected $value = Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY;
+
+    /**
+     * Should the velues be merged into the parent attributes?
+     *
+     * @var boolean
+     */
+    protected $merge = true;
 
     /**
      * Basic attributes in any Kolab object
@@ -42,61 +51,43 @@ extends Horde_Kolab_Format_Xml_Type_Composite
      * @var array
      */
     private $_attributes_basic = array(
-        'uid' => 'Horde_Kolab_Format_Xml_Type_Uid',
-        'body' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-            'default' => '',
-        ),
-        'categories' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-            'default' => '',
-        ),
-        'creation-date' => 'Horde_Kolab_Format_Xml_Type_CreationDate',
+        'uid'                    => 'Horde_Kolab_Format_Xml_Type_Uid',
+        'body'                   => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+        'categories'             => 'Horde_Kolab_Format_Xml_Type_String_Empty',
+        'creation-date'          => 'Horde_Kolab_Format_Xml_Type_CreationDate',
         'last-modification-date' => 'Horde_Kolab_Format_Xml_Type_ModificationDate',
-        'sensitivity' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-            'default' => 'public',
-        ),
-        'inline-attachment' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type'  => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-        ),
-        'link-attachment' => array(
-            'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-            'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type'  => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-        ),
-        'product-id' => 'Horde_Kolab_Format_Xml_Type_ProductId',
+        'sensitivity'            => 'Horde_Kolab_Format_Xml_Type_Sensitivity',
+        'inline-attachment'      => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
+        'link-attachment'        => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
+        'product-id'             => 'Horde_Kolab_Format_Xml_Type_ProductId',
     );
 
     /**
      * Load the node value from the Kolab object.
      *
-     * @param string  $name        The name of the the attribute
-     *                             to be fetched.
-     * @param array   &$attributes The data array that holds all
-     *                             attribute values.
-     * @param DOMNode $parent_node The parent node of the node to be loaded.
-     * @param array   $params      The parameters for this parse operation.
+     * @param string                        $name        The name of the the
+     *                                                   attribute to be fetched.
+     * @param array                         &$attributes The data array that
+     *                                                   holds all attribute
+     *                                                   values.
+     * @param DOMNode                       $parent_node The parent node of the
+     *                                                   node to be loaded.
+     * @param Horde_Kolab_Format_Xml_Helper $helper      A XML helper instance.
+     * @param array                         $params      Additiona parameters for
+     *                                                   this parse operation.
      *
      * @return DOMNode|boolean The named DOMNode or false if no node value was
      *                         found.
      */
-    public function load($name, &$attributes, $parent_node, $params = array())
+    public function load(
+        $name,
+        &$attributes,
+        $parent_node,
+        Horde_Kolab_Format_Xml_Helper $helper,
+        $params = array()
+    )
     {
-        $this->checkParams($params, $name);
-        $this->_getHelper($parent_node, $params);
-        if (!($root = $params['helper']->findNode('/' . $name))) {
+        if (!($root = $helper->findNode('/' . $name))) {
             throw new Horde_Kolab_Format_Exception_InvalidRoot(
                 sprintf('Missing root node "%s"!', $name)
             );
@@ -117,33 +108,39 @@ extends Horde_Kolab_Format_Xml_Type_Composite
         $this->_prepareCompositeParameters(
             $params, $attributes['_format-version']
         );
-        parent::load($name, $attributes, $parent_node, $params);
+        parent::load($name, $attributes, $parent_node, $helper, $params);
         return $root;
     }
 
     /**
      * Update the specified attribute.
      *
-     * @param string  $name        The name of the the attribute
-     *                             to be updated.
-     * @param array   $attributes  The data array that holds all
-     *                             attribute values.
-     * @param DOMNode $parent_node The parent node of the node that
-     *                             should be updated.
-     * @param array   $params      The parameters for this write operation.
+     * @param string                        $name        The name of the the
+     *                                                   attribute to be updated.
+     * @param array                         $attributes  The data array that holds
+     *                                                   all attribute values.
+     * @param DOMNode                       $parent_node The parent node of the
+     *                                                   node that should be
+     *                                                   updated.
+     * @param Horde_Kolab_Format_Xml_Helper $helper      A XML helper instance.
+     * @param array                         $params      Additional parameters
+     *                                                   for this write operation.
      *
      * @return DOMNode|boolean The new/updated child node or false if this
      *                         failed.
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save($name, $attributes, $parent_node, $params = array())
+    public function save(
+        $name,
+        $attributes,
+        $parent_node,
+        Horde_Kolab_Format_Xml_Helper $helper,
+        $params = array()
+    )
     {
-        $this->checkParams($params, $name);
-        $this->_getHelper($parent_node, $params);
-
-        if (!($root = $params['helper']->findNode('/' . $name, $parent_node))) {
-            $root = $params['helper']->createNewNode($parent_node, $name);
+        if (!($root = $helper->findNode('/' . $name, $parent_node))) {
+            $root = $helper->createNewNode($parent_node, $name);
             $root->setAttribute('version', $params['expected-version']);
         } else {
             if (!$this->isRelaxed($params)) {
@@ -164,28 +161,8 @@ extends Horde_Kolab_Format_Xml_Type_Composite
         $this->_prepareCompositeParameters(
             $params, $params['expected-version']
         );
-        parent::save($name, $attributes, $parent_node, $params);
+        parent::save($name, $attributes, $parent_node, $helper, $params);
         return $root;
-    }
-
-    /**
-     * Check the parent_node parameter and provide the XML helper in the
-     * parameters.
-     *
-     * @param DOMDocument $parent_node The Document root
-     * @param array       &$params     The parameters for this operation.
-     *
-     * @return NULL
-     */
-    private function _getHelper($parent_node, &$params)
-    {
-        if ($parent_node instanceOf DOMDocument) {
-            $params['helper'] = $this->createHelper($parent_node);
-        } else {
-            throw new Horde_Kolab_Format_Exception(
-                'The root handler expected a DOMDocument!'
-            );
-        }
     }
 
     /**
@@ -200,18 +177,16 @@ extends Horde_Kolab_Format_Xml_Type_Composite
     {
         $params['format-version'] = $version;
 
-        $params['array'] = $this->_attributes_basic;
+        $this->elements = $this->_attributes_basic;
         if (isset($params['attributes-specific'])) {
-            $params['array'] = array_merge(
-                $params['array'], $params['attributes-specific']
+            $this->elements = array_merge(
+                $this->elements, $params['attributes-specific']
             );
         }
         if (isset($params['attributes-application'])) {
-            $params['array'] = array_merge(
-                $params['array'], $params['attributes-application']
+            $this->elements = array_merge(
+                $this->elements, $params['attributes-application']
             );
         }
-        $params['value'] = Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY;
-        $params['merge'] = true;
     }
 }

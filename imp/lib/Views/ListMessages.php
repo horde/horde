@@ -123,8 +123,7 @@ class IMP_Views_ListMessages
 
         /* Generate the sorted mailbox list now. */
         $mailbox_list = $mbox->getListOb();
-        $sorted_list = $mailbox_list->getSortedList();
-        $msgcount = count($sorted_list['s']);
+        $msgcount = count($mailbox_list);
 
         /* Create the base object. */
         $result = $this->getBaseOb($mbox);
@@ -273,16 +272,9 @@ class IMP_Views_ListMessages
             if (!($uid_search = array_diff($unseen_search['match']->ids, array_keys($cached)))) {
                 return $result;
             }
-            $rownum = array_search(reset($uid_search), $sorted_list['s']);
+            $rownum = $mailbox_list->getArrayIndex(reset($uid_search));
         } elseif (!empty($args['search_uid'])) {
-            $rownum = 1;
-            foreach (array_keys($sorted_list['s'], $args['search_uid']) as $val) {
-                if (empty($sorted_list['m'][$val]) ||
-                    ($sorted_list['m'][$val] == $args['search_mbox'])) {
-                    $rownum = $val;
-                    break;
-                }
-            }
+            $rownum = $mailbox_list->getArrayIndex($args['search_uid'], $args['search_mbox']);
         } else {
             /* If this is the initial request for a mailbox, figure out the
              * starting location based on user's preferences. */
@@ -312,12 +304,10 @@ class IMP_Views_ListMessages
 
         /* Generate UID list. */
         $changed = $data = $msglist = $rowlist = $uidlist = array();
-        for ($i = 1, $end = count($sorted_list['s']); $i <= $end; ++$i) {
-            $uid = $sorted_list['s'][$i];
-            if (isset($sorted_list['m'][$i])) {
-                $uid = $this->searchUid($sorted_list['m'][$i], $uid);
-            }
-            $uidlist[] = $uid;
+        foreach ($mailbox_list as $key => $val) {
+            $uidlist[] = $is_search
+                ? $this->searchUid($val['m'], $val['u'])
+                : $val['u'];
         }
 
         /* If we are updating the rowlist on the browser, and we have cached
@@ -364,7 +354,7 @@ class IMP_Views_ListMessages
 
         foreach (array_slice($uidlist, $slice_start - 1, $slice_end - $slice_start + 1, true) as $key => $uid) {
             $seq = ++$key;
-            $msglist[$seq] = $sorted_list['s'][$seq];
+            $msglist[$seq] = $mailbox_list[$seq]['u'];
             $rowlist[$uid] = $seq;
             /* Send browser message data if not already cached or if
              * CONDSTORE has indicated that data has changed. */

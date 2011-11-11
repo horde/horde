@@ -7,7 +7,7 @@
     <para>
     Adrešu grāmata nodrošina ērtu iespēju adrešu uzglabāšanai un vēlākai izmantošanai. Atkarībā no sistēmas iestatījumiem, tā nodrošina iespēju izmantot kā privātu adrešu grāmatu, tā arī publiska tīkla kataloga informāciju. Modulis uztur arī "apziņošanas sarakstus", kas ļauj veidot privātas vēstkopas.
     </para>
-</entry>
+</entry>   
 
 <entry id="menu-add" md5="3c1f92eb1a82839404d11d9b0a20b3ce" state="uptodate">
 <title>Izvēlne: Jauns kontakts</title>
@@ -33,7 +33,7 @@ Pievieno lietotāju adrešu grāmatai. Jūs varat pievienot lietotāju tikai adr
     <title>Izvēlne: Paplašinātā meklēšana</title>
     <heading>Paplašinātā meklēšana</heading>
     <para>
-    Meklēt informāciju adrešu grāmatā. Šajā režīmā iespējama meklēšana vairākos laukos. Meklēšanai pieejamie lauki ir atkarīgi no konkrētās adrešu grāmatas.
+    Meklēt informāciju adrešu grāmatā. Šajā režīmā iespējama meklēšana vairākos laukos. Meklēšanai pieejamie lauki ir atkarīgi no konkrētās adrešu grāmatas. 
     </para>
 </entry>
 
@@ -75,7 +75,7 @@ Ja izmantojat Outlook Express:
     <tip>
   Ja eksportētais fails ar adresēm neatrodas uz darbvirsmas un izmantojat MS Windows, uzklikšķiniet  Start &gt; Find vai Search &gt; Files or Folders un meklējiet failu ar nosaukumu, kuru piešķīrāt 3. solī. Piezīmējiet faila atrašanās vietu.
     </tip>
-
+    
     <para>
 Lai importētu datus, atveriet adrešu grāmatu, kurā vēlaties to pievienot. Uzklikšķiniet "Imports/Eksports" ikonai. Izvēlēties importējamās datnes formātu no atbilstošās izkrītošās izvēlnes. Uzklikšķiniet "browse" un sameklējiet importējamo datni uz Jūsu datora diska, izvēlieties datni un uzklikšķiniet "Importēt". Informācija no Jūsu norādītās datnes tiks importēta adrešu grāmatā.
    </para>
@@ -92,6 +92,9 @@ Lai importētu datus, atveriet adrešu grāmatu, kurā vēlaties to pievienot. U
     </para>
     <para>
     Uzklikšķinot "E-pasts" laukam, tiks atvērts e-pasta rakstīšanas logs, automātiski ievitojot adresi saņēmāja laukā. Uzklikšķinot "Vārds" laukam, tiks atvērts attiecīgā kontakta ieraksts, kuru varēsiet aplūkot, labot vai izdzēst to.
+    </para>
+    <para>
+    Atkarībā no adrešu grāmatas sistēmas iestatījumiem, meklēšanas rezultāti var būt kumulatīvi. Katrs nākošais vaicājums var papildināt jau esošos vaicājuma rezultātus, kas ir noderīgi, veidojot sarakstus. Lai notīrītu kumulatīvos vaicājumu rezultātus un uzdotu jaunu vaicājumu, uzklikšķiniet "Notīrīt vaicājumu" saitei.
     </para>
 
     <tip>

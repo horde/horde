@@ -84,6 +84,9 @@
  * @property boolean $sub  Is this mailbox subscribed to?
  * @property array $subfolders  Returns the list of subfolders as mailbox
  *                              objects (including the current mailbox).
+ * @property array $subfolders_only  Returns the list of subfolders as mailbox
+ *                                   objects (NOT including the current
+ *                                   mailbox).
  * @property string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                             IMP_Exception on error.
  * @property string $utf7imap  The UTF7-IMAP representation of this object.
@@ -601,7 +604,10 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Imap_Tree')->isSubscribed($this->_mbox);
 
         case 'subfolders':
-            return $this->get(array_merge(array($this->_mbox), $injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true))));
+            return $this->get(array_merge(array($this->_mbox), $this->subfolders_only));
+
+        case 'subfolders_only':
+            return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true)));
 
         case 'uidvalid':
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -1555,7 +1561,7 @@ class IMP_Mailbox implements Serializable
                 if (count($val) == 1) {
                     $sub[strval(reset($val))] = _("Sent");
                 } else {
-                    $sent = $GLOBALS['injector']->getInstance('IMP_Identity')->getValue('sent_mail_folder');
+                    $sent = self::getPref('sent_mail_folder');
                     foreach ($val as $mbox) {
                         if ($mbox == $sent) {
                             $sub[strval($mbox)] = _("Sent");

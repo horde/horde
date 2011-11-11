@@ -17,11 +17,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-02</date>
- <time>11:03:46</time>
+ <date>2011-11-08</date>
+ <time>22:51:32</time>
  <version>
-  <release>1.2.2</release>
-  <api>1.2.0</api>
+  <release>1.3.1</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -771,12 +771,26 @@
   </release>
   <release>
    <version>
-    <release>1.2.2</release>
-    <api>1.2.0</api></version>
+    <release>1.3.0</release>
+    <api>1.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Make unit tests locale independent.
+* [mms] Added &apos;canonical&apos; parameter to Horde_Mime_Headers#toArray() and Horde_Mime_Headers#toString() (Bug #10696).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

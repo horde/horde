@@ -254,7 +254,7 @@ if (count($resources)) {
     }
 }
 
-$date = new Horde_Date(Horde_Util::getFormData('date', date('Ymd') . '000000'));
+$date = new Horde_Date(Horde_Util::getFormData('startdate', date('Ymd') . '000000'));
 $end =  new Horde_Date(Horde_Util::getFormData('enddate', date('Ymd') . '000000'));
 
 $vfb_html = $attendee_view->render($date);

@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Argv</extends>
  <summary>Horde command-line argument parsing package</summary>
- <description>This package provides classes for parsing command line arguments with various actions, providing help, grouping options, and more.</description>
+ <description>Classes for parsing command line arguments with various actions, providing help, grouping options, and more.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

@@ -3228,7 +3228,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function validSearchCharset($charset)
     {
-        if (!isset($this->_init['enabled']['s_charset'][$charset])) {
+        $charset = strtoupper($charset);
+
+        if (!isset($this->_init['s_charset'][$charset])) {
             $support = null;
 
             switch ($charset) {
@@ -3257,12 +3259,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 }
             }
 
-            $enabled = $this->_init['enabled'];
-            $enabled['s_charset'][$charset] = $support;
-            $this->_setInit('enabled', $enabled);
+            $s_charset = $this->_init['s_charset'];
+            $s_charset[$charset] = $support;
+            $this->_setInit('s_charset', $s_charset);
         }
 
-        return $this->_init['enabled']['s_charset'][$charset];
+        return $this->_init['s_charset'][$charset];
     }
 
     /**

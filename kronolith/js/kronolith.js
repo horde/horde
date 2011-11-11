@@ -2132,7 +2132,12 @@ KronolithCore = {
         case 'month':
             dates.each(function(date) {
                 var day = this.monthDays['kronolithMonthDay' + date];
-                day.select('.kronolithEvent').invoke('remove');
+                day.select('.kronolithEvent').each(function(event) {
+                    if (event.retrieve('calendar').startsWith('holiday')) {
+                        delete this.holidays[event.retrieve('eventid')];
+                    }
+                    event.remove();
+                });
                 day.select('.kronolithMore').invoke('remove');
                 date = this.parseDate(date);
                 this.loadEvents(date, date, 'month');
@@ -4185,6 +4190,16 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventDelete':
+                $('kronolithEventDiv').hide();
+                $('kronolithDeleteDiv').show();
+                break;
+
+            case 'kronolithEventDeleteCancel':
+                $('kronolithDeleteDiv').hide();
+                $('kronolithEventDiv').show();
+                return;
+
+            case 'kronolithEventDeleteConfirm':
                 if (elt.disabled) {
                     e.stop();
                     break;
@@ -4223,6 +4238,8 @@ KronolithCore = {
                                       }).invoke('show');
                                   }
                               }.bind(this));
+                $('kronolithDeleteDiv').hide();
+                $('kronolithEventDiv').show();
                 this.closeRedBox();
                 this.go(this.lastLocation);
                 e.stop();
@@ -5925,7 +5942,7 @@ KronolithCore = {
         $('kronolithEventLocationLon').value = null;
         $('kronolithEventMapZoom').value = null;
         if (this.mapMarker) {
-            this.map.removeMarker(this.mapMarker);
+            this.map.removeMarker(this.mapMarker, {});
             this.mapMarker = null;
         }
         if (this.map) {
@@ -6031,7 +6048,7 @@ KronolithCore = {
     removeMapMarker: function()
     {
         if (this.mapMarker) {
-            this.map.removeMarker(this.mapMarker);
+            this.map.removeMarker(this.mapMarker, {});
             $('kronolithEventLocationLon').value = null;
             $('kronolithEventLocationLat').value = null;
         }

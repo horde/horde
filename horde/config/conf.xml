@@ -1280,7 +1280,7 @@
       binary">-oi</configstring>
      </configsection>
     </case>
-    <case name="smtp" desc="Use a SMTP server">
+    <case name="smtp" desc="Use a SMTP server (RECOMMENDED)">
      <configsection name="params">
       <configstring name="host" required="false" desc="The server to connect
       to [localhost]"/>
@@ -1783,6 +1783,22 @@
       <value desc="TinyUrl">TinyUrl</value>
     </values>
    </configenum>
+  <configsection name="weather">
+   <configheader>Weather Services</configheader>
+   <configdescription>If you want to provide weather information to your users
+   you must select a provider and provide your API keys.</configdescription>
+   <configswitch name="provider">false
+    <case name="false" desc="None" />
+    <case name="WeatherUnderground" desc="Weather Underground">
+      <configsection name="params">
+       <configstring name="key" desc="API Key. For information on registration and obtaining an API
+       key for this driver, see http://www.wunderground.com/weather/api/
+       for more information."></configstring>
+      </configsection>
+    </case>
+    <case name="Google" desc="Google Weather API" />
+   </configswitch>
+  </configsection>
  </configtab>
 
  <configtab name="imsp" desc="IMSP Server">

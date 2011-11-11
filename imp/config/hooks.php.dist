@@ -50,6 +50,8 @@ class IMP_Hooks
      * PREFERENCE INIT: Set preference values on login.
      *
      * See horde/config/hooks.php.dist for more information.
+     *
+     * MAKE SURE YOU ACTIVATE THE INIT HOOK IN config/prefs.local.php!
      */
 //    public function prefs_init($pref, $value, $username, $scope_ob)
 //    {

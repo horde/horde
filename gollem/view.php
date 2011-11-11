@@ -68,7 +68,10 @@ case 'view_file':
     // We don't know better.
     $mime_part->setCharset('US-ASCII');
 
-    $ret = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
+    $ret = $injector
+        ->getInstance('Horde_Core_Factory_MimeViewer')
+        ->create($mime_part)
+        ->render('full');
     reset($ret);
     $key = key($ret);
     try {
@@ -80,10 +83,9 @@ case 'view_file':
     if (empty($ret)) {
         $browser->downloadHeaders($vars->file, null, false, $size);
         if (is_resource($stream)) {
+            fseek($stream, 0);
             while ($buffer = fread($stream, 8192)) {
                 echo $buffer;
-                ob_flush();
-                flush();
             }
         } else {
             echo $data;

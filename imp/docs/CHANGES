@@ -7,6 +7,10 @@ v5.1-git
 v5.0.15-git
 -----------
 
+[mms] Virtual Trash fixes.
+[mms] Improved UI access to advanced sorting options in dynamic view.
+[mms] Fix stripping attachments in traditional view (Bug #10722).
+[mms] Fix creating new Drafts mailbox from Drafts preference page.
 [mms] Fix verifying a PGP signed part within a PGP encrypted part.
 [mms] HTML viewer passes Email Privacy Tester
       (http://grepular.com/email_privacy_tester/).

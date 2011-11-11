@@ -8,6 +8,8 @@ v3.1-git
 v3.0.6-git
 ----------
 
+[jan] Use correct locale when parsing quick tasks (thpo+horde@dotrc.de, Bug
+      #10720).
 
 
 ------
