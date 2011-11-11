@@ -117,12 +117,14 @@ class Kronolith
         $horde_webroot = $registry->get('webroot', 'horde');
         $has_tasks = self::hasApiPermission('tasks');
         $app_urls = array();
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
         if (isset($GLOBALS['conf']['menu']['apps']) &&
             is_array($GLOBALS['conf']['menu']['apps'])) {
             foreach ($GLOBALS['conf']['menu']['apps'] as $app) {
                 $app_urls[$app] = (string)Horde::url($registry->getInitialPage($app), true)->add('ajaxui', 1);
             }
         }
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
 
         /* Variables used in core javascript files. */
         $code['conf'] = array(
@@ -138,6 +140,8 @@ class Kronolith
                 'exception' => (string)Horde_Themes::img('exception-fff.png'),
             ),
             'user' => $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false),
+            'name' => $identity->getName(),
+            'email' => $identity->getDefaultFromAddress(),
             'prefs_url' => (string)Horde::getServiceLink('prefs', 'kronolith')->setRaw(true)->add('ajaxui', 1),
             'app_urls' => $app_urls,
             'use_iframe' => !empty($GLOBALS['conf']['menu']['apps_iframe']),

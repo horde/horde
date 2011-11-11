@@ -5091,10 +5091,12 @@ KronolithCore = {
         $('kronolithEventTargetRO').hide();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
         if (id) {
+            // An id passed to this function indicates we are editing an event.
             RedBox.loading();
             this.doAction('getEvent', { cal: calendar, id: id, date: date }, this.editEventCallback.bind(this));
             $('kronolithEventTopTags').update();
         } else {
+            // This is a new event.
             this.doAction('listTopTags', null, this.topTagsCallback.curry('kronolithEventTopTags', 'kronolithEventTag'));
             var d;
             if (date) {
@@ -5124,6 +5126,11 @@ KronolithCore = {
             $('kronolithEventSaveAsNew').hide();
             this.toggleRecurrence('None');
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
+
+            // Invite the organizer of this event to the new event.
+            KronolithCore.attendeesAc.addNewItemNode(Kronolith.conf.email);
+            this.addAttendee(Kronolith.conf.email);
+
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithEventDialog').show());
         }
