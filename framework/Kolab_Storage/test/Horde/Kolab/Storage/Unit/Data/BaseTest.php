@@ -195,7 +195,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetObjects()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->getMessageStorage()
             ->getData('INBOX/Calendar')
@@ -216,7 +216,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetObjectIds()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->getMessageStorage()->getData('INBOX/Calendar')->getObjectIds()
         );

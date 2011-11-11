@@ -192,7 +192,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetStampEmpty()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'string',
             $this->_getSyncedCache()->getStamp()
         );
@@ -229,7 +229,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetVersionEmpty()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'string',
             $this->_getSyncedCache()->getVersion()
         );
