@@ -5087,6 +5087,7 @@ KronolithCore = {
         $('kronolithEventSave').show().enable();
         $('kronolithEventSaveAsNew').show().enable();
         $('kronolithEventDelete').show().enable();
+        $('kronolithEventDeleteConfirm').enable();
         $('kronolithEventTarget').show();
         $('kronolithEventTargetRO').hide();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
