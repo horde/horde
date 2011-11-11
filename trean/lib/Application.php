@@ -64,8 +64,8 @@ class Trean_Application extends Horde_Registry_Application
         }
 
         $rss = Horde::url('rss.php', true, -1);
-        if (Horde_Util::getFormData('f')) {
-            $rss->add('f', Horde_Util::getFormData('f'));
+        if ($label = Horde_Util::getFormData('label')) {
+            $rss->add('label', $label);
         }
         $GLOBALS['linkTags'] = array('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars(_("Bookmarks Feed")) . '" href="' . $rss . '" />');
     }

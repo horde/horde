@@ -15,20 +15,6 @@
 class Trean
 {
     /**
-     */
-    function sortOrder($sortby)
-    {
-        switch ($sortby) {
-        case 'title':
-            return 0;
-
-        case 'rating':
-        case 'clicks':
-            return 1;
-        }
-    }
-
-    /**
      * Returns the specified permission for the current user.
      *
      * @param string $permission  A permission, currently only 'max_folders'
