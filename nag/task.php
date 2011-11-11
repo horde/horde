@@ -227,7 +227,6 @@ case 'complete_task':
             } else {
                 $notification->push(sprintf(_("%s is now incomplete."), $task->name), 'horde.success');
             }
-
         }
     }
 
