@@ -3,7 +3,7 @@
  <name>Horde_Lens</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Lens decorating iterator/flyweight implementation</summary>
- <description>This package provides a way of wrapping iterators to avoid looping over them multiple times, using a single decorator object (the &quot;lens&quot;) instead of creating one decorator for every element.</description>
+ <description>A way of wrapping iterators to avoid looping over them multiple times, using a single decorator object (the &quot;lens&quot;) instead of creating one decorator for every element.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

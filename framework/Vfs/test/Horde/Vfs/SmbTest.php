@@ -27,6 +27,17 @@
  */
 class Horde_Vfs_SmbTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->_oldTimezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Berlin');
+    }
+
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_oldTimezone);
+    }
+
     public function testParseListing()
     {
         $vfs = new Horde_Vfs_Smb();

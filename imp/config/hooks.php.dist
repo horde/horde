@@ -50,6 +50,8 @@ class IMP_Hooks
      * PREFERENCE INIT: Set preference values on login.
      *
      * See horde/config/hooks.php.dist for more information.
+     *
+     * MAKE SURE YOU ACTIVATE THE INIT HOOK IN config/prefs.local.php!
      */
 //    public function prefs_init($pref, $value, $username, $scope_ob)
 //    {
@@ -394,9 +396,8 @@ class IMP_Hooks
 //            ->getList()->listFolderTypes();
 //
 //        $icons = array();
-//        foreach ($types as $folder => $type) {
+//        foreach ($types as $f => $type) {
 //            $t = preg_replace('/\.default$/', '', $type);
-//            $f = Horde_String::convertCharset($folder, 'UTF-8', 'UTF7-IMAP');
 //            switch ($t) {
 //            case 'event':
 //                $icons[$f] = array(
@@ -539,7 +540,7 @@ class IMP_Hooks
     /**
      * Hide specified IMAP mailboxes in folder listings.
      *
-     * @param string $mailbox  The mailbox name (UTF7-IMAP).
+     * @param string $mailbox  The mailbox name.
      *
      * @return boolean  If false, do not display the mailbox.
      */
@@ -552,8 +553,7 @@ class IMP_Hooks
 //        // Example #2: Kolab default
 //        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
 //            ->getList()->listFolderTypes();
-//        $f = Horde_String::convertCharset($mailbox, 'UTF7-IMAP', 'UTF-8');
-//        return empty($types[$f]) || ($types[$f] == 'mail');
+//        return empty($types[$mailbox]) || ($types[$mailbox] == 'mail');
 //    }
 
 

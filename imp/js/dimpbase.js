@@ -9,8 +9,8 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandmbox, pollPE, pp, preview_replace, qsearch_ghost, resize,
-    //   rownum, search, splitbar, template, uid, view, viewaction, viewport,
+    //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
+    //   splitbar, sort_init, template, uid, view, viewaction, viewport,
     //   viewswitch
     // msglist_template_horiz and msglist_template_vert set via
     //   js/mailbox-dimp.js
@@ -83,7 +83,7 @@ var DimpBase = {
             this.resetSelected();
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))));
-            tmp.removeClassName('msCheck').addClassName('msCheckOn');
+            this.toggleCheck(tmp, true);
         }
     },
 
@@ -109,10 +109,7 @@ var DimpBase = {
 
     resetSelectAll: function()
     {
-        var tmp = $('msglistHeaderContainer').down('DIV.msCheckAll');
-        if (tmp.hasClassName('msCheckOn')) {
-            tmp.removeClassName('msCheckOn').addClassName('msCheck');
-        }
+        this.toggleCheck($('msglistHeaderContainer').down('DIV.msCheckAll'), false);
     },
 
     // num = (integer) See absolute.
@@ -434,7 +431,7 @@ var DimpBase = {
             onContent: function(r, mode) {
                 var bg, re, u,
                     thread = $H(this.viewport.getMetaData('thread')),
-                    tsort = (this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v);
+                    tsort = this.isThreadSort();
 
                 r.subjectdata = r.status = '';
                 r.subjecttitle = r.subject;
@@ -528,7 +525,7 @@ var DimpBase = {
             // Optional config
             ajax_opts: Object.clone(DimpCore.doActionOpts),
             buffer_pages: DIMP.conf.buffer_pages,
-            empty_msg: DIMP.text.vp_empty,
+            empty_msg: this.emptyMsg.bind(this),
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
             page_size: DIMP.conf.splitbar_horiz,
@@ -649,9 +646,13 @@ var DimpBase = {
                 this.viewswitch = false;
 
                 if (!this.isSearch()) {
+                    $('filter').show();
                     $('searchbar').hide();
-                } else if (!this.search || !this.search.qsearch) {
-                    $('qsearch').hide();
+                } else {
+                    $('filter').hide();
+                    if (!this.search || !this.search.qsearch) {
+                        $('qsearch').hide();
+                    }
                 }
 
                 tmp = $('applyfilterlink');
@@ -702,9 +703,8 @@ var DimpBase = {
                 /* ACL changes. */
                 [ $('button_deleted') ].compact().invoke('up').concat($('ctx_message_deleted', 'ctx_message_undeleted')).compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
                 [ $('oa_purge_deleted') ].compact().invoke(this.viewport.getMetaData('noexpunge') ? 'hide' : 'show');
-            } else if (this.filtertoggle &&
-                       this.viewport.getMetaData('sortby') == $H(DIMP.conf.sort).get('thread').v) {
-                ssc = $H(DIMP.conf.sort).get('date').v;
+            } else if (this.filtertoggle && this.isThreadSort()) {
+                ssc = DIMP.conf.sort.get('date').v;
             }
 
             this.setSortColumns(ssc);
@@ -731,9 +731,7 @@ var DimpBase = {
 
             this.toggleButtons();
             if (e.memo.opts.right || !count) {
-                if (!this.preview_replace) {
-                    this.clearPreviewPane();
-                }
+                this.clearPreviewPane();
             } else if ((count == 1) && DIMP.conf.preview_pref) {
                 this.loadPreview(sel.get('dataob').first());
             }
@@ -799,6 +797,13 @@ var DimpBase = {
                 DimpCore.showNotifications([ { type: 'horde.warning', message: DIMP.text.listmsg_wait } ]);
             }
         });
+    },
+
+    emptyMsg: function()
+    {
+        return (this.isQSearch() || this.isFSearch())
+            ? DIMP.text.vp_empty_search
+            : DIMP.text.vp_empty;
     },
 
     _removeMouseEvents: function(elt)
@@ -1046,12 +1051,25 @@ var DimpBase = {
             this.toggleHelp();
             break;
 
-        case 'oa_sort_from':
         case 'oa_sort_date':
+        case 'oa_sort_from':
+        case 'oa_sort_sequence':
         case 'oa_sort_size':
         case 'oa_sort_subject':
         case 'oa_sort_thread':
             this.sort(DIMP.conf.sort.get(id.substring(8)).v);
+            break;
+
+        case 'ctx_subjectsort_thread':
+            this.sort(DIMP.conf.sort.get(this.isThreadSort() ? 'subject' : 'thread').v);
+            break;
+
+        case 'ctx_datesort_date':
+        case 'ctx_datesort_sequence':
+            tmp = DIMP.conf.sort.get(id.substring(13)).v;
+            if (tmp != this.viewport.getMetaData('sortby')) {
+                this.sort(tmp);
+            }
             break;
 
         case 'ctx_vfolder_edit':
@@ -1079,13 +1097,8 @@ var DimpBase = {
             this._setQsearchText();
             break;
 
-        case 'ctx_mboxsort_none':
-        case 'ctx_mboxsort_none_toggle':
-            this.sort($H(DIMP.conf.sort).get('sequence').v);
-            break;
-
         default:
-            if (menu == 'ctx_qsearchopts_filter') {
+            if (menu == 'ctx_filteropts_filter') {
                 this.search = {
                     filter: elt.retrieve('filter'),
                     label: this.viewport.getMetaData('label'),
@@ -1231,7 +1244,7 @@ var DimpBase = {
                 e.removeClassName('sortdown').removeClassName('sortup');
             });
 
-            $H(DIMP.conf.sort).detect(function(s) {
+            DIMP.conf.sort.detect(function(s) {
                 if (s.value.v == tmp) {
                     $('oa_sort_' + s.key).down('.iconImg').addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
                     return true;
@@ -1263,26 +1276,23 @@ var DimpBase = {
                 : null;
 
             $(ctx_id).childElements().each(function(elt) {
-                var a, r;
-                if (flags === null) {
-                    elt.down('DIV').hide();
-                } else {
-                    if (flags.include(elt.retrieve('flag'))) {
-                        a = 'msCheckOn';
-                        r = 'msCheck';
-                    } else {
-                        a = 'msCheck';
-                        r = 'msCheckOn';
-                    }
-                    elt.down('DIV').removeClassName(r).addClassName(a).show();
+                this.toggleCheck(elt.down('DIV'), (flags === null) ? null : flags.include(elt.retrieve('flag')));
+            }, this);
+            break;
+
+        case 'ctx_datesort':
+            $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
+            tmp = this.viewport.getMetaData('sortby');
+            [ 'date', 'sequence' ].find(function(n) {
+                if (DIMP.conf.sort.get(n).v == tmp) {
+                    $('ctx_datesort_' + n).addClassName('contextSelected');
+                    return true;
                 }
             });
             break;
 
-        case 'ctx_mboxsort':
-            tmp = ($H(DIMP.conf.sort).get('sequence').v == this.viewport.getMetaData('sortby'));
-            [ $('ctx_mboxsort_none') ].invoke(tmp ? 'hide' : 'show');
-            [ $('ctx_mboxsort_none_toggle') ].invoke(tmp ? 'show' : 'hide');
+        case 'ctx_subjectsort':
+            this.toggleCheck($('ctx_subjectsort_thread').down('DIV.iconImg'), this.isThreadSort());
             break;
 
         default:
@@ -1320,6 +1330,26 @@ var DimpBase = {
         );
 
         a.store('flag', flag);
+    },
+
+    toggleCheck: function(elt, on)
+    {
+        if (on === null) {
+            elt.hide();
+            return;
+        }
+
+        var a, r;
+
+        if (on) {
+            a = 'msCheckOn';
+            r = 'msCheck';
+        } else {
+            a = 'msCheck';
+            r = 'msCheckOn';
+        }
+
+        elt.removeClassName(r).addClassName(a).show();
     },
 
     updateTitle: function(foldername)
@@ -1371,7 +1401,7 @@ var DimpBase = {
 
     setSortColumns: function(sortby)
     {
-        var hdr, tmp,
+        var tmp,
             ptr = DIMP.conf.sort,
             m = $('msglistHeaderHoriz');
 
@@ -1380,17 +1410,18 @@ var DimpBase = {
         }
 
         /* Init once per load. */
-        if (Object.isHash(ptr)) {
-            m.childElements().invoke('removeClassName', 'sortup').invoke('removeClassName', 'sortdown');
+        if (this.sort_init) {
+            [ m.down('.sortup') ].compact().invoke('removeClassName', 'sortup');
+            [ m.down('.sortdown') ].compact().invoke('removeClassName', 'sortdown');
         } else {
-            DIMP.conf.sort = ptr = $H(ptr);
             ptr.each(function(s) {
-                s.value.e = new Element('A', { className: 'widget' }).store('sortby', s.value.v).insert(s.value.t);
-            }, this);
-
-            m.down('.msgFrom').update(ptr.get('from').e).insert(ptr.get('to').e);
-            m.down('.msgSize').update(ptr.get('size').e);
-            m.down('.msgDate').update(ptr.get('date').e);
+                if (s.value.t) {
+                    m.down('.' + s.value.c).insert({
+                        top: new Element('A', { className: 'widget' }).insert(s.value.t).store('sortby', s.value.v)
+                    });
+                }
+            });
+            this.sort_init = true;
         }
 
         /* Toggle between From/To header. */
@@ -1401,37 +1432,22 @@ var DimpBase = {
             tmp.show().next().hide();
         }
 
-        /* Toggle between Subject/Thread header. */
-        tmp = m.down('.msgSubject');
-        if (this.isSearch() ||
-            this.viewport.getMetaData('nothread')) {
-            hdr = { l: ptr.get('subject') };
-        } else if (sortby == ptr.get('thread').v) {
-            hdr = { l: ptr.get('thread'), s: ptr.get('subject') };
-        } else {
-            hdr = { l: ptr.get('subject'), s: ptr.get('thread') };
-        }
-
-        // Needed due to IE 7 buggy behavior (Bug #9734).
-        if (Prototype.Browser.IE) {
-            tmp.update('');
-        }
-        tmp.update(hdr.l.e.removeClassName('smallSort').update(hdr.l.t));
-        hdr.l.e.store('sortby', hdr.l.v);
-        if (hdr.s) {
-            tmp.insert(hdr.s.e.store('sortby', hdr.s.v).addClassName('smallSort').update('[' + hdr.s.t + ']'));
-        }
-
         ptr.find(function(s) {
             if (sortby != s.value.v) {
                 return false;
             }
-            var elt = s.value.e.up();
+            var elt = m.down('.' + s.value.c);
             if (elt) {
                 elt.addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
+                elt.down('A').store('sortby', s.value.v);
             }
             return true;
         }, this);
+    },
+
+    isThreadSort: function()
+    {
+        return (this.viewport.getMetaData('sortby') == DIMP.conf.sort.get('thread').v);
     },
 
     // Preview pane functions
@@ -1470,11 +1486,14 @@ var DimpBase = {
                 this.flag('\\seen', true, { mailbox: data.mbox, uid: data.uid });
                 return this._loadPreviewCallback(this.ppcache[pp_uid]);
             }
+
+            params = {};
         }
 
+        params.preview = 1;
         this.loadingImg('msg', true);
 
-        DimpCore.doAction('showPreview', this.viewport.addRequestParams(params || {}), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
+        DimpCore.doAction('showMessage', this.viewport.addRequestParams(params), { uids: this.viewport.createSelection('dataob', this.pp), callback: this._loadPreviewCallback.bind(this) });
     },
 
     _loadPreviewCallback: function(resp)
@@ -1484,9 +1503,9 @@ var DimpBase = {
             r = resp.response.preview,
             t = $('msgHeadersContent').down('THEAD');
 
-        bg = (this.pp &&
-              (this.pp.uid != r.uid ||
-               this.pp.mbox != r.mbox));
+        bg = (!this.pp ||
+              this.pp.uid != r.uid ||
+              this.pp.mbox != r.mbox);
 
         if (r.error || this.viewport.getSelected().size() != 1) {
             if (!bg) {
@@ -1573,18 +1592,9 @@ var DimpBase = {
 
     _stripAttachmentCallback: function(r)
     {
-        // Let the normal viewport refresh code and preview display code
-        // handle replacing the current preview. Set preview_replace to
-        // prevent a refresh flicker, since viewport refreshing would normally
-        // cause the preview pane to be cleared.
-        if (DimpCore.inAjaxCallback) {
-            this.preview_replace = true;
-            this.uid = r.response.newuid;
-            this._stripAttachmentCallback.bind(this, r).defer();
-            return;
-        }
+        this.uid = r.response.newuid;
 
-        this.preview_replace = false;
+        this._loadPreviewCallback(r);
 
         // Remove old cache value.
         this._expirePPCache([ this._getPPId(r.olduid, r.oldmbox) ]);
@@ -2684,18 +2694,21 @@ var DimpBase = {
         }, this);
     },
 
-    _folderLoadCallback: function(base, r)
+    // params: (object)
+    //   - all
+    //   - base
+    _folderLoadCallback: function(params, r)
     {
         var nf = $('normalfolders');
 
         if (r.response.expand) {
-            this.expandmbox = base ? base : true;
+            this.expandmbox = params.base ? params.base : true;
         }
         this.mailboxCallback(r);
         this.expandmbox = false;
 
-        if (base) {
-            this._toggleSubFolder(base, 'tog', false, true);
+        if (params.base) {
+            this._toggleSubFolder(params.base, params.all ? 'expall' : 'tog', false, true);
         }
 
         if (this.view) {
@@ -2840,7 +2853,7 @@ var DimpBase = {
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
-        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params.base) });
+        DimpCore.doAction('listMailboxes', params, { callback: this._folderLoadCallback.bind(this, params) });
     },
 
     // Folder actions.
@@ -2910,7 +2923,7 @@ var DimpBase = {
 
                 /* Create a dummy container element in 'normalfolders'
                  * section. */
-                if (ob.ch) {
+                if (ob.ch & !ob.sup) {
                     div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
 
                     tmp = Object.clone(ob);
@@ -2924,17 +2937,11 @@ var DimpBase = {
                     : $('normalfolders');
             }
 
-            /* Virtual folders are sorted on the server. */
-            if (!ob.v) {
-                if (ob.s) {
-                    tmp2 = (mbox == this.INBOX)
-                        ? []
-                        : parent_e.down().siblings();
-                } else {
-                    tmp2 = parent_e.childElements();
-                }
+            /* Virtual folders and special mailboxes are sorted on the
+             * server. */
+            if (!ob.v && !ob.s) {
                 ll = label.toLowerCase();
-                f_node = tmp2.find(function(node) {
+                f_node = parent_e.childElements().find(function(node) {
                     var l = node.retrieve('l');
                     return (l && (ll < l.toLowerCase()));
                 });
@@ -3313,6 +3320,9 @@ var DimpBase = {
         document.observe('dblclick', this.dblclickHandler.bindAsEventListener(this));
         Event.observe(window, 'resize', this.onResize.bind(this));
 
+        /* Initialize variables. */
+        DIMP.conf.sort = $H(DIMP.conf.sort);
+
         if (tmp = $('submit_frame')) {
             tmp.observe('load', this.submitFrameHandler.bind(this));
         }
@@ -3355,9 +3365,13 @@ var DimpBase = {
                 type: 'qsearchopts'
             });
             DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
-            DM.addSubMenu('ctx_qsearchopts_filter', 'ctx_filter');
-            DM.addSubMenu('ctx_qsearchopts_flag', 'ctx_flag_search');
-            DM.addSubMenu('ctx_qsearchopts_flagnot', 'ctx_flag_search');
+
+            DimpCore.addPopdownButton('button_filter', 'filteropts', {
+                trigger: true
+            });
+            DM.addSubMenu('ctx_filteropts_filter', 'ctx_filter');
+            DM.addSubMenu('ctx_filteropts_flag', 'ctx_flag_search');
+            DM.addSubMenu('ctx_filteropts_flagnot', 'ctx_flag_search');
 
             /* Create flag entries. */
             DIMP.conf.filters_o.each(function(f) {
@@ -3393,9 +3407,15 @@ var DimpBase = {
         this._listFolders({ initial: 1, mboxes: this.view });
 
         /* Add popdown menus. Check for disabled compose at the same time. */
-        DimpCore.addPopdownButton('button_other', 'otheractions', true);
-        DimpCore.addPopdown('folderopts_link', 'folderopts', true);
-        DimpCore.addPopdown('vertical_sort', 'sortopts', true);
+        DimpCore.addPopdownButton('button_other', 'otheractions', {
+            trigger: true
+        });
+        DimpCore.addPopdown('folderopts_link', 'folderopts', {
+            trigger: true
+        });
+        DimpCore.addPopdown('vertical_sort', 'sortopts', {
+            trigger: true
+        });
 
         DM.addSubMenu('ctx_message_reply', 'ctx_reply');
         DM.addSubMenu('ctx_message_forward', 'ctx_forward');
@@ -3407,6 +3427,13 @@ var DimpBase = {
         });
         DM.addSubMenu('ctx_folder_setflag', 'ctx_folder_flag');
         DM.addSubMenu('ctx_folder_export', 'ctx_folder_export_opts');
+
+        DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgSubject').identify(), 'subjectsort', {
+            insert: 'bottom'
+        });
+        DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgDate').identify(), 'datesort', {
+            insert: 'bottom'
+        });
 
         /* Create flag entries. */
         DIMP.conf.flags_o.each(function(f) {
@@ -3421,14 +3448,13 @@ var DimpBase = {
         if (DIMP.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up', 'SPAN').concat($('button_compose', 'composelink', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            DimpCore.addPopdownButton('button_reply', 'reply', false, true);
-            DimpCore.addPopdownButton('button_forward', 'forward', false, true);
+            DimpCore.addPopdownButton('button_reply', 'reply', {
+                disabled: true
+            });
+            DimpCore.addPopdownButton('button_forward', 'forward', {
+                disabled: true
+            });
         }
-
-        DimpCore.addContextMenu({
-            id: 'msglistHeaderHoriz',
-            type: 'mboxsort'
-        });
 
         new Drop('dropbase', this._folderDropConfig);
 

@@ -201,9 +201,10 @@ class Horde_Perms_Sql extends Horde_Perms_Base
             $query = 'SELECT perm_id, perm_parents FROM ' .
                 $this->_params['table'] . ' WHERE perm_name = ?';
             $result = $this->_db->selectOne($query, array($parent_name));
-            if (!empty($result)) {
-                $parents = $result['perm_parents'] . ':' . $result['perm_id'];
+            if (empty($result)) {
+                throw new Horde_Perms_Exception(Horde_Perms_Translation::t("Trying to create sub permission of non-existant parent permission. Create parent permission(s) first."));
             }
+            $parents = $result['perm_parents'] . ':' . $result['perm_id'];
         }
 
         $query = 'INSERT INTO ' . $this->_params['table'] .

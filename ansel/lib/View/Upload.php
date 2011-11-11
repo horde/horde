@@ -26,6 +26,13 @@ class Ansel_View_Upload
     protected $_gallery;
 
     /**
+     * Force the older, non-javascript uploader view.
+     *
+     * @var Boolean
+     */
+    protected $_forceNoScript = false;
+
+    /**
      * Initialize the view. Needs the following parameters:
      * <pre>
      *   'browse_button' - Dom id of button to open file system browser.
@@ -40,6 +47,9 @@ class Ansel_View_Upload
     {
         $this->_params = $params;
         $this->_gallery = $this->_params['gallery'];
+        if (!empty($params['forceNoScript'])) {
+            $this->_forceNoScript = true;
+        }
     }
 
     public function run()
@@ -73,6 +83,12 @@ class Ansel_View_Upload
         $notificationUrl = (string)$imple->getUrl();
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
         $jsuri = $GLOBALS['registry']->get('jsuri', 'horde');
+        // workaround for older mozilla browsers that incorrectly enocde as utf8
+        if ($GLOBALS['browser']->getBrowser() == 'mozilla' && $GLOBALS['browser']->getMajor() <= 4) {
+            $multipart = 'true';
+        } else {
+            $multipart = 'false';
+        }
         $js = <<< EOT
         Ansel.ajax.uploadNotificationUrl = '{$notificationUrl}';
         var uploader = new Horde_Uploader({
@@ -91,7 +107,8 @@ class Ansel_View_Upload
             },
             header_class: 'hordeUploaderHeader',
             container_class: 'uploaderContainer',
-            return_target: '{$this->_params['return_target']}'
+            return_target: '{$this->_params['return_target']}',
+            multipart: {$multipart}
         },
         {
             'uploadcomplete': function(up, files) {
@@ -251,7 +268,8 @@ EOT;
 
         Horde::startBuffer();
         include ANSEL_TEMPLATES . '/image/upload.inc';
-        return '<noscript>' . Horde::endBuffer() . '</noscript>';
+
+        return ($this->_forceNoScript ? '' : '<noscript>') . Horde::endBuffer() . ($this->_forceNoScript ? '' : '</noscript>');
     }
 
     /**

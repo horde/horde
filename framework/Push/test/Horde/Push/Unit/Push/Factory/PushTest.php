@@ -35,6 +35,11 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 class Horde_Push_Unit_Push_Factory_PushTest
 extends Horde_Push_TestCase
 {
+    public function tearDown()
+    {
+        $GLOBALS['push'] = null;
+    }
+
     public function testEmpty()
     {
         $factory = new Horde_Push_Factory_Push();

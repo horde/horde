@@ -2,15 +2,11 @@
  Components TODO List
 ======================
 
- - Fix the continuous integation modules to work with the new
-   component classes.
+ - Allow updating Jonah during the release.
 
- - Fix bootstrapping to work with the new
-   component classes.
+ - Add a horde-web update task during release.
 
- - Add a release helper module.
-   - Allow to configure the mail transport for sending announcements.
-   - Error handling.
+ - Allow to configure the mail transport for sending announcements.
 
  - Bootstrapping script
    - must be able to update the bootstrapped environment (probably
@@ -19,9 +15,6 @@
    - Support a network-less installation.
    - Allow to specify the target location of the environment (default
      horde/lib)
-
- - Allow channel dependency detection with external/local package
-   dependencies.
 
  - Add validations (+ before release)
    - COPYING
@@ -41,12 +34,6 @@
    - http://qafoo.com/blog/011_apache_zeta_components_doing_mail_right.html
    - https://github.com/Behat/Behat-documentation/blob/master/en/Makefile [Behat docs]
    - http://sphinx.pocoo.org/intro.html
-
-   rST:
-
-   - http://docutils.sourceforge.net/docs/user/rst/cheatsheet.txt
-   - http://svn.php.net/viewvc/pear/packages/Text_Wiki/trunk/Text/Wiki/Render/Xhtml/
-   - 
 
    Elements:
 
@@ -71,8 +58,6 @@
    - CI link / stats
    - Horde backlink
 
- - Allow downloading documentation from the wiki.
-
  - WWW frontend
 
  - Allow absolute/relative paths as arguments
@@ -92,3 +77,5 @@
    - https://github.com/naderman/composer/blob/master/src/Composer/Composer.php
    - http://symfony2bundles.org/api
    - http://blog.astrumfutura.com/2011/06/how-would-you-engineer-a-pear2pyrus-distribution-architecture/
+   - http://blog.webspecies.co.uk/2011-09-09/dependencies-management-in-php-projects.html
+   - http://www.slideshare.net/naderman/composer-9206307

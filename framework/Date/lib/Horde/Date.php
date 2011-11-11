@@ -216,8 +216,7 @@ class Horde_Date
             $this->_initializeFromObject($date);
         } elseif (is_array($date)) {
             $this->_initializeFromArray($date);
-        } elseif (preg_match('/(\d{4})-?(\d{2})-?(\d{2})T? ?(\d{2}):?(\d{2}):?(\d{2})(?:\.\d+)?(Z?)/', $date, $parts) &&
-                  empty($parts[7])) {
+        } elseif (preg_match('/^(\d{4})-?(\d{2})-?(\d{2})T? ?(\d{2}):?(\d{2}):?(\d{2})(?:\.\d+)?(Z?)$/', $date, $parts)) {
             $this->_year  = (int)$parts[1];
             $this->_month = (int)$parts[2];
             $this->_mday  = (int)$parts[3];
@@ -1081,6 +1080,7 @@ class Horde_Date
             $this->_hour  = (int)$date->format('H');
             $this->_min   = (int)$date->format('i');
             $this->_sec   = (int)$date->format('s');
+            $this->_initializeTimezone($date->getTimezone());
         } else {
             $is_horde_date = $date instanceof Horde_Date;
             foreach (array('year', 'month', 'mday', 'hour', 'min', 'sec') as $key) {
@@ -1090,6 +1090,8 @@ class Horde_Date
             }
             if (!$is_horde_date) {
                 $this->_correct();
+            } else {
+                $this->_initializeTimezone($date->timezone);
             }
         }
     }

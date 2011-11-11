@@ -178,7 +178,13 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
     protected function _node($doc, $node)
     {
         if ($node->hasChildNodes()) {
-            foreach ($node->childNodes as $child) {
+            /* Iterate in the reverse direction through the node list. This
+             * allows us to alter the original list without breaking things
+             * (foreach() w/removeChild() may exit iteration after the removal
+             * is completed). */
+            for ($i = $node->childNodes->length; $i-- > 0;) {
+                $child = $node->childNodes->item($i);
+
                 if ($child instanceof DOMElement) {
                     switch (strtolower($child->tagName)) {
                     case 'base':
@@ -221,7 +227,11 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
                 }
 
                 $this->_nodeCallback($doc, $child);
-                $this->_node($doc, $child);
+
+                // _nodeCallback() may have removed the node.
+                if ($node->childNodes->item($i)) {
+                    $this->_node($doc, $child);
+                }
             }
         }
     }

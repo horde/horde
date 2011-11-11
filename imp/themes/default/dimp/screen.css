@@ -154,7 +154,6 @@ div.msgDate {
 }
 div.msgSize {
     float: left;
-    width: 6%;
     margin-right: -4px;
 }
 
@@ -167,11 +166,7 @@ div.msgSize {
 }
 .msglistHeader a {
     cursor: pointer;
-}
-.msglistHeader a.smallSort {
-    font-size: 75%;
-    font-weight: normal;
-    padding-left: 4px !important;
+    vertical-align: top;
 }
 .msglistHeader div {
     padding-top: 1px;
@@ -180,7 +175,6 @@ div.msgSize {
 }
 .msglistHeader div.sortup, .msglistHeader div.sortdown {
     padding-left: 0;
-    background-position: 2px;
 }
 .msglistHeader div.sortup a, .msglistHeader div.sortdown a {
     padding-left: 14px;
@@ -189,10 +183,10 @@ div.msgSize {
     border-left: 1px solid #ddd;
 }
 
-#msglistHeaderVert div.msgSort {
+div.msgSort {
     float: right;
 }
-#msglistHeaderVert div.msgSort span.iconImg {
+div.msgSort span.iconImg {
     margin-bottom: -2px;
 }
 
@@ -254,7 +248,8 @@ div.contextMenu div.msCheck, div.contextMenu div.msCheckOn {
 /* Rows (vertical mode) */
 div.vpRowVert {
     height: auto;
-    border-bottom: 1px solid silver;
+    padding-top: .25em;
+    border-bottom: thin solid gainsboro;
 }
 div.vpRowVert div {
     font-size: 100%;
@@ -275,7 +270,7 @@ div.vpRowVert div.msgDate {
     width: auto;
 }
 div.vpRowVert div.msgSubject {
-    color: darkgray;
+    color: gray;
     float: none;
     margin-right: 2px;
     width: auto;
@@ -320,6 +315,9 @@ div.vpRowVert div.msgSubject span.flagUser {
     height: 1px !important;
     margin: 5px 0;
     background: silver;
+}
+#sidebar .sepfulllight {
+    background: lightgrey;
 }
 #sidebar .count {
     color: silver;
@@ -391,11 +389,11 @@ span.iconImgSidebar {
     overflow-y: auto;
 }
 
-#folderopts a {
+#folderopts a, #dropbase a {
     display: inline !important;
     padding-right: 1px;
 }
-#folderopts:hover {
+#folderopts:hover, #dropbase:hover {
     font-weight: normal !important;
 }
 
@@ -431,6 +429,7 @@ span.iconImgSidebar {
     background: transparent url("../graphics/backhead_s2.png") repeat-x;
     border: 1px silver solid;
     height: 20px;
+    overflow: hidden;
     padding: 4px 2px;
 }
 .dimpActions div {
@@ -500,6 +499,10 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     border-bottom: 1px solid #999;
 }
 
+div.dimpActionsMsg #windowclose {
+    border: 0;
+}
+
 /* Preview pane styles. */
 #previewPane {
     overflow: auto;
@@ -515,9 +518,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 .msgHeaders {
     background: transparent url("../graphics/backhead_r.png") repeat-x;
     border-bottom: 1px #b9b9b3 solid;
-    padding: 2px 0 1px;
     font-size: 90%;
-    overflow: hidden;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 2px 0 1px;
 }
 .msgfullread .msgHeaders {
     cursor: default;
@@ -851,6 +856,7 @@ a.address:hover img {
 }
 #qsearch span.searchImg {
     cursor: pointer;
+    margin-left: 1px;
     margin-right: 0;
     padding-top: 2px;
 }
@@ -873,6 +879,10 @@ a.address:hover img {
 .qsearchMatch {
     font-weight: bold;
     text-decoration: underline;
+}
+
+#filter {
+    float: right;
 }
 
 #searchbar {
@@ -978,6 +988,9 @@ span.dimpactionEditsearch {
 }
 span.dimpactionResume {
     background-image: url("../graphics/mail_draft.png");
+}
+span.dimpactionFilter {
+    background-image: url("../graphics/filters.png");
 }
 
 /* Context menu images */

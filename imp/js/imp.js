@@ -32,7 +32,9 @@ var IMP_JS = {
             iframe = elt.up().next().down('.htmlMsgData'),
             iframeid = iframe.readAttribute('id'),
             imgload = false,
-            s = new Selector('[htmlimgblocked]');
+            s = new Selector('[htmlimgblocked]'),
+            s2 = new Selector('[htmlcssblocked]'),
+            s3 = new Selector('STYLE[type=text/x-imp-cssblocked]');
 
         e.stop();
 
@@ -63,6 +65,14 @@ var IMP_JS = {
                     }
                 }
             }
+        }, this);
+
+        s2.findElements(iframe.contentWindow.document).each(function(link) {
+            link.setAttribute('href', link.getAttribute('htmlcssblocked'));
+        }, this);
+
+        s3.findElements(iframe.contentWindow.document).each(function(style) {
+            style.setAttribute('type', 'text/css');
         }, this);
 
         if (!imgload) {

@@ -7,6 +7,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Fabien Potencier <fabien.potencier@symfony-project.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
@@ -22,6 +23,7 @@
  * @category Horde
  * @package  Components
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Fabien Potencier <fabien.potencier@symfony-project.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
@@ -53,46 +55,6 @@ class Components_Component_Archive extends Components_Component_Base
     {
         $this->_archive = $archive;
         parent::__construct($config, $factory);
-    }
-
-    /**
-     * Return the name of the component.
-     *
-     * @return string The component name.
-     */
-    public function getName()
-    {
-        return $this->getPackage()->getName();
-    }
-
-    /**
-     * Return the version of the component.
-     *
-     * @return string The component version.
-     */
-    public function getVersion()
-    {
-        return $this->getPackage()->getVersion();
-    }
-
-    /**
-     * Return the channel of the component.
-     *
-     * @return string The component channel.
-     */
-    public function getChannel()
-    {
-        return $this->getPackage()->getChannel();
-    }
-
-    /**
-     * Return the dependencies for the component.
-     *
-     * @return array The component dependencies.
-     */
-    public function getDependencies()
-    {
-        return $this->getPackage()->getDependencies();
     }
 
     /**
@@ -135,10 +97,94 @@ class Components_Component_Archive extends Components_Component_Base
 
         $env->addComponent(
             $this->getName(),
-            array($component->getArchivePath()),
+            array($this->_archive),
             $installation_options,
-            ' from the archive ' . $component->getArchivePath(),
+            ' from the archive ' . $this->_archive,
             $reason
+        );
+    }
+
+    /**
+     * Return a PEAR package representation for the component.
+     *
+     * @return Horde_Pear_Package_Xml The package representation.
+     */
+    protected function getPackageXml()
+    {
+        if (!isset($this->_package)) {
+            $this->_package = $this->getFactory()->createPackageXml(
+                $this->_loadPackageFromArchive()
+            );
+        }
+        return $this->_package;
+    }
+
+    /**
+     * Return the package.xml file from the archive.
+     *
+     * Function copied from Pirum.
+     *
+     * (c) 2009 - 2011 Fabien Potencier
+     *
+     * @return string The path to the package.xml file.
+     */
+    private function _loadPackageFromArchive()
+    {
+        if (!function_exists('gzopen')) {
+            $tmpDir = Horde_Util::createTempDir();
+            copy($this->_archive, $tmpDir . '/archive.tgz');
+            system('cd ' . $tmpDir . ' && tar zxpf archive.tgz');
+            if (!is_file($tmpDir . '/package.xml')) {
+                throw new Horde_Component_Exception(
+                    sprintf('Found no package.xml in "%s"!', $this->_archive)
+                );
+            }
+            return $tmpDir . '/package.xml';
+        }
+
+        $gz = gzopen($this->_archive, 'r');
+        if ($gz === false) {
+            throw new Horde_Component_Exception(
+                sprintf('Failed extracting archive "%s"!', $this->_archive)
+            );
+        }
+        $tar = '';
+        while (!gzeof($gz)) {
+            $tar .= gzread($gz, 10000);
+        }
+        gzclose($gz);
+
+        while (strlen($tar)) {
+            $filename = rtrim(substr($tar, 0, 100), chr(0));
+            $filesize = octdec(rtrim(substr($tar, 124, 12), chr(0)));
+
+            if ($filename != 'package.xml') {
+                $offset = $filesize % 512 == 0 ? $filesize : $filesize + (512 - $filesize % 512);
+                $tar = substr($tar, 512 + $offset);
+
+                continue;
+            }
+
+            $checksum = octdec(rtrim(substr($tar, 148, 8), chr(0)));
+            $cchecksum = 0;
+            $tar = substr_replace($tar, '        ', 148, 8);
+            for ($i = 0; $i < 512; $i++) {
+                $cchecksum += ord($tar[$i]);
+            }
+
+            if ($checksum != $cchecksum) {
+                throw new Horde_Component_Exception(
+                    sprintf('Invalid archive "%s"!', $this->_archive)
+                );
+            }
+
+            $package = substr($tar, 512, $filesize);
+            $tmpFile = Horde_Util::getTempFile();
+            file_put_contents($tmpFile, $package);
+            return $tmpFile;
+        }
+        throw new Horde_Component_Exception(
+            sprintf('Found no package.xml in "%s"!', $this->_archive)
         );
     }
 }

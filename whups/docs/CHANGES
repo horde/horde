@@ -1,7 +1,15 @@
---------
-v2.0-git
---------
+----------
+v2.0.1-git
+----------
 
+[jan] Add Latvian translation (Jānis Eisaks).
+
+
+----
+v2.0
+----
+
+[jan] Fix rendering of attributes if a ticket's type has changed.
 
 
 --------

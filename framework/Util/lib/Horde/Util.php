@@ -498,6 +498,8 @@ class Horde_Util
         if ($row) {
             if (strlen($params['quote']) && strlen($params['escape'])) {
                 $row = array_map(create_function('$a', 'return str_replace(\'' . str_replace('\'', '\\\'', $params['escape'] . $params['quote']) . '\', \'' . str_replace('\'', '\\\'', $params['quote']) . '\', $a);'), $row);
+            } else {
+                $row = array_map('trim', $row);
             }
             if (!empty($params['length'])) {
                 $length = count($row);

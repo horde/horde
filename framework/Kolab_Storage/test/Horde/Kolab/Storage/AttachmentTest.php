@@ -58,7 +58,6 @@ class Horde_Kolab_Storage_AttachmentTest extends PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        Horde_Imap_Client_Mock::clean();
         if ($this->storage) {
             $this->storage->clean();
         }

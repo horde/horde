@@ -41,7 +41,7 @@ class Horde_Release
         'nocommit' => false,
         'noftp' => false,
         'noannounce' => false,
-        'nofreshmeat' => false,
+        'nofreecode' => false,
         'nowhups' => false,
     );
 
@@ -378,7 +378,7 @@ class Horde_Release
         if (!$old) {
             include "$directory/RELEASE_NOTES";
             if (strlen($this->notes['fm']['changes']) > 600) {
-                print "WARNING: freshmeat release notes are longer than 600 characters!\n";
+                print "WARNING: freecode release notes are longer than 600 characters!\n";
             }
         }
         exec("cd $directory; cvs status CHANGES", $output);
@@ -528,7 +528,7 @@ class Horde_Release
     }
 
     /**
-     * announce release to mailing lists and freshmeat.
+     * announce release to mailing lists and freecode.
      */
     public function announce($doc_dir = null)
     {
@@ -538,10 +538,10 @@ class Horde_Release
             return;
         }
         if (!empty($this->_options['noannounce']) ||
-            !empty($this->_options['nofreshmeat'])) {
-            print "NOT announcing release on freshmeat.net\n";
+            !empty($this->_options['nofreecode'])) {
+            print "NOT announcing release on freecode.com\n";
         } else {
-            print "Announcing release on freshmeat.net\n";
+            print "Announcing release on freecode.com\n";
         }
 
         if (empty($doc_dir)) {
@@ -572,7 +572,7 @@ class Horde_Release
         }
 
         if (!empty($this->_options['noannounce']) ||
-            !empty($this->_options['nofreshmeat'])) {
+            !empty($this->_options['nofreecode'])) {
 
             print "Announcement data:\n";
             print_r($version);
@@ -682,7 +682,7 @@ class Horde_Release
                            'release' => $params);
         $http = new Horde_Http_Client();
         try {
-            $response = $http->post('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/releases.json',
+            $response = $http->post('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/releases.json',
                                     Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
                                     array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Exception $e) {
@@ -706,7 +706,7 @@ class Horde_Release
         // to update.
         $http = new Horde_Http_Client();
         try {
-            $response = $http->get('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $this->_options['fm']['user_token']);
+            $response = $http->get('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $this->_options['fm']['user_token']);
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Exception_Wrapped($e);
         }
@@ -735,7 +735,7 @@ class Horde_Release
             if (empty($permalink)) {
                 // No link found to update...create it.
                 try {
-                    $response = $http->post('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json',
+                    $response = $http->post('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/urls.json',
                                             Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                             array('Content-Type' => 'application/json'));
                     $response = $response->getBody();
@@ -749,7 +749,7 @@ class Horde_Release
             } else {
                 // Found the link to update...update it.
                 try {
-                    $response = $http->put('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls/' . $permalink . '.json',
+                    $response = $http->put('http://freecode.com/projects/' . $this->notes['fm']['project'] . '/urls/' . $permalink . '.json',
                                            Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                            array('Content-Type' => 'application/json'));
                     $response = $response->getBody();
@@ -1022,9 +1022,9 @@ class Horde_Release
                 // Check to see if they tell us not to announce
                 $this->_options['noannounce']= true;
 
-            } elseif (strstr($arg, '--nofreshmeat')) {
+            } elseif (strstr($arg, '--nofreecode')) {
                 // Check to see if they tell us not to announce
-                $this->_options['nofreshmeat']= true;
+                $this->_options['nofreecode']= true;
 
             } elseif (strstr($arg, '--noticketversion')) {
                 // Check to see if they tell us not to add new ticket versions
@@ -1036,7 +1036,7 @@ class Horde_Release
                 $this->_options['noftp'] = true;
                 $this->_options['noannounce'] = true;
                 $this->_options['nowhups'] = true;
-                $this->_options['nofreshmeat']= true;
+                $this->_options['nofreecode']= true;
 
             } elseif (strstr($arg, '--test')) {
                 // Check to see if they tell us to test (for development only)
@@ -1046,7 +1046,7 @@ class Horde_Release
                 $this->_options['noftp'] = true;
                 $this->_options['noannounce'] = true;
                 $this->_options['nowhups'] = true;
-                $this->_options['nofreshmeat']= true;
+                $this->_options['nofreecode']= true;
 
             } elseif (strstr($arg, '--help')) {
                 // Check for help usage.
@@ -1132,7 +1132,7 @@ make-release.php: Horde release generator.
                          --version=[Hn-]xx.yy[.zz[-<string>]]
                          --oldversion=[Hn-]xx[.yy[.zz[-<string>]]]
                          [--branch=<branchname>] [--nocommit] [--noftp]
-                         [--noannounce] [--nofreshmeat] [--noticketversion]
+                         [--noannounce] [--nofreecode] [--noticketversion]
                          [--test] [--dryrun] [--help]
 
    If you omit the branch, it will implicitly work with the HEAD branch.
@@ -1141,11 +1141,11 @@ make-release.php: Horde release generator.
    repository).
    Use the --noftp option to not upload any files on the FTP server.
    Use the --noannounce option to not send any release announcements.
-   Use the --nofreshmeat option to not send any freshmeat announcements.
+   Use the --nofreecode option to not send any freecode announcements.
    Use the --noticketversion option to not update the version information on
    bugs.horde.org.
    The --dryrun option is an alias for:
-     --nocommit --noftp --noannounce --nofreshmeat --noticketversion.
+     --nocommit --noftp --noannounce --nofreecode --noticketversion.
    The --test option is for debugging purposes only.
 
    EXAMPLES:

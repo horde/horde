@@ -45,8 +45,8 @@ class Horde_Core_Auth_Ldap extends Horde_Auth_Ldap
 
         list($oldID, $old_credentials) = $auth->runHook($oldID, $credentials, 'preauthenticate', 'admin');
         list($newID, $new_credentials) = $auth->runHook($newID, $credentials, 'preauthenticate', 'admin');
-        $olddn = $old_credentials['dn'];
-        $newdn = $new_credentials['dn'];
+        $olddn = isset($old_credentials['dn']) ? $old_credentials['dn'] : null;
+        $newdn = isset($new_credentials['dn']) ? $new_credentials['dn'] : null;
 
         parent::updateUser($oldID, $newID, $new_credentials, $olddn, $newdn);
     }

@@ -122,11 +122,8 @@ if ($readonly_sentmail = ($sent_mail_folder && $sent_mail_folder->readonly)) {
 $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
 $imp_compose->pgpAttachPubkey((bool) $vars->pgp_attach_pubkey);
 $imp_compose->userLinkAttachments((bool) $vars->link_attachments);
-
-try {
-    $imp_compose->attachVCard((bool) $vars->vcard, $identity->getValue('fullname'));
-} catch (IMP_Compose_Exception $e) {
-    $notification->push($e);
+if ($vars->vcard) {
+    $imp_compose->attachVCard($identity->getValue('fullname'));
 }
 
 /* Init objects. */

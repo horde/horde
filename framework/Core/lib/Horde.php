@@ -1565,24 +1565,35 @@ HTML;
      * Creates a temporary filename for the lifetime of the script, and
      * (optionally) registers it to be deleted at request shutdown.
      *
-     * @param string $prefix   Prefix to make the temporary name more
-     *                         recognizable.
-     * @param boolean $delete  Delete the file at the end of the request?
-     * @param string $dir      Directory to create the temporary file in.
-     * @param boolean $secure  If deleting file, should we securely delete the
-     *                         file?
+     * @param string $prefix           Prefix to make the temporary name more
+     *                                 recognizable.
+     * @param boolean $delete          Delete the file at the end of the
+     *                                 request?
+     * @param string $dir              Directory to create the temporary file
+     *                                 in.
+     * @param boolean $secure          If deleting file, should we securely
+     *                                 delete the file?
+     * @param boolean $session_remove  Delete this file when session is
+     *                                 destroyed (since 1.7.0)?
      *
      * @return string   Returns the full path-name to the temporary file or
      *                  false if a temporary file could not be created.
      */
     static public function getTempFile($prefix = 'Horde', $delete = true,
-                                       $dir = '', $secure = false)
+                                       $dir = '', $secure = false,
+                                       $session_remove = false)
     {
         if (empty($dir) || !is_dir($dir)) {
             $dir = self::getTempDir();
         }
+        $tmpfile = Horde_Util::getTempFile($prefix, $delete, $dir, $secure);
+        if ($session_remove) {
+            $gcfiles = $GLOBALS['session']->get('horde', 'gc_tempfiles', Horde_Session::TYPE_ARRAY);
+            $gcfiles[] = $tmpfile;
+            $GLOBALS['session']->set('horde', 'gc_tempfiles', $gcfiles);
+        }
 
-        return Horde_Util::getTempFile($prefix, $delete, $dir, $secure);
+        return $tmpfile;
     }
 
     /**

@@ -3,7 +3,7 @@
  <name>Horde_Stream_Filter</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Stream filters</summary>
- <description>This package provides various stream filters.</description>
+ <description>A collection of various stream filters.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

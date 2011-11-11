@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 2.1.2\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-05-27 15:31+0300\n"
+"POT-Creation-Date: 2011-10-21 16:36+0300\n"
 "PO-Revision-Date: 2011-07-21 10:26+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -270,7 +270,7 @@ msgstr "Pēdējo izmaiņu datums"
 msgid "More Options..."
 msgstr "Vairāk opciju..."
 
-#: lib/Api.php:378
+#: lib/Api.php:346
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr "Atrasti vairāki iCalendar komponenti; atbalstīts ir tikai viens vNote."
 
@@ -288,7 +288,7 @@ msgstr "Manas Piezīmes"
 msgid "Name"
 msgstr "Nosaukums"
 
-#: memo.php:92 memo.php:138 lib/Application.php:133
+#: memo.php:92 memo.php:138 lib/Application.php:128
 msgid "New Note"
 msgstr "Jauna piezīme"
 
@@ -296,7 +296,7 @@ msgstr "Jauna piezīme"
 msgid "Next"
 msgstr "Nākamais"
 
-#: lib/Api.php:222 lib/Api.php:371
+#: lib/Api.php:190 lib/Api.php:339
 msgid "No iCalendar data was found."
 msgstr "iCalendar dati netika atrasti."
 
@@ -364,7 +364,7 @@ msgid "Notepad List"
 msgstr "Piezīmju saraksts"
 
 #
-#: lib/Mnemo.php:533
+#: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
 msgstr "%s piezīmju grāmata"
@@ -373,6 +373,10 @@ msgstr "%s piezīmju grāmata"
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "Piezīmju grāmatas"
+
+#: lib/Notepads/Kolab.php:38
+msgid "Notes"
+msgstr "Piezīmes"
 
 #
 #: lib/Block/Summary.php:12
@@ -384,8 +388,8 @@ msgid "Ok"
 msgstr "Ok"
 
 #
-#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
-#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
+#: lib/Api.php:73 lib/Api.php:106 lib/Api.php:138 lib/Api.php:169
+#: lib/Api.php:254 lib/Api.php:299 lib/Api.php:322
 msgid "Permission Denied"
 msgstr "Pieeja liegta"
 
@@ -417,7 +421,7 @@ msgid "Save as PDF"
 msgstr "Saglabāt kā PDF"
 
 #: search.php:22 templates/search/search.inc:4 templates/search/search.inc:27
-#: templates/list/header.inc:4 lib/Application.php:166
+#: templates/list/header.inc:4 lib/Application.php:154
 msgid "Search"
 msgstr "Meklēt"
 
@@ -533,11 +537,11 @@ msgid "There was an error importing the data: %s"
 msgstr "Kļūda importējot datus: %s"
 
 #
-#: lib/Api.php:216 lib/Api.php:365
+#: lib/Api.php:184 lib/Api.php:333
 msgid "There was an error importing the iCalendar data."
 msgstr "Kļūda importējot iCalendar datus."
 
-#: lib/Api.php:53 lib/Api.php:65
+#: lib/Application.php:202
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr "Kļūda dzēšot %s piezīmes. Informācija par kļūmi ierakstīta žurnālā."
@@ -582,17 +586,17 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Šī piezīme ir šifrēta, lūdzu ievadiet paroli"
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:293 lib/Driver/Sql.php:344
+#: lib/Api.php:248 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Piezīme ir nošifrēta."
 
 #: templates/view/memo.inc:27 templates/list/memo_summaries.inc:20
-#: lib/Mnemo.php:275 lib/Mnemo.php:276 lib/Mnemo.php:290 lib/Mnemo.php:291
+#: lib/Mnemo.php:310 lib/Mnemo.php:311 lib/Mnemo.php:325 lib/Mnemo.php:326
 #: lib/Block/Summary.php:116
 msgid "Unfiled"
 msgstr "Neklasificēts"
 
-#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
+#: lib/Api.php:217 lib/Api.php:273 lib/Api.php:356
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Neatbalstīts satura tips: %s"
@@ -694,11 +698,6 @@ msgstr "Parole"
 msgid "_Password:"
 msgstr "Parole:"
 
-#
-#: lib/Application.php:86
-msgid "_Print"
-msgstr "Drukāt"
-
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
 msgstr "Atkārtot:"
@@ -721,7 +720,7 @@ msgstr "pēc %s"
 msgid "by me"
 msgstr "pēc manis"
 
-#: lib/Application.php:153
+#: lib/Application.php:141
 #, php-format
 msgid "in %s"
 msgstr "iekš %s"

@@ -18,7 +18,7 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
- * http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @since Horde_Kolab_Format 1.1.0
  *
@@ -29,74 +29,46 @@
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Type_Composite_Recurrence
-extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
+extends Horde_Kolab_Format_Xml_Type_Composite
 {
-    /** Override in extending classes to set predefined parameters. */
-    protected $_predefined_parameters = array(
-        'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-        'array'   => array(
-            'interval' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_INTEGER,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            ),
-
-            'day' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_STRING,
-                    'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                ),
-            ),
-            'daynumber' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_INTEGER,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'month' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_STRING,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'range' => array(
-                'type'    => 'Horde_Kolab_Format_Xml_Type_Range',
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            ),
-            'exclusion' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_DATE,
-                    'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                ),
-            ),
-            'complete' => array(
-                'type'    => Horde_Kolab_Format_Xml::TYPE_MULTIPLE,
-                'value'   => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                'array'   => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_DATE,
-                    'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-                ),
-            ),
-        ),
+    protected $elements = array(
+        'interval'  => 'Horde_Kolab_Format_Xml_Type_RecurrenceInterval',
+        'day'       => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
+        'daynumber' => 'Horde_Kolab_Format_Xml_Type_Integer',
+        'month'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'range'     => 'Horde_Kolab_Format_Xml_Type_RecurrenceRange',
+        'exclusion' => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
+        'complete'  => 'Horde_Kolab_Format_Xml_Type_Multiple_Date',
     );
 
     /**
      * Load the node value from the Kolab object.
      *
-     * @param string  $name        The name of the the attribute
-     *                             to be fetched.
-     * @param array   &$attributes The data array that holds all
-     *                             attribute values.
-     * @param DOMNode $parent_node The parent node of the node to be loaded.
-     * @param array   $params      The parameters for this parse operation.
+     * @param string                        $name        The name of the the
+     *                                                   attribute to be fetched.
+     * @param array                         &$attributes The data array that
+     *                                                   holds all attribute
+     *                                                   values.
+     * @param DOMNode                       $parent_node The parent node of the
+     *                                                   node to be loaded.
+     * @param Horde_Kolab_Format_Xml_Helper $helper      A XML helper instance.
+     * @param array                         $params      Additiona parameters for
+     *                                                   this parse operation.
      *
      * @return DOMNode|boolean The named DOMNode or false if no node value was
      *                         found.
      */
-    public function load($name, &$attributes, $parent_node, $params = array())
+    public function load(
+        $name,
+        &$attributes,
+        $parent_node,
+        Horde_Kolab_Format_Xml_Helper $helper,
+        $params = array()
+    )
     {
-        $result = parent::load($name, $attributes, $parent_node, $params);
+        $result = parent::load($name, $attributes, $parent_node, $helper, $params);
 
-        if ($node = $params['helper']->findNodeRelativeTo('./' . $name, $parent_node)) {
+        if ($node = $helper->findNodeRelativeTo('./' . $name, $parent_node)) {
             // Get the cycle type (must be present)
             $attributes['recurrence']['cycle'] = $node->getAttribute('cycle');
             // Get the sub type (may be present)
@@ -232,14 +204,17 @@ extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
     /**
      * Update the specified attribute.
      *
-     * @param string       $name        The name of the the attribute
-     *                                  to be updated.
-     * @param mixed        $value       The value to store.
-     * @param DOMNode      $parent_node The parent node of the node that
-     *                                  should be updated.
-     * @param array        $params      The parameters for this write operation.
-     * @param DOMNode|NULL $old_node    The previous value (or null if
-     *                                  there is none).
+     * @param string                        $name        The name of the attribute
+     *                                                   to be updated.
+     * @param mixed                         $value       The value to store.
+     * @param DOMNode                       $parent_node The parent node of the
+     *                                                   node that should be
+     *                                                   updated.
+     * @param Horde_Kolab_Format_Xml_Helper $helper      A XML helper instance.
+     * @param array                         $params      The parameters for this
+     *                                                   write operation.
+     * @param DOMNode|NULL                  $old_node    The previous value (or
+     *                                                   null if there is none).
      *
      * @return DOMNode|boolean The new/updated child node or false if this
      *                         failed.
@@ -250,10 +225,12 @@ extends Horde_Kolab_Format_Xml_Type_Composite_Predefined
         $name,
         $value,
         $parent_node,
-        $params,
+        Horde_Kolab_Format_Xml_Helper $helper,
+        $params = array(),
         $old_node = false
-    ) {
-        $node = parent::saveNodeValue($name, $value, $parent_node, $params, $old_node);
+    )
+    {
+        $node = parent::saveNodeValue($name, $value, $parent_node, $helper, $params, $old_node);
         // Add attributes
         $node->setAttribute('cycle', $value['cycle']);
         if (isset($value['type'])) {

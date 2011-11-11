@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Beatnik H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-07-22 15:13+0300\n"
+"PO-Revision-Date: 2011-10-16 15:21+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -30,10 +30,6 @@ msgstr "Rādīt šo piezīmi"
 #, fuzzy
 msgid "-p, --password[=password]    Horde login password"
 msgstr "Pēdējā pieslēgšanās: %s no %s"
-
-#: scripts/export_config.php:144
-msgid "-r, --rpc[=http://example.com/horde/rpc.php]    Remote url"
-msgstr ""
 
 #: scripts/export_config.php:143
 #, fuzzy
@@ -99,10 +95,6 @@ msgstr "CNAME (Alias)"
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: lib/Forms/Autogenerate.php:19
-msgid "Choose a template for autogenerating the records:"
-msgstr ""
-
 #: lib/Beatnik.php:38
 msgid "Commit All"
 msgstr "Saglabāt visu"
@@ -125,10 +117,6 @@ msgstr ""
 msgid "Couldn't read command-line options."
 msgstr "Nav iespējams nolasīt komandrindas opcijas."
 
-#: lib/Beatnik.php:359
-msgid "DNS Service Record Port Number"
-msgstr ""
-
 #: lib/Beatnik.php:339
 #, fuzzy
 msgid "DNS Service Record Priority"
@@ -138,10 +126,6 @@ msgstr "'%s' nav servisa ierakstu"
 #, fuzzy
 msgid "DNS Service Record Weight"
 msgstr "'%s' nav servisa ierakstu"
-
-#: config/prefs.php:44
-msgid "Default Time-To-Live for new records."
-msgstr ""
 
 #: delete.php:23 delete.php:47 lib/Forms/DeleteRecord.php:35
 #: templates/listzones/row.inc:16 templates/view/header.inc:25
@@ -244,14 +228,6 @@ msgstr "Mērķa mape"
 msgid "Hostname for CNAME alias"
 msgstr "(aizstājvārds priekš Hiriganas + Katakanas)"
 
-#: lib/Beatnik.php:330
-msgid "Hostname for DNS Service Record"
-msgstr ""
-
-#: lib/Beatnik.php:243
-msgid "Hostname for Reverse DNS"
-msgstr ""
-
 #: lib/Beatnik.php:309
 #, fuzzy
 msgid "Hostname of Authoritative Name Server"
@@ -269,10 +245,6 @@ msgstr "Cik domēnus rādīt vienā lapā?"
 #: lib/Beatnik.php:200
 msgid "IP Address"
 msgstr "IP adrese"
-
-#: lib/Beatnik.php:234
-msgid "IP in Reverse notation (.in-addr.arpa)"
-msgstr ""
 
 #: lib/Beatnik.php:201
 msgid "IPv4 Network Address"
@@ -313,23 +285,9 @@ msgstr "ftpfs: lietotāja nepareiza %s pieteikšanās "
 msgid "MX (Mail eXchange)"
 msgstr "MX (Mail eXchange)"
 
-#: lib/Beatnik.php:264
-msgid "MX Preference (lower is more preferred)"
-msgstr ""
-
-#: scripts/export_config.php:138
-msgid ""
-"Mandatory arguments to long options are mandatory for short options too."
-msgstr ""
-
 #: lib/Beatnik.php:179
 msgid "Minimum"
 msgstr "Minimums"
-
-#: lib/Driver/ldap2dns.php:398
-#, php-format
-msgid "Missing required field %s to save record."
-msgstr ""
 
 #: lib/Beatnik.php:60
 msgid "NS (Name Server)"
@@ -356,18 +314,10 @@ msgstr "Iestatījumi"
 msgid "Primary Nameserver"
 msgstr "Primārā GIcon"
 
-#: lib/Beatnik.php:125
-msgid "Primary nameserver for this zone"
-msgstr ""
-
 #: config/prefs.php:20
 #, fuzzy
 msgid "Record Defaults"
 msgstr "Uzdevuma iestatījumi"
-
-#: lib/Beatnik.php:393
-msgid "Record Time-To-Live (seconds)"
-msgstr ""
 
 #: lib/Forms/EditRecord.php:37
 #, fuzzy
@@ -438,23 +388,9 @@ msgstr "Noklusētais GDK displejs"
 msgid "Set default record parameters."
 msgstr "Iestaties jauno uzdevumu noklusētās vērtības"
 
-#: lib/Beatnik.php:192 lib/Beatnik.php:213 lib/Beatnik.php:277
-#: lib/Beatnik.php:321 lib/Beatnik.php:372
-msgid "Short hostname for this record"
-msgstr ""
-
-#: lib/Beatnik.php:298
-msgid ""
-"Short sub-domain for NS record (leave blank unless creating a subdomain)"
-msgstr ""
-
 #: lib/Beatnik.php:572
 msgid "Skipping existing identical record"
 msgstr "Ignorēju vienādos ierakstus"
-
-#: lib/Beatnik.php:381
-msgid "String payload for DNS TXT"
-msgstr ""
 
 #: lib/Beatnik.php:392
 msgid "TTL"
@@ -487,23 +423,10 @@ msgstr "UID"
 msgid "Unable to add record to LDAP. Reason: %s"
 msgstr "Nav iespējams saglabāt resursu \"%s\": %s"
 
-#: commit.php:48
-#, php-format
-msgid "Unable to construct valid SOA for %s.  Not incrementing serial."
-msgstr ""
-
 #: lib/Driver/ldap2dns.php:320
 #, fuzzy, php-format
 msgid "Unable to delete record.  Reason: %s"
 msgstr "Nevar nodzēst VFS mapi."
-
-#: lib/Driver/ldap2dns.php:299
-msgid "Unable to delete record: No record ID specified."
-msgstr ""
-
-#: lib/Beatnik.php:452
-msgid "Unable to determine if domain needs committing: invalid parameter."
-msgstr ""
 
 #: lib/Driver.php:144
 #, fuzzy
@@ -529,10 +452,6 @@ msgstr "Neizdevās atrast pievienojamo objektu: %s"
 #, fuzzy, php-format
 msgid "Unable to retrieve data from LDAP results: %s"
 msgstr "Nevar noskaidrot kvotu"
-
-#: lib/Beatnik.php:104
-msgid "Unique Identifier (Used as Record ID)"
-msgstr ""
 
 #: lib/Driver/ldap2dns.php:435
 msgid "Unsupported operation: cannot rename a domain."

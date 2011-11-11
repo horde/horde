@@ -73,41 +73,10 @@ class Components_Runner_CiSetup
     public function run()
     {
         $options = $this->_config->getOptions();
-
-        if (!isset($options['toolsdir'])) {
-            throw new Components_Exception(
-                'You are required to set the path to a PEAR tool environment.'
-            );
-        }
-        if (!isset($options['pearrc'])) {
-            throw new Components_Exception(
-                'You are required to set the path to a PEAR environment for this package'
-            );
-        }
-
-        //@todo FIXME
-        /* $directory = $this->_config->getComponent()->getPath(); */
-        /* if (basename(dirname($directory)) == 'framework') { */
-        /*     $origin = 'framework/' . basename($directory); */
-        /* } else { */
-        /*     $origin = basename($directory); */
-        /* } */
-        $origin = '';
-
-        $config_template = new Components_Helper_Templates_Single(
+        $templates = new Components_Helper_Templates_RecursiveDirectory(
             $this->_config_application->getTemplateDirectory(),
-            $options['cisetup'],
-            'hudson-component-config.xml',
-            'config.xml'
+            $options['cisetup']
         );
-        $config_template->write(
-            array(
-                'sourcepath' => $origin,
-                'sourcejob' => 'horde',
-                'toolsdir' => $options['toolsdir'],
-                'description' => $this->_config->getComponent()
-                ->getDescription()
-            )
-        );
+        $templates->write(array('config' => $this->_config));
     }
 }

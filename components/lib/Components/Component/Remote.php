@@ -169,7 +169,7 @@ class Components_Component_Remote extends Components_Component_Base
     public function getData()
     {
         $data = new stdClass;
-        $release = $this->_remote->getLatestDetails($this->_name);
+        $release = $this->_remote->getLatestDetails($this->_name, null);
         $data->name = $this->_name;
         $data->summary = $release->getSummary();
         $data->description = $release->getDescription();

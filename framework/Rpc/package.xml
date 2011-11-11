@@ -3,7 +3,7 @@
  <name>Horde_Rpc</name>
  <channel>pear.horde.org</channel>
  <summary>Horde RPC API</summary>
- <description>The Horde_Rpc library provides a common abstracted interface to various remote methods of accessing Horde functionality.</description>
+ <description>A common abstracted interface to various remote methods of accessing Horde functionality.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>

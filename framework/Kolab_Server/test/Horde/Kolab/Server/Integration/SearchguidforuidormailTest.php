@@ -35,6 +35,7 @@ extends Horde_Kolab_Server_LdapTestCase
 {
     public function setUp()
     {
+        $this->skipIfNoLdap();
         $connection = new Horde_Kolab_Server_Connection_Mock(
             new Horde_Kolab_Server_Connection_Mock_Ldap(
                 array('basedn' => 'dc=test'),

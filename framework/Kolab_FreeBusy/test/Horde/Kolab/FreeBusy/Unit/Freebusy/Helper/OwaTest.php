@@ -38,6 +38,11 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
 class Horde_Kolab_FreeBusy_Unit_Freebusy_Helper_OwaTest
 extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        date_default_timezone_set('America/Los_Angeles');
+    }
+
     public function testStringConstruction()
     {
         $owa = new Horde_Kolab_FreeBusy_Freebusy_Helper_Owa(

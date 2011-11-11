@@ -281,13 +281,14 @@ class Gollem
     /**
      * Create a folder using the current Gollem session settings.
      *
-     * @param string $dir   The directory path.
-     * @param string $name  The folder to create.
+     * @param string $dir                 The directory path.
+     * @param string $name                The folder to create.
+     * @param Horde_Vfs_Base $gollem_vfs  A VFS instance to use.
      *
      * @throws Gollem_Exception
      * @throws Horde_Vfs_Exception
      */
-    static public function createFolder($dir, $name)
+    static public function createFolder($dir, $name, $gollem_vfs = null)
     {
         $totalpath = Horde_Util::realPath($dir . '/' . $name);
         if (!self::verifyDir($totalpath)) {
@@ -300,7 +301,9 @@ class Gollem
         $dir = substr($totalpath, 0, $pos);
         $name = substr($totalpath, $pos + 1);
 
-        $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
+        if (!$gollem_vfs) {
+            $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
+        }
         $gollem_vfs->autocreatePath($dir);
         $gollem_vfs->createFolder($dir, $name);
 

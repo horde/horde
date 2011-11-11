@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Browser \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-24 16:00+0100\n"
-"PO-Revision-Date: 2011-03-24 16:00+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-10-19 13:56+0300\n"
+"PO-Revision-Date: 2011-11-09 16:00+0100\n"
+"Last-Translator: Alar Sing <alar.sing@err.ee>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
@@ -17,25 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Browser.php:1026
+#: lib/Horde/Browser.php:1027
 msgid "File uploads not supported."
 msgstr "Failide üleslaadimist ei toetata."
 
-#: lib/Horde/Browser.php:1043
+#: lib/Horde/Browser.php:1044
 msgid "No file uploaded"
 msgstr "Faili ei laetud"
 
-#: lib/Horde/Browser.php:1053
+#: lib/Horde/Browser.php:1054
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
+"Üles laetud faili paistab olevat tühi. Seda ei pruugi eksisteerida sinu "
+"arvutis."
 
-#: lib/Horde/Browser.php:1050
+#: lib/Horde/Browser.php:1051
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr "Faili laadimisel serverisse tekkis probleem: %s ei laetud."
 
-#: lib/Horde/Browser.php:1058
+#: lib/Horde/Browser.php:1059
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
@@ -44,7 +46,7 @@ msgstr ""
 "Faili laadimisel serverisse tekkis probleem: %s oli suurem kui võimaldab "
 "piirang (%d baiti)."
 
-#: lib/Horde/Browser.php:1060
+#: lib/Horde/Browser.php:1061
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."

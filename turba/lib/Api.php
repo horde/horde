@@ -701,10 +701,7 @@ class Turba_Api extends Horde_Registry_Api
                             if (count($result)) {
                                 continue;
                             }
-                            foreach ($content as $attribute => $value) {
-                                $object->setValue($attribute, $value);
-                            }
-                            $content = $object->attributes;
+
                             $result = $driver->add($content);
                             if (!empty($content['category']) &&
                                 !in_array($content['category'], $categories)) {
@@ -732,11 +729,6 @@ class Turba_Api extends Horde_Registry_Api
             $content = $driver->toHash($content);
         }
 
-        foreach ($content as $attribute => $value) {
-            $object->setValue($attribute, $value);
-        }
-        $content = $object->attributes;
-
         // Check if the entry already exists in the data source:
         $result = $driver->search($content);
         if (count($result)) {
@@ -744,6 +736,15 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("Already Exists"));
         }
 
+        // We can't use $object->setValue() here since that cannot be used with
+        // composite fields.
+        if (Horde::hookExists('encode_attribute', 'turba')) {
+            foreach ($content as $attribute => &$value) {
+                try {
+                    $value = Horde::callHook('encode_attribute', array($attribute, $value, null, null), 'turba');
+                } catch (Turba_Exception $e) {}
+            }
+        }
         $result = $driver->add($content);
 
         if (!empty($content['category']) &&
@@ -1074,6 +1075,13 @@ class Turba_Api extends Horde_Registry_Api
 
             case 'activesync':
                 $content = $driver->fromASContact($content);
+                /* Must check for ghosted properties for activesync requests */
+                foreach ($content as $attribute => $value) {
+                    if ($attribute != '__key') {
+                        $object->setValue($attribute, $value);
+                    }
+                }
+                return $object->store();
                 break;
 
             default:
@@ -1102,13 +1110,15 @@ class Turba_Api extends Horde_Registry_Api
      * @param boolean $forceSource  Whether to use the specified sources, even
      *                              if they have been disabled in the
      *                              preferences?
+     * @param array $returnFields   Only return these fields. Returns all fields
+     *                              if empty.
      *
      * @return array  Hash containing the search results.
      * @throws Turba_Exception
      */
     public function search($names = array(), $sources = array(),
                            $fields = array(), $matchBegin = false,
-                           $forceSource = false)
+                           $forceSource = false, $returnFields = array())
     {
         global $cfgSources, $attributes, $prefs;
 
@@ -1152,7 +1162,9 @@ class Turba_Api extends Horde_Registry_Api
                     continue;
                 }
 
-            $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($source);
+            $driver = $GLOBALS['injector']
+                ->getInstance('Turba_Factory_Driver')
+                ->create($source);
 
             // Determine the name of the column to sort by.
             $columns = isset($sort_columns[$source])
@@ -1172,7 +1184,8 @@ class Turba_Api extends Horde_Registry_Api
                     }
                 }
 
-                $search = $driver->search($criteria, Turba::getPreferredSortOrder(), 'OR', array(), array(), $matchBegin);
+                $search = $driver->search(
+                    $criteria, Turba::getPreferredSortOrder(), 'OR', $returnFields, array(), $matchBegin);
                 if (!($search instanceof Turba_List)) {
                     continue;
                 }

@@ -3,7 +3,7 @@
  <name>Horde_Support</name>
  <channel>pear.horde.org</channel>
  <summary>Horde support package</summary>
- <description>This package provides supporting functionality for Horde that is not tied to Horde but is used by it. These classes can be used outside of Horde as well.</description>
+ <description>Support classes not tied to Horde but is used by it. These classes can be used outside of Horde as well.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

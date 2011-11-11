@@ -123,7 +123,13 @@ class Components_Runner_Installer
             $lines = explode("\n", file_get_contents($options['instructions']));
             $result = array();
             foreach ($lines as $line) {
-                list($id, $c_options) = explode(':', $line);
+                $trimmed = trim($line);
+                if (empty($trimmed) || preg_match('/^#/', $trimmed)) {
+                    continue;
+                }
+                preg_match('/(.*):(.*)/', $trimmed, $matches);
+                $id = $matches[1];
+                $c_options = $matches[2];
                 foreach (explode(',', $c_options) as $option) {
                     $result[trim($id)][trim($option)] = true;
                 }

@@ -3,7 +3,7 @@
  <name>Horde_Image</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Image API</summary>
- <description>This package provides an Image utility API, with backends for:
+ <description>An Image utility API, with backends for:
 * GD
 * GIF
 * PNG
@@ -23,10 +23,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-19</date>
- <time>10:36:20</time>
+ <date>2011-11-03</date>
+ <time>09:41:03</time>
  <version>
-  <release>1.0.7</release>
+  <release>1.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,7 +35,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Croatian translation.
+* [jan] Update Latvian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -805,10 +806,24 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-19</date>
+   <date>2011-11-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Add a version of the convert command for center cropping with ImageMagick versions less than 6.3.8 (Bug # 10687).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Croatian translation.
+* [jan] Update Latvian translation.
    </notes>
   </release>
  </changelog>

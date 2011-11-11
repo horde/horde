@@ -39,13 +39,16 @@ $return_url = Ansel::getUrlFor(
     true);
 $view = new Ansel_View_Upload(
     array(
+        'forceNoScript' => $prefs->getValue('force_old_uploader', false),
         'browse_button' => 'pickfiles',
         'target' => Horde::selfUrl()->setRaw(true),
         'drop_target' => 'filelist',
         'upload_button' => 'uploadfiles',
         'gallery' => $gallery,
         'return_target' => $return_url->toString()));
-$view->run();
+if (!$prefs->getValue('force_old_uploader', 'false')) {
+    $view->run();
+}
 $nojs = $view->handleNoJs();
 
 $title = _("Add Photo");

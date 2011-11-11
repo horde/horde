@@ -389,11 +389,14 @@ abstract class Components_Component_Base implements Components_Component
         Components_Pear_Environment $env, $options = array()
     )
     {
-        $env->provideChannel(
-            $this->getChannel(),
-            $options,
-            sprintf(' [required by %s]', $this->getName())
-        );
+        $channel = $this->getChannel();
+        if (!empty($channel)) {
+            $env->provideChannel(
+                $channel,
+                $options,
+                sprintf(' [required by %s]', $this->getName())
+            );
+        }
     }
 
     /**

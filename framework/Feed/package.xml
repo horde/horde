@@ -3,7 +3,7 @@
  <name>Horde_Feed</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Feed libraries</summary>
- <description>This package provides support for working with feed formats such as RSS and Atom.</description>
+ <description>Support for working with feed formats such as RSS and Atom.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

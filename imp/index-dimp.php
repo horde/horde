@@ -19,8 +19,7 @@ Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
 /* Get site specific menu items. */
 $dimp_menu = new IMP_Menu_Dimp(Horde_Menu::MASK_BASE);
-$render_sidebar = $dimp_menu->render('sidebar');
-$render_tabs = $dimp_menu->render('tabs');
+$render_sidebar = $dimp_menu->render();
 $dimp_menu->addJs();
 
 Horde::noDnsPrefetch();

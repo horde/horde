@@ -70,14 +70,19 @@
  *         supported by Passwd.
  *
  *         1) plain
- *         2) crypt or crypt-des
- *         3) crypt-md5
+ *         2) aprmd5
+ *         3) crypt or crypt-des
  *         4) crypt-blowfish
- *         5) md5-hex
- *         6) md5-base64
- *         7) smd5
- *         8) sha
- *         9) ssha
+ *         5) crypt-md5
+ *         6) crypt-sha256
+ *         7) crypt-sha512
+ *         8) md5-base64
+ *         9) md5-hex
+ *        10) msad
+ *        11) sha or sha1
+ *        12) sha256 or ssha256
+ *        13) smd5
+ *        14) ssha
  *
  *         md5 passwords have caused some problems in the past because there
  *         are different definitions of what is a "md5 password".  Systems

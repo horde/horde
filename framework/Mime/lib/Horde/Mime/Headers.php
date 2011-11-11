@@ -36,11 +36,9 @@ class Horde_Mime_Headers implements Serializable
      *
      * Keys are the lowercase header name.
      * Values are:
-     * <pre>
-     * 'h' - The case-sensitive header name.
-     * 'p' - Parameters for this header.
-     * 'v' - The value of the header. Values are stored in UTF-8.
-     * </pre>
+     *   - h: The case-sensitive header name.
+     *   - p: Parameters for this header.
+     *   - v: The value of the header. Values are stored in UTF-8.
      *
      * @var array
      */
@@ -68,24 +66,27 @@ class Horde_Mime_Headers implements Serializable
      * Returns the internal header array in array format.
      *
      * @param array $options  Optional parameters:
-     * <pre>
-     * 'charset' => (string) Encodes the headers using this charset. If empty,
+     *   - canonical: (boolean) Use canonical (RFC 822/2045) line endings?
+     *                DEFAULT: Uses $this->_eol
+     *   - charset: (string) Encodes the headers using this charset. If empty,
      *              encodes using internal charset (UTF-8).
      *              DEFAULT: No encoding.
-     * 'defserver' => (string) The default domain to append to mailboxes.
-     *              DEFAULT: No default name.
-     * 'nowrap' => (integer) Don't wrap the headers.
+     *   - defserver: (string) The default domain to append to mailboxes.
+     *                DEFAULT: No default name.
+     *   - nowrap: (integer) Don't wrap the headers.
      *             DEFAULT: Headers are wrapped.
-     * </pre>
      *
      * @return array  The headers in array format.
      */
-    public function toArray($options = array())
+    public function toArray(array $options = array())
     {
+        $address_keys = $this->addressFields();
         $charset = array_key_exists('charset', $options)
             ? (empty($options['charset']) ? 'UTF-8' : $options['charset'])
             : null;
-        $address_keys = $this->addressFields();
+        $eol = empty($options['canonical'])
+            ? $this->_eol
+            : "\r\n";
         $mime = $this->mimeParamFields();
         $ret = array();
 
@@ -117,7 +118,7 @@ class Horde_Mime_Headers implements Serializable
                 if (empty($options['nowrap'])) {
                     /* Remove any existing linebreaks and wrap the line. */
                     $header_text = $ob['h'] . ': ';
-                    $text = ltrim(substr(wordwrap($header_text . strtr(trim($text), array("\r" => '', "\n" => '')), 76, $this->_eol . ' '), strlen($header_text)));
+                    $text = ltrim(substr(wordwrap($header_text . strtr(trim($text), array("\r" => '', "\n" => '')), 76, $eol . ' '), strlen($header_text)));
                 }
 
                 $val[$key] = $text;
@@ -133,19 +134,22 @@ class Horde_Mime_Headers implements Serializable
      * Returns the internal header array in string format.
      *
      * @param array $options  Optional parameters:
-     * <pre>
-     * 'charset' => (string) Encodes the headers using this charset.
+     *   - canonical: (boolean) Use canonical (RFC 822/2045) line endings?
+     *                DEFAULT: Uses $this->_eol
+     *   - charset: (string) Encodes the headers using this charset.
      *              DEFAULT: No encoding.
-     * 'defserver' => (string) The default domain to append to mailboxes.
-     *              DEFAULT: No default name.
-     * 'nowrap' => (integer) Don't wrap the headers.
+     *   - defserver: (string) The default domain to append to mailboxes.
+     *                DEFAULT: No default name.
+     *   - nowrap: (integer) Don't wrap the headers.
      *             DEFAULT: Headers are wrapped.
-     * </pre>
      *
      * @return string  The headers in string format.
      */
-    public function toString($options = array())
+    public function toString(array $options = array())
     {
+        $eol = empty($options['canonical'])
+            ? $this->_eol
+            : "\r\n";
         $text = '';
 
         foreach ($this->toArray($options) as $key => $val) {
@@ -153,11 +157,11 @@ class Horde_Mime_Headers implements Serializable
                 $val = array($val);
             }
             foreach ($val as $entry) {
-                $text .= $key . ': ' . $entry . $this->_eol;
+                $text .= $key . ': ' . $entry . $eol;
             }
         }
 
-        return $text . $this->_eol;
+        return $text . $eol;
     }
 
     /**
@@ -165,13 +169,11 @@ class Horde_Mime_Headers implements Serializable
      * (attempts to conform to guidelines in RFC 5321 [4.4]).
      *
      * @param array $options  Additional options:
-     * <pre>
-     * 'dns' - (Net_DNS2_Resolver) Use the DNS resolver object to lookup
-     *         hostnames.
-     *         DEFAULT: Use gethostbyaddr() function.
-     * 'server' - (string) Use this server name.
-     *            DEFAULT: Auto-detect using current PHP values.
-     * </pre>
+     *   - dns: (Net_DNS2_Resolver) Use the DNS resolver object to lookup
+     *          hostnames.
+     *          DEFAULT: Use gethostbyaddr() function.
+     *   - server: (string) Use this server name.
+     *             DEFAULT: Auto-detect using current PHP values.
      */
     public function addReceivedHeader($options = array())
     {
@@ -290,15 +292,13 @@ class Horde_Mime_Headers implements Serializable
      * @param string $header  The header name.
      * @param string $value   The header value.
      * @param array $options  Additional options:
-     * <pre>
-     * 'charset' - (string) Charset of the header value.
-     *             DEFAULT: UTF-8
-     * 'decode' - (boolean) MIME decode the value?
-     *            DEFAULT: false
-     * 'params' - (array) MIME parameters for Content-Type or
-     *            Content-Disposition.
-     *            DEFAULT: None
-     * </pre>
+     *   - charset: (string) Charset of the header value.
+     *              DEFAULT: UTF-8
+     *   - decode: (boolean) MIME decode the value?
+     *             DEFAULT: false
+     *   - params: (array) MIME parameters for Content-Type or
+     *             Content-Disposition.
+     *             DEFAULT: None
      */
     public function addHeader($header, $value, array $options = array())
     {
@@ -359,15 +359,13 @@ class Horde_Mime_Headers implements Serializable
      * @param string $header  The header name.
      * @param string $value   The header value.
      * @param array $options  Additional options:
-     * <pre>
-     * 'charset' - (string) Charset of the header value.
-     *             DEFAULT: UTF-8
-     * 'decode' - (boolean) MIME decode the value?
-     *            DEFAULT: false
-     * 'params' - (array) MIME parameters for Content-Type or
-     *            Content-Disposition.
-     *            DEFAULT: None
-     * </pre>
+     *   - charset: (string) Charset of the header value.
+     *              DEFAULT: UTF-8
+     *   - decode: (boolean) MIME decode the value?
+     *             DEFAULT: false
+     *   - params: (array) MIME parameters for Content-Type or
+     *             Content-Disposition.
+     *             DEFAULT: None
      */
     public function replaceHeader($header, $value, $options = array())
     {
@@ -381,13 +379,11 @@ class Horde_Mime_Headers implements Serializable
      * @param string $header  The header name.
      * @param string $value   The header value.
      * @param array $options  Additional options:
-     * <pre>
-     * 'charset' - (string) Charset of the header value.
-     *             DEFAULT: UTF-8
-     * 'decode' - (boolean) MIME decode the value?
-     * 'params' - (array) MIME parameters for Content-Type or
-     *            Content-Disposition.
-     * </pre>
+     *   - charset: (string) Charset of the header value.
+     *              DEFAULT: UTF-8
+     *   - decode: (boolean) MIME decode the value?
+     *   - params: (array) MIME parameters for Content-Type or
+     *             Content-Disposition.
      *
      * @return boolean  True if value was set.
      */
@@ -428,15 +424,13 @@ class Horde_Mime_Headers implements Serializable
      *
      * @param string $header  The header to search for.
      * @param integer $type   The type of return:
-     * <pre>
-     * VALUE_STRING - Returns a string representation of the entire header.
-     * VALUE_BASE - Returns a string representation of the base value of the
-     *              header. If this is not a header that allows parameters,
-     *              this will be equivalent to VALUE_STRING.
-     * VALUE_PARAMS - Returns the list of parameters for this header. If this
-     *                is not a header that allows parameters, this will be
-     *                an empty array.
-     * </pre>
+     *   - VALUE_STRING: Returns a string representation of the entire header.
+     *   - VALUE_BASE: Returns a string representation of the base value of
+     *                 the header. If this is not a header that allows
+     *                 parameters, this will be equivalent to VALUE_STRING.
+     *   - VALUE_PARAMS: Returns the list of parameters for this header. If
+     *                   this is not a header that allows parameters, this
+     *                   will be an empty array.
      *
      * @return mixed  The value for the given header.
      *                If the header is not found, returns null.

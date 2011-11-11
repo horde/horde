@@ -34,10 +34,7 @@ class Horde_Kolab_Format_Xml_Envelope extends Horde_Kolab_Format_Xml
      * @var Kolab
      */
     protected $_fields_specific = array(
-        'xml' => array(
-            'type'    => self::TYPE_XML,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
+        'xml' => 'Horde_Kolab_Format_Xml_Type_XmlAppend',
     );
 
     /**

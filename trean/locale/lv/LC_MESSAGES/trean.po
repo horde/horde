@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Trean H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-07-22 16:19+0300\n"
+"PO-Revision-Date: 2011-10-16 15:43+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -243,11 +243,6 @@ msgstr "Mapju kopēšana nav atbalstīta."
 msgid "Created"
 msgstr "Izveidots"
 
-#: templates/reports.php:96
-#, php-format
-msgid "DNS Failure or Other Error (%s)"
-msgstr ""
-
 #: templates/browse.php:91 templates/search.php:70
 msgid "Delete"
 msgstr "Dzēst"
@@ -295,15 +290,6 @@ msgstr "Rindu skaits"
 msgid "Download Folder"
 msgstr "Lejupielādes mape"
 
-#: templates/add.html.php:73
-msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
-msgstr ""
-
-#: templates/add.html.php:71
-msgid ""
-"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
-msgstr ""
-
 # #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
 #
@@ -334,9 +320,8 @@ msgid "Edit Permissions for %s"
 msgstr "Mainīt %s pieejas tiesības"
 
 #: lib/Trean.php:193
-#, fuzzy
 msgid "Expectation Failed"
-msgstr " Autentificēšana neizdevās"
+msgstr "Cerības neattaisnojās"
 
 #: templates/data/export.inc:4
 msgid "Export Bookmarks"
@@ -385,13 +370,8 @@ msgid "Found"
 msgstr "Atrasts"
 
 #: lib/Trean.php:198
-#, fuzzy
 msgid "Gateway Time-out"
-msgstr "Izdzēst lietotāju: %s"
-
-#: lib/Trean.php:186
-msgid "Gone"
-msgstr ""
+msgstr "Vārtejas taimauts"
 
 #: reports.php:27 templates/reports.php:33
 msgid "HTTP Status"
@@ -428,12 +408,6 @@ msgstr "Servera iekšējā kļūda"
 #: templates/add.html.php:72
 msgid "Internet Explorer"
 msgstr "Internet Explorer"
-
-#: templates/data/import.inc:7
-msgid ""
-"Internet Explorer users will need to export their current Favorites by going "
-"to the \"File\" menu and selecting \"Import and Export\"."
-msgstr ""
 
 #: lib/Trean.php:187
 msgid "Length Required"
@@ -478,12 +452,6 @@ msgstr "Pārvietotā grāmatzīme:"
 #: edit.php:173
 msgid "Moved folder: "
 msgstr "Pārvietotā mape:"
-
-#: templates/data/import.inc:6
-msgid ""
-"Mozilla/Firefox users will need to export their current Bookmarks by going "
-"into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
-msgstr ""
 
 #: lib/Trean.php:169
 msgid "Multiple Choices"
@@ -571,21 +539,13 @@ msgstr "OK"
 msgid "OR"
 msgstr "VAI"
 
-#: templates/add.html.php:77
-#, php-format
-msgid ""
-"On newer versions of Internet Explorer, you may have to add %s://%s to your "
-"Trusted Zone for this to work."
-msgstr ""
-
 #: perms.php:58
-#, fuzzy
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"Tikai objekta īpašnieks vais sistēmas administrators var manīti koplietojuma "
-"īpašnieku vai tā pieejas tiesības."
+"Tikai objekta īpašnieks vai sistēmas administrators var manīti koplietojuma "
+"īpašnieku vai tā pieejas tiesības"
 
 #: config/prefs.php:53
 msgid "Open links in a new window?"
@@ -633,29 +593,24 @@ msgid "Reports"
 msgstr "Atskaites"
 
 #: lib/Trean.php:189
-#, fuzzy
 msgid "Request Entity Too Large"
-msgstr "Fails \"%s\" ir pārāk liels"
+msgstr "Pieprasījuma objekts ir pārāk liels"
 
 #: lib/Trean.php:184
-#, fuzzy
 msgid "Request Time-out"
-msgstr "Izdzēst lietotāju: %s"
+msgstr "Pieprasījuma taimauts"
 
 #: lib/Trean.php:190
-#, fuzzy
 msgid "Request-URI Too Large"
-msgstr "Fails \"%s\" ir pārāk liels"
+msgstr "Pieprasījuma URI ir pārāk liels"
 
 #: lib/Trean.php:192
-#, fuzzy
 msgid "Requested range not satisfiable"
-msgstr "Pieprasītās darbības nav pieejamas\n"
+msgstr "Pieprasījuma diapazons nav apmierināms"
 
 #: lib/Trean.php:167
-#, fuzzy
 msgid "Reset Content"
-msgstr "Nederīgs saturs iekš \\{\\}"
+msgstr "Notīrīt saturu"
 
 # #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
@@ -704,14 +659,6 @@ msgstr "Izvēlieties: %s, %s"
 msgid "Service Unavailable"
 msgstr "Pakalpojums nav pieejams"
 
-#: config/prefs.php:14
-msgid "Set how to display bookmark listings and how to open links."
-msgstr ""
-
-#: config/prefs.php:64
-msgid "Should your list of bookmark folders be open when you log in?"
-msgstr ""
-
 #: config/prefs.php:45
 msgid "Show folder actions panel?"
 msgstr "Rādīt mapju darbību paneli?"
@@ -727,10 +674,6 @@ msgstr "Šķirot pēc"
 #: config/prefs.php:36
 msgid "Sort direction:"
 msgstr "Šķirošanas kārtība"
-
-#: lib/Trean.php:161
-msgid "Switching Protocols"
-msgstr ""
 
 #: lib/Block/Bookmarks.php:75 lib/Block/Highestrated.php:39
 #: lib/Block/Mostclicked.php:39
@@ -830,12 +773,6 @@ msgstr "%s atsvaidzināts."
 #: lib/Trean.php:174
 msgid "Use Proxy"
 msgstr "Izmantojiet starpniekserveri"
-
-#: templates/add.html.php:74
-msgid ""
-"While browsing you will be able to bookmark the current page by clicking "
-"your new \"Add to Bookmarks\" shortcut."
-msgstr ""
 
 #: lib/Forms/Search.php:25
 msgid "Whole Field"

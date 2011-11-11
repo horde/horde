@@ -383,13 +383,19 @@ class Ansel_Gallery implements Serializable
     /**
      * Clear all of this gallery's key image stacks from the VFS and the
      * gallery's data store.
+     *
+     * @throws Ansel_Exception
      */
     public function clearStacks()
     {
         $ids = @unserialize($this->get('default_prettythumb'));
         if (is_array($ids)) {
-            foreach ($ids as $imageId) {
-                $this->removeImage($imageId, true);
+            try {
+                foreach ($ids as $imageId) {
+                    $this->removeImage($imageId, true);
+                }
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Ansel_Exception($e);
             }
         }
 
@@ -515,7 +521,8 @@ class Ansel_Gallery implements Serializable
      */
     public function setImageOrder($imageId, $pos)
     {
-        $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->setImageSortOrder($imageId, $pos);
     }
 
@@ -526,6 +533,7 @@ class Ansel_Gallery implements Serializable
      *                       or an image ID.
      *
      * @param boolean $isStack  Indicates if this image represents a stack image.
+     * @throws Horde_Exception_NotFound, Ansel_Exception
      */
     public function removeImage($image, $isStack = false)
     {
@@ -539,7 +547,9 @@ class Ansel_Gallery implements Serializable
      */
     public function getIdentity()
     {
-        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($this->get('owner'));
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->get('owner'));
     }
 
     /**

@@ -1,0 +1,33 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the Horde_Push package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Push \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2011-10-30 08:23+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Push/Cli.php:63
+msgid "A comma delimited list of recipients."
+msgstr ""
+
+#: lib/Horde/Push/Cli.php:55
+msgid "A summary replacing the value provided by the source."
+msgstr ""
+
+#: lib/Horde/Push/Cli.php:71
+msgid "Do not push the content but display what would be done."
+msgstr ""
+
+#: lib/Horde/Push/Cli.php:47
+msgid "Path to the configuration file."
+msgstr ""

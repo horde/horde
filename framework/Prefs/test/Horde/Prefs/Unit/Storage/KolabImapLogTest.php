@@ -34,6 +34,9 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
 {
     public function setUp()
     {
+        if (!class_exists('Horde_Kolab_Storage_Factory')) {
+            $this->markTestSkipped('Horde_Kolab_Storage package is missing');
+        }
         $_SESSION = array();
     }
 

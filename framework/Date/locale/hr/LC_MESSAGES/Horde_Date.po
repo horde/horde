@@ -1,80 +1,86 @@
 # Croatian translations for Horde_Date module.
-# Copyright 2010-2011 Horde LLC
+# Copyright (C) 2010 Horde Project
 # This file is distributed under the same license as the Horde_Date module.
-# Automatically generated, 2010.
+# Valentin Vidic <Valentin.Vidic@CARNet.hr>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"PO-Revision-Date: 2011-11-08 16:49+0200\n"
+"Last-Translator: Valentin Vidic <Valentin.Vidic@CARNet.hr>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Horde/Date/Utils.php:106
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:105
+#, php-format
 msgid "%d days ago"
-msgstr " (%s dana prije)"
+msgstr "Prije %d dana"
 
-#: lib/Horde/Date/Utils.php:96
+#: lib/Horde/Date/Utils.php:95
 #, php-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "prije %d sat"
+msgstr[1] "prije %d sata"
+msgstr[2] "prije %d sati"
 
-#: lib/Horde/Date/Utils.php:91
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:90
+#, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] "%d minuta"
-msgstr[1] "%d minuta"
-msgstr[2] "%d minuta"
+msgstr[0] "prije %d minutu"
+msgstr[1] "prije %d minute"
+msgstr[2] "prije %d minuta"
 
-#: lib/Horde/Date/Utils.php:87
+#: lib/Horde/Date/Utils.php:85
 #, php-format
 msgid "%d second ago"
 msgid_plural "%d seconds ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "prije %d sekundu"
+msgstr[1] "prije %d sekunde"
+msgstr[2] "prije %d sekundi"
 
-#: lib/Horde/Date/Utils.php:111
+#: lib/Horde/Date/Utils.php:110
 #, php-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "prije %d tjedan"
+msgstr[1] "prije %d tjedna"
+msgstr[2] "prije %d tjedana"
 
-#: lib/Horde/Date/Recurrence.php:216
+#: lib/Horde/Date/Recurrence.php:212
 msgid "Daily"
 msgstr "Dnevno"
 
-#: lib/Horde/Date/Recurrence.php:219
+#: lib/Horde/Date.php:253
+#, php-format
+msgid "Failed to parse time string (%s)"
+msgstr "Neuspjelo parsiranje stringa s vremenom (%s)"
+
+#: lib/Horde/Date/Recurrence.php:215
 msgid "Monthly"
 msgstr "Mjesečno"
 
-#: lib/Horde/Date/Recurrence.php:215
+#: lib/Horde/Date/Recurrence.php:211
 msgid "No recurrence"
 msgstr "Bez ponavljanja"
 
-#: lib/Horde/Date/Recurrence.php:217
+#: lib/Horde/Date/Recurrence.php:213
 msgid "Weekly"
 msgstr "Tjedno"
 
-#: lib/Horde/Date/Recurrence.php:222
+#: lib/Horde/Date/Recurrence.php:218
 msgid "Yearly"
 msgstr "Godišnje"
 
-#: lib/Horde/Date/Utils.php:101
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:100
+#, php-format
 msgid "yesterday at %s"
-msgstr " (jučer)"
+msgstr "jučer u %s"

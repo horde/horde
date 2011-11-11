@@ -37,6 +37,11 @@ class Horde_Notification_Class_Notification_HandlerTest extends PHPUnit_Framewor
         $this->handler = new Horde_Notification_Handler($this->storage);
     }
 
+    public function tearDown()
+    {
+        unset($_SESSION);
+    }
+
     public function testMethodAttachHasResultNotificationlistener()
     {
         $this->assertType(

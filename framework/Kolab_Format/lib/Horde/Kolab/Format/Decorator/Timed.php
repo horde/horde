@@ -77,7 +77,7 @@ extends Horde_Kolab_Format_Decorator_Base
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function load($xml)
+    public function load($xml, $options = array())
     {
         $this->_timer->push();
         $result = $this->getHandler()->load($xml);
@@ -98,7 +98,7 @@ extends Horde_Kolab_Format_Decorator_Base
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function save($object)
+    public function save($object, $options = array())
     {
         $this->_timer->push();
         $result = $this->getHandler()->save($object);

@@ -16,15 +16,9 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://www.horde.org/components/Horde_Test
  */
-$autoloaders = spl_autoload_functions();
-if (!empty($autoloaders)) {
-    /**
-     * Ignore autoloaders which are incapable of loading Horde
-     * classes (e.g. PHPUnit >= 3.5.0)
-     */
-    $autoloaders = array_diff($autoloaders, array('phpunit_autoload'));
-}
-if (empty($autoloaders)) {
+if (!defined('HORDE_TEST_AUTOLOAD')) {
+    define('HORDE_TEST_AUTOLOAD', 1);
+
     $mapping = '';
     if (!empty($mappings)) {
         foreach ($mappings as $prefix => $path) {
@@ -51,4 +45,4 @@ if (empty($autoloaders)) {
     );
 }
 
-unset($autoloaders, $mapping);
+unset($mapping);

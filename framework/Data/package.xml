@@ -3,7 +3,7 @@
  <name>Horde_Data</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Data API</summary>
- <description>This package provides a data import and export API, with backends for:
+ <description>A data import and export API, with backends for:
 * CSV
 * TSV
 * iCalendar

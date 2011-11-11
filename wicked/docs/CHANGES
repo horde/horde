@@ -2,6 +2,15 @@
 v1.0.1-git
 ----------
 
+[jan] Add Slovak translation (Martin Matuška <martin@matuska.org>).
+
+
+----
+v1.0
+----
+
+[jan] Fix links to existing pages with non-ascii or special characters (Bug
+      #10672).
 
 
 --------

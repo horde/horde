@@ -35,6 +35,11 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Push_Unit_Push_CliTest
 extends Horde_Push_TestCase
 {
+    public function tearDown()
+    {
+        unset($_SERVER);
+    }
+
     public function testEmpty()
     {
         ob_start();
@@ -44,10 +49,6 @@ extends Horde_Push_TestCase
         );
         Horde_Push_Cli::main(array('no_exit' => true));
         $output = ob_get_clean();
-        $this->assertEquals(
-            '[   OK   ] Pushed "YAML".
-',
-            $output
-        );
+        $this->assertContains('Pushed "YAML".', $output);
     }
 }

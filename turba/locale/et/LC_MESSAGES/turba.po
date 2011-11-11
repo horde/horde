@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba 2.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
-"PO-Revision-Date: 2011-09-26 18:42+0200\n"
+"POT-Creation-Date: 2011-10-19 13:56+0300\n"
+"PO-Revision-Date: 2011-11-09 18:42+0200\n"
 "Last-Translator: Alar Sing <alar.sing@err.ee>\n"
 "Language-Team: Estonian <dev@lists.horde.org>\n"
 "Language: et\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: data.php:464
+#: data.php:465
 #, php-format
 msgid "\"%s\" already exists and was not imported."
 msgstr "\"%s\" ei imporditud, kuna see oli juba olemas."
@@ -59,7 +59,7 @@ msgstr "%d. %s - %s"
 msgid "%s added."
 msgstr "%s lisatud."
 
-#: data.php:493
+#: data.php:495
 #, php-format
 msgid "%s file successfully imported."
 msgstr "%s faili import õnnestus."
@@ -85,7 +85,7 @@ msgstr "Vajalik on iFrame toetav veebilehitseja"
 #: view.php:49
 #, php-format
 msgid "Access denied to %s"
-msgstr "Puudub õigus failile %s"
+msgstr "%s juurdepääs keelatud"
 
 #: lib/Form/AddContact.php:17 templates/browse/actions.inc:30
 msgid "Add"
@@ -129,7 +129,7 @@ msgstr "Aadresside Loend"
 msgid "Address Books"
 msgstr "Aadressiraamatud"
 
-#: lib/Turba.php:626
+#: lib/Turba.php:630
 #, php-format
 msgid "Address book of %s"
 msgstr "%s Aadressi raamat"
@@ -174,12 +174,12 @@ msgstr "Aastapäevad"
 msgid "Anniversary"
 msgstr "Aastapäev"
 
-#: lib/Turba.php:672
+#: lib/Turba.php:676
 #, php-format
 msgid "Are you sure that you want to delete %s?"
 msgstr "Kas oled kindel, et soovid %s kustutada?"
 
-#: lib/Turba.php:677
+#: lib/Turba.php:681
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr "Kas oled kindel, et soovid märgitud kanded kustutada?"
 
@@ -372,6 +372,10 @@ msgstr "Ühendus nurjus"
 msgid "Contact Search"
 msgstr "Kontakti Otsing"
 
+#: lib/Driver/Kolab.php:646
+msgid "Contacts"
+msgstr "Kontaktid"
+
 #: templates/list/numPager.inc:3
 msgid "Contacts displayed:"
 msgstr "Näidatavad Kontaktid:"
@@ -462,7 +466,7 @@ msgstr "Vaate Eelistused"
 msgid "Download"
 msgstr "Salvesta"
 
-#: templates/browse/row.inc:27 templates/browse/row.inc:28
+#: templates/browse/column_headers.inc:14 templates/browse/row.inc:26
 msgid "Download vCard"
 msgstr "Salvesta vCard"
 
@@ -482,7 +486,7 @@ msgstr "%s duplikaatid \"%s\""
 
 #: addressbooks/index.php:40 templates/addressbook_list.php:31
 #: templates/browse/actions.inc:6 templates/browse/column_headers.inc:11
-#: templates/browse/row.inc:39 templates/browse/row.inc:40
+#: templates/browse/row.inc:37
 #: templates/search/duplicate/contact_header.html.php:29
 msgid "Edit"
 msgstr "Muuda"
@@ -517,13 +521,17 @@ msgstr "Viga %d kontakti lisamisele %d kontaktist nimekirja."
 
 #: lib/View/Browse.php:138
 #, php-format
-msgid "Error deleting %d contact(s)."
-msgstr "iga %d kontaki(de) kustutamisel."
+msgid "Error deleting %d contact."
+msgid_plural "Error deleting %d contacts."
+msgstr[0] "Viga %d kontaki kustutamisel."
+msgstr[1] "Viga %d kontaki kustutamisel."
 
 #: lib/View/Browse.php:143
 #, php-format
-msgid "Error deleting %d of %d requested contacts(s)."
-msgstr "Viga kustutamise %d'l kontakti %d'st."
+msgid "Error deleting %d of %d requested contact."
+msgid_plural "Error deleting %d of %d requested contacts."
+msgstr[0] "Viga kustutamisel %d kontakti %d'st."
+msgstr[1] "Viga kustutamisel %d kontakti %d'st."
 
 #: lib/View/Browse.php:109
 #, php-format
@@ -626,7 +634,7 @@ msgstr "Kellelt"
 msgid "Gender"
 msgstr "Sugu"
 
-#: templates/browse/row.inc:59
+#: templates/browse/row.inc:56
 msgid "Group"
 msgstr "Grupp"
 
@@ -708,7 +716,7 @@ msgstr "IMSP"
 msgid "Import Address Book, Step %d"
 msgstr "Aadressiraamatu import, samm %d"
 
-#: data.php:511
+#: data.php:513
 msgid "Import/Export Address Books"
 msgstr "Aadressiraamatute import/eksport"
 
@@ -963,7 +971,7 @@ msgstr "Määramata"
 #: lib/View/Contact.php:26 lib/View/DeleteContact.php:28
 #: lib/View/EditContact.php:27
 msgid "Not Found"
-msgstr "Ei leitud"
+msgstr "Ei Leitud"
 
 #: deletefile.php:18 edit.php:44
 msgid "Not found"
@@ -981,7 +989,7 @@ msgstr "Kannete arv leheküljel"
 msgid "Object not found"
 msgstr "Objekti ei leitud"
 
-#: lib/Driver/Kolab.php:469
+#: lib/Driver/Kolab.php:477
 #, php-format
 msgid "Object with UID %s does not exist!"
 msgstr "Objekti UID'ga \"%s\" ei eksisteeri!"
@@ -1051,7 +1059,7 @@ msgid "Permanently delete this contact?"
 msgstr "Kustutada see kontakt igaveseks?"
 
 #: deletefile.php:32 lib/Api.php:665 lib/Api.php:1620 lib/Driver.php:858
-#: lib/Driver/Sql.php:629
+#: lib/Driver/Sql.php:646
 msgid "Permission denied"
 msgstr "Juurdepääs puudub"
 
@@ -1071,7 +1079,7 @@ msgstr "Foto MIME Tüüp"
 msgid "Pine Address Book"
 msgstr "Pine aadressiraamat"
 
-#: lib/Turba.php:675
+#: lib/Turba.php:679
 msgid "Please name the new contact list:"
 msgstr "Sisesta uue loendi nimi:"
 
@@ -1192,7 +1200,7 @@ msgstr "Otsing: "
 msgid "Searching is not available."
 msgstr "Otsimine ei ole saadaval."
 
-#: templates/browse/row.inc:50
+#: templates/browse/row.inc:47
 msgid "Select contact"
 msgstr "Vali kontakt"
 
@@ -1329,8 +1337,10 @@ msgstr "Virtuaalse Aadressiraamatu \"%s\" tegemine õnnestus"
 
 #: lib/View/Browse.php:133
 #, php-format
-msgid "Successfully deleted %d contact(s)."
-msgstr "%d sissekanne(t) kustutatud."
+msgid "Successfully deleted %d contact."
+msgid_plural "Successfully deleted %d contacts."
+msgstr[0] "%d kontakt kustutatud."
+msgstr[1] "%d kontakti kustutatud."
 
 #: merge.php:33
 msgid "Successfully merged two contacts."
@@ -1478,7 +1488,7 @@ msgstr "Selle sissekande kustutamisel tekkis viga: %s"
 msgid "There was an error displaying the list"
 msgstr "Loendi näitamisel tekkis viga"
 
-#: data.php:480
+#: data.php:482
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "Tekkis viga andmete importimisel: %s"
@@ -1690,11 +1700,11 @@ msgstr ""
 msgid "You must provide a name for virtual address books."
 msgstr "Sa pead sisestama nime sellele virtuaalsele aadressiraamatule."
 
-#: lib/Turba.php:676
+#: lib/Turba.php:680
 msgid "You must select a target address book."
 msgstr "Sa pead valima sihtaadressiraamatu."
 
-#: edit.php:28 lib/Turba.php:673
+#: edit.php:28 lib/Turba.php:677
 msgid "You must select at least one contact first."
 msgstr "Kõigepealt pead valima vähemalt ühe sissekande."
 
@@ -1821,8 +1831,7 @@ msgstr "kontaktide loendisse"
 msgid "to a different Address Book"
 msgstr "teise aadressiraamatusse"
 
-#: data.php:97 templates/browse/column_headers.inc:14
-#: templates/data/export.inc:15 templates/data/import.inc:15
+#: data.php:97 templates/data/export.inc:15 templates/data/import.inc:15
 msgid "vCard"
 msgstr "vCard"
 

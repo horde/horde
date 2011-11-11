@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-21</date>
- <time>08:08:08</time>
+ <date>2011-10-26</date>
+ <time>11:53:46</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [gwr] Basic support for reading PEAR package.xml v1 files.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -30,6 +30,7 @@
     <dir name="Horde">
      <dir name="Pear">
       <file name="COPYING" role="doc" />
+      <file name="TODO" role="doc" />
      </dir> <!-- /doc/Horde/Pear -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -196,6 +197,7 @@
         <file name="package.xml" role="test" />
         <file name="releases.xml" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture/rest -->
+       <file name="package.xml.v1.0" role="test" />
        </dir> <!-- /test/Horde/Pear/fixture -->
       <dir name="Server">
        <file name="conf.php.dist" role="test" />
@@ -288,6 +290,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Pear/COPYING" />
+   <install as="TODO" name="doc/Horde/Pear/TODO" />
    <install as="Horde/Pear/Exception.php" name="lib/Horde/Pear/Exception.php" />
    <install as="Horde/Pear/Registry.php" name="lib/Horde/Pear/Registry.php" />
    <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
@@ -331,6 +334,7 @@
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
    <install as="Horde/Pear/TestCase.php" name="test/Horde/Pear/TestCase.php" />
+   <install as="Horde/Pear/fixture/package.xml.v1.0" name="test/Horde/Pear/fixture/package.xml.v1.0" />
    <install as="Horde/Pear/fixture/horde/.gitignore" name="test/Horde/Pear/fixture/horde/.gitignore" />
    <install as="Horde/Pear/fixture/horde/framework/directory/package.xml" name="test/Horde/Pear/fixture/horde/framework/directory/package.xml" />
    <install as="Horde/Pear/fixture/horde/framework/directory/test.php" name="test/Horde/Pear/fixture/horde/framework/directory/test.php" />
@@ -422,12 +426,12 @@
     <release>1.0.0beta1</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2011-10-21</date>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2011-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [gwr] Basic support for reading PEAR package.xml v1 files.
    </notes>
   </release>
  </changelog>

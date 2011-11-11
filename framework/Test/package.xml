@@ -3,7 +3,7 @@
  <name>Horde_Test</name>
  <channel>pear.horde.org</channel>
  <summary>Horde testing base classes</summary>
- <description>The Horde_Test library provides Horde-specific PHPUnit base classes.</description>
+ <description>Horde-specific PHPUnit base classes.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>14:39:00</time>
+ <date>2011-11-08</date>
+ <time>12:04:34</time>
  <version>
-  <release>1.2.1</release>
+  <release>1.2.2</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [gwr] Fix autoloading to work with PHPUnit-3.6.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -283,10 +283,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Require PHPUnit 3.5 due to BC breaking changes in 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [gwr] Fix autoloading to work with PHPUnit-3.6.
    </notes>
   </release>
  </changelog>

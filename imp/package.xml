@@ -34,6 +34,20 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Virtual Trash fixes.
+* [mms] Improve UI access to advanced sorting options in dynamic view.
+* [mms] Fix stripping attachments in traditional view (Bug #10722).
+* [mms] Fix creating new Drafts mailbox from Drafts preference page.
+* [mms] Fix verifying a PGP signed part within a PGP encrypted part.
+* [mms] HTML viewer passes Email Privacy Tester (http://grepular.com/email_privacy_tester/).
+* [mms] Fix intermittent attachment loss when composing messages.
+* [mms] Correctly reference CSS stylesheets contained within a multipart/related part.
+* [mms] Sanitize LINK tags contained in HTML messages.
+* [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
+* [mjr] Only request the field values we actually need when searching the contacts API.
+* [mms] Fix expand all mailboxes in dynamic view (Bug #10682).
+* [mms] Re-add auto-detection of MIME types for message parts that lack this information.
+* [mms] Add &apos;delete_mark_seen&apos; preference.
 * [mms] Fix accessing POP3 servers that use commas in their UIDs.
 * [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
 * [mms] Fix some dynamic view links on IE (Bug #10664).
@@ -1282,7 +1296,7 @@
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.7</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -2551,6 +2565,11 @@
    <date>2011-10-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Only request the field values we actually need when searching the contacts API.
+* [mms] Fix expand all mailboxes in dynamic view (Bug #10682).
+* [mms] Re-add auto-detection of MIME types for message parts that lack this information.
+* [mms] Add &apos;delete_mark_seen&apos; preference.
+* [mms] Fix accessing POP3 servers that use commas in their UIDs.
 * [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
 * [mms] Fix some dynamic view links on IE (Bug #10664).
    </notes>

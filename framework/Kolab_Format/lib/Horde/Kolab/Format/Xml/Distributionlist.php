@@ -47,13 +47,7 @@ class Horde_Kolab_Format_Xml_Distributionlist extends Horde_Kolab_Format_Xml
             'type'    => self::TYPE_STRING,
             'value'   => self::VALUE_NOT_EMPTY
         ),
-        'member' => array(
-            'type'    => self::TYPE_MULTIPLE,
-            'value'   => self::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'
-            ),
-        )
+        'member' => 'Horde_Kolab_Format_Xml_Type_Multiple_SimplePerson',
     );
 
     /**

@@ -32,8 +32,9 @@
  *            object when sending an AJAX message.
  * buffer_pages: (integer) The number of viewable pages to send to the browser
  *               per server access when listing rows.
- * empty_msg: (string) A string to display when the view is empty. Inserted in
- *            a SPAN element with class 'vpEmpty'.
+ * empty_msg: (string | function) A string to display when the view is empty.
+ *            Inserted in a SPAN element with class 'vpEmpty'. If a function,
+ *            will use the return value from the function for the text.
  * limit_factor: (integer) When browsing through a list, if a user comes
  *               within this percentage of the end of the current cached
  *               viewport, send a background request to the server to retrieve
@@ -265,7 +266,7 @@ var ViewPort = Class.create({
         this.id = 0;
 
         // Init empty string now.
-        this.empty_msg = new Element('SPAN', { className: 'vpEmpty' }).insert(opts.empty_msg);
+        this.empty_msg = new Element('SPAN', { className: 'vpEmpty' });
 
         // Set up AJAX response function.
         this.ajax_response = this.opts.onAjaxResponse || this._ajaxRequestComplete.bind(this);
@@ -941,7 +942,7 @@ var ViewPort = Class.create({
         } else {
             vr.each(this.opts.content.fire.bind(this.opts.content, 'ViewPort:clear'));
             vr.invoke('remove');
-            c.update(this.empty_msg.clone(true));
+            c.update(this.empty_msg.clone(true).insert(Object.isFunction(this.opts.empty_msg) ? this.opts.empty_msg() : this.opts.empty_msg));
         }
 
         this.scroller.updateDisplay();

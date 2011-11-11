@@ -68,7 +68,7 @@ $code['conf'] = array_filter(array(
     'filters_o' => array_keys($filters),
     'fixed_folders' => empty($GLOBALS['conf']['server']['fixed_folders'])
         ? array()
-        : array_map(array('IMP_Mailbox', 'prefFrom'), $GLOBALS['conf']['server']['fixed_folders']),
+        : array_map(array('IMP_Mailbox', 'formTo'), array_map(array('IMP_Mailbox', 'prefFrom'), $GLOBALS['conf']['server']['fixed_folders'])),
     'flags' => $flags,
     /* Needed to maintain flag ordering. */
     'flags_o' => array_keys($flags),
@@ -95,31 +95,36 @@ $code['conf'] = array_filter(array(
         '1440' => _("1 day")
     ),
     'sort' => array(
-        'sequence' => array(
-            't' => '',
-            'v' => Horde_Imap_Client::SORT_SEQUENCE
-        ),
         'from' => array(
+            'c' => 'msgFrom',
             't' => _("From"),
             'v' => Horde_Imap_Client::SORT_FROM
         ),
         'to' => array(
+            'c' => 'msgFrom',
             't' => _("To"),
             'v' => Horde_Imap_Client::SORT_TO
         ),
         'subject' => array(
+            'c' => 'msgSubject',
             't' => _("Subject"),
             'v' => Horde_Imap_Client::SORT_SUBJECT
         ),
         'thread' => array(
-            't' => _("Thread"),
+            'c' => 'msgSubject',
             'v' => Horde_Imap_Client::SORT_THREAD
         ),
         'date' => array(
+            'c' => 'msgDate',
             't' => _("Date"),
             'v' => IMP::IMAP_SORT_DATE
         ),
+        'sequence' => array(
+            'c' => 'msgDate',
+            'v' => Horde_Imap_Client::SORT_SEQUENCE
+        ),
         'size' => array(
+            'c' => 'msgSize',
             't' => _("Size"),
             'v' => Horde_Imap_Client::SORT_SIZE
         )
@@ -171,6 +176,7 @@ $code['text'] = array(
     'verify' => _("Verifying..."),
     'vfolder' => _("Virtual Folder: %s"),
     'vp_empty' => _("There are no messages in this mailbox."),
+    'vp_empty_search' => _("No messages matched the search query."),
 );
 
 if ($compose_page) {

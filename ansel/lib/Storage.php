@@ -367,7 +367,7 @@ class Ansel_Storage
      *
      * @param Ansel_Gallery $gallery  The ansel gallery to empty.
      *
-     * @return void
+     * @throws Ansel_Exception
      */
     public function emptyGallery(Ansel_Gallery $gallery)
     {
@@ -377,7 +377,11 @@ class Ansel_Storage
             // Pretend we are a stack so we don't update the images count
             // for every image deletion, since we know the end result will
             // be zero.
-            $gallery->removeImage($image, true);
+            try {
+                $gallery->removeImage($image, true);
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Ansel_Exception($e);
+            }
         }
         $gallery->set('images', 0, true);
 

@@ -32,6 +32,11 @@ require_once dirname(__FILE__) . '/../../../LdapTestCase.php';
  */
 class Horde_Kolab_Server_Class_Server_Result_LdapTest extends Horde_Kolab_Server_LdapTestCase
 {
+    public function setUp()
+    {
+        $this->skipIfNoLdap();
+    }
+
     public function testMethodConstructHasParameterNetldap2searchSearchResult()
     {
         $search = $this->getMock(
