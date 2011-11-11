@@ -4190,6 +4190,16 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventDelete':
+                $('kronolithEventDiv').hide();
+                $('kronolithDeleteDiv').show();
+                break;
+
+            case 'kronolithEventDeleteCancel':
+                $('kronolithDeleteDiv').hide();
+                $('kronolithEventDiv').show();
+                return;
+
+            case 'kronolithEventDeleteConfirm':
                 if (elt.disabled) {
                     e.stop();
                     break;
@@ -4228,6 +4238,8 @@ KronolithCore = {
                                       }).invoke('show');
                                   }
                               }.bind(this));
+                $('kronolithDeleteDiv').hide();
+                $('kronolithEventDiv').show();
                 this.closeRedBox();
                 this.go(this.lastLocation);
                 e.stop();
