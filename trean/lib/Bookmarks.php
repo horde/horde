@@ -45,6 +45,22 @@ class Trean_Bookmarks
     /**
      * Search bookmarks.
      */
+    function listBookmarks($sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
+    {
+        $values = array($this->_userId);
+
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_rating
+                FROM trean_bookmarks
+                WHERE user_id = ?
+                ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
+        $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
+
+        return Trean_Bookmarks::resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
+    }
+
+    /**
+     * Search bookmarks.
+     */
     function searchBookmarks($search_criteria, $search_operator = 'OR',
                              $sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
     {
@@ -73,7 +89,7 @@ class Trean_Bookmarks
             $values = array_merge($values, $clause[1]);
         }
 
-        $sql = 'SELECT bookmark_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_rating
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_rating
                 FROM trean_bookmarks
                 WHERE user_id = ?
                       AND (' . implode(' ' . $search_operator . ' ', $clauses) . ')
@@ -123,7 +139,7 @@ class Trean_Bookmarks
     function getBookmark($id)
     {
         $bookmark = $GLOBALS['trean_db']->selectOne('
-            SELECT bookmark_id, bookmark_url, bookmark_title, bookmark_description,
+            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description,
                    bookmark_clicks, bookmark_rating
             FROM trean_bookmarks
             WHERE bookmark_id = ' . (int)$id);

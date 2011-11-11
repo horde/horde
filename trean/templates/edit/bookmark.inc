@@ -21,13 +21,5 @@
   <td><input type="text" name="url[<?php echo $bookmark->id ?>]" size="40" value="<?php echo htmlspecialchars($bookmark->url) ?>" /></td>
  </tr>
 
- <tr>
-  <td align="right"><strong><?php echo _("Folder") ?>&nbsp;</strong></td>
-  <td>
-  <select name="new_folder[<?php echo $bookmark->id ?>]">
-    <?php echo Trean::folderSelect($bookmark->folder, Horde_Perms::EDIT) ?>
-  </select>
-  </td>
- </tr>
 </table>
 <br />

@@ -88,7 +88,6 @@ class Trean_Application extends Horde_Registry_Application
     {
         $menu->add(Horde::url('browse.php'), _("_Browse"), 'trean.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
         $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
-        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
 
         /* Import/Export. */
         if ($GLOBALS['conf']['menu']['import_export']) {

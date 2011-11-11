@@ -13,5 +13,4 @@ function cancelEdit()
 <form name="bookmark_edit_form" action="edit.php" method="post">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="actionID" value="save" />
-<input type="hidden" name="f" value="<?php echo htmlspecialchars($folderId) ?>" />
 <input type="hidden" name="popup" value="<?php echo (int)Horde_Util::getFormData('popup') ?>" />

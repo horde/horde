@@ -13,13 +13,11 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('trean');
 
-$folderId = Horde_Util::getFormData('f', $trean_shares->getId($GLOBALS['registry']->getAuth()));
-
 $actionID = Horde_Util::getFormData('actionID');
 if ($actionID == 'button') {
     if (Horde_Util::getFormData('new_bookmark') ||
         !is_null(Horde_Util::getFormData('new_bookmark_x'))) {
-        Horde::url('add.php', true)->add('f', $folderId)->redirect();
+        Horde::url('add.php', true)->redirect();
     }
     if (Horde_Util::getFormData('edit_bookmarks')) {
         $actionID = null;
@@ -33,59 +31,28 @@ $bookmarks = Horde_Util::getFormData('bookmarks');
 if (!is_array($bookmarks)) {
     $bookmarks = array($bookmarks);
 }
-$folder = Horde_Util::getFormData('folder');
 
 switch ($actionID) {
 case 'save':
     $url = Horde_Util::getFormData('url');
     $title = Horde_Util::getFormData('title');
     $description = Horde_Util::getFormData('description');
-    $new_folder = Horde_Util::getFormData('new_folder');
     $delete = Horde_Util::getFormData('delete');
-    if (count($bookmarks)) {
-        foreach ($bookmarks as $id) {
-            $bookmark = $trean_shares->getBookmark($id);
-            if (isset($delete[$id])) {
-                $result = $trean_shares->removeBookmark($bookmark);
-                if (!is_a($result, 'PEAR_Error')) {
-                    $notification->push(_("Deleted bookmark: ") . $bookmark->title, 'horde.success');
-                } else {
-                    $notification->push(sprintf(_("There was a problem deleting the bookmark: %s"), $result->getMessage()), 'horde.error');
-                }
-            } else {
-                $old_url = $bookmark->url;
+    foreach ($bookmarks as $id) {
+        $bookmark = $trean_gateway->getBookmark($id);
+        $old_url = $bookmark->url;
 
-                $bookmark->url = $url[$id];
-                $bookmark->title = $title[$id];
-                $bookmark->description = $description[$id];
+        $bookmark->url = $url[$id];
+        $bookmark->title = $title[$id];
+        $bookmark->description = $description[$id];
 
-                if ($old_url != $bookmark->url) {
-                    $bookmark->http_status = '';
-                }
-
-                $result = $bookmark->save();
-
-                if ($new_folder[$id] != $bookmark->folder) {
-                    $bookmark->folder = $new_folder[$id];
-                    $result = $bookmark->save();
-                }
-
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("There was an error saving the bookmark: %s"), $result->getMessage()), 'horde.error');
-                }
-            }
+        if ($old_url != $bookmark->url) {
+            $bookmark->http_status = '';
         }
-    }
 
-    if (count($folder)) {
-        $name = Horde_Util::getFormData('name');
-        foreach ($folder as $id) {
-            $folder = &$trean_shares->getFolder($id);
-            $folder->set('name', $name[$id], true);
-            $result = $folder->save();
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("There was an error saving the folder: %s"), $result->getMessage()), 'horde.error');
-            }
+        $result = $bookmark->save();
+        if (is_a($result, 'PEAR_Error')) {
+            $notification->push(sprintf(_("There was an error saving the bookmark: %s"), $result->getMessage()), 'horde.error');
         }
     }
 
@@ -97,7 +64,6 @@ case 'save':
         }
     } else {
         Horde::url('browse.php', true)
-            ->add('f', $folderId)
             ->redirect();
     }
     exit;
@@ -105,8 +71,8 @@ case 'save':
 case 'delete':
     if (count($bookmarks)) {
         foreach ($bookmarks as $id) {
-            $bookmark = $trean_shares->getBookmark($id);
-            $result = $trean_shares->removeBookmark($bookmark);
+            $bookmark = $trean_gateway->getBookmark($id);
+            $result = $trean_gateway->removeBookmark($bookmark);
             if (!is_a($result, 'PEAR_Error')) {
                 $notification->push(_("Deleted bookmark: ") . $bookmark->title, 'horde.success');
             } else {
@@ -115,28 +81,14 @@ case 'delete':
         }
     }
 
-    if (count($folder)) {
-        foreach ($folder as $id => $delete) {
-            if ($delete) {
-                $folder = &$trean_shares->getFolder($id);
-                $result = $folder->delete();
-                if (!is_a($result, 'PEAR_Error')) {
-                    $notification->push(_("Deleted folder: ") . $folder->get('name'), 'horde.success');
-                } else {
-                    $notification->push(sprintf(_("There was a problem deleting the folder: %s"), $result->getMessage()), 'horde.error');
-                }
-            }
-        }
-    }
-
-    // Return to the folder listing
-    Horde::url('browse.php', true)->add('f', $folderId)->redirect();
+    // Return to the bookmark listing
+    Horde::url('browse.php', true)->redirect();
 }
 
 // Return to browse if there is nothing to edit.
-if (!count($bookmarks) && !count($folder)) {
+if (!count($bookmarks)) {
     $notification->push(_("Nothing to edit."), 'horde.message');
-    Horde::url('browse.php', true)->add('f', $folderId)->redirect();
+    Horde::url('browse.php', true)->redirect();
 }
 
 $title = _("Edit Bookmark");
@@ -147,16 +99,9 @@ if (!Horde_Util::getFormData('popup')) {
 }
 require TREAN_TEMPLATES . '/edit/header.inc';
 
-if (count($folder)) {
-    foreach ($folder as $id) {
-        $folder = $trean_shares->getFolder($id);
-        require TREAN_TEMPLATES . '/edit/folder.inc';
-    }
-}
-
 if (count($bookmarks)) {
     foreach ($bookmarks as $id) {
-        $bookmark = $trean_shares->getBookmark($id);
+        $bookmark = $trean_gateway->getBookmark($id);
         if (!is_a($bookmark, 'PEAR_Error')) {
             require TREAN_TEMPLATES . '/edit/bookmark.inc';
         }

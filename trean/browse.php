@@ -9,14 +9,10 @@
  */
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('trean');
-if ($GLOBALS['prefs']->getValue('show_folder_actions')) {
-    $GLOBALS['bodyClass'] = 'folderActions';
-}
 require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 
 /* Get bookmarks to display. */
-//$bookmarks = $folder->listBookmarks($prefs->getValue('sortby'), $prefs->getValue('sortdir'));
-$bookmarks = array();
+$bookmarks = $trean_gateway->listBookmarks($prefs->getValue('sortby'), $prefs->getValue('sortdir'));
 
 Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('effects.js', 'horde', true);
