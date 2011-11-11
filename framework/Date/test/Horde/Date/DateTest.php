@@ -154,6 +154,8 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
             $expected[] = "\t";
             $expected[] = '16:05:06';
             $format .= '%n%C%n%D%n%e%n%R%n%t%n%T';
+        } else {
+            $format = str_replace('%n', "\n", $format);
         }
         $this->assertEquals($expected, explode("\n", $date->strftime($format)));
     }
