@@ -311,7 +311,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected function _parseCurrent($current)
     {
         // The Current object takes care of the parsing/mapping.
-        return new Horde_Service_Weather_Current_WeatherUnderground((array)$current);
+        return new Horde_Service_Weather_Current_WeatherUnderground((array)$current, $this);
     }
 
     protected function _parseSearchLocations($response)

@@ -263,7 +263,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     protected function _parseCurrent($current)
     {
         // The Current object takes care of the parsing/mapping.
-        $current = new Horde_Service_Weather_Current_Google($current);
+        $current = new Horde_Service_Weather_Current_Google($current, $this);
         $current->units = $this->units;
 
         return $current;
