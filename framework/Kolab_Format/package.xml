@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-31</date>
- <time>06:33:20</time>
+ <date>2011-11-12</date>
+ <time>19:40:47</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -92,6 +92,9 @@
          <dir name="DateTime">
           <file name="V1.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/DateTime -->
+         <dir name="EventDate">
+          <file name="V1.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/EventDate -->
          <dir name="Multiple">
           <file name="Address.php" role="php" />
           <file name="Attendee.php" role="php" />
@@ -354,6 +357,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" name="lib/Horde/Kolab/Format/Xml/Type/Composite/SimplePerson.php" />
    <install as="Horde/Kolab/Format/Xml/Type/CreationDate/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/CreationDate/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/DateTime/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/DateTime/V1.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/EventDate/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/EventDate/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple/Address.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Address.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple/Attendee.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Attendee.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple/Boolean.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Boolean.php" />
@@ -529,7 +533,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-10-31</date>
+   <date>2011-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Moved Horde specific functionality out of the events parser.
