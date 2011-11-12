@@ -99,17 +99,27 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
                 $units['temp']
             );
 
-            $description = sprintf(
-                _("Conditions: %s\nHigh temperature: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
-                _($data->conditions),
-                $data->high,
-                '°' . $units['temp'],
-                $data->precipitation_percent,
-                $data->humidity,
-                $data->wind_direction,
-                $data->wind_speed,
-                $units['wind']
-            );
+            if ($data->humidity !== false && $data->wind_direction !== false) {
+                $description = sprintf(
+                    _("Conditions: %s\nHigh temperature: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
+                    _($data->conditions),
+                    $data->high,
+                    '°' . $units['temp'],
+                    $data->precipitation_percent,
+                    $data->humidity,
+                    $data->wind_direction,
+                    $data->wind_speed,
+                    $units['wind']
+                );
+            } else {
+                $description = sprintf(
+                    _("Conditions: %s\nHigh temperature: %d%s\nPrecipitation: %d%%\n"),
+                    _($data->conditions),
+                    $data->high,
+                    '°' . $units['temp'],
+                    $data->precipitation_percent
+                );
+            }
             $station = $weather->getStation();
 
             $description = sprintf(
