@@ -92,6 +92,13 @@ interface Components_Dependencies
     public function getRunnerRelease();
 
     /**
+     * Returns the qc handler for a package.
+     *
+     * @return Components_Runner_Qc The qc handler.
+     */
+    public function getRunnerQc();
+
+    /**
      * Returns the change log handler for a package.
      *
      * @return Components_Runner_Change The change log handler.
