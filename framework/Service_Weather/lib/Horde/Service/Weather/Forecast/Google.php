@@ -35,7 +35,7 @@
         $this->_parseStd();
     }
 
-    public getForecastTime()
+    public function getForecastTime()
     {
         return new Horde_Date(new Horde_Date((string)$results->weather->forecast_information->current_date_time['data']));
     }
