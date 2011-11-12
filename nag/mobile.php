@@ -20,7 +20,10 @@ try {
     $notification->push($tasks, 'horde.error');
     $tasks = new Nag_Task();
 }
+
+Horde::addScriptFile('mobile.js');
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+
 ?>
 <style type="text/css">
 .ui-icon-nag-unchecked {
@@ -36,10 +39,16 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
     text-decoration: line-through;
 }
 </style>
+<script>
+var NagConf = {
+    completeUrl: '<?php echo Horde::url('c/complete.json') ?>',
+    showCompleted: <?php echo $prefs->getValue('show_completed') ?>
+};
+</script>
 </head>
 
 <body>
-<div data-role="page">
+<div data-role="page" id="nag-tasklist">
 
 <div data-role="header">
  <h1>My Tasks</h1>
@@ -103,28 +112,26 @@ if ($tasks->hasTasks()) {
             $task_link = $task->view_link;
         }
 
+        $task_complete_class = '';
         if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             if (!$task->completed) {
                 $icon = 'nag-unchecked';
                 if (!$task->childrenCompleted()) {
-                    $href = '#';
                     $label = _("Incomplete sub tasks, complete them first");
                 } else {
-                    $href = $task->complete_link;
-                    $label = sprintf(_("Complete \"%s\""), $task->name);
+                    $task_complete_class = 'toggleable incomplete';
+                    $label = _("Complete");
                 }
             } else {
                 $icon = 'check';
                 if ($task->parent && $task->parent->completed) {
-                    $href = '#';
                     $label = _("Completed parent task, mark it as incomplete first");
                 } else {
-                    $href = $task->complete_link;
-                    $label = sprintf(_("Mark \"%s\" as incomplete"), $task->name);
+                    $task_complete_class = 'toggleable complete';
+                    $label = _("Mark incomplete");
                 }
             }
         } else {
-            $href = '#';
             if ($task->completed) {
                 $label = _("Completed");
                 $icon = 'check';
@@ -133,8 +140,9 @@ if ($tasks->hasTasks()) {
                 $icon = 'nag-unchecked';
             }
         }
+        if ($task_complete_class) { $task_complete_class = ' class="' . $task_complete_class . '"'; }
 
-        echo '<li' . $style . '><a rel="external" href="' . $task_link . '">' . htmlspecialchars($task->name) . '</a><a rel="external" data-icon="' . $icon . '" href="' . $href . '">' . $label . '</a></li>';
+        echo '<li' . $style . '><a rel="external" href="' . $task_link . '">' . htmlspecialchars($task->name) . '</a><a data-task="' . htmlspecialchars($task->id) . '" data-tasklist="' . htmlspecialchars($task->tasklist) . '" data-icon="' . $icon . '" href="#"' . $task_complete_class . '>' . $label . '</a></li>';
     }
 }
 ?>
