@@ -2,8 +2,7 @@
 /**
  * Setup default routes
  */
-$mapper->connect('/c/complete.json',
+$mapper->connect('/t/complete',
     array(
-        'controller' => 'complete',
-        'format' => 'json',
+        'controller' => 'CompleteTask',
     ));

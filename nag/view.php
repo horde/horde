@@ -103,7 +103,7 @@ try {
 }
 if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     if (!$task->completed) {
-        $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete"), 'smallheader', '', '', _("_Complete"));
+        $links[] = Horde::widget($task->complete_link, _("Complete"), 'smallheader', '', '', _("_Complete"));
     }
     if (!$task->private || $task->owner == $GLOBALS['registry']->getAuth()) {
         $links[] = Horde::widget(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'modify_task')), _("Edit"), 'smallheader', '', '', _("_Edit"));

@@ -7,6 +7,7 @@ var NagMobile = {
 
         $.ajax({
             url: NagConf.completeUrl,
+            type: 'POST',
             data: { task: elt.data('task'), tasklist: elt.data('tasklist') },
             context: elt,
             success: NagMobile.toggleCompleteCallback

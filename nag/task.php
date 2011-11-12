@@ -198,44 +198,7 @@ case 'save_task':
 case 'delete_task':
     /* Delete the task if we're provided with a valid task ID. */
     _delete(Horde_Util::getFormData('task'), Horde_Util::getFormData('tasklist'));
-
-case 'complete_task':
-    /* Toggle the task's completion status if we're provided with a
-     * valid task ID. */
-    $task_id = Horde_Util::getFormData('task');
-    $tasklist_id = Horde_Util::getFormData('tasklist');
-    if (isset($task_id)) {
-        $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
-        $task = Nag::getTask($tasklist_id, $task_id);
-        if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $notification->push(sprintf(_("Access denied completing task %s."), $task->name), 'horde.error');
-        } else {
-            $task->completed = !$task->completed;
-            if ($task->completed) {
-                $task->completed_date = time();
-            } else {
-                $task->completed_date = null;
-            }
-            try {
-                $result = $task->save();
-            } catch (Nag_Exception $e) {
-                $notification->push(sprintf(_("There was a problem completing %s: %s"),
-                                            $task->name, $e->getMessage()), 'horde.error');
-            }
-            if ($task->completed) {
-                $notification->push(sprintf(_("Completed %s."), $task->name), 'horde.success');
-            } else {
-                $notification->push(sprintf(_("%s is now incomplete."), $task->name), 'horde.success');
-            }
-        }
-    }
-
-    $url = $vars->get('url');
-    if (!empty($url)) {
-        header('Location: ' . $url);
-        exit;
-    }
-    Horde::url('list.php', true)->redirect();
+    break;
 
 default:
     Horde::url('list.php', true)->redirect();

@@ -41,7 +41,7 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 </style>
 <script>
 var NagConf = {
-    completeUrl: '<?php echo Horde::url('c/complete.json') ?>',
+    completeUrl: '<?php echo Horde::url('t/complete?format=json') ?>',
     showCompleted: <?php echo $prefs->getValue('show_completed') ?>
 };
 </script>
