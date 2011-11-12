@@ -72,7 +72,6 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         $forecast_start = new Horde_Date(time());
         $forecast_end = clone $forecast_start;
         $forecast_end->mday += 7;
-        // Today is day 1, so subtract a day
         if ($end->before($forecast_start) || $start->after($forecast_end)) {
             return array();
         }
@@ -101,16 +100,20 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             );
 
             $description = sprintf(
-                _("%s\nHigh temperature: %d%s\nPrecipitation: %d%%"),
+                _("Conditions: %s\nHigh temperature: %d%s\nPrecipitation: %d%%\nHumidity: %d%%\nWinds: From the %s at %d%s"),
                 _($data->conditions),
                 $data->high,
                 '°' . $units['temp'],
-                $data->precipitation_percent
+                $data->precipitation_percent,
+                $data->humidity,
+                $data->wind_direction,
+                $data->wind_speed,
+                $units['wind']
             );
             $station = $weather->getStation();
 
             $description = sprintf(
-                _("Location: %s\nSunrise: %s\nSunset: %s\n\nConditions\n%s"),
+                _("Location: %s\nSunrise: %s\nSunset: %s\n\n%s"),
                 $weather->getStation()->name,
                 $weather->getStation()->sunrise,
                 $weather->getStation()->sunset,
