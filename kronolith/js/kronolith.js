@@ -5283,6 +5283,7 @@ KronolithCore = {
         $('kronolithEventTargetRO').update(Kronolith.conf.calendars[ev.ty][ev.c].name);
         $('kronolithEventTitle').setValue(ev.t);
         $('kronolithEventLocation').setValue(ev.l);
+        $('kronolithEventTimezone').setValue(ev.tz);
         if (ev.l && Kronolith.conf.maps.driver) {
             $('kronolithEventMapLink').show();
         }

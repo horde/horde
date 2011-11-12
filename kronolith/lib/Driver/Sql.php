@@ -53,6 +53,16 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     }
 
     /**
+     * Returns whether this driver supports per-event timezones.
+     *
+     * @return boolean  Whether this drivers suppports per-event timezones.
+     */
+    public function supportsTimezones()
+    {
+        return $this->getParam('utc');
+    }
+
+    /**
      *
      * @param Horde_Date $date    The date to list alarms for
      * @param boolean $fullevent  Return the full event objects?
@@ -322,7 +332,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
             ' event_private, event_status, event_attendees,' .
-            ' event_title, event_recurcount, event_url,' .
+            ' event_title, event_recurcount, event_url, event_timezone,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -429,7 +439,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
 
         $query = 'SELECT event_id, event_uid, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_title, event_recurcount, event_url,' .
+            ' event_title, event_recurcount, event_url, event_timezone,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
@@ -467,7 +477,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
-            ' event_title, event_recurcount, event_url,' .
+            ' event_title, event_recurcount, event_url, event_timezone,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .

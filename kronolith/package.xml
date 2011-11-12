@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [jan] Allow to set individual timezones for each event (Request #10727).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -38,6 +38,14 @@
     <input type="checkbox" name="whole_day" id="kronolithEventAllday" />
     <?php echo _("All-day event") ?>
   </label>
+  <span class="kronolithSeparator">|</span>
+  <label for="kronolithEventTimezone"><?php echo _("Timezone") ?>:</label>
+  <select name="timezone" id="kronolithEventTimezone">
+    <option value=""><?php echo _("Default") ?></option>
+    <?php foreach (Horde_Nls::getTimezones() as $timezone): ?>
+    <option value="<?php echo $timezone ?>"><?php echo $timezone ?></option>
+    <?php endforeach ?>
+  </select>
 </div>
 
 <div id="kronolithEventBasics">

@@ -2,6 +2,7 @@
 v3.1-git
 --------
 
+[jan] Allow to set individual timezones for each event (Request #10727).
 
 
 -----------

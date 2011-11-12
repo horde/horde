@@ -560,9 +560,10 @@ class Kronolith
                 /* The first time the event happens was before the period
                  * started. Start searching for recurrences from the start of
                  * the period. */
-                $next = array('year' => $startDate->year,
-                              'month' => $startDate->month,
-                              'mday' => $startDate->mday);
+                $next = new Horde_Date(array('year' => $startDate->year,
+                                             'month' => $startDate->month,
+                                             'mday' => $startDate->mday),
+                                       $event->timezone);
             } else {
                 /* The first time the event happens is in the range; unless
                  * there is an exception for this ocurrence, add it. */
@@ -582,8 +583,31 @@ class Kronolith
                 ++$next->mday;
             }
 
+            /* If the event has a custom timezone, we need to convert
+             * the recurrence object to the event's timezone while
+             * calculating next recurrences, to take DST changes in
+             * both the event's and the local timezone into
+             * account. */
+            $convert = $event->timezone &&
+                $event->getDriver()->supportsTimezones();
+            if ($convert) {
+                $timezone = date_default_timezone_get();
+                $event->recurrence->start->setTimezone($event->timezone);
+                if ($event->recurrence->hasRecurEnd()) {
+                    $event->recurrence->recurEnd->setTimezone($event->timezone);
+                }
+            }
+
             /* Add all recurrences of the event. */
             $next = $event->recurrence->nextRecurrence($next);
+            if ($convert) {
+              /* Resetting after the nextRecurrence() call, because we
+               * need to test if the next recurrence in the event's
+               * timezone actually matches the interval we check in
+               * the local timezone. This is done on each
+               * nextRecurrence() further below. */
+                $next->setTimezone($timezone);
+            }
             while ($next !== false && $next->compareDate($endDate) <= 0) {
                 if (!$event->recurrence->hasException($next->year, $next->month, $next->mday)) {
                     /* Add the event to all the days it covers. */
@@ -603,6 +627,9 @@ class Kronolith
 
                     }
                 }
+                if ($convert) {
+                    $next->setTimezone($event->timezone);
+                }
                 $next = $event->recurrence->nextRecurrence(
                     array('year' => $next->year,
                           'month' => $next->month,
@@ -610,6 +637,9 @@ class Kronolith
                           'hour' => $next->hour,
                           'min' => $next->min,
                           'sec' => $next->sec));
+                if ($convert) {
+                    $next->setTimezone($timezone);
+                }
             }
         } else {
             /* Event only occurs once. */
@@ -654,6 +684,10 @@ class Kronolith
                         $theEnd->mday  += $diff[2];
                         $theEnd->hour  += $diff[3];
                         $theEnd->min   += $diff[4];
+                        if ($convert) {
+                            $eventStart->setTimezone($timezone);
+                            $theEnd->setTimezone($timezone);
+                        }
                     } else {
                         $theEnd = clone $event->end;
                     }
@@ -786,9 +820,21 @@ class Kronolith
                 $eventEnd = $event->end;
             } else {
                 if (empty($query->end)) {
+                    $convert = $event->timezone &&
+                        $event->getDriver()->supportsTimezones();
+                    if ($convert) {
+                        $timezone = date_default_timezone_get();
+                        $event->recurrence->start->setTimezone($event->timezone);
+                        if ($event->recurrence->hasRecurEnd()) {
+                            $event->recurrence->recurEnd->setTimezone($event->timezone);
+                        }
+                    }
                     $eventEnd = $event->recurrence->nextRecurrence($now);
                     if (!$eventEnd) {
                         return;
+                    }
+                    if ($convert) {
+                        $eventEnd->setTimezone($timezone);
                     }
                 } else {
                     $eventEnd = $query->end;
@@ -2733,15 +2779,16 @@ class Kronolith
      *
      * @param string $date       The date-time string to parse.
      * @param boolean $withtime  Whether time is included in the string.
+     * @þaram string $timezone   The timezone of the string.
      *
      * @return Horde_Date  The parsed date.
      * @throws Horde_Date_Exception
      */
-    static public function parseDate($date, $withtime = true)
+    static public function parseDate($date, $withtime = true, $timezone = null)
     {
         // strptime() is not available on Windows.
         if (!function_exists('strptime')) {
-            return new Horde_Date($date);
+            return new Horde_Date($date, $timezone);
         }
 
         // strptime() is locale dependent, i.e. %p is not always matching
@@ -2764,7 +2811,7 @@ class Kronolith
             $date_arr = strptime($date, $format);
             if (!$date_arr) {
                 // Try throwing at Horde_Date finally.
-                return new Horde_Date($date);
+                return new Horde_Date($date, $timezone);
             }
         }
 
@@ -2774,7 +2821,8 @@ class Kronolith
                   'mday'  => $date_arr['tm_mday'],
                   'hour'  => $date_arr['tm_hour'],
                   'min'   => $date_arr['tm_min'],
-                  'sec'   => $date_arr['tm_sec']));
+                  'sec'   => $date_arr['tm_sec']),
+            $timezone);
     }
 
     /**

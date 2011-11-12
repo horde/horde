@@ -79,6 +79,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         try {
             $event = $kronolith_driver->getEvent($this->_vars->id, $this->_vars->date);
+            $event->setTimezone(true);
             $result->event = $event->toJson(null, true, $GLOBALS['prefs']->getValue('twentyFour') ? 'H:i' : 'h:i A');
         } catch (Horde_Exception_NotFound $e) {
             $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
@@ -232,11 +233,15 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         foreach ($attributes as $attribute => $value) {
             switch ($attribute) {
             case 'start':
+                $timezone = $event->start->timezone;
                 $event->start = new Horde_Date($value);
+                $event->start->setTimezone($timezone);
                 break;
 
             case 'end':
+                $timezone = $event->end->timezone;
                 $event->end = new Horde_Date($value);
+                $event->end->setTimezone($timezone);
                 if ($event->end->hour == 23 &&
                     $event->end->min == 59 &&
                     $event->end->sec == 59) {

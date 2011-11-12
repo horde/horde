@@ -73,6 +73,13 @@ abstract class Kronolith_Event
     public $location = '';
 
     /**
+     * The timezone of this event.
+     *
+     * @var string
+     */
+    public $timezone;
+
+    /**
      * The status of this event.
      *
      * @var integer
@@ -1829,6 +1836,7 @@ abstract class Kronolith_Event
             $json->st = $this->start->format($time_format);
             $json->ed = $this->end->strftime('%x');
             $json->et = $this->end->format($time_format);
+            $json->tz = $this->timezone;
             $json->a = $this->alarm;
             $json->pv = $this->private;
             $json->tg = array_values($this->tags);
@@ -1879,6 +1887,27 @@ abstract class Kronolith_Event
         }
         $this->id = $eventID;
         return true;
+    }
+
+    /**
+     * Converts this event between the event's and the local timezone.
+     *
+     * @param boolean $to_orginal  If true converts to the event's timezone.
+     */
+    public function setTimezone($to_original)
+    {
+        if (!$this->timezone || !$this->getDriver()->supportsTimezones()) {
+            return;
+        }
+        $timezone = $to_original ? $this->timezone : date_default_timezone_get();
+        $this->start->setTimezone($timezone);
+        $this->end->setTimezone($timezone);
+        if ($this->recurs() && $this->recurrence->hasRecurEnd()) {
+            /* @todo Check if have to go through all recurrence
+               exceptions too. */
+            $this->recurrence->start->setTimezone($timezone);
+            $this->recurrence->recurEnd->setTimezone($timezone);
+        }
     }
 
     public function getDuration()
@@ -2139,6 +2168,7 @@ abstract class Kronolith_Event
         $this->title = Horde_Util::getFormData('title', $this->title);
         $this->description = Horde_Util::getFormData('description', $this->description);
         $this->location = Horde_Util::getFormData('location', $this->location);
+        $this->timezone = Horde_Util::getFormData('timezone', $this->timezone);
         $this->private = (bool)Horde_Util::getFormData('private');
 
         // URL.
@@ -2216,7 +2246,7 @@ abstract class Kronolith_Event
         $allDay = Horde_Util::getFormData('whole_day');
         if ($start_date = Horde_Util::getFormData('start_date')) {
             // From ajax interface.
-            $this->start = Kronolith::parseDate($start_date . ' ' . Horde_Util::getFormData('start_time'));
+            $this->start = Kronolith::parseDate($start_date . ' ' . Horde_Util::getFormData('start_time'), true, $this->timezone);
             if ($allDay) {
                 $this->start->hour = $this->start->min = $this->start->sec = 0;
             }
@@ -2258,13 +2288,14 @@ abstract class Kronolith_Event
                                                 'min' => $start_min,
                                                 'month' => $start_month,
                                                 'mday' => $start_day,
-                                                'year' => $start_year));
+                                                'year' => $start_year),
+                                          $this->timezone);
         }
 
         // Event end.
         if ($end_date = Horde_Util::getFormData('end_date')) {
             // From ajax interface.
-            $this->end = Kronolith::parseDate($end_date . ' ' . Horde_Util::getFormData('end_time'));
+            $this->end = Kronolith::parseDate($end_date . ' ' . Horde_Util::getFormData('end_time'), true, $this->timezone);
             if ($allDay) {
                 $this->end->hour = 23;
                 $this->end->min = $this->end->sec = 59;
@@ -2300,7 +2331,8 @@ abstract class Kronolith_Event
                                               'min' => $end_min,
                                               'month' => $end_month,
                                               'mday' => $end_day,
-                                              'year' => $end_year));
+                                              'year' => $end_year),
+                                        $this->timezone);
             if ($this->end->compareDateTime($this->start) < 0) {
                 $this->end = new Horde_Date($this->start);
             }
@@ -2377,7 +2409,8 @@ abstract class Kronolith_Event
                               'sec' => 59,
                               'month' => $recur_enddate['month'],
                               'mday' => $recur_enddate['day'],
-                              'year' => $recur_enddate['year']));
+                              'year' => $recur_enddate['year']),
+                        $this->timezone);
                 }
                 $this->recurrence->setRecurEnd($recurEnd);
             } elseif (Horde_Util::getFormData('recur_end_type') == 'count') {
@@ -2467,6 +2500,9 @@ abstract class Kronolith_Event
                 }
             }
         }
+
+        // Convert to local timezone.
+        $this->setTimezone(false);
 
         // Tags.
         $this->tags = Horde_Util::getFormData('tags', $this->tags);

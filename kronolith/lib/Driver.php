@@ -133,6 +133,16 @@ class Kronolith_Driver
     }
 
     /**
+     * Returns whether this driver supports per-event timezones.
+     *
+     * @return boolean  Whether this drivers suppports per-event timezones.
+     */
+    public function supportsTimezones()
+    {
+        return false;
+    }
+
+    /**
      * Searches a calendar.
      *
      * @param object $query  An object with the criteria to search for.
