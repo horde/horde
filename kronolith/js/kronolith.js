@@ -1114,6 +1114,7 @@ KronolithCore = {
         }
         if (type != 'holiday' && type != 'external') {
             div.insert(new Element('span', { className: 'kronolithCalEdit' })
+                   .setStyle({ backgroundColor: cal.bg, color: cal.fg })
                    .insert('&#9658;'));
         }
         calendar = new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
