@@ -9,7 +9,7 @@
  * @author   Stuart Binge <omicron@mighty.co.za>
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -26,7 +26,7 @@
  * @author   Stuart Binge <omicron@mighty.co.za>
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Date
 {
@@ -172,8 +172,8 @@ class Horde_Kolab_Format_Date
     /**
      * Parse the provided string into a PHP DateTime object.
      *
-     * @param string $date     The Kolab date-time value.
-     * @param string $timezone The associated timezone.
+     * @param string $date_time The Kolab date-time value.
+     * @param string $timezone  The associated timezone.
      *
      * @since Horde_Kolab_Format 1.1.0
      *
