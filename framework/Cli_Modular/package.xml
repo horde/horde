@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
  <notes>
-* 
+* [gwr] Fixed wording of the documentation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -184,7 +184,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
    <notes>
-* 
+* [gwr] Fixed wording of the documentation.
    </notes>
   </release>
  </changelog>

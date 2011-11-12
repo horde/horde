@@ -41,7 +41,7 @@ extends PHPUnit_Framework_TestCase
             new Horde_Kolab_Storage_Factory(),
             array('backend' => $this->_getNamespaceMock())
         );
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder_Namespace',
             $driver->getNamespace()
         );
