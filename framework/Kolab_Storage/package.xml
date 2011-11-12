@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-08-02</date>
- <time>12:55:47</time>
+ <date>2011-11-13</date>
+ <time>00:22:09</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -44,6 +44,7 @@
         <file name="list.php" role="doc" />
        </dir> <!-- /doc/Horde/Kolab/Storage/examples -->
        <file name="API.txt" role="doc" />
+       <file name="COPYING" role="doc" />
        <file name="TODO" role="doc" />
        <file name="usage.txt" role="doc" />
       </dir> <!-- /doc/Horde/Kolab/Storage -->
@@ -663,6 +664,7 @@
  <phprelease>
   <filelist>
    <install as="API.txt" name="doc/Horde/Kolab/Storage/API.txt" />
+   <install as="COPYING" name="doc/Horde/Kolab/Storage/COPYING" />
    <install as="TODO" name="doc/Horde/Kolab/Storage/TODO" />
    <install as="usage.txt" name="doc/Horde/Kolab/Storage/usage.txt" />
    <install as="examples/list.php" name="doc/Horde/Kolab/Storage/examples/list.php" />
@@ -1056,7 +1058,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-02</date>
+   <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Readded support for updating Horde_History.
