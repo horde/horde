@@ -142,7 +142,7 @@ if ($tasks->hasTasks()) {
         }
         if ($task_complete_class) { $task_complete_class = ' class="' . $task_complete_class . '"'; }
 
-        echo '<li' . $style . '><a rel="external" href="' . $task_link . '">' . htmlspecialchars($task->name) . '</a><a data-task="' . htmlspecialchars($task->id) . '" data-tasklist="' . htmlspecialchars($task->tasklist) . '" data-icon="' . $icon . '" href="#"' . $task_complete_class . '>' . $label . '</a></li>';
+        echo '<li' . $style . '><a data-rel="dialog" data-transition="slideup" href="' . str_replace('view.php', 'mobile-view.php', $task_link) . '">' . htmlspecialchars($task->name) . '</a><a data-task="' . htmlspecialchars($task->id) . '" data-tasklist="' . htmlspecialchars($task->tasklist) . '" data-icon="' . $icon . '" href="#"' . $task_complete_class . '>' . $label . '</a></li>';
     }
 }
 ?>
