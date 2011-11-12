@@ -23,6 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [gwr] Readded support for updating Horde_History.
 * [gwr] Fixed support for multiple namespaces of the same type.
 * [jan] Update Latvian translation.
 * [gwr] Added support for retrieving objects by backend id.
@@ -1058,6 +1059,7 @@
    <date>2011-08-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [gwr] Readded support for updating Horde_History.
 * [gwr] Fixed support for multiple namespaces of the same type.
 * [jan] Update Latvian translation.
 * [gwr] Added support for retrieving objects by backend id.
