@@ -30,8 +30,6 @@
 * [gwr] Allow adding XML attributes on the fly.
 * [gwr] Avoid overwriting data from other Kolab clients.
 * [gwr] Added improved root node handler (version checking, avoids overwriting other data).
-* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
-* [gwr] Fixed detecting parse errors in subsequent parse attempts.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -543,8 +541,6 @@
 * [gwr] Allow adding XML attributes on the fly.
 * [gwr] Avoid overwriting data from other Kolab clients.
 * [gwr] Added improved root node handler (version checking, avoids overwriting other data).
-* [gwr] Removed stray kolab-format script which was moved to Horde_Kolab_Cli.
-* [gwr] Fixed detecting parse errors in subsequent parse attempts.
    </notes>
   </release>
  </changelog>
