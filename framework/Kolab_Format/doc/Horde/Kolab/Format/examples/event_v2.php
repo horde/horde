@@ -1,6 +1,6 @@
 <?php
 /**
- * A sample script for reading/writing an event.
+ * A sample script for reading/writing an event using internal API version 2.
  *
  * PHP version 5
  *
@@ -20,14 +20,19 @@ require_once 'Horde/Autoloader/Default.php';
 $factory = new Horde_Kolab_Format_Factory();
 
 /** Generate the format handler */
-$format = $factory->create('Xml', 'Event', array('version' => 1));
+$format = $factory->create('Xml', 'Event');
 
+$now = new DateTime();
 /** Prepare a test object */
 $object = array(
     'uid' => 1,
     'summary' => 'test event',
-    'start-date' => time(),
-    'end-date' => time() + 24 * 60 * 60,
+    'start-date' => array(
+        'date' => $now,
+    ),
+    'end-date' => array(
+        'date' => $now,
+    )
 );
 
 /** Save this test data array in Kolab XML format */
