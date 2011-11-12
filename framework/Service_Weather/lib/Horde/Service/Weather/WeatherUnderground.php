@@ -241,7 +241,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         // Station information doesn't include any type of name string, so
         // get it from the currentConditions request.
         $this->_current = $this->_parseCurrent($results->current_observation);
-        $station->name = $this->_current->location->location;
+        $station->name = $results->current_observation->display_location->full;
         $this->_station = $station;
         $this->_forecast = $this->_parseForecast($results->forecast);
     }
