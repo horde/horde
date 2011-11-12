@@ -61,35 +61,20 @@ var NagConf = {
  <ul data-role="listview">
 <?php
 if ($tasks->hasTasks()) {
-    $sortby = $prefs->getValue('sortby');
-    $sortdir = $prefs->getValue('sortdir');
     $dateFormat = $prefs->getValue('date_format');
-    $columns = @unserialize($prefs->getValue('tasklist_columns'));
-    if (empty($columns)) {
-        $columns = array();
-    }
     $dynamic_sort = true;
-
-    $baseurl = 'list.php';
-    if ($actionID == 'search_tasks') {
-        $baseurl = Horde_Util::addParameter(
-            $baseurl,
-            array('actionID' => 'search_tasks',
-                  'search_pattern' => $search_pattern,
-                  'search_name' => $search_name ? 'on' : 'off',
-                  'search_desc' => $search_desc ? 'on' : 'off',
-                  'search_category' => $search_category ? 'on' : 'off'));
-    }
 
     $tasks->reset();
     while ($task = $tasks->each()) {
         $dynamic_sort &= !$task->hasSubTasks();
 
         $style = '';
+        $overdue = false;
         if (!empty($task->completed)) {
             $style = 'closed';
         } elseif (!empty($task->due) && $task->due < time()) {
             $style = 'overdue';
+            $overdue = true;
         }
         if ($style) { $style = ' class="' . $style . '"'; }
 
@@ -142,7 +127,7 @@ if ($tasks->hasTasks()) {
         }
         if ($task_complete_class) { $task_complete_class = ' class="' . $task_complete_class . '"'; }
 
-        echo '<li' . $style . '><a data-rel="dialog" data-transition="slideup" href="' . str_replace('view.php', 'mobile-view.php', $task_link) . '">' . htmlspecialchars($task->name) . '</a><a data-task="' . htmlspecialchars($task->id) . '" data-tasklist="' . htmlspecialchars($task->tasklist) . '" data-icon="' . $icon . '" href="#"' . $task_complete_class . '>' . $label . '</a></li>';
+        echo '<li' . $style . '><a data-rel="dialog" data-transition="slideup" href="' . str_replace('view.php', 'mobile-view.php', $task_link) . '"><h3>' . htmlspecialchars($task->name) . '</h3><p>' . htmlspecialchars(substr($task->desc, 0, 1000)) . '</p><p class="ui-li-aside' . ($overdue ? ' overdue' : '') . '"><strong>' . ($task->due ? strftime($dateFormat, $task->due) : '&nbsp;') . '</strong></p></a><a data-task="' . htmlspecialchars($task->id) . '" data-tasklist="' . htmlspecialchars($task->tasklist) . '" data-icon="' . $icon . '" href="#"' . $task_complete_class . '>' . $label . '</a></li>';
     }
 }
 ?>
