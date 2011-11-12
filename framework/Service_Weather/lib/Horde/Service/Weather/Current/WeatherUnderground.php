@@ -25,8 +25,6 @@
         'humidity' => 'relative_humidity',
         'wind_direction' => 'wind_dir',
         'wind_degrees' => 'wind_degrees',
-        'pressure' => 'pressure_in',
-        'pressure_trend' => 'pressure_trend',
         'icon' => 'icon',
         'icon_url' => 'icon_url'
     );
@@ -94,6 +92,21 @@
             }
             return $this->_properties['visibility_km'];
 
+        case 'pressure':
+            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['pressure_in'];
+            }
+            return $this->_properties['pressure_mb'];
+
+        case 'pressure_trend':
+            switch ($this->_properties['pressure_trend']) {
+            case '0':
+                return Horde_Service_Weather_Translation::t('steady');
+            case '+':
+                return Horde_Service_Weather_Translation::t('rising');
+            case '-':
+                return Horde_Service_Weather_Translation::t('falling');
+            }
         default:
             if (empty($this->_map[$property])) {
                 throw new Horde_Service_Weather_Exception_InvalidProperty();
