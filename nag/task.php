@@ -75,7 +75,6 @@ case 'add_task':
         Horde::url('list.php', true)->redirect();
     }
 
-    $vars->set('actionID', 'save_task');
     if (!$vars->exists('tasklist_id')) {
         $vars->set('tasklist_id', Nag::getDefaultTasklist(Horde_Perms::EDIT));
     }
@@ -100,7 +99,6 @@ case 'modify_task':
             $notification->push(_("Access denied editing task."), 'horde.error');
         } else {
             $vars = new Horde_Variables($task->toHash());
-            $vars->set('actionID', 'save_task');
             $vars->set('old_tasklist', $task->tasklist);
             $vars->set('url', Horde_Util::getFormData('url'));
             $form = new Nag_Form_Task($vars, sprintf(_("Edit: %s"), $task->name), $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE));
@@ -111,93 +109,12 @@ case 'modify_task':
     /* Return to the task list. */
     Horde::url('list.php', true)->redirect();
 
-case 'save_task':
-    if ($vars->get('submitbutton') == _("Delete this task")) {
-        _delete($vars->get('task_id'), $vars->get('old_tasklist'));
-    }
-
-    $form = new Nag_Form_Task($vars, $vars->get('task_id') ? sprintf(_("Edit: %s"), $vars->get('name')) : _("New Task"));
-    if (!$form->validate($vars)) {
-        break;
-    }
-
-    $form->getInfo($vars, $info);
-    if ($prefs->isLocked('default_tasklist') ||
-        count(Nag::listTasklists(false, Horde_Perms::EDIT)) <= 1) {
-        $info['tasklist_id'] = $info['old_tasklist'] = Nag::getDefaultTasklist(Horde_Perms::EDIT);
-    }
-    try {
-        $share = $GLOBALS['nag_shares']->getShare($info['tasklist_id']);
-    } catch (Horde_Share_Exception $e) {
-        $notification->push(sprintf(_("Access denied saving task: %s"), $e->getMessage()), 'horde.error');
-        Horde::url('list.php', true)->redirect();
-    }
-    if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-        $notification->push(sprintf(_("Access denied saving task to %s."), $share->get('name')), 'horde.error');
-        Horde::url('list.php', true)->redirect();
-    }
-
-    /* Add new category. */
-    if ($info['category']['new']) {
-        $cManager = new Horde_Prefs_CategoryManager();
-        $cManager->add($info['category']['value']);
-    }
-
-    /* If a task id is set, we're modifying an existing task.
-     * Otherwise, we're adding a new task with the provided
-     * attributes. */
-    if (!empty($info['task_id']) && !empty($info['old_tasklist'])) {
-        $storage = Nag_Driver::singleton($info['old_tasklist']);
-        $result = $storage->modify($info['task_id'], $info['name'],
-                                   $info['desc'], $info['start'],
-                                   $info['due'], $info['priority'],
-                                   (float)$info['estimate'],
-                                   (int)$info['completed'],
-                                   $info['category']['value'],
-                                   $info['alarm'], $info['methods'],
-                                   $info['parent'], (int)$info['private'],
-                                   $GLOBALS['registry']->getAuth(), $info['assignee'], null,
-                                   $info['tasklist_id']);
-    } else {
-        /* Check permissions. */
-        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
-        if ($perms->hasAppPermission('max_tasks') !== true &&
-            $perms->hasAppPermission('max_tasks') <= Nag::countTasks()) {
-            Horde::url('list.php', true)->redirect();
-        }
-
-        /* Creating a new task. */
-        $storage = Nag_Driver::singleton($info['tasklist_id']);
-        try {
-            $storage->add(
-                $info['name'], $info['desc'], $info['start'],
-                $info['due'], $info['priority'],
-                (float)$info['estimate'],
-                (int)$info['completed'],
-                $info['category']['value'],
-                $info['alarm'], $info['methods'], null,
-                $info['parent'], (int)$info['private'],
-                $GLOBALS['registry']->getAuth(), $info['assignee']
-            );
-        } catch (Nag_Exception $e) {
-            $notification->push(sprintf(_("There was a problem saving the task: %s."), $result->getMessage()), 'horde.error');
-            Horde::url('list.php', true)->redirect();
-        }
-    }
-
-    /* Check our results. */
-    $notification->push(sprintf(_("Saved %s."), $info['name']), 'horde.success');
-    /* Return to the last page or to the task list. */
-    if ($url = Horde_Util::getFormData('url')) {
-        header('Location: ' . $url);
-        exit;
-    }
-    Horde::url('list.php', true)->redirect();
-    break;
-
 case 'delete_task':
     /* Delete the task if we're provided with a valid task ID. */
     _delete(Horde_Util::getFormData('task'), Horde_Util::getFormData('tasklist'));
+    break;
+
+case 'task_form':
     break;
 
 default:

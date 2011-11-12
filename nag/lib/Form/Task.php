@@ -67,7 +67,6 @@ class Nag_Form_Task extends Horde_Form
             4 => 4,
             5 => '5 ' . _("(lowest)")
         );
-        $this->addHidden('', 'actionID', 'text', true);
         $this->addHidden('', 'task_id', 'text', false);
         $this->addHidden('', 'old_tasklist', 'text', false);
         $this->addHidden('', 'url', 'text', false);
@@ -124,7 +123,6 @@ class Nag_Form_Task extends Horde_Form
 
     public function renderActive()
     {
-        return parent::renderActive(new Nag_Form_Renderer_Task(array('varrenderer_driver' => array('nag', 'nag')), $this->delete), $this->_vars, 'task.php', 'post');
+        return parent::renderActive(new Nag_Form_Renderer_Task(array('varrenderer_driver' => array('nag', 'nag')), $this->delete), $this->_vars, Horde::url('t/save'), 'post');
     }
-
 }
