@@ -35,6 +35,11 @@
         $this->_parseStd();
     }
 
+    public getForecastTime()
+    {
+        return new Horde_Date(new Horde_Date((string)$results->weather->forecast_information->current_date_time['data']));
+    }
+
     /**
      * Parse standard forecast data.
      *

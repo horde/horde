@@ -96,4 +96,9 @@
         return $_periods[$day];
     }
 
+    public function getForecastTime()
+    {
+        return false;
+    }
+
  }
