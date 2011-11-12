@@ -68,6 +68,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 'values' => array(
                     '3' => Horde_Service_Weather::FORECAST_3DAY,
                     '5' => Horde_Service_Weather::FORECAST_5DAY,
+                    '7' => Horde_Service_Weather::FORECAST_7DAY
                 )
             ),
             'detailedForecast' => array(
@@ -219,6 +220,9 @@ class Horde_Block_Weather extends Horde_Core_Block
             $which = -1;
             foreach ($forecast as $day) {
                  $which++;
+                 if ($which > $this->_params['days']) {
+                     break;
+                 }
                  $html .= '<tr class="item0">';
                  // Day name.
                  // $html .= '<td rowspan="2" style="border:1px solid #ddd; text-align:center"><strong>';
@@ -290,18 +294,26 @@ class Horde_Block_Weather extends Horde_Core_Block
             }
             $html .= '</table>';
         }
+
+        if ($weather->logo) {
+            $html .= '<div class="rightAlign">'
+                . _("Weather data provided by") . ' '
+                . Horde::link(
+                    Horde::externalUrl($weather->link),
+                    $weather->title, '', '_blank', '', $weather->title)
+                . '<em>' . $weather->title . '</em><img src="' . $weather->logo . '" />'
+                . '</a></div>';
+        } else {
+            $html .= '<div class="rightAlign">'
+                . _("Weather data provided by") . ' '
+                . Horde::link(
+                    Horde::externalUrl($weather->link),
+                    $weather->title, '', '_blank', '', $weather->title)
+                . '<em>' . $weather->title . '</em>'
+                . '</a></div>';
+        }
+
         return $html;
-        // // Display a bar at the bottom of the block with the required
-        // // attribution to weather.com and the logo, both linked to
-        // // weather.com with the partner ID.
-        // return $html . '<div class="rightAlign">' .
-        //     _("Weather data provided by") . ' ' .
-        //     Horde::link(Horde::externalUrl('http://www.weather.com/?prod=xoap&amp;par=' .
-        //                 $weatherDotCom->_partnerID),
-        //                 'weather.com', '', '_blank', '', 'weather.com') .
-        //     '<em>weather.com</em>&reg; ' .
-        //     Horde::img('block/weatherdotcom/32x32/TWClogo_32px.png', 'weather.com logo') .
-        //     '</a></div>';
     }
 
 }
