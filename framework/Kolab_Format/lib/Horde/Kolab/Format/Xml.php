@@ -232,7 +232,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     {
         $this->_xmldoc = $this->_getParser()->parse($xml, $options);
         $this->_refreshParser();
-       
+
         $params = $this->_getParameters($options);
         $this->_getRoot($params)->load(
             $this->_root_name,

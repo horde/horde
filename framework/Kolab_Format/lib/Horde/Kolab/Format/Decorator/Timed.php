@@ -58,11 +58,10 @@ extends Horde_Kolab_Format_Decorator_Base
      * @param mixed               $logger  The optional logger. If set this
      *                                     needs to provide a debug() method.
      */
-    public function __construct(
-        Horde_Kolab_Format $handler,
-        Horde_Support_Timer $timer,
-        $logger = null
-    ) {
+    public function __construct(Horde_Kolab_Format $handler,
+                                Horde_Support_Timer $timer,
+                                $logger = null)
+    {
         parent::__construct($handler);
         $this->_timer = $timer;
         $this->_logger = $logger;

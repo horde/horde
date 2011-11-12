@@ -42,11 +42,11 @@ extends Horde_Kolab_Format_Exception
      */
     public function __construct($input)
     {
-        if (strlen((string) $input) > 50) {
-            $output = substr((string) $input, 0, 50)
+        if (strlen((string)$input) > 50) {
+            $output = substr((string)$input, 0, 50)
                 . '... [shortened to 50 characters]';
         } else {
-            $output = (string) $input;
+            $output = (string)$input;
         }
         $this->_input = $input;
         parent::__construct(

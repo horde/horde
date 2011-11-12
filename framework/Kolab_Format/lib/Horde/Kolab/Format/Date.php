@@ -83,7 +83,7 @@ class Horde_Kolab_Format_Date
             return 0;
         }
 
-        return (strlen($date) == 10 ? Horde_Kolab_Format_Date::decodeDate($date) : Horde_Kolab_Format_Date::decodeDateTime($date));
+        return (strlen($date) == 10 ? self::decodeDate($date) : self::decodeDateTime($date));
     }
 
     /**
@@ -143,7 +143,7 @@ class Horde_Kolab_Format_Date
          * remove a potential microseconds part and attempt parsing again.
          */
         $date_time = preg_replace(
-            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/', 
+            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/',
             '\1Z',
             $date_time
         );
@@ -198,7 +198,7 @@ class Horde_Kolab_Format_Date
          * remove a potential microseconds part and attempt parsing again.
          */
         $date_time = preg_replace(
-            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/', 
+            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/',
             '\1Z',
             $date_time
         );
