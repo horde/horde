@@ -385,6 +385,7 @@ class Horde_Date_Recurrence
 
             $start_week = Horde_Date_Utils::firstDayOfWeek($this->start->format('W'),
                                                            $this->start->year);
+            $start_week->timezone = $this->start->timezone;
             $start_week->hour = $this->start->hour;
             $start_week->min  = $this->start->min;
             $start_week->sec  = $this->start->sec;
@@ -402,6 +403,7 @@ class Horde_Date_Recurrence
             }
 
             $after_week = Horde_Date_Utils::firstDayOfWeek($week, $theYear);
+            $after_week->timezone = $this->start->timezone;
             $after_week_end = clone $after_week;
             $after_week_end->mday += 7;
 
