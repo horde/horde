@@ -155,8 +155,8 @@ class Horde_Kolab_Format_Date
     /**
      * Parse the provided string into a PHP DateTime object.
      *
-     * @param string $date_time The Kolab date value.
-     * @param string $timezon   The associated timezone.
+     * @param string $date     The Kolab date value.
+     * @param string $timezone The associated timezone.
      *
      * @since Horde_Kolab_Format 1.1.0
      *
@@ -172,8 +172,8 @@ class Horde_Kolab_Format_Date
     /**
      * Parse the provided string into a PHP DateTime object.
      *
-     * @param string $date_time The Kolab date-time value.
-     * @param string $timezon   The associated timezone.
+     * @param string $date     The Kolab date-time value.
+     * @param string $timezone The associated timezone.
      *
      * @since Horde_Kolab_Format 1.1.0
      *
@@ -245,7 +245,7 @@ class Horde_Kolab_Format_Date
      * Write the provided PHP DateTime object into a Kolab format date
      * representation.
      *
-     * @param DateTime $date_time The PHP DateTime object.
+     * @param DateTime $date The PHP DateTime object.
      *
      * @since Horde_Kolab_Format 1.1.0
      *

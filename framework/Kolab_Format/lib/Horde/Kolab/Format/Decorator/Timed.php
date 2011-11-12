@@ -70,7 +70,9 @@ extends Horde_Kolab_Format_Decorator_Base
     /**
      * Load an object based on the given XML stream.
      *
-     * @param resource $xml The XML stream of the message.
+     * @param resource $xml     The XML stream of the message.
+     * @param array    $options Additional options when parsing the XML. This
+     *                          decorator provides no additional options.
      *
      * @return array The data array representing the object.
      *
@@ -92,6 +94,8 @@ extends Horde_Kolab_Format_Decorator_Base
      * Convert the data to a XML stream.
      *
      * @param array $object The data array representing the object.
+     * @param array $options Additional options when writing the XML. This
+     *                       decorator provides no additional options.
      *
      * @return resource The data as XML stream.
      *
