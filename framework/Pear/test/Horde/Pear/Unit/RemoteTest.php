@@ -37,7 +37,7 @@ extends Horde_Pear_TestCase
 {
     public function testListPackages()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->getRemoteList()->listPackages()
         );

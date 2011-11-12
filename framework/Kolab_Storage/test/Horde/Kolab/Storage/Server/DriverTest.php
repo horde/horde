@@ -149,7 +149,7 @@ class Horde_Kolab_Storage_Server_DriverTest extends PHPUnit_Framework_TestCase
      */
     public function testDriverType($driver)
     {
-        $this->assertType('Horde_Kolab_Storage_Driver', $this->_getDriver($driver));
+        $this->assertInstanceOf('Horde_Kolab_Storage_Driver', $this->_getDriver($driver));
     }
 
     /**

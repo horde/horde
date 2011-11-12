@@ -48,7 +48,7 @@ extends PHPUnit_Framework_TestCase
         $driver = new Horde_Kolab_Storage_Driver_Cclient(
             new Horde_Kolab_Storage_Factory(), array()
         );
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder_Namespace',
             $driver->getNamespace()
         );

@@ -9,7 +9,7 @@
  * @author   Stuart Binge <omicron@mighty.co.za>
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -26,7 +26,7 @@
  * @author   Stuart Binge <omicron@mighty.co.za>
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Date
 {
@@ -83,7 +83,7 @@ class Horde_Kolab_Format_Date
             return 0;
         }
 
-        return (strlen($date) == 10 ? Horde_Kolab_Format_Date::decodeDate($date) : Horde_Kolab_Format_Date::decodeDateTime($date));
+        return (strlen($date) == 10 ? self::decodeDate($date) : self::decodeDateTime($date));
     }
 
     /**
@@ -143,7 +143,7 @@ class Horde_Kolab_Format_Date
          * remove a potential microseconds part and attempt parsing again.
          */
         $date_time = preg_replace(
-            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/', 
+            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/',
             '\1Z',
             $date_time
         );
@@ -155,8 +155,8 @@ class Horde_Kolab_Format_Date
     /**
      * Parse the provided string into a PHP DateTime object.
      *
-     * @param string $date_time The Kolab date value.
-     * @param string $timezon   The associated timezone.
+     * @param string $date     The Kolab date value.
+     * @param string $timezone The associated timezone.
      *
      * @since Horde_Kolab_Format 1.1.0
      *
@@ -173,7 +173,7 @@ class Horde_Kolab_Format_Date
      * Parse the provided string into a PHP DateTime object.
      *
      * @param string $date_time The Kolab date-time value.
-     * @param string $timezon   The associated timezone.
+     * @param string $timezone  The associated timezone.
      *
      * @since Horde_Kolab_Format 1.1.0
      *
@@ -198,7 +198,7 @@ class Horde_Kolab_Format_Date
          * remove a potential microseconds part and attempt parsing again.
          */
         $date_time = preg_replace(
-            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/', 
+            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/',
             '\1Z',
             $date_time
         );
@@ -245,7 +245,7 @@ class Horde_Kolab_Format_Date
      * Write the provided PHP DateTime object into a Kolab format date
      * representation.
      *
-     * @param DateTime $date_time The PHP DateTime object.
+     * @param DateTime $date The PHP DateTime object.
      *
      * @since Horde_Kolab_Format 1.1.0
      *

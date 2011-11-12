@@ -163,6 +163,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the qc handler for a package.
+     *
+     * @return Components_Runner_Qc The qc handler.
+     */
+    public function getRunnerQc()
+    {
+        return $this->getInstance('Components_Runner_Qc');
+    }
+
+    /**
      * Returns the change log handler for a package.
      *
      * @return Components_Runner_Change The change log handler.

@@ -110,8 +110,6 @@ class Horde_Kolab_Format_Xml_Parser
      * @return DOMDocument The DOM document.
      *
      * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
-     *
-     * @todo Make protected (fix the XmlTest for that)
      */
     private function _parseXml($input, $options = array())
     {

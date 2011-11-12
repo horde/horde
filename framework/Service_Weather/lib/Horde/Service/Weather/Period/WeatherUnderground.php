@@ -24,6 +24,10 @@
  *  high                   High temperature.
  *  low                    Low  temperature.
  *  date                   Period date.
+ *  humidity               The predicted humidity
+ *  wind_degrees           Wind direction, in degrees
+ *  wind_direction         Ordinal wind direction
+ *  wind_speed             Wind speed, in requested units.
  *</pre>
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
@@ -46,7 +50,8 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
         'conditions' => 'conditions',
         'icon_url' => 'icon_url',
         'precipitation_percent' => 'pop',
-        'period' => 'period'
+        'period' => 'period',
+        'humidity' => 'maxhumidity',
     );
 
     /**
@@ -91,6 +96,18 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
 
         case 'icon':
             return $this->_forecast->weather->iconMap[$this->_properties['icon']];
+
+        case 'wind_direction':
+            return $this->_properties['avewind']->dir;
+
+        case 'wind_degrees':
+            return $this->_properties['avewind']->degrees;
+
+        case 'wind_speed':
+           if ($this->units = Horde_Service_Weather::UNITS_STANDARD) {
+               return $this->_properties['avewind']->mph;
+           }
+           return $this->_properties['avewind']->kph;
 
         default:
             if (!empty($this->_map[$property])) {

@@ -79,6 +79,10 @@ class Horde_Service_Weather_Period_Google extends Horde_Service_Weather_Period_B
         case 'hour':
         case 'precipitation_percent':
         case 'period':
+        case 'humidity':
+        case 'wind_speed':
+        case 'wind_direction':
+        case 'wind_degrees':
             // Not supported by Google.
             return false;
         case 'date':

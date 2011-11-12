@@ -236,13 +236,10 @@ extends Horde_Kolab_Format_Xml_Type_Base
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    private function _writeComposite(
-        $parent_node,
-        $name,
-        $values,
-        Horde_Kolab_Format_Xml_Helper $helper,
-        $params
-    ) {
+    private function _writeComposite($parent_node, $name, $values,
+                                     Horde_Kolab_Format_Xml_Helper $helper,
+                                     $params)
+    {
         foreach ($this->elements as $sub_name => $sub_type) {
             $this->createSubType($sub_type, $params)
                 ->save($sub_name, $values, $parent_node, $helper, $params);

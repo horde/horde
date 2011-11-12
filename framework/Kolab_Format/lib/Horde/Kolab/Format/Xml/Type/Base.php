@@ -86,13 +86,9 @@ class Horde_Kolab_Format_Xml_Type_Base
      * @return DOMNode|boolean The named DOMNode or false if no node value was
      *                         found.
      */
-    public function load(
-        $name,
-        &$attributes,
-        $parent_node,
-        Horde_Kolab_Format_Xml_Helper $helper,
-        $params = array()
-    )
+    public function load($name, &$attributes, $parent_node,
+                         Horde_Kolab_Format_Xml_Helper $helper,
+                         $params = array())
     {
         if ($node = $helper->findNodeRelativeTo('./' . $name, $parent_node)) {
             if (($value = $this->loadNodeValue($node, $helper, $params)) !== null) {
@@ -113,11 +109,8 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @return mixed|null The value or null if no value was found.
      */
-    public function loadNodeValue(
-        $node,
-        Horde_Kolab_Format_Xml_Helper $helper,
-        $params = array()
-    )
+    public function loadNodeValue($node, Horde_Kolab_Format_Xml_Helper $helper,
+                                  $params = array())
     {
         return $helper->fetchNodeValue($node);
     }
@@ -164,13 +157,9 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    public function save(
-        $name,
-        $attributes,
-        $parent_node,
-        Horde_Kolab_Format_Xml_Helper $helper,
-        $params = array()
-    )
+    public function save($name, $attributes, $parent_node,
+                         Horde_Kolab_Format_Xml_Helper $helper,
+                         $params = array())
     {
         $node = $helper->findNodeRelativeTo(
             './' . $name, $parent_node

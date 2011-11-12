@@ -58,10 +58,8 @@ class Components_Helper_Website
      */
     public function update(Components_Component $component, $options)
     {
-        if (empty($options['destination']) && empty($options['websource'])) {
-            throw new Components_Exception('One of either "destination" or "websource" MUST be set for this action!');
-        } else if (empty($options['destination'])) {
-            $destination = $options['websource'];
+        if (empty($options['destination'])) {
+            throw new Components_Exception('"destination" MUST be set for this action!');
         } else {
             $destination = $options['destination'];
         }

@@ -41,7 +41,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             new Horde_Kolab_Storage_Factory()
         );
-        $this->assertType('array', $list->listFolders());
+        $this->assertInternalType('array', $list->listFolders());
     }
 
     public function testListReturnsFolders()
@@ -62,7 +62,7 @@ extends Horde_Kolab_Storage_TestCase
             $this->getNullMock(),
             new Horde_Kolab_Storage_Factory()
         );
-        $this->assertType('array', $list->listFolderTypes());
+        $this->assertInternalType('array', $list->listFolderTypes());
     }
 
     public function testGetNamespace()

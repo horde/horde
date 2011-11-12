@@ -62,10 +62,8 @@ class Horde_Pear_Package_Xml_Directory
      * @param mixed                                    $parent The parent directory
      *                                                         or the XML document.
      */
-    public function __construct(
-        Horde_Pear_Package_Xml_Element_Directory $dir,
-        $parent
-    )
+    public function __construct(Horde_Pear_Package_Xml_Element_Directory $dir,
+                                $parent)
     {
         $this->_element = $dir;
         $this->_parent = $parent;
@@ -138,10 +136,8 @@ class Horde_Pear_Package_Xml_Directory
      *
      * @return Horde_Pear_Package_Xml_Directory
      */
-    private function _create(
-        Horde_Pear_Package_Xml_Element_Directory $element,
-        Horde_Pear_Package_Xml_Directory $parent
-    )
+    private function _create(Horde_Pear_Package_Xml_Element_Directory $element,
+                             Horde_Pear_Package_Xml_Directory $parent)
     {
         return $this->_getRoot()->createDirectory($element, $parent);
     }
