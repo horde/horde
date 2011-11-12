@@ -83,6 +83,7 @@ class Horde_Service_Weather_Period_Google extends Horde_Service_Weather_Period_B
         case 'wind_speed':
         case 'wind_direction':
         case 'wind_degrees':
+        case 'wind_gust':
             // Not supported by Google.
             return false;
         case 'date':
