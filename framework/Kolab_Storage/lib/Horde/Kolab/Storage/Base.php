@@ -86,12 +86,11 @@ implements Horde_Kolab_Storage
      *                    A key of '' indicates the default system user.
      * </pre>
      */
-    public function __construct(
-        Horde_Kolab_Storage_Driver $master,
-        Horde_Kolab_Storage_QuerySet $query_set,
-        Horde_Kolab_Storage_Factory $factory,
-        array $params = array()
-    ) {
+    public function __construct(Horde_Kolab_Storage_Driver $master,
+                                Horde_Kolab_Storage_QuerySet $query_set,
+                                Horde_Kolab_Storage_Factory $factory,
+                                array $params = array())
+    {
         $this->_master    = $master;
         $this->_query_set = $query_set;
         $this->_factory   = $factory;
@@ -119,7 +118,7 @@ implements Horde_Kolab_Storage
         } else {
             $params = $this->_params['system'][$type];
         }
-        
+
         return $this->getList(
             $this->_factory->createDriver(array('params' => $params))
         );

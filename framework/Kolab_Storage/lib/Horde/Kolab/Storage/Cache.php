@@ -254,7 +254,7 @@ class Horde_Kolab_Storage_Cache
     private function _getAttachmentId($data_id, $obid, $attachment_id)
     {
         return md5(
-            serialize(array('d' => $data_id, 'o' => (string) $obid, 'p' => (string) $attachment_id))
+            serialize(array('d' => $data_id, 'o' => (string)$obid, 'p' => (string)$attachment_id))
         );
     }
 

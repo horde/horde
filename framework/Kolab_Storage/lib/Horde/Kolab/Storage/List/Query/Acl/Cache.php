@@ -74,10 +74,9 @@ extends Horde_Kolab_Storage_List_Query_Acl_Base
      * @param Horde_Kolab_Storage_List $list   The queriable list.
      * @param array                    $params Additional parameters.
      */
-    public function __construct(
-        Horde_Kolab_Storage_List $list,
-        $params
-    ) {
+    public function __construct(Horde_Kolab_Storage_List $list,
+                                $params)
+    {
         parent::__construct($list, $params);
         $this->_list_cache = $params['cache'];
         if ($this->_list_cache->hasQuery(self::ACL)) {

@@ -82,13 +82,12 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param int                         $version Format version of the object
      *                                             data.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Folder $folder,
-        Horde_Kolab_Storage_Driver $driver,
-        Horde_Kolab_Storage_Factory $factory,
-        $type = null,
-        $version = 1
-    ) {
+    public function __construct(Horde_Kolab_Storage_Folder $folder,
+                                Horde_Kolab_Storage_Driver $driver,
+                                Horde_Kolab_Storage_Factory $factory,
+                                $type = null,
+                                $version = 1)
+    {
         $this->_folder  = $folder;
         $this->_driver  = $driver;
         $this->_factory = $factory;

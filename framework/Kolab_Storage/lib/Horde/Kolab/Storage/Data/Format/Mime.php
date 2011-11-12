@@ -50,14 +50,13 @@ implements Horde_Kolab_Storage_Data_Format
      * @param Horde_Kolab_Storage_Data_Parser_Structure $structure The MIME based
      *                                                             object handler.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Factory $factory,
-        Horde_Kolab_Storage_Data_Parser_Structure $structure
-    ) {
+    public function __construct(Horde_Kolab_Storage_Factory $factory,
+                                Horde_Kolab_Storage_Data_Parser_Structure $structure)
+    {
         $this->_factory = $factory;
         $this->_structure = $structure;
     }
-    
+
     /**
      * Parses the objects for the specified backend IDs.
      *
@@ -117,7 +116,7 @@ implements Horde_Kolab_Storage_Data_Format
                     ),
                     0,
                     $e
-                );    
+                );
             }
         } else {
             return array('content' => $content);
@@ -243,15 +242,15 @@ implements Horde_Kolab_Storage_Data_Format
         if (empty($options['raw'])) {
             try {
                 $kolab->setContents(
-                    $this->_factory
-                    ->createFormat('Xml', $options['type'], $options['version'])
-                    ->save($object),
+                    $this->_factory->createFormat(
+                        'Xml', $options['type'], $options['version']
+                    )->save($object),
                     array('encoding' => 'quoted-printable')
                 );
             } catch (Horde_Kolab_Format_Exception $e) {
                 throw new Horde_Kolab_Storage_Exception(
                     'Failed saving Kolab object!', 0, $e
-                );    
+                );
             }
         } else {
             $kolab->setContents(
@@ -276,17 +275,16 @@ implements Horde_Kolab_Storage_Data_Format
      * @return string The ID of the modified object or true in case the backend
      *                does not support this return value.
      */
-    public function modify(
-        Horde_Kolab_Storage_Data_Modifiable $modifiable,
-        $object,
-        array $options
-    ) {
+    public function modify(Horde_Kolab_Storage_Data_Modifiable $modifiable,
+                           $object,
+                           array $options)
+    {
         $mime_id = $this->matchMimeId(
             $options['type'], $modifiable->getStructure()->contentTypeMap()
         );
         $modifiable->setPart(
             $mime_id, $this->createKolabPart($object, $options)
-        ); 
+        );
         return $modifiable->store();
     }
 }

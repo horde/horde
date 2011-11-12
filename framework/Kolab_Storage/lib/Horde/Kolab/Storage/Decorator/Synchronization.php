@@ -48,10 +48,9 @@ implements Horde_Kolab_Storage
      * @param Horde_Kolab_Storage                 $storage The storage handler.
      * @param Horde_Kolab_Storage_Synchronization $synchronization The synchronization strategy.
      */
-    public function __construct(
-        Horde_Kolab_Storage $storage,
-        Horde_Kolab_Storage_Synchronization $synchronization
-    ) {
+    public function __construct(Horde_Kolab_Storage $storage,
+                                Horde_Kolab_Storage_Synchronization $synchronization)
+    {
         $this->_storage = $storage;
         $this->_synchronization = $synchronization;
     }
