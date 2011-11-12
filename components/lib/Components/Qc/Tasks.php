@@ -115,8 +115,25 @@ class Components_Qc_Tasks
                 $selected_tasks[] = $task;
             }
         }
+        $output = $this->_dependencies->getInstance('Components_Output');
         foreach ($selected_tasks as $task) {
-            $task->run($options);
+            $output->bold(str_repeat('-', 30));
+            $output->ok(
+                'Running ' . $task->getName() . ' on ' . $component->getName() .
+                "\n"
+            );
+
+            $numErrors = $task->run($options);
+
+            $output->bold("\n");
+            if ($numErrors == 1) {
+                $output->warn("$numErrors error!");
+            } else if ($numErrors) {
+                $output->warn("$numErrors errors!");
+            } else {
+                $output->ok('No problems found.');
+            }
+            $output->bold(str_repeat('-', 30) . "\n");
         }
     }
 }

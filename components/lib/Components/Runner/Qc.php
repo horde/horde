@@ -79,6 +79,10 @@ class Components_Runner_Qc
             $sequence[] = 'cs';
         }
 
+        if ($this->_doTask('cpd')) {
+            $sequence[] = 'cpd';
+        }
+
         if ($this->_doTask('lint')) {
             $sequence[] = 'lint';
         }

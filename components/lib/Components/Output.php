@@ -150,6 +150,11 @@ class Components_Output
 
     public function help($text)
     {
+        $this->plain($text);
+    }
+
+    public function plain($text)
+    {
         $this->_cli->writeln($text);
     }
 

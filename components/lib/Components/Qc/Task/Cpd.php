@@ -1,6 +1,6 @@
 <?php
 /**
- * Components_Qc_Task_Cs:: runs a code style check on the component.
+ * Components_Qc_Task_Cpd:: runs a copy/paste check on the component.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Components_Qc_Task_Cs:: runs a code style check on the component.
+ * Components_Qc_Task_Cpd:: runs a copy/paste check on the component.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
@@ -25,7 +25,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Components
  */
-class Components_Qc_Task_Cs
+class Components_Qc_Task_Cpd
 extends Components_Qc_Task_Base
 {
     /**
@@ -35,7 +35,7 @@ extends Components_Qc_Task_Base
      */
     public function getName()
     {
-        return 'code style check';
+        return 'copy/paste detection';
     }
 
     /**
@@ -48,8 +48,8 @@ extends Components_Qc_Task_Base
      */
     public function validate($options)
     {
-        if (!class_exists('PHP_CodeSniffer')) {
-            return array('PHP CodeSniffer is not available!');
+        if (!class_exists('PHPCPD_Detector')) {
+            return array('PHP CPD is not available!');
         }
     }
 
@@ -63,20 +63,19 @@ extends Components_Qc_Task_Base
     public function run(&$options)
     {
         $lib = realpath($this->_config->getPath() . '/lib');
-        $argv = $_SERVER['argv'];
-        $argc = $_SERVER['argv'];
-        $_SERVER['argv'] = array();
-        $_SERVER['argc'] = 0;
-        $phpcs = new PHP_CodeSniffer();
-        $phpcs->process(
-            $lib,
-            Components_Constants::getDataDirectory() . '/qc_standards/phpcs.xml'
-        );
-        $_SERVER['argv'] = $argv;
-        $_SERVER['argc'] = $argc;
 
-        $reporting = new PHP_CodeSniffer_Reporting();
-        $filesViolations = $phpcs->getFilesErrors();
-        return $reporting->printReport('emacs', $filesViolations, false, null);
+        $files = File_Iterator_Factory::getFilesAsArray(
+            $lib, 'php'
+        );
+
+        $detector = new PHPCPD_Detector();
+        $clones   = $detector->copyPasteDetection(
+            $files, 5, 70
+        );
+
+        $printer = new PHPCPD_TextUI_ResultPrinter;
+        $printer->printResult($clones, $lib);
+
+        return count($clones);
     }
 }
