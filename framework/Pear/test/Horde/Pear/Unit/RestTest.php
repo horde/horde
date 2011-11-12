@@ -37,7 +37,7 @@ extends Horde_Pear_TestCase
 {
     public function testFetchPackageList()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'resource',
             $this->_getRest()->fetchPackageList()
         );
@@ -75,7 +75,7 @@ extends Horde_Pear_TestCase
 
     public function testPackageLatest()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->_getRest()->fetchLatestPackageReleases('TEST')
         );
