@@ -70,11 +70,11 @@ class Horde_Block_Weather extends Horde_Core_Block
                     '5' => Horde_Service_Weather::FORECAST_5DAY,
                 )
             ),
-            // 'detailedForecast' => array(
-            //     'type' => 'checkbox',
-            //     'name' => _("Display detailed forecast"),
-            //     'default' => 0
-            // )
+            'detailedForecast' => array(
+                'type' => 'checkbox',
+                'name' => _("Display detailed forecast"),
+                'default' => 0
+            )
         );
     }
 
@@ -194,7 +194,116 @@ class Horde_Block_Weather extends Horde_Core_Block
             Horde::img(Horde_Themes::img('weather/32x32/' . $current->icon))
             .  ' ' . $condition;
 
+        // Forecast
+        if ($this->_params['days'] > 0) {
+            $html .= '<div class="control"><strong>' .
+                sprintf(_("%d-day forecast"), $this->_params['days']) .
+                '</strong></div>';
+
+            $futureDays = 0;
+            $html .= '<table width="100%" cellspacing="3">';
+            // Headers.
+            $html .= '<tr>';
+            $html .= '<th>' . _("Day") . '</th><th>&nbsp;</th><th>' .
+                sprintf(_("Temperature<br />(%sHi%s/%sLo%s) &deg;%s"),
+                        '<span style="color:red">', '</span>',
+                        '<span style="color:blue">', '</span>',
+                        Horde_String::upper($units['temp'])) .
+                '</th><th>' . _("Condition") . '</th>' .
+                '<th>' . _("Precipitation<br />chance") . '</th>';
+            if (isset($this->_params['detailedForecast'])) {
+                $html .= '<th>' . _("Humidity") . '</th><th>' . _("Wind") . '</th>';
+            }
+            $html .= '</tr>';
+            $which = -1;
+            foreach ($forecast as $day) {
+                 $which++;
+                 $html .= '<tr class="item0">';
+                 // Day name.
+                 // $html .= '<td rowspan="2" style="border:1px solid #ddd; text-align:center"><strong>';
+                 $html .= '<td style="border:1px solid #ddd; text-align:center"><strong>';
+
+                 if ($which == 0) {
+                     $html .= _("Today");
+                 } elseif ($which == 1) {
+                     $html .= _("Tomorrow");
+                 } else {
+                     $html .= strftime('%A', mktime(0, 0, 0, date('m'), date('d') + $futureDays, date('Y')));
+                 }
+                $html .= '</strong><br />' .
+                    strftime('%b %d', mktime(0, 0, 0, date('m'), date('d') + $futureDays, date('Y'))) .
+                    '</td>' .
+                    '<td style="border:1px solid #ddd; text-align:center">' .
+                    '<span style="color:orange">' .
+                    _("Day") . '</span></td>';
+
+                // The day portion of the forecast is no longer available after 2:00 p.m. local today.
+                // ...but only check if we have a day/night forecast.
+                if ($forecast->detail == Horde_Service_Weather::FORECAST_TYPE_DETAILED &&
+                    $which == 0 &&
+                    (strtotime($location['time']) >= strtotime('14:00'))) {
+                    // Balance the grid.
+                    $html .= '<td colspan="' .
+                            ((isset($this->_params['detailedForecast']) ? '5' : '3') . '"') .
+                            ' style="border:1px solid #ddd; text-align:center">' .
+                            '&nbsp;<br />' . _("Information no longer available.") . '<br />&nbsp;' .
+                            '</td>';
+                } else {
+                    // Forecast condition.
+                     $condition = $day->conditions;
+
+                    // High temperature.
+                    $html .= '<td style="border:1px solid #ddd; text-align:center">' .
+                        '<span style="color:red">' .
+                        round($day->high) . '</span></td>';
+
+                    // Condition.
+                    $html .= '<td style="border:1px solid #ddd; text-align:center">' .
+                        Horde::img(Horde_Themes::img('weather/32x32/' . $day->icon)).
+                        '<br />' . $condition . '</td>';
+
+                    // Precipitation chance.
+                    $html .= '<td style="border:1px solid #ddd; text-align:center">' .
+                        $day->precipitation_percent . '%' . '</td>';
+
+                    // If a detailed forecast was requested, show humidity and
+                    // winds.
+                    if (isset($this->_params['detailedForecast'])) {
+                        // Humidity.
+                        $html .= '<td style="border:1px solid #ddd; text-align:center">' .
+                            $day->humidity . '%</td>';
+
+                        // Winds.
+                        $html .= '<td style="border:1px solid #ddd">' .
+                            _("From the ") . $day->wind_direction .
+                            _(" at ") . $day->wind_speed .
+                            ' ' . $units['wind'];
+                        if ($day->wind_gust && $day->wind_gust > 0) {
+                            $html .= _(", gusting ") . $day->wind_gust .
+                                ' ' . $units['wind'];
+                        }
+                    }
+
+                    $html .= '</tr>';
+                }
+                // @TODO: Support day/night portions when we have the driver support.
+                // Prepare for next day.
+                $futureDays++;
+            }
+            $html .= '</table>';
+        }
         return $html;
+        // // Display a bar at the bottom of the block with the required
+        // // attribution to weather.com and the logo, both linked to
+        // // weather.com with the partner ID.
+        // return $html . '<div class="rightAlign">' .
+        //     _("Weather data provided by") . ' ' .
+        //     Horde::link(Horde::externalUrl('http://www.weather.com/?prod=xoap&amp;par=' .
+        //                 $weatherDotCom->_partnerID),
+        //                 'weather.com', '', '_blank', '', 'weather.com') .
+        //     '<em>weather.com</em>&reg; ' .
+        //     Horde::img('block/weatherdotcom/32x32/TWClogo_32px.png', 'weather.com logo') .
+        //     '</a></div>';
     }
 
 }
