@@ -128,7 +128,7 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(
     array('kronolith', 'ContactAutoCompleter'),
     array(
         'box' => 'kronolithAttendeesACBox',
-        'onAdd' => 'KronolithCore.addAttendee.bind(KronolithCore)',
+        'onAdd' => 'function(attendee) { KronolithCore.addAttendee(attendee); KronolithCore.checkOrganizerAsAttendee(); }',
         'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
         'pretty' => true,
         'triggerContainer' => 'kronolithAttendeesACTriggerContainer',

@@ -5127,11 +5127,6 @@ KronolithCore = {
             $('kronolithEventSaveAsNew').hide();
             this.toggleRecurrence('None');
             this.enableAlarm('Event', Kronolith.conf.default_alarm);
-
-            // Invite the organizer of this event to the new event.
-            KronolithCore.attendeesAc.addNewItemNode(Kronolith.conf.email);
-            this.addAttendee(Kronolith.conf.email);
-
             this.redBoxLoading = true;
             RedBox.showHtml($('kronolithEventDialog').show());
         }
@@ -5511,6 +5506,15 @@ KronolithCore = {
         var row = this.freeBusy.get(attendee)[0];
         row.purge();
         row.remove();
+    },
+
+    checkOrganizerAsAttendee: function()
+    {
+        if (this.attendeesAc.selectedItems.length == 1 && this.attendeesAc.selectedItems.first().rawValue != Kronolith.conf.email) {
+            // Invite the organizer of this event to the new event.
+            KronolithCore.attendeesAc.addNewItemNode(Kronolith.conf.email);
+            this.addAttendee(Kronolith.conf.email);
+        }
     },
 
     /**
