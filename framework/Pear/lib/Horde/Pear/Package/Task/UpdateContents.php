@@ -57,11 +57,9 @@ implements Horde_Pear_Package_Task
      * @param Horde_Pear_Package_Contents $content The content list.
      * @param array                       $options Additional options.
      */
-    public function __construct(
-        Horde_Pear_Package_Xml $xml,
-        Horde_Pear_Package_Contents $content = null,
-        $options = array()
-    )
+    public function __construct(Horde_Pear_Package_Xml $xml,
+                                Horde_Pear_Package_Contents $content = null,
+                                $options = array())
     {
         $this->_xml = $xml;
         $this->_options = $options;
