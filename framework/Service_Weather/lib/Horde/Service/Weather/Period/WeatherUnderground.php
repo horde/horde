@@ -109,6 +109,12 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
            }
            return $this->_properties['avewind']->kph;
 
+        case 'wind_gust':
+           if ($this->units = Horde_Service_Weather::UNITS_STANDARD) {
+               return $this->_properties['maxwind']->mph;
+           }
+           return $this->_properties['maxwind']->kph;
+
         default:
             if (!empty($this->_map[$property])) {
                 return $this->_properties[$this->_map[$property]];
