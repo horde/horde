@@ -30,9 +30,9 @@
 
     public $time;
 
-    public function __construct($properties)
+    public function __construct($properties, $weather)
     {
-        parent::__construct($properties);
+        parent::__construct($properties, $weather);
         $this->location = new StdClass();
         $location = $properties['observation_location'];
         $this->location->location = $location->full;

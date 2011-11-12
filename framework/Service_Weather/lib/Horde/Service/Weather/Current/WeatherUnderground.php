@@ -25,19 +25,24 @@
         'humidity' => 'relative_humidity',
         'wind_direction' => 'wind_dir',
         'wind_degrees' => 'wind_degrees',
-        'icon' => 'icon',
         'icon_url' => 'icon_url'
     );
 
-    public function __construct($properties)
+    public function __construct($properties, $weather)
     {
-        parent::__construct($properties);
+        parent::__construct($properties, $weather);
         $this->location = new StdClass();
         $location = $properties['observation_location'];
         $this->location->location = $location->full;
         $this->location->lat = $location->latitude;
         $this->location->lon = $location->longitude;
         $this->location->elevation = $location->elevation;
+    }
+
+    public function __isset($property)
+    {
+        var_dump($this->_properties[$property]);
+        return !empty($this->_properties[$property]);
     }
 
     public function __get($property)
@@ -66,7 +71,7 @@
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['wind_gust_mph'];
             }
-            return (int)$this->_properties['wind_gust_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KNOTS;
+            return $this->_properties['wind_gust_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KNOTS;
 
         case 'dewpoint':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
@@ -107,6 +112,11 @@
             case '-':
                 return Horde_Service_Weather_Translation::t('falling');
             }
+            break;
+
+        case 'icon':
+           return $this->_weather->iconMap[$this->_properties['icon']];
+
         default:
             if (empty($this->_map[$property])) {
                 throw new Horde_Service_Weather_Exception_InvalidProperty();
