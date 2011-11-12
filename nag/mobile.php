@@ -131,6 +131,8 @@ if ($tasks->hasTasks()) {
  </ul>
 </div>
 
+<?php require NAG_TEMPLATES . '/mobile-footer.html.php'; ?>
+
 </div>
 
 <?php $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
