@@ -204,8 +204,9 @@ class Horde_Block_Weather extends Horde_Core_Block
             $html .= '<table width="100%" cellspacing="3">';
             // Headers.
             $html .= '<tr>';
-            $html .= '<th>' . _("Day") . '</th><th>&nbsp;</th><th>' .
-                sprintf(_("Temperature<br />(%sHi%s/%sLo%s) &deg;%s"),
+            // $html .= '<th>' . _("Day") . '</th><th>&nbsp;</th><th>' .
+            $html .= '<th>' . _("Day") . '</th><th>' .
+            sprintf(_("Temperature<br />(%sHi%s/%sLo%s) &deg;%s"),
                         '<span style="color:red">', '</span>',
                         '<span style="color:blue">', '</span>',
                         Horde_String::upper($units['temp'])) .
@@ -232,10 +233,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                  }
                 $html .= '</strong><br />' .
                     strftime('%b %d', mktime(0, 0, 0, date('m'), date('d') + $futureDays, date('Y'))) .
-                    '</td>' .
-                    '<td style="border:1px solid #ddd; text-align:center">' .
-                    '<span style="color:orange">' .
-                    _("Day") . '</span></td>';
+                    '</td>';
 
                 // The day portion of the forecast is no longer available after 2:00 p.m. local today.
                 // ...but only check if we have a day/night forecast.
