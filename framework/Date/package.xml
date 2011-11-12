@@ -19,8 +19,8 @@
  <date>2011-08-30</date>
  <time>11:11:27</time>
  <version>
-  <release>1.0.6</release>
-  <api>1.0.0</api>
+  <release>2.0.0</release>
+  <api>2.0.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,9 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Make unit tests Windows compatible.
-* [mjr] Fix timezone bug that could cause an incorrect timezone from being set when creating Horde_Date objects from other Horde_Date or DateTime objects.
-* [mjr] Fix timezone bug that caused some date strings to be parsed as an incorrect timezone.
+* [jan] Add setter and getter for "timezone".
+* [jan] Fix weekly recurrence instances having the wrong timezone set.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
