@@ -17,22 +17,25 @@ $prefGroups['display'] = array(
 
 // bookmark sort order
 $_prefs['sortby'] = array(
-    'value' => 'title',
+    'value' => 'dt',
     'locked' => false,
     'type' => 'enum',
-    'enum' => array('title' => _("Title"),
-                    'clicks' => _("Most Clicked")),
-    'desc' => _("Sort bookmarks by:")
+    'enum' => array(
+        'title' => _("Title"),
+        'clicks' => _("Most Clicked"),
+        'dt' => _("Bookmarked on"),
+    ),
+    'desc' => _("Sort bookmarks by:"),
 );
 
 // user preferred sorting direction
 $_prefs['sortdir'] = array(
-    'value' => 0,
+    'value' => 1,
     'locked' => false,
     'type' => 'enum',
-    'enum' => array(0 => _("Ascending (A to Z)"),
-                    1 => _("Descending (9 to 1)")),
-    'desc' => _("Sort direction:")
+    'enum' => array(0 => _("Ascending (A to Z or oldest to newest)"),
+                    1 => _("Descending (9 to 1 or newest to oldest)")),
+    'desc' => _("Sort direction:"),
 );
 
 // Open links in new windows?
