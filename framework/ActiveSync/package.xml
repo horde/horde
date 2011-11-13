@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix duplicate entries being sent to client when client does not issue GETCHANGES request (Bug #10731).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -441,7 +441,7 @@
    <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix duplicate entries being sent to client when client does not issue GETCHANGES request (Bug #10731).
    </notes>
   </release>
  </changelog>
