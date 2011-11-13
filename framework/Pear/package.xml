@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-26</date>
- <time>11:53:46</time>
+ <date>2011-11-13</date>
+ <time>18:39:55</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [gwr] Fix retrieving the package.xml from the server.
 * [gwr] Basic support for reading PEAR package.xml v1 files.
  </notes>
  <contents>
@@ -29,7 +30,13 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="Pear">
+      <dir name="examples">
+       <file name="remote.php" role="doc" />
+      </dir> <!-- /doc/Horde/Pear/examples -->
       <file name="COPYING" role="doc" />
+      <file name="DOCS_ORIGIN" role="doc" />
+      <file name="README" role="doc" />
+      <file name="REMOTE_PEAR_SERVER" role="doc" />
       <file name="TODO" role="doc" />
      </dir> <!-- /doc/Horde/Pear -->
     </dir> <!-- /doc/Horde -->
@@ -290,7 +297,11 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Pear/COPYING" />
+   <install as="DOCS_ORIGIN" name="doc/Horde/Pear/DOCS_ORIGIN" />
+   <install as="README" name="doc/Horde/Pear/README" />
+   <install as="REMOTE_PEAR_SERVER" name="doc/Horde/Pear/REMOTE_PEAR_SERVER" />
    <install as="TODO" name="doc/Horde/Pear/TODO" />
+   <install as="examples/remote.php" name="doc/Horde/Pear/examples/remote.php" />
    <install as="Horde/Pear/Exception.php" name="lib/Horde/Pear/Exception.php" />
    <install as="Horde/Pear/Registry.php" name="lib/Horde/Pear/Registry.php" />
    <install as="Horde/Pear/Remote.php" name="lib/Horde/Pear/Remote.php" />
@@ -428,9 +439,10 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-10-26</date>
+   <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [gwr] Fix retrieving the package.xml from the server.
 * [gwr] Basic support for reading PEAR package.xml v1 files.
    </notes>
   </release>

@@ -119,7 +119,7 @@ class Horde_Pear_Remote
     public function getPackageXml($package, $version)
     {
         return new Horde_Pear_Package_Xml(
-            $this->_getRest()->fetchReleasePackageXml($package, $version)
+            $this->_rest->fetchReleasePackageXml($package, $version)
         );
     }
 
