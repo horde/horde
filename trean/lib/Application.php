@@ -87,38 +87,7 @@ class Trean_Application extends Horde_Registry_Application
     public function menu($menu)
     {
         $menu->add(Horde::url('browse.php'), _("_Browse"), 'trean.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('add.php'), _("_New Bookmark"), 'add.png');
         $menu->add(Horde::url('search.php'), _("_Search"), 'search.png');
-    }
-
-    /* Sidebar method. */
-
-    /**
-     */
-    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
-                                  array $params = array())
-    {
-        $tree->addNode(
-            $parent . '__new',
-            $parent,
-            _("Add"),
-            1,
-            false,
-            array(
-                'icon' => Horde_Themes::img('add.png'),
-                'url' => Horde::url('add.php')
-            )
-        );
-
-        $tree->addNode(
-            $parent . '__search',
-            $parent,
-            _("Search"),
-            1,
-            false,
-            array(
-                'icon' => Horde_Themes::img('search.png'),
-                'url' => Horde::url('search.php')
-            )
-        );
     }
 }

@@ -8,18 +8,6 @@ table.control td.actions {
     text-align: right;
 }
 
-#bookmarkActions {
-    border: 1px solid #ccc;
-    background: #eee;
-    padding: .5em;
-    margin: .5em 0;
-}
-#bookmarkActions label {
-    font-size: 95%;
-    margin-right: .5em;
-    cursor: pointer;
-}
-
 #bookmarkList table {
     width: 100%;
     border-top: 1px solid #ddd;
@@ -51,9 +39,6 @@ table.control td.actions {
 div.bookmarks img {
     padding-right: 2px;
 }
-div.bookmarks .checkbox {
-    margin: 0 5px;
-}
 
 .favicon {
     width: 16px;
@@ -69,6 +54,10 @@ div.bookmarks .checkbox {
 }
 .bl-clicks {
     text-align: center;
+}
+
+.bl-actions form {
+    display: inline;
 }
 
 .bl-tags a {

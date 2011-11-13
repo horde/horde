@@ -21,11 +21,10 @@ function doPrefsUpdate(column, sortDown)
 <table class="striped sortable" cellspacing="0" id="BookmarkList">
 <thead>
  <tr>
-  <th width="1%" class="nosort"><input title="<?php echo _("Select All/Select None") ?>" type="checkbox" class="checkbox" onclick="$$('#BookmarkList-body input[type=checkbox]').each((function(c) { c.checked = this.checked; }).bind(this));" /></th>
-  <th width="1%" class="nosort"></th>
   <th id="s_title"<?php if ($this->sortby == 'title') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Title") ?></th>
   <?php if ($this->showFolder): ?><th><?php echo _("Folder") ?></th><?php endif; ?>
   <th id="s_clicks"<?php if ($this->sortby == 'clicks') echo ' class="' . $this->sortdirclass . '"' ?> width="1%"><?php echo _("Clicks") ?></th>
+  <th width="10%" class="nosort"></th>
  </tr>
 </thead>
 <tbody id="BookmarkList-body">
@@ -43,14 +42,9 @@ foreach ($this->bookmarks as $bookmark) {
 ?>
  <tr>
   <td>
-   <input type="checkbox" class="checkbox" name="bookmarks[]" value="<?php echo $bookmark->id ?>" />
-  </td>
-  <td class="nowrap">
-   <?php echo Horde::img(Trean::getFavicon($bookmark), '', 'class="favicon"', '') ?>
-   <?php if ($status) echo Horde::img('http/' . $status) ?>
-  </td>
-  <td>
    <div class="bl-title">
+    <?php echo Horde::img(Trean::getFavicon($bookmark), '', 'class="favicon"', '') ?>
+    <?php if ($status) echo Horde::img('http/' . $status) ?>
     <?php echo Horde::link($bookmark_url, '', '', $this->target) . htmlspecialchars($bookmark->title ? $bookmark->title : $bookmark->url) ?></a>
     <small> &#8230; <?php echo htmlspecialchars($bookmark->url) . ' &#8230; ' . htmlspecialchars(Horde_String::substr($bookmark->description, 0, 200)) ?></small>
     <span class="bl-tags">
@@ -62,6 +56,14 @@ foreach ($this->bookmarks as $bookmark) {
   </td>
   <td class="bl-clicks">
    <?php echo $bookmark->clicks ?>
+  </td>
+  <td class="bl-actions">
+   <a href="<?php echo Horde::url('edit.php?bookmark=' . (int)$bookmark->id) ?>"><?php echo Horde::img('edit.png', _("Edit")) ?></a>
+   <form class="bl-delete" action="<?php echo Horde::url('b/delete') ?>" method="post">
+    <input type="hidden" name="bookmark" value="<?php echo (int)$bookmark->id ?>">
+    <input type="hidden" name="url" value="<?php echo htmlspecialchars(Horde::selfUrl()) ?>">
+    <input type="submit" class="button" value="<?php echo _("Delete") ?>">
+   </form>
   </td>
  </tr>
 <?php } ?>

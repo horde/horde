@@ -14,30 +14,21 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('trean');
 
 $actionID = Horde_Util::getFormData('actionID');
-if ($actionID == 'button') {
-    if (Horde_Util::getFormData('new_bookmark') ||
-        !is_null(Horde_Util::getFormData('new_bookmark_x'))) {
-        Horde::url('add.php', true)->redirect();
-    }
-    if (Horde_Util::getFormData('edit_bookmarks')) {
-        $actionID = null;
-    } elseif (Horde_Util::getFormData('delete_bookmarks') ||
-              !is_null(Horde_Util::getFormData('delete_bookmarks_x'))) {
-        $actionID = 'delete';
-    }
+$bookmark_id = Horde_Util::getFormData('bookmark');
+if (!$bookmark_id) {
+    $notification->push(_("Nothing to edit."), 'horde.message');
+    Horde::url('browse.php', true)->redirect();
 }
-
-$bookmarks = Horde_Util::getFormData('bookmarks');
-if (!is_array($bookmarks)) {
-    $bookmarks = array($bookmarks);
+try {
+    $bookmark = $trean_gateway->getBookmark($bookmark_id);
+} catch (Trean_Exception $e) {
+    $notification->push(sprintf(_("Bookmark not found: %s."), $e->getMessage()), 'horde.message');
+    Horde::url('browse.php', true)->redirect();
 }
 
 switch ($actionID) {
 case 'save':
-    $bookmark_id = Horde_Util::getFormData('bookmark');
-    $bookmark = $trean_gateway->getBookmark($bookmark_id);
     $old_url = $bookmark->url;
-
     $bookmark->url = Horde_Util::getFormData('url');
     $bookmark->title = Horde_Util::getFormData('title');
     $bookmark->description = Horde_Util::getFormData('description');
@@ -64,33 +55,6 @@ case 'save':
             ->redirect();
     }
     exit;
-
-case 'delete':
-    if (count($bookmarks)) {
-        foreach ($bookmarks as $id) {
-            $bookmark = $trean_gateway->getBookmark($id);
-            $result = $trean_gateway->removeBookmark($bookmark);
-            if (!is_a($result, 'PEAR_Error')) {
-                $notification->push(_("Deleted bookmark: ") . $bookmark->title, 'horde.success');
-            } else {
-                $notification->push(sprintf(_("There was a problem deleting the bookmark: %s"), $result->getMessage()), 'horde.error');
-            }
-        }
-    }
-
-    // Return to the bookmark listing
-    Horde::url('browse.php', true)->redirect();
-}
-
-// Return to browse if there is nothing to edit.
-if (!count($bookmarks)) {
-    $notification->push(_("Nothing to edit."), 'horde.message');
-    Horde::url('browse.php', true)->redirect();
-}
-
-foreach ($bookmarks as $id) {
-    $bookmark = $trean_gateway->getBookmark($id);
-    break;
 }
 
 $injector->getInstance('Horde_Core_Factory_Imple')->create(
