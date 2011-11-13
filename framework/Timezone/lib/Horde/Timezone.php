@@ -17,8 +17,6 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @todo Implement caching
- *
  * @author  Jan Schneider <jan@horde.org>
  * @package Timezone
  */
@@ -80,17 +78,23 @@ class Horde_Timezone
     /**
      * Constructor.
      *
-     * @param array $params  List of class parameters. Possible options:
+     * @param array $params  List of optional class parameters. Possible
+     *                       options:
      *                       - location: (string) Location of the timezone
      *                         database, defaults to
      *                         ftp.iana.org/tz/tzdata-latest.tar.gz.
      *                       - client: (Horde_Http_Client) A preconfigured
      *                         HTTP client for downloading via HTTP.
+     *                       - temp: (string) Temporary directory.
+     *                       - cache: (Horde_Cache) A cache object.
+     *                       - cachettl: (integer) Cache lifetime in seconds,
+     *                         defaults to 7 days.
      */
     public function __construct(array $params = array())
     {
         $this->_params = array_merge(
-            array('location' => 'ftp://ftp.iana.org/tz/tzdata-latest.tar.gz'),
+            array('location' => 'ftp://ftp.iana.org/tz/tzdata-latest.tar.gz',
+                  'cachettl' => 604800),
             $params);
     }
 
@@ -170,7 +174,9 @@ class Horde_Timezone
                 $client = new Horde_Http_Client();
             }
             $response = $client->get($this->_params['location']);
-            $this->_tmpfile = Horde_Util::getTempFile();
+            $this->_tmpfile = Horde_Util::getTempFile(
+                '', true,
+                isset($this->_params['temp']) ? $this->_params['temp'] : '');
             stream_copy_to_stream($response->getStream(), fopen($this->_tmpfile, 'w'));
             return;
         }
@@ -194,6 +200,17 @@ class Horde_Timezone
      */
     protected function _extractAndParse()
     {
+        if (isset($this->_params['cache'])) {
+            $result = $this->_params['cache']->get('horde_timezone',
+                                                   $this->_params['cachettl']);
+            if ($result) {
+                $this->_zones = $result['zones'];
+                $this->_rules = $result['rules'];
+                $this->_links = $result['links'];
+                return;
+            }
+        }
+
         if (!$this->_tmpfile) {
             $this->_download();
         }
@@ -203,6 +220,14 @@ class Horde_Timezone
                 continue;
             }
             $this->_parse($tar->extractInString($file['filename']));
+        }
+
+        if (isset($this->_params['cache'])) {
+            $this->_params['cache']->set('horde_timezone',
+                                         array('zones' => $this->_zones,
+                                               'rules' => $this->_rules,
+                                               'links' => $this->_links),
+                                         $this->_params['cachettl']);
         }
     }
 
