@@ -244,6 +244,9 @@ class Horde_Timezone
                 // Fall through.
 
             default:
+                if (empty($zone) || !isset($this->_zones[$zone])) {
+                    break;
+                }
                 $this->_zones[$zone]->add($column);
                 break;
             }
