@@ -1,5 +1,5 @@
 <?php
-class Trean_DeleteBookmark_Controller extends Horde_Controller_Base
+class Trean_SaveBookmark_Controller extends Horde_Controller_Base
 {
     public function processRequest(Horde_Controller_Request $request, Horde_Controller_Response $response)
     {
@@ -9,11 +9,21 @@ class Trean_DeleteBookmark_Controller extends Horde_Controller_Base
 
         try {
             $bookmark = $gateway->getBookmark($id);
-            $gateway->removeBookmark($bookmark);
-            $notification->push(_("Deleted bookmark: ") . $bookmark->title, 'horde.success');
-            $result = array('data' => 'deleted');
+
+            $old_url = $bookmark->url;
+            $bookmark->url = Horde_Util::getFormData('bookmark_url');
+            $bookmark->title = Horde_Util::getFormData('bookmark_title');
+            $bookmark->description = Horde_Util::getFormData('bookmark_description');
+            $bookmark->tags = Horde_Util::getFormData('bookmark_tags');
+
+            if ($old_url != $bookmark->url) {
+                $bookmark->http_status = '';
+            }
+
+            $bookmark->save();
+            $result = array('data' => 'saved');
         } catch (Trean_Exception $e) {
-            $notification->push(sprintf(_("There was a problem deleting the bookmark: %s"), $e->getMessage()), 'horde.error');
+            $notification->push(sprintf(_("There was an error saving the bookmark: %s"), $e->getMessage()), 'horde.error');
             $result = array('error' => $e->getMessage());
         }
 

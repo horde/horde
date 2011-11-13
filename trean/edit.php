@@ -13,48 +13,12 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('trean');
 
-$actionID = Horde_Util::getFormData('actionID');
 $bookmark_id = Horde_Util::getFormData('bookmark');
-if (!$bookmark_id) {
-    $notification->push(_("Nothing to edit."), 'horde.message');
-    Horde::url('browse.php', true)->redirect();
-}
 try {
     $bookmark = $trean_gateway->getBookmark($bookmark_id);
 } catch (Trean_Exception $e) {
     $notification->push(sprintf(_("Bookmark not found: %s."), $e->getMessage()), 'horde.message');
     Horde::url('browse.php', true)->redirect();
-}
-
-switch ($actionID) {
-case 'save':
-    $old_url = $bookmark->url;
-    $bookmark->url = Horde_Util::getFormData('url');
-    $bookmark->title = Horde_Util::getFormData('title');
-    $bookmark->description = Horde_Util::getFormData('description');
-    $bookmark->tags = Horde_Util::getFormData('tags');
-
-    if ($old_url != $bookmark->url) {
-        $bookmark->http_status = '';
-    }
-
-    try {
-        $result = $bookmark->save();
-    } catch (Trean_Exception $e) {
-        $notification->push(sprintf(_("There was an error saving the bookmark: %s"), $e->getMessage()), 'horde.error');
-    }
-
-    if (Horde_Util::getFormData('popup')) {
-        if ($notification->count() <= 1) {
-            echo Horde::wrapInlineScript(array('window.close();'));
-        } else {
-            $notification->notify();
-        }
-    } else {
-        Horde::url('browse.php', true)
-            ->redirect();
-    }
-    exit;
 }
 
 $injector->getInstance('Horde_Core_Factory_Imple')->create(
