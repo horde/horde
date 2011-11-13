@@ -5,15 +5,18 @@
  */
 class Trean_Bookmark
 {
-    var $id = null;
-    var $userId = null;
-    var $url = null;
-    var $title = '';
-    var $description = '';
-    var $clicks = 0;
-    var $http_status = null;
-    var $favicon;
+    public $id = null;
+    public $userId = null;
+    public $url = null;
+    public $title = '';
+    public $description = '';
+    public $clicks = 0;
+    public $http_status = null;
+    public $favicon;
+    public $tags = array();
 
+    /**
+     */
     public function __construct($bookmark = array())
     {
         if ($bookmark) {
@@ -31,17 +34,20 @@ class Trean_Bookmark
             if (!empty($bookmark['bookmark_http_status'])) {
                 $this->http_status = $bookmark['bookmark_http_status'];
             }
+            if (!empty($bookmark['bookmark_tags'])) {
+                $this->tags = $bookmark['bookmark_tags'];
+            }
         }
     }
 
     /**
      * Save bookmark.
      */
-    function save()
+    public function save()
     {
         if ($this->id) {
             // Update an existing bookmark.
-            return $GLOBALS['trean_db']->update('
+            $GLOBALS['trean_db']->update('
                 UPDATE trean_bookmarks
                 SET user_id = ?,
                     bookmark_url = ?,
@@ -57,6 +63,9 @@ class Trean_Bookmark
                     $this->clicks,
                     $this->id,
             ));
+
+            $GLOBALS['injector']->getInstance('Trean_Tagger')->replaceTags((string)$this->id, $this->tags, $GLOBALS['registry']->getAuth(), 'bookmark');
+            return;
         }
 
         if (!strlen($this->url)) {
@@ -77,6 +86,7 @@ class Trean_Bookmark
         ));
 
         $this->id = (int)$bookmark_id;
+        $GLOBALS['injector']->getInstance('Trean_Tagger')->tag((string)$this->id, $this->tags, $GLOBALS['registry']->getAuth(), 'bookmark');
         return $this->id;
     }
 }

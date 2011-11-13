@@ -32,9 +32,8 @@ class Trean_Tagger
             $this->_type_ids = unserialize($ids);
         } else {
             $type_mgr = $GLOBALS['injector']->getInstance('Content_Types_Manager');
-            $types = $type_mgr->ensureTypes(array('calendar', 'event'));
-            $this->_type_ids = array('calendar' => (int)$types[0],
-                                     'event' => (int)$types[1]);
+            $types = $type_mgr->ensureTypes(array('bookmark'));
+            $this->_type_ids = array('bookmark' => (int)$types[0]);
             $GLOBALS['injector']->getInstance('Horde_Cache')->set($key, serialize($this->_type_ids));
         }
     }
@@ -48,11 +47,11 @@ class Trean_Tagger
      * @param string $owner         The tag owner (should normally be the owner
      *                              of the resource).
      * @param string $content_type  The type of object we are tagging
-     *                              (event/calendar).
+     *                              (bookmark).
      *
      * @return void
      */
-    public function tag($localId, $tags, $owner, $content_type = 'event')
+    public function tag($localId, $tags, $owner, $content_type = 'bookmark')
     {
         // If we don't have an array - split the string.
         if (!is_array($tags)) {
@@ -75,7 +74,7 @@ class Trean_Tagger
      *
      * @return array A tag_id => tag_name hash, possibly wrapped in a localid hash.
      */
-    public function getTags($localId, $type = 'event')
+    public function getTags($localId, $type = 'bookmark')
     {
         if (is_array($localId)) {
             return $GLOBALS['injector']->getInstance('Content_Tagger')->getTagsByObjects($localId, $type);
@@ -94,7 +93,7 @@ class Trean_Tagger
      *                              ids or names to remove.
      * @param string $content_type  The type of object that $localId represents.
      */
-    public function untag($localId, $tags, $content_type = 'event')
+    public function untag($localId, $tags, $content_type = 'bookmark')
     {
         $GLOBALS['injector']->getInstance('Content_Tagger')->removeTagFromObject(
             array('object' => $localId, 'type' => $this->_type_ids[$content_type]), $tags);
@@ -110,7 +109,7 @@ class Trean_Tagger
      *                         owner.
      * @param $content_type    The type of object that $localId represents.
      */
-    public function replaceTags($localId, $tags, $owner, $content_type = 'event')
+    public function replaceTags($localId, $tags, $owner, $content_type = 'bookmark')
     {
         // First get a list of existing tags.
         $existing_tags = $this->getTags($localId, $content_type);
@@ -160,8 +159,7 @@ class Trean_Tagger
      *                       - user (array) - only include objects owned by
      *                         these users.
      *
-     * @return  A hash of 'calendars' and 'events' that each contain an array
-     *          of calendar_ids and event_uids respectively.
+     * @return  A hash of 'bookmarks' that contains an array of bookmark ids
      */
     public function search($tags, $filter = array())
     {

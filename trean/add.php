@@ -31,6 +31,7 @@ case 'add_bookmark':
         'bookmark_url' => Horde_Util::getFormData('url'),
         'bookmark_title' => Horde_Util::getFormData('title'),
         'bookmark_description' => Horde_Util::getFormData('description'),
+        'bookmark_tags' => Horde_Util::getFormData('tags'),
     );
 
     try {
@@ -79,7 +80,6 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create(
 Horde::addInlineScript(array(
     'bookmarkTagAc.init()'
 ), 'dom');
-
 
 $title = _("New Bookmark");
 require $registry->get('templates', 'horde') . '/common-header.inc';

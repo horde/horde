@@ -34,26 +34,23 @@ if (!is_array($bookmarks)) {
 
 switch ($actionID) {
 case 'save':
-    $url = Horde_Util::getFormData('url');
-    $title = Horde_Util::getFormData('title');
-    $description = Horde_Util::getFormData('description');
-    $delete = Horde_Util::getFormData('delete');
-    foreach ($bookmarks as $id) {
-        $bookmark = $trean_gateway->getBookmark($id);
-        $old_url = $bookmark->url;
+    $bookmark_id = Horde_Util::getFormData('bookmark');
+    $bookmark = $trean_gateway->getBookmark($bookmark_id);
+    $old_url = $bookmark->url;
 
-        $bookmark->url = $url[$id];
-        $bookmark->title = $title[$id];
-        $bookmark->description = $description[$id];
+    $bookmark->url = Horde_Util::getFormData('url');
+    $bookmark->title = Horde_Util::getFormData('title');
+    $bookmark->description = Horde_Util::getFormData('description');
+    $bookmark->tags = Horde_Util::getFormData('tags');
 
-        if ($old_url != $bookmark->url) {
-            $bookmark->http_status = '';
-        }
+    if ($old_url != $bookmark->url) {
+        $bookmark->http_status = '';
+    }
 
+    try {
         $result = $bookmark->save();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push(sprintf(_("There was an error saving the bookmark: %s"), $result->getMessage()), 'horde.error');
-        }
+    } catch (Trean_Exception $e) {
+        $notification->push(sprintf(_("There was an error saving the bookmark: %s"), $e->getMessage()), 'horde.error');
     }
 
     if (Horde_Util::getFormData('popup')) {
@@ -91,22 +88,41 @@ if (!count($bookmarks)) {
     Horde::url('browse.php', true)->redirect();
 }
 
+foreach ($bookmarks as $id) {
+    $bookmark = $trean_gateway->getBookmark($id);
+    break;
+}
+
+$injector->getInstance('Horde_Core_Factory_Imple')->create(
+    array('trean', 'TagAutoCompleter'),
+    array(
+        // The name to give the (auto-generated) element that acts as the
+        // pseudo textarea.
+        'box' => 'treanEventACBox',
+
+        // Make it spiffy
+        'pretty' => true,
+
+        // The dom id of the existing element to turn into a tag autocompleter
+        'triggerId' => 'treanBookmarkTags',
+
+        // A variable to assign the autocompleter object to
+        'var' => 'bookmarkTagAc',
+
+        // Tags
+        'existing' => array_values($bookmark->tags),
+    )
+);
+
+Horde::addInlineScript(array(
+    'bookmarkTagAc.init()',
+), 'dom');
+
 $title = _("Edit Bookmark");
 require $registry->get('templates', 'horde') . '/common-header.inc';
 if (!Horde_Util::getFormData('popup')) {
     echo Horde::menu();
     $notification->notify(array('listeners' => 'status'));
 }
-require TREAN_TEMPLATES . '/edit/header.inc';
-
-if (count($bookmarks)) {
-    foreach ($bookmarks as $id) {
-        $bookmark = $trean_gateway->getBookmark($id);
-        if (!is_a($bookmark, 'PEAR_Error')) {
-            require TREAN_TEMPLATES . '/edit/bookmark.inc';
-        }
-    }
-}
-
-require TREAN_TEMPLATES . '/edit/footer.inc';
+require TREAN_TEMPLATES . '/edit.html.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

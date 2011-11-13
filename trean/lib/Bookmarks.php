@@ -143,11 +143,11 @@ class Trean_Bookmarks
             FROM trean_bookmarks
             WHERE bookmark_id = ' . (int)$id);
         if (is_null($bookmark)) {
-            return PEAR::raiseError('not found');
-        } else {
-            $bookmark = $this->resultSet(array($bookmark));
-            return array_pop($bookmark);
+            throw new Trean_Exception('not found');
         }
+
+        $bookmark = $this->resultSet(array($bookmark));
+        return array_pop($bookmark);
     }
 
     /**
@@ -188,6 +188,7 @@ class Trean_Bookmarks
         }
 
         $objects = array();
+        $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
         foreach ($bookmarks as $bookmark) {
             foreach ($bookmark as $key => $value) {
                 if (!empty($value) && !is_numeric($value)) {
@@ -196,6 +197,7 @@ class Trean_Bookmarks
                     $cvBookmarks[$key] = $value;
                 }
             }
+            $cvBookmarks['bookmark_tags'] = $tagger->getTags((string)$cvBookmarks['bookmark_id'], 'bookmark');
             $objects[] = new Trean_Bookmark($cvBookmarks);
         }
         return $objects;

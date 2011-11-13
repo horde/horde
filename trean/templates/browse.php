@@ -21,7 +21,6 @@
    <input type="image" src="<?php echo Horde_Themes::img('add.png') ?>" name="new_bookmark" value="<?php echo _("New Bookmark") ?>" id="ba_new" />
    <?php echo Horde::highlightAccessKey(_("_New Bookmark"), Horde::getAccessKey(_("_New Bookmark"))) ?>
   </label>
-
   <label for="ba_edit">
    <input type="image" src="<?php echo Horde_Themes::img('edit.png') ?>" name="edit_bookmarks" value="<?php echo _("Edit Bookmarks") ?>" id="ba_edit" />
    <?php echo Horde::highlightAccessKey(_("_Edit Bookmarks"), Horde::getAccessKey(_("_Edit Bookmarks"))) ?>
