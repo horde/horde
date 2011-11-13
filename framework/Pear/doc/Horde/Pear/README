@@ -8,8 +8,8 @@ This component delivers a small subset of the functionality required to deal wit
 
 Further details can be found in the accompanying documents `REMOTE_PEAR_SERVER`_ and `PACKAGE_XML`_.
 
-.. _`REMOTE_PEAR_SERVER`: Doc/Dev/HordePear/REMOTE_PEAR_SERVER
-.. _`PACKAGE_XML`: Doc/Dev/HordePear/PackageXml
+.. _`REMOTE_PEAR_SERVER`: REMOTE_PEAR_SERVER
+.. _`PACKAGE_XML`: PACKAGE_XML
 
 ==============================
  Rationale for this component
@@ -23,6 +23,5 @@ Of course it should not be necessary to write new code providing PEAR functional
 
 .. _`Pyrus`: http://pear2.php.net/
 
-The decision to reimplement PEAR code has not been taken lightly: originally the Horde components helper had been based on the original PEAR code. But the amount of hacks and workarounds required to sustain that basis was too much for a long term solution. As a consequence Horde_Pear was started in order to generate a backend providing the
-functionality specifically required by the Horde components helper.
+The decision to reimplement PEAR code has not been taken lightly: originally the Horde components helper had been using the PEAR code. But the amount of hacks and workarounds required to sustain that basis was too much for a long term solution. As a consequence Horde_Pear was started in order to generate a backend providing the functionality specifically required by the Horde components helper.
 
