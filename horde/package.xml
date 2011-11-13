@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.
 * [jan] Add configuration option to disable password resets (Request #10640).
  </notes>
  <contents>
@@ -4618,6 +4619,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.
 * [jan] Add configuration option to disable password resets (Request #10640).
    </notes>
   </release>

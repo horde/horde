@@ -45,6 +45,9 @@ class Horde_Block_Weather extends Horde_Core_Block
         // @TODO: Autocomplete the location selection? If not via the config
         // screen see if we can set this value from an autocomplete field on
         // the main view.
+        $weather = $GLOBALS['injector']
+            ->getInstance('Horde_Weather');
+        $lengths = $weather->getSupportedForecastLengths();
         return array(
             'location' => array(
                 // 'type' => 'weatherdotcom',
@@ -65,11 +68,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 'type' => 'enum',
                 'name' => _("Forecast Days (note that the returned forecast returns both day and night; a large number here could result in a wide block)"),
                 'default' => 3,
-                'values' => array(
-                    '3' => Horde_Service_Weather::FORECAST_3DAY,
-                    '5' => Horde_Service_Weather::FORECAST_5DAY,
-                    '7' => Horde_Service_Weather::FORECAST_7DAY
-                )
+                'values' => $lengths
             ),
             'detailedForecast' => array(
                 'type' => 'checkbox',
@@ -265,24 +264,29 @@ class Horde_Block_Weather extends Horde_Core_Block
                         '<br />' . $condition . '</td>';
 
                     // Precipitation chance.
-                    $html .= '<td style="border:1px solid #ddd; text-align:center">' .
-                        $day->precipitation_percent . '%' . '</td>';
+                    $html .= '<td style="border:1px solid #ddd; text-align:center">'
+                        . ($day->precipitation_percent ? $day->precipitation_percent . '%' : _("N/A")) . '</td>';
 
                     // If a detailed forecast was requested, show humidity and
                     // winds.
                     if (isset($this->_params['detailedForecast'])) {
                         // Humidity.
-                        $html .= '<td style="border:1px solid #ddd; text-align:center">' .
-                            $day->humidity . '%</td>';
+                        $html .= '<td style="border:1px solid #ddd; text-align:center">'
+                            . ($day->humidity ? $day->humidity . '%': _("N/A")) . '</td>';
 
                         // Winds.
-                        $html .= '<td style="border:1px solid #ddd">' .
-                            _("From the ") . $day->wind_direction .
-                            _(" at ") . $day->wind_speed .
-                            ' ' . $units['wind'];
-                        if ($day->wind_gust && $day->wind_gust > 0) {
-                            $html .= _(", gusting ") . $day->wind_gust .
+                        if ($day->wind_direction) {
+                            $html .= '<td style="border:1px solid #ddd">' .
+                                _("From the ") . $day->wind_direction .
+                                _(" at ") . $day->wind_speed .
                                 ' ' . $units['wind'];
+                            if ($day->wind_gust && $day->wind_gust > 0) {
+                                $html .= _(", gusting ") . $day->wind_gust .
+                                    ' ' . $units['wind'];
+                            }
+                            $html .= '</td>';
+                        } else {
+                            $html .= '<td style="border:1px solid #ddd;text-align:center;">' . _("N/A") . '</td>';
                         }
                     }
 
