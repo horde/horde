@@ -14,6 +14,7 @@ class Trean_Bookmark
     public $http_status = null;
     public $favicon;
     public $tags = array();
+    public $dt;
 
     /**
      */
@@ -36,6 +37,9 @@ class Trean_Bookmark
             }
             if (!empty($bookmark['bookmark_tags'])) {
                 $this->tags = $bookmark['bookmark_tags'];
+            }
+            if (!empty($bookmark['bookmark_dt'])) {
+                $this->dt = $bookmark['bookmark_dt'];
             }
         }
     }
@@ -75,14 +79,15 @@ class Trean_Bookmark
         // Saving a new bookmark.
         $bookmark_id = $GLOBALS['trean_db']->insert('
             INSERT INTO trean_bookmarks
-                (user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks)
-            VALUES (?, ?, ?, ?, ?)',
+                (user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_dt)
+            VALUES (?, ?, ?, ?, ?, ?)',
             array(
                 $this->userId,
                 Horde_String::convertCharset($this->url, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 $this->clicks,
+                $this->dt,
         ));
 
         $this->id = (int)$bookmark_id;

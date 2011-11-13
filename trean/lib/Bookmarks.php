@@ -37,6 +37,7 @@ class Trean_Bookmarks
     public function newBookmark(array $properties)
     {
         $properties['user_id'] = $this->_userId;
+        $properties['bookmark_dt'] = new Horde_Date(time());
         $bookmark = new Trean_Bookmark($properties);
         $bookmark->save();
         return $bookmark;
@@ -49,7 +50,7 @@ class Trean_Bookmarks
     {
         $values = array($this->_userId);
 
-        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_dt
                 FROM trean_bookmarks
                 WHERE user_id = ?
                 ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
@@ -89,7 +90,7 @@ class Trean_Bookmarks
             $values = array_merge($values, $clause[1]);
         }
 
-        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_dt
                 FROM trean_bookmarks
                 WHERE user_id = ?
                       AND (' . implode(' ' . $search_operator . ' ', $clauses) . ')
@@ -139,7 +140,7 @@ class Trean_Bookmarks
     function getBookmark($id)
     {
         $bookmark = $GLOBALS['trean_db']->selectOne('
-            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks
+            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_dt
             FROM trean_bookmarks
             WHERE bookmark_id = ' . (int)$id);
         if (is_null($bookmark)) {
@@ -160,11 +161,7 @@ class Trean_Bookmarks
         /* Make sure $bookmark is a Trean_Bookmark; if not, try
          * loading it. */
         if (!is_a($bookmark, 'Trean_Bookmark')) {
-            $b = $this->getBookmark($bookmark);
-            if (is_a($b, 'PEAR_Error')) {
-                return $b;
-            }
-            $bookmark = $b;
+            $bookmark = $this->getBookmark($bookmark);
         }
 
         /* Check permissions. */
