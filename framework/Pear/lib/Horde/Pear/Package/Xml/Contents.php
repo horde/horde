@@ -65,11 +65,9 @@ class Horde_Pear_Package_Xml_Contents
      * @param DOMNode                $filelist The root node for the
      *                                         "filelist" listing.
      */
-    public function __construct(
-        Horde_Pear_Package_Xml $xml,
-        DOMNode $contents,
-        DOMNode $filelist
-    ) {
+    public function __construct(Horde_Pear_Package_Xml $xml, DOMNode $contents,
+                                DOMNode $filelist)
+    {
         $this->_xml = $xml;
         $this->_filelist = $filelist;
         $element = $this->_xml->createElementDirectory('/');

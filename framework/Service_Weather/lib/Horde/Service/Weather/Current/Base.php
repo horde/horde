@@ -28,6 +28,13 @@
     protected $_properties = array();
 
     /**
+     * Parent weather object.
+     *
+     * @var Horde_Service_Weather_Base
+     */
+    protected $_weather;
+
+    /**
      * Location information
      *
      * @var stdClass
@@ -43,9 +50,10 @@
      *
      * @return Horde_Service_Weather_Current_Base
      */
-    public function __construct(array $properties = array())
+    public function __construct(array $properties = array(), Horde_Service_Weather_Base $weather)
     {
         $this->_properties = $properties;
+        $this->_weather = $weather;
     }
 
     public function __get($property)

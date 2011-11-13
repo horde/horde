@@ -50,10 +50,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      *                                         must provide the debug()
      *                                         and info() methods.
      */
-    public function __construct(
-        Horde_Kolab_Storage_List $list,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Storage_List $list,
+                                $logger)
+    {
         $this->_list = $list;
         $this->_logger = $logger;
     }

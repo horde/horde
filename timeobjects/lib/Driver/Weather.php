@@ -72,7 +72,6 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         $forecast_start = new Horde_Date(time());
         $forecast_end = clone $forecast_start;
         $forecast_end->mday += 7;
-        // Today is day 1, so subtract a day
         if ($end->before($forecast_start) || $start->after($forecast_end)) {
             return array();
         }
@@ -100,26 +99,55 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
                 $units['temp']
             );
 
-            $description = sprintf(
-                _("%s\nHigh temperature: %d%s\nPrecipitation: %d%%"),
-                _($data->conditions),
-                $data->high,
-                '°' . $units['temp'],
-                $data->precipitation_percent
-            );
+            // Deterine what information we have to display.
+            $pop = $data->precipitation_percent === false ? _("N/A") : ($data->precipitation_percent . '%');
+            if ($forecast->detail == Horde_Service_Weather::FORECAST_TYPE_STANDARD) {
+                if ($data->humidity !== false && $data->wind_direction !== false) {
+                    $description = sprintf(
+                        _("Conditions: %s\nHigh temperature: %d%s\nPrecipitation: %s\nHumidity: %d%%\nWinds: From the %s at %d%s"),
+                        _($data->conditions),
+                        $data->high,
+                        '°' . $units['temp'],
+                        $pop,
+                        $data->humidity,
+                        $data->wind_direction,
+                        $data->wind_speed,
+                        $units['wind']
+                    );
+                } else {
+                    $description = sprintf(
+                        _("Conditions: %s\nHigh temperature: %d%s\nPrecipitation: %s\n"),
+                        _($data->conditions),
+                        $data->high,
+                        '°' . $units['temp'],
+                        $pop
+                    );
+                }
+            } elseif ($forecast->detail == Horde_Service_Weather::FORECAST_TYPE_DETAILED) {
+                // @TODO
+                // No drivers support this yet. AccuWeather will, and possibly
+                // wunderground if they accept my request.
+            }
             $station = $weather->getStation();
 
-            $description = sprintf(
-                _("Location: %s\nSunrise: %s\nSunset: %s\n\nConditions\n%s"),
-                $weather->getStation()->name,
-                $weather->getStation()->sunrise,
-                $weather->getStation()->sunset,
-                $description);
+            $body = sprintf(
+                _("Location: %s"),
+                $weather->getStation()->name
+            );
+            if (!empty($weather->getStation()->sunrise)) {
+                $body .= sprintf(
+                    _("Sunrise: %s\nSunset: %s\n"),
+                   $weather->getStation()->sunrise,
+                   $weather->getStation()->sunset
+                );
+            }
+
+            $body  .= sprintf(_("\n%s"), $description);
 
             $objects[] = array(
                 'id' => $day->timestamp(), //???
                 'title' => $title,
-                'description' => $description,
+                'description' => $body,
                 'start' => $day->strftime('%Y-%m-%dT00:00:00'),
                 'end' => $day_end->strftime('%Y-%m-%dT00:00:00'),
                 'recurrence' => Horde_Date_Recurrence::RECUR_NONE,

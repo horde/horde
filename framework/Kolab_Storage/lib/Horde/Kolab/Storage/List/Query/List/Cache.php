@@ -73,10 +73,9 @@ implements Horde_Kolab_Storage_List_Query_List
      * @param Horde_Kolab_Storage_List $list   The queriable list.
      * @param array                    $params Additional parameters.
      */
-    public function __construct(
-        Horde_Kolab_Storage_List $list,
-        $params
-    ) {
+    public function __construct(Horde_Kolab_Storage_List $list,
+                                $params)
+    {
         $this->_list = $list;
         $this->_list_cache = $params['cache'];
         $this->_factory = $params['factory'];

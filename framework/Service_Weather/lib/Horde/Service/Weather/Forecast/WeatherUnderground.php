@@ -35,6 +35,11 @@
         }
     }
 
+    public function getForecastTime()
+    {
+        return new Horde_Date($this->_properties['txt_forecast']->date);
+    }
+
     /**
      * [_parse description]
      *

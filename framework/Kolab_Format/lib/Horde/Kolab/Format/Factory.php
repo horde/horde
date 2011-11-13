@@ -36,17 +36,10 @@ class Horde_Kolab_Format_Factory
     private $_params;
 
     /**
-     * Collect xml type instances already created.
-     *
-     * @var array
-     */
-    private $_xml_type_instances;
-
-    /**
      * Constructor.
      *
      * @param array $params Additional parameters for the creation of parsers.
-     */   
+     */
     public function __construct(array $params = array())
     {
         $this->_params = $params;

@@ -20,19 +20,18 @@
  */
  class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current_Base
  {
-
     protected $_map = array(
         'condition' => 'condition',
         'humidity' => 'humidity',
         'wind' => 'wind_condition',
-        'icon_url' => 'icon'
+        'icon_url' => 'icon',
     );
 
     public $time;
 
-    public function __construct($properties)
+    public function __construct($properties, $weather)
     {
-        parent::__construct($properties);
+        parent::__construct($properties, $weather);
         $this->location = new StdClass();
         $location = $properties['observation_location'];
         $this->location->location = $location->full;
@@ -46,22 +45,31 @@
         // Maybe someday I can add a better $_map array with 'type' fields etc..
         // for now, just as easy to manually check for these exceptions.
         switch ($property) {
+        case 'pressure':
+        case 'pressure_trend':
         case 'logo_url':
-            return null;
+        case 'dewpoint':
+        case 'humidity':
+        case 'wind_direction':
+        case 'wind_speed':
+        case 'wind_gust':
+        case 'visibility':
+            return false;
         case 'temp':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
-                return $this->_properties['temp_f'];
+                return $this->_properties->temp_f['data'];
             }
-            return $this->_properties['temp_c'];
+            return $this->_properties->temp_c['data'];
 
         case 'icon':
-            return parse_url($this->_properties['icon'], PHP_URL_PATH);
+           return $this->_weather->iconMap[basename((string)$this->_properties->icon['data'], '.gif')];
+
 
         default:
             if (empty($this->_map[$property])) {
                 throw new Horde_Service_Weather_Exception_InvalidProperty();
             }
-            return $this->_properties[$this->_map[$property]];
+            return $this->_properties->{$this->_map[$property]}['data'];
         }
     }
 

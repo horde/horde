@@ -52,10 +52,9 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *                                         must provide the debug() and 
      *                                         info() methods.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Data $data,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Storage_Data $data,
+                                $logger)
+    {
         $this->_data = $data;
         $this->_logger = $logger;
     }

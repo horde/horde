@@ -207,7 +207,7 @@ extends Horde_Kolab_Storage_Driver_Base
         }
         return $result;
     }
-    
+
     /**
      * Retrieve the access rights the current user has on a folder.
      *

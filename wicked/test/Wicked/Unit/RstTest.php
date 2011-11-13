@@ -169,7 +169,7 @@ H6
         $this->assertEquals(
             'Further information on Horde and the latest version can be obtained at
 
-  http://www.horde.org/apps/horde
+``  ``http://www.horde.org/apps/horde
 
 ',
             $this->protectAgainstPearError($wiki->transform('Further information on Horde and the latest version can be obtained at
@@ -300,6 +300,62 @@ test
         );
     }
 
+    public function testBulletlist()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '* A
+* B
+',
+            $this->protectAgainstPearError($wiki->transform('
+* A
+* B
+', 'Rst'))
+        );
+    }
+
+    public function testTwoLevelBulletlist()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '* A
+  * B
+',
+            $this->protectAgainstPearError($wiki->transform('
+* A
+  * B
+', 'Rst'))
+        );
+    }
+
+    public function testNumberedList()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '1. A
+2. B
+',
+            $this->protectAgainstPearError($wiki->transform('
+# A
+# B
+', 'Rst'))
+        );
+    }
+
+    public function testTwoLevelNumberedList()
+    {
+        $wiki = new Text_Wiki_Default();
+        $this->assertEquals(
+            '1. A
+  1. B
+',
+            $this->protectAgainstPearError($wiki->transform('
+# A
+  # B
+', 'Rst'))
+        );
+    }
+
     public function testFixtureCliModular()
     {
         $fixture = dirname(__FILE__) . '/../fixtures/cli_modular';
@@ -311,5 +367,4 @@ test
             )
         );
     }
-
 }

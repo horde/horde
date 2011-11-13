@@ -181,7 +181,7 @@ class Horde_Pear_Rest
         $response = $this->_client->get(
             $this->_url . '/rest/r/' . strtolower($package) . '/' . $version . '.xml'
         );
-        if ($response->code === 200) { 
+        if ($response->code === 200) {
             return true;
         } else {
             return false;
@@ -251,7 +251,7 @@ class Horde_Pear_Rest
     private function _read($url)
     {
         $response = $this->_client->get($url);
-        if ($response->code === 200) { 
+        if ($response->code === 200) {
             return $response->getBody();
         } else {
             return false;

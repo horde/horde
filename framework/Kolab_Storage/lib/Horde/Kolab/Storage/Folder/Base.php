@@ -57,9 +57,8 @@ implements Horde_Kolab_Storage_Folder
      *                                       folders.
      * @param string                   $path Path of the folder.
      */
-    public function __construct(
-        Horde_Kolab_Storage_List $list, $path
-    ) {
+    public function __construct(Horde_Kolab_Storage_List $list, $path)
+    {
         $this->_list = $list;
         $this->_path = $path;
     }
@@ -196,7 +195,7 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return string The folder type.
      */
-    function getType()
+    public function getType()
     {
         return $this->get('type');
     }
@@ -242,14 +241,14 @@ implements Horde_Kolab_Storage_Folder
      *
      * @var array
      */
-    var $_attributes;
+    private $_attributes;
 
     /**
      * Additional Kolab folder attributes.
      *
      * @var array
      */
-    var $_kolab_attributes;
+    private $_kolab_attributes;
 
     /**
      * The permission handler for the folder.

@@ -37,10 +37,9 @@ extends Horde_Kolab_Storage_Base
      * @return Horde_Kolab_Storage_List The handler for the list of folders
      *                                  present in the Kolab backend.
      */
-    protected function _createList(
-        Horde_Kolab_Storage_Driver $master,
-        Horde_Kolab_Storage_Factory $factory
-    ) {
+    protected function _createList(Horde_Kolab_Storage_Driver $master,
+                                   Horde_Kolab_Storage_Factory $factory)
+    {
         return new Horde_Kolab_Storage_List_Base($master, $factory);
     }
 
@@ -61,13 +60,12 @@ extends Horde_Kolab_Storage_Base
      *
      * @return Horde_Kolab_Data The data object.
      */
-    protected function _createData(
-        $folder,
-        Horde_Kolab_Storage_Driver $master,
-        Horde_Kolab_Storage_Factory $factory,
-        $object_type = null,
-        $data_version = 1
-    ) {
+    protected function _createData($folder,
+                                   Horde_Kolab_Storage_Driver $master,
+                                   Horde_Kolab_Storage_Factory $factory,
+                                   $object_type = null,
+                                   $data_version = 1)
+    {
         return new Horde_Kolab_Storage_Data_Base(
             $folder,
             $master,
