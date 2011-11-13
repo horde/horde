@@ -118,9 +118,11 @@ class Components_Helper_DocsOrigin
     public function _fetchDocument($remote, $local, Components_Output $output)
     {
         $this->_client->{'request.timeout'} = 60;
+        $content = stream_get_contents($this->_client->get($remote)->getStream());
+        $content = preg_replace('#^(\.\. _`([^`]*)`: )((?!http://).*)#m', '\1\2', $content); 
         file_put_contents(
             $this->_docs_origin[1] . '/' . $local,
-            $this->_client->get($remote)->getStream()
+            $content
         );
         $output->ok(
             sprintf(
