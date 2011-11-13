@@ -1,18 +1,6 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
- <configsection name="menu" desc="Menu settings">
-   <configheader>
-        Menu settings
-   </configheader>
-  </configboolean>
-  <configmultienum name="apps" desc="Select any applications that should be linked in Trean's menu" required="false">
-   <values>
-    <configspecial application="horde" name="apps" />
-   </values>
-  </configmultienum>
- </configsection>
-
  <configsection name="favicons">
   <configheader>Virtual File Storage</configheader>
   <configvfs switchname="type" />
