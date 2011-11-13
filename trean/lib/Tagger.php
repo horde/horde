@@ -166,12 +166,16 @@ class Trean_Tagger
         $args = array();
 
         /* Add the tags to the search */
-        $args['tagId'] = $GLOBALS['injector']->getInstance('Content_Tagger')->getTagIds($tags);
+        $args['tagId'] = $GLOBALS['injector']
+            ->getInstance('Content_Tagger')
+            ->getTagIds($tags);
 
         $args['typeId'] = $this->_type_ids['bookmarks'];
-        $results = $GLOBALS['injector']->getInstance('Content_Tagger')->getObjects($args);
+        $results = $GLOBALS['injector']
+            ->getInstance('Content_Tagger')
+            ->getObjects($args);
 
-        $results = array('bookmarks' => array_values($results));
+        $results = array_values($results);
         return $results;
     }
 
