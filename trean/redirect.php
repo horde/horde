@@ -19,12 +19,11 @@ $bookmark_id = Horde_Util::getFormData('b');
 if (!$bookmark_id) {
     exit;
 }
-$bookmark = $trean_shares->getBookmark($bookmark_id);
-if (is_a($bookmark, 'PEAR_Error')) {
-    exit;
+
+try {
+    $bookmark = $trean_gateway->getBookmark($bookmark_id);
+    ++$bookmark->clicks;
+    $bookmark->save();
+    header('Location: ' . Horde::externalUrl($bookmark->url));
+} catch (Exception $e) {
 }
-
-++$bookmark->clicks;
-$bookmark->save();
-
-header('Location: ' . Horde::externalUrl($bookmark->url));
