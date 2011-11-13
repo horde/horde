@@ -253,15 +253,15 @@ class Horde_Block_Weather extends Horde_Core_Block
                     // Forecast condition.
                      $condition = $day->conditions;
 
-                    // High temperature.
-                    $html .= '<td style="border:1px solid #ddd; text-align:center">' .
-                        '<span style="color:red">' .
-                        round($day->high) . '</span></td>';
+                    // Temperature.
+                    $html .= '<td style="border:1px solid #ddd; text-align:center">'
+                        . '<span style="color:red">' . round($day->high) . '</span>/'
+                        .  '<span style="color:blue">' . round($day->low) . '</span></td>';
 
                     // Condition.
-                    $html .= '<td style="border:1px solid #ddd; text-align:center">' .
-                        Horde::img(Horde_Themes::img('weather/32x32/' . $day->icon)).
-                        '<br />' . $condition . '</td>';
+                    $html .= '<td style="border:1px solid #ddd; text-align:center">'
+                        . Horde::img(Horde_Themes::img('weather/32x32/' . $day->icon))
+                        . '<br />' . $condition . '</td>';
 
                     // Precipitation chance.
                     $html .= '<td style="border:1px solid #ddd; text-align:center">'
