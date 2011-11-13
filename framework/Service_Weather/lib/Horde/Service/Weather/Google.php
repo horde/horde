@@ -64,6 +64,9 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     protected $_lastLocation;
 
+    public $title = 'Google Weather';
+    public $link = 'http://google.com';
+
     /**
      * Icon map for wunderground. Not some are returned as
      * "sky" conditions and some as "condition" icons. Public

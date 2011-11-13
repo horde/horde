@@ -35,9 +35,40 @@
      */
     protected $_cache;
 
+    /**
+     * Lifetime for cached data.
+     *
+     * @var integer
+     */
     protected $_cache_lifetime = 216000;
 
+    /**
+     * Units to display results in.
+     *
+     * @var integer
+     */
     public $units = Horde_Service_Weather::UNITS_STANDARD;
+
+    /**
+     * URL to a logo for this provider
+     *
+     * @var string
+     */
+    public $logo;
+
+    /**
+     * URL to the provider's site
+     *
+     * @var string
+     */
+    public $link;
+
+    /**
+     * Title for the provider
+     *
+     * @var string
+     */
+    public $title;
 
     /**
      * Constructor
