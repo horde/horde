@@ -121,13 +121,12 @@ class Horde_Timezone
         if (!$this->_zones) {
             $this->_extractAndParse();
         }
-        if (isset($this->_links[$zone])) {
-            $zone = $this->_links[$zone];
-        }
-        if (!isset($this->_zones[$zone])) {
+        $alias = isset($this->_links[$zone]) ? $this->_links[$zone] : $zone;
+        if (!isset($this->_zones[$alias])) {
             throw new Horde_Timezone_Exception(sprintf('Timezone %s not found', $zone));
         }
-        return $this->_zones[$zone];
+        $this->_zones[$alias]->setTzid($alias);
+        return $this->_zones[$alias];
     }
 
     /**
