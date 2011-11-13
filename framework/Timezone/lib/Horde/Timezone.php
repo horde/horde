@@ -18,8 +18,6 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @todo Implement caching
- * @todo Don't hardcode database location
- * @todo Support retrieving database from filesystem and HTTP
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Timezone
@@ -83,10 +81,17 @@ class Horde_Timezone
      * Constructor.
      *
      * @param array $params  List of class parameters. Possible options:
+     *                       - location: (string) Location of the timezone
+     *                         database, defaults to
+     *                         ftp.iana.org/tz/tzdata-latest.tar.gz.
+     *                       - client: (Horde_Http_Client) A preconfigured
+     *                         HTTP client for downloading via HTTP.
      */
-    public function __construct(array $params = null)
+    public function __construct(array $params = array())
     {
-        $this->_params = $params;
+        $this->_params = array_merge(
+            array('location' => 'ftp://ftp.iana.org/tz/tzdata-latest.tar.gz'),
+            $params);
     }
 
     /**
@@ -152,9 +157,34 @@ class Horde_Timezone
      */
     protected function _download()
     {
+        $url = @parse_url($this->_params['location']);
+        if (!isset($url['scheme'])) {
+            throw new Horde_Timezone_Exception('"location" parameter is missing an URL scheme.');
+        }
+        if (!in_array($url['scheme'], array('http', 'ftp', 'file'))) {
+            throw new Horde_Timezone_Exception(sprintf('Unsupported URL scheme "%s"', $url['scheme']));
+        }
+        if ($url['scheme'] == 'http') {
+            if (isset($this->_params['client'])) {
+                $client = $this->_params['client'];
+            } else {
+                $client = new Horde_Http_Client();
+            }
+            $response = $client->get($this->_params['location']);
+            $this->_tmpfile = Horde_Util::getTempFile();
+            stream_copy_to_stream($response->getStream(), fopen($this->_tmpfile, 'w'));
+            return;
+        }
         try { 
-            $vfs = new Horde_Vfs_Ftp(array('hostspec' => 'ftp.iana.org', 'username' => 'anonymous', 'password' => 'anonymous'));
-            $this->_tmpfile = $vfs->readFile('/tz', 'tzdata-latest.tar.gz');
+            if ($url['scheme'] == 'ftp') {
+                $vfs = new Horde_Vfs_Ftp(array('hostspec' => $url['host'],
+                                               'username' => 'anonymous',
+                                               'password' => 'anonymous'));
+            } else {
+                $vfs = new Horde_Vfs_File();
+            }
+            $this->_tmpfile = $vfs->readFile(dirname($url['path']),
+                                             basename($url['path']));
         } catch (Horde_Vfs_Exception $e) {
             throw new Horde_Timezone_Exception($e);
         }
