@@ -18,9 +18,7 @@ Horde::addScriptFile('tables.js', 'horde', true);
 Horde::addScriptFile('effects.js', 'horde', true);
 $title = _("Browse");
 require $registry->get('templates', 'horde') . '/common-header.inc';
-if (!Horde_Util::getFormData('popup')) {
-    echo Horde::menu();
-    $notification->notify(array('listeners' => 'status'));
-}
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require TREAN_TEMPLATES . '/browse.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';
