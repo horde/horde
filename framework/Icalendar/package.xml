@@ -36,7 +36,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix generating VTIMEZONE components.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -808,7 +808,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2011-08-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix generating VTIMEZONE components.
    </notes>
   </release>
  </changelog>

@@ -856,7 +856,8 @@ class Horde_Icalendar
         // VERSION is not allowed for entries enclosed in VCALENDAR/ICALENDAR,
         // as it is part of the enclosing VCALENDAR/ICALENDAR. See rfc2445
         if ($base !== 'VEVENT' && $base !== 'VTODO' && $base !== 'VALARM' &&
-            $base !== 'VJOURNAL' && $base !== 'VFREEBUSY') {
+            $base !== 'VJOURNAL' && $base !== 'VFREEBUSY' &&
+            $base != 'VTIMEZONE' && $base != 'STANDARD' && $base != 'DAYLIGHT') {
             // Ensure that version is the first attribute.
             $result .= 'VERSION:' . $this->_version . $this->_newline;
         }
@@ -929,6 +930,7 @@ class Horde_Icalendar
             case 'DUE':
             case 'AALARM':
             case 'RECURRENCE-ID':
+                $floating = $base == 'STANDARD' || $base = 'DAYLIGHT';
                 if (isset($params['VALUE'])) {
                     if ($params['VALUE'] == 'DATE') {
                         // VCALENDAR 1.0 uses T000000 - T235959 for all day events:
@@ -943,16 +945,17 @@ class Horde_Icalendar
                             $value = $this->_exportDate($value, '000000');
                         }
                     } else {
-                        $value = $this->_exportDateTime($value);
+                        $value = $this->_exportDateTime($value, $floating);
                     }
                 } else {
-                    $value = $this->_exportDateTime($value);
+                    $value = $this->_exportDateTime($value, $floating);
                 }
                 break;
 
             // Comma seperated dates.
             case 'EXDATE':
             case 'RDATE':
+                $floating = $base == 'STANDARD' || $base = 'DAYLIGHT';
                 $dates = array();
                 foreach ($value as $date) {
                     if (isset($params['VALUE'])) {
@@ -961,10 +964,10 @@ class Horde_Icalendar
                         } elseif ($params['VALUE'] == 'PERIOD') {
                             $dates[] = $this->_exportPeriod($date);
                         } else {
-                            $dates[] = $this->_exportDateTime($date);
+                            $dates[] = $this->_exportDateTime($date, $floating);
                         }
                     } else {
-                        $dates[] = $this->_exportDateTime($date);
+                        $dates[] = $this->_exportDateTime($date, $floating);
                     }
                 }
                 $value = implode($this->_oldFormat ? ';' : ',', $dates);
@@ -1302,13 +1305,17 @@ class Horde_Icalendar
      *
      * @param integer|object|array $value  The time value to export (either a
      *                                     Horde_Date, array, or timestamp).
+     * @param boolean $floating            Whether to return a floating
+     *                                     date-time (without time zone
+     *                                     information). @since Horde_Icalendar
+     *                                     1.0.5.
      *
      * @return string  The string representation of the datetime value.
      */
-    public function _exportDateTime($value)
+    public function _exportDateTime($value, $floating = false)
     {
         $date = new Horde_Date($value);
-        return $date->toICalendar();
+        return $date->toICalendar($floating);
     }
 
     /**
