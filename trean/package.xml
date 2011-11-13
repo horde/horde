@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2011-11-13</date>
- <time>14:26:54</time>
+ <time>15:32:27</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -66,6 +66,9 @@
     <dir name="Forms">
      <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Forms -->
+    <dir name="View">
+     <file name="Browse.php" role="horde" />
+    </dir> <!-- /lib/View -->
     <dir name="Views">
      <file name="BookmarkList.php" role="horde" />
     </dir> <!-- /lib/Views -->
@@ -169,8 +172,9 @@
    </dir> <!-- /locale -->
    <dir name="migration">
     <file name="1_trean_base_tables.php" role="horde" />
-    <file name="2_add_bookmark_dt.php" role="horde" />
-    <file name="3_add_user_id.php" role="horde" />
+    <file name="2_trean_upgrade_folders_to_tags_pre.php" role="horde" />
+    <file name="3_trean_upgrade_folders_to_tags.php" role="horde" />
+    <file name="4_trean_upgrade_folders_to_tags_post.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="block">
@@ -182,6 +186,7 @@
      <file name="BookmarkList.php" role="horde" />
     </dir> <!-- /templates/views -->
     <file name="add.html.php" role="horde" />
+    <file name="bookmarklet.php" role="horde" />
     <file name="browse.php" role="horde" />
     <file name="edit.html.php" role="horde" />
     <file name="search.php" role="horde" />
@@ -270,6 +275,7 @@
    <file name="redirect.php" role="horde" />
    <file name="rss.php" role="horde" />
    <file name="search.php" role="horde" />
+   <file name="tagbrowse.php" role="horde" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -294,6 +300,7 @@
    <install as="trean/redirect.php" name="redirect.php" />
    <install as="trean/rss.php" name="rss.php" />
    <install as="trean/search.php" name="search.php" />
+   <install as="trean/tagbrowse.php" name="tagbrowse.php" />
    <install as="trean/app/controllers/DeleteBookmark.php" name="app/controllers/DeleteBookmark.php" />
    <install as="trean/app/controllers/SaveBookmark.php" name="app/controllers/SaveBookmark.php" />
    <install as="trean-url-checker" name="bin/trean-url-checker" />
@@ -317,6 +324,7 @@
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
    <install as="trean/lib/Forms/Search.php" name="lib/Forms/Search.php" />
+   <install as="trean/lib/View/Browse.php" name="lib/View/Browse.php" />
    <install as="trean/lib/Views/BookmarkList.php" name="lib/Views/BookmarkList.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />
@@ -352,9 +360,11 @@
    <install as="trean/locale/zh_TW/LC_MESSAGES/trean.mo" name="locale/zh_TW/LC_MESSAGES/trean.mo" />
    <install as="trean/locale/zh_TW/LC_MESSAGES/trean.po" name="locale/zh_TW/LC_MESSAGES/trean.po" />
    <install as="trean/migration/1_trean_base_tables.php" name="migration/1_trean_base_tables.php" />
-   <install as="trean/migration/2_add_bookmark_dt.php" name="migration/2_add_bookmark_dt.php" />
-   <install as="trean/migration/3_add_user_id.php" name="migration/3_add_user_id.php" />
+   <install as="trean/migration/2_trean_upgrade_folders_to_tags_pre.php" name="migration/2_trean_upgrade_folders_to_tags_pre.php" />
+   <install as="trean/migration/3_trean_upgrade_folders_to_tags.php" name="migration/3_trean_upgrade_folders_to_tags.php" />
+   <install as="trean/migration/4_trean_upgrade_folders_to_tags_post.php" name="migration/4_trean_upgrade_folders_to_tags_post.php" />
    <install as="trean/templates/add.html.php" name="templates/add.html.php" />
+   <install as="trean/templates/bookmarklet.php" name="templates/bookmarklet.php" />
    <install as="trean/templates/browse.php" name="templates/browse.php" />
    <install as="trean/templates/edit.html.php" name="templates/edit.html.php" />
    <install as="trean/templates/search.php" name="templates/search.php" />

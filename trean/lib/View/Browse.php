@@ -61,11 +61,13 @@ class Trean_View_Browse
 
         $rtags = $this->_browser->getRelatedTags();
 
-        echo 'Matching Bookmarks<br/><ul>';
+        echo 'Current tags in search:';
+        var_dump($this->_browser->getTags());
+        echo '<br /><br />Matching Bookmarks<br /><ul>';
         foreach ($results as $bm) {
             echo '<li>' . $bm->url . '</li>';
         }
-        echo '<br/><br/>Related Tags<br /><ul>';
+        echo '<br /><br/>Related Tags<br /><ul>';
         foreach ($rtags as $id => $taginfo) {
             echo '<li>' . $taginfo['tag_name'] . '</li>';
         }
