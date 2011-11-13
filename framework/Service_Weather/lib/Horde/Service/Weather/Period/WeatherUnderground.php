@@ -69,7 +69,7 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
              // Wunderground only supports standard
             return false;
         case 'hour':
-             // Wunderground only supports standard
+             // Wunderground supports this, but we don't.
             return false;
         case 'date':
             $date = new Horde_Date(array(
@@ -117,7 +117,7 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
 
         default:
             if (!empty($this->_map[$property])) {
-                return $this->_properties[$this->_map[$property]];
+                return Horde_Service_Weather_Translation::t($this->_properties[$this->_map[$property]]);
             }
 
             throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support the "' . $property . '" property');
