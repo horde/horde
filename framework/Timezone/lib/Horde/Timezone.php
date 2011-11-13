@@ -6,10 +6,20 @@
  * the timezone (Olson) database, parse it, cached it, and generate
  * VTIMEZONE objects.
  *
+ * Usage:
+ * <code>
+ * $tz = new Horde_Timezone();
+ * $tz->getZone('America/New_York')->toVtimezone()->exportVcalendar();
+ * </code>
+ *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @todo Implement caching
+ * @todo Don't hardcode database location
+ * @todo Support retrieving database from filesystem and HTTP
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Timezone
