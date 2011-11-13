@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Use the same timezone for recurrence end dates like for the start date.
 * [jan] Add setter and getter for "timezone".
 * [jan] Fix weekly recurrence instances having the wrong timezone set.
  </notes>
