@@ -1521,6 +1521,17 @@
   </configsection>
  </configtab>
 
+ <configtab name="timezone" desc="Timezone Lookup">
+  <configsection name="timezone">
+   <configheader>Timezone Lookup Settings</configheader>
+   <configstring name="location" required="false" desc="Horde may
+   lookup timezone information from a global timezone database, also
+   known as Olson database. You can enter any http://, ftp:// or
+   file:// location
+   here.">ftp://ftp.iana.org/tz/tzdata-latest.tar.gz</configstring>
+  </configsection>
+ </configtab>
+
  <configtab name="problems" desc="Problem Reporting">
   <configsection name="problems">
    <configheader>Problem Reporting Settings</configheader>

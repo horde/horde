@@ -565,8 +565,18 @@ abstract class Kronolith_Event
             $vEvent->setAttribute('DTEND', $this->end, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('X-FUNAMBOL-ALLDAY', 1);
         } else {
-            $vEvent->setAttribute('DTSTART', $this->start);
-            $vEvent->setAttribute('DTEND', $this->end);
+            $this->setTimezone(true);
+            $params = array();
+            if ($this->timezone) {
+                try {
+                    $tz = $GLOBALS['injector']->getInstance('Horde_Timezone');
+                    $vEvent->addComponent($tz->getZone($this->timezone)->toVtimezone());
+                    $params['TZID'] = $this->timezone;
+                } catch (Horde_Exception $e) {
+                }
+            }
+            $vEvent->setAttribute('DTSTART', clone $this->start, $params);
+            $vEvent->setAttribute('DTEND', clone $this->end, $params);
         }
 
         $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
@@ -854,6 +864,8 @@ abstract class Kronolith_Event
             }
         }
         array_unshift($vEvents, $vEvent);
+
+        $this->setTimezone(false);
 
         return $vEvents;
     }

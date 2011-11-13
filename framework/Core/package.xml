@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-11-07</date>
- <time>14:16:14</time>
+ <date>2011-11-13</date>
+ <time>20:12:41</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -182,6 +182,7 @@
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
        <file name="ThemesCache.php" role="php" />
+       <file name="Timezone.php" role="php" />
        <file name="Token.php" role="php" />
        <file name="Tree.php" role="php" />
        <file name="Twitter.php" role="php" />
@@ -1144,6 +1145,7 @@
    <install as="Horde/Core/Factory/Template.php" name="lib/Horde/Core/Factory/Template.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
    <install as="Horde/Core/Factory/ThemesCache.php" name="lib/Horde/Core/Factory/ThemesCache.php" />
+   <install as="Horde/Core/Factory/Timezone.php" name="lib/Horde/Core/Factory/Timezone.php" />
    <install as="Horde/Core/Factory/Token.php" name="lib/Horde/Core/Factory/Token.php" />
    <install as="Horde/Core/Factory/Tree.php" name="lib/Horde/Core/Factory/Tree.php" />
    <install as="Horde/Core/Factory/Twitter.php" name="lib/Horde/Core/Factory/Twitter.php" />
