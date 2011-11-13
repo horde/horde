@@ -18,7 +18,7 @@
  *<pre>
  *  conditions             Condition description.
  *  icon_url               URL to an appropriate icon provided by the provider.
- *  icon                   Name of a Horde_Services_Weather icon.
+ *  icon                   Name of a Horde_Service_Weather icon.
  *  precipitation_percent  Percent chance of precipitation.
  *  period                 The period number.
  *  high                   High temperature.

@@ -147,7 +147,7 @@
             'temp' => Horde_Service_Weather_Translation::t('C'),
             'wind' => Horde_Service_Weather_Translation::t('kts'),
             'pres' => Horde_Service_Weather_Translation::t('millibars'),
-            'vis' => Horde_Services_Weather_Translation::t('km')
+            'vis' => Horde_Service_Weather_Translation::t('km')
         );
 
     }
