@@ -264,24 +264,29 @@ class Horde_Block_Weather extends Horde_Core_Block
                         '<br />' . $condition . '</td>';
 
                     // Precipitation chance.
-                    $html .= '<td style="border:1px solid #ddd; text-align:center">' .
-                        $day->precipitation_percent . '%' . '</td>';
+                    $html .= '<td style="border:1px solid #ddd; text-align:center">'
+                        . ($day->precipitation_percent ? $day->precipitation_percent . '%' : _("N/A")) . '</td>';
 
                     // If a detailed forecast was requested, show humidity and
                     // winds.
                     if (isset($this->_params['detailedForecast'])) {
                         // Humidity.
-                        $html .= '<td style="border:1px solid #ddd; text-align:center">' .
-                            $day->humidity . '%</td>';
+                        $html .= '<td style="border:1px solid #ddd; text-align:center">'
+                            . ($day->humidity ? $day->humidity . '%': _("N/A")) . '</td>';
 
                         // Winds.
-                        $html .= '<td style="border:1px solid #ddd">' .
-                            _("From the ") . $day->wind_direction .
-                            _(" at ") . $day->wind_speed .
-                            ' ' . $units['wind'];
-                        if ($day->wind_gust && $day->wind_gust > 0) {
-                            $html .= _(", gusting ") . $day->wind_gust .
+                        if ($day->wind_direction) {
+                            $html .= '<td style="border:1px solid #ddd">' .
+                                _("From the ") . $day->wind_direction .
+                                _(" at ") . $day->wind_speed .
                                 ' ' . $units['wind'];
+                            if ($day->wind_gust && $day->wind_gust > 0) {
+                                $html .= _(", gusting ") . $day->wind_gust .
+                                    ' ' . $units['wind'];
+                            }
+                            $html .= '</td>';
+                        } else {
+                            $html .= '<td style="border:1px solid #ddd;text-align:center;">' . _("N/A") . '</td>';
                         }
                     }
 

@@ -190,8 +190,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             3 => Horde_Service_Weather::FORECAST_3DAY,
             5 => Horde_Service_Weather::FORECAST_5DAY,
             7 => Horde_Service_Weather::FORECAST_7DAY
-         )
+         );
      }
+
     /**
      * Perform an IP location search.
      *
