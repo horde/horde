@@ -169,7 +169,7 @@ H6
         $this->assertEquals(
             'Further information on Horde and the latest version can be obtained at
 
-  http://www.horde.org/apps/horde
+``  ``http://www.horde.org/apps/horde
 
 ',
             $this->protectAgainstPearError($wiki->transform('Further information on Horde and the latest version can be obtained at
