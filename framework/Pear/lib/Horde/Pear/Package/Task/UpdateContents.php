@@ -136,10 +136,17 @@ implements Horde_Pear_Package_Task
 
         $current = $this->_xml->createContents($this->_xml, $contents, $filelist);
         $current->update($this->_content);
-        if (empty($this->_options['no_timestamp'])) {
-            $this->_xml->timestamp();
+        try {
+            if (empty($this->_options['no_timestamp'])) {
+                $this->_xml->timestamp();
+            }
+            $this->_xml->syncCurrentVersion();
+        } catch (Horde_Pear_Exception $e) {
+            /**
+             * Ignore errors in this operation as it is not mandatory for
+             * updating the file list.
+             */
         }
-        $this->_xml->syncCurrentVersion();
     }
 
 }

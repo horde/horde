@@ -106,6 +106,15 @@ extends Horde_Pear_TestCase
         );
     }
 
+    public function testPackageXml()
+    {
+        $this->assertInstanceOf(
+            'Horde_Pear_Package_Xml',
+            $this->_getPackageXml()->getPackageXml('A', null)
+        );
+    }
+
+
     private function _getRemoteDependencies()
     {
         if (!class_exists('Horde_Http_Client')) {
@@ -185,6 +194,25 @@ extends Horde_Pear_TestCase
                 array(
                     'body' => $this->_getRelease(),
                     'code' => 200,
+                ),
+            )
+        );
+        return $this->createRemote($request);
+    }
+
+    private function _getPackageXml()
+    {
+        if (!class_exists('Horde_Http_Client')) {
+            $this->markTestSkipped('Horde_Http is missing!');
+        }
+        $request = new Horde_Pear_Stub_Request();
+        $request->setResponses(
+            array(
+                array(
+                    'body' => file_get_contents(
+                        dirname(__FILE__) . '/../fixture/rest/package.xml'
+                    ),
+                    'code' => 404,
                 ),
             )
         );
