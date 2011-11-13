@@ -2,10 +2,6 @@
 /**
  * @package Trean
  */
-
-/** Star rating helper */
-require_once TREAN_TEMPLATES . '/star_rating_helper.php';
-
 class Trean_View_BookmarkList
 {
     var $showFolder = false;

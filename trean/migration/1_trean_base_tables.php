@@ -29,12 +29,10 @@ class TreanBaseTables extends Horde_Db_Migration_Base
             $t->column('bookmark_title', 'string', array('limit' => 255));
             $t->column('bookmark_description', 'string', array('limit' => 1024));
             $t->column('bookmark_clicks', 'integer', array('default' => 0));
-            $t->column('bookmark_rating', 'integer');
             $t->column('bookmark_http_status', 'string', array('limit' => 5));
             $t->end();
             $this->addIndex('trean_bookmarks', array('user_id'));
             $this->addIndex('trean_bookmarks', array('bookmark_clicks'));
-            $this->addIndex('trean_bookmarks', array('bookmark_rating'));
         }
 
         if (!in_array('trean_favicons', $tableList)) {

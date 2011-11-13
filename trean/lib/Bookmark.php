@@ -11,7 +11,6 @@ class Trean_Bookmark
     var $title = '';
     var $description = '';
     var $clicks = 0;
-    var $rating = 0;
     var $http_status = null;
     var $favicon;
 
@@ -28,9 +27,6 @@ class Trean_Bookmark
             }
             if (!empty($bookmark['bookmark_clicks'])) {
                 $this->clicks = (int)$bookmark['bookmark_clicks'];
-            }
-            if (!empty($bookmark['bookmark_rating'])) {
-                $this->rating = (int)$bookmark['bookmark_rating'];
             }
             if (!empty($bookmark['bookmark_http_status'])) {
                 $this->http_status = $bookmark['bookmark_http_status'];
@@ -51,8 +47,7 @@ class Trean_Bookmark
                     bookmark_url = ?,
                     bookmark_title = ?,
                     bookmark_description = ?,
-                    bookmark_clicks = ?,
-                    bookmark_rating = ?
+                    bookmark_clicks = ?
                 WHERE bookmark_id = ?',
                 array(
                     $this->userId,
@@ -60,7 +55,6 @@ class Trean_Bookmark
                     Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                     Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                     $this->clicks,
-                    $this->rating,
                     $this->id,
             ));
         }
@@ -72,16 +66,14 @@ class Trean_Bookmark
         // Saving a new bookmark.
         $bookmark_id = $GLOBALS['trean_db']->insert('
             INSERT INTO trean_bookmarks
-                (user_id, bookmark_url, bookmark_title, bookmark_description,
-                 bookmark_clicks, bookmark_rating)
-            VALUES (?, ?, ?, ?, ?, ?)',
+                (user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks)
+            VALUES (?, ?, ?, ?, ?)',
             array(
                 $this->userId,
                 Horde_String::convertCharset($this->url, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 $this->clicks,
-                $this->rating,
         ));
 
         $this->id = (int)$bookmark_id;

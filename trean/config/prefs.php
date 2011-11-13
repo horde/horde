@@ -21,7 +21,6 @@ $_prefs['sortby'] = array(
     'locked' => false,
     'type' => 'enum',
     'enum' => array('title' => _("Title"),
-                    'rating' => _("Highest Rated"),
                     'clicks' => _("Most Clicked")),
     'desc' => _("Sort bookmarks by:")
 );

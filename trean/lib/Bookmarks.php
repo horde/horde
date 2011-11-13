@@ -49,7 +49,7 @@ class Trean_Bookmarks
     {
         $values = array($this->_userId);
 
-        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_rating
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks
                 FROM trean_bookmarks
                 WHERE user_id = ?
                 ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
@@ -89,7 +89,7 @@ class Trean_Bookmarks
             $values = array_merge($values, $clause[1]);
         }
 
-        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_rating
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks
                 FROM trean_bookmarks
                 WHERE user_id = ?
                       AND (' . implode(' ' . $search_operator . ' ', $clauses) . ')
@@ -139,8 +139,7 @@ class Trean_Bookmarks
     function getBookmark($id)
     {
         $bookmark = $GLOBALS['trean_db']->selectOne('
-            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description,
-                   bookmark_clicks, bookmark_rating
+            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks
             FROM trean_bookmarks
             WHERE bookmark_id = ' . (int)$id);
         if (is_null($bookmark)) {

@@ -22,23 +22,6 @@ if (is_a($folder, 'PEAR_Error')) {
     die('Permission denied');
 }
 
-// We support changing the rating.
-if (!is_null($rating = Horde_Util::getFormData('r'))) {
-    if ($rating < 0 || $rating > 5) {
-        die('Invalid data');
-    }
-
-    $bookmark->rating = $rating;
-    $bookmark->save();
-}
-
-// Partial requests (Ajax or other rest-ish calls) just return the new
-// bookmark data (currently rating).
-if (Horde_Util::getFormData('partial')) {
-    echo $bookmark->rating;
-    exit;
-}
-
 // Back to browsing that bookmark's folder, unless we were sent a
 // next-URL (nu) parameter.
 if (!is_null($url = Horde_Util::getFormData('nu'))) {

@@ -25,7 +25,6 @@ function doPrefsUpdate(column, sortDown)
   <th width="1%" class="nosort"></th>
   <th id="s_title"<?php if ($this->sortby == 'title') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Title") ?></th>
   <?php if ($this->showFolder): ?><th><?php echo _("Folder") ?></th><?php endif; ?>
-  <th id="s_rating"<?php if ($this->sortby == 'rating') echo ' class="' . $this->sortdirclass . '"' ?> width="1%"><?php echo _("Rating") ?></th>
   <th id="s_clicks"<?php if ($this->sortby == 'clicks') echo ' class="' . $this->sortdirclass . '"' ?> width="1%"><?php echo _("Clicks") ?></th>
  </tr>
 </thead>
@@ -55,9 +54,6 @@ foreach ($this->bookmarks as $bookmark) {
     <?php echo Horde::link($bookmark_url, '', '', $this->target) . htmlspecialchars($bookmark->title ? $bookmark->title : $bookmark->url) ?></a>
     <small> &#8230; <?php echo htmlspecialchars($bookmark->url) . ' &#8230; ' . htmlspecialchars(Horde_String::substr($bookmark->description, 0, 200)) ?></small>
    </div>
-  </td>
-  <td sortval="<?php echo $bookmark->rating ?>" class="rating">
-   <?php echo star_rating_helper($bookmark) ?>
   </td>
   <td class="bl-clicks">
    <?php echo $bookmark->clicks ?>
