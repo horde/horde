@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-13</date>
- <time>10:43:23</time>
+ <time>10:43:51</time>
  <version>
-  <release>1.1.8</release>
+  <release>1.1.9</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix duplicate entries being sent to client when client does not issue GETCHANGES request (Bug #10731).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -442,6 +442,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix duplicate entries being sent to client when client does not issue GETCHANGES request (Bug #10731).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.9</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
