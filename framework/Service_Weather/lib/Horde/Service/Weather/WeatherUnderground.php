@@ -180,6 +180,19 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     }
 
     /**
+     * Get array of supported forecast lengths.
+     *
+     * @return array The array of supported lengths.
+     */
+     public function getSupportedForecastLengths()
+     {
+         return array(
+            3 => Horde_Service_Weather::FORECAST_3DAY,
+            5 => Horde_Service_Weather::FORECAST_5DAY,
+            7 => Horde_Service_Weather::FORECAST_7DAY
+         )
+     }
+    /**
      * Perform an IP location search.
      *
      * @param  string $ip  The IP address to use.

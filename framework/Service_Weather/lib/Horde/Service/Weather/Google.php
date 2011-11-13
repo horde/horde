@@ -181,6 +181,18 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     }
 
     /**
+     * Get array of supported forecast lengths.
+     *
+     * @return array The array of supported lengths.
+     */
+     public function getSupportedForecastLengths()
+     {
+         return array(
+            3 => Horde_Service_Weather::FORECAST_3DAY
+         );
+     }
+
+    /**
      * Weather Underground allows requesting multiple features per request,
      * and only counts it as a single request against your API key. So we trade
      * a bit of request time/traffic for a smaller number of requests to obtain
