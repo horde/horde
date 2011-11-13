@@ -13,8 +13,25 @@
  */
 class Horde_Timezone_Zone
 {
+    /**
+     * The timezone ID.
+     *
+     * @var string
+     */
     protected $_name;
+
+    /**
+     * A Horde_Timezone object.
+     *
+     * @va Horde_Timezone
+     */
     protected $_tz;
+
+    /**
+     * Zone lines of this zone object.
+     *
+     * @var array
+     */
     protected $_info = array();
 
     /**
@@ -26,8 +43,21 @@ class Horde_Timezone_Zone
      */
     public function __construct($name, Horde_Timezone $tz)
     {
-        $this->_name = $name;
+        $this->setTzid($name);
         $this->_tz = $tz;
+    }
+
+    /**
+     * Sets the timezone ID.
+     *
+     * There are aliases for timezone IDs, it might be necessary to
+     * use one of those.
+     *
+     * @param string $name        A timezone ID.
+     */
+    public function setTzid($name)
+    {
+        $this->_name = $name;
     }
 
     /**
