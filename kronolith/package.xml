@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Support importing of iCalendar events with non-local timezones (Request #7156).
 * [jan] Include timezone information when exporting events to iCalendar (Request #7156).
 * [jan] Allow to set individual timezones for each event (Request #10727).
  </notes>

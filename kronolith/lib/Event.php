@@ -968,17 +968,26 @@ abstract class Kronolith_Event
         $this->allday = false;
 
         // Start and end date.
+        $tzid = null;
         try {
             $start = $vEvent->getAttribute('DTSTART');
+            $startParams = $vEvent->getAttribute('DTSTART', true);
+            // We don't support different timezones for different attributes,
+            // so use the DTSTART timezone for the complete event.
+            if (isset($startParams[0]['TZID'])) {
+                $tzid = $startParams[0]['TZID'];
+                $this->timezone = $tzid;
+            }
             if (!is_array($start)) {
                 // Date-Time field
-                $this->start = new Horde_Date($start);
+                $this->start = new Horde_Date($start, $tzid);
             } else {
                 // Date field
                 $this->start = new Horde_Date(
                     array('year'  => (int)$start['year'],
                           'month' => (int)$start['month'],
-                          'mday'  => (int)$start['mday']));
+                          'mday'  => (int)$start['mday']),
+                    $tzid);
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
@@ -986,7 +995,7 @@ abstract class Kronolith_Event
             $end = $vEvent->getAttribute('DTEND');
             if (!is_array($end)) {
                 // Date-Time field
-                $this->end = new Horde_Date($end);
+                $this->end = new Horde_Date($end, $tzid);
                 // All day events are transferred by many device as
                 // DSTART: YYYYMMDDT000000 DTEND: YYYYMMDDT2359(59|00)
                 // Convert accordingly
@@ -996,14 +1005,16 @@ abstract class Kronolith_Event
                     $this->end = new Horde_Date(
                         array('year'  => (int)$this->end->year,
                               'month' => (int)$this->end->month,
-                              'mday'  => (int)$this->end->mday + 1));
+                              'mday'  => (int)$this->end->mday + 1),
+                        $tzid);
                 }
             } else {
                 // Date field
                 $this->end = new Horde_Date(
                     array('year'  => (int)$end['year'],
                           'month' => (int)$end['month'],
-                          'mday'  => (int)$end['mday']));
+                          'mday'  => (int)$end['mday']),
+                    $tzid);
             }
         } catch (Horde_Icalendar_Exception $e) {
             $end = null;
@@ -1182,7 +1193,8 @@ abstract class Kronolith_Event
                     $this->recurrence->fromRRule10($rrule);
                 }
 
-                /* Delete all existing exceptions to this event if it already exists */
+                /* Delete all existing exceptions to this event if it
+                 * already exists */
                 if (!empty($this->uid)) {
                     $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
                     $search = new StdClass();
