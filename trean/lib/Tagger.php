@@ -208,4 +208,47 @@ class Trean_Tagger
         return $GLOBALS['injector']->getInstance('Content_Tagger')->getTagCloud(
                 array('userId' => $user, 'limit' => $limit));
     }
+
+    /**
+     * Retrieve a set of tags that are related to the specifed set. A tag is
+     * related if resources tagged with the specified set are also tagged with
+     * the tag being considered. Used to "browse" tagged resources.
+     *
+     * @param array $tags   An array of tags to check. This would represent the
+     *                      current "directory" of tags while browsing.
+     * @param string $user  The resource must be owned by this user.
+     *
+     * @return array  An tag_id => tag_name hash
+     */
+    public function browseTags($tags, $user)
+    {
+        try {
+            $tags = array_values($GLOBALS['injector']->getInstance('Content_Tagger')->getTagIds($tags));
+            return $GLOBALS['injector']
+                ->getInstance('Content_Tagger')
+                ->browseTags($tags, $this->_type_ids['bookmark'], $user);
+        } catch (Content_Exception $e) {
+            throw new Trean_Exception($e);
+        }
+    }
+
+    /**
+     * Get tag ids for the specified tag names.
+     *
+     * @param string|array $tags  Either a tag_name or array of tag_names.
+     *
+     * @return array  A tag_id => tag_name hash.
+     * @throws Trean_Exception
+     */
+    public function getTagIds($tags)
+    {
+        try {
+            return $GLOBALS['injector']
+                ->getInstance('Content_Tagger')
+                ->getTagIds($tags);
+        } catch (Content_Exception $e) {
+            throw new Trean_Exception($e);
+        }
+    }
+
 }
