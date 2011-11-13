@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/bsdl.php BSD
  * @package  Trean
  */
-class AddBookmarkDt extends Horde_Db_Migration_Base
+class AddUserId extends Horde_Db_Migration_Base
 {
     /**
      * Upgrade.
