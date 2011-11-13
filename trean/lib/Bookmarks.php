@@ -165,6 +165,13 @@ class Trean_Bookmarks
         }
 
         /* Check permissions. */
+        if ($bookmark->userId != $this->_userId) {
+            throw new Trean_Exception('permission denied');
+        }
+
+        /* Untag */
+        $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
+        $tagger->replaceTags((string)$bookmark->id, array(), $GLOBALS['registry']->getAuth(), 'bookmark');
 
         /* TODO: Decrement favicon refcount. */
 
