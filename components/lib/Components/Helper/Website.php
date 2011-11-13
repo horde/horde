@@ -100,9 +100,9 @@ class Components_Helper_Website
 ';
         foreach ($doc_files as $path => $filename) {
             if (preg_match('/^Horde_/', $component->getName())) {
-                $docs .= '<li><a href="<?php echo $this->urlWriter->urlFor(array(\'controller\' => \'library\', \'action\' => \'docs\', \'library\' => \'' . $component->getName() . '\', \'file\' => \'' . $filename. '\')); ?>\">' . $filename. '</a></li>' . "\n";
+                $docs .= '<li><a href="<?php echo $this->urlWriter->urlFor(array(\'controller\' => \'library\', \'action\' => \'docs\', \'library\' => \'' . $component->getName() . '\', \'file\' => \'' . $filename. '\')); ?>">' . $filename. '</a></li>' . "\n";
             } else {
-                $docs .= '<li><a href="<?php echo $this->urlWriter->urlFor(array(\'controller\' => \'apps\', \'action\' => \'docs\', \'app\' => \'' . $component->getName() . '\', \'file\' => \'' . $filename. '\')); ?>\">' . $filename. '</a></li>' . "\n";
+                $docs .= '<li><a href="<?php echo $this->urlWriter->urlFor(array(\'controller\' => \'apps\', \'action\' => \'docs\', \'app\' => \'' . $component->getName() . '\', \'file\' => \'' . $filename. '\')); ?>">' . $filename. '</a></li>' . "\n";
             }
 
             if ($filename == 'CHANGES') {
@@ -145,6 +145,15 @@ class Components_Helper_Website
                     $return_value = proc_close($process);
 
                     $out = preg_replace('#.*<body>[\n]?(.*)</body>.*#ms', '\1', $out);
+
+                    if ($filename == 'DOCS_ORIGIN') {
+                        $out = preg_replace('#\?actionID=export&amp;format=rst#', '', $out);
+                        $out = preg_replace(
+                            '#<td class="field-body">(.*)</td>#',
+                            '<td class="field-body"><a href="<?php echo $this->urlWriter->urlFor(array(\'controller\' => \'library\', \'action\' => \'docs\', \'library\' => \'' . $component->getName() . '\', \'file\' => \'\1\')); ?>">\1</a></td>',
+                            $out
+                        );
+                    }
 
                     if (!empty($errors)) {
                         $this->_output->warn(print_r($errors, true));
@@ -207,7 +216,8 @@ class Components_Helper_Website
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $file) {
             if ($file->isFile() &&
                 preg_match('/[A-Z_]+/', $file->getFilename()) &&
-                !in_array($file->getFilename(), array('COPYING', 'LICENSE'))) {
+                !in_array($file->getFilename(), array('COPYING', 'LICENSE')) &&
+                !preg_match('#/examples/#', $file->getPathname())) {
                 $doc_files[$file->getPathname()] = $file->getFilename();
             }
         }
