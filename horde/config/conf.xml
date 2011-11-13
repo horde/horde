@@ -1635,21 +1635,6 @@
     </values>
    </configmultienum>
   </configsection>
-  <configheader>weather.com Configuration</configheader>
-  <configsection name="weatherdotcom">
-   <configdescription>
-    Use of the weather.com block requires free registration for the XML
-    feed at http://www.weather.com/services/xmloap.html.
-    After registration, an email will be returned with the Partner ID and
-    license key.&lt;br /&gt;
-    NOTE: weather.com guidelines require registration and use of the returned
-    values, but the application appears to function with any string values.
-   </configdescription>
-   <configstring name="partner_id" required="false" desc="The partner I.D.
-   from weather.com"/>
-   <configstring name="license_key" required="false" desc="The license key
-   from weather.com"/>
-  </configsection>
 
   <configheader>Fortune Configuration</configheader>
   <configsection name="fortune">

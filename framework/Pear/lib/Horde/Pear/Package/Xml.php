@@ -299,7 +299,7 @@ class Horde_Pear_Package_Xml
     public function getLeads()
     {
         $result = array();
-        foreach($this->findNodes('/p:package/p:lead') as $lead) {
+        foreach ($this->findNodes('/p:package/p:lead') as $lead) {
             $result[] = array(
                 'name' => $this->getNodeTextRelativeTo('./p:name', $lead),
                 'user' => $this->getNodeTextRelativeTo('./p:user', $lead),
@@ -456,12 +456,9 @@ class Horde_Pear_Package_Xml
      *
      * @return NULL
      */
-    public function addNextVersion(
-        $version,
-        $initial_note,
-        $stability_api = null,
-        $stability_release = null
-    )
+    public function addNextVersion($version, $initial_note,
+                                   $stability_api = null,
+                                   $stability_release = null)
     {
         $notes = "\n* " . $initial_note . "\n ";
         $api = $this->getNodeText('/p:package/p:version/p:api');
@@ -490,7 +487,7 @@ class Horde_Pear_Package_Xml
         $this->_appendChild($release, 'date', date('Y-m-d'), "\n   ");
         $this->_appendLicense(
             $release,
-            $this->getLicense(), 
+            $this->getLicense(),
             $this->getLicenseLocation(),
             "\n   "
         );
@@ -739,12 +736,8 @@ class Horde_Pear_Package_Xml
      *
      * @return DOMNodeList The list of DOMNodes.
      */
-    public function replaceTextNodeRelativeTo(
-        $path,
-        DOMNode $context,
-        $value,
-        $attributes = array()
-    )
+    public function replaceTextNodeRelativeTo($path, DOMNode $context, $value,
+                                              $attributes = array())
     {
         if ($node = $this->findNodeRelativeTo($path, $context)) {
             $new_node = $this->_replacementNode($node, $value);

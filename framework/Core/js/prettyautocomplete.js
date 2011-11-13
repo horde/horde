@@ -92,12 +92,12 @@ var PrettyAutocompleter = Class.create({
         this.p.domParent = this.p.box;
         new Ajax.Autocompleter(this.p.trigger, this.p.uri, this.p);
 
+        this.initialized = true;
+
         // Prepopulate the items and the container elements?
         if (typeof this.p.existing != 'undefined') {
-            this.init(this.p.existing);
+            this.reset(this.p.existing);
         }
-
-        this.initialized = true;
     },
 
     /**

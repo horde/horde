@@ -65,13 +65,6 @@ extends Components_Module_Base
                 )
             ),
             new Horde_Argv_Option(
-                '--websource',
-                array(
-                    'action' => 'store',
-                    'help'   => 'Path to the checkout of the "horde-web" git repository.'
-                )
-            ),
-            new Horde_Argv_Option(
                 '--html-generator',
                 array(
                     'action' => 'store',
@@ -122,8 +115,7 @@ extends Components_Module_Base
     public function getContextOptionHelp()
     {
         return array(
-            '--destination' => 'The documentation for the component will be written to the location specified as DESTINATION. The module will assume DESTINATION is a checkout of the "horde-web" git repository. If DESTINATION is not provided WEBSOURCE will be the used as a fallback. At least one of them MUST be present.',
-            '--websource' => '',
+            '--destination' => 'The documentation for the component will be written to the location specified as DESTINATION. The module will assume DESTINATION is a checkout of the "horde-web" git repository.',
             '--html-generator' => '',
             '--pretend' => '',
         );

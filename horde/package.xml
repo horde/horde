@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-18</date>
- <time>21:46:05</time>
+ <date>2011-11-13</date>
+ <time>04:49:38</time>
  <version>
   <release>4.1.0</release>
   <api>4.1.0</api>
@@ -425,7 +425,7 @@
      <file name="Time.php" role="horde" />
      <file name="TwitterTimeline.php" role="horde" />
      <file name="Vatid.php" role="horde" />
-     <file name="Weatherdotcom.php" role="horde" />
+     <file name="Weather.php" role="horde" />
      <file name="WeatherdotcomStrings.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="LoginTasks">
@@ -2925,7 +2925,7 @@
    <install as="lib/Block/Time.php" name="lib/Block/Time.php" />
    <install as="lib/Block/TwitterTimeline.php" name="lib/Block/TwitterTimeline.php" />
    <install as="lib/Block/Vatid.php" name="lib/Block/Vatid.php" />
-   <install as="lib/Block/Weatherdotcom.php" name="lib/Block/Weatherdotcom.php" />
+   <install as="lib/Block/Weather.php" name="lib/Block/Weather.php" />
    <install as="lib/Block/WeatherdotcomStrings.php" name="lib/Block/WeatherdotcomStrings.php" />
    <install as="/lib/Block/Account/Base.php" name="lib/Block/Account/Base.php" />
    <install as="/lib/Block/Account/Finger.php" name="lib/Block/Account/Finger.php" />
@@ -4627,9 +4627,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.
 * [jan] Add configuration option to disable password resets (Request #10640).
    </notes>
   </release>

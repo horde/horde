@@ -64,6 +64,9 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     protected $_lastLocation;
 
+    public $title = 'Google Weather';
+    public $link = 'http://google.com';
+
     /**
      * Icon map for wunderground. Not some are returned as
      * "sky" conditions and some as "condition" icons. Public
@@ -178,6 +181,18 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     }
 
     /**
+     * Get array of supported forecast lengths.
+     *
+     * @return array The array of supported lengths.
+     */
+     public function getSupportedForecastLengths()
+     {
+         return array(
+            3 => Horde_Service_Weather::FORECAST_3DAY
+         );
+     }
+
+    /**
      * Weather Underground allows requesting multiple features per request,
      * and only counts it as a single request against your API key. So we trade
      * a bit of request time/traffic for a smaller number of requests to obtain
@@ -263,7 +278,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     protected function _parseCurrent($current)
     {
         // The Current object takes care of the parsing/mapping.
-        $current = new Horde_Service_Weather_Current_Google($current);
+        $current = new Horde_Service_Weather_Current_Google($current, $this);
         $current->units = $this->units;
 
         return $current;

@@ -236,10 +236,8 @@ class Horde_Pear_Package_Xml_Element_Directory
      *
      * @return NULL
      */
-    private function _insert(
-        Horde_Pear_Package_Xml_Element_Directory $parent,
-        DOMNode $point = null
-    )
+    private function _insert(Horde_Pear_Package_Xml_Element_Directory $parent,
+                             DOMNode $point = null)
     {
         if ($point === null) {
             $point = $parent->getDirectoryNode()->lastChild;

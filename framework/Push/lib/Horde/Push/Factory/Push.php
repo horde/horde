@@ -163,7 +163,11 @@ class Horde_Push_Factory_Push
         $push = new Horde_Push();
         $push->setSummary($data['summary']);
         if (isset($data['body'])) {
-            $push->addContent($data['body']);
+            if (htmlspecialchars($data['body']) != $data['body']) {
+                $push->addContent($data['body'], 'text/html');
+            } else {
+                $push->addContent($data['body']);
+            }
         }
         return $push;
     }

@@ -11,6 +11,8 @@ v4.1-git
 v4.0.12-git
 -----------
 
+[mjr] Replace Weatherdotcom portal block with generic Weather block supported
+      by Horde_Service_Weather.
 [jan] Add configuration option to disable password resets (Request #10640).
 
 

@@ -208,10 +208,9 @@ implements Horde_Kolab_Storage_Folder
      *
      * @return NULL
      */
-    public function setPermission(
-        Horde_Kolab_Storage_Folder_Permission $perms,
-        $update = true
-    ) {
+    public function setPermission(Horde_Kolab_Storage_Folder_Permission $perms,
+                                  $update = true)
+    {
         $this->_folder->setPermission($perms, $update);
     }
 

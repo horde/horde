@@ -232,7 +232,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
     {
         $this->_xmldoc = $this->_getParser()->parse($xml, $options);
         $this->_refreshParser();
-       
+
         $params = $this->_getParameters($options);
         $this->_getRoot($params)->load(
             $this->_root_name,
@@ -249,7 +249,7 @@ class Horde_Kolab_Format_Xml implements Horde_Kolab_Format
      * only be provided as UTF-8 data.
      *
      * @param array $object  The data array representing the object.
-     * @param array $options Additional options when parsing the XML.
+     * @param array $options Additional options when writing the XML.
      * <pre>
      * - previos: The previous XML text (default: empty string)
      * - relaxed: Relaxed error checking (default: false)

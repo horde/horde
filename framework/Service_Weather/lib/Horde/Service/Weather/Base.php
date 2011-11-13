@@ -35,9 +35,40 @@
      */
     protected $_cache;
 
+    /**
+     * Lifetime for cached data.
+     *
+     * @var integer
+     */
     protected $_cache_lifetime = 216000;
 
+    /**
+     * Units to display results in.
+     *
+     * @var integer
+     */
     public $units = Horde_Service_Weather::UNITS_STANDARD;
+
+    /**
+     * URL to a logo for this provider
+     *
+     * @var string
+     */
+    public $logo;
+
+    /**
+     * URL to the provider's site
+     *
+     * @var string
+     */
+    public $link;
+
+    /**
+     * Title for the provider
+     *
+     * @var string
+     */
+    public $title;
 
     /**
      * Constructor
@@ -106,13 +137,17 @@
         if ($type == Horde_Service_Weather::UNITS_STANDARD) {
             return array(
                 'temp' => Horde_Service_Weather_Translation::t('F'),
-                'wind' => Horde_Service_Weather_Translation::t('mph')
+                'wind' => Horde_Service_Weather_Translation::t('mph'),
+                'pres' => Horde_Service_Weather_Translation::t('inches'),
+                'vis' => Horde_Service_Weather_Translation::t('miles')
             );
         }
 
         return array(
             'temp' => Horde_Service_Weather_Translation::t('C'),
-            'wind' => Horde_Service_Weather_Translation::t('kts')
+            'wind' => Horde_Service_Weather_Translation::t('kts'),
+            'pres' => Horde_Service_Weather_Translation::t('millibars'),
+            'vis' => Horde_Services_Weather_Translation::t('km')
         );
 
     }

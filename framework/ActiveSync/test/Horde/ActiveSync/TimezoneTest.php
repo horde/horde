@@ -8,6 +8,17 @@
  */
 class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
 {
+    public function setUp()
+    {
+        $this->_oldTimezone = date_default_timezone_get();
+        date_default_timezone_set('America/New_York');
+    }
+
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_oldTimezone);
+    }
+
     /**
      * Test building an Offset hash from a given ActiveSync style base64 encoded
      * timezone structure.

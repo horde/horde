@@ -48,13 +48,9 @@ extends Horde_Kolab_Format_Xml_Type_Base
      * @return DOMNode|boolean The named DOMNode or false if no node value was
      *                         found.
      */
-    public function load(
-        $name,
-        &$attributes,
-        $parent_node,
-        Horde_Kolab_Format_Xml_Helper $helper,
-        $params = array()
-    )
+    public function load($name, &$attributes, $parent_node,
+                         Horde_Kolab_Format_Xml_Helper $helper,
+                         $params = array())
     {
         $result = parent::load($name, $attributes, $parent_node, $helper, $params);
         if ($result !== false) {
@@ -74,11 +70,8 @@ extends Horde_Kolab_Format_Xml_Type_Base
      *
      * @return mixed|null The value or null if no value was found.
      */
-    public function loadNodeValue(
-        $node,
-        Horde_Kolab_Format_Xml_Helper $helper,
-        $params = array()
-    )
+    public function loadNodeValue($node, Horde_Kolab_Format_Xml_Helper $helper,
+                                  $params = array())
     {
         $result = $helper->fetchNodeValue($node);
         if ($result !== null) {
