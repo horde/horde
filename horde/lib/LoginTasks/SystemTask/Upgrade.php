@@ -82,7 +82,7 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
                     is_array($cur_col['params']) &&
                     Horde_String::lower($cur_col['params']['type2']) == 'horde_block_weatherdotcom') {
 
-                    $m->removeBlock($r, $c);
+                    $m->handle('removeBlock', $r, $c);
                 }
             }
         }
