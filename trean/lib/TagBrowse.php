@@ -215,7 +215,7 @@ class Trean_TagBrowse
      */
     public function getSlice($page, $perpage)
     {
-        global $conf, $registry, $injector;
+        global $injector;
 
         // Refresh the search
         $this->runSearch();
