@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-08</date>
- <time>22:26:31</time>
+ <date>2011-11-13</date>
+ <time>10:43:23</time>
  <version>
   <release>1.1.8</release>
   <api>1.1.0</api>
@@ -438,7 +438,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-08</date>
+   <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix duplicate entries being sent to client when client does not issue GETCHANGES request (Bug #10731).
