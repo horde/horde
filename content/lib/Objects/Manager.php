@@ -121,7 +121,7 @@ class Content_Objects_Manager
 
         $type = current($this->_typeManager->ensureTypes($type));
 
-        // Anything already typed as an integer is assumed to be a object id.
+        // Anything already typed as an integer is assumed to be an object id.
         foreach ($objects as $objectIndex => $object) {
             if (is_int($object)) {
                 $objectIds[$objectIndex] = $object;
@@ -169,5 +169,4 @@ class Content_Objects_Manager
     {
         return $this->_db->quoteTableName($this->_tables[$tableType]);
     }
-
 }

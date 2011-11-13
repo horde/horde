@@ -1,8 +1,6 @@
 <?php
 /**
- * $Horde: trean/search.php,v 1.32 2009/06/10 17:33:43 slusarz Exp $
- *
- * Copyright 2002-2009 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -52,7 +50,7 @@ if ($form->validate($vars)) {
 
     if ($criteria) {
         // Get the bookmarks.
-        $bookmarks = $trean_shares->searchBookmarks($criteria, $combine);
+        $bookmarks = $trean_gateway->searchBookmarks($criteria, $combine);
         $search_title = sprintf(_("Search Results (%s)"), count($bookmarks));
 
         // Display the results.

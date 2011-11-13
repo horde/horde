@@ -71,7 +71,6 @@ echo ' | ' . Horde::link('#', '', 'widget', '', 'deleteSelectedBookmarks(); retu
 echo ' | ' . Horde::link('#', '', 'widget', '', 'moveSelectedBookmarks(); return false;') . _("Move") . '</a>';
 echo ' | ' . Horde::link('#', '', 'widget', '', 'copySelectedBookmarks(); return false;') . _("Copy") . '</a>';
 ?>
-<select name="new_folder"><?php echo Trean::folderSelect(null, Horde_Perms::EDIT) ?></select>
 </td></tr></table>
 <?php else: echo '<p><em>' . _("No Bookmarks found") . '</em></p>'; endif;
 

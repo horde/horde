@@ -60,7 +60,6 @@ class Trean_Block_Mostclicked extends Horde_Core_Block
     protected function _content()
     {
         require_once dirname(__FILE__) . '/../base.php';
-        require_once TREAN_TEMPLATES . '/star_rating_helper.php';
 
         $template = TREAN_TEMPLATES . '/block/' . $this->_params['template'] . '.inc';
 
@@ -78,5 +77,4 @@ class Trean_Block_Mostclicked extends Horde_Core_Block
 
         return $html;
     }
-
 }
