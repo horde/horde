@@ -23,7 +23,6 @@ class TreanBaseTables extends Horde_Db_Migration_Base
 
         if (!in_array('trean_bookmarks', $tableList)) {
             $t = $this->createTable('trean_bookmarks', array('autoincrementKey' => 'bookmark_id'));
-            $t->column('user_id', 'integer', array('null' => false, 'unsigned' => true));
             $t->column('favicon_id', 'integer', array('unsigned' => true));
             $t->column('bookmark_url', 'string', array('limit' => 1024, 'null' => false));
             $t->column('bookmark_title', 'string', array('limit' => 255));
