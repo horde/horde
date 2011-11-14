@@ -1,5 +1,5 @@
 <?php
-class Horde_Queue_Runner_RequestShutdown extends Horde_Queue_Runner_Base
+class Horde_Queue_Runner_RequestShutdown extends Horde_Queue_Runner
 {
     public function __destruct()
     {
@@ -7,5 +7,4 @@ class Horde_Queue_Runner_RequestShutdown extends Horde_Queue_Runner_Base
             $task->run();
         }
     }
-
 }

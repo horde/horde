@@ -332,10 +332,10 @@ class Horde_Registry
             'Horde_Secret' => 'Horde_Core_Factory_Secret',
             'Horde_Service_Facebook' => 'Horde_Core_Factory_Facebook',
             'Horde_Service_Twitter' => 'Horde_Core_Factory_Twitter',
+            'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
             'Horde_Template' => 'Horde_Core_Factory_Template',
             'Horde_Token' => 'Horde_Core_Factory_Token',
-            'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_View' => 'Horde_Core_Factory_View',
             'Horde_View_Base' => 'Horde_Core_Factory_View',
             'Horde_Weather' => 'Horde_Core_Factory_Weather',
@@ -345,6 +345,8 @@ class Horde_Registry
         /* Define implementations. */
         $implementations = array(
             'Horde_Controller_ResponseWriter' => 'Horde_Controller_ResponseWriter_Web',
+            'Horde_Queue_Runner' => 'Horde_Queue_Runner_RequestShutdown',
+            'Horde_Queue_Storage' => 'Horde_Queue_Storage_Array',
         );
 
         /* Setup injector. */
@@ -435,16 +437,21 @@ class Horde_Registry
         /* Always need to load applications information. */
         $this->_loadApplications();
 
+        /* Stop system if Horde is inactive. */
+        if ($this->applications['horde']['status'] == 'inactive') {
+            throw new Horde_Exception(Horde_Core_Translation::t("This system is currently deactivated."));
+        }
+
         /* Initialize language configuration object. */
         $this->nlsconfig = new Horde_Registry_Nlsconfig();
 
         /* Initialize the localization routines and variables. */
         $this->setLanguageEnvironment(null, 'horde');
 
-        /* Stop system if Horde is inactive. */
-        if ($this->applications['horde']['status'] == 'inactive') {
-            throw new Horde_Exception(Horde_Core_Translation::t("This system is currently deactivated."));
-        }
+        /* Initialize shutdown Queue running.
+         * @TODO: Only do this if actually using the shutdown runner
+         */
+        $runner = $injector->getInstance('Horde_Queue_Runner');
 
         /* Initialize notification object. Always attach status listener by
          * default. Default status listener can be overriden through the
