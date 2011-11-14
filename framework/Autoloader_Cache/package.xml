@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
- <time>22:25:21</time>
+ <date>2011-11-14</date>
+ <time>06:19:48</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -26,6 +26,18 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="horde-autoloader-cache-prune" role="script" />
+   </dir> <!-- /bin -->
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Autoloader">
+      <dir name="Cache">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Autoloader/Cache -->
+     </dir> <!-- /doc/Horde/Autoloader -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Autoloader">
@@ -68,6 +80,8 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde-autoloader-cache-prune" name="bin/horde-autoloader-cache-prune" />
+   <install as="COPYING" name="doc/Horde/Autoloader/Cache/COPYING" />
    <install as="Horde/Autoloader/Cache.php" name="lib/Horde/Autoloader/Cache.php" />
   </filelist>
  </phprelease>
@@ -81,10 +95,10 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-13</date>
-   <license uri="TODO">TODO</license>
+   <date>2011-11-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* Initial release.
+* First alpha release.
    </notes>
   </release>
  </changelog>
