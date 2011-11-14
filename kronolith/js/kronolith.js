@@ -5743,7 +5743,9 @@ KronolithCore = {
             list: list,
             domParent: field.up('.kronolithDialog'),
             onChoose: function(value) {
-                field.setValue(value);
+                if (value) {
+                    field.setValue(value);
+                }
                 this.updateTimeFields(field.identify());
             }.bind(this)
         };
