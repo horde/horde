@@ -10,8 +10,19 @@ require_once 'Horde/Autoloader/Default.php';
 
 class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 {
+    /**
+     * Map of all classes already looked up.
+     *
+     * @var array
+     */
     protected $_cache;
 
+    /**
+     * Constructor.
+     *
+     * Tries all supported cache backends and tries to retrieved the
+     * cached class map.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -27,6 +38,12 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         }
     }
 
+    /**
+     * Destructor.
+     *
+     * Tries all supported cache backends and tries to save the class
+     * map to the cache.
+     */
     public function __destruct()
     {
         if (extension_loaded('apc')) {
