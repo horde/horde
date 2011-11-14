@@ -67,6 +67,9 @@ class Horde_Push_Factory_Recipients
             case 'twitter':
                 $r = $this->_createTwitter($recipient_conf);
                 break;
+            case 'facebook':
+                $r = $this->_createFacebook($recipient_conf);
+                break;
             case 'blogger':
                 $r = $this->_createBlogger($recipient_conf);
                 break;
@@ -110,12 +113,33 @@ class Horde_Push_Factory_Recipients
         $request = new Horde_Service_Twitter_Request_Oauth($this->_createControllerRequest($conf));
         $twitter = new Horde_Service_Twitter($auth, $request);
 
-        $twitter->setHttpClient($this->_createHttpClient($conf));
+        $http = $this->_createHttpClient($conf);
+        $twitter->setHttpClient($http);
 
         $auth_token = new Horde_Oauth_Token($conf['twitter']['token_key'], $conf['twitter']['token_secret']);
         $twitter->auth->setToken($auth_token);
 
-        return new Horde_Push_Recipient_Twitter($twitter);
+        return new Horde_Push_Recipient_Twitter($twitter, $http);
+    }
+
+    /**
+     * Create the facebook recipient.
+     *
+     * @param array $conf The configuration.
+     * 
+    * @return Horde_Push_Recipient_Facebook The facebook recipient.
+     */
+    private function _createFacebook($conf)
+    {
+        $facebook = new Horde_Service_Facebook(
+            $conf['facebook']['key'],
+            $conf['facebook']['secret'],
+            array(
+                'http_client' => $this->_createHttpClient($conf)
+            )
+        );
+        $facebook->auth->setSession($conf['facebook']['sid']);
+        return new Horde_Push_Recipient_Facebook($facebook);
     }
 
     /**
