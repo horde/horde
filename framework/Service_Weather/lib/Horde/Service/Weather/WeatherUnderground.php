@@ -368,8 +368,12 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
                $this->_cache->set($cachekey, $results);
             }
         }
+        $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
+        if (!($results instanceof StdClass)) {
+            throw new Horde_Service_Weather_Exception('Error, unable to decode response.');
+        }
 
-        return Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
+        return $results;
     }
 
  }
