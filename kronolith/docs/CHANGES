@@ -2,6 +2,8 @@
 v3.0.12-git
 -----------
 
+[jan] Always use fresh Horde_Http_Client instances for remote calendars (Bug
+      #10740).
 [jan] Add confirmation screen when deleting events in dynamic (Request #10725).
 [jan] Fix holidays disappearing from month view if deleting another event.
 [jan] Fix resetting attendee response status when saving events in dynamic
