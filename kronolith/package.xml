@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix selecting custom time from time selection drop down (Bug #10737).
 * [jan] Always use fresh Horde_Http_Client instances for remote calendars (Bug #10740).
 * [jan] Add confirmation screen when deleting events in dynamic view (Request #10725).
 * [jan] Fix holidays disappearing from month view if deleting another event.
@@ -1939,6 +1940,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix selecting custom time from time selection drop down (Bug #10737).
 * [jan] Always use fresh Horde_Http_Client instances for remote calendars (Bug #10740).
 * [jan] Add confirmation screen when deleting events in dynamic view (Request #10725).
 * [jan] Fix holidays disappearing from month view if deleting another event.

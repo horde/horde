@@ -2,6 +2,7 @@
 v3.0.12-git
 -----------
 
+[mjr] Fix selecting custom time from time selection drop down (Bug #10737).
 [jan] Always use fresh Horde_Http_Client instances for remote calendars (Bug
       #10740).
 [jan] Add confirmation screen when deleting events in dynamic (Request #10725).
