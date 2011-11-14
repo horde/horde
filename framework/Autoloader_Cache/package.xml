@@ -11,18 +11,18 @@
   <active>yes</active>
  </lead>
  <date>2011-11-14</date>
- <time>06:19:48</time>
+ <time>06:24:25</time>
  <version>
-  <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <release>1.0.0RC1</release>
+  <api>1.0.0RC1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release.
+* First release candidate.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
