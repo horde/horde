@@ -88,13 +88,13 @@ class Horde_Block_Weather extends Horde_Core_Block
             ->getInstance('Horde_Weather');
 
         $units = $weather->getUnits();
-
         // Test location
         try {
             $location = $weather->searchLocations($this->_params['location']);
-        } catch (Horde_Service_Weather $e) {
-            return $location->getMessage();
+        } catch (Horde_Service_Weather_Exception $e) {
+            return $e->getMessage();
         }
+
         $html = '';
         if (is_array($location)) {
             // Several locations returned due to imprecise location parameter.
