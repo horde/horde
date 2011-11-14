@@ -129,7 +129,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     public function getCurrentConditions($location)
     {
-        $this->_getCommonElements(urlencode($location));
+        $this->_getCommonElements(rawurlencode($location));
         return $this->_current;
     }
 
@@ -143,7 +143,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $length = Horde_Service_Weather::FORECAST_3DAY,
         $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
-        $this->_getCommonElements(urlencode($location), $length);
+        $this->_getCommonElements(rawurlencode($location), $length);
         return $this->_forecast;
     }
 
@@ -165,17 +165,17 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      *
      * @return string  The search location suitable to use directly in a
      *                 weather request.
+     * @throws Horde_Service_Weather_Exception
      */
     public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
     {
-        $location = urlencode($location);
         switch ($type) {
         case Horde_Service_Weather::SEARCHTYPE_STANDARD:
-            return $this->_parseSearchLocations($this->_searchLocations($location));
+            return $this->_parseSearchLocations($this->_searchLocations(rawurlencode($location)));
             break;
 
         case Horde_Service_Weather::SEARCHTYPE_IP;
-            return $this->_parseSearchLocations($this->_getLocationByIp($location));
+            return $this->_parseSearchLocations($this->_getLocationByIp(rawurlencode($location)));
         }
     }
 
@@ -356,11 +356,11 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected function _makeRequest($url)
     {
         $cachekey = md5('hordeweather' . $url);
+
         if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
             $url = new Horde_Url($url);
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
-                // @todo parse exception etc..
                 throw new Horde_Service_Weather_Exception($response->code);
             }
             $results = $response->getBody();
