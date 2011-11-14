@@ -339,6 +339,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
     protected function _parseSearchLocations($response)
     {
+        if (!empty($response->response->error)) {
+            throw new Horde_Service_Weather_Exception($response->response->error->description);
+        }
         if (!empty($response->response->results)) {
             $results = array();
             foreach ($response->response->results as $location) {
