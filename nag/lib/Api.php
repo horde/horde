@@ -1076,8 +1076,7 @@ class Nag_Api extends Horde_Registry_Api
             throw new Horde_Exception_PermimssionDenied(_("Permission Denied"));
         }
 
-        $storage = Nag_Driver::singleton($tasklist);
-        return $storage->get($id);
+        return Nag::getTask($tasklist, $id);
     }
 
     /**
