@@ -67,6 +67,7 @@ extends Horde_Push_Recipient_Base
         $contents = $content->getContent();
         $types = $content->getMimeTypes();
         $mail = new Horde_Mime_Mail();
+        // @todo Append references
         if (isset($types['text/plain'])) {
             $mail->setBody($content->getStringContent($types['text/plain'][0]));
             unset($contents[$types['text/plain'][0]]);

@@ -2916,9 +2916,8 @@ var DimpBase = {
                 div.addClassName('col');
             }
         } else {
-            div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
-
             if (ob.s) {
+                div.addClassName(ob.cl || 'folderImg');
                 parent_e = $('specialfolders');
 
                 /* Create a dummy container element in 'normalfolders'
@@ -2932,6 +2931,7 @@ var DimpBase = {
                     this.createFolder(tmp);
                 }
             } else {
+                div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
                 parent_e = ob.pa
                     ? $(this.getSubMboxId(this.getMboxId(ob.pa))).down()
                     : $('normalfolders');

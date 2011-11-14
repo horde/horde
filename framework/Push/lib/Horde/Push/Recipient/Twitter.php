@@ -36,13 +36,22 @@ extends Horde_Push_Recipient_Base
     private $_twitter;
 
     /**
+     * A HTTP client.
+     *
+     * @var Horde_Http_Client
+     */
+    private $_client;
+
+    /**
      * Constructor.
      *
      * @param Horde_Service_Twitter $twitter The twitter client.
      */
-    public function __construct(Horde_Service_Twitter $twitter)
+    public function __construct(Horde_Service_Twitter $twitter,
+                                $client = null)
     {
         $this->_twitter = $twitter;
+        $this->_client = $client;
     }
 
     /**
@@ -55,13 +64,31 @@ extends Horde_Push_Recipient_Base
      */
     public function push(Horde_Push $content, $options = array())
     {
+        $tweet = $content->getSummary();
+        if ($content->hasReferences() && strlen($tweet) < 116 &&
+            class_exists('Horde_Service_UrlShortener_Base') &&
+            $this->_client !== null) {
+            $shortener = new Horde_Service_UrlShortener_TinyUrl($this->_client);
+            foreach ($content->getReferences() as $reference) {
+                $tweet .= ' ' . $shortener->shorten($reference);
+                if (strlen($tweet) > 115) {
+                    break;
+                }
+            }
+        }
+        if ($content->hasTags()) {
+            foreach ($content->getTags() as $tag) {
+                if (strlen($tweet) + strlen($tag) < 139) {
+                    $tweet .= ' #' . $tag;
+                }
+            }
+        }
         if (empty($options['pretend'])) {
-            //@todo This is the trivial implementation. There may be no summary, it may be too long, etc.
-            $this->_twitter->statuses->update($content->getSummary());
+            $this->_twitter->statuses->update($tweet);
             return 'Pushed tweet to twitter.';
         } else {
             return sprintf(
-                'Would push tweet "%s" to twitter.', $content->getSummary()
+                'Would push tweet "%s" to twitter.', $tweet
             );
         }
     }

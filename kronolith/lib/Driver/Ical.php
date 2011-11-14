@@ -735,10 +735,6 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      */
     protected function _getClient()
     {
-        if ($this->_client) {
-            return $this->_client;
-        }
-
         $options = array('request.timeout' => isset($this->_params['timeout'])
                                               ? $this->_params['timeout']
                                               : 5);

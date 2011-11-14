@@ -86,7 +86,6 @@ class Horde_Block_Weather extends Horde_Core_Block
         $weather = $GLOBALS['injector']
             ->getInstance('Horde_Weather');
         $units = $weather->getUnits();
-
         // Test location
         try {
             $location = $weather->searchLocations($this->_params['location']);

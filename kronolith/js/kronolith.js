@@ -5755,7 +5755,9 @@ KronolithCore = {
             list: list,
             domParent: field.up('.kronolithDialog'),
             onChoose: function(value) {
-                field.setValue(value);
+                if (value) {
+                    field.setValue(value);
+                }
                 this.updateTimeFields(field.identify());
             }.bind(this)
         };
@@ -5891,6 +5893,18 @@ KronolithCore = {
                 this.duration = Math.abs(end.getTime() - start.getTime()) / 60000;
             }
             break;
+        }
+    },
+
+    /**
+     * Keypress handler for time fields.
+     *
+     * @param string field  The field the knl is tied to.
+     * @param object e      Event object
+     */
+    timeSelectKeyHandler: function(field, e) {
+        if ($F(field) !== this.knl[field.identify()].getCurrentEntry()) {
+            this.knl[field.identify()].markSelected(null);
         }
     },
 
@@ -6129,6 +6143,7 @@ KronolithCore = {
         timeFields.each(function(field) {
             var dropDown = this.attachTimeDropDown(field);
             field.observe('click', function() { dropDown.show(); });
+            field.observe('keyup', this.timeSelectKeyHandler.bind(this, field));
         }, this);
         $('kronolithEventStartDate', 'kronolithEventStartTime').invoke('observe', 'change', this.updateEndTime.bind(this));
 
