@@ -50,7 +50,6 @@ class Horde_Block_Weather extends Horde_Core_Block
         $lengths = $weather->getSupportedForecastLengths();
         return array(
             'location' => array(
-                // 'type' => 'weatherdotcom',
                 'type' => 'text',
                 'name' => _("Location"),
                 'default' => 'Boston,MA'
@@ -86,7 +85,6 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         $weather = $GLOBALS['injector']
             ->getInstance('Horde_Weather');
-
         $units = $weather->getUnits();
 
         // Test location
@@ -107,14 +105,14 @@ class Horde_Block_Weather extends Horde_Core_Block
             $html .= '</ul>';
             return $html;
         }
-
         try {
             $forecast = $weather->getForecast($this->_params['location'], $this->_params['days']);
             $station = $weather->getStation();
             $current = $weather->getCurrentConditions($this->_params['location']);
-        } catch (Horde_Service_Weather $e) {
+        } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
+
         // Location and local time.
         $html .= '<div class="control">'
             . '<strong>' . $station->name . '</strong> ' . _("Local time: ")
