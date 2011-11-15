@@ -2,6 +2,7 @@
 v5.0.15-git
 -----------
 
+[mms] Fix removing addresses on contacts page (Bug #10761).
 [mms] Virtual Trash fixes.
 [mms] Improved UI access to advanced sorting options in dynamic view.
 [mms] Fix stripping attachments in traditional view (Bug #10722).
