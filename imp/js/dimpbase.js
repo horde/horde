@@ -2138,7 +2138,7 @@ var DimpBase = {
                 row = this.viewport.createSelection('rownum', this.lastrow.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
-                    this.viewport.scrollTo(row.VP_rownum);
+                    this.viewport.scrollTo(row.VP_rownum, { bottom: true });
                     this.msgSelect(row.VP_domid, { shift: true });
                 }
             } else {
