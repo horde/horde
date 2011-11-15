@@ -1401,7 +1401,7 @@ var DimpBase = {
 
     setSortColumns: function(sortby)
     {
-        var tmp,
+        var tmp, tmp2,
             ptr = DIMP.conf.sort,
             m = $('msglistHeaderHoriz');
 
@@ -1416,8 +1416,12 @@ var DimpBase = {
         } else {
             ptr.each(function(s) {
                 if (s.value.t) {
+                    var elt = new Element('A', { className: 'widget' }).insert(s.value.t).store('sortby', s.value.v);
+                    if (s.value.ec) {
+                        elt.addClassName(s.value.ec);
+                    }
                     m.down('.' + s.value.c).insert({
-                        top: new Element('A', { className: 'widget' }).insert(s.value.t).store('sortby', s.value.v)
+                        top: elt
                     });
                 }
             });
@@ -1425,12 +1429,10 @@ var DimpBase = {
         }
 
         /* Toggle between From/To header. */
-        tmp = m.down('.msgFrom a');
-        if (this.viewport.getMetaData('special')) {
-            tmp.hide().next().show();
-        } else {
-            tmp.show().next().hide();
-        }
+        tmp = this.viewport.getMetaData('special');
+        tmp2 = m.down('a.msgFromTo');
+        [ tmp2 ].invoke(tmp ? 'show' : 'hide');
+        tmp2.siblings().invoke(tmp ? 'hide' : 'show');
 
         ptr.find(function(s) {
             if (sortby != s.value.v) {

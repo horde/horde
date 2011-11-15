@@ -102,6 +102,7 @@ $code['conf'] = array_filter(array(
         ),
         'to' => array(
             'c' => 'msgFrom',
+            'ec' => 'msgFromTo',
             't' => _("To"),
             'v' => Horde_Imap_Client::SORT_TO
         ),
