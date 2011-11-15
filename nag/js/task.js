@@ -25,17 +25,32 @@ var NagTasks = {
             list: list,
             domParent: field.up('#nag_form_task'),
             onChoose: function(value) {
-                field.setValue(value);
+                if (value) {
+                    field.setValue(value);
+                }
             }.bind(this)
         };
 
         this.knl[field.id] = new KeyNavList(field, opts);
 
         return this.knl[field.id];
+    },
+
+    /**
+     * Keypress handler for time fields.
+     */
+    timeSelectKeyHandler: function()
+    {
+        var dt = $('due_time');
+        if ($F(dt) !== this.knl[dt.identify()].getCurrentEntry()) {
+            this.knl[dt.identify()].markSelected(null);
+        }
     }
 }
 
 document.observe('dom:loaded', function() {
     var dropDown = NagTasks.attachTimeDropDown('due_time', Nag.conf.time_format);
-    $('due_time').observe('click', function() { dropDown.show(); });
+    var dt = $('due_time');
+    dt.observe('click', function() { dropDown.show(); });
+    dt.observe('keyup', NagTasks.timeSelectKeyHandler.bind(NagTasks));
 });
