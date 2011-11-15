@@ -41,7 +41,6 @@
 
     public function __isset($property)
     {
-        var_dump($this->_properties[$property]);
         return !empty($this->_properties[$property]);
     }
 
