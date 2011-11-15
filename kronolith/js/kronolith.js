@@ -334,6 +334,7 @@ KronolithCore = {
         switch (loc) {
         case 'day':
         case 'week':
+        case 'workweek':
         case 'month':
         case 'year':
         case 'agenda':
@@ -346,6 +347,7 @@ KronolithCore = {
             case 'day':
             case 'agenda':
             case 'week':
+            case 'workweek':
             case 'month':
             case 'year':
                 var date = locParts.shift();
@@ -356,11 +358,15 @@ KronolithCore = {
                 }
 
                 if (this.view != 'agenda' &&
-                    this.view == loc && date.getYear() == this.date.getYear() &&
+                    this.view == loc &&
+                    date.getYear() == this.date.getYear() &&
                     ((loc == 'year') ||
-                     (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
-                     (loc == 'week' && date.getRealWeek() == this.date.getRealWeek()) ||
-                     ((loc == 'day'  || loc == 'agenda') && date.dateString() == this.date.dateString()))) {
+                     (loc == 'month' &&
+                      date.getMonth() == this.date.getMonth()) ||
+                     ((loc == 'week' || loc == 'workweek') &&
+                      date.getRealWeek() == this.date.getRealWeek()) ||
+                     ((loc == 'day'  || loc == 'agenda') &&
+                      date.dateString() == this.date.dateString()))) {
                          this.addHistory(fullloc);
                          this.loadNextView();
                          return;
@@ -376,7 +382,7 @@ KronolithCore = {
                         duration: this.effectDur,
                         queue: 'end',
                         afterFinish: function() {
-                            if (loc == 'week' || loc == 'day') {
+                            if (loc == 'week' || loc == 'workweek' || loc == 'day') {
                                 this.calculateRowSizes(loc + 'Sizes', 'kronolithView' + locCap);
                                 if ($('kronolithTimeMarker')) {
                                     this.positionTimeMarker();
@@ -655,20 +661,22 @@ KronolithCore = {
             break;
 
         case 'week':
+        case 'workweek':
             this.dayEvents = [];
             this.dayGroups = [];
             this.allDayEvents = [];
             this.allDays = {};
             this.eventsWeek = {};
-            var div = $('kronolithEventsWeek').down('div'),
-                th = $('kronolithViewWeekHead').down('.kronolithWeekDay'),
-                td = $('kronolithViewWeekHead').down('tbody td').next('td'),
-                hourRow = $('kronolithViewWeekBody').down('tr'),
+            var what = view == 'week' ? 'Week' : 'Workweek',
+                div = $('kronolithEvents' + what).down('div'),
+                th = $('kronolithView' + what + 'Head').down('.kronolithWeekDay'),
+                td = $('kronolithView' + what + 'Head').down('tbody td').next('td'),
+                hourRow = $('kronolithView' + what + 'Body').down('tr'),
                 dates = this.viewDates(date, view),
                 today = Date.today(),
                 day, dateString, i, hourCol;
 
-            $('kronolithViewWeek')
+            $('kronolithView' + what)
                 .down('caption span')
                 .update(this.setTitle(dates[0].toString('d') + ' - ' + dates[1].toString('d')));
 
@@ -686,12 +694,13 @@ KronolithCore = {
                 hourRow = hourRow.next('tr');
             }
             day = dates[0].clone();
-            for (i = 0; i < 7; i++) {
+
+            for (i = 0; i < (view == 'week' ? 7 : 5); i++) {
                 dateString = day.dateString();
                 this.allDays['kronolithAllDay' + dateString] = td.down('div');
-                this.eventsWeek['kronolithEventsWeek' + dateString] = div;
+                this.eventsWeek['kronolithEvents' + what + dateString] = div;
                 div.store('date', dateString)
-                    .writeAttribute('id', 'kronolithEventsWeek' + dateString);
+                    .writeAttribute('id', 'kronolithEvents' + what + dateString);
                 th.store('date', dateString)
                     .down('span').update(day.toString('dddd, d'));
                 td.removeClassName('kronolithToday');
@@ -700,7 +709,7 @@ KronolithCore = {
                     .store('date', dateString);
                 if (day.equals(today)) {
                     td.addClassName('kronolithToday');
-                    this.addTimeMarker('kronolithEventsWeek' + dateString);
+                    this.addTimeMarker('kronolithEvents' + what + dateString);
                 }
                 new Drop(td.down('div'));
                 div = div.next('div');
@@ -786,7 +795,7 @@ KronolithCore = {
      */
     closeView: function(loc)
     {
-        $w('Day Week Month Year Tasks Agenda').each(function(a) {
+        $w('Day Workweek Week Month Year Tasks Agenda').each(function(a) {
             a = $('kronolithNav' + a);
             if (a) {
                 a.removeClassName('on');
@@ -988,8 +997,9 @@ KronolithCore = {
             }
             break;
         case 'week':
+        case 'workweek':
             if ($('kronolithTimeMarker').up().retrieve('date') != today.dateString()) {
-                var newContainer = this.eventsWeek['kronolithEventsWeek' + today.dateString()];
+                var newContainer = this.eventsWeek['kronolithEvents' + (this.view == 'week' ? 'Week' : 'Workweek') + today.dateString()];
                 $('kronolithTimeMarker').remove();
                 if (newContainer) {
                     this.addTimeMarker(newContainer);
@@ -1044,6 +1054,7 @@ KronolithCore = {
             date7 = date.clone().add(1).week(),
             today = Date.today(),
             week = this.viewDates(this.date, 'week'),
+            workweek = [ week[0], week[1].add(-2).day() ],
             dateString, td, tr, i;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
@@ -1077,6 +1088,7 @@ KronolithCore = {
             if (view &&
                 ((view == 'month' && this.date.between(dates[0], dates[1])) ||
                  (view == 'week' && day.between(week[0], week[1])) ||
+                 (view == 'workweek' && day.between(workweek[0], workweek[1])) ||
                  (view == 'day' && day.equals(this.date)) ||
                  (view == 'agenda' && !day.isBefore(date) && day.isBefore(date7)))) {
                 td.addClassName('kronolithSelected');
@@ -1229,7 +1241,7 @@ KronolithCore = {
     loadCalendar: function(type, calendar)
     {
         if (Kronolith.conf.calendars[type][calendar].show &&
-            $w('day week month year agenda').include(this.view)) {
+            $w('day workweek week month year agenda').include(this.view)) {
             var dates = this.viewDates(this.date, this.view);
             this.deleteCache([type, calendar]);
             this.loadEvents(dates[0], dates[1], this.view, [[type, calendar]]);
@@ -1305,6 +1317,7 @@ KronolithCore = {
 
         case 'year':
         case 'week':
+        case 'workweek':
         case 'day':
             if (Object.isUndefined(this.ecache.get(type)) ||
                 Object.isUndefined(this.ecache.get(type).get(calendar))) {
@@ -1507,6 +1520,7 @@ KronolithCore = {
 
         if (this.view == 'day' ||
             this.view == 'week' ||
+            this.view == 'workweek' ||
             this.view == 'month' ||
             this.view == 'agenda' ||
             (this.view == 'year' && !$H(this.eventsLoading).size())) {
@@ -1533,6 +1547,7 @@ KronolithCore = {
         switch (view) {
         case 'day':
         case 'week':
+        case 'workweek':
             // The day and week views require the view to be completely
             // loaded, to correctly calculate the dimensions.
             if (this.viewLoading.size() || this.view != view) {
@@ -1559,13 +1574,14 @@ KronolithCore = {
             switch (view) {
             case 'day':
             case 'week':
+            case 'workweek':
                 this.dayEvents = [];
                 this.dayGroups = [];
                 this.allDayEvents = [];
                 if (view == 'day') {
                     $$('.kronolithEvent').invoke('remove');
                 } else {
-                    this.eventsWeek['kronolithEventsWeek' + date]
+                    this.eventsWeek['kronolithEvents' + (view == 'week' ? 'Week' : 'Workweek') + date]
                         .select('.kronolithEvent')
                         .invoke('remove');
                     this.allDays['kronolithAllDay' + date]
@@ -1793,7 +1809,9 @@ KronolithCore = {
         switch (view) {
         case 'day':
         case 'week':
+        case 'workweek':
             var storage = view + 'Sizes',
+                what = 'view' == 'week' ? 'Week' : 'Workweek',
                 div = _createElement(event),
                 margin = view == 'day' ? 1 : 3,
                 style = { backgroundColor: Kronolith.conf.calendars[calendar[0]][calendar[1]].bg,
@@ -1807,7 +1825,7 @@ KronolithCore = {
                 } else {
                     var allDay = this.allDays['kronolithAllDay' + date],
                         existing = allDay.childElements(),
-                        weekHead = $('kronolithViewWeekHead');
+                        weekHead = $('kronolithView' + what + 'Head');
                     if (existing.size() == 3) {
                         if (existing[2].className != 'kronolithMore') {
                             existing[2].purge();
@@ -1826,7 +1844,7 @@ KronolithCore = {
                                 opts = {
                                     threshold: 5,
                                     parentElement: function() {
-                                        return $('kronolithViewWeek').down('.kronolithViewHead');
+                                        return $('kronolithView' + what).down('.kronolithViewHead');
                                     },
                                     snap: function(x, y) {
                                         return [Math.min(Math.max(x, minLeft), maxLeft),
@@ -1843,9 +1861,18 @@ KronolithCore = {
             var midnight = this.parseDate(date),
                 resizable = event.value.pe && (Object.isUndefined(event.value.vl) || event.value.vl),
                 innerDiv = new Element('div', { className: 'kronolithEventInfo' }),
-                parentElement = view == 'day' ? $('kronolithEventsDay') : this.eventsWeek['kronolithEventsWeek' + date],
-                minHeight = 0,
-                draggerTop, draggerBottom;
+                minHeight = 0, parentElement, draggerTop, draggerBottom;
+            switch (view) {
+            case 'day':
+                parentElement = $('kronolithEventsDay');
+                break;
+            case 'week':
+                parentElement = this.eventsWeek['kronolithEventsWeek' + date];
+                break;
+            case 'workweek':
+                parentElement = this.eventsWeek['kronolithEventsWorkweek' + date];
+                break;
+            }
             if (event.value.fi) {
                 if (resizable) {
                     draggerTop = new Element('div', { id: event.value.nodeId + 'top', className: 'kronolithDragger kronolithDraggerTop' }).setStyle(style);
@@ -1965,18 +1992,18 @@ KronolithCore = {
                     div.retrieve('drags').push(d);
                 }
 
-                if (view == 'week') {
+                if (view == 'week' || view == 'workweek') {
                     var dates = this.viewDates(midnight, view);
-                    minLeft = this.eventsWeek['kronolithEventsWeek' + dates[0].dateString()].offsetLeft - this.eventsWeek['kronolithEventsWeek' + date].offsetLeft;
-                    maxLeft = this.eventsWeek['kronolithEventsWeek' + dates[1].dateString()].offsetLeft - this.eventsWeek['kronolithEventsWeek' + date].offsetLeft;
-                    stepX = (maxLeft - minLeft) / 6;
+                    minLeft = this.eventsWeek['kronolithEvents' + what + dates[0].dateString()].offsetLeft - this.eventsWeek['kronolithEvents' + what + date].offsetLeft;
+                    maxLeft = this.eventsWeek['kronolithEvents' + what + dates[1].dateString()].offsetLeft - this.eventsWeek['kronolithEvents' + what + date].offsetLeft;
+                    stepX = (maxLeft - minLeft) / (view == 'week' ? 6 : 4);
                 }
                 var d = new Drag(div, {
                     threshold: 5,
                     nodrop: true,
                     parentElement: function() { return parentElement; },
                     snap: function(x, y) {
-                        x = (view == 'week')
+                        x = (view == 'week' || view == 'workweek')
                             ? Math.max(minLeft, stepX * ((Math.min(maxLeft, x - (x < 0 ? stepX : 0)) + stepX / 2) / stepX | 0))
                             : 0;
                         y = Math.max(0, step * (Math.min(maxDiv, y - this.scrollTop) / step | 0));
@@ -2124,6 +2151,7 @@ KronolithCore = {
     {
         switch (this.view) {
         case 'week':
+        case 'workweek':
         case 'day':
             dates.each(function(date) {
                 date = this.parseDate(date);
@@ -3650,8 +3678,12 @@ KronolithCore = {
 
         switch (view) {
         case 'week':
+        case 'workweek':
             start.moveToBeginOfWeek(Kronolith.conf.week_start);
             end.moveToEndOfWeek(Kronolith.conf.week_start);
+            if (view == 'workweek') {
+                end.add(-2).days();
+            }
             break;
         case 'month':
             start.setDate(1);
@@ -4221,6 +4253,7 @@ KronolithCore = {
                                       if ((this.view == 'month' &&
                                            Kronolith.conf.max_events) ||
                                           this.view == 'week' ||
+                                          this.view == 'workweek' ||
                                           this.view == 'day') {
                                           days = this.findEventDays(cal, eventid);
                                       }
@@ -4330,6 +4363,7 @@ KronolithCore = {
 
             case 'kronolithNavDay':
             case 'kronolithNavWeek':
+            case 'kronolithNavWorkweek':
             case 'kronolithNavMonth':
             case 'kronolithNavYear':
             case 'kronolithNavAgenda':
@@ -4494,7 +4528,7 @@ KronolithCore = {
             case 'kronolithDateChoice':
             case 'kronolithGotoToday':
                 var view = this.view;
-                if (!$w('day week month year agenda').include(view)) {
+                if (!$w('day workweek week month year agenda').include(view)) {
                     view = Kronolith.conf.login_view;
                 }
                 this.go(view + ':' + new Date().dateString());
@@ -4511,6 +4545,7 @@ KronolithCore = {
                     newDate.add(offset).day();
                     break;
                 case 'week':
+                case 'workweek':
                     newDate.add(offset).week();
                     break;
                 case 'month':
@@ -4856,6 +4891,7 @@ KronolithCore = {
                                   if ((this.view == 'month' &&
                                        Kronolith.conf.max_events) ||
                                       this.view == 'week' ||
+                                      this.view == 'workweek' ||
                                       this.view == 'day') {
                                       days = this.findEventDays(cal, eventid);
                                   }
@@ -4897,10 +4933,12 @@ KronolithCore = {
             elt.up().addClassName('kronolithSelected');
             DragDrop.Drags.getDrag(elt).top = elt.cumulativeOffset().top;
         } else if (elt.hasClassName('kronolithEditable')) {
-            elt.addClassName('kronolithSelected').setStyle({ left: 0, width: this.view == 'week' ? '90%' : '95%', zIndex: 1 });
+            elt.addClassName('kronolithSelected').setStyle({ left: 0, width: (this.view == 'week' || this.view == 'workweek') ? '90%' : '95%', zIndex: 1 });
         }
 
-        this.scrollTop = $(this.view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop;
+        this.scrollTop = $('kronolithView' + this.view.capitalize())
+            .down('.kronolithViewBody')
+            .scrollTop;
         this.scrollLast = this.scrollTop;
     },
 
@@ -4920,7 +4958,7 @@ KronolithCore = {
             // Resizing the event.
             var div = elt.up(),
                 top = drag.ghost.cumulativeOffset().top,
-                scrollTop = $(this.view == 'day' ? 'kronolithViewDay' : 'kronolithViewWeek').down('.kronolithViewBody').scrollTop,
+                scrollTop = $('kronolithView' + this.view.capitalize()).down('.kronolithViewBody').scrollTop,
                 offset = 0,
                 height;
 
@@ -4954,7 +4992,7 @@ KronolithCore = {
             if (Object.isUndefined(drag.innerDiv)) {
                 drag.innerDiv = drag.ghost.down('.kronolithEventInfo');
             }
-            if (this.view == 'week') {
+            if ((this.view == 'week') || (this.view == 'workweek')) {
                 var offsetX = Math.round(drag.ghost.offsetLeft / drag.stepX);
                 event.offsetDays = offsetX;
                 this.calculateEventDates(event, storage, step, drag.ghost.offsetTop, drag.divHeight, event.start.clone().addDays(offsetX), event.end.clone().addDays(offsetX));
@@ -4964,7 +5002,7 @@ KronolithCore = {
             }
             event.offsetTop = drag.ghost.offsetTop - drag.startTop;
             drag.innerDiv.update('(' + event.start.toString(Kronolith.conf.time_format) + ' - ' + event.end.toString(Kronolith.conf.time_format) + ') ' + event.t.escapeHTML());
-            elt.clonePosition(drag.ghost, { offsetLeft: this.view == 'week' ? -2 : 0 });
+            elt.clonePosition(drag.ghost, { offsetLeft: (this.view == 'week' || this.view == 'workweek') ? -2 : 0 });
         }
     },
 

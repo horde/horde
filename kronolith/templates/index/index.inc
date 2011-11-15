@@ -48,13 +48,14 @@
   <div id="kronolithNav">
     <ul>
       <li><a id="kronolithNavDay" accesskey="1"><span><?php echo _("Day") ?></span></a></li>
-      <li><a id="kronolithNavWeek" accesskey="2"><span><?php echo _("Week") ?></span></a></li>
-      <li><a id="kronolithNavMonth" accesskey="3"><span><?php echo _("Month") ?></span></a></li>
-      <li><a id="kronolithNavYear" accesskey="4"><span><?php echo _("Year") ?></span></a></li>
+      <li><a id="kronolithNavWorkweek" accesskey="2"><span><?php echo _("Work Week") ?></span></a></li>
+      <li><a id="kronolithNavWeek" accesskey="3"><span><?php echo _("Week") ?></span></a></li>
+      <li><a id="kronolithNavMonth" accesskey="4"><span><?php echo _("Month") ?></span></a></li>
+      <li><a id="kronolithNavYear" accesskey="5"><span><?php echo _("Year") ?></span></a></li>
     <?php if (Kronolith::hasApiPermission('tasks')): ?>
-      <li><a id="kronolithNavTasks" accesskey="5"><span><?php echo _("Tasks") ?></span></a></li>
+      <li><a id="kronolithNavTasks" accesskey="6"><span><?php echo _("Tasks") ?></span></a></li>
     <?php endif; ?>
-      <li><a id="kronolithNavAgenda" accesskey="<?php echo Kronolith::hasApiPermission('tasks') ? 6 : 5 ?>"><span><?php echo _("Agenda") ?></span></a></li>
+      <li><a id="kronolithNavAgenda" accesskey="<?php echo Kronolith::hasApiPermission('tasks') ? 7 : 6 ?>"><span><?php echo _("Agenda") ?></span></a></li>
     </ul>
   </div>
 </div>
@@ -174,6 +175,7 @@
 <div id="kronolithLoading" style="display:none"></div>
 <?php
 require dirname(__FILE__) . '/month.inc';
+require dirname(__FILE__) . '/workweek.inc';
 require dirname(__FILE__) . '/week.inc';
 require dirname(__FILE__) . '/day.inc';
 require dirname(__FILE__) . '/year.inc';

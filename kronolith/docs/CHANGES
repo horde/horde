@@ -2,6 +2,8 @@
 v3.1-git
 --------
 
+[jan] Add work week view to dynamic interface (rsalmon@mbpgroup.com, Request
+      #10519).
 [jan] Support importing of iCalendar events with non-local timezones (Request
       #7156).
 [jan] Include timezone information when exporting events to iCalendar (Request

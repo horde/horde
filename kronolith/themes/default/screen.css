@@ -109,7 +109,7 @@ table.monthgrid th, table.monthgrid td {
     padding: 2px;
     margin: 1px;
 }
-.week-eventbox {
+.week-eventbox, .workweek-eventbox {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -146,7 +146,7 @@ table.monthgrid th, table.monthgrid td {
     text-decoration: none;
     background: #e9e9e9;
 }
-.week {
+.week, .workweek {
     float: left;
     font-size: 90%;
     padding-left: 2px;
@@ -384,7 +384,7 @@ body.kronolithAjax {
 #kronolithLoadingday, #kronolithLoadingmonth {
     top: 22px;
 }
-#kronolithLoadingweek {
+#kronolithLoadingweek, #kronolithLoadingworkweek {
     top: 0;
 }
 #kronolithLoadingtasks, #kronolithLoadingagenda {
@@ -490,6 +490,9 @@ body.kronolithAjax {
 }
 #kronolithNavWeek {
     background-image: url("graphics/weekview.png");
+}
+#kronolithNavWorkweek {
+    background-image: url("graphics/workweekview.png");
 }
 #kronolithNavMonth {
     background-image: url("graphics/monthview.png");
@@ -1181,20 +1184,25 @@ table.kronolithView td.kronolithFirstCol {
     bottom: 3px;
     left: 22px;
 }
-#kronolithEventsWeek {
+#kronolithEventsWeek, #kronolithEventsWorkweek {
     position: absolute;
     top: 1px;
     right: 0;
     bottom: 1px;
     left: 22px;
 }
-.kronolithEventsWeek {
+.kronolithEventsWeek, .kronolithEventsWorkweek {
     position: relative;
     float: left;
     height: 100%;
+}
+.kronolithEventsWeek {
     width: 14.285714%;
 }
-.kronolithEventsWeek div.kronolithEvent {
+.kronolithEventsWorkweek {
+    width: 20%;
+}
+.kronolithEventsWeek div.kronolithEvent, .kronolithEventsWorkweek div.kronolithEvent {
     margin: 0 1px;
 }
 
@@ -1454,7 +1462,9 @@ img.kronolithEventIcon {
     float: left;
     margin: 0 2px 2px 0;
 }
-#kronolithViewDay div.kronolithEvent, #kronolithViewWeek div.kronolithEvent {
+#kronolithViewDay div.kronolithEvent, 
+#kronolithViewWeek div.kronolithEvent, 
+#kronolithViewWorkweek div.kronolithEvent {
     position: absolute;
     opacity: .8;
     filter: alpha(opacity=80);
@@ -1464,7 +1474,8 @@ img.kronolithEventIcon {
 }
 #kronolithViewMonth div.kronolithEvent,
 #kronolithViewDay .kronolithViewHead div.kronolithEvent,
-#kronolithViewWeek .kronolithViewHead div.kronolithEvent {
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent, 
+#kronolithViewWorkweek .kronolithViewHead div.kronolithEvent {
     position: relative;
     width: auto;
     line-height: 15px;
@@ -1479,13 +1490,15 @@ img.kronolithEventIcon {
     font-size: 90%;
 }
 #kronolithViewDay .kronolithViewHead div.kronolithEvent,
-#kronolithViewWeek .kronolithViewHead div.kronolithEvent {
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent, 
+#kronolithViewWorkweek .kronolithViewHead div.kronolithEvent {
     white-space: nowrap;
 }
 #kronolithViewDay .kronolithViewHead div.kronolithEvent {
     float: left;
 }
-#kronolithViewWeek .kronolithViewHead div.kronolithEvent {
+#kronolithViewWeek .kronolithViewHead div.kronolithEvent, 
+#kronolithViewWorkweek .kronolithViewHead div.kronolithEvent {
     margin-right: 10%;
 }
 div.kronolithEvent .kronolithDragger {

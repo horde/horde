@@ -138,6 +138,12 @@ span#kronolithNewEvent:hover,
 #kronolithNavWeek:hover, #kronolithNavWeek.on {
     background-image: url("graphics/weekview.png"), url("graphics/menu-active.png");
 }
+#kronolithNavWorkweek {
+    background-image: url("graphics/workweekview.png"), url("graphics/menu.png");
+}
+#kronolithNavWorkweek:hover, #kronolithNavWorkweek.on {
+    background-image: url("graphics/workweekview.png"), url("graphics/menu-active.png");
+}
 #kronolithNavMonth {
     background-image: url("graphics/monthview.png"), url("graphics/menu.png");
 }
