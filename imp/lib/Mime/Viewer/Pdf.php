@@ -125,13 +125,21 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
 
         if ($load) {
             try {
-                $ret = $img->loadString($this->_mimepart->getContents());
+                $img->loadString($this->_mimepart->getContents());
             } catch (Horde_Image_Exception $e) {
                 return false;
             }
         }
 
         try {
+            if ($img instanceof Horde_Image_Imagick) {
+                /* Get rid of PDF transparency. */
+                $img->imagick->setImageBackgroundColor('white');
+                return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create(array(
+                    'data' => $img->imagick->flattenImages()->getImageBlob()
+                ));
+            }
+
             return $img->getImageAtIndex(0);
         } catch (Horde_Image_Exception $e) {
             return false;
