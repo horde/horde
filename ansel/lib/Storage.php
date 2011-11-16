@@ -390,6 +390,9 @@ class Ansel_Storage
             $GLOBALS['injector']
                 ->getInstance('Horde_Cache')
                 ->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
+            $GLOBALS['injector']
+                ->getInstance('Horde_Cache')
+                ->expire('Ansel_Gallery' . $gallery->id);
         }
     }
 
