@@ -35,7 +35,6 @@
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
 * [jan] Set Return-Path: in Maildrop vacation driver (rsalmon@mbpgroup.com, Bug #10568).
-* [jan] Set Return-Path: in Maildrop vacation driver (rsalmon@mbpgroup.com, Bug #10568).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1010,7 +1009,6 @@
    <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* [jan] Set Return-Path: in Maildrop vacation driver (rsalmon@mbpgroup.com, Bug #10568).
 * [jan] Set Return-Path: in Maildrop vacation driver (rsalmon@mbpgroup.com, Bug #10568).
    </notes>
   </release>
