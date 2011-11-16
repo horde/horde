@@ -1,5 +1,7 @@
 <?php
 /**
+ * Tag browsing
+ *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
@@ -58,19 +60,43 @@ class Trean_View_Browse
     {
         $results = $this->_browser->getSlice($this->_page, $this->_perPage);
         $total = $this->_browser->count();
-
         $rtags = $this->_browser->getRelatedTags();
 
-        echo 'Current tags in search:';
-        var_dump($this->_browser->getTags());
-        echo '<br /><br />Matching Bookmarks<br /><ul>';
-        foreach ($results as $bm) {
-            echo '<li>' . $bm->url . '</li>';
+        $html = 'Current tags in search:<ul>';
+        foreach ($this->_browser->getTags() as $tag => $id) {
+            $html .= '<li>' . htmlspecialchars($tag) . $this->_linkRemoveTag($tag)->link()
+                . Horde::img('delete-small.png', _("Remove from search")) . '</a></li>';
         }
-        echo '<br /><br/>Related Tags<br /><ul>';
+        // $html .= '<br /><br />Matching Bookmarks<br /><ul>';
+        // foreach ($results as $bm) {
+        //     $html .= '<li>' . $bm->url . '</li>';
+        // }
+        $view = new Trean_View_BookmarkList($results);
+        Horde::startBuffer();
+        $view->render();
+        $html .= Horde::endBuffer();
+        $html .= '<br /><br/>Related Tags<br /><ul>';
         foreach ($rtags as $id => $taginfo) {
-            echo '<li>' . $taginfo['tag_name'] . '</li>';
+            $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
+                . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
         }
+
+        echo $html;
+    }
+
+    protected function _linkRemoveTag($tag)
+    {
+        return Horde::url('tagbrowse.php')
+            ->add(array(
+                'actionID' => 'remove',
+                'tag' => rawurlencode($tag)));
+    }
+
+    protected function _linkAddTag($tag)
+    {
+        return Horde::url('tagbrowse.php')
+            ->add(array(
+                'tag' => rawurlencode($tag)));
     }
 
 }
