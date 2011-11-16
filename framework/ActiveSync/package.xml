@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-16</date>
- <time>11:57:33</time>
+ <time>11:58:07</time>
  <version>
-  <release>1.1.9</release>
+  <release>1.1.10</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue with timezones caused by buggy PHP timezone data (Bug #10760).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -455,6 +455,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue with timezones caused by buggy PHP timezone data (Bug #10760).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.10</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-16</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
