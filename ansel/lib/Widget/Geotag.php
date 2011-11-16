@@ -97,7 +97,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
             ->create(array('ansel', 'ImageSaveGeotag'));
         $impleUrl = $imple->getUrl();
 
-        $permsEdit = $this->_view->gallery->hasPermission(
+        $permsEdit = (integer)$this->_view->gallery->hasPermission(
             $GLOBALS['registry']->getAuth(),
             Horde_Perms::EDIT);
 
