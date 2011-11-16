@@ -30,10 +30,18 @@ class IMP_Menu_Dimp extends Horde_Menu
             parent::render();
 
             foreach ($this->_menu as $k => $v) {
-                if ($v == 'separator') {
-                    unset($this->_menu[$k]);
+                if ($v != 'separator') {
+                    $msort[$k] = $v['text'];
                 }
             }
+
+            asort($msort, SORT_LOCALE_STRING);
+
+            $tmp = array();
+            foreach (array_keys($msort) as $k) {
+                $tmp[$k] = $this->_menu[$k];
+            }
+            $this->_menu = $tmp;
 
             $this->_renderCalled = true;
         }
