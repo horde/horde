@@ -930,8 +930,7 @@ class Horde_Icalendar
             case 'DUE':
             case 'AALARM':
             case 'RECURRENCE-ID':
-                $floating = $base == 'STANDARD' || $base == 'DAYLIGHT' ||
-                    isset($params['TZID']);
+                $floating = $base == 'STANDARD' || $base == 'DAYLIGHT';
                 if (isset($params['VALUE'])) {
                     if ($params['VALUE'] == 'DATE') {
                         // VCALENDAR 1.0 uses T000000 - T235959 for all day events:
@@ -956,8 +955,7 @@ class Horde_Icalendar
             // Comma seperated dates.
             case 'EXDATE':
             case 'RDATE':
-                $floating = $base == 'STANDARD' || $base == 'DAYLIGHT' ||
-                    isset($params['TZID']);
+                $floating = $base == 'STANDARD' || $base == 'DAYLIGHT';
                 $dates = array();
                 foreach ($value as $date) {
                     if (isset($params['VALUE'])) {

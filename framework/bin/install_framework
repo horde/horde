@@ -169,7 +169,7 @@ $pear_config = PEAR_Config::singleton();
 $pear_pkg = new PEAR_PackageFile($pear_config);
 
 if ($pkg) {
-    $pkgs = array($pkg);
+    $pkgs = array(basename($pkg) => realpath($pkg));
 } else {
     $di = new DirectoryIterator($srcDir);
     $pkgs = array();

@@ -27,14 +27,15 @@ $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
     try {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(Horde_Util::getFormData('cid', 0));
+        $gallery = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getGallery(Horde_Util::getFormData('cid', 0));
         $share = $gallery->getShare();
         $form = 'edit.inc';
         $perm = $share->getPermission();
     } catch (Horde_Exception_NotFound $e) {
         $notification->push($e->getMessage(), 'horde.error');
     }
-
     if (!$GLOBALS['registry']->getAuth() ||
         (isset($share) && $GLOBALS['registry']->getAuth() != $share->get('owner'))) {
         exit('permission denied');
@@ -42,9 +43,10 @@ case 'edit':
     break;
 
 case 'editform':
-case 'editforminherit':
     try {
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery(Horde_Util::getFormData('cid'));
+        $gallery = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
+            ->getGallery(Horde_Util::getFormData('cid'));
         $share = $gallery->getShare();
     } catch (Horde_Share_Exception $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
@@ -59,7 +61,9 @@ case 'editforminherit':
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
-        $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
+        $new_owner_backend = Horde_Util::getFormData(
+            'owner_select',
+            Horde_Util::getFormData('owner_input', $old_owner));
         $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
             if ($old_owner != $GLOBALS['registry']->getAuth() && !$registry->isAdmin()) {
@@ -225,16 +229,22 @@ case 'editforminherit':
             }
         }
 
-        $share->setPermission($perm);
-
-        /* If we were asked to, push permissions to all child shares
-         * to. */
-        if ($actionID == 'editforminherit') {
-            $share->inheritPermissions();
+        try {
+            $share->setPermission($perm);
+        } catch (Horde_Share_Exception $e) {
+            $notification->push($e->getMessage(), 'horde.error');
         }
-
-        $notification->push(sprintf(_("Updated %s."), $share->get('name')),
-                            'horde.success');
+        if ($conf['ansel_cache']['usecache']) {
+            $injector->getInstance('Horde_Cache')->expire(
+                'Ansel_Gallery' . Horde_Util::getFormData('cid'));
+        }
+        if (Horde_Util::getFormData('save_and_finish')) {
+            echo Horde::wrapInlineScript(array('window.close();'));
+            exit;
+        }
+        $notification->push(
+            sprintf(_("Updated %s."), $share->get('name')),
+            'horde.success');
         $form = 'edit.inc';
     }
     break;

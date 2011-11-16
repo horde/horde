@@ -1536,24 +1536,3 @@ $_prefs['dynamic_view'] = array(
    'type' => 'checkbox',
    'desc' => _("Show the dynamic view by default, if the browser supports it?")
 );
-
-// Other dynamic view preferences
-$_prefs['dimp_qsearch_field'] = array(
-    'value' => 'all'
-);
-
-$_prefs['dimp_show_preview'] = array(
-    'value' => 'horiz'
-);
-
-$_prefs['dimp_splitbar'] = array(
-    'value' => 0
-);
-
-$_prefs['dimp_splitbar_vert'] = array(
-    'value' => 0
-);
-
-$_prefs['dimp_toggle_headers'] = array(
-    'value' => 0
-);

@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t overwrite $_SERVER superglobals unconditionally, to allow setting them through environment variables (Bug #10758).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -605,7 +605,7 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <date>2011-07-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t overwrite $_SERVER superglobals unconditionally, to allow setting them through environment variables (Bug #10758).
    </notes>
   </release>
  </changelog>

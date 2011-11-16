@@ -1,35 +1,28 @@
 <?php
 /**
- * PEAR_Installer_Role_Horde postconfig script.
+ * Horde post-install script.
  *
- * Copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * @copyright 2011 Horde LLC (http://www.horde.org/)
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
- * @package   Role
+ * @package   Horde
  */
 
 /**
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2011 Horde LLC (http://www.horde.org/)
+ * @copyright 2011 Horde LLC (http://www.horde.org/)
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
- * @package   Role
+ * @package   Horde
  */
-class Horde_Role_postinstall
+class install_horde_postinstall
 {
-    /**
-     * PEAR config object.
-     *
-     * @var PEAR_Config
-     */
-    protected $_config;
-
     /**
      * Init postinstall task.
      *
@@ -41,8 +34,6 @@ class Horde_Role_postinstall
      */
     public function init($config, $pkg, $version)
     {
-        $this->_config = $config;
-
         return true;
     }
 
@@ -54,22 +45,13 @@ class Horde_Role_postinstall
      */
     public function run($info, $phase)
     {
-        if ($phase !== 'first') {
-            return;
+        switch ($phase) {
+        case 'first':
+            if (strtolower($info['clear_cache']) == 'y') {
+                passthru('../bin/horde-clear-cache -f');
+            }
+            break;
         }
-
-        if (!$this->_config->set('horde_dir', $info['horde_dir'], 'user', 'pear.horde.org')) {
-            print "Could not save horde_dir configuration value to PEAR config.\n";
-            return;
-        }
-
-        $res = $this->_config->writeConfigFile();
-        if ($res instanceof PEAR_Error) {
-            print 'ERROR: ' . $res->getMessage() . "\n";
-            exit;
-        }
-
-        print "Configuration successfully saved to PEAR config.\n";
     }
 
 }

@@ -146,12 +146,12 @@ class Horde_Block_Weather extends Horde_Core_Block
                     _("N/A"));
         }
 
-        // // Feels like temperature.
+        // Feels like temperature.
         // @TODO: Need to parse if wind chill/heat index etc..
         // $html .= ' <strong>' . _("Feels like: ") . '</strong>' .
         //     round($weather['feltTemperature']) . '&deg;' . Horde_String::upper($units['temp']);
 
-        // // Pressure and trend.
+        // Pressure and trend.
         if ($current->pressure) {
             $html .= '<br /><strong>' . _("Pressure: ") . '</strong>';
             $trend = $current->pressure_trend;
@@ -161,18 +161,16 @@ class Horde_Block_Weather extends Horde_Core_Block
         }
 
         if ($current->wind_direction) {
-            // // Wind.
+            // Wind.
             $html .= '<br /><strong>' . _("Wind: ") . '</strong>';
 
             $html .= _("From the ") . $current->wind_direction
-                . ' ' . _("at") . ' ' . $current->wind_speed;
+                . ' ('. $current->wind_degrees . '&deg;) ' . _("at")
+                . ' ' . $current->wind_speed;
             if ($current->wind_gust > 0) {
                 $html .= ', ' . _("gusting") . ' ' . $current->wind_gust .
                     ' ' . $units['wind'];
             }
-
-            $html .= ' (' . $current->wind_degrees . '&deg;)';
-            $html .= _(" at ") . round($weather->wind) . ' ' . $units['wind'];
         }
 
         // Humidity.
@@ -253,8 +251,8 @@ class Horde_Block_Weather extends Horde_Core_Block
 
                     // Temperature.
                     $html .= '<td style="border:1px solid #ddd; text-align:center">'
-                        . '<span style="color:red">' . round($day->high) . '</span>/'
-                        .  '<span style="color:blue">' . round($day->low) . '</span></td>';
+                        . '<span style="color:red">' . $day->high . '</span>/'
+                        .  '<span style="color:blue">' . $day->low . '</span></td>';
 
                     // Condition.
                     $html .= '<td style="border:1px solid #ddd; text-align:center">'

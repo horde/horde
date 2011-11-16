@@ -1086,6 +1086,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t display task details of private tasks via the API (Bug #10712).
 * [jan] Use correct locale when parsing quick tasks (thpo+horde@dotrc.de, Bug #10720).
    </notes>
   </release>

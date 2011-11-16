@@ -1931,6 +1931,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             'initial' => $this->_vars->initial,
             'mbox' => strval($this->_mbox),
             'qsearch' => $this->_vars->qsearch,
+            'qsearchfield' => $this->_vars->qsearchfield,
             'qsearchfilter' => $this->_vars->qsearchfilter,
             'qsearchflag' => $this->_vars->qsearchflag,
             'qsearchflagnot' => $this->_vars->qsearchflagnot,

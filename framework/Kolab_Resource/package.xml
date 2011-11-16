@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-09-15</date>
- <time>23:14:47</time>
+ <date>2011-11-13</date>
+ <time>22:07:20</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -325,7 +325,6 @@
        <dir name="fixtures">
         <file name="recur_invitation.eml" role="test" />
        </dir> <!-- /test/Horde/Kolab/Resource/fixtures -->
-       <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="TestCase.php" role="test" />
@@ -490,7 +489,6 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Resource.po" name="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Resource.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Resource.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Resource.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Resource.po" name="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Resource.po" />
-   <install as="Horde/Kolab/Resource/AllTests.php" name="test/Horde/Kolab/Resource/AllTests.php" />
    <install as="Horde/Kolab/Resource/Autoload.php" name="test/Horde/Kolab/Resource/Autoload.php" />
    <install as="Horde/Kolab/Resource/phpunit.xml" name="test/Horde/Kolab/Resource/phpunit.xml" />
    <install as="Horde/Kolab/Resource/TestCase.php" name="test/Horde/Kolab/Resource/TestCase.php" />
@@ -508,7 +506,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-09-15</date>
+   <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
