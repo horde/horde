@@ -245,22 +245,15 @@ EOT;
 
             // Try to autogenerate some views and tell the user what happened.
             if ($uploaded) {
-                $cnt = count($image_ids);
-                for ($i = 0; $i < $conf['image']['autogen'] && $cnt > $i; $i++) {
-                    $image_id = $image_ids[$i];
-                    $image = $GLOBALS['injector']
-                        ->getInstance('Ansel_Storage')
-                        ->getImage($image_id);
-                    $image->createView('screen');
-                    $image->createView('thumb');
-                    $image->createView('mini');
-                    unset($image);
-                }
+                $qtask = new Ansel_Queue_ProcessThumbs($image_ids);
+                $queue = $GLOBALS['injector']->getInstance('Horde_Queue_Storage');
+                $queue->add($qtask);
 
                 // postupload hook if needed
                 try {
                     Horde::callHook('postupload', array($image_ids), 'ansel');
                 } catch (Horde_Exception_HookNotSet $e) {}
+
                 $notification->push(sprintf(ngettext("%d photo was uploaded.", "%d photos were uploaded.", $uploaded), $uploaded), 'horde.success');
             } elseif ($vars->get('submitbutton') != _("Cancel")) {
                 $notification->push(_("You did not select any photos to upload."), 'horde.error');
@@ -273,8 +266,7 @@ EOT;
                     array(
                         'gallery' => $this->_gallery->id,
                         'slug' => $this->_gallery->get('slug'),
-                        'view' => 'Gallery',
-                        'page' => $page),
+                        'view' => 'Gallery'),
                     true)->redirect();
                 exit;
             }

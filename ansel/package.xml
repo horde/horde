@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-02</date>
- <time>15:01:33</time>
+ <date>2011-11-16</date>
+ <time>14:31:00</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0</api>
@@ -194,6 +194,9 @@
       <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
+    <dir name="Queue">
+     <file name="ProcessThumbs.php" role="horde" />
+    </dir> <!-- /lib/Queue -->
     <dir name="Report">
      <file name="letter.php" role="horde" />
      <file name="mail.php" role="horde" />
@@ -955,6 +958,7 @@
    <install as="ansel/lib/ImageGenerator/SquareThumb.php" name="lib/ImageGenerator/SquareThumb.php" />
    <install as="ansel/lib/ImageGenerator/Thumb.php" name="lib/ImageGenerator/Thumb.php" />
    <install as="ansel/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="ansel/lib/Queue/ProcessThumbs.php" name="lib/Queue/ProcessThumbs.php" />
    <install as="ansel/lib/Report/letter.php" name="lib/Report/letter.php" />
    <install as="ansel/lib/Report/mail.php" name="lib/Report/mail.php" />
    <install as="ansel/lib/Report/tickets.php" name="lib/Report/tickets.php" />
@@ -1262,7 +1266,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-11-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue with map not showing when user does not have Horde_Perms::EDIT on the gallery (Bug #10762).
