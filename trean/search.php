@@ -12,7 +12,6 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('trean');
 
 require_once TREAN_BASE . '/lib/Forms/Search.php';
-require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 
 $title = _("Search");
 require $registry->get('templates', 'horde') . '/common-header.inc';

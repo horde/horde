@@ -9,7 +9,6 @@
  */
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('trean');
-require_once TREAN_BASE . '/lib/Views/BookmarkList.php';
 
 /* Get bookmarks to display. */
 $bookmarks = $trean_gateway->listBookmarks($prefs->getValue('sortby'), $prefs->getValue('sortdir'), 0, 100);

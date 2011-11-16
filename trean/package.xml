@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
- <time>15:32:27</time>
+ <date>2011-11-16</date>
+ <time>16:39:05</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -67,11 +67,9 @@
      <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Forms -->
     <dir name="View">
+     <file name="BookmarkList.php" role="horde" />
      <file name="Browse.php" role="horde" />
     </dir> <!-- /lib/View -->
-    <dir name="Views">
-     <file name="BookmarkList.php" role="horde" />
-    </dir> <!-- /lib/Views -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Bookmark.php" role="horde" />
@@ -324,8 +322,8 @@
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
    <install as="trean/lib/Forms/Search.php" name="lib/Forms/Search.php" />
+   <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
    <install as="trean/lib/View/Browse.php" name="lib/View/Browse.php" />
-   <install as="trean/lib/Views/BookmarkList.php" name="lib/Views/BookmarkList.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />
    <install as="trean/locale/de/help.xml" name="locale/de/help.xml" />
@@ -436,7 +434,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-13</date>
+   <date>2011-11-16</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.
