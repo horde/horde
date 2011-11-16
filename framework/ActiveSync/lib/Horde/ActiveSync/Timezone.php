@@ -147,7 +147,11 @@ class Horde_ActiveSync_Timezone
         // the first entry.
         $transitions = $timezone->getTransitions();
         foreach ($transitions as $i => $transition) {
-            $d = new Horde_Date($transition['time'], 'UTC');
+            try {
+                $d = new Horde_Date($transition['time'], 'UTC');
+                } catch (Horde_Date_Exception $e) {
+                    continue;
+                }
             if ($d->format('Y') == $date->format('Y')) {
                 if (isset($transitions[$i + 1])) {
                     $next = new Horde_Date($transitions[$i + 1]['ts']);
