@@ -230,13 +230,12 @@ EOT;
                         'data' => $data,
                         'tags' => (isset($info['image' . $i . '_tags']) ? explode(',', $info['image' . $i . '_tags']) : array()));
                     try {
-                        $image_id = $this->_gallery->addImage(
+                        $image_ids[] = $this->_gallery->addImage(
                             $image_data, (bool)$vars->get('image' . $i . '_default'));
                         ++$uploaded;
-                        $image_ids[] = $image_id;
                     } catch (Ansel_Exception $e) {
                         $notification->push(
-                            sprintf(_("There was a problem saving the photo: %s"), $image_id->getMessage()),
+                            sprintf(_("There was a problem saving the photo: %s"), $e->getMessage()),
                             'horde.error');
                         $valid = false;
                     }
