@@ -120,6 +120,9 @@
             if (empty($this->_map[$property])) {
                 throw new Horde_Service_Weather_Exception_InvalidProperty();
             }
+            if (strpos($this->_properties[$this->_map[$property]], '-999') !== false) {
+                return Horde_Service_Weather_Translation::t('N/A');
+            }
             return Horde_Service_Weather_Translation::t($this->_properties[$this->_map[$property]]);
         }
     }
