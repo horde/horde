@@ -42,10 +42,11 @@ if (!$fb) {
         // the user's default_share preference, and if that's empty,
         // to their username.
         if (!$cal) {
-            $cal = 'internal_' . $prefs->getValue('default_share');
+            $cal = $prefs->getValue('default_share');
             if (!$cal) {
-                $cal = 'internal_' . $user;
+                $cal = $user;
             }
+            $cal = 'internal_' . $cal;
         }
     }
 

@@ -455,10 +455,18 @@ class Horde_Cli
         ob_implicit_flush(true);
         ini_set('html_errors', false);
         set_exception_handler(array($cli, 'fatal'));
-        $_SERVER['HTTP_HOST'] = '127.0.0.1';
-        $_SERVER['SERVER_NAME'] = '127.0.0.1';
-        $_SERVER['SERVER_PORT'] = '';
-        $_SERVER['REMOTE_ADDR'] = '';
+        if (!isset($_SERVER['HTTP_HOST'])) {
+            $_SERVER['HTTP_HOST'] = '127.0.0.1';
+        }
+        if (!isset($_SERVER['SERVER_NAME'])) {
+            $_SERVER['SERVER_NAME'] = '127.0.0.1';
+        }
+        if (!isset($_SERVER['SERVER_PORT'])) {
+            $_SERVER['SERVER_PORT'] = '';
+        }
+        if (!isset($_SERVER['REMOTE_ADDR'])) {
+            $_SERVER['REMOTE_ADDR'] = '';
+        }
         $_SERVER['PHP_SELF'] = isset($argv) ? $argv[0] : '';
         if (!defined('STDIN')) {
             define('STDIN', fopen('php://stdin', 'r'));

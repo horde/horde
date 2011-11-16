@@ -10,7 +10,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2010-2011 Horde LLC (http://www.horde.org/)
- * @license   http://www.horde.org/licenses/gpl GPL
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Role
  */
 
@@ -18,7 +18,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2010-2011 Horde LLC (http://www.horde.org/)
- * @license   http://www.horde.org/licenses/gpl GPL
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Role
  */
 class PEAR_Installer_Role_Horde extends PEAR_Installer_Role_Common

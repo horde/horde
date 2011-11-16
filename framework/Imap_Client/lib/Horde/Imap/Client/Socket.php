@@ -2794,12 +2794,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $fr = $this->_temp['fetchresp'];
+
         if (!is_null($uid) && isset($fr->uid[$uid])) {
             $fr->uid[$uid]->merge($ob);
-        } elseif (isset($fr->seq[$id])) {
-            $fr->seq[$id]->merge($ob);
         } else {
-            $fr->seq[$id] = $ob;
+            if (isset($fr->seq[$id])) {
+                $fr->seq[$id]->merge($ob);
+            } else {
+                $fr->seq[$id] = $ob;
+            }
             if (!is_null($uid)) {
                 $fr->uid[$uid] = $ob;
             }

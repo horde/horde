@@ -29,7 +29,24 @@
           </strong></font>
         </td>
         <td width="5">&nbsp;</td>
-        <td width="100%"><font size="2"><strong><a href="<?php echo $event->getViewUrl(array(), true)->remove(session_name()) ?>"><?php echo $this->h($event->title) ?></a></strong></font></td>
+        <td width="100%"><font size="2">
+          <?php if ($event->status == Kronolith::STATUS_CONFIRMED): ?>
+          <strong>
+          <?php elseif ($event->status == Kronolith::STATUS_FREE || $event->status == Kronolith::STATUS_TENTATIVE): ?>
+          <em>
+          <?php elseif ($event->status == Kronolith::STATUS_CANCELLED): ?>
+          <del style="text-decoration:line-through">
+          <?php endif ?>
+            <a href="<?php echo $event->getViewUrl(array(), true)->remove(session_name()) ?>"><?php echo $this->h($event->title) ?></a>
+          <?php if ($event->status == Kronolith::STATUS_CONFIRMED): ?>
+          </strong>
+          <?php elseif ($event->status == Kronolith::STATUS_FREE || $event->status == Kronolith::STATUS_TENTATIVE): ?>
+          </em>
+          <?php elseif ($event->status == Kronolith::STATUS_CANCELLED): ?>
+          </del>
+          <?php endif ?>
+          (<?php echo Kronolith::statusToString($event->status) ?>)
+        </font></td>
       </tr>
       <?php endforeach ?>
 

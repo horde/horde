@@ -7,5 +7,5 @@
 <?php else: ?>
 <?php echo Horde_String::pad($event->start->format($this->timeformat) . ':', $this->pad) . $event->title ?>
 <?php endif ?>
-
+ (<?php echo Kronolith::statusToString($event->status) ?>)
 <?php endforeach ?>

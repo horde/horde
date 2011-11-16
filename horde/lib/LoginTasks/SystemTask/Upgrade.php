@@ -27,24 +27,14 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
     {
         switch ($version) {
         case '4.0':
-            $this->_clearCache();
             $this->_upgradePortal();
             $this->_upgradePrefs();
             break;
 
         case '4.0.12':
             $this->_replaceWeatherBlock();
+            break;
         }
-    }
-
-    /**
-     * Clear the existing cache.
-     */
-    protected function _clearCache()
-    {
-        try {
-            $GLOBALS['injector']->getInstance('Horde_Cache')->clear();
-        } catch (Exception $e) {}
     }
 
     /**
