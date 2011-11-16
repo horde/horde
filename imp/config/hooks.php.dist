@@ -82,7 +82,7 @@ class IMP_Hooks
 //                        $out[$source] = array();
 //                        foreach ($GLOBALS['registry']->call('contacts/fields', array($source)) as $key => $val){
 //                            if ($val['search']) {
-//                                $out[$source] = $key;
+//                                $out[$source][] = $key;
 //                            }
 //                        }
 //                    }
