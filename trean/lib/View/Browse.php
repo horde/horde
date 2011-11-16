@@ -61,27 +61,30 @@ class Trean_View_Browse
         $results = $this->_browser->getSlice($this->_page, $this->_perPage);
         $total = $this->_browser->count();
         $rtags = $this->_browser->getRelatedTags();
+        $html = $this->_getTagTrail();
 
-        $html = 'Current tags in search:<ul>';
-        foreach ($this->_browser->getTags() as $tag => $id) {
-            $html .= '<li>' . htmlspecialchars($tag) . $this->_linkRemoveTag($tag)->link()
-                . Horde::img('delete-small.png', _("Remove from search")) . '</a></li>';
-        }
-        // $html .= '<br /><br />Matching Bookmarks<br /><ul>';
-        // foreach ($results as $bm) {
-        //     $html .= '<li>' . $bm->url . '</li>';
-        // }
         $view = new Trean_View_BookmarkList($results);
         Horde::startBuffer();
         $view->render();
         $html .= Horde::endBuffer();
-        $html .= '<br /><br/>Related Tags<br /><ul>';
+
+        $html .= '<br /><br/>Related Tags<br /><ul class="tag-list">';
         foreach ($rtags as $id => $taginfo) {
             $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
                 . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
         }
 
         echo $html;
+    }
+
+    protected function _getTagTrail()
+    {
+        $html = '<div class="header"><ul class="tag-list">';
+        foreach ($this->_browser->getTags() as $tag => $id) {
+            $html .= '<li>' . htmlspecialchars($tag) . $this->_linkRemoveTag($tag)->link()
+                . Horde::img('delete-small.png', _("Remove from search")) . '</a></li>';
+        }
+        return $html .= '</ul></div>';
     }
 
     protected function _linkRemoveTag($tag)
