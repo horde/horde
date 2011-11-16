@@ -66,7 +66,7 @@ class IMP_Views_ListMessages
 
                     $is_search = true;
                 } elseif (strlen($args['qsearch'])) {
-                    $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
+                    // TODO: $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
                     $is_search = true;
 
                     switch ($field) {

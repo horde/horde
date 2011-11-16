@@ -2,6 +2,10 @@
 v5.1-git
 --------
 
+[mms] Size of sidebar now saved in dynamic view
+[mms] Browser-specific UI elements in dynamic view now saved in browser storage
+      (Ticket #10723).
+
 
 -----------
 v5.0.15-git

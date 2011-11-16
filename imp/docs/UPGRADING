@@ -29,6 +29,23 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading IMP From 5.0 To 5.1
+=============================
+
+Preferences (prefs.php)
+-----------------------
+
+The following preferences are no longer used and may be safely removed from
+your preference backend::
+
+   dimp_qsearch_field
+   dimp_show_preview
+   dimp_splitbar
+   dimp_splitbar_vert
+   dimp_toggle_headers
+
+
+
 Upgrading IMP From 5.0.x To 5.0.15
 ==================================
 
