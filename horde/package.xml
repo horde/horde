@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
- <time>04:49:38</time>
+ <date>2011-11-15</date>
+ <time>19:07:00</time>
  <version>
   <release>4.1.0</release>
   <api>4.1.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add post-install script for the Horde application
 * [jan] Show notifications directly after logging into Smartphone mode.
  </notes>
  <contents>
@@ -142,6 +143,20 @@
     <file name="TRANSLATIONS" role="doc" />
     <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
+   <dir name="install">
+    <file name="horde.php" role="php">
+     <tasks:postinstallscript>
+      <tasks:paramgroup>
+       <tasks:id>first</tasks:id>
+       <tasks:param>
+        <tasks:name>clear_cache</tasks:name>
+        <tasks:prompt>Clear the cache (if enabled)? Y to clear, any other input will skip</tasks:prompt>
+        <tasks:type>string</tasks:type>
+       </tasks:param>
+      </tasks:paramgroup>
+     </tasks:postinstallscript>
+    </file>
+   </dir> <!-- /install -->
    <dir name="js">
     <dir name="date">
      <file name="ar-SY.js" role="horde" />
@@ -4627,7 +4642,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-13</date>
+   <date>2011-11-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.

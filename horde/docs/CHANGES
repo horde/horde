@@ -2,6 +2,7 @@
 v4.1-git
 --------
 
+[mms] Add post-install script for the Horde application
 [mms] Portal blocks can now load just the CSS necessary to display an
       application's blocks.
 [jan] Show notifications directly after logging into Smartphone mode.
