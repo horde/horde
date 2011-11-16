@@ -34,6 +34,7 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
 
         case '4.0.12':
             $this->_replaceWeatherBlock();
+            break;
         }
     }
 
