@@ -174,7 +174,7 @@ EOT;
             $uploaded = 0;
             $form->getInfo($vars, $info);
 
-            /* Remember the ids of the images we uploaded so we can autogen */
+            // Remember the ids of the images we uploaded so we can autogen
             $image_ids = array();
             for ($i = 0; $i <= $conf['image']['num_uploads'] + 1; ++$i) {
                 if (empty($info['file' . $i]['file'])) {
@@ -185,60 +185,73 @@ EOT;
                     $GLOBALS['browser']->wasFileUploaded('file' . $i);
                 } catch (Horde_Browser_Exception $e) {
                     if (!empty($info['file' . $i]['error'])) {
-                        $notification->push(sprintf(_("There was a problem uploading the photo: %s"), $info['file' . $i]['error']), 'horde.error');
+                        $notification->push(
+                            sprintf(_("There was a problem uploading the photo: %s"), $info['file' . $i]['error']), 'horde.error');
                     } elseif (!filesize($info['file' . $i]['file'])) {
-                        $notification->push(_("The uploaded file appears to be empty. It may not exist on your computer."), 'horde.error');
+                        $notification->push(
+                            _("The uploaded file appears to be empty. It may not exist on your computer."), 'horde.error');
                     }
                     $valid = false;
                     continue;
                 }
 
-                /* Check for a compressed file. */
-                if (in_array($info['file' . $i]['type'],
-                             array('x-extension/zip',
-                                   'application/x-compressed',
-                                   'application/x-zip-compressed',
-                                   'application/zip')) ||
+                // Check for a compressed file.
+                if (in_array(
+                    $info['file' . $i]['type'],
+                    array(
+                        'x-extension/zip',
+                        'application/x-compressed',
+                        'application/x-zip-compressed',
+                        'application/zip')
+                    ) ||
                     Horde_Mime_Magic::filenameToMime($info['file' . $i]['name']) == 'application/zip') {
 
                     $this->_handleZip($info['file' . $i]['name']);
 
                 } else {
 
-                    /* Read in the uploaded data. */
+                    // Read in the uploaded data.
                     $data = file_get_contents($info['file' . $i]['file']);
 
-                    /* Try and make sure the image is in a recognizeable
-                     * format. */
+                    // Try and make sure the image is in a recognizeable
+                    // format.
                     if (getimagesize($info['file' . $i]['file']) === false) {
-                        $notification->push(_("The file you uploaded does not appear to be a valid photo."), 'horde.error');
+                        $notification->push(
+                            _("The file you uploaded does not appear to be a valid photo."),
+                            'horde.error');
                         continue;
                     }
 
-                    /* Add the image to the gallery */
-                    $image_data = array('image_filename' => $info['file' . $i]['name'],
-                                        'image_caption' => $vars->get('image' . $i . '_desc'),
-                                        'image_type' => $info['file' . $i]['type'],
-                                        'data' => $data,
-                                        'tags' => (isset($info['image' . $i . '_tags']) ? explode(',', $info['image' . $i . '_tags']) : array()));
+                    // Add the image to the gallery
+                    $image_data = array(
+                        'image_filename' => $info['file' . $i]['name'],
+                        'image_caption' => $vars->get('image' . $i . '_desc'),
+                        'image_type' => $info['file' . $i]['type'],
+                        'data' => $data,
+                        'tags' => (isset($info['image' . $i . '_tags']) ? explode(',', $info['image' . $i . '_tags']) : array()));
                     try {
-                        $image_id = $this->_gallery->addImage($image_data, (bool)$vars->get('image' . $i . '_default'));
+                        $image_id = $this->_gallery->addImage(
+                            $image_data, (bool)$vars->get('image' . $i . '_default'));
                         ++$uploaded;
                         $image_ids[] = $image_id;
                     } catch (Ansel_Exception $e) {
-                        $notification->push(sprintf(_("There was a problem saving the photo: %s"), $image_id->getMessage()), 'horde.error');
+                        $notification->push(
+                            sprintf(_("There was a problem saving the photo: %s"), $image_id->getMessage()),
+                            'horde.error');
                         $valid = false;
                     }
                     unset($data);
                 }
             }
 
-            /* Try to autogenerate some views and tell the user what happened. */
+            // Try to autogenerate some views and tell the user what happened.
             if ($uploaded) {
                 $cnt = count($image_ids);
                 for ($i = 0; $i < $conf['image']['autogen'] && $cnt > $i; $i++) {
                     $image_id = $image_ids[$i];
-                    $image = &$GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
+                    $image = $GLOBALS['injector']
+                        ->getInstance('Ansel_Storage')
+                        ->getImage($image_id);
                     $image->createView('screen');
                     $image->createView('thumb');
                     $image->createView('mini');
@@ -255,13 +268,15 @@ EOT;
             }
 
             if ($valid) {
-                /* Return to the gallery view. */
-                Ansel::getUrlFor('view',
-                                 array('gallery' => $this->_gallery->id,
-                                       'slug' => $this->_gallery->get('slug'),
-                                       'view' => 'Gallery',
-                                       'page' => $page),
-                                 true)->redirect();
+                // Return to the gallery view.
+                Ansel::getUrlFor(
+                    'view',
+                    array(
+                        'gallery' => $this->_gallery->id,
+                        'slug' => $this->_gallery->get('slug'),
+                        'view' => 'Gallery',
+                        'page' => $page),
+                    true)->redirect();
                 exit;
             }
         }
