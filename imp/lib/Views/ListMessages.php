@@ -32,9 +32,11 @@ class IMP_Views_ListMessages
      *   - change: (boolean)
      *   - initial: (boolean)
      *   - mbox: (string) The mailbox of the view.
+     *   - qsearch: TODO
+     *   - qsearchfield: (string) The quicksearch criteria.
      *   - qsearchmbox: (string) The mailbox to do the quicksearch in
      *                  (base64url encoded).
-     *   - qsearchfilter
+     *   - qsearchfilter: TODO
      *
      * @return array  TODO
      */
@@ -66,15 +68,14 @@ class IMP_Views_ListMessages
 
                     $is_search = true;
                 } elseif (strlen($args['qsearch'])) {
-                    // TODO: $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
                     $is_search = true;
 
-                    switch ($field) {
+                    switch ($args['qsearchfield']) {
                     case 'all':
                     case 'body':
                         $c_list[] = new IMP_Search_Element_Text(
                             $args['qsearch'],
-                            ($field == 'body')
+                            ($args['qsearchfield'] == 'body')
                         );
                         break;
 
@@ -82,7 +83,7 @@ class IMP_Views_ListMessages
                     case 'subject':
                         $c_list[] = new IMP_Search_Element_Header(
                             $args['qsearch'],
-                            $field
+                            $args['qsearchfield']
                         );
                     break;
 

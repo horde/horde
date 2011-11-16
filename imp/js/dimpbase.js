@@ -582,7 +582,10 @@ var DimpBase = {
 
                 if (this.viewswitch &&
                     (this.isQSearch(view) || this.isFSearch(view))) {
-                    params.set('qsearchmbox', this.search.mbox);
+                    params.update({
+                        qsearchfield: this._getPref('qsearch_field'),
+                        qsearchmbox: this.search.mbox
+                    });
                     if (this.search.filter) {
                         params.set('qsearchfilter', this.search.filter);
                     } else if (this.search.flag) {
