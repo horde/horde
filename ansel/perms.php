@@ -234,6 +234,10 @@ case 'editform':
         } catch (Horde_Share_Exception $e) {
             $notification->push($e->getMessage(), 'horde.error');
         }
+        if ($conf['ansel_cache']['usecache']) {
+            $injector->getInstance('Horde_Cache')->expire(
+                'Ansel_Gallery' . Horde_Util::getFormData('cid'));
+        }
         if (Horde_Util::getFormData('save_and_finish')) {
             echo Horde::wrapInlineScript(array('window.close();'));
             exit;
