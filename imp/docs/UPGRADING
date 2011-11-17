@@ -47,10 +47,6 @@ charset, not UTF7-IMAP.
 Preferences (prefs.php)
 -----------------------
 
-These preferences have been added::
-
-   delete_mark_seen
-
 The default values for these preferences have been changed::
 
    drafts_folder
@@ -66,6 +62,16 @@ your preference backend::
    dimp_splitbar
    dimp_splitbar_vert
    dimp_toggle_headers
+
+
+
+Upgrading IMP From 5.0.x To 5.0.15
+==================================
+
+Preferences (prefs.php)
+-----------------------
+
+The 'delete_mark_seen' preference has been added.
 
 
 
