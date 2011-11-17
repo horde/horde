@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:20:07</time>
+ <date>2011-11-16</date>
+ <time>23:27:12</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -28,14 +28,24 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Bin2hex filter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Stream">
+      <dir name="Filter">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Stream/Filter -->
+     </dir> <!-- /doc/Horde/Stream -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Stream">
       <dir name="Filter">
+       <file name="Bin2hex.php" role="php" />
        <file name="Crc32.php" role="php" />
        <file name="Eol.php" role="php" />
       </dir> <!-- /lib/Horde/Stream/Filter -->
@@ -47,6 +57,7 @@
      <dir name="Stream">
       <dir name="Filter">
        <file name="AllTests.php" role="test" />
+       <file name="Bin2hexTest.php" role="test" />
        <file name="Crc32Test.php" role="test" />
        <file name="EolTest.php" role="test" />
       </dir> <!-- /test/Horde/Stream/Filter -->
@@ -67,9 +78,12 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Stream/Filter/COPYING" />
+   <install as="Horde/Stream/Filter/Bin2hex.php" name="lib/Horde/Stream/Filter/Bin2hex.php" />
    <install as="Horde/Stream/Filter/Crc32.php" name="lib/Horde/Stream/Filter/Crc32.php" />
    <install as="Horde/Stream/Filter/Eol.php" name="lib/Horde/Stream/Filter/Eol.php" />
    <install as="Horde/Stream/Filter/AllTests.php" name="test/Horde/Stream/Filter/AllTests.php" />
+   <install as="Horde/Stream/Filter/Bin2hexTest.php" name="test/Horde/Stream/Filter/Bin2hexTest.php" />
    <install as="Horde/Stream/Filter/Crc32Test.php" name="test/Horde/Stream/Filter/Crc32Test.php" />
    <install as="Horde/Stream/Filter/EolTest.php" name="test/Horde/Stream/Filter/EolTest.php" />
   </filelist>
@@ -158,10 +172,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-11-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Bin2hex filter.
    </notes>
   </release>
  </changelog>
