@@ -210,9 +210,6 @@ EOT;
 
                 } else {
 
-                    // Read in the uploaded data.
-                    $data = file_get_contents($info['file' . $i]['file']);
-
                     // Try and make sure the image is in a recognizeable
                     // format.
                     if (getimagesize($info['file' . $i]['file']) === false) {
@@ -221,6 +218,9 @@ EOT;
                             'horde.error');
                         continue;
                     }
+
+                    // Read in the uploaded data.
+                    $data = file_get_contents($info['file' . $i]['file']);
 
                     // Add the image to the gallery
                     $image_data = array(
