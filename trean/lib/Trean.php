@@ -20,14 +20,15 @@ class Trean
      *
      * @return mixed  The value of the specified permission.
      */
-    function hasPermission($permission)
+    static function hasPermission($permission)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists('trean:' . $permission)) {
             return true;
         }
 
-        $allowed = $perms->getPermissions('trean:' . $permission, $GLOBALS['registry']->getAuth());
+        $allowed = $perms->getPermissions(
+            'trean:' . $permission, $GLOBALS['registry']->getAuth());
         if (is_array($allowed)) {
             switch ($permission) {
             case 'max_folders':
@@ -42,16 +43,23 @@ class Trean
 
     /**
      * Returns an apropriate icon for the given bookmark.
+     *
+     * @param Trean_Bookmark $bookmark  The bookmark object.
+     *
+     * @return  Horde_Url The URL for the image.
      */
-    function getFavicon($bookmark)
+    static function getFavicon($bookmark)
     {
         global $registry;
 
         // Initialize VFS.
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            $vfs = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Vfs')
+                ->create();
             if ($bookmark->favicon
                 && $vfs->exists('.horde/trean/favicons/', $bookmark->favicon)) {
+
                 return Horde_Util::addParameter(Horde::url('favicon.php'),
                                                 'bookmark_id', $bookmark->id);
             }
