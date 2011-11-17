@@ -162,9 +162,8 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         if ($current->wind_direction) {
             // Wind.
-            $html .= '<br /><strong>' . _("Wind: ") . '</strong>';
-
-            $html .= _("From the ") . $current->wind_direction
+            $html .= '<br /><strong>' . _("Wind: ") . '</strong>'
+                . _("From the ") . $current->wind_direction
                 . ' ('. $current->wind_degrees . '&deg;) ' . _("at")
                 . ' ' . $current->wind_speed;
             if ($current->wind_gust > 0) {
@@ -198,9 +197,9 @@ class Horde_Block_Weather extends Horde_Core_Block
 
             $futureDays = 0;
             $html .= '<table width="100%" cellspacing="3">';
+
             // Headers.
             $html .= '<tr>';
-            // $html .= '<th>' . _("Day") . '</th><th>&nbsp;</th><th>' .
             $html .= '<th>' . _("Day") . '</th><th>' .
             sprintf(_("Temperature<br />(%sHi%s/%sLo%s) &deg;%s"),
                         '<span style="color:red">', '</span>',
@@ -219,10 +218,9 @@ class Horde_Block_Weather extends Horde_Core_Block
                      break;
                  }
                  $html .= '<tr class="item0">';
-                 // Day name.
-                 // $html .= '<td rowspan="2" style="border:1px solid #ddd; text-align:center"><strong>';
-                 $html .= '<td style="border:1px solid #ddd; text-align:center"><strong>';
 
+                 // Day name.
+                 $html .= '<td style="border:1px solid #ddd; text-align:center"><strong>';
                  if ($which == 0) {
                      $html .= _("Today");
                  } elseif ($which == 1) {
@@ -301,7 +299,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 . Horde::link(
                     Horde::externalUrl($weather->link),
                     $weather->title, '', '_blank', '', $weather->title)
-                . '<em>' . $weather->title . '</em><img src="' . $weather->logo . '" />'
+                . Horde::img(new Horde_Themes_Image($weather->logo))
                 . '</a></div>';
         } else {
             $html .= '<div class="rightAlign">'
