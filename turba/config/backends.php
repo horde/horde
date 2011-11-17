@@ -10,8 +10,8 @@
  * If the 'vhosts' setting has been enabled in Horde's configuration, you can
  * use backends-servername.php.
  *
- * Example configuration file that enables the LDAP address book and adds a
- * composite field to the SQL address book:
+ * Example backends.local.php configuration file that enables the LDAP address
+ * book and adds a composite field to the SQL address book:
  *
  * <code>
  * <?php
@@ -21,194 +21,200 @@
  * $cfgSources['localldap']['params']['bind_dn'] = 'cn=admin,ou=users,dc=horde,dc=org';
  * $cfgSources['localldap']['params']['bind_password'] = 'somesecret';
  * $cfgSources['localsql']['map']['homeAddress'] = array(
- *     'fields' => array('homeStreet', 'homePostalCode',
- *                       'homeCity', 'homeCountry'),
- *     'format' => "%s\n%s %s\n%s");
+ *     'fields' => array(
+ *         'homeStreet',
+ *         'homePostalCode',
+ *         'homeCity',
+ *         'homeCountry'
+ *     ),
+ *     'format' => "%s\n%s %s\n%s"
+ * );
  * </code>
+ *
+ * Properties that can be set for each server:
  *
  * disabled: (boolean) If true, the config entry is disabled.
  *
- * title:       This is the common (user-visible) name that you want displayed
- *              in the contact source drop-down box.
+ * title: (string) This is the common (user-visible) name that you want
+ *        displayed in the contact source drop-down box.
  *
- * type:        The types 'ldap', 'sql', 'imsp', 'group', 'favourites' and
- *              'prefs' are currently supported. Preferences-based address
- *              books are not intended for production installs unless you
- *              really know what you're doing - they are not searchable, and
- *              they won't scale well if a user has a large number of entries.
+ * type: (string) The types 'ldap', 'sql', 'imsp', 'group', 'favourites' and
+ *       'prefs' are currently supported. Preferences-based address books are
+ *       not intended for production installs unless you really know what
+ *       you're doing - they are not searchable, and they won't scale well if
+ *       a user has a large number of entries.
  *
- * params:      These are the connection parameters specific to the contact
- *              source. See below for examples of how to set these.
+ * params: (array) These are the connection parameters specific to the contact
+ *         source.
  *
- * Special params settings:
+ *         General settings:
+ *           - charset: (string) The character set that the backend stores
+ *                      data in. Many LDAP servers use utf-8. Database servers
+ *                      typically use iso-8859-1.
+ *           - filter: (string) Filter your result based on certain condition
+ *                     in SQL and LDAP backends. A filter can be specified to
+ *                     avoid some unwanted data. For example, if the source is
+ *                     an external SQQL database, to select records with the
+ *                     delete flag = 0: 'filter' => 'deleted=0'.
+ *                     Don't enclose 'filter' in brackets - this will done
+ *                     automatically. Also keep in mind that a full filter
+ *                     line will be built from 'filter' and 'objectclass'
+ *                     parameters.
  *
- *   charset:       The character set that the backend stores data in. Many
- *                  LDAP servers use utf-8. Database servers typically use
- *                  iso-8859-1.
+ *         Settings that only apply to LDAP servers:
+ *           - bind_dn: (string) Only applies to LDAP servers which do not
+ *                      allow anonymous connections. Active Directory servers
+ *                      do not allow it by default, so before using one as a
+ *                      Turba source, you must create a "rightless" user,
+ *                      which is only allowed to connect to the server, and
+ *                      set the 'bind_dn' parameter like
+ *                      'rightless@example.com' (not
+ *                      'cn=rightless,dc=example,dc=com').
+ *           - bind_password: (string) Only applies to LDAP servers which do
+ *                            not allow anonymous connection. You should set
+ *                            this to the cleartext password for the user
+ *                            specified in 'bind_dn'.
+ *           - checkrequired: (boolean) If true, consult the LDAP schema for
+ *                            any attributes that are required by the given
+ *                            objectclass(es). Required attributes will be
+ *                            provided automatically if the
+ *                            'checkrequired_string' parameter is present.
+ *                            *NOTE:* You must have the Net_LDAP PEAR library
+ *                            installed for this to work.
+ *           - checksyntax: (boolean) If present, inspect the LDAP schema for
+ *                          particular attributes by the type defined in the
+ *                          corresponding schema.
+ *                          *NOTE:* You must have the Net_LDAP PEAR library
+ *                          installed for this to work.
+ *           - deref: (integer) One of:
+ *                      - LDAP_DEREF_NEVER
+ *                      - LDAP_DEREF_SEARCHING
+ *                      - LDAP_DEREF_FINDING
+ *                      - LDAP_DEREF_ALWAYS
+ *                     This setting tells the LDAP server when to dereference
+ *                     aliases. See http://www.php.net/ldap for more
+ *                     information.
+ *           - dn: (array) Defines the list of LDAP attributes that build a
+ *                 valid DN.
+ *           - objectclass: (array) Defines a list of objectclasses that
+ *                          contacts must belong to, and that new objects will
+ *                          be created with.
+ *           - referrals: (integer) Either 0 or 1. See the LDAP documentation
+ *                        about the corresponding parameter REFERRALS. Windows
+ *                        2003 Server requires that you set this parameter to
+ *                        0.
+ *           - root: (string) Defines the base DN where to start the search
+ *                   (i.e. dc=example,dc=com).
+ *           - scope: (string) Can be set to 'one' to search one level of the
+ *                    LDAP directory, or 'sub' to search all levels. 'one'
+ *                    will work for most setups and should be much faster.
+ *                    However we default to 'sub' for backwards compatibility.
+ *           - sizelimit: (integer) Limit the search to this number of
+ *                        entries. Empty value or 0 means no limit. Keep in
+ *                        mind that servers can impose their own search
+ *                        limits.
+ *           - tls: (boolean) If true, try to use a TLS connection to the
+ *                  server.
+ *           - version: (integer) Specifies LDAP server version: either 2 or
+ *                      3. Active Directory servers require version 3.
  *
- *   tls:           Only applies to LDAP servers. If true, then try to use a
- *                  TLS connection to the server.
+ * map: (array) A list of mappings from the Turba attribute names (keys) to
+ *              the attribute names by which they are known in this contact
+ *              source (values).
  *
- *   scope:         Only applies to LDAP servers. Can be set to 'one' to
- *                  search one level of the LDAP directory, or 'sub' to search
- *                  all levels. 'one' will work for most setups and should be
- *                  much faster. However we default to 'sub' for backwards
- *                  compatibility.
+ *              Turba also supports composite fields. A composite field is
+ *              defined by mapping the field name to an array containing a
+ *              list of component fields and a format string (similar to a
+ *              printf() format string; however, note that positioned
+ *              parameters like %1$s will NOT work).
  *
- *   checkrequired: Only applies to LDAP servers. If present, this value causes
- *                  the driver to consult the LDAP schema for any attributes
- *                  that are required by the given objectclass(es). Required
- *                  attributes will be provided automatically if the
- *                  'checkrequired_string' parameter is present.
- *                  *NOTE* You must have the Net_LDAP PEAR library installed
- *                  for this to work.
+ *              'attribute' defines where the composed value is saved, and is
+ *              optional.
  *
- *   checksyntax:   Only applies to LDAP servers. If present, this value causes
- *                  the driver to inspect the LDAP schema for particular
- *                  attributes by the type defined in the corresponding schema
- *                  *NOTE* You must have the Net_LDAP PEAR library installed
- *                  for this to work.
+ *              'parse' defines a list of format strings and field names that
+ *              should be used for splitting up composite fields, in the order
+ *              of precedence, and is optional.
  *
- *   deref:         Only applies to LDAP servers. If set, should be one of:
- *                    LDAP_DEREF_NEVER
- *                    LDAP_DEREF_SEARCHING
- *                    LDAP_DEREF_FINDING
- *                    LDAP_DEREF_ALWAYS
- *                  This tells the LDAP server when to dereference
- *                  aliases. See http://www.php.net/ldap for more
- *                  information.
- *
- *   dn:            Only applies to LDAP servers. Defines the list of LDAP
- *                  attributes that build a valid DN.
- *
- *   root:          Only applies to LDAP servers. Defines the base DN where to
- *                  start the search, i.e. dc=example,dc=com.
- *
- *   bind_dn:       Only applies to LDAP servers which do not allow anonymous
- *                  connections. Active Directory servers do not allow it by
- *                  default, so before using one as a Turba source, you must
- *                  create a "rightless" user, which is only allowed to connect
- *                  to the server, and set the bind_dn parameter like
- *                  'rightless@example.com' (not cn=rightless,dc=example,dc=com)
- *
- *   bind_password: Only applies to LDAP servers which do not allow anonymous
- *                  connection. You should set this to the cleartext password
- *                  for the user specified in 'bind_dn'.
- *
- *   referrals:     Only applies to LDAP servers. If set, should be 0 or 1.
- *                  See the LDAP documentation about the corresponding
- *                  parameter REFERRALS. Windows 2003 Server requires that you
- *                  set this parameter to 0.
- *
- *   sizelimit:     Only applies to LDAP servers. If set, limit the search to
- *                  the specified number of entries. Value 0 or no value means
- *                  no limit. Keep in mind that servers can impose their own
- *                  search limits.
- *
- *   objectclass:   Only applies to LDAP servers. Defines a list of
- *                  objectclasses that contacts must belong to, and that new
- *                  objects will be created with.
- *
- *   filter:        Filter helps to filter your result based on certain
- *                  condition in SQL and LDAP backends. A filter can be
- *                  specified to avoid some unwanted data. For example, if the
- *                  source is an external sql database, to select records with
- *                  the delete flag = 0: 'filter' => 'deleted=0'.
- *                  Don't enclose filter in brackets - this will done
- *                  automatically. Also keep in mind that a full filter line
- *                  will be built from 'filter' and 'objectclass' parameters.
- *
- *   version:       Only applies to LDAP servers. If set, specify LDAP server
- *                  version, can be 2 or 3. Active Directory servers
- *                  require version 3.
- *
- * map:         This is a list of mappings from the Turba attribute names (on
- *              the left) to the attribute names by which they are known in
- *              this contact source (on the right). Turba also supports
- *              composite fields. A composite field is defined by mapping the
- *              field name to an array containing a list of component fields
- *              and a format string (similar to a printf() format string;
- *              however, note that positioned parameters like %1$s will NOT
- *              work). 'attribute' defines where the composed value is saved,
- *              and can be left out. 'parse' defines a list of format strings
- *              and field names that should be used for splitting up composite
- *              fields, in the order of precedence, and can be left out. Here
- *              is an example:
- *              ...
- *              'name' => array('fields' => array('firstname', 'lastname'),
- *                              'format' => '%s %s',
- *                              'attribute' => 'object_name'),
- *              'firstname' => 'object_firstname',
- *              'lastname' => 'object_lastname',
- *              ...
+ *              An example:
+ *                ...
+ *                'name' => array(
+ *                    'fields' => array('firstname', 'lastname'),
+ *                    'format' => '%s %s',
+ *                    'attribute' => 'object_name'
+ *                ),
+ *                'firstname' => 'object_firstname',
+ *                'lastname' => 'object_lastname',
+ *                ...
  *
  *              Standard Turba attributes are:
- *                __key     : A backend-specific ID for the entry (any value
- *                            as long as it is unique inside that source;
- *                            required)
- *                __uid     : Globally unique ID of the entry (used for
- *                            synchronizing and must be able to be set to any
- *                            value)
- *                __owner   : User name of the contact's owner
- *                __type    : Either 'Object' or 'Group'
- *                __members : Serialized PHP array with list of Group members.
+ *                - __key: [REQUIRED] A backend-specific ID for the entry (any
+ *                         value as long as it is unique inside that source).
+ *                - __members: Serialized PHP array with list of Group
+ *                             members.
+ *                - __owner: User name of the contact's owner
+ *                - __type: Either 'Object' or 'Group'
+ *                - __uid: Globally unique ID of the entry (used for
+ *                         synchronizing and must be able to be set to any
+ *                         value).
+ *
  *              More Turba attributes are defined in config/attributes.php.
  *
- * tabs:        All fields can be grouped into tabs with this optional entry.
- *              This list is multidimensional hash, the keys are the tab
- *              titles.
- *              Here is an example:
- *              'tabs' => array(
- *                  'Names' => array('firstname', 'lastname', 'alias'),
- *                  'Addresses' => array('homeAddress', 'workAddress')
- *              );
+ * tabs: (array) All fields can be grouped into tabs with this optional entry.
+ *       This list is multidimensional hash; keys are the tab titles.
  *
- * search:      A list of Turba attribute names that can be searched for this
- *              source.
+ *       Example:
+ *         'tabs' => array(
+ *             'Addresses' => array(
+ *                 'homeAddress',
+ *                 'workAddress'
+ *             ),
+ *             'Names' => array(
+ *                 'firstname',
+ *                 'lastname',
+ *                 'alias'
+ *             )
+ *         );
  *
- * strict:      A list of native field/attribute names that must
- *              always be matched exactly in a search.
+ * search: (array) A list of Turba attribute names that can be searched for
+ *         this source.
  *
- * approximate: Only applies to LDAP servers. If set, should be an
+ * strict: (array) A list of native field/attribute names that must always be
+ *              matched exactly in a search.
+ *
+ * approximate: (array) Only applies to LDAP servers. If set, should be an
  *              array of native field/attribute names to search
- *              "approximately" (for example, "Sánchez", "Sanchez",
- *              and "Sanchéz" will all match a search string of
- *              "sanchez").
+ *              "approximately" (for example, "Sánchez", "Sanchez", and
+ *              "Sanchéz" will all match a search string of "sanchez").
  *
- * export:      If set to true, this source will appear on the Export menu,
- *              allowing users to export the contacts to a CSV (etc.) file.
+ * export: (boolean) If true, this source will appear on the Export menu,
+ *         allowing users to export the contacts to a CSV (etc.) file.
  *
- * browse:      If set to true, this source will be browseable via the Browse
- *              menu item, and empty searches against the source will return
- *              all contacts.
+ * browse: (boolean) If true, this source will be browseable via the Browse
+ *         menu item, and empty searches against the source will return all
+ *         contacts.
  *
- * use_shares:  If this is present and true, Horde_Share functionality will
- *              be enabled for this source - allowing users to share their
- *              personal address books as well as to create new ones. Since
- *              Turba only supports having one backend configured for
- *              creating new shares, use the 'shares' configuration option to
- *              specify which backend will be used for creating new shares.
- *              All permission checking will be done against Horde_Share, but
- *              note that any 'extended' permissions (such as max_contacts)
- *              will still be enforced. Also note that the backend driver
- *              must have support for using this. Currently SQL, Kolab, and
- *              IMSP.
+ * use_shares: (boolean) If true, Horde_Share functionality will be enabled
+ *             for this source - allowing users to share their personal
+ *             address books as well as to create new ones.
  *
- * all_shares:  If this is present and true (in addition to "use_shares") the
- *              corresponding source will be assumed to handle all shares
- *              that are not explicitely assigned to another source.
- *              Currently Kolab only.
+ *             Since Turba only supports having one backend configured
+ *             for creating new shares, use the 'shares' configuration option
+ *             to specify which backend will be used for creating new shares.
+ *             All permission checking will be done against Horde_Share, but
+ *             note that any 'extended' permissions (such as max_contacts)
+ *             will still be enforced. Also note that the backend driver must
+ *             have support for using this. Supported: SQL, Kolab, and IMSP.
  *
- * list_name_field:  If this is present and non-empty, it will be taken as the
- *                   field to store contact list names in.
- *                   This is required when using a composite field as the 'name'
- *                   field.
+ * all_shares: (boolean) If true (and 'use_shares'is true) the corresponding
+ *             source will be assumed to handle all shares that are not
+ *             explicitly assigned to another source. Supported: Kolab.
  *
- * alternative_name: If this is present and non-empty, it will be taken as the
- *                   field to use an alternative in case that the name field is
- *                   empty.
+ * list_name_field: (string) Taken as the field to store contact list names
+ *                  in. This is required when using a composite field as the
+ *                  'name' field.
  *
- * Here are some example configurations:
+ * alternative_name: (string) Taken as the field to use an alternative in case
+ *                   the name field is empty.
  */
 
 /**
