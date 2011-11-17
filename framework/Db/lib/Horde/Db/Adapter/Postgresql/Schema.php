@@ -146,24 +146,8 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function quoteBinary($value)
     {
-        /* MUST escape zero octet(0), single quote (39), and backslash (92).
-         * MAY escape non-printable octets, but they are required in some
-         * instances so it is best to escape all. */
-        return "E'" . preg_replace_callback("/[\\x00-\\x1f\\x27\\x5c\\x7f-\\xff]/", array($this, '_quoteBinaryCallback'), $value) . "'";
+        return "E'\\\\x" . bin2hex($value) . "'";
     }
-
-    /**
-     * Callback function for quoteBinary().
-     *
-     * @param array $matches  Matches from preg_replace().
-     *
-     * @return string  Escaped/encoded binary value.
-     */
-    protected function _quoteBinaryCallback($matches)
-    {
-        return sprintf('\\\\%03.o', ord($matches[0]));
-    }
-
 
     /*##########################################################################
     # Schema Statements
