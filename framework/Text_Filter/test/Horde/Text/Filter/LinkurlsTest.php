@@ -8,7 +8,9 @@
  * @package    Text_Filter
  * @subpackage UnitTests
  */
-class Horde_Text_Filter_LinkurlsTest extends PHPUnit_Framework_TestCase
+require_once dirname(__FILE__) . '/Autoload.php';
+
+class Horde_Text_Filter_LinkurlsTest extends Horde_Test_Case
 {
     /**
      * @dataProvider urlProvider
@@ -93,4 +95,12 @@ class Horde_Text_Filter_LinkurlsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testUrlWithManyQuestionMarks()
+    {
+        $this->assertEquals(
+            '<a href="http://www.example.com">http://www.example.com</a>????????????',
+            Horde_Text_Filter::filter('http://www.example.com????????????',
+                                      'linkurls',
+                                      array('target' => null)));
+    }
 }
