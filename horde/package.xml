@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
- <time>04:49:38</time>
+ <date>2011-11-17</date>
+ <time>12:10:20</time>
  <version>
   <release>4.0.12</release>
   <api>4.0.0</api>
@@ -1847,8 +1847,6 @@
       <file name="close.png" role="horde" />
       <file name="colorpicker.png" role="horde" />
       <file name="config.png" role="horde" />
-      <file name="currentTab_left.png" role="horde" />
-      <file name="currentTab_right.png" role="horde" />
       <file name="data.png" role="horde" />
       <file name="datatree.png" role="horde" />
       <file name="delete-small.png" role="horde" />
@@ -1897,8 +1895,6 @@
       <file name="shell.png" role="horde" />
       <file name="show_panel.png" role="horde" />
       <file name="sql.png" role="horde" />
-      <file name="tab_left.png" role="horde" />
-      <file name="tab_right.png" role="horde" />
       <file name="unlocked.png" role="horde" />
       <file name="user.png" role="horde" />
       <file name="website.png" role="horde" />
@@ -3933,8 +3929,6 @@
    <install as="themes/hordevetica/graphics/close.png" name="themes/hordevetica/graphics/close.png" />
    <install as="themes/hordevetica/graphics/colorpicker.png" name="themes/hordevetica/graphics/colorpicker.png" />
    <install as="themes/hordevetica/graphics/config.png" name="themes/hordevetica/graphics/config.png" />
-   <install as="themes/hordevetica/graphics/currentTab_left.png" name="themes/hordevetica/graphics/currentTab_left.png" />
-   <install as="themes/hordevetica/graphics/currentTab_right.png" name="themes/hordevetica/graphics/currentTab_right.png" />
    <install as="themes/hordevetica/graphics/data.png" name="themes/hordevetica/graphics/data.png" />
    <install as="themes/hordevetica/graphics/datatree.png" name="themes/hordevetica/graphics/datatree.png" />
    <install as="themes/hordevetica/graphics/delete-small.png" name="themes/hordevetica/graphics/delete-small.png" />
@@ -3983,8 +3977,6 @@
    <install as="themes/hordevetica/graphics/shell.png" name="themes/hordevetica/graphics/shell.png" />
    <install as="themes/hordevetica/graphics/show_panel.png" name="themes/hordevetica/graphics/show_panel.png" />
    <install as="themes/hordevetica/graphics/sql.png" name="themes/hordevetica/graphics/sql.png" />
-   <install as="themes/hordevetica/graphics/tab_left.png" name="themes/hordevetica/graphics/tab_left.png" />
-   <install as="themes/hordevetica/graphics/tab_right.png" name="themes/hordevetica/graphics/tab_right.png" />
    <install as="themes/hordevetica/graphics/unlocked.png" name="themes/hordevetica/graphics/unlocked.png" />
    <install as="themes/hordevetica/graphics/user.png" name="themes/hordevetica/graphics/user.png" />
    <install as="themes/hordevetica/graphics/website.png" name="themes/hordevetica/graphics/website.png" />
@@ -4616,7 +4608,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-13</date>
+   <date>2011-11-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.
