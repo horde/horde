@@ -378,6 +378,16 @@ EOT;
                 }
                 unset($data);
             }
+
+            // Try to auto generate some thumbnails.
+            $qtask = new Ansel_Queue_ProcessThumbs($image_ids);
+            $queue = $GLOBALS['injector']->getInstance('Horde_Queue_Storage');
+            $queue->add($qtask);
+
+            header('Content-Type: application/json');
+            echo('{ "status" : "200", "error" : {} }');
+            exit;
+
         }
     }
 
