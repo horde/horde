@@ -361,7 +361,12 @@ class Ansel
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
             try {
-                $image->createView($view, $style);
+                $image->createView(
+                    $view,
+                    $style,
+                    (($GLOBALS['prefs']->getValue('watermark_auto') && $view == 'screen') ?
+                        $GLOBALS['prefs']->getValue('watermark_text', '') : '')
+                );
             } catch (Ansel_Exception $e) {
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }

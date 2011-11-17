@@ -27,7 +27,12 @@ if (($reload || empty($results))) {
         ->getInstance('Ansel_Storage')
         ->getImage($image_id);
     try {
-        $image->createView('screen');
+        $image->createView(
+            'screen',
+            null,
+            ($GLOBALS['prefs']->getValue('watermark_auto') ?
+                $GLOBALS['prefs']->getValue('watermark_text', '') : '')
+            );
         $results = $faces->getFromPicture($image_id, true);
     } catch (Horde_Exception $e) {
         Horde::logMessage($e, 'ERR');

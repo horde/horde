@@ -50,7 +50,12 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Core_Ajax_Imple
                 // or if we were asked to explicitly try again.
                 if (($reload || empty($results))) {
                     $image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage($image_id);
-                    $image->createView('screen');
+                    $image->createView(
+                        'screen',
+                        null,
+                        ($GLOBALS['prefs']->getValue('watermark_auto') ?
+                            $GLOBALS['prefs']->getValue('watermark_text', '') : '')
+                        );
                     $results = $faces->getFromPicture($image_id, $autocreate);
                 }
                 if (!empty($results)) {

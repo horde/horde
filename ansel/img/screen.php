@@ -21,7 +21,12 @@ if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
 if ($conf['vfs']['src'] == 'sendfile') {
     /* Need to ensure the file exists */
     try {
-        $image->createView('screen', Ansel::getStyleDefinition('ansel_default'));
+        $image->createView(
+            'screen',
+            Ansel::getStyleDefinition('ansel_default'),
+            ($GLOBALS['prefs']->getValue('watermark_auto') ?
+                $GLOBALS['prefs']->getValue('watermark_text', '') : '')
+        );
     } catch (Horde_Exception $e) {
         Horde::logMessage($result, 'ERR');
         exit;
