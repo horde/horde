@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2011-11-17</date>
- <time>12:10:20</time>
+ <time>17:20:24</time>
  <version>
   <release>4.1.0</release>
   <api>4.1.0</api>
@@ -207,11 +207,6 @@
     <dir name="jquery.mobile">
      <dir name="images">
       <file name="ajax-loader.png" role="horde" />
-      <file name="form-check-off.png" role="horde" />
-      <file name="form-check-on.png" role="horde" />
-      <file name="form-radio-off.png" role="horde" />
-      <file name="form-radio-on.png" role="horde" />
-      <file name="icon-search-black.png" role="horde" />
       <file name="icons-18-black.png" role="horde" />
       <file name="icons-18-white.png" role="horde" />
       <file name="icons-36-black.png" role="horde" />
@@ -441,7 +436,6 @@
      <file name="TwitterTimeline.php" role="horde" />
      <file name="Vatid.php" role="horde" />
      <file name="Weather.php" role="horde" />
-     <file name="WeatherdotcomStrings.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
@@ -965,52 +959,11 @@
     <file name="common-header.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
-    <dir name="azur">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/azur -->
-    <dir name="barbie">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/barbie -->
-    <dir name="bluemoon">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/bluemoon -->
     <dir name="bluewhite">
      <file name="info.php" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/bluewhite -->
-    <dir name="brown">
-     <dir name="graphics">
-      <file name="button.gif" role="horde" />
-     </dir> <!-- /themes/brown/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/brown -->
-    <dir name="burntorange">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/burntorange -->
-    <dir name="camouflage">
-     <dir name="graphics">
-      <file name="menu.png" role="horde" />
-     </dir> <!-- /themes/camouflage/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/camouflage -->
-    <dir name="cornflower">
-     <dir name="graphics">
-      <file name="active_tab_left.gif" role="horde" />
-      <file name="active_tab_right.gif" role="horde" />
-      <file name="tab_bottom.gif" role="horde" />
-      <file name="tab_left.gif" role="horde" />
-      <file name="tab_right.gif" role="horde" />
-     </dir> <!-- /themes/cornflower/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/cornflower -->
     <dir name="default">
      <dir name="graphics">
       <dir name="alerts">
@@ -1584,13 +1537,6 @@
        <file name="xml.png" role="horde" />
       </dir> <!-- /themes/default/graphics/mime -->
       <dir name="mobile">
-       <dir name="alerts">
-        <file name="alarm.png" role="horde" />
-        <file name="error.png" role="horde" />
-        <file name="message.png" role="horde" />
-        <file name="success.png" role="horde" />
-        <file name="warning.png" role="horde" />
-       </dir> <!-- /themes/default/graphics/mobile/alerts -->
        <file name="bottom.jpg" role="horde" />
        <file name="display.jpg" role="horde" />
        <file name="left.jpg" role="horde" />
@@ -1746,37 +1692,6 @@
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
-    <dir name="fadetogreen">
-     <dir name="graphics">
-      <file name="control.png" role="horde" />
-      <file name="header.png" role="horde" />
-      <file name="headerbox.png" role="horde" />
-      <file name="menucurrent.png" role="horde" />
-      <file name="menuhover.png" role="horde" />
-      <file name="message.png" role="horde" />
-      <file name="notice.png" role="horde" />
-      <file name="sidebar.png" role="horde" />
-      <file name="sidebarhover.png" role="horde" />
-     </dir> <!-- /themes/fadetogreen/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/fadetogreen -->
-    <dir name="gennevilliers">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/gennevilliers -->
-    <dir name="green">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/green -->
-    <dir name="grey">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/grey -->
-    <dir name="hi-contrast">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/hi-contrast -->
     <dir name="hordevetica">
      <dir name="graphics">
       <dir name="alerts">
@@ -1938,25 +1853,6 @@
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/hordeweb -->
-    <dir name="hordeweb1">
-     <dir name="graphics">
-      <file name="horde-halfgear-ie.png" role="horde" />
-      <file name="horde-halfgear.png" role="horde" />
-     </dir> <!-- /themes/hordeweb1/graphics -->
-     <file name="ie6_or_less.css" role="horde" />
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/hordeweb1 -->
-    <dir name="ideas">
-     <dir name="graphics">
-      <file name="background.png" role="horde" />
-      <file name="left_menu_bottom.png" role="horde" />
-      <file name="left_menu_top.png" role="horde" />
-      <file name="menu_top.png" role="horde" />
-     </dir> <!-- /themes/ideas/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/ideas -->
     <dir name="kolab">
      <dir name="graphics">
       <file name="bg.png" role="horde" />
@@ -1966,53 +1862,6 @@
      <file name="info.php" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/kolab -->
-    <dir name="lavander">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/lavander -->
-    <dir name="lightblue">
-     <dir name="graphics">
-      <file name="menu.png" role="horde" />
-     </dir> <!-- /themes/lightblue/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/lightblue -->
-    <dir name="luc">
-     <dir name="graphics">
-      <file name="currentTab_left.gif" role="horde" />
-      <file name="currentTab_right.gif" role="horde" />
-      <file name="tab_bottom.gif" role="horde" />
-      <file name="tab_left.gif" role="horde" />
-      <file name="tab_right.gif" role="horde" />
-     </dir> <!-- /themes/luc/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/luc -->
-    <dir name="lucblue">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/lucblue -->
-    <dir name="mozilla">
-     <dir name="graphics">
-      <file name="header.png" role="horde" />
-      <file name="menu-active.png" role="horde" />
-      <file name="menu.png" role="horde" />
-     </dir> <!-- /themes/mozilla/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/mozilla -->
-    <dir name="NeXTgrey">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/NeXTgrey -->
-    <dir name="postnuke">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/postnuke -->
-    <dir name="purple">
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/purple -->
     <dir name="silver">
      <dir name="graphics">
       <dir name="alerts">
@@ -2104,8 +1953,6 @@
       <file name="close.png" role="horde" />
       <file name="colorpicker.png" role="horde" />
       <file name="config.png" role="horde" />
-      <file name="currentTab_left.png" role="horde" />
-      <file name="currentTab_right.png" role="horde" />
       <file name="data.png" role="horde" />
       <file name="datatree.png" role="horde" />
       <file name="delete-small.png" role="horde" />
@@ -2154,8 +2001,6 @@
       <file name="shell.png" role="horde" />
       <file name="show_panel.png" role="horde" />
       <file name="sql.png" role="horde" />
-      <file name="tab_left.png" role="horde" />
-      <file name="tab_right.png" role="horde" />
       <file name="unlocked.png" role="horde" />
       <file name="user.png" role="horde" />
       <file name="website.png" role="horde" />
@@ -2164,13 +2009,6 @@
      <file name="info.php" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/silver -->
-    <dir name="simplex">
-     <dir name="graphics">
-      <file name="background.png" role="horde" />
-     </dir> <!-- /themes/simplex/graphics -->
-     <file name="info.php" role="horde" />
-     <file name="screen.css" role="horde" />
-    </dir> <!-- /themes/simplex -->
     <dir name="tango-blue">
      <dir name="graphics">
       <dir name="alerts">
@@ -2776,11 +2614,6 @@
    <install as="js/jquery.mobile/jquery.mobile.min.css" name="js/jquery.mobile/jquery.mobile.min.css" />
    <install as="js/jquery.mobile/jquery.mobile.min.js" name="js/jquery.mobile/jquery.mobile.min.js" />
    <install as="js/jquery.mobile/images/ajax-loader.png" name="js/jquery.mobile/images/ajax-loader.png" />
-   <install as="js/jquery.mobile/images/form-check-off.png" name="js/jquery.mobile/images/form-check-off.png" />
-   <install as="js/jquery.mobile/images/form-check-on.png" name="js/jquery.mobile/images/form-check-on.png" />
-   <install as="js/jquery.mobile/images/form-radio-off.png" name="js/jquery.mobile/images/form-radio-off.png" />
-   <install as="js/jquery.mobile/images/form-radio-on.png" name="js/jquery.mobile/images/form-radio-on.png" />
-   <install as="js/jquery.mobile/images/icon-search-black.png" name="js/jquery.mobile/images/icon-search-black.png" />
    <install as="js/jquery.mobile/images/icons-18-black.png" name="js/jquery.mobile/images/icons-18-black.png" />
    <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
    <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
@@ -2937,7 +2770,6 @@
    <install as="lib/Block/TwitterTimeline.php" name="lib/Block/TwitterTimeline.php" />
    <install as="lib/Block/Vatid.php" name="lib/Block/Vatid.php" />
    <install as="lib/Block/Weather.php" name="lib/Block/Weather.php" />
-   <install as="lib/Block/WeatherdotcomStrings.php" name="lib/Block/WeatherdotcomStrings.php" />
    <install as="/lib/Block/Account/Base.php" name="lib/Block/Account/Base.php" />
    <install as="/lib/Block/Account/Finger.php" name="lib/Block/Account/Finger.php" />
    <install as="/lib/Block/Account/Ldap.php" name="lib/Block/Account/Ldap.php" />
@@ -3207,30 +3039,9 @@
    <install as="templates/test/php_version.inc" name="templates/test/php_version.inc" />
    <install as="templates/test/test.css" name="templates/test/test.css" />
    <install as="templates/test/version.inc" name="templates/test/version.inc" />
-   <install as="themes/azur/info.php" name="themes/azur/info.php" />
-   <install as="themes/azur/screen.css" name="themes/azur/screen.css" />
-   <install as="themes/barbie/info.php" name="themes/barbie/info.php" />
-   <install as="themes/barbie/screen.css" name="themes/barbie/screen.css" />
-   <install as="themes/bluemoon/info.php" name="themes/bluemoon/info.php" />
-   <install as="themes/bluemoon/screen.css" name="themes/bluemoon/screen.css" />
    <install as="themes/bluewhite/info.php" name="themes/bluewhite/info.php" />
    <install as="themes/bluewhite/rtl.css" name="themes/bluewhite/rtl.css" />
    <install as="themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
-   <install as="themes/brown/info.php" name="themes/brown/info.php" />
-   <install as="themes/brown/screen.css" name="themes/brown/screen.css" />
-   <install as="themes/brown/graphics/button.gif" name="themes/brown/graphics/button.gif" />
-   <install as="themes/burntorange/info.php" name="themes/burntorange/info.php" />
-   <install as="themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
-   <install as="themes/camouflage/info.php" name="themes/camouflage/info.php" />
-   <install as="themes/camouflage/screen.css" name="themes/camouflage/screen.css" />
-   <install as="themes/camouflage/graphics/menu.png" name="themes/camouflage/graphics/menu.png" />
-   <install as="themes/cornflower/info.php" name="themes/cornflower/info.php" />
-   <install as="themes/cornflower/screen.css" name="themes/cornflower/screen.css" />
-   <install as="themes/cornflower/graphics/active_tab_left.gif" name="themes/cornflower/graphics/active_tab_left.gif" />
-   <install as="themes/cornflower/graphics/active_tab_right.gif" name="themes/cornflower/graphics/active_tab_right.gif" />
-   <install as="themes/cornflower/graphics/tab_bottom.gif" name="themes/cornflower/graphics/tab_bottom.gif" />
-   <install as="themes/cornflower/graphics/tab_left.gif" name="themes/cornflower/graphics/tab_left.gif" />
-   <install as="themes/cornflower/graphics/tab_right.gif" name="themes/cornflower/graphics/tab_right.gif" />
    <install as="themes/default/embed.css" name="themes/default/embed.css" />
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
@@ -3865,11 +3676,6 @@
    <install as="themes/default/graphics/mobile/left.jpg" name="themes/default/graphics/mobile/left.jpg" />
    <install as="themes/default/graphics/mobile/right.jpg" name="themes/default/graphics/mobile/right.jpg" />
    <install as="themes/default/graphics/mobile/top.jpg" name="themes/default/graphics/mobile/top.jpg" />
-   <install as="themes/default/graphics/mobile/alerts/alarm.png" name="themes/default/graphics/mobile/alerts/alarm.png" />
-   <install as="themes/default/graphics/mobile/alerts/error.png" name="themes/default/graphics/mobile/alerts/error.png" />
-   <install as="themes/default/graphics/mobile/alerts/message.png" name="themes/default/graphics/mobile/alerts/message.png" />
-   <install as="themes/default/graphics/mobile/alerts/success.png" name="themes/default/graphics/mobile/alerts/success.png" />
-   <install as="themes/default/graphics/mobile/alerts/warning.png" name="themes/default/graphics/mobile/alerts/warning.png" />
    <install as="themes/default/graphics/nav/bottom-grey.png" name="themes/default/graphics/nav/bottom-grey.png" />
    <install as="themes/default/graphics/nav/bottom.png" name="themes/default/graphics/nav/bottom.png" />
    <install as="themes/default/graphics/nav/down-grey.png" name="themes/default/graphics/nav/down-grey.png" />
@@ -3924,25 +3730,6 @@
    <install as="themes/default/sounds/jetsndb.wav" name="themes/default/sounds/jetsndb.wav" />
    <install as="themes/default/sounds/reminder.wav" name="themes/default/sounds/reminder.wav" />
    <install as="themes/default/sounds/theetone.wav" name="themes/default/sounds/theetone.wav" />
-   <install as="themes/fadetogreen/info.php" name="themes/fadetogreen/info.php" />
-   <install as="themes/fadetogreen/screen.css" name="themes/fadetogreen/screen.css" />
-   <install as="themes/fadetogreen/graphics/control.png" name="themes/fadetogreen/graphics/control.png" />
-   <install as="themes/fadetogreen/graphics/header.png" name="themes/fadetogreen/graphics/header.png" />
-   <install as="themes/fadetogreen/graphics/headerbox.png" name="themes/fadetogreen/graphics/headerbox.png" />
-   <install as="themes/fadetogreen/graphics/menucurrent.png" name="themes/fadetogreen/graphics/menucurrent.png" />
-   <install as="themes/fadetogreen/graphics/menuhover.png" name="themes/fadetogreen/graphics/menuhover.png" />
-   <install as="themes/fadetogreen/graphics/message.png" name="themes/fadetogreen/graphics/message.png" />
-   <install as="themes/fadetogreen/graphics/notice.png" name="themes/fadetogreen/graphics/notice.png" />
-   <install as="themes/fadetogreen/graphics/sidebar.png" name="themes/fadetogreen/graphics/sidebar.png" />
-   <install as="themes/fadetogreen/graphics/sidebarhover.png" name="themes/fadetogreen/graphics/sidebarhover.png" />
-   <install as="themes/gennevilliers/info.php" name="themes/gennevilliers/info.php" />
-   <install as="themes/gennevilliers/screen.css" name="themes/gennevilliers/screen.css" />
-   <install as="themes/green/info.php" name="themes/green/info.php" />
-   <install as="themes/green/screen.css" name="themes/green/screen.css" />
-   <install as="themes/grey/info.php" name="themes/grey/info.php" />
-   <install as="themes/grey/screen.css" name="themes/grey/screen.css" />
-   <install as="themes/hi-contrast/info.php" name="themes/hi-contrast/info.php" />
-   <install as="themes/hi-contrast/screen.css" name="themes/hi-contrast/screen.css" />
    <install as="themes/hordevetica/info.php" name="themes/hordevetica/info.php" />
    <install as="themes/hordevetica/screen.css" name="themes/hordevetica/screen.css" />
    <install as="themes/hordevetica/graphics/about.png" name="themes/hordevetica/graphics/about.png" />
@@ -4080,47 +3867,11 @@
    <install as="themes/hordeweb/graphics/prefs.png" name="themes/hordeweb/graphics/prefs.png" />
    <install as="themes/hordeweb/graphics/problem.png" name="themes/hordeweb/graphics/problem.png" />
    <install as="themes/hordeweb/graphics/ribbon.png" name="themes/hordeweb/graphics/ribbon.png" />
-   <install as="themes/hordeweb1/ie6_or_less.css" name="themes/hordeweb1/ie6_or_less.css" />
-   <install as="themes/hordeweb1/info.php" name="themes/hordeweb1/info.php" />
-   <install as="themes/hordeweb1/screen.css" name="themes/hordeweb1/screen.css" />
-   <install as="themes/hordeweb1/graphics/horde-halfgear-ie.png" name="themes/hordeweb1/graphics/horde-halfgear-ie.png" />
-   <install as="themes/hordeweb1/graphics/horde-halfgear.png" name="themes/hordeweb1/graphics/horde-halfgear.png" />
-   <install as="themes/ideas/info.php" name="themes/ideas/info.php" />
-   <install as="themes/ideas/screen.css" name="themes/ideas/screen.css" />
-   <install as="themes/ideas/graphics/background.png" name="themes/ideas/graphics/background.png" />
-   <install as="themes/ideas/graphics/left_menu_bottom.png" name="themes/ideas/graphics/left_menu_bottom.png" />
-   <install as="themes/ideas/graphics/left_menu_top.png" name="themes/ideas/graphics/left_menu_top.png" />
-   <install as="themes/ideas/graphics/menu_top.png" name="themes/ideas/graphics/menu_top.png" />
    <install as="themes/kolab/info.php" name="themes/kolab/info.php" />
    <install as="themes/kolab/screen.css" name="themes/kolab/screen.css" />
    <install as="themes/kolab/graphics/bg.png" name="themes/kolab/graphics/bg.png" />
    <install as="themes/kolab/graphics/kolab.png" name="themes/kolab/graphics/kolab.png" />
    <install as="themes/kolab/graphics/kolablogo.png" name="themes/kolab/graphics/kolablogo.png" />
-   <install as="themes/lavander/info.php" name="themes/lavander/info.php" />
-   <install as="themes/lavander/screen.css" name="themes/lavander/screen.css" />
-   <install as="themes/lightblue/info.php" name="themes/lightblue/info.php" />
-   <install as="themes/lightblue/screen.css" name="themes/lightblue/screen.css" />
-   <install as="themes/lightblue/graphics/menu.png" name="themes/lightblue/graphics/menu.png" />
-   <install as="themes/luc/info.php" name="themes/luc/info.php" />
-   <install as="themes/luc/screen.css" name="themes/luc/screen.css" />
-   <install as="themes/luc/graphics/currentTab_left.gif" name="themes/luc/graphics/currentTab_left.gif" />
-   <install as="themes/luc/graphics/currentTab_right.gif" name="themes/luc/graphics/currentTab_right.gif" />
-   <install as="themes/luc/graphics/tab_bottom.gif" name="themes/luc/graphics/tab_bottom.gif" />
-   <install as="themes/luc/graphics/tab_left.gif" name="themes/luc/graphics/tab_left.gif" />
-   <install as="themes/luc/graphics/tab_right.gif" name="themes/luc/graphics/tab_right.gif" />
-   <install as="themes/lucblue/info.php" name="themes/lucblue/info.php" />
-   <install as="themes/lucblue/screen.css" name="themes/lucblue/screen.css" />
-   <install as="themes/mozilla/info.php" name="themes/mozilla/info.php" />
-   <install as="themes/mozilla/screen.css" name="themes/mozilla/screen.css" />
-   <install as="themes/mozilla/graphics/header.png" name="themes/mozilla/graphics/header.png" />
-   <install as="themes/mozilla/graphics/menu-active.png" name="themes/mozilla/graphics/menu-active.png" />
-   <install as="themes/mozilla/graphics/menu.png" name="themes/mozilla/graphics/menu.png" />
-   <install as="themes/NeXTgrey/info.php" name="themes/NeXTgrey/info.php" />
-   <install as="themes/NeXTgrey/screen.css" name="themes/NeXTgrey/screen.css" />
-   <install as="themes/postnuke/info.php" name="themes/postnuke/info.php" />
-   <install as="themes/postnuke/screen.css" name="themes/postnuke/screen.css" />
-   <install as="themes/purple/info.php" name="themes/purple/info.php" />
-   <install as="themes/purple/screen.css" name="themes/purple/screen.css" />
    <install as="themes/silver/info.php" name="themes/silver/info.php" />
    <install as="themes/silver/screen.css" name="themes/silver/screen.css" />
    <install as="themes/silver/graphics/about.png" name="themes/silver/graphics/about.png" />
@@ -4133,8 +3884,6 @@
    <install as="themes/silver/graphics/close.png" name="themes/silver/graphics/close.png" />
    <install as="themes/silver/graphics/colorpicker.png" name="themes/silver/graphics/colorpicker.png" />
    <install as="themes/silver/graphics/config.png" name="themes/silver/graphics/config.png" />
-   <install as="themes/silver/graphics/currentTab_left.png" name="themes/silver/graphics/currentTab_left.png" />
-   <install as="themes/silver/graphics/currentTab_right.png" name="themes/silver/graphics/currentTab_right.png" />
    <install as="themes/silver/graphics/data.png" name="themes/silver/graphics/data.png" />
    <install as="themes/silver/graphics/datatree.png" name="themes/silver/graphics/datatree.png" />
    <install as="themes/silver/graphics/delete-small.png" name="themes/silver/graphics/delete-small.png" />
@@ -4183,8 +3932,6 @@
    <install as="themes/silver/graphics/shell.png" name="themes/silver/graphics/shell.png" />
    <install as="themes/silver/graphics/show_panel.png" name="themes/silver/graphics/show_panel.png" />
    <install as="themes/silver/graphics/sql.png" name="themes/silver/graphics/sql.png" />
-   <install as="themes/silver/graphics/tab_left.png" name="themes/silver/graphics/tab_left.png" />
-   <install as="themes/silver/graphics/tab_right.png" name="themes/silver/graphics/tab_right.png" />
    <install as="themes/silver/graphics/unlocked.png" name="themes/silver/graphics/unlocked.png" />
    <install as="themes/silver/graphics/user.png" name="themes/silver/graphics/user.png" />
    <install as="themes/silver/graphics/website.png" name="themes/silver/graphics/website.png" />
@@ -4252,9 +3999,6 @@
    <install as="themes/silver/graphics/tree/leaf.png" name="themes/silver/graphics/tree/leaf.png" />
    <install as="themes/silver/graphics/tree/rev-leaf.png" name="themes/silver/graphics/tree/rev-leaf.png" />
    <install as="themes/silver/graphics/uploader/up.png" name="themes/silver/graphics/uploader/up.png" />
-   <install as="themes/simplex/info.php" name="themes/simplex/info.php" />
-   <install as="themes/simplex/screen.css" name="themes/simplex/screen.css" />
-   <install as="themes/simplex/graphics/background.png" name="themes/simplex/graphics/background.png" />
    <install as="themes/tango-blue/info.php" name="themes/tango-blue/info.php" />
    <install as="themes/tango-blue/screen.css" name="themes/tango-blue/screen.css" />
    <install as="themes/tango-blue/graphics/add_group.png" name="themes/tango-blue/graphics/add_group.png" />
