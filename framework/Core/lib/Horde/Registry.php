@@ -451,7 +451,7 @@ class Horde_Registry
         /* Initialize shutdown Queue running.
          * @TODO: Only do this if actually using the shutdown runner
          */
-        $runner = $injector->getInstance('Horde_Queue_Runner');
+        $this->_runner = $injector->getInstance('Horde_Queue_Runner');
 
         /* Initialize notification object. Always attach status listener by
          * default. Default status listener can be overriden through the
