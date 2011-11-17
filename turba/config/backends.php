@@ -16,10 +16,10 @@
  * <code>
  * <?php
  * $cfgSources['localldap']['disabled'] = false;
- * $cfgSources['localldap']['server'] = 'localhost';
- * $cfgSources['localldap']['root'] = 'cn=contacts,dc=horde,dc=org';
- * $cfgSources['localldap']['bind_dn'] = 'cn=admin,ou=users,dc=horde,dc=org';
- * $cfgSources['localldap']['bind_password'] = 'somesecret';
+ * $cfgSources['localldap']['params']['server'] = 'localhost';
+ * $cfgSources['localldap']['params']['root'] = 'cn=contacts,dc=horde,dc=org';
+ * $cfgSources['localldap']['params']['bind_dn'] = 'cn=admin,ou=users,dc=horde,dc=org';
+ * $cfgSources['localldap']['params']['bind_password'] = 'somesecret';
  * $cfgSources['localsql']['map']['homeAddress'] = array(
  *     'fields' => array('homeStreet', 'homePostalCode',
  *                       'homeCity', 'homeCountry'),
