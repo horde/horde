@@ -22,7 +22,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
      */
     protected $_versions = array(
         '5.0',
-        '5.0.15'
+        '5.1'
     );
 
     /**
@@ -47,7 +47,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeVirtualFolders();
             break;
 
-        case '5.0.15':
+        case '5.1':
             $this->_upgradeMailboxPrefs();
             break;
         }
@@ -510,7 +510,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     }
 
     /**
-     * As of 5.0.15, special mailboxes are stored in UTF-8, not UTF7-IMAP.
+     * As of 5.1, special mailboxes are stored in UTF-8, not UTF7-IMAP.
      */
     protected function _upgradeMailboxPrefs()
     {
