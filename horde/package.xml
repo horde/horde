@@ -29,7 +29,7 @@
   <active>yes</active>
  </lead>
  <date>2011-11-17</date>
- <time>12:10:20</time>
+ <time>17:26:02</time>
  <version>
   <release>4.0.12</release>
   <api>4.0.0</api>
@@ -427,7 +427,6 @@
      <file name="TwitterTimeline.php" role="horde" />
      <file name="Vatid.php" role="horde" />
      <file name="Weather.php" role="horde" />
-     <file name="WeatherdotcomStrings.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
@@ -2916,7 +2915,6 @@
    <install as="lib/Block/TwitterTimeline.php" name="lib/Block/TwitterTimeline.php" />
    <install as="lib/Block/Vatid.php" name="lib/Block/Vatid.php" />
    <install as="lib/Block/Weather.php" name="lib/Block/Weather.php" />
-   <install as="lib/Block/WeatherdotcomStrings.php" name="lib/Block/WeatherdotcomStrings.php" />
    <install as="/lib/Block/Account/Base.php" name="lib/Block/Account/Base.php" />
    <install as="/lib/Block/Account/Finger.php" name="lib/Block/Account/Finger.php" />
    <install as="/lib/Block/Account/Ldap.php" name="lib/Block/Account/Ldap.php" />
