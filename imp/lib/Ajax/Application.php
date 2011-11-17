@@ -1156,7 +1156,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                entries:
      *   - body: (string) The body text of the message.
      *   - format: (string) Either 'text' or 'html'.
-     *   - fwd_list: (array) See IMP_Dimp::getAttachmentInfo().
+     *   - fwd_list: (array) See _getAttachmentInfo().
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
@@ -1182,7 +1182,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
              * cache id. */
             $result = new stdClass;
             $result->opts = new stdClass;
-            $result->opts->fwd_list = IMP_Dimp::getAttachmentInfo($imp_compose);
+            $result->opts->fwd_list = $this->_getAttachmentInfo($imp_compose);
             $result->body = $fwd_msg['body'];
             $result->type = $this->_vars->type;
             if (!$this->_vars->dataonly) {
@@ -1496,7 +1496,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         if ($GLOBALS['session']->get('imp', 'file_upload') &&
             $imp_compose->addFilesFromUpload('file_')) {
-            $result->atc = end(IMP_Dimp::getAttachmentInfo($imp_compose));
+            $result->atc = end($this->_getAttachmentInfo($imp_compose));
             $result->success = 1;
             $result->imp_compose = $imp_compose->getCacheId();
         }
@@ -2151,6 +2151,35 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $base->ViewPort->view = $mbox->form_to;
 
         return $base;
+    }
+
+    /**
+     * Return information about the current attachments for a message.
+     *
+     * @param IMP_Compose $imp_compose  An IMP_Compose object.
+     *
+     * @return array  An array of arrays with the following keys:
+     *   - name: (string) The HTML encoded attachment name
+     *   - num: (integer) The current attachment number
+     *   - size: (string) The size of the attachment in KB
+     *   - type: (string) The MIME type of the attachment
+     */
+    public function _getAttachmentInfo(IMP_Compose $imp_compose)
+    {
+        $fwd_list = array();
+
+        foreach ($imp_compose as $atc_num => $data) {
+            $mime = $data['part'];
+
+            $fwd_list[] = array(
+                'name' => htmlspecialchars($mime->getName(true)),
+                'num' => $atc_num,
+                'type' => $mime->getType(),
+                'size' => $mime->getSize()
+            );
+        }
+
+        return $fwd_list;
     }
 
 }
