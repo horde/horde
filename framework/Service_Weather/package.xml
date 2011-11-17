@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-07</date>
- <time>14:01:03</time>
+ <date>2011-11-17</date>
+ <time>16:10:20</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -54,6 +54,7 @@
        <file name="Station.php" role="php" />
        <file name="Translation.php" role="php" />
        <file name="WeatherUnderground.php" role="php" />
+       <file name="WeatherUnderground_Strings.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Weather -->
       <file name="Weather.php" role="php" />
      </dir> <!-- /lib/Horde/Service -->
@@ -174,6 +175,7 @@
         <file name="na.png" role="horde" />
         <file name="TWClogo_32px.png" role="php" />
        </dir> <!-- /themes/default/graphics/weather/32x32 -->
+       <file name="wundergroundlogo.png" role="horde" />
       </dir> <!-- /themes/default/graphics/weather -->
      </dir> <!-- /themes/default/graphics -->
     </dir> <!-- /themes/default -->
@@ -232,6 +234,7 @@
    <install as="Horde/Service/Weather/Station.php" name="lib/Horde/Service/Weather/Station.php" />
    <install as="Horde/Service/Weather/Translation.php" name="lib/Horde/Service/Weather/Translation.php" />
    <install as="Horde/Service/Weather/WeatherUnderground.php" name="lib/Horde/Service/Weather/WeatherUnderground.php" />
+   <install as="Horde/Service/Weather/WeatherUnderground_Strings.php" name="lib/Horde/Service/Weather/WeatherUnderground_Strings.php" />
    <install as="Horde/Service/Weather/Current/Base.php" name="lib/Horde/Service/Weather/Current/Base.php" />
    <install as="Horde/Service/Weather/Current/Google.php" name="lib/Horde/Service/Weather/Current/Google.php" />
    <install as="Horde/Service/Weather/Current/WeatherUnderground.php" name="lib/Horde/Service/Weather/Current/WeatherUnderground.php" />
@@ -244,6 +247,7 @@
    <install as="Horde/Service/Weather/Period/WeatherUnderground.php" name="lib/Horde/Service/Weather/Period/WeatherUnderground.php" />
    <install as="locale/Horde_Service_Weather.pot" name="locale/Horde_Service_Weather.pot" />
    <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" />
+   <install as="themes/default/graphics/weather/wundergroundlogo.png" name="themes/default/graphics/weather/wundergroundlogo.png" />
    <install as="themes/default/graphics/weather/23x23/0.png" name="themes/default/graphics/weather/23x23/0.png" />
    <install as="themes/default/graphics/weather/23x23/1.png" name="themes/default/graphics/weather/23x23/1.png" />
    <install as="themes/default/graphics/weather/23x23/2.png" name="themes/default/graphics/weather/23x23/2.png" />
@@ -354,7 +358,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-07</date>
+   <date>2011-11-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.

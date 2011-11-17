@@ -149,7 +149,6 @@
             'pres' => Horde_Service_Weather_Translation::t('millibars'),
             'vis' => Horde_Service_Weather_Translation::t('km')
         );
-
     }
 
  }
