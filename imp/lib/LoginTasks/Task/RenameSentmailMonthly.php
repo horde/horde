@@ -76,7 +76,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
 
                 unset($msgs[$now]);
                 foreach ($msgs as $key => $val) {
-                    $new_mbox = IMP_Mailbox::get(strval($sent) . '-' . Horde_String::lower($key));
+                    $new_mbox = IMP_Mailbox::get(strval($sent) . '-' . Horde_String::convertCharset(Horde_String::lower($key), 'UTF-8', 'UTF7-IMAP'));
 
                     $imp_imap->copy($sent, $new_mbox, array(
                         'create' => true,
