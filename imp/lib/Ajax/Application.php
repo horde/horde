@@ -1555,11 +1555,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function sendMessage()
     {
-        list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
-        if (!IMP::canCompose()) {
+        try {
+            list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
+            if (!IMP::canCompose()) {
+                $result->success = 0;
+                return $result;
+            }
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+
+            $result = new stdClass;
+            $result->action = $this->_action;
             $result->success = 0;
-        }
-        if (!$result->success) {
             return $result;
         }
 
@@ -1712,14 +1719,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - (IMP_Compose) The IMP_Compose object for the message.
      *   - (array) The list of headers for the object.
      *   - (Horde_Prefs_Identity) The identity used for the composition.
+     *
+     * @throws Horde_Exception
      */
     protected function _dimpComposeSetup()
     {
-        global $injector, $notification, $prefs;
-
-        $result = new stdClass;
-        $result->action = $this->_action;
-        $result->success = 1;
+        global $injector, $prefs;
 
         /* Set up identity. */
         $identity = $injector->getInstance('IMP_Identity');
@@ -1729,14 +1734,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Set up the From address based on the identity. */
-        $headers = array();
-        try {
-            $headers['from'] = $identity->getFromLine(null, $this->_vars->from);
-        } catch (Horde_Exception $e) {
-            $notification->push($e);
-            $result->success = 0;
-            return array($result);
-        }
+        $headers = array(
+            'from' => $identity->getFromLine(null, $this->_vars->from)
+        );
 
         $imp_ui = $injector->getInstance('IMP_Ui_Compose');
         $headers['to'] = $imp_ui->getAddressList($this->_vars->to);
@@ -1749,6 +1749,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $headers['subject'] = $this->_vars->subject;
 
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
+
+        $result = new stdClass;
+        $result->action = $this->_action;
+        $result->success = 1;
 
         return array($result, $imp_compose, $headers, $identity);
     }
@@ -1786,8 +1790,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _dimpDraftAction()
     {
-        list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
-        if (!$result->success) {
+        try {
+            list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+
+            $result = new stdClass;
+            $result->action = $this->_action;
+            $result->success = 0;
             return $result;
         }
 
