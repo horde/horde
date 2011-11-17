@@ -222,6 +222,13 @@ class Trean_Tagger
      */
     public function browseTags($tags, $user)
     {
+        if (empty($tags)) {
+            return $GLOBALS['injector']
+                ->getInstance('Content_Tagger')
+                ->getTags(array(
+                    'userId' => $user,
+                    'typeId' => $this->_type_ids['bookmark']));
+        }
         try {
             $tags = array_values($GLOBALS['injector']->getInstance('Content_Tagger')->getTagIds($tags));
             return $GLOBALS['injector']

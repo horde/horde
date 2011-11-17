@@ -72,8 +72,9 @@ div.bookmarks img {
 }
 
 .tag-list {
+    display: inline;
     list-style-type: none;
-
+    font-size: 80%;
 }
 
 .tag-list li {

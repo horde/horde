@@ -19,14 +19,34 @@ class Trean_View_Browse
      */
      protected $_browser;
 
-     protected $_owner;
+     /**
+      * Current page
+      *
+      * @var int
+      */
      protected $_page = 0;
+
+     /**
+      * Bookmarks to display per page
+      *
+      * @var int
+      */
      protected $_perPage = 999;
 
+     /**
+      * Flag to indicate we have an empty search.
+      *
+      * @var boolean
+      */
+     protected $_noSearch = false;
 
+
+     /**
+      * Const'r
+      *
+      */
     public function __construct()
     {
-        $this->_owner = Horde_Util::getFormData('owner', '');
         $this->_browser = new Trean_TagBrowse(
             $GLOBALS['injector']->getInstance('Trean_Tagger'));
 
@@ -52,34 +72,65 @@ class Trean_View_Browse
 
         // Check for empty tag search.. then do what?
         if ($this->_browser->tagCount() < 1) {
-            // ??
+            $this->_noSearch = true;
         }
     }
 
+    /**
+     * Render the view.
+     */
     public function render()
     {
-        $results = $this->_browser->getSlice($this->_page, $this->_perPage);
+        // @TODO: paging
+        if ($this->_noSearch) {
+            $results = $GLOBALS['trean_gateway']
+                ->listBookmarks(
+                    $GLOBALS['prefs']->getValue('sortby'),
+                    $GLOBALS['prefs']->getValue('sortdir'),
+                    $this->_page,
+                    $this->_perPage);
+        } else {
+            $results = $this->_browser->getSlice($this->_page, $this->_perPage);
+        }
         $total = $this->_browser->count();
-        $rtags = $this->_browser->getRelatedTags();
-        $html = $this->_getTagTrail();
 
+        $html = $this->_getTagTrail();
+        $html .= $this->_getRelatedTags();
+
+        $html .= '<div class="header">' . _("Bookmarks") . '</div>';
         $view = new Trean_View_BookmarkList($results);
         Horde::startBuffer();
         $view->render();
         $html .= Horde::endBuffer();
 
-        $html .= '<br /><br/>Related Tags<br /><ul class="tag-list">';
+        echo $html;
+    }
+
+    /**
+     * Get HTML to display the related tags links.
+     *
+     * @return string
+     */
+    protected function _getRelatedTags()
+    {
+        $rtags = $this->_browser->getRelatedTags();
+        $html = '<div class="">' . _("Related Tags") . '</div><ul class="tag-list">';
         foreach ($rtags as $id => $taginfo) {
             $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
                 . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
         }
 
-        echo $html;
+        return $html;
     }
 
+    /**
+     * Get HTML to represent the currently selected tags.
+     *
+     * @return string
+     */
     protected function _getTagTrail()
     {
-        $html = '<div class="header"><ul class="tag-list">';
+        $html = '<div class="header">' . _("Browsing for tags:") . '<ul class="tag-list">';
         foreach ($this->_browser->getTags() as $tag => $id) {
             $html .= '<li>' . htmlspecialchars($tag) . $this->_linkRemoveTag($tag)->link()
                 . Horde::img('delete-small.png', _("Remove from search")) . '</a></li>';
@@ -87,6 +138,14 @@ class Trean_View_Browse
         return $html .= '</ul></div>';
     }
 
+
+    /**
+     * Get HTML for a link to remove a tag from the current search.
+     *
+     * @param  string $tag  The tag we want the link for.
+     *
+     * @return string
+     */
     protected function _linkRemoveTag($tag)
     {
         return Horde::url('tagbrowse.php')
@@ -95,6 +154,13 @@ class Trean_View_Browse
                 'tag' => rawurlencode($tag)));
     }
 
+    /**
+     * Get HTML for a link to add a new tag to the current search.
+     *
+     * @param string $tag  The tag we want to add.
+     *
+     * @return string
+     */
     protected function _linkAddTag($tag)
     {
         return Horde::url('tagbrowse.php')
