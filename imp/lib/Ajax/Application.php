@@ -152,7 +152,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $result = $imptree->createMailboxName(
                 isset($this->_vars->parent) ? IMP_Mailbox::formFrom($this->_vars->parent) : '',
-                $this->_vars->mbox
+                Horde_String::convertCharset($this->_vars->mbox, 'UTF-8', 'UTF7-IMAP')
             )->create();
 
             if ($result) {
@@ -248,7 +248,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - new_name: (string) New mailbox name (child node) (UTF-8).
-     *   - new_parent: (string) New parent name (UTF-8; base64url encoded).
+     *   - new_parent: (string) New parent name (UTF7-IMAP) (base64url
+     *                 encoded).
      *   - old_name: (string) Full name of old mailbox (base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
@@ -273,7 +274,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $new_name = $imptree->createMailboxName(
                 isset($this->_vars->new_parent) ? IMP_Mailbox::formFrom($this->_vars->new_parent) : '',
-                $this->_vars->new_name
+                Horde_String::convertCharset($this->_vars->new_name, 'UTF-8', 'UTF7-IMAP')
             );
 
             $old_name = IMP_Mailbox::formFrom($this->_vars->old_name);
@@ -1156,7 +1157,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                entries:
      *   - body: (string) The body text of the message.
      *   - format: (string) Either 'text' or 'html'.
-     *   - fwd_list: (array) See IMP_Dimp::getAttachmentInfo().
+     *   - fwd_list: (array) See _getAttachmentInfo().
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
@@ -1182,7 +1183,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
              * cache id. */
             $result = new stdClass;
             $result->opts = new stdClass;
-            $result->opts->fwd_list = IMP_Dimp::getAttachmentInfo($imp_compose);
+            $result->opts->fwd_list = $this->_getAttachmentInfo($imp_compose);
             $result->body = $fwd_msg['body'];
             $result->type = $this->_vars->type;
             if (!$this->_vars->dataonly) {
@@ -1496,7 +1497,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         if ($GLOBALS['session']->get('imp', 'file_upload') &&
             $imp_compose->addFilesFromUpload('file_')) {
-            $result->atc = end(IMP_Dimp::getAttachmentInfo($imp_compose));
+            $result->atc = end($this->_getAttachmentInfo($imp_compose));
             $result->success = 1;
             $result->imp_compose = $imp_compose->getCacheId();
         }
@@ -1555,11 +1556,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function sendMessage()
     {
-        list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
-        if (!IMP::canCompose()) {
+        try {
+            list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
+            if (!IMP::canCompose()) {
+                $result->success = 0;
+                return $result;
+            }
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+
+            $result = new stdClass;
+            $result->action = $this->_action;
             $result->success = 0;
-        }
-        if (!$result->success) {
             return $result;
         }
 
@@ -1712,14 +1720,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - (IMP_Compose) The IMP_Compose object for the message.
      *   - (array) The list of headers for the object.
      *   - (Horde_Prefs_Identity) The identity used for the composition.
+     *
+     * @throws Horde_Exception
      */
     protected function _dimpComposeSetup()
     {
-        global $injector, $notification, $prefs;
-
-        $result = new stdClass;
-        $result->action = $this->_action;
-        $result->success = 1;
+        global $injector, $prefs;
 
         /* Set up identity. */
         $identity = $injector->getInstance('IMP_Identity');
@@ -1729,14 +1735,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Set up the From address based on the identity. */
-        $headers = array();
-        try {
-            $headers['from'] = $identity->getFromLine(null, $this->_vars->from);
-        } catch (Horde_Exception $e) {
-            $notification->push($e);
-            $result->success = 0;
-            return array($result);
-        }
+        $headers = array(
+            'from' => $identity->getFromLine(null, $this->_vars->from)
+        );
 
         $imp_ui = $injector->getInstance('IMP_Ui_Compose');
         $headers['to'] = $imp_ui->getAddressList($this->_vars->to);
@@ -1749,6 +1750,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $headers['subject'] = $this->_vars->subject;
 
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
+
+        $result = new stdClass;
+        $result->action = $this->_action;
+        $result->success = 1;
 
         return array($result, $imp_compose, $headers, $identity);
     }
@@ -1786,8 +1791,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _dimpDraftAction()
     {
-        list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
-        if (!$result->success) {
+        try {
+            list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+
+            $result = new stdClass;
+            $result->action = $this->_action;
+            $result->success = 0;
             return $result;
         }
 
@@ -2152,6 +2163,35 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $base->ViewPort->view = $mbox->form_to;
 
         return $base;
+    }
+
+    /**
+     * Return information about the current attachments for a message.
+     *
+     * @param IMP_Compose $imp_compose  An IMP_Compose object.
+     *
+     * @return array  An array of arrays with the following keys:
+     *   - name: (string) The HTML encoded attachment name
+     *   - num: (integer) The current attachment number
+     *   - size: (string) The size of the attachment in KB
+     *   - type: (string) The MIME type of the attachment
+     */
+    public function _getAttachmentInfo(IMP_Compose $imp_compose)
+    {
+        $fwd_list = array();
+
+        foreach ($imp_compose as $atc_num => $data) {
+            $mime = $data['part'];
+
+            $fwd_list[] = array(
+                'name' => htmlspecialchars($mime->getName(true)),
+                'num' => $atc_num,
+                'type' => $mime->getType(),
+                'size' => $mime->getSize()
+            );
+        }
+
+        return $fwd_list;
     }
 
 }

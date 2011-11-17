@@ -34,7 +34,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -83,7 +83,7 @@ class IMP_Api extends Horde_Registry_Api
 
         $imap_tree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
         foreach ($imap_tree as $val) {
-            $folders[$val->utf7imap] = array(
+            $folders[$val->value] = array(
                 'label' => $val->label,
                 'level' => $val->level
             );
@@ -108,13 +108,13 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function createFolder($folder, array $options = array())
     {
-        $fname = IMP_Mailbox::get(Horde_String::convertCharset($folder, 'UTF7-IMAP', 'UTF-8'));
+        $fname = IMP_Mailbox::get($folder);
         if (empty($options['full'])) {
             $fname = $fname->namespace_append;
         }
 
         return $fname->create()
-            ? $fname->utf7imap
+            ? strval($fname)
             : false;
     }
 
@@ -130,7 +130,7 @@ class IMP_Api extends Horde_Registry_Api
     public function deleteMessages($mailbox, $indices)
     {
         return $GLOBALS['injector']->getInstance('IMP_Message')->delete(
-            new IMP_Indices(Horde_String::convertCharset($mailbox, 'UTF7-IMAP', 'UTF-8'), $indices),
+            new IMP_Indices($mailbox, $indices),
             array('nuke' => true)
         );
     }
@@ -147,9 +147,9 @@ class IMP_Api extends Horde_Registry_Api
     public function copyMessages($mailbox, $indices, $target)
     {
         return $GLOBALS['injector']->getInstance('IMP_Message')->copy(
-            Horde_String::convertCharset($target, 'UTF7-IMAP', 'UTF-8'),
+            $target,
             'copy',
-            new IMP_Indices(Horde_String::convertCharset($mailbox, 'UTF7-IMAP', 'UTF-8'), $indices),
+            new IMP_Indices($mailbox, $indices),
             array('create' => true)
         );
     }
@@ -166,9 +166,9 @@ class IMP_Api extends Horde_Registry_Api
     public function moveMessages($mailbox, $indices, $target)
     {
         return $GLOBALS['injector']->getInstance('IMP_Message')->copy(
-            Horde_String::convertCharset($target, 'UTF7-IMAP', 'UTF-8'),
+            $target,
             'move',
-            new IMP_Indices(Horde_String::convertCharset($mailbox, 'UTF7-IMAP', 'UTF-8'), $indices),
+            new IMP_Indices($mailbox, $indices),
             array('create' => true)
         );
     }
@@ -187,7 +187,7 @@ class IMP_Api extends Horde_Registry_Api
     {
         return $GLOBALS['injector']->getInstance('IMP_Message')->flag(
             $flags,
-            new IMP_Indices(Horde_String::convertCharset($mailbox, 'UTF7-IMAP', 'UTF-8'), $indices),
+            new IMP_Indices($mailbox, $indices),
             $set
         );
     }
@@ -203,7 +203,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function searchMailbox($mailbox, $query)
     {
-        $results = IMP_Mailbox::get(Horde_String::convertCharset($mailbox, 'UTF7-IMAP', 'UTF-8'))->runSearchQuery($query);
+        $results = IMP_Mailbox::get($mailbox)->runSearchQuery($query);
         return isset($results[$mailbox])
             ? $results[$mailbox]
             : array();

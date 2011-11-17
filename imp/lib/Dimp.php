@@ -82,37 +82,6 @@ class IMP_Dimp
     }
 
     /**
-     * Return information about the current attachments for a message
-     *
-     * @param IMP_Compose $imp_compose  An IMP_Compose object.
-     *
-     * @return array  An array of arrays with the following keys:
-     *   - num: (integer) The current attachment number
-     *   - name: (string) The HTML encoded attachment name
-     *   - type: (string) The MIME type of the attachment
-     *   - size: (string) The size of the attachment in KB
-     */
-    static public function getAttachmentInfo($imp_compose)
-    {
-        $fwd_list = array();
-
-        if (count($imp_compose)) {
-            foreach ($imp_compose as $atc_num => $data) {
-                $mime = $data['part'];
-
-                $fwd_list[] = array(
-                    'name' => htmlspecialchars($mime->getName(true)),
-                    'num' => $atc_num,
-                    'type' => $mime->getType(),
-                    'size' => $mime->getSize()
-                );
-            }
-        }
-
-        return $fwd_list;
-    }
-
-    /**
      * Build data structure needed by DimpCore javascript to display message
      * log information.
      *

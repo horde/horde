@@ -1,15 +1,6 @@
 <?php
 /**
- * VFS implementation for a standard filesystem.
- *
- * Required parameters:
- * <pre>
- * 'vfsroot' - (string) The root path.
- * </pre>
- *
- * Note: The user that your webserver runs as (commonly 'nobody',
- * 'apache', or 'www-data') MUST have read/write permission to the
- * directory you specify as the 'vfsroot'.
+ * VFS implementation for a filesystem.
  *
  * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
@@ -47,7 +38,11 @@ class Horde_Vfs_File extends Horde_Vfs_Base
     /**
      * Constructs a new Filesystem based VFS object.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  A hash containing connection parameters. REQUIRED
+     *                       parameters:
+     *   - vfsroot: (string) The root path.
+     *              Note: The user that your webserver runs as MUST have
+     *              read/write permission to this directory.
      */
     public function __construct($params = array())
     {

@@ -209,6 +209,8 @@ EOT;
                     $this->_handleZip($info['file' . $i]['name']);
 
                 } else {
+                    // Read in the uploaded data.
+                    $data = file_get_contents($info['file' . $i]['file']);
 
                     // Try and make sure the image is in a recognizeable
                     // format.
@@ -224,7 +226,7 @@ EOT;
                         'image_filename' => $info['file' . $i]['name'],
                         'image_caption' => $vars->get('image' . $i . '_desc'),
                         'image_type' => $info['file' . $i]['type'],
-                        'data' => file_get_contents($info['file' . $i]['file']),
+                        'data' => $data,
                         'tags' => (isset($info['image' . $i . '_tags']) ? explode(',', $info['image' . $i . '_tags']) : array()));
                     try {
                         $image_ids[] = $this->_gallery->addImage(
@@ -262,7 +264,8 @@ EOT;
                     array(
                         'gallery' => $this->_gallery->id,
                         'slug' => $this->_gallery->get('slug'),
-                        'view' => 'Gallery'),
+                        'view' => 'Gallery',
+                        'page' => $page),
                     true)->redirect();
                 exit;
             }

@@ -414,35 +414,34 @@ var DimpBase = {
         }
     },
 
-    loadMailbox: function(f, opts)
+    loadMailbox: function(f)
     {
         var is_search, need_delete;
-        opts = opts || {};
 
         if (!this.viewport) {
             this._createViewPort();
         }
 
-        if (!opts.background) {
-            this.resetSelected();
-            this.quicksearchClear(true);
+        this.resetSelected();
+        this.quicksearchClear(true);
 
-            if (this.view != f) {
-                $('folderName').update(DIMP.text.loading);
-                $('msgHeader').update();
-                this.viewswitch = true;
+        if (this.view != f) {
+            $('folderName').update(DIMP.text.loading);
+            $('msgHeader').update();
+            this.viewswitch = true;
 
-                /* Don't cache results of search folders - since we will need
-                 * to grab new copy if we ever return to it. */
-                if (this.isSearch()) {
-                    need_delete = this.view;
-                }
-
-                this.view = f;
+            /* Don't cache results of search folders - since we will need to
+             * grab new copy if we ever return to it. */
+            if (this.isSearch()) {
+                need_delete = this.view;
             }
+
+            this.view = f;
         }
 
-        this.viewport.loadView(f, { search: (this.uid ? { uid: this.uid } : null), background: opts.background});
+        this.viewport.loadView(f, {
+            search: (this.uid ? { uid: this.uid } : null)
+        });
 
         if (need_delete) {
             this.viewport.deleteView(need_delete);
@@ -1131,6 +1130,10 @@ var DimpBase = {
         case 'ctx_qsearchby_subject':
             this._setPref('qsearch_field', id.substring(14));
             this._setQsearchText();
+            if (this.isQSearch()) {
+                this.viewswitch = true;
+                this.quicksearchRun();
+            }
             break;
 
         default:

@@ -7,6 +7,8 @@
  * @subpackage UnitTests
  */
 
+require_once dirname(__FILE__) . '/Autoload.php';
+
 class Horde_Util_CsvTest extends PHPUnit_Framework_TestCase
 {
     protected function readCsv($file, $conf = array())

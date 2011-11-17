@@ -1454,7 +1454,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *                         parts consisting of base64 encoded data (since
      *                         1.1.0).
      *
-     * @return string  Size of the part, in string format.
+     * @return string  Size of the part in KB.
      */
     public function getSize($approx = false)
     {
@@ -1462,8 +1462,24 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return 0;
         }
 
+        $kb = $bytes / 1024;
         $localeinfo = Horde_Nls::getLocaleInfo();
-        return number_format($bytes / 1024, 2, $localeinfo['decimal_point'], $localeinfo['thousands_sep']);
+
+        /* Reduce need for decimals as part size gets larger. */
+        if ($kb > 100) {
+            $decimals = 0;
+        } elseif ($kb > 10) {
+            $decimals = 1;
+        } else {
+            $decimals = 2;
+        }
+
+        // TODO: Workaround broken number_format() prior to PHP 5.4.0.
+        return str_replace(
+            array('X', 'Y'),
+            array($localeinfo['decimal_point'], $localeinfo['thousands_sep']),
+            number_format($kb, $decimals, 'X', 'Y')
+        );
     }
 
     /**

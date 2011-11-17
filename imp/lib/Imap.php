@@ -265,7 +265,7 @@ class IMP_Imap implements Serializable
 
         foreach ($ns as $key => $val) {
             $mbox = $mailbox . $val['delimiter'];
-            if (strlen($key) && (strpos($mbox, $key) === 0)) {
+            if (!empty($key) && (strpos($mbox, $key) === 0)) {
                 return $val;
             }
         }
@@ -329,71 +329,6 @@ class IMP_Imap implements Serializable
         }
 
         switch ($method) {
-        case 'append':
-        case 'createMailbox':
-        case 'deleteMailbox':
-        case 'expunge':
-        case 'fetch':
-        case 'fetchFromSectionString':
-        case 'getACL':
-        case 'getCacheId':
-        case 'getMetadata':
-        case 'getMyACLRights':
-        case 'getQuota':
-        case 'getQuotaRoot':
-        case 'openMailbox':
-        case 'setMetadata':
-        case 'setQuota':
-        case 'status':
-        case 'statusMultiple':
-        case 'store':
-        case 'subscribeMailbox':
-        case 'thread':
-            // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
-            // their first parameter.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            break;
-
-        case 'copy':
-        case 'renameMailbox':
-            // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
-            // their first two parameters.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
-            break;
-
-        case 'getNamespaces':
-            // We know that the namespace strings are in UTF-8 here. For
-            // Imap_Client 1.x, we need to explicitly force to a Mailbox
-            // object so that UTF7-IMAP auto-detection does not occur.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            break;
-
-        case 'listMailboxes':
-            // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
-            // their first parameter.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-
-            // Explicitly add 'utf8' parameter so we are returned mailbox
-            // objects, not UTF7-IMAP strings.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            if (!isset($params[2])) {
-                $params[2] = array();
-            }
-            $params[2]['utf8'] = true;
-            break;
-
-        case 'listACLRights':
-        case 'setACL':
-            // These are not mailbox parameters, but for Imap_Client 1.x we
-            // need to explicitly force to a Mailbox object so that UTF7-IMAP
-            // auto-detection does not occur.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
-            $params[1] = IMP_Mailbox::getImapMboxOb($params[1]);
-            break;
-
         case 'search':
             $params = call_user_func_array(array($this, '_search'), $params);
             break;
@@ -476,16 +411,8 @@ class IMP_Imap implements Serializable
             IMP_Mailbox::get($params[0])->expire();
             break;
 
-        case 'getNamespaces':
-            // Workaround deprecated UTF7-IMAP return.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $tmp = array();
-            foreach ($result as $key => $val) {
-                $key = Horde_Imap_Client_Mailbox::get($key, true);
-                $val['name'] = $key;
-                $tmp[strval($key)] = $val;
-            }
-            $result = $tmp;
+        case 'setACL':
+            IMP_Mailbox::get($params[0])->expire(IMP_Mailbox::CACHE_ACL);
             break;
 
         case 'login':
@@ -500,20 +427,6 @@ class IMP_Imap implements Serializable
 
                 $this->_changed = $this->_login = true;
             }
-            break;
-
-        case 'setACL':
-            IMP_Mailbox::get($params[0])->expire(IMP_Mailbox::CACHE_ACL);
-            break;
-
-        case 'statusMultiple':
-            // Workaround deprecated UTF7-IMAP return.
-            // TODO: Remove once Horde_Imap_Client 2.0+ is required.
-            $tmp = array();
-            foreach ($result as $key => $val) {
-                $tmp[strval(Horde_Imap_Client_Mailbox::get($key, true))] = $val;
-            }
-            $result = $tmp;
             break;
         }
 
@@ -534,7 +447,6 @@ class IMP_Imap implements Serializable
     protected function _search($mailbox, $query, $opts)
     {
         $imap_charset = null;
-        $mailbox = IMP_Mailbox::get($mailbox);
 
         if (!empty($opts['sort'])) {
             /* SORT (RFC 5256) requires UTF-8 support. So if we are sorting
@@ -549,7 +461,7 @@ class IMP_Imap implements Serializable
              * on the server. */
             if (is_array($sort_cap) &&
                 in_array('DISPLAY', $sort_cap) &&
-                $mailbox->access_sort) {
+                IMP_Mailbox::get($mailbox)->access_sort) {
                 $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
                 if ($pos !== false) {
                     $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;
@@ -573,7 +485,7 @@ class IMP_Imap implements Serializable
             $query->charset($imap_charset, array('Horde_String', 'convertCharset'));
         }
 
-        return array($mailbox->imap_mbox_ob, $query, $opts);
+        return array($mailbox, $query, $opts);
     }
 
     /* Static methods. */

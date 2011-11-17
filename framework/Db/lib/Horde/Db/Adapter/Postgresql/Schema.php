@@ -35,6 +35,13 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     protected $_schemaSearchPath = '';
 
+    /**
+     * Cached version.
+     *
+     * @var integer
+     */
+    protected $_version;
+
 
     /*##########################################################################
     # Object factories
@@ -146,6 +153,10 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function quoteBinary($value)
     {
+        if ($this->postgresqlVersion() >= 90000) {
+            return "E'\\\\x" . bin2hex($value) . "'";
+        }
+
         /* MUST escape zero octet(0), single quote (39), and backslash (92).
          * MAY escape non-printable octets, but they are required in some
          * instances so it is best to escape all. */
@@ -163,7 +174,6 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         return sprintf('\\\\%03.o', ord($matches[0]));
     }
-
 
     /*##########################################################################
     # Schema Statements
@@ -1131,13 +1141,16 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function postgresqlVersion()
     {
-        try {
-            $version = $this->selectValue('SELECT version()');
-            if (preg_match('/PostgreSQL (\d+)\.(\d+)\.(\d+)/', $version, $matches))
-                return ($matches[1] * 10000) + ($matches[2] * 100) + $matches[3];
-        } catch (Exception $e) {
+        if (!$this->_version) {
+            try {
+                $version = $this->selectValue('SELECT version()');
+                if (preg_match('/PostgreSQL (\d+)\.(\d+)\.(\d+)/', $version, $matches))
+                    $this->_version = ($matches[1] * 10000) + ($matches[2] * 100) + $matches[3];
+            } catch (Exception $e) {
+                return 0;
+            }
         }
 
-        return 0;
+        return $this->_version;
     }
 }

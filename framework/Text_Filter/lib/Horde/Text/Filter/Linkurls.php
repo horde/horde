@@ -134,10 +134,14 @@ END_OF_REGEX;
         $href = htmlspecialchars($href);
 
         $class = $this->_params['class'];
-        if (!empty($class)) { $class = ' class="' . $class . '"'; }
+        if (!empty($class)) {
+            $class = ' class="' . $class . '"';
+        }
 
         $target = $this->_params['target'];
-        if (!empty($target)) { $target = ' target="' . $target . '"'; }
+        if (!empty($target)) {
+            $target = ' target="' . $target . '"';
+        }
 
         $replacement = '<a href="' . $href . '"' .
             ($this->_params['nofollow'] ? ' rel="nofollow"' : '') .

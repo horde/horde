@@ -35,6 +35,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mms] Greatly reduce memory usage when working with binary data in PostgreSQL 9.0+ (Bug #10774).
+* [mms] Cache postgresql version.
 * [jan] Improve API documentation.
  </notes>
  <contents>
@@ -532,7 +534,9 @@
    <date>2011-10-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mms] Cache postgresql version.
+* [mms] Greatly reduce memory usage when working with binary data in PostgreSQL (Bug #10774).
+* [jan] Improve API documentation.
    </notes>
   </release>
  </changelog>
