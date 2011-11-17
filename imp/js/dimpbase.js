@@ -1094,6 +1094,10 @@ var DimpBase = {
             DIMP.conf.qsearchfield = id.substring(14);
             this._updatePrefs('dimp_qsearch_field', DIMP.conf.qsearchfield);
             this._setQsearchText();
+            if (this.isQSearch()) {
+                this.viewswitch = true;
+                this.quicksearchRun();
+            }
             break;
 
         default:
