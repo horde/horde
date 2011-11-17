@@ -80,7 +80,7 @@ class Trean_TagBrowse
                 Horde_Session::TYPE_ARRAY);
         }
 
-        $this->_owner = $owner;
+        $this->_owner = empty($owner) ? $GLOBALS['registry']->getAuth() : $owner;
     }
 
     /**
