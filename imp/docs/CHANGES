@@ -2,6 +2,7 @@
 v5.0.15-git
 -----------
 
+[mms] Fix DNS resolution when sending attachment viewed messages (Bug #10784).
 [mms] Fix switching quicksearch criteria while a search is active in dynamic
       mode (Bug #10780).
 [mms] Fix redirecting message from dynamic view popup message (Bug #10738).

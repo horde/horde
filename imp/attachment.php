@@ -87,7 +87,7 @@ if ($conf['compose']['link_attachments_notify']) {
                 /* Set up the mail headers and read the log file. */
                 $msg_headers = new Horde_Mime_Headers();
                 $msg_headers->addReceivedHeader(array(
-                    'dns' => $injector->getInstance('Net_DNS_Resolver'),
+                    'dns' => $injector->getInstance('Net_DNS2_Resolver'),
                     'server' => $conf['server']['name']
                 ));
                 $msg_headers->addMessageIdHeader();
