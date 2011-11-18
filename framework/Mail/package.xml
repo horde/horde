@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-18</date>
- <time>12:48:27</time>
+ <time>12:48:59</time>
  <version>
-  <release>1.0.2</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mms] Always use canonical line endings in sendmail driver (Bug #10696).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -214,6 +214,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mms] Always use canonical line endings in sendmail driver (Bug #10696).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-18</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
