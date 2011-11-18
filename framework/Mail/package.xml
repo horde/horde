@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-20</date>
- <time>14:31:06</time>
+ <date>2011-11-18</date>
+ <time>12:48:27</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -210,7 +210,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-20</date>
+   <date>2011-11-18</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mms] Always use canonical line endings in sendmail driver (Bug #10696).
