@@ -54,7 +54,6 @@ if (isset($header['to']) &&
 }
 
 $fillform_opts = array('noupdate' => 1);
-$get_sig = true;
 $msg = $vars->body;
 
 $js = array();
@@ -199,7 +198,6 @@ case 'forward_redirect':
     try {
         $contents = $imp_ui->getContents($vars);
         $imp_compose->redirectMessage($contents);
-        $get_sig = false;
         $title = _("Redirect");
         $vars->type = 'redirect';
     } catch (IMP_Compose_Exception $e) {
@@ -226,7 +224,6 @@ case 'resume':
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
     }
-    $get_sig = false;
     break;
 
 case 'new':
@@ -246,14 +243,6 @@ if ($vars->type == 'redirect') {
     }
     $imp_ui->attachAutoCompleter($acomplete);
     $imp_ui->attachSpellChecker();
-    $sig = $identity->getSignature($show_editor ? 'html' : 'text');
-    if ($get_sig && !empty($sig)) {
-        if ($identity->getValue('sig_first')) {
-            $msg = $sig . $msg;
-        } else {
-            $msg .= $sig;
-        }
-    }
 
     if ($show_editor) {
         $js['DIMP.conf_compose.show_editor'] = 1;

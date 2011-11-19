@@ -16,13 +16,6 @@
 class IMP_Ui_Compose
 {
     /**
-     * Was the HTML signature replaced in the Html2text callback?
-     *
-     * @var boolean
-     */
-    protected $_replaced;
-
-    /**
      * Expand addresses in a string. Only the last address in the string will
      * be expanded.
      *
@@ -260,18 +253,10 @@ class IMP_Ui_Compose
         $identities = array();
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
-        $html_sigs = $identity->getAllSignatures('html');
-
-        foreach ($identity->getAllSignatures() as $ident => $sig) {
+        foreach (array_keys($identity->getAll('id')) as $ident) {
             $smf = $identity->getValue('sent_mail_folder', $ident);
 
             $identities[] = array(
-                // Plain text signature
-                'sig' => $sig,
-                // HTML signature
-                'sig_html' => $html_sigs[$ident],
-                // Signature location
-                'sig_loc' => (bool)$identity->getValue('sig_first', $ident),
                 // Sent mail folder name
                 'smf_name' => $smf ? $smf->form_to : '',
                 // Save in sent mail folder by default?
@@ -295,69 +280,19 @@ class IMP_Ui_Compose
      * @param string $to         Either 'text' or 'html'.
      * @param integer $identity  The current identity.
      *
-     * @return string  The converted text
+     * @return string  The converted text.
      */
     public function convertComposeText($data, $to, $identity)
     {
-        $imp_identity = $GLOBALS['injector']->getInstance('IMP_Identity');
-        $this->_replaced = false;
-
-        $html_sig = $imp_identity->getSignature('html', $identity);
-        $txt_sig = $imp_identity->getSignature('text', $identity);
-
-        /* Try to find the signature, replace it with a placeholder, convert
-         * the message, and then re-add the signature in the new format. */
         switch ($to) {
         case 'html':
-            if ($txt_sig) {
-                $data = preg_replace('/' . preg_replace('/(?<!^)\s+/', '\\s+', preg_quote($txt_sig, '/')) . '/', '###IMP_SIGNATURE###', $data, 1, $this->_replaced);
-            }
-            $data = IMP_Compose::text2html($data);
-            $sig = $html_sig;
-            break;
+            return IMP_Compose::text2html($data);
 
         case 'text':
-            $callback = $html_sig
-                ? array($this, 'htmlSigCallback')
-                : null;
-
-            $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($data, 'Html2text', array(
-                'callback' => $callback,
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($data, 'Html2text', array(
                 'wrap' => false
             ));
-
-            $sig = $txt_sig;
-            break;
         }
-
-        if ($this->_replaced) {
-            return str_replace('###IMP_SIGNATURE###', $sig, $data);
-        } elseif ($imp_identity->getValue('sig_first', $identity)) {
-            return $sig . $data;
-        }
-
-        return $data . "\n" . $sig;
-    }
-
-    /**
-     * Process DOM node (callback).
-     *
-     * @param DOMDocument $doc  Document node.
-     * @param DOMNode $node     Node.
-     *
-     * @return mixed  The text to replace the node with. Returns null if
-     *                regular node processing should continue.
-     */
-    public function htmlSigCallback($doc, $node)
-    {
-        if ($node instanceof DOMElement &&
-            (strtolower($node->tagName) == 'div') &&
-            ($node->getAttribute('class') == 'impComposeSignature')) {
-            $this->_replaced = true;
-            return '###IMP_SIGNATURE###';
-        }
-
-        return null;
     }
 
 }

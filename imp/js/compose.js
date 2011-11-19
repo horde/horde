@@ -33,40 +33,38 @@ var ImpCompose = {
     changeIdentity: function(elt)
     {
         var id = $F(elt),
-            last = ImpComposeBase.getIdentity($F('last_identity')),
-            next = ImpComposeBase.getIdentity(id),
+            last = ImpComposeBase.identities[$F('last_identity')],
+            next = ImpComposeBase.identities[id],
             bcc = $('bcc'),
             save = $('ssm'),
             smf = $('sent_mail_folder'),
             re;
 
-        ImpComposeBase.replaceSignature(id);
-
         if (this.smf_check) {
-            smf.setValue(next.id.smf_name);
+            smf.setValue(next.smf_name);
         } else {
-            smf.update(next.id.smf_display);
+            smf.update(next.smf_display);
         }
 
         if (save) {
-            save.setValue(next.id.smf_save);
+            save.setValue(next.smf_save);
         }
         if (bcc) {
             bccval = $F(bcc);
 
-            if (last.id.bcc) {
-                re = new RegExp(last.id.bcc + ",? ?", 'gi');
+            if (last.bcc) {
+                re = new RegExp(last.bcc + ",? ?", 'gi');
                 bccval = bccval.replace(re, "");
                 if (bccval) {
                     bccval = bccval.replace(/, ?$/, "");
                 }
             }
 
-            if (next.id.bcc) {
+            if (next.bcc) {
                 if (bccval) {
                     bccval += ', ';
                 }
-                bccval += next.id.bcc;
+                bccval += next.bcc;
             }
 
             bcc.setValue(bccval);
@@ -288,7 +286,7 @@ var ImpCompose = {
                 }
             });
 
-            ImpComposeBase.setCursorPosition('composeMessage', this.cursor_pos, ImpComposeBase.getIdentity($F('last_identity')).sig);
+            ImpComposeBase.setCursorPosition('composeMessage', this.cursor_pos);
 
             if (Prototype.Browser.IE) {
                 $('subject').observe('keydown', function(e) {

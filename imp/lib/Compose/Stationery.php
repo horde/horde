@@ -53,30 +53,9 @@ class IMP_Compose_Stationery implements ArrayAccess, Countable, Iterator
     {
         $s_content = $this[$id]['c'];
 
-        if (strpos($s_content, '%s') !== false) {
-            $sig = $identity->getSignature($html ? 'html' : 'text');
-
-            switch ($this[$id]['t']) {
-            case 'html':
-                if (!$html) {
-                    $s_content = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($s_content, 'Html2text', array('charset' => 'UTF-8'));
-                }
-                break;
-
-            case 'text':
-                if ($html) {
-                    $s_content = IMP_Compose::text2html($s_content);
-                }
-                break;
-            }
-
-            $msg = str_replace(array("\r\n", $sig), array("\n", ''), $msg);
-            $s_content = str_replace('%s', $sig, $s_content);
-        }
-
         return (strpos($s_content, '%c') === false)
             ? $s_content
-            : str_replace('%c', $msg, $s_content);
+            : str_replace('%c', str_replace("\r\n", "\n", $msg), $s_content);
     }
 
     /**

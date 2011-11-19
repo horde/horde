@@ -84,15 +84,13 @@ var DimpCompose = {
 
     changeIdentity: function()
     {
-        var identity = ImpComposeBase.getIdentity($F('identity'));
+        var identity = ImpComposeBase.identities[$F('identity')];
 
-        this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
+        this.setPopdownLabel('sm', identity.smf_name, identity.smf_display);
         if (DIMP.conf_compose.bcc) {
-            $('bcc').setValue(identity.id.bcc);
+            $('bcc').setValue(identity.bcc);
         }
-        this.setSaveSentMail(identity.id.smf_save);
-
-        ImpComposeBase.replaceSignature($F('identity'));
+        this.setSaveSentMail(identity.smf_save);
     },
 
     setSaveSentMail: function(set)
@@ -519,7 +517,7 @@ var DimpCompose = {
         }
 
         var bcc_add,
-            identity = ImpComposeBase.getIdentity($F('last_identity'));
+            identity = ImpComposeBase.identities[$F('last_identity')];
         opts = opts || {};
 
         $('to').setValue(header.to);
@@ -527,17 +525,17 @@ var DimpCompose = {
             this.toggleCC('cc');
             $('cc').setValue(header.cc);
         }
-        this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
-        this.setSaveSentMail(identity.id.smf_save);
+        this.setPopdownLabel('sm', identity.smf_name, identity.smf_display);
+        this.setSaveSentMail(identity.smf_save);
         if (DIMP.conf_compose.bcc) {
             bcc_add = header.bcc
                 ? header.bcc
                 : $F('bcc');
-            if (identity.id.bcc) {
+            if (identity.bcc) {
                 if (!bcc_add.empty()) {
                     bcc_add += ', ';
                 }
-                bcc_add += identity.id.bcc;
+                bcc_add += identity.bcc;
             }
             if (!bcc_add.empty()) {
                 this.toggleCC('bcc');
@@ -661,7 +659,7 @@ var DimpCompose = {
             this.rte.setData(msg, function() { this.editor_wait = false; }.bind(this));
         } else {
             $('composeMessage').setValue(msg);
-            ImpComposeBase.setCursorPosition('composeMessage', DIMP.conf_compose.compose_cursor, ImpComposeBase.getIdentity($F('last_identity')).sig);
+            ImpComposeBase.setCursorPosition('composeMessage', DIMP.conf_compose.compose_cursor);
         }
     },
 
@@ -1074,7 +1072,7 @@ var DimpCompose = {
                 input: 'save_sent_mail_folder',
                 label: 'sent_mail_folder_label'
             });
-            this.setPopdownLabel('sm', ImpComposeBase.getIdentity($F('identity')).id.smf_name);
+            this.setPopdownLabel('sm', ImpComposeBase.identities[$F('identity')].smf_name);
         }
 
         /* Create priority list. */

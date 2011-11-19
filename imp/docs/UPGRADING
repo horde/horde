@@ -29,6 +29,19 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading IMP From 5.0 To 5.1
+=============================
+
+Preferences (prefs.php)
+-----------------------
+
+The 'cursor_compose' preference removed the 'sig' option. Existing preferences
+will automatically be converted to 'bottom'.
+
+The 'sig_first' preference was removed.
+
+
+
 Upgrading IMP From 5.0.x To 5.0.15
 ==================================
 

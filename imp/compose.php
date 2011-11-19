@@ -41,7 +41,6 @@ $registry->setTimeZone();
 $header = array();
 $msg = '';
 
-$get_sig = true;
 $showmenu = $spellcheck = false;
 $oldrtemode = $rtemode = null;
 
@@ -146,7 +145,6 @@ if ($session->get('imp', 'rteavail')) {
             $rtemode = $prefs->getValue('compose_html');
         } else {
             $oldrtemode = $vars->oldrtemode;
-            $get_sig = false;
         }
     }
 }
@@ -243,7 +241,6 @@ case 'editasnew':
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
     }
-    $get_sig = false;
     break;
 
 case 'reply':
@@ -376,7 +373,6 @@ case 'redirect_send':
     } catch (Horde_Exception $e) {
         $notification->push($e);
         $vars->actionID = 'redirect_compose';
-        $get_sig = false;
     }
     break;
 
@@ -392,7 +388,6 @@ case 'send_message':
         $header['from'] = $identity->getFromLine(null, $vars->from);
     } catch (Horde_Exception $e) {
         $header['from'] = '';
-        $get_sig = false;
         $notification->push($e);
         break;
     }
@@ -451,7 +446,6 @@ case 'send_message':
             exit;
         }
 
-        $get_sig = false;
         break;
     }
 
@@ -462,6 +456,7 @@ case 'send_message':
     }
 
     $options = array(
+        'add_signature' => $identity->getDefault(),
         'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $vars->encrypt_options,
         'html' => $rtemode,
         'identity' => $identity,
@@ -476,7 +471,6 @@ case 'send_message':
         $sent = $imp_compose->buildAndSendMessage($message, $header, $options);
         $imp_compose->destroy('send');
     } catch (IMP_Compose_Exception $e) {
-        $get_sig = false;
         $code = $e->getCode();
         $notification->push($e->getMessage(), strpos($code, 'horde.') === 0 ? $code : 'horde.error');
 
@@ -571,11 +565,6 @@ case 'change_stationery':
     if (isset($vars->stationery)) {
         $msg = $stationery->getContent(intval($vars->stationery), $identity, strval($vars->message), $rtemode);
     }
-    $get_sig = false;
-    break;
-
-case 'add_attachment':
-    $get_sig = false;
     break;
 }
 
@@ -652,15 +641,6 @@ if (empty($msg)) {
 /* Convert from Text -> HTML or vice versa if RTE mode changed. */
 if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
     $msg = $imp_ui->convertComposeText($msg, $rtemode ? 'html' : 'text', $identity->getDefault());
-} elseif ($get_sig) {
-    $sig = $identity->getSignature($rtemode ? 'html' : 'text');
-    if (!empty($sig)) {
-        if ($identity->getValue('sig_first')) {
-            $msg = $sig . $msg;
-        } else {
-            $msg .= "\n" . $sig;
-        }
-    }
 }
 
 /* If this is the first page load for this compose item, add auto BCC

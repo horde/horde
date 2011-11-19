@@ -21,7 +21,8 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
     /**
      */
     protected $_versions = array(
-        '5.0'
+        '5.0',
+        '5.1'
     );
 
     /**
@@ -45,6 +46,9 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeStationery();
             $this->_upgradeVirtualFolders();
             break;
+
+        case '5.1':
+            $this->_upgradeComposeCursor();
         }
     }
 
@@ -502,6 +506,18 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
         }
 
         $GLOBALS['injector']->getInstance('IMP_Search')->setVFolders($new_vfolders);
+    }
+
+    /**
+     * Upgrades the 'compose_cursor' preference.
+     */
+    protected function _upgradeComposeCursor()
+    {
+        global $prefs;
+
+        if ($prefs->getValue('compose_cursor') == 'sig') {
+            $prefs->setValue('compose_cursor', 'bottom');
+        }
     }
 
 }

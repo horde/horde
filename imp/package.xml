@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Remove signature from compose UI; signature is no added automatically when sending (Request #10487).
 * [mms] Fix DNS resolution when sending attachment viewed messages (Bug #10784).
 * [mms] Fix switching quicksearch criteria while a search is active in dynamic mode (Bug #10780).
 * [mms] Fix redirecting message from dynamic view popup message (Bug #10738).
@@ -2570,6 +2571,7 @@
    <date>2011-10-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Remove signature from compose UI; signature is no added automatically when sending (Request #10487).
 * [mms] Fix DNS resolution when sending attachment viewed messages (Bug #10784).
 * [mms] Fix switching quicksearch criteria while a search is active in dynamic mode (Bug #10780).
 * [mms] Fix redirecting message from dynamic view popup message (Bug #10738).
