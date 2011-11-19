@@ -906,7 +906,7 @@ if ($redirect) {
         $url = new Horde_Url('#attachments');
         $compose_options[] = array(
             'url' => $url->link(array('class' => 'widget')),
-            'img' => Horde::img('manage_attachments.png'),
+            'img' => Horde::img('attachment.png'),
             'label' => $show_text ? _("Attachments") : ''
         );
     }
