@@ -19,6 +19,7 @@ class IMP_Contents
     const SUMMARY_BYTES = 1;
     const SUMMARY_SIZE = 2;
     const SUMMARY_ICON = 4;
+    const SUMMARY_ICON_RAW = 16384;
     const SUMMARY_DESCRIP_LINK = 8;
     const SUMMARY_DESCRIP_NOLINK = 16;
     const SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS = 32;
@@ -635,6 +636,7 @@ class IMP_Contents
      *   Output: parts = 'size'
      *
      * IMP_Contents::SUMMARY_ICON
+     * IMP_Contents::SUMMARY_ICON_RAW
      *   Output: parts = 'icon'
      *
      * IMP_Contents::SUMMARY_DESCRIP_LINK
@@ -712,7 +714,15 @@ class IMP_Contents
         }
 
         /* Get part's icon. */
-        $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img($GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mime_type), '', array('title' => $mime_type), '') : null;
+        if (($mask & self::SUMMARY_ICON) ||
+            ($mask & self::SUMMARY_ICON_RAW)) {
+            $part['icon'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mime_type);
+            if ($mask & self::SUMMARY_ICON) {
+                $part['icon'] = Horde::img($part['icon'], '', array('title' => $mime_type), '');
+            }
+        } else {
+            $part['icon'] = null;
+        }
 
         /* Get part's description. */
         $description = $this->getPartName($mime_part, true);
@@ -1047,7 +1057,9 @@ class IMP_Contents
      */
     public function getTree($renderer = 'Horde_Core_Tree_Html')
     {
-        $tree = Horde_Tree::factory('mime-' . $this->_uid, $renderer);
+        $tree = Horde_Tree::factory('mime-' . $this->_uid, $renderer, array(
+            'nosession' => true
+        ));
         $this->_addTreeNodes($tree, $this->_message);
         return $tree;
     }
@@ -1062,19 +1074,25 @@ class IMP_Contents
      */
     protected function _addTreeNodes($tree, $part, $parent = null)
     {
-        $viewer = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_MimeViewer');
         $mimeid = $part->getMimeId();
 
-        $line = $mimeid;
-        if ($description = $part->getDescription(true)) {
-            $line .= ' ' . $description;
-        }
-        $line .= ' [' . $part->getType(true) . ']';
-        $tree->addNode($mimeid, $parent, $line);
+        $summary = $this->getSummary(
+            $mimeid,
+            self::SUMMARY_ICON_RAW | self::SUMMARY_DESCRIP_LINK | self::SUMMARY_SIZE | self::SUMMARY_DOWNLOAD
+        );
+
+        $tree->addNode(
+            $mimeid,
+            $parent,
+            $summary['description'] . ' (' . $summary['size'] . ') ' . $summary['download']
+        );
         $tree->addNodeParams(
             $mimeid,
-            array('icon' => $viewer->getIcon($part->getType())));
+            array(
+                'class' => 'partsTreeDiv',
+                'icon' => $summary['icon']
+            )
+        );
 
         foreach ($part->getParts() as $part) {
             $this->_addTreeNodes($tree, $part, $mimeid);
@@ -1368,7 +1386,7 @@ class IMP_Contents
         }
 
         $atc_parts = ($show_parts == 'all')
-            ? array_keys($display_ids)
+            ? array_keys($parts_list)
             : array_keys($atc_parts);
 
         return array(

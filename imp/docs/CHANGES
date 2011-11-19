@@ -2,6 +2,8 @@
 v5.1-git
 --------
 
+[mms] Remove signature from compose UI; signature is no added automatically
+      when sending (Request #10487).
 [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 [mms] Size of sidebar now saved in dynamic view
 [mms] Browser-specific UI elements in dynamic view now saved in browser storage
@@ -12,8 +14,7 @@ v5.1-git
 v5.0.15-git
 -----------
 
-[mms] Remove signature from compose UI; signature is no added automatically
-      when sending (Request #10487).
+[mms] Improved tree display when displaying all message parts.
 [mms] Fix DNS resolution when sending attachment viewed messages (Bug #10784).
 [mms] Fix switching quicksearch criteria while a search is active in dynamic
       mode (Bug #10780).
