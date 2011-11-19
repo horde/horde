@@ -603,26 +603,25 @@ div.dimpActionsMsg #windowclose {
     margin: 0 6px;
     white-space: nowrap;
 }
-#msgHeadersColl span.date {
-    float: right;
-    text-align: right;
-}
-#msgHeadersColl span.subject, #msgHeadersColl span.from {
+#msgHeadersColl span.date, #msgHeadersColl span.from, #msgHeadersColl span.subject {
     overflow: hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
 }
+#msgHeadersColl span.date {
+    float: right;
+    text-align: right;
+    width: 30%;
+}
 #msgHeadersColl span.subject {
     float: left;
     font-weight: bold;
-    max-width: 50%;
+    max-width: 65%;
     padding-left: 2px;
 }
 #msgHeadersColl span.fromcontainer {
-    padding-left: 5px;
-}
-#msgHeadersColl span.from {
-    max-width: 40%;
+    float: left;
+    padding-left: 3px;
 }
 /* end msg small header */
 
