@@ -1020,7 +1020,7 @@ span.dimpactionFilter {
 #ctx_message_unsetflag span.iconImg, #oa_unsetflag span.iconImg {
     background-image: url("../graphics/mail_clearflag.png");
 }
-#ctx_message_source span.iconImg, #msg_view_source span.iconImg {
+#ctx_message_source span.iconImg, #msg_view_source span.iconImg, #ctx_preview_viewsource span.iconImg {
     background-image: url("../graphics/message_source.png");
 }
 #ctx_message_resume span.iconImg, #msg_resume_draft span.iconImg {
@@ -1050,7 +1050,7 @@ span.dimpactionFilter {
 #ctx_folder_delete span.iconImg, #ctx_vfolder_delete span.iconImg {
     background-image: url("../graphics/folders/delete.png");
 }
-#ctx_folder_export span.iconImg, #ctx_folder_import span.iconImg, #msg_save span.iconImg {
+#ctx_folder_export span.iconImg, #ctx_folder_import span.iconImg, #ctx_preview_save span.iconImg {
     background-image: url("../graphics/download.png");
 }
 #ctx_message_spam span.iconImg {

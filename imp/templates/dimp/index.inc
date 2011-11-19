@@ -180,25 +180,17 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
            <a><?php echo _("Open in new window") ?></a>
           </span>
          </div>
-<?php if (!empty($conf['user']['allow_view_source'])): ?>
-         <div>
-          <span id="msg_view_source">
-           <span class="iconImg"></span>
-           <a><?php echo _("View Source") ?></a>
-          </span>
-         </div>
-<?php endif; ?>
-         <div>
-          <span id="msg_save">
-           <span class="iconImg"></span>
-           <a><?php echo _("Save") ?></a>
-          </span>
-         </div>
          <div style="display:none">
           <span id="msg_resume_draft">
            <span class="iconImg"></span>
            <a><?php echo _("Resume Draft") ?></a>
           </span>
+         </div>
+         <div>
+          <span id="preview_other_opts">
+           <span class="iconImg dimpactionOther"></span>
+           <a><?php echo _("Other Options") ?></a>
+         </span>
          </div>
         </div>
         <div id="msgHeadersContent">
@@ -498,6 +490,13 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <a id="ctx_filteropts_flagnot"><?php echo _("Don't Show") ?></a>
 </div>
 <?php endif; ?>
+
+<div class="context" id="ctx_preview" style="display:none">
+ <a id="ctx_preview_save"><span class="iconImg"></span><?php echo _("Save") ?></a>
+<?php if (!empty($conf['user']['allow_view_source'])): ?>
+ <a id="ctx_preview_viewsource"><span class="iconImg"></span><?php echo _("View Source") ?></a>
+<?php endif; ?>
+</div>
 
 <div style="display:none">
  <span id="largeaddrspan">

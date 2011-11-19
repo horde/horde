@@ -1612,8 +1612,8 @@ var DimpBase = {
         // Toggle resume link
         [ $('msg_resume_draft').up() ].invoke(this.isDraft(vs) ? 'show' : 'hide');
 
-        // Add save link
-        $('msg_save').down('A').writeAttribute('href', r.save_as);
+        // Store save link
+        this.pp.save_as = r.save_as;
 
         $('messageBody').update(
             (r.msgtext === null)
@@ -2489,7 +2489,11 @@ var DimpBase = {
                 e.stop();
                 return;
 
-            case 'msg_view_source':
+            case 'ctx_preview_save':
+                DimpCore.redirect(this.pp.save_as);
+                return;
+
+            case 'ctx_preview_viewsource':
                 DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.uid, mailbox: this.pp.mbox, actionID: 'view_source', id: 0 }, true), this.pp.uid + '|' + this.pp.mbox);
                 break;
 
@@ -3459,7 +3463,7 @@ var DimpBase = {
          * via the return from this call. */
         this._listFolders({ initial: 1, mboxes: this.view });
 
-        /* Add popdown menus. Check for disabled compose at the same time. */
+        /* Add popdown menus. */
         DimpCore.addPopdownButton('button_other', 'otheractions', {
             trigger: true
         });
@@ -3486,6 +3490,10 @@ var DimpBase = {
         });
         DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgDate').identify(), 'datesort', {
             insert: 'bottom'
+        });
+
+        DimpCore.addPopdown($('preview_other_opts').down('A'), 'preview', {
+            trigger: true
         });
 
         /* Create flag entries. */
