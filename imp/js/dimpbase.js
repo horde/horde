@@ -1334,6 +1334,10 @@ var DimpBase = {
             this.toggleCheck($('ctx_subjectsort_thread').down('DIV.iconImg'), this.isThreadSort());
             break;
 
+        case 'ctx_preview':
+            [ $('ctx_preview_allparts') ].invoke(this.pp.hide_all ? 'hide' : 'show');
+            break;
+
         default:
             parentfunc(e);
             break;
@@ -1596,7 +1600,7 @@ var DimpBase = {
             if (r.atc_list) {
                 $('partlist_col').show();
                 $('partlist_exp').hide();
-                tmp.down('TABLE').update(r.atc_list);
+                tmp.update(new Element('TABLE').insert(r.atc_list));
             }
         } else {
             $('msgAtc').hide();
@@ -1612,8 +1616,8 @@ var DimpBase = {
         // Toggle resume link
         [ $('msg_resume_draft').up() ].invoke(this.isDraft(vs) ? 'show' : 'hide');
 
-        // Store save link
         this.pp.save_as = r.save_as;
+        this.pp.hide_all = r.onepart;
 
         $('messageBody').update(
             (r.msgtext === null)
@@ -1638,6 +1642,18 @@ var DimpBase = {
 
         // Remove old cache value.
         this._expirePPCache([ this._getPPId(r.olduid, r.oldmbox) ]);
+    },
+
+    _mimeTreeCallback: function(r)
+    {
+        this.pp.hide_all = true;
+
+        $('partlist').update(r.response.tree).previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(DIMP.text.allparts_label));
+        $('partlist_col').show();
+        $('partlist_exp').hide();
+        $('msgAtc').show();
+
+        this.loadingImg('msg', false);
     },
 
     _sendMdnCallback: function(r)
@@ -2495,6 +2511,11 @@ var DimpBase = {
 
             case 'ctx_preview_viewsource':
                 DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.pp.uid, mailbox: this.pp.mbox, actionID: 'view_source', id: 0 }, true), this.pp.uid + '|' + this.pp.mbox);
+                break;
+
+            case 'ctx_preview_allparts':
+                this.loadingImg('msg', true);
+                DimpCore.doAction('messageMimeTree', { preview: 1 }, { uids: this.viewport.createSelection('dataob', this.pp), callback: this._mimeTreeCallback.bind(this) });
                 break;
 
             case 'msg_resume_draft':

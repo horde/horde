@@ -228,9 +228,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
              </td>
             <td>
              <div></div>
-             <div id="partlist" style="display:none">
-              <table></table>
-             </div>
+             <div id="partlist" style="display:none"></div>
             </td>
            </tr>
            <tr id="msgLogInfo" style="display:none">
@@ -496,6 +494,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <?php if (!empty($conf['user']['allow_view_source'])): ?>
  <a id="ctx_preview_viewsource"><span class="iconImg"></span><?php echo _("View Source") ?></a>
 <?php endif; ?>
+ <a id="ctx_preview_allparts"><span class="iconImg"></span><?php echo _("View All Parts") ?></a>
 </div>
 
 <div style="display:none">

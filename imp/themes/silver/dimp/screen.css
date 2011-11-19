@@ -161,6 +161,9 @@ span.dimpactionFilter {
 #ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
 }
+#ctx_preview_allparts span.iconImg, #msg_all_parts span.iconImg {
+    background-image: url("../graphics/email_attach.png");
+}
 
 /* Other images */
 #msg_newwin span.iconImg, #msg_newwin_options span.iconImg {

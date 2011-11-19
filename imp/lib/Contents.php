@@ -1243,6 +1243,7 @@ class IMP_Contents
      *   - display_ids: (array) The list of display MIME IDs.
      *   - js_onload: (array) A list of javascript code to run onload.
      *   - msgtext: (string) The rendered HTML code.
+     *   - one_part: (boolean) If true, the message only consists of one part.
      */
     public function getInlineOutput(array $options = array())
     {
@@ -1393,7 +1394,8 @@ class IMP_Contents
             'atc_parts' => $atc_parts,
             'display_ids' => array_keys($display_ids),
             'js_onload' => $js_onload,
-            'msgtext' => $text_out
+            'msgtext' => $text_out,
+            'one_part' => (count($parts_list) == 1)
         );
     }
 

@@ -168,6 +168,12 @@ var DimpMessage = {
                 DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mbox, actionID: 'view_source', id: 0 }, true), this.uid + '|' + this.mbox);
                 break;
 
+            case 'msg_all_parts':
+                tmp = {};
+                tmp[this.mbox] = [ this.uid ];
+                DimpCore.doAction('messageMimeTree', { }, { uids: tmp, callback: this._mimeTreeCallback.bind(this) });
+                break;
+
             case 'qreply':
                 if (orig.match('DIV.headercloseimg IMG')) {
                     DimpCompose.confirmCancel();
@@ -242,6 +248,15 @@ var DimpMessage = {
         var mb = $('msgData').down('DIV.messageBody');
 
         mb.setStyle({ height: (document.viewport.getHeight() - mb.cumulativeOffset()[1] - parseInt(mb.getStyle('paddingTop'), 10) - parseInt(mb.getStyle('paddingBottom'), 10)) + 'px' });
+    },
+
+    _mimeTreeCallback: function(r)
+    {
+        $('msg_all_parts').up().hide();
+
+        $('partlist').update(r.response.tree);
+        $('msgAtc').down('SPAN.atcLabel').update(DIMP.text.allparts_label);
+        $('msgAtc').show();
     },
 
     onDomLoad: function()

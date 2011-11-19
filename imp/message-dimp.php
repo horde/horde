@@ -191,13 +191,19 @@ foreach ($show_msg_result['headers'] as $val) {
 }
 $t->set('hdrs', $hdrs);
 
+$t->set('atc_list', '');
 if (isset($show_msg_result['atc_label'])) {
     $t->set('atc_label', $show_msg_result['atc_label']);
     if (isset($show_msg_result['atc_list'])) {
         $t->set('atc_list', $show_msg_result['atc_list']);
     }
     $t->set('atc_download', isset($show_msg_result['atc_download']) ? $show_msg_result['atc_download'] : '');
+} else {
+    $t->set('atc_download', '');
+    $t->set('atc_label', '');
 }
+
+$t->set('view_all_parts', empty($show_msg_result['onepart']));
 
 $t->set('msgtext', $show_msg_result['msgtext']);
 

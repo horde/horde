@@ -137,6 +137,7 @@ $code['text'] = array(
     'ajax_error' => _("Error when communicating with the server."),
     'ajax_recover' => _("The connection to the server has been restored."),
     'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
+    'allparts_label' => _("All Message Parts"),
     'badaddr' => _("Invalid Address"),
     'badsubject' => _("Invalid Subject"),
     'baselevel' => _("base level of the folder tree"),

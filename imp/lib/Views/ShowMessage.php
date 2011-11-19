@@ -71,6 +71,7 @@ class IMP_Views_ShowMessage
      *   - log: Log information
      *   - mbox: The mailbox (base64url encoded)
      *   - msgtext: The text of the message
+     *   - onepart: True if message only contains one part.
      *   - priority (FULL): The priority of the message (low, high, normal)
      *   - replyTo (FULL): The Reply-to addresses
      *   - save_as: The save link
@@ -266,6 +267,9 @@ class IMP_Views_ShowMessage
 
         $result['js'] = array_merge($result['js'], $inlineout['js_onload']);
         $result['msgtext'] .= $inlineout['msgtext'];
+        if ($inlineout['one_part']) {
+            $result['onepart'] = true;
+        }
 
         if (count($inlineout['atc_parts']) ||
             (($show_parts == 'all') && count($inlineout['display_ids']) > 2)) {

@@ -1054,6 +1054,44 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Return the MIME tree representation of the message.
+     *
+     * See the list of variables needed for _changed() and
+     * _checkUidvalidity().  Additional variables used:
+     *   - preview: (integer) If set, return preview data. Otherwise, return
+     *              full data.
+     *   - uid: (string) Index of the messages to display (IMAP sequence
+     *          string; mailbox is base64url encoded) - must be single index.
+     *
+     * @return mixed  On error will return null.
+     *                Otherwise an object with the following entries:
+     *   - tree: (string) The MIME tree representation of the message.
+     *           If viewing preview, on error this object will contain error
+     *           and errortype properties.
+     */
+    public function messageMimeTree()
+    {
+        $result = new stdClass;
+
+        try {
+            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Form($this->_vars->uid));
+            $result->tree = $imp_contents->getTree()->getTree(true);
+        } catch (IMP_Exception $e) {
+            if (!$this->_vars->preview) {
+                throw $e;
+            }
+
+            $result->preview->error = $e->getMessage();
+            $result->preview->errortype = 'horde.error';
+            $result->preview->mbox = $mbox->form_to;
+            $result->preview->uid = $idx;
+            $result->preview->view = $this->_vars->view;
+        }
+
+        return $result;
+    }
+
+    /**
      * AJAX action: Convert HTML to text (compose data).
      *
      * Variables used:

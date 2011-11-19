@@ -46,6 +46,14 @@
          <a href="<tag:save_as />"><gettext>Save</gettext></a>
         </span>
        </div>
+<if:view_all_parts>
+       <div>
+        <span id="msg_all_parts">
+         <span class="iconImg"></span>
+         <a><gettext>View All Parts</gettext></a>
+        </span>
+       </div>
+</if:view_all_parts>
       </div>
       <div id="msgHeadersContent">
        <table>
@@ -60,28 +68,22 @@
           <td><tag:hdrs.val /></td>
          </tr>
 </loop:hdrs>
-<if:atc_label>
-         <tr id="msgAtc">
+         <tr id="msgAtc"<if:atc_label><else:atc_label> style="display:none"</else:atc_label></if:atc_label>>
           <td class="label" id="partlist_toggle">
            <span class="iconImg attachmentImg attachmentImage"></span>
-<if:atc_list>
            <span id="partlist_col" class="iconImg"></span>
            <span id="partlist_exp" class="iconImg" style="display:none"></span>
-</if:atc_list>
           </td>
           <td>
            <span class="atcLabel"><tag:atc_label /></span>
            <tag:atc_download />
-<if:atc_list>
            <div id="partlist" style="display:none">
             <table>
              <tag:atc_list />
             </table>
            </div>
-</if:atc_list>
           </td>
          </tr>
-</if:atc_label>
          <tr id="msgLogInfo" style="display:none">
           <td class="label" id="msgloglist_toggle">
            <span class="iconImg" id="msgloglist_col"></span>
