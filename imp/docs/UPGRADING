@@ -62,6 +62,10 @@ your preference backend::
    dimp_splitbar
    dimp_splitbar_vert
    dimp_toggle_headers
+   sig_first
+
+The 'cursor_compose' preference removed the 'sig' option. Existing preferences
+will automatically be converted to 'bottom'.
 
 
 

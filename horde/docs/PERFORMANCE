@@ -182,3 +182,12 @@ Application tuning
   on the performance.  These features can usually be turned off in the
   application's configuration and are explicitly described as being a
   performance hit in the configuration web frontend.
+
+
+VFS
+===
+
+* Try to avoid using a SQL backend for VFS. Many databases require binary data
+  to be heavily escaped, resulting in storage sizes that are many times
+  greater than the actual size of the data. File system VFS will normally
+  provide much improved performance.

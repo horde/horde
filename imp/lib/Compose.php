@@ -509,6 +509,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @param array $opts      An array of options w/the following keys:
      * <ul>
      *  <li>
+     *   add_signature: (integer) Add the signature to the outgoing message?
+     *                  This is the ID of the identity to use.
+     *                  DEFAULT: No signature added
+     *  </li>
+     *  <li>
      *   encrypt: (integer) A flag whether to encrypt or sign the message.
      *            One of:
      *   <ul>
@@ -586,7 +591,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $send_msgs = array();
         $msg_options = array(
             'encrypt' => $encrypt,
-            'html' => !empty($opts['html'])
+            'html' => !empty($opts['html']),
+            'signature' => isset($opts['add_signature']) ? $opts['add_signature'] : null
         );
 
         /* Must encrypt & send the message one recipient at a time. */
@@ -1158,6 +1164,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   - html: (boolean) Is this a HTML message?
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
+     *   - signature: (integer) If set, will add the users' signature to the
+     *                message.
      *
      * @return array  An array with the following keys:
      *   - msg: (string) The MIME message.
@@ -1171,9 +1179,25 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     {
         $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
 
+        /* Get body text. */
         if (!empty($options['html'])) {
             $body_html = $body;
             $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $this->charset));
+        }
+
+        /* Add signature data. */
+        if (isset($options['signature'])) {
+            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+            $sig = $identity->getSignature('text', $options['signature']);
+            $body .= $sig;
+
+            if (!empty($options['html'])) {
+                $html_sig = $identity->getSignature('html', $options['signature']);
+                if (!strlen($html_sig) && strlen($sig)) {
+                    $html_sig = $this->text2html($sig);
+                }
+                $body_html .= $html_sig;
+            }
         }
 
         /* Get trailer text (if any). */

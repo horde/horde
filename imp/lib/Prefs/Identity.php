@@ -46,8 +46,8 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             $this->_prefnames['properties'],
             array(
                 'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',
-                'signature', 'signature_html', 'sig_first', 'sig_dashes',
-                'save_sent_mail', 'sent_mail_folder'
+                'signature', 'signature_html', 'sig_first', 'save_sent_mail',
+                'sent_mail_folder'
             )
         );
     }
@@ -458,21 +458,11 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         if (is_null($val)) {
             $val = $this->getValue('signature', $ident);
 
-            if (!empty($val) && ($type == 'text')) {
-                $sig_first = $this->getValue('sig_first', $ident);
-                $sig_dashes = $this->getValue('sig_dashes', $ident);
-
+            if (strlen($val) && ($type == 'text')) {
                 $val = str_replace("\r\n", "\n", $val);
-
-                if ($sig_dashes) {
-                    $val = "-- \n" . $val . "\n";
-                } else {
-                    $val = "\n" . $val;
-                }
-
-                if ($sig_first) {
-                    $val .= "\n\n\n";
-                }
+                $val = ($this->getValue('sig_dashes', $ident))
+                    ? "\n-- \n" . $val
+                    : "\n" . $val;
             }
         }
 
@@ -481,7 +471,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
                 $val = IMP_Compose::text2html(trim($val));
             }
 
-            $val = '<div class="impComposeSignature">' . $val . '</div>';
+            $val = '<div>' . $val . '</div>';
         }
 
         try {

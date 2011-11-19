@@ -16,7 +16,7 @@ $prefGroups['identities'] = array(
     'desc' => _("Change the name, address, and signature that people see when they read and reply to your email."),
     'members' => array(
         'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr', 'signature',
-        'sig_dashes', 'signature_html_select', 'sig_first', 'save_sent_mail',
+        'sig_dashes', 'signature_html_select', 'save_sent_mail',
         'sent_mail_folder', 'sentmailselect'
     ),
     'type' => 'identities'
@@ -72,13 +72,6 @@ $_prefs['signature_html_select'] = array(
 // User's HTML signature
 $_prefs['signature_html'] = array(
     'value' => ''
-);
-
-// signature before replies and forwards?
-$_prefs['sig_first'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Place your signature before replies and forwards?")
 );
 
 // save a copy of sent messages?
@@ -250,8 +243,7 @@ $_prefs['compose_cursor'] = array(
     'type' => 'enum',
     'enum' => array(
         'top' => _("Top"),
-        'bottom' => _("Bottom"),
-        'sig' => _("Before Signature")
+        'bottom' => _("Bottom")
     ),
     'desc' => _("Where should the cursor be located in the compose text area by default?")
 );

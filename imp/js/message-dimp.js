@@ -78,11 +78,11 @@ var DimpMessage = {
             r.opts.show_editor = (r.format == 'html');
 
             id = (r.identity === null) ? $F('identity') : r.identity;
-            i = ImpComposeBase.getIdentity(id, r.opts.show_editor);
+            i = ImpComposeBase.identities[id];
 
             $('identity', 'last_identity').invoke('setValue', id);
 
-            DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
+            DimpCompose.fillForm((i.id[2]) ? ("\n" + r.body) : (r.body + "\n"), r.header, r.opts);
             break;
         }
     },

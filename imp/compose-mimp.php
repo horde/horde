@@ -271,12 +271,8 @@ case _("Send"):
         break;
 
     case _("Send"):
-        $sig = $identity->getSignature();
-        if (!empty($sig)) {
-            $message .= "\n" . $sig;
-        }
-
         $options = array(
+            'add_signature' => $identity->getDefault(),
             'identity' => $identity,
             'readreceipt' => ($prefs->getValue('request_mdn') == 'always'),
             'save_sent' => $save_sent_mail,
