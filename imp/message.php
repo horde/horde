@@ -694,29 +694,32 @@ if ($show_atc) {
 /* Show attachment information in headers? 'atc_parts' will be empty if
  * 'parts_display' pref is 'none'. */
 if (!empty($inlineout['atc_parts'])) {
-    $tmp = array();
-
     if ($show_parts == 'all') {
-        array_unshift($part_info, 'id');
-    }
+        $val = $imp_contents->getTree()->getTree(true);
+    } else {
+        $tmp = array();
 
-    foreach ($inlineout['atc_parts'] as $id) {
-        $summary = $imp_contents->getSummary($id, $contents_mask);
-        $tmp[] = '<tr>';
-        foreach ($part_info as $val) {
-            $tmp[] = '<td>' . $summary[$val] . '</td>';
+        foreach ($inlineout['atc_parts'] as $id) {
+            $summary = $imp_contents->getSummary($id, $contents_mask);
+
+            $tmp[] = '<tr>';
+            foreach ($part_info as $val) {
+                $tmp[] = '<td>' . $summary[$val] . '</td>';
+            }
+            $tmp[] = '<td>';
+            foreach ($part_info_action as $val) {
+                $tmp[] = $summary[$val];
+            }
+            $tmp[] = '</td></tr>';
         }
-        $tmp[] = '<td>';
-        foreach ($part_info_action as $val) {
-            $tmp[] = $summary[$val];
-        }
-        $tmp[] = '</td></tr>';
+
+        $val = '<table>' . implode('', $tmp) . '</table>';
     }
 
     $hdrs[] = array(
         'class' => 'msgheaderParts',
         'name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"),
-        'val' => '<table>' . implode('', $tmp) . '</table>',
+        'val' => $val,
         'i' => (++$i % 2)
     );
 }
