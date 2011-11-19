@@ -3,7 +3,7 @@ v5.1-git
 --------
 
 [mms] Add ability to view all message parts in dynamic view (Request #9827).
-[mms] Remove signature from compose UI; signature is no added automatically
+[mms] Remove signature from compose UI; signature is not added automatically
       when sending (Request #10487).
 [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 [mms] Size of sidebar now saved in dynamic view
