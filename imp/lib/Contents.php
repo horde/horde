@@ -1368,7 +1368,7 @@ class IMP_Contents
         }
 
         $atc_parts = ($show_parts == 'all')
-            ? array_keys($display_ids)
+            ? array_keys($parts_list)
             : array_keys($atc_parts);
 
         return array(
