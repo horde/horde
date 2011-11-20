@@ -529,6 +529,13 @@ class Kronolith
     static public function addEvents(&$results, &$event, $startDate, $endDate,
                                      $showRecurrence, $json, $coverDates = true)
     {
+        /* If the event has a custom timezone, we need to convert the
+         * recurrence object to the event's timezone while calculating next
+         * recurrences, to take DST changes in both the event's and the local
+         * timezone into account. */
+        $convert = $event->timezone &&
+            $event->getDriver()->supportsTimezones();
+
         if ($event->recurs() && $showRecurrence) {
             /* Recurring Event. */
 
@@ -583,13 +590,6 @@ class Kronolith
                 ++$next->mday;
             }
 
-            /* If the event has a custom timezone, we need to convert
-             * the recurrence object to the event's timezone while
-             * calculating next recurrences, to take DST changes in
-             * both the event's and the local timezone into
-             * account. */
-            $convert = $event->timezone &&
-                $event->getDriver()->supportsTimezones();
             if ($convert) {
                 $timezone = date_default_timezone_get();
                 $event->recurrence->start->setTimezone($event->timezone);
