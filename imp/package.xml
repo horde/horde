@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-19</date>
- <time>00:20:16</time>
+ <date>2011-11-21</date>
+ <time>10:03:28</time>
  <version>
   <release>5.0.15</release>
   <api>5.0.0</api>
@@ -869,7 +869,9 @@
       <file name="application_tile_horizontal.png" role="horde" />
       <file name="application_tile_vertical.png" role="horde" />
       <file name="arrow_collapsed.png" role="horde" />
+      <file name="arrow_down.png" role="horde" />
       <file name="arrow_expanded.png" role="horde" />
+      <file name="arrow_up.png" role="horde" />
       <file name="attachment.png" role="horde" />
       <file name="backhead_orderby.png" role="horde" />
       <file name="backhead_r.png" role="horde" />
@@ -920,7 +922,6 @@
       <file name="mail_priority_low.png" role="horde" />
       <file name="mail_seen.png" role="horde" />
       <file name="mail_unseen.png" role="horde" />
-      <file name="manage_attachments.png" role="horde" />
       <file name="message_source.png" role="horde" />
       <file name="mini-error.png" role="horde" />
       <file name="newmail.png" role="horde" />
@@ -1038,7 +1039,9 @@
       <file name="application_tile_horizontal.png" role="horde" />
       <file name="application_tile_vertical.png" role="horde" />
       <file name="arrow_collapsed.png" role="horde" />
+      <file name="arrow_down.png" role="horde" />
       <file name="arrow_expanded.png" role="horde" />
+      <file name="arrow_up.png" role="horde" />
       <file name="attachment.png" role="horde" />
       <file name="blacklist.png" role="horde" />
       <file name="calendar.png" role="horde" />
@@ -1073,7 +1076,6 @@
       <file name="mail_priority_low.png" role="horde" />
       <file name="mail_seen.png" role="horde" />
       <file name="mail_unseen.png" role="horde" />
-      <file name="manage_attachments.png" role="horde" />
       <file name="message_source.png" role="horde" />
       <file name="newmail.png" role="horde" />
       <file name="newwin.png" role="horde" />
@@ -1135,7 +1137,6 @@
       <file name="mail_priority_high.png" role="horde" />
       <file name="mail_priority_low.png" role="horde" />
       <file name="mail_unseen.png" role="horde" />
-      <file name="manage_attachments.png" role="horde" />
       <file name="newmail.png" role="horde" />
       <file name="reload.png" role="horde" />
       <file name="shared.png" role="horde" />
@@ -1871,7 +1872,9 @@
    <install as="imp/themes/default/graphics/application_tile_horizontal.png" name="themes/default/graphics/application_tile_horizontal.png" />
    <install as="imp/themes/default/graphics/application_tile_vertical.png" name="themes/default/graphics/application_tile_vertical.png" />
    <install as="imp/themes/default/graphics/arrow_collapsed.png" name="themes/default/graphics/arrow_collapsed.png" />
+   <install as="imp/themes/default/graphics/arrow_down.png" name="themes/default/graphics/arrow_down.png" />
    <install as="imp/themes/default/graphics/arrow_expanded.png" name="themes/default/graphics/arrow_expanded.png" />
+   <install as="imp/themes/default/graphics/arrow_up.png" name="themes/default/graphics/arrow_up.png" />
    <install as="imp/themes/default/graphics/attachment.png" name="themes/default/graphics/attachment.png" />
    <install as="imp/themes/default/graphics/backhead_orderby.png" name="themes/default/graphics/backhead_orderby.png" />
    <install as="imp/themes/default/graphics/backhead_r.png" name="themes/default/graphics/backhead_r.png" />
@@ -1922,7 +1925,6 @@
    <install as="imp/themes/default/graphics/mail_priority_low.png" name="themes/default/graphics/mail_priority_low.png" />
    <install as="imp/themes/default/graphics/mail_seen.png" name="themes/default/graphics/mail_seen.png" />
    <install as="imp/themes/default/graphics/mail_unseen.png" name="themes/default/graphics/mail_unseen.png" />
-   <install as="imp/themes/default/graphics/manage_attachments.png" name="themes/default/graphics/manage_attachments.png" />
    <install as="imp/themes/default/graphics/message_source.png" name="themes/default/graphics/message_source.png" />
    <install as="imp/themes/default/graphics/mini-error.png" name="themes/default/graphics/mini-error.png" />
    <install as="imp/themes/default/graphics/newmail.png" name="themes/default/graphics/newmail.png" />
@@ -1998,7 +2000,9 @@
    <install as="imp/themes/silver/graphics/application_tile_horizontal.png" name="themes/silver/graphics/application_tile_horizontal.png" />
    <install as="imp/themes/silver/graphics/application_tile_vertical.png" name="themes/silver/graphics/application_tile_vertical.png" />
    <install as="imp/themes/silver/graphics/arrow_collapsed.png" name="themes/silver/graphics/arrow_collapsed.png" />
+   <install as="imp/themes/silver/graphics/arrow_down.png" name="themes/silver/graphics/arrow_down.png" />
    <install as="imp/themes/silver/graphics/arrow_expanded.png" name="themes/silver/graphics/arrow_expanded.png" />
+   <install as="imp/themes/silver/graphics/arrow_up.png" name="themes/silver/graphics/arrow_up.png" />
    <install as="imp/themes/silver/graphics/attachment.png" name="themes/silver/graphics/attachment.png" />
    <install as="imp/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
    <install as="imp/themes/silver/graphics/calendar.png" name="themes/silver/graphics/calendar.png" />
@@ -2033,7 +2037,6 @@
    <install as="imp/themes/silver/graphics/mail_priority_low.png" name="themes/silver/graphics/mail_priority_low.png" />
    <install as="imp/themes/silver/graphics/mail_seen.png" name="themes/silver/graphics/mail_seen.png" />
    <install as="imp/themes/silver/graphics/mail_unseen.png" name="themes/silver/graphics/mail_unseen.png" />
-   <install as="imp/themes/silver/graphics/manage_attachments.png" name="themes/silver/graphics/manage_attachments.png" />
    <install as="imp/themes/silver/graphics/message_source.png" name="themes/silver/graphics/message_source.png" />
    <install as="imp/themes/silver/graphics/newmail.png" name="themes/silver/graphics/newmail.png" />
    <install as="imp/themes/silver/graphics/newwin.png" name="themes/silver/graphics/newwin.png" />
@@ -2101,7 +2104,6 @@
    <install as="imp/themes/tango-blue/graphics/mail_priority_high.png" name="themes/tango-blue/graphics/mail_priority_high.png" />
    <install as="imp/themes/tango-blue/graphics/mail_priority_low.png" name="themes/tango-blue/graphics/mail_priority_low.png" />
    <install as="imp/themes/tango-blue/graphics/mail_unseen.png" name="themes/tango-blue/graphics/mail_unseen.png" />
-   <install as="imp/themes/tango-blue/graphics/manage_attachments.png" name="themes/tango-blue/graphics/manage_attachments.png" />
    <install as="imp/themes/tango-blue/graphics/newmail.png" name="themes/tango-blue/graphics/newmail.png" />
    <install as="imp/themes/tango-blue/graphics/reload.png" name="themes/tango-blue/graphics/reload.png" />
    <install as="imp/themes/tango-blue/graphics/shared.png" name="themes/tango-blue/graphics/shared.png" />
@@ -2568,7 +2570,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-19</date>
+   <date>2011-11-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Improved tree display when displaying all message parts.
