@@ -41,6 +41,9 @@ class Horde_Service_Weather
 
     /** Conversion constants **/
     const CONVERSION_MPH_TO_KNOTS = 0.868976242;
+    const CONVERSION_MPH_TO_KPH = 1.609344;
+    const CONVERSION_KPH_TO_MPH = 0.621371192;
+    const CONVERSION_MB_TO_INCHES = 0.0295301;
 
     /** Location search types **/
     const SEARCHTYPE_STANDARD = 1;
