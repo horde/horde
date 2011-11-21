@@ -642,9 +642,6 @@ Configuring Horde
    Alternatively you can run the ``bin/horde-db-migrate`` script in the Horde
    directory from the command line.
 
-   TODO: Update documentation once horde-db-migrate takes (super-) user
-         credentials as command line flags.
-
 5. Setting up alarm emails
 
    If you want your users to be able to receive emails from the Horde_Alarm
