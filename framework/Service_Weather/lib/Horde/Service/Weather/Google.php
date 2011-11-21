@@ -24,45 +24,11 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     const API_URL = 'http://www.google.com/ig/api';
 
     /**
-     * The http client
-     *
-     * @var Horde_Http_Client
-     */
-    protected $_http;
-
-    /**
-     * Local cache of current conditions
-     *
-     */
-    protected $_current;
-
-    /**
-     * Local cache of forecast
-     *
-     * @var array
-     */
-    protected $_forecast = array();
-
-    /**
-     * Local cache of station data
-     *
-     * @var Horde_Service_Weather_Station
-     */
-    protected $_station;
-
-    /**
      * Language to request strings from Google in.
      *
      * @var string
      */
     protected $_language = 'en';
-
-    /**
-     * Cache of last requested location.
-     *
-     * @var string
-     */
-    protected $_lastLocation;
 
     public $title = 'Google Weather';
     public $link = 'http://google.com';
@@ -111,12 +77,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     public function __construct(array $params = array())
     {
-        // Check required api key parameters here...
-        if (empty($params['http_client'])) {
-            throw new InvalidArgumentException('Missing required http_client parameter.');
-        }
-        $this->_http = $params['http_client'];
-        unset($params['http_client']);
         if (!empty($params['language'])) {
             $this->_language = $params['language'];
         }

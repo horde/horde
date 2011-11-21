@@ -71,6 +71,41 @@
     public $title;
 
     /**
+     * The http client
+     *
+     * @var Horde_Http_Client
+     */
+    protected $_http;
+
+    /**
+     * Local cache of current conditions
+     *
+     */
+    protected $_current;
+
+    /**
+     * Local cache of forecast
+     *
+     * @var array
+     */
+    protected $_forecast = array();
+
+    /**
+     * Local cache of station data
+     *
+     * @var Horde_Service_Weather_Station
+     */
+    protected $_station;
+
+    /**
+     * Last location requested.
+     *
+     * @var string
+     */
+    protected $_lastLocation;
+
+
+    /**
      * Constructor
      *
      * @param array $params                                  Parameters.
@@ -83,6 +118,10 @@
      */
     public function __construct(array $params = array())
     {
+        if (empty($params['http_client'])) {
+            throw new InvalidArgumentException('Missing http_client parameter.');
+        }
+        $this->_http = $params['http_client'];
         if (!empty($params['cache'])) {
             $this->_cache = $params['cache'];
             unset($params['cache']);

@@ -24,36 +24,6 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     const API_URL = 'http://api.wunderground.com';
 
     /**
-     * The http client
-     *
-     * @var Horde_Http_Client
-     */
-    protected $_http;
-
-    /**
-     * Local cache of current conditions
-     *
-     */
-    protected $_current;
-
-    /**
-     * Local cache of forecast
-     *
-     * @var array
-     */
-    protected $_forecast = array();
-
-    /**
-     * Local cache of station data
-     *
-     * @var Horde_Service_Weather_Station
-     */
-    protected $_station;
-
-
-    protected $_lastLocation;
-
-    /**
      * Icon map for wunderground. Not some are returned as
      * "sky" conditions and some as "condition" icons. Public
      * so it can be overridded in client code if desired.
@@ -112,11 +82,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     public function __construct(array $params = array())
     {
         // Check required api key parameters here...
-        if (empty($params['http_client']) || empty($params['apikey'])) {
-            throw new InvalidArgumentException('Missing required http_client parameter.');
+        if (empty($params['apikey'])) {
+            throw new InvalidArgumentException('Missing required API Key parameter.');
         }
-        $this->_http = $params['http_client'];
-        unset($params['http_client']);
         $this->_apiKey = $params['apikey'];
         unset($params['apikey']);
         parent::__construct($params);
