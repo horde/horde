@@ -2,11 +2,17 @@
  Components TODO List
 ======================
 
+ - Installation:
+    - Ensure that PEAR gets all required dependencies installed (probably a package.xml v1 problem).
+    - Ensure Horde_Role gets installed.
+
  - Allow updating Jonah during the release.
 
  - Add a horde-web update task during release.
 
  - Allow to configure the mail transport for sending announcements.
+
+ - commit 698b6e94db5dd8d8d6b49578f75 (system() vs exec())
 
  - Bootstrapping script
    - must be able to update the bootstrapped environment (probably
@@ -57,6 +63,14 @@
    - Examples
    - CI link / stats
    - Horde backlink
+
+ - Documentation quirks:
+
+   - <tt> not working
+   - style highlighter
+   - better linkage in DOCS_ORIGIN
+   - template for DOCS_ORIGIN
+   - ignore examples
 
  - WWW frontend
 
