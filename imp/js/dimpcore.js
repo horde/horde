@@ -379,7 +379,7 @@ var DimpCore = {
         if (o.trigger) {
             this.addContextMenu({
                 disable: o.disabled,
-                id: p.identify(),
+                elt: p,
                 left: true,
                 offset: p.up(),
                 type: t
@@ -388,7 +388,7 @@ var DimpCore = {
 
         this.addContextMenu({
             disable: o.disabled,
-            id: elt.identify(),
+            elt: elt,
             left: true,
             offset: elt.up(),
             type: t
@@ -405,7 +405,7 @@ var DimpCore = {
     addContextMenu: function(p)
     {
         if (this.DMenu) {
-            this.DMenu.addElement(p.id, 'ctx_' + p.type, p);
+            this.DMenu.addElement(p.elt.identify(), 'ctx_' + p.type, p);
         }
     },
 
