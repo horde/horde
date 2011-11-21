@@ -223,8 +223,8 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         $this->_station = $this->_parseStation($results->weather->forecast_information);
 
         // Sunrise/Sunset
-        $date = new Horde_Date(time());
         if (!empty($this->_station->lat)) {
+            $date = new Horde_Date(time());
             $this->_station->sunset = new Horde_Date(date_sunset($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $this->_station->lat, $this->_station->lon));
             $this->_station->sunrise = new Horde_Date(date_sunrise($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $this->_station->lat, $this->_station->lon));
         }
