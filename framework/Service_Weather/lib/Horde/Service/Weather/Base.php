@@ -158,7 +158,7 @@
 
         return array(
             'temp' => Horde_Service_Weather_Translation::t('C'),
-            'wind' => Horde_Service_Weather_Translation::t('kts'),
+            'wind' => Horde_Service_Weather_Translation::t('kph'),
             'pres' => Horde_Service_Weather_Translation::t('millibars'),
             'vis' => Horde_Service_Weather_Translation::t('km')
         );
