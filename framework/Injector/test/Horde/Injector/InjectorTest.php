@@ -27,8 +27,8 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
         $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
         // binds a Horde_Injector_Binder_Mock object
-        $this->assertType('Horde_Injector_Binder_Mock', $injector->bindMock('BOUND_INTERFACE'));
-        $this->assertType('Horde_Injector_Binder_Mock', $injector->getBinder('BOUND_INTERFACE'));
+        $this->assertInstanceOf('Horde_Injector_Binder_Mock', $injector->bindMock('BOUND_INTERFACE'));
+        $this->assertInstanceOf('Horde_Injector_Binder_Mock', $injector->getBinder('BOUND_INTERFACE'));
     }
 
     public function testShouldProvideMagicFactoryMethodForBinderAdditionWhereBinderHasDependencies()
@@ -36,9 +36,9 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
         $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
         // binds a Horde_Injector_Binder_Mock object
-        $this->assertType('Horde_Injector_Binder_MockWithDependencies',
+        $this->assertInstanceOf('Horde_Injector_Binder_MockWithDependencies',
             $injector->bindMockWithDependencies('BOUND_INTERFACE', 'PARAMETER1'));
-        $this->assertType('Horde_Injector_Binder_MockWithDependencies',
+        $this->assertInstanceOf('Horde_Injector_Binder_MockWithDependencies',
             $injector->getBinder('BOUND_INTERFACE'));
     }
 
@@ -219,7 +219,7 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
     {
         $injector = new Horde_Injector($this->_getTopLevelNeverCalledMock());
         $childInjector = $injector->createChildInjector();
-        $this->assertType('Horde_Injector', $childInjector);
+        $this->assertInstanceOf('Horde_Injector', $childInjector);
         $this->assertNotSame($injector, $childInjector);
     }
 

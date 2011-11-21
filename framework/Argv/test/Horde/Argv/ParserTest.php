@@ -38,7 +38,7 @@ class Horde_Argv_ParserTest extends Horde_Argv_TestCase
     public function testGetOption()
     {
         $opt1 = $this->parser->getOption("-v");
-        $this->assertType('Horde_Argv_Option', $opt1);
+        $this->assertInstanceOf('Horde_Argv_Option', $opt1);
         $this->assertEquals($opt1->shortOpts, array("-v", "-n"));
         $this->assertEquals($opt1->longOpts, array("--verbose", "--noisy"));
         $this->assertEquals($opt1->action, "store_true");

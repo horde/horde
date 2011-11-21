@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
 * [gwr] Fix retrieving the package.xml from the server.
 * [gwr] Basic support for reading PEAR package.xml v1 files.
  </notes>
@@ -442,6 +443,7 @@
    <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
 * [gwr] Fix retrieving the package.xml from the server.
 * [gwr] Basic support for reading PEAR package.xml v1 files.
    </notes>

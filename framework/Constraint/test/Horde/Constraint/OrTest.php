@@ -47,7 +47,7 @@ class Horde_Constraint_OrTest extends Horde_Test_Case
 
         $returnConst = $or->addConstraint(new Horde_Constraint_AlwaysFalse());
 
-        $this->assertType('Horde_Constraint_Or', $returnConst);
+        $this->assertInstanceOf('Horde_Constraint_Or', $returnConst);
     }
 
     public function testReturnedOrEvaluatesTrueWhenTrueConstraintIsAddedViaSetter()

@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
 * [jan] Update Latvian translation.
  </notes>
  <contents>
@@ -905,6 +906,7 @@
    <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
 * [jan] Update Latvian translation.
    </notes>
   </release>

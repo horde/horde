@@ -54,8 +54,8 @@ extends Horde_Kolab_Server_LdapTestCase
         $ldap_read = $this->getMock('Horde_Ldap');
         $ldap_write = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Splittedldap($ldap_read, $ldap_write);
-        $this->assertType('Horde_Ldap', $conn->getRead());
-        $this->assertType('Horde_Ldap', $conn->getWrite());
+        $this->assertInstanceOf('Horde_Ldap', $conn->getRead());
+        $this->assertInstanceOf('Horde_Ldap', $conn->getWrite());
     }
 
     public function testMethodGetwriteHasResultNetldap2TheHandledConnection()

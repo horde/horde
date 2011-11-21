@@ -59,7 +59,7 @@ extends PHPUnit_Framework_TestCase
             array(), array(), '', false, false
         );
         $conn = new Horde_Kolab_Server_Connection_Mock($ldap);
-        $this->assertType('Horde_Kolab_Server_Connection_Mock_Ldap', $conn->getRead());
+        $this->assertInstanceOf('Horde_Kolab_Server_Connection_Mock_Ldap', $conn->getRead());
     }
 
     public function testMethodGetwriteHasResultMockldapTheHandledConnection()
