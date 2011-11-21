@@ -139,7 +139,7 @@ class Horde_Push_Factory_Recipients
             )
         );
         $facebook->auth->setSession($conf['facebook']['sid']);
-        return new Horde_Push_Recipient_Facebook($facebook);
+        return new Horde_Push_Recipient_Facebook($facebook, $conf['facebook']);
     }
 
     /**
