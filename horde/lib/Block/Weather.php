@@ -22,6 +22,8 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     public $updateable = true;
 
+    protected $_refreshParams;
+
     /**
      */
     public function __construct($app, $params = array())
@@ -29,6 +31,20 @@ class Horde_Block_Weather extends Horde_Core_Block
         // @TODO: Check config key etc...
         parent::__construct($app, $params);
         $this->_name = _("weather");
+    }
+
+    /**
+     * Handle user initiated block refresh. Set a private member to avoid
+     * BC issues with having to add a parameter to the _content method.
+     *
+     * @param Horde_Variables $vars
+     *
+     * @return string
+     */
+    public function refreshContent($vars = null)
+    {
+        $this->_refreshParams = $vars;
+        return $this->_content();
     }
 
     /**
@@ -86,14 +102,36 @@ class Horde_Block_Weather extends Horde_Core_Block
         $weather = $GLOBALS['injector']
             ->getInstance('Horde_Weather');
         $units = $weather->getUnits();
+
+        if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
+            $location = $this->_refreshParams->location;
+        } else {
+            $instance = hash('md5', mt_rand());
+            $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Imple')
+                ->create(
+                    'WeatherLocationAutoCompleter',
+                    array(
+                        'triggerId' => 'location' . $instance,
+                        'instance' => $instance
+                    )
+                );
+
+            $html = '<input id="location' . $instance . '" name="location' . $instance . '"><a id="button' . $instance . '" href="#" class="button">'
+                . _("Change Location") . '</a><span style="display:none;" id="location' . $instance . '_loading_img">'
+                . Horde::img('loading.gif') . '</span>';
+            $location = $this->_params['location'];
+        }
+
         // Test location
         try {
-            $location = $weather->searchLocations($this->_params['location']);
+            $location = $weather->searchLocations($location);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
 
-        $html = '';
+        $html .= '<div id="weathercontent' . $instance . '">';
+
         if (is_array($location)) {
             // Several locations returned due to imprecise location parameter.
             $html = _("Several locations possible with the parameter: ") .
@@ -106,9 +144,9 @@ class Horde_Block_Weather extends Horde_Core_Block
             return $html;
         }
         try {
-            $forecast = $weather->getForecast($this->_params['location'], $this->_params['days']);
+            $forecast = $weather->getForecast($location->code, $this->_params['days']);
             $station = $weather->getStation();
-            $current = $weather->getCurrentConditions($this->_params['location']);
+            $current = $weather->getCurrentConditions($location->code);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
@@ -311,7 +349,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 . '</a></div>';
         }
 
-        return $html;
+        return $html . '</div>';
     }
 
 }
