@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-11-13</date>
- <time>20:12:41</time>
+ <date>2011-11-21</date>
+ <time>12:16:08</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -86,6 +86,7 @@
         </dir> <!-- /lib/Horde/Core/Ajax/Imple/Geocoder -->
         <file name="AutoCompleter.php" role="php" />
         <file name="SpellChecker.php" role="php" />
+        <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <file name="Application.php" role="php" />
        <file name="Imple.php" role="php" />
@@ -1069,6 +1070,7 @@
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
+   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
