@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-01 12:57+0100\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: 2011-11-01 12:58+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -81,7 +81,7 @@ msgstr "%s bis %s von %s"
 msgid "<< Merge this into the first contact"
 msgstr "<< Diesen Kontakt in den ersten einfügen"
 
-#: lib/Block/Minisearch.php:59
+#: lib/Block/Minisearch.php:62
 msgid "A browser that supports iframes is required"
 msgstr "Ein Browser, der Iframes unterstützt, wird benötigt"
 
@@ -130,7 +130,7 @@ msgid "Address Book Listing"
 msgstr "Adressbuchliste"
 
 #: config/prefs.php:12 config/prefs.php:13 config/prefs.php:19
-#: lib/Block/Minisearch.php:39
+#: lib/Block/Minisearch.php:43
 msgid "Address Books"
 msgstr "Adressbücher"
 
@@ -357,7 +357,7 @@ msgstr "Straße allgemein"
 msgid "Common Video Call"
 msgstr "Bildtelefon allgemein"
 
-#: config/backends.php:332
+#: config/backends.php:338
 msgid "Communications"
 msgstr "Kommunikation"
 
@@ -377,7 +377,7 @@ msgstr "Telefon Firma"
 msgid "Connection failure"
 msgstr "Verbindung fehlgeschlagen"
 
-#: lib/Block/Minisearch.php:18
+#: lib/Block/Minisearch.php:25
 msgid "Contact Search"
 msgstr "Kontaktsuche"
 
@@ -573,7 +573,7 @@ msgstr "Nur die ausgewählten Kontakte exportieren."
 msgid "Export the following address book completely."
 msgstr "Das folgende Adressbuch komplett exportieren."
 
-#: config/backends.php:645
+#: config/backends.php:651
 msgid "Facebook Friends"
 msgstr "Facebook-Freunde"
 
@@ -608,7 +608,7 @@ msgstr "Das Adressbuch konnte nicht durchsucht werden"
 msgid "Failed to search the directory: %s"
 msgstr "Das Verzeichnis %s konnte nicht durchsucht werden."
 
-#: config/backends.php:614
+#: config/backends.php:620
 msgid "Favourite Recipients"
 msgstr "Häufigste Empfänger"
 
@@ -719,7 +719,7 @@ msgstr "Website-URL privat"
 msgid "IM Address"
 msgstr "IM-Adresse"
 
-#: config/backends.php:770
+#: config/backends.php:776
 msgid "IMSP"
 msgstr "IMSP"
 
@@ -814,7 +814,7 @@ msgstr "Breitengrad"
 msgid "List"
 msgstr "Liste"
 
-#: config/backends.php:327
+#: config/backends.php:333
 msgid "Location"
 msgstr "Ort"
 
@@ -903,7 +903,7 @@ msgstr ""
 "Mehrere Personen mit der Adresse [%s], aber keine mit dem Namen [%s] im "
 "Adressbuch"
 
-#: config/backends.php:487
+#: config/backends.php:493
 msgid "My Address Book"
 msgstr "Mein Adressbuch"
 
@@ -1026,11 +1026,11 @@ msgstr "Büro"
 msgid "Only one vcard supported."
 msgstr "Nur einzelne vCards werden unterstützt."
 
-#: config/backends.php:336
+#: config/backends.php:342
 msgid "Organization"
 msgstr "Firma"
 
-#: config/backends.php:337
+#: config/backends.php:343
 msgid "Other"
 msgstr "Sonstige"
 
@@ -1083,7 +1083,7 @@ msgstr "Diesen Kontakt unwiederbringlich löschen?"
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
 
-#: config/backends.php:324
+#: config/backends.php:330
 msgid "Personal"
 msgstr "Persönlich"
 
@@ -1108,7 +1108,7 @@ msgstr "Bitte einen Namen für die neue Kontakliste angeben:"
 msgid "Previous"
 msgstr "Zurück"
 
-#: config/backends.php:576
+#: config/backends.php:582
 msgid "Private Address Book"
 msgstr "Privates Adressbuch"
 
@@ -1283,11 +1283,11 @@ msgstr "Wählen Sie das Format, in dem die Namen angezeigt werden sollen."
 msgid "Selected address book \"%s\"."
 msgstr "Adressbuch \"%s\" ausgewählt."
 
-#: config/backends.php:226
+#: config/backends.php:232
 msgid "Shared Address Books"
 msgstr "Gemeinsames Adressbuch"
 
-#: config/backends.php:369
+#: config/backends.php:375
 msgid "Shared Directory"
 msgstr "Gemeinsames Verzeichnis"
 
