@@ -377,7 +377,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected function _makeRequest($url)
     {
         $cachekey = md5('hordeweather' . $url);
-        //if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
             $url = new Horde_Url($url);
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
@@ -388,7 +388,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             if (!empty($this->_cache)) {
                $this->_cache->set($cachekey, $results);
             }
-        //}
+        }
         $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
         if (!($results instanceof StdClass)) {
             throw new Horde_Service_Weather_Exception('Error, unable to decode response.');
