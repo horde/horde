@@ -17,10 +17,12 @@ var DimpBase = {
 
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
     lastrow: -1,
+    mboxes: {},
     pivotrow: -1,
     ppcache: {},
     ppfifo: [],
     showunsub: 0,
+    smboxes: {},
     tcache: {},
 
     // Preview pane cache size is 20 entries. Given that a reasonable guess
@@ -239,7 +241,7 @@ var DimpBase = {
             }
 
             if (this.view != data || !$('dimpmain_folder').visible()) {
-                this.highlightSidebar(this.getMboxId(data));
+                this.highlightSidebar(data);
                 if (!$('dimpmain_folder').visible()) {
                     $('dimpmain_iframe').hide();
                     $('dimpmain_folder').show();
@@ -337,6 +339,8 @@ var DimpBase = {
         document.title = (unread ? '(' + unread + ') ' : '') + DIMP.conf.name + ' :: ' + title;
     },
 
+    // id: (string) Either the ID of a sidebar element, or the name of a
+    //     mailbox
     highlightSidebar: function(id)
     {
         // Folder bar may not be fully loaded yet.
@@ -348,7 +352,7 @@ var DimpBase = {
         var curr = $('sidebar').down('.on'),
             elt = $(id);
 
-        if (curr == elt) {
+        if (curr === elt) {
             return;
         }
 
@@ -361,6 +365,10 @@ var DimpBase = {
 
         if (curr) {
             curr.removeClassName('on');
+        }
+
+        if (!elt) {
+            elt = this.getMboxElt(id);
         }
 
         if (elt) {
@@ -626,12 +634,11 @@ var DimpBase = {
 
         /* Custom ViewPort events. */
         container.observe('ViewPort:add', function(e) {
-            var row = e.memo.identify();
             DimpCore.addContextMenu({
-                id: row,
+                elt: e.memo,
                 type: 'message'
             });
-            new Drag(row, this._msgDragConfig);
+            new Drag(e.memo, this._msgDragConfig);
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {
@@ -1203,8 +1210,7 @@ var DimpBase = {
                 $('ctx_folder_poll', 'ctx_folder_nopoll').invoke('hide');
             }
 
-            tmp = $(this.getSubMboxId(baseelt.readAttribute('id')));
-            [ $('ctx_folder_expand').up() ].invoke(tmp ? 'show' : 'hide');
+            [ $('ctx_folder_expand').up() ].invoke(this.getSubMboxElt(baseelt) ? 'show' : 'hide');
 
             // Fall-through
 
@@ -1395,6 +1401,7 @@ var DimpBase = {
         elt.removeClassName(r).addClassName(a).show();
     },
 
+    // foldername: (boolean) If true, update the folderName label
     updateTitle: function(foldername)
     {
         var elt, unseen,
@@ -1410,7 +1417,7 @@ var DimpBase = {
             if (this.isQSearch()) {
                 label += ' (' + this.search.label + ')';
             }
-        } else if (elt = $(this.getMboxId(this.view))) {
+        } else if (elt = this.getMboxElt(this.view)) {
             unseen = elt.retrieve('u');
         }
 
@@ -1759,10 +1766,12 @@ var DimpBase = {
         return uid + '|' + mailbox;
     },
 
-    // mbox = (string)
+    // mbox = (string|Element) The mailbox to query.
+    // Return: Number or undefined
     getUnseenCount: function(mbox)
     {
-        var elt = $(this.getMboxId(mbox));
+        var elt = this.getMboxElt(mbox);
+
         if (elt) {
             elt = elt.retrieve('u');
             if (!Object.isUndefined(elt)) {
@@ -1773,6 +1782,8 @@ var DimpBase = {
         return elt;
     },
 
+    // mbox: (string) Mailbox name.
+    // unseen: (integer) The updated value.
     updateUnseenStatus: function(mbox, unseen)
     {
         this.setFolderLabel(mbox, unseen);
@@ -1804,25 +1815,17 @@ var DimpBase = {
         $('msgHeader').update(text);
     },
 
-    // f = (string|Element)
-    setFolderLabel: function(f, unseen)
+    // m = (string|Element)
+    setFolderLabel: function(m, unseen)
     {
-        var elt, mbox;
-
-        if (Object.isElement(f)) {
-            mbox = f.retrieve('mbox');
-            elt = f;
-        } else {
-            mbox = f;
-            elt = $(this.getMboxId(f));
-        }
+        var elt = this.getMboxElt(m);
 
         if (!elt) {
             return;
         }
 
         if (Object.isUndefined(unseen)) {
-            unseen = this.getUnseenCount(mbox);
+            unseen = this.getUnseenCount(elt.retrieve('mbox'));
         } else {
             if (Object.isUndefined(elt.retrieve('u')) ||
                 elt.retrieve('u') == unseen) {
@@ -1833,7 +1836,7 @@ var DimpBase = {
             elt.store('u', unseen);
         }
 
-        if (mbox == this.INBOX && window.fluid) {
+        if (window.fluid && elt.retrieve('mbox') == this.INBOX) {
             window.fluid.setDockBadge(unseen ? unseen : '');
         }
 
@@ -1842,17 +1845,25 @@ var DimpBase = {
             elt.retrieve('l'));
     },
 
-    getMboxId: function(f)
+    getMboxElt: function(id)
     {
-        return 'fld' + f;
+        return Object.isElement(id)
+            ? id
+            : this.mboxes[id];
     },
 
-    getSubMboxId: function(f)
+    getSubMboxElt: function(id)
     {
-        if (f.endsWith('_special')) {
-            f = f.slice(0, -8);
+        var m_elt = this.getMboxElt(id);
+
+        if (!m_elt) {
+            return null;
         }
-        return 'sub_' + f;
+
+        m_elt = m_elt.next();
+        return (m_elt && m_elt.hasClassName('subfolders'))
+            ? m_elt
+            : null;
     },
 
     /* Folder list updates. */
@@ -2782,7 +2793,7 @@ var DimpBase = {
         }
 
         if (this.view) {
-            this.highlightSidebar(this.getMboxId(this.view));
+            this.highlightSidebar(this.view);
         }
 
         if ($('foldersLoading').visible()) {
@@ -2927,20 +2938,17 @@ var DimpBase = {
     },
 
     // Folder actions.
-    // For format of the ob object, see IMP_Dimp::_createFolderElt().
+    // For format of the ob object, see
+    // IMP_Ajax_Application#_createMailboxElt().
     // If this.expandmbox is set, expand folder list on initial display.
     createFolder: function(ob)
     {
         var div, f_node, ftype, li, ll, parent_e, tmp, tmp2,
             cname = 'container',
-            fid = this.getMboxId(ob.m),
             label = ob.l || ob.m,
-            mbox = ob.m,
-            submboxid = this.getSubMboxId(fid),
-            submbox = $(submboxid),
             title = ob.t || ob.m;
 
-        if ($(fid)) {
+        if (this.mboxes[ob.m]) {
             return;
         }
 
@@ -2958,7 +2966,6 @@ var DimpBase = {
             /* This is a dummy container element to display child elements of
              * a mailbox displayed in the 'specialfolders' section. */
             if (ob.dummy) {
-                fid += '_special';
                 cname += ' specialContainer';
             }
         } else {
@@ -2975,68 +2982,58 @@ var DimpBase = {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }
 
-        li = new Element('LI', { className: cname, id: fid, title: title }).store('l', label).store('mbox', mbox).insert(div).insert(new Element('A').insert(label));
+        li = new Element('LI', { className: cname, title: title }).store('l', label).store('mbox', ob.m).insert(div).insert(new Element('A').insert(label));
 
         // Now walk through the parent <ul> to find the right place to
         // insert the new folder.
-        if (submbox) {
-            if (submbox.insert({ before: li }).visible()) {
-                // If an expanded parent mailbox was deleted, we need to toggle
-                // the icon accordingly.
-                div.addClassName('col');
+        if (ob.s) {
+            div.addClassName(ob.cl || 'folderImg');
+            parent_e = $('specialfolders');
+
+            /* Create a dummy container element in 'normalfolders' section. */
+            if (ob.ch & !ob.sup) {
+                div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
+
+                tmp = Object.clone(ob);
+                tmp.co = tmp.dummy = true;
+                tmp.s = false;
+                this.createFolder(tmp);
             }
         } else {
-            if (ob.s) {
-                div.addClassName(ob.cl || 'folderImg');
-                parent_e = $('specialfolders');
+            div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
+            parent_e = ob.pa
+                ? this.getSubMboxElt(ob.pa).down()
+                : $('normalfolders');
+        }
 
-                /* Create a dummy container element in 'normalfolders'
-                 * section. */
-                if (ob.ch & !ob.sup) {
-                    div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
+        /* Virtual folders and special mailboxes are sorted on the server. */
+        if (!ob.v && !ob.s) {
+            ll = label.toLowerCase();
+            f_node = parent_e.childElements().find(function(node) {
+                var l = node.retrieve('l');
+                return (l && (ll < l.toLowerCase()));
+            });
+        }
 
-                    tmp = Object.clone(ob);
-                    tmp.co = tmp.dummy = true;
-                    tmp.s = false;
-                    this.createFolder(tmp);
-                }
-            } else {
-                div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
-                parent_e = ob.pa
-                    ? $(this.getSubMboxId(this.getMboxId(ob.pa))).down()
-                    : $('normalfolders');
-            }
-
-            /* Virtual folders and special mailboxes are sorted on the
-             * server. */
-            if (!ob.v && !ob.s) {
-                ll = label.toLowerCase();
-                f_node = parent_e.childElements().find(function(node) {
-                    var l = node.retrieve('l');
-                    return (l && (ll < l.toLowerCase()));
-                });
-            }
-
-            if (f_node) {
-                f_node.insert({ before: li });
-            } else {
-                parent_e.insert(li);
-                if (this.expandmbox && !parent_e.hasClassName('folderlist')) {
-                    tmp2 = parent_e.up('LI').previous();
-                    if (!Object.isElement(this.expandmbox) ||
-                        this.expandmbox != tmp2) {
-                        tmp2.next().show();
-                        tmp2.down().removeClassName('exp').addClassName('col');
-                    }
+        if (f_node) {
+            f_node.insert({ before: li });
+        } else {
+            parent_e.insert(li);
+            if (this.expandmbox && !parent_e.hasClassName('folderlist')) {
+                tmp2 = parent_e.up('LI').previous();
+                if (!Object.isElement(this.expandmbox) ||
+                    this.expandmbox != tmp2) {
+                    tmp2.next().show();
+                    tmp2.down().removeClassName('exp').addClassName('col');
                 }
             }
+        }
 
-            // Make sure the sub<mbox> ul is created if necessary.
-            if (!ob.s && ob.ch) {
-                li.insert({ after: new Element('LI', { className: 'subfolders', id: submboxid }).insert(new Element('UL')).hide() });
-                if (tmp) {
-                    li.insert({ after: tmp });
-                }
+        // Make sure the sub<mbox> ul is created if necessary.
+        if (!ob.s && ob.ch) {
+            li.insert({ after: new Element('LI', { className: 'subfolders' }).insert(new Element('UL')).hide() });
+            if (tmp) {
+                li.insert({ after: tmp });
             }
         }
 
@@ -3076,9 +3073,14 @@ var DimpBase = {
         }
 
         DimpCore.addContextMenu({
-            id: fid,
+            elt: li,
             type: ftype
         });
+
+        this.mboxes[ob.m] = li;
+        if (ob.dummy) {
+            this.smboxes[ob.m] = li;
+        }
     },
 
     deleteFolder: function(folder)
@@ -3086,55 +3088,53 @@ var DimpBase = {
         if (this.view == folder) {
             this.go('mbox', this.INBOX);
         }
-        this.deleteFolderElt(this.getMboxId(folder), true);
+        this.deleteFolderElt(folder, true);
     },
 
     changeFolder: function(ob)
     {
-        var fdiv, oldexpand,
-            fid = this.getMboxId(ob.m);
+        var mdiv, oldexpand;
 
-        if ($(fid + '_special')) {
+        if (this.smboxes[ob.m]) {
             // The case of children being added to a special folder is
             // handled by createFolder().
             if (!ob.ch) {
-                this.deleteFolderElt(fid + '_special', true);
+                this.deleteFolderElt(ob.m, true);
             }
             return;
         }
 
-        fdiv = $(fid).down('DIV');
-        oldexpand = fdiv && fdiv.hasClassName('col');
+        mdiv = this.getMboxElt(ob.m).down('DIV');
+        oldexpand = mdiv && mdiv.hasClassName('col');
 
-        this.deleteFolderElt(fid, !ob.ch);
+        this.deleteFolderElt(ob.m, !ob.ch);
         if (ob.co && this.view == ob.m) {
             this.go();
         }
         this.createFolder(ob);
         if (ob.ch && oldexpand) {
-            fdiv.removeClassName('exp').addClassName('col');
+            mdiv.removeClassName('exp').addClassName('col');
         }
     },
 
-    deleteFolderElt: function(fid, sub)
+    // m: (string) Mailbox ID
+    deleteFolderElt: function(m, sub)
     {
-        var f = $(fid), submbox;
-        if (!f) {
+        var m_elt = this.getMboxElt(m), submbox;
+        if (!m_elt) {
             return;
         }
 
-        if (sub) {
-            submbox = $(this.getSubMboxId(fid));
-            if (submbox) {
-                submbox.remove();
-            }
+        if (sub &&
+            (submbox = this.getSubMboxElt(m_elt))) {
+            submbox.remove();
         }
-        [ DragDrop.Drags.getDrag(fid), DragDrop.Drops.getDrop(fid) ].compact().invoke('destroy');
-        this._removeMouseEvents(f);
+        [ DragDrop.Drags.getDrag(m), DragDrop.Drops.getDrop(m) ].compact().invoke('destroy');
+        this._removeMouseEvents(m_elt);
         if (this.viewport) {
-            this.viewport.deleteView(f.retrieve('mbox'));
+            this.viewport.deleteView(m);
         }
-        f.remove();
+        m_elt.remove();
     },
 
     _sizeFolderlist: function()
@@ -3164,20 +3164,20 @@ var DimpBase = {
         this._listFolders({ reload: 1, mboxes: this.view });
     },
 
-    subscribeFolder: function(f, sub)
+    subscribeFolder: function(m, sub)
     {
-        var fid = $(this.getMboxId(f));
-        DimpCore.doAction('subscribe', { mbox: f, sub: Number(sub) });
+        var m_elt = this.getMboxElt(m);
+        DimpCore.doAction('subscribe', { mbox: m, sub: Number(sub) });
 
         if (this.showunsub) {
-            [ fid ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
+            [ m_elt ].invoke(sub ? 'removeClassName' : 'addClassName', 'unsubFolder');
         } else if (!sub) {
             if (!this.showunsub &&
-                !fid.siblings().size() &&
-                fid.up('LI.subfolders')) {
-                fid.up('LI').previous().down('SPAN.iconImgSidebar').removeClassName('exp').removeClassName('col').addClassName('folderImg');
+                !m_elt.siblings().size() &&
+                m_elt.up('LI.subfolders')) {
+                m_elt.up('LI').previous().down('SPAN.iconImgSidebar').removeClassName('exp').removeClassName('col').addClassName('folderImg');
             }
-            this.deleteFolderElt(fid);
+            this.deleteFolderElt(m);
         }
     },
 
@@ -3342,18 +3342,17 @@ var DimpBase = {
     _modifyPollCallback: function(r)
     {
         r = r.response;
-        var f = r.mbox, fid, p = { response: { poll: {} } };
-        fid = $(this.getMboxId(f));
+
+        var f = r.mbox,
+            m_elt = this.getMboxElt(),
+            p = { response: { poll: {} } };
 
         if (r.add) {
             p.response.poll[f] = r.poll.u;
-            fid.store('u', 0);
+            m_elt.store('u', 0);
         } else {
             p.response.poll[f] = 0;
-        }
-
-        if (!r.add) {
-            fid.store('u', undefined);
+            m_elt.store('u', undefined);
             this.updateUnseenStatus(f, 0);
         }
     },
@@ -3367,7 +3366,7 @@ var DimpBase = {
     // c = (element) Child element
     isSubfolder: function(p, c)
     {
-        var sf = $(this.getSubMboxId(p.identify()));
+        var sf = this.getSubMboxElt(p);
         return sf && c.descendantOf(sf);
     },
 
@@ -3431,13 +3430,13 @@ var DimpBase = {
             this.qsearch_ghost = new FormGhost('qsearch_input');
 
             DimpCore.addContextMenu({
-                id: 'qsearch_icon',
+                elt: $('qsearch_icon'),
                 left: true,
                 offset: 'qsearch',
                 type: 'qsearchopts'
             });
             DimpCore.addContextMenu({
-                id: 'qsearch_icon',
+                elt: $('qsearch_icon'),
                 left: false,
                 offset: 'qsearch',
                 type: 'qsearchopts'
