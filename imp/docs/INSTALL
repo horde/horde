@@ -178,11 +178,9 @@ The following items are not required, but are strongly **RECOMMENDED**:
 Installing IMP
 ==============
 
-There are several ways to install IMP. The recommended way to install IMP is
-using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install IMP from Git.
-
+The **RECOMMENDED** way to install IMP is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install IMP from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -207,6 +205,13 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/imp
+
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
+
+See::
+
+   http://horde.org/source/git.php
 
 
 Configuring IMP

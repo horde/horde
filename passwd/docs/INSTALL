@@ -67,7 +67,7 @@ To function properly, Passwd **requires** the following:
                   automatically download and install all required PEAR modules.
 
    a. Crypt_CHAP [OPTIONAL]
-  
+
       Passwd uses this package to encrypt passwords for the smbldap driver.
 
 The following items might be required, depending on the drivers you want to
@@ -91,11 +91,9 @@ use:
 Installing Passwd
 ===================
 
-There are several ways to install Passwd. The recommended way to install Passwd
-is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Passwd from Git.
-
+The **RECOMMENDED** way to install Passwd is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Passwd from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -121,42 +119,12 @@ your PHP configuration::
 
    pear install -a horde/passwd
 
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+See::
 
-.. Important:: As of today, there are no tarballs released for Passwd 4
-               yet. Please use the `Installing with PEAR`_ method to install
-               Passwd 4.
-
-Passwd can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/passwd
-
-   ftp://ftp.horde.org/pub/passwd/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Passwd is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Passwd is installed directly underneath Horde in the web
-server's document tree.
-
-Since Passwd is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the URL.  For
-example, with the Apache web server's default document root of
-``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/passwd-x.y.z.tar.gz
-   mv passwd-x.y.z passwd
-
-and would then find Passwd at the URL::
-
-   http://your-server/horde/passwd/
+   http://horde.org/source/git.php
 
 
 Configuring Passwd

@@ -47,11 +47,9 @@ To function properly, Whups **requires** the following:
 Installing Whups
 ================
 
-There are several ways to install Whups. The recommended way to install Whups
-is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Whups from Git.
-
+The **RECOMMENDED** way to install Whups is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Whups from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -77,42 +75,12 @@ your PHP configuration::
 
    pear install -a horde/whups
 
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+See::
 
-.. Important:: As of today, there are no tarballs released for Whups 2
-               yet. Please use the `Installing with PEAR`_ method to install
-               Whups 2.
-
-Whups can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/whups
-
-   ftp://ftp.horde.org/pub/whups/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Whups is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Whups is installed directly underneath Horde in the web
-server's document tree.
-
-Since Whups is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the URL. For
-example, with the Apache web server's default document root of
-``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/whups-h3-x.y.z.tar.gz
-   mv whups-h3-x.y.z whups
-
-and would then find Whups at the URL::
-
-   http://your-server/horde/whups/
+   http://horde.org/source/git.php
 
 
 Configuring Whups
