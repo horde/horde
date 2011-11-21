@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
+* [jan] Fix whups-reminders script (Bug #10783).
 * [jan] Add Latvian translation (Jānis Eisaks).
  </notes>
  <contents>
@@ -592,7 +593,7 @@
    <package>
     <name>Horde_Scheduler</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.0.1</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -977,6 +978,7 @@
    <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
+* [jan] Fix whups-reminders script (Bug #10783).
 * [jan] Add Latvian translation (Jānis Eisaks).
    </notes>
   </release>
