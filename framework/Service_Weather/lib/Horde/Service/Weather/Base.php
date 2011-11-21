@@ -127,6 +127,19 @@
     abstract public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD);
 
     /**
+     * Search for locations that begin with the text in $search.
+     *
+     * @param string $search  The text to search.
+     *
+     * @return array  An array of stdClass objects with 'name' and 'code'
+     *                properties
+     */
+    public function autocompleteLocation($search)
+    {
+        throw new Horde_Service_Weather_Exception('Not implemented');
+    }
+
+    /**
      * Obtain a mapping of units for each UNIT type.
      *
      */

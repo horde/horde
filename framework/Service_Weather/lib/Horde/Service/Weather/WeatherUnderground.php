@@ -179,6 +179,14 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         }
     }
 
+    public function autocompleteLocation($search)
+    {
+        $url = new Horde_Url('http://autocomplete.wunderground.com/aq');
+        $url->add(array('query' => $search, 'format' => 'JSON'));
+
+        return $this->_parseAutocomplete($this->_makeRequest($url));
+    }
+
     /**
      * Get array of supported forecast lengths.
      *
@@ -353,21 +361,34 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         }
     }
 
+    protected function _parseAutocomplete($results)
+    {
+        $return = array();
+        foreach($results->RESULTS as $result) {
+            $new = new stdClass();
+            $new->name = $result->name;
+            $new->code = $result->l;
+            $return[] = $new;
+        }
+
+        return $return;
+    }
+
     protected function _makeRequest($url)
     {
         $cachekey = md5('hordeweather' . $url);
-
-        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+        //if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
             $url = new Horde_Url($url);
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
+                Horde::logMessage($response->getBody());
                 throw new Horde_Service_Weather_Exception($response->code);
             }
             $results = $response->getBody();
             if (!empty($this->_cache)) {
                $this->_cache->set($cachekey, $results);
             }
-        }
+        //}
         $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
         if (!($results instanceof StdClass)) {
             throw new Horde_Service_Weather_Exception('Error, unable to decode response.');
