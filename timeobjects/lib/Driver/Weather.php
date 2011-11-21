@@ -142,7 +142,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
                 );
             }
 
-            $body  .= sprintf(_("\n%s"), $description);
+            $body  .= "\n" . $description;
 
             $objects[] = array(
                 'id' => $day->timestamp(), //???
