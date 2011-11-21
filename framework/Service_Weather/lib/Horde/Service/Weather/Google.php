@@ -221,6 +221,13 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
                 Horde_Service_Weather::UNITS_STANDARD :
                 Horde_Service_Weather::UNITS_METRIC;
         $this->_station = $this->_parseStation($results->weather->forecast_information);
+
+        // Sunrise/Sunset
+        $date = new Horde_Date(time());
+        if (!empty($this->_station->lat)) {
+            $this->_station->sunset = new Horde_Date(date_sunset($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $this->_station->lat, $this->_station->lon));
+            $this->_station->sunrise = new Horde_Date(date_sunrise($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $this->_station->lat, $this->_station->lon));
+        }
         $this->_forecast = $this->_parseForecast($results->weather);
         $this->_current = $this->_parseCurrent($results->weather->current_conditions);
         $this->_current->time = new Horde_Date((string)$results->weather->forecast_information->current_date_time['data']);
