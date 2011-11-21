@@ -360,40 +360,33 @@ class IMP_Imap implements Serializable
                 $error->notify(_("Could not save message data because it is too large."));
                 break;
 
-            // BC: Not available in Horde_Imap_Client 1.0.0
-            case constant('Horde_Imap_Client_Exception::NOPERM'):
+            case Horde_Imap_Client_Exception::NOPERM:
                 $error->notify(_("You do not have adequate permissions to carry out this operation."));
                 break;
 
-            // BC: Not available in Horde_Imap_Client 1.0.0
-            case constant('Horde_Imap_Client_Exception::INUSE'):
-            case constant('Horde_Imap_Client_Exception::POP3_TEMP_ERROR'):
+            case Horde_Imap_Client_Exception::INUSE:
+            case Horde_Imap_Client_Exception::POP3_TEMP_ERROR:
                 $error->notify(_("There was a temporary issue when attempting this operation. Please try again later."));
                 break;
 
-            // BC: Not available in Horde_Imap_Client 1.0.0
-            case constant('Horde_Imap_Client_Exception::CORRUPTION'):
-            case constant('Horde_Imap_Client_Exception::POP3_PERM_ERROR'):
+            case Horde_Imap_Client_Exception::CORRUPTION:
+            case Horde_Imap_Client_Exception::POP3_PERM_ERROR:
                 $error->notify(_("The mail server is reporting corrupt data in your mailbox. Details have been logged for the administrator."));
                 break;
 
-            // BC: Not available in Horde_Imap_Client 1.0.0
-            case constant('Horde_Imap_Client_Exception::LIMIT'):
+            case Horde_Imap_Client_Exception::LIMIT:
                 $error->notify(_("The mail server has denied the request. Details have been logged for the administrator."));
                 break;
 
-            // BC: Not available in Horde_Imap_Client 1.0.0
-            case constant('Horde_Imap_Client_Exception::OVERQUOTA'):
+            case Horde_Imap_Client_Exception::OVERQUOTA:
                 $error->notify(_("The operation failed because you have exceeded your quota on the mail server."));
                 break;
 
-            // BC: Not available in Horde_Imap_Client 1.0.0
-            case constant('Horde_Imap_Client_Exception::ALREADYEXISTS'):
+            case Horde_Imap_Client_Exception::ALREADYEXISTS:
                 $error->notify(_("The object could not be created because it already exists."));
                 break;
 
-            // BC: Not available in Horde_Imap_Client 1.0.0
-            case constant('Horde_Imap_Client_Exception::NONEXISTENT'):
+            case Horde_Imap_Client_Exception::NONEXISTENT:
                 $error->notify(_("The object could not be deleted because it does not exist."));
                 break;
             }
