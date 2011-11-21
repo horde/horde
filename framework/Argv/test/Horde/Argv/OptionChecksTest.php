@@ -79,9 +79,6 @@ class Horde_Argv_OptionChecksTest extends Horde_Argv_TestCase
         $this->assertOptionError(
             "option -b: invalid option type: 'foo'",
             array("-b", array('type' => 'foo')));
-        $this->assertOptionError(
-            "option -b: invalid option type: 'Array'",
-            array("-b", array('type' => array())));
     }
 
     public function testNoTypeForAction()
