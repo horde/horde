@@ -219,14 +219,13 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
 
         // // Sunrise/Sunset
         $date = new Horde_Date(time());
-        $station->sunset = new Horde_Date(date_sunset($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $station->lat, $station->lon));
-        $station->sunrise = new Horde_Date(date_sunrise($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $station->lat, $station->lon));
+        $station->sunset = new Horde_Date(
+            date_sunset($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $station->lat, $station->lon));
+        $station->sunrise = new Horde_Date(
+            date_sunrise($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $station->lat, $station->lon));
         $this->_station = $station;
         $this->_forecast = $this->_parseForecast($results->data->weather);
         $this->_current = $this->_parseCurrent($results->data->current_condition);
-        // $this->logo = $results->current_observation->image->url;
-        // $this->link = $results->current_observation->image->link;
-        // $this->title = $results->current_observation->image->title;
     }
 
     /**
