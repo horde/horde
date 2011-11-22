@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Estonian translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -680,7 +680,7 @@
    <date>2011-11-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Estonian translation.
    </notes>
   </release>
  </changelog>
