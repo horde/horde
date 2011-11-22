@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>00:23:52</time>
+ <date>2011-11-22</date>
+ <time>21:32:30</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -41,6 +41,7 @@
        <file name="example.yaml" role="doc" />
        <file name="load.php" role="doc" />
       </dir> <!-- /doc/Horde/Yaml/examples -->
+      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Yaml -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -63,6 +64,7 @@
        <file name="references.yml" role="test" />
       </dir> <!-- /test/Horde/Yaml/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
       <file name="DumperTest.php" role="test" />
       <file name="Helpers.php" role="test" />
       <file name="LoaderTest.php" role="test" />
@@ -91,6 +93,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Yaml/COPYING" />
    <install as="examples/dump.php" name="doc/Horde/Yaml/examples/dump.php" />
    <install as="examples/example.yaml" name="doc/Horde/Yaml/examples/example.yaml" />
    <install as="examples/load.php" name="doc/Horde/Yaml/examples/load.php" />
@@ -100,6 +103,7 @@
    <install as="Horde/Yaml/Loader.php" name="lib/Horde/Yaml/Loader.php" />
    <install as="Horde/Yaml/Node.php" name="lib/Horde/Yaml/Node.php" />
    <install as="Horde/Yaml/AllTests.php" name="test/Horde/Yaml/AllTests.php" />
+   <install as="Horde/Yaml/Autoload.php" name="test/Horde/Yaml/Autoload.php" />
    <install as="Horde/Yaml/DumperTest.php" name="test/Horde/Yaml/DumperTest.php" />
    <install as="Horde/Yaml/Helpers.php" name="test/Horde/Yaml/Helpers.php" />
    <install as="Horde/Yaml/LoaderTest.php" name="test/Horde/Yaml/LoaderTest.php" />
@@ -161,7 +165,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Fix tests to work with PHPUnit 3.6.
