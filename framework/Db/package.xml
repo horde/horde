@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>15:18:31</time>
+ <time>15:19:31</time>
  <version>
-  <release>1.1.2</release>
+  <release>1.1.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mms] Greatly reduce memory usage when working with binary data in PostgreSQL 9.0+ (Bug #10774).
-* [mms] Cache postgresql version.
-* [jan] Improve API documentation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -537,6 +535,19 @@
 * [mms] Greatly reduce memory usage when working with binary data in PostgreSQL 9.0+ (Bug #10774).
 * [mms] Cache postgresql version.
 * [jan] Improve API documentation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
