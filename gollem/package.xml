@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>22:56:50</time>
+ <time>22:58:29</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Fix selectlist widget when initial cacheID was not given (Bug #10781).
-* [mms] Fix icon display of files in selectlist widget.
-* [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
-* [jan] Fix autocreating of home folders (Bug #10690).
-* [jan] Fix JavaScript for Actions drop down list (Bug #10695).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -720,6 +716,19 @@
 * [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
 * [jan] Fix autocreating of home folders (Bug #10690).
 * [jan] Fix JavaScript for Actions drop down list (Bug #10695).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
