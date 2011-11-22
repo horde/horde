@@ -167,14 +167,18 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         if (!empty($response->error)) {
             throw new Horde_Service_Weather_Exception($response->error->msg);
         }
+
+        // Wwo's location search is pretty useless. It *always* returns multiple
+        // matches, even if you pass an explicit identifier. We need to ignore
+        // these, and hope for the best.
         if (!empty($response->search_api->result)) {
             $results = array();
-            foreach ($response->search_api->result as $location) {
-                $results[] = $this->_parseStation($location);
-            }
-            return $results;
+            return $this->_parseStation($response->search_api->result[0]);
         }
+
+        return array();
     }
+
     /**
      * Get array of supported forecast lengths.
      *
