@@ -22,7 +22,7 @@ for general performance tips for Horde.
   the dynamic display synchronized. It is impossible to do otherwise, and the
   UI experience will be limited without these extensions.
 
-  Technical information can be found here::
+  Technical information can be found here:
 
   http://lists.horde.org/archives/imp/Week-of-Mon-20110523/052285.html
 
@@ -33,7 +33,7 @@ for general performance tips for Horde.
 * Consider switching to a faster mailbox storage format if needed. This may
   also entail switching the underlying filesystem.
 
-  Further information can be found here::
+  Further information can be found here:
 
   http://wiki2.dovecot.org/MailboxFormat
 
