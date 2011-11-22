@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-16</date>
- <time>23:27:12</time>
+ <date>2011-11-22</date>
+ <time>21:10:24</time>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -172,7 +172,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-16</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Bin2hex filter.
