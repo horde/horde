@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:20:34</time>
+ <date>2011-11-22</date>
+ <time>21:12:24</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -32,6 +32,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Support">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Support -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Support">
@@ -114,6 +121,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Support/COPYING" />
    <install as="Horde/Support/Array.php" name="lib/Horde/Support/Array.php" />
    <install as="Horde/Support/Backtrace.php" name="lib/Horde/Support/Backtrace.php" />
    <install as="Horde/Support/CombineStream.php" name="lib/Horde/Support/CombineStream.php" />
@@ -261,7 +269,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Fix tests to work with PHPUnit 3.6.
