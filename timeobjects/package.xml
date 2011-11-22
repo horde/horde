@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>23:27:46</time>
+ <time>23:28:44</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,10 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mjr] Remove support for the now non-existent weatherdotcom API.
-* [mjr] Add support for Horde_Service_Weather.
-* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
-* [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -283,6 +280,19 @@
 * [mjr] Add support for Horde_Service_Weather.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
