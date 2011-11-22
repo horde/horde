@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>23:12:17</time>
+ <time>23:13:53</time>
  <version>
-  <release>3.0.12</release>
+  <release>3.0.13</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,17 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Show status of events in agenda messages (Request #10517).
-* [mjr] Fix selecting custom time from time selection drop down (Bug #10737).
-* [jan] Always use fresh Horde_Http_Client instances for remote calendars (Bug #10740).
-* [jan] Add confirmation screen when deleting events in dynamic view (Request #10725).
-* [jan] Fix holidays disappearing from month view if deleting another event.
-* [jan] Fix resetting attendee response status when saving events in dynamic view (Bug #10620).
-* [jan] Support CalDAV servers that don&apos;t use DAV: as the default namespace (christof@buergi.lugs.ch, Bug #10716).
-* [jan] Allow to view and create copies of holiday events (Bug #10650).
-* [jan] Don&apos;t show import/export tabs in dynamic view if disabled (Bug #10705).
-* [jan] Don&apos;t show option to share with everyone in basic permissions if disabled (piper@hrz.uni-marburg.de, Bug #10706).
-* [mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1952,6 +1942,19 @@
 * [jan] Don&apos;t show import/export tabs in dynamic view if disabled (Bug #10705).
 * [jan] Don&apos;t show option to share with everyone in basic permissions if disabled (piper@hrz.uni-marburg.de, Bug #10706).
 * [mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.13</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
