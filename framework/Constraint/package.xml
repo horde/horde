@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:07:08</time>
+ <date>2011-11-22</date>
+ <time>14:52:45</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -26,6 +26,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Constraint">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Constraint -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Constraint">
@@ -72,6 +79,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Constraint/COPYING" />
    <install as="Horde/Constraint.php" name="lib/Horde/Constraint.php" />
    <install as="Horde/Constraint/AlwaysFalse.php" name="lib/Horde/Constraint/AlwaysFalse.php" />
    <install as="Horde/Constraint/AlwaysTrue.php" name="lib/Horde/Constraint/AlwaysTrue.php" />
@@ -177,7 +185,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Fix tests to work with PHPUnit 3.6.
