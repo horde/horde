@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>22:27:19</time>
+ <time>22:29:57</time>
  <version>
-  <release>4.0.12</release>
+  <release>4.0.13</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.
-* [jan] Add configuration option to disable password resets (Request #10640).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4618,6 +4617,19 @@
    <notes>
 * [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.
 * [jan] Add configuration option to disable password resets (Request #10640).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.13</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
