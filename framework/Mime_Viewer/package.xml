@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Croatian translation.
 * [jan] Add Estonian translation.
  </notes>
  <contents>
@@ -833,6 +834,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Croatian translation.
 * [jan] Add Estonian translation.
    </notes>
   </release>
