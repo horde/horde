@@ -17,9 +17,9 @@
   <active>yes</active>
  </developer>
  <date>2011-11-22</date>
- <time>21:23:33</time>
+ <time>21:24:39</time>
  <version>
-  <release>1.0.0RC1</release>
+  <release>1.0.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Rename Freshmeat to Freenode.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -177,6 +177,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Rename Freshmeat to Freenode.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
