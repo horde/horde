@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Croatian translation.
 * [jan] Update Estonian translation.
 * [jan] Make unit tests Windows compatible.
 * [mjr] Fix timezone bug that could cause an incorrect timezone from being set when creating Horde_Date objects from other Horde_Date or DateTime objects.
@@ -659,6 +660,7 @@
    <date>2011-08-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Croatian translation.
 * [jan] Update Estonian translation.
 * [jan] Make unit tests Windows compatible.
 * [mjr] Fix timezone bug that could cause an incorrect timezone from being set when creating Horde_Date objects from other Horde_Date or DateTime objects.
