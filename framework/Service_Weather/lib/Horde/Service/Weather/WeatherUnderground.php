@@ -25,8 +25,6 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
     public $logo = 'weather/wundergroundlogo.png';
 
-    public $logo = 'weather/wundergroundlogo.png';
-
     /**
      * Icon map for wunderground. Not some are returned as
      * "sky" conditions and some as "condition" icons. Public
