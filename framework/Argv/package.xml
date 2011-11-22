@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>11:51:00</time>
+ <time>11:52:12</time>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [jan] Update Estonian translation.
-* [jan] Fix tests to work with PHPUnit 3.6.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -689,6 +688,19 @@
    <notes>
 * [jan] Update Estonian translation.
 * [jan] Fix tests to work with PHPUnit 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
