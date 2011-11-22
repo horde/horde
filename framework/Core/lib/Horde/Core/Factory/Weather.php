@@ -13,7 +13,7 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
 
         // Parameters for all driver types
         $params = array(
-            'http_client' => $injector->getInstance('Horde_Core_Factory_HttpClient')->create(),
+            'http_client' => $injector->createInstance('Horde_Core_Factory_HttpClient')->create(),
             'cache' => $injector->getInstance('Horde_Cache')
         );
 
@@ -25,6 +25,7 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
 
         switch ($driver) {
         case 'WeatherUnderground':
+        case 'Wwo':
             $params['apikey'] = $conf['weather']['params']['key'];
             break;
 

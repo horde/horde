@@ -1774,14 +1774,21 @@
    you must select a provider and provide your API keys.</configdescription>
    <configswitch name="provider">false
     <case name="false" desc="None" />
-    <case name="WeatherUnderground" desc="Weather Underground">
+    <case name="WeatherUnderground" desc="Weather Underground - Recommended, but relatively low daily limits for free accounts.">
       <configsection name="params">
        <configstring name="key" desc="API Key. For information on registration and obtaining an API
-       key for this driver, see http://www.wunderground.com/weather/api/
-       for more information."></configstring>
+       key for this driver, see http://www.wunderground.com/weather/api/.">
+       </configstring>
       </configsection>
     </case>
-    <case name="Google" desc="Google Weather API" />
+    <case name="Google" desc="Google Weather API - Unofficial API. Free, no registration. VERY basic forecast data." />
+    <case name="Wwo" desc="World Weather Online API. Free, requires registration. Slighty more detailed than Google.">
+      <configsection name="params">
+        <configstring name="key" desc="API Key. For information on registration
+        and obtaining an API key for this driver, see
+        http://worldweatheronline.com"></configstring>
+      </configsection>
+    </case>
    </configswitch>
   </configsection>
  </configtab>
