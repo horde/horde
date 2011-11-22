@@ -19,6 +19,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
     protected function _attach($js_params)
     {
         $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
+        $js_params['tokens'] = array();
         $updateurl = Horde::getServiceLink('ajax', 'horde')->setRaw(true);
         $updateurl->pathInfo = 'blockRefresh';
         $updateurl->add('app', 'horde')
