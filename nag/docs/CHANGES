@@ -1,6 +1,6 @@
-----------
-v3.0.6-git
-----------
+------
+v3.0.6
+------
 
 [jan] Don't display task details of private tasks via the API (Bug #10712).
 [jan] Use correct locale when parsing quick tasks (thpo+horde@dotrc.de, Bug
