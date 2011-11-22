@@ -69,11 +69,11 @@ var IMP_JS = {
 
         s2.findElements(iframe.contentWindow.document).each(function(link) {
             link.setAttribute('href', link.getAttribute('htmlcssblocked'));
-        }, this);
+        });
 
         s3.findElements(iframe.contentWindow.document).each(function(style) {
             style.setAttribute('type', 'text/css');
-        }, this);
+        });
 
         if (!imgload) {
             this.iframeResize(iframeid);
