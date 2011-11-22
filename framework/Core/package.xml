@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2011-11-22</date>
- <time>15:00:57</time>
+ <time>15:02:49</time>
  <version>
-  <release>1.8.0</release>
+  <release>1.8.1</release>
   <api>1.8.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Estonian translation.
-* [jan] Update Hungarian translation.
-* [jan] Fix tests to work with PHPUnit 3.6.
-* [mjr] Add Horde_Service_Weather factory.
-* [mms] Fix importing CSS data in cache files.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1650,6 +1646,19 @@
 * [jan] Fix tests to work with PHPUnit 3.6.
 * [mjr] Add Horde_Service_Weather factory.
 * [mms] Fix importing CSS data in cache files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.1</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
