@@ -295,7 +295,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
                 'key' => $this->_key)
         )->setRaw(true);
         $cachekey = md5('hordeweather' . $url);
-        //if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
                 Horde::logMessage($response->getBody());
@@ -305,7 +305,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
             if (!empty($this->_cache)) {
                $this->_cache->set($cachekey, $results);
             }
-        //}
+        }
         $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
         if (!($results instanceof StdClass)) {
             throw new Horde_Service_Weather_Exception('Error, unable to decode response.');
