@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:31:21</time>
+ <date>2011-11-22</date>
+ <time>20:55:00</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -37,6 +37,7 @@
        <file name="implementation.php" role="doc" />
        <file name="setget.php" role="doc" />
       </dir> <!-- /doc/Horde/Injector/examples -->
+      <file name="COPYING" role="doc" />
       <file name="Readme.html" role="doc" />
      </dir> <!-- /doc/Horde/Injector -->
     </dir> <!-- /doc/Horde -->
@@ -96,6 +97,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Injector/COPYING" />
    <install as="Readme.html" name="doc/Horde/Injector/Readme.html" />
    <install as="examples/annotatedsetters.php" name="doc/Horde/Injector/examples/annotatedsetters.php" />
    <install as="examples/binder.php" name="doc/Horde/Injector/examples/binder.php" />
@@ -208,7 +210,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Fix tests to work with PHPUnit 3.6.
