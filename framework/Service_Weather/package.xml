@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-11-21</date>
- <time>20:19:23</time>
+ <time>20:41:20</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -183,7 +183,6 @@
         <file name="46.png" role="horde" />
         <file name="47.png" role="horde" />
         <file name="na.png" role="horde" />
-        <file name="TWClogo_32px.png" role="php" />
        </dir> <!-- /themes/default/graphics/weather/32x32 -->
        <file name="wundergroundlogo.png" role="horde" />
       </dir> <!-- /themes/default/graphics/weather -->
