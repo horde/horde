@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-27</date>
- <time>23:47:05</time>
+ <date>2011-11-22</date>
+ <time>22:56:50</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0</api>
@@ -712,7 +712,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-27</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix selectlist widget when initial cacheID was not given (Bug #10781).
