@@ -11,7 +11,7 @@
  */
 
 /**
- * Horde_Service_Weather_Google.
+ * Horde_Block_Weather
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @package  Horde
@@ -150,7 +150,6 @@ class Horde_Block_Weather extends Horde_Core_Block
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
-
         // Location and local time.
         $html .= '<div class="control">'
             . '<strong>' . $station->name . '</strong> ' . _("Local time: ")
@@ -174,7 +173,7 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         // Temperature.
         $html .= '<strong>' . _("Temperature: ") . '</strong>' .
-            round($current->temp) . '&deg;' . Horde_String::upper($units['temp']);
+            $current->temp . '&deg;' . Horde_String::upper($units['temp']);
 
         // Dew point.
         if ($current->dewpoint) {
@@ -193,11 +192,15 @@ class Horde_Block_Weather extends Horde_Core_Block
         if ($current->pressure) {
             $html .= '<br /><strong>' . _("Pressure: ") . '</strong>';
             $trend = $current->pressure_trend;
-            $html .= sprintf(_("%d %s and %s"),
-                             round($current->pressure), $units['pres'],
-                             _($trend));
+            if (empty($trend)) {
+                $html .= sprintf(_("%d %s"),
+                    round($current->pressure), $units['pres']);
+            } else {
+                $html .= sprintf(_("%d %s and %s"),
+                    round($current->pressure), $units['pres'],
+                    _($trend));
+            }
         }
-
         if ($current->wind_direction) {
             // Wind.
             $html .= '<br /><strong>' . _("Wind: ") . '</strong>';
