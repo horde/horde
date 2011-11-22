@@ -343,7 +343,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 . Horde::link(
                     Horde::externalUrl($weather->link),
                     $weather->title, '', '_blank', '', $weather->title)
-                . '<em>' . $weather->title . '</em><img src="' . $weather->logo . '" />'
+                . Horde::img(new Horde_Themes_Image($weather->logo))
                 . '</a></div>';
         } else {
             $html .= '<div class="rightAlign">'

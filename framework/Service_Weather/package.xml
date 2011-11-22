@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2011-11-21</date>
- <time>19:01:31</time>
+ <time>20:19:23</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -65,6 +65,12 @@
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Service_Weather.mo" role="data" />
+      <file name="Horde_Service_Weather.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
     <dir name="en_US">
      <dir name="LC_MESSAGES">
       <file name="Horde_Service_Weather.po" role="data" />
@@ -179,6 +185,7 @@
         <file name="na.png" role="horde" />
         <file name="TWClogo_32px.png" role="php" />
        </dir> <!-- /themes/default/graphics/weather/32x32 -->
+       <file name="wundergroundlogo.png" role="php" />
       </dir> <!-- /themes/default/graphics/weather -->
      </dir> <!-- /themes/default/graphics -->
     </dir> <!-- /themes/default -->
@@ -253,7 +260,10 @@
    <install as="Horde/Service/Weather/Period/WeatherUnderground.php" name="lib/Horde/Service/Weather/Period/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/Period/Wwo.php" name="lib/Horde/Service/Weather/Period/Wwo.php" />
    <install as="locale/Horde_Service_Weather.pot" name="locale/Horde_Service_Weather.pot" />
+   <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.po" name="locale/de/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" />
+   <install as="default/graphics/weather/wundergroundlogo.png" name="themes/default/graphics/weather/wundergroundlogo.png" />
    <install as="themes/default/graphics/weather/23x23/0.png" name="themes/default/graphics/weather/23x23/0.png" />
    <install as="themes/default/graphics/weather/23x23/1.png" name="themes/default/graphics/weather/23x23/1.png" />
    <install as="themes/default/graphics/weather/23x23/2.png" name="themes/default/graphics/weather/23x23/2.png" />

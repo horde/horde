@@ -23,6 +23,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
     const API_URL = 'http://api.wunderground.com';
 
+    public $logo = 'weather/wundergroundlogo.png';
+
     /**
      * Icon map for wunderground. Not some are returned as
      * "sky" conditions and some as "condition" icons. Public
@@ -239,8 +241,6 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $station->name = $results->current_observation->display_location->full;
         $this->_station = $station;
         $this->_forecast = $this->_parseForecast($results->forecast);
-
-        $this->logo = $results->current_observation->image->url;
         $this->link = $results->current_observation->image->link;
         $this->title = $results->current_observation->image->title;
     }
