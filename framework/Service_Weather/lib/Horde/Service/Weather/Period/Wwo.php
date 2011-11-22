@@ -68,11 +68,9 @@ class Horde_Service_Weather_Period_Wwo extends Horde_Service_Weather_Period_Base
             return $this->_properties->weatherIconUrl[0]->value;
 
         case 'is_pm':
-             // Wunderground only supports standard
             return false;
 
         case 'hour':
-             // Wunderground supports this, but we don't.
             return false;
 
         case 'date':
