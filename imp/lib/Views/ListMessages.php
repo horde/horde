@@ -150,6 +150,9 @@ class IMP_Views_ListMessages
         if ($args['initial'] || !is_null($args['sortdir'])) {
             $md->sortdir = intval($sortpref['dir']);
         }
+        if ($args['initial'] && $sortpref['locked']) {
+            $md->sortlock = 1;
+        }
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {

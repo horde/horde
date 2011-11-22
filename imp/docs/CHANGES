@@ -2,6 +2,7 @@
 v5.0.15-git
 -----------
 
+[mms] Honor sortpref locked status.
 [mms] HTML drafts saved in IMP are resumed in that mode, regardless of the
       'compose_html' preference (Request #10787).
 [mms] Improved tree display when displaying all message parts.

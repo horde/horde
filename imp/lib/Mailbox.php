@@ -876,7 +876,8 @@ class IMP_Mailbox implements Serializable
      *
      * @return array  An array with the following keys:
      *   - by: (integer) Sort type.
-     *   - dir (integer) Sort direction.
+     *   - dir:(integer) Sort direction.
+     *   - locked: (boolean) Is sort locked for the mailbox?
      */
     public function getSort($convert = false)
     {
@@ -898,6 +899,7 @@ class IMP_Mailbox implements Serializable
         $ob = array(
             'by' => isset($entry['b']) ? $entry['b'] : $sortby,
             'dir' => isset($entry['d']) ? $entry['d'] : $prefs->getValue('sortdir'),
+            'locked' => $prefs->isLocked('sortpref')
         );
 
         /* Restrict to sequence sorting only. */
