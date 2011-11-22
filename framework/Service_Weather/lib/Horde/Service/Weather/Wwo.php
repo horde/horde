@@ -144,39 +144,16 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         }
     }
 
-    /**
-     * Execute a location search.
-     *
-     * @param  string $location The location text to search.
-     *
-     * @return string  The location code result(s).
-     */
-    protected function _searchLocations($location)
+
+    public function autocompleteLocation($search)
     {
         $url = new Horde_Url(self::SEARCH_URL);
-        $url = $url->add(array(
-            'timezone' => 'yes',
-            'query' => rawurlencode($location),
-            'num_of_results' => 10));
+        $url->add(array(
+            'query' => $search,
+            'format' => 'json',
+            'num_of_results' => 20));
 
-        return $this->_makeRequest($url);
-    }
-
-    protected function _parseSearchLocations($response)
-    {
-        if (!empty($response->error)) {
-            throw new Horde_Service_Weather_Exception($response->error->msg);
-        }
-
-        // Wwo's location search is pretty useless. It *always* returns multiple
-        // matches, even if you pass an explicit identifier. We need to ignore
-        // these, and hope for the best.
-        if (!empty($response->search_api->result)) {
-            $results = array();
-            return $this->_parseStation($response->search_api->result[0]);
-        }
-
-        return array();
+        return $this->_parseAutocomplete($this->_makeRequest($url));
     }
 
     /**
@@ -279,6 +256,56 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         // The Current object takes care of the parsing/mapping.
         $current = new Horde_Service_Weather_Current_Wwo($current, $this);
         return $current;
+    }
+
+    protected function _parseAutocomplete($results)
+    {
+        $return = array();
+        if (!empty($results->search_api->result)) {
+            foreach($results->search_api->result as $result) {
+                $new = new stdClass();
+                $new->name = $result->areaName[0]->value . ', ' . $result->region[0]->value;
+                $new->code = $result->latitude . ',' . $result->longitude;
+                $return[] = $new;
+            }
+        }
+
+        return $return;
+    }
+
+    /**
+     * Execute a location search.
+     *
+     * @param  string $location The location text to search.
+     *
+     * @return string  The location code result(s).
+     */
+    protected function _searchLocations($location)
+    {
+        $url = new Horde_Url(self::SEARCH_URL);
+        $url = $url->add(array(
+            'timezone' => 'yes',
+            'query' => $location,
+            'num_of_results' => 10));
+
+        return $this->_makeRequest($url);
+    }
+
+    protected function _parseSearchLocations($response)
+    {
+        if (!empty($response->error)) {
+            throw new Horde_Service_Weather_Exception($response->error->msg);
+        }
+
+        // Wwo's location search is pretty useless. It *always* returns multiple
+        // matches, even if you pass an explicit identifier. We need to ignore
+        // these, and hope for the best.
+        if (!empty($response->search_api->result)) {
+            $results = array();
+            return $this->_parseStation($response->search_api->result[0]);
+        }
+
+        return array();
     }
 
     /**
