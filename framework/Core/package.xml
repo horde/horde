@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-11-21</date>
- <time>12:16:08</time>
+ <date>2011-11-22</date>
+ <time>14:57:10</time>
  <version>
   <release>1.7.1</release>
   <api>1.7.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Hungarian translation.
 * [jan] Fix tests to work with PHPUnit 3.6.
 * [mjr] Add Horde_Service_Weather factory.
 * [mms] Fix importing CSS data in cache files.
@@ -1640,9 +1641,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-07</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Hungarian translation.
 * [jan] Fix tests to work with PHPUnit 3.6.
 * [mjr] Add Horde_Service_Weather factory.
 * [mms] Fix importing CSS data in cache files.
