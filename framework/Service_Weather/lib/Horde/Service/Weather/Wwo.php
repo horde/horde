@@ -144,6 +144,33 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         }
     }
 
+
+    public function autocompleteLocation($search)
+    {
+        $url = new Horde_Url(self::SEARCH_URL);
+        $url->add(array(
+            'query' => $search,
+            'format' => 'json',
+            'num_of_results' => 20));
+
+        return $this->_parseAutocomplete($this->_makeRequest($url));
+    }
+
+    protected function _parseAutocomplete($results)
+    {
+        $return = array();
+        if (!empty($results->search_api->result)) {
+            foreach($results->search_api->result as $result) {
+                $new = new stdClass();
+                $new->name = $result->areaName[0]->value . ', ' . $result->region[0]->value;
+                $new->code = $result->latitude . ',' . $result->longitude;
+                $return[] = $new;
+            }
+        }
+
+        return $return;
+    }
+
     /**
      * Execute a location search.
      *
@@ -156,7 +183,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         $url = new Horde_Url(self::SEARCH_URL);
         $url = $url->add(array(
             'timezone' => 'yes',
-            'query' => rawurlencode($location),
+            'query' => $location,
             'num_of_results' => 10));
 
         return $this->_makeRequest($url);
