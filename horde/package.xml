@@ -2556,6 +2556,13 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Service_Weather</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_SyncMl</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -2572,10 +2579,6 @@
    </package>
    <package>
     <name>File_Find</name>
-    <channel>pear.php.net</channel>
-   </package>
-   <package>
-    <name>Services_Weather</name>
     <channel>pear.php.net</channel>
    </package>
    <package>
