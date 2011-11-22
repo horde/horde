@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: 2011-08-02 15:27+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -115,7 +115,7 @@ msgstr "Beim Anzeigen der Benutzer ist ein Fehler aufgetreten: %s"
 msgid "Approved By:"
 msgstr "Bestätigt durch:"
 
-#: templates/index/search.inc:56 templates/index/timeedit.inc:62
+#: templates/index/search.inc:55 templates/index/timeedit.inc:62
 msgid "Bill"
 msgstr "Rechnung"
 
@@ -123,7 +123,7 @@ msgstr "Rechnung"
 msgid "Bill?"
 msgstr "Rechnung?"
 
-#: templates/index/index.inc:82 templates/index/index.inc:87
+#: templates/index/index.inc:87 templates/index/index.inc:92
 #: templates/index/timeedit.inc:28
 msgid "Billable"
 msgstr "Rechnung"
@@ -172,7 +172,7 @@ msgstr "Ergebnis kann nicht gelöscht werden; es existieren Zeiteinträge dafür
 
 #: invoicing.php:34 lib/Api.php:52 lib/Form/Admin/EditClientStepTwo.php:36
 #: lib/Form/Deliverable/ClientSelector.php:21 lib/Form/Time/Entry.php:54
-#: templates/index/search.inc:21 templates/index/search.inc:52
+#: templates/index/search.inc:21 templates/index/search.inc:51
 #: templates/index/timeedit.inc:12 templates/index/timeedit.inc:58
 msgid "Client"
 msgstr "Kunde"
@@ -181,7 +181,7 @@ msgstr "Kunde"
 msgid "Client Name"
 msgstr "Kundenname"
 
-#: lib/Form/Search.php:33 templates/index/index.inc:42
+#: lib/Form/Search.php:33 templates/index/index.inc:47
 msgid "Clients"
 msgstr "Kunden"
 
@@ -194,12 +194,12 @@ msgid "Comma-Separated Variable (.csv)"
 msgstr "Kommagetrennte Werte (.csv)"
 
 #: invoicing.php:42 lib/Api.php:58 lib/Form/Time/Entry.php:63
-#: templates/index/search.inc:29 templates/index/search.inc:53
+#: templates/index/search.inc:29 templates/index/search.inc:52
 #: templates/index/timeedit.inc:16 templates/index/timeedit.inc:59
 msgid "Cost Object"
 msgstr "Kostenstelle"
 
-#: lib/Form/Search.php:41 templates/index/index.inc:41
+#: lib/Form/Search.php:41 templates/index/index.inc:46
 msgid "Cost Objects"
 msgstr "Kostenstellen"
 
@@ -208,7 +208,7 @@ msgid "Create invoice"
 msgstr "Rechnung erstellen"
 
 #: invoicing.php:40 lib/Api.php:43 lib/Form/Time/Entry.php:50
-#: templates/index/search.inc:50 templates/index/timeedit.inc:19
+#: templates/index/search.inc:49 templates/index/timeedit.inc:19
 #: templates/index/timeedit.inc:57
 msgid "Date"
 msgstr "Datum"
@@ -262,7 +262,7 @@ msgid "Deliverables"
 msgstr "Ergebnisse"
 
 #: invoicing.php:41 lib/Api.php:72 lib/Form/Deliverable.php:27
-#: lib/Form/Time/Entry.php:82 templates/index/search.inc:55
+#: lib/Form/Time/Entry.php:82 templates/index/search.inc:54
 #: templates/index/timeedit.inc:38 templates/index/timeedit.inc:61
 msgid "Description"
 msgstr "Beschreibung"
@@ -283,7 +283,7 @@ msgstr "Keine Einträge einbeziehen nach"
 msgid "Do not include entries before"
 msgstr "Keine Einträge einbeziehen vor"
 
-#: templates/index/search.inc:71 templates/index/timeedit.inc:76
+#: templates/index/search.inc:70 templates/index/timeedit.inc:76
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -329,7 +329,7 @@ msgid "Edit job type, Step 2"
 msgstr "Arbeitsart bearbeiten, Schritt 2"
 
 #: invoicing.php:35 lib/Api.php:48 templates/index/search.inc:9
-#: templates/index/search.inc:51
+#: templates/index/search.inc:50
 msgid "Employee"
 msgstr "Mitarbeiter"
 
@@ -386,7 +386,7 @@ msgstr "Exportieren"
 msgid "Export Search Results"
 msgstr "Suchergebnisse exportieren"
 
-#: templates/index/search.inc:77
+#: templates/index/search.inc:76
 msgid "Export Time"
 msgstr "Exportzeit"
 
@@ -412,7 +412,7 @@ msgid "Hourly Rate"
 msgstr "Stundensatz"
 
 #: invoicing.php:38 lib/Api.php:60 lib/Form/Time/Entry.php:66
-#: templates/index/search.inc:57 templates/index/timeedit.inc:24
+#: templates/index/search.inc:56 templates/index/timeedit.inc:24
 #: templates/index/timeedit.inc:63
 msgid "Hours"
 msgstr "Stunden"
@@ -447,12 +447,12 @@ msgstr "Rechnungssystem ist nicht installiert."
 #: lib/Form/Admin/DeleteJobType.php:32
 #: lib/Form/Admin/EditJobTypeStepTwo.php:37 lib/Form/JobType/Add.php:15
 #: lib/Form/Time/Entry.php:60 templates/index/search.inc:25
-#: templates/index/search.inc:54 templates/index/timeedit.inc:33
+#: templates/index/search.inc:53 templates/index/timeedit.inc:33
 #: templates/index/timeedit.inc:60
 msgid "Job Type"
 msgstr "Arbeitsart"
 
-#: lib/Form/Search.php:38 templates/index/index.inc:43
+#: lib/Form/Search.php:38 templates/index/index.inc:48
 msgid "Job Types"
 msgstr "Arbeitsarten"
 
@@ -460,7 +460,7 @@ msgstr "Arbeitsarten"
 msgid "JobType Name"
 msgstr "Arbeitsart-Bezeichnung"
 
-#: templates/index/index.inc:40
+#: templates/index/index.inc:45
 msgid "Log"
 msgstr "Änderung"
 
@@ -502,7 +502,7 @@ msgstr "Neuer Zeiteintrag"
 msgid "New Top-level Deliverable"
 msgstr "Neues Hauptergebnis"
 
-#: templates/index/index.inc:62
+#: templates/index/index.inc:67
 msgid "Next month"
 msgstr "Nächster Monat"
 
@@ -515,7 +515,7 @@ msgstr "Nein"
 msgid "No Notifications"
 msgstr "Keine Benachrichtigungen"
 
-#: templates/index/search.inc:74 templates/index/timeedit.inc:79
+#: templates/index/search.inc:73 templates/index/timeedit.inc:79
 msgid "No Time Slices"
 msgstr "Keine Zeitabschnitte"
 
@@ -536,7 +536,7 @@ msgstr "Keine Zeiteinträge zu exportieren!"
 msgid "No timeslices were selected to submit."
 msgstr "Es wurden keine Zeitabschnitte ausgewählt."
 
-#: templates/index/index.inc:83 templates/index/index.inc:88
+#: templates/index/index.inc:88 templates/index/index.inc:93
 msgid "Non-Billable"
 msgstr "Keine Rechnung"
 
@@ -548,7 +548,7 @@ msgstr "Nicht in Rechnung zu stellende Stunden"
 msgid "Notes"
 msgstr "Bemerkungen"
 
-#: templates/index/index.inc:32
+#: templates/index/index.inc:31
 msgid "Options"
 msgstr "Einstellungen"
 
@@ -560,7 +560,7 @@ msgstr "Bitte geben Sie erst gültige Werte in das Formular ein."
 msgid "Preferences"
 msgstr "Benutzereinstellungen"
 
-#: templates/index/index.inc:61
+#: templates/index/index.inc:66
 msgid "Previous month"
 msgstr "Vorheriger Monat"
 
@@ -587,8 +587,8 @@ msgstr "Speichern"
 msgid "Save As New"
 msgstr "Als Kopie speichern"
 
-#: lib/Form/Search.php:64 templates/index/index.inc:44
-#: templates/index/search.inc:5 templates/index/search.inc:46
+#: lib/Form/Search.php:64 templates/index/index.inc:49
+#: templates/index/search.inc:5 templates/index/search.inc:45
 #: templates/index/timeedit.inc:53
 msgid "Search"
 msgstr "Suche"
@@ -597,7 +597,7 @@ msgstr "Suche"
 msgid "Search For Time"
 msgstr "Nach Zeit suchen"
 
-#: lib/Api.php:98 search.php:100 templates/index/search.inc:46
+#: lib/Api.php:98 search.php:100 templates/index/search.inc:45
 msgid "Search Results"
 msgstr "Suchergebnisse"
 
@@ -835,15 +835,15 @@ msgstr "Zeiteintrag"
 msgid "Time Review Screen"
 msgstr "Überprüfung der Zeiteinträge"
 
-#: templates/index/index.inc:79
+#: templates/index/index.inc:84
 msgid "Time Summary"
 msgstr "Zeit-Übersicht"
 
-#: templates/index/index.inc:81
+#: templates/index/index.inc:86
 msgid "Today"
 msgstr "Heute"
 
-#: invoicing.php:39 templates/index/index.inc:86
+#: invoicing.php:39 templates/index/index.inc:91
 msgid "Total"
 msgstr "Insgesamt"
 
@@ -910,7 +910,7 @@ msgstr "E_rgebnisse"
 msgid "_Invoicing"
 msgstr "_Rechnungswesen"
 
-#: templates/index/index.inc:32
+#: templates/index/index.inc:35 templates/index/index.inc:36
 msgid "_Logout"
 msgstr "Ab_melden"
 

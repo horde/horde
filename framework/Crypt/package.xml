@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Upgrade signed S/MIME output to comply with S/MIME version 3.2.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -685,7 +685,7 @@ Initial release as a PEAR package
    <date>2011-08-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Upgrade signed S/MIME output to comply with S/MIME version 3.2.
    </notes>
   </release>
  </changelog>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: 2011-04-04 10:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde.php:1753
+#: lib/Horde.php:1770
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Zugriffstaste %s)"
@@ -27,7 +27,7 @@ msgstr " (Zugriffstaste %s)"
 msgid "\"%s\" group driver not found."
 msgstr "\"%s\"-Gruppen-Treiber nicht gefunden."
 
-#: lib/Horde/Registry.php:1202 lib/Horde/Registry.php:1685
+#: lib/Horde/Registry.php:1204 lib/Horde/Registry.php:1687
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" ist in der Horde Registry nicht konfiguriert."
@@ -51,7 +51,7 @@ msgid_plural "%d days until your password expires."
 msgstr[0] "In %d Tag wird Ihr Passwort ungültig."
 msgstr[1] "In %d Tagen wird Ihr Passwort ungültig."
 
-#: lib/Horde/Registry.php:1307
+#: lib/Horde/Registry.php:1309
 #, php-format
 msgid "%s is not authorized for %s."
 msgstr "%s ist für %s nicht autorisiert."
@@ -85,7 +85,7 @@ msgstr "6 Stunden"
 msgid "<Previous"
 msgstr "<Zurück"
 
-#: lib/Horde.php:156
+#: lib/Horde.php:163
 msgid "A fatal error has occurred"
 msgstr "Ein schwerer Fehler ist aufgetreten:"
 
@@ -297,15 +297,15 @@ msgstr "Das Konto ablehnen:"
 msgid "Department"
 msgstr "Abteilung"
 
-#: lib/Horde.php:173
+#: lib/Horde.php:180
 msgid "Details"
 msgstr "Details"
 
-#: lib/Horde.php:178
+#: lib/Horde.php:185
 msgid "Details have been logged for the administrator."
 msgstr "Details wurden für den Administrator mitgeloggt."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1149
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1166
 #, php-format
 msgid "Dial %s"
 msgstr "%s wählen"
@@ -392,7 +392,7 @@ msgstr "Freitag"
 msgid "Global Preferences"
 msgstr "Allgemeine Einstellungen"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1294
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1311
 msgid "Google Maps"
 msgstr "Google Maps"
 
@@ -470,8 +470,8 @@ msgstr "Abmelden"
 msgid "MM"
 msgstr "MM"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1220
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1269
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1237
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1286
 msgid "MapQuest map"
 msgstr "MapQuest-Karte"
 
@@ -530,7 +530,7 @@ msgstr "Nach unten"
 msgid "Move up"
 msgstr "Nach oben"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1189
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1206
 msgid "Multimap UK map"
 msgstr "Multimap-UK-Karte"
 
@@ -563,7 +563,7 @@ msgid "No children can be added to this permission."
 msgstr ""
 "Unterhalb dieser Ebene können keine weiteren Unterrechte hinzugefügt werden."
 
-#: lib/Horde.php:949
+#: lib/Horde.php:953
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Für %s wurden keine Konfigurationsinformationen angegeben."
@@ -576,6 +576,7 @@ msgstr "Keine gültige E-Mail-Adresse gefunden"
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1072
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1083
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1100
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1117
 msgid "No values"
 msgstr "Keine Werte"
 
@@ -641,7 +642,7 @@ msgstr "Benutzereinstellungen für %s"
 msgid "Preferred Address"
 msgstr "Bevorzugte Adresse"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1492
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1509
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -663,7 +664,7 @@ msgstr "Entfernen"
 msgid "Remove source"
 msgstr "Quelle entfernen"
 
-#: lib/Horde.php:958
+#: lib/Horde.php:962
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "\"%s\" wurde in der Konfiguration für %s nicht angegeben."
@@ -722,7 +723,7 @@ msgstr "Wählen Sie die Identität, die Sie ändern möchten:"
 msgid "Selected address books:"
 msgstr "Ausgewählte Adressbücher:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1165
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1182
 msgid "Send SMS"
 msgstr "SMS verschicken"
 
@@ -782,29 +783,29 @@ msgstr ""
 "Die E-Mail-Adresse %s wurde zu Ihren Identitäten hinzugefügt. Sie können "
 "dieses Fenster jetzt schließen."
 
-#: lib/Horde.php:732
+#: lib/Horde.php:736
 msgid "The encryption features require a secure web connection."
 msgstr ""
 "Die Verschlüsselungsfunktionen benötigen eine sichere Serververbindung."
 
-#: lib/Horde.php:959
+#: lib/Horde.php:963
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "Die Datei %s sollte einen %s Eintrag enthalten."
 
-#: lib/Horde.php:950
+#: lib/Horde.php:954
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "Die Datei %s sollte einige %s Einträge enthalten."
 
-#: lib/Horde/Registry.php:2347
+#: lib/Horde/Registry.php:2353
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
 "Bei den folgenden Anwendungen sind Fehler aufgetreten, während die "
 "Benutzerdaten entfernt wurden: %s"
 
-#: lib/Horde.php:174
+#: lib/Horde.php:181
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
@@ -862,7 +863,7 @@ msgstr "Beim Lesen der Kontaktdaten ist ein Fehler aufgetreten."
 msgid "There were errors encountered while updating your preferences."
 msgstr "Beim Speichern Ihrer Einstellungen sind Fehler aufgetreten."
 
-#: lib/Horde/Registry.php:444
+#: lib/Horde/Registry.php:446
 msgid "This system is currently deactivated."
 msgstr "Dieses System ist zur Zeit deaktiviert."
 
@@ -941,7 +942,7 @@ msgstr "Mi"
 msgid "Wednesday"
 msgstr "Mittwoch"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1196
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1213
 msgid "Whereis Australia map"
 msgstr "Whereis-Australia-Karte"
 
@@ -959,7 +960,7 @@ msgstr "Telefon geschäftlich"
 msgid "YYYY"
 msgstr "JJJJ"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1240
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1257
 msgid "Yahoo! map"
 msgstr "Yahoo! Karte"
 
@@ -974,11 +975,11 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Sie dürfen nicht mehr als %d Block erstellen."
 msgstr[1] "Sie dürfen nicht mehr als %d Blöcke erstellen."
 
-#: lib/Horde/Registry.php:2314
+#: lib/Horde/Registry.php:2320
 msgid "You are not allowed to remove user data."
 msgstr "Sie dürfen keine Benutzerdaten löschen."
 
-#: lib/Horde/Registry.php:1897
+#: lib/Horde/Registry.php:1899
 msgid "You are not authenticated."
 msgstr "Sie sind nicht angemeldet."
 

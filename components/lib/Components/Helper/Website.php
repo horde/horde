@@ -68,7 +68,9 @@ class Components_Helper_Website
         $archive = $component->placeArchive(
             $tmp_dir, array('logger' => $this->_output)
         );
-
+        if (!$archive[0]) {
+            throw new Components_Exception('Failed retrieving the component archive!');
+        }
         system('cd ' . $tmp_dir . ' && tar zxpf ' . $archive[0]);
 
         $source = preg_replace('/\.tgz$/', '', $archive[0]);

@@ -46,7 +46,7 @@ class Horde_Kolab_Server_Class_Server_Structure_KolabTest extends PHPUnit_Framew
 
     public function testMethodGetsupportedobjectsHasResultArrayTheObjectTypesSupportedByThisStructure()
     {
-        $this->assertType('array', $this->composite->structure->getSupportedObjects());
+        $this->assertInternalType('array', $this->composite->structure->getSupportedObjects());
     }
 
     public function testMethodDeterminetypeHasResultStringTheObjectclassOfTheGivenGuid1()

@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [jan] Fix tests to work with PHPUnit 3.6.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -678,7 +678,7 @@
    <date>2011-07-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [jan] Fix tests to work with PHPUnit 3.6.
    </notes>
   </release>
  </changelog>

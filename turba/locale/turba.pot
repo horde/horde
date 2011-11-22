@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Turba H4 (3.0.10-git)\n"
+"Project-Id-Version: Turba H4 (3.0.11-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-01 12:57+0100\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgstr ""
 msgid "<< Merge this into the first contact"
 msgstr ""
 
-#: lib/Block/Minisearch.php:59
+#: lib/Block/Minisearch.php:62
 msgid "A browser that supports iframes is required"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgid "Address Book Listing"
 msgstr ""
 
 #: config/prefs.php:12 config/prefs.php:13 config/prefs.php:19
-#: lib/Block/Minisearch.php:39
+#: lib/Block/Minisearch.php:43
 msgid "Address Books"
 msgstr ""
 
@@ -343,7 +343,7 @@ msgstr ""
 msgid "Common Video Call"
 msgstr ""
 
-#: config/backends.php:332
+#: config/backends.php:338
 msgid "Communications"
 msgstr ""
 
@@ -363,7 +363,7 @@ msgstr ""
 msgid "Connection failure"
 msgstr ""
 
-#: lib/Block/Minisearch.php:18
+#: lib/Block/Minisearch.php:25
 msgid "Contact Search"
 msgstr ""
 
@@ -559,7 +559,7 @@ msgstr ""
 msgid "Export the following address book completely."
 msgstr ""
 
-#: config/backends.php:645
+#: config/backends.php:651
 msgid "Facebook Friends"
 msgstr ""
 
@@ -591,7 +591,7 @@ msgstr ""
 msgid "Failed to search the directory: %s"
 msgstr ""
 
-#: config/backends.php:614
+#: config/backends.php:620
 msgid "Favourite Recipients"
 msgstr ""
 
@@ -702,7 +702,7 @@ msgstr ""
 msgid "IM Address"
 msgstr ""
 
-#: config/backends.php:770
+#: config/backends.php:776
 msgid "IMSP"
 msgstr ""
 
@@ -795,7 +795,7 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: config/backends.php:327
+#: config/backends.php:333
 msgid "Location"
 msgstr ""
 
@@ -882,7 +882,7 @@ msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
 msgstr ""
 
-#: config/backends.php:487
+#: config/backends.php:493
 msgid "My Address Book"
 msgstr ""
 
@@ -1001,11 +1001,11 @@ msgstr ""
 msgid "Only one vcard supported."
 msgstr ""
 
-#: config/backends.php:336
+#: config/backends.php:342
 msgid "Organization"
 msgstr ""
 
-#: config/backends.php:337
+#: config/backends.php:343
 msgid "Other"
 msgstr ""
 
@@ -1058,7 +1058,7 @@ msgstr ""
 msgid "Permission denied"
 msgstr ""
 
-#: config/backends.php:324
+#: config/backends.php:330
 msgid "Personal"
 msgstr ""
 
@@ -1083,7 +1083,7 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: config/backends.php:576
+#: config/backends.php:582
 msgid "Private Address Book"
 msgstr ""
 
@@ -1248,11 +1248,11 @@ msgstr ""
 msgid "Selected address book \"%s\"."
 msgstr ""
 
-#: config/backends.php:226
+#: config/backends.php:232
 msgid "Shared Address Books"
 msgstr ""
 
-#: config/backends.php:369
+#: config/backends.php:375
 msgid "Shared Directory"
 msgstr ""
 

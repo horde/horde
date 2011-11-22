@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -152,8 +152,8 @@ msgstr ""
 "Lesen der Nachricht mit der ID %s fehlgeschlagen. Fehlermeldung des Servers: "
 "%s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:843
-#: lib/Horde/Kolab/Storage/Folder/Base.php:849
+#: lib/Horde/Kolab/Storage/Folder/Base.php:842
+#: lib/Horde/Kolab/Storage/Folder/Base.php:848
 #, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr ""
@@ -166,7 +166,7 @@ msgstr ""
 msgid "Failed setting ACL on folder %s for user %s to %s. Error: %s"
 msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:228
+#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:224
 #, php-format
 msgid "Failed triggering folder %s. Error was: %s"
 msgstr "Fehler beim Anlegen des Ordners %s. Fehlermeldung des Servers: %s"
@@ -178,7 +178,7 @@ msgid ""
 "\"pear\", \"horde\", \"horde-php\", and \"roundcube\"!"
 msgstr ""
 
-#: lib/Horde/Kolab/Storage/Factory.php:244
+#: lib/Horde/Kolab/Storage/Factory.php:243
 #, fuzzy, php-format
 msgid "Invalid \"namespace\" type \"%s\"!"
 msgstr "Ungültiger Kolab-Objekttyp \"%s\"."
@@ -248,7 +248,7 @@ msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 msgid "Setting annotation %s[%s] on folder %s%s to %s failed. Error: %s"
 msgstr "Das Anzeigen der Sessions ist fehlgeschlagen: %s"
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:260
+#: lib/Horde/Kolab/Storage/Data/Base.php:259
 #, fuzzy, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -259,7 +259,7 @@ msgstr ""
 "dass dieses Kolab-Object von jemand anderem verändert wurde, während Sie es "
 "bearbeitet haben. Ihre Änderungen sind verloren."
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:682
+#: lib/Horde/Kolab/Storage/Folder/Base.php:681
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -270,7 +270,7 @@ msgstr ""
 "dass dieses Kolab-Object von jemand anderem verändert wurde, während Sie es "
 "bearbeitet haben. Ihre Änderungen sind verloren."
 
-#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:217
+#: lib/Horde/Kolab/Storage/Data/Format/Mime.php:216
 #, php-format
 msgid ""
 "This is a Kolab Groupware object. To view this object you will need an email "
@@ -281,14 +281,14 @@ msgstr ""
 "Sie ein E-Mail-Programm, das das Kolab-Groupware-Format unterstützt. Eine "
 "Liste solcher Programme finden Sie unter %s"
 
-#: lib/Horde/Kolab/Storage/Folder/Base.php:365
+#: lib/Horde/Kolab/Storage/Folder/Base.php:364
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr ""
 "%s konnte nicht nach %s umbenannt werden: Das Zielverzeichnis existiert "
 "bereits"
 
-#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:261
+#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:257
 #, php-format
 msgid "Unable to trigger URL %s. Response: %s"
 msgstr "Die URL %s konnte nicht angesprochen werden. Antwort: %s"

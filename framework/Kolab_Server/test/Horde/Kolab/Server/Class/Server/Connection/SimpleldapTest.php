@@ -50,7 +50,7 @@ extends Horde_Kolab_Server_LdapTestCase
     {
         $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
-        $this->assertType('Horde_Ldap', $conn->getRead());
+        $this->assertInstanceOf('Horde_Ldap', $conn->getRead());
     }
 
     public function testMethodGetwriteHasResultNetldap2TheHandledConnection()

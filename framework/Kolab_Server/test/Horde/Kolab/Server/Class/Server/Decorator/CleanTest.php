@@ -94,7 +94,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_CleanTest extends PHPUnit_Framew
             ->method('find')
             ->with($query)
             ->will($this->returnValue($result));
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Result_Interface',
             $this->cleaner->find($query)
         );
@@ -110,7 +110,7 @@ class Horde_Kolab_Server_Class_Server_Decorator_CleanTest extends PHPUnit_Framew
             ->method('findBelow')
             ->with($query, 'none')
             ->will($this->returnValue($result));
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Result_Interface',
             $this->cleaner->findBelow($query, 'none')
         );

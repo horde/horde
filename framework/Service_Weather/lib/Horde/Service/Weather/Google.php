@@ -24,45 +24,11 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     const API_URL = 'http://www.google.com/ig/api';
 
     /**
-     * The http client
-     *
-     * @var Horde_Http_Client
-     */
-    protected $_http;
-
-    /**
-     * Local cache of current conditions
-     *
-     */
-    protected $_current;
-
-    /**
-     * Local cache of forecast
-     *
-     * @var array
-     */
-    protected $_forecast = array();
-
-    /**
-     * Local cache of station data
-     *
-     * @var Horde_Service_Weather_Station
-     */
-    protected $_station;
-
-    /**
      * Language to request strings from Google in.
      *
      * @var string
      */
     protected $_language = 'en';
-
-    /**
-     * Cache of last requested location.
-     *
-     * @var string
-     */
-    protected $_lastLocation;
 
     public $title = 'Google Weather';
     public $link = 'http://google.com';
@@ -111,12 +77,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     public function __construct(array $params = array())
     {
-        // Check required api key parameters here...
-        if (empty($params['http_client'])) {
-            throw new InvalidArgumentException('Missing required http_client parameter.');
-        }
-        $this->_http = $params['http_client'];
-        unset($params['http_client']);
         if (!empty($params['language'])) {
             $this->_language = $params['language'];
         }
@@ -221,6 +181,13 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
                 Horde_Service_Weather::UNITS_STANDARD :
                 Horde_Service_Weather::UNITS_METRIC;
         $this->_station = $this->_parseStation($results->weather->forecast_information);
+
+        // Sunrise/Sunset
+        if (!empty($this->_station->lat)) {
+            $date = new Horde_Date(time());
+            $this->_station->sunset = new Horde_Date(date_sunset($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $this->_station->lat, $this->_station->lon));
+            $this->_station->sunrise = new Horde_Date(date_sunrise($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $this->_station->lat, $this->_station->lon));
+        }
         $this->_forecast = $this->_parseForecast($results->weather);
         $this->_current = $this->_parseCurrent($results->weather->current_conditions);
         $this->_current->time = new Horde_Date((string)$results->weather->forecast_information->current_date_time['data']);

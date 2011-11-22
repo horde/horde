@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgstr[1] ""
 msgid "Daily"
 msgstr ""
 
-#: lib/Horde/Date.php:253
+#: lib/Horde/Date.php:252
 #, php-format
 msgid "Failed to parse time string (%s)"
 msgstr ""

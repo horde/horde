@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -21,44 +21,44 @@ msgstr ""
 msgid "Disposition Notification"
 msgstr "Empfangsbestätigung"
 
-#: lib/Horde/Mime/Mail.php:446
+#: lib/Horde/Mime/Mail.php:457
 msgid "HTML Version of Message"
 msgstr "HTML-Version der Nachricht"
 
-#: lib/Horde/Mime/Mail.php:390
+#: lib/Horde/Mime/Mail.php:401
 #, php-format
 msgid "Invalid character in e-mail address: %s."
 msgstr "Ungültiges Zeichen in der E-Mail-Adresse: %s."
 
-#: lib/Horde/Mime/Headers.php:534
+#: lib/Horde/Mime/Headers.php:528
 msgid "List-Archive"
 msgstr "Listen-Archiv"
 
-#: lib/Horde/Mime/Headers.php:529
+#: lib/Horde/Mime/Headers.php:523
 msgid "List-Help"
 msgstr "Listen-Hilfe"
 
-#: lib/Horde/Mime/Headers.php:536
+#: lib/Horde/Mime/Headers.php:530
 msgid "List-Id"
 msgstr "Listen-Id"
 
-#: lib/Horde/Mime/Headers.php:532
+#: lib/Horde/Mime/Headers.php:526
 msgid "List-Owner"
 msgstr "Listen-Besitzer"
 
-#: lib/Horde/Mime/Headers.php:533
+#: lib/Horde/Mime/Headers.php:527
 msgid "List-Post"
 msgstr "Listen-Adresse"
 
-#: lib/Horde/Mime/Headers.php:531
+#: lib/Horde/Mime/Headers.php:525
 msgid "List-Subscribe"
 msgstr "Listen-Anmeldung"
 
-#: lib/Horde/Mime/Headers.php:530
+#: lib/Horde/Mime/Headers.php:524
 msgid "List-Unsubscribe"
 msgstr "Listen-Abmeldung"
 
-#: lib/Horde/Mime/Mail.php:444
+#: lib/Horde/Mime/Mail.php:455
 msgid "Plaintext Version of Message"
 msgstr "Textversion der Nachricht"
 

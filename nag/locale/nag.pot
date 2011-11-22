@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Nag H4 (3.0.5-git)\n"
+"Project-Id-Version: Nag H4 (3.0.6-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-11-01 12:53+0100\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,17 +63,17 @@ msgstr ""
 msgid "%d minutes"
 msgstr ""
 
-#: lib/Nag.php:691
+#: lib/Nag.php:692
 #, php-format
 msgid "%s at %s"
 msgstr ""
 
-#: lib/Application.php:371 lib/Block/Summary.php:140 lib/Nag.php:869
+#: lib/Application.php:371 lib/Block/Summary.php:140 lib/Nag.php:870
 #, php-format
 msgid "%s is due in %s"
 msgstr ""
 
-#: lib/Application.php:372 lib/Block/Summary.php:137 lib/Nag.php:867
+#: lib/Application.php:372 lib/Block/Summary.php:137 lib/Nag.php:868
 #, php-format
 msgid "%s is due now."
 msgstr ""
@@ -88,11 +88,11 @@ msgstr ""
 msgid "%s successfully imported"
 msgstr ""
 
-#: lib/Form/Task.php:64 lib/Nag.php:642
+#: lib/Form/Task.php:64 lib/Nag.php:643
 msgid "(highest)"
 msgstr ""
 
-#: lib/Form/Task.php:68 lib/Nag.php:642
+#: lib/Form/Task.php:68 lib/Nag.php:643
 msgid "(lowest)"
 msgstr ""
 
@@ -215,66 +215,66 @@ msgstr ""
 msgid "Change your task sorting and display preferences."
 msgstr ""
 
-#: lib/Nag.php:1064
+#: lib/Nag.php:1065
 #, php-format
 msgid "Changed alarm from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:1043
+#: lib/Nag.php:1044
 #, php-format
 msgid "Changed assignee from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:1028
+#: lib/Nag.php:1029
 #, php-format
 msgid "Changed category from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:1079
+#: lib/Nag.php:1080
 #, php-format
 msgid "Changed completion from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:1084
+#: lib/Nag.php:1085
 msgid "Changed description"
 msgstr ""
 
-#: lib/Nag.php:1052
+#: lib/Nag.php:1053
 #, php-format
 msgid "Changed due date from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:1074
+#: lib/Nag.php:1075
 #, php-format
 msgid "Changed estimate from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:1006
+#: lib/Nag.php:1007
 #, php-format
 msgid "Changed name from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:1020
+#: lib/Nag.php:1021
 #, php-format
 msgid "Changed parent task from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:1069
+#: lib/Nag.php:1070
 #, php-format
 msgid "Changed priority from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:1058
+#: lib/Nag.php:1059
 #, php-format
 msgid "Changed start date from %s to %s"
 msgstr ""
 
-#: lib/Nag.php:1012
+#: lib/Nag.php:1013
 #, php-format
 msgid "Changed task list from \"%s\" to \"%s\""
 msgstr ""
 
-#: lib/Nag.php:1003
+#: lib/Nag.php:1004
 msgid "Changes made for this task:"
 msgstr ""
 
@@ -333,7 +333,7 @@ msgstr ""
 msgid "Complete tasks"
 msgstr ""
 
-#: lib/Block/Summary.php:209 lib/Nag.php:706 mobile.php:129
+#: lib/Block/Summary.php:209 lib/Nag.php:707 mobile.php:129
 msgid "Completed"
 msgstr ""
 
@@ -400,7 +400,7 @@ msgstr ""
 msgid "Date:"
 msgstr ""
 
-#: lib/Nag.php:738 lib/Ui/VarRenderer/Nag.php:191
+#: lib/Nag.php:739 lib/Ui/VarRenderer/Nag.php:191
 msgid "Day(s)"
 msgstr ""
 
@@ -553,7 +553,7 @@ msgstr ""
 msgid "General Preferences"
 msgstr ""
 
-#: lib/Nag.php:741 lib/Ui/VarRenderer/Nag.php:190
+#: lib/Nag.php:742 lib/Ui/VarRenderer/Nag.php:190
 msgid "Hour(s)"
 msgstr ""
 
@@ -627,7 +627,7 @@ msgstr ""
 msgid "Maximum Number of Tasks"
 msgstr ""
 
-#: lib/Nag.php:744 lib/Ui/VarRenderer/Nag.php:190
+#: lib/Nag.php:745 lib/Ui/VarRenderer/Nag.php:190
 msgid "Minute(s)"
 msgstr ""
 
@@ -635,7 +635,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:1217
+#: lib/Api.php:1216
 msgid "Multiple iCalendar components found; only one vTodo is supported."
 msgstr ""
 
@@ -680,7 +680,7 @@ msgstr ""
 msgid "No due date."
 msgstr ""
 
-#: lib/Api.php:848 lib/Api.php:900 lib/Api.php:1224
+#: lib/Api.php:848 lib/Api.php:900 lib/Api.php:1223
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -688,7 +688,7 @@ msgstr ""
 msgid "No parent task"
 msgstr ""
 
-#: lib/Nag.php:887
+#: lib/Nag.php:888
 msgid "No task lists are available to guests."
 msgstr ""
 
@@ -704,11 +704,11 @@ msgstr ""
 msgid "No tasks to display"
 msgstr ""
 
-#: lib/Form/Task.php:96 lib/Nag.php:748 lib/Ui/VarRenderer/Nag.php:206
+#: lib/Form/Task.php:96 lib/Nag.php:749 lib/Ui/VarRenderer/Nag.php:206
 msgid "None"
 msgstr ""
 
-#: lib/Nag.php:707
+#: lib/Nag.php:708
 msgid "Not Completed"
 msgstr ""
 
@@ -757,9 +757,9 @@ msgid "Parent task"
 msgstr ""
 
 #: lib/Api.php:798 lib/Api.php:827 lib/Api.php:945 lib/Api.php:984
-#: lib/Api.php:999 lib/Api.php:1038 lib/Api.php:1076 lib/Api.php:1101
-#: lib/Api.php:1153 lib/Api.php:1170 lib/Api.php:1200 lib/Api.php:1286
-#: lib/Api.php:1365 lib/Api.php:1422 lib/Application.php:306 lib/Nag.php:333
+#: lib/Api.php:999 lib/Api.php:1038 lib/Api.php:1076 lib/Api.php:1100
+#: lib/Api.php:1152 lib/Api.php:1169 lib/Api.php:1199 lib/Api.php:1285
+#: lib/Api.php:1364 lib/Api.php:1421 lib/Application.php:306 lib/Nag.php:333
 msgid "Permission Denied"
 msgstr ""
 
@@ -1064,15 +1064,15 @@ msgstr ""
 msgid "Task UID %s not found"
 msgstr ""
 
-#: lib/Nag.php:985
+#: lib/Nag.php:986
 msgid "Task added:"
 msgstr ""
 
-#: lib/Nag.php:1089
+#: lib/Nag.php:1090
 msgid "Task deleted:"
 msgstr ""
 
-#: lib/Nag.php:1106
+#: lib/Nag.php:1107
 msgid "Task description:"
 msgstr ""
 
@@ -1081,7 +1081,7 @@ msgstr ""
 msgid "Task list of %s"
 msgstr ""
 
-#: lib/Nag.php:996
+#: lib/Nag.php:997
 msgid "Task modified:"
 msgstr ""
 
@@ -1097,7 +1097,7 @@ msgstr ""
 msgid "Tasklist does not exist or no permission to edit"
 msgstr ""
 
-#: lib/Api.php:1337 lib/Tasklists/Kolab.php:21
+#: lib/Api.php:1336 lib/Tasklists/Kolab.php:21
 msgid "Tasks"
 msgstr ""
 
@@ -1128,23 +1128,23 @@ msgstr ""
 msgid "The current hour"
 msgstr ""
 
-#: lib/Nag.php:989
+#: lib/Nag.php:990
 #, php-format
 msgid ""
 "The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
 msgstr ""
 
-#: lib/Nag.php:990
+#: lib/Nag.php:991
 #, php-format
 msgid "The task \"%s\" has been added to task list \"%s\"."
 msgstr ""
 
-#: lib/Nag.php:1093
+#: lib/Nag.php:1094
 #, php-format
 msgid "The task \"%s\" has been deleted from task list \"%s\"."
 msgstr ""
 
-#: lib/Nag.php:999
+#: lib/Nag.php:1000
 #, php-format
 msgid "The task \"%s\" has been edited on task list \"%s\"."
 msgstr ""
@@ -1202,7 +1202,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:492 lib/Api.php:840 lib/Api.php:1209
+#: lib/Api.php:492 lib/Api.php:840 lib/Api.php:1208
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
@@ -1231,11 +1231,11 @@ msgstr ""
 msgid "To subscribe to this task list from another program, use this URL:"
 msgstr ""
 
-#: lib/Nag.php:1048
+#: lib/Nag.php:1049
 msgid "Turned privacy off"
 msgstr ""
 
-#: lib/Nag.php:1048
+#: lib/Nag.php:1049
 msgid "Turned privacy on"
 msgstr ""
 
@@ -1249,13 +1249,13 @@ msgstr ""
 msgid "Unable to load the definition of %s."
 msgstr ""
 
-#: lib/Nag.php:601
+#: lib/Nag.php:602
 #, php-format
 msgid "Unable to save task list \"%s\": %s"
 msgstr ""
 
 #: lib/Block/Summary.php:38 lib/Block/Summary.php:258 lib/Form/Task.php:92
-#: lib/Nag.php:1403 lib/Nag.php:1404 lib/Nag.php:1418 lib/Nag.php:1419
+#: lib/Nag.php:1404 lib/Nag.php:1405 lib/Nag.php:1419 lib/Nag.php:1420
 #: templates/list/task_summaries.inc:77 templates/view/task.inc:9
 msgid "Unfiled"
 msgstr ""
@@ -1264,8 +1264,8 @@ msgstr ""
 msgid "Unique ID"
 msgstr ""
 
-#: lib/Api.php:605 lib/Api.php:931 lib/Api.php:1061 lib/Api.php:1124
-#: lib/Api.php:1269
+#: lib/Api.php:605 lib/Api.php:931 lib/Api.php:1061 lib/Api.php:1123
+#: lib/Api.php:1268
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""
@@ -1282,7 +1282,7 @@ msgstr ""
 msgid "We would like to remind you of this due task."
 msgstr ""
 
-#: lib/Nag.php:735 lib/Ui/VarRenderer/Nag.php:191
+#: lib/Nag.php:736 lib/Ui/VarRenderer/Nag.php:191
 msgid "Week(s)"
 msgstr ""
 
@@ -1304,7 +1304,7 @@ msgstr ""
 msgid "Which tasklist should the tasks be added to?"
 msgstr ""
 
-#: lib/Nag.php:590 tasklists/edit.php:26
+#: lib/Nag.php:591 tasklists/edit.php:26
 msgid "You are not allowed to change this task list."
 msgstr ""
 
@@ -1313,7 +1313,7 @@ msgstr ""
 msgid "You are not allowed to create more than %d tasks."
 msgstr ""
 
-#: lib/Nag.php:617 tasklists/delete.php:27
+#: lib/Nag.php:618 tasklists/delete.php:27
 msgid "You are not allowed to delete this task list."
 msgstr ""
 
@@ -1333,16 +1333,16 @@ msgid ""
 "the task list%s and change your preferences."
 msgstr ""
 
-#: lib/Nag.php:986
+#: lib/Nag.php:987
 msgid "You requested to be notified when tasks are added to your task lists."
 msgstr ""
 
-#: lib/Nag.php:1091
+#: lib/Nag.php:1092
 msgid ""
 "You requested to be notified when tasks are deleted from your task lists."
 msgstr ""
 
-#: lib/Nag.php:997
+#: lib/Nag.php:998
 msgid "You requested to be notified when tasks are edited on your task lists."
 msgstr ""
 
@@ -1444,7 +1444,7 @@ msgstr ""
 msgid "by me"
 msgstr ""
 
-#: lib/Nag.php:1080 lib/Nag.php:1081
+#: lib/Nag.php:1081 lib/Nag.php:1082
 msgid "completed"
 msgstr ""
 
@@ -1457,15 +1457,15 @@ msgstr ""
 msgid "in %s"
 msgstr ""
 
-#: lib/Nag.php:1053 lib/Nag.php:1054
+#: lib/Nag.php:1054 lib/Nag.php:1055
 msgid "no due date"
 msgstr ""
 
-#: lib/Nag.php:1021 lib/Nag.php:1022
+#: lib/Nag.php:1022 lib/Nag.php:1023
 msgid "no parent"
 msgstr ""
 
-#: lib/Nag.php:1059 lib/Nag.php:1060
+#: lib/Nag.php:1060 lib/Nag.php:1061
 msgid "no start date"
 msgstr ""
 
@@ -1473,7 +1473,7 @@ msgstr ""
 msgid "no time"
 msgstr ""
 
-#: lib/Nag.php:1080 lib/Nag.php:1081
+#: lib/Nag.php:1081 lib/Nag.php:1082
 msgid "not completed"
 msgstr ""
 

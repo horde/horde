@@ -13,7 +13,7 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('whups', array('authentication' => 'none'));
 
 // Get an instance of the Whups scheduler.
-$reminder = Horde_Scheduler::unserialize('Horde_Scheduler_Whups');
+$reminder = Horde_Scheduler::unserialize('Whups_Scheduler');
 
 // Check for and send reminders.
 $reminder->run();

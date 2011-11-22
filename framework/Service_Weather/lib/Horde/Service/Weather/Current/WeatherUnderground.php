@@ -65,12 +65,12 @@
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['wind_mph'];
             }
-            return (int)$this->_properties['wind_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KNOTS;
+            return (int)$this->_properties['wind_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KPH;
         case 'wind_gust':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['wind_gust_mph'];
             }
-            return $this->_properties['wind_gust_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KNOTS;
+            return $this->_properties['wind_gust_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KPH;
 
         case 'dewpoint':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {

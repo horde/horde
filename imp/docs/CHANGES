@@ -15,6 +15,8 @@ v5.1-git
 v5.0.15-git
 -----------
 
+[mms] HTML drafts saved in IMP are resumed in that mode, regardless of the
+      'compose_html' preference (Request #10787).
 [mms] Improved tree display when displaying all message parts.
 [mms] Fix DNS resolution when sending attachment viewed messages (Bug #10784).
 [mms] Fix switching quicksearch criteria while a search is active in dynamic

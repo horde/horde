@@ -115,7 +115,7 @@ class Horde_Kolab_Server_Class_Server_Query_ElementTest extends PHPUnit_Framewor
     {
         $less = new Horde_Kolab_Server_Query_Element_Less('', '');
         $not = new Horde_Kolab_Server_Query_Element_Not($less);
-        $this->assertType('array', $not->getElements());
+        $this->assertInternalType('array', $not->getElements());
     }
 
     public function testClassNotMethodConvertHasResultMixedTheConvertedElement()

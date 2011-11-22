@@ -9,6 +9,8 @@
  * @subpackage UnitTests
  */
 
+require_once dirname(__FILE__) . '/Autoload.php';
+
 /**
  * @category   Horde
  * @package    Yaml
@@ -133,7 +135,7 @@ class Horde_Yaml_LoaderTest extends PHPUnit_Framework_TestCase
     public function testLoadStreamThrowsWhenStreamIsResourceButNotStream()
     {
         $resourceButNotStream = xml_parser_create();
-        $this->assertType('resource', $resourceButNotStream);
+        $this->assertInternalType('resource', $resourceButNotStream);
 
         try {
             Horde_Yaml::loadStream($resourceButNotStream);
@@ -344,7 +346,7 @@ class Horde_Yaml_LoaderTest extends PHPUnit_Framework_TestCase
   !php/object::Horde_Yaml_Test_Serializable
   string');
 
-        $this->assertType('Horde_Yaml_Test_Serializable', $result['obj']);
+        $this->assertInstanceOf('Horde_Yaml_Test_Serializable', $result['obj']);
         $this->assertSame('string', $result['obj']->test());
 
         // Horde_Yaml_Test_NotSerializable doesn't implement Serializable: FAILURE

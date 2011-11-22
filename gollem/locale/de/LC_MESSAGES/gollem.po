@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-10-11 11:56+0200\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: 2011-10-11 11:57+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -19,22 +19,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: manager.php:64
+#: manager.php:62
 #, php-format
 msgid "\"%s\" renamed to \"%s\""
 msgstr "\"%s\" nach \"%s\" umbenannt"
 
-#: quota.php:49
+#: quota.php:50
 #, php-format
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
-#: manager.php:579
+#: manager.php:556
 #, php-format
 msgid "%d item"
 msgstr "%d Element"
 
-#: manager.php:579
+#: manager.php:556
 #, php-format
 msgid "%d items"
 msgstr "%d Elemente"
@@ -44,7 +44,7 @@ msgstr "%d Elemente"
 msgid "%s successfully saved."
 msgstr "%s erfolgreich gespeichert."
 
-#: manager.php:190
+#: manager.php:177
 #, php-format
 msgid "%s was successfully pasted."
 msgstr "%s wurde erfolgreich eingefügt."
@@ -54,17 +54,17 @@ msgstr "%s wurde erfolgreich eingefügt."
 msgid "Access denied to %s"
 msgstr "Zugriff auf %s verweigert"
 
-#: lib/Gollem.php:48 lib/Gollem.php:294 lib/Gollem.php:341 lib/Gollem.php:363
-#: lib/Gollem.php:383
+#: lib/Gollem.php:48 lib/Gollem.php:295 lib/Gollem.php:344 lib/Gollem.php:366
+#: lib/Gollem.php:386
 #, php-format
 msgid "Access denied to folder \"%s\"."
 msgstr "Zugriff auf Verzeichnis \"%s\" verweigert."
 
-#: templates/manager/manager.html:108
+#: templates/manager/manager.html:110
 msgid "Actions:"
 msgstr "Aktionen:"
 
-#: selectlist.php:87
+#: selectlist.php:79
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -104,66 +104,66 @@ msgstr "Backends"
 msgid "Below is the current contents of your clipboard."
 msgstr "Unten sehen Sie den aktuellen Inhalt der Zwischenablage."
 
-#: clipboard.php:24 manager.php:302 selectlist.php:89
+#: clipboard.php:24 manager.php:281 selectlist.php:81
 #: templates/edit/edit.inc:13
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: manager.php:89
+#: manager.php:82
 #, php-format
 msgid "Cannot chmod %s: %s"
 msgstr "Die Zugriffsrechte für \"%s\" konnten nicht geändert werden: %s"
 
-#: manager.php:162
+#: manager.php:152
 msgid "Cannot copy items onto clipboard."
 msgstr "Elemente konnten nicht in die Zwischenablage kopiert werden."
 
-#: manager.php:237
+#: manager.php:223
 #, php-format
 msgid "Cannot create home directory: %s"
 msgstr "Das Heimverzeichnis kann nicht erstellt werden: %s"
 
-#: manager.php:164
+#: manager.php:154
 msgid "Cannot cut items onto clipboard."
 msgstr "Elemente konnten nicht in die Zwischenablage verschoben werden."
 
-#: manager.php:192
+#: manager.php:179
 #, php-format
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr ""
 "\"%s\" kann nicht eingefügt werden (Datei aus Zwischenablage entfernt): %s"
 
-#: manager.php:330 templates/manager/manager.html:70
+#: manager.php:307 templates/manager/manager.html:70
 msgid "Change Folder"
 msgstr "Verzeichnis wechseln"
 
-#: templates/manager/manager.html:110
+#: templates/manager/manager.html:112
 msgid "Change Permissions"
 msgstr "Rechte Ändern"
 
-#: lib/Gollem.php:585
+#: lib/Gollem.php:588
 msgid "Change Server"
 msgstr "Server wechseln"
 
-#: lib/Application.php:288
+#: lib/Application.php:286
 msgid "Check Quota"
 msgstr "Speicherplatz überprüfen"
 
-#: manager.php:575
+#: manager.php:552
 msgid "Check _All/None"
 msgstr "_Alle/Keine auswählen"
 
-#: manager.php:87
+#: manager.php:80
 msgid "Chmod done: "
 msgstr "Zugriffsrechte geändert: "
 
-#: lib/Application.php:258
+#: lib/Application.php:256
 msgid "Choose which columns to display, and in what order:"
 msgstr ""
 "Wählen Sie aus, welche Spalten in welcher Reihenfolge angezeigt werden "
 "sollen:"
 
-#: clipboard.php:25 templates/manager/manager.html:129
+#: clipboard.php:25 templates/manager/manager.html:131
 msgid "Clear"
 msgstr "Entfernen"
 
@@ -171,23 +171,23 @@ msgstr "Entfernen"
 msgid "Clipboard"
 msgstr "Zwischenablage"
 
-#: quota.php:28
+#: quota.php:26
 msgid "Close"
 msgstr "Schließen"
 
-#: lib/Application.php:262
+#: lib/Application.php:260
 msgid "Columns that will not be displayed:"
 msgstr "Spalten die nicht angezeigt werden:"
 
-#: clipboard.php:28 templates/manager/manager.html:113
+#: clipboard.php:28 templates/manager/manager.html:115
 msgid "Copy"
 msgstr "Kopieren"
 
-#: manager.php:323 templates/manager/manager.html:58
+#: manager.php:300 templates/manager/manager.html:58
 msgid "Create Folder"
 msgstr "Verzeichnis erstellen"
 
-#: permissions.php:53
+#: permissions.php:45
 #, php-format
 msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
@@ -200,7 +200,7 @@ msgstr ""
 msgid "Current directory:"
 msgstr "Aktuelles Verzeichnis:"
 
-#: clipboard.php:27 templates/manager/manager.html:114
+#: clipboard.php:27 templates/manager/manager.html:116
 msgid "Cut"
 msgstr "Ausschneiden"
 
@@ -212,7 +212,7 @@ msgstr "Sortierreihenfolge:"
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
-#: templates/manager/manager.html:117
+#: templates/manager/manager.html:119
 msgid "Delete"
 msgstr "Löschen"
 
@@ -224,15 +224,11 @@ msgstr "Verzeichnisse rekursiv löschen?"
 msgid "Descending"
 msgstr "Absteigend"
 
-#: selectlist.php:88
+#: selectlist.php:80
 msgid "Done"
 msgstr "Fertig"
 
-#: manager.php:247
-msgid "Download"
-msgstr "Herunterladen"
-
-#: manager.php:450
+#: manager.php:427
 #, php-format
 msgid "Download %s"
 msgstr "%s Herunterladen"
@@ -240,10 +236,6 @@ msgstr "%s Herunterladen"
 #: templates/quota/quota.html:7
 msgid "ERROR:"
 msgstr "FEHLER:"
-
-#: manager.php:246
-msgid "Edit"
-msgstr "Bearbeiten"
 
 #: templates/edit/edit.inc:8
 #, php-format
@@ -254,7 +246,7 @@ msgstr "%s Bearbeiten"
 msgid "Execute"
 msgstr "Ausführen"
 
-#: templates/javascript_defs.php:22 templates/manager/manager.html:195
+#: templates/javascript_defs.php:22 templates/manager/manager.html:201
 msgid "File"
 msgstr "Datei"
 
@@ -286,7 +278,7 @@ msgstr "Dateityp"
 msgid "File action settings."
 msgstr "Dateiaktionen-Einstellungen"
 
-#: manager.php:104
+#: manager.php:97
 msgid "File deleted: "
 msgstr "Datei gelöscht: "
 
@@ -294,7 +286,7 @@ msgstr "Datei gelöscht: "
 msgid "File display preferences."
 msgstr "Dateianzeige-Einstellungen"
 
-#: manager.php:126
+#: manager.php:118
 #, php-format
 msgid "File received: %s"
 msgstr "Datei hochgeladen: %s"
@@ -303,15 +295,15 @@ msgstr "Datei hochgeladen: %s"
 msgid "Files must be written inside a VFS backend."
 msgstr "Dateien müssen innerhalb eines VFS-Backends gespeichert werden."
 
-#: templates/manager/manager.html:127
+#: templates/manager/manager.html:129
 msgid "Filter"
 msgstr "Filter"
 
-#: templates/manager/manager.html:126
+#: templates/manager/manager.html:128
 msgid "Filter:"
 msgstr "Filter:"
 
-#: manager.php:96
+#: manager.php:89
 msgid "Folder removed: "
 msgstr "Verzeichnis gelöscht: "
 
@@ -323,29 +315,21 @@ msgstr "Ordner müssen innerhalb eines VFS-Backends angelegt werden."
 msgid "Go to:"
 msgstr "Gehe zu:"
 
-#: permissions.php:22
-msgid "Gollem Backend Permissions Administration"
-msgstr "Gollem Backend Rechteverwaltung"
-
-#: manager.php:554 templates/manager/manager.html:10
+#: manager.php:531 templates/manager/manager.html:10
 msgid "Group"
 msgstr "Gruppe"
-
-#: manager.php:71
-msgid "Incorrect number of items."
-msgstr "Ungültige Anzahl von Elementen."
 
 #: lib/Api.php:405
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr "Ungültiges Backend: %s"
 
-#: manager.php:155
+#: manager.php:146
 #, php-format
 msgid "Item copied to clipboard: %s"
 msgstr "Element in Zwischenablage kopiert: %s"
 
-#: manager.php:157
+#: manager.php:148
 #, php-format
 msgid "Item cut to clipboard: %s"
 msgstr "Element in Zwischenablage verschoben: %s"
@@ -362,11 +346,11 @@ msgstr "Sprache"
 msgid "List folders first?"
 msgstr "Verzeichnisse zuerst anzeigen?"
 
-#: manager.php:524
+#: manager.php:501
 msgid "Modified"
 msgstr "Geändert"
 
-#: manager.php:502
+#: manager.php:479
 msgid "Name"
 msgstr "Name"
 
@@ -374,7 +358,7 @@ msgstr "Name"
 msgid "Name:"
 msgstr "Name:"
 
-#: manager.php:49
+#: manager.php:47
 msgid "New folder created: "
 msgstr "Neues Verzeichnis erstellt: "
 
@@ -386,11 +370,11 @@ msgstr "Nein"
 msgid "No quota found."
 msgstr "Keine Speicherplatzbegrenzung gefunden."
 
-#: manager.php:303
+#: manager.php:282
 msgid "OK"
 msgstr "OK"
 
-#: manager.php:547 templates/manager/manager.html:9
+#: manager.php:524 templates/manager/manager.html:9
 msgid "Owner"
 msgstr "Besitzer"
 
@@ -398,16 +382,16 @@ msgstr "Besitzer"
 msgid "Paste"
 msgstr "Einfügen"
 
-#: manager.php:540
+#: manager.php:517
 msgid "Permission"
 msgstr "Rechte"
 
-#: selectlist.php:69
+#: selectlist.php:65
 #, php-format
 msgid "Permission denied to %s: %s"
 msgstr "Zugriff auf %s verweigert: %s"
 
-#: manager.php:230
+#: manager.php:216
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
 msgstr "Zugriff auf Verzeichnis \"%s\" verweigert: %s"
@@ -432,7 +416,7 @@ msgstr "Bitte wählen Sie ein Element aus, bevor Sie diese Aktion durchführen."
 msgid "Please specify at least one file to upload."
 msgstr "Bitte geben Sie mindestens eine Datei zum Hochladen an."
 
-#: quota.php:56 templates/quota/quota.html:2
+#: quota.php:57 templates/quota/quota.html:2
 msgid "Quota Display"
 msgstr "Speicherplatz"
 
@@ -440,11 +424,11 @@ msgstr "Speicherplatz"
 msgid "Read"
 msgstr "Lesen"
 
-#: manager.php:308
+#: manager.php:287
 msgid "Refresh"
 msgstr "Aktualisiere"
 
-#: templates/manager/manager.html:44 templates/manager/manager.html:120
+#: templates/manager/manager.html:44 templates/manager/manager.html:122
 msgid "Rename"
 msgstr "Umbenennen"
 
@@ -460,7 +444,7 @@ msgstr "Das Umbenennen von Backends ist nicht erlaubt."
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: manager.php:301 templates/edit/edit.inc:11
+#: manager.php:280 templates/edit/edit.inc:11
 msgid "Save"
 msgstr "Speichern"
 
@@ -472,7 +456,7 @@ msgstr "Alle auswählen"
 msgid "Select None"
 msgstr "Keine auswählen"
 
-#: lib/Application.php:260
+#: lib/Application.php:258
 msgid "Select a backend:"
 msgstr "Backend auswählen:"
 
@@ -484,7 +468,7 @@ msgstr "Server"
 msgid "Show dotfiles?"
 msgstr "Versteckte Dateien anzeigen?"
 
-#: manager.php:532
+#: manager.php:509
 msgid "Size"
 msgstr "Größe"
 
@@ -504,11 +488,11 @@ msgstr "Die folgenden Elemente werden endgültig gelöscht:"
 msgid "The original opener window has been closed. Exiting."
 msgstr "Das Ursprungs-Fenster ist geschlossen worden. Abbruch."
 
-#: selectlist.php:184 templates/manager/manager.html:138
+#: selectlist.php:176 templates/manager/manager.html:140
 msgid "There are no files in this folder."
 msgstr "Dieses Verzeichnis ist leer."
 
-#: lib/Application.php:259
+#: lib/Application.php:257
 msgid "These columns will display in this order:"
 msgstr "Diese Spalten werden in der folgenden Reihenfolge angezeigt:"
 
@@ -529,7 +513,7 @@ msgstr ""
 "markieren Sie das Kästchen neben dem Dateinamen und klicken Sie auf &quot;"
 "Einfügen&quot;."
 
-#: manager.php:494
+#: manager.php:471
 msgid "Type"
 msgstr "Typ"
 
@@ -537,27 +521,27 @@ msgstr "Typ"
 msgid "Unable to create Gollem session"
 msgstr "Gollemsession konnte nicht gestartet werden"
 
-#: permissions.php:48
+#: permissions.php:40
 #, php-format
 msgid "Unable to create backend permission: %s"
 msgstr "Die Backendrechte konnten nicht erstellt werden: %s"
 
-#: manager.php:106
+#: manager.php:99
 #, php-format
 msgid "Unable to delete file %s: %s"
 msgstr "Die Datei \"%s\" konnte nicht gelöscht werden: %s"
 
-#: manager.php:98
+#: manager.php:91
 #, php-format
 msgid "Unable to delete folder %s: %s"
 msgstr "Das Verzeichnis \"%s\" konnte nicht gelöscht werden: %s"
 
-#: lib/Gollem.php:549 lib/Gollem.php:559
+#: lib/Gollem.php:552 lib/Gollem.php:562
 #, php-format
 msgid "Up to %s"
 msgstr "Hoch nach %s"
 
-#: manager.php:319
+#: manager.php:296
 msgid "Upload File(s)"
 msgstr "Datei(en) Hochladen"
 
@@ -565,7 +549,7 @@ msgstr "Datei(en) Hochladen"
 msgid "User Interface"
 msgstr "Benutzeroberfläche"
 
-#: manager.php:314
+#: manager.php:291
 msgid "View Clipboard"
 msgstr "Zwischenablage anzeigen"
 
@@ -583,22 +567,14 @@ msgstr ""
 "Sie müssen mindestens ein Backend konfiguriert haben, bevor Sie Rechte "
 "festlegen können."
 
-#: lib/Gollem.php:583 lib/Gollem.php:586
+#: lib/Gollem.php:586 lib/Gollem.php:589
 msgid "_Change Server"
 msgstr "Server _wechseln"
 
-#: lib/Application.php:275
+#: lib/Application.php:273
 msgid "_My Home"
 msgstr "_Meine Startseite"
 
-#: lib/Application.php:278
+#: lib/Application.php:276
 msgid "_Permissions"
 msgstr "_Rechte"
-
-#: manager.php:248 selectlist.php:79
-msgid "folder"
-msgstr "Verzeichnis"
-
-#: manager.php:249 selectlist.php:80
-msgid "symlink"
-msgstr "symbolischer Link"

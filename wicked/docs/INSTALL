@@ -58,11 +58,9 @@ To function properly, Wicked **requires** the following:
 Installing Wicked
 =================
 
-There are several ways to install Wicked. The recommended way to install Wicked
-is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Wicked from Git.
-
+The **RECOMMENDED** way to install Wicked is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Wicked from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -88,42 +86,12 @@ your PHP configuration::
 
    pear install -a horde/wicked
 
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+See::
 
-.. Important:: As of today, there are no tarballs released for Wicked 1
-               yet. Please use the `Installing with PEAR`_ method to install
-               Wicked 1.
-
-Wicked can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/wicked
-
-   ftp://ftp.horde.org/pub/wicked/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Wicked is written in PHP, and must be installed in a web-accessible directory.
-The precise location of this directory will differ from system to system.
-Conventionally, Wicked is installed directly underneath Horde in the web
-server's document tree.
-
-Since Wicked is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the URL.  For
-example, with the Apache web server's default document root of
-``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/wicked-h4-1.0.tar.gz
-   mv wicked-h4-1.0 wicked
-
-and would then find Wicked at the URL::
-
-   http://your-server/horde/wicked/
+   http://horde.org/source/git.php
 
 
 Configuring Wicked

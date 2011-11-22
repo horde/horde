@@ -53,7 +53,7 @@ extends Horde_Kolab_Server_TestCase
     public function testMethodGetattributeReturnsAttributeInteralAssociatedWithThisAttribute()
     {
         $attribute = new Attribute_Mock($this->attribute, '');
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Structure_Attribute_Interface',
             $attribute->getAttribute()
         );

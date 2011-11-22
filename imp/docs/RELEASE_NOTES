@@ -25,18 +25,19 @@ clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
 The major changes compared to the IMP version H4 (5.0.14) are:
     * Added preference to mark deleted messages as seen.
-    * Improve privacy protection when viewing message.
-    * Improve performance when loading contacts.
-    * Fix access to certain POP3 servers.
+    * Improved UI for advanced sorting options.
+    * Improved privacy protection when viewing message.
+    * Improved performance when loading contacts.
+    * Fixed access to certain POP3 servers.
     * Further bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Added preference to mark deleted messages as seen.
-Improve privacy protection when viewing message.
-Improve performance when loading contacts.
-Fix access to certain POP3 servers.
+Improved privacy protection when viewing message.
+Improved performance when loading contacts.
+Fixed access to certain POP3 servers.
 Further bugfixes and improvements.
 FM;
 

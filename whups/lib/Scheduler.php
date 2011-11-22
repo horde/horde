@@ -1,11 +1,10 @@
 <?php
 /**
- * Horde_Scheduler_whups:: Send reminders for tickets based on the
- * reminders configuration file.
+ * Send reminders for tickets based on the reminders configuration file.
  *
  * @package Horde_Scheduler
  */
-class Horde_Scheduler_Whups extends Horde_Scheduler
+class Whups_Scheduler extends Horde_Scheduler
 {
     protected $_reminders;
     protected $_runtime;

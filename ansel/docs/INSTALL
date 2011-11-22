@@ -110,11 +110,9 @@ To function properly, Ansel **requires** the following:
 Installing Ansel
 ================
 
-There are several ways to install Ansel. The recommended way to install Ansel
-is using the PEAR installer. Alternatively, if you want to run the latest
-development code, or get the latest, not yet released, fixes, you can install
-Ansel from Git.
-
+The **RECOMMENDED** way to install Ansel is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Ansel from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -140,42 +138,12 @@ your PHP configuration::
 
    pear install -a horde/ansel-alpha
 
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
 
-Installing from Release Tarballs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+See::
 
-.. Important:: As of today, there are no tarballs released for Ansel 2
-               yet. Please use the `Installing with PEAR`_ method to install
-               Ansel 2.
-
-Ansel can be obtained from the Horde website and FTP server, at
-
-   http://www.horde.org/apps/ansel
-
-   ftp://ftp.horde.org/pub/ansel/
-
-Or use the mirror closest to you:
-
-   http://www.horde.org/mirrors.php
-
-Ansel is written in PHP, and must be installed in a web-accessible
-directory. The precise location of this directory will differ from system to
-system. Conventionally, Ansel is installed directly underneath Horde in the
-web server's document tree.
-
-Since Ansel is written in PHP, there is no compilation necessary; simply
-expand the distribution where you want it to reside and rename the root
-directory of the distribution to whatever you wish to appear in the URL. For
-example, with the Apache web server's default document root of
-``/usr/local/apache/htdocs``, you would type::
-
-   cd /usr/local/apache/htdocs/horde
-   tar zxvf /path/to/ansel-h3-x.y.z.tar.gz
-   mv ansel-h3-x.y.z ansel
-
-and would then find Ansel at the URL::
-
-   http://your-server/horde/ansel/
+   http://horde.org/source/git.php
 
 
 Configuring Ansel
@@ -216,8 +184,8 @@ Configuring Ansel
    Ansel row of the configuration screen.
 
    Alternatively you creating the Ansel database tables can be accomplished with
-   horde's ``horde-db-migrate`` utility.  If your database is properly setup in the
-   Horde configuration, just run the following::
+   horde's ``horde-db-migrate`` utility.  If your database is properly setup in
+   the Horde configuration, just run the following::
 
       horde/bin/horde-db-migrate ansel
 

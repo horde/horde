@@ -116,7 +116,7 @@ if (is_array($info['list']) &&
             $item['graphic'] = '<span class="iconImg folderImg"></span>';
         } else {
             if (empty($icon_cache[$val['type']])) {
-                $icon_cache[$val['type']] = $injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($val['type']);
+                $icon_cache[$val['type']] = Horde::img($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($val['type']));
             }
             $item['graphic'] = $icon_cache[$val['type']];
         }

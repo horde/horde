@@ -23,7 +23,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
 
         $registry = $this->getMockSkipConstructor('Horde_Registry');
         $connector = new Horde_ActiveSync_Driver_Horde_Connector_Registry(array('registry' => $registry));
-        $this->assertType('Horde_ActiveSync_Driver_Horde_Connector_Registry', $connectory);
+        $this->assertInstanceOf('Horde_ActiveSync_Driver_Horde_Connector_Registry', $connectory);
     }
 
     public function testDriverRequiresConnector()
@@ -37,7 +37,7 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_File');
         $driver = new Horde_ActiveSync_Driver_Horde(array('connector' => $connector,
                                                           'state_basic' => $state));
-        $this->assertType('Horde_ActiveSync_Driver', $driver);
+        $this->assertInstanceOf('Horde_ActiveSync_Driver', $driver);
     }
 
     /**
@@ -159,13 +159,13 @@ class Horde_ActiveSync_HordeDriverTest extends Horde_Test_Case
         /* The 'xxx' represents the uid of the object we are getting - which
          * doesn't matter b/c the registry response is mocked */
         $results = $driver->getMessage(Horde_ActiveSync_Driver_Horde::CONTACTS_FOLDER, 'xxx', 0);
-        $this->assertType('Horde_ActiveSync_Message_Contact', $results);
+        $this->assertInstanceOf('Horde_ActiveSync_Message_Contact', $results);
 
         $results = $driver->getMessage(Horde_ActiveSync_Driver_Horde::APPOINTMENTS_FOLDER, 'xxx', 0);
-        $this->assertType('Horde_ActiveSync_Message_Appointment', $results);
+        $this->assertInstanceOf('Horde_ActiveSync_Message_Appointment', $results);
 
         $results = $driver->getMessage(Horde_ActiveSync_Driver_Horde::TASKS_FOLDER, 'xxx', 0);
-        $this->assertType('Horde_ActiveSync_Message_Task', $results);
+        $this->assertInstanceOf('Horde_ActiveSync_Message_Task', $results);
     }
 
     /**

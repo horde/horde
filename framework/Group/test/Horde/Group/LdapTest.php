@@ -133,7 +133,7 @@ class Horde_Group_LdapTest extends Horde_Group_Test_Base
     public static function tearDownAfterClass()
     {
         $config = self::getConfig('GROUP_LDAP_TEST_CONFIG');
-        if ($config && !empty($config['group']['ldap'])) {
+        if (self::$ldap) {
             $possibleids = array('My Group', 'My Other Group', 'My Second Group', 'Not My Group');
             self::$ldap->bind($config['group']['ldap']['writedn'],
                               $config['group']['ldap']['writepw']);

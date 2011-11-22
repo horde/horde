@@ -57,12 +57,16 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
             'params' => $js_params,
             'raw_params' => array(
                 'filterCallback' => 'function(c) {
-                    window.weatherupdate["' . $this->_params['instance'] . '"].choices = c;
-                    var r = [];
-                    c.each(function(i) {
-                        r.push(i.name);
-                    });
-                    return r;
+                    if (c) {
+                        window.weatherupdate["' . $this->_params['instance'] . '"].choices = c;
+                        var r = [];
+                        c.each(function(i) {
+                            r.push(i.name);
+                        });
+                        return r;
+                    } else {
+                        return [];
+                    }
                 }',
                 'onSelect' => 'function(c) {
                     window.weatherupdate["' . $this->_params['instance'] . '"].choices.each(function(i) {

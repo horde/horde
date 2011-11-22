@@ -36,13 +36,22 @@ extends Horde_Push_Recipient_Base
     private $_facebook;
 
     /**
+     * The configuration for this recipient.
+     *
+     * @var array
+     */
+    private $_params;
+
+    /**
      * Constructor.
      *
      * @param Horde_Service_Facebook $facebook The facebook client.
+     * @param array                  $params   The recipient configuration.
      */
-    public function __construct(Horde_Service_Facebook $facebook)
+    public function __construct(Horde_Service_Facebook $facebook, $params = array())
     {
         $this->_facebook = $facebook;
+        $this->_params = $params;
     }
 
     /**
@@ -58,12 +67,29 @@ extends Horde_Push_Recipient_Base
         $text = $content->getSummary();
         if (empty($options['pretend'])) {
             $streams = new Horde_Service_Facebook_Streams($this->_facebook);
-            $streams->publish($text);
+            $streams->publish($text, array(), '', '', '', $this->getAcl());
             return 'Pushed to facebook stream.';
         } else {
             return sprintf(
                 'Would push "%s" to the facebook stream.', $text
             );
         }
+    }
+
+    /**
+     * Retrieve the ACL setting for this recipient.
+     *
+     * @return string The ACL.
+     */
+    protected function getAcl()
+    {
+        $acl = parent::getAcl();
+        if (empty($acl)) {
+            return array();
+        }
+        if (isset($this->_params['acl']['presets'][$acl])) {
+            return $this->_params['acl']['presets'][$acl];
+        }
+        return array('value' => $acl);
     }
 }

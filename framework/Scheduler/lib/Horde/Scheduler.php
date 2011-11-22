@@ -104,10 +104,8 @@ class Horde_Scheduler
      */
     public function unserialize($class, $id = '', $autosave = true)
     {
-        // Need a lowercase version of the classname, and a default
-        // instance of the scheduler object in case we can't retrieve
-        // one.
-        $class = strtolower($class);
+        /* Need a lowercase version of the classname, and a default instance of
+         * the scheduler object in case we can't retrieve one. */
         $scheduler = new $class;
 
         try {

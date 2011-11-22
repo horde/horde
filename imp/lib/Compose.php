@@ -381,7 +381,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 break;
 
             default:
-                $compose_html = false;
+                /* If this is an draft saved by IMP, we know 100% for sure
+                 * that if an HTML part exists, the user was composing in
+                 * HTML. */
+                $compose_html = ($imp_draft !== false);
                 break;
             }
         }
