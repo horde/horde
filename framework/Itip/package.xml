@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-08</date>
- <time>22:40:18</time>
+ <date>2011-11-22</date>
+ <time>20:57:39</time>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -625,7 +625,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-08</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Estonian translation.
