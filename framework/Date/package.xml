@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>15:11:57</time>
+ <time>15:12:48</time>
  <version>
-  <release>1.0.6</release>
+  <release>1.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,11 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Croatian translation.
-* [jan] Update Estonian translation.
-* [jan] Make unit tests Windows compatible.
-* [mjr] Fix timezone bug that could cause an incorrect timezone from being set when creating Horde_Date objects from other Horde_Date or DateTime objects.
-* [mjr] Fix timezone bug that caused some date strings to be parsed as an incorrect timezone.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -673,6 +669,19 @@
 * [jan] Make unit tests Windows compatible.
 * [mjr] Fix timezone bug that could cause an incorrect timezone from being set when creating Horde_Date objects from other Horde_Date or DateTime objects.
 * [mjr] Fix timezone bug that caused some date strings to be parsed as an incorrect timezone.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
