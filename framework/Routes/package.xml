@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-08</date>
- <time>22:49:06</time>
+ <date>2011-11-22</date>
+ <time>21:27:50</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -232,7 +232,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-08</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Make Horde_Routes_Utils::controllerScan() Windows compatible.
