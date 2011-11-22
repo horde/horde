@@ -16,15 +16,15 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-11-04</date>
- <time>13:09:19</time>
+ <date>2011-11-22</date>
+ <time>21:23:33</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0RC1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -168,12 +168,12 @@
   </release>
   <release>
    <version>
-    <release>1.0.0beta1</release>
+    <release>1.0.0RC1</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2011-11-04</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Rename Freshmeat to Freenode.
