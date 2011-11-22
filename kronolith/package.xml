@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-02</date>
- <time>13:23:31</time>
+ <date>2011-11-22</date>
+ <time>23:12:17</time>
  <version>
   <release>3.0.12</release>
   <api>3.0.0</api>
@@ -1938,7 +1938,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Show status of events in agenda messages (Request #10517).
