@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-11</date>
- <time>14:21:03</time>
+ <date>2011-11-22</date>
+ <time>15:18:31</time>
  <version>
   <release>1.1.2</release>
   <api>1.1.0</api>
@@ -531,11 +531,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-11</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mms] Greatly reduce memory usage when working with binary data in PostgreSQL 9.0+ (Bug #10774).
 * [mms] Cache postgresql version.
-* [mms] Greatly reduce memory usage when working with binary data in PostgreSQL (Bug #10774).
 * [jan] Improve API documentation.
    </notes>
   </release>
