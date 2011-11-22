@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix selectlist widget when initial cacheID was not given (Bug #10781).
 * [mms] Fix icon display of files in selectlist widget.
 * [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
 * [jan] Fix autocreating of home folders (Bug #10690).
@@ -714,6 +715,7 @@
    <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix selectlist widget when initial cacheID was not given (Bug #10781).
 * [mms] Fix icon display of files in selectlist widget.
 * [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
 * [jan] Fix autocreating of home folders (Bug #10690).
