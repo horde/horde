@@ -1,0 +1,115 @@
+<?php
+/**
+ * This file contains the Horde_Service_Weather_Period class for abstracting
+ * access to a single forecast period from Wwo.
+ *
+ * Copyright 2011 Horde LLC (http://www.horde.org/)
+ *
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @category Horde
+ * @package  Service_Weather
+ */
+
+/**
+ * Horde_Service_Weather_Period_Wwo
+ *
+ * Provides information for the following properties:
+ *<pre>
+ *  conditions             Condition description.
+ *  icon_url               URL to an appropriate icon provided by the provider.
+ *  icon                   Name of a Horde_Service_Weather icon.
+ *  high                   High temperature.
+ *  low                    Low  temperature.
+ *  date                   Period date.
+ *  humidity               The predicted humidity
+ *  wind_degrees           Wind direction, in degrees
+ *  wind_direction         Ordinal wind direction
+ *  wind_speed             Wind speed, in requested units.
+ *</pre>
+ *
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Service_Weather
+ */
+class Horde_Service_Weather_Period_Wwo extends Horde_Service_Weather_Period_Base
+{
+    /**
+     * Property Map
+     *
+     * @TODO Figure out what to do with the 'skyicon' value - which is sometimes
+     *       different than the icon and icon_url. Also, should add a icon set
+     *       property to allow using other icon sets e.g., {icon_set_url}/{icon}.gif
+     *
+     * @var array
+     */
+     protected $_map = array();
+
+    /**
+     * Accessor so we can lazy-parse the results.
+     *
+     * @param string $property  The property name.
+     *
+     * @return mixed  The value of requested property
+     * @throws Horde_Service_Weather_Exception_InvalidProperty
+     */
+    public function __get($property)
+    {
+        switch ($property) {
+        case 'humidity':
+        case 'precipitation_percent':
+        case 'wind_gust':
+            return null;
+
+        case 'conditions':
+            return $this->_properties->weatherDesc[0]->value;
+
+        case 'icon_url':
+            return $this->_properties->weatherIconUrl[0]->value;
+
+        case 'is_pm':
+             // Wunderground only supports standard
+            return false;
+
+        case 'hour':
+             // Wunderground supports this, but we don't.
+            return false;
+
+        case 'date':
+            return new Horde_Date($this->_properties->date);
+
+        case 'high':
+            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties->tempMaxF ;
+            }
+            return $this->_properties->tempMaxC;
+
+        case 'low':
+            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties->tempMinF;
+            }
+            return $this->_properties->tempMinC;
+
+        case 'icon':
+            return $this->_forecast->weather->iconMap[
+                str_replace('.png', '', basename($this->_properties->weatherIconUrl[0]->value))
+            ];
+
+        case 'wind_direction':
+            return $this->_properties->winddirection;
+
+        case 'wind_degrees':
+            return $this->_properties->winddirDegree;
+
+        case 'wind_speed':
+           if ($this->units = Horde_Service_Weather::UNITS_STANDARD) {
+               return $this->_properties->windspeedMiles;
+           }
+           return $this->_properties->windspeedKmph;
+
+        default:
+            throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support the "' . $property . '" property');
+        }
+    }
+
+}

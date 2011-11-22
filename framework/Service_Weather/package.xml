@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-17</date>
- <time>18:36:24</time>
+ <date>2011-11-21</date>
+ <time>19:01:31</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -34,6 +34,7 @@
         <file name="Base.php" role="php" />
         <file name="Google.php" role="php" />
         <file name="WeatherUnderground.php" role="php" />
+        <file name="Wwo.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Weather/Current -->
        <dir name="Exception">
         <file name="InvalidProperty.php" role="php" />
@@ -42,11 +43,13 @@
         <file name="Base.php" role="php" />
         <file name="Google.php" role="php" />
         <file name="WeatherUnderground.php" role="php" />
+        <file name="Wwo.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Weather/Forecast -->
        <dir name="Period">
         <file name="Base.php" role="php" />
         <file name="Google.php" role="php" />
         <file name="WeatherUnderground.php" role="php" />
+        <file name="Wwo.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Weather/Period -->
        <file name="Base.php" role="php" />
        <file name="Exception.php" role="php" />
@@ -54,6 +57,8 @@
        <file name="Station.php" role="php" />
        <file name="Translation.php" role="php" />
        <file name="WeatherUnderground.php" role="php" />
+       <file name="WeatherUnderground_Strings.php" role="php" />
+       <file name="Wwo.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Weather -->
       <file name="Weather.php" role="php" />
      </dir> <!-- /lib/Horde/Service -->
@@ -232,16 +237,21 @@
    <install as="Horde/Service/Weather/Station.php" name="lib/Horde/Service/Weather/Station.php" />
    <install as="Horde/Service/Weather/Translation.php" name="lib/Horde/Service/Weather/Translation.php" />
    <install as="Horde/Service/Weather/WeatherUnderground.php" name="lib/Horde/Service/Weather/WeatherUnderground.php" />
+   <install as="Horde/Service/Weather/WeatherUnderground_Strings.php" name="lib/Horde/Service/Weather/WeatherUnderground_Strings.php" />
+   <install as="Horde/Service/Weather/Wwo.php" name="lib/Horde/Service/Weather/Wwo.php" />
    <install as="Horde/Service/Weather/Current/Base.php" name="lib/Horde/Service/Weather/Current/Base.php" />
    <install as="Horde/Service/Weather/Current/Google.php" name="lib/Horde/Service/Weather/Current/Google.php" />
    <install as="Horde/Service/Weather/Current/WeatherUnderground.php" name="lib/Horde/Service/Weather/Current/WeatherUnderground.php" />
+   <install as="Horde/Service/Weather/Current/Wwo.php" name="lib/Horde/Service/Weather/Current/Wwo.php" />
    <install as="Horde/Service/Weather/Exception/InvalidProperty.php" name="lib/Horde/Service/Weather/Exception/InvalidProperty.php" />
    <install as="Horde/Service/Weather/Forecast/Base.php" name="lib/Horde/Service/Weather/Forecast/Base.php" />
    <install as="Horde/Service/Weather/Forecast/Google.php" name="lib/Horde/Service/Weather/Forecast/Google.php" />
    <install as="Horde/Service/Weather/Forecast/WeatherUnderground.php" name="lib/Horde/Service/Weather/Forecast/WeatherUnderground.php" />
+   <install as="Horde/Service/Weather/Forecast/Wwo.php" name="lib/Horde/Service/Weather/Forecast/Wwo.php" />
    <install as="Horde/Service/Weather/Period/Base.php" name="lib/Horde/Service/Weather/Period/Base.php" />
    <install as="Horde/Service/Weather/Period/Google.php" name="lib/Horde/Service/Weather/Period/Google.php" />
    <install as="Horde/Service/Weather/Period/WeatherUnderground.php" name="lib/Horde/Service/Weather/Period/WeatherUnderground.php" />
+   <install as="Horde/Service/Weather/Period/Wwo.php" name="lib/Horde/Service/Weather/Period/Wwo.php" />
    <install as="locale/Horde_Service_Weather.pot" name="locale/Horde_Service_Weather.pot" />
    <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="themes/default/graphics/weather/23x23/0.png" name="themes/default/graphics/weather/23x23/0.png" />
@@ -354,7 +364,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-07</date>
+   <date>2011-11-21</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.
