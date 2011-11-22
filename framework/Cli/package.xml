@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>12:08:02</time>
+ <time>12:08:48</time>
  <version>
-  <release>1.0.4</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Don&apos;t overwrite $_SERVER superglobals unconditionally, to allow setting them through environment variables (Bug #10758).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -608,6 +608,19 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t overwrite $_SERVER superglobals unconditionally, to allow setting them through environment variables (Bug #10758).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
