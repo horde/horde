@@ -77,9 +77,14 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         }
 
         $weather = $this->_create();
-        $units = $weather->getUnits($weather->units);
-        $forecast = $weather->getForecast($this->_location, Horde_Service_Weather::FORECAST_7DAY);
-        $current = $weather->getCurrentConditions($this->_location);
+
+        try {
+            $units = $weather->getUnits($weather->units);
+            $forecast = $weather->getForecast($this->_location, Horde_Service_Weather::FORECAST_7DAY);
+            $current = $weather->getCurrentConditions($this->_location);
+        } catch (Horde_Service_Weather_Exception $e) {
+            throw new Timeobjects_Exception($e);
+        }
 
         $objects = array();
         foreach ($forecast as $data) {
