@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [jan] Update Estonian translation.
 * [jan] Fix tests to work with PHPUnit 3.6.
  </notes>
  <contents>
@@ -678,6 +679,7 @@
    <date>2011-07-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [jan] Update Estonian translation.
 * [jan] Fix tests to work with PHPUnit 3.6.
    </notes>
   </release>
