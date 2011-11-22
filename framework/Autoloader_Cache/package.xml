@@ -14,11 +14,11 @@
  <time>12:04:06</time>
  <version>
   <release>1.0.0</release>
-  <api>1.0.0RC1</api>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -105,7 +105,7 @@
   <release>
    <version>
     <release>1.0.0</release>
-    <api>1.0.0RC1</api></version>
+    <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
