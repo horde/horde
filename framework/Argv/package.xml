@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>15:56:05</time>
+ <date>2011-11-22</date>
+ <time>11:51:00</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -34,6 +34,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Argv">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Argv -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Argv">
@@ -387,6 +394,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Argv/COPYING" />
    <install as="Horde/Argv/AmbiguousOptionException.php" name="lib/Horde/Argv/AmbiguousOptionException.php" />
    <install as="Horde/Argv/BadOptionException.php" name="lib/Horde/Argv/BadOptionException.php" />
    <install as="Horde/Argv/Exception.php" name="lib/Horde/Argv/Exception.php" />
@@ -676,7 +684,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Update Estonian translation.
