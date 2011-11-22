@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Estonian translation.
 * [jan] Update Hungarian translation.
 * [jan] Fix tests to work with PHPUnit 3.6.
 * [mjr] Add Horde_Service_Weather factory.
@@ -1644,6 +1645,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Estonian translation.
 * [jan] Update Hungarian translation.
 * [jan] Fix tests to work with PHPUnit 3.6.
 * [mjr] Add Horde_Service_Weather factory.
