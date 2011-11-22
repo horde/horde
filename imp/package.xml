@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-21</date>
- <time>10:03:28</time>
+ <date>2011-11-22</date>
+ <time>23:04:15</time>
  <version>
   <release>5.0.15</release>
   <api>5.0.0</api>
@@ -2572,7 +2572,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-21</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Honor sortpref locked status.

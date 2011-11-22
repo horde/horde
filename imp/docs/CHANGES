@@ -1,6 +1,6 @@
------------
-v5.0.15-git
------------
+-------
+v5.0.15
+-------
 
 [mms] Honor sortpref locked status.
 [mms] HTML drafts saved in IMP are resumed in that mode, regardless of the
