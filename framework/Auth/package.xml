@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>11:53:52</time>
+ <time>11:55:10</time>
  <version>
-  <release>1.4.5</release>
+  <release>1.4.6</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Estonian translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -598,6 +598,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Estonian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.6</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
