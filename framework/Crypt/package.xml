@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-11-22</date>
- <time>15:05:18</time>
+ <time>15:06:16</time>
  <version>
-  <release>1.0.6</release>
+  <release>1.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Croatian translation.
-* [jan] Update Estonian translation.
-* [mms] Upgrade signed S/MIME output to comply with S/MIME version 3.2.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -698,6 +696,19 @@ Initial release as a PEAR package
 * [jan] Update Croatian translation.
 * [jan] Update Estonian translation.
 * [mms] Upgrade signed S/MIME output to comply with S/MIME version 3.2.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
