@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [jan] Fix retrieving driver list if Horde_Service_Weather is not installed.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -292,7 +292,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [jan] Fix retrieving driver list if Horde_Service_Weather is not installed.
    </notes>
   </release>
  </changelog>
