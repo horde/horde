@@ -808,7 +808,7 @@ Initial release as a PEAR package
    <date>2011-11-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Add a version of the convert command for center cropping with ImageMagick versions less than 6.3.8 (Bug # 10687).
+* [mjr] Add a version of the convert command for center cropping with ImageMagick versions less than 6.3.8 (Bug #10687).
    </notes>
   </release>
   <release>

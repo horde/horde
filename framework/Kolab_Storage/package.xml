@@ -1052,16 +1052,16 @@
    <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [gwr] Readded support for updating Horde_History.
-* [gwr] Fixed support for multiple namespaces of the same type.
+* [gwr] Readd support for updating Horde_History.
+* [gwr] Fix support for multiple namespaces of the same type.
 * [jan] Update Latvian translation.
-* [gwr] Added support for retrieving objects by backend id.
-* [gwr] Added a handler for active sync settings.
-* [gwr] Added preference data query.
-* [gwr] Added support for storing data query results in the cache.
-* [gwr] Added support for deleting messages by backend UID.
-* [jan] Updated Spanish translation.
-* [gwr] Added logging for data handlers.
+* [gwr] Add support for retrieving objects by backend id.
+* [gwr] Add a handler for active sync settings.
+* [gwr] Add preference data query.
+* [gwr] Add support for storing data query results in the cache.
+* [gwr] Add support for deleting messages by backend UID.
+* [jan] Update Spanish translation.
+* [gwr] Add logging for data handlers.
    </notes>
   </release>
   <release>

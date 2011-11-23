@@ -554,7 +554,7 @@
    <date>2011-10-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* Prevent unnecessary URL redirection if no logintasks need to be confirmed.
+* [mms] Prevent unnecessary URL redirection if no logintasks need to be confirmed.
    </notes>
   </release>
   <release>

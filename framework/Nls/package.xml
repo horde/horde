@@ -597,7 +597,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-10-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Added ISO 639 language code lookup.
+* [mms] Add ISO 639 language code lookup.
    </notes>
   </release>
   <release>
@@ -610,8 +610,8 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Updated German translation.
-* [jan] Updated Brazilian Portuguese translation.
+* [jan] Update German translation.
+* [jan] Update Brazilian Portuguese translation.
    </notes>
   </release>
   <release>

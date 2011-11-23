@@ -671,7 +671,8 @@ Initial release as a PEAR package
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Croatian translation (Valentin Vidic &lt;Valentin.Vidic@CARNet.hr&gt;).
+* [jan] Update Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
    </notes>
   </release>
   <release>
