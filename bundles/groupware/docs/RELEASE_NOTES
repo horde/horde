@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 4.0.3.
+version 4.0.4.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -55,7 +55,7 @@ ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added new theme, administration for locks, option to disable password resets, confirmation deleting events, event status in agenda messages, and option which tasklists to synchronize.
+Added new theme, administration for locks, option to disable password resets, confirmation when deleting events, event status in agenda messages, and option which tasklists to synchronize.
 Improved calendar interface and compatibility with CalDAV servers.
 Replaced the weather.com portal block.
 Fixed information disclosure of private tasks.
