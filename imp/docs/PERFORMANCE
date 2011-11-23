@@ -53,7 +53,7 @@ for general performance tips for Horde.
   To use this caching, you must have a ``Cache System`` configured in Horde's
   ``Administration/Configuration`` screen and have the relevant settings
   enabled in IMP's configuration screen
-  (``Administration/Configuration/Webmail/Mailbox``).
+  (``Administration/Configuration/Mail/Mailbox``).
 
 * Configure Horde to use a VFS filesystem-based backend. Presently, the SQL
   VFS backend uses 4-5 times the amount of memory as a filesystem-based
