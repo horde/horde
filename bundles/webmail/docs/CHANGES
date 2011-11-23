@@ -1,6 +1,6 @@
-----------
-v4.0.4-git
-----------
+------
+v4.0.4
+------
 
 [mjr] Add support for Horde_Service_Weather.
 [mjr] Remove support for the now non-existent weatherdotcom API.
