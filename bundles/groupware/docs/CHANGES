@@ -2,6 +2,297 @@
 v4.0.4-git
 ----------
 
+[mjr] Add support for Horde_Service_Weather.
+[mjr] Remove support for the now non-existent weatherdotcom API.
+[jan] Update Croatian translation (Valentin Vidic <Valentin.Vidic@CARNet.hr>).
+[jan] Update Latvian translation (Jānis Eisaks <jancs@dv.lv>).
+[jan] Update Estonian translation (Alar Sing <alar.sing@err.ee>).
+[mjr] Fix removeUserData implementations.
+[gwr] Avoid including the owner name into the default shares (Kolab backends).
+
+Horde Changes
+-------------
+[jan] Add configuration option to disable password resets (Request #10640).
+[cjh] Add Hordevetica theme.
+[mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
+[mjr] Do not show results in the tag cloud block owned by other users.
+[mjr] Update javascript map library.
+[mms] Allow in-page base64 image encoding to be disabled via configuration.
+[jan] Add administration page to list and clear locks.
+
+Address Book Changes
+--------------------
+[mjr] Add the ability to specify the fields to return from contacts/search.
+[jan] Fix importing contacts with composite fields.
+[jan] Fix LDAP connection test (Bug #10554).
+
+Calendar Changes
+----------------
+[jan] Show status of events in agenda messages (Request #10517).
+[mjr] Fix selecting custom time from time selection drop down (Bug #10737).
+[jan] Always use fresh Horde_Http_Client instances for remote calendars (Bug
+      #10740).
+[jan] Add confirmation screen when deleting events in dynamic view (Request
+      #10725).
+[jan] Fix holidays disappearing from month view if deleting another event.
+[jan] Fix resetting attendee response status when saving events in dynamic
+      view (Bug #10620).
+[jan] Support CalDAV servers that don't use DAV: as the default namespace
+      (christof@buergi.lugs.ch, Bug #10716).
+[jan] Allow to view and create copies of holiday events (Bug #10650).
+[jan] Don't show import/export tabs in dynamic view if disabled (Bug #10705).
+[jan] Don't show option to share with everyone in basic permissions if disabled
+      (piper@hrz.uni-marburg.de, Bug #10706).
+[mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
+[mjr] Fix alarms for recurring events (Bug #10678).
+[mjr] Allow filtering listTagInfo results by user.
+[jan] Fix uncompleting tasks in dynamic view (Carlos Timóteo, Bug #10653).
+[cjh/jan] Improve design.
+[mjr] Fix displaying resources when no attendees are present (Bug #10507).
+
+Tasks Changes
+-------------
+[jan] Don't display task details of private tasks via the API (Bug #10712).
+[jan] Use correct locale when parsing quick tasks (thpo+horde@dotrc.de, Bug
+      #10720).
+[cjh] Nicer date/time input with fewer input fields and helper javascript.
+[mjr] Add ability to choose which tasklists to synchronize.
+[mjr] Fix task export to ActiveSync for tasks with no due dates or reminders.
+[jan] Add missing parameters when PUTing tasks (Bug #10545).
+[gwr] Fix Kolab object attribute handling for tasks.
+
+Library Changes
+---------------
+
+[jan] Fix tests to work with PHPUnit 3.6.
+[jan] Make unit tests Windows compatible.
+[jan] Skip Kolab tests if Horde_Kolab_Storage is not installed.
+[jan] Allow to run unit tests from installed package.
+
+ActiveSync
+[mjr] Fix issue with timezones caused by buggy PHP timezone data (Bug #10760).
+[mjr] Fix duplicate entries being sent to client when client does not issue
+      GETCHANGES request (Bug #10731).
+[mjr] Prevent duplicate incoming message additions (Bug #10644).
+
+Auth
+[jan] Catch exceptions from imap library (Bug #10272).
+[jan] Fix detecting locale directory from PEAR installation (Bug #10589).
+[jan] Add missing locale directory (Bug #10589).
+[jan] Add checkPasswordPolicy() and checkPasswordSimilarity() methods.
+
+Browser
+[jan] Fix empty_file_input_value quirk for Chrome browsers (Bug #8438).
+
+Cli
+[jan] Don't overwrite $_SERVER superglobals unconditionally, to allow setting
+      them through environment variables (Bug #10758).
+
+Core
+[mjr] Add Horde_Service_Weather factory.
+[mms] Fix importing CSS data in cache files.
+[mms] Detect @import tags in CSS and add to compressed data.
+[mjr] Add ability to remove temporary files at session shutdown.
+[jan] Fix resetting authentication credentials (Bug #10228).
+[jan] Correctly render keyval_multienum form field contents.
+[jan] Don't use Xcache in CLI scripts (Bug #10288).
+[jan] Fix PostgreSQL DSN when using SQL authentication (Bug #10538).
+[mjr] Add factory for Horde_Service_UrlShortener.
+[mms] Fix minChars behavior in autocomplete javascript code.
+[mms] Allow in-page base64 image encoding to be disabled via Horde
+      configuration.
+[jan] Allow both application and interface names in <configspecial>.
+
+Crypt
+[mms] Upgrade signed S/MIME output to comply with S/MIME version 3.2.
+
+DataTree
+[jan] Add missing dependency on PEAR's DB package.
+
+Date
+[mjr] Fix timezone bug that could cause an incorrect timezone from being set
+      when creating Horde_Date objects from other Horde_Date or DateTime
+      objects.
+[mjr] Fix timezone bug that caused some date strings to be parsed as an
+      incorrect timezone.
+
+Db
+[mms] Greatly reduce memory usage when working with binary data in PostgreSQL
+      9.0+ (Bug #10774).
+[mms] Cache postgresql version.
+[jan] Improve API documentation.
+[jan] More flexible conversion of charset names to native MySQL names.
+[jan] Correctly escape binding characters in buildClause() (Bug #10610).
+[jan] Fix transactions with MySQLi driver (Bug #10578).
+[jan] Fix DISTINCT clause generation on PostgreSQL (Bug #10543).
+[mms] Fix escaping binary data on Postgresql 9.1+ servers (Bug #10602).
+
+Http
+[gwr] Support multiple mock responses with the mock request.
+[gwr] Fixed setting response headers for the mock response.
+[gwr] Added SOCKS proxy support where available.
+
+Icalendar
+[jan] Fix generating VTIMEZONE components.
+
+Image
+[mjr] Add a version of the convert command for center cropping with ImageMagick
+      versions less than 6.3.8 (Bug #10687).
+[mjr] Fix parsing GPS values for locales that do not use the decimal separator
+      (Bug #10643).
+[mjr] Added support for Lens and LensID EXIF fields)
+[mjr] Ensure string values are parsed as strings (Bug #10646).
+[mjr] Add basic unit tests for EXIF data
+
+Imap_Client
+[mms] Workaround missing search charset support in the Socket driver (Bug
+      #10726).
+[mms] Only add CHARSET data to SEARCH queries if necessary (Bug #10726).
+[mms] Fix deletion of cached message entries.
+[mms] Fixed setting data for several POP3 fetch results.
+[mms] Parsing/generating sequence strings for POP3 servers has been fixed.
+[mms] Removed unmaintained Mock driver.
+[mms] API CHANGE: Added Horde_Imap_Client_Mailbox to provide way to accurately
+      switch between UTF7-IMAP and UTF-8 mailbox representations.
+[mms] API CHANGE: Deprecate Horde_Imap_Client_Base::parseCommandArray() - use
+      Horde_Imap_Client_Utils::parseCommandArray() instead.
+[mms] API CHANGE: Added a required parameter ('baseob') to
+      Horde_Imap_Client_Cache constructor.
+[mms] API CHANGE: Added Horde_Imap_Client_Base::writeDebug().
+[mms] API CHANGE: Added Horde_Imap_Client_Base::getIdsOb().
+[mms] API CHANGE: Deprecate Horde_Imap_Client_Cache::singleton().
+[mms] Fix client-side Cc/From/To sorting (Bug #10503).
+[mms] Improved IMAP debug logging.
+[mms] Fix search charset determination for servers that support SORT &amp;
+      ESORT (Bug #10479).
+[mms] Improved phpdoc documentation.
+[mms] API CHANGE: Add shortcuts to get MIME decoded envelope information.
+[mms] Automatically authenticate to server when using a command that requires
+      an authenticated/selected state (Bug #10473).
+
+Itip
+[jan] Make unit tests locale independent.
+
+Kolab_Format
+[gwr] Move Horde specific functionality out of the events parser.
+[gwr] Move Horde specific functionality out of the contacts parser.
+[gwr] Improve data validation.
+[gwr] KEP2 support.
+[gwr] Allow adding XML attributes on the fly.
+[gwr] Avoid overwriting data from other Kolab clients.
+[gwr] Add improved root node handler (version checking, avoids overwriting
+      other data).
+
+Kolab_Storage
+[gwr] Readd support for updating Horde_History.
+[gwr] Fix support for multiple namespaces of the same type.
+[jan] Update Latvian translation.
+[gwr] Add support for retrieving objects by backend id.
+[gwr] Add a handler for active sync settings.
+[gwr] Add preference data query.
+[gwr] Add support for storing data query results in the cache.
+[gwr] Add support for deleting messages by backend UID.
+[jan] Update Spanish translation.
+[gwr] Add logging for data handlers.
+
+Ldap
+[jan] Add missing test autoloader.
+
+Lock
+[jan] Expand width of lock_owner column (Bug #10608).
+
+Log
+[gwr] Fix installation paths (Bug #10588)
+
+LoginTasks
+[mms] Fix advancing tasks pointer if system tasks also exist for an application
+      (Bug #9767).
+[mms] Prevent unnecessary URL redirection if no logintasks need to be confirmed.
+
+Mail
+[mms] Always use canonical line endings in sendmail driver (Bug #10696).
+
+Mime
+[mms] Work around broken number_format() in PHP < 5.4.0.
+[jan] Make unit tests locale independent.
+[mms] Added 'canonical' parameter to Horde_Mime_Headers#toArray() and
+      Horde_Mime_Headers#toString() (Bug #10696).
+[mms] Horde_Mime_Part::getRawPartText() was incorrectly returning a trailing
+      EOL for body data.
+[jan] Add Horde_Mime_Mail#clearParts().
+
+Mime_Viewer
+[mms] Fix iteration through child HTML nodes in the HTML viewer so that
+      extended viewers can do things like remove nodes outright.
+[jan] Fix configuration of syntaxhighlighter viewer.
+
+Nls
+[jan] Update German translation.
+[jan] Update Brazilian Portuguese translation.
+[mms] Added ISO 639 language code lookup.
+
+Pdf
+[gwr] Add missing font files.
+
+Perms
+[jan] Don't allow to create sub permissions of non-existant parent permissions
+      (Bug #10688).
+
+Rdo
+[jan] Add Horde_Rdo_Query#distinct() (Request #10535).
+
+Routes
+[jan] Make Horde_Routes_Utils::controllerScan() Windows compatible.
+[gwr] Only remove the "_controller" suffix if it exists.
+
+Service_Twitter
+[gwr] Fixed posting tweets.
+[mjr] Fix generating OAuth request when multiple URL parameters are passed.
+[mjr] Fix oauth endpoints to reflect Twitter's new requirements for https
+      requests.
+
+Service_Weather
+[mjr] Initial release.
+
+SessionHandler
+[jan] Use portable queries in SQL session handler (Bug #10574).
+
+Stream_Filter
+[mms] Add Bin2hex filter.
+
+SyncMl
+[jan] Fix encoding of CDATA (horde@chk.cksf.de, Bug #10692).
+
+Test
+[jan] Require PHPUnit 3.5 due to BC breaking changes in 3.6.
+[gwr] Added Horde_Test_Stub_Factory as a simple factory stub.
+[gwr] Add Horde_Test_Setup for complex test suite setups.
+
+Text_Diff
+[jan] Fix class names in Horde_Text_Diff_ThreeWay merger (Bug #10548).
+
+Text_Filter
+[mms] Add some more questionable tags/attributes to strip in the XSS filter.
+
+Token
+[jan] Fix skipping tests if PDO driver is not available.
+
+Util
+[jan] Speed up Horde_String::substr() (Evert Pot, Request #8627).
+
+Vfs
+[gwr] Make unit tests timezone independent.
+[jan] Fix reading file sizes from Samba backends.
+[jan] Catch output from smbclient during error conditions (Bug #10638).
+[jan] Implement size() method in Samba driver.
+[jan] Fix setting permissions with File driver (Bug #10630).
+[mms] Fix using File driver if vfsroot directory already exists (Bug #10584).
+[mms] Fix internal reference to QUOTA_METRIC_* constants (Bug #10585).
+[jan] Fix parsing of directory listings on /dev file systems in the SSH driver.
+
+Xml_Wbxml
+[jan] Complete fix for incorrect syncml:metinf and syncml:devinf URNs (Bug
+      #10229).
 
 
 ------
