@@ -2,7 +2,7 @@
 v1.0.4-git
 ----------
 
-[jan] Fix retrieving driver list if Horde_Service_Weather is not installed.
+[jan] Fix retrieving driver list if Horde_Service packages are not installed.
 
 
 ------

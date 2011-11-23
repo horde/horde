@@ -28,6 +28,11 @@ class TimeObjects_Factory_Driver
                 throw new TimeObjects_Exception('Horde_Services_Weather is not installed');
             }
             break;
+        case 'TimeObjects_Driver_FacebookEvents':
+            if (!class_exists('Horde_Service_Facebook')) {
+                throw new TimeObjects_Exception('Horde_Services_Facebook is not installed');
+            }
+            break;
         }
 
         if (class_exists($class)) {
