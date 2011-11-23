@@ -1536,7 +1536,9 @@ var DimpBase = {
             return;
         }
 
-        DimpCore.removeAddressLinks(pm);
+        pm.select('.address').each(function(elt) {
+            DimpCore.DMenu.removeElement(elt.identify());
+        });
 
         // Add subject
         tmp = pm.select('.subject');

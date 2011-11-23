@@ -457,14 +457,6 @@ var DimpCore = {
         $('msgloglist').down('UL').update(tmp);
     },
 
-    /* Removes event handlers from address links. */
-    removeAddressLinks: function(id)
-    {
-        id.select('.address').each(function(elt) {
-            this.DMenu.removeElement(elt.identify());
-        }, this);
-    },
-
     addURLParam: function(url, params)
     {
         var q = url.indexOf('?');
