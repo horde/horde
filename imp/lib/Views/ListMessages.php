@@ -317,7 +317,7 @@ class IMP_Views_ListMessages
         /* If we are updating the rowlist on the browser, and we have cached
          * browser data information, we need to send a list of messages that
          * have 'disappeared'. */
-        if (isset($result->rowlist_reset)) {
+        if (!empty($cached) && isset($result->rowlist_reset)) {
             $disappear = array();
             foreach (array_diff(array_keys($cached), $uidlist) as $uid) {
                 $disappear[] = $uid;
@@ -331,7 +331,9 @@ class IMP_Views_ListMessages
         /* Check for cached entries marked as changed via CONDSTORE IMAP
          * extension. If changed, resend the entire entry to update the
          * browser cache (done below). */
-        if (!is_null($parsed) && !empty($parsed['highestmodseq'])) {
+        if (!empty($cached) &&
+            !is_null($parsed) &&
+            !empty($parsed['highestmodseq'])) {
             $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_LASTMODSEQ | Horde_Imap_Client::STATUS_LASTMODSEQUIDS);
             if ($status['lastmodseq'] == $parsed['highestmodseq']) {
                 /* QRESYNC already provided the updated list of flags - we can
