@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-21</date>
- <time>21:35:43</time>
+ <date>2011-11-23</date>
+ <time>01:03:40</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0alpha1</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [mjr] Fix setting units (Bug #10792).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -386,10 +386,10 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-11-21</date>
+   <date>2011-11-23</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mjr] Fix setting units (Bug #10792).
    </notes>
   </release>
  </changelog>
