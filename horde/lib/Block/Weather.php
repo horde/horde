@@ -58,9 +58,6 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     protected function _params()
     {
-        // @TODO: Autocomplete the location selection? If not via the config
-        // screen see if we can set this value from an autocomplete field on
-        // the main view.
         $weather = $GLOBALS['injector']
             ->getInstance('Horde_Weather');
         $lengths = $weather->getSupportedForecastLengths();
@@ -101,7 +98,9 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         $weather = $GLOBALS['injector']
             ->getInstance('Horde_Weather');
-        $units = $weather->getUnits();
+
+        // Set the requested units.
+        $weather->units = $this->_params['units'];
 
         if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
             $location = $this->_refreshParams->location;
@@ -150,6 +149,10 @@ class Horde_Block_Weather extends Horde_Core_Block
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
+
+        // Units to display as
+        $units = $weather->getUnits($weather->units);
+
         // Location and local time.
         $html .= '<div class="control">'
             . '<strong>' . $station->name . '</strong> ' . _("Local time: ")
