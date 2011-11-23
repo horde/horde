@@ -56,7 +56,9 @@
        <file name="Exception.php" role="php" />
        <file name="Google.php" role="php" />
        <file name="Station.php" role="php" />
-       <file name="Translation.php" role="php" />
+       <file name="Translation.php" role="php">
+        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
        <file name="WeatherUnderground.php" role="php" />
        <file name="WeatherUnderground_Strings.php" role="php" />
        <file name="Wwo.php" role="php" />
