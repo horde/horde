@@ -1582,7 +1582,9 @@ var DimpBase = {
             return;
         }
 
-        DimpCore.removeAddressLinks(pm);
+        pm.select('.address').each(function(elt) {
+            DimpCore.DMenu.removeElement(elt.identify());
+        });
 
         // Add subject
         tmp = pm.select('.subject');
@@ -1633,6 +1635,12 @@ var DimpBase = {
                 ? $('messageBodyError').down().clone(true).show().writeAttribute('id', 'ppane_view_error')
                 : r.msgtext
         );
+
+        // See: http://www.thecssninja.com/javascript/gmail-dragout
+        if (Prototype.Browser.WebKit) {
+            $('messageBody').select('DIV.mimePartInfo A.downloadAtc').invoke('observe', 'dragstart', this._dragAtc);
+        }
+
         this.loadingImg('msg', false);
         $('previewInfo').hide();
         $('previewPane').scrollTop = 0;
@@ -1641,6 +1649,18 @@ var DimpBase = {
         if (r.js) {
             eval(r.js.join(';'));
         }
+    },
+
+    _dragAtc: function(e)
+    {
+        var base = e.element().up();
+
+        e.dataTransfer.setData(
+            'DownloadURL',
+            base.down('IMG').readAttribute('title') + ':' +
+            base.down('SPAN.mimePartInfoDescrip A').getText().gsub(':', '-') + ':' +
+            window.location.origin + e.element().readAttribute('href')
+        );
     },
 
     _stripAttachmentCallback: function(r)
