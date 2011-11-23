@@ -2,10 +2,10 @@
 /**
  * Factory for TimeObjects_Driver
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/bsd BSD
- * @package  Ansel
+ * @package  Timeobjects
  */
 class TimeObjects_Factory_Driver
 {
