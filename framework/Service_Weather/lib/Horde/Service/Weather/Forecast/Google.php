@@ -58,13 +58,4 @@
         }
     }
 
-    /**
-     * @TODO
-     * @return [type]
-     */
-    protected function _parseHourly()
-    {
-        // @TODO: Use the hourly forecast to maybe get a "day"/"night"
-    }
-
  }
