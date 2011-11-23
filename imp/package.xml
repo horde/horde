@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Correctly save mail_domain value if changed in preferences UI.
 * [mms] Purge browser cache daily in dynamic view; updates time stamps to proper format (Request #9773).
  </notes>
  <contents>
@@ -2588,6 +2589,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Correctly save mail_domain value if changed in preferences UI.
 * [mms] Purge browser cache daily in dynamic view; updates time stamps to proper format (Request #9773).
    </notes>
   </release>

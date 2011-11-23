@@ -531,7 +531,7 @@ class IMP_Prefs_Ui
 
         if ($prefs->isDirty('mail_domain')) {
             $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
-            $prefs->setValue('maildomain', $maildomain);
+            $prefs->setValue('mail_domain', $maildomain);
             if (!empty($maildomain)) {
                 $session->set('imp', 'maildomain', $maildomain);
             }
