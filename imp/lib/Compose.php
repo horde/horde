@@ -1090,7 +1090,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 }
 
                 try {
-                    $obs = Horde_Mime_Address::parseAddressList($email);
+                    $obs = Horde_Mime_Address::parseAddressList($email, array(
+                        'defserver' => $GLOBALS['session']->get('imp', 'maildomain')
+                    ));
                 } catch (Horde_Mime_Exception $e) {
                     throw new IMP_Compose_Exception(sprintf(_("Invalid e-mail address: %s."), $email));
                 }
@@ -1135,11 +1137,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _parseAddress($ob, $email)
     {
-        // Make sure we have a valid host.
         $host = trim($ob['host']);
-        if (empty($host)) {
-            $host = $GLOBALS['session']->get('imp', 'maildomain');
-        }
 
         // Convert IDN hosts to ASCII.
         if (function_exists('idn_to_ascii')) {
