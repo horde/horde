@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mjr] Fix path to locale directory.
 * [mjr] Fix setting units (Bug #10792).
  </notes>
  <contents>
@@ -389,6 +390,7 @@
    <date>2011-11-23</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mjr] Fix path to locale directory.
 * [mjr] Fix setting units (Bug #10792).
    </notes>
   </release>
