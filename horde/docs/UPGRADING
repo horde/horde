@@ -33,6 +33,7 @@ update anything that's highlighted as outdated.
 Upgrading Horde from 4.0.x to 4.0.12
 ====================================
 
+
 Weather portal block
 --------------------
 
@@ -52,6 +53,7 @@ service in Horde's configuration::
 Upgrading Horde from 4.0.x to 4.0.10
 ====================================
 
+
 Configuration changes
 ---------------------
 
@@ -60,6 +62,7 @@ The 'nobase64_img' option was added.
 
 Upgrading Horde from 4.0 to 4.0.1
 =================================
+
 
 Configuration Values
 --------------------
@@ -77,6 +80,7 @@ details on this hook.
 
 Upgrading Horde from 3.3.x to 4.x
 =================================
+
 
 New installation method
 -----------------------
