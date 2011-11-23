@@ -1156,6 +1156,72 @@ Notes Changes
 [jan] Add script to convert notes to UTF-8 in the backend.
 
 
+-------
+v1.2.10
+-------
+
+[jan] Add holiday drivers for Australia, Croatia, Finland, Portugal, San
+      Marino, and Spain.
+
+Horde Changes
+-------------
+[jan] Convert charset of group names in SQL driver (Bug #9611).
+[jan] Fix deleting of SyncML anchors if PHP short_open_tag is off (Bug #9349).
+[jan] Add an experimental new Share SQL driver with better performance.
+[jan] Fix integer overflow in ASN.1 parser for S/MIME messages.
+[jan] Fix splitread database usage in VFS (Bug #9467).
+[jan] Fix invalidating permission cache in SQL driver (Bug #9392).
+
+Mail Changes
+------------
+[jan] Don't submit the action form when reloading messages with iTip
+      attachments (Bug #9502).
+
+Dynamic Mail Changes
+--------------------
+[jan] Add Czech translation (Matej Hašuľ <hasis0533541@gmail.com>).
+
+Mobile Mail Changes
+-------------------
+[jan] Add Czech translation (Matej Hašuľ <hasis0533541@gmail.com>).
+
+Address Book Changes
+--------------------
+[mjr] Fix issue that caused erroneous file listings for objects in sources
+      without a __uid value.
+[jan] Allow to export photo/logo fields to vCard without MIME type.
+[jan] Support X-EPOCSECONDNAME fields of Nokia phones.
+[jan] Add upgrade scripts for next-generation SQL share driver.
+[jan] Fix splitting up names when exporting to N properties of vCards.
+[jan] Only set the encoding parameter for binary data in vCards, if data is not
+      empty (Bug #9413).
+[jan] Fix searching for fields matching an email address if using 'emails'
+      attribute instead of 'email' (Bug #9472).
+[jan] Use personal address books first if determining the default one (Valentin
+      Vidic, Request #9367).
+[jan] Use name format preference not only for paging, but for sorting too
+      (Request #8806).
+[jan] Fix photo corruption when exporting to vCard 3.0 (Bug #9100).
+
+Filters Changes
+---------------
+[mms] Fix encoding of vacation message in maildrop driver (Bug #9532).
+[jan] Add upgrade scripts for next-generation SQL share driver.
+
+Calendar Changes
+----------------
+[jan] Add upgrade scripts for next-generation SQL share driver.
+[jan] Export recurrence exceptions in a more portable way.
+
+Tasks Changes
+-------------
+[jan] Add upgrade scripts for next-generation SQL share driver.
+
+Notes Changes
+-------------
+[jan] Add upgrade scripts for next-generation SQL share driver.
+
+
 ------
 v1.2.9
 ------
