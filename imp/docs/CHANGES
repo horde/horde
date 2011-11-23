@@ -2,6 +2,8 @@
 v5.0.16-git
 -----------
 
+[mms] Purge browser cache daily in dynamic view; updates time stamps to proper
+      format (Request #9773).
 
 
 -------

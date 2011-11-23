@@ -1029,7 +1029,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result->preview = $msg;
                 if ($change) {
                     $result = $this->_viewPortData(true, $result);
-                } elseif ($this->_mbox->cacheid != $this->_vars->cacheid) {
+                } elseif ($this->_mbox->cacheid_date != $this->_vars->cacheid) {
                     /* Cache ID has changed due to viewing this message. So
                      * update the cacheid in the ViewPort. */
                     $result = $this->_viewPortOb(null, $result);
@@ -1920,7 +1920,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        return ($this->_mbox->cacheid != $this->_vars->cacheid);
+        return ($this->_mbox->cacheid_date != $this->_vars->cacheid);
     }
 
     /**
@@ -2158,7 +2158,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $base->ViewPort = new stdClass;
-        $base->ViewPort->cacheid = $mbox->cacheid;
+        $base->ViewPort->cacheid = $mbox->cacheid_date;
         $base->ViewPort->view = $mbox->form_to;
 
         return $base;

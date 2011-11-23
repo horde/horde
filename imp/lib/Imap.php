@@ -404,10 +404,6 @@ class IMP_Imap implements Serializable
             IMP_Mailbox::get($params[0])->expire();
             break;
 
-        case 'setACL':
-            IMP_Mailbox::get($params[0])->expire(IMP_Mailbox::CACHE_ACL);
-            break;
-
         case 'login':
             if (!$this->_login) {
                 /* Check for POP3 UIDL support. */
@@ -420,6 +416,19 @@ class IMP_Imap implements Serializable
 
                 $this->_changed = $this->_login = true;
             }
+            break;
+
+        case 'parseCacheId':
+            /* Add 'date' entry to return array, if it was added to the
+             * original cache ID string. */
+            if ((($pos = strrpos($params[0], '|')) !== false) &&
+                (substr($params[0], $pos + 1, 1) == 'D')) {
+                $result['date'] = substr($params[0], $pos + 2);
+            }
+            break;
+
+        case 'setACL':
+            IMP_Mailbox::get($params[0])->expire(IMP_Mailbox::CACHE_ACL);
             break;
         }
 
