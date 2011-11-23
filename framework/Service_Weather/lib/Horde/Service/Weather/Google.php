@@ -30,8 +30,18 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     protected $_language = 'en';
 
+    /**
+     * Holds the units that Google actually returns the results in.
+     * Google returns forecast values in the units it sees as appropriate for
+     * the requested location.
+     *
+     * @var integer
+     */
+    public $internalUnits;
+
     public $title = 'Google Weather';
     public $link = 'http://google.com';
+
 
     /**
      * Icon map for wunderground. Not some are returned as
@@ -165,7 +175,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         }
 
         $this->_lastLocation = $location;
-        $units = $this->units == Horde_Service_Weather::UNITS_STANDARD ? 'F' : 'C';
         $url = new Horde_Url(self::API_URL);
         $url = $url->add(array(
             'weather' => $location,
@@ -176,8 +185,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
             throw new Horde_Service_Weather_Exception(
                 Horde_Service_Weather_Translation::t("There was a problem with the weather request. Maybe an invalid location?"));
         }
-        $this->units =
-            $results->weather->forecast_information->unit_sytem == 'US' ?
+        $this->internalUnits = $results->weather->forecast_information->unit_system['data'] == 'US' ?
                 Horde_Service_Weather::UNITS_STANDARD :
                 Horde_Service_Weather::UNITS_METRIC;
         $this->_station = $this->_parseStation($results->weather->forecast_information);
@@ -202,9 +210,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
      */
     protected function _parseStation($station)
     {
-        // @TODO: Create a subclass of Station for wunderground, parse the
-        //  "close stations" and "pws" properties - allow for things like
-        //  displaying other, nearby weather station conditions etc...
         $properties = array(
             // @TODO: can we parse cith/state from results?
             'name' => urldecode((string)$station->city['data']),

@@ -93,10 +93,10 @@ class Horde_Service_Weather_Period_Google extends Horde_Service_Weather_Period_B
             return $date;
 
         case 'high':
-            return $this->_properties->high['data'];
+            return round($this->_fromInternalUnits($this->_properties->high['data']));
 
         case 'low':
-            return $this->_properties->low['data'];
+            return round($this->_fromInternalUnits($this->_properties->low['data']));
 
         case 'icon':
             return $this->_forecast->weather->iconMap[
@@ -109,6 +109,24 @@ class Horde_Service_Weather_Period_Google extends Horde_Service_Weather_Period_B
             }
 
             throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support the "' . $property . '" property');
+        }
+    }
+
+    /**
+     * Convert from units Google returns value in to units we want.
+     *
+     * @param  float $value  The value in Google's units
+     *
+     *  @return float  The converted value.
+     */
+    protected function _fromInternalUnits($value)
+    {
+        if ($this->_forecast->weather->internalUnits == $this->units) {
+            return $value;
+        } elseif ($this->units == Horde_Service_Weather::UNITS_METRIC) {
+            return ($value - 32) * .5556;
+        } else {
+            return $value * 1.8 + 32;
         }
     }
 
