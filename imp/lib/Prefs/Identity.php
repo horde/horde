@@ -133,11 +133,9 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         }
 
         if (empty($name)) {
-            if (!empty($ob[0]['personal'])) {
-                $name = $ob[0]['personal'];
-            } else {
-                $name = $this->getFullname($ident);
-            }
+            $name = empty($ob[0]['personal'])
+                ? $this->getFullname($ident)
+                : $ob[0]['personal'];
         }
 
         $from = Horde_Mime_Address::writeAddress($ob[0]['mailbox'], $ob[0]['host'], $name);
@@ -364,11 +362,9 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         }
 
         /* Normalize address list. */
-        if (is_array($addresses)) {
-            $addresses = array_filter($addresses);
-        } else {
-            $addresses = array($addresses);
-        }
+        $addresses = is_array($addresses)
+            ? array_filter($addresses)
+            : array($addresses);
 
         try {
             $addr_list = Horde_Mime_Address::parseAddressList(implode(', ', $addresses));

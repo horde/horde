@@ -997,7 +997,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         try {
             $r_array = Horde_Mime::encodeAddress($recipients, 'UTF-8', $GLOBALS['session']->get('imp', 'maildomain'));
-            $r_array = Horde_Mime_Address::parseAddressList($r_array, array('validate' => true));
+            $r_array = Horde_Mime_Address::parseAddressList($r_array, array(
+                'validate' => true
+            ));
         } catch (Horde_Mime_Exception $e) {}
 
         if (empty($r_array)) {
