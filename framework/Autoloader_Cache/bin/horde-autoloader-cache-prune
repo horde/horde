@@ -14,8 +14,6 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once 'Horde/Autoloader/Default.php';
-
 if (extension_loaded('apc')) {
     apc_delete('horde_autoloader_cache');
 } elseif (extension_loaded('xcache')) {
