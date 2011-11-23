@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>23:28:44</time>
+ <date>2011-11-23</date>
+ <time>18:25:52</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -289,7 +289,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2011-11-23</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Fix retrieving driver list if Horde_Service_Weather is not installed.
