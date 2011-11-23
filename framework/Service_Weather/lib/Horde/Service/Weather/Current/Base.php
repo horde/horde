@@ -54,6 +54,7 @@
     {
         $this->_properties = $properties;
         $this->_weather = $weather;
+        $this->units = $weather->units;
     }
 
     public function __get($property)

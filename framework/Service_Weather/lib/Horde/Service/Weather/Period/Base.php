@@ -53,6 +53,7 @@ class Horde_Service_Weather_Period_Base
     {
         $this->_forecast = $forecast;
         $this->_properties = $properties;
+        $this->units = $forecast->units;
     }
 
     /**
