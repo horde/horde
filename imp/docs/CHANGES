@@ -12,9 +12,18 @@ v5.1-git
 
 
 -----------
-v5.0.15-git
+v5.0.16-git
 -----------
 
+[mms] Purge browser cache daily in dynamic view; updates time stamps to proper
+      format (Request #9773).
+
+
+-------
+v5.0.15
+-------
+
+[mms] Honor sortpref locked status.
 [mms] HTML drafts saved in IMP are resumed in that mode, regardless of the
       'compose_html' preference (Request #10787).
 [mms] Improved tree display when displaying all message parts.

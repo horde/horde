@@ -183,7 +183,7 @@ class Gollem
      * @param string $dir  The directory name.
      *
      * @return array  The sorted list of files.
-     * @throws Horde_Vfs_Exception
+     * @throws Gollem_Exception
      */
     static public function listFolder($dir)
     {
@@ -204,11 +204,15 @@ class Gollem
             }
         }
 
-        $files = $GLOBALS['injector']
-            ->getInstance('Gollem_Vfs')
-            ->listFolder($dir,
-                         isset(self::$backend['filter']) ? self::$backend['filter'] : null,
-                         $GLOBALS['prefs']->getValue('show_dotfiles'));
+        try {
+            $files = $GLOBALS['injector']
+                ->getInstance('Gollem_Vfs')
+                ->listFolder($dir,
+                             isset(self::$backend['filter']) ? self::$backend['filter'] : null,
+                             $GLOBALS['prefs']->getValue('show_dotfiles'));
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Gollem_Exception($e);
+        }
         $sortcols = array(
             self::SORT_TYPE => 'sortType',
             self::SORT_NAME => 'sortName',

@@ -1,6 +1,12 @@
 ----------
-v2.0.1-git
+v2.0.2-git
 ----------
+
+
+
+------
+v2.0.1
+------
 
 [mms] Fix selectlist widget when initial cacheID was not given (Bug #10781).
 [mms] Fix icon display of files in selectlist widget.

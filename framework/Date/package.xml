@@ -16,8 +16,6 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-30</date>
- <time>11:11:27</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -34,6 +32,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Date">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Date -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Date">
@@ -388,6 +393,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Date/COPYING" />
    <install as="Horde/Date.php" name="lib/Horde/Date.php" />
    <install as="Horde/Date/Exception.php" name="lib/Horde/Date/Exception.php" />
    <install as="Horde/Date/Recurrence.php" name="lib/Horde/Date/Recurrence.php" />
@@ -655,12 +661,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-30</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Croatian translation.
+* [jan] Update Estonian translation.
 * [jan] Make unit tests Windows compatible.
 * [mjr] Fix timezone bug that could cause an incorrect timezone from being set when creating Horde_Date objects from other Horde_Date or DateTime objects.
 * [mjr] Fix timezone bug that caused some date strings to be parsed as an incorrect timezone.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

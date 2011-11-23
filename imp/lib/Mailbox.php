@@ -28,6 +28,8 @@
  *                       no ACL found for the mailbox.
  * @property string $basename  The basename of the mailbox (UTF-8).
  * @property string $cacheid  Cache ID for the mailbox.
+ * @property string $cacheid_date  Cache ID for the mailbox, with added date
+ *                                 information.
  * @property boolean $children  Does the element have children?
  * @property boolean $container  Is this a container element?
  * @property string $display  Display version of mailbox. Special mailboxes
@@ -327,7 +329,8 @@ class IMP_Mailbox implements Serializable
                 : substr($this->_mbox, $pos + 1);
 
         case 'cacheid':
-            return $this->_getCacheID();
+        case 'cacheid_date':
+            return $this->_getCacheID($key == 'cacheid_date');
 
         case 'children':
             return $injector->getInstance('IMP_Imap_Tree')->hasChildren($this->_mbox);
@@ -901,7 +904,8 @@ class IMP_Mailbox implements Serializable
      *
      * @return array  An array with the following keys:
      *   - by: (integer) Sort type.
-     *   - dir (integer) Sort direction.
+     *   - dir:(integer) Sort direction.
+     *   - locked: (boolean) Is sort locked for the mailbox?
      */
     public function getSort($convert = false)
     {
@@ -923,6 +927,7 @@ class IMP_Mailbox implements Serializable
         $ob = array(
             'by' => isset($entry['b']) ? $entry['b'] : $sortby,
             'dir' => isset($entry['d']) ? $entry['d'] : $prefs->getValue('sortdir'),
+            'locked' => $prefs->isLocked('sortpref')
         );
 
         /* Restrict to sequence sorting only. */
@@ -1468,25 +1473,36 @@ class IMP_Mailbox implements Serializable
     /**
      * Returns a unique identifier for this mailbox's status.
      *
-     * This cache ID is guaranteed to change if messages are added/deleted from
-     * the mailbox. Additionally, if CONDSTORE is available on the remote
+     * This cache ID is guaranteed to change if messages are added/deleted
+     * from the mailbox. Additionally, if CONDSTORE is available on the remote
      * IMAP server, this ID will change if flag information changes.
      *
      * For search mailboxes, this value never changes (search mailboxes must
      * be forcibly refreshed).
      *
+     * @param boolean $date  If true, adds date information to ID.
+     *
      * @return string  The cache ID string, which will change when the
      *                 composition of this mailbox changes.
      */
-    protected function _getCacheID()
+    protected function _getCacheID($date = false)
     {
+        $date = $date
+            ? 'D' . date('mdy')
+            : '';
+
         if ($this->search) {
-            return '1';
+            return '1' . $date;
         }
 
         $sortpref = $this->getSort(true);
+        $addl = array($sortpref['by'], $sortpref['dir']);
+        if ($date) {
+            $addl[] = $date;
+        }
+
         try {
-            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getCacheId($this->_mbox, array($sortpref['by'], $sortpref['dir']));
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getCacheId($this->_mbox, $addl);
         } catch (IMP_Imap_Exception $e) {
             /* Assume an error means that a mailbox can not be trusted. */
             return strval(new Horde_Support_Randomid());

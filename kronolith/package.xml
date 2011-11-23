@@ -22,8 +22,6 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-21</date>
- <time>18:54:54</time>
  <version>
   <release>3.1.0</release>
   <api>3.1.0</api>
@@ -1931,7 +1929,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Show status of events in agenda messages (Request #10517).
@@ -1945,6 +1943,19 @@
 * [jan] Don&apos;t show import/export tabs in dynamic view if disabled (Bug #10705).
 * [jan] Don&apos;t show option to share with everyone in basic permissions if disabled (piper@hrz.uni-marburg.de, Bug #10706).
 * [mjr] Only set ORGANIZER field if the event is a group meeting (Bug #10697).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.13</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

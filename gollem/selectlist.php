@@ -81,7 +81,7 @@ $t->set('donebutton', _("Done"));
 $t->set('cancelbutton', _("Cancel"));
 $t->set('self_url', $self_url);
 $t->set('forminput', Horde_Util::formInput());
-$t->set('cacheid', htmlspecialchars($cacheid));
+$t->set('cacheid', $cacheid);
 $t->set('currdir', htmlspecialchars(Gollem::$backend['dir']));
 $t->set('formid', htmlspecialchars($vars->formid));
 $t->set('navlink', Gollem::directoryNavLink(Gollem::$backend['dir'], $self_url->copy()->add(array('cacheid' => $cacheid, 'formid' => $vars->formid))));
@@ -178,10 +178,6 @@ if (is_array($info['list']) &&
 
 $title = $info['title'];
 Horde::addScriptFile('selectlist.js', 'gollem');
-Horde::addInlineJsVars(array(
-    'cacheid' => $cacheid,
-    'formid' => $vars->formid
-));
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require GOLLEM_TEMPLATES . '/javascript_defs.php';
 Gollem::status();

@@ -28,8 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [gwr] Corrected teletype format for the rst renderer.
-* [gwr] Support rendering lists in the rst renderer.
+* [gwr] Corrected teletype format for the reST renderer.
+* [gwr] Support rendering lists in the reST renderer.
 * [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
  </notes>
  <contents>

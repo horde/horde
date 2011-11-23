@@ -128,7 +128,7 @@ class IMP_Views_ListMessages
 
         /* Create the base object. */
         $result = $this->getBaseOb($mbox);
-        $result->cacheid = $mbox->cacheid;
+        $result->cacheid = $mbox->cacheid_date;
         if (!empty($args['requestid'])) {
             $result->requestid = intval($args['requestid']);
         }
@@ -150,6 +150,9 @@ class IMP_Views_ListMessages
         }
         if ($args['initial'] || !is_null($args['sortdir'])) {
             $md->sortdir = intval($sortpref['dir']);
+        }
+        if ($args['initial'] && $sortpref['locked']) {
+            $md->sortlock = 1;
         }
 
         /* Actions only done on 'initial' request. */
@@ -231,16 +234,20 @@ class IMP_Views_ListMessages
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
          * purge the cached items on the browser. */
-        if (!$is_search &&
-            !empty($args['cacheid']) &&
-            !empty($args['cache'])) {
+        $parsed = null;
+        if ($args['cacheid'] && $args['cache']) {
             $uid_expire = false;
-            try {
-                $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-                $parsed = $imp_imap->parseCacheId($args['cacheid']);
-                $uid_expire = ($parsed['uidvalidity'] != $status['uidvalidity']);
-            } catch (Horde_Imap_Cache_Exception $e) {
+            $parsed = $imp_imap->parseCacheId($args['cacheid']);
+
+            if ($parsed['date'] != date('mdy')) {
                 $uid_expire = true;
+            } elseif (!$is_search) {
+                try {
+                    $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+                    $uid_expire = ($parsed['uidvalidity'] != $status['uidvalidity']);
+                } catch (Horde_Imap_Cache_Exception $e) {
+                    $uid_expire = true;
+                }
             }
 
             if ($uid_expire) {
@@ -314,7 +321,7 @@ class IMP_Views_ListMessages
         /* If we are updating the rowlist on the browser, and we have cached
          * browser data information, we need to send a list of messages that
          * have 'disappeared'. */
-        if (isset($result->rowlist_reset)) {
+        if (!empty($cached) && isset($result->rowlist_reset)) {
             $disappear = array();
             foreach (array_diff(array_keys($cached), $uidlist) as $uid) {
                 $disappear[] = $uid;
@@ -328,28 +335,26 @@ class IMP_Views_ListMessages
         /* Check for cached entries marked as changed via CONDSTORE IMAP
          * extension. If changed, resend the entire entry to update the
          * browser cache (done below). */
-        if (!$is_search && $args['change'] && $args['cacheid']) {
-            if (!isset($parsed)) {
-                $parsed = $imp_imap->parseCacheId($args['cacheid']);
-            }
-            if (!empty($parsed['highestmodseq'])) {
-                $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_LASTMODSEQ | Horde_Imap_Client::STATUS_LASTMODSEQUIDS);
-                if ($status['lastmodseq'] == $parsed['highestmodseq']) {
-                    /* QRESYNC already provided the updated list of flags -
-                     * we can grab the updated UIDS through this STATUS call
-                     * and save a FETCH. */
-                    $changed = array_flip($status['lastmodsequids']);
-                } else {
-                    $query = new Horde_Imap_Client_Fetch_Query();
-                    $query->uid();
+        if (!empty($cached) &&
+            !$is_search &&
+            !is_null($parsed) &&
+            !empty($parsed['highestmodseq'])) {
+            $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_LASTMODSEQ | Horde_Imap_Client::STATUS_LASTMODSEQUIDS);
+            if ($status['lastmodseq'] == $parsed['highestmodseq']) {
+                /* QRESYNC already provided the updated list of flags - we can
+                 * grab the updated UIDS through this STATUS call and save a
+                 * FETCH. */
+                $changed = array_flip($status['lastmodsequids']);
+            } else {
+                $query = new Horde_Imap_Client_Fetch_Query();
+                $query->uid();
 
-                    try {
-                        $changed = $imp_imap->fetch($mbox, $query, array(
-                            'changedsince' => $parsed['highestmodseq'],
-                            'ids' => $imp_imap->getIdsOb(array_keys($cached))
-                        ));
-                    } catch (IMP_Imap_Exception $e) {}
-                }
+                try {
+                    $changed = $imp_imap->fetch($mbox, $query, array(
+                        'changedsince' => $parsed['highestmodseq'],
+                        'ids' => $imp_imap->getIdsOb(array_keys($cached))
+                    ));
+                } catch (IMP_Imap_Exception $e) {}
             }
         }
 
@@ -357,8 +362,8 @@ class IMP_Views_ListMessages
             $seq = ++$key;
             $msglist[$seq] = $mailbox_list[$seq]['u'];
             $rowlist[$uid] = $seq;
-            /* Send browser message data if not already cached or if
-             * CONDSTORE has indicated that data has changed. */
+            /* Send browser message data if not already cached or if CONDSTORE
+             * has indicated that data has changed. */
             if (!isset($cached[$uid]) || isset($changed[$uid])) {
                 $data[$seq] = 1;
             }

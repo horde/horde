@@ -9,8 +9,14 @@ v4.1-git
 
 
 -----------
-v4.0.12-git
+v4.0.13-git
 -----------
+
+
+
+-------
+v4.0.12
+-------
 
 [mjr] Replace Weatherdotcom portal block with generic Weather block supported
       by Horde_Service_Weather.

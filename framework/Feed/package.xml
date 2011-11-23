@@ -10,10 +10,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:27:17</time>
+ <date>2011-11-22</date>
+ <time>15:26:13</time>
  <version>
-  <release>1.1.1</release>
+  <release>1.1.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -38,6 +38,7 @@
        <file name="read.php" role="doc" />
        <file name="reader.php" role="doc" />
       </dir> <!-- /doc/Horde/Feed/examples -->
+      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Feed -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -312,6 +313,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Feed/COPYING" />
    <install as="examples/blogger.php" name="doc/Horde/Feed/examples/blogger.php" />
    <install as="examples/blogroll.php" name="doc/Horde/Feed/examples/blogroll.php" />
    <install as="examples/delete.php" name="doc/Horde/Feed/examples/delete.php" />
@@ -631,7 +633,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * 

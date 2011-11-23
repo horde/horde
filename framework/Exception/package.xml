@@ -22,10 +22,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-09-20</date>
- <time>14:25:03</time>
+ <date>2011-11-22</date>
+ <time>15:21:18</time>
  <version>
-  <release>1.0.8</release>
+  <release>1.0.9</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -38,6 +38,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Exception">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Exception -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Exception">
@@ -348,6 +355,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Exception/COPYING" />
    <install as="Horde/Exception.php" name="lib/Horde/Exception.php" />
    <install as="Horde/Exception/LastError.php" name="lib/Horde/Exception/LastError.php" />
    <install as="Horde/Exception/NotFound.php" name="lib/Horde/Exception/NotFound.php" />
@@ -623,7 +631,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-09-20</date>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Croatian translation.
+* [jan] Update Estonian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

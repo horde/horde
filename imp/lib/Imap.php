@@ -495,6 +495,15 @@ class IMP_Imap implements Serializable
             }
             break;
 
+        case 'parseCacheId':
+            /* Add 'date' entry to return array, if it was added to the
+             * original cache ID string. */
+            if ((($pos = strrpos($params[0], '|')) !== false) &&
+                (substr($params[0], $pos + 1, 1) == 'D')) {
+                $result['date'] = substr($params[0], $pos + 2);
+            }
+            break;
+
         case 'setACL':
             IMP_Mailbox::get($params[0])->expire(IMP_Mailbox::CACHE_ACL);
             break;

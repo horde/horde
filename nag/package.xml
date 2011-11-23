@@ -16,8 +16,6 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-21</date>
- <time>18:55:01</time>
  <version>
   <release>3.1.0</release>
   <api>3.1.0</api>
@@ -28,7 +26,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1083,11 +1081,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t display task details of private tasks via the API (Bug #10712).
 * [jan] Use correct locale when parsing quick tasks (thpo+horde@dotrc.de, Bug #10720).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.7</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

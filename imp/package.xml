@@ -22,8 +22,6 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-21</date>
- <time>18:54:43</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -2552,9 +2550,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-21</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Honor sortpref locked status.
 * [mms] HTML drafts saved in IMP are resumed in that mode, regardless of the &apos;compose_html&apos; preference (Request #10787).
 * [mms] Improved tree display when displaying all message parts.
 * [mms] Fix DNS resolution when sending attachment viewed messages (Bug #10784).
@@ -2579,6 +2578,19 @@
 * [mms] Fix accessing POP3 servers that use commas in their UIDs.
 * [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
 * [mms] Fix some dynamic view links on IE (Bug #10664).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.16</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Purge browser cache daily in dynamic view; updates time stamps to proper format (Request #9773).
    </notes>
   </release>
  </changelog>
