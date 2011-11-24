@@ -151,7 +151,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         $url->add(array(
             'query' => $search,
             'format' => 'json',
-            'num_of_results' => 20));
+            'num_of_results' => 25));
 
         return $this->_parseAutocomplete($this->_makeRequest($url));
     }
@@ -263,10 +263,12 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         $return = array();
         if (!empty($results->search_api->result)) {
             foreach($results->search_api->result as $result) {
-                $new = new stdClass();
-                $new->name = $result->areaName[0]->value . ', ' . $result->region[0]->value;
-                $new->code = $result->latitude . ',' . $result->longitude;
-                $return[] = $new;
+                if (!empty($result->region[0]->value)) {
+                    $new = new stdClass();
+                    $new->name = $result->areaName[0]->value . ', ' . $result->region[0]->value;
+                    $new->code = $result->latitude . ',' . $result->longitude;
+                    $return[] = $new;
+                }
             }
         }
 

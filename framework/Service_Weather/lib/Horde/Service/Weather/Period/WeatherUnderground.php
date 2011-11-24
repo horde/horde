@@ -88,7 +88,7 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
                     $this->_properties['high']->fahrenheit :
                     Horde_Service_Weather_Translation::t('N/A');
             }
-            return $this->_properties['high']->celcius;
+            return $this->_properties['high']->celsius;
 
         case 'low':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
@@ -96,7 +96,7 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
                     $this->_properties['low']->fahrenheit :
                     Horde_Service_Weather_Translation::t('N/A');
             }
-            return $this->_properties['low']->celcius;
+            return $this->_properties['low']->celsius;
 
         case 'icon':
             return $this->_forecast->weather->iconMap[$this->_properties['icon']];

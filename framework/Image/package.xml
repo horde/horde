@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -808,7 +808,7 @@ Initial release as a PEAR package
    <date>2011-11-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Add a version of the convert command for center cropping with ImageMagick versions less than 6.3.8 (Bug # 10687).
+* [mjr] Add a version of the convert command for center cropping with ImageMagick versions less than 6.3.8 (Bug #10687).
    </notes>
   </release>
   <release>
@@ -835,7 +835,7 @@ Initial release as a PEAR package
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
   </release>
  </changelog>

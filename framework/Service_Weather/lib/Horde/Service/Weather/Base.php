@@ -184,8 +184,6 @@
      */
     public function getUnits($type = Horde_Service_Weather::UNITS_STANDARD)
     {
-        // TODO: Probably don't need these translated, leave for now until we
-        // have other translated strings to populate locale with.
         if ($type == Horde_Service_Weather::UNITS_STANDARD) {
             return array(
                 'temp' => Horde_Service_Weather_Translation::t('F'),

@@ -461,7 +461,7 @@ system. This has to be done only **once** ever on a single PEAR system::
 
 Next install a so-called "role" for Horde. This role defines where Horde is
 installed. This should be a directory in your web server's web root, e.g.
-``/var/horde``. Again this has to be done only **once** ever on
+``/var/www/horde``. Again this has to be done only **once** ever on
 a single PEAR system::
 
    pear install horde/horde_role
@@ -484,6 +484,10 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/horde
+
+
+Installing into separate PEAR
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you want to create a separate PEAR installation for installing Horde,
 independent from the system-wide PEAR installation, this can be done with the
@@ -801,7 +805,7 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-Horde LLC runs a number of mailing lists, for individual applications
+The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 

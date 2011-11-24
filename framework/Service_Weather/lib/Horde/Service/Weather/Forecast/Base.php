@@ -84,6 +84,7 @@
         $this->_properties = $properties;
         $this->weather = $weather;
         $this->_type = $type;
+        $this->units = $weather->units;
     }
 
     public function getIterator()

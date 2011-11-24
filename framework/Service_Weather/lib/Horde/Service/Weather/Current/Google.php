@@ -18,8 +18,8 @@
  * @category Horde
  * @package  Service_Weather
  */
- class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current_Base
- {
+class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current_Base
+{
     protected $_map = array(
         'condition' => 'condition',
         'humidity' => 'humidity',
@@ -32,12 +32,14 @@
     public function __construct($properties, $weather)
     {
         parent::__construct($properties, $weather);
-        $this->location = new StdClass();
-        $location = $properties['observation_location'];
-        $this->location->location = $location->full;
-        $this->location->lat = $location->latitude;
-        $this->location->lon = $location->longitude;
-        $this->location->elevation = $location->elevation;
+        if (isset($properties['observation_location'])) {
+            $location = $properties['observation_location'];
+            $this->location = (object)array(
+                'location' => $location->full,
+                'lat' => $location->latitude,
+                'lon' => $location->longitude,
+                'elevation' => $location->elevation);
+        }
     }
 
     public function __get($property)

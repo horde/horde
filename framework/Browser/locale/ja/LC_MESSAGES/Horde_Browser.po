@@ -1,5 +1,5 @@
 # Japanese translations for Horde_Browser package.
-# Copyright (C) 2011 Horde LLC
+# Copyright (C) 2011 Horde Project
 # This file is distributed under the same license as the Horde_Browser package.
 # Automatically generated, 2011.
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Browser\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-24 16:00+0100\n"
-"PO-Revision-Date: 2011-04-03 09:57+0900\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
+"PO-Revision-Date: 2011-11-19 17:52+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -17,28 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/Horde/Browser.php:1026
+#: lib/Horde/Browser.php:1027
 msgid "File uploads not supported."
 msgstr "ファイルのアップロードはサポートされていません。"
 
-#: lib/Horde/Browser.php:1043
+#: lib/Horde/Browser.php:1044
 msgid "No file uploaded"
 msgstr "ファイルがアップロードされていません"
 
-#: lib/Horde/Browser.php:1053
+#: lib/Horde/Browser.php:1054
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
 "アップロードしたファイルは空のようです。あなたのパソコンには存在しないファイ"
 "ルなのでしょう。"
 
-#: lib/Horde/Browser.php:1050
+#: lib/Horde/Browser.php:1051
 #, php-format
 msgid "There was a problem with the file upload: No %s was uploaded."
 msgstr ""
 "ファイルのアップロードに問題が発生しました: %s はアップロードされていません。"
 
-#: lib/Horde/Browser.php:1058
+#: lib/Horde/Browser.php:1059
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
@@ -47,7 +47,7 @@ msgstr ""
 "ファイルのアップロードに問題が発生しました: %s はファイルのサイズ制限値(%dバ"
 "イト)を越えています。"
 
-#: lib/Horde/Browser.php:1060
+#: lib/Horde/Browser.php:1061
 #, php-format
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."

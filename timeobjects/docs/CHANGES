@@ -1,7 +1,15 @@
 ----------
-v1.0.4-git
+v1.0.5-git
 ----------
 
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
+------
+v1.0.4
+------
+
+[jan] Fix retrieving driver list if Horde_Service packages are not installed.
 
 
 ------

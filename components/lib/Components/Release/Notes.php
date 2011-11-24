@@ -189,7 +189,7 @@ class Components_Release_Notes
      */
     public function hasNotes()
     {
-        return !empty($this->notes);
+        return !empty($this->notes['ml']);
     }
 
     /**

@@ -534,13 +534,13 @@
    <date>2011-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [gwr] Moved Horde specific functionality out of the events parser.
-* [gwr] Moved Horde specific functionality out of the contacts parser.
-* [gwr] Improved data validation.
+* [gwr] Move Horde specific functionality out of the events parser.
+* [gwr] Move Horde specific functionality out of the contacts parser.
+* [gwr] Improve data validation.
 * [gwr] KEP2 support.
 * [gwr] Allow adding XML attributes on the fly.
 * [gwr] Avoid overwriting data from other Kolab clients.
-* [gwr] Added improved root node handler (version checking, avoids overwriting other data).
+* [gwr] Add improved root node handler (version checking, avoids overwriting other data).
    </notes>
   </release>
   <release>
