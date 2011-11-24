@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix updating events from attendee responses (Bug #10772).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mms] Correctly apply default mail_domain value in all places it is needed.
 * [mms] Correctly save mail_domain value if changed in preferences UI.
@@ -2591,6 +2592,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix updating events from attendee responses (Bug #10772).
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mms] Correctly apply default mail_domain value in all places it is needed.
 * [mms] Correctly save mail_domain value if changed in preferences UI.
