@@ -2,6 +2,7 @@
 v2.0.1-git
 ----------
 
+[jan] Ignore messages from postmaster too when processing mails.
 [jan] Add setting to use different addresses for Return-Path: and From:
       headers.
 [jan] Fix whups-reminders script (Bug #10783).
