@@ -442,6 +442,9 @@ abstract class Whups_Driver
         } else {
             $mail->addHeader('From', Whups::formatUser($opts['from']));
         }
+        if (!empty($conf['mail']['return_path'])) {
+            $mail->addHeader('Return-Path', $conf['mail']['return_path']);
+        }
 
         if ($opts['ticket']) {
             $opts['subject'] = '[' . $registry->get('name') . ' #'

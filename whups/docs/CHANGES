@@ -2,6 +2,8 @@
 v2.0.1-git
 ----------
 
+[jan] Add setting to use different addresses for Return-Path: and From:
+      headers.
 [jan] Fix whups-reminders script (Bug #10783).
 [jan] Add Latvian translation (Jānis Eisaks).
 
