@@ -8,27 +8,39 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author  Anil Madhavapeddy <anil@recoil.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Vcs
  */
 abstract class Horde_Vcs_Directory_Base
 {
     /**
+     * The directory's repository object.
+     *
      * @var Horde_Vcs_Base
      */
     protected $_rep;
 
     /**
+     * The directory's path inside the repository.
+     *
      * @var string
      */
     protected $_dirName;
 
     /**
+     * A list of Horde_Vcs_File_Base objects representing all files inside this
+     * directory.
+     *
      * @var array
      */
     protected $_files = array();
 
     /**
-     * @var string
+     * A (string) list of directories inside this directory.
+     *
+     * @var array
      */
     protected $_dirs = array();
 
@@ -37,7 +49,8 @@ abstract class Horde_Vcs_Directory_Base
      *
      * @param Horde_Vcs_Base $rep  A repository object.
      * @param string $dn           Path to the directory.
-     * @param array $opts          TODO
+     * @param array $opts          Any additional options:
+     *                             - 'quicklog': (boolean)
      *
      * @throws Horde_Vcs_Exception
      */
@@ -48,7 +61,9 @@ abstract class Horde_Vcs_Directory_Base
     }
 
     /**
-     * TODO
+     * Returns a list of directories inside this directory.
+     *
+     * return array  A (string) list of directories.
      */
     public function queryDirList()
     {
@@ -56,7 +71,9 @@ abstract class Horde_Vcs_Directory_Base
     }
 
     /**
-     * TODO
+     * Returns a list of all files inside this directory.
+     *
+     * @return array  A list of Horde_Vcs_File_Base objects.
      */
     public function queryFileList($showdeleted = false)
     {
@@ -66,10 +83,10 @@ abstract class Horde_Vcs_Directory_Base
     /**
      * Sorts the the directory contents.
      *
-     * @param integer $how  Of the form Horde_Vcs::SORT_[*] where * can be:
+     * @param integer $how  A Horde_Vcs::SORT_* constant where * can be:
      *                      NONE, NAME, AGE, REV for sorting by name, age or
      *                      revision.
-     * @param integer $dir  Of the form Horde_Vcs::SORT_[*] where * can be:
+     * @param integer $dir  A Horde_Vcs::SORT_* constant where * can be:
      *                      ASCENDING, DESCENDING for the order of the sort.
      */
     public function applySort($how = Horde_Vcs::SORT_NONE,
@@ -87,7 +104,12 @@ abstract class Horde_Vcs_Directory_Base
     }
 
     /**
-     * TODO
+     * Sorts a list files.
+     *
+     * @see applySort()
+     *
+     * @param array $fileList  A list of files.
+     * @param integer $how     A Horde_Vcs::SORT_* constant.
      */
     protected function _doFileSort(&$fileList, $how = Horde_Vcs::SORT_NONE)
     {
@@ -155,7 +177,9 @@ abstract class Horde_Vcs_Directory_Base
     }
 
     /**
-     * TODO
+     * Returns a list of all branches in this directory.
+     *
+     * @return array  A branch list.
      */
     public function getBranches()
     {

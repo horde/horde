@@ -10,6 +10,7 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael Slusarz <slusarz@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Vcs
  */
 class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
@@ -24,9 +25,12 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
     /**
      * Constructor.
      *
-     * @param Horde_Vcs_Git $rep  A repository object.
-     * @param string $dn          Path to the directory.
-     * @param array $opts         TODO
+     * @param Horde_Vcs_Base $rep  A repository object.
+     * @param string $dn           Path to the directory.
+     * @param array $opts          Any additional options:
+     *                             - 'quicklog': (boolean)
+     *                             - 'rev': (string) Generate directory list for
+     *                               a certain branch or revision.
      *
      * @throws Horde_Vcs_Exception
      */
@@ -86,7 +90,9 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
     }
 
     /**
-     * TODO
+     * Returns a list of all branches in this directory.
+     *
+     * @return array  A branch list.
      */
     public function getBranches()
     {

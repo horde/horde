@@ -5,6 +5,7 @@
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Vcs
  */
 class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
@@ -12,9 +13,10 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
     /**
      * Constructor.
      *
-     * @param Horde_Vcs_Svn $rep  A repository object.
-     * @param string $dn          Path to the directory.
-     * @param array $opts         TODO
+     * @param Horde_Vcs_Base $rep  A repository object.
+     * @param string $dn           Path to the directory.
+     * @param array $opts          Any additional options:
+     *                             - 'quicklog': (boolean)
      *
      * @throws Horde_Vcs_Exception
      */
