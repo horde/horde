@@ -66,7 +66,7 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function queryFileList($showattic = false)
     {
-        $this->_files;
+        return $this->_files;
     }
 
     /**
