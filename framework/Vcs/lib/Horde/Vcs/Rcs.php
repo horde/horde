@@ -8,7 +8,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Rcs extends Horde_Vcs
+class Horde_Vcs_Rcs extends Horde_Vcs_Base
 {
     /**
      * TODO

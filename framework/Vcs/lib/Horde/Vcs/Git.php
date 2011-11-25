@@ -19,7 +19,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Git extends Horde_Vcs
+class Horde_Vcs_Git extends Horde_Vcs_Base
 {
     /**
      * Does driver support patchsets?

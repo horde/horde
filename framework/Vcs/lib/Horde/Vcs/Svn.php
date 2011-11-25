@@ -17,7 +17,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Svn extends Horde_Vcs
+class Horde_Vcs_Svn extends Horde_Vcs_Base
 {
     /**
      * SVN username.
