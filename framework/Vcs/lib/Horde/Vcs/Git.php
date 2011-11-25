@@ -22,25 +22,15 @@
 class Horde_Vcs_Git extends Horde_Vcs_Base
 {
     /**
-     * Does driver support patchsets?
+     * Driver features.
      *
-     * @var boolean
+     * @var array
      */
-    protected $_patchsets = true;
-
-    /**
-     * Does driver support branches?
-     *
-     * @var boolean
-     */
-    protected $_branches = true;
-
-    /**
-     * Does driver support snapshots?
-     *
-     * @var boolean
-     */
-    protected $_snapshots = true;
+    protected $_features = array(
+        'deleted'   => false,
+        'patchsets' => true,
+        'branches'  => true,
+        'snapshots' => true);
 
     /**
      * The available diff types.

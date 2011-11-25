@@ -47,32 +47,15 @@ class Horde_Vcs_Base
     protected $_cache;
 
     /**
-     * Does driver support deleted files?
+     * Driver features.
      *
-     * @var boolean
+     * @var array
      */
-    protected $_deleted = false;
-
-    /**
-     * Does driver support patchsets?
-     *
-     * @var boolean
-     */
-    protected $_patchsets = false;
-
-    /**
-     * Does driver support branches?
-     *
-     * @var boolean
-     */
-    protected $_branches = false;
-
-    /**
-     * Does driver support snapshots?
-     *
-     * @var boolean
-     */
-    protected $_snapshots = false;
+    protected $_features = array(
+        'deleted'   => false,
+        'patchsets' => false,
+        'branches'  => false,
+        'snapshots' => false);
 
     /**
      * Current cache version.
@@ -108,22 +91,7 @@ class Horde_Vcs_Base
      */
     public function hasFeature($feature)
     {
-        switch ($feature) {
-        case 'branches':
-            return $this->_branches;
-
-        case 'deleted':
-            return $this->_deleted;
-
-        case 'patchsets':
-            return $this->_patchsets;
-
-        case 'snapshots':
-            return $this->_snapshots;
-
-        default:
-            return false;
-        }
+        return !empty($this->_features[$feature]);
     }
 
     /**

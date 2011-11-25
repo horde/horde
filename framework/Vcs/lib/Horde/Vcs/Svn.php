@@ -34,11 +34,15 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
     protected $_password = '';
 
     /**
-     * Does driver support patchsets?
+     * Driver features.
      *
-     * @var boolean
+     * @var array
      */
-    protected $_patchsets = true;
+    protected $_features = array(
+        'deleted'   => false,
+        'patchsets' => true,
+        'branches'  => false,
+        'snapshots' => false);
 
     /**
      * Constructor.

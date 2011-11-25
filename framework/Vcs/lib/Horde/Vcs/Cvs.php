@@ -21,36 +21,25 @@
 class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 {
     /**
-     * Does driver support patchsets?
+     * Driver features.
      *
-     * @var boolean
+     * @var array
      */
-    protected $_patchsets = true;
+    protected $_features = array(
+        'deleted'   => true,
+        'patchsets' => true,
+        'branches'  => true,
+        'snapshots' => false);
 
     /**
-     * Does driver support deleted files?
-     *
-     * @var boolean
+     * Constructor.
      */
-    protected $_deleted = true;
-
-    /**
-     * Does driver support branches?
-     *
-     * @var boolean
-     */
-    protected $_branches = true;
-
-    /**
-     * Does this driver support the given feature?
-     *
-     * @return boolean  True if driver supports the given feature.
-     */
-    public function hasFeature($feature)
+    public function __construct($params = array())
     {
-        return (($feature != 'patchsets') || $this->getPath('cvsps'))
-            ? parent::hasFeature($feature)
-            : false;
+        parent::__construct($params);
+        if (!$this->getPath('cvsps')) {
+            $this->_features['patchsets'] = false;
+        }
     }
 
     /**
