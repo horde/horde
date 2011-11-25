@@ -64,7 +64,7 @@ abstract class Horde_Vcs_Directory_Base
     /**
      * TODO
      */
-    public function queryFileList($showattic = false)
+    public function queryFileList($showdeleted = false)
     {
         return $this->_files;
     }

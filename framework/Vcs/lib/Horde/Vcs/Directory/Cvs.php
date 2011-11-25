@@ -77,9 +77,9 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
     /**
      * TODO
      */
-    public function queryFileList($showattic = false)
+    public function queryFileList($showdeleted = false)
     {
-        return ($showattic && $this->_mergedFiles)
+        return ($showdeleted && $this->_mergedFiles)
             ? $this->_mergedFiles
             : $this->_files;
     }
