@@ -1009,7 +1009,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         // Create new event for the exception
         $nevent = $event->getDriver()->getEvent();
         $nevent->baseid = $uid;
-        $nevent->exceptionoriginaldate = new Horde_Date($rstart->strftime('%Y-%m-%d') . 'T' . $otime . $rstart->strftime('%P'));
+        $nevent->exceptionoriginaldate = new Horde_Date($rstart->strftime('%Y-%m-%d') . 'T' . $otime);
         $nevent->creator = $event->creator;
         $nevent->title = $event->title;
         $nevent->description = $event->description;
@@ -1025,5 +1025,4 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         return $nevent;
     }
-
 }

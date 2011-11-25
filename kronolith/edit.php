@@ -129,7 +129,7 @@ do {
                 $event = $kronolith_driver->getEvent();
                 $event->readForm();
                 $event->baseid = $uid;
-                $event->exceptionoriginaldate = new Horde_Date($exception->strftime('%Y-%m-%d') . 'T' . $originaltime . $exception->strftime('%P'));
+                $event->exceptionoriginaldate = new Horde_Date($exception->strftime('%Y-%m-%d') . 'T' . $originaltime);
 
                 break;
 
