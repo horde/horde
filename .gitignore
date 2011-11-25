@@ -46,6 +46,7 @@ framework/Ldap/test/Horde/Ldap/conf.php
 framework/Pear/test/Horde/Pear/Server/conf.php
 framework/Share/test/Horde/Share/conf.php
 framework/Vcs/test/Horde/Vcs/conf.php
+!framework/Vcs/test/Horde/Vcs/repos/cvs/CVSROOT/.#*
 content/test/Content/conf.php
 # Dynamically generated content that may live in the repo directories
 /lib/

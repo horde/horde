@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-06</date>
- <time>23:03:30</time>
+ <date>2011-11-25</date>
+ <time>19:10:23</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -39,6 +39,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Vcs">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Vcs -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Vcs">
@@ -62,6 +69,7 @@
        <file name="Git.php" role="php" />
        <file name="Svn.php" role="php" />
       </dir> <!-- //lib/Horde/Vcs/Patchset -->
+      <file name="Base.php" role="php" />
       <file name="Cvs.php" role="php" />
       <file name="Directory.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -75,6 +83,133 @@
      <file name="Vcs.php" role="php" />
     </dir> <!-- //lib/Horde -->
    </dir> <!-- //lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Vcs">
+      <dir name="repos">
+       <dir name="cvs">
+        <dir name="CVSROOT">
+         <file name=".#checkoutlist" role="test" />
+         <file name=".#commitinfo" role="test" />
+         <file name=".#config" role="test" />
+         <file name=".#cvswrappers" role="test" />
+         <file name=".#loginfo" role="test" />
+         <file name=".#modules" role="test" />
+         <file name=".#notify" role="test" />
+         <file name=".#postadmin" role="test" />
+         <file name=".#postproxy" role="test" />
+         <file name=".#posttag" role="test" />
+         <file name=".#postwatch" role="test" />
+         <file name=".#preproxy" role="test" />
+         <file name=".#rcsinfo" role="test" />
+         <file name=".#taginfo" role="test" />
+         <file name=".#verifymsg" role="test" />
+         <file name="checkoutlist" role="test" />
+         <file name="checkoutlist,v" role="test" />
+         <file name="commitinfo" role="test" />
+         <file name="commitinfo,v" role="test" />
+         <file name="config" role="test" />
+         <file name="config,v" role="test" />
+         <file name="cvswrappers" role="test" />
+         <file name="cvswrappers,v" role="test" />
+         <file name="history" role="test" />
+         <file name="loginfo" role="test" />
+         <file name="loginfo,v" role="test" />
+         <file name="modules" role="test" />
+         <file name="modules,v" role="test" />
+         <file name="notify" role="test" />
+         <file name="notify,v" role="test" />
+         <file name="postadmin" role="test" />
+         <file name="postadmin,v" role="test" />
+         <file name="postproxy" role="test" />
+         <file name="postproxy,v" role="test" />
+         <file name="posttag" role="test" />
+         <file name="posttag,v" role="test" />
+         <file name="postwatch" role="test" />
+         <file name="postwatch,v" role="test" />
+         <file name="preproxy" role="test" />
+         <file name="preproxy,v" role="test" />
+         <file name="rcsinfo" role="test" />
+         <file name="rcsinfo,v" role="test" />
+         <file name="taginfo" role="test" />
+         <file name="taginfo,v" role="test" />
+         <file name="val-tags" role="test" />
+         <file name="verifymsg" role="test" />
+         <file name="verifymsg,v" role="test" />
+        </dir> <!-- /test/Horde/Vcs/repos/cvs/CVSROOT -->
+       </dir> <!-- /test/Horde/Vcs/repos/cvs -->
+       <dir name="git">
+        <dir name="hooks">
+         <file name="applypatch-msg.sample" role="test" />
+         <file name="commit-msg.sample" role="test" />
+         <file name="post-commit.sample" role="test" />
+         <file name="post-receive.sample" role="test" />
+         <file name="post-update.sample" role="test" />
+         <file name="pre-applypatch.sample" role="test" />
+         <file name="pre-commit.sample" role="test" />
+         <file name="pre-rebase.sample" role="test" />
+         <file name="prepare-commit-msg.sample" role="test" />
+         <file name="update.sample" role="test" />
+        </dir> <!-- /test/Horde/Vcs/repos/git/hooks -->
+        <dir name="info">
+         <file name="exclude" role="test" />
+        </dir> <!-- /test/Horde/Vcs/repos/git/info -->
+        <file name="config" role="test" />
+        <file name="description" role="test" />
+        <file name="HEAD" role="test" />
+       </dir> <!-- /test/Horde/Vcs/repos/git -->
+       <dir name="svn">
+        <dir name="conf">
+         <file name="authz" role="test" />
+         <file name="passwd" role="test" />
+         <file name="svnserve.conf" role="test" />
+        </dir> <!-- /test/Horde/Vcs/repos/svn/conf -->
+        <dir name="db">
+         <dir name="revprops">
+          <file name="0" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/svn/db/revprops -->
+         <dir name="revs">
+          <file name="0" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/svn/db/revs -->
+         <file name="current" role="test" />
+         <file name="format" role="test" />
+         <file name="fs-type" role="test" />
+         <file name="fsfs.conf" role="test" />
+         <file name="min-unpacked-rev" role="test" />
+         <file name="txn-current" role="test" />
+         <file name="txn-current-lock" role="test" />
+         <file name="uuid" role="test" />
+         <file name="write-lock" role="test" />
+        </dir> <!-- /test/Horde/Vcs/repos/svn/db -->
+        <dir name="hooks">
+         <file name="post-commit.tmpl" role="test" />
+         <file name="post-lock.tmpl" role="test" />
+         <file name="post-revprop-change.tmpl" role="test" />
+         <file name="post-unlock.tmpl" role="test" />
+         <file name="pre-commit.tmpl" role="test" />
+         <file name="pre-lock.tmpl" role="test" />
+         <file name="pre-revprop-change.tmpl" role="test" />
+         <file name="pre-unlock.tmpl" role="test" />
+         <file name="start-commit.tmpl" role="test" />
+        </dir> <!-- /test/Horde/Vcs/repos/svn/hooks -->
+        <dir name="locks">
+         <file name="db-logs.lock" role="test" />
+         <file name="db.lock" role="test" />
+        </dir> <!-- /test/Horde/Vcs/repos/svn/locks -->
+        <file name="format" role="test" />
+        <file name="README.txt" role="test" />
+       </dir> <!-- /test/Horde/Vcs/repos/svn -->
+      </dir> <!-- /test/Horde/Vcs/repos -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="CvsTest.php" role="test" />
+      <file name="GitTest.php" role="test" />
+      <file name="RcsTest.php" role="test" />
+      <file name="SvnTest.php" role="test" />
+      <file name="TestBase.php" role="test" />
+     </dir> <!-- /test/Horde/Vcs -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -108,7 +243,9 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Vcs/COPYING" />
    <install as="Horde/Vcs.php" name="lib/Horde/Vcs.php" />
+   <install as="Horde/Vcs/Base.php" name="lib/Horde/Vcs/Base.php" />
    <install as="Horde/Vcs/Cvs.php" name="lib/Horde/Vcs/Cvs.php" />
    <install as="Horde/Vcs/Directory.php" name="lib/Horde/Vcs/Directory.php" />
    <install as="Horde/Vcs/Exception.php" name="lib/Horde/Vcs/Exception.php" />
@@ -130,6 +267,101 @@
    <install as="Horde/Vcs/Patchset/Cvs.php" name="lib/Horde/Vcs/Patchset/Cvs.php" />
    <install as="Horde/Vcs/Patchset/Git.php" name="lib/Horde/Vcs/Patchset/Git.php" />
    <install as="Horde/Vcs/Patchset/Svn.php" name="lib/Horde/Vcs/Patchset/Svn.php" />
+   <install as="Horde/Vcs/AllTests.php" name="test/Horde/Vcs/AllTests.php" />
+   <install as="Horde/Vcs/Autoload.php" name="test/Horde/Vcs/Autoload.php" />
+   <install as="Horde/Vcs/CvsTest.php" name="test/Horde/Vcs/CvsTest.php" />
+   <install as="Horde/Vcs/GitTest.php" name="test/Horde/Vcs/GitTest.php" />
+   <install as="Horde/Vcs/RcsTest.php" name="test/Horde/Vcs/RcsTest.php" />
+   <install as="Horde/Vcs/SvnTest.php" name="test/Horde/Vcs/SvnTest.php" />
+   <install as="Horde/Vcs/TestBase.php" name="test/Horde/Vcs/TestBase.php" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#checkoutlist" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#checkoutlist" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#commitinfo" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#commitinfo" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#config" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#config" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#cvswrappers" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#cvswrappers" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#loginfo" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#loginfo" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#modules" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#modules" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#notify" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#notify" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#postadmin" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#postadmin" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#postproxy" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#postproxy" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#posttag" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#posttag" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#postwatch" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#postwatch" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#preproxy" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#preproxy" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#rcsinfo" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#rcsinfo" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#taginfo" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#taginfo" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/.#verifymsg" name="test/Horde/Vcs/repos/cvs/CVSROOT/.#verifymsg" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/checkoutlist" name="test/Horde/Vcs/repos/cvs/CVSROOT/checkoutlist" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/checkoutlist,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/checkoutlist,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/commitinfo" name="test/Horde/Vcs/repos/cvs/CVSROOT/commitinfo" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/commitinfo,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/commitinfo,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/config" name="test/Horde/Vcs/repos/cvs/CVSROOT/config" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/config,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/config,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/cvswrappers" name="test/Horde/Vcs/repos/cvs/CVSROOT/cvswrappers" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/cvswrappers,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/cvswrappers,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/history" name="test/Horde/Vcs/repos/cvs/CVSROOT/history" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/loginfo" name="test/Horde/Vcs/repos/cvs/CVSROOT/loginfo" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/loginfo,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/loginfo,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/modules" name="test/Horde/Vcs/repos/cvs/CVSROOT/modules" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/modules,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/modules,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/notify" name="test/Horde/Vcs/repos/cvs/CVSROOT/notify" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/notify,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/notify,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/postadmin" name="test/Horde/Vcs/repos/cvs/CVSROOT/postadmin" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/postadmin,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/postadmin,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/postproxy" name="test/Horde/Vcs/repos/cvs/CVSROOT/postproxy" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/postproxy,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/postproxy,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/posttag" name="test/Horde/Vcs/repos/cvs/CVSROOT/posttag" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/posttag,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/posttag,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/postwatch" name="test/Horde/Vcs/repos/cvs/CVSROOT/postwatch" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/postwatch,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/postwatch,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/preproxy" name="test/Horde/Vcs/repos/cvs/CVSROOT/preproxy" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/preproxy,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/preproxy,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/rcsinfo" name="test/Horde/Vcs/repos/cvs/CVSROOT/rcsinfo" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/rcsinfo,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/rcsinfo,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/taginfo" name="test/Horde/Vcs/repos/cvs/CVSROOT/taginfo" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/taginfo,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/taginfo,v" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/val-tags" name="test/Horde/Vcs/repos/cvs/CVSROOT/val-tags" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/verifymsg" name="test/Horde/Vcs/repos/cvs/CVSROOT/verifymsg" />
+   <install as="Horde/Vcs/repos/cvs/CVSROOT/verifymsg,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/verifymsg,v" />
+   <install as="Horde/Vcs/repos/git/config" name="test/Horde/Vcs/repos/git/config" />
+   <install as="Horde/Vcs/repos/git/description" name="test/Horde/Vcs/repos/git/description" />
+   <install as="Horde/Vcs/repos/git/HEAD" name="test/Horde/Vcs/repos/git/HEAD" />
+   <install as="Horde/Vcs/repos/git/hooks/applypatch-msg.sample" name="test/Horde/Vcs/repos/git/hooks/applypatch-msg.sample" />
+   <install as="Horde/Vcs/repos/git/hooks/commit-msg.sample" name="test/Horde/Vcs/repos/git/hooks/commit-msg.sample" />
+   <install as="Horde/Vcs/repos/git/hooks/post-commit.sample" name="test/Horde/Vcs/repos/git/hooks/post-commit.sample" />
+   <install as="Horde/Vcs/repos/git/hooks/post-receive.sample" name="test/Horde/Vcs/repos/git/hooks/post-receive.sample" />
+   <install as="Horde/Vcs/repos/git/hooks/post-update.sample" name="test/Horde/Vcs/repos/git/hooks/post-update.sample" />
+   <install as="Horde/Vcs/repos/git/hooks/pre-applypatch.sample" name="test/Horde/Vcs/repos/git/hooks/pre-applypatch.sample" />
+   <install as="Horde/Vcs/repos/git/hooks/pre-commit.sample" name="test/Horde/Vcs/repos/git/hooks/pre-commit.sample" />
+   <install as="Horde/Vcs/repos/git/hooks/pre-rebase.sample" name="test/Horde/Vcs/repos/git/hooks/pre-rebase.sample" />
+   <install as="Horde/Vcs/repos/git/hooks/prepare-commit-msg.sample" name="test/Horde/Vcs/repos/git/hooks/prepare-commit-msg.sample" />
+   <install as="Horde/Vcs/repos/git/hooks/update.sample" name="test/Horde/Vcs/repos/git/hooks/update.sample" />
+   <install as="Horde/Vcs/repos/git/info/exclude" name="test/Horde/Vcs/repos/git/info/exclude" />
+   <install as="Horde/Vcs/repos/svn/format" name="test/Horde/Vcs/repos/svn/format" />
+   <install as="Horde/Vcs/repos/svn/README.txt" name="test/Horde/Vcs/repos/svn/README.txt" />
+   <install as="Horde/Vcs/repos/svn/conf/authz" name="test/Horde/Vcs/repos/svn/conf/authz" />
+   <install as="Horde/Vcs/repos/svn/conf/passwd" name="test/Horde/Vcs/repos/svn/conf/passwd" />
+   <install as="Horde/Vcs/repos/svn/conf/svnserve.conf" name="test/Horde/Vcs/repos/svn/conf/svnserve.conf" />
+   <install as="Horde/Vcs/repos/svn/db/current" name="test/Horde/Vcs/repos/svn/db/current" />
+   <install as="Horde/Vcs/repos/svn/db/format" name="test/Horde/Vcs/repos/svn/db/format" />
+   <install as="Horde/Vcs/repos/svn/db/fs-type" name="test/Horde/Vcs/repos/svn/db/fs-type" />
+   <install as="Horde/Vcs/repos/svn/db/fsfs.conf" name="test/Horde/Vcs/repos/svn/db/fsfs.conf" />
+   <install as="Horde/Vcs/repos/svn/db/min-unpacked-rev" name="test/Horde/Vcs/repos/svn/db/min-unpacked-rev" />
+   <install as="Horde/Vcs/repos/svn/db/txn-current" name="test/Horde/Vcs/repos/svn/db/txn-current" />
+   <install as="Horde/Vcs/repos/svn/db/txn-current-lock" name="test/Horde/Vcs/repos/svn/db/txn-current-lock" />
+   <install as="Horde/Vcs/repos/svn/db/uuid" name="test/Horde/Vcs/repos/svn/db/uuid" />
+   <install as="Horde/Vcs/repos/svn/db/write-lock" name="test/Horde/Vcs/repos/svn/db/write-lock" />
+   <install as="Horde/Vcs/repos/svn/db/revprops/0/0" name="test/Horde/Vcs/repos/svn/db/revprops/0/0" />
+   <install as="Horde/Vcs/repos/svn/db/revs/0/0" name="test/Horde/Vcs/repos/svn/db/revs/0/0" />
+   <install as="Horde/Vcs/repos/svn/hooks/post-commit.tmpl" name="test/Horde/Vcs/repos/svn/hooks/post-commit.tmpl" />
+   <install as="Horde/Vcs/repos/svn/hooks/post-lock.tmpl" name="test/Horde/Vcs/repos/svn/hooks/post-lock.tmpl" />
+   <install as="Horde/Vcs/repos/svn/hooks/post-revprop-change.tmpl" name="test/Horde/Vcs/repos/svn/hooks/post-revprop-change.tmpl" />
+   <install as="Horde/Vcs/repos/svn/hooks/post-unlock.tmpl" name="test/Horde/Vcs/repos/svn/hooks/post-unlock.tmpl" />
+   <install as="Horde/Vcs/repos/svn/hooks/pre-commit.tmpl" name="test/Horde/Vcs/repos/svn/hooks/pre-commit.tmpl" />
+   <install as="Horde/Vcs/repos/svn/hooks/pre-lock.tmpl" name="test/Horde/Vcs/repos/svn/hooks/pre-lock.tmpl" />
+   <install as="Horde/Vcs/repos/svn/hooks/pre-revprop-change.tmpl" name="test/Horde/Vcs/repos/svn/hooks/pre-revprop-change.tmpl" />
+   <install as="Horde/Vcs/repos/svn/hooks/pre-unlock.tmpl" name="test/Horde/Vcs/repos/svn/hooks/pre-unlock.tmpl" />
+   <install as="Horde/Vcs/repos/svn/hooks/start-commit.tmpl" name="test/Horde/Vcs/repos/svn/hooks/start-commit.tmpl" />
+   <install as="Horde/Vcs/repos/svn/locks/db-logs.lock" name="test/Horde/Vcs/repos/svn/locks/db-logs.lock" />
+   <install as="Horde/Vcs/repos/svn/locks/db.lock" name="test/Horde/Vcs/repos/svn/locks/db.lock" />
   </filelist>
  </phprelease>
  <changelog>
