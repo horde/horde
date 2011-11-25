@@ -1,3 +1,5 @@
 O4ecfff22|jan|~/horde_vcs/*0|module||module
 A4ecfff68|jan|~/horde_vcs/cvs|module|1.1|file1
 A4ecfff68|jan|~/horde_vcs/cvs|module/dir1|1.1|file1_1
+A4ed00d2f|jan|~/horde_vcs/cvs|module|1.1|deletedfile1
+R4ed00d3e|jan|~/horde_vcs/cvs|module|1.2|deletedfile1
