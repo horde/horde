@@ -22,6 +22,13 @@
 class Horde_Vcs_Git extends Horde_Vcs_Base
 {
     /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Git';
+
+    /**
      * Driver features.
      *
      * @var array

@@ -11,6 +11,13 @@
 class Horde_Vcs_Rcs extends Horde_Vcs_Base
 {
     /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Rcs';
+
+    /**
      * TODO
      */
     public function isValidRevision($rev)

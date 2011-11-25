@@ -21,6 +21,13 @@
 class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 {
     /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Cvs';
+
+    /**
      * Driver features.
      *
      * @var array

@@ -20,6 +20,24 @@
 class Horde_Vcs_Svn extends Horde_Vcs_Base
 {
     /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Svn';
+
+    /**
+     * Driver features.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        'deleted'   => false,
+        'patchsets' => true,
+        'branches'  => false,
+        'snapshots' => false);
+
+    /**
      * SVN username.
      *
      * @var string
@@ -32,17 +50,6 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
      * @var string
      */
     protected $_password = '';
-
-    /**
-     * Driver features.
-     *
-     * @var array
-     */
-    protected $_features = array(
-        'deleted'   => false,
-        'patchsets' => true,
-        'branches'  => false,
-        'snapshots' => false);
 
     /**
      * Constructor.

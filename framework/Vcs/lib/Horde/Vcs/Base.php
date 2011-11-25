@@ -79,9 +79,6 @@ class Horde_Vcs_Base
         $this->_cache = empty($params['cache']) ? null : $params['cache'];
         $this->_sourceroot = $params['sourceroot'];
         $this->_paths = $params['paths'];
-
-        $pos = strrpos(get_class($this), '_');
-        $this->_driver = substr(get_class($this), $pos + 1);
     }
 
     /**
