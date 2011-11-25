@@ -47,6 +47,8 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $files[0]);
         $this->assertCount(1, $dir->queryFileList(true));
         $this->assertEquals(array('HEAD'), $dir->getBranches());
+        // If we ever implement branch listing on directories:
+        // $this->assertEquals(array('HEAD', 'branch1'), $dir->getBranches());
 
         /* Test deleted files. */
         $dir = $this->vcs->getDirObject('module', array('showattic' => true));
