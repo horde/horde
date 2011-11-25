@@ -22,7 +22,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->vcs = Horde_Vcs::factory(
             'Svn',
             array_merge(self::$conf,
-                        array('sourceroot' => dirname(__FILE__) . '/repos/svn')));
+                        array('sourceroot' => 'file://' . dirname(__FILE__) . '/repos/svn')));
     }
 
     public function testFactory()
@@ -33,5 +33,29 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertTrue($this->vcs->hasFeature('patchsets'));
         $this->assertFalse($this->vcs->hasFeature('snapshots'));
         $this->assertFalse($this->vcs->hasFeature('foo'));
+    }
+
+    public function testDirectory()
+    {
+        $dir = $this->vcs->getDirObject('');
+        $this->assertInstanceOf('Horde_Vcs_Directory_Svn', $dir);
+    }
+
+    public function testFile()
+    {
+        $file = $this->vcs->getFileObject('foo');
+        $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
+    }
+
+    public function testLog()
+    {
+        $log = $this->vcs->getLogObject($this->vcs->getFileObject('foo'), '');
+        $this->assertInstanceOf('Horde_Vcs_Log_Svn', $log);
+    }
+
+    public function testPatchset()
+    {
+        $ps = $this->vcs->getPatchsetObject(array('file' => 'foo'));
+        $this->assertInstanceOf('Horde_Vcs_Patchset_Svn', $ps);
     }
 }

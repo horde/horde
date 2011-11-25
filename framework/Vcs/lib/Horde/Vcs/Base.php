@@ -191,7 +191,9 @@ class Horde_Vcs_Base
             'ws' => true
         ), $opts);
 
-        if ($rev1) { $this->assertValidRevision($rev1); }
+        if ($rev1) {
+            $this->assertValidRevision($rev1);
+        }
 
         $diff = $this->_diff($file, $rev1, $rev2, $opts);
         return empty($opts['human'])

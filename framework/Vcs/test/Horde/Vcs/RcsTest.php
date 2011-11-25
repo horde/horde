@@ -34,4 +34,22 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertFalse($this->vcs->hasFeature('snapshots'));
         $this->assertFalse($this->vcs->hasFeature('foo'));
     }
+
+    public function testDirectory()
+    {
+        $dir = $this->vcs->getDirObject('');
+        $this->assertInstanceOf('Horde_Vcs_Directory_Rcs', $dir);
+    }
+
+    public function testFile()
+    {
+        $dir = $this->vcs->getFileObject('foo');
+        $this->assertInstanceOf('Horde_Vcs_File_Rcs', $dir);
+    }
+
+    public function testLog()
+    {
+        $dir = $this->vcs->getLogObject($this->vcs->getFileObject('foo'), '');
+        $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $dir);
+    }
 }

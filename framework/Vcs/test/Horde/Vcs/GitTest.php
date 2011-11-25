@@ -34,4 +34,32 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertTrue($this->vcs->hasFeature('snapshots'));
         $this->assertFalse($this->vcs->hasFeature('foo'));
     }
+
+    public function testDirectory()
+    {
+        $dir = $this->vcs->getDirObject('');
+        $this->assertInstanceOf('Horde_Vcs_Directory_Git', $dir);
+    }
+
+    public function testFile()
+    {
+        $file = $this->vcs->getFileObject('foo');
+        $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
+    }
+
+    public function testLog()
+    {
+        $log = $this->vcs->getLogObject($this->vcs->getFileObject('foo'), '');
+        $this->assertInstanceOf('Horde_Vcs_Log_Git', $log);
+    }
+
+    public function testPatchset()
+    {
+        try {
+            $ps = $this->vcs->getPatchsetObject(array('file' => 'foo'));
+            $this->fail('Expected Horde_Vcs_Exception');
+        } catch (Horde_Vcs_Exception $e) {
+        }
+        //$this->assertInstanceOf('Horde_Vcs_Patchset_Git', $ps);
+    }
 }
