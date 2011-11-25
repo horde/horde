@@ -15,6 +15,11 @@
 class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
 {
     /**
+     * @var array
+     */
+    protected $_mergedFiles = array();
+
+    /**
      * Constructor.
      *
      * @param Horde_Vcs_Cvs $rep  A repository object.
@@ -64,9 +69,40 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
         if (!empty($opts['showattic'])) {
             try {
                 $atticDir = new Horde_Vcs_Directory_Cvs($rep, $this->_moduleName . '/Attic', $opts, $this);
-                $this->_atticFiles = $atticDir->queryFileList();
-                $this->_mergedFiles = array_merge($this->_files, $this->_atticFiles);
+                $this->_mergedFiles = array_merge($this->_files, $atticDir->queryFileList());
             } catch (Horde_Vcs_Exception $e) {}
+        }
+    }
+
+    /**
+     * TODO
+     */
+    public function queryFileList($showattic = false)
+    {
+        return ($showattic && $this->_mergedFiles)
+            ? $this->_mergedFiles
+            : $this->_files;
+    }
+
+    /**
+     * Sorts the the directory contents.
+     *
+     * @param integer $how  Of the form Horde_Vcs::SORT_[*] where * can be:
+     *                      NONE, NAME, AGE, REV for sorting by name, age or
+     *                      revision.
+     * @param integer $dir  Of the form Horde_Vcs::SORT_[*] where * can be:
+     *                      ASCENDING, DESCENDING for the order of the sort.
+     */
+    public function applySort($how = Horde_Vcs::SORT_NONE,
+                              $dir = Horde_Vcs::SORT_ASCENDING)
+    {
+        parent::applySort($how, $dir);
+
+        if (isset($this->_mergedFiles)) {
+            $this->_doFileSort($this->_mergedFiles, $how);
+            if ($dir == Horde_Vcs::SORT_DESCENDING) {
+                $this->_mergedFiles = array_reverse($this->_mergedFiles);
+            }
         }
     }
 

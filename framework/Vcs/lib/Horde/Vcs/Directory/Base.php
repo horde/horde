@@ -28,16 +28,6 @@ abstract class Horde_Vcs_Directory_Base
     protected $_files = array();
 
     /**
-     * @var array
-     */
-    protected $_atticFiles = array();
-
-    /**
-     * @var array
-     */
-    protected $_mergedFiles = array();
-
-    /**
      * @var string
      */
     protected $_dirs = array();
@@ -86,14 +76,11 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function queryFileList($showattic = false)
     {
-        return ($showattic && isset($this->_mergedFiles))
-            ? $this->_mergedFiles
-            : $this->_files;
+        $this->_files;
     }
 
     /**
-     * Sort the contents of the directory in a given fashion and
-     * order.
+     * Sorts the the directory contents.
      *
      * @param integer $how  Of the form Horde_Vcs::SORT_[*] where * can be:
      *                      NONE, NAME, AGE, REV for sorting by name, age or
@@ -109,20 +96,9 @@ abstract class Horde_Vcs_Directory_Base
 
         $this->_doFileSort($this->_files, $how);
 
-        if (isset($this->_atticFiles)) {
-            $this->_doFileSort($this->_atticFiles, $how);
-        }
-
-        if (isset($this->_mergedFiles)) {
-            $this->_doFileSort($this->_mergedFiles, $how);
-        }
-
         if ($dir == Horde_Vcs::SORT_DESCENDING) {
             $this->_dirs = array_reverse($this->_dirs);
             $this->_files = array_reverse($this->_files);
-            if (isset($this->_mergedFiles)) {
-                $this->_mergedFiles = array_reverse($this->_mergedFiles);
-            }
         }
     }
 
