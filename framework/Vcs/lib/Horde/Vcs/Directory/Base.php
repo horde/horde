@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs_Cvs directory class.
+ * Base directory class.
  *
  * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
@@ -9,7 +9,7 @@
  *
  * @package Vcs
  */
-abstract class Horde_Vcs_Directory
+abstract class Horde_Vcs_Directory_Base
 {
     /**
      * @var Horde_Vcs

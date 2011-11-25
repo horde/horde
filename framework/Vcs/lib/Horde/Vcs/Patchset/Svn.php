@@ -1,12 +1,12 @@
 <?php
 /**
- * Horde_Vcs_Svn Patchset class.
+ * Subversion patchset class.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
+class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset_Base
 {
     /**
      * Constructor

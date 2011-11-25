@@ -1,12 +1,12 @@
 <?php
 /**
- * Horde_Vcs_Directory_Svn class.
+ * Subversion directory class.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory
+class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
 {
     /**
      * Create a Directory object to store information about the files in a

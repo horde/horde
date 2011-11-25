@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs_Git directory class.
+ * Git directory class.
  *
  * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory
+class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
 {
     /**
      * The current branch.

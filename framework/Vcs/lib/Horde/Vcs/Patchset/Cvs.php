@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs_Patchset_Cvs class.
+ * CVS patchset class.
  *
  * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset
+class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
 {
     /**
      * Constructor

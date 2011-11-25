@@ -10,6 +10,6 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Log_Rcs extends Horde_Vcs_Log
+class Horde_Vcs_Log_Rcs extends Horde_Vcs_Log_Base
 {
 }

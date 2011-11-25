@@ -1,11 +1,11 @@
 <?php
 /**
- * Horde_Vcs_Log_Svn class.
+ * Subversion log class.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @package Vcs
  */
-class Horde_Vcs_Log_Svn extends Horde_Vcs_Log
+class Horde_Vcs_Log_Svn extends Horde_Vcs_Log_Base
 {
     /**
      * TODO

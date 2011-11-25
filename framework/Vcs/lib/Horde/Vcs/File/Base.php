@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs file class.
+ * Base file class.
  *
  * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
@@ -9,7 +9,7 @@
  *
  * @package Vcs
  */
-abstract class Horde_Vcs_File
+abstract class Horde_Vcs_File_Base
 {
     /**
      * TODO
