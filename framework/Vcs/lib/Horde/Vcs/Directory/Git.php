@@ -40,7 +40,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
 
         // @TODO See if we have a valid cache of the tree at this revision
 
-        $dir = $this->queryDir();
+        $dir = $this->_dirName;
         if (substr($dir, 0, 1) == '/') {
             $dir = (string)substr($dir, 1);
         }

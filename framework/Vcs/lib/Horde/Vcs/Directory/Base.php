@@ -50,17 +50,7 @@ abstract class Horde_Vcs_Directory_Base
     {
         $this->_rep = $rep;
         $this->_moduleName = $dn;
-        $this->_dirName = '/' . $dn;
-    }
-
-    /**
-     * Return fully qualified pathname to this directory with no trailing /.
-     *
-     * @return string Pathname of this directory.
-     */
-    public function queryDir()
-    {
-        return $this->_dirName;
+        $this->_dirName = '/' . ltrim($dn, '/');
     }
 
     /**

@@ -31,26 +31,26 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
     public function __construct(Horde_Vcs_Base $rep, $dn, $opts = array())
     {
         parent::__construct($rep, $dn, $opts);
-        $this->_dirName = $rep->sourceroot() . '/' . $dn;
+        $dir = $rep->sourceroot() . $this->_dirName;
 
         /* Make sure we are trying to list a directory */
-        if (!@is_dir($this->_dirName)) {
-            throw new Horde_Vcs_Exception('Unable to find directory: ' . $this->_dirName);
+        if (!@is_dir($dir)) {
+            throw new Horde_Vcs_Exception('Unable to find directory: ' . $dir);
         }
 
         /* Open the directory for reading its contents */
-        if (!($dir = @opendir($this->_dirName))) {
+        if (!($handle = @opendir($dir))) {
             throw new Horde_Vcs_Exception(empty($php_errormsg) ? 'Permission denied' : $php_errormsg);
         }
 
         /* Create two arrays - one of all the files, and the other of all the
          * directories. */
-        while (($name = readdir($dir)) !== false) {
+        while (($name = readdir($handle)) !== false) {
             if (($name == '.') || ($name == '..')) {
                 continue;
             }
 
-            $path = $this->_dirName . '/' . $name;
+            $path = $dir . '/' . $name;
             if (@is_dir($path)) {
                 /* Skip Attic directory. */
                 if ($name != 'Attic') {
@@ -63,7 +63,7 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
         }
 
         /* Close the filehandle; we've now got a list of dirs and files. */
-        closedir($dir);
+        closedir($handle);
 
         /* If we want to merge the attic, add it in here. */
         if (!empty($opts['showattic'])) {
