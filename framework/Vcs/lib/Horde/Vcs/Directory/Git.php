@@ -48,30 +48,41 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
             $dir .= '/';
         }
 
-        $cmd = $rep->getCommand() . ' ls-tree --full-name ' . escapeshellarg($this->_branch) . ' ' . escapeshellarg($dir) . ' 2>&1';
-        $stream = popen($cmd, 'r');
+        $cmd = $rep->getCommand() . ' ls-tree --full-name '
+            . escapeshellarg($this->_branch) . ' ' . escapeshellarg($dir);
+        $stream = proc_open(
+            $cmd,
+            array(1 => array('pipe', 'w'), 2 => array('pipe', 'w')),
+            $pipes);
         if (!$stream) {
             throw new Horde_Vcs_Exception('Failed to execute git ls-tree: ' . $cmd);
         }
+        if ($error = stream_get_contents($pipes[2])) {
+            proc_close($stream);
+            throw new Horde_Vcs_Exception($error);
+        }
 
-        // Create two arrays - one of all the files, and the other of
-        // all the dirs.
-        while (!feof($stream)) {
-            $line = fgets($stream);
-            if ($line === false) { break; }
+        /* Create two arrays - one of all the files, and the other of all the
+         * dirs. */
+        while (!feof($pipes[1])) {
+            $line = rtrim(fgets($pipes[1]));
+            if (!strlen($line)) {
+                continue;
+            }
 
-            $line = rtrim($line);
-            if (!strlen($line))  { continue; }
-
-            list(, $type, , $file) = preg_split('/\s+/', $line, -1, PREG_SPLIT_NO_EMPTY);
+            list(, $type, , $file) = preg_split('/\s+/', $line, -1,
+                                                PREG_SPLIT_NO_EMPTY);
             if ($type == 'tree') {
                 $this->_dirs[] = basename($file);
             } else {
-                $this->_files[] = $rep->getFileObject($file, array('branch' => $this->_branch, 'quicklog' => !empty($opts['quicklog'])));
+                $this->_files[] = $rep->getFileObject(
+                    $file,
+                    array('branch' => $this->_branch,
+                          'quicklog' => !empty($opts['quicklog'])));
             }
         }
 
-        pclose($stream);
+        proc_close($stream);
     }
 
     /**
@@ -85,5 +96,4 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
         }
         return $blist;
     }
-
 }

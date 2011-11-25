@@ -22,18 +22,26 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
     {
         parent::__construct($rep, $dn, $opts);
 
-        $cmd = $rep->getCommand() . ' ls ' . escapeshellarg($rep->sourceroot() . $this->_dirName) . ' 2>&1';
+        $cmd = $rep->getCommand() . ' ls '
+            . escapeshellarg($rep->sourceroot() . $this->_dirName);
 
-        $dir = popen($cmd, 'r');
+        $dir = proc_open(
+            $cmd,
+            array(1 => array('pipe', 'w'), 2 => array('pipe', 'w')),
+            $pipes);
         if (!$dir) {
             throw new Horde_Vcs_Exception('Failed to execute svn ls: ' . $cmd);
         }
+        if ($error = stream_get_contents($pipes[2])) {
+            proc_close($dir);
+            throw new Horde_Vcs_Exception($error);
+        }
 
-        /* Create two arrays - one of all the files, and the other of
-         * all the dirs. */
+        /* Create two arrays - one of all the files, and the other of all the
+         * dirs. */
         $errors = array();
-        while (!feof($dir)) {
-            $line = chop(fgets($dir, 1024));
+        while (!feof($pipes[1])) {
+            $line = chop(fgets($pipes[1], 1024));
             if (!strlen($line)) {
                 continue;
             }
@@ -43,16 +51,12 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
             } elseif (substr($line, -1) == '/') {
                 $this->_dirs[] = substr($line, 0, -1);
             } else {
-                $this->_files[] = $rep->getFileObject($this->_dirName . '/' . $line, array('quicklog' => !empty($opts['quicklog'])));
+                $this->_files[] = $rep->getFileObject(
+                    $this->_dirName . '/' . $line,
+                    array('quicklog' => !empty($opts['quicklog'])));
             }
         }
 
-        pclose($dir);
-
-        if (empty($errors)) {
-            return true;
-        }
-
-        throw new Horde_Vcs_Exception(implode("\n", $errors));
+        proc_close($dir);
     }
 }
