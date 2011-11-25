@@ -1,6 +1,7 @@
 <?php
 /**
- * Subversion directory class.
+ * Subversion directory class that stores information about the files in a
+ * single directory in the repository.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
@@ -9,14 +10,15 @@
 class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
 {
     /**
-     * Create a Directory object to store information about the files in a
-     * single directory in the repository.
+     * Constructor.
      *
-     * @param Horde_Vcs $rep  The Repository object this directory is part of.
-     * @param string $dn      Path to the directory.
-     * @param array $opts     TODO
+     * @param Horde_Vcs_Svn $rep  A repository object.
+     * @param string $dn          Path to the directory.
+     * @param array $opts         TODO
+     *
+     * @throws Horde_Vcs_Exception
      */
-    public function __construct($rep, $dn, $opts = array())
+    public function __construct(Horde_Vcs_Base $rep, $dn, $opts = array())
     {
         parent::__construct($rep, $dn, $opts);
 

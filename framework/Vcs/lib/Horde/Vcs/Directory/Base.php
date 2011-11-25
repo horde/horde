@@ -1,6 +1,7 @@
 <?php
 /**
- * Base directory class.
+ * Base directory class that stores information about the files in a single
+ * directory in the repository.
  *
  * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
@@ -12,7 +13,7 @@
 abstract class Horde_Vcs_Directory_Base
 {
     /**
-     * @var Horde_Vcs
+     * @var Horde_Vcs_Base
      */
     protected $_rep;
 
@@ -47,14 +48,15 @@ abstract class Horde_Vcs_Directory_Base
     protected $_moduleName;
 
     /**
-     * Create a Directory object to store information about the files in a
-     * single directory in the repository.
+     * Constructor.
      *
-     * @param Horde_Vcs $rep  The Repository object this directory is part of.
-     * @param string $dn      Path to the directory.
-     * @param array $opts     TODO
+     * @param Horde_Vcs_Base $rep  A repository object.
+     * @param string $dn           Path to the directory.
+     * @param array $opts          TODO
+     *
+     * @throws Horde_Vcs_Exception
      */
-    public function __construct($rep, $dn, $opts = array())
+    public function __construct(Horde_Vcs_Base $rep, $dn, $opts = array())
     {
         $this->_rep = $rep;
         $this->_moduleName = $dn;

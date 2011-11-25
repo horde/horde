@@ -1,6 +1,7 @@
 <?php
 /**
- * RCS directory class.
+ * RCS directory class that stores information about the files in a single
+ * directory in the repository.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *

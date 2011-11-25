@@ -1,6 +1,7 @@
 <?php
 /**
- * CVS directory class.
+ * CVS directory class that stores information about the files in a single
+ * directory in the repository.
  *
  * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
@@ -14,16 +15,15 @@
 class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
 {
     /**
-     * Create a Directory object to store information about the files in a
-     * single directory in the repository
+     * Constructor.
      *
-     * @param Horde_Vcs $rep  The Repository object this directory is part of.
-     * @param string $dn      Path to the directory.
-     * @param array $opts     TODO
+     * @param Horde_Vcs_Cvs $rep  A repository object.
+     * @param string $dn          Path to the directory.
+     * @param array $opts         TODO
      *
      * @throws Horde_Vcs_Exception
      */
-    public function __construct($rep, $dn, $opts = array())
+    public function __construct(Horde_Vcs_Base $rep, $dn, $opts = array())
     {
         parent::__construct($rep, $dn, $opts);
         $this->_dirName = $rep->sourceroot() . '/' . $dn;
@@ -34,13 +34,13 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
         }
 
         /* Open the directory for reading its contents */
-        if (!($DIR = @opendir($this->_dirName))) {
+        if (!($dir = @opendir($this->_dirName))) {
             throw new Horde_Vcs_Exception(empty($php_errormsg) ? 'Permission denied' : $php_errormsg);
         }
 
-        /* Create two arrays - one of all the files, and the other of
-         * all the directories. */
-        while (($name = readdir($DIR)) !== false) {
+        /* Create two arrays - one of all the files, and the other of all the
+         * directories. */
+        while (($name = readdir($dir)) !== false) {
             if (($name == '.') || ($name == '..')) {
                 continue;
             }
@@ -58,7 +58,7 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
         }
 
         /* Close the filehandle; we've now got a list of dirs and files. */
-        closedir($DIR);
+        closedir($dir);
 
         /* If we want to merge the attic, add it in here. */
         if (!empty($opts['showattic'])) {
@@ -68,8 +68,6 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
                 $this->_mergedFiles = array_merge($this->_files, $this->_atticFiles);
             } catch (Horde_Vcs_Exception $e) {}
         }
-
-        return true;
     }
 
     /**
@@ -79,5 +77,4 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
     {
         return array('HEAD');
     }
-
 }

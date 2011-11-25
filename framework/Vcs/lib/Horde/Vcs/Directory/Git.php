@@ -1,6 +1,7 @@
 <?php
 /**
- * Git directory class.
+ * Git directory class that stores information about the files in a single
+ * directory in the repository.
  *
  * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
@@ -21,16 +22,15 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
     protected $_branch;
 
     /**
-     * Create a Directory object to store information about the files in a
-     * single directory in the repository.
+     * Constructor.
      *
-     * @param Horde_Vcs $rep  The Repository object this directory is part of.
-     * @param string $dn      Path to the directory.
-     * @param array $opts     TODO
+     * @param Horde_Vcs_Git $rep  A repository object.
+     * @param string $dn          Path to the directory.
+     * @param array $opts         TODO
      *
      * @throws Horde_Vcs_Exception
      */
-    public function __construct($rep, $dn, $opts = array())
+    public function __construct(Horde_Vcs_Base $rep, $dn, $opts = array())
     {
         parent::__construct($rep, $dn, $opts);
 
