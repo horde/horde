@@ -38,8 +38,15 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
 
     public function testDirectory()
     {
-        $dir = $this->vcs->getDirObject('');
+        $dir = $this->vcs->getDirObject('module');
         $this->assertInstanceOf('Horde_Vcs_Directory_Cvs', $dir);
+        $this->assertEquals(array('dir1'), $dir->queryDirList());
+        $files = $dir->queryFileList();
+        $this->assertInternalType('array', $files);
+        $this->assertCount(1, $files);
+        $this->assertInstanceOf('Horde_Vcs_File_Cvs', $files[0]);
+        $this->assertCount(1, $dir->queryFileList(true));
+        $this->assertEquals(array('HEAD'), $dir->getBranches());
     }
 
     public function testFile()

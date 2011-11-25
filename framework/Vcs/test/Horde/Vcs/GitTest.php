@@ -39,12 +39,20 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
     {
         $dir = $this->vcs->getDirObject('');
         $this->assertInstanceOf('Horde_Vcs_Directory_Git', $dir);
+        $this->assertEquals(array('dir1'), $dir->queryDirList());
+        $files = $dir->queryFileList();
+        $this->assertInternalType('array', $files);
+        $this->assertCount(1, $files);
+        $this->assertInstanceOf('Horde_Vcs_File_Git', $files[0]);
+        $this->assertCount(1, $dir->queryFileList(true));
+        $this->assertEquals(array('master'), $dir->getBranches());
     }
 
     public function testFile()
     {
         $file = $this->vcs->getFileObject('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
+        //$this->assertEquals('file1', $files[0]->queryRepositoryName());
     }
 
     public function testLog()
