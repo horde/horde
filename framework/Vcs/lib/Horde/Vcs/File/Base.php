@@ -111,7 +111,7 @@ abstract class Horde_Vcs_File_Base
      *
      * @return string  Filename without repository extension
      */
-    function queryName()
+    public function queryName()
     {
         return $this->_name;
     }
