@@ -25,6 +25,10 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
     /**
      * Constructor.
      *
+     * @todo Throw exception if not a valid directory (ls-tree doesn't really
+     *       list directory contents, but all objects matching a pattern, so it
+     *       returns an empty list when used with non-existant directories.
+     *
      * @param Horde_Vcs_Base $rep  A repository object.
      * @param string $dn           Path to the directory.
      * @param array $opts          Any additional options:

@@ -46,6 +46,13 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $files[0]);
         $this->assertCount(1, $dir->queryFileList(true));
         $this->assertEquals(array(), $dir->getBranches());
+
+        /* Test non-existant directory. */
+        try {
+            $this->vcs->getDirObject('foo');
+            $this->fail('Expected Horde_Vcs_Exception');
+        } catch (Horde_Vcs_Exception $e) {
+        }
     }
 
     public function testFile()
