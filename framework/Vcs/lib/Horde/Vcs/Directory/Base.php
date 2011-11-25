@@ -33,11 +33,6 @@ abstract class Horde_Vcs_Directory_Base
     protected $_dirs = array();
 
     /**
-     * @var string
-     */
-    protected $_moduleName;
-
-    /**
      * Constructor.
      *
      * @param Horde_Vcs_Base $rep  A repository object.
@@ -49,7 +44,6 @@ abstract class Horde_Vcs_Directory_Base
     public function __construct(Horde_Vcs_Base $rep, $dn, $opts = array())
     {
         $this->_rep = $rep;
-        $this->_moduleName = $dn;
         $this->_dirName = '/' . ltrim($dn, '/');
     }
 
