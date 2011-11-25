@@ -1,0 +1,37 @@
+<?php
+/**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/TestBase.php';
+
+/**
+ * @author     Jan Schneider <jan@horde.org>
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @category   Horde
+ * @package    Vcs
+ * @subpackage UnitTests
+ */
+
+class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
+{
+    public function setUp()
+    {
+        if (!self::$conf) {
+            $this->markTestSkipped();
+        }
+        $this->vcs = Horde_Vcs::factory(
+            'Rcs',
+            array_merge(self::$conf,
+                        array('sourceroot' => dirname(__FILE__) . '/repos/rcs')));
+    }
+
+    public function testFactory()
+    {
+        $this->assertInstanceOf('Horde_Vcs_Rcs', $this->vcs);
+        $this->assertFalse($this->vcs->hasFeature('branches'));
+        $this->assertFalse($this->vcs->hasFeature('deleted'));
+        $this->assertFalse($this->vcs->hasFeature('patchsets'));
+        $this->assertFalse($this->vcs->hasFeature('snapshots'));
+        $this->assertFalse($this->vcs->hasFeature('foo'));
+    }
+}
