@@ -402,12 +402,17 @@ class Horde_Vcs_Base
     }
 
     /**
-     * TODO
+     * Returns a directory object.
      *
-     * $opts:
-     * 'quicklog' - (boolean)
-     * 'rev' - (string)
-     * 'showAttic' - (boolean)
+     * @param string $where        Path to the directory.
+     * @param array $opts          Any additional options (depends on driver):
+     *                             - 'quicklog': (boolean)
+     *                             - 'showattic': (boolean) Parse any Attic/
+     *                               sub-directory contents too.
+     *                             - 'rev': (string) Generate directory list for
+     *                               a certain branch or revision.
+     *
+     * @return Horde_Vcs_Directory_Base  A directory object.
      */
     public function getDirObject($where, $opts = array())
     {
