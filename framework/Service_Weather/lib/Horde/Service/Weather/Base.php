@@ -209,6 +209,9 @@
      */
     public function getStation()
     {
+        if (empty($this->_station)) {
+            throw new Horde_Service_Weather_Exception('No request made.');
+        }
         return $this->_station;
     }
 
