@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-23</date>
- <time>01:03:40</time>
+ <date>2011-11-27</date>
+ <time>00:17:53</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0alpha1</api>
@@ -80,8 +80,29 @@
       <file name="Horde_Service_Weather.po" role="data" />
      </dir> <!-- /locale/en_US/LC_MESSAGES -->
     </dir> <!-- /locale/en_US -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Service_Weather.mo" role="data" />
+      <file name="Horde_Service_Weather.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
     <file name="Horde_Service_Weather.pot" role="data" />
    </dir> <!-- /locale -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Service">
+      <dir name="Weather">
+       <dir name="fixtures">
+        <file name="boston_google.xml" role="test" />
+        <file name="boston_google_de.xml" role="test" />
+       </dir> <!-- /test/Horde/Service/Weather/fixtures -->
+       <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
+       <file name="GoogleTest.php" role="test" />
+      </dir> <!-- /test/Horde/Service/Weather -->
+     </dir> <!-- /test/Horde/Service -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
@@ -266,6 +287,13 @@
    <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.po" name="locale/de/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Service_Weather.po" name="locale/ja/LC_MESSAGES/Horde_Service_Weather.po" />
+   <install as="Horde/Service/Weather/AllTests.php" name="test/Horde/Service/Weather/AllTests.php" />
+   <install as="Horde/Service/Weather/Autoload.php" name="test/Horde/Service/Weather/Autoload.php" />
+   <install as="Horde/Service/Weather/GoogleTest.php" name="test/Horde/Service/Weather/GoogleTest.php" />
+   <install as="Horde/Service/Weather/fixtures/boston_google.xml" name="test/Horde/Service/Weather/fixtures/boston_google.xml" />
+   <install as="Horde/Service/Weather/fixtures/boston_google_de.xml" name="test/Horde/Service/Weather/fixtures/boston_google_de.xml" />
    <install as="themes/default/graphics/weather/wundergroundlogo.png" name="themes/default/graphics/weather/wundergroundlogo.png" />
    <install as="themes/default/graphics/weather/23x23/0.png" name="themes/default/graphics/weather/23x23/0.png" />
    <install as="themes/default/graphics/weather/23x23/1.png" name="themes/default/graphics/weather/23x23/1.png" />
@@ -390,7 +418,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-11-23</date>
+   <date>2011-11-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
