@@ -47,10 +47,15 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
         case 'dewpoint':
         case 'humidity':
         case 'wind_direction':
+        case 'wind_degrees':
         case 'wind_speed':
         case 'wind_gust':
         case 'visibility':
-            return false;
+        case 'heat_index':
+        case 'wind_chill':
+        case 'visibility':
+            return null;
+
         case 'temp':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->temp_f['data'];
