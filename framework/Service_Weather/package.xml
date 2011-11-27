@@ -22,6 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mjr] Fix obtaining forecast periods individually..
+* [mjr] Fix obtaining certain properties from Google driver.
+* [mjr] Fix making requests when not using a cache.
 * [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mjr] Fix path to locale directory.
 * [mjr] Fix setting units (Bug #10792).
@@ -421,6 +424,9 @@
    <date>2011-11-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mjr] Fix obtaining forecast periods individually..
+* [mjr] Fix obtaining certain properties from Google driver.
+* [mjr] Fix making requests when not using a cache.
 * [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mjr] Fix path to locale directory.
 * [mjr] Fix setting units (Bug #10792).
