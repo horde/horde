@@ -49,7 +49,7 @@
         case 'time':
             return new Horde_Date($this->_properties->observation_time);
 
-            case 'temp':
+        case 'temp':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->temp_F;
             }
