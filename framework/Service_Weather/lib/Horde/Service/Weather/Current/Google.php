@@ -52,7 +52,6 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
         case 'visibility':
         case 'heat_index':
         case 'wind_chill':
-        case 'visibility':
             return null;
 
         case 'temp':
