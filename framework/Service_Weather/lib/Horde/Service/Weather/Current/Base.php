@@ -44,11 +44,11 @@
     /**
      * Const'r
      *
-     * @param  array $properties  Current properties, in driver keys.
+     * @param mixed $properties  Current properties, in driver keys.
      *
      * @return Horde_Service_Weather_Current_Base
      */
-    public function __construct(array $properties = array(), Horde_Service_Weather_Base $weather)
+    public function __construct($properties, Horde_Service_Weather_Base $weather)
     {
         $this->_properties = $properties;
         $this->_weather = $weather;
