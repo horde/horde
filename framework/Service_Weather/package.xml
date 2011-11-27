@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mjr] Fix returning localized text from Wwo driver (Bug #10804).
 * [mjr] Fix obtaining forecast periods individually..
 * [mjr] Fix obtaining certain properties from Google driver.
 * [mjr] Fix making requests when not using a cache.
@@ -424,6 +425,7 @@
    <date>2011-11-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mjr] Fix returning localized text from Wwo driver (Bug #10804).
 * [mjr] Fix obtaining forecast periods individually..
 * [mjr] Fix obtaining certain properties from Google driver.
 * [mjr] Fix making requests when not using a cache.
