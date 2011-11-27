@@ -29,18 +29,6 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
 
     public $time;
 
-    public function __construct($properties, $weather)
-    {
-        parent::__construct($properties, $weather);
-        if (isset($properties['observation_location'])) {
-            $location = $properties['observation_location'];
-            $this->location = (object)array(
-                'location' => $location->full,
-                'lat' => $location->latitude,
-                'lon' => $location->longitude,
-                'elevation' => $location->elevation);
-        }
-    }
 
     public function __get($property)
     {
