@@ -94,7 +94,7 @@
 
     public function getForecastDay($day)
     {
-        return $_periods[$day];
+        return $this->_periods[$day];
     }
 
     public function getForecastTime()
