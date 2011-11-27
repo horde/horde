@@ -593,7 +593,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
         if (array_key_exists('null', $options)) {
             $this->changeColumnNull(
-                $tableName, $columnName, $options['null'], 
+                $tableName, $columnName, $options['null'],
                 isset($options['default']) ? $options['default'] : null);
         }
     }
