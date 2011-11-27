@@ -35,12 +35,10 @@
     protected $_weather;
 
     /**
-     * Location information
+     * Units to return data in
      *
-     * @var stdClass
+     * @var integer
      */
-    public $location;
-
     public $units = Horde_Service_Weather::UNITS_STANDARD;
 
     /**

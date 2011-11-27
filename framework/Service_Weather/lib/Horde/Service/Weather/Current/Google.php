@@ -29,7 +29,13 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
 
     public $time;
 
-
+    /**
+     * Accessor
+     *
+     * @param string $property  The  property to retrieve.
+     *
+     * @return mixed  The property value.
+     */
     public function __get($property)
     {
         // Maybe someday I can add a better $_map array with 'type' fields etc..

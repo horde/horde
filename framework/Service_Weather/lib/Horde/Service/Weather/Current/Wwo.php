@@ -30,12 +30,6 @@
     {
         parent::__construct($properties, $weather);
         $this->_properties = $properties[0];
-        $this->location = new StdClass();
-        $location = $properties[0]->observation_location;
-        $this->location->location = $location->full;
-        $this->location->lat = $location->latitude;
-        $this->location->lon = $location->longitude;
-        $this->location->elevation = $location->elevation;
     }
 
     public function __isset($property)
