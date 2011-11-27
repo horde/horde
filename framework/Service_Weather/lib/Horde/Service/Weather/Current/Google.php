@@ -57,9 +57,9 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
 
         case 'temp':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
-                return $this->_properties->temp_f['data'];
+                return (float)$this->_properties->temp_f['data'];
             }
-            return $this->_properties->temp_c['data'];
+            return (float)$this->_properties->temp_c['data'];
 
         case 'icon':
            return $this->_weather->iconMap[basename((string)$this->_properties->icon['data'], '.gif')];
@@ -69,7 +69,8 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
             if (empty($this->_map[$property])) {
                 throw new Horde_Service_Weather_Exception_InvalidProperty();
             }
-            return $this->_properties->{$this->_map[$property]}['data'];
+
+            return (string)$this->_properties->{$this->_map[$property]}['data'];
         }
     }
 
