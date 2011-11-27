@@ -211,7 +211,8 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
             'lat' => $station->latitude_e6['data'],
             'lon' => $station->longitude_e6['data'],
             'zip' => '',
-            'code' => (string)$station->postal_code['data']
+            'code' => (string)$station->postal_code['data'],
+            'time' => (string)$station->current_date_time['data']
         );
 
         return new Horde_Service_Weather_Station($properties);
