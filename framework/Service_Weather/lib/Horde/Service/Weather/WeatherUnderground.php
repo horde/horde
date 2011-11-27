@@ -335,7 +335,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected function _makeRequest($url)
     {
         $cachekey = md5('hordeweather' . $url);
-        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) ||
+            empty($this->_cache)) {
             $url = new Horde_Url($url);
             $response = $this->_http->get($url);
             if (!$response->code == '200') {

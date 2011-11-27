@@ -253,7 +253,8 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     protected function _makeRequest($url)
     {
         $cachekey = md5('hordeweather' . $url);
-        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) ||
+            empty($this->_cache)) {
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
                 throw new Horde_Service_Weather_Exception($response->code);
@@ -268,7 +269,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
                $this->_cache->set($cachekey, $results);
             }
         }
-
         return new SimplexmlElement($results);
     }
 

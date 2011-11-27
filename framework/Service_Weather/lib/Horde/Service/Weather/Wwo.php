@@ -313,8 +313,10 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
                 'format' => 'json',
                 'key' => $this->_key)
         )->setRaw(true);
+
         $cachekey = md5('hordeweather' . $url);
-        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) ||
+            empty($this->_cache)) {
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
                 Horde::logMessage($response->getBody());
