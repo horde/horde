@@ -118,16 +118,6 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     }
 
     /**
-     * Get the station information.
-     *
-     * @return Horde_Service_Weather_Station
-     */
-    public function getStation()
-    {
-        return $this->_station;
-    }
-
-    /**
      * Search for a valid location code.
      *
      * @param  string $location  A location search string like e.g., Boston,MA

@@ -120,16 +120,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     }
 
     /**
-     * Get the station information.
-     *
-     * @return Horde_Service_Weather_Station
-     */
-    public function getStation()
-    {
-        return $this->_station;
-    }
-
-    /**
      * Search for a valid location code.
      *
      * @param  string $location  A location search string like e.g., Boston,MA

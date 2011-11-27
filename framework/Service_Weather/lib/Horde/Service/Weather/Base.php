@@ -202,4 +202,14 @@
 
     }
 
+    /**
+     * Get the station information.
+     *
+     * @return Horde_Service_Weather_Station
+     */
+    public function getStation()
+    {
+        return $this->_station;
+    }
+
  }
