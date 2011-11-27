@@ -244,7 +244,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     protected function _parseCurrent($current)
     {
         // The Current object takes care of the parsing/mapping.
-        $current = new Horde_Service_Weather_Current_Wwo($current, $this);
+        $current = new Horde_Service_Weather_Current_Wwo($current[0], $this);
         return $current;
     }
 

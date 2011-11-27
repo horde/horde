@@ -26,12 +26,6 @@
         'wind_degrees' => 'winddirDegree'
     );
 
-    public function __construct($properties, $weather)
-    {
-        parent::__construct($properties, $weather);
-        $this->_properties = $properties[0];
-    }
-
     public function __isset($property)
     {
         return !empty($this->_properties->$property);
