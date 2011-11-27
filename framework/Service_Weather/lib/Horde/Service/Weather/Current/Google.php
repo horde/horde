@@ -45,7 +45,6 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
         case 'pressure_trend':
         case 'logo_url':
         case 'dewpoint':
-        case 'humidity':
         case 'wind_direction':
         case 'wind_degrees':
         case 'wind_speed':
