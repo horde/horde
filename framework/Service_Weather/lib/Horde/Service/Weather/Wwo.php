@@ -184,15 +184,27 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         $results = $this->_makeRequest($url);
         $station = $this->_parseStation($results->data->nearest_area[0]);
 
-        // // Sunrise/Sunset
-        $date = new Horde_Date(time());
+        // Current conditions
+        $this->_current = $this->_parseCurrent($results->data->current_condition);
+
+        // Sunrise/Sunset
+        $date = $this->_current->time;
         $station->sunset = new Horde_Date(
-            date_sunset($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $station->lat, $station->lon));
+            date_sunset(
+                $date->timestamp(),
+                SUNFUNCS_RET_TIMESTAMP,
+                $station->lat,
+                $station->lon)
+        );
         $station->sunrise = new Horde_Date(
-            date_sunrise($date->timestamp(), SUNFUNCS_RET_TIMESTAMP, $station->lat, $station->lon));
+            date_sunrise(
+                $date->timestamp(),
+                SUNFUNCS_RET_TIMESTAMP,
+                $station->lat,
+                $station->lon)
+        );
         $this->_station = $station;
         $this->_forecast = $this->_parseForecast($results->data->weather);
-        $this->_current = $this->_parseCurrent($results->data->current_condition);
     }
 
     /**
