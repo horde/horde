@@ -186,11 +186,11 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
     }
 
     /**
-     * Returns the version before the specified version.
+     * Returns the revision before the specified revision.
      *
-     * @param string $rev  A version.
+     * @param string $rev  A revision.
      *
-     * @return string  The previous version or null if the first version.
+     * @return string  The previous revision or null if the first revision.
      */
     public function getPreviousRevision($rev)
     {

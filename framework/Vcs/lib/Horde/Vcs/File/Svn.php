@@ -60,15 +60,15 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
     }
 
     /**
-     * Returns the version before the specified version.
+     * Returns the revision before the specified revision.
      *
-     * @param string $rev  A version.
+     * @param string $rev  A revision.
      *
-     * @return string  The previous version or null if the first version.
+     * @return string  The previous revision or null if the first revision.
      */
     public function getPreviousRevision($rev)
     {
-        /* Shortcut for SVN's incrementing versions. */
+        /* Shortcut for SVN's incrementing revisions. */
         $rev--;
         return $rev ? $rev : null;
     }
