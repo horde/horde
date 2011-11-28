@@ -84,7 +84,7 @@
             if (empty($this->_map[$property])) {
                 throw new Horde_Service_Weather_Exception_InvalidProperty();
             }
-            return Horde_Service_Weather_Translation::t($this->_properties->$this->_map[$property]);
+            return Horde_Service_Weather_Translation::t($this->_properties->{$this->_map[$property]});
         }
     }
 
