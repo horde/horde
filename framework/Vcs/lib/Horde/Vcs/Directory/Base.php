@@ -65,7 +65,7 @@ abstract class Horde_Vcs_Directory_Base
      *
      * return array  A (string) list of directories.
      */
-    public function queryDirList()
+    public function getDirectories()
     {
         return $this->_dirs;
     }
@@ -75,7 +75,7 @@ abstract class Horde_Vcs_Directory_Base
      *
      * @return array  A list of Horde_Vcs_File_Base objects.
      */
-    public function queryFileList($showdeleted = false)
+    public function getFiles($showdeleted = false)
     {
         return $this->_files;
     }

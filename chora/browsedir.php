@@ -27,8 +27,8 @@ try {
     $atticFlags = (bool)$acts['sa'];
     $dir = $VC->getDirectory($where, array('quicklog' => true, 'rev' => $onb, 'showattic' => $atticFlags));
     $dir->applySort($acts['sbt'], $acts['ord']);
-    $dirList = $dir->queryDirList();
-    $fileList = $dir->queryFileList($atticFlags);
+    $dirList = $dir->getDirectories();
+    $fileList = $dir->getFiles($atticFlags);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }

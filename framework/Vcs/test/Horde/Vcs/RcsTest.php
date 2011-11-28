@@ -47,11 +47,11 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
     {
         $dir = $this->vcs->getDirectory('');
         $this->assertInstanceOf('Horde_Vcs_Directory_Rcs', $dir);
-        $files = $dir->queryFileList();
+        $files = $dir->getFiles();
         $this->assertInternalType('array', $files);
         $this->assertCount(1, $files);
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $files[0]);
-        $this->assertCount(1, $dir->queryFileList(true));
+        $this->assertCount(1, $dir->getFiles(true));
         $this->assertEquals(array(), $dir->getBranches());
 
         /* Test non-existant directory. */

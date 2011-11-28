@@ -48,20 +48,20 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
     {
         $dir = $this->vcs->getDirectory('module');
         $this->assertInstanceOf('Horde_Vcs_Directory_Cvs', $dir);
-        $this->assertEquals(array('dir1'), $dir->queryDirList());
-        $files = $dir->queryFileList();
+        $this->assertEquals(array('dir1'), $dir->getDirectories());
+        $files = $dir->getFiles();
         $this->assertInternalType('array', $files);
         $this->assertCount(1, $files);
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $files[0]);
-        $this->assertCount(1, $dir->queryFileList(true));
+        $this->assertCount(1, $dir->getFiles(true));
         $this->assertEquals(array('HEAD'), $dir->getBranches());
         // If we ever implement branch listing on directories:
         // $this->assertEquals(array('HEAD', 'branch1'), $dir->getBranches());
 
         /* Test deleted files. */
         $dir = $this->vcs->getDirectory('module', array('showattic' => true));
-        $this->assertCount(1, $dir->queryFileList());
-        $this->assertCount(2, $dir->queryFileList(true));
+        $this->assertCount(1, $dir->getFiles());
+        $this->assertCount(2, $dir->getFiles(true));
 
         /* Test non-existant directory. */
         try {
