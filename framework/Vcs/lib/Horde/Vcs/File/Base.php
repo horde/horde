@@ -165,7 +165,11 @@ abstract class Horde_Vcs_File_Base
     }
 
     /**
-     * TODO
+     * Returns the version before the specified version.
+     *
+     * @param string $rev  A version.
+     *
+     * @return string  The previous version or null if the first version.
      */
     public function getPreviousRevision($rev)
     {

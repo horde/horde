@@ -84,7 +84,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
                             $file->getFullPath());
         $this->assertEquals('1.2', $file->getRevision());
         $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
-        //FIXME $this->assertEquals('1.1', $file->getPreviousRevision('1.1.2.1'));
+        $this->assertEquals('1.1', $file->getPreviousRevision('1.1.2.1'));
         $this->assertEquals(3, $file->revisionCount());
         $this->assertEquals(array('tag1' => '1.2'),
                             $file->getSymbolicRevisions());

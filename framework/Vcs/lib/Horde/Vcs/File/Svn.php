@@ -58,4 +58,18 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
     {
         return preg_replace('/,v$/', '', $this->_name);
     }
+
+    /**
+     * Returns the version before the specified version.
+     *
+     * @param string $rev  A version.
+     *
+     * @return string  The previous version or null if the first version.
+     */
+    public function getPreviousRevision($rev)
+    {
+        /* Shortcut for SVN's incrementing versions. */
+        $rev--;
+        return $rev ? $rev : null;
+    }
 }

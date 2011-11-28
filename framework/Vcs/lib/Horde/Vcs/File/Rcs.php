@@ -186,6 +186,20 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
     }
 
     /**
+     * Returns the version before the specified version.
+     *
+     * @param string $rev  A version.
+     *
+     * @return string  The previous version or null if the first version.
+     */
+    public function getPreviousRevision($rev)
+    {
+        /* Revisions in RCS/CVS logs are not ordered by date, so use the logic
+         * from the base object. */
+        return $this->_rep->prev($rev);
+    }
+
+    /**
      * TODO
      */
     public function queryRevsym($rev)
