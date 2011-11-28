@@ -59,11 +59,12 @@ abstract class Horde_Vcs_File_Base
     protected $_branch = null;
 
     /**
-     * Create a repository file object, and give it information about
-     * what its parent directory and repository objects are.
+     * Constructor.
      *
-     * @param string $filename  Full path to this file.
-     * @param array  $opts      TODO
+     * @param string $filename  Full path (inside the source root) to this file.
+     * @param array $opts       Additional parameters:
+     *                          - 'quicklog': (boolean)
+     *                          - 'branch': (string)
      */
     public function __construct($filename, $opts = array())
     {
