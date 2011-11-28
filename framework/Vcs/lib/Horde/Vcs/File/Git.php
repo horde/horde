@@ -122,9 +122,13 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     }
 
     /**
-     * TODO
+     * Returns all branches that contain a certain revision.
+     *
+     * @param string $rev  A revision.
+     *
+     * @return array  A list of branches with this revision.
      */
-    public function queryBranch($rev)
+    public function getBranch($rev)
     {
         $branches = array();
 

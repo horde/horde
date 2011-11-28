@@ -123,7 +123,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
         }
 
         $this->_setSymbolicBranches();
-        $this->_branch = $this->_file->queryBranch($this->_rev);
+        $this->_branch = $this->_file->getBranch($this->_rev);
     }
 
     /**
