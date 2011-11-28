@@ -203,6 +203,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
                 $station->lat,
                 $station->lon)
         );
+        $station->time = (string)$date;
         $this->_station = $station;
         $this->_forecast = $this->_parseForecast($results->data->weather);
     }
