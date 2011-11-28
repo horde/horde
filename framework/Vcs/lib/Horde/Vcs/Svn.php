@@ -97,7 +97,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
     {
         $this->assertValidRevision($rev);
 
-        $command = $this->getCommand() . ' annotate -r ' . escapeshellarg('1:' . $rev) . ' ' . escapeshellarg($fileob->queryFullPath()) . ' 2>&1';
+        $command = $this->getCommand() . ' annotate -r ' . escapeshellarg('1:' . $rev) . ' ' . escapeshellarg($fileob->getFullPath()) . ' 2>&1';
         $pipe = popen($command, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn annotate: ' . $command);
@@ -184,7 +184,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
      */
     protected function _diff(Horde_Vcs_File_Base $file, $rev1, $rev2, $opts)
     {
-        $fullName = $file->queryFullPath();
+        $fullName = $file->getFullPath();
         $diff = array();
         $flags = '';
 
@@ -212,7 +212,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
 
         // TODO: add options for $hr options - however these may not
         // be compatible with some diffs.
-        $command = $this->getCommand() . " diff --diff-cmd " . $this->getPath('diff') . ' -r ' . escapeshellarg($rev1 . ':' . $rev2) . ' -x ' . escapeshellarg($flags) . ' ' . escapeshellarg($file->queryFullPath()) . ' 2>&1';
+        $command = $this->getCommand() . " diff --diff-cmd " . $this->getPath('diff') . ' -r ' . escapeshellarg($rev1 . ':' . $rev2) . ' -x ' . escapeshellarg($flags) . ' ' . escapeshellarg($file->getFullPath()) . ' 2>&1';
 
         exec($command, $diff, $retval);
         return $diff;

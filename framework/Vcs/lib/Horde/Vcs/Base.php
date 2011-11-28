@@ -472,7 +472,7 @@ abstract class Horde_Vcs_Base
         $class = 'Horde_Vcs_Log_' . $this->_driver;
 
         if (!is_null($rev) && !empty($this->_cache)) {
-            $cacheId = implode('|', array($class, $this->sourceroot, $fl->queryPath(), $rev, $this->_cacheVersion));
+            $cacheId = implode('|', array($class, $this->sourceroot, $fl->getPath(), $rev, $this->_cacheVersion));
 
             // Individual revisions can be cached forever
             if ($this->_cache->exists($cacheId, 0)) {

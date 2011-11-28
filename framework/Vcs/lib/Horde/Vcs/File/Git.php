@@ -52,7 +52,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
             $branchlist = array($this->_branch);
         } else {
             if (version_compare($this->_rep->version, '1.6.0', '>=')) {
-                $cmd = $this->_rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+                $cmd = $this->_rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->getSourcerootPath()) . ' 2>&1';
             } else {
                 $cmd = $this->_rep->getCommand() . ' branch -v --no-abbrev';
                 exec($cmd, $branch_heads);
@@ -64,13 +64,13 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
                     $hd = $line[1];
                 }
 
-                $cmd = $this->_rep->getCommand() . ' rev-list ' . implode(' ', $branch_heads) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+                $cmd = $this->_rep->getCommand() . ' rev-list ' . implode(' ', $branch_heads) . ' -- ' . escapeshellarg($this->getSourcerootPath()) . ' 2>&1';
             }
 
             exec($cmd, $revs);
             if (count($revs) == 0) {
-                if (!$this->_rep->isFile($this->queryModulePath(), isset($opts['branch']) ? $opts['branch'] : null)) {
-                    throw new Horde_Vcs_Exception('No such file: ' . $this->queryModulePath());
+                if (!$this->_rep->isFile($this->getSourcerootPath(), isset($opts['branch']) ? $opts['branch'] : null)) {
+                    throw new Horde_Vcs_Exception('No such file: ' . $this->getSourcerootPath());
                 } else {
                     throw new Horde_Vcs_Exception('No revisions found');
                 }
@@ -82,11 +82,11 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
 
             $this->_revs = $revs;
 
-            $branchlist = array_keys($this->queryBranches());
+            $branchlist = array_keys($this->getBranches());
         }
 
         $revs = array();
-        $cmd = $this->_rep->getCommand() . ' rev-list' . ($this->_quicklog ? ' -n 1' : '') . ' ' . escapeshellarg($this->_branch) . ' -- ' . escapeshellarg($this->queryModulePath()) . ' 2>&1';
+        $cmd = $this->_rep->getCommand() . ' rev-list' . ($this->_quicklog ? ' -n 1' : '') . ' ' . escapeshellarg($this->_branch) . ' -- ' . escapeshellarg($this->getSourcerootPath()) . ' 2>&1';
         exec($cmd, $revs);
 
         if (!empty($revs)) {
@@ -127,7 +127,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         if (!isset($this->logs[$rev])) {
             throw new Horde_Vcs_Exception('This file doesn\'t exist at that revision');
         }
-        return $this->logs[$rev]->getHashForPath($this->queryModulePath());
+        return $this->logs[$rev]->getHashForPath($this->getSourcerootPath());
     }
 
     /**
@@ -135,11 +135,11 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
      *
      * @return string  Pathname relative to the sourceroot.
      */
-    public function queryModulePath()
+    public function getSourcerootPath()
     {
         return ($this->_dir == '.')
             ? $this->_name
-            : parent::queryModulePath();
+            : parent::getSourcerootPath();
     }
 
     /**
@@ -172,15 +172,15 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
      *
      * @return string  A filename.
      */
-    public function queryPath()
+    public function getPath()
     {
-        return $this->queryModulePath();
+        return $this->getSourcerootPath();
     }
 
     /**
      * TODO
      */
-    public function queryBranches()
+    public function getBranches()
     {
         /* If dealing with a branch that is not explicitly named (i.e. an
          * implicit branch for a given tree-ish commit ID), we need to add
@@ -196,7 +196,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function queryLogs($rev = null)
+    public function getLogs($rev = null)
     {
         if (is_null($rev)) {
             $this->_ensureLogsInitialized();
@@ -216,10 +216,10 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
      * @return Horde_Vcs_Log  Log object of the last entry in the file.
      * @throws Horde_Vcs_Exception
      */
-    public function queryLastLog()
+    public function getLastLog()
     {
         if (empty($this->_branch)) {
-            return parent::queryLastLog();
+            return parent::getLastLog();
         }
 
         $this->_ensureLogsInitialized();

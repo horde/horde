@@ -141,8 +141,8 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function _fileAgeSort($a, $b)
     {
-        $aa = $a->queryLastLog();
-        $bb = $b->queryLastLog();
+        $aa = $a->getLastLog();
+        $bb = $b->getLastLog();
         return ($aa->queryDate() == $bb->queryDate())
             ? 0
             : (($aa->queryDate() < $bb->queryDate()) ? 1 : -1);
@@ -153,8 +153,8 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function _fileAuthorSort($a, $b)
     {
-        $aa = $a->queryLastLog();
-        $bb = $b->queryLastLog();
+        $aa = $a->getLastLog();
+        $bb = $b->getLastLog();
         return ($aa->queryAuthor() == $bb->queryAuthor())
             ? 0
             : (($aa->queryAuthor() > $bb->queryAuthor()) ? 1 : -1);
@@ -165,7 +165,7 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function _fileNameSort($a, $b)
     {
-        return strcasecmp($a->queryName(), $b->queryName());
+        return strcasecmp($a->getFileName(), $b->getFileName());
     }
 
     /**
@@ -173,7 +173,7 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function _fileRevSort($a, $b)
     {
-        return $this->_rep->cmp($a->queryRevision(), $b->queryRevision());
+        return $this->_rep->cmp($a->getRevision(), $b->getRevision());
     }
 
     /**

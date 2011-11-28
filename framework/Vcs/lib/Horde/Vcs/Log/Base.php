@@ -70,7 +70,7 @@ abstract class Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryRevision()
+    public function getRevision()
     {
         $this->_ensureInitialized();
         return $this->_rev;
@@ -146,7 +146,7 @@ abstract class Horde_Vcs_Log_Base
     protected function _setSymbolicBranches()
     {
         $this->_symbolicBranches = array();
-        $branches = $this->_file->queryBranches();
+        $branches = $this->_file->getBranches();
 
         foreach ($this->_branches as $branch) {
             if (($key = array_search($branch, $branches)) !== false) {

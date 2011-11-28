@@ -27,7 +27,7 @@ if (!$rev || !$VC->isValidRevision($rev)) {
 
 switch (Horde_Util::getFormData('actionID')) {
 case 'log':
-    $log = $fl->queryLogs($rev);
+    $log = $fl->getLogs($rev);
     if (!is_null($log)) {
         echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->queryAuthor(), true) . '<br />' .
             '<em>' . _("Date") . ':</em> ' . Chora::formatDate($log->queryDate()) . '<br /><br />' .
@@ -69,7 +69,7 @@ while (list(,$line) = each($lines)) {
     if ($prevRev != $rev) {
         $style = (++$style % 2);
     }
-    $prev = $fl->queryPreviousRevision($rev);
+    $prev = $fl->getPreviousRevision($rev);
 
     $line = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($line['line'], 'space2html', array('encode' => true, 'encode_all' => true));
     include CHORA_TEMPLATES . '/annotate/line.inc';

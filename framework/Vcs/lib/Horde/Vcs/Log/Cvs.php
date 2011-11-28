@@ -46,7 +46,7 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log_Base
                     $this->_state = $parts[8];
                     if (isset($parts[9])) {
                         $this->_lines = '+' . $parts[10] . ' -' . $parts[11];
-                        $this->_files[$this->_file->queryModulePath()] = array(
+                        $this->_files[$this->_file->getSourcerootPath()] = array(
                             'added' => $parts[10],
                             'deleted' => $parts[11]
                         );
@@ -84,7 +84,7 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log_Base
 
         $this->_setSymbolicBranches();
 
-        $branches = $this->_file->queryBranches();
+        $branches = $this->_file->getBranches();
         $key = array_keys($branches, $this->_rev);
         $this->_branch = empty($key)
             ? array_keys($branches, $this->_rep->strip($this->_rev, 1))

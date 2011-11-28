@@ -39,7 +39,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
         //
         // $flag = $this->_quicklog ? '-r HEAD ' : '';
 
-        $cmd = $this->_rep->getCommand() . ' log -v ' . escapeshellarg($this->queryFullPath()) . ' 2>&1';
+        $cmd = $this->_rep->getCommand() . ' log -v ' . escapeshellarg($this->getFullPath()) . ' 2>&1';
         $pipe = popen($cmd, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn log: ' . $cmd);
@@ -54,7 +54,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
         while (!feof($pipe)) {
             try {
                 $log = $this->_rep->getLog($this, null);
-                $rev = $log->queryRevision();
+                $rev = $log->getRevision();
                 $this->logs[$rev] = $log;
                 $this->_revs[] = $rev;
             } catch (Horde_Vcs_Exception $e) {}
@@ -73,7 +73,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
      *
      * @return string  Filename without repository extension.
      */
-    public function queryName()
+    public function getFileName()
     {
         return preg_replace('/,v$/', '', $this->_name);
     }

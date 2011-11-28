@@ -70,7 +70,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
     {
         $file = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
-        //$this->assertEquals('file1', $files[0]->queryRepositoryName());
+        //$this->assertEquals('file1', $files[0]->getRepositoryName());
     }
 
     public function testLog()

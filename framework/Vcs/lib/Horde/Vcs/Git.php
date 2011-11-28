@@ -131,7 +131,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
     {
         $this->assertValidRevision($rev);
 
-        $command = $this->getCommand() . ' blame -p ' . escapeshellarg($rev) . ' -- ' . escapeshellarg($fileob->queryModulePath()) . ' 2>&1';
+        $command = $this->getCommand() . ' blame -p ' . escapeshellarg($rev) . ' -- ' . escapeshellarg($fileob->getSourcerootPath()) . ' 2>&1';
         $pipe = popen($command, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute git annotate: ' . $command);
@@ -231,7 +231,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
      */
     protected function _getRevisionRange(Horde_Vcs_File_Git $file, $r1, $r2)
     {
-        $cmd = $this->getCommand() . ' rev-list ' . escapeshellarg($r1 . '..' . $r2) . ' -- ' . escapeshellarg($file->queryModulePath());
+        $cmd = $this->getCommand() . ' rev-list ' . escapeshellarg($r1 . '..' . $r2) . ' -- ' . escapeshellarg($file->getSourcerootPath());
         $revs = array();
 
         exec($cmd, $revs);
@@ -262,7 +262,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
         }
 
         if (!$rev1) {
-            $command = $this->getCommand() . ' show --oneline ' . escapeshellarg($rev2) . ' -- ' . escapeshellarg($file->queryModulePath()) . ' 2>&1';
+            $command = $this->getCommand() . ' show --oneline ' . escapeshellarg($rev2) . ' -- ' . escapeshellarg($file->getSourcerootPath()) . ' 2>&1';
         } else {
             switch ($opts['type']) {
             case 'unified':
@@ -272,7 +272,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
 
             // @TODO: add options for $hr options - however these may not
             // be compatible with some diffs.
-            $command = $this->getCommand() . ' diff -M -C ' . $flags . ' --no-color ' . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->queryModulePath()) . ' 2>&1';
+            $command = $this->getCommand() . ' diff -M -C ' . $flags . ' --no-color ' . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->getSourcerootPath()) . ' 2>&1';
         }
 
         exec($command, $diff, $retval);

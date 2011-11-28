@@ -113,7 +113,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Base
                     $this->_accum[] = $line;
                 } elseif (count($this->_accum)) {
                     $log = $this->_rep->getLog($this, null);
-                    $rev = $log->queryRevision();
+                    $rev = $log->getRevision();
                     $onbranch = false;
                     $onhead = (substr_count($rev, '.') == 1);
 
@@ -179,7 +179,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Base
      *
      * @return string  Filename without repository extension
      */
-    public function queryName()
+    public function getFileName()
     {
         return preg_replace('/,v$/', '', $this->_name);
     }
@@ -189,9 +189,9 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Base
      *
      * @return Fully qualified filename of this object
      */
-    public function queryFullPath()
+    public function getFullPath()
     {
-        return parent::queryModulePath();
+        return parent::getSourcerootPath();
     }
 
     /**
@@ -199,9 +199,9 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Base
      *
      * @return string  Pathname relative to the sourceroot.
      */
-    public function queryModulePath()
+    public function getSourcerootPath()
     {
-        return preg_replace('|^'. $this->_rep->sourceroot . '/?(.*),v$|', '\1', $this->queryFullPath());
+        return preg_replace('|^'. $this->_rep->sourceroot . '/?(.*),v$|', '\1', $this->getFullPath());
     }
 
     /**
@@ -225,7 +225,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function querySymbolicRevisions()
+    public function getSymbolicRevisions()
     {
         return $this->_symrev;
     }
@@ -241,7 +241,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Base
     /**
      * TODO
      */
-     public function queryBranches()
+     public function getBranches()
      {
          return $this->_branches;
      }

@@ -12,22 +12,30 @@
 abstract class Horde_Vcs_File_Base
 {
     /**
-     * TODO
+     * The directory of this file.
+     *
+     * @var string
      */
     protected $_dir;
 
     /**
-     * TODO
+     * The name of this file.
+     *
+     * @var string
      */
     protected $_name;
 
     /**
      * TODO
+     *
+     * @var array
      */
     public $logs = array();
 
     /**
      * TODO
+     *
+     * @var array
      */
     protected $_revs = array();
 
@@ -38,11 +46,15 @@ abstract class Horde_Vcs_File_Base
 
     /**
      * TODO
+     *
+     * @var boolean
      */
     protected $_quicklog;
 
     /**
      * TODO
+     *
+     * @var string
      */
     protected $_branch = null;
 
@@ -93,7 +105,7 @@ abstract class Horde_Vcs_File_Base
      */
     public function getBlob($revision)
     {
-        return $this->_rep->checkout($this->queryPath(), $revision);
+        return $this->_rep->checkout($this->getPath(), $revision);
     }
 
     /**
@@ -111,7 +123,7 @@ abstract class Horde_Vcs_File_Base
      *
      * @return string  Filename without repository extension
      */
-    public function queryName()
+    public function getFileName()
     {
         return $this->_name;
     }
@@ -121,18 +133,18 @@ abstract class Horde_Vcs_File_Base
      *
      * @return string  Filename (without the path).
      */
-    public function queryRepositoryName()
+    public function getRepositoryName()
     {
         return $this->_name;
     }
 
     /**
-     * Return the last revision of the current file on the HEAD branch.
+     * Returns the last revision of the current file on the HEAD branch.
      *
      * @return string  Last revision of the current file.
      * @throws Horde_Vcs_Exception
      */
-    public function queryRevision()
+    public function getRevision()
     {
         $this->_ensureRevisionsInitialized();
         if (!isset($this->_revs[0])) {
@@ -144,7 +156,7 @@ abstract class Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function queryPreviousRevision($rev)
+    public function getPreviousRevision($rev)
     {
         $this->_ensureRevisionsInitialized();
         $key = array_search($rev, $this->_revs);
@@ -159,7 +171,7 @@ abstract class Horde_Vcs_File_Base
      * @return Horde_Vcs_Log  Log object of the last entry in the file.
      * @throws Horde_Vcs_Exception
      */
-    public function queryLastLog()
+    public function getLastLog()
     {
         $this->_ensureRevisionsInitialized();
         $this->_ensureLogsInitialized();
@@ -204,7 +216,7 @@ abstract class Horde_Vcs_File_Base
      */
     public function sortByRevision($a, $b)
     {
-        return $this->_rep->cmp($b->queryRevision(), $a->queryRevision());
+        return $this->_rep->cmp($b->getRevision(), $a->getRevision());
     }
 
     public function sortByAge($a, $b)
@@ -222,9 +234,9 @@ abstract class Horde_Vcs_File_Base
      *
      * @return string  Fully qualified filename of this object.
      */
-    public function queryFullPath()
+    public function getFullPath()
     {
-        return $this->_rep->sourceroot . '/' . $this->queryModulePath();
+        return $this->_rep->sourceroot . '/' . $this->getSourcerootPath();
     }
 
     /**
@@ -232,7 +244,7 @@ abstract class Horde_Vcs_File_Base
      *
      * @return string  Pathname relative to the sourceroot.
      */
-    public function queryModulePath()
+    public function getSourcerootPath()
     {
         return $this->_dir . '/' . $this->_name;
     }
@@ -243,15 +255,15 @@ abstract class Horde_Vcs_File_Base
      *
      * @return string  A filename.
      */
-    public function queryPath()
+    public function getPath()
     {
-        return $this->queryFullPath();
+        return $this->getFullPath();
     }
 
     /**
      * TODO
      */
-    public function queryBranches()
+    public function getBranches()
     {
         return array();
     }
@@ -259,7 +271,7 @@ abstract class Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function queryLogs($rev = null)
+    public function getLogs($rev = null)
     {
         $this->_ensureLogsInitialized();
         return is_null($rev)
@@ -279,7 +291,7 @@ abstract class Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function querySymbolicRevisions()
+    public function getSymbolicRevisions()
     {
         return array();
     }

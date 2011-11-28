@@ -75,7 +75,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
      */
     protected function _diff(Horde_Vcs_File_Base $file, $rev1, $rev2, $opts)
     {
-        $fullName = $file->queryFullPath();
+        $fullName = $file->getFullPath();
         $diff = array();
         $flags = '-kk ';
 
@@ -146,7 +146,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $this->assertValidRevision($rev);
 
         $tmpfile = Horde_Util::getTempFile('vc', true, $this->_paths['temp']);
-        $where = $fileob->queryModulePath();
+        $where = $fileob->getSourcerootPath();
 
         $pipe = popen(escapeshellcmd($this->getPath('cvs')) . ' -n server > ' . escapeshellarg($tmpfile), VC_WINDOWS ? 'wb' : 'w');
 

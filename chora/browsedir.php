@@ -98,12 +98,12 @@ if ($fileList) {
     echo '<tbody>';
     foreach ($fileList as $currFile) {
         if ($conf['hide_restricted'] &&
-            Chora::isRestricted($currFile->queryName())) {
+            Chora::isRestricted($currFile->getFileName())) {
             continue;
         }
 
-        $lg = $currFile->queryLastLog();
-        $realname = $currFile->queryName();
+        $lg = $currFile->getLastLog();
+        $realname = $currFile->getFileName();
         $mimeType = Horde_Mime_Magic::filenameToMIME($realname);
         $currFile->mimeType = $mimeType;
 
@@ -113,7 +113,7 @@ if ($fileList) {
 
         $icon = $injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mimeType);
         $author = Chora::showAuthorName($lg->queryAuthor());
-        $filerev = $lg->queryRevision();
+        $filerev = $lg->getRevision();
         $date = $lg->queryDate();
         $log = $lg->queryLog();
         $attic = $currFile->isDeleted();
@@ -133,7 +133,7 @@ echo '</table>';
 if ($readmes) {
     $readmeCollection = new Chora_Readme_Collection($readmes);
     $readmeFile = $readmeCollection->chooseReadme();
-    $readmeRenderer = new Chora_Renderer_File_Html($injector->createInstance('Horde_View'), $readmeFile, $readmeFile->queryRevision());
+    $readmeRenderer = new Chora_Renderer_File_Html($injector->createInstance('Horde_View'), $readmeFile, $readmeFile->getRevision());
     echo $readmeRenderer->render();
 }
 require $registry->get('templates', 'horde') . '/common-footer.inc';

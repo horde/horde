@@ -32,19 +32,19 @@ try {
 $title = $where;
 
 $extraLink = Chora::getFileViews($where, 'browsefile');
-$logs = $fl->queryLogs();
+$logs = $fl->getLogs();
 $first = end($logs);
-$diffValueLeft = $first->queryRevision();
-$diffValueRight = $fl->queryRevision();
+$diffValueLeft = $first->getRevision();
+$diffValueRight = $fl->getRevision();
 
 $sel = '';
-foreach ($fl->querySymbolicRevisions() as $sm => $rv) {
+foreach ($fl->getSymbolicRevisions() as $sm => $rv) {
     $sel .= '<option value="' . $rv . '">' . $sm . '</option>';
 }
 
 $selAllBranches = '';
 if ($VC->hasFeature('branches')) {
-    foreach (array_keys($fl->queryBranches()) as $sym) {
+    foreach (array_keys($fl->getBranches()) as $sym) {
         $selAllBranches .= '<option value="' . $sym . '"' . (($sym === $onb) ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
     }
 }
