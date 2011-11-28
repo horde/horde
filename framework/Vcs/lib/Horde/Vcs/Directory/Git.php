@@ -83,7 +83,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
             if ($type == 'tree') {
                 $this->_dirs[] = basename($file);
             } else {
-                $this->_files[] = $rep->getFileObject(
+                $this->_files[] = $rep->getFile(
                     $file,
                     array('branch' => $this->_branch,
                           'quicklog' => !empty($opts['quicklog'])));

@@ -23,7 +23,7 @@ $plain = Horde_Util::getFormData('p', 0);
 
 /* Create the VC_File object and populate it. */
 try {
-    $file = $VC->getFileObject($where);
+    $file = $VC->getFile($where);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }

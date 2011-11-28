@@ -24,7 +24,7 @@ Horde_Registry::appInit('chora');
 
 /* Spawn the repository and file objects */
 try {
-    $fl = $VC->getFileObject($where);
+    $fl = $VC->getFile($where);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }

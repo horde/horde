@@ -25,7 +25,7 @@ $branchArgs = $onb ? array('onb' => $onb) : array();
 
 try {
     $atticFlags = (bool)$acts['sa'];
-    $dir = $VC->getDirObject($where, array('quicklog' => true, 'rev' => $onb, 'showattic' => $atticFlags));
+    $dir = $VC->getDirectory($where, array('quicklog' => true, 'rev' => $onb, 'showattic' => $atticFlags));
     $dir->applySort($acts['sbt'], $acts['ord']);
     $dirList = $dir->queryDirList();
     $fileList = $dir->queryFileList($atticFlags);

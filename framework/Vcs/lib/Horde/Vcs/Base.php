@@ -411,7 +411,7 @@ abstract class Horde_Vcs_Base
      *
      * @return Horde_Vcs_Directory_Base  A directory object.
      */
-    public function getDirObject($where, $opts = array())
+    public function getDirectory($where, $opts = array())
     {
         $class = 'Horde_Vcs_Directory_' . $this->_driver;
         return new $class($this, $where, $opts);
@@ -439,7 +439,7 @@ abstract class Horde_Vcs_Base
      * 'quicklog' - (boolean)
      * 'branch' - (string)
      */
-    public function getFileObject($filename, $opts = array())
+    public function getFile($filename, $opts = array())
     {
         $class = 'Horde_Vcs_File_' . $this->_driver;
 
@@ -477,7 +477,7 @@ abstract class Horde_Vcs_Base
      * @param Horde_Vcs_File_Base $fl  The file obejct
      * @param string $rev              The revision identifier
      */
-    public function getLogObject(Horde_Vcs_File_Base $fl, $rev)
+    public function getLog(Horde_Vcs_File_Base $fl, $rev)
     {
         $class = 'Horde_Vcs_Log_' . $this->_driver;
 
@@ -515,7 +515,7 @@ abstract class Horde_Vcs_Base
      *
      * @return Horde_Vcs_Patchset  Patchset object.
      */
-    public function getPatchsetObject($opts = array())
+    public function getPatchset($opts = array())
     {
         $class = 'Horde_Vcs_Patchset_' . $this->_driver;
 

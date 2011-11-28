@@ -53,7 +53,7 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
             } elseif (substr($line, -1) == '/') {
                 $this->_dirs[] = substr($line, 0, -1);
             } else {
-                $this->_files[] = $rep->getFileObject(
+                $this->_files[] = $rep->getFile(
                     $this->_dirName . '/' . $line,
                     array('quicklog' => !empty($opts['quicklog'])));
             }

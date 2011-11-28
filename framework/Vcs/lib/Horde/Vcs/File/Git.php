@@ -110,7 +110,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         }
 
         foreach ($log_list as $val) {
-            $this->logs[$val] = $this->_rep->getLogObject($this, $val);
+            $this->logs[$val] = $this->_rep->getLog($this, $val);
         }
     }
 
@@ -203,7 +203,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
             return $this->logs;
         } else {
             if (!isset($this->logs[$rev])) {
-                $this->logs[$rev] = $this->_rep->getLogObject($this, $rev);
+                $this->logs[$rev] = $this->_rep->getLog($this, $rev);
             }
 
             return isset($this->logs[$rev]) ? $this->logs[$rev] : null;

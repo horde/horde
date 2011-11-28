@@ -45,7 +45,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
 
     public function testDirectory()
     {
-        $dir = $this->vcs->getDirObject('');
+        $dir = $this->vcs->getDirectory('');
         $this->assertInstanceOf('Horde_Vcs_Directory_Rcs', $dir);
         $files = $dir->queryFileList();
         $this->assertInternalType('array', $files);
@@ -56,7 +56,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
 
         /* Test non-existant directory. */
         try {
-            $this->vcs->getDirObject('foo');
+            $this->vcs->getDirectory('foo');
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
@@ -64,13 +64,13 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
 
     public function testFile()
     {
-        $dir = $this->vcs->getFileObject('foo');
+        $dir = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $dir);
     }
 
     public function testLog()
     {
-        $dir = $this->vcs->getLogObject($this->vcs->getFileObject('foo'), '');
+        $dir = $this->vcs->getLog($this->vcs->getFile('foo'), '');
         $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $dir);
     }
 }

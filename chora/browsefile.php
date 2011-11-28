@@ -24,7 +24,7 @@ if ($atdir) {
 
 $onb = Horde_Util::getFormData('onb', $VC->getDefaultBranch());
 try {
-    $fl = $VC->getFileObject($where, array('branch' => $onb));
+    $fl = $VC->getFile($where, array('branch' => $onb));
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }

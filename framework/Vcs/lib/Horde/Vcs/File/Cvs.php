@@ -112,7 +112,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Base
                     (strpos($line, '----------------------------') === false)) {
                     $this->_accum[] = $line;
                 } elseif (count($this->_accum)) {
-                    $log = $this->_rep->getLogObject($this, null);
+                    $log = $this->_rep->getLog($this, null);
                     $rev = $log->queryRevision();
                     $onbranch = false;
                     $onhead = (substr_count($rev, '.') == 1);

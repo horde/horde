@@ -17,7 +17,7 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset_Base
     public function __construct($rep, $opts = array())
     {
         // TODO: Allow access via 'range'
-        $fileOb = $rep->getFileObject($opts['file']);
+        $fileOb = $rep->getFile($opts['file']);
 
         foreach ($fileOb->logs as $rev => $log) {
             $this->_patchsets[$rev] = array(

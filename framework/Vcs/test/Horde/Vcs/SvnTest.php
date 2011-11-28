@@ -47,7 +47,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
 
     public function testDirectory()
     {
-        $dir = $this->vcs->getDirObject('');
+        $dir = $this->vcs->getDirectory('');
         $this->assertInstanceOf('Horde_Vcs_Directory_Svn', $dir);
         $this->assertEquals(array('dir1'), $dir->queryDirList());
         $files = $dir->queryFileList();
@@ -59,7 +59,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
 
         /* Test non-existant directory. */
         try {
-            $this->vcs->getDirObject('foo');
+            $this->vcs->getDirectory('foo');
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
@@ -67,19 +67,19 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
 
     public function testFile()
     {
-        $file = $this->vcs->getFileObject('foo');
+        $file = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
     }
 
     public function testLog()
     {
-        $log = $this->vcs->getLogObject($this->vcs->getFileObject('foo'), '');
+        $log = $this->vcs->getLog($this->vcs->getFile('foo'), '');
         $this->assertInstanceOf('Horde_Vcs_Log_Svn', $log);
     }
 
     public function testPatchset()
     {
-        $ps = $this->vcs->getPatchsetObject(array('file' => 'foo'));
+        $ps = $this->vcs->getPatchset(array('file' => 'foo'));
         $this->assertInstanceOf('Horde_Vcs_Patchset_Svn', $ps);
     }
 }

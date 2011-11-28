@@ -29,7 +29,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
         $revs = array();
 
         if (isset($opts['file'])) {
-            $ob = $rep->getFileObject($opts['file']);
+            $ob = $rep->getFile($opts['file']);
             $revs = $ob->queryLogs();
         } elseif (!empty($opts['range'])) {
             foreach ($opts['range'] as $val) {
@@ -38,7 +38,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
                 exec($cmd, $output);
 
                 /* The first line is the SHA1 hash. */
-                $ob = $rep->getFileObject($output[1]);
+                $ob = $rep->getFile($output[1]);
                 $revs[$val] = $ob->queryLogs($val);
             }
         }

@@ -100,7 +100,7 @@ function _populateGrid($row, $col)
 
 /* Spawn the file object. */
 try {
-    $fl = $VC->getFileObject($where);
+    $fl = $VC->getFile($where);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }

@@ -120,7 +120,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
     /**
      * TODO
      */
-    public function getFileObject($filename, $opts = array())
+    public function getFile($filename, $opts = array())
     {
         if (substr($filename, 0, 1) != '/') {
             $filename = '/' . $filename;
@@ -133,7 +133,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         if (!@is_file($fname)) {
             $fname = dirname($filename) . '/Attic/' . basename($filename) . ',v';
                                         }
-        return parent::getFileObject($fname, $opts);
+        return parent::getFile($fname, $opts);
     }
 
     /**

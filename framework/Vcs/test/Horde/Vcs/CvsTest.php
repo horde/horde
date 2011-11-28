@@ -46,7 +46,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
 
     public function testDirectory()
     {
-        $dir = $this->vcs->getDirObject('module');
+        $dir = $this->vcs->getDirectory('module');
         $this->assertInstanceOf('Horde_Vcs_Directory_Cvs', $dir);
         $this->assertEquals(array('dir1'), $dir->queryDirList());
         $files = $dir->queryFileList();
@@ -59,13 +59,13 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         // $this->assertEquals(array('HEAD', 'branch1'), $dir->getBranches());
 
         /* Test deleted files. */
-        $dir = $this->vcs->getDirObject('module', array('showattic' => true));
+        $dir = $this->vcs->getDirectory('module', array('showattic' => true));
         $this->assertCount(1, $dir->queryFileList());
         $this->assertCount(2, $dir->queryFileList(true));
 
         /* Test non-existant directory. */
         try {
-            $this->vcs->getDirObject('foo');
+            $this->vcs->getDirectory('foo');
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
@@ -73,13 +73,13 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
 
     public function testFile()
     {
-        $file = $this->vcs->getFileObject('foo');
+        $file = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
     }
 
     public function testLog()
     {
-        $log = $this->vcs->getLogObject($this->vcs->getFileObject('foo'), '');
+        $log = $this->vcs->getLog($this->vcs->getFile('foo'), '');
         $this->assertInstanceOf('Horde_Vcs_Log_Cvs', $log);
     }
 
@@ -89,7 +89,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
             $this->markTestSkipped('cvsps is not installed');
         }
         try {
-            $ps = $this->vcs->getPatchsetObject(array('file' => 'foo'));
+            $ps = $this->vcs->getPatchset(array('file' => 'foo'));
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }

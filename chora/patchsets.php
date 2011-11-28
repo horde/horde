@@ -30,7 +30,7 @@ if ($where) {
 }
 
 try {
-    $ps = $VC->getPatchsetObject($ps_opts);
+    $ps = $VC->getPatchset($ps_opts);
     $patchsets = $ps->getPatchsets();
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);

@@ -195,7 +195,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
     {
         $this->assertValidRevision($rev);
 
-        $file_ob = $this->getFileObject($file);
+        $file_ob = $this->getFile($file);
         $hash = $file_ob->getHashForRevision($rev);
         if ($hash == '0000000000000000000000000000000000000000') {
             throw new Horde_Vcs_Exception($file . ' is deleted in commit ' . $rev);

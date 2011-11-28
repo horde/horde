@@ -53,7 +53,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
         $this->logpipe = $pipe;
         while (!feof($pipe)) {
             try {
-                $log = $this->_rep->getLogObject($this, null);
+                $log = $this->_rep->getLog($this, null);
                 $rev = $log->queryRevision();
                 $this->logs[$rev] = $log;
                 $this->_revs[] = $rev;
