@@ -66,12 +66,12 @@
             if ($this->units == Horde_Service_Weather::UNITS_METRIC) {
                 return $this->_properties->visibility;
             } else {
-                return $this->_properties->visibility * Horde_Service_Weather::CONVERSION_KPH_TO_MPH;
+                return round($this->_properties->visibility * Horde_Service_Weather::CONVERSION_KPH_TO_MPH);
             }
 
         case 'pressure':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
-                return $this->_properties->pressure * Horde_Service_Weather::CONVERSION_MB_TO_INCHES;
+                return round($this->_properties->pressure * Horde_Service_Weather::CONVERSION_MB_TO_INCHES, 2);
             }
             return $this->_properties->pressure;
 
