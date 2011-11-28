@@ -1214,8 +1214,7 @@ class Horde_Date_Recurrence
     {
         $this->reset();
 
-        if (!isset($hash['interval']) || !isset($hash['interval']) ||
-            !isset($hash['range-type'])) {
+        if (!isset($hash['interval']) || !isset($hash['cycle'])) {
             $this->setRecurType(self::RECUR_NONE);
             return false;
         }
@@ -1306,23 +1305,20 @@ class Horde_Date_Recurrence
             }
         }
 
-        switch ($hash['range-type']) {
-        case 'number':
-            if (!isset($hash['range'])) {
-                $this->setRecurType(self::RECUR_NONE);
-                return false;
+        if (isset($hash['range-type']) && isset($hash['range'])) {
+            switch ($hash['range-type']) {
+            case 'number':
+                $this->setRecurCount((int)$hash['range']);
+                break;
+
+            case 'date':
+                $recur_end = new Horde_Date($hash['range']);
+                $recur_end->hour = 23;
+                $recur_end->min = 59;
+                $recur_end->sec = 59;
+                $this->setRecurEnd($recur_end);
+                break;
             }
-
-            $this->setRecurCount((int)$hash['range']);
-            break;
-
-        case 'date':
-            $recur_end = new Horde_Date($hash['range']);
-            $recur_end->hour = 23;
-            $recur_end->min = 59;
-            $recur_end->sec = 59;
-            $this->setRecurEnd($recur_end);
-            break;
         }
 
         // Need to parse <day>?
