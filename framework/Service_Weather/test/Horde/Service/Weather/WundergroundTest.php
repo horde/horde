@@ -52,9 +52,6 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(237, $conditions->wind_degrees);
         $this->assertEquals('falling', $conditions->pressure_trend);
         $this->assertEquals('2011-11-27 23:10:25', (string)$conditions->time);
-
-
-
     }
 
     public function testGetStation()
