@@ -55,6 +55,7 @@
                 return $this->_properties->temp_F;
             }
             return $this->_properties->temp_C;
+
         case 'wind_speed':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->windspeedMiles;
