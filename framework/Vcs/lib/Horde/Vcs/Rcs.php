@@ -22,7 +22,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs_Base
      */
     public function isValidRevision($rev)
     {
-        return $rev && preg_match('/^[\d\.]+$/', $rev);
+        return $rev && preg_match('/^\d+\.(\d+\.)*\d+$/', $rev);
     }
 
     /**

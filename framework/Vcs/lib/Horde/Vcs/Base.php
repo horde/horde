@@ -9,7 +9,7 @@
  *
  * @package Vcs
  */
-class Horde_Vcs_Base
+abstract class Horde_Vcs_Base
 {
     /**
      * The source root of the repository.
@@ -92,7 +92,7 @@ class Horde_Vcs_Base
     }
 
     /**
-     * Return the source root for this repository, with no trailing /.
+     * Returns the source root for this repository.
      *
      * @return string  Source root for this repository.
      */
@@ -109,10 +109,7 @@ class Horde_Vcs_Base
      *
      * @return boolean  True if a valid revision string.
      */
-    public function isValidRevision($rev)
-    {
-        return true;
-    }
+    abstract public function isValidRevision($rev);
 
     /**
      * Throw an exception if the revision number isn't valid.

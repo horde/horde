@@ -149,7 +149,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
      */
     public function isValidRevision($rev)
     {
-        return $rev && is_numeric($rev);
+        return $rev && (string)(int)$rev == $rev;
     }
 
     /**
