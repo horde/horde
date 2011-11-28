@@ -74,7 +74,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1', $file->getFileName());
         $this->assertEquals('file1', $file->getSourcerootPath());
         $this->assertEquals('file1', $file->getPath());
-        //FIXME $this->assertEquals('160a468250615b713a7e33d34243530afc4682a9', $file->getRevision());
+        $this->assertEquals('160a468250615b713a7e33d34243530afc4682a9', $file->getRevision());
         $this->assertEquals(
             'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
             $file->getPreviousRevision('160a468250615b713a7e33d34243530afc4682a9'));

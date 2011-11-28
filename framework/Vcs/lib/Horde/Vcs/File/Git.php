@@ -98,6 +98,27 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     }
 
     /**
+     * Returns the last revision of the current file on the HEAD branch.
+     *
+     * @return string  Last revision of the current file.
+     * @throws Horde_Vcs_Exception
+     */
+    public function getRevision()
+    {
+        $this->_ensureRevisionsInitialized();
+        if (empty($this->_branch)) {
+            return parent::getRevision();
+        }
+
+        $rev = reset($this->_revlist[$this->_branch]);
+        if (is_null($rev)) {
+            throw new Horde_Vcs_Exception('No revisions');
+        }
+
+        return $rev;
+    }
+
+    /**
      * Get the hash name for this file at a specific revision.
      *
      * @param string $rev  Revision string.
