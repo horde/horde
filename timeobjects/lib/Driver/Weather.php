@@ -12,7 +12,6 @@
  */
 class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
 {
-    protected $_units = Horde_Service_Weather::UNITS_STANDARD;
     protected $_forecastDays = Horde_Service_Weather::FORECAST_7DAY;
     protected $_driver;
     protected $_location;
@@ -29,10 +28,10 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             $this->_findLocation();
         }
 
-        // Yup, we are the oddballs.
-        if ($country != 'US') {
-            $this->_units = Horde_Service_Weather::UNITS_METRIC;
-        }
+        // Suggest units, but the driver may override this (like Google).
+        $this->_driver->units = $country == 'US'
+            ? Horde_Service_Weather::UNITS_STANDARD
+            : Horde_Service_Weather::UNITS_METRIC;
 
         parent::__construct($params);
     }
@@ -235,14 +234,9 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
     protected function _create()
     {
         try {
-            $driver = $GLOBALS['injector']->getInstance('Horde_Weather');
+            return $GLOBALS['injector']->getInstance('Horde_Weather');
         } catch (Exception $e) {
             throw new Timeobjects_Exception($e);
         }
-        // Suggest units, but the driver may override this (like Google).
-        $driver->units = $this->_units;
-
-        return $driver;
     }
-
 }
