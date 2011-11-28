@@ -38,6 +38,8 @@ abstract class Horde_Vcs_Log_Base
         $this->_rev = $rev;
     }
 
+    abstract protected function _init();
+
     protected function _ensureInitialized()
     {
         if (!$this->_initialized) {

@@ -119,25 +119,6 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 
     /**
      * TODO
-     */
-    public function getFile($filename, $opts = array())
-    {
-        if (substr($filename, 0, 1) != '/') {
-            $filename = '/' . $filename;
-        }
-
-        $filename = $this->sourceroot . $filename;
-
-        /* Assume file is in the Attic if it doesn't exist. */
-        $fname = $filename . ',v';
-        if (!@is_file($fname)) {
-            $fname = dirname($filename) . '/Attic/' . basename($filename) . ',v';
-                                        }
-        return parent::getFile($fname, $opts);
-    }
-
-    /**
-     * TODO
      *
      * @throws Horde_Vcs_Exception
      */
