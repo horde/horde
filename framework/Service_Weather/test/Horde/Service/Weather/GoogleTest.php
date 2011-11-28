@@ -12,7 +12,7 @@
  * @link       http://pear.horde.org/index.php?package=Service_Weather
  */
 
- require_once dirname(__FILE__) . '/Autoload.php';
+require_once dirname(__FILE__) . '/Autoload.php';
 
 class Horde_Service_Weather_GoogleTest extends PHPUnit_Framework_TestCase
 {
@@ -55,6 +55,7 @@ class Horde_Service_Weather_GoogleTest extends PHPUnit_Framework_TestCase
 
     public function testCurrentConditionsGerman()
     {
+        date_default_timezone_set('America/New_York');
         $weather = $this->_getStub('boston_google_de.xml');
 
         // Note the location here doesn't matter, since we already
@@ -97,6 +98,7 @@ class Horde_Service_Weather_GoogleTest extends PHPUnit_Framework_TestCase
 
     public function testForecast()
     {
+        date_default_timezone_set('America/New_York');
         $weather = $this->_getStub('boston_google.xml');
         $forecast = $weather->getForecast('boston,ma');
         $this->assertEquals('2011-11-26 21:54:00', (string)$forecast->getForecastTime());
