@@ -1,4 +1,4 @@
-head	1.1;
+head	1.2;
 access;
 symbols
 	branch1:1.1.0.2;
@@ -6,15 +6,37 @@ locks; strict;
 comment	@# @;
 
 
+1.2
+date	2011.11.28.15.54.07;	author jan;	state Exp;
+branches;
+next	1.1;
+commitid	1004ED3AE9F02DACD1B;
+
 1.1
 date	2011.11.25.20.49.44;	author jan;	state Exp;
-branches;
+branches
+	1.1.2.1;
 next	;
 commitid	1004ECFFF6827F42D8A;
+
+1.1.2.1
+date	2011.11.28.15.54.27;	author jan;	state Exp;
+branches;
+next	;
+commitid	1004ED3AEB302DD8161;
 
 
 desc
 @@
+
+
+1.2
+log
+@Commit 2nd version to HEAD branch.
+@
+text
+@2
+@
 
 
 1.1
@@ -22,5 +44,20 @@ log
 @Add first files.
 @
 text
-@1
+@d1 1
+a1 1
+1
 @
+
+
+1.1.2.1
+log
+@Commit 2nd version to branch1 branch.
+@
+text
+@d1 1
+a1 1
+2
+@
+
+

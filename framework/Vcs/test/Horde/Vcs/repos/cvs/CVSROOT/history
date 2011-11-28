@@ -3,3 +3,7 @@ A4ecfff68|jan|~/horde_vcs/cvs|module|1.1|file1
 A4ecfff68|jan|~/horde_vcs/cvs|module/dir1|1.1|file1_1
 A4ed00d2f|jan|~/horde_vcs/cvs|module|1.1|deletedfile1
 R4ed00d3e|jan|~/horde_vcs/cvs|module|1.2|deletedfile1
+M4ed3ae9f|jan|~/horde_vcs/cvs|module|1.2|file1
+U4ed3aea6|jan|~/horde_vcs/cvs|module|1.1|file1
+M4ed3aeb3|jan|~/horde_vcs/cvs|module|1.1.2.1|file1
+U4ed3aebc|jan|~/horde_vcs/cvs|module|1.2|file1
