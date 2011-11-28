@@ -47,8 +47,6 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
      */
     protected $_branches = array();
 
-    private $_initialized;
-
     /**
      * This method parses branches even though RCS doesn't support
      * branches. But rlog from the RCS tools supports them, and displays them
@@ -148,22 +146,6 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
                 }
                 break;
             }
-        }
-    }
-
-    protected function _ensureRevisionsInitialized()
-    {
-        if(!$this->_initialized) {
-            $this->_init();
-            $this->_initialized = true;
-        }
-    }
-
-    protected function _ensureLogsInitialized()
-    {
-        if(!$this->_initialized) {
-            $this->_init();
-            $this->_initialized = true;
         }
     }
 

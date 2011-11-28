@@ -59,6 +59,13 @@ abstract class Horde_Vcs_File_Base
     protected $_branch = null;
 
     /**
+     * Have we initalized logs and revisions?
+     *
+     * @var boolean
+     */
+    protected $_initialized = false;
+
+    /**
      * Constructor.
      *
      * @param string $filename  Full path (inside the source root) to this file.
@@ -80,20 +87,30 @@ abstract class Horde_Vcs_File_Base
         }
     }
 
-    protected function _ensureRevisionsInitialized()
-    {
-    }
-
-    protected function _ensureLogsInitialized()
-    {
-    }
-
     /**
      * When serializing, don't return the repository object
      */
     public function __sleep()
     {
         return array_diff(array_keys(get_object_vars($this)), array('_rep'));
+    }
+
+    abstract protected function _init();
+
+    protected function _ensureRevisionsInitialized()
+    {
+        if (!$this->_initialized) {
+            $this->_init();
+            $this->_initialized = true;
+        }
+    }
+
+    protected function _ensureLogsInitialized()
+    {
+        if (!$this->_initialized) {
+            $this->_init();
+            $this->_initialized = true;
+        }
     }
 
     /**

@@ -13,25 +13,6 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
      */
     public $logpipe;
 
-    /**
-     * Have we initalized logs and revisions?
-     *
-     * @var boolean
-     */
-    private $_initialized = false;
-
-    protected function _ensureRevisionsInitialized()
-    {
-        if (!$this->_initialized) { $this->_init(); }
-        $this->_initialized = true;
-    }
-
-    protected function _ensureLogsInitialized()
-    {
-        if (!$this->_initialized) { $this->_init(); }
-        $this->_initialized = true;
-    }
-
     protected function _init()
     {
         // This doesn't work; need to find another way to simply

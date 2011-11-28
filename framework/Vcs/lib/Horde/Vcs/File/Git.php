@@ -20,25 +20,6 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
      */
     protected $_revlist = array();
 
-    /**
-     * Have we initalized logs and revisions?
-     *
-     * @var boolean
-     */
-    private $_initialized = false;
-
-    protected function _ensureRevisionsInitialized()
-    {
-        if (!$this->_initialized) { $this->_init(); }
-        $this->_initialized = true;
-    }
-
-    protected function _ensureLogsInitialized()
-    {
-        if (!$this->_initialized) { $this->_init(); }
-        $this->_initialized = true;
-    }
-
     protected function _init()
     {
         $log_list = null;
