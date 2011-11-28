@@ -28,11 +28,21 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
     public function testFactory()
     {
         $this->assertInstanceOf('Horde_Vcs_Svn', $this->vcs);
+
+        /* Test features. */
         //$this->assertTrue($this->vcs->hasFeature('branches'));
         $this->assertFalse($this->vcs->hasFeature('deleted'));
         $this->assertTrue($this->vcs->hasFeature('patchsets'));
         $this->assertFalse($this->vcs->hasFeature('snapshots'));
         $this->assertFalse($this->vcs->hasFeature('foo'));
+
+        /* Test base object methods. */
+        $this->assertTrue($this->vcs->isValidRevision('1'));
+        $this->assertTrue($this->vcs->isValidRevision(1));
+        $this->assertTrue($this->vcs->isValidRevision('42'));
+        $this->assertTrue($this->vcs->isValidRevision(42));
+        $this->assertFalse($this->vcs->isValidRevision('0'));
+        $this->assertFalse($this->vcs->isValidRevision('1.1'));
     }
 
     public function testDirectory()

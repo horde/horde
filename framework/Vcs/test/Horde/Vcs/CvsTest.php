@@ -28,12 +28,20 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
     public function testFactory()
     {
         $this->assertInstanceOf('Horde_Vcs_Cvs', $this->vcs);
+
+        /* Test features. */
         $this->assertTrue($this->vcs->hasFeature('branches'));
         $this->assertTrue($this->vcs->hasFeature('deleted'));
         $this->assertEquals(isset(self::$conf['paths']['cvsps']),
                             $this->vcs->hasFeature('patchsets'));
         $this->assertFalse($this->vcs->hasFeature('snapshots'));
         $this->assertFalse($this->vcs->hasFeature('foo'));
+
+        /* Test base object methods. */
+        $this->assertTrue($this->vcs->isValidRevision('1.1'));
+        $this->assertTrue($this->vcs->isValidRevision('4.2'));
+        $this->assertTrue($this->vcs->isValidRevision('1.1.2.1'));
+        $this->assertFalse($this->vcs->isValidRevision('1'));
     }
 
     public function testDirectory()

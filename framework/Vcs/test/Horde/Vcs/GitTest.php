@@ -28,11 +28,20 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
     public function testFactory()
     {
         $this->assertInstanceOf('Horde_Vcs_Git', $this->vcs);
+
+        /* Test features. */
         $this->assertTrue($this->vcs->hasFeature('branches'));
         $this->assertFalse($this->vcs->hasFeature('deleted'));
         $this->assertTrue($this->vcs->hasFeature('patchsets'));
         $this->assertTrue($this->vcs->hasFeature('snapshots'));
         $this->assertFalse($this->vcs->hasFeature('foo'));
+
+        /* Test base object methods. */
+        $this->assertTrue($this->vcs->isValidRevision('1e4c45df'));
+        $this->assertTrue($this->vcs->isValidRevision('1234'));
+        $this->assertTrue($this->vcs->isValidRevision('abcd'));
+        $this->assertFalse($this->vcs->isValidRevision('ghijk'));
+        $this->assertFalse($this->vcs->isValidRevision('1.1'));
     }
 
     public function testDirectory()
