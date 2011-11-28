@@ -19,8 +19,7 @@
  * @package  Service_Weather
  */
 class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
- {
-
+{
     const API_URL = 'http://www.google.com/ig/api';
 
     /**
@@ -32,6 +31,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
 
     /**
      * Holds the units that Google actually returns the results in.
+     *
      * Google returns forecast values in the units it sees as appropriate for
      * the requested location.
      *
@@ -40,13 +40,14 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     public $internalUnits;
 
     public $title = 'Google Weather';
+
     public $link = 'http://google.com';
 
-
     /**
-     * Icon map for wunderground. Not some are returned as
-     * "sky" conditions and some as "condition" icons. Public
-     * so it can be overridded in client code if desired.
+     * Icon map for wunderground.
+     *
+     * Note some are returned as "sky" conditions and some as "condition"
+     * icons. Public so it can be overridded in client code if desired.
      */
     public $iconMap = array(
         'chance_of_rain' => '11.png',
@@ -75,13 +76,11 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     );
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param array $params                                  Parameters.
-     *<pre>
-     *  'http_client'  - Required http client object
-     *  'language'     - Language code for returned strings.
-     *</pre>
+     * @param array $params  Parameters:
+     *                       - 'http_client': Required http client object
+     *                       - 'language': Language code for returned strings.
      *
      * @return Horde_Service_Weather_Base
      */
@@ -95,7 +94,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     }
 
     /**
-     * Obtain the current observations.
+     * Returns the current observations.
      *
      * @return Horde_Service_Weather_Current
      */
@@ -106,29 +105,29 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     }
 
     /**
-     * Obtain the forecast for the current location.
+     * Returns the forecast for the current location.
      *
      * @see Horde_Service_Weather_Base#getForecast
      */
-    public function getForecast(
-        $location,
-        $length = Horde_Service_Weather::FORECAST_3DAY,
-        $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
+    public function getForecast($location,
+                                $length = Horde_Service_Weather::FORECAST_3DAY,
+                                $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
         $this->_getCommonElements($location);
         return $this->_forecast;
     }
 
     /**
-     * Search for a valid location code.
+     * Searches for a valid location code.
      *
-     * @param  string $location  A location search string like e.g., Boston,MA
-     * @param  integer $type     The type of search being performed.
+     * @param string $location  A location search string like e.g., Boston,MA.
+     * @param integer $type     The type of search being performed.
      *
      * @return string  The search location suitable to use directly in a
      *                 weather request.
      */
-    public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
+    public function searchLocations($location,
+                                    $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
     {
         // Google doesn't support any location searching via the weather api.
         // Just return the passed in value and hope for the best.
@@ -141,22 +140,16 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     }
 
     /**
-     * Get array of supported forecast lengths.
+     * Returns a list of supported forecast lengths.
      *
      * @return array The array of supported lengths.
      */
-     public function getSupportedForecastLengths()
-     {
-         return array(
-            3 => Horde_Service_Weather::FORECAST_3DAY
-         );
-     }
+    public function getSupportedForecastLengths()
+    {
+        return array(3 => Horde_Service_Weather::FORECAST_3DAY);
+    }
 
     /**
-     * Weather Underground allows requesting multiple features per request,
-     * and only counts it as a single request against your API key. So we trade
-     * a bit of request time/traffic for a smaller number of requests to obtain
-     * information for e.g., a typical weather portal display.
      */
     protected function _getCommonElements($location)
     {
@@ -194,7 +187,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     /**
      * Parses the JSON response for a location request into a station object.
      *
-     * @param  StdClass $station  The response from a Location request.
+     * @param object $station  The response from a Location request.
      *
      * @return Horde_Service_Weather_Station
      */
@@ -221,9 +214,9 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     /**
      * Parses the forecast data.
      *
-     * @param stdClass $forecast The result of the forecast request.
+     * @param object $forecast  The result of the forecast request.
      *
-     * @return Horde_Service_Weather_Forecast_WeatherUnderground  The forecast.
+     * @return Horde_Service_Weather_Forecast_Google  The forecast.
      */
     protected function _parseForecast($forecast)
     {
@@ -232,11 +225,11 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     }
 
     /**
-     * Parse the current_conditions response.
+     * Parses the current_conditions response.
      *
-     * @param  stdClass $current  The current_condition request response object
+     * @param object $current  The current_condition request response object.
      *
-     * @return Horde_Service_Weather_Current
+     * @return Horde_Service_Weather_Current_Google
      */
     protected function _parseCurrent($current)
     {
@@ -254,7 +247,8 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     protected function _makeRequest($url)
     {
         $cachekey = md5('hordeweather' . $url);
-        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) ||
+        if ((!empty($this->_cache) &&
+             !($results = $this->_cache->get($cachekey, $this->_cache_lifetime))) ||
             empty($this->_cache)) {
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
@@ -272,5 +266,4 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         }
         return new SimplexmlElement($results);
     }
-
- }
+}
