@@ -41,6 +41,7 @@
         case 'heat_index':
         case 'wind_chill':
         case 'pressure_trend':
+        case 'logo_url':
             return null;
 
         case 'condition':
