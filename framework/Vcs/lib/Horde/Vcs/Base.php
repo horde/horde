@@ -16,7 +16,7 @@ abstract class Horde_Vcs_Base
      *
      * @var string
      */
-    protected $_sourceroot;
+    public $sourceroot;
 
     /**
      * Hash with the locations of all necessary binaries.
@@ -77,7 +77,7 @@ abstract class Horde_Vcs_Base
     public function __construct($params = array())
     {
         $this->_cache = empty($params['cache']) ? null : $params['cache'];
-        $this->_sourceroot = $params['sourceroot'];
+        $this->sourceroot = $params['sourceroot'];
         $this->_paths = $params['paths'];
     }
 
@@ -89,16 +89,6 @@ abstract class Horde_Vcs_Base
     public function hasFeature($feature)
     {
         return !empty($this->_features[$feature]);
-    }
-
-    /**
-     * Returns the source root for this repository.
-     *
-     * @return string  Source root for this repository.
-     */
-    public function sourceroot()
-    {
-        return $this->_sourceroot;
     }
 
     /**
@@ -444,7 +434,7 @@ abstract class Horde_Vcs_Base
         $class = 'Horde_Vcs_File_' . $this->_driver;
 
         ksort($opts);
-        $cacheId = implode('|', array($class, $this->sourceroot(), $filename, serialize($opts), $this->_cacheVersion));
+        $cacheId = implode('|', array($class, $this->sourceroot, $filename, serialize($opts), $this->_cacheVersion));
         $fetchedFromCache = false;
 
         if (!empty($this->_cache)) {
@@ -482,7 +472,7 @@ abstract class Horde_Vcs_Base
         $class = 'Horde_Vcs_Log_' . $this->_driver;
 
         if (!is_null($rev) && !empty($this->_cache)) {
-            $cacheId = implode('|', array($class, $this->sourceroot(), $fl->queryPath(), $rev, $this->_cacheVersion));
+            $cacheId = implode('|', array($class, $this->sourceroot, $fl->queryPath(), $rev, $this->_cacheVersion));
 
             // Individual revisions can be cached forever
             if ($this->_cache->exists($cacheId, 0)) {
@@ -521,7 +511,7 @@ abstract class Horde_Vcs_Base
 
         if (!is_array($opts)) { $opts = array(); }
         ksort($opts);
-        $cacheId = implode('|', array($class, $this->sourceroot(), serialize($opts), $this->_cacheVersion));
+        $cacheId = implode('|', array($class, $this->sourceroot, serialize($opts), $this->_cacheVersion));
 
         if (!empty($this->_cache)) {
             if (isset($opts['file']) && file_exists($opts['file'])) {

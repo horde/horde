@@ -25,7 +25,7 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
         parent::__construct($rep, $dn, $opts);
 
         $cmd = $rep->getCommand() . ' ls '
-            . escapeshellarg($rep->sourceroot() . $this->_dirName);
+            . escapeshellarg($rep->sourceroot . $this->_dirName);
 
         $dir = proc_open(
             $cmd,

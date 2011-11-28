@@ -224,7 +224,7 @@ abstract class Horde_Vcs_File_Base
      */
     public function queryFullPath()
     {
-        return $this->_rep->sourceroot() . '/' . $this->queryModulePath();
+        return $this->_rep->sourceroot . '/' . $this->queryModulePath();
     }
 
     /**

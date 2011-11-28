@@ -201,7 +201,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Base
      */
     public function queryModulePath()
     {
-        return preg_replace('|^'. $this->_rep->sourceroot() . '/?(.*),v$|', '\1', $this->queryFullPath());
+        return preg_replace('|^'. $this->_rep->sourceroot . '/?(.*),v$|', '\1', $this->queryFullPath());
     }
 
     /**

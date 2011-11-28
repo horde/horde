@@ -76,10 +76,10 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
 
         // Try to find the repository if we don't have the exact path. @TODO put
         // this into a builder method/object and cache the results.
-        if (!file_exists($this->sourceroot() . '/HEAD')) {
-            if (file_exists($this->sourceroot() . '.git/HEAD')) {
+        if (!file_exists($this->sourceroot . '/HEAD')) {
+            if (file_exists($this->sourceroot . '.git/HEAD')) {
                 $this->_sourceroot .= '.git';
-            } elseif (file_exists($this->sourceroot() . '/.git/HEAD')) {
+            } elseif (file_exists($this->sourceroot . '/.git/HEAD')) {
                 $this->_sourceroot .= '/.git';
             } else {
                 throw new Horde_Vcs_Exception('Can not find git repository.');
@@ -104,7 +104,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
             $branch = $this->getDefaultBranch();
         }
 
-        $where = str_replace($this->sourceroot() . '/', '', $where);
+        $where = str_replace($this->sourceroot . '/', '', $where);
         $command = $this->getCommand() . ' ls-tree ' . escapeshellarg($branch) . ' ' . escapeshellarg($where) . ' 2>&1';
         exec($command, $entry, $retval);
 
@@ -119,7 +119,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
      */
     public function getCommand()
     {
-        return escapeshellcmd($this->getPath('git')) . ' --git-dir=' . escapeshellarg($this->sourceroot());
+        return escapeshellcmd($this->getPath('git')) . ' --git-dir=' . escapeshellarg($this->sourceroot);
     }
 
     /**

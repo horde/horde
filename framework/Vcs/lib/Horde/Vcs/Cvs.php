@@ -126,7 +126,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
             $filename = '/' . $filename;
         }
 
-        $filename = $this->sourceroot() . $filename;
+        $filename = $this->sourceroot . $filename;
 
         /* Assume file is in the Attic if it doesn't exist. */
         $fname = $filename . ',v';
@@ -151,7 +151,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $pipe = popen(escapeshellcmd($this->getPath('cvs')) . ' -n server > ' . escapeshellarg($tmpfile), VC_WINDOWS ? 'wb' : 'w');
 
         $out = array(
-            'Root ' . $this->sourceroot(),
+            'Root ' . $this->sourceroot,
             'Valid-responses ok error Valid-requests Checked-in Updated Merged Removed M E',
             'UseUnchanged',
             'Argument -r',
@@ -162,12 +162,12 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $dirs = explode('/', dirname($where));
         while (count($dirs)) {
             $out[] = 'Directory ' . implode('/', $dirs);
-            $out[] = $this->sourceroot() . '/' . implode('/', $dirs);
+            $out[] = $this->sourceroot . '/' . implode('/', $dirs);
             array_pop($dirs);
         }
 
         $out[] = 'Directory .';
-        $out[] = $this->sourceroot();
+        $out[] = $this->sourceroot;
         $out[] = 'annotate';
 
         foreach ($out as $line) {
