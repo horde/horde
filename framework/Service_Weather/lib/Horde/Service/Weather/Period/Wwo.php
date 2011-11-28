@@ -100,7 +100,7 @@ class Horde_Service_Weather_Period_Wwo extends Horde_Service_Weather_Period_Base
             return $this->_properties->winddirDegree;
 
         case 'wind_speed':
-           if ($this->units = Horde_Service_Weather::UNITS_STANDARD) {
+           if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                return $this->_properties->windspeedMiles;
            }
            return $this->_properties->windspeedKmph;

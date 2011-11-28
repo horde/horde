@@ -61,19 +61,19 @@
             return $time;
         case 'temp':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
-                return $this->_properties['temp_f'];
+                return round($this->_properties['temp_f']);
             }
-            return $this->_properties['temp_c'];
+            return round($this->_properties['temp_c']);
         case 'wind_speed':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['wind_mph'];
             }
-            return (int)$this->_properties['wind_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KPH;
+            return round($this->_properties['wind_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KPH);
         case 'wind_gust':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['wind_gust_mph'];
             }
-            return $this->_properties['wind_gust_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KPH;
+            return round($this->_properties['wind_gust_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KPH);
 
         case 'dewpoint':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
@@ -95,9 +95,9 @@
 
         case 'visibility':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
-                return $this->_properties['visibility_mi'];
+                return round($this->_properties['visibility_mi']);
             }
-            return $this->_properties['visibility_km'];
+            return round($this->_properties['visibility_km']);
 
         case 'pressure':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {

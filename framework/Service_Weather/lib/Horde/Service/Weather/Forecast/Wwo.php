@@ -31,7 +31,7 @@
 
     public function getForecastTime()
     {
-        return new Horde_Date($this->_properties['txt_forecast']->date);
+        return new Horde_Date($this->weather->getStation()->time);
     }
 
     /**
@@ -46,10 +46,8 @@
         }
 
         foreach ($this->_properties as $period => $values) {
-            if ($period != 0) {
-                $period = new Horde_Service_Weather_Period_Wwo($values, $this);
-                $this->_periods[] = $period;
-            }
+            $period = new Horde_Service_Weather_Period_Wwo($values, $this);
+            $this->_periods[] = $period;
         }
     }
 

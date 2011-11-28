@@ -194,7 +194,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      * a bit of request time/traffic for a smaller number of requests to obtain
      * information for e.g., a typical weather portal display.
      */
-    protected function _getCommonElements($location, $length)
+    protected function _getCommonElements($location, $length = 7)
     {
         if (!empty($this->_current) && $location == $this->_lastLocation) {
             return;
@@ -211,23 +211,19 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             . '/geolookup/conditions/' . $l . '/astronomy/q/' . $location . '.json';
         $results = $this->_makeRequest($url);
         $station = $this->_parseStation($results->location);
-
-        // @TODO
-        //$astronomy = $this->_parseAstronomy($results->moon_phase);
+        $this->_current = $this->_parseCurrent($results->current_observation);
         $astronomy = $results->moon_phase;
-
-        // Sunrise/Sunset
-        $date = new Horde_Date(time(), $station->tz);
+        $date = clone $this->_current->time;
         $date->hour = $astronomy->sunrise->hour;
         $date->min = $astronomy->sunrise->minute;
         $date->sec = 0;
+
         $station->sunrise = $date;
         $station->sunset = clone $date;
         $station->sunset->hour = $astronomy->sunset->hour;
         $station->sunset->min = $astronomy->sunset->minute;
         // Station information doesn't include any type of name string, so
         // get it from the currentConditions request.
-        $this->_current = $this->_parseCurrent($results->current_observation);
         $station->name = $results->current_observation->display_location->full;
         $this->_station = $station;
         $this->_forecast = $this->_parseForecast($results->forecast);

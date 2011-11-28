@@ -41,6 +41,7 @@
         case 'heat_index':
         case 'wind_chill':
         case 'pressure_trend':
+        case 'logo_url':
             return null;
 
         case 'condition':
@@ -54,6 +55,7 @@
                 return $this->_properties->temp_F;
             }
             return $this->_properties->temp_C;
+
         case 'wind_speed':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->windspeedMiles;
@@ -64,12 +66,12 @@
             if ($this->units == Horde_Service_Weather::UNITS_METRIC) {
                 return $this->_properties->visibility;
             } else {
-                return $this->_properties->visibility * Horde_Service_Weather::CONVERSION_KPH_TO_MPH;
+                return round($this->_properties->visibility * Horde_Service_Weather::CONVERSION_KPH_TO_MPH);
             }
 
         case 'pressure':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
-                return $this->_properties->pressure * Horde_Service_Weather::CONVERSION_MB_TO_INCHES;
+                return round($this->_properties->pressure * Horde_Service_Weather::CONVERSION_MB_TO_INCHES, 2);
             }
             return $this->_properties->pressure;
 
@@ -82,7 +84,7 @@
             if (empty($this->_map[$property])) {
                 throw new Horde_Service_Weather_Exception_InvalidProperty();
             }
-            return Horde_Service_Weather_Translation::t($this->_properties->$this->_map[$property]);
+            return Horde_Service_Weather_Translation::t($this->_properties->{$this->_map[$property]});
         }
     }
 
