@@ -71,7 +71,6 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $file = $this->vcs->getFile('file1');
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
         $this->assertEquals('file1', $file->getFileName());
-        $this->assertEquals('file1', $file->getRepositoryName());
         //FIXME $this->assertEquals('file1', $file->getSourcerootPath());
         //FIXME $this->assertEquals(
         //FIXME     'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/file1',
@@ -91,7 +90,6 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $file = $this->vcs->getFile('dir1/file1_1');
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
         $this->assertEquals('file1_1', $file->getFileName());
-        $this->assertEquals('file1_1', $file->getRepositoryName());
         $this->assertEquals('dir1/file1_1', $file->getSourcerootPath());
         //FIXME $this->assertEquals(
         //FIXME     'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/dir1/file1_1',
@@ -106,7 +104,6 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $file = $this->vcs->getFile('deletedfile1');
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
         $this->assertEquals('deletedfile1', $file->getFileName());
-        $this->assertEquals('deletedfile1', $file->getRepositoryName());
         //FIXME $this->assertEquals('deletedfile1', $file->getSourcerootPath());
         //FIXME $this->assertEquals(
         //FIXME     'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/deletedfile1',

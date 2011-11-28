@@ -77,7 +77,6 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $file = $this->vcs->getFile('module/file1');
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
         $this->assertEquals('file1', $file->getFileName());
-        $this->assertEquals('file1,v', $file->getRepositoryName());
         $this->assertEquals('module/file1', $file->getSourcerootPath());
         $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/file1',
                             $file->getPath());
@@ -100,7 +99,6 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $file = $this->vcs->getFile('module/dir1/file1_1');
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
         $this->assertEquals('file1_1', $file->getFileName());
-        $this->assertEquals('file1_1,v', $file->getRepositoryName());
         $this->assertEquals('module/dir1/file1_1', $file->getSourcerootPath());
         $this->assertEquals(
             dirname(__FILE__) . '/repos/cvs/module/dir1/file1_1',
@@ -119,7 +117,6 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $file = $this->vcs->getFile('module/deletedfile1');
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
         $this->assertEquals('deletedfile1', $file->getFileName());
-        $this->assertEquals('deletedfile1,v', $file->getRepositoryName());
         $this->assertEquals(
             'module/Attic/deletedfile1',
             $file->getSourcerootPath());

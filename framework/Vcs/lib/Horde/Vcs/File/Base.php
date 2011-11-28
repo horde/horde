@@ -133,16 +133,6 @@ abstract class Horde_Vcs_File_Base
     }
 
     /**
-     * Returns the name of the current file as in the repository.
-     *
-     * @return string  Filename (without the path).
-     */
-    public function getRepositoryName()
-    {
-        return $this->_name;
-    }
-
-    /**
      * Returns the last revision of the current file on the HEAD branch.
      *
      * @return string  Last revision of the current file.
