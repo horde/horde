@@ -29,19 +29,13 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
 
     public $time;
 
-    public function __construct($properties, $weather)
-    {
-        parent::__construct($properties, $weather);
-        if (isset($properties['observation_location'])) {
-            $location = $properties['observation_location'];
-            $this->location = (object)array(
-                'location' => $location->full,
-                'lat' => $location->latitude,
-                'lon' => $location->longitude,
-                'elevation' => $location->elevation);
-        }
-    }
-
+    /**
+     * Accessor
+     *
+     * @param string $property  The  property to retrieve.
+     *
+     * @return mixed  The property value.
+     */
     public function __get($property)
     {
         // Maybe someday I can add a better $_map array with 'type' fields etc..
@@ -51,17 +45,20 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
         case 'pressure_trend':
         case 'logo_url':
         case 'dewpoint':
-        case 'humidity':
         case 'wind_direction':
+        case 'wind_degrees':
         case 'wind_speed':
         case 'wind_gust':
         case 'visibility':
-            return false;
+        case 'heat_index':
+        case 'wind_chill':
+            return null;
+
         case 'temp':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
-                return $this->_properties->temp_f['data'];
+                return (float)$this->_properties->temp_f['data'];
             }
-            return $this->_properties->temp_c['data'];
+            return (float)$this->_properties->temp_c['data'];
 
         case 'icon':
            return $this->_weather->iconMap[basename((string)$this->_properties->icon['data'], '.gif')];
@@ -71,7 +68,8 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
             if (empty($this->_map[$property])) {
                 throw new Horde_Service_Weather_Exception_InvalidProperty();
             }
-            return $this->_properties->{$this->_map[$property]}['data'];
+
+            return (string)$this->_properties->{$this->_map[$property]}['data'];
         }
     }
 

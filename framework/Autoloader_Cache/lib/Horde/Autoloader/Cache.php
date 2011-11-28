@@ -115,7 +115,10 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     public function mapToPath($className)
     {
-        if ($this->_cache || !array_key_exists($className, $this->_cache)) {
+        if (!$this->_cache) {
+            $this->_cache = array();
+        }
+        if (!array_key_exists($className, $this->_cache)) {
             $this->_cache[$className] = parent::mapToPath($className);
             $this->_changed = true;
         }

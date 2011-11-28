@@ -120,16 +120,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     }
 
     /**
-     * Get the station information.
-     *
-     * @return Horde_Service_Weather_Station
-     */
-    public function getStation()
-    {
-        return $this->_station;
-    }
-
-    /**
      * Search for a valid location code.
      *
      * @param  string $location  A location search string like e.g., Boston,MA
@@ -221,7 +211,8 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
             'lat' => $station->latitude_e6['data'],
             'lon' => $station->longitude_e6['data'],
             'zip' => '',
-            'code' => (string)$station->postal_code['data']
+            'code' => (string)$station->postal_code['data'],
+            'time' => (string)$station->current_date_time['data']
         );
 
         return new Horde_Service_Weather_Station($properties);
@@ -263,7 +254,8 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
     protected function _makeRequest($url)
     {
         $cachekey = md5('hordeweather' . $url);
-        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) ||
+            empty($this->_cache)) {
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
                 throw new Horde_Service_Weather_Exception($response->code);
@@ -278,7 +270,6 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
                $this->_cache->set($cachekey, $results);
             }
         }
-
         return new SimplexmlElement($results);
     }
 

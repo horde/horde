@@ -62,7 +62,7 @@ class Horde_Service_Weather_Period_Wwo extends Horde_Service_Weather_Period_Base
             return null;
 
         case 'conditions':
-            return $this->_properties->weatherDesc[0]->value;
+            return Horde_Service_Weather_Translation::t($this->_properties->weatherDesc[0]->value);
 
         case 'icon_url':
             return $this->_properties->weatherIconUrl[0]->value;

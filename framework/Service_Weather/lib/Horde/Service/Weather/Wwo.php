@@ -117,16 +117,6 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     }
 
     /**
-     * Get the station information.
-     *
-     * @return Horde_Service_Weather_Station
-     */
-    public function getStation()
-    {
-        return $this->_station;
-    }
-
-    /**
      * Search for a valid location code.
      *
      * @param  string $location  A location search string like e.g., Boston,MA
@@ -254,7 +244,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     protected function _parseCurrent($current)
     {
         // The Current object takes care of the parsing/mapping.
-        $current = new Horde_Service_Weather_Current_Wwo($current, $this);
+        $current = new Horde_Service_Weather_Current_Wwo($current[0], $this);
         return $current;
     }
 
@@ -323,8 +313,10 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
                 'format' => 'json',
                 'key' => $this->_key)
         )->setRaw(true);
+
         $cachekey = md5('hordeweather' . $url);
-        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) ||
+            empty($this->_cache)) {
             $response = $this->_http->get($url);
             if (!$response->code == '200') {
                 Horde::logMessage($response->getBody());

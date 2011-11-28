@@ -26,18 +26,6 @@
         'wind_degrees' => 'winddirDegree'
     );
 
-    public function __construct($properties, $weather)
-    {
-        parent::__construct($properties, $weather);
-        $this->_properties = $properties[0];
-        $this->location = new StdClass();
-        $location = $properties[0]->observation_location;
-        $this->location->location = $location->full;
-        $this->location->lat = $location->latitude;
-        $this->location->lon = $location->longitude;
-        $this->location->elevation = $location->elevation;
-    }
-
     public function __isset($property)
     {
         return !empty($this->_properties->$property);
@@ -56,12 +44,12 @@
             return null;
 
         case 'condition':
-            return $this->_properties->weatherDesc[0]->value;
+            return Horde_Service_Weather_Translation::t($this->_properties->weatherDesc[0]->value);
 
         case 'time':
             return new Horde_Date($this->_properties->observation_time);
 
-            case 'temp':
+        case 'temp':
             if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->temp_F;
             }

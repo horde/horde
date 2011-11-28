@@ -35,22 +35,20 @@
     protected $_weather;
 
     /**
-     * Location information
+     * Units to return data in
      *
-     * @var stdClass
+     * @var integer
      */
-    public $location;
-
     public $units = Horde_Service_Weather::UNITS_STANDARD;
 
     /**
      * Const'r
      *
-     * @param  array $properties  Current properties, in driver keys.
+     * @param mixed $properties  Current properties, in driver keys.
      *
      * @return Horde_Service_Weather_Current_Base
      */
-    public function __construct(array $properties = array(), Horde_Service_Weather_Base $weather)
+    public function __construct($properties, Horde_Service_Weather_Base $weather)
     {
         $this->_properties = $properties;
         $this->_weather = $weather;

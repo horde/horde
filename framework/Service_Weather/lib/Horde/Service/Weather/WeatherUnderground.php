@@ -118,16 +118,6 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     }
 
     /**
-     * Get the station information.
-     *
-     * @return Horde_Service_Weather_Station
-     */
-    public function getStation()
-    {
-        return $this->_station;
-    }
-
-    /**
      * Search for a valid location code.
      *
      * @param  string $location  A location search string like e.g., Boston,MA
@@ -345,7 +335,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected function _makeRequest($url)
     {
         $cachekey = md5('hordeweather' . $url);
-        if (!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) {
+        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) ||
+            empty($this->_cache)) {
             $url = new Horde_Url($url);
             $response = $this->_http->get($url);
             if (!$response->code == '200') {

@@ -557,7 +557,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <div class="iconImg msCheckAll msCheck" title="<?php echo _("Select All") ?>"></div>
   </div>
   <div class="msgSort">
-   <a class="widget" id="vertical_sort">Sort</a>
+   <a class="widget" id="vertical_sort"><?php echo _("Sort") ?></a>
   </div>
  </div>
 </div>

@@ -105,7 +105,7 @@ class Horde_Service_Weather_Period_Google extends Horde_Service_Weather_Period_B
 
         default:
             if (!empty($this->_map[$property])) {
-                return $this->_properties->{$this->_map[$property]}['data'];
+                return (string)$this->_properties->{$this->_map[$property]}['data'];
             }
 
             throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support the "' . $property . '" property');

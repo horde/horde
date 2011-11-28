@@ -28,22 +28,25 @@
         'icon_url' => 'icon_url'
     );
 
-    public function __construct($properties, $weather)
-    {
-        parent::__construct($properties, $weather);
-        $this->location = new StdClass();
-        $location = $properties['observation_location'];
-        $this->location->location = $location->full;
-        $this->location->lat = $location->latitude;
-        $this->location->lon = $location->longitude;
-        $this->location->elevation = $location->elevation;
-    }
-
+    /**
+     * Magic __isset method.
+     *
+     * @param string $property  Property name.
+     *
+     * @return boolen
+     */
     public function __isset($property)
     {
         return !empty($this->_properties[$property]);
     }
 
+    /**
+     * Accessor
+     *
+     * @param string $property  Property to get
+     *
+     * @return mixed  The property value
+     */
     public function __get($property)
     {
         // Maybe someday I can add a better $_map array with 'type' fields etc..
