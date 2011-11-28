@@ -12,7 +12,7 @@
  * @link       http://pear.horde.org/index.php?package=Service_Weather
  */
 
- require_once dirname(__FILE__) . '/Autoload.php';
+require_once dirname(__FILE__) . '/Autoload.php';
 
 class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
 {
@@ -25,7 +25,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $conditions = $weather->getCurrentConditions('boston,ma');
 
         // Condition
-        $this->assertEquals('Mostly Cloudy', $conditions->condition);
+        $this->assertEquals(Horde_Service_Weather_Translation::t("Mostly Cloudy"), $conditions->condition);
 
         // Humidity
         $this->assertEquals('90%', $conditions->humidity);
@@ -50,7 +50,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('WSW', $conditions->wind_direction);
         $this->assertEquals(237, $conditions->wind_degrees);
-        $this->assertEquals('falling', $conditions->pressure_trend);
+        $this->assertEquals(Horde_Service_Weather_Translation::t("falling"), $conditions->pressure_trend);
         $this->assertEquals('2011-11-27 23:10:25', (string)$conditions->time);
     }
 
@@ -73,7 +73,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
 
         $dayOne = $forecast->getForecastDay(0);
         $this->assertInstanceOf('Horde_Service_Weather_Period_Base', $dayOne);
-        $this->assertEquals('Partly Cloudy', $dayOne->conditions);
+        $this->assertEquals(Horde_Service_Weather_Translation::t("Partly Cloudy"), $dayOne->conditions);
         $this->assertEquals('South', $dayOne->wind_direction);
         $this->assertEquals('187', $dayOne->wind_degrees);
         $this->assertEquals(80, $dayOne->humidity);
