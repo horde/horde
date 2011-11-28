@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs_Cvs file class.
+ * CVS file class.
  *
  * Copyright 2000-2011 Horde LLC (http://www.horde.org/)
  *
@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_File_Cvs extends Horde_Vcs_File
+class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Base
 {
     /**
      * TODO

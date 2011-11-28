@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Vcs_Log class.
+ * Base log class.
  *
  * Copyright 2008-2011 Horde LLC (http://www.horde.org/)
  *
@@ -9,7 +9,7 @@
  *
  * @package Vcs
  */
-abstract class Horde_Vcs_Log
+abstract class Horde_Vcs_Log_Base
 {
     protected $_rep;
     protected $_file;
@@ -62,7 +62,7 @@ abstract class Horde_Vcs_Log
         $this->_rep = $rep;
     }
 
-    public function setFile(Horde_Vcs_File $file)
+    public function setFile(Horde_Vcs_File_Base $file)
     {
         $this->_file = $file;
     }

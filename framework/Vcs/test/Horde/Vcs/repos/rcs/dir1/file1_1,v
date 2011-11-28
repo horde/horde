@@ -1,0 +1,25 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2011.11.25.20.54.15;	author jan;	state Exp;
+branches;
+next	;
+
+
+desc
+@First file in first directory
+@
+
+
+1.1
+log
+@Add first files.
+@
+text
+@1
+@
