@@ -39,7 +39,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
         //
         // $flag = $this->_quicklog ? '-r HEAD ' : '';
 
-        $cmd = $this->_rep->getCommand() . ' log -v ' . escapeshellarg($this->getFullPath()) . ' 2>&1';
+        $cmd = $this->_rep->getCommand() . ' log -v ' . escapeshellarg($this->getPath()) . ' 2>&1';
         $pipe = popen($cmd, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn log: ' . $cmd);
