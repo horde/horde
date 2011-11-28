@@ -68,9 +68,73 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
 
     public function testFile()
     {
+        /* Test top-level file. */
+        $file = $this->vcs->getFile('file1');
+        $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
+        $this->assertEquals('file1', $file->getFileName());
+        $this->assertEquals('file1', $file->getRepositoryName());
+        $this->assertEquals('file1', $file->getSourcerootPath());
+        $this->assertEquals('file1', $file->getPath());
+        //FIXME $this->assertNull($file->getFullPath());
+        //FIXME $this->assertEquals('160a468250615b713a7e33d34243530afc4682a9', $file->getRevision());
+        $this->assertEquals(
+            'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
+            $file->getPreviousRevision('160a468250615b713a7e33d34243530afc4682a9'));
+        //FIXME $this->assertEquals('d8561cd227c800ee5b0720701c8b6b77e6f6db4a', $file->getPreviousRevision('da46ee2e478c6d3a9963eaafcd8f43e83d630526'));
+        $this->assertEquals(3, $file->revisionCount());
+        //FIXME $this->assertEquals(array('tag1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
+        //                          $file->getSymbolicRevisions());
+        $this->assertEquals(
+            array('master' => 'master',
+                  'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
+            $file->getBranches());
+        //FIXME? $this->assertEquals(array('master' => '160a468250615b713a7e33d34243530afc4682a9', 'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
+        //                           $file->getBranches());
+        $this->assertFalse($file->isDeleted());
+
+        $log = $file->getLastLog();
+        $this->assertInstanceOf('Horde_Vcs_Log_Git', $log);
+
+        /* Test sub-directory file. */
+        $file = $this->vcs->getFile('dir1/file1_1');
+        $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
+        $this->assertEquals('file1_1', $file->getFileName());
+        $this->assertEquals('file1_1', $file->getRepositoryName());
+        $this->assertEquals('dir1/file1_1', $file->getSourcerootPath());
+        $this->assertEquals('dir1/file1_1', $file->getPath());
+        //FIXME $this->assertNull($file->getFullPath());
+        $this->assertEquals(
+            'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
+            $file->getRevision());
+        $this->assertEquals(1, $file->revisionCount());
+        //FIXME $this->assertEquals(array('tag1' => 'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
+        //                          $file->getSymbolicRevisions());
+        //FIXME? $this->assertEquals(array('master' => 'd8561cd227c800ee5b0720701c8b6b77e6f6db4a', 'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'), $file->getBranches());
+        $this->assertEquals(
+            array('master' => 'master',
+                  'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
+            $file->getBranches());
+        $this->assertFalse($file->isDeleted());
+
+        /* Test deleted file. */
+        $file = $this->vcs->getFile('deletedfile1');
+        $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
+        $this->assertEquals('deletedfile1', $file->getFileName());
+        $this->assertEquals('deletedfile1', $file->getRepositoryName());
+        $this->assertEquals('deletedfile1', $file->getSourcerootPath());
+        $this->assertEquals('deletedfile1', $file->getPath());
+        //FIXME $this->assertNull($file->getFullPath());
+        /* FIXME
+        $this->assertEquals('1.2', $file->getRevision());
+        $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
+        $this->assertEquals(2, $file->revisionCount());
+        $this->assertEquals(array(), $file->getSymbolicRevisions());
+        $this->assertTrue($file->isDeleted());
+        */
+
+        /* Test non-existant file. */
         $file = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
-        //$this->assertEquals('file1', $files[0]->getRepositoryName());
     }
 
     public function testLog()

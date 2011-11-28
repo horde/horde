@@ -64,6 +64,45 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
 
     public function testFile()
     {
+        /* Test top-level file. */
+        $file = $this->vcs->getFile('file1');
+        $this->assertInstanceOf('Horde_Vcs_File_Rcs', $file);
+        $this->assertEquals('file1', $file->getFileName());
+        $this->assertEquals('file1,v', $file->getRepositoryName());
+        $this->assertEquals('file1', $file->getSourcerootPath());
+        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/file1,v',
+                            $file->getPath());
+        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/file1,v',
+                            $file->getFullPath());
+        $this->assertEquals('1.2', $file->getRevision());
+        $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
+        $this->assertEquals(2, $file->revisionCount());
+        $this->assertEquals(array(), $file->getSymbolicRevisions());
+        $this->assertEquals(array(), $file->getBranches());
+        $this->assertFalse($file->isDeleted());
+
+        $log = $file->getLastLog();
+        $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $log);
+
+        /* Test sub-directory file. */
+        $file = $this->vcs->getFile('dir1/file1_1');
+        $this->assertInstanceOf('Horde_Vcs_File_Rcs', $file);
+        $this->assertEquals('file1_1', $file->getFileName());
+        $this->assertEquals('file1_1,v', $file->getRepositoryName());
+        $this->assertEquals('dir1/file1_1', $file->getSourcerootPath());
+        $this->assertEquals(
+            dirname(__FILE__) . '/repos/rcs/dir1/file1_1,v',
+            $file->getPath());
+        $this->assertEquals(
+            dirname(__FILE__) . '/repos/rcs/dir1/file1_1,v',
+            $file->getFullPath());
+        $this->assertEquals('1.1', $file->getRevision());
+        $this->assertEquals(1, $file->revisionCount());
+        $this->assertEquals(array(), $file->getSymbolicRevisions());
+        $this->assertEquals(array(), $file->getBranches());
+        $this->assertFalse($file->isDeleted());
+
+        /* Test non-existant file. */
         $dir = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $dir);
     }

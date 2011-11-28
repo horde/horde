@@ -73,6 +73,69 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
 
     public function testFile()
     {
+        /* Test top-level file. */
+        $file = $this->vcs->getFile('module/file1');
+        $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
+        $this->assertEquals('file1', $file->getFileName());
+        $this->assertEquals('file1,v', $file->getRepositoryName());
+        $this->assertEquals('module/file1', $file->getSourcerootPath());
+        $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/file1,v',
+                            $file->getPath());
+        $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/file1,v',
+                            $file->getFullPath());
+        $this->assertEquals('1.2', $file->getRevision());
+        $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
+        //FIXME $this->assertEquals('1.1', $file->getPreviousRevision('1.1.2.1'));
+        $this->assertEquals(3, $file->revisionCount());
+        $this->assertEquals(array('tag1' => '1.2'),
+                            $file->getSymbolicRevisions());
+        $this->assertEquals(array('HEAD' => '1.2', 'branch1' => '1.1.2.1'),
+                            $file->getBranches());
+        $this->assertFalse($file->isDeleted());
+
+        $log = $file->getLastLog();
+        $this->assertInstanceOf('Horde_Vcs_Log_Cvs', $log);
+
+        /* Test sub-directory file. */
+        $file = $this->vcs->getFile('module/dir1/file1_1');
+        $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
+        $this->assertEquals('file1_1', $file->getFileName());
+        $this->assertEquals('file1_1,v', $file->getRepositoryName());
+        $this->assertEquals('module/dir1/file1_1', $file->getSourcerootPath());
+        $this->assertEquals(
+            dirname(__FILE__) . '/repos/cvs/module/dir1/file1_1,v',
+            $file->getPath());
+        $this->assertEquals(
+            dirname(__FILE__) . '/repos/cvs/module/dir1/file1_1,v',
+            $file->getFullPath());
+        $this->assertEquals('1.1', $file->getRevision());
+        $this->assertEquals(1, $file->revisionCount());
+        $this->assertEquals(array('tag1' => '1.1'),
+            $file->getSymbolicRevisions());
+        $this->assertEquals(array('HEAD' => '1.1'), $file->getBranches());
+        $this->assertFalse($file->isDeleted());
+
+        /* Test deleted file. */
+        $file = $this->vcs->getFile('module/deletedfile1');
+        $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
+        $this->assertEquals('deletedfile1', $file->getFileName());
+        $this->assertEquals('deletedfile1,v', $file->getRepositoryName());
+        $this->assertEquals(
+            'module/Attic/deletedfile1',
+            $file->getSourcerootPath());
+        $this->assertEquals(
+            dirname(__FILE__) . '/repos/cvs/module/Attic/deletedfile1,v',
+            $file->getPath());
+        $this->assertEquals(
+            dirname(__FILE__) . '/repos/cvs/module/Attic/deletedfile1,v',
+            $file->getFullPath());
+        $this->assertEquals('1.2', $file->getRevision());
+        $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
+        $this->assertEquals(2, $file->revisionCount());
+        $this->assertEquals(array(), $file->getSymbolicRevisions());
+        $this->assertTrue($file->isDeleted());
+
+        /* Test non-existant file. */
         $file = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
     }
