@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-27</date>
- <time>23:47:36</time>
+ <date>2011-11-28</date>
+ <time>00:18:55</time>
  <version>
   <release>1.0.0</release>
   <api>1.0.0alpha1</api>
@@ -67,6 +67,7 @@
        <file name="WeatherUnderground.php" role="php" />
        <file name="WeatherUnderground_Strings.php" role="php" />
        <file name="Wwo.php" role="php" />
+       <file name="Wwo_Strings.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Weather -->
       <file name="Weather.php" role="php" />
      </dir> <!-- /lib/Horde/Service -->
@@ -278,6 +279,7 @@
    <install as="Horde/Service/Weather/WeatherUnderground.php" name="lib/Horde/Service/Weather/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/WeatherUnderground_Strings.php" name="lib/Horde/Service/Weather/WeatherUnderground_Strings.php" />
    <install as="Horde/Service/Weather/Wwo.php" name="lib/Horde/Service/Weather/Wwo.php" />
+   <install as="Horde/Service/Weather/Wwo_Strings.php" name="lib/Horde/Service/Weather/Wwo_Strings.php" />
    <install as="Horde/Service/Weather/Current/Base.php" name="lib/Horde/Service/Weather/Current/Base.php" />
    <install as="Horde/Service/Weather/Current/Google.php" name="lib/Horde/Service/Weather/Current/Google.php" />
    <install as="Horde/Service/Weather/Current/WeatherUnderground.php" name="lib/Horde/Service/Weather/Current/WeatherUnderground.php" />
@@ -430,7 +432,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2011-11-27</date>
+   <date>2011-11-28</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mjr] Fix returning localized text from Wwo driver (Bug #10804).
