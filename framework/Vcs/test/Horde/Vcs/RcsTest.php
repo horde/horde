@@ -70,7 +70,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1', $file->getFileName());
         $this->assertEquals('file1,v', $file->getRepositoryName());
         $this->assertEquals('file1', $file->getSourcerootPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/file1,v',
+        $this->assertEquals(dirname(__FILE__) . '/repos/rcs/file1',
                             $file->getPath());
         $this->assertEquals(dirname(__FILE__) . '/repos/rcs/file1,v',
                             $file->getFullPath());
@@ -91,7 +91,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1_1,v', $file->getRepositoryName());
         $this->assertEquals('dir1/file1_1', $file->getSourcerootPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/rcs/dir1/file1_1,v',
+            dirname(__FILE__) . '/repos/rcs/dir1/file1_1',
             $file->getPath());
         $this->assertEquals(
             dirname(__FILE__) . '/repos/rcs/dir1/file1_1,v',

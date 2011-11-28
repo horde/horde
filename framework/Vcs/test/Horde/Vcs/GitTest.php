@@ -75,7 +75,6 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1', $file->getRepositoryName());
         $this->assertEquals('file1', $file->getSourcerootPath());
         $this->assertEquals('file1', $file->getPath());
-        //FIXME $this->assertNull($file->getFullPath());
         //FIXME $this->assertEquals('160a468250615b713a7e33d34243530afc4682a9', $file->getRevision());
         $this->assertEquals(
             'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
@@ -102,7 +101,6 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1_1', $file->getRepositoryName());
         $this->assertEquals('dir1/file1_1', $file->getSourcerootPath());
         $this->assertEquals('dir1/file1_1', $file->getPath());
-        //FIXME $this->assertNull($file->getFullPath());
         $this->assertEquals(
             'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
             $file->getRevision());
@@ -123,7 +121,6 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals('deletedfile1', $file->getRepositoryName());
         $this->assertEquals('deletedfile1', $file->getSourcerootPath());
         $this->assertEquals('deletedfile1', $file->getPath());
-        //FIXME $this->assertNull($file->getFullPath());
         /* FIXME
         $this->assertEquals('1.2', $file->getRevision());
         $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));

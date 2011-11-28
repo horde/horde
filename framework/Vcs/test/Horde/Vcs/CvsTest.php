@@ -79,7 +79,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1', $file->getFileName());
         $this->assertEquals('file1,v', $file->getRepositoryName());
         $this->assertEquals('module/file1', $file->getSourcerootPath());
-        $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/file1,v',
+        $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/file1',
                             $file->getPath());
         $this->assertEquals(dirname(__FILE__) . '/repos/cvs/module/file1,v',
                             $file->getFullPath());
@@ -103,7 +103,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertEquals('file1_1,v', $file->getRepositoryName());
         $this->assertEquals('module/dir1/file1_1', $file->getSourcerootPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/cvs/module/dir1/file1_1,v',
+            dirname(__FILE__) . '/repos/cvs/module/dir1/file1_1',
             $file->getPath());
         $this->assertEquals(
             dirname(__FILE__) . '/repos/cvs/module/dir1/file1_1,v',
@@ -124,7 +124,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
             'module/Attic/deletedfile1',
             $file->getSourcerootPath());
         $this->assertEquals(
-            dirname(__FILE__) . '/repos/cvs/module/Attic/deletedfile1,v',
+            dirname(__FILE__) . '/repos/cvs/module/Attic/deletedfile1',
             $file->getPath());
         $this->assertEquals(
             dirname(__FILE__) . '/repos/cvs/module/Attic/deletedfile1,v',

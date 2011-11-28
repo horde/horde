@@ -57,7 +57,7 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
     protected function _init()
     {
         /* Check that we are actually in the filesystem. */
-        $file = $this->_dir . '/' . $this->_name;
+        $file = $this->getFullPath();
         if (!is_file($file)) {
             throw new Horde_Vcs_Exception('File Not Found: ' . $file);
         }
@@ -181,11 +181,16 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
     /**
      * Return the fully qualified filename of this object.
      *
-     * @return Fully qualified filename of this object
+     * @return string  Fully qualified filename of this object.
      */
     public function getFullPath()
     {
-        return parent::getSourcerootPath();
+        $path = $this->_rep->sourceroot;
+        if (strlen($this->_dir)) {
+            $path .= '/' . $this->_dir;
+        }
+        $path .= '/' . $this->_name;
+        return $path;
     }
 
     /**
@@ -195,7 +200,7 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
      */
     public function getSourcerootPath()
     {
-        return preg_replace('|^'. $this->_rep->sourceroot . '/?(.*),v$|', '\1', $this->getFullPath());
+        return substr(parent::getSourcerootPath(), 0, -2);
     }
 
     /**

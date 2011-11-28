@@ -75,7 +75,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
      */
     protected function _diff(Horde_Vcs_File_Base $file, $rev1, $rev2, $opts)
     {
-        $fullName = $file->getFullPath();
+        $fullName = $file->getPath();
         $diff = array();
         $flags = '-kk ';
 

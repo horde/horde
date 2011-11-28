@@ -76,7 +76,6 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         //FIXME $this->assertEquals(
         //FIXME     'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/file1',
         //FIXME     $file->getPath());
-        //FIXME $this->assertNull($file->getFullPath());
         $this->assertEquals('2', $file->getRevision());
         $this->assertEquals('1', $file->getPreviousRevision('2'));
         $this->assertEquals(2, $file->revisionCount());
@@ -97,7 +96,6 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         //FIXME $this->assertEquals(
         //FIXME     'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/dir1/file1_1',
         //FIXME     $file->getPath());
-        //FIXME $this->assertNull($file->getFullPath());
         $this->assertEquals('1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());
         //FIXME $this->assertEquals(array('tag1' => '1'),
@@ -113,7 +111,6 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         //FIXME $this->assertEquals(
         //FIXME     'file:///home/jan/horde-git/framework/Vcs/test/Horde/Vcs/repos/svn/deletedfile1',
         //FIXME     $file->getPath());
-        //FIXME $this->assertNull($file->getFullPath());
         /* FIXME
         $this->assertEquals('2', $file->getRevision());
         $this->assertEquals('1', $file->getPreviousRevision('2'));

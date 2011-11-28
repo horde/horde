@@ -70,6 +70,9 @@ abstract class Horde_Vcs_File_Base
     {
         $this->_name = basename($filename);
         $this->_dir = dirname($filename);
+        if ($this->_dir == '.') {
+            $this->_dir = '';
+        }
 
         $this->_quicklog = !empty($opts['quicklog']);
         if (!empty($opts['branch'])) {
@@ -231,23 +234,13 @@ abstract class Horde_Vcs_File_Base
     }
 
     /**
-     * Return the fully qualified filename of this object.
-     *
-     * @return string  Fully qualified filename of this object.
-     */
-    public function getFullPath()
-    {
-        return $this->_rep->sourceroot . '/' . $this->getSourcerootPath();
-    }
-
-    /**
      * Return the filename relative to its sourceroot.
      *
      * @return string  Pathname relative to the sourceroot.
      */
     public function getSourcerootPath()
     {
-        return $this->_dir . '/' . $this->_name;
+        return ltrim($this->_dir . '/' . $this->_name, '/');
     }
 
     /**
@@ -258,7 +251,7 @@ abstract class Horde_Vcs_File_Base
      */
     public function getPath()
     {
-        return $this->getFullPath();
+        return $this->_rep->sourceroot . '/' . $this->getSourcerootPath();
     }
 
     /**
