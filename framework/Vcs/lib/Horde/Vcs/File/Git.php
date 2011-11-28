@@ -24,7 +24,9 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     {
         $log_list = null;
 
-        if (empty($this->_branch)) { $this->_branch = $this->_rep->getDefaultBranch(); }
+        if (empty($this->_branch)) {
+            $this->_branch = $this->_rep->getDefaultBranch();
+        }
 
         /* First, grab the master list of revisions. If quicklog is specified,
          * we don't need this master list - we are only concerned about the
@@ -109,18 +111,6 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
             throw new Horde_Vcs_Exception('This file doesn\'t exist at that revision');
         }
         return $this->logs[$rev]->getHashForPath($this->getSourcerootPath());
-    }
-
-    /**
-     * Return the name of this file relative to its sourceroot.
-     *
-     * @return string  Pathname relative to the sourceroot.
-     */
-    public function getSourcerootPath()
-    {
-        return ($this->_dir == '.')
-            ? $this->_name
-            : parent::getSourcerootPath();
     }
 
     /**
