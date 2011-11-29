@@ -183,8 +183,19 @@ Horde tuning
 Autoloading
 -----------
 
-* An easy way to improve the performance of the Horde Autoloader library, is to
-  install the Autoloader Cache extension::
+* Horde automatically loads PHP source files on demand which relies on the PHP
+  autoloading feature introduced with PHP 5 and the Horde Autoloader library.
+  Both allow to limit the set of source code files pulled into the system to the
+  minimal amount required to answer the current request. This saves memory and
+  time but at the same time the Autoloader library has to map each class name to
+  the path of the corresponding PHP file that holds the class definition. This
+  procedure is expensive and can slow the system down. Fortunately the mapping is
+  fixed unless files are added or removed which usually only happens during an
+  upgrade.
+
+  Thus Autoloading is amenable to caching and an easy way to improve the
+  performance of the Horde Autoloader library, is to install the Autoloader
+  Cache extension::
 
     pear install horde/horde_autoloader_cache
 
