@@ -246,10 +246,9 @@ class Horde_Block_Weather extends Horde_Core_Block
             // Headers.
             $html .= '<tr>';
             $html .= '<th>' . _("Day") . '</th><th>' .
-            sprintf(_("Temperature<br />(%sHi%s/%sLo%s) &deg;%s"),
+            sprintf(_("Temperature<br />(%sHi%s/%sLo%s)"),
                         '<span style="color:red">', '</span>',
-                        '<span style="color:blue">', '</span>',
-                        Horde_String::upper($units['temp'])) .
+                        '<span style="color:blue">', '</span>') .
                 '</th><th>' . _("Condition") . '</th>' .
                 '<th>' . _("Precipitation<br />chance") . '</th>';
             if (isset($this->_params['detailedForecast'])) {
@@ -294,8 +293,10 @@ class Horde_Block_Weather extends Horde_Core_Block
 
                     // Temperature.
                     $html .= '<td style="border:1px solid #ddd; text-align:center">'
-                        . '<span style="color:red">' . $day->high . '</span>/'
-                        .  '<span style="color:blue">' . $day->low . '</span></td>';
+                        . '<span style="color:red">' . $day->high . '&deg;'
+                        . Horde_String::upper($units['temp']) . '</span>/'
+                        . '<span style="color:blue">' . $day->low . '&deg;'
+                        . Horde_String::upper($units['temp']) . '</span></td>';
 
                     // Condition.
                     $html .= '<td style="border:1px solid #ddd; text-align:center">'
