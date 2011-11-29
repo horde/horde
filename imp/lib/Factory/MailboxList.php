@@ -77,7 +77,8 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
                     $ob = null;
                 }
 
-                if (is_null($ob)) {
+                if (is_null($ob) ||
+                    !($ob instanceof IMP_Mailbox_List_Track)) {
                     $ob = new IMP_Mailbox_List_Track($mailbox);
                 }
                 break;
