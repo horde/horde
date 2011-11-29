@@ -77,7 +77,7 @@
 
         case 'icon':
            return $this->_weather->iconMap[
-                str_replace('.png', '', basename($this->_properties->weatherIconUrl))
+                str_replace('.png', '', basename($this->_properties->weatherIconUrl[0]->value))
             ];
 
         default:
