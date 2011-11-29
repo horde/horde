@@ -34,35 +34,41 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
             $branchlist = array($this->_branch);
         } else {
             if (version_compare($this->_rep->version, '1.6.0', '>=')) {
-                $cmd = $this->_rep->getCommand() . ' rev-list --branches -- ' . escapeshellarg($this->getSourcerootPath()) . ' 2>&1';
+                $cmd = 'rev-list --branches -- '
+                    . escapeshellarg($this->getSourcerootPath());
             } else {
-                $cmd = $this->_rep->getCommand() . ' branch -v --no-abbrev';
-                exec($cmd, $branch_heads);
-                if (stripos($branch_heads[0], 'fatal') === 0) {
-                    throw new Horde_Vcs_Exception(implode(', ', $branch_heads));
+                list($stream, $result) = $this->_rep->runCommand(
+                    'branch -v --no-abbrev');
+                $branch_heads = array();
+                while (!feof($result)) {
+                    $line = explode(' ', substr(rtrim(fgets($result)), 2));
+                    $branch_heads[] = $line[1];
                 }
-                foreach ($branch_heads as &$hd) {
-                    $line = explode(' ', substr($hd, 2));
-                    $hd = $line[1];
-                }
+                fclose($result);
+                proc_close($stream);
 
-                $cmd = $this->_rep->getCommand() . ' rev-list ' . implode(' ', $branch_heads) . ' -- ' . escapeshellarg($this->getSourcerootPath()) . ' 2>&1';
+                $cmd = 'rev-list ' . implode(' ', $branch_heads) . ' -- '
+                    . escapeshellarg($this->getSourcerootPath());
             }
 
-            exec($cmd, $revs);
-            if (count($revs) == 0) {
-                if (!$this->_rep->isFile($this->getSourcerootPath(), isset($optsg['branch']) ? $opts['branch'] : null)) {
+            list($stream, $result) = $this->_rep->runCommand($cmd);
+            if (feof($result)) {
+                $branch = empty($this->_branch) ? null : $this->_branch;
+                if (!$this->_rep->isFile($this->getSourcerootPath(), $branch)) {
                     throw new Horde_Vcs_Exception('No such file: ' . $this->getSourcerootPath());
                 } else {
                     throw new Horde_Vcs_Exception('No revisions found');
                 }
             }
 
-            if (stripos($revs[0], 'fatal') === 0) {
-                throw new Horde_Vcs_Exception(implode(', ', $revs));
+            while (!feof($result)) {
+                $line = trim(fgets($result));
+                if (strlen($line)) {
+                    $this->_revs[] = $line;
+                }
             }
-
-            $this->_revs = $revs;
+            fclose($result);
+            proc_close($stream);
 
             $branchlist = empty($this->_branch)
                 ? array_keys($this->getBranches())
@@ -70,31 +76,28 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         }
 
         $revs = array();
-        $cmd = $this->_rep->getCommand() . ' rev-list';
+        $cmd = 'rev-list';
         if ($this->_quicklog) {
             $cmd .= ' -n 1';
         }
         foreach ($branchlist as $branch) {
             $cmd .= ' ' . escapeshellarg($branch);
         }
-        $cmd .= ' -- ' . escapeshellarg($this->getSourcerootPath()) . ' 2>&1';
-        exec($cmd, $revs);
+        $cmd .= ' -- ' . escapeshellarg($this->getSourcerootPath());
+        list($stream, $result) = $this->_rep->runCommand($cmd);
 
-        if (!empty($revs)) {
-            if (stripos($revs[0], 'fatal') === 0) {
-                throw new Horde_Vcs_Exception(implode(', ', $revs));
-            }
-
+        if (!feof($result)) {
+            $revs = explode("\n", trim(stream_get_contents($result)));
             if (!empty($this->_branch)) {
                 $this->_revlist[$this->_branch] = $revs;
             }
-
             $log_list = $revs;
-
             if ($this->_quicklog) {
                 $this->_revs[] = reset($revs);
             }
         }
+        fclose($result);
+        proc_close($stream);
 
         if (is_null($log_list)) {
             $log_list = ($this->_quicklog || empty($this->_branch))
