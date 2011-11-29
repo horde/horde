@@ -52,9 +52,9 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals(array('dir1'), $dir->getDirectories());
         $files = $dir->getFiles();
         $this->assertInternalType('array', $files);
-        $this->assertCount(1, $files);
+        $this->assertEquals(1, count($files));
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $files[0]);
-        $this->assertCount(1, $dir->getFiles(true));
+        $this->assertEquals(1, count($dir->getFiles(true)));
         $this->assertEquals(array(), $dir->getBranches());
 
         /* Test non-existant directory. */
