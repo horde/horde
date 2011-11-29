@@ -94,9 +94,11 @@ class Horde_Text_Filter_Linkurls extends Horde_Text_Filter_Base
     [a-z0-9.\-]+[.][a-z]{2,4}/    # looks like domain name followed by a slash
   )
   (?:                           # One or more:
-    [^\s()<>\[\]]+                      # Run of non-space, non-()<>
-    |                                   #  - or -
-    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)  # balanced parens, up to 2 levels
+    [^\s()<>\[\]]+                         # Run of non-space, non-()<>
+    (?<![\s`!()\[\]{};:\'".,<>?«»“”‘’]{2}) # that is not followed by two or more
+                                           # punct chars that indicate end-of-url
+    |                                      #  - or -
+    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)     # balanced parens, up to 2 levels
   )+
   (?:                           # End with:
     \(([^\s()<>]+|(\([^\s()<>]+\)))*\)  # balanced parens, up to 2 levels
