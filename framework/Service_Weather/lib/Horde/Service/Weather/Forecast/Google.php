@@ -31,7 +31,6 @@
         $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
         parent::__construct($properties, $weather, $type);
-        $this->units = $weather->units;
         $this->_parseStd();
     }
 

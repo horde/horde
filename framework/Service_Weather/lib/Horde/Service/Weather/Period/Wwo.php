@@ -77,13 +77,13 @@ class Horde_Service_Weather_Period_Wwo extends Horde_Service_Weather_Period_Base
             return new Horde_Date($this->_properties->date);
 
         case 'high':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->tempMaxF ;
             }
             return $this->_properties->tempMaxC;
 
         case 'low':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->tempMinF;
             }
             return $this->_properties->tempMinC;
@@ -100,7 +100,7 @@ class Horde_Service_Weather_Period_Wwo extends Horde_Service_Weather_Period_Base
             return $this->_properties->winddirDegree;
 
         case 'wind_speed':
-           if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+           if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                return $this->_properties->windspeedMiles;
            }
            return $this->_properties->windspeedKmph;

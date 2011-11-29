@@ -28,13 +28,6 @@ class Horde_Service_Weather_Period_Base
     protected $_properties;
 
     /**
-     * The units to return for things like degrees and wind speed.
-     *
-     * @var integer
-     */
-    public $units = Horde_Service_Weather::UNITS_STANDARD;
-
-    /**
      * Reference to parent forecast object.
      *
      * @var Horde_Service_Weather_Forecast_Base;
@@ -53,7 +46,6 @@ class Horde_Service_Weather_Period_Base
     {
         $this->_forecast = $forecast;
         $this->_properties = $properties;
-        $this->units = $forecast->units;
     }
 
     /**

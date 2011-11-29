@@ -35,13 +35,6 @@
     protected $_weather;
 
     /**
-     * Units to return data in
-     *
-     * @var integer
-     */
-    public $units = Horde_Service_Weather::UNITS_STANDARD;
-
-    /**
      * Const'r
      *
      * @param mixed $properties  Current properties, in driver keys.
@@ -52,7 +45,6 @@
     {
         $this->_properties = $properties;
         $this->_weather = $weather;
-        $this->units = $weather->units;
     }
 
     public function __get($property)

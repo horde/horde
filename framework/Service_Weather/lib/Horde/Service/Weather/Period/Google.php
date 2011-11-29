@@ -60,7 +60,6 @@ class Horde_Service_Weather_Period_Google extends Horde_Service_Weather_Period_B
         $period)
     {
         parent::__construct($properties, $forecast);
-        $this->units = $forecast->units;
         $this->period = $period;
     }
 
@@ -121,9 +120,9 @@ class Horde_Service_Weather_Period_Google extends Horde_Service_Weather_Period_B
      */
     protected function _fromInternalUnits($value)
     {
-        if ($this->_forecast->weather->internalUnits == $this->units) {
+        if ($this->_forecast->weather->internalUnits == $this->_forecast->weather->units) {
             return $value;
-        } elseif ($this->units == Horde_Service_Weather::UNITS_METRIC) {
+        } elseif ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_METRIC) {
             return ($value - 32) * .5556;
         } else {
             return $value * 1.8 + 32;

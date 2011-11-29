@@ -171,6 +171,7 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         $this->internalUnits = $results->weather->forecast_information->unit_system['data'] == 'US' ?
                 Horde_Service_Weather::UNITS_STANDARD :
                 Horde_Service_Weather::UNITS_METRIC;
+
         $this->_station = $this->_parseStation($results->weather->forecast_information);
 
         // Sunrise/Sunset
@@ -266,4 +267,5 @@ class Horde_Service_Weather_Google extends Horde_Service_Weather_Base
         }
         return new SimplexmlElement($results);
     }
+
 }
