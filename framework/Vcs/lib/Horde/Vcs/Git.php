@@ -123,6 +123,37 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
     }
 
     /**
+     * Runs a git commands.
+     *
+     * Uses proc_open() to properly catch errors and returns a stream with the
+     * command result. proc_close() must be called manually on the returned
+     * resource, once the output stream has been finished reading.
+     *
+     * @param string $args  Any arguments for the git command. Must be escaped.
+     *
+     * @return array(resource, stream)  The process resource and the command
+     *                                  output.
+     * @throws Horde_Vcs_Exception if command cannot be executed or returns an
+     *                             error.
+     */
+    public function runCommand($args)
+    {
+        $cmd = $this->getCommand() . ' ' . $args;
+        $stream = proc_open(
+            $cmd,
+            array(1 => array('pipe', 'w'), 2 => array('pipe', 'w')),
+            $pipes);
+        if (!$stream) {
+            throw new Horde_Vcs_Exception('Failed to execute git: ' . $cmd);
+        }
+        if ($error = stream_get_contents($pipes[2])) {
+            proc_close($stream);
+            throw new Horde_Vcs_Exception($error);
+        }
+        return array($stream, $pipes[1]);
+    }
+
+    /**
      * TODO
      *
      * @throws Horde_Vcs_Exception

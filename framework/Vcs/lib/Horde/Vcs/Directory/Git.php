@@ -56,24 +56,14 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
             $dir .= '/';
         }
 
-        $cmd = $rep->getCommand() . ' ls-tree --full-name '
-            . escapeshellarg($this->_branch) . ' ' . escapeshellarg($dir);
-        $stream = proc_open(
-            $cmd,
-            array(1 => array('pipe', 'w'), 2 => array('pipe', 'w')),
-            $pipes);
-        if (!$stream) {
-            throw new Horde_Vcs_Exception('Failed to execute git ls-tree: ' . $cmd);
-        }
-        if ($error = stream_get_contents($pipes[2])) {
-            proc_close($stream);
-            throw new Horde_Vcs_Exception($error);
-        }
+        list($stream, $result) = $rep->runCommand(
+            'ls-tree --full-name ' . escapeshellarg($this->_branch)
+            . ' ' . escapeshellarg($dir));
 
         /* Create two arrays - one of all the files, and the other of all the
          * dirs. */
-        while (!feof($pipes[1])) {
-            $line = rtrim(fgets($pipes[1]));
+        while (!feof($result)) {
+            $line = rtrim(fgets($result));
             if (!strlen($line)) {
                 continue;
             }
