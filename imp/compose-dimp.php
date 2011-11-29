@@ -55,7 +55,7 @@ if (isset($header['to']) &&
 
 $fillform_opts = array('noupdate' => 1);
 $get_sig = true;
-$msg = $vars->body;
+$msg = strval($vars->body);
 
 $js = array();
 
