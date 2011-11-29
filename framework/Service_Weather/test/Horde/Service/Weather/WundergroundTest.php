@@ -31,7 +31,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('90%', $conditions->humidity);
 
         // Temp (F), Wind Speed (MPH), Visibility (Miles), Pressure (inches)
-        $conditions->units = Horde_Service_Weather::UNITS_STANDARD;
+        $weather->units = Horde_Service_Weather::UNITS_STANDARD;
         $this->assertEquals(54, $conditions->temp);
         $this->assertEquals(8, $conditions->wind_speed);
         $this->assertEquals(13, $conditions->wind_gust);
@@ -40,7 +40,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(51, $conditions->dewpoint);
 
         // Temp (C), Wind Speed (KPH), Visibility (K), Pressure (mb)
-        $conditions->units = Horde_Service_Weather::UNITS_METRIC;
+        $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(12, $conditions->temp);
         $this->assertEquals(13, $conditions->wind_speed);
         $this->assertEquals(21, $conditions->wind_gust);
@@ -84,7 +84,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(8, $dayOne->wind_speed);
         $this->assertEquals(11, $dayOne->wind_gust);
 
-        $dayOne->units = Horde_Service_Weather::UNITS_METRIC;
+        $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(14, $dayOne->high);
         $this->assertEquals(10, $dayOne->low);
         $this->assertEquals(13, $dayOne->wind_speed);

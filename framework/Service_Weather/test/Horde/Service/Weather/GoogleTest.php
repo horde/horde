@@ -37,11 +37,11 @@ class Horde_Service_Weather_GoogleTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Humidity: 68%', $conditions->humidity);
 
         // Temp (F)
-        $conditions->units = Horde_Service_Weather::UNITS_STANDARD;
+        $weather->units = Horde_Service_Weather::UNITS_STANDARD;
         $this->assertEquals(50, $conditions->temp);
 
         // Temp (C)
-        $conditions->units = Horde_Service_Weather::UNITS_METRIC;
+        $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(10, $conditions->temp);
 
         // Wind
@@ -69,11 +69,11 @@ class Horde_Service_Weather_GoogleTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Luftfeuchtigkeit: 68 %', $conditions->humidity);
 
         // Temp (F)
-        $conditions->units = Horde_Service_Weather::UNITS_STANDARD;
+        $weather->units = Horde_Service_Weather::UNITS_STANDARD;
         $this->assertEquals(50, $conditions->temp);
 
         // Temp (C)
-        $conditions->units = Horde_Service_Weather::UNITS_METRIC;
+        $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(10, $conditions->temp);
 
         // Wind
@@ -100,6 +100,7 @@ class Horde_Service_Weather_GoogleTest extends PHPUnit_Framework_TestCase
     {
         date_default_timezone_set('America/New_York');
         $weather = $this->_getStub('boston_google.xml');
+        $weather->units = Horde_Service_Weather::UNITS_STANDARD;
         $forecast = $weather->getForecast('boston,ma');
         $this->assertEquals('2011-11-26 21:54:00', (string)$forecast->getForecastTime());
 
@@ -108,17 +109,17 @@ class Horde_Service_Weather_GoogleTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Mostly Sunny', $dayOne->conditions);
         $this->assertEquals(63, $dayOne->high);
         $this->assertEquals(45, $dayOne->low);
-        $dayOne->units = Horde_Service_Weather::UNITS_METRIC;
+        $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(17, $dayOne->high);
         $this->assertEquals(7, $dayOne->low);
 
-
+        $weather->units = Horde_Service_Weather::UNITS_STANDARD;
         $dayTwo = $forecast->getForecastDay(1);
         $this->assertInstanceOf('Horde_Service_Weather_Period_Base', $dayTwo);
         $this->assertEquals('Mostly Sunny', $dayTwo->conditions);
         $this->assertEquals(58, $dayTwo->high);
         $this->assertEquals(49, $dayTwo->low);
-        $dayTwo->units = Horde_Service_Weather::UNITS_METRIC;
+        $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(14, $dayTwo->high);
         $this->assertEquals(9, $dayTwo->low);
     }
