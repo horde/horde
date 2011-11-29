@@ -13,7 +13,6 @@
 class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
 {
     protected $_forecastDays = Horde_Service_Weather::FORECAST_7DAY;
-    protected $_driver;
     protected $_location;
 
     public function __construct(array $params)
