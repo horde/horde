@@ -24,14 +24,13 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     {
         $log_list = null;
 
-        if (empty($this->_branch)) {
-            $this->_branch = $this->_rep->getDefaultBranch();
-        }
-
         /* First, grab the master list of revisions. If quicklog is specified,
          * we don't need this master list - we are only concerned about the
          * most recent revision for the given branch. */
         if ($this->_quicklog) {
+            if (empty($this->_branch)) {
+                $this->_branch = $this->_rep->getDefaultBranch();
+            }
             $branchlist = array($this->_branch);
         } else {
             if (version_compare($this->_rep->version, '1.6.0', '>=')) {
@@ -52,7 +51,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
 
             exec($cmd, $revs);
             if (count($revs) == 0) {
-                if (!$this->_rep->isFile($this->getSourcerootPath(), isset($opts['branch']) ? $opts['branch'] : null)) {
+                if (!$this->_rep->isFile($this->getSourcerootPath(), isset($optsg['branch']) ? $opts['branch'] : null)) {
                     throw new Horde_Vcs_Exception('No such file: ' . $this->getSourcerootPath());
                 } else {
                     throw new Horde_Vcs_Exception('No revisions found');
@@ -65,11 +64,20 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
 
             $this->_revs = $revs;
 
-            $branchlist = array_keys($this->getBranches());
+            $branchlist = empty($this->_branch)
+                ? array_keys($this->getBranches())
+                : array($this->_branch);
         }
 
         $revs = array();
-        $cmd = $this->_rep->getCommand() . ' rev-list' . ($this->_quicklog ? ' -n 1' : '') . ' ' . escapeshellarg($this->_branch) . ' -- ' . escapeshellarg($this->getSourcerootPath()) . ' 2>&1';
+        $cmd = $this->_rep->getCommand() . ' rev-list';
+        if ($this->_quicklog) {
+            $cmd .= ' -n 1';
+        }
+        foreach ($branchlist as $branch) {
+            $cmd .= ' ' . escapeshellarg($branch);
+        }
+        $cmd .= ' -- ' . escapeshellarg($this->getSourcerootPath()) . ' 2>&1';
         exec($cmd, $revs);
 
         if (!empty($revs)) {
@@ -77,7 +85,9 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
                 throw new Horde_Vcs_Exception(implode(', ', $revs));
             }
 
-            $this->_revlist[$this->_branch] = $revs;
+            if (!empty($this->_branch)) {
+                $this->_revlist[$this->_branch] = $revs;
+            }
 
             $log_list = $revs;
 
@@ -116,6 +126,28 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         }
 
         return $rev;
+    }
+
+    /**
+     * Returns the revision before the specified revision.
+     *
+     * @param string $rev  A revision.
+     *
+     * @return string  The previous revision or null if the first revision.
+     */
+    public function getPreviousRevision($rev)
+    {
+        $this->_ensureRevisionsInitialized();
+
+        if (empty($this->_branch)) {
+            return parent::getPreviousRevision($rev);
+        }
+
+        $key = array_search($rev, $this->_revlist[$this->_branch]);
+        return ($key !== false &&
+                isset($this->_revlist[$this->_branch][$key + 1]))
+            ? $this->_revlist[$this->_branch][$key + 1]
+            : null;
     }
 
     /**
@@ -228,5 +260,17 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         }
 
         throw new Horde_Vcs_Exception('No revisions');
+    }
+
+    /**
+     * TODO
+     */
+    public function revisionCount()
+    {
+        if (empty($this->_branch)) {
+            return parent::revisionCount();
+        }
+        $this->_ensureRevisionsInitialized();
+        return count($this->_revlist[$this->_branch]);
     }
 }
