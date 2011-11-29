@@ -77,7 +77,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
             if ($ob = $session->get('imp', 'imap_ob/' . $id)) {
                 /* If retrieved from session, we know $save should implcitly
                  * be true. */
-                $save = true;
+                $this->_save[] = $id;
             } else {
                 $ob = new IMP_Imap();
                 $this->_authInstance = $id;
@@ -88,13 +88,17 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
 
         if ($save) {
             $this->_save[] = $id;
+            /* Explicitly save object when first creating. Prevents losing
+             * authentication information in case a misconfigured server
+             * crashes before shutdown operations can occur. */
+            $session->set('imp', 'imap_ob/' . $id, $this->_instances[$id]);
         }
 
         return $this->_instances[$id];
     }
 
     /**
-     * Saves IMP_Imap instances to the session.
+     * Saves IMP_Imap instances to the session on shutdown.
      */
     public function shutdown()
     {
