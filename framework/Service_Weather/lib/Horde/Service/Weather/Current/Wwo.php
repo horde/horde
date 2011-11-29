@@ -51,33 +51,33 @@
             return new Horde_Date($this->_properties->observation_time);
 
         case 'temp':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->temp_F;
             }
             return $this->_properties->temp_C;
 
         case 'wind_speed':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties->windspeedMiles;
             }
             return $this->_properties->windspeedKmph;
 
         case 'visibility':
-            if ($this->units == Horde_Service_Weather::UNITS_METRIC) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_METRIC) {
                 return $this->_properties->visibility;
             } else {
                 return round($this->_properties->visibility * Horde_Service_Weather::CONVERSION_KPH_TO_MPH);
             }
 
         case 'pressure':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return round($this->_properties->pressure * Horde_Service_Weather::CONVERSION_MB_TO_INCHES, 2);
             }
             return $this->_properties->pressure;
 
         case 'icon':
            return $this->_weather->iconMap[
-                str_replace('.png', '', basename($this->_properties->weatherIconUrl))
+                str_replace('.png', '', basename($this->_properties->weatherIconUrl[0]->value))
             ];
 
         default:

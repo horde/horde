@@ -1,12 +1,12 @@
 <?php
 /**
- * Horde_Vcs_File_Svn class.
+ * Subversion file class.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_File_Svn extends Horde_Vcs_File
+class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
 {
     /**
      * @var resource

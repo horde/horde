@@ -17,8 +17,26 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Svn extends Horde_Vcs
+class Horde_Vcs_Svn extends Horde_Vcs_Base
 {
+    /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Svn';
+
+    /**
+     * Driver features.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        'deleted'   => false,
+        'patchsets' => true,
+        'branches'  => false,
+        'snapshots' => false);
+
     /**
      * SVN username.
      *
@@ -32,13 +50,6 @@ class Horde_Vcs_Svn extends Horde_Vcs
      * @var string
      */
     protected $_password = '';
-
-    /**
-     * Does driver support patchsets?
-     *
-     * @var boolean
-     */
-    protected $_patchsets = true;
 
     /**
      * Constructor.
@@ -144,14 +155,14 @@ class Horde_Vcs_Svn extends Horde_Vcs
     /**
      * Create a range of revisions between two revision numbers.
      *
-     * @param Horde_Vcs_File $file  The desired file.
-     * @param string $r1            The initial revision.
-     * @param string $r2            The ending revision.
+     * @param Horde_Vcs_File_Svn $file  The desired file.
+     * @param string $r1                The initial revision.
+     * @param string $r2                The ending revision.
      *
      * @return array  The revision range, or empty if there is no straight
      *                line path between the revisions.
      */
-    public function getRevisionRange($file, $r1, $r2)
+    public function getRevisionRange(Horde_Vcs_File_Base $file, $r1, $r2)
     {
         // TODO
     }
@@ -159,20 +170,19 @@ class Horde_Vcs_Svn extends Horde_Vcs
     /**
      * Obtain the differences between two revisions of a file.
      *
-     * @param Horde_Vcs_File $file  The desired file.
-     * @param string $rev1          Original revision number to compare from.
-     * @param string $rev2          New revision number to compare against.
-     * @param array $opts           The following optional options:
-     * <pre>
-     * 'num' - (integer) DEFAULT: 3
-     * 'type' - (string) DEFAULT: 'unified'
-     * 'ws' - (boolean) DEFAULT: true
-     * </pre>
+     * @param Horde_Vcs_File_Svn $file  The desired file.
+     * @param string $rev1              Original revision number to compare
+     *                                  from.
+     * @param string $rev2              New revision number to compare against.
+     * @param array $opts               The following optional options:
+     *                                  - 'num': (integer) DEFAULT: 3
+     *                                  - 'type': (string) DEFAULT: 'unified'
+     *                                  - 'ws': (boolean) DEFAULT: true
      *
      * @return string|boolean  False on failure, or a string containing the
      *                         diff on success.
      */
-    protected function _diff($file, $rev1, $rev2, $opts)
+    protected function _diff(Horde_Vcs_File_Base $file, $rev1, $rev2, $opts)
     {
         $fullName = $file->queryFullPath();
         $diff = array();

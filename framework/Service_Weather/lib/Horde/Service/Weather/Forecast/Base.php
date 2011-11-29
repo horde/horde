@@ -50,12 +50,6 @@
      */
     protected $_type;
 
-    /**
-     * Units
-     *
-     * @var Integer  Horde_Service_Weather::UNITS_* constant.
-     */
-    public $units = Horde_Service_Weather::UNITS_STANDARD;
 
     /**
      * Advertise how detailed the forecast period is.
@@ -84,7 +78,6 @@
         $this->_properties = $properties;
         $this->weather = $weather;
         $this->_type = $type;
-        $this->units = $weather->units;
     }
 
     public function getIterator()

@@ -83,7 +83,7 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
             return $date;
 
         case 'high':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['high']->fahrenheit !== '' ?
                     $this->_properties['high']->fahrenheit :
                     Horde_Service_Weather_Translation::t('N/A');
@@ -91,7 +91,7 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
             return $this->_properties['high']->celsius;
 
         case 'low':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['low']->fahrenheit !== '' ?
                     $this->_properties['low']->fahrenheit :
                     Horde_Service_Weather_Translation::t('N/A');
@@ -108,13 +108,13 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
             return $this->_properties['avewind']->degrees;
 
         case 'wind_speed':
-           if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+           if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                return $this->_properties['avewind']->mph;
            }
            return $this->_properties['avewind']->kph;
 
         case 'wind_gust':
-           if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+           if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                return $this->_properties['maxwind']->mph;
            }
            return $this->_properties['maxwind']->kph;

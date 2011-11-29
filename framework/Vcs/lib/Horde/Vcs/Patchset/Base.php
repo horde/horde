@@ -1,10 +1,10 @@
 <?php
 /**
- * Horde_Vcs patchset class.
+ * Base patchset class.
  *
  * @package Vcs
  */
-abstract class Horde_Vcs_Patchset
+abstract class Horde_Vcs_Patchset_Base
 {
     const MODIFIED = 0;
     const ADDED = 1;

@@ -60,47 +60,47 @@
             $time->setTimezone($this->_properties['local_tz_long']);
             return $time;
         case 'temp':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return round($this->_properties['temp_f']);
             }
             return round($this->_properties['temp_c']);
         case 'wind_speed':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['wind_mph'];
             }
             return round($this->_properties['wind_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KPH);
         case 'wind_gust':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['wind_gust_mph'];
             }
             return round($this->_properties['wind_gust_mph'] * Horde_Service_Weather::CONVERSION_MPH_TO_KPH);
 
         case 'dewpoint':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['dewpoint_f'];
             }
             return $this->_properties['dewpoint_c'];
 
         case 'heat_index':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['heat_index_f'];
             }
             return $this->_properties['heat_index_c'];
 
         case 'wind_chill':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['wind_chill_f'];
             }
             return $this->_properties['wind_chill_c'];
 
         case 'visibility':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return round($this->_properties['visibility_mi']);
             }
             return round($this->_properties['visibility_km']);
 
         case 'pressure':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return $this->_properties['pressure_in'];
             }
             return $this->_properties['pressure_mb'];

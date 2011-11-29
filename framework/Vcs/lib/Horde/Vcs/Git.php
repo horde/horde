@@ -19,28 +19,25 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Git extends Horde_Vcs
+class Horde_Vcs_Git extends Horde_Vcs_Base
 {
     /**
-     * Does driver support patchsets?
+     * The current driver.
      *
-     * @var boolean
+     * @var string
      */
-    protected $_patchsets = true;
+    protected $_driver = 'Git';
 
     /**
-     * Does driver support branches?
+     * Driver features.
      *
-     * @var boolean
+     * @var array
      */
-    protected $_branches = true;
-
-    /**
-     * Does driver support snapshots?
-     *
-     * @var boolean
-     */
-    protected $_snapshots = true;
+    protected $_features = array(
+        'deleted'   => false,
+        'patchsets' => true,
+        'branches'  => true,
+        'snapshots' => true);
 
     /**
      * The available diff types.
@@ -214,14 +211,14 @@ class Horde_Vcs_Git extends Horde_Vcs
     /**
      * Create a range of revisions between two revision numbers.
      *
-     * @param Horde_Vcs_File $file  The desired file.
-     * @param string $r1            The initial revision.
-     * @param string $r2            The ending revision.
+     * @param Horde_Vcs_File_Git $file  The desired file.
+     * @param string $r1                The initial revision.
+     * @param string $r2                The ending revision.
      *
      * @return array  The revision range, or empty if there is no straight
      *                line path between the revisions.
      */
-    public function getRevisionRange($file, $r1, $r2)
+    public function getRevisionRange(Horde_Vcs_File_Base $file, $r1, $r2)
     {
         $revs = $this->_getRevisionRange($file, $r1, $r2);
         return empty($revs)
@@ -232,7 +229,7 @@ class Horde_Vcs_Git extends Horde_Vcs
     /**
      * TODO
      */
-    protected function _getRevisionRange($file, $r1, $r2)
+    protected function _getRevisionRange(Horde_Vcs_File_Git $file, $r1, $r2)
     {
         $cmd = $this->getCommand() . ' rev-list ' . escapeshellarg($r1 . '..' . $r2) . ' -- ' . escapeshellarg($file->queryModulePath());
         $revs = array();
@@ -244,19 +241,18 @@ class Horde_Vcs_Git extends Horde_Vcs
     /**
      * Obtain the differences between two revisions of a file.
      *
-     * @param Horde_Vcs_File $file  The desired file.
-     * @param string $rev1          Original revision number to compare from.
-     * @param string $rev2          New revision number to compare against.
-     * @param array $opts           The following optional options:
-     * <pre>
-     * 'num' - (integer) DEFAULT: 3
-     * 'type' - (string) DEFAULT: 'unified'
-     * 'ws' - (boolean) DEFAULT: true
-     * </pre>
+     * @param Horde_Vcs_File_Git $file  The desired file.
+     * @param string $rev1              Original revision number to compare
+     *                                  from.
+     * @param string $rev2              New revision number to compare against.
+     * @param array $opts               The following optional options:
+     *                                  - 'num': (integer) DEFAULT: 3
+     *                                  - 'type': (string) DEFAULT: 'unified'
+     *                                  - 'ws': (boolean) DEFAULT: true
      *
      * @return string  The diff text.
      */
-    protected function _diff($file, $rev1, $rev2, $opts)
+    protected function _diff(Horde_Vcs_File_Base $file, $rev1, $rev2, $opts)
     {
         $diff = array();
         $flags = '';

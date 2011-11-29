@@ -55,7 +55,7 @@ class Horde_Service_Weather_Current_Google extends Horde_Service_Weather_Current
             return null;
 
         case 'temp':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
+            if ($this->_weather->units == Horde_Service_Weather::UNITS_STANDARD) {
                 return (float)$this->_properties->temp_f['data'];
             }
             return (float)$this->_properties->temp_c['data'];

@@ -21,36 +21,32 @@
 class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 {
     /**
-     * Does driver support patchsets?
+     * The current driver.
      *
-     * @var boolean
+     * @var string
      */
-    protected $_patchsets = true;
+    protected $_driver = 'Cvs';
 
     /**
-     * Does driver support deleted files?
+     * Driver features.
      *
-     * @var boolean
+     * @var array
      */
-    protected $_deleted = true;
+    protected $_features = array(
+        'deleted'   => true,
+        'patchsets' => true,
+        'branches'  => true,
+        'snapshots' => false);
 
     /**
-     * Does driver support branches?
-     *
-     * @var boolean
+     * Constructor.
      */
-    protected $_branches = true;
-
-    /**
-     * Does this driver support the given feature?
-     *
-     * @return boolean  True if driver supports the given feature.
-     */
-    public function hasFeature($feature)
+    public function __construct($params = array())
     {
-        return (($feature != 'patchsets') || $this->getPath('cvsps'))
-            ? parent::hasFeature($feature)
-            : false;
+        parent::__construct($params);
+        if (!$this->getPath('cvsps')) {
+            $this->_features['patchsets'] = false;
+        }
     }
 
     /**
@@ -65,20 +61,19 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
     /**
      * Obtain the differences between two revisions of a file.
      *
-     * @param Horde_Vcs_File $file  The desired file.
-     * @param string $rev1          Original revision number to compare from.
-     * @param string $rev2          New revision number to compare against.
-     * @param array $opts           The following optional options:
-     * <pre>
-     * 'num' - (integer) DEFAULT: 3
-     * 'type' - (string) DEFAULT: 'unified'
-     * 'ws' - (boolean) DEFAULT: true
-     * </pre>
+     * @param Horde_Vcs_File_Cvs $file  The desired file.
+     * @param string $rev1              Original revision number to compare
+     *                                  from.
+     * @param string $rev2              New revision number to compare against.
+     * @param array $opts               The following optional options:
+     *                                  - 'num': (integer) DEFAULT: 3
+     *                                  - 'type': (string) DEFAULT: 'unified'
+     *                                  - 'ws': (boolean) DEFAULT: true
      *
      * @return string|boolean  False on failure, or a string containing the
      *                         diff on success.
      */
-    protected function _diff($file, $rev1, $rev2, $opts)
+    protected function _diff(Horde_Vcs_File_Base $file, $rev1, $rev2, $opts)
     {
         $fullName = $file->queryFullPath();
         $diff = array();

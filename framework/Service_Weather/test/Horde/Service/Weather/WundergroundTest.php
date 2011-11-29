@@ -12,7 +12,7 @@
  * @link       http://pear.horde.org/index.php?package=Service_Weather
  */
 
- require_once dirname(__FILE__) . '/Autoload.php';
+require_once dirname(__FILE__) . '/Autoload.php';
 
 class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
 {
@@ -25,13 +25,13 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $conditions = $weather->getCurrentConditions('boston,ma');
 
         // Condition
-        $this->assertEquals('Mostly Cloudy', $conditions->condition);
+        $this->assertEquals(Horde_Service_Weather_Translation::t("Mostly Cloudy"), $conditions->condition);
 
         // Humidity
         $this->assertEquals('90%', $conditions->humidity);
 
         // Temp (F), Wind Speed (MPH), Visibility (Miles), Pressure (inches)
-        $conditions->units = Horde_Service_Weather::UNITS_STANDARD;
+        $weather->units = Horde_Service_Weather::UNITS_STANDARD;
         $this->assertEquals(54, $conditions->temp);
         $this->assertEquals(8, $conditions->wind_speed);
         $this->assertEquals(13, $conditions->wind_gust);
@@ -40,7 +40,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(51, $conditions->dewpoint);
 
         // Temp (C), Wind Speed (KPH), Visibility (K), Pressure (mb)
-        $conditions->units = Horde_Service_Weather::UNITS_METRIC;
+        $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(12, $conditions->temp);
         $this->assertEquals(13, $conditions->wind_speed);
         $this->assertEquals(21, $conditions->wind_gust);
@@ -50,7 +50,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('WSW', $conditions->wind_direction);
         $this->assertEquals(237, $conditions->wind_degrees);
-        $this->assertEquals('falling', $conditions->pressure_trend);
+        $this->assertEquals(Horde_Service_Weather_Translation::t("falling"), $conditions->pressure_trend);
         $this->assertEquals('2011-11-27 23:10:25', (string)$conditions->time);
     }
 
@@ -73,7 +73,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
 
         $dayOne = $forecast->getForecastDay(0);
         $this->assertInstanceOf('Horde_Service_Weather_Period_Base', $dayOne);
-        $this->assertEquals('Partly Cloudy', $dayOne->conditions);
+        $this->assertEquals(Horde_Service_Weather_Translation::t("Partly Cloudy"), $dayOne->conditions);
         $this->assertEquals('South', $dayOne->wind_direction);
         $this->assertEquals('187', $dayOne->wind_degrees);
         $this->assertEquals(80, $dayOne->humidity);
@@ -84,7 +84,7 @@ class Horde_Service_Weather_WundergroundTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(8, $dayOne->wind_speed);
         $this->assertEquals(11, $dayOne->wind_gust);
 
-        $dayOne->units = Horde_Service_Weather::UNITS_METRIC;
+        $weather->units = Horde_Service_Weather::UNITS_METRIC;
         $this->assertEquals(14, $dayOne->high);
         $this->assertEquals(10, $dayOne->low);
         $this->assertEquals(13, $dayOne->wind_speed);

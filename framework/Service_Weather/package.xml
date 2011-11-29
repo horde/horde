@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [mjr] Fix returning correct units when requesting the same location twice, but with different units (Bug # 10804).
 * [mjr] Fix returning localized text from Wwo driver (Bug #10804).
 * [mjr] Fix obtaining forecast periods individually..
 * [mjr] Fix obtaining certain properties from Google driver.
@@ -435,6 +436,7 @@
    <date>2011-11-28</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mjr] Fix returning correct units when requesting the same location twice, but with different units (Bug # 10804).
 * [mjr] Fix returning localized text from Wwo driver (Bug #10804).
 * [mjr] Fix obtaining forecast periods individually..
 * [mjr] Fix obtaining certain properties from Google driver.

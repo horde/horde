@@ -18,9 +18,8 @@
  * @category Horde
  * @package  Service_Weather
  */
- abstract class Horde_Service_Weather_Base
- {
-
+abstract class Horde_Service_Weather_Base
+{
     /**
      * Parameters
      *
@@ -104,17 +103,12 @@
      */
     protected $_lastLocation;
 
-
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param array $params                                  Parameters.
-     *<pre>
-     * 'cache'          - optional Horde_Cache object
-     * 'cache_lifetime' - Lifetime of cached results.
-     *</pre>
-     *
-     * @return Horde_Service_Weather_Base
+     * @param array $params  Parameters:
+     *                       - 'cache': optional Horde_Cache object.
+     *                       - 'cache_lifetime': Lifetime of cached results.
      */
     public function __construct(array $params = array())
     {
@@ -122,6 +116,7 @@
             throw new InvalidArgumentException('Missing http_client parameter.');
         }
         $this->_http = $params['http_client'];
+        unset($params['http_client']);
         if (!empty($params['cache'])) {
             $this->_cache = $params['cache'];
             unset($params['cache']);
@@ -135,7 +130,7 @@
     }
 
     /**
-     * Obtain the current observations.
+     * Returns the current observations.
      *
      * @param string $location  The location string.
      *
@@ -144,11 +139,11 @@
     abstract public function getCurrentConditions($location);
 
     /**
-     * Obtain the forecast for the current location.
+     * Returns the forecast for the current location.
      *
-     * @param string  $location The location code.
-     * @param integer $length  The forecast length.
-     * @param integer $type    The type of forecast to return.
+     * @param string $location  The location code.
+     * @param integer $length   The forecast length.
+     * @param integer $type     The type of forecast to return.
      *
      * @return Horde_Service_Weather_Forecast_Base
      */
@@ -158,15 +153,17 @@
         $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD);
 
     /**
-     * Search locations
+     * Searches locations.
      *
      * @param string $location  The location string to search.
      * @param integer $type     The type of search to perform.
      */
-    abstract public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD);
+    abstract public function searchLocations(
+        $location,
+        $type = Horde_Service_Weather::SEARCHTYPE_STANDARD);
 
     /**
-     * Search for locations that begin with the text in $search.
+     * Searches for locations that begin with the text in $search.
      *
      * @param string $search  The text to search.
      *
@@ -179,7 +176,7 @@
     }
 
     /**
-     * Obtain a mapping of units for each UNIT type.
+     * Returns a mapping of units for each UNIT type.
      *
      */
     public function getUnits($type = Horde_Service_Weather::UNITS_STANDARD)
@@ -202,7 +199,7 @@
     }
 
     /**
-     * Get the station information.
+     * Returns the station information.
      *
      * @return Horde_Service_Weather_Station
      */
@@ -213,5 +210,4 @@
         }
         return $this->_station;
     }
-
- }
+}

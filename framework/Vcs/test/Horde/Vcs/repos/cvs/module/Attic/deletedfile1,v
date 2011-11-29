@@ -1,0 +1,40 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2011.11.25.21.48.46;	author jan;	state dead;
+branches;
+next	1.1;
+commitid	1004ED00D3E53DFC139;
+
+1.1
+date	2011.11.25.21.48.31;	author jan;	state Exp;
+branches;
+next	;
+commitid	1004ED00D2F53DA3A50;
+
+
+desc
+@@
+
+
+1.2
+log
+@Delete file.
+@
+text
+@1
+@
+
+
+1.1
+log
+@Add file to be deleted.
+@
+text
+@@
+
