@@ -32,21 +32,11 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-<<<<<<< HEAD
 * [mms] Add ability to view all message parts in dynamic view (Request #9827).
 * [mms] Remove signature from compose UI; signature is not added automatically when sending (Request #10487).
 * [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
 * [mms] Size of sidebar now saved in dynamic view
 * [mms] Browser-specific UI elements in dynamic view now saved in browser storage (Ticket #10723).
-=======
-* [mms] Redirect to login page if IMAP credentials are lost somehow during the session.
-* [mms] Fix &apos;server&apos; credential in preauthenticate hook.
-* [jan] Fix updating events from attendee responses (Bug #10772).
-* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
-* [mms] Correctly apply default mail_domain value in all places it is needed.
-* [mms] Correctly save mail_domain value if changed in preferences UI.
-* [mms] Purge browser cache daily in dynamic view; updates time stamps to proper format (Request #9773).
->>>>>>> [mms] Redirect to login page if IMAP credentials are lost somehow during the session.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2600,6 +2590,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix setting compose message body on IE 9 in dynamic view.
 * [mms] Redirect to login page if IMAP credentials are lost somehow during the session.
 * [mms] Fix &apos;server&apos; credential in preauthenticate hook.
 * [jan] Fix updating events from attendee responses (Bug #10772).

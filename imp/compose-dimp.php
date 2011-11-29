@@ -55,7 +55,6 @@ if (isset($header['to']) &&
 
 $fillform_opts = array('noupdate' => 1);
 $msg = $vars->body;
-
 $js = array();
 
 $identity = $injector->getInstance('IMP_Identity');
