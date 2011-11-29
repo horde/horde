@@ -10,8 +10,8 @@
   <email>wrobel@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-25</date>
- <time>11:18:27</time>
+ <date>2011-11-29</date>
+ <time>19:43:49</time>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -70,6 +70,9 @@
      <dir name="backends.d">
       <file name="20-kolab.php" role="horde" />
      </dir> <!-- /ingo/config/backends.d -->
+     <dir name="conf.d">
+      <file name="20-kolab.xml" role="horde" />
+     </dir> <!-- /ingo/config/conf.d -->
     </dir> <!-- /ingo/config -->
    </dir> <!-- /ingo -->
    <dir name="kronolith">
@@ -263,6 +266,7 @@
    <install as="imp/config/conf.d/20-kolab.php" name="imp/config/conf.d/20-kolab.php" />
    <install as="imp/config/prefs.d/10-webmail.php" name="imp/config/prefs.d/10-webmail.php" />
    <install as="ingo/config/backends.d/20-kolab.php" name="ingo/config/backends.d/20-kolab.php" />
+   <install as="ingo/config/conf.d/20-kolab.xml" name="ingo/config/conf.d/20-kolab.xml" />
    <install as="kronolith/config/conf.d/10-webmail.xml" name="kronolith/config/conf.d/10-webmail.xml" />
    <install as="kronolith/config/conf.d/20-kolab.php" name="kronolith/config/conf.d/20-kolab.php" />
    <install as="kronolith/config/conf.d/20-kolab.xml" name="kronolith/config/conf.d/20-kolab.xml" />
@@ -285,7 +289,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-11-25</date>
+   <date>2011-11-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First release candidate of Horde Kolab Edition 4.0.
