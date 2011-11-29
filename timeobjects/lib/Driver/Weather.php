@@ -19,7 +19,6 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
     {
         global $registry, $prefs;
 
-        $country = substr($GLOBALS['language'], -2);
         // Assume if it's passed in, we know it's valid.
         if (!empty($params['location'])) {
             $this->_location = $params['location'];
@@ -233,6 +232,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             throw new Timeobjects_Exception($e);
         }
         // Suggest units, but the driver may override this (like Google).
+        $country = substr($GLOBALS['language'], -2);
         $driver->units = $country == 'US'
             ? Horde_Service_Weather::UNITS_STANDARD
             : Horde_Service_Weather::UNITS_METRIC;
