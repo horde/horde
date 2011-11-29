@@ -79,7 +79,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
                           'quicklog' => !empty($opts['quicklog'])));
             }
         }
-
+        fclose($result);
         proc_close($stream);
     }
 
