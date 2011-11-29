@@ -325,7 +325,12 @@ class IMP_Imap implements Serializable
     public function __call($method, $params)
     {
         if (!$this->ob || !method_exists($this->ob, $method)) {
-            throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
+            if ($GLOBALS['registry']->getAuth()) {
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->setError(Horde_Auth::REASON_SESSION);
+                $GLOBALS['registry']->authenticateFailure('imp');
+            } else {
+                throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
+            }
         }
 
         switch ($method) {
