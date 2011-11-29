@@ -56,9 +56,4 @@
         throw new Horde_Service_Weather_Exception_InvalidProperty('This station does not support that property');
     }
 
-    public function __set($property, $value)
-    {
-        $this->_properties[$property] = $value;
-    }
-
  }

@@ -65,9 +65,4 @@ class Horde_Service_Weather_Period_Base
         throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support that property');
     }
 
-    public function __set($property, $value)
-    {
-        $this->_properties[$property] = $value;
-    }
-
  }
