@@ -394,9 +394,17 @@ class IMP_Application extends Horde_Registry_Application
     {
         $this->init();
 
+        if (isset($credentials['server'])) {
+            $server = $credentials['server'];
+        } else {
+            $server = empty($credentials['imp_server_key'])
+                ? IMP_Auth::getAutoLoginServer()
+                : $credentials['imp_server_key'];
+        }
+
         $new_session = IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
-            'server' => empty($credentials['imp_server_key']) ? IMP_Auth::getAutoLoginServer() : $credentials['imp_server_key'],
+            'server' => $server,
             'userId' => $userId
         ));
 
