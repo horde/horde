@@ -388,8 +388,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      * @param array $credentials  Credentials of the user. Allowed keys:
-     *                            'imp_select_view', 'imp_server_key',
-     *                            'password'.
+     *                            'imp_server_key', 'password'.
      */
     public function authAuthenticate($userId, $credentials)
     {
@@ -402,9 +401,7 @@ class IMP_Application extends Horde_Registry_Application
         ));
 
         if ($new_session) {
-            $this->_cacheSess = array_merge($new_session, array(
-                'select_view' => empty($credentials['imp_select_view']) ? '' : $credentials['imp_select_view']
-            ));
+            $this->_cacheSess = $new_session;
         }
     }
 
