@@ -124,7 +124,8 @@ var ImpCompose = {
 
         case 'auto_save_draft':
             // Move HTML text to textarea field for submission.
-            if (ImpComposeBase.editor_on) {
+            if (ImpComposeBase.editor_on &&
+                CKEDITOR.instances.composeMessage) {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
 
