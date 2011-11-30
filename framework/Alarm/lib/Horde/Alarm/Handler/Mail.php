@@ -39,6 +39,8 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
      *                       - identity: An identity factory that implements
      *                                   create().
      *                       - mail: A Horde_Mail_Transport instance.
+     *
+     * @throws Horde_Alarm_Exception
      */
     public function __construct(array $params = null)
     {
@@ -61,6 +63,8 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
      * Notifies about an alarm by e-mail.
      *
      * @param array $alarm  An alarm hash.
+     *
+     * @throws Horde_Alarm_Exception
      */
     public function notify(array $alarm)
     {
@@ -79,21 +83,25 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
             $email = $alarm['params']['mail']['email'];
         }
 
-        $mail = new Horde_Mime_Mail(array(
-            'Subject' => $alarm['title'],
-            'To' => $email,
-            'From' => $email,
-            'Auto-Submitted' => 'auto-generated',
-            'X-Horde-Alarm' => $alarm['title']));
-        if (isset($alarm['params']['mail']['mimepart'])) {
-            $mail->setBasePart($alarm['params']['mail']['mimepart']);
-        } elseif (empty($alarm['params']['mail']['body'])) {
-            $mail->setBody($alarm['text']);
-        } else {
-            $mail->setBody($alarm['params']['mail']['body']);
-        }
+        try {
+            $mail = new Horde_Mime_Mail(array(
+                'Subject' => $alarm['title'],
+                'To' => $email,
+                'From' => $email,
+                'Auto-Submitted' => 'auto-generated',
+                'X-Horde-Alarm' => $alarm['title']));
+            if (isset($alarm['params']['mail']['mimepart'])) {
+                $mail->setBasePart($alarm['params']['mail']['mimepart']);
+            } elseif (empty($alarm['params']['mail']['body'])) {
+                $mail->setBody($alarm['text']);
+            } else {
+                $mail->setBody($alarm['params']['mail']['body']);
+            }
 
-        $mail->send($this->_mail);
+            $mail->send($this->_mail);
+        } catch (Horde_Mime_Exception $e) {
+            throw new Horde_Alarm_Exception($e);
+        }
 
         $alarm['internal']['mail']['sent'] = true;
         $this->alarm->internal($alarm['id'], $alarm['user'], $alarm['internal']);

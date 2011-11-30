@@ -28,6 +28,8 @@ abstract class Horde_Alarm_Handler
      * Notifies about an alarm.
      *
      * @param array $alarm  An alarm hash.
+     *
+     * @throws Horde_Alarm_Exception
      */
     abstract public function notify(array $alarm);
 
