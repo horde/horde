@@ -162,7 +162,9 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 
     public function testStrftimeDe()
     {
-        setlocale(LC_TIME, 'de_DE');
+        if (!setlocale(LC_TIME, 'de_DE.UTF-8')) {
+            $this->markTestSkipped('de_DE locale not available.');
+        }
 
         $date = new Horde_Date('2001-02-03 16:05:06');
 
@@ -171,6 +173,20 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         } else {
             $format = "%b\n%B\n%p\n%x\n%X";
         }
+        $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
+    }
+
+    public function testStrftimeCs()
+    {
+        if (!function_exists('nl_langinfo')) {
+            $this->markTestSkipped('nl_langinfo() not available.');
+        }
+        if (!setlocale(LC_TIME, 'cs_CZ.UTF-8')) {
+            $this->markTestSkipped('cs_CZ locale not available.');
+        }
+
+        $date = new Horde_Date('2001-02-03 16:05:06');
+        $format = nl_langinfo(D_FMT);
         $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
     }
 
