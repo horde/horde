@@ -20,6 +20,12 @@
  */
  class Horde_Service_Weather_Forecast_WeatherUnderground extends Horde_Service_Weather_Forecast_Base
  {
+
+    public $fields = array(
+        Horde_Service_Weather::FORECAST_FIELD_WIND,
+        Horde_Service_Weather::FORECAST_FIELD_HUMIDITY,
+        Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION);
+
     public function __construct(
         $properties,
         Horde_Service_Weather_Base $weather,

@@ -35,6 +35,10 @@ class Horde_Service_Weather
     /** Hourly forecast **/
     const FORECAST_TYPE_HOURLY = 3;
 
+    const FORECAST_FIELD_WIND = 'wind';
+    const FORECAST_FIELD_PRECIPITATION = 'pop';
+    const FORECAST_FIELD_HUMIDITY = 'humidity';
+
     /** Unit constants **/
     const UNITS_STANDARD = 1;
     const UNITS_METRIC = 2;
