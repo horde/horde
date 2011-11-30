@@ -2,6 +2,8 @@
 v5.0.16-git
 -----------
 
+[jan] Update Dutch translation (Pieterjan Heyse
+      <pieterjan.heyse@scheppers-wetteren.be>).
 [mms] Fix setting compose message body on IE 9 in dynamic view.
 [mms] Redirect to login page if IMAP credentials are lost somehow during the
       session.
