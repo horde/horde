@@ -36,4 +36,8 @@ class Horde_Date_Parser_Locale_DeTest extends Horde_Test_Case
         $this->assertEquals('2006-08-16 09:00:00', (string)$this->parser->parse('heute morgen', array(), false));
     }
 
+    public function testNight()
+    {
+        $this->assertEquals('2006-08-16 22:00:00', (string)$this->parser->parse('heute nacht', array(), false));
+    }
 }
