@@ -601,13 +601,21 @@ class Whups_Ticket
     static public function addCommentPerms($commentId, $group)
     {
         if (!empty($group)) {
-            $perm = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Perms')
-                ->newPermission('whups:comments:' . $commentId);
+            $perms = $GLOBALS['injector']
+                ->getInstance('Horde_Perms');
+            $perms_core = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Perms');
+            if (!$perms->exists('whups')) {
+                $perm = $perms_core->newPermission('whups');
+                $perm->addDefaultPermission(Horde_Perms::ALL, false);
+                $perms->addPermission($perm);
+            }
+            if (!$perms->exists('whups:comments')) {
+                $perms->addPermission($perms_core->newPermission('whups:comments'));
+            }
+            $perm = $perms_core->newPermission('whups:comments:' . $commentId);
             $perm->addGroupPermission($group, Horde_Perms::READ, false);
-            return $GLOBALS['injector']
-                ->getInstance('Horde_Perms')
-                ->addPermission($perm);
+            return $perms->addPermission($perm);
         }
     }
 

@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
+* [jan] Automatically create parent permissions when adding the first restricted comment.
 * [jan] Ignore messages from postmaster too when processing mails.
 * [jan] Add setting to use different addresses for Return-Path: and From: headers.
 * [jan] Fix whups-reminders script (Bug #10783).
@@ -980,6 +981,7 @@
    <date>2011-10-27</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
+* [jan] Automatically create parent permissions when adding the first restricted comment.
 * [jan] Ignore messages from postmaster too when processing mails.
 * [jan] Add setting to use different addresses for Return-Path: and From: headers.
 * [jan] Fix whups-reminders script (Bug #10783).
