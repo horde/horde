@@ -27,7 +27,7 @@ function sbarToggle()
         Element.addClassName(document.body, 'rightPanel');
     }
 
-    new Ajax.Request('<?php echo Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/prefs/', true, -1) ?>', { parameters: { app: 'mnemo', pref: 'show_panel', value: pref_value } });
+    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'mnemo')->url ?>setPrefValue', { parameters: { pref: 'show_panel', value: pref_value } });
 }
 </script>
 <a id="sbarShow" href="#" onclick="sbarToggle(); return false;"><?php echo _("Notepads") ?></a>
