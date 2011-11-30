@@ -305,7 +305,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                 if (isset($this->_params['detailedForecast'])) {
                     if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $forecast->fields)) {
                         $html .= '<td style="border:1px solid #ddd; text-align:center">'
-                            . ($day->precipitation_percent ? $day->precipitation_percent . '%' : _("N/A")) . '</td>';
+                            . ($day->precipitation_percent >= 0 ? $day->precipitation_percent . '%' : _("N/A")) . '</td>';
                     }
                     if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $forecast->fields)) {
                         $html .= '<td style="border:1px solid #ddd; text-align:center">'
