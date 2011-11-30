@@ -1467,7 +1467,7 @@ class IMP_Mailbox implements Serializable
             : '';
 
         if ($this->search) {
-            return '1' . $date;
+            return '1' . ($date ? '|' . $date : '');
         }
 
         $sortpref = $this->getSort(true);
