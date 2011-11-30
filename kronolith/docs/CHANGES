@@ -2,6 +2,8 @@
 v3.0.13-git
 -----------
 
+[jan] Don't fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug
+      #10739).
 [jan] Check permissions when building application drop down
       (sberthelot@emisfr.com, Bug #10811).
 [gwr] Fix saving Kolab events.
