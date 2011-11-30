@@ -16,12 +16,14 @@
         <?php endif; ?>
         <?php endforeach; ?>
         <?php foreach ($GLOBALS['conf']['menu']['apps'] as $app): ?>
+        <?php if ($GLOBALS['registry']->hasPermission($app)): ?>
         <?php  if ($app == 'horde'): ?>
           <li><a href="<?php echo Horde::getServiceLink('portal');?>" id="kronolithApplication-<?php echo $app ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
         <?php elseif (empty($GLOBALS['conf']['menu']['apps_iframe']) || $GLOBALS['registry']->hasAjaxView($app)): ?>
         <li><a href="<?php echo $GLOBALS['registry']->get('webroot', $app) ?>" id="kronolithApplication-<?php echo $app ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
         <?php else: ?>
         <li><a href="#" onclick="KronolithCore.go('app:<?php echo $app ?>')" id="kronolithApplication-<?php echo $app ?>"><img src="<?php echo $GLOBALS['registry']->get('icon', $app) ?>" /> <?php echo $GLOBALS['registry']->get('name', $app) ?></a></li>
+        <?php endif; ?>
         <?php endif; ?>
         <?php endforeach; ?>
       </ul>

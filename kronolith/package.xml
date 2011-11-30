@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Check permissions when building application drop down (sberthelot@emisfr.com, Bug #10811).
 * [gwr] Fix saving Kolab events.
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
@@ -1955,6 +1956,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Check permissions when building application drop down (sberthelot@emisfr.com, Bug #10811).
 * [gwr] Fix saving Kolab events.
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
