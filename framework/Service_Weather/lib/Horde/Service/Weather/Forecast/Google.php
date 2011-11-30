@@ -20,6 +20,9 @@
  */
  class Horde_Service_Weather_Forecast_Google extends Horde_Service_Weather_Forecast_Base
  {
+
+    public $fields = array();
+
     /**
      * Const'r
      *
