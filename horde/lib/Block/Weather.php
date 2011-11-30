@@ -249,11 +249,22 @@ class Horde_Block_Weather extends Horde_Core_Block
             sprintf(_("Temperature<br />(%sHi%s/%sLo%s)"),
                         '<span style="color:red">', '</span>',
                         '<span style="color:blue">', '</span>') .
-                '</th><th>' . _("Condition") . '</th>' .
-                '<th>' . _("Precipitation<br />chance") . '</th>';
+                '</th><th>' . _("Condition") . '</th>';
+
             if (isset($this->_params['detailedForecast'])) {
-                $html .= '<th>' . _("Humidity") . '</th><th>' . _("Wind") . '</th>';
+                if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $forecast->fields)) {
+                    '<th>' . _("Precipitation<br />chance") . '</th>';
+                }
+
+                if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $forecast->fields)) {
+                    $html .= '<th>' . _("Humidity") . '</th>';
+                }
+
+                if (in_array(Horde_Service_Weather::FORECAST_FIELD_WIND, $forecast->fields)) {
+                    $html .= '<th>' . _("Wind") . '</th>';
+                }
             }
+
             $html .= '</tr>';
             $which = -1;
             foreach ($forecast as $day) {
@@ -276,44 +287,31 @@ class Horde_Block_Weather extends Horde_Core_Block
                     strftime('%b %d', mktime(0, 0, 0, date('m'), date('d') + $futureDays, date('Y'))) .
                     '</td>';
 
-                // The day portion of the forecast is no longer available after 2:00 p.m. local today.
-                // ...but only check if we have a day/night forecast.
-                if ($forecast->detail == Horde_Service_Weather::FORECAST_TYPE_DETAILED &&
-                    $which == 0 &&
-                    (strtotime($location['time']) >= strtotime('14:00'))) {
-                    // Balance the grid.
-                    $html .= '<td colspan="' .
-                            ((isset($this->_params['detailedForecast']) ? '5' : '3') . '"') .
-                            ' style="border:1px solid #ddd; text-align:center">' .
-                            '&nbsp;<br />' . _("Information no longer available.") . '<br />&nbsp;' .
-                            '</td>';
-                } else {
-                    // Forecast condition.
-                     $condition = $day->conditions;
+                // Forecast condition.
+                $condition = $day->conditions;
 
-                    // Temperature.
-                    $html .= '<td style="border:1px solid #ddd; text-align:center">'
-                        . '<span style="color:red">' . $day->high . '&deg;'
-                        . Horde_String::upper($units['temp']) . '</span>/'
-                        . '<span style="color:blue">' . $day->low . '&deg;'
-                        . Horde_String::upper($units['temp']) . '</span></td>';
+                // Temperature.
+                $html .= '<td style="border:1px solid #ddd; text-align:center">'
+                    . '<span style="color:red">' . $day->high . '&deg;'
+                    . Horde_String::upper($units['temp']) . '</span>/'
+                    . '<span style="color:blue">' . $day->low . '&deg;'
+                    . Horde_String::upper($units['temp']) . '</span></td>';
 
-                    // Condition.
-                    $html .= '<td style="border:1px solid #ddd; text-align:center">'
-                        . Horde::img(Horde_Themes::img('weather/32x32/' . $day->icon))
-                        . '<br />' . $condition . '</td>';
+                // Condition.
+                $html .= '<td style="border:1px solid #ddd; text-align:center">'
+                    . Horde::img(Horde_Themes::img('weather/32x32/' . $day->icon))
+                    . '<br />' . $condition . '</td>';
 
-                    // Precipitation chance.
-                    $html .= '<td style="border:1px solid #ddd; text-align:center">'
-                        . ($day->precipitation_percent ? $day->precipitation_percent . '%' : _("N/A")) . '</td>';
-
-                    // If a detailed forecast was requested, show humidity and
-                    // winds.
-                    if (isset($this->_params['detailedForecast'])) {
-                        // Humidity.
+                if (isset($this->_params['detailedForecast'])) {
+                    if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $forecast->fields)) {
+                        $html .= '<td style="border:1px solid #ddd; text-align:center">'
+                            . ($day->precipitation_percent ? $day->precipitation_percent . '%' : _("N/A")) . '</td>';
+                    }
+                    if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $forecast->fields)) {
                         $html .= '<td style="border:1px solid #ddd; text-align:center">'
                             . ($day->humidity ? $day->humidity . '%': _("N/A")) . '</td>';
-
+                    }
+                    if (in_array(Horde_Service_Weather::FORECAST_FIELD_WIND, $forecast->fields)) {
                         // Winds.
                         if ($day->wind_direction) {
                             $html .= '<td style="border:1px solid #ddd">' .
@@ -329,11 +327,8 @@ class Horde_Block_Weather extends Horde_Core_Block
                             $html .= '<td style="border:1px solid #ddd;text-align:center;">' . _("N/A") . '</td>';
                         }
                     }
-
-                    $html .= '</tr>';
                 }
-                // @TODO: Support day/night portions when we have the driver support.
-                // Prepare for next day.
+                $html .= '</tr>';
                 $futureDays++;
             }
             $html .= '</table>';
