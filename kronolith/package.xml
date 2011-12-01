@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix regression introduced in 3.0.12 that broke checking a Resource&apos;s availability in certain cases (Bug #10806).
 * [jan] Don&apos;t fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug #10739).
 * [jan] Check permissions when building application drop down (sberthelot@emisfr.com, Bug #10811).
 * [gwr] Fix saving Kolab events.
@@ -1957,6 +1958,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix regression introduced in 3.0.12 that broke checking a Resource&apos;s availability in certain cases (Bug #10806).
 * [jan] Don&apos;t fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug #10739).
 * [jan] Check permissions when building application drop down (sberthelot@emisfr.com, Bug #10811).
 * [gwr] Fix saving Kolab events.

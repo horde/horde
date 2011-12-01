@@ -2,6 +2,8 @@
 v3.0.13-git
 -----------
 
+[mjr] Fix regression introduced in 3.0.12 that broke checking a Resource's
+      availability in certain cases (Bug #10806).
 [jan] Don't fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug
       #10739).
 [jan] Check permissions when building application drop down
