@@ -97,7 +97,8 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
         foreach ($resources as $resource_id) {
             $conflict = false;
             $resource = $this->_driver->getResource($resource_id);
-            $busy = Kronolith::listEvents($start, $end, array($resource->get('calendar')));
+            $busy = Kronolith::getDriver('Resource', $resource->get('calendar'))
+                ->listEvents($start, $end, true);
 
             /* No events at all during time period for requested event */
             if (!count($busy)) {
