@@ -33,15 +33,10 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
             $end = $event->end;
         }
 
-        /* Fetch events. */
-        $busy = Kronolith::listEvents(
-            $start,                         // Start
-            $end,                           // End
-            array($this->get('calendar')),  // Calendars
-            true,                           // showRecurrence
-            false,                          // alarmsOnly,
-            false                           // showRemote
-        );
+        /* Fetch Events */
+        $driver = Kronolith::getDriver('Resource');
+        $driver->open($this->get('calendar'));
+        $busy = $driver->listEvents($start, $end, true);
 
         /* No events at all during time period for requested event */
         if (!count($busy)) {
