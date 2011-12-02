@@ -473,7 +473,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
                 foreach ($mboxes as $val2) {
                     if ($tmp = $imptree[strval($val2)]) {
-                        unset($folder_list[strval($val2)]);
                         $folder_list[strval($val2)] = $tmp;
 
                         /* Hack: We need to NOT send a container element if

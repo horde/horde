@@ -2,6 +2,7 @@
 v5.0.16-git
 -----------
 
+[mms] Don't list parent mailboxes after child mailboxes (Bug #10802).
 [jan] Update Dutch translation (Pieterjan Heyse
       <pieterjan.heyse@scheppers-wetteren.be>).
 [mms] Fix setting compose message body on IE 9 in dynamic view.
