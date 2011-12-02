@@ -280,7 +280,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function getSymbolicRevisions()
+    public function getTags()
     {
         list($stream, $result) = $this->_rep->runCommand('show-ref --tags');
         $tags = array();

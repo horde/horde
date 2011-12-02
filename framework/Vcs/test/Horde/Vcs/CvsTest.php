@@ -87,7 +87,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertEquals('1.1', $file->getPreviousRevision('1.1.2.1'));
         $this->assertEquals(3, $file->revisionCount());
         $this->assertEquals(array('tag1' => '1.2'),
-                            $file->getSymbolicRevisions());
+                            $file->getTags());
         $this->assertEquals(array('HEAD' => '1.2', 'branch1' => '1.1.2.1'),
                             $file->getBranches());
         $this->assertFalse($file->isDeleted());
@@ -109,7 +109,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertEquals('1.1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());
         $this->assertEquals(array('tag1' => '1.1'),
-            $file->getSymbolicRevisions());
+            $file->getTags());
         $this->assertEquals(array('HEAD' => '1.1'), $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
@@ -129,7 +129,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertEquals('1.2', $file->getRevision());
         $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
         $this->assertEquals(2, $file->revisionCount());
-        $this->assertEquals(array(), $file->getSymbolicRevisions());
+        $this->assertEquals(array(), $file->getTags());
         $this->assertTrue($file->isDeleted());
 
         /* Test non-existant file. */

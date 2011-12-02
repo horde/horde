@@ -296,7 +296,7 @@ abstract class Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function getSymbolicRevisions()
+    public function getTags()
     {
         return array();
     }

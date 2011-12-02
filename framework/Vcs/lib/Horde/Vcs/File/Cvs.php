@@ -34,7 +34,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Rcs
     /**
      * TODO
      */
-    public function getSymbolicRevisions()
+    public function getTags()
     {
         return $this->_symrev;
     }

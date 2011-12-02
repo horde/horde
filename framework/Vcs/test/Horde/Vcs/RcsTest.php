@@ -76,7 +76,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals('1.2', $file->getRevision());
         $this->assertEquals('1.1', $file->getPreviousRevision('1.2'));
         $this->assertEquals(2, $file->revisionCount());
-        $this->assertEquals(array(), $file->getSymbolicRevisions());
+        $this->assertEquals(array(), $file->getTags());
         $this->assertEquals(array(), $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
@@ -96,7 +96,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
             $file->getFullPath());
         $this->assertEquals('1.1', $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());
-        $this->assertEquals(array(), $file->getSymbolicRevisions());
+        $this->assertEquals(array(), $file->getTags());
         $this->assertEquals(array(), $file->getBranches());
         $this->assertFalse($file->isDeleted());
 

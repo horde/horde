@@ -38,7 +38,7 @@ $diffValueLeft = $first->getRevision();
 $diffValueRight = $fl->getRevision();
 
 $sel = '';
-foreach ($fl->getSymbolicRevisions() as $sm => $rv) {
+foreach ($fl->getTags() as $sm => $rv) {
     $sel .= '<option value="' . $rv . '">' . $sm . '</option>';
 }
 
