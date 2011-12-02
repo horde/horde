@@ -30,7 +30,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_Svn', $this->vcs);
 
         /* Test features. */
-        //$this->assertTrue($this->vcs->hasFeature('branches'));
+        $this->assertFalse($this->vcs->hasFeature('branches'));
         $this->assertFalse($this->vcs->hasFeature('deleted'));
         $this->assertTrue($this->vcs->hasFeature('patchsets'));
         $this->assertFalse($this->vcs->hasFeature('snapshots'));
