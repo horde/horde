@@ -52,6 +52,26 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
     /**
      * TODO
      */
+    public function getFile($filename, $opts = array())
+    {
+        $filename = ltrim($filename, '/');
+        $fname = $filename . ',v';
+
+        /* Assume file is in the Attic if it doesn't exist. */
+        if (!@is_file($this->sourceroot . '/' . $fname)) {
+            $fname = dirname($filename) . '/Attic/' . basename($filename) . ',v';
+        }
+
+        if (!@is_file($this->sourceroot . '/' . $fname)) {
+            throw new Horde_Vcs_Exception(sprintf('File "%s" not found', $filename));
+        }
+
+        return Horde_Vcs_Base::getFile($fname, $opts);
+    }
+
+    /**
+     * TODO
+     */
     public function isFile($where)
     {
         return @is_file($where . ',v') ||

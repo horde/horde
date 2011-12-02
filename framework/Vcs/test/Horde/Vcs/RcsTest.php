@@ -111,13 +111,16 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertFalse($file->isDeleted());
 
         /* Test non-existant file. */
-        $dir = $this->vcs->getFile('foo');
-        $this->assertInstanceOf('Horde_Vcs_File_Rcs', $dir);
+        try {
+            $dir = $this->vcs->getFile('foo');
+            $this->fail('Expected Horde_Vcs_Exception');
+        } catch (Horde_Vcs_Exception $e) {
+        }
     }
 
     public function testLog()
     {
-        $dir = $this->vcs->getLog($this->vcs->getFile('foo'), '');
+        $dir = $this->vcs->getLog($this->vcs->getFile('file1'), '');
         $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $dir);
     }
 }

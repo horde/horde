@@ -145,13 +145,16 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertTrue($file->isDeleted());
 
         /* Test non-existant file. */
-        $file = $this->vcs->getFile('foo');
-        $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
+        try {
+            $file = $this->vcs->getFile('foo');
+            $this->fail('Expected Horde_Vcs_Exception');
+        } catch (Horde_Vcs_Exception $e) {
+        }
     }
 
     public function testLog()
     {
-        $log = $this->vcs->getLog($this->vcs->getFile('foo'), '');
+        $log = $this->vcs->getLog($this->vcs->getFile('module/file1'), null);
         $this->assertInstanceOf('Horde_Vcs_Log_Cvs', $log);
     }
 
