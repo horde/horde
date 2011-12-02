@@ -152,12 +152,6 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         }
     }
 
-    public function testLog()
-    {
-        $log = $this->vcs->getLog($this->vcs->getFile('module/file1'), null);
-        $this->assertInstanceOf('Horde_Vcs_Log_Cvs', $log);
-    }
-
     public function testPatchset()
     {
         if (!$this->vcs->hasFeature('patchsets')) {

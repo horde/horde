@@ -117,10 +117,4 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         } catch (Horde_Vcs_Exception $e) {
         }
     }
-
-    public function testLog()
-    {
-        $dir = $this->vcs->getLog($this->vcs->getFile('file1'), '');
-        $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $dir);
-    }
 }

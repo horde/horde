@@ -14,6 +14,13 @@
 class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Rcs
 {
     /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Cvs';
+
+    /**
      * If this file is present in an Attic directory, this indicates it.
      *
      * @return boolean  True if file is in the Attic, and false otherwise

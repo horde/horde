@@ -14,6 +14,13 @@
 class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
 {
     /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Git';
+
+    /**
      * The master list of revisions for this file.
      *
      * @var array
@@ -106,7 +113,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         }
 
         foreach ($log_list as $val) {
-            $this->logs[$val] = $this->_rep->getLog($this, $val);
+            $this->logs[$val] = $this->_getLog($val);
         }
     }
 
@@ -234,7 +241,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
             return $this->logs;
         } else {
             if (!isset($this->logs[$rev])) {
-                $this->logs[$rev] = $this->_rep->getLog($this, $rev);
+                $this->logs[$rev] = $this->_getLog($rev);
             }
 
             return isset($this->logs[$rev]) ? $this->logs[$rev] : null;

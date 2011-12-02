@@ -12,6 +12,13 @@
 abstract class Horde_Vcs_File_Base
 {
     /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver;
+
+    /**
      * The directory of this file.
      *
      * @var string
@@ -180,7 +187,37 @@ abstract class Horde_Vcs_File_Base
             : null;
     }
 
-   /**
+    /**
+     * @param string $rev  The revision identifier.
+     */
+    protected function _getLog($rev = null)
+    {
+        $class = 'Horde_Vcs_Log_' . $this->_driver;
+
+        if (!is_null($rev) && !empty($this->_cache)) {
+            $cacheId = implode('|', array($class, $this->sourceroot, $fl->getPath(), $rev, $this->_cacheVersion));
+
+            // Individual revisions can be cached forever
+            if ($this->_cache->exists($cacheId, 0)) {
+                $ob = unserialize($this->_cache->get($cacheId, 0));
+            }
+        }
+
+        if (empty($ob) || !$ob) {
+            $ob = new $class($rev);
+
+        }
+        $ob->setRepository($this->_rep);
+        $ob->setFile($this);
+
+        if (!is_null($rev) && !empty($this->_cache)) {
+            $this->_cache->set($cacheId, serialize($ob));
+        }
+
+        return $ob;
+    }
+
+    /**
      * Return the last Horde_Vcs_Log object in the file.
      *
      * @return Horde_Vcs_Log  Log object of the last entry in the file.

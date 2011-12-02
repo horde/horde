@@ -464,37 +464,6 @@ abstract class Horde_Vcs_Base
     }
 
     /**
-     * @param Horde_Vcs_File_Base $fl  The file obejct
-     * @param string $rev              The revision identifier
-     */
-    public function getLog(Horde_Vcs_File_Base $fl, $rev)
-    {
-        $class = 'Horde_Vcs_Log_' . $this->_driver;
-
-        if (!is_null($rev) && !empty($this->_cache)) {
-            $cacheId = implode('|', array($class, $this->sourceroot, $fl->getPath(), $rev, $this->_cacheVersion));
-
-            // Individual revisions can be cached forever
-            if ($this->_cache->exists($cacheId, 0)) {
-                $ob = unserialize($this->_cache->get($cacheId, 0));
-            }
-        }
-
-        if (empty($ob) || !$ob) {
-            $ob = new $class($rev);
-
-        }
-        $ob->setRepository($this);
-        $ob->setFile($fl);
-
-        if (!is_null($rev) && !empty($this->_cache)) {
-            $this->_cache->set($cacheId, serialize($ob));
-        }
-
-        return $ob;
-    }
-
-    /**
      * TODO
      *
      * @param array $opts  Options:

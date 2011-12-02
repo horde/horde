@@ -129,12 +129,6 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
     }
 
-    public function testLog()
-    {
-        $log = $this->vcs->getLog($this->vcs->getFile('foo'), '');
-        $this->assertInstanceOf('Horde_Vcs_Log_Svn', $log);
-    }
-
     public function testPatchset()
     {
         $ps = $this->vcs->getPatchset(array('file' => 'foo'));

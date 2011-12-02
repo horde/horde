@@ -162,12 +162,6 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
     }
 
-    public function testLog()
-    {
-        $log = $this->vcs->getLog($this->vcs->getFile('foo'), '');
-        $this->assertInstanceOf('Horde_Vcs_Log_Git', $log);
-    }
-
     public function testPatchset()
     {
         $this->markTestSkipped();

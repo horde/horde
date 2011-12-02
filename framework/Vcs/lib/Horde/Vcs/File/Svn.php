@@ -9,6 +9,13 @@
 class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
 {
     /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Svn';
+
+    /**
      * @var resource
      */
     public $logpipe;
@@ -34,7 +41,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
         $this->logpipe = $pipe;
         while (!feof($pipe)) {
             try {
-                $log = $this->_rep->getLog($this, null);
+                $log = $this->_getLog();
                 $rev = $log->getRevision();
                 $this->logs[$rev] = $log;
                 $this->_revs[] = $rev;
