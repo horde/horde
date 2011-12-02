@@ -48,7 +48,7 @@ class Horde_Vcs_Log_Svn extends Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryFiles($file = null)
+    public function getFiles($file = null)
     {
         return $this->_files;
     }

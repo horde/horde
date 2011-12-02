@@ -169,9 +169,9 @@ foreach ($grid as $row) {
 //            $bgbr = $VC->strip($rev, 1);
             $bg = isset($branch_colors[$bgbr]) ? $branch_colors[$bgbr] : '#e9e9e9';
             $log = $fl->getLog($rev);
-            $author = Chora::showAuthorName($log->queryAuthor());
-            $date = strftime('%e %b %Y', $log->queryDate());
-            $lines = $log->queryChangedLines();
+            $author = Chora::showAuthorName($log->getAuthor());
+            $date = strftime('%e %b %Y', $log->getDate());
+            $lines = $log->getChanges();
             require CHORA_TEMPLATES . '/history/rev.inc';
 
         } else {

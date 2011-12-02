@@ -29,9 +29,9 @@ switch (Horde_Util::getFormData('actionID')) {
 case 'log':
     $log = $fl->getLog($rev);
     if (!is_null($log)) {
-        echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->queryAuthor(), true) . '<br />' .
-            '<em>' . _("Date") . ':</em> ' . Chora::formatDate($log->queryDate()) . '<br /><br />' .
-            Chora::formatLogMessage($log->queryLog());
+        echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->getAuthor(), true) . '<br />' .
+            '<em>' . _("Date") . ':</em> ' . Chora::formatDate($log->getDate()) . '<br /><br />' .
+            Chora::formatLogMessage($log->getMessage());
     }
     exit;
 }

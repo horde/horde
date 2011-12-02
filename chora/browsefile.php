@@ -61,7 +61,7 @@ echo '<div class="commit-list">';
 
 reset($logs);
 foreach ($logs as $log) {
-    $day = date('Y-m-d', $log->queryDate());
+    $day = date('Y-m-d', $log->getDate());
     if ($day != $currentDay) {
         echo '<h3>' . $day . '</h3>';
         $currentDay = $day;

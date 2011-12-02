@@ -112,10 +112,10 @@ if ($fileList) {
         }
 
         $icon = $injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mimeType);
-        $author = Chora::showAuthorName($lg->queryAuthor());
+        $author = Chora::showAuthorName($lg->getAuthor());
         $filerev = $lg->getRevision();
-        $date = $lg->queryDate();
-        $log = $lg->queryLog();
+        $date = $lg->getDate();
+        $log = $lg->getMessage();
         $attic = $currFile->isDeleted();
         $fileName = $where . ($attic ? '/' . 'Attic' : '') . '/' . $realname;
         $name = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($realname, 'space2html', array('encode' => true, 'encode_all' => true));

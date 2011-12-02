@@ -1,4 +1,4 @@
-<!-- <h3><?php /*echo date('Y-m-d', $logMessage->queryDate()) */?></h3> -->
+<!-- <h3><?php /*echo date('Y-m-d', $logMessage->getDate()) */?></h3> -->
 <div class="commit-summary">
 <?php if (empty($hide_diff)): ?>
  <div class="commit-info">
@@ -17,7 +17,7 @@
    <li></li>
   </ul>
 
-  <?php if ($branchinfo = $logMessage->queryBranch()): ?>
+  <?php if ($branchinfo = $logMessage->getBranch()): ?>
   <h4><?php echo _("Branches") ?></h4>
   <ul>
   <?php foreach ($branchinfo as $branchname): ?>
@@ -26,7 +26,7 @@
   </ul>
   <?php endif; ?>
 
-  <?php if ($tags = $logMessage->queryTags()): ?>
+  <?php if ($tags = $logMessage->getTags()): ?>
   <h4><?php echo _("Tags") ?></h4>
   <ul>
   <?php foreach ($tags as $tag): ?>
@@ -37,14 +37,14 @@
  </div>
 <?php endif; ?>
 
- <div class="commit-message"><?php echo Chora::formatLogMessage($logMessage->queryLog()) ?></div>
+ <div class="commit-message"><?php echo Chora::formatLogMessage($logMessage->getMessage()) ?></div>
 
  <div class="commit-author">
   <div class="commit-author-avatar">
-   <img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim(Chora::getAuthorEmail($logMessage->queryAuthor())))) ?>?d=mm&s=40">
+   <img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim(Chora::getAuthorEmail($logMessage->getAuthor())))) ?>?d=mm&s=40">
   </div>
-  <?php echo Chora::showAuthorName($logMessage->queryAuthor(), true) ?><br>
-  <?php echo Chora::formatDate($logMessage->queryDate()) ?>
+  <?php echo Chora::showAuthorName($logMessage->getAuthor(), true) ?><br>
+  <?php echo Chora::formatDate($logMessage->getDate()) ?>
  </div>
 
  <div class="clear">&nbsp;</div>

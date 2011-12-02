@@ -54,7 +54,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
                 'members' => array(),
             );
 
-            foreach ($log->queryFiles() as $file) {
+            foreach ($log->getFiles() as $file) {
                 $from = $log->queryParent();
                 $to = $rev;
 

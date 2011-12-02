@@ -143,9 +143,9 @@ abstract class Horde_Vcs_Directory_Base
     {
         $aa = $a->getLastLog();
         $bb = $b->getLastLog();
-        return ($aa->queryDate() == $bb->queryDate())
+        return ($aa->getDate() == $bb->getDate())
             ? 0
-            : (($aa->queryDate() < $bb->queryDate()) ? 1 : -1);
+            : (($aa->getDate() < $bb->getDate()) ? 1 : -1);
     }
 
     /**
@@ -155,9 +155,9 @@ abstract class Horde_Vcs_Directory_Base
     {
         $aa = $a->getLastLog();
         $bb = $b->getLastLog();
-        return ($aa->queryAuthor() == $bb->queryAuthor())
+        return ($aa->getAuthor() == $bb->getAuthor())
             ? 0
-            : (($aa->queryAuthor() > $bb->queryAuthor()) ? 1 : -1);
+            : (($aa->getAuthor() > $bb->getAuthor()) ? 1 : -1);
     }
 
     /**

@@ -21,15 +21,15 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset_Base
 
         foreach ($fileOb->getLog() as $rev => $log) {
             $this->_patchsets[$rev] = array(
-                'author' => $log->queryAuthor(),
+                'author' => $log->getAuthor(),
                 'branch' => '',
-                'date' => $log->queryDate(),
-                'log' => $log->queryLog(),
+                'date' => $log->getDate(),
+                'log' => $log->getMessage(),
                 'members' => array(),
                 'tag' => ''
             );
 
-            foreach ($log->queryFiles() as $file) {
+            foreach ($log->getFiles() as $file) {
                 $action = substr($file, 0, 1);
                 $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
                 $to = $rev;

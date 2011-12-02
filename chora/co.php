@@ -82,7 +82,7 @@ if (!$plain) {
     $title = sprintf(_("%s Revision %s (%s ago)"),
                      basename($fullname),
                      $r,
-                     Chora::readableTime($log->queryDate(), true));
+                     Chora::readableTime($log->getDate(), true));
 
     $views = array(
         Horde::widget(Chora::url('annotate', $where, array('rev' => $r)), _("Annotate"), 'widget', '', '', _("_Annotate")),

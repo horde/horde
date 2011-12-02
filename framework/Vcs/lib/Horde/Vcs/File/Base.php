@@ -273,12 +273,12 @@ abstract class Horde_Vcs_File_Base
 
     public function sortByAge($a, $b)
     {
-        return $b->queryDate() - $a->queryDate();
+        return $b->getDate() - $a->getDate();
     }
 
     public function sortByName($a, $b)
     {
-        return strcmp($a->queryAuthor(), $b->queryAuthor());
+        return strcmp($a->getAuthor(), $b->getAuthor());
     }
 
     /**

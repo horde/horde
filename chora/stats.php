@@ -18,7 +18,7 @@ $extraLink = Chora::getFileViews($where, 'stats');
 
 $stats = array();
 foreach ($fl->getLog() as $lg) {
-    $qa = $lg->queryAuthor();
+    $qa = $lg->getAuthor();
     $stats[$qa] = isset($stats[$qa]) ? ($stats[$qa] + 1) : 1;
 }
 arsort($stats);
