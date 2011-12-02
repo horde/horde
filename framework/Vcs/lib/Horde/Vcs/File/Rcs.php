@@ -146,7 +146,7 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
 
                     if ($onbranch) {
                         $this->_revs[] = $rev;
-                        $this->logs[$rev] = $log;
+                        $this->_logs[$rev] = $log;
                     }
 
                     $this->_accum = array();

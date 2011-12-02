@@ -37,7 +37,7 @@ abstract class Horde_Vcs_File_Base
      *
      * @var array
      */
-    public $logs = array();
+    protected $_logs = array();
 
     /**
      * TODO
@@ -227,10 +227,10 @@ abstract class Horde_Vcs_File_Base
     {
         $this->_ensureRevisionsInitialized();
         $this->_ensureLogsInitialized();
-        if (!isset($this->_revs[0]) || !isset($this->logs[$this->_revs[0]])) {
+        if (!isset($this->_revs[0]) || !isset($this->_logs[$this->_revs[0]])) {
             throw new Horde_Vcs_Exception('No revisions');
         }
-        return $this->logs[$this->_revs[0]];
+        return $this->_logs[$this->_revs[0]];
     }
 
     /**
@@ -259,7 +259,7 @@ abstract class Horde_Vcs_File_Base
             break;
         }
 
-        uasort($this->logs, array($this, 'sortBy' . $func));
+        uasort($this->_logs, array($this, 'sortBy' . $func));
         return true;
     }
 
@@ -317,8 +317,8 @@ abstract class Horde_Vcs_File_Base
     {
         $this->_ensureLogsInitialized();
         return is_null($rev)
-            ? $this->logs
-            : (isset($this->logs[$rev]) ? $this->logs[$rev] : null);
+            ? $this->_logs
+            : (isset($this->_logs[$rev]) ? $this->_logs[$rev] : null);
     }
 
     /**

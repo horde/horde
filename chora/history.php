@@ -168,7 +168,7 @@ foreach ($grid as $row) {
             /* This cell contains a revision, so render it. */
 //            $bgbr = $VC->strip($rev, 1);
             $bg = isset($branch_colors[$bgbr]) ? $branch_colors[$bgbr] : '#e9e9e9';
-            $log = $fl->logs[$rev];
+            $log = $fl->getLog($rev);
             $author = Chora::showAuthorName($log->queryAuthor());
             $date = strftime('%e %b %Y', $log->queryDate());
             $lines = $log->queryChangedLines();

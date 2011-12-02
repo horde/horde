@@ -43,7 +43,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
             try {
                 $log = $this->_getLog();
                 $rev = $log->getRevision();
-                $this->logs[$rev] = $log;
+                $this->_logs[$rev] = $log;
                 $this->_revs[] = $rev;
             } catch (Horde_Vcs_Exception $e) {}
 

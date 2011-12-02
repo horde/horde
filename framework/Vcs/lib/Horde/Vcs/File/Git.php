@@ -113,7 +113,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         }
 
         foreach ($log_list as $val) {
-            $this->logs[$val] = $this->_getLog($val);
+            $this->_logs[$val] = $this->_getLog($val);
         }
     }
 
@@ -170,10 +170,10 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     public function getHashForRevision($rev)
     {
         $this->_ensureLogsInitialized();
-        if (!isset($this->logs[$rev])) {
+        if (!isset($this->_logs[$rev])) {
             throw new Horde_Vcs_Exception('This file doesn\'t exist at that revision');
         }
-        return $this->logs[$rev]->getHashForPath($this->getSourcerootPath());
+        return $this->_logs[$rev]->getHashForPath($this->getSourcerootPath());
     }
 
     /**
@@ -238,13 +238,13 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     {
         if (is_null($rev)) {
             $this->_ensureLogsInitialized();
-            return $this->logs;
+            return $this->_logs;
         } else {
-            if (!isset($this->logs[$rev])) {
-                $this->logs[$rev] = $this->_getLog($rev);
+            if (!isset($this->_logs[$rev])) {
+                $this->_logs[$rev] = $this->_getLog($rev);
             }
 
-            return isset($this->logs[$rev]) ? $this->logs[$rev] : null;
+            return isset($this->_logs[$rev]) ? $this->_logs[$rev] : null;
         }
     }
 
@@ -264,8 +264,8 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
 
         $rev = reset($this->_revlist[$this->_branch]);
         if (!is_null($rev)) {
-            if (isset($this->logs[$rev])) {
-                return $this->logs[$rev];
+            if (isset($this->_logs[$rev])) {
+                return $this->_logs[$rev];
             }
         }
 
