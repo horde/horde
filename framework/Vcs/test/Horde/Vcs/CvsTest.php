@@ -152,6 +152,30 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         }
     }
 
+    public function testLog()
+    {
+        $logs = $this->vcs->getFile('module/file1')->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(array('1.2', '1.1', '1.1.2.1'), array_keys($logs));
+        $this->assertInstanceOf('Horde_Vcs_Log_Cvs', $logs['1.2']);
+        $log = $logs['1.2'];
+        $this->assertEquals('1.2', $log->getRevision());
+        $this->assertEquals(1322495647, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to HEAD branch.',
+            $log->getMessage());
+        $this->assertEquals(array('HEAD'), $log->getBranch());
+        $this->assertEquals('+1 -1', $log->getChanges());
+        $this->assertEquals(array('tag1'), $log->getTags());
+        $this->assertEquals(array(), $log->getSymbolicBranches());
+        $this->assertEquals(
+            array('module/file1' => array('added' => '1', 'deleted' => '1')),
+            $log->getFiles());
+        $this->assertEquals(1, $log->getAddedLines());
+        $this->assertEquals(1, $log->getDeletedLines());
+    }
+
     public function testPatchset()
     {
         if (!$this->vcs->hasFeature('patchsets')) {

@@ -117,4 +117,26 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         } catch (Horde_Vcs_Exception $e) {
         }
     }
+
+    public function testLog()
+    {
+        $logs = $this->vcs->getFile('file1')->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(array('1.2', '1.1'), array_keys($logs));
+        $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $logs['1.2']);
+        $log = $logs['1.2'];
+        $this->assertEquals('1.2', $log->getRevision());
+        $this->assertEquals(1322495969, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals('Commit 2nd version.', $log->getMessage());
+        $this->assertEquals(array(), $log->getBranch());
+        $this->assertEquals('+1 -1', $log->getChanges());
+        $this->assertEquals(array(), $log->getTags());
+        $this->assertEquals(array(), $log->getSymbolicBranches());
+        $this->assertEquals(
+            array('file1' => array('added' => '1', 'deleted' => '1')),
+            $log->getFiles());
+        $this->assertEquals(1, $log->getAddedLines());
+        $this->assertEquals(1, $log->getDeletedLines());
+    }
 }

@@ -162,6 +162,47 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
     }
 
+    public function testLog()
+    {
+        $logs = $this->vcs->getFile('file1')->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(
+            array('da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+                  '160a468250615b713a7e33d34243530afc4682a9',
+                  'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
+            array_keys($logs));
+        $this->assertInstanceOf(
+            'Horde_Vcs_Log_Git',
+            $logs['160a468250615b713a7e33d34243530afc4682a9']);
+        $log = $logs['160a468250615b713a7e33d34243530afc4682a9'];
+        $this->assertEquals(
+            '160a468250615b713a7e33d34243530afc4682a9',
+            $log->getRevision());
+        $this->assertEquals(1322495899, $log->getDate());
+        $this->assertEquals('Jan Schneider <jan@horde.org>', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to master branch.',
+            $log->getMessage());
+        //FIXME $this->assertEquals(array('master'), $log->getBranch());
+        //FIXME $this->assertEquals('+1 -1', $log->getChanges());
+        $this->assertEquals(array(), $log->getTags());
+        $this->assertEquals(array(), $log->getSymbolicBranches());
+        $this->assertEquals(
+            array('file1' => array(
+                'srcMode' => '100644',
+                'dstMode' => '100644',
+                'srcSha1' => 'd00491fd7e5bb6fa28c517a0bb32b8b506539d4d',
+                'dstSha1' => '0cfbf08886fca9a91cb753ec8734c84fcbe52c9f',
+                'status'  => 'M',
+                'srcPath' => 'file1',
+                'dstPath' => '', //FIXME?
+                'added'   => '1',
+                'deleted' => '1')),
+            $log->getFiles());
+        $this->assertEquals(1, $log->getAddedLines());
+        $this->assertEquals(1, $log->getDeletedLines());
+    }
+
     public function testPatchset()
     {
         $this->markTestSkipped();

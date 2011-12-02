@@ -129,6 +129,28 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
     }
 
+    public function testLog()
+    {
+        $logs = $this->vcs->getFile('file1')->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(array('2', '1'), array_keys($logs));
+        $this->assertInstanceOf('Horde_Vcs_Log_Svn', $logs['2']);
+        $log = $logs['2'];
+        $this->assertEquals('2', $log->getRevision());
+        $this->assertEquals(1322496080, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals('Commit 2nd version.', $log->getMessage());
+        $this->assertEquals(array(), $log->getBranch());
+        //FIXME $this->assertEquals('+1 -1', $log->getChanges());
+        $this->assertEquals(array(), $log->getTags());
+        $this->assertEquals(array(), $log->getSymbolicBranches());
+        //FIXME $this->assertEquals(
+        //FIXME     array('module/file1' => array('added' => '1', 'deleted' => '1')),
+        //FIXME     $log->getFiles());
+        //FIXME $this->assertEquals(1, $log->getAddedLines());
+        //FIXME $this->assertEquals(1, $log->getDeletedLines());
+    }
+
     public function testPatchset()
     {
         $this->markTestSkipped();
