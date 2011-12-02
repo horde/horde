@@ -2174,7 +2174,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - size: (string) The size of the attachment in KB
      *   - type: (string) The MIME type of the attachment
      */
-    public function _getAttachmentInfo(IMP_Compose $imp_compose)
+    protected function _getAttachmentInfo(IMP_Compose $imp_compose)
     {
         $fwd_list = array();
 
