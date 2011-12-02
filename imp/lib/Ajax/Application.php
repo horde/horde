@@ -1706,6 +1706,29 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Create mailbox select list for advanced search page.
+     *
+     * Variables used:
+     *   - unsub: (integer) If set, includes unsubscribed mailboxes.Th
+     *
+     * @return object  An object with the following entries:
+     *   - folder_list: (array)
+     *   - tree: (string)
+     */
+    public function searchMailboxList()
+    {
+        $ob = $GLOBALS['injector']->getInstance('IMP_Ui_Search')->getSearchMboxList($this->_vars->unsub);
+
+        $result = new stdClass;
+        $result->folder_list = $ob->folder_list;
+        $result->tree = $ob->tree->getTree();
+
+        return $result;
+    }
+
+    /* Protected methods. */
+
+    /**
      * Setup environment for dimp compose actions.
      *
      * Variables used:

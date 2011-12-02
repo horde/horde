@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add ability to quickly add unsubscribed mailboxes to available search mailboxes in advanced search (Request #10832).
 * [mms] Don&apos;t list parent mailboxes after child mailboxes (Bug #10802).
 * [jan] Update Dutch translation (Pieterjan Heyse &lt;pieterjan.heyse@scheppers-wetteren.be&gt;).
 * [mms] Fix setting compose message body on IE 9 in dynamic view.
@@ -2597,6 +2598,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add ability to quickly add unsubscribed mailboxes to available search mailboxes in advanced search (Request #10832).
 * [mms] Don&apos;t list parent mailboxes after child mailboxes (Bug #10802).
 * [jan] Update Dutch translation (Pieterjan Heyse &lt;pieterjan.heyse@scheppers-wetteren.be&gt;).
 * [mms] Fix setting compose message body on IE 9 in dynamic view.

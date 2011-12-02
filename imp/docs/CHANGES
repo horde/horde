@@ -2,6 +2,8 @@
 v5.0.16-git
 -----------
 
+[mms] Add ability to quickly add unsubscribed mailboxes to available search
+      mailboxes in advanced search (Request #10832).
 [mms] Don't list parent mailboxes after child mailboxes (Bug #10802).
 [jan] Update Dutch translation (Pieterjan Heyse
       <pieterjan.heyse@scheppers-wetteren.be>).

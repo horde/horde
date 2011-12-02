@@ -517,6 +517,17 @@ var ImpSearch = {
                 }
                 return;
 
+            case 'show_unsub':
+                new Ajax.Request(this.ajaxurl + 'searchMailboxList', {
+                    onSuccess: this.showUnsubCallback.bind(this),
+                    parameters: {
+                        unsub: 1
+                    }
+                });
+                elt.remove();
+                e.stop();
+                return;
+
             default:
                 if (elt.hasClassName('searchuiDelete')) {
                     if (elt.up('#search_criteria')) {
@@ -603,6 +614,17 @@ var ImpSearch = {
     {
         var id = e.findElement('DIV.searchId').identify();
         this.replaceDate(id, this.criteria[id].t, e.memo);
+    },
+
+    showUnsubCallback: function(r)
+    {
+        var resp;
+
+        if (r.responseJSON.response) {
+            resp = r.responseJSON.response;
+            this.data.folder_list = resp.folder_list;
+            $('search_folders_add').update(resp.tree);
+        }
     },
 
     onDomLoad: function()

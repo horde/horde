@@ -456,28 +456,14 @@ $t->set('flist', $flag_set);
 /* Generate master folder list. */
 $folder_list = array();
 if (!$t->get('edit_query_filter')) {
-    $imap_tree = $injector->getInstance('IMP_Imap_Tree');
-    $imap_tree->setIteratorFilter();
+    $js_vars['ImpSearch.allsearch'] = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
+    $ob = $injector->getInstance('IMP_Ui_Search')->getSearchMboxList();
+    $folder_list = $ob->folder_list;
+    $t->set('tree', $ob->tree->getTree());
 
-    $t2 = $injector->createInstance('Horde_Template');
-    $t2->setOption('gettext', true);
-    $t2->set('allsearch', IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH));
-
-    $js_vars['ImpSearch.allsearch'] = $t2->get('allsearch');
-
-    $tree = $imap_tree->createTree('imp_search', array(
-        'render_params' => array(
-            'abbrev' => 0,
-            'container_select' => true,
-            'customhtml' => $t2->fetch(IMP_TEMPLATES . '/imp/search/search-all.html'),
-            'heading' => _("Add search folder:")
-        ),
-        'render_type' => 'IMP_Tree_Flist'
-    ));
-    $t->set('tree', $tree->getTree());
-
-    foreach ($imap_tree as $val) {
-        $folder_list[$val->form_to] = $val->display;
+    if ($prefs->getValue('subscribe')) {
+        $t->set('subscribe', true);
+        $js_vars['ImpSearch.ajaxurl'] = Horde::getServiceLink('ajax', 'imp')->url;
     }
 }
 
