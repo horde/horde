@@ -56,6 +56,16 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(1, count($dir->getFiles(true)));
         $this->assertEquals(array('branch1', 'master'), $dir->getBranches());
 
+        $dir = $this->vcs->getDirectory('dir1');
+        $this->assertInstanceOf('Horde_Vcs_Directory_Git', $dir);
+        $this->assertEquals(array(), $dir->getDirectories());
+        $files = $dir->getFiles();
+        $this->assertInternalType('array', $files);
+        $this->assertEquals(1, count($files));
+        $this->assertInstanceOf('Horde_Vcs_File_Git', $files[0]);
+        $this->assertEquals(1, count($dir->getFiles(true)));
+        $this->assertEquals(array('branch1', 'master'), $dir->getBranches());
+
         /* Test non-existant directory. */
         /*
         try {
