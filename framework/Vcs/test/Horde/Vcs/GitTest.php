@@ -84,8 +84,8 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
              '160a468250615b713a7e33d34243530afc4682a9',
              $file->getPreviousRevision('da46ee2e478c6d3a9963eaafcd8f43e83d630526'));
         $this->assertEquals(3, $file->revisionCount());
-        //FIXME $this->assertEquals(array('tag1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
-        //                          $file->getSymbolicRevisions());
+        $this->assertEquals(array('tag1' => '160a468250615b713a7e33d34243530afc4682a9'),
+                                  $file->getSymbolicRevisions());
         $this->assertEquals(
             array('master' => '160a468250615b713a7e33d34243530afc4682a9',
                   'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
@@ -125,8 +125,8 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
             $file->getRevision());
         $this->assertEquals(1, $file->revisionCount());
-        //FIXME $this->assertEquals(array('tag1' => 'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
-        //                          $file->getSymbolicRevisions());
+        $this->assertEquals(array('tag1' => '160a468250615b713a7e33d34243530afc4682a9'),
+                                  $file->getSymbolicRevisions());
         $this->assertEquals(
             array('master' => '160a468250615b713a7e33d34243530afc4682a9',
                   'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),

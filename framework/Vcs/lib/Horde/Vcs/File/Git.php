@@ -276,4 +276,23 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         $this->_ensureRevisionsInitialized();
         return count($this->_revlist[$this->_branch]);
     }
+
+    /**
+     * TODO
+     */
+    public function getSymbolicRevisions()
+    {
+        list($stream, $result) = $this->_rep->runCommand('show-ref --tags');
+        $tags = array();
+        while (!feof($result)) {
+            $line = trim(fgets($result));
+            if ($line) {
+                list($rev, $tag) = explode(' ', $line);
+                $tags[basename($tag)] = $rev;
+            }
+        }
+        fclose($result);
+        proc_close($stream);
+        return $tags;
+    }
 }
