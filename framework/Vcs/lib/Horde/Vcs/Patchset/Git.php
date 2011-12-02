@@ -30,7 +30,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
 
         if (isset($opts['file'])) {
             $ob = $rep->getFile($opts['file']);
-            $revs = $ob->getLogs();
+            $revs = $ob->getLog();
         } elseif (!empty($opts['range'])) {
             foreach ($opts['range'] as $val) {
                 /* Grab a filename in the patchset to get log info. */
@@ -39,7 +39,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
 
                 /* The first line is the SHA1 hash. */
                 $ob = $rep->getFile($output[1]);
-                $revs[$val] = $ob->getLogs($val);
+                $revs[$val] = $ob->getLog($val);
             }
         }
 

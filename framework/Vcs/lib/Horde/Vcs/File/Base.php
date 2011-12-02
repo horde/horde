@@ -313,7 +313,7 @@ abstract class Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function getLogs($rev = null)
+    public function getLog($rev = null)
     {
         $this->_ensureLogsInitialized();
         return is_null($rev)

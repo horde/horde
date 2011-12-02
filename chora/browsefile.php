@@ -32,7 +32,7 @@ try {
 $title = $where;
 
 $extraLink = Chora::getFileViews($where, 'browsefile');
-$logs = $fl->getLogs();
+$logs = $fl->getLog();
 $first = end($logs);
 $diffValueLeft = $first->getRevision();
 $diffValueRight = $fl->getRevision();

@@ -27,7 +27,7 @@ if (!$rev || !$VC->isValidRevision($rev)) {
 
 switch (Horde_Util::getFormData('actionID')) {
 case 'log':
-    $log = $fl->getLogs($rev);
+    $log = $fl->getLog($rev);
     if (!is_null($log)) {
         echo '<em>' . _("Author") . ':</em> ' . Chora::showAuthorName($log->queryAuthor(), true) . '<br />' .
             '<em>' . _("Date") . ':</em> ' . Chora::formatDate($log->queryDate()) . '<br /><br />' .

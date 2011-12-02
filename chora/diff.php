@@ -68,7 +68,7 @@ $title = sprintf(_("Diff for %s between version %s and %s"),
 /* Format log entries. */
 $log_messages = array();
 foreach ($VC->getRevisionRange($fl, $vars->r1, $vars->r2) as $val) {
-    $clog = $fl->getLogs($val);
+    $clog = $fl->getLog($val);
     if (!is_null($clog)) {
         $log_messages[] = $clog;
     }

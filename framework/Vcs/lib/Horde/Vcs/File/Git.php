@@ -234,7 +234,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function getLogs($rev = null)
+    public function getLog($rev = null)
     {
         if (is_null($rev)) {
             $this->_ensureLogsInitialized();

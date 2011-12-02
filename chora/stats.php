@@ -17,7 +17,7 @@ Horde_Registry::appInit('chora');
 $extraLink = Chora::getFileViews($where, 'stats');
 
 $stats = array();
-foreach ($fl->getLogs() as $lg) {
+foreach ($fl->getLog() as $lg) {
     $qa = $lg->queryAuthor();
     $stats[$qa] = isset($stats[$qa]) ? ($stats[$qa] + 1) : 1;
 }

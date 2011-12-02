@@ -77,7 +77,7 @@ if (!$plain) {
     }
 
     /* Get this revision's attributes in printable form. */
-    $log = $file->getLogs($r);
+    $log = $file->getLog($r);
 
     $title = sprintf(_("%s Revision %s (%s ago)"),
                      basename($fullname),
