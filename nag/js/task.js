@@ -39,11 +39,19 @@ var NagTasks = {
     /**
      * Keypress handler for time fields.
      */
-    timeSelectKeyHandler: function()
+    timeSelectKeyHandler: function(e)
     {
-        var dt = $('due_time');
-        if ($F(dt) !== this.knl[dt.identify()].getCurrentEntry()) {
-            this.knl[dt.identify()].markSelected(null);
+        switch(e.keyCode) {
+        case Event.KEY_UP:
+        case Event.KEY_DOWN:
+        case Event.KEY_RIGHT:
+        case Event.KEY_LEFT:
+            return;
+        default:
+            var dt = $('due_time');
+            if ($F(dt) !== this.knl[dt.identify()].getCurrentEntry()) {
+                this.knl[dt.identify()].markSelected(null);
+            }
         }
     }
 }
