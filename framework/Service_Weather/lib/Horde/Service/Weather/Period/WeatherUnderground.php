@@ -102,7 +102,7 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
             return $this->_forecast->weather->iconMap[$this->_properties['icon']];
 
         case 'wind_direction':
-            return $this->_properties['avewind']->dir;
+            return Horde_Service_Weather_Translation::t($this->_properties['avewind']->dir);
 
         case 'wind_degrees':
             return $this->_properties['avewind']->degrees;
