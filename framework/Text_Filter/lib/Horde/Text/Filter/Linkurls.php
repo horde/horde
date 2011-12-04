@@ -89,9 +89,9 @@ class Horde_Text_Filter_Linkurls extends Horde_Text_Filter_Base
    (?:[a-z][\w-+]{0,19})?:/{1,3}  # URL protocol and colon followed by 1-3
                                   # slashes, or just colon and slashes (://)
     |                             #  - or -
-    www\d{0,3}[.]                 # "www.", "www1.", "www2." … "www999."
+    www\d{0,3}\.                  # "www.", "www1.", "www2." … "www999."
     |                             #  - or -
-    [a-z0-9.\-]+[.][a-z]{2,4}/    # looks like domain name followed by a slash
+    [a-z0-9.\-]+\.[a-z]{2,4}/    # looks like domain name followed by a slash
   )
   (?:                           # One or more:
     [^\s()<>\[\]]+                         # Run of non-space, non-()<>

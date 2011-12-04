@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde 3.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 02:42+0200\n"
-"PO-Revision-Date: 2007-11-25 12:37+0100\n"
+"PO-Revision-Date: 2011-11-30 11:12+0100\n"
 "Last-Translator: Jan Kuipers <jrkuipers@lauwerscollege.nl>\n"
 "Language-Team: Dutch <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -3312,7 +3312,7 @@ msgstr "Temperatuur: "
 #: lib/Block/weatherdotcom.php:296
 #, php-format
 msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
-msgstr "Temperatuur<br />(%sHoog%s/%sLaag%s) &graden;%s"
+msgstr "Temperatuur<br />(%sHoog%s/%sLaag%s) &deg;%s"
 
 #: lib/Prefs/Ui.php:518 services/facebook.php:31
 msgid "Temporarily unable to connect with Facebook, Please try again."

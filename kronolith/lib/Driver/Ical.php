@@ -243,6 +243,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $results = array();
         foreach ($events->children('DAV:')->response as $response) {
+            if (!$response->children('DAV:')->propstat) {
+                continue;
+            }
             $ical = new Horde_Icalendar();
             try {
                 $result = $ical->parsevCalendar($response->children('DAV:')->propstat->prop->children('urn:ietf:params:xml:ns:caldav')->{'calendar-data'});

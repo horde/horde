@@ -7,9 +7,10 @@
   want to use a single Horde installation for different virtual hosts, you can
   create separate configuration files for each virtual host,
   e.g. &lt;code&gt;conf-www.example.com.php&lt;/code&gt; or
-  &lt;code&gt;prefs-mail.example.com.php&lt;/code&gt;. The global
-  configuration files are always loaded first, and virtual host specific files
-  are not required.">false</configboolean>
+  &lt;code&gt;prefs-mail.example.com.php&lt;/code&gt;. The global configuration
+  files are always loaded first, and virtual host specific files are not
+  required. If running command line scripts, you can specify the host name with
+  the environment variable SERVER_NAME.">false</configboolean>
   <configheader>PHP Settings</configheader>
   <configphp name="debug_level" desc="The value to set
   error_reporting() to.

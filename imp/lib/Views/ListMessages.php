@@ -30,7 +30,7 @@ class IMP_Views_ListMessages
      * @var array $args  TODO
      *   - applyfilter: (boolean) If true, apply filters to mailbox.
      *   - change: (boolean)
-     *   - initial: (boolean)
+     *   - initial: (boolean) Is this the initial load of the view?
      *   - mbox: (string) The mailbox of the view.
      *   - qsearch: TODO
      *   - qsearchfield: (string) The quicksearch criteria.
@@ -44,6 +44,7 @@ class IMP_Views_ListMessages
     {
         global $injector;
 
+        $initial = $args['initial'];
         $is_search = false;
         $mbox = IMP_Mailbox::get($args['mbox']);
         $sortpref = $mbox->getSort();
@@ -53,8 +54,7 @@ class IMP_Views_ListMessages
             $qsearch_mbox = IMP_Mailbox::formFrom($args['qsearchmbox']);
 
             if (strlen($args['qsearchfilter'])) {
-                $imp_search = $injector->getInstance('IMP_Search');
-                $imp_search->applyFilter($args['qsearchfilter'], array($qsearch_mbox), $mbox);
+                $injector->getInstance('IMP_Search')->applyFilter($args['qsearchfilter'], array($qsearch_mbox), $mbox);
                 $is_search = true;
             } else {
                 /* Create the search query. */
@@ -135,6 +135,34 @@ class IMP_Views_ListMessages
         $result->totalrows = $msgcount;
         if (!$args['initial']) {
             unset($result->label);
+        }
+
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
+        /* Check for UIDVALIDITY expiration. It is the first element in the
+         * cacheid returned from the browser. If it has changed, we need to
+         * purge the cached items on the browser. */
+        $parsed = null;
+        if ($args['cacheid'] && $args['cache']) {
+            $uid_expire = false;
+            $parsed = $imp_imap->parseCacheId($args['cacheid']);
+
+            if ($parsed['date'] != date('mdy')) {
+                $uid_expire = true;
+            } elseif (!$is_search) {
+                try {
+                    $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+                    $uid_expire = ($parsed['uidvalidity'] != $status['uidvalidity']);
+                } catch (Horde_Imap_Cache_Exception $e) {
+                    $uid_expire = true;
+                }
+            }
+
+            if ($uid_expire) {
+                $args['cache'] = array();
+                $args['initial'] = true;
+                $result->data_reset = $result->metadata_reset = 1;
+            }
         }
 
         /* Mail-specific viewport information. */
@@ -229,33 +257,6 @@ class IMP_Views_ListMessages
             return $result;
         }
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-
-        /* Check for UIDVALIDITY expiration. It is the first element in the
-         * cacheid returned from the browser. If it has changed, we need to
-         * purge the cached items on the browser. */
-        $parsed = null;
-        if ($args['cacheid'] && $args['cache']) {
-            $uid_expire = false;
-            $parsed = $imp_imap->parseCacheId($args['cacheid']);
-
-            if ($parsed['date'] != date('mdy')) {
-                $uid_expire = true;
-            } elseif (!$is_search) {
-                try {
-                    $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-                    $uid_expire = ($parsed['uidvalidity'] != $status['uidvalidity']);
-                } catch (Horde_Imap_Cache_Exception $e) {
-                    $uid_expire = true;
-                }
-            }
-
-            if ($uid_expire) {
-                $args['cache'] = array();
-                $result->data_reset = $result->metadata_reset = 1;
-            }
-        }
-
         /* TODO: This can potentially be optimized for arrival time sort - if
          * the cache ID changes, we know the changes must occur at end of
          * mailbox. */
@@ -286,7 +287,7 @@ class IMP_Views_ListMessages
         } else {
             /* If this is the initial request for a mailbox, figure out the
              * starting location based on user's preferences. */
-            $rownum = $args['initial']
+            $rownum = $initial
                 ? intval($mailbox_list->mailboxStart($msgcount))
                 : null;
         }
@@ -382,10 +383,9 @@ class IMP_Views_ListMessages
         /* Build the overview list. */
         $result->data = $this->_getOverviewData($mbox, array_keys($data));
 
-        if ($is_search) {
-            $result->search = 1;
-        } elseif ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-            /* Get thread information. */
+        /* Get thread information. */
+        if (!$is_search &&
+            ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD)) {
             $imp_thread = new IMP_Imap_Thread($mailbox_list->getThreadOb());
             $md->thread = (object)$imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
         }

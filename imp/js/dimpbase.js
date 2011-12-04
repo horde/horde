@@ -652,6 +652,7 @@ var DimpBase = {
 
             this.setMessageListTitle();
             this.setMsgHash();
+            this.loadingImg('viewport', false);
 
             if (this.isSearch()) {
                 tmp = this.viewport.getMetaData('slabel');
@@ -782,8 +783,6 @@ var DimpBase = {
             this.resetSelectAll();
             this.setMsgHash();
         }.bindAsEventListener(this));
-
-        container.observe('ViewPort:endFetch', this.loadingImg.bind(this, 'viewport', false));
 
         container.observe('ViewPort:fetch', this.loadingImg.bind(this, 'viewport', true));
 

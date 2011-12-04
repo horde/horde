@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix unnecessary use of POSIX collating element in Linkurls filter (Bug #10828; jr@yaina.de).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -738,7 +738,7 @@ Initial release as a PEAR package
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix unnecessary use of POSIX collating element in Linkurls filter (Bug #10828; jr@yaina.de).
    </notes>
   </release>
  </changelog>

@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Catch exceptions from Horde_Mime when sending alarm messages (Bug #10388).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -693,7 +693,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Catch exceptions from Horde_Mime when sending alarm messages (Bug #10388).
    </notes>
   </release>
  </changelog>

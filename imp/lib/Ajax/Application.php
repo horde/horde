@@ -472,7 +472,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
                 foreach ($mboxes as $val2) {
                     if ($tmp = $imptree[strval($val2)]) {
-                        unset($folder_list[strval($val2)]);
                         $folder_list[strval($val2)] = $tmp;
 
                         /* Hack: We need to NOT send a container element if
@@ -1745,6 +1744,29 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Create mailbox select list for advanced search page.
+     *
+     * Variables used:
+     *   - unsub: (integer) If set, includes unsubscribed mailboxes.Th
+     *
+     * @return object  An object with the following entries:
+     *   - folder_list: (array)
+     *   - tree: (string)
+     */
+    public function searchMailboxList()
+    {
+        $ob = $GLOBALS['injector']->getInstance('IMP_Ui_Search')->getSearchMboxList($this->_vars->unsub);
+
+        $result = new stdClass;
+        $result->folder_list = $ob->folder_list;
+        $result->tree = $ob->tree->getTree();
+
+        return $result;
+    }
+
+    /* Protected methods. */
+
+    /**
      * Setup environment for dimp compose actions.
      *
      * Variables used:
@@ -2214,7 +2236,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - size: (string) The size of the attachment in KB
      *   - type: (string) The MIME type of the attachment
      */
-    public function _getAttachmentInfo(IMP_Compose $imp_compose)
+    protected function _getAttachmentInfo(IMP_Compose $imp_compose)
     {
         $fwd_list = array();
 

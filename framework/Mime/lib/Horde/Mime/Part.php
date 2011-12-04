@@ -1674,7 +1674,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
          * BINARYMIME (RFC 3030) extensions? Requires Net_SMTP version
          * 1.3+. */
         $encode = self::ENCODE_7BIT;
-        if ($mailer instanceof Horde_Mail_Smtp) {
+        if ($mailer instanceof Horde_Mail_Transport_Smtp) {
             try {
                 $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
                 if (isset($smtp_ext['8BITMIME'])) {

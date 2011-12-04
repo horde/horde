@@ -164,7 +164,7 @@ abstract class Horde_Token_Base
             $timeout = $this->_params['token_lifetime'];
         }
         if ($this->_isExpired($nonce, $timeout)) {
-            throw new Horde_Token_Exception_Expired(Horde_Token_Translation::t(sprintf("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now.", floor($timeout / 60))));
+            throw new Horde_Token_Exception_Expired(sprintf(Horde_Token_Translation::t("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now."), floor($timeout / 60)));
         }
         return array($nonce, $hash);
     }

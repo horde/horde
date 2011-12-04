@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Correctly parse "nacht" in German (Bug #10511).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -290,7 +290,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Correctly parse "nacht" in German (Bug #10511).
    </notes>
   </release>
  </changelog>

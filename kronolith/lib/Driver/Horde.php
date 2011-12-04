@@ -37,8 +37,8 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
      * Lists all events in the time range, optionally restricting results to
      * only events with alarms.
      *
-     * @param Horde_Date $startInterval  Start of range date object.
-     * @param Horde_Date $endInterval    End of range data object.
+     * @param Horde_Date $startDate      Start of range date object.
+     * @param Horde_Date $endDate        End of range data object.
      * @param boolean $showRecurrence    Return every instance of a recurring
      *                                   event? If false, will only return
      *                                   recurring events once inside the
