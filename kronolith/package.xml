@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>23:13:53</time>
+ <date>2011-12-04</date>
+ <time>16:53:46</time>
  <version>
   <release>3.0.13</release>
   <api>3.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix adding events directly to a resource&apos;s calendar (Bug #10827).
 * [mjr] Fix regression introduced in 3.0.12 that broke checking a Resource&apos;s availability in certain cases (Bug #10806).
 * [jan] Don&apos;t fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug #10739).
 * [jan] Check permissions when building application drop down (sberthelot@emisfr.com, Bug #10811).
@@ -116,6 +117,7 @@
      <file name="Holiday.php" role="horde" />
      <file name="Internal.php" role="horde" />
      <file name="Remote.php" role="horde" />
+     <file name="Resource.php" role="horde" />
     </dir> <!-- /lib/Calendar -->
     <dir name="Driver">
      <file name="Holidays.php" role="horde" />
@@ -1187,6 +1189,7 @@
    <install as="kronolith/lib/Calendar/Holiday.php" name="lib/Calendar/Holiday.php" />
    <install as="kronolith/lib/Calendar/Internal.php" name="lib/Calendar/Internal.php" />
    <install as="kronolith/lib/Calendar/Remote.php" name="lib/Calendar/Remote.php" />
+   <install as="kronolith/lib/Calendar/Resource.php" name="lib/Calendar/Resource.php" />
    <install as="kronolith/lib/Calendar/External/Tasks.php" name="lib/Calendar/External/Tasks.php" />
    <install as="kronolith/lib/Driver/Holidays.php" name="lib/Driver/Holidays.php" />
    <install as="kronolith/lib/Driver/Horde.php" name="lib/Driver/Horde.php" />
@@ -1955,9 +1958,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2011-12-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix adding events directly to a resource&apos;s calendar (Bug #10827).
 * [mjr] Fix regression introduced in 3.0.12 that broke checking a Resource&apos;s availability in certain cases (Bug #10806).
 * [jan] Don&apos;t fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug #10739).
 * [jan] Check permissions when building application drop down (sberthelot@emisfr.com, Bug #10811).

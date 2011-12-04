@@ -35,6 +35,11 @@ do {
         case 'remote':
             $kronolith_calendar = $all_remote_calendars[$calendar_id];
             break;
+        case 'resource':
+            $rid = Kronolith::getDriver('Resource')->getResourceIdByCalendar($calendar_id);
+            $kronolith_calendar = new Kronolith_Calendar_Resource(
+                array('resource' => Kronolith::getDriver('Resource')->getResource($rid)));
+            break;
         default:
             break 2;
         }

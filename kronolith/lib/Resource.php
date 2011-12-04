@@ -34,7 +34,7 @@ class Kronolith_Resource
     static public function addResource($resource)
     {
         // Create a new calendar id.
-        $calendar = 'resource_' . uniqid(mt_rand());
+        $calendar = uniqid(mt_rand());
         $resource->set('calendar', $calendar);
         $driver = Kronolith::getDriver('Resource');
 

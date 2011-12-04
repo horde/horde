@@ -942,6 +942,7 @@ class Kronolith
                         $GLOBALS['display_external_calendars'][] = $calendarId;
                     }
                 } elseif (strncmp($calendarId, 'resource_', 9) === 0) {
+                    $calendarId = substr($calendarId, 9);
                     if (!in_array($calendarId, $GLOBALS['display_resource_calendars'])) {
                         $GLOBALS['display_resource_calendars'][] = $calendarId;
                     }
@@ -2902,7 +2903,7 @@ class Kronolith
                     $customParams = $params;
                     unset($customParams['driverconfig'], $customParams['table'], $customParams['utc']);
                     $params['db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('kronolith', $customParams);
-               } else {
+                } else {
                     $params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
                 }
                 break;

@@ -26,7 +26,10 @@ $notification->notify(array('listeners' => 'status'));
 
 $edit_url_base = Horde::url('resources/edit.php');
 $edit_img = Horde::img('edit.png', _("Edit"));
-$resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE), 'name');
+$resources = Kronolith::getDriver('Resource')->listResources(
+    Horde_Perms::READ,
+    array('type' => Kronolith_Resource::TYPE_SINGLE),
+    'name');
 $display_url_base = Horde::url('month.php', true, -1);
 $delete_url_base = Horde::url('resources/delete.php');
 $delete_img = Horde::img('delete.png', _("Delete"));
@@ -72,7 +75,7 @@ function performAction(action, rid)
   <td>&nbsp;</td>
   <?php endif;?>
   <td><?php echo htmlspecialchars($resource->get('name')) ?></td>
-  <td><?php $url = $display_url_base->add('display_cal', $resource->get('calendar'), false); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"))) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+  <td><?php $url = $display_url_base->add('display_cal', 'resource_' . $resource->get('calendar'), false); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"))) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
  </tr>
 <?php endforeach; ?>
 </tbody>

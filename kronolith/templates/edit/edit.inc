@@ -80,7 +80,7 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
             $rd = Kronolith::getDriver('Resource');
             $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
             printf('<option value="%s"%s>%s</option>',
-                    htmlspecialchars($cal), '', $rc->get('name')) . "\n";
+                    'resource_' . htmlspecialchars($cal), '', $rc->get('name')) . "\n";
         }
     } else {
         // Normal view
