@@ -2384,7 +2384,8 @@ class Horde_Registry
      */
     public function getEmailCharset()
     {
-        if (isset($GLOBALS['prefs']) && ($charset = $GLOBALS['prefs']->getValue('sending_charset'))) {
+        if (isset($GLOBALS['prefs']) &&
+            ($charset = $GLOBALS['prefs']->getValue('sending_charset'))) {
             return $charset;
         }
 

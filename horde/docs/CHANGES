@@ -2,6 +2,7 @@
 v4.1-git
 --------
 
+[mms] E-mail sending charset now defaults to UTF-8.
 [mms] Add post-install script for the Horde application
 [mms] Portal blocks can now load just the CSS necessary to display an
       application's blocks.

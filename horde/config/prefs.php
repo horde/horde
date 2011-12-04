@@ -347,8 +347,10 @@ $_prefs['language'] = array(
 
 // Select widget for email charsets
 $_prefs['sending_charset'] = array(
-    'value' => '',
+    'value' => 'UTF-8',
     'advanced' => true,
+    // Sending charset is locked by default.
+    'locked' => true,
     'type' => 'enum',
     'enum' => array_merge(
         array('' => _("Default")),
