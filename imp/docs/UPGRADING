@@ -67,6 +67,8 @@ your preference backend::
 The 'cursor_compose' preference removed the 'sig' option. Existing preferences
 will automatically be converted to 'bottom'.
 
+The 'reply_charset' preference was added.
+
 
 
 Upgrading IMP From 5.0.x To 5.0.15

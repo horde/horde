@@ -396,12 +396,15 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         ));
 
         if (empty($msg_text)) {
-            $charset = $this->charset;
             $message = '';
             $mode = 'text';
             $text_id = 0;
         } else {
-            $charset = $msg_text['charset'];
+            /* Use charset at time of initial composition if this is an IMP
+             * draft. */
+            if ($imp_draft !== false) {
+                $this->charset = $msg_text['charset'];
+            }
             $message = $msg_text['text'];
             $mode = $msg_text['mode'];
             $text_id = $msg_text['id'];
@@ -480,7 +483,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $mdn = new Horde_Mime_Mdn($headers);
         $readreceipt = (bool)$mdn->getMdnReturnAddr();
 
-        $this->charset = $charset;
         $this->changed = 'changed';
 
         return array(
@@ -1611,7 +1613,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $ret = $this->replyMessageText($contents);
-        if ($ret['charset'] != $this->charset) {
+        if ($prefs->getValue('reply_charset') &&
+            ($ret['charset'] != $this->charset)) {
             $this->charset = $ret['charset'];
             $this->changed = 'changed';
         }
@@ -1860,7 +1863,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         if (in_array($type, array(self::FORWARD_BODY, self::FORWARD_BOTH))) {
             $ret = $this->forwardMessageText($contents);
-            $this->charset = $ret['charset'];
             unset($ret['charset']);
         } else {
             $ret = array(
@@ -2897,10 +2899,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $headers = array();
         foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
             $headers[$val] = $imp_ui->getAddressList($vars->$val);
-        }
-
-        if ($vars->charset) {
-            $this->charset = $vars->charset;
         }
 
         try {

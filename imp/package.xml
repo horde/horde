@@ -32,6 +32,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Always use Horde default for sending charset unless reply_charset preference is active.
 * [mms] Add ability to view all message parts in dynamic view (Request #9827).
 * [mms] Remove signature from compose UI; signature is not added automatically when sending (Request #10487).
 * [mms] Fix accessing mailboxes containing ampersands (Bug #10093).

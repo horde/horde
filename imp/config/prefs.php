@@ -346,7 +346,8 @@ $prefGroups['reply'] = array(
     'label' => _("Message Replies"),
     'desc' => _("Configure how you reply to mail."),
     'members' => array(
-        'reply_quote', 'reply_format', 'reply_headers', 'attrib_text'
+        'reply_quote', 'reply_format', 'reply_charset', 'reply_headers',
+        'attrib_text'
     )
 );
 
@@ -364,6 +365,15 @@ $_prefs['reply_format'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("When replying to a message, should we use the same format as the original message?")
+);
+
+// Use the charset of the original message, as opposed to the default sending
+// charset, when replying to a message?
+$_prefs['reply_charset'] = array(
+    'desc' => _("Use the charset of the original message when replying?"),
+    'advanced' => true,
+    'value' => 0,
+    'type' => 'checkbox'
 );
 
 // Reply to header summary - leave a brief summary of the header inside
