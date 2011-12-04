@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix parsing display_cal variables for internal calendar links on various blocks and embedded imples (Bug #10767).
 * [mjr] Fix adding events directly to a resource&apos;s calendar (Bug #10827).
 * [mjr] Fix regression introduced in 3.0.12 that broke checking a Resource&apos;s availability in certain cases (Bug #10806).
 * [jan] Don&apos;t fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug #10739).
@@ -1961,6 +1962,7 @@
    <date>2011-12-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix parsing display_cal variables for internal calendar links on various blocks and embedded imples (Bug #10767).
 * [mjr] Fix adding events directly to a resource&apos;s calendar (Bug #10827).
 * [mjr] Fix regression introduced in 3.0.12 that broke checking a Resource&apos;s availability in certain cases (Bug #10806).
 * [jan] Don&apos;t fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug #10739).

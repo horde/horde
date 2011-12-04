@@ -952,6 +952,9 @@ class Kronolith
                         $GLOBALS['display_holidays'][] = $calendarId;
                     }
                 } else {
+                    if (strncmp($calendarId, 'internal_', 9) === 0) {
+                        $calendarId = substr($calendarId, 9);
+                    }
                     if (!in_array($calendarId, $GLOBALS['display_calendars'])) {
                         $GLOBALS['display_calendars'][] = $calendarId;
                     }
