@@ -254,7 +254,7 @@ class Horde_Block_Weather extends Horde_Core_Block
 
             if (isset($this->_params['detailedForecast'])) {
                 if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $forecast->fields)) {
-                    '<th>' . _("Precipitation<br />chance") . '</th>';
+                    $html .= '<th>' . _("Precipitation<br />chance") . '</th>';
                 }
 
                 if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $forecast->fields)) {
