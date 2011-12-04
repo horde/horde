@@ -522,8 +522,8 @@ msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
-"Maximum aantal zwarte lijst adressen overschreden (Totaal aantal adressen: %"
-"s, maximum aantal adressen: %s). Kon geen nieuwe adressen aan de zwarte "
+"Maximum aantal zwarte lijst adressen overschreden (Totaal aantal adressen: "
+"%s, maximum aantal adressen: %s). Kon geen nieuwe adressen aan de zwarte "
 "lijst toevoegen."
 
 #: lib/Storage.php:560
@@ -532,9 +532,9 @@ msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
 "Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
-"Maximum aantal witte lijst adressen overschreden (Totaal aantal adressen: %"
-"s, maximum aantal adressen: %s). Kon geen nieuwe adressen aan de witte lijst "
-"toevoegen."
+"Maximum aantal witte lijst adressen overschreden (Totaal aantal adressen: "
+"%s, maximum aantal adressen: %s). Kon geen nieuwe adressen aan de witte "
+"lijst toevoegen."
 
 #: spam.php:71
 msgid ""

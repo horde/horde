@@ -188,6 +188,23 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     }
 
     /**
+     * Determine if the provided calendar id represents a resource's calendar.
+     *
+     * @param string $calendar  The calendar identifier to check.
+     *
+     * @return boolean
+     */
+    public function isResourceCalendar($calendar)
+    {
+        $query = 'SELECT count(*) FROM kronolith_resources WHERE resource_calendar = ?';
+        try {
+            return $this->_db->selectValue($query, array($calendar)) > 0;
+        } catch (Horde_Db_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+    }
+
+    /**
      * Return a list of Kronolith_Resources
      *
      * Right now, all users have Horde_Perms::READ, but only system admins have

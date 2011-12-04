@@ -51,13 +51,15 @@ abstract class Kronolith_Resource_Base
         if (empty($params['name'])) {
             throw new Horde_Exception('Required \'name\' attribute missing from resource calendar');
         }
-        $this->_params = array_merge(array('description' => '',
-                                           'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
-                                           'members' => '',
-                                           'calendar' => '',
-                                           'email' => ''),
-                                     $params);
-
+        $this->_params = array_merge(
+            array('description' => '',
+                  'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
+                  'members' => '',
+                  'calendar' => '',
+                  'email' => ''
+            ),
+            $params
+        );
     }
 
     /**
@@ -93,7 +95,12 @@ abstract class Kronolith_Resource_Base
      */
     public function hasPermission($user, $permission = Horde_Perms::READ, $restrict = null)
     {
-        return $GLOBALS['registry']->isAdmin();
+        if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
+            !$GLOBALS['registry']->isAdmin()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

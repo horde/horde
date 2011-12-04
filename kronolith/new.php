@@ -31,8 +31,13 @@ if ($perms->hasAppPermission('max_events') !== true &&
     $url->redirect();
 }
 
-$calendar_id = Horde_Util::getFormData('calendar', 'internal_' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT));
-if ($calendar_id == 'internal_') {
+$calendar_id = Horde_Util::getFormData(
+    'calendar',
+    empty($GLOBALS['display_resource_calendars']) ?
+        'internal_' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT) :
+        'resource_' . $GLOBALS['display_resource_calendars'][0]
+);
+if ($calendar_id == 'internal_' || $calendar_id == 'resource_') {
     $url->redirect();
 }
 

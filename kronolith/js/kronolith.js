@@ -4099,6 +4099,23 @@ KronolithCore = {
                 this.removeMapMarker();
             }
             return;
+
+        case 'kronolithEventStartTime':
+        case 'kronolithEventEndTime':
+            var field = $(e.element().readAttribute('id')), kc = e.keyCode;
+
+            switch(e.keyCode) {
+            case Event.KEY_UP:
+            case Event.KEY_DOWN:
+            case Event.KEY_RIGHT:
+            case Event.KEY_LEFT:
+                return;
+            default:
+                if ($F(field) !== this.knl[field.identify()].getCurrentEntry()) {
+                    this.knl[field.identify()].markSelected(null);
+                }
+                return;
+            }
         }
 
     },
@@ -5935,18 +5952,6 @@ KronolithCore = {
     },
 
     /**
-     * Keypress handler for time fields.
-     *
-     * @param string field  The field the knl is tied to.
-     * @param object e      Event object
-     */
-    timeSelectKeyHandler: function(field, e) {
-        if ($F(field) !== this.knl[field.identify()].getCurrentEntry()) {
-            this.knl[field.identify()].markSelected(null);
-        }
-    },
-
-    /**
      * Closes a RedBox overlay, after saving its content to the body.
      */
     closeRedBox: function()
@@ -6181,7 +6186,6 @@ KronolithCore = {
         timeFields.each(function(field) {
             var dropDown = this.attachTimeDropDown(field);
             field.observe('click', function() { dropDown.show(); });
-            field.observe('keyup', this.timeSelectKeyHandler.bind(this, field));
         }, this);
         $('kronolithEventStartDate', 'kronolithEventStartTime').invoke('observe', 'change', this.updateEndTime.bind(this));
 

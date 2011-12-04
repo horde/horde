@@ -15,6 +15,13 @@ v3.1-git
 v3.0.13-git
 -----------
 
+[mjr] Fix keyboard navigation of time entry fields in dynamic view (Bug
+      #10799).
+[mjr] Fix parsing display_cal variables for internal calendar links on various
+      blocks and embedded imples (Bug #10767).
+[mjr] Fix adding events directly to a resource's calendar (Bug #10827).
+[mjr] Fix regression introduced in 3.0.12 that broke checking a Resource's
+      availability in certain cases (Bug #10806).
 [jan] Don't fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug
       #10739).
 [jan] Check permissions when building application drop down

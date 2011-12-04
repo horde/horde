@@ -133,9 +133,8 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         if (is_array($location)) {
             // Several locations returned due to imprecise location parameter.
-            $html = _("Several locations possible with the parameter: ") .
-                $this->_params['location'] .
-                '<br />';
+            $html = sprintf(_("Several locations possible with the parameter: %s"), $this->_params['location'])
+                . '<br />';
             foreach ($location as $real_location) {
                 $html .= '<li>' . $real_location->city . ', ' . $real_location->state . '(' . $real_location->code . ")</li>\n";
             }
@@ -155,33 +154,28 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         // Location and local time.
         $html .= '<div class="control">'
-            . '<strong>' . $station->name . '</strong> ' . _("Local time: ")
-            . $current->time->strftime($GLOBALS['prefs']->getValue('date_format'))
-            . ' '
-            . $current->time->strftime($GLOBALS['prefs']->getValue('time_format'))
+            . '<strong>' . $station->name . '</strong> '
+            . sprintf(_("Local time: %s %s"), $current->time->strftime($GLOBALS['prefs']->getValue('date_format')), $current->time->strftime($GLOBALS['prefs']->getValue('time_format')))
             . '</div>';
 
         // Sunrise/sunset.
         if ($station->sunrise) {
-            $html .= '<strong>' . _("Sunrise: ") . '</strong>' .
-                Horde::img('block/sunrise/sunrise.png', _("Sunrise")) .
-                $station->sunrise->strftime($GLOBALS['prefs']->getValue('date_format')) . ' ' .
-                $station->sunrise->strftime($GLOBALS['prefs']->getValue('time_format'));
-            $html .= ' <strong>' . _("Sunset: ") . '</strong>' .
-                Horde::img('block/sunrise/sunset.png', _("Sunset")) .
-                $station->sunset->strftime($GLOBALS['prefs']->getValue('date_format')) . ' ' .
-                $station->sunset->strftime($GLOBALS['prefs']->getValue('time_format'));
-
+            $html .= '<strong>' . _("Sunrise") . ': </strong>'
+                . Horde::img('block/sunrise/sunrise.png', _("Sunrise"))
+                . sprintf("%s %s", $station->sunrise->strftime($GLOBALS['prefs']->getValue('date_format')), $station->sunrise->strftime($GLOBALS['prefs']->getValue('time_format')));
+            $html .= ' <strong>' . _("Sunset") . ': </strong>'
+                . Horde::img('block/sunrise/sunset.png', _("Sunset"))
+                . sprintf("%s %s", $station->sunset->strftime($GLOBALS['prefs']->getValue('date_format')), $station->sunset->strftime($GLOBALS['prefs']->getValue('time_format')));
             $html .= '<br />';
         }
 
         // Temperature.
-        $html .= '<strong>' . _("Temperature: ") . '</strong>' .
+        $html .= '<strong>' . _("Temperature") . ': </strong>' .
             $current->temp . '&deg;' . Horde_String::upper($units['temp']);
 
         // Dew point.
         if ($current->dewpoint) {
-            $html .= ' <strong>' . _("Dew point: ") . '</strong>' .
+            $html .= ' <strong>' . _("Dew point") . ': </strong>' .
                 ($dewpoint !== false ?
                     round($current->dewpoint) . '&deg;' . Horde_String::upper($units['temp']) :
                     _("N/A"));
@@ -194,7 +188,7 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         // Pressure and trend.
         if ($current->pressure) {
-            $html .= '<br /><strong>' . _("Pressure: ") . '</strong>';
+            $html .= '<br /><strong>' . _("Pressure") . ': </strong>';
             $trend = $current->pressure_trend;
             if (empty($trend)) {
                 $html .= sprintf(_("%d %s"),
@@ -207,31 +201,28 @@ class Horde_Block_Weather extends Horde_Core_Block
         }
         if ($current->wind_direction) {
             // Wind.
-            $html .= '<br /><strong>' . _("Wind: ") . '</strong>'
-                . _("From the ") . $current->wind_direction
-                . ' ('. $current->wind_degrees . '&deg;) ' . _("at")
-                . ' ' . $current->wind_speed;
+            $html .= '<br /><strong>' . _("Wind") . ': </strong>';
+            $html .= sprintf(_("From the %s (%s &deg;) at %s"), $current->wind_direction, $current->wind_degrees, $current->wind_speed);
             if ($current->wind_gust > 0) {
-                $html .= ', ' . _("gusting") . ' ' . $current->wind_gust .
-                    ' ' . $units['wind'];
+                $html .= ', ' . _("gusting") . ' ' . $current->wind_gust . ' ' . $units['wind'];
             }
         }
 
         // Humidity.
         if ($current->humidity) {
-            $html .= '<br /><strong>' . _("Humidity: ") . '</strong>' . $current->humidity;
+            $html .= '<br /><strong>' . _("Humidity") . ': </strong>' . $current->humidity;
         }
 
         if ($current->visibility) {
             // Visibility.
-            $html .= ' <strong>' . _("Visibility: ") . '</strong>' .
-                 round($current->visibility) . ' ' . $units['vis'];
+            $html .= ' <strong>' . _("Visibility") . ': </strong>'
+                . round($current->visibility) . ' ' . $units['vis'];
         }
 
         // Current condition.
         $condition = $current->condition;
-        $html .= '<br /><strong>' . _("Current condition: ") . '</strong>' .
-            Horde::img(Horde_Themes::img('weather/32x32/' . $current->icon))
+        $html .= '<br /><strong>' . _("Current condition") . ': </strong>'
+            . Horde::img(Horde_Themes::img('weather/32x32/' . $current->icon))
             .  ' ' . $condition;
 
         // Forecast
@@ -246,14 +237,15 @@ class Horde_Block_Weather extends Horde_Core_Block
             // Headers.
             $html .= '<tr>';
             $html .= '<th>' . _("Day") . '</th><th>' .
-            sprintf(_("Temperature<br />(%sHi%s/%sLo%s)"),
+            sprintf(_("Temperature%s(%sHi%s/%sLo%s)"),
+                        '<br />',
                         '<span style="color:red">', '</span>',
                         '<span style="color:blue">', '</span>') .
                 '</th><th>' . _("Condition") . '</th>';
 
             if (isset($this->_params['detailedForecast'])) {
                 if (in_array(Horde_Service_Weather::FORECAST_FIELD_PRECIPITATION, $forecast->fields)) {
-                    '<th>' . _("Precipitation<br />chance") . '</th>';
+                    $html .= '<th>' . sprintf(_("Precipitation%schance"), '<br />') . '</th>';
                 }
 
                 if (in_array(Horde_Service_Weather::FORECAST_FIELD_HUMIDITY, $forecast->fields)) {
@@ -314,13 +306,13 @@ class Horde_Block_Weather extends Horde_Core_Block
                     if (in_array(Horde_Service_Weather::FORECAST_FIELD_WIND, $forecast->fields)) {
                         // Winds.
                         if ($day->wind_direction) {
-                            $html .= '<td style="border:1px solid #ddd">' .
-                                _("From the ") . $day->wind_direction .
-                                _(" at ") . $day->wind_speed .
-                                ' ' . $units['wind'];
+                            $html .= '<td style="border:1px solid #ddd">' . ' '
+                                . _("From the") . ' ' . $day->wind_direction . ' '
+                                . _("at") . $day->wind_speed
+                                . ' ' . $units['wind'];
                             if ($day->wind_gust && $day->wind_gust > 0) {
-                                $html .= _(", gusting ") . $day->wind_gust .
-                                    ' ' . $units['wind'];
+                                $html .= ', ' . _("gusting") . ' '
+                                    . $day->wind_gust . ' ' . $units['wind'];
                             }
                             $html .= '</td>';
                         } else {
