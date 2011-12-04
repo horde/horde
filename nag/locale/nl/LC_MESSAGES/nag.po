@@ -892,8 +892,8 @@ msgstr ""
 #: lib/Nag.php:641
 #, php-format
 msgid ""
-"The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: %"
-"s."
+"The task \"%s\" has been deleted from \"%s\" tasklist, with a due date of: "
+"%s."
 msgstr ""
 "De taak \"%s\" is verwijderd van de \"%s\" taaklijst, met een vervaldatum "
 "van: %s."
@@ -903,8 +903,8 @@ msgstr ""
 msgid ""
 "The task \"%s\" has been edited on \"%s\" tasklist, with a due date of: %s."
 msgstr ""
-"De taak \"%s\" is bewerkt op de \"%s\" taaklijst, met een vervaldatum van: %"
-"s."
+"De taak \"%s\" is bewerkt op de \"%s\" taaklijst, met een vervaldatum van: "
+"%s."
 
 #: tasklists.php:49
 #, php-format

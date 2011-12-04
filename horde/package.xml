@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mjr] Improve layout of weather block.
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
@@ -4630,6 +4631,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mjr] Improve layout of weather block.
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
