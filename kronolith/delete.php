@@ -16,12 +16,8 @@ if (Kronolith::showAjaxView()) {
     Horde::url('', true)->redirect();
 }
 
-if (Kronolith_Resource::isResourceCalendar($c = Horde_Util::getFormData('calendar'))) {
-    $driver = 'Resource';
-} else {
-    $driver = Horde_Util::getFormData('type');
-}
-
+$c = Horde_Util::getFormData('calendar');
+$driver = Horde_Util::getFormData('type');
 $kronolith_driver = Kronolith::getDriver($driver, $c);
 if ($eventID = Horde_Util::getFormData('eventID')) {
     try {
