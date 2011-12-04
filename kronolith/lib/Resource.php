@@ -41,20 +41,4 @@ class Kronolith_Resource
         return $driver->save($resource);
     }
 
-    /**
-     * Determine if the provided calendar id represents a resource's calendar.
-     *
-     * @param string $calendar  The calendar identifier to check.
-     *
-     * @return boolean
-     */
-    static public function isResourceCalendar($calendar)
-    {
-        if (strncmp($calendar, 'resource_', 9) === 0) {
-            return true;
-        }
-
-        return false;
-    }
-
 }

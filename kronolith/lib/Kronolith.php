@@ -3184,7 +3184,7 @@ class Kronolith
      */
     static public function getInternalCalendar($target)
     {
-        if (Kronolith_Resource::isResourceCalendar($target)) {
+        if (Kronolith::getDriver('Resource')->isResourceCalendar($target)) {
             $driver = self::getDriver('Resource');
             $id = $driver->getResourceIdByCalendar($target);
             return $driver->getResource($id);
