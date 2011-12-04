@@ -2,6 +2,8 @@
 v3.0.13-git
 -----------
 
+[mjr] Fix keyboard navigation of time entry fields in dynamic view (Bug
+      #10799).
 [mjr] Fix parsing display_cal variables for internal calendar links on various
       blocks and embedded imples (Bug #10767).
 [mjr] Fix adding events directly to a resource's calendar (Bug #10827).
