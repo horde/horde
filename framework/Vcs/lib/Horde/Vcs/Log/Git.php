@@ -22,10 +22,9 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
     {
         /* Get diff statistics. */
         $stats = array();
-        $cmd = $this->_rep->getCommand() . ' diff-tree --numstat ' . escapeshellarg($this->_rev);
+        $cmd = $this->_rep->getCommand() . ' diff-tree --root --numstat ' . escapeshellarg($this->_rev);
         exec($cmd, $output);
 
-        reset($output);
         // Skip the first entry (it is the revision number)
         next($output);
         while (list(,$v) = each($output)) {
