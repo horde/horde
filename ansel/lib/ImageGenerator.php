@@ -119,14 +119,16 @@ class Ansel_ImageGenerator
             // Check that the image object supports what we need for the effect.
             foreach ($view->need as $need) {
                 if (!Ansel::isAvailable($need)) {
+                    $err = sprintf(_("This install does not support the %s feature. Please contact your administrator."), $need);
                     Horde::logMessage($err, 'ERR');
-                    throw new Ansel_Exception(_("This install does not support the %s feature. Please contact your administrator."), $need);
+                    throw new Ansel_Exception($err);
                 }
             }
             return $view;
         } else {
+            $err = sprintf(_("Unable to load the definition of %s."), $class);
             Horde::logMessage($err, 'ERR');
-            throw new Ansel_Exception(sprintf(_("Unable to load the definition of %s."), $class));
+            throw new Ansel_Exception($err);
         }
     }
 
