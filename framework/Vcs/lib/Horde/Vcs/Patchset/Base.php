@@ -6,10 +6,6 @@
  */
 abstract class Horde_Vcs_Patchset_Base
 {
-    const MODIFIED = 0;
-    const ADDED = 1;
-    const DELETED = 2;
-
     /**
      * @var array
      */

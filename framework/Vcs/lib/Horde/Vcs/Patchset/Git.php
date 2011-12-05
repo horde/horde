@@ -60,15 +60,15 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
 
                 switch ($file['status']) {
                 case 'A':
-                    $status = self::ADDED;
+                    $status = Horde_Vcs_Patchset::ADDED;
                     break;
 
                 case 'D':
-                    $status = self::DELETED;
+                    $status = Horde_Vcs_Patchset::DELETED;
                     break;
 
                 default:
-                    $status = self::MODIFIED;
+                    $status = Horde_Vcs_Patchset::MODIFIED;
                 }
 
                 $statinfo = isset($file['added'])

@@ -118,14 +118,14 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
                 if (!empty($line)) {
                     $parts = explode(':', $line);
                     list($from, $to) = explode('->', $parts[1], 2);
-                    $status = self::MODIFIED;
+                    $status = Horde_Vcs_Patchset::MODIFIED;
 
                     if ($from == 'INITIAL') {
                         $from = null;
-                        $status = self::ADDED;
+                        $status = Horde_Vcs_Patchset::ADDED;
                     } elseif (substr($to, -6) == '(DEAD)') {
                         $to = null;
-                        $status = self::DELETED;
+                        $status = Horde_Vcs_Patchset::DELETED;
                     }
 
                     $this->_patchsets[$id]['members'][] = array(

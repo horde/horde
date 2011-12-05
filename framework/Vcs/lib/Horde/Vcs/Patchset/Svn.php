@@ -33,14 +33,14 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset_Base
                 $action = substr($file, 0, 1);
                 $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
                 $to = $rev;
-                $status = self::MODIFIED;
+                $status = Horde_Vcs_Patchset::MODIFIED;
                 if ($action == 'A') {
                     $from = null;
-                    $status = self::ADDED;
+                    $status = Horde_Vcs_Patchset::ADDED;
                 } elseif ($action == 'D') {
                     $from = $to;
                     $to = null;
-                    $status = self::DELETED;
+                    $status = Horde_Vcs_Patchset::DELETED;
                 } else {
                     // This technically isn't the previous revision,
                     // but it works for diffing purposes.
