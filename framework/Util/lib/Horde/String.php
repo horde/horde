@@ -719,6 +719,30 @@ class Horde_String
     }
 
     /**
+     * Check to see if a string is valid UTF-8.
+     *
+     * @param string $text  The text to check.
+     *
+     * @return boolean  True if valid UTF-8.
+     */
+    static public function validUtf8($text)
+    {
+        /* Regex from:
+         * http://stackoverflow.com/questions/1523460/ensuring-valid-utf-8-in-php
+         */
+        return preg_match('/^(?:
+              [\x09\x0A\x0D\x20-\x7E]            # ASCII
+            | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
+            | \xE0[\xA0-\xBF][\x80-\xBF]         # excluding overlongs
+            | [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}  # straight 3-byte
+            | \xED[\x80-\x9F][\x80-\xBF]         # excluding surrogates
+            | \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
+            | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
+            | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
+        )*$/xs', $text);
+    }
+
+    /**
      * Workaround charsets that don't work with mbstring functions.
      *
      * @param string $charset  The original charset.
