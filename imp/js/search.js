@@ -6,6 +6,7 @@
  */
 
 var ImpSearch = {
+
     // The following variables are defined in search.php:
     //   data, i_criteria, i_folders, i_recent, text
     criteria: {},
@@ -242,7 +243,7 @@ var ImpSearch = {
     {
         $(id).down('SPAN SPAN').update(this.data.months[d.getMonth()] + ' ' + d.getDate() + ', ' + (d.getYear() + 1900));
         // Need to store date information at all times in criteria, since we
-        // have no other way to track this information (there is not form
+        // have no other way to track this information (there is no form
         // field for this type).
         this.criteria[id] = { t: type, v: d };
     },
@@ -608,7 +609,6 @@ var ImpSearch = {
 
         e.stop();
     },
-
 
     calendarSelectHandler: function(e)
     {
