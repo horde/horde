@@ -29,8 +29,8 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
         $revs = array();
 
         if (isset($opts['file'])) {
-            $ob = $rep->getFileObject($opts['file']);
-            $revs = $ob->queryLogs();
+            $ob = $rep->getFile($opts['file']);
+            $revs = $ob->getLog();
         } elseif (!empty($opts['range'])) {
             foreach ($opts['range'] as $val) {
                 /* Grab a filename in the patchset to get log info. */
@@ -38,8 +38,8 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
                 exec($cmd, $output);
 
                 /* The first line is the SHA1 hash. */
-                $ob = $rep->getFileObject($output[1]);
-                $revs[$val] = $ob->queryLogs($val);
+                $ob = $rep->getFile($output[1]);
+                $revs[$val] = $ob->getLog($val);
             }
         }
 
@@ -54,21 +54,21 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
                 'members' => array(),
             );
 
-            foreach ($log->queryFiles() as $file) {
+            foreach ($log->getFiles() as $file) {
                 $from = $log->queryParent();
                 $to = $rev;
 
                 switch ($file['status']) {
                 case 'A':
-                    $status = self::ADDED;
+                    $status = Horde_Vcs_Patchset::ADDED;
                     break;
 
                 case 'D':
-                    $status = self::DELETED;
+                    $status = Horde_Vcs_Patchset::DELETED;
                     break;
 
                 default:
-                    $status = self::MODIFIED;
+                    $status = Horde_Vcs_Patchset::MODIFIED;
                 }
 
                 $statinfo = isset($file['added'])

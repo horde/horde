@@ -65,7 +65,7 @@ abstract class Horde_Vcs_Directory_Base
      *
      * return array  A (string) list of directories.
      */
-    public function queryDirList()
+    public function getDirectories()
     {
         return $this->_dirs;
     }
@@ -75,7 +75,7 @@ abstract class Horde_Vcs_Directory_Base
      *
      * @return array  A list of Horde_Vcs_File_Base objects.
      */
-    public function queryFileList($showdeleted = false)
+    public function getFiles($showdeleted = false)
     {
         return $this->_files;
     }
@@ -141,11 +141,11 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function _fileAgeSort($a, $b)
     {
-        $aa = $a->queryLastLog();
-        $bb = $b->queryLastLog();
-        return ($aa->queryDate() == $bb->queryDate())
+        $aa = $a->getLastLog();
+        $bb = $b->getLastLog();
+        return ($aa->getDate() == $bb->getDate())
             ? 0
-            : (($aa->queryDate() < $bb->queryDate()) ? 1 : -1);
+            : (($aa->getDate() < $bb->getDate()) ? 1 : -1);
     }
 
     /**
@@ -153,11 +153,11 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function _fileAuthorSort($a, $b)
     {
-        $aa = $a->queryLastLog();
-        $bb = $b->queryLastLog();
-        return ($aa->queryAuthor() == $bb->queryAuthor())
+        $aa = $a->getLastLog();
+        $bb = $b->getLastLog();
+        return ($aa->getAuthor() == $bb->getAuthor())
             ? 0
-            : (($aa->queryAuthor() > $bb->queryAuthor()) ? 1 : -1);
+            : (($aa->getAuthor() > $bb->getAuthor()) ? 1 : -1);
     }
 
     /**
@@ -165,7 +165,7 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function _fileNameSort($a, $b)
     {
-        return strcasecmp($a->queryName(), $b->queryName());
+        return strcasecmp($a->getFileName(), $b->getFileName());
     }
 
     /**
@@ -173,7 +173,7 @@ abstract class Horde_Vcs_Directory_Base
      */
     public function _fileRevSort($a, $b)
     {
-        return $this->_rep->cmp($a->queryRevision(), $b->queryRevision());
+        return $this->_rep->cmp($a->getRevision(), $b->getRevision());
     }
 
     /**

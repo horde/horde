@@ -35,7 +35,7 @@ $segmentStart = microtime(true);
 $i = 0;
 foreach ($patchset['members'] as $member) {
     $i++;
-    echo $view->diff($VC->getFileObject($member['file']), $member['from'], $member['to'], "diff-$i");
+    echo $view->diff($VC->getFile($member['file']), $member['from'], $member['to'], "diff-$i");
 
     // Flush every .1 seconds to keep the page rendering.
     $now = microtime(true);

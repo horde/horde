@@ -34,7 +34,8 @@ class Horde_Vcs_Log_Svn extends Horde_Vcs_Log_Base
         fgets($this->_file->logpipe);
 
         while (($line = trim(fgets($this->_file->logpipe))) != '') {
-            $this->_files[] = $line;
+            list($mode, $file) = explode(' ', trim($line));
+            $this->_files[ltrim($file, '/')] = array('status' => $mode);
         }
 
         for ($i = 0; $i != $size; ++$i) {
@@ -48,7 +49,7 @@ class Horde_Vcs_Log_Svn extends Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryFiles($file = null)
+    public function getFiles($file = null)
     {
         return $this->_files;
     }

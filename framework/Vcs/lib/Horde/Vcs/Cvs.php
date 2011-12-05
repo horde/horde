@@ -52,6 +52,26 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
     /**
      * TODO
      */
+    public function getFile($filename, $opts = array())
+    {
+        $filename = ltrim($filename, '/');
+        $fname = $filename . ',v';
+
+        /* Assume file is in the Attic if it doesn't exist. */
+        if (!@is_file($this->sourceroot . '/' . $fname)) {
+            $fname = dirname($filename) . '/Attic/' . basename($filename) . ',v';
+        }
+
+        if (!@is_file($this->sourceroot . '/' . $fname)) {
+            throw new Horde_Vcs_Exception(sprintf('File "%s" not found', $filename));
+        }
+
+        return Horde_Vcs_Base::getFile($fname, $opts);
+    }
+
+    /**
+     * TODO
+     */
     public function isFile($where)
     {
         return @is_file($where . ',v') ||
@@ -75,7 +95,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
      */
     protected function _diff(Horde_Vcs_File_Base $file, $rev1, $rev2, $opts)
     {
-        $fullName = $file->queryFullPath();
+        $fullName = $file->getPath();
         $diff = array();
         $flags = '-kk ';
 
@@ -119,25 +139,6 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
 
     /**
      * TODO
-     */
-    public function getFileObject($filename, $opts = array())
-    {
-        if (substr($filename, 0, 1) != '/') {
-            $filename = '/' . $filename;
-        }
-
-        $filename = $this->sourceroot() . $filename;
-
-        /* Assume file is in the Attic if it doesn't exist. */
-        $fname = $filename . ',v';
-        if (!@is_file($fname)) {
-            $fname = dirname($filename) . '/Attic/' . basename($filename) . ',v';
-                                        }
-        return parent::getFileObject($fname, $opts);
-    }
-
-    /**
-     * TODO
      *
      * @throws Horde_Vcs_Exception
      */
@@ -146,12 +147,12 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $this->assertValidRevision($rev);
 
         $tmpfile = Horde_Util::getTempFile('vc', true, $this->_paths['temp']);
-        $where = $fileob->queryModulePath();
+        $where = $fileob->getSourcerootPath();
 
         $pipe = popen(escapeshellcmd($this->getPath('cvs')) . ' -n server > ' . escapeshellarg($tmpfile), VC_WINDOWS ? 'wb' : 'w');
 
         $out = array(
-            'Root ' . $this->sourceroot(),
+            'Root ' . $this->sourceroot,
             'Valid-responses ok error Valid-requests Checked-in Updated Merged Removed M E',
             'UseUnchanged',
             'Argument -r',
@@ -162,12 +163,12 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $dirs = explode('/', dirname($where));
         while (count($dirs)) {
             $out[] = 'Directory ' . implode('/', $dirs);
-            $out[] = $this->sourceroot() . '/' . implode('/', $dirs);
+            $out[] = $this->sourceroot . '/' . implode('/', $dirs);
             array_pop($dirs);
         }
 
         $out[] = 'Directory .';
-        $out[] = $this->sourceroot();
+        $out[] = $this->sourceroot;
         $out[] = 'annotate';
 
         foreach ($out as $line) {
@@ -236,7 +237,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
          * and we check that this is the case and error otherwise
          */
         $co = fgets($RCS, 1024);
-        if (!preg_match('/^([\S ]+,v)\s+-->\s+st(andar)?d ?out(put)?\s*$/', $co, $regs) ||
+        if (!preg_match('/^([\S ]+),v\s+-->\s+st(andar)?d ?out(put)?\s*$/', $co, $regs) ||
             ($regs[1] != $fullname)) {
             throw new Horde_Vcs_Exception('Unexpected output from checkout: ' . $co);
         }

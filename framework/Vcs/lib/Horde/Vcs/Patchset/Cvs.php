@@ -30,7 +30,7 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
      */
     public function __construct($rep, $opts = array())
     {
-        $file = $rep->sourceroot() . '/' . $opts['file'];
+        $file = $rep->sourceroot . '/' . $opts['file'];
 
         /* Check that we are actually in the filesystem. */
         if (!$rep->isFile($file)) {
@@ -48,7 +48,7 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
             : ' -s ' . escapeshellarg(implode(',', $opts['range']));
 
         $ret_array = array();
-        $cmd = $HOME . escapeshellcmd($rep->getPath('cvsps')) . $rangecmd . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot()) . ' -f ' . escapeshellarg(basename($file)) . ' ' . escapeshellarg(dirname($file));
+        $cmd = $HOME . escapeshellcmd($rep->getPath('cvsps')) . $rangecmd . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot) . ' -f ' . escapeshellarg(basename($file)) . ' ' . escapeshellarg(dirname($file));
         exec($cmd, $ret_array, $retval);
         if ($retval) {
             throw new Horde_Vcs_Exception('Failed to spawn cvsps to retrieve patchset information.');
@@ -118,14 +118,14 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
                 if (!empty($line)) {
                     $parts = explode(':', $line);
                     list($from, $to) = explode('->', $parts[1], 2);
-                    $status = self::MODIFIED;
+                    $status = Horde_Vcs_Patchset::MODIFIED;
 
                     if ($from == 'INITIAL') {
                         $from = null;
-                        $status = self::ADDED;
+                        $status = Horde_Vcs_Patchset::ADDED;
                     } elseif (substr($to, -6) == '(DEAD)') {
                         $to = null;
-                        $status = self::DELETED;
+                        $status = Horde_Vcs_Patchset::DELETED;
                     }
 
                     $this->_patchsets[$id]['members'][] = array(

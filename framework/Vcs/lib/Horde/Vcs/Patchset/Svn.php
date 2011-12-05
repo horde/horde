@@ -17,30 +17,30 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset_Base
     public function __construct($rep, $opts = array())
     {
         // TODO: Allow access via 'range'
-        $fileOb = $rep->getFileObject($opts['file']);
+        $fileOb = $rep->getFile($opts['file']);
 
-        foreach ($fileOb->logs as $rev => $log) {
+        foreach ($fileOb->getLog() as $rev => $log) {
             $this->_patchsets[$rev] = array(
-                'author' => $log->queryAuthor(),
+                'author' => $log->getAuthor(),
                 'branch' => '',
-                'date' => $log->queryDate(),
-                'log' => $log->queryLog(),
+                'date' => $log->getDate(),
+                'log' => $log->getMessage(),
                 'members' => array(),
                 'tag' => ''
             );
 
-            foreach ($log->queryFiles() as $file) {
+            foreach ($log->getFiles() as $file) {
                 $action = substr($file, 0, 1);
                 $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
                 $to = $rev;
-                $status = self::MODIFIED;
+                $status = Horde_Vcs_Patchset::MODIFIED;
                 if ($action == 'A') {
                     $from = null;
-                    $status = self::ADDED;
+                    $status = Horde_Vcs_Patchset::ADDED;
                 } elseif ($action == 'D') {
                     $from = $to;
                     $to = null;
-                    $status = self::DELETED;
+                    $status = Horde_Vcs_Patchset::DELETED;
                 } else {
                     // This technically isn't the previous revision,
                     // but it works for diffing purposes.

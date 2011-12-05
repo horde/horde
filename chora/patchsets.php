@@ -30,7 +30,7 @@ if ($where) {
 }
 
 try {
-    $ps = $VC->getPatchsetObject($ps_opts);
+    $ps = $VC->getPatchset($ps_opts);
     $patchsets = $ps->getPatchsets();
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
@@ -57,13 +57,13 @@ while (list($id, $patchset) = each($patchsets)) {
         ->link(array('title' => $id))
         . htmlspecialchars($VC->abbrev($id)) . '</a>';
 
-    $commitDate = Chora::formatDate($patchset['log']->queryDate());
-    $readableDate = Chora::readableTime($patchset['log']->queryDate(), true);
-    $author = Chora::showAuthorName($patchset['log']->queryAuthor(), true);
-    $logMessage = Chora::formatLogMessage($patchset['log']->queryLog());
+    $commitDate = Chora::formatDate($patchset['log']->getDate());
+    $readableDate = Chora::readableTime($patchset['log']->getDate(), true);
+    $author = Chora::showAuthorName($patchset['log']->getAuthor(), true);
+    $logMessage = Chora::formatLogMessage($patchset['log']->getMessage());
     $tags = array_merge(
-        $patchset['log']->queryBranch(),
-        $patchset['log']->queryTags()
+        $patchset['log']->getBranch(),
+        $patchset['log']->getTags()
     );
 
     require CHORA_TEMPLATES . '/patchsets/ps.inc';
