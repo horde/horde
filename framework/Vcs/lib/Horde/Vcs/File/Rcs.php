@@ -130,6 +130,7 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
                     if ($onhead) {
                         $onbranch = (empty($this->_branch) || $this->_branch == 'HEAD') ||
                             ($this->_rep->cmp($branches[$this->_branch], $rev) === 1);
+                        $log->setBranch('HEAD');
                     } elseif ($this->_branch != 'HEAD') {
                         foreach ($branches as $key => $val) {
                             if (strpos($rev, $val) === 0) {

@@ -106,7 +106,7 @@ abstract class Horde_Vcs_Log_Base
     }
 
     /**
-     * TODO
+     * Returns all branches that contain this log.
      *
      * @return array
      */

@@ -12,6 +12,11 @@
  */
 class Horde_Vcs_Log_Rcs extends Horde_Vcs_Log_Base
 {
+    /**
+     * This method parses branches even though RCS doesn't support
+     * branches. But rlog from the RCS tools supports them, and displays them
+     * even on RCS repositories.
+     */
     protected function _init()
     {
         $raw = $this->_file->getAccum();
@@ -81,5 +86,14 @@ class Horde_Vcs_Log_Rcs extends Horde_Vcs_Log_Base
         $this->_branch = empty($key)
             ? array_keys($branches, $this->_rep->strip($this->_rev, 1))
             : $key;
+    }
+
+    /**
+     * TODO
+     *
+     * Ignoring branches in this driver.
+     */
+    public function setBranch($branch)
+    {
     }
 }
