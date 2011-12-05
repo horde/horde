@@ -721,6 +721,8 @@ class Horde_String
     /**
      * Check to see if a string is valid UTF-8.
      *
+     * @since 1.1.0
+     *
      * @param string $text  The text to check.
      *
      * @return boolean  True if valid UTF-8.
