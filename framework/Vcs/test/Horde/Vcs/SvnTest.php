@@ -141,14 +141,23 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals('jan', $log->getAuthor());
         $this->assertEquals('Commit 2nd version.', $log->getMessage());
         $this->assertEquals(array(), $log->getBranch());
-        //FIXME $this->assertEquals('+1 -1', $log->getChanges());
+        // Any way how to retrieve changes per patchset or file?
+        $this->assertEquals('', $log->getChanges());
         $this->assertEquals(array(), $log->getTags());
         $this->assertEquals(array(), $log->getSymbolicBranches());
-        //FIXME $this->assertEquals(
-        //FIXME     array('module/file1' => array('added' => '1', 'deleted' => '1')),
-        //FIXME     $log->getFiles());
-        //FIXME $this->assertEquals(1, $log->getAddedLines());
-        //FIXME $this->assertEquals(1, $log->getDeletedLines());
+        // Any way how to retrieve changes per patchset or file?
+        $this->assertEquals(
+            array('file1' => array('status' => 'M')),
+            $log->getFiles());
+        $this->assertEquals(0, $log->getAddedLines());
+        $this->assertEquals(0, $log->getDeletedLines());
+        /*
+        $this->assertEquals(
+            array('file1' => array('added' => '1', 'deleted' => '1')),
+            $log->getFiles());
+        $this->assertEquals(1, $log->getAddedLines());
+        $this->assertEquals(1, $log->getDeletedLines());
+        */
     }
 
     public function testPatchset()
