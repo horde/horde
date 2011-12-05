@@ -29,8 +29,6 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
 
     protected function _init()
     {
-        $log_list = null;
-
         /* First, grab the master list of revisions. If quicklog is specified,
          * we don't need this master list - we are only concerned about the
          * most recent revision for the given branch. */
@@ -82,7 +80,8 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
                 : array($this->_branch);
         }
 
-        $revs = array();
+        /* First, get all revisions at once. */
+        $log_list = null;
         $cmd = 'rev-list';
         if ($this->_quicklog) {
             $cmd .= ' -n 1';
@@ -95,9 +94,6 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
 
         if (!feof($result)) {
             $revs = explode("\n", trim(stream_get_contents($result)));
-            if (!empty($this->_branch)) {
-                $this->_revlist[$this->_branch] = $revs;
-            }
             $log_list = $revs;
             if ($this->_quicklog) {
                 $this->_revs[] = reset($revs);
@@ -111,9 +107,21 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
                 ? $this->_revs
                 : array();
         }
-
         foreach ($log_list as $val) {
             $this->_logs[$val] = $this->_getLog($val);
+        }
+
+        /* Next, get all revisions per branch. */
+        $cmd = 'rev-list %s -- ' . escapeshellarg($this->getSourcerootPath());
+        foreach ($branchlist as $branch) {
+            list($stream, $result) = $this->_rep->runCommand(
+                sprintf($cmd, escapeshellarg($branch)));
+            if (!feof($result)) {
+                $revs = explode("\n", trim(stream_get_contents($result)));
+                $this->_revlist[$branch] = $revs;
+            }
+            fclose($result);
+            proc_close($stream);
         }
     }
 
