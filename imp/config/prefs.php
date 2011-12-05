@@ -162,7 +162,8 @@ $prefGroups['compose'] = array(
         'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'save_attachments',
         'delete_attachments_monthly_keep', 'request_mdn',
-        'reply_lang'
+        'reply_lang', 'traditional_compose', 'compose_popup',
+        'compose_confirm'
     )
 );
 
@@ -304,6 +305,25 @@ $_prefs['reply_lang'] = array(
     // Language list is automatically generated
     'enum' => array(),
     'desc' => _("What language(s) do you prefer replies to your messages to be in? (Hold down the CTRL key when clicking to add multiple languages)")
+);
+
+$_prefs['traditional_compose'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
+    'type' => 'rawhtml'
+);
+
+// compose in a separate window?
+$_prefs['compose_popup'] = array(
+    'value' => 1,
+    'type' => 'checkbox',
+    'desc' => _("Compose messages in a separate window?")
+);
+
+// confirm successful sending of messages in popup window?
+$_prefs['compose_confirm'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Display confirmation in popup window after sending a message?")
 );
 
 // The list of buttons to show in CKeditor
@@ -542,7 +562,7 @@ $prefGroups['viewing'] = array(
         'image_replacement', 'image_addrbook', 'highlight_text',
         'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
         'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
-        'send_mdn'
+        'send_mdn', 'mimp_message', 'mimp_download_confirm', 'mimp_inline_all'
     )
 );
 
@@ -657,7 +677,6 @@ $_prefs['mail_hdr'] = array(
 );
 
 // default message character set
-
 $_prefs['default_msg_charset'] = array(
     'value' => $GLOBALS['registry']->getEmailCharset()
         ? $GLOBALS['registry']->getEmailCharset()
@@ -686,6 +705,26 @@ $_prefs['send_mdn'] = array(
     ),
     'desc' => _("Prompt to send read receipt (a/k/a message disposition notification) when requested by the sender?"),
     'help' => 'prefs-send_mdn'
+);
+
+$_prefs['mimp_message'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
+    'type' => 'rawhtml'
+);
+
+$_prefs['mimp_download_confirm'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'number',
+    'zero' => true,
+    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
+);
+
+$_prefs['mimp_inline_all'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
 );
 
 
@@ -929,10 +968,13 @@ $_prefs['show_all_flags'] = array(
 $prefGroups['mboxdisplay'] = array(
     'column' => _("Other"),
     'label' => _("Mailbox Display"),
-    'desc' => _("Change display preferences such as how many messages you see on each page and how messages are sorted."),
+    'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
-        'max_msgs', 'from_link', 'atc_flag'
+        'max_msgs', 'from_link', 'atc_flag', 'traditional_mailbox',
+        'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
+        'preview_show_unread', 'preview_show_tooltip', 'mimp_mailbox',
+        'mimp_preview_msg'
     )
 );
 
@@ -1040,6 +1082,67 @@ $_prefs['atc_flag'] = array(
     'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Display attachment information about a message in the mailbox listing?")
+);
+
+$_prefs['traditional_mailbox'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
+    'type' => 'rawhtml'
+);
+
+// Previews are disabled by default as it can be performance intensive,
+// especially without caching.
+$_prefs['preview_enabled'] = array(
+    // Disabled and locked by default
+    'value' => 0,
+    'locked' => true,
+    'type' => 'checkbox',
+    'desc' => _("Enable message previews?")
+);
+
+$_prefs['preview_maxlen'] = array(
+    'value' => 250,
+    'advanced' => true,
+    'type' => 'enum',
+    'enum' => array(
+        100 => _("100 characters"),
+        250 => _("250 characters"),
+        500 => _("500 characters"),
+        1000 => _("1000 characters")
+    ),
+    'desc' => _("Characters to display in preview:")
+);
+
+$_prefs['preview_strip_nl'] = array(
+    'value' => 1,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Strip linebreaks in preview?")
+);
+
+$_prefs['preview_show_unread'] = array(
+    'value' => 1,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Show previews for unread messages only?")
+);
+
+$_prefs['preview_show_tooltip'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Show previews in tooltips?")
+);
+
+$_prefs['mimp_mailbox'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
+    'type' => 'rawhtml'
+);
+
+// display only the first 250 characters of a message on first message view?
+$_prefs['mimp_preview_msg'] = array(
+    'value' => 0,
+    'type' => 'checkbox',
+    'desc' => _("Display only the first 250 characters of a message initially?")
 );
 
 
@@ -1406,129 +1509,11 @@ $_prefs['smime_additional_cert'] = array(
 
 
 
-// *** Mobile View (MIMP) Preferences ***
-
-$prefGroups['mimp'] = array(
+// *** View Preferences ***
+$prefGroups['views'] = array(
     'column' => _("Other"),
-    'label' => _("Mobile View"),
-    'desc' => _("Configure preferences for the mobile view."),
-    'members' => array(
-        'mimp_preview_msg', 'mimp_download_confirm', 'mimp_inline_all'
-    )
-);
-
-// display only the first 250 characters of a message on first message view?
-$_prefs['mimp_preview_msg'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Display only the first 250 characters of a message initially?")
-);
-
-$_prefs['mimp_download_confirm'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'number',
-    'zero' => true,
-    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
-);
-
-$_prefs['mimp_inline_all'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
-);
-
-
-
-// *** Traditional View (IMP) Preferences ***
-
-$prefGroups['traditional'] = array(
-    'column' => _("Other"),
-    'label' => _("Traditional View"),
-    'desc' => _("Configure preferences for the traditional view."),
-    'members' => array(
-        'traditional_mailbox', 'preview_enabled', 'preview_maxlen',
-        'preview_strip_nl', 'preview_show_unread', 'preview_show_tooltip',
-        'traditional_compose', 'compose_popup', 'compose_confirm'
-    )
-);
-
-$_prefs['traditional_mailbox'] = array(
-    'value' => '<div class="prefsTraditional">' . _("Mailbox") . '</div>',
-    'type' => 'rawhtml'
-);
-
-// Previews are disabled by default as it can be performance intensive,
-// especially without caching.
-$_prefs['preview_enabled'] = array(
-    // Disabled and locked by default
-    'value' => 0,
-    'locked' => true,
-    'type' => 'checkbox',
-    'desc' => _("Enable message previews?")
-);
-
-$_prefs['preview_maxlen'] = array(
-    'value' => 250,
-    'advanced' => true,
-    'type' => 'enum',
-    'enum' => array(
-        100 => _("100 characters"),
-        250 => _("250 characters"),
-        500 => _("500 characters"),
-        1000 => _("1000 characters")
-    ),
-    'desc' => _("Characters to display in preview:")
-);
-
-$_prefs['preview_strip_nl'] = array(
-    'value' => 1,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Strip linebreaks in preview?")
-);
-
-$_prefs['preview_show_unread'] = array(
-    'value' => 1,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Show previews for unread messages only?")
-);
-
-$_prefs['preview_show_tooltip'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Show previews in tooltips?")
-);
-
-$_prefs['traditional_compose'] = array(
-    'value' => '<div class="prefsTraditional">' . _("Compose") . '</div>',
-    'type' => 'rawhtml'
-);
-
-// compose in a separate window?
-$_prefs['compose_popup'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Compose messages in a separate window?")
-);
-
-// confirm successful sending of messages in popup window?
-$_prefs['compose_confirm'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Display confirmation in popup window after sending a message?")
-);
-
-
-
-// *** Dynamic View (DIMP) Preferences ***
-$prefGroups['dimp'] = array(
-    'column' => _("Other"),
-    'label' => _("Dynamic View"),
-    'desc' => _("Configure preferences for the dynamic view."),
+    'label' => _("Views"),
+    'desc' => _("Configure view preferences."),
     'members' => array('dynamic_view')
 );
 
