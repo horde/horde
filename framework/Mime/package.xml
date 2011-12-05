@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Improved detection of charsets in broken (8-bit) MIME headers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -394,7 +394,7 @@
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.1.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -819,7 +819,7 @@
    <date>2011-11-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Improved detection of charsets in broken (8-bit) MIME headers.
    </notes>
   </release>
  </changelog>

@@ -618,8 +618,12 @@ class Horde_Mime_Headers implements Serializable
             $to_process[] = array($currheader, $currtext);
         }
 
+        $charset_test = array(
+            'UTF-8',
+            'windows-1252',
+            self::$defaultCharset
+        );
         $headers = new Horde_Mime_Headers();
-        $eightbit_check = (self::$defaultCharset != 'us-ascii');
 
         reset($to_process);
         while (list(,$val) = each($to_process)) {
@@ -627,8 +631,17 @@ class Horde_Mime_Headers implements Serializable
             if (!strlen($val[1])) {
                 continue;
             }
-            if ($eightbit_check && Horde_Mime::is8bit($val[1])) {
-                $val[1] = Horde_String::convertCharset($val[1], self::$defaultCharset, 'UTF-8');
+            if (Horde_Mime::is8bit($val[1])) {
+                /* Assumption: broken charset in headers is generally either
+                 * UTF-8 or ISO-8859-1/Windows-1252. Test these charsets
+                 * first before using default charset. */
+                foreach ($charset_test as $charset) {
+                    $tmp = Horde_String::convertCharset($val[1], $charset, 'UTF-8');
+                    if (Horde_String::validUtf8($tmp)) {
+                        break;
+                    }
+                }
+                $val[1] = $tmp;
             }
 
             if (in_array(Horde_String::lower($val[0]), $mime)) {
