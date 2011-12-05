@@ -124,6 +124,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertInternalType('array', $logs);
         $this->assertEquals(array('1.2', '1.1'), array_keys($logs));
         $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $logs['1.2']);
+
         $log = $logs['1.2'];
         $this->assertEquals('1.2', $log->getRevision());
         $this->assertEquals(1322495969, $log->getDate());
@@ -138,5 +139,14 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
             $log->getFiles());
         $this->assertEquals(1, $log->getAddedLines());
         $this->assertEquals(1, $log->getDeletedLines());
+
+        $log = $logs['1.1'];
+        $this->assertEquals('1.1', $log->getRevision());
+        $this->assertEquals(1322254390, $log->getDate());
+        $this->assertEquals(
+            'Add first files.',
+            $log->getMessage());
+        $this->assertEquals(array(), $log->getBranch());
+        $this->assertEquals(array(), $log->getTags());
     }
 }

@@ -174,6 +174,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertInstanceOf(
             'Horde_Vcs_Log_Git',
             $logs['160a468250615b713a7e33d34243530afc4682a9']);
+
         $log = $logs['160a468250615b713a7e33d34243530afc4682a9'];
         $this->assertEquals(
             '160a468250615b713a7e33d34243530afc4682a9',
@@ -195,7 +196,74 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
                 'dstSha1' => '0cfbf08886fca9a91cb753ec8734c84fcbe52c9f',
                 'status'  => 'M',
                 'srcPath' => 'file1',
-                'dstPath' => '', //FIXME?
+                'dstPath' => '',
+                'added'   => '1',
+                'deleted' => '1')),
+            $log->getFiles());
+        $this->assertEquals(1, $log->getAddedLines());
+        $this->assertEquals(1, $log->getDeletedLines());
+
+        $log = $logs['d8561cd227c800ee5b0720701c8b6b77e6f6db4a'];
+        $this->assertEquals(
+            'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
+            $log->getRevision());
+        $this->assertEquals(1322253995, $log->getDate());
+        $this->assertEquals('Jan Schneider <jan@horde.org>', $log->getAuthor());
+        $this->assertEquals(
+            'Add first files.',
+            $log->getMessage());
+        $this->assertEquals(array('branch1', 'master'), $log->getBranch());
+        //FIXME $this->assertEquals('+1 -1', $log->getChanges());
+        $this->assertEquals(array(), $log->getTags());
+        $this->assertEquals(array(), $log->getSymbolicBranches());
+        $this->assertEquals(
+            array('dir1/file1_1' => array(
+                'srcMode' => '000000',
+                'dstMode' => '100644',
+                'srcSha1' => '0000000000000000000000000000000000000000',
+                'dstSha1' => 'd00491fd7e5bb6fa28c517a0bb32b8b506539d4d',
+                'status'  => 'A',
+                'srcPath' => 'dir1/file1_1',
+                'dstPath' => '',
+                'added'   => '1',
+                'deleted' => '0'),
+                  'file1' => array(
+                'srcMode' => '000000',
+                'dstMode' => '100644',
+                'srcSha1' => '0000000000000000000000000000000000000000',
+                'dstSha1' => 'd00491fd7e5bb6fa28c517a0bb32b8b506539d4d',
+                'status'  => 'A',
+                'srcPath' => 'file1',
+                'dstPath' => '',
+                'added'   => '1',
+                'deleted' => '0',
+            )),
+            $log->getFiles());
+        $this->assertEquals(2, $log->getAddedLines());
+        $this->assertEquals(0, $log->getDeletedLines());
+
+        $log = $logs['da46ee2e478c6d3a9963eaafcd8f43e83d630526'];
+        $this->assertEquals(
+            'da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+            $log->getRevision());
+        $this->assertEquals(1322495911, $log->getDate());
+        $this->assertEquals('Jan Schneider <jan@horde.org>', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to branch1 branch.',
+            $log->getMessage());
+        $this->assertEquals(array('branch1'), $log->getBranch());
+        //FIXME $this->assertEquals('+1 -1', $log->getChanges());
+        $this->assertEquals(array(), $log->getTags());
+        $this->assertEquals(array(), $log->getSymbolicBranches());
+        $this->assertEquals(
+            array('file1' => array(
+                'srcMode' => '100644',
+                'dstMode' => '100644',
+                'srcSha1' => 'd00491fd7e5bb6fa28c517a0bb32b8b506539d4d',
+                'dstSha1' => '0cfbf08886fca9a91cb753ec8734c84fcbe52c9f',
+                'status'  => 'M',
+                'srcPath' => 'file1',
+                'dstPath' => '',
                 'added'   => '1',
                 'deleted' => '1')),
             $log->getFiles());

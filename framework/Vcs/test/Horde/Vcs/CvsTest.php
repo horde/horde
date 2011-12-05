@@ -158,6 +158,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         $this->assertInternalType('array', $logs);
         $this->assertEquals(array('1.2', '1.1', '1.1.2.1'), array_keys($logs));
         $this->assertInstanceOf('Horde_Vcs_Log_Cvs', $logs['1.2']);
+
         $log = $logs['1.2'];
         $this->assertEquals('1.2', $log->getRevision());
         $this->assertEquals(1322495647, $log->getDate());
@@ -174,6 +175,24 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
             $log->getFiles());
         $this->assertEquals(1, $log->getAddedLines());
         $this->assertEquals(1, $log->getDeletedLines());
+
+        $log = $logs['1.1'];
+        $this->assertEquals('1.1', $log->getRevision());
+        $this->assertEquals(1322254184, $log->getDate());
+        $this->assertEquals(
+            'Add first files.',
+            $log->getMessage());
+        $this->assertEquals(array('HEAD'), $log->getBranch());
+        $this->assertEquals(array(), $log->getTags());
+
+        $log = $logs['1.1.2.1'];
+        $this->assertEquals('1.1.2.1', $log->getRevision());
+        $this->assertEquals(1322495667, $log->getDate());
+        $this->assertEquals(
+            'Commit 2nd version to branch1 branch.',
+            $log->getMessage());
+        $this->assertEquals(array('branch1'), $log->getBranch());
+        $this->assertEquals(array(), $log->getTags());
     }
 
     public function testPatchset()

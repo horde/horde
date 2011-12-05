@@ -135,6 +135,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertInternalType('array', $logs);
         $this->assertEquals(array('2', '1'), array_keys($logs));
         $this->assertInstanceOf('Horde_Vcs_Log_Svn', $logs['2']);
+
         $log = $logs['2'];
         $this->assertEquals('2', $log->getRevision());
         $this->assertEquals(1322496080, $log->getDate());
@@ -148,6 +149,32 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         // Any way how to retrieve changes per patchset or file?
         $this->assertEquals(
             array('file1' => array('status' => 'M')),
+            $log->getFiles());
+        $this->assertEquals(0, $log->getAddedLines());
+        $this->assertEquals(0, $log->getDeletedLines());
+        /*
+        $this->assertEquals(
+            array('file1' => array('added' => '1', 'deleted' => '1')),
+            $log->getFiles());
+        $this->assertEquals(1, $log->getAddedLines());
+        $this->assertEquals(1, $log->getDeletedLines());
+        */
+
+        $log = $logs['1'];
+        $this->assertEquals('1', $log->getRevision());
+        $this->assertEquals(1322254316, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals('Add first files.', $log->getMessage());
+        $this->assertEquals(array(), $log->getBranch());
+        // Any way how to retrieve changes per patchset or file?
+        $this->assertEquals('', $log->getChanges());
+        $this->assertEquals(array(), $log->getTags());
+        $this->assertEquals(array(), $log->getSymbolicBranches());
+        // Any way how to retrieve changes per patchset or file?
+        $this->assertEquals(
+            array('dir1'         => array('status' => 'A'),
+                  'dir1/file1_1' => array('status' => 'A'),
+                  'file1'        => array('status' => 'A')),
             $log->getFiles());
         $this->assertEquals(0, $log->getAddedLines());
         $this->assertEquals(0, $log->getDeletedLines());
