@@ -240,6 +240,8 @@ var ImpMailbox = {
                     this.submit('whitelist');
                 } else if (elt.hasClassName('forwardAction')) {
                     this.submit('fwd_digest');
+                } else if (elt.hasClassName('redirectAction')) {
+                    this.submit('redirect_messages');
                 } else if (elt.hasClassName('spamAction')) {
                     this.submit('spam_report');
                 } else if (elt.hasClassName('notspamAction')) {

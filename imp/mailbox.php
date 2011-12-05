@@ -118,10 +118,11 @@ case 'message_missing':
     break;
 
 case 'fwd_digest':
+case 'redirect_messages':
     if (count($indices)) {
         $options = array_merge(array(
-            'actionID' => 'fwd_digest',
-            'fwddigest' => strval($indices)
+            'actionID' => ($actionID == 'fwd_digest' ? 'fwd_digest' : 'redirect_compose'),
+            'msglist' => strval($indices)
         ), IMP::getComposeArgs());
 
         if ($prefs->getValue('compose_popup')) {
@@ -597,6 +598,7 @@ if ($pageOb['msgcount']) {
 
     if (IMP::canCompose()) {
         $a_template->set('forward', Horde::widget('#', _("Forward"), 'widget forwardAction', '', '', _("Fo_rward")));
+        $a_template->set('redirect', Horde::widget('#', _("Redirect"), 'widget redirectAction', '', '', _("Redirect")));
     }
 
     if ($conf['spam']['reporting'] &&

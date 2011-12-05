@@ -1281,7 +1281,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         list($imp_compose, $imp_contents) = $this->_initCompose();
 
-        $imp_compose->redirectMessage($imp_contents);
+        $imp_compose->redirectMessage(new IMP_Indices($imp_contents->getMailbox(), $imp_contents->getUid()));
 
         $ob = new stdClass;
         $ob->imp_compose = $imp_compose->getCacheId();
@@ -1681,6 +1681,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->success = 1;
 
         try {
+            // Currently, dimp only supports redirecting one message per
+            // popup compose window.
             $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
             $imp_compose->sendRedirectMessage($this->_vars->redirect_to);
 

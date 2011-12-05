@@ -42,7 +42,7 @@ $header = array();
 $msg = '';
 
 $get_sig = true;
-$showmenu = $spellcheck = false;
+$redirect = $showmenu = $spellcheck = false;
 $oldrtemode = $rtemode = null;
 
 /* Set the current identity. */
@@ -348,9 +348,10 @@ case 'forward_both':
 
 case 'redirect_compose':
     try {
-        $contents = $imp_ui->getContents();
-        $imp_compose->redirectMessage($contents);
-        $title = _("Redirect");
+        $indices = $imp_ui->getIndices($vars);
+        $imp_compose->redirectMessage($indices);
+        $redirect = true;
+        $title = ngettext(_("Redirect"), _("Redirect Messages"), count($indices));
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e, 'horde.error');
     }
@@ -358,18 +359,17 @@ case 'redirect_compose':
 
 case 'redirect_send':
     try {
-        $imp_compose->sendRedirectMessage($imp_ui->getAddressList($vars->to));
-
+        $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($vars->to));
         $imp_compose->destroy('send');
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
-                $notification->push(_("Message redirected successfully."), 'horde.success');
+                $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", $num_msgs), 'horde.success');
                 $imp_ui->popupSuccess();
             } else {
                 echo Horde::wrapInlineScript(array('window.close();'));
             }
         } else {
-            $notification->push(_("Message redirected successfully."), 'horde.success');
+            $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", $num_msgs), 'horde.success');
             $imp_ui->mailboxReturnUrl()->redirect();
         }
         exit;
@@ -518,9 +518,10 @@ case 'send_message':
     exit;
 
 case 'fwd_digest':
-    if (isset($vars->fwddigest)) {
+    $indices = $imp_ui->getIndices($vars);
+    if (count($indices)) {
         try {
-            $header['subject'] = $imp_compose->attachImapMessage(new IMP_Indices($vars->fwddigest));
+            $header['subject'] = $imp_compose->attachImapMessage($indices);
             $fwd_msg = array('type' => IMP_Compose::FORWARD_ATTACH);
         } catch (IMP_Compose_Exception $e) {
             $notification->push($e, 'horde.error');
@@ -581,9 +582,6 @@ case 'add_attachment':
 
 /* Get the message cache ID. */
 $composeCacheID = $imp_compose->getCacheId();
-
-/* Are we in redirect mode? */
-$redirect = ($vars->actionID == 'redirect_compose');
 
 /* Attach autocompleters to the compose form elements. */
 if ($browser->hasFeature('javascript')) {

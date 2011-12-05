@@ -2,6 +2,8 @@
 v5.0.16-git
 -----------
 
+[mms] Allow multiple messages to be redirected from traditional view mailbox
+      page (Request #2084).
 [mms] Add ability to quickly add unsubscribed mailboxes to available search
       mailboxes in advanced search (Request #10832).
 [mms] Don't list parent mailboxes after child mailboxes (Bug #10802).

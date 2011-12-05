@@ -184,22 +184,16 @@ case 'f':
 
 // 'rc' = redirect compose
 case 'rc':
-    try {
-        $imp_contents = $imp_ui->getContents();
-    } catch (IMP_Exception $e) {
-        $notification->push($e, 'horde.error');
-        break;
-    }
-    $imp_compose->redirectMessage($imp_contents);
+    $imp_compose->redirectMessage($imp_ui->getIndices());
     $title = _("Redirect");
     break;
 
 case _("Redirect"):
     try {
-        $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
+        $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
         $imp_compose->destroy('send');
 
-        $notification->push(_("Message redirected successfully."), 'horde.success');
+        $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", $num_msgs), 'horde.success');
         require IMP_BASE . '/mailbox-mimp.php';
         exit;
     } catch (Horde_Exception $e) {
