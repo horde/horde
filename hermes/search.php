@@ -70,7 +70,7 @@ case 'hermes_form_export':
                         exit;
                     }
                 } catch (Horde_Exception $e) {
-                    $notification->push($hours, 'horde.error');
+                    $notification->push($e, 'horde.error');
                 }
             }
         }
