@@ -152,6 +152,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
             proc_close($stream);
             throw new Horde_Vcs_Exception($error);
         }
+        fclose($pipes[2]);
         return array($stream, $pipes[1]);
     }
 
