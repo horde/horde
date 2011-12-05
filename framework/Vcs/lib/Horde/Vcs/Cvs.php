@@ -237,7 +237,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
          * and we check that this is the case and error otherwise
          */
         $co = fgets($RCS, 1024);
-        if (!preg_match('/^([\S ]+,v)\s+-->\s+st(andar)?d ?out(put)?\s*$/', $co, $regs) ||
+        if (!preg_match('/^([\S ]+),v\s+-->\s+st(andar)?d ?out(put)?\s*$/', $co, $regs) ||
             ($regs[1] != $fullname)) {
             throw new Horde_Vcs_Exception('Unexpected output from checkout: ' . $co);
         }
