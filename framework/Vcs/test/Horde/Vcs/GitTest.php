@@ -183,7 +183,7 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         $this->assertEquals(
             'Commit 2nd version to master branch.',
             $log->getMessage());
-        //FIXME $this->assertEquals(array('master'), $log->getBranch());
+        $this->assertEquals(array('master'), $log->getBranch());
         //FIXME $this->assertEquals('+1 -1', $log->getChanges());
         $this->assertEquals(array(), $log->getTags());
         $this->assertEquals(array(), $log->getSymbolicBranches());
