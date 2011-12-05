@@ -119,7 +119,8 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
      */
     public function getCommand()
     {
-        return escapeshellcmd($this->getPath('git')) . ' --git-dir=' . escapeshellarg($this->sourceroot);
+        return escapeshellcmd($this->getPath('git'))
+            . ' --git-dir=' . escapeshellarg($this->sourceroot);
     }
 
     /**
@@ -144,7 +145,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
             $cmd,
             array(1 => array('pipe', 'w'), 2 => array('pipe', 'w')),
             $pipes);
-        if (!$stream) {
+        if (!$stream || !is_resource($stream)) {
             throw new Horde_Vcs_Exception('Failed to execute git: ' . $cmd);
         }
         if ($error = stream_get_contents($pipes[2])) {
