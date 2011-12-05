@@ -234,7 +234,7 @@ var ImpSearch = {
 
         var tmp = [
                 new Element('EM').insert(this.getCriteriaLabel(id)),
-                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'iconImg searchuiImg searchuiCalendar' })))
+                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'iconImg searchuiImg calendarImg' })))
             ];
         this.replaceDate(this.insertCriteria(tmp), id, data);
     },
@@ -538,7 +538,7 @@ var ImpSearch = {
                     }
                     e.stop();
                     return;
-                } else if (elt.hasClassName('searchuiCalendar')) {
+                } else if (elt.hasClassName('calendarImg')) {
                     Horde_Calendar.open(elt.identify(), this.criteria[elt.up('DIV.searchId').identify()].v);
                     e.stop();
                     return;
