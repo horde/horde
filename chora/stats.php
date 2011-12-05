@@ -16,6 +16,13 @@ Horde_Registry::appInit('chora');
 
 $extraLink = Chora::getFileViews($where, 'stats');
 
+/* Spawn the file object. */
+try {
+    $fl = $VC->getFile($where);
+} catch (Horde_Vcs_Exception $e) {
+    Chora::fatal($e);
+}
+
 $stats = array();
 foreach ($fl->getLog() as $lg) {
     $qa = $lg->getAuthor();
