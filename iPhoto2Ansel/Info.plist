@@ -4,8 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIconFile</key>
+	<string>iPhoto2Ansel</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.horde.export.iPhoto2Ansel</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -14,21 +18,17 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.0d1</string>
-	<key>CFBundleDisplayName</key>
-	<string></string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.0.0alpha1</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>2008 - 2009 Horde LLC (http://www.horde.org)</string>
 	<key>NSMainNibFile</key>
 	<string>Panel</string>
 	<key>NSPrincipalClass</key>
 	<string>AnselExportController</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>2008 - 2009 Horde LLC (http://www.horde.org)</string>
-	<key>CFBundleIconFile</key>
-	<string>iPhoto2Ansel</string>
 </dict>
 </plist>
