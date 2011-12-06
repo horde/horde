@@ -293,6 +293,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <div class="sep"></div>
  <a id="ctx_folder_export"><span class="iconImg"></span><?php echo _("Export") ?></a>
  <a id="ctx_folder_import"><span class="iconImg"></span><?php echo _("Import") ?></a>
+ <div style="display:none">
+  <div class="sep"></div>
+  <a id="ctx_folder_acl"><span class="iconImg"></span><?php echo _("Edit ACL") ?></a>
+ </div>
 </div>
 
 <div class="context" id="ctx_folder_flag" style="display:none">

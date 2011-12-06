@@ -1044,6 +1044,9 @@ span.dimpactionFilter {
 #ctx_folder_rename span.iconImg, #ctx_container_rename span.iconImg, #ctx_vcontainer_edit span.iconImg, #ctx_vfolder_edit span.iconImg {
     background-image: url("../graphics/folders/edit.png");
 }
+#ctx_folder_acl span.iconImg {
+    background-image: url("../graphics/edit.png");
+}
 #ctx_folder_search span.iconImg, #ctx_folder_searchsub span.iconImg, #ctx_container_search span.iconImg, #ctx_container_searchsub span.iconImg {
     background-image: url("../graphics/search.png");
 }

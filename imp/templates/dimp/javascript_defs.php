@@ -40,6 +40,14 @@ foreach ($GLOBALS['injector']->getInstance('IMP_Flags')->getList() as $val) {
     ));
 }
 
+/* Does server support ACLs? */
+try {
+    $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
+    $acl = true;
+} catch (IMP_Exception $e) {
+    $acl = false;
+}
+
 /* Variables used in core javascript files. */
 $code['conf'] = array_filter(array(
     // URL variables
@@ -60,6 +68,7 @@ $code['conf'] = array_filter(array(
     'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables
+    'acl' => $acl,
     'buffer_pages' => intval($GLOBALS['conf']['dimp']['viewport']['buffer_pages']),
     'disable_compose' => !IMP::canCompose(),
     'filter_any' => intval($GLOBALS['prefs']->getValue('filter_any_mailbox')),
