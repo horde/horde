@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [mjr] Add support for mediumtext and longtext field types.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -547,7 +547,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mjr] Add support for mediumtext and longtext field types.
    </notes>
   </release>
  </changelog>
