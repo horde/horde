@@ -59,7 +59,7 @@ case 'hermes_form_export':
                         $notification->push(_("No time to export!"), 'horde.error');
                     } else {
                         $exportHours = Hermes::makeExportHours($hours);
-                        $data = Horde_Data::factory(array('hermes', $info['format']));
+                        $data = Horde_Data::factory(array('hermes', $info['format']), array('browser' => $browser));
                         $filedata = $data->exportData($exportHours);
                         $browser->downloadHeaders($data->getFilename('export'), $data->getContentType(), false, strlen($filedata));
                         echo $filedata;
