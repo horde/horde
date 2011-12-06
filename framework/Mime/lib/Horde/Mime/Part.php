@@ -2157,12 +2157,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $i = 0;
         $out = array();
 
-        $search = "\n--" . $boundary;
+        $search = "--" . $boundary;
         $search_len = strlen($search);
 
         while (($pos = strpos($text, $search, $pos)) !== false) {
+            /* Boundary needs to appear at beginning of string or right after
+             * a LF. */
+            if (($pos != 0) && ($text[$pos - 1] != "\n")) {
+                continue;
+            }
+
             if (isset($out[$i])) {
-                $out[$i]['length'] = $pos - $out[$i]['start'];
+                $out[$i]['length'] = $pos - $out[$i]['start'] - 1;
             }
 
             if (!is_null($end) && ($end == $i)) {
