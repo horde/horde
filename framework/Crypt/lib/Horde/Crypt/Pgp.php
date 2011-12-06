@@ -435,29 +435,29 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             $maxwidth  = max($leftwidth) + 2;
             array_walk($leftrow, array($this, '_pgpPrettyKeyFormatter'), $maxwidth);
 
-            foreach (array_keys($packet_info['signature']) as $uid_idx) {
+            foreach ($packet_info['signature'] as $uid_idx => $val) {
                 if ($uid_idx == '_SIGNATURE') {
                     continue;
                 }
                 $key_info = $this->pgpPacketSignatureByUidIndex($pgpdata, $uid_idx);
 
-                if (!empty($key_info['keyid'])) {
-                    $key_info['keyid'] = $this->_getKeyIDString($key_info['keyid']);
-                } else {
-                    $key_info['keyid'] = null;
-                }
-
-                $fingerprint = isset($fingerprints[$key_info['keyid']]) ? $fingerprints[$key_info['keyid']] : null;
+                $keyid = empty($key_info['keyid'])
+                    ? null
+                    : $this->_getKeyIDString($key_info['keyid']);
+                $fingerprint = isset($fingerprints[$keyid])
+                    ? $fingerprints[$keyid]
+                    : null;
+                $sig_key = 'sig_' . $key_info['keyid'];
 
                 $msg .= $leftrow[0] . (isset($key_info['name']) ? stripcslashes($key_info['name']) : '') . "\n"
                     . $leftrow[1] . (($key_info['key_type'] == 'public_key') ? Horde_Crypt_Translation::t("Public Key") : Horde_Crypt_Translation::t("Private Key")) . "\n"
                     . $leftrow[2] . strftime("%D", $key_info['key_created']) . "\n"
-                    . $leftrow[3] . (empty($key_info['key_expires']) ? '[' . Horde_Crypt_Translation::t("Never") . ']' : strftime("%D", $key_info['key_expires'])) . "\n"
+                    . $leftrow[3] . (empty($val[$sig_key]['expires']) ? '[' . Horde_Crypt_Translation::t("Never") . ']' : strftime("%D", $val[$sig_key]['expires'])) . "\n"
                     . $leftrow[4] . $key_info['key_size'] . " Bytes\n"
                     . $leftrow[5] . (empty($key_info['comment']) ? '[' . Horde_Crypt_Translation::t("None") . ']' : $key_info['comment']) . "\n"
                     . $leftrow[6] . (empty($key_info['email']) ? '[' . Horde_Crypt_Translation::t("None") . ']' : $key_info['email']) . "\n"
                     . $leftrow[7] . (empty($key_info['micalg']) ? '[' . Horde_Crypt_Translation::t("Unknown") . ']' : $key_info['micalg']) . "\n"
-                    . $leftrow[8] . (empty($key_info['keyid']) ? '[' . Horde_Crypt_Translation::t("Unknown") . ']' : $key_info['keyid']) . "\n"
+                    . $leftrow[8] . (empty($keyid) ? '[' . Horde_Crypt_Translation::t("Unknown") . ']' : $keyid) . "\n"
                     . $leftrow[9] . (empty($fingerprint) ? '[' . Horde_Crypt_Translation::t("Unknown") . ']' : $fingerprint) . "\n\n";
             }
         }
