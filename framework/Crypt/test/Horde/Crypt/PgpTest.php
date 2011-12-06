@@ -40,7 +40,7 @@ class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
 'Name:             Richard Selsky
 Key Type:         Public Key
 Key Creation:     04/11/08
-Expiration Date:  [Never]
+Expiration Date:  04/11/13
 Key Length:       1024 Bytes
 Comment:          [None]
 E-Mail:           rselsky@bu.edu
