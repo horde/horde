@@ -17,36 +17,39 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
     /**
      * Constructor.
      *
-     * @param array $params  Configuration parameters.
-     * <pre>
-     * 'id' => TODO (optional)
-     * 'locales' => TODO (optional)
-     * 'states' => TODO (optional)
-     * 'targetId' => TODO (optional)
-     * 'triggerId' => TODO (optional)
-     * </pre>
+     * @param array $params  OPTIONAL configuration parameters:
+     *   - id: (string) DOM ID string.
+     *   - locales: (array) List of supported locales.
+     *   - states: (array) TODO
+     *   - targetId: (string) TODO
+     *   - triggerId: (string) TODO
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        if (empty($params['id'])) {
+        global $registry;
+
+        if (!isset($params['id'])) {
             $params['id'] = $this->_randomid();
         }
 
-        if (empty($params['targetId'])) {
+        if (!isset($params['targetId'])) {
             $params['targetId'] = $this->_randomid();
         }
 
-        if (empty($params['triggerId'])) {
+        if (!isset($params['triggerId'])) {
             $params['triggerId'] = $params['targetId'] . '_trigger';
         }
 
         if (empty($params['locales'])) {
-            $key_list = array_keys($GLOBALS['registry']->nlsconfig->spelling);
+            $key_list = array_keys($registry->nlsconfig->spelling);
             asort($key_list, SORT_LOCALE_STRING);
             $params['locales'] = array();
 
             foreach ($key_list as $lcode) {
-                $params['locales'][] = array('l' => $GLOBALS['registry']->nlsconfig->languages[$lcode], 'v' => $lcode);
+                $params['locales'][] = array(
+                    'l' => $registry->nlsconfig->languages[$lcode],
+                    'v' => $lcode
+                );
             }
         }
 
@@ -81,11 +84,13 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
      */
     public function handle($args, $post)
     {
-        $spellArgs = array();
+        $spellArgs = empty($GLOBALS['conf']['spell']['params'])
+            ? array()
+            : $GLOBALS['conf']['spell']['params'];
 
-        if (!empty($GLOBALS['conf']['spell']['params'])) {
-            $spellArgs = $GLOBALS['conf']['spell']['params'];
-        }
+        $spellArgs['html'] = !empty($args['html']);
+
+        $input = Horde_Util::getPost($args['input']);
 
         if (isset($args['locale'])) {
             $spellArgs['locale'] = $args['locale'];
@@ -99,19 +104,8 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
             $spellArgs['localDict'] = $result;
         } catch (Horde_Exception $e) {}
 
-        if (!empty($args['html'])) {
-            $spellArgs['html'] = true;
-        }
-
         try {
-            $speller = Horde_SpellChecker::factory($GLOBALS['conf']['spell']['driver'], $spellArgs);
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
-            return array();
-        }
-
-        try {
-            return $speller->spellCheck(Horde_Util::getPost($args['input']));
+            return Horde_SpellChecker::factory($GLOBALS['conf']['spell']['driver'], $spellArgs)->spellCheck($input);
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array('bad' => array(), 'suggestions' => array());
