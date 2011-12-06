@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-06</date>
- <time>11:11:02</time>
+ <time>11:12:55</time>
  <version>
-  <release>1.0.0beta1</release>
+  <release>1.0.0</release>
   <api>1.0.0beta1</api>
  </version>
  <stability>
@@ -22,16 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [jan] Add Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
-* [mjr] Export available detailed forecast fields for each driver (Bug #10813).
-* [mjr] Fix returning correct units when requesting the same location twice, but with different units (Bug # 10804).
-* [mjr] Fix returning localized text from Wwo driver (Bug #10804).
-* [mjr] Fix obtaining forecast periods individually..
-* [mjr] Fix obtaining certain properties from Google driver.
-* [mjr] Fix making requests when not using a cache.
-* [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
-* [mjr] Fix path to locale directory.
-* [mjr] Fix setting units (Bug #10792).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -456,6 +447,19 @@
 * [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mjr] Fix path to locale directory.
 * [mjr] Fix setting units (Bug #10792).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
