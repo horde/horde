@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-07-27</date>
- <time>16:23:50</time>
+ <date>2011-12-06</date>
+ <time>10:57:41</time>
  <version>
   <release>1.0.4</release>
   <api>1.0.0</api>
@@ -52,6 +52,7 @@
        <file name="WAB.csv" role="doc" />
        <file name="Yahoo.csv" role="doc" />
       </dir> <!-- /doc/Horde/Data/examples -->
+      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Data -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -415,6 +416,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Data/COPYING" />
    <install as="examples/Eudora.txt" name="doc/Horde/Data/examples/Eudora.txt" />
    <install as="examples/Gmail.csv" name="doc/Horde/Data/examples/Gmail.csv" />
    <install as="examples/KMail.csv" name="doc/Horde/Data/examples/KMail.csv" />
@@ -699,7 +701,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Allow applications to extend Horde_Data_Base objects.
