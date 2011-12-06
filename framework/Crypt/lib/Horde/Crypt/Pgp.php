@@ -427,10 +427,18 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         if (!empty($packet_info['signature'])) {
             /* Making the property names the same width for all
              * localizations .*/
-            $leftrow = array(Horde_Crypt_Translation::t("Name"), Horde_Crypt_Translation::t("Key Type"), Horde_Crypt_Translation::t("Key Creation"),
-                             Horde_Crypt_Translation::t("Expiration Date"), Horde_Crypt_Translation::t("Key Length"),
-                             Horde_Crypt_Translation::t("Comment"), Horde_Crypt_Translation::t("E-Mail"), Horde_Crypt_Translation::t("Hash-Algorithm"),
-                             Horde_Crypt_Translation::t("Key ID"), Horde_Crypt_Translation::t("Key Fingerprint"));
+            $leftrow = array(
+                Horde_Crypt_Translation::t("Name"),
+                Horde_Crypt_Translation::t("Key Type"),
+                Horde_Crypt_Translation::t("Key Creation"),
+                Horde_Crypt_Translation::t("Expiration Date"),
+                Horde_Crypt_Translation::t("Key Length"),
+                Horde_Crypt_Translation::t("Comment"),
+                Horde_Crypt_Translation::t("E-Mail"),
+                Horde_Crypt_Translation::t("Hash-Algorithm"),
+                Horde_Crypt_Translation::t("Key ID"),
+                Horde_Crypt_Translation::t("Key Fingerprint")
+            );
             $leftwidth = array_map('strlen', $leftrow);
             $maxwidth  = max($leftwidth) + 2;
             array_walk($leftrow, array($this, '_pgpPrettyKeyFormatter'), $maxwidth);
