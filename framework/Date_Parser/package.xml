@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>15:17:40</time>
+ <date>2011-12-06</date>
+ <time>11:00:28</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -287,7 +287,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Correctly parse "nacht" in German (Bug #10511).
