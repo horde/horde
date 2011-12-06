@@ -305,6 +305,18 @@ class Horde_Imap_Client
     static public function factory($driver, $params = array())
     {
         $class = __CLASS__ . '_' . strtr(ucfirst(basename($driver)), '-', '_');
+
+        // DEPRECATED driver names
+        switch ($class) {
+        case __CLASS__ . 'Cclient':
+            $class = __CLASS__ . 'Socket';
+            break;
+
+        case __CLASS__ . 'Cclient_Pop3':
+            $class = __CLASS__ . 'Socket_Pop3';
+            break;
+        }
+
         if (class_exists($class)) {
             return new $class($params);
         }
