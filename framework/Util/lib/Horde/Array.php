@@ -172,7 +172,8 @@ class Horde_Array
      *
      * @return array  The extracted rectangle.
      */
-    static public function getRectangle(array $array, $row, $col, $height, $width)
+    static public function getRectangle(array $array, $row, $col, $height,
+                                        $width)
     {
         $rec = array();
         for ($y = $row; $y < $row + $height; $y++) {
@@ -195,10 +196,9 @@ class Horde_Array
      */
     static public function valuesToKeys(array $array)
     {
-        if (!$array) {
-            return array();
-        }
-        return array_combine($array, $array);
+        return $array
+            ? array_combine($array, $array)
+            : array();
     }
 
     /**
