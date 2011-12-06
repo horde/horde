@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Allow applications to extend Horde_Data_Base objects.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -702,7 +702,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2011-07-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Allow applications to extend Horde_Data_Base objects.
    </notes>
   </release>
  </changelog>
