@@ -459,7 +459,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
                 $msg .= $leftrow[0] . (isset($key_info['name']) ? stripcslashes($key_info['name']) : '') . "\n"
                     . $leftrow[1] . (($key_info['key_type'] == 'public_key') ? Horde_Crypt_Translation::t("Public Key") : Horde_Crypt_Translation::t("Private Key")) . "\n"
-                    . $leftrow[2] . strftime("%D", $key_info['key_created']) . "\n"
+                    . $leftrow[2] . strftime("%D", $val[$sig_key]['created']) . "\n"
                     . $leftrow[3] . (empty($val[$sig_key]['expires']) ? '[' . Horde_Crypt_Translation::t("Never") . ']' : strftime("%D", $val[$sig_key]['expires'])) . "\n"
                     . $leftrow[4] . $key_info['key_size'] . " Bytes\n"
                     . $leftrow[5] . (empty($key_info['comment']) ? '[' . Horde_Crypt_Translation::t("None") . ']' : $key_info['comment']) . "\n"
