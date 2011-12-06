@@ -38,6 +38,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add language detection to AJAX spellchecker if no language is selected by the user (Request #7137).
 * [mms] Add Horde_Core_Block_Layout_View::getStylesheets().
  </notes>
  <contents>
@@ -158,6 +159,7 @@
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
        <file name="KolabStorage.php" role="php" />
+       <file name="LanguageDetect.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="Lock.php" role="php" />
        <file name="Logger.php" role="php" />
@@ -1003,6 +1005,10 @@
     <channel>pear.php.net</channel>
    </package>
    <package>
+    <name>Text_LanguageDetect</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
@@ -1122,6 +1128,7 @@
    <install as="Horde/Core/Factory/KolabServer.php" name="lib/Horde/Core/Factory/KolabServer.php" />
    <install as="Horde/Core/Factory/KolabSession.php" name="lib/Horde/Core/Factory/KolabSession.php" />
    <install as="Horde/Core/Factory/KolabStorage.php" name="lib/Horde/Core/Factory/KolabStorage.php" />
+   <install as="Horde/Core/Factory/LanguageDetect.php" name="lib/Horde/Core/Factory/LanguageDetect.php" />
    <install as="Horde/Core/Factory/Ldap.php" name="lib/Horde/Core/Factory/Ldap.php" />
    <install as="Horde/Core/Factory/Lock.php" name="lib/Horde/Core/Factory/Lock.php" />
    <install as="Horde/Core/Factory/Logger.php" name="lib/Horde/Core/Factory/Logger.php" />

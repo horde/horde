@@ -340,6 +340,7 @@ class Horde_Registry
             'Horde_View_Base' => 'Horde_Core_Factory_View',
             'Horde_Weather' => 'Horde_Core_Factory_Weather',
             'Net_DNS2_Resolver' => 'Horde_Core_Factory_Dns',
+            'Text_LanguageDetect' => 'Horde_Core_Factory_LanguageDetect',
         );
 
         /* Define implementations. */

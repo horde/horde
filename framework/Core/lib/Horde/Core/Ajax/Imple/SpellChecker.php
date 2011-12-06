@@ -94,7 +94,12 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
 
         if (isset($args['locale'])) {
             $spellArgs['locale'] = $args['locale'];
-        } elseif (isset($GLOBALS['language'])) {
+        }
+        if (empty($spellArgs['locale']) &&
+            class_exists('Text_LanguageDetect')) {
+            $spellArgs['locale'] = $GLOBALS['injector']->getInstance('Text_LanguageDetect')->create()->getLanguageCode($input);
+        }
+        if (empty($spellArgs['locale']) && isset($GLOBALS['language'])) {
             $spellArgs['locale'] = $GLOBALS['language'];
         }
 
