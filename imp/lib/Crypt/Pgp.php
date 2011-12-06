@@ -53,18 +53,20 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /**
      * Generate the personal Public/Private keypair and store in prefs.
      *
-     * @param string $realname    See Horde_Crypt_Pgp::
-     * @param string $email       See Horde_Crypt_Pgp::
-     * @param string $passphrase  See Horde_Crypt_Pgp::
-     * @param string $comment     See Horde_Crypt_Pgp::
-     * @param string $keylength   See Horde_Crypt_Pgp::
+     * @param string $realname    See Horde_Crypt_Pgp::.
+     * @param string $email       See Horde_Crypt_Pgp::.
+     * @param string $passphrase  See Horde_Crypt_Pgp::.
+     * @param string $comment     See Horde_Crypt_Pgp::.
+     * @param string $keylength   See Horde_Crypt_Pgp::.
+     * @param integer $expire     See Horde_Crypt_Pgp::.
      *
      * @throws Horde_Crypt_Exception
      */
     public function generatePersonalKeys($name, $email, $passphrase,
-                                         $comment = '', $keylength = 1024)
+                                         $comment = '', $keylength = 1024,
+                                         $expire = null)
     {
-        $keys = $this->generateKey($name, $email, $passphrase, $comment, $keylength);
+        $keys = $this->generateKey($name, $email, $passphrase, $comment, $keylength, $expire);
 
         /* Store the keys in the user's preferences. */
         $this->addPersonalPublicKey($keys['public']);
