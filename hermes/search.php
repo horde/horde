@@ -52,7 +52,9 @@ case 'hermes_form_export':
             if ($form->isValid()) {
                 $form->getInfo($vars, $info);
                 try {
-                    $hours = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours($criteria);
+                    $hours = $GLOBALS['injector']
+                        ->getInstance('Hermes_Driver')
+                        ->getHours($criteria);
                     if (is_null($hours) || count($hours) == 0) {
                         $notification->push(_("No time to export!"), 'horde.error');
                     } else {

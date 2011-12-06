@@ -19,8 +19,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Data
  */
-class Horde_Data_iif extends Horde_Data {
-
+class Hermes_Data_Iif extends Horde_Data
+{
     var $_extension = 'iif';
     var $_contentType = 'text/plain';
     var $_rawData;
@@ -50,18 +50,21 @@ class Horde_Data_iif extends Horde_Data {
 
         $this->_mapped = true;
 
-        foreach ($this->_rawData as $row) {
+        foreach ($this->_rawData as &$row) {
+            $row = $row->toArray();
             $row['description'] = str_replace(array("\r", "\n"), array('', ' '), $row['description']);
             $row['note'] = str_replace(array("\r", "\n"), array('', ' '), $row['note']);
-            $this->_iifData[] = array('_label' => 'TIMEACT',
-                                      'DATE' => date('m/d/y', $row['date']),
-                                      'JOB' => $row['client'],
-                                      'EMP' => $row['employee'],
-                                      'ITEM' => $row['item'],
-                                      'DURATION' => date('H:i', mktime(0, $row['hours'] * 60)),
-                                      'NOTE' => $row['description'] . (!empty($row['note']) ? _("; Notes: ") . $row['note'] : ''),
-                                      'BILLINGSTATUS' => $row['billable'] == 2 ? '' : $row['billable'],
-                                      'PITEM' => 'Not Applicable');
+            $this->_iifData[] = array(
+                '_label' => 'TIMEACT',
+                'DATE' => date('m/d/y', $row['date']),
+                'JOB' => $row['client'],
+                'EMP' => $row['employee'],
+                'ITEM' => $row['item'],
+                'DURATION' => date('H:i', mktime(0, $row['hours'] * 60)),
+                'NOTE' => $row['description'] . (!empty($row['note']) ? _("; Notes: ") . $row['note'] : ''),
+                'BILLINGSTATUS' => $row['billable'] == 2 ? '' : $row['billable'],
+                'PITEM' => 'Not Applicable'
+            );
         }
     }
 

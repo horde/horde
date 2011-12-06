@@ -11,8 +11,7 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Data
  */
-class Horde_Data_qbxml extends Horde_Data {
-
+class Hermes_Data_Qbxml extends Horde_Data
+{
     var $_extension = 'xml';
-
 }

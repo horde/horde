@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-13</date>
- <time>00:15:12</time>
+ <date>2011-12-05</date>
+ <time>19:10:23</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -64,9 +64,9 @@
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Data">
-     <file name="hermes_csv.php" role="horde" />
-     <file name="hermes_tsv.php" role="horde" />
-     <file name="hermes_xls.php" role="horde" />
+     <file name="Hermescsv.php" role="horde" />
+     <file name="Hermestsv.php" role="horde" />
+     <file name="Hermesxls.php" role="horde" />
      <file name="iif.php" role="horde" />
      <file name="qbxml.php" role="horde" />
     </dir> <!-- /lib/Data -->
@@ -139,6 +139,13 @@
       <file name="hermes.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="hermes.mo" role="horde" />
+      <file name="hermes.po" role="horde" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+     <file name="help.xml" role="horde" />
+    </dir> <!-- /locale/lv -->
     <dir name="zh_TW">
      <dir name="LC_MESSAGES">
       <file name="hermes.mo" role="horde" />
@@ -214,7 +221,6 @@
     <dir name="time">
      <file name="form.html" role="horde" />
     </dir> <!-- /templates/time -->
-    <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
@@ -233,9 +239,12 @@
       <file name="hermes.png" role="horde" />
       <file name="invoices.png" role="horde" />
       <file name="loading.gif" role="horde" />
+      <file name="log.png" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="newdeliverable.png" role="horde" />
+      <file name="pause.png" role="horde" />
       <file name="picker.png" role="horde" />
+      <file name="play.png" role="horde" />
       <file name="plus.png" role="horde" />
       <file name="search.png" role="horde" />
       <file name="timer-start.png" role="horde" />
@@ -262,16 +271,19 @@
       <file name="clockout.png" role="horde" />
       <file name="deliverable.png" role="horde" />
       <file name="favicon.ico" role="horde" />
+      <file name="help.png" role="horde" />
       <file name="hermes.png" role="horde" />
       <file name="invoices.png" role="horde" />
       <file name="left.png" role="horde" />
       <file name="loading.gif" role="horde" />
+      <file name="logout.png" role="horde" />
       <file name="menu-active.png" role="horde" />
       <file name="menu.png" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="newdeliverable.png" role="horde" />
       <file name="picker.png" role="horde" />
       <file name="plus.png" role="horde" />
+      <file name="prefs.png" role="horde" />
       <file name="right.png" role="horde" />
       <file name="search.png" role="horde" />
       <file name="timer-start.png" role="horde" />
@@ -457,9 +469,9 @@
    <install as="hermes/lib/Table.php" name="lib/Table.php" />
    <install as="hermes/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="hermes/lib/Ajax/Imple/ClientAutoCompleter.php" name="lib/Ajax/Imple/ClientAutoCompleter.php" />
-   <install as="hermes/lib/Data/hermes_csv.php" name="lib/Data/hermes_csv.php" />
-   <install as="hermes/lib/Data/hermes_tsv.php" name="lib/Data/hermes_tsv.php" />
-   <install as="hermes/lib/Data/hermes_xls.php" name="lib/Data/hermes_xls.php" />
+   <install as="hermes/lib/Data/Hermescsv.php" name="lib/Data/Hermescsv.php" />
+   <install as="hermes/lib/Data/Hermestsv.php" name="lib/Data/Hermestsv.php" />
+   <install as="hermes/lib/Data/Hermesxls.php" name="lib/Data/Hermesxls.php" />
    <install as="hermes/lib/Data/iif.php" name="lib/Data/iif.php" />
    <install as="hermes/lib/Data/qbxml.php" name="lib/Data/qbxml.php" />
    <install as="hermes/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
@@ -490,6 +502,9 @@
    <install as="hermes/locale/es/LC_MESSAGES/hermes.po" name="locale/es/LC_MESSAGES/hermes.po" />
    <install as="hermes/locale/fi/LC_MESSAGES/hermes.mo" name="locale/fi/LC_MESSAGES/hermes.mo" />
    <install as="hermes/locale/fi/LC_MESSAGES/hermes.po" name="locale/fi/LC_MESSAGES/hermes.po" />
+   <install as="hermes/locale/lv/help.xml" name="locale/lv/help.xml" />
+   <install as="hermes/locale/lv/LC_MESSAGES/hermes.mo" name="locale/lv/LC_MESSAGES/hermes.mo" />
+   <install as="hermes/locale/lv/LC_MESSAGES/hermes.po" name="locale/lv/LC_MESSAGES/hermes.po" />
    <install as="hermes/locale/zh_TW/LC_MESSAGES/hermes.mo" name="locale/zh_TW/LC_MESSAGES/hermes.mo" />
    <install as="hermes/locale/zh_TW/LC_MESSAGES/hermes.po" name="locale/zh_TW/LC_MESSAGES/hermes.po" />
    <install as="hermes/migration/1_hermes_base_tables.php" name="migration/1_hermes_base_tables.php" />
@@ -521,7 +536,6 @@
    <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/message.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/message.png" />
    <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/success.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/success.png" />
    <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/warning.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/warning.png" />
-   <install as="hermes/templates/menu.inc" name="templates/menu.inc" />
    <install as="hermes/templates/deliverables/list.inc" name="templates/deliverables/list.inc" />
    <install as="hermes/templates/index/index.inc" name="templates/index/index.inc" />
    <install as="hermes/templates/index/search.inc" name="templates/index/search.inc" />
@@ -540,9 +554,12 @@
    <install as="hermes/themes/default/graphics/hermes.png" name="themes/default/graphics/hermes.png" />
    <install as="hermes/themes/default/graphics/invoices.png" name="themes/default/graphics/invoices.png" />
    <install as="hermes/themes/default/graphics/loading.gif" name="themes/default/graphics/loading.gif" />
+   <install as="hermes/themes/default/graphics/log.png" name="themes/default/graphics/log.png" />
    <install as="hermes/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
    <install as="hermes/themes/default/graphics/newdeliverable.png" name="themes/default/graphics/newdeliverable.png" />
+   <install as="hermes/themes/default/graphics/pause.png" name="themes/default/graphics/pause.png" />
    <install as="hermes/themes/default/graphics/picker.png" name="themes/default/graphics/picker.png" />
+   <install as="hermes/themes/default/graphics/play.png" name="themes/default/graphics/play.png" />
    <install as="hermes/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="hermes/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="hermes/themes/default/graphics/timer-start.png" name="themes/default/graphics/timer-start.png" />
@@ -559,16 +576,19 @@
    <install as="hermes/themes/silver/graphics/clockout.png" name="themes/silver/graphics/clockout.png" />
    <install as="hermes/themes/silver/graphics/deliverable.png" name="themes/silver/graphics/deliverable.png" />
    <install as="hermes/themes/silver/graphics/favicon.ico" name="themes/silver/graphics/favicon.ico" />
+   <install as="hermes/themes/silver/graphics/help.png" name="themes/silver/graphics/help.png" />
    <install as="hermes/themes/silver/graphics/hermes.png" name="themes/silver/graphics/hermes.png" />
    <install as="hermes/themes/silver/graphics/invoices.png" name="themes/silver/graphics/invoices.png" />
    <install as="hermes/themes/silver/graphics/left.png" name="themes/silver/graphics/left.png" />
    <install as="hermes/themes/silver/graphics/loading.gif" name="themes/silver/graphics/loading.gif" />
+   <install as="hermes/themes/silver/graphics/logout.png" name="themes/silver/graphics/logout.png" />
    <install as="hermes/themes/silver/graphics/menu-active.png" name="themes/silver/graphics/menu-active.png" />
    <install as="hermes/themes/silver/graphics/menu.png" name="themes/silver/graphics/menu.png" />
    <install as="hermes/themes/silver/graphics/minus.png" name="themes/silver/graphics/minus.png" />
    <install as="hermes/themes/silver/graphics/newdeliverable.png" name="themes/silver/graphics/newdeliverable.png" />
    <install as="hermes/themes/silver/graphics/picker.png" name="themes/silver/graphics/picker.png" />
    <install as="hermes/themes/silver/graphics/plus.png" name="themes/silver/graphics/plus.png" />
+   <install as="hermes/themes/silver/graphics/prefs.png" name="themes/silver/graphics/prefs.png" />
    <install as="hermes/themes/silver/graphics/right.png" name="themes/silver/graphics/right.png" />
    <install as="hermes/themes/silver/graphics/search.png" name="themes/silver/graphics/search.png" />
    <install as="hermes/themes/silver/graphics/timer-start.png" name="themes/silver/graphics/timer-start.png" />
@@ -592,6 +612,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
    <notes>
+* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [mjr] Allow pausing and restarting timers.
 * [mjr] Add ajax view.
 * [jan] Provide default configuration files instead of .dist versions.
