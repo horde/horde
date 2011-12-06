@@ -126,6 +126,9 @@
      e-mail notification to the sender when the first person attempts to
      download the linked attachment? This notification will include a link
      to delete the file.">true</configboolean>
+     <configinteger name="link_attach_size_limit" desc="What is the maximum
+     total size of linked attachments per message (in bytes)? Set this value
+     to 0 for no limit.">0</configinteger>
     </case>
     <case name="false" desc="No" />
    </configswitch>

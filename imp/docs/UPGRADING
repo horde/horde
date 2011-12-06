@@ -44,6 +44,8 @@ Configuration Options (conf.php)
 The $conf['fixed_folders'] option now requires the mailboxes to be in the
 UTF-8 charset, not UTF7-IMAP.
 
+The $conf['compose']['link_attach_size_limit'] option was added.
+
 Preferences (prefs.php)
 -----------------------
 
