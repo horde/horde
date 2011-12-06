@@ -41,8 +41,8 @@ not UTF7-IMAP.
 Configuration Options (conf.php)
 --------------------------------
 
-The 'fixed_folders' option now requires the mailboxes to be in the UTF-8
-charset, not UTF7-IMAP.
+The $conf['fixed_folders'] option now requires the mailboxes to be in the
+UTF-8 charset, not UTF7-IMAP.
 
 Preferences (prefs.php)
 -----------------------
