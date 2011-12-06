@@ -4,8 +4,6 @@ v5.0.16-git
 
 [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view
       (Request #8060).
-[mms] Allow expiration date to be provided when creating personal PGP key
-      (Request #5754).
 [mms] Allow multiple messages to be redirected from traditional view mailbox
       page (Request #2084).
 [mms] Add ability to quickly add unsubscribed mailboxes to available search
