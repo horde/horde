@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Increase field length for sync_data to support syncing large collections (Bug: 10822).
 * [jan] Fix tests to work with PHPUnit 3.6.
  </notes>
  <contents>
@@ -467,6 +468,7 @@
    <date>2011-11-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Increase field length for sync_data to support syncing large collections (Bug: 10822).
 * [jan] Fix tests to work with PHPUnit 3.6.
    </notes>
   </release>
