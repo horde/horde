@@ -10,28 +10,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-28</date>
- <time>00:18:55</time>
+ <date>2011-12-06</date>
+ <time>11:12:55</time>
  <version>
   <release>1.0.0</release>
-  <api>1.0.0alpha1</api>
+  <api>1.0.0beta1</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [jan] Add Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
-* [mjr] Export available detailed forecast fields for each driver (Bug #10813).
-* [mjr] Fix returning correct units when requesting the same location twice, but with different units (Bug # 10804).
-* [mjr] Fix returning localized text from Wwo driver (Bug #10804).
-* [mjr] Fix obtaining forecast periods individually..
-* [mjr] Fix obtaining certain properties from Google driver.
-* [mjr] Fix making requests when not using a cache.
-* [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
-* [mjr] Fix path to locale directory.
-* [mjr] Fix setting units (Bug #10792).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -94,6 +85,12 @@
       <file name="Horde_Service_Weather.po" role="data" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Service_Weather.mo" role="data" />
+      <file name="Horde_Service_Weather.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
     <file name="Horde_Service_Weather.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
@@ -302,6 +299,8 @@
    <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Service_Weather.po" name="locale/ja/LC_MESSAGES/Horde_Service_Weather.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="Horde/Service/Weather/AllTests.php" name="test/Horde/Service/Weather/AllTests.php" />
    <install as="Horde/Service/Weather/Autoload.php" name="test/Horde/Service/Weather/Autoload.php" />
    <install as="Horde/Service/Weather/GoogleTest.php" name="test/Horde/Service/Weather/GoogleTest.php" />
@@ -430,12 +429,12 @@
   </release>
   <release>
    <version>
-    <release>1.0.0</release>
-    <api>1.0.0alpha1</api></version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0beta1</api></version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api></stability>
-   <date>2011-11-28</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Add Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
@@ -448,6 +447,19 @@
 * [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mjr] Fix path to locale directory.
 * [mjr] Fix setting units (Bug #10792).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

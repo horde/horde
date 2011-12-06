@@ -971,6 +971,13 @@ var DimpBase = {
             this.subscribeFolder(e.findElement('LI').retrieve('mbox'), id == 'ctx_folder_sub');
             break;
 
+        case 'ctx_folder_acl':
+            this.go('prefs', {
+                group: 'acl',
+                folder: e.findElement('LI').retrieve('mbox')
+            });
+            break;
+
         case 'ctx_folderopts_new':
             this.createBaseFolder();
             break;
@@ -1210,6 +1217,8 @@ var DimpBase = {
             }
 
             [ $('ctx_folder_expand').up() ].invoke(this.getSubMboxElt(baseelt) ? 'show' : 'hide');
+
+            [ $('ctx_folder_acl').up() ].invoke(DIMP.conf.acl ? 'show' : 'hide');
 
             // Fall-through
 

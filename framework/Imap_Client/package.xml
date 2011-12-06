@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>15:36:45</time>
+ <date>2011-12-06</date>
+ <time>01:47:13</time>
  <version>
-  <release>1.2.2</release>
+  <release>1.3.0</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Remove Cclient drivers.
+
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -44,9 +45,6 @@
        <dir name="Auth">
         <file name="DigestMD5.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
-       <dir name="Cclient">
-        <file name="Pop3.php" role="php" />
-       </dir> <!-- /lib/Horde/Imap/Client/Cclient -->
        <dir name="Data">
         <dir name="Fetch">
          <file name="Pop3.php" role="php" />
@@ -76,7 +74,6 @@
        </dir> <!-- /lib/Horde/Imap/Client/Utils -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
-       <file name="Cclient.php" role="php" />
        <file name="DateTime.php" role="php" />
        <file name="Exception.php" role="php" />
        <file name="Ids.php" role="php" />
@@ -197,7 +194,6 @@
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
    <install as="Horde/Imap/Client/Cache.php" name="lib/Horde/Imap/Client/Cache.php" />
-   <install as="Horde/Imap/Client/Cclient.php" name="lib/Horde/Imap/Client/Cclient.php" />
    <install as="Horde/Imap/Client/DateTime.php" name="lib/Horde/Imap/Client/DateTime.php" />
    <install as="Horde/Imap/Client/Exception.php" name="lib/Horde/Imap/Client/Exception.php" />
    <install as="Horde/Imap/Client/Ids.php" name="lib/Horde/Imap/Client/Ids.php" />
@@ -207,7 +203,6 @@
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Utils.php" name="lib/Horde/Imap/Client/Utils.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
-   <install as="Horde/Imap/Client/Cclient/Pop3.php" name="lib/Horde/Imap/Client/Cclient/Pop3.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
    <install as="Horde/Imap/Client/Data/AclNegative.php" name="lib/Horde/Imap/Client/Data/AclNegative.php" />
@@ -625,7 +620,7 @@
   </release>
   <release>
    <version>
-    <release>1.2.2</release>
+    <release>1.3.0</release>
     <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
@@ -633,7 +628,8 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Remove Cclient drivers.
+
    </notes>
   </release>
  </changelog>

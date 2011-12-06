@@ -22,10 +22,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-11-02</date>
- <time>11:14:17</time>
+ <date>2011-12-06</date>
+ <time>11:25:56</time>
  <version>
-  <release>1.1.2</release>
+  <release>1.1.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix unnecessary use of POSIX collating element in Linkurls filter (Bug #10828; jr@yaina.de).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -347,6 +347,7 @@
      <dir name="Text">
       <dir name="Filter">
        <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
        <file name="EmailsTest.php" role="test" />
        <file name="EnvironmentTest.php" role="test" />
        <file name="Html2textTest.php" role="test" />
@@ -514,6 +515,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.po" name="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.po" />
    <install as="Horde/Text/Filter/AllTests.php" name="test/Horde/Text/Filter/AllTests.php" />
+   <install as="Horde/Text/Filter/Autoload.php" name="test/Horde/Text/Filter/Autoload.php" />
    <install as="Horde/Text/Filter/EmailsTest.php" name="test/Horde/Text/Filter/EmailsTest.php" />
    <install as="Horde/Text/Filter/EnvironmentTest.php" name="test/Horde/Text/Filter/EnvironmentTest.php" />
    <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
@@ -735,10 +737,23 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix unnecessary use of POSIX collating element in Linkurls filter (Bug #10828; jr@yaina.de).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

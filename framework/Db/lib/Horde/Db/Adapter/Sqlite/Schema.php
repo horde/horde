@@ -123,6 +123,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
             'autoincrementKey' => $this->_defaultPrimaryKeyType(),
             'string'     => array('name' => 'varchar',  'limit' => 255),
             'text'       => array('name' => 'text',     'limit' => null),
+            'mediumtext' => array('name' => 'text',     'limit' => null),
+            'longtext'   => array('name' => 'text',     'limit' => null),
             'integer'    => array('name' => 'int',      'limit' => null),
             'float'      => array('name' => 'float',    'limit' => null),
             'decimal'    => array('name' => 'decimal',  'limit' => null),
