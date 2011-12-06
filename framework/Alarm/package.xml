@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-06</date>
- <time>10:49:00</time>
+ <time>10:50:28</time>
  <version>
-  <release>1.0.7</release>
+  <release>1.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Catch exceptions from Horde_Mime when sending alarm messages (Bug #10388).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -694,6 +694,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Catch exceptions from Horde_Mime when sending alarm messages (Bug #10388).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
