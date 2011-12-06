@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-12-05</date>
- <time>19:10:23</time>
+ <time>20:14:09</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -67,8 +67,7 @@
      <file name="Hermescsv.php" role="horde" />
      <file name="Hermestsv.php" role="horde" />
      <file name="Hermesxls.php" role="horde" />
-     <file name="iif.php" role="horde" />
-     <file name="qbxml.php" role="horde" />
+     <file name="Iif.php" role="horde" />
     </dir> <!-- /lib/Data -->
     <dir name="Driver">
      <file name="Sql.php" role="horde" />
@@ -472,8 +471,7 @@
    <install as="hermes/lib/Data/Hermescsv.php" name="lib/Data/Hermescsv.php" />
    <install as="hermes/lib/Data/Hermestsv.php" name="lib/Data/Hermestsv.php" />
    <install as="hermes/lib/Data/Hermesxls.php" name="lib/Data/Hermesxls.php" />
-   <install as="hermes/lib/Data/iif.php" name="lib/Data/iif.php" />
-   <install as="hermes/lib/Data/qbxml.php" name="lib/Data/qbxml.php" />
+   <install as="hermes/lib/Data/Iif.php" name="lib/Data/Iif.php" />
    <install as="hermes/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="hermes/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="hermes/lib/Form/Deliverable.php" name="lib/Form/Deliverable.php" />
