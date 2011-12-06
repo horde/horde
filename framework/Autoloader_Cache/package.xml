@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-06</date>
- <time>10:52:46</time>
+ <time>10:53:36</time>
  <version>
-  <release>1.0.0RC2</release>
+  <release>1.0.0</release>
   <api>1.0.0RC2</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix logic error that prevented non-existent class names from being cached.
-* [mms] Only save cached list if it has changed during this access.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -115,6 +114,19 @@
    <notes>
 * [mms] Fix logic error that prevented non-existent class names from being cached.
 * [mms] Only save cached list if it has changed during this access.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0RC2</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
