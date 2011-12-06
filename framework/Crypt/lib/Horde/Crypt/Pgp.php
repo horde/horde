@@ -171,6 +171,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $passphrase  The passphrase to use for the key.
      * @param string $comment     The comment to use for the key.
      * @param integer $keylength  The keylength to use for the key.
+     * @param integer $expire     The expiration date (UNIX timestamp). No
+     *                            expiration if empty (since 1.1.0).
      *
      * @return array  An array consisting of:
      * <pre>
@@ -182,11 +184,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @throws Horde_Crypt_Exception
      */
     public function generateKey($realname, $email, $passphrase, $comment = '',
-                                $keylength = 1024)
+                                $keylength = 1024, $expire = null)
     {
         /* Create temp files to hold the generated keys. */
         $pub_file = $this->_createTempFile('horde-pgp');
         $secret_file = $this->_createTempFile('horde-pgp');
+
+        $expire = empty($expire)
+            ? 0
+            : date('Y-m-d', $expire);
 
         /* Create the config file necessary for GnuPG to run in batch mode. */
         /* TODO: Sanitize input, More user customizable? */
@@ -199,7 +205,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             'Subkey-Length: ' . $keylength,
             'Name-Real: ' . $realname,
             'Name-Email: ' . $email,
-            'Expire-Date: 0',
+            'Expire-Date: ' . $expire,
             'Passphrase: ' . $passphrase
         );
         if (!empty($comment)) {
