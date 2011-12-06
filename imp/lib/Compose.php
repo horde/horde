@@ -2572,9 +2572,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
     /**
      * Remove all attachments from an email message and replace with
-     * urls to downloadable links. Should properly save all
-     * attachments to a new folder and remove the Horde_Mime_Parts for the
-     * attachments.
+     * urls to downloadable links. Should properly save all attachments to a
+     * new mailbox and remove the Horde_Mime_Parts for the attachments.
      *
      * @param Horde_Mime_Part $part  The body of the message.
      *
@@ -2588,6 +2587,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         if (!$conf['compose']['link_attachments']) {
             throw new IMP_Compose_Exception(_("Linked attachments are forbidden."));
+        }
+
+        /* Verify that message is below the linked attachment size limit. */
+        if (!empty($conf['compose']['link_attach_size_limit'])) {
+            $size_check = $conf['compose']['link_attach_size_limit'] - $this->sizeOfAttachments();
+            if ($size_check < 0) {
+                throw new IMP_Compose_Exception(sprintf(_("Attached file(s) exceeds the linked attachment size limit (%d KB too large). Delete one of the attachments to continue."), IMP::numberFormat(abs($size) / 1024, 0)));
+            }
         }
 
         $auth = $GLOBALS['registry']->getAuth();
