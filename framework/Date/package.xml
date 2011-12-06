@@ -16,17 +16,9 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
-<<<<<<< HEAD
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
-=======
- <date>2011-12-06</date>
- <time>11:00:10</time>
- <version>
-  <release>1.0.8</release>
-  <api>1.0.0</api>
->>>>>>> master
  </version>
  <stability>
   <release>stable</release>
@@ -34,13 +26,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-<<<<<<< HEAD
 * [jan] Use the same timezone for recurrence end dates like for the start date.
 * [jan] Add setter and getter for "timezone".
 * [jan] Fix weekly recurrence instances having the wrong timezone set.
-=======
-* 
->>>>>>> master
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -706,7 +694,7 @@
    <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
