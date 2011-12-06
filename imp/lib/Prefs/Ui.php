@@ -374,6 +374,12 @@ class IMP_Prefs_Ui
 
         case 'pgpprivatekey':
             Horde::addScriptFile('imp.js', 'imp');
+            Horde::addScriptFile('pgp.js', 'imp');
+            Horde_Core_Ui_JsCalendar::init();
+            Horde::addInlineJsVars(array(
+                'ImpPgp.months' => Horde_Core_Ui_JsCalendar::months()
+            ));
+
             return $this->_pgpPrivateKey($ui);
 
         case 'pgppublickey':
@@ -1069,8 +1075,13 @@ class IMP_Prefs_Ui
             } elseif ($ui->vars->generate_passphrase1 !== $ui->vars->generate_passphrase2) {
                $GLOBALS['notification']->push(_("Passphrases do not match"), 'horde.error');
             } else {
+                /* Expire date is delivered in UNIX timestamp in
+                 * milliseconds, not seconds. */
+                $expire_date = $ui->vars->generate_expire
+                    ? null
+                    : ($ui->vars->generate_expire_date / 1000);
                 try {
-                    $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->generatePersonalKeys($ui->vars->generate_realname, $ui->vars->generate_email, $ui->vars->generate_passphrase1, $ui->vars->_generate_comment, $ui->vars->generate_keylength);
+                    $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->generatePersonalKeys($ui->vars->generate_realname, $ui->vars->generate_email, $ui->vars->generate_passphrase1, $ui->vars->_generate_comment, $ui->vars->generate_keylength, $expire_date);
                     $GLOBALS['notification']->push(_("Personal PGP keypair generated successfully."), 'horde.success');
                 } catch (Exception $e) {
                     $GLOBALS['notification']->push($e);
