@@ -9,16 +9,16 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Data
  */
-class Hermes_Data_Hermestsv extends Horde_Data_tsv
+class Hermes_Data_Hermestsv extends Horde_Data_Tsv
 {
-    var $_mapped = false;
+    protected $_mapped = false;
 
-    function exportData($data)
+    public function exportData($data, $header = true)
     {
-        return parent::exportData($this->_map($data), true);
+        return parent::exportData($this->_map($data), $header);
     }
 
-    function _map($data)
+    protected function _map($data)
     {
         if ($this->_mapped) {
             return $data;

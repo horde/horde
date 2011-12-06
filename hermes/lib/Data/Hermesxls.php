@@ -12,6 +12,6 @@
  */
 class Hermes_Data_Hermesxls extends Hermes_Data_Hermestsv
 {
-    var $_extension = 'xls';
-    var $_contentType = 'application/msexcel';
+    protected $_extension = 'xls';
+    protected $_contentType = 'application/msexcel';
 }

@@ -19,15 +19,15 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Data
  */
-class Hermes_Data_Iif extends Horde_Data
+class Hermes_Data_Iif extends Horde_Data_Base
 {
-    var $_extension = 'iif';
-    var $_contentType = 'text/plain';
-    var $_rawData;
-    var $_iifData;
-    var $_mapped = false;
+    protected $_extension = 'iif';
+    protected $_contentType = 'text/plain';
+    protected $_rawData;
+    protected $_iifData;
+    protected $_mapped = false;
 
-    function exportData($data)
+    public function exportData($data, $method = 'REQUEST')
     {
         $this->_rawData = $data;
         $newline = $this->getNewline();
@@ -42,7 +42,17 @@ class Hermes_Data_Iif extends Horde_Data
         return $data;
     }
 
-    function _map()
+    public function exportFile($filename, $data)
+    {
+        if (!isset($this->_browser)) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+        $export = $this->exportData($data);
+        $this->_browser->downloadHeaders($filename, $this->_contentType, false, strlen($export));
+        echo $export;
+    }
+
+    protected function _map()
     {
         if ($this->_mapped) {
             return;

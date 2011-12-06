@@ -13,5 +13,5 @@
  */
 class Hermes_Data_Qbxml extends Horde_Data
 {
-    var $_extension = 'xml';
+    protected $_extension = 'xml';
 }

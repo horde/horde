@@ -11,15 +11,13 @@
  */
 class Hermes_Data_Hermescsv extends Horde_Data_Csv
 {
-    var $_mapped = false;
-
-    public function exportData($data, $header = true,
-                               $export_mapping = array())
+    public function exportData(
+        $data, $header = true, $export_mapping = array())
     {
         return parent::exportData($this->_map($data), $header, $export_mapping);
     }
 
-    function _map($data)
+    protected function _map($data)
     {
         $count = count($data);
         for ($i = 0; $i < $count; $i++) {
