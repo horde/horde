@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-06</date>
- <time>11:30:56</time>
+ <time>11:32:09</time>
  <version>
-  <release>1.3.3</release>
+  <release>1.3.4</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Improved detection of charsets in broken (8-bit) MIME headers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -820,6 +820,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Improved detection of charsets in broken (8-bit) MIME headers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.4</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
