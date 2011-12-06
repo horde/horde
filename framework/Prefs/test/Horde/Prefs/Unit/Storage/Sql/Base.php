@@ -49,12 +49,13 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
                 self::$prefs,
             )
         );
-        $p['theme'] = 'barbie';
+        $p['theme'] = "bar\0bie";
         $p->store();
         $this->assertEquals(
-            'barbie',
-            self::$db->selectValue('SELECT pref_value FROM horde_prefs WHERE pref_uid = ? AND pref_scope = ? AND pref_name = ?',
-                                   array('joe', 'horde', 'theme'))
+            "bar\0bie",
+            $this->_readValue(
+                self::$db->selectValue('SELECT pref_value FROM horde_prefs WHERE pref_uid = ? AND pref_scope = ? AND pref_name = ?',
+                                       array('joe', 'horde', 'theme')))
         );
     }
 
@@ -100,5 +101,11 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
         if (!self::$db) {
             $this->markTestSkipped(self::$reason);
         }
+    }
+
+    protected function _readValue($value)
+    {
+        $columns = self::$db->columns('horde_prefs');
+        return $columns['pref_value']->binaryToString($value);
     }
 }
