@@ -24,7 +24,7 @@
  */
 
 /** Configuration **/
-$driver = 'Socket'; // 'Socket', 'Cclient', 'Cclient_Pop3', or 'Socket_Pop3'
+$driver = 'Socket';
 $params = array(
     'username' => '',
     'password' => '',
@@ -109,8 +109,7 @@ if (require_once 'Horde/Secret.php') {
 $params['id'] = array('name' => 'Horde_Imap_Client test program');
 
 $imap_client = Horde_Imap_Client::factory($driver, $params);
-if (($driver == 'Cclient_Pop3') ||
-    ($driver == 'Socket_Pop3')) {
+if ($driver == 'Socket_Pop3') {
     $pop3 = true;
     $test_mbox = $test_mbox_utf8 = 'INBOX';
 
