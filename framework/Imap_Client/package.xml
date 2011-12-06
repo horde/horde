@@ -22,8 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Work around broken headers in IMAP envelope data.
 * [mms] Remove Cclient drivers.
-
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -138,7 +138,7 @@
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.4.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -628,8 +628,8 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Work around broken headers in IMAP envelope data.
 * [mms] Remove Cclient drivers.
-
    </notes>
   </release>
  </changelog>
