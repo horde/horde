@@ -356,7 +356,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = ApertureToAnselExportPlugin;
 				SDKROOT = macosx10.6;
-				VALID_ARCHS = x86_64;
+				VALID_ARCHS = "x86 x86_64";
 				WRAPPER_EXTENSION = ApertureExport;
 			};
 			name = Release;

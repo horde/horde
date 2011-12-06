@@ -26,7 +26,7 @@ class Horde_Vcs_Directory_Rcs extends Horde_Vcs_Directory_Base
     public function __construct(Horde_Vcs_Base $rep, $dn, $opts = array())
     {
         parent::__construct($rep, $dn, $opts);
-        $dir = $rep->sourceroot() . $this->_dirName;
+        $dir = $rep->sourceroot . $this->_dirName;
 
         /* Make sure we are trying to list a directory */
         if (!@is_dir($dir)) {
@@ -53,8 +53,8 @@ class Horde_Vcs_Directory_Rcs extends Horde_Vcs_Directory_Base
                 }
             } elseif (@is_file($path) && (substr($name, -2) == ',v')) {
                 /* Spawn a new file object to represent this file. */
-                $this->_files[] = $rep->getFileObject(
-                    substr($path, strlen($rep->sourceroot()), -2),
+                $this->_files[] = $rep->getFile(
+                    substr($path, strlen($rep->sourceroot), -2),
                     array('quicklog' => !empty($opts['quicklog'])));
             }
         }

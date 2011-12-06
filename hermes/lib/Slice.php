@@ -23,6 +23,11 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         $this->_properties = $properties;
     }
 
+    public function toArray()
+    {
+        return $this->_properties;
+    }
+
     /**
      * Populate object from a json object.
      *

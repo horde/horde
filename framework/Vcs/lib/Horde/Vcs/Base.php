@@ -9,14 +9,14 @@
  *
  * @package Vcs
  */
-class Horde_Vcs_Base
+abstract class Horde_Vcs_Base
 {
     /**
      * The source root of the repository.
      *
      * @var string
      */
-    protected $_sourceroot;
+    public $sourceroot;
 
     /**
      * Hash with the locations of all necessary binaries.
@@ -62,7 +62,7 @@ class Horde_Vcs_Base
      *
      * @var integer
      */
-    protected $_cacheVersion = 3;
+    protected $_cacheVersion = 4;
 
     /**
      * The available diff types.
@@ -77,7 +77,7 @@ class Horde_Vcs_Base
     public function __construct($params = array())
     {
         $this->_cache = empty($params['cache']) ? null : $params['cache'];
-        $this->_sourceroot = $params['sourceroot'];
+        $this->sourceroot = $params['sourceroot'];
         $this->_paths = $params['paths'];
     }
 
@@ -92,16 +92,6 @@ class Horde_Vcs_Base
     }
 
     /**
-     * Return the source root for this repository, with no trailing /.
-     *
-     * @return string  Source root for this repository.
-     */
-    public function sourceroot()
-    {
-        return $this->_sourceroot;
-    }
-
-    /**
      * Validation function to ensure that a revision string is of the right
      * form.
      *
@@ -109,10 +99,7 @@ class Horde_Vcs_Base
      *
      * @return boolean  True if a valid revision string.
      */
-    public function isValidRevision($rev)
-    {
-        return true;
-    }
+    abstract public function isValidRevision($rev);
 
     /**
      * Throw an exception if the revision number isn't valid.
@@ -414,7 +401,7 @@ class Horde_Vcs_Base
      *
      * @return Horde_Vcs_Directory_Base  A directory object.
      */
-    public function getDirObject($where, $opts = array())
+    public function getDirectory($where, $opts = array())
     {
         $class = 'Horde_Vcs_Directory_' . $this->_driver;
         return new $class($this, $where, $opts);
@@ -442,12 +429,12 @@ class Horde_Vcs_Base
      * 'quicklog' - (boolean)
      * 'branch' - (string)
      */
-    public function getFileObject($filename, $opts = array())
+    public function getFile($filename, $opts = array())
     {
         $class = 'Horde_Vcs_File_' . $this->_driver;
 
         ksort($opts);
-        $cacheId = implode('|', array($class, $this->sourceroot(), $filename, serialize($opts), $this->_cacheVersion));
+        $cacheId = implode('|', array($class, $this->sourceroot, $filename, serialize($opts), $this->_cacheVersion));
         $fetchedFromCache = false;
 
         if (!empty($this->_cache)) {
@@ -477,37 +464,6 @@ class Horde_Vcs_Base
     }
 
     /**
-     * @param Horde_Vcs_File_Base $fl  The file obejct
-     * @param string $rev              The revision identifier
-     */
-    public function getLogObject(Horde_Vcs_File_Base $fl, $rev)
-    {
-        $class = 'Horde_Vcs_Log_' . $this->_driver;
-
-        if (!is_null($rev) && !empty($this->_cache)) {
-            $cacheId = implode('|', array($class, $this->sourceroot(), $fl->queryPath(), $rev, $this->_cacheVersion));
-
-            // Individual revisions can be cached forever
-            if ($this->_cache->exists($cacheId, 0)) {
-                $ob = unserialize($this->_cache->get($cacheId, 0));
-            }
-        }
-
-        if (empty($ob) || !$ob) {
-            $ob = new $class($rev);
-
-        }
-        $ob->setRepository($this);
-        $ob->setFile($fl);
-
-        if (!is_null($rev) && !empty($this->_cache)) {
-            $this->_cache->set($cacheId, serialize($ob));
-        }
-
-        return $ob;
-    }
-
-    /**
      * TODO
      *
      * @param array $opts  Options:
@@ -518,13 +474,13 @@ class Horde_Vcs_Base
      *
      * @return Horde_Vcs_Patchset  Patchset object.
      */
-    public function getPatchsetObject($opts = array())
+    public function getPatchset($opts = array())
     {
         $class = 'Horde_Vcs_Patchset_' . $this->_driver;
 
         if (!is_array($opts)) { $opts = array(); }
         ksort($opts);
-        $cacheId = implode('|', array($class, $this->sourceroot(), serialize($opts), $this->_cacheVersion));
+        $cacheId = implode('|', array($class, $this->sourceroot, serialize($opts), $this->_cacheVersion));
 
         if (!empty($this->_cache)) {
             if (isset($opts['file']) && file_exists($opts['file'])) {

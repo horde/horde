@@ -76,10 +76,10 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
 
         // Try to find the repository if we don't have the exact path. @TODO put
         // this into a builder method/object and cache the results.
-        if (!file_exists($this->sourceroot() . '/HEAD')) {
-            if (file_exists($this->sourceroot() . '.git/HEAD')) {
+        if (!file_exists($this->sourceroot . '/HEAD')) {
+            if (file_exists($this->sourceroot . '.git/HEAD')) {
                 $this->_sourceroot .= '.git';
-            } elseif (file_exists($this->sourceroot() . '/.git/HEAD')) {
+            } elseif (file_exists($this->sourceroot . '/.git/HEAD')) {
                 $this->_sourceroot .= '/.git';
             } else {
                 throw new Horde_Vcs_Exception('Can not find git repository.');
@@ -104,7 +104,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
             $branch = $this->getDefaultBranch();
         }
 
-        $where = str_replace($this->sourceroot() . '/', '', $where);
+        $where = str_replace($this->sourceroot . '/', '', $where);
         $command = $this->getCommand() . ' ls-tree ' . escapeshellarg($branch) . ' ' . escapeshellarg($where) . ' 2>&1';
         exec($command, $entry, $retval);
 
@@ -119,7 +119,40 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
      */
     public function getCommand()
     {
-        return escapeshellcmd($this->getPath('git')) . ' --git-dir=' . escapeshellarg($this->sourceroot());
+        return escapeshellcmd($this->getPath('git')) . ' --git-dir=' . escapeshellarg($this->sourceroot);
+    }
+
+    /**
+     * Runs a git commands.
+     *
+     * Uses proc_open() to properly catch errors and returns a stream with the
+     * command result. fclose() must be called manually on the returned stream
+     * and proc_close() on the resource, once the output stream has been
+     * finished reading.
+     *
+     * @param string $args  Any arguments for the git command. Must be escaped.
+     *
+     * @return array(resource, stream)  The process resource and the command
+     *                                  output.
+     * @throws Horde_Vcs_Exception if command cannot be executed or returns an
+     *                             error.
+     */
+    public function runCommand($args)
+    {
+        $cmd = $this->getCommand() . ' ' . $args;
+        $stream = proc_open(
+            $cmd,
+            array(1 => array('pipe', 'w'), 2 => array('pipe', 'w')),
+            $pipes);
+        if (!$stream) {
+            throw new Horde_Vcs_Exception('Failed to execute git: ' . $cmd);
+        }
+        if ($error = stream_get_contents($pipes[2])) {
+            fclose($pipes[2]);
+            proc_close($stream);
+            throw new Horde_Vcs_Exception($error);
+        }
+        return array($stream, $pipes[1]);
     }
 
     /**
@@ -131,7 +164,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
     {
         $this->assertValidRevision($rev);
 
-        $command = $this->getCommand() . ' blame -p ' . escapeshellarg($rev) . ' -- ' . escapeshellarg($fileob->queryModulePath()) . ' 2>&1';
+        $command = $this->getCommand() . ' blame -p ' . escapeshellarg($rev) . ' -- ' . escapeshellarg($fileob->getSourcerootPath()) . ' 2>&1';
         $pipe = popen($command, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute git annotate: ' . $command);
@@ -195,7 +228,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
     {
         $this->assertValidRevision($rev);
 
-        $file_ob = $this->getFileObject($file);
+        $file_ob = $this->getFile($file);
         $hash = $file_ob->getHashForRevision($rev);
         if ($hash == '0000000000000000000000000000000000000000') {
             throw new Horde_Vcs_Exception($file . ' is deleted in commit ' . $rev);
@@ -231,7 +264,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
      */
     protected function _getRevisionRange(Horde_Vcs_File_Git $file, $r1, $r2)
     {
-        $cmd = $this->getCommand() . ' rev-list ' . escapeshellarg($r1 . '..' . $r2) . ' -- ' . escapeshellarg($file->queryModulePath());
+        $cmd = $this->getCommand() . ' rev-list ' . escapeshellarg($r1 . '..' . $r2) . ' -- ' . escapeshellarg($file->getSourcerootPath());
         $revs = array();
 
         exec($cmd, $revs);
@@ -262,7 +295,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
         }
 
         if (!$rev1) {
-            $command = $this->getCommand() . ' show --oneline ' . escapeshellarg($rev2) . ' -- ' . escapeshellarg($file->queryModulePath()) . ' 2>&1';
+            $command = $this->getCommand() . ' show --oneline ' . escapeshellarg($rev2) . ' -- ' . escapeshellarg($file->getSourcerootPath()) . ' 2>&1';
         } else {
             switch ($opts['type']) {
             case 'unified':
@@ -272,7 +305,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
 
             // @TODO: add options for $hr options - however these may not
             // be compatible with some diffs.
-            $command = $this->getCommand() . ' diff -M -C ' . $flags . ' --no-color ' . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->queryModulePath()) . ' 2>&1';
+            $command = $this->getCommand() . ' diff -M -C ' . $flags . ' --no-color ' . escapeshellarg($rev1 . '..' . $rev2) . ' -- ' . escapeshellarg($file->getSourcerootPath()) . ' 2>&1';
         }
 
         exec($command, $diff, $retval);

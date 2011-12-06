@@ -19,15 +19,15 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Data
  */
-class Horde_Data_iif extends Horde_Data {
+class Hermes_Data_Iif extends Horde_Data_Base
+{
+    protected $_extension = 'iif';
+    protected $_contentType = 'text/plain';
+    protected $_rawData;
+    protected $_iifData;
+    protected $_mapped = false;
 
-    var $_extension = 'iif';
-    var $_contentType = 'text/plain';
-    var $_rawData;
-    var $_iifData;
-    var $_mapped = false;
-
-    function exportData($data)
+    public function exportData($data, $method = 'REQUEST')
     {
         $this->_rawData = $data;
         $newline = $this->getNewline();
@@ -42,7 +42,17 @@ class Horde_Data_iif extends Horde_Data {
         return $data;
     }
 
-    function _map()
+    public function exportFile($filename, $data)
+    {
+        if (!isset($this->_browser)) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+        $export = $this->exportData($data);
+        $this->_browser->downloadHeaders($filename, $this->_contentType, false, strlen($export));
+        echo $export;
+    }
+
+    protected function _map()
     {
         if ($this->_mapped) {
             return;
@@ -50,18 +60,21 @@ class Horde_Data_iif extends Horde_Data {
 
         $this->_mapped = true;
 
-        foreach ($this->_rawData as $row) {
+        foreach ($this->_rawData as &$row) {
+            $row = $row->toArray();
             $row['description'] = str_replace(array("\r", "\n"), array('', ' '), $row['description']);
             $row['note'] = str_replace(array("\r", "\n"), array('', ' '), $row['note']);
-            $this->_iifData[] = array('_label' => 'TIMEACT',
-                                      'DATE' => date('m/d/y', $row['date']),
-                                      'JOB' => $row['client'],
-                                      'EMP' => $row['employee'],
-                                      'ITEM' => $row['item'],
-                                      'DURATION' => date('H:i', mktime(0, $row['hours'] * 60)),
-                                      'NOTE' => $row['description'] . (!empty($row['note']) ? _("; Notes: ") . $row['note'] : ''),
-                                      'BILLINGSTATUS' => $row['billable'] == 2 ? '' : $row['billable'],
-                                      'PITEM' => 'Not Applicable');
+            $this->_iifData[] = array(
+                '_label' => 'TIMEACT',
+                'DATE' => date('m/d/y', $row['date']),
+                'JOB' => $row['client'],
+                'EMP' => $row['employee'],
+                'ITEM' => $row['item'],
+                'DURATION' => date('H:i', mktime(0, $row['hours'] * 60)),
+                'NOTE' => $row['description'] . (!empty($row['note']) ? _("; Notes: ") . $row['note'] : ''),
+                'BILLINGSTATUS' => $row['billable'] == 2 ? '' : $row['billable'],
+                'PITEM' => 'Not Applicable'
+            );
         }
     }
 

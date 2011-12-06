@@ -24,7 +24,7 @@ if (!is_file($fullname . ',v')) {
     Chora::fatal(sprintf(_("%s: no such file or directory"), $where), '404 Not Found');
 }
 
-$root = escapeShellCmd($VC->sourceroot());
+$root = escapeShellCmd($VC->sourceroot);
 $file = escapeShellCmd($where . ',v');
 
 if (Horde_Util::getFormData('show_image')) {

@@ -45,7 +45,7 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Rcs
                 $atticDir = new Horde_Vcs_Directory_Cvs($rep, $dn . '/Attic',
                                                         $opts, $this);
                 $this->_mergedFiles = array_merge($this->_files,
-                                                  $atticDir->queryFileList());
+                                                  $atticDir->getFiles());
             } catch (Horde_Vcs_Exception $e) {
             }
         }
@@ -56,7 +56,7 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Rcs
      *
      * @return array  A list of Horde_Vcs_File_Base objects.
      */
-    public function queryFileList($showdeleted = false)
+    public function getFiles($showdeleted = false)
     {
         return ($showdeleted && $this->_mergedFiles)
             ? $this->_mergedFiles

@@ -21,7 +21,7 @@ abstract class Horde_Vcs_Log_Base
     protected $_log;
     protected $_state;
     protected $_lines = '';
-    protected $_branch;
+    protected $_branch = array();
     protected $_branches = array();
     protected $_symbolicBranches = array();
 
@@ -37,6 +37,8 @@ abstract class Horde_Vcs_Log_Base
     {
         $this->_rev = $rev;
     }
+
+    abstract protected function _init();
 
     protected function _ensureInitialized()
     {
@@ -70,7 +72,7 @@ abstract class Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryRevision()
+    public function getRevision()
     {
         $this->_ensureInitialized();
         return $this->_rev;
@@ -79,7 +81,7 @@ abstract class Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryDate()
+    public function getDate()
     {
         $this->_ensureInitialized();
         return $this->_date;
@@ -88,7 +90,7 @@ abstract class Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryAuthor()
+    public function getAuthor()
     {
         $this->_ensureInitialized();
         return $this->_author;
@@ -97,16 +99,18 @@ abstract class Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryLog()
+    public function getMessage()
     {
         $this->_ensureInitialized();
         return $this->_log;
     }
 
     /**
-     * TODO
+     * Returns all branches that contain this log.
+     *
+     * @return array
      */
-    public function queryBranch()
+    public function getBranch()
     {
         $this->_ensureInitialized();
         return $this->_branch;
@@ -115,7 +119,7 @@ abstract class Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryChangedLines()
+    public function getChanges()
     {
         $this->_ensureInitialized();
         return $this->_lines;
@@ -124,7 +128,7 @@ abstract class Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryTags()
+    public function getTags()
     {
         $this->_ensureInitialized();
         return $this->_tags;
@@ -137,7 +141,7 @@ abstract class Horde_Vcs_Log_Base
      *
      * @return array  Hash of symbolic names => branch numbers.
      */
-    public function querySymbolicBranches()
+    public function getSymbolicBranches()
     {
         $this->_ensureInitialized();
         return $this->_symbolicBranches;
@@ -146,7 +150,7 @@ abstract class Horde_Vcs_Log_Base
     protected function _setSymbolicBranches()
     {
         $this->_symbolicBranches = array();
-        $branches = $this->_file->queryBranches();
+        $branches = $this->_file->getBranches();
 
         foreach ($this->_branches as $branch) {
             if (($key = array_search($branch, $branches)) !== false) {
@@ -158,7 +162,7 @@ abstract class Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryFiles($file = null)
+    public function getFiles($file = null)
     {
         $this->_ensureInitialized();
         return is_null($file)

@@ -22,7 +22,7 @@ class Horde_Vcs_Rcs extends Horde_Vcs_Base
      */
     public function isValidRevision($rev)
     {
-        return $rev && preg_match('/^[\d\.]+$/', $rev);
+        return $rev && preg_match('/^\d+\.(\d+\.)*\d+$/', $rev);
     }
 
     /**
@@ -65,6 +65,19 @@ class Horde_Vcs_Rcs extends Horde_Vcs_Base
         } while (!is_null($curr) && ($this->cmp($curr, $stop) != -1));
 
         return array();
+    }
+
+    /**
+     * TODO
+     */
+    public function getFile($filename, $opts = array())
+    {
+        $filename = ltrim($filename, '/');
+        $fname = $filename . ',v';
+        if (!@is_file($this->sourceroot . '/' . $fname)) {
+            throw new Horde_Vcs_Exception(sprintf('File "%s" not found', $filename));
+        }
+        return parent::getFile($fname, $opts);
     }
 
     /**

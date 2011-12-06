@@ -28,7 +28,7 @@ if (!($commit_id = Horde_Util::getFormData('commit'))) {
 $title = sprintf(_("Commit %s"), $commit_id);
 
 try {
-    $ps = $VC->getPatchsetObject(array('range' => array($commit_id)));
+    $ps = $VC->getPatchset(array('range' => array($commit_id)));
     $patchsets = $ps->getPatchsets();
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);

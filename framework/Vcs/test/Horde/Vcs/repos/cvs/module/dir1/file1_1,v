@@ -1,6 +1,7 @@
 head	1.1;
 access;
 symbols
+	tag1:1.1
 	branch1:1.1.0.2;
 locks; strict;
 comment	@# @;

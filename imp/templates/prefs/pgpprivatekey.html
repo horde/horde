@@ -110,6 +110,22 @@
     </td>
     <td></td>
    </tr>
+   <tr>
+    <td>
+     <label for="generate_expire"><gettext>Expiration:</gettext></label>
+    </td>
+    <td>
+        <input type="checkbox" id="generate_expire" name="generate_expire" checked="checked" /> <gettext>No Expiration</gettext>
+     <div style="display:none">
+      <input type="hidden" id="generate_expire_date" name="generate_expire_date" display="hidden" />
+      <span></span>
+      <a href="#" class="calendarPopup"><span class="iconImg calendarImg"></span></a>
+     </div>
+    </td>
+    <td>
+     <tag:personalkey-create-expire-help />
+    </td>
+   </tr>
   </table>
 
   <p>

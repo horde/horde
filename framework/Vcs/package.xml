@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-25</date>
- <time>19:56:01</time>
+ <date>2011-12-05</date>
+ <time>10:37:07</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -80,6 +80,7 @@
       <file name="Cvs.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Git.php" role="php" />
+      <file name="Patchset.php" role="php" />
       <file name="Rcs.php" role="php" />
       <file name="Svn.php" role="php" />
      </dir> <!-- //lib/Horde/Vcs -->
@@ -140,6 +141,15 @@
          <file name="verifymsg" role="test" />
          <file name="verifymsg,v" role="test" />
         </dir> <!-- /test/Horde/Vcs/repos/cvs/CVSROOT -->
+        <dir name="module">
+         <dir name="Attic">
+          <file name="deletedfile1,v" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/cvs/module/Attic -->
+         <dir name="dir1">
+          <file name="file1_1,v" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/cvs/module/dir1 -->
+         <file name="file1,v" role="test" />
+        </dir> <!-- /test/Horde/Vcs/repos/cvs/module -->
        </dir> <!-- /test/Horde/Vcs/repos/cvs -->
        <dir name="git">
         <dir name="hooks">
@@ -157,10 +167,53 @@
         <dir name="info">
          <file name="exclude" role="test" />
         </dir> <!-- /test/Horde/Vcs/repos/git/info -->
+        <dir name="objects">
+         <dir name="0c">
+          <file name="fbf08886fca9a91cb753ec8734c84fcbe52c9f" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/objects/0c -->
+         <dir name="16">
+          <file name="0a468250615b713a7e33d34243530afc4682a9" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/objects/16 -->
+         <dir name="36">
+          <file name="bf507bfa95d55339af245e11ce479cfd2b5ee7" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/objects/36 -->
+         <dir name="42">
+          <file name="b3bb703a7f0650d83381dcb4187c15d4aa57c8" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/objects/42 -->
+         <dir name="b0">
+          <file name="fa05e15a6314a4e8db03a767c4c18bb236b7a5" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/objects/b0 -->
+         <dir name="d0">
+          <file name="0491fd7e5bb6fa28c517a0bb32b8b506539d4d" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/objects/d0 -->
+         <dir name="d8">
+          <file name="561cd227c800ee5b0720701c8b6b77e6f6db4a" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/objects/d8 -->
+         <dir name="da">
+          <file name="46ee2e478c6d3a9963eaafcd8f43e83d630526" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/objects/da -->
+        </dir> <!-- /test/Horde/Vcs/repos/git/objects -->
+        <dir name="refs">
+         <dir name="heads">
+          <file name="branch1" role="test" />
+          <file name="master" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/refs/heads -->
+         <dir name="tags">
+          <file name="tag1" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/git/refs/tags -->
+        </dir> <!-- /test/Horde/Vcs/repos/git/refs -->
         <file name="config" role="test" />
         <file name="description" role="test" />
         <file name="HEAD" role="test" />
        </dir> <!-- /test/Horde/Vcs/repos/git -->
+       <dir name="rcs">
+        <dir name="dir1">
+         <file name="file1_1" role="test" />
+         <file name="file1_1,v" role="test" />
+        </dir> <!-- /test/Horde/Vcs/repos/rcs/dir1 -->
+        <file name="file1" role="test" />
+        <file name="file1,v" role="test" />
+       </dir> <!-- /test/Horde/Vcs/repos/rcs -->
        <dir name="svn">
         <dir name="conf">
          <file name="authz" role="test" />
@@ -168,11 +221,22 @@
          <file name="svnserve.conf" role="test" />
         </dir> <!-- /test/Horde/Vcs/repos/svn/conf -->
         <dir name="db">
+         <dir name="revprops">
+          <file name="0" role="test" />
+          <file name="1" role="test" />
+          <file name="2" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/svn/db/revprops -->
+         <dir name="revs">
+          <file name="0" role="test" />
+          <file name="1" role="test" />
+          <file name="2" role="test" />
+         </dir> <!-- /test/Horde/Vcs/repos/svn/db/revs -->
          <file name="current" role="test" />
          <file name="format" role="test" />
          <file name="fs-type" role="test" />
          <file name="fsfs.conf" role="test" />
          <file name="min-unpacked-rev" role="test" />
+         <file name="rep-cache.db" role="test" />
          <file name="txn-current" role="test" />
          <file name="txn-current-lock" role="test" />
          <file name="uuid" role="test" />
@@ -246,6 +310,7 @@
    <install as="Horde/Vcs/Cvs.php" name="lib/Horde/Vcs/Cvs.php" />
    <install as="Horde/Vcs/Exception.php" name="lib/Horde/Vcs/Exception.php" />
    <install as="Horde/Vcs/Git.php" name="lib/Horde/Vcs/Git.php" />
+   <install as="Horde/Vcs/Patchset.php" name="lib/Horde/Vcs/Patchset.php" />
    <install as="Horde/Vcs/Rcs.php" name="lib/Horde/Vcs/Rcs.php" />
    <install as="Horde/Vcs/Svn.php" name="lib/Horde/Vcs/Svn.php" />
    <install as="Horde/Vcs/Directory/Base.php" name="lib/Horde/Vcs/Directory/Base.php" />
@@ -321,6 +386,9 @@
    <install as="Horde/Vcs/repos/cvs/CVSROOT/val-tags" name="test/Horde/Vcs/repos/cvs/CVSROOT/val-tags" />
    <install as="Horde/Vcs/repos/cvs/CVSROOT/verifymsg" name="test/Horde/Vcs/repos/cvs/CVSROOT/verifymsg" />
    <install as="Horde/Vcs/repos/cvs/CVSROOT/verifymsg,v" name="test/Horde/Vcs/repos/cvs/CVSROOT/verifymsg,v" />
+   <install as="Horde/Vcs/repos/cvs/module/file1,v" name="test/Horde/Vcs/repos/cvs/module/file1,v" />
+   <install as="Horde/Vcs/repos/cvs/module/Attic/deletedfile1,v" name="test/Horde/Vcs/repos/cvs/module/Attic/deletedfile1,v" />
+   <install as="Horde/Vcs/repos/cvs/module/dir1/file1_1,v" name="test/Horde/Vcs/repos/cvs/module/dir1/file1_1,v" />
    <install as="Horde/Vcs/repos/git/config" name="test/Horde/Vcs/repos/git/config" />
    <install as="Horde/Vcs/repos/git/description" name="test/Horde/Vcs/repos/git/description" />
    <install as="Horde/Vcs/repos/git/HEAD" name="test/Horde/Vcs/repos/git/HEAD" />
@@ -335,6 +403,21 @@
    <install as="Horde/Vcs/repos/git/hooks/prepare-commit-msg.sample" name="test/Horde/Vcs/repos/git/hooks/prepare-commit-msg.sample" />
    <install as="Horde/Vcs/repos/git/hooks/update.sample" name="test/Horde/Vcs/repos/git/hooks/update.sample" />
    <install as="Horde/Vcs/repos/git/info/exclude" name="test/Horde/Vcs/repos/git/info/exclude" />
+   <install as="Horde/Vcs/repos/git/objects/0c/fbf08886fca9a91cb753ec8734c84fcbe52c9f" name="test/Horde/Vcs/repos/git/objects/0c/fbf08886fca9a91cb753ec8734c84fcbe52c9f" />
+   <install as="Horde/Vcs/repos/git/objects/16/0a468250615b713a7e33d34243530afc4682a9" name="test/Horde/Vcs/repos/git/objects/16/0a468250615b713a7e33d34243530afc4682a9" />
+   <install as="Horde/Vcs/repos/git/objects/36/bf507bfa95d55339af245e11ce479cfd2b5ee7" name="test/Horde/Vcs/repos/git/objects/36/bf507bfa95d55339af245e11ce479cfd2b5ee7" />
+   <install as="Horde/Vcs/repos/git/objects/42/b3bb703a7f0650d83381dcb4187c15d4aa57c8" name="test/Horde/Vcs/repos/git/objects/42/b3bb703a7f0650d83381dcb4187c15d4aa57c8" />
+   <install as="Horde/Vcs/repos/git/objects/b0/fa05e15a6314a4e8db03a767c4c18bb236b7a5" name="test/Horde/Vcs/repos/git/objects/b0/fa05e15a6314a4e8db03a767c4c18bb236b7a5" />
+   <install as="Horde/Vcs/repos/git/objects/d0/0491fd7e5bb6fa28c517a0bb32b8b506539d4d" name="test/Horde/Vcs/repos/git/objects/d0/0491fd7e5bb6fa28c517a0bb32b8b506539d4d" />
+   <install as="Horde/Vcs/repos/git/objects/d8/561cd227c800ee5b0720701c8b6b77e6f6db4a" name="test/Horde/Vcs/repos/git/objects/d8/561cd227c800ee5b0720701c8b6b77e6f6db4a" />
+   <install as="Horde/Vcs/repos/git/objects/da/46ee2e478c6d3a9963eaafcd8f43e83d630526" name="test/Horde/Vcs/repos/git/objects/da/46ee2e478c6d3a9963eaafcd8f43e83d630526" />
+   <install as="Horde/Vcs/repos/git/refs/heads/branch1" name="test/Horde/Vcs/repos/git/refs/heads/branch1" />
+   <install as="Horde/Vcs/repos/git/refs/heads/master" name="test/Horde/Vcs/repos/git/refs/heads/master" />
+   <install as="Horde/Vcs/repos/git/refs/tags/tag1" name="test/Horde/Vcs/repos/git/refs/tags/tag1" />
+   <install as="Horde/Vcs/repos/rcs/file1" name="test/Horde/Vcs/repos/rcs/file1" />
+   <install as="Horde/Vcs/repos/rcs/file1,v" name="test/Horde/Vcs/repos/rcs/file1,v" />
+   <install as="Horde/Vcs/repos/rcs/dir1/file1_1" name="test/Horde/Vcs/repos/rcs/dir1/file1_1" />
+   <install as="Horde/Vcs/repos/rcs/dir1/file1_1,v" name="test/Horde/Vcs/repos/rcs/dir1/file1_1,v" />
    <install as="Horde/Vcs/repos/svn/format" name="test/Horde/Vcs/repos/svn/format" />
    <install as="Horde/Vcs/repos/svn/README.txt" name="test/Horde/Vcs/repos/svn/README.txt" />
    <install as="Horde/Vcs/repos/svn/conf/authz" name="test/Horde/Vcs/repos/svn/conf/authz" />
@@ -345,12 +428,17 @@
    <install as="Horde/Vcs/repos/svn/db/fs-type" name="test/Horde/Vcs/repos/svn/db/fs-type" />
    <install as="Horde/Vcs/repos/svn/db/fsfs.conf" name="test/Horde/Vcs/repos/svn/db/fsfs.conf" />
    <install as="Horde/Vcs/repos/svn/db/min-unpacked-rev" name="test/Horde/Vcs/repos/svn/db/min-unpacked-rev" />
+   <install as="Horde/Vcs/repos/svn/db/rep-cache.db" name="test/Horde/Vcs/repos/svn/db/rep-cache.db" />
    <install as="Horde/Vcs/repos/svn/db/txn-current" name="test/Horde/Vcs/repos/svn/db/txn-current" />
    <install as="Horde/Vcs/repos/svn/db/txn-current-lock" name="test/Horde/Vcs/repos/svn/db/txn-current-lock" />
    <install as="Horde/Vcs/repos/svn/db/uuid" name="test/Horde/Vcs/repos/svn/db/uuid" />
    <install as="Horde/Vcs/repos/svn/db/write-lock" name="test/Horde/Vcs/repos/svn/db/write-lock" />
    <install as="Horde/Vcs/repos/svn/db/revprops/0/0" name="test/Horde/Vcs/repos/svn/db/revprops/0/0" />
+   <install as="Horde/Vcs/repos/svn/db/revprops/0/1" name="test/Horde/Vcs/repos/svn/db/revprops/0/1" />
+   <install as="Horde/Vcs/repos/svn/db/revprops/0/2" name="test/Horde/Vcs/repos/svn/db/revprops/0/2" />
    <install as="Horde/Vcs/repos/svn/db/revs/0/0" name="test/Horde/Vcs/repos/svn/db/revs/0/0" />
+   <install as="Horde/Vcs/repos/svn/db/revs/0/1" name="test/Horde/Vcs/repos/svn/db/revs/0/1" />
+   <install as="Horde/Vcs/repos/svn/db/revs/0/2" name="test/Horde/Vcs/repos/svn/db/revs/0/2" />
    <install as="Horde/Vcs/repos/svn/hooks/post-commit.tmpl" name="test/Horde/Vcs/repos/svn/hooks/post-commit.tmpl" />
    <install as="Horde/Vcs/repos/svn/hooks/post-lock.tmpl" name="test/Horde/Vcs/repos/svn/hooks/post-lock.tmpl" />
    <install as="Horde/Vcs/repos/svn/hooks/post-revprop-change.tmpl" name="test/Horde/Vcs/repos/svn/hooks/post-revprop-change.tmpl" />

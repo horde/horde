@@ -2733,14 +2733,14 @@ abstract class Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getEditUrl($params = array())
+    public function getEditUrl($params = array(), $full = false)
     {
         $params['view'] = 'EditEvent';
         $params['eventID'] = $this->id;
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::url('event.php')->add($params);
+        return Horde::url('event.php', $full)->add($params);
     }
 
     /**
@@ -2748,14 +2748,14 @@ abstract class Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getDeleteUrl($params = array())
+    public function getDeleteUrl($params = array(), $full = false)
     {
         $params['view'] = 'DeleteEvent';
         $params['eventID'] = $this->id;
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::url('event.php')->add($params);
+        return Horde::url('event.php', $full)->add($params);
     }
 
     /**
@@ -2763,14 +2763,14 @@ abstract class Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getExportUrl($params = array())
+    public function getExportUrl($params = array(), $full = false)
     {
         $params['view'] = 'ExportEvent';
         $params['eventID'] = $this->id;
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::url('event.php')->add($params);
+        return Horde::url('event.php', $full)->add($params);
     }
 
     public function getLink($datetime = null, $icons = true, $from_url = null,
@@ -2853,7 +2853,8 @@ abstract class Kronolith_Event
                 Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
                 $url = $this->getEditUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
-                          'url' => $from_url));
+                          'url' => $from_url),
+                    $full);
                 if ($url) {
                     $link .= $url->link(array('title' => sprintf(_("Edit %s"), $event_title),
                                               'class' => 'iconEdit'))
@@ -2865,7 +2866,8 @@ abstract class Kronolith_Event
             if ($this->hasPermission(Horde_Perms::DELETE)) {
                 $url = $this->getDeleteUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
-                          'url' => $from_url));
+                          'url' => $from_url),
+                    $full);
                 if ($url) {
                     $link .= $url->link(array('title' => sprintf(_("Delete %s"), $event_title),
                                               'class' => 'iconDelete'))

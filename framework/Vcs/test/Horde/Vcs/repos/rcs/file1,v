@@ -1,9 +1,14 @@
-head	1.1;
+head	1.2;
 access;
 symbols;
 locks; strict;
 comment	@# @;
 
+
+1.2
+date	2011.11.28.15.59.29;	author jan;	state Exp;
+branches;
+next	1.1;
 
 1.1
 date	2011.11.25.20.53.10;	author jan;	state Exp;
@@ -16,10 +21,21 @@ desc
 @
 
 
+1.2
+log
+@Commit 2nd version.
+@
+text
+@2
+@
+
+
 1.1
 log
 @Add first files.
 @
 text
-@1
+@d1 1
+a1 1
+1
 @

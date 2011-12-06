@@ -1939,12 +1939,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Prepare a redirect message.
      *
-     * @param IMP_Contents $contents  An IMP_Contents object.
+     * @param IMP_Indices $indices  An indices object.
      */
-    public function redirectMessage($contents)
+    public function redirectMessage(IMP_Indices $indices)
     {
-        $this->_metadata['mailbox'] = $contents->getMailbox();
-        $this->_metadata['uid'] = $contents->getUid();
+        $this->_metadata['redirect_indices'] = $indices;
         $this->_replytype = self::REDIRECT;
         $this->changed = 'changed';
     }
@@ -1954,6 +1953,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param string $to  The addresses to redirect to.
      *
+     * @return integer  The number of redirected messages sent.
      * @throws IMP_Compose_Exception
      */
     public function sendRedirectMessage($to)
@@ -1964,43 +1964,54 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
         $from_addr = $identity->getFromAddress();
 
-        $contents = $this->getContentsOb();
-        $headers = $contents->getHeaderOb();
+        $indices = $this->getMetadata('redirect_indices');
+        foreach ($indices as $val) {
+            foreach ($val->uids as $val2) {
+                try {
+                    $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($val->mbox->getIndicesOb($val2));
+                } catch (IMP_Exception $e) {
+                    throw new IMP_Compose_Exception(_("Error when redirecting message."));
+                }
+                $headers = $contents->getHeaderOb();
 
-        /* We need to set the Return-Path header to the current user - see RFC
-         * 2821 [4.4]. */
-        $headers->removeHeader('return-path');
-        $headers->addHeader('Return-Path', $from_addr);
+                /* We need to set the Return-Path header to the current user -
+                 * see RFC 2821 [4.4]. */
+                $headers->removeHeader('return-path');
+                $headers->addHeader('Return-Path', $from_addr);
 
-        /* Generate the 'Resent' headers (RFC 5322 [3.6.6]). These headers are
-         * prepended to the message. */
-        $resent_headers = new Horde_Mime_Headers();
-        $resent_headers->addHeader('Resent-Date', date('r'));
-        $resent_headers->addHeader('Resent-From', $from_addr);
-        $resent_headers->addHeader('Resent-To', $recip['header']['to']);
-        $resent_headers->addHeader('Resent-Message-ID', Horde_Mime::generateMessageId());
+                /* Generate the 'Resent' headers (RFC 5322 [3.6.6]). These
+                 * headers are prepended to the message. */
+                $resent_headers = new Horde_Mime_Headers();
+                $resent_headers->addHeader('Resent-Date', date('r'));
+                $resent_headers->addHeader('Resent-From', $from_addr);
+                $resent_headers->addHeader('Resent-To', $recip['header']['to']);
+                $resent_headers->addHeader('Resent-Message-ID', Horde_Mime::generateMessageId());
 
-        $header_text = trim($resent_headers->toString(array('encode' => 'UTF-8'))) . "\n" . trim($contents->getHeaderOb(false));
+                $header_text = trim($resent_headers->toString(array('encode' => 'UTF-8'))) . "\n" . trim($contents->getHeaderOb(false));
 
-        $this->_prepSendMessageAssert($recipients);
-        $to = $this->_prepSendMessage($recipients);
-        $hdr_array = $headers->toArray(array('charset' => 'UTF-8'));
-        $hdr_array['_raw'] = $header_text;
+                $this->_prepSendMessageAssert($recipients);
+                $to = $this->_prepSendMessage($recipients);
+                $hdr_array = $headers->toArray(array('charset' => 'UTF-8'));
+                $hdr_array['_raw'] = $header_text;
 
-        try {
-            $GLOBALS['injector']->getInstance('IMP_Mail')->send($to, $hdr_array, $contents->getBody());
-        } catch (Horde_Mail_Exception $e) {
-            throw new IMP_Compose_Exception($e);
+                try {
+                    $GLOBALS['injector']->getInstance('IMP_Mail')->send($to, $hdr_array, $contents->getBody());
+                } catch (Horde_Mail_Exception $e) {
+                    throw new IMP_Compose_Exception($e);
+                }
+
+                Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
+
+                /* Store history information. */
+                if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
+                    IMP_Maillog::log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
+                }
+
+                $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
+            }
         }
 
-        Horde::logMessage(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $GLOBALS['registry']->getAuth()), 'INFO');
-
-        /* Store history information. */
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            IMP_Maillog::log(self::REDIRECT, $headers->getValue('message-id'), $recipients);
-        }
-
-        $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
+        return count($indices);
     }
 
     /**
@@ -2959,7 +2970,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function getContentsOb()
     {
-        return $this->_replytype
+        return ($this->_replytype && $this->getMetadata('mailbox'))
             ? $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($this->getMetadata('mailbox'), $this->getMetadata('uid')))
             : null;
     }

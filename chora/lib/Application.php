@@ -216,7 +216,7 @@ class Chora_Application extends Horde_Registry_Application
                     false,
                     array(
                         'icon' => Horde_Themes::img('tree/folder.png'),
-                        'url' => Chora::url('browsedir', '', array('rt' => $key))
+                        'url' => Chora::url('browsedir', '', array('rt' => $key))->setRaw(true)
                     )
                 );
             }

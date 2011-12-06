@@ -149,13 +149,9 @@ class IMP_Ui_Compose
      */
     public function getContents($vars = null)
     {
-        $indices = $ob = null;
+        $ob = null;
 
-        if (is_null($vars) || !isset($vars->uids)) {
-            $indices = IMP::$thismailbox->getIndicesOb(IMP::$uid);
-        } else {
-            $indices = new IMP_Indices_Form($vars->uids);
-        }
+        $indices = $this->getIndices($vars);
 
         if (!is_null($indices)) {
             try {
@@ -173,6 +169,25 @@ class IMP_Ui_Compose
         }
 
         return $ob;
+    }
+
+    /**
+     * Return the Indices object for the messages affected by this compose
+     * action.
+     *
+     * @param Horde_Variables $vars  The variables object.
+     *
+     * @return IMP_Contents  The IMP_Contents object.
+     */
+    public function getIndices($vars = null)
+    {
+        if (!is_null($vars) && isset($vars->msglist)) {
+            return new IMP_Indices($vars->msglist);
+        }
+
+        return (is_null($vars) || !isset($vars->uids))
+            ? IMP::$thismailbox->getIndicesOb(IMP::$uid)
+            : new IMP_Indices_Form($vars->uids);
     }
 
     /**

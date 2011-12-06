@@ -6,6 +6,7 @@
  */
 
 var ImpSearch = {
+
     // The following variables are defined in search.php:
     //   data, i_criteria, i_folders, i_recent, text
     criteria: {},
@@ -233,7 +234,7 @@ var ImpSearch = {
 
         var tmp = [
                 new Element('EM').insert(this.getCriteriaLabel(id)),
-                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'iconImg searchuiImg searchuiCalendar' })))
+                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'iconImg searchuiImg calendarImg' })))
             ];
         this.replaceDate(this.insertCriteria(tmp), id, data);
     },
@@ -242,7 +243,7 @@ var ImpSearch = {
     {
         $(id).down('SPAN SPAN').update(this.data.months[d.getMonth()] + ' ' + d.getDate() + ', ' + (d.getYear() + 1900));
         // Need to store date information at all times in criteria, since we
-        // have no other way to track this information (there is not form
+        // have no other way to track this information (there is no form
         // field for this type).
         this.criteria[id] = { t: type, v: d };
     },
@@ -537,7 +538,7 @@ var ImpSearch = {
                     }
                     e.stop();
                     return;
-                } else if (elt.hasClassName('searchuiCalendar')) {
+                } else if (elt.hasClassName('calendarImg')) {
                     Horde_Calendar.open(elt.identify(), this.criteria[elt.up('DIV.searchId').identify()].v);
                     e.stop();
                     return;
@@ -608,7 +609,6 @@ var ImpSearch = {
 
         e.stop();
     },
-
 
     calendarSelectHandler: function(e)
     {

@@ -9,28 +9,16 @@
 class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
 {
     /**
+     * The current driver.
+     *
+     * @var string
+     */
+    protected $_driver = 'Svn';
+
+    /**
      * @var resource
      */
     public $logpipe;
-
-    /**
-     * Have we initalized logs and revisions?
-     *
-     * @var boolean
-     */
-    private $_initialized = false;
-
-    protected function _ensureRevisionsInitialized()
-    {
-        if (!$this->_initialized) { $this->_init(); }
-        $this->_initialized = true;
-    }
-
-    protected function _ensureLogsInitialized()
-    {
-        if (!$this->_initialized) { $this->_init(); }
-        $this->_initialized = true;
-    }
 
     protected function _init()
     {
@@ -39,7 +27,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
         //
         // $flag = $this->_quicklog ? '-r HEAD ' : '';
 
-        $cmd = $this->_rep->getCommand() . ' log -v ' . escapeshellarg($this->queryFullPath()) . ' 2>&1';
+        $cmd = $this->_rep->getCommand() . ' log -v ' . escapeshellarg($this->getPath()) . ' 2>&1';
         $pipe = popen($cmd, 'r');
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn log: ' . $cmd);
@@ -53,9 +41,9 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
         $this->logpipe = $pipe;
         while (!feof($pipe)) {
             try {
-                $log = $this->_rep->getLogObject($this, null);
-                $rev = $log->queryRevision();
-                $this->logs[$rev] = $log;
+                $log = $this->_getLog();
+                $rev = $log->getRevision();
+                $this->_logs[$rev] = $log;
                 $this->_revs[] = $rev;
             } catch (Horde_Vcs_Exception $e) {}
 
@@ -73,8 +61,22 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
      *
      * @return string  Filename without repository extension.
      */
-    public function queryName()
+    public function getFileName()
     {
         return preg_replace('/,v$/', '', $this->_name);
+    }
+
+    /**
+     * Returns the revision before the specified revision.
+     *
+     * @param string $rev  A revision.
+     *
+     * @return string  The previous revision or null if the first revision.
+     */
+    public function getPreviousRevision($rev)
+    {
+        /* Shortcut for SVN's incrementing revisions. */
+        $rev--;
+        return $rev ? $rev : null;
     }
 }
