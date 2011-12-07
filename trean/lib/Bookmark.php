@@ -57,7 +57,8 @@ class Trean_Bookmark
                     bookmark_url = ?,
                     bookmark_title = ?,
                     bookmark_description = ?,
-                    bookmark_clicks = ?
+                    bookmark_clicks = ?,
+                    bookmark_http_status = ?
                 WHERE bookmark_id = ?',
                 array(
                     $this->userId,
@@ -65,6 +66,7 @@ class Trean_Bookmark
                     Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                     Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                     $this->clicks,
+                    $this->http_status,
                     $this->id,
             ));
 
@@ -79,14 +81,15 @@ class Trean_Bookmark
         // Saving a new bookmark.
         $bookmark_id = $GLOBALS['trean_db']->insert('
             INSERT INTO trean_bookmarks
-                (user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_dt)
-            VALUES (?, ?, ?, ?, ?, ?)',
+                (user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt)
+            VALUES (?, ?, ?, ?, ?, ?, ?)',
             array(
                 $this->userId,
                 Horde_String::convertCharset($this->url, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
                 $this->clicks,
+                $this->http_status,
                 $this->dt,
         ));
 
