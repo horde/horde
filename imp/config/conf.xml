@@ -214,20 +214,6 @@
   </configsection>
  </configtab>
 
- <configtab name="dimp" desc="Dynamic View (dimp) Options">
-  <configsection name="dimp">
-   <configheader>ViewPort Settings</configheader>
-   <configsection name="viewport">
-    <configinteger name="buffer_pages" desc="The number of viewable pages to
-    send to the browser per server access when listing
-    messages.">10</configinteger>
-    <configinteger name="viewport_wait" desc="How long, in seconds, to wait
-    before displaying an informational message to users that the message list is
-    still being built. Set to 0 to disable messages.">10</configinteger>
-   </configsection>
-  </configsection>
- </configtab>
-
  <configtab name="menu" desc="Menu">
   <configsection name="menu">
    <configheader>Menu settings</configheader>

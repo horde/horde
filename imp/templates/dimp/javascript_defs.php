@@ -69,7 +69,6 @@ $code['conf'] = array_filter(array(
 
     // Other variables
     'acl' => $acl,
-    'buffer_pages' => intval($GLOBALS['conf']['dimp']['viewport']['buffer_pages']),
     'disable_compose' => !IMP::canCompose(),
     'filter_any' => intval($GLOBALS['prefs']->getValue('filter_any_mailbox')),
     'filters' => $filters,
@@ -137,8 +136,7 @@ $code['conf'] = array_filter(array(
             'v' => Horde_Imap_Client::SORT_SIZE
         )
     ),
-    'spam_spammbox' => intval(!empty($GLOBALS['conf']['spam']['spamfolder'])),
-    'viewport_wait' => intval($GLOBALS['conf']['dimp']['viewport']['viewport_wait']),
+    'spam_spammbox' => intval(!empty($GLOBALS['conf']['spam']['spamfolder']))
 ));
 
 /* Gettext strings used in core javascript files. */
