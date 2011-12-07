@@ -146,6 +146,7 @@
        <file name="DbPear.php" role="php" />
        <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
+       <file name="ElasticSearch.php" role="php" />
        <file name="Facebook.php" role="php" />
        <file name="Group.php" role="php" />
        <file name="History.php" role="php" />
@@ -874,6 +875,13 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_ElasticSearch</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -1115,6 +1123,7 @@
    <install as="Horde/Core/Factory/DbPear.php" name="lib/Horde/Core/Factory/DbPear.php" />
    <install as="Horde/Core/Factory/Dns.php" name="lib/Horde/Core/Factory/Dns.php" />
    <install as="Horde/Core/Factory/Editor.php" name="lib/Horde/Core/Factory/Editor.php" />
+   <install as="Horde/Core/Factory/ElasticSearch.php" name="lib/Horde/Core/Factory/ElasticSearch.php" />
    <install as="Horde/Core/Factory/Facebook.php" name="lib/Horde/Core/Factory/Facebook.php" />
    <install as="Horde/Core/Factory/Group.php" name="lib/Horde/Core/Factory/Group.php" />
    <install as="Horde/Core/Factory/History.php" name="lib/Horde/Core/Factory/History.php" />
