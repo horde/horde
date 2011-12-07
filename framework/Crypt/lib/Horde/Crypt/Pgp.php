@@ -1370,10 +1370,9 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $message  The decrypted message data.
      *
      * @return stdClass  An object with the following properties:
-     * <pre>
-     * 'message' - (string) The signature result text.
-     * 'result' - (boolean) The result of the signature test.
-     * </pre>
+     *   - message: (string) The signature result text.
+     *   - result: (string) The result of the signature test.
+     *
      * @throws Horde_Crypt_Exception
      */
     protected function _checkSignatureResult($result, $message = null)
@@ -1388,7 +1387,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         $ob = new stdClass;
         $ob->message = $message;
-        $ob->result = (strpos($result, 'gpg: Good signature') !== false);
+        $ob->result = $result;
 
         return $ob;
     }

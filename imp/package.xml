@@ -1279,7 +1279,7 @@
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.4.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -2593,6 +2593,8 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Workaround broken PGP signed data contained within encrypted parts (Bug #10809).
+* [mms] Fix signature verification display for combined encrypted/signed PGP messages.
 * [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view (Request #8060).
 * [mms] Allow multiple messages to be redirected from traditional view mailbox page (Request #2084).
 * [mms] Add ability to quickly add unsubscribed mailboxes to available search mailboxes in advanced search (Request #10832).

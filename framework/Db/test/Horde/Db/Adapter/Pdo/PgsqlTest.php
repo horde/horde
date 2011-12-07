@@ -801,6 +801,20 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
         $afterChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('character varying(255)', $afterChange->getSqlType());
+
+        $table = $this->_conn->createTable('text_to_binary');
+        $table->column('data', 'text');
+        $table->end();
+        $this->_conn->insert('INSERT INTO text_to_binary (data) VALUES (?)',
+                             array("foobar"));
+
+        $this->_conn->changeColumn('text_to_binary', 'data', 'binary');
+
+        $afterChange = $this->_getColumn('text_to_binary', 'data');
+        $this->assertEquals('bytea', $afterChange->getSqlType());
+        $this->assertEquals(
+            "foobar",
+            stream_get_contents($this->_conn->selectValue('SELECT data FROM text_to_binary')));
     }
 
     public function testChangeColumnLimit()
@@ -1317,6 +1331,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
             'schema_info',
             'sports',
             'testings',
+            'text_to_binary',
             'unit_tests',
             'users',
         );

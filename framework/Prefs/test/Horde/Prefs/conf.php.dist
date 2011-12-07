@@ -1,0 +1,24 @@
+<?php
+$conf['prefs']['sql']['mysql']['adapter'] = 'mysql';
+$conf['prefs']['sql']['mysql']['host'] = 'localhost';
+$conf['prefs']['sql']['mysql']['username'] = '';
+$conf['prefs']['sql']['mysql']['password'] = '';
+$conf['prefs']['sql']['mysql']['dbname'] = 'test';
+$conf['prefs']['sql']['mysql']['charset'] = 'utf-8';
+$conf['prefs']['sql']['mysqli']['adapter'] = 'mysqli';
+$conf['prefs']['sql']['mysqli']['host'] = 'localhost';
+$conf['prefs']['sql']['mysqli']['username'] = '';
+$conf['prefs']['sql']['mysqli']['password'] = '';
+$conf['prefs']['sql']['mysqli']['dbname'] = 'test';
+$conf['prefs']['sql']['mysqli']['charset'] = 'utf-8';
+$conf['prefs']['sql']['pdo_mysql']['adapter'] = 'pdo_mysql';
+$conf['prefs']['sql']['pdo_mysql']['host'] = 'localhost';
+$conf['prefs']['sql']['pdo_mysql']['username'] = '';
+$conf['prefs']['sql']['pdo_mysql']['password'] = '';
+$conf['prefs']['sql']['pdo_mysql']['dbname'] = 'test';
+$conf['prefs']['sql']['pdo_mysql']['charset'] = 'utf-8';
+$conf['prefs']['sql']['pdo_pgsql']['adapter'] = 'pdo_pgsql';
+$conf['prefs']['sql']['pdo_pgsql']['username'] = '';
+$conf['prefs']['sql']['pdo_pgsql']['password'] = '';
+$conf['prefs']['sql']['pdo_pgsql']['dbname'] = 'test';
+$conf['prefs']['sql']['pdo_pgsql']['charset'] = 'utf-8';

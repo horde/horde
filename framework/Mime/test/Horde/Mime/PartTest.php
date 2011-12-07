@@ -75,13 +75,13 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            "Test text.\n",
+            "Test text.\r\n\r\n",
             Horde_Mime_Part::getRawPartText($msg, 'body', '2.1')
         );
 
         $this->assertEquals(
-            "Content-Type: image/png; name=index.png\n" .
-            "Content-Disposition: attachment; filename=index.png\n" .
+            "Content-Type: image/png; name=index.png\r\n" .
+            "Content-Disposition: attachment; filename=index.png\r\n" .
             'Content-Transfer-Encoding: base64',
             Horde_Mime_Part::getRawPartText($msg, 'header', '3')
         );

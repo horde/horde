@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Mime_Headers:: class contains generic functions related to
- * handling the headers of mail messages.
+ * This class contains functions related to handling the headers of MIME data.
  *
  * Copyright 2002-2011 Horde LLC (http://www.horde.org/)
  *
@@ -470,7 +469,7 @@ class Horde_Mime_Headers implements Serializable
      *
      * @return array  The list of headers, in lowercase.
      */
-    public function addressFields()
+    static public function addressFields()
     {
         return array(
             'from', 'to', 'cc', 'bcc', 'reply-to', 'resent-to', 'resent-cc',
@@ -618,11 +617,6 @@ class Horde_Mime_Headers implements Serializable
             $to_process[] = array($currheader, $currtext);
         }
 
-        $charset_test = array(
-            'UTF-8',
-            'windows-1252',
-            self::$defaultCharset
-        );
         $headers = new Horde_Mime_Headers();
 
         reset($to_process);
@@ -631,28 +625,79 @@ class Horde_Mime_Headers implements Serializable
             if (!strlen($val[1])) {
                 continue;
             }
-            if (Horde_Mime::is8bit($val[1])) {
-                /* Assumption: broken charset in headers is generally either
-                 * UTF-8 or ISO-8859-1/Windows-1252. Test these charsets
-                 * first before using default charset. */
-                foreach ($charset_test as $charset) {
-                    $tmp = Horde_String::convertCharset($val[1], $charset, 'UTF-8');
-                    if (Horde_String::validUtf8($tmp)) {
-                        break;
-                    }
-                }
-                $val[1] = $tmp;
-            }
+
+            $val[1] = self::sanityCheck($val[0], $val[1]);
 
             if (in_array(Horde_String::lower($val[0]), $mime)) {
                 $res = Horde_Mime::decodeParam($val[0], $val[1], 'UTF-8');
-                $headers->addHeader($val[0], $res['val'], array('decode' => true, 'params' => $res['params']));
+                $headers->addHeader($val[0], $res['val'], array(
+                    'decode' => true,
+                    'params' => $res['params']
+                ));
             } else {
-                $headers->addHeader($val[0], $val[1], array('decode' => true));
+                $headers->addHeader($val[0], $val[1], array(
+                    'decode' => true
+                ));
             }
         }
 
         return $headers;
+    }
+
+    /**
+     * Perform sanity checking on a raw header (e.g. handle 8-bit characters).
+     * This function can be called statically:
+     *   $headers = Horde_Mime_Headers::sanityCheck().
+     *
+     * @param string $header  The header.
+     * @param string $data    The header data.
+     * @param array $opts     Optional parameters:
+     *   - encode: (boolean) If true, will MIME encode any 8-bit characters.
+     *             If false (default), converts the text to UTF-8.
+     *
+     * @return string  The cleaned header data.
+     */
+    static public function sanityCheck($header, $data, array $opts = array())
+    {
+        $charset_test = array(
+            'UTF-8',
+            'windows-1252',
+            self::$defaultCharset
+        );
+
+        if (Horde_Mime::is8bit($data)) {
+            /* Assumption: broken charset in headers is generally either
+             * UTF-8 or ISO-8859-1/Windows-1252. Test these charsets
+             * first before using default charset. This may be a
+             * Western-centric approach, but it's better than nothing. */
+            foreach ($charset_test as $charset) {
+                $tmp = Horde_String::convertCharset($data, $charset, 'UTF-8');
+                if (Horde_String::validUtf8($tmp)) {
+                    break;
+                }
+            }
+
+            if (empty($opts['encode'])) {
+                $data = $tmp;
+            } else {
+                $header = Horde_String::lower($header);
+                if (in_array($header, self::addressFields())) {
+                    $data = Horde_Mime::encodeAddress($tmp, $charset);
+                } elseif (in_array($header, self::mimeParamFields())) {
+                    $res = Horde_Mime::decodeParam($header, $tmp, 'UTF-8');
+                    $data = $res['val'];
+                    foreach ($res['params'] as $name => $param) {
+                        foreach (Horde_Mime::encodeParam($name, $param, 'UTF-8', array('escape' => true)) as $name2 => $param2) {
+                            $data .= '; ' . $name2 . '=' . $param2;
+                        }
+                    }
+                } else {
+                    $data = Horde_Mime::encode($tmp, 'UTF-8');
+                }
+            }
+        }
+
+        return $data;
     }
 
     /* Serializable methods. */
