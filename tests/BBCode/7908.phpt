@@ -2,7 +2,6 @@
 Text_Wiki_BBCode_Parse_List
 --FILE--
 <?php
-error_reporting(E_ALL);
 ini_set('display_errors', true);
 
 require_once 'Text/Wiki.php';

@@ -4,7 +4,6 @@ Text_Wiki_Xhtml_Render_Url
 <?php require_once dirname(__FILE__).'/skipif.php'; ?>
 --FILE--
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
 include 'config.php';
 require_once 'Text/Wiki/Creole.php';
 $w =& new Text_Wiki_Creole(array('Url'));
