@@ -24,7 +24,7 @@
   <active>yes</active>
  </lead>
  <date>2011-12-07</date>
- <time>14:59:44</time>
+ <time>15:37:13</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -221,6 +221,20 @@
          <file name="svnserve.conf" role="test" />
         </dir> <!-- /test/Horde/Vcs/repos/svn/conf -->
         <dir name="db">
+         <dir name="revprops">
+          <dir name="0">
+           <file name="0" role="test" />
+           <file name="1" role="test" />
+           <file name="2" role="test" />
+          </dir> <!-- /test/Horde/Vcs/repos/svn/db/revprops/0 -->
+         </dir> <!-- /test/Horde/Vcs/repos/svn/db/revprops -->
+         <dir name="revs">
+          <dir name="0">
+           <file name="0" role="test" />
+           <file name="1" role="test" />
+           <file name="2" role="test" />
+          </dir> <!-- /test/Horde/Vcs/repos/svn/db/revs/0 -->
+         </dir> <!-- /test/Horde/Vcs/repos/svn/db/revs -->
          <file name="current" role="test" />
          <file name="format" role="test" />
          <file name="fs-type" role="test" />
