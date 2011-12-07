@@ -77,6 +77,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             $this->_cachetype = self::EACCELERATOR;
         } elseif (($this->_tempdir = sys_get_temp_dir()) &&
                   is_readable($this->_tempdir)) {
+            $this->_cachekey = hash('md5', $this->_cachekey);
             if (($data = file_get_contents($this->_tempdir . '/' . $this->_cachekey)) !== false) {
                 $this->_cache = @json_decode($data, true);
             }
