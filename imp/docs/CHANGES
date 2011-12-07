@@ -2,6 +2,8 @@
 v5.0.16-git
 -----------
 
+[mms] Fix signature verification display for combined encrypted/signed PGP
+      messages.
 [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view
       (Request #8060).
 [mms] Allow multiple messages to be redirected from traditional view mailbox
