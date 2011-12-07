@@ -2072,6 +2072,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     static public function getRawPartText($text, $type, $id)
     {
+        /* Mini-hack to get a blank Horde_Mime part so we can call
+         * replaceEOL(). From an API perspective, getRawPartText() should be
+         * static since it is not working on MIME part data. */
+        $part = new Horde_Mime_Part();
+        $text = $part->replaceEOL($text, self::RFC_EOL);
+
         /* We need to carry around the trailing "\n" because this is needed
          * to correctly find the boundary string. */
         list($hdr_pos, $eol) = self::_findHeader($text);
