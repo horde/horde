@@ -7,13 +7,6 @@
  * @category Horde
  * @package  Horde_Content
  */
-
-/**
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Horde_Content
- */
 class Content_Tag extends Horde_Rdo_Base
 {
 }

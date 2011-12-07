@@ -8,14 +8,6 @@
  * @category Horde
  * @package  Horde_Content
  */
-
-/**
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Rubinsky <mrubinsk@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Horde_Content
- */
 class Content_Types_Manager
 {
     /**
@@ -104,5 +96,4 @@ class Content_Types_Manager
     {
         return $this->_db->quoteTableName($this->_tables[$tableType]);
     }
-
 }
