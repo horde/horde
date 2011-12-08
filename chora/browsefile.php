@@ -22,9 +22,10 @@ if ($atdir) {
     exit;
 }
 
-$onb = Horde_Util::getFormData('onb', $VC->getDefaultBranch());
+$onb = Horde_Util::getFormData('onb');
 try {
     $fl = $VC->getFile($where, array('branch' => $onb));
+    $fl->applySort(Horde_Vcs::SORT_AGE);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
@@ -42,7 +43,7 @@ foreach ($fl->getTags() as $sm => $rv) {
     $sel .= '<option value="' . $rv . '">' . $sm . '</option>';
 }
 
-$selAllBranches = '';
+$selAllBranches = '<option></option>';
 if ($VC->hasFeature('branches')) {
     foreach (array_keys($fl->getBranches()) as $sym) {
         $selAllBranches .= '<option value="' . $sym . '"' . (($sym === $onb) ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
