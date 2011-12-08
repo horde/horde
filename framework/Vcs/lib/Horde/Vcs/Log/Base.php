@@ -193,4 +193,18 @@ abstract class Horde_Vcs_Log_Base
         }
         return $lines;
     }
+
+    public function toHash()
+    {
+        return array(
+            'revision' => $this->getRevision(),
+            'author'   => $this->getAuthor(),
+            'branch'   => $this->getBranch(),
+            'date'     => $this->getDate(),
+            'log'      => $this->getMessage(),
+            'tag'      => $this->getTags(),
+            'added'    => $this->getAddedLines(),
+            'deleted'  => $this->getDeletedLines(),
+        );
+    }
 }

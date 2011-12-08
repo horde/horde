@@ -13,37 +13,15 @@ class Horde_Vcs_Log_Svn extends Horde_Vcs_Log_Base
     protected $_files = array();
 
     /**
-     * Constructor.
      */
     protected function _init()
     {
-        $line = fgets($this->_file->logpipe);
-        if (feof($this->_file->logpipe) || !$line) {
-            throw new Horde_Vcs_Exception('No more data');
-        }
-
-        if (preg_match('/^r([0-9]*) \| (.*?) \| (.*) \(.*\) \| ([0-9]*) lines?$/', $line, $matches)) {
-            $this->_rev = $matches[1];
-            $this->_author = $matches[2];
-            $this->_date = strtotime($matches[3]);
-            $size = $matches[4];
-        } else {
-            throw new Horde_Vcs_Exception('SVN Error');
-        }
-
-        fgets($this->_file->logpipe);
-
-        while (($line = trim(fgets($this->_file->logpipe))) != '') {
-            list($mode, $file) = explode(' ', trim($line));
-            $this->_files[ltrim($file, '/')] = array('status' => $mode);
-        }
-
-        for ($i = 0; $i != $size; ++$i) {
-            $this->_log = $this->_log . chop(fgets($this->_file->logpipe)) . "\n";
-        }
-
-        $this->_log = chop($this->_log);
-        fgets($this->_file->logpipe);
+        list($this->_rev,
+             $this->_author,
+             $this->_log,
+             $this->_date,
+             $this->_size,
+             $this->_files) = $this->_file->parseLog();
     }
 
     /**

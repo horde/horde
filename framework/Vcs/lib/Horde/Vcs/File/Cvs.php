@@ -49,8 +49,9 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Rcs
     /**
      * TODO
      */
-     public function getBranches()
-     {
-         return $this->_branches;
-     }
+    public function getBranches()
+    {
+        $this->_ensureInitialized();
+        return $this->_branches;
+    }
 }

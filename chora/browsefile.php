@@ -22,9 +22,10 @@ if ($atdir) {
     exit;
 }
 
-$onb = Horde_Util::getFormData('onb', $VC->getDefaultBranch());
+$onb = Horde_Util::getFormData('onb');
 try {
     $fl = $VC->getFile($where, array('branch' => $onb));
+    $fl->applySort(Horde_Vcs::SORT_AGE);
 } catch (Horde_Vcs_Exception $e) {
     Chora::fatal($e);
 }
@@ -47,6 +48,9 @@ if ($VC->hasFeature('branches')) {
     foreach (array_keys($fl->getBranches()) as $sym) {
         $selAllBranches .= '<option value="' . $sym . '"' . (($sym === $onb) ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
     }
+    if (!empty($selAllBranches)) {
+        $selAllBranches = '<option></option>' . $selAllBranches;
+    }
 }
 
 Horde::addScriptFile('revlog.js', 'chora');
@@ -66,7 +70,7 @@ foreach ($logs as $log) {
         echo '<h3>' . $day . '</h3>';
         $currentDay = $day;
     }
-    echo $view->renderPartial('app/views/logMessage', array('object' => $log));
+    echo $view->renderPartial('app/views/logMessage', array('object' => $log->toHash()));
 }
 
 echo '</div>';

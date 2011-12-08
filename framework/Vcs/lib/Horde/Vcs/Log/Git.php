@@ -22,86 +22,48 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
     {
         /* Get diff statistics. */
         $stats = array();
-        $cmd = $this->_rep->getCommand() . ' diff-tree --root --numstat ' . escapeshellarg($this->_rev);
-        exec($cmd, $output);
+        list($resource, $stream) = $this->_rep->runCommand('diff-tree --root --numstat ' . escapeshellarg($this->_rev));
 
         // Skip the first entry (it is the revision number)
-        next($output);
-        while (list(,$v) = each($output)) {
-            $tmp = explode("\t", $v);
+        fgets($stream);
+        while (!feof($stream) && $line = trim(fgets($stream))) {
+            $tmp = explode("\t", $line);
             $stats[$tmp[2]] = array_slice($tmp, 0, 2);
         }
+        fclose($stream);
+        proc_close($resource);
 
         // @TODO use Commit, CommitDate, and Merge properties
-        $cmd = $this->_rep->getCommand() . ' whatchanged --no-color --pretty=format:"Rev:%H%nParents:%P%nAuthor:%an <%ae>%nAuthorDate:%at%nRefs:%d%n%n%s%n%b" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
-        $pipe = popen($cmd, 'r');
-        if (!is_resource($pipe)) {
-            throw new Horde_Vcs_Exception('Unable to run ' . $cmd . ': ' . error_get_last());
+        $cmd = 'whatchanged --no-color --pretty=format:"%H%x00%P%x00%an <%ae>%x00%at%x00%d%x00%s%x00%b" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
+        list($resource, $pipe) = $this->_rep->runCommand($cmd);
+
+        $fields = explode("\0", fgets($pipe));
+        if ($this->_rev != $fields[0]) {
+            throw new Horde_Vcs_Exception(
+                'Expected ' . $this->_rev . ', got ' . $fields[0]);
         }
-
-        $lines = stream_get_contents($pipe);
-        fclose($pipe);
-        $lines = explode("\n", $lines);
-
-        while (true) {
-            $line = trim(next($lines));
-            if (!strlen($line)) { break; }
-            if (strpos($line, ':') === false) {
-                throw new Horde_Vcs_Exception('Malformed log line: ' . $line);
+        // @TODO: More than 1 parent?
+        $this->_parent = $fields[1];
+        $this->_author = $fields[2];
+        $this->_date = $fields[3];
+        if ($fields[4]) {
+            $value = substr($fields[4], 1, -1);
+            foreach (explode(',', $value) as $val) {
+                $val = trim($val);
+                if (strpos($val, 'refs/tags/') === 0) {
+                    $this->_tags[] = substr($val, 10);
+                }
             }
-
-            list($key, $value) = explode(':', $line, 2);
-            $value = trim($value);
-
-            switch (trim($key)) {
-            case 'Rev':
-                if ($this->_rev != $value) {
-                    throw new Horde_Vcs_Exception('Expected ' . $this->_rev . ', got ' . $value);
-                }
-                break;
-
-            case 'Parents':
-                // @TODO: More than 1 parent?
-                $this->_parent = $value;
-                break;
-
-            case 'Author':
-                $this->_author = $value;
-                break;
-
-            case 'AuthorDate':
-                $this->_date = $value;
-                break;
-
-            case 'Refs':
-                if ($value) {
-                    $value = substr($value, 1, -1);
-                    foreach (explode(',', $value) as $val) {
-                        $val = trim($val);
-                        if (strpos($val, 'refs/tags/') === 0) {
-                            $this->_tags[] = substr($val, 10);
-                        }
-                    }
-                    if (!empty($this->_tags)) {
-                        sort($this->_tags);
-                    }
-                }
-                break;
+            if (!empty($this->_tags)) {
+                sort($this->_tags);
             }
         }
-
-        $log = '';
-        $line = next($lines);
-        while ($line !== false && substr($line, 0, 1) != ':') {
-            $log .= $line . "\n";
-            $line = next($lines);
-        }
-        $this->_log = trim($log);
+        $this->_log = trim($fields[5] . "\n" . $fields[6]);
 
         // Build list of files in this revision. The format of these lines is
         // documented in the git diff-tree documentation:
         // http://www.kernel.org/pub/software/scm/git/docs/git-diff-tree.html
-        while ($line) {
+        while (!feof($pipe) && $line = fgets($pipe)) {
             preg_match('/:(\d+) (\d+) (\w+) (\w+) (.+)\t(.+)(\t(.+))?/', $line, $matches);
 
             $statinfo = isset($stats[$matches[6]])
@@ -117,9 +79,10 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
                 'srcPath' => $matches[6],
                 'dstPath' => isset($matches[7]) ? $matches[7] : ''
             ), $statinfo);
-
-            $line = next($lines);
         }
+
+        fclose($pipe);
+        proc_close($resource);
 
         $this->_setSymbolicBranches();
         $this->_branch = $this->_file->getBranch($this->_rev);

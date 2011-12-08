@@ -102,6 +102,20 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
+        $file = $this->vcs->getFile('file1', array('branch' => 'master'));
+        $this->assertEquals(
+            //FIXME? 'master' => '160a468250615b713a7e33d34243530afc4682a9',
+            array('master' => 'master',
+                  'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
+            $file->getBranches());
+
+        $file = $this->vcs->getFile('file1', array('branch' => 'branch1'));
+        $this->assertEquals(
+            array('master' => '160a468250615b713a7e33d34243530afc4682a9',
+                  //FIXME? 'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
+                  'branch1' => 'branch1'),
+            $file->getBranches());
+
         /* Test master branch. */
         $file = $this->vcs->getFile('file1', array('branch' => 'master'));
         $this->assertEquals(
@@ -121,9 +135,6 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
             $file->getPreviousRevision('da46ee2e478c6d3a9963eaafcd8f43e83d630526'));
         $this->assertEquals(2, $file->revisionCount());
-
-        $log = $file->getLastLog();
-        $this->assertInstanceOf('Horde_Vcs_Log_Git', $log);
 
         /* Test sub-directory file. */
         $file = $this->vcs->getFile('dir1/file1_1');
@@ -160,6 +171,11 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         /* Test non-existant file. */
         $file = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
+        try {
+            $file->getLog();
+            $this->fail('Expected Horde_Vcs_Exception');
+        } catch (Horde_Vcs_Exception $e) {
+        }
     }
 
     public function testLog()
@@ -269,16 +285,94 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             $log->getFiles());
         $this->assertEquals(1, $log->getAddedLines());
         $this->assertEquals(1, $log->getDeletedLines());
+
+        $logs = $this->vcs->getFile('file1', array('branch' => 'master'))
+            ->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(
+            array('160a468250615b713a7e33d34243530afc4682a9',
+                  'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
+            array_keys($logs));
+
+        $logs = $this->vcs->getFile('file1', array('branch' => 'branch1'))
+            ->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(
+            array('da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+                  'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
+            array_keys($logs));
+    }
+
+    public function testLastLog()
+    {
+        $log = $this->vcs
+            ->getFile('file1')
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Git', $log);
+        $this->assertEquals(
+            '160a468250615b713a7e33d34243530afc4682a9',
+            $log->getRevision());
+        $this->assertEquals(1322495899, $log->getDate());
+        $this->assertEquals('Jan Schneider <jan@horde.org>', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to master branch.',
+            $log->getMessage());
+
+        $log = $this->vcs
+            ->getFile('file1', array('branch' => 'branch1'))
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Git', $log);
+        $this->assertEquals(
+            'da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+            $log->getRevision());
+        $this->assertEquals(1322495911, $log->getDate());
+        $this->assertEquals('Jan Schneider <jan@horde.org>', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to branch1 branch.',
+            $log->getMessage());
     }
 
     public function testPatchset()
     {
-        $this->markTestSkipped();
+        $ps = $this->vcs->getPatchset(array('file' => 'file1'));
+        $this->assertInstanceOf('Horde_Vcs_Patchset_Git', $ps);
+        $sets = $ps->getPatchsets();
+        $this->assertInternalType('array', $sets);
+        $this->assertEquals(3, count($sets));
+        $this->assertEquals(array('da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+                                  '160a468250615b713a7e33d34243530afc4682a9',
+                                  'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
+                            array_keys($sets));
+        $entry = $sets['d8561cd227c800ee5b0720701c8b6b77e6f6db4a'];
+        $this->assertEquals('d8561cd227c800ee5b0720701c8b6b77e6f6db4a',
+                            $entry['revision']);
+        $this->assertEquals(1322253995, $entry['date']);
+        $this->assertEquals('Jan Schneider <jan@horde.org>', $entry['author']);
+        $this->assertEquals('Add first files.', $entry['log']);
+        $this->assertEquals(array('branch1', 'master'), $entry['branch']);
+        $this->assertEquals(
+            array(array(
+                'file'    => 'dir1/file1_1',
+                'from'    => '',
+                'status'  => 1,
+                'to'      => 'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
+                'added'   => '1',
+                'deleted' => '0'),
+                  array(
+                'file'    => 'file1',
+                'from'    => '',
+                'status'  => 1,
+                'to'      => 'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
+                'added'   => '1',
+                'deleted' => '0',
+            )),
+            $sets['d8561cd227c800ee5b0720701c8b6b77e6f6db4a']['members']);
+
+        /* Test non-existant file. */
         try {
             $ps = $this->vcs->getPatchset(array('file' => 'foo'));
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
-        //$this->assertInstanceOf('Horde_Vcs_Patchset_Git', $ps);
     }
 }

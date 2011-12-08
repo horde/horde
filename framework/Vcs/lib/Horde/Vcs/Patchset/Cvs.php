@@ -48,7 +48,10 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
             : ' -s ' . escapeshellarg(implode(',', $opts['range']));
 
         $ret_array = array();
-        $cmd = $HOME . escapeshellcmd($rep->getPath('cvsps')) . $rangecmd . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot) . ' -f ' . escapeshellarg(basename($file)) . ' ' . escapeshellarg(dirname($file));
+        $cmd = $HOME . escapeshellcmd($rep->getPath('cvsps')) . $rangecmd
+            . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot)
+            . ' -f ' . escapeshellarg(basename($file))
+            . ' -q ' . escapeshellarg(dirname($file));
         exec($cmd, $ret_array, $retval);
         if ($retval) {
             throw new Horde_Vcs_Exception('Failed to spawn cvsps to retrieve patchset information.');
@@ -67,7 +70,7 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
             switch ($state) {
             case 'begin':
                 $id = str_replace('PatchSet ', '', $line);
-                $this->_patchsets[$id] = array();
+                $this->_patchsets[$id] = array('revision' => $id);
                 $state = 'info';
                 break;
 

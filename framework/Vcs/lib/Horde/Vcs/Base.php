@@ -62,7 +62,7 @@ abstract class Horde_Vcs_Base
      *
      * @var integer
      */
-    protected $_cacheVersion = 4;
+    protected $_cacheVersion = 5;
 
     /**
      * The available diff types.
@@ -393,7 +393,6 @@ abstract class Horde_Vcs_Base
      *
      * @param string $where        Path to the directory.
      * @param array $opts          Any additional options (depends on driver):
-     *                             - 'quicklog': (boolean)
      *                             - 'showattic': (boolean) Parse any Attic/
      *                               sub-directory contents too.
      *                             - 'rev': (string) Generate directory list for
@@ -426,7 +425,6 @@ abstract class Horde_Vcs_Base
      * TODO
      *
      * $opts:
-     * 'quicklog' - (boolean)
      * 'branch' - (string)
      */
     public function getFile($filename, $opts = array())

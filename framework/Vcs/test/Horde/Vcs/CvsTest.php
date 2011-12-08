@@ -19,10 +19,11 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         if (!self::$conf) {
             $this->markTestSkipped();
         }
-        $this->vcs = Horde_Vcs::factory(
-            'Cvs',
-            array_merge(self::$conf,
-                        array('sourceroot' => dirname(__FILE__) . '/repos/cvs')));
+        $conf = self::$conf;
+        $conf['paths']['cvsps_home'] = Horde_Util::createTempDir(
+            true, $conf['paths']['cvsps_home']);
+        $conf['sourceroot'] = dirname(__FILE__) . '/repos/cvs';
+        $this->vcs = Horde_Vcs::factory('Cvs', $conf);
     }
 
     public function testFactory()
@@ -104,8 +105,13 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
                             $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
-        $log = $file->getLastLog();
-        $this->assertInstanceOf('Horde_Vcs_Log_Cvs', $log);
+        $file = $this->vcs->getFile('module/file1', array('branch' => 'HEAD'));
+        $this->assertEquals(array('HEAD' => '1.2', 'branch1' => '1.1.2.1'),
+                            $file->getBranches());
+
+        $file = $this->vcs->getFile('module/file1', array('branch' => 'branch1'));
+        $this->assertEquals(array('HEAD' => '1.2', 'branch1' => '1.1.2.1'),
+                            $file->getBranches());
 
         /* Test sub-directory file. */
         $file = $this->vcs->getFile('module/dir1/file1_1');
@@ -193,6 +199,41 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
             $log->getMessage());
         $this->assertEquals(array('branch1'), $log->getBranch());
         $this->assertEquals(array(), $log->getTags());
+
+        $logs = $this->vcs->getFile('module/file1', array('branch' => 'HEAD'))
+            ->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(array('1.2', '1.1'), array_keys($logs));
+
+        $logs = $this->vcs->getFile('module/file1', array('branch' => 'branch1'))
+            ->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(array('1.1', '1.1.2.1'), array_keys($logs));
+    }
+
+    public function testLastLog()
+    {
+        $log = $this->vcs
+            ->getFile('module/file1')
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Cvs', $log);
+        $this->assertEquals('1.2', $log->getRevision());
+        $this->assertEquals(1322495647, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to HEAD branch.',
+            $log->getMessage());
+
+        $log = $this->vcs
+            ->getFile('module/file1', array('branch' => 'branch1'))
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Cvs', $log);
+        $this->assertEquals('1.1.2.1', $log->getRevision());
+        $this->assertEquals(1322495667, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to branch1 branch.',
+            $log->getMessage());
     }
 
     public function testPatchset()
@@ -200,11 +241,39 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
         if (!$this->vcs->hasFeature('patchsets')) {
             $this->markTestSkipped('cvsps is not installed');
         }
+
+        $ps = $this->vcs->getPatchset(array('file' => 'module/file1'));
+        $this->assertInstanceOf('Horde_Vcs_Patchset_Cvs', $ps);
+        $sets = $ps->getPatchsets();
+        $this->assertInternalType('array', $sets);
+        $this->assertEquals(5, count($sets));
+        $this->assertEquals(array(1, 2, 3, 4, 5), array_keys($sets));
+        $this->assertEquals(1, $sets[1]['revision']);
+        $this->assertEquals(1322254184, $sets[1]['date']);
+        $this->assertEquals('jan', $sets[1]['author']);
+        $this->assertEquals('Add first files.', $sets[1]['log']);
+        $this->assertEquals(
+            array(array(
+                'file'    => 'file1',
+                'from'    => null,
+                'status'  => 1,
+                'to'      => '1.1',
+                /*'added'   => '1',
+                  'deleted' => '0'*/),
+                  array(
+                'file'    => 'dir1/file1_1',
+                'from'    => null,
+                'status'  => 1,
+                'to'      => '1.1',
+                /*'added'   => '1',
+                'deleted' => '0'*/)),
+            $sets[1]['members']);
+
+        /* Test non-existant file. */
         try {
             $ps = $this->vcs->getPatchset(array('file' => 'foo'));
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
-        //$this->assertInstanceOf('Horde_Vcs_Patchset_Cvs', $ps);
     }
 }
