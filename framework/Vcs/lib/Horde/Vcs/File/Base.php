@@ -218,20 +218,12 @@ abstract class Horde_Vcs_File_Base
     }
 
     /**
-     * Return the last Horde_Vcs_Log object in the file.
+     * Returns a log object for the most recent log entry of this file.
      *
-     * @return Horde_Vcs_Log  Log object of the last entry in the file.
+     * @return Horde_Vcs_QuickLog  Log object of the last entry in the file.
      * @throws Horde_Vcs_Exception
      */
-    public function getLastLog()
-    {
-        $this->_ensureRevisionsInitialized();
-        $this->_ensureLogsInitialized();
-        if (!isset($this->_revs[0]) || !isset($this->_logs[$this->_revs[0]])) {
-            throw new Horde_Vcs_Exception('No revisions');
-        }
-        return $this->_logs[$this->_revs[0]];
-    }
+    abstract public function getLastLog();
 
     /**
      * Sort the list of Horde_Vcs_Log objects that this file contains.

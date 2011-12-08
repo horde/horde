@@ -122,9 +122,6 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             $file->getPreviousRevision('da46ee2e478c6d3a9963eaafcd8f43e83d630526'));
         $this->assertEquals(2, $file->revisionCount());
 
-        $log = $file->getLastLog();
-        $this->assertInstanceOf('Horde_Vcs_Log_Git', $log);
-
         /* Test sub-directory file. */
         $file = $this->vcs->getFile('dir1/file1_1');
         $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
@@ -269,6 +266,35 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             $log->getFiles());
         $this->assertEquals(1, $log->getAddedLines());
         $this->assertEquals(1, $log->getDeletedLines());
+    }
+
+    public function testLastLog()
+    {
+        $log = $this->vcs
+            ->getFile('file1')
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Git', $log);
+        $this->assertEquals(
+            '160a468250615b713a7e33d34243530afc4682a9',
+            $log->getRevision());
+        $this->assertEquals(1322495899, $log->getDate());
+        $this->assertEquals('Jan Schneider <jan@horde.org>', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to master branch.',
+            $log->getMessage());
+
+        $log = $this->vcs
+            ->getFile('file1', array('branch' => 'branch1'))
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Git', $log);
+        $this->assertEquals(
+            'da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+            $log->getRevision());
+        $this->assertEquals(1322495911, $log->getDate());
+        $this->assertEquals('Jan Schneider <jan@horde.org>', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to branch1 branch.',
+            $log->getMessage());
     }
 
     public function testPatchset()

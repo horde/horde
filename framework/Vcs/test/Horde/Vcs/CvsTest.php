@@ -104,9 +104,6 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
                             $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
-        $log = $file->getLastLog();
-        $this->assertInstanceOf('Horde_Vcs_Log_Cvs', $log);
-
         /* Test sub-directory file. */
         $file = $this->vcs->getFile('module/dir1/file1_1');
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
@@ -193,6 +190,31 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
             $log->getMessage());
         $this->assertEquals(array('branch1'), $log->getBranch());
         $this->assertEquals(array(), $log->getTags());
+    }
+
+    public function testLastLog()
+    {
+        $log = $this->vcs
+            ->getFile('module/file1')
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Cvs', $log);
+        $this->assertEquals('1.2', $log->getRevision());
+        $this->assertEquals(1322495647, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to HEAD branch.',
+            $log->getMessage());
+
+        $log = $this->vcs
+            ->getFile('module/file1', array('branch' => 'branch1'))
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Cvs', $log);
+        $this->assertEquals('1.1.2.1', $log->getRevision());
+        $this->assertEquals(1322495667, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals(
+            'Commit 2nd version to branch1 branch.',
+            $log->getMessage());
     }
 
     public function testPatchset()

@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-05</date>
- <time>10:37:07</time>
+ <date>2011-12-08</date>
+ <time>16:20:45</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -76,6 +76,13 @@
        <file name="Git.php" role="php" />
        <file name="Svn.php" role="php" />
       </dir> <!-- //lib/Horde/Vcs/Patchset -->
+      <dir name="QuickLog">
+       <file name="Base.php" role="php" />
+       <file name="Cvs.php" role="php" />
+       <file name="Git.php" role="php" />
+       <file name="Rcs.php" role="php" />
+       <file name="Svn.php" role="php" />
+      </dir> <!-- /lib/Horde/Vcs/QuickLog -->
       <file name="Base.php" role="php" />
       <file name="Cvs.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -221,16 +228,6 @@
          <file name="svnserve.conf" role="test" />
         </dir> <!-- /test/Horde/Vcs/repos/svn/conf -->
         <dir name="db">
-         <dir name="revprops">
-          <file name="0" role="test" />
-          <file name="1" role="test" />
-          <file name="2" role="test" />
-         </dir> <!-- /test/Horde/Vcs/repos/svn/db/revprops -->
-         <dir name="revs">
-          <file name="0" role="test" />
-          <file name="1" role="test" />
-          <file name="2" role="test" />
-         </dir> <!-- /test/Horde/Vcs/repos/svn/db/revs -->
          <file name="current" role="test" />
          <file name="format" role="test" />
          <file name="fs-type" role="test" />
@@ -332,6 +329,11 @@
    <install as="Horde/Vcs/Patchset/Cvs.php" name="lib/Horde/Vcs/Patchset/Cvs.php" />
    <install as="Horde/Vcs/Patchset/Git.php" name="lib/Horde/Vcs/Patchset/Git.php" />
    <install as="Horde/Vcs/Patchset/Svn.php" name="lib/Horde/Vcs/Patchset/Svn.php" />
+   <install as="Horde/Vcs/QuickLog/Base.php" name="lib/Horde/Vcs/QuickLog/Base.php" />
+   <install as="Horde/Vcs/QuickLog/Cvs.php" name="lib/Horde/Vcs/QuickLog/Cvs.php" />
+   <install as="Horde/Vcs/QuickLog/Git.php" name="lib/Horde/Vcs/QuickLog/Git.php" />
+   <install as="Horde/Vcs/QuickLog/Rcs.php" name="lib/Horde/Vcs/QuickLog/Rcs.php" />
+   <install as="Horde/Vcs/QuickLog/Svn.php" name="lib/Horde/Vcs/QuickLog/Svn.php" />
    <install as="Horde/Vcs/AllTests.php" name="test/Horde/Vcs/AllTests.php" />
    <install as="Horde/Vcs/Autoload.php" name="test/Horde/Vcs/Autoload.php" />
    <install as="Horde/Vcs/CvsTest.php" name="test/Horde/Vcs/CvsTest.php" />

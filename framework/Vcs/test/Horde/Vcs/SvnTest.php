@@ -92,9 +92,6 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals(array(), $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
-        $log = $file->getLastLog();
-        $this->assertInstanceOf('Horde_Vcs_Log_Svn', $log);
-
         /* Test sub-directory file. */
         $file = $this->vcs->getFile('dir1/file1_1');
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
@@ -185,6 +182,18 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals(1, $log->getAddedLines());
         $this->assertEquals(1, $log->getDeletedLines());
         */
+    }
+
+    public function testLastLog()
+    {
+        $log = $this->vcs
+            ->getFile('file1')
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Svn', $log);
+        $this->assertEquals('2', $log->getRevision());
+        $this->assertEquals(1322496080, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals('Commit 2nd version.', $log->getMessage());
     }
 
     public function testPatchset()
