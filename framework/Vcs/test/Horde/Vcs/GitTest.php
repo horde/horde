@@ -102,6 +102,20 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
+        $file = $this->vcs->getFile('file1', array('branch' => 'master'));
+        $this->assertEquals(
+            //FIXME? 'master' => '160a468250615b713a7e33d34243530afc4682a9',
+            array('master' => 'master',
+                  'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
+            $file->getBranches());
+
+        $file = $this->vcs->getFile('file1', array('branch' => 'branch1'));
+        $this->assertEquals(
+            array('master' => '160a468250615b713a7e33d34243530afc4682a9',
+                  //FIXME? 'branch1' => 'da46ee2e478c6d3a9963eaafcd8f43e83d630526'),
+                  'branch1' => 'branch1'),
+            $file->getBranches());
+
         /* Test master branch. */
         $file = $this->vcs->getFile('file1', array('branch' => 'master'));
         $this->assertEquals(
@@ -266,6 +280,22 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
             $log->getFiles());
         $this->assertEquals(1, $log->getAddedLines());
         $this->assertEquals(1, $log->getDeletedLines());
+
+        $logs = $this->vcs->getFile('file1', array('branch' => 'master'))
+            ->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(
+            array('160a468250615b713a7e33d34243530afc4682a9',
+                  'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
+            array_keys($logs));
+
+        $logs = $this->vcs->getFile('file1', array('branch' => 'branch1'))
+            ->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(
+            array('da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+                  'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
+            array_keys($logs));
     }
 
     public function testLastLog()

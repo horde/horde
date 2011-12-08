@@ -104,6 +104,14 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
                             $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
+        $file = $this->vcs->getFile('module/file1', array('branch' => 'HEAD'));
+        $this->assertEquals(array('HEAD' => '1.2', 'branch1' => '1.1.2.1'),
+                            $file->getBranches());
+
+        $file = $this->vcs->getFile('module/file1', array('branch' => 'branch1'));
+        $this->assertEquals(array('HEAD' => '1.2', 'branch1' => '1.1.2.1'),
+                            $file->getBranches());
+
         /* Test sub-directory file. */
         $file = $this->vcs->getFile('module/dir1/file1_1');
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $file);
@@ -190,6 +198,16 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
             $log->getMessage());
         $this->assertEquals(array('branch1'), $log->getBranch());
         $this->assertEquals(array(), $log->getTags());
+
+        $logs = $this->vcs->getFile('module/file1', array('branch' => 'HEAD'))
+            ->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(array('1.2', '1.1'), array_keys($logs));
+
+        $logs = $this->vcs->getFile('module/file1', array('branch' => 'branch1'))
+            ->getLog();
+        $this->assertInternalType('array', $logs);
+        $this->assertEquals(array('1.1', '1.1.2.1'), array_keys($logs));
     }
 
     public function testLastLog()
