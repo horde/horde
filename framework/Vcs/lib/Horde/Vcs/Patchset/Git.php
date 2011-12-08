@@ -34,11 +34,12 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
         } elseif (!empty($opts['range'])) {
             foreach ($opts['range'] as $val) {
                 /* Grab a filename in the patchset to get log info. */
-                $cmd = $rep->getCommand() . ' diff-tree --name-only -r ' . escapeshellarg($val);
-                exec($cmd, $output);
+                list($resource, $stream) = $rep->runCommand('diff-tree --name-only -r ' . escapeshellarg($val));
 
                 /* The first line is the SHA1 hash. */
-                $ob = $rep->getFile($output[1]);
+                $ob = $rep->getFile(fgets($stream));
+                fclose($stream);
+                proc_close($resource);
                 $revs[$val] = $ob->getLog($val);
             }
         }

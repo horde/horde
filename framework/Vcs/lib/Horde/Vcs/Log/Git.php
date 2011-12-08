@@ -22,15 +22,16 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
     {
         /* Get diff statistics. */
         $stats = array();
-        $cmd = $this->_rep->getCommand() . ' diff-tree --root --numstat ' . escapeshellarg($this->_rev);
-        exec($cmd, $output);
+        list($resource, $stream) = $this->_rep->runCommand('diff-tree --root --numstat ' . escapeshellarg($this->_rev));
 
         // Skip the first entry (it is the revision number)
-        next($output);
-        while (list(,$v) = each($output)) {
-            $tmp = explode("\t", $v);
+        fgets($stream);
+        while (!feof($stream) && $line = trim(fgets($stream))) {
+            $tmp = explode("\t", $line);
             $stats[$tmp[2]] = array_slice($tmp, 0, 2);
         }
+        fclose($stream);
+        proc_close($resource);
 
         // @TODO use Commit, CommitDate, and Merge properties
         $cmd = 'whatchanged --no-color --pretty=format:"%H%x00%P%x00%an <%ae>%x00%at%x00%d%x00%s%x00%b" --no-abbrev -n 1 ' . escapeshellarg($this->_rev);
