@@ -54,13 +54,6 @@ abstract class Horde_Vcs_File_Base
     /**
      * TODO
      *
-     * @var boolean
-     */
-    protected $_quicklog;
-
-    /**
-     * TODO
-     *
      * @var string
      */
     protected $_branch = null;
@@ -77,7 +70,6 @@ abstract class Horde_Vcs_File_Base
      *
      * @param string $filename  Full path (inside the source root) to this file.
      * @param array $opts       Additional parameters:
-     *                          - 'quicklog': (boolean)
      *                          - 'branch': (string)
      */
     public function __construct($filename, $opts = array())
@@ -88,7 +80,6 @@ abstract class Horde_Vcs_File_Base
             $this->_dir = '';
         }
 
-        $this->_quicklog = !empty($opts['quicklog']);
         if (!empty($opts['branch'])) {
             $this->_branch = $opts['branch'];
         }

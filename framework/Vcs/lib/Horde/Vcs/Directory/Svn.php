@@ -16,7 +16,6 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
      * @param Horde_Vcs_Base $rep  A repository object.
      * @param string $dn           Path to the directory.
      * @param array $opts          Any additional options:
-     *                             - 'quicklog': (boolean)
      *
      * @throws Horde_Vcs_Exception
      */
@@ -53,9 +52,7 @@ class Horde_Vcs_Directory_Svn extends Horde_Vcs_Directory_Base
             } elseif (substr($line, -1) == '/') {
                 $this->_dirs[] = substr($line, 0, -1);
             } else {
-                $this->_files[] = $rep->getFile(
-                    $this->_dirName . '/' . $line,
-                    array('quicklog' => !empty($opts['quicklog'])));
+                $this->_files[] = $rep->getFile($this->_dirName . '/' . $line);
             }
         }
 

@@ -32,7 +32,6 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
      * @param Horde_Vcs_Base $rep  A repository object.
      * @param string $dn           Path to the directory.
      * @param array $opts          Any additional options:
-     *                             - 'quicklog': (boolean)
      *                             - 'rev': (string) Generate directory list for
      *                               a certain branch or revision.
      *
@@ -75,8 +74,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
             } else {
                 $this->_files[] = $rep->getFile(
                     $file,
-                    array('branch' => $this->_branch,
-                          'quicklog' => !empty($opts['quicklog'])));
+                    array('branch' => $this->_branch)));
             }
         }
         fclose($result);

@@ -41,10 +41,6 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
                 $this->_logs[$rev] = $log;
                 $this->_revs[] = $rev;
             } catch (Horde_Vcs_Exception $e) {}
-
-            if ($this->_quicklog) {
-                break;
-            }
         }
 
         pclose($this->_logpipe);

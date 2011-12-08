@@ -29,7 +29,6 @@ class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Rcs
      * @param Horde_Vcs_Base $rep  A repository object.
      * @param string $dn           Path to the directory.
      * @param array $opts          Any additional options:
-     *                             - 'quicklog': (boolean)
      *                             - 'showattic': (boolean) Parse any Attic/
      *                               sub-directory contents too.
      *

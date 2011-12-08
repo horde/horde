@@ -50,7 +50,6 @@ abstract class Horde_Vcs_Directory_Base
      * @param Horde_Vcs_Base $rep  A repository object.
      * @param string $dn           Path to the directory.
      * @param array $opts          Any additional options:
-     *                             - 'quicklog': (boolean)
      *
      * @throws Horde_Vcs_Exception
      */
