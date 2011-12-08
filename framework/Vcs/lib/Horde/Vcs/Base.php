@@ -62,7 +62,7 @@ abstract class Horde_Vcs_Base
      *
      * @var integer
      */
-    protected $_cacheVersion = 4;
+    protected $_cacheVersion = 5;
 
     /**
      * The available diff types.
