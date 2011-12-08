@@ -50,9 +50,9 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
                 continue;
             }
 
-            $this->_patchsets[$rev] = array(
-                'log' => $log,
-                'members' => array(),
+            $this->_patchsets[$rev] = array_merge(
+                $log->toHash(),
+                array('members' => array())
             );
 
             foreach ($log->getFiles() as $file) {

@@ -70,7 +70,7 @@ foreach ($logs as $log) {
         echo '<h3>' . $day . '</h3>';
         $currentDay = $day;
     }
-    echo $view->renderPartial('app/views/logMessage', array('object' => $log));
+    echo $view->renderPartial('app/views/logMessage', array('object' => $log->toHash()));
 }
 
 echo '</div>';

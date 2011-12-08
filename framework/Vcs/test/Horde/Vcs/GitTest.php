@@ -334,11 +334,45 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
 
     public function testPatchset()
     {
+        $ps = $this->vcs->getPatchset(array('file' => 'file1'));
+        $this->assertInstanceOf('Horde_Vcs_Patchset_Git', $ps);
+        $sets = $ps->getPatchsets();
+        $this->assertInternalType('array', $sets);
+        $this->assertEquals(3, count($sets));
+        $this->assertEquals(array('da46ee2e478c6d3a9963eaafcd8f43e83d630526',
+                                  '160a468250615b713a7e33d34243530afc4682a9',
+                                  'd8561cd227c800ee5b0720701c8b6b77e6f6db4a'),
+                            array_keys($sets));
+        $entry = $sets['d8561cd227c800ee5b0720701c8b6b77e6f6db4a'];
+        $this->assertEquals('d8561cd227c800ee5b0720701c8b6b77e6f6db4a',
+                            $entry['revision']);
+        $this->assertEquals(1322253995, $entry['date']);
+        $this->assertEquals('Jan Schneider <jan@horde.org>', $entry['author']);
+        $this->assertEquals('Add first files.', $entry['log']);
+        $this->assertEquals(array('branch1', 'master'), $entry['branch']);
+        $this->assertEquals(
+            array(array(
+                'file'    => 'dir1/file1_1',
+                'from'    => '',
+                'status'  => 1,
+                'to'      => 'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
+                'added'   => '1',
+                'deleted' => '0'),
+                  array(
+                'file'    => 'file1',
+                'from'    => '',
+                'status'  => 1,
+                'to'      => 'd8561cd227c800ee5b0720701c8b6b77e6f6db4a',
+                'added'   => '1',
+                'deleted' => '0',
+            )),
+            $sets['d8561cd227c800ee5b0720701c8b6b77e6f6db4a']['members']);
+
+        /* Test non-existant file. */
         try {
             $ps = $this->vcs->getPatchset(array('file' => 'foo'));
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
-        //$this->assertInstanceOf('Horde_Vcs_Patchset_Git', $ps);
     }
 }
