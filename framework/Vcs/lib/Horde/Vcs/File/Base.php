@@ -107,16 +107,16 @@ abstract class Horde_Vcs_File_Base
     protected function _ensureRevisionsInitialized()
     {
         if (!$this->_initialized) {
-            $this->_init();
             $this->_initialized = true;
+            $this->_init();
         }
     }
 
     protected function _ensureLogsInitialized()
     {
         if (!$this->_initialized) {
-            $this->_init();
             $this->_initialized = true;
+            $this->_init();
         }
     }
 
