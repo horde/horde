@@ -116,7 +116,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
      */
     public function getRevision()
     {
-        $this->_ensureRevisionsInitialized();
+        $this->_ensureInitialized();
         if (empty($this->_branch)) {
             return parent::getRevision();
         }
@@ -138,7 +138,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
      */
     public function getPreviousRevision($rev)
     {
-        $this->_ensureRevisionsInitialized();
+        $this->_ensureInitialized();
 
         if (empty($this->_branch)) {
             return parent::getPreviousRevision($rev);
@@ -160,7 +160,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
      */
     public function getHashForRevision($rev)
     {
-        $this->_ensureLogsInitialized();
+        $this->_ensureInitialized();
         if (!isset($this->_logs[$rev])) {
             throw new Horde_Vcs_Exception('This file doesn\'t exist at that revision');
         }
@@ -228,7 +228,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
     public function getLog($rev = null)
     {
         if (is_null($rev)) {
-            $this->_ensureLogsInitialized();
+            $this->_ensureInitialized();
             return $this->_logs;
         } else {
             if (!isset($this->_logs[$rev])) {
@@ -267,7 +267,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         if (empty($this->_branch)) {
             return parent::revisionCount();
         }
-        $this->_ensureRevisionsInitialized();
+        $this->_ensureInitialized();
         return count($this->_revlist[$this->_branch]);
     }
 

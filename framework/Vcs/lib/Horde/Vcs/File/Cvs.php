@@ -51,7 +51,7 @@ class Horde_Vcs_File_Cvs extends Horde_Vcs_File_Rcs
      */
     public function getBranches()
     {
-        $this->_ensureLogsInitialized();
+        $this->_ensureInitialized();
         return $this->_branches;
     }
 }

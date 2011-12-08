@@ -227,7 +227,6 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
 
         $cmd = escapeshellcmd($this->_rep->getPath('rlog')) . ' -r';
         if (!empty($this->_branch)) {
-            $this->_ensureLogsInitialized();
             $branches = $this->getBranches();
             $branch = $branches[$this->_branch];
             $cmd .= substr($branch, 0, strrpos($branch, '.')) . '.';
