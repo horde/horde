@@ -125,14 +125,14 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
                     $log = $this->_getLog();
                     $rev = $log->getRevision();
                     $onbranch = false;
-                    $onhead = (substr_count($rev, '.') == 1);
+                    $onhead = substr_count($rev, '.') == 1;
 
                     // Determine branch information.
                     if ($onhead) {
                         $onbranch = (empty($this->_branch) || $this->_branch == 'HEAD') ||
                             ($this->_rep->cmp($branches[$this->_branch], $rev) === 1);
                         $log->setBranch('HEAD');
-                    } elseif ($this->_branch != 'HEAD') {
+                    } else {
                         foreach ($branches as $key => $val) {
                             if (strpos($rev, $val) === 0) {
                                 $onbranch = true;
@@ -140,6 +140,9 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
                                 if (!isset($this->_branches[$key])) {
                                     $this->_branches[$key] = $rev;
                                     $this->_revlist[$key] = $this->_rep->getRevisionRange($this, '1.1', $rev);
+                                }
+                                if ($this->_branch == 'HEAD') {
+                                    break 2;
                                 }
                                 break;
                             }
