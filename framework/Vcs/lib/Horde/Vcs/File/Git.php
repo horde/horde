@@ -49,15 +49,6 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         }
 
         list($stream, $result) = $this->_rep->runCommand($cmd);
-        if (feof($result)) {
-            $branch = empty($this->_branch) ? null : $this->_branch;
-            if (!$this->_rep->isFile($this->getSourcerootPath(), $branch)) {
-                throw new Horde_Vcs_Exception('No such file: ' . $this->getSourcerootPath());
-            } else {
-                throw new Horde_Vcs_Exception('No revisions found');
-            }
-        }
-
         while (!feof($result)) {
             $line = trim(fgets($result));
             if (strlen($line)) {
@@ -66,6 +57,15 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File_Base
         }
         fclose($result);
         proc_close($stream);
+
+        if (!$this->_revs) {
+            $branch = empty($this->_branch) ? null : $this->_branch;
+            if (!$this->_rep->isFile($this->getSourcerootPath(), $branch)) {
+                throw new Horde_Vcs_Exception('No such file: ' . $this->getSourcerootPath());
+            } else {
+                throw new Horde_Vcs_Exception('No revisions found');
+            }
+        }
 
         $branchlist = empty($this->_branch)
             ? array_keys($this->getBranches())

@@ -171,6 +171,11 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
         /* Test non-existant file. */
         $file = $this->vcs->getFile('foo');
         $this->assertInstanceOf('Horde_Vcs_File_Git', $file);
+        try {
+            $file->getLog();
+            $this->fail('Expected Horde_Vcs_Exception');
+        } catch (Horde_Vcs_Exception $e) {
+        }
     }
 
     public function testLog()
@@ -329,7 +334,6 @@ class Horde_Vcs_GitTest extends Horde_Vcs_TestBase
 
     public function testPatchset()
     {
-        $this->markTestSkipped();
         try {
             $ps = $this->vcs->getPatchset(array('file' => 'foo'));
             $this->fail('Expected Horde_Vcs_Exception');
