@@ -74,7 +74,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
             } else {
                 $this->_files[] = $rep->getFile(
                     $file,
-                    array('branch' => $this->_branch)));
+                    array('branch' => $this->_branch));
             }
         }
         fclose($result);
