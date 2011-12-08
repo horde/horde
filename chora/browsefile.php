@@ -43,10 +43,13 @@ foreach ($fl->getTags() as $sm => $rv) {
     $sel .= '<option value="' . $rv . '">' . $sm . '</option>';
 }
 
-$selAllBranches = '<option></option>';
+$selAllBranches = '';
 if ($VC->hasFeature('branches')) {
     foreach (array_keys($fl->getBranches()) as $sym) {
         $selAllBranches .= '<option value="' . $sym . '"' . (($sym === $onb) ? ' selected="selected"' : '' ) . '>' . $sym . '</option>';
+    }
+    if (!empty($selAllBranches)) {
+        $selAllBranches = '<option></option>' . $selAllBranches;
     }
 }
 
