@@ -149,19 +149,17 @@ class Horde_ActiveSync_Timezone
         foreach ($transitions as $i => $transition) {
             try {
                 $d = new Horde_Date($transition['time'], 'UTC');
-                } catch (Horde_Date_Exception $e) {
-                    continue;
-                }
-            if ($d->format('Y') == $date->format('Y')) {
-                if (isset($transitions[$i + 1])) {
-                    $next = new Horde_Date($transitions[$i + 1]['ts']);
-                    if ($d->format('Y') == $next->format('Y')) {
-                        $dst = $transition['isdst'] ? $transition : $transitions[$i + 1];
-                        $std = $transition['isdst'] ? $transitions[$i + 1] : $transition;
-                    } else {
-                        $dst = $transition['isdst'] ? $transition: null;
-                        $std = $transition['isdst'] ? null : $transition;
-                    }
+            } catch (Horde_Date_Exception $e) {
+                continue;
+            }
+            if (($d->format('Y') == $date->format('Y')) && isset($transitions[$i + 1])) {
+                $next = new Horde_Date($transitions[$i + 1]['ts']);
+                if ($d->format('Y') == $next->format('Y')) {
+                    $dst = $transition['isdst'] ? $transition : $transitions[$i + 1];
+                    $std = $transition['isdst'] ? $transitions[$i + 1] : $transition;
+                } else {
+                    $dst = $transition['isdst'] ? $transition: null;
+                    $std = $transition['isdst'] ? null : $transition;
                 }
                 break;
             } elseif ($i == count($transitions) - 1) {
