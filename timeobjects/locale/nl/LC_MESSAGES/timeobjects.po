@@ -1,7 +1,7 @@
 # Dutch translations for Timeobjects package.
 # Copyright (C) 2011 Horde Project
 # This file is distributed under the same license as the Timeobjects package.
-# 
+#
 # Automatically generated, 2011.
 # Arjen de Korte <build+horde@de-korte.org>, 2011.
 msgid ""
