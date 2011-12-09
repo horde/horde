@@ -2959,7 +2959,7 @@ var DimpBase = {
                 ll = label.toLowerCase();
                 f_node = parent_e.childElements().find(function(node) {
                     var l = node.retrieve('l');
-                    return (l && (ll < l.toLowerCase()));
+                    return (l && (ll.localeCompare(l.toLowerCase()) < 0));
                 });
             }
 

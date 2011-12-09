@@ -2,6 +2,7 @@
 v5.0.16-git
 -----------
 
+[jan] Use locale based folder sorting.
 [mms] Workaround broken PGP signed data contained within encrypted parts (Bug
       #10809).
 [mms] Fix signature verification display for combined encrypted/signed PGP

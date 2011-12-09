@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Use locale based folder sorting.
 * [mms] Workaround broken PGP signed data contained within encrypted parts (Bug #10809).
 * [mms] Fix signature verification display for combined encrypted/signed PGP messages.
 * [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view (Request #8060).
@@ -2602,6 +2603,7 @@
    <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use locale based folder sorting.
 * [mms] Workaround broken PGP signed data contained within encrypted parts (Bug #10809).
 * [mms] Fix signature verification display for combined encrypted/signed PGP messages.
 * [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view (Request #8060).
