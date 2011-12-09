@@ -115,14 +115,14 @@ Configuring Whups
    appropriate addresses. This script takes a number of arguments; see the
    script for more details. A typical setup might be::
 
-      bugs |/usr/bin/whups-mail-filter --queue-name=Bugs --type-name=Bug --state-name=New --priority-name=Low
+      bugs |/usr/bin/whups-mail-filter --queue-name=Bugs
 
    This will take in mail to the ``bugs`` address at your domain, and create
-   new tickets in the ``Bugs`` queue, with a type of ``Bug``, a state of
-   ``New``, and ``Low`` priority. Note that this must be a valid combination of
-   queue/type/state/priority names in your Whups installation. If an email
-   references an existing ticket (ticket numbers are recognized in the subject
-   line) it will be updated instead.
+   new tickets in the ``Bugs`` queue, with the default type, state and priority
+   of this queue. If an email references an existing ticket (ticket numbers are
+   recognized in the subject line) it will be updated instead. Run
+   ``whups-mail-filter`` without arguments to get a summary of all supported
+   arguments.
 
    If not installing Whups through PEAR of if PEAR's ``bin_dir`` configuration
    doesn't point to ``/usr/bin/``, replace ``/usr/bin/whups-mail-filter`` with
