@@ -318,7 +318,7 @@ class Horde_Block_Weather extends Horde_Core_Block
                                           $day->wind_direction,
                                           $day->wind_speed,
                                           $units['wind']);
-                            if ($day->wind_gust && $day->wind_gust > 0) {
+                            if ($day->wind_gust && $day->wind_gust > $day->wind_speed) {
                                 $html .= ', ' . _("gusting") . ' '
                                     . $day->wind_gust . ' ' . $units['wind'];
                             }
