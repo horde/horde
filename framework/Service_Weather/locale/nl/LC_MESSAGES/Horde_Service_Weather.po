@@ -1,19 +1,19 @@
 # Copyright (C) 2011 Horde Project
 # This file is distributed under the same license as the Horde_Service_Weather package.
-#
+# 
 # Arjen de Korte <build+horde@de-korte.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-03 14:46+0100\n"
-"PO-Revision-Date: 2011-12-04 13:07+0100\n"
+"POT-Creation-Date: 2011-12-07 19:19+0100\n"
+"PO-Revision-Date: 2011-12-07 19:58+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
 "X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -617,7 +617,7 @@ msgstr "het noorden"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:150
 #: lib/Horde/Service/Weather/Wwo_Strings.php:46
 msgid "Overcast"
-msgstr "Bewolkt"
+msgstr "Zwaar bewolkt"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:122
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:140
@@ -648,7 +648,7 @@ msgid "Patchy light rain"
 msgstr "Hier en daar lichte regen"
 
 #: lib/Horde/Service/Weather/Wwo_Strings.php:5
-msgid "Plaatsgewijs light rain in area with thunder"
+msgid "Patchy light rain in area with thunder"
 msgstr "Hier en daar lichte regen met onweer"
 
 #: lib/Horde/Service/Weather/Wwo_Strings.php:21
@@ -715,7 +715,7 @@ msgstr "Zandstorm"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:124
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:151
 msgid "Scattered Clouds"
-msgstr "Verspreide wolken"
+msgstr "Licht bewolkt"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:144
 msgid "Sleet"
@@ -852,7 +852,7 @@ msgstr "mbar"
 
 #: lib/Horde/Service/Weather/Base.php:187
 msgid "mph"
-msgstr "mph"
+msgstr "mi/h"
 
 #: lib/Horde/Service/Weather/Current/WeatherUnderground.php:113
 msgid "rising"
