@@ -203,7 +203,12 @@ class Horde_Block_Weather extends Horde_Core_Block
             // Wind.
             $html .= '<br /><strong>' . _("Wind") . ': </strong>';
 
-            $html .= sprintf(_("From the %s (%s &deg;) at %s"), $current->wind_direction, $current->wind_degrees, $current->wind_speed);
+            $html .= sprintf(
+                _("From the %s (%s &deg;) at %s %s"),
+                $current->wind_direction,
+                $current->wind_degrees,
+                $current->wind_speed,
+                $units['wind']);
             if ($current->wind_gust > 0) {
                 $html .= ', ' . _("gusting") . ' ' . $current->wind_gust . ' ' . $units['wind'];
             }
@@ -309,9 +314,10 @@ class Horde_Block_Weather extends Horde_Core_Block
                         // Winds.
                         if ($day->wind_direction) {
                             $html .= '<td style="border:1px solid #ddd">' . ' '
-                                . _("From the") . ' ' . $day->wind_direction . ' '
-                                . _("at") . $day->wind_speed
-                                . ' ' . $units['wind'];
+                                . sprintf(_("From the %s at %s %s"),
+                                          $day->wind_direction,
+                                          $day->wind_speed,
+                                          $units['wind']);
                             if ($day->wind_gust && $day->wind_gust > 0) {
                                 $html .= ', ' . _("gusting") . ' '
                                     . $day->wind_gust . ' ' . $units['wind'];
