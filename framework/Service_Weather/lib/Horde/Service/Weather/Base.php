@@ -39,7 +39,7 @@ abstract class Horde_Service_Weather_Base
      *
      * @var integer
      */
-    protected $_cache_lifetime = 216000;
+    protected $_cache_lifetime = 21600;
 
     /**
      * Units to display results in.
