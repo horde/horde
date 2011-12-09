@@ -1780,6 +1780,8 @@
        <configstring name="key" desc="API Key. For information on registration and obtaining an API
        key for this driver, see http://www.wunderground.com/weather/api/.">
        </configstring>
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
       </configsection>
     </case>
     <case name="Google" desc="Google Weather API - Unofficial API. Free, no registration. VERY basic forecast data." />
