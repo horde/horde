@@ -258,6 +258,7 @@ class Horde_Date
             $this->_hour  = (int)$parsed->format('H');
             $this->_min   = (int)$parsed->format('i');
             $this->_sec   = (int)$parsed->format('s');
+            $this->_initializeTimezone(date_default_timezone_get());
         }
     }
 
