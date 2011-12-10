@@ -59,11 +59,18 @@ var DimpMessage = {
         var i, id,
             r = result.response;
 
-        if (r.imp_compose) {
-            $('composeCache').setValue(r.imp_compose);
-        }
+        switch (r.type) {
+        case 'forward_redirect':
+            if (r.imp_compose) {
+                $('composeCacheRedirect').setValue(r.imp_compose);
+            }
+            break;
 
-        if (r.type != 'forward_redirect') {
+        default:
+            if (r.imp_compose) {
+                $('composeCache').setValue(r.imp_compose);
+            }
+
             if (!r.opts) {
                 r.opts = {};
             }
@@ -76,6 +83,7 @@ var DimpMessage = {
             $('identity', 'last_identity').invoke('setValue', id);
 
             DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
+            break;
         }
     },
 

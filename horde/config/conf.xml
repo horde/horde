@@ -7,9 +7,10 @@
   want to use a single Horde installation for different virtual hosts, you can
   create separate configuration files for each virtual host,
   e.g. &lt;code&gt;conf-www.example.com.php&lt;/code&gt; or
-  &lt;code&gt;prefs-mail.example.com.php&lt;/code&gt;. The global
-  configuration files are always loaded first, and virtual host specific files
-  are not required.">false</configboolean>
+  &lt;code&gt;prefs-mail.example.com.php&lt;/code&gt;. The global configuration
+  files are always loaded first, and virtual host specific files are not
+  required. If running command line scripts, you can specify the host name with
+  the environment variable SERVER_NAME.">false</configboolean>
   <configheader>PHP Settings</configheader>
   <configphp name="debug_level" desc="The value to set
   error_reporting() to.
@@ -1286,7 +1287,7 @@
       binary">-oi</configstring>
      </configsection>
     </case>
-    <case name="smtp" desc="Use a SMTP server">
+    <case name="smtp" desc="Use a SMTP server (RECOMMENDED)">
      <configsection name="params">
       <configstring name="host" required="false" desc="The server to connect
       to [localhost]"/>
@@ -1641,21 +1642,6 @@
     </values>
    </configmultienum>
   </configsection>
-  <configheader>weather.com Configuration</configheader>
-  <configsection name="weatherdotcom">
-   <configdescription>
-    Use of the weather.com block requires free registration for the XML
-    feed at http://www.weather.com/services/xmloap.html.
-    After registration, an email will be returned with the Partner ID and
-    license key.&lt;br /&gt;
-    NOTE: weather.com guidelines require registration and use of the returned
-    values, but the application appears to function with any string values.
-   </configdescription>
-   <configstring name="partner_id" required="false" desc="The partner I.D.
-   from weather.com"/>
-   <configstring name="license_key" required="false" desc="The license key
-   from weather.com"/>
-  </configsection>
 
   <configheader>Fortune Configuration</configheader>
   <configsection name="fortune">
@@ -1795,9 +1781,28 @@
    you must select a provider and provide your API keys.</configdescription>
    <configswitch name="provider">false
     <case name="false" desc="None" />
-    <case name="WeatherUnderground" desc="Weather Underground">
+    <case name="WeatherUnderground" desc="Weather Underground - Recommended, but relatively low daily limits for free accounts.">
       <configsection name="params">
-       <configstring name="key" desc="API Key"></configstring>
+       <configstring name="key" desc="API Key. For information on registration and obtaining an API
+       key for this driver, see http://www.wunderground.com/weather/api/.">
+       </configstring>
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
+      </configsection>
+    </case>
+    <case name="Google" desc="Google Weather API - Unofficial API. Free, no registration. VERY basic forecast data.">
+      <configsection name="params">
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
+      </configsection>
+    </case>
+    <case name="Wwo" desc="World Weather Online API. Free, requires registration. Slighty more detailed than Google.">
+      <configsection name="params">
+        <configstring name="key" desc="API Key. For information on registration
+        and obtaining an API key for this driver, see
+        http://worldweatheronline.com"></configstring>
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
       </configsection>
     </case>
    </configswitch>
@@ -1973,7 +1978,10 @@
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send
       activesync-related log messages to a seperate log. If you want to do this,
-      set this to Custom and enter the path to the log file to use.">
+      set this to Custom and enter the path to the log file to use. Horde will
+      attempt to create device specific log files in the same directory as the
+      filepath you provide here. If it is unable to do so, all log entries will
+      be sent to the filename you provide.">
         <case name="horde" desc="Horde" />
         <case name="custom" desc="Custom">
          <configstring name="path" desc="Path to logfile" />

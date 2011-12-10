@@ -57,7 +57,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (5.0.15-git)';
+    public $version = 'H4 (5.0.16-git)';
 
     /**
      * Cached values to add to the session after authentication.
@@ -388,23 +388,28 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      * @param array $credentials  Credentials of the user. Allowed keys:
-     *                            'imp_select_view', 'imp_server_key',
-     *                            'password'.
+     *                            'imp_server_key', 'password'.
      */
     public function authAuthenticate($userId, $credentials)
     {
         $this->init();
 
+        if (isset($credentials['server'])) {
+            $server = $credentials['server'];
+        } else {
+            $server = empty($credentials['imp_server_key'])
+                ? IMP_Auth::getAutoLoginServer()
+                : $credentials['imp_server_key'];
+        }
+
         $new_session = IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
-            'server' => empty($credentials['imp_server_key']) ? IMP_Auth::getAutoLoginServer() : $credentials['imp_server_key'],
+            'server' => $server,
             'userId' => $userId
         ));
 
         if ($new_session) {
-            $this->_cacheSess = array_merge($new_session, array(
-                'select_view' => empty($credentials['imp_select_view']) ? '' : $credentials['imp_select_view']
-            ));
+            $this->_cacheSess = $new_session;
         }
     }
 

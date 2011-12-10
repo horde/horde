@@ -119,6 +119,10 @@ extends Horde_Push_Recipient_Base
                 $this->_params['url'],
                 array('Authorization' => 'GoogleLogin auth=' . $auth)
             );
+            $reference = $entry->link('alternate');
+            if (!empty($reference)) {
+                $content->addReference($reference);
+            }
         } catch (Horde_Exception $e) {
             throw new Horde_Push_Exception($e);
         }

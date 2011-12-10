@@ -844,16 +844,21 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $driver = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create('Ical', $params);
             $driver->open($this->_vars->url);
-            $ical = $driver->getRemoteCalendar(false);
-            $result->success = true;
-            try {
-                $name = $ical->getAttribute('X-WR-CALNAME');
-                $result->name = $name;
-            } catch (Horde_Icalendar_Exception $e) {}
-            try {
-                $desc = $ical->getAttribute('X-WR-CALDESC');
-                $result->desc = $desc;
-            } catch (Horde_Icalendar_Exception $e) {}
+            if ($driver->isCalDAV()) {
+                $result->success = true;
+                // TODO: find out how to retrieve calendar information via CalDAV.
+            } else {
+                $ical = $driver->getRemoteCalendar(false);
+                $result->success = true;
+                try {
+                    $name = $ical->getAttribute('X-WR-CALNAME');
+                    $result->name = $name;
+                } catch (Horde_Icalendar_Exception $e) {}
+                try {
+                    $desc = $ical->getAttribute('X-WR-CALDESC');
+                    $result->desc = $desc;
+                } catch (Horde_Icalendar_Exception $e) {}
+            }
         } catch (Exception $e) {
             if ($e->getCode() == 401) {
                 $result->auth = true;
@@ -1004,7 +1009,7 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
         // Create new event for the exception
         $nevent = $event->getDriver()->getEvent();
         $nevent->baseid = $uid;
-        $nevent->exceptionoriginaldate = new Horde_Date($rstart->strftime('%Y-%m-%d') . 'T' . $otime . $rstart->strftime('%P'));
+        $nevent->exceptionoriginaldate = new Horde_Date($rstart->strftime('%Y-%m-%d') . 'T' . $otime);
         $nevent->creator = $event->creator;
         $nevent->title = $event->title;
         $nevent->description = $event->description;
@@ -1020,5 +1025,4 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
 
         return $nevent;
     }
-
 }

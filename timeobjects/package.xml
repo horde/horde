@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-06</date>
- <time>14:39:35</time>
+ <date>2011-11-23</date>
+ <time>18:27:35</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
-* [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
+* [jan] Add Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,7 +42,7 @@
     <dir name="Driver">
      <file name="Base.php" role="horde" />
      <file name="FacebookEvents.php" role="horde" />
-     <file name="Weatherdotcom.php" role="horde" />
+     <file name="Weather.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Factory">
      <file name="Driver.php" role="horde" />
@@ -144,8 +144,11 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
-    <name>Services_Weather</name>
-    <channel>pear.php.net</channel>
+    <name>Horde_Service_Weather</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
    </package>
   </optional>
  </dependencies>
@@ -160,7 +163,7 @@
    <install as="timeobjects/lib/Exception.php" name="lib/Exception.php" />
    <install as="timeobjects/lib/Driver/Base.php" name="lib/Driver/Base.php" />
    <install as="timeobjects/lib/Driver/FacebookEvents.php" name="lib/Driver/FacebookEvents.php" />
-   <install as="timeobjects/lib/Driver/Weatherdotcom.php" name="lib/Driver/Weatherdotcom.php" />
+   <install as="timeobjects/lib/Driver/Weather.php" name="lib/Driver/Weather.php" />
    <install as="timeobjects/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="timeobjects/locale/.htaccess" name="locale/.htaccess" />
    <install as="timeobjects/locale/timeobjects.pot" name="locale/timeobjects.pot" />
@@ -271,11 +274,40 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-06</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [mjr] Remove support for the now non-existent weatherdotcom API.
+* [mjr] Add support for Horde_Service_Weather.
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
 * [jan] Add Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-23</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Fix retrieving driver list if Horde_Service_Weather is not installed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-23</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* [jan] Add Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
   </release>
  </changelog>

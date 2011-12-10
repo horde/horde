@@ -29,7 +29,7 @@ class Horde_Argv_OptionChecksTest extends Horde_Argv_TestCase
         try {
             new Horde_Argv_Option();
         } catch (Exception $e) {
-            $this->assertType('InvalidArgumentException', $e);
+            $this->assertInstanceOf('InvalidArgumentException', $e);
             $this->assertEquals("at least one option string must be supplied", $e->getMessage());
             return true;
         }
@@ -79,9 +79,6 @@ class Horde_Argv_OptionChecksTest extends Horde_Argv_TestCase
         $this->assertOptionError(
             "option -b: invalid option type: 'foo'",
             array("-b", array('type' => 'foo')));
-        $this->assertOptionError(
-            "option -b: invalid option type: 'Array'",
-            array("-b", array('type' => array())));
     }
 
     public function testNoTypeForAction()

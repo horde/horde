@@ -141,7 +141,7 @@ class Horde_Kolab_Storage_Factory
             );
         }
         if (isset($params['params'])) {
-            $config = (array) $params['params'];
+            $config = (array)$params['params'];
         } else {
             $config = array();
         }
@@ -216,10 +216,9 @@ class Horde_Kolab_Storage_Factory
      *
      * @return Horde_Kolab_Storage_Folder The folder representation.
      */
-    public function createFolder(
-        Horde_Kolab_Storage_List $list,
-        $folder
-    ) {
+    public function createFolder(Horde_Kolab_Storage_List $list,
+                                 $folder)
+    {
         return new Horde_Kolab_Storage_Folder_Base(
             $list, $folder
         );
@@ -260,7 +259,7 @@ class Horde_Kolab_Storage_Factory
     public function createFoldertype($annotation)
     {
         if (!isset($this->_folder_types[$annotation])) {
-           $this->_folder_types[$annotation] = new Horde_Kolab_Storage_Folder_Type($annotation);
+            $this->_folder_types[$annotation] = new Horde_Kolab_Storage_Folder_Type($annotation);
         }
         return $this->_folder_types[$annotation];
     }

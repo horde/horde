@@ -1114,6 +1114,7 @@ KronolithCore = {
         }
         if (type != 'holiday' && type != 'external') {
             div.insert(new Element('span', { className: 'kronolithCalEdit' })
+                   .setStyle({ backgroundColor: cal.bg, color: cal.fg })
                    .insert('&#9658;'));
         }
         calendar = new Element('div', { className: cal.show ? 'kronolithCalOn' : 'kronolithCalOff' })
@@ -2132,7 +2133,12 @@ KronolithCore = {
         case 'month':
             dates.each(function(date) {
                 var day = this.monthDays['kronolithMonthDay' + date];
-                day.select('.kronolithEvent').invoke('remove');
+                day.select('.kronolithEvent').each(function(event) {
+                    if (event.retrieve('calendar').startsWith('holiday')) {
+                        delete this.holidays[event.retrieve('eventid')];
+                    }
+                    event.remove();
+                });
                 day.select('.kronolithMore').invoke('remove');
                 date = this.parseDate(date);
                 this.loadEvents(date, date, 'month');
@@ -4061,6 +4067,23 @@ KronolithCore = {
                 this.removeMapMarker();
             }
             return;
+
+        case 'kronolithEventStartTime':
+        case 'kronolithEventEndTime':
+            var field = $(e.element().readAttribute('id')), kc = e.keyCode;
+
+            switch(e.keyCode) {
+            case Event.KEY_UP:
+            case Event.KEY_DOWN:
+            case Event.KEY_RIGHT:
+            case Event.KEY_LEFT:
+                return;
+            default:
+                if ($F(field) !== this.knl[field.identify()].getCurrentEntry()) {
+                    this.knl[field.identify()].markSelected(null);
+                }
+                return;
+            }
         }
 
     },
@@ -4185,6 +4208,16 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventDelete':
+                $('kronolithEventDiv').hide();
+                $('kronolithDeleteDiv').show();
+                break;
+
+            case 'kronolithEventDeleteCancel':
+                $('kronolithDeleteDiv').hide();
+                $('kronolithEventDiv').show();
+                return;
+
+            case 'kronolithEventDeleteConfirm':
                 if (elt.disabled) {
                     e.stop();
                     break;
@@ -4223,6 +4256,8 @@ KronolithCore = {
                                       }).invoke('show');
                                   }
                               }.bind(this));
+                $('kronolithDeleteDiv').hide();
+                $('kronolithEventDiv').show();
                 this.closeRedBox();
                 this.go(this.lastLocation);
                 e.stop();
@@ -5070,6 +5105,7 @@ KronolithCore = {
         $('kronolithEventSave').show().enable();
         $('kronolithEventSaveAsNew').show().enable();
         $('kronolithEventDelete').show().enable();
+        $('kronolithEventDeleteConfirm').enable();
         $('kronolithEventTarget').show();
         $('kronolithEventTargetRO').hide();
         $('kronolithEventForm').down('.kronolithFormActions .kronolithSeparator').show();
@@ -5724,7 +5760,9 @@ KronolithCore = {
             list: list,
             domParent: field.up('.kronolithDialog'),
             onChoose: function(value) {
-                field.setValue(value);
+                if (value) {
+                    field.setValue(value);
+                }
                 this.updateTimeFields(field.identify());
             }.bind(this)
         };
@@ -5925,7 +5963,7 @@ KronolithCore = {
         $('kronolithEventLocationLon').value = null;
         $('kronolithEventMapZoom').value = null;
         if (this.mapMarker) {
-            this.map.removeMarker(this.mapMarker);
+            this.map.removeMarker(this.mapMarker, {});
             this.mapMarker = null;
         }
         if (this.map) {
@@ -6031,7 +6069,7 @@ KronolithCore = {
     removeMapMarker: function()
     {
         if (this.mapMarker) {
-            this.map.removeMarker(this.mapMarker);
+            this.map.removeMarker(this.mapMarker, {});
             $('kronolithEventLocationLon').value = null;
             $('kronolithEventLocationLat').value = null;
         }

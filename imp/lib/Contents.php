@@ -19,6 +19,7 @@ class IMP_Contents
     const SUMMARY_BYTES = 1;
     const SUMMARY_SIZE = 2;
     const SUMMARY_ICON = 4;
+    const SUMMARY_ICON_RAW = 16384;
     const SUMMARY_DESCRIP_LINK = 8;
     const SUMMARY_DESCRIP_NOLINK = 16;
     const SUMMARY_DESCRIP_NOLINK_NOHTMLSPECCHARS = 32;
@@ -347,8 +348,8 @@ class IMP_Contents
      */
     public function getHeaderOb($parse = true)
     {
-        if (is_null($this->_message)) {
-            return $this->_message->getMIMEHeaders();
+        if (is_null($this->_uid)) {
+            return $this->_message->addMimeHeaders();
         }
 
         $query = new Horde_Imap_Client_Fetch_Query();
@@ -635,6 +636,7 @@ class IMP_Contents
      *   Output: parts = 'size'
      *
      * IMP_Contents::SUMMARY_ICON
+     * IMP_Contents::SUMMARY_ICON_RAW
      *   Output: parts = 'icon'
      *
      * IMP_Contents::SUMMARY_DESCRIP_LINK
@@ -707,12 +709,20 @@ class IMP_Contents
             ($mask & self::SUMMARY_SIZE)) {
             $part['bytes'] = $size = $mime_part->getBytes(true);
             $part['size'] = ($size > 1048576)
-                ? sprintf(_("%s MB"), number_format($size / 1048576, 1))
+                ? sprintf(_("%s MB"), IMP::numberFormat($size / 1048576, 1))
                 : sprintf(_("%s KB"), max(round($size / 1024), 1));
         }
 
         /* Get part's icon. */
-        $part['icon'] = ($mask & self::SUMMARY_ICON) ? Horde::img($GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mime_type), '', array('title' => $mime_type), '') : null;
+        if (($mask & self::SUMMARY_ICON) ||
+            ($mask & self::SUMMARY_ICON_RAW)) {
+            $part['icon'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mime_type);
+            if ($mask & self::SUMMARY_ICON) {
+                $part['icon'] = Horde::img($part['icon'], '', array('title' => $mime_type), '');
+            }
+        } else {
+            $part['icon'] = null;
+        }
 
         /* Get part's description. */
         $description = $this->getPartName($mime_part, true);
@@ -1042,12 +1052,14 @@ class IMP_Contents
      * @param string $renderer  Either the tree renderer driver or a full
      *                          class name to use.
      *
-     * @return Horde_Tree  A tree instance representing the MIME part tree.
+     * @return Horde_Tree_Base  A tree instance representing the MIME parts.
      * @throws Horde_Tree_Exception
      */
     public function getTree($renderer = 'Horde_Core_Tree_Html')
     {
-        $tree = Horde_Tree::factory('mime-' . $this->_uid, $renderer);
+        $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('mime-' . $this->_uid, $renderer, array(
+            'nosession' => true
+        ));
         $this->_addTreeNodes($tree, $this->_message);
         return $tree;
     }
@@ -1055,26 +1067,32 @@ class IMP_Contents
     /**
      * Adds MIME parts to the tree instance.
      *
-     * @param Horde_Tree tree        A tree instance.
+     * @param Horde_Tree_Base tree   A tree instance.
      * @param Horde_Mime_Part $part  The MIME part to add to the tree,
      *                               including its sub-parts.
      * @param string $parent         The parent part's MIME id.
      */
     protected function _addTreeNodes($tree, $part, $parent = null)
     {
-        $viewer = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_MimeViewer');
         $mimeid = $part->getMimeId();
 
-        $line = $mimeid;
-        if ($description = $part->getDescription(true)) {
-            $line .= ' ' . $description;
-        }
-        $line .= ' [' . $part->getType(true) . ']';
-        $tree->addNode($mimeid, $parent, $line);
+        $summary = $this->getSummary(
+            $mimeid,
+            self::SUMMARY_ICON_RAW | self::SUMMARY_DESCRIP_LINK | self::SUMMARY_SIZE | self::SUMMARY_DOWNLOAD
+        );
+
+        $tree->addNode(
+            $mimeid,
+            $parent,
+            $summary['description'] . ' (' . $summary['size'] . ') ' . $summary['download']
+        );
         $tree->addNodeParams(
             $mimeid,
-            array('icon' => $viewer->getIcon($part->getType())));
+            array(
+                'class' => 'partsTreeDiv',
+                'icon' => $summary['icon']
+            )
+        );
 
         foreach ($part->getParts() as $part) {
             $this->_addTreeNodes($tree, $part, $mimeid);
@@ -1368,7 +1386,7 @@ class IMP_Contents
         }
 
         $atc_parts = ($show_parts == 'all')
-            ? array_keys($display_ids)
+            ? array_keys($parts_list)
             : array_keys($atc_parts);
 
         return array(

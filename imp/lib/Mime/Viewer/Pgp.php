@@ -281,6 +281,18 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
         self::$_cache[$mid][$base_id]['wrap'] = 'mimePartWrapValid';
 
+        /* Check for combined encryption/signature data. */
+        if ($decrypted_data->result) {
+            $sig_text = is_bool($decrypted_data->result)
+                ? _("The data in this part has been digitally signed via PGP.")
+                : $this->_textFilter($decrypted_data->result, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::NOHTML));
+
+            self::$_cache[$mid][$base_id]['status'][] = array(
+                'icon' => Horde::img('alerts/success.png', _("Success")),
+                'text' => array($sig_text)
+            );
+        }
+
         return Horde_Mime_Part::parseMessage($decrypted_data->message, array('forcemime' => true));
     }
 

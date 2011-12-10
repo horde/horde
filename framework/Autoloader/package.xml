@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:05:58</time>
+ <date>2011-11-22</date>
+ <time>11:57:03</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -33,6 +33,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Autoloader">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Autoloader -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Autoloader">
@@ -74,6 +81,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Autoloader/COPYING" />
    <install as="Horde/Autoloader.php" name="lib/Horde/Autoloader.php" />
    <install as="Horde/Autoloader/ClassPathMapper.php" name="lib/Horde/Autoloader/ClassPathMapper.php" />
    <install as="Horde/Autoloader/Default.php" name="lib/Horde/Autoloader/Default.php" />
@@ -173,7 +181,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Make unit tests Windows compatible.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

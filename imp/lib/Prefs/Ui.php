@@ -447,7 +447,7 @@ class IMP_Prefs_Ui
             return false;
 
         case 'draftsselect':
-            return $this->_updateSpecialFolders('drafts_folder', IMP_Mailbox::formFrom($ui->vars->drafts), $ui->vars->drafts_folder_new, Horde_Imap_Client::SPECIALUSE_DRAFTS, $ui);
+            return $this->_updateSpecialFolders('drafts_folder', IMP_Mailbox::formFrom($ui->vars->drafts), $ui->vars->drafts_new, Horde_Imap_Client::SPECIALUSE_DRAFTS, $ui);
 
         case 'encryptselect':
             return $prefs->setValue('default_encrypt', $ui->vars->default_encrypt);
@@ -531,7 +531,7 @@ class IMP_Prefs_Ui
 
         if ($prefs->isDirty('mail_domain')) {
             $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
-            $prefs->setValue('maildomain', $maildomain);
+            $prefs->setValue('mail_domain', $maildomain);
             if (!empty($maildomain)) {
                 $session->set('imp', 'maildomain', $maildomain);
             }
@@ -1359,7 +1359,7 @@ class IMP_Prefs_Ui
         }
 
         if (!$ui->vars->sent_mail_folder && $ui->vars->sent_mail_folder_new) {
-            $sent_mail_folder = IMP_Mailbox::get($ui->vars->sent_mail_folder_new)->namespace_append;
+            $sent_mail_folder = IMP_Mailbox::get(Horde_String::convertCharset($ui->vars->sent_mail_folder_new, 'UTF-8', 'UTF7-IMAP'))->namespace_append;
         } else {
             $sent_mail_folder = IMP_Mailbox::formFrom($ui->vars->sent_mail_folder);
             if (strpos($sent_mail_folder, self::PREF_SPECIALUSE) === 0) {
@@ -1836,6 +1836,7 @@ class IMP_Prefs_Ui
         if (strpos($folder, self::PREF_SPECIALUSE) === 0) {
             $folder = IMP_Mailbox::get(substr($folder, strlen(self::PREF_SPECIALUSE)));
         } elseif (!empty($new)) {
+            $new = Horde_String::convertCharset($new, 'UTF-8', 'UTF7-IMAP');
             $folder = IMP_Mailbox::get($new)->namespace_append;
             if (!$folder->create(array('special_use' => array($type)))) {
                 $folder = null;

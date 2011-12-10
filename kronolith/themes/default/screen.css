@@ -716,13 +716,11 @@ a#kronolithNotifications:hover {
     width: 16px;
     height: 16px;
     line-height: 16px;
-    border: 1px solid #999;
-    background-color: #fff;
     text-align: center;
     cursor: pointer;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+}
+#kronolithMenu div.kronolithCalendars .kronolithCalEdit:hover {
+    text-decoration: underline;
 }
 #kronolithAddEvents {
     margin-bottom: 35px;

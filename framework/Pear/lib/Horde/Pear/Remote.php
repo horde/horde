@@ -41,10 +41,8 @@ class Horde_Pear_Remote
      * @param Horde_Pear_Rest $rest   The accessor to the PEAR server rest
      *                                interface.
      */
-    public function __construct(
-        $server = 'pear.horde.org',
-        Horde_Pear_Rest $rest = null
-    )
+    public function __construct($server = 'pear.horde.org',
+                                Horde_Pear_Rest $rest = null)
     {
         if ($rest === null) {
             $this->_rest = new Horde_Pear_Rest(
@@ -121,7 +119,7 @@ class Horde_Pear_Remote
     public function getPackageXml($package, $version)
     {
         return new Horde_Pear_Package_Xml(
-            $this->_getRest()->fetchReleasePackageXml($package, $version)
+            $this->_rest->fetchReleasePackageXml($package, $version)
         );
     }
 

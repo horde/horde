@@ -60,6 +60,8 @@ Filesystem location for the base Horde application : /kolab/var/kolab/www/horde
 
      PHP_PEAR_SYSCONF_DIR=/kolab/var/kolab/www/horde php -d include_path="/kolab/var/kolab/www/horde/pear/php" /kolab/var/kolab/www/horde/pear/kolab-webmail-install
 
+5.1. Make sure the database is writeable for kolab-n
+
 6. Edit /kolab/etc/kolab/templates/httpd.conf.template and remove the "/horde" redirect. Set "AllowOverride" and require SSL. Run kolabconf
 
 7. Add .htaccess lines 
@@ -597,7 +599,7 @@ Configuring Horde Kolab Edition
       as follows::
 
          chown root.www config/*
-         chmod 0440 config/*
+         find config/ -type f -exec chmod 0440 '{}' \;
 
    b. User Passwords
 
@@ -674,7 +676,7 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-Horde LLC runs a number of mailing lists, for individual applications
+The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole. Information, archives, and
 subscription information can be found at
 

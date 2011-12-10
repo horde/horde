@@ -23,26 +23,28 @@ class Horde_Service_Weather_Period_Base
     /**
      * Properties for this single peridd, as returned from the forecast request.
      *
-     * @var array
+     * @var mixed
      */
     protected $_properties;
 
     /**
-     * The units to return for things like degrees and wind speed.
+     * Reference to parent forecast object.
      *
-     * @var integer
+     * @var Horde_Service_Weather_Forecast_Base;
      */
-    public $units = Horde_Service_Weather::UNITS_STANDARD;
+    protected $_forecast;
 
     /**
      * Const'r
      *
-     * @param  array $properties  Current properties, in driver keys.
+     * @param mixed $properties                      Current properties.
+     * @param Horde_Service_Forecast_Base $forecast  The parent forecast.
      *
      * @return Horde_Service_Weather_Current
      */
-    public function __construct(array $properties = array())
+    public function __construct($properties, Horde_Service_Weather_Forecast_Base $forecast)
     {
+        $this->_forecast = $forecast;
         $this->_properties = $properties;
     }
 
@@ -61,11 +63,6 @@ class Horde_Service_Weather_Period_Base
         }
 
         throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support that property');
-    }
-
-    public function __set($property, $value)
-    {
-        $this->_properties[$property] = $value;
     }
 
  }

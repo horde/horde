@@ -55,9 +55,8 @@ implements  Horde_Kolab_Storage_Data_Parser
      *
      * @param Horde_Kolab_Storage_Driver $driver The backend driver.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Driver $driver
-    ) {
+    public function __construct(Horde_Kolab_Storage_Driver $driver)
+    {
         $this->_driver = $driver;
     }
 

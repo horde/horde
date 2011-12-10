@@ -1,9 +1,9 @@
-<form method="post" name="selectlist" enctype="multipart/form-data" action="<tag:self_url />">
+<form method="post" name="selectlist" id="selectlist" enctype="multipart/form-data" action="<tag:self_url />">
 <tag:forminput />
-<input type="hidden" name="actionID" value="" />
-<input type="hidden" name="cacheid" value="<tag:cacheid />" />
+<input type="hidden" name="actionID" id="actionID" value="" />
+<input type="hidden" name="cacheid" id="cacheid" value="<tag:cacheid />" />
 <input type="hidden" name="dir" value="<tag:currdir />" />
-<input type="hidden" name="formid" value="<tag:formid />" />
+<input type="hidden" name="formid" id="formid" value="<tag:formid />" />
 
 <h1 class="header">
  <strong><tag:navlink /></strong>
@@ -26,8 +26,8 @@
 </if:nofiles>
 
 <div style="text-align: center">
- <input class="button" type="button" value="<tag:addbutton />" onclick="document.selectlist.actionID.value='select';document.selectlist.submit();" />
- <input type="button" class="button" onclick="returnID();" value="<tag:donebutton />" />
- <input type="button" class="button" onclick="window.close();" value="<tag:cancelbutton />" />
+ <input class="button" type="button" id="addbutton" value="<tag:addbutton />" />
+ <input type="button" class="button" id="donebutton" value="<tag:donebutton />" />
+ <input type="button" class="button" id="cancelbutton" value="<tag:cancelbutton />" />
 </div>
 </form>

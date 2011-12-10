@@ -16,15 +16,15 @@ class Horde_Argv_OptionValuesTest extends Horde_Argv_TestCase
     public function testBasics()
     {
         $values = new Horde_Argv_Values();
-        $this->assertEquals(iterator_to_array($values), array());
-        $this->assertNotEquals($values, array('foo' => 'bar'));
-        $this->assertNotEquals($values, '');
+        $this->assertEquals(array(), iterator_to_array($values));
+        $this->assertNotEquals(array('foo' => 'bar'), $values);
+        $this->assertEquals('', (string)$values);
 
         $dict = array('foo' => 'bar', 'baz' => 42);
         $values = new Horde_Argv_Values($dict);
         $this->assertEquals($dict, iterator_to_array($values));
-        $this->assertNotEquals($values, array('foo' => 'bar'));
-        $this->assertNotEquals($values, array());
-        $this->assertNotEquals($values, "");
+        $this->assertNotEquals(array('foo' => 'bar'), $values);
+        $this->assertNotEquals(array(), $values);
+        $this->assertNotEquals('', (string)$values);
     }
 }

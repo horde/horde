@@ -8,7 +8,7 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -24,7 +24,7 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Annotation extends Horde_Kolab_Format_Xml
 {
@@ -41,14 +41,7 @@ class Horde_Kolab_Format_Xml_Annotation extends Horde_Kolab_Format_Xml
      * @var Kolab
      */
     protected $_fields_specific = array(
-        'annotation' => array(
-            'type'    => self::TYPE_MULTIPLE,
-            'value'   => self::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type' => self::TYPE_STRING,
-                'value' => self::VALUE_MAYBE_MISSING,
-            ),
-        ),
+        'annotation' => 'Horde_Kolab_Format_Xml_Type_Multiple_String',
     );
 
     /**

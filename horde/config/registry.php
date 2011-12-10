@@ -296,6 +296,11 @@ $this->applications = array(
         'menu_parent' => 'hermes',
     ),
 
+    'kolab' => array(
+        'name' => _("Kolab"),
+        'menu_parent' => 'myaccount'
+    ),
+
     'myaccount' => array(
         'name' => _("My Account"),
         'status' => 'heading',

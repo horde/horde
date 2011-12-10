@@ -37,7 +37,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testGetMailboxesReturnsArray()
     {
-        $this->assertType('array', $this->getNullMock()->listFolders());
+        $this->assertInternalType('array', $this->getNullMock()->listFolders());
     }
 
     public function testGetMailboxesEmpty()
@@ -297,7 +297,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testListAnnotationReturnsArray()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->getNullMock()->listAnnotation(
                 '/shared/vendor/kolab/folder-type'
@@ -393,7 +393,7 @@ extends Horde_Kolab_Storage_TestCase
         $driver = new Horde_Kolab_Storage_Driver_Mock(
             new Horde_Kolab_Storage_Factory(), array()
         );
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Storage_Folder_Namespace',
             $driver->getNamespace()
         );
@@ -432,7 +432,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testGetIdReturnsString()
     {
-        $this->assertType('string', $this->getNullMock()->getId());
+        $this->assertInternalType('string', $this->getNullMock()->getId());
     }
 
     public function testSelect()
@@ -537,7 +537,7 @@ extends Horde_Kolab_Storage_TestCase
 
     public function testBodypartResource()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'resource',
             $this->getMessageMock()
             ->fetchBodypart(

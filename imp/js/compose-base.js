@@ -78,13 +78,13 @@ var ImpComposeBase = {
             tmp.update(CKEDITOR.instances['composeMessage'].getData());
             tmp2 = tmp.select('DIV.impComposeSignature');
             if (tmp2.size()) {
-                msg = tmp2.last().update(next.sig);
+                tmp2.last().update(next.sig);
+            } else if (next.id.sig_loc) {
+                tmp.insert({ top: next.sig });
             } else {
-                msg = next.id.sig_loc
-                    ? tmp.insert({ top: next.sig })
-                    : tmp.insert({ bottom: next.sig });
+                tmp.insert({ bottom: next.sig });
             }
-            CKEDITOR.instances['composeMessage'].setData(msg.innerHTML);
+            CKEDITOR.instances['composeMessage'].setData(tmp.innerHTML);
             tmp.remove();
         } else {
             msg = $F('composeMessage').replace(/\r\n/g, '\n');

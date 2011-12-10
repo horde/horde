@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2011-11-02</date>
- <time>10:38:09</time>
+ <date>2011-12-06</date>
+ <time>10:56:59</time>
  <version>
-  <release>1.7.1</release>
-  <api>1.7.0</api>
+  <release>1.8.2</release>
+  <api>1.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -84,6 +84,7 @@
         </dir> <!-- /lib/Horde/Core/Ajax/Imple/Geocoder -->
         <file name="AutoCompleter.php" role="php" />
         <file name="SpellChecker.php" role="php" />
+        <file name="WeatherLocationAutoCompleter.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Ajax/Imple -->
        <file name="Application.php" role="php" />
        <file name="Imple.php" role="php" />
@@ -186,6 +187,7 @@
        <file name="UrlShortener.php" role="php" />
        <file name="Vfs.php" role="php" />
        <file name="View.php" role="php" />
+       <file name="Weather.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
       <dir name="Group">
        <file name="Ldap.php" role="php" />
@@ -1065,6 +1067,7 @@
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/SpellChecker.php" name="lib/Horde/Core/Ajax/Imple/SpellChecker.php" />
+   <install as="Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/WeatherLocationAutoCompleter.php" />
    <install as="Horde/Core/Ajax/Imple/Geocoder/Geonames.php" name="lib/Horde/Core/Ajax/Imple/Geocoder/Geonames.php" />
    <install as="Horde/Core/Auth/Application.php" name="lib/Horde/Core/Auth/Application.php" />
    <install as="Horde/Core/Auth/Composite.php" name="lib/Horde/Core/Auth/Composite.php" />
@@ -1147,6 +1150,7 @@
    <install as="Horde/Core/Factory/UrlShortener.php" name="lib/Horde/Core/Factory/UrlShortener.php" />
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
+   <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
@@ -1629,12 +1633,44 @@
   </release>
   <release>
    <version>
-    <release>1.7.1</release>
-    <api>1.7.0</api></version>
+    <release>1.8.0</release>
+    <api>1.8.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Estonian translation.
+* [jan] Update Hungarian translation.
+* [jan] Fix tests to work with PHPUnit 3.6.
+* [mjr] Add Horde_Service_Weather factory.
+* [mms] Fix importing CSS data in cache files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.1</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [gwr] Fixed hiding menu entries that should not be displayed to admin.
+* [gwr] Fixed Kolab anonymous bind.
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.2</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -1,7 +1,24 @@
 ----------
-v1.0.3-git
+v1.0.5-git
 ----------
 
+[jan] Add Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
+------
+v1.0.4
+------
+
+[jan] Fix retrieving driver list if Horde_Service packages are not installed.
+
+
+------
+v1.0.3
+------
+
+[mjr] Remove support for the now non-existent weatherdotcom API.
+[mjr] Add support for Horde_Service_Weather.
 [jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
 [jan] Add Estonian translation (Alar Sing <alar.sing@err.ee>).
 

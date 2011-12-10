@@ -35,10 +35,24 @@ class Horde_Service_Weather
     /** Hourly forecast **/
     const FORECAST_TYPE_HOURLY = 3;
 
+    const FORECAST_FIELD_WIND = 'wind';
+    const FORECAST_FIELD_PRECIPITATION = 'pop';
+    const FORECAST_FIELD_HUMIDITY = 'humidity';
+
     /** Unit constants **/
     const UNITS_STANDARD = 1;
     const UNITS_METRIC = 2;
 
     /** Conversion constants **/
     const CONVERSION_MPH_TO_KNOTS = 0.868976242;
+    const CONVERSION_MPH_TO_KPH = 1.609344;
+    const CONVERSION_KPH_TO_MPH = 0.621371192;
+    const CONVERSION_MB_TO_INCHES = 0.0295301;
+
+    /** Location search types **/
+    const SEARCHTYPE_STANDARD = 1;
+    const SEARCHTYPE_IP = 2;
+    const SEARCHTYPE_ZIP = 3;
+    const SEARCHTYPE_CITYSTATE = 4;
+
 }

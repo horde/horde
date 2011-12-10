@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>View</extends>
  <summary>Horde View API</summary>
- <description>The Horde_View library provides a simple View pattern implementation.</description>
+ <description>A simple View pattern implementation.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -17,10 +17,10 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:41:55</time>
+ <date>2011-11-22</date>
+ <time>21:31:41</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -40,6 +40,7 @@
        <file name="template.php" role="doc" />
        <file name="view.php" role="doc" />
       </dir> <!-- /doc/Horde/View/examples -->
+      <file name="COPYING" role="doc" />
       <file name="TODO.txt" role="doc" />
      </dir> <!-- /doc/Horde/View -->
     </dir> <!-- /doc/Horde -->
@@ -178,6 +179,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/View/COPYING" />
    <install as="TODO.txt" name="doc/Horde/View/TODO.txt" />
    <install as="examples/template.php" name="doc/Horde/View/examples/template.php" />
    <install as="examples/view.php" name="doc/Horde/View/examples/view.php" />
@@ -331,7 +333,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Make unit tests Windows compatible.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

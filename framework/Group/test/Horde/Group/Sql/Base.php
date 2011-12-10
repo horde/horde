@@ -137,11 +137,18 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_Test_Base
             new Horde_Log_Handler_Stream(
                 STDOUT, null,
                 new Horde_Log_Formatter_Simple('%message%' . PHP_EOL)));
-        // FIXME: get migration directory if not running from Git checkout.
+        $dir = dirname(__FILE__) . '/../../../../migration/Horde/Group';
+        if (!is_dir($dir)) {
+            error_reporting(E_ALL & ~E_DEPRECATED);
+            $dir = PEAR_Config::singleton()
+                ->get('data_dir', null, 'pear.horde.org')
+                . '/Horde_Group/migration';
+            error_reporting(E_ALL | E_STRICT);
+        }
         self::$migrator = new Horde_Db_Migration_Migrator(
             self::$db,
             null,//$logger,
-            array('migrationsPath' => dirname(__FILE__) . '/../../../../migration',
+            array('migrationsPath' => $dir,
                   'schemaTableName' => 'horde_groups_test_schema'));
         self::$migrator->up();
 

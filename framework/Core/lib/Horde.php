@@ -148,6 +148,13 @@ class Horde
     static public function fatal($error, $file = null, $line = null,
                                  $log = true)
     {
+        // Log the error via logMessage() if requested.
+        if ($log) {
+            try {
+                self::logMessage($error, 'EMERG');
+            } catch (Exception $e) {}
+        }
+
         header('Content-type: text/html; charset=UTF-8');
         try {
             $admin = $GLOBALS['registry']->isAdmin();
@@ -179,13 +186,6 @@ class Horde
             }
         } catch (Exception $e) {
             die($e);
-        }
-
-        // Log the error via logMessage() if requested.
-        if ($log) {
-            try {
-                self::logMessage($error, 'EMERG');
-            } catch (Exception $e) {}
         }
 
         if ($cli) {
@@ -2280,5 +2280,4 @@ HTML;
             $GLOBALS['notification']->push($error, 'horde.warning');
         }
     }
-
 }

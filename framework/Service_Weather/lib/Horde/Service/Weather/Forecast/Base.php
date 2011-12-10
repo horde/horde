@@ -36,11 +36,47 @@
      */
     protected $_periods = array();
 
+    /**
+     * Parent Weather driver.
+     *
+     * @var Horde_Service_Weather_Base
+     */
+    public $weather;
+
+    /**
+     * Forecast type
+     *
+     * @var integer  A Horde_Service_Weather::FORECAST_TYPE_* constant.
+     */
     protected $_type;
 
-    public function __construct(array $properties, $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
+
+    /**
+     * Advertise how detailed the forecast period is.
+     *<pre>
+     * FORECAST_TYPE_STANDARD - Each Period represents a full day
+     * FORECAST_TYPE_DETAILED - Each period represents either day or night.
+     * FORECAST_TYPE_HOURLY   - Each period represents a single hour.
+     *</pre>
+     *
+     * @var integer
+     */
+    public $detail = Horde_Service_Weather::FORECAST_TYPE_STANDARD;
+
+    /**
+     * Const'r
+     *
+     * @param array $properties                    Forecast properties.
+     * @param Horde_Service_Weather_base $weather  The base driver.
+     * @param integer $type                        The forecast type.
+     */
+    public function __construct(
+        $properties,
+        Horde_Service_Weather_Base $weather,
+        $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
         $this->_properties = $properties;
+        $this->weather = $weather;
         $this->_type = $type;
     }
 
@@ -51,7 +87,12 @@
 
     public function getForecastDay($day)
     {
-        return $_periods[$day];
+        return $this->_periods[$day];
+    }
+
+    public function getForecastTime()
+    {
+        return false;
     }
 
  }

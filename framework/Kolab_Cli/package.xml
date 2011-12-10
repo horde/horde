@@ -3,7 +3,7 @@
  <name>Horde_Kolab_Cli</name>
  <channel>pear.horde.org</channel>
  <summary>A command line interface to the Kolab storage system</summary>
- <description>This package provides a set of utilities to deal with the various aspects of a Kolab server as backend. The primary focus is dealing with the data stored in IMAP.</description>
+ <description>A set of utilities to deal with the various aspects of a Kolab server as backend. The primary focus is dealing with the data stored in IMAP.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [jan] Update Latvian translation.
  </notes>
  <contents>
@@ -239,6 +240,7 @@
    <date>2011-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [jan] Update Latvian translation.
    </notes>
   </release>

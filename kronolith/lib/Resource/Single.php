@@ -33,8 +33,9 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
             $end = $event->end;
         }
 
-        /* Fetch events. */
-        $busy = Kronolith::listEvents($start, $end, array($this->get('calendar')));
+        /* Fetch Events */
+        $busy = Kronolith::getDriver('Resource', $this->get('calendar'))
+            ->listEvents($start, $end, true);
 
         /* No events at all during time period for requested event */
         if (!count($busy)) {
@@ -118,7 +119,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false)
     {
-        $vfb = Kronolith_Freebusy::generate('resource_' . $this->get('calendar'), $startstamp, $endstamp, $asObject);
+        $vfb = Kronolith_Freebusy::generate($this->get('calendar'), $startstamp, $endstamp, $asObject);
         $vfb->removeAttribute('ORGANIZER');
         $vfb->setAttribute('ORGANIZER', $this->get('name'));
 

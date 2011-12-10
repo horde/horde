@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Http_Client</extends>
  <summary>Horde HTTP libraries</summary>
- <description>This package provides a set of classes for making HTTP requests.</description>
+ <description>An API for making HTTP requests.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

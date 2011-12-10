@@ -36,6 +36,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     protected $_queue;
 
     /**
+     * Suppress these mailboxes when creating mailbox response.
+     *
+     * @var array
+     */
+    protected $_suppress;
+
+    /**
      * The list of actions that require readonly access to the session.
      *
      * @var array
@@ -145,7 +152,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $result = $imptree->createMailboxName(
                 isset($this->_vars->parent) ? IMP_Mailbox::formFrom($this->_vars->parent) : '',
-                $this->_vars->mbox
+                Horde_String::convertCharset($this->_vars->mbox, 'UTF-8', 'UTF7-IMAP')
             )->create();
 
             if ($result) {
@@ -241,7 +248,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * Variables used:
      *   - new_name: (string) New mailbox name (child node) (UTF-8).
-     *   - new_parent: (string) New parent name (UTF-8; base64url encoded).
+     *   - new_parent: (string) New parent name (UTF7-IMAP) (base64url
+     *                 encoded).
      *   - old_name: (string) Full name of old mailbox (base64url encoded).
      *
      * @return mixed  False on failure, or an object with the following
@@ -266,7 +274,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $new_name = $imptree->createMailboxName(
                 isset($this->_vars->new_parent) ? IMP_Mailbox::formFrom($this->_vars->new_parent) : '',
-                $this->_vars->new_name
+                Horde_String::convertCharset($this->_vars->new_name, 'UTF-8', 'UTF7-IMAP')
             );
 
             $old_name = IMP_Mailbox::formFrom($this->_vars->old_name);
@@ -446,26 +454,44 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        /* Add special folders explicitly to the initial folder list, since
+        /* Add special mailboxes explicitly to the initial folder list, since
          * they are ALWAYS displayed, may appear outside of the folder
          * slice requested, and need to be sorted logically. */
+        $this->_suppress = array();
         if ($initreload) {
             foreach (IMP_Mailbox::getSpecialMailboxes() as $val) {
                 if (is_array($val)) {
                     $tmp = array();
                     foreach ($val as $val2) {
-                        $tmp[strval($val2)] = $val2->label;
+                        $tmp[strval($val2)] = $val2->abbrev_label;
                     }
                     asort($tmp, SORT_LOCALE_STRING);
-                    $mboxes = array_keys($tmp);
+                    $mboxes = IMP_Mailbox::get(array_keys($tmp));
                 } else {
-                    $mboxes = array(strval($val));
+                    $mboxes = array($val);
                 }
 
                 foreach ($mboxes as $val2) {
-                    if ($tmp = $imptree[$val2]) {
-                        unset($folder_list[$val2]);
-                        $folder_list[$val2] = $tmp;
+                    if ($tmp = $imptree[strval($val2)]) {
+                        $folder_list[strval($val2)] = $tmp;
+
+                        /* Hack: We need to NOT send a container element if
+                         * all child elements are special mailboxes. */
+                        if ($val2->level &&
+                            ($parent = $val2->parent) &&
+                            isset($folder_list[strval($parent)])) {
+                            $not_special = false;
+                            foreach ($parent->subfolders_only as $val3) {
+                                if (!$val3->special) {
+                                    $not_special = true;
+                                    break;
+                                }
+                            }
+
+                            if (!$not_special) {
+                                $this->_suppress[] = strval($parent);
+                            }
+                        }
                     }
                 }
             }
@@ -478,6 +504,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         ));
 
         $this->_queue->quota();
+        $this->_suppress = array();
 
         if ($this->_vars->initial) {
             $GLOBALS['session']->start();
@@ -1001,7 +1028,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 $result->preview = $msg;
                 if ($change) {
                     $result = $this->_viewPortData(true, $result);
-                } elseif ($this->_mbox->cacheid != $this->_vars->cacheid) {
+                } elseif ($this->_mbox->cacheid_date != $this->_vars->cacheid) {
                     /* Cache ID has changed due to viewing this message. So
                      * update the cacheid in the ViewPort. */
                     $result = $this->_viewPortOb(null, $result);
@@ -1129,7 +1156,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *                entries:
      *   - body: (string) The body text of the message.
      *   - format: (string) Either 'text' or 'html'.
-     *   - fwd_list: (array) See IMP_Dimp::getAttachmentInfo().
+     *   - fwd_list: (array) See _getAttachmentInfo().
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
@@ -1155,7 +1182,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
              * cache id. */
             $result = new stdClass;
             $result->opts = new stdClass;
-            $result->opts->fwd_list = IMP_Dimp::getAttachmentInfo($imp_compose);
+            $result->opts->fwd_list = $this->_getAttachmentInfo($imp_compose);
             $result->body = $fwd_msg['body'];
             $result->type = $this->_vars->type;
             if (!$this->_vars->dataonly) {
@@ -1254,7 +1281,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         list($imp_compose, $imp_contents) = $this->_initCompose();
 
-        $imp_compose->redirectMessage($imp_contents);
+        $imp_compose->redirectMessage(new IMP_Indices($imp_contents->getMailbox(), $imp_contents->getUid()));
 
         $ob = new stdClass;
         $ob->imp_compose = $imp_compose->getCacheId();
@@ -1469,7 +1496,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         if ($GLOBALS['session']->get('imp', 'file_upload') &&
             $imp_compose->addFilesFromUpload('file_')) {
-            $result->atc = end(IMP_Dimp::getAttachmentInfo($imp_compose));
+            $result->atc = end($this->_getAttachmentInfo($imp_compose));
             $result->success = 1;
             $result->imp_compose = $imp_compose->getCacheId();
         }
@@ -1528,11 +1555,18 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function sendMessage()
     {
-        list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
-        if (!IMP::canCompose()) {
+        try {
+            list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
+            if (!IMP::canCompose()) {
+                $result->success = 0;
+                return $result;
+            }
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+
+            $result = new stdClass;
+            $result->action = $this->_action;
             $result->success = 0;
-        }
-        if (!$result->success) {
             return $result;
         }
 
@@ -1647,6 +1681,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->success = 1;
 
         try {
+            // Currently, dimp only supports redirecting one message per
+            // popup compose window.
             $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
             $imp_compose->sendRedirectMessage($this->_vars->redirect_to);
 
@@ -1672,6 +1708,29 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Create mailbox select list for advanced search page.
+     *
+     * Variables used:
+     *   - unsub: (integer) If set, includes unsubscribed mailboxes.Th
+     *
+     * @return object  An object with the following entries:
+     *   - folder_list: (array)
+     *   - tree: (string)
+     */
+    public function searchMailboxList()
+    {
+        $ob = $GLOBALS['injector']->getInstance('IMP_Ui_Search')->getSearchMboxList($this->_vars->unsub);
+
+        $result = new stdClass;
+        $result->folder_list = $ob->folder_list;
+        $result->tree = $ob->tree->getTree();
+
+        return $result;
+    }
+
+    /* Protected methods. */
+
+    /**
      * Setup environment for dimp compose actions.
      *
      * Variables used:
@@ -1685,14 +1744,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - (IMP_Compose) The IMP_Compose object for the message.
      *   - (array) The list of headers for the object.
      *   - (Horde_Prefs_Identity) The identity used for the composition.
+     *
+     * @throws Horde_Exception
      */
     protected function _dimpComposeSetup()
     {
-        global $injector, $notification, $prefs;
-
-        $result = new stdClass;
-        $result->action = $this->_action;
-        $result->success = 1;
+        global $injector, $prefs;
 
         /* Set up identity. */
         $identity = $injector->getInstance('IMP_Identity');
@@ -1702,14 +1759,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Set up the From address based on the identity. */
-        $headers = array();
-        try {
-            $headers['from'] = $identity->getFromLine(null, $this->_vars->from);
-        } catch (Horde_Exception $e) {
-            $notification->push($e);
-            $result->success = 0;
-            return array($result);
-        }
+        $headers = array(
+            'from' => $identity->getFromLine(null, $this->_vars->from)
+        );
 
         $imp_ui = $injector->getInstance('IMP_Ui_Compose');
         $headers['to'] = $imp_ui->getAddressList($this->_vars->to);
@@ -1722,6 +1774,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $headers['subject'] = $this->_vars->subject;
 
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
+
+        $result = new stdClass;
+        $result->action = $this->_action;
+        $result->success = 1;
 
         return array($result, $imp_compose, $headers, $identity);
     }
@@ -1759,8 +1815,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _dimpDraftAction()
     {
-        list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
-        if (!$result->success) {
+        try {
+            list($result, $imp_compose, $headers, $identity) = $this->_dimpComposeSetup();
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push($e);
+
+            $result = new stdClass;
+            $result->action = $this->_action;
+            $result->success = 0;
             return $result;
         }
 
@@ -1882,7 +1944,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             }
         }
 
-        return ($this->_mbox->cacheid != $this->_vars->cacheid);
+        return ($this->_mbox->cacheid_date != $this->_vars->cacheid);
     }
 
     /**
@@ -2024,6 +2086,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *         DEFAULT: no
      *   - s: (boolean) [special] Is this a "special" element?
      *        DEFAULT: no
+     *   - sup: (boolean) [suppress] Suppress display of this element?
+     *          DEFAULT: no
      *   - t: (string) [title] Mailbox title.
      *        DEFAULT: 'm' val
      *   - un: (boolean) [unsubscribed] Is this mailbox unsubscribed?
@@ -2089,6 +2153,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $ob->cl = $icon->class;
         }
 
+        if (!empty($this->_suppress) &&
+            in_array($elt->value, $this->_suppress)) {
+            $ob->sup = true;
+        }
+
         return $ob;
     }
 
@@ -2113,10 +2182,39 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         $base->ViewPort = new stdClass;
-        $base->ViewPort->cacheid = $mbox->cacheid;
+        $base->ViewPort->cacheid = $mbox->cacheid_date;
         $base->ViewPort->view = $mbox->form_to;
 
         return $base;
+    }
+
+    /**
+     * Return information about the current attachments for a message.
+     *
+     * @param IMP_Compose $imp_compose  An IMP_Compose object.
+     *
+     * @return array  An array of arrays with the following keys:
+     *   - name: (string) The HTML encoded attachment name
+     *   - num: (integer) The current attachment number
+     *   - size: (string) The size of the attachment in KB
+     *   - type: (string) The MIME type of the attachment
+     */
+    protected function _getAttachmentInfo(IMP_Compose $imp_compose)
+    {
+        $fwd_list = array();
+
+        foreach ($imp_compose as $atc_num => $data) {
+            $mime = $data['part'];
+
+            $fwd_list[] = array(
+                'name' => htmlspecialchars($mime->getName(true)),
+                'num' => $atc_num,
+                'type' => $mime->getType(),
+                'size' => $mime->getSize()
+            );
+        }
+
+        return $fwd_list;
     }
 
 }

@@ -37,23 +37,27 @@ interface Horde_Kolab_Format
      * Load an object based on the given XML stream. The stream may only contain
      * UTF-8 data.
      *
-     * @param resource $xml The XML stream of the message.
+     * @param resource $xml     The XML stream of the message.
+     * @param array    $options Additional options when parsing the XML. See the
+     *                          concrete parsers for additional information.
      *
      * @return array The data array representing the object.
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function load($xml);
+    public function load($xml, $options = array());
 
     /**
      * Convert the data to a XML stream. Strings contained in the data array may
      * only be provided as UTF-8 data.
      *
-     * @param array $object The data array representing the object.
+     * @param array $object  The data array representing the object.
+     * @param array $options Additional options when writing the XML. See the
+     *                       concrete parsers for additional information.
      *
      * @return resource The data as XML stream.
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function save($object);
+    public function save($object, $options = array());
 }

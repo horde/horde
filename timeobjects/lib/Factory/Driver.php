@@ -2,10 +2,10 @@
 /**
  * Factory for TimeObjects_Driver
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/bsd BSD
- * @package  Ansel
+ * @package  Timeobjects
  */
 class TimeObjects_Factory_Driver
 {
@@ -21,11 +21,24 @@ class TimeObjects_Factory_Driver
     public function create($name, array $params = array())
     {
         $class = 'TimeObjects_Driver_' . basename($name);
+
+        switch ($class) {
+        case 'TimeObjects_Driver_Weather':
+            if (!class_exists('Horde_Service_Weather')) {
+                throw new TimeObjects_Exception('Horde_Services_Weather is not installed');
+            }
+            break;
+        case 'TimeObjects_Driver_FacebookEvents':
+            if (!class_exists('Horde_Service_Facebook')) {
+                throw new TimeObjects_Exception('Horde_Services_Facebook is not installed');
+            }
+            break;
+        }
+
         if (class_exists($class)) {
             return new $class($params);
-        } else {
-            throw new TimeObjects_Exception(sprintf('Unable to load the definition of %s'), $class);
         }
-    }
 
+        throw new TimeObjects_Exception(sprintf('Unable to load the definition of %s', $class));
+    }
 }

@@ -9,7 +9,7 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -26,7 +26,7 @@
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
 {
@@ -43,44 +43,15 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
      * @var Kolab
      */
     protected $_fields_specific = array(
-        'summary' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'location' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'organizer' => array (
-            'type' => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson'
-        ),
-        'start-date' => array(
-            'type'    => self::TYPE_DATE_OR_DATETIME,
-            'value'   => self::VALUE_NOT_EMPTY,
-        ),
-        'alarm' => array(
-            'type'    => self::TYPE_INTEGER,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'recurrence' => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
-        'attendee' => array(
-            'type'    => self::TYPE_MULTIPLE,
-            'value'   => self::VALUE_MAYBE_MISSING,
-            'array'   => array(
-                'type'    => 'Horde_Kolab_Format_Xml_Type_Composite_Attendee'
-            ),
-        ),
-        'show-time-as' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'color-label' => array (
-            'type'    => self::TYPE_STRING,
-            'value'   => self::VALUE_MAYBE_MISSING,
-        ),
-        'end-date' => array(
-            'type'    => self::TYPE_DATE_OR_DATETIME,
-            'value'   => self::VALUE_NOT_EMPTY,
-        ),
+        'summary'      => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'location'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'organizer'    => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson',
+        'start-date'   => 'Horde_Kolab_Format_Xml_Type_EventDate',
+        'alarm'        => 'Horde_Kolab_Format_Xml_Type_Integer',
+        'recurrence'   => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
+        'attendee'     => 'Horde_Kolab_Format_Xml_Type_Multiple_Attendee',
+        'show-time-as' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'color-label'  => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'end-date'     => 'Horde_Kolab_Format_Xml_Type_EventDate',
     );
 }

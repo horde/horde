@@ -1,7 +1,16 @@
 ----------
-v2.0.1-git
+v2.0.2-git
 ----------
 
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
+------
+v2.0.1
+------
+
+[mms] Fix selectlist widget when initial cacheID was not given (Bug #10781).
+[mms] Fix icon display of files in selectlist widget.
 [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
 [jan] Fix autocreating of home folders (Bug #10690).
 [jan] Fix JavaScript for Actions drop down list (Bug #10695).

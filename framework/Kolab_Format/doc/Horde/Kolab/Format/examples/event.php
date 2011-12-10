@@ -8,7 +8,7 @@
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Kolab_Server
+ * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 
 /**
@@ -20,7 +20,7 @@ require_once 'Horde/Autoloader/Default.php';
 $factory = new Horde_Kolab_Format_Factory();
 
 /** Generate the format handler */
-$format = $factory->create('Xml', 'Event');
+$format = $factory->create('Xml', 'Event', array('version' => 1));
 
 /** Prepare a test object */
 $object = array(

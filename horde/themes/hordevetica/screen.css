@@ -1,10 +1,19 @@
-body, input, select, textarea, .inProgress {
-    font-family: "Helvetica Neue",Helvetica,Verdana,Geneva,"DejaVu Sans",Arial,sans-serif;
-    color: #333;
+html {
+    background-color: #eee;
 }
 body {
     font-size: 80%;
+    background: #FFF url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAMACAYAAADyg514AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAq1JREFUeNrtm02WgzAMgyMe979nT6FZzJv%2BTQsWEIgTddXFV6rIJnEMAckS%2FUxF%2BBg2bNiwYcOGDRs2bNiwYcOGDWeH59vthq4HWErxAD1AGaYCY7QIDpJ1jA1z%2BpgESYPCty9cujLevmCL5ilZiu7UzKBmllKAIPz6q6gb2Gjd85%2BsOoGtQcmaG0iWonMpBcGp7veqqOXGlCwocc1UNKOmdY2s3Y1oriejFZjLy8grjIQDbGfeaCSfkTD5D44glUoGQRjtuZFyRrIbS%2FBSJfbPDYw%2BbwRhKjA%2Bwd%2FD8sENZKhkzozgUdtSL%2FS1ZDwiFIAx1vw8hTohq05gg4y%2FPwj5jOTF9v5E%2BjTPTMF4VJ5Fz3JjpZPzCuPS2yradJofVfr6T55k4FjNDTUWWliAWMrkxsJIGzFbl866p%2FlyHcbwPh%2BxT8n4ALRuywLfXHv%2F4ayUa3NhQVT1HEdLmUtheMGaBOc813VRfWV0o7LmSCl%2Fh5FwgN1H0AO05ouuTOXKWC48vsvALs1U3ED9cFOBkSc39j%2BpOUiz3yiz5mETqd7dLc2ijmAmGVRkoKIbVGA4gmNrFmEqMBIOsBeYCqz0cqnIQDc%2B11y7x4bPO2zYyArr3DA8BEwFxmjW8Q4HiqrH2dLLT9pOVGDskkEFxqFBCS3zVEpi9FQSU4HR51xHBUbqcBsOwlRg2DrDhg1fClOBYesMG84KV3hxYuTGwnmdQPefM8NUYNg6w53CVGDEbiyhX%2BegGDbcF0wFRt9uUIHhRDoIPvGJmOG6MBUYtu6aF9ui%2B27s3ncb3gjnqsypwHC4DRt2SWz4MriPBxln746p7I59fKNFmIvz2xuMxfnNPncKU4HRhxtUYFymmQoM57Nh9woa6xXI8MhP%2F7%2BVK6HjovCdchhMBcapmnedAP0BoQxne8NMxPcAAAAASUVORK5CYII%3D) repeat-x bottom left !important;
+    background: -webkit-gradient(linear,left top,left bottom,from(#FFF),to(#DDD));
+    margin-bottom: 0px !important;
+    padding: 0px !important;
+    height: 100%;
 }
+body, input, select, textarea, .inProgress {
+    font-family: "Helvetica Neue",Helvetica,Verdana,Geneva,"DejaVu Sans",Arial,sans-serif;
+    color: #000;
+}
+
 .solidbox {
     border: 1px solid #999;
 }
@@ -17,18 +26,15 @@ body {
     border-bottom: 1px solid #999;
 }
 a, a.fixed {
-    color: #366;
+    color: blue;
 }
 a.widget {
-    color: #366;
+    color: blue;
 }
 .header, .smallheader {
-    background: #d7d7d7 url("graphics/menu.png") top center repeat-x;
-    border-top: 1px solid #999;
-    border-bottom: 1px solid #999;
 }
 .header {
-    padding: 2px;
+    padding: .4em;
 }
 .header a:hover {
     color: #699;
@@ -86,6 +92,10 @@ span.hordeIcon {
 }
 
 /* Form styles. */
+.form td {
+    padding-top: .4em;
+    padding-bottom: .4em;
+}
 input, select, textarea {
     color: #000;
     background: #f3f3f3;
@@ -96,14 +106,13 @@ input:focus, textarea:focus {
 }
 .button {
     color: #333;
-    background: #d7d7d7 url("graphics/menu.png") repeat-x 0 -1px;
     border: 1px solid #999;
     padding: 1px 2px;
     font-weight: bold;
     cursor: pointer;
 }
 .button:hover {
-    color: #699;
+    color: blue;
 }
 a.button {
     padding: 2px 4px;
@@ -111,10 +120,7 @@ a.button {
 }
 
 /* Alternating styles. item0, item1 are deprecated. */
-.rowEven, .item0 {
-    background-color: #eee;
-}
-.rowOdd, .item1 {
+.rowEven, .item0, .rowOdd, .item1 {
     background-color: #fff;
 }
 
@@ -145,51 +151,22 @@ a.button {
 
 /* Menu styles. */
 #menu {
-    background: #d7d7d7 url("graphics/menu.png") repeat-x;
+    background: inherit;
 }
 #menu h1 {
     color: #333;
 }
 #menu a {
-    border: 1px solid transparent;
     color: #333;
-    padding: 3px 3px 0 3px;
-    margin: 0;
-}
-#menu a:hover {
-    border: 1px solid transparent;
-    padding: 3px 3px 0 3px;
-    margin: 0;
 }
 #menu a.current {
-    border: 1px solid #aaa;
-    padding: 3px;
-    margin: 0;
-    background: url("graphics/menu-active.png") repeat-x;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-#menuBottom {
-    position: relative;
-    top: -1px;
-    background: #d7d7d7;
-    border: 1px solid #999;
-    border-right: none;
-    border-top: none;
-    padding-left: 6px;
-    -moz-border-radius-bottomleft: 10px;
-    -webkit-border-bottom-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    font-weight: bold;
 }
 
 /* Sidebar styles. */
 #sidebarPanel {
-    background: #efefef;
     margin-right: .5em;
-    border: 1px solid #999;
-    border-left: none;
-    border-top: none;
+    border: none;
 }
 #sidebarPanel span, #sidebarPanel a {
     color: #333;
@@ -207,43 +184,42 @@ a.button {
 
 /* Tab styles. */
 .tabset {
-    background: none;
+    background: inherit;
 }
 .tabset li {
-    background: url("graphics/tab_right.png") no-repeat right top;
     margin-bottom: -1px;
 }
 .tabset li a {
-    color: #366;
-    background: url("graphics/tab_left.png") no-repeat left top;
+    color: blue;
+    font-weight: normal;
     border: 0;
-    border-bottom: 1px solid #999;
+    border-bottom: none;
     padding: 4px 0.8em 3px 0.8em;
-}
-.tabset li a:hover {
-    color: #999;
-    background: url("graphics/tab_left.png") no-repeat left top;
+    background: inherit;
 }
 .tabset li.activeTab {
-    background: url("graphics/currentTab_right.png") no-repeat right top;
+    background: inherit;
 }
 .tabset li.activeTab a {
-    color: #366;
-    background: url("graphics/currentTab_left.png") no-repeat left top;
-    border-bottom: 1px solid #999;
+    color: #000;
+    font-weight: bold;
+    background: inherit;
+    border: none;;
 }
 
 /* Preferences overview. */
-.prefsOverview dt a {
-    background: #d7d7d7 url("graphics/menu.png") repeat-x;
-    border: 1px solid #333;
+.prefsOverview dl {
+    background: #fff;
 }
 .prefsOverview dd {
     color: #333;
     background: #fff;
-    border-left: 1px solid #333;
-    border-right: 1px solid #333;
-    border-bottom: 1px solid #333;
+}
+.prefsContainer {
+    background: #fff;
+}
+.prefsContainer > div {
+    margin: .5em .3em;
 }
 
 /* Help styles. */

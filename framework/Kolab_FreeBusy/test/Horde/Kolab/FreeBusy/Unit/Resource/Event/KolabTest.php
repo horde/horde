@@ -92,7 +92,7 @@ extends PHPUnit_Framework_TestCase
         $start = new Horde_Date('2009-12-13 0:00:00');
         $end = new Horde_Date('2009-12-14 0:00:00');
         $result = $resource->listEvents($start, $end);
-        $this->assertType('Horde_Kolab_FreeBusy_Object_Event', $result[0]);
+        $this->assertInstanceOf('Horde_Kolab_FreeBusy_Object_Event', $result[0]);
     }
 
     private function _getFolder()

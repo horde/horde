@@ -48,7 +48,8 @@ extends Horde_Kolab_Storage_QuerySet_Base
      *
      * @return array The parameters for list queries.
      */
-    protected function _getListQueryParameters(Horde_Kolab_Storage_List $list) {
+    protected function _getListQueryParameters(Horde_Kolab_Storage_List $list)
+    {
         return array();
     }
 
@@ -59,7 +60,8 @@ extends Horde_Kolab_Storage_QuerySet_Base
      *
      * @return array The parameters for data queries.
      */
-    protected function _getDataQueryParameters(Horde_Kolab_Storage_Data $data) {
+    protected function _getDataQueryParameters(Horde_Kolab_Storage_Data $data)
+    {
         return array();
     }
 }

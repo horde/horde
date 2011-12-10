@@ -37,27 +37,30 @@ extends Horde_Kolab_Format_TestCase
 {
     public function testLoadProductId()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><product-id>SOMETHING</product-id>c</kolab>'
+<kolab version="1.0" a="b"><product-id>SOMETHING</product-id>c</kolab>',
+            array('element' => 'product-id')
         );
         $this->assertEquals('SOMETHING', $attributes['product-id']);
     }
 
     public function testLoadStrangeProductId()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><product-id type="strange"><b/>STRANGE<a/></product-id>c</kolab>'
+<kolab version="1.0" a="b"><product-id type="strange"><b/>STRANGE<a/></product-id>c</kolab>',
+            array('element' => 'product-id')
         );
         $this->assertEquals('STRANGE', $attributes['product-id']);
     }
 
     public function testLoadMissingProductId()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('element' => 'product-id')
         );
         $this->assertEquals('', $attributes['product-id']);
     }
@@ -66,7 +69,14 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertInstanceOf(
             'DOMNode', 
-            $this->_saveToReturn()
+            $this->saveToReturn(
+                null,
+                array(),
+                array(
+                    'api-version' => 2,
+                    'element' => 'product-id',
+                )
+            )
         );
     }
 
@@ -76,7 +86,14 @@ extends Horde_Kolab_Format_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><product-id>Horde_Kolab_Format_Xml-@version@ (api version: 2)</product-id></kolab>
 ',
-            $this->_saveToXml()
+            $this->saveToXml(
+                null,
+                array(),
+                array(
+                    'api-version' => 2,
+                    'element' => 'product-id',
+                )
+            )
         );
     }
 
@@ -86,50 +103,20 @@ extends Horde_Kolab_Format_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><product-id type="strange">Horde_Kolab_Format_Xml-@version@ (api version: 2)<b/><a/></product-id>c</kolab>
 ',
-            $this->_saveToXml(
+            $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><product-id type="strange"><b/>STRANGE<a/></product-id>c</kolab>'
+<kolab version="1.0" a="b"><product-id type="strange"><b/>STRANGE<a/></product-id>c</kolab>',
+                array(),
+                array(
+                    'api-version' => 2,
+                    'element' => 'product-id',
+                )
             )
         );
     }
 
-    private function _load($previous)
+    protected function getTypeClass()
     {
-        list($params, $root_node, $type) = $this->_getProductId($previous);
-        $attributes = array();
-        $params['api-version'] = 2;
-        $type->load('product-id', $attributes, $root_node, $params);
-        return $attributes;
-    }
-
-    private function _saveToXml($previous = null)
-    {
-        list($params, $root_node, $type) = $this->_getProductId($previous);
-        $params['api-version'] = 2;
-        $attributes = array();
-        $type->save('product-id', $attributes, $root_node, $params);
-        return (string)$params['helper'];
-    }
-
-    private function _saveToReturn($previous = null)
-    {
-        list($params, $root_node, $type) = $this->_getProductId($previous);
-        $params['api-version'] = 2;
-        $attributes = array();
-        return $type->save('product-id', $attributes, $root_node, $params);
-    }
-
-    private function _getProductId(
-        $previous = null,
-        $kolab_type = 'kolab',
-        $version = '1.0'
-    )
-    {
-        return $this->getXmlType(
-            'Horde_Kolab_Format_Xml_Type_ProductId',
-            $previous,
-            $kolab_type,
-            $version
-        );
+        return 'Horde_Kolab_Format_Xml_Type_ProductId';
     }
 }

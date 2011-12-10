@@ -23,7 +23,7 @@ class Horde_Injector_Binder_ImplementationTest extends Horde_Test_Case
             $this->df
         );
 
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Injector_Binder_ImplementationTest__NoDependencies',
             $implBinder->create($this->_getInjectorNeverCallMock())
         );
@@ -38,12 +38,12 @@ class Horde_Injector_Binder_ImplementationTest extends Horde_Test_Case
 
         $createdInstance = $implBinder->create($this->_getInjectorReturnsNoDependencyObject());
 
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Injector_Binder_ImplementationTest__TypedDependency',
             $createdInstance
         );
 
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Injector_Binder_ImplementationTest__NoDependencies',
             $createdInstance->dep
         );

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba 2.1.7\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-07-07 08:55+0300\n"
-"PO-Revision-Date: 2011-07-21 10:27+0300\n"
+"POT-Creation-Date: 2011-10-21 16:36+0300\n"
+"PO-Revision-Date: 2011-10-22 22:49+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: Latvian <i18n@lists.horde.org>\n"
 "Language: lv\n"
@@ -25,13 +25,13 @@ msgstr ""
 msgid "\"%s\" already exists and was not imported."
 msgstr "\"%s\" jau eksistē un netika importēts."
 
-#: lib/Form/EditContact.php:86
+#: lib/Form/EditContact.php:84
 #, php-format
 msgid "\"%s\" updated, but saving the uploaded file failed: %s"
 msgstr ""
 "\"%s\" mainīts, taču augšupielādētā faila saglabāšana bija nesekmīga: %s"
 
-#: lib/Form/EditContact.php:84 lib/Form/EditContact.php:89
+#: lib/Form/EditContact.php:82 lib/Form/EditContact.php:87
 #, php-format
 msgid "\"%s\" updated."
 msgstr "\"%s\" mainīts."
@@ -46,15 +46,15 @@ msgstr "\"%s\" netika kopēts, jo tas ir saraksts."
 msgid "\"%s\" was not moved because it is a list."
 msgstr "\"%s\" netika pārvietots, jo tas ir saraksts."
 
-#: config/prefs.php:113 config/prefs.php:125
+#: config/prefs.php:120 config/prefs.php:132
 msgid "\"Firstname Lastname\"  (ie. John Doe)"
 msgstr "\"Vārds Uzvārds\" (piem. Ivars Bērziņš)"
 
-#: config/prefs.php:112 config/prefs.php:124
+#: config/prefs.php:119 config/prefs.php:131
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
 msgstr "\"Uzvārds, Vārds\" (piem. Bērziņš, Ivars)"
 
-#: lib/Driver.php:653
+#: lib/Driver.php:661
 #, php-format
 msgid "%d. %s of %s"
 msgstr "%d. %s no %s"
@@ -69,7 +69,7 @@ msgstr "%s pievienots"
 msgid "%s file successfully imported."
 msgstr "fails %s veiksmīgi importēts"
 
-#: lib/Api.php:1390
+#: lib/Api.php:1422
 #, php-format
 msgid "%s in %s"
 msgstr "%s  %s"
@@ -96,7 +96,7 @@ msgstr "%s pieeja liegta."
 msgid "Add"
 msgstr "Pievienot"
 
-#: lib/Form/EditContact.php:34
+#: lib/Form/EditContact.php:33
 msgid "Add file"
 msgstr "Pievienot failu"
 
@@ -104,7 +104,7 @@ msgstr "Pievienot failu"
 msgid "Add to"
 msgstr "Pievienot pie"
 
-#: lib/Api.php:1560
+#: lib/Api.php:1592
 #, php-format
 msgid "Added or updated %d contact, but at least one contact failed:"
 msgid_plural "Added or updated %d contacts, but at least one contact failed:"
@@ -116,7 +116,7 @@ msgstr[2] ""
 "Pievienots vai atsvaidzināts %d kontakts, taču vismaz vienā gadījumā notika "
 "kļūme:"
 
-#: lib/Driver.php:2731
+#: lib/Driver.php:2868
 msgid "Adding contacts is not available."
 msgstr "Nav iespējams pievienot kontaktus"
 
@@ -128,15 +128,16 @@ msgstr "Adrešu grāmata"
 msgid "Address Book List"
 msgstr "Adrešu grāmatu saraksts"
 
-#: lib/View/Browse.php:65 config/prefs.php:101
+#: lib/View/Browse.php:65 config/prefs.php:108
 msgid "Address Book Listing"
 msgstr "Adrešu grāmatu saraksts"
 
-#: lib/Block/Minisearch.php:39 config/prefs.php:13
+#: lib/Block/Minisearch.php:39 config/prefs.php:12 config/prefs.php:13
+#: config/prefs.php:19
 msgid "Address Books"
 msgstr "Adrešu grāmatas"
 
-#: lib/Turba.php:623
+#: lib/Turba.php:626
 #, php-format
 msgid "Address book of %s"
 msgstr "%s adrešu grāmata"
@@ -149,7 +150,7 @@ msgstr "Adrešu grāmata sekmīgi iztīrīta."
 msgid "Address books that will not be displayed:"
 msgstr "Adrešu grāmatas, kas netiks parādītas:"
 
-#: search.php:207 search.php:247
+#: search.php:207 search.php:248
 msgid "Advanced Search"
 msgstr "Paplašinātā meklēšana"
 
@@ -161,7 +162,15 @@ msgstr "Aizstājvārds"
 msgid "All"
 msgstr "Visi"
 
-#: lib/Api.php:709
+#: lib/Application.php:373
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
+"Visu Jūsu ActiveSync iekārtu stāvokļi aizvākti. Tie tiks atkārtoti "
+"sinhronizēti, kad nākošo reizi pieslēgsies serverim."
+
+#: lib/Api.php:744
 msgid "Already Exists"
 msgstr "Jau eksistē"
 
@@ -173,20 +182,24 @@ msgstr "Jubilejas"
 msgid "Anniversary"
 msgstr "Jubileja"
 
-#: lib/Turba.php:669
+#: lib/Turba.php:672
 #, php-format
 msgid "Are you sure that you want to delete %s?"
 msgstr "Vai tiešām vēlaties izdzēst %s?"
 
-#: lib/Turba.php:674
+#: lib/Turba.php:677
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr "Vai tiešām vēlaties izdzēst atzīmētos kontaktus?"
 
-#: config/attributes.php:394
+#: config/attributes.php:490
 msgid "Assistant"
 msgstr "Asistents"
 
-#: search.php:206 search.php:240
+#: config/attributes.php:309
+msgid "Assistant Phone"
+msgstr "Asistenta tālrunis"
+
+#: search.php:206 search.php:241
 msgid "Basic Search"
 msgstr "Meklēšana"
 
@@ -216,7 +229,7 @@ msgstr "Abi"
 msgid "Browse"
 msgstr "Pārlūkot"
 
-#: config/attributes.php:285
+#: config/attributes.php:381
 msgid "Business Category"
 msgstr "Profesija"
 
@@ -232,7 +245,11 @@ msgstr "Grupu nevar pievienot sev pašai."
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: config/attributes.php:362
+#: config/attributes.php:324
+msgid "Car Phone"
+msgstr "Automašīnas tālrunis"
+
+#: config/attributes.php:458
 msgid "Category"
 msgstr "Kategorija"
 
@@ -265,6 +282,13 @@ msgstr "Izvēlieties adrešu grāmatu."
 msgid "Choose which address books to display, and in what order:"
 msgstr "Izvēlieties, kuras adrešu grāmatas un kādā secībā rādīt:"
 
+#: config/prefs.php:21
+msgid ""
+"Choose which address books to use for synchronization with external devices."
+msgstr ""
+"Izvēlieties adrešu grāmatas, kuras jāizmanto sinhronizēšanai ar ārējām "
+"ierīcēm."
+
 #: config/prefs.php:14
 msgid "Choose which address books to use."
 msgstr "Izvēlieties, kuras adrešu grāmatas lietot."
@@ -285,7 +309,7 @@ msgstr "Aizvērt"
 msgid "Close Search"
 msgstr "Aizvērt meklēšanu"
 
-#: config/prefs.php:20
+#: config/prefs.php:27
 msgid "Column Preferences"
 msgstr "Sleju iestatījumi"
 
@@ -297,55 +321,59 @@ msgstr "Ar komatu atdalītas vērtības"
 msgid "Comma separated values (Microsoft Outlook)"
 msgstr "Ar komatu atdalītas vērtības (Microsoft Outlook)"
 
-#: config/attributes.php:492
+#: config/attributes.php:588
 msgid "Common Address Extended"
 msgstr "Kopējā adrese (pilna)"
 
-#: config/attributes.php:510
+#: config/attributes.php:606
 msgid "Common City"
 msgstr "Kopējā pilsēta"
 
-#: config/attributes.php:528
+#: config/attributes.php:624
 msgid "Common Country"
 msgstr "Kopējā valsts"
 
-#: config/attributes.php:436
+#: config/attributes.php:532
 msgid "Common Phone"
 msgstr "Kopējais telefons"
 
-#: config/attributes.php:504
+#: config/attributes.php:600
 msgid "Common Post Office Box"
 msgstr "Kopējā pasta kaste"
 
-#: config/attributes.php:522
+#: config/attributes.php:618
 msgid "Common Postal Code"
 msgstr "Kopējais pasta indekss"
 
-#: config/attributes.php:516
+#: config/attributes.php:612
 msgid "Common State/Province"
 msgstr "Kopējais rajons/novads"
 
-#: config/attributes.php:498
+#: config/attributes.php:594
 msgid "Common Street"
 msgstr "Kopējā iela"
 
-#: config/attributes.php:461
+#: config/attributes.php:557
 msgid "Common Video Call"
 msgstr "Kopējais videozvans"
 
 # #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
 #
-#: config/backends.php:324
+#: config/backends.php:332
 msgid "Communications"
 msgstr "Komunikācijas"
 
-#: config/attributes.php:291
+#: config/attributes.php:387
 msgid "Company"
 msgstr "Organizācija"
 
 #: config/attributes.php:220
 msgid "Company Address"
 msgstr "Darba adrese"
+
+#: config/attributes.php:314
+msgid "Company Phone"
+msgstr "Uzņēmuma telefons"
 
 #: lib/Driver/Ldap.php:59
 msgid "Connection failure"
@@ -384,7 +412,7 @@ msgstr "Izveidot adrešu grāmatu"
 msgid "Create a new Address Book"
 msgstr "Izveidot jaunu adrešu grāmatu"
 
-#: lib/View/List.php:461
+#: lib/View/List.php:466
 msgid "Create a new Contact List in:"
 msgstr "Izveidot jaunu kontaktu sarakstu:"
 
@@ -417,15 +445,15 @@ msgstr "Nevar dzēst."
 msgid "Delete failed: (%s) %s"
 msgstr "Izdzēst neizdevās: (%s) %s"
 
-#: lib/Driver.php:2744
+#: lib/Driver.php:2881
 msgid "Deleting contacts is not available."
 msgstr "Dzēst kontaktus nav iespējams."
 
-#: delete.php:43
+#: delete.php:41
 msgid "Deletion failed"
 msgstr "Izdzēst neizdevās"
 
-#: config/attributes.php:297
+#: config/attributes.php:393
 msgid "Department"
 msgstr "Departaments"
 
@@ -433,12 +461,11 @@ msgstr "Departaments"
 msgid "Description"
 msgstr "Apraksts"
 
-#: config/prefs.php:27
+#: config/prefs.php:34
 msgid "Display"
 msgstr "Ekrāns"
 
-#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
-#: config/prefs.php:33
+#: config/prefs.php:26 config/prefs.php:33 config/prefs.php:40
 msgid "Display Preferences"
 msgstr "Attēlošanas iestatījumi"
 
@@ -450,7 +477,7 @@ msgstr "Lejupielādēt"
 msgid "Download vCard"
 msgstr "Lejupielādēt vCard"
 
-#: search.php:209 search.php:254
+#: search.php:209 search.php:255
 msgid "Duplicate Search"
 msgstr "Atkārtojumu meklēšanu"
 
@@ -482,11 +509,11 @@ msgstr "Labot \"%s\""
 msgid "Edit %s"
 msgstr "Labot %s"
 
-#: config/attributes.php:234
+#: config/attributes.php:276
 msgid "Email"
 msgstr "E-pasts"
 
-#: config/attributes.php:240
+#: config/attributes.php:282
 msgid "Emails"
 msgstr "E-pasti"
 
@@ -541,7 +568,7 @@ msgstr "Eksportēt tikai atzīmētos kontaktus"
 msgid "Export the following address book completely."
 msgstr "Sekojošo adrešu grāmatu eksportēt pilnībā."
 
-#: config/backends.php:635
+#: config/backends.php:645
 msgid "Facebook Friends"
 msgstr "Facebook draugi"
 
@@ -575,11 +602,11 @@ msgstr "Neizdevās piekļūt adrešu grāmatai."
 msgid "Failed to search the directory: %s"
 msgstr "Neizdevās meklēšana mapē: %s"
 
-#: config/backends.php:604
+#: config/backends.php:614
 msgid "Favourite Recipients"
 msgstr "Biežākie saņēmēji"
 
-#: config/attributes.php:261
+#: config/attributes.php:334
 msgid "Fax"
 msgstr "Fakss"
 
@@ -601,7 +628,7 @@ msgstr "Beigt"
 msgid "First Name"
 msgstr "Vārds"
 
-#: config/attributes.php:335
+#: config/attributes.php:431
 msgid "Freebusy URL"
 msgstr "Brīvs/aizņemts saite"
 
@@ -609,7 +636,7 @@ msgstr "Brīvs/aizņemts saite"
 msgid "From"
 msgstr "No"
 
-#: config/attributes.php:400
+#: config/attributes.php:496
 msgid "Gender"
 msgstr "Dzimums"
 
@@ -621,7 +648,7 @@ msgstr "Grupa"
 msgid "Home Address"
 msgstr "Mājas adrese"
 
-#: config/attributes.php:562
+#: config/attributes.php:658
 msgid "Home Address Extended"
 msgstr "Mājas adrese (pilna)"
 
@@ -633,27 +660,27 @@ msgstr "Pilsēta"
 msgid "Home Country"
 msgstr "Valsts"
 
-#: config/attributes.php:430
+#: config/attributes.php:526
 msgid "Home Email"
 msgstr "Mājas e-pasts"
 
-#: config/attributes.php:446
+#: config/attributes.php:339 config/attributes.php:542
 msgid "Home Fax"
 msgstr "Mājas fakss"
 
-#: config/attributes.php:568
+#: config/attributes.php:664
 msgid "Home Latitude"
 msgstr "Mājas paralēle"
 
-#: config/attributes.php:573
+#: config/attributes.php:669
 msgid "Home Longitude"
 msgstr "Mājas meridiāns"
 
-#: config/attributes.php:456
+#: config/attributes.php:552
 msgid "Home Mobile Phone"
 msgstr "Mājas mobilais telefons"
 
-#: config/attributes.php:246
+#: config/attributes.php:288 config/attributes.php:293
 msgid "Home Phone"
 msgstr "Mājas telefons"
 
@@ -673,15 +700,20 @@ msgstr "Mājas rajons"
 msgid "Home Street Address"
 msgstr "Mājas adrese"
 
-#: config/attributes.php:471
+#: config/attributes.php:567
 msgid "Home Video Call"
 msgstr "Mājas videozvans"
 
-#: config/attributes.php:556
+#: config/attributes.php:652
 msgid "Home Website URL"
 msgstr "Mājas lapa"
 
-#: config/backends.php:757
+#: config/attributes.php:349 config/attributes.php:355
+#: config/attributes.php:361
+msgid "IM Address"
+msgstr "IM Adrese"
+
+#: config/backends.php:770
 msgid "IMSP"
 msgstr "IMSP"
 
@@ -694,34 +726,34 @@ msgstr "Importēt adrešu grāmatu, %d solis"
 msgid "Import/Export Address Books"
 msgstr "Importēt/Eksportēt adrešu grāmatas"
 
-#: config/attributes.php:376
+#: config/attributes.php:472
 msgid "Initials"
 msgstr "Iniciāļi"
 
-#: config/attributes.php:382
+#: config/attributes.php:478
 msgid "Instant Messenger"
 msgstr "Interneta īsziņas"
 
-#: lib/Api.php:765 lib/Api.php:935
+#: lib/Api.php:800 lib/Api.php:970
 msgid "Invalid ID"
 msgstr "Nederīgs ID"
 
-#: lib/Api.php:102 lib/Api.php:458 lib/Api.php:518 lib/Api.php:589
-#: lib/Api.php:635 lib/Api.php:761 lib/Api.php:931 lib/Api.php:993
-#: lib/Api.php:1570
+#: lib/Api.php:102 lib/Api.php:458 lib/Api.php:522 lib/Api.php:610
+#: lib/Api.php:657 lib/Api.php:796 lib/Api.php:966 lib/Api.php:1028
+#: lib/Api.php:1602
 #, php-format
 msgid "Invalid address book: %s"
 msgstr "Nederīga adrešu grāmata: %s"
 
-#: lib/Api.php:997
+#: lib/Api.php:1032
 msgid "Invalid contact unique ID"
 msgstr "Nepareizs kontakta unikālais ID"
 
-#: lib/Api.php:1574 lib/Api.php:1659 lib/Api.php:1726
+#: lib/Api.php:1606 lib/Api.php:1691 lib/Api.php:1762
 msgid "Invalid email"
 msgstr "Nederīga e-pasta adrese"
 
-#: lib/Api.php:1582
+#: lib/Api.php:1614
 msgid "Invalid entry"
 msgstr "Nederīgs ieraksts"
 
@@ -729,15 +761,15 @@ msgstr "Nederīgs ieraksts"
 msgid "Invalid key specified."
 msgstr "Norādīta nederīga vērtība."
 
-#: lib/Api.php:1578
+#: lib/Api.php:1610
 msgid "Invalid name"
 msgstr "Nederīgs vārds"
 
-#: config/attributes.php:273
+#: config/attributes.php:369
 msgid "Job Title"
 msgstr "Amats"
 
-#: config/attributes.php:370
+#: config/attributes.php:466
 msgid "Kolab Home Server"
 msgstr "Kolab mājas serveris"
 
@@ -752,7 +784,7 @@ msgstr ""
 msgid "LDIF Address Book"
 msgstr "LDIF Adrešu grāmata"
 
-#: config/attributes.php:406
+#: config/attributes.php:502
 msgid "Language"
 msgstr "Valoda"
 
@@ -768,7 +800,7 @@ msgstr "Uzvārds"
 msgid "Last change: "
 msgstr "Pēdējās izmaiņas:"
 
-#: config/attributes.php:412
+#: config/attributes.php:508
 msgid "Latitude"
 msgstr "Meridiāns"
 
@@ -776,19 +808,19 @@ msgstr "Meridiāns"
 msgid "List"
 msgstr "Saraksts"
 
-#: config/backends.php:319
+#: config/backends.php:327
 msgid "Location"
 msgstr "Atrašanās vieta"
 
-#: config/attributes.php:309
+#: config/attributes.php:405
 msgid "Logo"
 msgstr "Logo"
 
-#: config/attributes.php:315
+#: config/attributes.php:411
 msgid "Logo MIME Type"
 msgstr "Logo MIME tips"
 
-#: config/attributes.php:417
+#: config/attributes.php:513
 msgid "Longitude"
 msgstr "Paralēle"
 
@@ -800,7 +832,7 @@ msgstr "Nepareizs pieprasījums."
 msgid "Manage Address Books"
 msgstr "Organizēt adrešu grāmatas"
 
-#: config/attributes.php:388
+#: config/attributes.php:484
 msgid "Manager"
 msgstr "Vadītājs"
 
@@ -816,7 +848,7 @@ msgstr "Atbilst"
 msgid "Maximum Number of Contacts"
 msgstr "Maksimālais kontaktu skaits"
 
-#: config/prefs.php:86
+#: config/prefs.php:93
 msgid "Maximum number of pages"
 msgstr "Maksimālais lapu skaits"
 
@@ -828,11 +860,11 @@ msgstr "Otrie vārdi"
 msgid "Missing DN in LDAP source configuration."
 msgstr "LDAP kataloga konfigurācijā iztrūkst DN."
 
-#: config/attributes.php:256
+#: config/attributes.php:319
 msgid "Mobile Phone"
 msgstr "Mobilais telefons"
 
-#: lib/Driver/Ldap.php:389 lib/Driver/Ldap.php:405
+#: lib/Driver/Ldap.php:389 lib/Driver/Ldap.php:415
 #, php-format
 msgid "Modify failed: (%s) %s"
 msgstr "Kļūme koriģējot: (%s) %s"
@@ -841,7 +873,7 @@ msgstr "Kļūme koriģējot: (%s) %s"
 msgid "More Options..."
 msgstr "Pārējās opcijas... "
 
-#: lib/Api.php:1702
+#: lib/Api.php:1738
 msgid "More than 1 entry found"
 msgstr "Atrasts vairāk kā viens ieraksts"
 
@@ -853,17 +885,17 @@ msgstr "Pārvietot"
 msgid "Mulberry Address Book"
 msgstr "Mulberry adrešu grāmata"
 
-#: lib/Api.php:1009
+#: lib/Api.php:1044
 msgid "Multiple contacts found with same unique ID."
 msgstr "Atrasti vairāki kontakti ar vienādu unikālo ID."
 
-#: lib/Api.php:1605
+#: lib/Api.php:1637
 #, php-format
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
 msgstr "Ir vairākas personas ar adresi [%s], taču neviena  ar vārdu [%s]"
 
-#: config/backends.php:477
+#: config/backends.php:487
 msgid "My Address Book"
 msgstr "Mana adrešu grāmata"
 
@@ -872,7 +904,7 @@ msgstr "Mana adrešu grāmata"
 msgid "Name"
 msgstr "Vārds"
 
-#: config/prefs.php:34
+#: config/prefs.php:41
 msgid "Name Format"
 msgstr "Vārda formāts"
 
@@ -888,7 +920,7 @@ msgstr "Vārda sufiksi"
 msgid "Name:"
 msgstr "Vārds:"
 
-#: add.php:71 lib/Application.php:480
+#: add.php:71 lib/Application.php:496
 msgid "New Contact"
 msgstr "Jauns kontakts"
 
@@ -901,7 +933,7 @@ msgstr "Nākošais"
 msgid "Nickname"
 msgstr "Segvārds"
 
-#: lib/Api.php:1705 lib/Api.php:1763
+#: lib/Api.php:1741 lib/Api.php:1799
 #, php-format
 msgid "No %s entry found for %s"
 msgstr "%s nav atrasts %s ieraksts"
@@ -917,8 +949,8 @@ msgstr ""
 msgid "No Address Books are currently available. Searching is disabled."
 msgstr "Šobrīd nav pieejama neviena adrešu grāmata. Meklēšana nav iespējama."
 
-#: lib/Api.php:452 lib/Api.php:507 lib/Api.php:582 lib/Api.php:756
-#: lib/Api.php:926 lib/Api.php:988
+#: lib/Api.php:452 lib/Api.php:510 lib/Api.php:603 lib/Api.php:791
+#: lib/Api.php:961 lib/Api.php:1023
 msgid "No address book specified"
 msgstr "Nav norādīta adrešu grāmata"
 
@@ -934,15 +966,15 @@ msgstr "Uzdotajiem kritērijiem neatbilst neviens kontakts."
 msgid "No matching contacts"
 msgstr "Nav atbilstošu kontaktu"
 
-#: lib/Driver/Favourites.php:133
+#: lib/Driver/Favourites.php:146
 msgid "No source for favourite recipients exists."
 msgstr "Biežāko saņēmēju saraksta avots nepastāv."
 
-#: lib/Api.php:662 lib/Api.php:1028
+#: lib/Api.php:689 lib/Api.php:1063
 msgid "No vCard data was found."
 msgstr "vCard dati nav atrasti"
 
-#: templates/list/numPager.inc:8 lib/Application.php:388
+#: templates/list/numPager.inc:8 lib/Application.php:407
 msgid "None"
 msgstr "Neviena"
 
@@ -951,19 +983,19 @@ msgstr "Neviena"
 msgid "Not Found"
 msgstr "Nav atrasts"
 
-#: deletefile.php:22 edit.php:44
+#: deletefile.php:18 edit.php:44
 msgid "Not found"
 msgstr "Nav atrasts"
 
-#: config/attributes.php:323
+#: config/attributes.php:419
 msgid "Notes"
 msgstr "Piezīmes"
 
-#: config/prefs.php:92
+#: config/prefs.php:99
 msgid "Number of items per page"
 msgstr "Objektu skaits vienā lapā"
 
-#: lib/Api.php:820 lib/Api.php:1063
+#: lib/Api.php:855 lib/Api.php:1092
 msgid "Object not found"
 msgstr "Objekts nav atrasts"
 
@@ -972,35 +1004,63 @@ msgstr "Objekts nav atrasts"
 msgid "Object with UID %s does not exist!"
 msgstr "Objekts ar UID %s neeksistē!"
 
-#: config/attributes.php:279
+#: config/attributes.php:375
 msgid "Occupation"
 msgstr "Nodarbošanās"
 
-#: config/attributes.php:303
+#: config/attributes.php:399
 msgid "Office"
 msgstr "Birojs"
 
-#: lib/Api.php:1036
+#: lib/Api.php:1071
 msgid "Only one vcard supported."
 msgstr "Atbalstīta tikai viena vCard."
 
-#: config/backends.php:326
+#: config/backends.php:336
 msgid "Organization"
 msgstr "Organizācija"
 
-#: config/backends.php:327
+#: config/backends.php:337
 msgid "Other"
 msgstr "Cits"
 
-#: config/attributes.php:342 config/attributes.php:349
+#: config/attributes.php:226
+msgid "Other Address"
+msgstr "Cita adrese"
+
+#: config/attributes.php:238
+msgid "Other City"
+msgstr "Cita pilsēta"
+
+#: config/attributes.php:256
+msgid "Other Country"
+msgstr "Cita valsts"
+
+#: config/attributes.php:262
+msgid "Other Post Office Box"
+msgstr "Cita pastakaste"
+
+#: config/attributes.php:250
+msgid "Other Postal Code"
+msgstr "Cits pasta indekss"
+
+#: config/attributes.php:244
+msgid "Other State/Province"
+msgstr "Cita pavalsts/rajons"
+
+#: config/attributes.php:232
+msgid "Other Street Address"
+msgstr "Cita ielas adrese"
+
+#: config/attributes.php:438 config/attributes.php:445
 msgid "PGP Public Key"
 msgstr "PGP publiskā atslēga"
 
-#: config/attributes.php:487
+#: config/attributes.php:583
 msgid "PTT"
 msgstr "PTT"
 
-#: config/attributes.php:266
+#: config/attributes.php:344
 msgid "Pager"
 msgstr "Peidžeris"
 
@@ -1008,12 +1068,12 @@ msgstr "Peidžeris"
 msgid "Permanently delete this contact?"
 msgstr "Dzēst šo kontaktu pavisam?"
 
-#: deletefile.php:36 lib/Api.php:641 lib/Api.php:1588 lib/Driver.php:850
-#: lib/Driver/Sql.php:628
+#: deletefile.php:32 lib/Api.php:665 lib/Api.php:1620 lib/Driver.php:858
+#: lib/Driver/Sql.php:629
 msgid "Permission denied"
 msgstr "Pieeja liegta"
 
-#: config/backends.php:316
+#: config/backends.php:324
 msgid "Personal"
 msgstr "Personīga"
 
@@ -1029,7 +1089,7 @@ msgstr "Foto MIME tips"
 msgid "Pine Address Book"
 msgstr "Pine adrešu grāmata"
 
-#: lib/Turba.php:672
+#: lib/Turba.php:675
 msgid "Please name the new contact list:"
 msgstr "Piešķiriet nosaukumu jaunajam kontaktu sarakstam:"
 
@@ -1038,7 +1098,7 @@ msgstr "Piešķiriet nosaukumu jaunajam kontaktu sarakstam:"
 msgid "Previous"
 msgstr "Iepriekšējais"
 
-#: config/backends.php:566
+#: config/backends.php:576
 msgid "Private Address Book"
 msgstr "Privātā adrešu grāmata"
 
@@ -1047,12 +1107,16 @@ msgstr "Privātā adrešu grāmata"
 msgid "Query failed: (%s) %s"
 msgstr "Kļūme vaicājumā: (%s) %s"
 
-#: lib/Driver/Ldap.php:235 lib/Driver/Ldap.php:244 lib/Driver/Ldap.php:501
+#: config/attributes.php:329
+msgid "Radio Phone"
+msgstr "Radio telefons"
+
+#: lib/Driver/Ldap.php:235 lib/Driver/Ldap.php:244 lib/Driver/Ldap.php:511
 #, php-format
 msgid "Read failed: (%s) %s"
 msgstr "Kļūme nolasot: (%s) %s"
 
-#: lib/Driver.php:2718
+#: lib/Driver.php:2855
 msgid "Reading contacts is not available."
 msgstr "Kontaktu nolasīšana nav iespējama."
 
@@ -1069,7 +1133,7 @@ msgstr ""
 msgid "Remove from this list"
 msgstr "Aizvākt no saraksta"
 
-#: lib/Driver.php:2769
+#: lib/Driver.php:2906
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1084,7 +1148,7 @@ msgstr ""
 "Aizvietot esošo adrešu grāmatu ar importēto? <strong>Uzmanību: šī darbība "
 "izdzēsis visus ierakstus esošajā adrešu grāmatā!</strong>"
 
-#: lib/Driver.php:730
+#: lib/Driver.php:738
 msgid "Requested object not found."
 msgstr "Pieprasītais objekts nav atrasts."
 
@@ -1092,11 +1156,11 @@ msgstr "Pieprasītais objekts nav atrasts."
 msgid "Reset to Defaults"
 msgstr "Atjaunot noklusētos parametrus"
 
-#: config/attributes.php:356
+#: config/attributes.php:452
 msgid "S/MIME Public Certificate"
 msgstr "S/MIME publiskais sertifikāts"
 
-#: config/attributes.php:481
+#: config/attributes.php:577
 msgid "SIP"
 msgstr "SIP"
 
@@ -1113,14 +1177,14 @@ msgstr "Saglabāt"
 msgid "Save search as a virtual address book?"
 msgstr "Saglabāt vaicājumu kā virtuālo adrešu grāmatu?"
 
-#: lib/Driver.php:2757
+#: lib/Driver.php:2894
 msgid "Saving contacts is not available."
 msgstr "Kontaktus saglabāt nav iespējams."
 
 #: templates/search/advanced.html.php:5 templates/search/basic.html.php:25
 #: templates/search/duplicate.html.php:12 templates/browse/header.inc:3
-#: templates/block/minisearch.inc:20 lib/Application.php:523
-#: config/prefs.php:102
+#: templates/block/minisearch.inc:20 lib/Application.php:539
+#: config/prefs.php:109
 msgid "Search"
 msgstr "Meklēt"
 
@@ -1128,11 +1192,11 @@ msgstr "Meklēt"
 msgid "Search duplicates in:"
 msgstr "Meklēt atkārtojumus:"
 
-#: lib/Api.php:1360
+#: lib/Api.php:1392
 msgid "Search failed"
 msgstr "Meklēšanas kļūme"
 
-#: lib/Api.php:1594 lib/Api.php:1601 lib/Api.php:1611 lib/Api.php:1625
+#: lib/Api.php:1626 lib/Api.php:1633 lib/Api.php:1643 lib/Api.php:1657
 #, php-format
 msgid "Search failed: %s"
 msgstr "Meklēšanas kļūme: %s"
@@ -1141,7 +1205,7 @@ msgstr "Meklēšanas kļūme: %s"
 msgid "Search for: "
 msgstr "Meklēt:"
 
-#: lib/Driver.php:2701
+#: lib/Driver.php:2838
 msgid "Searching is not available."
 msgstr "Meklēšana nav iespējama."
 
@@ -1157,7 +1221,7 @@ msgstr "Izvēlieties eksportējamo adrešu grāmatu:"
 msgid "Select the address book to import to:"
 msgstr "Izvēlieties adrešu grāmatu, kurā importēt datus:"
 
-#: config/prefs.php:59
+#: config/prefs.php:66
 msgid ""
 "Select the address books that should be used for synchronization with "
 "external devices:"
@@ -1181,23 +1245,23 @@ msgstr "Izvēlieties importējamo failu:"
 msgid "Select the format of the source file:"
 msgstr "Izvēlieties importējamā faila formātu:"
 
-#: config/prefs.php:110
+#: config/prefs.php:117
 msgid "Select the format used to <em>display</em> names:"
 msgstr "Izvēlieties vārdu <em>attēlošanas</em> formātu:"
 
-#: config/prefs.php:122
+#: config/prefs.php:129
 msgid "Select the format used to <em>sort</em> names:"
 msgstr "Izvēlieties vārdu <em>šķirošanas</em> formātu:"
 
-#: config/prefs.php:28
+#: config/prefs.php:35
 msgid "Select view to display by default and paging preferences."
 msgstr "Izvēlieties noklusēto skatu un lapu dalīšanas iestatījumus."
 
-#: config/prefs.php:21
+#: config/prefs.php:28
 msgid "Select which fields to display in the address lists."
 msgstr "Izvēlieties, kurus laukus rādīt adrešu sarakstos."
 
-#: config/prefs.php:35
+#: config/prefs.php:42
 msgid "Select which format to display names."
 msgstr "Izvēlieties vārdu attēlošanas formātu."
 
@@ -1210,7 +1274,7 @@ msgstr "Izvēlētā adrešu grāmata \"%s\"."
 msgid "Shared Address Books"
 msgstr "Koplietotās adrešu grāmatas"
 
-#: config/backends.php:359
+#: config/backends.php:369
 msgid "Shared Directory"
 msgstr "Koplietotais katalogs"
 
@@ -1296,6 +1360,10 @@ msgstr "Veiksmīgi apvienoti divi kontakti."
 msgid "Successfully removed %d contact(s) from list."
 msgstr "No saraksta veiksmīgi aizvākts(-i) %d kontakts(-i)."
 
+#: config/prefs.php:20
+msgid "Synchronization Preferences"
+msgstr "Sinhronizācijas iestatījumi"
+
 #: data.php:96
 msgid "TSV"
 msgstr "TSV"
@@ -1337,7 +1405,7 @@ msgstr "Radīta adrešu grāmata \"%s\"."
 msgid "The address book could not be purged: %s"
 msgstr "Adrešu grāmatu nevar iztīrīt: %s"
 
-#: lib/Api.php:870
+#: lib/Api.php:905
 msgid "The address book with your own contact doesn't exist anymore."
 msgstr "Adrešu grāmata ar Jūsu pašu kontaktinformāciju vairs neeksistē."
 
@@ -1360,7 +1428,7 @@ msgstr "Adrešu grāmata \"%s\" saglabāta."
 msgid "The contact you requested does not exist."
 msgstr "Jūsu pieprasītais kontakts neeksistē."
 
-#: deletefile.php:44
+#: deletefile.php:40
 #, php-format
 msgid "The file \"%s\" has been deleted."
 msgstr "Fails \"%s\" izdzēsts."
@@ -1409,6 +1477,11 @@ msgstr ""
 "Kļūda pievienojot jaunu kontaktu. Sazinieties ar Jūsu sistēmas "
 "administratoru."
 
+#: lib/Application.php:375
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "Kļūda sazinoties ar  ActiveSync serveri: %s"
+
 #: lib/View/Browse.php:384
 msgid "There was an error creating a new list."
 msgstr "Kļūda radot jaunu sarakstu."
@@ -1418,7 +1491,7 @@ msgstr "Kļūda radot jaunu sarakstu."
 msgid "There was an error deleting \"%s\" from the source address book."
 msgstr "Kļūda dzēšot \"%s\" no sākotnējās adrešu grāmatas."
 
-#: delete.php:40
+#: delete.php:38
 #, php-format
 msgid "There was an error deleting this contact: %s"
 msgstr "Kļūda dzēšot šo kontaktu: %s"
@@ -1432,17 +1505,16 @@ msgstr "Kļūda parādot sarakstu"
 msgid "There was an error importing the data: %s"
 msgstr "Kļūda importējot datus: %s"
 
-#: lib/Api.php:658 lib/Api.php:1023
+#: lib/Api.php:685 lib/Api.php:1058
 msgid "There was an error importing the iCalendar data."
 msgstr "Kļūda importējot iCalendar datus."
 
-#: lib/Application.php:407 lib/Application.php:414 lib/Application.php:446
-#: lib/Application.php:460
+#: lib/Application.php:433 lib/Application.php:463 lib/Application.php:476
 #, php-format
 msgid "There was an error removing an address book for %s"
 msgstr "Kļūda dzēšot %s adrešu grāmatu "
 
-#: lib/Form/EditContact.php:77
+#: lib/Form/EditContact.php:75
 msgid ""
 "There was an error saving the contact. Contact your system administrator for "
 "further help."
@@ -1469,18 +1541,18 @@ msgstr "Kontakts atzīmēts kā Jūsējais."
 msgid "This file format is not supported."
 msgstr "Faila formāts nav atbalstīts."
 
-#: lib/Api.php:1615 lib/Api.php:1629
+#: lib/Api.php:1647 lib/Api.php:1661
 #, php-format
 msgid "This person already has a %s entry in the address book"
 msgstr "Šai personai jau ir %s ieraksts Jūsu adrešu grāmatā."
 
-#: config/prefs.php:136
+#: config/prefs.php:143
 msgid ""
 "This will be the default address book when adding or importing contacts."
 msgstr ""
 "Šī būs galvenā adrešu grāmata, kurai pievienot vai kurā importēt kontaktus."
 
-#: config/attributes.php:226
+#: config/attributes.php:268
 msgid "Time Zone"
 msgstr "Laika josla"
 
@@ -1498,7 +1570,7 @@ msgstr "Nevar ielādēt %s definīciju."
 msgid "Unable to save address book \"%s\": %s"
 msgstr "Nevar saglabāt adrešu grāmatu \"%s\": %s"
 
-#: lib/Api.php:697 lib/Api.php:817 lib/Api.php:1051
+#: lib/Api.php:727 lib/Api.php:852 lib/Api.php:1080
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Neatbalstīts satura tips: %s"
@@ -1507,15 +1579,15 @@ msgstr "Neatbalstīts satura tips: %s"
 msgid "View Contact"
 msgstr "Skatīties kontaktu"
 
-#: config/prefs.php:99
+#: config/prefs.php:106
 msgid "View to display by default:"
 msgstr "Noklusētais skatījums:"
 
-#: config/attributes.php:476
+#: config/attributes.php:572
 msgid "VoIP"
 msgstr "VoIP"
 
-#: config/attributes.php:329
+#: config/attributes.php:425
 msgid "Website URL"
 msgstr "Mājas lapa"
 
@@ -1523,7 +1595,7 @@ msgstr "Mājas lapa"
 msgid "Work Address"
 msgstr "Darba adrese"
 
-#: config/attributes.php:540
+#: config/attributes.php:636
 msgid "Work Address Extended"
 msgstr "Darba adrese (pilna)"
 
@@ -1535,27 +1607,27 @@ msgstr "Pilsēta"
 msgid "Work Country"
 msgstr "Valsts"
 
-#: config/attributes.php:424
+#: config/attributes.php:520
 msgid "Work Email"
 msgstr "Darba e-pasts"
 
-#: config/attributes.php:441
+#: config/attributes.php:537
 msgid "Work Fax"
 msgstr "Darba fakss"
 
-#: config/attributes.php:546
+#: config/attributes.php:642
 msgid "Work Latitude"
 msgstr "Darba meridiāns"
 
-#: config/attributes.php:551
+#: config/attributes.php:647
 msgid "Work Longitude"
 msgstr "Darba paralēle"
 
-#: config/attributes.php:451
+#: config/attributes.php:547
 msgid "Work Mobile Phone"
 msgstr "Darba mobilais telefons"
 
-#: config/attributes.php:251
+#: config/attributes.php:299 config/attributes.php:304
 msgid "Work Phone"
 msgstr "Darba telefons"
 
@@ -1575,11 +1647,11 @@ msgstr "Darba telefons"
 msgid "Work Street Address"
 msgstr "Darba adrese"
 
-#: config/attributes.php:466
+#: config/attributes.php:562
 msgid "Work Video Call"
 msgstr "Darba videozvans"
 
-#: config/attributes.php:534
+#: config/attributes.php:630
 msgid "Work Website URL"
 msgstr "Darba mājas lapa"
 
@@ -1612,7 +1684,7 @@ msgstr "Jūs nevarat pievienot jaunus kontaktus virtuālajai adrešu grāmatai."
 msgid "You cannot delete contacts from a virtual address book"
 msgstr "Jūs nevarat dzēst kontaktus no virtuālās adrešu grāmatas"
 
-#: lib/Api.php:865
+#: lib/Api.php:900
 msgid "You didn't mark a contact as your own yet."
 msgstr "Kontakts vēl nav atzīmēts kā Jūsējais."
 
@@ -1629,7 +1701,7 @@ msgstr "Jums nav tiesību apskatīt šo objektu."
 msgid "You do not have permissions to delete this address book."
 msgstr "Jums nav tiesību izdzēst šo adrešu grāmatu."
 
-#: lib/Api.php:876
+#: lib/Api.php:911
 msgid ""
 "You don't have sufficient permissions to read the address book that contains "
 "your own contact."
@@ -1641,11 +1713,11 @@ msgstr ""
 msgid "You must provide a name for virtual address books."
 msgstr "Nepieciešams norādīt virtuālās adrešu grāmatas nosaukumu."
 
-#: lib/Turba.php:673
+#: lib/Turba.php:676
 msgid "You must select a target address book."
 msgstr "Jāizvēlas mērķa adrešu grāmata."
 
-#: edit.php:28 lib/Turba.php:670
+#: edit.php:28 lib/Turba.php:673
 msgid "You must select at least one contact first."
 msgstr "Vispirms jāizvēlas vismaz viens kontakts."
 
@@ -1662,7 +1734,7 @@ msgstr "Jūsu galvenā adrešu grāmata nav pārlūkojama."
 msgid "Your own contact"
 msgstr "Jūsu pašu kontaktinformācija"
 
-#: lib/Api.php:882
+#: lib/Api.php:917
 msgid "Your own contact cannot be found in the address book."
 msgstr "Jūsu pašu kontaktinformācija nav atrodama adrešu grāmatā."
 
@@ -1749,20 +1821,20 @@ msgstr "kontakti.vcf"
 msgid "descending"
 msgstr "dilstoši"
 
-#: config/attributes.php:403
+#: config/attributes.php:499
 msgid "female"
 msgstr "siev."
 
-#: lib/Application.php:493
+#: lib/Application.php:509
 #, php-format
 msgid "in %s"
 msgstr "iekš %s"
 
-#: config/attributes.php:403
+#: config/attributes.php:499
 msgid "male"
 msgstr "vīr."
 
-#: config/prefs.php:114 config/prefs.php:126
+#: config/prefs.php:121 config/prefs.php:133
 msgid "no formatting"
 msgstr "neformatēts"
 

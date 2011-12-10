@@ -125,7 +125,7 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
             sprintf(
                 'Driver "%s": Retrieved namespaces [%s].',
                 $this->getDriverName(),
-                (string) $result
+                (string)$result
             )
         );
         return $result;

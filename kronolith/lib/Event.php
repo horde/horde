@@ -1839,8 +1839,8 @@ abstract class Kronolith_Event
             if ($this->attendees) {
                 $attendees = array();
                 foreach ($this->attendees as $email => $info) {
-                    $attendee = array('a' => $info['attendance'],
-                                      'r' => $info['response'],
+                    $attendee = array('a' => (int)$info['attendance'],
+                                      'r' => (int)$info['response'],
                                       'l' => empty($info['name']) ? $email : Horde_Mime_Address::trimAddress($info['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>')));
                     if (strpos($email, '@') !== false) {
                         $attendee['e'] = $email;
@@ -2193,10 +2193,19 @@ abstract class Kronolith_Event
         $this->status = Horde_Util::getFormData('status', $this->status);
 
         // Attendees.
-        if ($attendees = Horde_Util::getFormData('attendees')) {
-            $attendees = Kronolith::parseAttendees(trim($attendees));
-        } else {
-            $attendees = $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
+        $attendees = $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
+        if (!is_null($newattendees = Horde_Util::getFormData('attendees'))) {
+            $newattendees = Kronolith::parseAttendees(trim($newattendees));
+            foreach ($newattendees as $email => $attendee) {
+                if (!isset($attendees[$email])) {
+                    $attendees[$email] = $attendee;
+                }
+            }
+            foreach (array_keys($attendees) as $email) {
+                if (!isset($newattendees[$email])) {
+                    unset($attendees[$email]);
+                }
+            }
         }
         $this->attendees = $attendees;
 
@@ -2664,14 +2673,14 @@ abstract class Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getEditUrl($params = array())
+    public function getEditUrl($params = array(), $full = false)
     {
         $params['view'] = 'EditEvent';
         $params['eventID'] = $this->id;
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::url('event.php')->add($params);
+        return Horde::url('event.php', $full)->add($params);
     }
 
     /**
@@ -2679,14 +2688,14 @@ abstract class Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getDeleteUrl($params = array())
+    public function getDeleteUrl($params = array(), $full = false)
     {
         $params['view'] = 'DeleteEvent';
         $params['eventID'] = $this->id;
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::url('event.php')->add($params);
+        return Horde::url('event.php', $full)->add($params);
     }
 
     /**
@@ -2694,14 +2703,14 @@ abstract class Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getExportUrl($params = array())
+    public function getExportUrl($params = array(), $full = false)
     {
         $params['view'] = 'ExportEvent';
         $params['eventID'] = $this->id;
         $params['calendar'] = $this->calendar;
         $params['type'] = $this->calendarType;
 
-        return Horde::url('event.php')->add($params);
+        return Horde::url('event.php', $full)->add($params);
     }
 
     public function getLink($datetime = null, $icons = true, $from_url = null,
@@ -2784,7 +2793,8 @@ abstract class Kronolith_Event
                 Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
                 $url = $this->getEditUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
-                          'url' => $from_url));
+                          'url' => $from_url),
+                    $full);
                 if ($url) {
                     $link .= $url->link(array('title' => sprintf(_("Edit %s"), $event_title),
                                               'class' => 'iconEdit'))
@@ -2796,7 +2806,8 @@ abstract class Kronolith_Event
             if ($this->hasPermission(Horde_Perms::DELETE)) {
                 $url = $this->getDeleteUrl(
                     array('datetime' => $datetime->strftime('%Y%m%d%H%M%S'),
-                          'url' => $from_url));
+                          'url' => $from_url),
+                    $full);
                 if ($url) {
                     $link .= $url->link(array('title' => sprintf(_("Delete %s"), $event_title),
                                               'class' => 'iconDelete'))

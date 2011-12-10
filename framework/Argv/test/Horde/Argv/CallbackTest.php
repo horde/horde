@@ -34,7 +34,7 @@ class Horde_Argv_CallbackTest extends Horde_Argv_TestCase
         if ($opt == '-x') {
             $this->assertEquals(array('-x'), $option->shortOpts);
             $this->assertEquals(array(), $option->longOpts);
-            $this->assertType(get_class($this->parser), $parser_);
+            $this->assertInstanceOf(get_class($this->parser), $parser_);
             $this->assertNull($value);
             $this->assertEquals(array('filename' => null), iterator_to_array($parser_->values));
 
@@ -42,7 +42,7 @@ class Horde_Argv_CallbackTest extends Horde_Argv_TestCase
         } else if ($opt == '--file') {
             $this->assertEquals(array('-f'), $option->shortOpts);
             $this->assertEquals(array('--file'), $option->longOpts);
-            $this->assertType(gettype($this->parser), $parser_);
+            $this->assertInstanceOf(get_class($this->parser), $parser_);
             $this->assertEquals('foo', $value);
             $this->assertEquals(array('filename' => null, 'x' => 42), iterator_to_array($parser_->values));
 

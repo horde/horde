@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-02</date>
- <time>13:21:21</time>
+ <date>2011-11-22</date>
+ <time>22:29:57</time>
  <version>
-  <release>4.0.12</release>
+  <release>4.0.13</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,7 +40,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add configuration option to disable password resets (Request #10640).
+* [jan] Make the lifetime of cached weather information configurable (Arjen de Korte, Request #10848).
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+* [mjr] Improve layout of weather block.
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -425,8 +428,7 @@
      <file name="Time.php" role="horde" />
      <file name="TwitterTimeline.php" role="horde" />
      <file name="Vatid.php" role="horde" />
-     <file name="Weatherdotcom.php" role="horde" />
-     <file name="WeatherdotcomStrings.php" role="horde" />
+     <file name="Weather.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
@@ -1846,8 +1848,6 @@
       <file name="close.png" role="horde" />
       <file name="colorpicker.png" role="horde" />
       <file name="config.png" role="horde" />
-      <file name="currentTab_left.png" role="horde" />
-      <file name="currentTab_right.png" role="horde" />
       <file name="data.png" role="horde" />
       <file name="datatree.png" role="horde" />
       <file name="delete-small.png" role="horde" />
@@ -1896,8 +1896,6 @@
       <file name="shell.png" role="horde" />
       <file name="show_panel.png" role="horde" />
       <file name="sql.png" role="horde" />
-      <file name="tab_left.png" role="horde" />
-      <file name="tab_right.png" role="horde" />
       <file name="unlocked.png" role="horde" />
       <file name="user.png" role="horde" />
       <file name="website.png" role="horde" />
@@ -2511,6 +2509,10 @@
     <channel>pear.php.net</channel>
    </package>
    <package>
+    <name>Services_Weather</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -2560,6 +2562,13 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_Service_Weather</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_SyncMl</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -2576,10 +2585,6 @@
    </package>
    <package>
     <name>File_Find</name>
-    <channel>pear.php.net</channel>
-   </package>
-   <package>
-    <name>Services_Weather</name>
     <channel>pear.php.net</channel>
    </package>
    <package>
@@ -2918,8 +2923,7 @@
    <install as="lib/Block/Time.php" name="lib/Block/Time.php" />
    <install as="lib/Block/TwitterTimeline.php" name="lib/Block/TwitterTimeline.php" />
    <install as="lib/Block/Vatid.php" name="lib/Block/Vatid.php" />
-   <install as="lib/Block/Weatherdotcom.php" name="lib/Block/Weatherdotcom.php" />
-   <install as="lib/Block/WeatherdotcomStrings.php" name="lib/Block/WeatherdotcomStrings.php" />
+   <install as="lib/Block/Weather.php" name="lib/Block/Weather.php" />
    <install as="/lib/Block/Account/Base.php" name="lib/Block/Account/Base.php" />
    <install as="/lib/Block/Account/Finger.php" name="lib/Block/Account/Finger.php" />
    <install as="/lib/Block/Account/Ldap.php" name="lib/Block/Account/Ldap.php" />
@@ -3932,8 +3936,6 @@
    <install as="themes/hordevetica/graphics/close.png" name="themes/hordevetica/graphics/close.png" />
    <install as="themes/hordevetica/graphics/colorpicker.png" name="themes/hordevetica/graphics/colorpicker.png" />
    <install as="themes/hordevetica/graphics/config.png" name="themes/hordevetica/graphics/config.png" />
-   <install as="themes/hordevetica/graphics/currentTab_left.png" name="themes/hordevetica/graphics/currentTab_left.png" />
-   <install as="themes/hordevetica/graphics/currentTab_right.png" name="themes/hordevetica/graphics/currentTab_right.png" />
    <install as="themes/hordevetica/graphics/data.png" name="themes/hordevetica/graphics/data.png" />
    <install as="themes/hordevetica/graphics/datatree.png" name="themes/hordevetica/graphics/datatree.png" />
    <install as="themes/hordevetica/graphics/delete-small.png" name="themes/hordevetica/graphics/delete-small.png" />
@@ -3982,8 +3984,6 @@
    <install as="themes/hordevetica/graphics/shell.png" name="themes/hordevetica/graphics/shell.png" />
    <install as="themes/hordevetica/graphics/show_panel.png" name="themes/hordevetica/graphics/show_panel.png" />
    <install as="themes/hordevetica/graphics/sql.png" name="themes/hordevetica/graphics/sql.png" />
-   <install as="themes/hordevetica/graphics/tab_left.png" name="themes/hordevetica/graphics/tab_left.png" />
-   <install as="themes/hordevetica/graphics/tab_right.png" name="themes/hordevetica/graphics/tab_right.png" />
    <install as="themes/hordevetica/graphics/unlocked.png" name="themes/hordevetica/graphics/unlocked.png" />
    <install as="themes/hordevetica/graphics/user.png" name="themes/hordevetica/graphics/user.png" />
    <install as="themes/hordevetica/graphics/website.png" name="themes/hordevetica/graphics/website.png" />
@@ -4615,10 +4615,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-02</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.
 * [jan] Add configuration option to disable password resets (Request #10640).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.13</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Make the lifetime of cached weather information configurable (Arjen de Korte, Request #10848).
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+* [mjr] Improve layout of weather block.
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
   </release>
  </changelog>

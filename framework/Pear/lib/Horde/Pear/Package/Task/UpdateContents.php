@@ -57,11 +57,9 @@ implements Horde_Pear_Package_Task
      * @param Horde_Pear_Package_Contents $content The content list.
      * @param array                       $options Additional options.
      */
-    public function __construct(
-        Horde_Pear_Package_Xml $xml,
-        Horde_Pear_Package_Contents $content = null,
-        $options = array()
-    )
+    public function __construct(Horde_Pear_Package_Xml $xml,
+                                Horde_Pear_Package_Contents $content = null,
+                                $options = array())
     {
         $this->_xml = $xml;
         $this->_options = $options;
@@ -138,10 +136,17 @@ implements Horde_Pear_Package_Task
 
         $current = $this->_xml->createContents($this->_xml, $contents, $filelist);
         $current->update($this->_content);
-        if (empty($this->_options['no_timestamp'])) {
-            $this->_xml->timestamp();
+        try {
+            if (empty($this->_options['no_timestamp'])) {
+                $this->_xml->timestamp();
+            }
+            $this->_xml->syncCurrentVersion();
+        } catch (Horde_Pear_Exception $e) {
+            /**
+             * Ignore errors in this operation as it is not mandatory for
+             * updating the file list.
+             */
         }
-        $this->_xml->syncCurrentVersion();
     }
 
 }

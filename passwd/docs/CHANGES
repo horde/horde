@@ -2,17 +2,12 @@
 v4.0.1-git
 ----------
 
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 
 
 ----
 v4.0
 ----
-
-
-
---------
-v4.0-RC1
---------
 
 [bak] Fix lookup of user entry in LDAP driver.
 

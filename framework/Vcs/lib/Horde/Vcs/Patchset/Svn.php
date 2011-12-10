@@ -1,12 +1,12 @@
 <?php
 /**
- * Horde_Vcs_Svn Patchset class.
+ * Subversion patchset class.
  *
  * @author  Anil Madhavapeddy <anil@recoil.org>
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Vcs
  */
-class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
+class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset_Base
 {
     /**
      * Constructor
@@ -17,30 +17,24 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
     public function __construct($rep, $opts = array())
     {
         // TODO: Allow access via 'range'
-        $fileOb = $rep->getFileObject($opts['file']);
+        $fileOb = $rep->getFile($opts['file']);
 
-        foreach ($fileOb->logs as $rev => $log) {
-            $this->_patchsets[$rev] = array(
-                'author' => $log->queryAuthor(),
-                'branch' => '',
-                'date' => $log->queryDate(),
-                'log' => $log->queryLog(),
-                'members' => array(),
-                'tag' => ''
+        foreach ($fileOb->getLog() as $rev => $log) {
+            $this->_patchsets[$rev] = array_merge(
+                $log->toHash(),
+                array('members' => array())
             );
 
-            foreach ($log->queryFiles() as $file) {
-                $action = substr($file, 0, 1);
-                $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
+            foreach ($log->getFiles() as $file => $info) {
                 $to = $rev;
-                $status = self::MODIFIED;
-                if ($action == 'A') {
+                $status = Horde_Vcs_Patchset::MODIFIED;
+                if ($info['status'] == 'A') {
                     $from = null;
-                    $status = self::ADDED;
-                } elseif ($action == 'D') {
+                    $status = Horde_Vcs_Patchset::ADDED;
+                } elseif ($info['status'] == 'D') {
                     $from = $to;
                     $to = null;
-                    $status = self::DELETED;
+                    $status = Horde_Vcs_Patchset::DELETED;
                 } else {
                     // This technically isn't the previous revision,
                     // but it works for diffing purposes.
@@ -53,7 +47,5 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset
                                                              'status' => $status);
             }
         }
-
-        return true;
     }
 }

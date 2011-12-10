@@ -46,11 +46,9 @@ To function properly, Nag requires the following:
 Installing Nag
 ==============
 
-There are several ways to install Nag. The recommended way to install Nag
-is using the PEAR installer. Alternatively it can be installed from
-tarballs. Finally, if you want to run the latest development code, or get the
-latest, not yet released, fixes, you can install Nag from Git.
-
+The **RECOMMENDED** way to install Nag is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Nag from Git.
 
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
@@ -75,6 +73,13 @@ extensions through PECL that might need further configuration or activation in
 your PHP configuration::
 
    pear install -a horde/nag
+
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
+
+See::
+
+   http://horde.org/source/git.php
 
 
 Configuring Nag
@@ -115,8 +120,7 @@ Configuring Nag
    Nag row of the configuration screen.
 
    Alternatively you creating the Nag database tables can be accomplished with
-   horde's ``horde-db-migrate`` utility.  If your database is properly setup in the
-   Horde configuration, just run the following::
+   horde's ``horde-db-migrate`` utility.  If your database is properly setup in    the Horde configuration, just run the following::
 
       horde/bin/horde-db-migrate nag
 
@@ -139,7 +143,7 @@ The Horde Frequently Asked Questions List (FAQ), available on the Web at
 
   http://wiki.horde.org/FAQ
 
-Horde LLC runs a number of mailing lists, for individual applications
+The Horde Project runs a number of mailing lists, for individual applications
 and for issues relating to the project as a whole.  Information, archives, and
 subscription information can be found at
 

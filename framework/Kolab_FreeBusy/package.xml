@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Kolab_FreeBusy</extends>
  <summary>A package for providing free/busy information</summary>
- <description>This package provides free/busy information for the
+ <description>Free/busy information for the
  users of a Kolab server. A Kolab client changing calendar data in an
  IMAP folder is required to call the triggering script provided within
  this package via HTTP. This will refresh the cache maintained by this
@@ -17,8 +17,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-09-15</date>
- <time>23:12:44</time>
+ <date>2011-11-13</date>
+ <time>22:07:24</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
 * [jan] Update Latvian translation.
  </notes>
  <contents>
@@ -902,9 +903,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-09-15</date>
+   <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
 * [jan] Update Latvian translation.
    </notes>
   </release>

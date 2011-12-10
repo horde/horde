@@ -58,10 +58,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      * @param Horde_Kolab_Storage_Driver      $driver  The primary connection driver.
      * @param Horde_Kolab_Storage_Factory     $factory The factory.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Driver $driver,
-        Horde_Kolab_Storage_Factory $factory
-    ) {
+    public function __construct(Horde_Kolab_Storage_Driver $driver,
+                                Horde_Kolab_Storage_Factory $factory)
+    {
         $this->_driver  = $driver;
         $this->_factory = $factory;
     }

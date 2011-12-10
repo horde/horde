@@ -38,7 +38,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testListFolderIsArray()
     {
         $list = $this->_setupMockList();
-        $this->assertType('array', $list->listFolders());
+        $this->assertInternalType('array', $list->listFolders());
     }
 
     public function testListFolder()
@@ -181,7 +181,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testTypeListIsArray()
     {
         $list = $this->_getCachedList($this->getNullList());
-        $this->assertType('array', $list->listFolderTypes());
+        $this->assertInternalType('array', $list->listFolderTypes());
     }
 
     public function testFolderTypes()

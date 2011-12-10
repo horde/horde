@@ -35,6 +35,11 @@
    from the user who updated the ticket, as long as we can find an email
    address for them. You can specify individual email addresses in the queue
    administration that will override this setting."/>
+   <configstring name="return_path" required="false" desc="What email address
+   should be used for the Return-Path: header when sending ticket email? If you
+   set up Whups to receive emails with the whups-mail-filter script, you should
+   set this field to a different address than the from_addr setting, so that
+   message bounces cannot generate a mail loop."/>
    <configstring name="always_copy" required="false" desc="Should we always
    send ticket email to one or more addresses? Listeners for the ticket will
    always get email as configured below; this is for archiving purposes or for
@@ -43,8 +48,8 @@
    '&lt;@&gt;' which will be replaced by the queue name."/>
    <configboolean name="reply" desc="Can users reply to ticket emails? If you
    entered an email address above, and have configured it to accept ticket
-   email, enable this. Otherwise, or if you're not sure, leave it
-   disabled." required="false">false</configboolean>
+   email, enable this. Otherwise, or if you're not sure, leave it disabled."
+   required="false">false</configboolean>
    <configboolean name="include_headers" desc="When generating new tickets or
    adding ticket comments from email messages, should we include the basic
    email headers into the ticket comment?"

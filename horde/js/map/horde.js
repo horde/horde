@@ -346,6 +346,7 @@ HordeMap.Map.Horde = Class.create({
 
     removeMarker: function(m, opts)
     {
+        opts = opts || {};
         if (opts.layer) {
             opts.layer.destroyFeatures([m]);
         } else {

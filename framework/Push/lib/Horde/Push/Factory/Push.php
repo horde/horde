@@ -71,6 +71,8 @@ class Horde_Push_Factory_Push
                 return $this->_parsePhp($argument, $conf);
             case 'yaml':
                 return $this->_parseYaml($argument, $conf);
+            case 'empty':
+                return new Horde_Push();
             }
         }
         throw new Horde_Push_Exception(
@@ -163,7 +165,21 @@ class Horde_Push_Factory_Push
         $push = new Horde_Push();
         $push->setSummary($data['summary']);
         if (isset($data['body'])) {
-            $push->addContent($data['body']);
+            if (htmlspecialchars($data['body']) != $data['body']) {
+                $push->addContent($data['body'], 'text/html');
+            } else {
+                $push->addContent($data['body']);
+            }
+        }
+        if (isset($data['tags'])) {
+            foreach ($data['tags'] as $tag) {
+                $push->addTag($tag);
+            }
+        }
+        if (isset($data['references'])) {
+            foreach ($data['references'] as $reference) {
+                $push->addReference($reference);
+            }
         }
         return $push;
     }

@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/Autoload.php';
  * @subpackage UnitTests
  */
 
-class Skeleton_ExampleTest extends PHPUnit_Framework_TestCase
+class Skeleton_ExampleTest extends Horde_Test_Case
 {
     public function setUp()
     {

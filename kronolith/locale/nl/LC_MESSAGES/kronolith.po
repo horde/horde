@@ -1098,8 +1098,8 @@ msgstr "Nieuwe gebeurtenis"
 #: lib/Kronolith.php:405
 #, php-format
 msgid ""
-"New calendar created and automatically shared with the following group(s): %"
-"s."
+"New calendar created and automatically shared with the following group(s): "
+"%s."
 msgstr ""
 "Nieuwe agenda gemaakt en automatisch gedeeld met de volgende groep(en): %s"
 
@@ -1878,8 +1878,8 @@ msgstr "De gebeurtenis \"%s\" is toegevoegd aan \"%s\" agenda, op %s om %s."
 #: lib/Kronolith.php:1605
 #, php-format
 msgid ""
-"The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
-"s."
+"The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at "
+"%s."
 msgstr "De gebeurtenis \"%s\" is verwijderd van \"%s\" agenda, op %s om %s."
 
 #: lib/Kronolith.php:1600

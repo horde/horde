@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>00:21:15</time>
+ <date>2011-12-06</date>
+ <time>11:01:50</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -39,6 +39,7 @@
        <dir name="examples">
         <file name="parse.php" role="doc" />
        </dir> <!-- /doc/Horde/Date/Parser/examples -->
+       <file name="COPYING" role="doc" />
        <file name="TODO.txt" role="doc" />
       </dir> <!-- /doc/Horde/Date/Parser -->
      </dir> <!-- /doc/Horde/Date -->
@@ -134,6 +135,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Date/Parser/COPYING" />
    <install as="TODO.txt" name="doc/Horde/Date/Parser/TODO.txt" />
    <install as="examples/parse.php" name="doc/Horde/Date/Parser/examples/parse.php" />
    <install as="Horde/Date/Parser.php" name="lib/Horde/Date/Parser.php" />
@@ -272,7 +274,33 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-21</date>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Correctly parse "nacht" in German (Bug #10511).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

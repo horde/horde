@@ -222,16 +222,20 @@ $hdr_list = array(
     'hdr_thread' => array(_("Thread"), Horde_Imap_Client::SORT_THREAD)
 );
 foreach ($hdr_list as $key => $val) {
-    $sort_link = $mailbox->copy()->add(array('a' => 'c', 'sb' => $val[1]));
-    if ($sortpref['by'] == $val[1]) {
-        $t->set($key, $val[0] . ' <a href="' . strval($sort_link->add('sd', intval(!$sortpref['dir']))) . '">' . ($sortpref['dir'] ? '^' : 'v') . '</a>');
+    if ($sortpref['locked']) {
+        $t->set($key, $val[0]);
     } else {
-        $t->set($key, '<a href="' . $sort_link . '">' . $val[0] . '</a>');
+        $sort_link = $mailbox->copy()->add(array('a' => 'c', 'sb' => $val[1]));
+        if ($sortpref['by'] == $val[1]) {
+            $t->set($key, $val[0] . ' <a href="' . strval($sort_link->add('sd', intval(!$sortpref['dir']))) . '">' . ($sortpref['dir'] ? '^' : 'v') . '</a>');
+        } else {
+            $t->set($key, '<a href="' . $sort_link . '">' . $val[0] . '</a>');
+        }
     }
 }
 
 /* Add thread header entry. */
-if (!$search_mbox && IMP::$mailbox->access_sortthread) {
+if (!$search_mbox && !$sortpref['locked'] && IMP::$mailbox->access_sortthread) {
     if (is_null($imp_thread)) {
         $t->set('hdr_subject_minor', $t->get('hdr_thread'));
     } else {

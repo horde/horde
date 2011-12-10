@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-26 18:28+0300\n"
-"PO-Revision-Date: 2011-10-05 18:36+0200\n"
+"POT-Creation-Date: 2011-10-19 13:56+0300\n"
+"PO-Revision-Date: 2011-11-09 08:42+0200\n"
 "Last-Translator: Alar Sing <alar.sing@err.ee>\n"
 "Language-Team: Estonian <dev@lists.horde.org>\n"
 "Language: et\n"
@@ -187,7 +187,7 @@ msgstr ""
 msgid "A newer version (%s) exists."
 msgstr "Uuem versioon (%s) on olemas."
 
-#: lib/Prefs/Ui.php:713
+#: lib/Prefs/Ui.php:708
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
@@ -268,7 +268,7 @@ msgstr "ActiveSync"
 msgid "ActiveSync Device Administration"
 msgstr "ActiveSync Seadmete Haldus"
 
-#: admin/activesync.php:201 lib/Api.php:80
+#: admin/activesync.php:201 lib/Api.php:85
 msgid "ActiveSync Devices"
 msgstr "ActiveSync Seadmed"
 
@@ -340,7 +340,7 @@ msgstr "Aadressiraamat"
 
 #: lib/Application.php:36
 msgid "Administration"
-msgstr "Kasutaja haldus"
+msgstr "Haldus"
 
 #: admin/alarms.php:31
 msgid "Alarm end"
@@ -378,7 +378,7 @@ msgstr "Kõik sisselogitud kasutajad"
 msgid "All policy keys successfully reset."
 msgstr "Kõikigi poliitika võtmete lähtestamine õnnestus."
 
-#: lib/Prefs/Ui.php:723
+#: lib/Prefs/Ui.php:718
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -386,7 +386,7 @@ msgstr ""
 "Kõik ActiveSync seadmete seisud eemaldatud. Järgmisel ühendumisel serveriga "
 "sünkroniseeritakse uuesti."
 
-#: lib/Prefs/Ui.php:693
+#: lib/Prefs/Ui.php:688
 msgid "All synchronization sessions deleted."
 msgstr "Sünkroniseerimise seansid kustutatud."
 
@@ -750,10 +750,6 @@ msgstr "Pilves"
 msgid "Collapse"
 msgstr "Sule"
 
-#: templates/sidebar/sidebar.inc:3
-msgid "Collapse Sidebar"
-msgstr "Peida Külgriba"
-
 #: lib/Prefs/Ui.php:213
 msgid "Color Picker"
 msgstr "Värvivalik"
@@ -919,6 +915,10 @@ msgstr "Praegused 4 faasi"
 msgid "Current Alarms"
 msgstr "Aktiivsed Teavitused"
 
+#: templates/admin/locks/list.html.php:2
+msgid "Current Locks"
+msgstr "Hetke Lukud"
+
 #: admin/sessions.php:27
 msgid "Current Sessions"
 msgstr "Aktiivsed Sessioonid"
@@ -1055,7 +1055,7 @@ msgstr "Kustuta Grupp"
 msgid "Deleted configuration upgrade script \"%s\"."
 msgstr "Kustutasin seadistuse uuendamise skripti \"%s\"."
 
-#: lib/Prefs/Ui.php:685
+#: lib/Prefs/Ui.php:680
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr ""
@@ -1204,6 +1204,10 @@ msgstr "Haridus"
 msgid "Email Address"
 msgstr "E-posti Aadress"
 
+#: templates/admin/locks/list.html.php:14
+msgid "End Time"
+msgstr "Lõpu aeg"
+
 #: lib/Prefs/Ui.php:201
 msgid "Enter a name for the new category:"
 msgstr "Sisesta uue kategooria nimi:"
@@ -1216,8 +1220,8 @@ msgstr ""
 "Sisesta salajane küsimus mida sinult küsitakse salasõna muutmiseks, näiteks "
 "'mis on sinu lemmiklooma nimi?':"
 
-#: lib/Prefs/Ui.php:546 services/twitter/index.php:132
-#: services/twitter/index.php:155
+#: lib/Prefs/Ui.php:546 services/twitter/index.php:176
+#: services/twitter/index.php:199
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
@@ -1225,11 +1229,11 @@ msgid ""
 msgstr ""
 "Viga Twitteriga ühendumisel: %s Üksikasjad logiti administraatori jaoks."
 
-#: lib/Prefs/Ui.php:687
+#: lib/Prefs/Ui.php:682
 msgid "Error deleting synchronization session:"
 msgstr "Viga sünkroniseerimise seanssi kustutamisel:"
 
-#: lib/Prefs/Ui.php:695
+#: lib/Prefs/Ui.php:690
 msgid "Error deleting synchronization sessions:"
 msgstr "Viga sünkroniseerimise seansside kustutamisel:"
 
@@ -1452,7 +1456,7 @@ msgstr "Genereeri %s Seaded"
 msgid "Generated Code"
 msgstr "Genereeritud kood"
 
-#: lib/Block/FbStream.php:170 templates/block/twitter-layout.html.php:34
+#: lib/Block/FbStream.php:170 templates/block/twitter-layout.html.php:35
 msgid "Get More"
 msgstr "Rohkem"
 
@@ -1553,9 +1557,13 @@ msgstr "Kõrge Kontrast"
 msgid "Hide Advanced Preferences"
 msgstr "Peida Edasijõudnute Seadistusi"
 
-#: services/portal/cloud_search.php:33
+#: services/portal/cloud_search.php:37
 msgid "Hide Results"
 msgstr "Peida tulemused"
+
+#: templates/sidebar/sidebar.inc:3
+msgid "Hide Sidebar"
+msgstr "Peida Külgriba"
 
 #: lib/Block/WeatherdotcomStrings.php:100
 msgid "High"
@@ -1873,6 +1881,11 @@ msgstr "Tabelite Loetelu"
 msgid "Listing alarms failed: %s"
 msgstr "Teavituste nimekirja näitamine nurjus: %s"
 
+#: admin/locks.php:55
+#, php-format
+msgid "Listing locks failed: %s"
+msgstr "Lukkude näitamine nurjus: %s"
+
 #: admin/sessions.php:71
 #, php-format
 msgid "Listing sessions failed: %s"
@@ -1906,6 +1919,10 @@ msgstr "Asukoht"
 #: templates/admin/user/update.inc:54
 msgid "Lock User"
 msgstr "Lukusta Kasutaja"
+
+#: admin/locks.php:58
+msgid "Locks"
+msgstr "Lukud"
 
 #: login.php:303 templates/login/login.inc:43
 msgid "Log in"
@@ -2411,7 +2428,7 @@ msgstr "PL Äikesetorm"
 msgid "POSIX extension is missing"
 msgstr "POSIX laiendus puudub"
 
-#: lib/Api.php:62
+#: lib/Api.php:67
 msgid "P_HP Shell"
 msgstr "P_HP käsurida"
 
@@ -2554,6 +2571,10 @@ msgstr "Õhurõhk merepinnal: "
 #: lib/Block/Weatherdotcom.php:219
 msgid "Pressure: "
 msgstr "Õhurõhk: "
+
+#: templates/admin/locks/list.html.php:11
+msgid "Principal"
+msgstr "Vastutav"
 
 #: services/problem.php:145
 msgid "Problem Description"
@@ -2728,7 +2749,7 @@ msgstr "Taasta eelmine päring"
 msgid "Results"
 msgstr "Tulemused"
 
-#: services/portal/cloud_search.php:30
+#: services/portal/cloud_search.php:34
 #, php-format
 msgid "Results for %s"
 msgstr "Tulemused %s"
@@ -2770,7 +2791,7 @@ msgstr "Käivita tööd sisselogimisel"
 msgid "SQL Shell"
 msgstr "SQL käsurida"
 
-#: lib/Api.php:67
+#: lib/Api.php:72
 msgid "S_QL Shell"
 msgstr "S_QL käsurida"
 
@@ -2811,6 +2832,10 @@ msgstr "Hajusad äiksehood"
 #: lib/Block/Fortune.php:66
 msgid "Science"
 msgstr "Teadus"
+
+#: templates/admin/locks/list.html.php:10
+msgid "Scope"
+msgstr "Skoop"
 
 #: services/help/index.php:71
 msgid "Sea_rch"
@@ -2908,7 +2933,7 @@ msgstr "Sessioonide haldus"
 msgid "Session Timestamp:"
 msgstr "Sessiooni aeg:"
 
-#: lib/Api.php:57
+#: lib/Api.php:62
 msgid "Sessions"
 msgstr "Sessioonid"
 
@@ -2967,6 +2992,10 @@ msgstr "Näita"
 #: templates/prefs/app.html:22
 msgid "Show Advanced Preferences"
 msgstr "Näita Edasijõudnute Seadistusi"
+
+#: templates/sidebar/sidebar.inc:10
+msgid "Show Sidebar"
+msgstr "Näita Külgriba"
 
 #: admin/config/index.php:300
 msgid ""
@@ -3086,6 +3115,10 @@ msgstr "Standard"
 #: lib/Block/Fortune.php:69
 msgid "Star Trek"
 msgstr "Star Trek"
+
+#: templates/admin/locks/list.html.php:13
+msgid "Start Time"
+msgstr "Algusaeg"
 
 #: templates/prefs/activesync.html:2
 msgid "State Management"
@@ -3300,7 +3333,7 @@ msgstr "Ainult tekst"
 msgid "Thai (TIS-620)"
 msgstr "Tai (TIS-620)"
 
-#: lib/Prefs/Ui.php:717
+#: lib/Prefs/Ui.php:712
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "Seadme id'ga %s kustutamine tühistatud."
@@ -3325,6 +3358,10 @@ msgstr ""
 msgid "The default e-mail address to use with this identity:"
 msgstr "Vaike e-posti aadressi, mida kasutada antud identiteediga:"
 
+#: admin/locks.php:24
+msgid "The lock has been removed."
+msgstr "Luku on eemaldatud."
+
 #: lib/Block/Vatid.php:87
 msgid ""
 "The member state service could not be reached in time. Try again later or "
@@ -3345,12 +3382,12 @@ msgstr ""
 msgid "The provided country code is invalid."
 msgstr "Maa kood on vale."
 
-#: lib/Prefs/Ui.php:650
+#: lib/Prefs/Ui.php:645
 #, php-format
 msgid "The server \"%s\" has been deleted."
 msgstr "Server \"%s\" on kustutatud."
 
-#: lib/Prefs/Ui.php:645
+#: lib/Prefs/Ui.php:640
 #, php-format
 msgid "The server \"%s\" has been saved."
 msgstr "Server \"%s\" on salvestatud."
@@ -3373,7 +3410,7 @@ msgstr "\"%s\" liitumissoov on eemaldatud."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "Kasutaja \"%s\" liitumissoov on eemaldatud."
 
-#: lib/Prefs/Ui.php:726
+#: lib/Prefs/Ui.php:721
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -3425,7 +3462,7 @@ msgstr "\"%s\" eemaldamisel süsteemist tekkis probleem: "
 msgid "There was a problem updating \"%s\": %s"
 msgstr "\"%s\" muutmisel tekkis probleem: %s"
 
-#: lib/Prefs/Ui.php:729
+#: lib/Prefs/Ui.php:724
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "Tekkis viga ActiveSync serveriga suhtlemisel: %s"
@@ -3478,7 +3515,7 @@ msgstr "Äike"
 
 #: config/registry.php:232
 msgid "Tickets"
-msgstr "Helpdesk"
+msgstr "Piletid"
 
 #: config/registry.php:276
 msgid "Time Tracking"
@@ -3565,7 +3602,7 @@ msgstr "UV-indeks: "
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter/index.php:68
+#: services/twitter/index.php:78
 #, php-format
 msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
 msgstr ""
@@ -3599,6 +3636,10 @@ msgstr "Ühikud"
 #: lib/Block/Weatherdotcom.php:142
 msgid "Unknown location provided."
 msgstr "Määrati tundmatu asukoht."
+
+#: admin/locks.php:41
+msgid "Unlock"
+msgstr "Lahti lukustama"
 
 #: lib/Block/FbStream.php:157 templates/admin/user/list.inc:36
 msgid "Update"
@@ -3649,6 +3690,7 @@ msgid "Use if name/password is different for IMSP server."
 msgstr "Kasuta juhul kui nimi/salasõna IMSP serveris on erinev."
 
 #: templates/admin/groups/edit.inc:24 templates/admin/groups/edit.inc:67
+#: templates/admin/locks/list.html.php:12
 msgid "User"
 msgstr "Kasutaja"
 
@@ -3879,47 +3921,47 @@ msgid_plural "You and %d other people like this"
 msgstr[0] "Sinule ja %d inimesele meeldib see"
 msgstr[1] "Sinule ja %d inimesele meeldib see"
 
-#: lib/Api.php:243
+#: lib/Api.php:248
 msgid "You are not allowed to add groups."
 msgstr "Sul pole lubatud lisada gruppe."
 
-#: lib/Api.php:360
+#: lib/Api.php:365
 msgid "You are not allowed to add shares."
 msgstr "Sul pole lubatud lisada jagamisi."
 
-#: lib/Api.php:286 lib/Api.php:309
+#: lib/Api.php:291 lib/Api.php:314
 msgid "You are not allowed to change groups."
 msgstr "Sul pole lubatud muuta gruppe."
 
-#: lib/Api.php:441 lib/Api.php:478 lib/Api.php:512 lib/Api.php:537
+#: lib/Api.php:446 lib/Api.php:483 lib/Api.php:517 lib/Api.php:542
 msgid "You are not allowed to change shares."
 msgstr "Sul pole lubatud muuta jagamisi."
 
-#: lib/Api.php:265
+#: lib/Api.php:270
 msgid "You are not allowed to delete groups."
 msgstr "Sul pole lubatud kustutada gruppe."
 
-#: lib/Api.php:385
+#: lib/Api.php:390
 msgid "You are not allowed to delete shares."
 msgstr "Sul pole lubatud kustutada jagamisi."
 
-#: lib/Api.php:669
+#: lib/Api.php:674
 msgid "You are not allowed to list groups of shares."
 msgstr "Sul pole lubatud näha jagamise gruppe."
 
-#: lib/Api.php:563 lib/Api.php:601
+#: lib/Api.php:568 lib/Api.php:606
 msgid "You are not allowed to list share permissions."
 msgstr "Sul pole lubatud näha jagatu õigusi."
 
-#: lib/Api.php:410
+#: lib/Api.php:415
 msgid "You are not allowed to list shares."
 msgstr "Sul pole lubatud näha jagamisi."
 
-#: lib/Api.php:332
+#: lib/Api.php:337
 msgid "You are not allowed to list users of groups."
 msgstr "Sul pole lubatud näha gruppi liikmeid."
 
-#: lib/Api.php:639
+#: lib/Api.php:644
 msgid "You are not allowed to list users of shares."
 msgstr "Sul pole lubatud näha jagajaid."
 
@@ -3953,7 +3995,7 @@ msgstr ""
 "Sa oled ühendanud oma Facebooki konto Hordega. Sa saad oma Facebooki seadeid "
 "kontrollida oma %s."
 
-#: lib/Block/TwitterTimeline.php:168
+#: lib/Block/TwitterTimeline.php:169
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -3971,7 +4013,7 @@ msgstr "Sulle meeldib see"
 msgid "You must describe the problem before you can send the problem report."
 msgstr "Enne saatmist oleks tark probleemi kirjeldada."
 
-#: lib/Prefs/Ui.php:648
+#: lib/Prefs/Ui.php:643
 msgid "You must select an server to be deleted."
 msgstr "Pead valima serveri mida kustutada."
 
@@ -4109,11 +4151,11 @@ msgstr "[Horde probleem]"
 msgid "[Unknown]"
 msgstr "[Tundmatu]"
 
-#: lib/Api.php:47
+#: lib/Api.php:52
 msgid "_Alarms"
 msgstr "_Meelde tuletus"
 
-#: lib/Api.php:72
+#: lib/Api.php:77
 msgid "_CLI"
 msgstr "Käsu_rida"
 
@@ -4121,7 +4163,7 @@ msgstr "Käsu_rida"
 msgid "_Configuration"
 msgstr "_Seadistused"
 
-#: lib/Api.php:52
+#: lib/Api.php:57
 msgid "_DataTree"
 msgstr "_AndmePuu"
 
@@ -4132,6 +4174,10 @@ msgstr "_Grupid"
 #: lib/Application.php:67
 msgid "_Home"
 msgstr "_Kodu"
+
+#: lib/Api.php:47
+msgid "_Locks"
+msgstr "_Lukud"
 
 #: lib/Api.php:42
 msgid "_Permissions"
@@ -4168,7 +4214,7 @@ msgid "inline"
 msgstr "siseselt"
 
 #: lib/Block/FbStream.php:97 lib/Block/FbStream.php:136
-#: lib/Block/FbStream.php:162 lib/Block/TwitterTimeline.php:168
+#: lib/Block/FbStream.php:162 lib/Block/TwitterTimeline.php:169
 #: services/facebook/index.php:63 services/facebook/index.php:80
 msgid "preferences"
 msgstr "eelistused"

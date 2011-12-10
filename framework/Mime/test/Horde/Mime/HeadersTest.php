@@ -60,4 +60,17 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testHeaderAutoDetectCharset()
+    {
+        $hdrs = Horde_Mime_Headers::parseHeaders(
+            // This string is in Windows-1252
+            'Test: ' . base64_decode('UnVubmVyc5IgQWxlcnQh=')
+        );
+
+        $this->assertEquals(
+            'Runners’ Alert!',
+            $hdrs->getValue('Test')
+        );
+    }
+
 }

@@ -1,11 +1,11 @@
 <?php
 /**
- * API methods for exposing various bits of data via the listTimeObjects API
+ * API methods for exposing various bits of data via the listTimeObjects API.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
- * @package TimeObjects
+ * @package  Timeobjects
  */
 class Timeobjects_Api extends Horde_Registry_Api
 {
@@ -22,59 +22,51 @@ class Timeobjects_Api extends Horde_Registry_Api
     );
 
     /**
-     * Returns the available categories we provide.
+     * Returns the available categories.
      *
-     * @return array  An array of available TimeObject categories.
+     * @return array  An array of available time object categories.
      */
     public function listTimeObjectCategories()
     {
-        // @TODO: Probably want to iterate the driver directory
-        //        and dynamically build this list and/or maybe provide
-        //        a $conf[] setting to explicitly disable certain drivers?
+        $factory = $GLOBALS['injector']
+            ->getInstance('TimeObjects_Factory_Driver');
+        $tests = array('Weather' => _("Weather"),
+                       'FacebookEvents' => _("Facebook Events"));
         $drivers = array();
-
-        try {
-            $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('Weatherdotcom');
-            if ($drv->ensure()) {
-               $drivers['Weatherdotcom'] = _("Weather");
+        foreach ($tests as $driver => $description) {
+            try {
+                if ($factory->create($driver)->ensure()) {
+                    $drivers[$driver] = $description;
+                }
+            } catch (Timeobjects_Exception $e) {
             }
-        } catch (Timeobjects_Exception $e) {
         }
-
-        try {
-            $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create('FacebookEvents');
-            if ($drv->ensure()) {
-                $drivers['FacebookEvents'] = _("Facebook Events");
-            }
-        } catch (Timeobjects_Exception $e) {
-        }
-
         return $drivers;
     }
 
     /**
-     * Obtain the timeObjects for the requested category
+     * Returns time objects for the requested category.
      *
-     * @param array $time_categories  An array of categories to list
-     * @param mixed $start            The start of the time period to list for
-     * @param mixed $end              The end of the time period to list for
+     * @param array $time_categories  An array of categories to list.
+     * @param mixed $start            The start of the time period to list for.
+     * @param mixed $end              The end of the time period to list for.
      *
-     * @return An array of timeobject arrays.
+     * @return array  A list of time object hashes.
      */
     public function listTimeObjects($time_categories, $start, $end)
     {
         $return = array();
         foreach ($time_categories as $category) {
-            $drv = $GLOBALS['injector']->getInstance('TimeObjects_Factory_Driver')->create($category);
             try {
-                $new = $drv->listTimeObjects($start, $end);
+                $return = array_merge(
+                    $return,
+                    $GLOBALS['injector']
+                        ->getInstance('TimeObjects_Factory_Driver')
+                        ->create($category)
+                        ->listTimeObjects($start, $end));
             } catch (TimeObjects_Exception $e) {
-                $new = array();
             }
-            $return = array_merge($return, $new);
         }
-
         return $return;
     }
-
 }

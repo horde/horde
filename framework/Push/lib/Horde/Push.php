@@ -56,6 +56,20 @@ class Horde_Push
     private $_recipients = array();
 
     /**
+     * Reference links.
+     *
+     * @var array
+     */
+    private $_references = array();
+
+    /**
+     * Tags for the push.
+     *
+     * @var array
+     */
+    private $_tags = array();
+
+    /**
      * Return the summary for this content element.
      *
      * @return string The summary.
@@ -124,11 +138,8 @@ class Horde_Push
      *
      * @return Horde_Push This content element.
      */
-    public function addContent(
-        $content,
-        $mime_type = 'text/plain',
-        $params = array()
-    )
+    public function addContent($content, $mime_type = 'text/plain',
+                               $params = array())
     {
         $this->_types[$mime_type][] = count($this->_content);
         $this->_content[] = array(
@@ -146,12 +157,76 @@ class Horde_Push
      *
      * @return Horde_Push This content element.
      */
-    public function addRecipient(
-        Horde_Push_Recipient $recipient
-    )
+    public function addRecipient(Horde_Push_Recipient $recipient)
     {
         $this->_recipients[] = $recipient;
         return $this;
+    }
+
+    /**
+     * Add a URL reference for this element.
+     *
+     * @param string $reference The link.
+     *
+     * @return Horde_Push This content element.
+     */
+    public function addReference($reference)
+    {
+        $this->_references[] = $reference;
+        return $this;
+    }
+
+    /**
+     * Retrieve the URL references for this element.
+     *
+     * @return array The URL references.
+     */
+    public function getReferences()
+    {
+        return $this->_references;
+    }
+
+    /**
+     * Indicate if this element has URL references.
+     *
+     * @return boolean True, if there have been links added to the element.
+     */
+    public function hasReferences()
+    {
+        return !empty($this->_references);
+    }
+
+    /**
+     * Add a tag for this element.
+     *
+     * @param string $tag The tag.
+     *
+     * @return Horde_Push This content element.
+     */
+    public function addTag($tag)
+    {
+        $this->_tags[] = $tag;
+        return $this;
+    }
+
+    /**
+     * Retrieve the tags for this element.
+     *
+     * @return array The tags.
+     */
+    public function getTags()
+    {
+        return $this->_tags;
+    }
+
+    /**
+     * Indicate if this element has tags.
+     *
+     * @return boolean True, if there have been tags added to the element.
+     */
+    public function hasTags()
+    {
+        return !empty($this->_tags);
     }
 
     /**

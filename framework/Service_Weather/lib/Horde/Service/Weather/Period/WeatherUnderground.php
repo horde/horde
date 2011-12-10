@@ -14,6 +14,22 @@
 /**
  * Horde_Service_Weather_Period_WeatherUnderground
  *
+ * Provides information for the following properties:
+ *<pre>
+ *  conditions             Condition description.
+ *  icon_url               URL to an appropriate icon provided by the provider.
+ *  icon                   Name of a Horde_Service_Weather icon.
+ *  precipitation_percent  Percent chance of precipitation.
+ *  period                 The period number.
+ *  high                   High temperature.
+ *  low                    Low  temperature.
+ *  date                   Period date.
+ *  humidity               The predicted humidity
+ *  wind_degrees           Wind direction, in degrees
+ *  wind_direction         Ordinal wind direction
+ *  wind_speed             Wind speed, in requested units.
+ *</pre>
+ *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @package  Service_Weather
@@ -32,10 +48,10 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
      */
     protected $_map = array(
         'conditions' => 'conditions',
-        'icon' => 'icon',
         'icon_url' => 'icon_url',
         'precipitation_percent' => 'pop',
-        'period' => 'period'
+        'period' => 'period',
+        'humidity' => 'maxhumidity',
     );
 
     /**
@@ -49,6 +65,12 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
     public function __get($property)
     {
         switch ($property) {
+        case 'is_pm':
+             // Wunderground only supports standard
+            return false;
+        case 'hour':
+             // Wunderground supports this, but we don't.
+            return false;
         case 'date':
             $date = new Horde_Date(array(
                 'year' => $this->_properties['date']->year,
@@ -61,23 +83,48 @@ class Horde_Service_Weather_Period_WeatherUnderground extends Horde_Service_Weat
             return $date;
 
         case 'high':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
-                return $this->_properties['high']->fahrenheit;
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['high']->fahrenheit !== '' ?
+                    $this->_properties['high']->fahrenheit :
+                    Horde_Service_Weather_Translation::t('N/A');
             }
-            return $this->_properties['high']->celcius;
+            return $this->_properties['high']->celsius;
 
         case 'low':
-            if ($this->units == Horde_Service_Weather::UNITS_STANDARD) {
-                return $this->_properties['low']->fahrenheit;
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties['low']->fahrenheit !== '' ?
+                    $this->_properties['low']->fahrenheit :
+                    Horde_Service_Weather_Translation::t('N/A');
             }
-            return $this->_properties['low']->celcius;
+            return $this->_properties['low']->celsius;
+
+        case 'icon':
+            return $this->_forecast->weather->iconMap[$this->_properties['icon']];
+
+        case 'wind_direction':
+            return Horde_Service_Weather_Translation::t($this->_properties['avewind']->dir);
+
+        case 'wind_degrees':
+            return $this->_properties['avewind']->degrees;
+
+        case 'wind_speed':
+           if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
+               return $this->_properties['avewind']->mph;
+           }
+           return $this->_properties['avewind']->kph;
+
+        case 'wind_gust':
+           if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
+               return $this->_properties['maxwind']->mph;
+           }
+           return $this->_properties['maxwind']->kph;
 
         default:
             if (!empty($this->_map[$property])) {
-                return $this->_properties[$this->_map[$property]];
+                return Horde_Service_Weather_Translation::t($this->_properties[$this->_map[$property]]);
             }
 
-            throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support that property');
+            throw new Horde_Service_Weather_Exception_InvalidProperty('This provider does not support the "' . $property . '" property');
         }
     }
 

@@ -865,6 +865,20 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($s->hasActiveRecurrence());
     }
 
+    public function testHashMissingCycle()
+    {
+        $r = new Horde_Date_Recurrence(new Horde_Date(1970, 1, 1));
+        $r->fromHash(array('interval' => 1, 'range-type' => 'none'));
+        $this->assertEquals(Horde_Date_Recurrence::RECUR_NONE, $r->getRecurType());
+    }
+
+    public function testHashMissingRangeType()
+    {
+        $r = new Horde_Date_Recurrence(new Horde_Date(1970, 1, 1));
+        $r->fromHash(array('interval' => 1, 'cycle' => 'daily'));
+        $this->assertEquals(Horde_Date_Recurrence::RECUR_DAILY, $r->getRecurType());
+    }
+
     /**
      */
     public function testCompletions()

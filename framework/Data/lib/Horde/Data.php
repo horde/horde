@@ -60,8 +60,14 @@ class Horde_Data
      */
     static public function factory($format, array $params = array())
     {
-        $format = ucfirst(strtolower(basename($format)));
-        $class = __CLASS__ . '_' . $format;
+        if (is_array($format)) {
+            $app = ucfirst($format[0]);
+            $format = ucfirst(strtolower(basename($format[1])));
+            $class = $app . '_Data_' . $format;
+        } else {
+            $format = ucfirst(strtolower(basename($format)));
+            $class = __CLASS__ . '_' . $format;
+        }
 
         if (class_exists($class)) {
             return new $class($params);

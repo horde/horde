@@ -69,11 +69,11 @@ var IMP_JS = {
 
         s2.findElements(iframe.contentWindow.document).each(function(link) {
             link.setAttribute('href', link.getAttribute('htmlcssblocked'));
-        }, this);
+        });
 
         s3.findElements(iframe.contentWindow.document).each(function(style) {
             style.setAttribute('type', 'text/css');
-        }, this);
+        });
 
         if (!imgload) {
             this.iframeResize(iframeid);
@@ -140,7 +140,11 @@ var IMP_JS = {
                 // Finally, brute force if it still isn't working.
                 id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
             }
-            lc.style.setProperty('overflow-x', 'hidden', '');
+            if (lc.style.setProperty) {
+                lc.style.setProperty('overflow-x', 'hidden', '');
+            } else {
+                lc.style['overflow-x'] = 'hidden';
+            }
         }
     },
 

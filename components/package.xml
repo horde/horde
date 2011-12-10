@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-10-24</date>
- <time>08:42:04</time>
+ <date>2011-11-12</date>
+ <time>18:45:57</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -124,6 +124,10 @@
       <file name="phpunit.xml" role="data" />
      </dir> <!-- /data/jenkins/pre-build -->
     </dir> <!-- /data/jenkins -->
+    <dir name="qc_standards">
+     <file name="phpcs.xml" role="horde" />
+     <file name="phpmd.xml" role="horde" />
+    </dir> <!-- /data/qc_standards -->
    </dir> <!-- /data -->
    <dir name="lib">
     <dir name="Components">
@@ -179,6 +183,7 @@
       <file name="Fetchdocs.php" role="php" />
       <file name="Help.php" role="php" />
       <file name="Installer.php" role="php" />
+      <file name="Qc.php" role="horde" />
       <file name="Release.php" role="php" />
       <file name="Snapshot.php" role="php" />
       <file name="Update.php" role="php" />
@@ -189,6 +194,17 @@
       <file name="Environment.php" role="php" />
       <file name="Package.php" role="php" />
      </dir> <!-- /lib/Components/Pear -->
+     <dir name="Qc">
+      <dir name="Task">
+       <file name="Base.php" role="horde" />
+       <file name="Cpd.php" role="horde" />
+       <file name="Cs.php" role="horde" />
+       <file name="Lint.php" role="horde" />
+       <file name="Md.php" role="horde" />
+       <file name="Unit.php" role="horde" />
+      </dir> <!-- /lib/Components/Qc/Task -->
+      <file name="Tasks.php" role="horde" />
+     </dir> <!-- /lib/Components/Qc -->
      <dir name="Release">
       <dir name="Task">
        <file name="Announce.php" role="php" />
@@ -197,7 +213,7 @@
        <file name="CommitPostRelease.php" role="php" />
        <file name="CommitPreRelease.php" role="php" />
        <file name="CurrentSentinel.php" role="php" />
-       <file name="Freshmeat.php" role="php" />
+       <file name="Freecode.php" role="horde" />
        <file name="NextSentinel.php" role="php" />
        <file name="NextVersion.php" role="php" />
        <file name="Package.php" role="php" />
@@ -216,6 +232,7 @@
       <file name="Distribute.php" role="php" />
       <file name="Fetchdocs.php" role="php" />
       <file name="Installer.php" role="php" />
+      <file name="Qc.php" role="horde" />
       <file name="Release.php" role="php" />
       <file name="Snapshot.php" role="php" />
       <file name="Update.php" role="php" />
@@ -413,6 +430,21 @@
       <file name="Config.php" role="test" />
       <file name="Output.php" role="test" />
      </dir> <!-- /test/Components/Stub -->
+     <dir name="test">
+      <dir name="distribute">
+       <dir name="debian">
+        <dir name="templates">
+         <file name="rules" role="test" />
+        </dir> <!-- /test/Components/test/distribute/debian/templates -->
+        <dir name="templates-php-horde">
+         <file name="rules" role="test" />
+        </dir> <!-- /test/Components/test/distribute/debian/templates-php-horde -->
+        <dir name="templates-php-horde-content">
+         <file name="rules" role="test" />
+        </dir> <!-- /test/Components/test/distribute/debian/templates-php-horde-content -->
+       </dir> <!-- /test/Components/test/distribute/debian -->
+      </dir> <!-- /test/Components/test/distribute -->
+     </dir> <!-- /test/Components/test -->
      <dir name="Unit">
       <dir name="Components">
        <dir name="Component">
@@ -518,6 +550,22 @@
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>PHP_CodeSniffer</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>PHPUnit</name>
+    <channel>pear.phpunit.de</channel>
+   </package>
+   <package>
+    <name>phpcpd</name>
+    <channel>pear.phpunit.de</channel>
+   </package>
+   <package>
+    <name>PHP_PMD</name>
+    <channel>pear.phpmd.org</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -556,6 +604,8 @@
    <install as="jenkins/config/config.xml" name="data/jenkins/config/config.xml" />
    <install as="jenkins/pre-build/build.xml" name="data/jenkins/pre-build/build.xml" />
    <install as="jenkins/pre-build/phpunit.xml" name="data/jenkins/pre-build/phpunit.xml" />
+   <install as="qc_standards/phpcs.xml" name="data/qc_standards/phpcs.xml" />
+   <install as="qc_standards/phpmd.xml" name="data/qc_standards/phpmd.xml" />
    <install as="Components.php" name="lib/Components.php" />
    <install as="Components/Component.php" name="lib/Components/Component.php" />
    <install as="Components/Config.php" name="lib/Components/Config.php" />
@@ -605,12 +655,20 @@
    <install as="Components/Module/Fetchdocs.php" name="lib/Components/Module/Fetchdocs.php" />
    <install as="Components/Module/Help.php" name="lib/Components/Module/Help.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
+   <install as="Components/Module/Qc.php" name="lib/Components/Module/Qc.php" />
    <install as="Components/Module/Release.php" name="lib/Components/Module/Release.php" />
    <install as="Components/Module/Snapshot.php" name="lib/Components/Module/Snapshot.php" />
    <install as="Components/Pear/Factory.php" name="lib/Components/Pear/Factory.php" />
    <install as="Components/Module/Webdocs.php" name="lib/Components/Module/Webdocs.php" />
    <install as="Components/Pear/Environment.php" name="lib/Components/Pear/Environment.php" />
    <install as="Components/Pear/Package.php" name="lib/Components/Pear/Package.php" />
+   <install as="Components/Qc/Tasks.php" name="lib/Components/Qc/Tasks.php" />
+   <install as="Components/Qc/Task/Base.php" name="lib/Components/Qc/Task/Base.php" />
+   <install as="Components/Qc/Task/Cpd.php" name="lib/Components/Qc/Task/Cpd.php" />
+   <install as="Components/Qc/Task/Cs.php" name="lib/Components/Qc/Task/Cs.php" />
+   <install as="Components/Qc/Task/Lint.php" name="lib/Components/Qc/Task/Lint.php" />
+   <install as="Components/Qc/Task/Md.php" name="lib/Components/Qc/Task/Md.php" />
+   <install as="Components/Qc/Task/Unit.php" name="lib/Components/Qc/Task/Unit.php" />
    <install as="Components/Release/Notes.php" name="lib/Components/Release/Notes.php" />
    <install as="Components/Release/Tasks.php" name="lib/Components/Release/Tasks.php" />
    <install as="Components/Release/Task/Announce.php" name="lib/Components/Release/Task/Announce.php" />
@@ -619,7 +677,7 @@
    <install as="Components/Release/Task/CommitPostRelease.php" name="lib/Components/Release/Task/CommitPostRelease.php" />
    <install as="Components/Release/Task/CommitPreRelease.php" name="lib/Components/Release/Task/CommitPreRelease.php" />
    <install as="Components/Release/Task/CurrentSentinel.php" name="lib/Components/Release/Task/CurrentSentinel.php" />
-   <install as="Components/Release/Task/Freshmeat.php" name="lib/Components/Release/Task/Freshmeat.php" />
+   <install as="Components/Release/Task/Freecode.php" name="lib/Components/Release/Task/Freecode.php" />
    <install as="Components/Release/Task/NextSentinel.php" name="lib/Components/Release/Task/NextSentinel.php" />
    <install as="Components/Release/Task/NextVersion.php" name="lib/Components/Release/Task/NextVersion.php" />
    <install as="Components/Release/Task/Package.php" name="lib/Components/Release/Task/Package.php" />
@@ -633,6 +691,7 @@
    <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
    <install as="Components/Runner/Fetchdocs.php" name="lib/Components/Runner/Fetchdocs.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
+   <install as="Components/Runner/Qc.php" name="lib/Components/Runner/Qc.php" />
    <install as="Components/Runner/Release.php" name="lib/Components/Runner/Release.php" />
    <install as="Components/Runner/Snapshot.php" name="lib/Components/Runner/Snapshot.php" />
    <install as="Components/Runner/Update.php" name="lib/Components/Runner/Update.php" />
@@ -718,6 +777,9 @@
    <install as="Components/Integration/Components/Module/ReleaseTest.php" name="test/Components/Integration/Components/Module/ReleaseTest.php" />
    <install as="Components/Stub/Config.php" name="test/Components/Stub/Config.php" />
    <install as="Components/Stub/Output.php" name="test/Components/Stub/Output.php" />
+   <install as="Components/test/distribute/debian/templates/rules" name="test/Components/test/distribute/debian/templates/rules" />
+   <install as="Components/test/distribute/debian/templates-php-horde/rules" name="test/Components/test/distribute/debian/templates-php-horde/rules" />
+   <install as="Components/test/distribute/debian/templates-php-horde-content/rules" name="test/Components/test/distribute/debian/templates-php-horde-content/rules" />
    <install as="Components/Unit/ComponentsTest.php" name="test/Components/Unit/ComponentsTest.php" />
    <install as="Components/Unit/Components/ConfigsTest.php" name="test/Components/Unit/Components/ConfigsTest.php" />
    <install as="Components/Unit/Components/Component/DependencyListTest.php" name="test/Components/Unit/Components/Component/DependencyListTest.php" />
@@ -767,7 +829,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-10-24</date>
+   <date>2011-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Replaced use of PEAR_PackageFileManager for updating package.xml with Horde_Pear.

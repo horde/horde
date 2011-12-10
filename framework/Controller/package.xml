@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Controller</extends>
  <summary>Horde Controller libraries</summary>
- <description>This package provides the controller part of an MVC system for Horde.</description>
+ <description>The controller part of an MVC system for Horde.</description>
  <lead>
   <name>Mike Naberezny</name>
   <user>mnaberez</user>

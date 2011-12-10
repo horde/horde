@@ -49,6 +49,16 @@ extends PHPUnit_Framework_TestCase
     {
         $factory = new Horde_Kolab_Format_Factory();
         $note = $factory->create('Xml', 'Note');
-        $note->save(array('uid' => 'test'));
+        $this->assertContains(
+            '<note version="1.0">',
+            $note->save(array('uid' => 'test'))
+        );
+    }
+
+    public function testVersion()
+    {
+        $factory = new Horde_Kolab_Format_Factory();
+        $note = $factory->create('Xml', 'Note');
+        $this->assertEquals(2, $note->getVersion());
     }
 }

@@ -30,8 +30,29 @@ schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
 
+Upgrading Horde from 4.0.x to 4.0.12
+====================================
+
+
+Weather portal block
+--------------------
+
+The weather.com website has dropped their API to retrieve weather forecasts
+with a very short notice. The weather.com portal block has been removed and
+will be automatically removed from the users' portal configurations too.
+
+A new portal block for weather forecasts is available, powered by the new
+Horde_Service_Weather library that supports a number of free weather
+services. To provide this block to the end users, install the
+Horde_Service_Weather library from Horde's PEAR server, and configure a weather
+service in Horde's configuration::
+
+   pear install horde/horde_service_weather-alpha
+
+
 Upgrading Horde from 4.0.x to 4.0.10
 ====================================
+
 
 Configuration changes
 ---------------------
@@ -41,6 +62,7 @@ The 'nobase64_img' option was added.
 
 Upgrading Horde from 4.0 to 4.0.1
 =================================
+
 
 Configuration Values
 --------------------
@@ -58,6 +80,7 @@ details on this hook.
 
 Upgrading Horde from 3.3.x to 4.x
 =================================
+
 
 New installation method
 -----------------------

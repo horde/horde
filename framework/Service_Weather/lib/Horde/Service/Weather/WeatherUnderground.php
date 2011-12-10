@@ -23,32 +23,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
     const API_URL = 'http://api.wunderground.com';
 
-    /**
-     * The http client
-     *
-     * @var Horde_Http_Client
-     */
-    protected $_http;
-
-    /**
-     * Local cache of current conditions
-     *
-     */
-    protected $_current;
-
-    /**
-     * Local cache of forecast
-     *
-     * @var array
-     */
-    protected $_forecast = array();
-
-    /**
-     * Local cache of station data
-     * @var Horde_Service_Weather_Station
-     */
-    protected $_station;
-
+    public $logo = 'weather/wundergroundlogo.png';
 
     /**
      * Icon map for wunderground. Not some are returned as
@@ -98,25 +73,23 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     /**
      * Constructor
      *
-     * @param Horde_Service_Weather_Location_Base $location  The location object.
      * @param array $params                                  Parameters.
+     *<pre>
+     *  'http_client'  - Required http client object
+     *  'apikey'       - Required API key for wunderground.
+     *</pre>
      *
      * @return Horde_Service_Weather_Base
      */
-    public function __construct(
-        Horde_Service_Weather_Location_Base $location,
-        array $params = array())
+    public function __construct(array $params = array())
     {
         // Check required api key parameters here...
-        if (empty($params['http_client']) || empty($params['apikey'])) {
-            throw new InvalidArgumentException('Missing required http_client parameter.');
+        if (empty($params['apikey'])) {
+            throw new InvalidArgumentException('Missing required API Key parameter.');
         }
-        $this->_http = $params['http_client'];
-        unset($params['http_client']);
         $this->_apiKey = $params['apikey'];
         unset($params['apikey']);
-
-        parent::__construct($location, $params);
+        parent::__construct($params);
     }
 
     /**
@@ -124,9 +97,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      *
      * @return Horde_Service_Weather_Current
      */
-    public function getCurrentConditions()
+    public function getCurrentConditions($location)
     {
-        $this->_getCommonElements();
+        $this->_getCommonElements(rawurlencode($location));
         return $this->_current;
     }
 
@@ -136,16 +109,82 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      * @see Horde_Service_Weather_Base#getForecast
      */
     public function getForecast(
+        $location,
         $length = Horde_Service_Weather::FORECAST_3DAY,
         $type = Horde_Service_Weather::FORECAST_TYPE_STANDARD)
     {
-        $this->_getCommonElements();
+        $this->_getCommonElements(rawurlencode($location), $length);
         return $this->_forecast;
     }
 
-    public function getStation()
+    /**
+     * Search for a valid location code.
+     *
+     * @param  string $location  A location search string like e.g., Boston,MA
+     * @param  integer $type     The type of search being performed.
+     *
+     * @return string  The search location suitable to use directly in a
+     *                 weather request.
+     * @throws Horde_Service_Weather_Exception
+     */
+    public function searchLocations($location, $type = Horde_Service_Weather::SEARCHTYPE_STANDARD)
     {
-        return $this->_station;
+        switch ($type) {
+        case Horde_Service_Weather::SEARCHTYPE_STANDARD:
+            return $this->_parseSearchLocations($this->_searchLocations(rawurlencode($location)));
+
+        case Horde_Service_Weather::SEARCHTYPE_IP:
+            return $this->_parseSearchLocations($this->_getLocationByIp(rawurlencode($location)));
+        }
+    }
+
+    public function autocompleteLocation($search)
+    {
+        $url = new Horde_Url('http://autocomplete.wunderground.com/aq');
+        $url->add(array('query' => $search, 'format' => 'JSON'));
+
+        return $this->_parseAutocomplete($this->_makeRequest($url));
+    }
+
+    /**
+     * Get array of supported forecast lengths.
+     *
+     * @return array The array of supported lengths.
+     */
+     public function getSupportedForecastLengths()
+     {
+         return array(
+            3 => Horde_Service_Weather::FORECAST_3DAY,
+            5 => Horde_Service_Weather::FORECAST_5DAY,
+            7 => Horde_Service_Weather::FORECAST_7DAY
+         );
+     }
+
+    /**
+     * Perform an IP location search.
+     *
+     * @param  string $ip  The IP address to use.
+     *
+     * @return string  The location code.
+     */
+    protected function _getLocationByIp($ip)
+    {
+        return $this->_makeRequest(
+            self::API_URL . '/api/' . $this->_apiKey
+                . '/geolookup/q/autoip.json');
+    }
+
+    /**
+     * Execute a location search.
+     *
+     * @param  string $location The location text to search.
+     *
+     * @return string  The location code result(s).
+     */
+    protected function _searchLocations($location)
+    {
+        return $this->_makeRequest(self::API_URL . '/api/' . $this->_apiKey
+            . '/geolookup/q/' . $location . '.json');
     }
 
     /**
@@ -154,64 +193,41 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      * a bit of request time/traffic for a smaller number of requests to obtain
      * information for e.g., a typical weather portal display.
      */
-    protected function _getCommonElements()
+    protected function _getCommonElements($location, $length = 7)
     {
-        if (!empty($this->_current)) {
+        if (!empty($this->_current) && $location == $this->_lastLocation) {
             return;
         }
 
-        $url = $this->_addJsonFormat(
-            $this->_addLocation(
-                $this->_addAstronomyFeature(
-                    $this->_addForecastFeature(
-                        $this->_addConditionFeature(
-                            $this->_addGeoLookupFeature($this->_addApiKey(self::API_URL))
-                        )
-                    )
-                )
-            )
-        );
-        $cachekey = md5('hordeweather' . $url);
-        if (!empty($this->_cache) && !$results = $this->_cache->get($key)) {
-            $results = $this->_makeRequest($url);
+        $this->_lastLocation = $location;
 
-            if ($results->code !== '200') {
-                // @TODO: Parse response code and determine if we have an API error.
-            }
-
-            if (!empty($this->_cache)) {
-               $this->_cache->set($results, $cachekey);
-            }
+        if ($length < 7) {
+            $l = 'forecast';
+        } else {
+            $l = 'forecast7day';
         }
-
-        $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
+        $url = self::API_URL . '/api/' . $this->_apiKey
+            . '/geolookup/conditions/' . $l . '/astronomy/q/' . $location . '.json';
+        $results = $this->_makeRequest($url, $this->_cache_lifetime);
         $station = $this->_parseStation($results->location);
-
-        // @TODO
-        //$astronomy = $this->_parseAstronomy($results->moon_phase);
+        $this->_current = $this->_parseCurrent($results->current_observation);
         $astronomy = $results->moon_phase;
-
-        // Sunrise/Sunset
-        $date = new Horde_Date(time(), $station->tz);
+        $date = clone $this->_current->time;
         $date->hour = $astronomy->sunrise->hour;
         $date->min = $astronomy->sunrise->minute;
         $date->sec = 0;
+
         $station->sunrise = $date;
         $station->sunset = clone $date;
         $station->sunset->hour = $astronomy->sunset->hour;
         $station->sunset->min = $astronomy->sunset->minute;
-
-        $current = $this->_parseCurrent($results->current_observation);
-        $forecast = $this->_parseForecast($results->forecast);
-
         // Station information doesn't include any type of name string, so
         // get it from the currentConditions request.
-        $station->name = $current->location->location;
-
-        // Cache the data in the object
+        $station->name = $results->current_observation->display_location->full;
         $this->_station = $station;
-        $this->_current = $current;
-        $this->_forecast = $forecast;
+        $this->_forecast = $this->_parseForecast($results->forecast);
+        $this->link = $results->current_observation->image->link;
+        $this->title = $results->current_observation->image->title;
     }
 
     /**
@@ -234,7 +250,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             'tz' => $station->tz_long,
             'lat' => $station->lat,
             'lon' => $station->lon,
-            'zip' => $station->zip
+            'zip' => $station->zip,
+            'code' => str_replace('/q/', '', $station->l)
         );
 
         return new Horde_Service_Weather_Station($properties);
@@ -249,7 +266,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     protected function _parseForecast($forecast)
     {
-        return new Horde_Service_Weather_Forecast_WeatherUnderground((array)$forecast);
+        return new Horde_Service_Weather_Forecast_WeatherUnderground(
+            (array)$forecast, $this);
     }
 
     /**
@@ -277,54 +295,60 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     protected function _parseCurrent($current)
     {
         // The Current object takes care of the parsing/mapping.
-        return new Horde_Service_Weather_Current_WeatherUnderground((array)$current);
+        return new Horde_Service_Weather_Current_WeatherUnderground((array)$current, $this);
     }
 
-    protected function _makeRequest($url)
+    protected function _parseSearchLocations($response)
     {
-        $url = new Horde_Url($url);
-        $response = $this->_http->get($url);
-        if (!$response->code == '200') {
-            // @todo parse exception etc..
-            throw new Horde_Service_Weather_Exception($response->code);
+        if (!empty($response->response->error)) {
+            throw new Horde_Service_Weather_Exception($response->response->error->description);
+        }
+        if (!empty($response->response->results)) {
+            $results = array();
+            foreach ($response->response->results as $location) {
+                $results[] = $this->_parseStation($location);
+            }
+            return $results;
+        } else {
+            return $this->_parseStation($response->location);
+        }
+    }
+
+    protected function _parseAutocomplete($results)
+    {
+        $return = array();
+        foreach($results->RESULTS as $result) {
+            $new = new stdClass();
+            $new->name = $result->name;
+            $new->code = $result->l;
+            $return[] = $new;
         }
 
-        return $response->getBody();
+        return $return;
     }
 
-    protected function _addLocation($url)
+    protected function _makeRequest($url, $lifetime = 86400)
     {
-        return $url . '/q/' . $this->_location->getLocationCode();
-    }
+        $cachekey = md5('hordeweather' . $url);
+        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $lifetime)) ||
+            empty($this->_cache)) {
+            $url = new Horde_Url($url);
+            $response = $this->_http->get($url);
+            if (!$response->code == '200') {
+                Horde::logMessage($response->getBody());
+                throw new Horde_Service_Weather_Exception($response->code);
+            }
+            $results = $response->getBody();
+            if (!empty($this->_cache)) {
+               $this->_cache->set($cachekey, $results);
+            }
+        }
+        $results = Horde_Serialize::unserialize($results, Horde_Serialize::JSON);
+        if (!($results instanceof StdClass)) {
+            throw new Horde_Service_Weather_Exception('Error, unable to decode response.');
+        }
 
-    protected function _addApiKey($url)
-    {
-        return $url . '/api/' . $this->_apiKey;
-    }
-
-    protected function _addGeoLookupFeature($url)
-    {
-        return $url . '/geolookup';
-    }
-
-    protected function _addConditionFeature($url)
-    {
-        return $url . '/conditions';
-    }
-
-    protected function _addAstronomyFeature($url)
-    {
-         return $url . '/astronomy';
-    }
-
-    protected function _addForecastFeature($url)
-    {
-        return $url . '/forecast';
-    }
-
-    protected function _addJsonFormat($url)
-    {
-        return $url . '.json';
+        return $results;
     }
 
  }

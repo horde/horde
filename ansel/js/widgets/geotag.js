@@ -333,15 +333,20 @@ AnselGeoTagWidget = Class.create({
 
     _getDeleteLink: function(iid)
     {
-        var x = new Element('a', {
-            href: this.opts.relocateUrl + '?image=' + iid }
-        ).update(this.opts.deleteGeotagText);
+        if (this.opts.hasEdit) {
+            var x = new Element('a', {
+                href: this.opts.relocateUrl + '?image=' + iid }
+            ).update(this.opts.deleteGeotagText);
 
-        x.observe('click', function(img, e) {
-            this.opts.deleteGeotagCallback(img);
-            e.stop();
-        }.curry(iid).bindAsEventListener(this));
-        return x;
+            x.observe('click', function(img, e) {
+                this.opts.deleteGeotagCallback(img);
+                e.stop();
+            }.curry(iid).bindAsEventListener(this));
+
+            return x;
+        } else {
+            return '';
+        }
     }
 
 });

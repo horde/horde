@@ -123,17 +123,19 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     {
         return array(
             'autoincrementKey' => 'int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
-            'string'           => array('name' => 'varchar',  'limit' => 255),
-            'text'             => array('name' => 'text',     'limit' => null),
-            'integer'          => array('name' => 'int',      'limit' => 11),
-            'float'            => array('name' => 'float',    'limit' => null),
-            'decimal'          => array('name' => 'decimal',  'limit' => null),
-            'datetime'         => array('name' => 'datetime', 'limit' => null),
-            'timestamp'        => array('name' => 'datetime', 'limit' => null),
-            'time'             => array('name' => 'time',     'limit' => null),
-            'date'             => array('name' => 'date',     'limit' => null),
-            'binary'           => array('name' => 'blob',     'limit' => null),
-            'boolean'          => array('name' => 'tinyint',  'limit' => 1),
+            'string'           => array('name' => 'varchar',    'limit' => 255),
+            'text'             => array('name' => 'text',       'limit' => null),
+            'mediumtext'       => array('name' => 'mediumtext', 'limit' => null),
+            'longtext'         => array('name' => 'longtext',   'limit' => null),
+            'integer'          => array('name' => 'int',        'limit' => 11),
+            'float'            => array('name' => 'float',      'limit' => null),
+            'decimal'          => array('name' => 'decimal',    'limit' => null),
+            'datetime'         => array('name' => 'datetime',   'limit' => null),
+            'timestamp'        => array('name' => 'datetime',   'limit' => null),
+            'time'             => array('name' => 'time',       'limit' => null),
+            'date'             => array('name' => 'date',       'limit' => null),
+            'binary'           => array('name' => 'blob',       'limit' => null),
+            'boolean'          => array('name' => 'tinyint',    'limit' => 1),
         );
     }
 

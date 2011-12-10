@@ -50,11 +50,10 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
      * @param mixed                      $logger The log handler. This instance
      *                                           must provide the info() method.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Driver $driver,
-        Horde_Support_Timer $timer,
-        $logger
-    ) {
+    public function __construct(Horde_Kolab_Storage_Driver $driver,
+                                Horde_Support_Timer $timer,
+                                $logger)
+    {
         $this->_logger = $logger;
         $this->_timer = $timer;
         parent::__construct($driver);

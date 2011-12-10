@@ -43,7 +43,7 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 
 <div data-role="header">
  <h1>My Tasks</h1>
- <a rel="external" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Portal")?></a>
+ <a rel="external" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Home")?></a>
  <?php if (Horde::getServiceLink('logout')): ?>
  <a href="<?php echo Horde::getServiceLink('logout')->setRaw(false) ?>" rel="external" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
  <?php endif ?>

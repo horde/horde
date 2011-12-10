@@ -37,7 +37,7 @@ extends Horde_Kolab_Storage_TestCase
 {
     public function testFetchArray()
     {
-        $this->assertType(
+        $this->assertInternalType(
             'array',
             $this->_getParser()->fetch(
                 'test', array(1), array('type' => 'event')
@@ -63,7 +63,7 @@ extends Horde_Kolab_Storage_TestCase
             'test', array(1,2,4), array('type' => 'event')
         );
         foreach ($objects as $object) {
-            $this->assertType('array', $object);
+            $this->assertInternalType('array', $object);
         }
     }
 

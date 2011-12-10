@@ -189,8 +189,6 @@ class Horde_Core_Factory_KolabServer extends Horde_Core_Factory_Base
 
             $configuration['cache'] = $this->_injector->getInstance('Horde_Cache');
 
-            unset($configuration['binddn']);
-            unset($configuration['bindpw']);
             $ldap_read = new Horde_Ldap($configuration);
             if (isset($configuration['host_master'])) {
                 $configuration['hostspec'] = $configuration['host_master'];

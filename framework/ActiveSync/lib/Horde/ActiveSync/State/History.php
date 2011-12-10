@@ -160,6 +160,10 @@ class Horde_ActiveSync_State_History extends Horde_ActiveSync_State_Base
         // Load the last known sync time for this collection
         $this->_lastSyncTS = !empty($results['sync_time']) ? $results['sync_time'] : 0;
 
+        // Pre-Populate the current sync timestamp in case this is only a
+        // Client -> Server sync.
+        $this->_thisSyncTS = $this->_lastSyncTS;
+
         // Restore any state or pending changes
         $data = unserialize($results['sync_data']);
         if ($type == 'foldersync') {

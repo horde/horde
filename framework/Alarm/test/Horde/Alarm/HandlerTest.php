@@ -75,7 +75,7 @@ User-Agent: Horde Application Framework 4
 Date: %s, %d %s %s %d:%d:%d %s%d
 Content-Type: text/plain; charset=UTF-8; format=flowed; DelSp=Yes
 MIME-Version: 1.0';
-        $body = "Action is required.\n";
+        $body = "Action is required.\r\n";
 
         $alarm = self::$alarm->get('personalalarm', 'john');
         $alarm['methods'] = array('mail');

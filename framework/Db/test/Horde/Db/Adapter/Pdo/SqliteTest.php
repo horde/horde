@@ -788,6 +788,20 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
         $afterChange = $this->_getColumn('sports', 'is_college');
         $this->assertEquals('varchar(255)', $afterChange->getSqlType());
+
+        $table = $this->_conn->createTable('text_to_binary');
+        $table->column('data', 'text');
+        $table->end();
+        $this->_conn->insert('INSERT INTO text_to_binary (data) VALUES (?)',
+                             array("foobar"));
+
+        $this->_conn->changeColumn('text_to_binary', 'data', 'binary');
+
+        $afterChange = $this->_getColumn('text_to_binary', 'data');
+        $this->assertEquals('blob', $afterChange->getSqlType());
+        $this->assertEquals(
+            "foobar",
+            $this->_conn->selectValue('SELECT data FROM text_to_binary'));
     }
 
     public function testChangeColumnLimit()

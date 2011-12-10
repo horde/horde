@@ -680,8 +680,8 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         rewind($msg);
         $result = @imap_append(
-            $this->getBackend(), 
-            $this->_getBaseMbox() . $this->encodePath($folder), 
+            $this->getBackend(),
+            $this->_getBaseMbox() . $this->encodePath($folder),
             stream_get_contents($msg)
         );
         if (!$result) {
@@ -711,10 +711,10 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $this->select($folder);
 
-        foreach($uids as $uid) {
+        foreach ($uids as $uid) {
             $result = @imap_delete(
-                $this->getBackend(), 
-                $uid, 
+                $this->getBackend(),
+                $uid,
                 FT_UID
             );
             if (!$result) {
@@ -746,8 +746,8 @@ extends Horde_Kolab_Storage_Driver_Base
         $this->select($old_folder);
 
         $result = @imap_mail_move(
-            $this->getBackend(), 
-            $uid, 
+            $this->getBackend(),
+            $uid,
             $this->encodePath($new_folder),
             CP_UID
         );

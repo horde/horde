@@ -44,7 +44,7 @@ class Horde_Service_Weather_Translation extends Horde_Translation
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Service_Weather';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Horde_Service/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../../locale' : '@data_dir@/Horde_Service_Weather/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 

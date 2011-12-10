@@ -45,14 +45,14 @@ implements Horde_Kolab_Storage_QuerySet
      * @var array
      */
     private $_list_queries = array();
-    
+
     /**
      * The list of query types to add to data handlers.
      *
      * @var array
      */
     private $_data_queries = array();
-    
+
     /**
      * The query class map. Override in extending classes.
      *
@@ -102,9 +102,9 @@ implements Horde_Kolab_Storage_QuerySet
      *   - classmap [array] : An array of "type" => "class" mappings.
      * </pre>
      */
-    public function __construct(
-        Horde_Kolab_Storage_Factory $factory, array $params = array()
-    ) {
+    public function __construct(Horde_Kolab_Storage_Factory $factory,
+                                array $params = array())
+    {
         $this->_factory = $factory;
 
         if (isset($params['list']['classmap'])) {

@@ -40,6 +40,14 @@ foreach ($GLOBALS['injector']->getInstance('IMP_Flags')->getList() as $val) {
     ));
 }
 
+/* Does server support ACLs? */
+try {
+    $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
+    $acl = true;
+} catch (IMP_Exception $e) {
+    $acl = false;
+}
+
 /* Variables used in core javascript files. */
 $code['conf'] = array_filter(array(
     // URL variables
@@ -60,6 +68,7 @@ $code['conf'] = array_filter(array(
     'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables
+    'acl' => $acl,
     'buffer_pages' => intval($GLOBALS['conf']['dimp']['viewport']['buffer_pages']),
     'disable_compose' => !IMP::canCompose(),
     'filter_any' => intval($GLOBALS['prefs']->getValue('filter_any_mailbox')),
@@ -95,31 +104,37 @@ $code['conf'] = array_filter(array(
         '1440' => _("1 day")
     ),
     'sort' => array(
-        'sequence' => array(
-            't' => '',
-            'v' => Horde_Imap_Client::SORT_SEQUENCE
-        ),
         'from' => array(
+            'c' => 'msgFrom',
             't' => _("From"),
             'v' => Horde_Imap_Client::SORT_FROM
         ),
         'to' => array(
+            'c' => 'msgFrom',
+            'ec' => 'msgFromTo',
             't' => _("To"),
             'v' => Horde_Imap_Client::SORT_TO
         ),
         'subject' => array(
+            'c' => 'msgSubject',
             't' => _("Subject"),
             'v' => Horde_Imap_Client::SORT_SUBJECT
         ),
         'thread' => array(
-            't' => _("Thread"),
+            'c' => 'msgSubject',
             'v' => Horde_Imap_Client::SORT_THREAD
         ),
         'date' => array(
+            'c' => 'msgDate',
             't' => _("Date"),
             'v' => IMP::IMAP_SORT_DATE
         ),
+        'sequence' => array(
+            'c' => 'msgDate',
+            'v' => Horde_Imap_Client::SORT_SEQUENCE
+        ),
         'size' => array(
+            'c' => 'msgSize',
             't' => _("Size"),
             'v' => Horde_Imap_Client::SORT_SIZE
         )
@@ -171,6 +186,7 @@ $code['text'] = array(
     'verify' => _("Verifying..."),
     'vfolder' => _("Virtual Folder: %s"),
     'vp_empty' => _("There are no messages in this mailbox."),
+    'vp_empty_search' => _("No messages matched the search query."),
 );
 
 if ($compose_page) {

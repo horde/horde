@@ -1425,6 +1425,7 @@ class Agora_Driver {
                     true,
                     array(
                         'class' => 'linedRow',
+                        'icon' => false
                     ),
                     array(
                         $thread['message_author'],

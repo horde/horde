@@ -3,7 +3,7 @@
  <name>Horde_Lock</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Resource Locking System</summary>
- <description>The Horde_Lock library provides the Horde resource locking system.</description>
+ <description>The Horde resource locking system.</description>
  <lead>
   <name>Ben Klang</name>
   <user>bklang</user>

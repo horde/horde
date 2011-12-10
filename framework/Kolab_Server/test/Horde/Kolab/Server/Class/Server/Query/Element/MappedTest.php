@@ -103,7 +103,7 @@ extends PHPUnit_Framework_TestCase
         );
         $elements = $element->getElements();
         foreach ($elements as $element) {
-            $this->assertType(
+            $this->assertInstanceOf(
                 'Horde_Kolab_Server_Query_Element_Mapped', $element
             );
         }

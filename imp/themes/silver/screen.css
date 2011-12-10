@@ -2,6 +2,13 @@ div.composebody {
     border: 1px solid #999;
 }
 
+.sortup {
+    background-image: url("graphics/arrow_down.png");
+}
+.sortdown {
+    background-image: url("graphics/arrow_up.png");
+}
+
 #quota {
     border-top: 1px solid #999;
 }
@@ -101,7 +108,7 @@ span.trashImg {
 .closeImg, .searchuiDelete {
     background-image: url("graphics/close.png");
 }
-.searchuiCalendar {
+.calendarImg {
     background-image: url("graphics/calendar.png");
 }
 .deleteImg {

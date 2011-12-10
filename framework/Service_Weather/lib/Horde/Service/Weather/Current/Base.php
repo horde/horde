@@ -28,24 +28,23 @@
     protected $_properties = array();
 
     /**
-     * Location information
+     * Parent weather object.
      *
-     * @var stdClass
+     * @var Horde_Service_Weather_Base
      */
-    public $location;
-
-    public $units = Horde_Service_Weather::UNITS_STANDARD;
+    protected $_weather;
 
     /**
      * Const'r
      *
-     * @param  array $properties  Current properties, in driver keys.
+     * @param mixed $properties  Current properties, in driver keys.
      *
      * @return Horde_Service_Weather_Current_Base
      */
-    public function __construct(array $properties = array())
+    public function __construct($properties, Horde_Service_Weather_Base $weather)
     {
         $this->_properties = $properties;
+        $this->_weather = $weather;
     }
 
     public function __get($property)
@@ -55,11 +54,6 @@
         }
 
         throw new Horde_Service_Weather_Exception_InvalidProperty('This station does not support that property');
-    }
-
-    public function __set($property, $value)
-    {
-        $this->_properties[$property] = $value;
     }
 
  }

@@ -64,6 +64,22 @@ class Horde_Push_Cli
                     )
                 ),
                 new Horde_Argv_Option(
+                    '-T',
+                    '--tags',
+                    array(
+                        'action' => 'store',
+                        'help'   => Horde_Push_Translation::t('A comma delimited list of tags.'),
+                    )
+                ),
+                new Horde_Argv_Option(
+                    '-L',
+                    '--links',
+                    array(
+                        'action' => 'store',
+                        'help'   => Horde_Push_Translation::t('A comma delimited list of links.'),
+                    )
+                ),
+                new Horde_Argv_Option(
                     '-p',
                     '--pretend',
                     array(
@@ -100,6 +116,16 @@ class Horde_Push_Cli
         foreach ($pushes as $push) {
             if (isset($options['summary'])) {
                 $push->setSummary($options['summary']);
+            }
+            if (isset($options['tags'])) {
+                foreach (explode(',', $options['tags']) as $tag) {
+                    $push->addTag($tag);
+                }
+            }
+            if (isset($options['links'])) {
+                foreach (explode(',', $options['links']) as $reference) {
+                    $push->addReference($reference);
+                }
             }
 
             $recipient_factory = new Horde_Push_Factory_Recipients();

@@ -361,18 +361,24 @@ var DimpCore = {
 
     // p = (Element) Parent element
     // t = (string) Context menu type
-    // trigger = (boolean) Trigger popdown on button click?
-    // d = (boolean) Disabled?
-    addPopdown: function(p, t, trigger, d)
+    // o = (object) Options:
+    //   - disabled: (boolean) Disabled?
+    //   - insert: (string) Insertion position.
+    //   - trigger: (boolean) Trigger popdown on button click?
+    addPopdown: function(p, t, o)
     {
-        var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' });
+        o = o || {};
+
+        var elt = new Element('SPAN', { className: 'iconImg popdownImg popdown' }),
+            ins = {};
         p = $(p);
 
-        p.insert({ after: elt });
+        ins[o.insert ? o.insert : 'after'] = elt;
+        p.insert(ins);
 
-        if (trigger) {
+        if (o.trigger) {
             this.addContextMenu({
-                disable: d,
+                disable: o.disabled,
                 id: p.identify(),
                 left: true,
                 offset: p.up(),
@@ -381,7 +387,7 @@ var DimpCore = {
         }
 
         this.addContextMenu({
-            disable: d,
+            disable: o.disabled,
             id: elt.identify(),
             left: true,
             offset: elt.up(),
@@ -389,9 +395,10 @@ var DimpCore = {
         });
     },
 
-    addPopdownButton: function(p, t, trigger, d)
+    // See addPopdown() for documentation
+    addPopdownButton: function(p, t, o)
     {
-        this.addPopdown(p, t, trigger, d);
+        this.addPopdown(p, t, o);
         $(p).next('SPAN.popdown').insert({ before: new Element('SPAN', { className: 'popdownSep' }) });
     },
 

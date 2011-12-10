@@ -58,11 +58,10 @@ extends Horde_Kolab_Format_Decorator_Base
      * @param mixed               $logger  The optional logger. If set this
      *                                     needs to provide a debug() method.
      */
-    public function __construct(
-        Horde_Kolab_Format $handler,
-        Horde_Support_Timer $timer,
-        $logger = null
-    ) {
+    public function __construct(Horde_Kolab_Format $handler,
+                                Horde_Support_Timer $timer,
+                                $logger = null)
+    {
         parent::__construct($handler);
         $this->_timer = $timer;
         $this->_logger = $logger;
@@ -71,13 +70,15 @@ extends Horde_Kolab_Format_Decorator_Base
     /**
      * Load an object based on the given XML stream.
      *
-     * @param resource $xml The XML stream of the message.
+     * @param resource $xml     The XML stream of the message.
+     * @param array    $options Additional options when parsing the XML. This
+     *                          decorator provides no additional options.
      *
      * @return array The data array representing the object.
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function load($xml)
+    public function load($xml, $options = array())
     {
         $this->_timer->push();
         $result = $this->getHandler()->load($xml);
@@ -93,12 +94,14 @@ extends Horde_Kolab_Format_Decorator_Base
      * Convert the data to a XML stream.
      *
      * @param array $object The data array representing the object.
+     * @param array $options Additional options when writing the XML. This
+     *                       decorator provides no additional options.
      *
      * @return resource The data as XML stream.
      *
      * @throws Horde_Kolab_Format_Exception
      */
-    public function save($object)
+    public function save($object, $options = array())
     {
         $this->_timer->push();
         $result = $this->getHandler()->save($object);

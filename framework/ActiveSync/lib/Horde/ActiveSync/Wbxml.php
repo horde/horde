@@ -46,9 +46,11 @@ class Horde_ActiveSync_Wbxml
     const EN_CONTENT =             3;
     const EN_FLAGS =               4;
     const EN_ATTRIBUTES =          5;
+
     const EN_TYPE_STARTTAG =       1;
     const EN_TYPE_ENDTAG =         2;
     const EN_TYPE_CONTENT =        3;
+
     const EN_FLAGS_CONTENT =       1;
     const EN_FLAGS_ATTRIBUTES =    2;
 

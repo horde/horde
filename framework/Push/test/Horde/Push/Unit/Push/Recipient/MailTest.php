@@ -58,7 +58,7 @@ extends Horde_Push_TestCase
             ->setSummary('E-MAIL')
             ->addContent('BODY')
             ->push();
-        $this->assertEquals("BODY\n", $mx->sentMessages[0]['body']);
+        $this->assertEquals("BODY\r\n", $mx->sentMessages[0]['body']);
     }
 
     public function testMailHtmlBody()

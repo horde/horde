@@ -387,13 +387,27 @@ class Horde_Prefs implements ArrayAccess
      */
     public function store()
     {
+        $backtrace = new Horde_Support_Backtrace();
+        $from_shutdown = $backtrace->getNestingLevel() == 1;
         foreach ($this->_scopes as $scope) {
             if ($scope->isDirty()) {
                 foreach ($this->_storage as $storage) {
-                    $storage->store($scope);
+                    try {
+                        $storage->store($scope);
+                    } catch (Exception $e) {
+                        if (!$from_shutdown) {
+                            throw $e;
+                        }
+                    }
                 }
 
-                $this->_cache->store($scope);
+                try {
+                    $this->_cache->store($scope);
+                } catch (Exception $e) {
+                    if (!$from_shutdown) {
+                        throw $e;
+                    }
+                }
             }
         }
     }

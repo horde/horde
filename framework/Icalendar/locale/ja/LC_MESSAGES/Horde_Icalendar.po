@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2009 Horde Project
+# Copyright 2004-2011 Horde Project
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: Horde_Icalendar\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-03-16 18:19+0900\n"
+"PO-Revision-Date: 2011-11-19 17:56+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/Horde/Icalendar/Vevent.php:121
 msgid "An unknown person"
-msgstr "予期しない人物"
+msgstr "知らない人"

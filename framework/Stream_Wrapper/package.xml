@@ -3,7 +3,7 @@
  <name>Horde_Stream_Wrapper</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Stream wrappers</summary>
- <description>This package provides various stream wrappers.</description>
+ <description>A collection of stream wrappers.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>

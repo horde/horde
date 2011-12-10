@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-09-20 13:49+0200\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: 2011-10-07 15:26+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -258,7 +258,7 @@ msgstr ""
 msgid "My Notepads:"
 msgstr "Meine Notizblöcke:"
 
-#: list.php:29 stickies.php:29
+#: list.php:29
 msgid "My Notes"
 msgstr "Meine Notizen"
 
@@ -393,7 +393,7 @@ msgstr "Als PDF speichern"
 msgid "Search"
 msgstr "Suche"
 
-#: list.php:52 notes/index.php:38 stickies.php:52
+#: list.php:52 notes/index.php:38
 msgid "Search Results"
 msgstr "Suchergebnisse"
 

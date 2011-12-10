@@ -39,8 +39,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><boolean>true</boolean>c</kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+<kolab version="1.0" a="b"><boolean>true</boolean>c</kolab>'
         );
         $this->assertTrue($attributes['boolean']);
     }
@@ -49,8 +48,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><boolean>false</boolean>c</kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+<kolab version="1.0" a="b"><boolean>false</boolean>c</kolab>'
         );
         $this->assertFalse($attributes['boolean']);
     }
@@ -59,8 +57,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><boolean type="strange"><b/>false<a/></boolean>c</kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+<kolab version="1.0" a="b"><boolean type="strange"><b/>false<a/></boolean>c</kolab>'
         );
         $this->assertFalse($attributes['boolean']);
     }
@@ -69,21 +66,15 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+<kolab version="1.0"/>'
         );
         $this->assertFalse(isset($attributes['boolean']));
     }
 
     public function testLoadDefault()
     {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                'default' => true
-            )
+        $attributes = $this->loadWithClass(
+            'Horde_Kolab_Format_Stub_BooleanDefault'
         );
         $this->assertTrue($attributes['boolean']);
     }
@@ -93,22 +84,15 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testLoadNotEmpty()
     {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,)
-        );
+        $this->loadWithClass('Horde_Kolab_Format_Stub_BooleanNotEmpty');
     }
 
     public function testLoadNotEmptyRelaxed()
     {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                'relaxed' => true,
-            )
+        $attributes = $this->loadWithClass(
+            'Horde_Kolab_Format_Stub_BooleanNotEmpty',
+            null,
+            array('relaxed' => true)
         );
         $this->assertFalse(isset($attributes['boolean']));
     }
@@ -119,8 +103,7 @@ extends Horde_Kolab_Format_TestCase
             'DOMNode',
             $this->saveToReturn(
                 null,
-                array('boolean' => true),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                array('boolean' => true)
             )
         );
     }
@@ -133,8 +116,7 @@ extends Horde_Kolab_Format_TestCase
 ',
             $this->saveToXml(
                 null,
-                array('boolean' => true),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                array('boolean' => true)
             )
         );
     }
@@ -147,8 +129,7 @@ extends Horde_Kolab_Format_TestCase
 ',
             $this->saveToXml(
                 null,
-                array('boolean' => false),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                array('boolean' => false)
             )
         );
     }
@@ -162,8 +143,7 @@ extends Horde_Kolab_Format_TestCase
             $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><boolean type="strange"><b/>STRANGE<a/></boolean>c</kolab>',
-                array('boolean' => false),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                array('boolean' => false)
             )
         );
     }
@@ -173,11 +153,7 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testSaveNotEmpty()
     {
-        $this->saveToXml(
-            null,
-            array(),
-            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
-        );
+        $this->saveWithClass('Horde_Kolab_Format_Stub_BooleanNotEmpty');
     }
 
     /**
@@ -185,10 +161,11 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testSaveInvalidBoolean()
     {
-        $this->saveToXml(
+        $this->saveWithClass(
+            'Horde_Kolab_Format_Stub_IntegerNotEmpty',
             null,
-            array('boolean' => 'INVALID'),
-            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
+            array(),
+            array('boolean' => 'INVALID')
         );
     }
 
@@ -196,11 +173,10 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertInstanceOf(
             'DOMNode',
-            $this->saveToReturn(
+            $this->saveWithClass(
+                'Horde_Kolab_Format_Stub_BooleanNotEmpty',
                 '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><boolean type="strange"><b/>STRANGE<a/></boolean>c</kolab>',
-                array(),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
+<kolab version="1.0" a="b"><boolean type="strange"><b/>STRANGE<a/></boolean>c</kolab>'
             )
         );
     }
@@ -208,14 +184,10 @@ extends Horde_Kolab_Format_TestCase
     public function testSaveNotEmptyRelaxed()
     {
         $this->assertFalse(
-            $this->saveToReturn(
-                '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-                array(),
-                array(
-                    'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                    'relaxed' => true,
-                )
+            $this->saveWithClass(
+                'Horde_Kolab_Format_Stub_IntegerNotEmpty',
+                null,
+                array('relaxed' => true)
             )
         );
     }

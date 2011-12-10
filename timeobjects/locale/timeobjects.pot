@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Timeobjects 1.0.2-git\n"
+"Project-Id-Version: Timeobjects 1.0.4-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-08-02 15:24+0200\n"
+"POT-Creation-Date: 2011-11-21 18:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,101 +17,51 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Driver/Weatherdotcom.php:222 lib/Driver/Weatherdotcom.php:237
+#: lib/Driver/Weather.php:145
 #, php-format
-msgid " gusting %d%s"
+msgid ""
+"\n"
+"%s"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:155
-msgid "An unknown error has occured."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:151
-msgid "Cache init was not completed."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:211
+#: lib/Driver/Weather.php:119
 #, php-format
 msgid ""
 "Conditions: %s\n"
 "High temperature: %d%s\n"
-"Precipitation: %d%%\n"
-"Humidity: %d%%\n"
-"Winds: From the %s at %d%s"
+"Precipitation: %s\n"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:226
+#: lib/Driver/Weather.php:107
 #, php-format
 msgid ""
 "Conditions: %s\n"
-"Low temperature: %d%s\n"
-"Precipitation: %d%%\n"
+"High temperature: %d%s\n"
+"Precipitation: %s\n"
 "Humidity: %d%%\n"
 "Winds: From the %s at %d%s"
 msgstr ""
 
-#: lib/Api.php:47
+#: lib/Api.php:46
 msgid "Facebook Events"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:165
-msgid "Invalid license key."
+#: lib/Driver/Weather.php:134
+#, php-format
+msgid "Location: %s"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:159
-msgid "Invalid location provided."
+#: lib/Driver/Weather.php:103
+msgid "N/A"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:161
-msgid "Invalid partner id."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:163
-msgid "Invalid product code."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:241
+#: lib/Driver/Weather.php:139
 #, php-format
 msgid ""
-"Location: %s\n"
 "Sunrise: %s\n"
 "Sunset: %s\n"
-"\n"
-"Day\n"
-"%s\n"
-"\n"
-"Evening\n"
-"%s"
 msgstr ""
 
-#: lib/Driver/Weatherdotcom.php:153
-msgid "MetarDB is not connected."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:121
-msgid "No location is set."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:157
-msgid "No location provided."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:130
-msgid "No temporary directory available for cache."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:145
-msgid "Requested service could not be found."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:149
-msgid "Server data wrong or not available."
-msgstr ""
-
-#: lib/Driver/Weatherdotcom.php:147
-msgid "Unknown location provided."
-msgstr ""
-
-#: lib/Api.php:39
+#: lib/Api.php:38
 msgid "Weather"
 msgstr ""

@@ -13,7 +13,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-09-15</date>
+ <date>2011-11-13</date>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -529,7 +529,7 @@
    </notes>
   </release>
   <release>
-   <date>2011-09-15</date>
+   <date>2011-11-13</date>
    <version>
     <release>0.2.0</release>
     <api>0.1.0</api>

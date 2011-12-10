@@ -3,7 +3,7 @@
  <name>Horde_Role</name>
  <channel>pear.horde.org</channel>
  <summary>PEAR installer role used to install Horde components</summary>
- <description>This package provides a method for PEAR to install Horde components into a base Horde installation.</description>
+ <description>Allows PEAR to install Horde components into a base Horde installation.</description>
  <lead>
   <name>Michael Slusarz</name>
   <user>slusarz</user>

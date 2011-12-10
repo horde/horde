@@ -52,7 +52,7 @@ extends PHPUnit_Framework_TestCase
     public function testMethodGetStructureHasResultStructureTheStructureAssociatedWithThisSearch()
     {
         $search = new Horde_Kolab_Server_Search_Operation_Guid($this->structure);
-        $this->assertType('Horde_Kolab_Server_Structure_Interface', $search->getStructure());
+        $this->assertInstanceOf('Horde_Kolab_Server_Structure_Interface', $search->getStructure());
     }
 
     public function testMethodSearchguidHasResultArrayTheGuidsOfTheSearchResult()

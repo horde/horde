@@ -53,7 +53,7 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
             ->with('(objectClass=equals)', array())
             ->will($this->returnValue($result));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('objectClass', 'equals');
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Result_Interface',
             $this->composite->structure->find($equals, array())
         );
@@ -68,7 +68,7 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
             ->with('(objectClass=equals)', 'base', array())
             ->will($this->returnValue($result));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('objectClass', 'equals');
-        $this->assertType(
+        $this->assertInstanceOf(
             'Horde_Kolab_Server_Result_Interface',
             $this->composite->structure->findBelow($equals, 'base', array())
         );

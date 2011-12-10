@@ -39,8 +39,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><datetime>2011-06-29</datetime>c</kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
+<kolab version="1.0" a="b"><datetime>2011-06-29</datetime>c</kolab>'
         );
         $this->assertTrue($attributes['datetime']['date-only']);
     }
@@ -49,8 +48,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><datetime>2011-06-29</datetime>c</kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
+<kolab version="1.0" a="b"><datetime>2011-06-29</datetime>c</kolab>'
         );
         $this->assertEquals(
             '2011-06-29T00:00:00+00:00',
@@ -62,8 +60,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><datetime tz="Europe/Berlin">2011-06-29</datetime>c</kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
+<kolab version="1.0" a="b"><datetime tz="Europe/Berlin">2011-06-29</datetime>c</kolab>'
         );
         $this->assertEquals(
             '2011-06-29T00:00:00+02:00',
@@ -75,8 +72,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><datetime type="strange"><b/>2011-06-29<a/></datetime>c</kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
+<kolab version="1.0" a="b"><datetime type="strange"><b/>2011-06-29<a/></datetime>c</kolab>'
         );
         $this->assertEquals(
             '2011-06-29T00:00:00+00:00',
@@ -91,8 +87,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"><datetime></datetime></kolab>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
+<kolab version="1.0"><datetime></datetime></kolab>'
         );
     }
 
@@ -100,21 +95,15 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,)
+<kolab version="1.0"/>'
         );
         $this->assertFalse(isset($attributes['datetime']));
     }
 
     public function testLoadDefault()
     {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                'default' => array('date' => new DateTime())
-            )
+        $attributes = $this->loadWithClass(
+            'Horde_Kolab_Format_Stub_DateTimeDefault'
         );
         $this->assertInstanceOf('DateTime', $attributes['datetime']['date']);
     }
@@ -124,24 +113,15 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testLoadNotEmpty()
     {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            )
-        );
+        $this->loadWithClass('Horde_Kolab_Format_Stub_DateTimeNotEmpty');
     }
 
     public function testLoadNotEmptyRelaxed()
     {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                'relaxed' => true,
-            )
+         $attributes = $this->loadWithClass(
+            'Horde_Kolab_Format_Stub_DateTimeNotEmpty',
+            null,
+            array('relaxed' => true)
         );
         $this->assertFalse(isset($attributes['datetime']));
     }
@@ -161,8 +141,7 @@ extends Horde_Kolab_Format_TestCase
                             new DateTimeZone('UTC')
                         )
                     )
-                ),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                )
             )
         );
     }
@@ -182,8 +161,7 @@ extends Horde_Kolab_Format_TestCase
                             new DateTimeZone('Europe/Berlin')
                         )
                     )
-                ),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                )
             )
         );
     }
@@ -205,8 +183,7 @@ extends Horde_Kolab_Format_TestCase
                         ),
                         'date-only' => true
                     )
-                ),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                )
             )
         );
     }
@@ -216,23 +193,17 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testSaveNotEmpty()
     {
-        $this->saveToXml(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(),
-            array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY)
-        );
+        $this->saveWithClass('Horde_Kolab_Format_Stub_DateTimeNotEmpty');
     }
 
     public function testSaveNotEmptyWithOldValue()
     {
         $this->assertInstanceOf(
             'DOMNode', 
-            $this->saveToReturn(
+            $this->saveWithClass(
+                'Horde_Kolab_Format_Stub_DateTimeNotEmpty',
                 '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><datetime type="strange"><b/>STRANGE<a/></datetime>c</kolab>',
-                array(),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,)
+<kolab version="1.0" a="b"><datetime type="strange"><b/>STRANGE<a/></datetime>c</kolab>'
             )
         );
     }
@@ -246,8 +217,7 @@ extends Horde_Kolab_Format_TestCase
             $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><datetime type="strange"><b/>STRANGE<a/></datetime>c</kolab>',
-                array(),
-                array('value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING)
+                array()
             )
         );
     }
@@ -255,14 +225,10 @@ extends Horde_Kolab_Format_TestCase
     public function testSaveNotEmptyRelaxed()
     {
         $this->assertFalse(
-            $this->saveToReturn(
-                '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-                array(),
-                array(
-                    'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                    'relaxed' => true,
-                )
+            $this->saveWithClass(
+                'Horde_Kolab_Format_Stub_DateTimeNotEmpty',
+                null,
+                array('relaxed' => true)
             )
         );
     }

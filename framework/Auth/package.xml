@@ -23,10 +23,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-18</date>
- <time>13:42:16</time>
+ <date>2011-12-06</date>
+ <time>10:51:59</time>
  <version>
-  <release>1.4.4</release>
+  <release>1.4.7</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -88,6 +88,18 @@
       <file name="Horde_Auth.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
     <file name="Horde_Auth.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -255,6 +267,10 @@
    <install as="locale/Horde_Auth.pot" name="locale/Horde_Auth.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Auth.mo" name="locale/de/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Auth.po" name="locale/de/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_Auth.mo" name="locale/et/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_Auth.po" name="locale/et/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Auth.mo" name="locale/ja/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Auth.po" name="locale/ja/LC_MESSAGES/Horde_Auth.po" />
    <install as="migration/1_horde_auth_base_tables.php" name="migration/Horde/Auth/1_horde_auth_base_tables.php" />
    <install as="Horde/Auth/AllTests.php" name="test/Horde/Auth/AllTests.php" />
    <install as="Horde/Auth/Autoload.php" name="test/Horde/Auth/Autoload.php" />
@@ -573,7 +589,46 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-18</date>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Allow to run unit tests from installed package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.5</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Estonian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.6</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.7</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

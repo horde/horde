@@ -39,13 +39,9 @@ extends Horde_Kolab_Format_TestCase
     {
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"><multiple>a</multiple></kolab>',
-            array(
-                'array' => array('type' => Horde_Kolab_Format_Xml::TYPE_STRING),
-                'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
-            )
+<kolab version="1.0"><string>a</string></kolab>'
         );
-        $this->assertEquals(array('a'), $attributes['multiple']);
+        $this->assertEquals(array('a'), $attributes['string']);
     }
 
     public function testLoadSeveralMultiple()
@@ -53,33 +49,32 @@ extends Horde_Kolab_Format_TestCase
         $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0">
-<multiple>a</multiple>
-<multiple>Ü</multiple>
-<multiple>SOME<a/>STRANGE<b/>ONE</multiple>
-<multiple></multiple>
+<string>a</string>
+<string>Ü</string>
+<string>SOME<a/>STRANGE<b/>ONE</string>
+<string></string>
 </kolab>',
             array(
                 'array' => array('type' => Horde_Kolab_Format_Xml::TYPE_STRING),
                 'value' => Horde_Kolab_Format_Xml::VALUE_MAYBE_MISSING,
             )
         );
-        $this->assertEquals(array('a', 'Ü', 'SOME', ''), $attributes['multiple']);
+        $this->assertEquals(array('a', 'Ü', 'SOME', ''), $attributes['string']);
     }
 
     public function testLoadDefault()
     {
-        $attributes = $this->load(
+        $params = array();
+        list($helper, $root_node, $type) = $this->getXmlType(
+            'Horde_Kolab_Format_Stub_MultipleDefault',
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(
-                'array' => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_STRING,
-                ),
-                'value' => Horde_Kolab_Format_Xml::VALUE_DEFAULT,
-                'default' => array('X'),
-            )
+<kolab version="1.0"/>'
         );
-        $this->assertEquals(array('X'), $attributes['multiple']);
+        $attributes = array();
+        $type->load(
+            $this->getElement($params), $attributes, $root_node, $helper, $params
+        );
+        $this->assertEquals(array('X'), $attributes['string']);
     }
 
     /**
@@ -87,15 +82,15 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testLoadNotEmpty()
     {
-        $attributes = $this->load(
+        $params = array();
+        list($helper, $root_node, $type) = $this->getXmlType(
+            'Horde_Kolab_Format_Stub_MultipleNotEmpty',
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>',
-            array(
-                'array' => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_STRING,
-                ),
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            )
+<kolab version="1.0"/>'
+        );
+        $attributes = array();
+        $type->load(
+            $this->getElement($params), $attributes, $root_node, $helper, $params
         );
     }
 
@@ -112,7 +107,7 @@ extends Horde_Kolab_Format_TestCase
                 'relaxed' => true
             )
         );
-        $this->assertFalse(isset($attributes['multiple']));
+        $this->assertFalse(isset($attributes['string']));
     }
 
     public function testSave()
@@ -121,7 +116,7 @@ extends Horde_Kolab_Format_TestCase
             array(),
             $this->saveToReturn(
                 null,
-                array('multiple' => array()),
+                array('string' => array()),
                 array(
                     'array' => array(
                         'type' => Horde_Kolab_Format_Xml::TYPE_STRING,
@@ -136,11 +131,11 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"><multiple>a</multiple><multiple>B</multiple><multiple>Ü</multiple><multiple></multiple></kolab>
+<kolab version="1.0"><string>a</string><string>B</string><string>Ü</string><string></string></kolab>
 ',
             $this->saveToXml(
                 null,
-                array('multiple' => array('a', 'B', 'Ü', '')),
+                array('string' => array('a', 'B', 'Ü', '')),
                 array(
                     'array' => array(
                         'type' => Horde_Kolab_Format_Xml::TYPE_STRING,
@@ -155,12 +150,12 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b">c<multiple>a</multiple><multiple>B</multiple><multiple>Ü</multiple><multiple></multiple></kolab>
+<kolab version="1.0" a="b">c<string>a</string><string>B</string><string>Ü</string><string></string></kolab>
 ',
             $this->saveToXml(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><multiple type="strange"><b/>STRANGE<a/></multiple>c</kolab>',
-                array('multiple' => array('a', 'B', 'Ü', '')),
+<kolab version="1.0" a="b"><string type="strange"><b/>STRANGE<a/></string>c</kolab>',
+                array('string' => array('a', 'B', 'Ü', '')),
                 array(
                     'array' => array(
                         'type' => Horde_Kolab_Format_Xml::TYPE_STRING,
@@ -176,15 +171,12 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testSaveNotEmpty()
     {
-        $this->saveToXml(
-            null,
-            array(),
-            array(
-                'array' => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_STRING,
-                ),
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            )
+        $params = array();
+        list($helper, $root_node, $type) = $this->getXmlType(
+            'Horde_Kolab_Format_Stub_MultipleNotEmpty'
+        );
+        $type->save(
+            $this->getElement($params), array(), $root_node, $helper, $params
         );
     }
 
@@ -193,15 +185,12 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testSaveInvalidMultiple()
     {
-        $this->saveToXml(
-            null,
-            array('multiple' => array('INVALID')),
-            array(
-                'array' => array(
-                    'type' => Horde_Kolab_Format_Xml::TYPE_BOOLEAN,
-                ),
-                'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-            )
+        $params = array('relaxed' => false);
+        list($helper, $root_node, $type) = $this->getXmlType(
+            'Horde_Kolab_Format_Xml_Type_Multiple_Boolean'
+        );
+        $type->save(
+            'boolean', array('boolean' => array('INVALID')), $root_node, $helper, $params
         );
     }
 
@@ -209,12 +198,12 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"><multiple>INVALID</multiple></kolab>
+<kolab version="1.0"><string>INVALID</string></kolab>
 ',
             $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"/>',
-                array('multiple' => array('INVALID')),
+                array('string' => array('INVALID')),
                 array(
                     'array' => array(
                         'type' => Horde_Kolab_Format_Xml::TYPE_BOOLEAN,
@@ -228,18 +217,16 @@ extends Horde_Kolab_Format_TestCase
 
     public function testSaveNotEmptyWithOldValue()
     {
+        $params = array();
+        list($helper, $root_node, $type) = $this->getXmlType(
+            'Horde_Kolab_Format_Stub_MultipleNotEmpty',
+            '<?xml version="1.0" encoding="UTF-8"?>
+<kolab version="1.0" a="b"><string type="strange"><b/>STRANGE<a/></string>c</kolab>'
+        );
         $this->assertInstanceOf(
             'DOMNodeList', 
-            $this->saveToReturn(
-                '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><multiple type="strange"><b/>STRANGE<a/></multiple>c</kolab>',
-                array(),
-                array(
-                    'array' => array(
-                        'type' => Horde_Kolab_Format_Xml::TYPE_STRING,
-                    ),
-                    'value' => Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY,
-                )
+            $type->save(
+                $this->getElement($params), array(), $root_node, $helper, $params
             )
         );
     }
@@ -270,7 +257,7 @@ extends Horde_Kolab_Format_TestCase
 ',
             $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><multiple type="strange"><b/>STRANGE<a/></multiple>c<y/><multiple>a</multiple></kolab>',
+<kolab version="1.0" a="b"><string type="strange"><b/>STRANGE<a/></string>c<y/><string>a</string></kolab>',
                 array(),
                 array(
                     'array' => array(
@@ -284,6 +271,6 @@ extends Horde_Kolab_Format_TestCase
 
     protected function getTypeClass()
     {
-        return 'Horde_Kolab_Format_Xml_Type_Multiple';
+        return 'Horde_Kolab_Format_Xml_Type_Multiple_String';
     }
 }

@@ -10,6 +10,34 @@
  * @license  http://www.horde.org/licenses/bsd BSD
  */
 
+/* Stand-in functions if gettext is not available. */
+if (!function_exists('_')) {
+    function _($string)
+    {
+        return $string;
+    }
+}
+if (!function_exists('dgettext')) {
+    function dgettext($domain, $string)
+    {
+        return $string;
+    }
+}
+if (!function_exists('ngettext')) {
+    function ngettext($msgid1, $msgid2, $n)
+    {
+        return $n > 1 ? $msgid2 : $msgid1;
+    }
+}
+if (!function_exists('bindtextdomain')) {
+    function bindtextdomain()
+    {}
+}
+if (!function_exists('textdomain')) {
+    function textdomain()
+    {}
+}
+
 require_once 'PHPUnit/Util/Filter.php';
 require_once 'PHPUnit/TextUI/Command.php';
 set_include_path(dirname(dirname(dirname(__FILE__))) . '/lib:' . get_include_path());
@@ -38,9 +66,9 @@ class horde_test_runner
 
         // Find all AllTests.php files.
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
-            if (!$file->isFile() |
+            if (!$file->isFile() ||
                 $file->getFilename() != 'AllTests.php' ||
-                $file->getPathname() == __FILE__ |
+                $file->getPathname() == __FILE__ ||
                 $file->getPathname() == $basedir . '/Test/lib/Horde/Test/AllTests.php') {
                 continue;
             }
@@ -80,29 +108,4 @@ class horde_test_runner
 
         return $suite;
     }
-}
-
-/* Stand-in functions if gettext is not available. */
-if (!function_exists('_')) {
-    function _($string)
-    {
-        return $string;
-    }
-}
-
-if (!function_exists('ngettext')) {
-    function ngettext($msgid1, $msgid2, $n)
-    {
-        return $n > 1 ? $msgid2 : $msgid1;
-    }
-}
-
-if (!function_exists('bindtextdomain')) {
-    function bindtextdomain()
-    {}
-}
-
-if (!function_exists('textdomain')) {
-    function textdomain()
-    {}
 }

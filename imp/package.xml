@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-19</date>
- <time>00:20:16</time>
+ <date>2011-11-22</date>
+ <time>23:07:50</time>
  <version>
-  <release>5.0.15</release>
+  <release>5.0.16</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -34,19 +34,21 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Fix verifying a PGP signed part within a PGP encrypted part.
-* [mms] HTML viewer passes Email Privacy Tester (http://grepular.com/email_privacy_tester/).
-* [mms] Fix intermittent attachment loss when composing messages.
-* [mms] Correctly reference CSS stylesheets contained within a multipart/related part.
-* [mms] Sanitize LINK tags contained in HTML messages.
-* [mms] Fix accessing mailboxes containing ampersands (Bug #10093).
-* [mjr] Only request the field values we actually need when searching the contacts API.
-* [mms] Fix expand all mailboxes in dynamic view (Bug #10682).
-* [mms] Re-add auto-detection of MIME types for message parts that lack this information.
-* [mms] Add &apos;delete_mark_seen&apos; preference.
-* [mms] Fix accessing POP3 servers that use commas in their UIDs.
-* [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
-* [mms] Fix some dynamic view links on IE (Bug #10664).
+* [mms] Workaround broken PGP signed data contained within encrypted parts (Bug #10809).
+* [mms] Fix signature verification display for combined encrypted/signed PGP messages.
+* [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view (Request #8060).
+* [mms] Allow multiple messages to be redirected from traditional view mailbox page (Request #2084).
+* [mms] Add ability to quickly add unsubscribed mailboxes to available search mailboxes in advanced search (Request #10832).
+* [mms] Don&apos;t list parent mailboxes after child mailboxes (Bug #10802).
+* [jan] Update Dutch translation (Pieterjan Heyse &lt;pieterjan.heyse@scheppers-wetteren.be&gt;).
+* [mms] Fix setting compose message body on IE 9 in dynamic view.
+* [mms] Redirect to login page if IMAP credentials are lost somehow during the session.
+* [mms] Fix &apos;server&apos; credential in preauthenticate hook.
+* [jan] Fix updating events from attendee responses (Bug #10772).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+* [mms] Correctly apply default mail_domain value in all places it is needed.
+* [mms] Correctly save mail_domain value if changed in preferences UI.
+* [mms] Purge browser cache daily in dynamic view; updates time stamps to proper format (Request #9773).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -859,7 +861,9 @@
       <file name="application_tile_horizontal.png" role="horde" />
       <file name="application_tile_vertical.png" role="horde" />
       <file name="arrow_collapsed.png" role="horde" />
+      <file name="arrow_down.png" role="horde" />
       <file name="arrow_expanded.png" role="horde" />
+      <file name="arrow_up.png" role="horde" />
       <file name="attachment.png" role="horde" />
       <file name="backhead_orderby.png" role="horde" />
       <file name="backhead_r.png" role="horde" />
@@ -910,7 +914,6 @@
       <file name="mail_priority_low.png" role="horde" />
       <file name="mail_seen.png" role="horde" />
       <file name="mail_unseen.png" role="horde" />
-      <file name="manage_attachments.png" role="horde" />
       <file name="message_source.png" role="horde" />
       <file name="mini-error.png" role="horde" />
       <file name="newmail.png" role="horde" />
@@ -1028,7 +1031,9 @@
       <file name="application_tile_horizontal.png" role="horde" />
       <file name="application_tile_vertical.png" role="horde" />
       <file name="arrow_collapsed.png" role="horde" />
+      <file name="arrow_down.png" role="horde" />
       <file name="arrow_expanded.png" role="horde" />
+      <file name="arrow_up.png" role="horde" />
       <file name="attachment.png" role="horde" />
       <file name="blacklist.png" role="horde" />
       <file name="calendar.png" role="horde" />
@@ -1063,7 +1068,6 @@
       <file name="mail_priority_low.png" role="horde" />
       <file name="mail_seen.png" role="horde" />
       <file name="mail_unseen.png" role="horde" />
-      <file name="manage_attachments.png" role="horde" />
       <file name="message_source.png" role="horde" />
       <file name="newmail.png" role="horde" />
       <file name="newwin.png" role="horde" />
@@ -1125,7 +1129,6 @@
       <file name="mail_priority_high.png" role="horde" />
       <file name="mail_priority_low.png" role="horde" />
       <file name="mail_unseen.png" role="horde" />
-      <file name="manage_attachments.png" role="horde" />
       <file name="newmail.png" role="horde" />
       <file name="reload.png" role="horde" />
       <file name="shared.png" role="horde" />
@@ -1285,7 +1288,7 @@
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
+    <min>1.4.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -1861,7 +1864,9 @@
    <install as="imp/themes/default/graphics/application_tile_horizontal.png" name="themes/default/graphics/application_tile_horizontal.png" />
    <install as="imp/themes/default/graphics/application_tile_vertical.png" name="themes/default/graphics/application_tile_vertical.png" />
    <install as="imp/themes/default/graphics/arrow_collapsed.png" name="themes/default/graphics/arrow_collapsed.png" />
+   <install as="imp/themes/default/graphics/arrow_down.png" name="themes/default/graphics/arrow_down.png" />
    <install as="imp/themes/default/graphics/arrow_expanded.png" name="themes/default/graphics/arrow_expanded.png" />
+   <install as="imp/themes/default/graphics/arrow_up.png" name="themes/default/graphics/arrow_up.png" />
    <install as="imp/themes/default/graphics/attachment.png" name="themes/default/graphics/attachment.png" />
    <install as="imp/themes/default/graphics/backhead_orderby.png" name="themes/default/graphics/backhead_orderby.png" />
    <install as="imp/themes/default/graphics/backhead_r.png" name="themes/default/graphics/backhead_r.png" />
@@ -1912,7 +1917,6 @@
    <install as="imp/themes/default/graphics/mail_priority_low.png" name="themes/default/graphics/mail_priority_low.png" />
    <install as="imp/themes/default/graphics/mail_seen.png" name="themes/default/graphics/mail_seen.png" />
    <install as="imp/themes/default/graphics/mail_unseen.png" name="themes/default/graphics/mail_unseen.png" />
-   <install as="imp/themes/default/graphics/manage_attachments.png" name="themes/default/graphics/manage_attachments.png" />
    <install as="imp/themes/default/graphics/message_source.png" name="themes/default/graphics/message_source.png" />
    <install as="imp/themes/default/graphics/mini-error.png" name="themes/default/graphics/mini-error.png" />
    <install as="imp/themes/default/graphics/newmail.png" name="themes/default/graphics/newmail.png" />
@@ -1988,7 +1992,9 @@
    <install as="imp/themes/silver/graphics/application_tile_horizontal.png" name="themes/silver/graphics/application_tile_horizontal.png" />
    <install as="imp/themes/silver/graphics/application_tile_vertical.png" name="themes/silver/graphics/application_tile_vertical.png" />
    <install as="imp/themes/silver/graphics/arrow_collapsed.png" name="themes/silver/graphics/arrow_collapsed.png" />
+   <install as="imp/themes/silver/graphics/arrow_down.png" name="themes/silver/graphics/arrow_down.png" />
    <install as="imp/themes/silver/graphics/arrow_expanded.png" name="themes/silver/graphics/arrow_expanded.png" />
+   <install as="imp/themes/silver/graphics/arrow_up.png" name="themes/silver/graphics/arrow_up.png" />
    <install as="imp/themes/silver/graphics/attachment.png" name="themes/silver/graphics/attachment.png" />
    <install as="imp/themes/silver/graphics/blacklist.png" name="themes/silver/graphics/blacklist.png" />
    <install as="imp/themes/silver/graphics/calendar.png" name="themes/silver/graphics/calendar.png" />
@@ -2023,7 +2029,6 @@
    <install as="imp/themes/silver/graphics/mail_priority_low.png" name="themes/silver/graphics/mail_priority_low.png" />
    <install as="imp/themes/silver/graphics/mail_seen.png" name="themes/silver/graphics/mail_seen.png" />
    <install as="imp/themes/silver/graphics/mail_unseen.png" name="themes/silver/graphics/mail_unseen.png" />
-   <install as="imp/themes/silver/graphics/manage_attachments.png" name="themes/silver/graphics/manage_attachments.png" />
    <install as="imp/themes/silver/graphics/message_source.png" name="themes/silver/graphics/message_source.png" />
    <install as="imp/themes/silver/graphics/newmail.png" name="themes/silver/graphics/newmail.png" />
    <install as="imp/themes/silver/graphics/newwin.png" name="themes/silver/graphics/newwin.png" />
@@ -2091,7 +2096,6 @@
    <install as="imp/themes/tango-blue/graphics/mail_priority_high.png" name="themes/tango-blue/graphics/mail_priority_high.png" />
    <install as="imp/themes/tango-blue/graphics/mail_priority_low.png" name="themes/tango-blue/graphics/mail_priority_low.png" />
    <install as="imp/themes/tango-blue/graphics/mail_unseen.png" name="themes/tango-blue/graphics/mail_unseen.png" />
-   <install as="imp/themes/tango-blue/graphics/manage_attachments.png" name="themes/tango-blue/graphics/manage_attachments.png" />
    <install as="imp/themes/tango-blue/graphics/newmail.png" name="themes/tango-blue/graphics/newmail.png" />
    <install as="imp/themes/tango-blue/graphics/reload.png" name="themes/tango-blue/graphics/reload.png" />
    <install as="imp/themes/tango-blue/graphics/shared.png" name="themes/tango-blue/graphics/shared.png" />
@@ -2558,9 +2562,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-19</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Honor sortpref locked status.
+* [mms] HTML drafts saved in IMP are resumed in that mode, regardless of the &apos;compose_html&apos; preference (Request #10787).
+* [mms] Improved tree display when displaying all message parts.
+* [mms] Fix DNS resolution when sending attachment viewed messages (Bug #10784).
+* [mms] Fix switching quicksearch criteria while a search is active in dynamic mode (Bug #10780).
+* [mms] Fix redirecting message from dynamic view popup message (Bug #10738).
+* [mms] Fix swapping signatures when composing in HTML mode (Bug #10768).
+* [mms] Remove transparency for PDF thumbnails generated by imagemagick.
+* [mms] Fix removing addresses on contacts page (Bug #10761).
+* [mms] Virtual Trash fixes.
+* [mms] Improve UI access to advanced sorting options in dynamic view.
+* [mms] Fix stripping attachments in traditional view (Bug #10722).
+* [mms] Fix creating new Drafts mailbox from Drafts preference page.
+* [mms] Fix verifying a PGP signed part within a PGP encrypted part.
+* [mms] HTML viewer passes Email Privacy Tester (http://grepular.com/email_privacy_tester/).
+* [mms] Fix intermittent attachment loss when composing messages.
+* [mms] Correctly reference CSS stylesheets contained within a multipart/related part.
+* [mms] Sanitize LINK tags contained in HTML messages.
 * [mjr] Only request the field values we actually need when searching the contacts API.
 * [mms] Fix expand all mailboxes in dynamic view (Bug #10682).
 * [mms] Re-add auto-detection of MIME types for message parts that lack this information.
@@ -2568,6 +2590,33 @@
 * [mms] Fix accessing POP3 servers that use commas in their UIDs.
 * [mms] Fix updating flags in non-selected mailbox if IMAP server does not support CONDSTORE/QRESYNC (Bug #10627).
 * [mms] Fix some dynamic view links on IE (Bug #10664).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.16</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Workaround broken PGP signed data contained within encrypted parts (Bug #10809).
+* [mms] Fix signature verification display for combined encrypted/signed PGP messages.
+* [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view (Request #8060).
+* [mms] Allow multiple messages to be redirected from traditional view mailbox page (Request #2084).
+* [mms] Add ability to quickly add unsubscribed mailboxes to available search mailboxes in advanced search (Request #10832).
+* [mms] Don&apos;t list parent mailboxes after child mailboxes (Bug #10802).
+* [jan] Update Dutch translation (Pieterjan Heyse &lt;pieterjan.heyse@scheppers-wetteren.be&gt;).
+* [mms] Fix setting compose message body on IE 9 in dynamic view.
+* [mms] Redirect to login page if IMAP credentials are lost somehow during the session.
+* [mms] Fix &apos;server&apos; credential in preauthenticate hook.
+* [jan] Fix updating events from attendee responses (Bug #10772).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+* [mms] Correctly apply default mail_domain value in all places it is needed.
+* [mms] Correctly save mail_domain value if changed in preferences UI.
+* [mms] Purge browser cache daily in dynamic view; updates time stamps to proper format (Request #9773).
    </notes>
   </release>
  </changelog>

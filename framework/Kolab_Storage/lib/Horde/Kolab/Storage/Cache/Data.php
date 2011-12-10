@@ -102,10 +102,9 @@ class Horde_Kolab_Storage_Cache_Data
      *                                              are only recorded and have
      *                                              no further impact.
      */
-    public function __construct(
-        Horde_Kolab_Storage_Cache $cache,
-        $parameters = null
-    ) {
+    public function __construct(Horde_Kolab_Storage_Cache $cache,
+                                $parameters = null)
+    {
         $this->_cache = $cache;
         $this->_parameters = $parameters;
     }
@@ -479,12 +478,11 @@ class Horde_Kolab_Storage_Cache_Data
      *
      * @return NULL
      */
-    public function store(
-        array $objects,
-        Horde_Kolab_Storage_Folder_Stamp $stamp,
-        $version,
-        array $delete = array()
-    ) {
+    public function store(array $objects,
+                          Horde_Kolab_Storage_Folder_Stamp $stamp,
+                          $version,
+                          array $delete = array())
+    {
         $this->_load();
         if (!empty($delete)) {
             foreach ($delete as $obid => $object_id) {

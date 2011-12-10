@@ -56,10 +56,9 @@ implements Horde_Kolab_Storage_List, Horde_Kolab_Storage_List_Query
      * @param Horde_Kolab_Storage_Cache_List $cache The cache storing data for
      *                                              this decorator.
      */
-    public function __construct(
-        Horde_Kolab_Storage_List $list,
-        Horde_Kolab_Storage_Cache_List $cache
-    ) {
+    public function __construct(Horde_Kolab_Storage_List $list,
+                                Horde_Kolab_Storage_Cache_List $cache)
+    {
         $this->_list = $list;
         $this->_list_cache = $cache;
     }

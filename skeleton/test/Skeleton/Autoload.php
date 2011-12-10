@@ -8,9 +8,9 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category   Horde
- * @package    Group
+ * @package    Skeleton
  * @subpackage UnitTests
- * @author     Jan Schneider <jan@horde.org>
+ * @author     Your Name <you@example.com>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 

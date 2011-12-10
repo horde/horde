@@ -52,12 +52,14 @@ case 'hermes_form_export':
             if ($form->isValid()) {
                 $form->getInfo($vars, $info);
                 try {
-                    $hours = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours($criteria);
+                    $hours = $GLOBALS['injector']
+                        ->getInstance('Hermes_Driver')
+                        ->getHours($criteria);
                     if (is_null($hours) || count($hours) == 0) {
                         $notification->push(_("No time to export!"), 'horde.error');
                     } else {
                         $exportHours = Hermes::makeExportHours($hours);
-                        $data = Horde_Data::factory(array('hermes', $info['format']));
+                        $data = Horde_Data::factory(array('hermes', $info['format']), array('browser' => $browser));
                         $filedata = $data->exportData($exportHours);
                         $browser->downloadHeaders($data->getFilename('export'), $data->getContentType(), false, strlen($filedata));
                         echo $filedata;
@@ -70,7 +72,7 @@ case 'hermes_form_export':
                         exit;
                     }
                 } catch (Horde_Exception $e) {
-                    $notification->push($hours, 'horde.error');
+                    $notification->push($e, 'horde.error');
                 }
             }
         }

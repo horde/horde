@@ -53,8 +53,18 @@ $user_identity = $injector->getInstance('IMP_Identity');
 /* Run through action handlers. */
 $vars = Horde_Variables::getDefaultVariables();
 if ($vars->actionID) {
+    switch ($vars->actionID) {
+    case 'strip_attachment':
+        $token_name = 'imp.impcontents';
+        break;
+
+    default:
+        $token_name = 'imp.message';
+        break;
+    }
+
     try {
-        $injector->getInstance('Horde_Token')->validate($vars->message_token, 'imp.message');
+        $injector->getInstance('Horde_Token')->validate($vars->message_token, $token_name);
     } catch (Horde_Token_Exception $e) {
         $notification->push($e);
         $vars->actionID = null;
@@ -684,29 +694,32 @@ if ($show_atc) {
 /* Show attachment information in headers? 'atc_parts' will be empty if
  * 'parts_display' pref is 'none'. */
 if (!empty($inlineout['atc_parts'])) {
-    $tmp = array();
-
     if ($show_parts == 'all') {
-        array_unshift($part_info, 'id');
-    }
+        $val = $imp_contents->getTree()->getTree(true);
+    } else {
+        $tmp = array();
 
-    foreach ($inlineout['atc_parts'] as $id) {
-        $summary = $imp_contents->getSummary($id, $contents_mask);
-        $tmp[] = '<tr>';
-        foreach ($part_info as $val) {
-            $tmp[] = '<td>' . $summary[$val] . '</td>';
+        foreach ($inlineout['atc_parts'] as $id) {
+            $summary = $imp_contents->getSummary($id, $contents_mask);
+
+            $tmp[] = '<tr>';
+            foreach ($part_info as $val) {
+                $tmp[] = '<td>' . $summary[$val] . '</td>';
+            }
+            $tmp[] = '<td>';
+            foreach ($part_info_action as $val) {
+                $tmp[] = $summary[$val];
+            }
+            $tmp[] = '</td></tr>';
         }
-        $tmp[] = '<td>';
-        foreach ($part_info_action as $val) {
-            $tmp[] = $summary[$val];
-        }
-        $tmp[] = '</td></tr>';
+
+        $val = '<table>' . implode('', $tmp) . '</table>';
     }
 
     $hdrs[] = array(
         'class' => 'msgheaderParts',
         'name' => ($show_parts == 'all') ? _("Parts") : _("Attachments"),
-        'val' => '<table>' . implode('', $tmp) . '</table>',
+        'val' => $val,
         'i' => (++$i % 2)
     );
 }

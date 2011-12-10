@@ -232,12 +232,13 @@ class Horde_Crypt_Smime extends Horde_Crypt
     }
 
     /**
-     * Sign a MIME part using S/MIME.
+     * Sign a MIME part using S/MIME. This produces S/MIME Version 3.2
+     * compatible data (see RFC 5751 [3.4]).
      *
      * @param Horde_Mime_Part $mime_part  The object to sign.
      * @param array $params               The parameters required for signing.
      *
-     * @return mixed  A Horde_Mime_Part object that is signed.
+     * @return Horde_Mime_Part  A signed MIME part object.
      * @throws Horde_Crypt_Exception
      */
     public function signMIMEPart($mime_part, $params)
@@ -256,7 +257,8 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $smime_part->setType('multipart/signed');
         $smime_part->setContents("This is a cryptographically signed message in MIME format.\n");
         $smime_part->setContentTypeParameter('protocol', 'application/pkcs7-signature');
-        $smime_part->setContentTypeParameter('micalg', 'sha1');
+        // Per RFC 5751 [3.4.3.2], 'sha1' has been deprecated for 'sha-1'.
+        $smime_part->setContentTypeParameter('micalg', 'sha-1');
         $smime_part->addPart($mime_part);
         $smime_part->addPart($smime_sign);
 
@@ -264,13 +266,14 @@ class Horde_Crypt_Smime extends Horde_Crypt
     }
 
     /**
-     * Encrypt a MIME part using S/MIME.
+     * Encrypt a MIME part using S/MIME. This produces S/MIME Version 3.2
+     * compatible data (see RFC 5751 [3.3]).
      *
      * @param Horde_Mime_Part $mime_part  The object to encrypt.
      * @param array $params               The parameters required for
      *                                    encryption.
      *
-     * @return mixed  A Horde_Mime_Part object that is encrypted.
+     * @return Horde_Mime_Part  An encrypted MIME part object.
      * @throws Horde_Crypt_Exception
      */
     public function encryptMIMEPart($mime_part, $params = array())
@@ -676,7 +679,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $cert_details = array(
             'fingerprints' => array(
                 'md5' => hash('md5', $raw_cert),
-                'sha1' => hash('sha1', $raw_cert)
+                'sha-1' => hash('sha1', $raw_cert)
             ),
             'certificate' => array(
                 'extensions' => array(),

@@ -37,18 +37,20 @@ extends Horde_Kolab_Format_TestCase
 {
     public function testLoadCreationDate()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><creation-date>2011-06-28T08:42:11Z</creation-date>c</kolab>'
+<kolab version="1.0" a="b"><creation-date>2011-06-28T08:42:11Z</creation-date>c</kolab>',
+            array('element' => 'creation-date')
         );
         $this->assertInstanceOf('DateTime', $attributes['creation-date']);
     }
 
     public function testLoadCreationDateValue()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><creation-date>2011-06-28T08:42:11Z</creation-date>c</kolab>'
+<kolab version="1.0" a="b"><creation-date>2011-06-28T08:42:11Z</creation-date>c</kolab>',
+            array('element' => 'creation-date')
         );
         $this->assertEquals(
             1309250531, 
@@ -61,36 +63,42 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testLoadInvalidCreationDateValue()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><creation-date>2011A-06-28T08:42:11Z</creation-date>c</kolab>'
+<kolab version="1.0" a="b"><creation-date>2011A-06-28T08:42:11Z</creation-date>c</kolab>',
+            array('element' => 'creation-date')
         );
     }
 
     public function testLoadInvalidCreationDateValueRelaxed()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date>2011A-06-28T08:42:11Z</creation-date>c</kolab>',
-            array('relaxed' => true)
+            array(
+                'relaxed' => true,
+                'element' => 'creation-date',
+            )
         );
         $this->assertFalse($attributes['creation-date']);
     }
 
     public function testLoadStrangeCreationDate()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><creation-date type="strange"><b/>1970-01-01T00:00:00Z<a/></creation-date>c</kolab>'
+<kolab version="1.0" a="b"><creation-date type="strange"><b/>1970-01-01T00:00:00Z<a/></creation-date>c</kolab>',
+            array('element' => 'creation-date')
         );
         $this->assertEquals(0, $attributes['creation-date']->format('U'));
     }
 
     public function testLoadMissingCreationDate()
     {
-        $attributes = $this->_load(
+        $attributes = $this->load(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"/>'
+<kolab version="1.0"/>',
+            array('element' => 'creation-date')
         );
         $this->assertInstanceOf('DateTime', $attributes['creation-date']);
     }
@@ -99,7 +107,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertInstanceOf(
             'DOMNode', 
-            $this->_saveToReturn()
+            $this->saveToReturn()
         );
     }
 
@@ -109,9 +117,10 @@ extends Horde_Kolab_Format_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><creation-date>1970-01-01T00:00:00Z</creation-date></kolab>
 ', 
-            $this->_saveToXml(
+            $this->saveToXml(
                 null,
-                array('creation-date' => new DateTime('1970-01-01T00:00:00Z'))
+                array('creation-date' => new DateTime('1970-01-01T00:00:00Z')),
+                array('element' => 'creation-date')
             )
         );
     }
@@ -122,10 +131,11 @@ extends Horde_Kolab_Format_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date type="strange"><b/>1970-01-01T00:00:00Z<a/></creation-date>c</kolab>
 ', 
-            $this->_saveToXml(
+            $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date type="strange"><b/>1970-01-01T00:00:00Z<a/></creation-date>c</kolab>',
-                array('creation-date' => new DateTime('1970-01-01T00:00:00Z'))
+                array('creation-date' => new DateTime('1970-01-01T00:00:00Z')),
+                array('element' => 'creation-date')
             )
         );
     }
@@ -135,10 +145,11 @@ extends Horde_Kolab_Format_TestCase
      */
     public function testSaveFailsOverwritingOldValue()
     {
-        $this->_saveToXml(
+        $this->saveToXml(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date type="strange"><b/>1970-01-01T00:00:00Z<a/></creation-date>c</kolab>',
-            array('creation-date' => new DateTime('1971-01-01T00:00:00Z'))
+            array('creation-date' => new DateTime('1971-01-01T00:00:00Z')),
+            array('element' => 'creation-date')
         );
     }
 
@@ -148,56 +159,20 @@ extends Horde_Kolab_Format_TestCase
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date type="strange">1971-01-01T00:00:00Z<b/><a/></creation-date>c</kolab>
 ', 
-            $this->_saveToXml(
+            $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date type="strange"><b/>1970-01-01T00:00:00Z<a/></creation-date>c</kolab>',
                 array('creation-date' => new DateTime('1971-01-01T00:00:00Z')),
-                array('relaxed' => true)    
+                array(
+                    'relaxed' => true,
+                    'element' => 'creation-date'
+                )
             )
         );
     }
 
-    private function _load($previous, $params = array())
+    protected function getTypeClass()
     {
-        list($type_params, $root_node, $type) = $this->_getCreationDate(
-            $previous
-        );
-        $params = array_merge($type_params, $params);
-        $attributes = array();
-        $type->load('creation-date', $attributes, $root_node, $params);
-        return $attributes;
-    }
-
-    private function _saveToXml(
-        $previous = null, $attributes = array(), $params = array()
-    )
-    {
-        list($type_params, $root_node, $type) = $this->_getCreationDate($previous);
-        $params = array_merge($type_params, $params);
-        $type->save('creation-date', $attributes, $root_node, $params);
-        return (string)$params['helper'];
-    }
-
-    private function _saveToReturn(
-        $previous = null, $attributes = array(), $params = array()
-    )
-    {
-        list($type_params, $root_node, $type) = $this->_getCreationDate($previous);
-        $params = array_merge($type_params, $params);
-        return $type->save('creation-date', $attributes, $root_node, $params);
-    }
-
-    private function _getCreationDate(
-        $previous = null,
-        $kolab_type = 'kolab',
-        $version = '1.0'
-    )
-    {
-        return $this->getXmlType(
-            'Horde_Kolab_Format_Xml_Type_CreationDate',
-            $previous,
-            $kolab_type,
-            $version
-        );
+        return 'Horde_Kolab_Format_Xml_Type_CreationDate';
     }
 }

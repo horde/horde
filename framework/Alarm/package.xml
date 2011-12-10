@@ -2,18 +2,18 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Alarm</name>
  <channel>pear.horde.org</channel>
- <summary>Horde alarm libraries</summary>
- <description>This package provides an interface to deal with reminders, alarms and notifications through a standardized API. The following notification methods are available at the moment: standard Horde notifications, popups, emails.</description>
+ <summary>Horde Alarm Libraries</summary>
+ <description>An interface to deal with reminders, alarms and notifications through a standardized API. The following notification methods are currently available: standard Horde notifications, popups, emails.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-27</date>
- <time>12:05:23</time>
+ <date>2011-12-06</date>
+ <time>10:50:28</time>
  <version>
-  <release>1.0.5</release>
+  <release>1.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -26,6 +26,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Alarm">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Alarm -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Alarm">
@@ -412,6 +419,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Alarm/COPYING" />
    <install as="Horde/Alarm.php" name="lib/Horde/Alarm.php" />
    <install as="Horde/Alarm/Exception.php" name="lib/Horde/Alarm/Exception.php" />
    <install as="Horde/Alarm/Handler.php" name="lib/Horde/Alarm/Handler.php" />
@@ -656,7 +664,46 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-07-27</date>
+   <date>2011-11-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Croatian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Estonian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Catch exceptions from Horde_Mime when sending alarm messages (Bug #10388).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.8</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

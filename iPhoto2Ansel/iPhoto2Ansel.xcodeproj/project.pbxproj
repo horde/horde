@@ -355,8 +355,8 @@
 		1DEB913B08733D840010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
@@ -383,14 +383,13 @@
 		1DEB913C08733D840010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/iPhoto2Ansel-1.0/Library/Application Support/iPhoto/Plugins";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = NO;
 				DSTROOT = /;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SRCROOT)/XMLRPC\"",
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
@@ -403,7 +402,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = iPhoto2Ansel;
 				SKIP_INSTALL = NO;
-				VALID_ARCHS = "i386 x86_64 ppc64 ppc";
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = iPhotoExporter;
 			};
 			name = Release;
@@ -423,7 +422,7 @@
 				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				VALID_ARCHS = "ppc64 ppc i386 x86_64";
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -442,7 +441,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
-				VALID_ARCHS = "ppc64 ppc i386 x86_64";
+				VALID_ARCHS = "i386 x86_64";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_BUILDER = "mrubinsk@horde.org";
 			};

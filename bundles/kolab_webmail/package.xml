@@ -3,15 +3,15 @@
  <name>kolab_webmail</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Kolab Edition</summary>
- <description>Horde Kolab Edition is a free, enterprise ready, browser based communication suite for the Kolab server. Users can read, send and organize email messages with three different webmail interfaces and manage and share calendars, contacts, tasks and notes with the standards compliant components from the Horde Project.</description>
+ <description>Horde Kolab Edition is a free, enterprise ready, browser based communication suite for the Kolab server. Users can read, send and organize email messages via a webmail interface and manage and share calendars, contacts, tasks and notes with the standards compliant components from the Horde Project.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
   <email>wrobel@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-15</date>
- <time>21:09:47</time>
+ <date>2011-11-29</date>
+ <time>19:43:49</time>
  <version>
   <release>4.0.0alpha1</release>
   <api>4.0.0alpha1</api>
@@ -43,7 +43,12 @@
     <file name="hooks.php" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
+    <file name="CHANGES" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="PERFORMANCE" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
     <file name="TODO" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="imp">
     <dir name="config">
@@ -65,6 +70,9 @@
      <dir name="backends.d">
       <file name="20-kolab.php" role="horde" />
      </dir> <!-- /ingo/config/backends.d -->
+     <dir name="conf.d">
+      <file name="20-kolab.xml" role="horde" />
+     </dir> <!-- /ingo/config/conf.d -->
     </dir> <!-- /ingo/config -->
    </dir> <!-- /ingo -->
    <dir name="kronolith">
@@ -105,6 +113,7 @@
     </dir> <!-- /turba/config -->
    </dir> <!-- /turba -->
    <file name="COPYING" role="doc" />
+   <file name="README" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -238,19 +247,26 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="README" name="README" />
    <install as="kolab-webmail-install" name="bin/kolab-webmail-install" />
    <install as="config/hooks.php" name="config/hooks.php" />
    <install as="config/conf.d/20-kolab.xml" name="config/conf.d/20-kolab.xml" />
    <install as="config/prefs.d/10-webmail.php" name="config/prefs.d/10-webmail.php" />
    <install as="config/prefs.d/20-kolab.php" name="config/prefs.d/20-kolab.php" />
    <install as="config/registry.d/20-kolab.php" name="config/registry.d/20-kolab.php" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="PERFORMANCE" name="docs/PERFORMANCE" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
    <install as="TODO" name="docs/TODO" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/config/hooks.php" name="imp/config/hooks.php" />
    <install as="imp/config/backends.d/20-kolab.php" name="imp/config/backends.d/20-kolab.php" />
    <install as="imp/config/conf.d/10-webmail.xml" name="imp/config/conf.d/10-webmail.xml" />
    <install as="imp/config/conf.d/20-kolab.php" name="imp/config/conf.d/20-kolab.php" />
    <install as="imp/config/prefs.d/10-webmail.php" name="imp/config/prefs.d/10-webmail.php" />
    <install as="ingo/config/backends.d/20-kolab.php" name="ingo/config/backends.d/20-kolab.php" />
+   <install as="ingo/config/conf.d/20-kolab.xml" name="ingo/config/conf.d/20-kolab.xml" />
    <install as="kronolith/config/conf.d/10-webmail.xml" name="kronolith/config/conf.d/10-webmail.xml" />
    <install as="kronolith/config/conf.d/20-kolab.php" name="kronolith/config/conf.d/20-kolab.php" />
    <install as="kronolith/config/conf.d/20-kolab.xml" name="kronolith/config/conf.d/20-kolab.xml" />
@@ -273,7 +289,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-07-15</date>
+   <date>2011-11-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First release candidate of Horde Kolab Edition 4.0.

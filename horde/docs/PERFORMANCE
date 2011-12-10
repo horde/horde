@@ -31,8 +31,9 @@ Webserver/PHP tuning
 * Consider a PHP accelerator program.  See for example `The Zend Performance
   Suite`_, the `Alternative PHP Cache`_, eAccelerator_, or XCache_.  These
   accelerators speed up access by caching the compiled PHP code, eliminating
-  the need to recompile the code for every single page load. **This is
-  probably the easiest way to improve the performance of Horde**.
+  the need to recompile the code for every single page load. **This is probably
+  the easiest way to improve the performance of Horde**. See Autoloading_
+  further down to get even more out of some of those accelerators.
 
 * Enable PHP output compression in the Horde configuration. Do not enable
   compression in the PHP configuration (i.e. in ``php.ini``), because certain
@@ -173,6 +174,53 @@ MySQL tuning
   size to meet your needs)::
 
     set-variable = query_cache_size=128M
+
+
+Horde tuning
+============
+
+
+Autoloading
+-----------
+
+* Horde automatically loads PHP source files on demand which relies on the PHP
+  autoloading feature introduced with PHP 5 and the Horde Autoloader library.
+  Both allow to limit the set of source code files pulled into the system to the
+  minimal amount required to answer the current request. This saves memory and
+  time but at the same time the Autoloader library has to map each class name to
+  the path of the corresponding PHP file that holds the class definition. This
+  procedure is expensive and can slow the system down. Fortunately the mapping is
+  fixed unless files are added or removed which usually only happens during an
+  upgrade.
+
+  Thus Autoloading is amenable to caching and an easy way to improve the
+  performance of the Horde Autoloader library, is to install the Autoloader
+  Cache extension::
+
+    pear install horde/horde_autoloader_cache
+
+  This library is not installed by default because it will unconditionally use
+  any of the following cache backends and does not allow for any further
+  configuration: `Alternative PHP Cache`_, XCache_, eAccelerator_, or the local
+  temporary filesystem.
+
+  It also doesn't detect the rare case when the file paths of any PHP class in
+  Horde changes. In this case you either need to use the provided script to
+  empty the cache::
+
+     horde-autoloader-cache-prune
+
+  or empty the cache manually, e.g. by restarting the web server or deleting
+  the cache file from the temporary directory.
+
+
+VFS
+---
+
+* Try to avoid using a SQL backend for VFS. Many databases require binary data
+  to be heavily escaped, resulting in storage sizes that are many times
+  greater than the actual size of the data. File system VFS will normally
+  provide much improved performance.
 
 
 Application tuning

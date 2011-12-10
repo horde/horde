@@ -3,17 +3,17 @@
  <name>Horde_Notification</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Notification System</summary>
- <description>The Horde_Notification library provides a subject-observer pattern for raising and showing messages of different types and to different listeners.</description>
+ <description>A library implementing a subject-observer pattern for raising and showing messages of different types and to different listeners.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-04-06</date>
- <time>01:16:18</time>
+ <date>2011-11-22</date>
+ <time>21:07:34</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -26,6 +26,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Notification">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Notification -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Notification">
@@ -134,6 +141,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Notification/COPYING" />
    <install as="Horde/Notification.php" name="lib/Horde/Notification.php" />
    <install as="Horde/Notification/Event.php" name="lib/Horde/Notification/Event.php" />
    <install as="Horde/Notification/Exception.php" name="lib/Horde/Notification/Exception.php" />
@@ -281,7 +289,20 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-04-06</date>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix tests to work with PHPUnit 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

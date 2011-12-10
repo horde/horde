@@ -35,6 +35,11 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
 class Horde_Kolab_FreeBusy_Unit_Object_EventTest
 extends Horde_Kolab_FreeBusy_TestCase
 {
+    public function setUp()
+    {
+        date_default_timezone_set('UTC');
+    }
+
     public function testDuration()
     {
         $event = new Horde_Kolab_FreeBusy_Object_Event(

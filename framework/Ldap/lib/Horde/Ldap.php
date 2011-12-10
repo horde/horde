@@ -1317,8 +1317,6 @@ class Horde_Ldap
     {
         if (!extension_loaded('ldap') && !@dl('ldap.' . PHP_SHLIB_SUFFIX)) {
             throw new Horde_Ldap_Exception('Unable to locate PHP LDAP extension. Please install it before using the Horde_Ldap package.');
-        } else {
-            return true;
         }
     }
 

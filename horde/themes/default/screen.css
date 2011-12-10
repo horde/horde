@@ -527,7 +527,6 @@ span.treeImg16 {
     float: right;
     text-align: right;
     font-size: 90%;
-    background: #eee;
 }
 
 /* Modal forms */
@@ -660,7 +659,6 @@ div.logintasks-item input {
     float: left;
     width: 100%;
     font-weight: bold;
-    background: url("graphics/tab_bottom.gif") repeat-x bottom;
 }
 .tabset ul {
     margin-top: 4px;
@@ -673,19 +671,12 @@ div.logintasks-item input {
     white-space: nowrap;
 }
 .tabset li a {
-    color: #000;
-    background-color: #e9e9e9;
     padding: 2px 0.5em;
     display: block;
-    border: 1px solid #000;
 }
 .tabset li a:hover {
-    background-color: #fff;
 }
 .tabset li.activeTab a {
-    border-bottom: 1px solid #000;
-    background-color: #000;
-    color: #fff;
 }
 .tabset li.activeTab a:hover {
 }
@@ -720,18 +711,10 @@ div.logintasks-item input {
     display: block;
     padding: 2px;
     font-weight: bold;
-    border: 1px solid #000;
-    border-bottom: 1px solid #446;
-    background: #e9e9e9;
 }
 .prefsOverview dd {
     padding: 2px;
     margin-bottom: 10px;
-    color: #000;
-    background: #fff;
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
 }
 div.prefsContainer {
     padding: 1em;

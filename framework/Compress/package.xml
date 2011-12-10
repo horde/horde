@@ -3,7 +3,7 @@
  <name>Horde_Compress</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Compression API</summary>
- <description>This package provides an API for various compression techniques.</description>
+ <description>An API for various compression techniques.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -22,10 +22,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-08-17</date>
- <time>14:49:57</time>
+ <date>2011-11-22</date>
+ <time>12:10:57</time>
  <version>
-  <release>1.0.6</release>
+  <release>1.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -38,6 +38,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Compress">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Compress -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Compress">
@@ -373,6 +380,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Compress/COPYING" />
    <install as="Horde/Compress.php" name="lib/Horde/Compress.php" />
    <install as="Horde/Compress/Base.php" name="lib/Horde/Compress/Base.php" />
    <install as="Horde/Compress/Dbx.php" name="lib/Horde/Compress/Dbx.php" />
@@ -660,7 +668,21 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-08-17</date>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Croatian translation (Valentin Vidic &lt;Valentin.Vidic@CARNet.hr&gt;).
+* [jan] Update Estonian translation (Alar Sing &lt;alar.sing@err.ee&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

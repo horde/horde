@@ -1,8 +1,7 @@
 <?php
 $showCalSelect =
     !$GLOBALS['prefs']->isLocked('default_share') &&
-    count($calendars) > 1 &&
-    empty($GLOBALS['show_resource_calendars']) &&
+    (count($calendars) > 1 || !empty($GLOBALS['display_resource_calendars'])) &&
     (!$event->initialized || $event->hasPermission(Horde_Perms::DELETE));
 $show_img = Horde::img('plus.png', _("Show"));
 $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
@@ -81,7 +80,7 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
             $rd = Kronolith::getDriver('Resource');
             $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
             printf('<option value="%s"%s>%s</option>',
-                    htmlspecialchars($cal), '', $rc->get('name')) . "\n";
+                    'resource_' . htmlspecialchars($cal), '', $rc->get('name')) . "\n";
         }
     } else {
         // Normal view

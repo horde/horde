@@ -208,7 +208,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertType('Horde_Icalendar', $this->_getIcalendar());
+        $this->assertInstanceOf('Horde_Icalendar', $this->_getIcalendar());
     }
 
     public function testResultMessageContainsProductId()
@@ -232,7 +232,7 @@ extends PHPUnit_Framework_TestCase
         $_GET['itip_action'] = array(0 => 'accept');
         $viewer = $this->_getViewer($this->_getInvitation()->exportvCalendar());
         $viewer->render('inline');
-        $this->assertType('Horde_Icalendar_Vevent', $this->_getVevent());
+        $this->assertInstanceOf('Horde_Icalendar_Vevent', $this->_getVevent());
     }
 
     public function testResultMessageContainsCopiedUid()

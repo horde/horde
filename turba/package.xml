@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1362,7 +1362,7 @@
    <date>2011-11-02</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
   </release>
  </changelog>

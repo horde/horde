@@ -25,14 +25,14 @@ class Horde_Support_MemoryTest extends PHPUnit_Framework_TestCase
     public function testMemoryStart()
     {
         $t = new Horde_Support_Memory;
-        $this->assertType('array', $t->push());
+        $this->assertInternalType('array', $t->push());
     }
 
     public function testMemoryEnd()
     {
         $t = new Horde_Support_Memory;
         $t->push();
-        $this->assertType('array', $t->pop());
+        $this->assertInternalType('array', $t->pop());
     }
 
     public function testStartValues()

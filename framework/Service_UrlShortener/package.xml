@@ -3,7 +3,7 @@
  <name>Horde_Service_UrlShortener</name>
  <channel>pear.horde.org</channel>
  <summary>Horde_Service_UrlShortener Class</summary>
- <description>This package provides interfaces to various URL shortening services.</description>
+ <description>Interfaces to various URL shortening services.</description>
  <lead>
   <name>Michael J Rubinsky</name>
   <user>mrubinsk</user>

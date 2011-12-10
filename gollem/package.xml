@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-10-27</date>
- <time>23:47:05</time>
+ <date>2011-11-22</date>
+ <time>22:58:29</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
-* [jan] Fix autocreating of home folders (Bug #10690).
-* [jan] Fix JavaScript for Actions drop down list (Bug #10695).
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -710,12 +708,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-10-27</date>
+   <date>2011-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix selectlist widget when initial cacheID was not given (Bug #10781).
+* [mms] Fix icon display of files in selectlist widget.
 * [jan] Fix downloading of file types without a MIME viewer (Bug #10709).
 * [jan] Fix autocreating of home folders (Bug #10690).
 * [jan] Fix JavaScript for Actions drop down list (Bug #10695).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-11-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
    </notes>
   </release>
  </changelog>
