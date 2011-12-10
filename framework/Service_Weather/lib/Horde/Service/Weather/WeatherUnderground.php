@@ -208,7 +208,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         }
         $url = self::API_URL . '/api/' . $this->_apiKey
             . '/geolookup/conditions/' . $l . '/astronomy/q/' . $location . '.json';
-        $results = $this->_makeRequest($url);
+        $results = $this->_makeRequest($url, $this->_cache_lifetime);
         $station = $this->_parseStation($results->location);
         $this->_current = $this->_parseCurrent($results->current_observation);
         $astronomy = $results->moon_phase;
@@ -327,10 +327,10 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         return $return;
     }
 
-    protected function _makeRequest($url)
+    protected function _makeRequest($url, $lifetime = 86400)
     {
         $cachekey = md5('hordeweather' . $url);
-        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $this->_cache_lifetime)) ||
+        if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $lifetime)) ||
             empty($this->_cache)) {
             $url = new Horde_Url($url);
             $response = $this->_http->get($url);
