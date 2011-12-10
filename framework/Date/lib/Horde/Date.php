@@ -1080,7 +1080,7 @@ class Horde_Date
             $this->_hour  = (int)$date->format('H');
             $this->_min   = (int)$date->format('i');
             $this->_sec   = (int)$date->format('s');
-            $this->_initializeTimezone($date->getTimezone());
+            $this->_initializeTimezone($date->getTimezone()->getName());
         } else {
             $is_horde_date = $date instanceof Horde_Date;
             foreach (array('year', 'month', 'mday', 'hour', 'min', 'sec') as $key) {
