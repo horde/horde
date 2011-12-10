@@ -55,6 +55,43 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2001-02-03 04:05:06', (string)$newDate);
     }
 
+    /**
+     * Test creating a Horde_Date object representing the transition time
+     * from DST to Standard Time
+     *
+     */
+    public function testTZChangeDuringTransition()
+    {
+        // Standardize tz
+        $oldtz = date_default_timezone_get();
+        date_default_timezone_set('America/New_York');
+
+        // This is a transition for America/New_York from EDST -> EST as
+        // returned from DateTimeZone::getTransitions()
+        // This one fails
+        // $date = new Horde_Date('2011-11-06T06:00:00+0000');
+        // $date->setTimezone('UTC');
+        // $this->assertEquals('2011-11-06 06:00:00', (string)$date);
+
+        // Even adjusting the minutes so the time is after the transition
+        // doesn't help
+        // $date = new Horde_Date('2011-11-06T06:10:00+0000');
+        // $date->setTimezone('UTC');
+        // $this->assertEquals('2011-11-06 06:10:00', (string)$date);
+
+        // Once we pass the actual hour, it works
+        $date = new Horde_Date('2011-11-06T07:00:00+0000');
+        $date->setTimezone('UTC');
+        $this->assertEquals('2011-11-06 07:00:00', (string)$date);
+
+        // This one works
+        $date = new Horde_Date('2011-03-13T07:00:00+0000');
+        $date->setTimezone('UTC');
+        $this->assertEquals('2011-03-13 07:00:00', (string)$date);
+
+        date_default_timezone_set($oldtz);
+    }
+
     public function testDateCorrection()
     {
         $d = new Horde_Date('2008-01-01 00:00:00');
