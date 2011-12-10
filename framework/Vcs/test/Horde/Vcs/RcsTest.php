@@ -90,9 +90,6 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals(array(), $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
-        $log = $file->getLastLog();
-        $this->assertInstanceOf('Horde_Vcs_Log_Rcs', $log);
-
         /* Test sub-directory file. */
         $file = $this->vcs->getFile('dir1/file1_1');
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $file);
@@ -148,5 +145,17 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
             $log->getMessage());
         $this->assertEquals(array(), $log->getBranch());
         $this->assertEquals(array(), $log->getTags());
+    }
+
+    public function testLastLog()
+    {
+        $log = $this->vcs
+            ->getFile('file1')
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Rcs', $log);
+        $this->assertEquals('1.2', $log->getRevision());
+        $this->assertEquals(1322495969, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals('Commit 2nd version.', $log->getMessage());
     }
 }

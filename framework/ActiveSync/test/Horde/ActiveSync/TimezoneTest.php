@@ -66,18 +66,18 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
     {
         // The actual time doesn't matter, we really only need a year and a
         // timezone that we are interested in.
-        $date = new Horde_Date(time(), 'America/Los_Angeles');
+        $date = new Horde_Date('2011-07-01', 'America/New_York');
         $tz = Horde_ActiveSync_Timezone::getOffsetsFromDate($date);
-
         /* We don't set the name here */
-        $expected = array(
-            'bias' => 480,
+        /* America/New_York */
+         $expected = array(
+            'bias' => 300,
             'stdname' => '',
             'stdyear' => 0,
             'stdmonth' => 11,
             'stdday' => 0,
             'stdweek' => 1,
-            'stdhour' => -3,
+            'stdhour' => 2,
             'stdminute' => 0,
             'stdsecond' => 0,
             'stdmillis' => 0,
@@ -87,7 +87,7 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
             'dstmonth' => 3,
             'dstday' => 0,
             'dstweek' => 2,
-            'dsthour' => -2,
+            'dsthour' => 2,
             'dstminute' => 0,
             'dstsecond' => 0,
             'dstmillis' => 0,
@@ -104,8 +104,9 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
      */
     public function testGetSyncTZFromOffsets()
     {
+        /* America/New_York */
          $offsets = array(
-            'bias' => 480,
+            'bias' => 300,
             'stdname' => '',
             'stdyear' => 0,
             'stdmonth' => 11,
@@ -129,6 +130,6 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
         );
 
         $tz = Horde_ActiveSync_Timezone::getSyncTZFromOffsets($offsets);
-        $this->assertEquals('4AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAABAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAACAAIAAAAAAAAAxP///w==', $tz);
+        $this->assertEquals('LAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAABAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAACAAIAAAAAAAAAxP///w==', $tz);
     }
 }

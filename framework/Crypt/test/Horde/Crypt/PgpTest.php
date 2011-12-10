@@ -478,7 +478,7 @@ Version: GnuPG v%d.%d.%d (%s)
             )
         );
 
-        $this->assertTrue($out->result);
+        $this->assertNotEmpty($out->result);
 
         $out = $this->_pgp->decrypt(
             file_get_contents(dirname(__FILE__) . '/fixtures/pgp_signed.txt'),
@@ -488,7 +488,7 @@ Version: GnuPG v%d.%d.%d (%s)
             )
         );
 
-        $this->assertTrue($out->result);
+        $this->assertNotEmpty($out->result);
 
         $out = $this->_pgp->decrypt(
             file_get_contents(dirname(__FILE__) . '/fixtures/pgp_signed2.txt'),
@@ -498,7 +498,7 @@ Version: GnuPG v%d.%d.%d (%s)
             )
         );
 
-        $this->assertTrue($out->result);
+        $this->assertNotEmpty($out->result);
     }
 
     public function testVerifyPassphrase()

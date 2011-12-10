@@ -68,7 +68,8 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
         }
 
         $ret_array = array();
-        $cmd = escapeshellcmd($this->_rep->getPath('rlog')) . ($this->_quicklog ? ' -r' : '') . ' ' . escapeshellarg($file);
+        $cmd = escapeshellcmd($this->_rep->getPath('rlog'))
+            . ' ' . escapeshellarg($file);
         exec($cmd, $ret_array, $retval);
 
         if ($retval) {
@@ -124,14 +125,14 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
                     $log = $this->_getLog();
                     $rev = $log->getRevision();
                     $onbranch = false;
-                    $onhead = (substr_count($rev, '.') == 1);
+                    $onhead = substr_count($rev, '.') == 1;
 
                     // Determine branch information.
                     if ($onhead) {
                         $onbranch = (empty($this->_branch) || $this->_branch == 'HEAD') ||
                             ($this->_rep->cmp($branches[$this->_branch], $rev) === 1);
                         $log->setBranch('HEAD');
-                    } elseif ($this->_branch != 'HEAD') {
+                    } else {
                         foreach ($branches as $key => $val) {
                             if (strpos($rev, $val) === 0) {
                                 $onbranch = true;
@@ -139,6 +140,9 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
                                 if (!isset($this->_branches[$key])) {
                                     $this->_branches[$key] = $rev;
                                     $this->_revlist[$key] = $this->_rep->getRevisionRange($this, '1.1', $rev);
+                                }
+                                if ($this->_branch == 'HEAD') {
+                                    break 2;
                                 }
                                 break;
                             }
@@ -205,6 +209,70 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
         /* Revisions in RCS/CVS logs are not ordered by date, so use the logic
          * from the base object. */
         return $this->_rep->prev($rev);
+    }
+
+    /**
+     * Returns a log object for the most recent log entry of this file.
+     *
+     * @return Horde_Vcs_QuickLog_Rcs  Log object of the last entry in the file.
+     * @throws Horde_Vcs_Exception
+     */
+    public function getLastLog()
+    {
+        /* Check that we are actually in the filesystem. */
+        $file = $this->getFullPath();
+        if (!is_file($file)) {
+            throw new Horde_Vcs_Exception('File Not Found: ' . $file);
+        }
+
+        $cmd = escapeshellcmd($this->_rep->getPath('rlog')) . ' -r';
+        if (!empty($this->_branch)) {
+            $branches = $this->getBranches();
+            $branch = $branches[$this->_branch];
+            $cmd .= substr($branch, 0, strrpos($branch, '.')) . '.';
+        }
+        $cmd .= ' ' . escapeshellarg($file);
+        exec($cmd, $ret_array, $retval);
+
+        if ($retval) {
+            throw new Horde_Vcs_Exception('Failed to spawn rlog to retrieve file log information for ' . $file);
+        }
+
+        $state = 'init';
+        $log = '';
+        foreach ($ret_array as $line) {
+            switch ($state) {
+            case 'init':
+                if (strpos($line, '----------') === 0) {
+                    $state = 'revision';
+                }
+                break;
+
+            case 'revision':
+                if (preg_match("/revision (.+)$/", $line, $parts)) {
+                    $rev = $parts[1];
+                    $state = 'details';
+                }
+                break;
+
+            case 'details':
+                if (preg_match("|^date:\s+(\d+)[-/](\d+)[-/](\d+)\s+(\d+):(\d+):(\d+).*?;\s+author:\s+(.+);\s+state:\s+(\S+);(\s+lines:\s+\+(\d+)\s\-(\d+))?|", $line, $parts)) {
+                    $date = gmmktime($parts[4], $parts[5], $parts[6], $parts[2], $parts[3], $parts[1]);
+                    $author = $parts[7];
+                    $state = 'log';
+                }
+                break;
+
+            case 'log':
+                if (strpos($line, '==============================') === 0) {
+                    break 2;
+                }
+                $log .= $line;
+            }
+        }
+
+        $class = 'Horde_Vcs_QuickLog_' . $this->_driver;
+        return new $class($this->_rep, $rev, $date, $author, $log);
     }
 
     /**

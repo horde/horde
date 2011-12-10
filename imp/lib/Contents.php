@@ -348,8 +348,8 @@ class IMP_Contents
      */
     public function getHeaderOb($parse = true)
     {
-        if (is_null($this->_message)) {
-            return $this->_message->getMIMEHeaders();
+        if (is_null($this->_uid)) {
+            return $this->_message->addMimeHeaders();
         }
 
         $query = new Horde_Imap_Client_Fetch_Query();

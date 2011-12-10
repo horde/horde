@@ -26,9 +26,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Use the same timezone for recurrence end dates like for the start date.
-* [jan] Add setter and getter for "timezone".
-* [jan] Fix weekly recurrence instances having the wrong timezone set.
+* [mjr] Fix issue with creating Horde_Date from DateTime object with explicit timezone set.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -694,7 +692,11 @@
    <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+<<<<<<< HEAD
 *
+=======
+* [mjr] Fix issue with creating Horde_Date from DateTime object with explicit timezone set.
+>>>>>>> master
    </notes>
   </release>
  </changelog>

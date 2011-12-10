@@ -8,20 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-12-03 14:46+0100\n"
-"PO-Revision-Date: 2011-12-04 13:41+0100\n"
+"POT-Creation-Date: 2011-12-07 19:19+0100\n"
+"PO-Revision-Date: 2011-12-09 09:15+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: nl\n"
 "X-Generator: Lokalize 1.2\n"
-
-#: lib/Block/Weather.php:321
-msgid " at "
-msgstr " met "
 
 #: admin/groups.php:33
 #, php-format
@@ -43,12 +39,12 @@ msgstr "\"%s\" is niet aangemaakt: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB van %.2fMB gebruikt (%.2f%%)"
 
-#: lib/Block/Weather.php:200
+#: lib/Block/Weather.php:194
 #, php-format
 msgid "%d %s"
 msgstr "%d %s"
 
-#: lib/Block/Weather.php:203
+#: lib/Block/Weather.php:197
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s en %s"
@@ -75,7 +71,7 @@ msgstr[1] "%d personen vinden dit leuk"
 msgid "%d to %d of %d"
 msgstr "%d tot %d van %d"
 
-#: lib/Block/Weather.php:241
+#: lib/Block/Weather.php:232
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-daags vooruitzicht"
@@ -114,10 +110,6 @@ msgid ""
 msgstr ""
 "%s gereed voor het uitvoeren van onderstaande taken. Selecteer de "
 "werkzaamheden, die u op dit moment wilt uitvoeren."
-
-#: lib/Block/Weather.php:324
-msgid ", gusting "
-msgstr ", windstoten "
 
 #: lib/Block/Metar.php:161 lib/Block/Metar.php:166
 #, php-format
@@ -691,7 +683,7 @@ msgstr "Opmerkingen: %d"
 msgid "Computers"
 msgstr "Computers"
 
-#: lib/Block/Weather.php:253
+#: lib/Block/Weather.php:245
 msgid "Condition"
 msgstr "Conditie"
 
@@ -849,9 +841,9 @@ msgstr "Huidige tijd"
 msgid "Current Weather"
 msgstr "Huidig weer"
 
-#: lib/Block/Weather.php:234
-msgid "Current condition: "
-msgstr "Huidige conditie: "
+#: lib/Block/Weather.php:225
+msgid "Current condition"
+msgstr "Huidige conditie"
 
 #: config/nls.php:175
 msgid "Cyrillic (KOI8-R)"
@@ -913,7 +905,7 @@ msgstr "Datum Ontvangen"
 msgid "Date: %s; time: %s"
 msgstr "Datum: %s; tijd: %s"
 
-#: lib/Block/Weather.php:249
+#: lib/Block/Weather.php:240
 msgid "Day"
 msgstr "Dag"
 
@@ -1022,9 +1014,9 @@ msgstr "Dauwpunt"
 msgid "Dew Point for last hour: "
 msgstr "Dauwpunt voor het afgelopen uur: "
 
-#: lib/Block/Weather.php:184
-msgid "Dew point: "
-msgstr "Dauwpunt: "
+#: lib/Block/Weather.php:178
+msgid "Dew point"
+msgstr "Dauwpunt"
 
 #: templates/prefs/facebook.html:10 templates/prefs/facebook.html:21
 #: templates/prefs/facebook.html:33 templates/prefs/facebook.html:45
@@ -1307,9 +1299,14 @@ msgstr ""
 msgid "Friends enabled"
 msgstr "Vrienden ingeschakeld"
 
-#: lib/Block/Weather.php:212 lib/Block/Weather.php:320
-msgid "From the "
-msgstr "Uit "
+#: lib/Block/Weather.php:312
+msgid "From the"
+msgstr "Uit"
+
+#: lib/Block/Weather.php:206
+#, php-format
+msgid "From the %s (%s &deg;) at %s"
+msgstr "Uit %s (%s &deg;) met %s"
 
 #: templates/problem/problem.inc:48
 msgid "Full Description"
@@ -1449,13 +1446,9 @@ msgstr "Hoeveel velden (kolommen) zijn er?"
 msgid "How many seconds before we check for new articles?"
 msgstr ""
 
-#: lib/Block/Metar.php:203 lib/Block/Weather.php:261
+#: lib/Block/Metar.php:203 lib/Block/Weather.php:214 lib/Block/Weather.php:253
 msgid "Humidity"
-msgstr "RV"
-
-#: lib/Block/Weather.php:223
-msgid "Humidity: "
-msgstr "Relatieve vochtigheid: "
+msgstr "Relatieve vochtigheid"
 
 #: lib/Block/Fortune.php:48
 msgid "Humorists"
@@ -1700,8 +1693,9 @@ msgid "Loading..."
 msgstr "Laden..."
 
 #: lib/Block/Weather.php:158
-msgid "Local time: "
-msgstr "Lokale tijd:"
+#, php-format
+msgid "Local time: %s %s"
+msgstr "Lokale tijd: %s %s"
 
 #: config/prefs.php:330
 msgid "Locale and Time"
@@ -1709,7 +1703,7 @@ msgstr "Landinstelling en tijd"
 
 #: lib/Block/Metar.php:51 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
 msgid "Location"
-msgstr "Locatie"
+msgstr "Plaats"
 
 #: templates/admin/user/update.inc:54
 msgid "Lock User"
@@ -1854,11 +1848,11 @@ msgstr "Ontbrekende configuratie"
 
 #: login.php:235
 msgid "Mobile"
-msgstr "Mobiele telefoon"
+msgstr "Mobiel"
 
 #: login.php:231
 msgid "Mobile (Smartphone)"
-msgstr "Mobiele telefoon (smartphone)"
+msgstr "Mobiel (smartphone)"
 
 #: login.php:215
 msgid "Mode"
@@ -1896,8 +1890,8 @@ msgstr "Mijn portaal"
 msgid "My Portal Layout"
 msgstr "Mijn portaallayout"
 
-#: lib/Block/Weather.php:187 lib/Block/Weather.php:310
-#: lib/Block/Weather.php:314 lib/Block/Weather.php:329
+#: lib/Block/Weather.php:181 lib/Block/Weather.php:302
+#: lib/Block/Weather.php:306 lib/Block/Weather.php:321
 msgid "N/A"
 msgstr "N/B"
 
@@ -2230,11 +2224,11 @@ msgstr ""
 
 #: admin/activesync.php:107
 msgid "Policy Key"
-msgstr ""
+msgstr "Openbare sleutel"
 
 #: lib/Prefs/Ui.php:404
 msgid "Policy Key:"
-msgstr ""
+msgstr "Openbare sleutel:"
 
 #: lib/Block/Fortune.php:64
 msgid "Politics"
@@ -2261,21 +2255,18 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Neerslag van het afgelopen %d uur: "
 msgstr[1] "Neerslag van de afgelopen %d uren: "
 
-#: lib/Block/Weather.php:257
-msgid "Precipitation<br />chance"
-msgstr "Neerslag<br />kans"
+#: lib/Block/Weather.php:249
+#, php-format
+msgid "Precipitation%schance"
+msgstr "Neerslag%skans"
 
-#: lib/Block/Metar.php:198
+#: lib/Block/Metar.php:198 lib/Block/Weather.php:191
 msgid "Pressure"
 msgstr "Luchtdruk"
 
 #: lib/Block/Metar.php:232
 msgid "Pressure at sea level: "
 msgstr "Luchtdruk op zeeniveau: "
-
-#: lib/Block/Weather.php:197
-msgid "Pressure: "
-msgstr "Luchtdruk: "
 
 #: templates/admin/locks/list.html.php:11
 msgid "Principal"
@@ -2628,8 +2619,9 @@ msgstr ""
 "weergaveopties."
 
 #: lib/Block/Weather.php:136
-msgid "Several locations possible with the parameter: "
-msgstr "Verschillende locaties mogelijk met de paramater: "
+#, php-format
+msgid "Several locations possible with the parameter: %s"
+msgstr "Verschillende locaties mogelijk met de parameter: %s"
 
 #: templates/problem/problem.inc:38
 msgid "Short Summary"
@@ -2833,7 +2825,7 @@ msgstr "Zonsondergang"
 msgid "Sunday"
 msgstr "Zondag"
 
-#: lib/Block/Weather.php:167
+#: lib/Block/Weather.php:163 lib/Block/Weather.php:164
 msgid "Sunrise"
 msgstr "Zonsopgang"
 
@@ -2841,17 +2833,9 @@ msgstr "Zonsopgang"
 msgid "Sunrise/Sunset"
 msgstr "Zonsopgang/Zonsondergang"
 
-#: lib/Block/Weather.php:166
-msgid "Sunrise: "
-msgstr "Zonsopgang: "
-
-#: lib/Block/Weather.php:171
+#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
 msgid "Sunset"
 msgstr "Zonsondergang"
-
-#: lib/Block/Weather.php:170
-msgid "Sunset: "
-msgstr "Zonsondergang: "
 
 #: config/prefs.php:661
 msgid "SyncML"
@@ -2881,18 +2865,14 @@ msgstr "Teal"
 msgid "Temp for last hour: "
 msgstr "Temperatuur van het afgelopen uur: "
 
-#: lib/Block/Metar.php:187
+#: lib/Block/Metar.php:187 lib/Block/Weather.php:173
 msgid "Temperature"
 msgstr "Temperatuur"
 
-#: lib/Block/Weather.php:179
-msgid "Temperature: "
-msgstr "Temperatuur: "
-
-#: lib/Block/Weather.php:250
+#: lib/Block/Weather.php:241
 #, php-format
-msgid "Temperature<br />(%sHi%s/%sLo%s)"
-msgstr "Temperatuur<br />(%sHoog%s/%sLaag%s)"
+msgid "Temperature%s(%sHi%s/%sLo%s)"
+msgstr "Temperatuur%s(%sHoog%s/%sLaag%s)"
 
 #: lib/Prefs/Ui.php:478 services/facebook/index.php:40
 msgid "Temporarily unable to connect with Facebook, Please try again."
@@ -3137,11 +3117,11 @@ msgstr ""
 "Om meerdere onderdelen te selecteren, houd de Control (PC) of Command (Mac) "
 "toets vast tijdens klikken."
 
-#: lib/Block/Weather.php:282
+#: lib/Block/Weather.php:274
 msgid "Today"
 msgstr "Vandaag"
 
-#: lib/Block/Weather.php:284
+#: lib/Block/Weather.php:276
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -3347,13 +3327,9 @@ msgstr "Vietnamees (VISCII)"
 msgid "View an external web page"
 msgstr "Bekijk een externe webpagina"
 
-#: lib/Block/Metar.php:182
+#: lib/Block/Metar.php:182 lib/Block/Weather.php:219
 msgid "Visibility"
 msgstr "Zicht"
-
-#: lib/Block/Weather.php:228
-msgid "Visibility: "
-msgstr "Zicht: "
 
 #: lib/Block/Account.php:96
 msgid "Warning"
@@ -3363,7 +3339,7 @@ msgstr "Waarschuwing"
 msgid "Weather"
 msgstr "Weer"
 
-#: lib/Block/Weather.php:341 lib/Block/Weather.php:349
+#: lib/Block/Weather.php:333 lib/Block/Weather.php:341
 msgid "Weather data provided by"
 msgstr "Weerbericht gegevens geleverd door"
 
@@ -3426,7 +3402,7 @@ msgstr "Breedte van %s menu aan de linkerkant:"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:265
+#: lib/Block/Weather.php:204 lib/Block/Weather.php:257
 msgid "Wind"
 msgstr "Wind"
 
@@ -3437,10 +3413,6 @@ msgstr "Windsnelheid in knopen"
 #: lib/Block/Metar.php:129
 msgid "Wind:"
 msgstr "Wind:"
-
-#: lib/Block/Weather.php:210
-msgid "Wind: "
-msgstr "Wind: "
 
 #: admin/activesync.php:183 templates/prefs/activesync.html:28
 msgid "Wipe"
@@ -3747,7 +3719,7 @@ msgstr "_Rechten"
 msgid "_Users"
 msgstr "Ge_bruikers"
 
-#: lib/Block/Weather.php:213
+#: lib/Block/Weather.php:313
 msgid "at"
 msgstr "met"
 
@@ -3763,9 +3735,9 @@ msgstr "kalm"
 #: lib/Block/Metar.php:147 lib/Block/Metar.php:333 lib/Block/Metar.php:359
 #, php-format
 msgid "from the %s (%s) at %s %s"
-msgstr "van de %s (%s) op %s %s"
+msgstr "uit %s (%s) met %s %s"
 
-#: lib/Block/Weather.php:216
+#: lib/Block/Weather.php:208 lib/Block/Weather.php:316
 msgid "gusting"
 msgstr "windstoten"
 

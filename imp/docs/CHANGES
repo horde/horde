@@ -21,6 +21,10 @@ v5.1-git
 v5.0.16-git
 -----------
 
+[mms] Workaround broken PGP signed data contained within encrypted parts (Bug
+      #10809).
+[mms] Fix signature verification display for combined encrypted/signed PGP
+      messages.
 [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view
       (Request #8060).
 [mms] Allow multiple messages to be redirected from traditional view mailbox

@@ -260,9 +260,9 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <div class="folderName"></div>
  <div class="sep"></div>
  <a id="ctx_folder_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
- <a id="ctx_folder_rename"><span class="iconImg"></span><?php echo _("Rename Folder") ?></a>
- <a id="ctx_folder_empty"><span class="iconImg"></span><?php echo _("Empty Folder") ?></a>
- <a id="ctx_folder_delete"><span class="iconImg"></span><?php echo _("Delete Folder") ?></a>
+ <a id="ctx_folder_rename"><span class="iconImg"></span><?php echo _("Rename") ?></a>
+ <a id="ctx_folder_empty"><span class="iconImg"></span><?php echo _("Empty") ?></a>
+ <a id="ctx_folder_delete"><span class="iconImg"></span><?php echo _("Delete") ?></a>
  <div class="sep"></div>
  <a id="ctx_folder_setflag"><span class="iconImg"></span><?php echo _("Mark all as") ?></a>
  <div class="sep"></div>
@@ -303,7 +303,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <div class="folderName"></div>
  <div class="sep"></div>
  <a id="ctx_container_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
- <a id="ctx_container_rename"><span class="iconImg"></span><?php echo _("Rename Folder") ?></a>
+ <a id="ctx_container_rename"><span class="iconImg"></span><?php echo _("Rename") ?></a>
  <div class="sep"></div>
  <a id="ctx_container_search"><span class="iconImg"></span><?php echo _("Search") ?></a>
  <a id="ctx_container_searchsub"><span class="iconImg"></span><?php echo _("Search All Subfolders") ?></a>

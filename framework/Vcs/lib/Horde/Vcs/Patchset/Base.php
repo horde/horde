@@ -38,6 +38,8 @@ abstract class Horde_Vcs_Patchset_Base
      *     'from'
      *     'to'
      *     'status'
+     *     'added'
+     *     'deleted'
      */
     public function getPatchsets()
     {

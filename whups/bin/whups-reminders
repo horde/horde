@@ -9,7 +9,14 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/Application.php';
+if (file_exists(dirname(__FILE__) . '/../../whups/lib/Application.php')) {
+    $baseDir = dirname(__FILE__) . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/whups/';
+}
+require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('whups', array('authentication' => 'none'));
 
 // Get an instance of the Whups scheduler.

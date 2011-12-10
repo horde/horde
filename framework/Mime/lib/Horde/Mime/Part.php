@@ -2061,9 +2061,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * This function can be called statically via:
      *    $data = Horde_Mime_Part::getRawPartText();
      *
-     * @param string $text  The full text of the MIME message. The text is
+     * @param mixed $text   The full text of the MIME message. The text is
      *                      assumed to be MIME data (no MIME-Version checking
-     *                      is performed).
+     *                      is performed). It can be either a stream or a
+     *                      string.
      * @param string $type  Either 'header' or 'body'.
      * @param string $id    The MIME ID.
      *
@@ -2072,27 +2073,33 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     static public function getRawPartText($text, $type, $id)
     {
+        /* Mini-hack to get a blank Horde_Mime part so we can call
+         * replaceEOL(). From an API perspective, getRawPartText() should be
+         * static since it is not working on MIME part data. */
+        $part = new Horde_Mime_Part();
+        $rawtext = $part->replaceEOL($text, self::RFC_EOL);
+
         /* We need to carry around the trailing "\n" because this is needed
          * to correctly find the boundary string. */
-        list($hdr_pos, $eol) = self::_findHeader($text);
+        list($hdr_pos, $eol) = self::_findHeader($rawtext);
         $curr_pos = $hdr_pos + $eol - 1;
 
         if ($id == 0) {
             switch ($type) {
             case 'body':
-                return substr($text, $curr_pos + 1);
+                return substr($rawtext, $curr_pos + 1);
 
             case 'header':
-                return trim(substr($text, 0, $hdr_pos));
+                return trim(substr($rawtext, 0, $hdr_pos));
             }
         }
 
-        $hdr_ob = Horde_Mime_Headers::parseHeaders(trim(substr($text, 0, $hdr_pos)));
+        $hdr_ob = Horde_Mime_Headers::parseHeaders(trim(substr($rawtext, 0, $hdr_pos)));
 
         /* If this is a message/rfc822, pass the body into the next loop.
          * Don't decrement the ID here. */
         if ($hdr_ob->getValue('Content-Type', Horde_Mime_Headers::VALUE_BASE) == 'message/rfc822') {
-            return self::getRawPartText(substr($text, $curr_pos + 1), $type, $id);
+            return self::getRawPartText(substr($rawtext, $curr_pos + 1), $type, $id);
         }
 
         $base_pos = strpos($id, '.');
@@ -2109,13 +2116,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
-        $b_find = self::_findBoundary($text, $curr_pos, $params['boundary'], $base_pos);
+        $b_find = self::_findBoundary($rawtext, $curr_pos, $params['boundary'], $base_pos);
 
         if (!isset($b_find[$base_pos])) {
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
-        return self::getRawPartText(substr($text, $b_find[$base_pos]['start'], $b_find[$base_pos]['length'] - 1), $type, $id);
+        return self::getRawPartText(substr($rawtext, $b_find[$base_pos]['start'], $b_find[$base_pos]['length'] - 1), $type, $id);
     }
 
     /**
@@ -2157,12 +2164,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $i = 0;
         $out = array();
 
-        $search = "\n--" . $boundary;
+        $search = "--" . $boundary;
         $search_len = strlen($search);
 
         while (($pos = strpos($text, $search, $pos)) !== false) {
+            /* Boundary needs to appear at beginning of string or right after
+             * a LF. */
+            if (($pos != 0) && ($text[$pos - 1] != "\n")) {
+                continue;
+            }
+
             if (isset($out[$i])) {
-                $out[$i]['length'] = $pos - $out[$i]['start'];
+                $out[$i]['length'] = $pos - $out[$i]['start'] - 1;
             }
 
             if (!is_null($end) && ($end == $i)) {

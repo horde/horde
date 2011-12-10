@@ -19,7 +19,6 @@ class Horde_Vcs_Directory_Rcs extends Horde_Vcs_Directory_Base
      * @param Horde_Vcs_Base $rep  A repository object.
      * @param string $dn           Path to the directory.
      * @param array $opts          Any additional options:
-     *                             - 'quicklog': (boolean)
      *
      * @throws Horde_Vcs_Exception
      */
@@ -54,8 +53,7 @@ class Horde_Vcs_Directory_Rcs extends Horde_Vcs_Directory_Base
             } elseif (@is_file($path) && (substr($name, -2) == ',v')) {
                 /* Spawn a new file object to represent this file. */
                 $this->_files[] = $rep->getFile(
-                    substr($path, strlen($rep->sourceroot), -2),
-                    array('quicklog' => !empty($opts['quicklog'])));
+                    substr($path, strlen($rep->sourceroot), -2));
             }
         }
 

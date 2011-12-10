@@ -154,7 +154,12 @@ class Horde_Imap_Client_Data_Envelope
             }
 
             if (!empty($save)) {
-                $this->_data[$name] = $save;
+                $this->_data[$name] = array();
+                foreach ($save as $val) {
+                    $this->_data[$name][] = Horde_Mime_Headers::sanityCheck($name, $val, array(
+                        'encode' => true
+                    ));
+                }
             }
             break;
 
@@ -164,9 +169,16 @@ class Horde_Imap_Client_Data_Envelope
 
         case 'in_reply_to':
         case 'message_id':
-        case 'subject':
             if (strlen($value)) {
                 $this->_data[$name] = $value;
+            }
+            break;
+
+        case 'subject':
+            if (strlen($value)) {
+                $this->_data[$name] = Horde_Mime_Headers::sanityCheck($name, $value, array(
+                    'encode' => true
+                ));
             }
             break;
         }

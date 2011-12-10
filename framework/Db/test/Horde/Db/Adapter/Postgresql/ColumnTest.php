@@ -43,7 +43,7 @@ class Horde_Db_Adapter_Postgresql_ColumnTest extends PHPUnit_Framework_TestCase
     public function testName()
     {
         $col = new Horde_Db_Adapter_Postgresql_Column('name', 'NULL', 'character varying(255)');
-        $this->assertEquals('name', $col->isNull());
+        $this->assertEquals('name', $col->getName());
     }
 
     public function testSqlType()

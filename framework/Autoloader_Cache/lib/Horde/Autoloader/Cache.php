@@ -10,9 +10,6 @@ require_once 'Horde/Autoloader/Default.php';
 
 class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 {
-    /* Cache key name. */
-    const C_KEY = 'horde_autoloader_cache';
-
     /* Cache types. */
     const APC = 1;
     const XCACHE = 2;
@@ -32,6 +29,13 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      * @var array
      */
     protected $_cachetype;
+
+    /**
+     * Cache key name.
+     *
+     * @var string
+     */
+    protected $_cachekey = 'horde_autoloader_cache';
 
     /**
      * Has the cache changed since the last save?
@@ -57,18 +61,24 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     {
         parent::__construct();
 
+        if (isset($_SERVER['SERVER_NAME'])) {
+            $this->_cachekey .= '|' . $_SERVER['SERVER_NAME'];
+        }
+        $this->_cachekey .= '|' . __FILE__;
+
         if (extension_loaded('apc')) {
-            $this->_cache = apc_fetch(self::C_KEY);
+            $this->_cache = apc_fetch($this->_cachekey);
             $this->_cachetype = self::APC;
         } elseif (extension_loaded('xcache')) {
-            $this->_cache = xcache_get(self::C_KEY);
+            $this->_cache = xcache_get($this->_cachekey);
             $this->_cachetype = self::XCACHE;
         } elseif (extension_loaded('eaccelerator')) {
-            $this->_cache = eaccelerator_get(self::C_KEY);
+            $this->_cache = eaccelerator_get($this->_cachekey);
             $this->_cachetype = self::EACCELERATOR;
         } elseif (($this->_tempdir = sys_get_temp_dir()) &&
                   is_readable($this->_tempdir)) {
-            if (($data = file_get_contents($this->_tempdir . '/' . self::C_KEY)) !== false) {
+            $this->_cachekey = hash('md5', $this->_cachekey);
+            if (($data = file_get_contents($this->_tempdir . '/' . $this->_cachekey)) !== false) {
                 $this->_cache = @json_decode($data, true);
             }
             $this->_cachetype = self::TEMPFILE;
@@ -89,19 +99,19 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 
         switch ($this->_cachetype) {
         case self::APC:
-            apc_store(self::C_KEY, $this->_cache);
+            apc_store($this->_cachekey, $this->_cache);
             break;
 
         case self::XCACHE:
-            xcache_set(self::C_KEY, $this->_cache);
+            xcache_set($this->_cachekey, $this->_cache);
             break;
 
         case self::EACCELERATOR:
-            eaccelerator_put(self::C_KEY, $this->_cache);
+            eaccelerator_put($this->_cachekey, $this->_cache);
             break;
 
         case self::TEMPFILE:
-            file_put_contents($this->_tempdir . '/' . self::C_KEY, json_encode($this->_cache));
+            file_put_contents($this->_tempdir . '/' . $this->_cachekey, json_encode($this->_cache));
             break;
         }
     }
