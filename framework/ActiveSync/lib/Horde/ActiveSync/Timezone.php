@@ -148,8 +148,9 @@ class Horde_ActiveSync_Timezone
         $transitions = $timezone->getTransitions();
         foreach ($transitions as $i => $transition) {
             try {
-                $d = new Horde_Date($transition['time'], 'UTC');
-            } catch (Horde_Date_Exception $e) {
+               $d = new Horde_Date($transition['time']);
+               $d->setTimezone('UTC');
+            } catch (Exception $e) {
                 continue;
             }
             if (($d->format('Y') == $date->format('Y')) && isset($transitions[$i + 1])) {
@@ -181,11 +182,17 @@ class Horde_ActiveSync_Timezone
 	 */
 	static protected function _generateOffsetsForTransition($offsets, $transition, $type)
 	{
-	    $transitionDate = new Horde_Date($transition['time'], 'UTC');
+        // We can't use Horde_Date directly here, since it is unable to
+        // properly convert to UTC from local ON the exact hour of a std -> dst
+        // transition. This is due to a conversion to DateTime in the localtime
+        // zone internally before the timezone change is applied
+	    $transitionDate = new DateTime($transition['time']);
+        $transitionDate->setTimezone(new DateTimeZone('UTC'));
+        $transitionDate = new Horde_Date($transitionDate);
         $offsets[$type . 'month'] = $transitionDate->format('n');
         $offsets[$type . 'day'] = $transitionDate->format('w');
         $offsets[$type . 'minute'] = (int)$transitionDate->format('i');
-        $offsets[$type . 'hour'] = $transitionDate->format('H');
+        $offsets[$type . 'hour'] = (int)$transitionDate->format('H');
         for ($i = 5; $i > 0; $i--) {
             $nth = clone($transitionDate);
             $nth->setNthWeekday($transitionDate->format('w'), $i);
