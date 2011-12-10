@@ -692,11 +692,7 @@
    <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-<<<<<<< HEAD
-*
-=======
 * [mjr] Fix issue with creating Horde_Date from DateTime object with explicit timezone set.
->>>>>>> master
    </notes>
   </release>
  </changelog>
