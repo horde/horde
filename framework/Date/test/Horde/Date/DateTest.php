@@ -53,6 +53,12 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('America/New_York', $newDate->timezone);
         $newDate->setTimezone('UTC');
         $this->assertEquals('2001-02-03 04:05:06', (string)$newDate);
+
+        /* Test creating Horde_Date from DateTime with timezone explicitly set */
+        $dt = new DateTime('2011-12-10T04:05:06', new DateTimeZone('Europe/Berlin'));
+        $dt->setTimezone(new DateTimeZone('UTC'));
+        $date = new Horde_Date($dt);
+        $this->assertEquals('2011-12-10 03:05:06', (string)$date);
     }
 
     /**
