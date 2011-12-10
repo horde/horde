@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [mjr] Use longer cache lifetime for non-changing values (Request #10851).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -459,7 +459,7 @@
    <date>2011-12-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mjr] Use longer cache lifetime for non-changing values (Request #10851).
    </notes>
   </release>
  </changelog>

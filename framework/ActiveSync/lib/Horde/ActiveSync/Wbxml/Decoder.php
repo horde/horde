@@ -192,6 +192,11 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         return $el;
     }
 
+    public function setCodePage($page)
+    {
+        $this->_tagcp = $page;
+    }
+
     /**
      *
      * @param unknown_type $el
@@ -430,7 +435,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
                     break;
             }
         }
-
     }
 
     /**
@@ -532,7 +536,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
             $stringtable = fread($this->_in, $length);
         }
 
-        //$this->_logger->debug('_getStringTable(): ' . $stringtable);
         return $stringtable;
     }
 

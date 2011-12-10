@@ -51,13 +51,13 @@ class Horde_ActiveSync_Message_Base
     /**
      * Holds property values
      *
-     * @array
+     * @var array
      */
     protected $_properties = array();
 
     /**
      * Message flags
-     * //FIXME: use accessor methods, make this protected
+     *
      * @var Horde_ActiveSync_FLAG_* constant
      */
     public $flags = false;
@@ -75,6 +75,12 @@ class Horde_ActiveSync_Message_Base
      * @var array
      */
     protected $_supported = array();
+
+    /**
+     * Existance cache, used for working with ghosted properties.
+     *
+     * @var array
+     */
     protected $_exists = array();
 
     /**
@@ -93,6 +99,13 @@ class Horde_ActiveSync_Message_Base
         }
     }
 
+    /**
+     * Accessor
+     *
+     * @param string $property  Property to get.
+     *
+     * @return mixed  The value of the requested property.
+     */
     public function __get($property)
     {
         if (!array_key_exists($property, $this->_properties)) {
@@ -109,6 +122,14 @@ class Horde_ActiveSync_Message_Base
         }
     }
 
+    /**
+     * Setter
+     *
+     * @param string $property  The property to set.
+     * @param mixed  $value     The value to set it to.
+     *
+     * @throws InvalidArgumentException
+     */
     public function __set($property, $value)
     {
         if (!array_key_exists($property, $this->_properties)) {
@@ -119,6 +140,15 @@ class Horde_ActiveSync_Message_Base
         $this->_exists[$property] = true;
     }
 
+    /**
+     * Magic caller method.
+     *
+     * @param  mixed $method  The method to call.
+     * @param  array $arg    Method arguments.
+     *
+     * @return mixed
+     * @throws BadMethodCallException
+     */
     public function __call($method, $arg)
     {
         /* Support calling set{Property}() */
@@ -142,7 +172,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @param array $fields  The array of fields.
      */
-    public function setSupported($fields)
+    public function setSupported(array $fields)
     {
         $this->_supported = array();
         foreach ($fields as $field) {
@@ -162,13 +192,14 @@ class Horde_ActiveSync_Message_Base
 
     /**
      * Determines if the property specified has been ghosted by the client.
-     * A ghosted property is 1) IS listed in the supported list and 2) NOT
+     * A ghosted property 1) IS listed in the supported list and 2) NOT
      * present in the current message. If it's IN the supported list and NOT
      * in the current message, then it IS ghosted and the server should keep
      * the field's current value when performing any change action due to this
      * message.
      *
      * @param string $property  The property to check
+     *
      * @return boolean
      */
     public function isGhosted($property)
@@ -191,7 +222,6 @@ class Horde_ActiveSync_Message_Base
      * @param Horde_ActiveSync_Wbxml_Decoder  The stream decoder
      *
      * @throws Horde_ActiveSync_Exception
-     * @return void
      */
     public function decodeStream(Horde_ActiveSync_Wbxml_Decoder &$decoder)
     {
@@ -301,8 +331,6 @@ class Horde_ActiveSync_Message_Base
      * Output is ordered according to $_mapping
      *
      * @param Horde_ActiveSync_Wbxml_Encoder $encoder  The wbxml stream encoder
-     *
-     * @return void
      */
     public function encodeStream(Horde_ActiveSync_Wbxml_Encoder &$encoder)
     {
@@ -400,11 +428,11 @@ class Horde_ActiveSync_Message_Base
      * So we have to send a different date type depending on where it's used.
      *
      * @param Horde_Date $dt  The datetime to format (assumed to be in local tz)
-     * @param Constant $type  The type to format as (TYPE_DATE or TYPE_DATE_DASHES)
+     * @param integer $type   The type to format as (TYPE_DATE or TYPE_DATE_DASHES)
      *
      * @return string  The formatted date
      */
-    static protected function _formatDate($dt, $type)
+    static protected function _formatDate(Horde_Date $dt, $type)
     {
         if ($type == Horde_ActiveSync_Message_Base::TYPE_DATE) {
             return $dt->setTimezone('UTC')->format('Ymd\THis\Z');
@@ -416,9 +444,9 @@ class Horde_ActiveSync_Message_Base
     /**
      * Get a Horde_Date from a timestamp, ensuring it's in the correct format.
      *
-     * @param string $ts
+     * @param string $ts  The timestamp
      *
-     * @return Horde_Date
+     * @return Horde_Date  The Horde_Date
      */
     static protected function _parseDate($ts)
     {
@@ -431,7 +459,10 @@ class Horde_ActiveSync_Message_Base
 
     /**
      * Function which converts a hex entryid to a binary entryid.
-     * @param string @data the hexadecimal string
+     *
+     * @param string $data  The hexadecimal string
+     *
+     * @return string  The binary data
      */
     static private function hex2bin($data)
     {
