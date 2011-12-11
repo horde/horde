@@ -60,32 +60,6 @@ extends Horde_Kolab_Format_TestCase
         );
     }
 
-    public function testPgp()
-    {
-        $contact = $this->_getContact();
-        $object  = array(
-            'uid' => '1',
-            'name' => array(
-                'full-name' => 'User Name',
-            ),
-            'pgp-publickey' => 'PGP Test Key',
-            'email' => array(
-                array(
-                    'smtp-address' => 'user@example.org',
-                    'display-name' => 'User Name'
-                )
-            ),
-            'creation-date' => new DateTime('1970-01-01T00:00:00Z')
-        );
-        $xml     = $contact->save($object);
-        $expect  = file_get_contents(dirname(__FILE__)
-                                     . '/../fixtures/contact_pgp.xml');
-        $this->assertEquals(
-            $this->removeLastModification($expect),
-            $this->removeLastModification($xml)
-        );
-    }
-
     public function testCategories()
     {
         $contact = $this->_getContact();
