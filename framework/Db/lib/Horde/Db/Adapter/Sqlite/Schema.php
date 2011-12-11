@@ -476,6 +476,31 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         return $this->_config['dbname'];
     }
 
+    /**
+     * Generates a modified date for SELECT queries.
+     *
+     * @param string $reference  The reference date.
+     * @param string $operator   The oprator for the modification (+/-)
+     * @param string $amount     The modification amount.
+     * @param string $interval   The interval (DAY, MONTH, YEAR, ...).
+     *
+     * @todo Still needs to be fleshed out for the whole date/time spectrum.
+     *
+     * @return string  The generated INTERVAL clause.
+     */
+    public function modifiedDate($reference, $operator, $amount, $interval)
+    {
+        switch($interval) {
+        case 'DAY':
+            $interval = 'days';
+            break;
+        default:
+            break;
+        }
+        return 'datetime(' . $reference . ', \'' . $operator . $amount . ' '
+            . $interval . '\')';
+    }
+
 
     /*##########################################################################
     # Protected
