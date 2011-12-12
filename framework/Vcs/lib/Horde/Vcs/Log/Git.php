@@ -100,7 +100,7 @@ class Horde_Vcs_Log_Git extends Horde_Vcs_Log_Base
     /**
      * TODO
      */
-    public function queryParent()
+    public function getParent()
     {
         return $this->_parent;
     }

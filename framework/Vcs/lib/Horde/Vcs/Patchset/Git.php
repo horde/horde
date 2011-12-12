@@ -56,7 +56,7 @@ class Horde_Vcs_Patchset_Git extends Horde_Vcs_Patchset_Base
             );
 
             foreach ($log->getFiles() as $file) {
-                $from = $log->queryParent();
+                $from = $log->getParent();
                 $to = $rev;
 
                 switch ($file['status']) {

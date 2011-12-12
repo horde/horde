@@ -278,7 +278,7 @@ class Horde_Vcs_File_Rcs extends Horde_Vcs_File_Base
     /**
      * TODO
      */
-    public function queryRevsym($rev)
+    public function getRevisionSymbol($rev)
     {
         return isset($this->_revsym[$rev])
             ? $this->_revsym[$rev]
