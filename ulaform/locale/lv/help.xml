@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="form-action">
+<entry id="form-action" state="uptodate" md5="2602c213308d7a2e2e2dd526bd4f5b9c">
     <title>Form Creation: Action</title>
     <heading>Action</heading>
     <para>
@@ -9,7 +9,7 @@
     </para>
 </entry>
 
-<entry id="on-submit">
+<entry id="on-submit" state="uptodate" md5="ed9ced1ca59e2ce7718a23bf252bc119">
     <title>Form Creation: On Submit</title>
     <heading>On Submit</heading>
     <para>

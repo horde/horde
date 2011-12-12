@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Beatnik H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-10-16 15:21+0300\n"
+"PO-Revision-Date: 2011-11-04 13:42+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -22,24 +22,20 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: scripts/export_config.php:140
-#, fuzzy
 msgid "-h, --help                   Show this help"
-msgstr "Rādīt šo piezīmi"
+msgstr "-h, --help                   Rādīt šo palīdzības tekstu"
 
 #: scripts/export_config.php:142
-#, fuzzy
 msgid "-p, --password[=password]    Horde login password"
-msgstr "Pēdējā pieslēgšanās: %s no %s"
+msgstr "-p, --password[=password]    Horde pieslēgšanās parole"
 
 #: scripts/export_config.php:143
-#, fuzzy
 msgid "-t, --type[=type]    Export format"
-msgstr "Izvēlieties eksporta formātu:"
+msgstr "-t, --type[=type]    Eksporta formāts"
 
 #: scripts/export_config.php:141
-#, fuzzy
 msgid "-u, --username[=username]    Horde login username"
-msgstr "Pēdējā pieslēgšanās: %s no %s"
+msgstr "-u, --username[=username]    Horde lietotāja vārds"
 
 #: lib/Beatnik.php:61
 msgid "A (Address)"
@@ -108,10 +104,8 @@ msgid "Contact e-mail address for this zone"
 msgstr "Zonas kontakta e-pasta adrese"
 
 #: lib/Driver/pdnsgsql.php:143
-#, fuzzy
 msgid "Corrupt SOA found for zone.  Contact your administrator."
-msgstr ""
-"Paroli automātiski nomainīt nav iespējams. Sazinieties ar administratoru."
+msgstr "Atrasts bojāts zonas SOA ieraksts. Sazinieties ar administratoru."
 
 #: scripts/export_config.php:41
 msgid "Couldn't read command-line options."
@@ -134,9 +128,8 @@ msgid "Delete"
 msgstr "Dzēst"
 
 #: config/prefs.php:13
-#, fuzzy
 msgid "Display Preferences"
-msgstr "Attēlošanas iestatījumi"
+msgstr "Ekrāna iestatījumi"
 
 #: templates/listzones/header.inc:13
 msgid "Domain Categories"
@@ -320,9 +313,8 @@ msgid "Record Defaults"
 msgstr "Uzdevuma iestatījumi"
 
 #: lib/Forms/EditRecord.php:37
-#, fuzzy
 msgid "Record Type"
-msgstr "Līknes tips:"
+msgstr "Ieraksta tips"
 
 #: lib/Beatnik.php:577
 #, fuzzy, php-format
@@ -330,14 +322,12 @@ msgid "Record added: %s/%s"
 msgstr "Pievienots %d uzdevums"
 
 #: delete.php:30
-#, fuzzy
 msgid "Record deleted"
-msgstr "Iztīrīt dzēstās"
+msgstr "Ieraksts dzēsts"
 
 #: delete.php:37
-#, fuzzy
 msgid "Record not deleted"
-msgstr "Pieejas tiesības \"%s\" nav izdzēstas."
+msgstr "Ieraksts nav izdzēsts"
 
 #: lib/Beatnik.php:161
 msgid "Retry"
@@ -352,19 +342,16 @@ msgid "SRV (Service Record)"
 msgstr "SRV (Service Record)"
 
 #: lib/Beatnik.php:358
-#, fuzzy
 msgid "SRV Port"
-msgstr "<b>Norādiet printera ligzdu</b>"
+msgstr "SRV Ports"
 
 #: lib/Beatnik.php:338
-#, fuzzy
 msgid "SRV Priority"
-msgstr "Prioritāte"
+msgstr "SRV Prioritāte"
 
 #: lib/Beatnik.php:348
-#, fuzzy
 msgid "SRV Weight"
-msgstr "Fonta platums"
+msgstr "SVR svarīgums"
 
 #: templates/menu.inc:15
 msgid "Select Domain"
@@ -379,14 +366,12 @@ msgid "Serial"
 msgstr "Serijas numurs"
 
 #: config/prefs.php:14
-#, fuzzy
 msgid "Set default display parameters."
-msgstr "Noklusētais GDK displejs"
+msgstr "Noklusētie ekrāna iestatījumi."
 
 #: config/prefs.php:21
-#, fuzzy
 msgid "Set default record parameters."
-msgstr "Iestaties jauno uzdevumu noklusētās vērtības"
+msgstr "Noklusētie ieraksta iestatījumi."
 
 #: lib/Beatnik.php:572
 msgid "Skipping existing identical record"
@@ -419,24 +404,23 @@ msgid "UID"
 msgstr "UID"
 
 #: lib/Driver/ldap2dns.php:467
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to add record to LDAP. Reason: %s"
-msgstr "Nav iespējams saglabāt resursu \"%s\": %s"
+msgstr "Nav iespējams pievienot ierakstu LDAP. Iemesls: %s"
 
 #: lib/Driver/ldap2dns.php:320
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to delete record.  Reason: %s"
-msgstr "Nevar nodzēst VFS mapi."
+msgstr "Nav iespējams izdzēst ierakstu. Iemesls: %s"
 
 #: lib/Driver.php:144
-#, fuzzy
 msgid "Unable to locate requested record."
-msgstr "Pieprasītā adrese nav atrodama"
+msgstr "Pieprasītais ieraksts nav atrodams."
 
 #: lib/Driver/ldap2dns.php:450
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to modify record.  Reason: %s"
-msgstr "Nav iespējams saglabāt resursu \"%s\": %s"
+msgstr "Nav iespējams mainīt ierakstu. Iemesls: %s"
 
 #: lib/Driver.php:105
 #, fuzzy, php-format
@@ -444,9 +428,9 @@ msgid "Unable to read requested domain %s"
 msgstr "Pieprasītā adrese nav atrodama"
 
 #: lib/Driver/ldap2dns.php:440
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to rename old object.  Reason: %s"
-msgstr "Neizdevās atrast pievienojamo objektu: %s"
+msgstr "Nav iespējams pārdēvēt veco objektu. Iemesls: %s"
 
 #: lib/Driver/ldap2dns.php:144
 #, fuzzy, php-format
@@ -458,11 +442,8 @@ msgid "Unsupported operation: cannot rename a domain."
 msgstr "Neatbalstīta darbība: domēnu pārdēvēt nav iespējams."
 
 #: lib/Driver/ldap2dns.php:308
-#, fuzzy
 msgid "Unsupported recursive delete."
-msgstr ""
-" Nevar izdzēst failu \"%s\" \n"
-" %s "
+msgstr "Rekursīva dzēšana nav atļauta."
 
 #: scripts/export_config.php:136
 #, fuzzy, php-format
@@ -470,29 +451,25 @@ msgid "Usage: %s [OPTIONS]..."
 msgstr "Lietošana: %s [izvēles] [<intervāls> [<skaits>]]\n"
 
 #: lib/Driver.php:77
-#, fuzzy
 msgid "You are not permitted to view any domains."
-msgstr "Jums nav atļauts aplūkot šo kalendāru."
+msgstr "Jums nav atļauts aplūkot nevienu domēnu."
 
 #: lib/Driver.php:204
-#, fuzzy
 msgid "You do not have permission to create new domains."
-msgstr "Jums nav tiesību deleģēt notikumus %s."
+msgstr "Jums nav tiesību izveidot jaunus domēnus."
 
 #: lib/Driver.php:217
-#, fuzzy
 msgid "You do not have permssion to edit the SOA of this zone."
-msgstr "Jums nav tiesību labot šo piezīmi."
+msgstr "Jums nav tiesību labot šīs zonas SOA ierakstu."
 
 #: lib/Driver.php:222
-#, fuzzy
 msgid "You do not have permssion to edit this record."
-msgstr "Jums nav tiesību labot šo notikumu."
+msgstr "Jums nav tiesību labot šo ierakstu."
 
 #: lib/Beatnik.php:462
-#, fuzzy, php-format
+#, php-format
 msgid "You have uncommitted changes in %s."
-msgstr "Jums ir %d jauna vēstule mapē %s"
+msgstr "Jums ir nesaglabātas izmaiņas %s."
 
 #: lib/Beatnik.php:133
 msgid "Zone Contact"

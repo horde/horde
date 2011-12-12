@@ -5631,7 +5631,7 @@ msgstr "Jā"
 #: templates/imp/compose/compose.html:157
 #: templates/dimp/compose/compose.html:150
 msgid "You are"
-msgstr "Jšu esat"
+msgstr "Jūs esat"
 
 #: templates/imp/folders/folders_confirm.html:11
 msgid ""
@@ -5715,7 +5715,7 @@ msgstr "Jums nav tiesību mainīt pieejas tiesības šai mapei"
 #: lib/Maillog.php:198
 #, php-format
 msgid "You forwarded this message on %%s to: %s."
-msgstr "Jūs pāradresēt šo vēstuli  %%s : %s."
+msgstr "Jūs pārsūtītāj šo vēstuli  %%s : %s."
 
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:84
 #, php-format
