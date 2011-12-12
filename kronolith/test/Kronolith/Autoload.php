@@ -20,7 +20,14 @@ error_reporting(E_ALL | E_STRICT);
 
 /** Load the basic test definition */
 require_once dirname(__FILE__) . '/TestCase.php';
+require_once dirname(__FILE__) . '/Integration/Driver/Base.php';
+require_once dirname(__FILE__) . '/Integration/Driver/Sql/Base.php';
+require_once dirname(__FILE__) . '/Integration/Kronolith/Base.php';
+require_once dirname(__FILE__) . '/Integration/Kronolith/Sql/Base.php';
 
 /** Load stub definitions */
 require_once dirname(__FILE__) . '/Stub/Driver.php';
 require_once dirname(__FILE__) . '/Stub/Registry.php';
+require_once dirname(__FILE__) . '/Stub/ShareFactory.php';
+require_once dirname(__FILE__) . '/Stub/Tagger.php';
+require_once dirname(__FILE__) . '/Stub/Types.php';
