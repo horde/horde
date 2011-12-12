@@ -488,7 +488,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      *
      * @return string  The generated INTERVAL clause.
      */
-    public function modifiedDate($reference, $operator, $amount, $interval)
+    public function modifyDate($reference, $operator, $amount, $interval)
     {
         switch($interval) {
         case 'DAY':
