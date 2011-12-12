@@ -1281,7 +1281,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends PHPUnit_Framework_TestCase
     public function testModifyDate()
     {
         $modifiedDate = $this->_conn->modifyDate('start', '+', 1, 'DAY');
-        $this->assertEquals('start + INTERVAL 1 DAY', $modifiedDate);
+        $this->assertEquals('start + INTERVAL \'1\' DAY', $modifiedDate);
 
         $t = $this->_conn->createTable('dates');
         $t->column('start', 'datetime');
