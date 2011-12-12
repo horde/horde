@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Hide disabled calendar sections (Bug #9815).
 * [gwr] Fixed recurrence handling with the Kolab backend.
 * [gwr] Fixed naming of the default calendar for the Kolab backend.
 * [gwr] Fixed deleting events with the Kolab backend.
@@ -2014,6 +2015,7 @@
    <date>2011-12-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Hide disabled calendar sections (Bug #9815).
 * [gwr] Fixed recurrence handling with the Kolab backend.
 * [gwr] Fixed naming of the default calendar for the Kolab backend.
 * [gwr] Fixed deleting events with the Kolab backend.
