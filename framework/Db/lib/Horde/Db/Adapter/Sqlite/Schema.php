@@ -479,6 +479,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     /**
      * Generates a modified date for SELECT queries.
      *
+     * @since Horde_Db 1.2.0
+     *
      * @param string $reference  The reference date.
      * @param string $operator   The oprator for the modification (+/-)
      * @param string $amount     The modification amount.
