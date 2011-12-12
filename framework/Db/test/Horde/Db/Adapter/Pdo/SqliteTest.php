@@ -1180,6 +1180,29 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('SELECT * FROM documents ORDER BY name DESC', $result);
     }
 
+    public function testModifyDate()
+    {
+        $modifiedDate = $this->_conn->modifyDate('start', '+', 1, 'DAY');
+        $this->assertEquals('datetime(start, \'+1 days\')', $modifiedDate);
+
+        $t = $this->_conn->createTable('dates');
+        $t->column('start', 'datetime');
+        $t->column('end', 'datetime');
+        $t->end();
+        $this->_conn->insert(
+            'INSERT INTO dates (start, end) VALUES (?, ?)',
+            array(
+                '2011-12-10 00:00:00',
+                '2011-12-11 00:00:00'
+            )
+        );
+        $this->assertEquals(
+            1,
+            $this->_conn->selectValue('SELECT COUNT(*) FROM dates WHERE '
+                                      . $modifiedDate . ' = end')
+        );
+    }
+
     public function testBuildClause()
     {
         $this->assertEquals(

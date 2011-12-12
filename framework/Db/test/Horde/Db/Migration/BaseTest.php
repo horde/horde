@@ -160,26 +160,4 @@ class Horde_Db_Migration_BaseTest extends PHPUnit_Framework_TestCase
                             $this->_conn->primaryKey('imp_sentmail')->columns);
         $this->_conn->insert('INSERT INTO imp_sentmail (sentmail_foo) VALUES (?)', array('bar'));
     }
-
-    public function testModifyDate()
-    {
-        $t = $this->_conn->createTable('kronolith_events', array('autoincrementKey' => false));
-        $t->column('event_start', 'datetime');
-        $t->column('event_end', 'datetime');
-        $t->column('event_allday', 'integer', array('default' => 0));
-        $t->end();
-        $migration = new Horde_Db_Migration_Base($this->_conn, null);
-        $migration->insert(
-            'INSERT INTO kronolith_events (event_start, event_end) VALUES (?, ?)',
-            array(
-                '2011-12-10 00:00:00',
-                '2011-12-11 00:00:00'
-            )
-        );
-        $migration->execute('UPDATE kronolith_events SET event_allday = 1 WHERE ' . $migration->modifyDate('event_start', '+', 1, 'DAY') . ' = event_end');
-        $this->assertEquals(
-            array(array('event_allday' => 1)),
-            $migration->selectAll('SELECT event_allday FROM kronolith_events')
-        );
-    }
 }

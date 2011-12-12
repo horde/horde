@@ -1287,6 +1287,35 @@ class Horde_Db_Adapter_MysqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("SELECT * FROM documents ORDER BY name DESC", $result);
     }
 
+    public function testInterval()
+    {
+        $this->assertEquals('INTERVAL  1 DAY',
+                            $this->_conn->interval('1 DAY', ''));
+    }
+
+    public function testModifyDate()
+    {
+        $modifiedDate = $this->_conn->modifyDate('start', '+', 1, 'DAY');
+        $this->assertEquals('start + INTERVAL 1 DAY', $modifiedDate);
+
+        $t = $this->_conn->createTable('dates');
+        $t->column('start', 'datetime');
+        $t->column('end', 'datetime');
+        $t->end();
+        $this->_conn->insert(
+            'INSERT INTO dates (start, end) VALUES (?, ?)',
+            array(
+                '2011-12-10 00:00:00',
+                '2011-12-11 00:00:00'
+            )
+        );
+        $this->assertEquals(
+            1,
+            $this->_conn->selectValue('SELECT COUNT(*) FROM dates WHERE '
+                                      . $modifiedDate . ' = end')
+        );
+    }
+
     public function testBuildClause()
     {
         $this->assertEquals(
@@ -1448,6 +1477,7 @@ class Horde_Db_Adapter_MysqlTest extends PHPUnit_Framework_TestCase
             'cache_table',
             'charset_cp1257',
             'charset_utf8',
+            'dates',
             'my_sports',
             'octopi',
             'pk_tests',

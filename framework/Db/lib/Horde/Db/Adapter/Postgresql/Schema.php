@@ -892,6 +892,25 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
     }
 
     /**
+     * Generates a modified date for SELECT queries.
+     *
+     * @param string $reference  The reference date.
+     * @param string $operator   The oprator for the modification (+/-)
+     * @param string $amount     The modification amount.
+     * @param string $interval   The interval (DAY, MONTH, YEAR, ...).
+     *
+     * @return string  The generated INTERVAL clause.
+     */
+    public function modifyDate($reference, $operator, $amount, $interval)
+    {
+        return sprintf('%s %s INTERVAL \'%s %s\'',
+                       $reference,
+                       $operator,
+                       $amount,
+                       $interval);
+    }
+
+    /**
      * Returns an expression using the specified operator.
      *
      * @param string $lhs    The column or expression to test.
