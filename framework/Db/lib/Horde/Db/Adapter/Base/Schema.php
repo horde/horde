@@ -994,16 +994,11 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function modifyDate($reference, $operator, $amount, $interval)
     {
-        return join(
-            ' ',
-            array(
-                $reference,
-                $operator,
-                'INTERVAL',
-                '\'' . $amount . '\'',
-                $interval
-            )
-        );
+        return sprintf('%s %s INTERVAL \'%s\' %s',
+                       $reference,
+                       $operator,
+                       $amount,
+                       $interval);
     }
 
     /**
