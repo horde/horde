@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-04</date>
- <time>16:53:46</time>
+ <date>2011-12-12</date>
+ <time>06:48:49</time>
  <version>
   <release>3.0.13</release>
   <api>3.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [gwr] Fixed naming of the default calendar for the Kolab backend.
 * [gwr] Fixed deleting events with the Kolab backend.
 * [gwr] Fixed migrations for SQLite as database backend.
 * [mjr] Fix keyboard navigation of time entry fields in dynamic view (Bug #10799).
@@ -123,6 +124,11 @@
      <file name="Remote.php" role="horde" />
      <file name="Resource.php" role="horde" />
     </dir> <!-- /lib/Calendar -->
+    <dir name="Calendars">
+     <file name="Base.php" role="horde" />
+     <file name="Default.php" role="horde" />
+     <file name="Kolab.php" role="horde" />
+    </dir> <!-- /lib/Calendars -->
     <dir name="Driver">
      <file name="Holidays.php" role="horde" />
      <file name="Horde.php" role="horde" />
@@ -141,6 +147,7 @@
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Event -->
     <dir name="Factory">
+     <file name="Calendars.php" role="horde" />
      <file name="Driver.php" role="horde" />
      <file name="Geo.php" role="horde" />
      <file name="Storage.php" role="horde" />
@@ -605,6 +612,26 @@
       <file name="fromicalendar.ics" role="test" />
      </dir> <!-- /test/Kronolith/fixtures -->
      <dir name="Integration">
+      <dir name="Driver">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Kronolith/Integration/Driver/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Kronolith/Integration/Driver/Sql -->
+       <file name="Base.php" role="test" />
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Kronolith/Integration/Driver -->
+      <dir name="Kronolith">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="SqliteTest.php" role="test" />
+        </dir> <!-- /test/Kronolith/Integration/Kronolith/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Kronolith/Integration/Kronolith/Sql -->
+       <file name="Base.php" role="test" />
+       <file name="KolabTest.php" role="test" />
+      </dir> <!-- /test/Kronolith/Integration/Kronolith -->
       <file name="AllDayTest.php" role="test" />
       <file name="FromIcalendarTest.php" role="test" />
       <file name="ToIcalendarTest.php" role="test" />
@@ -612,10 +639,10 @@
      <dir name="Stub">
       <file name="Driver.php" role="test" />
       <file name="Registry.php" role="test" />
+      <file name="ShareFactory.php" role="test" />
+      <file name="Tagger.php" role="test" />
+      <file name="Types.php" role="test" />
      </dir> <!-- /test/Kronolith/Stub -->
-     <dir name="Unit">
-      <file name="KolabTest.php" role="test" />
-     </dir> <!-- /test/Kronolith/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="phpunit.xml" role="test" />
@@ -1202,6 +1229,9 @@
    <install as="kronolith/lib/Calendar/Remote.php" name="lib/Calendar/Remote.php" />
    <install as="kronolith/lib/Calendar/Resource.php" name="lib/Calendar/Resource.php" />
    <install as="kronolith/lib/Calendar/External/Tasks.php" name="lib/Calendar/External/Tasks.php" />
+   <install as="kronolith/lib/Calendars/Base.php" name="lib/Calendars/Base.php" />
+   <install as="kronolith/lib/Calendars/Default.php" name="lib/Calendars/Default.php" />
+   <install as="kronolith/lib/Calendars/Kolab.php" name="lib/Calendars/Kolab.php" />
    <install as="kronolith/lib/Driver/Holidays.php" name="lib/Driver/Holidays.php" />
    <install as="kronolith/lib/Driver/Horde.php" name="lib/Driver/Horde.php" />
    <install as="kronolith/lib/Driver/Ical.php" name="lib/Driver/Ical.php" />
@@ -1215,6 +1245,7 @@
    <install as="kronolith/lib/Event/Kolab.php" name="lib/Event/Kolab.php" />
    <install as="kronolith/lib/Event/Resource.php" name="lib/Event/Resource.php" />
    <install as="kronolith/lib/Event/Sql.php" name="lib/Event/Sql.php" />
+   <install as="kronolith/lib/Factory/Calendars.php" name="lib/Factory/Calendars.php" />
    <install as="kronolith/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="kronolith/lib/Factory/Geo.php" name="lib/Factory/Geo.php" />
    <install as="kronolith/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
@@ -1447,9 +1478,19 @@
    <install as="Kronolith/Integration/AllDayTest.php" name="test/Kronolith/Integration/AllDayTest.php" />
    <install as="Kronolith/Integration/FromIcalendarTest.php" name="test/Kronolith/Integration/FromIcalendarTest.php" />
    <install as="Kronolith/Integration/ToIcalendarTest.php" name="test/Kronolith/Integration/ToIcalendarTest.php" />
+   <install as="Kronolith/Integration/Driver/Base.php" name="test/Kronolith/Integration/Driver/Base.php" />
+   <install as="Kronolith/Integration/Driver/KolabTest.php" name="test/Kronolith/Integration/Driver/KolabTest.php" />
+   <install as="Kronolith/Integration/Driver/Sql/Base.php" name="test/Kronolith/Integration/Driver/Sql/Base.php" />
+   <install as="Kronolith/Integration/Driver/Sql/Pdo/SqliteTest.php" name="test/Kronolith/Integration/Driver/Sql/Pdo/SqliteTest.php" />
+   <install as="Kronolith/Integration/Kronolith/Base.php" name="test/Kronolith/Integration/Kronolith/Base.php" />
+   <install as="Kronolith/Integration/Kronolith/KolabTest.php" name="test/Kronolith/Integration/Kronolith/KolabTest.php" />
+   <install as="Kronolith/Integration/Kronolith/Sql/Base.php" name="test/Kronolith/Integration/Kronolith/Sql/Base.php" />
+   <install as="Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" name="test/Kronolith/Integration/Kronolith/Sql/Pdo/SqliteTest.php" />
    <install as="Kronolith/Stub/Driver.php" name="test/Kronolith/Stub/Driver.php" />
    <install as="Kronolith/Stub/Registry.php" name="test/Kronolith/Stub/Registry.php" />
-   <install as="Kronolith/Unit/KolabTest.php" name="test/Kronolith/Unit/KolabTest.php" />
+   <install as="Kronolith/Stub/ShareFactory.php" name="test/Kronolith/Stub/ShareFactory.php" />
+   <install as="Kronolith/Stub/Tagger.php" name="test/Kronolith/Stub/Tagger.php" />
+   <install as="Kronolith/Stub/Types.php" name="test/Kronolith/Stub/Types.php" />
    <install as="kronolith/themes/bluewhite/screen.css" name="themes/bluewhite/screen.css" />
    <install as="kronolith/themes/burntorange/screen.css" name="themes/burntorange/screen.css" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
@@ -1969,9 +2010,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-04</date>
+   <date>2011-12-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [gwr] Fixed naming of the default calendar for the Kolab backend.
 * [gwr] Fixed deleting events with the Kolab backend.
 * [gwr] Fixed migrations for SQLite as database backend.
 * [mjr] Fix keyboard navigation of time entry fields in dynamic view (Bug #10799).

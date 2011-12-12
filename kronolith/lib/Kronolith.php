@@ -1148,17 +1148,14 @@ class Kronolith
         }
         $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
 
-        /* If an authenticated doesn't own a calendar, create it. */
+        /* If an authenticated user doesn't own a calendar, create it. */
         if (!empty($GLOBALS['conf']['share']['auto_create']) &&
             $GLOBALS['registry']->getAuth() &&
             !count(self::listInternalCalendars(true))) {
-            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $share = $GLOBALS['kronolith_shares']->newShare(
-                $GLOBALS['registry']->getAuth(),
-                strval(new Horde_Support_Randomid()),
-                sprintf(_("Calendar of %s"), $identity->getName())
-            );
-            $GLOBALS['kronolith_shares']->addShare($share);
+            $calendars = $GLOBALS['injector']->getInstance('Kronolith_Factory_Calendars')
+                ->create();
+            
+            $share = $calendars->createDefaultShare();
             $GLOBALS['all_calendars'][$share->getName()] = new Kronolith_Calendar_Internal(array('share' => $share));
             $GLOBALS['display_calendars'][] = $share->getName();
 
