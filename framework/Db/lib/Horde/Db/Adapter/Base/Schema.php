@@ -990,7 +990,8 @@ abstract class Horde_Db_Adapter_Base_Schema
      * @param string $reference  The reference date.
      * @param string $operator   The oprator for the modification (+/-)
      * @param string $amount     The modification amount.
-     * @param string $interval   The interval (DAY, MONTH, YEAR, ...).
+     * @param string $interval   The interval (SECOND, MINUTE, HOUR, DAY,
+     *                           MONTH, YEAR).
      *
      * @return string  The generated INTERVAL clause.
      */

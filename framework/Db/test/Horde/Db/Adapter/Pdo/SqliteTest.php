@@ -1201,6 +1201,22 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
             $this->_conn->selectValue('SELECT COUNT(*) FROM dates WHERE '
                                       . $modifiedDate . ' = end')
         );
+
+        $this->assertEquals(
+            'datetime(start, \'+2 seconds\')',
+            $this->_conn->modifyDate('start', '+', 2, 'SECOND'));
+        $this->assertEquals(
+            'datetime(start, \'+3 minutes\')',
+            $this->_conn->modifyDate('start', '+', 3, 'MINUTE'));
+        $this->assertEquals(
+            'datetime(start, \'+4 hours\')',
+            $this->_conn->modifyDate('start', '+', 4, 'HOUR'));
+        $this->assertEquals(
+            'datetime(start, \'-2 months\')',
+            $this->_conn->modifyDate('start', '-', 2, 'MONTH'));
+        $this->assertEquals(
+            'datetime(start, \'-3 years\')',
+            $this->_conn->modifyDate('start', '-', 3, 'YEAR'));
     }
 
     public function testBuildClause()
