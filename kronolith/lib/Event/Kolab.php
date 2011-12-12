@@ -104,6 +104,24 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Recurrence
         if (isset($event['recurrence'])) {
+            if (isset($event['recurrence']['exclusion'])) {
+                $exceptions = array();
+                foreach($event['recurrence']['exclusion'] as $exclusion) {
+                    if (!empty($exclusion)) {
+                        $exceptions[] = join('', explode('-', $exclusion));
+                    }
+                }
+                $event['recurrence']['exceptions'] = $exceptions;
+            }
+            if (isset($event['recurrence']['complete'])) {
+                $completions = array();
+                foreach($event['recurrence']['complete'] as $complete) {
+                    if (!empty($complete)) {
+                        $completions[] = join('', explode('-', $complete));
+                    }
+                }
+                $event['recurrence']['completions'] = $completions;
+            }
             $this->recurrence = new Horde_Date_Recurrence($this->start);
             $this->recurrence->fromHash($event['recurrence']);
         }
@@ -180,9 +198,9 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         // Only set organizer if this is a new event
         if ($this->_id == null) {
             $organizer = array(
-                            'display-name' => Kronolith::getUserName($this->creator),
-                            'smtp-address' => Kronolith::getUserEmail($this->creator)
-                         );
+                'display-name' => Kronolith::getUserName($this->creator),
+                'smtp-address' => Kronolith::getUserEmail($this->creator)
+            );
             $event['organizer'] = $organizer;
         }
 
@@ -213,6 +231,28 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         // Recurrence
         if ($this->recurs()) {
             $event['recurrence'] = $this->recurrence->toHash();
+            if (!empty($event['recurrence']['exceptions'])) {
+                $exclusions = array();
+                foreach($event['recurrence']['exceptions'] as $exclusion) {
+                    if (!empty($exclusion)) {
+                        $exclusions[] = vsprintf(
+                            '%04d-%02d-%02d', sscanf($exclusion, '%04d%02d%02d')
+                        );
+                    }
+                }
+                $event['recurrence']['exclusion'] = $exclusions;
+            }
+            if (!empty($event['recurrence']['completions'])) {
+                $completions = array();
+                foreach($event['recurrence']['completions'] as $complete) {
+                    if (!empty($complete)) {
+                        $completions[] = vsprintf(
+                            '%04d-%02d-%02d', sscanf($complete, '%04d%02d%02d')
+                        );
+                    }
+                }
+                $event['recurrence']['complete'] = $completions;
+            }
         }
 
         // Attendees

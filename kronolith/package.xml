@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [gwr] Fixed recurrence handling with the Kolab backend.
 * [gwr] Fixed naming of the default calendar for the Kolab backend.
 * [gwr] Fixed deleting events with the Kolab backend.
 * [gwr] Fixed migrations for SQLite as database backend.
@@ -2013,6 +2014,7 @@
    <date>2011-12-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [gwr] Fixed recurrence handling with the Kolab backend.
 * [gwr] Fixed naming of the default calendar for the Kolab backend.
 * [gwr] Fixed deleting events with the Kolab backend.
 * [gwr] Fixed migrations for SQLite as database backend.
