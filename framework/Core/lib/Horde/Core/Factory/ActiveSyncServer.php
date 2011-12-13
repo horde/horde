@@ -19,7 +19,6 @@ class Horde_Core_Factory_ActiveSyncServer extends Horde_Core_Factory_Injector
             } else {
                 $path = $conf['activesync']['logging']['path'];
             }
-            Horde::debug($path);
             $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen($path, 'a')));
         } else {
             $logger = $injector->getInstance('Horde_Log_Logger');
