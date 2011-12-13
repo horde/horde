@@ -2,6 +2,7 @@
 v5.1-git
 --------
 
+[mms] Hide inactive buttons in dynamic view instead of dimming them.
 [mms] Added config option to limit size of messages with linked attachments
       (Request #6247).
 [mms] Allow expiration date to be provided when creating personal PGP key

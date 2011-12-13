@@ -449,7 +449,7 @@ span.iconImgSidebar {
     padding: 2px 4px 4px 4px;
     white-space: nowrap;
 }
-.dimpActions a, .dimpActions a:visited, .dimpActions div.disabled a:hover {
+.dimpActions a, .dimpActions a:visited {
     filter: alpha(opacity=60);
     -moz-opacity: .6;
     opacity: .6;
@@ -479,16 +479,8 @@ span.iconImgSidebar {
     background-color: lightgrey;
     text-decoration: none;
 }
-.dimpactions div.disabled, .dimpActions div.disabled a, .dimpActions div.disabled a:visited, .dimpActions div.disabled .popdownImg {
-    background-color: transparent !important;
-    color: silver !important;
-    cursor: default !important;
-    text-decoration: none;
-}
-.dimpActions div.disabled span.iconImg, .dimpActions div.disabled span.spellcheckPopdownImg, .dimpActions div.disabled img {
-    filter: alpha(opacity=25);
-    -moz-opacity: .25;
-    opacity: .25;
+.dimpActions div.disabled {
+    display: none;
 }
 
 #button_compose, #button_checkmail {
