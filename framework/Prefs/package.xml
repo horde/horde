@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>12:00:24</time>
+ <time>12:01:54</time>
  <version>
-  <release>1.1.7</release>
+  <release>1.1.8</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Catch exceptions from storage writing during shutdown.
-* [jan] Use binary column type for preference values (Bug #10803).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -825,6 +824,19 @@ Initial release as a PEAR package
    <notes>
 * [jan] Catch exceptions from storage writing during shutdown.
 * [jan] Use binary column type for preference values (Bug #10803).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.8</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
