@@ -3036,7 +3036,6 @@ var DimpBase = {
                 this.createFolder(tmp);
             }
         } else {
-<<<<<<< HEAD
             div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
             parent_e = ob.pa
                 ? this.getSubMboxElt(ob.pa).down()
@@ -3051,38 +3050,6 @@ var DimpBase = {
                 return (l && (ll < l.toLowerCase()));
             });
         }
-=======
-            if (ob.s) {
-                div.addClassName(ob.cl || 'folderImg');
-                parent_e = $('specialfolders');
-
-                /* Create a dummy container element in 'normalfolders'
-                 * section. */
-                if (ob.ch & !ob.sup) {
-                    div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
-
-                    tmp = Object.clone(ob);
-                    tmp.co = tmp.dummy = true;
-                    tmp.s = false;
-                    this.createFolder(tmp);
-                }
-            } else {
-                div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
-                parent_e = ob.pa
-                    ? $(this.getSubMboxId(this.getMboxId(ob.pa))).down()
-                    : $('normalfolders');
-            }
-
-            /* Virtual folders and special mailboxes are sorted on the
-             * server. */
-            if (!ob.v && !ob.s) {
-                ll = label.toLowerCase();
-                f_node = parent_e.childElements().find(function(node) {
-                    var l = node.retrieve('l');
-                    return (l && (ll.localeCompare(l.toLowerCase()) < 0));
-                });
-            }
->>>>>>> master
 
         if (f_node) {
             f_node.insert({ before: li });
