@@ -267,6 +267,9 @@ class IMP_Message
                                 'mailboxob' => empty($opts['mailboxob']) ? null : $opts['mailboxob']
                             )
                         );
+                    } elseif (!empty($opts['mailboxob']) &&
+                              $opts['mailboxob']->isBuilt()) {
+                        $opts['mailboxob']->removeMsgs($imp_indices);
                     }
                 } catch (IMP_Imap_Exception $e) {}
 
