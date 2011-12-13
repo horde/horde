@@ -806,7 +806,7 @@
    <date>2011-11-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Fix for broken 8BITMIME/BINARYMIME SMTP capability detection (Bug #10820; christof@buergi.lugs.ch).
+* [mms] Fix for broken 8BITMIME/BINARYMIME SMTP capability detection (christof@buergi.lugs.ch, Bug #10820).
    </notes>
   </release>
   <release>

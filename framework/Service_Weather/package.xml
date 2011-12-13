@@ -447,7 +447,7 @@
    <notes>
 * [jan] Add Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mjr] Export available detailed forecast fields for each driver (Bug #10813).
-* [mjr] Fix returning correct units when requesting the same location twice, but with different units (Bug # 10804).
+* [mjr] Fix returning correct units when requesting the same location twice, but with different units (Bug #10804).
 * [mjr] Fix returning localized text from Wwo driver (Bug #10804).
 * [mjr] Fix obtaining forecast periods individually..
 * [mjr] Fix obtaining certain properties from Google driver.
