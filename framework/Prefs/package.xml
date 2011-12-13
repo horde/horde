@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-06</date>
- <time>11:08:05</time>
+ <date>2011-12-13</date>
+ <time>12:00:24</time>
  <version>
   <release>1.1.7</release>
   <api>1.1.0</api>
@@ -342,6 +342,7 @@
     <dir name="Horde">
      <dir name="Prefs">
       <file name="1_horde_prefs_base_tables.php" role="data" />
+      <file name="2_horde_prefs_upgrade_binary_value.php" role="data" />
      </dir> <!-- /migration/Horde/Prefs -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -356,6 +357,16 @@
       </dir> <!-- /test/Horde/Prefs/Stub -->
       <dir name="Unit">
        <dir name="Storage">
+        <dir name="Sql">
+         <dir name="Pdo">
+          <file name="MysqlTest.php" role="test" />
+          <file name="PgsqlTest.php" role="test" />
+          <file name="SqliteTest.php" role="test" />
+         </dir> <!-- /test/Horde/Prefs/Unit/Storage/Sql/Pdo -->
+         <file name="Base.php" role="test" />
+         <file name="MysqliTest.php" role="test" />
+         <file name="MysqlTest.php" role="test" />
+        </dir> <!-- /test/Horde/Prefs/Unit/Storage/Sql -->
         <file name="FileTest.php" role="test" />
         <file name="KolabImapLogTest.php" role="test" />
         <file name="KolabImapTest.php" role="test" />
@@ -363,6 +374,7 @@
       </dir> <!-- /test/Horde/Prefs/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Prefs -->
     </dir> <!-- /test/Horde -->
@@ -555,14 +567,22 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" />
    <install as="migration/1_horde_prefs_base_tables.php" name="migration/Horde/Prefs/1_horde_prefs_base_tables.php" />
+   <install as="migration/2_horde_prefs_upgrade_binary_value.php" name="migration/Horde/Prefs/2_horde_prefs_upgrade_binary_value.php" />
    <install as="Horde/Prefs/AllTests.php" name="test/Horde/Prefs/AllTests.php" />
    <install as="Horde/Prefs/Autoload.php" name="test/Horde/Prefs/Autoload.php" />
+   <install as="Horde/Prefs/conf.php.dist" name="test/Horde/Prefs/conf.php.dist" />
    <install as="Horde/Prefs/phpunit.xml" name="test/Horde/Prefs/phpunit.xml" />
    <install as="Horde/Prefs/fixtures/preferences.1" name="test/Horde/Prefs/fixtures/preferences.1" />
    <install as="Horde/Prefs/Stub/Storage.php" name="test/Horde/Prefs/Stub/Storage.php" />
    <install as="Horde/Prefs/Unit/Storage/FileTest.php" name="test/Horde/Prefs/Unit/Storage/FileTest.php" />
    <install as="Horde/Prefs/Unit/Storage/KolabImapLogTest.php" name="test/Horde/Prefs/Unit/Storage/KolabImapLogTest.php" />
    <install as="Horde/Prefs/Unit/Storage/KolabImapTest.php" name="test/Horde/Prefs/Unit/Storage/KolabImapTest.php" />
+   <install as="Horde/Prefs/Unit/Storage/Sql/Base.php" name="test/Horde/Prefs/Unit/Storage/Sql/Base.php" />
+   <install as="Horde/Prefs/Unit/Storage/Sql/MysqliTest.php" name="test/Horde/Prefs/Unit/Storage/Sql/MysqliTest.php" />
+   <install as="Horde/Prefs/Unit/Storage/Sql/MysqlTest.php" name="test/Horde/Prefs/Unit/Storage/Sql/MysqlTest.php" />
+   <install as="Horde/Prefs/Unit/Storage/Sql/Pdo/MysqlTest.php" name="test/Horde/Prefs/Unit/Storage/Sql/Pdo/MysqlTest.php" />
+   <install as="Horde/Prefs/Unit/Storage/Sql/Pdo/PgsqlTest.php" name="test/Horde/Prefs/Unit/Storage/Sql/Pdo/PgsqlTest.php" />
+   <install as="Horde/Prefs/Unit/Storage/Sql/Pdo/SqliteTest.php" name="test/Horde/Prefs/Unit/Storage/Sql/Pdo/SqliteTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -800,7 +820,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-06</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Catch exceptions from storage writing during shutdown.
