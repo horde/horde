@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>23:07:50</time>
+ <date>2011-12-13</date>
+ <time>13:06:54</time>
  <version>
   <release>5.0.16</release>
   <api>5.0.0</api>
@@ -316,6 +316,7 @@
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
      <file name="Mimp.php" role="horde" />
+     <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Ui -->
     <dir name="Views">
      <file name="Compose.php" role="horde" />
@@ -1639,6 +1640,7 @@
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
    <install as="imp/lib/Ui/Mimp.php" name="lib/Ui/Mimp.php" />
+   <install as="imp/lib/Ui/Search.php" name="lib/Ui/Search.php" />
    <install as="imp/lib/Views/Compose.php" name="lib/Views/Compose.php" />
    <install as="imp/lib/Views/ListMessages.php" name="lib/Views/ListMessages.php" />
    <install as="imp/lib/Views/ShowMessage.php" name="lib/Views/ShowMessage.php" />
@@ -2600,7 +2602,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Use locale based folder sorting.
