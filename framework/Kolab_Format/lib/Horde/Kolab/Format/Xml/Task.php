@@ -47,7 +47,7 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
         'summary'             => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'location'            => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'organizer'           => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson',
-        'start-date'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'start-date'          => 'Horde_Kolab_Format_Xml_Type_DateTime',
         'alarm'               => 'Horde_Kolab_Format_Xml_Type_Integer',
         'recurrence'          => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
         'attendee'            => 'Horde_Kolab_Format_Xml_Type_Multiple_Attendee',
@@ -56,12 +56,5 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
         'status'              => 'Horde_Kolab_Format_Xml_Type_TaskStatus',
         'due-date'            => 'Horde_Kolab_Format_Xml_Type_DateTime',
         'parent'              => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        // These are not part of the Kolab specification but it is
-        // ok if the client supports additional entries
-        'creator'             => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson',
-        'percentage'          => 'Horde_Kolab_Format_Xml_Type_Integer',
-        'estimate'            => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'completed_date'      => 'Horde_Kolab_Format_Xml_Type_DateTime',
-        'horde-alarm-methods' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
     );
 }

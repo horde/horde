@@ -7,14 +7,6 @@
  * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Horde_Content
- */
-
-/**
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael J. Rubinsky <mrubinsk@horde.org>
- * @license  http://www.horde.org/licenses/bsd BSD
- * @category Horde
- * @package  Horde_Content
  *
  * References:
  *   http://forge.mysql.com/wiki/TagSchema
@@ -690,8 +682,8 @@ class Content_Tagger
     }
 
     /**
-     * Check if tags exists, optionally create then if they don't and return
-     * ids for all that exist (including those that are optionally created).
+     * Check if tags exists, optionally create them if they don't and return ids
+     * for all that exist (including those that are optionally created).
      *
      * @param string|array $tags    The tag names to check.
      * @param boolean      $create  If true, create the tag in the tags table.
@@ -853,5 +845,4 @@ class Content_Tagger
     {
         return $this->_db->quoteString(Horde_String::convertCharset($value, 'UTF-8', $this->_db->getOption('charset')));
     }
-
 }

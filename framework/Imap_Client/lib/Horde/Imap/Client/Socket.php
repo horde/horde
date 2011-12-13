@@ -303,7 +303,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // STARTTLS returns no untagged response.
             $this->_sendLine('STARTTLS');
 
-            if (!($res = @stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT))) {
+            if (@stream_socket_enable_crypto($this->_stream, true, STREAM_CRYPTO_METHOD_TLS_CLIENT) !== true) {
                 $this->logout();
                 $this->_exception('Could not open secure TLS connection to the IMAP server.', 'LOGIN_TLSFAILURE');
             }

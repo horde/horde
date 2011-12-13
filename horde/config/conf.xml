@@ -1791,14 +1791,23 @@
        <configstring name="key" desc="API Key. For information on registration and obtaining an API
        key for this driver, see http://www.wunderground.com/weather/api/.">
        </configstring>
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
       </configsection>
     </case>
-    <case name="Google" desc="Google Weather API - Unofficial API. Free, no registration. VERY basic forecast data." />
+    <case name="Google" desc="Google Weather API - Unofficial API. Free, no registration. VERY basic forecast data.">
+      <configsection name="params">
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
+      </configsection>
+    </case>
     <case name="Wwo" desc="World Weather Online API. Free, requires registration. Slighty more detailed than Google.">
       <configsection name="params">
         <configstring name="key" desc="API Key. For information on registration
         and obtaining an API key for this driver, see
         http://worldweatheronline.com"></configstring>
+       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
+       </configinteger>
       </configsection>
     </case>
    </configswitch>
@@ -1974,7 +1983,10 @@
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send
       activesync-related log messages to a seperate log. If you want to do this,
-      set this to Custom and enter the path to the log file to use.">
+      set this to Custom and enter the path to the log file to use. Horde will
+      attempt to create device specific log files in the same directory as the
+      filepath you provide here. If it is unable to do so, all log entries will
+      be sent to the filename you provide.">
         <case name="horde" desc="Horde" />
         <case name="custom" desc="Custom">
          <configstring name="path" desc="Path to logfile" />

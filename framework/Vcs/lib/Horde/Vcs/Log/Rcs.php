@@ -77,7 +77,7 @@ class Horde_Vcs_Log_Rcs extends Horde_Vcs_Log_Base
 
         /* Assume the rest of the lines are the log message */
         $this->_log = implode("\n", $raw);
-        $this->_tags = $this->_file->queryRevsym($this->_rev);
+        $this->_tags = $this->_file->getRevisionSymbol($this->_rev);
 
         $this->_setSymbolicBranches();
 

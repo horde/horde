@@ -22,6 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
+ <date>2011-12-13</date>
+ <time>13:09:59</time>
  <version>
   <release>5.1.0</release>
   <api>5.0.0</api>
@@ -306,6 +308,7 @@
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
      <file name="Mimp.php" role="horde" />
+     <file name="Search.php" role="horde" />
     </dir> <!-- /lib/Ui -->
     <dir name="Views">
      <file name="Compose.php" role="horde" />
@@ -1629,6 +1632,7 @@
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
    <install as="imp/lib/Ui/Mimp.php" name="lib/Ui/Mimp.php" />
+   <install as="imp/lib/Ui/Search.php" name="lib/Ui/Search.php" />
    <install as="imp/lib/Views/Compose.php" name="lib/Views/Compose.php" />
    <install as="imp/lib/Views/ListMessages.php" name="lib/Views/ListMessages.php" />
    <install as="imp/lib/Views/ShowMessage.php" name="lib/Views/ShowMessage.php" />
@@ -2590,9 +2594,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use locale based folder sorting.
 * [mms] Workaround broken PGP signed data contained within encrypted parts (Bug #10809).
 * [mms] Fix signature verification display for combined encrypted/signed PGP messages.
 * [mms] Add option to edit ACLs when right-clicking mailbox in dynamic view (Request #8060).
@@ -2608,6 +2613,19 @@
 * [mms] Correctly apply default mail_domain value in all places it is needed.
 * [mms] Correctly save mail_domain value if changed in preferences UI.
 * [mms] Purge browser cache daily in dynamic view; updates time stamps to proper format (Request #9773).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.17</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

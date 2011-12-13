@@ -1,7 +1,135 @@
 ----------
-v4.0.5-git
+v4.0.6-git
 ----------
 
+
+
+------
+v4.0.5
+------
+
+[jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>,
+      Pieterjan Heyse <pieterjan.heyse@scheppers-wetteren.be>).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+Horde Changes
+-------------
+[jan] Make the lifetime of cached weather information configurable (Arjen de
+      Korte, Request #10848).
+[mjr] Improve layout of weather block.
+
+Calendar Changes
+----------------
+[jan] Hide disabled calendar sections (Bug #9815).
+[gwr] Fixed recurrence handling with the Kolab backend.
+[gwr] Fixed naming of the default calendar for the Kolab backend.
+[gwr] Fixed deleting events with the Kolab backend.
+[gwr] Fixed migrations for SQLite as database backend.
+[mjr] Fix keyboard navigation of time entry fields in dynamic view (Bug
+      #10799).
+[mjr] Fix parsing display_cal variables for internal calendar links on various
+      blocks and embedded imples (Bug #10767).
+[mjr] Fix adding events directly to a resource's calendar (Bug #10827).
+[mjr] Fix regression introduced in 3.0.12 that broke checking a Resource's
+      availability in certain cases (Bug #10806).
+[jan] Don't fail on empty CalDAV calendars (christof@buergi.lugs.ch, Bug
+      #10739).
+[jan] Check permissions when building application drop down
+      (sberthelot@emisfr.com, Bug #10811).
+[gwr] Fix saving Kolab events.
+
+Tasks Changes
+-------------
+[jan] Fix setting custom alarm methods (Bug #9543).
+
+Notes Changes
+-------------
+[jan] Use locale based sorting.
+[jan] Fix remembering the expansion state of the notepads panel (Bug #10797).
+
+Library Changes
+---------------
+
+ActiveSync
+[mjr] Increase field length for sync_data to support syncing large collections
+      (Bug #10822).
+[jan] Fix tests to work with PHPUnit 3.6.
+
+Alarm
+[jan] Catch exceptions from Horde_Mime when sending alarm messages (Bug #10388).
+
+Auth
+[jan] Add Latvian translation (Jānis Eisaks <jancs@dv.lv>).
+
+Core
+[mjr] Allow separate ActiveSync logs per device.
+[jan] Make the lifetime of cached weather information configurable (Arjen de
+      Korte, Request #10848).
+[gwr] Fixed hiding menu entries that should not be displayed to admin.
+[gwr] Fixed Kolab anonymous bind.
+
+Crypt
+[mms] Provide signature information when decrypting a message, rather than just
+      a boolean result.
+[mms] Fix displaying PGP key expiration information.
+[mms] Allow expiration date to be given to Horde_Crypt_Pgp#generateKey()
+      (Request #5754).
+
+Data
+[mjr] Allow applications to extend Horde_Data_Base objects.
+
+Date
+[mjr] Fix issue with creating Horde_Date from DateTime object with explicit
+      timezone set.
+[gwr] Fix the parsing of recurrence hash data.
+
+Date_Parser
+[jan] Correctly parse "nacht" in German (Bug #10511).
+
+Db
+[gwr] Alternative API to support modified dates with SQLite as well.
+[mjr] Add support for mediumtext and longtext field types.
+
+Imap_Client
+[mms] Work around broken headers in IMAP envelope data.
+[mms] Remove Cclient drivers.
+
+Mime
+[mms] Allow Horde_Mime_Part::getRawPartText() to accept stream input.
+[mms] Workaround incoming message data to Horde_Mime_Part::getRawPartText()
+      that contains varying EOL characters (Bug #10809).
+[mms] Fix detection of MIME boundaries at beginning of string (Bug #10809).
+[mms] Abstract charset detection code out into
+      Horde_Mime_Headers::sanityCheck().
+[mms] Improved detection of charsets in broken (8-bit) MIME headers.
+[mms] Fix for broken 8BITMIME/BINARYMIME SMTP capability detection
+      (christof@buergi.lugs.ch, Bug #10820).
+
+Prefs
+[jan] Catch exceptions from storage writing during shutdown.
+[jan] Use binary column type for preference values (Bug #10803).
+
+Service_Weather
+[mjr] Use longer cache lifetime for non-changing values (Request #10851).
+[mjr] Export available detailed forecast fields for each driver (Bug #10813).
+[mjr] Fix returning correct units when requesting the same location twice, but
+      with different units (Bug #10804).
+[mjr] Fix returning localized text from Wwo driver (Bug #10804).
+[mjr] Fix obtaining forecast periods individually..
+[mjr] Fix obtaining certain properties from Google driver.
+[mjr] Fix making requests when not using a cache.
+[mjr] Fix path to locale directory.
+[mjr] Fix setting units (Bug #10792).
+
+Text_Filter
+[mms] Fix unnecessary use of POSIX collating element in Linkurls filter
+      (jr@yaina.de, Bug #10828).
+
+Token
+[jan] Fix translation (Bug #10831).
+
+Util
+[mms] Add Horde_String::validUtf8().
 
 
 ------

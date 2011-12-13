@@ -5,9 +5,16 @@ v3.1-git
 
 
 ----------
-v3.0.4-git
+v3.0.5-git
 ----------
 
+
+
+------
+v3.0.4
+------
+
+[jan] Use locale based sorting.
 [jan] Fix remembering the expansion state of the notepads panel (Bug #10797).
 [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 

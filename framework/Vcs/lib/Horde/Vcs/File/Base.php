@@ -54,13 +54,6 @@ abstract class Horde_Vcs_File_Base
     /**
      * TODO
      *
-     * @var boolean
-     */
-    protected $_quicklog;
-
-    /**
-     * TODO
-     *
      * @var string
      */
     protected $_branch = null;
@@ -77,7 +70,6 @@ abstract class Horde_Vcs_File_Base
      *
      * @param string $filename  Full path (inside the source root) to this file.
      * @param array $opts       Additional parameters:
-     *                          - 'quicklog': (boolean)
      *                          - 'branch': (string)
      */
     public function __construct($filename, $opts = array())
@@ -88,7 +80,6 @@ abstract class Horde_Vcs_File_Base
             $this->_dir = '';
         }
 
-        $this->_quicklog = !empty($opts['quicklog']);
         if (!empty($opts['branch'])) {
             $this->_branch = $opts['branch'];
         }
@@ -104,19 +95,11 @@ abstract class Horde_Vcs_File_Base
 
     abstract protected function _init();
 
-    protected function _ensureRevisionsInitialized()
+    protected function _ensureInitialized()
     {
         if (!$this->_initialized) {
-            $this->_init();
             $this->_initialized = true;
-        }
-    }
-
-    protected function _ensureLogsInitialized()
-    {
-        if (!$this->_initialized) {
             $this->_init();
-            $this->_initialized = true;
         }
     }
 
@@ -164,7 +147,7 @@ abstract class Horde_Vcs_File_Base
      */
     public function getRevision()
     {
-        $this->_ensureRevisionsInitialized();
+        $this->_ensureInitialized();
         if (!isset($this->_revs[0])) {
             throw new Horde_Vcs_Exception('No revisions');
         }
@@ -180,7 +163,7 @@ abstract class Horde_Vcs_File_Base
      */
     public function getPreviousRevision($rev)
     {
-        $this->_ensureRevisionsInitialized();
+        $this->_ensureInitialized();
         $key = array_search($rev, $this->_revs);
         return (($key !== false) && isset($this->_revs[$key + 1]))
             ? $this->_revs[$key + 1]
@@ -218,20 +201,12 @@ abstract class Horde_Vcs_File_Base
     }
 
     /**
-     * Return the last Horde_Vcs_Log object in the file.
+     * Returns a log object for the most recent log entry of this file.
      *
-     * @return Horde_Vcs_Log  Log object of the last entry in the file.
+     * @return Horde_Vcs_QuickLog  Log object of the last entry in the file.
      * @throws Horde_Vcs_Exception
      */
-    public function getLastLog()
-    {
-        $this->_ensureRevisionsInitialized();
-        $this->_ensureLogsInitialized();
-        if (!isset($this->_revs[0]) || !isset($this->_logs[$this->_revs[0]])) {
-            throw new Horde_Vcs_Exception('No revisions');
-        }
-        return $this->_logs[$this->_revs[0]];
-    }
+    abstract public function getLastLog();
 
     /**
      * Sort the list of Horde_Vcs_Log objects that this file contains.
@@ -242,7 +217,7 @@ abstract class Horde_Vcs_File_Base
      */
     public function applySort($how = Horde_Vcs::SORT_REV)
     {
-        $this->_ensureLogsInitialized();
+        $this->_ensureInitialized();
 
         switch ($how) {
         case Horde_Vcs::SORT_NAME:
@@ -315,7 +290,7 @@ abstract class Horde_Vcs_File_Base
      */
     public function getLog($rev = null)
     {
-        $this->_ensureLogsInitialized();
+        $this->_ensureInitialized();
         return is_null($rev)
             ? $this->_logs
             : (isset($this->_logs[$rev]) ? $this->_logs[$rev] : null);
@@ -326,7 +301,7 @@ abstract class Horde_Vcs_File_Base
      */
     public function revisionCount()
     {
-        $this->_ensureRevisionsInitialized();
+        $this->_ensureInitialized();
         return count($this->_revs);
     }
 

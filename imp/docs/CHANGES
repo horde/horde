@@ -18,9 +18,16 @@ v5.1-git
 
 
 -----------
-v5.0.16-git
+v5.0.17-git
 -----------
 
+
+
+-------
+v5.0.16
+-------
+
+[jan] Use locale based folder sorting.
 [mms] Workaround broken PGP signed data contained within encrypted parts (Bug
       #10809).
 [mms] Fix signature verification display for combined encrypted/signed PGP

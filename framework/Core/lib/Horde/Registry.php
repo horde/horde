@@ -315,6 +315,7 @@ class Horde_Registry
             'Horde_Core_Perms' => 'Horde_Core_Factory_PermsCore',
             'Horde_Db_Adapter' => 'Horde_Core_Factory_DbBase',
             'Horde_Editor' => 'Horde_Core_Factory_Editor',
+            'Horde_ElasticSearch_Client' => 'Horde_Core_Factory_ElasticSearch',
             'Horde_Group' => 'Horde_Core_Factory_Group',
             'Horde_History' => 'Horde_Core_Factory_History',
             'Horde_Log_Logger' => 'Horde_Core_Factory_Logger',

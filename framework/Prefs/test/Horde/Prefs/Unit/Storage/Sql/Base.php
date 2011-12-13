@@ -89,11 +89,11 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
 
     public static function tearDownAfterClass()
     {
+        self::$prefs = null;
         if (self::$migrator) {
             self::$migrator->down();
         }
         self::$db = null;
-        self::$prefs = null;
     }
 
     public function setUp()

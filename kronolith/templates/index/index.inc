@@ -140,12 +140,14 @@
     <span><?php echo _("Shared Task Lists") ?></span>
   </h3>
 
+  <?php if ($GLOBALS['all_external_calendars'] && (count($GLOBALS['all_external_calendars']) > 1 || ($c = $GLOBALS['all_external_calendars'] && $c->api() != 'tasks'))): ?>
   <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
   <div id="kronolithSharedTasklists" class="kronolithCalendars">
   </div>
   <?php endif; ?>
 
   <div id="kronolithExternalCalendars"></div>
+  <?php endif ?>
 
   <h3>
     <a href="#" id="kronolithAddremote" class="kronolithAdd" title="<?php echo _("Add Remote Calendar") ?>">+</a>
@@ -156,6 +158,7 @@
   <div id="kronolithRemoteCalendars" class="kronolithCalendars">
   </div>
 
+  <?php if ($GLOBALS['all_holidays']): ?>
   <h3>
     <a href="#" id="kronolithAddholiday" class="kronolithAdd" title="<?php echo _("Add Holidays") ?>">+</a>
     <span><?php echo _("Holidays") ?></span>
@@ -163,8 +166,9 @@
 
   <div id="kronolithHolidayCalendars" class="kronolithCalendars">
   </div>
-  </div>
+  <?php endif ?>
 
+  </div>
 </div>
 <!-- end left menu -->
 

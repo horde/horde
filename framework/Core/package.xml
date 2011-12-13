@@ -28,6 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
+ <date>2011-12-13</date>
+ <time>11:47:02</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -146,6 +148,7 @@
        <file name="DbPear.php" role="php" />
        <file name="Dns.php" role="php" />
        <file name="Editor.php" role="php" />
+       <file name="ElasticSearch.php" role="php" />
        <file name="Facebook.php" role="php" />
        <file name="Group.php" role="php" />
        <file name="History.php" role="php" />
@@ -874,6 +877,13 @@
     <exclude>2.0.0</exclude>
    </package>
    <package>
+    <name>Horde_ElasticSearch</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
+   <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
@@ -1115,6 +1125,7 @@
    <install as="Horde/Core/Factory/DbPear.php" name="lib/Horde/Core/Factory/DbPear.php" />
    <install as="Horde/Core/Factory/Dns.php" name="lib/Horde/Core/Factory/Dns.php" />
    <install as="Horde/Core/Factory/Editor.php" name="lib/Horde/Core/Factory/Editor.php" />
+   <install as="Horde/Core/Factory/ElasticSearch.php" name="lib/Horde/Core/Factory/ElasticSearch.php" />
    <install as="Horde/Core/Factory/Facebook.php" name="lib/Horde/Core/Factory/Facebook.php" />
    <install as="Horde/Core/Factory/Group.php" name="lib/Horde/Core/Factory/Group.php" />
    <install as="Horde/Core/Factory/History.php" name="lib/Horde/Core/Factory/History.php" />
@@ -1677,7 +1688,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-06</date>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Allow separate ActiveSync logs per device.
+* [jan] Make the lifetime of cached weather information configurable (Arjen de Korte, Request #10848).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.3</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 *

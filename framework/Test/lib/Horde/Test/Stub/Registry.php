@@ -122,4 +122,27 @@ class Horde_Test_Stub_Registry
     {
         return $this->_app;
     }
+
+    /**
+     * Determine if an interface is implemented by an active application.
+     *
+     * @param string $interface  The interface to check for.
+     *
+     * @return mixed  The application implementing $interface if we have it,
+     *                false if the interface is not implemented.
+     */
+    public function hasInterface($interface)
+    {
+        return false;
+    }
+
+    /**
+     * Returns all available registry APIs.
+     *
+     * @return array  The API list.
+     */
+    public function listAPIs()
+    {
+        return array();
+    }
 }

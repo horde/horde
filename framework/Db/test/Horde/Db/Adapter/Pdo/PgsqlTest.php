@@ -1194,6 +1194,35 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("SELECT * FROM documents ORDER BY name DESC", $result);
     }
 
+    public function testInterval()
+    {
+        $this->assertEquals('INTERVAL \'1 DAY \'',
+                            $this->_conn->interval('1 DAY', ''));
+    }
+
+    public function testModifyDate()
+    {
+        $modifiedDate = $this->_conn->modifyDate('mystart', '+', 1, 'DAY');
+        $this->assertEquals('mystart + INTERVAL \'1 DAY\'', $modifiedDate);
+
+        $t = $this->_conn->createTable('dates');
+        $t->column('mystart', 'datetime');
+        $t->column('myend', 'datetime');
+        $t->end();
+        $this->_conn->insert(
+            'INSERT INTO dates (mystart, myend) VALUES (?, ?)',
+            array(
+                '2011-12-10 00:00:00',
+                '2011-12-11 00:00:00'
+            )
+        );
+        $this->assertEquals(
+            1,
+            $this->_conn->selectValue('SELECT COUNT(*) FROM dates WHERE '
+                                      . $modifiedDate . ' = myend')
+        );
+    }
+
     public function testBuildClause()
     {
         $this->assertEquals(
@@ -1325,6 +1354,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
         $tables = array(
             'binary_testings',
             'cache_table',
+            'dates',
             'my_sports',
             'octopi',
             'pk_tests',

@@ -267,7 +267,7 @@ $_prefs['event_notification'] = array(
         '' => _("No"),
         'owner' => _("On my calendars only"),
         'show' => _("On all shown calendars"),
-        'read' => _("On all calendars I have read access to")
+        'read' => _("On all calendars I have explicitly read access to")
     ),
     'desc' => _("Choose if you want to be notified of new, edited, and deleted events by email:")
 );

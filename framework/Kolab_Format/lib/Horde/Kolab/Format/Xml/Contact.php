@@ -68,10 +68,5 @@ class Horde_Kolab_Format_Xml_Contact extends Horde_Kolab_Format_Xml
         'preferred-address' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'latitude'          => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'longitude'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        // Horde specific fields
-        'pgp-publickey'     => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        // Support for broken clients
-        'website'           => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
-        'im-adress'         => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
     );
 }

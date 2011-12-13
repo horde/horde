@@ -423,9 +423,9 @@ class IMP_Ui_Message
     }
 
     /**
-     * Redirect to mailbox after deleting a message?
+     * Increment mailbox index after deleting a message?
      *
-     * @return boolean  Return to mailbox?
+     * @return boolean  If true, increments index.
      */
     public function moveAfterAction()
     {

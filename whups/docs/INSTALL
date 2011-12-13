@@ -115,14 +115,12 @@ Configuring Whups
    appropriate addresses. This script takes a number of arguments; see the
    script for more details. A typical setup might be::
 
-      bugs |/usr/bin/whups-mail-filter --queue-name=Bugs --type-name=Bug --state-name=New --priority-name=Low
+      bugs |/usr/bin/whups-mail-filter --queue-name=Bugs
 
    This will take in mail to the ``bugs`` address at your domain, and create
-   new tickets in the ``Bugs`` queue, with a type of ``Bug``, a state of
-   ``New``, and ``Low`` priority. Note that this must be a valid combination of
-   queue/type/state/priority names in your Whups installation. If an email
-   references an existing ticket (ticket numbers are recognized in the subject
-   line) it will be updated instead.
+   new tickets in the ``Bugs`` queue, with the default type, state and priority
+   of this queue. If an email references an existing ticket (ticket numbers are
+   recognized in the subject line) it will be updated instead.
 
    If not installing Whups through PEAR of if PEAR's ``bin_dir`` configuration
    doesn't point to ``/usr/bin/``, replace ``/usr/bin/whups-mail-filter`` with
@@ -157,11 +155,10 @@ Configuring Whups
 
    Whups provides functionality that can be used to create and update tickets
    from email messages. One part of this functionality is the
-   ``whups-mail-filter`` script. It can either be
-   installed inside the mail chain, or run as a standalone script against an
-   IMAP or POP3 server. It provides a list of all available command line
-   arguments if called with the ``--help`` argument: ``./mail-filter.php
-   --help``.
+   ``whups-mail-filter`` script. It can either be installed inside the mail
+   chain, or run as a standalone script against an IMAP or POP3 server. It
+   provides a list of all available command line arguments if called with the
+   ``--help`` argument: ``whups-mail-filter --help``.
 
    If you use the arguments starting with ``--mail``, the script will login to
    the provided IMAP or POP3 server and process all messages in the specified
@@ -176,17 +173,17 @@ Configuring Whups
    this script, e.g. through the forwarding or alias mechanism. An example
    entry in ``/etc/alias`` could look like this::
 
-      bugs:"|/usr/bin/whups-mail-filter -q 'Test Queue' -t mytype -p '1. Low' -s Unconfirmed"
+      bugs:"|/usr/bin/whups-mail-filter -q 'Test Queue'"
 
-   Even though this example uses "names" for the arguments, it's preferred to
-   use IDs, because those doesn't cause any problems with spaces, or non-ascii
-   characters.
+   Even though this example uses a queue "name" for the argument, it's
+   preferred to use IDs, because those doesn't cause any problems with spaces,
+   or non-ascii characters.
 
    The script tries to determine the ticket number from the message, if a
-   ticket number hasn't been specified with the ``--ticket``
-   argument. Currently it searches for strings looking like "[Bug #1]" in the
-   message subject. If a ticket number cannot be determined by any means, or
-   if a ticket with that number doesn't exist, a new ticket is created.
+   ticket number hasn't been specified with the ``--ticket`` argument.
+   Currently it searches for strings looking like "[Bug #1]" in the message
+   subject. If a ticket number cannot be determined by any means, or if a
+   ticket with that number doesn't exist, a new ticket is created.
 
    The (Horde) user that will be used to create or update the ticket, will
    also be determined by investigating the message. The email address used in
@@ -209,6 +206,13 @@ Configuring Whups
    specify the correct email address here for the generated messages. It should
    be the address that you use for the mail pipe, or the IMAP/POP3 account when
    calling ``whups-mail-filter``.
+
+   Any attachments that have been sent with the message will be added to the
+   ticket as attachments too. This is done via the virtual file system (VFS) of
+   Horde. If you use the local file system as the VFS backend, you need to take
+   care of permissions and umasks, i.e. both the user running the
+   ``whups-mail-filter`` script and the user running the web server need to
+   have read-write permissions to the VFS storage directory.
 
 
 Obtaining Support

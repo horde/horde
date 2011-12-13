@@ -92,9 +92,6 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         $this->assertEquals(array(), $file->getBranches());
         $this->assertFalse($file->isDeleted());
 
-        $log = $file->getLastLog();
-        $this->assertInstanceOf('Horde_Vcs_Log_Svn', $log);
-
         /* Test sub-directory file. */
         $file = $this->vcs->getFile('dir1/file1_1');
         $this->assertInstanceOf('Horde_Vcs_File_Svn', $file);
@@ -187,14 +184,60 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
         */
     }
 
+    public function testLastLog()
+    {
+        $log = $this->vcs
+            ->getFile('file1')
+            ->getLastLog();
+        $this->assertInstanceof('Horde_Vcs_QuickLog_Svn', $log);
+        $this->assertEquals('2', $log->getRevision());
+        $this->assertEquals(1322496080, $log->getDate());
+        $this->assertEquals('jan', $log->getAuthor());
+        $this->assertEquals('Commit 2nd version.', $log->getMessage());
+    }
+
     public function testPatchset()
     {
-        $this->markTestSkipped();
+        $ps = $this->vcs->getPatchset(array('file' => 'file1'));
+        $this->assertInstanceOf('Horde_Vcs_Patchset_Svn', $ps);
+        $sets = $ps->getPatchsets();
+        $this->assertInternalType('array', $sets);
+        $this->assertEquals(2, count($sets));
+        $this->assertEquals(array(2, 1), array_keys($sets));
+        $this->assertEquals(1, $sets[1]['revision']);
+        $this->assertEquals(1322254316, $sets[1]['date']);
+        $this->assertEquals('jan', $sets[1]['author']);
+        $this->assertEquals('Add first files.', $sets[1]['log']);
+        $this->assertEquals(
+            array(array(
+                'file'    => 'dir1',
+                'from'    => null,
+                'to'      => 1,
+                'status'  => 1,
+                /*'added'   => '1',
+                'deleted' => '0'*/),
+                  array(
+                'file'    => 'dir1/file1_1',
+                'from'    => null,
+                'to'      => 1,
+                'status'  => 1,
+                /*'added'   => '1',
+                'deleted' => '0'*/),
+                  array(
+                'file'    => 'file1',
+                'from'    => null,
+                'to'      => 1,
+                'status'  => 1,
+                /*'added'   => '1',
+                'deleted' => '0',*/
+            )),
+            $sets[1]['members']);
+
+        /* Test non-existant file. */
         try {
             $ps = $this->vcs->getPatchset(array('file' => 'foo'));
             $this->fail('Expected Horde_Vcs_Exception');
         } catch (Horde_Vcs_Exception $e) {
         }
-        //$this->assertInstanceOf('Horde_Vcs_Patchset_Svn', $ps);
     }
 }

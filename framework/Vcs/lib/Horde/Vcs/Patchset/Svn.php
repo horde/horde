@@ -20,24 +20,18 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset_Base
         $fileOb = $rep->getFile($opts['file']);
 
         foreach ($fileOb->getLog() as $rev => $log) {
-            $this->_patchsets[$rev] = array(
-                'author' => $log->getAuthor(),
-                'branch' => '',
-                'date' => $log->getDate(),
-                'log' => $log->getMessage(),
-                'members' => array(),
-                'tag' => ''
+            $this->_patchsets[$rev] = array_merge(
+                $log->toHash(),
+                array('members' => array())
             );
 
-            foreach ($log->getFiles() as $file) {
-                $action = substr($file, 0, 1);
-                $file = preg_replace('/.*?\s(.*?)(\s|$).*/', '\\1', $file);
+            foreach ($log->getFiles() as $file => $info) {
                 $to = $rev;
                 $status = Horde_Vcs_Patchset::MODIFIED;
-                if ($action == 'A') {
+                if ($info['status'] == 'A') {
                     $from = null;
                     $status = Horde_Vcs_Patchset::ADDED;
-                } elseif ($action == 'D') {
+                } elseif ($info['status'] == 'D') {
                     $from = $to;
                     $to = null;
                     $status = Horde_Vcs_Patchset::DELETED;
@@ -53,7 +47,5 @@ class Horde_Vcs_Patchset_Svn extends Horde_Vcs_Patchset_Base
                                                              'status' => $status);
             }
         }
-
-        return true;
     }
 }

@@ -70,7 +70,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @return array  An array of event ids, or Kronolith_Event objects
      * @throws Kronolith_Exception
      */
-    public function listAlarms(Horde_Date $date, $fullevent = false)
+    public function listAlarms($date, $fullevent = false)
     {
         $allevents = $this->listEvents($date, null, false, true);
         $events = array();
@@ -473,7 +473,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function getByUID($uid, array $calendars = null, $getAll = false)
+    public function getByUID($uid, $calendars = null, $getAll = false)
     {
         $query = 'SELECT event_id, event_uid, calendar_id, event_description,' .
             ' event_location, event_private, event_status, event_attendees,' .
@@ -870,7 +870,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
      * @return array  Event UIDs filtered by calendar IDs.
      * @throws Kronolith_Exception
      */
-    public function filterEventsByCalendar(array $uids, array $calendar)
+    public function filterEventsByCalendar($uids, $calendar)
     {
         $sql = 'SELECT event_uid FROM kronolith_events WHERE calendar_id IN (' . str_repeat('?, ', count($calendar) - 1) . '?) '
             . 'AND event_uid IN (' . str_repeat('?,', count($uids) - 1) . '?)';

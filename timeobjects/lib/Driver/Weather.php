@@ -183,7 +183,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
                 $location = $contact['homeCity']
                     . (!empty($contact['homeProvince']) ? ', ' . $contact['homeProvince'] : '')
                     . (!empty($contact['homeCountry']) ? ', ' . $contact['homeCountry'] : '');
-            } else {
+            } elseif (!empty($contact['workCity'])) {
                 $location = $contact['workCity']
                     . (!empty($contact['workProvince']) ? ', ' . $contact['workProvince'] : '')
                     . (!empty($contact['workCountry']) ? ', ' . $contact['workCountry'] : '');

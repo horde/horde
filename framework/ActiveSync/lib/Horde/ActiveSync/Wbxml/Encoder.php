@@ -80,6 +80,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
             }
         }
 
+        $this->_logger = new Horde_Support_Stub();
         $this->_dtd = $dtd;
     }
 

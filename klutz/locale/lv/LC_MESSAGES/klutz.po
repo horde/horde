@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Klutz H4 (2.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-08-02 15:24+0200\n"
-"PO-Revision-Date: 2011-10-16 15:33+0300\n"
+"PO-Revision-Date: 2011-11-04 13:30+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -62,9 +62,9 @@ msgid "Comics Update"
 msgstr "Komiksu atsvaidzināšana"
 
 #: backend.php:255
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find %s for %s<br />\n"
-msgstr "Nevar atvērt %s: %s"
+msgstr "Nevar atrast %s priekš %s<br />\n"
 
 #: lib/Block/Comics.php:69
 msgid "Could not find any comics to display."
@@ -165,9 +165,9 @@ msgid "Submit"
 msgstr "Iesniegt"
 
 #: backend.php:254
-#, fuzzy, php-format
+#, php-format
 msgid "Successfully removed %s for %s<br />\n"
-msgstr "%s veiksmīgi pievienots %s"
+msgstr "Veiksmīgi aizvākts %s priekš %s<br />\n"
 
 #: templates/savecomic.html.php:24
 msgid "Tags"
@@ -206,14 +206,13 @@ msgid "Today's Comics"
 msgstr "Šodienas komikss"
 
 #: templates/comics/main.inc:32
-#, fuzzy
 msgid "View by comic"
-msgstr " Filtrēts skatījums "
+msgstr "Skatīt pēc komiksiem"
 
 #: templates/comics/main.inc:9
-#, fuzzy, php-format
+#, php-format
 msgid "View comics for %s"
-msgstr "(aizstājvārds priekš Hiriganas + Katakanas)"
+msgstr "Skatīt komiksus priekš %s"
 
 #: lib/Application.php:74
 msgid "_Browse"
@@ -232,12 +231,5 @@ msgid "any dates"
 msgstr "jebkurš datums"
 
 #: templates/backend.html.php:15
-#, fuzzy
 msgid "for"
-msgstr ""
-"#-#-#-#-#  hermes.po (Hermes H4 (2.0-git))  #-#-#-#-#\n"
-" vai\n"
-"#-#-#-#-#  ingo.po (Ingo H3 (1.1.5))  #-#-#-#-#\n"
-" vai\n"
-"#-#-#-#-#  kronolith.po (2.1.7)  #-#-#-#-#\n"
-"vai"
+msgstr "priekš"

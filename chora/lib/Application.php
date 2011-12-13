@@ -71,7 +71,7 @@ class Chora_Application extends Horde_Registry_Application
          * TODO: defaults of 1 will not get propagated correctly - avsm
          * XXX: Rewrite this propagation code, since it sucks - avsm
          */
-        $acts = array(
+        $defaultActs = $acts = array(
             'onb' => 0,
             'ord' => Horde_Vcs::SORT_ASCENDING,
             'rev' => 0,

@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H4 (5.0.15).
+Program (IMP) version H4 (5.0.16).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -23,22 +23,21 @@ access to IMAP and POP3 mail servers and provides Ajax, mobile and traditional
 interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
-The major changes compared to the IMP version H4 (5.0.14) are:
-    * Added preference to mark deleted messages as seen.
-    * Improved UI for advanced sorting options.
-    * Improved privacy protection when viewing message.
-    * Improved performance when loading contacts.
-    * Fixed access to certain POP3 servers.
-    * Further bugfixes and improvements.
+The major changes compared to the IMP version H4 (5.0.15) are:
+    * Added option to edit mailbox ACLs from context menu.
+    * Allowed to redirect multiple messages from traditional view.
+    * Improved PGP support.
+    * Updated Dutch and Japanese translations.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added preference to mark deleted messages as seen.
-Improved privacy protection when viewing message.
-Improved performance when loading contacts.
-Fixed access to certain POP3 servers.
-Further bugfixes and improvements.
+Added option to edit mailbox ACLs from context menu.
+Allowed to redirect multiple messages from traditional view.
+Improved PGP support.
+Updated Dutch and Japanese translations.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'IMP';
