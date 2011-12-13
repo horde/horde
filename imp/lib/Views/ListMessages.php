@@ -266,10 +266,16 @@ class IMP_Views_ListMessages
         /* Get the cached list. */
         $cached = array();
         if (!empty($args['cache'])) {
-            $cached = $imp_imap->getUtils()->fromSequenceString($args['cache']);
-            $cached = $is_search
-                ? array_flip($cached)
-                : array_flip(reset($cached));
+            foreach ($imp_imap->getUtils()->fromSequenceString($args['cache']) as $key => $uids) {
+                $key = IMP_Mailbox::formFrom($key);
+
+                foreach ($uids as $val) {
+                    $cached[] = $is_search
+                        ? $this->searchUid($key, $val)
+                        : $val;
+                }
+            }
+            $cached = array_flip($cached);
         }
 
         if (!empty($args['search_unseen'])) {
