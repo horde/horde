@@ -651,14 +651,9 @@ if (!$readonly && $strip_atc) {
 }
 
 /* Do MDN processing now. */
-$mdntext = '';
-if ($imp_ui->MDNCheck(IMP::$mailbox, $uid, $mime_headers, $vars->mdn_confirm)) {
-    $mdntext .= $imp_contents->formatStatusMsg(array(array(
-        'text' => array(
-            _("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')
-        )
-    )));
-}
+$mdntext = $imp_ui->MDNCheck(IMP::$mailbox, $uid, $mime_headers, $vars->mdn_confirm)
+    ? strval(new IMP_Mime_Status(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link(htmlspecialchars($selfURL->copy()->add('mdn_confirm', 1))) . _("HERE") . '</a>')))
+    : '';
 
 /* Build body text. This needs to be done before we build the attachment list
  * that lives in the header. */

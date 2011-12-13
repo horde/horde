@@ -88,7 +88,6 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             return array(
                 $mime_id => array(
                     'data' => '<h1>' . _("The calendar data is invalid") . '</h1>' . '<pre>' . htmlspecialchars($data) . '</pre>',
-                    'status' => array(),
                     'type' => 'text/html; charset=' . $charset
                 )
             );
@@ -429,7 +428,6 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             return array(
                 $mime_id => array(
                     'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => $this->getConfigParam('charset'))), $this->getConfigParam('charset'), 'UTF-8'),
-                    'status' => array(),
                     'name' => null,
                     'type' => 'application/json'
                 )
@@ -475,7 +473,6 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         return array(
             $mime_id => array(
                 'data' => $html,
-                'status' => array(),
                 'type' => 'text/html; charset=' . $charset
             )
         );

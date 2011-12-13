@@ -65,7 +65,6 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
             $this->_mimepart->getMimeId() => array(
                 'data' => base64_decode($photos[$p]['value']),
                 'name' => $name . '.' . Horde_Mime_Magic::mimeToExt($photos[$p]['params']['TYPE']),
-                'status' => array(),
                 'type' => $photos[$p]['params']['TYPE'],
             )
         );

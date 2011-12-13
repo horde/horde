@@ -58,7 +58,6 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
                     $this->_mimepart->getMimeId() => array(
                         'data' => $text,
                         'name' => basename($zipInfo[$fileKey]['name']),
-                        'status' => array(),
                         'type' => 'application/octet-stream'
                     )
                 );

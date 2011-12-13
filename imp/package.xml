@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>13:09:59</time>
+ <time>11:21:41</time>
  <version>
   <release>5.0.17</release>
   <api>5.0.0</api>
@@ -217,6 +217,7 @@
       <file name="Video.php" role="horde" />
       <file name="Zip.php" role="horde" />
      </dir> <!-- /lib/Mime/Viewer -->
+     <file name="Status.php" role="horde" />
     </dir> <!-- /lib/Mime -->
     <dir name="Notification">
      <dir name="Event">
@@ -1548,6 +1549,7 @@
    <install as="imp/lib/Mailbox/List.php" name="lib/Mailbox/List.php" />
    <install as="imp/lib/Mailbox/List/Track.php" name="lib/Mailbox/List/Track.php" />
    <install as="imp/lib/Menu/Dimp.php" name="lib/Menu/Dimp.php" />
+   <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
    <install as="imp/lib/Mime/Viewer/Appledouble.php" name="lib/Mime/Viewer/Appledouble.php" />
    <install as="imp/lib/Mime/Viewer/Audio.php" name="lib/Mime/Viewer/Audio.php" />

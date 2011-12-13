@@ -61,7 +61,6 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => $data,
-                'status' => array(),
                 'type' => $type
             )
         );
@@ -79,23 +78,19 @@ class IMP_Mime_Viewer_Pdf extends Horde_Mime_Viewer_Pdf
             return array();
         }
 
-        $status = array(_("This is a thumbnail of a PDF file attachment."));
+        $status = new IMP_Mime_Status(_("This is a thumbnail of a PDF file attachment."));
+        $status->icon('mime/image.png');
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag(), null, null, null);
+            $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag(), null, null, null));
         } else {
-            $status[] = Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag() . '</a>';
+            $status->addText(Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag() . '</a>');
         }
 
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => '',
-                'status' => array(
-                    array(
-                        'icon' => Horde::img('mime/image.png'),
-                        'text' => $status
-                    )
-                ),
+                'status' => $status,
                 'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
