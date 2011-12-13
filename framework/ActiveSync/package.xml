@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-11</date>
- <time>22:15:22</time>
+ <date>2011-12-13</date>
+ <time>11:52:28</time>
  <version>
   <release>1.1.10</release>
   <api>1.1.0</api>
@@ -469,7 +469,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-11</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Increase field length for sync_data to support syncing large collections (Bug: 10822).
