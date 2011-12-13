@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>12:05:16</time>
+ <time>12:07:00</time>
  <version>
-  <release>1.3.0</release>
+  <release>1.3.1</release>
   <api>1.3.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [gwr] Added Alarm, Cache, and Session stub factories
-* [gwr] Fix autoloading to work with PHPUnit-3.6.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -308,6 +307,19 @@
    <notes>
 * [gwr] Added Alarm, Cache, and Session stub factories
 * [gwr] Fix autoloading to work with PHPUnit-3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
