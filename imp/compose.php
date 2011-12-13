@@ -363,13 +363,13 @@ case 'redirect_send':
         $imp_compose->destroy('send');
         if ($isPopup) {
             if ($prefs->getValue('compose_confirm')) {
-                $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", $num_msgs), 'horde.success');
+                $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", count($num_msgs)), 'horde.success');
                 $imp_ui->popupSuccess();
             } else {
                 echo Horde::wrapInlineScript(array('window.close();'));
             }
         } else {
-            $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", $num_msgs), 'horde.success');
+            $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully", count($num_msgs)), 'horde.success');
             $imp_ui->mailboxReturnUrl()->redirect();
         }
         exit;

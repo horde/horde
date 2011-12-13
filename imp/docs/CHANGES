@@ -2,6 +2,7 @@
 v5.0.17-git
 -----------
 
+[mms] Fix message redirection regression in dynamic view (Bug #10859).
 
 
 -------

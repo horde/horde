@@ -1666,10 +1666,9 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - redirect_to: (string) The address(es) to redirect to.
      *
      * @return object  An object with the following entries:
-     *   - log: (array) See IMP_Dimp::getMsgLogInfo().
-     *   - mbox: (string) Mailbox of original message (base64url encoded).
+     *   - action: (string) 'redirectMessage'.
+     *   - log: (array) TODO
      *   - success: (integer) 1 on success, 0 on failure.
-     *   - uid: (string) The UID of the original message.
      */
     public function redirectMessage()
     {
@@ -1677,28 +1676,32 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->action = $this->_action;
         $result->success = 1;
 
+        $log = array();
+
         try {
-            // Currently, dimp only supports redirecting one message per
-            // popup compose window.
             $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
-            $imp_compose->sendRedirectMessage($this->_vars->redirect_to);
+            $res = $imp_compose->sendRedirectMessage($this->_vars->redirect_to);
 
-            $result->mbox = $imp_compose->getMetadata('mailbox')->form_to;
-            $result->uid = $imp_compose->getMetadata('uid');
+            foreach ($res as $val) {
+                $subject = $val->headers->getValue('subject');
+                $GLOBALS['notification']->push(empty($subject) ? _("Message redirected successfully.") : sprintf(_("Message \"%s\" redirected successfully."), Horde_String::truncate($subject)), 'horde.success');
 
-            $contents = $imp_compose->getContentsOb();
-            $headers = $contents->getHeaderOb();
-
-            $subject = $headers->getValue('subject');
-            $GLOBALS['notification']->push(empty($subject) ? _("Message redirected successfully.") : sprintf(_("Message \"%s\" redirected successfully."), Horde_String::truncate($subject)), 'horde.success');
-
-            if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
-                ($tmp = IMP_Dimp::getMsgLogInfo($headers->getValue('message-id')))) {
-                $result->log = $tmp;
+                if (!empty($GLOBALS['conf']['maillog']['use_maillog']) &&
+                    ($tmp = IMP_Dimp::getMsgLogInfo($val->headers->getValue('message-id')))) {
+                    $log_ob = new stdClass;
+                    $log_ob->log = $tmp;
+                    $log_ob->mbox = $val->mbox->form_to;
+                    $log_ob->uid = $val->uid;
+                    $log[] = $log_ob;
+                }
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
             $result->success = 0;
+        }
+
+        if (!empty($log)) {
+            $result->log = $log;
         }
 
         return $result;
