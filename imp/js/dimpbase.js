@@ -1513,16 +1513,17 @@ var DimpBase = {
 
     _loadPreviewCallback: function(resp)
     {
-        var bg, ppuid, tmp, vs,
+        var bg, ppuid, tmp,
             pm = $('previewMsg'),
             r = resp.response.preview,
-            t = $('msgHeadersContent').down('THEAD');
+            t = $('msgHeadersContent').down('THEAD'),
+            vs = this.viewport.getSelection();
 
         bg = (!this.pp ||
               this.pp.uid != r.uid ||
               this.pp.mbox != r.mbox);
 
-        if (r.error || this.viewport.getSelected().size() != 1) {
+        if (r.error || vs.size() != 1) {
             if (!bg) {
                 if (r.error) {
                     DimpCore.showNotifications([ { type: r.errortype, message: r.error } ]);
@@ -1531,8 +1532,6 @@ var DimpBase = {
             }
             return;
         }
-
-        vs = this.viewport.getSelection();
 
         // Store in cache.
         ppuid = this._getPPId(r.uid, r.mbox);
