@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>11:50:44</time>
+ <time>11:52:02</time>
  <version>
-  <release>1.2.0</release>
+  <release>1.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -35,8 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [gwr] Alternative API to support modified dates with SQLite as well.
-* [mjr] Add support for mediumtext and longtext field types.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -550,6 +549,19 @@
    <notes>
 * [gwr] Alternative API to support modified dates with SQLite as well.
 * [mjr] Add support for mediumtext and longtext field types.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
