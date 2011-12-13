@@ -620,7 +620,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Returns the current sorted array without the given messages.
+     * Removes messages from the mailbox.
      *
      * @param mixed $indices  An IMP_Indices object or true to remove all
      *                        messages in the mailbox.
