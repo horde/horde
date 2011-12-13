@@ -1,6 +1,6 @@
-----------
-v2.0.1-git
-----------
+------
+v2.0.1
+------
 
 [jan] Fix some CLI scripts if run from a PEAR installation (Bug #10839).
 [jan] Automatically create parent permissions when adding the first restricted
