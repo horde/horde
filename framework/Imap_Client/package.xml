@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>11:58:33</time>
+ <time>11:59:37</time>
  <version>
-  <release>1.3.0</release>
+  <release>1.3.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Work around broken headers in IMAP envelope data.
-* [mms] Remove Cclient drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -630,6 +629,19 @@
    <notes>
 * [mms] Work around broken headers in IMAP envelope data.
 * [mms] Remove Cclient drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
