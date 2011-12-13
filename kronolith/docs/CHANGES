@@ -1,6 +1,6 @@
------------
-v3.0.13-git
------------
+-------
+v3.0.13
+-------
 
 [jan] Hide disabled calendar sections (Bug #9815).
 [gwr] Fixed recurrence handling with the Kolab backend.

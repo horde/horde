@@ -44,7 +44,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (3.0.13-git)';
+    public $version = 'H4 (3.0.13)';
 
     /**
      * Global variables defined:

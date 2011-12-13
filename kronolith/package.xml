@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-12</date>
- <time>06:48:49</time>
+ <date>2011-12-13</date>
+ <time>13:17:32</time>
  <version>
   <release>3.0.13</release>
   <api>3.0.0</api>
@@ -2012,7 +2012,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-12</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Hide disabled calendar sections (Bug #9815).
