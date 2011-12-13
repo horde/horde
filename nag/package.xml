@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>23:18:29</time>
+ <date>2011-12-13</date>
+ <time>13:22:20</time>
  <version>
   <release>3.0.7</release>
   <api>3.0.0</api>
@@ -1098,7 +1098,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix setting custom alarm methods (Bug #9543).
