@@ -1470,7 +1470,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @return mixed  False on failure, the return from showMessage() on
      *                success along with these properties:
-     *   - newuid: (integer) UID of new message.
      *   - oldmbox: (string) Mailbox of old message (base64url encoded).
      *   - olduid: (integer) UID of old message.
      *   - ViewPort: (object) See _viewPortData().
@@ -1500,8 +1499,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $this->_vars->uid = $new_indices->formTo();
         $result = $this->showMessage();
 
-        $new_indices_list = $new_indices->getSingle();
-        $result->newuid = $new_indices_list[1];
         $old_indices_list = $indices->getSingle();
         $result->oldmbox = $old_indices_list[0]->form_to;
         $result->olduid = $old_indices_list[1];

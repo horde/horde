@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Hermes H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2011-05-18 12:23+0200\n"
-"PO-Revision-Date: 2011-10-16 15:22+0300\n"
+"PO-Revision-Date: 2011-11-04 13:34+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -255,9 +255,8 @@ msgid "Display Name"
 msgstr "Pieejamais vārds"
 
 #: config/prefs.php:20
-#, fuzzy
 msgid "Display Preferences"
-msgstr "Attēlošanas iestatījumi"
+msgstr "Ekrāna iestatījumi"
 
 #: lib/Form/Search.php:48 templates/index/search.inc:38
 msgid "Do not include entries after"
@@ -421,9 +420,8 @@ msgid "Invoicing"
 msgstr "Rēķini"
 
 #: invoicing.php:29
-#, fuzzy
 msgid "Invoicing system is not installed."
-msgstr "Lietotāja rokasgrāmata nav instalēta lokāli."
+msgstr "Nav uzstādīta rēķinu izrakstīšanas sistēma."
 
 #: invoicing.php:36 lib/Admin.php:20 lib/Admin.php:87 lib/Admin.php:121
 #: lib/Api.php:56 lib/Form/JobType/Add.php:15 lib/Form/Time/Entry.php:60

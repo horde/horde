@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-23</date>
- <time>18:56:59</time>
+ <date>2011-12-13</date>
+ <time>14:48:35</time>
  <version>
-  <release>4.0.5</release>
+  <release>4.0.6</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -88,56 +88,56 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.2</min>
+    <min>1.0.3</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.12</min>
+    <min>4.0.13</min>
     <max>5.0.0</max>
     <exclude>5.0.0</exclude>
    </package>
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.15</min>
+    <min>5.0.16</min>
     <max>6.0.0</max>
     <exclude>6.0.0</exclude>
    </package>
    <package>
     <name>ingo</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.6</min>
+    <min>2.0.7</min>
     <max>3.0.0</max>
     <exclude>3.0.0</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.12</min>
+    <min>3.0.13</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.3</min>
+    <min>3.0.4</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.6</min>
+    <min>3.0.7</min>
     <max>4.0.0</max>
     <exclude>4.0.0</exclude>
    </package>
    <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.3</min>
+    <min>1.0.5</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -280,7 +280,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-23</date>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.6</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 

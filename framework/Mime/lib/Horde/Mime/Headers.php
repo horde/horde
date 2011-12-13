@@ -649,6 +649,8 @@ class Horde_Mime_Headers implements Serializable
      * This function can be called statically:
      *   $headers = Horde_Mime_Headers::sanityCheck().
      *
+     * @since Horde_Mime 1.4.0
+     *
      * @param string $header  The header.
      * @param string $data    The header data.
      * @param array $opts     Optional parameters:

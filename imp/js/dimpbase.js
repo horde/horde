@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
+    //   expandmbox, muid, pollPE, pp, qsearch_ghost, resize, rownum, search,
     //   splitbar, sort_init, template, uid, view, viewaction, viewport,
     //   viewswitch
     // msglist_template_horiz and msglist_template_vert set via
@@ -677,6 +677,11 @@ var DimpBase = {
                 $('searchbar').show();
             } else {
                 this.setFolderLabel(this.view);
+            }
+
+            if (this.muid) {
+                this.rownum = this.viewport.createSelectionBuffer().search({ uid: { equal: [ this.muid ] } }).get('rownum').first();
+                delete this.muid;
             }
 
             if (this.rownum) {
@@ -1559,16 +1564,17 @@ var DimpBase = {
 
     _loadPreviewCallback: function(resp)
     {
-        var bg, ppuid, tmp, vs,
+        var bg, ppuid, tmp,
             pm = $('previewMsg'),
             r = resp.response.preview,
-            t = $('msgHeadersContent').down('THEAD');
+            t = $('msgHeadersContent').down('THEAD'),
+            vs = this.viewport.getSelection();
 
         bg = (!this.pp ||
               this.pp.uid != r.uid ||
               this.pp.mbox != r.mbox);
 
-        if (r.error || this.viewport.getSelected().size() != 1) {
+        if (r.error || vs.size() != 1) {
             if (!bg) {
                 if (r.error) {
                     DimpCore.showNotifications([ { type: r.errortype, message: r.error } ]);
@@ -1577,8 +1583,6 @@ var DimpBase = {
             }
             return;
         }
-
-        vs = this.viewport.getSelection();
 
         // Store in cache.
         ppuid = this._getPPId(r.uid, r.mbox);
@@ -1674,12 +1678,13 @@ var DimpBase = {
 
     _stripAttachmentCallback: function(r)
     {
-        this.uid = r.response.newuid;
+        var resp = r.response;
 
-        this._loadPreviewCallback(r);
-
-        // Remove old cache value.
-        this._expirePPCache([ this._getPPId(r.olduid, r.oldmbox) ]);
+        if (this.pp &&
+            this.pp.uid == resp.olduid &&
+            this.pp.mbox == resp.oldmbox) {
+            this.muid = resp.preview.uid;
+        }
     },
 
     _mimeTreeCallback: function(r)
@@ -3031,6 +3036,7 @@ var DimpBase = {
                 this.createFolder(tmp);
             }
         } else {
+<<<<<<< HEAD
             div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
             parent_e = ob.pa
                 ? this.getSubMboxElt(ob.pa).down()
@@ -3045,6 +3051,38 @@ var DimpBase = {
                 return (l && (ll < l.toLowerCase()));
             });
         }
+=======
+            if (ob.s) {
+                div.addClassName(ob.cl || 'folderImg');
+                parent_e = $('specialfolders');
+
+                /* Create a dummy container element in 'normalfolders'
+                 * section. */
+                if (ob.ch & !ob.sup) {
+                    div.removeClassName('exp').addClassName(ob.cl || 'folderImg');
+
+                    tmp = Object.clone(ob);
+                    tmp.co = tmp.dummy = true;
+                    tmp.s = false;
+                    this.createFolder(tmp);
+                }
+            } else {
+                div.addClassName(ob.ch ? 'exp' : (ob.cl || 'folderImg'));
+                parent_e = ob.pa
+                    ? $(this.getSubMboxId(this.getMboxId(ob.pa))).down()
+                    : $('normalfolders');
+            }
+
+            /* Virtual folders and special mailboxes are sorted on the
+             * server. */
+            if (!ob.v && !ob.s) {
+                ll = label.toLowerCase();
+                f_node = parent_e.childElements().find(function(node) {
+                    var l = node.retrieve('l');
+                    return (l && (ll.localeCompare(l.toLowerCase()) < 0));
+                });
+            }
+>>>>>>> master
 
         if (f_node) {
             f_node.insert({ before: li });

@@ -12,9 +12,20 @@ v3.1-git
 
 
 -----------
-v3.0.13-git
+v3.0.14-git
 -----------
 
+
+
+-------
+v3.0.13
+-------
+
+[jan] Hide disabled calendar sections (Bug #9815).
+[gwr] Fixed recurrence handling with the Kolab backend.
+[gwr] Fixed naming of the default calendar for the Kolab backend.
+[gwr] Fixed deleting events with the Kolab backend.
+[gwr] Fixed migrations for SQLite as database backend.
 [mjr] Fix keyboard navigation of time entry fields in dynamic view (Bug
       #10799).
 [mjr] Fix parsing display_cal variables for internal calendar links on various

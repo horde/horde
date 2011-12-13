@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-10</date>
- <time>15:29:29</time>
+ <date>2011-12-13</date>
+ <time>11:53:30</time>
  <version>
-  <release>1.1.10</release>
+  <release>1.1.11</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Increase field length for sync_data to support syncing large collections (Bug: 10822).
-* [jan] Fix tests to work with PHPUnit 3.6.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -113,7 +112,6 @@
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
       <file name="ContactTest.php" role="test" />
-      <file name="FileStateTest.php" role="test" />
       <file name="FolderSyncTest.php" role="test" />
       <file name="HordeDriverTest.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
@@ -171,7 +169,7 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.3</min>
+    <min>1.2.0</min>
     <max>2.0.0</max>
     <exclude>2.0.0</exclude>
    </package>
@@ -226,7 +224,6 @@
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
-   <install as="Horde/ActiveSync/FileStateTest.php" name="test/Horde/ActiveSync/FileStateTest.php" />
    <install as="Horde/ActiveSync/FolderSyncTest.php" name="test/Horde/ActiveSync/FolderSyncTest.php" />
    <install as="Horde/ActiveSync/HordeDriverTest.php" name="test/Horde/ActiveSync/HordeDriverTest.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
@@ -471,11 +468,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-10</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Increase field length for sync_data to support syncing large collections (Bug: 10822).
+* [mjr] Increase field length for sync_data to support syncing large collections (Bug #10822).
 * [jan] Fix tests to work with PHPUnit 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.11</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

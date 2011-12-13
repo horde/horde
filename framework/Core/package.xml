@@ -28,6 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
+ <date>2011-12-13</date>
+ <time>11:47:02</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -1686,7 +1688,21 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-06</date>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Allow separate ActiveSync logs per device.
+* [jan] Make the lifetime of cached weather information configurable (Arjen de Korte, Request #10848).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.3</release>
+    <api>1.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 *

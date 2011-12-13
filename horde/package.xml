@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-22</date>
- <time>22:29:57</time>
+ <date>2011-12-13</date>
+ <time>12:48:26</time>
  <version>
   <release>4.1.0</release>
   <api>4.0.0</api>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] E-mail sending charset now defaults to UTF-8.
-* [mms] Add post-install script for the Horde application
-* [mms] Portal blocks can now load just the CSS necessary to display an application&apos;s blocks.
-* [jan] Show notifications directly after logging into Smartphone mode.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4629,13 +4626,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-22</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Make the lifetime of cached weather information configurable (Arjen de Korte, Request #10848).
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mjr] Improve layout of weather block.
 * [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.14</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -969,6 +969,9 @@ abstract class Horde_Db_Adapter_Base_Schema
     /**
      * Generates an INTERVAL clause for SELECT queries.
      *
+     * @deprecated since version 1.2.0. This function does not work with SQLite
+     * as a backend so you should avoid using it. Use "modifyDate()" instead.
+     *
      * @param string $interval   The interval.
      * @param string $precision  The precision.
      *
@@ -977,6 +980,28 @@ abstract class Horde_Db_Adapter_Base_Schema
     public function interval($interval, $precision)
     {
         return 'INTERVAL ' . $precision . ' ' . $interval;
+    }
+
+    /**
+     * Generates a modified date for SELECT queries.
+     *
+     * @since Horde_Db 1.2.0
+     *
+     * @param string $reference  The reference date.
+     * @param string $operator   The oprator for the modification (+/-)
+     * @param string $amount     The modification amount.
+     * @param string $interval   The interval (SECOND, MINUTE, HOUR, DAY,
+     *                           MONTH, YEAR).
+     *
+     * @return string  The generated INTERVAL clause.
+     */
+    public function modifyDate($reference, $operator, $amount, $interval)
+    {
+        return sprintf('%s %s INTERVAL \'%s\' %s',
+                       $reference,
+                       $operator,
+                       $amount,
+                       $interval);
     }
 
     /**

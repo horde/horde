@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-06</date>
- <time>11:12:55</time>
+ <date>2011-12-13</date>
+ <time>12:04:59</time>
  <version>
   <release>1.0.0</release>
-  <api>1.0.0beta1</api>
+  <api>1.0.0RC1</api>
  </version>
  <stability>
   <release>beta</release>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* [mjr] Use longer cache lifetime for non-changing values (Request #10851).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -85,6 +85,12 @@
       <file name="Horde_Service_Weather.po" role="data" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Service_Weather.mo" role="data" />
+      <file name="Horde_Service_Weather.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
       <file name="Horde_Service_Weather.mo" role="data" />
@@ -299,6 +305,8 @@
    <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Service_Weather.po" name="locale/ja/LC_MESSAGES/Horde_Service_Weather.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/lv/LC_MESSAGES/Horde_Service_Weather.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Service_Weather.po" name="locale/lv/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="Horde/Service/Weather/AllTests.php" name="test/Horde/Service/Weather/AllTests.php" />
@@ -439,7 +447,7 @@
    <notes>
 * [jan] Add Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mjr] Export available detailed forecast fields for each driver (Bug #10813).
-* [mjr] Fix returning correct units when requesting the same location twice, but with different units (Bug # 10804).
+* [mjr] Fix returning correct units when requesting the same location twice, but with different units (Bug #10804).
 * [mjr] Fix returning localized text from Wwo driver (Bug #10804).
 * [mjr] Fix obtaining forecast periods individually..
 * [mjr] Fix obtaining certain properties from Google driver.
@@ -451,15 +459,28 @@
   </release>
   <release>
    <version>
-    <release>1.0.0</release>
-    <api>1.0.0beta1</api></version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0RC1</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2011-12-06</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [mjr] Use longer cache lifetime for non-changing values (Request #10851).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0RC1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
