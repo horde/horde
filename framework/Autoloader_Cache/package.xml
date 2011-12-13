@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>11:39:25</time>
+ <time>11:40:47</time>
  <version>
-  <release>1.0.0RC3</release>
+  <release>1.0.0</release>
   <api>1.0.0RC3</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Include server name and file path in cache key to allow multiple Horde installations.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -127,6 +127,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Include server name and file path in cache key to allow multiple Horde installations.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0RC3</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
