@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>13:33:23</time>
+ <time>13:35:12</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [gwr] Corrected teletype format for the reST renderer.
-* [gwr] Support rendering lists in the reST renderer.
-* [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -918,6 +916,19 @@
 * [gwr] Corrected teletype format for the reST renderer.
 * [gwr] Support rendering lists in the reST renderer.
 * [jan] Add Slovak translation (Martin Matuška &lt;martin@matuska.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
