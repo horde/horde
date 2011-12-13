@@ -1,6 +1,6 @@
------------
-v4.0.13-git
------------
+-------
+v4.0.13
+-------
 
 [jan] Make the lifetime of cached weather information configurable (Arjen de
       Korte, Request #10848).
