@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 4.0.12.
+Application Framework version 4.0.13.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -30,15 +30,15 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 4.0.11 are:
-    * Replaced the weather.com portal block.
-    * Allowed to disable password resets.
+The major changes compared to the Horde version 4.0.12 are:
+    * Improved weather support.
+    * Updated Dutch and Japanese translations.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Replaced the weather.com portal block.
-Allowed to disable password resets.
+Improved weather support.
+Updated Dutch and Japanese translations.
 FM;
 
 $this->notes['name'] = 'Horde';
