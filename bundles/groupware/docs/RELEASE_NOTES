@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 4.0.4.
+version 4.0.5.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -27,38 +27,33 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 4.0.3 are:
+The major changes compared to the Horde Groupware version 4.0.4 are:
 
 General changes:
-    * Added Hordevetica theme.
-    * Added administration page to list and clear locks.
-    * Replaced the weather.com portal block.
-    * Allowed to disable password resets.
-    * Allowed to disable in-page base64 image encoding.
-    * Further bugfixes and improvements.
+    * Improved weather support.
+    * Updated Dutch and Japanese translations.
+    * Small bugfixes and improvements.
 
 Calendar changes:
-    * Added confirmation screen when deleting events in dynamic view.
-    * Included event status with agenda messages.
-    * Improved compatibility with CalDAV servers.
-    * Many design improvements.
+    * Improved Kolab compatibility.
+    * Improved CalDAV compatibility.
 
 Tasks changes:
-    * Added option to choose which tasklists to synchronize.
-    * Improved date and time fields.
-    * Fixed task details of private tasks being published via the API.
-    * Fixed using the correct locale when parsing quick tasks.
+    * Fixed setting custom alarm methods.
 
 Notes changes:
-    * Added Estonian translation.
+    * Improved notes sorting.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added new theme, administration for locks, option to disable password resets, confirmation when deleting events, event status in agenda messages, and option which tasklists to synchronize.
-Improved calendar interface and compatibility with CalDAV servers.
-Replaced the weather.com portal block.
-Fixed information disclosure of private tasks.
+Improved weather support.
+Improved Kolab compatibility.
+Improved CalDAV compatibility.
+Improved notes sorting.
+Fixed setting custom task alarm methods.
+Updated Dutch and Japanese translations.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Horde Groupware';
