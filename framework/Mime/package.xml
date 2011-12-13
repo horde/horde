@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>11:57:09</time>
+ <time>11:58:09</time>
  <version>
-  <release>1.4.0</release>
+  <release>1.4.1</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -29,10 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Allow Horde_Mime_Part::getRawPartText() to accept stream input.
-* [mms] Workaround incoming message data to Horde_Mime_Part::getRawPartText() that contains varying EOL characters (Bug #10809).
-* [mms] Fix detection of MIME boundaries at beginning of string (Bug #10809).
-* [mms] Abstract charset detection code out into Horde_Mime_Headers::sanityCheck().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -839,6 +836,19 @@
 * [mms] Workaround incoming message data to Horde_Mime_Part::getRawPartText() that contains varying EOL characters (Bug #10809).
 * [mms] Fix detection of MIME boundaries at beginning of string (Bug #10809).
 * [mms] Abstract charset detection code out into Horde_Mime_Headers::sanityCheck().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>1.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
