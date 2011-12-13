@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
+    //   expandmbox, muid, pollPE, pp, qsearch_ghost, resize, rownum, search,
     //   splitbar, sort_init, template, uid, view, viewaction, viewport,
     //   viewswitch
     // msglist_template_horiz and msglist_template_vert set via
@@ -633,6 +633,11 @@ var DimpBase = {
                 $('searchbar').show();
             } else {
                 this.setFolderLabel(this.view);
+            }
+
+            if (this.muid) {
+                this.rownum = this.viewport.createSelectionBuffer().search({ uid: { equal: [ this.muid ] } }).get('rownum').first();
+                delete this.muid;
             }
 
             if (this.rownum) {
@@ -1607,12 +1612,13 @@ var DimpBase = {
 
     _stripAttachmentCallback: function(r)
     {
-        this.uid = r.response.newuid;
+        var resp = r.response;
 
-        this._loadPreviewCallback(r);
-
-        // Remove old cache value.
-        this._expirePPCache([ this._getPPId(r.olduid, r.oldmbox) ]);
+        if (this.pp &&
+            this.pp.uid == resp.olduid &&
+            this.pp.mbox == resp.oldmbox) {
+            this.muid = resp.preview.uid;
+        }
     },
 
     _sendMdnCallback: function(r)
