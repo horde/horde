@@ -1,6 +1,6 @@
-----------
-v3.0.4-git
-----------
+------
+v3.0.4
+------
 
 [jan] Use locale based sorting.
 [jan] Fix remembering the expansion state of the notepads panel (Bug #10797).
