@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>11:47:43</time>
+ <time>11:48:34</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Provide signature information when decrypting a message, rather than just a boolean result.
-* [mms] Fix displaying PGP key expiration information.
-* [mms] Allow expiration date to be given to Horde_Crypt_Pgp#generateKey() (Request #5754).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -713,6 +711,19 @@ Initial release as a PEAR package
 * [mms] Provide signature information when decrypting a message, rather than just a boolean result.
 * [mms] Fix displaying PGP key expiration information.
 * [mms] Allow expiration date to be given to Horde_Crypt_Pgp#generateKey() (Request #5754).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
