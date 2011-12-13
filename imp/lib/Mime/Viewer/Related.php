@@ -120,18 +120,18 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
                     IMP_Contents::SUMMARY_DOWNLOAD
                 );
 
-                $ret[$related_id]['status'][] = array(
-                    'icon' => Horde::img('alerts/warning.png', _("Warning")),
-                    'text' => array(
-                        _("This part contains an attachment that can not be displayed within this part:"),
-                        implode('&nbsp;', array(
-                            $summary['icon'],
-                            $summary['description'],
-                            $summary['size'],
-                            $summary['download']
-                        ))
-                    )
-                );
+                $status = new IMP_Mime_Status(array(
+                    _("This part contains an attachment that can not be displayed within this part:"),
+                    implode('&nbsp;', array(
+                        $summary['icon'],
+                        $summary['description'],
+                        $summary['size'],
+                        $summary['download']
+                    ))
+                ));
+                $status->action(IMP_Mime_Status::WARNING);
+
+                $ret[$related_id]['status'][] = $status;
             }
         }
 

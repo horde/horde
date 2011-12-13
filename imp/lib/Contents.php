@@ -485,26 +485,22 @@ class IMP_Contents
 
             if ($limit && ($mime_part->getBytes() > $limit)) {
                 $data = '';
-                $status = array(
+                $status = new IMP_Mime_Status(array(
                     _("This message part cannot be viewed because it is too large."),
                     sprintf(_("Click %s to download the data."), $this->linkView($mime_part, 'download_attach', _("HERE")))
-                );
+                ));
+                $status->icon('alerts/warning.png', _("Warning"));
 
                 if (method_exists($viewer, 'overLimitText')) {
                     $data = $viewer->overLimitText();
-                    $status[] = _("The initial portion of this text part is displayed below.");
+                    $status->addText(_("The initial portion of this text part is displayed below."));
                 }
 
                 return array(
                     $mime_id => array(
                         'data' => $data,
                         'name' => '',
-                        'status' => array(
-                            array(
-                                'icon' => Horde::img('alerts/warning.png', _("Warning")),
-                                'text' => $status
-                            )
-                        ),
+                        'status' => $status,
                         'type' => 'text/html; charset=' . 'UTF-8'
                     )
                 );
@@ -541,16 +537,9 @@ class IMP_Contents
         if (!is_null($ret[$mime_id]['data']) &&
             ($textmode == 'inline') &&
             !strlen($ret[$mime_id]['data']) &&
-            $this->isAttachment($type)) {
-            if (empty($ret[$mime_id]['status'])) {
-                $ret[$mime_id]['status'] = array(
-                    array(
-                        'text' => array(
-                            _("This part is empty.")
-                        )
-                    )
-                );
-            }
+            $this->isAttachment($type) &&
+            !isset($ret[$mime_id]['status'])) {
+            $ret[$mime_id]['status'] = new IMP_Mime_Status(_("This part is empty."));
         }
 
         return $ret;
@@ -1327,8 +1316,14 @@ class IMP_Contents
                             $part_text .= $this->_formatSummary($id, $contents_mask, $part_info_display);
                         }
 
-                        $part_text .= $this->formatStatusMsg($info['status']) .
-                            '<div class="mimePartData">' . $info['data'] . '</div>';
+                        if (isset($info['status'])) {
+                            if (!is_array($info['status'])) {
+                                $info['status'] = array($info['status']);
+                            }
+                            $part_text .= implode('', array_map('strval', $info['status']));
+                        }
+
+                        $part_text .= '<div class="mimePartData">' . $info['data'] . '</div>';
                     } else {
                         if ($part_text && !empty($options['sep'])) {
                             $part_text .= $options['sep'];
@@ -1383,7 +1378,7 @@ class IMP_Contents
         $text_out .= str_repeat('</div>', count($wrap_ids));
 
         if (!strlen($text_out)) {
-            $text_out = $this->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
+            $text_out = strval(new IMP_Mime_Status(_("There are no parts that can be shown inline.")));
         }
 
         $atc_parts = ($show_parts == 'all')
@@ -1397,46 +1392,6 @@ class IMP_Contents
             'msgtext' => $text_out,
             'one_part' => (count($parts_list) == 1)
         );
-    }
-
-    /**
-     * Prints out a MIME status message (in HTML).
-     *
-     * @param array $data  An array of information (as returned from
-                           Horde_Mime_Viewer_Base::render()).
-     *
-     * @return string  The formatted status message string.
-     */
-    public function formatStatusMsg($data)
-    {
-        $out = '';
-
-        foreach ($data as $val) {
-            if (empty($val)) {
-                continue;
-            }
-
-            $out .= '<div><table class="mimeStatusMessageTable"' . (isset($val['id']) ? (' id="' . $val['id'] . '" ') : '') . '>';
-
-            /* If no image, simply print out the message. */
-            if (empty($val['icon'])) {
-                foreach ($val['text'] as $val) {
-                    $out .= '<tr><td>' . $val . '</td></tr>';
-                }
-            } else {
-                $out .= '<tr><td class="mimeStatusIcon">' . $val['icon'] . '</td><td><table>';
-                foreach ($val['text'] as $val) {
-                    $out .= '<tr><td>' . $val . '</td></tr>';
-                }
-                $out .= '</table></td></tr>';
-            }
-
-            $out .= '</table></div>';
-        }
-
-        return $out
-            ? '<div class="mimeStatusMessage">' . $out . '</div>'
-            : '';
     }
 
     /**

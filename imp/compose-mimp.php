@@ -193,7 +193,7 @@ case _("Redirect"):
         $num_msgs = $imp_compose->sendRedirectMessage($imp_ui->getAddressList($header['to']));
         $imp_compose->destroy('send');
 
-        $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", $num_msgs), 'horde.success');
+        $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", count($num_msgs)), 'horde.success');
         require IMP_BASE . '/mailbox-mimp.php';
         exit;
     } catch (Horde_Exception $e) {

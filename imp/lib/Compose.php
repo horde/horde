@@ -1953,7 +1953,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param string $to  The addresses to redirect to.
      *
-     * @return integer  The number of redirected messages sent.
+     * @return array  An object with the following properties for each
+     *                redirected message:
+     *   - contents: (IMP_Contents) The contents object.
+     *   - headers: (Horde_Mime_Headers) The header object.
+     *   - mbox: (IMP_Mailbox) Mailbox of the message.
+     *   - uid: (string) UID of the message.
+     *
      * @throws IMP_Compose_Exception
      */
     public function sendRedirectMessage($to)
@@ -1964,14 +1970,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
         $from_addr = $identity->getFromAddress();
 
-        $indices = $this->getMetadata('redirect_indices');
-        foreach ($indices as $val) {
+        $out = array();
+
+        foreach ($this->getMetadata('redirect_indices') as $val) {
             foreach ($val->uids as $val2) {
                 try {
                     $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($val->mbox->getIndicesOb($val2));
                 } catch (IMP_Exception $e) {
                     throw new IMP_Compose_Exception(_("Error when redirecting message."));
                 }
+
                 $headers = $contents->getHeaderOb();
 
                 /* We need to set the Return-Path header to the current user -
@@ -2008,10 +2016,18 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 }
 
                 $GLOBALS['injector']->getInstance('IMP_Sentmail')->log(IMP_Sentmail::REDIRECT, $headers->getValue('message-id'), $recipients);
+
+                $tmp = new stdClass;
+                $tmp->contents = $contents;
+                $tmp->headers = $headers;
+                $tmp->mbox = $val->mbox;
+                $tmp->uid = $val2;
+
+                $out[] = $tmp;
             }
         }
 
-        return count($indices);
+        return $out;
     }
 
     /**

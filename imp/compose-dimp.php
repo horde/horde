@@ -196,7 +196,7 @@ case 'forward_both':
 
 case 'forward_redirect':
     try {
-        $imp_compose->redirectMessage($imp_ui->getIndices());
+        $imp_compose->redirectMessage($imp_ui->getIndices($vars));
         $title = _("Redirect");
         $vars->type = 'redirect';
     } catch (IMP_Compose_Exception $e) {

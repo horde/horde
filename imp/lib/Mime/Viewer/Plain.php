@@ -73,7 +73,6 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             return array(
                 $mime_id => array(
                     'data' => '',
-                    'status' => array(),
                     'type' => 'text/html; charset=' . $charset
                 )
             );
@@ -105,7 +104,6 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             return array(
                 $mime_id => array(
                     'data' => $text,
-                    'status' => array(),
                     'type' => $type
                 )
             );
@@ -171,7 +169,6 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         return array(
             $mime_id => array(
                 'data' => "<div class=\"fixed leftAlign\">\n" . $text . '</div>',
-                'status' => array(),
                 'type' => $type
             )
         );

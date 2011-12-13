@@ -290,7 +290,12 @@ var DimpCompose = {
             case 'redirectMessage':
                 if (this.baseAvailable()) {
                     if (d.log) {
-                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                        d.log.each(function(l) {
+                            DimpCore.base.DimpBase.updateMsgLog(l.log, {
+                                mailbox: l.mbox,
+                                uid: l.uid
+                            });
+                        });
                     }
 
                     if (!DIMP.conf_compose.qreply) {
