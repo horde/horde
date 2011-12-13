@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>13:30:30</time>
+ <time>13:32:24</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,12 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
  <notes>
-* [jan] Fix some CLI scripts if run from a PEAR installation (Bug #10839).
-* [jan] Automatically create parent permissions when adding the first restricted comment.
-* [jan] Ignore messages from postmaster too when processing mails.
-* [jan] Add setting to use different addresses for Return-Path: and From: headers.
-* [jan] Fix whups-reminders script (Bug #10783).
-* [jan] Add Latvian translation (Jānis Eisaks).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -992,6 +987,19 @@
 * [jan] Add setting to use different addresses for Return-Path: and From: headers.
 * [jan] Fix whups-reminders script (Bug #10783).
 * [jan] Add Latvian translation (Jānis Eisaks).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
