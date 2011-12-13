@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>11:52:28</time>
+ <time>11:53:30</time>
  <version>
-  <release>1.1.10</release>
+  <release>1.1.11</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Increase field length for sync_data to support syncing large collections (Bug: 10822).
-* [jan] Fix tests to work with PHPUnit 3.6.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -474,6 +473,19 @@
    <notes>
 * [mjr] Increase field length for sync_data to support syncing large collections (Bug: 10822).
 * [jan] Fix tests to work with PHPUnit 3.6.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.11</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
