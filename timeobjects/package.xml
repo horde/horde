@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-11-23</date>
- <time>18:27:35</time>
+ <date>2011-12-13</date>
+ <time>12:25:33</time>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -83,6 +83,12 @@
       <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
     </dir> <!-- /locale/lv -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
     <file name=".htaccess" role="horde" />
     <file name="timeobjects.pot" role="horde" />
    </dir> <!-- /locale -->
@@ -177,6 +183,8 @@
    <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.po" name="locale/ja/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/lv/LC_MESSAGES/timeobjects.mo" name="locale/lv/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/lv/LC_MESSAGES/timeobjects.po" name="locale/lv/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/nl/LC_MESSAGES/timeobjects.mo" name="locale/nl/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/nl/LC_MESSAGES/timeobjects.po" name="locale/nl/LC_MESSAGES/timeobjects.po" />
   </filelist>
  </phprelease>
  <changelog>
@@ -303,7 +311,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-11-23</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * [jan] Add Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
