@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-12-06</date>
- <time>10:51:59</time>
+ <date>2011-12-13</date>
+ <time>11:36:42</time>
  <version>
   <release>1.4.7</release>
   <api>1.4.0</api>
@@ -100,6 +100,12 @@
       <file name="Horde_Auth.po" role="data" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
     <file name="Horde_Auth.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -271,6 +277,8 @@
    <install as="locale/et/LC_MESSAGES/Horde_Auth.po" name="locale/et/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Auth.mo" name="locale/ja/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Auth.po" name="locale/ja/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Auth.mo" name="locale/lv/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Auth.po" name="locale/lv/LC_MESSAGES/Horde_Auth.po" />
    <install as="migration/1_horde_auth_base_tables.php" name="migration/Horde/Auth/1_horde_auth_base_tables.php" />
    <install as="Horde/Auth/AllTests.php" name="test/Horde/Auth/AllTests.php" />
    <install as="Horde/Auth/Autoload.php" name="test/Horde/Auth/Autoload.php" />
@@ -628,7 +636,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2011-12-06</date>
+   <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Latvian translation (Jānis Eisaks &lt;jancs@dv.lv&gt;).
