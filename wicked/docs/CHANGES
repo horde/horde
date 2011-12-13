@@ -1,6 +1,6 @@
-----------
-v1.0.1-git
-----------
+------
+v1.0.1
+------
 
 [gwr] Corrected teletype format for the reST renderer.
 [gwr] Support rendering lists in the reST renderer.
