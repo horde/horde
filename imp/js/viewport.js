@@ -1484,23 +1484,23 @@ ViewPort_Buffer = Class.create({
         }, this);
 
         if (opts.mdreset) {
-            this.usermdata = $H(md);
-        } else {
-            $H(md).each(function(pair) {
-                if (Object.isString(pair.value) ||
-                    Object.isNumber(pair.value) ||
-                    Object.isArray(pair.value)) {
-                    this.usermdata.set(pair.key, pair.value);
-                } else {
-                    var val = this.usermdata.get(pair.key);
-                    if (val) {
-                        val.update($H(pair.value));
-                    } else {
-                        this.usermdata.set(pair.key, $H(pair.value));
-                    }
-                }
-            }, this);
+            this.usermdata = $H();
         }
+
+        $H(md).each(function(pair) {
+            if (Object.isString(pair.value) ||
+                Object.isNumber(pair.value) ||
+                Object.isArray(pair.value)) {
+                this.usermdata.set(pair.key, pair.value);
+            } else {
+                var val = this.usermdata.get(pair.key);
+                if (val) {
+                    val.update($H(pair.value));
+                } else {
+                    this.usermdata.set(pair.key, $H(pair.value));
+                }
+            }
+        }, this);
     },
 
     // offset = (integer) Offset of the beginning of the slice.

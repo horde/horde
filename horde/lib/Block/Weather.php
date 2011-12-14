@@ -174,11 +174,9 @@ class Horde_Block_Weather extends Horde_Core_Block
             $current->temp . '&deg;' . Horde_String::upper($units['temp']);
 
         // Dew point.
-        if ($current->dewpoint) {
+        if (is_numeric($current->dewpoint)) {
             $html .= ' <strong>' . _("Dew point") . ': </strong>' .
-                ($dewpoint !== false ?
-                    round($current->dewpoint) . '&deg;' . Horde_String::upper($units['temp']) :
-                    _("N/A"));
+                    round($current->dewpoint) . '&deg;' . Horde_String::upper($units['temp']);
         }
 
         // Feels like temperature.

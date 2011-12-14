@@ -2628,6 +2628,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix issue in dynamic mailbox view with thread sorting and a reset of mailbox metadata (Bug #10835).
 * [mms] Fix message redirection regression in dynamic view (Bug #10859).
    </notes>
   </release>

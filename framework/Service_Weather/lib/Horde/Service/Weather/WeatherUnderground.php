@@ -131,6 +131,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     {
         switch ($type) {
         case Horde_Service_Weather::SEARCHTYPE_STANDARD:
+        case Horde_Service_Weather::SEARCHTYPE_ZIP:
+        case Horde_Service_Weather::SEARCHTYPE_CITYSTATE:
             return $this->_parseSearchLocations($this->_searchLocations(rawurlencode($location)));
 
         case Horde_Service_Weather::SEARCHTYPE_IP:
@@ -169,9 +171,15 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     protected function _getLocationByIp($ip)
     {
-        return $this->_makeRequest(
-            self::API_URL . '/api/' . $this->_apiKey
-                . '/geolookup/q/autoip.json');
+        if ($this->_ipIsUnique($ip)) {
+            return $this->_makeRequest(
+                self::API_URL . '/api/' . $this->_apiKey
+                    . '/geolookup/q/autoip.json?geo_ip=' . $ip);
+        } else {
+            return $this->_makeRequest(
+                self::API_URL . '/api/' . $this->_apiKey
+                    . '/geolookup/q/autoip.json');
+        }
     }
 
     /**

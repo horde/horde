@@ -210,4 +210,42 @@ abstract class Horde_Service_Weather_Base
         }
         return $this->_station;
     }
+
+    /**
+     * Check if an IP address is a globally unique address and not in RFC1918 or
+     * RFC3330 address space.
+     *
+     * @param  string $ip  The IPv4 IP address to check.
+     *
+     * @return boolean  True if the IP address is globally unique.
+     * @link http://tools.ietf.org/html/rfc3330
+     * @link http://www.faqs.org/rfcs/rfc1918.html
+     */
+    protected function _ipIsUnique($ip)
+    {
+        // Make sure it's sane
+        $parts = explode('.', $ip);
+        if (count($parts) != 4) {
+            return false;
+        }
+
+        // zero config IPs RFC3330
+        if ($parts[0] == 169 && $parts[1] == 254) {
+            return false;
+        }
+
+        // reserved RFC 1918
+        if ($parts[0] == 10 ||
+            ($parts[0] == 192 && $parts[1] == 168) ||
+            ($parts[0] == 172 && ($parts[1] >= 16 && $parts[1] <= 31))) {
+
+            return false;
+        }
+
+        // Loopback
+        if ($parts[0] == 127) {
+            return false;
+        }
+    }
+
 }
