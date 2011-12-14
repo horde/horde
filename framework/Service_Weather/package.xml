@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
-* 
+* [mjr] Fix using IP addresses for determining forecast location (Bug #10857)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -480,7 +480,7 @@
    <date>2011-12-13</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
-* 
+* [mjr] Fix using IP addresses for determining forecast location (Bug #10857)
    </notes>
   </release>
  </changelog>
