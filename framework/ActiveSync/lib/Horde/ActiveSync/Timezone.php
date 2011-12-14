@@ -137,7 +137,7 @@ class Horde_ActiveSync_Timezone
      *
      * @return array containing the the STD and DST transitions
      */
-    static protected function _getTransitions($timezone, $date)
+    static protected function _getTransitions(DateTimeZone $timezone, $date)
     {
         $std = $dst = null;
         // @TODO PHP 5.3 lets you specify a start and end timestamp, probably
