@@ -578,7 +578,7 @@ if ($pageOb['msgcount']) {
 
     if ($sort_url && ($sortpref['by'] != Horde_Imap_Client::SORT_SEQUENCE)) {
         $mboxactions[] = array(
-            'v' => Horde::widget($sort_url->copy()->remove('sortdir')->add(array('sortby' => Horde_Imap_Client::SORT_SEQUENCE, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), _("Clear Sort"), 'widget nosort', '', '', _("Clear Sort"))
+            'v' => Horde::widget($sort_url->copy()->remove('sortdir')->add(array('sortby' => Horde_Imap_Client::SORT_SEQUENCE, 'actionID' => 'change_sort', 'mailbox_token' => $mailbox_token)), _("Clear Sort"), 'widget', '', '', _("Clear Sort"))
         );
     }
 
