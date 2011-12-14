@@ -242,6 +242,11 @@ abstract class Horde_Service_Weather_Base
 
             return false;
         }
+
+        // Loopback
+        if ($parts[0] == 127) {
+            return false;
+        }
     }
 
 }
