@@ -8,6 +8,102 @@
  */
 class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
 {
+
+    protected $_offsets = array(
+        'America/New_York'    => array('bias' => 300,
+                                       'stdname' => '',
+                                       'stdyear' => 0,
+                                       'stdmonth' => 11,
+                                       'stdday' => 0,
+                                       'stdweek' => 1,
+                                       'stdhour' => 2,
+                                       'stdminute' => 0,
+                                       'stdsecond' => 0,
+                                       'stdmillis' => 0,
+                                       'stdbias' => 0,
+                                       'dstname' => '',
+                                       'dstyear' => 0,
+                                       'dstmonth' => 3,
+                                       'dstday' => 0,
+                                       'dstweek' => 2,
+                                       'dsthour' => 2,
+                                       'dstminute' => 0,
+                                       'dstsecond' => 0,
+                                       'dstmillis' => 0,
+                                       'dstbias' => -60),
+        'Europe/Berlin'       => array('bias' => -60,
+                                       'stdname' => '',
+                                       'stdyear' => 0,
+                                       'stdmonth' => 10,
+                                       'stdday' => 0,
+                                       'stdweek' => 5,
+                                       'stdhour' => 3,
+                                       'stdminute' => 0,
+                                       'stdsecond' => 0,
+                                       'stdmillis' => 0,
+                                       'stdbias' => 0,
+                                       'dstname' => '',
+                                       'dstyear' => 0,
+                                       'dstmonth' => 3,
+                                       'dstday' => 0,
+                                       'dstweek' => 5,
+                                       'dsthour' => 2,
+                                       'dstminute' => 0,
+                                       'dstsecond' => 0,
+                                       'dstmillis' => 0,
+                                       'dstbias' => -60),
+        'America/Los_Angeles' => array('bias' => 480,
+                                       'stdyear' => 0,
+                                       'stdmonth' => 11,
+                                       'stdday' => 0,
+                                       'stdweek' => 1,
+                                       'stdhour' => 2,
+                                       'stdminute' => 0,
+                                       'stdsecond' => 0,
+                                       'stdmillis' => 0,
+                                       'stdbias' => 0,
+                                       'dstyear' => 0,
+                                       'dstmonth' => 3,
+                                       'dstday' => 0,
+                                       'dstweek' => 2,
+                                       'dsthour' => 2,
+                                       'dstminute' => 0,
+                                       'dstsecond' => 0,
+                                       'dstmillis' => 0,
+                                       'dstbias' => -60,
+                                       'timezone' => 480,
+                                       'timezonedst' => -60),
+        'America/Phoenix'     => array('bias' => 420,
+                                       'stdname' => '',
+                                       'stdyear' => 0,
+                                       'stdmonth' => 0,
+                                       'stdday' => 0,
+                                       'stdweek' => 0,
+                                       'stdhour' => 0,
+                                       'stdminute' => 0,
+                                       'stdsecond' => 0,
+                                       'stdmillis' => 0,
+                                       'stdbias' => 0,
+                                       'dstname' => '',
+                                       'dstyear' => 0,
+                                       'dstmonth' => 0,
+                                       'dstday' => 0,
+                                       'dstweek' => 0,
+                                       'dsthour' => 0,
+                                       'dstminute' => 0,
+                                       'dstsecond' => 0,
+                                       'dstmillis' => 0,
+                                       'dstbias' => 0)
+    );
+
+    protected $_packed = array(
+        'America/New_York'    => 'LAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAABAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAACAAIAAAAAAAAAxP///w==',
+        'America/Los_Angeles' => '4AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAABAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAACAAIAAAAAAAAAxP///w==',
+        'Europe/Berlin'       => 'xP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAFAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAFAAIAAAAAAAAAxP///w==',
+        'America/Phoenix'     => 'pAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==',
+    );
+
+
     public function setUp()
     {
         $this->_oldTimezone = date_default_timezone_get();
@@ -25,38 +121,13 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
      */
     public function testOffsetsFromSyncTZ()
     {
-        // America/Los_Angeles GMT-8:00
-        $blob = '4AEAACgARwBNAFQALQAwADgAOgAwADAAKQAgAFAAYQBjAGkAZgBpAGMAIABUAGkAbQBlACAAKABVAFMAIAAmACAAQwAAA AsAAAABAAIAAAAAAAAAAAAAACgARwBNAFQALQAwADgAOgAwADAAKQAgAFAAYQBjAGkAZgBpAGMAIABUAGkAbQBlACAAKA BVAFMAIAAmACAAQwAAAAMAAAACAAIAAAAAAAAAxP///w==';
-        $tz = Horde_ActiveSync_Timezone::getOffsetsFromSyncTZ($blob);
-
-        $expected = array(
-            'bias' => 480,
-            //'stdname' => '(GMT-08:00) Pacific Time (US & C',
-            'stdyear' => 0,
-            'stdmonth' => 11,
-            'stdday' => 0,
-            'stdweek' => 1,
-            'stdhour' => 2,
-            'stdminute' => 0,
-            'stdsecond' => 0,
-            'stdmillis' => 0,
-            'stdbias' => 0,
-            'dstyear' => 0,
-            'dstmonth' => 3,
-            'dstday' => 0,
-            'dstweek' => 2,
-            'dsthour' => 2,
-            'dstminute' => 0,
-            'dstsecond' => 0,
-            'dstmillis' => 0,
-            'dstbias' => -60,
-            'timezone' => 480,
-            'timezonedst' => -60
-        );
-
-        foreach ($expected as $key => $value) {
-            $this->assertEquals($value, $tz[$key]);
+        foreach ($this->_packed as $tz => $blob) {
+            $offsets = Horde_ActiveSync_Timezone::getOffsetsFromSyncTZ($blob);
+            foreach ($this->_offsets[$tz] as $key => $value) {
+                $this->assertEquals($value, $offsets[$key]);
+            }
         }
+
     }
 
     /**
@@ -104,32 +175,10 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
      */
     public function testGetSyncTZFromOffsets()
     {
-        /* America/New_York */
-         $offsets = array(
-            'bias' => 300,
-            'stdname' => '',
-            'stdyear' => 0,
-            'stdmonth' => 11,
-            'stdday' => 0,
-            'stdweek' => 1,
-            'stdhour' => 2,
-            'stdminute' => 0,
-            'stdsecond' => 0,
-            'stdmillis' => 0,
-            'stdbias' => 0,
-            'dstname' => '',
-            'dstyear' => 0,
-            'dstmonth' => 3,
-            'dstday' => 0,
-            'dstweek' => 2,
-            'dsthour' => 2,
-            'dstminute' => 0,
-            'dstsecond' => 0,
-            'dstmillis' => 0,
-            'dstbias' => -60,
-        );
-
-        $tz = Horde_ActiveSync_Timezone::getSyncTZFromOffsets($offsets);
-        $this->assertEquals('LAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAABAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAACAAIAAAAAAAAAxP///w==', $tz);
+        foreach ($this->_offsets as $tz => $offsets) {
+            $blob = Horde_ActiveSync_Timezone::getSYncTZFromOffsets($offsets);
+            $this->assertEquals($this->_packed[$tz], $blob);
+        }
     }
+
 }
