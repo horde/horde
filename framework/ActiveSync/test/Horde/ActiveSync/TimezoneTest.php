@@ -53,6 +53,7 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
                                        'dstmillis' => 0,
                                        'dstbias' => -60),
         'America/Los_Angeles' => array('bias' => 480,
+                                       'stdname' => '',
                                        'stdyear' => 0,
                                        'stdmonth' => 11,
                                        'stdday' => 0,
@@ -62,6 +63,7 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
                                        'stdsecond' => 0,
                                        'stdmillis' => 0,
                                        'stdbias' => 0,
+                                       'dstname' => '',
                                        'dstyear' => 0,
                                        'dstmonth' => 3,
                                        'dstday' => 0,
@@ -127,7 +129,6 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
                 $this->assertEquals($value, $offsets[$key]);
             }
         }
-
     }
 
     /**
@@ -137,36 +138,12 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
     {
         // The actual time doesn't matter, we really only need a year and a
         // timezone that we are interested in.
-        $date = new Horde_Date('2011-07-01', 'America/New_York');
-        $tz = Horde_ActiveSync_Timezone::getOffsetsFromDate($date);
-        /* We don't set the name here */
-        /* America/New_York */
-         $expected = array(
-            'bias' => 300,
-            'stdname' => '',
-            'stdyear' => 0,
-            'stdmonth' => 11,
-            'stdday' => 0,
-            'stdweek' => 1,
-            'stdhour' => 2,
-            'stdminute' => 0,
-            'stdsecond' => 0,
-            'stdmillis' => 0,
-            'stdbias' => 0,
-            'dstname' => '',
-            'dstyear' => 0,
-            'dstmonth' => 3,
-            'dstday' => 0,
-            'dstweek' => 2,
-            'dsthour' => 2,
-            'dstminute' => 0,
-            'dstsecond' => 0,
-            'dstmillis' => 0,
-            'dstbias' => -60,
-        );
-
-        foreach ($expected as $key => $value) {
-            $this->assertEquals($value, $tz[$key]);
+        foreach ($this->_offsets as $tz => $expected) {
+            $date = new Horde_Date('2011-07-01', $tz);
+            $offsets = Horde_ActiveSync_Timezone::getOffsetsFromDate($date);
+            foreach ($offsets as $key => $value) {
+                $this->assertEquals($expected[$key], $value);
+            }
         }
     }
 
@@ -176,9 +153,31 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
     public function testGetSyncTZFromOffsets()
     {
         foreach ($this->_offsets as $tz => $offsets) {
-            $blob = Horde_ActiveSync_Timezone::getSYncTZFromOffsets($offsets);
+            $blob = Horde_ActiveSync_Timezone::getSyncTZFromOffsets($offsets);
             $this->assertEquals($this->_packed[$tz], $blob);
         }
+    }
+
+    /**
+     * Test guessing a timezone identifier from an ActiveSync timezone
+     * structure.
+     */
+    public function testGuessTimezoneFromOffsets()
+    {
+        $timezones = new Horde_ActiveSync_Timezone();
+
+        // Test general functionality, with expected timezone.
+        foreach ($this->_packed as $tz => $blob) {
+            $guessed = $timezones->getTimezone($blob, $tz);
+            $this->assertEquals($tz, $guessed);
+        }
+
+        // Test without a known timezone
+        $guessed = $timezones->getTimezone($this->_packed['America/New_York']);
+        $this->assertEquals('EST', $guessed);
+
+        $guessed = $timezones->getTimezone($this->_packed['Europe/Berlin']);
+        $this->assertEquals('CET', $guessed);
     }
 
 }
