@@ -553,7 +553,7 @@ if ($pageOb['msgcount']) {
     /* Prepare the actions template. */
     $a_template = $injector->createInstance('Horde_Template');
     if (IMP::$mailbox->access_deletemsgs) {
-        $del_class = ($use_trash && IMP::$mailbox->is_trash)
+        $del_class = ($use_trash && IMP::$mailbox->trash)
             ? 'permdeleteAction'
             : 'deleteAction';
         $a_template->set('delete', Horde::widget('#', _("Delete"), 'widget ' . $del_class, '', '', _("_Delete")));
@@ -602,14 +602,12 @@ if ($pageOb['msgcount']) {
     }
 
     if ($conf['spam']['reporting'] &&
-        ($conf['spam']['spamfolder'] ||
-         !IMP_Mailbox::getPref('spam_folder')->equals(IMP::$mailbox))) {
+        ($conf['spam']['spamfolder'] || !IMP::$mailbox->spam)) {
         $a_template->set('spam', Horde::widget('#', _("Report as Spam"), 'widget spamAction', '', '', _("Report as Spam")));
     }
 
     if ($conf['notspam']['reporting'] &&
-        (!$conf['notspam']['spamfolder'] ||
-         IMP_Mailbox::getPref('spam_folder')->equals(IMP::$mailbox))) {
+        (!$conf['notspam']['spamfolder'] || IMP::$mailbox->spam)) {
         $a_template->set('notspam', Horde::widget('#', _("Report as Innocent"), 'widget notspamAction', '', '', _("Report as Innocent")));
     }
 

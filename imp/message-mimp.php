@@ -299,14 +299,12 @@ if ($next_msg = $imp_mailbox->getIMAPIndex(1)) {
 $menu[] = array(sprintf(_("To %s"), IMP::$mailbox->label), $mailbox_link);
 
 if ($conf['spam']['reporting'] &&
-    ($conf['spam']['spamfolder'] ||
-     !IMP_Mailbox::getPref('spam_folder')->equals($mailbox))) {
+    ($conf['spam']['spamfolder'] || !$mailbox->spam)) {
     $menu[] = array(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 
 if ($conf['notspam']['reporting'] &&
-    (!$conf['notspam']['spamfolder'] ||
-     IMP_Mailbox::getPref('spam_folder')->equals($mailbox))) {
+    (!$conf['notspam']['spamfolder'] || $mailbox->spam)) {
     $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
 }
 
