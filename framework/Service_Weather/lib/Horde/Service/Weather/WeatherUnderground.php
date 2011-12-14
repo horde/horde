@@ -169,9 +169,15 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     protected function _getLocationByIp($ip)
     {
-        return $this->_makeRequest(
-            self::API_URL . '/api/' . $this->_apiKey
-                . '/geolookup/q/autoip.json?geo_ip=' . $ip);
+        if ($this->_ipIsUnique($ip)) {
+            return $this->_makeRequest(
+                self::API_URL . '/api/' . $this->_apiKey
+                    . '/geolookup/q/autoip.json?geo_ip=' . $ip);
+        } else {
+            return $this->_makeRequest(
+                self::API_URL . '/api/' . $this->_apiKey
+                    . '/geolookup/q/autoip.json');
+        }
     }
 
     /**
