@@ -246,6 +246,8 @@ abstract class Horde_Service_Weather_Base
         if ($parts[0] == 127) {
             return false;
         }
+
+        return true;
     }
 
 }

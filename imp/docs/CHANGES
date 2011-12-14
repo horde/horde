@@ -22,6 +22,7 @@ v5.1-git
 v5.0.17-git
 -----------
 
+[mms] Fix broken Hide/Purge Deleted links in traditional view (Bug #10860).
 [mms] Fix issue in dynamic mailbox view with thread sorting and a reset of
       mailbox metadata (Bug #10835).
 [mms] Fix message redirection regression in dynamic view (Bug #10859).

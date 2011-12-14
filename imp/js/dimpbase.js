@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandmbox, muid, pollPE, pp, qsearch_ghost, resize, rownum, search,
+    //   expandmbox, pollPE, pp, qsearch_ghost, resize, rownum, search,
     //   splitbar, sort_init, template, uid, view, viewaction, viewport,
     //   viewswitch
     // msglist_template_horiz and msglist_template_vert set via
@@ -229,7 +229,10 @@ var DimpBase = {
             type = 'mbox';
             msg = DimpCore.parseUIDString(data);
             data = Object.keys(msg).first();
-            this.uid = msg[data].first();
+            this.uid = {
+                type: 'VP_id',
+                uid: msg[data].first()
+            };
             // Fall through to the 'mbox' check below.
         }
 
@@ -424,7 +427,8 @@ var DimpBase = {
 
     loadMailbox: function(f)
     {
-        var is_search, need_delete;
+        var need_delete,
+            opts = {};
 
         if (!this.viewport) {
             this._createViewPort();
@@ -447,9 +451,11 @@ var DimpBase = {
             this.view = f;
         }
 
-        this.viewport.loadView(f, {
-            search: (this.uid ? { uid: this.uid } : null)
-        });
+        if (this.uid && this.uid.type == 'VP_id') {
+            opts.search = { uid: this.uid.uid };
+        }
+
+        this.viewport.loadView(f, opts);
 
         if (need_delete) {
             this.viewport.deleteView(need_delete);
@@ -617,13 +623,17 @@ var DimpBase = {
             },
             onContentOffset: function(offset) {
                 if (this.uid) {
-                    // UID here is the ViewPort UID, not the message UID
-                    this.rownum = this.viewport.createSelectionBuffer().search({ VP_id: { equal: [ this.uid ] } }).get('rownum').first();
+                    var s = {};
+                    s[this.uid.type] = { equal: [ this.uid.uid ] };
+                    this.rownum = this.viewport.createSelectionBuffer().search(s).get('rownum').first();
                     delete this.uid;
                 }
 
                 if (this.rownum) {
-                    this.viewport.scrollTo(this.rownum, { noupdate: true, top: true });
+                    this.viewport.scrollTo(this.rownum, {
+                        noupdate: true,
+                        top: true
+                    });
                     offset = this.viewport.currentOffset();
                 }
 
@@ -677,11 +687,6 @@ var DimpBase = {
                 $('searchbar').show();
             } else {
                 this.setFolderLabel(this.view);
-            }
-
-            if (this.muid) {
-                this.rownum = this.viewport.createSelectionBuffer().search({ uid: { equal: [ this.muid ] } }).get('rownum').first();
-                delete this.muid;
             }
 
             if (this.rownum) {
@@ -1683,7 +1688,10 @@ var DimpBase = {
         if (this.pp &&
             this.pp.uid == resp.olduid &&
             this.pp.mbox == resp.oldmbox) {
-            this.muid = resp.preview.uid;
+            this.uid = {
+                type: 'uid',
+                uid: resp.preview.uid
+            };
         }
     },
 
