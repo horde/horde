@@ -164,7 +164,7 @@ $_prefs['filter'] = array(
 
 $prefGroups['compose'] = array(
     'column' => _("Compose"),
-    'label' => _("Message Composition"),
+    'label' => _("Composition"),
     'desc' => _("Configure how you send mail."),
     'members' => array(
         'mailto_handler', 'compose_cc', 'compose_bcc', 'compose_spellcheck',
@@ -354,7 +354,7 @@ $_prefs['stationery'] = array(
 
 $prefGroups['reply'] = array(
     'column' => _("Compose"),
-    'label' => _("Message Replies"),
+    'label' => _("Replies"),
     'desc' => _("Configure how you reply to mail."),
     'members' => array(
         'reply_quote', 'reply_format', 'reply_headers', 'attrib_text'
@@ -399,7 +399,7 @@ $_prefs['attrib_text'] = array(
 
 $prefGroups['forward'] = array(
     'column' => _("Compose"),
-    'label' => _("Message Forwards"),
+    'label' => _("Forwards"),
     'desc' => _("Configure how you forward mail."),
     'members' => array('forward_default', 'forward_format')
 );
@@ -430,11 +430,11 @@ $_prefs['forward_format'] = array(
 
 
 
-// *** Message Drafts Preferences ***
+// *** Drafts Preferences ***
 
 $prefGroups['drafts'] = array(
     'column' => _("Compose"),
-    'label' => _("Message Drafts"),
+    'label' => _("Drafts"),
     'desc' => _("Manage message drafts."),
     'members' => array(
         'draftsselect', 'close_draft', 'unseen_drafts', 'auto_save_drafts'
@@ -539,7 +539,7 @@ $_prefs['purge_sentmail_keep'] = array(
 
 $prefGroups['viewing'] = array(
     'column' => _("Message"),
-    'label' => _("Message Viewing"),
+    'label' => _("Viewing"),
     'desc' => _("Configure how messages are displayed."),
     'members' => array(
         'filtering', 'strip_attachments', 'alternative_display',
@@ -907,7 +907,7 @@ $_prefs['newmail_soundselect'] = array(
 
 $prefGroups['flags'] = array(
     'column' => _("Message"),
-    'label' => _("Message Flags"),
+    'label' => _("Flags"),
     'desc' => _("Configure flag highlighting."),
     'members' => array('flagmanagement', 'show_all_flags')
 );
