@@ -145,7 +145,14 @@ class Horde_ActiveSync_Timezone
         // to remember that the first transition structure will then be for
         // the start date, so we should go back one year from $date, then ignore
         // the first entry.
-        $transitions = $timezone->getTransitions();
+        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
+            $transitions = $timezone->getTransitions(
+                mktime(0, 0, 0, 12, 1, $date->year - 1),
+                mktime(24, 0, 0, 12, 31, $date->year)
+            );
+        } else {
+            $transitions = $timezone->getTransitions();
+        }
         foreach ($transitions as $i => $transition) {
             try {
                $d = new Horde_Date($transition['time']);
