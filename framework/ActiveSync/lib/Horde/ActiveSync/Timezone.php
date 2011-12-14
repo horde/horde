@@ -7,6 +7,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * Code dealing with searching for a timezone identifier from an AS timezone
+ * blob inspired by code in the Tine20 Project (http://tine20.org).
+ *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  *
  * @category Horde
