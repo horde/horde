@@ -171,7 +171,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     {
         return $this->_makeRequest(
             self::API_URL . '/api/' . $this->_apiKey
-                . '/geolookup/q/autoip.json');
+                . '/geolookup/q/autoip.json?geo_ip=' . $ip);
     }
 
     /**
