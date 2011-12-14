@@ -131,6 +131,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
     {
         switch ($type) {
         case Horde_Service_Weather::SEARCHTYPE_STANDARD:
+        case Horde_Service_Weather::SEARCHTYPE_ZIP:
+        case Horde_Service_Weather::SEARCHTYPE_CITYSTATE:
             return $this->_parseSearchLocations($this->_searchLocations(rawurlencode($location)));
 
         case Horde_Service_Weather::SEARCHTYPE_IP:
