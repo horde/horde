@@ -272,9 +272,6 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
 
     public function testRecurrenceDSTSwitch()
     {
-
-        $this->markTestSkipped('Timezone handling broken for recurring events from device.');
-
         // Recurring event starts 10/1/2011 15:00:00 EDST
         $l = new Horde_Test_Log();
         $logger = $l->getLogger();
@@ -288,11 +285,15 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $appt->decodeStream($decoder);
         fclose($stream);
         $decoder->getElementEndTag();
-
         $rrule = $appt->getRecurrence();
-        $next = $rrule->nextActiveRecurrence(new Horde_Date('2011-10-15'));
 
+        // Get the next recurrence, still during EDST
+        $next = $rrule->nextActiveRecurrence(new Horde_Date('2011-10-15'));
         $this->assertEquals('2011-10-15 15:00:00', (string)$next->setTimezone('America/New_York'));
+
+        // Now get an occurence after the transition to EST.
+        $next = $rrule->nextActiveRecurrence(new Horde_Date('2011-12-01'));
+        $this->assertEquals('2011-12-10 15:00:00', (string)$next->setTimezone('America/New_York'));
     }
 
 }
