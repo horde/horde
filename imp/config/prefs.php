@@ -337,24 +337,33 @@ $_prefs['ckeditor_buttons'] = array(
 
 
 
-// *** Stationery Preferences ***
+// *** Compose Templates Preferences ***
 
-$prefGroups['stationery'] = array(
+$prefGroups['composetemplates'] = array(
     'column' => _("Compose"),
-    'label' => _("Stationery"),
-    'desc' => _("Edit stationery and form responses."),
-    'members' => array('stationerymanagement')
+    'label' => _("Compose Templates"),
+    'desc' => _("Edit compose templates."),
+    'members' => array('composetemplates_management', 'composetemplates_new')
 );
 
-// Stationery configuration widget
-$_prefs['stationerymanagement'] = array(
+// Compose templates configuration widget
+$_prefs['composetemplates_management'] = array(
     'type' => 'special'
 );
 
-// Internal stationery storage value
-$_prefs['stationery'] = array(
-    // value = serialize(array())
-    'value' => 'a:0:{}'
+// Link to compose templates mailbox.
+$_prefs['composetemplates_new'] = array(
+    'type' => 'link',
+    'img' => 'edit.png',
+    'desc' => _("Create new Template")
+);
+
+// Compose templates mailbox
+$_prefs['composetemplates_mbox'] = array(
+    // NOTE: Localization of this name for display purposes is done
+    // automatically. This entry only needs to be changed if the mailbox name
+    // on the IMAP server is different than this value.
+    'value' => 'Templates'
 );
 
 

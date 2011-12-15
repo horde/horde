@@ -119,9 +119,16 @@ case 'message_missing':
 
 case 'fwd_digest':
 case 'redirect_messages':
+case 'template_edit':
     if (count($indices)) {
+        $compose_actions = array(
+            'fwd_digest' => 'fwd_digest',
+            'redirect_messages' => 'redirect_compose',
+            'template_edit' => 'template_edit'
+        );
+
         $options = array_merge(array(
-            'actionID' => ($actionID == 'fwd_digest' ? 'fwd_digest' : 'redirect_compose'),
+            'actionID' => $compose_actions[$actionID],
             'msglist' => strval($indices)
         ), IMP::getComposeArgs());
 
@@ -582,6 +589,13 @@ if ($pageOb['msgcount']) {
         );
     }
 
+    if (IMP::$mailbox->templates) {
+        $a_template->set('templateedit', Horde::widget('#', _("Edit Template"), 'widget templateeditAction', '', '', _("Edit Template")));
+        $mboxactions[] = array(
+            'v' => Horde::widget(IMP::composeLink(array(), array('actionID' => 'template_new')), _("Create New Template"), 'widget', '', '', _("Create New Template"))
+        );
+    }
+
     /* Hack since IE doesn't support :last-child CSS selector. */
     if (!empty($mboxactions)) {
         $mboxactions[count($mboxactions) - 1]['last'] = true;
@@ -789,7 +803,15 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     $msg['id'] = preg_replace('/[^0-9a-z\-_:\.]/i', '_', str_replace('_', '__', rawurlencode($ob['uid'] . $ob['mailbox'])));
 
     /* Generate the target link. */
-    $target = IMP::$mailbox->url('message.php', $ob['uid'], $ob['mailbox']);
+    if (IMP::$mailbox->drafts || IMP::$mailbox->templates) {
+        $target = IMP::composeLink(array(), array(
+            'actionID' => (IMP::$mailbox->drafts ? 'draft' : 'template'),
+            'thismailbox' => $ob['mailbox'],
+            'uid' => $ob['uid']
+        ));
+    } else {
+        $target = IMP::$mailbox->url('message.php', $ob['uid'], $ob['mailbox']);
+    }
 
     /* Get all the flag information. */
     try {

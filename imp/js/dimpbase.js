@@ -721,9 +721,12 @@ var DimpBase = {
 
                 if (this.viewport.getMetaData('drafts')) {
                     $('button_resume').up().show();
-                    $('button_reply', 'button_forward', 'button_spam', 'button_ham').compact().invoke('up').invoke('hide');
+                    $('button_template', 'button_reply', 'button_forward', 'button_spam', 'button_ham').compact().invoke('up').invoke('hide');
+                } else if (this.viewport.getMetaData('templates')) {
+                    $('button_template').up().show();
+                    $('button_resume', 'button_reply', 'button_forward', 'button_spam', 'button_ham').compact().invoke('up').invoke('hide');
                 } else {
-                    $('button_resume').up().hide();
+                    $('button_resume', 'button_template').compact().invoke('up').invoke('hide');
                     $('button_reply', 'button_forward').compact().invoke('up').invoke('show');
 
                     if (this.viewport.getMetaData('spam')) {
@@ -1041,7 +1044,9 @@ var DimpBase = {
             break;
 
         case 'ctx_message_editasnew':
-            this.composeMailbox('editasnew');
+        case 'ctx_message_template':
+        case 'ctx_message_template_edit':
+            this.composeMailbox(id.substring(12));
             break;
 
         case 'ctx_message_source':
@@ -1115,6 +1120,14 @@ var DimpBase = {
         case 'oa_sort_subject':
         case 'oa_sort_thread':
             this.sort(DIMP.conf.sort.get(id.substring(8)).v);
+            break;
+
+        case 'ctx_template_edit':
+            this.composeMailbox('template_edit');
+            break;
+
+        case 'ctx_template_new':
+            DimpCore.compose('template_new');
             break;
 
         case 'ctx_subjectsort_thread':
@@ -1322,11 +1335,22 @@ var DimpBase = {
             [ $('ctx_message_source').up() ].invoke(this._getPref('preview') ? 'hide' : 'show');
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
-                [ $('ctx_message_resume').up('DIV') ].invoke(this.isDraft(sel) ? 'show' : 'hide');
+                if (this.viewport.getMetaData('templates')) {
+                    $('ctx_message_resume').hide().up().show();
+                    $('ctx_message_editasnew').hide();
+                    $('ctx_message_template', 'ctx_message_template_edit').invoke('show');
+                } else if (this.isDraft(sel)) {
+                    $('ctx_message_template', 'ctx_message_template_edit').invoke('hide');
+                    $('ctx_message_editasnew').show();
+                    $('ctx_message_resume').show().up('DIV').show();
+                } else {
+                    $('ctx_message_editasnew').show();
+                    $('ctx_message_resume').up('DIV').hide();
+                }
                 [ $('ctx_message_unsetflag') ].compact().invoke('hide');
             } else {
                 $('ctx_message_resume').up('DIV').hide();
-                [ $('ctx_message_unsetflag') ].compact().invoke('show');
+                $('ctx_message_editasnew', 'ctx_message_unsetflag').compact().invoke('show');
             }
             break;
 
@@ -1358,6 +1382,10 @@ var DimpBase = {
 
         case 'ctx_preview':
             [ $('ctx_preview_allparts') ].invoke(this.pp.hide_all ? 'hide' : 'show');
+            break;
+
+        case 'ctx_template':
+            [ $('ctx_template_edit') ].invoke(this.viewport.getSelected().size() == 1 ? 'show' : 'hide');
             break;
 
         default:
@@ -1641,7 +1669,13 @@ var DimpBase = {
         }
 
         // Toggle resume link
-        [ $('msg_resume_draft').up() ].invoke(this.isDraft(vs) ? 'show' : 'hide');
+        if (this.viewport.getMetaData('templates')) {
+            $('msg_resume_draft').up().hide();
+            $('msg_template').up().show();
+        } else {
+            $('msg_template').up().hide();
+            [ $('msg_resume_draft').up() ].invoke(this.isDraft(vs) ? 'show' : 'hide');
+        }
 
         this.pp.save_as = r.save_as;
         this.pp.hide_all = r.onepart;
@@ -2419,7 +2453,9 @@ var DimpBase = {
             tmp = this.viewport.createSelection('domid', elt.identify());
             tmp2 = tmp.get('dataob').first();
 
-            if (this.isDraft(tmp) && this.viewport.getMetaData('drafts')) {
+            if (this.viewport.getMetaData('templates')) {
+                DimpCore.compose('template', { uids: tmp });
+            } else if (this.isDraft(tmp)) {
                 DimpCore.compose('resume', { uids: tmp });
             } else {
                 this.msgWindow(tmp2);
@@ -2505,6 +2541,13 @@ var DimpBase = {
                 e.stop();
                 return;
 
+            case 'button_template':
+                if (this.viewport.getSelection().size()) {
+                    this.composeMailbox('template');
+                }
+                e.stop();
+                return;
+
             case 'button_ham':
             case 'button_spam':
                 this.reportSpam(id == 'button_spam');
@@ -2575,6 +2618,10 @@ var DimpBase = {
 
             case 'msg_resume_draft':
                 this.composeMailbox('resume');
+                break;
+
+            case 'msg_template':
+                this.composeMailbox('template');
                 break;
 
             case 'sidebar_apps':
@@ -3528,6 +3575,7 @@ var DimpBase = {
         this._listFolders({ initial: 1, mboxes: this.view });
 
         /* Add popdown menus. */
+        DimpCore.addPopdownButton('button_template', 'template');
         DimpCore.addPopdownButton('button_other', 'otheractions', {
             trigger: true
         });

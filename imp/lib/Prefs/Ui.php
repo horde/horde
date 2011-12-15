@@ -40,6 +40,9 @@ class IMP_Prefs_Ui
         if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
             $ui->suppressGroups[] = 'flags';
         }
+        if ($imp_imap->pop3) {
+            $ui->suppressGroups[] = 'composetemplates';
+        }
         if (!$imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $ui->suppressGroups[] = 'searches';
         }
@@ -132,6 +135,17 @@ class IMP_Prefs_Ui
 
             case 'compose_confirm':
                 if (!$prefs->getValue('compose_popup')) {
+                    $ui->suppress[] = $val;
+                }
+                break;
+
+            case 'composetemplates_new':
+                if ($tmp = IMP_Mailbox::getPref('composetemplates_mbox')) {
+                    $ui->prefs[$val]['xurl'] = IMP::composeLink(array(), array(
+                        'actionID' => 'template_new',
+                        'type' => 'template_new'
+                    ));
+                } else {
                     $ui->suppress[] = $val;
                 }
                 break;
@@ -300,16 +314,6 @@ class IMP_Prefs_Ui
                 }
                 break;
 
-            case 'stationery':
-                $ui->nobuttons = true;
-                break;
-
-            case 'stationerymanagement':
-                if ($prefs->isLocked('stationery')) {
-                    $ui->suppress[]  = 'stationerymanagement';
-                }
-                break;
-
             case 'time_format':
                 /* Set the timezone on this page so the output uses the
                  * configured time zone's time, not the system's time zone. */
@@ -345,6 +349,9 @@ class IMP_Prefs_Ui
         case 'aclmanagement':
             Horde::addScriptFile('acl.js', 'imp');
             return $this->_aclManagement($ui);
+
+        case 'composetemplates_management':
+            return $this->_composeTemplatesManagement($ui);
 
         case 'draftsselect':
             Horde::addScriptFile('folderprefs.js', 'imp');
@@ -421,9 +428,6 @@ class IMP_Prefs_Ui
             ));
             return $this->_spam();
 
-        case 'stationerymanagement':
-            return $this->_stationeryManagement($ui);
-
         case 'trashselect':
             Horde::addScriptFile('folderprefs.js', 'imp');
             Horde::addInlineJsVars(array(
@@ -451,6 +455,9 @@ class IMP_Prefs_Ui
         case 'aclmanagement':
             $this->_updateAclManagement($ui);
             return false;
+
+        case 'composetemplates_management':
+            return $this->_updateComposeTemplatesManagement($ui);
 
         case 'draftsselect':
             return $this->_updateSpecialFolders('drafts_folder', IMP_Mailbox::formFrom($ui->vars->drafts), $ui->vars->drafts_new, Horde_Imap_Client::SPECIALUSE_DRAFTS, $ui);
@@ -503,9 +510,6 @@ class IMP_Prefs_Ui
             }
 
             return false;
-
-        case 'stationerymanagement':
-            return $this->_updateStationeryManagement($ui);
 
         case 'trashselect':
             return $this->_updateTrash($ui);
@@ -737,6 +741,55 @@ class IMP_Prefs_Ui
                 }
             }
         }
+    }
+
+    /* Compose templates management. */
+
+    /**
+     * Create code for compose templates management.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return string  HTML UI code.
+     */
+    protected function _composeTemplatesManagement($ui)
+    {
+        global $injector, $prefs;
+
+        $t = $injector->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
+        if (!$prefs->isLocked('composetemplates_mbox')) {
+            Horde::addScriptFile('folderprefs.js', 'imp');
+            Horde::addInlineJsVars(array(
+                'ImpFolderPrefs.folders.templates' => _("Enter the name for your new compose templates mailbox.")
+            ));
+
+            $t->set('mbox_label', Horde::label('templates', _("Compose Templates mailbox:")));
+            $t->set('mbox_nomailbox', IMP_Mailbox::formTo(self::PREF_NO_FOLDER));
+            $t->set('mbox_flist', IMP::flistSelect(array(
+                'basename' => true,
+                'filter' => array('INBOX'),
+                'new_folder' => true,
+                'selected' => IMP_Mailbox::getPref('composetemplates_mbox')
+            )));
+        }
+
+        return $t->fetch(IMP_TEMPLATES . '/prefs/composetemplates.html');
+    }
+
+    /**
+     * Update compose templates related preferences.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return boolean  True if preferences were updated.
+     */
+    protected function _updateComposeTemplatesManagement($ui)
+    {
+        return $GLOBALS['prefs']->isLocked('composetemplates_mbox')
+            ? false
+            : $this->_updateSpecialFolders('composetemplates_mbox', IMP_Mailbox::formFrom($ui->vars->templates), $ui->vars->templates_new, null, $ui);
     }
 
     /* Drafts selection. */
@@ -1615,142 +1668,6 @@ class IMP_Prefs_Ui
         return $t->fetch(IMP_TEMPLATES . '/prefs/spam.html');
     }
 
-    /* Stationery management. */
-
-    /**
-     * Create code for stationery management.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
-     * @return string  HTML UI code.
-     */
-    protected function _stationeryManagement($ui)
-    {
-        $ob = $this->_parseStationeryVars($ui);
-        $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
-
-        if ($ob->type == 'html') {
-            IMP_Ui_Editor::init(false, 'content');
-        }
-
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-
-        $slist = array();
-        foreach ($stationery as $key => $choice) {
-            $slist[] = array(
-                'selected' => ($ob->selected === $key),
-                'text' => $choice['n'] . ' ' . ($choice['t'] == 'html' ? _("(HTML)") : _("(Plain Text)")),
-                'val' => $key
-            );
-        }
-        $t->set('slist', $slist);
-
-        $t->set('selected', $ob->selected);
-        $t->set('show_delete', ($ob->selected != -1));
-        $t->set('last_type', $ob->type);
-        $t->set('name_label', Horde::label('name', _("Stationery name:")));
-        $t->set('name', $ob->name);
-        $t->set('type_label', Horde::label('name', _("Stationery type:")));
-        $t->set('plain', $ob->type == 'plain');
-        $t->set('html', $ob->type == 'html');
-        $t->set('content_label', Horde::label('content', _("Stationery:")));
-        $t->set('content', $ob->content);
-
-        return $t->fetch(IMP_TEMPLATES . '/prefs/stationery.html');
-    }
-
-    /**
-     * Update stationery related preferences.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     */
-    protected function _updateStationeryManagement($ui)
-    {
-        $ob = $this->_parseStationeryVars($ui);
-        $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
-        $updated = false;
-
-        if ($ui->vars->delete) {
-            /* Delete stationery. */
-            if (isset($stationery[$ob->selected])) {
-                $updated = sprintf(_("The stationery \"%s\" has been deleted."), $stationery[$ob->selected]['n']);
-                unset($stationery[$ob->selected]);
-            }
-        } elseif ($ui->vars->save) {
-            /* Saving stationery. */
-            $entry = array(
-                'c' => $ob->content,
-                'n' => $ob->name,
-                't' => $ob->type
-            );
-
-            if ($ob->selected == -1) {
-                $stationery[] = $entry;
-                $updated = sprintf(_("The stationery \"%s\" has been added."), $ob->name);
-            } else {
-                $stationery[$ob->selected] = $entry;
-                $updated = sprintf(_("The stationery \"%s\" has been updated."), $ob->name);
-            }
-        }
-
-        if ($updated) {
-            $GLOBALS['notification']->push($updated, 'horde.success');
-        }
-    }
-
-    /**
-     * Parse the variables for the stationery management screen.
-     *
-     * @param Horde_Core_Prefs_Ui $ui  The UI object.
-     *
-     * @return object  Object with the following properties:
-     * <pre>
-     * 'content' - (string) Content.
-     * 'name' - (string) Name.
-     * 'selected' - (integer) The currently selected value.
-     * 'type' - (string) Type.
-     * </pre>
-     */
-    protected function _parseStationeryVars($ui)
-    {
-        $selected = strlen($ui->vars->stationery)
-            ? intval($ui->vars->stationery)
-            : -1;
-        $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
-
-        if ($ui->vars->last_selected == $selected) {
-            $content = strval($ui->vars->content);
-            $name = strval($ui->vars->name);
-            $type = isset($ui->vars->type)
-                ? $ui->vars->type
-                : 'plain';
-
-            if ($content && ($ui->vars->last_type != $type)) {
-                $content = ($type == 'plain')
-                    ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($content, 'Html2text')
-                    : IMP_Compose::text2html($content);
-            }
-        } elseif ($selected == -1) {
-            $content = $name = '';
-            $type = 'plain';
-        } else {
-            $entry = $stationery[$selected];
-            $content = $entry['c'];
-            $name = $entry['n'];
-            $type = $entry['t'];
-        }
-
-
-        $ob = new stdClass;
-        $ob->content = $content;
-        $ob->name = $name;
-        $ob->selected = $selected;
-        $ob->type = $type;
-
-        return $ob;
-    }
-
     /* Trash selection. */
 
     /**
@@ -1818,14 +1735,14 @@ class IMP_Prefs_Ui
      * Update special folder preferences.
      *
      * @param string $pref             The pref name to update.
-     * @param string $folder           The old name.
+     * @param string $old              The old name.
      * @param string $new              The new name.
      * @param string $type             Special use attribute (RFC 6154).
      * @param Horde_Core_Prefs_Ui $ui  The UI object.
      *
      * @return boolean  True if preferences were updated.
      */
-    protected function _updateSpecialFolders($pref, $folder, $new, $type, $ui)
+    protected function _updateSpecialFolders($pref, $old, $new, $type, $ui)
     {
         global $injector, $prefs;
 
@@ -1840,21 +1757,28 @@ class IMP_Prefs_Ui
             $mbox_ob->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
         }
 
-        if ($folder == self::PREF_NO_FOLDER) {
+        if ($old == self::PREF_NO_FOLDER) {
             return $prefs->setValue($pref, '');
         }
 
-        if (strpos($folder, self::PREF_SPECIALUSE) === 0) {
-            $folder = IMP_Mailbox::get(substr($folder, strlen(self::PREF_SPECIALUSE)));
+        if (strpos($old, self::PREF_SPECIALUSE) === 0) {
+            $mbox = IMP_Mailbox::get(substr($old, strlen(self::PREF_SPECIALUSE)));
         } elseif (!empty($new)) {
-            $folder = IMP_Mailbox::get($new)->namespace_append;
-            if (!$folder->create(array('special_use' => array($type)))) {
-                $folder = null;
+            $mbox = IMP_Mailbox::get($new)->namespace_append;
+
+            $opts = is_null($type)
+                ? array()
+                : array('special_use' => array($type));
+
+            if (!$mbox->create($opts)) {
+                $mbox = null;
             }
+        } else {
+            $mbox = $old;
         }
 
-        return $folder
-            ? $prefs->setValue($pref, $folder->pref_to)
+        return $mbox
+            ? $prefs->setValue($pref, $mbox->pref_to)
             : false;
     }
 

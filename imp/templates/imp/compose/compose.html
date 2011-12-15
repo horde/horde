@@ -17,12 +17,16 @@
  <tr>
   <td></td>
   <td class="nowrap">
+<if:send_msg_ak>
 <if:allow_compose>
    <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" value="<gettext>Send Message</gettext>" />
 </if:allow_compose>
 <if:save_draft_ak>
    <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> class="button" value="<gettext>Save Draft</gettext>" />
 </if:save_draft_ak>
+<else:send_msg_ak>
+   <input name="btn_save_template" type="submit" class="button" value="<gettext>Save Template</gettext>" />
+</else:send_msg_ak></if:send_msg_ak>
    <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" value="<gettext>Cancel Message</gettext>" />
   </td>
  </tr>
@@ -83,20 +87,6 @@
   </td>
  </tr>
 </if:set_priority>
-
-<if:stationery>
- <tr>
-  <td class="light rightAlign"><strong><tag:stationery_label /></strong></td>
-  <td class="item">
-   <select name="stationery" id="stationery">
-    <option value=""><gettext>Select stationery:</gettext></option>
-<loop:stationeries>
-    <option value="<tag:stationeries.val />" <if:stationeries.selected>selected="selected" </if:stationeries.selected>><tag:stationeries.label /></option>
-</loop:stationeries>
-   </select>
-  </td>
- </tr>
-</if:stationery>
 
  <tr>
   <td></td>
@@ -199,12 +189,16 @@
  <tr>
   <td></td>
   <td class="nowrap">
+<if:send_msg_ak>
 <if:allow_compose>
    <input name="btn_send_message" type="submit" <tag:send_msg_ak /> class="button" value="<gettext>Send Message</gettext>" />
 </if:allow_compose>
 <if:save_draft_ak>
    <input name="btn_save_draft" type="submit" <tag:save_draft_ak /> class="button" value="<gettext>Save Draft</gettext>" />
 </if:save_draft_ak>
+<else:send_msg_ak>
+   <input name="btn_save_template" type="submit" class="button" value="<gettext>Save Template</gettext>" />
+</else:send_msg_ak></if:send_msg_ak>
    <input name="btn_cancel_compose" type="submit" title="<gettext>Cancel Message</gettext>" class="button" value="<gettext>Cancel Message</gettext>" />
   </td>
  </tr>

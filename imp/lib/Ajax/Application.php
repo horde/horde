@@ -1559,6 +1559,16 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     }
 
     /**
+     * AJAX action: Save a template message.
+     *
+     * @return object  See self::_dimpDraftAction().
+     */
+    public function saveTemplate()
+    {
+        return $this->_dimpDraftAction();
+    }
+
+    /**
      * AJAX action: Send a message.
      *
      * See the list of variables needed for _dimpComposeSetup(). Additional
@@ -1864,19 +1874,37 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return $result;
         }
 
+        $opts = array(
+            'html' => $this->_vars->html,
+            'priority' => $this->_vars->priority,
+            'readreceipt' => $this->_vars->request_read_receipt
+        );
+
         try {
-            $res = $imp_compose->saveDraft($headers, $this->_vars->message, array(
-                'html' => $this->_vars->html,
-                'priority' => $this->_vars->priority,
-                'readreceipt' => $this->_vars->request_read_receipt
-            ));
-            if ($this->_action == 'autoSaveDraft') {
+            switch ($this->_action) {
+            case 'saveTemplate':
+                $res = $imp_compose->saveTemplate($headers, $this->_vars->message, $opts);
+                break;
+
+            default:
+                $res = $imp_compose->saveDraft($headers, $this->_vars->message, $opts);
+                break;
+            }
+
+            switch ($this->_action) {
+            case 'autoSaveDraft':
                 $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');
-            } else {
-                $GLOBALS['notification']->push($res);
+                break;
+
+            case 'saveDraft':
                 if ($GLOBALS['prefs']->getValue('close_draft')) {
                     $imp_compose->destroy('save_draft');
                 }
+                // Fall-through
+
+            default:
+                $GLOBALS['notification']->push($res);
+                break;
             }
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;

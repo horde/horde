@@ -89,6 +89,7 @@
  * @property array $subfolders_only  Returns the list of subfolders as mailbox
  *                                   objects (NOT including the current
  *                                   mailbox).
+ * @property boolean $templates  Is this a Templates mailbox?
  * @property boolean $trash  Is this a Trash mailbox?
  * @property string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                             IMP_Exception on error.
@@ -108,6 +109,7 @@ class IMP_Mailbox implements Serializable
     const CHANGED_DELETE = 2;
 
     /* Special mailbox identifiers. */
+    const SPECIAL_COMPOSETEMPLATES = 'composetemplates';
     const SPECIAL_DRAFTS = 'drafts';
     const SPECIAL_SENT = 'sent';
     const SPECIAL_SPAM = 'spam';
@@ -584,6 +586,7 @@ class IMP_Mailbox implements Serializable
 
             switch ($this->_mbox) {
             case 'INBOX':
+            case $special[self::SPECIAL_COMPOSETEMPLATES]:
             case $special[self::SPECIAL_DRAFTS]:
             case $special[self::SPECIAL_SPAM]:
             case $special[self::SPECIAL_TRASH]:
@@ -597,6 +600,7 @@ class IMP_Mailbox implements Serializable
 
             return in_array($this->_mbox, array_merge(
                 array(
+                    $special[self::SPECIAL_COMPOSETEMPLATES],
                     $special[self::SPECIAL_DRAFTS]
                 ),
                 $special[self::SPECIAL_SENT]
@@ -613,6 +617,10 @@ class IMP_Mailbox implements Serializable
 
         case 'subfolders_only':
             return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true)));
+
+        case 'templates':
+            $special = $this->getSpecialMailboxes();
+            return ($this->_mbox == $special[self::SPECIAL_COMPOSETEMPLATES]);
 
         case 'trash':
             $special = $this->getSpecialMailboxes();
@@ -1413,6 +1421,7 @@ class IMP_Mailbox implements Serializable
     {
         if (!isset(self::$_temp[self::CACHE_SPECIALMBOXES])) {
             self::$_temp[self::CACHE_SPECIALMBOXES] = array(
+                self::SPECIAL_COMPOSETEMPLATES => self::getPref('composetemplates_mbox'),
                 self::SPECIAL_DRAFTS => self::getPref('drafts_folder'),
                 self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailFolders(),
                 self::SPECIAL_SPAM => self::getPref('spam_folder'),
@@ -1575,6 +1584,10 @@ class IMP_Mailbox implements Serializable
          * catch this with the strlen check below. */
         foreach ($this->getSpecialMailboxes() as $key => $val) {
             switch ($key) {
+            case self::SPECIAL_COMPOSETEMPLATES:
+                $sub[strval($val)] = _("Templates");
+                break;
+
             case self::SPECIAL_DRAFTS:
                 $sub[strval($val)] = _("Drafts");
                 break;
@@ -1657,6 +1670,12 @@ class IMP_Mailbox implements Serializable
                 $info->alt = _("Inbox");
                 $info->class = 'inboxImg';
                 $info->icon = 'folders/inbox.png';
+                break;
+
+            case $special[self::SPECIAL_COMPOSETEMPLATES]:
+                $info->alt = ("Templates");
+                $info->class = 'composetemplatesImg';
+                $info->icon = 'folders/drafts.png';
                 break;
 
             case $special[self::SPECIAL_DRAFTS]:

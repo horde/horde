@@ -115,7 +115,7 @@ var ImpCompose = {
 
         case 'add_attachment':
         case 'save_draft':
-        case 'change_stationery':
+        case 'save_template':
             form = $('compose');
             $('actionID').setValue(actionID);
             break;
@@ -223,6 +223,7 @@ var ImpCompose = {
                 case 'btn_add_attachment':
                 case 'btn_redirect':
                 case 'btn_save_draft':
+                case 'btn_save_template':
                 case 'btn_send_message':
                     this.uniqSubmit(name.substring(4), e);
                     break;
@@ -245,10 +246,6 @@ var ImpCompose = {
         switch (id) {
         case 'identity':
             this.changeIdentity(elt);
-            break;
-
-        case 'stationery':
-            this.uniqSubmit('change_stationery', e);
             break;
 
         case 'sent_mail_folder':
@@ -316,7 +313,7 @@ var ImpCompose = {
             document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
 
             if (Prototype.Browser.IE) {
-                $('identity', 'stationery', 'sentmail_folder', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+                $('identity', 'sentmail_folder', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
             } else {
                 document.observe('change', this.changeHandler.bindAsEventListener(this));
             }

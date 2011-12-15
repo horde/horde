@@ -139,6 +139,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
       <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?></div>
 <?php endif; ?>
       <div style="display:none"><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Resume', 'id' => 'button_resume', 'title' => _("Resume"))) ?></div>
+      <div style="display:none"><?php echo IMP_Dimp::actionButton(array('icon' => 'Resume', 'id' => 'button_template', 'title' => _("Use Template"))) ?></div>
       <div><?php echo IMP_Dimp::actionButton(array('class' => 'noselectDisable', 'icon' => 'Delete', 'id' => 'button_deleted', 'title' => _("Delete"))) ?></div>
       <div id="button_compose"><?php echo IMP_Dimp::actionButton(array('icon' => 'Compose', 'title' => _("Compose"))) ?></div>
       <div id="button_checkmail"><?php echo IMP_Dimp::actionButton(array('icon' => 'Checkmail', 'title' => _("Get Mail"))) ?></div>
@@ -184,6 +185,12 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
           <span id="msg_resume_draft">
            <span class="iconImg"></span>
            <a><?php echo _("Resume Draft") ?></a>
+          </span>
+         </div>
+         <div style="display:none">
+          <span id="msg_template">
+           <span class="iconImg"></span>
+           <a><?php echo _("Use Template") ?></a>
           </span>
          </div>
          <div>
@@ -350,6 +357,8 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 <div class="context" id="ctx_message" style="display:none">
  <div style="display:none">
   <a id="ctx_message_resume"><span class="iconImg"></span><?php echo _("Resume Draft") ?></a>
+  <a id="ctx_message_template"><span class="iconImg"></span><?php echo _("Use Template") ?></a>
+  <a id="ctx_message_template_edit"><span class="iconImg"></span><?php echo _("Edit Template") ?></a>
   <a id="ctx_message_view"><span class="iconImg"></span><?php echo _("View Message") ?></a>
  </div>
  <a id="ctx_message_reply"><span class="iconImg"></span><?php echo _("Reply") ?></a>
@@ -397,6 +406,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  <div class="sep"></div>
 <?php endif; ?>
  <a id="ctx_forward_redirect"><span class="iconImg"></span><?php echo _("Redirect") ?></a>
+</div>
+
+<div class="context" id="ctx_template" style="display:none">
+ <a id="ctx_template_edit"><span class="iconImg"></span><?php echo _("Edit Template") ?></a>
+ <a id="ctx_template_new"><span class="iconImg"></span><?php echo _("Create New Template") ?></a>
 </div>
 
 <div class="context" id="ctx_otheractions" style="display:none">

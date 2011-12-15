@@ -50,6 +50,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
         case '5.1':
             $this->_upgradeComposeCursor();
             $this->_upgradeMailboxPrefs();
+            $this->_upgradeStationeryToTemplates();
             break;
         }
     }
@@ -549,6 +550,28 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             if (!is_null($val)) {
                 $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($val), 'UTF7-IMAP', 'UTF-8'));
                 $imp_identity->setValue('sent_mail_folder', $mbox, $key);
+            }
+        }
+    }
+
+    /**
+     * For 5.1, upgrade stationery preference -> templates mailbox.
+     */
+    protected function _upgradeStationeryToTemplates()
+    {
+        global $injector, $prefs;
+
+        $slist = @unserialize($prefs->getValue('stationery'));
+        if (is_array($slist)) {
+            /* Old entry format:
+             * 'c' => (string) Content
+             * 'n' => (string) Name
+             * 't' => (string) Type */
+            foreach ($slist as $val) {
+                $injector->getInstance('IMP_Factory_Compose')->create()->saveTemplate(
+                    array('subject' => $val['n']),
+                    $val['c']
+                );
             }
         }
     }

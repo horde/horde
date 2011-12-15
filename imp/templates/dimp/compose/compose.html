@@ -6,17 +6,24 @@
  <input type="hidden" id="composeCache" name="composeCache" value="<tag:composeCache />" />
 
  <div class="dimpActions dimpActionsCompose">
-<if:compose_enable>
+<if:compose_enable><if:send_button>
   <div>
    <tag:send_button />
   </div>
-</if:compose_enable>
+</if:send_button></if:compose_enable>
+<if:template_button>
+  <div>
+   <tag:template_button />
+  </div>
+</if:template_button>
   <div>
    <tag:spell_button />
   </div>
+<if:draft_button>
   <div>
    <tag:draft_button />
   </div>
+</if:draft_button>
  </div>
 
  <div id="writemsg">

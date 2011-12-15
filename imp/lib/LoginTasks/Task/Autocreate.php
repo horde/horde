@@ -47,6 +47,10 @@ class IMP_LoginTasks_Task_Autocreate extends Horde_LoginTasks_Task
             }
 
             switch ($key) {
+            case IMP_Mailbox::SPECIAL_COMPOSETEMPLATES:
+                $val->create();
+                break;
+
             case IMP_Mailbox::SPECIAL_DRAFTS:
                 $val->create(array(
                     'special_use' => array(Horde_Imap_Client::SPECIALUSE_DRAFTS)

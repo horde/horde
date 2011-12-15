@@ -197,6 +197,7 @@ if ($compose_page) {
         'drafts_mbox' => IMP_Mailbox::getPref('drafts_folder')->form_to,
         'rte_avail' => intval($GLOBALS['browser']->hasFeature('rte')),
         'spellcheck' => intval($GLOBALS['prefs']->getValue('compose_spellcheck')),
+        'templates_mbox' => IMP_Mailbox::getPref('composetemplates_mbox')->form_to
     ));
 
     /* Gettext strings used in compose page. */

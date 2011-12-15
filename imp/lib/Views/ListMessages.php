@@ -190,8 +190,10 @@ class IMP_Views_ListMessages
             }
             if ($mbox->special_outgoing) {
                 $md->special = 1;
-                if ($mbox == IMP_Mailbox::getPref('drafts_folder')) {
+                if ($mbox->drafts) {
                     $md->drafts = 1;
+                } elseif ($mbox->templates) {
+                    $md->templates = 1;
                 }
             } elseif ($mbox->spam) {
                 $md->spam = 1;

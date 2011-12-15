@@ -9,9 +9,9 @@ var ImpMailbox = {
     // The following variables are defined in mailbox.php:
     //  unread
 
-    anySelected: function()
+    countSelected: function()
     {
-        return $('messages').select('[name="indices[]"]').detect(Form.Element.getValue);
+        return $('messages').select('[name="indices[]"]').findAll(Form.Element.getValue).size();
     },
 
     selectRow: function(id, select)
@@ -30,7 +30,7 @@ var ImpMailbox = {
             break;
 
         default:
-            if (!this.anySelected()) {
+            if (!this.countSelected()) {
                 alert(IMP.text.mailbox_submit);
                 return;
             }
@@ -113,7 +113,7 @@ var ImpMailbox = {
     {
         var elt, newFolder, target, tmbox;
 
-        if (this.anySelected()) {
+        if (this.countSelected()) {
             elt = $('targetMailbox1');
             target = $F(elt);
             tmbox = $('targetMbox');
@@ -153,7 +153,7 @@ var ImpMailbox = {
 
         if ((form == 1 && $F(f1) != "") ||
             (form == 2 && $F(f2) != "")) {
-            if (this.anySelected()) {
+            if (this.countSelected()) {
                 $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
                 this.submit('flag_messages');
             } else {
@@ -259,6 +259,21 @@ var ImpMailbox = {
                     e.stop();
                 } else if (elt.hasClassName('viewAction')) {
                     this.submit('view_messages');
+                    e.stop();
+                } else if (elt.hasClassName('templateeditAction')) {
+                    switch (this.countSelected()) {
+                    case 0:
+                        alert(IMP.text.mailbox_selectone);
+                        break;
+
+                    case 1:
+                        this.submit('template_edit');
+                        break;
+
+                    default:
+                        alert(IMP.text.mailbox_selectonlyone);
+                        break;
+                    }
                     e.stop();
                 }
                 return;

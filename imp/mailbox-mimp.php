@@ -196,9 +196,23 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         : str_replace(' ', '&nbsp;', $threadtree[$ob['uid']]);
 
     /* Generate the target link. */
-    $msg['target'] = in_array(Horde_Imap_Client::FLAG_DRAFT, $ob['flags'])
-        ? IMP::composeLink(array(), array('a' => 'd', 'thismailbox' => IMP::$mailbox, 'uid' => $ob['uid'], 'bodypart' => 1))
-        : IMP::$mailbox->url('message-mimp.php', $ob['uid'], $ob['mailbox']);
+    if (IMP::$mailbox->templates) {
+        $compose = 't';
+    } elseif (IMP::$mailbox->draft ||
+              in_array(Horde_Imap_Client::FLAG_DRAFT, $ob['flags'])) {
+        $compose = 'd';
+    } else {
+        $msg['target'] = IMP::$mailbox->url('message-mimp.php', $ob['uid'], $ob['mailbox']);
+    }
+
+    if (!isset($msg['target'])) {
+        $msg['target'] = IMP::composeLink(array(), array(
+            'a' => $compose,
+            'thismailbox' => IMP::$mailbox,
+            'uid' => $ob['uid'],
+            'bodypart' => 1
+        ));
+    }
 
     $msgs[] = $msg;
 }

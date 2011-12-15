@@ -310,7 +310,7 @@ span.folderImg {
 span.folderopenImg {
     background-image: url("graphics/folders/open.png");
 }
-span.draftsImg {
+span.draftsImg, span.composetemplatesImg {
     background-image: url("graphics/folders/drafts.png");
 }
 span.inboxImg {

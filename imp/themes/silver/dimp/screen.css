@@ -66,7 +66,7 @@ span.dimpactionDelete {
 span.dimpactionOther {
     background-image: url("../graphics/plus.png");
 }
-span.dimpactionDrafts {
+span.dimpactionDrafts, span.dimpactionTemplates {
     background-image: url("../graphics/drafts.png");
 }
 span.dimpactionEditsearch {
@@ -107,7 +107,7 @@ span.dimpactionFilter {
 #ctx_message_unsetflag span.iconImg, #oa_unsetflag span.iconImg {
     background-image: url("../graphics/mail_clearflag.png");
 }
-#ctx_message_resume span.iconImg, #msg_resume_draft span.iconImg {
+#ctx_message_resume span.iconImg, #ctx_message_template span.iconImg, #ctx_message_template_edit span.iconImg, #ctx_template_new span.iconImg, #ctx_template_edit span.iconImg, #msg_resume_draft span.iconImg, #msg_template span.iconImg {
     background-image: url("../graphics/mail_draft.png");
 }
 #oa_preview_hide span.iconImg, #oa_preview_show span.iconImg {

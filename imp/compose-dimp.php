@@ -11,7 +11,8 @@
  *   - subject: Subject to use.
  *   - type: redirect, reply, reply_auto, reply_all, reply_list,
  *           forward_attach, forward_auto, forward_body, forward_both,
- *           forward_redirect, resume, new, editasnew
+ *           forward_redirect, resume, new, editasnew, template, template_edit,
+ *           template_new
  *   - to: Address to send to.
  *   - toname: If set, will be used as personal part of e-mail address
  *             (requires 'to' parameter also).
@@ -53,7 +54,10 @@ if (isset($header['to']) &&
     $header['to'] = Horde_Mime_Address::writeAddress($tmp[0]['mailbox'], $tmp[0]['host'], $vars->toname);
 }
 
-$fillform_opts = array('noupdate' => 1);
+$fillform_opts = array(
+    'focus' => 'composeMessage',
+    'noupdate' => 1
+);
 $msg = strval($vars->body);
 
 $js = array();
@@ -192,6 +196,7 @@ case 'forward_both':
     }
 
     $vars->type = 'forward';
+    $fillform_opts['focus'] = 'to';
     break;
 
 case 'forward_redirect':
@@ -199,6 +204,7 @@ case 'forward_redirect':
         $imp_compose->redirectMessage($imp_ui->getIndices($vars));
         $title = _("Redirect");
         $vars->type = 'redirect';
+        $fillform_opts['focus'] = 'to';
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e, 'horde.error');
     }
@@ -206,8 +212,28 @@ case 'forward_redirect':
 
 case 'editasnew':
 case 'resume':
+case 'template':
+case 'template_edit':
     try {
-        $result = $imp_compose->resumeDraft(IMP::$mailbox->getIndicesOb(IMP::$uid), ($vars->type == 'resume'));
+        $indices_ob = IMP::$mailbox->getIndicesOb(IMP::$uid);
+
+        switch ($vars->type) {
+        case 'editasnew':
+            $result = $imp_compose->editAsNew($indices_ob);
+            break;
+
+        case 'resume':
+            $result = $imp_compose->resumeDraft($indices_ob);
+            break;
+
+        case 'template':
+            $result = $imp_compose->useTemplate($indices_ob);
+            break;
+
+        case 'template_edit':
+            $result = $imp_compose->editTemplate($indices_ob);
+            break;
+        }
 
         if ($result['mode'] == 'html') {
             $show_editor = true;
@@ -220,6 +246,7 @@ case 'resume':
         $header = array_merge($header, $result['header']);
         $fillform_opts['priority'] = $result['priority'];
         $fillform_opts['readreceipt'] = $result['readreceipt'];
+        $fillform_opts['focus'] = 'to';
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e);
     }
@@ -227,6 +254,9 @@ case 'resume':
 
 case 'new':
     $rte = $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
+    if (!isset($args['to'])) {
+        $fillform_opts['focus'] = 'to';
+    }
     break;
 }
 
@@ -256,17 +286,14 @@ $compose_result = IMP_Views_Compose::showCompose(array(
     'composeCache' => $imp_compose->getCacheId(),
     'fwdattach' => (isset($fwd_msg) && ($fwd_msg['type'] != IMP_Compose::FORWARD_BODY)),
     'redirect' => ($vars->type == 'redirect'),
-    'show_editor' => $show_editor
+    'show_editor' => $show_editor,
+    'template' => in_array($vars->type, array('template_edit', 'template_new'))
 ));
 
 $t->set('compose_html', $compose_result['html']);
 
 Horde::addInlineJsVars($js);
 Horde::addInlineScript($compose_result['js']);
-
-$fillform_opts['focus'] = (($vars->type == 'new') && isset($args['to']))
-    ? 'composeMessage'
-    : (in_array($vars->type, array('forward', 'new', 'redirect', 'editasnew')) ? 'to' : 'composeMessage');
 
 if ($vars->type != 'redirect') {
     $compose_result['jsonload'][] = 'DimpCompose.fillForm(' . Horde_Serialize::serialize($msg, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($header, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($fillform_opts, Horde_Serialize::JSON) . ')';

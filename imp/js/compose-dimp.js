@@ -176,7 +176,9 @@ var DimpCompose = {
             return this.uniqueSubmit.bind(this, action).defer();
         }
 
-        if (action == 'sendMessage' || action == 'saveDraft') {
+        if (action == 'sendMessage' ||
+            action == 'saveDraft' ||
+            action == 'saveTemplate') {
             switch (action) {
             case 'sendMessage':
                 if (!this.skip_spellcheck &&
@@ -261,6 +263,13 @@ var DimpCompose = {
                     }
                 }
                 break;
+
+            case 'saveTemplate':
+                if (this.baseAvailable() &&
+                    DimpCore.base.DimpBase.view == DIMP.conf_compose.templates_mbox) {
+                    DimpCore.base.DimpBase.poll();
+                }
+                return this.closeCompose();
 
             case 'sendMessage':
                 if (this.baseAvailable()) {
@@ -930,6 +939,12 @@ var DimpCompose = {
             case 'draft_button':
                 if (!this.disabled) {
                     this.uniqueSubmit('saveDraft');
+                }
+                break;
+
+            case 'template_button':
+                if (!this.disabled) {
+                    this.uniqueSubmit('saveTemplate');
                 }
                 break;
 

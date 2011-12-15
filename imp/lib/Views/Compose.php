@@ -24,6 +24,7 @@ class IMP_Views_Compose
      *   - qreply: (boolean) Is this a quickreply view?
      *   - redirect: (string) Display the redirect interface?
      *   - show_editor: (boolean) Show the HTML editor?
+     *   - template: (string) Display the edit template interface?
      *
      * @return array  Array with the following keys:
      *   - html: (string) The rendered HTML content.
@@ -44,7 +45,6 @@ class IMP_Views_Compose
         $t->setOption('gettext', true);
 
         if (!empty($args['composeCache'])) {
-            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($args['composeCache']);
             $t->set('composeCache', $args['composeCache']);
         }
 
@@ -55,6 +55,8 @@ class IMP_Views_Compose
 
             /* Generate identities list. */
             $result['js'] = array_merge($result['js'], $injector->getInstance('IMP_Ui_Compose')->identityJs());
+
+            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($args['composeCache']);
 
             if ($t->get('composeCache') && count($imp_compose)) {
                 foreach ($imp_compose as $num => $atc) {
@@ -122,20 +124,29 @@ class IMP_Views_Compose
             $compose_link->pathInfo = 'addAttachment';
             $t->set('compose_link', $compose_link);
 
-            $t->set('send_button', IMP_Dimp::actionButton(array(
-                'icon' => 'Forward',
-                'id' => 'send_button',
-                'title' => _("Send")
-            )));
             $t->set('spell_button', IMP_Dimp::actionButton(array(
                 'id' => 'spellcheck',
                 'title' => _("Check Spelling")
             )));
-            $t->set('draft_button', IMP_Dimp::actionButton(array(
-                'icon' => 'Drafts',
-                'id' => 'draft_button',
-                'title' => _("Save as Draft")
-            )));
+
+            if (empty($args['template'])) {
+                $t->set('send_button', IMP_Dimp::actionButton(array(
+                    'icon' => 'Forward',
+                    'id' => 'send_button',
+                    'title' => _("Send")
+                )));
+                $t->set('draft_button', IMP_Dimp::actionButton(array(
+                    'icon' => 'Drafts',
+                    'id' => 'draft_button',
+                    'title' => _("Save as Draft")
+                )));
+            } else {
+                $t->set('template_button', IMP_Dimp::actionButton(array(
+                    'icon' => 'Templates',
+                    'id' => 'template_button',
+                    'title' => _("Save Template")
+                )));
+            }
 
             $d_read = $prefs->getValue('request_mdn');
             if ($d_read != 'never') {

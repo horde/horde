@@ -34,6 +34,7 @@ $code = array(
         'mailbox_delete_all' => _("Are you sure you wish to delete all mail in this mailbox?"),
         'mailbox_delete_vfolder' => _("Are you sure you want to delete this Virtual Folder Definition?"),
         'mailbox_selectone' => _("You must select at least one message first."),
+        'mailbox_selectonlyone' => _("You must select only one message for this action."),
         'yes' => _("Yes"),
         'no' => _("No"),
 

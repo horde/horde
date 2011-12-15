@@ -172,7 +172,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Saves a message to the draft folder.
+     * Saves a draft message.
      *
      * @param array $header   List of message headers (UTF-8).
      * @param mixed $message  Either the message text (string) or a
@@ -320,10 +320,42 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
+     * Edits a message as new.
+     *
+     * @see resumeDraft().
+     *
+     * @param IMP_Indices $indices  An indices object.
+     *
+     * @return mixed  See resumeDraft().
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function editAsNew($indices)
+    {
+        return $this->_resumeDraft($indices, false);
+    }
+
+    /**
+     * Edit an existing template message. Saving this template later
+     * (using saveTemplate()) will cause the original message to be deleted.
+     *
+     * @param IMP_Indices $indices  An indices object.
+     *
+     * @return mixed  See resumeDraft().
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function editTemplate($indices)
+    {
+        $res = $this->useTemplate($indices);
+        $this->_metadata['template_uid_edit'] = $indices;
+        return $res;
+    }
+
+    /**
      * Resumes a previously saved draft message.
      *
      * @param IMP_Indices $indices  An indices object.
-     * @param boolean $addheaders   Populate header entries?
      *
      * @return mixed  An array with the following keys:
      *   - header: (array) A list of headers to add to the outgoing message.
@@ -335,7 +367,40 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @throws IMP_Compose_Exception
      */
-    public function resumeDraft($indices, $addheaders = true)
+    public function resumeDraft($indices)
+    {
+        $res = $this->_resumeDraft($indices, true);
+        $this->_metadata['draft_uid_resume'] = $indices;
+        return $res;
+    }
+
+    /**
+     * Uses a template to create a message.
+     *
+     * @see resumeDraft().
+     *
+     * @param IMP_Indices $indices  An indices object.
+     *
+     * @return mixed  See resumeDraft().
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function useTemplate($indices)
+    {
+        return $this->_resumeDraft($indices, true);
+    }
+
+    /**
+     * Resumes a previously saved draft message.
+     *
+     * @param IMP_Indices $indices  See resumeDraft().
+     * @param boolean $addheaders   Populate header entries?
+     *
+     * @return mixed  See resumeDraft().
+     *
+     * @throws IMP_Compose_Exception
+     */
+    protected function _resumeDraft($indices, $addheaders)
     {
         global $injector, $prefs;
 
@@ -473,8 +538,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     }
                 } catch (Exception $e) {}
             }
-
-            $this->_metadata['draft_uid_resume'] = $indices;
         }
 
         $imp_ui_hdrs = new IMP_Ui_Headers();
@@ -493,6 +556,58 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             'priority' => $priority,
             'readreceipt' => $readreceipt
         );
+    }
+
+    /**
+     * Save a template message on the IMAP server.
+
+     * @param array $header   List of message headers (UTF-8).
+     * @param mixed $message  Either the message text (string) or a
+     *                        Horde_Mime_Part object that contains the text
+     *                        to save.
+     * @param array $opts     An array of options w/the following keys:
+     *   - html: (boolean) Is this an HTML message?
+     *   - priority: (string) The message priority ('high', 'normal', 'low').
+     *   - readreceipt: (boolean) Add return receipt headers?
+     *
+     * @return string  Notification text on success.
+     *
+     * @throws IMP_Compose_Exception
+     */
+    public function saveTemplate($headers, $message, array $opts = array())
+    {
+        if (!$mbox = IMP_Mailbox::getPref('composetemplates_mbox')) {
+            throw new IMP_Compose_Exception(_("Saving the template failed: no template mailbox exists."));
+        }
+
+        /* Check for access to mailbox. */
+        if (!$mbox->create()) {
+            throw new IMP_Compose_Exception(_("Saving the template failed: could not create the templates mailbox."));
+        }
+
+        $append_flags = array(
+            // Don't mark as draft, since other MUAs could potentially
+            // delete it.
+            Horde_Imap_Client::FLAG_SEEN
+        );
+
+        $old_uid = $this->getMetadata('template_uid_edit');
+
+        /* Add the message to the mailbox. */
+        try {
+            $ids = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($mbox, array(array(
+                'data' => $this->_saveDraftMsg($headers, $message, $opts),
+                'flags' => $append_flags
+            )));
+
+            if ($old_uid) {
+                $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
+            }
+        } catch (IMP_Imap_Exception $e) {
+            return _("The template was not successfully saved.");
+        }
+
+        return _("The template has been saved.");
     }
 
     /**

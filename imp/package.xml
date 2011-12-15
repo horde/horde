@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Converted stationery to the Templates special mailbox (Request #9296).
 * [mms] Hide inactive buttons in dynamic view instead of dimming them.
 * [mms] Added config option to limit size of messages with linked attachments (Request #6247).
 * [mms] Allow expiration date to be provided when creating personal PGP key (Request #5754).

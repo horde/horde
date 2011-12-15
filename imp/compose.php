@@ -52,7 +52,7 @@ if (!$prefs->isLocked('default_identity') && !is_null($vars->identity)) {
 
 /* Catch submits if javascript is not present. */
 if (!$vars->actionID) {
-    foreach (array('replyall_revert', 'replylist_revert', 'send_message', 'save_draft', 'cancel_compose', 'add_attachment') as $val) {
+    foreach (array('replyall_revert', 'replylist_revert', 'send_message', 'save_draft', 'cancel_compose', 'add_attachment', 'save_template') as $val) {
         if ($vars->get('btn_' . $val)) {
             $vars->actionID = $val;
             break;
@@ -62,20 +62,23 @@ if (!$vars->actionID) {
 
 if ($vars->actionID) {
     switch ($vars->actionID) {
-    case 'mailto':
-    case 'mailto_link':
     case 'draft':
-    case 'reply':
-    case 'reply_all':
-    case 'reply_auto':
-    case 'reply_list':
+    case 'editasnew':
     case 'forward_attach':
     case 'forward_auto':
     case 'forward_body':
     case 'forward_both':
-    case 'redirect_compose':
     case 'fwd_digest':
-    case 'editasnew':
+    case 'mailto':
+    case 'mailto_link':
+    case 'reply':
+    case 'reply_all':
+    case 'reply_auto':
+    case 'reply_list':
+    case 'redirect_compose':
+    case 'template':
+    case 'template_edit':
+    case 'template_new':
         // These are all safe actions that might be invoked without a token.
         break;
 
@@ -128,7 +131,6 @@ if ($vars->vcard) {
 /* Init objects. */
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $imp_ui = new IMP_Ui_Compose();
-$stationery = $injector->getInstance('IMP_Compose_Stationery');
 
 /* Is this a popup window? */
 $isPopup = ($prefs->getValue('compose_popup') || $vars->popup);
@@ -222,8 +224,29 @@ case 'mailto_link':
 
 case 'draft':
 case 'editasnew':
+case 'template':
+case 'template_edit':
     try {
-        $result = $imp_compose->resumeDraft(IMP::$thismailbox->getIndicesOb(IMP::$uid), ($vars->actionID == 'draft'));
+        $indices_ob = IMP::$thismailbox->getIndicesOb(IMP::$uid);
+
+        switch ($vars->actionID) {
+        case 'editasnew':
+            $result = $imp_compose->editAsNew($indices_ob);
+            break;
+
+        case 'resume':
+            $result = $imp_compose->resumeDraft($indices_ob);
+            break;
+
+        case 'template':
+            $result = $imp_compose->useTemplate($indices_ob);
+            break;
+
+        case 'template_edit':
+            $result = $imp_compose->editTemplate($imp_ui->getIndices($vars));
+            $vars->template_mode = true;
+            break;
+        }
 
         if (!is_null($rtemode)) {
             $rtemode = ($result['mode'] == 'html');
@@ -378,6 +401,7 @@ case 'redirect_send':
 
 case 'auto_save_draft':
 case 'save_draft':
+case 'save_template':
 case 'send_message':
     // Drafts readonly is handled below.
     if (($vars->actionID == 'send_message') && $compose_disable) {
@@ -404,17 +428,28 @@ case 'send_message':
     $message = strval($vars->message);
 
     /* Save the draft. */
-    if (in_array($vars->actionID, array('auto_save_draft', 'save_draft'))) {
-        if (!$readonly_drafts) {
+    if (in_array($vars->actionID, array('auto_save_draft', 'save_draft', 'save_template'))) {
+        if (!$readonly_drafts || ($vars->actionID == 'save_template')) {
+            $save_opts = array(
+                'html' => $rtemode,
+                'priority' => $priority,
+                'readreceipt' => $request_read_receipt
+            );
+
             try {
-                $result = $imp_compose->saveDraft($header, $message, array(
-                    'html' => $rtemode,
-                    'priority' => $priority,
-                    'readreceipt' => $request_read_receipt
-                ));
+                switch ($vars->actionID) {
+                case 'save_template':
+                    $result = $imp_compose->saveTemplate($header, $message, $save_opts);
+                    break;
+
+                default:
+                    $result = $imp_compose->saveDraft($header, $message, $save_opts);
+                    break;
+                }
 
                 /* Closing draft if requested by preferences. */
-                if ($vars->actionID == 'save_draft') {
+                switch ($vars->actionID) {
+                case 'save_draft':
                     if ($isPopup) {
                         if ($prefs->getValue('close_draft')) {
                             $imp_compose->destroy('save_draft');
@@ -430,6 +465,16 @@ case 'send_message':
                             $imp_ui->mailboxReturnUrl()->redirect();
                         }
                     }
+                    break;
+
+                case 'save_template':
+                    if ($isPopup) {
+                        echo Horde::wrapInlineScript(array('window.close();'));
+                    } else {
+                        $notification->push($result, 'horde.success');
+                        $imp_ui->mailboxReturnUrl()->redirect();
+                    }
+                    break;
                 }
             } catch (IMP_Compose_Exception $e) {
                 if ($vars->actionID == 'save_draft') {
@@ -558,14 +603,8 @@ case 'selectlist_process':
     }
     break;
 
-case 'change_stationery':
-    if (!count($stationery)) {
-        break;
-    }
-
-    if (isset($vars->stationery)) {
-        $msg = $stationery->getContent(intval($vars->stationery), $identity, strval($vars->message), $rtemode);
-    }
+case 'template_new':
+    $vars->template_mode = true;
     break;
 }
 
@@ -752,7 +791,7 @@ if ($redirect) {
     if ($session->exists('imp', 'file_upload')) {
         $hidden['MAX_FILE_SIZE'] = $session->get('imp', 'file_upload');
     }
-    foreach (array('page', 'start', 'popup') as $val) {
+    foreach (array('page', 'start', 'popup', 'template_mode') as $val) {
         $hidden[$val] = htmlspecialchars($vars->$val);
     }
 
@@ -767,10 +806,14 @@ if ($redirect) {
     $t->set('hidden', $hidden_val);
 
     $t->set('title', htmlspecialchars($title));
-    $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_("_Send Message")));
-    if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts) {
-        $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
+
+    if (!$vars->template_mode) {
+        $t->set('send_msg_ak', Horde::getAccessKeyAndTitle(_("_Send Message")));
+        if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts) {
+            $t->set('save_draft_ak', Horde::getAccessKeyAndTitle(_("Save _Draft")));
+        }
     }
+
     $t->set('help', Horde_Help::link('imp', 'compose-buttons'));
     $t->set('di_locked', $prefs->isLocked('default_identity'));
     if ($t->get('di_locked')) {
@@ -841,20 +884,6 @@ if ($redirect) {
             $priority_option[] = array('val' => $key, 'label' => $val, 'selected' => ($priority == $key));
         }
         $t->set('pri_opt', $priority_option);
-    }
-
-    $t->set('stationery', count($stationery));
-    if ($t->get('stationery')) {
-        $t->set('stationery_label', Horde::label('stationery', _("Stationery")));
-        $stationeries = array();
-        foreach ($stationery as $id => $choice) {
-            $stationeries[] = array(
-                'label' => $choice['n'],
-                'selected' => ($stationery === $id),
-                'val' => $id
-            );
-        }
-        $t->set('stationeries', $stationeries);
     }
 
     $menu_view = $prefs->getValue('menu_view');
