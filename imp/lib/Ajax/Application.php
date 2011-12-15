@@ -142,7 +142,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     public function createMailbox()
     {
-        if (!$this->_vars->mbox) {
+        if (!isset($this->_vars->mbox)) {
             return false;
         }
 
