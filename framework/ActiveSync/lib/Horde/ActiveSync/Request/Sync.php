@@ -40,15 +40,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             return false;
         }
 
-        // Be optimistic
         $this->_statusCode = self::STATUS_SUCCESS;
-
-        // Contains all containers requested
         $collections = array();
 
         // Start decoding request
-        // FIXME: Need to figure out the proper response structure for errors
-        // that occur this early
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
             throw new Horde_ActiveSync_Exception('Protocol error');
         }

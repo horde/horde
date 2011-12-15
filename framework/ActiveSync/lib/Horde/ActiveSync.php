@@ -338,16 +338,11 @@ class Horde_ActiveSync
             return true;
         }
 
-        // Delete/Update are all handled by Create as well
-        //if ($cmd == 'FolderDelete' || $cmd == 'FolderUpdate') {
-        //    $cmd == 'FolderCreate';
-        //}
+        $state = $this->_driver->getStateObject();
 
-        // Check that this device is known, if not create the record.
         if (is_null($devId)) {
             throw new Horde_ActiveSync_Exception('Device failed to send device id.');
         }
-        $state = $this->_driver->getStateObject();
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$state->deviceExists($devId, $this->_driver->getUser())) {
             // Device might exist, but with a new (additional) user account
