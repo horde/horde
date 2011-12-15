@@ -22,30 +22,6 @@
 class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
 {
     /**
-     * Output stream - normally the php output stream, but can technically take
-     * any writable stream (for testing).
-     *
-     * @var stream
-     */
-    private $_out;
-
-    /**
-     * Track the codepage for the currently output tag so we know when to
-     * switch codepages.
-     *
-     * @var integer
-     */
-    private $_tagcp;
-
-    /**
-     * Used to hold log entries for each tag so we can only output the log
-     * entries for the tags that are actually sent (@see $_stack).
-     *
-     * @var array
-     */
-    private $_logStack = array();
-
-    /**
      * Cache the tags to output. The stack is output when content() is called.
      * We only output tags when they actually contain something. i.e. calling
      * startTag() 10 times, then endTag() will cause 0 bytes of output apart
@@ -64,8 +40,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     function __construct($output)
     {
-        $this->_out = $output;
-        $this->_tagcp = 0;
+        parent::__construct($output);
 
         /* reverse-map the DTD */
         $dtd = array();
@@ -79,8 +54,6 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                 $dtd['codes'][$cp][$tagname] = $tagid;
             }
         }
-
-        $this->_logger = new Horde_Support_Stub();
         $this->_dtd = $dtd;
     }
 
@@ -254,7 +227,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _outByte($byte)
     {
-        fwrite($this->_out, chr($byte));
+        fwrite($this->_stream, chr($byte));
     }
 
     /**
@@ -285,8 +258,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _outTermStr($content)
     {
-        fwrite($this->_out, $content);
-        fwrite($this->_out, chr(0));
+        fwrite($this->_stream, $content);
+        fwrite($this->_stream, chr(0));
     }
 
     /**
