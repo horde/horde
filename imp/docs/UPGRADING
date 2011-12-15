@@ -46,6 +46,11 @@ UTF-8 charset, not UTF7-IMAP.
 
 The $conf['compose']['link_attach_size_limit'] option was added.
 
+The following configuration options were removed::
+
+   $conf['dimp']['viewport']['buffer_pages']
+   $conf['dimp']['viewport']['viewport_wait']
+
 Preferences (prefs.php)
 -----------------------
 

@@ -571,7 +571,6 @@ var DimpBase = {
 
             // Optional config
             ajax_opts: Object.clone(DimpCore.doActionOpts),
-            buffer_pages: DIMP.conf.buffer_pages,
             empty_msg: this.emptyMsg.bind(this),
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
@@ -580,7 +579,6 @@ var DimpBase = {
             pane_mode: this._getPref('preview'),
             pane_width: this._getPref('splitbar_vert'),
             split_bar_class: { horiz: 'splitBarHoriz', vert: 'splitBarVert' },
-            wait: DIMP.conf.viewport_wait,
 
             // Callbacks
             onAjaxFailure: function() {

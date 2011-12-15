@@ -53,7 +53,6 @@
  * @property boolean $inbox  Is this the INBOX?
  * @property boolean $invisible  Is this mailbox invisible?
  * @property boolean $is_open  Is this level expanded?
- * @property boolean $is_trash  Is this a trash folder?
  * @property string $label  The mailbox label. Essentially is $display that
  *                          can be modified by user hook.
  * @property integer $level  The child level of this element.
@@ -79,6 +78,7 @@
  * @property boolean $query  Is this a search query?
  * @property boolean $readonly  Is this mailbox read-only?
  * @property boolean $search  Is this a search mailbox?
+ * @property boolean $spam  Is this a Spam mailbox?
  * @property boolean $special  Is this is a "special" element?
  * @property boolean $special_outgoing  Is this a "special" element dealing
  *                                      with outgoing messages?
@@ -89,6 +89,7 @@
  * @property array $subfolders_only  Returns the list of subfolders as mailbox
  *                                   objects (NOT including the current
  *                                   mailbox).
+ * @property boolean $trash  Is this a Trash mailbox?
  * @property string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                             IMP_Exception on error.
  * @property string $utf7imap  The UTF7-IMAP representation of this object.
@@ -396,9 +397,6 @@ class IMP_Mailbox implements Serializable
         case 'is_open':
             return $injector->getInstance('IMP_Imap_Tree')->isOpen($this->_mbox);
 
-        case 'is_trash':
-            return (self::getPref('trash_folder') == $this) || $this->vtrash;
-
         case 'label':
             /* Returns the plain text label that is displayed for the current
              * mailbox, replacing virtual search mailboxes with an appropriate
@@ -577,6 +575,10 @@ class IMP_Mailbox implements Serializable
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
 
+        case 'spam':
+            $special = $this->getSpecialMailboxes();
+            return ($this->_mbox == $special[self::SPECIAL_SPAM]);
+
         case 'special':
             $special = $this->getSpecialMailboxes();
 
@@ -611,6 +613,10 @@ class IMP_Mailbox implements Serializable
 
         case 'subfolders_only':
             return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->_mbox . $this->namespace_delimiter . '*', null, array('flat' => true)));
+
+        case 'trash':
+            $special = $this->getSpecialMailboxes();
+            return ($this->_mbox == $special[self::SPECIAL_TRASH]);
 
         case 'uidvalid':
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();

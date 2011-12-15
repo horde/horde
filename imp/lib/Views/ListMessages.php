@@ -193,7 +193,7 @@ class IMP_Views_ListMessages
                 if ($mbox == IMP_Mailbox::getPref('drafts_folder')) {
                     $md->drafts = 1;
                 }
-            } elseif ($mbox == IMP_Mailbox::getPref('spam_folder')) {
+            } elseif ($mbox->spam) {
                 $md->spam = 1;
             }
 
