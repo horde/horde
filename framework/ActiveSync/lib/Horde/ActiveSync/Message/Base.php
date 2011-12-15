@@ -90,7 +90,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @return Horde_ActiveSync_Message_Base
      */
-    public function __construct(array $options)
+    public function __construct(array $options = array())
     {
         if (!empty($options['logger'])) {
             $this->_logger = $options['logger'];
