@@ -1222,7 +1222,7 @@ class IMP_Prefs_Ui
 
             $editable = !$filter_locked && $imp_search->isFilter($val, true);
 
-            if ($view_mode == 'dimp') {
+            if ($editable && ($view_mode == 'dimp')) {
                 $mailboxids['enable_' . $key] = $val->formid;
             }
 
