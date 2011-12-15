@@ -11,9 +11,11 @@
 class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appointment
 {
     protected $_mapping = array(
+        Horde_ActiveSync_Message_Appointment::POOMCAL_TIMEZONE           => array(self::KEY_ATTRIBUTE => 'timezone'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_DTSTAMP            => array(self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
         Horde_ActiveSync_Message_Appointment::POOMCAL_STARTTIME          => array(self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE),
         Horde_ActiveSync_Message_Appointment::POOMCAL_SUBJECT            => array(self::KEY_ATTRIBUTE => 'subject'),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_ORGANIZERNAME      => array(self::KEY_ATTRIBUTE => 'organizername'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_LOCATION           => array(self::KEY_ATTRIBUTE => 'location'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_ENDTIME            => array(self::KEY_ATTRIBUTE => 'endtime', self::KEY_TYPE => self::TYPE_DATE),
         Horde_ActiveSync_Message_Appointment::POOMCAL_SENSITIVITY        => array(self::KEY_ATTRIBUTE => 'sensitivity'),
@@ -26,23 +28,26 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
         Horde_ActiveSync_Message_Appointment::POOMCAL_BODY               => array(self::KEY_ATTRIBUTE => 'body'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_CATEGORIES         => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => Horde_ActiveSync_Message_Appointment::POOMCAL_CATEGORY),
         Horde_ActiveSync_Message_Appointment::POOMCAL_EXCEPTIONSTARTTIME => array(self::KEY_ATTRIBUTE => 'exceptionstarttime', self::KEY_TYPE => self::TYPE_DATE),
+        Horde_ActiveSync_Message_Appointment::POOMCAL_DELETED            => array(self::KEY_ATTRIBUTE => 'deleted'),
     );
 
     protected $_properties = array(
-        'dtstamp'        => false,
-        'starttime'      => false,
-        'subject'        => false,
-        'location'       => false,
-        'endtime'        => false,
-        'sensitivity'    => false,
-        'busystatus'     => false,
-        'alldayevent'    => false,
-        'reminder'       => false,
-        'rtf'            => false,
-        'meetingstatus'  => false,
-        'body'           => false,
+        'timezone'           => false,
+        'dtstamp'            => false,
+        'starttime'          => false,
+        'subject'            => false,
+        'organizername'      => false,
+        'location'           => false,
+        'endtime'            => false,
+        'sensitivity'        => false,
+        'busystatus'         => false,
+        'alldayevent'        => false,
+        'reminder'           => false,
+        'rtf'                => false,
+        'meetingstatus'      => false,
+        'body'               => false,
         'exceptionstarttime' => false,
-        'deleted' => false,
+        'deleted'            => false,
     );
 
     /**
