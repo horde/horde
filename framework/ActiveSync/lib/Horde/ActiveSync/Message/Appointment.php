@@ -169,6 +169,17 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Get the event's timezone
+     *
+     *
+     */
+     public function getTimezone()
+     {
+         $parser = new Horde_ActiveSync_Timezone();
+         return $parser->getTimezone($this->timezone, date_default_timezone_get());
+     }
+
+    /**
      * Set the appointment's modify timestamp
      *
      * @param mixed $timestamp  Horde_Date or a unix timestamp
