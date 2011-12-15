@@ -27,7 +27,10 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
      */
     public function testEncoding()
     {
-        $appt = new Horde_ActiveSync_Message_Appointment();
+        $l = new Horde_Test_Log();
+        $logger = $l->getLogger();
+
+        $appt = new Horde_ActiveSync_Message_Appointment(array('logger' => $logger));
         $appt->setSubject('Event Title');
         $appt->setBody('Event Description');
         $appt->setLocation('Philadelphia, PA');
@@ -44,8 +47,11 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
 
         $stream = fopen('php://memory', 'w+');
         $encoder = new Horde_ActiveSync_Wbxml_Encoder($stream);
-        $appt->encodeStream($encoder);
+        $encoder->setLogger($logger);
 
+        $encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+        $appt->encodeStream($encoder);
+        $encoder->endTag();
         $fixture = file_get_contents(dirname(__FILE__) . '/fixtures/appointment.wbxml');
         rewind($stream);
         $results = stream_get_contents($stream);
@@ -56,14 +62,18 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
 
     public function testDecoding()
     {
+        $l = new Horde_Test_Log();
+        $logger = $l->getLogger();
+
         $stream = fopen(dirname(__FILE__) . '/fixtures/appointment.wbxml', 'r+');
         $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream);
-        $decoder->setCodePage(4);
-        // Version
-        $entity = $decoder->getElement();
-        $appt = new Horde_ActiveSync_Message_Appointment();
+        $decoder->setLogger($logger);
+
+        $element = $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);
+        $appt = new Horde_ActiveSync_Message_Appointment(array('logger' => $logger));
         $appt->decodeStream($decoder);
         fclose($stream);
+        $decoder->getElementEndTag();
 
         $this->assertEquals('Event Title', $appt->subject);
         $this->assertEquals('Event Description', $appt->body);
@@ -80,4 +90,83 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $this->assertEquals('2011-12-01 15:00:00', (string)$start);
     }
 
+    public function testEncodingRecurrence()
+    {
+        $l = new Horde_Test_Log();
+        $logger = $l->getLogger();
+
+        // Every other week recurrence, on thursday, no end.
+        $r = new Horde_Date_Recurrence('2011-12-01T15:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurInterval(2);
+        $r->setRecurOnDay(Horde_Date::MASK_THURSDAY);
+
+        $appt = new Horde_ActiveSync_Message_Appointment(array('logger' => $logger));
+        $appt->setSubject('Event Title');
+        $appt->setBody('Event Description');
+        $appt->setLocation('Philadelphia, PA');
+        $start = new Horde_Date('2011-12-01T15:00:00');
+        $appt->setDatetime(array(
+            'start' => $start,
+            'end' => new Horde_Date('2011-12-01T16:00:00'),
+            'allday' => false)
+        );
+        $appt->setTimezone($start);
+        $appt->setSensitivity(Horde_ActiveSync_Message_Appointment::SENSITIVITY_PERSONAL);
+        $appt->setBusyStatus(Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY);
+        $appt->setDTStamp($start->timestamp());
+        $appt->setRecurrence($r);
+
+        $stream = fopen('php://memory', 'w+');
+        $encoder = new Horde_ActiveSync_Wbxml_Encoder($stream);
+        $encoder->setLogger($logger);
+
+        $encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+        $appt->encodeStream($encoder);
+        $encoder->endTag();
+
+        $fixture = file_get_contents(dirname(__FILE__) . '/fixtures/recurrence.wbxml');
+        rewind($stream);
+        $results = stream_get_contents($stream);
+        fclose($stream);
+        $this->assertEquals($fixture, $results);
+    }
+
+    public function testDecodingRecurrence()
+    {
+        $l = new Horde_Test_Log();
+        $logger = $l->getLogger();
+
+        // Test Decoding
+        $stream = fopen(dirname(__FILE__) . '/fixtures/recurrence.wbxml', 'r+');
+        $decoder = new Horde_ActiveSync_Wbxml_Decoder($stream);
+
+        $element = $decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA);
+        $appt = new Horde_ActiveSync_Message_Appointment(array('logger' => $logger));
+        $appt->decodeStream($decoder);
+        fclose($stream);
+        $decoder->getElementEndTag();
+
+        // Same properties that are testing in testDeoding, but test again
+        // here to be sure recurrence doesn't mess up the deocder.
+        $this->assertEquals('Event Title', $appt->subject);
+        $this->assertEquals('Event Description', $appt->body);
+        $this->assertEquals('Philadelphia, PA', $appt->location);
+        $this->assertEquals(Horde_ActiveSync_Message_Appointment::SENSITIVITY_PERSONAL, (integer)$appt->sensitivity);
+        $this->assertEquals(Horde_ActiveSync_Message_Appointment::BUSYSTATUS_BUSY, (integer)$appt->busystatus);
+        $start = clone($appt->starttime);
+        // Ensure it's UTC
+        $this->assertEquals('UTC', $start->timezone);
+        //...and correct.
+        $start->setTimezone('America/New_York');
+        $this->assertEquals('2011-12-01 15:00:00', (string)$start);
+
+        // Recurrence properties
+        $rrule = $appt->getRecurrence();
+        $this->assertEquals('2011-12-01 15:00:00', (string)$rrule->getRecurStart()->setTimezone('America/New_York'));
+        $this->assertEquals('', (string)$rrule->getRecurEnd());
+        $this->assertEquals(Horde_Date_Recurrence::RECUR_WEEKLY, $rrule->getRecurType());
+        $this->assertEquals(2, $rrule->getRecurInterval());
+        $this->assertEquals(Horde_Date::MASK_THURSDAY, $days = $rrule->getRecurOnDays());
+    }
 }
