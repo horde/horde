@@ -15,8 +15,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const POOMCAL_ALLDAYEVENT        = 'POOMCAL:AllDayEvent';
     const POOMCAL_ATTENDEES          = 'POOMCAL:Attendees';
     const POOMCAL_ATTENDEE           = 'POOMCAL:Attendee';
-    const POOMCAL_ATTENDEESTATUS     =  'POOMCAL:AttendeeStatus';
-    const POOMCAL_ATTENDEETYPE       =  'POOMCAL:AttendeeType';
+    const POOMCAL_ATTENDEESTATUS     = 'POOMCAL:AttendeeStatus';
+    const POOMCAL_ATTENDEETYPE       = 'POOMCAL:AttendeeType';
     const POOMCAL_EMAIL              = 'POOMCAL:Email';
     const POOMCAL_NAME               = 'POOMCAL:Name';
     const POOMCAL_BODY               = 'POOMCAL:Body';
@@ -427,7 +427,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             return false;
         }
 
-        $rrule = new Horde_Date_Recurrence(new Horde_Date($this->_getAttribute('startdate')));
+        $rrule = new Horde_Date_Recurrence(new Horde_Date($this->_getAttribute('starttime')));
 
         /* Map MS AS type field to Horde_Date_Recurrence types */
         switch ($recurrence->type) {
