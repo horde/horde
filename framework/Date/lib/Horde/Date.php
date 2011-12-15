@@ -440,6 +440,10 @@ class Horde_Date
      */
     public function __set($name, $value)
     {
+        if ($name == 'timezone') {
+            $this->_initializeTimezone($value);
+            return;
+        }
         if ($name == 'day') {
             $name = 'mday';
         }
