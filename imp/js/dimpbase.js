@@ -1896,7 +1896,9 @@ var DimpBase = {
 
     getSubMboxElt: function(id)
     {
-        var m_elt = this.getMboxElt(id);
+        var m_elt = Object.isElement(id)
+            ? id
+            : (this.smboxes[id] || this.mboxes[id]);
 
         if (!m_elt) {
             return null;
